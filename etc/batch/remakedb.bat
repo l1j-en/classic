@@ -1,0 +1,4 @@
+"C:\Program Files\MySQL\MySQL Server 5.2\bin\mysqldump.exe" --database l1jdb -u root --password= --default-character-set=sjis --result-file=..\..\db\all_backup.sql
+"C:\Program Files\MySQL\MySQL Server 5.2\bin\mysqldump.exe" --complete-insert --opt --database l1jdb --tables accounts ban_ip character_buff character_items character_skills character_teleport characters clan_data pets --no-create-info -u root --password= --default-character-set=sjis --result-file=..\..\db\backupDB.sql
+Call makedb.bat
+"C:\Program Files\MySQL\MySQL Server 5.2\bin\mysql.exe" --database l1jdb --user=root --password= --character-sets-dir=sjis < ..\..\db\backupDB.sql

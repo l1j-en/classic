@@ -1,0 +1,7 @@
+.svn
+all_backup.sql
+backupDB.sql
+log\error0.*
+log\java0.*
+db\InnoDB\
+db\MyISAM\

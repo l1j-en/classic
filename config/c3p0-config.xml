@@ -1,0 +1,18 @@
+<c3p0-config>
+  <default-config>
+    <property name="autoCommitOnClose">true</property>
+    <property name="initialPoolSize">10</property>
+    <property name="minPoolSize">10</property>
+    <property name="maxPoolSize">100</property>
+    <property name="acquireRetryAttempts">0</property>
+    <property name="acquireRetryDelay">500</property>
+    <property name="checkoutTimeout">0</property>
+    <property name="acquireIncrement">5</property>
+    <property name="automaticTestTable">connection_test_table</property>
+    <property name="testConnectionOnCheckin">false</property>
+    <property name="idleConnectionTestPeriod">60</property>
+    <property name="maxIdleTime">0</property>
+    <property name="maxStatementsPerConnection">100</property>
+    <property name="breakAfterAcquireFailure">false</property>
+  </default-config>
+</c3p0-config>

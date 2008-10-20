@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GMCommands>
+  <ItemSetList>
+    <!-- +10 DK Set -->
+    <ItemSet Name="DKSet">
+      <Item Id="58" Amount="1" Enchant="10"/>
+      <Item Id="20010" Amount="1" Enchant="10"/>
+      <Item Id="20100" Amount="1" Enchant="10"/>
+      <Item Id="20166" Amount="1" Enchant="10"/>
+      <Item Id="20198" Amount="1" Enchant="10"/>
+    </ItemSet>
+  </ItemSetList>
+  <RoomList>
+    <!-- Town -->
+    <Room Name="Gludio" LocX="32612" LocY="32734" MapId="4"/>
+    <Room Name="Giran" LocX="33442" LocY="32797" MapId="4"/>
+    <Room Name="SI" LocX="32782" LocY="32756" MapId="68"/>
+    <Room Name="TI" LocX="32580" LocY="32931" MapId="0"/>
+    <Room Name="Aden" LocX="33966" LocY="33253" MapId="4"/>
+    <Room Name="Oren" LocX="34061" LocY="32276" MapId="4"/>
+    <Room Name="WW" LocX="32621" LocY="33169" MapId="4"/>
+    <Room Name="HV" LocX="32671" LocY="32836" MapId="69"/>
+    <Room Name="MT" LocX="33054" LocY="32323" MapId="4"/>
+    <Room Name="Kent" LocX="33050" LocY="32780" MapId="4"/>
+    <Room Name="Heine" LocX="33612" LocY="33268" MapId="4"/>
+    <Room Name="Werldern" LocX="33705" LocY="32504" MapId="4"/>
+    <Room Name="SKT" LocX="33080" LocY="33392" MapId="4"/>
+    <Room Name="GMShop" LocX="33079" LocY="33402" MapId="4"/>
+    <Room Name="IT" LocX="32771" LocY="32822" MapId="75"/>
+    <Room Name="SC" LocX="32854" LocY="32907" MapId="304"/>
+    <Room Name="OT" LocX="32715" LocY="32448" MapId="4"/>
+    <Room Name="Gunter" LocX="32669" LocY="32790" MapId="3"/>
+    <Room Name="Gypsy" LocX="33978" LocY="32927" MapId="4"/>
+    <Room Name="Bludika" LocX="32739" LocY="32801" MapId="305"/>
+    <Room Name="Dicarding" LocX="32766" LocY="32797" MapId="77"/>
+
+    <!-- Castle -->
+    <Room Name="AdenGT" LocX="34090" LocY="33261" MapId="4"/>
+    
+    <!-- Field -->
+    <Room Name="Oasis" LocX="32861" LocY="33255" MapId="4"/>
+    
+    <!-- Dungeon -->
+    <Room Name="CC1" LocX="32746" LocY="32787" MapId="72"/>
+    <Room Name="CC2" LocX="32755" LocY="32871" MapId="73"/>
+    <Room Name="CC3" LocX="32731" LocY="32854" MapId="74"/>
+    <Room Name="DVC1" LocX="32740" LocY="32777" MapId="30"/>
+    <Room Name="DVC2" LocX="32760" LocY="32781" MapId="31"/>
+    <Room Name="DVC3" LocX="32709" LocY="32818" MapId="32"/>
+    <Room Name="DVC4" LocX="32669" LocY="32869" MapId="33"/>
+    <Room Name="DVC5" LocX="32746" LocY="32802" MapId="35"/>
+    <Room Name="DVC6" LocX="32663" LocY="32846" MapId="36"/>
+    <Room Name="DVC7" LocX="32668" LocY="32867" MapId="37"/>
+    <Room Name="MLC3" LocX="32798" LocY="32754" MapId="9"/>
+    <Room Name="MLC4" LocX="32764" LocY="32773" MapId="10"/>
+    <Room Name="MLC5" LocX="32729" LocY="32724" MapId="11"/>
+    <Room Name="MLC6" LocX="32805" LocY="32725" MapId="12"/>
+    <Room Name="MLC7" LocX="32730" LocY="32726" MapId="13"/>
+    <Room Name="AC1" LocX="32738" LocY="32799" MapId="49"/>
+    <Room Name="AC2" LocX="32740" LocY="32802" MapId="50"/>
+    <Room Name="AC3" LocX="32764" LocY="32828" MapId="51"/>
+    <Room Name="IT5" LocX="32772" LocY="32805" MapId="79"/>
+    <Room Name="IT6" LocX="32748" LocY="32802" MapId="80"/>
+    <Room Name="IT7" LocX="32766" LocY="32849" MapId="81"/>
+    <Room Name="IT8" LocX="32742" LocY="32798" MapId="82"/>
+    <Room Name="GC2" LocX="32809" LocY="32793" MapId="54"/>
+    <Room Name="GC3" LocX="32734" LocY="32728" MapId="55"/>
+    <Room Name="GC4" LocX="32770" LocY="32730" MapId="56"/>
+    <Room Name="SKTC2" LocX="32802" LocY="32815" MapId="26"/>
+    <Room Name="SKTC3" LocX="32807" LocY="32812" MapId="27"/>
+    <Room Name="SKTC4" LocX="32799" LocY="32798" MapId="28"/>
+    <Room Name="KC1" LocX="32720" LocY="33088" MapId="240"/>
+    <Room Name="KC2" LocX="32759" LocY="32884" MapId="241"/>
+    <Room Name="KC3" LocX="32808" LocY="32918" MapId="242"/>
+    <Room Name="KC4" LocX="32742" LocY="32857" MapId="243"/>
+    <Room Name="WC1" LocX="32810" LocY="32723" MapId="23"/>
+    <Room Name="WC2" LocX="32809" LocY="32812" MapId="24"/>
+    <Room Name="DI" LocX="32633" LocY="32817" MapId="303"/>
+    <Room Name="FI" LocX="32828" LocY="32848" MapId="70"/>
+    <Room Name="PI" LocX="32422" LocY="33074" MapId="440"/>
+    
+    <!-- ToI -->
+    <Room Name="ToI11" LocX="32631" LocY="32935" MapId="111"/>
+    <Room Name="ToI21" LocX="32631" LocY="32935" MapId="121"/>
+    <Room Name="ToI31" LocX="32631" LocY="32935" MapId="131"/>
+    <Room Name="ToI41" LocX="32631" LocY="32935" MapId="141"/>
+    <Room Name="ToI51" LocX="32669" LocY="32814" MapId="151"/>
+    <Room Name="ToI61" LocX="32669" LocY="32814" MapId="161"/>
+    <Room Name="ToI71" LocX="32669" LocY="32814" MapId="171"/>
+    <Room Name="ToI81" LocX="32669" LocY="32814" MapId="181"/>
+    <Room Name="ToI91" LocX="32669" LocY="32814" MapId="191"/>
+    <Room Name="ToI10" LocX="32800" LocY="32800" MapId="110"/>
+    <Room Name="ToI20" LocX="32800" LocY="32800" MapId="120"/>
+    <Room Name="ToI30" LocX="32800" LocY="32800" MapId="130"/>
+    <Room Name="ToI40" LocX="32800" LocY="32800" MapId="140"/>
+    <Room Name="ToI50" LocX="32796" LocY="32796" MapId="150"/>
+    <Room Name="ToI60" LocX="32720" LocY="32821" MapId="160"/>
+    <Room Name="ToI70" LocX="32720" LocY="32821" MapId="170"/>
+    <Room Name="ToI80" LocX="32724" LocY="32822" MapId="180"/>
+    <Room Name="ToI90" LocX="32722" LocY="32827" MapId="190"/>
+    <Room Name="ToI100" LocX="32731" LocY="32856" MapId="200"/>
+    
+    <!-- Four dragon -->
+    <Room Name="Valakas" LocX="32723" LocY="32796" MapId="67"/>
+    <Room Name="Fafurion" LocX="32769" LocY="32833" MapId="65"/>
+    <Room Name="Lindvior" LocX="34035" LocY="33011" MapId="4"/>
+    <Room Name="Antharas" LocX="32668" LocY="32867" MapId="37"/>
+    
+    <!-- Other -->
+    <Room Name="Hell" LocX="32701" LocY="32777" MapId="666"/>
+    <Room Name="GMRoom" LocX="32737" LocY="32796" MapId="99"/>
+    
+<!--
+    <Room Name="SC" LocX="32738" LocY="32800" MapId="304"/>
+    <Room Name="Great Cavern Resistance Area" LocX="32549" LocY="32801" MapId="400"/>
+    <Room Name="Diad Fortress" LocX="32723" LocY="32851" MapId="320"/>
+    <Room Name="Recluse Village" LocX="32601" LocY="32908" MapId="400"/>
+    <Room Name="Great Cavern Resistance Area" LocX="32571" LocY="32673" MapId="400"/>
+    <Room Name="Mineral Dungeon" LocX="32733" LocY="32985" MapId="330"/>
+    <Room Name="Temple of Shadow 2F" LocX="32700" LocY="32896" MapId="523"/>
+    <Room Name="Temple of Shadow 3F" LocX="32691" LocY="32894" MapId="524"/>
+    <Room Name="Temple of Shadow 3F" LocX="32691" LocY="32894" MapId="524"/>
+    <Room Name="Temple of Shadow 3F" LocX="32691" LocY="32894" MapId="524"/>
+    <Room Name="TOI Bridge" LocX="34270" LocY="33094" MapId="4"/>
+    <Room Name="Aden Castle" LocX="34090" LocY="33294" MapId="4"/>
+    <Room Name="Forest of Mirrors" LocX="33709" LocY="33307" MapId="4"/>
+    <Room Name="Heine Dungeon 3F" LocX="32727" LocY="32808" MapId="61"/>
+    <Room Name="Kingdom of Eva" LocX="32804" LocY="32869" MapId="63"/>
+    <Room Name="Lair of Valakas" LocX="33660" LocY="32465" MapId="4"/>
+    <Room Name="Giran" LocX="33432" LocY="32522" MapId="4"/>
+    <Room Name="Oren" LocX="34039" LocY="32476" MapId="4"/>
+    <Room Name="Gludio" LocX="32736" LocY="32708" MapId="4"/>
+    <Room Name="Gludio" LocX="32842" LocY="32945" MapId="4"/>
+    <Room Name="Windawood" LocX="32585" LocY="33409" MapId="4"/>
+    <Room Name="Windawood" LocX="32763" LocY="33349" MapId="4"/>
+    <Room Name="Lastavard Dungeon 1F" LocX="32761" LocY="32822" MapId="307"/>
+    <Room Name="Lastavard Dungeon 2F" LocX="32750" LocY="32824" MapId="308"/>
+    <Room Name="Lastavard Dungeon 3F" LocX="32757" LocY="32836" MapId="309"/>
+    <Room Name="Ancient 1F" LocX="32730" LocY="32860" MapId="2000"/>
+    <Room Name="Ancient 2F" LocX="32731" LocY="32800" MapId="2001"/>
+    <Room Name="Ancient 4F" LocX="32736" LocY="32811" MapId="2003"/>
+    <Room Name="Oum Dungeon" LocX="32737" LocY="32900" MapId="310"/>
+    <Room Name="Great Cavern Resistance Area" LocX="32572" LocY="32663" MapId="400"/>
+    <Room Name="Sanctuary of Evil" LocX="32929" LocY="32995" MapId="410"/>
+    <Room Name="Elemental Grave" LocX="32922" LocY="32812" MapId="430"/>
+    <Room Name="Front Gate of Lastavard" LocX="32658" LocY="32853" MapId="450"/>
+    <Room Name="1F Meeting Area" LocX="32726" LocY="32847" MapId="451"/>
+    <Room Name="1F Shock Squad Training Area" LocX="32726" LocY="32824" MapId="452"/>
+    <Room Name="1F Evil Power King_s Power Room" LocX="32725" LocY="32851" MapId="453"/>
+    <Room Name="1F Wild Animal Torture Room" LocX="32726" LocY="32872" MapId="454"/>
+    <Room Name="1F Wild Animal Training Room" LocX="32726" LocY="32852" MapId="455"/>
+    <Room Name="1F Evil Power Summoning Room" LocX="32756" LocY="32869" MapId="456"/>
+    <Room Name="1F Off-Limits Area of Darkness" LocX="32664" LocY="32853" MapId="457"/>
+    <Room Name="2F Dark Magic Training Area" LocX="32811" LocY="32819" MapId="460"/>
+    <Room Name="Ancient Giant Ruins NE" LocX="32771" LocY="32870" MapId="400"/>
+    <Room Name="Aden Inner Castle" LocX="32894" LocY="32535" MapId="300"/>
+    <Room Name="Kent" LocX="33119" LocY="32933" MapId="4"/>
+    <Room Name="Chaotic Temple" LocX="32887" LocY="32652" MapId="4"/>
+    <Room Name="Mainland Dungeon 7F" LocX="32727" LocY="32745" MapId="13"/>
+    <Room Name="Pirate Island Dungeon 1F" LocX="32738" LocY="32740" MapId="441"/>
+    <Room Name="Pirate Island Dungeon 2F" LocX="32861" LocY="32732" MapId="442"/>
+    <Room Name="Pirate Island Dungeon 3F" LocX="32864" LocY="32782" MapId="443"/>
+    <Room Name="Abyss Lake" LocX="32803" LocY="33049" MapId="420"/>
+    <Room Name="Talking Island" LocX="32563" LocY="32898" MapId="0"/>
+    <Room Name="Ancient 3F" LocX="32812" LocY="32872" MapId="2002"/>
+    <Room Name="Oum Dungeon" LocX="32806" LocY="32814" MapId="310"/>
+    <Room Name="Temple of Shadow Outland" LocX="32676" LocY="32960" MapId="521"/>
+    <Room Name="Temple of Shadow 1F" LocX="32657" LocY="32896" MapId="522"/>
+    <Room Name="Temple of Shadow 2F" LocX="32700" LocY="32896" MapId="523"/>
+    <Room Name="Temple of Shadow 3F" LocX="32691" LocY="32894" MapId="524"/>
+-->
+  </RoomList>
+</GMCommands>

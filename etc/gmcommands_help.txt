@@ -1,0 +1,318 @@
+	This file will explain the usage of EVERY GM command in the SVN's server.  If you have any questions please post them on the forum or in the Dev Site somewhere, new ticket or what not.  These are in the order they are listed in the GM commands statments.
+
+
+
+
+• General Commands
+
+	.account <accountname> {
+Shows the characters that account contains.
+}
+
+	.f <parameters> {
+Unknown. Something to do with "favourites".
+}
+
+	.gotobug <bugID> {
+Takes you to the place a bug was reported (where the player stood while writing the bugreport).
+}
+
+	.help {
+Shows the help lines in the chat screen.
+}
+
+	.hpbar {
+When toggled you will see HP bars over ALL things that have HPs in the server. Use it again to turn it off.
+}
+
+	.loc {
+Will give you the X, Y and MapID you are currently at.
+}
+
+	.r (parameters) {
+Does the last command again with the parameters sent to .r
+}
+
+	.resolve <bugID> {
+Marks bug with the specified bugID as resolved.
+}
+
+	.showtrap {
+Will let you see all traps. Use again to deactivate.
+}
+
+	.viewbug (bugID) {
+View bug with the specified bugID. If no bugID is specified it will list all the unresolved bugs in the server.
+}
+
+	.who (playername) {
+Will show you a list of all players online, their name, level and account name. If used with a playername you will get information about that character.
+}
+
+
+
+
+• Commands to manage players on your server:
+
+	.ban <playername> {
+Will kick and ban a players account and IPAdress.
+}
+
+	.banip <playername> {
+Most likley is case sensative, and does exactly that.  Places the IP of that player into the banip table of the DB and boots them from the server making it impossible for that IP to create an account or log onto any account on the server, untill you physically remove the IP from the badip table.
+}
+
+	.jail <playername> {
+Sends the player to jail for bad behaviour. The player cant get out from jail without GM or Monitor assistance. The place they are sent to is gmroom 1.
+}
+
+	.kill <playername> {
+Does exactly that, may or may not be case sensative.
+}
+
+	.kick <playername> {
+Same as above.
+}
+
+	.unban <accountname> {
+Will unban the accountname and the ipadress it wast using at the time of the last login.		
+}
+
+
+
+
+• Commands that has to do with teleporting:
+
+	.allrecall { 
+Will teleport everyone on the server to you.
+}
+
+	.gmroom <number 1-5 or room name> {
+This command will take you to the specified location.  Room names can be found in the gmcommands.xml file in your config folder.
+}
+
+	.goto <playername> {
+Will teleport you to the player specified.
+}
+
+	.precall {
+This command will teleport all your party members to you.
+}
+
+	.recall <playername> { 
+Will teleport that player to you.
+}
+
+	.tele <x coord> <y coord> <mapID> {
+This command will move you to the desired X, Y, MapID you specify.
+}
+
+
+
+
+• Commands to alter yourself or other players:
+
+	.addskill {
+Adds all skills that your class would normally be able to learn.
+}
+
+	.buff <number> {
+Should buff everyone on the same screen with the skill corresponding to the number.
+}
+
+	.buffme <number> {
+Should buff you with the skill corresponding to the number.
+}
+
+	.change <playername> <option> <ammount>  {
+Player name is case sensative I believe.  Option can be one of these [hp, mp, ac, mr, gm, hit, dmg, lawful and karma] ammount is what to change it to.
+}
+
+	.hometown {
+Will take you to your registered hometown if you have registered to one.
+}
+
+	.invis {
+Makes you invisible.
+}
+
+	.level <desired level> {
+Desired level is exactly that, the lvl you would like to make yourself between 1 and 99.
+}
+
+	.poly <playername> <polyID> {
+This will poly the specified player into the specified polyID.  Poly ID's can be found either in the polymorph table, OR the graphicID of the monster in the npc table.
+}
+
+	.show {
+Makes you visible again.
+}
+
+	.speed {
+Uses haste and brave on your character.
+}
+
+	.silence <playername> <amount in minuets> {
+Pretty self explanitory.  will chat ban the specified player for the specified ammount of time in min's.
+}
+
+
+
+
+• Commands for items:
+
+	.create <itemID> <enchant lvl> <ammount> {
+This command creates the item that matches the itemID with the specified enchant lvl, and in the ammount you specify in YOUR inventory only. Adena is itemID 40308
+}
+
+	.find <text> {
+Searches items, NPCs and polymorphs for the text and displays the results along with the IDs for the results. (for use with .create, .poly and .spawn/.summon)
+}
+
+	.item <itemID> {
+Displays what monsters can drop that item and how big the chance is that it will drop it on one given dropchance.
+}
+
+	.itemset <set to make> {
+The exact wording for the set can be found in the gmcommands.xml file in your Config folder.
+}
+
+	.present <accountname> <itemid> <enchant> <ammount> {
+Works like the item command only it places the item into the warehouse of the specified account.
+}
+
+
+
+
+• Commands for NPCs:
+
+	.mob <npcID> {
+Displays some info about that NPC as well as what items that npc can drop and how big the chance is that it will drop it on one given dropchance.
+}
+
+	.mobspawn <mobID> <ammount> <radius> {
+This will do the same as spawn command but only for Monsters and it will add's it as a spawn to the DB permanently.
+}
+
+	.npcspawn <mobID> <ammount> <radius> {
+Same as mobspawn only for NPC(non aggressive) only.
+}
+
+	.pet <mobID> (level) {
+Will create a pet with that mobID and give you the collar to it.
+}
+
+	.spawn <mobID> <ammount> <radius> {
+MobID is the number you get from the DB.  Ammount is obvious.  Radius is how far away the monster can spawn.
+Example:
+.spawn 45010 10 20
+This would spawn 10 rabbits within a 20 tile radius.
+}
+
+	.summon <mobID> {
+Will summon a monster with that mobID and sets it as a summon controlled by the GM.
+}
+
+
+
+
+• Commands that affect the whole server:
+
+	.cleanup {
+Cleans the floor of all of the server of items that have been dropped on the ground.
+}
+
+	.delboard <ID> {
+Deletes the message board message with that ID.
+}
+
+	.global <on/off> {
+Will turn global chat on or off.  When turned off and players try to global they get the System Message saying that the Staff has something to say and to listen up.
+}
+
+	.heal {
+Will heal and ress any and everyone on the server.
+}
+
+	.pbuff {
+Toggles the "Power Buff" setting of the server.
+}
+
+	.rates ([XP,ADENA,DROP,LAW,WEIGHT,ALL] VALUE) | RESET {
+Set the specified rate(s) for the server relative to the rates in your rates.config file. Example:
+.rates xp 3
+This will set XP to 3 times the rate specified in your rates.config file.
+If you write ".rates reset" you will reset the rates to the ones in your rates.config file.
+}
+
+	.shutdown <number> {
+Odd that no matter what number you specify the server still takes full 30 seconds to shut down.  And if no number is put in, it won't shut down....  But this shutdown will save the DB so there is no rollback.  This is the shutodwn to use always.
+}
+
+	.shutdown! {
+Does exactly that, shuts down the server immediatly without saving the DB.  Chars will roll back to the last save time.
+}
+
+	.!shutdown {
+Will stop a server shutdown if typed in durring countdown of a normal .shutdown command.
+}
+
+	.weather <number from 1-3 and 13-16> {
+The 13 to 16 may not be right, need to look farther. Each number option will change the weather, i.e. make it snow or rain, more or less....
+}
+
+	.viewboard (ID) {
+Show the message board messages and their IDnumbers. If ID is specified it will display that message instead.
+}
+
+
+
+
+• Commands for testing:
+
+	.action <actID> {
+Displays the actid specified on you. Useful fo finding action IDs.
+}
+
+	.c {
+Creates next item in chain. Every time you create an item with .create it will record what itemID you use and if you then use .c it will create an item with itemID+1. If you use .c after .c it will work the same way. Usefull for testing items.
+}
+
+	.invgfxid <gfxID> <count> {
+Displays the gfxID specified on an item created in your inventory. Count 1 will create 1 item with the gfxID. count above 1 will create that many items and increase the gfxID number with one for each new item. Useful fo finding inventory graphics IDs.
+}
+
+	.gfxId <gfxID> {
+Displays the gfxID specified on an npc created near you. Useful fo finding graphics IDs for characters.
+}
+
+	.opcid <ID> {
+Unknown}
+
+	.opcid1 <ID> {
+Unknown}
+
+	.opcid2 <ID> {
+Unknown}
+
+	.opc <ID> {
+Unknown}
+
+	.opc1 <ID> {
+Unknown}
+
+	.opc2 <ID> {
+Unknown
+}
+
+	.pdbug {
+Toggle the echoing of incoming packets from GMs and Monitors. Only for debugging.
+}
+
+	.s {
+Creates next npc in chain. Every time you spawn an npc with .spawn it will record what npcID you use and if you then use .s it will spawn an npc with npcID+1. If you use .s after .s it will work the same way. Usefull for testing npcs.
+
+	.sprite <spriteID> {
+Displays the spriteID specified on your character. Useful fo finding sprites.
+}
+

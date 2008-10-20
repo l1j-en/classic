@@ -1,0 +1,8 @@
+###################################################
+# Bad name list.
+#
+# if name startswith, or endswith these words
+# charcreation will say its invalid name.
+# 
+# ALL LOWERCASE!!!!!
+###################################################

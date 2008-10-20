@@ -1,0 +1,8164 @@
+
+This is the name code numbers and the name they show on the client.
+
+Associated with name_ids, they are all off by one (i.e. #1 = $0 name_id).
+
+
+
+$       #       Name shown
+---------------------------------
+$	1	Long Sword
+$	2	Axe
+$	3	Lamp
+$	4	Two Handed Sword
+$	5	Adena
+$	6	Janitor
+$	7	Floating Eye
+$	8	Skeleton
+$	9	Slime
+$	10	Armed
+$	11	Turned On
+$	12	No Oil
+$	13	Elven Dagger
+$	14	Orcish Dagger
+$	15	Athame
+$	16	Scalpel
+$	17	Katana
+$	18	Tsurugi
+$	19	Werewolf
+$	20	Elder
+$	21	Mace
+$	22	Door
+$	23	Corpse
+$	24	Meat
+$	25	Bow
+$	26	Spear
+$	27	Lesser Healing Potion
+$	28	Maple Wand
+$	29	Pine Wand
+$	30	Oak Wand
+$	31	Scroll Labeled ZELGO MER
+$	32	Scroll Labeled JUDE ORC YACC
+$	33	Scroll Labeled NR 9
+$	34	Scroll Labeled JAJAJA JOJAJA JUJAJA
+$	35	Scroll Labeled PRATYAVAYAH
+$	36	Scroll Labeled DANE FOOLS
+$	37	Scroll Labeled LEP GES VEN JEA
+$	38	Scroll Labeled PRIRUCHENY
+$	39	Scroll Labeled ELBIB ELOH
+$	40	Scroll Labeled VERR YED HORAE
+$	41	Scroll Labeled VENZAR BORGAVVE
+$	42	Scroll Labeled THARR
+$	43	Scroll Labeled YUM YUM
+$	44	Scroll Labeled KERNOD WEL
+$	45	Scroll Labeled ELAM EBOW
+$	46	Scroll Labeled DUAM SNAT
+$	47	Scroll Labeled ANDOVA BEGARIN
+$	48	Scroll Labeled BAE FORBRYDERNE
+$	49	Scroll Labeled HACKEM MUSH
+$	50	Scroll Labeled VELOX NEB
+$	51	Scroll Labeled FOOBIE BLETCH
+$	52	Scroll Labeled TEMOV
+$	53	Scroll Labeled GARVEN DEH
+$	54	Scroll Labeled READ ME
+$	55	Scroll Labeled KIRJE
+$	56	Scroll of Identify
+$	57	Stone Golem
+$	58	Zombie
+$	59	Dwarf
+$	60	Orc
+$	61	Battle Axe
+$	62	Arrow
+$	63	Bardiche
+$	64	Bill-guisarme
+$	65	Elven Bow
+$	66	Orcish Bow
+$	67	Broad Sword
+$	68	Candle
+$	69	Carrot
+$	70	Club
+$	71	Dagger
+$	72	Bec de Corbin
+$	73	Egg
+$	74	Fauchard
+$	75	Flail
+$	76	Glaive
+$	77	Guisarme
+$	78	Halberd
+$	79	Horn
+$	80	Javelin
+$	81	Key
+$	82	Lance
+$	83	Lemon
+$	84	Lucern Hammer
+$	85	Morning Star
+$	86	Orange
+$	87	Pizza
+$	88	Partisan
+$	89	Quarterstaff
+$	90	Ranseur
+$	91	Ring
+$	92	Rune Sword
+$	93	Scimitar
+$	94	Silver Arrow
+$	95	Dwarvish Axe
+$	96	Elven Spear
+$	97	Orcish Spear
+$	98	Dwarvish Short Sword
+$	99	Elven Short Sword
+$	100	Orcish Short Sword
+$	101	Short Sword
+$	102	Stiletto
+$	103	Trident
+$	104	Unicorn Horn
+$	105	Voulge
+$	106	Yumi
+$	107	Apple
+$	108	Banana
+$	109	Fortune Cookie
+$	110	Cream Pie
+$	111	Elven Wafer
+$	112	War Hammer
+$	113	Gunter's House
+$	114	Gereng's House
+$	115	Log Cabin
+$	116	Village
+$	117	Leather Armor
+$	118	Worn
+$	119	Elven Leather Helm
+$	120	Leather Cap
+$	121	Orcish Helm
+$	122	Skull Helm
+$	123	Dwarvish Iron Helm
+$	124	Hard Hat
+$	125	Fedora
+$	126	Conical Hat
+$	127	Peaked Hood
+$	128	Dented Pot
+$	129	Helmet
+$	130	Plumed Helm
+$	131	Helm of Brilliance
+$	132	Etched Helm
+$	133	Helm of Opposite Alignment
+$	134	Crested Helm
+$	135	Helm of Telepathy
+$	136	Visored Helm
+$	137	Gray Dragon Scale Mail
+$	138	Red Dragon Armor
+$	139	White Dragon Armor
+$	140	Orange Dragon Scale Mail
+$	141	Black Dragon Scale Mail
+$	142	Blue Dragon Armor
+$	143	Green Dragon Armor
+$	144	Yellow Dragon Scale Mail
+$	145	Gray Dragon Scales
+$	146	Red Dragon Scales
+$	147	White Dragon Scales
+$	148	Orange Dragon Scales
+$	149	Black Dragon Scales
+$	150	Blue Dragon Scales
+$	151	Green Dragon Scales
+$	152	Yellow Dragon Scales
+$	153	Plate Mail
+$	154	Crystal Plate Mail
+$	155	Bronze Plate Mail
+$	156	Splint Mail
+$	157	Banded Mail
+$	158	Dwarvish Mithril Coat
+$	159	Elven Mithril Coat
+$	160	Chain Mail
+$	161	Orcish Chain Mail
+$	162	Crude Chain Mail
+$	163	Scale Mail
+$	164	Studded Leather Armor
+$	165	Ring Mail
+$	166	Orcish Ring Mail
+$	167	Crude Ring Mail
+$	168	Leather Jacket
+$	169	T-shirt
+$	170	Mummy Wrapping
+$	171	Elven Cloak
+$	172	Faded Cloak
+$	173	Orcish cloak
+$	174	Coarse Cloak
+$	175	Dwarvish Cloak
+$	176	Hooded Cloak
+$	177	Oilskin Cloak
+$	178	Slippery Cloak
+$	179	Cloak of Protection
+$	180	Tattered Cape
+$	181	Cloak of Invisibility
+$	182	Opera Cloak
+$	183	Cloak of Magic Resistance
+$	184	Ornamental Cloak
+$	185	Cloak of Passage
+$	186	Piece of Cloth
+$	187	Small Shield
+$	188	Elven Shield
+$	189	Blue and Green Shield
+$	190	Orcish Shield
+$	191	White Handled Shield
+$	192	Orcish Shield
+$	193	Red Eyed Shield
+$	194	Large Shield
+$	195	Dwarvish Round Shield
+$	196	Large Round Shield
+$	197	Shield of Reflection
+$	198	Polished Silver Shield
+$	199	Leather Gloves
+$	200	Old Gloves
+$	201	Gloves of Fumbling
+$	202	Padded Gloves
+$	203	Gauntlets of Power
+$	204	Riding Gloves
+$	205	Gauntlets of Dexterity
+$	206	Fencing Gloves
+$	207	Low Boots
+$	208	Walking Shoes
+$	209	Iron Shoes
+$	210	Hard Shoes
+$	211	High Boots
+$	212	Cavalry Boots
+$	213	Speed Boots
+$	214	Combat Boots
+$	215	Water Walking Boots
+$	216	Jungle Boots
+$	217	Jumping Boots
+$	218	Hiking Boots
+$	219	Elven Boots
+$	220	Mud Boots
+$	221	Boots of Fumbling
+$	222	Riding Boots
+$	223	Levitation Boots
+$	224	Snow Boots
+$	225	Shirt
+$	226	Cloak
+$	227	Armor
+$	228	Blessed
+$	229	Cursed
+$	230	Wishing Wand
+$	231	Scroll of Teleportation
+$	232	Remaining Fuel
+$	233	Potion of Mana
+$	234	Cure Poison Potion
+$	235	Haste Potion
+$	236	Healing Potion
+$	237	Purple Healing
+$	238	Lesser Healing Potion
+$	239	Greater Healing Potion
+$	240	Blinding Potion
+$	241	Guard
+$	242	Ring of Teleport Control
+$	243	Potion of Blindness
+$	244	Scroll of Curse Removal
+$	245	Scroll of Enchant Weapon
+$	246	blue
+$	247	black
+$	248	moment
+$	249	while
+$	250	Scroll of Enchant Armor
+$	251	Vibrates
+$	252	glows
+$	253	silver
+$	254	Violently
+$	255	Scroll of Destroy Armor
+$	256	Healing Potion
+$	257	Frog
+$	258	Scroll of Resurrection
+$	259	Wand of Conjure Monster
+$	260	Duel Field
+$	261	Wand of Polymorph
+$	262	Ring of Polymorph Control
+$	263	Wand of Call Lightning
+$	264	Ebony Wand
+$	265	Haste Potion
+$	266	Arachnevil
+$	267	Orc Fighter
+$	268	Orc Archer
+$	269	Wolf
+$	270	Pandora
+$	271	Gunter
+$	272	Eagle
+$	273	Black Knight
+$	274	Black Knight Chief
+$	275	Kurtz
+$	276	This must be the Talking Island.
+$	277	This was told by one who trained in the House of the Red Knight, so I am sure that this information is correct.
+$	278	It is also true that those who oppose his majesty's rule live here.
+$	279	But surely his majesty is over reacting! Even though he is the son of Duke Dephil, he is only a child.
+$	280	Watch your mouth. Do you think you are in the position to question his majesty's orders?
+$	281	I...I've committed a capital crime!
+$	282	Okay, let us scout around the island first. Remember, do not draw your sword unless necessary.
+$	283	Yes!
+$	284	I think it would be faster to contact and hire an informant among the island people.
+$	285	Wouldn't it be better to find Gunter and ask him?
+$	286	Gunter is not on good terms with his majesty. What makes you think he will help us?
+$	287	Why don't we just kill everybody on this island, including Gunter? Then there won't be any trouble left.
+$	288	Didn't I tell you to watch your mouth? I assure you, anyone spilling innocent blood will pay ten times as much.
+$	289	The problem is... does the person we're looking for have any influence on this island?
+$	290	No, it is the other way around. If someone here is influencing the people, then he could be the one who is most likely to oppose his majesty. Now, stay alert and be cautious!
+$	291	Yes!
+$	292	Let's hear the inquiry report.
+$	293	Yes! No one particularly suspicious looking up 'til now.
+$	294	But it seems that the people of this island are generally opposed to his majesty.
+$	295	We were almost attacked once while scouting.
+$	296	We haven't found anyone particularly special. In other words, everyone here is a little suspicious!
+$	297	Hmm. Then we must continue to watch this island.
+$	298	Okay, we are retiring for today. Everyone, withdraw!
+$	299	Yes!
+$	300	How dare you be so rude!
+$	301	You are so pitiful that you can't even recognize your enemy's skill.
+$	302	Urgh!
+$	303	Hmph, you may have killed me, but it's no use. I have already informed his majesty that traitors are on this island. A new expedition will come soon.
+$	304	Training Area
+$	305	Balsim
+$	306	Underground Training Ground
+$	307	Baphomet
+$	308	Golden Key
+$	309	Pale Silver Key
+$	310	Dorin
+$	311	Total:
+$	312	Arachnevil's nail
+$	313	Cloak of the Red Knight
+$	314	Sword of the Red Knight
+$	315	Ticket to Gludio Estate
+$	316	Boat Ticket to Island
+$	317	Cure Poison Potion
+$	318	Ghoul
+$	319	Spartoi
+$	320	Arachnevil Elder
+$	321	Harbor Master
+$	322	...Owner of the Dead...
+$	323	...May there be ... glory to the... Gran Kain...
+$	324	...Oh...Gran Kain... may death come to the pretender king, Ken Rauhel!
+$	325	Gruman
+$	326	Bugbear
+$	327	Lantern
+$	328	Lantern Oil
+$	329	Greater Healing Potion
+$	330	Boots
+$	331	Gloves
+$	332	Necromancer
+$	333	Catty
+$	334	Luth
+$	335	Karim
+$	336	Baltuzar
+$	337	Caspa
+$	338	Merkyor
+$	339	Sema
+$	340	Where are you hiding, Orim? You betrayer!
+$	341	You can't hide from us, Orim!
+$	342	Come out and beg forgiveness you loathsome scoundrel!
+$	343	He is generous and will surely forgive you...come out quickly!
+$	344	Slime Race Ticket
+$	345	Cannon Boy
+$	346	Lady Hawk
+$	347	Lightning
+$	348	Guardian
+$	349	Evenstar
+$	350	Superblack
+$	351	Machiavelli
+$	352	My Baby
+$	353	Shooting Star
+$	354	Bullet
+$	355	Elven Arrow
+$	356	Sayha
+$	357	Hawkwind
+$	358	Falcon
+$	359	Fumble
+$	360	Jelly Fish
+$	361	Kent Castle
+$	362	Slime Race Track
+$	363	Gludin Town
+$	364	Ready!
+$	365	Go!
+$	366	Aaman
+$	367	Winner of the (#)th game is
+$	368	!
+$	369	Good
+$	370	Normal
+$	371	Bad
+$	372	Death Knight
+$	373	Claw
+$	374	Gora
+$	375	Gereng
+$	376	(race) #
+$	377	Time Left:
+$	378	Minute(s)!
+$	379	Governer
+$	380	Young Eagle
+$	381	Saint Light
+$	382	Gludia
+$	383	Governer&nbsp;&nbsp;&nbsp;&nbsp;
+$	384	Young Eagle&nbsp;
+$	385	Saint Light&nbsp;
+$	386	Gludia&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	387	Cannon Boy&nbsp;&nbsp;
+$	388	Lady Hawk&nbsp;&nbsp;&nbsp;
+$	389	Lightning&nbsp;&nbsp;&nbsp;
+$	390	Guardian&nbsp;&nbsp;&nbsp;&nbsp;
+$	391	Evenstar&nbsp;&nbsp;&nbsp;&nbsp;
+$	392	Superblack&nbsp;&nbsp;
+$	393	Machiavelli&nbsp;
+$	394	My Baby&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	395	Shooting Star&nbsp;&nbsp;&nbsp;&nbsp;
+$	396	Bullet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	397	Elven arrow&nbsp;
+$	398	Sayha&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	399	Hawkwind&nbsp;&nbsp;&nbsp;&nbsp;
+$	400	Falcon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	401	Fumble&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	402	Jelly Fish&nbsp;&nbsp;&nbsp;
+$	403	's dividend rate is
+$	404	Mahue
+$	405	Kill everyone who lives!!
+$	406	Crawling Claw
+$	407	Orim
+$	408	Great Sword of Paagrio
+$	409	Long Spear of Paagrio
+$	410	Helmet of Sayha
+$	411	Shoe of Sayha
+$	412	Claymore
+$	413	Great Axe
+$	414	Crown
+$	415	Knight Visor
+$	416	Gradius
+$	417	Dice Dagger
+$	418	Doom Blade
+$	419	Berserker Axe
+$	420	Shield of Eva
+$	421	Scale Armor of Eva
+$	422	Tears of Eva
+$	423	Wings of Paagrio
+$	424	Grace of Sayha
+$	425	Paladin Sword
+$	426	Paladin Armor
+$	427	Axe of Destruction
+$	428	Armor of Hatred
+$	429	Sword of Lord Porche
+$	430	Tower Shield
+$	431	Gayle
+$	432	Ring of Sayha
+$	433	Ishmael
+$	434	Count Kent
+$	435	is destroyed completely.
+$	436	is almost destroyed.
+$	437	is showing large holes with great damage everywhere.
+$	438	Small holes are starting to appear (here).
+$	439	is showing a few cracks.
+$	440	is intact.
+$	441	outer gate
+$	442	inner gate
+$	443	is closed.
+$	444	is open.
+$	445	tax
+$	446	Hunt
+$	447	Ashton
+$	448	Dunkan
+$	449	Moor
+$	450	Cana
+$	451	Lolia
+$	452	Farbo
+$	453	Jaint
+$	454	Jyta
+$	455	Lengo
+$	456	Fiin
+$	457	Judice
+$	458	public funds
+$	459	Andyn
+$	460	Ysorya
+$	461	Blue Sharks
+$	462	Weapon Shop: Miracle House
+$	463	Item Shop: Dream of Riches
+$	464	Weapon Shop: Steel Axe
+$	465	Magic Shop: Shaman House
+$	466	Barracks
+$	467	Guards! Kill those intruders without mercy!
+$	468	P...please spare my h... humble life...
+$	469	Bahof
+$	470	Aggressive Mode
+$	471	Defensive Mode
+$	472	Rest
+$	473	Alert
+$	474	Disperse
+$	475	Gatekeeper
+$	476	Court Guard
+$	477	Deploy
+$	478	You traitorous scums! I'll kill you if you don't get out of here before I count to ten.
+$	479	Touma
+$	480	Woodford
+$	481	Ofo
+$	482	Rohan
+$	483	Torban
+$	484	Tommy
+$	485	Lyra
+$	486	Sanita
+$	487	Ellne
+$	488	Hanna
+$	489	Seghem Atuba
+$	490	Bazure Atuba
+$	491	Kentu Neruga
+$	492	Nenani Gandi
+$	493	Taga Rova
+$	494	Ruu Duda-Mara
+$	495	Atuba orc
+$	496	Neruga orc
+$	497	Gandi orc
+$	498	Rova orc
+$	499	Duda-Mara orc
+$	500	Totem of Atuba
+$	501	Totem of Neruga
+$	502	Totem of Gandi
+$	503	Totem of Rova
+$	504	Totem of Duda-Mara
+$	505	Ghast
+$	506	Scroll of Escape
+$	507	Wand of Strong Polymorph
+$	508	Potion of Magic Ability Recovery
+$	509	Magic Gem
+$	510	Orc Guard
+$	511	Orc Ranger
+$	512	Orc Scout
+$	513	Diamond
+$	514	Ruby
+$	515	Sapphire
+$	516	Emerald
+$	517	Chain Mail of Magic Resistance
+$	518	Spellbook (Lesser Heal)
+$	519	Spellbook (Light)
+$	520	Spellbook (Shield)
+$	521	Spellbook (Energy Bolt)
+$	522	Spellbook (Teleport)
+$	523	Spellbook (Cure Poison)
+$	524	Spellbook (Chill Touch)
+$	525	Spellbook (Curse: Poison)
+$	526	Spellbook (Enchant Weapon)
+$	527	Spellbook (Detection)
+$	528	Spellbook (Lightning)
+$	529	Spellbook (Turn Undead)
+$	530	Spellbook (Heal)
+$	531	Spellbook (Curse: Blind)
+$	532	Spellbook (Blessed Armor)
+$	533	Spellbook (Fireball)
+$	534	Spellbook (Enchant Dexterity)
+$	535	Spellbook (Weapon Break)
+$	536	Spellbook (Vampiric Touch)
+$	537	Spellbook (Slow)
+$	538	Spellbook (Curse: Paralyze)
+$	539	Spellbook (Call Lightning)
+$	540	Spellbook (Greater Heal)
+$	541	Spellbook (Tame Monster)
+$	542	Spellbook (Remove Curse)
+$	543	Spellbook (Create Zombie)
+$	544	Spellbook (Enchant Mighty)
+$	545	Spellbook (Haste)
+$	546	Spellbook (Cancel Magic)
+$	547	Spellbook (Eruption)
+$	548	Spellbook (Heal Pledge)
+$	549	Spellbook (Freeze)
+$	550	Spellbook (Summon Monster)
+$	551	Spellbook (Holy Walk)
+$	552	Spellbook (Tornado)
+$	553	Spellbook (Full Heal)
+$	554	Spellbook (Firewall)
+$	555	Spellbook (Blizzard)
+$	556	Spellbook (Invisibility)
+$	557	Spellbook (Resurrection)
+$	558	Spellbook (Lightning Storm)
+$	559	Spellbook (Fog of Sleeping)
+$	560	Spellbook (Polymorph)
+$	561	Spellbook (Immune to Harm)
+$	562	Spellbook (Mass Teleport)
+$	563	Spellbook (Create Magical Weapon)
+$	564	Spellbook (Meteor Strike)
+$	565	Spellbook (Greater Resurrection)
+$	566	Spellbook (Mass Slow)
+$	567	Spellbook (Destroy)
+$	568	's
+$	569	Thram
+$	570	Helmet of Magic Resistance
+$	571	Oak Staff
+$	572	Wizard's Staff
+$	573	Staff of Sorcery
+$	574	Staff of Strength
+$	575	Crook of the Water God
+$	576	Staff of the Wind God
+$	577	Scepter of the Fire God
+$	578	Wand of the Land God
+$	579	Einhasad's Will
+$	580	Gran Kain's Will
+$	581	Cotton Robe
+$	582	Leather Coat
+$	583	Reinforced Leather Armor
+$	584	Mithril Mesh
+$	585	Blue Robe
+$	586	Red Coat
+$	587	Green Overcoat
+$	588	White Vest
+$	589	Golden Canonicals
+$	590	Black Canonicals
+$	591	Turtle Robe
+$	592	Elven Long Sword
+$	593	Elven Long Bow
+$	594	Elven Coat
+$	595	Elven Mesh
+$	596	Elven Chain Mail
+$	597	Archery Glove
+$	598	Green Cloak
+$	599	Damascus Sword
+$	600	Estoc
+$	601	Bloody Sword
+$	602	Flaming Arrow
+$	603	Magical Hat
+$	604	Plate Mail of Wisdom
+$	605	Plate Mail of Toughness
+$	606	Long Sword of Power
+$	607	Long Sword of Knowledge
+$	608	Orcish Court Guard
+$	609	Very hungry.
+$	610	A little hungry.
+$	611	Neither hungry nor full.
+$	612	A little full.
+$	613	Very full.
+$	614	collect (pick up)
+$	615	Johnson
+$	616	Rick
+$	617	Helm of Energy
+$	618	Red Sock
+$	619	Scroll of Mass Teleport
+$	620	Ghast Lord
+$	621	Weril
+$	622	Happy
+$	623	Merry
+$	624	Joy
+$	625	Skyhart
+$	626	Golden Fur
+$	627	Night Eye
+$	628	Lauqee
+$	629	Dark Fire
+$	630	Nymph
+$	631	Sezo
+$	632	The Shadow
+$	633	The Blue
+$	634	Roselaide
+$	635	Lesebith
+$	636	Steel Fang
+$	637	Loki
+$	638	Penetrate
+$	639	Thor
+$	640	Poseidon
+$	641	Solon
+$	642	Lassmina
+$	643	Starlight
+$	644	Looman
+$	645	Giant Strength
+$	646	Sif
+$	647	Celberos
+$	648	The Red
+$	649	Fierce Eye
+$	650	Indra
+$	651	Iron Fang
+$	652	Efreet
+$	653	Hermes
+$	654	Talos
+$	655	Hekajin
+$	656	Vishnu
+$	657	Silver
+$	658	Buvabic
+$	659	Jinn
+$	660	Shiva
+$	661	The White
+$	662	Naepau
+$	663	Leviathan
+$	664	Tetesiz
+$	665	Usas
+$	666	Kindrie
+$	667	Bahamut
+$	668	Guard Dog
+$	669	The Black
+$	670	Zeus
+$	671	Hera
+$	672	Set
+$	673	Sazucag
+$	674	Adam
+$	675	Zaumen
+$	676	Even
+$	677	T-shirt of luck
+$	678	T-shirt of Eva
+$	679	Happy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	680	Merry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	681	Joy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	682	Skyhart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	683	Golden Fur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	684	Night Eye&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	685	Lauqee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	686	Dark Fire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	687	Nymph&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	688	Sezo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	689	The Shadow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	690	The Blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	691	Roselaide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	692	Lesebith&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	693	Steel Fang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	694	Loki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	695	Penetrate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	696	Thor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	697	Poseidon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	698	Solon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	699	Lassmina&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	700	Starlight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	701	Looman&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	702	Giant Strength&nbsp;&nbsp;&nbsp;&nbsp;
+$	703	Sif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	704	Celberos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	705	The Red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	706	Fierce Eye&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	707	Indra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	708	Iron Fang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	709	Efreet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	710	Hermes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	711	Talos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	712	Hekajin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	713	Vishnu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	714	Silver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	715	Buvabic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	716	Djinn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	717	Shiva&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	718	The White&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	719	Naepau&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	720	Leviathan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	721	Tetesiz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	722	Usas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	723	Kindrie&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	724	Bahamut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	725	Guard Dog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	726	The Black&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	727	Zeus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	728	Hera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	729	Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	730	Sazucag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	731	Adam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	732	Zaumen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	733	Eve&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$	734	Abraham
+$	735	Turing
+$	736	Ivan
+$	737	Animal Tournament Ticket
+$	738	Bob
+$	739	Ruka
+$	740	Animal Coliseum Contestant Registration Time Over
+$	741	Animal Tournament Contestant Registration Time Over
+$	742	Animal Tournament Game Starts
+$	743	The winner of this match is
+$	744	's
+$	745	Now begins the quarterfinal match!
+$	746	Now begins the semifinal match!
+$	747	Now begins the final match!
+$	748	Participation Certificate
+$	749	Mother of the Forest and Elves
+$	750	Nerupa
+$	751	El
+$	752	Horun
+$	753	Arachne
+$	754	Pan
+$	755	Fairy
+$	756	Ent
+$	757	Dupelgenon
+$	758	Fungus
+$	759	Blob
+$	760	Short Bow
+$	761	Pan's Mane
+$	762	Rough Mithril
+$	763	Elemental Stone
+$	764	Twig of Ent
+$	765	Fungus Juice
+$	766	Blood of Ogre
+$	767	Thread
+$	768	Pure Mithril
+$	769	Fairydust
+$	770	Arachne's Web
+$	771	Bark of Ent
+$	772	Oriharukon
+$	773	Mithril Thread
+$	774	Mithril Arrow
+$	775	Ecdysis of Arachne
+$	776	Bracer
+$	777	Ala of Fairy
+$	778	Magic Flute
+$	779	Wooden Shield
+$	780	Mithril Plate
+$	781	Oriharukon Plate
+$	782	Wooden Armor
+$	783	Elven Breast Plate
+$	784	Pan's Horn
+$	785	Crossbow
+$	786	Body of Short Sword
+$	787	Body of Long Sword
+$	788	Body of Oriharukon Sword
+$	789	Elven Plate Mail
+$	790	Rapier
+$	791	Bless of Elm
+$	792	Mithril-coated Horn
+$	793	Oriharukon-coated Horn
+$	794	Mail Breaker
+$	795	Fruit of Ent
+$	796	Power Gloves
+$	797	Elven Chain Mail
+$	798	Necklace of Dupelgenon
+$	799	Wooden Jacket
+$	800	High Quality
+$	801	Highest Quality
+$	802	Elven Sword of Magic Resistance
+$	803	Elven Sword of Dexterity
+$	804	Elven Sword of Spell Power
+$	805	If you value your life get out of here right now. This is a sacred place that must not be defiled by the likes of you.
+$	806	Fairy Queen
+$	807	Darn! Did you come to interfere with my research?
+$	808	Why are there so many people who want to disturb my research?
+$	809	Take this!
+$	810	Hahaha! You annoying fool! Get out of here...now!
+$	811	You will pay for this someday!
+$	812	Narhen
+$	813	Doett
+$	814	Hurindalien
+$	815	Orc Citizen
+$	816	The one who killed one of his own race will cleanse his sin with his own blood.
+$	817	1st Stadium
+$	818	2nd Stadium
+$	819	3rd Stadium
+$	820	4th Stadium
+$	821	Morien
+$	822	Theodore
+$	823	...No. Branch, skin...there isn't any. Come later. Go.
+$	824	Everything has its limits. Give me time to make the thread.
+$	825	My manes will be gone at this rate! Do it later!
+$	826	Hmpf, do you think you can control me completely with this imprisonment!? You humans!
+$	827	Go away!
+$	828	Darn, another Elf! I must hide before he can find the base with a Detection spell!
+$	829	Necklace of Sayha
+$	830	Lucas
+$	831	Stevie
+$	832	Stanley
+$	833	Jack
+$	834	Paul
+$	835	Daniel
+$	836	Andrew
+$	837	Bruno
+$	838	Sidney
+$	839	Philip
+$	840	Eban
+$	841	Rodney
+$	842	Neil
+$	843	Mandel
+$	844	James
+$	845	Luke
+$	846	Merwyn
+$	847	Hector
+$	848	Terry
+$	849	Vincent
+$	850	Evert
+$	851	Colbert
+$	852	Alfons
+$	853	Victor
+$	854	Nelson
+$	855	Maeno
+$	856	Jason
+$	857	Laban
+$	858	Randal
+$	859	Izawa
+$	860	Dio
+$	861	Anton
+$	862	Derek
+$	863	Mona
+$	864	Helen
+$	865	Eliza
+$	866	Moria
+$	867	Margaret
+$	868	Shalina
+$	869	Jessy
+$	870	Betty
+$	871	Jenny
+$	872	Velma
+$	873	Alice
+$	874	Evelyn
+$	875	Tovia
+$	876	Leal
+$	877	Alda
+$	878	Amanda
+$	879	Lina
+$	880	Sally
+$	881	Daisy
+$	882	Bridget
+$	883	Tanya
+$	884	Daria
+$	885	Doris
+$	886	Tracy
+$	887	Tanaka
+$	888	Iola
+$	889	Marina
+$	890	Emma
+$	891	Molly
+$	892	Verita
+$	893	Depardieu Server
+$	894	Ken Rauhel Server
+$	895	Zillian Server
+$	896	Ishilotte Server
+$	897	Joe Server
+$	898	Hardin Server
+$	899	Cerenis Server
+$	900	Owen Server
+$	901	Krista Server
+$	902	Atun Server
+$	903	Gardria Server
+$	904	Gunter Server
+$	905	Saint Bernard
+$	906	Doberman
+$	907	Collie
+$	908	Shepherd
+$	909	Beagle
+$	910	Brunner
+$	911	Elmina
+$	912	Marbin
+$	913	Velisa
+$	914	Deker
+$	915	Gerard
+$	916	Glen
+$	917	Mellin
+$	918	Aanon
+$	919	Miranda
+$	920	Denis
+$	921	Edric
+$	922	Othmond
+$	923	Shield of the Silver Knight
+$	924	Fang of a Werewolf
+$	925	Yes, you went to a lot of trouble delivering the collected money. Now go and rest until the next money collection.
+$	926	Cerberus
+$	927	Windstorm Blade Group
+$	928	Pig
+$	929	Hen
+$	930	Milk Cow
+$	931	Deer
+$	932	Wild Boar
+$	933	Randith
+$	934	Bauman
+$	935	Anotte
+$	936	Halt
+$	937	Rabbit
+$	938	King Bugbear
+$	939	Helm of Magic: Healing
+$	940	Helm of Magic: Speed
+$	941	Helm of Magic: Power
+$	942	Old Scroll
+$	943	Key to the Werewolf's Room
+$	944	Potion of Bravery
+$	945	Potion of Wisdom
+$	946	Beleth
+$	947	Trey
+$	948	Matt
+$	949	Tarkin
+$	950	Gotham
+$	951	Borgin
+$	952	Windawood Castle
+$	953	Duck
+$	954	Ogre
+$	955	Inn Room Key
+$	956	Selena
+$	957	Remaining time for this room is
+$	958	minute(s).
+$	959	Goblin
+$	960	Harpy
+$	961	Giant Ant
+$	962	Giant Soldier Ant
+$	963	Basilisk
+$	964	Hans
+$	965	Jackson
+$	966	Ashur
+$	967	Scorpion
+$	968	Lawful
+$	969	Chaotic
+$	970	Cockatrice
+$	971	Kobold
+$	972	Scroll of Polymorph
+$	973	Drake
+$	974	Helper
+$	975	Wand of Banishment
+$	976	Wand of Blink
+$	977	Wand of Silence
+$	978	Wand of Sleep
+$	979	Asteir Server
+$	980	Duke Depill Server
+$	981	Balssen Server
+$	982	Arain Server
+$	983	Castoll Server
+$	984	Sebastian Server
+$	985	Dekern Server
+$	986	Einhasad Server
+$	987	Skeleton Archer
+$	988	Skeleton Axeman
+$	989	Skeleton Soldier
+$	990	Troll
+$	991	Lycanthrope
+$	992	Muryan
+$	993	Dark Elder
+$	994	Death to the one who disturbs the dragon's rest!
+$	995	Food! Food!
+$	996	Once you enter into this valley, you will never return in one piece! Hahahah!
+$	997	Death!
+$	998	Reply:
+$	999	Couldn't send the mail because there is no recipient.
+$	1000	The recipient couldn't receive your mail because he has too much baggage.
+$	1001	Succubus
+$	1002	Beholder
+$	1003	Amulet of Strength
+$	1004	Amulet of Dexterity
+$	1005	Amulet of Constitution
+$	1006	Amulet of Intelligence
+$	1007	Amulet of Wisdom
+$	1008	Amulet of Charisma
+$	1009	Helm of Infravision
+$	1010	Two Handed Shield
+$	1011	Ettin
+$	1012	Basilisk's Horn
+$	1013	Drake's Claw
+$	1014	Amulet of Orc Warrior
+$	1015	Crystal Ball of Necromancer
+$	1016	Cray
+$	1017	Skeleton Marksman
+$	1018	Skeleton Fighter
+$	1019	Skeleton Guard
+$	1020	Succubus Queen
+$	1021	Dragon Slayer
+$	1022	Leather Cap
+$	1023	Studded Leather Cap
+$	1024	Leather Helmet
+$	1025	Skull Helmet
+$	1026	Leather Sandal
+$	1027	Studded Leather Sandals
+$	1028	Leather Boots
+$	1029	Leather Shield
+$	1030	Studded Leather Shield
+$	1031	Bone Shield
+$	1032	Leather Vest
+$	1033	Leather Vest with Belt
+$	1034	Studded Leather Vest
+$	1035	Hard Leather Vest
+$	1036	Bone Armor
+$	1037	Fur
+$	1038	Lump of Iron
+$	1039	Belt
+$	1040	Hard Leather
+$	1041	Bone Piece
+$	1042	Orc Zombie
+$	1043	Dark Elf
+$	1044	Eidlon
+$	1045	Imp
+$	1046	Imp Elder
+$	1047	Gremlin
+$	1048	Owlbear
+$	1049	Great Sword
+$	1050	Paagrio Server
+$	1051	Eva Server
+$	1052	Sayha Server
+$	1053	Maphr Server
+$	1054	Ladar
+$	1055	Farlin
+$	1056	Lien
+$	1057	Julie
+$	1058	Pin
+$	1059	Joel
+$	1060	Fire Elemental
+$	1061	Water Elemental
+$	1062	Wind Elemental
+$	1063	Earth Elemental
+$	1064	Staff of Mana
+$	1065	Water Elixir
+$	1066	Wind Elixir
+$	1067	Earth Elixir
+$	1068	Fire Elixir
+$	1069	Keith
+$	1070	Harrison
+$	1071	Hooper
+$	1072	Cobb
+$	1073	Bunch
+$	1074	Kuhatin
+$	1075	Woof! Arf! Grrrrrrr...
+$	1076	Stationery
+$	1077	Baluin
+$	1078	Kualbin
+$	1079	Qwazin
+$	1080	Almin
+$	1081	Depupin
+$	1082	LEV
+$	1083	AC
+$	1084	HP
+$	1085	MP
+$	1086	Let's help our unfortunate neighbors!
+$	1087	Pet Whistle
+$	1088	Get away from this sacred forest, you unblessed entity!
+$	1089	Bow! Wow!
+$	1090	Wuf. Arf!
+$	1091	Grrrrrrr.
+$	1092	Yes, master!
+$	1093	Hut.
+$	1094	Well, well, is there anyone with an animal to challenge this winner?
+$	1095	Stone
+$	1096	You found me.. I can't let you live!
+$	1097	How can you attack me in numbers? You cowards! I'm sorry but I have to  run away.
+$	1098	Bone of Spartoi
+$	1099	Elven Short Sword of Constitution
+$	1100	Elven Bow of Dexterity
+$	1101	Whetstone
+$	1102	Map:All of Aden
+$	1103	Map:Talking Island
+$	1104	Map:Gludio
+$	1105	Map:Kent Castle
+$	1106	Map:Orcish Fortress
+$	1107	Map:Elven Forest
+$	1108	Map:Windawood
+$	1109	Map:Silver Knight Town
+$	1110	Map:Dragon Valley
+$	1111	Orc Wizard
+$	1112	Hobgoblin
+$	1113	Dwarf Warrior
+$	1114	Cyclops
+$	1115	, step aside!
+$	1116	, if you don't move, I'll attack!
+$	1117	Antharas
+$	1118	performs.
+$	1119	does not perform.
+$	1120	Hit Value
+$	1121	Nutrition
+$	1122	Lightness
+$	1123	Damage
+$	1124	Two Handed Weapon
+$	1125	Hit Bonus
+$	1126	Damage Bonus
+$	1127	Usable
+$	1128	[Prince/Princess]
+$	1129	[Knight]
+$	1130	[Elf]
+$	1131	[Wizard]
+$	1132	STR
+$	1133	DEX
+$	1134	CON
+$	1135	WIS
+$	1136	INT
+$	1137	CHA
+$	1138	Maximum HP
+$	1139	Mana Absorption
+$	1140	Spell Power
+$	1141	Maintains haste state when held
+$	1142	Luck
+$	1143	Weight
+$	1144	Bow Hit Bonus
+$	1145	That Blood Pledge doesn't exist, so you can't receive your letter.
+$	1146	Est
+$	1147	Blood Pledge Letter
+$	1148	Long Silver Sword
+$	1149	Silver Sword
+$	1150	Silver Axe
+$	1151	Magic Defense
+$	1152	Material:Liquid
+$	1153	Material:Web
+$	1154	Material:Vegetation
+$	1155	Material:Animal Matter
+$	1156	Material:Paper
+$	1157	Material:Cloth
+$	1158	Material:Leather
+$	1159	Material:Wood
+$	1160	Material:Bone
+$	1161	Material:Dragon Scale
+$	1162	Material:Iron
+$	1163	Material:Metal
+$	1164	Material:Copper
+$	1165	Material:Silver
+$	1166	Material:Gold
+$	1167	Material:Platinum
+$	1168	Material:Mithril
+$	1169	Material:Black Mithril
+$	1170	Material:Glass
+$	1171	Material:Gemstone
+$	1172	Material:Mineral
+$	1173	Material:Oriharukon
+$	1174	Pet Collar
+$	1175	Lizardman
+$	1176	Demon
+$	1177	Griffon
+$	1178	Ranger
+$	1179	Maid
+$	1180	Candy
+$	1181	Harry
+$	1182	Class
+$	1183	Level
+$	1184	Hiccup!
+$	1185	Lord
+$	1186	Payment Invoice
+$	1187	Payment Reminder Letter
+$	1188	Eviction Notice
+$	1189	Map:Giran
+$	1190	Circlet
+$	1191	Ginseng
+$	1192	Herb
+$	1193	Mushroom
+$	1194	Poison Mushroom
+$	1195	House No.
+$	1196	
+$	1197	Lump of Bronze
+$	1198	Blue Cloth
+$	1199	Green Cloth
+$	1200	Red Cloth
+$	1201	White Cloth
+$	1202	Lump of Steel
+$	1203	Lump of Rough Copper
+$	1204	Lump of Rough Iron
+$	1205	Timber
+$	1206	Talisman
+$	1207	Wizard Cap
+$	1208	Wizard Clothing
+$	1209	Iron Gloves
+$	1210	Iron Visor
+$	1211	Iron Shield
+$	1212	Iron Boots
+$	1213	Iron Plate Mail
+$	1214	Vekadoo
+$	1215	Tutu
+$	1216	Buggy
+$	1217	Urloo
+$	1218	Jeffrey
+$	1219	Kai
+$	1220	Adolph
+$	1221	Overpot
+$	1222	Lumps
+$	1223	Buka
+$	1224	Glook
+$	1225	Kundra
+$	1226	Kumato
+$	1227	Durek
+$	1228	Grodon
+$	1229	Queniver
+$	1230	Pluto
+$	1231	Duriba
+$	1232	Buruel
+$	1233	Elijah
+$	1234	Auctioneer
+$	1235	You are the highest bidder.
+$	1236	Your bid failed.
+$	1237	The house has been sold.
+$	1238	The auction was canceled.
+$	1239	Orville
+$	1240	Giran Castle Mercenary
+$	1241	Tyrone
+$	1242	Colbert
+$	1243	Giran
+$	1244	Wood
+$	1245	Hunter Bow
+$	1246	Leather
+$	1247	Herbert
+$	1248	Race Ticket
+$	1249	Sauram
+$	1250	Nodim
+$	1251	Molly
+$	1252	Condensed Lesser Healing Potion
+$	1253	Condensed Healing Potion
+$	1254	Condensed Greater Healing Potion
+$	1255	Lottery Ticket
+$	1256	Winning ticket "One more!"
+$	1257	Winning ticket 500 adena
+$	1258	Winning ticket 5,000 adena
+$	1259	Winning ticket 1,000,000 adena
+$	1260	Malcom
+$	1261	Damon
+$	1262	Tyrus
+$	1263	Sherwin
+$	1264	Moran
+$	1265	Ferdinand
+$	1266	Giles
+$	1267	Aldred
+$	1268	Gulian
+$	1269	Manus
+$	1270	Pierre
+$	1271	Garth
+$	1272	Oliver
+$	1273	Ernest
+$	1274	Loren
+$	1275	Noel
+$	1276	Kerry
+$	1277	Frank
+$	1278	Jeremy
+$	1279	Godwin
+$	1280	Lucius
+$	1281	Gabriel
+$	1282	Albert
+$	1283	Henry
+$	1284	Gordon
+$	1285	Sigmund
+$	1286	Emery
+$	1287	Werner
+$	1288	Jerome
+$	1289	Maxim
+$	1290	Vernon
+$	1291	Robert
+$	1292	Thoron
+$	1293	Robin
+$	1294	Terence
+$	1295	Aaron
+$	1296	Vergil
+$	1297	Ambrose
+$	1298	Mario
+$	1299	Kevin
+$	1300	Almon
+$	1301	Gustav
+$	1302	Mayer
+$	1303	Arving
+$	1304	Grover
+$	1305	Blaine
+$	1306	Alex
+$	1307	Diane
+$	1308	Beth
+$	1309	Henrietta
+$	1310	Justine
+$	1311	Eve
+$	1312	Valeska
+$	1313	Carmel
+$	1314	Vevina
+$	1315	Livia
+$	1316	Jilda
+$	1317	Sarah
+$	1318	Tekla
+$	1319	Eleanora
+$	1320	Mary
+$	1321	Nicoline
+$	1322	Eulalia
+$	1323	Julia
+$	1324	Catriona
+$	1325	Miryam
+$	1326	Mennefer
+$	1327	Osa
+$	1328	Joanna
+$	1329	Teodora
+$	1330	Margery
+$	1331	Gleda
+$	1332	Noela
+$	1333	Lucinda
+$	1334	Minerva
+$	1335	Geraldine
+$	1336	Paulina
+$	1337	Emilia
+$	1338	Juliana
+$	1339	Saloma
+$	1340	Bernice
+$	1341	Karelia
+$	1342	Karine
+$	1343	Leonora
+$	1344	Ione
+$	1345	Ginevra
+$	1346	Duana
+$	1347	Sigrid
+$	1348	Tessa
+$	1349	Erma
+$	1350	Ada
+$	1351	Tecla
+$	1352	Ava
+$	1353	Almas
+$	1354	Polly
+$	1355	Wilma
+$	1356	Valisa
+$	1357	Prudence
+$	1358	Jill
+$	1359	Charlotte
+$	1360	Elspeth
+$	1361	Gwynfryd
+$	1362	Ingrid
+$	1363	Lulu
+$	1364	Terumah
+$	1365	Marian
+$	1366	Bernice
+$	1367	Brita
+$	1368	Aurelle
+$	1369	Dagny
+$	1370	Althea
+$	1371	Edna
+$	1372	Melanie
+$	1373	Verda
+$	1374	Iona
+$	1375	Slania
+$	1376	Henriette
+$	1377	Wyn
+$	1378	Tirzah
+$	1379	Hermia
+$	1380	Couple Ring
+$	1381	Tofen
+$	1382	Price
+$	1383	Auction Manager
+$	1384	Auction Board
+$	1385	Blood Pledge Board
+$	1386	Message Board
+$	1387	Entrance
+$	1388	Wand of Remove Furniture
+$	1389	Arena Viewing Ticket
+$	1390	Closing Date
+$	1391	Size : %d cell
+$	1392	Gnoll
+$	1393	Mimic
+$	1394	Minotaur
+$	1395	Minotaur
+$	1396	Ice Golem
+$	1397	Paper Man
+$	1398	Fox
+$	1399	Giant
+$	1400	Outer Southern Gate
+$	1401	Outer Western Gate
+$	1402	Inner southern Gate
+$	1403	Inner Western Gate
+$	1404	Inner Eastern Gate
+$	1405	Silhouette
+$	1406	Mermaid
+$	1407	Crocodile
+$	1408	Alligator
+$	1409	Living Armor
+$	1410	Scroll of Escape to village
+$	1411	Scroll of Escape to Giran
+$	1412	Scroll of Return - Singing Island
+$	1413	Seahorse
+$	1414	Luder
+$	1415	Johan
+$	1416	Healer
+$	1417	Siriss
+$	1418	Ishtar
+$	1419	Zeno
+$	1420	Belgeter
+$	1421	Fraoun
+$	1422	Healer
+$	1423	Illdrath
+$	1424	Drist
+$	1425	Scroll of Return - Hidden Valley
+$	1426	Sea Anemone
+$	1427	Fafurion
+$	1428	Vakuuk
+$	1429	Ramia
+$	1430	Sea Dancer
+$	1431	Crabman
+$	1432	Ratman
+$	1433	Troglodyte
+$	1434	Elekkadom
+$	1435	Buakheu
+$	1436	Guardian Tower
+$	1437	(Lesser Heal)
+$	1438	(Light)
+$	1439	(Shield)
+$	1440	(Energy Bolt)
+$	1441	(Teleport)
+$	1442	(Cure Poison)
+$	1443	(Chill Touch)
+$	1444	(Curse: Poison)
+$	1445	(Enchant Weapon)
+$	1446	(Detection)
+$	1447	(Lightning)
+$	1448	(Turn Undead)
+$	1449	(Heal)
+$	1450	(Curse: Blind)
+$	1451	(Blessed Armor)
+$	1452	(Fireball)
+$	1453	(Enchant Dexterity)
+$	1454	(Weapon Break)
+$	1455	(Vampiric Touch)
+$	1456	(Slow)
+$	1457	(Curse: Paralyze)
+$	1458	(Call Lightning)
+$	1459	(Greater Heal)
+$	1460	(Tame Monster)
+$	1461	(Remove Curse)
+$	1462	(Create Zombie)
+$	1463	(Enchant Mighty)
+$	1464	(Haste)
+$	1465	(Cancel Magic)
+$	1466	(Eruption)
+$	1467	(Heal Pledge)
+$	1468	(Freeze)
+$	1469	(Summon Monster)
+$	1470	(Holy Walk)
+$	1471	(Tornado)
+$	1472	(Full Heal)
+$	1473	(Firewall)
+$	1474	(Blizzard)
+$	1475	(Invisibility)
+$	1476	(Resurrection)
+$	1477	(Lightning Storm)
+$	1478	(Fog of Sleeping)
+$	1479	(Polymorph)
+$	1480	(Immune to Harm)
+$	1481	(Mass Teleport)
+$	1482	(Create Magical Weapon)
+$	1483	(Meteor Strike)
+$	1484	(Greater Resurrection)
+$	1485	(Mass Slow)
+$	1486	(Destroy)
+$	1487	Blank Scroll (Level 1)
+$	1488	Spell Scroll
+$	1489	Eveurol
+$	1490	Stingray
+$	1491	Merman
+$	1492	Coelacanth
+$	1493	Crustacean
+$	1494	Fish
+$	1495	Acaleph
+$	1496	Bear
+$	1497	Shark
+$	1498	Aste
+$	1499	Turtle Dragon
+$	1500	EXP
+$	1501	Arena Guide
+$	1502	Goodman
+$	1503	Neutralman
+$	1504	Evilman
+$	1505	Sin Warrior
+$	1506	Salamander
+$	1507	Giant Ant Queen
+$	1508	Bless of Eva
+$	1509	Scale of Mermaid
+$	1510	Are you here to take our scales again? You humans! Go away!
+$	1511	Luudiel
+$	1512	Fisher
+$	1513	Vaiger
+$	1514	Heine
+$	1515	Ellan
+$	1516	Shivan
+$	1517	Britt
+$	1518	Riol
+$	1519	Derick
+$	1520	Harry
+$	1521	Shannon
+$	1522	Trion
+$	1523	Elina
+$	1524	Linote
+$	1525	Arina
+$	1526	Annabel
+$	1527	Felix
+$	1528	Oriel
+$	1529	Barent
+$	1530	Paults
+$	1531	Spencer
+$	1532	Gale
+$	1533	Stra
+$	1534	Map:Singing Island
+$	1535	Map:Hidden Valley
+$	1536	Map:Heine
+$	1537	Dwell
+$	1538	Poison Serpent Mercenary
+$	1539	Hakim
+$	1540	Elly
+$	1541	Adina
+$	1542	Zenia
+$	1543	Miriam
+$	1544	Edry
+$	1545	Elsha
+$	1546	Triona
+$	1547	Lorena
+$	1548	Novita
+$	1549	Morna
+$	1550	Delia
+$	1551	Dain
+$	1552	Haidrim
+$	1553	Albin
+$	1554	Sword of Life
+$	1555	Doppelganger
+$	1556	Abel
+$	1557	Outer Northern Gate
+$	1558	Sasha
+$	1559	Garrett
+$	1560	Rear Gate of Orc Castle
+$	1561	Amulet of Silver Serpent
+$	1562	Silver Serpent Scale
+$	1563	Death
+$	1564	Ghost
+$	1565	Iron Gate
+$	1566	Lava Golem
+$	1567	Fire Warrior
+$	1568	Ifrit
+$	1569	Taurverus
+$	1570	Phoenix
+$	1571	Fire Egg
+$	1572	Bomb Flower
+$	1573	Fire Archer
+$	1574	Dwarf King
+$	1575	Dwarf Master
+$	1576	Dwarf Smith
+$	1577	Dwarf Worker
+$	1578	Dwarf Guard
+$	1579	Orc Santa
+$	1580	Dragonfly
+$	1581	Astagio
+$	1582	Spell (Ice Dagger)
+$	1583	Spell (Wind Shuriken)
+$	1584	Spell (Fire Arrow)
+$	1585	Spell (Stalac)
+$	1586	Spell (Frozen Cloud)
+$	1587	Spell (Earth Jail)
+$	1588	Spell (Cone of Cold)
+$	1589	Spell (Sunburst)
+$	1590	Spell (Earthquake)
+$	1591	Spell (Fire Storm)
+$	1592	Potempin
+$	1593	Ivelviin
+$	1594	Pelto
+$	1595	Berry
+$	1596	Ralf
+$	1597	Leslie
+$	1598	Cove
+$	1599	Gavin
+$	1600	Daley
+$	1601	Atara
+$	1602	Iron Gate Guild
+$	1603	Freckson
+$	1604	Outer Eastern Gate
+$	1605	Axellon
+$	1606	Valakas
+$	1607	Christmas Card
+$	1608	Map:Lair of Valakas
+$	1609	Ash of Astagio
+$	1610	Coliseum Manager
+$	1611	Arena Entry Ticket
+$	1612	Kriom
+$	1613	Until the start of the competition
+$	1614	 minutes remaining.
+$	1615	 minutes remaining. Persons wishing to participate should enter now.
+$	1616	The monsters will appear soon. Good luck!
+$	1617	Firework
+$	1618	Popper
+$	1619	Red Envelope
+$	1620	Valentines Day
+$	1621	White Day
+$	1622	candy
+$	1623	chocolate
+$	1624	card
+$	1625	Stella
+$	1626	Red
+$	1627	Blue
+$	1628	Deep Blue
+$	1629	Yellow
+$	1630	Circle
+$	1631	Level 2
+$	1632	Heart
+$	1633	Snow Flower
+$	1634	Streamer
+$	1635	Mixture
+$	1636	White
+$	1637	Let the hunt begin!
+$	1638	Cole
+$	1639	Arieh
+$	1640	Momo
+$	1641	Orcm
+$	1642	Old
+$	1643	Jin
+$	1644	Rose
+$	1645	Tina
+$	1646	Magi
+$	1647	Amulet of Truth
+$	1648	Amulet of Passion
+$	1649	Amulet of Luck
+$	1650	Amulet of Hope
+$	1651	Amulet of Miracle
+$	1652	Spell (Greater Haste)
+$	1653	Greater
+$	1654	Esmeralda
+$	1655	3 Shot
+$	1656	6 Shot Mega Bam
+$	1657	Sparkler
+$	1658	Red and White
+$	1659	Red and Yellow
+$	1660	Yellow and Blue
+$	1661	Multi-color
+$	1662	Ring of Magic Resistance
+$	1663	Ring of Immunity to Magic
+$	1664	Ring of Fire Resistance
+$	1665	Ring of Water Resistance
+$	1666	Ring of Earth Resistance
+$	1667	Ring of Wind Resistance
+$	1668	Old
+$	1669	High Level
+$	1670	Belt of Body
+$	1671	Belt of Mind
+$	1672	Belt of Soul
+$	1673	Easter Egg
+$	1674	Maximum MP
+$	1675	Goddess Agata
+$	1676	Goddess Clara
+$	1677	Goddess Doroshia
+$	1678	Goddess Veronica
+$	1679	Goddess Viviana
+$	1680	Goddess Rosa
+$	1681	Goddess Bona
+$	1682	Goddess Bina
+$	1683	Goddess Dra
+$	1684	Goddess Loshi
+$	1685	Polymorph Magician
+$	1686	Armor Enchanter
+$	1687	Weapon Enchanter
+$	1688	Great Healer
+$	1689	Certificate of Bravery
+$	1690	Ring of Hope
+$	1691	Ring of Luck
+$	1692	Ring of Miracles
+$	1693	Ring of Passion
+$	1694	Ring of Truth
+$	1695	Fright
+$	1696	Valley Owlbear
+$	1697	Island Ghast
+$	1698	Island Ghast Lord
+$	1699	Rock Golem
+$	1700	Valley Arachnevil
+$	1701	Valley Bear
+$	1702	Island Crocodile
+$	1703	Mutated Alligator
+$	1704	Mutated Lizard
+$	1705	Valley Harpy
+$	1706	Island Drake
+$	1707	Rotting Skeleton Marksman
+$	1708	Rotting Skeleton Fighter
+$	1709	Rotting Skeleton Guard
+$	1710	Island Cockatrice
+$	1711	Degenerated Beholder
+$	1712	Valley Lycanthrope
+$	1713	Valley Werewolf
+$	1714	Fatigued Ratman
+$	1715	Valley Ogre
+$	1716	Escaped Black Knight
+$	1717	Starved Troll
+$	1718	Valley Bear
+$	1719	Valley Griffon
+$	1720	Valley Skeleton Marksman
+$	1721	Valley Skeleton Fighter
+$	1722	Valley Skeleton Guard
+$	1723	Kyucas
+$	1724	Valley Basilisk
+$	1725	Rion
+$	1726	Cuse
+$	1727	Kiris
+$	1728	Mubo
+$	1729	Ruba
+$	1730	Tio
+$	1731	Kun
+$	1732	Kiyari
+$	1733	Pago
+$	1734	What could be in the underground dungeon?
+$	1735	If we just keep ignoring that place, something terrible is going to happen...
+$	1736	When will that person come who is mentioned in the prophecy...
+$	1737	If the seal on the underground dungeon is broken...
+$	1738	Coco
+$	1739	Sky
+$	1740	Cursed Ettin
+$	1741	Cursed Bugbear
+$	1742	Underground Crabman
+$	1743	Underground Ramia
+$	1744	Sewer Vakuuk
+$	1745	Polluted Orc Zombie
+$	1746	Lesser Succubus Queen
+$	1747	Lesser Succubus
+$	1748	Giant Tarantula
+$	1749	Giant Spider
+$	1750	Rotting Skeleton
+$	1751	Monster Mushroom
+$	1752	Don't get excited? Don't force it anymore!
+$	1753	Are you a guard sent by a crazy prince? Die!!
+$	1754	The person who sealed us in must certainly die!
+$	1755	Fool! Do you think someone such as yourself could seal us in?!
+$	1756	Red Key
+$	1757	Black Key
+$	1758	Singing Island Amulet
+$	1759	Hidden Valley Amulet
+$	1760	Apprentice Knight Armor
+$	1761	Apprentice Knight Shield
+$	1762	Apprentice Knight Helm
+$	1763	Apprentice Sword
+$	1764	Apprentice Prince Armor
+$	1765	Apprentice Prince Shield
+$	1766	Apprentice Prince Helm
+$	1767	Apprentice Elf Bow
+$	1768	Apprentice Wizard Cloak
+$	1769	Apprentice Wizard Boots
+$	1770	Apprentice Wizard Cap
+$	1771	Apprentice Wizard Staff
+$	1772	Ice Queen
+$	1773	Milo
+$	1774	Kirius
+$	1775	Ting Kuh
+$	1776	Bius
+$	1777	Mandra
+$	1778	Derian
+$	1779	Talass
+$	1780	Varyeth
+$	1781	Ellyonne
+$	1782	Kreister
+$	1783	Lazloth
+$	1784	Snowman
+$	1785	Snow Tiger
+$	1786	Undead Elmore Wizard
+$	1787	Yeti
+$	1788	Undead Elmore General
+$	1789	Husky
+$	1790	Iron Golem
+$	1791	Undead Elmore Soldier
+$	1792	Ice Man
+$	1793	Bion
+$	1794	Dima
+$	1795	Lulu
+$	1796	Dekan
+$	1797	Rotus
+$	1798	Garuga
+$	1799	Stone Gloves
+$	1800	Leather Gloves
+$	1801	Crystal Gloves
+$	1802	Snow Gloves
+$	1803	Boots of Fate
+$	1804	Cursed Boots
+$	1805	Underwater Boots
+$	1806	Demon Gloves
+$	1807	Demon Armor
+$	1808	Demon Boots
+$	1809	Demon Helmet
+$	1810	Death Knight Gloves
+$	1811	Death Knight Armor
+$	1812	Death Knight Boots
+$	1813	Death Knight Helmet
+$	1814	Pearl Necklace
+$	1815	Emerald Necklace
+$	1816	Ruby Necklace
+$	1817	Amethyst Necklace
+$	1818	Diamond Necklace
+$	1819	Troll Belt
+$	1820	Ogre Belt
+$	1821	Titan Belt
+$	1822	Sayha's Bow
+$	1823	Spirit Gem
+$	1824	Defuri
+$	1825	Tifany
+$	1826	Roku
+$	1827	Taus
+$	1828	Biyan
+$	1829	Enke
+$	1830	Spirit Crystal (Resist Magic)
+$	1831	Spirit Crystal (Body to Mind)
+$	1832	Spirit Crystal (Teleport to Mother)
+$	1833	Spirit Crystal (Clear Mind)
+$	1834	Spirit Crystal (Resist Elemental)
+$	1835	Spirit Crystal (Return to Nature)
+$	1836	Spirit Crystal (Blood to Soul)
+$	1837	Spirit Crystal (Protection From Elemental)
+$	1838	Spirit Crystal (Fire Weapon)
+$	1839	Spirit Crystal (Wind Shot)
+$	1840	Spirit Crystal (Wind Walk)
+$	1841	Spirit Crystal (Earth Skin)
+$	1842	Spirit Crystal (Entangle)
+$	1843	Spirit Crystal (Erase Magic)
+$	1844	Spirit Crystal (Summon Lesser Elemental)
+$	1845	Spirit Crystal (Bless Of Fire)
+$	1846	Spirit Crystal (Eye of Storm)
+$	1847	Spirit Crystal (Earth Bind)
+$	1848	Spirit Crystal (Nature's Touch)
+$	1849	Spirit Crystal (Bless of Earth)
+$	1850	Spirit Crystal (Area of Silence)
+$	1851	Spirit Crystal (Summon Greater Elemental)
+$	1852	Spirit Crystal (Burning Weapon)
+$	1853	Spirit Crystal (Nature's Blessing)
+$	1854	Spirit Crystal (Nature's Miracle)
+$	1855	Spirit Crystal (Storm Shot)
+$	1856	Spirit Crystal (Wind Shackle)
+$	1857	Spirit Crystal (Iron Skin)
+$	1858	Spellbook (Holy Weapon)
+$	1859	Spellbook (Decrease Weight)
+$	1860	Spellbook (Reveal Weakness)
+$	1861	Spellbook (Counter Magic)
+$	1862	Spellbook (Meditation)
+$	1863	Spellbook (Mana Drain)
+$	1864	Spellbook (Darkness)
+$	1865	Spellbook (Weakness)
+$	1866	Spellbook (Bless Weapon)
+$	1867	Spellbook (Berserkers)
+$	1868	Spellbook (Disease)
+$	1869	Spellbook (Life Stream)
+$	1870	Spellbook (Silence)
+$	1871	Spellbook (Decay Potion)
+$	1872	Spellbook (Counter Detection)
+$	1873	Spellbook (Absolute Barrier)
+$	1874	Spellbook (Advance Spirit)
+$	1875	Spellbook (Freezing Blizzard)
+$	1876	Linda
+$	1877	Pagoru
+$	1878	Dico
+$	1879	Hirim
+$	1880	Ivory Tower Wizard
+$	1881	Cleaning now... Cleaning now...
+$	1882	Inside the Ivory Tower... nothing is strange
+$	1883	... Master. Where is...?
+$	1884	Hmm... Where could that book be?
+$	1885	...if those chemical reagents are mixed...
+$	1886	I have no idea...
+$	1887	Aah, could something wrong have happened?
+$	1888	... ought not to flunk the exam...
+$	1889	Whew, my legs hurt...
+$	1890	Map:Oren
+$	1891	Griffon Feather
+$	1892	Wind Tear
+$	1893	Blank Scroll (Level 2)
+$	1894	Blank Scroll (Level 3)
+$	1895	Blank Scroll (Level 4)
+$	1896	Blank Scroll (Level 5)
+$	1897	Magic Ball
+$	1898	Barnia
+$	1899	Ribian
+$	1900	Apprentice Elf Armor
+$	1901	Apprentice Elf Boots
+$	1902	Apprentice Elf Helm
+$	1903	Assistant Manager of the Coliseum
+$	1904	Elven Helm of Dexterity
+$	1905	Elven Helm of Constitution
+$	1906	Old Trading Document
+$	1907	Letter from Aanon
+$	1908	Letter from Oth
+$	1909	Search Document
+$	1910	Letter from Zero
+$	1911	Letter from Jem
+$	1912	Black Knight's Pledge Document
+$	1913	Duda-Mara Spellbook
+$	1914	Neruga Spellbook
+$	1915	Gandi Spellbook
+$	1916	Atuba Spellbook
+$	1917	Cursed Spellbook
+$	1918	Book of Magical Powers
+$	1919	Red Cloak
+$	1920	Skeleton Skull
+$	1921	Ghoul Nail
+$	1922	Ghoul Tooth
+$	1923	Turtle Dragon Shell
+$	1924	Knight's Hood
+$	1925	Red Knight's Hood
+$	1926	Ricky
+$	1927	Oth
+$	1928	Zero
+$	1929	Jem
+$	1930	Black Knight Search Party
+$	1931	Forgotten Island Boat Ticket
+$	1932	Isvall
+$	1933	Ishiris
+$	1934	Forgotten Plate Mail
+$	1935	Forgotten Leather Armor
+$	1936	Forgotten Robe
+$	1937	Forgotten Scale Mail
+$	1938	Ring of Summon Control
+$	1939	Forgotten Great Sword
+$	1940	Forgotten Sword
+$	1941	Forgotten Bowgun
+$	1942	Old Helm of Wind
+$	1943	Helm of Wind
+$	1944	Rabbit Liver
+$	1945	Oblivion
+$	1946	Heine Boat Ticket
+$	1947	Ancient Plate Mail
+$	1948	Ancient Leather Armor
+$	1949	Ancient Robe
+$	1950	Ancient Scale Mail
+$	1951	Ancient Sword
+$	1952	Ancient Great Sword
+$	1953	Ancient Bowgun
+$	1954	Detector
+$	1955	Chicky
+$	1956	Lucky
+$	1957	Tilon
+$	1958	Ancient Scroll
+$	1959	Sealed
+$	1960	Spellbook (True Target)
+$	1961	Spellbook (Glowing Aura)
+$	1962	Secret of Life
+$	1963	Agricolaw
+$	1964	Davia
+$	1965	Wind Rod
+$	1966	Xperin
+$	1967	(Ice Dagger)
+$	1968	(Wind Shuriken)
+$	1969	(Fire Arrow)
+$	1970	(Stalac)
+$	1971	(Frozen Cloud)
+$	1972	(Earth Jail)
+$	1973	(Cone of Cold)
+$	1974	(Sunburst)
+$	1975	(Earthquake)
+$	1976	(Fire Storm)
+$	1977	(Greater Haste)
+$	1978	(Holy Weapon)
+$	1979	(Decrease Weight)
+$	1980	(Reveal Weakness)
+$	1981	(Counter Magic)
+$	1982	(Meditation)
+$	1983	(Mana Drain)
+$	1984	(Darkness)
+$	1985	(Weakness)
+$	1986	(Bless Weapon)
+$	1987	(Busuccus)
+$	1988	(Disease)
+$	1989	(Life Stream)
+$	1990	(Silence)
+$	1991	(Decay Potion)
+$	1992	(Counter Detection)
+$	1993	(Absolute Barrier)
+$	1994	(Advance Spirit)
+$	1995	(Freezing Blizzard)
+$	1996	(True Target)
+$	1997	(Glowing Aura)
+$	1998	Sword of Illusion
+$	1999	Armor of Illusion
+$	2000	Bow of Illusion
+$	2001	Scroll of Enchant Weapon Illusion
+$	2002	Scroll of Enchant Armor Illusion
+$	2003	Illusina
+$	2004	Steel Staff of Mana
+$	2005	Spirit of Fire
+$	2006	Spirit of Water
+$	2007	Spirit of Wind
+$	2008	Spirit of Earth
+$	2009	Summoned Spirit of Fire
+$	2010	Summoned Spirit of Water
+$	2011	Summoned Spirit of Wind
+$	2012	Summoned Spirit of Earth
+$	2013	Mark
+$	2014	Jim
+$	2015	Search Ant
+$	2016	Gatekeeper Ant
+$	2017	Aria
+$	2018	Darkmar
+$	2019	Fairy Princess
+$	2020	Dilong
+$	2021	Betrayer of Undead
+$	2022	Marshall
+$	2023	Secret Room Key
+$	2024	Arachnevil Elder's Claw
+$	2025	Ramia's Scale
+$	2026	Potion of Revival
+$	2027	Letter of Gratitude
+$	2028	Relics of the People
+$	2029	Raw Spirit Stone
+$	2030	Cursed Spirit Scroll
+$	2031	Undead Key
+$	2032	Zombie Key
+$	2033	Skeleton Key
+$	2034	Bone of Undead
+$	2035	Bone Piece of Undead
+$	2036	Shield of Red Knight
+$	2037	Jane
+$	2038	Alex
+$	2039	Cronos
+$	2040	Dark Mage
+$	2041	Samuel
+$	2042	Phineas
+$	2043	Heather
+$	2044	Heidi
+$	2045	Alan
+$	2046	Toby
+$	2047	Sheldon
+$	2048	Randalf
+$	2049	Serpent of Elindaire
+$	2050	Elindaire
+$	2051	Minion of Elindaire
+$	2052	Melinda
+$	2053	Tarnac
+$	2054	Randalf
+$	2055	Esmerelda
+$	2056	Uriah
+$	2057	Josef
+$	2058	Rachel
+$	2059	Ruth
+$	2060	Kohath
+$	2061	Korah
+$	2062	Rueben
+$	2063	Makir
+$	2064	Jack-O-Lantern
+$	2065	Jack-0-Lantern
+$	2066	Pumpkin Seed
+$	2067	Giant Pumpkin Seed
+$	2068	Pumpkin Mask
+$	2069	Pumpkin Candy
+$	2070	Golden Pumpkin
+$	2071	Silver Pumpkin
+$	2072	Bronze Pumpkin
+$	2073	Pumpkin Costume
+$	2074	Mutant Giant Queen Ant
+$	2075	Mutant Giant Soldier Ant
+$	2076	Elven T-Shirt
+$	2077	Sovereign's Majesty
+$	2078	Secret Key
+$	2079	Mystery Crystal Ball
+$	2080	Mystery Staff
+$	2081	Crystal Staff
+$	2082	Betrayer's Skeleton Guardsman
+$	2083	Jack-O-Lantern
+$	2084	Fire Spirit
+$	2085	Water Spirit
+$	2086	Wind Spirit
+$	2087	Earth Spirit
+$	2088	Calvas
+$	2089	Key to Ramia's Room
+$	2090	Spellbook (Call Pledge Member)
+$	2091	Aria's Reward
+$	2092	Elven Treasure
+$	2093	Orclon
+$	2094	Ragpicker
+$	2095	Magical Armor of Fafurion
+$	2096	Magical Armor of Antharas
+$	2097	Magical Armor of Valakas
+$	2098	Magical Armor of Lindvior
+$	2099	Novice Teleporter
+$	2100	Bandit
+$	2101	Bandit Leader
+$	2102	Doppelganger
+$	2103	Gargoyle
+$	2104	Nightmare
+$	2105	Lesser Dragon
+$	2106	Dire Wolf
+$	2107	Greater Minotaur
+$	2108	Cimaera
+$	2109	Bone Dragon
+$	2110	Ancient Giant
+$	2111	Lich
+$	2112	Dancing Sword
+$	2113	Lesser Demon
+$	2114	Medusa
+$	2115	Varlok
+$	2116	Gelatinous Cube
+$	2117	Lindvior
+$	2118	Ken Rauhel
+$	2119	Cerenis
+$	2120	Royal Guard
+$	2121	Bodyguards
+$	2122	Defman
+$	2123	Raon
+$	2124	Pau
+$	2125	Kamu
+$	2126	Ogi
+$	2127	Sirius
+$	2128	Timon
+$	2129	Biust
+$	2130	Aden
+$	2131	Jessica
+$	2132	Misa
+$	2133	Marja
+$	2134	Chobi
+$	2135	Bindro
+$	2136	Mikey
+$	2137	Arin
+$	2138	Matilda
+$	2139	Elleanor
+$	2140	Jennifer
+$	2141	Selma
+$	2142	Lilia
+$	2143	Maren
+$	2144	Sheryan
+$	2145	Buckley
+$	2146	Jones
+$	2147	Bim
+$	2148	Rafga
+$	2149	Rozen
+$	2150	Jaimy
+$	2151	Marx
+$	2152	Raphael
+$	2153	Barbara
+$	2154	Kidman
+$	2155	Aquin
+$	2156	Melly
+$	2157	Owon
+$	2158	Calvin
+$	2159	Louis
+$	2160	Din
+$	2161	Richard
+$	2162	Mack
+$	2163	Wally
+$	2164	Sabin
+$	2165	Jackie
+$	2166	Affleck
+$	2167	Brad
+$	2168	Ruky
+$	2169	TOI Teleport Scroll, 21F
+$	2170	TOI Teleport Scroll, 11F
+$	2171	Secretary to the Mayor
+$	2172	Village Manager
+$	2173	Talking Island Village
+$	2174	Gludin Town
+$	2175	Kent Castle Village
+$	2176	Fire-Field Farmers Town
+$	2177	Woodbec Village
+$	2178	Silver Knight Town
+$	2179	Giran City
+$	2180	Heine Castle City
+$	2181	Ivory Tower Town
+$	2182	Werldern Village
+$	2183	Order of the Holy Cross
+$	2184	Lady of the Royal Family
+$	2185	Gentleman of the Royal Family
+$	2186	Young person
+$	2187	Little kid
+$	2188	Child
+$	2189	Village resident
+$	2190	Armor of the Pretender King
+$	2191	Boots of the Pretender King
+$	2192	Gauntlet of the Pretender King
+$	2193	Helmet of the Pretender King
+$	2194	Bone of Dragon
+$	2195	Boots of Cerenis
+$	2196	Cimaera Skin (Dragon)
+$	2197	Cimaera Skin (Goat)
+$	2198	Cimaera Skin (Lion)
+$	2199	Cimaera Skin (Snake)
+$	2200	Circlet of Cerenis
+$	2201	Heart of Dragon
+$	2202	Gloves of Cerenis
+$	2203	Robe of Cerenis
+$	2204	Map: Aden
+$	2205	Guard Tower: Eva
+$	2206	Guard Tower: Paagrio
+$	2207	Guard Tower: Maphr
+$	2208	Guard Tower: Sayha
+$	2209	Axe of Maphr
+$	2210	Valakas
+$	2211	Commemorative Coin of Aden
+$	2212	Lindvior
+$	2213	Lich Robe
+$	2214	Shield of Medusa
+$	2215	Axe of Minotaur
+$	2216	Ring of Ancient Giant
+$	2217	Antharas
+$	2218	Fafurion
+$	2219	Maid of the Ice Queen
+$	2220	Betrayed Orc Chief
+$	2221	Betrayed Orc Archer
+$	2222	Crystal Piece of Soul
+$	2223	Letter of Soul
+$	2224	Emblem Piece of the Royal Family
+$	2225	Mysterious Bag
+$	2226	Ring of Guardian
+$	2227	Ice Queen...
+$	2228	Crystal of Soul... My research...
+$	2229	Karudim
+$	2230	Juke
+$	2231	Timpukin
+$	2232	Catherine
+$	2233	Sharu
+$	2234	Kinin
+$	2235	Elleris
+$	2236	Magus
+$	2237	Fega
+$	2238	Melissa
+$	2239	Blood Pledge Administrator
+$	2240	Doppelganger Regurgitation
+$	2241	Head of Ancient Key
+$	2242	Wisdom of the Ancient People
+$	2243	Record of the Ancient Devil
+$	2244	Blue Flute
+$	2245	Mysterious Shell
+$	2246	Night Vision
+$	2247	Ancient Inheritance
+$	2248	Torn Scout's Report
+$	2249	Piece of Scout's Report
+$	2250	Gloves of Protection
+$	2251	Cloak of Mana
+$	2252	Belt of Bravery
+$	2253	Bow of the Ancients
+$	2254	Sword of Heaven
+$	2255	Jimu
+$	2256	Giant Elder
+$	2257	Giant Guardian
+$	2258	Scout
+$	2259	Heit
+$	2260	Sepia
+$	2261	Sin of Sepia
+$	2262	Ancient Apparition
+$	2263	Mysterious Rock
+$	2264	Right-Hand Bandit
+$	2265	Guardian's Bag
+$	2266	Marshall's Reward
+$	2267	Ancient Harp
+$	2268	Soldier of Dicarding
+$	2269	Wedding Ring (Sapphire)
+$	2270	Wedding Ring (Diamond)
+$	2271	Apparition's Bag
+$	2272	Odia
+$	2273	Morin
+$	2274	Candice
+$	2275	Celina
+$	2276	Cindy
+$	2277	Dina
+$	2278	Ebony
+$	2279	Rija
+$	2280	Bobby
+$	2281	Levins
+$	2282	Amie
+$	2283	Liz
+$	2284	Bess
+$	2285	Diana
+$	2286	Nash
+$	2287	Mitchel
+$	2288	Acacia
+$	2289	Mindy
+$	2290	Angeline
+$	2291	Lorin
+$	2292	Jamora
+$	2293	Magic Bag of Talass
+$	2294	Apprentice Knight Sword
+$	2295	Edie
+$	2296	Arana
+$	2297	Beverly
+$	2298	Meyo
+$	2299	Prolance
+$	2300	Genesse
+$	2301	Judith
+$	2302	Lucie
+$	2303	Isabelle
+$	2304	Rociri
+$	2305	Nadine
+$	2306	Sibia
+$	2307	Sophia
+$	2308	Aberi
+$	2309	Karot
+$	2310	Locis
+$	2311	Sherrie
+$	2312	Cellay
+$	2313	Angelina
+$	2314	Michelli
+$	2315	Natalia
+$	2316	Violet
+$	2317	Mariel
+$	2318	Bianca
+$	2319	Bella
+$	2320	Florina
+$	2321	Wanda
+$	2322	May
+$	2323	Joanne
+$	2324	Ophelia
+$	2325	Bonie
+$	2326	Mella
+$	2327	Teresa
+$	2328	Nona
+$	2329	Sadie
+$	2330	Brittainy
+$	2331	Tamara
+$	2332	Lucinda
+$	2333	Angelica
+$	2334	Chellany
+$	2335	Ressie
+$	2336	Karisha
+$	2337	Sylvia
+$	2338	Zenith
+$	2339	Nita
+$	2340	McCauley
+$	2341	Doria
+$	2342	Helena
+$	2343	Goddess Ariel
+$	2344	Haste Master
+$	2345	Kuper
+$	2346	Dunham
+$	2347	Sword of Varlok
+$	2348	Eye of Varlok
+$	2349	Claw of Varlok
+$	2350	Heart of Varlok
+$	2351	Death Blade
+$	2352	Mana Crystal Ball
+$	2353	Bow of Flames
+$	2354	Sword of Flames
+$	2355	Gold Scepter
+$	2356	Dicarding
+$	2357	Ramuda
+$	2358	Ancient Person
+$	2359	Firecracker of Victory
+$	2360	Magic Ball
+$	2361	Varlok's Servant
+$	2362	Spirit of Ancient Person
+$	2363	Spirit of Enraged Ancient Person
+$	2364	Key of Ancient Prince
+$	2365	Key of Ancient Knight
+$	2366	Key of Ancient Elf
+$	2367	Key of Ancient Wizard
+$	2368	Key of Fate
+$	2369	Creation of Varlok
+$	2370	Ancient Person's Polymorph Staff
+$	2371	Jeweler
+$	2372	Paruit
+$	2373	Juice
+$	2374	Wedding Ring (Emerald)
+$	2375	Wedding Ring (Ruby)
+$	2376	Wedding Ring (Gold)
+$	2377	Wedding Ring (Silver)
+$	2378	Ancient Arrow
+$	2379	Body of Ancient Key
+$	2380	Scroll of Summoning
+$	2381	Scroll of Return - Pledge House
+$	2382	Mutant Arachnevil Elder
+$	2383	Mutant Ramia
+$	2384	Wicked Beholder
+$	2385	Wicked Mimic
+$	2386	Horrific Cerberus
+$	2387	Horrific Fire Egg
+$	2388	Raging Spartoi
+$	2389	Raging Skeleton Fighter
+$	2390	Raging Skeleton Axeman
+$	2391	Raging Skeleton Marksman
+$	2392	Raging Skeleton Pike
+$	2393	Raging Ghoul
+$	2394	Fire Ghost
+$	2395	Fire Necromancer
+$	2396	Zenith Queen
+$	2397	Diamond Golem
+$	2398	Seer
+$	2399	Zombie Lord
+$	2400	Vampire
+$	2401	TOI Teleport Charm, 11F
+$	2402	TOI Teleport Charm, 21F
+$	2403	TOI Teleport Charm, 31F
+$	2404	TOI Teleport Charm, 41F
+$	2405	TOI Teleport Scroll, 31F
+$	2406	TOI Teleport Scroll, 41F
+$	2407	Ring of Zenith
+$	2408	Horrific Iron Golem
+$	2409	Treasure Chest
+$	2410	Bats
+$	2411	Shadow Mask
+$	2412	Head of Orc Elder
+$	2413	Shadow Gloves
+$	2414	Secret List
+$	2415	Hit List (Gludin)
+$	2416	Hit List (Fire-Field Farmers Town)
+$	2417	Hit List (Kent)
+$	2418	Hit List (Woodbec)
+$	2419	Hit List (Heine)
+$	2420	Hit List (Aden City)
+$	2421	Hit List (Giran)
+$	2422	Hit List Bag
+$	2423	Death Covenant
+$	2424	Shadow Boots
+$	2425	Head of Yeti
+$	2426	Fungus
+$	2427	Assassin's Token
+$	2428	Assassin's Rusted Sword
+$	2429	Overseer's Document
+$	2430	Assassin Master's Box
+$	2431	Kan
+$	2432	Orc Elder
+$	2433	Ronde
+$	2434	Corrupt Guard
+$	2435	Ribil
+$	2436	Dedoff
+$	2437	Ica
+$	2438	Toad
+$	2439	Rodeck
+$	2440	Atushin
+$	2441	Toda
+$	2442	Bludika
+$	2443	Koup
+$	2444	Assassin Master's Apprentice
+$	2445	Roje
+$	2446	Assassin
+$	2447	Assassin Master
+$	2448	Wicked Yeti
+$	2449	Haro
+$	2450	Edoryu
+$	2451	Claw
+$	2452	Crossbow
+$	2453	Dark
+$	2454	of Bravery
+$	2455	Silver
+$	2456	Kaiser Edoryu
+$	2457	Kaiser Claw
+$	2458	Kaiser Crossbow
+$	2459	Bronze
+$	2460	Steel
+$	2461	Shadow
+$	2462	Stealth
+$	2463	Damascus
+$	2464	Throwing Knife
+$	2465	Gauntlet
+$	2466	Cloak
+$	2467	Robe
+$	2468	Gloves
+$	2469	Headband
+$	2470	Boots
+$	2471	Fire
+$	2472	Water
+$	2473	Wind
+$	2474	Earth
+$	2475	Bring Stone
+$	2476	Dark Stone
+$	2477	Brave Stone
+$	2478	Wise Stone
+$	2479	Kaiser Stone
+$	2480	Dark Spirit Crystal
+$	2481	Crystal
+$	2482	Great Spirit of Fire
+$	2483	Great Spirit of Water
+$	2484	Great Spirit of Wind
+$	2485	Killer Bee
+$	2486	Ball Lightning
+$	2487	Rabbit
+$	2488	Guardian Armor
+$	2489	Unicorn
+$	2490	Will O' Wisp
+$	2491	Wandering
+$	2492	Hadesty
+$	2493	Rayearth
+$	2494	Enya
+$	2495	Squalid
+$	2496	Dark Elf Ranger
+$	2497	Karen
+$	2498	Edlin
+$	2499	Guardsman of Kan
+$	2500	Kan's Horse
+$	2501	Ronde's Horse
+$	2502	Ronde's Bodyguard
+$	2503	Personal Assassin of Bludika
+$	2504	[Dark Elf]
+$	2505	(Blind Hiding)
+$	2506	(Enchant Venom)
+$	2507	(Shadow Armor)
+$	2508	(Purify Stone)
+$	2509	(Moving Acceleration)
+$	2510	(Burning Spirit)
+$	2511	(Dark Blind)
+$	2512	(Venom Resist)
+$	2513	(Double Break)
+$	2514	(Uncanny Dodge)
+$	2515	(Shadow Fang)
+$	2516	(Final Burn)
+$	2517	Silver Throwing Knife
+$	2518	Heavy Throwing Knife
+$	2519	Dark Spirit Crystal (Blind Hiding)
+$	2520	Dark Spirit Crystal (Enchant Venom)
+$	2521	Dark Spirit Crystal (Shadow Armor)
+$	2522	Dark Spirit Crystal (Purify Stone)
+$	2523	Dark Spirit Crystal (Moving Acceleration)
+$	2524	Dark Spirit Crystal (Burning Spirit)
+$	2525	Dark Spirit Crystal (Dark Blind)
+$	2526	Dark Spirit Crystal (Venom Resist)
+$	2527	Dark Spirit Crystal (Double Break)
+$	2528	Dark Spirit Crystal (Uncanny Dodge)
+$	2529	Dark Spirit Crystal (Shadow Fang)
+$	2530	Dark Spirit Crystal (Final Burn)
+$	2531	Elixir (STR)
+$	2532	Elixir (CON)
+$	2533	Elixir (DEX)
+$	2534	Elixir (INT)
+$	2535	Elixir (WIS)
+$	2536	Elixir (CHA)
+$	2537	Dark Elf's Training Sword
+$	2538	Dark Elf's Training Helmet
+$	2539	Dark Elf's Training Boots
+$	2540	Dark Elf's Training Cloak
+$	2541	Kan's Pouch
+$	2542	Ronde's Pouch
+$	2543	Bludika's Pouch
+$	2544	Map: Silent Cavern
+$	2545	Kima
+$	2546	Rondo
+$	2547	Seria
+$	2548	Yan
+$	2549	Jeti
+$	2550	Personal Assassin of Kima
+$	2551	Derin
+$	2552	Great Spirit of Earth
+$	2553	Sedia
+$	2554	Crevas
+$	2555	Pierot
+$	2556	Asham
+$	2557	Bishop
+$	2558	Pierce
+$	2559	Granik
+$	2560	Hamud
+$	2561	Ellvienue
+$	2562	Ramune
+$	2563	Kalynue
+$	2564	Killer Rabbit
+$	2565	Seed of Darkness
+$	2566	Shard of Joy
+$	2567	Giant Seed of Darkness
+$	2568	Promise Token
+$	2569	Bronze Seed of Light
+$	2570	Silver Seed of Light
+$	2571	Golden Seed of Light
+$	2572	Darkness Dealer
+$	2573	Light Dealer
+$	2574	Peria
+$	2575	Robiel
+$	2576	Ancient Lesser Healing Potion
+$	2577	Ancient Healing Potion
+$	2578	Ancient Greater Healing Potion
+$	2579	Rice-cake
+$	2580	Mugwort rice-cake
+$	2581	Round rice-cake
+$	2582	Bok rice-cake
+$	2583	Sealed TOI Teleport Charm 11F
+$	2584	Sealed TOI Teleport Charm 21F
+$	2585	Sealed TOI Teleport Charm 31F
+$	2586	Sealed TOI Teleport Charm 41F
+$	2587	Deanos
+$	2588	Cougar
+$	2589	Knight Vald
+$	2590	Mummy Lord
+$	2591	Grim Reaper
+$	2592	Tear of Gran Kain
+$	2593	Black Blood Stone
+$	2594	Cursed Leather (Fire)
+$	2595	Cursed Leather (Water)
+$	2596	Cursed Leather (Wind)
+$	2597	Cursed Leather (Earth)
+$	2598	Silver Yarn
+$	2599	Hand of Pocket Watch
+$	2600	Silver Circlet
+$	2601	Shining Scale
+$	2602	Shining Belt of Body
+$	2603	Shining Belt of Mind
+$	2604	Shining Belt of Soul
+$	2605	Eroded Heart
+$	2606	Crystal of Wisdom
+$	2607	Crystal of Eternity
+$	2608	Amulet of Wisdom
+$	2609	Bamute
+$	2610	Iris
+$	2611	Cursed Orc Zombie
+$	2612	Cursed Elmore Soldier
+$	2613	Cursed Elmore Wizard
+$	2614	Cursed Elmore General
+$	2615	Dark Lycanthrope
+$	2616	Cruel Snow Tiger
+$	2617	Spirit Taurverus of Fire
+$	2618	Astagio of Fire
+$	2619	Black Knight of Darkness
+$	2620	Fire Warrior of Darkness
+$	2621	Fire Archer of Darkness
+$	2622	Succubus Queen of Darkness
+$	2623	Insolent Zenith Queen
+$	2624	Lesser Seer
+$	2625	Marquise Vampire
+$	2626	Zombie Lord of Fear
+$	2627	Jin Gauntlet
+$	2628	Gift Bag from Pierce
+$	2629	For Lito 1
+$	2630	For Lito 2
+$	2631	For Lito 3
+$	2632	For Lito 4
+$	2633	For Lito 5
+$	2634	For Lito 6
+$	2635	For Lito 7
+$	2636	For Lito 8
+$	2637	For Lito 9
+$	2638	For Lito 10
+$	2639	For Lito 11
+$	2640	For Lito 12
+$	2641	For Lito 13
+$	2642	For Lito 14
+$	2643	For Lito 15
+$	2644	For Lito 16
+$	2645	For Lito 17
+$	2646	For Lito 18
+$	2647	For Lito 19
+$	2648	For Lito 20
+$	2649	Finger of Death
+$	2650	Dark Star
+$	2651	Fungus Poison
+$	2652	Mask of Truth
+$	2653	Key of Depravity
+$	2654	Bag of Endia
+$	2655	Letter of Endia
+$	2656	Priest of Corruption
+$	2657	Disciple of Chaos
+$	2658	Disciple of Death
+$	2659	Depraved Soul
+$	2660	Endia
+$	2661	The soul oppressed in the picture is filled with wrath and so...
+$	2662	Trying to appease the wrath of the oppressed soul...
+$	2663	Leaving the way of restraint and entering the path of freedom...
+$	2664	The door of oppression will open...
+$	2665	The division between faith and disbelief engulfs the heart and...
+$	2666	The separation between materiality and intangibility sharpens the jaws of death...
+$	2667	The eye of emotion is covered by the eye of reason...
+$	2668	I am the flame that doesn't go out -- and the one that blocks the wind.
+$	2669	Sealed TOI Teleport Charm, 51F
+$	2670	Sealed TOI Teleport Charm, 61F
+$	2671	Sealed TOI Teleport Charm, 71F
+$	2672	Sealed TOI Teleport Charm, 81F
+$	2673	Sealed TOI Teleport Charm, 91F
+$	2674	TOI Teleport Scroll, 51F
+$	2675	TOI Teleport Scroll, 61F
+$	2676	TOI Teleport Scroll, 71F
+$	2677	TOI Teleport Scroll, 81F
+$	2678	TOI Teleport Scroll, 91F
+$	2679	TOI Teleport Charm, 51F
+$	2680	TOI Teleport Charm, 61F
+$	2681	TOI Teleport Charm, 71F
+$	2682	TOI Teleport Charm, 81F
+$	2683	TOI Teleport Charm, 91F
+$	2684	Christmas Firecracker
+$	2685	Red Stocking
+$	2686	Green Stocking
+$	2687	Floating Soul
+$	2688	Christmas Tree
+$	2689	Karif
+$	2690	Ryumiel
+$	2691	Lavienue
+$	2692	Beyond
+$	2693	High Doberman
+$	2694	High Bear
+$	2695	High Shepherd
+$	2696	High St. Bernard
+$	2697	High Fox
+$	2698	High Rabbit
+$	2699	High Beagle
+$	2700	High Husky
+$	2701	Hot-Blooded Bear
+$	2702	Cat
+$	2703	High Cat
+$	2704	High Wolf
+$	2705	High Collie
+$	2706	Montes
+$	2707	Aden Coin Transporter
+$	2708	Pan of Nerupa
+$	2709	Kan's Guard
+$	2710	Coin of Aden
+$	2711	Scripture of Righteousness, Book 1
+$	2712	Water of Life
+$	2713	Scripture of Righteousness, Book 2
+$	2714	Piece of Luminous Stone
+$	2715	Cloak of the Aden Knights
+$	2716	Evidence of Survival
+$	2717	New Year's Monster
+$	2718	Words of Montes
+$	2719	Knights of Montes
+$	2720	Two-Sided Magic Dice
+$	2721	Three-Sided Magic Dice
+$	2722	Four-Sided Magic Dice
+$	2723	Six-Sided Magic Dice
+$	2724	*Boing... Boing...*
+$	2725	Go now.
+$	2726	Did you call?
+$	2727	Go now, master!
+$	2728	*Perk... Perk...*
+$	2729	Meow
+$	2730	Meow
+$	2731	Oh... what trouble!
+$	2732	Go now.
+$	2733	Purr...
+$	2734	Arf... Woof...
+$	2735	Woof... Woof...
+$	2736	Arf... I'm going now.
+$	2737	Woof... You called, master.
+$	2738	Woof...
+$	2739	Wow...
+$	2740	*Sniff... Sniff...*
+$	2741	*Sniff* It's the smell of my master.
+$	2742	*Sniff* You called, master.
+$	2743	Bark
+$	2744	Soul of Ring
+$	2745	Robe of Dark Elder
+$	2746	Sandals of Dark Elder
+$	2747	Cap of Baltuzar
+$	2748	Cap of Caspa
+$	2749	Cap of Merkyor
+$	2750	Cap of Sema
+$	2751	Ring of Orim
+$	2752	Ring of Sema
+$	2753	Alluring Sandals of Ice Queen
+$	2754	Alluring Dress of Ice Queen
+$	2755	Staff of Ice Queen
+$	2756	Left-Hand Ring of Doppelganger Boss
+$	2757	Right-Hand Ring of Doppelganger Boss
+$	2758	Necklace of Doppelganger Boss
+$	2759	Fire Sword of Death Knight
+$	2760	Edoryu of Ronde
+$	2761	Unknown Spear
+$	2762	Unknown Axe
+$	2763	Blade of Revenge
+$	2764	Claw of Hate
+$	2765	Staff of Demon
+$	2766	Armor of Baphomet
+$	2767	Staff of Baphomet
+$	2768	Boots of Beleth
+$	2769	Staff of Beleth
+$	2770	Golden Wing of Giant Ant Queen
+$	2771	Silver Wing of Giant Ant Queen
+$	2772	Bow of Ancient Elf
+$	2773	Sword of Ancient Elf
+$	2774	Gloves of Kurtz
+$	2775	Armor of Kurtz
+$	2776	Boots of Kurtz
+$	2777	Helmet of Kurtz
+$	2778	Sword of Kurtz
+$	2779	Scale of Antharas
+$	2780	Crushed Claw of Antharas
+$	2781	Eye of Antharas
+$	2782	Blood of Antharas
+$	2783	Antharas Flesh
+$	2784	Heart of Antharas
+$	2785	Bone of Antharas
+$	2786	Tooth of Antharas
+$	2787	Scale of Valakas
+$	2788	Crushed Claw of Valakas
+$	2789	Eye of Valakas
+$	2790	Blood of Valakas
+$	2791	Valakas Flesh
+$	2792	Heart of Valakas
+$	2793	Bone of Valakas
+$	2794	Tooth of Valakas
+$	2795	Scale of Fafurion
+$	2796	Crushed Claw of Fafurion
+$	2797	Eye of Fafurion
+$	2798	Blood of Fafurion
+$	2799	Fafurion Flesh
+$	2800	Heart of Fafurion
+$	2801	Bone of Fafurion
+$	2802	Tooth of Fafurion
+$	2803	Scale of Lindvior
+$	2804	Crushed Claw of Lindvior
+$	2805	Eye of Lindvior
+$	2806	Blood of Lindvior
+$	2807	Lindvior Flesh
+$	2808	Heart of Lindvior
+$	2809	Bone of Lindvior
+$	2810	Tooth of Lindvior
+$	2811	Fruit of Evolution
+$	2812	Bark, bark! I'm going now!
+$	2813	Bark! My master is calling!
+$	2814	Bark, bark! Just give me your command!
+$	2815	Bark, bark! I'm always at my master's side!
+$	2816	Howl! Please let me have some fun, master...
+$	2817	Arf, woof! You're going to let me have some fun!
+$	2818	Howl, howl! I'm going now, my dear master...
+$	2819	Howl, howl, howl! I will be at my master's side my whole life...
+$	2820	Bark, bark! Yes, yes master!
+$	2821	Bark, bark! Did you call, master?
+$	2822	Bark, bark! I'm following now!
+$	2823	Bark, bark! Just give me the command!
+$	2824	Growl...?
+$	2825	Growl... Why are you calling me?
+$	2826	Growl... I'm busy right now, master.
+$	2827	Growl... I can't do it.
+$	2828	Howl! Whine... I'm going.
+$	2829	Howl, howl! Whine... Did you call?
+$	2830	Pant, pant... Are you going to give me something to eat?
+$	2831	Pant, pant... I've got to follow you, master.
+$	2832	Howl, whine... I'll go in a little while.
+$	2833	Oh... You'll at least give me some honey, right?
+$	2834	Sniff, sniff... I smell something really delicious, master.
+$	2835	Sniff, sniff... I'll be at your side, master.
+$	2836	Whine... Did you call?
+$	2837	Whine... There's no shine to my fur.
+$	2838	Whine... Please give me something to eat, master.
+$	2839	Whine... I'll stay with you, master.
+$	2840	Meow... You're bothering me again.
+$	2841	Meeooww... Let's play hide and seek.
+$	2842	Meow... I'm going.
+$	2843	Meow... You're not going to give me any if I go?
+$	2844	Boing... Carrot, carrot...
+$	2845	Boing... Where is my master?
+$	2846	Bounce, bounce... I've got to be with my master.
+$	2847	Bounce... Do you have a carrot?
+$	2848	Woof! Wait a moment.
+$	2849	Woof! Whew... You're clothes are gonna get dirty.
+$	2850	Woof, woof! I've got to go gracefully.
+$	2851	Woof, woof! I'll stay with you, master...
+$	2852	Whew... I'm tired.
+$	2853	Whew... What do you want?
+$	2854	Whew... Well, are you at least going to give me something to eat?
+$	2855	Whew... I like being with you the most, master.
+$	2856	Cougar Skin
+$	2857	Cougar Claw
+$	2858	Potion of Mummy Lord
+$	2859	Amulet of Iris
+$	2860	Sword of Knight Vald
+$	2861	Jode
+$	2862	Rollko
+$	2863	TOI Teleport Scroll, 100F
+$	2864	Reaper
+$	2865	Tear of Moonlight
+$	2866	Fang of Goblin
+$	2867	Fang of Hunting Dog
+$	2868	Fang of Black Dragon
+$	2869	Fang of Destruction
+$	2870	Fang of Fighting Dog
+$	2871	Fang of Immortality
+$	2872	Fang of Demon
+$	2873	Fang of Gold
+$	2874	Fang of Steel
+$	2875	Fang of Victory
+$	2876	Blessed Pet Armor
+$	2877	Chain Pet Armor
+$	2878	Cloth Pet Armor
+$	2879	Leather Pet Armor
+$	2880	Mithril Pet Armor
+$	2881	Shining Pet Armor
+$	2882	Scale Pet Armor
+$	2883	Steel Pet Armor
+$	2884	Raidar
+$	2885	Key of Chaos
+$	2886	Dark Elf General
+$	2887	Dark Elf Thief
+$	2888	Dark Elf Soldier
+$	2889	Dark Elf Wizard
+$	2890	Dark Elf Ranger
+$	2891	Dark Elf Guard
+$	2892	Dark Elf Beast Tamer
+$	2893	Dire Bat
+$	2894	Dire Bear
+$	2895	Dark Elementalist
+$	2896	Dark Elemental
+$	2897	Greater Dark Elemental
+$	2898	Sent
+$	2899	Sendy
+$	2900	Pasim
+$	2901	Lost Child
+$	2902	Child that lost his parents
+$	2903	Rafons
+$	2904	Lastabad Long Sword
+$	2905	Lastabad Edoryu
+$	2906	Lastabad Dagger
+$	2907	Lastabad One-Handed Spear
+$	2908	Lastabad Bow
+$	2909	Lastabad Heavy Cross Bow
+$	2910	Lastabad Staff
+$	2911	Lastabad Chain Mail
+$	2912	Lastabad Studded Leather Armor
+$	2913	Lastabad Robe
+$	2914	Lastabad Boots
+$	2915	Lastabad Round Shield
+$	2916	Lastabad Cross Bow
+$	2917	Lastabad Leather Armor
+$	2918	Beast Tamer Ring
+$	2919	Wolf Skin Cloak
+$	2920	Elementalist Ring
+$	2921	Lastabad Blade
+$	2922	Baras
+$	2923	Kunos
+$	2924	Teranus
+$	2925	Zyrus
+$	2926	Ian
+$	2927	Lastabad
+$	2928	Ryman
+$	2929	Mercenary Squad
+$	2930	Franko
+$	2931	Head of Mercenary Squad
+$	2932	Werldern
+$	2933	Kent
+$	2934	Windawood
+$	2935	Ruse
+$	2936	Vector
+$	2937	Luster
+$	2938	Kamia
+$	2939	Seratti
+$	2940	Ramuse
+$	2941	Brutus
+$	2942	Gray
+$	2943	Kenihi
+$	2944	Muras
+$	2945	Karas
+$	2946	Guardsman
+$	2947	Oh... ugh!
+$	2948	Oh.. ugh...
+$	2949	Boo.. hoo...
+$	2950	Ha-ee!
+$	2951	Yah!!
+$	2952	Whack!
+$	2953	Hmm!
+$	2954	Ah...ah...
+$	2955	Crash!!
+$	2956	Save me!!!!
+$	2957	For this... to happen to me...
+$	2958	It is regretfull...
+$	2959	Ooh... Those guys!!
+$	2960	Is it even... here?
+$	2961	Contact headquarters...
+$	2962	General! The enemy is here...
+$	2963	Scout Will 1
+$	2964	Scout Will 2
+$	2965	Scout Will 3
+$	2966	Scout Will 4
+$	2967	The repose of darkness...
+$	2968	It's Gran Kain!! Curse to the enemy!!
+$	2969	... It's Gran Kain...
+$	2970	Revenge of blood!!
+$	2971	May you always be cursed...
+$	2972	The worthless bloodline of Einhasad...
+$	2973	Caster Will 1
+$	2974	Caster Will 2
+$	2975	Caster Will 3
+$	2976	Caster Will 4
+$	2977	Dantes will punish you...
+$	2978	Aren't the supporting forces going to come?
+$	2979	I can't protect this place so...
+$	2980	Don't be so happy that we won this battle...
+$	2981	May there be glory... to Lastabad!
+$	2982	The wrath of Gran Kain will turn this land to a sea of fire!!!
+$	2983	Head of Guards
+$	2984	Head of Fighters
+$	2985	Pseudo Shadow of Flame
+$	2986	Fettered Soul
+$	2987	Sarsha
+$	2988	Black Knight Captain
+$	2989	Scroll of Soul
+$	2990	Dark Crystal of Soul
+$	2991	Staff of Ice Queen
+$	2992	Staff of Demon
+$	2993	Staff of Baphomet
+$	2994	Staff of Beleth
+$	2995	Sword of Kurtz
+$	2996	Ashinnue
+$	2997	Black Knight Guard
+$	2998	Lastabad Eye
+$	2999	Bludika Letter of Treaty
+$	3000	Book of Protection, Chapter 1
+$	3001	Black Lump of Pure Mithril Piece
+$	3002	Dwarven Commander Letter of Treaty
+$	3003	Blueprint of Weapon Manufacture
+$	3004	Book of Protection, Chapter 2
+$	3005	Soldier Necklace
+$	3006	Dark Elven Soldier Badge
+$	3007	Dark Elven General Badge
+$	3008	Guard Ring
+$	3009	Holy Water
+$	3010	Holy Bread
+$	3011	Dwarf Pouch
+$	3012	Sacred Pouch
+$	3013	Eno
+$	3014	Kan Captain of the Guard
+$	3015	Semi
+$	3016	Priestess Kiry
+$	3017	Defeated Soldier
+$	3018	Compensation
+$	3019	Black Lump of Rough Mithril
+$	3020	Black Lump of Pure Mithril
+$	3021	Black Mithril Plate
+$	3022	Crown of Mummy Lord
+$	3023	Scroll Pouch
+$	3024	Tano Festival Event Helper
+$	3025	Silver Zongzi
+$	3026	Gold Zongzi
+$	3027	Lump of Gold
+$	3028	Rough Gold Piece
+$	3029	Gold Plate
+$	3030	Lump of Silver
+$	3031	Rough Silver Piece
+$	3032	Silver Plate
+$	3033	Lump of Platinum
+$	3034	Rough Platinum Piece
+$	3035	Platinum Plate
+$	3036	Did you call me?
+$	3037	If you are going to boss me around, you should at least pay me!
+$	3038	Why did you call me?
+$	3039	Am I your pet dog?
+$	3040	I'm hungry! Give me some food!
+$	3041	Tiger
+$	3042	Nose
+$	3043	High Cat
+$	3044	blank
+$	3045	High Collie
+$	3046	blank
+$	3047	High Wolf
+$	3048	Ice Gem
+$	3049	Item(s)
+$	3050	Dress of Strength
+$	3051	Dress of Dexterity
+$	3052	Caliph Pouch
+$	3053	Market Teleporter
+$	3054	Market Guard
+$	3055	Jianku
+$	3056	Coin of Reputation
+$	3057	Coin of Trust
+$	3058	Coin of Wisdom
+$	3059	Coin of Bravery
+$	3060	Heart of Golem
+$	3061	Heart of Firebird
+$	3062	Heart of Ice Queen
+$	3063	Heart of Drake
+$	3064	Relic of Maphr
+$	3065	Relic of Paagrio
+$	3066	Relic of Eva
+$	3067	Relic of Sayha
+$	3068	Cloak of Vampire
+$	3069	Cloak of Sashin
+$	3070	Kuron
+$	3071	Tulak
+$	3072	Kusian
+$	3073	Claw of Baranka
+$	3074	Armor of Baranka
+$	3075	Helmet of Baranka
+$	3076	Gloves of Baranka
+$	3077	Boots of Baranka
+$	3078	Wand of Laia
+$	3079	Necklace of Laia
+$	3080	Ring of Laia
+$	3081	Robe of Laia
+$	3082	Ring of Beast Summoner
+$	3083	Amulet of Beast Summoner
+$	3084	Robe of Beast Summoner
+$	3085	Whip of Beast Summoner
+$	3086	Ring of Black Wizard
+$	3087	Amulet of Black Wizard
+$	3088	Robe of Black Wizard
+$	3089	Staff of Black Wizard
+$	3090	Ring of Dark Forester
+$	3091	Boots of Dark Forester
+$	3092	Armor of Dark Forester
+$	3093	Potion of Dark Forest
+$	3094	Twig of Black Ent
+$	3095	Bark of Black Ent
+$	3096	Fruit of Black Ent
+$	3097	Payment for Death
+$	3098	Leather of Black Tiger
+$	3099	Fang of Black Tiger
+$	3100	Claw of Black Tiger
+$	3101	Root of Deep Flower
+$	3102	Bud of Deep Flower
+$	3103	Venom of Plate Worm
+$	3104	Fang of Plate Worm
+$	3105	Rind of Plate Worm
+$	3106	Leather of Mole
+$	3107	Tail of Dillo
+$	3108	Plate Worm Rind Armor
+$	3109	Black Tiger Leather Cloak
+$	3110	Sword of Silence
+$	3111	Diad Fortress Edoryu
+$	3112	Diad Fortress Crossbow
+$	3113	Mineral Removal Document
+$	3114	Mineral Pouch
+$	3115	Blob Gastric Juice
+$	3116	Volcanic Ash
+$	3117	Black Spirit Stone
+$	3118	Miner Oum
+$	3119	Dark Elf Carrier
+$	3120	Frim
+$	3121	Rader
+$	3122	Hagutin
+$	3123	Runaway Oum
+$	3124	Oum
+$	3125	Elder Oum
+$	3126	Goddess of Atonement
+$	3127	Teleporter Diarus
+$	3128	Trader Carupu
+$	3129	Storage House Keeper Gaul
+$	3130	Teleporter Diabes
+$	3131	Trader Emart
+$	3132	Storage House Keeper Garin
+$	3133	Work Supervisor Oum
+$	3134	Darpgadin
+$	3135	Reona
+$	3136	Black Tiger
+$	3137	Summon Elemental
+$	3138	Baranka
+$	3139	Laia
+$	3140	Beast Summoner
+$	3141	Black Wizard
+$	3142	Dark Forester
+$	3143	Black Ent
+$	3144	Heavy Oum
+$	3145	Middle Oum
+$	3146	Dillo
+$	3147	Plate Worm
+$	3148	Deep Flower
+$	3149	Mole
+$	3150	Pickaxe
+$	3151	Pouch of Oum
+$	3152	Oum Statue
+$	3153	Oum Rough Statue
+$	3154	Oum Refined Statue
+$	3155	Oum Fine Statue
+$	3156	Oum Painted Statue
+$	3157	Oum Completed Statue
+$	3158	Money Pouch of Reona
+$	3159	Dark Elf Hunter
+$	3160	Dark Elf Apprentice
+$	3161	Redin
+$	3162	Tristan
+$	3163	Credonas
+$	3164	Burns
+$	3165	Genes
+$	3166	Lance
+$	3167	Coderage
+$	3168	Xestin
+$	3169	Smiter
+$	3170	Yanstin
+$	3171	Dress Evasion
+$	3172	Black Spirit Crystal (Dress Mighty)
+$	3173	Black Spirit Crystal (Dress Dexterity)
+$	3174	Black Spirit Crystal (Dress Evasion)
+$	3175	Spellbook (Shining Aura)
+$	3176	Spellbook (Brave Aura)
+$	3177	(Shining Aura)
+$	3178	(Brave Aura)
+$	3179	Diad Bow
+$	3180	Aden Reconnaissance Soldier
+$	3181	Olle
+$	3182	Prisoner Dark Elf
+$	3183	Fortress Guardian Tower
+$	3184	High Quality Pouch of Karif
+$	3185	Contract of Resurrection and Eternal Life
+$	3186	Lavor's Pouch
+$	3187	Rabla
+$	3188	Lavor
+$	3189	Rough Blade
+$	3190	Copper Seal
+$	3191	Silver Seal
+$	3192	Gold Seal
+$	3193	Seal of Harmony
+$	3194	Seal of Mental Ability
+$	3195	Seal of Physical Ability
+$	3196	Taeha's Bag: Copper Seal
+$	3197	Taeha's Bag: Silver Seal
+$	3198	Taeha's Bag: Gold Seal
+$	3199	Rabla's Pouch
+$	3200	Madrian
+$	3201	Lihas
+$	3202	Letter of Lihas
+$	3203	Letter of Rayon
+$	3204	Happy Snowman
+$	3205	Golden Socks
+$	3206	Knight's Practice Set
+$	3207	Rayon
+$	3208	Regina
+$	3209	Elf's Practice Set
+$	3210	Teyres
+$	3211	Wizard's Practice Set
+$	3212	Podmaster
+$	3213	Prince's Practice Set
+$	3214	Folded
+$	3215	Dark Elf's Practice Set
+$	3216	Traditional Korean T-Shirt
+$	3217	Kimono T-Shirt
+$	3218	Chipao T-Shirt
+$	3219	Taeha
+$	3220	Commemorative Coinage of the King of Aden
+$	3221	Market Teleporter
+$	3222	Luku
+$	3223	Denitz
+$	3224	Kasham
+$	3225	Yuno
+$	3226	Kwanil
+$	3227	Doyo
+$	3228	Wizard's Pouch
+$	3229	Cacao Beans
+$	3230	Cacao Dough
+$	3231	Sugar
+$	3232	Cacao Butter
+$	3233	Valentia
+$	3234	Blaise
+$	3235	Calculator
+$	3236	Thin Plate
+$	3237	Aden Chamber of Commerce
+$	3238	Castle Gatekeeper
+$	3239	Fortress Gatekeeper
+$	3240	Ring of Bravery
+$	3241	Amulet of Affection
+$	3242	Traveler
+$	3243	Magician
+$	3244	Traveler's Rough Amulet
+$	3245	Traveler's Amulet
+$	3246	Traveler's Mysterious Amulet
+$	3247	Oriharukon Dagger
+$	3248	Mithril Dagger
+$	3249	Demon Axe
+$	3250	Crimson Lance
+$	3251	Mambo Coat
+$	3252	Mambo Hat
+$	3253	Glove of Fire Spirit
+$	3254	Glove of Ice Spirit
+$	3255	Glove of Wind Spirit
+$	3256	Glove of Dark Spirit
+$	3257	Abyss Ring
+$	3258	Sealed Scroll
+$	3259	Technical Document (Shock Stun)
+$	3260	Spellbook (Teleport to Pledge Member)
+$	3261	Spirit Crystal (Triple Arrow)
+$	3262	Spirit Crystal (Elemental Falldown)
+$	3263	Spirit Crystal (Counter Mirror)
+$	3264	Spirit Crystal (Wind Shackle)
+$	3265	Spirit Crystal (Exotic Vitalize)
+$	3266	Spirit Crystal (Water Life)
+$	3267	Spirit Crystal (Elemental Fire)
+$	3268	Seal Release Scroll
+$	3269	Cirius Commemorative Coin
+$	3270	Subterranean Crabman
+$	3271	Subterranean Great King Turtle
+$	3272	Subterranean Lizardman
+$	3273	Subterranean Great King Worm
+$	3274	Subterranean Elekkadom
+$	3275	Subterranean Scormystic
+$	3276	Subterranean Scorpaitan
+$	3277	Subterranean Beholder
+$	3278	Talking Scroll
+$	3279	Ivory Tower One-Handed Sword
+$	3280	Ivory Tower Two-Handed Sword
+$	3281	Ivory Tower Axe
+$	3282	Ivory Tower Spear
+$	3283	Ivory Tower Bow
+$	3284	Ivory Tower Stone Bow
+$	3285	Ivory Tower Staff
+$	3286	Ivory Tower Edoryu
+$	3287	Ivory Tower Claw
+$	3288	Ivory Tower Dagger
+$	3289	Ivory Tower Leather Helm
+$	3290	Ivory Tower Leather Armor
+$	3291	Ivory Tower Leather Sandals
+$	3292	Ivory Tower Leather Gloves
+$	3293	Ivory Tower Leather Shield
+$	3294	Ivory Tower Ring
+$	3295	Ivory Tower T-Shirt
+$	3296	Ivory Tower Teleport Scroll
+$	3297	Ivory Tower Scroll of Return
+$	3298	Ivory Tower Scroll of Identify
+$	3299	Ivory Tower Scroll of Curse Removal
+$	3300	Ivory Tower Scroll of Polymorph
+$	3301	Ivory Tower Healing Potion
+$	3302	Ivory Tower Haste Potion
+$	3303	Scroll of Return - Talking Island Village
+$	3304	Scroll of Return - Gludin Town
+$	3305	Scroll of Return - Kent Village
+$	3306	Scroll of Return - Woodbec Village
+$	3307	Scroll of Return - Orctown
+$	3308	Scroll of Return - Elven Forest
+$	3309	Scroll of Return - Silver Knight Town
+$	3310	Scroll of Return - Giran City
+$	3311	Scroll of Return - Heine City
+$	3312	Scroll of Return - Ivory Tower Town
+$	3313	Scroll of Return - Werldern Town
+$	3314	Scroll of Return - Aden City
+$	3315	Scroll of Return - Silent Cavern
+$	3316	Lekman
+$	3317	Serian
+$	3318	Liri
+$	3319	Gion
+$	3320	Syria
+$	3321	Oshillia
+$	3322	Honin
+$	3323	Chico
+$	3324	Hob
+$	3325	Tuck
+$	3326	Galleon
+$	3327	Gilbert
+$	3328	Porikan
+$	3329	Jerik
+$	3330	Jaruman
+$	3331	Lary
+$	3332	Lary's Assistant
+$	3333	Lary's Soldier
+$	3334	1st Generation Heirloom of the Druga Clan
+$	3335	2nd Generation Heirloom of the Druga Clan
+$	3336	3rd Generation Heirloom of the Druga Clan
+$	3337	4th Generation Heirloom of the Druga Clan
+$	3338	5th Generation Heirloom of the Druga Clan
+$	3339	6th Generation Heirloom of the Druga Clan
+$	3340	7th Generation Heirloom of the Druga Clan
+$	3341	Unknown Heirloom
+$	3342	Tarak's Head
+$	3343	Tarak's Robe
+$	3344	Tarak's Gloves
+$	3345	Tarak's Cloak
+$	3346	Tarak's Boots
+$	3347	Tarak's Sickle
+$	3348	Tarak's Valuables
+$	3349	Tarak's Devil Book, Volume 1
+$	3350	Corruption's Tongue
+$	3351	Tarak's Devil Book, Volume 2
+$	3352	Corruption's Poison
+$	3353	Tarak's Devil Book, Volume 3
+$	3354	Corruption's Tooth
+$	3355	Tarak's Devil Book, Volume 4
+$	3356	Corruption's Hand
+$	3357	Ancients' Book of Magic, Volume 1
+$	3358	Devil's Black Shackles
+$	3359	Gian's Scroll
+$	3360	Kalbas's Scroll
+$	3361	Ancients' Book of Magic, Volume 2
+$	3362	Devil's Red Shackles
+$	3363	Ancients' Alchemy Scroll
+$	3364	Ancients' Book of Magic, Volume 3
+$	3365	Devil's Blue Shackles
+$	3366	Ancients' Magic Scroll
+$	3367	Ancients' Book of Magic, Volume 4
+$	3368	Devil's White Shackles
+$	3369	Alchemist's Stone
+$	3370	Potion of Mental Acuity
+$	3371	Cursed Blood
+$	3372	Devil's Blood
+$	3373	Varlok's Blood-Colored Cloak
+$	3374	Devil's Crossbow
+$	3375	Devil's Knife
+$	3376	Devil's Edoryu
+$	3377	Devil's Claw
+$	3378	Wild Venom
+$	3379	Wild Fang
+$	3380	Wild Magic
+$	3381	Mad Lizardman
+$	3382	High Lizardman
+$	3383	Heavy Lizardman
+$	3384	Mad Maya
+$	3385	High Maya
+$	3386	Heavy Maya
+$	3387	Skeletal Pirate
+$	3388	Skeletal Pirate Soldier
+$	3389	Skeletal Pirate Head
+$	3390	Old Leather Pouch
+$	3391	Old Silk Pouch
+$	3392	Relic Pouch
+$	3393	Sword of Kent Soldier
+$	3394	Bow of Kent Archer
+$	3395	Staff of Kent Wizard
+$	3396	Edoryu of Kent Assassin
+$	3397	Axe of Kent Warrior
+$	3398	Kent Emblem Boots
+$	3399	Kent Emblem Armor
+$	3400	Kent Emblem Gloves
+$	3401	Kent Emblem Shield
+$	3402	Kent Emblem Helm
+$	3403	Brown Piece of Bread
+$	3404	Burnt Piece of Bread
+$	3405	Wine
+$	3406	Whiskey
+$	3407	Tarak
+$	3408	Incarnation of Tarak
+$	3409	Large Grave Guardian
+$	3410	Grave Guardian Knight
+$	3411	Grave Guardian Mage
+$	3412	Grave Guardian
+$	3413	Lesser Demon
+$	3414	Incarnation of Varlok
+$	3415	Servant of Kalbas
+$	3416	Ancient Giant General
+$	3417	Ancient Giant Elder
+$	3418	Shackled Aden Soldier
+$	3419	Basch
+$	3420	Roy
+$	3421	Aden Castle Princess
+$	3422	Roy's Pouch
+$	3423	North Jail Key
+$	3424	Bobo
+$	3425	Light Warrior Effect
+$	3426	Magic Lantern
+$	3427	Ober
+$	3428	Niki
+$	3429	Freeze Resistance
+$	3430	Petrify Resistance
+$	3431	Sleep Resistance
+$	3432	Darkness Resistance
+$	3433	Stun Resistance
+$	3434	Hold Resistance
+$	3435	None
+$	3436	Duvall
+$	3437	Duran
+$	3438	Roxanne
+$	3439	Boat Ticket to Pirate's Island
+$	3440	Boat Ticket to Hidden Dock
+$	3441	Backup soldier! Backup soldier!
+$	3442	My task ends here too...
+$	3443	May you enjoy the blessings of Gran Kain! Ha, haaaah!
+$	3444	I can't die like this! Earth Bind!
+$	3445	I'm happy just to have slowed you down.
+$	3446	This is not the end!
+$	3447	dummy
+$	3448	dummy
+$	3449	dummy
+$	3450	dummy
+$	3451	dummy
+$	3452	dummy
+$	3453	dummy
+$	3454	dummy
+$	3455	dummy
+$	3456	dummy
+$	3457	Morris
+$	3458	Bone Fragment of Ghost
+$	3459	Shirt of Agility
+$	3460	Shirt of Strength
+$	3461	Shirt of Intelligence
+$	3462	Mambo Rabbit
+$	3463	Mambo Rabbit Servant
+$	3464	Fang of Flame
+$	3465	Fang of Glacier
+$	3466	Fang of Wind
+$	3467	Fang of Earth
+$	3468	Fire Spirit Master
+$	3469	Water Spirit Master
+$	3470	Wind Spirit Master
+$	3471	Earth Spirit Master
+$	3472	Abyss Fire Spirit
+$	3473	Abyss Water Spirit
+$	3474	Abyss Wind Spirit
+$	3475	Abyss Earth Spirit
+$	3476	Abyss Master
+$	3477	Abyss Ghoul
+$	3478	Abyss Archer
+$	3479	Thing
+$	3480	Alchemist
+$	3481	Slave of Evil Sorcerer
+$	3482	North-East Jail Key
+$	3483	East Jail Key
+$	3484	Piece of Treasure Map
+$	3485	Letter of Son
+$	3486	Remains of Son
+$	3487	Completed Treasure Map
+$	3488	Key of Drake
+$	3489	Skin of Blue Lizard
+$	3490	Portrait of Son
+$	3491	Small Treasure Map
+$	3492	Amulet of Cadmus
+$	3493	Unlimited Quiver
+$	3494	Native's Totem
+$	3495	Blue Pirate Bandanna
+$	3496	Blue Pirate Gloves
+$	3497	Blue Pirate Boots
+$	3498	Cloak of Sea
+$	3499	Blue Pirate Leather Armor
+$	3500	Skeleton Amulet
+$	3501	Cursed Ruby Ring
+$	3502	Cursed Sapphire Ring
+$	3503	Cursed Diamond Ring
+$	3504	Cutlass
+$	3505	Shamshir
+$	3506	Boat Ticket for Pirate Island
+$	3507	Boat Ticket for Hidden Dock
+$	3508	Raccoon
+$	3509	Blue Tail
+$	3510	High Raccoon
+$	3511	Kiwi Parrot
+$	3512	Golden Arrow
+$	3513	Oriharukon Arrow
+$	3514	Black Mithril Arrow
+$	3515	Lesser Demon of Varlok
+$	3516	Demon of Varlok
+$	3517	Succubus of Varlok
+$	3518	Succubus Queen of Varlok
+$	3519	Baphomet of Varlok
+$	3520	Beleth of Varlok
+$	3521	Special Spirit Crystal
+$	3522	Fragment of Spirit
+$	3523	Ancient Spirit
+$	3524	Drake
+$	3525	Millay
+$	3526	Kuud
+$	3527	Berik
+$	3528	Cursed Emerald Ring
+$	3529	Duron
+$	3530	Foni
+$	3531	Kamit
+$	3532	Bat Fang
+$	3533	Wolf Pelt
+$	3534	Deep Flower Twig
+$	3535	Black Tiger Heart
+$	3536	Dark Elven Pouch
+$	3537	Scorpion Shell
+$	3538	Web of Muryan
+$	3539	Decayed Branch of Black Ent
+$	3540	Dillo Claw
+$	3541	Cerberus Fur
+$	3542	Large Cave Crystal
+$	3543	Piece of Soul
+$	3544	Piece of Large Cave Scroll
+$	3545	Scroll of Teleportation - Large Cave
+$	3546	Scroll of Return - Resistance Village
+$	3547	Scroll of Return - Recluse Village
+$	3548	Consul
+$	3549	Alchemist
+$	3550	Large Cave Teleporter
+$	3551	Orb of Spirit
+$	3552	Horse of Lary
+$	3553	Diad Scroll Piece
+$	3554	Scroll of Teleportation - Diad Fortress
+$	3555	Simizz
+$	3556	Doyle
+$	3557	Doyle's Dog
+$	3558	Lukein
+$	3559	Cadmus
+$	3560	Resta
+$	3561	Rudian
+$	3562	Kenneth
+$	3563	Tigus
+$	3564	Jidar
+$	3565	Alri
+$	3566	Leonard
+$	3567	Small Box
+$	3568	Small Pouch
+$	3569	Grandfather's Treasure
+$	3570	Ghost of Pirate
+$	3571	Ghost of Pirate
+$	3572	Ghost of Pirate
+$	3573	Ghost of Pirate
+$	3574	Pillage!
+$	3575	Can't stop yet!
+$	3576	Our thirst is not yet quenched!
+$	3577	Fill it with their treasure!
+$	3578	Whimper~
+$	3579	Bow~ Whimper~
+$	3580	Whimper~ Whimper~
+$	3581	Woof~ Go now~
+$	3582	Woof~ Woof, woof~
+$	3583	Whine~ Go or not?~
+$	3584	Whine~ Why?
+$	3585	Woof~ What shall I do?
+$	3586	Woof~ My master is really good~
+$	3587	Woof~ Woof, woof~
+$	3588	Silver Flute
+$	3589	Friend's Bag
+$	3590	Aden Information Guide
+$	3591	Fesco
+$	3592	Rubo
+$	3593	Rian
+$	3594	Rooney
+$	3595	Roberto
+$	3596	Lupus
+$	3597	Karu
+$	3598	Resta's Ring
+$	3599	Rohen
+$	3600	Kasty
+$	3601	Giles
+$	3602	Who has their eyes on my treasure?!
+$	3603	My treasure! The treasure is mine! No one can touch... it...
+$	3604	Who dares to oppose me, the master of the spirits?!?
+$	3605	Hey... Was I also freed from the eternal Abyss Forest like this?...
+$	3606	Quest Reset Manager
+$	3607	Helm of Legend
+$	3608	Armor of Legend
+$	3609	Gloves of Legend
+$	3610	Boots of Legend
+$	3611	Shield of Legend
+$	3612	Sword of Legend
+$	3613	Traditional Korean Costume(Male)
+$	3614	Traditional Japanese Costume (Male)
+$	3615	Traditional Chinese Costume (Male)
+$	3616	Map: Pirate Island
+$	3617	Doublet
+$	3618	Doublet Com
+$	3619	Doublet Lome
+$	3620	Doublet Shoo
+$	3621	Doublet Jeech
+$	3622	Doublet Comjeech
+$	3623	Doublet Lomejeech
+$	3624	Doublet Shoojeech
+$	3625	Doublet Chech
+$	3626	Doublet Comchech
+$	3627	Doublet Lomechech
+$	3628	Doublet Shoochech
+$	3629	Doublet Buich
+$	3630	Doublet Combuich
+$	3631	Doublet Lomebuich
+$	3632	Doublet Shoobuich
+$	3633	Dee Bone Doublet
+$	3634	Dee Sha Doublet Com
+$	3635	Dee Rey Doublet Lome
+$	3636	Dee Fone Doublet Shoo
+$	3637	Dee Bone Doublet Jeech
+$	3638	Dee Sha Doublet Comjeech
+$	3639	Dee Rey Doublet Lomejeech
+$	3640	Dee Fone Doublet Shoojeech
+$	3641	Dee Bone Doublet Cheech
+$	3642	Dee Sha Doublet Comchech
+$	3643	Dee Rey Doublet Lomechech
+$	3644	Dee Fone Doublet Shoochech
+$	3645	Dee Fone Doublet Buich
+$	3646	Dee Sha Doublet Combuich
+$	3647	Dee Rey Doublet Lomebuich
+$	3648	Dee Fone Doublet Shoobuich
+$	3649	Black Mithril Powder
+$	3650	Lastabad Scarf
+$	3651	Rune of Gran Kain
+$	3652	Piece of Cake
+$	3653	Kanops Commemorative Coin
+$	3654	Vega Commemorative Coin
+$	3655	Aktols Commemorative Coin
+$	3656	Regel Commemorative Coin
+$	3657	Altile Commemorative Coin
+$	3658	Egg Storagehouse Key
+$	3659	Time Card
+$	3660	Rotton Mej
+$	3661	Muddy Nuj
+$	3662	Discolored Mej
+$	3663	Exploded Nuj
+$	3664	Harmonius Nuj
+$	3665	Translucent Bij
+$	3666	Blessed Bij
+$	3667	Miraculous Bij
+$	3668	Hateful Maj
+$	3669	Conjested Maj
+$	3670	Maj Full of Nutrients
+$	3671	Amulet Full of Nutrients
+$	3672	Ring Full of Nutrients
+$	3673	Belt Full of Nutrients
+$	3674	Journal Page
+$	3675	Caregiver
+$	3676	Hatcher
+$	3677	1st
+$	3678	2nd
+$	3679	3rd
+$	3680	4th
+$	3681	5th
+$	3682	6th
+$	3683	7th
+$	3684	8th
+$	3685	9th
+$	3686	10th
+$	3687	11th
+$	3688	12th
+$	3689	13th
+$	3690	14th
+$	3691	15th
+$	3692	16th
+$	3693	17th
+$	3694	18th
+$	3695	19th
+$	3696	20th
+$	3697	1st Stage
+$	3698	2nd Stage
+$	3699	3rd Stage
+$	3700	4th Stage
+$	3701	5th Stage
+$	3702	6th Stage
+$	3703	7th Stage
+$	3704	8th Stage
+$	3705	9th Stage
+$	3706	Full of Nutrients Pet Collar
+$	3707	Mysterious Pet Collar
+$	3708	Discolored Pet Collar
+$	3709	Lost Sock
+$	3710	PlayNC Coin
+$	3711	PlayNC Gift Certificate
+$	3712	PlayNC Helper
+$	3713	Rabbit Hat
+$	3714	Rabbit Ring
+$	3715	Rabbit's Pouch
+$	3716	Est
+$	3717	I will put you to rest now.
+$	3718	Dave
+$	3719	Trudy
+$	3720	Crystal of Love
+$	3721	Wizard Benedict
+$	3722	Applicant to Allied Army
+$	3723	Dark Elf Assassin
+$	3724	High Collie Collar
+$	3725	High Racoon Collar
+$	3726	Kuman
+$	3727	Diego
+$	3728	Jose
+$	3729	Large Rat
+$	3730	Lavabone Knife
+$	3731	Franco
+$	3732	Spirit of Kamyla
+$	3733	Lizardman Elder
+$	3734	Young Lizardman Warrior
+$	3735	Hammer of the Heavens
+$	3736	Bow of Cold Mystery
+$	3737	Claw of Chaos
+$	3738	Emblem of Chaos
+$	3739	Finger of Chaos
+$	3740	Cloak of Chaos
+$	3741	Helm of Chaos
+$	3742	Armor of Death
+$	3743	Scale of Death
+$	3744	Cloak of Death
+$	3745	Armor of Death Piece
+$	3746	Helm of Yahee
+$	3747	Shirt of Yahee
+$	3748	Armor of Yahee
+$	3749	Cloak of Yahee
+$	3750	Boots of Yahee
+$	3751	Gloves of Yahee
+$	3752	Ring of Yahee
+$	3753	Amulet of Yahee
+$	3754	Earrings of Yahee
+$	3755	Dancing Earrings
+$	3756	Twin Earrings
+$	3757	Festival Earrings
+$	3758	Zenith Earrings
+$	3759	Reckless Earrings
+$	3760	Fantasy Horse Earrings
+$	3761	Clan Earrings
+$	3762	Slave Earrings
+$	3763	Head of Chaos
+$	3764	Head of Death
+$	3765	Hammer of Death
+$	3766	Axe of Death
+$	3767	Spear of Death
+$	3768	Knife of Death
+$	3769	Tailbone of Death
+$	3770	Head of Yahee
+$	3771	Rib of Yahee
+$	3772	Claw of Yahee
+$	3773	Tail of Yahee
+$	3774	Wing of Yahee
+$	3775	Backbone of Yahee
+$	3776	Fragment of Soul Stone
+$	3777	Yahee
+$	3778	Chaos
+$	3779	Death
+$	3780	Priest of Chaos
+$	3781	Priest of Death
+$	3782	Follower of Chaos
+$	3783	Follower of Death
+$	3784	Oriharukon-Plated Bone Arrow
+$	3785	Guardsman of Yahee
+$	3786	Diego's Old Diary
+$	3787	Crumpled Up Breaking-Up Letter
+$	3788	Report of Lizardman
+$	3789	Treasure of Lizardman
+$	3790	Sword of Honor
+$	3791	Edoryu of Abyss
+$	3792	Crossbow of Silence
+$	3793	Jet-Black Crystal Ball
+$	3794	Shield of Faith
+$	3795	Sword of Red Desire
+$	3796	Sword of Brave Lizardman Soldier
+$	3797	Gloves of Lizardman Hero
+$	3798	Slave of Assassin King
+$	3799	Assassin Squad Leader Blaze
+$	3800	Palace General Kyte
+$	3801	Assassin of Blood
+$	3802	Thief of Darkness
+$	3803	Lastabad Palace Guard
+$	3804	Evil Power King Varanka
+$	3805	Evil Power Squad Leader Kybar
+$	3806	Division Commander Sinclair
+$	3807	Brigade Commander Dark Fencer
+$	3808	Lastabad Tormenter
+$	3809	Wolf Rider
+$	3810	Black Tiger
+$	3811	Hell Bound
+$	3812	Hell Creature
+$	3813	Crimson Drake
+$	3814	Phantom Knight
+$	3815	Evil Spirit King Laya
+$	3816	Temple Head Bounty
+$	3817	Evil Magic Squad Leader Carmiel
+$	3818	Guardian of Water Spirit
+$	3819	Guardian of Fire Spirit
+$	3820	Guardian of Earth Spirit
+$	3821	Guardian of Wind Spirit
+$	3822	Guardian of Darkness Spirit
+$	3823	Darkness Forest Ground
+$	3824	Dark Mage
+$	3825	Bright Magic King Hellvine
+$	3826	Bright Magic Troup Leader Crepus
+$	3827	Mercenary Commander Mephaisto
+$	3828	Darkness Avenger
+$	3829	Blood Rain Knight
+$	3830	Oum Warrior
+$	3831	Heavy Oum Warrior
+$	3832	Spiritologist of Blood
+$	3833	Lord of Darkness
+$	3834	Execution Sword of Fidelity
+$	3835	Wind Blade Dagger
+$	3836	Edoryu of Red Shadow
+$	3837	Claw of Evil Power King
+$	3838	Crystallized Staff
+$	3839	Two-Handed Sword of Pretender King
+$	3840	Long Sword of Pretender King
+$	3841	Armor of Pretender King
+$	3842	Helm of Pretender King
+$	3843	Cloak of Pretender King
+$	3844	Gloves of Pretender King
+$	3845	Boots of Pretender King
+$	3846	Shield of Pretender King
+$	3847	Staff of New King
+$	3848	Robe of New King
+$	3849	Helm of New King
+$	3850	Cloak of New King
+$	3851	Gloves of New King
+$	3852	Boots of New King
+$	3853	Scroll of New King
+$	3854	Cloak of Bright Magic King
+$	3855	Robe of Evil Spirit King
+$	3856	Boots of Evil Power King
+$	3857	Gloves of Assassin King
+$	3858	Ring of Bright Magic King
+$	3859	Amulet of Magic Spirit King
+$	3860	Assassin Sword of Assassin King
+$	3861	Claw of Magic Power King
+$	3862	Belt of Darkness
+$	3863	Blade of Darkness
+$	3864	Large Sword of Blood
+$	3865	Staff of Red Crystal
+$	3866	Edoryu of Auger Blade
+$	3867	Dagger of Crystal
+$	3868	Breath of Fire
+$	3869	Breath of Water
+$	3870	Breath of Wind
+$	3871	Breath of Earth
+$	3872	Breath of Darkness
+$	3873	Burning Leather
+$	3874	Black-Light Wing
+$	3875	Crystal Fang
+$	3876	Mineral of Darkness
+$	3877	Ingot of Darkness
+$	3878	Rock of Mental Control
+$	3879	Evidence Box of Bright Magic Army
+$	3880	Evidence of Bright Magic Army
+$	3881	Evidence Box of Dark Spirit Army
+$	3882	Evidence of Dark Spirit Army
+$	3883	Evidence Box of Dark Power Army
+$	3884	Evidence of Dark Power Army
+$	3885	Evidence Box of Assassin Army
+$	3886	Evidence of Assassin Army
+$	3887	Lastabad Gatekeeper
+$	3888	Oh... The enemy has invaded! Defend Lastabad to the death!
+$	3889	Aaah... The passageway door has been penetrated! Stop the enemy!
+$	3890	Aayaah... The Evil Power Squad Leader's Room door has been opened but it would be better not to engage in any more reckless challenges.
+$	3891	Ugh... The passageway to the underground has been opened but it won't be safe.
+$	3892	It's true that I killed Dark Fencer but I'm no equal to the Evil Power King.
+$	3893	Get back. You will regret it the moment you go past here.
+$	3894	This is where the Evil Power Army King stays. Your fate ends here!
+$	3895	Hey... If you're so tough, you can go up against the Evil Spirit Army.
+$	3896	Sinclair will definitely deal with you... Aye.
+$	3897	Hey... You'll become food for wild animals.
+$	3898	My Evil Power ones... Stop these invaders.
+$	3899	Dark Fencer... Show me the strength of the Evil Power Brigade.
+$	3900	Whew.... Are you saying that the Lastabad Evil Power Brigade has collapsed?
+$	3901	My Drake ones... Stop them so they can't attack... Stop them...
+$	3902	You will feel the power of the Evil Magic Troup Leader Carmiel.
+$	3903	The door of the magic laboratory has been opened. Block it before the invaders arrive.
+$	3904	The first door has been opened. Block it!
+$	3905	The second door has been opened. Block it!!
+$	3906	The third door has been opened. Block it!!
+$	3907	I knew the Evil Spirit King's hands would be dirtied...
+$	3908	How vexing... This is all the power that the Evil Spirit Army has?
+$	3909	Stop them! Protect the Lastabad Magic Guide!
+$	3910	Stop them! Protect the Lastabad Scroll!
+$	3911	Hee, hee....
+$	3912	The Evil Spirit Army has collapsed... How could that have happened?!
+$	3913	Wow!
+$	3914	It recognized my existence... How could...?
+$	3915	Whoa!
+$	3916	Whoa!
+$	3917	As long as Bright Magic Squad Leader is there, we won't be able to go any further!
+$	3918	I lost but Lastabad didn't lose.
+$	3919	This is a warning! Destruction will come if you proceed any further!
+$	3920	Block them so they can't go any farther!
+$	3921	This is my last warning! You will be destroyed if you enter here!
+$	3922	Already at a place from which one cannot retreat....
+$	3923	Ha, ha, ha... That place has already been placed off limits. Hellvine will revive!!
+$	3924	Oh... Mercenary Commander Mephaisto will get revenge!
+$	3925	Ah... Long live Mephaisto!!
+$	3926	I believe in the power of Mephaisto.
+$	3927	.....
+$	3928	Whew.... I will wait for Mephaisto.
+$	3929	You have already lost.
+$	3930	Is this the defeat of Mephaisto? I can't believe it. I can't believe...
+$	3931	We are the loyal Assassin Squad.
+$	3932	Do you want to see the power of Assassin Squad Leader Blaze?
+$	3933	That's an underground prison. It would be better not to go there...
+$	3934	OK... You'll disappear into that deep underground dungeon.
+$	3935	Regardless of where you go, you'll never make it back alive.
+$	3936	Are you going to oppose Palace Guard Commander Kyte?
+$	3937	Get a taste of the trained, select assassins.
+$	3938	A challenge to Assassin Army King Slave means death.
+$	3939	I have met my end in this place....
+$	3940	Oh.... The top assassin of their group defeated me. He's got really surprising ability!
+$	3941	Aaarrrggg...
+$	3942	Sniff, sniff... I smell a human... Where is it?
+$	3943	Whew.... Treasure... Just that treasure...
+$	3944	Kuman...! Get away....
+$	3945	Key to 2nd Floor of Temple of Shadows
+$	3946	Key to 3rd Floor of Temple of Shadows
+$	3947	Twisting of Space
+$	3948	Blacksmith of Varlok
+$	3949	Agent of Varlok
+$	3950	Chamberlain of Yahee
+$	3951	Assistant of Varlok
+$	3952	Exhausted Lizardman Warrior
+$	3953	Monett
+$	3954	Shian
+$	3955	Enishia
+$	3956	Fragment of Blood Stone
+$	3957	Contaminated Orc
+$	3958	Contaminated Orc Archer
+$	3959	Contaminated Orc Warrior
+$	3960	Contaminated Cyclops
+$	3961	Contaminated Gandhi Orc
+$	3962	Contaminated Duda-Mara Orc
+$	3963	Contaminated Ent
+$	3964	Contaminated Fairy
+$	3965	Contaminated Fairy Queen
+$	3966	Contaminated Ogre
+$	3967	Contaminated Troll
+$	3968	Contaminated Ghast
+$	3969	Blue Crystal
+$	3970	Green Crystal
+$	3971	White Crystal
+$	3972	Red Crystal
+$	3973	Purple Crystal
+$	3974	Large Blue Crystal
+$	3975	Large Green Crystal
+$	3976	Large Red Crystal
+$	3977	Tear of Spirit
+$	3978	Relic of Expedition Member
+$	3979	Contaminated Bow
+$	3980	Contaminated Armor
+$	3981	Contaminated Gloves
+$	3982	Contaminated Helm
+$	3983	Contaminated Boots
+$	3984	Contaminated Cloak
+$	3985	Bark of Contaminated Ent
+$	3986	Root of Contaminated Ent
+$	3987	Fruit of Contaminated Ent
+$	3988	Letter of Aras
+$	3989	Marba
+$	3990	Aras
+$	3991	Bow of Expedition Member
+$	3992	Gloves of Expedition Member
+$	3993	Armor of Expedition Member
+$	3994	Helm of Expedition Member
+$	3995	Boots of Expedition Member
+$	3996	Cloak of Expedition Member
+$	3997	Elven Bow of %i
+$	3998	Elven Gloves of %i
+$	3999	Elven Armor of %i
+$	4000	Elven Helm of %i
+$	4001	Elven Boots of %i
+$	4002	Elven Cloak of %i
+$	4003	Letter of Marba
+$	4004	Amulet of Aras
+$	4005	Contaminated Fungus
+$	4006	Dante's Letter
+$	4007	Technical Document (Reduction Armor)
+$	4008	Technical Document (Bounce Attack)
+$	4009	Black Magic Powder
+$	4010	Sealed Letter
+$	4011	Ink Eraser
+$	4012	Feather Quill Pen
+$	4013	Erased Letter
+$	4014	Fake Letter
+$	4015	Medal of Valor
+$	4016	Official Dark Elven Message
+$	4017	Allied Army Applicant
+$	4018	Dark Elven Assassin
+$	4019	Allied Army Commander
+$	4020	Labyrinth Diagram
+$	4021	Second Labyrinth Key
+$	4022	Third Labyrinth Key
+$	4023	Sword of Ordeal A
+$	4024	Sword of Ordeal B
+$	4025	Sword of Ordeal C
+$	4026	Sword of Ordeal D
+$	4027	Spellbook of Ordeal
+$	4028	Spirit of Drake
+$	4029	Goblin of Ordeal
+$	4030	Trea...sure... my... Kamyl...
+$	4031	Crystal of Ordeal
+$	4032	Earrings of Valor
+$	4033	Wooden Box
+$	4034	Invasion Tunnel Goods
+$	4035	Lastabad Goods
+$	4036	Goods Delivery Certificate
+$	4037	Medal of Hero
+$	4038	Amulet of Glory
+$	4039	Earrings of Warrior
+$	4040	Earrings of Hero
+$	4041	Medal of Warrior
+$	4042	Commander Claus
+$	4043	Top Commander Esteban
+$	4044	Supply Soldier
+$	4045	Invasion Tunnel Supply Sergeant
+$	4046	Sword of Ordeal
+$	4047	Cotton Thread
+$	4048	Food Box
+$	4049	Medicine Box
+$	4050	Green Ginseng
+$	4051	Weapons Box
+$	4052	Clothing Box
+$	4053	Mango
+$	4054	Training Place Transfer Certificate
+$	4055	Invasion Tunnel Transfer Certificate
+$	4056	Trainee Soldier
+$	4057	Soccer Ball
+$	4058	Seal of Evil Magic King
+$	4059	Seal of Evil Spirit King
+$	4060	Seal of Assassin King
+$	4061	Seal of White Magic King
+$	4062	Ring of Hero
+$	4063	Cinnamon Tree
+$	4064	Lastabad Supply Sergeant
+$	4065	Red Soccer Uniform
+$	4066	Blue Soccer Uniform
+$	4067	Militia Boots
+$	4068	Heliocham Earrings
+$	4069	Heisong Glory
+$	4070	Heisong Bravery
+$	4071	6th Anniversary Commemorative Coin
+$	4072	Jindo Puppy
+$	4073	Jindo Dog
+$	4074	Tiger
+$	4075	Battle Tiger
+$	4076	New Pet
+$	4077	New Pet
+$	4078	New Pet
+$	4079	New Pet
+$	4080	New Pet
+$	4081	New Pet
+$	4082	New Pet
+$	4083	New Pet
+$	4084	New Pet
+$	4085	New Pet
+$	4086	New Pet
+$	4087	New Pet
+$	4088	New Pet
+$	4089	New Pet
+$	4090	New Pet
+$	4091	New Pet
+$	4092	Earrings of Purification
+$	4093	Amulet of Red Curse
+$	4094	Amulet of Blue Curse
+$	4095	Amulet of Green Curse
+$	4096	Earring Gem
+$	4097	Ticket
+$	4098	Cleansing Water of Life
+$	4099	Relic of the Past (0)
+$	4100	Relic of the Past (1)
+$	4101	Relic of the Past (2)
+$	4102	Relic of the Past (3)
+$	4103	Relic of the Past (4)
+$	4104	Relic of the Past (5)
+$	4105	Relic of the Past (6)
+$	4106	Relic of the Past (7)
+$	4107	Relic of the Past (8)
+$	4108	Historian
+$	4109	Jewel Craftsman
+$	4110	Memory Fragment
+$	4111	1
+$	4112	2
+$	4113	3
+$	4114	4
+$	4115	5
+$	4116	6
+$	4117	7
+$	4118	8
+$	4119	Parking Graduation Certificate
+$	4120	Parking Completion Certificate
+$	4121	8th Anniversary Commemorative Seal of Courage
+$	4122	8th Anniversary Commemorative Seal of Wisdom
+$	4123	8th Anniversary Commemorative Seal of Honor
+$	4124	Whimper~ Whimper~
+$	4125	Bark!
+$	4126	Bark, bark, bark!
+$	4127	Bark, bark! Bow, wow...
+$	4128	Bow, wow... Did you call?
+$	4129	Whimper~ Whimper~
+$	4130	Bow, wow... Are we going for a walk?
+$	4131	Bow, wow... Where are we going?
+$	4132	Bark, bark! Will you give me something delicious to eat?
+$	4133	Bark, bark! Order me to do whatever you want~!
+$	4134	Bow, wow! Grrr...
+$	4135	Grrr....
+$	4136	Grrrrooowl!
+$	4137	Bow, wow!
+$	4138	Bow, wow! Did you call me?
+$	4139	Bow, wow! Grrrr...
+$	4140	Bow, wow! Did you call me?
+$	4141	Bow, wow! What's going on with you?
+$	4142	Bow, wow! Just give me the command.
+$	4143	Bow, wow! Order me to do whatever you want.
+$	4144	
+$	4145	
+$	4146	
+$	4147	
+$	4148	
+$	4149	
+$	4150	
+$	4151	
+$	4152	
+$	4153	
+$	4154	
+$	4155	
+$	4156	
+$	4157	
+$	4158	
+$	4159	
+$	4160	
+$	4161	
+$	4162	
+$	4163	
+$	4164	
+$	4165	
+$	4166	
+$	4167	
+$	4168	
+$	4169	
+$	4170	
+$	4171	
+$	4172	
+$	4173	
+$	4174	
+$	4175	
+$	4176	
+$	4177	
+$	4178	
+$	4179	
+$	4180	
+$	4181	
+$	4182	
+$	4183	
+$	4184	
+$	4185	
+$	4186	
+$	4187	
+$	4188	
+$	4189	
+$	4190	
+$	4191	
+$	4192	
+$	4193	
+$	4194	
+$	4195	
+$	4196	
+$	4197	
+$	4198	
+$	4199	
+$	4200	
+$	4201	
+$	4202	
+$	4203	
+$	4204	
+$	4205	
+$	4206	
+$	4207	
+$	4208	
+$	4209	
+$	4210	
+$	4211	
+$	4212	
+$	4213	
+$	4214	
+$	4215	
+$	4216	
+$	4217	
+$	4218	
+$	4219	
+$	4220	
+$	4221	
+$	4222	
+$	4223	
+$	4224	
+$	4225	
+$	4226	
+$	4227	
+$	4228	
+$	4229	
+$	4230	
+$	4231	
+$	4232	
+$	4233	
+$	4234	
+$	4235	
+$	4236	
+$	4237	
+$	4238	
+$	4239	
+$	4240	
+$	4241	
+$	4242	
+$	4243	
+$	4244	
+$	4245	
+$	4246	
+$	4247	
+$	4248	
+$	4249	
+$	4250	
+$	4251	
+$	4252	
+$	4253	
+$	4254	
+$	4255	
+$	4256	
+$	4257	
+$	4258	
+$	4259	
+$	4260	
+$	4261	
+$	4262	
+$	4263	
+$	4264	
+$	4265	
+$	4266	
+$	4267	
+$	4268	
+$	4269	
+$	4270	
+$	4271	
+$	4272	
+$	4273	
+$	4274	
+$	4275	
+$	4276	
+$	4277	
+$	4278	
+$	4279	
+$	4280	
+$	4281	
+$	4282	
+$	4283	
+$	4284	
+$	4285	
+$	4286	
+$	4287	
+$	4288	
+$	4289	
+$	4290	
+$	4291	
+$	4292	
+$	4293	
+$	4294	
+$	4295	
+$	4296	
+$	4297	
+$	4298	
+$	4299	
+$	4300	
+$	4301	
+$	4302	
+$	4303	
+$	4304	
+$	4305	
+$	4306	
+$	4307	
+$	4308	
+$	4309	
+$	4310	
+$	4311	
+$	4312	
+$	4313	
+$	4314	
+$	4315	
+$	4316	
+$	4317	
+$	4318	
+$	4319	
+$	4320	
+$	4321	
+$	4322	
+$	4323	
+$	4324	
+$	4325	
+$	4326	
+$	4327	
+$	4328	
+$	4329	
+$	4330	
+$	4331	
+$	4332	
+$	4333	
+$	4334	
+$	4335	
+$	4336	
+$	4337	
+$	4338	
+$	4339	
+$	4340	
+$	4341	
+$	4342	
+$	4343	
+$	4344	
+$	4345	
+$	4346	
+$	4347	
+$	4348	
+$	4349	
+$	4350	
+$	4351	
+$	4352	
+$	4353	
+$	4354	
+$	4355	
+$	4356	
+$	4357	
+$	4358	
+$	4359	
+$	4360	
+$	4361	
+$	4362	
+$	4363	
+$	4364	
+$	4365	
+$	4366	
+$	4367	
+$	4368	
+$	4369	
+$	4370	
+$	4371	
+$	4372	
+$	4373	
+$	4374	
+$	4375	
+$	4376	
+$	4377	
+$	4378	
+$	4379	
+$	4380	
+$	4381	
+$	4382	
+$	4383	
+$	4384	
+$	4385	
+$	4386	
+$	4387	
+$	4388	
+$	4389	
+$	4390	
+$	4391	
+$	4392	
+$	4393	
+$	4394	
+$	4395	
+$	4396	
+$	4397	
+$	4398	
+$	4399	
+$	4400	
+$	4401	
+$	4402	
+$	4403	
+$	4404	
+$	4405	
+$	4406	
+$	4407	
+$	4408	
+$	4409	
+$	4410	
+$	4411	
+$	4412	
+$	4413	
+$	4414	
+$	4415	
+$	4416	
+$	4417	
+$	4418	
+$	4419	
+$	4420	
+$	4421	
+$	4422	
+$	4423	
+$	4424	
+$	4425	
+$	4426	
+$	4427	
+$	4428	
+$	4429	
+$	4430	
+$	4431	
+$	4432	
+$	4433	
+$	4434	
+$	4435	
+$	4436	
+$	4437	
+$	4438	
+$	4439	
+$	4440	
+$	4441	
+$	4442	
+$	4443	
+$	4444	
+$	4445	
+$	4446	
+$	4447	
+$	4448	
+$	4449	
+$	4450	
+$	4451	
+$	4452	
+$	4453	
+$	4454	
+$	4455	
+$	4456	
+$	4457	
+$	4458	
+$	4459	
+$	4460	
+$	4461	
+$	4462	
+$	4463	
+$	4464	
+$	4465	
+$	4466	
+$	4467	
+$	4468	
+$	4469	
+$	4470	
+$	4471	
+$	4472	
+$	4473	
+$	4474	
+$	4475	
+$	4476	
+$	4477	
+$	4478	
+$	4479	
+$	4480	
+$	4481	
+$	4482	
+$	4483	
+$	4484	
+$	4485	
+$	4486	
+$	4487	
+$	4488	
+$	4489	
+$	4490	
+$	4491	
+$	4492	
+$	4493	
+$	4494	
+$	4495	
+$	4496	
+$	4497	
+$	4498	
+$	4499	
+$	4500	
+$	4501	
+$	4502	
+$	4503	
+$	4504	
+$	4505	
+$	4506	
+$	4507	
+$	4508	
+$	4509	
+$	4510	
+$	4511	
+$	4512	
+$	4513	
+$	4514	
+$	4515	
+$	4516	
+$	4517	
+$	4518	
+$	4519	
+$	4520	
+$	4521	
+$	4522	
+$	4523	
+$	4524	
+$	4525	
+$	4526	
+$	4527	
+$	4528	
+$	4529	
+$	4530	
+$	4531	
+$	4532	
+$	4533	
+$	4534	
+$	4535	
+$	4536	
+$	4537	
+$	4538	
+$	4539	
+$	4540	
+$	4541	
+$	4542	
+$	4543	
+$	4544	
+$	4545	
+$	4546	
+$	4547	
+$	4548	
+$	4549	
+$	4550	
+$	4551	
+$	4552	
+$	4553	
+$	4554	
+$	4555	
+$	4556	
+$	4557	
+$	4558	
+$	4559	
+$	4560	
+$	4561	
+$	4562	
+$	4563	
+$	4564	
+$	4565	
+$	4566	
+$	4567	
+$	4568	
+$	4569	
+$	4570	
+$	4571	
+$	4572	
+$	4573	
+$	4574	
+$	4575	
+$	4576	
+$	4577	
+$	4578	
+$	4579	
+$	4580	
+$	4581	
+$	4582	
+$	4583	
+$	4584	
+$	4585	
+$	4586	
+$	4587	
+$	4588	
+$	4589	
+$	4590	
+$	4591	
+$	4592	
+$	4593	
+$	4594	
+$	4595	
+$	4596	
+$	4597	
+$	4598	
+$	4599	
+$	4600	
+$	4601	
+$	4602	
+$	4603	
+$	4604	
+$	4605	
+$	4606	
+$	4607	
+$	4608	
+$	4609	
+$	4610	
+$	4611	
+$	4612	
+$	4613	
+$	4614	
+$	4615	
+$	4616	
+$	4617	
+$	4618	
+$	4619	
+$	4620	
+$	4621	
+$	4622	
+$	4623	
+$	4624	
+$	4625	
+$	4626	
+$	4627	
+$	4628	
+$	4629	
+$	4630	
+$	4631	
+$	4632	
+$	4633	
+$	4634	
+$	4635	
+$	4636	
+$	4637	
+$	4638	
+$	4639	
+$	4640	
+$	4641	
+$	4642	
+$	4643	
+$	4644	
+$	4645	
+$	4646	
+$	4647	
+$	4648	
+$	4649	
+$	4650	
+$	4651	
+$	4652	
+$	4653	
+$	4654	
+$	4655	
+$	4656	
+$	4657	
+$	4658	
+$	4659	
+$	4660	
+$	4661	
+$	4662	
+$	4663	
+$	4664	
+$	4665	
+$	4666	
+$	4667	
+$	4668	
+$	4669	
+$	4670	
+$	4671	
+$	4672	
+$	4673	
+$	4674	
+$	4675	
+$	4676	
+$	4677	
+$	4678	
+$	4679	
+$	4680	
+$	4681	
+$	4682	
+$	4683	
+$	4684	
+$	4685	
+$	4686	
+$	4687	
+$	4688	
+$	4689	
+$	4690	
+$	4691	
+$	4692	
+$	4693	
+$	4694	
+$	4695	
+$	4696	
+$	4697	
+$	4698	
+$	4699	
+$	4700	
+$	4701	
+$	4702	
+$	4703	
+$	4704	
+$	4705	
+$	4706	
+$	4707	
+$	4708	
+$	4709	
+$	4710	
+$	4711	
+$	4712	
+$	4713	
+$	4714	
+$	4715	
+$	4716	
+$	4717	
+$	4718	
+$	4719	
+$	4720	
+$	4721	
+$	4722	
+$	4723	
+$	4724	
+$	4725	
+$	4726	
+$	4727	
+$	4728	
+$	4729	
+$	4730	
+$	4731	
+$	4732	
+$	4733	
+$	4734	
+$	4735	
+$	4736	
+$	4737	
+$	4738	
+$	4739	
+$	4740	
+$	4741	
+$	4742	
+$	4743	
+$	4744	
+$	4745	
+$	4746	
+$	4747	
+$	4748	
+$	4749	
+$	4750	
+$	4751	
+$	4752	
+$	4753	
+$	4754	
+$	4755	
+$	4756	
+$	4757	
+$	4758	
+$	4759	
+$	4760	
+$	4761	
+$	4762	
+$	4763	
+$	4764	
+$	4765	
+$	4766	
+$	4767	
+$	4768	
+$	4769	
+$	4770	
+$	4771	
+$	4772	
+$	4773	
+$	4774	
+$	4775	
+$	4776	
+$	4777	
+$	4778	
+$	4779	
+$	4780	
+$	4781	
+$	4782	
+$	4783	
+$	4784	
+$	4785	
+$	4786	
+$	4787	
+$	4788	
+$	4789	
+$	4790	
+$	4791	
+$	4792	
+$	4793	
+$	4794	
+$	4795	
+$	4796	
+$	4797	
+$	4798	
+$	4799	
+$	4800	
+$	4801	
+$	4802	
+$	4803	
+$	4804	
+$	4805	
+$	4806	
+$	4807	
+$	4808	
+$	4809	
+$	4810	
+$	4811	
+$	4812	
+$	4813	
+$	4814	
+$	4815	
+$	4816	
+$	4817	
+$	4818	
+$	4819	
+$	4820	
+$	4821	
+$	4822	
+$	4823	
+$	4824	
+$	4825	
+$	4826	
+$	4827	
+$	4828	
+$	4829	
+$	4830	
+$	4831	
+$	4832	
+$	4833	
+$	4834	
+$	4835	
+$	4836	
+$	4837	
+$	4838	
+$	4839	
+$	4840	
+$	4841	
+$	4842	
+$	4843	
+$	4844	
+$	4845	
+$	4846	
+$	4847	
+$	4848	
+$	4849	
+$	4850	
+$	4851	
+$	4852	
+$	4853	
+$	4854	
+$	4855	
+$	4856	
+$	4857	
+$	4858	
+$	4859	
+$	4860	
+$	4861	
+$	4862	
+$	4863	
+$	4864	
+$	4865	
+$	4866	
+$	4867	
+$	4868	
+$	4869	
+$	4870	
+$	4871	
+$	4872	
+$	4873	
+$	4874	
+$	4875	
+$	4876	
+$	4877	
+$	4878	
+$	4879	
+$	4880	
+$	4881	
+$	4882	
+$	4883	
+$	4884	
+$	4885	
+$	4886	
+$	4887	
+$	4888	
+$	4889	
+$	4890	
+$	4891	
+$	4892	
+$	4893	
+$	4894	
+$	4895	
+$	4896	
+$	4897	
+$	4898	
+$	4899	
+$	4900	
+$	4901	
+$	4902	
+$	4903	
+$	4904	
+$	4905	
+$	4906	
+$	4907	
+$	4908	
+$	4909	
+$	4910	
+$	4911	
+$	4912	
+$	4913	
+$	4914	
+$	4915	
+$	4916	
+$	4917	
+$	4918	
+$	4919	
+$	4920	
+$	4921	
+$	4922	
+$	4923	
+$	4924	
+$	4925	
+$	4926	
+$	4927	
+$	4928	
+$	4929	
+$	4930	
+$	4931	
+$	4932	
+$	4933	
+$	4934	
+$	4935	
+$	4936	
+$	4937	
+$	4938	
+$	4939	
+$	4940	
+$	4941	
+$	4942	
+$	4943	
+$	4944	
+$	4945	
+$	4946	
+$	4947	
+$	4948	
+$	4949	
+$	4950	
+$	4951	
+$	4952	
+$	4953	
+$	4954	
+$	4955	
+$	4956	
+$	4957	
+$	4958	
+$	4959	
+$	4960	
+$	4961	
+$	4962	
+$	4963	
+$	4964	
+$	4965	
+$	4966	
+$	4967	
+$	4968	
+$	4969	
+$	4970	
+$	4971	
+$	4972	
+$	4973	
+$	4974	
+$	4975	
+$	4976	
+$	4977	
+$	4978	
+$	4979	
+$	4980	
+$	4981	
+$	4982	
+$	4983	
+$	4984	
+$	4985	
+$	4986	
+$	4987	
+$	4988	
+$	4989	
+$	4990	
+$	4991	
+$	4992	
+$	4993	
+$	4994	
+$	4995	
+$	4996	
+$	4997	
+$	4998	
+$	4999	
+$	5000	
+$	5001	
+$	5002	
+$	5003	
+$	5004	
+$	5005	
+$	5006	
+$	5007	
+$	5008	
+$	5009	
+$	5010	
+$	5011	
+$	5012	
+$	5013	
+$	5014	
+$	5015	
+$	5016	
+$	5017	
+$	5018	
+$	5019	
+$	5020	
+$	5021	
+$	5022	
+$	5023	
+$	5024	
+$	5025	
+$	5026	
+$	5027	
+$	5028	
+$	5029	
+$	5030	
+$	5031	
+$	5032	
+$	5033	
+$	5034	
+$	5035	
+$	5036	
+$	5037	
+$	5038	
+$	5039	
+$	5040	
+$	5041	
+$	5042	
+$	5043	
+$	5044	
+$	5045	
+$	5046	
+$	5047	
+$	5048	
+$	5049	
+$	5050	
+$	5051	
+$	5052	
+$	5053	
+$	5054	
+$	5055	
+$	5056	
+$	5057	
+$	5058	
+$	5059	
+$	5060	
+$	5061	
+$	5062	
+$	5063	
+$	5064	
+$	5065	
+$	5066	
+$	5067	
+$	5068	
+$	5069	
+$	5070	
+$	5071	
+$	5072	
+$	5073	
+$	5074	
+$	5075	
+$	5076	
+$	5077	
+$	5078	
+$	5079	
+$	5080	
+$	5081	
+$	5082	
+$	5083	
+$	5084	
+$	5085	
+$	5086	
+$	5087	
+$	5088	
+$	5089	
+$	5090	
+$	5091	
+$	5092	
+$	5093	
+$	5094	
+$	5095	
+$	5096	
+$	5097	
+$	5098	
+$	5099	
+$	5100	
+$	5101	
+$	5102	
+$	5103	
+$	5104	
+$	5105	
+$	5106	
+$	5107	
+$	5108	
+$	5109	
+$	5110	
+$	5111	
+$	5112	
+$	5113	
+$	5114	
+$	5115	
+$	5116	
+$	5117	
+$	5118	
+$	5119	
+$	5120	
+$	5121	
+$	5122	
+$	5123	
+$	5124	
+$	5125	
+$	5126	
+$	5127	
+$	5128	
+$	5129	
+$	5130	
+$	5131	
+$	5132	
+$	5133	
+$	5134	
+$	5135	
+$	5136	
+$	5137	
+$	5138	
+$	5139	
+$	5140	
+$	5141	
+$	5142	
+$	5143	
+$	5144	
+$	5145	
+$	5146	
+$	5147	
+$	5148	
+$	5149	
+$	5150	
+$	5151	
+$	5152	
+$	5153	
+$	5154	
+$	5155	
+$	5156	
+$	5157	
+$	5158	
+$	5159	
+$	5160	
+$	5161	
+$	5162	
+$	5163	
+$	5164	
+$	5165	
+$	5166	
+$	5167	
+$	5168	
+$	5169	
+$	5170	
+$	5171	
+$	5172	
+$	5173	
+$	5174	
+$	5175	
+$	5176	
+$	5177	
+$	5178	
+$	5179	
+$	5180	
+$	5181	
+$	5182	
+$	5183	
+$	5184	
+$	5185	
+$	5186	
+$	5187	
+$	5188	
+$	5189	
+$	5190	
+$	5191	
+$	5192	
+$	5193	
+$	5194	
+$	5195	
+$	5196	
+$	5197	
+$	5198	
+$	5199	
+$	5200	
+$	5201	
+$	5202	
+$	5203	
+$	5204	
+$	5205	
+$	5206	
+$	5207	
+$	5208	
+$	5209	
+$	5210	
+$	5211	
+$	5212	
+$	5213	
+$	5214	
+$	5215	
+$	5216	
+$	5217	
+$	5218	
+$	5219	
+$	5220	
+$	5221	
+$	5222	
+$	5223	
+$	5224	
+$	5225	
+$	5226	
+$	5227	
+$	5228	
+$	5229	
+$	5230	
+$	5231	
+$	5232	
+$	5233	
+$	5234	
+$	5235	
+$	5236	
+$	5237	
+$	5238	
+$	5239	
+$	5240	
+$	5241	
+$	5242	
+$	5243	
+$	5244	
+$	5245	
+$	5246	
+$	5247	
+$	5248	
+$	5249	
+$	5250	
+$	5251	
+$	5252	
+$	5253	
+$	5254	
+$	5255	
+$	5256	
+$	5257	
+$	5258	
+$	5259	
+$	5260	
+$	5261	
+$	5262	
+$	5263	
+$	5264	
+$	5265	
+$	5266	
+$	5267	
+$	5268	
+$	5269	
+$	5270	
+$	5271	
+$	5272	
+$	5273	
+$	5274	
+$	5275	
+$	5276	
+$	5277	
+$	5278	
+$	5279	
+$	5280	
+$	5281	
+$	5282	
+$	5283	
+$	5284	
+$	5285	
+$	5286	
+$	5287	
+$	5288	
+$	5289	
+$	5290	
+$	5291	
+$	5292	
+$	5293	
+$	5294	
+$	5295	
+$	5296	
+$	5297	
+$	5298	
+$	5299	
+$	5300	
+$	5301	
+$	5302	
+$	5303	
+$	5304	
+$	5305	
+$	5306	
+$	5307	
+$	5308	
+$	5309	
+$	5310	
+$	5311	
+$	5312	
+$	5313	
+$	5314	
+$	5315	
+$	5316	
+$	5317	
+$	5318	
+$	5319	
+$	5320	
+$	5321	
+$	5322	
+$	5323	
+$	5324	
+$	5325	
+$	5326	
+$	5327	
+$	5328	
+$	5329	
+$	5330	
+$	5331	
+$	5332	
+$	5333	
+$	5334	
+$	5335	
+$	5336	
+$	5337	
+$	5338	
+$	5339	
+$	5340	
+$	5341	
+$	5342	
+$	5343	
+$	5344	
+$	5345	
+$	5346	
+$	5347	
+$	5348	
+$	5349	
+$	5350	
+$	5351	
+$	5352	
+$	5353	
+$	5354	
+$	5355	
+$	5356	
+$	5357	
+$	5358	
+$	5359	
+$	5360	
+$	5361	
+$	5362	
+$	5363	
+$	5364	
+$	5365	
+$	5366	
+$	5367	
+$	5368	
+$	5369	
+$	5370	
+$	5371	
+$	5372	
+$	5373	
+$	5374	
+$	5375	
+$	5376	
+$	5377	
+$	5378	
+$	5379	
+$	5380	
+$	5381	
+$	5382	
+$	5383	
+$	5384	
+$	5385	
+$	5386	
+$	5387	
+$	5388	
+$	5389	
+$	5390	
+$	5391	
+$	5392	
+$	5393	
+$	5394	
+$	5395	
+$	5396	
+$	5397	
+$	5398	
+$	5399	
+$	5400	
+$	5401	
+$	5402	
+$	5403	
+$	5404	
+$	5405	
+$	5406	
+$	5407	
+$	5408	
+$	5409	
+$	5410	
+$	5411	
+$	5412	
+$	5413	
+$	5414	
+$	5415	
+$	5416	
+$	5417	
+$	5418	
+$	5419	
+$	5420	
+$	5421	
+$	5422	
+$	5423	
+$	5424	
+$	5425	
+$	5426	
+$	5427	
+$	5428	
+$	5429	
+$	5430	
+$	5431	
+$	5432	
+$	5433	
+$	5434	
+$	5435	
+$	5436	
+$	5437	
+$	5438	
+$	5439	
+$	5440	
+$	5441	
+$	5442	
+$	5443	
+$	5444	
+$	5445	
+$	5446	
+$	5447	
+$	5448	
+$	5449	
+$	5450	
+$	5451	
+$	5452	
+$	5453	
+$	5454	
+$	5455	
+$	5456	
+$	5457	
+$	5458	
+$	5459	
+$	5460	
+$	5461	
+$	5462	
+$	5463	
+$	5464	
+$	5465	
+$	5466	
+$	5467	
+$	5468	
+$	5469	
+$	5470	
+$	5471	
+$	5472	
+$	5473	
+$	5474	
+$	5475	
+$	5476	
+$	5477	
+$	5478	
+$	5479	
+$	5480	
+$	5481	
+$	5482	
+$	5483	
+$	5484	
+$	5485	
+$	5486	
+$	5487	
+$	5488	
+$	5489	
+$	5490	
+$	5491	
+$	5492	
+$	5493	
+$	5494	
+$	5495	
+$	5496	
+$	5497	
+$	5498	
+$	5499	
+$	5500	
+$	5501	
+$	5502	
+$	5503	
+$	5504	
+$	5505	
+$	5506	
+$	5507	
+$	5508	
+$	5509	
+$	5510	
+$	5511	
+$	5512	
+$	5513	
+$	5514	
+$	5515	
+$	5516	
+$	5517	
+$	5518	
+$	5519	
+$	5520	
+$	5521	
+$	5522	
+$	5523	
+$	5524	
+$	5525	
+$	5526	
+$	5527	
+$	5528	
+$	5529	
+$	5530	
+$	5531	
+$	5532	
+$	5533	
+$	5534	
+$	5535	
+$	5536	
+$	5537	
+$	5538	
+$	5539	
+$	5540	
+$	5541	
+$	5542	
+$	5543	
+$	5544	
+$	5545	
+$	5546	
+$	5547	
+$	5548	
+$	5549	
+$	5550	
+$	5551	
+$	5552	
+$	5553	
+$	5554	
+$	5555	
+$	5556	
+$	5557	
+$	5558	
+$	5559	
+$	5560	
+$	5561	
+$	5562	
+$	5563	
+$	5564	
+$	5565	
+$	5566	
+$	5567	
+$	5568	
+$	5569	
+$	5570	
+$	5571	
+$	5572	
+$	5573	
+$	5574	
+$	5575	
+$	5576	
+$	5577	
+$	5578	
+$	5579	
+$	5580	
+$	5581	
+$	5582	
+$	5583	
+$	5584	
+$	5585	
+$	5586	
+$	5587	
+$	5588	
+$	5589	
+$	5590	
+$	5591	
+$	5592	
+$	5593	
+$	5594	
+$	5595	
+$	5596	
+$	5597	
+$	5598	
+$	5599	
+$	5600	
+$	5601	
+$	5602	
+$	5603	
+$	5604	
+$	5605	
+$	5606	
+$	5607	
+$	5608	
+$	5609	
+$	5610	
+$	5611	
+$	5612	
+$	5613	
+$	5614	
+$	5615	
+$	5616	
+$	5617	
+$	5618	
+$	5619	
+$	5620	
+$	5621	
+$	5622	
+$	5623	
+$	5624	
+$	5625	
+$	5626	
+$	5627	
+$	5628	
+$	5629	
+$	5630	
+$	5631	
+$	5632	
+$	5633	
+$	5634	
+$	5635	
+$	5636	
+$	5637	
+$	5638	
+$	5639	
+$	5640	
+$	5641	
+$	5642	
+$	5643	
+$	5644	
+$	5645	
+$	5646	
+$	5647	
+$	5648	
+$	5649	
+$	5650	
+$	5651	
+$	5652	
+$	5653	
+$	5654	
+$	5655	
+$	5656	
+$	5657	
+$	5658	
+$	5659	
+$	5660	
+$	5661	
+$	5662	
+$	5663	
+$	5664	
+$	5665	
+$	5666	
+$	5667	
+$	5668	
+$	5669	
+$	5670	
+$	5671	
+$	5672	
+$	5673	
+$	5674	
+$	5675	
+$	5676	
+$	5677	
+$	5678	
+$	5679	
+$	5680	
+$	5681	
+$	5682	
+$	5683	
+$	5684	
+$	5685	
+$	5686	
+$	5687	
+$	5688	
+$	5689	
+$	5690	
+$	5691	
+$	5692	
+$	5693	
+$	5694	
+$	5695	
+$	5696	
+$	5697	
+$	5698	
+$	5699	
+$	5700	
+$	5701	
+$	5702	
+$	5703	
+$	5704	
+$	5705	
+$	5706	
+$	5707	
+$	5708	
+$	5709	
+$	5710	
+$	5711	
+$	5712	
+$	5713	
+$	5714	
+$	5715	
+$	5716	
+$	5717	
+$	5718	
+$	5719	
+$	5720	
+$	5721	
+$	5722	
+$	5723	
+$	5724	
+$	5725	
+$	5726	
+$	5727	
+$	5728	
+$	5729	
+$	5730	
+$	5731	
+$	5732	
+$	5733	
+$	5734	
+$	5735	
+$	5736	
+$	5737	
+$	5738	
+$	5739	
+$	5740	
+$	5741	
+$	5742	
+$	5743	
+$	5744	
+$	5745	
+$	5746	
+$	5747	
+$	5748	
+$	5749	
+$	5750	
+$	5751	
+$	5752	
+$	5753	
+$	5754	
+$	5755	
+$	5756	
+$	5757	
+$	5758	
+$	5759	
+$	5760	
+$	5761	
+$	5762	
+$	5763	
+$	5764	
+$	5765	
+$	5766	
+$	5767	
+$	5768	
+$	5769	
+$	5770	
+$	5771	
+$	5772	
+$	5773	
+$	5774	
+$	5775	
+$	5776	
+$	5777	
+$	5778	
+$	5779	
+$	5780	
+$	5781	
+$	5782	
+$	5783	
+$	5784	
+$	5785	
+$	5786	
+$	5787	
+$	5788	
+$	5789	
+$	5790	
+$	5791	
+$	5792	
+$	5793	
+$	5794	
+$	5795	
+$	5796	
+$	5797	
+$	5798	
+$	5799	
+$	5800	
+$	5801	
+$	5802	
+$	5803	
+$	5804	
+$	5805	
+$	5806	
+$	5807	
+$	5808	
+$	5809	
+$	5810	
+$	5811	
+$	5812	
+$	5813	
+$	5814	
+$	5815	
+$	5816	
+$	5817	
+$	5818	
+$	5819	
+$	5820	
+$	5821	
+$	5822	
+$	5823	
+$	5824	
+$	5825	
+$	5826	
+$	5827	
+$	5828	
+$	5829	
+$	5830	
+$	5831	
+$	5832	
+$	5833	
+$	5834	
+$	5835	
+$	5836	
+$	5837	
+$	5838	
+$	5839	
+$	5840	
+$	5841	
+$	5842	
+$	5843	
+$	5844	
+$	5845	
+$	5846	
+$	5847	
+$	5848	
+$	5849	
+$	5850	
+$	5851	
+$	5852	
+$	5853	
+$	5854	
+$	5855	
+$	5856	
+$	5857	
+$	5858	
+$	5859	
+$	5860	
+$	5861	
+$	5862	
+$	5863	
+$	5864	
+$	5865	
+$	5866	
+$	5867	
+$	5868	
+$	5869	
+$	5870	
+$	5871	
+$	5872	
+$	5873	
+$	5874	
+$	5875	
+$	5876	
+$	5877	
+$	5878	
+$	5879	
+$	5880	
+$	5881	
+$	5882	
+$	5883	
+$	5884	
+$	5885	
+$	5886	
+$	5887	
+$	5888	
+$	5889	
+$	5890	
+$	5891	
+$	5892	
+$	5893	
+$	5894	
+$	5895	
+$	5896	
+$	5897	
+$	5898	
+$	5899	
+$	5900	
+$	5901	
+$	5902	
+$	5903	
+$	5904	
+$	5905	
+$	5906	
+$	5907	
+$	5908	
+$	5909	
+$	5910	
+$	5911	
+$	5912	
+$	5913	
+$	5914	
+$	5915	
+$	5916	
+$	5917	
+$	5918	
+$	5919	
+$	5920	
+$	5921	
+$	5922	
+$	5923	
+$	5924	
+$	5925	
+$	5926	
+$	5927	
+$	5928	
+$	5929	
+$	5930	
+$	5931	
+$	5932	
+$	5933	
+$	5934	
+$	5935	
+$	5936	
+$	5937	
+$	5938	
+$	5939	
+$	5940	
+$	5941	
+$	5942	
+$	5943	
+$	5944	
+$	5945	
+$	5946	
+$	5947	
+$	5948	
+$	5949	
+$	5950	
+$	5951	
+$	5952	
+$	5953	
+$	5954	
+$	5955	
+$	5956	
+$	5957	
+$	5958	
+$	5959	
+$	5960	
+$	5961	
+$	5962	
+$	5963	
+$	5964	
+$	5965	
+$	5966	
+$	5967	
+$	5968	
+$	5969	
+$	5970	
+$	5971	
+$	5972	
+$	5973	
+$	5974	
+$	5975	
+$	5976	
+$	5977	
+$	5978	
+$	5979	
+$	5980	
+$	5981	
+$	5982	
+$	5983	
+$	5984	
+$	5985	
+$	5986	
+$	5987	
+$	5988	
+$	5989	
+$	5990	
+$	5991	
+$	5992	
+$	5993	
+$	5994	
+$	5995	
+$	5996	
+$	5997	
+$	5998	
+$	5999	
+$	6000	
+$	6001	
+$	6002	
+$	6003	
+$	6004	
+$	6005	
+$	6006	
+$	6007	
+$	6008	
+$	6009	
+$	6010	
+$	6011	
+$	6012	
+$	6013	
+$	6014	
+$	6015	
+$	6016	
+$	6017	
+$	6018	
+$	6019	
+$	6020	
+$	6021	
+$	6022	
+$	6023	
+$	6024	
+$	6025	
+$	6026	
+$	6027	
+$	6028	
+$	6029	
+$	6030	
+$	6031	
+$	6032	
+$	6033	
+$	6034	
+$	6035	
+$	6036	
+$	6037	
+$	6038	
+$	6039	
+$	6040	
+$	6041	
+$	6042	
+$	6043	
+$	6044	
+$	6045	
+$	6046	
+$	6047	
+$	6048	
+$	6049	
+$	6050	
+$	6051	
+$	6052	
+$	6053	
+$	6054	
+$	6055	
+$	6056	
+$	6057	
+$	6058	
+$	6059	
+$	6060	
+$	6061	
+$	6062	
+$	6063	
+$	6064	
+$	6065	
+$	6066	
+$	6067	
+$	6068	
+$	6069	
+$	6070	
+$	6071	
+$	6072	
+$	6073	
+$	6074	
+$	6075	
+$	6076	
+$	6077	
+$	6078	
+$	6079	
+$	6080	
+$	6081	
+$	6082	
+$	6083	
+$	6084	
+$	6085	
+$	6086	
+$	6087	
+$	6088	
+$	6089	
+$	6090	
+$	6091	
+$	6092	
+$	6093	
+$	6094	
+$	6095	
+$	6096	
+$	6097	
+$	6098	
+$	6099	
+$	6100	
+$	6101	
+$	6102	
+$	6103	
+$	6104	
+$	6105	
+$	6106	
+$	6107	
+$	6108	
+$	6109	
+$	6110	
+$	6111	
+$	6112	
+$	6113	
+$	6114	
+$	6115	
+$	6116	
+$	6117	
+$	6118	
+$	6119	
+$	6120	
+$	6121	
+$	6122	
+$	6123	
+$	6124	
+$	6125	
+$	6126	
+$	6127	
+$	6128	
+$	6129	
+$	6130	
+$	6131	
+$	6132	
+$	6133	
+$	6134	
+$	6135	
+$	6136	
+$	6137	
+$	6138	
+$	6139	
+$	6140	
+$	6141	
+$	6142	
+$	6143	
+$	6144	
+$	6145	
+$	6146	
+$	6147	
+$	6148	
+$	6149	
+$	6150	
+$	6151	
+$	6152	
+$	6153	
+$	6154	
+$	6155	
+$	6156	
+$	6157	
+$	6158	
+$	6159	
+$	6160	
+$	6161	
+$	6162	
+$	6163	
+$	6164	
+$	6165	
+$	6166	
+$	6167	
+$	6168	
+$	6169	
+$	6170	
+$	6171	
+$	6172	
+$	6173	
+$	6174	
+$	6175	
+$	6176	
+$	6177	
+$	6178	
+$	6179	
+$	6180	
+$	6181	
+$	6182	
+$	6183	
+$	6184	
+$	6185	
+$	6186	
+$	6187	
+$	6188	
+$	6189	
+$	6190	
+$	6191	
+$	6192	
+$	6193	
+$	6194	
+$	6195	
+$	6196	
+$	6197	
+$	6198	
+$	6199	
+$	6200	
+$	6201	
+$	6202	
+$	6203	
+$	6204	
+$	6205	
+$	6206	
+$	6207	
+$	6208	
+$	6209	
+$	6210	
+$	6211	
+$	6212	
+$	6213	
+$	6214	
+$	6215	
+$	6216	
+$	6217	
+$	6218	
+$	6219	
+$	6220	
+$	6221	
+$	6222	
+$	6223	
+$	6224	
+$	6225	
+$	6226	
+$	6227	
+$	6228	
+$	6229	
+$	6230	
+$	6231	
+$	6232	
+$	6233	
+$	6234	
+$	6235	
+$	6236	
+$	6237	
+$	6238	
+$	6239	
+$	6240	
+$	6241	
+$	6242	
+$	6243	
+$	6244	
+$	6245	
+$	6246	
+$	6247	
+$	6248	
+$	6249	
+$	6250	
+$	6251	
+$	6252	
+$	6253	
+$	6254	
+$	6255	
+$	6256	
+$	6257	
+$	6258	
+$	6259	
+$	6260	
+$	6261	
+$	6262	
+$	6263	
+$	6264	
+$	6265	
+$	6266	
+$	6267	
+$	6268	
+$	6269	
+$	6270	
+$	6271	
+$	6272	
+$	6273	
+$	6274	
+$	6275	
+$	6276	
+$	6277	
+$	6278	
+$	6279	
+$	6280	
+$	6281	
+$	6282	
+$	6283	
+$	6284	
+$	6285	
+$	6286	
+$	6287	
+$	6288	
+$	6289	
+$	6290	
+$	6291	
+$	6292	
+$	6293	
+$	6294	
+$	6295	
+$	6296	
+$	6297	
+$	6298	
+$	6299	
+$	6300	
+$	6301	
+$	6302	
+$	6303	
+$	6304	
+$	6305	
+$	6306	
+$	6307	
+$	6308	
+$	6309	
+$	6310	
+$	6311	
+$	6312	
+$	6313	
+$	6314	
+$	6315	
+$	6316	
+$	6317	
+$	6318	
+$	6319	
+$	6320	
+$	6321	
+$	6322	
+$	6323	
+$	6324	
+$	6325	
+$	6326	
+$	6327	
+$	6328	
+$	6329	
+$	6330	
+$	6331	
+$	6332	
+$	6333	
+$	6334	
+$	6335	
+$	6336	
+$	6337	
+$	6338	
+$	6339	
+$	6340	
+$	6341	
+$	6342	
+$	6343	
+$	6344	
+$	6345	
+$	6346	
+$	6347	
+$	6348	
+$	6349	
+$	6350	
+$	6351	
+$	6352	
+$	6353	
+$	6354	
+$	6355	
+$	6356	
+$	6357	
+$	6358	
+$	6359	
+$	6360	
+$	6361	
+$	6362	
+$	6363	
+$	6364	
+$	6365	
+$	6366	
+$	6367	
+$	6368	
+$	6369	
+$	6370	
+$	6371	
+$	6372	
+$	6373	
+$	6374	
+$	6375	
+$	6376	
+$	6377	
+$	6378	
+$	6379	
+$	6380	
+$	6381	
+$	6382	
+$	6383	
+$	6384	
+$	6385	
+$	6386	
+$	6387	
+$	6388	
+$	6389	
+$	6390	
+$	6391	
+$	6392	
+$	6393	
+$	6394	
+$	6395	
+$	6396	
+$	6397	
+$	6398	
+$	6399	
+$	6400	
+$	6401	
+$	6402	
+$	6403	
+$	6404	
+$	6405	
+$	6406	
+$	6407	
+$	6408	
+$	6409	
+$	6410	
+$	6411	
+$	6412	
+$	6413	
+$	6414	
+$	6415	
+$	6416	
+$	6417	
+$	6418	
+$	6419	
+$	6420	
+$	6421	
+$	6422	
+$	6423	
+$	6424	
+$	6425	
+$	6426	
+$	6427	
+$	6428	
+$	6429	
+$	6430	
+$	6431	
+$	6432	
+$	6433	
+$	6434	
+$	6435	
+$	6436	
+$	6437	
+$	6438	
+$	6439	
+$	6440	
+$	6441	
+$	6442	
+$	6443	
+$	6444	
+$	6445	
+$	6446	
+$	6447	
+$	6448	
+$	6449	
+$	6450	
+$	6451	
+$	6452	
+$	6453	
+$	6454	
+$	6455	
+$	6456	
+$	6457	
+$	6458	
+$	6459	
+$	6460	
+$	6461	
+$	6462	
+$	6463	
+$	6464	
+$	6465	
+$	6466	
+$	6467	
+$	6468	
+$	6469	
+$	6470	
+$	6471	
+$	6472	
+$	6473	
+$	6474	
+$	6475	
+$	6476	
+$	6477	
+$	6478	
+$	6479	
+$	6480	
+$	6481	
+$	6482	
+$	6483	
+$	6484	
+$	6485	
+$	6486	
+$	6487	
+$	6488	
+$	6489	
+$	6490	
+$	6491	
+$	6492	
+$	6493	
+$	6494	
+$	6495	
+$	6496	
+$	6497	
+$	6498	
+$	6499	
+$	6500	
+$	6501	
+$	6502	
+$	6503	
+$	6504	
+$	6505	
+$	6506	
+$	6507	
+$	6508	
+$	6509	
+$	6510	
+$	6511	
+$	6512	
+$	6513	
+$	6514	
+$	6515	
+$	6516	
+$	6517	
+$	6518	
+$	6519	
+$	6520	
+$	6521	
+$	6522	
+$	6523	
+$	6524	
+$	6525	
+$	6526	
+$	6527	
+$	6528	
+$	6529	
+$	6530	
+$	6531	
+$	6532	
+$	6533	
+$	6534	
+$	6535	
+$	6536	
+$	6537	
+$	6538	
+$	6539	
+$	6540	
+$	6541	
+$	6542	
+$	6543	
+$	6544	
+$	6545	
+$	6546	
+$	6547	
+$	6548	
+$	6549	
+$	6550	
+$	6551	
+$	6552	
+$	6553	
+$	6554	
+$	6555	
+$	6556	
+$	6557	
+$	6558	
+$	6559	
+$	6560	
+$	6561	
+$	6562	
+$	6563	
+$	6564	
+$	6565	
+$	6566	
+$	6567	
+$	6568	
+$	6569	
+$	6570	
+$	6571	
+$	6572	
+$	6573	
+$	6574	
+$	6575	
+$	6576	
+$	6577	
+$	6578	
+$	6579	
+$	6580	
+$	6581	
+$	6582	
+$	6583	
+$	6584	
+$	6585	
+$	6586	
+$	6587	
+$	6588	
+$	6589	
+$	6590	
+$	6591	
+$	6592	
+$	6593	
+$	6594	
+$	6595	
+$	6596	
+$	6597	
+$	6598	
+$	6599	
+$	6600	
+$	6601	
+$	6602	
+$	6603	
+$	6604	
+$	6605	
+$	6606	
+$	6607	
+$	6608	
+$	6609	
+$	6610	
+$	6611	
+$	6612	
+$	6613	
+$	6614	
+$	6615	
+$	6616	
+$	6617	
+$	6618	
+$	6619	
+$	6620	
+$	6621	
+$	6622	
+$	6623	
+$	6624	
+$	6625	
+$	6626	
+$	6627	
+$	6628	
+$	6629	
+$	6630	
+$	6631	
+$	6632	
+$	6633	
+$	6634	
+$	6635	
+$	6636	
+$	6637	
+$	6638	
+$	6639	
+$	6640	
+$	6641	
+$	6642	
+$	6643	
+$	6644	
+$	6645	
+$	6646	
+$	6647	
+$	6648	
+$	6649	
+$	6650	
+$	6651	
+$	6652	
+$	6653	
+$	6654	
+$	6655	
+$	6656	
+$	6657	
+$	6658	
+$	6659	
+$	6660	
+$	6661	
+$	6662	
+$	6663	
+$	6664	
+$	6665	
+$	6666	
+$	6667	
+$	6668	
+$	6669	
+$	6670	
+$	6671	
+$	6672	
+$	6673	
+$	6674	
+$	6675	
+$	6676	
+$	6677	
+$	6678	
+$	6679	
+$	6680	
+$	6681	
+$	6682	
+$	6683	
+$	6684	
+$	6685	
+$	6686	
+$	6687	
+$	6688	
+$	6689	
+$	6690	
+$	6691	
+$	6692	
+$	6693	
+$	6694	
+$	6695	
+$	6696	
+$	6697	
+$	6698	
+$	6699	
+$	6700	
+$	6701	
+$	6702	
+$	6703	
+$	6704	
+$	6705	
+$	6706	
+$	6707	
+$	6708	
+$	6709	
+$	6710	
+$	6711	
+$	6712	
+$	6713	
+$	6714	
+$	6715	
+$	6716	
+$	6717	
+$	6718	
+$	6719	
+$	6720	
+$	6721	
+$	6722	
+$	6723	
+$	6724	
+$	6725	
+$	6726	
+$	6727	
+$	6728	
+$	6729	
+$	6730	
+$	6731	
+$	6732	
+$	6733	
+$	6734	
+$	6735	
+$	6736	
+$	6737	
+$	6738	
+$	6739	
+$	6740	
+$	6741	
+$	6742	
+$	6743	
+$	6744	
+$	6745	
+$	6746	
+$	6747	
+$	6748	
+$	6749	
+$	6750	
+$	6751	
+$	6752	
+$	6753	
+$	6754	
+$	6755	
+$	6756	
+$	6757	
+$	6758	
+$	6759	
+$	6760	
+$	6761	
+$	6762	
+$	6763	
+$	6764	
+$	6765	
+$	6766	
+$	6767	
+$	6768	
+$	6769	
+$	6770	
+$	6771	
+$	6772	
+$	6773	
+$	6774	
+$	6775	
+$	6776	
+$	6777	
+$	6778	
+$	6779	
+$	6780	
+$	6781	
+$	6782	
+$	6783	
+$	6784	
+$	6785	
+$	6786	
+$	6787	
+$	6788	
+$	6789	
+$	6790	
+$	6791	
+$	6792	
+$	6793	
+$	6794	
+$	6795	
+$	6796	
+$	6797	
+$	6798	
+$	6799	
+$	6800	
+$	6801	
+$	6802	
+$	6803	
+$	6804	
+$	6805	
+$	6806	
+$	6807	
+$	6808	
+$	6809	
+$	6810	
+$	6811	
+$	6812	
+$	6813	
+$	6814	
+$	6815	
+$	6816	
+$	6817	
+$	6818	
+$	6819	
+$	6820	
+$	6821	
+$	6822	
+$	6823	
+$	6824	
+$	6825	
+$	6826	
+$	6827	
+$	6828	
+$	6829	
+$	6830	
+$	6831	
+$	6832	
+$	6833	
+$	6834	
+$	6835	
+$	6836	
+$	6837	
+$	6838	
+$	6839	
+$	6840	
+$	6841	
+$	6842	
+$	6843	
+$	6844	
+$	6845	
+$	6846	
+$	6847	
+$	6848	
+$	6849	
+$	6850	
+$	6851	
+$	6852	
+$	6853	
+$	6854	
+$	6855	
+$	6856	
+$	6857	
+$	6858	
+$	6859	
+$	6860	
+$	6861	
+$	6862	
+$	6863	
+$	6864	
+$	6865	
+$	6866	
+$	6867	
+$	6868	
+$	6869	
+$	6870	
+$	6871	
+$	6872	
+$	6873	
+$	6874	
+$	6875	
+$	6876	
+$	6877	
+$	6878	
+$	6879	
+$	6880	
+$	6881	
+$	6882	
+$	6883	
+$	6884	
+$	6885	
+$	6886	
+$	6887	
+$	6888	
+$	6889	
+$	6890	
+$	6891	
+$	6892	
+$	6893	
+$	6894	
+$	6895	
+$	6896	
+$	6897	
+$	6898	
+$	6899	
+$	6900	
+$	6901	
+$	6902	
+$	6903	
+$	6904	
+$	6905	
+$	6906	
+$	6907	
+$	6908	
+$	6909	
+$	6910	
+$	6911	
+$	6912	
+$	6913	
+$	6914	
+$	6915	
+$	6916	
+$	6917	
+$	6918	
+$	6919	
+$	6920	
+$	6921	
+$	6922	
+$	6923	
+$	6924	
+$	6925	
+$	6926	
+$	6927	
+$	6928	
+$	6929	
+$	6930	
+$	6931	
+$	6932	
+$	6933	
+$	6934	
+$	6935	
+$	6936	
+$	6937	
+$	6938	
+$	6939	
+$	6940	
+$	6941	
+$	6942	
+$	6943	
+$	6944	
+$	6945	
+$	6946	
+$	6947	
+$	6948	
+$	6949	
+$	6950	
+$	6951	
+$	6952	
+$	6953	
+$	6954	
+$	6955	
+$	6956	
+$	6957	
+$	6958	
+$	6959	
+$	6960	
+$	6961	
+$	6962	
+$	6963	
+$	6964	
+$	6965	
+$	6966	
+$	6967	
+$	6968	
+$	6969	
+$	6970	
+$	6971	
+$	6972	
+$	6973	
+$	6974	
+$	6975	
+$	6976	
+$	6977	
+$	6978	
+$	6979	
+$	6980	
+$	6981	
+$	6982	
+$	6983	
+$	6984	
+$	6985	
+$	6986	
+$	6987	
+$	6988	
+$	6989	
+$	6990	
+$	6991	
+$	6992	
+$	6993	
+$	6994	
+$	6995	
+$	6996	
+$	6997	
+$	6998	
+$	6999	
+$	7000	
+$	7001	
+$	7002	
+$	7003	
+$	7004	
+$	7005	
+$	7006	
+$	7007	
+$	7008	
+$	7009	
+$	7010	
+$	7011	
+$	7012	
+$	7013	
+$	7014	
+$	7015	
+$	7016	
+$	7017	
+$	7018	
+$	7019	
+$	7020	
+$	7021	
+$	7022	
+$	7023	
+$	7024	
+$	7025	
+$	7026	
+$	7027	
+$	7028	
+$	7029	
+$	7030	
+$	7031	
+$	7032	
+$	7033	
+$	7034	
+$	7035	
+$	7036	
+$	7037	
+$	7038	
+$	7039	
+$	7040	
+$	7041	
+$	7042	
+$	7043	
+$	7044	
+$	7045	
+$	7046	
+$	7047	
+$	7048	
+$	7049	
+$	7050	
+$	7051	
+$	7052	
+$	7053	
+$	7054	
+$	7055	
+$	7056	
+$	7057	
+$	7058	
+$	7059	
+$	7060	
+$	7061	
+$	7062	
+$	7063	
+$	7064	
+$	7065	
+$	7066	
+$	7067	
+$	7068	
+$	7069	
+$	7070	
+$	7071	
+$	7072	
+$	7073	
+$	7074	
+$	7075	
+$	7076	
+$	7077	
+$	7078	
+$	7079	
+$	7080	
+$	7081	
+$	7082	
+$	7083	
+$	7084	
+$	7085	
+$	7086	
+$	7087	
+$	7088	
+$	7089	
+$	7090	
+$	7091	
+$	7092	
+$	7093	
+$	7094	
+$	7095	
+$	7096	
+$	7097	
+$	7098	
+$	7099	
+$	7100	
+$	7101	
+$	7102	
+$	7103	
+$	7104	
+$	7105	
+$	7106	
+$	7107	
+$	7108	
+$	7109	
+$	7110	
+$	7111	
+$	7112	
+$	7113	
+$	7114	
+$	7115	
+$	7116	
+$	7117	
+$	7118	
+$	7119	
+$	7120	
+$	7121	
+$	7122	
+$	7123	
+$	7124	
+$	7125	
+$	7126	
+$	7127	
+$	7128	
+$	7129	
+$	7130	
+$	7131	
+$	7132	
+$	7133	
+$	7134	
+$	7135	
+$	7136	
+$	7137	
+$	7138	
+$	7139	
+$	7140	
+$	7141	
+$	7142	
+$	7143	
+$	7144	
+$	7145	
+$	7146	
+$	7147	
+$	7148	
+$	7149	
+$	7150	
+$	7151	
+$	7152	
+$	7153	
+$	7154	
+$	7155	
+$	7156	
+$	7157	
+$	7158	
+$	7159	
+$	7160	
+$	7161	
+$	7162	
+$	7163	
+$	7164	
+$	7165	
+$	7166	
+$	7167	
+$	7168	
+$	7169	
+$	7170	
+$	7171	
+$	7172	
+$	7173	
+$	7174	
+$	7175	
+$	7176	
+$	7177	
+$	7178	
+$	7179	
+$	7180	
+$	7181	
+$	7182	
+$	7183	
+$	7184	
+$	7185	
+$	7186	
+$	7187	
+$	7188	
+$	7189	
+$	7190	
+$	7191	
+$	7192	
+$	7193	
+$	7194	
+$	7195	
+$	7196	
+$	7197	
+$	7198	
+$	7199	
+$	7200	
+$	7201	
+$	7202	
+$	7203	
+$	7204	
+$	7205	
+$	7206	
+$	7207	
+$	7208	
+$	7209	
+$	7210	
+$	7211	
+$	7212	
+$	7213	
+$	7214	
+$	7215	
+$	7216	
+$	7217	
+$	7218	
+$	7219	
+$	7220	
+$	7221	
+$	7222	
+$	7223	
+$	7224	
+$	7225	
+$	7226	
+$	7227	
+$	7228	
+$	7229	
+$	7230	
+$	7231	
+$	7232	
+$	7233	
+$	7234	
+$	7235	
+$	7236	
+$	7237	
+$	7238	
+$	7239	
+$	7240	
+$	7241	
+$	7242	
+$	7243	
+$	7244	
+$	7245	
+$	7246	
+$	7247	
+$	7248	
+$	7249	
+$	7250	
+$	7251	
+$	7252	
+$	7253	
+$	7254	
+$	7255	
+$	7256	
+$	7257	
+$	7258	
+$	7259	
+$	7260	
+$	7261	
+$	7262	
+$	7263	
+$	7264	
+$	7265	
+$	7266	
+$	7267	
+$	7268	
+$	7269	
+$	7270	
+$	7271	
+$	7272	
+$	7273	
+$	7274	
+$	7275	
+$	7276	
+$	7277	
+$	7278	
+$	7279	
+$	7280	
+$	7281	
+$	7282	
+$	7283	
+$	7284	
+$	7285	
+$	7286	
+$	7287	
+$	7288	
+$	7289	
+$	7290	
+$	7291	
+$	7292	
+$	7293	
+$	7294	
+$	7295	
+$	7296	
+$	7297	
+$	7298	
+$	7299	
+$	7300	
+$	7301	
+$	7302	
+$	7303	
+$	7304	
+$	7305	
+$	7306	
+$	7307	
+$	7308	
+$	7309	
+$	7310	
+$	7311	
+$	7312	
+$	7313	
+$	7314	
+$	7315	
+$	7316	
+$	7317	
+$	7318	
+$	7319	
+$	7320	
+$	7321	
+$	7322	
+$	7323	
+$	7324	
+$	7325	
+$	7326	
+$	7327	
+$	7328	
+$	7329	
+$	7330	
+$	7331	
+$	7332	
+$	7333	
+$	7334	
+$	7335	
+$	7336	
+$	7337	
+$	7338	
+$	7339	
+$	7340	
+$	7341	
+$	7342	
+$	7343	
+$	7344	
+$	7345	
+$	7346	
+$	7347	
+$	7348	
+$	7349	
+$	7350	
+$	7351	
+$	7352	
+$	7353	
+$	7354	
+$	7355	
+$	7356	
+$	7357	
+$	7358	
+$	7359	
+$	7360	
+$	7361	
+$	7362	
+$	7363	
+$	7364	
+$	7365	
+$	7366	
+$	7367	
+$	7368	
+$	7369	
+$	7370	
+$	7371	
+$	7372	
+$	7373	
+$	7374	
+$	7375	
+$	7376	
+$	7377	
+$	7378	
+$	7379	
+$	7380	
+$	7381	
+$	7382	
+$	7383	
+$	7384	
+$	7385	
+$	7386	
+$	7387	
+$	7388	
+$	7389	
+$	7390	
+$	7391	
+$	7392	
+$	7393	
+$	7394	
+$	7395	
+$	7396	
+$	7397	
+$	7398	
+$	7399	
+$	7400	
+$	7401	
+$	7402	
+$	7403	
+$	7404	
+$	7405	
+$	7406	
+$	7407	
+$	7408	
+$	7409	
+$	7410	
+$	7411	
+$	7412	
+$	7413	
+$	7414	
+$	7415	
+$	7416	
+$	7417	
+$	7418	
+$	7419	
+$	7420	
+$	7421	
+$	7422	
+$	7423	
+$	7424	
+$	7425	
+$	7426	
+$	7427	
+$	7428	
+$	7429	
+$	7430	
+$	7431	
+$	7432	
+$	7433	
+$	7434	
+$	7435	
+$	7436	
+$	7437	
+$	7438	
+$	7439	
+$	7440	
+$	7441	
+$	7442	
+$	7443	
+$	7444	
+$	7445	
+$	7446	
+$	7447	
+$	7448	
+$	7449	
+$	7450	
+$	7451	
+$	7452	
+$	7453	
+$	7454	
+$	7455	
+$	7456	
+$	7457	
+$	7458	
+$	7459	
+$	7460	
+$	7461	
+$	7462	
+$	7463	
+$	7464	
+$	7465	
+$	7466	
+$	7467	
+$	7468	
+$	7469	
+$	7470	
+$	7471	
+$	7472	
+$	7473	
+$	7474	
+$	7475	
+$	7476	
+$	7477	
+$	7478	
+$	7479	
+$	7480	
+$	7481	
+$	7482	
+$	7483	
+$	7484	
+$	7485	
+$	7486	
+$	7487	
+$	7488	
+$	7489	
+$	7490	
+$	7491	
+$	7492	
+$	7493	
+$	7494	
+$	7495	
+$	7496	
+$	7497	
+$	7498	
+$	7499	
+$	7500	
+$	7501	
+$	7502	
+$	7503	
+$	7504	
+$	7505	
+$	7506	
+$	7507	
+$	7508	
+$	7509	
+$	7510	
+$	7511	
+$	7512	
+$	7513	
+$	7514	
+$	7515	
+$	7516	
+$	7517	
+$	7518	
+$	7519	
+$	7520	
+$	7521	
+$	7522	
+$	7523	
+$	7524	
+$	7525	
+$	7526	
+$	7527	
+$	7528	
+$	7529	
+$	7530	
+$	7531	
+$	7532	
+$	7533	
+$	7534	
+$	7535	
+$	7536	
+$	7537	
+$	7538	
+$	7539	
+$	7540	
+$	7541	
+$	7542	
+$	7543	
+$	7544	
+$	7545	
+$	7546	
+$	7547	
+$	7548	
+$	7549	
+$	7550	
+$	7551	
+$	7552	
+$	7553	
+$	7554	
+$	7555	
+$	7556	
+$	7557	
+$	7558	
+$	7559	
+$	7560	
+$	7561	
+$	7562	
+$	7563	
+$	7564	
+$	7565	
+$	7566	
+$	7567	
+$	7568	
+$	7569	
+$	7570	
+$	7571	
+$	7572	
+$	7573	
+$	7574	
+$	7575	
+$	7576	
+$	7577	
+$	7578	
+$	7579	
+$	7580	
+$	7581	
+$	7582	
+$	7583	
+$	7584	
+$	7585	
+$	7586	
+$	7587	
+$	7588	
+$	7589	
+$	7590	
+$	7591	
+$	7592	
+$	7593	
+$	7594	
+$	7595	
+$	7596	
+$	7597	
+$	7598	
+$	7599	
+$	7600	
+$	7601	
+$	7602	
+$	7603	
+$	7604	
+$	7605	
+$	7606	
+$	7607	
+$	7608	
+$	7609	
+$	7610	
+$	7611	
+$	7612	
+$	7613	
+$	7614	
+$	7615	
+$	7616	
+$	7617	
+$	7618	
+$	7619	
+$	7620	
+$	7621	
+$	7622	
+$	7623	
+$	7624	
+$	7625	
+$	7626	
+$	7627	
+$	7628	
+$	7629	
+$	7630	
+$	7631	
+$	7632	
+$	7633	
+$	7634	
+$	7635	
+$	7636	
+$	7637	
+$	7638	
+$	7639	
+$	7640	
+$	7641	
+$	7642	
+$	7643	
+$	7644	
+$	7645	
+$	7646	
+$	7647	
+$	7648	
+$	7649	
+$	7650	
+$	7651	
+$	7652	
+$	7653	
+$	7654	
+$	7655	
+$	7656	
+$	7657	
+$	7658	
+$	7659	
+$	7660	
+$	7661	
+$	7662	
+$	7663	
+$	7664	
+$	7665	
+$	7666	
+$	7667	
+$	7668	
+$	7669	
+$	7670	
+$	7671	
+$	7672	
+$	7673	
+$	7674	
+$	7675	
+$	7676	
+$	7677	
+$	7678	
+$	7679	
+$	7680	
+$	7681	
+$	7682	
+$	7683	
+$	7684	
+$	7685	
+$	7686	
+$	7687	
+$	7688	
+$	7689	
+$	7690	
+$	7691	
+$	7692	
+$	7693	
+$	7694	
+$	7695	
+$	7696	
+$	7697	
+$	7698	
+$	7699	
+$	7700	
+$	7701	
+$	7702	
+$	7703	
+$	7704	
+$	7705	
+$	7706	
+$	7707	
+$	7708	
+$	7709	
+$	7710	
+$	7711	
+$	7712	
+$	7713	
+$	7714	
+$	7715	
+$	7716	
+$	7717	
+$	7718	
+$	7719	
+$	7720	
+$	7721	
+$	7722	
+$	7723	
+$	7724	
+$	7725	
+$	7726	
+$	7727	
+$	7728	
+$	7729	
+$	7730	
+$	7731	
+$	7732	
+$	7733	
+$	7734	
+$	7735	
+$	7736	
+$	7737	
+$	7738	
+$	7739	
+$	7740	
+$	7741	
+$	7742	
+$	7743	
+$	7744	
+$	7745	
+$	7746	
+$	7747	
+$	7748	
+$	7749	
+$	7750	
+$	7751	
+$	7752	
+$	7753	
+$	7754	
+$	7755	
+$	7756	
+$	7757	
+$	7758	
+$	7759	
+$	7760	
+$	7761	
+$	7762	
+$	7763	
+$	7764	
+$	7765	
+$	7766	
+$	7767	
+$	7768	
+$	7769	
+$	7770	
+$	7771	
+$	7772	
+$	7773	
+$	7774	
+$	7775	
+$	7776	
+$	7777	
+$	7778	
+$	7779	
+$	7780	
+$	7781	
+$	7782	
+$	7783	
+$	7784	
+$	7785	
+$	7786	
+$	7787	
+$	7788	
+$	7789	
+$	7790	
+$	7791	
+$	7792	
+$	7793	
+$	7794	
+$	7795	
+$	7796	
+$	7797	
+$	7798	
+$	7799	
+$	7800	
+$	7801	
+$	7802	
+$	7803	
+$	7804	
+$	7805	
+$	7806	
+$	7807	
+$	7808	
+$	7809	
+$	7810	
+$	7811	
+$	7812	
+$	7813	
+$	7814	
+$	7815	
+$	7816	
+$	7817	
+$	7818	
+$	7819	
+$	7820	
+$	7821	
+$	7822	
+$	7823	
+$	7824	
+$	7825	
+$	7826	
+$	7827	
+$	7828	
+$	7829	
+$	7830	
+$	7831	
+$	7832	
+$	7833	
+$	7834	
+$	7835	
+$	7836	
+$	7837	
+$	7838	
+$	7839	
+$	7840	
+$	7841	
+$	7842	
+$	7843	
+$	7844	
+$	7845	
+$	7846	
+$	7847	
+$	7848	
+$	7849	
+$	7850	
+$	7851	
+$	7852	
+$	7853	
+$	7854	
+$	7855	
+$	7856	
+$	7857	
+$	7858	
+$	7859	
+$	7860	
+$	7861	
+$	7862	
+$	7863	
+$	7864	
+$	7865	
+$	7866	
+$	7867	
+$	7868	
+$	7869	
+$	7870	
+$	7871	
+$	7872	
+$	7873	
+$	7874	
+$	7875	
+$	7876	
+$	7877	
+$	7878	
+$	7879	
+$	7880	
+$	7881	
+$	7882	
+$	7883	
+$	7884	
+$	7885	
+$	7886	
+$	7887	
+$	7888	
+$	7889	
+$	7890	
+$	7891	
+$	7892	
+$	7893	
+$	7894	
+$	7895	
+$	7896	
+$	7897	
+$	7898	
+$	7899	
+$	7900	
+$	7901	
+$	7902	
+$	7903	
+$	7904	
+$	7905	
+$	7906	
+$	7907	
+$	7908	
+$	7909	
+$	7910	
+$	7911	
+$	7912	
+$	7913	
+$	7914	
+$	7915	
+$	7916	
+$	7917	
+$	7918	
+$	7919	
+$	7920	
+$	7921	
+$	7922	
+$	7923	
+$	7924	
+$	7925	
+$	7926	
+$	7927	
+$	7928	
+$	7929	
+$	7930	
+$	7931	
+$	7932	
+$	7933	
+$	7934	
+$	7935	
+$	7936	
+$	7937	
+$	7938	
+$	7939	
+$	7940	
+$	7941	
+$	7942	
+$	7943	
+$	7944	
+$	7945	
+$	7946	
+$	7947	
+$	7948	
+$	7949	
+$	7950	
+$	7951	
+$	7952	
+$	7953	
+$	7954	
+$	7955	
+$	7956	
+$	7957	
+$	7958	
+$	7959	
+$	7960	
+$	7961	
+$	7962	
+$	7963	
+$	7964	
+$	7965	
+$	7966	
+$	7967	
+$	7968	
+$	7969	
+$	7970	
+$	7971	
+$	7972	
+$	7973	
+$	7974	
+$	7975	
+$	7976	
+$	7977	
+$	7978	
+$	7979	
+$	7980	
+$	7981	
+$	7982	
+$	7983	
+$	7984	
+$	7985	
+$	7986	
+$	7987	
+$	7988	
+$	7989	
+$	7990	
+$	7991	
+$	7992	
+$	7993	
+$	7994	
+$	7995	
+$	7996	
+$	7997	
+$	7998	
+$	7999	
+$	8000	
+$	8001	
+$	8002	
+$	8003	
+$	8004	
+$	8005	
+$	8006	
+$	8007	
+$	8008	
+$	8009	
+$	8010	
+$	8011	
+$	8012	
+$	8013	
+$	8014	
+$	8015	
+$	8016	
+$	8017	
+$	8018	
+$	8019	
+$	8020	
+$	8021	
+$	8022	
+$	8023	
+$	8024	
+$	8025	
+$	8026	
+$	8027	
+$	8028	
+$	8029	
+$	8030	
+$	8031	
+$	8032	
+$	8033	
+$	8034	
+$	8035	
+$	8036	
+$	8037	
+$	8038	
+$	8039	
+$	8040	
+$	8041	
+$	8042	
+$	8043	
+$	8044	
+$	8045	
+$	8046	
+$	8047	
+$	8048	
+$	8049	
+$	8050	
+$	8051	
+$	8052	
+$	8053	
+$	8054	
+$	8055	
+$	8056	
+$	8057	
+$	8058	
+$	8059	
+$	8060	
+$	8061	
+$	8062	
+$	8063	
+$	8064	
+$	8065	
+$	8066	
+$	8067	
+$	8068	
+$	8069	
+$	8070	
+$	8071	
+$	8072	
+$	8073	
+$	8074	
+$	8075	
+$	8076	
+$	8077	
+$	8078	
+$	8079	
+$	8080	
+$	8081	
+$	8082	
+$	8083	
+$	8084	
+$	8085	
+$	8086	
+$	8087	
+$	8088	
+$	8089	
+$	8090	
+$	8091	
+$	8092	
+$	8093	
+$	8094	
+$	8095	
+$	8096	
+$	8097	
+$	8098	
+$	8099	
+$	8100	
+$	8101	
+$	8102	
+$	8103	
+$	8104	
+$	8105	
+$	8106	
+$	8107	
+$	8108	
+$	8109	
+$	8110	
+$	8111	
+$	8112	
+$	8113	
+$	8114	
+$	8115	
+$	8116	
+$	8117	
+$	8118	
+$	8119	
+$	8120	
+$	8121	
+$	8122	
+$	8123	
+$	8124	
+$	8125	
+$	8126	
+$	8127	
+$	8128	
+$	8129	
+$	8130	
+$	8131	
+$	8132	
+$	8133	
+$	8134	
+$	8135	
+$	8136	
+$	8137	
+$	8138	
+$	8139	
+$	8140	
+$	8141	
+$	8142	
+$	8143	
+$	8144	
+$	8145	
+$	8146	
+$	8147	
+$	8148	
+$	8149	
+$	8150	
+$	8151	
+$	8152	
+$	8153	
+$	8154	
+$	8155	

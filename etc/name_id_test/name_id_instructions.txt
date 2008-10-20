@@ -1,0 +1,20 @@
+Instructions for using these files to figure out name_id codes.
+
+
+1.Use these in a database you dont care to screw up!!! Save your files.
+
+2.You are going to need to run all the tables in the database so you can log into your server
+and read what name show's after you put in the name ID code.
+
+3.Execute these batch files, if they dont execute properly change your encoding settings to either
+  (65001 (UTF-8) or (932   (ANSI/OEM - Japanese Shift-JIS).
+ 
+3.Empty your spawnlist table.
+
+4.You will add or change the name ID code in the NPC table to see what code number equals what text.
+  example ( $16 = Katana)
+
+5.There are 144 training dummies lined up in Aden to do this with. They are by the teleport lady.
+  
+
+

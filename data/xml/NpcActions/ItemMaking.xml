@@ -1,0 +1,2449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NpcActionList>
+  <!-- Sell animal skins -->
+  <Action Name="request adena2">
+    <MakeItem>
+      <Item Amount="2" ItemId="40308"/>
+      <Material Amount="1" ItemId="40405"/>
+    </MakeItem>
+  </Action>
+  <!-- Sell leather -->
+  <Action Name="request adena30">
+    <MakeItem>
+      <Item Amount="30" ItemId="40308"/>
+      <Material Amount="1" ItemId="40406"/>
+    </MakeItem>
+  </Action>
+  <!-- Metal light to sell -->
+  <Action Name="request adena5">
+    <MakeItem>
+      <Item Amount="5" ItemId="40308"/>
+      <Material Amount="1" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <!-- BONPISU sell -->
+  <Action Name="request adena10">
+    <MakeItem>
+      <Item Amount="10" ItemId="40308"/>
+      <Material Amount="1" ItemId="40407"/>
+    </MakeItem>
+  </Action>
+  <!-- Dark crossbow -->
+  <Action Name="request dark crossbow">
+    <MakeItem>
+      <Item Amount="1" ItemId="168"/>
+      <Material Amount="100" ItemId="40321"/>
+      <Material Amount="10" ItemId="40322"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="30" ItemId="40406"/>
+    </MakeItem>
+  </Action>
+  <!-- Dark claw -->
+  <Action Name="request dark claw">
+    <MakeItem>
+      <Item Amount="1" ItemId="158"/>
+      <Material Amount="100" ItemId="40321"/>
+      <Material Amount="5" ItemId="40322"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="10" ItemId="40406"/>
+    </MakeItem>
+  </Action>
+  <!-- Dark Edoryu -->
+  <Action Name="request dark dualblade">
+    <MakeItem>
+      <Item Amount="1" ItemId="75"/>
+      <Material Amount="100" ItemId="40321"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="20" ItemId="40406"/>
+    </MakeItem>
+  </Action>
+  <!-- Silver Claw -->
+  <Action Name="request silver claw">
+    <MakeItem>
+      <Item Amount="1" ItemId="157"/>
+      <Material Amount="1" ItemId="158"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="10" ItemId="40406"/>
+      <Material Amount="40" ItemId="40321"/>
+      <Material Amount="1" ItemId="40323"/>
+      <Material Amount="1" ItemId="40044"/>
+      <Material Amount="30" ItemId="40467"/>
+    </MakeItem>
+  </Action>
+  <!-- Silver Edoryu -->
+  <Action Name="request silver dualblade">
+    <MakeItem>
+      <Item Amount="1" ItemId="74"/>
+      <Material Amount="1" ItemId="75"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="20" ItemId="40406"/>
+      <Material Amount="50" ItemId="40321"/>
+      <Material Amount="1" ItemId="40323"/>
+      <Material Amount="1" ItemId="40044"/>
+      <Material Amount="20" ItemId="40467"/>
+    </MakeItem>
+  </Action>
+  <!-- brave crossbow -->
+  <Action Name="request blind crossbow">
+    <MakeItem>
+      <Item Amount="1" ItemId="177"/>
+      <Material Amount="1" ItemId="168"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="30" ItemId="40406"/>
+      <Material Amount="100" ItemId="40322"/>
+      <Material Amount="20" ItemId="40323"/>
+    </MakeItem>
+  </Action>
+  <!-- brave claw -->
+  <Action Name="request blind claw">
+    <MakeItem>
+      <Item Amount="1" ItemId="162"/>
+      <Material Amount="1" ItemId="158"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="10" ItemId="40406"/>
+      <Material Amount="100" ItemId="40322"/>
+      <Material Amount="10" ItemId="40323"/>
+    </MakeItem>
+  </Action>
+  <!-- brave edoryu -->
+  <Action Name="request blind dualblade">
+    <MakeItem>
+      <Item Amount="1" ItemId="81"/>
+      <Material Amount="1" ItemId="75"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="20" ItemId="40406"/>
+      <Material Amount="100" ItemId="40322"/>
+      <Material Amount="5" ItemId="40323"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient greatsword">
+    <MakeItem>
+      <Item Amount="1" ItemId="67"/>
+      <Material Amount="1" ItemId="17"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient sword">
+    <MakeItem>
+      <Item Amount="1" ItemId="68"/>
+      <Material Amount="1" ItemId="18"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient bowgun">
+    <MakeItem>
+      <Item Amount="1" ItemId="182"/>
+      <Material Amount="1" ItemId="167"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient plate mail">
+    <MakeItem>
+      <Item Amount="1" ItemId="20095"/>
+      <Material Amount="1" ItemId="20143"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient leather armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20092"/>
+      <Material Amount="1" ItemId="20140"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient robe">
+    <MakeItem>
+      <Item Amount="1" ItemId="20093"/>
+      <Material Amount="1" ItemId="20141"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient scale mail">
+    <MakeItem>
+      <Item Amount="1" ItemId="20094"/>
+      <Material Amount="1" ItemId="20142"/>
+      <Material Amount="1" ItemId="40076"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request fairydust">
+    <MakeItem>
+      <Item Amount="20" ItemId="40520"/>
+      <Material Amount="1" ItemId="40515"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bow">
+    <MakeItem>
+      <Item Amount="1" ItemId="172"/>
+      <Material Amount="1" ItemId="40507"/>
+      <Material Amount="5" ItemId="40502"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven bow">
+    <MakeItem>
+      <Item Amount="1" ItemId="170"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="2" ItemId="40502"/>
+      <Material Amount="2" ItemId="40504"/>
+      <Material Amount="20" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request crossbow">
+    <MakeItem>
+      <Item Amount="1" ItemId="180"/>
+      <Material Amount="8" ItemId="40521"/>
+      <Material Amount="20" ItemId="40495"/>
+      <Material Amount="30" ItemId="40503"/>
+      <Material Amount="3" ItemId="40509"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request yumi">
+    <MakeItem>
+      <Item Amount="1" ItemId="181"/>
+      <Material Amount="40" ItemId="40495"/>
+      <Material Amount="5" ItemId="40504"/>
+      <Material Amount="1" ItemId="100"/>
+      <Material Amount="6" ItemId="40509"/>
+      <Material Amount="2" ItemId="40051"/>
+      <Material Amount="1" ItemId="40048"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request arrow">
+    <MakeItem>
+      <Item Amount="100" ItemId="40743"/>
+      <Material Amount="10" ItemId="40507"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request mithril arrow">
+    <MakeItem>
+      <Item Amount="2000" ItemId="40746"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="100" ItemId="40494"/>
+      <Material Amount="1" ItemId="40779"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request oriharukon arrow">
+    <MakeItem>
+      <Item Amount="5000" ItemId="40748"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="100" ItemId="40508"/>
+      <Material Amount="1" ItemId="40779"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven dagger">
+    <MakeItem>
+      <Item Amount="1" ItemId="5"/>
+      <Material Amount="5" ItemId="40507"/>
+      <Material Amount="20" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request mail breaker">
+    <MakeItem>
+      <Item Amount="1" ItemId="22"/>
+      <Material Amount="1" ItemId="3"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="50" ItemId="40503"/>
+      <Material Amount="1" ItemId="89"/>
+      <Material Amount="1" ItemId="40044"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven short sword">
+    <MakeItem>
+      <Item Amount="1" ItemId="28"/>
+      <Material Amount="1" ItemId="19"/>
+      <Material Amount="5" ItemId="40507"/>
+      <Material Amount="50" ItemId="40503"/>
+      <Material Amount="150" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request rapier">
+    <MakeItem>
+      <Item Amount="1" ItemId="42"/>
+      <Material Amount="1" ItemId="20"/>
+      <Material Amount="25" ItemId="40503"/>
+      <Material Amount="50" ItemId="40508"/>
+      <Material Amount="2" ItemId="40521"/>
+      <Material Amount="1" ItemId="40049"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request guisarme">
+    <MakeItem>
+      <Item Amount="1" ItemId="97"/>
+      <Material Amount="1" ItemId="3"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="10" ItemId="40503"/>
+      <Material Amount="90" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven spear">
+    <MakeItem>
+      <Item Amount="1" ItemId="99"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="30" ItemId="40503"/>
+      <Material Amount="1" ItemId="89"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request fauchard">
+    <MakeItem>
+      <Item Amount="1" ItemId="104"/>
+      <Material Amount="1" ItemId="99"/>
+      <Material Amount="50" ItemId="40503"/>
+      <Material Amount="60" ItemId="40508"/>
+      <Material Amount="1" ItemId="100"/>
+      <Material Amount="1" ItemId="40049"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request club">
+    <MakeItem>
+      <Item Amount="1" ItemId="138"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="5" ItemId="40503"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request battle axe">
+    <MakeItem>
+      <Item Amount="1" ItemId="143"/>
+      <Material Amount="1" ItemId="3"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="5" ItemId="40503"/>
+      <Material Amount="60" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request wooden armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20097"/>
+      <Material Amount="2" ItemId="40505"/>
+      <Material Amount="5" ItemId="40519"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven breast plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="20139"/>
+      <Material Amount="2" ItemId="40504"/>
+      <Material Amount="10" ItemId="40502"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven chain mail">
+    <MakeItem>
+      <Item Amount="1" ItemId="20137"/>
+      <Material Amount="4" ItemId="40497"/>
+      <Material Amount="80" ItemId="40495"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven plate mail">
+    <MakeItem>
+      <Item Amount="1" ItemId="20138"/>
+      <Material Amount="8" ItemId="40509"/>
+      <Material Amount="20" ItemId="40495"/>
+      <Material Amount="1" ItemId="40052"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request wooden shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20222"/>
+      <Material Amount="5" ItemId="40507"/>
+      <Material Amount="1" ItemId="40505"/>
+      <Material Amount="5" ItemId="40503"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20236"/>
+      <Material Amount="1" ItemId="20222"/>
+      <Material Amount="2" ItemId="40497"/>
+      <Material Amount="5" ItemId="40503"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven leather helm">
+    <MakeItem>
+      <Item Amount="1" ItemId="20035"/>
+      <Material Amount="1" ItemId="40521"/>
+      <Material Amount="2" ItemId="40505"/>
+      <Material Amount="10" ItemId="40519"/>
+      <Material Amount="20" ItemId="40503"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bless of elm">
+    <MakeItem>
+      <Item Amount="1" ItemId="20033"/>
+      <Material Amount="1" ItemId="20035"/>
+      <Material Amount="3" ItemId="40509"/>
+      <Material Amount="150" ItemId="40495"/>
+      <Material Amount="5" ItemId="40318"/>
+      <Material Amount="1" ItemId="40048"/>
+      <Material Amount="1" ItemId="40051"/>
+      <Material Amount="1" ItemId="40050"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bracer">
+    <MakeItem>
+      <Item Amount="1" ItemId="20191"/>
+      <Material Amount="3" ItemId="40505"/>
+      <Material Amount="20" ItemId="40495"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request power gloves">
+    <MakeItem>
+      <Item Amount="1" ItemId="20187"/>
+      <Material Amount="20" ItemId="40495"/>
+      <Material Amount="5" ItemId="40504"/>
+      <Material Amount="1" ItemId="40513"/>
+      <Material Amount="1" ItemId="40048"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven cloak">
+    <MakeItem>
+      <Item Amount="1" ItemId="20073"/>
+      <Material Amount="2" ItemId="40318"/>
+      <Material Amount="120" ItemId="40520"/>
+      <Material Amount="10" ItemId="40495"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request low boots">
+    <MakeItem>
+      <Item Amount="1" ItemId="20213"/>
+      <Material Amount="2" ItemId="40505"/>
+      <Material Amount="4" ItemId="40502"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request boots">
+    <MakeItem>
+      <Item Amount="1" ItemId="20205"/>
+      <Material Amount="2" ItemId="40504"/>
+      <Material Amount="10" ItemId="40502"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request twig of ent">
+    <MakeItem>
+      <Item Amount="1" ItemId="40507"/>
+      <Material Amount="200" ItemId="40743"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request a fruit of ent">
+    <MakeItem>
+      <Item Amount="1" ItemId="40506"/>
+      <Material Amount="1" ItemId="40514"/>
+      <Material Amount="1" ItemId="40511"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bow of sayha">
+    <MakeItem>
+      <Item Amount="1" ItemId="190"/>
+      <Material Amount="1" ItemId="181"/>
+      <Material Amount="30" ItemId="40491"/>
+      <Material Amount="50" ItemId="40498"/>
+      <Material Amount="15" ItemId="40394"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request magician dress">
+    <MakeItem>
+      <Item Amount="1" ItemId="20111"/>
+      <Material Amount="1" ItemId="40054"/>
+      <Material Amount="25" ItemId="40318"/>
+      <Material Amount="2" ItemId="40457"/>
+      <Material Amount="4" ItemId="40455"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request magician cap">
+    <MakeItem>
+      <Item Amount="1" ItemId="20012"/>
+      <Material Amount="2" ItemId="40051"/>
+      <Material Amount="20" ItemId="40318"/>
+      <Material Amount="1" ItemId="40457"/>
+      <Material Amount="1" ItemId="40456"/>
+      <Material Amount="1" ItemId="40455"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request t-shirt">
+    <MakeItem>
+      <Item Amount="1" ItemId="20085"/>
+      <Material Amount="3" ItemId="40456"/>
+      <Material Amount="2" ItemId="40455"/>
+      <Material Amount="10" ItemId="40457"/>
+      <Material Amount="30000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of magic resistance">
+    <MakeItem>
+      <Item Amount="1" ItemId="20056"/>
+      <Material Amount="10" ItemId="40456"/>
+      <Material Amount="2" ItemId="40455"/>
+      <Material Amount="1" ItemId="40457"/>
+      <Material Amount="1000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of protection">
+    <MakeItem>
+      <Item Amount="1" ItemId="20063"/>
+      <Material Amount="5" ItemId="40456"/>
+      <Material Amount="5" ItemId="40455"/>
+      <Material Amount="10" ItemId="40457"/>
+      <Material Amount="20000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request iron gloves">
+    <MakeItem>
+      <Item Amount="1" ItemId="20163"/>
+      <Material Amount="1" ItemId="20182"/>
+      <Material Amount="150" ItemId="40408"/>
+      <Material Amount="25000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request iron visor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20003"/>
+      <Material Amount="1" ItemId="20006"/>
+      <Material Amount="120" ItemId="40408"/>
+      <Material Amount="16500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request iron shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20220"/>
+      <Material Amount="1" ItemId="20231"/>
+      <Material Amount="200" ItemId="40408"/>
+      <Material Amount="16000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request iron boots">
+    <MakeItem>
+      <Item Amount="1" ItemId="20194"/>
+      <Material Amount="1" ItemId="20205"/>
+      <Material Amount="160" ItemId="40408"/>
+      <Material Amount="8000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request iron plate mail">
+    <MakeItem>
+      <Item Amount="1" ItemId="20091"/>
+      <Material Amount="1" ItemId="20154"/>
+      <Material Amount="450" ItemId="40408"/>
+      <Material Amount="30000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request slim plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40526"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request lump of steel">
+    <MakeItem>
+      <Item Amount="1" ItemId="40779"/>
+      <Material Amount="5" ItemId="40899"/>
+      <Material Amount="5" ItemId="40408"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request tsurugi">
+    <MakeItem>
+      <Item Amount="1" ItemId="57"/>
+      <Material Amount="500" ItemId="40508"/>
+      <Material Amount="5" ItemId="40052"/>
+      <Material Amount="5" ItemId="40055"/>
+      <Material Amount="5" ItemId="40054"/>
+      <Material Amount="5" ItemId="40053"/>
+      <Material Amount="30" ItemId="40460"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request red dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20159"/>
+      <Material Amount="15" ItemId="40393"/>
+      <Material Amount="1000" ItemId="40508"/>
+      <Material Amount="500" ItemId="40495"/>
+      <Material Amount="10" ItemId="40460"/>
+      <Material Amount="5" ItemId="40053"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request blue dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20127"/>
+      <Material Amount="15" ItemId="40395"/>
+      <Material Amount="1000" ItemId="40508"/>
+      <Material Amount="500" ItemId="40495"/>
+      <Material Amount="10" ItemId="40460"/>
+      <Material Amount="5" ItemId="40055"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request azure dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20156"/>
+      <Material Amount="15" ItemId="40394"/>
+      <Material Amount="1000" ItemId="40508"/>
+      <Material Amount="500" ItemId="40495"/>
+      <Material Amount="10" ItemId="40460"/>
+      <Material Amount="5" ItemId="40054"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request green dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20146"/>
+      <Material Amount="15" ItemId="40396"/>
+      <Material Amount="1000" ItemId="40508"/>
+      <Material Amount="500" ItemId="40495"/>
+      <Material Amount="10" ItemId="40460"/>
+      <Material Amount="5" ItemId="40052"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request lump of pure mithril">
+    <MakeItem>
+      <Item Amount="20" ItemId="40494"/>
+      <Material Amount="1" ItemId="40496"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ala of fairy">
+    <MakeItem>
+      <Item Amount="1" ItemId="40521"/>
+      <Material Amount="5" ItemId="40495"/>
+      <Material Amount="40" ItemId="40520"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request magic flute">
+    <MakeItem>
+      <Item Amount="1" ItemId="40493"/>
+      <Material Amount="1" ItemId="40505"/>
+      <Material Amount="10" ItemId="40508"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request mithril plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40497"/>
+      <Material Amount="50" ItemId="40494"/>
+      <Material Amount="1" ItemId="40504"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request oriharukon plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40509"/>
+      <Material Amount="30" ItemId="40508"/>
+      <Material Amount="1" ItemId="40504"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request thread">
+    <MakeItem>
+      <Item Amount="1" ItemId="40502"/>
+      <Material Amount="1" ItemId="40519"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request mithril thread">
+    <MakeItem>
+      <Item Amount="1" ItemId="40495"/>
+      <Material Amount="1" ItemId="40502"/>
+      <Material Amount="5" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ecdysis of arachne">
+    <MakeItem>
+      <Item Amount="1" ItemId="40504"/>
+      <Material Amount="3" ItemId="40505"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request oriharukon">
+    <MakeItem>
+      <Item Amount="1" ItemId="40508"/>
+      <Material Amount="10" ItemId="40494"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request black mithril">
+    <MakeItem>
+      <Item Amount="1" ItemId="40443"/>
+      <Material Amount="1" ItemId="40486"/>
+      <Material Amount="1" ItemId="40490"/>
+      <Material Amount="1" ItemId="40442"/>
+      <Material Amount="5" ItemId="40444"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request silver bar">
+    <MakeItem>
+      <Item Amount="1" ItemId="40467"/>
+      <Material Amount="10" ItemId="40468"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request gold bar">
+    <MakeItem>
+      <Item Amount="1" ItemId="40488"/>
+      <Material Amount="10" ItemId="40489"/>
+      <Material Amount="1000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request platinum bar">
+    <MakeItem>
+      <Item Amount="1" ItemId="40440"/>
+      <Material Amount="10" ItemId="40441"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request silver plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40469"/>
+      <Material Amount="5" ItemId="40467"/>
+      <Material Amount="3" ItemId="40779"/>
+      <Material Amount="1000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request gold plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40487"/>
+      <Material Amount="5" ItemId="40488"/>
+      <Material Amount="3" ItemId="40779"/>
+      <Material Amount="3000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request platinum plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40439"/>
+      <Material Amount="5" ItemId="40440"/>
+      <Material Amount="3" ItemId="40779"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request black mithril plate">
+    <MakeItem>
+      <Item Amount="1" ItemId="40445"/>
+      <Material Amount="10" ItemId="40443"/>
+      <Material Amount="1" ItemId="40497"/>
+      <Material Amount="1" ItemId="40509"/>
+      <Material Amount="1" ItemId="40469"/>
+      <Material Amount="1" ItemId="40487"/>
+      <Material Amount="1" ItemId="40439"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request black mithril arrow">
+    <MakeItem>
+      <Item Amount="5000" ItemId="40747"/>
+      <Material Amount="10" ItemId="40507"/>
+      <Material Amount="1" ItemId="40443"/>
+      <Material Amount="1" ItemId="40440"/>
+      <Material Amount="1000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient blue dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20153"/>
+      <Material Amount="1" ItemId="20127"/>
+      <Material Amount="3" ItemId="40445"/>
+      <Material Amount="30" ItemId="40051"/>
+      <Material Amount="5" ItemId="40413"/>
+      <Material Amount="50000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient green dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20130"/>
+      <Material Amount="1" ItemId="20146"/>
+      <Material Amount="3" ItemId="40445"/>
+      <Material Amount="30" ItemId="40048"/>
+      <Material Amount="5" ItemId="40162"/>
+      <Material Amount="50000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient red dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20119"/>
+      <Material Amount="1" ItemId="20159"/>
+      <Material Amount="3" ItemId="40445"/>
+      <Material Amount="30" ItemId="40049"/>
+      <Material Amount="5" ItemId="40409"/>
+      <Material Amount="50000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient azure dragon armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20108"/>
+      <Material Amount="1" ItemId="20156"/>
+      <Material Amount="3" ItemId="40445"/>
+      <Material Amount="30" ItemId="40050"/>
+      <Material Amount="5" ItemId="40169"/>
+      <Material Amount="50000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request skull helmet">
+    <MakeItem>
+      <Item Amount="1" ItemId="20045"/>
+      <Material Amount="1" ItemId="20002"/>
+      <Material Amount="10" ItemId="40407"/>
+      <Material Amount="800" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bone armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20124"/>
+      <Material Amount="1" ItemId="20145"/>
+      <Material Amount="20" ItemId="40407"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bone shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20221"/>
+      <Material Amount="1" ItemId="20241"/>
+      <Material Amount="15" ItemId="40407"/>
+      <Material Amount="800" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bless of eva">
+    <MakeItem>
+      <Item Amount="1" ItemId="40032"/>
+      <Material Amount="300" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request shield of eva">
+    <MakeItem>
+      <Item Amount="1" ItemId="20235"/>
+      <Material Amount="1" ItemId="20231"/>
+      <Material Amount="100" ItemId="40041"/>
+      <Material Amount="10" ItemId="40395"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request adena" NpcId="70872">
+    <MakeItem>
+      <Item Amount="200" ItemId="40308"/>
+      <Material Amount="1" ItemId="40041"/>
+    </MakeItem>
+  </Action>
+  <Action Name="quest 32 karif4">
+    <MakeItem>
+      <Item Amount="1" ItemId="84"/>
+      <Material Amount="1" ItemId="40466"/>
+      <Material Amount="3" ItemId="40053"/>
+      <Material Amount="100000" ItemId="40308"/>
+      <Material Amount="10" ItemId="40402"/>
+      <Material Amount="9" ItemId="40413"/>
+      <Material Amount="3" ItemId="40525"/>
+      <Material Amount="1" ItemId="81"/>
+    </MakeItem>
+  </Action>
+  <Action Name="quest 32 karif5">
+    <MakeItem>
+      <Item Amount="1" ItemId="164"/>
+      <Material Amount="1" ItemId="40466"/>
+      <Material Amount="3" ItemId="40055"/>
+      <Material Amount="100000" ItemId="40308"/>
+      <Material Amount="10" ItemId="40404"/>
+      <Material Amount="9" ItemId="40413"/>
+      <Material Amount="3" ItemId="40525"/>
+      <Material Amount="1" ItemId="162"/>
+    </MakeItem>
+  </Action>
+  <Action Name="quest 32 karif6">
+    <MakeItem>
+      <Item Amount="1" ItemId="189"/>
+      <Material Amount="1" ItemId="40466"/>
+      <Material Amount="3" ItemId="40054"/>
+      <Material Amount="100000" ItemId="40308"/>
+      <Material Amount="10" ItemId="40403"/>
+      <Material Amount="9" ItemId="40413"/>
+      <Material Amount="3" ItemId="40525"/>
+      <Material Amount="1" ItemId="177"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag1">
+    <MakeItem>
+      <Item Amount="1" ItemId="49005"/>
+      <Material Amount="1" ItemId="40044"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag2">
+    <MakeItem>
+      <Item Amount="1" ItemId="49008"/>
+      <Material Amount="1" ItemId="40047"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag3">
+    <MakeItem>
+      <Item Amount="1" ItemId="49006"/>
+      <Material Amount="1" ItemId="40045"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag4">
+    <MakeItem>
+      <Item Amount="1" ItemId="49007"/>
+      <Material Amount="1" ItemId="40046"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag5">
+    <MakeItem>
+      <Item Amount="1" ItemId="49009"/>
+      <Material Amount="1" ItemId="40048"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag6">
+    <MakeItem>
+      <Item Amount="1" ItemId="49010"/>
+      <Material Amount="1" ItemId="40051"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag7">
+    <MakeItem>
+      <Item Amount="1" ItemId="49011"/>
+      <Material Amount="1" ItemId="40049"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request karif bag8">
+    <MakeItem>
+      <Item Amount="1" ItemId="49012"/>
+      <Material Amount="1" ItemId="40050"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bright belt of body">
+    <MakeItem>
+      <Item Amount="1" ItemId="20309"/>
+      <Material Amount="1" ItemId="20306"/>
+      <Material Amount="30" ItemId="40049"/>
+      <Material Amount="50" ItemId="40458"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bright belt of mind">
+    <MakeItem>
+      <Item Amount="1" ItemId="20311"/>
+      <Material Amount="1" ItemId="20308"/>
+      <Material Amount="30" ItemId="40050"/>
+      <Material Amount="50" ItemId="40458"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bright belt of soul">
+    <MakeItem>
+      <Item Amount="1" ItemId="20310"/>
+      <Material Amount="1" ItemId="20307"/>
+      <Material Amount="20" ItemId="40049"/>
+      <Material Amount="20" ItemId="40050"/>
+      <Material Amount="50" ItemId="40458"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of greater haste self">
+    <MakeItem>
+      <Item Amount="1" ItemId="40018"/>
+      <Material Amount="6" ItemId="40013"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request tear of moon">
+    <MakeItem>
+      <Item Amount="1" ItemId="40428"/>
+      <Material Amount="5" ItemId="40458"/>
+      <Material Amount="1" ItemId="40047"/>
+      <Material Amount="1000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request earth gem">
+    <MakeItem>
+      <Item Amount="1" ItemId="40162"/>
+      <Material Amount="10" ItemId="40044"/>
+      <Material Amount="5" ItemId="40304"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request fire gem">
+    <MakeItem>
+      <Item Amount="1" ItemId="40409"/>
+      <Material Amount="10" ItemId="40045"/>
+      <Material Amount="5" ItemId="40305"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request water gem">
+    <MakeItem>
+      <Item Amount="1" ItemId="40413"/>
+      <Material Amount="10" ItemId="40047"/>
+      <Material Amount="5" ItemId="40306"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request wind gem">
+    <MakeItem>
+      <Item Amount="1" ItemId="40169"/>
+      <Material Amount="10" ItemId="40046"/>
+      <Material Amount="5" ItemId="40307"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request hard leather">
+    <MakeItem>
+      <Item Amount="1" ItemId="40406"/>
+      <Material Amount="20" ItemId="40405"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather cap">
+    <MakeItem>
+      <Item Amount="1" ItemId="20001"/>
+      <Material Amount="5" ItemId="40405"/>
+      <Material Amount="1" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather sandal">
+    <MakeItem>
+      <Item Amount="1" ItemId="20193"/>
+      <Material Amount="6" ItemId="40405"/>
+      <Material Amount="2" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather vest">
+    <MakeItem>
+      <Item Amount="1" ItemId="20090"/>
+      <Material Amount="10" ItemId="40405"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20219"/>
+      <Material Amount="7" ItemId="40405"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather boots">
+    <MakeItem>
+      <Item Amount="1" ItemId="20192"/>
+      <Material Amount="1" ItemId="20212"/>
+      <Material Amount="10" ItemId="40406"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="300" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather helmet">
+    <MakeItem>
+      <Item Amount="1" ItemId="20002"/>
+      <Material Amount="1" ItemId="20043"/>
+      <Material Amount="1" ItemId="20001"/>
+      <Material Amount="5" ItemId="40406"/>
+      <Material Amount="5" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request hard leather vest">
+    <MakeItem>
+      <Item Amount="1" ItemId="20145"/>
+      <Material Amount="1" ItemId="20148"/>
+      <Material Amount="15" ItemId="40406"/>
+      <Material Amount="15" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request leather vest with belt">
+    <MakeItem>
+      <Item Amount="1" ItemId="20120"/>
+      <Material Amount="1" ItemId="20090"/>
+      <Material Amount="1" ItemId="40778"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request belt">
+    <MakeItem>
+      <Item Amount="1" ItemId="40778"/>
+      <Material Amount="5" ItemId="40406"/>
+      <Material Amount="2" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request studded leather cap">
+    <MakeItem>
+      <Item Amount="1" ItemId="20038"/>
+      <Material Amount="1" ItemId="20001"/>
+      <Material Amount="2" ItemId="40406"/>
+      <Material Amount="10" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request studded leather sandal">
+    <MakeItem>
+      <Item Amount="1" ItemId="20212"/>
+      <Material Amount="1" ItemId="20193"/>
+      <Material Amount="3" ItemId="40406"/>
+      <Material Amount="12" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request studded leather vest">
+    <MakeItem>
+      <Item Amount="1" ItemId="20148"/>
+      <Material Amount="1" ItemId="20090"/>
+      <Material Amount="2" ItemId="40406"/>
+      <Material Amount="10" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request studded leather shield">
+    <MakeItem>
+      <Item Amount="1" ItemId="20241"/>
+      <Material Amount="1" ItemId="20219"/>
+      <Material Amount="5" ItemId="40406"/>
+      <Material Amount="20" ItemId="40408"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request banana juice">
+    <MakeItem>
+      <Item Amount="1" ItemId="40026"/>
+      <Material Amount="5" ItemId="40062"/>
+      <Material Amount="1" ItemId="40059"/>
+      <Material Amount="1" ItemId="40060"/>
+      <Material Amount="1" ItemId="40061"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request orange juice">
+    <MakeItem>
+      <Item Amount="1" ItemId="40027"/>
+      <Material Amount="5" ItemId="40069"/>
+      <Material Amount="1" ItemId="40059"/>
+      <Material Amount="1" ItemId="40060"/>
+      <Material Amount="1" ItemId="40061"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request apple juice">
+    <MakeItem>
+      <Item Amount="1" ItemId="40028"/>
+      <Material Amount="5" ItemId="40064"/>
+      <Material Amount="1" ItemId="40059"/>
+      <Material Amount="1" ItemId="40060"/>
+      <Material Amount="1" ItemId="40061"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request red skin of curse">
+    <MakeItem>
+      <Item Amount="1" ItemId="40401"/>
+      <Material Amount="5" ItemId="40399"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request blue skin of curse">
+    <MakeItem>
+      <Item Amount="1" ItemId="40402"/>
+      <Material Amount="5" ItemId="40397"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request yellow skin of curse">
+    <MakeItem>
+      <Item Amount="1" ItemId="40403"/>
+      <Material Amount="5" ItemId="40398"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request green skin of curse">
+    <MakeItem>
+      <Item Amount="1" ItemId="40404"/>
+      <Material Amount="5" ItemId="40400"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of flame">
+    <MakeItem>
+      <Item Amount="1" ItemId="20071"/>
+      <Material Amount="50" ItemId="40495"/>
+      <Material Amount="30" ItemId="40045"/>
+      <Material Amount="100" ItemId="40401"/>
+      <Material Amount="3" ItemId="40393"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of water">
+    <MakeItem>
+      <Item Amount="1" ItemId="20059"/>
+      <Material Amount="50" ItemId="40495"/>
+      <Material Amount="30" ItemId="40047"/>
+      <Material Amount="100" ItemId="40402"/>
+      <Material Amount="3" ItemId="40395"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of wind">
+    <MakeItem>
+      <Item Amount="1" ItemId="20061"/>
+      <Material Amount="50" ItemId="40495"/>
+      <Material Amount="30" ItemId="40046"/>
+      <Material Amount="100" ItemId="40403"/>
+      <Material Amount="3" ItemId="40394"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of earth">
+    <MakeItem>
+      <Item Amount="1" ItemId="20054"/>
+      <Material Amount="50" ItemId="40495"/>
+      <Material Amount="30" ItemId="40044"/>
+      <Material Amount="100" ItemId="40404"/>
+      <Material Amount="3" ItemId="40396"/>
+      <Material Amount="100000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request recluse teleport scroll">
+    <MakeItem>
+      <Item Amount="1" ItemId="40118"/>
+      <Material Amount="10" ItemId="40438"/>
+      <Material Amount="5" ItemId="40424"/>
+      <Material Amount="5" ItemId="40437"/>
+      <Material Amount="5" ItemId="40419"/>
+      <Material Amount="1" ItemId="40459"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of emotion：bravery">
+    <MakeItem>
+      <Item Amount="2" ItemId="40014"/>
+      <Material Amount="10" ItemId="40430"/>
+      <Material Amount="10" ItemId="40433"/>
+      <Material Amount="5" ItemId="40472"/>
+      <Material Amount="3" ItemId="40419"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of emotion：prudence">
+    <MakeItem>
+      <Item Amount="2" ItemId="40016"/>
+      <Material Amount="20" ItemId="40438"/>
+      <Material Amount="5" ItemId="40470"/>
+      <Material Amount="5" ItemId="40472"/>
+      <Material Amount="3" ItemId="40419"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request resist teleport scroll">
+    <MakeItem>
+      <Item Amount="1" ItemId="40120"/>
+      <Material Amount="10" ItemId="40438"/>
+      <Material Amount="5" ItemId="40424"/>
+      <Material Amount="5" ItemId="40437"/>
+      <Material Amount="1" ItemId="40451"/>
+      <Material Amount="1" ItemId="40427"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of healing">
+    <MakeItem>
+      <Item Amount="1" ItemId="40010"/>
+      <Material Amount="10" ItemId="40438"/>
+      <Material Amount="3" ItemId="40451"/>
+      <Material Amount="1" ItemId="40427"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of extra healing">
+    <MakeItem>
+      <Item Amount="1" ItemId="40011"/>
+      <Material Amount="5" ItemId="40424"/>
+      <Material Amount="5" ItemId="40451"/>
+      <Material Amount="1" ItemId="40427"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request potion of greater healing">
+    <MakeItem>
+      <Item Amount="1" ItemId="40012"/>
+      <Material Amount="10" ItemId="40437"/>
+      <Material Amount="7" ItemId="40451"/>
+      <Material Amount="1" ItemId="40427"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cavern teleport scroll">
+    <MakeItem>
+      <Item Amount="1" ItemId="40853"/>
+      <Material Amount="5" ItemId="40429"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request diad teleport scroll">
+    <MakeItem>
+      <Item Amount="1" ItemId="40084"/>
+      <Material Amount="5" ItemId="40432"/>
+      <Material Amount="500" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request enchanted wand of ice queen">
+    <MakeItem>
+      <Item Amount="1" ItemId="121"/>
+      <Material Amount="1" ItemId="111"/>
+      <Material Amount="100" ItemId="40318"/>
+      <Material Amount="2" ItemId="40090"/>
+      <Material Amount="2" ItemId="40091"/>
+      <Material Amount="2" ItemId="40092"/>
+      <Material Amount="2" ItemId="40093"/>
+      <Material Amount="2" ItemId="40094"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request tear of dark">
+    <MakeItem>
+      <Item Amount="1" ItemId="40525"/>
+      <Material Amount="1" ItemId="40324"/>
+      <Material Amount="3" ItemId="40524"/>
+      <Material Amount="1" ItemId="40443"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spellbook62">
+    <MakeItem>
+      <Item Amount="1" ItemId="40208"/>
+      <Material Amount="1" ItemId="40162"/>
+      <Material Amount="1" ItemId="40413"/>
+      <Material Amount="1" ItemId="40409"/>
+      <Material Amount="1" ItemId="40169"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spellbook113">
+    <MakeItem>
+      <Item Amount="1" ItemId="40227"/>
+      <Material Amount="1" ItemId="40162"/>
+      <Material Amount="1" ItemId="40413"/>
+      <Material Amount="1" ItemId="40409"/>
+      <Material Amount="1" ItemId="40169"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spellbook116">
+    <MakeItem>
+      <Item Amount="1" ItemId="40230"/>
+      <Material Amount="2" ItemId="40162"/>
+      <Material Amount="2" ItemId="40413"/>
+      <Material Amount="2" ItemId="40409"/>
+      <Material Amount="2" ItemId="40169"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spellbook114">
+    <MakeItem>
+      <Item Amount="1" ItemId="40229"/>
+      <Material Amount="4" ItemId="40162"/>
+      <Material Amount="4" ItemId="40413"/>
+      <Material Amount="4" ItemId="40409"/>
+      <Material Amount="4" ItemId="40169"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spellbook117">
+    <MakeItem>
+      <Item Amount="1" ItemId="40231"/>
+      <Material Amount="3" ItemId="40162"/>
+      <Material Amount="3" ItemId="40413"/>
+      <Material Amount="3" ItemId="40409"/>
+      <Material Amount="3" ItemId="40169"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request skel petarmor">
+    <MakeItem>
+      <Item Amount="1" ItemId="40762"/>
+      <Material Amount="1" ItemId="40761"/>
+      <Material Amount="10" ItemId="40406"/>
+      <Material Amount="20" ItemId="40407"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cross petarmor">
+    <MakeItem>
+      <Item Amount="1" ItemId="40765"/>
+      <Material Amount="1" ItemId="40763"/>
+      <Material Amount="50" ItemId="40406"/>
+      <Material Amount="20" ItemId="40779"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request mithril petarmor">
+    <MakeItem>
+      <Item Amount="1" ItemId="40764"/>
+      <Material Amount="1" ItemId="40765"/>
+      <Material Amount="50" ItemId="40406"/>
+      <Material Amount="2" ItemId="40439"/>
+      <Material Amount="10" ItemId="40497"/>
+      <Material Amount="1" ItemId="40169"/>
+      <Material Amount="30000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request chain petarmor">
+    <MakeItem>
+      <Item Amount="1" ItemId="40766"/>
+      <Material Amount="1" ItemId="40763"/>
+      <Material Amount="50" ItemId="40406"/>
+      <Material Amount="100" ItemId="40779"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet dog tooth">
+    <MakeItem>
+      <Item Amount="1" ItemId="40749"/>
+      <Material Amount="1" ItemId="40751"/>
+      <Material Amount="3" ItemId="40048"/>
+      <Material Amount="5" ItemId="40408"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet victory tooth">
+    <MakeItem>
+      <Item Amount="1" ItemId="40758"/>
+      <Material Amount="1" ItemId="40757"/>
+      <Material Amount="2" ItemId="40050"/>
+      <Material Amount="5" ItemId="40408"/>
+      <Material Amount="10000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet gold tooth">
+    <MakeItem>
+      <Item Amount="1" ItemId="40752"/>
+      <Material Amount="1" ItemId="40757"/>
+      <Material Amount="10" ItemId="40779"/>
+      <Material Amount="10" ItemId="40488"/>
+      <Material Amount="20000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet end tooth">
+    <MakeItem>
+      <Item Amount="1" ItemId="40750"/>
+      <Material Amount="1" ItemId="40749"/>
+      <Material Amount="1" ItemId="40525"/>
+      <Material Amount="1" ItemId="40409"/>
+      <Material Amount="5" ItemId="40443"/>
+      <Material Amount="50000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet god tooth">
+    <MakeItem>
+      <Item Amount="1" ItemId="40756"/>
+      <Material Amount="1" ItemId="40752"/>
+      <Material Amount="10" ItemId="40508"/>
+      <Material Amount="5" ItemId="40467"/>
+      <Material Amount="1" ItemId="40440"/>
+      <Material Amount="1" ItemId="40443"/>
+      <Material Amount="30000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request sword of silence">
+    <MakeItem>
+      <Item Amount="1" ItemId="47"/>
+      <Material Amount="20" ItemId="40408"/>
+      <Material Amount="50" ItemId="40425"/>
+      <Material Amount="50" ItemId="40484"/>
+      <Material Amount="20" ItemId="40435"/>
+      <Material Amount="10" ItemId="40448"/>
+      <Material Amount="20" ItemId="40449"/>
+      <Material Amount="40" ItemId="40525"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request diad fortress dualblade">
+    <MakeItem>
+      <Item Amount="1" ItemId="83"/>
+      <Material Amount="10" ItemId="40408"/>
+      <Material Amount="2" ItemId="40425"/>
+      <Material Amount="10" ItemId="40485"/>
+      <Material Amount="10" ItemId="40449"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request diad fortress crossbow">
+    <MakeItem>
+      <Item Amount="1" ItemId="186"/>
+      <Material Amount="6" ItemId="40425"/>
+      <Material Amount="2" ItemId="40434"/>
+      <Material Amount="10" ItemId="40453"/>
+      <Material Amount="10" ItemId="40436"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request plate worm rind armor">
+    <MakeItem>
+      <Item Amount="1" ItemId="20157"/>
+      <Material Amount="5" ItemId="40425"/>
+      <Material Amount="30" ItemId="40483"/>
+      <Material Amount="5" ItemId="40410"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cloak of tiger skin">
+    <MakeItem>
+      <Item Amount="1" ItemId="20066"/>
+      <Material Amount="1" ItemId="40431"/>
+      <Material Amount="20" ItemId="40447"/>
+      <Material Amount="5" ItemId="40425"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request enchanted staff of demon">
+    <MakeItem>
+      <Item Amount="1" ItemId="119"/>
+      <Material Amount="1" ItemId="108"/>
+      <Material Amount="1" ItemId="49014"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request enchanted staff of baphomet">
+    <MakeItem>
+      <Item Amount="1" ItemId="124"/>
+      <Material Amount="1" ItemId="109"/>
+      <Material Amount="1" ItemId="49014"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request enchanted staff of beleth">
+    <MakeItem>
+      <Item Amount="1" ItemId="123"/>
+      <Material Amount="1" ItemId="110"/>
+      <Material Amount="1" ItemId="49014"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request enchanted sword of chief">
+    <MakeItem>
+      <Item Amount="1" ItemId="54"/>
+      <Material Amount="1" ItemId="15"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ring of summoning control">
+    <MakeItem>
+      <Item Amount="1" ItemId="20284"/>
+      <Material Amount="100" ItemId="40318"/>
+      <Material Amount="1" ItemId="40454"/>
+      <Material Amount="1" ItemId="40465"/>
+      <Material Amount="1" ItemId="40426"/>
+      <Material Amount="1" ItemId="40452"/>
+      <Material Amount="1" ItemId="40446"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request cursed blood">
+    <MakeItem>
+      <Item Amount="1" ItemId="40416"/>
+      <Material Amount="1" ItemId="40477"/>
+      <Material Amount="1" ItemId="40478"/>
+      <Material Amount="1" ItemId="40479"/>
+      <Material Amount="1" ItemId="40480"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request blood cloak of barlog">
+    <MakeItem>
+      <Item Amount="1" ItemId="20062"/>
+      <Material Amount="1" ItemId="40475"/>
+      <Material Amount="1" ItemId="40473"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request key2 tos">
+    <MakeItem>
+      <Item Amount="1" ItemId="40615"/>
+      <Material Amount="1" ItemId="40719"/>
+      <Material Amount="1000" ItemId="40678"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request key31 tos">
+    <MakeItem>
+      <Item Amount="1" ItemId="40616"/>
+      <Material Amount="1" ItemId="40707"/>
+      <Material Amount="1000" ItemId="40678"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request key32 tos">
+    <MakeItem>
+      <Item Amount="1" ItemId="40782"/>
+      <Material Amount="1" ItemId="40780"/>
+      <Material Amount="1000" ItemId="40678"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request key33 tos">
+    <MakeItem>
+      <Item Amount="1" ItemId="40783"/>
+      <Material Amount="1" ItemId="40781"/>
+      <Material Amount="1000" ItemId="40678"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request crossbow of evil">
+    <MakeItem>
+      <Item Amount="1" ItemId="185"/>
+      <Material Amount="10" ItemId="40461"/>
+      <Material Amount="5" ItemId="40462"/>
+      <Material Amount="5" ItemId="40463"/>
+      <Material Amount="5" ItemId="40464"/>
+      <Material Amount="1" ItemId="40482"/>
+      <Material Amount="10" ItemId="40042"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request sword of evil">
+    <MakeItem>
+      <Item Amount="1" ItemId="63"/>
+      <Material Amount="5" ItemId="40461"/>
+      <Material Amount="10" ItemId="40462"/>
+      <Material Amount="5" ItemId="40463"/>
+      <Material Amount="5" ItemId="40464"/>
+      <Material Amount="1" ItemId="40474"/>
+      <Material Amount="10" ItemId="40042"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request dualblade of evil">
+    <MakeItem>
+      <Item Amount="1" ItemId="85"/>
+      <Material Amount="5" ItemId="40461"/>
+      <Material Amount="5" ItemId="40462"/>
+      <Material Amount="10" ItemId="40463"/>
+      <Material Amount="5" ItemId="40464"/>
+      <Material Amount="1" ItemId="40481"/>
+      <Material Amount="10" ItemId="40042"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request claw of evil">
+    <MakeItem>
+      <Item Amount="1" ItemId="165"/>
+      <Material Amount="5" ItemId="40461"/>
+      <Material Amount="5" ItemId="40462"/>
+      <Material Amount="5" ItemId="40463"/>
+      <Material Amount="10" ItemId="40464"/>
+      <Material Amount="1" ItemId="40476"/>
+      <Material Amount="10" ItemId="40042"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request swap potion">
+    <MakeItem>
+      <Item Amount="1" ItemId="49015"/>
+      <Material Amount="5" ItemId="40443"/>
+      <Material Amount="1000" ItemId="40397"/>
+      <Material Amount="1000" ItemId="40398"/>
+      <Material Amount="1000" ItemId="40399"/>
+      <Material Amount="1000" ItemId="40400"/>
+      <Material Amount="100" ItemId="40016"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ancient plate mail2">
+    <MakeItem>
+      <Item Amount="1" ItemId="20133"/>
+      <Material Amount="1" ItemId="20095"/>
+      <Material Amount="1" ItemId="49015"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family first generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40623"/>
+      <Material Amount="1" ItemId="40342"/>
+      <Material Amount="1" ItemId="40358"/>
+      <Material Amount="1" ItemId="40350"/>
+      <Material Amount="1" ItemId="40366"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family second generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40624"/>
+      <Material Amount="1" ItemId="40343"/>
+      <Material Amount="1" ItemId="40359"/>
+      <Material Amount="1" ItemId="40351"/>
+      <Material Amount="1" ItemId="40367"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family third generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40625"/>
+      <Material Amount="1" ItemId="40344"/>
+      <Material Amount="1" ItemId="40360"/>
+      <Material Amount="1" ItemId="40352"/>
+      <Material Amount="1" ItemId="40368"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family fourth generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40626"/>
+      <Material Amount="1" ItemId="40345"/>
+      <Material Amount="1" ItemId="40361"/>
+      <Material Amount="1" ItemId="40353"/>
+      <Material Amount="1" ItemId="40369"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family fifth generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40627"/>
+      <Material Amount="1" ItemId="40346"/>
+      <Material Amount="1" ItemId="40362"/>
+      <Material Amount="1" ItemId="40354"/>
+      <Material Amount="1" ItemId="40370"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family sixth generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40628"/>
+      <Material Amount="1" ItemId="40347"/>
+      <Material Amount="1" ItemId="40363"/>
+      <Material Amount="1" ItemId="40355"/>
+      <Material Amount="1" ItemId="40371"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request druga family seventh generation treasure">
+    <MakeItem>
+      <Item Amount="1" ItemId="40629"/>
+      <Material Amount="1" ItemId="40348"/>
+      <Material Amount="1" ItemId="40364"/>
+      <Material Amount="1" ItemId="40356"/>
+      <Material Amount="1" ItemId="40372"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request stone of alchemist">
+    <MakeItem>
+      <Item Amount="1" ItemId="40414"/>
+      <Material Amount="1" ItemId="40420"/>
+      <Material Amount="1" ItemId="40421"/>
+      <Material Amount="1" ItemId="40422"/>
+      <Material Amount="1" ItemId="40423"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request crystal of soul">
+    <MakeItem>
+      <Item Amount="1" ItemId="40417"/>
+      <Material Amount="20" ItemId="40471"/>
+      <Material Amount="3" ItemId="40318"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request silver sting knife">
+    <MakeItem>
+      <Item Amount="1000" ItemId="40738"/>
+      <Material Amount="1" ItemId="40321"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request heavy sting knife">
+    <MakeItem>
+      <Item Amount="2000" ItemId="40740"/>
+      <Material Amount="1" ItemId="40322"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pears itembag">
+    <MakeItem>
+      <Item Amount="1" ItemId="40715"/>
+      <Material Amount="1" ItemId="40323"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request jin gauntlet">
+    <MakeItem>
+      <Item Amount="1" ItemId="194"/>
+      <Material Amount="1" ItemId="40324"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pumpkin hat">
+    <MakeItem>
+      <Item Amount="1" ItemId="20046"/>
+      <Material Amount="5000" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request candy for jack">
+    <MakeItem>
+      <Item Amount="1" ItemId="40725"/>
+      <Material Amount="5" ItemId="40308"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ei2202">
+    <MakeItem>
+      <Item Amount="1" ItemId="40721"/>
+      <Material Amount="25" ItemId="40726"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ei2205">
+    <MakeItem>
+      <Item Amount="1" ItemId="40724"/>
+      <Material Amount="10" ItemId="40726"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ei2204">
+    <MakeItem>
+      <Item Amount="1" ItemId="40723"/>
+      <Material Amount="25" ItemId="40726"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request ei2203">
+    <MakeItem>
+      <Item Amount="1" ItemId="40722"/>
+      <Material Amount="3" ItemId="40721"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request flame of mushussu">
+    <MakeItem>
+      <Item Amount="1" ItemId="218"/>
+      <Material Amount="50" ItemId="40970"/>
+      <Material Amount="100" ItemId="40971"/>
+      <Material Amount="50" ItemId="40972"/>
+      <Material Amount="100" ItemId="40974"/>
+      <Material Amount="100" ItemId="40976"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request shield of guardian">
+    <MakeItem>
+      <Item Amount="1" ItemId="20396"/>
+      <Material Amount="50" ItemId="40982"/>
+      <Material Amount="50" ItemId="40983"/>
+      <Material Amount="50" ItemId="40984"/>
+      <Material Amount="50" ItemId="40985"/>
+      <Material Amount="100" ItemId="40975"/>
+      <Material Amount="10" ItemId="40977"/>
+      <Material Amount="1" ItemId="40973"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request spear of guardian">
+    <MakeItem>
+      <Item Amount="1" ItemId="210"/>
+      <Material Amount="50" ItemId="40982"/>
+      <Material Amount="50" ItemId="40983"/>
+      <Material Amount="50" ItemId="40984"/>
+      <Material Amount="50" ItemId="40985"/>
+      <Material Amount="100" ItemId="40986"/>
+      <Material Amount="10" ItemId="40977"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven wafer" NpcId="70841">
+    <MakeItem>
+      <Item Amount="1" ItemId="40068"/>
+      <Material Amount="5" ItemId="40520"/>
+      <Material Amount="1" ItemId="40506"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request elven wafer" NpcId="70520">
+    <MakeItem>
+      <Item Amount="2" ItemId="40068"/>
+      <Material Amount="10" ItemId="40437"/>
+      <Material Amount="10" ItemId="40412"/>
+      <Material Amount="5" ItemId="40472"/>
+      <Material Amount="3" ItemId="40419"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request petfood" NpcId="70526">
+    <MakeItem>
+      <Item Amount="1" ItemId="40070"/>
+      <Material Amount="20" ItemId="40428"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request petfood" NpcId="70676">
+    <MakeItem>
+      <Item Amount="1" ItemId="40070"/>
+      <Material Amount="1" ItemId="40466"/>
+    </MakeItem>
+  </Action>
+  <Action Name="A" NpcId="80077">
+    <MakeItem>
+      <Item Amount="1" ItemId="41208"/>
+      <Material Amount="1" ItemId="41207"/>
+      <Succeed>
+        <ShowHtml HtmlId="aldran5"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="aldran4"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="request free pass" NpcId="80051">
+    <MakeItem>
+      <Item Amount="1" ItemId="40921"/>
+      <Material Amount="1" ItemId="40917"/>
+      <Material Amount="1" ItemId="40918"/>
+      <Material Amount="1" ItemId="40919"/>
+      <Material Amount="1" ItemId="40920"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request adena" NpcId="71004">
+    <MakeItem>
+      <Item Amount="10" ItemId="40308"/>
+      <Material Amount="1" ItemId="41223"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request orcish helm" NpcId="71004">
+    <MakeItem>
+      <Item Amount="1" ItemId="20034"/>
+      <Material Amount="5" ItemId="41223"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request orcish ring mail" NpcId="71004">
+    <MakeItem>
+      <Item Amount="1" ItemId="20135"/>
+      <Material Amount="10" ItemId="41223"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request uruk-hai shield" NpcId="71004">
+    <MakeItem>
+      <Item Amount="1" ItemId="20237"/>
+      <Material Amount="7" ItemId="41223"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request orcish cloak" NpcId="71004">
+    <MakeItem>
+      <Item Amount="1" ItemId="20072"/>
+      <Material Amount="3" ItemId="41223"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request adena" NpcId="71031">
+    <MakeItem>
+      <Item Amount="30" ItemId="40308"/>
+      <Material Amount="1" ItemId="41224"/>
+    </MakeItem>
+  </Action>
+  <Action Name="B" NpcId="71038">
+    <MakeItem>
+      <Item Amount="30000" ItemId="40308"/>
+      <Material Amount="1" ItemId="41092"/>
+      <Fail>
+        <ShowHtml HtmlId="orcfnoname10"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="C" NpcId="71038">
+    <MakeItem>
+      <Item Amount="500" ItemId="40308"/>
+      <Material Amount="1" ItemId="41091"/>
+      <Fail>
+        <ShowHtml HtmlId="orcfnoname10"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <!-- Totem Neruga / elders NONAME -->
+  <Action Name="D" NpcId="71038">
+    <MakeItem>
+      <Item Amount="500" ItemId="40308"/>
+      <Material Amount="1" ItemId="41090"/>
+      <Fail>
+        <ShowHtml HtmlId="orcfnoname10"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <!-- SUPIRIDDO root / head of research ATOUBANOA -->
+  <Action Name="B" NpcId="71040">
+    <MakeItem>
+      <Item Amount="1" ItemId="41092"/>
+      <Material Amount="1" ItemId="41086"/>
+    </MakeItem>
+  </Action>
+  <!-- SUPIRIDDO skin / head of research ATOUBANOA -->
+  <Action Name="C" NpcId="71040">
+    <MakeItem>
+      <Item Amount="1" ItemId="41092"/>
+      <Material Amount="1" ItemId="41087"/>
+    </MakeItem>
+  </Action>
+  <!-- SUPIRIDDO leaf / head of research ATOUBANOA -->
+  <Action Name="D" NpcId="71040">
+    <MakeItem>
+      <Item Amount="1" ItemId="41092"/>
+      <Material Amount="1" ItemId="41088"/>
+    </MakeItem>
+  </Action>
+  <!-- SUPIRIDDO tree branch / head of research ATOUBANOA -->
+  <Action Name="E" NpcId="71040">
+    <MakeItem>
+      <Item Amount="1" ItemId="41092"/>
+      <Material Amount="1" ItemId="41089"/>
+    </MakeItem>
+  </Action>
+  <!-- Oak badge / NERUGAFUUMO -->
+  <Action Name="B" NpcId="71041">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41081"/>
+    </MakeItem>
+  </Action>
+  <!-- Oak Amulet / NERUGAFUUMO -->
+  <Action Name="C" NpcId="71041">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41082"/>
+    </MakeItem>
+  </Action>
+  <!-- SHAMANPAUDA / NERUGAFUUMO -->
+  <Action Name="D" NpcId="71041">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41083"/>
+    </MakeItem>
+  </Action>
+  <!-- Powder illusion / NERUGAFUUMO -->
+  <Action Name="E" NpcId="71041">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41084"/>
+    </MakeItem>
+  </Action>
+  <!-- Pearl's prophet / NERUGAFUUMO -->
+  <Action Name="F" NpcId="71041">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41085"/>
+    </MakeItem>
+  </Action>
+  <!-- Silver tray / NERUGABAKUMO -->
+  <Action Name="B" NpcId="71042">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41071"/>
+    </MakeItem>
+  </Action>
+  <!-- Silver candlestick / NERUGABAKUMO -->
+  <Action Name="C" NpcId="71042">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41072"/>
+    </MakeItem>
+  </Action>
+  <!-- BANDIDDO key / NERUGABAKUMO -->
+  <Action Name="D" NpcId="71042">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41073"/>
+    </MakeItem>
+  </Action>
+  <!-- BANDIDDO bag / NERUGABAKUMO -->
+  <Action Name="E" NpcId="71042">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41074"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty hair / NERUGABAKUMO -->
+  <Action Name="F" NpcId="71042">
+    <MakeItem>
+      <Item Amount="1" ItemId="41090"/>
+      <Material Amount="1" ItemId="41075"/>
+    </MakeItem>
+  </Action>
+  <!-- Tue core dirty / Duda - MARABUKA -->
+  <Action Name="B" NpcId="71043">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41078"/>
+    </MakeItem>
+  </Action>
+  <!-- Core dirty water / Duda - MARABUKA -->
+  <Action Name="C" NpcId="71043">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41077"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty core areas / Duda - MARABUKA -->
+  <Action Name="D" NpcId="71043">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41076"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty air core / Duda - MARABUKA -->
+  <Action Name="E" NpcId="71043">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41079"/>
+    </MakeItem>
+  </Action>
+  <!-- Spirit's core dirty / Duda - MARABUKA -->
+  <Action Name="F" NpcId="71043">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41080"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty root / Duda - MARAKAME -->
+  <Action Name="B" NpcId="71044">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41066"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty branches / Duda - MARAKAME -->
+  <Action Name="C" NpcId="71044">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41067"/>
+    </MakeItem>
+  </Action>
+  <!-- Husk dirty / Duda - MARAKAME -->
+  <Action Name="D" NpcId="71044">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41068"/>
+    </MakeItem>
+  </Action>
+  <!-- TATEGAMI dirty / Duda - MARAKAME -->
+  <Action Name="E" NpcId="71044">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41069"/>
+    </MakeItem>
+  </Action>
+  <!-- Dirty fairy wings / Duda - MARAKAME -->
+  <Action Name="F" NpcId="71044">
+    <MakeItem>
+      <Item Amount="1" ItemId="41091"/>
+      <Material Amount="1" ItemId="41070"/>
+    </MakeItem>
+  </Action>
+  <Action Name="0" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41329"/>
+      <Material Amount="50000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis5"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+    <Action Name="2" NpcId="80102">
+      <MakeItem>
+        <Item Amount="1" ItemId="41383"/>
+        <Material Amount="100" ItemId="41330"/>
+        <Material Amount="20000" ItemId="40308"/>
+        <Fail>
+          <ShowHtml HtmlId="fillis7"/>
+        </Fail>
+      </MakeItem>
+  </Action>
+  <Action Name="3" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41384"/>
+      <Material Amount="100" ItemId="41331"/>
+      <Material Amount="20000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis7"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="4" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41385"/>
+      <Material Amount="100" ItemId="41332"/>
+      <Material Amount="20000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis7"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="5" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41386"/>
+      <Material Amount="100" ItemId="41333"/>
+      <Material Amount="20000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis7"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="6" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41387"/>
+      <Material Amount="100" ItemId="41334"/>
+      <Material Amount="20000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis7"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="7" NpcId="80102">
+    <MakeItem>
+      <Item Amount="1" ItemId="41388"/>
+      <Material Amount="100" ItemId="41335"/>
+      <Material Amount="20000" ItemId="40308"/>
+      <Fail>
+        <ShowHtml HtmlId="fillis7"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="request cook spice" NpcId="80127">
+    <MakeItem>
+      <Item Amount="1" ItemId="41253"/>
+      <Material Amount="1" ItemId="41285"/>
+      <Material Amount="1" ItemId="41286"/>
+      <Material Amount="1" ItemId="41287"/>
+      <Material Amount="1" ItemId="41288"/>
+      <Material Amount="1" ItemId="41289"/>
+      <Material Amount="1" ItemId="41290"/>
+      <Material Amount="1" ItemId="41291"/>
+      <Material Amount="1" ItemId="41292"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request pet match coin" NpcId="80128">
+    <MakeItem>
+      <Item Amount="1" ItemId="41254"/>
+      <Material Amount="500" ItemId="41402"/>
+    </MakeItem>
+  </Action>
+  <Action Name="request bag of arka" NpcId="80078">
+    <MakeItem>
+      <Item Amount="1" ItemId="41247"/>
+      <Material Amount="1" ItemId="41251"/>
+      <Material Amount="1" ItemId="41252"/>
+      <Material Amount="1" ItemId="41253"/>
+      <Material Amount="1" ItemId="41254"/>
+    </MakeItem>
+  </Action>
+  <Action Name="a" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40433"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="b" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40434"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="c" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40435"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="d" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40436"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="e" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40437"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="f" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40491"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="g" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40720"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="h" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40484"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="i" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40485"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="j" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40483"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="k" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40472"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="l" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40438"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="m" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40511"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="n" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40512"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="o" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40510"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+  <Action Name="p" NpcId="80084">
+    <MakeItem>
+      <Item Amount="1" ItemId="41355"/>
+      <Material Amount="10" ItemId="40451"/>
+      <Succeed>
+        <ShowHtml HtmlId="rparum1"/>
+      </Succeed>
+      <Fail>
+        <ShowHtml HtmlId="rparum2"/>
+      </Fail>
+    </MakeItem>
+  </Action>
+	<Action Name="request reward of aden one" NpcId="70707">
+		<MakeItem>
+			<Item Amount="1" ItemId="41001"/>
+			<Material Amount="1" ItemId="40999"/>
+		</MakeItem>
+	</Action>
+    <Action Name="request reward of aden two" NpcId="70707">
+       <MakeItem>
+			<Item Amount="1" ItemId="41405"/>
+			<Material Amount="1" ItemId="41000"/>
+       </MakeItem>
+    </Action>
+	<Action Name="request black mithril" NpcId="71167">
+		<MakeItem>
+			<Item Amount="1" ItemId="40443"/>
+			<Material Amount="1" ItemId="40442"/>
+			<Material Amount="1" ItemId="40486"/>
+			<Material Amount="1" ItemId="40490"/>
+			<Material Amount="1" ItemId="40444"/>
+		</MakeItem>
+	</Action>
+	<!---->  
+	<Action Name="request oum adenabag1" NpcId="70674">   
+	<MakeItem>  2591 + <Item Amount="1" ItemId="40632"/>   
+	<Material Amount="1" ItemId="40691"/>   
+	<Succeed>   
+	<ShowHtml HtmlId="reona6"/>  
+	</Succeed>   
+	</MakeItem>   
+	</Action>   
+	<!---->  
+	<Action Name="request oum adenabag2" NpcId="70674">  
+	<MakeItem>  2601 + <Item Amount="1" ItemId="41406"/>   
+	<Material Amount="1" ItemId="40689"/>   
+	 <Succeed>  
+	<ShowHtml HtmlId="reona7"/>   
+	</Succeed>   
+	</MakeItem>   
+	</Action>   
+	<!-- -->
+	<Action Name="request oum adenabag3" NpcId="70674">  
+	<MakeItem>   
+	<Item Amount="1" ItemId="41407"/>   
+	 <Material Amount="1" ItemId="40690"/>  
+	 <Succeed>   
+	 <ShowHtml HtmlId="reona8"/>   
+	 </Succeed>   
+	 </MakeItem>   
+	 </Action>   
+	 <!---->   
+	  <Action Name="request oum adenabag4" NpcId="70674">   
+	   <MakeItem>   
+	   <Item Amount="1" ItemId="41408"/>  
+	   <Material Amount="1" ItemId="40685"/>   
+	    <Succeed>   
+	    <ShowHtml HtmlId="reona9"/>  
+	    </Succeed>   
+	     </MakeItem>   
+	     </Action>   
+	      <!---->   
+	      <Action Name="request oum adenabag5" NpcId="70674">  
+	      <MakeItem>   
+	       <Item Amount="1" ItemId="41409"/>  
+	        <Material Amount="1" ItemId="40688"/>  
+	        <Succeed>   
+	        <ShowHtml HtmlId="reona10"/>   
+	        </Succeed>   
+	         </MakeItem>   
+	         </Action>   
+	          <!---->   
+	           <Action Name="request oum adenabag6" NpcId="70674">   
+	           <MakeItem>   
+	          <Item Amount="1" ItemId="41410"/>  
+	          <Material Amount="1" ItemId="40686"/>  
+	         <Succeed>   
+	       <ShowHtml HtmlId="reona10"/>   
+	     </Succeed>  
+      </MakeItem>   
+   </Action> 
+   <!---->  
+<Action Name="request banana juice" NpcId="71197">   
+<MakeItem>   
+Material Amount="1" ItemId="40059"/>   
+<Material Amount="1" ItemId="40060"/>   
+<Material Amount="1" ItemId="40061"/>   
+<Material Amount="5" ItemId="40062"/>   
+<Item Amount="1" ItemId="40026"/>   
+</MakeItem>   
+</Action>  
+<!---->   
+<Action Name="request orange juice" NpcId="71197">   
+<MakeItem>   
+Material Amount="1" ItemId="40059"/>  
+<Material Amount="1" ItemId="40060"/>   
+<Material Amount="1" ItemId="40061"/>   
+<Material Amount="5" ItemId="40069"/>   
+<Item Amount="1" ItemId="40027"/>   
+</MakeItem>   
+</Action>   
+<!---->   
+ <Action Name="request apple juice" NpcId="71197">   
+ <MakeItem>   
+ <Material Amount="1" ItemId="40059"/>   
+ <Material Amount="1" ItemId="40060"/>   
+ <Material Amount="1" ItemId="40061"/>   
+  <Material Amount="5" ItemId="40064"/>   
+   <Item Amount="1" ItemId="40028"/>   
+   </MakeItem>    
+    </Action> 
+   <!---->   
+   <Action Name="request new surprise bag" NpcId="80089">   
+   <MakeItem>   
+   <Material Amount="150" ItemId="41309"/>   
+   <Item Amount="1" ItemId="41416"/>   
+   </MakeItem>   
+   </Action>   
+   <!---->   
+   <Action Name="request gold apple" NpcId="80089">   
+   <MakeItem>  
+   <Material Amount="10000" ItemId="41309"/>  
+   <Item Amount="1" ItemId="41310"/>   
+   </MakeItem>   
+   </Action> 
+</NpcActionList>
+  

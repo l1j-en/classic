@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NpcActionList>
+  <!-- Lv15 prince Quest / zero -->
+  <MakeItem Name="request cloak of red" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="20065"/>
+    <Material Amount="1" ItemId="40565"/>
+    <Succeed>
+      <!-- Gunter not quit -->
+      <SetQuest Id="Level15" Step="1" QuestId="Level15" QuestStep="0"/>
+      <!-- Gunter already quit -->
+      <SetQuest Id="Level15" Step="End" QuestId="Level15" QuestStep="2"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv15 prince Quest / Gunther -->
+  <MakeItem Name="request spellbook112" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="40226"/>
+    <Material Amount="1" ItemId="40564"/>
+    <Succeed>
+      <!-- Not zero tomorrow -->
+      <SetQuest Id="Level15" Step="2" QuestId="Level15" QuestStep="0"/>
+      <!-- Already quit zero -->
+      <SetQuest Id="Level15" Step="End" QuestId="Level15" QuestStep="1"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv30 prince Quest / arias -->
+  <!-- UDDOBEKKU in order to assist the village -->
+  <Action Name="quest 13 aria2" Class="P">
+    <SetQuest Id="Level30" Step="1"/>
+    <ShowHtml HtmlId="aria2"/>
+  </Action>
+  <!-- To pass the belongings of the villagers -->
+  <MakeItem Name="request questitem" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="40570"/>
+    <Material Amount="1" ItemId="40547"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="End"/>
+      <ShowHtml HtmlId="aria3"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv45 prince Quest / MASHA -->
+  <Action Name="quest 15 masha2" Class="P">
+    <SetQuest Id="Level45" Step="1"/>
+    <ShowHtml HtmlId="masha3"/>
+  </Action>
+  <MakeItem Name="request ring of guardian" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="20287"/>
+    <Material Amount="1" ItemId="40586"/>
+    <Material Amount="1" ItemId="40587"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="End"/>
+      <ShowHtml HtmlId="masha4"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv45 prince Quest / Meg -->
+  <Action Name="quest 17 meg2" Class="P">
+    <SetQuest Id="Level45" Step="2"/>
+    <ShowHtml HtmlId="meg2"/>
+  </Action>
+  <MakeItem Name="request royal family piece b" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="40587"/>
+    <Material Amount="1" ItemId="40573"/>
+    <Material Amount="1" ItemId="40574"/>
+    <Material Amount="1" ItemId="40575"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="3"/>
+      <ShowHtml HtmlId="meg3"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Night Quest Lv15 / Ricky -->
+  <MakeItem Name="request hood of knight" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="20005"/>
+    <Material Amount="1" ItemId="40608"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="1"/>
+      <ShowHtml HtmlId="riky5"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Night Quest Lv15 / Hanon -->
+  <MakeItem Name="request hood of red knight" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="20027"/>
+    <Material Amount="1" ItemId="20005"/>
+    <Material Amount="1" ItemId="40540"/>
+    <Material Amount="1" ItemId="40601"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="End"/>
+      <ShowHtml HtmlId="aanon7"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv30 Night Quest / Mark -->
+  <Action Name="quest 13 mark2" Class="K">
+    <SetQuest Id="Level30" Step="1"/>
+    <ShowHtml HtmlId="mark2"/>
+  </Action>
+  <!-- Night Quest Lv30 / Gunther -->
+  <Action Name="quest 14 gunterkE2" Class="K">
+    <SetQuest Id="Level30" Step="2"/>
+    <ShowHtml HtmlId="gunterkE2"/>
+  </Action>
+  <MakeItem Name="request sword of red knights" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="30"/>
+    <Material Amount="1" ItemId="40590"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="3"/>
+      <ShowHtml HtmlId="gunterkE3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Night Quest Lv30 / GERADO -->
+  <Action Name="quest 16 gerardkE2" Class="K">
+    <SetQuest Id="Level30" Step="4"/>
+    <ShowHtml HtmlId="gerardkE2"/>
+  </Action>
+  <MakeItem Name="request potion of rebirth" Class="K">
+    <Item Amount="1" ItemId="40607"/>
+    <Material Amount="1" ItemId="40544"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="5"/>
+      <ShowHtml HtmlId="gerardkE3"/>
+    </Succeed>
+  </MakeItem>
+  <Action Name="quest 18 gerardkE4" Class="K">
+    <SetQuest Id="Level30" Step="6"/>
+    <ShowHtml HtmlId="gerardkE4"/>
+  </Action>
+  <MakeItem Name="request shield of red knights" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="20230"/>
+    <Material Amount="1" ItemId="40529"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="End"/>
+      <ShowHtml HtmlId="gerardkE5"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Night Quest Lv30 / Jim -->
+  <MakeItem Name="request letter of gratitude" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="40529"/>
+    <Material Amount="1" ItemId="40607"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="7"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Night Quest Lv45 / MASHA -->
+  <Action Name="quest 20 mashak2" Class="K">
+    <SetQuest Id="Level45" Step="1"/>
+    <ShowHtml HtmlId="mashak2"/>
+  </Action>
+  <MakeItem Name="request belt of bravery" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="20318"/>
+    <Material Amount="1" ItemId="40593"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="End"/>
+      <ShowHtml HtmlId="mashak3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Night Quest Lv45 / JIMU -->
+  <Action Name="quest 21 jimuk2" Class="K">
+    <SetQuest Id="Level45" Step="2"/>
+    <ShowHtml HtmlId="jimuk2"/>
+  </Action>
+  <!-- Night Quest Lv45 / Giant Elder -->
+  <Action Name="quest 23 giantk2" Class="K">
+    <SetQuest Id="Level45" Step="3"/>
+    <ShowHtml HtmlId="giantk2"/>
+  </Action>
+  <MakeItem Name="request head part of ancient key" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="40534"/>
+    <Item Amount="1" ItemId="40593"/>
+    <Material Amount="1" ItemId="40537"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="4"/>
+      <ShowHtml HtmlId="giantk3"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- Lv15 Elf Quest / m -->
+  <MakeItem Name="request dex helmet of elven" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="20021"/>
+    <Material Amount="1" ItemId="40609"/>
+    <Material Amount="1" ItemId="40610"/>
+    <Material Amount="1" ItemId="40611"/>
+    <Material Amount="1" ItemId="40612"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="request con helmet of elven" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="20039"/>
+    <Material Amount="1" ItemId="40609"/>
+    <Material Amount="1" ItemId="40610"/>
+    <Material Amount="1" ItemId="40611"/>
+    <Material Amount="1" ItemId="40612"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Lv30 Elf Quest / Elf forests and mother -->
+  <Action Name="quest 12 motherEE2" Class="E">
+    <SetQuest Id="Level30" Step="1"/>
+    <ShowHtml HtmlId="motherEE2"/>
+  </Action>
+  <MakeItem Name="request questitem2" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="40588"/>
+    <Material Amount="1" ItemId="40592"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Lv45 Elf Quest / MASHA -->
+  <Action Name="quest 14 mashae2" Class="E">
+    <SetQuest Id="Level45" Step="1"/>
+    <ShowHtml HtmlId="mashae2"/>
+  </Action>
+  <MakeItem Name="request bag of masha" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="40546"/>
+    <Material Amount="1" ItemId="192"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="End"/>
+      <ShowHtml HtmlId="mashae3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Lv45 Elf Quest / hate -->
+  <Action Name="quest 15 heit2" Class="E">
+    <SetQuest Id="Level45" Step="2"/>
+    <ShowHtml HtmlId="heit2"/>
+  </Action>
+  <MakeItem Name="request mystery shell" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="40566"/>
+    <Material Amount="1" ItemId="40602"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="3"/>
+      <ShowHtml HtmlId="heit3"/>
+    </Succeed>
+  </MakeItem>
+  <Action Name="quest 17 heit5" Class="E">
+    <SetQuest Id="Level45" Step="4"/>
+    <ShowHtml HtmlId="heit5"/>
+  </Action>
+
+  <!-- WizLv15 Quest / ZEMU -->
+  <MakeItem Name="request cursed spellbook" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="40591"/>
+    <Material Amount="1" ItemId="40538"/>
+    <Material Amount="1" ItemId="40539"/>
+  </MakeItem>
+  <MakeItem Name="request book of magical powers" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="20226"/>
+    <Material Amount="1" ItemId="40591"/>
+    <Material Amount="1" ItemId="40605"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- WizLv30 Quest / GEREN -->
+  <Action Name="quest 12 gerengT2" Class="W">
+    <SetQuest Id="Level30" Step="1"/>
+    <ShowHtml HtmlId="gerengT2"/>
+  </Action>
+  <MakeItem Name="request bone piece of undead" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="40580"/>
+    <Material Amount="1" ItemId="40579"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="2"/>
+      <ShowHtml HtmlId="gerengT3"/>
+    </Succeed>
+  </MakeItem>
+  <Action Name="quest 14 gerengT4" Class="W">
+    <SetQuest Id="Level30" Step="3"/>
+    <ShowHtml HtmlId="gerengT4"/>
+  </Action>
+  <MakeItem Name="request mystery staff" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="40569"/>
+    <Material Amount="1" ItemId="40567"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="4"/>
+    </Succeed>
+  </MakeItem>
+  <!-- WizLv30 Quest / Taras -->
+  <Action Name="quest 16 talassE2" Class="W">
+    <SetQuest Id="Level30" Step="5"/>
+    <ShowHtml HtmlId="talassE2"/>
+  </Action>
+  <MakeItem Name="request crystal staff" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="115"/>
+    <Material Amount="1" ItemId="40569"/>
+    <Material Amount="1" ItemId="40580"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- WizLv45 Quest / Mystic Rock -->
+  <Action Name="quest 19 stoenm2" Class="W">
+    <SetQuest Id="Level45" Step="2"/>
+    <ShowHtml HtmlId="stoenm2"/>
+  </Action>
+  <MakeItem Name="request scroll about ancient evil" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="40536"/>
+    <Material Amount="1" ItemId="40189"/>
+    <Material Amount="1" ItemId="40542"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="3"/>
+      <ShowHtml HtmlId="stoenm3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- WizLv45 Quest / Taras -->
+  <Action Name="quest 18 talassmq2" Class="W">
+    <SetQuest Id="Level45" Step="1"/>
+    <ShowHtml HtmlId="talassmq2"/>
+  </Action>
+  <MakeItem Name="request magic bag of talass" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="40599"/>
+    <Material Amount="1" ItemId="40536"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="End"/>
+    </Succeed>
+  </MakeItem>
+
+  <!-- DELv15 Quest / Caen -->
+  <Action Name="quest 11 kanguard2" Class="D">
+    <SetQuest Id="Level15" Step="1"/>
+    <ShowHtml HtmlId="kanguard2"/>
+  </Action>
+  <MakeItem Name="request kanbag" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="40598"/>
+    <Material Amount="1" ItemId="40585"/>
+    <Succeed>
+      <SetQuest Id="Level15" Step="End"/>
+      <ShowHtml HtmlId="kanguard3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- DELv30 Quest / RONDU -->
+  <Action Name="quest 13 ronde2" Class="D">
+    <SetQuest Id="Level30" Step="1"/>
+    <ShowHtml HtmlId="ronde2"/>
+  </Action>
+  <MakeItem Name="request close list of assassination" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="40556"/>
+    <Material Amount="1" ItemId="40554"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="2"/>
+      <ShowHtml HtmlId="ronde3"/>
+    </Succeed>
+  </MakeItem>
+  <Action Name="quest 15 ronde4" Class="D">
+    <SetQuest Id="Level30" Step="3"/>
+    <ShowHtml HtmlId="ronde4"/>
+  </Action>
+  <MakeItem Name="request rondebag" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="40545"/>
+    <Material Amount="1" ItemId="40596"/>
+    <Succeed>
+      <SetQuest Id="Level30" Step="End"/>
+      <ShowHtml HtmlId="ronde5"/>
+    </Succeed>
+  </MakeItem>
+  <!-- DELv45 Quest / BURUDIKA -->
+  <Action Name="quest 17 bluedikaq2" Class="D">
+    <SetQuest Id="Level45" Step="1"/>
+    <ShowHtml HtmlId="bluedikaq2"/>
+  </Action>
+  <MakeItem Name="request bluedikabag" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="40553"/>
+    <Material Amount="1" ItemId="40572"/>
+    <Material Amount="1" ItemId="40595"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="End"/>
+      <ShowHtml HtmlId="bluedikaq3"/>
+    </Succeed>
+  </MakeItem>
+  <!-- DELv45 Quest / ASASHINMASUTA the follow-up -->
+  <Action Name="quest 18 assassin2" Class="D">
+    <SetQuest Id="Level45" Step="2"/>
+    <ShowHtml HtmlId="assassin2"/>
+  </Action>
+  <!-- DELv45 Quest / ROGER -->
+  <Action Name="quest 19 roje12" Class="D">
+    <SetQuest Id="Level45" Step="3"/>
+    <ShowHtml HtmlId="roje12"/>
+  </Action>
+  <MakeItem Name="request mark of assassin" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="40572"/>
+    <Material Amount="1" ItemId="40584"/>
+    <Succeed>
+      <SetQuest Id="Level45" Step="4"/>
+      <ShowHtml HtmlId="roje13"/>
+    </Succeed>
+  </MakeItem>
+  <Action Name="quest 21 roje14" Class="D">
+    <SetQuest Id="Level45" Step="5"/>
+    <ShowHtml HtmlId="roje14"/>
+  </Action>
+  <!-- DELv50 Quest / BURUDIKA -->
+  <Action Name="quest 24 bluedikaq7" Class="D">
+    <ShowHtml HtmlId="bluedikaq7"/>
+  </Action>
+  <MakeItem Name="request finger of death" Class="D" AmountInputable="false">
+    <Item Amount="1" ItemId="13"/>
+    <Material Amount="1" ItemId="40603"/>
+    <Material Amount="1" ItemId="40648"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+      <ShowHtml HtmlId="bluedikaq8"/>
+    </Succeed>
+  </MakeItem>
+  
+  <!-- Lv50 joint Quest / DIGARUDIN -->
+  <!-- A prince -->
+  <Action Name="quest 29 dicardingp2" Class="P">
+    <SetQuest Id="Level50" Step="1"/>
+    <ShowHtml HtmlId="dicardingp2"/>
+  </Action>
+  <MakeItem Name="request gold stick" Class="P" AmountInputable="false">
+    <Item Amount="1" ItemId="51"/>
+    <Material Amount="1" ItemId="40552"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Knight -->
+  <Action Name="quest 29 dicardingk2" Class="K">
+    <SetQuest Id="Level50" Step="1"/>
+    <ShowHtml HtmlId="dicardingk2"/>
+  </Action>
+  <MakeItem Name="request death blade" Class="K" AmountInputable="false">
+    <Item Amount="1" ItemId="56"/>
+    <Material Amount="1" ItemId="65"/>
+    <Material Amount="1" ItemId="40549"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Elf -->
+  <Action Name="quest 29 dicardinge2" Class="E">
+    <SetQuest Id="Level50" Step="1"/>
+    <ShowHtml HtmlId="dicardinge2"/>
+  </Action>
+  <MakeItem Name="request flame bow" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="184"/>
+    <Material Amount="1" ItemId="192"/>
+    <Material Amount="1" ItemId="40551"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="request flame sword" Class="E" AmountInputable="false">
+    <Item Amount="1" ItemId="50"/>
+    <Material Amount="1" ItemId="192"/>
+    <Material Amount="1" ItemId="40551"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Wizard -->
+  <Action Name="quest 29 dicardingw2" Class="W">
+    <SetQuest Id="Level50" Step="1"/>
+    <ShowHtml HtmlId="dicardingw2"/>
+  </Action>
+  <MakeItem Name="request mana crystal" Class="W" AmountInputable="false">
+    <Item Amount="1" ItemId="20225"/>
+    <Material Amount="1" ItemId="133"/>
+    <Material Amount="1" ItemId="40550"/>
+    <Succeed>
+      <SetQuest Id="Level50" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Alex sing Island Quest / Alex (training camp) -->
+  <MakeItem Name="0" Class="PWEKD" NpcId="71000" AmountInputable="false">
+    <Item Amount="1" ItemId="23"/>
+    <Item Amount="1" ItemId="20219"/>
+    <Item Amount="1" ItemId="20193"/>
+    <Material Amount="1" ItemId="41146"/>
+    <Succeed>
+      <!-- Received a Request for DOROMONDO -->
+      <SetQuest Id="DOROMOND" Step="End"/>
+      <ShowHtml HtmlId="jpe0036"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Alex sing Island Quest / Alex -->
+  <MakeItem Name="1" Class="PWEKD" NpcId="70999" AmountInputable="false">
+    <Item Amount="1" ItemId="23"/>
+    <Item Amount="1" ItemId="20219"/>
+    <Item Amount="1" ItemId="20193"/>
+    <Material Amount="1" ItemId="41146"/>
+    <Succeed>
+      <!-- Received a Request for DOROMONDO -->
+      <SetQuest Id="DOROMOND" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Pirate Island "secret pirate island" Quest / -3 small box in the second -->
+  <MakeItem Name="0" Class="PWEKD" NpcId="71067,71068,71069,71070,71071,71072" AmountInputable="false">
+    <Item Amount="1" ItemId="40716"/>
+    <Material Amount="1" ItemId="40701"/>
+    <Succeed>
+      <ShowHtml HtmlId="maptbox2"/>
+      <SetQuest Id="lukein" Step="11"/>
+      <SetQuest Id="tbox3" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Pirate Island "secret pirate island" Quest / RUKEIN -->
+  <MakeItem Name="1" Class="PWEKD" NpcId="71055" AmountInputable="false">
+    <Item Amount="1" ItemId="20269"/>
+    <Material Amount="1" ItemId="40716"/>
+    <Succeed>
+      <ShowHtml HtmlId="lukein0"/>
+      <SetQuest Id="lukein" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <!-- Pirate Island "treasure map 3" Quest / RESUTA -->
+  <MakeItem Name="D" Class="PWEKD" NpcId="71060" AmountInputable="false">
+    <Item Amount="1" ItemId="40647"/>
+    <Material Amount="1" ItemId="40631"/>
+    <Succeed>
+      <ShowHtml HtmlId="resta15"/>
+      <SetQuest Id="resta" Step="End"/>
+    </Succeed>
+  </MakeItem> 
+  <!-- Pirate Island "treasure map 4" Quest / KADOMUSU -->
+  <MakeItem Name="B" Class="PWEKD" NpcId="71061" AmountInputable="false">
+    <Item Amount="1" ItemId="40692"/>
+    <Material Amount="1" ItemId="40711"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="cadmus" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="g" Class="PWEKD" NpcId="71036" AmountInputable="false">
+    <Item Amount="1" ItemId="33"/>
+    <Material Amount="1" ItemId="40717"/>
+    <Succeed>
+      <ShowHtml HtmlId="kamyla25"/>
+      <SetQuest Id="kamyla" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="h" Class="PWEKD" NpcId="71036" AmountInputable="false">
+    <Item Amount="1" ItemId="79"/>
+    <Material Amount="1" ItemId="40717"/>
+    <Succeed>
+      <ShowHtml HtmlId="kamyla25"/>
+      <SetQuest Id="kamyla" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="i" Class="PWEKD" NpcId="71036" AmountInputable="false">
+    <Item Amount="1" ItemId="178"/>
+    <Material Amount="1" ItemId="40717"/>
+    <Succeed>
+      <ShowHtml HtmlId="kamyla25"/>
+      <SetQuest Id="kamyla" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="j" Class="PWEKD" NpcId="71036" AmountInputable="false">
+    <Item Amount="1" ItemId="118"/>
+    <Material Amount="1" ItemId="40717"/>
+    <Succeed>
+      <ShowHtml HtmlId="kamyla25"/>
+      <SetQuest Id="kamyla" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="k" Class="PWEKD" NpcId="71036" AmountInputable="false">
+    <Item Amount="1" ItemId="20234"/>
+    <Material Amount="1" ItemId="40717"/>
+    <Succeed>
+      <ShowHtml HtmlId="kamyla25"/>
+      <SetQuest Id="kamyla" Step="End"/>
+    </Succeed>
+  </MakeItem>
+  <MakeItem Name="C" Class="PWEKD" NpcId="71074" AmountInputable="false">
+    <Item Amount="1" ItemId="20167"/>
+    <Material Amount="1" ItemId="40634"/>
+    <Succeed>
+      <ShowHtml HtmlId="lelder13"/>
+      <SetQuest Id="lizard" Step="End"/>
+    </Succeed>
+  </MakeItem>
+</NpcActionList>

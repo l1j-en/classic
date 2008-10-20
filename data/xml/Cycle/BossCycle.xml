@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BossCycleList>
+	<!-- Base If you review the criteria used. Omitted Date = Server Startup, Time=0:00 -->
+	<!-- Cycle A specified period. (Each day, hour, minute combination specifying)  -->
+	<!-- Period Only essential. Omitted Start=0, End=Period And equivalence -->
+	<!-- Sample 
+		<BossCycle Name="Sample1">
+			<Base Date="2008/5/18" Time="0:00" />
+			<Cycle Period="1d2h31m" Start="3h30m" End="1d5m" />
+		</BossCycle>
+	-->
+	<BossCycle Name="DK">
+		<Base Date="2008/5/18" Time="0:00" />
+		<Cycle Period="7h" Start="3h30m"/>
+	</BossCycle>
+	<BossCycle Name="Oren">
+		<Base Date="2002/7/23" />
+		<Cycle Period="5h" Start="2h30m"/>
+	</BossCycle>
+	<BossCycle Name="Aden">
+		<Base Time="1:30" />
+		<Cycle Period="4h" Start="1h30m"/>
+	</BossCycle>
+	<BossCycle Name="Caspa">
+		<Cycle Period="1h" Start="30m"/>
+	</BossCycle>
+	<BossCycle Name="1Drake">
+		<Cycle Period="2h" End="1h"/>
+	</BossCycle>
+	<BossCycle Name="2Drake">
+		<Cycle Period="3h" Start="1h30m"/>
+	</BossCycle>
+	<BossCycle Name="Night">
+		<Cycle Period="4h" End="2h"/>
+	</BossCycle>
+	<BossCycle Name="Dragon">
+		<Cycle Period="1d"/>
+	</BossCycle>
+	<BossCycle Name="etc1">
+		<Cycle Period="10m" />
+	</BossCycle>
+	<BossCycle Name="Unknown">
+		<Base Date="2008/5/18" Time="0:00" />
+		<Cycle Period="7h" Start="3h30m"/>
+	</BossCycle>
+</BossCycleList>

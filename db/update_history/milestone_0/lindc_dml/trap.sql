@@ -1,0 +1,40 @@
+-- update 25
+
+-- fix all trap notes
+update trap set note = 'Damage 1' where id = 1;
+update trap set note = 'Damage 2' where id = 2;
+update trap set note = 'Normal Poison' where id = 3;
+update trap set note = 'Silence Poison' where id = 4;
+update trap set note = 'Paralysis Poison' where id = 5;
+update trap set note = 'Damage 3' where id = 6;
+update trap set note = 'Damage 4' where id = 7;
+update trap set note = 'TOI4F: Mutant Arachnevil Elder' where id = 8;
+update trap set note = 'TOI8F: Cimaera' where id = 9;
+update trap set note = 'TOI14F: Succubus' where id = 10;
+update trap set note = 'TOI18F: Wicked Beholder' where id = 11;
+update trap set note = 'TOI24F: Horrific Fire Egg' where id = 12;
+update trap set note = 'TOI28F: Horrific Cerberus' where id = 13;
+update trap set note = 'TOI34F: Raging Skeleton Pike' where id = 14;
+update trap set note = 'TOI38F: Raging Spartoi' where id = 15;
+update trap set note = 'TOI44F: Fire Ghost' where id = 16;
+update trap set note = 'TOI48F: Bone Dragon' where id = 17;
+update trap set note = 'TOI54F: Cursed Elmore Soldier' where id = 18;
+update trap set note = 'TOI64F: Cruel Snow Tiger' where id = 19;
+update trap set note = 'TOI74F: Black Knight of Darkness' where id = 20;
+update trap set note = 'TOI78F: Fire Archer of Darkness' where id = 21;
+update trap set note = 'TOI84F: Lesser Seer' where id = 22;
+update trap set note = 'TOI94F: Great Spirit of Wind' where id = 23;
+update trap set note = 'IT4F: Iron Golem' where id = 24;
+update trap set note = 'IT4F: Mimic' where id = 25;
+update trap set note = 'IT4F: Living Armor' where id = 26;
+update trap set note = 'IT5F: Iron Golem' where id = 27;
+update trap set note = 'IT5F: Mimic' where id = 28;
+update trap set note = 'IT5F: Living Armor' where id = 29;
+update trap set note = 'IT6F: Silhouette' where id = 30;
+update trap set note = 'IT6F: Death' where id = 31;
+update trap set note = 'IT7F: Silhouette' where id = 32;
+update trap set note = 'IT7F: Death' where id = 33;
+update trap set note = 'IT8F: Iron Golem' where id = 34;
+update trap set note = 'IT8F: Silhouette' where id = 35;
+update trap set note = 'IT8F: Death' where id = 36;
+update trap set note = 'IT8F: Living Armor' where id = 37;
