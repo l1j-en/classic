@@ -207,7 +207,8 @@ public class C_Chat extends ClientBasePacket {
 			} else if (pc.getLevel() >= Config.GLOBAL_CHAT_LEVEL) {   
 				if (L1World.getInstance().isWorldChatElabled()) {   
 					if (pc.get_food() >= 2) {   
-						pc.set_food(pc.get_food() - 2);  
+						// we dont want this on lineagedc
+						// pc.set_food(pc.get_food() - 2);  
 						ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);  
 						pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food()));   
 						for (L1PcInstance listner : L1World.getInstance().getAllPlayers()) {    
