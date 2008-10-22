@@ -24,13 +24,21 @@ public class S_ServerMessage extends ServerBasePacket {
 	private static final String S_SERVER_MESSAGE = "[S] S_ServerMessage";
 
 	public static final int NO_PLEDGE = 208;
+
 	public static final int CANNOT_GLOBAL = 195;
+
 	public static final int CANNOT_BOOKMARK_LOCATION = 214;
+
 	public static final int USER_NOT_ON = 73;
+
 	public static final int NOT_ENOUGH_MP = 278;
+
 	public static final int YOU_FEEL_BETTER = 77;
+
 	public static final int YOUR_WEAPON_BLESSING = 693;
+
 	public static final int YOUR_Are_Slowed = 29;
+
 	private byte[] _byte = null;
 
 	public S_ServerMessage(int type) {

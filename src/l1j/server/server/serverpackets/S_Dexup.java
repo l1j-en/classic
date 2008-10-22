@@ -41,8 +41,8 @@ public class S_Dexup extends ServerBasePacket {
 	}
 
 	public String getType() {
-		return _S__25_S_DEXUP;
+		return "[S] S_Dexup";
 	}
 
-	private static final String _S__25_S_DEXUP = "[S] S_Dexup";
+	private static final String _S__25_S_Dexup = "[S] S_Dexup";
 }

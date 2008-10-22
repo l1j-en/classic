@@ -128,7 +128,7 @@ public class Point {
 	public boolean isSamePoint(Point pt) {
 		return (pt.getX() == getX() && pt.getY() == getY());
 	}
-	
+
 	@Override
 	public Point clone() {
 		return new Point(this);

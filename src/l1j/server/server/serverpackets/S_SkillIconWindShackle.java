@@ -39,4 +39,3 @@ public class S_SkillIconWindShackle extends ServerBasePacket {
 		return getBytes();
 	}
 }
-

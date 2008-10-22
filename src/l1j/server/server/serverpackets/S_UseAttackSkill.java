@@ -168,4 +168,5 @@ public class S_UseAttackSkill extends ServerBasePacket {
 	public String getType() {
 		return S_USE_ATTACK_SKILL;
 	}
+
 }

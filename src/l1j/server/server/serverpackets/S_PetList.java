@@ -48,18 +48,16 @@ public class S_PetList extends ServerBasePacket {
 				}
 			}
 		}
-		if (amuletList.size() != 0)  
-		{  
-			writeC(Opcodes.S_OPCODE_SELECTLIST);   
-			writeD(0x00000046); // Price   
-			writeH(amuletList.size());   
-			for (L1ItemInstance item : amuletList)  
-			{   
-				writeD(item.getId());   
-				writeC(item.getCount());  
-				} 
+		if (amuletList.size() != 0) {
+			writeC(Opcodes.S_OPCODE_SELECTLIST);
+			writeD(0x00000046); // Price
+			writeH(amuletList.size());
+			for (L1ItemInstance item : amuletList) {
+				writeD(item.getId());
+				writeC(item.getCount());
 			}
 		}
+	}
 
 	private boolean isWithdraw(L1PcInstance pc, L1ItemInstance item) {
 		Object[] petlist = pc.getPetList().values().toArray();

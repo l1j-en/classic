@@ -16,24 +16,40 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server.serverpackets; 
 
-import java.io.IOException; 
+package l1j.server.server.serverpackets;
+
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 
-public class S_SelectTarget extends ServerBasePacket { 
+// Referenced classes of package l1j.server.server.serverpackets:
+// ServerBasePacket
 
-public S_SelectTarget(int ObjectID) { 
-writeC(Opcodes.S_OPCODE_SELECTTARGET); 
-writeD(ObjectID); 
-writeC(0x00); 
-writeC(0x00); 
-writeC(0x02); 
-} 
+public class S_SelectTarget extends ServerBasePacket {
 
-@Override 
-public byte[] getContent() throws IOException { 
-return getBytes(); 
-} 
-} 
+	private static Logger _log = Logger.getLogger(S_SelectTarget.class
+			.getName());
+	private static final String S_SELECT_TARGET = "[S] S_SelectTarget";
+	private byte[] _byte = null;
+
+	public S_SelectTarget(int ObjectId) {
+		writeC(Opcodes.S_OPCODE_SELECTTARGET);
+		writeD(ObjectId);
+		writeC(0x00);
+		writeC(0x00);
+		writeC(0x02);
+	}
+
+	@Override
+	public byte[] getContent() {
+		if (_byte == null) {
+			_byte = getBytes();
+		}
+		return _byte;
+	}
+
+	public String getType() {
+		return S_SELECT_TARGET;
+	}
+}

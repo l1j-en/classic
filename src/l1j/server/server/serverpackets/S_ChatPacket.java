@@ -73,13 +73,15 @@ public class S_ChatPacket extends ServerBasePacket {
 		} else if (type == 12) {  // Union chat
 			writeC(opcode);
 			writeC(type);
-			writeS("[" + pc.getName() + "] " + chat);   
-		} else if (type == 13) {  
-				writeC(opcode);  
-				writeC(type); 
-		} else if (type == 14) {// Party chat
+			writeS("[" + pc.getName() + "] " + chat);
+		} else if (type == 13) { // Party chat
 			writeC(opcode);
 			writeC(type);
+			writeS("{{" + pc.getName() + "}} " + chat);
+		} else if (type == 14) { // 
+			writeC(opcode);
+// writeC(type); // 14
+			writeC(11);
 			writeS("(" + pc.getName() + ") " + chat);
 		} else if (type == 16) {// 
 			writeC(opcode);

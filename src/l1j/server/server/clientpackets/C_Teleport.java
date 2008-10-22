@@ -52,14 +52,14 @@ public class C_Teleport extends ClientBasePacket {
 	private static final String C_TELEPORT = "[C] C_Teleport";
 	
 	private static Random _random = new Random();
-	
+
 	public C_Teleport(byte abyte0[], ClientThread clientthread)
 			throws Exception {
 		super(abyte0);
 
 		L1PcInstance pc = clientthread.getActiveChar();
-		
-		if (pc.isTeleport() || pc.isDead()) {
+
+		if (pc.isDead() || pc.isTeleport()) {
 			return;
 		}
 
@@ -111,12 +111,12 @@ public class C_Teleport extends ClientBasePacket {
 				L1Location loc = pc.getLocation().randomLocation(3, false);
 				int nx = loc.getX();
 				int ny = loc.getY();
-				 if (pc.getMapId() == 5125 || pc.getMapId() == 5131   
-						 || pc.getMapId() == 5132 || pc.getMapId() == 5133   
-						 || pc.getMapId() == 5134) {  
-					 nx = 32799 + _random.nextInt(5) - 3;   
-					 ny = 32864 + _random.nextInt(5) - 3;   
-					 } 
+				if (pc.getMapId() == 5125 || pc.getMapId() == 5131
+						|| pc.getMapId() == 5132 || pc.getMapId() == 5133
+						|| pc.getMapId() == 5134) { 
+					nx = 32799 + _random.nextInt(5) - 3;
+					ny = 32864 + _random.nextInt(5) - 3;
+				}
 				teleport(petNpc, nx, ny, mapId, head);
 				if (petNpc instanceof L1SummonInstance) { 
 					L1SummonInstance summon = (L1SummonInstance) petNpc;
@@ -157,10 +157,11 @@ public class C_Teleport extends ClientBasePacket {
 		}
 
 		pc.setTeleport(false);
-		if (pc.hasSkillEffect(L1SkillId.WIND_SHACKLE)) {   
-			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),   
-			pc.getSkillEffectTimeSec(L1SkillId.WIND_SHACKLE)));   
-			} 
+
+		if (pc.hasSkillEffect(L1SkillId.WIND_SHACKLE)) {
+			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
+					pc.getSkillEffectTimeSec(L1SkillId.WIND_SHACKLE)));
+		}
 	}
 
 	private static void teleport(L1NpcInstance npc, int x, int y, short map,
@@ -173,7 +174,6 @@ public class C_Teleport extends ClientBasePacket {
 		npc.setY(y);
 		npc.setMap(map);
 		npc.setHeading(head);
-		npc.set_currentState(0);
 		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(),
 				npc.getY(), false);
 	}

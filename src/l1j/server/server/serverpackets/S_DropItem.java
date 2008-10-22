@@ -91,10 +91,12 @@ public class S_DropItem extends ServerBasePacket {
 	public byte[] getContent() {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
-		} return _byte; 
+		}
+		return _byte;
 	}
 
 	public String getType() {
 		return _S__OB_DropItem;
 	}
+
 }

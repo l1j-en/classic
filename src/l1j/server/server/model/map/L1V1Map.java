@@ -86,8 +86,8 @@ public class L1V1Map extends L1Map {
 		_isEnabledDeathPenalty = enabledDeathPenalty;
 		_isTakePets = takePets;
 		_isRecallPets = recallPets;
-		_isUsableItem = usableItem;   
-		_isUsableSkill = usableSkill; 
+		_isUsableItem = usableItem;
+		_isUsableSkill = usableSkill;
 	}
 
 	public L1V1Map(L1V1Map map) {
@@ -411,18 +411,16 @@ public class L1V1Map extends L1Map {
 		return _isRecallPets;
 	}
 
-	@Override   
-	public boolean isUsableItem()  
-	{   
-		return _isUsableItem;   
-	}   
-	
-	@Override   
-	public boolean isUsableSkill()  
-	{   
-		return _isUsableSkill;  
-	} 
-	
+	@Override
+	public boolean isUsableItem() {
+		return _isUsableItem;
+	}
+
+	@Override
+	public boolean isUsableSkill() {
+		return _isUsableSkill;
+	}
+
 	@Override
 	public boolean isFishingZone(int x, int y) {
 		return accessOriginalTile(x, y) == 16;

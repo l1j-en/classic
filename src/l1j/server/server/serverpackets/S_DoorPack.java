@@ -82,4 +82,3 @@ public class S_DoorPack extends ServerBasePacket {
 	}
 
 }
-

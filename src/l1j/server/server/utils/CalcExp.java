@@ -386,9 +386,6 @@ public class CalcExp {
 			pet.add_maxMp(mpUpRange.randomValue());
 		}
 
-		pet.setCurrentHp(pet.getMaxHp());
-		pet.setCurrentMp(pet.get_maxMp());
-
 		pet.setExpPercent(expPercentage);
 		pc.sendPackets(new S_PetPack(pet, pc));
 
@@ -407,6 +404,9 @@ public class CalcExp {
 			pc.sendPackets(new S_ServerMessage(320, pet.getName())); 
 			//level up message end
 
+			// top off pet's HP/MP on level up
+			pet.setCurrentHp(pet.getMaxHp());
+			pet.setCurrentMp(pet.get_maxMp());
 		}
 	}
 }

@@ -30,6 +30,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ClientBasePacket
 
 public class C_AddBuddy extends ClientBasePacket {
+
 	private static final String C_ADD_BUDDY = "[C] C_AddBuddy";
 
 	public C_AddBuddy(byte[] decrypt, ClientThread clientthread) {

@@ -173,7 +173,7 @@ public class S_PacketBox extends ServerBasePacket {
 			break;
 		}
 	}
-	
+
 	public S_PacketBox(int subCode, int value) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);

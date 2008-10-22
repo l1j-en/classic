@@ -582,7 +582,7 @@ public class C_Attr extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(326));  
 			return;  		   
 		}
-		pet.setName(name);
+ 		pet.setName(name);
 		petTemplate.set_name(name);
 		PetTable.getInstance().storePet(petTemplate); 
 		L1ItemInstance item = pc.getInventory().getItem(pet.getItemObjId());   

@@ -284,6 +284,16 @@ class L1NullMap extends L1Map {
 	}
 
 	@Override
+	public boolean isUsableItem() {
+		return false;
+	}
+
+	@Override
+	public boolean isUsableSkill() {
+		return false;
+	}
+
+	@Override
 	public boolean isFishingZone(int x, int y) {
 		return false;
 	}
@@ -297,15 +307,4 @@ class L1NullMap extends L1Map {
 	public boolean isNull() {
 		return true;
 	}
-	@Override   
-	public boolean isUsableItem()  
-	{  
-		return false;   
-		}   
-	
-	@Override   
-	public boolean isUsableSkill()  
-	{   
-		return false;   
-	} 
 }

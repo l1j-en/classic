@@ -118,4 +118,5 @@ public class S_NPCPack extends ServerBasePacket {
 	public String getType() {
 		return _S__1F_NPCPACK;
 	}
+
 }

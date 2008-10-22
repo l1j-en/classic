@@ -67,4 +67,3 @@ public class S_PetInventory extends ServerBasePacket {
 		return S_PET_INVENTORY;
 	}
 }
-

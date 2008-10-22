@@ -18,8 +18,8 @@ public class L1V2Map extends L1Map {
 	private boolean _isEnabledDeathPenalty;
 	private boolean _isTakePets;
 	private boolean _isRecallPets;
-	private boolean _isUsableItem;  
-	private boolean _isUsableSkill; 
+	private boolean _isUsableItem;
+	private boolean _isUsableSkill;
 	
 	private static final byte BITFLAG_IS_IMPASSABLE = (byte) 128; // 1000 0000
 
@@ -52,8 +52,8 @@ public class L1V2Map extends L1Map {
 		_isEnabledDeathPenalty = enabledDeathPenalty;
 		_isTakePets = takePets;
 		_isRecallPets = recallPets;
-		_isUsableItem = usableItem;   
-		_isUsableSkill = usableSkill; 
+		_isUsableItem = usableItem;
+		_isUsableSkill = usableSkill;
 	}
 
 	@Override
@@ -287,18 +287,16 @@ public class L1V2Map extends L1Map {
 		return _isRecallPets;
 	}
 
-	 @Override   
-	 public boolean isUsableItem()  
-	 {   
-		 return _isUsableItem;   
-	 }   
-	 
-	 @Override   
-	 public boolean isUsableSkill()  
-	 {   
-		 return _isUsableSkill;   
-	 } 
-	 
+	@Override
+	public boolean isUsableItem() {
+		return _isUsableItem;
+	}
+
+	@Override
+	public boolean isUsableSkill() {
+		return _isUsableSkill;
+	}
+
 	@Override
 	public boolean isFishingZone(int x, int y) {
 		return accessOriginalTile(x, y) == 16;

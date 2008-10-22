@@ -40,4 +40,3 @@ public class S_DeleteCharOK extends ServerBasePacket {
 		return S_DELETE_CHAR_OK;
 	}
 }
-

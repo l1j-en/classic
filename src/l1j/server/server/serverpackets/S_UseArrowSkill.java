@@ -38,7 +38,6 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		if (cha.getTempCharGfx() == 3860) {
 			aid = 21;
 		}
-		
 		writeC(Opcodes.S_OPCODE_ATTACKPACKET);
 		writeC(aid);
 		writeD(cha.getId());
@@ -83,4 +82,5 @@ public class S_UseArrowSkill extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_UseArrowSkill";
 	}
+
 }

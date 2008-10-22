@@ -99,8 +99,4 @@ public class S_IdentifyDesc extends ServerBasePacket {
 		}
 		return _byte;
 	}
-
-	public String getType() {
-		return S_ITEM_DESC;
-	}
 }

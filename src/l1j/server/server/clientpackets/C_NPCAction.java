@@ -117,14 +117,14 @@ public class C_NPCAction extends ClientBasePacket {
 				|| s.equalsIgnoreCase("map") 
 				|| s.equalsIgnoreCase("apply")) {
 			s2 = readS();
-		} else if (s.equalsIgnoreCase("ent")) {   
-			L1Object obj = L1World.getInstance().findObject(objid);   
-			if (obj != null && obj instanceof L1NpcInstance) {   
-				if (((L1NpcInstance) obj).getNpcTemplate().get_npcId()   
-						== 80088) {   
-					s2 = readS();   
-					}   
-				} 
+		} else if (s.equalsIgnoreCase("ent")) {
+			L1Object obj = L1World.getInstance().findObject(objid);
+			if (obj != null && obj instanceof L1NpcInstance) {
+				if (((L1NpcInstance) obj).getNpcTemplate().get_npcId()
+						== 80088) {
+					s2 = readS();
+				}
+			}
 		}
 
 		int[] materials = null;
@@ -201,7 +201,9 @@ public class C_NPCAction extends ClientBasePacket {
 					|| npcid == 50620 || npcid == 50623 || npcid == 50619
 					|| npcid == 50621 || npcid == 50622 || npcid == 50624
 					|| npcid == 50617 || npcid == 50614 || npcid == 50618
-					|| npcid == 50616 || npcid == 50615) { 
+					|| npcid == 50616 || npcid == 50615 || npcid == 50626
+					|| npcid == 50627 || npcid == 50628 || npcid == 50629
+					|| npcid == 50630 || npcid == 50631) { 
 				String sellHouseMessage = sellHouse(pc, objid, npcid);
 				if (sellHouseMessage != null) {
 					htmlid = sellHouseMessage;
