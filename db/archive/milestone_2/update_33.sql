@@ -1,7 +1,3 @@
--- Queries that are pending an update should be placed here
--- this allows them to be verified as working together before being
--- migrated to the DML scripts
-
 -- update 33
 
 -- getback restarts on ships.
@@ -12,11 +8,6 @@ insert into getback_restart values
 (161, 84, 'Forgotten Island Ship to Aden Mainland', 32936, 33057, 70), 
 (162, 446, 'Ship Pirate island to Hidden dock', 32297, 33087, 440), 
 (163, 447, 'Ship Hidden dock to Pirate island', 32750, 32874, 445);
-
--- ancient giant throw skill mp consume change to 0
--- ATTENTION Darkwolf: there are no skills with this as its name. You probably should use the skill_id
---update skills set mpConsume = 0 WHERE name ='Ancient Giant';
---update skills set probability_value = 20 WHERE name ='Ancient Giant';
 
 -- mobgroup black knight party
 insert into mobgroup values 
