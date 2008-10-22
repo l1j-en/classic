@@ -46,11 +46,12 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.GameServer;
 import l1j.server.telnet.TelnetServer;
 
 /**
- * l1j-Dc
+ * l1j-En
  */
 public class Server {
 

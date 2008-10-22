@@ -131,8 +131,8 @@ public class CachedMapReader extends MapReader {
 				MapsTable.getInstance().isEnabledDeathPenalty(mapId),
 				MapsTable.getInstance().isTakePets(mapId),
 				MapsTable.getInstance().isRecallPets(mapId),
-		        MapsTable.getInstance().isUsableItem(mapId),    
-		        MapsTable.getInstance().isUsableSkill(mapId)); 
+				MapsTable.getInstance().isUsableItem(mapId),
+				MapsTable.getInstance().isUsableSkill(mapId));
 		return map;
 	}
 

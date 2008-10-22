@@ -210,7 +210,7 @@ public class C_Chat extends ClientBasePacket {
 						// we dont want this on lineagedc
 						// pc.set_food(pc.get_food() - 2);  
 						ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);  
-						pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food()));   
+						//pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food()));   
 						for (L1PcInstance listner : L1World.getInstance().getAllPlayers()) {    
 						if (!listner.excludes(pc.getName())) {  
 							listner.sendPackets(new S_ChatPacket(pc, chatText,Opcodes.S_OPCODE_GLOBALCHAT, chatType));   

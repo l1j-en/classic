@@ -80,14 +80,6 @@ public final class Config {
 
 	public static int AUTOMATIC_KICK;
 
-	public static boolean RETURN_TO_NATURE;
-	
-	public static int MAX_NPC_ITEM;   
-	
-	public static int MAX_PERSONAL_WAREHOUSE_ITEM;   
-	
-	public static int MAX_CLAN_WAREHOUSE_ITEM;
-	
 	public static boolean AUTO_CREATE_ACCOUNTS;
 
 	public static short MAX_ONLINE_USERS;
@@ -100,29 +92,14 @@ public final class Config {
 
 	public static boolean CHECK_ATTACK_INTERVAL;
 
-	// TODO: remove these later
-	public static int MINIMUM_MOVE_INTERVAL0;
+	// public static boolean CHECK_SPELL_INTERVAL;
 
-	public static int MINIMUM_MOVE_INTERVAL1;
-
-	public static int MINIMUM_MOVE_INTERVAL2;
-
-	public static int MINIMUM_MOVE_INTERVAL3;
-
-	public static int MINIMUM_ATTACK_INTERVAL;
-
-	public static short MOVE_INJUSTICE_COUNT;
-
-	public static short ATTACK_INJUSTICE_COUNT;
-	// end TODO
 	public static short INJUSTICE_COUNT;
 
 	public static int JUSTICE_COUNT;
 
 	public static int CHECK_STRICTNESS;
 
-	public static int MAX_CHAT_PT;
-	
 	public static byte LOGGING_WEAPON_ENCHANT;
 
 	public static byte LOGGING_ARMOR_ENCHANT;
@@ -155,8 +132,6 @@ public final class Config {
 
 	public static boolean TELNET_SERVER;
 
-	public static String TELNET_SERVER1;
-	
 	public static int TELNET_SERVER_PORT;
 
 	public static int PC_RECOGNIZE_RANGE;
@@ -214,14 +189,16 @@ public final class Config {
 	public static boolean ALT_NONPVP;
 
 	public static boolean ALT_ATKMSG;
-	
-	public static int MAX_CLAN_MEMBER;   
-	
-	public static boolean CLAN_ALLIANCE; 
-	
+
 	public static boolean CHANGE_TITLE_BY_ONESELF;
 
+	public static int MAX_CLAN_MEMBER;
+
+	public static boolean CLAN_ALLIANCE;
+
 	public static int MAX_PT;
+
+	public static int MAX_CHAT_PT;
 
 	public static boolean SIM_WAR_PENALTY;
 
@@ -268,6 +245,14 @@ public final class Config {
 	public static int HOUSE_TAX_INTERVAL;
 
 	public static int MAX_DOLL_COUNT;
+
+	public static boolean RETURN_TO_NATURE;
+
+	public static int MAX_NPC_ITEM;
+
+	public static int MAX_PERSONAL_WAREHOUSE_ITEM;
+
+	public static int MAX_CLAN_WAREHOUSE_ITEM;
 
 	public static boolean MONITOR_COMMANDS;
 
@@ -491,15 +476,6 @@ public final class Config {
 			LOAD_V2_MAP_FILES = Boolean.parseBoolean(serverSettings.getProperty("LoadV2MapFiles", "false"));
 			CHECK_MOVE_INTERVAL = Boolean.parseBoolean(serverSettings.getProperty("CheckMoveInterval", "false"));
 			CHECK_ATTACK_INTERVAL = Boolean.parseBoolean(serverSettings.getProperty("CheckAttackInterval", "false"));
-			// TODO: Remove these later
-			MINIMUM_MOVE_INTERVAL0 = Integer.parseInt(serverSettings.getProperty("MinimumMoveInterval0", "640"));
-			MINIMUM_MOVE_INTERVAL1 = Integer.parseInt(serverSettings.getProperty("MinimumMoveInterval1", "470"));
-			MINIMUM_MOVE_INTERVAL2 = Integer.parseInt(serverSettings.getProperty("MinimumMoveInterval2", "350"));
-			MINIMUM_MOVE_INTERVAL3 = Integer.parseInt(serverSettings.getProperty("MinimumMoveInterval3", "250"));
-			MINIMUM_ATTACK_INTERVAL = Integer.parseInt(serverSettings.getProperty("MinimumAttackInterval", "290"));
-			MOVE_INJUSTICE_COUNT = Short.parseShort(serverSettings.getProperty("MoveInjusticeCount", "10"));
-			ATTACK_INJUSTICE_COUNT = Short.parseShort(serverSettings.getProperty("AttackInjusticeCount", "5"));
-			// end TODO			
 			// CHECK_SPELL_INTERVAL = Boolean.parseBoolean(serverSettings.getProperty("CheckSpellInterval", "false"));
 			Use_Show_INGAMENEWS_Time = Boolean.parseBoolean(serverSettings.getProperty("UseINGAMENEWS_Time", "false"));
 			Show_INGAMENEWS_Time = Integer.parseInt(serverSettings.getProperty("ShowINGAMENEWS_Time", "30"));
@@ -822,14 +798,14 @@ public final class Config {
 			ALT_ATKMSG = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("ChangeTitleByOneself")) {
 			CHANGE_TITLE_BY_ONESELF = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("MaxClanMember")) {
+			MAX_CLAN_MEMBER = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("ClanAlliance")) {
+			CLAN_ALLIANCE = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("MaxPT")) {
 			MAX_PT = Integer.parseInt(pValue);
-		 } else if (pName.equalsIgnoreCase("MaxChatPT")) {  
-           MAX_CHAT_PT = Integer.parseInt(pValue); 
-		} else if (pName.equalsIgnoreCase("MaxClanMember")) {   
-			MAX_CLAN_MEMBER = Integer.parseInt(pValue);   
-		} else if (pName.equalsIgnoreCase("ClanAlliance")) {  
-			CLAN_ALLIANCE = Boolean.valueOf(pValue); 
+		} else if (pName.equalsIgnoreCase("MaxChatPT")) {
+			MAX_CHAT_PT = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("SimWarPenalty")) {
 			SIM_WAR_PENALTY = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("GetBack")) {
@@ -850,14 +826,14 @@ public final class Config {
 			HOUSE_TAX_INTERVAL = Integer.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("MaxDollCount")) {
 			MAX_DOLL_COUNT = Integer.valueOf(pValue);
-		} else if (pName.equalsIgnoreCase("ReturnToNature")) {   
-			RETURN_TO_NATURE = Boolean.valueOf(pValue); 
-		 } else if (pName.equalsIgnoreCase("MaxNpcItem")) {   
-			 MAX_NPC_ITEM = Integer.valueOf(pValue);   
-		} else if (pName.equalsIgnoreCase("MaxPersonalWarehouseItem")) {   
-			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.valueOf(pValue);  
-		} else if (pName.equalsIgnoreCase("MaxClanWarehouseItem")) {  
-			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue); 
+		} else if (pName.equalsIgnoreCase("ReturnToNature")) {
+			RETURN_TO_NATURE = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("MaxNpcItem")) {
+			MAX_NPC_ITEM = Integer.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("MaxPersonalWarehouseItem")) {
+			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("MaxClanWarehouseItem")) {
+			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue);
 		}
 		// charsettings.properties
 		else if (pName.equalsIgnoreCase("PrinceMaxHP")) {

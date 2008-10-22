@@ -1,4 +1,14 @@
 /*
+ * $Header: /cvsroot/l2j/L2_Gameserver/java/net/sf/l2j/Server.java,v 1.2 2004/06/27 08:12:59 jeichhorn Exp $
+ *
+ * $Author: jeichhorn $
+ * $Date: 2004/06/27 08:12:59 $
+ * $Revision: 1.2 $
+ * $Log: Server.java,v $
+ * Revision 1.2  2004/06/27 08:12:59  jeichhorn
+ * Added copyright notice
+ *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -23,8 +33,12 @@ import java.io.StringWriter;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-public class ConsoleLogFormatter extends Formatter 
-{
+public class ConsoleLogFormatter extends Formatter {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
+	 */
 	public ConsoleLogFormatter() {
 	}
 
