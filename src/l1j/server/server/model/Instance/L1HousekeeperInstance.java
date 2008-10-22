@@ -125,4 +125,5 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 
 	public void doFinalAction(L1PcInstance pc) {
 	}
+
 }

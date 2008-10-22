@@ -131,7 +131,8 @@ public class Getback {
 			Getback getback = null;
 			for (Getback gb : getbackList) {
 				if (gb.isSpecifyArea()) {
-					if (gb._areaX1 <= pcLocX && pcLocX <= gb._areaX2 && gb._areaY1 <= pcLocY && pcLocY <= gb._areaY2) {
+					if (gb._areaX1 <= pcLocX && pcLocX <= gb._areaX2
+							&& gb._areaY1 <= pcLocY && pcLocY <= gb._areaY2) {
 						getback = gb;
 						break;
 					}
@@ -145,9 +146,11 @@ public class Getback {
 
 			// town_id
 			if (pc.isElf() && getback._getbackTownIdForElf > 0) {
-				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForElf);
+				loc = L1TownLocation
+						.getGetBackLoc(getback._getbackTownIdForElf);
 			} else if (pc.isDarkelf() && getback._getbackTownIdForDarkelf > 0) {
-				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForDarkelf);
+				loc = L1TownLocation
+						.getGetBackLoc(getback._getbackTownIdForDarkelf);
 			} else if (getback._getbackTownId > 0) {
 				loc = L1TownLocation.getGetBackLoc(getback._getbackTownId);
 			}

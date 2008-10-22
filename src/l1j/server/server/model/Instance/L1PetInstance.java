@@ -233,6 +233,7 @@ public class L1PetInstance extends L1NpcInstance {
 	public synchronized void death(L1Character lastAttacker) {
 		if (!isDead()) {
 			setDead(true);
+			setStatus(ActionCodes.ACTION_Die);
 			setCurrentHp(0);
 
 			getMap().setPassable(getLocation(), true);
@@ -529,13 +530,7 @@ public class L1PetInstance extends L1NpcInstance {
 		if (get_maxMp() > getCurrentMp()) {
 			startMpRegeneration();
 		}
-//		if (_petMaster != null) {
-//			int MpRatio = 100 * currentMp / get_maxMp();
-//			L1PcInstance Master = _petMaster;
-//			Master.sendPackets(new S_MpMeter(getId(), MpRatio));
-//		}
 	}
-
 
 	public void setCurrentPetStatus(int i) {
 		_currentPetStatus = i;
@@ -582,4 +577,3 @@ public class L1PetInstance extends L1NpcInstance {
 		return _type;
 	}
 }
-

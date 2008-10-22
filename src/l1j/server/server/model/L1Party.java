@@ -32,6 +32,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class L1Party {
 
 	private final List<L1PcInstance> _membersList = new ArrayList<L1PcInstance>();
+
 	private L1PcInstance _leader = null;
 
 	public void addMember(L1PcInstance pc) {

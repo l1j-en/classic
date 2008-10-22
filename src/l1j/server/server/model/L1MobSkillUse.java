@@ -52,10 +52,15 @@ public class L1MobSkillUse {
 			.getLogger(L1MobSkillUse.class.getName());
 
 	private L1MobSkill _mobSkillTemplate = null;
+
 	private L1NpcInstance _attacker = null;
+
 	private L1Character _target = null;
+
 	private Random _rnd = new Random();
+
 	private int _sleepTime = 0;
+
 	private int _skillUseCount[];
 
 	public L1MobSkillUse(L1NpcInstance npc) {
@@ -145,12 +150,13 @@ public class L1MobSkillUse {
 					return true;
 				}
 			} else if (type == L1MobSkill.TYPE_POLY) {
-					if (poly(i) == true) {
+				if (poly(i) == true) {
 					skillUseCountUp(i);
 					return true;
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -176,7 +182,7 @@ public class L1MobSkillUse {
 		_sleepTime = _attacker.getNpcTemplate().getSubMagicSpeed();
 		return true;
 	}
-	
+
 	private boolean poly(int idx) {
 		int polyId = getMobSkillTemplate().getPolyId(idx);
 		boolean usePoly = false;
@@ -254,7 +260,7 @@ public class L1MobSkillUse {
 		}
 		return false;
 	}
-	
+
 	private boolean physicalAttack(int idx) {
 		Map<Integer, Integer> targetList = new ConcurrentHashMap<Integer, Integer>();
 		int areaWidth = getMobSkillTemplate().getAreaWidth(idx);
@@ -316,6 +322,7 @@ public class L1MobSkillUse {
 				}
 			}
 		} else {
+
 			targetList.put(_target.getId(), 0); 
 		}
 
@@ -337,7 +344,8 @@ public class L1MobSkillUse {
 			if (actId > 0) {
 				attack.setActId(actId);
 			}
-				if (targetId == _target.getId()) {
+
+			if (targetId == _target.getId()) {
 				if (gfxId > 0) {
 					_attacker.broadcastPacket(new S_SkillSound(_attacker
 							.getId(), gfxId));
@@ -350,7 +358,7 @@ public class L1MobSkillUse {
 		_sleepTime = _attacker.getAtkspeed();
 		return true;
 	}
-	
+
 	private boolean isSkillUseble(int skillIdx) {
 		boolean useble = false;
 

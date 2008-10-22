@@ -19,30 +19,40 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-
-import l1j.server.server.model.Instance.L1PcInstance;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.datatables.CharacterTable;
+import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1Clan {
 
+	public static final int CLAN_RANK_PROBATION = 1;
+	public static final int CLAN_RANK_PUBLIC = 2;
+	public static final int CLAN_RANK_GUARDIAN = 3;
+	public static final int CLAN_RANK_PRINCE = 4;
+
 	private static final Logger _log = Logger.getLogger(L1Clan.class.getName());
+
 	private int _clanId;
+
 	private String _clanName;
+
 	private int _leaderId;
+
 	private String _leaderName;
+
 	private int _castleId;
+
 	private int _houseId;
+
 	private int _warehouse = 0;
-	private final L1DwarfForClanInventory _dwarfForClan = new L1DwarfForClanInventory(this);
+
+	private final L1DwarfForClanInventory _dwarfForClan = new L1DwarfForClanInventory(
+			this);
+
 	private final ArrayList<String> membersNameList = new ArrayList<String>();
-	public static final int CLAN_RANK_PROBATION = 1;   
-	public static final int CLAN_RANK_PUBLIC = 2;   
-	public static final int CLAN_RANK_GUARDIAN = 3;   
-	public static final int CLAN_RANK_PRINCE = 4; 
-	
+
 	public int getClanId() {
 		return _clanId;
 	}
@@ -128,57 +138,56 @@ public class L1Clan {
 
 	public String getAllMembersFP() {
 		String result = "";
-		for (String name : membersNameList) 
-			result = result + name + " ";   
-	return result; 
-    } 
+		for (String name : membersNameList) {
+			result = result + name + " ";
+		}
+		return result;
+	}
 
-	public String getOnlineMembersFPWithRank()  
-	{   
-		String result = "";   
-		for (String name : membersNameList)  
-		{   
-			L1PcInstance pc = L1World.getInstance().getPlayer(name);   
-			if (pc != null) {   
-				result = result + name + getRankString(pc) + " ";   
-				}   
-			}   
-		return result;   
-		}   
-	
-	 public String getAllMembersFPWithRank() {   
-		 String result = "";   
-		 try {   
-			 for (String name : membersNameList) {   
-				 L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);   
-				 if (pc != null) {   
-					 result = result + name + getRankString(pc) + " ";   
-					 }   
-				 }   
-			 } catch (Exception e) {   
-				 _log.log(Level.SEVERE, e.getLocalizedMessage(), e);   
-				 }  
-			 return result;   
-			 } 
-	 
-	private String getRankString(L1PcInstance pc)  
-	{   
-		String rank = "";   
-		if (pc != null) {   
-			if (pc.getClanRank() == CLAN_RANK_PROBATION) {   
-				rank = "[PROBATION]";   
-				}  
-			else if (pc.getClanRank() == CLAN_RANK_PUBLIC) {  
-				rank = "[PUBLIC]";  
-				} else if (pc.getClanRank() == CLAN_RANK_GUARDIAN) {   
-					rank = "[GUARDIAN]";   
-					} else if (pc.getClanRank() == CLAN_RANK_PRINCE) {   
-						rank = "[PRINCE]";   
-						} else {  
-                       rank = "";   
-                       }   
-			}   
-		return rank; 
+	public String getOnlineMembersFPWithRank() {
+		String result = "";
+		for (String name : membersNameList) {
+			L1PcInstance pc = L1World.getInstance().getPlayer(name);
+			if (pc != null) {
+				result = result + name + getRankString(pc) + " ";
+			}
+		}
+		return result;
+	}
+
+	public String getAllMembersFPWithRank() {
+		String result = "";
+		try {
+			for (String name : membersNameList) {
+				L1PcInstance pc = CharacterTable.getInstance()
+						.restoreCharacter(name);
+				if (pc != null) {
+					result = result + name + getRankString(pc) + " ";
+				}
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+		return result;
+	}
+
+
+	private String getRankString(L1PcInstance pc) {
+		String rank = "";
+		if (pc != null) {
+			if (pc.getClanRank() == CLAN_RANK_PROBATION) {
+				rank = "[PROBATION]";
+			} else if (pc.getClanRank() == CLAN_RANK_PUBLIC) {
+				rank = "[PUBLIC]";
+			} else if (pc.getClanRank() == CLAN_RANK_GUARDIAN) {
+				rank = "[GUARDIAN]";
+			} else if (pc.getClanRank() == CLAN_RANK_PRINCE) {
+				rank = "[PRINCE]";
+			} else {
+				rank = "";
+			}
+		}
+		return rank;
 	}
 
 	public String[] getAllMembers() {

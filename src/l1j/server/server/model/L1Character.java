@@ -68,6 +68,7 @@ public class L1Character extends L1Object {
 		}
 		setCurrentHp(hp);
 		setDead(false);
+		setStatus(0);
 		L1PolyMorph.undoPoly(this);
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
 			pc.sendPackets(new S_RemoveObject(this));
@@ -615,7 +616,7 @@ public class L1Character extends L1Object {
 		_maxMp = (short) IntRange.ensure(_trueMaxMp, 0, 32767);
 		_currentMp = Math.min(_currentMp, _maxMp);
 	}
-	
+
 	public void add_maxMp(int i) {
 		_trueMaxMp += +i;
 		if (_trueMaxMp >= 32767) {
@@ -1151,7 +1152,7 @@ public class L1Character extends L1Object {
 			return i - 15;
 		}
 	}
-	
+
 	public boolean isInvisble() {
 		return (hasSkillEffect(L1SkillId.INVISIBILITY)
 				|| hasSkillEffect(L1SkillId.BLIND_HIDING));

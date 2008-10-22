@@ -93,7 +93,8 @@ public class L1PinkName {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
 				if (!attacker.isGmInvis()) {
-					attacker.broadcastPacket(new S_PinkName(attacker.getId(),180));
+					attacker.broadcastPacket(new S_PinkName(attacker.getId(),
+							180));
 				}
 				PinkNameTimer pink = new PinkNameTimer(attacker);
 				GeneralThreadPool.getInstance().execute(pink);

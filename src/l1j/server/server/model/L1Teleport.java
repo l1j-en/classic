@@ -21,9 +21,9 @@ package l1j.server.server.model;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
+import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Teleport;
-import l1j.server.server.serverpackets.S_Paralysis;
 
 public class L1Teleport {
 
@@ -63,9 +63,10 @@ public class L1Teleport {
 			int head, boolean effectable, int skillType) {
 		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,false)); 
 		if (effectable && (skillType >= 0 && skillType <= EFFECT_SPR.length)) {
-			S_SkillSound packet = new S_SkillSound(pc.getId(),EFFECT_SPR[skillType]);   
-			pc.sendPackets(packet);   
-			pc.broadcastPacket(packet); 
+			S_SkillSound packet = new S_SkillSound(pc.getId(),
+					EFFECT_SPR[skillType]);
+			pc.sendPackets(packet);
+			pc.broadcastPacket(packet);
 
 			try {
 				Thread.sleep((int) (EFFECT_TIME[skillType] * 0.7));
@@ -73,11 +74,11 @@ public class L1Teleport {
 			}
 		}
 
-		pc.setTeleportX(x);   
-		pc.setTeleportY(y);   
-		pc.setTeleportMapId(mapId);   
-		pc.setTeleportHeading(head);   
-		pc.sendPackets(new S_Teleport(pc)); 
+		pc.setTeleportX(x);
+		pc.setTeleportY(y);
+		pc.setTeleportMapId(mapId);
+		pc.setTeleportHeading(head);
+		pc.sendPackets(new S_Teleport(pc));
 	}
 
 	public static void teleportToTargetFront(L1Character cha,

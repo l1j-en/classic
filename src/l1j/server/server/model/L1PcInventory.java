@@ -44,12 +44,18 @@ import l1j.server.server.templates.L1Item;
 public class L1PcInventory extends L1Inventory {
 
 	private static final long serialVersionUID = 1L;
+
 	private static Logger _log = Logger
 			.getLogger(L1PcInventory.class.getName());
+
 	private static final int MAX_SIZE = 180;
+
 	private final L1PcInstance _owner; 
+
 	private int _arrowId; 
+
 	private int _stingId; 
+
 
 	public L1PcInventory(L1PcInstance owner) {
 		_owner = owner;
@@ -160,12 +166,19 @@ public class L1PcInventory extends L1Inventory {
 	}
 
 	public static final int COL_CHARGE_COUNT = 128;
+
 	public static final int COL_ITEMID = 64;
+
 	public static final int COL_DELAY_EFFECT = 32;
+
 	public static final int COL_COUNT = 16;
+
 	public static final int COL_EQUIPPED = 8;
+
 	public static final int COL_ENCHANTLVL = 4;
+
 	public static final int COL_IS_ID = 2;
+
 	public static final int COL_DURABILITY = 1;
 
 	@Override
@@ -303,7 +316,8 @@ public class L1PcInventory extends L1Inventory {
 				item.setEquipped(true);
 				_owner.getEquipSlot().set(item);
 			} else { 
-				if (!loaded) {					
+				if (!loaded) {
+
 					if (temp.getItemId() == 20077 || temp.getItemId() == 20062
 							|| temp.getItemId() == 120077) {
 						if (_owner.isInvisble()) {

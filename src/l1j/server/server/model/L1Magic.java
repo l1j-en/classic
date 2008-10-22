@@ -37,15 +37,25 @@ import l1j.server.server.templates.L1Skills;
 public class L1Magic {
 
 	private int _calcType;
+
 	private final int PC_PC = 1;
+
 	private final int PC_NPC = 2;
+
 	private final int NPC_PC = 3;
+
 	private final int NPC_NPC = 4;
+
 	private L1PcInstance _pc = null;
+
 	private L1PcInstance _targetPc = null;
+
 	private L1NpcInstance _npc = null;
+
 	private L1NpcInstance _targetNpc = null;
+
 	private int _leverage = 10; 
+
 	private static Random _random = new Random();
 
 	public void setLeverage(int i) {
@@ -79,7 +89,7 @@ public class L1Magic {
 			}
 		}
 	}
-	
+
 	private int getSpellPower() {
 		int spellPower = 0;
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
@@ -162,10 +172,10 @@ public class L1Magic {
 					return true;
 				}
 	
-				if (_pc.isInParty()) {   
-					if (_pc.getParty().isMember(_targetPc)) {  
-						return true;   
-				     } 
+				if (_pc.isInParty()) {
+					if (_pc.getParty().isMember(_targetPc)) {
+						return true;
+				     }
 				}
 				if (_pc.getZoneType() == 1 || _targetPc.getZoneType() == 1) {
 					return false;

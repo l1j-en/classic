@@ -97,9 +97,11 @@ public class L1NpcChatTimer extends TimerTask {
 		if (chatTiming == L1NpcInstance.CHAT_TIMING_DEAD && !npc.isDead()) {
 			return;
 		}
-		if (chatTiming == L1NpcInstance.CHAT_TIMING_HIDE && npc.isDead()) {  
-        return;  
-        } 
+		if (chatTiming == L1NpcInstance.CHAT_TIMING_HIDE && npc.isDead()) {
+			return;
+		}
+
+
 		if (!isShout) {
 			npc.broadcastPacket(new S_NpcChatPacket(npc, chatId, 0));
 		} else {
@@ -108,4 +110,3 @@ public class L1NpcChatTimer extends TimerTask {
 	}
 
 }
-

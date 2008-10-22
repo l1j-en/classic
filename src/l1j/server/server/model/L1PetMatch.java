@@ -138,8 +138,7 @@ public class L1PetMatch {
 		return false;
 	}
 
-	private int decidePetMatchNo() 
-	{
+	private int decidePetMatchNo() {
 		for (int i = 0; i < MAX_PET_MATCH; i++) {
 			int status = getPetMatchStatus(i);
 			if (status == STATUS_READY1 || status == STATUS_READY2) {
@@ -378,4 +377,3 @@ public class L1PetMatchTimer extends TimerTask {
 }
 
 }
-

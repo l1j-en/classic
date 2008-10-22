@@ -325,7 +325,7 @@ public class L1World {
 					if (pt.isInScreen(element.getLocation())) {
 						result.add(element);
 					}
-                } else if (radius == 0) {
+				} else if (radius == 0) {
 					if (pt.isSamePoint(element.getLocation())) {
 						result.add(element);
 					}
@@ -381,7 +381,7 @@ public class L1World {
 				if (pt.isInScreen(element.getLocation())) {
 					result.add(element);
 				}
-            } else if (radius == 0) {
+			} else if (radius == 0) {
 				if (pt.isSamePoint(element.getLocation())) {
 					result.add(element);
 				}

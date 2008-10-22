@@ -20,7 +20,6 @@ package l1j.server.server.model;
 
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
@@ -28,6 +27,7 @@ import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SPMR;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1Cooking
@@ -66,58 +66,58 @@ public class L1Cooking {
 		int time = 900;
 		if (itemId == 41277 || itemId == 41285) { 
 			if (itemId == 41277) {
-				cookingId = L1SkillId.COOKING_1_0_N;
+				cookingId = COOKING_1_0_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_0_S;
+				cookingId = COOKING_1_0_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41278 || itemId == 41286) { 
 			if (itemId == 41278) {
-				cookingId = L1SkillId.COOKING_1_1_N;
+				cookingId = COOKING_1_1_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_1_S;
+				cookingId = COOKING_1_1_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41279 || itemId == 41287) { 
 			if (itemId == 41279) {
-				cookingId = L1SkillId.COOKING_1_2_N;
+				cookingId = COOKING_1_2_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_2_S;
+				cookingId = COOKING_1_2_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41280 || itemId == 41288) { 
 			if (itemId == 41280) {
-				cookingId = L1SkillId.COOKING_1_3_N;
+				cookingId = COOKING_1_3_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_3_S;
+				cookingId = COOKING_1_3_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41281 || itemId == 41289) { 
 			if (itemId == 41281) {
-				cookingId = L1SkillId.COOKING_1_4_N;
+				cookingId = COOKING_1_4_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_4_S;
+				cookingId = COOKING_1_4_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41282 || itemId == 41290) { 
 			if (itemId == 41282) {
-				cookingId = L1SkillId.COOKING_1_5_N;
+				cookingId = COOKING_1_5_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_5_S;
+				cookingId = COOKING_1_5_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41283 || itemId == 41291) { 
 			if (itemId == 41283) {
-				cookingId = L1SkillId.COOKING_1_6_N;
+				cookingId = COOKING_1_6_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_6_S;
+				cookingId = COOKING_1_6_S;
 			}
 			eatCooking(pc, cookingId, time);
 		} else if (itemId == 41284 || itemId == 41292) { 
 			if (itemId == 41284) {
-				cookingId = L1SkillId.COOKING_1_7_N;
+				cookingId = COOKING_1_7_N;
 			} else {
-				cookingId = L1SkillId.COOKING_1_7_S;
+				cookingId = COOKING_1_7_S;
 			}
 			eatCooking(pc, cookingId, time);
 		}
@@ -127,49 +127,48 @@ public class L1Cooking {
 
 	public static void eatCooking(L1PcInstance pc, int cookingId, int time) {
 		int cookingType = 0;
-		if (cookingId == L1SkillId.COOKING_1_0_N || cookingId == L1SkillId.COOKING_1_0_S) {
+		if (cookingId == COOKING_1_0_N || cookingId == COOKING_1_0_S) {
 			cookingType = 0;
 			pc.addWind(10);
 			pc.addWater(10);
 			pc.addFire(10);
 			pc.addEarth(10);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (cookingId == L1SkillId.COOKING_1_1_N || cookingId == L1SkillId.COOKING_1_1_S) {
+		} else if (cookingId == COOKING_1_1_N || cookingId == COOKING_1_1_S) {
 			cookingType = 1;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 			if (pc.isInParty()) { 
 				pc.getParty().updateMiniHP(pc);
 			}
-		} else if (cookingId == L1SkillId.COOKING_1_2_N || cookingId == L1SkillId.COOKING_1_2_S) {
+		} else if (cookingId == COOKING_1_2_N || cookingId == COOKING_1_2_S) {
 			cookingType = 2;
-		} else if (cookingId == L1SkillId.COOKING_1_3_N || cookingId == L1SkillId.COOKING_1_3_S) {
+		} else if (cookingId == COOKING_1_3_N || cookingId == COOKING_1_3_S) {
 			cookingType = 3;
 			pc.addAc(-1);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == L1SkillId.COOKING_1_4_N || cookingId == L1SkillId.COOKING_1_4_S) {
+		} else if (cookingId == COOKING_1_4_N || cookingId == COOKING_1_4_S) {
 			cookingType = 4;
 			pc.add_maxMp(20);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.get_maxMp()));
-		} else if (cookingId == L1SkillId.COOKING_1_5_N || cookingId == L1SkillId.COOKING_1_5_S) {
+		} else if (cookingId == COOKING_1_5_N || cookingId == COOKING_1_5_S) {
 			cookingType = 5;
-		} else if (cookingId == L1SkillId.COOKING_1_6_N || cookingId == L1SkillId.COOKING_1_6_S) {
+		} else if (cookingId == COOKING_1_6_N || cookingId == COOKING_1_6_S) {
 			cookingType = 6;
 			pc.addMr(5);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == L1SkillId.COOKING_1_7_N || cookingId == L1SkillId.COOKING_1_7_S) {
+		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S) {
 			cookingType = 7;
 		}
 		pc.sendPackets(new S_PacketBox(53, cookingType, time));
 		pc.setSkillEffect(cookingId, time * 1000);
-		 if (cookingId >= L1SkillId.COOKING_1_0_N && cookingId <= L1SkillId.COOKING_1_6_N  || cookingId >= L1SkillId.COOKING_1_0_S  
-				 && cookingId <= L1SkillId.COOKING_1_6_S) {  
-			 pc.setCookingId(cookingId);   
-			 } else if (cookingId == L1SkillId.COOKING_1_7_N || cookingId == L1SkillId.COOKING_1_7_S) {   
-				 pc.setDessertId(cookingId);   
-				 } 
+		if (cookingId >= COOKING_1_0_N && cookingId <= COOKING_1_6_N
+				|| cookingId >= COOKING_1_0_S && cookingId <= COOKING_1_6_S) {
+			pc.setCookingId(cookingId);
+		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S) {
+			pc.setDessertId(cookingId);
+		}
 		pc.sendPackets(new S_OwnCharStatus(pc));
 	}
 
 }
-

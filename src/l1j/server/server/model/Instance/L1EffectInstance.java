@@ -131,4 +131,3 @@ public class L1EffectInstance extends L1NpcInstance {
 		}
 	}
 }
-

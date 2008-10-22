@@ -26,7 +26,7 @@ public class ElementalStoneGenerator implements Runnable {
 	private static final int LAST_X = 33141;
 	private static final int LAST_Y = 32500;
 	private static final int ELEMENTAL_STONE_ID = 40515; 
-	
+
 	private ArrayList<L1GroundInventory> _itemList = new ArrayList<L1GroundInventory>(
 			MAX_COUNT);
 	private Random _random = new Random();

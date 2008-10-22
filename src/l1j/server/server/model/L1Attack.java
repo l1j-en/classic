@@ -33,7 +33,6 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.poison.L1ParalysisPoison;
 import l1j.server.server.model.poison.L1SilencePoison;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_AttackMissPacket;
 import l1j.server.server.serverpackets.S_AttackPacket;
 import l1j.server.server.serverpackets.S_AttackStatus;
@@ -43,6 +42,7 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.types.Point;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Attack {
 
@@ -56,8 +56,6 @@ public class L1Attack {
 
 	private L1NpcInstance _targetNpc = null;
 
-	private int _weaponDoubleDmgChance = 0;
-	
 	private final int _targetId;
 
 	private int _targetX;
@@ -110,6 +108,8 @@ public class L1Attack {
 	private int _weaponEnchant = 0;
 
 	private int _weaponMaterial = 0;
+
+	private int _weaponDoubleDmgChance = 0;
 
 	private L1ItemInstance _arrow = null;
 
@@ -250,7 +250,6 @@ public class L1Attack {
 					if (_sting != null) {
 						_weaponBless = _sting.getItem().getBless();
 						_weaponMaterial = _sting.getItem().getMaterial();
-						
 					}
 				}
 				_weaponDoubleDmgChance = weapon.getItem().getDoubleDmgChance();
@@ -344,7 +343,7 @@ public class L1Attack {
 			_hitRate = 95 - (hitAc - _targetPc.getAc());
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.UNCANNY_DODGE)) {
+		if (_targetPc.hasSkillEffect(UNCANNY_DODGE)) {
 			_hitRate -= 20;
 		}
 
@@ -352,16 +351,16 @@ public class L1Attack {
 			_hitRate = MIN_HITRATE;
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) {
+		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
 			_hitRate = 0;
 		}
 		int rnd = _random.nextInt(100) + 1;
@@ -410,17 +409,22 @@ public class L1Attack {
 		} else if (_hitRate < 5) {
 			_hitRate = 5;
 		}
-		int npcId = _targetNpc.getNpcTemplate().get_npcId();   
-		if (npcId >= 45912 && npcId <= 45915 && !_pc.hasSkillEffect(L1SkillId.STATUS_HOLY_WATER)) {   
-			_hitRate = 0; 
-		}  
-		if (npcId == 45916 && !_pc.hasSkillEffect(L1SkillId.STATUS_HOLY_MITHRIL_POWDER)) {   
-			_hitRate = 0;  
-		}   
-		if (npcId == 45941 && !_pc.hasSkillEffect(L1SkillId.STATUS_HOLY_WATER_OF_EVA)) {   
-			_hitRate = 0; 
-		}   
-		int rnd = _random.nextInt(100) + 1; 
+
+		int npcId = _targetNpc.getNpcTemplate().get_npcId();
+		if (npcId >= 45912 && npcId <= 45915 
+				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45916
+				&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45941
+				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+			_hitRate = 0;
+		}
+
+ 		int rnd = _random.nextInt(100) + 1;
 
 		return _hitRate >= rnd;
 	}
@@ -448,7 +452,7 @@ public class L1Attack {
 			_hitRate = 95;
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.UNCANNY_DODGE)) {
+		if (_targetPc.hasSkillEffect(UNCANNY_DODGE)) {
 			_hitRate -= 20;
 		}
 
@@ -456,16 +460,16 @@ public class L1Attack {
 			_hitRate = 5;
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) {
+		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			_hitRate = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
 			_hitRate = 0;
 		}
 
@@ -539,7 +543,8 @@ public class L1Attack {
 		int weaponMaxDamage = _weaponSmall;
 
 		int weaponDamage = 0;
-		if (_weaponType == 58 && (_random.nextInt(100) + 1) <= _weaponDoubleDmgChance) {   // Critical hit
+		if (_weaponType == 58 && (_random.nextInt(100) + 1) <=
+				_weaponDoubleDmgChance) { // Critical hit
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
@@ -548,21 +553,22 @@ public class L1Attack {
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
-		if (_pc.hasSkillEffect(L1SkillId.SOUL_OF_FLAME)) {
+		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			if (_weaponType != 20 && _weaponType != 62) {
 				weaponDamage = weaponMaxDamage;
 			}
 		}
 
 		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
-		if (_pc.hasSkillEffect(L1SkillId.DOUBLE_BRAKE)
+		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
 				&& (_weaponType == 54 || _weaponType == 58)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
 			}
 		}
 
-		if (_weaponType == 54 && (_random.nextInt(100) + 1) <= _weaponDoubleDmgChance) {   // Double hit
+		if (_weaponType == 54 && (_random.nextInt(100) + 1) <=
+				_weaponDoubleDmgChance) { // Double hit
 			weaponTotalDamage *= 2;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3398));
@@ -625,39 +631,39 @@ public class L1Attack {
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
 
-		if (_targetPc.hasSkillEffect(L1SkillId.COOKING_1_0_S) 
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_1_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_2_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_3_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_4_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_5_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_6_S)) {
+		if (_targetPc.hasSkillEffect(COOKING_1_0_S) // 
+				|| _targetPc.hasSkillEffect(COOKING_1_1_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_2_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_3_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_4_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_5_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_6_S)) {
 			dmg -= 5;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.COOKING_1_7_S)) { 
+		if (_targetPc.hasSkillEffect(COOKING_1_7_S)) { 
 			dmg -= 5;
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.REDUCTION_ARMOR)) {
+		if (_targetPc.hasSkillEffect(REDUCTION_ARMOR)) {
 			int targetPcLvl = _targetPc.getLevel();
 			if (targetPcLvl < 50) {
 				targetPcLvl = 50;
 			}
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.IMMUNE_TO_HARM)) {
+		if (_targetPc.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) {
+		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
 			dmg = 0;
 		}
 
@@ -680,7 +686,8 @@ public class L1Attack {
 		}
 
 		int weaponDamage = 0;
-		if (_weaponType == 58 && (_random.nextInt(100) + 1) <= _weaponDoubleDmgChance) {   // Critical hit
+		if (_weaponType == 58 && (_random.nextInt(100) + 1) <=
+				_weaponDoubleDmgChance) { // Critical hit
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
@@ -689,14 +696,14 @@ public class L1Attack {
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
-		if (_pc.hasSkillEffect(L1SkillId.SOUL_OF_FLAME)) {
+		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			if (_weaponType != 20 && _weaponType != 62) {
 				weaponDamage = weaponMaxDamage;
 			}
 		}
 
 		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
-		if (_pc.hasSkillEffect(L1SkillId.DOUBLE_BRAKE)
+		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
 				&& (_weaponType == 54 || _weaponType == 58)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
@@ -704,7 +711,8 @@ public class L1Attack {
 		}
 
 		weaponTotalDamage += calcMaterialBlessDmg(); // Damage bonus blessing silver
-		if (_weaponType == 54 && (_random.nextInt(100) + 1) <= _weaponDoubleDmgChance) {   // Double hit
+		if (_weaponType == 54 && (_random.nextInt(100) + 1) <=
+				_weaponDoubleDmgChance) { // Double hit
 			weaponTotalDamage *= 2;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3398));
@@ -780,33 +788,31 @@ public class L1Attack {
 
 		dmg -= calcNpcDamageReduction();
 
-		boolean isNowWar = false;  
-		int castleId = L1CastleLocation.getCastleIdByArea(_targetNpc);
-        if (castleId > 0) {  
-    	isNowWar = WarTimeController.getInstance().isNowWar(castleId);  
-        }  
-        if (!isNowWar) {  
-        if (_targetNpc instanceof L1PetInstance) { 
-        dmg /= 16;
-        }  
-        if (_targetNpc instanceof L1SummonInstance) 
-        {  
-        L1SummonInstance summon = (L1SummonInstance) _targetNpc;  
-        if (summon.isExsistMaster()) 
-        {  
-        dmg /= 16;  
-        }  
-        } 
-        }
 
-		if (_targetNpc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		boolean isNowWar = false;
+		int castleId = L1CastleLocation.getCastleIdByArea(_targetNpc);
+		if (castleId > 0) {
+			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
+		}
+		if (!isNowWar) {
+			if (_targetNpc instanceof L1PetInstance) {
+				dmg /= 16; // was 8
+			}
+			if (_targetNpc instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) _targetNpc;
+				if (summon.isExsistMaster()) {
+					dmg /= 16; // was 8
+				}
+			}
+		}
+
+		if (_targetNpc.hasSkillEffect(ICE_LANCE)) {
 			dmg = 0;
 		}
-		
-		if (_targetNpc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetNpc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			dmg = 0;
 		}
-		if (_targetNpc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
 			dmg = 0;
 		}
 
@@ -846,62 +852,60 @@ public class L1Attack {
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
 
-		if (_targetPc.hasSkillEffect(L1SkillId.COOKING_1_0_S) 
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_1_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_2_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_3_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_4_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_5_S)
-				|| _targetPc.hasSkillEffect(L1SkillId.COOKING_1_6_S)) {
+		if (_targetPc.hasSkillEffect(COOKING_1_0_S) 
+				|| _targetPc.hasSkillEffect(COOKING_1_1_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_2_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_3_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_4_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_5_S)
+				|| _targetPc.hasSkillEffect(COOKING_1_6_S)) {
 			dmg -= 5;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.COOKING_1_7_S)) { 
+		if (_targetPc.hasSkillEffect(COOKING_1_7_S)) { 
 			dmg -= 5;
 		}
 
-		if (_targetPc.hasSkillEffect(L1SkillId.REDUCTION_ARMOR)) {
+		if (_targetPc.hasSkillEffect(REDUCTION_ARMOR)) {
 			int targetPcLvl = _targetPc.getLevel();
 			if (targetPcLvl < 50) {
 				targetPcLvl = 50;
 			}
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.IMMUNE_TO_HARM)) {
+		if (_targetPc.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) {
+		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
 			dmg = 0;
 		}
 
-		boolean isNowWar = false;  
-        int castleId = L1CastleLocation.getCastleIdByArea(_targetPc); 
-        if (castleId > 0) {  
-        isNowWar = WarTimeController.getInstance().isNowWar(castleId);  
-        }  
-        if (!isNowWar) 
-        {  
-        if (_npc instanceof L1PetInstance) 
-        { 
-        dmg /= 16;  // was 8
-        }  
-        if (_npc instanceof L1SummonInstance) 
-        {  
-        L1SummonInstance summon = (L1SummonInstance) _npc; 
-        if (summon.isExsistMaster()) 
-        {  
-        dmg /= 16;  // was 8
-        } 
-        }
-        }
+		// 
+		boolean isNowWar = false;
+		int castleId = L1CastleLocation.getCastleIdByArea(_targetPc);
+		if (castleId > 0) {
+			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
+		}
+		if (!isNowWar) {
+			if (_npc instanceof L1PetInstance) {
+				dmg /= 16;  // was 8
+			}
+			if (_npc instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) _npc;
+				if (summon.isExsistMaster()) {
+					dmg /= 16;  // was 8
+				}
+			}
+		}
+
 		if (dmg <= 0) {
 			_isHit = false;
 		}
@@ -937,13 +941,13 @@ public class L1Attack {
 
 		addNpcPoisonAttack(_npc, _targetNpc);
 
-		if (_targetNpc.hasSkillEffect(L1SkillId.ICE_LANCE)) {
+		if (_targetNpc.hasSkillEffect(ICE_LANCE)) {
 			dmg = 0;
 		}
-		if (_targetNpc.hasSkillEffect(L1SkillId.FREEZING_BLIZZARD)) {
+		if (_targetNpc.hasSkillEffect(FREEZING_BLIZZARD)) {
 			dmg = 0;
 		}
-		if (_targetNpc.hasSkillEffect(L1SkillId.EARTH_BIND)) {
+		if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
 			dmg = 0;
 		}
 
@@ -957,39 +961,39 @@ public class L1Attack {
 	// Magic players to strengthen Damage
 	private double calcBuffDamage(double dmg) {
 		if (_weaponType == 20 || _weaponType == 62) { // Gauntlet or arch, the near-magical minutes minus process
-			if (_pc.hasSkillEffect(L1SkillId.FIRE_WEAPON)) {
+			if (_pc.hasSkillEffect(FIRE_WEAPON)) {
 				dmg -= 4;
 			}
-			if (_pc.hasSkillEffect(L1SkillId.FIRE_BLESS)) {
+			if (_pc.hasSkillEffect(FIRE_BLESS)) {
 				dmg -= 4;
 			}
-			if (_pc.hasSkillEffect(L1SkillId.BURNING_WEAPON)) {
+			if (_pc.hasSkillEffect(BURNING_WEAPON)) {
 				dmg -= 6;
 			}
 		} else {
-			if (_pc.hasSkillEffect(L1SkillId.STORM_EYE)) {
+			if (_pc.hasSkillEffect(STORM_EYE)) {
 				dmg -= 3;
 			}
-			if (_pc.hasSkillEffect(L1SkillId.STORM_SHOT)) {
+			if (_pc.hasSkillEffect(STORM_SHOT)) {
 				dmg -= 5;
 			}
 		}
 
 		// Arms fire, the damage will be 1.5 times not Berserker
-		if (_pc.hasSkillEffect(L1SkillId.BURNING_SPIRIT)
-				|| (_pc.hasSkillEffect(L1SkillId.ELEMENTAL_FIRE) && _weaponType != 20 && _weaponType != 62)) {
+		if (_pc.hasSkillEffect(BURNING_SPIRIT)
+				|| (_pc.hasSkillEffect(ELEMENTAL_FIRE) && _weaponType != 20 && _weaponType != 62)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				double tempDmg = dmg;
-				if (_pc.hasSkillEffect(L1SkillId.FIRE_WEAPON)) {
+				if (_pc.hasSkillEffect(FIRE_WEAPON)) {
 					tempDmg -= 4;
 				}
-				if (_pc.hasSkillEffect(L1SkillId.FIRE_BLESS)) {
+				if (_pc.hasSkillEffect(FIRE_BLESS)) {
 					tempDmg -= 4;
 				}
-				if (_pc.hasSkillEffect(L1SkillId.BURNING_WEAPON)) {
+				if (_pc.hasSkillEffect(BURNING_WEAPON)) {
 					tempDmg -= 6;
 				}
-				if (_pc.hasSkillEffect(L1SkillId.BERSERKERS)) {
+				if (_pc.hasSkillEffect(BERSERKERS)) {
 					tempDmg -= 5;
 				}
 				double diffDmg = dmg - tempDmg;
@@ -1040,6 +1044,7 @@ public class L1Attack {
 		return flag;
 	}
 
+	
 	public void addNpcPoisonAttack(L1Character attacker, L1Character target) {
 		if (_npc.getNpcTemplate().get_poisonatk() != 0) {
 			if (12 >= _random.nextInt(100) + 1) { // 12% chance of poison attacks
@@ -1077,7 +1082,7 @@ public class L1Attack {
 	public void addPcPoisonAttack(L1Character attacker, L1Character target) {
 		int chance = _random.nextInt(100) + 1;
 		if ((_weaponId == 13 || _weaponId == 44 // FOD, ancient DAKUERUFUSODO
-				|| (_weaponId != 0 && _pc.hasSkillEffect(L1SkillId.ENCHANT_VENOM))) // Enchant venom
+				|| (_weaponId != 0 && _pc.hasSkillEffect(ENCHANT_VENOM))) // Enchant venom
 				&& chance <= 10) {
 			// Usually poison, 3 second period, HP-5 Damage
 			L1DamagePoison.doInfection(attacker, target, 3000, 5);
@@ -1435,11 +1440,13 @@ public class L1Attack {
 		int damage = 0;
 		L1ItemInstance weapon = null;
 		weapon = _targetPc.getWeapon();
-		int weaponType = weapon.getItem().getType();
-		if (weapon != null && weaponType == 3) { // Two-handed sword
-			// (BIG strengthen the maximum number + + Additional Damage Damage) * 2
-			damage = (weapon.getItem().getDmgLarge() + weapon.getEnchantLevel() + weapon
-					.getItem().getDmgModifier()) * 2;
+		if (weapon != null) {
+			if (weapon.getItem().getType() == 3) { // Two-handed sword
+				// (BIG strengthen the maximum number + + Additional Damage Damage) * 2
+				damage = (weapon.getItem().getDmgLarge() + weapon
+						.getEnchantLevel() + weapon.getItem()
+								.getDmgModifier()) * 2;
+			}
 		}
 		return damage;
 	}
@@ -1457,7 +1464,8 @@ public class L1Attack {
 		 */
 		if (_calcType != PC_NPC
 				|| _targetNpc.getNpcTemplate().is_hard() == false
-				|| _weaponType == 0 || weapon.getItem().get_canbedmg() == 0) {
+				|| _weaponType == 0 || weapon.getItem().get_canbedmg() == 0
+				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
 		}
 		// normal weapons cursed weapons
@@ -1482,7 +1490,8 @@ public class L1Attack {
 		// PvP except bare hands, bow, GANTOTORETTO, BAUNSUATAKKU unused nothing if not
 		if (_calcType != PC_PC || _weaponType == 0 || _weaponType == 20
 				|| _weaponType == 62
-				|| _targetPc.hasSkillEffect(L1SkillId.BOUNCE_ATTACK) == false) {
+				|| _targetPc.hasSkillEffect(BOUNCE_ATTACK) == false
+				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
 		}
 

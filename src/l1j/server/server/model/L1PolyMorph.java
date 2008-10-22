@@ -39,28 +39,46 @@ public class L1PolyMorph {
 	
 	// weapon equip bit
 	private static final int DAGGER_EQUIP = 1;
+
 	private static final int SWORD_EQUIP = 2;
+
 	private static final int TWOHANDSWORD_EQUIP = 4;
+
 	private static final int AXE_EQUIP = 8;
+
 	private static final int SPEAR_EQUIP = 16;
+
 	private static final int STAFF_EQUIP = 32;
+
 	private static final int EDORYU_EQUIP = 64;
+
 	private static final int CLAW_EQUIP = 128;
+
 	private static final int BOW_EQUIP = 256;
 
 	// armor equip bit
 	private static final int HELM_EQUIP = 1;
+
 	private static final int AMULET_EQUIP = 2;
+
 	private static final int EARRING_EQUIP = 4;
+
 	private static final int TSHIRT_EQUIP = 8;
+
 	private static final int ARMOR_EQUIP = 16;
+
 	private static final int CLOAK_EQUIP = 32;
+
 	private static final int BELT_EQUIP = 64;
+
 	private static final int SHIELD_EQUIP = 128;
+
 	private static final int GLOVE_EQUIP = 256;
+
 	private static final int RING_EQUIP = 512;
+
 	private static final int BOOTS_EQUIP = 1024;
-	
+
 	private static final Map<Integer, Integer> weaponFlgMap = new HashMap<Integer, Integer>();
 	static {
 		weaponFlgMap.put(1, SWORD_EQUIP);
@@ -160,10 +178,11 @@ public class L1PolyMorph {
 	public static void doPoly(L1Character cha, int polyId, int timeSecs) {
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;
-			if (pc.getMapId() == 5124) {  
-				pc.sendPackets(new S_ServerMessage(1170));  
-				return;   
-				} 
+			if (pc.getMapId() == 5124) { 
+				pc.sendPackets(new S_ServerMessage(1170)); 
+				return;
+			}
+ 			pc.killSkillEffectTimer(L1SkillId.SHAPE_CHANGE);
 			pc.setSkillEffect(L1SkillId.SHAPE_CHANGE, timeSecs * 1000);
 			if (pc.getTempCharGfx() != polyId) { 
 				L1ItemInstance weapon = pc.getWeapon();

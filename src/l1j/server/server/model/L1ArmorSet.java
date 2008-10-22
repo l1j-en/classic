@@ -6,19 +6,13 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public abstract class L1ArmorSet {
-	public void giveEffect(L1PcInstance pc) {
-	}
+	public abstract void giveEffect(L1PcInstance pc);
 
-	public void cancelEffect(L1PcInstance pc) {
-	}
+	public abstract void cancelEffect(L1PcInstance pc);
 
-	public boolean isValid(L1PcInstance pc) {
-		return false;
-	}
+	public abstract boolean isValid(L1PcInstance pc);
 
-	public boolean isPartOfSet(int id) {
-		return false;
-	}
+	public abstract boolean isPartOfSet(int id);
 
 	public static ArrayList<L1ArmorSet> getAllSet() {
 		return _allSet;
@@ -59,13 +53,6 @@ public abstract class L1ArmorSet {
 		impl.addEffect(new AcHpMpBonusEffect(-2, 0, 100, 0, 12, 0));
 		_allSet.add(impl);
 
-		impl = new L1ArmorSetImpl(new int[] {20380});   
-		impl.addEffect(new PolymorphEffect(5645));   
-		_allSet.add(impl);   
-		impl = new L1ArmorSetImpl(new int[] {20419});  
-		impl.addEffect(new PolymorphEffect(5976));   
-		_allSet.add(impl); 
-		
 		// Only Metamorphosis
 		// Pumpkin
 		impl = new L1ArmorSetImpl(new int[] { 20047 });
@@ -167,6 +154,14 @@ public abstract class L1ArmorSet {
 		impl = new L1ArmorSetImpl(new int[] { 20383 });
 		impl.addEffect(new PolymorphEffect(6080));
 		_allSet.add(impl);
+		// 
+		impl = new L1ArmorSetImpl(new int[] { 20380 });
+		impl.addEffect(new PolymorphEffect(5645));
+		_allSet.add(impl);
+		// 
+		impl = new L1ArmorSetImpl(new int[] { 20419 });
+		impl.addEffect(new PolymorphEffect(5976));
+		_allSet.add(impl); 
 
 		// Only status bonus
 		// Leather set
@@ -225,6 +220,11 @@ public abstract class L1ArmorSet {
 				new int[] { 20390, 20395, 20402, 20410, 20408 });
 		impl.addEffect(new AcHpMpBonusEffect(-20, 100, 20, 10, 0, 0));
 		_allSet.add(impl);
+		// 
+		impl = new L1ArmorSetImpl(
+				new int[] { 21051, 21052, 21053, 21054, 21055, 21056 });
+		impl.addEffect(new AcHpMpBonusEffect(-10, 100, 0, 0, 0, 0));
+		_allSet.add(impl);		
 		// Set hope
 		impl = new L1ArmorSetImpl(new int[] { 20413, 20428 });
 		impl.addEffect(new AcHpMpBonusEffect(0, 0, 5, 0, 0, 0));
@@ -265,10 +265,6 @@ public abstract class L1ArmorSet {
 		impl = new L1ArmorSetImpl(new int[] { 20230, 20027 });
 		impl.addEffect(new AcHpMpBonusEffect(-2, 10, 0, 0, 0, 10));
 		_allSet.add(impl);
-		impl = new L1ArmorSetImpl(   
-				new int[] { 21051, 21052, 21053, 21054, 21055, 21056 });  
-		impl.addEffect(new AcHpMpBonusEffect(-10, 100, 0, 0, 0, 0));   
-		_allSet.add(impl); 
 	}
 }
 

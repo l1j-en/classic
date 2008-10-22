@@ -47,7 +47,9 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
 
 public class L1GuardianInstance extends L1NpcInstance {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private static Logger _log = Logger.getLogger(L1GuardianInstance.class
@@ -68,7 +70,8 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1PcInstance targetPlayer = null;
 
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm() || pc.isGhost()) {
+			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
+					|| pc.isGhost()) {
 				continue;
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
@@ -105,7 +108,8 @@ public class L1GuardianInstance extends L1NpcInstance {
 
 	@Override
 	public void onAction(L1PcInstance player) {
-		if (player.getType() == 2 && player.getCurrentWeapon() == 0 && player.isElf()) {
+		if (player.getType() == 2 && player.getCurrentWeapon() == 0
+				&& player.isElf()) {
 			L1Attack attack = new L1Attack(player, this);
 
 			if (attack.calcHit()) {
@@ -486,6 +490,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					if (newHp <= 0 && !isDead()) {
 						setCurrentHpDirect(0);
 						setDead(true);
+						setStatus(ActionCodes.ACTION_Die);
 						_lastattacker = attacker;
 						Death death = new Death();
 						GeneralThreadPool.getInstance().execute(death);
@@ -495,6 +500,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					}
 				} else if (!isDead()) {
 					setDead(true);
+					setStatus(ActionCodes.ACTION_Die);
 					_lastattacker = attacker;
 					Death death = new Death();
 					GeneralThreadPool.getInstance().execute(death);
@@ -538,17 +544,21 @@ public class L1GuardianInstance extends L1NpcInstance {
 			setDeathProcessing(true);
 			setCurrentHpDirect(0);
 			setDead(true);
+			setStatus(ActionCodes.ACTION_Die);
 			int targetobjid = getId();
 			getMap().setPassable(getLocation(), true);
-			broadcastPacket(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_Die));
+			broadcastPacket(new S_DoActionGFX(targetobjid,
+					ActionCodes.ACTION_Die));
 
 			L1PcInstance player = null;
 			if (lastAttacker instanceof L1PcInstance) {
 				player = (L1PcInstance) lastAttacker;
 			} else if (lastAttacker instanceof L1PetInstance) {
-				player = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
+				player = (L1PcInstance) ((L1PetInstance) lastAttacker)
+						.getMaster();
 			} else if (lastAttacker instanceof L1SummonInstance) {
-				player = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
+				player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+						.getMaster();
 			}
 			if (player != null) {
 				ArrayList<L1Character> targetList = _hateList

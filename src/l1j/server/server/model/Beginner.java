@@ -56,7 +56,9 @@ public class Beginner {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con.prepareStatement("SELECT * FROM beginner WHERE activate IN(?,?)");
+			pstm1 = con
+					.prepareStatement("SELECT * FROM beginner WHERE activate IN(?,?)");
+
 			pstm1.setString(1, "A");
 			if (pc.isCrown()) {
 				pstm1.setString(2, "P");

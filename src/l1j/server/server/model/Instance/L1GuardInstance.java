@@ -61,13 +61,14 @@ public class L1GuardInstance extends L1NpcInstance {
 			_target = targetPlayer;
 		}
 	}
-	
-	public void setTarget(L1PcInstance targetPlayer) {    
-		if (targetPlayer != null) {    
-			_hateList.add(targetPlayer, 0);    
-			_target = targetPlayer;    
-			}    
-		} 
+
+	public void setTarget(L1PcInstance targetPlayer) {
+		if (targetPlayer != null) {
+			_hateList.add(targetPlayer, 0);
+			_target = targetPlayer;
+		}
+	}
+
 	@Override
 	public boolean noTarget(int depth) {
 		if (getLocation()
@@ -408,4 +409,3 @@ public class L1GuardInstance extends L1NpcInstance {
 	}
 
 }
-

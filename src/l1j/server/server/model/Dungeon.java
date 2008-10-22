@@ -140,52 +140,52 @@ public class Dungeon {
 
 			if (dungeonType == DungeonType.NONE) {
 				teleportable = true;
-			} else if (dungeonType == DungeonType.SHIP_FOR_FI) { 
-				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1 
-						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4 
-						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7 
-						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10 
-						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13 
-						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16 
-						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19 
-						|| nowtime >= 1260 * 60 && nowtime < 1320 * 60 // 21~22 
-						) && pc.getInventory().checkItem(40300, 1)) {
+			} else if (dungeonType == DungeonType.SHIP_FOR_FI) { // 
+				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1
+						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4
+						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7
+						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10
+						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13
+						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16
+						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19
+						|| nowtime >= 1260 * 60 && nowtime < 1320 * 60 // 21~22
+						) && pc.getInventory().checkItem(40300, 1)) { // 
 					teleportable = true;
 				}
-			} else if (dungeonType == DungeonType.SHIP_FOR_HEINE) {
-				if ((nowtime >= 90 * 60 && nowtime < 150 * 60 // 1.30~2.30 
-						|| nowtime >= 270 * 60 && nowtime < 330 * 60 // 4.30~5.30 
-						|| nowtime >= 450 * 60 && nowtime < 510 * 60 // 7.30~8.30 
-						|| nowtime >= 630 * 60 && nowtime < 690 * 60 // 10.30~11.30 
-						|| nowtime >= 810 * 60 && nowtime < 870 * 60 // 13.30~14.30 
-						|| nowtime >= 990 * 60 && nowtime < 1050 * 60 // 16.30~17.30 
-						|| nowtime >= 1170 * 60 && nowtime < 1230 * 60 // 19.30~20.30 
-						|| nowtime >= 1350 * 60 && nowtime < 1410 * 60 // 22.30~23.30 
-						) && pc.getInventory().checkItem(40301, 1)) {
+			} else if (dungeonType == DungeonType.SHIP_FOR_HEINE) { // 
+				if ((nowtime >= 90 * 60 && nowtime < 150 * 60 // 1.30~2.30
+						|| nowtime >= 270 * 60 && nowtime < 330 * 60 // 4.30~5.30
+						|| nowtime >= 450 * 60 && nowtime < 510 * 60 // 7.30~8.30
+						|| nowtime >= 630 * 60 && nowtime < 690 * 60 // 10.30~11.30
+						|| nowtime >= 810 * 60 && nowtime < 870 * 60 // 13.30~14.30
+						|| nowtime >= 990 * 60 && nowtime < 1050 * 60 // 16.30~17.30
+						|| nowtime >= 1170 * 60 && nowtime < 1230 * 60 // 19.30~20.30
+						|| nowtime >= 1350 * 60 && nowtime < 1410 * 60 // 22.30~23.30
+						) && pc.getInventory().checkItem(40301, 1)) { // 
 					teleportable = true;
 				}
-			} else if (dungeonType == DungeonType.SHIP_FOR_PI) {
-				if ((nowtime >= 90 * 60 && nowtime < 150 * 60 // 1.30~2.30 
-						|| nowtime >= 270 * 60 && nowtime < 330 * 60 // 4.30~5.30 
-						|| nowtime >= 450 * 60 && nowtime < 510 * 60 // 7.30~8.30 
-						|| nowtime >= 630 * 60 && nowtime < 690 * 60 // 10.30~11.30 
-						|| nowtime >= 810 * 60 && nowtime < 870 * 60 // 13.30~14.30 
-						|| nowtime >= 990 * 60 && nowtime < 1050 * 60 // 16.30~17.30 
-						|| nowtime >= 1170 * 60 && nowtime < 1230 * 60 // 19.30~20.30 
-						|| nowtime >= 1350 * 60 && nowtime < 1410 * 60 // 22.30~23.30 
-						) && pc.getInventory().checkItem(40302, 1)) {
+			} else if (dungeonType == DungeonType.SHIP_FOR_PI) {// 
+				if ((nowtime >= 90 * 60 && nowtime < 150 * 60 // 1.30~2.30
+						|| nowtime >= 270 * 60 && nowtime < 330 * 60 // 4.30~5.30
+						|| nowtime >= 450 * 60 && nowtime < 510 * 60 // 7.30~8.30
+						|| nowtime >= 630 * 60 && nowtime < 690 * 60 // 10.30~11.30
+						|| nowtime >= 810 * 60 && nowtime < 870 * 60 // 13.30~14.30
+						|| nowtime >= 990 * 60 && nowtime < 1050 * 60 // 16.30~17.30
+						|| nowtime >= 1170 * 60 && nowtime < 1230 * 60 // 19.30~20.30
+						|| nowtime >= 1350 * 60 && nowtime < 1410 * 60 // 22.30~23.30
+						) && pc.getInventory().checkItem(40302, 1)) { // 
 					teleportable = true;
 				}
-			} else if (dungeonType == DungeonType.SHIP_FOR_HIDDENDOCK) { 
-				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1 
-						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4 
-						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7 
-						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10 
-						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13 
-						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16 
-						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19 
-						|| nowtime >= 1260 * 60 && nowtime < 1320 * 60 // 21~22 
-						) && pc.getInventory().checkItem(40303, 1)) {
+			} else if (dungeonType == DungeonType.SHIP_FOR_HIDDENDOCK) { // 
+				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1
+						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4
+						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7
+						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10
+						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13
+						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16
+						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19
+						|| nowtime >= 1260 * 60 && nowtime < 1320 * 60 // 21~22
+						) && pc.getInventory().checkItem(40303, 1)) { // 
 					teleportable = true;
 				}
 			}

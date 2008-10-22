@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
+//
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -44,8 +45,8 @@ import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.L1MobSkillUse;
-import l1j.server.server.model.L1NpcChatTimer;
 import l1j.server.server.model.L1NpcRegenerationTimer;
+import l1j.server.server.model.L1NpcChatTimer;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Spawn;
@@ -55,12 +56,12 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ChangeShape;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
 import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
@@ -69,20 +70,25 @@ import l1j.server.server.types.Point;
 import l1j.server.server.utils.TimerPool;
 import static l1j.server.server.model.item.L1ItemId.*;
 
-public class L1NpcInstance extends L1Character 
-  {
+public class L1NpcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
-	public static final int MOVE_SPEED = 0;   
-	public static final int ATTACK_SPEED = 1;   
-	public static final int MAGIC_SPEED = 2; 
+
+	public static final int MOVE_SPEED = 0;
+	public static final int ATTACK_SPEED = 1;
+	public static final int MAGIC_SPEED = 2;
+
 	public static final int HIDDEN_STATUS_NONE = 0;
 	public static final int HIDDEN_STATUS_SINK = 1;
 	public static final int HIDDEN_STATUS_FLY = 2;
+
 	public static final int CHAT_TIMING_APPEARANCE = 0;
 	public static final int CHAT_TIMING_DEAD = 1;
 	public static final int CHAT_TIMING_HIDE = 2;
-	private static Logger _log = Logger.getLogger(L1NpcInstance.class.getName());
+
+	private static Logger _log = Logger
+			.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
+
 	private L1Spawn _spawn;
 	private int _spawnNumber; 
 	private int _petcost; 
@@ -189,8 +195,7 @@ public class L1NpcInstance extends L1Character
 			try {
 				setAiRunning(true);
 				while (!_destroyed && !isDead() && getCurrentHp() > 0
-						&& getHiddenStatus() == HIDDEN_STATUS_NONE) 
-				{
+						&& getHiddenStatus() == HIDDEN_STATUS_NONE) {
 					while (isParalyzed() || isSleeped()) {
 						try {
 							Thread.sleep(200);
@@ -228,18 +233,15 @@ public class L1NpcInstance extends L1Character
 		setSleepTime(300);
 
 		checkTarget();
-		if (_target == null && _master == null) 
-		{
+		if (_target == null && _master == null) {
 			searchTarget();
 		}
 
 		onItemUse();
 
-		if (_target == null) 
-		{
+		if (_target == null) {
 			checkTargetItem();
-			if (isPickupItem() && _targetItem == null) 
-			{
+			if (isPickupItem() && _targetItem == null) {
 				searchTargetItem();
 			}
 
@@ -247,8 +249,7 @@ public class L1NpcInstance extends L1Character
 				if (noTarget(1)) {
 					return true;
 				}
-			} else
-			{
+			} else {
 				L1Inventory groundInventory = L1World.getInstance()
 						.getInventory(_targetItem.getX(), _targetItem.getY(),
 								_targetItem.getMapId());
@@ -294,13 +295,10 @@ public class L1NpcInstance extends L1Character
 			}
 		}
 	}
-	
-	public void setHate(L1Character cha, int hate) 
-	{
-		if (cha != null && cha.getId() != getId()) 
-		{
-			if (!isFirstAttack() && hate != 0) 
-			{
+
+	public void setHate(L1Character cha, int hate) {
+		if (cha != null && cha.getId() != getId()) {
+			if (!isFirstAttack() && hate != 0) {
 				hate += getMaxHp() / 10;
 				setFirstAttack(true);
 			}
@@ -320,16 +318,12 @@ public class L1NpcInstance extends L1Character
 		for (Object knownObject : targetKnownObjects) {
 			if (knownObject instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) knownObject;
-				if (npc.getNpcTemplate().get_agrofamily() > 0) 
-				{
-					if (npc.getNpcTemplate().get_agrofamily() == 1) 
-					{
-						if (npc.getNpcTemplate().get_family() == family) 
-						{
+				if (npc.getNpcTemplate().get_agrofamily() > 0) {
+					if (npc.getNpcTemplate().get_agrofamily() == 1) {
+						if (npc.getNpcTemplate().get_family() == family) {
 							npc.setLink(targetPlayer);
 						}
-					} else 
-					{
+					} else {
 						npc.setLink(targetPlayer);
 					}
 				}
@@ -371,19 +365,17 @@ public class L1NpcInstance extends L1Character
 			boolean isSkillUse = false;
 			isSkillUse = mobSkill.skillUse(target);
 			if (isSkillUse == true) {
-				setSleepTime(calcSleepTime(mobSkill.getSleepTime(), MAGIC_SPEED));
+				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
+						MAGIC_SPEED));
 				return;
 			}
 
 			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate()
-					.get_ranged())) 
-			{
+					.get_ranged())) {
 				setHeading(targetDirection(target.getX(), target.getY()));
 				attackTarget(target);
-			} else 
-			  {
-				if (getPassispeed() > 0) 
-				  {
+			} else {
+				if (getPassispeed() > 0) {
 					int distance = getLocation().getTileDistance(
 							target.getLocation());
 					if (firstFound == true && getNpcTemplate().is_teleport()
@@ -407,7 +399,8 @@ public class L1NpcInstance extends L1Character
 						tagertClear();
 					} else {
 						setDirectionMove(dir);
-						setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
+						setSleepTime(calcSleepTime(getPassispeed(),
+								MOVE_SPEED));
 					}
 				} else {
 					tagertClear();
@@ -594,7 +587,8 @@ public class L1NpcInstance extends L1Character
 							.nextInt(20));
 					if (dir != -1) {
 						setDirectionMove(dir);
-						setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
+						setSleepTime(calcSleepTime(getPassispeed(),
+								MOVE_SPEED));
 					}
 				} else { 
 					L1NpcInstance leader = mobGroupInfo.getLeader();
@@ -605,7 +599,8 @@ public class L1NpcInstance extends L1Character
 							return true;
 						} else {
 							setDirectionMove(dir);
-							setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
+							setSleepTime(calcSleepTime(getPassispeed(),
+									MOVE_SPEED));
 						}
 					}
 				}
@@ -659,8 +654,7 @@ public class L1NpcInstance extends L1Character
 		int[] createitem = null;
 		int[] createcount = null;
 
-		if (_npcTemplate.get_npcId() == 45032) 
-		  {
+		if (_npcTemplate.get_npcId() == 45032) {
 			if (getExp() != 0 && !_inventory.checkItem(20)) {
 				materials = new int[] { 40508, 40521, 40045 };
 				counts = new int[] { 150, 3, 3 };
@@ -739,10 +733,8 @@ public class L1NpcInstance extends L1Character
 					}
 				}
 			}
-		} else if (_npcTemplate.get_npcId() == 81069) 
-		  { 
-			if (getExp() != 0 && !_inventory.checkItem(40542)) 
-			  {
+		} else if (_npcTemplate.get_npcId() == 81069) { 
+			if (getExp() != 0 && !_inventory.checkItem(40542)) {
 				materials = new int[] { 40032 };
 				counts = new int[] { 1 };
 				createitem = new int[] { 40542 };
@@ -757,8 +749,7 @@ public class L1NpcInstance extends L1Character
 				}
 			}
 		} else if (_npcTemplate.get_npcId() == 45166 
-				|| _npcTemplate.get_npcId() == 45167) 
-		  {
+				|| _npcTemplate.get_npcId() == 45167) {
 			if (getExp() != 0 && !_inventory.checkItem(40726)) {
 				materials = new int[] { 40725 };
 				counts = new int[] { 1 };
@@ -777,11 +768,14 @@ public class L1NpcInstance extends L1Character
 	}
 
 	private boolean _aiRunning = false; 
-	private boolean _actived = false; 
+
+	private boolean _actived = false;
+
 	private boolean _firstAttack = false;
 	private int _sleep_time; 
 	protected L1HateList _hateList = new L1HateList();
 	protected L1HateList _dropHateList = new L1HateList();
+	
 	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(); 
 	protected L1Character _target = null; 
 	protected L1ItemInstance _targetItem = null; 
@@ -841,6 +835,7 @@ public class L1NpcInstance extends L1Character
 	}
 	
 	private boolean _hprRunning = false;
+
 	private HprTimer _hprTimer;
 
 	class HprTimer extends TimerTask {
@@ -939,8 +934,9 @@ public class L1NpcInstance extends L1Character
 		setStatus(0);
 		setMoveSpeed(0);
 		setDead(false);
+		setStatus(0);
 		setreSpawn(false);
-			
+
 		if (template != null) {
 			setting_template(template);
 		}
@@ -1199,8 +1195,7 @@ public class L1NpcInstance extends L1Character
 					appearOnGround(pc);
 				}
 			}
-		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) 
-		  {
+		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
 			if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
 				appearOnGround(pc);
 			}
@@ -1318,11 +1313,15 @@ public class L1NpcInstance extends L1Character
 					}
 				}
 			}
-			if (getNpcTemplate().get_npcId() >= 45912 && getNpcTemplate().get_npcId() <= 45916) {   
-			if (getX() >= 32591 && getX() <= 32644 && getY() >= 32643 && getY() <= 32688 && getMapId() == 4) {  
-				teleport(getHomeX(), getHomeY(), getHeading());    
-				}    
-			} 
+			//
+			if (getNpcTemplate().get_npcId() >= 45912
+					&& getNpcTemplate().get_npcId() <= 45916) {
+				if (getX() >= 32591 && getX() <= 32644
+						&& getY() >= 32643 && getY() <= 32688
+								&& getMapId() == 4) {
+					teleport(getHomeX(), getHomeY(), getHeading());
+				}
+			}
 		}
 	}
 
@@ -1331,6 +1330,7 @@ public class L1NpcInstance extends L1Character
 				new Point(x, y)));
 	}
 
+	
 	public int moveDirection(int x, int y, double d) { 
 		int dir = 0;
 		if (hasSkillEffect(40) == true && d >= 2D) { 
@@ -1359,8 +1359,9 @@ public class L1NpcInstance extends L1Character
 		return dir;
 	}
 
-	public static int checkObject(int x, int y, short m, int d) 
-	  { 													
+
+
+	public static int checkObject(int x, int y, short m, int d) { 													
 		L1Map map = L1WorldMap.getInstance().getMap(m);
 		if (d == 1) {
 			if (map.isPassable(x, y, 1)) {
@@ -1429,6 +1430,8 @@ public class L1NpcInstance extends L1Character
 		}
 		return -1;
 	}
+
+
 
 	private int _serchCource(int x, int y) 
 	{
@@ -1646,8 +1649,7 @@ public class L1NpcInstance extends L1Character
 			return;
 		}
 
-		if (type == USEITEM_HEAL) 
-		  {
+		if (type == USEITEM_HEAL) {
 			if (getInventory().consumeItem(POTION_OF_GREATER_HEALING, 1)) {
 				useHealPotion(75, 197);
 			} else if (getInventory().consumeItem(POTION_OF_EXTRA_HEALING, 1)) {
@@ -1872,11 +1874,11 @@ public class L1NpcInstance extends L1Character
 		if (getBraveSpeed() == 1) {
 			sleepTime -= (sleepTime * 0.25);
 		}
-		if (hasSkillEffect(L1SkillId.WIND_SHACKLE)) {   
-			if (type == ATTACK_SPEED || type == MAGIC_SPEED) {   
-				sleepTime += (sleepTime * 0.25);   
-				}   
-			} 
+		if (hasSkillEffect(L1SkillId.WIND_SHACKLE)) {
+			if (type == ATTACK_SPEED || type == MAGIC_SPEED) {
+				sleepTime += (sleepTime * 0.25);
+			}
+		}
 		return sleepTime;
 	}
 
@@ -1937,7 +1939,7 @@ public class L1NpcInstance extends L1Character
 	protected void transform(int transformId) {
 		stopHpRegeneration();
 		stopMpRegeneration();
-		int transformGfxId = getNpcTemplate().getTransformId();
+		int transformGfxId = getNpcTemplate().getTransformGfxId();
 		if (transformGfxId != 0) {
 			broadcastPacket(new S_SkillSound(getId(), transformGfxId));
 		}
@@ -2050,8 +2052,7 @@ public class L1NpcInstance extends L1Character
 		_mobGroupId = i;
 	}
 
-	public void startChat(int chatTiming)
-	{
+	public void startChat(int chatTiming) {
 		if (chatTiming == CHAT_TIMING_APPEARANCE && this.isDead()) {
 			return;
 		}

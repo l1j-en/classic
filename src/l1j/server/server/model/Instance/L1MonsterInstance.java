@@ -1,27 +1,9 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Random;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -36,9 +18,9 @@ import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_NPCPack;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.templates.L1Npc;
@@ -271,6 +253,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 		}
 	}
+
 	@Override
 	public void ReceiveManaDamage(L1Character attacker, int mpDamage) { 
 		if (mpDamage > 0 && !isDead()) {
@@ -305,6 +288,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			if (damage > 0) {
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
 			}
+
 			onNpcAI();
 
 			if (attacker instanceof L1PcInstance) { 
@@ -324,12 +308,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 					recall(player);
 				}
 			}
+
 			int newHp = getCurrentHp() - damage;
 			if (newHp <= 0 && !isDead()) {
 				int transformId = getNpcTemplate().getTransformId();
 				if (transformId == -1) {
 					setCurrentHpDirect(0);
 					setDead(true);
+					setStatus(ActionCodes.ACTION_Die);
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
 				} 
@@ -343,6 +329,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 		} else if (!isDead()) { 
 			setDead(true);
+			setStatus(ActionCodes.ACTION_Die);
 			Death death = new Death(attacker);
 			GeneralThreadPool.getInstance().execute(death);
 		}
@@ -576,7 +563,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				if (1 > rnd) {
 					allTargetClear();
 					setHiddenStatus(HIDDEN_STATUS_FLY);
-					broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Moveup));
+					broadcastPacket(new S_DoActionGFX(getId(),
+							ActionCodes.ACTION_Moveup));
 					setStatus(4);
 					broadcastPacket(new S_NPCPack(this));
 				}
@@ -587,7 +575,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				if (1 > rnd) {
 					allTargetClear();
 					setHiddenStatus(HIDDEN_STATUS_FLY);
-					broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Moveup));
+					broadcastPacket(new S_DoActionGFX(getId(),
+							ActionCodes.ACTION_Moveup));
 					setStatus(11);
 					broadcastPacket(new S_NPCPack(this));
 				}

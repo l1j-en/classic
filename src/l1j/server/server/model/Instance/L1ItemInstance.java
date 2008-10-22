@@ -664,4 +664,5 @@ class EnchantTimer extends TimerTask {
 		(new Timer()).schedule(_timer, skillTime);
 		_isRunning = true;
 	}
+
 }

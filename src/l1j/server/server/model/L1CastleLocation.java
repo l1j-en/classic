@@ -255,18 +255,30 @@ public class L1CastleLocation {
 		return 0;
 	}
 
-    public static int getCastleId(int locx, int locy, short mapid) { 
-    	return getCastleId(new L1Location(locx, locy, mapid)); 
-    	}  
-    
-    public static int getCastleIdByArea(L1Location loc) { 
-    	for (Map.Entry<Integer, L1MapArea> entry : _areas.entrySet()) { 
-    		if (entry.getValue().contains(loc)) { return entry.getKey(); } } 
-    	for (Map.Entry<Integer, Integer> entry : _innerTowerMaps.entrySet()) { 
-    		if (entry.getValue() == loc.getMapId()) { return entry.getKey(); } } 
-    	return 0; 
-    	} 
+	/**
+	 * 
+	 */
+	public static int getCastleId(int locx, int locy, short mapid) {
+		return getCastleId(new L1Location(locx, locy, mapid));
+	}
 
+	public static int getCastleIdByArea(L1Location loc) {
+		for (Map.Entry<Integer, L1MapArea> entry : _areas.entrySet()) {
+			if (entry.getValue().contains(loc)) {
+				return entry.getKey();
+			}
+		}
+		for (Map.Entry<Integer, Integer> entry : _innerTowerMaps.entrySet()) {
+			if (entry.getValue() == loc.getMapId()) {
+				return entry.getKey();
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * 
+	 */
 	public static int getCastleIdByArea(L1Character cha) {
 		return getCastleIdByArea(cha.getLocation());
 	}
@@ -392,7 +404,8 @@ public class L1CastleLocation {
 		}
 		return loc;
 	}
-	
+
+
 	public static int[] getGetBackLoc(int castle_id) {
 		int[] loc;
 		if (castle_id == KENT_CASTLE_ID) {
@@ -411,7 +424,7 @@ public class L1CastleLocation {
 		} else if (castle_id == ADEN_CASTLE_ID) {
 			loc = L1TownLocation.getGetBackLoc(L1TownLocation.TOWNID_ADEN);
 		} else if (castle_id == DIAD_CASTLE_ID) { 
-		Random random = new Random();
+			Random random = new Random();
 			int rnd = random.nextInt(3);
 			loc = new int[3];
 			if (rnd == 0) {
@@ -517,4 +530,3 @@ public class L1CastleLocation {
 	}
 
 }
-

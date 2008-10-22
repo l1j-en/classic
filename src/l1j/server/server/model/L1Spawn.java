@@ -406,6 +406,7 @@ public class L1Spawn {
 			if (mob instanceof L1MonsterInstance) {
 				((L1MonsterInstance) mob).initHide();
 			}
+
 			mob.setSpawn(this);
 			mob.setreSpawn(true);
 			mob.setSpawnNumber(spawnNumber); // Number of L1Spawn (Home points)

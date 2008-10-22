@@ -37,10 +37,15 @@ public class L1MobGroupSpawn {
 
 	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class
 			.getName());
+
 	private static L1MobGroupSpawn _instance;
+
 	private Constructor _constructor;
+
 	private static Random _random = new Random();
+
 	private boolean _isRespawnScreen;
+
 	private boolean _isInitSpawn;
 
 	private L1MobGroupSpawn() {

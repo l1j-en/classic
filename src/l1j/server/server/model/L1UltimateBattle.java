@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.UBSpawnTable;
@@ -174,6 +175,7 @@ public class L1UltimateBattle {
 				L1MonsterInstance mob = (L1MonsterInstance) obj;
 				if (!mob.isDead()) {
 					mob.setDead(true);
+					mob.setStatus(ActionCodes.ACTION_Die);
 					mob.setCurrentHpDirect(0);
 					mob.deleteMe();
 
@@ -196,8 +198,9 @@ public class L1UltimateBattle {
 
 			for (int loop = 0; loop < BEFORE_MINUTE * 60 - 10; loop++) { 
 				Thread.sleep(1000);
-				removeRetiredMembers();
+// removeRetiredMembers();
 			}
+			removeRetiredMembers();
 
 			sendMessage(MSGID_COUNT, "10"); 
 
@@ -217,8 +220,8 @@ public class L1UltimateBattle {
 			sendMessage(MSGID_COUNT, "1"); 
 
 			Thread.sleep(1000);
-			removeRetiredMembers();
 			sendMessage(MSGID_START, "Deathmatch"); 
+			removeRetiredMembers();
 		}
 
 		private void waitForNextRound(int curRound) throws InterruptedException {
@@ -227,8 +230,9 @@ public class L1UltimateBattle {
 			int wait = WAIT_TIME_TABLE[curRound - 1];
 			for (int i = 0; i < wait; i++) {
 				Thread.sleep(10000);
-				removeRetiredMembers();
+// removeRetiredMembers();
 			}
+			removeRetiredMembers();
 		}
 
 		@Override
@@ -252,7 +256,7 @@ public class L1UltimateBattle {
 						}
 
 						Thread.sleep(spawn.getSpawnDelay() * 1000);
-						removeRetiredMembers();
+// removeRetiredMembers();
 					}
 
 					if (getMembersCount() > 0) {
