@@ -62,8 +62,7 @@ public abstract class L1Trap {
 		}
 	}
 
-	public void onTrod(L1PcInstance trodFrom, L1Object trapObj) {
-	}
+	public abstract void onTrod(L1PcInstance trodFrom, L1Object trapObj);
 
 	public void onDetection(L1PcInstance caster, L1Object trapObj) {
 		if (_isDetectionable) {

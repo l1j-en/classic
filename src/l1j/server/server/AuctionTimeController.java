@@ -42,6 +42,7 @@ public class AuctionTimeController implements Runnable
  {
 	private static Logger _log = Logger.getLogger(AuctionTimeController.class.getName());
 	private static AuctionTimeController _instance;
+
 	public static AuctionTimeController getInstance() {
 		if (_instance == null) {
 			_instance = new AuctionTimeController();
@@ -144,6 +145,7 @@ public class AuctionTimeController implements Runnable
 			boardTable.updateAuctionBoard(board);
 		}
 	}
+
 	/**
 	 * The previous owner put out a safe house
 	 * 
@@ -159,6 +161,7 @@ public class AuctionTimeController implements Runnable
 			}
 		}
 	}
+
 	/**
 	 * To set the winning bidder's Hideout
 	 * 
@@ -176,6 +179,7 @@ public class AuctionTimeController implements Runnable
 			}
 		}
 	}
+
 	/**
 	 * Hideout auction set to OFF state, and disappear from BBS auction
 	 * 
@@ -198,4 +202,5 @@ public class AuctionTimeController implements Runnable
 		AuctionBoardTable boardTable = new AuctionBoardTable();
 		boardTable.deleteAuctionBoard(houseId);
 	}
+
 }

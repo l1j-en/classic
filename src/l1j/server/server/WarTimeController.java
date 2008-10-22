@@ -33,8 +33,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 
-public class WarTimeController implements Runnable 
- {
+public class WarTimeController implements Runnable {
 	private static WarTimeController _instance;
 	private L1Castle[] _l1castle = new L1Castle[8];
 	private Calendar[] _war_start_time = new Calendar[8];
@@ -56,6 +55,7 @@ public class WarTimeController implements Runnable
 		}
 		return _instance;
 	}
+
 	@Override
 	public void run() {
 		try {
@@ -123,6 +123,7 @@ public class WarTimeController implements Runnable
 					}
 				}
 			}
+
 		}
 	}
 }

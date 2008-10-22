@@ -33,6 +33,7 @@ import l1j.server.server.model.monitor.L1PcMonitor;
 public class GeneralThreadPool 
 {
 	private static GeneralThreadPool _instance;
+
 	private static final int SCHEDULED_CORE_POOL_SIZE = 10;
 	private Executor _executor;
 	private ScheduledExecutorService _scheduler;
@@ -127,7 +128,10 @@ public class GeneralThreadPool
 			_name = name;
 			_group = new ThreadGroup(_name);
 		}
+
 		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
 		 */
 		public Thread newThread(Runnable r) {

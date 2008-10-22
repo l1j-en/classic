@@ -23,6 +23,7 @@ public class ActionCodes {
 
 	public ActionCodes() {
 	}
+
 	public static final int ACTION_Appear = 4;
 
 	public static final int ACTION_Hide = 11;

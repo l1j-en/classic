@@ -150,7 +150,7 @@ public class GMCommandsConfig {
 
 	public static void load() {
 		try {
-			Document doc = loadXml("./config/GMCommands.xml");
+			Document doc = loadXml("./data/xml/GmCommands/GMCommands.xml");
 			NodeList nodes = doc.getDocumentElement().getChildNodes();
 			for (int i = 0; i < nodes.getLength(); i++) {
 				ConfigLoader loader = _loaders.get(nodes.item(i).getNodeName()

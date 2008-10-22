@@ -32,7 +32,9 @@ import l1j.server.server.serverpackets.S_Trap;
 import l1j.server.server.types.Point;
 
 public class L1TrapInstance extends L1Object {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private final L1Trap _trap;
 	private final Point _baseLoc = new Point();
@@ -45,7 +47,8 @@ public class L1TrapInstance extends L1Object {
 
 	private static final Random _random = new Random();
 
-	public L1TrapInstance(int id, L1Trap trap, L1Location loc, Point rndPt, int span) {
+	public L1TrapInstance(int id, L1Trap trap, L1Location loc, Point rndPt,
+			int span) {
 		setId(id);
 		_trap = trap;
 		getLocation().set(loc);

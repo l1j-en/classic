@@ -33,7 +33,9 @@ public class Shutdown extends Thread {
 	private static Logger _log = Logger.getLogger(Shutdown.class.getName());
 	private static Shutdown _instance;
 	private static Shutdown _counterInstance = null;
+
 	private int secondsShut;
+
 	private int shutdownMode;
 	public static final int SIGTERM = 0;
 	public static final int GM_SHUTDOWN = 1;

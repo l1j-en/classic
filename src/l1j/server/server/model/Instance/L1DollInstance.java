@@ -204,5 +204,5 @@ public class L1DollInstance extends L1NpcInstance {
 		}
 		return weightReduction;
 	}
-}
 
+}

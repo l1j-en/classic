@@ -74,7 +74,7 @@ import l1j.server.server.utils.SystemUtil;
 // LoginController, GameTimeController, Announcements,
 // MobTable, SpawnTable, SkillsTable, PolyTable,
 // TeleportLocations, ShopTable, NPCTalkDataTable, NpcSpawnTable,
-// IpTable, Shutdown, NpcTable, MobGroupTable
+// IpTable, Shutdown, NpcTable, MobGroupTable, NpcShoutTable
 
 public class GameServer extends Thread {
 	private ServerSocket _serverSocket;
@@ -277,6 +277,7 @@ public class GameServer extends Thread {
 			this.start();
 		}
 	}
+
 	/**
 	 * All players online to kick, character and preservation of information.
 	 */
@@ -299,6 +300,7 @@ public class GameServer extends Thread {
 		public ServerShutdownThread(int secondsCount) {
 			_secondsCount = secondsCount;
 		}
+
 		@Override
 		public void run() {
 			L1World world = L1World.getInstance();

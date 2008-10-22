@@ -35,6 +35,7 @@ public class UbTimeController implements Runnable {
 		}
 		return _instance;
 	}
+
 	@Override
 	public void run() {
 		try {
@@ -54,4 +55,5 @@ public class UbTimeController implements Runnable {
 			}
 		}
 	}
+
 }

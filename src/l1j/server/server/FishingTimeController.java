@@ -39,6 +39,7 @@ public class FishingTimeController implements Runnable
 		}
 		return _instance;
 	}
+
 	@Override
 	public void run() {
 		try {
@@ -90,4 +91,5 @@ public class FishingTimeController implements Runnable
 			}
 		}
 	}
+
 }

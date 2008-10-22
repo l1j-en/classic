@@ -55,13 +55,21 @@ import l1j.server.server.utils.SystemUtil;
 public class ClientThread implements Runnable, PacketOutput {
 
 	private static Logger _log = Logger.getLogger(ClientThread.class.getName());
+
 	private InputStream _in;
+
 	private OutputStream _out;
+
 	private PacketHandler _handler;
+
 	private Account _account;
+
 	private L1PcInstance _activeChar;
+
 	private String _ip;
+
 	private String _hostname;
+
 	private Socket _csocket;
 
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
@@ -129,6 +137,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
 				i = _in.read(data, readSize, dataLength - readSize);
 			}
+
 			if (readSize != dataLength) {
 				_log.warning("Incomplete Packet is sent to the server, closing connection.");
 				throw new RuntimeException();
@@ -185,7 +194,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 
 		try {
-			// Add for Client Start
+			// add for 2.70C start
 			long seed = 0x5cc690ecL;
 			byte Bogus = (byte)(FIRST_PACKET.length + 7);
 			_out.write(Bogus & 0xFF);
@@ -195,24 +204,28 @@ public class ClientThread implements Runnable, PacketOutput {
 			_out.write((byte)(seed >> 8 & 0xFF));
 			_out.write((byte)(seed >> 16 & 0xFF));
 			_out.write((byte)(seed >> 24 & 0xFF));
+			// add for 2.70C end
+
 			_out.write(FIRST_PACKET);
 			_out.flush();
 			try {
 				// long seed = 0x2e70db3aL; // for Episode5
 				// long seed = 0x0cf1821dL; // for Episode6
 				_clkey = LineageEncryption.initKeys(socket, seed);
-			} catch (ClientIdExistsException e) 
-		    	{			
-			}
+			} catch (ClientIdExistsException e) {}
+
 			while (true) {
 				doAutoSave();
-				
+
 				byte data[] = null;
 				try {
 					data = readPacket();
 				} catch (Exception e) {
 					break;
 				}
+				// _log.finest("[C]\n" + new
+				// ByteArrayUtil(data).dumpToString());
+
 				int opcode = data[0] & 0xFF;
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
@@ -240,12 +253,14 @@ public class ClientThread implements Runnable, PacketOutput {
 			try {
 				if (_activeChar != null) {
 					quitGame(_activeChar);
+
 					synchronized (_activeChar) {
 						_activeChar.logout();
 						setActiveChar(null);
 					}
 				}
 				sendPacket(new S_Disconnect());
+
 				StreamUtil.close(_out, _in);
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -264,7 +279,7 @@ public class ClientThread implements Runnable, PacketOutput {
 	}
 
 	private int _kick = 0;
-	
+
 	public void kick() {
 		sendPacket(new S_Disconnect());
 		_kick = 1;
@@ -275,8 +290,8 @@ public class ClientThread implements Runnable, PacketOutput {
 	private static final int H_CAPACITY = 2;
 
 	class HcPacket implements Runnable {
-		
 		private final Queue<byte[]> _queue;
+
 		private PacketHandler _handler;
 
 		public HcPacket() {
@@ -292,6 +307,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		public void requestWork(byte data[]) {
 			_queue.offer(data);
 		}
+
 		@Override
 		public void run() {
 			byte[] data;
@@ -313,19 +329,20 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	private static Timer _observerTimer = new Timer();
 
-	class ClientThreadObserver extends TimerTask 
-	   {
+	class ClientThreadObserver extends TimerTask {
 		private int _checkct = 1;
+
 		private final int _disconnectTimeMillis;
 
 		public ClientThreadObserver(int disconnectTimeMillis) {
 			_disconnectTimeMillis = disconnectTimeMillis;
 		}
-		
+
 		public void start() {
 			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0,
 					_disconnectTimeMillis);
 		}
+
 		@Override
 		public void run() {
 			try {
@@ -352,10 +369,12 @@ public class ClientThread implements Runnable, PacketOutput {
 				cancel();
 			}
 		}
+
 		public void packetReceived() {
 			_checkct++;
 		}
 	}
+
 	@Override
 	public void sendPacket(ServerBasePacket packet) {
 		synchronized (this) {
@@ -409,7 +428,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setY(loc[1]);
 			pc.setMap((short) loc[2]);
 			pc.setCurrentHp(pc.getLevel());
-			pc.set_food(3);
+			pc.set_food(5);
 		}
 		if (pc.getTradeID() != 0) {
 			L1Trade trade = new L1Trade();

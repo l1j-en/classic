@@ -161,17 +161,19 @@ public class HomeTownTimeController {
 			if (rs2.next()) {
 				totalContribution = rs2.getInt("TotalContribution");
 			}
+
 			double townFixTax = 0;
 			pstm3 = con.prepareStatement("SELECT town_fix_tax FROM town WHERE town_id = ?");
 			pstm3.setInt(1, townId);
 			rs3 = pstm3.executeQuery();
 			if (rs3.next()) {
-				townFixTax = rs3.getInt("town_fix_tax"); 
+				townFixTax = rs3.getInt("town_fix_tax");
 			}
+
 			double contributionUnit = 0;
 			if (totalContribution != 0) {
 				contributionUnit = Math.floor(townFixTax / totalContribution
-						* 100) / 100; 
+						* 100) / 100;
 			}
 			pstm4 = con.prepareStatement("UPDATE characters SET Contribution = 0, Pay = Contribution * ? WHERE HomeTownID = ?");
 			pstm4.setDouble(1, contributionUnit);
@@ -232,6 +234,7 @@ public class HomeTownTimeController {
 			if (rs1.next()) {
 				pay = rs1.getInt("Pay");
 			}
+
 			pstm2 = con
 					.prepareStatement("UPDATE characters SET Pay = 0 WHERE objid = ?");
 			pstm2.setInt(1, objid);

@@ -28,7 +28,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import l1j.server.Base64;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -48,11 +47,13 @@ public class Account {
 	private boolean _isValid = false;
 	
 	private static Logger _log = Logger.getLogger(Account.class.getName());
+
 	/**
 	 *
 	 */
 	private Account() {
 	}
+
 	/**
 	 *
 	 *
@@ -71,6 +72,7 @@ public class Account {
 
 		return Base64.encodeBytes(buf);
 	}
+
 	/**
 	 *
 	 *
@@ -89,6 +91,7 @@ public class Account {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
+
 			Account account = new Account();
 			account._name = name;
 			account._password=makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(name)); //Ssargon change
@@ -134,6 +137,7 @@ public class Account {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+
 		Account account = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
@@ -161,8 +165,10 @@ public class Account {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
+
 		return account;
 	}
+
 	/**
 	 *
 	 *
@@ -173,7 +179,7 @@ public class Account {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "UPDATE accounts SET lastactive=? WHERE login = ?";
@@ -190,6 +196,7 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
+
 	/**
 	 *
 	 *
@@ -218,6 +225,7 @@ public class Account {
 		}
 		return result;
 	}
+
 	/**
 	 *
 	 *
@@ -322,6 +330,7 @@ public class Account {
 		}
 		return false;
 	}
+
 	/**
 	 *
 	 *
@@ -330,6 +339,7 @@ public class Account {
 	public boolean isValid() {
 		return _isValid;
 	}
+
 	/**
 	 *
 	 *
@@ -338,6 +348,7 @@ public class Account {
 	public boolean isGameMaster() {
 		return 0 < _accessLevel;
 	}
+
 	/**
 	 *
 	 *
@@ -346,6 +357,7 @@ public class Account {
 	public String getName() {
 		return _name;
 	}
+
 	/**
 	 *
 	 *
@@ -354,6 +366,7 @@ public class Account {
 	public String getIp() {
 		return _ip;
 	}
+
 	/**
 	 *
 	 *
@@ -362,6 +375,7 @@ public class Account {
 	public Timestamp getLastActive() {
 		return _lastActive;
 	}
+
 	/**
 	 *
 	 *
@@ -370,6 +384,7 @@ public class Account {
 	public int getAccessLevel() {
 		return _accessLevel;
 	}
+
 	/**
 	 *
 	 *
@@ -378,6 +393,7 @@ public class Account {
 	public String getHost() {
 		return _host;
 	}
+
 	/**
 	 *
 	 *

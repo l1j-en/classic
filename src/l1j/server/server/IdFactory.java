@@ -31,10 +31,13 @@ import l1j.server.server.utils.SQLUtil;
 
 public class IdFactory {
 	private static Logger _log = Logger.getLogger(IdFactory.class.getName());
+
 	private int _curId;
+
 	private Object _monitor = new Object();
-	private static final int FIRST_OID = 0x10000000;
-	
+
+	private static final int FIRST_ID = 0x10000000;
+
 	private static IdFactory _instance = new IdFactory();
 
 	protected IdFactory() {
@@ -95,8 +98,8 @@ public class IdFactory {
 			if (rs.next()) {
 				id = rs.getInt("nextid");
 			}
-			if (id < FIRST_OID) {
-				id = FIRST_OID;
+			if (id < FIRST_ID) {
+				id = FIRST_ID;
 			}
 			_curId = id;
 			_log.info("IDFactory current max ID: " + _curId);

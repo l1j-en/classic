@@ -110,6 +110,7 @@ public class L1CrownInstance extends L1NpcInstance {
 		int[] loc = new int[3];
 		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 			if (pc.getClanid() != player.getClanid() && !pc.isGm()) {
+
 				if (L1CastleLocation.checkInWarArea(castle_id, pc)) {
 					loc = L1CastleLocation.getGetBackLoc(castle_id);
 					int locx = loc[0];
@@ -159,6 +160,7 @@ public class L1CrownInstance extends L1NpcInstance {
 	}
 
 	private boolean checkRange(L1PcInstance pc) {
-		return (getX() - 1 <= pc.getX() && pc.getX() <= getX() + 1 && getY() - 1 <= pc.getY() && pc.getY() <= getY() + 1);
+		return (getX() - 1 <= pc.getX() && pc.getX() <= getX() + 1
+				&& getY() - 1 <= pc.getY() && pc.getY() <= getY() + 1);
 	}
 }

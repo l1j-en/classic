@@ -50,27 +50,15 @@ public class PacketHandler {
 		case C_OPCODE_CHARACTERCONFIG:
 			new C_CharcterConfig(abyte0, _client);
 			break;
-			
-		case C_OPCODE_RANK:   
-			new C_Rank(abyte0, _client);   
-			break;   
-			
+
 		case C_OPCODE_DOOR:
 			new C_Door(abyte0, _client);
 			break;
 
-		case C_OPCODE_CHATPARTY:   
-			new C_ChatParty(abyte0, _client);   
-			break; 
-		
 		case C_OPCODE_TITLE:
 			new C_Title(abyte0, _client);
 			break;
 
-		case C_OPCODE_TELEPORT:   
-			new C_Teleport(abyte0, _client);   
-			break; 
-		
 		case C_OPCODE_BOARDDELETE:
 			new C_BoardDelete(abyte0, _client);
 			break;
@@ -122,11 +110,7 @@ public class PacketHandler {
 		case C_OPCODE_SKILLBUY:
 			new C_SkillBuy(abyte0, _client);
 			break;
-			
-		case C_OPCODE_SELECTTARGET: 
-			new C_SelectTarget(abyte0, _client); 
-			break;
-			
+
 		case C_OPCODE_BOARDBACK:
 			new C_BoardBack(abyte0, _client);
 			break;
@@ -199,9 +183,6 @@ public class PacketHandler {
 			new C_TradeOK(abyte0, _client);
 			break;
 
-		case C_OPCODE_PETMENU:   
-			new C_PetMenu(abyte0, _client);   
-			break; 
 		case C_OPCODE_CHECKPK:
 			new C_CheckPK(abyte0, _client);
 			break;
@@ -370,9 +351,30 @@ public class PacketHandler {
 			new C_FishClick(abyte0, _client);
 			break;
 
-	    case C_OPCODE_USEPETITEM:
+		case C_OPCODE_SELECTTARGET:
+			new C_SelectTarget(abyte0, _client);
+			break;
+
+		case C_OPCODE_PETMENU:
+			new C_PetMenu(abyte0, _client);
+			break;
+
+		case C_OPCODE_USEPETITEM:
 			new C_UsePetItem(abyte0, _client);
 			break;
+
+		case C_OPCODE_TELEPORT:
+			new C_Teleport(abyte0, _client);
+			break;
+
+		case C_OPCODE_RANK:
+			new C_Rank(abyte0, _client);
+			break;
+
+		case C_OPCODE_CAHTPARTY:
+			new C_ChatParty(abyte0, _client);
+			break;
+
 		default:
 			// String s = Integer.toHexString(abyte0[0] & 0xff);
 			// _log.warning("");

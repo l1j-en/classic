@@ -365,4 +365,3 @@ public class MySqlCharacterStorage implements CharacterStorage {
 	}
 
 }
-

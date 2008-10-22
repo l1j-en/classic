@@ -33,14 +33,12 @@ public class Opcodes {
 
 	public static final int C_OPCODE_CHANGECHAR = 9;
 
+	public static final int C_OPCODE_RANK = 11;
+
 	public static final int C_OPCODE_MOVECHAR = 12;
 
 	public static final int C_OPCODE_TAXRATE = 13;
 
-	public static final int C_OPCODE_RANK = 11;
-	
-	public static final int C_OPCODE_CHATPARTY = 131;
-	
 	public static final int C_OPCODE_WAR = 14;
 
 	public static final int C_OPCODE_CHATGLOBAL = 15;
@@ -57,8 +55,6 @@ public class Opcodes {
 
 	public static final int C_OPCODE_LOGINPACKET = 23;
 
-	public static final int C_OPCODE_TELEPORT = 85;
-	
 	public static final int C_OPCODE_TRADEADDCANCEL = 25;
 
 	public static final int C_OPCODE_CHATWHISPER = 27;
@@ -135,6 +131,8 @@ public class Opcodes {
 
 	public static final int C_OPCODE_PETMENU = 84;
 
+	public static final int C_OPCODE_TELEPORT = 85;
+
 	public static final int C_OPCODE_DELETECHAR = 87;
 
 	public static final int C_OPCODE_NPCACTION = 88;
@@ -177,7 +175,7 @@ public class Opcodes {
 
 	public static final int C_OPCODE_SKILLBUYOK = 118;
 
-	public static final int C_OPCODE_COMMONCLICK2 = 119;
+	public static final int C_OPCODE_COMMONCLICK2 = 119; // new addition
 
 	public static final int C_OPCODE_TRADEADDOK = 120;
 
@@ -185,7 +183,7 @@ public class Opcodes {
 
 	public static final int C_OPCODE_DELBUDDY = 123;
 
-	public static final int C_OPCODE_DELEXCLUDE = 124;
+	public static final int C_OPCODE_DELEXCLUDE = 124; // new addition
 
 	public static final int C_OPCODE_LOGINTOSERVER = 125;
 
@@ -197,12 +195,14 @@ public class Opcodes {
 
 	public static final int C_OPCODE_CREATEPARTY = 130;
 
+	public static final int C_OPCODE_CAHTPARTY = 131;
+
 	// serverpackets
 	// public static final int S_OPCODE_NEWCHARWRONG = 0;
 
 	public static final int S_OPCODE_LETTER = 1;
 
-	public static final int S_OPCODE_RANGESKILLS = 2; 
+	public static final int S_OPCODE_RANGESKILLS = 2;
 
 	public static final int S_OPCODE_DOACTIONGFX = 3;
 
@@ -210,15 +210,15 @@ public class Opcodes {
 
 	public static final int S_OPCODE_ITEMSTATUS = 6;
 
-	public static final int S_OPCODE_SELETESERVER = 7; 
+	public static final int S_OPCODE_SELETESERVER = 7; // new addition
 
 	public static final int S_OPCODE_INVIS = 8;
 
-	public static final int S_OPCODE_CHARDELETEOK = 10; 
+	public static final int S_OPCODE_CHARDELETEOK = 10; // new addition
 
 	public static final int S_OPCODE_LAWFUL = 12;
 
-	//Account has just logged in from
+	// Account has just logged in from
 	public static final int S_OPCODE_BLUEMESSAGE2 = 13;
 
 	public static final int S_OPCODE_SELECTLIST = 14;
@@ -227,7 +227,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_SKILLBUY = 17;
 
-	public static final int S_OPCODE_MATERIAL = 18; 
+	public static final int S_OPCODE_MATERIAL = 18; // new addition
 
 	public static final int S_OPCODE_HPUPDATE = 19;
 
@@ -253,7 +253,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_DETELECHAROK = 29;
 
-	public static final int S_OPCODE_TELEPORT = 30; 
+	public static final int S_OPCODE_TELEPORT = 30;
 
 	public static final int S_OPCODE_WHISPERCHAT = 33;
 
@@ -269,7 +269,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_DEXUP = 39;
 
-	public static final int S_OPCODE_SELECTTARGET = 40; 
+	public static final int S_OPCODE_SELECTTARGET = 40;
 
 	public static final int S_OPCODE_EMBLEM = 41;
 
@@ -277,7 +277,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_PINKNAME = 43;
 
-	public static final int S_OPCODE_NEWMASTER = 44; 
+	public static final int S_OPCODE_NEWMASTER = 44; // new addition
 
 	public static final int S_OPCODE_POISON = 45;
 
@@ -289,7 +289,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_INPUTAMOUNT = 52;
 
-	public static final int S_OPCODE_PINGTIME = 53; 
+	public static final int S_OPCODE_PINGTIME = 53; // new addition
 
 	public static final int S_OPCODE_WAR = 54;
 
@@ -315,7 +315,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_CURSEBLIND = 63;
 
-	public static final int S_OPCODE_COMMONNEWS2 = 64; 
+	public static final int S_OPCODE_COMMONNEWS2 = 64; // new addition
 
 	public static final int S_OPCODE_STRUP = 65;
 
@@ -323,7 +323,7 @@ public class Opcodes {
 
 	public static final int S_OPCODE_SPMR = 67;
 
-	public static final int S_OPCODE_PUTSOLDIER = 68; 
+	public static final int S_OPCODE_PUTSOLDIER = 68; // new addition
 
 	public static final int S_OPCODE_GAMETIME = 69;
 
@@ -337,13 +337,13 @@ public class Opcodes {
 
 	public static final int S_OPCODE_SERVERMSG = 72;
 
-	public static final int S_OPCODE_TELEPORTLOCK = 73; 
+	public static final int S_OPCODE_TELEPORTLOCK = 73; // new addition
 
 	public static final int S_OPCODE_CHARPACK = 74;
 
 	public static final int S_OPCODE_DROPITEM = 74;
 
-	public static final int S_OPCODE_CHANGENAME = 75; 
+	public static final int S_OPCODE_CHANGENAME = 75; // new addition
 
 	public static final int S_OPCODE_SKILLHASTE = 77;
 
@@ -383,15 +383,15 @@ public class Opcodes {
 
 	public static final int S_OPCODE_BOARD = 96;
 
-	public static final int S_OPCODE_CHARLOCK = 97;
+	public static final int S_OPCODE_CHARLOCK = 97; // new addition
 
-	public static final int S_OPCODE_NEWCHARWRONG = 98; 
+	public static final int S_OPCODE_NEWCHARWRONG = 98; // new addition
 
 	public static final int S_OPCODE_SHOWSHOPBUYLIST = 99;
 
 	public static final int S_OPCODE_BLESSOFEVA = 100;
 
-	public static final int S_OPCODE_RESTART = 101; 
+	public static final int S_OPCODE_RESTART = 101; // new addition
 
 	public static final int S_OPCODE_DEPOSIT = 102;
 
@@ -1176,4 +1176,5 @@ public class Opcodes {
 	 * 
 	 * public static final int S_OPCODE_MPUPDATE = 126;
 	 */
+
 }

@@ -29,10 +29,11 @@ import java.util.logging.Logger;
 
 import l1j.server.server.utils.StreamUtil;
 
-public class BadNamesList 
-{
+public class BadNamesList {
 	private static Logger _log = Logger.getLogger(BadNamesList.class.getName());
+
 	private static BadNamesList _instance;
+
 	private ArrayList<String> _nameList = new ArrayList<String>();
 
 	public static BadNamesList getInstance() {
@@ -56,8 +57,10 @@ public class BadNamesList
 					continue;
 				}
 				StringTokenizer st = new StringTokenizer(line, ";");
+
 				_nameList.add(st.nextToken());
 			}
+
 			_log.config("loaded " + _nameList.size() + " bad names");
 		} catch (FileNotFoundException e) {
 			_log.warning("badnames.txt is missing in data folder");

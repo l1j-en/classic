@@ -43,8 +43,7 @@ public class L1MonsterTrap extends L1Trap {
 	private final int _npcId;
 	private final int _count;
 
-	private L1Npc _npcTemp = null; // Performance for cash
-	
+	private L1Npc _npcTemp = null; // Performance for cash	
 	private Constructor _constructor = null; // Performance for cash
 
 	public L1MonsterTrap(TrapStorage storage) {

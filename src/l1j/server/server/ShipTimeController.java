@@ -37,19 +37,20 @@ public class ShipTimeController implements Runnable {
 		}
 		return _instance;
 	}
+
 	@Override
 	public void run() {
 		try {
 			while (true) {
 				checkShipTime(); 
-				Thread.sleep(5000); }
+				Thread.sleep(5000);
+			}
 		} catch (Exception e1) {
 		}
 	}
 
 	private void checkShipTime() {
-		L1GameTimeClock.getInstance().getGameTime();
-		int servertime = L1GameTime
+		int servertime = L1GameTimeClock.getInstance().getGameTime()
 				.getSeconds();
 		int nowtime = servertime % 86400;
 		if (nowtime >= 90 * 60 && nowtime < 180 * 60 // 1:30 ~ 3:00 

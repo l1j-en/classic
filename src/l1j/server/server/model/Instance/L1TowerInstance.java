@@ -70,7 +70,6 @@ public class L1TowerInstance extends L1NpcInstance {
 			if (attack.calcHit()) {
 				attack.calcDamage();
 				attack.addPcPoisonAttack(player, this);
-				attack.calcStaffOfMana();
 			}
 			attack.action();
 			attack.commit();
