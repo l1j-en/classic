@@ -5,3 +5,9 @@
 -- migrated to the DML scripts
 
 -- update 34
+
+-- drop some old event rows
+delete from mobskill where mobid in (90002, 90003);
+delete from npc where npcid in (90000, 90001, 90002, 90003);
+delete from droplist where mobid in (90000, 90001, 90002, 90003);
+
