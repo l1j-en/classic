@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.MapReader;
+import l1j.server.MapReader;
 import l1j.server.server.utils.PerformanceTimer;
 
 public class L1WorldMap {

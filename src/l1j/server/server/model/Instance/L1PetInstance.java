@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import l1j.server.IdFactory.IdFactory;
 import l1j.server.server.ActionCodes;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Attack;

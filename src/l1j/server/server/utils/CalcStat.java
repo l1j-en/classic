@@ -21,7 +21,7 @@ package l1j.server.server.utils;
 
 import java.util.Random;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 
 public class CalcStat {
 

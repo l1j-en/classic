@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import l1j.server.IdFactory.IdFactory;
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.IdFactory;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;

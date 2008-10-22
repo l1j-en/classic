@@ -21,7 +21,7 @@ package l1j.server.server.model.skill;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1PolyMorph;

@@ -19,7 +19,7 @@
 
 package l1j.server.server.datatables;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 
 /**
  * Experience to provide value-class table

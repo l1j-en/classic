@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Random;
 
-import l1j.server.IdFactory.IdFactory;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.LetterTable;

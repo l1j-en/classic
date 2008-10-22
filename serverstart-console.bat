@@ -1,11 +1,11 @@
 @echo off 
-title LineageDc Server Console 
+title L1J-En Server Console 
 :start 
-echo Starting LineageDc Server. 
+echo Starting L1J-En Server. 
 echo. 
 REM ------------------------------------- 
 REM Default parameters for a basic server. 
-java -Xmx1024m -Xincgc -cp lindc.jar;lib\c3p0-0.9.1.2.jar;lib\mysql-connector-java-5.1.6-bin.jar;lib\javolution.jar l1j.server.Server
+java -Xmx1024m -Xincgc -cp l1jen.jar;lib\c3p0-0.9.1.2.jar;lib\mysql-connector-java-5.1.6-bin.jar;lib\javolution.jar l1j.server.Server
 REM 
 REM If you have a big server and lots of memory, you could experiment for example with 
 REM java -server -Xmx1536m -Xms1024m -Xmn512m -XX:PermSize=256m -XX:SurvivorRatio=8 -Xnoclassgc -XX:+AggressiveOpts 

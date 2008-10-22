@@ -20,8 +20,9 @@ package l1j.server.server.model;
 
 import java.util.Random;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
+import l1j.server.server.WarTimeController;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -29,7 +30,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
-import l1j.server.server.model.gametime.WarTimeController;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.poison.L1ParalysisPoison;
 import l1j.server.server.model.poison.L1SilencePoison;

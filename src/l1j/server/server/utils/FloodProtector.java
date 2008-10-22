@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.model.gametime.L1GameTime;
 
 public class FloodProtector

@@ -22,7 +22,7 @@ package l1j.server.server.model.Instance;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1NpcTalkData;

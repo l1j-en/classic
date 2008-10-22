@@ -20,12 +20,12 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.Account;
-import l1j.server.AccountAlreadyLoginException;
-import l1j.server.LoginController;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.Account;
+import l1j.server.server.AccountAlreadyLoginException;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GameServerFullException;
+import l1j.server.server.LoginController;
 import l1j.server.server.serverpackets.S_CommonNews;
 import l1j.server.server.serverpackets.S_LoginResult;
 

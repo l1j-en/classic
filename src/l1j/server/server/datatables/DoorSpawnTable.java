@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.L1DatabaseFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.templates.L1Npc;

@@ -22,9 +22,9 @@ import java.lang.management.ThreadMXBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Shutdown;
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.Announcements;
+import l1j.server.server.Shutdown;
 
 public class DeadLockDetector extends Thread
 {

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1DoorInstance;

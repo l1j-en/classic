@@ -20,7 +20,7 @@ package l1j.server.server.model;
 
 import java.util.logging.Logger;
 
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.Instance.L1MonsterInstance;

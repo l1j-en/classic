@@ -17,7 +17,7 @@
  */
 package l1j.server.server.taskmanager.tasks;
 
-import l1j.server.Shutdown;
+import l1j.server.server.Shutdown;
 import l1j.server.server.taskmanager.Task;
 import l1j.server.server.taskmanager.TaskManager.ExecutedTask;
 

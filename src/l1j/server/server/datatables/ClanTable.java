@@ -26,8 +26,8 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.L1DatabaseFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;

@@ -21,7 +21,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.MobGroupTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1MobGroupInfo;

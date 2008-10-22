@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException; 
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_SelectTarget extends ServerBasePacket { 
 

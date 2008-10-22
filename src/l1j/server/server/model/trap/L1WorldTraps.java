@@ -11,8 +11,8 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.L1DatabaseFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.TrapTable;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1World;

@@ -21,11 +21,11 @@ package l1j.server.server.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.gametime.WarTimeController;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.templates.L1Castle;

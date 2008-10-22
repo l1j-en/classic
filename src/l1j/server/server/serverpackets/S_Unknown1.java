@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_Unknown1 extends ServerBasePacket {
 	public S_Unknown1() {

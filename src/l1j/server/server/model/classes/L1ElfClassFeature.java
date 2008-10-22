@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model.classes;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 
 class L1ElfClassFeature extends L1ClassFeature {
 	@Override

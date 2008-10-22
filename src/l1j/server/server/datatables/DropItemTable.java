@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class DropItemTable {

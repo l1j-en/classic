@@ -21,7 +21,7 @@ package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Character;
 
 // Referenced classes of package l1j.server.server.serverpackets:

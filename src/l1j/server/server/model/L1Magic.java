@@ -20,7 +20,7 @@ package l1j.server.server.model;
 
 import java.util.Random;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Instance.L1ItemInstance;

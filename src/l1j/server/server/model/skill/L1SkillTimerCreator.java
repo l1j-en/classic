@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model.skill;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.model.L1Character;
 
 public class L1SkillTimerCreator {

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_LoginResult extends ServerBasePacket {
 	public static final String S_LOGIN_RESULT = "[S] S_LoginResult";

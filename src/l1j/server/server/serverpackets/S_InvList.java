@@ -19,7 +19,7 @@ package l1j.server.server.serverpackets;
 
 import java.util.List;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:

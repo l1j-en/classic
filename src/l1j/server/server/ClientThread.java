@@ -31,13 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Account;
-import l1j.server.LoginController;
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
-import l1j.server.packethandler.Opcodes;
-import l1j.server.packethandler.PacketHandler;
-import l1j.server.packethandler.PacketOutput;
+import l1j.server.Config;
 import l1j.server.server.datatables.CharBuffTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;

@@ -24,7 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
+import l1j.server.server.GeneralThreadPool;
 
 public class L1GameTimeClock {
 	private static Logger _log = Logger.getLogger(L1GameTimeClock.class

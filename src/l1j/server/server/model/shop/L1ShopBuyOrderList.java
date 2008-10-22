@@ -21,7 +21,7 @@ package l1j.server.server.model.shop;
 import java.util.ArrayList;
 import java.util.List;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.model.L1TaxCalculator;
 import l1j.server.server.templates.L1ShopItem;
 

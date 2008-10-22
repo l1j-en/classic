@@ -23,8 +23,8 @@ import java.util.logging.Logger;
 import java.util.Calendar;
 import java.util.Random;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.templates.L1Npc;
 
 public class L1BossSpawn extends L1Spawn {

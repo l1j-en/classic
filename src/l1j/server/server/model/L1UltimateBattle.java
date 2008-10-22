@@ -30,8 +30,8 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.UBSpawnTable;
 import l1j.server.server.model.Instance.L1ItemInstance;

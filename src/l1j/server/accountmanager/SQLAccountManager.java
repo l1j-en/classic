@@ -24,9 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javolution.util.FastList;
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.config.Config;
-import l1j.server.server.encryptions.Base64;
+import l1j.server.Base64;
+import l1j.server.Config;
+import l1j.server.L1DatabaseFactory;
 
 public class SQLAccountManager
 {

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_ServerMessage extends ServerBasePacket {
 	private static final String S_SERVER_MESSAGE = "[S] S_ServerMessage";

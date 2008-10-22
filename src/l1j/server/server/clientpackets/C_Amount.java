@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 //import java.util.logging.Logger;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.AuctionBoardTable;
 import l1j.server.server.datatables.HouseTable;

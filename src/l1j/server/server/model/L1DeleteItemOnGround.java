@@ -21,8 +21,8 @@ package l1j.server.server.model;
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.LetterTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;

@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 // import com.l2jserver.mmocore.network.ReceivablePacket;
 
 import javolution.text.TextBuilder;
-import l1j.server.config.Config;
+import l1j.server.Config;
 
 // import l1j.server.server.network.L2GameClient;
 

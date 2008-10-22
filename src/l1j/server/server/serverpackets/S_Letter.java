@@ -26,8 +26,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.packethandler.Opcodes;
+import l1j.server.L1DatabaseFactory;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.utils.SQLUtil;
 

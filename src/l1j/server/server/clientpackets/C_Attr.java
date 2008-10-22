@@ -23,8 +23,9 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.HouseTable;
@@ -38,7 +39,6 @@ import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
-import l1j.server.server.model.gametime.WarTimeController;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;

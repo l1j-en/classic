@@ -22,12 +22,12 @@ package l1j.server.server.clientpackets;
 import java.util.List;
 
 import l1j.server.server.ClientThread;
+import l1j.server.server.WarTimeController;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.gametime.WarTimeController;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
 

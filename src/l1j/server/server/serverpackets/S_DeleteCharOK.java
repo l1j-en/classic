@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_DeleteCharOK extends ServerBasePacket {
 	private static final String S_DELETE_CHAR_OK = "[S] S_DeleteCharOK";

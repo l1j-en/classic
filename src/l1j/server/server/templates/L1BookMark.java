@@ -25,8 +25,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.IdFactory.IdFactory;
+import l1j.server.L1DatabaseFactory;
+import l1j.server.server.IdFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Bookmarks;
 import l1j.server.server.serverpackets.S_ServerMessage;

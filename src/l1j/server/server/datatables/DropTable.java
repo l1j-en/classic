@@ -31,8 +31,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Database.L1DatabaseFactory;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;

@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
 import java.util.Random;
 
-import l1j.server.IdFactory.IdFactory;
-import l1j.server.ThreadPools.GeneralThreadPool;
+import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DollPack;

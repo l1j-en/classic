@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 public class S_MPUpdate extends ServerBasePacket {
 	public S_MPUpdate(int currentmp, int maxmp) {

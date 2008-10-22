@@ -23,9 +23,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1Attack;

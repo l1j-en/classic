@@ -19,10 +19,10 @@
 
 package l1j.server.server.clientpackets;
 
-import l1j.server.config.Config;
-import l1j.server.packethandler.Opcodes;
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
+import l1j.server.server.Opcodes;
 import l1j.server.server.PCommands;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.model.L1Clan;

@@ -24,10 +24,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.BadNamesList;
-import l1j.server.IdFactory.IdFactory;
-import l1j.server.config.Config;
+import l1j.server.Config;
+import l1j.server.server.BadNamesList;
 import l1j.server.server.ClientThread;
+import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Beginner;

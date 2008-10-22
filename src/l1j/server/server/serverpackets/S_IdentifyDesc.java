@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_IdentifyDesc extends ServerBasePacket {

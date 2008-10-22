@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 
 public class TelnetServer {
 	private static TelnetServer _instance;

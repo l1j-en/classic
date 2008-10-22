@@ -18,8 +18,9 @@
  */
 package l1j.server.server.model.Instance;
 
-import l1j.server.ThreadPools.GeneralThreadPool;
 import l1j.server.server.ActionCodes;
+import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.WarTimeController;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -28,7 +29,6 @@ import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1WarSpawn;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.gametime.WarTimeController;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_NPCPack;

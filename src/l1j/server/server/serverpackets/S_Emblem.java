@@ -21,7 +21,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.*;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket

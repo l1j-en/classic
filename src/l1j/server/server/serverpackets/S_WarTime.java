@@ -21,8 +21,8 @@ package l1j.server.server.serverpackets;
 
 import java.util.Calendar;
 
-import l1j.server.config.Config;
-import l1j.server.packethandler.Opcodes;
+import l1j.server.Config;
+import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket

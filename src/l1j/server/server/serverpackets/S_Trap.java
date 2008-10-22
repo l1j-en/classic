@@ -2,7 +2,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1TrapInstance;
 
 public class S_Trap extends ServerBasePacket {

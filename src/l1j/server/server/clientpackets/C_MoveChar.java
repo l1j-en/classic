@@ -19,7 +19,7 @@ package l1j.server.server.clientpackets;
 
 import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;

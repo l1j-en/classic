@@ -22,7 +22,7 @@ package l1j.server.server.utils;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.L1Character;

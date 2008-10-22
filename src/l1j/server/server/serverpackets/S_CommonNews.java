@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket

@@ -27,7 +27,7 @@
     <property name="src.dir" value="src" />
     <property name="lib.dir" value="lib" />
     <property name="build.dir" value="build" />
-    <property name="jarfile" value="lindc.jar" />
+    <property name="jarfile" value="l1jen.jar" />
 
     <path id="classpath">
         <fileset dir="${lib.dir}">

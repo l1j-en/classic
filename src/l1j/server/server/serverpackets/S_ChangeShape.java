@@ -19,7 +19,7 @@
 
 package l1j.server.server.serverpackets;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_SkillIconGFX, S_CharVisualUpdate

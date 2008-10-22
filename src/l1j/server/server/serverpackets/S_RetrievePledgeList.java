@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException;
 
-import l1j.server.packethandler.Opcodes;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;

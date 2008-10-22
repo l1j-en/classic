@@ -21,7 +21,7 @@ package l1j.server.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import l1j.server.config.Config;
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_HPMeter;
 import l1j.server.server.serverpackets.S_ServerMessage;

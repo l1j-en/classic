@@ -22,9 +22,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TimeZone;
 
-import l1j.server.Account;
-import l1j.server.config.Config;
-import l1j.server.packethandler.Opcodes;
+import l1j.server.Config;
+import l1j.server.server.Account;
+import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 
