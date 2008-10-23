@@ -53,9 +53,6 @@ public final class Config {
 	
 	/** Database password */ 
 	public static String        DATABASE_PASSWORD; 
-	
-	/** Maximum number of connections to the database */ 
-	public static int           DATABASE_MAX_CONNECTIONS; 
 
 	/** Server control */
 	public static String GAME_SERVER_HOST_NAME;
@@ -455,7 +452,6 @@ public final class Config {
 			DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l1jdb?useUnicode=true&characterEncoding=UTF-8"); 
 			DATABASE_LOGIN              = serverSettings.getProperty("Login", "root"); 
 			DATABASE_PASSWORD           = serverSettings.getProperty("Password", ""); 
-			DATABASE_MAX_CONNECTIONS    = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10")); 
 			GAME_SERVER_HOST_NAME = serverSettings.getProperty("GameserverHostname", "*");
 			GAME_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("GameserverPort", "2000"));
 			DB_DRIVER = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");

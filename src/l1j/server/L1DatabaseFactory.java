@@ -48,18 +48,11 @@ public class L1DatabaseFactory
 	{
 		try
 		{
-			if (Config.DATABASE_MAX_CONNECTIONS < 2)
-            {
-                Config.DATABASE_MAX_CONNECTIONS = 2;
-                _log.warning("A minimum of " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
-            }
-
 			_source = new ComboPooledDataSource();
 			_source.setAutoCommitOnClose(true);
 
 			_source.setInitialPoolSize(10);
 			_source.setMinPoolSize(10);
-			_source.setMaxPoolSize(Config.DATABASE_MAX_CONNECTIONS);
 
 
 			_source.setAcquireRetryAttempts(0); // try to obtain connections indefinitely (0 = never quit)
