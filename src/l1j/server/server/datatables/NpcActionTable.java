@@ -49,7 +49,8 @@ public class NpcActionTable {
 	private List<L1NpcAction> loadAction(File file, String nodeName)
 
 	throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder();
 		Document doc = builder.parse(file);
 
 		if (!doc.getDocumentElement().getNodeName().equalsIgnoreCase(nodeName)) {

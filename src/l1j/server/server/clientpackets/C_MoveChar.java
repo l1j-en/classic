@@ -39,9 +39,10 @@ public class C_MoveChar extends ClientBasePacket {
 	private static final String C_MOVE_CHAR = "[C] C_MoveChar";
 
 	@SuppressWarnings("unused")
-	private void sendMapTileLog(L1PcInstance pc) {  
-		pc.sendPackets(new S_SystemMessage(pc.getMap().toString( pc.getLocation()))); 
-	} 
+	private void sendMapTileLog(L1PcInstance pc) {
+		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(
+				pc.getLocation())));
+	}
 	
 	public C_MoveChar(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
@@ -135,10 +136,5 @@ public class C_MoveChar extends ClientBasePacket {
 
 		pc.getMap().setPassable(pc.getLocation(), false);
 		// user.UpdateObject(); 
-	}
-
-	@Override
-	public String getType() {
-		return C_MOVE_CHAR;
 	}
 }

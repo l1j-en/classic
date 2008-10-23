@@ -21,7 +21,6 @@ package l1j.server.server.datatables;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.logging.Logger;
-
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.utils.SQLUtil;

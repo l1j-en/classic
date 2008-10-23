@@ -47,8 +47,8 @@ public final class MapsTable {
 		public boolean isEnabledDeathPenalty = false;
 		public boolean isTakePets = false;
 		public boolean isRecallPets = false;
-		public boolean isUsableItem = false;   
-		public boolean isUsableSkill = false; 
+		public boolean isUsableItem = false;
+		public boolean isUsableSkill = false;
 	}
 
 	private static Logger _log = Logger.getLogger(MapsTable.class.getName());
@@ -97,8 +97,9 @@ public final class MapsTable {
 				data.isEnabledDeathPenalty = rs.getBoolean("penalty");
 				data.isTakePets = rs.getBoolean("take_pets");
 				data.isRecallPets = rs.getBoolean("recall_pets");
-				data.isUsableItem = rs.getBoolean("usable_item");  
-				data.isUsableSkill = rs.getBoolean("usable_skill"); 
+				data.isUsableItem = rs.getBoolean("usable_item");
+				data.isUsableSkill = rs.getBoolean("usable_skill");
+
 				_maps.put(new Integer(mapId), data);
 			}
 
@@ -347,30 +348,32 @@ public final class MapsTable {
 	 * 
 	 * @return If the pet to call summon true
 	 */
-	public boolean isRecallPets(int mapId) 
-	{
+	public boolean isRecallPets(int mapId) {
 		MapData map = _maps.get(mapId);
 		if (map == null) {
 			return false;
 		}
 		return _maps.get(mapId).isRecallPets;
 	}
-	
-	public boolean isUsableItem(int mapId)  
-	{   
-		MapData map = _maps.get(mapId);  
-		if (map == null) {   
-			return false;   
-			}   
-		return _maps.get(mapId).isUsableItem;   
-		}  
-	
-	public boolean isUsableSkill(int mapId)  
-	{  
-		MapData map = _maps.get(mapId);   
-		if (map == null) {   
-			return false;   
-			}   
-		return _maps.get(mapId).isUsableSkill;   
-		}   
-	} 
+
+	/**
+	 */
+	public boolean isUsableItem(int mapId) {
+		MapData map = _maps.get(mapId);
+		if (map == null) {
+			return false;
+		}
+		return _maps.get(mapId).isUsableItem;
+	}
+
+	/**
+	 */
+	public boolean isUsableSkill(int mapId) {
+		MapData map = _maps.get(mapId);
+		if (map == null) {
+			return false;
+		}
+		return _maps.get(mapId).isUsableSkill;
+	}
+
+}

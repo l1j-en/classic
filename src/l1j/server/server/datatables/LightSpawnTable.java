@@ -31,85 +31,63 @@ import java.util.logging.Logger;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1DoorInstance;
+import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
-public class DoorSpawnTable {
-	private static Logger _log = Logger.getLogger(DoorSpawnTable.class.getName());
+public class LightSpawnTable {
+	private static Logger _log = Logger.getLogger(LightSpawnTable.class
+			.getName());
 
-	private static DoorSpawnTable _instance;
+	private static LightSpawnTable _instance;
 
-	private final ArrayList<L1DoorInstance> _doorList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _castleList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _keyList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _orderList =
-		new ArrayList<L1DoorInstance>();
-
-	public static DoorSpawnTable getInstance() {
+	public static LightSpawnTable getInstance() {
 		if (_instance == null) {
-			_instance = new DoorSpawnTable();
+			_instance = new LightSpawnTable();
 		}
 		return _instance;
 	}
 
-	private DoorSpawnTable() {
-		FillDoorSpawnTable();
+	private LightSpawnTable() {
+		FillLightSpawnTable();
 	}
 
-	private void FillDoorSpawnTable() {
+	private void FillLightSpawnTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
 
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM spawnlist_door");
+			pstm = con.prepareStatement("SELECT * FROM spawnlist_light");
 			rs = pstm.executeQuery();
 			do {
 				if (!rs.next()) {
 					break;
 				}
 
-				L1Npc l1npc = NpcTable.getInstance().getTemplate(81158);
+				L1Npc l1npc = NpcTable.getInstance().getTemplate(rs.getInt(2));
 				if (l1npc != null) {
 					String s = l1npc.getImpl();
 					Constructor constructor = Class.forName(
 							"l1j.server.server.model.Instance." + s
 									+ "Instance").getConstructors()[0];
 					Object parameters[] = { l1npc };
-					L1DoorInstance door = (L1DoorInstance) constructor
+					L1FieldObjectInstance field = (L1FieldObjectInstance) constructor
 							.newInstance(parameters);
-					door = (L1DoorInstance) constructor.newInstance(parameters);
-					door.setId(IdFactory.getInstance().nextId());
+					field = (L1FieldObjectInstance) constructor
+							.newInstance(parameters);
+					field.setId(IdFactory.getInstance().nextId());
+					field.setX(rs.getInt("locx"));
+					field.setY(rs.getInt("locy"));
+					field.setMap((short) rs.getInt("mapid"));
+					field.setHomeX(field.getX());
+					field.setHomeY(field.getY());
+					field.setHeading(0);
+					field.setLightSize(l1npc.getLightSize());
 
-					door.setDoorId(rs.getInt(1));
-					door.setGfxId(rs.getInt(3));
-					door.setX(rs.getInt(4));
-					door.setY(rs.getInt(5));
-					door.setMap((short) rs.getInt(6));
-					door.setHomeX(rs.getInt(4));
-					door.setHomeY(rs.getInt(5));
-					door.setDirection(rs.getInt(7));
-					door.setEntranceX(rs.getInt(8));
-					door.setEntranceY(rs.getInt(9));
-					door.setMaxHp(rs.getInt(10));
-					door.setCurrentHp(rs.getInt(10));
-					door.setKeeperId(rs.getInt(11));
-					door.setSize(rs.getInt(12));
-
-					L1World.getInstance().storeObject(door);
-					L1World.getInstance().addVisibleObject(door);
-
-					if (door.getKeeperId() != 0) {
-						_doorList.add(door);
-					}
+					L1World.getInstance().storeObject(field);
+					L1World.getInstance().addVisibleObject(field);
 				}
 			} while (true);
 		} catch (SQLException e) {
@@ -133,19 +111,4 @@ public class DoorSpawnTable {
 		}
 	}
 
-	public L1DoorInstance[] getDoorList() {
-		return _doorList.toArray(new L1DoorInstance[_doorList.size()]);
-	}
-
-	public L1DoorInstance[] getCastleList() {
-		return _castleList.toArray(new L1DoorInstance[_castleList.size()]);
-	}
-
-	public L1DoorInstance[] getKeyList() {
-		return _keyList.toArray(new L1DoorInstance[_keyList.size()]);
-	}
-
-	public L1DoorInstance[] getOrderList() {
-		return _orderList.toArray(new L1DoorInstance[_orderList.size()]);
-	}
 }

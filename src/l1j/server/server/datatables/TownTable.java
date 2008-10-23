@@ -79,7 +79,8 @@ public class TownTable {
 				town.set_tax_rate(rs.getInt("tax_rate"));
 				town.set_tax_rate_reserved(rs.getInt("tax_rate_reserved"));
 				town.set_sales_money(rs.getInt("sales_money"));
-				town.set_sales_money_yesterday(rs.getInt("sales_money_yesterday"));
+				town.set_sales_money_yesterday(rs
+						.getInt("sales_money_yesterday"));
 				town.set_town_tax(rs.getInt("town_tax"));
 				town.set_town_fix_tax(rs.getInt("town_fix_tax"));
 
@@ -126,7 +127,8 @@ public class TownTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE town SET sales_money = sales_money + ?, town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
+			pstm = con
+					.prepareStatement("UPDATE town SET sales_money = sales_money + ?, town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
 			pstm.setInt(1, salesMoney);
 			pstm.setInt(2, townTax);
 			pstm.setInt(3, townFixTax);
@@ -208,7 +210,8 @@ public class TownTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE town SET tax_rate = tax_rate_reserved");
+			pstm = con
+					.prepareStatement("UPDATE town SET tax_rate = tax_rate_reserved");
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -224,7 +227,8 @@ public class TownTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE town SET sales_money_yesterday = sales_money, sales_money = 0");
+			pstm = con
+					.prepareStatement("UPDATE town SET sales_money_yesterday = sales_money, sales_money = 0");
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

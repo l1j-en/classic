@@ -77,12 +77,13 @@ public class WeaponSkillTable {
 			int probability = rs.getInt("probability");
 			int fixDamage = rs.getInt("fix_damage");
 			int randomDamage = rs.getInt("random_damage");
+			int area = rs.getInt("area");
 			int skillId = rs.getInt("skill_id");
 			int skillTime = rs.getInt("skill_time");
 			int effectId = rs.getInt("effect_id");
 			int effectTarget = rs.getInt("effect_target");
 			L1WeaponSkill weaponSkill = new L1WeaponSkill(weaponId, probability,
-					fixDamage, randomDamage, skillId, skillTime, effectId,
+					fixDamage, randomDamage, area, skillId, skillTime, effectId,
 					effectTarget);
 			_weaponIdIndex.put(weaponId, weaponSkill);
 		}

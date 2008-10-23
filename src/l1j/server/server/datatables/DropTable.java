@@ -245,7 +245,8 @@ public class DropTable {
 			} else if (acquisitor != null
 					&& !acquisitor.isDead()
 					&& acquisitor.getMapId() == npc.getMapId()
-					&& acquisitor.getLocation().getTileLineDistance(npc.getLocation()) <= Config.LOOTING_RANGE) {
+					&& acquisitor.getLocation().getTileLineDistance(
+							npc.getLocation()) <= Config.LOOTING_RANGE) {
 				totalHate += (Integer) hateList.get(i);
 			} else {
 				acquisitorList.remove(i);

@@ -84,7 +84,7 @@ public class SpawnTable {
 				int npcTemplateId = rs.getInt("npc_templateid");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				int count;
-				
+
 				if (template1 == null) {
 					_log.warning("mob data for id:" + npcTemplateId
 							+ " missing in npc table");

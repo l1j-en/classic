@@ -21,16 +21,23 @@ package l1j.server.server.model;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.datatables.WeaponSkillTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1ItemInstance;
+import l1j.server.server.model.Instance.L1MonsterInstance;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.skill.L1SkillId;
+import l1j.server.server.serverpackets.S_DoActionGFX;
+import l1j.server.server.serverpackets.S_EffectLocation;
+import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
-import l1j.server.server.serverpackets.S_EffectLocation;
 import l1j.server.server.templates.L1Skills;
 
 // Referenced classes of package l1j.server.server.model:
@@ -38,7 +45,10 @@ import l1j.server.server.templates.L1Skills;
 
 public class L1WeaponSkill {
 
-	private static Logger _log = Logger.getLogger(L1WeaponSkill.class.getName());
+	private static Logger _log = Logger
+			.getLogger(L1WeaponSkill.class.getName());
+
+	private static Random _random = new Random();
 
 	private int _weaponId;
 
@@ -47,6 +57,8 @@ public class L1WeaponSkill {
 	private int _fixDamage;
 
 	private int _randomDamage;
+
+	private int _area;
 
 	private int _skillId;
 
@@ -57,12 +69,13 @@ public class L1WeaponSkill {
 	private int _effectTarget;
 
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
-			int randomDamage, int skillId, int skillTime, int effectId,
-			int effectTarget) {
+			int randomDamage, int area, int skillId, int skillTime,
+			int effectId, int effectTarget) {
 		_weaponId = weaponId;
 		_probability = probability;
 		_fixDamage = fixDamage;
 		_randomDamage = randomDamage;
+		_area = area;
 		_skillId = skillId;
 		_skillTime = skillTime;
 		_effectId = effectId;
@@ -83,6 +96,10 @@ public class L1WeaponSkill {
 
 	public int getRandomDamage() {
 		return _randomDamage;
+	}
+
+	public int getArea() {
+		return _area;
 	}
 
 	public int getSkillId() {
@@ -109,8 +126,7 @@ public class L1WeaponSkill {
 			return 0;
 		}
 
-		Random random = new Random();
-		int chance = random.nextInt(100) + 1;
+		int chance = _random.nextInt(100) + 1;
 		if (weaponSkill.getProbability() < chance) {
 			return 0;
 		}
@@ -138,15 +154,68 @@ public class L1WeaponSkill {
 		int damage = 0;
 		int randomDamage = weaponSkill.getRandomDamage();
 		if (randomDamage != 0) {
-			damage = random.nextInt(randomDamage);
+			damage = _random.nextInt(randomDamage);
 		}
-		return weaponSkill.getFixDamage() + damage;
+		damage += weaponSkill.getFixDamage();
+
+		int area = weaponSkill.getArea();
+		if (area > 0 || area == -1) { //
+			for (L1Object object : L1World.getInstance()
+					.getVisibleObjects(cha, area)) {
+				if (object == null) {
+					continue;
+				}
+				if (!(object instanceof L1Character)) {
+					continue;
+				}
+				if (object.getId() == pc.getId()) {
+					continue;
+				}
+				if (object.getId() == cha.getId()) { // 
+					continue;
+				}
+
+				// 
+				// 
+				if (cha instanceof L1MonsterInstance) {
+					if (!(object instanceof L1MonsterInstance)) {
+						continue;
+					}
+				}
+				if (cha instanceof L1PcInstance
+						|| cha instanceof L1SummonInstance
+						|| cha instanceof L1PetInstance) {
+					if (!(object instanceof L1PcInstance
+							|| object instanceof L1SummonInstance
+							|| object instanceof L1PetInstance
+							|| object instanceof L1MonsterInstance)) {
+						continue;
+					}
+				}
+
+				if (object instanceof L1PcInstance) {
+					L1PcInstance targetPc = (L1PcInstance) object;
+					targetPc.sendPackets(new S_DoActionGFX(targetPc.getId(),
+							ActionCodes.ACTION_Damage));
+					targetPc.broadcastPacket(new S_DoActionGFX(targetPc.getId(),
+							ActionCodes.ACTION_Damage));
+					targetPc.receiveDamage(pc, damage);
+				} else if (object instanceof L1SummonInstance
+						|| object instanceof L1PetInstance
+						|| object instanceof L1MonsterInstance) {
+					L1NpcInstance targetNpc = (L1NpcInstance) object;
+					targetNpc.broadcastPacket(new S_DoActionGFX(targetNpc
+							.getId(), ActionCodes.ACTION_Damage));
+					targetNpc.receiveDamage(pc, damage);
+				}
+			}
+		}
+		return damage;
 	}
 
 	public static double getBaphometStaffDamage(L1PcInstance pc, L1Character cha) {
 		double dmg = 0;
-		Random random = new Random();
-		int chance = random.nextInt(100) + 1;
+		int chance = _random.nextInt(100) + 1;
 		if (14 >= chance) {
 			int locx = cha.getX();
 			int locy = cha.getY();
@@ -156,7 +225,8 @@ public class L1WeaponSkill {
 			if (pc.hasSkillEffect(L1SkillId.BERSERKERS)) {
 				bsk = 0.2;
 			}
-			dmg = (intel + sp) * (1.8 + bsk) + random.nextInt(intel + sp) * 1.8;
+			dmg = (intel + sp) * (1.8 + bsk) + _random.nextInt(intel + sp)
+					* 1.8;
 			S_EffectLocation packet = new S_EffectLocation(locx, locy, 129);
 			pc.sendPackets(packet);
 			pc.broadcastPacket(packet);
@@ -167,8 +237,7 @@ public class L1WeaponSkill {
 	public static double getDiceDaggerDamage(L1PcInstance pc,
 			L1PcInstance targetPc, L1ItemInstance weapon) {
 		double dmg = 0;
-		Random random = new Random();
-		int chance = random.nextInt(100) + 1;
+		int chance = _random.nextInt(100) + 1;
 		if (3 >= chance) {
 			dmg = targetPc.getCurrentHp() * 2 / 3;
 			if (targetPc.getCurrentHp() - dmg < 0) {
@@ -181,4 +250,3 @@ public class L1WeaponSkill {
 		return dmg;
 	}
 }
-

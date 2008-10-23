@@ -32,7 +32,6 @@ import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.ItemTable;
-import l1j.server.server.model.L1PetMatch;
 import l1j.server.server.datatables.NpcActionTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.SkillsTable;
@@ -46,6 +45,7 @@ import l1j.server.server.model.L1HouseLocation;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
+import l1j.server.server.model.L1PetMatch;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1Teleport;
@@ -82,6 +82,7 @@ import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_PetList;
 import l1j.server.server.serverpackets.S_RetrieveList;
+import l1j.server.server.serverpackets.S_RetrieveElfList;
 import l1j.server.server.serverpackets.S_RetrievePledgeList;
 import l1j.server.server.serverpackets.S_SelectTarget;
 import l1j.server.server.serverpackets.S_SellHouse;
@@ -3237,6 +3238,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		}
 	}
+
 	private boolean isExistDefenseClan(int castleId) {
 		boolean isExistDefenseClan = false;
 		for (L1Clan clan : L1World.getInstance().getAllClans()) {
@@ -3583,7 +3585,7 @@ public class C_NPCAction extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(1080));
 		}
 	}
-	
+
 	@Override
 	public String getType() {
 		return C_NPC_ACTION;

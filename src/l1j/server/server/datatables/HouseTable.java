@@ -57,20 +57,21 @@ public class HouseTable {
 	private Calendar timestampToCalendar(Timestamp ts) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(ts.getTime());
-		return cal;		
+		return cal;
 	}
 
-	public HouseTable() {
-		{
-			Connection con = null;
-			PreparedStatement pstm = null;
-			ResultSet rs = null;;
 
-			try {
-				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con.prepareStatement("SELECT * FROM house ORDER BY house_id");
-				rs = pstm.executeQuery();
-				while (rs.next()) {
+	public HouseTable() {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con
+					.prepareStatement("SELECT * FROM house ORDER BY house_id");
+			rs = pstm.executeQuery();
+			while (rs.next()) {
 				L1House house = new L1House();
 				house.setHouseId(rs.getInt(1));
 				house.setHouseName(rs.getString(2));
@@ -79,15 +80,16 @@ public class HouseTable {
 				house.setKeeperId(rs.getInt(5));
 				house.setOnSale(rs.getInt(6) == 1 ? true : false);
 				house.setPurchaseBasement(rs.getInt(7) == 1 ? true : false);
-				house.setTaxDeadline(timestampToCalendar((Timestamp) rs.getObject(8)));
-				_house.put(house.getHouseId(), house); }
-				} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-				} finally {
-				SQLUtil.close(rs);
-				SQLUtil.close(pstm);
-				SQLUtil.close(con);
+				house.setTaxDeadline(timestampToCalendar((Timestamp) rs
+						.getObject(8)));
+				_house.put(house.getHouseId(), house);
 			}
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
 		}
 	}
 
@@ -104,7 +106,8 @@ public class HouseTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE house SET house_name=?, house_area=?, location=?, keeper_id=?, is_on_sale=?, is_purchase_basement=?, tax_deadline=? WHERE house_id=?");
+			pstm = con
+					.prepareStatement("UPDATE house SET house_name=?, house_area=?, location=?, keeper_id=?, is_on_sale=?, is_purchase_basement=?, tax_deadline=? WHERE house_id=?");
 			pstm.setString(1, house.getHouseName());
 			pstm.setInt(2, house.getHouseArea());
 			pstm.setString(3, house.getLocation());
@@ -112,7 +115,7 @@ public class HouseTable {
 			pstm.setInt(5, house.isOnSale() == true ? 1 : 0);
 			pstm.setInt(6, house.isPurchaseBasement() == true ? 1 : 0);
 			String fm = DateFormat.getDateTimeInstance().format(
-			house.getTaxDeadline().getTime());
+					house.getTaxDeadline().getTime());
 			pstm.setString(7, fm);
 			pstm.setInt(8, house.getHouseId());
 			pstm.execute();
@@ -124,7 +127,6 @@ public class HouseTable {
 		}
 	}
 
-
 	public static List<Integer> getHouseIdList() {
 		List<Integer> houseIdList = new ArrayList<Integer>();
 
@@ -134,11 +136,13 @@ public class HouseTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT house_id FROM house ORDER BY house_id");
+			pstm = con
+					.prepareStatement("SELECT house_id FROM house ORDER BY house_id");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int houseId = rs.getInt("house_id");
-				houseIdList.add(Integer.valueOf(houseId)); }
+				houseIdList.add(Integer.valueOf(houseId));
+			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -146,7 +150,7 @@ public class HouseTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
+
 		return houseIdList;
 	}
 }
-
