@@ -493,3 +493,18 @@ INSERT INTO `getback_restart` VALUES ('5131', 'petmatch place', '32628', '32781'
 INSERT INTO `getback_restart` VALUES ('5132', 'petmatch place', '32628', '32781', '4');
 INSERT INTO `getback_restart` VALUES ('5133', 'petmatch place', '32628', '32781', '4');
 INSERT INTO `getback_restart` VALUES ('5134', 'petmatch place', '32628', '32781', '4');
+
+-- merge in new area table changes
+update area set x1 = 0, y1 = 0, x2 = 0, y2 = 0, restart = 0 where areaid = 93;
+INSERT INTO `area` VALUES ('201', '212', 'Darkelf Dungeon', '0', '0', '0', '0', '1', '0');
+INSERT INTO `area` VALUES ('203', '214', 'Darkelf Dungeon', '0', '0', '0', '0', '1', '0');
+INSERT INTO `area` VALUES ('204', '215', 'Darkelf Dungeon', '0', '0', '0', '0', '1', '0');
+INSERT INTO `area` VALUES ('205', '216', 'Darkelf Dungeon', '0', '0', '0', '0', '1', '0');
+INSERT INTO `area` VALUES ('207', '218', 'Mutant Ant Dungeon', '0', '0', '0', '0', '1', '0');
+INSERT INTO `area` VALUES ('209', '222', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('210', '223', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('211', '224', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('212', '225', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('213', '226', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('214', '227', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
+INSERT INTO `area` VALUES ('215', '228', 'Gerard Test Dungeon', '0', '0', '0', '0', '0', '0');
