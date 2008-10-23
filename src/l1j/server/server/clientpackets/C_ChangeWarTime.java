@@ -35,10 +35,16 @@ import l1j.server.server.templates.L1Castle;
 
 public class C_ChangeWarTime extends ClientBasePacket {
 
-	public C_ChangeWarTime(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_CHANGE_WAR_TIME = "[C] C_ChangeWarTime";
+	private static Logger _log = Logger.getLogger(C_ChangeWarTime.class
+			.getName());
+
+	public C_ChangeWarTime(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
+
 		L1Clan clan = L1World.getInstance().getClan(player.getClanname());
 		if (clan != null) {
 			int castle_id = clan.getCastleId();
@@ -53,10 +59,7 @@ public class C_ChangeWarTime extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_16_CHANGEWARTIME;
+		return C_CHANGE_WAR_TIME;
 	}
 
-	private static final String C_16_CHANGEWARTIME = "[C] C_ChangeWarTime";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_ChangeWarTime.class.getName());
 }

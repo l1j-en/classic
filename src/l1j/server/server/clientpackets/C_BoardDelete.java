@@ -30,6 +30,8 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 public class C_BoardDelete extends ClientBasePacket {
 
+	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
+
 	public C_BoardDelete(byte decrypt[], ClientThread client) {
 		super(decrypt);
 		int objId = readD();
@@ -46,5 +48,4 @@ public class C_BoardDelete extends ClientBasePacket {
 		return C_BOARD_DELETE;
 	}
 
-	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
 }

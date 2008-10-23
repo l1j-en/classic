@@ -21,22 +21,22 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
-import l1j.server.server.model.L1Clan;  
-import l1j.server.server.model.L1World;  
-import l1j.server.server.model.Instance.L1PcInstance; 
+import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DeleteCharOK;
 
 // Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket, C_CreateChar
+// ClientBasePacket, C_DeleteChar
 
 public class C_DeleteChar extends ClientBasePacket {
 
-	private static final String C_0B_DELETE_CHAR = "[C] C_DeleteChar";
+	private static final String C_DELETE_CHAR = "[C] RequestDeleteChar";
 
-	private static Logger _log = Logger.getLogger(C_CreateChar.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_DeleteChar.class.getName());
 
 	public C_DeleteChar(byte decrypt[], ClientThread client)
 			throws Exception {
@@ -45,12 +45,12 @@ public class C_DeleteChar extends ClientBasePacket {
 		_log.fine("deleting character : " + name);
 		try {
 			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);   
-			if (pc != null) {   
-				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());   
-				if (clan != null) {   
-					clan.delMemberName(name);   
-					}   
-				} 
+			if (pc != null) {
+				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+				if (clan != null) {
+					clan.delMemberName(name);
+				}
+			}
 			CharacterTable.getInstance().deleteCharacter(
 					client.getAccountName(), name);
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class C_DeleteChar extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_DELETE_CHAR;
+		return C_DELETE_CHAR;
 	}
 
 }

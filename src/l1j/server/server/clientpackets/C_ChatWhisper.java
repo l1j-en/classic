@@ -56,12 +56,14 @@ public class C_ChatWhisper extends ClientBasePacket {
 		if (whisperTo.equals(whisperFrom)) {
 			return;
 		}
-		if (whisperTo.excludes(whisperFrom.getName()) && !whisperFrom.isGm() && !whisperFrom.isMonitor()) {
-			whisperFrom.sendPackets(new S_ServerMessage(117, whisperTo.getName()));
+
+		if (whisperTo.excludes(whisperFrom.getName()) && !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not remove gm/mon whisper ability
+			whisperFrom.sendPackets(new S_ServerMessage(117,
+					whisperTo.getName()));
 			return;
 		}
 		//
-		if(!whisperTo.isCanWhisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()){
+		if(!whisperTo.isCanWhisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not remove gm/mon whisper ability
 			whisperFrom.sendPackets(new S_ServerMessage(205,
 					whisperTo.getName()));
 			return;

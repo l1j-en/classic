@@ -98,7 +98,7 @@ public class C_CommonClick {
 				int cha = rs.getByte("Cha");
 				int intel = rs.getByte("Intel");
 				int accessLevel = rs.getShort("AccessLevel");
-				
+
 				S_CharPacks cpk = new S_CharPacks(name, clanname, type, sex,
 						lawful, currenthp, currentmp, ac, lvl, str, dex, con,
 						wis, cha, intel, accessLevel);

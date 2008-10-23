@@ -33,9 +33,8 @@ import l1j.server.server.serverpackets.S_Emblem;
 
 public class C_Emblem extends ClientBasePacket {
 
-	private static final String C_0F_EMBLEM = "[C] C_Emblem";
-	private static Logger _log = Logger.getLogger(C_Emblem.class
-			.getName());
+	private static final String C_EMBLEM = "[C] C_Emblem";
+	private static Logger _log = Logger.getLogger(C_Emblem.class.getName());
 
 	public C_Emblem(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -69,6 +68,6 @@ public class C_Emblem extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0F_EMBLEM;
+		return C_EMBLEM;
 	}
 }

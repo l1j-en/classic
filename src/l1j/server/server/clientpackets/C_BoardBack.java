@@ -31,6 +31,9 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 public class C_BoardBack extends ClientBasePacket {
 
+	private static final String C_BOARD_BACK = "[C] C_BoardBack";
+	private static Logger _log = Logger.getLogger(C_BoardBack.class.getName());
+
 	public C_BoardBack(byte abyte0[], ClientThread client) {
 		super(abyte0);
 		int objId = readD();
@@ -45,7 +48,4 @@ public class C_BoardBack extends ClientBasePacket {
 		return C_BOARD_BACK;
 	}
 
-	private static final String C_BOARD_BACK = "[C] C_BoardBack";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_BoardBack.class.getName());
 }

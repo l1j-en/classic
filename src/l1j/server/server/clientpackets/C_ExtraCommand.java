@@ -30,7 +30,8 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 public class C_ExtraCommand extends ClientBasePacket {
 	private static final String C_EXTRA_COMMAND = "[C] C_ExtraCommand";
 
-	public C_ExtraCommand(byte abyte0[], ClientThread client) throws Exception {
+	public C_ExtraCommand(byte abyte0[], ClientThread client)
+			throws Exception {
 		super(abyte0);
 		int actionId = readC();
 		L1PcInstance pc = client.getActiveChar();

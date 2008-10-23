@@ -32,8 +32,12 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 public class C_Board extends ClientBasePacket {
 
+	private static final String C_BOARD = "[C] C_Board";
+	private static Logger _log = Logger.getLogger(C_Board.class.getName());
+
 	private boolean isBoardInstance(L1Object obj) {
-		return (obj instanceof L1BoardInstance || obj instanceof L1AuctionBoardInstance);
+		return (obj instanceof L1BoardInstance
+				|| obj instanceof L1AuctionBoardInstance);
 	}
 
 	public C_Board(byte abyte0[], ClientThread client) {
@@ -51,7 +55,4 @@ public class C_Board extends ClientBasePacket {
 		return C_BOARD;
 	}
 
-	private static final String C_BOARD = "[C] C_Board";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_Board.class.getName());
 }

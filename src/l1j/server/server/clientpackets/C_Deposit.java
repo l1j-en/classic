@@ -34,6 +34,10 @@ import l1j.server.server.templates.L1Castle;
 
 public class C_Deposit extends ClientBasePacket {
 
+	private static final String C_DEPOSIT = "[C] C_Deposit";
+	private static Logger _log = Logger.getLogger(C_Deposit.class
+			.getName());
+
 	public C_Deposit(byte abyte0[], ClientThread clientthread)
 			throws Exception {
 		super(abyte0);
@@ -72,11 +76,7 @@ public class C_Deposit extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_38_DEPOSIT;
+		return C_DEPOSIT;
 	}
-
-	private static final String C_38_DEPOSIT = "[C] C_Deposit";
-	private static Logger _log = Logger.getLogger(C_Deposit.class
-			.getName());
 
 }

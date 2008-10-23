@@ -18,28 +18,32 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.HouseTable;
+import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
-import l1j.server.server.datatables.HouseTable; 
-import l1j.server.server.model.L1Clan; 
-import l1j.server.server.model.Instance.L1PcInstance;  
-import l1j.server.server.templates.L1House; 
 import l1j.server.server.model.Instance.L1DoorInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.templates.L1House;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_Door
 
 public class C_Door extends ClientBasePacket {
-	private static final String C_DOOR = "[C] C_Door"; 
-	
-	public C_Door(byte abyte0[], ClientThread client) throws Exception { 
-		super(abyte0);  
-		@SuppressWarnings("unused")
-		int locX = readH(); 
-		@SuppressWarnings("unused")
-		int locY = readH(); 
-		int objectId = readD(); 
+
+	private static Logger _log = Logger.getLogger(C_Door.class
+			.getName());
+	private static final String C_DOOR = "[C] C_Door";
+
+	public C_Door(byte abyte0[], ClientThread client)
+			throws Exception {
+		super(abyte0);
+		int locX = readH();
+		int locY = readH();
+		int objectId = readD();
 
 		L1PcInstance pc = client.getActiveChar();
 		L1DoorInstance door = (L1DoorInstance)L1World.getInstance()
@@ -52,22 +56,25 @@ public class C_Door extends ClientBasePacket {
 			}
 		}
 	}
-	private boolean isExistKeeper(L1PcInstance pc, int keeperId) {  
-		if (keeperId == 0) {   
-			return false;   
-			}   
-		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());  
-		if (clan != null) {  
-			int houseId = clan.getHouseId();   
-		if (houseId != 0) {   
-			L1House house = HouseTable.getInstance().getHouseTable(houseId);   
-			if (keeperId == house.getKeeperId()) {   
-				return false;   
-				}   
-			}   
-		}   
-		return true; 
+
+	private boolean isExistKeeper(L1PcInstance pc, int keeperId) {
+		if (keeperId == 0) {
+			return false;
+		}
+
+		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		if (clan != null) {
+			int houseId = clan.getHouseId();
+			if (houseId != 0) {
+				L1House house = HouseTable.getInstance().getHouseTable(houseId);
+				if (keeperId == house.getKeeperId()) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
+
 	@Override
 	public String getType() {
 		return C_DOOR;

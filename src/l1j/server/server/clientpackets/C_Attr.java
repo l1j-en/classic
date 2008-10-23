@@ -29,17 +29,22 @@ import l1j.server.server.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.HouseTable;
+import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.L1CastleLocation;
+import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;
 import l1j.server.server.serverpackets.S_PetPack;
@@ -48,11 +53,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Trade;
 import l1j.server.server.templates.L1House;
-import l1j.server.server.templates.L1Pet;
-import l1j.server.server.model.L1ChatParty;
-import l1j.server.server.datatables.NpcTable;
-import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1Pet;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -138,7 +140,7 @@ public class C_Attr extends ClientBasePacket {
 				}
 			}
 			break;
-			
+
 		case 217: 
 		case 221: 
 		case 222:
@@ -373,30 +375,32 @@ public class C_Attr extends ClientBasePacket {
 			break;
 
 		case 951:  
-			c = readC();  
-			L1PcInstance chatPc = (L1PcInstance) L1World.getInstance().findObject(pc.getPartyID());  
-			if (chatPc != null) {   
-				if (c == 0) { // No   
+			c = readC();
+			L1PcInstance chatPc = (L1PcInstance) L1World.getInstance()
+					.findObject(pc.getPartyID());
+			if (chatPc != null) {
+				if (c == 0) { // No
 					chatPc.sendPackets(new S_ServerMessage(423, pc.getName()));  
-					pc.setPartyID(0);   
-					} else if (c == 1) { // Yes   
-						if (chatPc.isInChatParty()) {   
-							if (chatPc.getChatParty().isVacancy() || chatPc.isGm()) {   
-								chatPc.getChatParty().addMember(pc);   
-								} else {   
-									chatPc.sendPackets(new S_ServerMessage(417)); 
-                             }   
-							} else {   
-								L1ChatParty chatParty = new L1ChatParty();  
-								chatParty.addMember(chatPc);   
-								chatParty.addMember(pc);   
-								chatPc.sendPackets(new S_ServerMessage(424, pc.getName()));  
-								}   
-						}   
-				}   
-			break; 
-			
-		case 953: 
+					pc.setPartyID(0);
+				} else if (c == 1) { // Yes
+					if (chatPc.isInChatParty()) {
+						if (chatPc.getChatParty().isVacancy() || chatPc
+								.isGm()) {
+							chatPc.getChatParty().addMember(pc);
+						} else {
+							chatPc.sendPackets(new S_ServerMessage(417));
+						}
+					} else {
+						L1ChatParty chatParty = new L1ChatParty();
+						chatParty.addMember(chatPc);
+						chatParty.addMember(pc);
+						chatPc.sendPackets(new S_ServerMessage(424, pc.getName()));  
+					}
+				}
+			}
+			break;
+
+		case 953:
 			c = readC();
 			L1PcInstance target = (L1PcInstance) L1World.getInstance()
 					.findObject(pc.getPartyID());
@@ -408,7 +412,8 @@ public class C_Attr extends ClientBasePacket {
 				} else if (c == 1) // Yes
 				{
 					if (target.isInParty()) {
-					if (target.getParty().isVacancy() || target.isGm()) {
+
+						if (target.getParty().isVacancy() || target.isGm()) {
 							target.getParty().addMember(pc);
 						} else {
 							target.sendPackets(new S_ServerMessage(417));
@@ -500,25 +505,24 @@ public class C_Attr extends ClientBasePacket {
 		}
 	}
 
-	private void changeClan(ClientThread clientthread,   
-			L1PcInstance pc, L1PcInstance joinPc, int maxMember) 
-	{   
-		int clanId = pc.getClanid();   
-		String clanName = pc.getClanname();   
-		L1Clan clan = L1World.getInstance().getClan(clanName);   
-		String clanMemberName[] = clan.getAllMembers();   
-		int clanNum = clanMemberName.length;   
-		int oldClanId = joinPc.getClanid();   
-		String oldClanName = joinPc.getClanname();  
-		L1Clan oldClan = L1World.getInstance().getClan(oldClanName);   
-		String oldClanMemberName[] = oldClan.getAllMembers();   
-		int oldClanNum = oldClanMemberName.length;   
-		if (clan != null && oldClan != null && joinPc.isCrown() &&  
-				joinPc.getId() == oldClan.getLeaderId()) 
-		{   
-			if (maxMember < clanNum + oldClanNum) {  
-				joinPc.sendPackets(  
-						new S_ServerMessage(188, pc.getName())); 
+	private void changeClan(ClientThread clientthread,
+			L1PcInstance pc, L1PcInstance joinPc, int maxMember) {
+		int clanId = pc.getClanid();
+		String clanName = pc.getClanname();
+		L1Clan clan = L1World.getInstance().getClan(clanName);
+		String clanMemberName[] = clan.getAllMembers();
+		int clanNum = clanMemberName.length;
+
+		int oldClanId = joinPc.getClanid();
+		String oldClanName = joinPc.getClanname();
+		L1Clan oldClan = L1World.getInstance().getClan(oldClanName);
+		String oldClanMemberName[] = oldClan.getAllMembers();
+		int oldClanNum = oldClanMemberName.length;
+		if (clan != null && oldClan != null && joinPc.isCrown() &&
+				joinPc.getId() == oldClan.getLeaderId()) {
+			if (maxMember < clanNum + oldClanNum) {
+				joinPc.sendPackets(
+						new S_ServerMessage(188, pc.getName()));
 				return;
 			}
 			L1PcInstance clanMember[] = clan.getOnlineClanMember();
@@ -527,28 +531,36 @@ public class C_Attr extends ClientBasePacket {
 						.getName())); 
 			}
 
-			for (int i = 0; i < oldClanMemberName.length; i++) 
-			{ 
-              L1PcInstance oldClanMember = L1World.getInstance().getPlayer(   
-            		  oldClanMemberName[i]);   
-              if (oldClanMember != null) {  
-            	  oldClanMember.setClanid(clanId);   
-            	  oldClanMember.setClanname(clanName);     
-            	  if (oldClanMember.getId() == joinPc.getId())  
-            	  {   
-            		  oldClanMember.setClanRank(L1Clan.CLAN_RANK_GUARDIAN);   
-            		  } else {  
-            			  oldClanMember.setClanRank(L1Clan.CLAN_RANK_PROBATION);  
-            			  } 
+			for (int i = 0; i < oldClanMemberName.length; i++) {
+				L1PcInstance oldClanMember = L1World.getInstance().getPlayer(
+						oldClanMemberName[i]);
+				if (oldClanMember != null) {
+					oldClanMember.setClanid(clanId);
+					oldClanMember.setClanname(clanName);
+					if (oldClanMember.getId() == joinPc.getId()) {
+						oldClanMember.setClanRank(L1Clan.CLAN_RANK_GUARDIAN);
+					} else {
+						oldClanMember.setClanRank(L1Clan.CLAN_RANK_PROBATION);
+					}
+					try {
+						//
+						oldClanMember.save();
+					} catch (Exception e) {
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
+					clan.addMemberName(oldClanMember.getName());
+					oldClanMember.sendPackets(new S_ServerMessage(95,
+							clanName)); //
+				} else { //
 					try {
 						L1PcInstance offClanMember = CharacterTable
 								.getInstance().restoreCharacter(
-										oldClanMemberName[i]);   
-						offClanMember.setClanid(clanId);   
-						offClanMember.setClanname(clanName);   
-						offClanMember.setClanRank(L1Clan.CLAN_RANK_PROBATION);   
-						offClanMember.save();  
-						clan.addMemberName(offClanMember.getName()); 
+										oldClanMemberName[i]);
+						offClanMember.setClanid(clanId);
+						offClanMember.setClanname(clanName);
+						offClanMember.setClanRank(L1Clan.CLAN_RANK_PROBATION);
+						offClanMember.save(); 
+						clan.addMemberName(offClanMember.getName());
 					} catch (Exception e) {
 						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
@@ -577,18 +589,20 @@ public class C_Attr extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(327)); 
 			return;
 		}
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(pet.getNpcId());  
-		if (!(pet.getName().equalsIgnoreCase(l1npc.get_name())) ) {   
-			pc.sendPackets(new S_ServerMessage(326));  
-			return;  		   
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(pet.getNpcId());
+		if (!(pet.getName().equalsIgnoreCase(l1npc.get_name())) ) {
+			pc.sendPackets(new S_ServerMessage(326)); 
+			return;
 		}
  		pet.setName(name);
 		petTemplate.set_name(name);
 		PetTable.getInstance().storePet(petTemplate); 
-		L1ItemInstance item = pc.getInventory().getItem(pet.getItemObjId());   
+		L1ItemInstance item = pc.getInventory().getItem(pet.getItemObjId());
 		pc.getInventory().updateItem(item); 
-		pc.sendPackets(new S_PetPack(pet, pc));
-}
+		pc.sendPackets(new S_ChangeName(pet.getId(), name));
+		pc.broadcastPacket(new S_ChangeName(pet.getId(), name));
+	}
+
 	@Override
 	public String getType() {
 		return C_ATTR;

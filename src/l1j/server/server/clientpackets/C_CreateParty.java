@@ -99,4 +99,5 @@ public class C_CreateParty extends ClientBasePacket {
 	public String getType() {
 		return C_CREATE_PARTY;
 	}
+
 }

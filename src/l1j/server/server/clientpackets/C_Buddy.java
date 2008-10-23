@@ -33,10 +33,14 @@ import l1j.server.server.serverpackets.S_Buddy;
 
 public class C_Buddy extends ClientBasePacket {
 
+	private static final String C_BUDDY = "[C] C_Buddy";
+	private static Logger _log = Logger.getLogger(C_Buddy.class.getName());
+
 	public C_Buddy(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
-		L1Buddy buddy = BuddyTable.getInstance().getBuddyTable(pc.getId());
+		L1Buddy buddy = BuddyTable.getInstance().getBuddyTable(
+				pc.getId());
 		pc.sendPackets(new S_Buddy(pc.getId(), buddy));
 	}
 
@@ -45,7 +49,4 @@ public class C_Buddy extends ClientBasePacket {
 		return C_BUDDY;
 	}
 
-	private static final String C_BUDDY = "[C] C_Buddy";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_Buddy.class.getName());
 }

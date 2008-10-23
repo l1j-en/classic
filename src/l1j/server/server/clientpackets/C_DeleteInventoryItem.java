@@ -35,10 +35,15 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 		super(decrypt);
 		int itemObjectId = readD();
 		L1PcInstance pc = client.getActiveChar();
-		
 		L1ItemInstance item = pc.getInventory().getItem(itemObjectId);
+
 		if (item == null) {
-			// l1pcinstance.sendPackets(new S_SystemMessage(""));
+			return;
+		}
+
+		if (item.getItem().isCantDelete()) {
+			//
+			pc.sendPackets(new S_ServerMessage(125));
 			return;
 		}
 
@@ -47,7 +52,9 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+					
+					pc.sendPackets(new S_ServerMessage(210, item.getItem()
+							.getName()));
 					return;
 				}
 			}

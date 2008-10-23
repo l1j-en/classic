@@ -30,7 +30,11 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_CheckPK extends ClientBasePacket {
 
-	public C_CheckPK(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_CHECK_PK = "[C] C_CheckPK";
+	private static Logger _log = Logger.getLogger(C_CheckPK.class.getName());
+
+	public C_CheckPK(byte abyte0[], ClientThread clientthread) 
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
@@ -39,10 +43,7 @@ public class C_CheckPK extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_46_CHECKPK;
+		return C_CHECK_PK;
 	}
 
-	private static final String C_46_CHECKPK = "[C] C_CheckPK";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_CheckPK.class.getName());
 }

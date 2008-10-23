@@ -49,7 +49,6 @@ public class C_GiveItem extends ClientBasePacket {
 		int targetId = readD();
 		@SuppressWarnings("unused")
 		int x = readH();
-		@SuppressWarnings("unused")
 		int y = readH();
 		int itemId = readD();
 		int count = readD();
@@ -93,8 +92,7 @@ public class C_GiveItem extends ClientBasePacket {
 		for (Object petObject : pc.getPetList().values()) {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
-				if (item.getId() == pet.getItemObjId()) 
-				  {
+				if (item.getId() == pet.getItemObjId()) {
 					pc.sendPackets(new S_ServerMessage(210, item.getItem()
 							.getName()));
 					return;

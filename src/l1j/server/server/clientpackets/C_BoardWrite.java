@@ -59,12 +59,7 @@ public class C_BoardWrite extends ClientBasePacket {
 		}
 	}
 
-	@Override
-	public String getType() {
-		return C_BOARD_WRITE;
-	}
-
-	private static String currentTime() {
+private static String currentTime() {
 		TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
 		Calendar cal = Calendar.getInstance(tz);
 		int year = cal.get(Calendar.YEAR) - 2000;
@@ -90,4 +85,10 @@ public class C_BoardWrite extends ClientBasePacket {
 		}
 		return year2 + "/" + Month2 + "/" + date2;
 	}
+
+	@Override
+	public String getType() {
+		return C_BOARD_WRITE;
+	}
+
 }

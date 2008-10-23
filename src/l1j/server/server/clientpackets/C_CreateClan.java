@@ -33,7 +33,11 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_CreateClan extends ClientBasePacket {
 
-	public C_CreateClan(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_CREATE_CLAN = "[C] C_CreateClan";
+	private static Logger _log = Logger.getLogger(C_CreateClan.class.getName());
+
+	public C_CreateClan(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 		String s = readS();
 		//TODO Never used
@@ -44,7 +48,8 @@ public class C_CreateClan extends ClientBasePacket {
 			if (l1pcinstance.getClanid() == 0) {
 
 				for (L1Clan clan : L1World.getInstance().getAllClans()) { 
-					if (clan.getClanName().toLowerCase().equals(s.toLowerCase())) {
+					if (clan.getClanName().toLowerCase()
+							.equals(s.toLowerCase())) {
 						l1pcinstance.sendPackets(new S_ServerMessage(99));
 						return;
 					}
@@ -63,10 +68,7 @@ public class C_CreateClan extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_CREATECLAN;
+		return C_CREATE_CLAN;
 	}
 
-	private static final String C_0B_CREATECLAN = "[C] C_CreateClan";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_CreateClan.class.getName());
 }

@@ -47,7 +47,6 @@ public class C_Chat extends ClientBasePacket {
 		super(abyte0);
 
 		L1PcInstance pc = clientthread.getActiveChar();
-				
 		int chatType = readC();
 		String chatText = readS();
 		if (pc.hasSkillEffect(L1SkillId.SILENCE)
@@ -68,16 +67,18 @@ public class C_Chat extends ClientBasePacket {
 				String cmd = chatText.substring(1);
 				GMCommands.getInstance().handleCommands(pc, cmd);
 				return;
-			}else if (chatText.startsWith("-")){
+			} else if (chatText.startsWith("-")) {
 				String cmd = chatText.substring(1);
 				PCommands.getInstance().handleCommands(pc, cmd);
 				return;
 			}
+
 			if (chatText.startsWith("$")) {   
 				String text = chatText.substring(1);   
 				chatWorld(pc, text, 12);  
 				return;   
 			} 
+
 			ChatLogTable.getInstance().storeChat(pc, null, chatText,chatType);
 			S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText,
 					Opcodes.S_OPCODE_NORMALCHAT, 0);
@@ -162,8 +163,8 @@ public class C_Chat extends ClientBasePacket {
 					}
 				}
 			}
-		} else if (chatType == 12) {  
-			chatWorld(pc, chatText, chatType); 
+		} else if (chatType == 12) { 
+			chatWorld(pc, chatText, chatType);
 		} else if (chatType == 13) {
 			if (pc.getClanid() != 0) { 
 				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
@@ -187,45 +188,62 @@ public class C_Chat extends ClientBasePacket {
 				}
 			}
 		} else if (chatType == 14) { 
-			if (pc.isInChatParty()) {  
-				ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);  
-				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_GLOBALCHAT, 14);   
-				L1PcInstance[] partyMembers = pc.getChatParty().getMembers();   
-				for (L1PcInstance listner : partyMembers) {   
-					if (!listner.excludes(pc.getName())) {   
-						listner.sendPackets(s_chatpacket);   
-						}  
-					}   
-				} 
-		    }
-	     }
- 
-	private void chatWorld(L1PcInstance pc, String chatText, int chatType) {   
-		if (pc.isGm() || pc.isMonitor()) {   
-			ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);   
-			L1World.getInstance().broadcastPacketToAll(new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_GLOBALCHAT, chatType));   
-			} else if (pc.getLevel() >= Config.GLOBAL_CHAT_LEVEL) {   
-				if (L1World.getInstance().isWorldChatElabled()) {   
-					if (pc.get_food() >= 2) {   
-						// we dont want this on lineagedc
-						// pc.set_food(pc.get_food() - 2);  
-						ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);  
-						//pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food()));   
-						for (L1PcInstance listner : L1World.getInstance().getAllPlayers()) {    
-						if (!listner.excludes(pc.getName())) {  
-							listner.sendPackets(new S_ChatPacket(pc, chatText,Opcodes.S_OPCODE_GLOBALCHAT, chatType));   
-							}   
-						}   
-						} else {   
-						pc.sendPackets(new S_ServerMessage(462));  
-						}   
-					} else {   
-						pc.sendPackets(new S_ServerMessage(510));  
-						}   
-				} else {   
-					pc.sendPackets(new S_ServerMessage(195, String.valueOf(Config.GLOBAL_CHAT_LEVEL)));  
-			   }   	
+			if (pc.isInChatParty()) { 
+				ChatLogTable.getInstance().storeChat(pc, null, chatText,
+						chatType);
+				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText,
+						Opcodes.S_OPCODE_GLOBALCHAT, 14);
+				L1PcInstance[] partyMembers = pc.getChatParty().getMembers();
+				for (L1PcInstance listner : partyMembers) {
+					if (!listner.excludes(pc.getName())) {
+						listner.sendPackets(s_chatpacket);
+					}
+				}
+			}
 		}
+	}
+
+	private void chatWorld(L1PcInstance pc, String chatText, int chatType) {
+		if (pc.isGm() || pc.isMonitor()) { // Do not remove monitor ability
+			ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);
+			L1World.getInstance().broadcastPacketToAll(new S_ChatPacket(pc,
+					chatText, Opcodes.S_OPCODE_GLOBALCHAT, chatType));
+		} else if (pc.getLevel() >= Config.GLOBAL_CHAT_LEVEL) {
+			if (L1World.getInstance().isWorldChatElabled()) {
+				if (pc.get_food() >= 2) {
+					// pc.set_food(pc.get_food() - 2); // we dont want this on lineagedc
+					ChatLogTable.getInstance().storeChat(pc, null, chatText,
+							chatType);
+					//pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc
+					//		.get_food()));
+					for (L1PcInstance listner : L1World.getInstance()
+							.getAllPlayers()) {
+						if (!listner.excludes(pc.getName())) {
+							if (listner.isShowTradeChat()
+									&& chatType == 12) {
+								listner.sendPackets(new S_ChatPacket(pc,
+										chatText, Opcodes.S_OPCODE_GLOBALCHAT,
+												chatType));
+							} else if (listner.isShowWorldChat()
+									&& chatType == 3) {
+								listner.sendPackets(new S_ChatPacket(pc,
+										chatText, Opcodes.S_OPCODE_GLOBALCHAT,
+												chatType));
+							}
+						}
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(462)); //
+				}
+			} else {
+				pc.sendPackets(new S_ServerMessage(510)); //
+			}
+		} else {
+			pc.sendPackets(new S_ServerMessage(195, String.valueOf(Config
+					.GLOBAL_CHAT_LEVEL))); // 
+		}
+	}
+
 	@Override
 	public String getType() {
 		return C_CHAT;

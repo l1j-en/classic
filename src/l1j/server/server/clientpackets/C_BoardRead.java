@@ -31,6 +31,9 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 public class C_BoardRead extends ClientBasePacket {
 
+	private static final String C_BOARD_READ = "[C] C_BoardRead";
+	private static Logger _log = Logger.getLogger(C_BoardRead.class.getName());
+
 	public C_BoardRead(byte decrypt[], ClientThread client) {
 		super(decrypt);
 		int objId = readD();
@@ -42,10 +45,7 @@ public class C_BoardRead extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_BoardRead;
+		return C_BOARD_READ;
 	}
 
-	private static final String C_BoardRead = "[C] C_BoardRead";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_BoardRead.class.getName());
 }

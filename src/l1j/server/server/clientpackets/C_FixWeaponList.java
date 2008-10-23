@@ -30,6 +30,10 @@ import l1j.server.server.serverpackets.S_FixWeaponList;
 
 public class C_FixWeaponList extends ClientBasePacket {
 
+	private static final String C_FIX_WEAPON_LIST = "[C] C_FixWeaponList";
+	private static Logger _log = Logger.getLogger(C_FixWeaponList.class
+			.getName());
+
 	public C_FixWeaponList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
@@ -41,7 +45,4 @@ public class C_FixWeaponList extends ClientBasePacket {
 		return C_FIX_WEAPON_LIST;
 	}
 
-	private static final String C_FIX_WEAPON_LIST = "[C] C_FixWeaponList";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_FixWeaponList.class.getName());
 }

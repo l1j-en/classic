@@ -43,7 +43,6 @@ import l1j.server.server.templates.L1Skills;
 public class C_CreateChar extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
-
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
 
 	public C_CreateChar(byte[] abyte0, ClientThread client)
@@ -51,14 +50,16 @@ public class C_CreateChar extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
 		String name = readS();
-		name = name.replaceAll("\\s", ""); 
-        name = name.replaceAll("@", "");  
-        if (name.length() == 0) {  
-        S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(  
-        S_CharCreateStatus.REASON_INVALID_NAME);  
-        client.sendPacket(s_charcreatestatus);  
-        return;  
-        } 
+
+		name = name.replaceAll("\\s", "");
+        name = name.replaceAll("@", "");
+		if (name.length() == 0) {
+			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(
+					S_CharCreateStatus.REASON_INVALID_NAME);
+			client.sendPacket(s_charcreatestatus);
+			return;
+		}
+
 		if (isInvalidName(name)) {
 			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_INVALID_NAME);
@@ -105,8 +106,10 @@ public class C_CreateChar extends ClientBasePacket {
 			return;
 		}
 
-		_log.fine("charname: " + pc.getName() + " classId: " + pc.getClassId());
-		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(S_CharCreateStatus.REASON_OK);
+		_log.fine("charname: " + pc.getName() + " classId: "
+				+ pc.getClassId());
+		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(
+				S_CharCreateStatus.REASON_OK);
 		client.sendPacket(s_charcreatestatus2);
 		initNewChar(client, pc);
 	}
@@ -121,7 +124,8 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final int[] LOCY_LIST_ORG = new int[] { 32781, 32877, 32336, 32781, 32910 };
 	private static final short[] MAPID_LIST_ORG = new short[] { 68, 69, 4, 68, 304 };
 
-	private static void initNewChar(ClientThread client, L1PcInstance pc) throws IOException, Exception {
+	private static void initNewChar(ClientThread client, L1PcInstance pc)
+			throws IOException, Exception {
 
 		short init_hp = 0;
 		short init_mp = 0;

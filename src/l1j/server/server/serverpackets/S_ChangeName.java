@@ -16,28 +16,37 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server.clientpackets;
+
+package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
-import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.templates.L1BookMark;
+import l1j.server.server.Opcodes;
 
-public class C_DeleteBookmark extends ClientBasePacket {
-	private static final String C_DETELE_BOOKMARK = "[C] C_DeleteBookmark";
-	private static Logger _log = Logger.getLogger(C_DeleteBookmark.class
-			.getName());
+// Referenced classes of package l1j.server.server.serverpackets:
+// ServerBasePacket
 
-	public C_DeleteBookmark(byte[] decrypt, ClientThread client) {
-		super(decrypt);
-		String bookmarkname = readS();
-		L1PcInstance pc = client.getActiveChar();
-		L1BookMark.deleteBookmark(pc, bookmarkname);
+public class S_ChangeName extends ServerBasePacket {
+
+	private static Logger _log = Logger.getLogger(S_ChangeName.class.getName());
+	private static final String S_CHANGE_NAME = "[S] S_ChangeName";
+	private byte[] _byte = null;
+
+	public S_ChangeName(int objectId, String name) {
+		writeC(Opcodes.S_OPCODE_CHANGENAME);
+		writeD(objectId);
+		writeS(name);
 	}
 
 	@Override
+	public byte[] getContent() {
+		if (_byte == null) {
+			_byte = getBytes();
+		}
+		return _byte;
+	}
+
 	public String getType() {
-		return C_DETELE_BOOKMARK;
+		return S_CHANGE_NAME;
 	}
 }

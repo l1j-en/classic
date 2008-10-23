@@ -34,9 +34,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_BanClan extends ClientBasePacket {
 
-	private static final String C_0B_BAN_CLAN = "[C] C_BanClan";
-	private static Logger _log = Logger.getLogger(C_BanClan.class
-			.getName());
+	private static final String C_BAN_CLAN = "[C] C_BanClan";
+	private static Logger _log = Logger.getLogger(C_BanClan.class.getName());
 
 	public C_BanClan(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -97,6 +96,6 @@ public class C_BanClan extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_BAN_CLAN;
+		return C_BAN_CLAN;
 	}
 }

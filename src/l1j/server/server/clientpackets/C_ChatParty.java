@@ -43,7 +43,7 @@ public class C_ChatParty extends ClientBasePacket {
 		if (pc.isGhost()) {
 			return;
 		}
-		
+
 		int type = readC();
 		if (type == 0) { // /chatban
 			String name = readS();
@@ -58,7 +58,7 @@ public class C_ChatParty extends ClientBasePacket {
 			}
 			L1PcInstance targetPc = L1World.getInstance().getPlayer(name);
 			if (targetPc == null) {
-					pc.sendPackets(new S_ServerMessage(109));
+				pc.sendPackets(new S_ServerMessage(109));
 				return;
 			}
 			if (pc.getId() == targetPc.getId()) {

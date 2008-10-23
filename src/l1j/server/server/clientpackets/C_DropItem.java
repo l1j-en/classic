@@ -30,16 +30,16 @@ import l1j.server.server.serverpackets.S_Disconnect;
 
 public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
-
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
-	public C_DropItem(byte[] decrypt, ClientThread client) throws Exception {
+	public C_DropItem(byte[] decrypt, ClientThread client)
+			throws Exception {
 		super(decrypt);
 		int x = readH();
 		int y = readH();
 		int objectId = readD();
 		int count = readD();
-		
+
 		L1PcInstance pc = client.getActiveChar();
 		
 		if (count < 0)
@@ -63,7 +63,7 @@ public class C_DropItem extends ClientBasePacket {
 
 		L1ItemInstance item = pc.getInventory().getItem(objectId);
 		if (item != null) {
-			if (!item.getItem().isTradable()) {				
+			if (!item.getItem().isTradable()) {
 				pc.sendPackets(new S_ServerMessage(210, item.getItem()
 						.getName()));
 				return;
@@ -85,7 +85,8 @@ public class C_DropItem extends ClientBasePacket {
 				return;
 			}
 
-			pc.getInventory().tradeItem(item, count, L1World.getInstance().getInventory(x, y, pc.getMapId()));
+			pc.getInventory().tradeItem(item, count,
+					L1World.getInstance().getInventory(x, y, pc.getMapId()));
 		}
 	}
 

@@ -1,0 +1,24 @@
+This document details setting up the server on a Linux, BSD, Solaris, 
+or unix-variant OS. Currently, only Linux and BSD are in use within this 
+team.
+
+Setup
+-----
+
+TODO: Fill this in later. For now, see the project site's Server Setup
+Guide wiki for a general overview.
+
+Running
+-------
+
+First thing to do is make the dir "log" in your server dir.  Then you need to 
+edit "l1server_startup.sh" to your server dir.  Then to use the shell files 
+you need make "l1server_startup.sh" executable.  To do that you use command 
+"chmod +x l1server_startup.sh" and do the same for serverstart.sh.  Then from 
+the terminal you run 
+
+./l1server_startup.sh 
+
+Then your server should be up and running. To check if it is, look in your 
+server folder and look in the dir "log" and read stdout.log.  It will show 
+you your console info.
