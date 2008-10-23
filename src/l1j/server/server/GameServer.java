@@ -128,10 +128,8 @@ public class GameServer extends Thread {
 		double rateDropAdena = Config.RATE_DROP_ADENA;
 
 		System.out.println("=================================================");
-		System.out.println("             Lineage DC Server Starting");
+		System.out.println("               L1J-En Server Starting");
 		System.out.println("=================================================");
-		System.out.println("L1DC Datapack Version: " + Config.DATAPACK_VERSION);
-		System.out.println("L1DC Server Version: " + Config.SERVER_VERSION);
 		chatlvl = Config.GLOBAL_CHAT_LEVEL;
 		_port = Config.GAME_SERVER_PORT;
 		_internal = Config.INTERNAL_HOSTNAME;

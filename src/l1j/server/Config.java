@@ -384,12 +384,6 @@ public final class Config {
 	public static boolean PLAYER_BUFF;
 	
 	public static boolean POWER_BUFF;
-
-	public static String     SERVER_VERSION; 
-
-	public static String     SERVER_BUILD_DATE; 
-
-	public static String     DATAPACK_VERSION;   
 	
 	public static int PORT_LOGIN;
 
