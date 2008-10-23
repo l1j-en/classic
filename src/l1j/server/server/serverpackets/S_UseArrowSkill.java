@@ -29,10 +29,14 @@ import l1j.server.server.model.L1Character;
 
 public class S_UseArrowSkill extends ServerBasePacket {
 
+	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
+
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
 
-	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx, int x, int y) {
+	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y) {
+
 		int aid = 1;
 
 		if (cha.getTempCharGfx() == 3860) {
@@ -45,7 +49,7 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		writeC(6);
 		writeC(cha.getHeading());
 		// writeD(0x12000000);
-		//writeD(246);
+		// writeD(246);
 		writeD(_sequentialNumber.incrementAndGet());
 		writeH(spellgfx);
 		writeC(127); // Using the skills of space in the light source?
@@ -80,7 +84,7 @@ public class S_UseArrowSkill extends ServerBasePacket {
 	}
 
 	public String getType() {
-		return "[S] S_UseArrowSkill";
+		return S_USE_ARROW_SKILL;
 	}
 
 }
