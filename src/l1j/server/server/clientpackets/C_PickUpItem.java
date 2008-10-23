@@ -32,6 +32,8 @@ import l1j.server.server.serverpackets.S_AttackStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_PickUpItem extends ClientBasePacket {
+
+	private static final String C_PICK_UP_ITEM = "[C] C_PickUpItem";
 	private static Logger _log = Logger.getLogger(C_PickUpItem.class
 			.getName());
 
@@ -100,6 +102,6 @@ public class C_PickUpItem extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return "[C] C_PickUpItem";
+		return C_PICK_UP_ITEM;
 	}
 }

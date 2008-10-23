@@ -26,7 +26,7 @@ public class V2MapReader extends MapReader {
 
 	/**
 	 * Map ID list of all returns.
-	 *
+	 * 
 	 * @return ArraryList
 	 */
 	private ArrayList<Integer> listMapIds() {
@@ -52,9 +52,10 @@ public class V2MapReader extends MapReader {
 		}
 		return ids;
 	}
+
 	/**
 	 * All text to read the map.
-	 *
+	 * 
 	 * @return Map
 	 * @throws IOException
 	 */
@@ -66,9 +67,10 @@ public class V2MapReader extends MapReader {
 		}
 		return maps;
 	}
+
 	/**
 	 * Specify the number of caches map to read the map.
-	 *
+	 * 
 	 * @param mapId
 	 *            Map No.
 	 * @return L1Map
@@ -99,7 +101,7 @@ public class V2MapReader extends MapReader {
 			tiles[i] = (byte) in.readByte();
 		}
 		in.close();
-		
+
 		L1V2Map map = new L1V2Map(id, tiles, xLoc, yLoc, width, height,
 				MapsTable.getInstance().isUnderwater(mapId),
 				MapsTable.getInstance().isMarkable(mapId),
@@ -109,9 +111,9 @@ public class V2MapReader extends MapReader {
 				MapsTable.getInstance().isUsePainwand(mapId),
 				MapsTable.getInstance().isEnabledDeathPenalty(mapId),
 				MapsTable.getInstance().isTakePets(mapId),
-				MapsTable.getInstance().isRecallPets(mapId),   
-				MapsTable.getInstance().isUsableItem(mapId),   
-				MapsTable.getInstance().isUsableSkill(mapId)); 
+				MapsTable.getInstance().isRecallPets(mapId),
+				MapsTable.getInstance().isUsableItem(mapId),
+				MapsTable.getInstance().isUsableSkill(mapId));
 		return map;
 	}
 }

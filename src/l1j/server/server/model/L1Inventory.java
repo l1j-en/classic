@@ -39,10 +39,13 @@ public class L1Inventory extends L1Object {
 
 	private static final long serialVersionUID = 1L;
 	protected List<L1ItemInstance> _items = new CopyOnWriteArrayList<L1ItemInstance>();
+
 	public static final int MAX_AMOUNT = 2000000000; // 2G
+
 	public static final int MAX_WEIGHT = 1500;
 
 	public L1Inventory() {
+		//
 	}
 
 	public int getSize() {
@@ -76,7 +79,8 @@ public class L1Inventory extends L1Object {
 			return -1;
 		}
 		if (getSize() > Config.MAX_NPC_ITEM
-				|| (getSize() == Config.MAX_NPC_ITEM && (!item.isStackable() || !checkItem(item
+				|| (getSize() == Config.MAX_NPC_ITEM
+						&& (!item.isStackable() || !checkItem(item
 						.getItem().getItemId())))) { 
 			return SIZE_OVER;
 		}
@@ -89,32 +93,38 @@ public class L1Inventory extends L1Object {
 		L1ItemInstance itemExist = findItemId(item.getItemId());
 		if (itemExist != null && (itemExist.getCount() + count) > MAX_AMOUNT) {
 			return AMOUNT_OVER;
-		}   
-		return OK;   
-		}   
-	    public static final int WAREHOUSE_TYPE_PERSONAL = 0;   
-	    public static final int WAREHOUSE_TYPE_CLAN = 1;   
-	    public int checkAddItemToWarehouse(L1ItemInstance item, 
-	    		int count,   
-	    		int type) {  
-	    	if (item == null) {   
-	    		return -1;   
-	    		}   
-	    	int maxSize = 100;   
-	    	if (type == WAREHOUSE_TYPE_PERSONAL) {   
-	    		maxSize = Config.MAX_PERSONAL_WAREHOUSE_ITEM;   
-	    		}  
-	    	else if (type == WAREHOUSE_TYPE_CLAN) {   
-	    		maxSize = Config.MAX_CLAN_WAREHOUSE_ITEM;   
-	    		}   
-	    	if (getSize() > maxSize || (getSize() == maxSize && (!item.isStackable()  
-	    			|| !checkItem(item.getItem().getItemId())))) { 
-	    		return SIZE_OVER; 
 		}
-		
+
 		return OK;
 	}
 
+	//
+	public static final int WAREHOUSE_TYPE_PERSONAL = 0;
+
+	public static final int WAREHOUSE_TYPE_CLAN = 1;
+
+	public int checkAddItemToWarehouse(L1ItemInstance item, int count,
+			int type) {
+		if (item == null) {
+			return -1;
+		}
+
+		int maxSize = 100;
+		if (type == WAREHOUSE_TYPE_PERSONAL) {
+			maxSize = Config.MAX_PERSONAL_WAREHOUSE_ITEM;
+		} else if (type == WAREHOUSE_TYPE_CLAN) {
+			maxSize = Config.MAX_CLAN_WAREHOUSE_ITEM;
+		}
+		if (getSize() > maxSize
+				|| (getSize() == maxSize && (!item.isStackable()
+						 || !checkItem(item.getItem().getItemId())))) { //
+			return SIZE_OVER;
+		}
+
+		return OK;
+	}
+
+	//
 	public L1ItemInstance storeItem(int id, int count) {
 		L1Item temp = ItemTable.getInstance().getTemplate(id);
 		if (temp == null) {
@@ -222,7 +232,8 @@ public class L1Inventory extends L1Object {
 	@SuppressWarnings("unchecked")
 	public class DataComparator implements java.util.Comparator {
 		public int compare(Object item1, Object item2) {
-			return ((L1ItemInstance) item1).getEnchantLevel() - ((L1ItemInstance) item2).getEnchantLevel();
+			return ((L1ItemInstance) item1).getEnchantLevel()
+					- ((L1ItemInstance) item2).getEnchantLevel();
 		}
 	}
 
@@ -276,8 +287,8 @@ public class L1Inventory extends L1Object {
 		return tradeItem(item, count, inventory);
 	}
 
-	public L1ItemInstance tradeItem(L1ItemInstance item, int count, 
-            L1Inventory inventory) {
+	public L1ItemInstance tradeItem(L1ItemInstance item, int count,
+			L1Inventory inventory) {
 		if (item == null) {
 			return null;
 		}
@@ -294,7 +305,8 @@ public class L1Inventory extends L1Object {
 		} else {
 			item.setCount(item.getCount() - count);
 			updateItem(item);
-			carryItem = ItemTable.getInstance().createItem(item.getItem().getItemId());
+			carryItem = ItemTable.getInstance().createItem(
+					item.getItem().getItemId());
 			carryItem.setCount(count);
 			carryItem.setEnchantLevel(item.getEnchantLevel());
 			carryItem.setIdentified(item.isIdentified());
@@ -302,7 +314,7 @@ public class L1Inventory extends L1Object {
 			carryItem.setChargeCount(item.getChargeCount());
 			carryItem.setLastUsed(item.getLastUsed());
 		}
-		return inventory.storeItem(carryItem);
+		return inventory.storeTradeItem(carryItem);
 	}
 
 	public L1ItemInstance receiveDamage(int objectId) {
@@ -498,4 +510,5 @@ public class L1Inventory extends L1Object {
 
 	public void updateItem(L1ItemInstance item, int colmn) {
 	}
+
 }

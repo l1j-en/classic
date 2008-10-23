@@ -71,15 +71,14 @@ import l1j.server.server.serverpackets.S_AuctionBoardRead;
 import l1j.server.server.serverpackets.S_CloseList;
 import l1j.server.server.serverpackets.S_DelSkill;
 import l1j.server.server.serverpackets.S_Deposit;
-import l1j.server.server.serverpackets.S_Door;
-import l1j.server.server.serverpackets.S_DoorPack;
-import l1j.server.server.serverpackets.S_Doors;
 import l1j.server.server.serverpackets.S_Drawal;
 import l1j.server.server.serverpackets.S_HouseMap;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
+import l1j.server.server.serverpackets.S_OwnCharAttrDef;
+import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PetList;
 import l1j.server.server.serverpackets.S_RetrieveList;
 import l1j.server.server.serverpackets.S_RetrieveElfList;
@@ -216,22 +215,26 @@ public class C_NPCAction extends ClientBasePacket {
 			if (pc.getLevel() >= 5) {
 				pc.sendPackets(new S_RetrieveList(objid, pc));
 			}
-		} else if (s.equalsIgnoreCase("retrieve-pledge")) { 
+		} else if (s.equalsIgnoreCase("retrieve-elven")) { //
+			if (pc.getLevel() >= 5 && pc.isElf()) {
+				pc.sendPackets(new S_RetrieveElfList(objid, pc));
+			}
+		} else if (s.equalsIgnoreCase("retrieve-pledge")) { //
 			if (pc.getLevel() >= 5) {
-				if (pc.getClanid() == 0) {  
-					pc.sendPackets(new S_ServerMessage(208));   
-					return;   
-				}   
-				int rank = pc.getClanRank();   
-				if (rank != 0 // adding this for unranked members. probationary members will still
-							  // not be able to access storage.
-						&& rank != L1Clan.CLAN_RANK_PUBLIC   
-						&& rank != L1Clan.CLAN_RANK_GUARDIAN   
-						&& rank != L1Clan.CLAN_RANK_PRINCE) {  
-					pc.sendPackets(new S_ServerMessage(728));  
-					return;   
-				}  
-				pc.sendPackets(new S_RetrievePledgeList(objid, pc)); 
+				if (pc.getClanid() == 0) {
+					//
+					pc.sendPackets(new S_ServerMessage(208));
+					return;
+				}
+				int rank = pc.getClanRank();
+				if (rank != L1Clan.CLAN_RANK_PUBLIC
+						&& rank != L1Clan.CLAN_RANK_GUARDIAN
+						&& rank != L1Clan.CLAN_RANK_PRINCE) {
+					//
+					pc.sendPackets(new S_ServerMessage(728));
+					return;
+				}
+				pc.sendPackets(new S_RetrievePledgeList(objid, pc));
 			}
 		} else if (s.equalsIgnoreCase("get")) {
 			L1NpcInstance npc = (L1NpcInstance) obj;
@@ -327,11 +330,8 @@ public class C_NPCAction extends ClientBasePacket {
 				if (castle_id != 0) { 
 					L1Castle l1castle = CastleTable.getInstance()
 							.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId())
 					pc.sendPackets(new S_Drawal(pc.getId(), l1castle
 							.getPublicMoney()));
-					else 
-						htmlid = "";
 				}
 			}
 		} else if (s.equalsIgnoreCase("cdeposit")) { 
@@ -340,404 +340,9 @@ public class C_NPCAction extends ClientBasePacket {
 
 		} else if (s.equalsIgnoreCase("arrange")) { 
 
-		} else if (s.equalsIgnoreCase("castlegate")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-							if (pc.getClanid() == 0) {
-								return;
-							}
-							if (clan == null) {
-								return;
-							}
-							if (npc.getNpcTemplate().get_npcId() ==  70784) { 
-								if (clan.getCastleId() != 3) {
-									return;
-								}
-							}
-							String msg1 = "";
-							String msg2 = "";
-							String msg3 = "";
-							String msg4 = "";
-							String msg5 = "";
-							String msg6 = "";
-							for (L1DoorInstance door : DoorSpawnTable.getInstance().getCastleList()) {
-								if (door.getCastleId() == castle_id) {
-									switch(npc.getNpcTemplate().get_npcId())
-									{
-										case 70784: {
-											switch(door.getOrder())
-											{
-												case 3: {
-													String msg11 = "$441";
-													if (door.getCurrentHp() <= 0) {
-														msg5 = msg11 + " " + "$434";
-													} else if ((door.getMaxHp() * 1 / 8) > door.getCurrentHp()) {
-														msg5 =msg11 + " " + "$435";
-													} else if ((door.getMaxHp() * 1 / 4) > door.getCurrentHp()) {
-														msg5 = msg11 + " " + "$436";
-													} else if ((door.getMaxHp() * 2 / 4) > door.getCurrentHp()) {
-														msg5 = msg11 + " " + "$437";
-													} else if ((door.getMaxHp() * 3 / 4) > door.getCurrentHp()) {
-														msg5 = msg11 + " " + "$438";
-													} else if (door.getMaxHp() == door.getCurrentHp() || 
-														(door.getMaxHp() * 3 / 4) <= door.getCurrentHp()) {
-														msg5 = msg11 + " " + "$439";
-													}
-												}
-												break;
-												case 2: {
-													String msg11 = "$1603";
-													if (door.getCurrentHp() <= 0) {
-														msg1 = msg11 + " " + "$434";
-													} else if ((door.getMaxHp() * 1 / 8) > door.getCurrentHp()) {
-														msg1 =msg11 + " " + "$435";
-													} else if ((door.getMaxHp() * 1 / 4) > door.getCurrentHp()) {
-														msg1 = msg11 + " " + "$436";
-													} else if ((door.getMaxHp() * 2 / 4) > door.getCurrentHp()) {
-														msg1 = msg11 + " " + "$437";
-													} else if ((door.getMaxHp() * 3 / 4) > door.getCurrentHp()) {
-														msg1 = msg11 + " " + "$438";
-													} else if (door.getMaxHp() == door.getCurrentHp() || 
-														(door.getMaxHp() * 3 / 4) <= door.getCurrentHp()) {
-														msg1 = msg11 + " " + "$439";
-													}
-												}
-												break;
-												case 1: {
-													String msg11 = "$1399";
-													if (door.getCurrentHp() <= 0) {
-														msg3 = msg11 + " " + "$434";
-													} else if ((door.getMaxHp() * 1 / 8) > door.getCurrentHp()) {
-														msg3 = msg11 + " " + "$435";
-													} else if ((door.getMaxHp() * 1 / 4) > door.getCurrentHp()) {
-														msg3 = msg11 + " " + "$436";
-													} else if ((door.getMaxHp() * 2 / 4) > door.getCurrentHp()) {
-														msg3 = msg11 + " " + "$437";
-													} else if ((door.getMaxHp() * 3 / 4) > door.getCurrentHp()) {
-														msg3 = msg11 + " " + "$438";
-													} else if (door.getMaxHp() == door.getCurrentHp() || 
-														(door.getMaxHp() * 3 / 4) <= door.getCurrentHp()) {
-														msg3 = msg11 + " " + "$439";
-													}
-												}
-												break;
-											}
-											String ask[] = { msg1, msg2, msg3, msg4, msg5, msg6};
-											pc.sendPackets(new S_NPCTalkReturn(objid, "othmond5", ask));
-										}
-										break;
-									}
-								}	
-							}
-						}
-					}
-				}
-			}
-		} 
-		else if (s.equalsIgnoreCase("autorepairon")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-						}
-					}
-				}
-			}
-		} else if (s.equalsIgnoreCase("autorepairoff")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-						}
-					}
-				}
-			}
-		} else if (s.equalsIgnoreCase("healegate_winda ogl")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-							if (pc.getClanid() == 0) {
-								return;
-							}
-							if (clan == null) {
-								return;
-							}
-							if (npc.getNpcTemplate().get_npcId() ==  70784) {
-								if (clan.getCastleId() != 3) {
-									return;
-								}
-							}
-							String msg1 = "";
-							String msg2 = "";
-							String msg3 = "";
-							String msg4 = "";
-							String msg5 = "";
-							String msg6 = "";
-							for (L1DoorInstance door : DoorSpawnTable.getInstance().getCastleList()) {
-								if (door.getCastleId() == castle_id) {
-									switch(door.getOrder())
-									{
-										case 1: {
-											if (door.getCurrentHp() < door.getMaxHp()) {
-												int Money = 0;
-												Money = (door.getMaxHp() - door.getCurrentHp()) * 10; 
-												door.setCurrentHp(door.getMaxHp());
-												door.setCurrentHpDirect(door.getMaxHp());
-												door.setDead(false);
-												l1castle.setPublicMoney(l1castle.getPublicMoney() - Money);
-												htmlid = "";
-												if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
-													door.setOpenStatus(ActionCodes.ACTION_Close);
-													door.setPassable(L1DoorInstance.NOT_PASS);
-													door.broadcastPacket(new S_DoorPack(door));
-													door.broadcastPacket(new S_Door(door));
-													
-													int X = door.getEntranceX();
-													int Y = door.getEntranceY();
-													int S = door.getSize() - 1;
-													if (S > 0) {
-														switch(door.getDirection())
-														{
-															case 0: {
-															for(int i = 0; i < S; i++)
-																{
-																	X--;	
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-															case 1: {
-																for(int i = 0; i < S; i++)
-																{
-																	Y--;	
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-														}
-													}
-												}
-											}
-										}
-										break;
-									}
-								}	
-							}
-						}
-					}
-				}
-			}
-		} else if (s.equalsIgnoreCase("healegate_winda ogf")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-							if (pc.getClanid() == 0) {
-								return;
-							}
-							if (clan == null) {
-								return;
-							}
-							if (npc.getNpcTemplate().get_npcId() ==  70784) { 
-								if (clan.getCastleId() != 3) {
-									return;
-								}
-							}
-							String msg1 = "";
-							String msg2 = "";
-							String msg3 = "";
-							String msg4 = "";
-							String msg5 = "";
-							String msg6 = "";
-							for (L1DoorInstance door : DoorSpawnTable.getInstance().getCastleList()) {
-								if (door.getCastleId() == castle_id) {
-									switch(door.getOrder())
-									{
-										case 2: {
-											if (door.getCurrentHp() < door.getMaxHp()) {
-												int Money = 0;
-												Money = (door.getMaxHp() - door.getCurrentHp()) * 10; 
-												door.setCurrentHp(door.getMaxHp());
-												door.setCurrentHpDirect(door.getMaxHp());
-												door.setDead(false);
-												l1castle.setPublicMoney(l1castle.getPublicMoney() - Money);
-												htmlid = "";
-												if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
-													door.setOpenStatus(ActionCodes.ACTION_Close);
-													door.setPassable(L1DoorInstance.NOT_PASS);
-													door.broadcastPacket(new S_DoorPack(door));
-													door.broadcastPacket(new S_Door(door));
-													
-													int X = door.getEntranceX();
-													int Y = door.getEntranceY();
-													int S = door.getSize() - 1;
-													if (S > 0) {
-														switch(door.getDirection())
-														{
-															case 0: {
-															for(int i = 0; i < S; i++)
-																{
-																	X--;
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-															case 1: {
-																for(int i = 0; i < S; i++)
-																{
-																	Y--;	
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-														}
-													}
-												}
-											}
-										}
-										break;
-									}
-								}	
-							}
-						}
-					}
-				}
-			}
-		} else if (s.equalsIgnoreCase("healigate_windawood inner gate")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-								.getCastleTable(castle_id);
-					if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-						if (WarTimeController.getInstance().isNowWar(castle_id)) {
-							htmlid = "othmond11";
-						} else if (l1castle.getPublicMoney() < 100000) {
-							htmlid = "othmond10";
-						} else {
-							if (pc.getClanid() == 0) {
-								return;
-							}
-							if (clan == null) {
-								return;
-							}
-							if (npc.getNpcTemplate().get_npcId() ==  70784) { 
-								if (clan.getCastleId() != 3) {
-									return;
-								}
-							}
-							String msg1 = "";
-							String msg2 = "";
-							String msg3 = "";
-							String msg4 = "";
-							String msg5 = "";
-							String msg6 = "";
-							for (L1DoorInstance door : DoorSpawnTable.getInstance().getCastleList()) {
-								if (door.getCastleId() == castle_id) {
-									switch(door.getOrder())
-									{
-										case 3: {
-											if (door.getCurrentHp() < door.getMaxHp()) {
-												int Money = 0;
-												Money = (door.getMaxHp() - door.getCurrentHp()) * 10;
-												door.setCurrentHp(door.getMaxHp());
-												door.setCurrentHpDirect(door.getMaxHp());
-												door.setDead(false);
-												l1castle.setPublicMoney(l1castle.getPublicMoney() - Money);
-												htmlid = "";
-												if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
-													door.setOpenStatus(ActionCodes.ACTION_Close);
-													door.setPassable(L1DoorInstance.NOT_PASS);
-													door.broadcastPacket(new S_DoorPack(door));
-													door.broadcastPacket(new S_Door(door));
-												
-													int X = door.getEntranceX();
-													int Y = door.getEntranceY();
-													int S = door.getSize() - 1;
-													if (S > 0) {
-														switch(door.getDirection())
-														{
-															case 0: {
-															for(int i = 0; i < S; i++)
-																{
-																	X--;	
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-															case 1: {
-																for(int i = 0; i < S; i++)
-																{
-																	Y--;	
-																	door.broadcastPacket(new S_Doors(X, Y, door.getDirection(), door.getPassable()));
-																}
-															}
-															break;
-														}
-													}
-												}
-											}
-										}
-										break;
-									}
-								}	
-							}
-						}
-					}
-				}
-			}
-		
-		} else if (s.equalsIgnoreCase("encw")) { 
+		} else if (s.equalsIgnoreCase("castlegate")) { //
+
+		} else if (s.equalsIgnoreCase("encw")) { //
 			if (pc.getWeapon() == null) {
 				pc.sendPackets(new S_ServerMessage(79));
 			} else {
@@ -751,7 +356,8 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		} else if (s.equalsIgnoreCase("enca")) { 
+			htmlid = ""; // 
+		} else if (s.equalsIgnoreCase("enca")) { //
 			L1ItemInstance item = pc.getInventory().getItemEquipped(2, 2);
 			if (item != null) {
 				L1SkillUse l1skilluse = new L1SkillUse();
@@ -767,7 +373,7 @@ public class C_NPCAction extends ClientBasePacket {
 			for (Object petObject : petList) {
 				if (petObject instanceof L1PetInstance) { 
 					L1PetInstance pet = (L1PetInstance) petObject;
-					pet.save();
+					pet.save(); // fix for pet xp. do not remove
 					pet.collect();
 					pc.getPetList().remove(pet.getId());
 					pet.deleteMe();
@@ -932,6 +538,8 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			htmlid = ""; 
 		}
+
+		// 
 		else if (s.equalsIgnoreCase("fire")) 
 		{
 			if (pc.isElf()) {
@@ -969,7 +577,7 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				pc.setElfAttr(1);
-				pc.save();  
+				pc.save(); 
 				pc.sendPackets(new S_SkillIconGFX(15, 4)); 
 				htmlid = ""; 
 			}
@@ -1036,8 +644,8 @@ public class C_NPCAction extends ClientBasePacket {
 			int npcId = ((L1NpcInstance) obj).getNpcId();
 			if (npcId == 80085 || npcId == 80086 || npcId == 80087) {
 				htmlid = enterHauntedHouse(pc);
-			 } else if (npcId == 80088) {   
-				 htmlid = enterPetMatch(pc, Integer.valueOf(s2)); 
+			} else if (npcId == 80088) {
+				htmlid = enterPetMatch(pc, Integer.valueOf(s2));
 			} else if (npcId == 50038 || npcId == 50042 || npcId == 50029
 					|| npcId == 50019 || npcId == 50062) {
 				htmlid = watchUb(pc, npcId);
@@ -1148,159 +756,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "orcfbuwoo2";
 			}
 		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71198) { 
-			if (s.equalsIgnoreCase("A")) { 
-			if (pc.getQuest().get_step(71198) != 0 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41339, 5)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(41340);
-			if (item != null) { 
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName()));
-			} 
-			} 
-			pc.getQuest().set_step(71198, 1); // save quest 
-			htmlid = "tion4"; 
-			} else { 
-			htmlid = "tion9"; 
-			} 
-			} else if (s.equalsIgnoreCase("B")) { 
-			if (pc.getQuest().get_step(71198) != 1 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41341, 1)) { 
-			pc.getQuest().set_step(71198, 2); // save quest 
-			htmlid = "tion5"; 
-			} else { 
-			htmlid = "tion10"; 
-			} 
-			} else if (s.equalsIgnoreCase("C")) { 
-			if (pc.getQuest().get_step(71198) != 2 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41343, 1)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(21057); 
-			if (item != null) { 
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName())); 
-			} 
-			} 
-			pc.getQuest().set_step(71198, 3); // save quest 
-			htmlid = "tion6"; 
-			} else { 
-			htmlid = "tion12"; 
-			} 
-			} else if (s.equalsIgnoreCase("D")) { 
-			if (pc.getQuest().get_step(71198) != 3 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41344, 1)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(21058);
-			if (item != null) { 
-			pc.getInventory().consumeItem(21057, 1); 
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName()));
-			} 
-			} 
-			pc.getQuest().set_step(71198, 4); // save quest 
-			htmlid = "tion7"; 
-			} else { 
-			htmlid = "tion13"; 
-			} 
-			} else if (s.equalsIgnoreCase("E")) { 
-			if (pc.getQuest().get_step(71198) != 4 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41345, 1)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(21059);  
-			if (item != null) { 
-			pc.getInventory().consumeItem(21058, 1);
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName())); 
-			} 
-			} 
-			pc.getQuest().set_step(71198, 0); // reset quest 
-			pc.getQuest().set_step(71199, 0); // reset quest 
-			htmlid = "tion8"; 
-			} else { 
-			htmlid = "tion15"; 
-			} 
-			} 
-			} 
-			else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71199) { 
-			if (s.equalsIgnoreCase("A")) { 
-			if (pc.getQuest().get_step(71199) != 0 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().checkItem(41340, 1)) {
-			pc.getQuest().set_step(71199, 1); // save quest 
-			htmlid = "jeron2"; 
-			} else { 
-			htmlid = "jeron10"; 
-			} 
-			} else if (s.equalsIgnoreCase("B")) { 
-			if (pc.getQuest().get_step(71199) != 1 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(40308, 1000000)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(41341);
-			if (item != null) { 
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName())); 
-			} 
-			} 
-			pc.getInventory().consumeItem(41340, 1); 
-			pc.getQuest().set_step(71199, 255); // save quest 
-			htmlid = "jeron6"; 
-			} else { 
-			htmlid = "jeron8"; 
-			} 
-			} else if (s.equalsIgnoreCase("C")) { 
-			if (pc.getQuest().get_step(71199) != 1 || pc.getInventory().checkItem(21059, 1)) { 
-			return; 
-			} 
-
-			if (pc.getInventory().consumeItem(41342, 1)) { 
-			L1ItemInstance item = ItemTable.getInstance().createItem(41341); 
-			if (item != null) { 
-			if (pc.getInventory().checkAddItem(item, 1) == 0) { 
-			pc.getInventory().storeItem(item); 
-			pc.sendPackets(new S_ServerMessage(143, 
-			((L1NpcInstance) obj).getNpcTemplate() 
-			.get_name(),item.getItem().getName())); 
-			} 
-			} 
-			pc.getInventory().consumeItem(41340, 1); 
-			pc.getQuest().set_step(71199, 255); // save quest 
-			htmlid = "jeron5"; 
-			} else { 
-			htmlid = "jeron9"; 
-			} 
-			} 
-			} 
+		//
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71040) {
 			if (s.equalsIgnoreCase("A")) {
 				L1NpcInstance npc = (L1NpcInstance) obj;
@@ -1361,7 +817,8 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
-			else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71044) {
+		// 
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71044) {
 			if (s.equalsIgnoreCase("A")) {
 				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41061, 1); 
@@ -1392,7 +849,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80049) {
-				if (s.equalsIgnoreCase("1")) {
+			if (s.equalsIgnoreCase("1")) {
 				if (pc.getKarma() <= -10000000) {
 					pc.setKarma(1000000);
 					pc.sendPackets(new S_ServerMessage(1078));
@@ -1585,7 +1042,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "meet010";
 				}
 			}
-				else if (s.equalsIgnoreCase("a")) {
+			else if (s.equalsIgnoreCase("a")) {
 				if (pc.getInventory().consumeItem(40678, 1)) {
 					pc.addKarma((int) (100 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1078));
@@ -1978,7 +1435,8 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			else if (s.equalsIgnoreCase("t")) {
 
-			} else if (s.equalsIgnoreCase("c")) {
+			}
+			else if (s.equalsIgnoreCase("c")) {
 
 			}
 		}
@@ -2761,8 +2219,7 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80105) 
-		{
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80105) {
 			if (s.equalsIgnoreCase("c")) {
 				if (pc.isCrown()) {
 					if (pc.getInventory().checkItem(20383, 1)) {
@@ -2786,11 +2243,12 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		}
 
+		// else System.out.println("C_NpcAction: " + s);
 		if (htmlid != null && htmlid.equalsIgnoreCase("colos2")) {
 			htmldata = makeUbInfoStrings(((L1NpcInstance) obj).getNpcTemplate()
 					.get_npcId());
 		}
-		if (createitem != null) { 
+		if (createitem != null) { // 
 			boolean isCreate = true;
 			for (int j = 0; j < materials.length; j++) {
 				if (!pc.getInventory().checkItemNotEquipped(materials[j],
@@ -2802,8 +2260,8 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 
-			if (isCreate)
-			  {
+			if (isCreate) {
+				// 
 				int create_count = 0; 
 				int create_weight = 0;
 				for (int k = 0; k < createitem.length; k++) {
@@ -2934,21 +2392,20 @@ public class C_NPCAction extends ClientBasePacket {
 		return "";
 	}
 
-	private String enterPetMatch(L1PcInstance pc, int objid2) 
-	{  
-		if (!L1PetMatch.getInstance().isVacancy()) {   
-			pc.sendPackets(new S_ServerMessage(1182));  
-			return "";   
-			}   
-		Object[] petlist = pc.getPetList().values().toArray();   
-		if (petlist.length > 0) {   
-			pc.sendPackets(new S_ServerMessage(1187));  
-			return "";  
-			}   
-		L1PetMatch.getInstance().enterPetMatch(pc, objid2);   
-		return "";   
-		} 
-	
+	private String enterPetMatch(L1PcInstance pc, int objid2) {
+		if (!L1PetMatch.getInstance().isVacancy()) {
+			pc.sendPackets(new S_ServerMessage(1182)); //
+			return "";
+		}
+		Object[] petlist = pc.getPetList().values().toArray();
+		if (petlist.length > 0) {
+			pc.sendPackets(new S_ServerMessage(1187)); //
+			return "";
+		}
+		L1PetMatch.getInstance().enterPetMatch(pc, objid2);
+		return "";
+	}
+
 	private void summonMonster(L1PcInstance pc, String s) {
 		String[] summonstr_list;
 		int[] summonid_list;
@@ -3159,82 +2616,14 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
-	
-	for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
-		if (door.getKeeperId() == keeperId) {
-			if (isOpen) { 
-				if ((door.getMaxHp() * 3 / 4) < door.getCurrentHp()) {
-					if (door.getOpenStatus() == ActionCodes.ACTION_Close) {
-						door.setOpenStatus(ActionCodes.ACTION_Open);
-						door.setPassable(L1DoorInstance.PASS);
-						door.broadcastPacket(new S_DoorPack(door));
-						door.broadcastPacket(new S_Door(door));
-						
-						int X = door.getEntranceX();
-						int Y = door.getEntranceY();
-						int S = door.getSize() - 1;
-						if (S > 0) {
-							switch(door.getDirection())
-							{
-								case 0: {
-								for(int i = 0; i < S; i++)
-									{
-										X--;	
-										door.broadcastPacket(new S_Door(X, Y, door.getDirection(), door.getPassable()));
-									}
-								}
-								break;
-								case 1: {
-									for(int i = 0; i < S; i++)
-									{
-										Y--;	
-										door.broadcastPacket(new S_Door(X, Y, door.getDirection(), door.getPassable()));
-									}
-								}
-								break;
-							}
-						}
-						
-					}
-				} else if (door.getCurrentHp() <= 0) {
-			} else { 
-				if ((door.getMaxHp() * 3 / 4) < door.getCurrentHp()) {
-					if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
-						door.setOpenStatus(ActionCodes.ACTION_Close);
-						door.setPassable(L1DoorInstance.NOT_PASS);
-						door.broadcastPacket(new S_DoorPack(door));
-						door.broadcastPacket(new S_Door(door));
-					
-						int X = door.getEntranceX();
-						int Y = door.getEntranceY();
-						int S = door.getSize() - 1;
-						if (S > 0) {
-							switch(door.getDirection())
-							{
-								case 0: {
-								for(int i = 0; i < S; i++)
-									{
-										X--;	
-										door.broadcastPacket(new S_Door(X, Y, door.getDirection(), door.getPassable()));
-									}
-								}
-								break;
-								case 1: {
-									for(int i = 0; i < S; i++)
-									{
-										Y--;	
-										door.broadcastPacket(new S_Door(X, Y, door.getDirection(), door.getPassable()));
-									}
-								}
-								break;
-						}
-						}
-						
-					}
-				} else if (door.getCurrentHp() <= 0) {
-			     }
-			   }
-			  }
+
+		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+			if (door.getKeeperId() == keeperId) {
+				if (isOpen) { //
+					door.open(true);
+				} else { //
+					door.close(true);
+				}
 			}
 		}
 	}

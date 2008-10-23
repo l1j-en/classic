@@ -615,6 +615,8 @@ public class L1Attack {
 			dmg += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
 		} else if (_weaponId == 2 || _weaponId == 200002) { // 
 			dmg = L1WeaponSkill.getDiceDaggerDamage(_pc, _targetPc, weapon);
+		} else if (_weaponId == 204 || _weaponId == 100204) { //
+			L1WeaponSkill.giveFettersEffect(_targetPc); 
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
@@ -772,6 +774,8 @@ public class L1Attack {
 
 		if (_weaponId == 124) {
 			dmg += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
+		} else if (_weaponId == 204 || _weaponId == 100204) { //
+			L1WeaponSkill.giveFettersEffect(_targetNpc); 
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
@@ -1045,7 +1049,7 @@ public class L1Attack {
 	}
 
 	
-	public void addNpcPoisonAttack(L1Character attacker, L1Character target) {
+	private void addNpcPoisonAttack(L1Character attacker, L1Character target) {
 		if (_npc.getNpcTemplate().get_poisonatk() != 0) {
 			if (12 >= _random.nextInt(100) + 1) { // 12% chance of poison attacks
 				if (_npc.getNpcTemplate().get_poisonatk() == 1) { // normal poison

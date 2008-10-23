@@ -31,13 +31,12 @@ import l1j.server.server.model.npc.action.L1NpcAction;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 
 // Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket
+// ClientBasePacket, C_NPCTalk
 
 public class C_NPCTalk extends ClientBasePacket {
 
 	private static final String C_NPC_TALK = "[C] C_NPCTalk";
-	private static Logger _log = Logger.getLogger(C_NPCTalk.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_NPCTalk.class.getName());
 
 	public C_NPCTalk(byte abyte0[], ClientThread client)
 			throws Exception {

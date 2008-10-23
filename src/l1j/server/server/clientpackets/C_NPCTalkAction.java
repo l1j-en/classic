@@ -33,6 +33,10 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class C_NPCTalkAction extends ClientBasePacket {
 
+	private static final String C_NPC_TALK_ACTION = "[C] C_NPCTalkAction";
+	private static Logger _log = Logger.getLogger(C_NPCTalkAction.class
+			.getName());
+
 	public C_NPCTalkAction(byte decrypt[], ClientThread client)
 			throws FileNotFoundException, Exception {
 		super(decrypt);
@@ -55,11 +59,7 @@ public class C_NPCTalkAction extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_NPC_TALK_ACTION;
+		return C_NPC_TALK_ACTION;
 	}
-
-	private static final String C_0B_NPC_TALK_ACTION = "[C] C_NPCTalkAction";
-	private static Logger _log = Logger.getLogger(C_NPCTalkAction.class
-			.getName());
 
 }

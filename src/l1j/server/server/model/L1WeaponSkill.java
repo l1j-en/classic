@@ -249,4 +249,30 @@ public class L1WeaponSkill {
 		}
 		return dmg;
 	}
+
+	public static void giveFettersEffect(L1Character cha) {
+		int fettersTime = 8000;
+		if (cha.hasSkillEffect(L1SkillId.STATUS_FREEZE)) {
+			return;
+		}
+		if ((_random.nextInt(100) + 1) <= 2) {
+			L1EffectSpawn.getInstance().spawnEffect(81182, fettersTime,
+					cha.getX(), cha.getY(), cha.getMapId());
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				pc.setSkillEffect(L1SkillId.STATUS_FREEZE, fettersTime);
+				pc.sendPackets(new S_SkillSound(pc.getId(), 4184));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 4184));
+				pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_BIND, true));
+			} else if (cha instanceof L1MonsterInstance
+					|| cha instanceof L1SummonInstance
+					|| cha instanceof L1PetInstance) {
+				L1NpcInstance npc = (L1NpcInstance) cha;
+				npc.setSkillEffect(L1SkillId.STATUS_FREEZE, fettersTime);
+				npc.broadcastPacket(new S_SkillSound(npc.getId(), 4184));
+				npc.setParalyzed(true);
+			}
+		}
+	}
+
 }

@@ -38,12 +38,19 @@ import l1j.server.server.utils.SQLUtil;
  */
 public class Account {
 	private String _name;
+
 	private String _ip;
+
 	private String _password;
+
 	private Timestamp _lastActive;
+
 	private int _accessLevel;
+
 	private String _host;
+
 	private boolean _banned;
+
 	private boolean _isValid = false;
 	
 	private static Logger _log = Logger.getLogger(Account.class.getName());
@@ -315,7 +322,6 @@ public class Account {
 		}
 		try {
 			_isValid = _password.equals(makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(_name)));//Ssargon change
-			
 			if (_isValid) {
 				_password = null;
 			} else { // If password does not match
@@ -377,7 +383,7 @@ public class Account {
 	}
 
 	/**
-	 *
+	 * 
 	 *
 	 * @return int
 	 */

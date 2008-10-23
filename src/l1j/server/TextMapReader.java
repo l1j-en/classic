@@ -16,6 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
 package l1j.server;
 
 import java.io.BufferedReader;
@@ -39,17 +40,24 @@ import l1j.server.server.model.map.L1V1Map;
 public class TextMapReader extends MapReader {
 
 	/** For the message log. */
-	private static Logger _log = Logger.getLogger(TextMapReader.class.getName());
+	private static Logger _log = Logger
+			.getLogger(TextMapReader.class.getName());
+
 	/** Map holder. */
 	private static final String MAP_DIR = "./maps/";
+
 	/** MAP_INFO Map number for the position. */
 	public static final int MAPINFO_MAP_NO = 0;
+
 	/** MAP_INFO X coordinate positions for the start. */
 	public static final int MAPINFO_START_X = 1;
+
 	/** MAP_INFO X coordinate positions for the final. */
 	public static final int MAPINFO_END_X = 2;
+
 	/** MAP_INFO Y coordinates for the starting position. */
 	public static final int MAPINFO_START_Y = 3;
+
 	/** MAP_INFO Y coordinates for the starting position. */
 	public static final int MAPINFO_END_Y = 4;
 
@@ -118,14 +126,15 @@ public class TextMapReader extends MapReader {
 						MapsTable.getInstance().isUsePainwand(mapId),
 						MapsTable.getInstance().isEnabledDeathPenalty(mapId),
 						MapsTable.getInstance().isTakePets(mapId),
-						MapsTable.getInstance().isRecallPets(mapId),   
-				        MapsTable.getInstance().isUsableItem(mapId),   
-				        MapsTable.getInstance().isUsableSkill(mapId)); 
+						MapsTable.getInstance().isRecallPets(mapId),
+						MapsTable.getInstance().isUsableItem(mapId),
+						MapsTable.getInstance().isUsableSkill(mapId));
 				return map;
 			}
 		}
 		throw new FileNotFoundException("MapId: " + id);
 	}
+
 	/**
 	 * 	All text to read the map.
 	 *
@@ -153,9 +162,10 @@ public class TextMapReader extends MapReader {
 						MapsTable.getInstance().isUsePainwand(mapId),
 						MapsTable.getInstance().isEnabledDeathPenalty(mapId),
 						MapsTable.getInstance().isTakePets(mapId),
-						MapsTable.getInstance().isRecallPets(mapId),   
-						MapsTable.getInstance().isUsableItem(mapId),   
-						MapsTable.getInstance().isUsableSkill(mapId)); 
+						MapsTable.getInstance().isRecallPets(mapId),
+						MapsTable.getInstance().isUsableItem(mapId),
+						MapsTable.getInstance().isUsableSkill(mapId));
+
 				maps.put(mapId, map);
 			} catch (IOException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -164,6 +174,7 @@ public class TextMapReader extends MapReader {
 
 		return maps;
 	}
+
 	/**
 	 * mapInfo Map No, that holds the map size.
 	 * 1 Records {mapNo,StartX,EndX,StartY,EndY} Composed by

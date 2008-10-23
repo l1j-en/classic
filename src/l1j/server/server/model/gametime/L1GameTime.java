@@ -73,7 +73,8 @@ public class L1GameTime {
 
 	@Override
 	public String toString() {
-		SimpleDateFormat f = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+		SimpleDateFormat f = new SimpleDateFormat(
+				"yyyy.MM.dd G 'at' HH:mm:ss z");
 		f.setTimeZone(_calendar.getTimeZone());
 		return f.format(_calendar.getTime()) + "(" + getSeconds() + ")";
 	}

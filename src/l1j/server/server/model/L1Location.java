@@ -223,4 +223,3 @@ public class L1Location extends Point {
 		return newLocation;
 	}
 }
-

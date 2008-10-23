@@ -85,17 +85,17 @@ public class L1DatabaseFactory
 			// till restart thus making acquire
 			// errors "FATAL" ... we don't want that
 			// it should be possible to recover
-			_source.setDriverClass(Config.DATABASE_DRIVER);
-			_source.setJdbcUrl(Config.DATABASE_URL);
-			_source.setUser(Config.DATABASE_LOGIN);
-			_source.setPassword(Config.DATABASE_PASSWORD);
+			_source.setDriverClass(Config.DB_DRIVER);
+			_source.setJdbcUrl(Config.DB_URL);
+			_source.setUser(Config.DB_LOGIN);
+			_source.setPassword(Config.DB_PASSWORD);
 
 			/* Test the connection */
 			_source.getConnection().close();
 
 			if (Config.DEBUG) _log.fine("Database Connection Working");
 
-			if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))
+			if (Config.DB_DRIVER.toLowerCase().contains("microsoft"))
                 _providerType = ProviderType.MsSql;
             else
                 _providerType = ProviderType.MySql;

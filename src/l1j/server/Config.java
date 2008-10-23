@@ -43,17 +43,6 @@ public final class Config {
 
 	public static int THREAD_P_SIZE_GENERAL;
 
-	public static String        DATABASE_DRIVER; 
-	
-	/** Path to access to database */ 
-	public static String        DATABASE_URL; 
-	
-	/** Database login */ 
-	public static String        DATABASE_LOGIN; 
-	
-	/** Database password */ 
-	public static String        DATABASE_PASSWORD; 
-
 	/** Server control */
 	public static String GAME_SERVER_HOST_NAME;
 
@@ -421,10 +410,6 @@ public final class Config {
 
 	public static final boolean DEVELOPER = false;
 
-	public static final String  SERVER_VERSION_FILE = "./config/L1Dc-version.properties"; 
-
-	public static final String  DATAPACK_VERSION_FILE = "./config/l1Dcdp-version.properties";
-
 	public static int FLOODPROTECTOR_INITIALSIZE;
 
 	public static int DEADLOCK_CHECK_INTERVAL;  
@@ -448,10 +433,6 @@ public final class Config {
 			EXTERNAL_HOSTNAME       = serverSettings.getProperty("ExternalHostname", "*"); 
 			INTERNAL_HOSTNAME       = serverSettings.getProperty("InternalHostname", "127.0.0.1");
 			GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
-			DATABASE_DRIVER             = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver"); 
-			DATABASE_URL                = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l1jdb?useUnicode=true&characterEncoding=UTF-8"); 
-			DATABASE_LOGIN              = serverSettings.getProperty("Login", "root"); 
-			DATABASE_PASSWORD           = serverSettings.getProperty("Password", ""); 
 			GAME_SERVER_HOST_NAME = serverSettings.getProperty("GameserverHostname", "*");
 			GAME_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("GameserverPort", "2000"));
 			DB_DRIVER = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
@@ -509,31 +490,8 @@ public final class Config {
 			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
 		}
 
-		/* 
-		* Load L1Dc Server Version Properties file (if exists) 
-		*/ 
-		try {
-			System.out.println("loading Version config"); 
-		InputStream is = null; 
-		{ 
-		Properties serverVersion    = new Properties(); 
-		is                          = new FileInputStream(new File(SERVER_VERSION_FILE)); 
-		is                          = new FileInputStream(new File(DATAPACK_VERSION_FILE));
-		serverVersion.load(is); 
-		 SERVER_VERSION      = serverVersion.getProperty("version", "Unsupported Custom Version."); 
-		 SERVER_BUILD_DATE   = serverVersion.getProperty("builddate", "Undefined Date."); 
-		 DATAPACK_VERSION      = serverVersion.getProperty("version", "Unsupported Custom Version."); 
-		}}
-		  catch (Exception e) 
-		{ 
-		 //Ignore Properties file if it doesnt exist 
-		 SERVER_VERSION      = "Unsupported Custom Version."; 
-		 DATAPACK_VERSION      = "Unsupported Custom Version."; 
-		 SERVER_BUILD_DATE   = "Undefined Date."; 
-		} 
-
 		// rates.properties
-		  System.out.println("Loading Rates config.");
+		System.out.println("Loading Rates config.");
 		try {
 			Properties rateSettings = new Properties();
 			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));

@@ -80,8 +80,8 @@ public class L1NpcInstance extends L1Character {
 	public static final int HIDDEN_STATUS_NONE = 0;
 	public static final int HIDDEN_STATUS_SINK = 1;
 	public static final int HIDDEN_STATUS_FLY = 2;
+
 	public static final int CHAT_TIMING_APPEARANCE = 0;
-	
 	public static final int CHAT_TIMING_DEAD = 1;
 	public static final int CHAT_TIMING_HIDE = 2;
 
@@ -101,6 +101,10 @@ public class L1NpcInstance extends L1Character {
 	private boolean _rest = false;
 
 
+	private int _randomMoveDistance = 0;
+
+	private int _randomMoveDirection = 0;
+
 	interface NpcAI {
 		public void start();
 	}
@@ -117,8 +121,7 @@ public class L1NpcInstance extends L1Character {
 
 	private static final TimerPool _timerPool = new TimerPool(4);
 
-	class NpcAITimerImpl extends TimerTask implements NpcAI 
-	  {
+	class NpcAITimerImpl extends TimerTask implements NpcAI {
 		private class DeathSyncTimer extends TimerTask {
 			private void schedule(int delay) {
 				_timerPool.getTimer().schedule(new DeathSyncTimer(), delay);
@@ -579,12 +582,28 @@ public class L1NpcInstance extends L1Character {
 				return true; 
 			}
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
+				//
 				L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 				if (mobGroupInfo == null
 						|| mobGroupInfo != null && mobGroupInfo
 								.isLeader(this)) {
-					int dir = checkObject(getX(), getY(), getMapId(), _random
-							.nextInt(20));
+					//
+					//
+					if (_randomMoveDistance == 0) {
+						_randomMoveDistance = _random.nextInt(5) + 1;
+						_randomMoveDirection = _random.nextInt(20);
+						//
+						if (getHomeX() != 0 && getHomeY() != 0
+								&& _randomMoveDirection < 8
+								&& _random.nextInt(3) == 0) {
+							_randomMoveDirection = moveDirection(getHomeX(),
+									getHomeY());
+						}
+					} else {
+						_randomMoveDistance--;
+					}
+					int dir = checkObject(getX(), getY(), getMapId(),
+							_randomMoveDirection);
 					if (dir != -1) {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(),
@@ -833,7 +852,7 @@ public class L1NpcInstance extends L1Character {
 			_mprRunning = false;
 		}
 	}
-	
+
 	private boolean _hprRunning = false;
 
 	private HprTimer _hprTimer;
@@ -863,6 +882,7 @@ public class L1NpcInstance extends L1Character {
 
 		private final int _point;
 	}
+
 
 	private boolean _mprRunning = false;
 
@@ -970,13 +990,13 @@ public class L1NpcInstance extends L1Character {
 			setCurrentHpDirect(hp);
 		}
 		if (template.get_randommp() == 0) {
-			addMaxMp(template.get_mp());
+			setMaxMp(template.get_mp());
 			setCurrentMpDirect(template.get_mp());
 		} else {
 			double randommp = rate
 					* (template.get_randommp() - template.get_mp());
 			int mp = (int) (template.get_mp() + randommp);
-			addMaxMp(mp);
+			setMaxMp(mp);
 			setCurrentMpDirect(mp);
 		}
 		if (template.get_randomac() == 0) {
@@ -1146,7 +1166,7 @@ public class L1NpcInstance extends L1Character {
 			}
 		}
 		removeAllKnownObjects();
-		
+
 		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 		if (mobGroupInfo == null) {
 			if (isReSpawn()) {
@@ -1349,7 +1369,8 @@ public class L1NpcInstance extends L1Character {
 		}
 		return dir;
 	}
-	
+
+
 	public int targetReverseDirection(int tx, int ty) { 
 		int dir = targetDirection(tx, ty);
 		dir += 4;
@@ -1361,7 +1382,8 @@ public class L1NpcInstance extends L1Character {
 
 
 
-	public static int checkObject(int x, int y, short m, int d) { 													
+	public static int checkObject(int x, int y, short m, int d) { 
+
 		L1Map map = L1WorldMap.getInstance().getMap(m);
 		if (d == 1) {
 			if (map.isPassable(x, y, 1)) {
@@ -1630,7 +1652,7 @@ public class L1NpcInstance extends L1Character {
 		setMoveSpeed(1);
 		setSkillEffect(L1SkillId.STATUS_HASTE, time * 1000);
 	}
-	
+
 	public static final int USEITEM_HEAL = 0;
 	public static final int USEITEM_HASTE = 1;
 	public static int[] healPotions = { POTION_OF_GREATER_HEALING,
@@ -1849,7 +1871,7 @@ public class L1NpcInstance extends L1Character {
 	public void setMovementDistance(int i) {
 		_movementDistance = i;
 	}
-	
+
 	private int _tempLawful = 0;
 
 	public int getTempLawful() {
@@ -1984,9 +2006,12 @@ public class L1NpcInstance extends L1Character {
 			_future = null;
 		}
 		super.resurrect(hp);
-		L1SkillUse skill = new L1SkillUse();   
-		skill.handleCommands(null, L1SkillId.CANCELLATION, getId(), getX(), getY(), null, 0,  
-		L1SkillUse.TYPE_LOGIN, this); 
+
+		//
+		//
+		L1SkillUse skill = new L1SkillUse();
+		skill.handleCommands(null, L1SkillId.CANCELLATION, getId(), getX(),
+				getY(), null, 0, L1SkillUse.TYPE_LOGIN, this);
 	}
 
 	private DeleteTimer _deleteTask;
@@ -2084,14 +2109,6 @@ public class L1NpcInstance extends L1Character {
 			timer.scheduleAtFixedRate(npcChatTimer, npcChat.getStartDelayTime(),
 					npcChat.getRepeatInterval());
 		}
-	}
-
-	public void onAction(L1PcInstance player) {
-		L1Attack attack = new L1Attack(player, this);
-		attack.calcHit();
-		attack.action();
-		attack.calcStaffOfMana();
-		attack.addNpcPoisonAttack(player, this);
 	}
 
 	@Override

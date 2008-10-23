@@ -51,4 +51,3 @@ public class C_PetMenu extends ClientBasePacket {
 		return C_PET_MENU;
 	}
 }
-
