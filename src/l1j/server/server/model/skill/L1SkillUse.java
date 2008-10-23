@@ -46,34 +46,17 @@ import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1AuctionBoardInstance;
-import l1j.server.server.model.Instance.L1BoardInstance;
-import l1j.server.server.model.Instance.L1CrownInstance;
-import l1j.server.server.model.Instance.L1DollInstance;
-import l1j.server.server.model.Instance.L1DoorInstance;
-import l1j.server.server.model.Instance.L1DwarfInstance;
-import l1j.server.server.model.Instance.L1EffectInstance;
-import l1j.server.server.model.Instance.L1FieldObjectInstance;
-import l1j.server.server.model.Instance.L1FurnitureInstance;
-import l1j.server.server.model.Instance.L1HousekeeperInstance;
-import l1j.server.server.model.Instance.L1ItemInstance;
-import l1j.server.server.model.Instance.L1MerchantInstance;
-import l1j.server.server.model.Instance.L1MonsterInstance;
-import l1j.server.server.model.Instance.L1NpcInstance;
-import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.Instance.L1PetInstance;
-import l1j.server.server.model.Instance.L1SummonInstance;
-import l1j.server.server.model.Instance.L1TeleporterInstance;
-import l1j.server.server.model.Instance.L1TowerInstance;
+import l1j.server.server.model.Instance.*;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.serverpackets.S_AttackMissPacket;
-import l1j.server.server.serverpackets.S_AttackStatus;
 import l1j.server.server.serverpackets.S_ChangeHeading;
+import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_ChangeShape;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.serverpackets.S_CurseBlind;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Dexup;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_DoActionShop;
@@ -88,7 +71,6 @@ import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_RangeSkill;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_ShowPolyList;
@@ -135,7 +117,7 @@ public class L1SkillUse {
 	private boolean _checkedUseSkill = false; 
 	private int _leverage = 10;
 	private boolean _isFreeze = false;
-	private boolean _isGlanceCheckFail = false;
+	private boolean _isGlanceCheckFail = false; // added for spell LoS. do not remove.
 
 	private L1Character _user = null;
 	private L1Character _target = null;
@@ -226,7 +208,7 @@ public class L1SkillUse {
 			return _isSendStatus;
 		}
 	}
-	
+
 	public void setLeverage(int i) {
 		_leverage = i;
 	}
@@ -294,7 +276,7 @@ public class L1SkillUse {
 		if (l1object instanceof L1ItemInstance) {
 			_log.fine("skill target item name: "
 					+ ((L1ItemInstance) l1object).getViewName());
-				return false;
+			return false;
 		}
 		if (_user instanceof L1PcInstance) {
 			if (l1object instanceof L1PcInstance) {
@@ -355,14 +337,13 @@ public class L1SkillUse {
 		if (_user instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) _user;
 
-			if ((pc.isInvisble() || pc.isInvisDelay()) && !isInvisUsableSkill()) { 
+			if (pc.isParalyzed()) { //
 				return false;
 			}
-			if (pc.isParalyzed())  
-			{  
-				return false;   
-		    } 
-			if (pc.getInventory().getWeight30() > 24) { 
+			if ((pc.isInvisble() || pc.isInvisDelay()) && !isInvisUsableSkill()) { //
+				return false;
+			}
+			if (pc.getInventory().getWeight30() > 24) { //
 				pc.sendPackets(new S_ServerMessage(316));
 				return false;
 			}
@@ -417,7 +398,7 @@ public class L1SkillUse {
 			}
 		}
 
-			if (!isHPMPConsume()) { 
+		if (!isHPMPConsume()) { 
 			return false;
 		}
 		return true;
@@ -426,6 +407,9 @@ public class L1SkillUse {
 	private boolean isSpellScrollUsable() {
 		L1PcInstance pc = (L1PcInstance) _user;
 
+		if (pc.isParalyzed()) { //
+			return false;
+		}
 		if ((pc.isInvisble() || pc.isInvisDelay()) && !isInvisUsableSkill()) {
 			return false;
 		}
@@ -552,7 +536,7 @@ public class L1SkillUse {
 			return false;
 		}
 
-			if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skills.TYPE_ATTACK)
+		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skills.TYPE_ATTACK)
 				&& _calcType == NPC_PC
 				&& !(cha instanceof L1PetInstance)
 				&& !(cha instanceof L1SummonInstance)
@@ -568,24 +552,29 @@ public class L1SkillUse {
 			return false;
 		}
 
+		//
+		if (_skill.getTarget().equals("none")
+				&& _skill.getType() == L1Skills.TYPE_ATTACK
+				&& (cha instanceof L1AuctionBoardInstance
+						|| cha instanceof L1BoardInstance
+						|| cha instanceof L1CrownInstance
+						|| cha instanceof L1DwarfInstance
+						|| cha instanceof L1EffectInstance
+						|| cha instanceof L1FieldObjectInstance
+						|| cha instanceof L1FurnitureInstance
+						|| cha instanceof L1HousekeeperInstance
+						|| cha instanceof L1MerchantInstance
+						|| cha instanceof L1TeleporterInstance)) {
+			return false;
+		}
+
+		//
 		if (_skill.getType() == L1Skills.TYPE_ATTACK
 				&& cha.getId() == _user.getId()) {
-			return false;  }   
-		
-		if (_skill.getTarget().equals("none")   
-				&& _skill.getType() == L1Skills.TYPE_ATTACK   
-				&& (cha instanceof L1AuctionBoardInstance  
-						|| cha instanceof L1BoardInstance  
-						|| cha instanceof L1CrownInstance  
-						|| cha instanceof L1DwarfInstance   
-						|| cha instanceof L1EffectInstance  
-						|| cha instanceof L1FieldObjectInstance   
-						|| cha instanceof L1FurnitureInstance  
-						|| cha instanceof L1HousekeeperInstance   
-						|| cha instanceof L1MerchantInstance 
-						|| cha instanceof L1TeleporterInstance)) { 
-			return false;  } 
-		
+			return false;
+		}
+
+		//
 		if (cha.getId() == _user.getId() && _skillId == HEAL_ALL) {
 			return false;
 		}
@@ -768,11 +757,11 @@ public class L1SkillUse {
 			if (_skill.getRanged() != -1) {
 				if (_user.getLocation().getTileLineDistance(
 						_target.getLocation()) > _skill.getRanged()) {
-					return; 
-					}   
-				} else {   
-					if (!_user.getLocation().isInScreen(_target.getLocation())) { 
-					return;
+					return; //
+				}
+			} else {
+				if (!_user.getLocation().isInScreen(_target.getLocation())) {
+					return; //
 				}
 			}
 
@@ -914,19 +903,21 @@ public class L1SkillUse {
 		return false;
 	}
 
-	private boolean isHPMPConsume() { 
-		_mpConsume = _skill.getMpConsume();  
-		_hpConsume = _skill.getHpConsume();  
-		
-		int currentMp = 0;  
-		int currentHp = 0;  
-		if (_user instanceof L1NpcInstance) {  
-			currentMp = _npc.getCurrentMp();  
-			currentHp = _npc.getCurrentHp(); 
-			} else {  
-				currentMp = _player.getCurrentMp();  
-				currentHp = _player.getCurrentHp(); 
-				
+	//
+	private boolean isHPMPConsume() {
+		_mpConsume = _skill.getMpConsume();
+		_hpConsume = _skill.getHpConsume();
+		int currentMp = 0;
+		int currentHp = 0;
+
+		if (_user instanceof L1NpcInstance) {
+			currentMp = _npc.getCurrentMp();
+			currentHp = _npc.getCurrentHp();
+		} else {
+			currentMp = _player.getCurrentMp();
+			currentHp = _player.getCurrentHp();
+
+			//
 			if (_player.getInt() > 12
 					&& _skillId > HOLY_WEAPON
 					&& _skillId <= FREEZING_BLIZZARD) { // LV2
@@ -1111,7 +1102,7 @@ public class L1SkillUse {
 			return;
 		}
 		cha.setSkillEffect(_skillId, _getBuffDuration);
-		
+
 		if (cha instanceof L1PcInstance && repetition) { 
 			L1PcInstance pc = (L1PcInstance) cha;
 			sendIcon(pc);
@@ -1170,7 +1161,8 @@ public class L1SkillUse {
 					_getBuffIconDuration));
 		} else if (_skillId == SLOW
 				|| _skillId == MASS_SLOW || _skillId == ENTANGLE) {
-			player.sendPackets(new S_SkillHaste(player.getId(), 2, _getBuffIconDuration));
+			player.sendPackets(new S_SkillHaste(player.getId(), 2,
+					_getBuffIconDuration));
 		} else if (_skillId == IMMUNE_TO_HARM) {
 			player.sendPackets(new S_SkillIconGFX(40, _getBuffIconDuration));
 		}
@@ -1290,7 +1282,7 @@ public class L1SkillUse {
 						castgfx, actionId, S_RangeSkill.TYPE_NODIR));
 			} else { 
 				if (_skillId != 5 && _skillId != 69 && _skillId != 131) {
-						if (isSkillAction) {
+					if (isSkillAction) {
 						S_DoActionGFX gfx = new S_DoActionGFX(_player.getId(),
 								_skill.getActionId());
 						_player.sendPackets(gfx);
@@ -1356,15 +1348,6 @@ public class L1SkillUse {
 					_user.broadcastPacket(new S_RangeSkill(_user, cha,
 							castgfx, actionId, S_RangeSkill.TYPE_DIR));
 				}
-			} else {
-				if (_skillId != 5 && _skillId != 69 && _skillId != 131) {
-					S_DoActionGFX gfx = new S_DoActionGFX(_user.getId(),
-							ActionCodes.ACTION_SkillBuff);
-					_user.broadcastPacket(gfx);
-					_user.broadcastPacket(new S_SkillSound(targetid, _skill
-							.getCastGfx()));
-				}
-			}
 			} else if (_skill.getTarget().equals("none") && _skill.getType() ==
 					L1Skills.TYPE_ATTACK) { 
 				L1Character[] cha = new L1Character[_targetList.size()];
@@ -1380,10 +1363,11 @@ public class L1SkillUse {
 					S_DoActionGFX gfx = new S_DoActionGFX(_user.getId(), _skill
 							.getActionId());
 					_user.broadcastPacket(gfx);
-					_user.broadcastPacket(new S_SkillSound(_targetID, castgfx));
+					_user.broadcastPacket(new S_SkillSound(targetid, castgfx));
 				}
 			}
 		}
+	}
 
 	private void deleteRepeatedSkills(L1Character cha) {
 		final int[][] repeatedSkills = {
@@ -1430,14 +1414,11 @@ public class L1SkillUse {
 			return;
 		}
 
-		if (_skillId == FIRE_WALL) { 
-	    if (_user instanceof L1PcInstance) { 
-	        _player.setHeading(_player.targetDirection(_targetX, _targetY));  
-	        _player.broadcastPacket(new S_AttackStatus(_player, _targetID, _skill.getActionId())); 
-	   } 
-	        L1EffectSpawn.getInstance().doSpawnFireWall(_user, _targetX, _targetY); 
-	        return; 
-	   }
+		if (_skillId == FIRE_WALL) { //
+			L1EffectSpawn.getInstance()
+					.doSpawnFireWall(_user, _targetX, _targetY);
+			return;
+		}
 
 		boolean isCounterMagic = true;
 		for (int skillId : EXCEPT_COUNTER_MAGIC) {
@@ -1524,6 +1505,7 @@ public class L1SkillUse {
 						_getBuffIconDuration = _skillTime;
 					}
 				}
+
 				deleteRepeatedSkills(cha); 
 
 				if (_skill.getType() == L1Skills.TYPE_ATTACK
@@ -1562,7 +1544,8 @@ public class L1SkillUse {
 					}
 				}
 
-				if (_skillId == HASTE) { 
+				//
+				if (_skillId == HASTE) {
 					if (cha.getMoveSpeed() != 2) {
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
@@ -1601,9 +1584,6 @@ public class L1SkillUse {
 							|| cha.hasSkillEffect(STATUS_CURSE_PARALYZED)) {
 						cha.cureParalaysis();
 					}
-				} else if (_skillId == SHADOW_FANG) {
-					L1PcInstance pc = (L1PcInstance) cha;
-					pc.addDmgup(5); 
 				} else if (_skillId == RESURRECTION
 						|| _skillId == GREATER_RESURRECTION) {
 					if (cha instanceof L1PcInstance) {
@@ -1809,8 +1789,8 @@ public class L1SkillUse {
 					boolean gfxcheck = false;
 					int[] BowGFX = { 138, 37, 3860, 3126, 3420, 2284, 3105,
 							3145, 3148, 3151, 3871, 4125, 2323, 3892, 3895,
-							3898, 3901, 4917, 4918, 4919, 4950, 6140, 6145,
-							6150, 6155, 6160, 6269, 6272, 6275, 6278 };
+							3898, 3901, 4917, 4918, 4919, 4950, 6087, 6140,
+							6145, 6150, 6155, 6160, 6269, 6272, 6275, 6278 };
 					int playerGFX = _player.getTempCharGfx();
 					for (int gfx : BowGFX) {
 						if (playerGFX == gfx) {
@@ -1822,88 +1802,13 @@ public class L1SkillUse {
 						return;
 					}
 
-					L1ItemInstance arrow = null;
-					_player.setHeading(_player.targetDirection(_targetX,
-							_targetY)); 
-					_player
-							.sendPackets(new S_SkillSound(_player.getId(), 4394));
-					_player.broadcastPacket(new S_SkillSound(_player.getId(),
-							4394)); 
-					int _targetId = _target.getId();
-
-					L1Attack attack = new L1Attack(_player, cha);
-					for (int i = 3; i > 0; i--) { 
-						arrow = _player.getInventory().getArrow();
-						if (arrow != null) {
-							if (_target.getCurrentHp() > 0 && !_target.isDead()) {
-								if (attack.calcHit()) { 
-									dmg += attack.calcDamage(); 
-									_player.sendPackets(new S_UseArrowSkill(
-											_player, _targetId, 66, _targetX,
-											_targetY));
-									_player
-											.broadcastPacket(new S_UseArrowSkill(
-													_player, _targetId, 66,
-													_targetX, _targetY));
-									_target.broadcastPacketExceptTargetSight(
-											new S_DoActionGFX(_targetId,
-													ActionCodes.ACTION_Damage),
-											_player);
-								} else { 
-									_player
-											.sendPackets(new S_UseArrowSkill(
-													_player, 0, 66, _targetX,
-													_targetY));
-									_player
-											.broadcastPacket(new S_UseArrowSkill(
-													_player, 0, 66, _targetX,
-													_targetY));
-								}
-							} else { 
-								_player.sendPackets(new S_UseArrowSkill(
-										_player, 0, 66, _targetX, _targetY));
-								_player.broadcastPacket(new S_UseArrowSkill(
-										_player, 0, 66, _targetX, _targetY));
-							}
-
-							_player.getInventory().removeItem(arrow, 1);
-						} else if (_player.getWeapon().getItemId() == 190) { 
-							if (_target.getCurrentHp() > 0 && !_target.isDead()) {
-								if (attack.calcHit()) { 
-									dmg += attack.calcDamage(); 
-									_player.sendPackets(new S_UseArrowSkill(
-											_player, _targetId, 2349, _targetX,
-											_targetY));
-									_player
-											.broadcastPacket(new S_UseArrowSkill(
-													_player, _targetId, 2349,
-													_targetX, _targetY));
-									_target.broadcastPacketExceptTargetSight(
-											new S_DoActionGFX(_targetId,
-													ActionCodes.ACTION_Damage),
-											_player);
-								} else { 
-									_player.sendPackets(new S_UseArrowSkill(
-											_player, 0, 2349, _targetX,
-											_targetY));
-									_player
-											.broadcastPacket(new S_UseArrowSkill(
-													_player, 0, 2349, _targetX,
-													_targetY));
-								}
-							} else { 
-								_player.sendPackets(new S_UseArrowSkill(
-										_player, 0, 2349, _targetX, _targetY));
-								_player.broadcastPacket(new S_UseArrowSkill(
-										_player, 0, 2349, _targetX, _targetY));
-							}
-						} else if (_targetId > 0) { 
-							_player.sendPackets(new S_AttackMissPacket(_player
-									.getId(), _targetId));
-							_player.broadcastPacket(new S_AttackMissPacket(
-									_player.getId(), _targetId));
-						}
+					for (int i = 3; i > 0; i--) {
+						_target.onAction(_player);
 					}
+ 					_player.sendPackets(new S_SkillSound(_player.getId(),
+							4394));
+					_player.broadcastPacket(new S_SkillSound(_player.getId(),
+							4394));
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) { 
 					if (_user instanceof L1NpcInstance) {
@@ -1931,9 +1836,8 @@ public class L1SkillUse {
 							L1PcInstance pc = (L1PcInstance) cha;
 							pc.sendPackets(new S_SkillHaste(pc.getId(), 2, _getBuffIconDuration));
 						}
-						cha
-								.broadcastPacket(new S_SkillHaste(cha.getId(),
-										2, _getBuffIconDuration));
+						cha.broadcastPacket(new S_SkillHaste(cha.getId(),
+								2, _getBuffIconDuration));
 						cha.setMoveSpeed(2);
 					} else if (cha.getMoveSpeed() == 1) {
 						int skillNum = 0;
@@ -1966,11 +1870,10 @@ public class L1SkillUse {
 					if (!cha.hasSkillEffect(EARTH_BIND)
 							&& !cha.hasSkillEffect(ICE_LANCE)
 							&& !cha.hasSkillEffect(FREEZING_BLIZZARD)) {
-						int freezeTime = SkillsTable.getInstance().getTemplate(CURSE_PARALYZE).getBuffDuration()*1000;
 						if (cha instanceof L1PcInstance) {
-							L1CurseParalysis.curse(cha, 8000, freezeTime);
+							L1CurseParalysis.curse(cha, 8000, 16000);
 						} else if (cha instanceof L1MonsterInstance) {
-							L1CurseParalysis.curse(cha, 0, freezeTime);
+							L1CurseParalysis.curse(cha, 0, 16000);
 						}
 					}
 				} else if (_skillId == WEAKNESS) { 
@@ -1985,7 +1888,8 @@ public class L1SkillUse {
 						pc.addDmgup(-6);
 						pc.addAc(12);
 					}
-				} else if (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD) { 
+				} else if (_skillId == ICE_LANCE
+						|| _skillId == FREEZING_BLIZZARD) { 
 					_isFreeze = _magic.calcProbabilityMagic(_skillId);
 					if (_isFreeze) {
 						int time = _skill.getBuffDuration() * 1000;
@@ -2007,15 +1911,7 @@ public class L1SkillUse {
 							npc.setParalysisTime(time);
 						}
 					}
-				} else if (_skillId == FIREBALL) { //TODO
-					/*System.out.println("Doing Fireball gfx");
-					if(cha instanceof L1PcInstance) {
-						L1PcInstance pc = (L1PcInstance) cha;
-						pc.sendPackets(new S_UseAttackSkill(pc, cha.getId(), _skill.getCastGfx(), cha.getX(), cha.getY()));
-					}
-					cha.broadcastPacket(new S_UseAttackSkill(cha, cha.getId(), _skill.getCastGfx(), cha.getX(), cha.getY()));
-					cha.broadcastPacketExceptTargetSight(new S_DoActionGFX(cha.getId(), ActionCodes.ACTION_Damage), cha);*/
-				} else if (_skillId == EARTH_BIND) {
+				} else if (_skillId == EARTH_BIND) { //
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.sendPackets(new S_Poison(pc.getId(), 2));
@@ -2056,11 +1952,47 @@ public class L1SkillUse {
 						npc.setParalysisTime(_shockStunDuration);
 					}
 				} else if (_skillId == WIND_SHACKLE) { 
-					if (cha instanceof L1PcInstance) {   
-						L1PcInstance pc = (L1PcInstance) cha;   
-						pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),_getBuffIconDuration));   
-					} 
+					if (cha instanceof L1PcInstance) {
+						L1PcInstance pc = (L1PcInstance) cha;
+						pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
+								_getBuffIconDuration));
+					}
 				} else if (_skillId == CANCELLATION) {
+					if (cha instanceof L1NpcInstance) {
+						L1NpcInstance npc = (L1NpcInstance) cha;
+						int npcId = npc.getNpcTemplate().get_npcId();
+						if (npcId == 71092) { //
+							if (npc.getGfxId() == npc.getTempCharGfx()) {
+								npc.setTempCharGfx(1314);
+								npc.broadcastPacket(new S_ChangeShape(npc
+										.getId(), 1314));
+								return;
+							} else {
+								return;
+							}
+						}
+						if (npcId == 45640) { //
+							if (npc.getGfxId() == npc.getTempCharGfx()) {
+								npc.setCurrentHp(npc.getMaxHp());
+								npc.setTempCharGfx(2332);
+								npc.broadcastPacket(new S_ChangeShape(npc
+										.getId(), 2332));
+								npc.setName("$2103");
+								npc.setNameId("$2103");
+								npc.broadcastPacket(new S_ChangeName(npc
+										.getId(), "$2103")); 
+							} else if (npc.getTempCharGfx() == 2332) {
+								npc.setCurrentHp(npc.getMaxHp());
+								npc.setTempCharGfx(2755);
+								npc.broadcastPacket(new S_ChangeShape(npc
+										.getId(), 2755));
+								npc.setName("$2488");
+								npc.setNameId("$2488");
+								npc.broadcastPacket(new S_ChangeName(npc
+										.getId(), "$2488")); 
+							}
+						}
+					}
 					if (_player != null && _player.isInvisble()) {
 						_player.delInvis();
 					}
@@ -2068,9 +2000,10 @@ public class L1SkillUse {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc.setMoveSpeed(0);
 						npc.setBraveSpeed(0);
-						npc.broadcastPacket(new S_SkillHaste(cha.getId(),0, 0));
-						npc.broadcastPacket(new S_SkillBrave(cha.getId(),0, 0));
-						npc.broadcastPacket(new S_ChangeShape(cha.getId(), cha.getTempCharGfx()));
+						npc.broadcastPacket(new S_SkillHaste(cha.getId(), 0,
+								0));
+						npc.broadcastPacket(new S_SkillBrave(cha.getId(), 0,
+								0));
 						npc.setWeaponBreaked(false);
 						npc.setParalyzed(false);
 						npc.setParalysisTime(0);
@@ -2112,8 +2045,10 @@ public class L1SkillUse {
 						pc.sendPackets(new S_CharVisualUpdate(pc));
 						pc.broadcastPacket(new S_CharVisualUpdate(pc));
 						if (pc.isPrivateShop()) {
-							pc.sendPackets(new S_DoActionShop(pc.getId(),ActionCodes.ACTION_Shop, pc.getShopChat()));
-							pc.broadcastPacket(new S_DoActionShop(pc.getId(),ActionCodes.ACTION_Shop, pc.getShopChat()));
+							pc.sendPackets(new S_DoActionShop(pc.getId(),
+									ActionCodes.ACTION_Shop, pc.getShopChat()));
+							pc.broadcastPacket(new S_DoActionShop(pc.getId(),
+									ActionCodes.ACTION_Shop, pc.getShopChat()));
 						}
 					}
 				} else if (_skillId == TURN_UNDEAD 
@@ -2580,7 +2515,7 @@ public class L1SkillUse {
 						pc.setCurrentMp(pc.getCurrentMp() + 2);
 					} else if (_skillId == BLOODY_SOUL) {
 						L1PcInstance pc = (L1PcInstance) cha;
-						//int b2s = pc.getInt() - 12;
+						// this has been changed to US server settings. do not remove.
 						pc.setCurrentMp(pc.getCurrentMp() + 16);
 					} else if (_skillId == ELEMENTAL_PROTECTION) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -2832,7 +2767,7 @@ public class L1SkillUse {
 				detection(_player);
 			}
 
-			} catch (Exception e) {
+		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
@@ -2860,6 +2795,7 @@ public class L1SkillUse {
 	}
 
 	private boolean isTargetCalc(L1Character cha) {
+		//
 		if (_skill.getTarget().equals("attack") && _skillId != 18) { 
 			if (_calcType == PC_PC || 
 					(_calcType == PC_NPC && cha instanceof L1PetInstance) || 
@@ -2943,7 +2879,10 @@ public class L1SkillUse {
 	
 		if ((_skillId == TURN_UNDEAD && (undeadType == 0 || undeadType == 2))
 				|| (_skillId == TURN_UNDEAD && isTU == false)
-				|| ((_skillId == ERASE_MAGIC || _skillId == SLOW || _skillId == MANA_DRAIN || _skillId == MASS_SLOW || _skillId == WIND_SHACKLE || _skillId == ENTANGLE) && isErase == false)
+				|| ((_skillId == ERASE_MAGIC || _skillId == SLOW
+						|| _skillId == MANA_DRAIN || _skillId == MASS_SLOW
+						|| _skillId == ENTANGLE || _skillId == WIND_SHACKLE)
+								&& isErase == false)
 				|| (_skillId == MANA_DRAIN && isManaDrain == false)) {
 			return true;
 		}
