@@ -83,3 +83,25 @@ update weapon set double_dmg_chance = 38 where item_id = 166;
 alter table characters add column DeleteTime datetime default NULL;
 alter table weapon_skill add column area int(11) NOT NULL default '0' after random_damage;
 
+-- elf warehouse
+#----------------------------
+# Table structure for character_elf_warehouse
+#----------------------------
+CREATE TABLE `character_elf_warehouse` (
+  `id` int(11) NOT NULL auto_increment,
+  `account_name` varchar(13) default NULL,
+  `item_id` int(11) default NULL,
+  `item_name` varchar(255) default NULL,
+  `count` int(11) default NULL,
+  `is_equipped` int(11) default NULL,
+  `enchantlvl` int(11) default NULL,
+  `is_id` int(11) default NULL,
+  `durability` int(11) default NULL,
+  `charge_count` int(11) default NULL,
+  `last_used` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `key_id` (`account_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+#----------------------------
+# No records for table character_elf_warehouse
+#----------------------------
