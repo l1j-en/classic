@@ -383,7 +383,7 @@ public class CalcExp {
 			IntRange hpUpRange = pet.getPetType().getHpUpRange();
 			IntRange mpUpRange = pet.getPetType().getMpUpRange();
 			pet.addMaxHp(hpUpRange.randomValue());
-			pet.add_maxMp(mpUpRange.randomValue());
+			pet.addMaxMp(mpUpRange.randomValue());
 		}
 
 		pet.setExpPercent(expPercentage);
@@ -398,7 +398,7 @@ public class CalcExp {
 			petTemplate.set_exp(pet.getExp()); 
 			petTemplate.set_level(pet.getLevel()); 
 			petTemplate.set_hp(pet.getMaxHp()); 
-			petTemplate.set_mp(pet.get_maxMp()); 
+			petTemplate.set_mp(pet.getMaxMp()); 
 			PetTable.storePet(petTemplate);
 			//level up message 
 			pc.sendPackets(new S_ServerMessage(320, pet.getName())); 
@@ -406,7 +406,7 @@ public class CalcExp {
 
 			// top off pet's HP/MP on level up
 			pet.setCurrentHp(pet.getMaxHp());
-			pet.setCurrentMp(pet.get_maxMp());
+			pet.setCurrentMp(pet.getMaxMp());
 		}
 	}
 }

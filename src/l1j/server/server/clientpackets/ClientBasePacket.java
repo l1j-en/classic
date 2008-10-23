@@ -101,5 +101,7 @@ public abstract class ClientBasePacket {
 		return result;
 	}
 
-	public abstract String getType();
+	public String getType() {
+		return "[C] " + this.getClass().getSimpleName();
+	}
 }

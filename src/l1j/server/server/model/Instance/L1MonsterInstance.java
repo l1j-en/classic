@@ -199,7 +199,6 @@ public class L1MonsterInstance extends L1NpcInstance {
 	public void onAction(L1PcInstance pc) {
 		if (getCurrentHp() > 0 && !isDead()) {
 			L1Attack attack = new L1Attack(pc, this);
-			pc.set_currentState(1);
 			if (attack.calcHit()) {
 				attack.calcDamage();
 				attack.calcStaffOfMana();
@@ -207,7 +206,6 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 			attack.action();
 			attack.commit();
-			pc.set_currentState(0);
 			if (getNpcTemplate().is_recall()) {
 				if (getLocation().getTileLineDistance(pc.getLocation()) > 4) {
 					int rdir = getRnd().nextInt(8);
@@ -367,12 +365,12 @@ public class L1MonsterInstance extends L1NpcInstance {
 	@Override
 	public void setCurrentMp(int i) {
 		int currentMp = i;
-		if (currentMp >= get_maxMp()) {
-			currentMp = get_maxMp();
+		if (currentMp >= getMaxMp()) {
+			currentMp = getMaxMp();
 		}
 		setCurrentMpDirect(currentMp);
 
-		if (get_maxMp() > getCurrentMp()) {
+		if (getMaxMp() > getCurrentMp()) {
 			startMpRegeneration();
 		}
 	}

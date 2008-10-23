@@ -343,7 +343,7 @@ class AcHpMpBonusEffect implements L1ArmorSetEffect {
 	public void giveEffect(L1PcInstance pc) {
 		pc.addAc(_ac);
 		pc.addMaxHp(_addHp);
-		pc.add_maxMp(_addMp);
+		pc.addMaxMp(_addMp);
 		pc.addHpr(_regenHp);
 		pc.addMpr(_regenMp);
 		pc.addMr(_addMr);
@@ -353,7 +353,7 @@ class AcHpMpBonusEffect implements L1ArmorSetEffect {
 	public void cancelEffect(L1PcInstance pc) {
 		pc.addAc(-_ac);
 		pc.addMaxHp(-_addHp);
-		pc.add_maxMp(-_addMp);
+		pc.addMaxMp(-_addMp);
 		pc.addHpr(-_regenHp);
 		pc.addMpr(-_regenMp);
 		pc.addMr(-_addMr);

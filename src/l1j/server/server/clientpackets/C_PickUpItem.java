@@ -93,7 +93,6 @@ public class C_PickUpItem extends ClientBasePacket {
 						pc.broadcastPacket(new S_AttackStatus(pc, objectId,
 								ActionCodes.ACTION_Pickup));
 					}
-					pc.set_currentState(0);
 				}
 			}
 		}

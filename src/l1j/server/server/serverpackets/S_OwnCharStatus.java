@@ -56,7 +56,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 		writeH(pc.getCurrentHp());
 		writeH(pc.getMaxHp());
 		writeH(pc.getCurrentMp());
-		writeH(pc.get_maxMp());
+		writeH(pc.getMaxMp());
 		writeC(pc.getAc());
 		writeD(time);
 		writeC(pc.get_food());

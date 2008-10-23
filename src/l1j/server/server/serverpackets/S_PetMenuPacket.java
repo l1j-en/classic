@@ -60,7 +60,7 @@ public class S_PetMenuPacket extends ServerBasePacket {
 			writeS(Integer.toString(pet.getCurrentHp())); // Current HP
 			writeS(Integer.toString(pet.getMaxHp())); 
 			writeS(Integer.toString(pet.getCurrentMp())); 
-			writeS(Integer.toString(pet.get_maxMp())); 
+			writeS(Integer.toString(pet.getMaxMp())); 
 			writeS(Integer.toString(pet.getLevel())); 
 
 			// Character names down more than 8
@@ -103,7 +103,7 @@ public class S_PetMenuPacket extends ServerBasePacket {
 			writeS(Integer.toString(summon.getCurrentHp())); 
 			writeS(Integer.toString(summon.getMaxHp())); 
 			writeS(Integer.toString(summon.getCurrentMp()));
-			writeS(Integer.toString(summon.get_maxMp()));
+			writeS(Integer.toString(summon.getMaxMp()));
 			writeS(Integer.toString(summon.getLevel()));
 			// writeS(summon.getNpcTemplate().get_nameid());
 			// writeS(Integer.toString(0));

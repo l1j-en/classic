@@ -46,6 +46,7 @@ import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1DwarfForElfInventory;
 import l1j.server.server.model.L1DwarfInventory;
 import l1j.server.server.model.L1EquipmentSlot;
 import l1j.server.server.model.L1Inventory;
@@ -119,80 +120,6 @@ public class L1PcInstance extends L1Character {
 	public static final int CLASSID_PRINCE = 0;
 	public static final int CLASSID_PRINCESS = 1;
 
-	private boolean _mail = true; 
-	
-	public boolean get_mail() 
-	{ 
-	return _mail; 
-	} 
-	
-	public void set_mail(boolean mail) 
-	{ 
-		_mail = mail; 
-	}   
-	
-	private boolean _whisper = true; 
-	
-	public boolean get_whisper() 
-	{ 
-		return _whisper; 
-	}  
-	
-	public void set_whisper(boolean whisper) 
-	{ 
-	    _whisper = whisper; 
-	}  
-	private boolean _global = true; 
-	
-	public boolean get_global() 
-	{ 
-		return _global; 
-	}  
-	
-	public void set_global(boolean global) 
-	{ 
-		_global = global; 
-	}  
-	
-	private boolean _globalchat = true;  
-	
-	public boolean get_globalchat() 
-	{ 
-		return _globalchat; 
-	} 
-	
-	public void set_globalchat(boolean globalchat) 
-	{ 
-		_globalchat = globalchat; 
-	} 
-	
-	private boolean _bpchat = true;  
-	
-	public boolean get_bpchat() 
-	{ 
-		return _bpchat; 
-	} 
-	
-	public void set_bpchat(boolean bpchat) 
-	{ 
-		_bpchat = bpchat;
-	} 
-	
-	 public boolean isInChatParty() 
-	 {   
-		 return getChatParty() != null;   
-	 }   
-	 
-	 public L1ChatParty getChatParty()  
-	 {   
-		 return _chatParty;   
-	 }  
-
-	 public void setChatParty(L1ChatParty cp) 
-	 {   
-		 _chatParty = cp;   
-	 } 
-	 
 	private short _hpr = 0;
 	private short _trueHpr = 0;
 
@@ -215,16 +142,6 @@ public class L1PcInstance extends L1Character {
 	public void addMpr(int i) {
 		_trueMpr += i;
 		_mpr = (short) Math.max(0, _trueMpr);
-	}
-
-	@Override
-	public int get_currentState() {
-		return _currentState;
-	}
-
-	@Override
-	public void set_currentState(int i) {
-		_currentState = i;
 	}
 
 	public void startHpRegeneration() {
@@ -377,10 +294,6 @@ public class L1PcInstance extends L1Character {
 			perceivedFrom.sendPackets(new S_HPMeter(this));
 		}
 
-		if (isDead()) {
-			perceivedFrom.sendPackets(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
-		}
-
 		//TODO Check if these are working, fixes for poison showing up on characters entering your screen
 		if(hasSkillEffect(L1SkillId.STATUS_POISON) || hasSkillEffect(L1SkillId.STATUS_POISON_SILENCE) || hasSkillEffect(L1SkillId.STATUS_POISON_PARALYZING)){
 			perceivedFrom.sendPackets(new S_Poison(getId(), 1));
@@ -508,9 +421,9 @@ public class L1PcInstance extends L1Character {
 	public L1PcInstance() {
 		_accessLevel = 0;
 		_currentWeapon = 0;
-		_currentState = 4;
 		_inventory = new L1PcInventory(this);
 		_dwarf = new L1DwarfInventory(this);
+		_dwarfForElf = new L1DwarfForElfInventory(this);
 		_tradewindow = new L1Inventory();
 		_bookmarks = new ArrayList<L1BookMark>();
 		_quest = new L1Quest(this);
@@ -539,11 +452,11 @@ public class L1PcInstance extends L1Character {
 			return;
 		}
 		int currentMp = i;
-		if (currentMp >= get_maxMp() || isGm()) {
-			currentMp = get_maxMp();
+		if (currentMp >= getMaxMp() || isGm()) {
+			currentMp = getMaxMp();
 		}
 		setCurrentMpDirect(currentMp);
-		sendPackets(new S_MPUpdate(currentMp, get_maxMp()));
+		sendPackets(new S_MPUpdate(currentMp, getMaxMp()));
 	}
 
 	@Override
@@ -553,6 +466,10 @@ public class L1PcInstance extends L1Character {
 
 	public L1DwarfInventory getDwarfInventory() {
 		return _dwarf;
+	}
+
+	public L1DwarfForElfInventory getDwarfForElfInventory() {
+		return _dwarfForElf;
 	}
 
 	public L1Inventory getTradeWindowInventory() {
@@ -748,12 +665,24 @@ public class L1PcInstance extends L1Character {
 		_party = p;
 	}
 
-	public void setPartyID(int partyID) {
-		_partyID = partyID;
+	public boolean isInChatParty() {
+		return getChatParty() != null;
+	}
+
+	public L1ChatParty getChatParty() {
+		return _chatParty;
+	}
+
+	public void setChatParty(L1ChatParty cp) {
+		_chatParty = cp;
 	}
 
 	public int getPartyID() {
 		return _partyID;
+	}
+
+	public void setPartyID(int partyID) {
+		_partyID = partyID;
 	}
 
 	public int getTradeID() {
@@ -1040,8 +969,8 @@ public class L1PcInstance extends L1Character {
 			}
 
 			int newMp = getCurrentMp() - mpDamage;
-			if (newMp > get_maxMp()) {
-				newMp = get_maxMp();
+			if (newMp > getMaxMp()) {
+				newMp = getMaxMp();
 			}
 
 			if (newMp <= 0) {
@@ -1135,6 +1064,9 @@ public class L1PcInstance extends L1Character {
 			int tempchargfx = 0;
 			if (hasSkillEffect(L1SkillId.SHAPE_CHANGE)) {
 				tempchargfx = getTempCharGfx();
+				setTempCharGfxAtDead(tempchargfx);
+			} else {
+				setTempCharGfxAtDead(getClassId());
 			}
 
 			L1SkillUse l1skilluse = new L1SkillUse();
@@ -1190,7 +1122,7 @@ public class L1PcInstance extends L1Character {
 			}
 
 			deathPenalty();
- 
+
 			setGresValid(true); 
 
 			if (getExpRes() == 0) {
@@ -1240,19 +1172,24 @@ public class L1PcInstance extends L1Character {
 			L1PcInstance player = null;
 			if (lastAttacker instanceof L1PcInstance) {
 				player = (L1PcInstance) lastAttacker;
-			} else if (lastAttacker instanceof L1PetInstance) {
-				player = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
-			} else if (lastAttacker instanceof L1SummonInstance) {
-				player = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
+// } else if (lastAttacker instanceof L1PetInstance) {
+// player = (L1PcInstance) ((L1PetInstance) lastAttacker)
+// .getMaster();
+// } else if (lastAttacker instanceof L1SummonInstance) {
+// player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+// .getMaster();
 			}
-			if (player != null && !player.equals(this)) { 
+// if (player != null && !player.equals(this)) { // 
+			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
 
 					boolean isChangePkCount = false;
 					if (player.getLawful() < 30000) {
 						player.set_PKcount(player.get_PKcount() + 1);
 						isChangePkCount = true;
-						}   
+// player.setLastPk();
+					}
+					player.setLastPk();
 
 					int lawful;
 
@@ -1413,13 +1350,6 @@ public class L1PcInstance extends L1Character {
 		addExp(exp);
 	}
 
-	public void setlevel(long level) {
-		super.setLevel(level);
-
-		if (_hpRegen != null) {
-			_hpRegen.updateLevel();
-		}
-	}
 	public void deathPenalty() {
 		int oldLevel = getLevel();
 		int needExp = ExpTable.getNeedExpNextLevel(oldLevel);
@@ -1562,6 +1492,7 @@ public class L1PcInstance extends L1Character {
 	private int _currentWeapon;
 	private final L1PcInventory _inventory;
 	private final L1DwarfInventory _dwarf;
+	private final L1DwarfForElfInventory _dwarfForElf;
 	private final L1Inventory _tradewindow;
 	private L1ItemInstance _weapon;
 	private L1Party _party;
@@ -1627,7 +1558,7 @@ public class L1PcInstance extends L1Character {
 		} else if (i < 0) {
 			i = 0;
 		}
-		add_maxMp(i - _baseMaxMp);
+		addMaxMp(i - _baseMaxMp);
 		_baseMaxMp = i;
 	}
 
@@ -2051,22 +1982,8 @@ public class L1PcInstance extends L1Character {
 				sendPackets(new S_SystemMessage("Use of Revival Potion failed!"));
 			}
 		}
-		int char_type = getType();
-		for (int i = 0; i < gap; i++) {
-			addHitup(CalcStat.calcStatHit(char_type, getLevel()
-					+ i));
-			addDmgup(CalcStat.calcStatDmg(char_type, getLevel()
-					+ i));
 
-			int diffAC = CalcStat.calcAc(getLevel() + i,
-					getBaseDex())
-					- CalcStat.calcAc(getLevel() + i - 1,
-							getBaseDex());
-			addAc((byte) -diffAC);
-			if (((getLevel() + i) % 2) == 0)
-			{
-				addMr(1);
-			}
+		for (int i = 0; i < gap; i++) {
 			short randomHp = CalcStat.calcStatHp(getType(), getBaseMaxHp(),
 					getBaseCon());
 			short randomMp = CalcStat.calcStatMp(getType(), getBaseMaxMp(),
@@ -2094,7 +2011,7 @@ public class L1PcInstance extends L1Character {
 			}
 		}
 		setCurrentHp(getMaxHp());
-		setCurrentMp(get_maxMp());
+		setCurrentMp(getMaxMp());
 		
 		sendPackets(new S_OwnCharStatus(this));
 	}
@@ -2536,43 +2453,10 @@ public class L1PcInstance extends L1Character {
 	public boolean isPoison() {
 			return hasSkillEffect(L1SkillId.STATUS_POISON);
 		}
-// maybe need correction on dmg or need tobe changed ill thing about that later
-	public void CalcStat(L1MonsterInstance npc) {
-		int Level = getLevel();
-		int dmg2 = CalcStat.calcAc(Level, _ac);
-		int dmg = 0;
-		if (Level >= 1 && npc.getLevel() < 11) {
-			dmg = 0;
-		} else if (Level >= 11 && npc.getLevel() < 45) {
-			dmg = (int) (dmg2 * 0.1);
-		} else if (Level == 45) {
-			dmg = (int) (dmg2 * 0.02);
-		} else if (Level == 46) {
-			dmg = (int) (dmg2 * 0.04);
-		} else if (Level == 47) {
-			dmg = (int) (dmg2 * 0.06);
-		} else if (Level == 48) {
-			dmg = (int) (dmg2 * 0.08);
-		} else if (Level >= 49 && npc.getLevel() < 65) {
-			dmg = (int) (dmg2 * 0.09);
-		} else if (Level >= 65 && npc.getLevel() < 70) {
-			dmg = (int) (dmg2 * 0.013);
-		} else if (Level >= 65 && npc.getLevel() < 75) {
-			dmg = (int) (dmg2 * 0.026);
-		} else if (Level >= 75 && npc.getLevel() < 79) {
-			dmg = (int) (dmg2 * 0.0052);
-		} else if (Level >= 79 && npc.getLevel() < 80) {
-			dmg = (int) (dmg2 * 0.00104);
-		} else if (Level >= 80) {
-			dmg = (int) (dmg2 * 0.00208);
-		}
 
-		if (dmg == 0) {
-			return;
-		}
-		addDmgup(-dmg);
-    }
-
+	/**
+	 * 
+	 */
     private int _teleportX = 0;
 
 	public int getTeleportX() {
@@ -2612,4 +2496,45 @@ public class L1PcInstance extends L1Character {
 	public void setTeleportHeading(int i) {
 		_teleportHeading = i;
 	}
+
+	private int _tempCharGfxAtDead;
+
+	public int getTempCharGfxAtDead() {
+		return _tempCharGfxAtDead;
+	}
+
+	public void setTempCharGfxAtDead(int i) {
+		_tempCharGfxAtDead = i;
+	}
+
+	private boolean _isCanWhisper = true;
+
+	public boolean isCanWhisper() {
+		return _isCanWhisper;
+	}
+
+	public void setCanWhisper(boolean flag) {
+		_isCanWhisper = flag;
+	}
+
+	private boolean _isShowTradeChat = true;
+
+	public boolean isShowTradeChat() {
+		return _isShowTradeChat;
+	}
+
+	public void setShowTradeChat(boolean flag) {
+		_isShowTradeChat = flag;
+	}
+
+	private boolean _isShowWorldChat = true;
+
+	public boolean isShowWorldChat() {
+		return _isShowWorldChat;
+	}
+
+	public void setShowWorldChat(boolean flag) {
+		_isShowWorldChat = flag;
+	}
+
 }

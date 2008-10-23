@@ -149,8 +149,8 @@ public class L1Cooking {
 			pc.sendPackets(new S_OwnCharStatus(pc));
 		} else if (cookingId == COOKING_1_4_N || cookingId == COOKING_1_4_S) {
 			cookingType = 4;
-			pc.add_maxMp(20);
-			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.get_maxMp()));
+			pc.addMaxMp(20);
+			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 		} else if (cookingId == COOKING_1_5_N || cookingId == COOKING_1_5_S) {
 			cookingType = 5;
 		} else if (cookingId == COOKING_1_6_N || cookingId == COOKING_1_6_S) {

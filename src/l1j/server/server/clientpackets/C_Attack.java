@@ -26,12 +26,10 @@ import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_ATTACK;
-import l1j.server.server.serverpackets.S_AttackMissPacket;
 import l1j.server.server.serverpackets.S_AttackStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -105,22 +103,14 @@ public class C_Attack extends ClientBasePacket {
 
 		if (target != null && !((L1Character) target).isDead()) {
 			target.onAction(pc);
-		} else { 
-			pc.setHeading(pc.targetDirection(x, y));
-			pc.sendPackets(new S_AttackStatus(pc, 0,ActionCodes.ACTION_Attack));
-			pc.broadcastPacket(new S_AttackStatus(pc, 0,ActionCodes.ACTION_Attack));
-			
-			if (!(target != null && ((L1MonsterInstance)target).receiveDamage)) {
-				target.onAction(pc); 
-			pc.CalcStat(null);
-			pc.setHeading(pc.targetDirection(x, y));
-			pc.sendPackets(new S_AttackMissPacket(pc, 0,ActionCodes.ACTION_Attack));
-			pc.broadcastPacket(new S_AttackMissPacket(pc, 0,ActionCodes.ACTION_Attack));
-		   }
-	    }
+		} else { // 
+			pc.setHeading(pc.targetDirection(x, y)); //
+			pc
+					.sendPackets(new S_AttackStatus(pc, 0,
+							ActionCodes.ACTION_Attack));
+			pc.broadcastPacket(new S_AttackStatus(pc, 0,
+					ActionCodes.ACTION_Attack));
+			//
+		}
 	}
-@Override
-public String getType() {
-	return C_Attack;
-}
 }

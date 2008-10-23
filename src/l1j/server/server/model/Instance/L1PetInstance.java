@@ -143,7 +143,7 @@ public class L1PetInstance extends L1NpcInstance {
 		setLevel(l1pet.get_level());
 		setMaxHp(l1pet.get_hp());
 		setCurrentHpDirect(l1pet.get_hp());
-		add_maxMp(l1pet.get_mp());
+		addMaxMp(l1pet.get_mp());
 		setCurrentMpDirect(l1pet.get_mp());
 		setExp(l1pet.get_exp());
 		setLawful(l1pet.get_lawful());
@@ -250,7 +250,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 		int newNpcId = _type.getNpcIdForEvolving();
 		int tmpMaxHp = getMaxHp();
-		int tmpMaxMp = get_maxMp();
+		int tmpMaxMp = getMaxMp();
 
 		transform(newNpcId);
 		_type = PetTypeTable.getInstance().get(newNpcId);
@@ -259,7 +259,7 @@ public class L1PetInstance extends L1NpcInstance {
 		setMaxHp(tmpMaxHp / 2);
 		setMaxMp(tmpMaxMp / 2);
 		setCurrentHpDirect(getMaxHp());
-		setCurrentMpDirect(get_maxMp());
+		setCurrentMpDirect(getMaxMp());
 		setExp(0);
 		setExpPercent(0);
 
@@ -272,7 +272,7 @@ public class L1PetInstance extends L1NpcInstance {
 		l1pet.set_name(getName());
 		l1pet.set_level(getLevel());
 		l1pet.set_hp(getMaxHp());
-		l1pet.set_mp(get_maxMp());
+		l1pet.set_mp(getMaxMp());
 		l1pet.set_exp(getExp());
 		PetTable.getInstance().storeNewPet(this, getId(), new_itemobjid);
 
@@ -293,7 +293,7 @@ public class L1PetInstance extends L1NpcInstance {
 		monster.setLevel(getLevel());
 		monster.setMaxHp(getMaxHp());
 		monster.setCurrentHpDirect(getCurrentHp());
-		monster.setMaxMp(get_maxMp());
+		monster.setMaxMp(getMaxMp());
 		monster.setCurrentMpDirect(getCurrentMp());
 
 		_petMaster.getPetList().remove(getId());
@@ -419,7 +419,7 @@ public class L1PetInstance extends L1NpcInstance {
 				l1pet.set_exp(getExp());
 				l1pet.set_level(getLevel());
 				l1pet.set_hp(getMaxHp());
-				l1pet.set_mp(get_maxMp());
+				l1pet.set_mp(getMaxMp());
 				PetTable.getInstance();
 				PetTable.storePet(l1pet); 
 			}
@@ -522,12 +522,12 @@ public class L1PetInstance extends L1NpcInstance {
 	@Override
 	public void setCurrentMp(int i) {
 		int currentMp = i;
-		if (currentMp >= get_maxMp()) {
-			currentMp = get_maxMp();
+		if (currentMp >= getMaxMp()) {
+			currentMp = getMaxMp();
 		}
 		setCurrentMpDirect(currentMp);
 
-		if (get_maxMp() > getCurrentMp()) {
+		if (getMaxMp() > getCurrentMp()) {
 			startMpRegeneration();
 		}
 	}

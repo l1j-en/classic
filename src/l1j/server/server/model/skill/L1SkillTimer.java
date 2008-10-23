@@ -279,14 +279,14 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addMaxHp(-pc.getAdvenHp());
-				pc.add_maxMp(-pc.getAdvenMp());
+				pc.addMaxMp(-pc.getAdvenMp());
 				pc.setAdvenHp(0);
 				pc.setAdvenMp(0);
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 				if (pc.isInParty()) { // During Party
 					pc.getParty().updateMiniHP(pc);
 				}
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.get_maxMp()));
+				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 			}
 		} else if (skillId == HASTE || skillId == GREATER_HASTE) {
 			cha.setMoveSpeed(0);
@@ -468,9 +468,9 @@ class L1SkillStop {
 		} else if (skillId == COOKING_1_4_N || skillId == COOKING_1_4_S) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
-				pc.add_maxMp(-20);
+				pc.addMaxMp(-20);
 				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-						.get_maxMp()));
+						.getMaxMp()));
 				pc.sendPackets(new S_PacketBox(53, 4, 0));
 				pc.setCookingId(0);
 			}

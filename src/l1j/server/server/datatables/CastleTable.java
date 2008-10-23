@@ -70,6 +70,7 @@ public class CastleTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM castle");
+
 			rs = pstm.executeQuery();
 
 			while (rs.next()) {
@@ -77,6 +78,7 @@ public class CastleTable {
 				castle.setWarTime(timestampToCalendar((Timestamp) rs.getObject(3)));
 				castle.setTaxRate(rs.getInt(4));
 				castle.setPublicMoney(rs.getInt(5));
+
 				_castles.put(castle.getId(), castle);
 			}
 		} catch (SQLException e) {
@@ -121,6 +123,7 @@ public class CastleTable {
 			pstm.setInt(4, castle.getPublicMoney());
 			pstm.setInt(5, castle.getId());
 			pstm.execute();
+
 			_castles.put(castle.getId(), castle);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -129,4 +132,5 @@ public class CastleTable {
 			SQLUtil.close(con);
 		}
 	}
+
 }

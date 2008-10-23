@@ -1689,7 +1689,7 @@ public class L1SkillUse {
 							}
 							if (npc.getCurrentHp() == 0 && npc.isDead()) {
 								npc.resurrect(cha.getMaxHp());
-								npc.resurrect(cha.get_maxMp() / 100);
+								npc.resurrect(cha.getMaxMp() / 100);
 								npc.setResurrect(true);
 							}
 						}
@@ -2658,14 +2658,14 @@ public class L1SkillUse {
 						pc.setAdvenHp(pc.getBaseMaxHp() / 5);
 						pc.setAdvenMp(pc.getBaseMaxMp() / 5);
 						pc.addMaxHp(pc.getAdvenHp());
-						pc.add_maxMp(pc.getAdvenMp());
+						pc.addMaxMp(pc.getAdvenMp());
 						pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
 								.getMaxHp()));
 						if (pc.isInParty()) {
 							pc.getParty().updateMiniHP(pc);
 						}
 						pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-								.get_maxMp()));
+								.getMaxMp()));
 					} else if (_skillId == GREATER_HASTE) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						if (pc.getHasteItemEquipped() > 0) {

@@ -479,12 +479,12 @@ public class L1SummonInstance extends L1NpcInstance {
 	@Override
 	public void setCurrentMp(int i) {
 		int currentMp = i;
-		if (currentMp >= get_maxMp()) {
-			currentMp = get_maxMp();
+		if (currentMp >= getMaxMp()) {
+			currentMp = getMaxMp();
 		}
 		setCurrentMpDirect(currentMp);
 
-		if (get_maxMp() > getCurrentMp()) {
+		if (getMaxMp() > getCurrentMp()) {
 			startMpRegeneration();
 		}
 //		if (_master != null) {

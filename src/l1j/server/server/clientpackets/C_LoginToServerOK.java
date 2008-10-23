@@ -34,35 +34,44 @@ public class C_LoginToServerOK extends ClientBasePacket {
 
 	public C_LoginToServerOK(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		int i = readC();
-		int j = readC();
+
+		int type = readC();
+		int button = readC();
+
 		L1PcInstance pc = client.getActiveChar();
-		if(i==0) { //Client wants to change settings for Bloodpledge chat
-			if(j==1){
-				pc.set_bpchat(true);
-			} else {
-				pc.set_bpchat(false);
+
+		if (type == 255) { // Whisper
+			if (button == 95 || button == 127) {
+				pc.setShowWorldChat(true); // open
+				pc.setCanWhisper(true); // open
+			} else if (button == 91 || button == 123) {
+				pc.setShowWorldChat(true); // open
+				pc.setCanWhisper(false); // close
+			} else if (button == 94 || button == 126) {
+				pc.setShowWorldChat(false); // close
+				pc.setCanWhisper(true); // open
+			} else if (button == 90 || button == 122) {
+				pc.setShowWorldChat(false); // close
+				pc.setCanWhisper(false); // close
 			}
-		} else if(i==2) { //Client wants to change settings for Whisper chat
-			if(j==1){
-				pc.set_whisper(true);
-			} else {
-				pc.set_whisper(false);
+		} else if (type == 0) { //
+			if (button == 0) { // close
+				pc.setShowWorldChat(false);
+			} else if (button == 1) { // open
+				pc.setShowWorldChat(true);
 			}
-		} else if(i==6) { //Client wants to change settings for Global chat
-			if(j==1){
-				pc.set_globalchat(true);
-			} else {
-				pc.set_globalchat(false);
+		} else if (type == 2) { // Whisper
+			if (button == 0) { // close
+				pc.setCanWhisper(false);
+			} else if (button == 1) { // open
+				pc.setCanWhisper(true);
 			}
-		} else if(i==7) { //Client wants to change settings for Mail
-			if(j==1){
-				pc.set_mail(true);
-			} else {
-				pc.set_mail(false);
+		} else if (type == 6) { // 
+			if (button == 0) { // close
+				pc.setShowTradeChat(false);
+			} else if (button == 1) { // open
+				pc.setShowTradeChat(true);
 			}
-		} else {
-			//System.out.println("i="+i+", j="+j);
 		}
 	}
 
@@ -71,4 +80,3 @@ public class C_LoginToServerOK extends ClientBasePacket {
 		return C_LOGIN_TO_SERVER_OK;
 	}
 }
-

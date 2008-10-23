@@ -2096,13 +2096,13 @@ public class C_NPCAction extends ClientBasePacket {
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71037) {
 			if (s.equalsIgnoreCase("0")) {
 				pc.setCurrentHp(pc.getMaxHp());
-				pc.setCurrentMp(pc.get_maxMp());
+				pc.setCurrentMp(pc.getMaxMp());
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
 				pc.sendPackets(
 						new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 				pc.sendPackets(
-						new S_MPUpdate(pc.getCurrentMp(), pc.get_maxMp()));
+						new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71030) {
@@ -2110,13 +2110,13 @@ public class C_NPCAction extends ClientBasePacket {
 				if (pc.getInventory().checkItem(L1ItemId.ADENA, 5)) { 
 					pc.getInventory().consumeItem(L1ItemId.ADENA, 5); 
 					pc.setCurrentHp(pc.getMaxHp());
-					pc.setCurrentMp(pc.get_maxMp());
+					pc.setCurrentMp(pc.getMaxMp());
 					pc.sendPackets(new S_ServerMessage(77));
 					pc.sendPackets(new S_SkillSound(pc.getId(), 830));
 					pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
 							.getMaxHp()));
 					pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-							.get_maxMp()));
+							.getMaxMp()));
 					if (pc.isInParty()) {
 						pc.getParty().updateMiniHP(pc);
 					}

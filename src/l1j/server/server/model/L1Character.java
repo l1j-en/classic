@@ -46,7 +46,8 @@ import l1j.server.server.utils.IntRange;
 public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
-	private L1Poison _poison;
+
+	private L1Poison _poison = null;
 	private boolean _paralyzed;
 	private boolean _sleeped;
 
@@ -103,8 +104,8 @@ public class L1Character extends L1Object {
 
 	public void setCurrentMp(int i) {
 		_currentMp = i;
-		if (_currentMp >= get_maxMp()) {
-			_currentMp = get_maxMp();
+		if (_currentMp >= getMaxMp()) {
+			_currentMp = getMaxMp();
 		}
 	}
 
@@ -552,11 +553,6 @@ public class L1Character extends L1Object {
 		return _level;
 	}
 
-	protected byte _power;
-	
-	public synchronized byte getPower() {
-		return _power;
-	}
 	public synchronized void setLevel(long level) {
 		_level = (int) level;
 	}
@@ -581,35 +577,9 @@ public class L1Character extends L1Object {
 	private short _maxMp = 0;
 	private int _trueMaxMp = 0; 
 
-	public short get_maxHp() {
-		return _maxHp;
-	} 
-
-	public int get_trueMaxHp() {
-		return _trueMaxHp;
-	} 
-
-	public void set_currentMp(int i) {
-		_currentMp = i;
-		if (_currentMp >= get_maxMp()) {
-			_currentMp = get_maxMp();
-		}
-	}
-	public short get_maxMp() {
+	public short getMaxMp() {
 		return _maxMp;
 	}
-	
-	public int get_currentMp() {
-		return _currentMp;
-	}
-
-	public void set_currentMp2(int i) {
-		_currentMp = i;
-	}
-
-	public int get_trueMaxMp() {
-		return _trueMaxMp;
-	} 
 
 	public void setMaxMp(int mp) {
 		_trueMaxMp = mp;
@@ -617,35 +587,12 @@ public class L1Character extends L1Object {
 		_currentMp = Math.min(_currentMp, _maxMp);
 	}
 
-	public void add_maxMp(int i) {
-		_trueMaxMp += +i;
-		if (_trueMaxMp >= 32767) {
-			_maxMp = 32767;
-		} else if (_trueMaxMp <= 0) {
-			_maxMp = 0;
-		} else {
-			_maxMp = (short) _trueMaxMp;
-		}
-		if (_currentMp > _maxMp) {
-			_currentMp = _maxMp;
-		}
+	public void addMaxMp(int i) {
+		setMaxMp(_trueMaxMp + i);
 	}
-	public void addSp(int i) { 
-		_sp += i;  
-	} 
-	
-	private int _sp = 0;
-	
-	public int getSp() {  
-		return getTrueSp() + _sp;  
-	}
-	
-	public int getTrueSp() {  
-		return getMagicLevel() + getMagicBonus();  
-	}
-	
-	protected int _ac = 0; 
-	private int _trueAc = 0; 
+
+	private int _ac = 0; // 
+	private int _trueAc = 0; // 
 
 	public int getAc() {
 		return _ac;
@@ -838,21 +785,22 @@ public class L1Character extends L1Object {
 		_addAttrKind = i;
 	}
 
-	private int _registStan = 0;
-	private int _trueRegistStan = 0;
+	// 
+	private int _registStun = 0;
+	private int _trueRegistStun = 0;
 
-	public int getRegistStan() {
-		return _registStan;
-	} 
+	public int getRegistStun() {
+		return _registStun;
+	} // 
 
-	public void addRegistStan(int i) {
-		_trueRegistStan += i;
-		if (_trueRegistStan > 127) {
-			_registStan = 127;
-		} else if (_trueRegistStan < -128) {
-			_registStan = -128;
+	public void addRegistStun(int i) {
+		_trueRegistStun += i;
+		if (_trueRegistStun > 127) {
+			_registStun = 127;
+		} else if (_trueRegistStun < -128) {
+			_registStun = -128;
 		} else {
-			_registStan = _trueRegistStan;
+			_registStun = _trueRegistStun;
 		}
 	}
 
@@ -910,8 +858,46 @@ public class L1Character extends L1Object {
 		}
 	}
 
-	private int _dmgup = 0; 
-	private int _trueDmgup = 0;
+	// 
+	private int _registSustain = 0;
+	private int _trueRegistSustain = 0;
+
+	public int getRegistSustain() {
+		return _registSustain;
+	} //
+
+	public void addRegistSustain(int i) {
+		_trueRegistSustain += i;
+		if (_trueRegistSustain > 127) {
+			_registSustain = 127;
+		} else if (_trueRegistSustain < -128) {
+			_registSustain = -128;
+		} else {
+			_registSustain = _trueRegistSustain;
+		}
+	}
+
+	// 
+	private int _registBlind = 0;
+	private int _trueRegistBlind = 0;
+
+	public int getRegistBlind() {
+		return _registBlind;
+	} //
+
+	public void addRegistBlind(int i) {
+		_trueRegistBlind += i;
+		if (_trueRegistBlind > 127) {
+			_registBlind = 127;
+		} else if (_trueRegistBlind < -128) {
+			_registBlind = -128;
+		} else {
+			_registBlind = _trueRegistBlind;
+		}
+	}
+
+	private int _dmgup = 0; //
+	private int _trueDmgup = 0; //
 
 	public int getDmgup() {
 		return _dmgup;
@@ -1006,7 +992,21 @@ public class L1Character extends L1Object {
 		}
 	}
 
-	private boolean _isDead; 
+	private int _sp = 0; // 
+
+	public int getSp() {
+		return getTrueSp() + _sp;
+	}
+
+	public int getTrueSp() {
+		return getMagicLevel() + getMagicBonus();
+	}
+
+	public void addSp(int i) {
+		_sp += i;
+	}
+
+	private boolean _isDead; //
 
 	public boolean isDead() {
 		return _isDead;
@@ -1190,65 +1190,10 @@ public class L1Character extends L1Object {
 			_mr = _trueMr;
 		}
 	}
-	
-	private int _registSustain = 0;   
-	
-	private int _trueRegistSustain = 0;  
 
-	public int getRegistSustain()  
-	{   
-		return _registSustain;   
-	}  
-	
-	public void addRegistSustain(int i)  
-	{  
-		_trueRegistSustain += i;   
-		if (_trueRegistSustain > 127)  
-	{   
-			_registSustain = 127;   
-	} else if (_trueRegistSustain < -128)  
-	{   
-		_registSustain = -128;   
-	} else {   
-		_registSustain = _trueRegistSustain;   
-	   }   
-	}   
-	
-	private int _registBlind = 0;   
-	
-	private int _trueRegistBlind = 0;   
-	
-	public int getRegistBlind()  
-	{   
-		return _registBlind;  
-	}  
-	
-	public void addRegistBlind(int i)  
-	{  
-		_trueRegistBlind += i;   
-	if (_trueRegistBlind > 127)  
-	{   
-		_registBlind = 127;   
-	} else if (_trueRegistBlind < -128)  
-	{   
-		_registBlind = -128;  
-	} else {  
-		_registBlind = _trueRegistBlind;   
-	   }   
-	} 
-	
 	private static Random _rnd = new Random();
 
 	public static Random getRnd() {
 		return _rnd;
-	}
-	protected int _currentState;
-
-	public int get_currentState() {
-		return _currentState;
-	}
-
-	public void set_currentState(int i) {
-		_currentState = i;
 	}
 }

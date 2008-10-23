@@ -80,8 +80,8 @@ public class L1NpcInstance extends L1Character {
 	public static final int HIDDEN_STATUS_NONE = 0;
 	public static final int HIDDEN_STATUS_SINK = 1;
 	public static final int HIDDEN_STATUS_FLY = 2;
-
 	public static final int CHAT_TIMING_APPEARANCE = 0;
+	
 	public static final int CHAT_TIMING_DEAD = 1;
 	public static final int CHAT_TIMING_HIDE = 2;
 
@@ -873,7 +873,7 @@ public class L1NpcInstance extends L1Character {
 		public void run() {
 			try {
 				if ((!_destroyed && !isDead())
-						&& (getCurrentHp() > 0 && getCurrentMp() < get_maxMp())) {
+						&& (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
 					setCurrentMp(getCurrentMp() + _point);
 				} else {
 					cancel();
@@ -970,13 +970,13 @@ public class L1NpcInstance extends L1Character {
 			setCurrentHpDirect(hp);
 		}
 		if (template.get_randommp() == 0) {
-			add_maxMp(template.get_mp());
+			addMaxMp(template.get_mp());
 			setCurrentMpDirect(template.get_mp());
 		} else {
 			double randommp = rate
 					* (template.get_randommp() - template.get_mp());
 			int mp = (int) (template.get_mp() + randommp);
-			add_maxMp(mp);
+			addMaxMp(mp);
 			setCurrentMpDirect(mp);
 		}
 		if (template.get_randomac() == 0) {

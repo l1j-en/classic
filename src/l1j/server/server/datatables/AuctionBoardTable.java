@@ -127,6 +127,7 @@ public class AuctionBoardTable {
 			pstm.setString(9, board.getBidder());
 			pstm.setInt(10, board.getBidderId());
 			pstm.execute();
+
 			_boards.put(board.getHouseId(), board);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -135,6 +136,7 @@ public class AuctionBoardTable {
 			SQLUtil.close(con);
 		}
 	}
+
 	public void updateAuctionBoard(L1AuctionBoard board) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -180,6 +182,7 @@ public class AuctionBoardTable {
 			pstm = con.prepareStatement("DELETE FROM board_auction WHERE house_id=?");
 			pstm.setInt(1, houseId);
 			pstm.execute();
+
 			_boards.remove(houseId);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -188,5 +191,5 @@ public class AuctionBoardTable {
 			SQLUtil.close(con);
 		}
 	}
-}
 
+}

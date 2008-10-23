@@ -144,6 +144,7 @@ public class CharacterTable {
 	public void restoreInventory(L1PcInstance pc) {
 		pc.getInventory().loadItems();
 		pc.getDwarfInventory().loadItems();
+		pc.getDwarfForElfInventory().loadItems();
 	}
 
 	public static boolean doesCharNameExist(String name) {

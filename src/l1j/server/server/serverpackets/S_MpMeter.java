@@ -15,8 +15,8 @@ public class S_MpMeter extends ServerBasePacket {
 	public S_MpMeter(L1Character cha) {
 		int objId = cha.getId();
 		int mpRatio = 100;
-		if (0 < cha.get_maxMp()) {
-			mpRatio = 100 * cha.getCurrentMp() / cha.get_maxMp();
+		if (0 < cha.getMaxMp()) {
+			mpRatio = 100 * cha.getCurrentMp() / cha.getMaxMp();
 		}
 
 		buildPacket(objId, mpRatio);

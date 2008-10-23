@@ -478,7 +478,7 @@ public class GMCommands {
 				target.sendPackets(new S_SystemMessage("HP Changed"));
 			} else if (param.equalsIgnoreCase("MP")) {
 				target.addBaseMaxMp((short) (data - target.getBaseMaxMp()));
-				target.setCurrentMpDirect(target.get_maxMp());
+				target.setCurrentMpDirect(target.getMaxMp());
 				target.sendPackets(new S_SystemMessage("MP Changed"));
 			} else if (param.equalsIgnoreCase("STR")) {
 				target.addBaseStr((byte)(data - target.getBaseStr()));
@@ -2111,7 +2111,7 @@ public class GMCommands {
 					pc.sendPackets(new S_Message_YN(322, ""));
 				} else {
 					pc.setCurrentHp(pc.getMaxHp());
-					pc.setCurrentMp(pc.get_maxMp());
+					pc.setCurrentMp(pc.getMaxMp());
 				}
 			}
 		} catch (Exception e) {
@@ -2531,7 +2531,7 @@ public class GMCommands {
 						.append(" ").append(getSex(target.getClassId()))
 						.append(" ").append(getClass(target.getClassId()))
 						.append(" ").append(target.getMaxHp())
-						.append("/").append(target.get_maxMp()+ " | ")
+						.append("/").append(target.getMaxMp()+ " | ")
 						.append("Dmg: +" + gm.getDmgup() + " | ")
 						.append("Hit: +" + gm.getHitup() + " | ")
 						.append("MR: " + gm.getMr() + " | ")
@@ -2560,7 +2560,7 @@ public class GMCommands {
 						.append("): L").append(player.getLevel())
 						.append(" ").append(charS).append(" ").append(charC)
 						.append(" ").append(player.getMaxHp())
-						.append("/").append(player.get_maxMp())
+						.append("/").append(player.getMaxMp())
 						.append(" ").append(player.getMr()).append("MR")
 						.toString()));
 				i++;

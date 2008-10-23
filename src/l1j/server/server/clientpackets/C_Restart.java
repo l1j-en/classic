@@ -77,11 +77,11 @@ public class C_Restart extends ClientBasePacket {
 		}
 		if ((pc.getMapId() == 68 || pc.getMapId() == 69) && (pc.getCurrentHp() <= (pc.getMaxHp() / 2))) {
 				pc.setCurrentHp(pc.getMaxHp());
-				pc.setCurrentMp(pc.get_maxMp());
+				pc.setCurrentMp(pc.getMaxMp());
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.get_maxMp()));
+				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 		}
 	}
 

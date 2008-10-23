@@ -60,12 +60,12 @@ public class C_ChatWhisper extends ClientBasePacket {
 			whisperFrom.sendPackets(new S_ServerMessage(117, whisperTo.getName()));
 			return;
 		}
-		/* Ssargon whisper changes start */
-		if(!whisperTo.get_whisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()){
-			whisperFrom.sendPackets(new S_SystemMessage(whisperTo.getName()+" does not accept whispers"));
+		//
+		if(!whisperTo.isCanWhisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()){
+			whisperFrom.sendPackets(new S_ServerMessage(205,
+					whisperTo.getName()));
 			return;
 		}
-		/* Ssargon whisper changes end */
 
 		ChatLogTable.getInstance().storeChat(whisperFrom, whisperTo, text, 1);
 		whisperFrom.sendPackets(new S_ChatPacket(whisperTo, text,

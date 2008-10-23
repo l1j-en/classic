@@ -41,7 +41,7 @@ public class S_NewCharPacket extends ServerBasePacket {
 		writeC(pc.get_sex());
 		writeH(pc.getLawful());
 		writeH(pc.getMaxHp());
-		writeH(pc.get_maxMp());
+		writeH(pc.getMaxMp());
 		writeC(pc.getAc());
 		writeC(pc.getLevel());
 		writeC(pc.getStr());
