@@ -19,7 +19,9 @@
 package l1j.server.server.templates;
 
 public class L1Armor extends L1Item {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	public L1Armor() {
@@ -113,14 +115,14 @@ public class L1Armor extends L1Item {
 		return this._defense_earth;
 	}
 
-	private int _regist_stan = 0; 
+	private int _regist_stun = 0; 
 
-	public void set_regist_stan(int i) {
-		_regist_stan = i;
+	public void set_regist_stun(int i) {
+		_regist_stun = i;
 	}
 
-	public int get_regist_stan() {
-		return this._regist_stan;
+	public int get_regist_stun() {
+		return this._regist_stun;
 	}
 
 	private int _regist_stone = 0; 
@@ -153,28 +155,24 @@ public class L1Armor extends L1Item {
 		return this._regist_freeze;
 	}
 
-	private int _regist_sustain = 0; 
-	
-	public void set_regist_sustain(int i)  
-	{   
-		_regist_sustain = i;   
-	}   
-	
-	public int get_regist_sustain()  
-	{   
-		return this._regist_sustain;   
-	}   
-	
-	private int _regist_blind = 0;  
-	
-	public void set_regist_blind(int i)  
-	{   
-		_regist_blind = i;   
-	}   
-	
-	public int get_regist_blind()  
-	{   
-		return this._regist_blind;   
-	   } 
+	private int _regist_sustain = 0; //
+
+	public void set_regist_sustain(int i) {
+		_regist_sustain = i;
 	}
-	
+
+	public int get_regist_sustain() {
+		return this._regist_sustain;
+	}
+
+	private int _regist_blind = 0; // 
+
+	public void set_regist_blind(int i) {
+		_regist_blind = i;
+	}
+
+	public int get_regist_blind() {
+		return this._regist_blind;
+	}
+
+}

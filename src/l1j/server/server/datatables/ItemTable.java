@@ -247,7 +247,8 @@ public class ItemTable {
 				item.setMaxLevel(rs.getInt("max_lvl"));
 				item.setBless(rs.getInt("bless"));
 				item.setTradable(rs.getInt("trade") == 0 ? true : false);
-				item.setCantDelete(rs.getInt("cant_delete") == 1 ?  true : false); 
+				item.setCantDelete(rs.getInt("cant_delete") == 1 ?
+						true : false);
 				item.setDmgSmall(rs.getInt("dmg_small"));
 				item.setDmgLarge(rs.getInt("dmg_large"));
 				item.set_stackable(rs.getInt("stackable") == 1 ? true : false);
@@ -339,7 +340,8 @@ public class ItemTable {
 				weapon.setMaxLevel(rs.getInt("max_lvl"));
 				weapon.setBless(rs.getInt("bless"));
 				weapon.setTradable(rs.getInt("trade") == 0 ? true : false);
-				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false); 
+				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ?
+						true : false);
 				weapon.setHasteItem(rs.getInt("haste_item") == 0
 						? false : true);
 
@@ -419,19 +421,20 @@ public class ItemTable {
 				armor.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				armor.setBless(rs.getInt("bless"));
 				armor.setTradable(rs.getInt("trade") == 0 ? true : false);
-				armor.setCantDelete(rs.getInt("cant_delete") == 1 ?  true : false); 
+				armor.setCantDelete(rs.getInt("cant_delete") == 1 ?
+						true : false);
 				armor.set_defense_earth(rs.getInt("defense_earth"));
 				armor.set_defense_water(rs.getInt("defense_water"));
 				armor.set_defense_wind(rs.getInt("defense_wind"));
 				armor.set_defense_fire(rs.getInt("defense_fire"));
-				armor.set_regist_stan(rs.getInt("regist_stan"));
+				armor.set_regist_stun(rs.getInt("regist_stun"));
 				armor.set_regist_stone(rs.getInt("regist_stone"));
 				armor.set_regist_sleep(rs.getInt("regist_sleep"));
 				armor.set_regist_freeze(rs.getInt("regist_freeze"));
-				armor.set_regist_sustain(rs.getInt("regist_sustain"));  
-                armor.set_regist_blind(rs.getInt("regist_blind")); 
-				
-                result.put(new Integer(armor.getItemId()), armor);
+				armor.set_regist_sustain(rs.getInt("regist_sustain"));
+				armor.set_regist_blind(rs.getInt("regist_blind"));
+
+				result.put(new Integer(armor.getItemId()), armor);
 			}
 		} catch (NullPointerException e) {
 			_log.log(Level.SEVERE, new StringBuilder()
