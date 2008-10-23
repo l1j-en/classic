@@ -35,10 +35,12 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_Title extends ClientBasePacket {
 
+	private static final String C_TITLE = "[C] C_Title";
+	private static Logger _log = Logger.getLogger(C_Title.class.getName());
+
 	public C_Title(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
-		
 		String charName = readS();
 		String title = readS();
 
@@ -131,10 +133,7 @@ public class C_Title extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_OB_TITLE;
+		return C_TITLE;
 	}
 
-	private static final String C_OB_TITLE = "[C] C_Title";
-	private static Logger _log = Logger.getLogger(C_Title.class
-			.getName());
 }

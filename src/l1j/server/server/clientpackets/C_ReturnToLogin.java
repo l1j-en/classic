@@ -20,7 +20,6 @@
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.LoginController;
 
@@ -28,6 +27,10 @@ import l1j.server.server.LoginController;
 // ClientBasePacket
 
 public class C_ReturnToLogin extends ClientBasePacket {
+
+	private static final String C_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
+	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
+			.getName());
 
 	public C_ReturnToLogin(byte decrypt[], ClientThread client)
 			throws Exception {
@@ -40,12 +43,7 @@ public class C_ReturnToLogin extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_OB_RETURN_TO_LOGIN;
+		return "[C] C_ReturnToLogin";
 	}
-
-	private static final String C_OB_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
-
-	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
-			.getName());
 
 }

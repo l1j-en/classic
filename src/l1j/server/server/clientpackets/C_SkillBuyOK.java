@@ -33,7 +33,10 @@ import l1j.server.server.templates.L1Skills;
 
 public class C_SkillBuyOK extends ClientBasePacket {
 
-	public C_SkillBuyOK(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_SKILL_BUY_OK = "[C] C_SkillBuyOK";
+
+	public C_SkillBuyOK(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		int count = readH();
@@ -438,8 +441,7 @@ public class C_SkillBuyOK extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_SKILL_BUY_OK;
+		return C_SKILL_BUY_OK;
 	}
 
-	private static final String C_0B_SKILL_BUY_OK = "[C] C_SkillBuyOK";
 }

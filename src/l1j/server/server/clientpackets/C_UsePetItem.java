@@ -60,4 +60,3 @@ public class C_UsePetItem extends ClientBasePacket {
 		return C_USE_PET_ITEM;
 	}
 }
-

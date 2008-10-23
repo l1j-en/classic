@@ -144,7 +144,7 @@ public class C_Teleport extends ClientBasePacket {
 				pc.sendPackets(new S_DollPack(doll, pc));
 
 				for (L1PcInstance visiblePc : L1World.getInstance()
-					.getVisiblePlayer(doll)) {
+						.getVisiblePlayer(doll)) {
 					visiblePc.removeKnownObject(doll);
 					subjects.add(visiblePc);
 				}

@@ -28,7 +28,10 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class C_TradeCancel extends ClientBasePacket {
 
-	public C_TradeCancel(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_TRADE_CANCEL = "[C] C_TradeCancel";
+
+	public C_TradeCancel(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
@@ -38,8 +41,7 @@ public class C_TradeCancel extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_12_TRADE_CANCEL;
+		return C_TRADE_CANCEL;
 	}
 
-	private static final String C_12_TRADE_CANCEL = "[C] C_TradeCancel";
-	}
+}

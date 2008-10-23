@@ -44,7 +44,8 @@ public class C_Who extends ClientBasePacket {
 			pc.sendPackets(s_whocharinfo);
 		} else {
 			if (Config.ALT_WHO_COMMAND) {
-				String amount = String.valueOf(L1World.getInstance().getAllPlayers().size());
+				String amount = String.valueOf(L1World.getInstance()
+						.getAllPlayers().size());
 				S_WhoAmount s_whoamount = new S_WhoAmount(amount);
 				pc.sendPackets(s_whoamount);
 			}

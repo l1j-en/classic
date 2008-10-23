@@ -30,9 +30,9 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
-import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -87,7 +87,7 @@ public class C_SelectList extends ClientBasePacket {
 			charisma -= petCost;
 			int petCount = charisma / 6;
 			if (petCount <= 0) {
-		    pc.sendPackets(new S_ServerMessage(489)); 
+				pc.sendPackets(new S_ServerMessage(489)); 
 				return;
 			}
 

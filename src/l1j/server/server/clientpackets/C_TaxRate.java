@@ -33,7 +33,11 @@ import l1j.server.server.templates.L1Castle;
 
 public class C_TaxRate extends ClientBasePacket {
 
-	public C_TaxRate(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_TAX_RATE = "[C] C_TaxRate";
+	private static Logger _log = Logger.getLogger(C_TaxRate.class.getName());
+
+	public C_TaxRate(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 		int i = readD();
 		int j = readC();
@@ -57,10 +61,7 @@ public class C_TaxRate extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_4A_TAX_RATE;
+		return C_TAX_RATE;
 	}
 
-	private static final String C_4A_TAX_RATE = "[C] C_TaxRate";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_TaxRate.class.getName());
 }

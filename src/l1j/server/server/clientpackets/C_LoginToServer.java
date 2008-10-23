@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
@@ -122,10 +123,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		GetBackRestartTable gbrTable = GetBackRestartTable.getInstance();
 		L1GetBackRestart[] gbrList = gbrTable.getGetBackRestartTableList();
 		for (L1GetBackRestart gbr : gbrList) {
-			 if (pc.getMapId() == gbr.getArea()) {   
-				 pc.setX(gbr.getLocX());   
-				 pc.setY(gbr.getLocY());   
-				 pc.setMap(gbr.getMapId()); 
+			if (pc.getMapId() == gbr.getArea()) {
+				pc.setX(gbr.getLocX());
+				pc.setY(gbr.getLocY());
+				pc.setMap(gbr.getMapId());
 				break;
 			}
 		}
@@ -190,8 +191,10 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		if (pc.getCurrentHp() > 0) {
 			pc.setDead(false);
+			pc.setStatus(0);
 		} else {
 			pc.setDead(true);
+			pc.setStatus(ActionCodes.ACTION_Die);
 		}
 
 		if (pc.getLevel() >= 51 && pc.getLevel() - 50 > pc.getBonusStats()) {

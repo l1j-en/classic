@@ -40,10 +40,11 @@ import l1j.server.server.serverpackets.S_Weather;
 public class C_Restart extends ClientBasePacket {
 	private static final String C_RESTART = "[C] C_Restart";
 
-	public C_Restart(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Restart(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
-	
+
 		int[] loc;
 		
 		if (pc.getHellTime() > 0) {
@@ -59,8 +60,9 @@ public class C_Restart extends ClientBasePacket {
 		pc.broadcastPacket(new S_RemoveObject(pc));
 
 		pc.setCurrentHp(pc.getLevel());
-		pc.set_food(3);
+		pc.set_food(5);
 		pc.setDead(false);
+		pc.setStatus(0);
 		L1World.getInstance().moveVisibleObject(pc, loc[2]);
 		pc.setX(loc[0]);
 		pc.setY(loc[1]);
@@ -76,12 +78,12 @@ public class C_Restart extends ClientBasePacket {
 			pc.beginHell(false);
 		}
 		if ((pc.getMapId() == 68 || pc.getMapId() == 69) && (pc.getCurrentHp() <= (pc.getMaxHp() / 2))) {
-				pc.setCurrentHp(pc.getMaxHp());
-				pc.setCurrentMp(pc.getMaxMp());
-				pc.sendPackets(new S_ServerMessage(77));
-				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
+			pc.setCurrentHp(pc.getMaxHp());
+			pc.setCurrentMp(pc.getMaxMp());
+			pc.sendPackets(new S_ServerMessage(77));
+			pc.sendPackets(new S_SkillSound(pc.getId(), 830));
+			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 		}
 	}
 

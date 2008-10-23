@@ -31,11 +31,12 @@ public class C_Trade extends ClientBasePacket {
 
 	private static final String C_TRADE = "[C] C_Trade";
 	
-	public C_Trade(byte abyte0[], ClientThread clientthread) throws Exception {
+
+	public C_Trade(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
-		
 		if (player.isGhost()) {
 			return;
 		}

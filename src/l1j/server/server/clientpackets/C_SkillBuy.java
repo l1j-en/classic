@@ -30,13 +30,15 @@ import l1j.server.server.serverpackets.S_SkillBuy;
 
 public class C_SkillBuy extends ClientBasePacket {
 
-	public C_SkillBuy(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_SKILL_BUY = "[C] C_SkillBuy";
+
+	public C_SkillBuy(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		int i = readD();
 
 		L1PcInstance pc = clientthread.getActiveChar();
-		
 		if (pc.isGhost()) {
 			return;
 		}
@@ -65,9 +67,7 @@ public class C_SkillBuy extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_SKILL_BUY;
+		return C_SKILL_BUY;
 	}
 
-	private static final String C_0B_SKILL_BUY = "[C] C_SkillBuy";
-	//private static Logger _log = Logger.getLogger(C_SkillBuy.class.getName());
 }

@@ -19,7 +19,12 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
@@ -28,9 +33,9 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
+
 public class C_UseSkill extends ClientBasePacket {
 
-	private static final String C_USE_SKILL = "[C] C_UseSkill";
 	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int row = readC();
@@ -101,6 +106,7 @@ public class C_UseSkill extends ClientBasePacket {
 				L1PcInstance target = L1World.getInstance().getPlayer(charName);
 
 				if (target == null) {
+
 					pc.sendPackets(new S_ServerMessage(73, charName)); 
 					return;
 				}
@@ -118,9 +124,4 @@ public class C_UseSkill extends ClientBasePacket {
 			e.printStackTrace();
 		}
 	}
-
-
-public String getType() {
-	return C_USE_SKILL;
-}
 }

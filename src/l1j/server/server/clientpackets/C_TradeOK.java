@@ -30,18 +30,28 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_TradeOK extends ClientBasePacket {
 
-	public C_TradeOK(byte abyte0[], ClientThread clientthread) throws Exception {
+	private static final String C_TRADE_CANCEL = "[C] C_TradeOK";
+	public C_TradeOK(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
-		L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance().findObject(player.getTradeID());
+		L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance()
+				.findObject(player.getTradeID());
 		if (trading_partner != null) {
 			player.setTradeOk(true);
-			if (player.getTradeOk() && trading_partner.getTradeOk()) {
-				if (player.getInventory().getSize() < (180 - 16) && trading_partner.getInventory().getSize() < (180 - 16)) {
+
+			if (player.getTradeOk() && trading_partner.getTradeOk()) 
+			{
+				// 
+				// 
+				if (player.getInventory().getSize() < (180 - 16)
+						&& trading_partner.getInventory().getSize() < (180 - 16)) 
+				{
 					L1Trade trade = new L1Trade();
 					trade.TradeOK(player);
-				} else {
+				} else
+				{
 					player.sendPackets(new S_ServerMessage(263)); 
 					trading_partner.sendPackets(new S_ServerMessage(263));
 					L1Trade trade = new L1Trade();
@@ -53,8 +63,7 @@ public class C_TradeOK extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_45_TRADE_OK;
+		return C_TRADE_CANCEL;
 	}
 
-	private static final String C_45_TRADE_OK = "[C] C_TradeOK";
 }

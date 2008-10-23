@@ -30,6 +30,9 @@ import l1j.server.server.serverpackets.S_PrivateShop;
 
 public class C_ShopList extends ClientBasePacket {
 
+	private static final String C_SHOP_LIST = "[C] C_ShopList";
+	private static Logger _log = Logger.getLogger(C_ShopList.class.getName());
+
 	public C_ShopList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 
@@ -49,7 +52,4 @@ public class C_ShopList extends ClientBasePacket {
 		return C_SHOP_LIST;
 	}
 
-	private static final String C_SHOP_LIST = "[C] C_ShopList";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_ShopList.class.getName());
 }

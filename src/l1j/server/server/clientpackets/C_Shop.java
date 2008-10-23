@@ -37,11 +37,14 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 // ClientBasePacket
 
 public class C_Shop extends ClientBasePacket {
+
+	private static final String C_SHOP = "[C] C_Shop";
+	private static Logger _log = Logger.getLogger(C_Shop.class.getName());
+
 	public C_Shop(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 
 		L1PcInstance pc = clientthread.getActiveChar();
-		
 		if (pc.isGhost()) {
 			return;
 		}
@@ -166,7 +169,4 @@ public class C_Shop extends ClientBasePacket {
 		return C_SHOP;
 	}
 
-	private static final String C_SHOP = "[C] C_Shop";
-	private static Logger _log = Logger
-			.getLogger(C_Shop.class.getName());
 }
