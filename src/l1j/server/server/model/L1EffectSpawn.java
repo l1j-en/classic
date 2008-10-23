@@ -25,11 +25,11 @@ import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Instance.L1EffectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.map.L1Map;
+import l1j.server.server.model.map.L1WorldMap;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.templates.L1Npc;
-import l1j.server.server.model.map.L1Map; 
-import l1j.server.server.model.map.L1WorldMap; 
-import l1j.server.server.model.skill.L1SkillId;
 
 // Referenced classes of package l1j.server.server.model:
 // L1EffectSpawn
@@ -152,18 +152,21 @@ public class L1EffectSpawn {
 			if (!map.isArrowPassable(x, y)) {
 				break;
 			}
-			L1EffectInstance effect = spawnEffect(81157, duration * 1000, x, y,cha.getMapId());
+
+			L1EffectInstance effect = spawnEffect(81157, duration * 1000, x, y,
+					cha.getMapId());
 			if (effect == null) {
 				break;
 			}
-			 for (L1Object objects : L1World.getInstance().getVisibleObjects(effect, 0)) {   
-				 if (objects instanceof L1EffectInstance) {   
-					 L1EffectInstance npc = (L1EffectInstance) objects;   
-					 if (npc.getNpcTemplate().get_npcId() == 81157) {   
-						 npc.deleteMe();   
-						 }  
-					 }   
-				 } 
+			for (L1Object objects : L1World.getInstance()
+					.getVisibleObjects(effect, 0)) {
+				if (objects instanceof L1EffectInstance) {
+					L1EffectInstance npc = (L1EffectInstance) objects;
+					if (npc.getNpcTemplate().get_npcId() == 81157) {
+						npc.deleteMe();
+					}
+				}
+			}
 			if (targetX == x && targetY == y) {
 				break;
 			}

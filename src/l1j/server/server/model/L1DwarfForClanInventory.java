@@ -33,6 +33,9 @@ import l1j.server.server.utils.SQLUtil;
 
 public class L1DwarfForClanInventory extends L1Inventory {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private static Logger _log = Logger.getLogger(L1DwarfForClanInventory.class
 			.getName());

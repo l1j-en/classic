@@ -19,8 +19,6 @@
 
 package l1j.server.server.model.skill;
 
-import static l1j.server.server.model.skill.L1SkillId.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -110,6 +108,7 @@ import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skills;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1SkillUse {
 	public static final int TYPE_NORMAL = 0;
@@ -1339,13 +1338,23 @@ public class L1SkillUse {
 			}
 
 			if (_skill.getTarget().equals("attack") && _skillId != 18) {
-				_user.broadcastPacket(new S_UseAttackSkill(_user, targetid,
-						castgfx, _targetX, _targetY, _skill.getArrowType()));
-				_target.broadcastPacketExceptTargetSight(new S_DoActionGFX(
-						targetid, ActionCodes.ACTION_Damage), _user);
-				if (!_skill.getArrowType()) {
-					_user.broadcastPacket(new S_SkillSound(targetid, _skill
-							.getCastGfx()));
+				if (_skill.getArea() == 0) { //
+					_user.broadcastPacket(new S_UseAttackSkill(_user, targetid,
+							castgfx, _targetX, _targetY, actionId));
+					_target.broadcastPacketExceptTargetSight(new S_DoActionGFX(
+							targetid, ActionCodes.ACTION_Damage), _user);
+				} else { //
+					L1Character[] cha = new L1Character[_targetList.size()];
+					int i = 0;
+					for (TargetStatus ts : _targetList) {
+						cha[i] = ts.getTarget();
+						cha[i].broadcastPacketExceptTargetSight(
+								new S_DoActionGFX(cha[i].getId(), ActionCodes
+										.ACTION_Damage), _user);
+						i++;
+					}
+					_user.broadcastPacket(new S_RangeSkill(_user, cha,
+							castgfx, actionId, S_RangeSkill.TYPE_DIR));
 				}
 			} else {
 				if (_skillId != 5 && _skillId != 69 && _skillId != 131) {

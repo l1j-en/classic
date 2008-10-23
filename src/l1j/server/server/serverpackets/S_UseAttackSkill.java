@@ -66,7 +66,7 @@ public class S_UseAttackSkill extends ServerBasePacket {
 		if (cha instanceof L1PcInstance) {
 			// Shadow system transforms into a magic during the attack and 
 			// the client to use a provisional to fall into the corresponding
-			if (cha.hasSkillEffect(SHAPE_CHANGE)
+			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE)
 					&& actionId == ActionCodes.ACTION_SkillAttack) {
 				int tempchargfx = cha.getTempCharGfx();
 				if (tempchargfx == 5727 || tempchargfx == 5730) {

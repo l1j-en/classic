@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_Ability;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_DelSkill;
@@ -85,9 +85,9 @@ public class L1EquipmentSlot {
 		}
 
 		if (itemId == 20077 || itemId == 20062 || itemId == 120077) {
-			if (!_owner.hasSkillEffect(INVISIBILITY)) {
-				_owner.killSkillEffectTimer(BLIND_HIDING);
-				_owner.setSkillEffect(INVISIBILITY, 0);
+			if (!_owner.hasSkillEffect(L1SkillId.INVISIBILITY)) {
+				_owner.killSkillEffectTimer(L1SkillId.BLIND_HIDING);
+				_owner.setSkillEffect(L1SkillId.INVISIBILITY, 0);
 				_owner.sendPackets(new S_Invis(_owner.getId(), 1));
 				_owner.broadcastPacket(new S_RemoveObject(_owner));
 			}
@@ -114,8 +114,8 @@ public class L1EquipmentSlot {
 		_owner.setWeapon(null);
 		_owner.setCurrentWeapon(0);
 		_weapon = null;
-		if (_owner.hasSkillEffect(COUNTER_BARRIER)) {
-			_owner.removeSkillEffect(COUNTER_BARRIER);
+		if (_owner.hasSkillEffect(L1SkillId.COUNTER_BARRIER)) {
+			_owner.removeSkillEffect(L1SkillId.COUNTER_BARRIER);
 		}
 	}
 
@@ -134,7 +134,9 @@ public class L1EquipmentSlot {
 		_owner.addFire(-item.get_defense_fire());
 
 		for (L1ArmorSet armorSet : L1ArmorSet.getAllSet()) {
-			if (armorSet.isPartOfSet(itemId) && _currentArmorSet.contains(armorSet) && !armorSet.isValid(_owner)) {
+			if (armorSet.isPartOfSet(itemId)
+					&& _currentArmorSet.contains(armorSet)
+					&& !armorSet.isValid(_owner)) {
 				armorSet.cancelEffect(_owner);
 				_currentArmorSet.remove(armorSet);
 			}

@@ -6,7 +6,9 @@ import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DropItem;
 
 public class L1GroundInventory extends L1Inventory {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	public L1GroundInventory(int objectId, int x, int y, short map) {

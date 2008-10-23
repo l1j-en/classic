@@ -108,13 +108,13 @@ public class L1HauntedHouse {
 		setWinnersCount(0);
 		setGoalCount(0);
 		for (L1PcInstance pc : getMembersArray()) {
-			if (pc.getMapId() == 5140) {   
-				L1SkillUse l1skilluse = new L1SkillUse();   
-				l1skilluse.handleCommands(pc,   
-						L1SkillId.CANCELLATION, pc.getId(), pc.getX(),   
-						pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);   
-				L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);   
-				} 
+			if (pc.getMapId() == 5140) {
+				L1SkillUse l1skilluse = new L1SkillUse();
+				l1skilluse.handleCommands(pc,
+						L1SkillId.CANCELLATION, pc.getId(), pc.getX(),
+						pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
+				L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);
+			}
 		}
 		clearMembers();
 		for (L1Object object : L1World.getInstance().getObject()) {

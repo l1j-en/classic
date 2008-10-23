@@ -23,8 +23,10 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.datatables.LetterTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 //import l1j.server.server.serverpackets.S_ServerMessage;
@@ -111,13 +113,21 @@ public class L1DeleteItemOnGround {
 					L1Inventory groundInventory = L1World.getInstance()
 							.getInventory(item.getX(), item.getY(),
 									item.getMapId());
-					if (item.getItem().getItemId() == 40314 // Amulet pets
-							|| item.getItem().getItemId() == 40316) {
+					int itemId = item.getItem().getItemId();
+					if (itemId == 40314 || itemId == 40316) { // Amulet pets
 						PetTable.getInstance().deletePet(item.getId());
-					} else if (item.getItem().getItemId() >= 49016 // Stationery
-							&& item.getItem().getItemId() <= 49025) {
+					} else if (itemId >= 49016 && itemId <= 49025) { // Stationery
 						LetterTable lettertable = new LetterTable();
 						lettertable.deleteLetter(item.getId());
+					} else if (itemId >= 41383 && itemId <= 41400) { // Furniture
+						if (l1object instanceof L1FurnitureInstance) {
+							L1FurnitureInstance furniture =
+									(L1FurnitureInstance) l1object;
+							if (furniture.getItemObjId() == item.getId()) { //
+								FurnitureSpawnTable.getInstance()
+										.deleteFurniture(furniture);
+							}
+						}
 					}
 					groundInventory.deleteItem(item);
 				}

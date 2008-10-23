@@ -33,11 +33,7 @@ public class L1HouseLocation {
 	private static final Point[] TELEPORT_LOC_GIRAN = {
 			new Point(33419, 32810), new Point(33343, 32723), // Warehousing and storage depot pets
 			new Point(33553, 32712), new Point(32702, 32842), }; // Atonement envoy, Ilan market
-	
-	private static final Point[] TELEPORT_LOC_GLUDIN = {   
-		new Point(32628, 32807), new Point(32623, 32729),  
-		new Point(33553, 32712), new Point(32702, 32842), }; 
-	
+
 	private static final Point[] TELEPORT_LOC_HEINE = {
 			new Point(33604, 33236), new Point(33649, 33413), // Warehousing and storage depot pets
 			new Point(33553, 32712), new Point(32702, 32842), }; // Atonement envoy, Ilan market
@@ -46,6 +42,11 @@ public class L1HouseLocation {
 			new Point(33921, 33177), // Warehousing and storage depot pets
 			new Point(33553, 32712), new Point(32702, 32842), }; // Atonement envoy, Ilan market
 
+	private static final Point[] TELEPORT_LOC_GLUDIN = {
+			new Point(32628, 32807), new Point(32623, 32729), //
+			new Point(33553, 32712), new Point(32702, 32842), }; //
+
+	//
 	private static final List<Integer> _houseIds = HouseTable.getHouseIdList();
 
 	private L1HouseLocation() {
@@ -459,47 +460,43 @@ public class L1HouseLocation {
 					|| mapid == 5123) {
 				ret = true;
 			}
-		} else if (houseId == 524289) {  
-			if (locx >= 32559 && locx <= 32566 && locy >= 32669   
-					&& locy <= 32676 && mapid == 4) {   
-				ret = true;   
-				}   
-			}  
-		else if (houseId == 524290) {  
-			if (locx >= 32548 && locx <= 32556 && locy >= 32705  
-					&& locy <= 32716 && mapid == 4 || locx >= 32547   
-					&& locx <= 32547 && locy >= 32710 && locy <= 32716   
-					&& mapid == 4) {   
-				    ret = true;   
-					}   
-			} else if (houseId == 524291) {  
-				if (locx >= 32537 && locx <= 32544 && locy >= 32781   
-						&& locy <= 32791 && mapid == 4) {   
-					ret = true;   
-					}   
-				}  
-			else if (houseId == 524292) {  
-				if (locx >= 32550 && locx <= 32560 && locy >= 32780   
-						&& locy <= 32787 && mapid == 4) {   
-					ret = true;   
-					}   
-				}  
-			else if (houseId == 524293) {  
-				if (locx >= 32535 && locx <= 32543 && locy >= 32807   
-						&& locy <= 32818 && mapid == 4 || locx >= 32534   
-						&& locx <= 32534 && locy >= 32812 && locy <= 32818   
-						&& mapid == 4) {   
-					ret = true;   
-					}   
-			   }  
-			else if (houseId == 524294) {  
-				if (locx >= 32553 && locx <= 32560 && locy >= 32814  
-						&& locy <= 32821 && mapid == 4) {   
-					ret = true;   
-					} 
-		       }
-		     return ret;
-	    }
+		} else if (houseId == 524289) { //
+			if (locx >= 32559 && locx <= 32566 && locy >= 32669
+					&& locy <= 32676 && mapid == 4) {
+				ret = true;
+			}
+		} else if (houseId == 524290) { //
+			if (locx >= 32548 && locx <= 32556 && locy >= 32705
+					&& locy <= 32716 && mapid == 4 || locx >= 32547
+					&& locx <= 32547 && locy >= 32710 && locy <= 32716
+					&& mapid == 4) {
+				ret = true;
+			}
+		} else if (houseId == 524291) { //
+			if (locx >= 32537 && locx <= 32544 && locy >= 32781
+					&& locy <= 32791 && mapid == 4) {
+				ret = true;
+			}
+		} else if (houseId == 524292) { //
+			if (locx >= 32550 && locx <= 32560 && locy >= 32780
+					&& locy <= 32787 && mapid == 4) {
+				ret = true;
+			}
+		} else if (houseId == 524293) { //
+			if (locx >= 32535 && locx <= 32543 && locy >= 32807
+					&& locy <= 32818 && mapid == 4 || locx >= 32534
+					&& locx <= 32534 && locy >= 32812 && locy <= 32818
+					&& mapid == 4) {
+				ret = true;
+			}
+		} else if (houseId == 524294) { //
+			if (locx >= 32553 && locx <= 32560 && locy >= 32814
+					&& locy <= 32821 && mapid == 4) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
 
 	public static int[] getHouseLoc(int houseId) { // houseId
 		int[] loc = new int[3];
@@ -727,35 +724,30 @@ public class L1HouseLocation {
 			loc[0] = 33625;
 			loc[1] = 33445;
 			loc[2] = 4;
-		} else if (houseId == 524289) {  
-			loc[0] = 32564;   
-			loc[1] = 32675;   
-			loc[2] = 4;   
-			}  
-		else if (houseId == 524290) {  
-			loc[0] = 32549;   
-			loc[1] = 32707;   
-			loc[2] = 4;   
-			}  
-		else if (houseId == 524291) {  
-			loc[0] = 32538;   
-			loc[1] = 32782;   
-			loc[2] = 4;   
-			}  
-		else if (houseId == 524292) {  
-			loc[0] = 32558;   
-			loc[1] = 32786;   
-			loc[2] = 4;   
-			} 
-		else if (houseId == 524293) {  
-			loc[0] = 32536;   
-			loc[1] = 32809;   
-			loc[2] = 4;   
-			}  
-		else if (houseId == 524294) { 
-			loc[0] = 32554;   
-			loc[1] = 32819;   
-			loc[2] = 4; 
+		} else if (houseId == 524289) { //
+			loc[0] = 32564;
+			loc[1] = 32675;
+			loc[2] = 4;
+		} else if (houseId == 524290) { //
+			loc[0] = 32549;
+			loc[1] = 32707;
+			loc[2] = 4;
+		} else if (houseId == 524291) { //
+			loc[0] = 32538;
+			loc[1] = 32782;
+			loc[2] = 4;
+		} else if (houseId == 524292) { //
+			loc[0] = 32558;
+			loc[1] = 32786;
+			loc[2] = 4;
+		} else if (houseId == 524293) { //
+			loc[0] = 32536;
+			loc[1] = 32809;
+			loc[2] = 4;
+		} else if (houseId == 524294) { //
+			loc[0] = 32554;
+			loc[1] = 32819;
+			loc[2] = 4;
 		}
 		return loc;
 	}
@@ -770,8 +762,8 @@ public class L1HouseLocation {
 			loc[0] = 32772;
 			loc[1] = 32814;
 			loc[2] = houseId - 322568;
-		} else if (houseId >= 524289 && houseId <= 524294) {  
-			loc = getHouseLoc(houseId); 
+		} else if (houseId >= 524289 && houseId <= 524294) { 
+			loc = getHouseLoc(houseId);
 		}
 		return loc;
 	}
@@ -806,12 +798,13 @@ public class L1HouseLocation {
 		} else if (houseId >= 458753 && houseId <= 458819) {
 			loc[0] = TELEPORT_LOC_ADEN[number].getX();
 			loc[1] = TELEPORT_LOC_ADEN[number].getY();
-			loc[2] = TELEPORT_LOC_MAPID[number];   
-		} else if (houseId >= 524289 && houseId <= 524294) {  
-			loc[0] = TELEPORT_LOC_GLUDIN[number].getX();   
-			loc[1] = TELEPORT_LOC_GLUDIN[number].getY(); 
+			loc[2] = TELEPORT_LOC_MAPID[number];
+		} else if (houseId >= 524289 && houseId <= 524294) { //
+			loc[0] = TELEPORT_LOC_GLUDIN[number].getX();
+			loc[1] = TELEPORT_LOC_GLUDIN[number].getY();
 			loc[2] = TELEPORT_LOC_MAPID[number];
 		}
 		return loc;
 	}
+
 }

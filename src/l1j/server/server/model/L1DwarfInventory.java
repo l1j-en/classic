@@ -16,7 +16,9 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1DwarfInventory extends L1Inventory {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	public L1DwarfInventory(L1PcInstance owner) {
 		_owner = owner;

@@ -281,7 +281,7 @@ public class L1MobSkillUse {
 				.getY()));
 
 		if (areaHeight > 0) {
-				ArrayList<L1Object> objs = L1World.getInstance()
+			ArrayList<L1Object> objs = L1World.getInstance()
 					.getVisibleBoxObjects(_attacker, _attacker.getHeading(),
 							areaWidth, areaHeight);
 
