@@ -1,1 +1,1 @@
-\f=Welcome To LineageDC. Report any bugs on http://code.google.com/p/lindc/issues/list
+\f=Welcome to L1J-En. Report any bugs on http://code.google.com/p/l1j-en/issues/list
