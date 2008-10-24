@@ -153,18 +153,6 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
-	 public void startHpRegenerationByDoll() {   
-	        final int INTERVAL_BY_DOLL = 60000; 
-	        boolean isExistHprDoll = false; 
-	        Object[] dollList = getDollList().values().toArray();
-	        for (Object dollObject : dollList) { 
-	        	L1DollInstance doll = (L1DollInstance) dollObject;
-	        }
-	        if (!_hpRegenActiveByDoll && isExistHprDoll) {  
-	            _hpRegenActiveByDoll = true;   
-	     } 
-	}
-	 
 	public void stopHpRegeneration() {
 		if (_hpRegenActive) {
 			_hpRegen.cancel();
@@ -216,12 +204,6 @@ public class L1PcInstance extends L1Character {
 			_mpRegenActiveByDoll = false;
 		}
 	}
-
-    public void stopHpRegenerationByDoll() {   
-        if (_hpRegenActiveByDoll) { 
-            _hpRegenActiveByDoll = false;  
-        } 
-    }  
 
 	public void startObjectAutoUpdate() {
 		removeAllKnownObjects();
@@ -951,7 +933,8 @@ public class L1PcInstance extends L1Character {
 			if (attacker instanceof L1PcInstance
 					&& ((L1PcInstance) attacker).isPinkName()) {
 			
-				for (L1Object object : L1World.getInstance().getVisibleObjects(attacker)) {    
+				for (L1Object object : L1World.getInstance()
+						.getVisibleObjects(attacker)) {
 					if (object instanceof L1GuardInstance) {
 						L1GuardInstance guard = (L1GuardInstance) object;
 						guard.setTarget(((L1PcInstance) attacker));
@@ -1206,8 +1189,11 @@ public class L1PcInstance extends L1Character {
 					player.sendPackets(s_lawful);
 					player.broadcastPacket(s_lawful);
 
-					if (isChangePkCount && player.get_PKcount() >= 25 && player.get_PKcount() < 30) {
-						player.sendPackets(new S_BlueMessage(551, String.valueOf(player.get_PKcount()), "30"));
+					// default pk count changes
+					if (isChangePkCount && player.get_PKcount() >= 25
+							&& player.get_PKcount() < 30) {
+						player.sendPackets(new S_BlueMessage(551, String
+								.valueOf(player.get_PKcount()), "30"));
 					} else if (isChangePkCount && player.get_PKcount() >= 30) {
 						player.beginHell(true);
 					}
@@ -1287,7 +1273,7 @@ public class L1PcInstance extends L1Character {
 
 			int warType = war.GetWarType();
 			boolean isInWar = war.CheckClanInWar(getClanname());
-			if (attacker != null && attacker.getClanid() != 0) {      
+			if (attacker != null && attacker.getClanid() != 0) { 
 				sameWar = war.CheckClanInSameWar(getClanname(), attacker
 						.getClanname());
 			}
@@ -1296,7 +1282,7 @@ public class L1PcInstance extends L1Character {
 					warType == 2 && isInWar == true) {
 				enemyClanName = war.GetEnemyClanName(getClanname());
 				if (enemyClanName != null) {
-					war.CeaseWar(getClanname(), enemyClanName); //  I  
+					war.CeaseWar(getClanname(), enemyClanName); // 
 				}
 			}
 
@@ -1508,7 +1494,7 @@ public class L1PcInstance extends L1Character {
 	private boolean _hpRegenActive;
 	private L1EquipmentSlot _equipSlot;
 
-	private String _accountName;  
+	private String _accountName; 
 
 	public String getAccountName() {
 		return _accountName;
@@ -1804,7 +1790,7 @@ public class L1PcInstance extends L1Character {
 		_hellTime = i;
 	}
 
-	private boolean _banned;         
+	private boolean _banned;
 
 	public boolean isBanned() {
 		return _banned;
@@ -2447,7 +2433,7 @@ public class L1PcInstance extends L1Character {
 	/**
 	 * 
 	 */
-    private int _teleportX = 0;
+	private int _teleportX = 0;
 
 	public int getTeleportX() {
 		return _teleportX;

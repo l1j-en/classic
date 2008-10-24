@@ -142,7 +142,7 @@ public class L1PetInstance extends L1NpcInstance {
 		setLevel(l1pet.get_level());
 		setMaxHp(l1pet.get_hp());
 		setCurrentHpDirect(l1pet.get_hp());
-		addMaxMp(l1pet.get_mp());
+		setMaxMp(l1pet.get_mp());
 		setCurrentMpDirect(l1pet.get_mp());
 		setExp(l1pet.get_exp());
 		setLawful(l1pet.get_lawful());
@@ -399,8 +399,6 @@ public class L1PetInstance extends L1NpcInstance {
 		L1Attack attack = new L1Attack(player, this);
 		if (attack.calcHit()) {
 			attack.calcDamage();
-			attack.calcStaffOfMana();
-			attack.addPcPoisonAttack(player, this);
 		}
 		attack.action();
 		attack.commit();
@@ -419,8 +417,7 @@ public class L1PetInstance extends L1NpcInstance {
 				l1pet.set_level(getLevel());
 				l1pet.set_hp(getMaxHp());
 				l1pet.set_mp(getMaxMp());
-				PetTable.getInstance();
-				PetTable.storePet(l1pet); 
+				PetTable.getInstance().storePet(l1pet); // DBÇ…èëÇ´çûÇ›
 			}
 		}
 	}
@@ -429,8 +426,7 @@ public class L1PetInstance extends L1NpcInstance {
 	 * Save to DataBase
 	 */
 	public void save() {
-		PetTable.getInstance(); 
-		PetTable.storePet(PetTable.getInstance().getTemplate(_itemObjId));
+		PetTable.getInstance().storePet(PetTable.getInstance().getTemplate(_itemObjId));
 	}
 
 	@Override
