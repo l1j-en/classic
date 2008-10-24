@@ -191,9 +191,13 @@ public class DropTable {
 			}
 
 			randomChance = random.nextInt(0xf4240) + 1;
-			double rateOfMapId = MapsTable.getInstance().getDropRate(npc.getMapId());
-			double rateOfItem = DropItemTable.getInstance().getDropRate(itemId);
-			if (droprate == 0 || drop.getChance() * droprate * rateOfMapId * rateOfItem < randomChance) {
+			double rateOfMapId = MapsTable.getInstance()
+					.getDropRate(npc.getMapId());
+			double rateOfItem = DropItemTable.getInstance()
+					.getDropRate(itemId);
+			if (droprate == 0
+					|| drop.getChance() * droprate * rateOfMapId * rateOfItem
+							< randomChance) {
 				continue;
 			}
 
@@ -227,7 +231,8 @@ public class DropTable {
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList<L1Character> acquisitorList, ArrayList<Integer> hateList) {
+	public void dropShare(L1NpcInstance npc, ArrayList<L1Character> acquisitorList, 
+			ArrayList<Integer> hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;
@@ -239,7 +244,9 @@ public class DropTable {
 		L1Character acquisitor;
 		for (int i = hateList.size() - 1; i >= 0; i--) {
 			acquisitor = (L1Character) acquisitorList.get(i);
-			if ((Config.AUTO_LOOT == 2) && (acquisitor instanceof L1SummonInstance || acquisitor instanceof L1PetInstance)) {
+			if ((Config.AUTO_LOOT == 2) 
+					&& (acquisitor instanceof L1SummonInstance
+							|| acquisitor instanceof L1PetInstance)) {
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			} else if (acquisitor != null
@@ -264,14 +271,16 @@ public class DropTable {
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
 			item.setIdentified(false);
-			if (((Config.AUTO_LOOT != 0) || item.getItem().getItemId() == L1ItemId.ADENA) && totalHate > 0) {
+			if (((Config.AUTO_LOOT != 0) || item.getItem().getItemId() == L1ItemId.ADENA)
+					&& totalHate > 0) {
 				randomInt = random.nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
 					chanceHate += (Integer) hateList.get(j);
 					if (chanceHate > randomInt) {
 						acquisitor = (L1Character) acquisitorList.get(j);
-						if (acquisitor.getInventory().checkAddItem(item, item.getCount()) == L1Inventory.OK) {
+						if (acquisitor.getInventory().checkAddItem(item,
+								item.getCount()) == L1Inventory.OK) {
 							targetInventory = acquisitor.getInventory();
 							if (acquisitor instanceof L1PcInstance) {
 								player = (L1PcInstance) acquisitor;
@@ -281,16 +290,26 @@ public class DropTable {
 										break;
 									}
 								}
-								L1ItemInstance l1iteminstance = player.getInventory().findItemId(L1ItemId.ADENA);
-								if (l1iteminstance != null && l1iteminstance.getCount() > 2000000000) {
-									targetInventory = L1World.getInstance().getInventory(acquisitor.getX(), acquisitor.getY(), acquisitor.getMapId());
+								L1ItemInstance l1iteminstance = player
+										.getInventory().findItemId(
+												L1ItemId.ADENA);
+								if (l1iteminstance != null
+										&& l1iteminstance.getCount() > 2000000000) {
+									targetInventory = L1World.getInstance()
+											.getInventory(acquisitor.getX(),
+													acquisitor.getY(),
+													acquisitor.getMapId());
 									player.sendPackets(new S_SystemMessage("The limit of the itemcount is 2000000000"));
 								} else {
 									if (player.isInParty()) {
 										partyMember = player.getParty().getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
-											partyMember[p].sendPackets(new S_ServerMessage(813,	npc.getNpcTemplate().get_name(),
-													item.getLogName(), player.getName()));
+											partyMember[p]
+													.sendPackets(new S_ServerMessage(
+															813,
+															npc.getName(),
+															item.getLogName(),
+															player.getName()));
 										}
 									} else {
 										player.sendPackets(new S_ServerMessage(143, npc.getNpcTemplate().get_name(), item.getLogName()));
@@ -355,7 +374,8 @@ public class DropTable {
 						break;
 					}
 				} while (!npc.getMap().isPassable(npc.getX(), npc.getY(), dir));
-				targetInventory = L1World.getInstance().getInventory(npc.getX() + x, npc.getY() + y, npc.getMapId());
+				targetInventory = L1World.getInstance().getInventory(
+						npc.getX() + x, npc.getY() + y, npc.getMapId());
 			}
 			if(item != null){
 				inventory.tradeItem(item, item.getCount(), targetInventory);

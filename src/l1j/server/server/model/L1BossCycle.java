@@ -102,7 +102,8 @@ public class L1BossCycle {
 	private int _endTime; 
 	private static SimpleDateFormat _sdfYmd = new SimpleDateFormat("yyyy/MM/dd");
 	private static SimpleDateFormat _sdfTime = new SimpleDateFormat("HH:mm");
-	private static SimpleDateFormat _sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+	private static SimpleDateFormat _sdf = new SimpleDateFormat(
+			"yyyy/MM/dd HH:mm");
 	private static Date _initDate = new Date();
 	private static String _initTime = "0:00";
 	private static final Calendar START_UP = Calendar.getInstance();
@@ -336,7 +337,8 @@ public class L1BossCycle {
 		System.out.print("Loading Boss Cycle...");
 		try {
 			// BookOrder To generate the context of a binding class
-			JAXBContext context = JAXBContext.newInstance(L1BossCycle.L1BossCycleList.class);
+			JAXBContext context = JAXBContext
+					.newInstance(L1BossCycle.L1BossCycleList.class);
 
 			// XML -> POJO Conversion of the generating xml
 			Unmarshaller um = context.createUnmarshaller();

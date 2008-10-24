@@ -36,21 +36,13 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class DoorSpawnTable {
-	private static Logger _log = Logger.getLogger(DoorSpawnTable.class.getName());
+	private static Logger _log = Logger.getLogger(DoorSpawnTable.class
+			.getName());
 
 	private static DoorSpawnTable _instance;
 
 	private final ArrayList<L1DoorInstance> _doorList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _castleList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _keyList =
-		new ArrayList<L1DoorInstance>();
-
-    private final ArrayList<L1DoorInstance> _orderList =
-		new ArrayList<L1DoorInstance>();
+			new ArrayList<L1DoorInstance>();
 
 	public static DoorSpawnTable getInstance() {
 		if (_instance == null) {
@@ -135,17 +127,5 @@ public class DoorSpawnTable {
 
 	public L1DoorInstance[] getDoorList() {
 		return _doorList.toArray(new L1DoorInstance[_doorList.size()]);
-	}
-
-	public L1DoorInstance[] getCastleList() {
-		return _castleList.toArray(new L1DoorInstance[_castleList.size()]);
-	}
-
-	public L1DoorInstance[] getKeyList() {
-		return _keyList.toArray(new L1DoorInstance[_keyList.size()]);
-	}
-
-	public L1DoorInstance[] getOrderList() {
-		return _orderList.toArray(new L1DoorInstance[_orderList.size()]);
 	}
 }

@@ -32,7 +32,8 @@ public class CharBuffTable {
 	private CharBuffTable() {
 	}
 
-	private static Logger _log = Logger.getLogger(CharBuffTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(CharBuffTable.class.getName());
 
 	private static final int[] buffSkill = { 2, 67,
 			3, 99, 151, 159, 168, 
@@ -100,5 +101,3 @@ public class CharBuffTable {
 	}
 
 }
-
-

@@ -30,7 +30,8 @@ import l1j.server.server.model.skill.L1SkillId;
 
 public class HpRegeneration extends TimerTask {
 
-	private static Logger _log = Logger.getLogger(HpRegeneration.class.getName());
+	private static Logger _log = Logger.getLogger(HpRegeneration.class
+			.getName());
 
 	private final L1PcInstance _pc;
 
@@ -123,13 +124,15 @@ public class HpRegeneration extends TimerTask {
 			bonus += 3;
 		}
 
-		if (_pc.get_food() < 3 || isOverWeight(_pc) || _pc.hasSkillEffect(L1SkillId.BERSERKERS)) {
+		if (_pc.get_food() < 3 || isOverWeight(_pc)
+				|| _pc.hasSkillEffect(L1SkillId.BERSERKERS)) {
 			bonus = 0;
 			if (equipHpr > 0) {
 				equipHpr = 0;
 			}
 		}
-        
+
+		// fixes the low con DE negative regen.
 		int conHp = _pc.getCon() - 10;
 		
 		if (conHp < 0) 
@@ -197,7 +200,8 @@ public class HpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE) || pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
+		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE)
+				|| pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
 			return false;
 		}
 		if (pc.getInventory().checkEquipped(20049)) {

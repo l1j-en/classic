@@ -59,16 +59,13 @@ public class GetBackRestartTable {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				L1GetBackRestart gbr = new L1GetBackRestart();
-				int id = rs.getInt(1);
-				gbr.set_id(id);
-				 int area = rs.getInt("area");   
-				 gbr.setArea(area);   
-				 gbr.setLocX(rs.getInt("locx"));   
-				 gbr.setLocY(rs.getInt("locy"));   
-				 gbr.setMapId(rs.getShort("mapid"));   
-				 _getbackrestart.put(new Integer(area), gbr); 
+				int area = rs.getInt("area");
+				gbr.setArea(area);
+				gbr.setLocX(rs.getInt("locx"));
+				gbr.setLocY(rs.getInt("locy"));
+				gbr.setMapId(rs.getShort("mapid"));
 
-				_getbackrestart.put(new Integer(id), gbr);
+				_getbackrestart.put(new Integer(area), gbr);
 			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

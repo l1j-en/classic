@@ -113,7 +113,7 @@ public class C_Result extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (item.getId() == pet.getItemObjId()) {
 							tradable = false;
-								pc.sendPackets(new S_ServerMessage(210, item
+							pc.sendPackets(new S_ServerMessage(210, item
 									.getItem().getName()));
 							break;
 						}

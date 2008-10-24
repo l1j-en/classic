@@ -25,7 +25,8 @@ import l1j.server.server.ClientThread;
 
 public abstract class ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(ClientBasePacket.class.getName());
+	private static Logger _log = Logger.getLogger(ClientBasePacket.class
+			.getName());
 
 	private byte _decrypt[];
 
