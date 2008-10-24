@@ -77,10 +77,12 @@ public class L1ShopBuyOrderList {
 		} else {
 			_totalPriceTaxIncluded += price * count;
 		}
-		_totalWeight += shopItem.getItem().getWeight() * count * shopItem.getPackCount();
+		_totalWeight += shopItem.getItem().getWeight() * count
+				* shopItem.getPackCount();
 
 		if (shopItem.getItem().isStackable()) {
-			_list.add(new L1ShopBuyOrder(shopItem, count * shopItem.getPackCount()));
+			_list.add(new L1ShopBuyOrder(shopItem, count
+					* shopItem.getPackCount()));
 			return;
 		}
 

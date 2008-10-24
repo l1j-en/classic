@@ -95,11 +95,12 @@ public abstract class L1Map {
 
 	public abstract boolean isRecallPets();
 
-    public abstract boolean isUsableItem();   
-    
-    public abstract boolean isUsableSkill(); 
+	public abstract boolean isUsableItem();
+
+	public abstract boolean isUsableSkill();
 
     public abstract boolean isFishingZone(int x, int y);
+
 	public static L1Map newNull() {
 		return _nullMap;
 	}

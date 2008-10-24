@@ -58,7 +58,7 @@ public class C_UseSkill extends ClientBasePacket {
 
 		if (abyte0.length > 4) {
 			try {
-				if (skillId == CALL_CLAN || skillId == TELEPORT_TO_MEMBER) { 
+				if (skillId == CALL_MEMBER || skillId == TELEPORT_TO_MEMBER) { 
 					charName = readS();
 				} else if (skillId == TRUE_TARGET) { 
 					targetId = readD();
@@ -91,14 +91,13 @@ public class C_UseSkill extends ClientBasePacket {
 		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) { 
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
 			pc.startHpRegeneration();
-			pc.startHpRegenerationByDoll();
 			pc.startMpRegeneration();
 			pc.startMpRegenerationByDoll();
 		}
 		pc.killSkillEffectTimer(MEDITATION);
 
 		try {
-			if (skillId == CALL_CLAN || skillId == TELEPORT_TO_MEMBER) { 
+			if (skillId == CALL_MEMBER || skillId == TELEPORT_TO_MEMBER) { 
 				if (charName.isEmpty()) {
 					return;
 				}

@@ -40,7 +40,7 @@ public class L1PcExpMonitor extends L1PcMonitor {
 						.includes(_old_lawful, -32768, -2000) && IntRange
 						.includes(pc.getLawful(), -32768, -2000)))) {
 			_old_lawful = pc.getLawful();
-			S_Lawful s_lawful = new S_Lawful(_id, _old_lawful);
+			S_Lawful s_lawful = new S_Lawful(pc.getId(), _old_lawful);
 			pc.sendPackets(s_lawful);
 			pc.broadcastPacket(s_lawful);
 		} else if (_old_lawful != pc.getLawful()) {

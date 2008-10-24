@@ -64,7 +64,7 @@ public class L1DwarfInstance extends L1NpcInstance {
 		String htmlid = null;
 
 		if (talking != null) {
-			if (npcId == 60028) { // ƒGƒ‹
+			if (npcId == 60028) { //
 				if (!pc.isElf()) {
 					htmlid = "elCE1";
 				}

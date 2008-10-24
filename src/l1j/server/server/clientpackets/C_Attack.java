@@ -93,7 +93,6 @@ public class C_Attack extends ClientBasePacket {
 			pc.startHpRegeneration();
 			pc.startMpRegeneration();
 			pc.startMpRegenerationByDoll();
-			pc.startHpRegenerationByDoll();
 		}
 		pc.killSkillEffectTimer(L1SkillId.MEDITATION);
 

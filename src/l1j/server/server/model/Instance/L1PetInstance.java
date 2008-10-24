@@ -417,7 +417,7 @@ public class L1PetInstance extends L1NpcInstance {
 				l1pet.set_level(getLevel());
 				l1pet.set_hp(getMaxHp());
 				l1pet.set_mp(getMaxMp());
-				PetTable.getInstance().storePet(l1pet); // DB‚É‘‚«‚İ
+				PetTable.getInstance().storePet(l1pet); //
 			}
 		}
 	}

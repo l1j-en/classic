@@ -387,7 +387,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				distributeDrop();
 				giveKarma(pc);
 			}
-		} else if (lastAttacker instanceof L1EffectInstance) { // FWÇ™ì|ÇµÇΩèÍçá
+		} else if (lastAttacker instanceof L1EffectInstance) { //
 			ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
 			ArrayList<Integer> hateList = _hateList.toHateArrayList();
 			//

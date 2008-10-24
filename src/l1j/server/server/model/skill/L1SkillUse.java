@@ -2168,14 +2168,6 @@ public class L1SkillUse {
 							L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc
 									.getMapId(), pc.getHeading(), false);
 						}
-					} else if (_skillId == CALL_CLAN) { 
-						L1PcInstance pc = (L1PcInstance) cha;
-						L1PcInstance clanPc = (L1PcInstance) L1World
-								.getInstance().findObject(_targetID);
-						if (clanPc != null) {
-							clanPc.setTempID(pc.getId()); 
-							clanPc.sendPackets(new S_Message_YN(748, "")); 
-						}
 					} else if (_skillId == CALL_MEMBER) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1PcInstance clanPc = (L1PcInstance) L1World

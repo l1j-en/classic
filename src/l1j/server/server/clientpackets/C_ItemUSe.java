@@ -4012,7 +4012,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
 			pc.startHpRegeneration();
 			pc.startMpRegeneration();
-			pc.startHpRegenerationByDoll();
 			pc.startMpRegenerationByDoll();
 		}
 	}

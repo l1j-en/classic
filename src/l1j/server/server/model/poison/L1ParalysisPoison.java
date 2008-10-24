@@ -21,7 +21,7 @@ package l1j.server.server.model.poison;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_Paralysis;
 
 public class L1ParalysisPoison extends L1Poison {
@@ -35,12 +35,13 @@ public class L1ParalysisPoison extends L1Poison {
 	private class ParalysisPoisonTimer extends Thread {
 		@Override
 		public void run() {
-			_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
+			_target.setSkillEffect(L1SkillId.STATUS_POISON_PARALYZING, 0);
 
 			try {
 				Thread.sleep(_delay); 
 			} catch (InterruptedException e) {
-				_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
+				_target
+						.killSkillEffectTimer(L1SkillId.STATUS_POISON_PARALYZING);
 				return;
 			}
 
@@ -64,14 +65,14 @@ public class L1ParalysisPoison extends L1Poison {
 	private class ParalysisTimer extends Thread {
 		@Override
 		public void run() {
-			_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
-			_target.setSkillEffect(STATUS_POISON_PARALYZED, 0);
+			_target.killSkillEffectTimer(L1SkillId.STATUS_POISON_PARALYZING);
+			_target.setSkillEffect(L1SkillId.STATUS_POISON_PARALYZED, 0);
 			try {
 				Thread.sleep(_time);
 			} catch (InterruptedException e) {
 			}
 
-			_target.killSkillEffectTimer(STATUS_POISON_PARALYZED);
+			_target.killSkillEffectTimer(L1SkillId.STATUS_POISON_PARALYZED);
 			if (_target instanceof L1PcInstance) {
 				L1PcInstance player = (L1PcInstance) _target;
 				if (!player.isDead()) {

@@ -51,9 +51,9 @@ public class L1V1Map extends L1Map {
 
 	private boolean _isRecallPets;
 
-	private boolean _isUsableItem;   
-	
-	private boolean _isUsableSkill; 
+	private boolean _isUsableItem;
+
+	private boolean _isUsableSkill;
 	/* Map information to a front-page flag holder for a bit reluctantly. 
 	 * Readability is a large drop in child imitating not so good.
 	 * Mob, and traffic on the tiles is impossible to object if a bit flag indicating

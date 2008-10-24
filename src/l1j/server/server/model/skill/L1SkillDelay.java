@@ -35,7 +35,7 @@ public class L1SkillDelay {
 
 		public SkillDelayTimer(L1Character cha, int time) {
 			_cha = cha;
-			set_delayTime(time);
+			_delayTime = time;
 		}
 
 		@Override
@@ -46,14 +46,6 @@ public class L1SkillDelay {
 		public void stopDelayTimer() {
 			_cha.setSkillDelay(false);
 		}
-
-		public void set_delayTime(int _delayTime) {
-			this._delayTime = _delayTime;
-		}
-
-		public int get_delayTime() {
-			return _delayTime;
-		}
 	}
 
 	public static void onSkillUse(L1Character cha, int time) {
@@ -63,4 +55,3 @@ public class L1SkillDelay {
 	}
 
 }
-

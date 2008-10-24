@@ -20,6 +20,7 @@ package l1j.server.server.model.skill;
 
 public class L1SkillId {
 	public static final int SKILLS_BEGIN = 1;
+
 	/*
 	 * Regular Magic Lv1-10
 	 */
@@ -68,7 +69,7 @@ public class L1SkillId {
 	public static final int FROZEN_CLOUD = 22;
 
 	public static final int WEAK_ELEMENTAL = 23; // E: REVEAL_WEAKNESS
-	public static final int CALL_CLAN = 116; // E: CALL_PLEDGE_MEMBER
+
 	// none = 24
 	public static final int FIREBALL = 25;
 
