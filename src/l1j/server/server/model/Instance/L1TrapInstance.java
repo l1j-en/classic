@@ -74,8 +74,10 @@ public class L1TrapInstance extends L1Object {
 		}
 
 		for (int i = 0; i < 50; i++) {
-			int rndX = _random.nextInt(_rndPt.getX() + 1) * (_random.nextInt(2) == 1 ? 1 : -1);
-			int rndY = _random.nextInt(_rndPt.getY() + 1) * (_random.nextInt(2) == 1 ? 1 : -1);
+			int rndX = _random.nextInt(_rndPt.getX() + 1)
+					* (_random.nextInt(2) == 1 ? 1 : -1);
+			int rndY = _random.nextInt(_rndPt.getY() + 1)
+					* (_random.nextInt(2) == 1 ? 1 : -1);
 
 			rndX += _baseLoc.getX();
 			rndY += _baseLoc.getY();
@@ -120,7 +122,8 @@ public class L1TrapInstance extends L1Object {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
-		if (perceivedFrom.isGm() && perceivedFrom.hasSkillEffect(L1SkillId.GMSTATUS_SHOWTRAPS)) {
+		if (perceivedFrom.isGm()
+				&& perceivedFrom.hasSkillEffect(L1SkillId.GMSTATUS_SHOWTRAPS)) {
 			perceivedFrom.addKnownObject(this);
 			perceivedFrom.sendPackets(new S_Trap(this, _nameForView));
 			_knownPlayers.add(perceivedFrom);

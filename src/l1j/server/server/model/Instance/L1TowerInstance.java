@@ -37,7 +37,7 @@ import l1j.server.server.templates.L1Npc;
 public class L1TowerInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public L1TowerInstance(L1Npc template) {
 		super(template);
 	}
@@ -50,17 +50,6 @@ public class L1TowerInstance extends L1NpcInstance {
 	public void onPerceive(L1PcInstance perceivedFrom) {
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_NPCPack(this));
-		if (isDead()) {
-			perceivedFrom.sendPackets(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerDie));
-		} else {
-			if ((getMaxHp() * 1 / 4) > getCurrentHp()) {
-				perceivedFrom.sendPackets(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack3));
-			} else if ((getMaxHp() * 2 / 4) > getCurrentHp()) {
-				perceivedFrom.sendPackets(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack2));
-			} else if ((getMaxHp() * 3 / 4) > getCurrentHp()) {
-				perceivedFrom.sendPackets(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack1));
-			}
-		}
 	}
 
 	@Override
@@ -79,9 +68,11 @@ public class L1TowerInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) { 
 		if (_castle_id == 0) { 
-			_castle_id = L1CastleLocation.getCastleId(getX(), getY(), getMapId());
+			_castle_id = L1CastleLocation.getCastleId(getX(), getY(),
+					getMapId());
 		}
-		if (_castle_id > 0 && WarTimeController.getInstance().isNowWar(_castle_id)) { 
+		if (_castle_id > 0
+				&& WarTimeController.getInstance().isNowWar(_castle_id)) { 
 
 			L1PcInstance pc = null;
 			if (attacker instanceof L1PcInstance) {
@@ -119,6 +110,7 @@ public class L1TowerInstance extends L1NpcInstance {
 				if (newHp <= 0 && !isDead()) {
 					setCurrentHpDirect(0);
 					setDead(true);
+					setStatus(ActionCodes.ACTION_TowerDie);
 					_lastattacker = attacker;
 					_crackStatus = 0;
 					Death death = new Death();
@@ -129,23 +121,30 @@ public class L1TowerInstance extends L1NpcInstance {
 					setCurrentHp(newHp);
 					if ((getMaxHp() * 1 / 4) > getCurrentHp()) {
 						if (_crackStatus != 3) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack3));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack3));
+							setStatus(ActionCodes.ACTION_TowerCrack3);
 							_crackStatus = 3;
 						}
 					} else if ((getMaxHp() * 2 / 4) > getCurrentHp()) {
 						if (_crackStatus != 2) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack2));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack2));
+							setStatus(ActionCodes.ACTION_TowerCrack2);
 							_crackStatus = 2;
 						}
 					} else if ((getMaxHp() * 3 / 4) > getCurrentHp()) {
 						if (_crackStatus != 1) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack1));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack1));
+							setStatus(ActionCodes.ACTION_TowerCrack1);
 							_crackStatus = 1;
 						}
 					}
 				}
 			} else if (!isDead()) { 
 				setDead(true);
+				setStatus(ActionCodes.ACTION_TowerDie);
 				_lastattacker = attacker;
 				Death death = new Death();
 				GeneralThreadPool.getInstance().execute(death);
@@ -172,11 +171,13 @@ public class L1TowerInstance extends L1NpcInstance {
 		public void run() {
 			setCurrentHpDirect(0);
 			setDead(true);
+			setStatus(ActionCodes.ACTION_TowerDie);
 			int targetobjid = npc.getId();
 
 			npc.getMap().setPassable(npc.getLocation(), true);
 
-			npc.broadcastPacket(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_TowerDie));
+			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
+					ActionCodes.ACTION_TowerDie));
 
 			L1WarSpawn warspawn = new L1WarSpawn();
 			warspawn.SpawnCrown(_castle_id);

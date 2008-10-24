@@ -25,7 +25,6 @@ import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.templates.L1Npc;
 
 public class L1SummonInstance extends L1NpcInstance {
-	
 	private static final long serialVersionUID = 1L;
 	private ScheduledFuture<?> _summonFuture;
 	private static final long SUMMON_TIME = 3600000L;
@@ -137,7 +136,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		}
 		master.addPet(this);
 	}
-	
+
 	public L1SummonInstance(L1NpcInstance target, L1Character master,
 			boolean createZombie) {
 		super(null);
@@ -146,7 +145,8 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (createZombie)
 		{
 			L1Npc template = NpcTable.getInstance().getTemplate(45065).clone(); 
-				setting_template(template);
+			
+			setting_template(template);
 		} else 
 		{
 			setting_template(target.getNpcTemplate());
@@ -175,7 +175,8 @@ public class L1SummonInstance extends L1NpcInstance {
 		_currentPetStatus = 3;
 		_tamed = true;
 
-	    for (L1NpcInstance each : master.getPetList().values()) {
+
+		for (L1NpcInstance each : master.getPetList().values()) {
 			each.targetRemove(target);
 		}
 
@@ -222,6 +223,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (!isDead()) {
 			setDead(true);
 			setCurrentHp(0);
+			setStatus(ActionCodes.ACTION_Die);
 
 			getMap().setPassable(getLocation(), true);
 
@@ -362,8 +364,6 @@ public class L1SummonInstance extends L1NpcInstance {
 		L1Attack attack = new L1Attack(attacker, this);
 		if (attack.calcHit()) {
 			attack.calcDamage();
-			attack.calcStaffOfMana();
-			attack.addPcPoisonAttack(attacker, this);
 		}
 		attack.action();
 		attack.commit();
@@ -398,7 +398,7 @@ public class L1SummonInstance extends L1NpcInstance {
 				if (petObject instanceof L1SummonInstance) {
 					L1SummonInstance summon = (L1SummonInstance) petObject;
 					summon.set_currentPetStatus(status);
-				} else {				
+				} else {
 				}
 			}
 		}
@@ -524,4 +524,5 @@ public class L1SummonInstance extends L1NpcInstance {
 		}
 		return isExsistMaster;
 	}
+
 }
