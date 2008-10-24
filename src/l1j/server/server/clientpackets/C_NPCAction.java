@@ -227,9 +227,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				int rank = pc.getClanRank();
-				if (rank != L1Clan.CLAN_RANK_PUBLIC
-						&& rank != L1Clan.CLAN_RANK_GUARDIAN
-						&& rank != L1Clan.CLAN_RANK_PRINCE) {
+				// fix for bp store. this only exludes probationary members.
+				if (rank == L1Clan.CLAN_RANK_PROBATION) {
 					//
 					pc.sendPackets(new S_ServerMessage(728));
 					return;
