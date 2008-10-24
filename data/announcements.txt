@@ -1,8 +1,6 @@
-Welcome To The Lineage World.
-Thanks For Using LinDc.
-For Support Goto: www.lineagedc.com
+Welcome to the L1J-En Lineage server emulator (the project formerly known as LinDC).
 
+Thanks for using L1J-En. Please report any bugs on the L1J-En project site at:
 
-
-
+http://code.google.com/p/l1j-en
 
