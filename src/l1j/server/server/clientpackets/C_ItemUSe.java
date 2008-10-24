@@ -2150,7 +2150,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						return;
 					}
 					pc.setCurrentMp(pc.getCurrentMp() - 10);
-					
+
 					L1Teleport.teleport(pc, spellsc_x, spellsc_y,
 							pc.getMapId(), pc.getHeading(), true,
 							L1Teleport.CHANGE_POSITION);
@@ -2251,18 +2251,24 @@ public class C_ItemUSe extends ClientBasePacket {
 				int min = l1iteminstance.getItem().getMinLevel();
 				int max = l1iteminstance.getItem().getMaxLevel();
 				if (min != 0 && min > pc.getLevel()) {
-					pc.sendPackets(new S_ServerMessage(318, String.valueOf(min)));
+					pc.sendPackets(new S_ServerMessage(318,
+							String.valueOf(min)));
 				} else if (max != 0 && max < pc.getLevel()) {
-					if (max < 50) {
-						pc.sendPackets(new S_PacketBox(S_PacketBox.MSG_LEVEL_OVER, max));
+					if (max < 50) { 
+						pc.sendPackets(new S_PacketBox(
+								S_PacketBox.MSG_LEVEL_OVER, max));
 					} else {
 						pc.sendPackets(new S_SystemMessage("You must be at or below level " + max + " to use this item."));
 					}
 				} else {
-					if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal() || pc.isKnight()
-							&& l1iteminstance.getItem().isUseKnight() || pc.isElf()
-							&& l1iteminstance.getItem().isUseElf() || pc.isWizard()
-							&& l1iteminstance.getItem().isUseMage() || pc.isDarkelf()
+					if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal()
+							|| pc.isKnight()
+							&& l1iteminstance.getItem().isUseKnight()
+							|| pc.isElf()
+							&& l1iteminstance.getItem().isUseElf()
+							|| pc.isWizard()
+							&& l1iteminstance.getItem().isUseMage()
+							|| pc.isDarkelf()
 							&& l1iteminstance.getItem().isUseDarkelf()) {
 						UseWeapon(pc, l1iteminstance);
 					} else {
@@ -2270,19 +2276,25 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				}
 			} else if (l1iteminstance.getItem().getType2() == 2) {
-				if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal() || pc.isKnight()
+				if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal()
+						|| pc.isKnight()
 						&& l1iteminstance.getItem().isUseKnight() || pc.isElf()
 						&& l1iteminstance.getItem().isUseElf() || pc.isWizard()
-						&& l1iteminstance.getItem().isUseMage() || pc.isDarkelf()
+						&& l1iteminstance.getItem().isUseMage()
+						|| pc.isDarkelf()
 						&& l1iteminstance.getItem().isUseDarkelf()) {
 
-					int min = ((L1Armor) l1iteminstance.getItem()).getMinLevel();
-					int max = ((L1Armor) l1iteminstance.getItem()).getMaxLevel();
+					int min = ((L1Armor) l1iteminstance.getItem())
+							.getMinLevel();
+					int max = ((L1Armor) l1iteminstance.getItem())
+							.getMaxLevel();
 					if (min != 0 && min > pc.getLevel()) {
-						pc.sendPackets(new S_ServerMessage(318, String.valueOf(min)));
+						pc.sendPackets(new S_ServerMessage(318, String
+								.valueOf(min)));
 					} else if (max != 0 && max < pc.getLevel()) {
-						if (max < 50) {
-							pc.sendPackets(new S_PacketBox(S_PacketBox.MSG_LEVEL_OVER, max));
+						if (max < 50) { 
+							pc.sendPackets(new S_PacketBox(
+									S_PacketBox.MSG_LEVEL_OVER, max));
 						} else {
 							pc.sendPackets(new S_SystemMessage("You must be at or below level " + max + " to use this item."));
 						}
@@ -2297,15 +2309,18 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (isDelayEffect) {
 				Timestamp ts = new Timestamp(System.currentTimeMillis());
 				l1iteminstance.setLastUsed(ts);
-				pc.getInventory().updateItem(l1iteminstance,L1PcInventory.COL_DELAY_EFFECT);
-				pc.getInventory().saveItem(l1iteminstance,L1PcInventory.COL_DELAY_EFFECT);
+				pc.getInventory().updateItem(l1iteminstance,
+						L1PcInventory.COL_DELAY_EFFECT);
+				pc.getInventory().saveItem(l1iteminstance,
+						L1PcInventory.COL_DELAY_EFFECT);
 			}
 
 			L1ItemDelay.onItemUse(client, l1iteminstance);
 		}
 	}
 
-	private void SuccessEnchant(L1PcInstance pc, L1ItemInstance item, ClientThread client, int i) {
+	private void SuccessEnchant(L1PcInstance pc, L1ItemInstance item,
+			ClientThread client, int i) {
 		String s = "";
 		String sa = "";
 		String sb = "";
@@ -2344,25 +2359,33 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else {
 				switch (i) {
 				case -1:
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString();
 					sa = "$246";
 					sb = "$247";
 					break;
 
 				case 1: // '\001'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString();
 					sa = "$245";
 					sb = "$247";
 					break;
 
 				case 2: // '\002'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$245";
 					sb = "$248";
 					break;
 
 				case 3: // '\003'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$245";
 					sb = "$248";
 					break;
@@ -2398,25 +2421,33 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else {
 				switch (i) {
 				case -1:
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$246";
 					sb = "$247";
 					break;
 
 				case 1: // '\001'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$252";
 					sb = "$247 ";
 					break;
 
 				case 2: // '\002'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$252";
 					sb = "$248 ";
 					break;
 
 				case 3: // '\003'
-					s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(s1).toString();
+					s = (new StringBuilder()).append(
+							pm + item.getEnchantLevel()).append(" ").append(s1)
+							.toString(); //
 					sa = "$252";
 					sb = "$248 ";
 					break;
@@ -2485,7 +2516,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (item.getEnchantLevel() > 0) {
 					pm = "+";
 				}
-				s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(nameId).toString();
+				s = (new StringBuilder()).append(pm + item.getEnchantLevel())
+						.append(" ").append(nameId).toString();
 				sa = "$245";
 			}
 		} else if (itemType == 2) {
@@ -2496,7 +2528,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (item.getEnchantLevel() > 0) {
 					pm = "+";
 				}
-				s = (new StringBuilder()).append(pm + item.getEnchantLevel()).append(" ").append(nameId).toString();
+				s = (new StringBuilder()).append(pm + item.getEnchantLevel())
+						.append(" ").append(nameId).toString();
 				sa = " $252";
 			}
 		}
@@ -2610,15 +2643,14 @@ public class C_ItemUSe extends ClientBasePacket {
 		pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 		pc.sendPackets(new S_ServerMessage(77));
-		Random random = new Random();
-		healHp *= (random.nextGaussian() / 5.0D) + 1.0D;
+		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
 		if (pc.hasSkillEffect(POLLUTE_WATER)) {
 			healHp /= 2;
 		}
 		pc.setCurrentHp(pc.getCurrentHp() + healHp);
 	}
 
-	// TODO: make hastes and braves stack here
+	// NOTE: do not remove stacking code
 	private void useGreenPotion(L1PcInstance pc, int itemId) {
 		if (pc.hasSkillEffect(DECAY_POTION) == true) {
 			pc.sendPackets(new S_ServerMessage(698));
@@ -2681,12 +2713,14 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.killSkillEffectTimer(GREATER_HASTE);
 			pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 			pc.setMoveSpeed(0);
-	   } else if (pc.hasSkillEffect(STATUS_HASTE)) {   
-		pc.killSkillEffectTimer(STATUS_HASTE);   
-		pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));   
-		pc.setMoveSpeed(0); 
-	   }
-		if (pc.hasSkillEffect(SLOW)) {
+		} else if (pc.hasSkillEffect(STATUS_HASTE)) {
+			pc.killSkillEffectTimer(STATUS_HASTE);
+			pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
+			pc.setMoveSpeed(0);
+		}
+
+		// 
+		if (pc.hasSkillEffect(SLOW)) { //
 			pc.killSkillEffectTimer(SLOW);
 			pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 			pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0, 0));
@@ -2886,8 +2920,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			time = 1800;
 		} else if (item_id == 40041) {
 			time = 300;
-		 } else if (item_id == 41344) { 
-        time = 2100; 
+		} else if (item_id == 41344) { 
+			time = 2100;
 		} else {
 			return;
 		}
@@ -2931,7 +2965,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private boolean usePolyScroll(L1PcInstance pc, int item_id, String s) {
 		int time = 0;
-			if (item_id == L1ItemId.SCROLL_OF_POLYMORPH || item_id == 40410|| item_id == L1ItemId.IT_SCROLL_OF_POLYMORPH) {
+		if (item_id == L1ItemId.SCROLL_OF_POLYMORPH || item_id == 40410|| item_id == L1ItemId.IT_SCROLL_OF_POLYMORPH) {
 			time = 1800;
 		} else if (item_id == L1ItemId.B_SCROLL_OF_POLYMORPH) {
 			time = 2100;
@@ -3014,13 +3048,16 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 
 			if (type == 3 && pcInventory.getTypeEquipped(2, 4) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(126, "$224", "$225"));
+				activeChar
+						.sendPackets(new S_ServerMessage(126, "$224", "$225"));
 				return;
 			} else if ((type == 3) && pcInventory.getTypeEquipped(2, 2) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(126, "$224", "$226"));
+				activeChar
+						.sendPackets(new S_ServerMessage(126, "$224", "$226"));
 				return;
 			} else if ((type == 2) && pcInventory.getTypeEquipped(2, 4) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(126, "$226", "$225"));
+				activeChar
+						.sendPackets(new S_ServerMessage(126, "$226", "$225"));
 				return;
 			}
 
@@ -3035,7 +3072,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (type == 3 && pcInventory.getTypeEquipped(2, 2) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(127));
 				return;
-			} else if ((type == 2 || type == 3) && pcInventory.getTypeEquipped(2, 4) >= 1) {
+			} else if ((type == 2 || type == 3)
+					&& pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(127));
 				return;
 			}
@@ -3053,14 +3091,16 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private void UseWeapon(L1PcInstance activeChar, L1ItemInstance weapon) {
 		L1PcInventory pcInventory = activeChar.getInventory();
-		if (activeChar.getWeapon() == null || !activeChar.getWeapon().equals(weapon)) {
+		if (activeChar.getWeapon() == null
+				|| !activeChar.getWeapon().equals(weapon)) {
 			int weapon_type = weapon.getItem().getType();
 			int polyid = activeChar.getTempCharGfx();
 
 			if (!L1PolyMorph.isEquipableWeapon(polyid, weapon_type)) {
 				return;
 			}
-			if (weapon.getItem().isTwohandedWeapon() && pcInventory.getTypeEquipped(2, 7) >= 1) {
+			if (weapon.getItem().isTwohandedWeapon()
+					&& pcInventory.getTypeEquipped(2, 7) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(128));
 				return;
 			}
@@ -3074,21 +3114,25 @@ public class C_ItemUSe extends ClientBasePacket {
 				return;
 			}
 			if (activeChar.getWeapon().equals(weapon)) {
-				pcInventory.setEquipped(activeChar.getWeapon(), false, false, false);
+				pcInventory.setEquipped(activeChar.getWeapon(), false, false,
+						false);
 				return;
 			} else {
-				pcInventory.setEquipped(activeChar.getWeapon(), false, false, true);
+				pcInventory.setEquipped(activeChar.getWeapon(), false, false,
+						true);
 			}
 		}
 
 		if (weapon.getItemId() == 200002) {
-			activeChar.sendPackets(new S_ServerMessage(149, weapon.getLogName()));
+			activeChar.sendPackets(new S_ServerMessage(149, weapon
+					.getLogName()));
 		}
 		pcInventory.setEquipped(weapon, true, false, false);
 	}
 
 	private int RandomELevel(L1ItemInstance item, int itemId) {
-		if (itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR || itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON) {
+		if (itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON) {
 			if (item.getEnchantLevel() <= 2) {
 				int j = _random.nextInt(100) + 1;
 				if (j < 32) {
@@ -3263,8 +3307,12 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		int objid = pc.getId();
-		pc.sendPackets(new S_AddSkill(level1, level2, l, i1, j1, k1, l1,i2, j2, k2, l2, i3, j3, k3, l3, i4, j4, k4, l4, i5, j5,k5, l5, i6));
-		S_SkillSound s_skillSound = new S_SkillSound(objid, isLawful ? 224 : 231);
+		pc
+				.sendPackets(new S_AddSkill(level1, level2, l, i1, j1, k1, l1,
+						i2, j2, k2, l2, i3, j3, k3, l3, i4, j4, k4, l4, i5, j5,
+						k5, l5, i6));
+		S_SkillSound s_skillSound = new S_SkillSound(objid, isLawful ? 224
+				: 231);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
 		SkillsTable.getInstance().spellMastery(objid, i, s, 0, 0);
@@ -3602,7 +3650,8 @@ public class C_ItemUSe extends ClientBasePacket {
 		int i6 = 0;
 		for (int j6 = 87; j6 <= 91; j6++) {
 			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
-			String s1 = (new StringBuilder()).append("TechnicalDocument(").append(l1skills.getName()).append(")").toString();
+			String s1 = (new StringBuilder()).append("TechnicalDocument(").append(
+					l1skills.getName()).append(")").toString();
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
 				int i7 = l1skills.getId();
@@ -3717,7 +3766,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
-	
+
 	private void SpellBook4(L1PcInstance pc, L1ItemInstance l1iteminstance,
 			ClientThread clientthread) {
 		String s = "";
@@ -3877,17 +3926,21 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (target instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) target;
-			if (pc.getMap().isSafetyZone(pc.getLocation()) || user.checkNonPvP(user, pc)) {
+			if (pc.getMap().isSafetyZone(pc.getLocation())
+					|| user.checkNonPvP(user, pc)) {
 				return;
 			}
-			if (pc.hasSkillEffect(ICE_LANCE) == true || pc.hasSkillEffect(ABSOLUTE_BARRIER) == true || pc.hasSkillEffect(EARTH_BIND) == true) {
+			if (pc.hasSkillEffect(ICE_LANCE) == true || pc.hasSkillEffect(ABSOLUTE_BARRIER) == true
+					|| pc.hasSkillEffect(EARTH_BIND) == true) {
 				return;
 			}
 
 			int newHp = pc.getCurrentHp() - dmg;
 			if (newHp > 0) {
-				pc.sendPackets(new S_AttackStatus(pc, 0, ActionCodes.ACTION_Damage));
-				pc.broadcastPacket(new S_AttackStatus(pc, 0, ActionCodes.ACTION_Damage));
+				pc.sendPackets(new S_AttackStatus(pc, 0,
+						ActionCodes.ACTION_Damage));
+				pc.broadcastPacket(new S_AttackStatus(pc, 0,
+						ActionCodes.ACTION_Damage));
 				pc.setCurrentHp(newHp);
 			} else if (newHp <= 0 && pc.isGm()) {
 				pc.setCurrentHp(pc.getMaxHp());
@@ -3900,7 +3953,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			mob.receiveDamage(user, dmg);
 		} else if (target instanceof L1NpcInstance) {
 			L1NpcInstance npc = (L1NpcInstance) target;
-			npc.broadcastPacket(new S_DoActionGFX(npc.getId(), ActionCodes.ACTION_Damage));
+			npc.broadcastPacket(new S_DoActionGFX(npc.getId(),
+					ActionCodes.ACTION_Damage));
 		}
 	}
 
@@ -3913,7 +3967,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 		if (attacker.getId() != cha.getId() && !isSameClan) {
-			int probability = 3 * (attacker.getLevel() - cha.getLevel()) + 100 - cha.getMr();
+			int probability = 3 * (attacker.getLevel() - cha.getLevel()) + 100
+					- cha.getMr();
 			int rnd = _random.nextInt(100) + 1;
 			if (rnd > probability) {
 				return;
@@ -3934,14 +3989,19 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.sendPackets(new S_ShowPolyList(pc.getId()));
 				pc.sendPackets(new S_ServerMessage(966)); // string-j.tbl
 			} else {
-				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(SHAPE_CHANGE);
+				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(
+						SHAPE_CHANGE);
 
 				L1PolyMorph.doPoly(pc, polyId, skillTemp.getBuffDuration());
-			}
+				if (attacker.getId() != pc.getId()) {
+					pc.sendPackets(new S_ServerMessage(241, attacker.getName())); //
+				}
+ 			}
 		} else if (cha instanceof L1MonsterInstance) {
 			L1MonsterInstance mob = (L1MonsterInstance) cha;
 			if (mob.getLevel() < 50) {
-				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(SHAPE_CHANGE);
+				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(
+						SHAPE_CHANGE);
 				L1PolyMorph.doPoly(mob, polyId, skillTemp.getBuffDuration());
 			}
 		}
@@ -3964,7 +4024,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 				pc.getInventory().storeItem(item);
 			} else {
-				L1World.getInstance().getInventory(pc.getX(), pc.getY(), pc.getMapId()).storeItem(item);
+				L1World.getInstance().getInventory(pc.getX(), pc.getY(),
+						pc.getMapId()).storeItem(item);
 			}
 			pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
 			return true;
@@ -3976,17 +4037,22 @@ public class C_ItemUSe extends ClientBasePacket {
 	private void useToiTeleportAmulet(L1PcInstance pc, int itemId,
 			L1ItemInstance item) {
 		boolean isTeleport = false;
+		// fix for toi amulets. no not remove.
 		if (pc.getX() >= 32779 && pc.getX() <= 32784 && pc.getY() >= 32815 && pc.getY() <= 32820 && pc.getMapId() == 101) {
 			isTeleport = true;
 		}
+
 		if (isTeleport) {
-			L1Teleport.teleport(pc, item.getItem().get_locx(), item.getItem().get_locy(), item.getItem().get_mapid(), 5, true);
+			L1Teleport.teleport(pc, item.getItem().get_locx(), item.getItem()
+					.get_locy(), item.getItem().get_mapid(), 5, true);
 		} else {
 			pc.sendPackets(new S_ServerMessage(79));
 		}
 	}
 
-	private boolean writeLetter(int itemId, L1PcInstance pc, int letterCode, String letterReceiver, byte[] letterText) {
+	private boolean writeLetter(int itemId, L1PcInstance pc, int letterCode,
+			String letterReceiver, byte[] letterText) {
+
 		int newItemId = 0;
 		if (itemId == 40310) {
 			newItemId = 49016;
@@ -4004,17 +4070,20 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		if (sendLetter(pc, letterReceiver, item, true)) {
-			saveLetter(item.getId(), letterCode, pc.getName(), letterReceiver, letterText);
+			saveLetter(item.getId(), letterCode, pc.getName(),
+					letterReceiver, letterText);
 		} else {
 			return false;
 		}
 		return true;
 	}
 
-	private boolean writeClanLetter(int itemId, L1PcInstance pc, int letterCode, String letterReceiver, byte[] letterText) {
+	private boolean writeClanLetter(int itemId, L1PcInstance pc, int letterCode,
+			String letterReceiver, byte[] letterText) {
 		L1Clan targetClan = null;
 		for (L1Clan clan : L1World.getInstance().getAllClans()) {
-			if (clan.getClanName().toLowerCase().equals(letterReceiver.toLowerCase())) {
+			if (clan.getClanName().toLowerCase().equals(letterReceiver
+					.toLowerCase())) {
 				targetClan = clan;
 				break;
 			}
@@ -4032,13 +4101,15 @@ public class C_ItemUSe extends ClientBasePacket {
 				return false;
 			}
 			if (sendLetter(pc, memberName[i], item, false)) {
-				saveLetter(item.getId(), letterCode, pc.getName(), memberName[i], letterText);
+				saveLetter(item.getId(), letterCode, pc.getName(),
+						memberName[i], letterText);
 			}
 		}
 		return true;
 	}
 
-	private boolean sendLetter(L1PcInstance pc, String name, L1ItemInstance item, boolean isFailureMessage) {
+	private boolean sendLetter(L1PcInstance pc, String name,
+			L1ItemInstance item, boolean isFailureMessage) {
 		L1PcInstance target = L1World.getInstance().getPlayer(name);
 		if (target != null) {
 			if (target.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
@@ -4054,8 +4125,10 @@ public class C_ItemUSe extends ClientBasePacket {
 		} else {
 			if (CharacterTable.doesCharNameExist(name)) {
 				try {
-					int targetId = CharacterTable.getInstance().restoreCharacter(name).getId();
-					CharactersItemStorage storage = CharactersItemStorage.create();
+					int targetId = CharacterTable.getInstance()
+							.restoreCharacter(name).getId();
+					CharactersItemStorage storage = CharactersItemStorage
+							.create();
 					if (storage.getItemCount(targetId) < 180) {
 						storage.storeItem(targetId, item);
 					} else {
@@ -4077,7 +4150,8 @@ public class C_ItemUSe extends ClientBasePacket {
 		return true;
 	}
 
-	private void saveLetter(int itemObjectId, int code, String sender, String receiver, byte[] text) {
+	private void saveLetter(int itemObjectId, int code, String sender,
+			String receiver, byte[] text) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
 		String date = sdf.format(Calendar.getInstance(tz).getTime());
@@ -4097,15 +4171,15 @@ public class C_ItemUSe extends ClientBasePacket {
 		// letter
 		int subjectLength = spacePosition1 + 2;
 		int contentLength = spacePosition2 - spacePosition1;
-		if (contentLength <= 0) 
-		{  
-        contentLength = 1;  
-        } 
+		if (contentLength <= 0) {
+			contentLength = 1;
+		}
 		byte[] subject = new byte[subjectLength];
 		byte[] content = new byte[contentLength];
 		System.arraycopy(text, 0, subject, 0, subjectLength);
 		System.arraycopy(text, subjectLength, content, 0, contentLength);
-		LetterTable.getInstance().writeLetter(itemObjectId, code, sender, receiver, date, 0, subject, content);
+		LetterTable.getInstance().writeLetter(itemObjectId, code, sender,
+				receiver, date, 0, subject, content);
 	}
 
 	private boolean withdrawPet(L1PcInstance pc, int itemObjectId) {
@@ -4143,7 +4217,8 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
 		if (l1pet != null) {
-			L1Npc npcTemp = NpcTable.getInstance().getTemplate(l1pet.get_npcid());
+			L1Npc npcTemp = NpcTable.getInstance().getTemplate(
+					l1pet.get_npcid());
 			L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
 			pet.setPetcost(6);
 		}
@@ -4168,9 +4243,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (fishY > pc.getY() + rodLength
 						|| fishY < pc.getY() - rodLength) {
 					pc.sendPackets(new S_ServerMessage(1138));
-				} else if (pc.getInventory().consumeItem(41295, 1)) {
-					pc.sendPackets(new S_Fishing(pc.getId(), ActionCodes.ACTION_Fishing, fishX, fishY));
-					pc.broadcastPacket(new S_Fishing(pc.getId(), ActionCodes.ACTION_Fishing, fishX, fishY));
+				} else if (pc.getInventory().consumeItem(41295, 1)) { //
+					pc.sendPackets(new S_Fishing(pc.getId(), ActionCodes
+							.ACTION_Fishing, fishX, fishY));
+					pc.broadcastPacket(new S_Fishing(pc.getId(), ActionCodes
+							.ACTION_Fishing, fishX, fishY));
 					pc.setFishing(true);
 					long time = System.currentTimeMillis() + 10000 +
 							_random.nextInt(5) * 1000;
@@ -4253,12 +4330,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 41250) {
 				npcId = 80108;
 				dollType = L1DollInstance.DOLLTYPE_WEREWOLF;
-			} else if (itemId == 60035) {
-                npcId = 200030;  
-                dollType = L1DollInstance.DOLLTYPE_SEADANCER;
-			 } else if (itemId == 60005) { 
-	                npcId = 100001; 
-	                dollType = L1DollInstance.DOLLTYPE_PRINCESS;  
 			}
 			L1Npc template = NpcTable.getInstance().getTemplate(npcId);
 			doll = new L1DollInstance(template, pc, dollType, itemObjectId);
@@ -4549,7 +4620,8 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private void useFurnitureRemovalWand(L1PcInstance pc, int targetId,
 			L1ItemInstance item) {
-		S_AttackStatus s_attackStatus = new S_AttackStatus(pc, 0, ActionCodes.ACTION_Wand);
+		S_AttackStatus s_attackStatus = new S_AttackStatus(pc, 0, ActionCodes
+				.ACTION_Wand);
 		pc.sendPackets(s_attackStatus);
 		pc.broadcastPacket(s_attackStatus);
 		int chargeCount = item.getChargeCount();
