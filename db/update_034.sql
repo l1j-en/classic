@@ -2019,5 +2019,15 @@ update npc set name = 'Dorothy' where npcid = 50629;
 update npc set name = 'Natasha' where npcid = 50630;
 update npc set name = 'Minoel' where npcid = 50631;
 
+-- merge npcaction table
+INSERT INTO `npcaction` VALUES ('50626', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('50627', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('50628', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('50629', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('50630', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('50631', 'agit', 'agit', 'agtel0', '');
+INSERT INTO `npcaction` VALUES ('70660', 'gdummyc1', 'gdummyc1', '', '');
+INSERT INTO `npcaction` VALUES ('70661', 'gdummy1', 'gdummy1', '', '');
+
 
 
