@@ -26,8 +26,7 @@ import java.util.logging.Logger;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-public class L1DatabaseFactory
-{
+public class L1DatabaseFactory {
     static Logger _log = Logger.getLogger(L1DatabaseFactory.class.getName());
 
     public static enum ProviderType

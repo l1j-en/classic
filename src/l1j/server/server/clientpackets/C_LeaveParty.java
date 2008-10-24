@@ -29,7 +29,11 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class C_LeaveParty extends ClientBasePacket {
 
-	public C_LeaveParty(byte decrypt[], ClientThread client) throws Exception {
+	private static final String C_LEAVE_PARTY = "[C] C_LeaveParty";
+	private static Logger _log = Logger.getLogger(C_LeaveParty.class.getName());
+
+	public C_LeaveParty(byte decrypt[], ClientThread client)
+			throws Exception {
 		super(decrypt);
 
 		L1PcInstance player = client.getActiveChar();
@@ -41,10 +45,7 @@ public class C_LeaveParty extends ClientBasePacket {
 
 	@Override
 	public String getType() {
-		return C_0B_LEAVE_PARTY;
+		return C_LEAVE_PARTY;
 	}
 
-	private static final String C_0B_LEAVE_PARTY = "[C] C_LeaveParty";
-	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(C_LeaveParty.class.getName());
 }

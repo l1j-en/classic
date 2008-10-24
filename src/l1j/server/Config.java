@@ -59,7 +59,7 @@ public final class Config {
 	public static String PASSWORD_SALT;
 
 	public static String TIME_ZONE;
-	
+
 	public static int CLIENT_LANGUAGE;
 
 	public static boolean HOSTNAME_LOOKUPS;
@@ -109,7 +109,7 @@ public final class Config {
 	public static boolean LOGGING_INCOMING_PACKETS;
 
 	public static int AUTOSAVE_INTERVAL;
-	
+
 	public static int AUTOSAVE_INTERVAL_INVENTORY;
 
 	public static int SKILLTIMER_IMPLTYPE;
@@ -407,15 +407,15 @@ public final class Config {
 	public static int FLOODPROTECTOR_INITIALSIZE;
 
 	public static int DEADLOCK_CHECK_INTERVAL;  
-	
+
 	public static boolean RESTART_ON_DEADLOCK;  
-	 
+
 	public static boolean DEADLOCK_DETECTOR;
 
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
 	public static int Show_INGAMENEWS_Time;
-	
+
 	public static void load() {
 		System.out.println("Loading gameserver config.");
 		// server.properties

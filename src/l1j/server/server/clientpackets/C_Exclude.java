@@ -33,8 +33,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Exclude extends ClientBasePacket {
 
 	private static final String C_EXCLUDE = "[C] C_Exclude";
-	private static Logger _log = Logger.getLogger(C_Exclude.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_Exclude.class.getName());
 
 	public C_Exclude(byte[] decrypt, ClientThread client) {
 		super(decrypt);

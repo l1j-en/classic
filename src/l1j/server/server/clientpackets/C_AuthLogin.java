@@ -35,9 +35,7 @@ import l1j.server.server.serverpackets.S_LoginResult;
 public class C_AuthLogin extends ClientBasePacket {
 
 	private static final String C_AUTH_LOGIN = "[C] C_AuthLogin";
-
-	private static Logger _log = Logger.getLogger(C_AuthLogin.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_AuthLogin.class.getName());
 
 	public C_AuthLogin(byte[] decrypt, ClientThread client) {
 		super(decrypt);

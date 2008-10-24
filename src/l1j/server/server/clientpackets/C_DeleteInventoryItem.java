@@ -29,7 +29,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 
 public class C_DeleteInventoryItem extends ClientBasePacket {
-	private static final String C_DELETE_INVENTORY_ITEM = "[C] C_DeleteInventoryItem";
+	private static final String C_DELETE_INVENTORY_ITEM
+			= "[C] C_DeleteInventoryItem";
 
 	public C_DeleteInventoryItem(byte[] decrypt, ClientThread client) {
 		super(decrypt);
