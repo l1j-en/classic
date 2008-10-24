@@ -30,7 +30,7 @@ import l1j.server.server.templates.L1Npc;
 public class L1FieldObjectInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public L1FieldObjectInstance(L1Npc template) {
 		super(template);
 	}

@@ -8,7 +8,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
 
 public class MpRegeneration extends TimerTask {
-	private static Logger _log = Logger.getLogger(MpRegeneration.class.getName());
+	private static Logger _log = Logger.getLogger(MpRegeneration.class
+			.getName());
 
 	private final L1PcInstance _pc;
 
@@ -60,6 +61,8 @@ public class MpRegeneration extends TimerTask {
 			if (wis < 11) {
 				wis = 11;
 			}
+			// probably should change this to class based.
+			// doesn't make sense for knight to get 6MP/tick, for example.
 			baseMpr += wis - 10 + 5;
 		}
 		if (_pc.hasSkillEffect(L1SkillId.MEDITATION) == true) { 
@@ -92,7 +95,7 @@ public class MpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE) 
+		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE)
 				|| pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
 			return false;
 		}

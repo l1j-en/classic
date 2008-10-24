@@ -54,7 +54,8 @@ public class L1CrownInstance extends L1NpcInstance {
 		if (!player.isCrown()) {
 			return;
 		}
-		if (player.getTempCharGfx() != 0 && player.getTempCharGfx() != 1) {
+		if (player.getTempCharGfx() != 0 && 
+				player.getTempCharGfx() != 1) {
 			return;
 		}
 		if (player.getId() != clan.getLeaderId()) {
@@ -68,13 +69,15 @@ public class L1CrownInstance extends L1NpcInstance {
 			return;
 		}
 
-		int castle_id = L1CastleLocation.getCastleId(getX(), getY(), getMapId());
+		int castle_id = L1CastleLocation
+				.getCastleId(getX(), getY(), getMapId());
 
 		boolean existDefenseClan = false;
 		L1Clan defence_clan = null;
 		for (L1Clan defClan : L1World.getInstance().getAllClans()) {
 			if (castle_id == defClan.getCastleId()) {
-				defence_clan = L1World.getInstance().getClan(defClan.getClanName());
+				defence_clan = L1World.getInstance().getClan(
+						defClan.getClanName());
 				existDefenseClan = true;
 				break;
 			}
@@ -92,11 +95,15 @@ public class L1CrownInstance extends L1NpcInstance {
 		if (existDefenseClan && defence_clan != null) {
 			defence_clan.setCastleId(0);
 			ClanTable.getInstance().updateClan(defence_clan);
-			L1PcInstance defence_clan_member[] = defence_clan.getOnlineClanMember();
+			L1PcInstance defence_clan_member[] = defence_clan
+					.getOnlineClanMember();
 			for (int m = 0; m < defence_clan_member.length; m++) {
-				if (defence_clan_member[m].getId() == defence_clan.getLeaderId()) {
-					defence_clan_member[m].sendPackets(new S_CastleMaster(0, defence_clan_member[m].getId()));
-					defence_clan_member[m].broadcastPacket(new S_CastleMaster(0, defence_clan_member[m].getId()));
+				if (defence_clan_member[m].getId() == defence_clan
+						.getLeaderId()) {
+					defence_clan_member[m].sendPackets(new S_CastleMaster(0,
+							defence_clan_member[m].getId()));
+					defence_clan_member[m].broadcastPacket(new S_CastleMaster(
+							0, defence_clan_member[m].getId()));
 					break;
 				}
 			}

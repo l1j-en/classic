@@ -39,7 +39,6 @@ import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.HpRegeneration;
-import l1j.server.server.model.HpRegenerationByDoll;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
@@ -160,14 +159,8 @@ public class L1PcInstance extends L1Character {
 	        Object[] dollList = getDollList().values().toArray();
 	        for (Object dollObject : dollList) { 
 	        	L1DollInstance doll = (L1DollInstance) dollObject;
-				if (doll.isHpRegeneration()) {  
-	                isExistHprDoll = true; 
-	            } 
 	        }
 	        if (!_hpRegenActiveByDoll && isExistHprDoll) {  
-	            _hpRegenByDoll = new HpRegenerationByDoll(this); 
-	            _regenTimer.scheduleAtFixedRate(_hpRegenByDoll, INTERVAL_BY_DOLL,
-	                    INTERVAL_BY_DOLL); 
 	            _hpRegenActiveByDoll = true;   
 	     } 
 	}
@@ -226,8 +219,6 @@ public class L1PcInstance extends L1Character {
 
     public void stopHpRegenerationByDoll() {   
         if (_hpRegenActiveByDoll) { 
-            _hpRegenByDoll.cancel(); 
-            _hpRegenByDoll = null; 
             _hpRegenActiveByDoll = false;  
         } 
     }  
@@ -1510,7 +1501,6 @@ public class L1PcInstance extends L1Character {
 	private MpRegeneration _mpRegen;
 	private MpRegenerationByDoll _mpRegenByDoll;
 	private HpRegeneration _hpRegen;
-	private HpRegenerationByDoll _hpRegenByDoll;
 	private static Timer _regenTimer = new Timer(true);
 	private boolean _mpRegenActive;
 	private boolean _mpRegenActiveByDoll;

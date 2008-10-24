@@ -61,7 +61,9 @@ public class L1Teleport {
 
 	public static void teleport(L1PcInstance pc, int x, int y, short mapId,
 			int head, boolean effectable, int skillType) {
-		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,false)); 
+
+		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
+				false));
 		if (effectable && (skillType >= 0 && skillType <= EFFECT_SPR.length)) {
 			S_SkillSound packet = new S_SkillSound(pc.getId(),
 					EFFECT_SPR[skillType]);

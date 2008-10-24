@@ -136,8 +136,8 @@ public class L1MobGroupSpawn {
 			mob.setMovementDistance(leader.getMovementDistance());
 			mob.setRest(leader.isRest());
 
-			mob.setX(leader.getX() + _random.nextInt(8) - 2);
-			mob.setY(leader.getY() + _random.nextInt(8) - 2);
+			mob.setX(leader.getX() + _random.nextInt(5) - 2);
+			mob.setY(leader.getY() + _random.nextInt(5) - 2);
 			if (!isDoSpawn(mob)) {
 				mob.setX(leader.getX());
 				mob.setY(leader.getY());

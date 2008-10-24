@@ -19,6 +19,7 @@
 package l1j.server.server.model.Instance;
 
 import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -27,6 +28,8 @@ import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1MonsterInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.templates.L1Npc;
@@ -36,14 +39,18 @@ public class L1EffectInstance extends L1NpcInstance {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ScheduledFuture _effectFuture;
+	private static Logger _log = Logger.getLogger(L1EffectInstance.class
+			.getName());
+
+	private ScheduledFuture<?> _effectFuture;
 	private static final int FW_DAMAGE_INTERVAL = 1000;
 
 	public L1EffectInstance(L1Npc template) {
 		super(template);
 
 		if (getNpcTemplate().get_npcId() == 81157) { // FW
-			_effectFuture = GeneralThreadPool.getInstance().schedule(new FwDamageTimer(this), 0); 
+			_effectFuture = GeneralThreadPool.getInstance().schedule(
+					new FwDamageTimer(this), 0);
 		}
 	}
 

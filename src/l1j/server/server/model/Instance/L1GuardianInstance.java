@@ -31,9 +31,7 @@ import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
-import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
-import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
@@ -77,7 +75,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
 				if (!pc.isElf()) {
 					targetPlayer = pc;
-					broadcastPacket(new S_NpcChatPacket(this, "$804", 2));
+					wideBroadcastPacket(new S_NpcChatPacket(this, "$804", 2));
 					break;
 				}
 			}
@@ -117,27 +115,32 @@ public class L1GuardianInstance extends L1NpcInstance {
 					int chance = _random.nextInt(100) + 1;
 					if (chance <= 10) {
 						player.getInventory().storeItem(40506, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755", "$794"));
+						player.sendPackets(new S_ServerMessage(143, "$755",
+								"$794"));
 					} else if (chance <= 60 && chance > 10) {
 						player.getInventory().storeItem(40507, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755", "$763"));
+						player.sendPackets(new S_ServerMessage(143, "$755",
+								"$763"));
 					} else if (chance <= 70 && chance > 60) {
 						player.getInventory().storeItem(40505, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755", "$770"));
+						player.sendPackets(new S_ServerMessage(143, "$755",
+								"$770"));
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70850) {
 					int chance = _random.nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40519, 5);
-						player.sendPackets(new S_ServerMessage(143, "$753", "$760" + " (" + 5 + ")"));
+						player.sendPackets(new S_ServerMessage(143, "$753",
+								"$760" + " (" + 5 + ")"));
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70846) {
 					int chance = _random.nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40503, 1);
-						player.sendPackets(new S_ServerMessage(143, "$752", "$769"));
+						player.sendPackets(new S_ServerMessage(143, "$752",
+								"$769"));
 					}
 				}
 				attack.calcDamage();
@@ -161,16 +164,13 @@ public class L1GuardianInstance extends L1NpcInstance {
 	@Override
 	public void onTalkAction(L1PcInstance player) {
 		int objid = getId();
-		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(getNpcTemplate().get_npcId());
+		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(
+				getNpcTemplate().get_npcId());
 		L1Object object = L1World.getInstance().findObject(getId());
 		L1NpcInstance target = (L1NpcInstance) object;
 		String htmlid = null;
 		String[] htmldata = null;
-		int npcid = getNpcTemplate().get_npcId();
-		boolean hascastle = false;
-		String clan_name = "";
-		String pri_name = "";
-		
+
 		if (talking != null) {
 			int pcx = player.getX();
 			int pcy = player.getY();
@@ -196,256 +196,11 @@ public class L1GuardianInstance extends L1NpcInstance {
 			}
 			broadcastPacket(new S_ChangeHeading(this));
 
-				switch (npcid)
-				{
-					case 70549: 
-					case 70985: {
-					hascastle = checkHasCastle(player,
-						L1CastleLocation.KENT_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gateokeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 70656: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.KENT_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}	
-					}
-					break;
-					case 70600: 
-					case 70986: {
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.OT_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "orckeeper";
-					} else {
-						htmlid = "orckeeperop";
-					}
-						
-					}
-					break;
-					case 70687: 
-					case 70987: {
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.WW_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gateokeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 70778: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.WW_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}	
-					}
-					break;
-					case 70800: case 70988: case 70989: case 70990: case 70991: {
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.GIRAN_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gateokeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 70817: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.GIRAN_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}	
-					}
-					break;
-					case 70862: 
-					case 70992: {
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.HEINE_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gateokeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 70863: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.HEINE_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}	
-					}
-					break;
-					case 70993: case 70994: {
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.DOWA_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gateokeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 70995: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.DOWA_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}	
-					}
-					break;
-					case 70996: { 
-					hascastle = checkHasCastle(player,
-							L1CastleLocation.ADEN_CASTLE_ID);
-					if (hascastle) { 
-						htmlid = "gatekeeper";
-						htmldata = new String[] { player.getName() };
-					} else {
-						htmlid = "gatekeeperop";
-					}
-					}
-					break;
-					case 60514: { 
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.KENT_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "ktguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-					case 60560: { 
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.OT_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "orcguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };	
-					}
-					break;
-					case 60552: {
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId()
-						== L1CastleLocation.WW_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "wdguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };	
-					}
-					break;
-					case 60524:
-					case 60525: 
-					case 60529: { 
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.GIRAN_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "grguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-					case 70857: {
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.HEINE_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "heguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-					case 60530: 
-					case 60531: {
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.DOWA_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "dcguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-					case 60533: 
-					case 60534: {
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId()
-						== L1CastleLocation.ADEN_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "adguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-					case 81156: { 
-					for (L1Clan clan : L1World.getInstance().getAllClans()) {
-						if (clan.getCastleId() 
-						== L1CastleLocation.DIAD_CASTLE_ID) {
-							clan_name = clan.getClanName();
-							pri_name = clan.getLeaderName();
-							break;
-						}
-					}
-					htmlid = "ktguard6";
-					htmldata = new String[] { getName(), clan_name, pri_name };
-					}
-					break;
-				}
-			if (htmlid != null) {
-				if (htmldata != null) {
-					player.sendPackets(new S_NPCTalkReturn(objid, htmlid, htmldata));
+			//
+			if (htmlid != null) { //
+				if (htmldata != null) { //
+					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+							htmldata));
 				} else {
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 				}
@@ -471,7 +226,8 @@ public class L1GuardianInstance extends L1NpcInstance {
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (attacker instanceof L1PcInstance && damage > 0) {
 			L1PcInstance pc = (L1PcInstance) attacker;
-			if (pc.getType() == 2 && pc.getCurrentWeapon() == 0) {
+			if (pc.getType() == 2 && 
+					pc.getCurrentWeapon() == 0) {
 			} else {
 				if (getCurrentHp() > 0 && !isDead()) {
 					if (damage >= 0) {
@@ -608,23 +364,4 @@ public class L1GuardianInstance extends L1NpcInstance {
 			setRest(false);
 		}
 	}
-
-    private boolean checkHasCastle(L1PcInstance pc, int castleId) {
-	for (L1Clan clan : L1World.getInstance().getAllClans()) {
-		if (castleId == clan.getCastleId()) {
-			break;
-		}
-	}
-	
-	if (pc.getClanid() != 0) {
-		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-		if (clan != null) {
-			if (clan.getCastleId() == castleId) {
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
 }

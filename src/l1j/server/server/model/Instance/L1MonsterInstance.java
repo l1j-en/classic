@@ -33,7 +33,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1MonsterInstance.class.getName());
+	private static Logger _log = Logger.getLogger(L1MonsterInstance.class
+			.getName());
 
 	private static Random _random = new Random();
 
@@ -97,7 +98,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 	public void searchTarget() {
 		
 		L1PcInstance targetPlayer = null;
-	
+
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
 					&& getNpcTemplate().is_agrogfxid1() < 0
@@ -105,17 +106,17 @@ public class L1MonsterInstance extends L1NpcInstance {
 					&& !getNpcTemplate().is_agrochao()) {
 				return; 
 			}
-			
+
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
 					|| pc.isMonitor() || pc.isGhost()) {
 				continue;
 			}
- 
+
 			if ((getNpcTemplate().getKarma() < 0 && pc.getKarmaLevel() >= 1)
 					|| (getNpcTemplate().getKarma() > 0 && pc.getKarmaLevel() <= -1)) {
 				continue;
 			}
-			
+
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { 
 				if (pc.hasSkillEffect(67)) {
 					if (getNpcTemplate().is_agrososc()) { 
@@ -131,7 +132,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 						break;
 					}
 				}
-			} 
+			}
 			if (getNpcTemplate().is_agrogfxid1() >= 0
 					&& getNpcTemplate().is_agrogfxid1() <= 4) {
 				if (_classGfxId[getNpcTemplate().is_agrogfxid1()][0] == pc
@@ -206,49 +207,6 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 			attack.action();
 			attack.commit();
-			if (getNpcTemplate().is_recall()) {
-				if (getLocation().getTileLineDistance(pc.getLocation()) > 4) {
-					int rdir = getRnd().nextInt(8);
-					int nx, ny, dir;
-					for (int i = 0; i < 8; i++) {
-						nx = getX();
-						ny = getY();
-						dir = rdir + i;
-						if (dir > 7) {
-							dir -= 8;
-						}
-						if (dir == 1) {
-							nx++;
-							ny--;
-						} else if (dir == 2) {
-							nx++;
-						} else if (dir == 3) {
-							nx++;
-							ny++;
-						} else if (dir == 4) {
-							ny++;
-						} else if (dir == 5) {
-							nx--;
-							ny++;
-						} else if (dir == 6) {
-							nx--;
-						} else if (dir == 7) {
-							nx--;
-							ny--;
-						} else if (dir == 0) {
-							ny--;
-						}
-						if (getMap().isPassable(getX(), getY(), dir)) {
-							dir += 4;
-							if (dir > 7) {
-								dir -= 8;
-							}
-							L1Teleport.teleport(pc, nx, ny, (short) getMapId(), dir, false);//im not sure if this one is fine should find out soon
-							break;
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -316,8 +274,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 					setStatus(ActionCodes.ACTION_Die);
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
-				} 
+				}
 				else {
+					distributeExpDropKarma(attacker);
 					transform(transformId);
 				}
 			}
@@ -387,104 +346,124 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setDeathProcessing(true);
 			setCurrentHpDirect(0);
 			setDead(true);
-			int targetobjid = getId();
+			setStatus(ActionCodes.ACTION_Die);
 
 			getMap().setPassable(getLocation(), true);
-			
-			broadcastPacket(new S_DoActionGFX(targetobjid,ActionCodes.ACTION_Die));
+
+			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
+
 			startChat(CHAT_TIMING_DEAD);
 
-			L1PcInstance player = null;
-			if (_lastAttacker instanceof L1PcInstance) {
-				player = (L1PcInstance) _lastAttacker;
-			} else if (_lastAttacker instanceof L1PetInstance) {
-				player = (L1PcInstance) ((L1PetInstance) _lastAttacker).getMaster();
-			} else if (_lastAttacker instanceof L1SummonInstance) {
-				player = (L1PcInstance) ((L1SummonInstance) _lastAttacker).getMaster();
-			}
+			distributeExpDropKarma(_lastAttacker);
+			giveUbSeal();
 
-			if (player != null) {
-				ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
-				ArrayList<Integer> hateList = _hateList.toHateArrayList();
-				int exp = getExp();
-				CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);
-
-				ArrayList<L1Character> dropTargetList = _dropHateList.toTargetArrayList();
-				ArrayList<Integer> dropHateList = _dropHateList.toHateArrayList();
-				try {
-					DropTable.getInstance().dropShare(L1MonsterInstance.this,dropTargetList, dropHateList);
-				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-				}
-				int karma = getKarma();
-				if (karma != 0) {
-					int karmaSign = Integer.signum(karma);
-					int playerKarmaLevel = player.getKarmaLevel();
-					int playerKarmaLevelSign = Integer.signum(playerKarmaLevel);
-					if (playerKarmaLevelSign != 0 && karmaSign != playerKarmaLevelSign) {
-						karma *= 5;
-					}
-					player.addKarma((int) (karma * Config.RATE_KARMA));
-				  }   
-				}  
-			     else if (_lastAttacker instanceof L1EffectInstance) {  
-			    	 ArrayList<L1Character> targetList = _hateList.toTargetArrayList();    
-			    	 ArrayList<Integer> hateList = _hateList.toHateArrayList();   
-                     if (hateList.size() != 0) {    
-                	 int maxHate = 0;    
-                	 for (int i = hateList.size() - 1; i >= 0; i--) {    
-                     if (maxHate < ((Integer) hateList.get(i))) {   
-                    	 maxHate = ((Integer) hateList.get(i));    
-                    	 _lastAttacker = (L1Character) targetList.get(i);    
-                    	 }    
-                     }   
-                	 if (_lastAttacker instanceof L1PcInstance) {   
-                		 player = (L1PcInstance) _lastAttacker;    
-                		 }  
-                	 else if (_lastAttacker instanceof L1PetInstance) {   
-                		 player = (L1PcInstance) ((L1PetInstance) _lastAttacker).getMaster();    
-                	   }  
-                	 else if (_lastAttacker instanceof L1SummonInstance) {    
-                		 player = (L1PcInstance) ((L1SummonInstance)    
-                				 _lastAttacker).getMaster();    
-                		 }    
-                	 int exp = getExp();    
-                	 CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);    
-                	 ArrayList<L1Character> dropTargetList = _dropHateList.toTargetArrayList();    
-                	 ArrayList<Integer> dropHateList = _dropHateList.toHateArrayList();   
-                	 try {   
-                		 DropTable.getInstance().dropShare(L1MonsterInstance.this, dropTargetList, dropHateList);    
-                		 } catch (Exception e) {    
-                			 _log.log(Level.SEVERE, e.getLocalizedMessage(), e);    
-                			 }   
-                		 int karma = getKarma();    
-                		 if (karma != 0) {    
-                			 int karmaSign = Integer.signum(karma);    
-                			 int playerKarmaLevel = player.getKarmaLevel();    
-                			 int playerKarmaLevelSign = Integer.signum(playerKarmaLevel);   
-                			 if (playerKarmaLevelSign != 0 && karmaSign != playerKarmaLevelSign) {   
-                				 karma *= 5;    
-                				 }  
-                			 player.addKarma((int) (karma * Config.RATE_KARMA));    
-                		} 
-                  }
-			}
-			if (getUbSealCount() != 0) {
-				L1UltimateBattle ub = UBTable.getInstance().getUb(getUbId());
-				if (ub != null) {
-					for (L1PcInstance pc : ub.getMembersArray()) {
-						if (pc != null && !pc.isDead()) {
-							L1ItemInstance item = pc.getInventory().storeItem(41402, getUbSealCount());
-							pc.sendPackets(new S_ServerMessage(403, item.getLogName())); 
-						}
-					}
-				}
-			}
 			setDeathProcessing(false);
+
 			setExp(0);
 			setKarma(0);
 			allTargetClear();
+
 			startDeleteTimer();
+		}
+	}
+
+	private void distributeExpDropKarma(L1Character lastAttacker) {
+		L1PcInstance pc = null;
+		if (lastAttacker instanceof L1PcInstance) {
+			pc = (L1PcInstance) lastAttacker;
+		} else if (lastAttacker instanceof L1PetInstance) {
+			pc = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
+		} else if (lastAttacker instanceof L1SummonInstance) {
+			pc = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
+		}
+
+		if (pc != null) {
+			ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
+			ArrayList<Integer> hateList = _hateList.toHateArrayList();
+			int exp = getExp();
+			CalcExp.calcExp(pc, getId(), targetList, hateList, exp);
+			//
+			if (isDead()) {
+				distributeDrop();
+				giveKarma(pc);
+			}
+		} else if (lastAttacker instanceof L1EffectInstance) { // FWÇ™ì|ÇµÇΩèÍçá
+			ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
+			ArrayList<Integer> hateList = _hateList.toHateArrayList();
+			//
+			if (hateList.size() != 0) {
+				//
+				int maxHate = 0;
+				for (int i = hateList.size() - 1; i >= 0; i--) {
+					if (maxHate < ((Integer) hateList.get(i))) {
+						maxHate = ((Integer) hateList.get(i));
+						lastAttacker = (L1Character) targetList.get(i);
+					}
+				}
+				if (lastAttacker instanceof L1PcInstance) {
+					pc = (L1PcInstance) lastAttacker;
+				} else if (lastAttacker instanceof L1PetInstance) {
+					pc = (L1PcInstance) ((L1PetInstance) lastAttacker)
+							.getMaster();
+				} else if (lastAttacker instanceof L1SummonInstance) {
+					pc = (L1PcInstance) ((L1SummonInstance)
+							lastAttacker).getMaster();
+				}
+				int exp = getExp();
+				CalcExp.calcExp(pc, getId(), targetList, hateList, exp);
+				//
+				if (isDead()) {
+					distributeDrop();
+					giveKarma(pc);
+				}
+			}
+		}
+	}
+
+	private void distributeDrop() {
+		ArrayList<L1Character> dropTargetList = _dropHateList
+				.toTargetArrayList();
+		ArrayList<Integer> dropHateList = _dropHateList.toHateArrayList();
+		try {
+			int npcId = getNpcTemplate().get_npcId();
+			if (npcId != 45640
+					|| (npcId == 45640 && getTempCharGfx() == 2332)) { 
+				DropTable.getInstance().dropShare(L1MonsterInstance.this,
+						dropTargetList, dropHateList);
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
+
+	private void giveKarma(L1PcInstance pc) {
+		int karma = getKarma();
+		if (karma != 0) {
+			int karmaSign = Integer.signum(karma);
+			int pcKarmaLevel = pc.getKarmaLevel();
+			int pcKarmaLevelSign = Integer.signum(pcKarmaLevel);
+			//
+			if (pcKarmaLevelSign != 0 && karmaSign != pcKarmaLevelSign) {
+				karma *= 5;
+			}
+			//
+			pc.addKarma((int) (karma * Config.RATE_KARMA));
+		}
+	}
+
+	private void giveUbSeal() {
+		if (getUbSealCount() != 0) { //
+			L1UltimateBattle ub = UBTable.getInstance().getUb(getUbId());
+			if (ub != null) {
+				for (L1PcInstance pc : ub.getMembersArray()) {
+					if (pc != null && !pc.isDead()) {
+						L1ItemInstance item = pc.getInventory()
+								.storeItem(41402, getUbSealCount());
+						pc.sendPackets(new S_ServerMessage(403, item
+								.getLogName())); //
+					}
+				}
+			}
 		}
 	}
 
@@ -506,14 +485,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 		_ubSealCount = i;
 	}
 
-	private int _ubId = 0;
+	private int _ubId = 0; // UBID
 
-	public boolean receiveDamage;
-
-	public boolean receiveDamage(boolean damage)
-	{
-      return receiveDamage = damage;
-    }
 	public int getUbId() {
 		return _ubId;
 	}
@@ -529,12 +502,12 @@ public class L1MonsterInstance extends L1NpcInstance {
 				|| npcid == 45181
 				|| npcid == 45455) {
 			if (getMaxHp() / 3 > getCurrentHp()) {
-				Random random = new Random();
-				int rnd = random.nextInt(10);
+				int rnd = _random.nextInt(10);
 				if (1 > rnd) {
 					allTargetClear();
 					setHiddenStatus(HIDDEN_STATUS_SINK);
-					broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Hide));
+					broadcastPacket(new S_DoActionGFX(getId(),
+							ActionCodes.ACTION_Hide));
 					setStatus(13);
 					broadcastPacket(new S_NPCPack(this));
 				}
@@ -545,7 +518,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				if (1 > rnd) {
 					allTargetClear();
 					setHiddenStatus(HIDDEN_STATUS_SINK);
-					broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_AntharasHide));
+					broadcastPacket(new S_DoActionGFX(getId(),
+							ActionCodes.ACTION_AntharasHide));
 					setStatus(20);
 					broadcastPacket(new S_NPCPack(this));
 				}

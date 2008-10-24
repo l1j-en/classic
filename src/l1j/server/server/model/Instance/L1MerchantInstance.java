@@ -33,9 +33,11 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 
 public class L1MerchantInstance extends L1NpcInstance {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * @param template
 	 */
@@ -103,7 +105,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isCrown()) {
 					if (player.getLevel() >= 45) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // lv30
-							int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+							int lv45_step = quest
+									.get_step(L1Quest.QUEST_LEVEL45);
 							if (lv45_step == L1Quest.QUEST_END) {
 								htmlid = "masha4";
 							} else if (lv45_step >= 1) {
@@ -243,7 +246,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isKnight()) {
 					if (player.getLevel() >= 30) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
-							int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+							int lv30_step = quest
+									.get_step(L1Quest.QUEST_LEVEL30);
 							if (lv30_step == 0) {
 								htmlid = "mark1";
 							} else {
@@ -376,7 +380,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.isWizard()) {
 					if (player.getLevel() >= 30) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
-							int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+							int lv30_step = quest
+									.get_step(L1Quest.QUEST_LEVEL30);
 							if (lv30_step >= 4) {
 								htmlid = "gerengw3";
 							} else if (lv30_step >= 3) {
@@ -402,8 +407,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					if (lv30_step == L1Quest.QUEST_END) {
 						if (player.getLevel() >= 45) {
-							int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-							if (lv45_step >= 1 && lv45_step != L1Quest.QUEST_END) {
+							int lv45_step = quest
+									.get_step(L1Quest.QUEST_LEVEL45);
+							if (lv45_step >= 1
+									&& lv45_step != L1Quest.QUEST_END) {
 								htmlid = "talassmq2";
 							} else if (lv45_step <= 0) {
 								htmlid = "talassmq1";
@@ -490,7 +497,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isDarkelf()) {
 					if (player.getLevel() >= 30) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
-							int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+							int lv30_step = quest
+									.get_step(L1Quest.QUEST_LEVEL30);
 							if (lv30_step == L1Quest.QUEST_END) {
 								htmlid = "ronde5";
 							} else if (lv30_step >= 2) {
@@ -511,12 +519,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isDarkelf()) {
 					if (player.getLevel() >= 45) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) {
-							int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+							int lv45_step = quest
+									.get_step(L1Quest.QUEST_LEVEL45);
 							if (lv45_step == L1Quest.QUEST_END) {
 								if (player.getLevel() < 50) { // Lv50
 									htmlid = "bluedikaq3";
 								} else {
-									int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+									int lv50_step = quest
+											.get_step(L1Quest.QUEST_LEVEL50);
 									if (lv50_step == L1Quest.QUEST_END) {
 										htmlid = "bluedikaq8";
 									} else {
@@ -594,12 +604,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 					}
 				}
 			} else if (npcid == 70011) {
-				int time = L1GameTimeClock.getInstance().getGameTime().getSeconds() % 86400;
+				int time = L1GameTimeClock.getInstance().getGameTime()
+						.getSeconds() % 86400;
 				if (time < 60 * 60 * 6 || time > 60 * 60 * 20) { // 20:00 6:00
 					htmlid = "shipEvI6";
 				}
 			} else if (npcid == 70553) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.KENT_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.KENT_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "ishmael1";
@@ -611,7 +623,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "ishmael7";
 				}
 			} else if (npcid == 70822) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.OT_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.OT_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "seghem1";
@@ -635,7 +648,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "othmond7";
 				}
 			} else if (npcid == 70623) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.GIRAN_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.GIRAN_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "orville1";
@@ -647,7 +661,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "orville7";
 				}
 			} else if (npcid == 70880) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.HEINE_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.HEINE_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "fisher1";
@@ -659,7 +674,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "fisher7";
 				}
 			} else if (npcid == 70665) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.DOWA_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.DOWA_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "potempin1";
@@ -671,7 +687,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "potempin7";
 				}
 			} else if (npcid == 70721) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.ADEN_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.ADEN_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "timon1";
@@ -683,7 +700,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "timon7";
 				}
 			} else if (npcid == 81155) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.DIAD_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.DIAD_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "olle1";
@@ -1164,23 +1182,28 @@ public class L1MerchantInstance extends L1NpcInstance {
 			} else if (npcid == 70748) {
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_OREN);
 			} else if (npcid == 70534) {
-				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_TALKING_ISLAND);
+				htmlid = talkToTownadviser(player,
+						L1TownLocation.TOWNID_TALKING_ISLAND);
 			} else if (npcid == 70556) {
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_KENT);
 			} else if (npcid == 70572) {
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_GLUDIO);
 			} else if (npcid == 70830) {
-				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_ORCISH_FOREST);
+				htmlid = talkToTownadviser(player,
+						L1TownLocation.TOWNID_ORCISH_FOREST);
 			} else if (npcid == 70788) {
-				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_WINDAWOOD);
+				htmlid = talkToTownadviser(player,
+						L1TownLocation.TOWNID_WINDAWOOD);
 			} else if (npcid == 70806) {
-				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_SILVER_KNIGHT_TOWN);
+				htmlid = talkToTownadviser(player,
+						L1TownLocation.TOWNID_SILVER_KNIGHT_TOWN);
 			} else if (npcid == 70631) {
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_GIRAN);
 			} else if (npcid == 70876) {
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_HEINE);
 			} else if (npcid == 70663) {
-				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_WERLDAN);
+				htmlid = talkToTownadviser(player,
+						L1TownLocation.TOWNID_WERLDAN);
 			} else if (npcid == 70761) {
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_OREN);
 			} else if (npcid == 70997) {
@@ -1505,8 +1528,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "lukein8";
 				}
 			} else if (npcid == 71063) {
-				if (player.getQuest().get_step(L1Quest.QUEST_TBOX1) == L1Quest.QUEST_END) {
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 1) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TBOX1)
+						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
+						== 1) {
 					htmlid = "maptbox";
 				}
 			} else if (npcid == 71064) {
@@ -1546,7 +1571,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = talkToThirdtbox(player);
 				}
 			} else if (npcid == 71056) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 4) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
+						== 4) {
 					if (player.getInventory().checkItem(40631)) {
 						htmlid = "SIMIZZ11";
 					} else {
@@ -1563,11 +1589,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "SIMIZZ6";
 				}
 			} else if (npcid == 71057) {
-				if (player.getQuest().get_step(L1Quest.QUEST_DOIL) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_DOIL)
+						== L1Quest.QUEST_END) {
 					htmlid = "doil4b";
 				}
 			} else if (npcid == 71059) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN)
+						== L1Quest.QUEST_END) {
 					htmlid = "rudian1c";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN)
 						== 1) {
@@ -1579,7 +1607,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "rudian1a";
 				}
 			} else if (npcid == 71060) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
+						== L1Quest.QUEST_END) {
 					htmlid = "resta1e";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
 						== L1Quest.QUEST_END) {
@@ -1609,7 +1638,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "resta1b";
 				}
 			} else if (npcid == 71061) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
+						== L1Quest.QUEST_END) {
 					htmlid = "cadmus1c";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
 						== 3) {
@@ -1622,14 +1652,16 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "cadmus1b";
 				}
 			} else if (npcid == 71062) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) >= 3) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
+						>= 3) {
 					htmlid = "kamit2";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
 						== 2) {
 					htmlid = "kamit1b";
 				}
 			} else if (npcid == 71036) {
-				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
+						== L1Quest.QUEST_END) {
 					htmlid = "kamyla26";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
 						== 4 && player.getInventory().checkItem(40717)) {
@@ -1660,8 +1692,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "francu12";
 				}
 			} else if (npcid == 71090) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL) == 1
-						&& player.getInventory().checkItem(40620)) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
+						== 1 && player.getInventory().checkItem(40620)) {
 					htmlid = "jcrystal2";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
 						== 1){
@@ -1695,12 +1727,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "lelder1";
 				}
 			} else if (npcid == 71075) {
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 1) {
+				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
+						== 1) {
 					htmlid = "llizard1b";
 				} else {
 				}
 			} else if (npcid == 71076) {
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
+						== L1Quest.QUEST_END) {
 					htmlid = "ylizardb";
 				} else {
 				}
@@ -1722,24 +1756,23 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.getInventory().checkItem(41329)) { 
 					htmlid = "fillis3";
 				}
-			} else if (npcid == 71167) {  
-				if (player.getTempCharGfx() == 3887) { 
+			} else if (npcid == 71167) { 
+				if (player.getTempCharGfx() == 3887) {
 					htmlid = "frim1";
 				}
-			} 
-			else if (npcid == 71141) {  
-				if (player.getTempCharGfx() == 3887) { 
-				htmlid = "moumthree1";
+			} else if (npcid == 71141) { //
+				if (player.getTempCharGfx() == 3887) {//
+					htmlid = "moumthree1";
 				}
-			} else if (npcid == 71142) { 
-				if (player.getTempCharGfx() == 3887) { 
-					htmlid = "moumtwo1";  
-				} 
-			} else if (npcid == 71145) {  
-				if (player.getTempCharGfx() == 3887) { 
-					htmlid = "moumone1";   
-				} 
-			} else if (npcid == 71198) { 
+			} else if (npcid == 71142) { //
+				if (player.getTempCharGfx() == 3887) {//
+					htmlid = "moumtwo1";
+				}
+			} else if (npcid == 71145) { //
+				if (player.getTempCharGfx() == 3887) {//
+					htmlid = "moumone1";
+				}
+			} else if (npcid == 71198) { //
 				if (player.getQuest().get_step(71198) == 1) {
 					htmlid = "tion4";
 				} else if (player.getQuest().get_step(71198) == 2) {
@@ -1763,7 +1796,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 			}
 			if (htmlid != null) {
 				if (htmldata != null) {
-					player.sendPackets(new S_NPCTalkReturn(objid, htmlid, htmldata));
+					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+							htmldata));
 				} else {
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 				}
@@ -1882,7 +1916,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 		pc.getInventory().consumeItem(sealId, sealCount);
 		L1ItemInstance item = pc.getInventory().storeItem(rulerId, 1);
 		if (item != null) {
-			pc.sendPackets(new S_ServerMessage(143, getNpcTemplate().get_name(), item.getLogName()));
+			pc.sendPackets(new S_ServerMessage(143,
+					getNpcTemplate().get_name(), item.getLogName()));
 		}
 	}
 

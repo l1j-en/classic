@@ -37,9 +37,8 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_BUGBEAR = 0;
 	public static final int DOLLTYPE_SUCCUBUS = 1;
 	public static final int DOLLTYPE_WEREWOLF = 2;
-	public static final int DOLLTYPE_PRINCESS = 6;
-	public static final int DOLLTYPE_SEADANCER = 7;
 	public static final int DOLL_TIME = 1800000;
+
 	private ScheduledFuture _dollFuture;
 	private static Random _random = new Random();
 	private int _dollType;
@@ -87,7 +86,8 @@ public class L1DollInstance extends L1NpcInstance {
 
 		setDollType(dollType);
 		setItemObjId(itemObjId);
-		_dollFuture = GeneralThreadPool.getInstance().schedule( new DollTimer(), DOLL_TIME); 
+		_dollFuture = GeneralThreadPool.getInstance().schedule(
+				new DollTimer(), DOLL_TIME);
 
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
@@ -108,18 +108,12 @@ public class L1DollInstance extends L1NpcInstance {
 		if (isMpRegeneration()) {
 			master.startMpRegenerationByDoll();
 		}
-		   if (isHpRegeneration()) { 
-	            master.startHpRegenerationByDoll(); 
-	        }   
 	}
 
 	public void deleteDoll() {
 		if (isMpRegeneration()) {
 			((L1PcInstance) _master).stopMpRegenerationByDoll();
 		}
-		   if (isHpRegeneration()) {  
-	            ((L1PcInstance) _master).stopHpRegenerationByDoll();   
-	        } 
 		_master.getDollList().remove(getId());
 		deleteMe();
 	}
@@ -189,14 +183,6 @@ public class L1DollInstance extends L1NpcInstance {
 		return isMpRegeneration;
 	}
 
-	 public boolean isHpRegeneration() {  
-	        boolean isHpRegeneration = false; 
-	        if (getDollType() == DOLLTYPE_SEADANCER) { 
-	            isHpRegeneration = true; 
-	        }  
-	        return isHpRegeneration;  
-	    }   
-	    
 	public int getWeightReductionByDoll() {
 		int weightReduction = 0;
 		if (getDollType() == DOLLTYPE_BUGBEAR) {

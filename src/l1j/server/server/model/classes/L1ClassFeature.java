@@ -45,11 +45,7 @@ public abstract class L1ClassFeature {
 		throw new IllegalArgumentException();
 	}
 
-	public int getAcDefenseMax(int ac) {
-		return 0;
-	}
+	public abstract int getAcDefenseMax(int ac);
 
-	public int getMagicLevel(int playerLevel) {
-		return 0;
-	}
+	public abstract int getMagicLevel(int playerLevel);
 }

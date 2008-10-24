@@ -29,7 +29,8 @@ import l1j.server.server.serverpackets.S_PinkName;
 // L1PinkName
 
 public class L1PinkName {
-	private static final Logger _log = Logger.getLogger(L1PinkName.class.getName());
+	private static final Logger _log = Logger.getLogger(L1PinkName.class
+			.getName());
 
 	private L1PinkName() {
 	}
