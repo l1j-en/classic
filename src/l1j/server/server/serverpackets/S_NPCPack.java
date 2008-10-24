@@ -58,8 +58,9 @@ public class S_NPCPack extends ServerBasePacket {
 		writeD(npc.getExp());
 		writeH(npc.getTempLawful());
 		writeS(npc.getNameId());
-		if (npc instanceof L1FieldObjectInstance) { // SIC Traditional wall, sign
-			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance().getTemplate(npc.getNpcTemplate().get_npcId());
+		if (npc instanceof L1FieldObjectInstance) { //
+			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance()
+					.getTemplate(npc.getNpcTemplate().get_npcId());
 			if (talkdata != null) {
 				writeS(talkdata.getNormalAction()); // HTML title is interpreted as the name
 			} else {

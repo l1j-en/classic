@@ -21,6 +21,7 @@ package l1j.server.server.serverpackets;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -29,7 +30,10 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_PacketBox extends ServerBasePacket {
-	private static final String _S__1F_S_PacketBox = "[S] S_PacketBox";
+	private static final String S_PACKETBOX = "[S] S_PacketBox";
+
+	private static Logger _log = Logger.getLogger(S_PacketBox.class.getName());
+
 	private byte[] _byte = null;
 
 	// *** S_107 sub code list ***
@@ -137,15 +141,15 @@ public class S_PacketBox extends ServerBasePacket {
 
 	// Clan information HTML
 	public static final int HTML_CLAN2 = 51;
-	
+
 	public static final int COOK_WINDOW = 52;
-	
+
 	// C type, H time
 	public static final int ICON_COOKING = 53;
 
 	//Fishing
 	public static final int FISHING = 55;
-	
+
 	public S_PacketBox(int subCode) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
@@ -334,6 +338,6 @@ public class S_PacketBox extends ServerBasePacket {
 	}
 
 	public String getType() {
-		return _S__1F_S_PacketBox;
+		return S_PACKETBOX;
 	}
 }

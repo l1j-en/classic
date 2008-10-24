@@ -32,6 +32,7 @@ public class S_UseArrowSkill extends ServerBasePacket {
 	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
 
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
+
 	private byte[] _byte = null;
 
 	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,

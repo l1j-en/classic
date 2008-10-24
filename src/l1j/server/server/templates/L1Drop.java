@@ -18,11 +18,11 @@
  */
 package l1j.server.server.templates;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class L1Drop {
 
-//	private final ArrayList _dropItems;
+	private final ArrayList _dropItems;
 
 	int mobid;
 
@@ -35,16 +35,16 @@ public class L1Drop {
 	int chance;
 
 	public L1Drop() {
-//		_dropItems = new ArrayList();
+		_dropItems = new ArrayList();
 	}
 
-//	public int getSize() {
-//		return _dropItems.size();
-//	}
+	public int getSize() {
+		return _dropItems.size();
+	}
 
-//	public ArrayList getDropItems() {
-//		return _dropItems;
-//	}
+	public ArrayList getDropItems() {
+		return _dropItems;
+	}
 
 	public int getChance() {
 		return chance;

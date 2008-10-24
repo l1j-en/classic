@@ -27,25 +27,24 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_RetrieveElfList extends ServerBasePacket {
 	public S_RetrieveElfList(int objid, L1PcInstance pc) {
 		if (pc.getInventory().getSize() < 180) {
-			// enable this later
-//			int size = pc.getDwarfForElfInventory().getSize();
-//			if (size > 0) {
-//				writeC(Opcodes.S_OPCODE_SHOWRETRIEVELIST);
-//				writeD(objid);
-//				writeH(size);
-//				writeC(9); 
-//				for (Object itemObject : pc.getDwarfForElfInventory()
-//						.getItems()) {
-//					L1ItemInstance item = (L1ItemInstance) itemObject;
-//					writeD(item.getId());
-//					writeC(0);
-//					writeH(item.get_gfxid());
-//					writeC(item.getItem().getBless());
-//					writeD(item.getCount());
-//					writeC(item.isIdentified() ? 1 : 0);
-//					writeS(item.getViewName());
-//				}
-//			}
+			int size = pc.getDwarfForElfInventory().getSize();
+			if (size > 0) {
+				writeC(Opcodes.S_OPCODE_SHOWRETRIEVELIST);
+				writeD(objid);
+				writeH(size);
+				writeC(9); //
+				for (Object itemObject : pc.getDwarfForElfInventory()
+						.getItems()) {
+					L1ItemInstance item = (L1ItemInstance) itemObject;
+					writeD(item.getId());
+					writeC(0);
+					writeH(item.get_gfxid());
+					writeC(item.getItem().getBless());
+					writeD(item.getCount());
+					writeC(item.isIdentified() ? 1 : 0);
+					writeS(item.getViewName());
+				}
+			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(263));
 		}

@@ -42,7 +42,8 @@ public class S_PetList extends ServerBasePacket {
 		List<L1ItemInstance> amuletList = new ArrayList<L1ItemInstance>();
 		for (Object itemObject : pc.getInventory().getItems()) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
-			if (item.getItem().getItemId() == 40314 || item.getItem().getItemId() == 40316) {
+			if (item.getItem().getItemId() == 40314
+					|| item.getItem().getItemId() == 40316) {
 				if (!isWithdraw(pc, item)) {
 					amuletList.add(item);
 				}

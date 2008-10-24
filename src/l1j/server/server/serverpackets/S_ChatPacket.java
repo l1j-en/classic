@@ -70,7 +70,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			writeC(opcode);
 			writeC(type);
 			writeS("(" + pc.getName() + ") " + chat);
-		} else if (type == 12) {  // Union chat
+		} else if (type == 12) { // Union chat
 			writeC(opcode);
 			writeC(type);
 			writeS("[" + pc.getName() + "] " + chat);

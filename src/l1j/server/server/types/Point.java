@@ -17,8 +17,6 @@
  */
 package l1j.server.server.types;
 
-import l1j.server.server.model.L1Location;
-
 public class Point {
 	protected int _x = 0;
 	protected int _y = 0;

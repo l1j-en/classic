@@ -19,7 +19,9 @@
 package l1j.server.server.templates;
 
 public class L1Weapon extends L1Item {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	public L1Weapon() {
@@ -47,6 +49,16 @@ public class L1Weapon extends L1Item {
 		_dmgModifier = i;
 	}
 
+	private int _doubleDmgChance; //
+
+	public int getDoubleDmgChance() {
+		return _doubleDmgChance;
+	}
+
+	public void setDoubleDmgChance(int i) {
+		_doubleDmgChance = i;
+	}
+
 	private int _magicDmgModifier = 0; // magic attack Damage Compensation
 
 	@Override
@@ -58,19 +70,7 @@ public class L1Weapon extends L1Item {
 		_magicDmgModifier = i;
 	}
 
-	private int _doubleDmgChance; // DoubleDmgchange For Weapons 
-	
-	public int getDoubleDmgChance()  
-	{   
-		return _doubleDmgChance;   
-		}  
-	
-	public void setDoubleDmgChance(int i) 
-	{   
-		_doubleDmgChance = i;   
-	}
-	
-	private int _canbedmg = 0; // whether damage
+	private int _canbedmg = 0; //
 
 	@Override
 	public int get_canbedmg() {

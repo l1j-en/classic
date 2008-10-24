@@ -41,7 +41,8 @@ public class FaceToFace {
 		int pcX = pc.getX();
 		int pcY = pc.getY();
 		int pcHeading = pc.getHeading();
-		List<L1PcInstance> players = L1World.getInstance().getVisiblePlayer(pc, 1);
+		List<L1PcInstance> players = L1World.getInstance().getVisiblePlayer(pc,
+				1);
 
 		if (players.size() == 0) { // The PC is a cell if
 			pc.sendPackets(new S_ServerMessage(93)); // f1 there was no one.

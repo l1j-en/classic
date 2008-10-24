@@ -27,7 +27,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_ItemAmount extends ServerBasePacket {
 
 	private static final String S_ITEM_AMOUNT = "[S] S_ItemAmount";
-	
+
 	public S_ItemAmount(L1ItemInstance item) {
 		if (item == null) {
 			return;

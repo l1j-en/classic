@@ -82,14 +82,19 @@ public class S_OwnCharPack extends ServerBasePacket {
 		writeH(pc.getX());
 		writeH(pc.getY());
 		writeD(pc.getId());
-		writeH(pc.getTempCharGfx());
+		if (pc.isDead()) {
+			writeH(pc.getTempCharGfxAtDead());
+		} else {
+			writeH(pc.getTempCharGfx());
+		}
 		if (pc.isDead()) {
 			writeC(pc.getStatus());
 		} else {
 			writeC(pc.getCurrentWeapon());
 		}
 		writeC(pc.getHeading());
-		writeC(light); 
+		// writeC(addbyte);
+		writeC(light); // status (0x01 = running)
 		writeC(pc.getMoveSpeed());
 		writeD(pc.getExp());
 		writeH(pc.getLawful());

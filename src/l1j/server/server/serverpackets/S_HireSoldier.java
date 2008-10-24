@@ -28,6 +28,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_HireSoldier extends ServerBasePacket {
 
 	private static final String S_HIRE_SOLDIER = "[S] S_HireSldier";
+
 	private byte[] _byte = null;
 
 	// HTML is open and when to send the packet to appear npcdeloy-j.html

@@ -61,7 +61,11 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeH(pc.getX());
 		writeH(pc.getY());
 		writeD(pc.getId());
-		writeH(pc.getTempCharGfx());
+		if (pc.isDead()) {
+			writeH(pc.getTempCharGfxAtDead());
+		} else {
+			writeH(pc.getTempCharGfx());
+		}
 		if (pc.isDead()) {
 			writeC(pc.getStatus());
 		} else {

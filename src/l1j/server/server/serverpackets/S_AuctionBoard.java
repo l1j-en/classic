@@ -79,11 +79,11 @@ public class S_AuctionBoard extends ServerBasePacket {
 						houseList.add(houseId);
 						count++;
 					}
-				} else if (board.getX() == 32611 && board.getY() == 32775) {  
-					if (houseId >= 524289 && houseId <= 524294) {   
-						houseList.add(houseId);   
-						count++;   
-						} 
+				} else if (board.getX() == 32611 && board.getY() == 32775) { 
+					if (houseId >= 524289 && houseId <= 524294) {
+						houseList.add(houseId);
+						count++;
+					}
 				}
 			}
 			id = new int[count];

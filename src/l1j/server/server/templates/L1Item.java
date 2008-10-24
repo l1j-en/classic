@@ -41,28 +41,13 @@ public abstract class L1Item implements Serializable {
 	public void setType2(int type) {
 		_type2 = type;
 	}
-	
-	public int getDoubleDmgChance() {  
-		return 0;   
-	} 
-	
-	private int _itemId;
+
+	private int _itemId; //
 
 	public int getItemId() {
 		return _itemId;
 	}
 
-	private boolean _cantDelete;
-	
-	public boolean isCantDelete()  
-	{   
-		return _cantDelete;   
-	}   
-	public void setCantDelete(boolean flag)  
-	{   
-		_cantDelete = flag;   
-	} 
-	
 	public void setItemId(int itemId) {
 		_itemId = itemId;
 	}
@@ -91,6 +76,7 @@ public abstract class L1Item implements Serializable {
 
 	/**
 	 * getType<br>
+	 * 
 	 * @return
 	 * <p>[etcitem]<br>
 	 * 0:arrow, 1:wand, 2:light, 3:gem, 4:totem, 5:firecracker, 6:potion, 
@@ -116,6 +102,7 @@ public abstract class L1Item implements Serializable {
 
 	/**
 	 * getType1<br>
+	 * 
 	 * @return
 	 * <p>[weapon]<br>
 	 * sword:4, dagger:46, tohandsword:50, bow:20, blunt:11, spear:24, 
@@ -174,7 +161,7 @@ public abstract class L1Item implements Serializable {
 	private int _minLevel;
 
 	private int _itemDescId;
-	
+
 	public int getItemDescId() {
 		return _itemDescId;
 	}
@@ -221,6 +208,16 @@ public abstract class L1Item implements Serializable {
 		_tradable = flag;
 	}
 
+	private boolean _cantDelete; //
+
+	public boolean isCantDelete() {
+		return _cantDelete;
+	}
+
+	public void setCantDelete(boolean flag) {
+		_cantDelete = flag;
+	}
+
 	private boolean _save_at_once;
 
 	public boolean isToBeSavedAtOnce() {
@@ -231,7 +228,7 @@ public abstract class L1Item implements Serializable {
 		_save_at_once = flag;
 	}
 
-	private int _dmgSmall = 0; 
+	private int _dmgSmall = 0;
 
 	public int getDmgSmall() {
 		return _dmgSmall;
@@ -478,7 +475,7 @@ public abstract class L1Item implements Serializable {
 			return 0;
 		}
 	}
-	
+
 	// L1EtcItem
 	public boolean isStackable() {
 		return false;
@@ -514,6 +511,10 @@ public abstract class L1Item implements Serializable {
 	}
 
 	public int getDmgModifier() {
+		return 0;
+	}
+
+	public int getDoubleDmgChance() {
 		return 0;
 	}
 

@@ -21,7 +21,6 @@ package l1j.server.server.serverpackets;
 import l1j.server.server.Opcodes;
 
 public class S_SystemMessage extends ServerBasePacket {
-	
 	private static final String S_SYSTEM_MESSAGE = "[S] S_SystemMessage";
 	private byte[] _byte = null;
 

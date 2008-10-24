@@ -1834,7 +1834,8 @@ public class L1SkillUse {
 					if (cha.getMoveSpeed() == 0) {
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
-							pc.sendPackets(new S_SkillHaste(pc.getId(), 2, _getBuffIconDuration));
+							pc.sendPackets(new S_SkillHaste(pc.getId(), 2,
+									_getBuffIconDuration));
 						}
 						cha.broadcastPacket(new S_SkillHaste(cha.getId(),
 								2, _getBuffIconDuration));
@@ -2168,7 +2169,15 @@ public class L1SkillUse {
 							L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc
 									.getMapId(), pc.getHeading(), false);
 						}
-					} else if (_skillId == CALL_MEMBER) { 
+					} else if (_skillId == CALL_MEMBER) {
+						L1PcInstance pc = (L1PcInstance) cha;
+						L1PcInstance clanPc = (L1PcInstance) L1World
+								.getInstance().findObject(_targetID);
+						if (clanPc != null) {
+							clanPc.setTempID(pc.getId());
+							clanPc.sendPackets(new S_Message_YN(748, ""));
+						}
+					} else if (_skillId == TELEPORT_TO_MEMBER) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1PcInstance clanPc = (L1PcInstance) L1World
 								.getInstance().findObject(_targetID);
@@ -2310,7 +2319,7 @@ public class L1SkillUse {
 								Object[] petlist = pc.getPetList().values()
 										.toArray();
 								for (Object pet : petlist) {
-								     petcost += ((L1NpcInstance) pet)
+									petcost += ((L1NpcInstance) pet)
 											.getPetcost();
 								}
 								int charisma = pc.getCha() + 6 - petcost;
@@ -2324,7 +2333,7 @@ public class L1SkillUse {
 								}
 							}
 						} else {
-						    pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79));
 						}
 					} else if (_skillId == LESSER_ELEMENTAL
 							|| _skillId == GREATER_ELEMENTAL) { 

@@ -163,29 +163,29 @@ class L1SkillStop {
 				L1PcInstance pc = (L1PcInstance) cha;
 				int attr = pc.getElfAttr();
 				if (attr == ELF_EARTH) {
-				cha.addEarth(-20);
-			} else if (attr == ELF_FIRE) {
-				cha.addFire(-20);
-			} else if (attr == ELF_WATER) {
-				cha.addWater(-20);
-			} else if (attr == ELF_WIND) {
-				cha.addWind(-20);
-			}
-			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		  }
-       	} else if (skillId == ELEMENTAL_FALL_DOWN) {
-			if (cha instanceof L1PcInstance) {
-				L1PcInstance pc = (L1PcInstance) cha;
-				int attr = pc.getElfAttr();
-				if (attr == ELF_EARTH) {
-                	cha.addEarth(-20);
+					cha.addEarth(-20);
 				} else if (attr == ELF_FIRE) {
 					cha.addFire(-20);
 				} else if (attr == ELF_WATER) {
 					cha.addWater(-20);
-	        	} else if (attr == ELF_WIND) {
+				} else if (attr == ELF_WIND) {
 					cha.addWind(-20);
-	        	}
+				}
+				pc.sendPackets(new S_OwnCharAttrDef(pc));
+			}
+		} else if (skillId == ELEMENTAL_FALL_DOWN) {
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				int attr = pc.getElfAttr();
+				if (attr == ELF_EARTH) {
+					cha.addEarth(-20);
+				} else if (attr == ELF_FIRE) {
+					cha.addFire(-20);
+				} else if (attr == ELF_WATER) {
+					cha.addWater(-20);
+				} else if (attr == ELF_WIND) {
+					cha.addWind(-20);
+				}
 				pc.setAddAttrKind(0);
 			}
 		 } else if (cha instanceof L1NpcInstance) {
@@ -282,11 +282,13 @@ class L1SkillStop {
 				pc.addMaxMp(-pc.getAdvenMp());
 				pc.setAdvenHp(0);
 				pc.setAdvenMp(0);
-				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
+						.getMaxHp()));
 				if (pc.isInParty()) { // During Party
 					pc.getParty().updateMiniHP(pc);
 				}
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
+				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
+						.getMaxMp()));
 			}
 		} else if (skillId == HASTE || skillId == GREATER_HASTE) {
 			cha.setMoveSpeed(0);
@@ -295,7 +297,8 @@ class L1SkillStop {
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0, 0));
 			}
-		} else if (skillId == HOLY_WALK || skillId == MOVING_ACCELERATION || skillId == WIND_WALK) {
+		} else if (skillId == HOLY_WALK || skillId == MOVING_ACCELERATION
+				|| skillId == WIND_WALK) {
 			cha.setBraveSpeed(0);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -383,7 +386,8 @@ class L1SkillStop {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconWindShackle(pc.getId(), 0));
 			}
-		} else if (skillId == SLOW || skillId == ENTANGLE || skillId == MASS_SLOW) {
+		} else if (skillId == SLOW || skillId == ENTANGLE
+				|| skillId == MASS_SLOW) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
@@ -394,7 +398,12 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_BIND, false));
-			}
+			} else if (cha instanceof L1MonsterInstance
+					|| cha instanceof L1SummonInstance
+					|| cha instanceof L1PetInstance) {
+				L1NpcInstance npc = (L1NpcInstance) cha;
+				npc.setParalyzed(false);
+ 			}
 		}
 
 		// ****** Status IDs
@@ -562,6 +571,7 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 		if (Thread.currentThread().getId() == super.getId()) {
 			return; // If the caller not stop their conversations
 		}
+		//super.stop();
 	}
 
 	private final L1Character _cha;

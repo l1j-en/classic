@@ -36,7 +36,8 @@ public class S_OpCode_Test extends ServerBasePacket {
 		info.append(".opc Operation ID number, and then please.\n");
 		info.append("[Ver] ").append(_version);
 		info.append(" [Level] ").append(_testlevel);
-		info.append(" [IdRange] 0 - ").append(_opcode[_testlevel].length - 1).append("\n");
+		info.append(" [IdRange] 0 - ").append(_opcode[_testlevel].length - 1)
+				.append("\n");
 		info.append("[Just before take action] ").append(_action).append("\n");
 		info.append("what").append(_status).append("\n");
 		return info.toString();
@@ -44,7 +45,8 @@ public class S_OpCode_Test extends ServerBasePacket {
 
 	public String getCode() {
 		StringBuilder info = new StringBuilder();
-		info.append("[OpCodeId] ").append(_opcodeid).append(" [OpCode] ").append(_opcode[_testlevel][_opcodeid]);
+		info.append("[OpCodeId] ").append(_opcodeid).append(" [OpCode] ")
+				.append(_opcode[_testlevel][_opcodeid]);
 		return info.toString();
 	}
 
@@ -80,7 +82,8 @@ public class S_OpCode_Test extends ServerBasePacket {
 
 	private String padt(int i) {
 		if (i < 10) {
-			return (new StringBuilder()).append("0").append(i).append(" ").toString();
+			return (new StringBuilder()).append("0").append(i).append(" ")
+					.toString();
 		}
 		return (new StringBuilder()).append(i).append(" ").toString();
 	}
@@ -91,7 +94,8 @@ public class S_OpCode_Test extends ServerBasePacket {
 
 	private static final String S_OpCode_Test = "[S] S_OpCode_Test";
 	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(S_OpCode_Test.class.getName());
+	private static Logger _log = Logger
+			.getLogger(S_OpCode_Test.class.getName());
 	private int _opcodeid;
 	private int _testlevel;
 	private L1PcInstance _gm;

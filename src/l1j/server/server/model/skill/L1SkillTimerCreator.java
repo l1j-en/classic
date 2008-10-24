@@ -22,7 +22,8 @@ import l1j.server.Config;
 import l1j.server.server.model.L1Character;
 
 public class L1SkillTimerCreator {
-	public static L1SkillTimer create(L1Character cha, int skillId, int timeMillis) {
+	public static L1SkillTimer create(L1Character cha, int skillId,
+			int timeMillis) {
 		if (Config.SKILLTIMER_IMPLTYPE == 1) {
 			return new L1SkillTimerTimerImpl(cha, skillId, timeMillis);
 		} else if (Config.SKILLTIMER_IMPLTYPE == 2) {

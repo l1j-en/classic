@@ -23,16 +23,6 @@ public class L1GetBackRestart {
 	public L1GetBackRestart() {
 	}
 
-	private int _id;
-
-	public int get_id() {
-		return _id;
-	}
-
-	public void set_id(int i) {
-		_id = i;
-	}
-
 	private int _area;
 
 	public int getArea() {
@@ -43,14 +33,14 @@ public class L1GetBackRestart {
 		_area = i;
 	}
 
-	private String _areaname;
+	private String _note;
 
-	public String get_areaname() {
-		return _areaname;
+	public String getNote() {
+		return _note;
 	}
 
-	public void set_areaname(String s) {
-		_areaname = s;
+	public void setNote(String s) {
+		_note = s;
 	}
 
 	private int _locX;
@@ -73,14 +63,14 @@ public class L1GetBackRestart {
 		_locY = i;
 	}
 
-	private short _MapId;
+	private short _mapId;
 
 	public short getMapId() {
-		return _MapId;
+		return _mapId;
 	}
 
 	public void setMapId(short i) {
-		_MapId = i;
+		_mapId = i;
 	}
 
 }

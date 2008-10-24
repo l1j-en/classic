@@ -390,19 +390,19 @@ public class CalcExp {
 		pc.sendPackets(new S_PetPack(pet, pc));
 
 		if (gap != 0) { // After you write the next level DB
-			L1Pet petTemplate = PetTable.getInstance().getTemplate(petItemObjId);
+			L1Pet petTemplate = PetTable.getInstance()
+					.getTemplate(petItemObjId);
 			if (petTemplate == null) { // PetTable no
 				_log.warning("L1Pet == null");
 				return;
 			}
-			petTemplate.set_exp(pet.getExp()); 
-			petTemplate.set_level(pet.getLevel()); 
-			petTemplate.set_hp(pet.getMaxHp()); 
-			petTemplate.set_mp(pet.getMaxMp()); 
-			PetTable.storePet(petTemplate);
-			//level up message 
+			petTemplate.set_exp(pet.getExp());
+			petTemplate.set_level(pet.getLevel());
+			petTemplate.set_hp(pet.getMaxHp());
+			petTemplate.set_mp(pet.getMaxMp());
+			PetTable.getInstance().storePet(petTemplate);
 			pc.sendPackets(new S_ServerMessage(320, pet.getName())); 
-			//level up message end
+
 
 			// top off pet's HP/MP on level up
 			pet.setCurrentHp(pet.getMaxHp());

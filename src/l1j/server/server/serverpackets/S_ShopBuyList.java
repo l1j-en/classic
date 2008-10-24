@@ -35,7 +35,7 @@ import l1j.server.server.serverpackets.S_NoSell;
 // ServerBasePacket, S_SystemMessage
 
 public class S_ShopBuyList extends ServerBasePacket {
-	
+
 	private static final String S_SHOP_BUY_LIST = "[S] S_ShopBuyList";
 
 	public S_ShopBuyList(int objid, L1PcInstance pc) {

@@ -27,6 +27,7 @@ public class S_CharVisualUpdate extends ServerBasePacket {
 
 	public S_CharVisualUpdate(L1PcInstance cha) {
 		_cha = cha;
+
 		writeC(Opcodes.S_OPCODE_CHARVISUALUPDATE);
 		writeD(_cha.getId());
 		writeC(_cha.getCurrentWeapon());

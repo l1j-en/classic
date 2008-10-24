@@ -366,13 +366,4 @@ public class L1Skills {
 		_sysmsgIdFail = i;
 	}
 
-	boolean _arrowType; // Sagittal skills? (EB, COC, etc.)  
-	public boolean getArrowType() 
-	{ 
-		return _arrowType; 
-	}  
-	public void setArrowType(boolean flag) 
-	{ 
-		_arrowType = flag; 
-		}  
-	} 
+}

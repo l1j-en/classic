@@ -28,6 +28,7 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class S_OwnCharStatus extends ServerBasePacket {
 	private static final String S_OWB_CHAR_STATUS = "[S] S_OwnCharStatus";
+
 	private byte[] _byte = null;
 
 	public S_OwnCharStatus(L1PcInstance pc) {

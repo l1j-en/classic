@@ -38,8 +38,6 @@ public class L1MobSkill implements Cloneable {
 
 	public static final int CHANGE_TARGET_RANDOM = 3;
 
-	public static final int TYPE_PHYSICAL_ATTACK_EXCEPTIONAL = 5;
-
 	private final int skillSize;
 
 	@Override

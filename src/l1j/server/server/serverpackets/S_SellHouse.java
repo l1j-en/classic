@@ -25,7 +25,7 @@ import l1j.server.server.Opcodes;
 // ServerBasePacket
 
 public class S_SellHouse extends ServerBasePacket {
-	
+
 	private static final String S_SELLHOUSE = "[S] S_SellHouse";
 	private byte[] _byte = null;
 

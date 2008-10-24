@@ -77,7 +77,8 @@ public class S_ShopSellList extends ServerBasePacket {
 			} else {
 				writeS(item.getName());
 			}
-			L1Item template = ItemTable.getInstance().getTemplate(item.getItemId());
+			L1Item template = ItemTable
+					.getInstance().getTemplate(item.getItemId());
 			if (template == null) {
 				writeC(0);
 			} else {

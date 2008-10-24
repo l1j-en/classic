@@ -26,7 +26,8 @@ import l1j.server.server.utils.SQLUtil;
  * 
  */
 public final class TaskManager {
-	protected static final Logger _log = Logger.getLogger(TaskManager.class.getName());
+	protected static final Logger _log = Logger.getLogger(TaskManager.class
+			.getName());
 	private static TaskManager _instance;
 
 	protected static final String[] SQL_STATEMENTS = {
@@ -45,18 +46,21 @@ public final class TaskManager {
 		Task _task;
 		TaskTypes _type;
 		String[] _params;
-		ScheduledFuture<?> scheduled;
+		ScheduledFuture<?> _scheduled;
 
-		public ExecutedTask(Task task, TaskTypes type, ResultSet rset) throws SQLException {
+		public ExecutedTask(Task task, TaskTypes type, ResultSet rset)
+				throws SQLException {
 			_task = task;
 			_type = type;
 			_id = rset.getInt("id");
 			_lastActivation = rset.getLong("last_activation");
-			_params = new String[] { rset.getString("param1"), rset.getString("param2"), rset.getString("param3") };
+			_params = new String[] { rset.getString("param1"),
+					rset.getString("param2"), rset.getString("param3") };
 		}
 
 		public void run() {
 			_task.onTimeElapsed(this);
+
 			_lastActivation = System.currentTimeMillis();
 
 			java.sql.Connection con = null;
@@ -68,7 +72,8 @@ public final class TaskManager {
 				pstm.setInt(2, _id);
 				pstm.executeUpdate();
 			} catch (SQLException e) {
-				_log.warning("cannot updated the Global Task " + _id + ": " + e.getMessage());
+				_log.warning("cannot updated the Global Task " + _id + ": "
+						+ e.getMessage());
 			} finally {
 				SQLUtil.close(pstm);
 				SQLUtil.close(con);
@@ -104,24 +109,23 @@ public final class TaskManager {
 		public void stopTask() {
 			_task.onDestroy();
 
-			
-			if (scheduled != null) {
-				scheduled.cancel(true);
-			
+			if (_scheduled != null) {
+				_scheduled.cancel(true);
+			}
 
 			_currentTasks.remove(this);
 		}
 
 	}
 
-	public TaskManager getInstance() {
+	public static TaskManager getInstance() {
 		if (_instance == null) {
 			_instance = new TaskManager();
 		}
 		return _instance;
 	}
 
-	public void TaskManager() {
+	public TaskManager() {
 		initializate();
 		startAllTasks();
 	}
@@ -149,7 +153,8 @@ public final class TaskManager {
 			rs = pstm.executeQuery();
 
 			while (rs.next()) {
-				Task task = _tasks.get(rs.getString("task").trim().toLowerCase().hashCode());
+				Task task = _tasks.get(rs.getString("task").trim()
+						.toLowerCase().hashCode());
 
 				if (task == null) {
 					continue;
@@ -191,7 +196,6 @@ public final class TaskManager {
 
 	}
 
-	
 	private boolean launchTask(ExecutedTask task) {
 		final ThreadPoolManager scheduler = ThreadPoolManager.getInstance();
 		final TaskTypes type = task.getType();
@@ -201,7 +205,8 @@ public final class TaskManager {
 			String[] hour = task.getParams()[1].split(":");
 
 			if (hour.length != 3) {
-				_log.warning("Task " + task.getId() + " has incorrect parameters");
+				_log.warning("Task " + task.getId()
+						+ " has incorrect parameters");
 				return false;
 			}
 
@@ -225,7 +230,8 @@ public final class TaskManager {
 				delay += interval;
 			}
 
-			task.scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
+			task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay,
+					interval);
 
 			return true;
 		}
@@ -233,11 +239,13 @@ public final class TaskManager {
 		return false;
 	}
 
-	public boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3) {
+	public static boolean addUniqueTask(String task, TaskTypes type,
+			String param1, String param2, String param3) {
 		return addUniqueTask(task, type, param1, param2, param3, 0);
 	}
 
-	public boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3, long lastActivation) {
+	public static boolean addUniqueTask(String task, TaskTypes type,
+			String param1, String param2, String param3, long lastActivation) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -271,11 +279,13 @@ public final class TaskManager {
 		return false;
 	}
 
-	public boolean addTask(String task, TaskTypes type, String param1, String param2, String param3) {
+	public static boolean addTask(String task, TaskTypes type, String param1,
+			String param2, String param3) {
 		return addTask(task, type, param1, param2, param3, 0);
 	}
 
-	public boolean addTask(String task, TaskTypes type, String param1, String param2, String param3, long lastActivation) {
+	public static boolean addTask(String task, TaskTypes type, String param1,
+			String param2, String param3, long lastActivation) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 
@@ -300,5 +310,5 @@ public final class TaskManager {
 
 		return false;
 	}
-}
+
 }

@@ -24,19 +24,46 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 public class S_ServerVersion extends ServerBasePacket {
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
 
+/*
+ * main.Server -> main.Client [ opc.116 len.32 ] 0.050ms
+ * ##########################################################################
+ * 0000 # 74 00 14 ad 3b 01 00 91 3a 01 00 01 ee 00 00 dd t...;...:....... 0010 #
+ * 3a 01 00 4d ff c1 48 00 00 03 92 c5 3d 37 1e 9e :..M..H.....=7..
+ * ##########################################################################
+ */
 	public S_ServerVersion() {
-		int time = L1GameTimeClock.getInstance().getGameTime().getSeconds();
-		time = time - (time % 300);
-		writeC(Opcodes.S_OPCODE_SERVERVERSION); // opcode
-		writeC(0x00); // must be
-		writeC(0x02); // low version
-		writeD(0x00009D7C); // serverver
-		writeD(0x0000791A); // cache version
-		writeD(0x0000791A); // auth ver
-		writeD(0x00009DD1); // npc ver
-		writeD(time); // Log time to time
+		writeC(Opcodes.S_OPCODE_SERVERVERSION);
+		// Auth Check client Version
+		// 1 = Check
+		// 0 = no check
+		// > 1 no check
+		// type : boolean
+		writeC(0x00);
+
+		// your server id, first id = 2
+		// id = 0, ????
+		// id = 1, ????
+		writeC(0x02);
+
+		// all version
+		// If the user level is a administrator,
+		// inputs /ver to be able to print out all version in game
+		// If the user level isn't a administrator
+		// inputs /ver to be able to print out client version in game
+		writeD(0x00009D7C); // server verion
+		writeD(0x0000791A); // cache verion
+		writeD(0x0000791A); // auth verion
+		writeD(0x00009DD1); // npc verion
+
+		// unknown
+		// Old 270Lin.bin
+		// New 270Lin.bin
+		// isn't game time
+		writeD(0x882a2cc6);
+
 		writeC(0x00); // unk 1
 		writeC(0x00); // unk 2
+		// TODO try with 0?
 		writeC(0x01); // 0: English 4: JP
 	}
 

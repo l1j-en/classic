@@ -23,7 +23,7 @@ import l1j.server.server.model.L1Object;
 
 public class L1Npc extends L1Object implements Cloneable {
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -59,16 +59,6 @@ public class L1Npc extends L1Object implements Cloneable {
 		_name = s;
 	}
 
-	private boolean _recall;
-
-	public boolean is_recall() {
-		return _recall;
-	}
-
-	public void set_recall(boolean flag) {
-		_recall = flag;
-	}
-	
 	private String _impl;
 
 	public String getImpl() {
@@ -639,6 +629,16 @@ public class L1Npc extends L1Object implements Cloneable {
 		_transformId = transformId;
 	}
 
+	private int _transformGfxId;
+
+	public int getTransformGfxId() {
+		return _transformGfxId;
+	}
+
+	public void setTransformGfxId(int i) {
+		_transformGfxId = i;
+	}
+
 	private int _atkMagicSpeed;
 
 	public int getAtkMagicSpeed() {
@@ -677,17 +677,5 @@ public class L1Npc extends L1Object implements Cloneable {
 
 	public void setAmountFixed(boolean fixed) {
 		_amountFixed = fixed;
-	}
-	
-	public void setTransformGfxId(int i) 
-	{ 
-		_transformGfxId = i; 
-	} 
-	
-	private int _transformGfxId;  
-	
-	public int getTransformGfxId()
-	{ 
-		return _transformGfxId; 
 	}
 }

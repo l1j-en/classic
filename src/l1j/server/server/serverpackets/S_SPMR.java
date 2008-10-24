@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import l1j.server.server.model.skill.L1SkillId;
 
 public class S_SPMR extends ServerBasePacket {
 
@@ -35,7 +35,7 @@ public class S_SPMR extends ServerBasePacket {
 	private void buildPacket(L1PcInstance pc) {
 		writeC(Opcodes.S_OPCODE_SPMR);
 		// UIZUDAMUPOSHON S_SkillBrave the SP is updated so when you send it off
-		if (pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
+		if (pc.hasSkillEffect(L1SkillId.STATUS_WISDOM_POTION)) {
 			writeC(pc.getSp() - pc.getTrueSp() - 2); // SP increase in equipment
 		} else {
 			writeC(pc.getSp() - pc.getTrueSp()); // SP increase in equipment

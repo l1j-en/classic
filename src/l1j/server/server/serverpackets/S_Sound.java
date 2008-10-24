@@ -27,6 +27,7 @@ import l1j.server.server.Opcodes;
 public class S_Sound extends ServerBasePacket {
 
 	private static final String S_SOUND = "[S] S_Sound";
+
 	private byte[] _byte = null;
 
 	/**

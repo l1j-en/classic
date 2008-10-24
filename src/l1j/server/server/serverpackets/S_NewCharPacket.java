@@ -50,18 +50,17 @@ public class S_NewCharPacket extends ServerBasePacket {
 		writeC(pc.getWis());
 		writeC(pc.getCha());
 		writeC(pc.getInt());
-		// is Administrator  
-        // 0 = false  
-        // 1 = true , can't attack  
-        // > 1 true , can't attack  
-        // can use Public GameMaster Command  
-       // if (pc.isGm()) 
-       // {  
-       // writeC(1);  
-       // } else 
-       // {  
-        writeC(0);  
-      // } 
+
+		// is Administrator
+		// 0 = false
+		// 1 = true , can't attack
+		// > 1 true , can't attack
+		// can use Public GameMaster Command
+// if (pc.isGm()) {
+// writeC(1);
+// } else {
+			writeC(0);
+// }
 	}
 
 	@Override

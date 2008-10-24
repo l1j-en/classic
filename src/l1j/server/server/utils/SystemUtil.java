@@ -25,9 +25,8 @@ public class SystemUtil {
 	 * 
 	 * @return Use the size of the heap
 	 */
-	public static long getUsedMemoryMB() 
-	{ 
-	    return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())  / 1024L / 1024L;                                                                                                                                                                 // ; 
-	} 
-
+	public static long getUsedMemoryMB() {
+		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime()
+				.freeMemory()) / 1024L / 1024L;
+	}
 }
