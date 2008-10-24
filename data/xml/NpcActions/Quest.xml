@@ -527,6 +527,7 @@
       <SetQuest Id="cadmus" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="g" Class="PWEKD" NpcId="71036" AmountInputable="false">
     <Item Amount="1" ItemId="33"/>
     <Material Amount="1" ItemId="40717"/>
@@ -535,6 +536,7 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="h" Class="PWEKD" NpcId="71036" AmountInputable="false">
     <Item Amount="1" ItemId="79"/>
     <Material Amount="1" ItemId="40717"/>
@@ -543,6 +545,7 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="i" Class="PWEKD" NpcId="71036" AmountInputable="false">
     <Item Amount="1" ItemId="178"/>
     <Material Amount="1" ItemId="40717"/>
@@ -551,6 +554,7 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="j" Class="PWEKD" NpcId="71036" AmountInputable="false">
     <Item Amount="1" ItemId="118"/>
     <Material Amount="1" ItemId="40717"/>
@@ -559,6 +563,7 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="k" Class="PWEKD" NpcId="71036" AmountInputable="false">
     <Item Amount="1" ItemId="20234"/>
     <Material Amount="1" ItemId="40717"/>
@@ -567,6 +572,7 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
+	<!-- -->
   <MakeItem Name="C" Class="PWEKD" NpcId="71074" AmountInputable="false">
     <Item Amount="1" ItemId="20167"/>
     <Material Amount="1" ItemId="40634"/>

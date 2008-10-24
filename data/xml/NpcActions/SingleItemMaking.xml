@@ -456,7 +456,7 @@
       <Item Amount="1" ItemId="41230"/>
       <Succeed>
         <ShowHtml HtmlId="jpe0154"/>
-      </Succeed>        
+      </Succeed>
     </MakeItem>
   </Action>
   <!-- MATTI letter / MATTI bone-smith -->
@@ -465,14 +465,14 @@
       <Material Amount="1" ItemId="41230"/>
       <Item Amount="1" ItemId="41231"/>
     </MakeItem>
-  </Action>   
+  </Action>
   <!-- John delivered the goods / Region -->
   <Action Name="0" NpcId="71020">
     <MakeItem AmountInputable="false">
       <Material Amount="1" ItemId="41231"/>
       <Item Amount="1" ItemId="41232"/>
     </MakeItem>
-  </Action>     
+  </Action>
   <!-- Material list / KEI bone-smith -->
   <Action Name="0" NpcId="71023">
     <MakeItem AmountInputable="false">
@@ -481,7 +481,7 @@
       <Item Amount="1" ItemId="41235"/>
     <Succeed>
       <ShowHtml HtmlId="jpe0146"/>
-    </Succeed>      
+    </Succeed>
     </MakeItem>
   </Action>
   <!-- Delivered the goods KEI / KEI bone-smith -->
@@ -493,9 +493,9 @@
       <Item Amount="1" ItemId="41238"/>
     <Succeed>
       <ShowHtml HtmlId="jpe0147"/>
-    </Succeed>      
+    </Succeed>
     </MakeItem>
-  </Action> 
+  </Action>
   <!-- A bag of bone-smith / Vito disciples -->
   <Action Name="0" NpcId="71019">
     <MakeItem AmountInputable="false">
@@ -503,9 +503,9 @@
       <Item Amount="1" ItemId="41241"/>
     <Succeed>
       <ShowHtml HtmlId="jpe0116"/>
-    </Succeed>      
+    </Succeed>
     </MakeItem>
-  </Action> 
+  </Action>
   <!-- BONAMA / fader -->
   <Action Name="0" NpcId="71018">
   <MakeItem AmountInputable="false">
@@ -513,16 +513,16 @@
       <Item Amount="1" ItemId="20124"/>
     <Succeed>
       <ShowHtml HtmlId="jpe0135"/>
-    </Succeed>      
+    </Succeed>
     </MakeItem>
-  </Action> 
+  </Action>
   <!-- PAGO medicine / PAGO -->
   <Action Name="request ei014" NpcId="70005">
   <MakeItem AmountInputable="false">
     <Material Amount="1" ItemId="41225"/>
       <Item Amount="1" ItemId="41226"/>
     </MakeItem>
-  </Action> 
+  </Action>
   <!-- 1000 Adena / KESUKIN -->
   <Action Name="1" NpcId="71025">
   <MakeItem AmountInputable="false">
@@ -545,6 +545,7 @@
     </Succeed>
     </MakeItem>
   </Action>
+	<!-- -->
   <Action Name="A" NpcId="80091">
     <MakeItem AmountInputable="false">
       <Material Amount="10000" ItemId="40308"/>
@@ -557,55 +558,56 @@
       </Fail>
     </MakeItem>
   </Action>
-  <Action Name="request mineral bag">  
-<MakeItem>  
-<Item Amount="1" ItemId="41002"/>  
-<Material Amount="1" ItemId="40614"/>  
-</MakeItem>  
-</Action> 
-<!---->   
-<Action Name="request hoe" NpcId="71166">   
-<MakeItem>   
-<Item Amount="1" ItemId="40527"/>   
-<Material Amount="5" ItemId="40899"/>   
-<Material Amount="300" ItemId="40308"/>   
-</MakeItem>   
-</Action>   
-<!---->  
-<Action Name="request oum giftbag" NpcId="71146">   
-<MakeItem>   
-<Item Amount="1" ItemId="40687"/>   
-<Material Amount="1" ItemId="40527"/>   
-<Succeed>  
- <ShowHtml HtmlId="midoum3"/>   
- </Succeed>   
- </MakeItem>   
- </Action> 
- <!---->   
- <Action Name="request not_broken earring" NpcId="80081">   
- <MakeItem>   
- <Item Amount="1" ItemId="21049"/>  
- <Material Amount="1" ItemId="41305"/>   
- <Material Amount="1" ItemId="41303"/>   
- <Material Amount="1000" ItemId="40308"/>   
- </MakeItem>   
- </Action>   
- <!---->   
- <Action Name="request not_broken ring left" NpcId="80081">   
- <MakeItem>   
- <Item Amount="1" ItemId="21048"/>   
- <Material Amount="1" ItemId="41306"/>   
- <Material Amount="1" ItemId="41302"/>   
- <Material Amount="1000" ItemId="40308"/>   
- </MakeItem>   
- </Action>   
- <!---->   
- <Action Name="request not_broken amulet" NpcId="80081">   
- <MakeItem>   
- <Item Amount="1" ItemId="21050"/>  
- <Material Amount="1" ItemId="41307"/>   
- <Material Amount="1" ItemId="41301"/>   
- <Material Amount="1000" ItemId="40308"/>   
- </MakeItem>   
- </Action> 
+	<!-- -->
+	<Action Name="request mineral bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="41002"/>
+			<Material Amount="1" ItemId="40614"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request hoe" NpcId="71166">
+		<MakeItem>
+			<Item Amount="1" ItemId="40527"/>
+			<Material Amount="5" ItemId="40899"/>
+			<Material Amount="300" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request oum giftbag" NpcId="71146">
+		<MakeItem>
+			<Item Amount="1" ItemId="40687"/>
+			<Material Amount="1" ItemId="40527"/>
+			<Succeed>
+				<ShowHtml HtmlId="midoum3"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken earring" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21049"/>
+			<Material Amount="1" ItemId="41305"/>
+			<Material Amount="1" ItemId="41303"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken ring left" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21048"/>
+			<Material Amount="1" ItemId="41306"/>
+			<Material Amount="1" ItemId="41302"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken amulet" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21050"/>
+			<Material Amount="1" ItemId="41307"/>
+			<Material Amount="1" ItemId="41301"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
 </NpcActionList>
