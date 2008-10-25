@@ -2404,4 +2404,5 @@ INSERT INTO `weapon` VALUES ('256', 'Halloween Pumpkin Long Sword', '$5254', 'sw
 INSERT INTO `weapon_skill` VALUES ('203', 'Two-Handed Sword of Varlok', '15', '90', '90', '2', '0', '0', '762', '0');
 INSERT INTO `weapon_skill` VALUES ('256', '', '8', '35', '25', '0', '0', '0', '2750', '0');
 
-
+-- fix name_id for Ticket to Hell
+update etcitem set name_id = 'Ticket to Hell' where item_id = 42050;
