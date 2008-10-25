@@ -252,7 +252,7 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setTitle("");
 		pc.setClanid(0);
 		pc.setClanRank(0);
-		pc.set_food(3);
+		pc.set_food(5);
 
 		int accessLevel = client.getAccount().getAccessLevel();
 		pc.setAccessLevel((short) accessLevel);
