@@ -72,6 +72,8 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	private Socket _csocket;
 
+	private int _loginStatus = 0;
+	
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
 	// 90, 120, 0 }; // for Episode5
 	// private static final byte[] FIRST_PACKET =
@@ -227,6 +229,18 @@ public class ClientThread implements Runnable, PacketOutput {
 				// ByteArrayUtil(data).dumpToString());
 
 				int opcode = data[0] & 0xFF;
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK) {
+					_loginStatus = 1;
+				}
+		        if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK) {   
+				_loginStatus = 0;  }   
+		        if (opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {   
+		        	_loginStatus++;   
+		        if (_loginStatus == 2) {   
+		        	LoginController.getInstance().logout(this);   
+		        	_loginStatus = 0;   
+		        	}   
+		        } 
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
 				}
