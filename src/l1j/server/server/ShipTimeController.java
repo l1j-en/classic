@@ -51,10 +51,10 @@ public class ShipTimeController implements Runnable {
 	private void checkShipTime() {
 		int servertime = L1GameTimeClock.getInstance().getGameTime().getSeconds();
 		int nowtime = servertime % 86400;
-		if (nowtime >= 485 * 60 && nowtime < 480 * 60 // 7.35~8
-				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.35~11
-				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.35~15
-				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.35~19
+		if (nowtime >= 455 * 60 && nowtime < 480 * 60 // 7.35~8
+				|| nowtime >= 635 * 60 && nowtime < 660 * 60 // 10.35~11
+				|| nowtime >= 815 * 60 && nowtime < 900 * 60 // 14.35~15
+				|| nowtime >= 1115 * 60 && nowtime < 1140 * 60) { // 18.35~19
 		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 			if (pc.getMapId() == 5) {
 				L1Teleport.teleport(pc, 32631, 32982, (short) 0, 0, false);
@@ -62,9 +62,9 @@ public class ShipTimeController implements Runnable {
 		   }
 	    }
 		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.35~9
-				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.35~13
-				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.35~17
-				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.35~21
+				|| nowtime >= 755 * 60 && nowtime < 780 * 60 // 12.35~13
+				|| nowtime >= 995 * 60 && nowtime < 1020 * 60  // 16.35~17
+				|| nowtime >= 1235 * 60 && nowtime < 1260 * 60) { // 20.35~21
 		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 			if (pc.getMapId() == 6) {
 				L1Teleport.teleport(pc, 32544, 32727, (short) 4, 0, false);
@@ -72,9 +72,9 @@ public class ShipTimeController implements Runnable {
 		   }
 	    }
 		if (nowtime >= 395 * 60 && nowtime < 420 * 60 // 6.35~7
-				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.35~11
-				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.35~15
-				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.35~19
+				|| nowtime >= 635 * 60 && nowtime < 660 * 60 // 10.35~11
+				|| nowtime >= 815 * 60 && nowtime < 900 * 60 // 14.35~15
+				|| nowtime >= 1115 * 60 && nowtime < 1140 * 60) { // 18.35~19
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 83) {
 					L1Teleport.teleport(pc, 32936, 33057, (short) 70, 0, false);
@@ -82,9 +82,9 @@ public class ShipTimeController implements Runnable {
 			}
 		}
 		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.35~9
-				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.35~13
-				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.35~17
-				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.35~21
+				|| nowtime >= 755 * 60 && nowtime < 780 * 60 // 12.35~13
+				|| nowtime >= 995 * 60 && nowtime < 1020 * 60  // 16.35~17
+				|| nowtime >= 1235 * 60 && nowtime < 1260 * 60) { // 20.35~21
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 84) {
 					L1Teleport.teleport(pc, 33426, 33499, (short) 4, 0, false);
@@ -92,9 +92,9 @@ public class ShipTimeController implements Runnable {
 			}
 		}
 		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.30~9
-				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.30~13
-				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.30~17
-				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.30~21
+				|| nowtime >= 755 * 60 && nowtime < 780 * 60 // 12.35~13
+				|| nowtime >= 995 * 60 && nowtime < 1020 * 60  // 16.35~17
+				|| nowtime >= 1235 * 60 && nowtime < 1260 * 60) { // 20.35~21
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 447) {
 					L1Teleport.teleport(pc, 32297, 33087, (short) 440, 0, false);
@@ -102,9 +102,9 @@ public class ShipTimeController implements Runnable {
 			}
 		}
 		if (nowtime >= 395 * 60 && nowtime < 420 * 60 // 6.30~7
-				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.30~11
-				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.30~15
-				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.30~19
+				|| nowtime >= 635 * 60 && nowtime < 660 * 60 // 10.35~11
+				|| nowtime >= 815 * 60 && nowtime < 900 * 60 // 14.35~15
+				|| nowtime >= 1115 * 60 && nowtime < 1140 * 60) { // 18.35~19
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 446) {
 					L1Teleport.teleport(pc, 32750, 32874, (short) 445, 0, false);
