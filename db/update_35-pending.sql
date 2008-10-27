@@ -32,3 +32,17 @@ DELETE FROM dungeon WHERE src_x='32781' and src_y='32728' and src_mapid='21';
 -- treasure box type set
 UPDATE etcitem SET item_type='treasure_box' WHERE item_id ='40582'; 
 INSERT INTO `etcitem` VALUES (40583, '', '$2654', 'questitem', 'normal', 'paper', 1000, 1322, 3375, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1),
+
+-- missing npc spawns for Personal Assassin of Bludika
+UPDATE npc SET impl='L1Merchant' WHERE npcid ='70896'; 
+
+INSERT INTO `npcaction` VALUES ('70896', 'bluedum', 'bluedum', '', ''); 
+
+INSERT INTO `spawnlist_npc` VALUES ('1310320', '', '1', '70896', '32729', '32788', '0', '0', '4', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310321', '', '1', '70896', '32733', '32788', '0', '0', '4', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310322', '', '1', '70896', '32734', '32794', '0', '0', '4', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310323', '', '1', '70896', '32737', '32794', '0', '0', '4', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310324', '', '1', '70896', '32740', '32794', '0', '0', '4', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310325', '', '1', '70896', '32734', '32801', '0', '0', '0', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310326', '', '1', '70896', '32737', '32801', '0', '0', '0', '0', '305', '0'); 
+INSERT INTO `spawnlist_npc` VALUES ('1310327', '', '1', '70896', '32740', '32801', '0', '0', '0', '0', '305', '0');
