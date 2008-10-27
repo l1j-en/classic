@@ -19,3 +19,6 @@ UPDATE spawnlist_npc SET heading='6' WHERE npc_templateid ='70715';
 
 INSERT INTO `spawnlist` VALUES ('801500141', 'Scout', '1', '71092', '0', '34242', '33356', '10', '10', '0', '0', '0', '0', '0', '120', '300', '4', '0', '0', '0', '0'); 
 INSERT INTO `spawnlist` VALUES ('801500142', 'Endia', '1', '71094', '0', '32928', '32276', '10', '10', '0', '0', '0', '0', '0', '120', '300', '4', '0', '0', '0', '0'); 
+
+-- darkelf lvl 30 quest
+UPDATE droplist SET chance='400000' WHERE itemId ='40596'; 
