@@ -46,3 +46,12 @@ INSERT INTO `spawnlist_npc` VALUES ('1310324', '', '1', '70896', '32740', '32794
 INSERT INTO `spawnlist_npc` VALUES ('1310325', '', '1', '70896', '32734', '32801', '0', '0', '0', '0', '305', '0'); 
 INSERT INTO `spawnlist_npc` VALUES ('1310326', '', '1', '70896', '32737', '32801', '0', '0', '0', '0', '305', '0'); 
 INSERT INTO `spawnlist_npc` VALUES ('1310327', '', '1', '70896', '32740', '32801', '0', '0', '0', '0', '305', '0');
+
+-- pagos room missing doors they need a timer too automatic close the doors and need the keys
+-- id 4001 and 4002 need itemid 40653 to open 
+-- id 4003 and 4004 need itemid 40613 to open 
+-- then 10 seconds later closes
+INSERT INTO `spawnlist_door` VALUES ('4001', 'Pago\'s Room', '93', '32742', '32805', '87', '1', '32741', '32805', '0', '0'); 
+INSERT INTO `spawnlist_door` VALUES ('4002', 'Pago\'s Room', '93', '32742', '32809', '87', '1', '32741', '32809', '0', '0'); 
+INSERT INTO `spawnlist_door` VALUES ('4003', 'Pago\'s Room', '92', '32729', '32793', '87', '0', '32730', '32794', '0', '0'); 
+INSERT INTO `spawnlist_door` VALUES ('4004', 'Pago\'s Room', '92', '32725', '32793', '87', '0', '32726', '32794', '0', '0'); 
