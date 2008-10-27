@@ -37,6 +37,7 @@ import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.model.Getback;
+import l1j.server.server.model.L1FollowerInstance;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -468,6 +469,14 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1DollInstance doll = (L1DollInstance) dollObject;
 			doll.deleteDoll();
 		}
+		Object[] followerList = pc.getFollowerList().values().toArray(); 
+        for (Object followerObject : followerList) { 
+                L1FollowerInstance follower = (L1FollowerInstance) followerObject; 
+                follower.setParalyzed(true); 
+        follower.spawn(follower.getNpcTemplate().get_npcId(), follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId()); 
+        follower.deleteMe(); 
+        }
+
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
 		pc.clearSkillEffectTimer();

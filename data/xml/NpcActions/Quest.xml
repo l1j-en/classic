@@ -581,4 +581,22 @@
       <SetQuest Id="lizard" Step="End"/>
     </Succeed>
   </MakeItem>
+  <MakeItem Name="request belt of bravery" Class="K" AmountInputable="false"> 
+      <Item Amount="1" ItemId="20318"/> 
+      <Material Amount="1" ItemId="20026"/> 
+      <Material Amount="1" ItemId="40593"/> 
+      <Material Amount="1" ItemId="40597"/> 
+      <Succeed> 
+         <SetQuest Id="Level45" Step="End"/> 
+         <ShowHtml HtmlId="mashak3"/> 
+      </Succeed> 
+   </MakeItem> 
+   <MakeItem Name="request head part of ancient key" Class="K" AmountInputable="false"> 
+      <Item Amount="1" ItemId="40534"/> 
+      <Material Amount="1" ItemId="40537"/> 
+      <Succeed> 
+         <SetQuest Id="Level45" Step="4"/> 
+         <ShowHtml HtmlId="giantk3"/> 
+      </Succeed> 
+   </MakeItem>
 </NpcActionList>
