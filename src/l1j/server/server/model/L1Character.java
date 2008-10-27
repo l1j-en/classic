@@ -26,7 +26,6 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import l1j.server.server.model.Instance.L1DollInstance;
-import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
@@ -56,19 +55,6 @@ public class L1Character extends L1Object {
 	private final Map<Integer, L1DollInstance> _dolllist = new HashMap<Integer, L1DollInstance>();
 	private final Map<Integer, L1SkillTimer> _skillEffect = new HashMap<Integer, L1SkillTimer>();
 	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
-	private final Map<Integer, L1FollowerInstance> _followerlist = new HashMap<Integer, L1FollowerInstance>(); 
-
-    public void addFollower(L1FollowerInstance follower) { 
-            _followerlist.put(follower.getId(), follower); 
-    } 
-
-    public void removeFollower(L1FollowerInstance follower) { 
-            _followerlist.remove(follower.getId()); 
-    } 
-
-    public Map<Integer, L1FollowerInstance> getFollowerList() { 
-            return _followerlist; 
-    }
     
 	public L1Character() {
 		_level = 1;

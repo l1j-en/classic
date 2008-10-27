@@ -1246,11 +1246,8 @@ public class C_ItemUSe extends ClientBasePacket {
 						} else if (itemId >= 40251 && itemId <= 40252
 								&& pc.getLevel() >= 50) {
 							SpellBook2(pc, l1iteminstance, client);
-						} else if (itemId >= 40253 
-								&& pc.getLevel() >= 30) { 
-			                SpellBook2(pc, l1iteminstance, client); 
-			            } else if (itemId >= 40254 
-			            		&& pc.getLevel() >= 40) { 
+						} else if (itemId >= 40253  && itemId <= 40254
+								&& pc.getLevel() >= 30) {
 			                SpellBook2(pc, l1iteminstance, client);  
 						} else if (itemId == 40255 
 								&& pc.getLevel() >= 50) {

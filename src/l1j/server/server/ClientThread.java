@@ -39,7 +39,6 @@ import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.Instance.L1DollInstance;
-import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
@@ -469,13 +468,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1DollInstance doll = (L1DollInstance) dollObject;
 			doll.deleteDoll();
 		}
-		Object[] followerList = pc.getFollowerList().values().toArray(); 
-        for (Object followerObject : followerList) { 
-                L1FollowerInstance follower = (L1FollowerInstance) followerObject; 
-                follower.setParalyzed(true); 
-        follower.spawn(follower.getNpcTemplate().get_npcId(), follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId()); 
-        follower.deleteMe(); 
-        }
 
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
