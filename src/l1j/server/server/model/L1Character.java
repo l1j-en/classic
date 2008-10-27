@@ -26,6 +26,7 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import l1j.server.server.model.Instance.L1DollInstance;
+import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;

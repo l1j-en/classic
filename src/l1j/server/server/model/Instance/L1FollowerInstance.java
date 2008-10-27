@@ -1,4 +1,4 @@
-package l1j.server.server.model; 
+package l1j.server.server.model.Instance; 
 
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
@@ -6,10 +6,11 @@ import java.util.logging.Logger;
 import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
-import l1j.server.server.model.Instance.L1ItemInstance;
-import l1j.server.server.model.Instance.L1NpcInstance;
-import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.Instance.L1QuestInstance;
+import l1j.server.server.model.L1Attack;
+import l1j.server.server.model.L1Character;
+import l1j.server.server.model.L1Inventory;
+import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1World;
 import l1j.server.server.serverpackets.S_FollowerPack;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;

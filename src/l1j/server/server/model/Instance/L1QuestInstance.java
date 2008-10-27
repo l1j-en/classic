@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
-import l1j.server.server.model.L1FollowerInstance;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.templates.L1Npc;
