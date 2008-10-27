@@ -552,18 +552,18 @@ public class L1MerchantInstance extends L1NpcInstance {
 					}
 				}
 			} else if (npcid == 70824) {
-				if (player.getTempCharGfx() == 3634) {
 					if (player.isDarkelf()) {
+						if (player.getTempCharGfx() == 3634) {
 						int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 						if (lv45_step == 1) {
 							htmlid = "assassin1";
 						} else if (lv45_step == 2) {
 							htmlid = "assassin2";
 						} else {
-							htmlid = "assassin3";
+							htmlid = "assassin4";
 						}
 					} else {
-						htmlid = "assassin4";
+						htmlid = "assassin3";
 					}
 				}
 			} else if (npcid == 70744) {

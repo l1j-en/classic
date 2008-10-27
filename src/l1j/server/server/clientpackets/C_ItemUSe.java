@@ -1636,6 +1636,16 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						pc.sendPackets(new S_ServerMessage(79)); 
 					}
+				} else if (itemId == 40572) { 
+			            if (pc.getX() == 32778 && pc.getY() == 32738 && 
+			            pc.getMapId() == 21) { 
+			            L1Teleport.teleport(pc, 32781, 32728, (short)21, 5, true); 
+			            } else if (pc.getX() == 32781 && pc.getY() == 32728 && 
+			             pc.getMapId() == 21) { 
+			            L1Teleport.teleport(pc, 32778, 32738, (short)21, 5, true); 
+			            } else { 
+			           pc.sendPackets(new S_ServerMessage(79)); 
+			         } 
 				} else if (itemId == 40006 || itemId == 40412
 						|| itemId == 140006) {
 					if (pc.getMap().isUsePainwand()) {

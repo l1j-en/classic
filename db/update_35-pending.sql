@@ -22,3 +22,10 @@ INSERT INTO `spawnlist` VALUES ('801500142', 'Endia', '1', '71094', '0', '32928'
 
 -- darkelf lvl 30 quest
 UPDATE droplist SET chance='400000' WHERE itemId ='40596'; 
+
+-- darkelf lvl 45 quest
+UPDATE npcaction SET normal_action='assassin4',caotic_action='assassin4' WHERE npcid ='70824'; 
+
+DELETE FROM dungeon WHERE src_x='32778' and src_y='32738' and src_mapid='21'; 
+DELETE FROM dungeon WHERE src_x='32781' and src_y='32728' and src_mapid='21'; 
+
