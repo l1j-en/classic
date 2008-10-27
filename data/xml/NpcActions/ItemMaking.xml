@@ -2689,5 +2689,152 @@
 			<Item Amount="1" ItemId="41310"/>
 		</MakeItem>
 	</Action>
-
+    <!-- --> 
+   <Action Name="request enforce sword of emperor"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40965"/> 
+         <Material Amount="1" ItemId="62"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40967"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="61"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request sword of windblade"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40965"/> 
+         <Material Amount="1" ItemId="49"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40967"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="12"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request dualblade of red shadow"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40965"/> 
+         <Material Amount="1" ItemId="78"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40967"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="86"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request claw of beast king"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40965"/> 
+         <Material Amount="1" ItemId="155"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40967"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="160"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request staff of holyhedron"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40965"/> 
+         <Material Amount="1" ItemId="132"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40967"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="134"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request helm of dantes"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40966"/> 
+         <Material Amount="1" ItemId="20020"/> 
+         <Material Amount="5" ItemId="40445"/> 
+         <Material Amount="30" ItemId="40964"/> 
+         <Material Amount="50" ItemId="40968"/> 
+         <Material Amount="30" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="100" ItemId="40969"/> 
+         <Item Amount="1" ItemId="20390"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request armor of dantes"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40966"/> 
+         <Material Amount="1" ItemId="20113"/> 
+         <Material Amount="10" ItemId="40445"/> 
+         <Material Amount="50" ItemId="40964"/> 
+         <Material Amount="100" ItemId="40968"/> 
+         <Material Amount="10" ItemId="40525"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="300" ItemId="40969"/> 
+         <Item Amount="1" ItemId="20395"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request gloves of dantes"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40966"/> 
+         <Material Amount="1" ItemId="20168"/> 
+         <Material Amount="3" ItemId="40445"/> 
+         <Material Amount="30" ItemId="40964"/> 
+         <Material Amount="50" ItemId="40968"/> 
+         <Material Amount="3" ItemId="40525"/> 
+         <Material Amount="30" ItemId="40677"/> 
+         <Material Amount="100" ItemId="40969"/> 
+         <Item Amount="1" ItemId="20410"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request cloak of dantes"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40966"/> 
+         <Material Amount="1" ItemId="20058"/> 
+         <Material Amount="3" ItemId="40445"/> 
+         <Material Amount="10" ItemId="40964"/> 
+         <Material Amount="30" ItemId="40968"/> 
+         <Material Amount="3" ItemId="40525"/> 
+         <Material Amount="20" ItemId="40652"/> 
+         <Material Amount="50" ItemId="40677"/> 
+         <Material Amount="100" ItemId="40969"/> 
+         <Item Amount="1" ItemId="20402"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request boots of dantes"> 
+      <MakeItem> 
+         <Material Amount="1" ItemId="40966"/> 
+         <Material Amount="1" ItemId="20201"/> 
+         <Material Amount="4" ItemId="40445"/> 
+         <Material Amount="30" ItemId="40964"/> 
+         <Material Amount="50" ItemId="40968"/> 
+         <Material Amount="3" ItemId="40525"/> 
+         <Material Amount="30" ItemId="40677"/> 
+         <Material Amount="100" ItemId="40969"/> 
+         <Item Amount="1" ItemId="20408"/> 
+      </MakeItem> 
+   </Action> 
+   <!-- --> 
+   <Action Name="request ingot of dark"> 
+      <MakeItem> 
+         <Material Amount="100" ItemId="40675"/> 
+         <Item Amount="1" ItemId="40677"/> 
+      </MakeItem> 
+   </Action>
 </NpcActionList>
