@@ -49,69 +49,64 @@ public class ShipTimeController implements Runnable {
 	}
 
 	private void checkShipTime() {
-		int servertime = L1GameTimeClock.getInstance().getGameTime()
-				.getSeconds();
+		int servertime = L1GameTimeClock.getInstance().getGameTime().getSeconds();
 		int nowtime = servertime % 86400;
-		if (nowtime >= 90 * 60 && nowtime < 180 * 60 // 1:30 ~ 3:00 
-				|| nowtime >= 270 * 60 && nowtime < 360 * 60 // 4:30 ~ 6:00 
-				|| nowtime >= 450 * 60 && nowtime < 540 * 60 // 7:30 ~ 9:00 
-				|| nowtime >= 630 * 60 && nowtime < 720 * 60 // 10:30 ~ 12:00 
-				|| nowtime >= 810 * 60 && nowtime < 900 * 60 // 13:30 ~ 15:00 
-				|| nowtime >= 990 * 60 && nowtime < 1080 * 60 // 16:30 ~ 18:00 
-				|| nowtime >= 1170 * 60 && nowtime < 1260 * 60 // 19:30 ~ 21:00 
-				|| nowtime >= 1350 * 60 && nowtime < 1440 * 60 // 22:30 ~ 24:00 
-				) {
+		if (nowtime >= 485 * 60 && nowtime < 480 * 60 // 7.35~8
+				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.35~11
+				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.35~15
+				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.35~19
+		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+			if (pc.getMapId() == 5) {
+				L1Teleport.teleport(pc, 32631, 32982, (short) 0, 0, false);
+			  }
+		   }
+	    }
+		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.35~9
+				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.35~13
+				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.35~17
+				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.35~21
+		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+			if (pc.getMapId() == 6) {
+				L1Teleport.teleport(pc, 32544, 32727, (short) 4, 0, false);
+		      }
+		   }
+	    }
+		if (nowtime >= 395 * 60 && nowtime < 420 * 60 // 6.35~7
+				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.35~11
+				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.35~15
+				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.35~19
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 83) {
-					pc.getInventory().consumeItem(40300, 1);
 					L1Teleport.teleport(pc, 32936, 33057, (short) 70, 0, false);
 				}
 			}
 		}
-		if (nowtime >= 0 && nowtime < 90 * 60 // 0:00~ 1:30 
-				|| nowtime >= 180 * 60 && nowtime < 270 * 60 // 3:00 ~ 4:30 
-				|| nowtime >= 360 * 60 && nowtime < 450 * 60 // 6:00 ~ 7:30 
-				|| nowtime >= 540 * 60 && nowtime < 630 * 60 // 9:00 ~ 10:30 
-				|| nowtime >= 720 * 60 && nowtime < 810 * 60 // 12:00 ~ 13:30 
-				|| nowtime >= 900 * 60 && nowtime < 990 * 60 // 15:00 ~ 16:30 
-				|| nowtime >= 1080 * 60 && nowtime < 1170 * 60 // 18:00 ~ 19:30 
-				|| nowtime >= 1260 * 60 && nowtime < 1350 * 60 // 21:00 ~ 22:30 
-				) {
+		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.35~9
+				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.35~13
+				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.35~17
+				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.35~21
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 84) {
-					pc.getInventory().consumeItem(40301, 1);
 					L1Teleport.teleport(pc, 33426, 33499, (short) 4, 0, false);
 				}
 			}
 		}
-		if (nowtime >= 0 && nowtime < 90 * 60 // 0:00 ~1:30 
-				|| nowtime >= 180 * 60 && nowtime < 270 * 60 // 3:00 ~4:30 
-				|| nowtime >= 360 * 60 && nowtime < 450 * 60 // 6:00 ~7:30 
-				|| nowtime >= 540 * 60 && nowtime < 630 * 60 // 9:00 ~10:30 
-				|| nowtime >= 720 * 60 && nowtime < 810 * 60 // 12:00 ~13:30 
-				|| nowtime >= 900 * 60 && nowtime < 990 * 60 // 15:00 ~16:30 
-				|| nowtime >= 1080 * 60 && nowtime < 1170 * 60 // 18:00 ~19:30 
-				|| nowtime >= 1260 * 60 && nowtime < 1350 * 60 // 21:00 ~22:30 
-				) { 
+		if (nowtime >= 515 * 60 && nowtime < 1260 * 60 // 8.30~9
+				|| nowtime >= 785 * 60 && nowtime < 780 * 60 // 12.30~13
+				|| nowtime >= 1025 * 60 && nowtime < 1020 * 60  // 16.30~17
+				|| nowtime >= 1265 * 60 && nowtime < 1260 * 60) { // 20.30~21
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 447) {
-					pc.getInventory().consumeItem(40302, 1);
 					L1Teleport.teleport(pc, 32297, 33087, (short) 440, 0, false);
 				}
 			}
 		}
-		if (nowtime >= 90 * 60 && nowtime < 180 * 60 // 1:30 ~ 3:00 
-				|| nowtime >= 270 * 60 && nowtime < 360 * 60 // 4:30 ~ 6:00 
-				|| nowtime >= 450 * 60 && nowtime < 540 * 60 // 7:30 ~ 9:00 
-				|| nowtime >= 630 * 60 && nowtime < 720 * 60 // 10:30 ~ 12:00 
-				|| nowtime >= 810 * 60 && nowtime < 900 * 60 // 13:30 ~ 15:00 
-				|| nowtime >= 990 * 60 && nowtime < 1080 * 60 // 16:30 ~ 18:00 
-				|| nowtime >= 1170 * 60 && nowtime < 1260 * 60 // 19:30 ~ 21:00 
-				|| nowtime >= 1350 * 60 && nowtime < 1440 * 60 // 22:30 ~ 24:00 
-				) { 
+		if (nowtime >= 395 * 60 && nowtime < 420 * 60 // 6.30~7
+				|| nowtime >= 665 * 60 && nowtime < 660 * 60 // 10.30~11
+				|| nowtime >= 905 * 60 && nowtime < 900 * 60 // 14.30~15
+				|| nowtime >= 1145 * 60 && nowtime < 1140 * 60) { // 18.30~19
 			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 				if (pc.getMapId() == 446) {
-					pc.getInventory().consumeItem(40303, 1);
 					L1Teleport.teleport(pc, 32750, 32874, (short) 445, 0, false);
 				}
 			}
