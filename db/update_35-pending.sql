@@ -29,3 +29,6 @@ UPDATE npcaction SET normal_action='assassin4',caotic_action='assassin4' WHERE n
 DELETE FROM dungeon WHERE src_x='32778' and src_y='32738' and src_mapid='21'; 
 DELETE FROM dungeon WHERE src_x='32781' and src_y='32728' and src_mapid='21'; 
 
+-- treasure box type set
+UPDATE etcitem SET item_type='treasure_box' WHERE item_id ='40582'; 
+INSERT INTO `etcitem` VALUES (40583, '', '$2654', 'questitem', 'normal', 'paper', 1000, 1322, 3375, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1),
