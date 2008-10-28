@@ -20,7 +20,6 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 	public void onAction(L1PcInstance player) {
 		L1Attack attack = new L1Attack(player, this);
 		if (attack.calcHit()) {
-			attack.addPcPoisonAttack(player, this);
 			if (player.getLevel() < 5) { //
 				ArrayList<L1Character> targetList = new ArrayList<L1Character>();
 
@@ -38,6 +37,7 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 			broadcastPacket(new S_ChangeHeading(this)); //
 		}
 		attack.action();
+		attack.addPcPoisonAttack(player, this);
 	}
 
 	@Override

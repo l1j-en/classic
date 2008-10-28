@@ -487,6 +487,7 @@ public class L1NpcInstance extends L1Character {
 		} else {
 			attack.action();
 			attack.commit();
+			attack.addPcPoisonAttack(target, this);
 		}
 		setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 	}
