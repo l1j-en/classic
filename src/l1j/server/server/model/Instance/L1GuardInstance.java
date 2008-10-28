@@ -107,9 +107,11 @@ public class L1GuardInstance extends L1NpcInstance {
 	public void onAction(L1PcInstance player) {
 		if (getCurrentHp() > 0 && !isDead()) {
 			L1Attack attack = new L1Attack(player, this);
+			if (attack.calcHit()) {
 				attack.calcDamage();
 				attack.calcStaffOfMana();
 				attack.addPcPoisonAttack(player, this);
+			}
 			    attack.action();
 			    attack.commit();
 		}
