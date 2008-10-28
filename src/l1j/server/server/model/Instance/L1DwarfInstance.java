@@ -51,10 +51,13 @@ public class L1DwarfInstance extends L1NpcInstance {
 	@Override
 	public void onAction(L1PcInstance pc) {
 		L1Attack attack = new L1Attack(pc, this);
+		if (attack.calcHit()) {
+			attack.calcDamage();
+			attack.addPcPoisonAttack(pc, this);
+		}
 		attack.calcHit();
 		attack.action();
 	}
-
 	@Override
 	public void onTalkAction(L1PcInstance pc) {
 		int objid = getId();

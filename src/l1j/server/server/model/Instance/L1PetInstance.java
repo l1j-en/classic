@@ -399,6 +399,8 @@ public class L1PetInstance extends L1NpcInstance {
 		L1Attack attack = new L1Attack(player, this);
 		if (attack.calcHit()) {
 			attack.calcDamage();
+			attack.calcStaffOfMana();
+			attack.addPcPoisonAttack(player, this);
 		}
 		attack.action();
 		attack.commit();
