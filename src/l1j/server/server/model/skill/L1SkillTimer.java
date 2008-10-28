@@ -67,7 +67,7 @@ public interface L1SkillTimer {
  * XXX 2008/02/13 vala
  */
 class L1SkillStop {
-	public static void stopSkill(L1Character cha, int skillId, int element) {
+	public static void stopSkill(L1Character cha, int skillId) {
 		if (skillId == LIGHT) {
 			if (cha instanceof L1PcInstance) {
 				if (!cha.isInvisble()) {
@@ -162,47 +162,62 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				int attr = pc.getElfAttr();
-				if (attr == ELF_EARTH) {
-					cha.addEarth(-20);
-				} else if (attr == ELF_FIRE) {
-					cha.addFire(-20);
-				} else if (attr == ELF_WATER) {
-					cha.addWater(-20);
-				} else if (attr == ELF_WIND) {
-					cha.addWind(-20);
+				if (attr == 1) {
+					cha.addEarth(-50);
+				} else if (attr == 2) {
+					cha.addFire(-50);
+				} else if (attr == 4) {
+					cha.addWater(-50);
+				} else if (attr == 8) {
+					cha.addWind(-50);
 				}
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
 			}
 		} else if (skillId == ELEMENTAL_FALL_DOWN) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
-				int attr = pc.getElfAttr();
-				if (attr == ELF_EARTH) {
-					cha.addEarth(-20);
-				} else if (attr == ELF_FIRE) {
-					cha.addFire(-20);
-				} else if (attr == ELF_WATER) {
-					cha.addWater(-20);
-				} else if (attr == ELF_WIND) {
-					cha.addWind(-20);
+				int attr = pc.getAddAttrKind();
+				int i = 50;
+				switch (attr) {
+				case 1:
+					pc.addEarth(i);
+					break;
+				case 2:
+					pc.addFire(i);
+					break;
+				case 4:
+					pc.addWater(i);
+					break;
+				case 8:
+					pc.addWind(i);
+					break;
+				default:
+					break;
 				}
 				pc.setAddAttrKind(0);
-			}
-		 } else if (cha instanceof L1NpcInstance) {
+			} else if (cha instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) cha;
 				int attr = npc.getAddAttrKind();
-				if (attr == ELF_EARTH) {
-					npc.addEarth(-20);
-				} else if (attr == ELF_FIRE) {
-					npc.addFire(-20);
-				} else if (attr == ELF_WATER) {
-					npc.addWater(-20);
-	        	} else if (attr == ELF_WIND) {
-	        		npc.addWind(-20);
-	        	}
-	        	npc.setAddAttrKind(0);
-	        	
-	     } else if (skillId == IRON_SKIN) {
+				int i = 50;
+				switch (attr) {
+				case 1:
+					npc.addEarth(i);
+					break;
+				case 2:
+					npc.addFire(i);
+					break;
+				case 4:
+					npc.addWater(i);
+					break;
+				case 8:
+					npc.addWind(i);
+					break;
+				default:
+					break;
+				}
+				npc.setAddAttrKind(0);
+			}
+		} else if (skillId == IRON_SKIN) { //
 			cha.addAc(10);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -530,14 +545,6 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 	public L1SkillTimerThreadImpl(L1Character cha, int skillId, int timeMillis) {
 		_cha = cha;
 		_skillId = skillId;
-		_element = -1;
-		_timeMillis = timeMillis;
-	}
-
-	public L1SkillTimerThreadImpl(L1Character cha, int skillId, int timeMillis, int element) {
-		_cha = cha;
-		_skillId = skillId;
-		_element = element;
 		_timeMillis = timeMillis;
 	}
 
@@ -564,20 +571,19 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 
 	public void end() {
 		super.interrupt();
-		L1SkillStop.stopSkill(_cha, _skillId, _element);
+		L1SkillStop.stopSkill(_cha, _skillId);
 	}
 
 	public void kill() {
 		if (Thread.currentThread().getId() == super.getId()) {
 			return; // If the caller not stop their conversations
 		}
-		//super.stop();
+		super.stop();
 	}
 
 	private final L1Character _cha;
 	private final int _timeMillis;
 	private final int _skillId;
-	private final int _element;
 	private int _remainingTime;
 }
 
@@ -588,15 +594,7 @@ class L1SkillTimerTimerImpl extends TimerTask implements L1SkillTimer {
 		_cha = cha;
 		_skillId = skillId;
 		_timeMillis = timeMillis;
-		_element = -1;
-		_remainingTime = _timeMillis / 1000;
-	}
 
-	public L1SkillTimerTimerImpl(L1Character cha, int skillId, int timeMillis, int element) {
-		_cha = cha;
-		_skillId = skillId;
-		_timeMillis = timeMillis;
-		_element = element;
 		_remainingTime = _timeMillis / 1000;
 	}
 
@@ -616,7 +614,7 @@ class L1SkillTimerTimerImpl extends TimerTask implements L1SkillTimer {
 	@Override
 	public void end() {
 		this.cancel();
-		L1SkillStop.stopSkill(_cha, _skillId, _element);
+		L1SkillStop.stopSkill(_cha, _skillId);
 	}
 
 	@Override
@@ -632,6 +630,5 @@ class L1SkillTimerTimerImpl extends TimerTask implements L1SkillTimer {
 	private final L1Character _cha;
 	private final int _timeMillis;
 	private final int _skillId;
-	private final int _element;
 	private int _remainingTime;
 }

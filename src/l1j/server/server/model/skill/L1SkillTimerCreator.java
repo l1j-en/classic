@@ -30,16 +30,7 @@ public class L1SkillTimerCreator {
 			return new L1SkillTimerThreadImpl(cha, skillId, timeMillis);
 		}
 
-		return new L1SkillTimerTimerImpl(cha, skillId, timeMillis);
-	}
-
-	public static L1SkillTimer create(L1Character cha, int skillId, int timeMillis, int element) { //For elemental falldown
-		if (Config.SKILLTIMER_IMPLTYPE == 1) {
-			return new L1SkillTimerTimerImpl(cha, skillId, timeMillis, element);
-		} else if (Config.SKILLTIMER_IMPLTYPE == 2) {
-			return new L1SkillTimerThreadImpl(cha, skillId, timeMillis, element);
-		}
-
+		//
 		return new L1SkillTimerTimerImpl(cha, skillId, timeMillis);
 	}
 }
