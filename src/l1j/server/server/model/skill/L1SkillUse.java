@@ -143,7 +143,7 @@ public class L1SkillUse {
 			101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114, 115, 116,
 			117, 118, 129, 130, 131, 133, 134, 137, 138, 146, 147, 148, 149,
 			150, 151, 155, 156, 158, 159, 163, 164, 165, 166, 168, 169, 170,
-			171, SOUL_OF_FLAME, ADDITIONAL_FIRE };
+			171, 172, 173, 174 ,SOUL_OF_FLAME, ADDITIONAL_FIRE };
 
 	private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			13, 14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55,
@@ -152,7 +152,7 @@ public class L1SkillUse {
 			97, 98, 99, 100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113,
 			114, 115, 116, 117, 118, 129, 130, 131, 132, 134, 137, 138, 146,
 			147, 148, 149, 150, 151, 155, 156, 158, 159, 161, 163, 164, 165,
-			166, 168, 169, 170, 171, SOUL_OF_FLAME, ADDITIONAL_FIRE, 10026,
+			166, 168, 169, 170, 171, 172, 173, 174 ,SOUL_OF_FLAME, ADDITIONAL_FIRE, 10026,
 			10027, 10028, 10029 };
 
 	private static final Map<Integer, Integer> CAN_STACK = new HashMap<Integer, Integer>();
