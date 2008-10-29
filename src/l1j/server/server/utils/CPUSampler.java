@@ -30,7 +30,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-/*By Darkwolf*/
+/** 
+* @author -OdinMs- thanks for it
+* edited by Darkwolf
+*/ 
 public class CPUSampler {
 	private List<String> included = new LinkedList<String>();
 	private static CPUSampler instance = new CPUSampler();
