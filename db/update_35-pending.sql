@@ -58,3 +58,29 @@ INSERT INTO `dungeon` VALUES ('32734', '32794', '6', '32544', '32727', '4', '0',
 INSERT INTO `dungeon` VALUES ('32735', '32794', '6', '32544', '32727', '4', '0', ''); 
 INSERT INTO `dungeon` VALUES ('32736', '32794', '6', '32544', '32727', '4', '0', '');
 
+-- oren Franco gamble corrected live prices
+delete from shop where npc_id in (70068, 41, 0, 22000, 0, 11000);
+delete from shop where npc_id in (70068, 148, 1, 14300, 0, 7150);
+delete from shop where npc_id in (70068, 142, 2, 8800, 0, 4400);
+delete from shop where npc_id in (70068, 29, 3, 13000, 0, 6500);
+delete from shop where npc_id in (70068, 129, 4, 2500, 0, 1250);
+delete from shop where npc_id in (70068, 125, 5, 9000, 0, 4500);
+delete from shop where npc_id in (70068, 20125, 6, 6000, 0, 3000);
+delete from shop where npc_id in (70068, 20011, 7, 3000, 0, 1500);
+delete from shop where npc_id in (70068, 20036, 8, 12000, 0, 6000);
+delete from shop where npc_id in (70068, 20013, 9, 22000, 0, 11000);
+delete from shop where npc_id in (70068, 20014, 10, 15000, 0, 7500);
+delete from shop where npc_id in (70068, 20015, 11, 18000, 0, 9000);
+
+INSERT INTO `shop` VALUES (70068, 41, 0, 95000, 0, 22000);
+INSERT INTO `shop` VALUES (70068, 148, 1, 88000, 0, 14300);
+INSERT INTO `shop` VALUES (70068, 142, 2, 83000, 0, 8800);
+INSERT INTO `shop` VALUES (70068, 29, 3, 88000, 0, 13000);
+INSERT INTO `shop` VALUES (70068, 129, 4, 77000, 0, 2500);
+INSERT INTO `shop` VALUES (70068, 125, 5, 84000, 0, 9000);
+INSERT INTO `shop` VALUES (70068, 20125, 6, 63000, 0, 6000);
+INSERT INTO `shop` VALUES (70068, 20011, 7, 58000, 0, 3000);
+INSERT INTO `shop` VALUES (70068, 20036, 8, 69000, 0, 12000);
+INSERT INTO `shop` VALUES (70068, 20013, 9, 81000, 0, 22000);
+INSERT INTO `shop` VALUES (70068, 20014, 10, 73000, 0, 15000);
+INSERT INTO `shop` VALUES (70068, 20015, 11, 76000, 0, 18000);
