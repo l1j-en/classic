@@ -65,6 +65,7 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.L1TreasureBox;
 import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.trap.L1WorldTraps;
+import l1j.server.server.utils.CPUSampler;
 import l1j.server.server.utils.DeadLockDetector;
 import l1j.server.server.utils.FloodProtector;
 import l1j.server.server.utils.SystemUtil;
@@ -85,7 +86,7 @@ public class GameServer extends Thread {
 	private LoginController _loginController;
 	private int chatlvl;
 	private DeadLockDetector _deadDetectThread;
-	
+	private CPUSampler _cpusamplerThread;
 	@Override
 	public void run() {
 		System.out.println("Server Started. Memory Used: " + SystemUtil.getUsedMemoryMB() + " MB");
@@ -159,8 +160,8 @@ public class GameServer extends Thread {
 				System.out.println("PvP = Off");
 			}
 			
-			Announcecycle.getInstance();  
-			
+			Announcecycle.getInstance();
+
 			if (Config.Use_Show_INGAMENEWS_Time) {  
 				System.out.println("IngameNews = On");  
 				} else {  
@@ -175,6 +176,15 @@ public class GameServer extends Thread {
 			} 
 			else 
 				_deadDetectThread = null; 
+			
+			if (Config.CPUSAMPLER) 
+			{ 
+			_cpusamplerThread = new CPUSampler(); 
+			_cpusamplerThread.start(); 
+			} 
+			else 
+				_cpusamplerThread = null; 
+			
 			 System.gc(); 	
 			 
 			int maxOnlineUsers = Config.MAX_ONLINE_USERS;

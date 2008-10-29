@@ -413,6 +413,8 @@ public final class Config {
 	public static boolean RESTART_ON_DEADLOCK;  
 
 	public static boolean DEADLOCK_DETECTOR;
+	
+	public static boolean CPUSAMPLER;
 
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
@@ -477,9 +479,10 @@ public final class Config {
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean.parseBoolean(serverSettings.getProperty("CharacterConfigInServerSide", "true"));
 			ALLOW_2PC = Boolean.parseBoolean(serverSettings.getProperty("Allow2PC", "true"));
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty("LevelDownRange", "0"));
-			DEADLOCK_DETECTOR = Boolean.parseBoolean(serverSettings.getProperty("DeadLockDetector", "False"));  
+			DEADLOCK_DETECTOR = Boolean.parseBoolean(serverSettings.getProperty("DeadLockDetector", "false"));  
 			DEADLOCK_CHECK_INTERVAL  = Integer.parseInt(serverSettings.getProperty("DeadLockCheckInterval", "20"));  
-			RESTART_ON_DEADLOCK = Boolean.parseBoolean(serverSettings.getProperty("RestartOnDeadlock", "False"));  
+			RESTART_ON_DEADLOCK = Boolean.parseBoolean(serverSettings.getProperty("RestartOnDeadlock", "false"));  
+			CPUSAMPLER  = Boolean.parseBoolean(serverSettings.getProperty("CpuSampler", "false"));  
 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

@@ -26,6 +26,7 @@ import l1j.server.Config;
 import l1j.server.server.Announcements;
 import l1j.server.server.Shutdown;
 
+/*By Darkwolf*/
 public class DeadLockDetector extends Thread
 {
 	private static Logger _log = Logger.getLogger(DeadLockDetector.class.getName());

@@ -21,6 +21,7 @@ import javolution.util.FastMap.Entry;
 import l1j.server.Config;
 import l1j.server.server.model.gametime.L1GameTime;
 
+/*By Darkwolf*/
 public class FloodProtector
 {
 	private static final Logger _log = Logger.getLogger(FloodProtector.class.getName());
