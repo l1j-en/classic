@@ -19,9 +19,11 @@
 
 package l1j.server.server.clientpackets;
 
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
@@ -42,9 +44,46 @@ public class C_DeleteChar extends ClientBasePacket {
 			throws Exception {
 		super(decrypt);
 		String name = readS();
-		_log.fine("deleting character : " + name);
+
 		try {
-			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);   
+			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);  
+			if (pc != null && pc.getLevel() >= 30 && Config.DELETE_CHARACTER_AFTER_7DAYS) {
+				if (pc.getType() < 32) {
+					if (pc.isCrown()) {
+						pc.setType(32);
+					} else if (pc.isKnight()) {
+						pc.setType(33);
+					} else if (pc.isElf()) {
+						pc.setType(34);
+					} else if (pc.isWizard()) {
+						pc.setType(35);
+					} else if (pc.isDarkelf()) {
+						pc.setType(36);
+					}
+					Timestamp deleteTime = new Timestamp(System
+							.currentTimeMillis() + 604800000); // 7 Days
+					pc.setDeleteTime(deleteTime);
+					pc.save();
+				} else {
+					if (pc.isCrown()) {
+						pc.setType(0);
+					} else if (pc.isKnight()) {
+						pc.setType(1);
+					} else if (pc.isElf()) {
+						pc.setType(2);
+					} else if (pc.isWizard()) {
+						pc.setType(3);
+					} else if (pc.isDarkelf()) {
+						pc.setType(4);
+					}
+					pc.setDeleteTime(null);
+					pc.save();
+				}
+				client.sendPacket(new S_DeleteCharOK(S_DeleteCharOK
+						.DELETE_CHAR_AFTER_7DAYS));
+				return;
+			}
+
 			if (pc != null) {
 				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 				if (clan != null) {

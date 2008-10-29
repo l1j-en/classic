@@ -240,6 +240,8 @@ public final class Config {
 
 	public static int MAX_CLAN_WAREHOUSE_ITEM;
 
+	public static boolean DELETE_CHARACTER_AFTER_7DAYS;
+	
 	public static boolean MONITOR_COMMANDS;
 
 	public static boolean WARP;
@@ -545,6 +547,7 @@ public final class Config {
 			MAX_NPC_ITEM = Integer.parseInt(altSettings.getProperty("MaxNpcItem", "8"));  
 			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty("MaxPersonalWarehouseItem", "100"));   
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty("MaxClanWarehouseItem", "200")); 
+			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings.getProperty("DeleteCharacterAfter7Days", "True"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
@@ -782,6 +785,7 @@ public final class Config {
 			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("MaxClanWarehouseItem")) {
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) { DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue); 
 		}
 		// charsettings.properties
 		else if (pName.equalsIgnoreCase("PrinceMaxHP")) {

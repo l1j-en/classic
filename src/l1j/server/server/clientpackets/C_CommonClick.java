@@ -21,12 +21,17 @@ package l1j.server.server.clientpackets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.CharacterTable;
+import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1World;
 import l1j.server.server.serverpackets.S_CharAmount;
 import l1j.server.server.serverpackets.S_CharPacks;
 import l1j.server.server.utils.SQLUtil;
@@ -38,10 +43,51 @@ public class C_CommonClick {
 			.getLogger(C_CommonClick.class.getName());
 
 	public C_CommonClick(ClientThread client) {
+		deleteCharacter(client);
 		int amountOfChars = client.getAccount().countCharacters();
 		client.sendPacket(new S_CharAmount(amountOfChars));
 		if (amountOfChars > 0) {
 			sendCharPacks(client);
+		}
+	}
+
+	private void deleteCharacter(ClientThread client) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+
+			conn = L1DatabaseFactory.getInstance().getConnection();
+			pstm = conn
+					.prepareStatement("SELECT * FROM characters WHERE account_name=? ORDER BY objid");
+			pstm.setString(1, client.getAccountName());
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("char_name");
+				String clanname = rs.getString("Clanname");
+
+				Timestamp deleteTime = rs.getTimestamp("DeleteTime");
+				if (deleteTime != null) {
+					Calendar cal = Calendar.getInstance();
+					long checkDeleteTime = ((cal.getTimeInMillis() - deleteTime
+							.getTime()) / 1000) / 3600;
+					if (checkDeleteTime >= 0) {
+						L1Clan clan = L1World.getInstance().getClan(clanname);
+						if (clan != null) {
+							clan.delMemberName(name);
+						}
+						CharacterTable.getInstance().deleteCharacter(
+								client.getAccountName(), name);
+					}
+				}
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(conn);
 		}
 	}
 

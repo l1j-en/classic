@@ -75,4 +75,4 @@ INSERT INTO `shop` VALUES (70068, 20014, 10, 73000, 0, 15000);
 INSERT INTO `shop` VALUES (70068, 20015, 11, 76000, 0, 18000);
 
 -- npc chat delay correction
-UPDATE npcchat SET chat_interval="20000"; 
+UPDATE npcchat SET chat_interval="20000";

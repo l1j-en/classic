@@ -2189,6 +2189,16 @@ public class L1PcInstance extends L1Character {
 		return true;
 	}
 
+	private Timestamp _deleteTime;  
+	
+	public Timestamp getDeleteTime() {   
+		return _deleteTime;    
+	}   
+	
+	public void setDeleteTime(Timestamp time) {   
+		_deleteTime = time;   
+	} 
+	
     public int getMagicLevel() {
 		return getClassFeature().getMagicLevel(getLevel());
 	}
