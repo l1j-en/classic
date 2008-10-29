@@ -406,15 +406,11 @@ public final class Config {
 
 	public static final boolean DEVELOPER = false;
 
-	public static int FLOODPROTECTOR_INITIALSIZE;
-
 	public static int DEADLOCK_CHECK_INTERVAL;  
 
 	public static boolean RESTART_ON_DEADLOCK;  
 
 	public static boolean DEADLOCK_DETECTOR;
-	
-	public static boolean CPUSAMPLER;
 
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
@@ -440,7 +436,6 @@ public final class Config {
 			PASSWORD_SALT = serverSettings.getProperty("PasswordSalt", "");
 			THREAD_P_TYPE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolType", "0"), 10);
 			THREAD_P_SIZE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolSize", "0"), 10);
-			FLOODPROTECTOR_INITIALSIZE = Integer.parseInt(serverSettings.getProperty("FloodProtectorInitialSize", "50"));
 			CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty("ClientLanguage", "4"));
 			TIME_ZONE = serverSettings.getProperty("TimeZone", "EST");
 			HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostnameLookups", "false"));
@@ -482,8 +477,7 @@ public final class Config {
 			DEADLOCK_DETECTOR = Boolean.parseBoolean(serverSettings.getProperty("DeadLockDetector", "false"));  
 			DEADLOCK_CHECK_INTERVAL  = Integer.parseInt(serverSettings.getProperty("DeadLockCheckInterval", "20"));  
 			RESTART_ON_DEADLOCK = Boolean.parseBoolean(serverSettings.getProperty("RestartOnDeadlock", "false"));  
-			CPUSAMPLER  = Boolean.parseBoolean(serverSettings.getProperty("CpuSampler", "false"));  
-
+	
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
