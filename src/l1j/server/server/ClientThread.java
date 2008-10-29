@@ -244,9 +244,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
 				}
-				if (opcode != Opcodes.S_OPCODE_PINGTIME) {
-					observer.packetReceived();
-				}
+				
 				if (_activeChar == null) {
 					_handler.handlePacket(data, _activeChar);
 					continue;

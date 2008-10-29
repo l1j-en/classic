@@ -21,23 +21,31 @@ package l1j.server.server.serverpackets;
 import l1j.server.server.Opcodes;
 
 public class S_PingPacket extends ServerBasePacket {
- 
 	private static final String S_PingPacket = "[S] S_PingPacket";
-	
 	private byte[] _byte = null;
-	{
-	writeC(Opcodes.S_OPCODE_PINGTIME);
-
+	private int type = 0;// type 0 = ping Server time 
+	private int type1 = 1;// type 1 = ping Auth Server time
+	private int type2 = 2;// type 2 = ping Cach server 
+	
+	public S_PingPacket() {
+		buildPacket();	
 	}
+
+	private void buildPacket() {
+		writeC(Opcodes.S_OPCODE_PINGTIME);
+		writeC(type);
+		writeC(type1);
+		writeC(type2);
+	}
+
 	public byte[] getContent() {
 		if (_byte == null) {
 			_byte = getBytes();
 		}
-
 		return _byte;
 	}
 
 	public String getType() {
 		return S_PingPacket;
 	}
-	}
+}
