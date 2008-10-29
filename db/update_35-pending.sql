@@ -83,3 +83,16 @@ update skills set name = 'Pollute Water' where skill_id = 173;
 update skills set name = 'Striker Gale' where skill_id = 174;
 update skills set name = 'Soul of Flame' where skill_id = 175;
 update skills set name = 'Additional Fire' where skill_id = 176;
+
+-- remove all potentional infinite money exploits via shop buying/selling
+update shop set selling_price = 1 where item_id = 20322 and selling_price = 0;
+update shop set purchasing_price = 1 where npc_id = 70004 and item_id = 20322;
+update shop set purchasing_price = 500 where npc_id = 70079 and item_id = 40089;
+update shop set purchasing_price = 500 where npc_id = 70014 and item_id = 40089;
+update shop set selling_price = 23000 where npc_id = 70058 and item_id = 20101;
+update shop set selling_price = 200 where npc_id = 70058 and item_id = 20101;
+update shop set selling_price = 8 where npc_id = 70005 and item_id = 4;
+update shop set selling_price = 2 where npc_id = 70093 and item_id = 40740;
+
+-- gm spell book shop shouldn't buy stuff for more than he sells
+update shop set purchasing_price = -1 where npc_id = 81022;
