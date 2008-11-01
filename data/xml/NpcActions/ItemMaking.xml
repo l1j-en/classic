@@ -1873,46 +1873,32 @@
 			<Material Amount="1" ItemId="40324"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request pumpkin hat">
+	<!-- Pumpkin Seed -->
+	<Action Name="request pumpkin seed">
 		<MakeItem>
-			<Item Amount="1" ItemId="20046"/>
-			<Material Amount="5000" ItemId="40308"/>
+			<Item Amount="1" ItemId="40726"/>
+			<Material Amount="25" ItemId="40721"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request candy for jack">
-		<MakeItem>
-			<Item Amount="1" ItemId="40725"/>
-			<Material Amount="5" ItemId="40308"/>
-		</MakeItem>
-	</Action>
-	<!-- -->
-	<Action Name="request ei2202">
-		<MakeItem>
-			<Item Amount="1" ItemId="40721"/>
-			<Material Amount="25" ItemId="40726"/>
-		</MakeItem>
-	</Action>
-	<!-- -->
-	<Action Name="request ei2205">
+	<!-- Bronze Pumpkin -->
+	<Action Name="request copper pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40724"/>
 			<Material Amount="10" ItemId="40726"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request ei2204">
+	<!-- Silver Pumpkin -->
+	<Action Name="request silver pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40723"/>
 			<Material Amount="25" ItemId="40726"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request ei2203">
+	<!-- Gold Pumpkin -->
+	<Action Name="request gold pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40722"/>
-			<Material Amount="3" ItemId="40721"/>
+			<Material Amount="50" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- -->

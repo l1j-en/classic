@@ -96,3 +96,19 @@ update shop set selling_price = 2 where npc_id = 70093 and item_id = 40740;
 
 -- gm spell book shop shouldn't buy stuff for more than he sells
 update shop set purchasing_price = -1 where npc_id = 81022;
+
+-- Halloween Event Shop for mask and candy
+INSERT INTO shop VALUES ('81123', '20046', '0', '5000', '0', '1');
+INSERT INTO shop VALUES ('81123', '40725', '0', '5', '0', '1');
+
+-- added html for jack-o-lantern
+update npcaction set normal_action = 'pump1' where npcid = 81123;
+update npcaction set caotic_action = 'pump1' where npcid = 81123;
+
+-- add drop for jack-o-lantern
+insert into droplist values ('45166', '40721', '1', '1', '10000');
+
+-- added pick up for jack-o-lantern
+update npc set picupitem = '1' where npcid = 45166;
+update npc set picupitem = '1' where npcid = 45167;
+
