@@ -25,6 +25,8 @@ import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -48,6 +50,13 @@ public class C_SelectTarget extends ClientBasePacket {
 		L1Character target = (L1Character) L1World.getInstance().findObject(targetId);
 
 		if (pet != null && target != null) {
+			// check if target is a PC, and if so, ignore attack command if in safety zone
+			if (target instanceof L1PcInstance || target instanceof L1PetInstance ||
+				target instanceof L1SummonInstance)
+			{
+				if (target.getZoneType() == 1)
+					return;
+			}
 			pet.setMasterTarget(target);
 		}
 	}
