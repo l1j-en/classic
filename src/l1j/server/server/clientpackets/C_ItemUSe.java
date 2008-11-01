@@ -2893,22 +2893,13 @@ public class C_ItemUSe extends ClientBasePacket {
 			time = addtime;
 		}
 
-		if (pc.hasSkillEffect(HOLY_WALK)) {
-			pc.killSkillEffectTimer(HOLY_WALK);
-			pc.setBraveSpeed(0);
-		}
-		if (pc.hasSkillEffect(STATUS_BRAVE)) {
-			pc.killSkillEffectTimer(STATUS_BRAVE);
-			pc.setBraveSpeed(0);
-		}
-
 		if (!pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
 			pc.addSp(2);
 		}
 
-		// max bound the wis time to 1800 (30min)
-		if (time > 1800) {
-			time = 1800;
+		// max bound the wis time to 900 (15min)
+		if (time > 900) {
+			time = 900;
 		}
 
 		pc.sendPackets(new S_SkillIconWisdomPotion((int) (time / 4)));
@@ -2916,8 +2907,6 @@ public class C_ItemUSe extends ClientBasePacket {
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
 
 		pc.setSkillEffect(STATUS_WISDOM_POTION, time * 1000);
-
-		//pc.sendPackets(new S_ServerMessage(348));
 	}
 
 	private void useBlessOfEva(L1PcInstance pc, int item_id) {
