@@ -75,7 +75,7 @@ INSERT INTO `shop` VALUES (70068, 20014, 10, 73000, 0, -1);
 INSERT INTO `shop` VALUES (70068, 20015, 11, 76000, 0, -1);
 
 -- npc chat delay correction
-UPDATE npcchat SET chat_interval="20000";
+UPDATE npcchat SET chat_interval="60";
 
 -- new skill names
 update skills set name = 'Storm Walk' where skill_id = 172;
