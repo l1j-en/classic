@@ -485,9 +485,9 @@ public class L1NpcInstance extends L1Character {
 			attack.actionCounterBarrier();
 			attack.commitCounterBarrier();
 		} else {
+			attack.addPcPoisonAttack(target, this);
 			attack.action();
 			attack.commit();
-			attack.addPcPoisonAttack(target, this);
 		}
 		setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 	}

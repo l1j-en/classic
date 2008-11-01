@@ -51,10 +51,11 @@ public class L1TeleporterInstance extends L1NpcInstance {
 	@Override
 	public void onAction(L1PcInstance player) {
 		L1Attack attack = new L1Attack(player, this);
-		 	attack.addPcPoisonAttack(player, this);
-		    attack.calcHit();
-		    attack.action();
+		attack.calcHit();
+		attack.addPcPoisonAttack(player, this);
+		attack.action();
 	}
+
 	@Override
 	public void onTalkAction(L1PcInstance player) {
 		int objid = getId();

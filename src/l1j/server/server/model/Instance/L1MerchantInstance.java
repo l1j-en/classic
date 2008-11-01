@@ -48,10 +48,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 	@Override
 	public void onAction(L1PcInstance player) {
 		L1Attack attack = new L1Attack(player, this);
-			attack.addPcPoisonAttack(player, this);
-	    	attack.action();
-	    	attack.commit();
+		attack.addPcPoisonAttack(player, this);
+	    attack.action();
+	    attack.commit();
 	}
+
 	@Override
 	public void onTalkAction(L1PcInstance player) {
 		int objid = getId();

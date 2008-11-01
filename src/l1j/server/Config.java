@@ -477,7 +477,7 @@ public final class Config {
 			DEADLOCK_DETECTOR = Boolean.parseBoolean(serverSettings.getProperty("DeadLockDetector", "false"));  
 			DEADLOCK_CHECK_INTERVAL  = Integer.parseInt(serverSettings.getProperty("DeadLockCheckInterval", "20"));  
 			RESTART_ON_DEADLOCK = Boolean.parseBoolean(serverSettings.getProperty("RestartOnDeadlock", "false"));  
-	
+
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
@@ -782,7 +782,8 @@ public final class Config {
 			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("MaxClanWarehouseItem")) {
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue);
-		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) { DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue); 
+		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) { 
+			DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue); 
 		}
 		// charsettings.properties
 		else if (pName.equalsIgnoreCase("PrinceMaxHP")) {
