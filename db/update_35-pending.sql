@@ -78,7 +78,7 @@ INSERT INTO `shop` VALUES (70068, 20015, 11, 76000, 0, -1);
 UPDATE npcchat SET chat_interval="20000";
 
 -- new skill names
-update skills set name = 'storm walk' where skill_id = 172;
+update skills set name = 'Storm Walk' where skill_id = 172;
 update skills set name = 'Pollute Water' where skill_id = 173;
 update skills set name = 'Striker Gale' where skill_id = 174;
 update skills set name = 'Soul of Flame' where skill_id = 175;
