@@ -77,7 +77,7 @@ public class SpawnTable {
 			while (rs.next()) {
 				if (Config.ALT_HALLOWEENIVENT == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 26656 && npcid <= 26734) {
+					if (npcid >= 26656 && npcid <= 26657) {
 						continue;
 					}
 				}

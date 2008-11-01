@@ -98,12 +98,16 @@ update shop set selling_price = 2 where npc_id = 70093 and item_id = 40740;
 update shop set purchasing_price = -1 where npc_id = 81022;
 
 -- Halloween Event Shop for mask and candy
-INSERT INTO shop VALUES ('81123', '20046', '0', '5000', '0', '1');
-INSERT INTO shop VALUES ('81123', '40725', '0', '5', '0', '1');
+INSERT INTO `shop` VALUES ('81123', '20046', '0', '5000', '0', '1');
+INSERT INTO `shop` VALUES ('81123', '40725', '0', '5', '0', '1');
+INSERT INTO `shop` VALUES ('81124', '20046', '0', '5000', '0', '1');
+INSERT INTO `shop` VALUES ('81124', '40725', '0', '5', '0', '1');
 
--- added html for jack-o-lantern
+-- added html for Pumpkin Trader
 update npcaction set normal_action = 'pump1' where npcid = 81123;
 update npcaction set caotic_action = 'pump1' where npcid = 81123;
+update npcaction set normal_action = 'pump1' where npcid = 81124;
+update npcaction set caotic_action = 'pump1' where npcid = 81124;
 
 -- add drop for jack-o-lantern
 insert into droplist values ('45166', '40721', '1', '1', '10000');
@@ -111,6 +115,32 @@ insert into droplist values ('45166', '40721', '1', '1', '10000');
 -- added pick up for jack-o-lantern
 update npc set picupitem = '1' where npcid = 45166;
 update npc set picupitem = '1' where npcid = 45167;
+
+-- add candy drop for jack-o-lantern
+insert into droplist values ('45166', '40725', '1', '5', '300000');
+insert into droplist values ('45167', '40725', '1', '5', '300000');
+
+-- changed chance on Giant pumpkin seed
+update droplist set chance = 85000 where mobid = 45167 and itemId = 40721;
+update droplist set chance = 85000 where mobid = 45166 and itemId = 40721;
+
+-- update spawn was on top of another npc
+update spawnlist_npc set locy = 33241 where id = 130861;
+
+-- Changed Name
+update npc set name = 'Pumpkin Trader' where npcid = 81123;
+update npc set name = 'Pumpkin Trader' where npcid = 81124; 
+update npc set nameid = 'Pumpkin Trader' where npcid = 81123;
+update npc set nameid = 'Pumpkin Trader' where npcid = 81124;
+update npc set name = 'Jack-O-Lantern' where npcid = 45166;
+
+-- Delete old spawn's
+delete from spawnlist where npc_templateid = 45166;
+delete from spawnlist where npc_templateid = 45167;
+
+-- Add New spawn's
+insert into spawnlist values (26656, 'jack-o-lantern', 1200, 45166, 0, 33343, 32767, 959, 767, 32384, 32000, 34303, 33535, 7, 100, 200, 4, 0, 100, 0, 0);
+insert into spawnlist values (26657, 'jack-o-lantern', 1000, 45167, 0, 33343, 32767, 959, 767, 32384, 32000, 34303, 33535, 7, 100, 200, 4, 0, 100, 0, 0);
 
 -- correct DK and Kurtz group_ids in spawnlist_boss.
 update spawnlist_boss set group_id = 0 where id = 39;
