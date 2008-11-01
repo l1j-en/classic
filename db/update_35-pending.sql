@@ -112,3 +112,6 @@ insert into droplist values ('45166', '40721', '1', '1', '10000');
 update npc set picupitem = '1' where npcid = 45166;
 update npc set picupitem = '1' where npcid = 45167;
 
+-- correct DK and Kurtz group_ids in spawnlist_boss.
+update spawnlist_boss set group_id = 0 where id = 39;
+update spawnlist_boss set group_id = 13 where id = 38;
