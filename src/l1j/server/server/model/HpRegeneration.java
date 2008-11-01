@@ -187,7 +187,8 @@ public class HpRegeneration extends TimerTask {
 		if (pc.getInventory().checkEquipped(20207)) {
 			return false;
 		}
-		if (pc.hasSkillEffect(L1SkillId.STATUS_UNDERWATER_BREATH)) {
+		// added Monitor invulnerability to underwater dmg
+		if (pc.hasSkillEffect(L1SkillId.STATUS_UNDERWATER_BREATH) || pc.isMonitor()) {
 			return false;
 		}
 		if (pc.getInventory().checkEquipped(21048)
