@@ -162,4 +162,4 @@ INSERT INTO `npc` VALUES (46021, 'Christmas Board2', '', '', 'L1FieldObject', '1
 
 -- Cockatrice Skill Effect Added Someone Need To Check The Stats
 INSERT INTO `skills` VALUES ('10091', 'Cockatrice Laser Attack', '0', '0', '10', '0', '0', '0', '0', '0', 'attack', '3', '50', '5', '5', '0', '0', '0', '64', '0', '6', '0', '0', '0', '0', '19', '1054', '0', '0', '0');
-INSERT INTO `mobskill` VALUES ('45361', '0', 'Cockatrice', '1', '50', '0', '0', '-6', '0', '0', '6', '0', '0', '15', '10091', '1054', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45361', '0', 'Cockatrice', '2', '20', '0', '0', '-2', '0', '0', '2', '0', '0', '10', '10091', '1054', '0', '0', '0', '0', '0');
