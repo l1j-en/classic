@@ -64,6 +64,8 @@ public class L1PinkName {
 		private void stopPinkName(L1PcInstance attacker) {
 			attacker.sendPackets(new S_PinkName(attacker.getId(), 0));
 			attacker.broadcastPacket(new S_PinkName(attacker.getId(), 0));
+			// BCM: added this, as pinkname flag wasn't getting reset properly on timeout, affecting -warp usage.
+			_attacker.setPinkName(false);
 		}
 	}
 
