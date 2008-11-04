@@ -41,7 +41,7 @@ public class PCommands {
 			if (cmd2.equalsIgnoreCase("help")) {
 				showPHelp(_player);
 			} else if (cmd2.startsWith("buff")) {
-				pbuff(_player);
+				buff(_player);
 			} else if (cmd2.startsWith("warp")) {
 				warp(_player, cmd2);
 			} else if (cmd2.startsWith("pbuff")){
@@ -65,13 +65,17 @@ public void showPHelp(L1PcInstance _player){
 		
 }
 
-public void pbuff(L1PcInstance _player){
+public void buff(L1PcInstance _player){
 	int[] skillZ = {2, 3, 8, 14, 26, 42, 48, 34, 78};
 	int time = 0;
 	int a = 0;
 	int skillId = 0;
 	
 	if (Config.PLAYER_BUFF == true && Config.PLAYER_COMMANDS == true){
+		if (_player.getLevel() < 45) {
+			_player.sendPackets(new S_SystemMessage("You must be lvl 45 to use this command."));
+			return;
+		}	
 		if(_player.getLevel() >= 45){
 			for (a = 0; a <= 2; a++){
 				skillId = skillZ[a]; 
@@ -113,8 +117,8 @@ public void pbuff(L1PcInstance _player){
 				}
 			}
 		}
-	} else{
-		_player.sendPackets(new S_SystemMessage("You must be lvl 45 to use this command."));
+	} else {
+		_player.sendPackets(new S_SystemMessage("Buff command is disabled."));
 	}	
 }
 
