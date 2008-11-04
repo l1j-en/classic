@@ -107,7 +107,7 @@ public void buff(L1PcInstance _player){
 			}
 		}
 		if (_player.getLevel() >= 60){
-			for (a = 0; a <= 9; a++){
+			for (a = 0; a <= 8; a++){
 				skillId = skillZ[a]; 
 		 
 				L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
