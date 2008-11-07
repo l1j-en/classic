@@ -11,3 +11,6 @@ UPDATE droplist SET min = 1, MAX = 1 WHERE itemid = 40006 OR itemid = 40007 OR i
 
 -- correct exhausted lizardman warrior spawn location
 update spawnlist_npc set locx = 32790, locy = 32975, randomx = 0, randomy = 0 where npc_templateid = 71075;
+
+-- Added npcaction to npc Shian in PI
+insert into npcaction values (71050, 'shian', 'shian', '', '');
