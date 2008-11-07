@@ -1870,7 +1870,8 @@ public class L1SkillUse {
 				} else if (_skillId == CURSE_PARALYZE) {
 					if (!cha.hasSkillEffect(EARTH_BIND)
 							&& !cha.hasSkillEffect(ICE_LANCE)
-							&& !cha.hasSkillEffect(FREEZING_BLIZZARD)) {
+							&& !cha.hasSkillEffect(FREEZING_BLIZZARD)
+							&& !cha.hasSkillEffect(FOG_OF_SLEEPING)) {
 						if (cha instanceof L1PcInstance) {
 							L1CurseParalysis.curse(cha, 8000, 16000);
 						} else if (cha instanceof L1MonsterInstance) {
