@@ -291,7 +291,9 @@ public class L1Magic {
 						|| skillId == FREEZING_BLIZZARD
 						|| skillId == POLLUTE_WATER
 						|| skillId == ELEMENTAL_FALL_DOWN
-						|| skillId == RETURN_TO_NATURE) {
+						|| skillId == RETURN_TO_NATURE
+						|| skillId == DECAY_POTION
+						|| skillId == SILENCE) {
 					return false;
 				}
 			}
