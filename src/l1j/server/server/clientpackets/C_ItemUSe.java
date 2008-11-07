@@ -287,7 +287,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				}
 				int weaponId = l1iteminstance1.getItem().getItemId();
-				if (weaponId == 36 || weaponId == 183
+				if (weaponId == 183 //  || weaponId == 36  // removed 36 for eva's scorn
 						|| weaponId >= 250 && weaponId <= 255) { 
 					if (itemId == 40128) { 
 					} else {
