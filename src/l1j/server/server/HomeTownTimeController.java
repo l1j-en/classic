@@ -81,14 +81,14 @@ public class HomeTownTimeController {
 	}
 
 	public void dailyProc() {
-		_log.info("daily");
+		_log.info("Running daily update for tax and sales money.");
 		TownTable.getInstance().updateTaxRate();
 		TownTable.getInstance().updateSalesMoneyYesterday();
 		TownTable.getInstance().load();
 	}
 
 	public void monthlyProc() {
-		_log.info("monthly");
+		_log.info("Running monthly update for tax and sales money.");
 		L1World.getInstance().setProcessingContributionTotal(true);
 		Collection<L1PcInstance> players = L1World.getInstance().getAllPlayers();
 		for (L1PcInstance pc : players) {
