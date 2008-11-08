@@ -843,7 +843,9 @@ public class L1SkillUse {
 	private void sendHappenMessage(L1PcInstance pc) {
 		int msgID = _skill.getSysmsgIdHappen();
 		if(msgID == 161) { //TODO
-			if((_skillId == ENCHANT_WEAPON || _skillId == BLESSED_ARMOR) && _itemobjid != 0){
+			if (_skillId == BLESSED_ARMOR) {	// happen message not needed for bess armor now
+				return;
+			} else if((_skillId == ENCHANT_WEAPON) && _itemobjid != 0){
 				L1ItemInstance item = (L1ItemInstance) L1World.getInstance().findObject(_itemobjid);
 				pc.sendPackets(new S_ServerMessage(msgID, item.getName(), "blue", "short while"));
 			} else if ((_skillId == BLESS_WEAPON || _skillId == HOLY_WEAPON) && pc != null) {
