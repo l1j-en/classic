@@ -304,15 +304,6 @@ public class L1SkillUse {
 				|| _skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON
 				|| _skillId == SHADOW_FANG) {
 			_itemobjid = target_id;
-			if (_itemobjid != 0) // TODO: this will be 0 for spell scrolls
-			{
-				L1ItemInstance item = (L1ItemInstance) L1World.getInstance().findObject(_itemobjid);
-				if(_skillId == ENCHANT_WEAPON && item.getItem().getType2() != 1) {
-					return false;
-				} else if(_skillId == BLESSED_ARMOR && item.getItem().getType2() != 2) {
-					return false;
-				}
-			}
 		}
 		_target = (L1Character) l1object;
 
