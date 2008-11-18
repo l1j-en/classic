@@ -7,5 +7,5 @@
 -- update 37
 
 -- swap name/nameids of Coin of Reputation and Coin of Bravery
-update etcitem set name = 'Coin of Bravery', nameid = '$3059' where item_id = 40733;
-update etcitem set name = 'Coin of Reputation', nameid = '$3056' where item_id = 40735;
+update etcitem set name = 'Coin of Bravery', name_id = '$3059' where item_id = 40733;
+update etcitem set name = 'Coin of Reputation', name_id = '$3056' where item_id = 40735;
