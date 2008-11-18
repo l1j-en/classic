@@ -1,0 +1,11 @@
+-- IMPORTANT: THIS UPDATE IS NOT YET FINISHED
+
+-- Queries that are pending an update should be placed here
+-- this allows them to be verified as working together before being
+-- migrated to the DML scripts
+
+-- update 37
+
+-- swap name/nameids of Coin of Reputation and Coin of Bravery
+update etcitem set name = 'Coin of Bravery', nameid = '$3059' where item_id = 40733;
+update etcitem set name = 'Coin of Reputation', nameid = '$3056' where item_id = 40735;
