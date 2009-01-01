@@ -43,7 +43,7 @@ public abstract class L1ArmorSet {
 				impl.addEffect(new AcHpMpBonusEffect(armorSets.getAc(),
 						armorSets.getHp(), armorSets.getMp(),
 						armorSets.getHpr(), armorSets.getMpr(),
-						armorSets.getMr()));
+						armorSets.getMr(), armorSets.getFire()));
 				impl.addEffect(new StatBonusEffect(armorSets.getStr(),
 						armorSets.getDex(), armorSets.getCon(),
 						armorSets.getWis(), armorSets.getCha(),
@@ -124,8 +124,7 @@ class L1ArmorSetImpl extends L1ArmorSet {
 		L1PcInventory pcInventory = pc.getInventory();
 		L1ItemInstance armor = null;
 		boolean isSetContainRing = false;
-
-		// ZbgõÉOªÜÜêÄ¢é©²×é
+
 		for (int id : _ids) {
 			armor = pcInventory.findItemId(id);
 			if (armor.getItem().getType2() == 2
@@ -135,7 +134,7 @@ class L1ArmorSetImpl extends L1ArmorSet {
 			}
 		}
 
-		// Oð2ÂõµÄ¢ÄA»êª¼ûZbgõ©²×é
+
 		if (armor != null && isSetContainRing) {
 			int itemId = armor.getItem().getItemId();
 			if (pcInventory.getTypeEquipped(2, 9) == 2) {
@@ -159,15 +158,17 @@ class AcHpMpBonusEffect implements L1ArmorSetEffect {
 	private final int _regenHp;
 	private final int _regenMp;
 	private final int _addMr;
+	private final int _addFire;
 
 	public AcHpMpBonusEffect(int ac, int addHp, int addMp, int regenHp,
-			int regenMp, int addMr) {
+			int regenMp, int addMr, int addFire) {
 		_ac = ac;
 		_addHp = addHp;
 		_addMp = addMp;
 		_regenHp = regenHp;
 		_regenMp = regenMp;
 		_addMr = addMr;
+		_addFire = addFire;
 	}
 
 	@Override
@@ -178,6 +179,7 @@ class AcHpMpBonusEffect implements L1ArmorSetEffect {
 		pc.addHpr(_regenHp);
 		pc.addMpr(_regenMp);
 		pc.addMr(_addMr);
+		pc.addFire(_addFire);
 	}
 
 	@Override
@@ -188,6 +190,7 @@ class AcHpMpBonusEffect implements L1ArmorSetEffect {
 		pc.addHpr(-_regenHp);
 		pc.addMpr(-_regenMp);
 		pc.addMr(-_addMr);
+		pc.addFire(-_addFire);
 	}
 }
 
@@ -244,7 +247,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 			} else {
 				_gfxId = 6080;
 			}
-			if (!isRemainderOfCharge(pc)) { // c`[WÈµ
+			if (!isRemainderOfCharge(pc)) { 
 				return;
 			}
 		}
