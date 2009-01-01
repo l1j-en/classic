@@ -113,7 +113,10 @@ public class HpRegeneration extends TimerTask {
 		if (_pc.hasSkillEffect(L1SkillId.NATURES_TOUCH)) {
 			bonus += 15;
 		}
-		if (_pc.hasSkillEffect(L1SkillId.COOKING_1_5_N)
+		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
+			bonus += 5;
+		}
+ 		if (_pc.hasSkillEffect(L1SkillId.COOKING_1_5_N)
 				|| _pc.hasSkillEffect(L1SkillId.COOKING_1_5_S)) {
 			bonus += 3;
 		}

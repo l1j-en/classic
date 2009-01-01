@@ -161,6 +161,9 @@ public class L1PolyMorph {
 	}
 
 	public static void handleCommands(L1PcInstance pc, String s) {
+		if (pc == null || pc.isDead()) {
+			return;
+		}
 		L1PolyMorph poly = PolyTable.getInstance().getTemplate(s);
 		if (poly != null || s.equals("none")) {
 			if (s.equals("none")) {
@@ -176,6 +179,9 @@ public class L1PolyMorph {
 	}
 
 	public static void doPoly(L1Character cha, int polyId, int timeSecs) {
+		if (cha == null || cha.isDead()) {
+			return;
+		}
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;
 			if (pc.getMapId() == 5124) { 

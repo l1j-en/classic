@@ -82,9 +82,10 @@ public class WeaponSkillTable {
 			int skillTime = rs.getInt("skill_time");
 			int effectId = rs.getInt("effect_id");
 			int effectTarget = rs.getInt("effect_target");
+			boolean isArrowType = rs.getBoolean("arrow_type");
 			L1WeaponSkill weaponSkill = new L1WeaponSkill(weaponId, probability,
 					fixDamage, randomDamage, area, skillId, skillTime, effectId,
-					effectTarget);
+					effectTarget, isArrowType);
 			_weaponIdIndex.put(weaponId, weaponSkill);
 		}
 		_log.config("List of weapons skills: " + _weaponIdIndex.size() + " Loaded");

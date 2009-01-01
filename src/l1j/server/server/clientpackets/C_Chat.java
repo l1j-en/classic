@@ -73,11 +73,16 @@ public class C_Chat extends ClientBasePacket {
 				return;
 			}
 
-			if (chatText.startsWith("$")) {   
-				String text = chatText.substring(1);   
-				chatWorld(pc, text, 12);  
-				return;   
-			} 
+
+
+			if (chatText.startsWith("$")) {
+				String text = chatText.substring(1);
+				chatWorld(pc, text, 12);
+				if (!pc.isGm()) {
+					pc.checkChatInterval();
+				}
+				return;
+			}
 
 			ChatLogTable.getInstance().storeChat(pc, null, chatText,chatType);
 			S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText,
@@ -192,7 +197,7 @@ public class C_Chat extends ClientBasePacket {
 				ChatLogTable.getInstance().storeChat(pc, null, chatText,
 						chatType);
 				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText,
-						Opcodes.S_OPCODE_GLOBALCHAT, 14);
+						Opcodes.S_OPCODE_NORMALCHAT, 14);
 				L1PcInstance[] partyMembers = pc.getChatParty().getMembers();
 				for (L1PcInstance listner : partyMembers) {
 					if (!listner.excludes(pc.getName())) {
@@ -200,6 +205,9 @@ public class C_Chat extends ClientBasePacket {
 					}
 				}
 			}
+		}
+		if (!pc.isGm()) {
+			pc.checkChatInterval();
 		}
 	}
 

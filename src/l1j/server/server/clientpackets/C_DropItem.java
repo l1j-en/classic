@@ -87,6 +87,7 @@ public class C_DropItem extends ClientBasePacket {
 
 			pc.getInventory().tradeItem(item, count,
 					L1World.getInstance().getInventory(x, y, pc.getMapId()));
+			pc.turnOnOffLight();
 		}
 	}
 

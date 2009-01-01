@@ -66,11 +66,13 @@ public class L1WeaponSkill {
 
 	private int _effectId;
 
-	private int _effectTarget;
+	private int _effectTarget; // GtFNgÌÎÛ 0:è 1:©ª
+
+	private boolean _isArrowType;
 
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
-			int effectId, int effectTarget) {
+			int effectId, int effectTarget, boolean isArrowType) {
 		_weaponId = weaponId;
 		_probability = probability;
 		_fixDamage = fixDamage;
@@ -80,6 +82,7 @@ public class L1WeaponSkill {
 		_skillTime = skillTime;
 		_effectId = effectId;
 		_effectTarget = effectTarget;
+		_isArrowType = isArrowType;
 	}
 
 	public int getWeaponId() {
@@ -118,6 +121,10 @@ public class L1WeaponSkill {
 		return _effectTarget;
 	}
 
+	public boolean isArrowType() {
+		return _isArrowType;
+	}
+
 	public static double getWeaponSkillDamage(L1PcInstance pc, L1Character cha,
 			int weaponId) {
 		L1WeaponSkill weaponSkill = WeaponSkillTable.getInstance().getTemplate(
@@ -147,8 +154,17 @@ public class L1WeaponSkill {
 			} else {
 				chaId = pc.getId();
 			}
-			pc.sendPackets(new S_SkillSound(chaId, effectId));
-			pc.broadcastPacket(new S_SkillSound(chaId, effectId));
+			boolean isArrowType = weaponSkill.isArrowType(); 
+			if (!isArrowType) {
+				pc.sendPackets(new S_SkillSound(chaId, effectId));
+				pc.broadcastPacket(new S_SkillSound(chaId, effectId));
+			} else {
+				S_UseAttackSkill packet = new S_UseAttackSkill(pc, cha.getId(),
+						effectId, cha.getX(), cha.getY(), ActionCodes
+						.ACTION_Attack, false);
+				pc.sendPackets(packet);
+				pc.broadcastPacket(packet);
+			}
 		}
 
 		int damage = 0;

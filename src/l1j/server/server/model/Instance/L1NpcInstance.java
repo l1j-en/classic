@@ -493,11 +493,10 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void searchTargetItem() {
-		ArrayList<L1Object> objects = L1World.getInstance().getVisibleObjects(
-				this);
-		ArrayList<L1GroundInventory> gInventorys = new ArrayList<L1GroundInventory>();
+		ArrayList<L1GroundInventory> gInventorys =
+				new ArrayList<L1GroundInventory>();
 
-		for (L1Object obj : objects) {
+		for (L1Object obj : L1World.getInstance().getVisibleObjects(this)) {
 			if (obj != null && obj instanceof L1GroundInventory) {
 				gInventorys.add((L1GroundInventory) obj);
 			}
@@ -513,6 +512,44 @@ public class L1NpcInstance extends L1Character {
 					== L1Inventory.OK) { 
 				_targetItem = item;
 				_targetItemList.add(_targetItem);
+			}
+		}
+	}
+
+	// òñÅ¢éóÔ©çACeðTµA êÎ~èÄE¤
+	public void searchItemFromAir() {
+		ArrayList<L1GroundInventory> gInventorys =
+				new ArrayList<L1GroundInventory>();
+
+		for (L1Object obj : L1World.getInstance().getVisibleObjects(this)) {
+			if (obj != null && obj instanceof L1GroundInventory) {
+				gInventorys.add((L1GroundInventory) obj);
+			}
+		}
+		if (gInventorys.size() == 0) {
+			return;
+		}
+
+		// E¤ACe(ÌCxg)ð_ÅIè
+		int pickupIndex = (int) (Math.random() * gInventorys.size());
+		L1GroundInventory inventory = gInventorys.get(pickupIndex);
+		for (L1ItemInstance item : inventory.getItems()) {
+			if (item.getItem().getType() == 6 // potion
+					|| item.getItem().getType() == 7) { // food
+				if (getInventory().checkAddItem(item, item.getCount())
+						== L1Inventory.OK) {
+					if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
+						setHiddenStatus(HIDDEN_STATUS_NONE);
+						broadcastPacket(new S_DoActionGFX(getId(),
+								ActionCodes.ACTION_Movedown));
+						setStatus(0);
+						broadcastPacket(new S_NPCPack(this));
+						onNpcAI();
+						startChat(CHAT_TIMING_HIDE);
+						_targetItem = item;
+						_targetItemList.add(_targetItem);
+					}
+				}
 			}
 		}
 	}
@@ -561,6 +598,7 @@ public class L1NpcInstance extends L1Character {
 				targetItem.getX(), targetItem.getY(), targetItem.getMapId());
 		L1ItemInstance item = groundInventory.tradeItem(targetItem, targetItem
 				.getCount(), getInventory());
+		turnOnOffLight();
 		onGetItem(item);
 		_targetItemList.remove(_targetItem);
 		_targetItem = null;
@@ -664,9 +702,9 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void onNpcAI() {
-		startChat(CHAT_TIMING_APPEARANCE); 
 	}
 
+	// ACe¸»
 	public void refineItem() {
 
 		int[] materials = null;
@@ -1134,8 +1172,16 @@ public class L1NpcInstance extends L1Character {
 		return _spawnNumber;
 	}
 
-	public void onDecay() {
-		_spawn.executeSpawnTask(_spawnNumber);
+	// IuWFNgIDðSpawnTaskÉnµÄp·é
+	// O[vX^[Í¡GÉÈéÌÅÄpµÈ¢
+	public void onDecay(boolean isReuseId) {
+		int id = 0;
+		if (isReuseId) {
+			id = getId();
+		} else {
+			id = 0;
+		}
+		_spawn.executeSpawnTask(_spawnNumber, id);
 	}
 
 	@Override
@@ -1171,13 +1217,13 @@ public class L1NpcInstance extends L1Character {
 		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 		if (mobGroupInfo == null) {
 			if (isReSpawn()) {
-				onDecay();
+				onDecay(true);
 			}
 		} else {
 			if (mobGroupInfo.removeMember(this) == 0) {
 				setMobGroupInfo(null);
 				if (isReSpawn()) {
-					onDecay();
+					onDecay(false);
 				}
 			}
 		}
@@ -1217,10 +1263,16 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
-			if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
-				appearOnGround(pc);
+			if (getCurrentHp() == getMaxHp()) {
+				if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
+					appearOnGround(pc);
+				}
+			} else {
+// if (getNpcTemplate().get_npcId() != 45681) { // hrIÈO
+					searchItemFromAir();
+// }
 			}
-		}
+ 		}
 	}
 
 	public void appearOnGround(L1PcInstance pc) {
@@ -1365,13 +1417,69 @@ public class L1NpcInstance extends L1Character {
 			dir = _serchCource(x, y);
 			if (dir == -1) { 
 				dir = targetDirection(x, y);
-				dir = checkObject(getX(), getY(), getMapId(), dir);
+				if (!isExsistCharacterBetweenTarget(dir)) {
+					dir = checkObject(getX(), getY(), getMapId(), dir);
+				}
 			}
 		}
 		return dir;
 	}
 
+	private boolean isExsistCharacterBetweenTarget(int dir) {
+		if (!(this instanceof L1MonsterInstance)) { // X^[ÈOÍÎÛO
+			return false;
+		}
+		if (_target == null) { // ^[Qbgª¢È¢ê
+			return false;
+		}
 
+		int locX = getX();
+		int locY = getY();
+		int targetX = locX;
+		int targetY = locY;
+
+		if (dir == 1) {
+			targetX = locX + 1;
+			targetY = locY - 1;
+		} else if (dir == 2) {
+			targetX = locX + 1;
+		} else if (dir == 3) {
+			targetX = locX + 1;
+			targetY = locY + 1;
+		} else if (dir == 4) {
+			targetY = locY + 1;
+		} else if (dir == 5) {
+			targetX = locX - 1;
+			targetY = locY + 1;
+		} else if (dir == 6) {
+			targetX = locX - 1;
+		} else if (dir == 7) {
+			targetX = locX - 1;
+			targetY = locY - 1;
+		} else if (dir == 0) {
+			targetY = locY - 1;
+		}
+
+		for (L1Object object : L1World.getInstance().getVisibleObjects(this,
+				1)) {
+			// PC, Summon, Petª¢éê
+			if (object instanceof L1PcInstance
+					|| object instanceof L1SummonInstance
+					|| object instanceof L1PetInstance) {
+				L1Character cha = (L1Character) object;
+				// isûüÉ§¿Ó³ªÁÄ¢éêA^[QbgXgÉÁ¦é
+				if (cha.getX() == targetX && cha.getY() == targetY
+						&& cha.getMapId() == getMapId()) {
+					_hateList.add(cha, 0);
+					_target = cha;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// ÚWÌtûüðÔ·
 	public int targetReverseDirection(int tx, int ty) { 
 		int dir = targetDirection(tx, ty);
 		dir += 4;

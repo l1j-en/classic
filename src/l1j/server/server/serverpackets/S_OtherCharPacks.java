@@ -30,16 +30,26 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	private static final String S_OTHER_CHAR_PACKS = "[S] S_OtherCharPacks";
 	private byte[] _byte = null;
 
+	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
 	private static final int STATUS_BRAVE = 16;
 	private static final int STATUS_ELFBRAVE = 32;
 	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
+
+
 
 	public S_OtherCharPacks(L1PcInstance pc) {
 		int status = STATUS_PC;
 		int light = pc.isLightOn() ? 14 : 0;
 
+		if (pc.getPoison() != null) { // ÅóÔ
+			if (pc.getPoison().getEffectId() == 1) {
+				status |= STATUS_POISON;
+			}
+		}
 		if (pc.isInvisble()) {
 			status |= STATUS_INVISIBLE;
 			light = 0; // if the state INBIJI Wright OFF
@@ -73,7 +83,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		}
 		writeC(pc.getHeading());
 		// writeC(0); // makes char invis (0x01), cannot move. spells display
-		writeC(light); // status (0x01 = running)
+		writeC(pc.getChaLightSize());
 		writeC(pc.getMoveSpeed());
 		writeD(0x0000); // exp
 		// writeC(0x00);
@@ -96,21 +106,6 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeC(0); //
 		writeC(0xFF);
 		writeC(0xFF);
-		/*
-		 * // _log.finest((new StringBuilder()).append("OtherCharPack ownchar :
-		 * ").append(pc.get_name()).toString()); writeC(68); writeH(pc.get_x());
-		 * writeH(cha.get_y()); writeD(pc.get_objectId());
-		 * writeH(pc.get_tempchargfx());
-		 * writeC(pc.get_status()+pc.get_currentWeapon()); // status
-		 * writeC(pc.get_heading()); writeC(0); // makes char invis (0x01),
-		 * cannot move. spells display writeC(light); // status (0x01 = running)
-		 * writeC(pc.get_movespeed()); writeH(0x0000); // exp writeC(0x00);
-		 * writeH(pc.get_lawful()); writeS(pc.get_name());
-		 * writeS(pc.getTitle()); writeC(sta); writeD(0x00000000); writeC(0x00);
-		 * writeH(0x0000); writeD(0x000000FF); //Perimeter get drunk and change? writeH(0xFFFF);
-		 * writeD(GameTimeController.getInstance().getGameTime()); //GameTime Assuming //
-		 * writeH(0x001B); // writeC(0x84);
-		 */
 	}
 
 	@Override

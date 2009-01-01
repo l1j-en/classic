@@ -79,7 +79,7 @@ public class S_IdentifyDesc extends ServerBasePacket {
 				writeH(138);
 				writeC(2);
 				name.append(": $231 "); // The remaining fuel
-				name.append(0); // Remaining fuel (not yet implemented)
+				name.append(String.valueOf(item.getRemainingTime()));
 				writeS(name.toString());
 			} else if (item.getItem().getType() == 7) { // food
 				writeH(136); // Satiety level 1 percent of the weight of 2%]

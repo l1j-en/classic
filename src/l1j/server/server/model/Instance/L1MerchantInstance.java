@@ -49,8 +49,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 	public void onAction(L1PcInstance player) {
 		L1Attack attack = new L1Attack(player, this);
 		attack.addPcPoisonAttack(player, this);
+	    attack.calcHit();
 	    attack.action();
-	    attack.commit();
 	}
 
 	@Override
@@ -205,22 +205,53 @@ public class L1MerchantInstance extends L1NpcInstance {
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if (lv45_step == 1) {
 						htmlid = "meg1";
-					} else if (lv45_step == 2) {
+					} else if (lv45_step == 2 && lv45_step <= 3 ) { // O¯ÓÏÝ
 						htmlid = "meg2";
-					} else if (lv45_step >= 3) {
+					} else if (lv45_step >= 4) { // ONAÏÝ
 						htmlid = "meg3";
 					}
 				}
-			} else if (npcid == 70751) {
-				if (player.isCrown()) {
-					if (player.getLevel() >= 45) {
-						if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) {
-							htmlid = "brad1";
+			} else if (npcid == 71200) { // pt sG^
+				if (player.isCrown()) { // Nå
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (lv45_step == 2 && player.getInventory().checkItem(41422)) {	
+						player.getInventory().consumeItem(41422, 1);
+						final int[] item_ids = { 40568 };
+						final int[] item_amounts = { 1 };
+						for (int i = 0; i < item_ids.length; i++) {
+							player.getInventory().storeItem(
+									item_ids[i], item_amounts[i]);
 						}
 					}
 				}
-			} else if (npcid == 70798) {
-				if (player.isKnight()) {
+			//} else if (npcid == 71200) { // pt sG^
+				//if (player.isCrown()) { // Nå
+					//int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					//if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END  ) { //ONAÏÝorI¹
+						//htmlid = "pieta9";
+					//} else if (lv45_step == 2) { // NGXgJnOEO¯ÓÏÝ
+						//htmlid = "pieta2";
+					//} else if (lv45_step == 2 || 
+								//player.getInventory().checkItem(41422) ) {// P«ð¸Á½°Û
+						//htmlid = "pieta4";
+					//} else if (lv45_step == 3) { // P«ð¸Á½°üã	
+						//htmlid = "pieta6";
+					//} else {//lv45¢orNGXg30¢
+						//htmlid = "pieta8";
+					//}	
+				//} else { // NåÈO
+					//htmlid = "pieta1";
+				//}
+			//} else if (npcid == 70751) { // ubh
+				//if (player.isCrown()) { // Nå
+					//if (player.getLevel() >= 45) {
+						//if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { // O¯ÓÏÝ
+							//htmlid = "brad1";
+						//}
+					//}
+				//}
+			} else if (npcid == 70798) { // bL[
+				if (player.isKnight()) { // iCg
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 						if (lv15_step >= 1) {
@@ -552,9 +583,9 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "koup12";
 					}
 				}
-			} else if (npcid == 70824) {
-					if (player.isDarkelf()) {
-						if (player.getTempCharGfx() == 3634) {
+			} else if (npcid == 70824) { // ATV}X^[ÌÇ]Ò
+				if (player.isDarkelf()) {
+					if (player.getTempCharGfx() == 3634) { // ATVÏg
 						int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 						if (lv45_step == 1) {
 							htmlid = "assassin1";
@@ -563,7 +594,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						} else {
 							htmlid = "assassin4";
 						}
-					} else {
+					} else { // _[NGtÈO
 						htmlid = "assassin3";
 					}
 				}

@@ -128,6 +128,8 @@ public final class Config {
 
 	public static int LEVEL_DOWN_RANGE;
 
+	public static boolean SEND_PACKET_BEFORE_TELEPORT;
+
 	/** Rate control */
 	public static double RATE_XP;
 
@@ -714,6 +716,8 @@ public final class Config {
 			ALLOW_2PC = Boolean.parseBoolean(pValue);
 		} else if (pName.equalsIgnoreCase("LevelDownRange")) {
 			LEVEL_DOWN_RANGE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("SendPacketBeforeTeleport")) {
+			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(pValue);
 		}
 		// rates.properties
 		else if (pName.equalsIgnoreCase("RateXp")) {
@@ -782,8 +786,8 @@ public final class Config {
 			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("MaxClanWarehouseItem")) {
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue);
-		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) { 
-			DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue); 
+		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) {
+			DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue);
 		}
 		// charsettings.properties
 		else if (pName.equalsIgnoreCase("PrinceMaxHP")) {

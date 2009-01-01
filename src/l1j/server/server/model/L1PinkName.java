@@ -69,8 +69,8 @@ public class L1PinkName {
 		}
 	}
 
-	public static void onAction(L1PcInstance player, L1Character cha) {
-		if (player == null || cha == null) {
+	public static void onAction(L1PcInstance pc, L1Character cha) {
+		if (pc == null || cha == null) {
 			return;
 		}
 
@@ -78,21 +78,25 @@ public class L1PinkName {
 			return;
 		}
 		L1PcInstance attacker = (L1PcInstance) cha;
-		if (player == attacker) {
+		if (pc.getId() == attacker.getId()) {
+			return;
+		}
+		if (attacker.getFightId() == pc.getId()) {
 			return;
 		}
 
-		boolean is_now_war = false;
-		int castle_id = L1CastleLocation.getCastleIdByArea(player);
-		if (castle_id != 0) {
-			is_now_war = WarTimeController.getInstance().isNowWar(castle_id);
+		boolean isNowWar = false;
+		int castleId = L1CastleLocation.getCastleIdByArea(pc);
+		if (castleId != 0) { // øàÉé
+			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
 
-		if (player.getLawful() >= 0
-				&& !player.isPinkName() && attacker.getLawful() >= 0
+		if (pc.getLawful() >= 0
+				&& // pc, attacker¤ÉÂl[
+				!pc.isPinkName() && attacker.getLawful() >= 0
 				&& !attacker.isPinkName()) {
-			if (player.getZoneType() == 0 && 
-					attacker.getZoneType() == 0 && is_now_war == false) {
+			if (pc.getZoneType() == 0 && // ¤Ém[}][ÅAíÔàÅøàÅÈ¢
+					attacker.getZoneType() == 0 && isNowWar == false) {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
 				if (!attacker.isGmInvis()) {

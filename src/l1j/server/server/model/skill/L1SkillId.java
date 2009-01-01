@@ -241,10 +241,12 @@ public class L1SkillId {
 
 	public static final int SHINING_AURA = 115;
 
-	public static final int CALL_MEMBER = 116; // E: CALL_PLEDGE_MEMBER
+	public static final int CALL_CLAN = 116; // E: CALL_PLEDGE_MEMBER
+
 	public static final int BRAVE_AURA = 117;
 
-	public static final int TELEPORT_TO_MEMBER = 118;
+	public static final int RUN_CLAN = 118;
+
 	// unknown = 119 - 120
 	// none = 121 - 128
 	/*

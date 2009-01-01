@@ -69,6 +69,8 @@ public class Opcodes {
 
 	public static final int C_OPCODE_PLEDGE = 32;
 
+	public static final int C_OPCODE_FIGHT = 34;
+
 	public static final int C_OPCODE_BOARD = 39;
 
 	public static final int C_OPCODE_FISHCLICK = 40;

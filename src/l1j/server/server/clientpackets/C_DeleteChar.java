@@ -46,8 +46,10 @@ public class C_DeleteChar extends ClientBasePacket {
 		String name = readS();
 
 		try {
-			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);  
-			if (pc != null && pc.getLevel() >= 30 && Config.DELETE_CHARACTER_AFTER_7DAYS) {
+			L1PcInstance pc = CharacterTable.getInstance()
+					.restoreCharacter(name);
+			if (pc != null && pc.getLevel() >= 30
+					&& Config.DELETE_CHARACTER_AFTER_7DAYS) {
 				if (pc.getType() < 32) {
 					if (pc.isCrown()) {
 						pc.setType(32);

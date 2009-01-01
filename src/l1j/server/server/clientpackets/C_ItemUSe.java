@@ -80,6 +80,7 @@ import l1j.server.server.serverpackets.S_CurseBlind;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Fishing;
 import l1j.server.server.serverpackets.S_IdentifyDesc;
+import l1j.server.server.serverpackets.S_ItemName;
 import l1j.server.server.serverpackets.S_Letter;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_Liquor;
@@ -484,7 +485,32 @@ public class C_ItemUSe extends ClientBasePacket {
 							}
 						}
 					}
-				} else if (itemId == 43000) {
+				} else if (l1iteminstance.getItem().getType() == 2) { // lightnACe
+					if (l1iteminstance.getRemainingTime() <= 0
+							&& itemId != 40004) {
+						return;
+					}
+					if (l1iteminstance.isNowLighting()) {
+						l1iteminstance.setNowLighting(false);
+						pc.turnOnOffLight();
+					} else {
+						l1iteminstance.setNowLighting(true);
+						pc.turnOnOffLight();
+					}
+					pc.sendPackets(new S_ItemName(l1iteminstance));
+				} else if (itemId == 40003) { // ^ IC
+					for (L1ItemInstance lightItem : pc.getInventory()
+							.getItems()) {
+						if (lightItem.getItem().getItemId() == 40002) {
+							lightItem.setRemainingTime(l1iteminstance.getItem()
+									.getLightFuel());
+							pc.sendPackets(new S_ItemName(lightItem));
+							pc.sendPackets(new S_ServerMessage(230)); // ^ÉICð¬Üµ½B
+							break;
+						}
+					}
+					pc.getInventory().removeItem(l1iteminstance, 1);
+				} else if (itemId == 43000) { // Ì|[ViLv99LÌÝªgpÂ\/Lv1ÉßéøÊj
 					pc.setExp(1);
 					pc.resetLevel();
 					pc.setBonusStats(0);
@@ -621,6 +647,9 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 41403) {
 					UseHeallingPotion(pc, 300, 189);
+					pc.getInventory().removeItem(l1iteminstance, 1);
+				} else if (itemId >= 41417 && itemId <= 41421) { // uAfÌÄvCxgÀèACe
+					UseHeallingPotion(pc, 90, 197);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 40858) { // liquor
 					pc.setDrink(true);
@@ -1246,17 +1275,15 @@ public class C_ItemUSe extends ClientBasePacket {
 						} else if (itemId >= 40251 && itemId <= 40252
 								&& pc.getLevel() >= 50) {
 							SpellBook2(pc, l1iteminstance, client);
-						} else if (itemId >= 40253  && itemId <= 40254
-								&& pc.getLevel() >= 30) {
-			                SpellBook2(pc, l1iteminstance, client);  
-						} else if (itemId == 40255 
-								&& pc.getLevel() >= 50) {
+						} else if (itemId == 40253 && pc.getLevel() >= 30) {
 							SpellBook2(pc, l1iteminstance, client);
-						} else if (itemId == 40256 
-								&& pc.getLevel() >= 30) {
+						} else if (itemId == 40254 && pc.getLevel() >= 40) {
 							SpellBook2(pc, l1iteminstance, client);
-						} else if (itemId == 40257 
-								&& pc.getLevel() >= 40) {
+						} else if (itemId == 40255 && pc.getLevel() >= 50) {
+							SpellBook2(pc, l1iteminstance, client);
+						} else if (itemId == 40256 && pc.getLevel() >= 30) {
+							SpellBook2(pc, l1iteminstance, client);
+						} else if (itemId == 40257 && pc.getLevel() >= 40) {
 							SpellBook2(pc, l1iteminstance, client);
 						} else if (itemId >= 40258 && itemId <= 40259
 								&& pc.getLevel() >= 50) {
@@ -1639,16 +1666,18 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						pc.sendPackets(new S_ServerMessage(79)); 
 					}
-				} else if (itemId == 40572) { 
-			            if (pc.getX() == 32778 && pc.getY() == 32738 && 
-			            pc.getMapId() == 21) { 
-			            L1Teleport.teleport(pc, 32781, 32728, (short)21, 5, true); 
-			            } else if (pc.getX() == 32781 && pc.getY() == 32728 && 
-			             pc.getMapId() == 21) { 
-			            L1Teleport.teleport(pc, 32778, 32738, (short)21, 5, true); 
-			            } else { 
-			           pc.sendPackets(new S_ServerMessage(79)); 
-			         } 
+				} else if (itemId == 40572) { // ATVÌó
+					if (pc.getX() == 32778 && pc.getY() == 32738
+							&& pc.getMapId() == 21) {
+						L1Teleport.teleport(pc, 32781, 32728, (short)21, 5,
+								true);
+					} else if (pc.getX() == 32781 && pc.getY() == 32728
+							&& pc.getMapId() == 21) {
+						L1Teleport.teleport(pc, 32778, 32738, (short)21, 5,
+								true);
+					} else {
+						pc.sendPackets(new S_ServerMessage(79));
+					}
 				} else if (itemId == 40006 || itemId == 40412
 						|| itemId == 140006) {
 					if (pc.getMap().isUsePainwand()) {
@@ -2167,11 +2196,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					L1Teleport.teleport(pc, spellsc_x, spellsc_y,
 							pc.getMapId(), pc.getHeading(), true,
 							L1Teleport.CHANGE_POSITION);
-				} else if (itemId == 41293 || itemId == 41294) {
-					if (pc.getMapId() != 5124) {
-						pc.sendPackets(new S_ServerMessage(1138));
-						return;
-					}
+				} else if (itemId == 41293 || itemId == 41294) { // ÞèÆ
 					startFishing(pc, itemId, fishX, fishY);
 				} else if (itemId == 41245) {
 					useResolvent(pc, l1iteminstance1, l1iteminstance);
@@ -3134,7 +3159,8 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private int RandomELevel(L1ItemInstance item, int itemId) {
 		if (itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR
-				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON) {
+				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == 140129 || itemId == 140130) {
 			if (item.getEnchantLevel() <= 2) {
 				int j = _random.nextInt(100) + 1;
 				if (j < 32) {
@@ -3157,19 +3183,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				return 1;
 			}
 		}
-		if (itemId == 140129 || itemId == 140130) {
-			if (item.getEnchantLevel() <= 2) {
-				return 3;
-			} else if (item.getEnchantLevel() >= 3
-					&& item.getEnchantLevel() <= 5) {
-				return 2;
-			}
-			{
-				return 1;
-			}
-		} else {
-			return 1;
-		}
+		return 1;
 	}
 
 	private void SpellBook(L1PcInstance pc, L1ItemInstance item,
@@ -4002,9 +4016,16 @@ public class C_ItemUSe extends ClientBasePacket {
 		} else if (cha instanceof L1MonsterInstance) {
 			L1MonsterInstance mob = (L1MonsterInstance) cha;
 			if (mob.getLevel() < 50) {
-				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(
-						SHAPE_CHANGE);
-				L1PolyMorph.doPoly(mob, polyId, skillTemp.getBuffDuration());
+				int npcId = mob.getNpcTemplate().get_npcId();
+				if (npcId != 45338 && npcId != 45370 && npcId != 45456 // NR_CAofBbg{XAlN}T[
+						&& npcId != 45464 && npcId != 45473 && npcId != 45488 // Z}Ao^U[AJXp[
+						&& npcId != 45497 && npcId != 45516 && npcId != 45529 // LI[ACt[gAhCN(DV)
+						&& npcId != 45458) { // hCN(D·)
+					L1Skills skillTemp = SkillsTable.getInstance()
+							.getTemplate(SHAPE_CHANGE);
+					L1PolyMorph.doPoly(mob, polyId, skillTemp
+							.getBuffDuration());
+				}
 			}
 		}
 	}
@@ -4227,6 +4248,13 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void startFishing(L1PcInstance pc, int itemId, int fishX, int fishY) {
+		if (pc.getMapId() != 5124 || fishX <= 32789 || fishX >= 32813
+				|| fishY <= 32786 || fishY >= 32812) {
+			// ±±ÉÞèÆð°é±ÆÍÅ«Ü¹ñB
+			pc.sendPackets(new S_ServerMessage(1138));
+			return;
+		}
+
 		int rodLength = 0;
 		if (itemId == 41293) {
 			rodLength = 5;

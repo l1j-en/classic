@@ -26,6 +26,8 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import l1j.server.server.model.Instance.L1DollInstance;
+import l1j.server.server.model.Instance.L1FollowerInstance;
+import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
@@ -33,6 +35,7 @@ import l1j.server.server.model.poison.L1Poison;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillTimer;
 import l1j.server.server.model.skill.L1SkillTimerCreator;
+import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.ServerBasePacket;
@@ -55,7 +58,8 @@ public class L1Character extends L1Object {
 	private final Map<Integer, L1DollInstance> _dolllist = new HashMap<Integer, L1DollInstance>();
 	private final Map<Integer, L1SkillTimer> _skillEffect = new HashMap<Integer, L1SkillTimer>();
 	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
-    
+	private final Map<Integer, L1FollowerInstance> _followerlist = new HashMap<Integer, L1FollowerInstance>();
+
 	public L1Character() {
 		_level = 1;
 	}
@@ -460,6 +464,45 @@ public class L1Character extends L1Object {
 		return _dolllist;
 	}
 
+	/**
+	 * LN^[Ö]ÒðÇÁ·éB
+	 * 
+	 * @param follower
+	 *            ÇÁ·éfollowerð\·AL1FollowerInstanceIuWFNgB
+	 */
+	public void addFollower(L1FollowerInstance follower) {
+		_followerlist.put(follower.getId(), follower);
+	}
+
+	/**
+	 * LN^[©ç]Òðí·éB
+	 * 
+	 * @param follower
+	 *            í·éfollowerð\·AL1FollowerInstanceIuWFNgB
+	 */
+	public void removeFollower(L1FollowerInstance follower) {
+		_followerlist.remove(follower.getId());
+	}
+
+	/**
+	 * LN^[Ì]ÒXgðÔ·B
+	 * 
+	 * @return LN^[Ì]ÒXgð\·AHashMapIuWFNgB±ÌIuWFNgÌKeyÍIuWFNgIDAValueÍL1FollowerInstanceB
+	 */
+	public Map<Integer, L1FollowerInstance> getFollowerList() {
+		return _followerlist;
+	}
+
+
+
+
+
+	/**
+	 * LN^[ÖAÅðÇÁ·éB
+	 * 
+	 * @param poison
+	 *            Åð\·AL1PoisonIuWFNgB
+	 */
 	public void setPoison(L1Poison poison) {
 		_poison = poison;
 	}
@@ -1191,9 +1234,61 @@ public class L1Character extends L1Object {
 		}
 	}
 
-	private static Random _rnd = new Random();
+	public void turnOnOffLight() {
+		int lightSize = 0;
+		if (this instanceof L1NpcInstance) {
+			L1NpcInstance npc = (L1NpcInstance) this;
+			lightSize = npc.getLightSize(); // npc.sqlÌCgTCY
+		}
+		if (hasSkillEffect(L1SkillId.LIGHT)) {
+			lightSize = 14;
+		}
 
-	public static Random getRnd() {
-		return _rnd;
+		for (L1ItemInstance item : getInventory().getItems()) {
+			if (item.getItem().getType2() == 0 && item.getItem()
+					.getType() == 2) { // lightnACe
+				int itemlightSize = item.getItem().getLightRange();
+				if (itemlightSize != 0 && item.isNowLighting()) {
+					if (itemlightSize > lightSize) {
+						lightSize = itemlightSize;
+					}
+				}
+			}
+		}
+
+		if (this instanceof L1PcInstance) {
+			L1PcInstance pc = (L1PcInstance) this;
+			pc.sendPackets(new S_Light(pc.getId(), lightSize));
+		}
+		if (!isInvisble()) {
+			broadcastPacket(new S_Light(getId(), lightSize));
+		}
+
+		setOwnLightSize(lightSize); // S_OwnCharPackÌCgÍÍ
+		setChaLightSize(lightSize); // S_OtherCharPack, S_NPCPackÈÇÌCgÍÍ
 	}
+
+	private int _chaLightSize; //  CgÌÍÍ
+
+	public int getChaLightSize() {
+		if (isInvisble()) {
+			return 0;
+		}
+		return _chaLightSize;
+	}
+
+	public void setChaLightSize(int i) {
+		_chaLightSize = i;
+	}
+
+	private int _ownLightSize; //  CgÌÍÍ(S_OwnCharPackp)
+
+	public int getOwnLightSize() {
+		return _ownLightSize;
+	}
+
+	public void setOwnLightSize(int i) {
+		_ownLightSize = i;
+	}
+
 }

@@ -89,6 +89,14 @@ public class L1MobGroupInfo {
 		npc.setMobGroupInfo(null);
 
 		if (isLeader(npc)) {
+			if (isRemoveGroup() && _membersList.size() != 0) { // [_[ªSµ½çO[vð·éê
+				for (L1NpcInstance minion : _membersList) {
+					minion.setMobGroupInfo(null);
+					minion.setSpawn(null);
+					minion.setreSpawn(false);
+				}
+				return 0;
+			}
 			if (_membersList.size() != 0) {
 				setLeader(_membersList.get(0));
 			}
@@ -98,6 +106,16 @@ public class L1MobGroupInfo {
 
 	public int getNumOfMembers() {
 		return _membersList.size();
+	}
+
+	private boolean _isRemoveGroup;
+
+	public boolean isRemoveGroup() {
+		return _isRemoveGroup;
+	}
+
+	public void setRemoveGroup(boolean flag) {
+		_isRemoveGroup = flag;
 	}
 
 }

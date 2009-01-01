@@ -38,10 +38,16 @@ import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1Trade;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DollInstance;
+import l1j.server.server.model.Instance.L1FollowerInstance;
+import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
+import l1j.server.server.serverpackets.S_PacketBox;
+import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.types.UByte8;
 import l1j.server.server.types.UChar8;
@@ -73,7 +79,7 @@ public class ClientThread implements Runnable, PacketOutput {
 	private Socket _csocket;
 
 	private int _loginStatus = 0;
-	
+
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
 	// 90, 120, 0 }; // for Episode5
 	// private static final byte[] FIRST_PACKET =
@@ -229,18 +235,21 @@ public class ClientThread implements Runnable, PacketOutput {
 				// ByteArrayUtil(data).dumpToString());
 
 				int opcode = data[0] & 0xFF;
-				if (opcode == Opcodes.C_OPCODE_COMMONCLICK) {
+				// ½dOCÎô
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK
+						|| opcode == Opcodes.C_OPCODE_CHANGECHAR) {
 					_loginStatus = 1;
 				}
-		        if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK) {   
-				_loginStatus = 0;  }   
-		        if (opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {   
-		        	_loginStatus++;   
-		        if (_loginStatus == 2) {   
-		        	LoginController.getInstance().logout(this);   
-		        	_loginStatus = 0;   
-		        	}   
-		        } 
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
+					if (_loginStatus != 1) {
+						continue;
+					}
+				}
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK
+						|| opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+					_loginStatus = 0;
+				}
+
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
 				}
@@ -446,12 +455,29 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1Trade trade = new L1Trade();
 			trade.TradeCancel(pc);
 		}
-		if (pc.isInParty()) {
+		// ¬ð~·é
+		if (pc.getFightId() != 0) {
+			pc.setFightId(0);
+			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
+					.findObject(pc.getFightId());
+			if (fightPc != null) {
+				fightPc.setFightId(0);
+				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
+						0, 0));
+			}
+		}
+
+		// p[eB[ð²¯é
+		if (pc.isInParty()) { // p[eB[
 			pc.getParty().leaveMember(pc);
 		}
-		if (pc.isInChatParty()) {  
-			pc.getChatParty().leaveMember(pc);  
-		} 
+		// `bgp[eB[ð²¯é
+		if (pc.isInChatParty()) { // `bgp[eB[
+			pc.getChatParty().leaveMember(pc);
+		}
+
+		// ybgð[h}bvã©çÁ·
+		// TÌ\¦¼ðÏX·é
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object petObject : petList) {
 			if (petObject instanceof L1PetInstance) {
@@ -460,6 +486,14 @@ public class ClientThread implements Runnable, PacketOutput {
 				pc.getPetList().remove(pet.getId());
 				pet.deleteMe();
 			}
+			if (petObject instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) petObject;
+				for (L1PcInstance visiblePc : L1World.getInstance()
+						.getVisiblePlayer(summon)) {
+					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc,
+							false));
+				}
+			}
 		}
 		Object[] dollList = pc.getDollList().values().toArray();
 		for (Object dollObject : dollList) {
@@ -467,6 +501,18 @@ public class ClientThread implements Runnable, PacketOutput {
 			doll.deleteDoll();
 		}
 
+		// ]Òð[h}bvã©çÁµA¯n_ÉÄo»³¹é
+		Object[] followerList = pc.getFollowerList().values().toArray();
+		for (Object followerObject : followerList) {
+			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
+			follower.setParalyzed(true);
+			follower.spawn(follower.getNpcTemplate().get_npcId(),
+					follower.getX(), follower.getY(), follower.getHeading(),
+					follower.getMapId());
+			follower.deleteMe();
+		}
+
+		// G`gðDBÌcharacter_buffÉÛ¶·é
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
 		pc.clearSkillEffectTimer();

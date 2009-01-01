@@ -51,6 +51,9 @@ public abstract class CharactersItemStorage {
 	public abstract void updateItemChargeCount(L1ItemInstance item)
 			throws Exception;
 
+	public abstract void updateItemRemainingTime(L1ItemInstance item)
+			throws Exception;
+
 	public abstract void updateItemDelayEffect(L1ItemInstance item)
 			throws Exception;
 

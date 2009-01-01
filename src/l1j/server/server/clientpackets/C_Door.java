@@ -50,9 +50,9 @@ public class C_Door extends ClientBasePacket {
 				.findObject(objectId);
 		if (door != null && !isExistKeeper(pc, door.getKeeperId())) {
 			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
-				door.close(false);
+				door.close();
 			} else if (door.getOpenStatus() == ActionCodes.ACTION_Close) {
-				door.open(false);
+				door.open();
 			}
 		}
 	}

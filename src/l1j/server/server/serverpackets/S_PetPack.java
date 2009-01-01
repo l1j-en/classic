@@ -28,6 +28,16 @@ import l1j.server.server.model.Instance.L1PetInstance;
 
 public class S_PetPack extends ServerBasePacket {
 	private static final String S_PET_PACK = "[S] S_PetPack";
+	
+	private static final int STATUS_POISON = 1;
+	private static final int STATUS_INVISIBLE = 2;
+	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
+	private static final int STATUS_BRAVE = 16;
+	private static final int STATUS_ELFBRAVE = 32;
+	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
+
 	private byte[] _byte = null;
 
 	public S_PetPack(L1PetInstance pet, L1PcInstance pc) {
@@ -48,16 +58,20 @@ public class S_PetPack extends ServerBasePacket {
 		writeH(pet.getGfxId()); // SpriteID in List.spr
 		writeC(pet.getStatus()); // Modes in List.spr
 		writeC(pet.getHeading());
-		writeC(pet.getLightSize()); // (Bright) - 0~15
+		writeC(pet.getChaLightSize()); // (Bright) - 0~15
 		writeC(pet.getMoveSpeed()); // Speed - 0:normal, 1:fast,
 		// 2:slow
 		writeD(pet.getExp());
 		writeH(pet.getTempLawful());
 		writeS(pet.getName());
 		writeS(pet.getTitle());
-		writeC(0); // - 0:mob,item(atk pointer), 1:poisoned(),
-		// 2:invisable(), 4:pc, 8:cursed(), 16:brave(),
-		// 32:??, 64:??(??), 128:invisable but name
+		int status = 0;
+		if (pet.getPoison() != null) { // ÅóÔ
+			if (pet.getPoison().getEffectId() == 1) {
+				status |= STATUS_POISON;
+			}
+		}
+		writeC(status);
 		writeD(0); // ??
 		writeS(null); // ??
 		writeS(pet.getMaster() != null ? pet.getMaster().getName() : "");

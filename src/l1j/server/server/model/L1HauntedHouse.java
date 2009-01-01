@@ -36,6 +36,8 @@ import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 
+import l1j.server.server.model.Instance.L1PcInstance;
+
 public class L1HauntedHouse {
 
 	public static final int STATUS_NONE = 0;
@@ -59,13 +61,6 @@ public class L1HauntedHouse {
 
 	private void readyHauntedHouse() {
 		setHauntedHouseStatus(STATUS_READY);
-
-		for (int i = 32827; i <=32829; i++) {
-			spawnObject(32726, i, (short) 5140);
-		}
-		for (int j = 32831; j <=32833; j++) {
-			spawnObject(32726, j, (short) 5140);
-		}
 
 		L1HauntedHouseReadyTimer hhrTimer = new L1HauntedHouseReadyTimer();
 		hhrTimer.begin();
@@ -93,12 +88,8 @@ public class L1HauntedHouse {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
 				if (door.getMapId() == 5140) {
-					door.open(false);
+					door.open();
 				}
-			}
-			if (object instanceof L1ScarecrowInstance) {
-				L1ScarecrowInstance npc = (L1ScarecrowInstance) object;
-				npc.deleteMe();
 			}
 		}
 	}
@@ -121,7 +112,7 @@ public class L1HauntedHouse {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
 				if (door.getMapId() == 5140) {
-					door.close(false);
+					door.close();
 				}
 			}
 		}
@@ -193,43 +184,6 @@ public class L1HauntedHouse {
 
 	public int getGoalCount() {
 		return _goalCount;
-	}
-
-	private void spawnObject(int locx, int locy, short mapid) {
-		Constructor<?> constructor;
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(45001);
-		try {
-			if (l1npc != null) {
-				@SuppressWarnings("unused")
-				Object obj = null;
-				String s = l1npc.getImpl();
-				constructor = Class.forName(
-						(new StringBuilder()).append(
-								"l1j.server.server.model.Instance.").append(s)
-								.append("Instance").toString())
-						.getConstructors()[0];
-				Object aobj[] = { l1npc };
-				L1NpcInstance npc = (L1NpcInstance) constructor
-						.newInstance(aobj);
-				npc.setId(IdFactory.getInstance().nextId());
-				npc.setX(locx);
-				npc.setY(locy);
-				npc.setHomeX(locx);
-				npc.setHomeY(locy);
-				npc.setHeading(6);
-				npc.setMap(mapid);
-				L1World.getInstance().storeObject(npc);
-				L1World.getInstance().addVisibleObject(npc);
-
-				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
-					npc.addKnownObject(pc);
-					pc.addKnownObject(npc);
-					pc.sendPackets(new S_NPCPack(npc));
-					pc.broadcastPacket(new S_NPCPack(npc));
-				}
-			}
-		} catch (Exception exception) {
-		}
 	}
 
 

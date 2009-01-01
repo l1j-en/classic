@@ -2,8 +2,13 @@ package l1j.server.server.model;
 
 import java.util.ArrayList;
 
+import java.util.StringTokenizer;
+
+
+import l1j.server.server.datatables.ArmorSetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.templates.L1ArmorSets;
 
 public abstract class L1ArmorSet {
 	public abstract void giveEffect(L1PcInstance pc);
@@ -13,6 +18,8 @@ public abstract class L1ArmorSet {
 	public abstract boolean isValid(L1PcInstance pc);
 
 	public abstract boolean isPartOfSet(int id);
+
+	public abstract boolean isEquippedRingOfArmorSet(L1PcInstance pc);
 
 	public static ArrayList<L1ArmorSet> getAllSet() {
 		return _allSet;
@@ -26,245 +33,38 @@ public abstract class L1ArmorSet {
 	static {
 		L1ArmorSetImpl impl;
 
-		// Metamorphosis and status bonuses
-		// Daemon set
-		impl = new L1ArmorSetImpl(new int[] { 20009, 20099, 20165, 20197 });
-		impl.addEffect(new PolymorphEffect(3889));
-		impl.addEffect(new AcHpMpBonusEffect(-2, 0, 0, 5, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20010, 20100, 20166, 20198 });
-		impl.addEffect(new PolymorphEffect(6137));
-		impl.addEffect(new AcHpMpBonusEffect(-4, 0, 0, -7, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20024, 20118, 20170, 20203 });
-		impl.addEffect(new PolymorphEffect(3903));
-		impl.addEffect(new AcHpMpBonusEffect(-3, 0, 0, 12, 0, 0));
-		_allSet.add(impl);
-		// Kurtz set
-		impl = new L1ArmorSetImpl(new int[] { 20041, 20150, 20184, 20214 });
-		impl.addEffect(new PolymorphEffect(3101));
-		impl.addEffect(new AcHpMpBonusEffect(-4, 0, 0, -7, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20042, 20151, 20185, 20215 });
-		impl.addEffect(new PolymorphEffect(3902));
-		impl.addEffect(new AcHpMpBonusEffect(-2, 0, 100, 0, 12, 0));
-		_allSet.add(impl);
+		for (L1ArmorSets armorSets : ArmorSetTable.getInstance().getAllList()) {
+			try {
+				
+				impl = new L1ArmorSetImpl(getArray(armorSets.getSets(), ","));
+				if (armorSets.getPolyId() != -1) {
+					impl.addEffect(new PolymorphEffect(armorSets.getPolyId()));
+				}
+				impl.addEffect(new AcHpMpBonusEffect(armorSets.getAc(),
+						armorSets.getHp(), armorSets.getMp(),
+						armorSets.getHpr(), armorSets.getMpr(),
+						armorSets.getMr()));
+				impl.addEffect(new StatBonusEffect(armorSets.getStr(),
+						armorSets.getDex(), armorSets.getCon(),
+						armorSets.getWis(), armorSets.getCha(),
+						armorSets.getIntl()));
+				_allSet.add(impl);
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 
-		// Only Metamorphosis
-		// Pumpkin
-		impl = new L1ArmorSetImpl(new int[] { 20047 });
-		impl.addEffect(new PolymorphEffect(2501));
-		_allSet.add(impl);
-		// Vampire
-		impl = new L1ArmorSetImpl(new int[] { 20079 });
-		impl.addEffect(new PolymorphEffect(3952));
-		_allSet.add(impl);
-		// Death
-		impl = new L1ArmorSetImpl(new int[] { 20342 });
-		impl.addEffect(new PolymorphEffect(2388));
-		_allSet.add(impl);
-		// Rabbit
-		impl = new L1ArmorSetImpl(new int[] { 20343 });
-		impl.addEffect(new PolymorphEffect(4767));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20344 });
-		impl.addEffect(new PolymorphEffect(4769));
-		_allSet.add(impl);
-		// Skeleton
-		impl = new L1ArmorSetImpl(new int[] { 20278 });
-		impl.addEffect(new PolymorphEffect(2374));
-		_allSet.add(impl);
-		// orc fighter
-		impl = new L1ArmorSetImpl(new int[] { 20277 });
-		impl.addEffect(new PolymorphEffect(3864));
-		_allSet.add(impl);
-		// ww
-		impl = new L1ArmorSetImpl(new int[] { 20250 });
-		impl.addEffect(new PolymorphEffect(3865));
-		_allSet.add(impl);
-		// High collie
-		impl = new L1ArmorSetImpl(new int[] { 20345 });
-		impl.addEffect(new PolymorphEffect(4928));
-		_allSet.add(impl);
-		// Raccoon high
-		impl = new L1ArmorSetImpl(new int[] { 20346 });
-		impl.addEffect(new PolymorphEffect(4929));
-		_allSet.add(impl);
-		// Hakama
-		impl = new L1ArmorSetImpl(new int[] { 20347 });
-		impl.addEffect(new PolymorphEffect(4227));
-		_allSet.add(impl);
-		// Holiday attire
-		impl = new L1ArmorSetImpl(new int[] { 20348 });
-		impl.addEffect(new PolymorphEffect(3750));
-		_allSet.add(impl);
-		// Collie
-		impl = new L1ArmorSetImpl(new int[] { 20349 });
-		impl.addEffect(new PolymorphEffect(938));
-		_allSet.add(impl);
-		// Snowman
-		impl = new L1ArmorSetImpl(new int[] { 20350 });
-		impl.addEffect(new PolymorphEffect(2064));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20351, 20352 });
-		impl.addEffect(new PolymorphEffect(2064));
-		_allSet.add(impl);
-		// MANEKI cat
-		impl = new L1ArmorSetImpl(new int[] { 20420 });
-		impl.addEffect(new PolymorphEffect(5719));
-		_allSet.add(impl);
-		// Red Orc
-		impl = new L1ArmorSetImpl(new int[] { 20382 });
-		impl.addEffect(new PolymorphEffect(6010));
-		_allSet.add(impl);
-		// Drake captain
-		impl = new L1ArmorSetImpl(new int[] { 20452 });
-		impl.addEffect(new PolymorphEffect(6089));
-		_allSet.add(impl);
-		// Iris
-		impl = new L1ArmorSetImpl(new int[] { 20453 });
-		impl.addEffect(new PolymorphEffect(4001));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20454 });
-		impl.addEffect(new PolymorphEffect(4000));
-		_allSet.add(impl);
-		// Queen Succubus
-		impl = new L1ArmorSetImpl(new int[] { 20455 });
-		impl.addEffect(new PolymorphEffect(4004));
-		_allSet.add(impl);
-		// Red Jersey
-		impl = new L1ArmorSetImpl(new int[] { 20456 });
-		impl.addEffect(new PolymorphEffect(5184));
-		_allSet.add(impl);
-		// Blue uniform
-		impl = new L1ArmorSetImpl(new int[] { 20457 });
-		impl.addEffect(new PolymorphEffect(5186));
-		_allSet.add(impl);
-		// The red orc (red orc mask)
-		impl = new L1ArmorSetImpl(new int[] { 20458 });
-		impl.addEffect(new PolymorphEffect(6010));
-		_allSet.add(impl);
-		// Helmet for Horse Riding
-		impl = new L1ArmorSetImpl(new int[] { 20383 });
-		impl.addEffect(new PolymorphEffect(6080));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20380 });
-		impl.addEffect(new PolymorphEffect(5645));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20419 });
-		impl.addEffect(new PolymorphEffect(5976));
-		_allSet.add(impl); 
-
-		// Only status bonus
-		// Leather set
-		impl = new L1ArmorSetImpl(new int[] { 20001, 20090, 20193, 20219 });
-		impl.addEffect(new AcHpMpBonusEffect(-3, 0, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// orc set
-		impl = new L1ArmorSetImpl(new int[] { 20034, 20072, 20135, 20237 });
-		impl.addEffect(new AcHpMpBonusEffect(-3, 0, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20007, 20052, 20223 });
-		impl.addEffect(new AcHpMpBonusEffect(-1, 5, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20038, 20148, 20241, 20212 });
-		impl.addEffect(new AcHpMpBonusEffect(-3, 0, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20045, 20124, 20221 });
-		impl.addEffect(new AcHpMpBonusEffect(-2, 10, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// The members of the expedition set relic
-		impl = new L1ArmorSetImpl(
-				new int[] { 20389, 20393, 20401, 20409, 20406 });
-		impl.addEffect(new AcHpMpBonusEffect(-5, 15, 10, 0, 0, 10));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20012, 20111 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 0, 50, 0, 0, 0));
-		_allSet.add(impl);
-		// iron set
-		impl = new L1ArmorSetImpl(
-				new int[] { 20003, 20091, 20163, 20194, 20220 });
-		impl.addEffect(new AcHpMpBonusEffect(-7, 30, 0, 0, 0, 0)); // was just -3 ac
-		impl.addEffect(new StatBonusEffect(1, 0, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20044, 20155, 20188, 20217 });
-		impl.addEffect(new AcHpMpBonusEffect(-1, 10, 0, 0, 0, 0));
-		impl.addEffect(new StatBonusEffect(0, 0, 0, 0, 0, 1));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20031, 20069, 20083, 20131,
-				20179, 20209, 20290, 20261 });
-		impl.addEffect(new AcHpMpBonusEffect(-88, 100, 100, 15, 15, 0));
-		impl.addEffect(new StatBonusEffect(1, 1, 1, 1, 1, 1));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(new int[] { 20057, 20109, 20178, 20200 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 30, 30, 10, 10, 0));
-		impl.addEffect(new StatBonusEffect(0, 0, 0, 0, 3, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(
-				new int[] { 20390, 20395, 20402, 20410, 20408 });
-		impl.addEffect(new AcHpMpBonusEffect(-20, 100, 20, 10, 0, 0));
-		_allSet.add(impl);
-		// 
-		impl = new L1ArmorSetImpl(
-				new int[] { 21051, 21052, 21053, 21054, 21055, 21056 });
-		impl.addEffect(new AcHpMpBonusEffect(-10, 100, 0, 0, 0, 0));
-		_allSet.add(impl);		
-		// Set hope
-		impl = new L1ArmorSetImpl(new int[] { 20413, 20428 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 0, 5, 0, 0, 0));
-		_allSet.add(impl);
-		// Set luck 
-		impl = new L1ArmorSetImpl(new int[] { 20414, 20430 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 0, 10, 0, 0, 0));
-		_allSet.add(impl);
-		// Set passion 
-		impl = new L1ArmorSetImpl(new int[] { 20415, 20429 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 10, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// Set the truth 
-		impl = new L1ArmorSetImpl(new int[] { 20416, 20431 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 15, 0, 0, 0, 0));
-		_allSet.add(impl);
-		// Set miracle 
-		impl = new L1ArmorSetImpl(new int[] { 20417, 20432 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 15, 10, 0, 0, 0));
-		_allSet.add(impl);
-		// Set courage kindness 
-		impl = new L1ArmorSetImpl(new int[] { 20418, 20433 });
-		impl.addEffect(new AcHpMpBonusEffect(0, 0, 0, 2, 2, 0));
-		_allSet.add(impl);
-		// Amulet cleansing of the Red Earring
-		impl = new L1ArmorSetImpl(new int[] { 20423, 21019 });
-		impl.addEffect(new StatBonusEffect(2, 0, -2, 0, 0, 0));
-		_allSet.add(impl);
-		// Amulet cleansing of the blue Earring
-		impl = new L1ArmorSetImpl(new int[] { 20424, 21019 });
-		impl.addEffect(new StatBonusEffect(0, 0, 0, -2, 0, 2));
-		_allSet.add(impl);
-		// Amulet of cleansing green earring
-		impl = new L1ArmorSetImpl(new int[] { 20425, 21019 });
-		impl.addEffect(new StatBonusEffect(0, 2, 0, 0, -2, 0));
-		_allSet.add(impl);
-		// red knight set
-		impl = new L1ArmorSetImpl(new int[] { 20230, 20027 });
-		impl.addEffect(new AcHpMpBonusEffect(-2, 10, 0, 0, 0, 10));
-		_allSet.add(impl);
+	private static int[] getArray(String s, String sToken) {
+		StringTokenizer st = new StringTokenizer(s, sToken);
+		int size = st.countTokens();
+		String temp = null;
+		int[] array = new int[size];
+		for (int i = 0; i < size; i++) {
+			temp = st.nextToken();
+			array[i] = Integer.parseInt(temp);
+		}
+		return array;
 	}
 }
 
@@ -319,6 +119,37 @@ class L1ArmorSetImpl extends L1ArmorSet {
 		}
 		return false;
 	}
+	@Override
+	public boolean isEquippedRingOfArmorSet(L1PcInstance pc) {
+		L1PcInventory pcInventory = pc.getInventory();
+		L1ItemInstance armor = null;
+		boolean isSetContainRing = false;
+
+		// ZbgõÉOªÜÜêÄ¢é©²×é
+		for (int id : _ids) {
+			armor = pcInventory.findItemId(id);
+			if (armor.getItem().getType2() == 2
+					&& armor.getItem().getType() == 9) { // ring
+				isSetContainRing = true;
+				break;
+			}
+		}
+
+		// Oð2ÂõµÄ¢ÄA»êª¼ûZbgõ©²×é
+		if (armor != null && isSetContainRing) {
+			int itemId = armor.getItem().getItemId();
+			if (pcInventory.getTypeEquipped(2, 9) == 2) {
+				L1ItemInstance ring[] = new L1ItemInstance[2];
+				ring = pcInventory.getRingEquipped();
+				if (ring[0].getItem().getItemId() == itemId
+						&& ring[1].getItem().getItemId() == itemId) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }
 
 class AcHpMpBonusEffect implements L1ArmorSetEffect {
@@ -413,7 +244,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 			} else {
 				_gfxId = 6080;
 			}
-			if (!isRemainderOfCharge(pc)) {
+			if (!isRemainderOfCharge(pc)) { // c`[WÈµ
 				return;
 			}
 		}

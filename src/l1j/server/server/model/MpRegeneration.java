@@ -68,6 +68,9 @@ public class MpRegeneration extends TimerTask {
 		if (_pc.hasSkillEffect(L1SkillId.MEDITATION) == true) { 
 			baseMpr += 5;
 		}
+		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
+			baseMpr += 3;
+		}
 		if (_pc.hasSkillEffect(L1SkillId.COOKING_1_2_N)
 				|| _pc.hasSkillEffect(L1SkillId.COOKING_1_2_S)) {
 			baseMpr += 3;

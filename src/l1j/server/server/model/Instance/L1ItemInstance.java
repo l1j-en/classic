@@ -24,8 +24,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 //import java.util.logging.Logger;
 
-//import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.model.L1EquipmentTimer;
+import l1j.server.server.model.L1ItemOwnerTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
 import l1j.server.server.model.skill.L1SkillId;
@@ -63,6 +65,8 @@ public class L1ItemInstance extends L1Object {
 	private int _durability;
 
 	private int _chargeCount;
+	
+	private int _remainingTime;
 
 	private Timestamp _lastUsed = null;
 
@@ -172,6 +176,14 @@ public class L1ItemInstance extends L1Object {
 		_chargeCount = i;
 	}
 
+	public int getRemainingTime() {
+		return _remainingTime;
+	}
+
+	public void setRemainingTime(int i) {
+		_remainingTime = i;
+	}
+
 	public void setLastUsed(Timestamp t) {
 		_lastUsed = t;
 	}
@@ -234,6 +246,7 @@ public class L1ItemInstance extends L1Object {
 		public int durability;
 
 		public int chargeCount;
+		public int remainingTime;
 
 		public Timestamp lastUsed = null;
 
@@ -245,6 +258,7 @@ public class L1ItemInstance extends L1Object {
 			enchantLevel = getEnchantLevel();
 			durability = get_durability();
 			chargeCount = getChargeCount();
+			remainingTime = getRemainingTime();
 			lastUsed = getLastUsed();
 		}
 
@@ -274,6 +288,10 @@ public class L1ItemInstance extends L1Object {
 
 		public void updateChargeCount() {
 			chargeCount = getChargeCount();
+		}
+
+		public void updateRemainingTime() {
+			remainingTime = getRemainingTime();
 		}
 
 		public void updateLastUsed() {
@@ -312,6 +330,9 @@ public class L1ItemInstance extends L1Object {
 		if (isIdentified() != _lastStatus.isIdentified) {
 			column += L1PcInventory.COL_IS_ID;
 		}
+		if (getRemainingTime() != _lastStatus.remainingTime) {
+			column += L1PcInventory.COL_REMAINING_TIME;
+		}
 
 		return column;
 	}
@@ -320,15 +341,27 @@ public class L1ItemInstance extends L1Object {
 		StringBuilder name = new StringBuilder(getNumberedName(count));
 		int itemType2 = getItem().getType2();
 
-		if (getItem().getItemId() == 40314 || 
-				getItem().getItemId() == 40316) {
+		int itemId = getItem().getItemId();
+
+		if (itemId == 40314 || itemId == 40316) { // ybgÌA~bg
 			L1Pet pet = PetTable.getInstance().getTemplate(getId());
 			if (pet != null) {
-				//L1Npc npc = NpcTable.getInstance()
-				//		.getTemplate(pet.get_npcid());
-				//name.append("[Lv." + pet.get_level() + " "
-				//		+ npc.get_nameid() + "]");
-				name.append("[Lv." + pet.get_level() + " " + pet.get_name() + "]"); 
+				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcid());
+// name.append("[Lv." + pet.get_level() + " "
+// + npc.get_nameid() + "]");
+				name.append("[Lv." + pet.get_level() + " " + pet.get_name()
+						+ "]HP" + pet.get_hp() + " " + npc.get_nameid());
+			}
+		}
+
+		if (getItem().getType2() == 0 && getItem().getType() == 2) { // lightnACe
+			if (isNowLighting()) {
+				name.append(" ($10)");
+			}
+			if (itemId == 40001 || itemId == 40002) { // vor^
+				if (getRemainingTime() <= 0) {
+					name.append(" ($11)");
+				}
 			}
 		}
 
@@ -336,7 +369,9 @@ public class L1ItemInstance extends L1Object {
 			if (itemType2 == 1) {
 				name.append(" ($9)"); //(Armed)
 			} else if (itemType2 == 2) {
-				name.append(" ($117)"); //(Worn)
+				name.append(" ($117)"); // õ(Worn)
+			} else if (itemType2 == 0 && getItem().getType() == 11) { // petitem
+				name.append(" ($117)"); // õ(Worn)
 			}
 		}
 		return name.toString();
@@ -369,6 +404,9 @@ public class L1ItemInstance extends L1Object {
 			}
 			if (getItem().getItemId() == 20383) {
 				name.append(" (" + getChargeCount() + ")");
+			}
+			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { // íhïÅgpÔ§À è
+				name.append(" (" + getRemainingTime() + ")");
 			}
 		}
 
@@ -522,6 +560,63 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(30);
 				os.writeC(getItem().get_defense_earth());
 			}
+			// Ï«
+			if (getItem().get_regist_freeze() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_freeze());
+				os.writeC(33);
+				os.writeC(1);
+			}
+			// Î»Ï«
+			if (getItem().get_regist_stone() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_stone());
+				os.writeC(33);
+				os.writeC(2);
+			}
+			// °Ï«
+			if (getItem().get_regist_sleep() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_sleep());
+				os.writeC(33);
+				os.writeC(3);
+			}
+			// ÃÅÏ«
+			if (getItem().get_regist_blind() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_blind());
+				os.writeC(33);
+				os.writeC(4);
+			}
+			// X^Ï«
+			if (getItem().get_regist_stun() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_stun());
+				os.writeC(33);
+				os.writeC(5);
+			}
+			// z[hÏ«
+			if (getItem().get_regist_sustain() != 0) {
+				os.writeC(15);
+				os.writeH(getItem().get_regist_sustain());
+				os.writeC(33);
+				os.writeC(6);
+			}
+			// K^
+// if (getItem.getLuck() != 0) {
+// os.writeC(20);
+// os.writeC(val);
+// }
+			// íÞ
+// if (getItem.getDesc() != 0) {
+// os.writeC(25);
+// os.writeH(val); // desc.tbl ID
+// }
+			// x
+// if (getItem.getLevel() != 0) {
+// os.writeC(26);
+// os.writeH(val);
+// }
 		}
 		return os.getBytes();
 	}
@@ -663,6 +758,49 @@ class EnchantTimer extends TimerTask {
 		_timer = new EnchantTimer();
 		(new Timer()).schedule(_timer, skillTime);
 		_isRunning = true;
+	}
+
+	private int _itemOwnerId = 0;
+
+	public int getItemOwnerId() {
+	return _itemOwnerId;
+	}
+
+	public void setItemOwnerId(int i) {
+		_itemOwnerId = i;
+	}
+
+	public void startItemOwnerTimer(L1PcInstance pc) {
+		setItemOwnerId(pc.getId());
+		L1ItemOwnerTimer timer = new L1ItemOwnerTimer(this, 10000);
+		timer.begin();
+	}
+
+	private L1EquipmentTimer _equipmentTimer;
+
+	public void startEquipmentTimer(L1PcInstance pc) {
+		if (getRemainingTime() > 0) {
+			_equipmentTimer = new L1EquipmentTimer(pc, this);
+			Timer timer = new Timer(true);
+			timer.scheduleAtFixedRate(_equipmentTimer, 1000, 1000);
+		}
+	}
+
+	public void stopEquipmentTimer(L1PcInstance pc) {
+		if (getRemainingTime() > 0) {
+			_equipmentTimer.cancel();
+			_equipmentTimer = null;
+		}
+	}
+
+	private boolean _isNowLighting = false;
+
+	public boolean isNowLighting() {
+	return _isNowLighting;
+	}
+
+	public void setNowLighting(boolean flag) {
+		_isNowLighting = flag;
 	}
 
 }

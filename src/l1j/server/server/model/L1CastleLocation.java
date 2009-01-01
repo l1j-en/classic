@@ -172,6 +172,23 @@ public class L1CastleLocation {
 
 	private static final short ADEN_INNER_CASTLE_MAP = 300;
 
+	private static final int ADEN_SUB_TOWER1_X = 34057; // Â
+
+	private static final int ADEN_SUB_TOWER1_Y = 33291;
+
+	private static final int ADEN_SUB_TOWER2_X = 34123; // Ô
+
+	private static final int ADEN_SUB_TOWER2_Y = 33291;
+
+	private static final int ADEN_SUB_TOWER3_X = 34057; // Î
+
+	private static final int ADEN_SUB_TOWER3_Y = 33230;
+
+	private static final int ADEN_SUB_TOWER4_X = 34123; // 
+
+	private static final int ADEN_SUB_TOWER4_Y = 33230;
+
+	// fBAhvÇ
 	private static final int DIAD_TOWER_X = 33033;
 
 	private static final int DIAD_TOWER_Y = 32895;
@@ -241,6 +258,20 @@ public class L1CastleLocation {
 		_innerTowerMaps.put(HEINE_CASTLE_ID, (int) HEINE_INNER_CASTLE_MAP);
 		_innerTowerMaps.put(ADEN_CASTLE_ID, (int) ADEN_INNER_CASTLE_MAP);
 		_innerTowerMaps.put(DIAD_CASTLE_ID, (int) DIAD_INNER_CASTLE_MAP);
+	}
+
+	private static final Map<Integer, L1Location> _subTowers
+			= new HashMap<Integer, L1Location>();
+
+	static {
+		_subTowers.put(1, new L1Location(ADEN_SUB_TOWER1_X, ADEN_SUB_TOWER1_Y,
+				ADEN_TOWER_MAP));
+		_subTowers.put(2, new L1Location(ADEN_SUB_TOWER2_X, ADEN_SUB_TOWER2_Y,
+				ADEN_TOWER_MAP));
+		_subTowers.put(3, new L1Location(ADEN_SUB_TOWER3_X, ADEN_SUB_TOWER3_Y,
+				ADEN_TOWER_MAP));
+		_subTowers.put(4, new L1Location(ADEN_SUB_TOWER4_X, ADEN_SUB_TOWER4_Y,
+				ADEN_TOWER_MAP));
 	}
 
 	private L1CastleLocation() {
@@ -527,6 +558,20 @@ public class L1CastleLocation {
 		public void onDayChanged(L1GameTime time) {
 			L1CastleLocation.setCastleTaxRate();
 		}
+	}
+
+	/**
+	 * Tu^[Ô©çTu^[ÌÀWðÔ·
+	 */
+	public static int[] getSubTowerLoc(int no) {
+		int[] result = new int[3];
+		L1Location loc = _subTowers.get(no);
+		if (loc != null) {
+			result[0] = loc.getX();
+			result[1] = loc.getY();
+			result[2] = loc.getMapId();
+		}
+		return result;
 	}
 
 }

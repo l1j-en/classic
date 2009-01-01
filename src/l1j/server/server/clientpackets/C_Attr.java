@@ -47,7 +47,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;
-import l1j.server.server.serverpackets.S_PetPack;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_Resurrection;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
@@ -274,7 +274,23 @@ public class C_Attr extends ClientBasePacket {
 			}
 			break;
 
-		case 653:
+		case 630: 
+			c = readC();
+			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
+					.findObject(pc.getFightId());
+			if (c == 0) {
+				pc.setFightId(0);
+				fightPc.setFightId(0);
+				fightPc.sendPackets(new S_ServerMessage(631, pc.getName())); // %0%dª È½ÆÌ¬ðfèÜµ½B
+			} else if (c == 1) {
+				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
+						fightPc.getFightId(), fightPc.getId()));
+				pc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, pc
+						.getFightId(), pc.getId()));
+			}
+			break;
+
+		case 653: // £¥ð·éÆOÍÁ¦ÄµÜ¢Ü·B£¥ð]ÝÜ·©HiY/Nj
 			c = readC();
 			if (c == 0) { // No
 				;
@@ -311,32 +327,8 @@ public class C_Attr extends ClientBasePacket {
 			}
 			break;
 
-		case 738: 
-			c = readC();
-			if (c == 0) { // No
-				;
-			} else if (c == 1) { // Yes
-				int cost = 0;
-				int level = pc.getLevel();
-				int lawful = pc.getLawful();
-				if (level < 45) {
-					cost = level * level * 100;
-				} else {
-					cost = level * level * 200;
-				}
-				if (lawful >= 0) {
-					cost = (cost / 2);
-				}
-				if (pc.getInventory().consumeItem(L1ItemId.ADENA, cost)) {
-					pc.resExp();
-					pc.setExpRes(0);
-				} else {
-					pc.sendPackets(new S_ServerMessage(189)); 
-				}
-			}
-			break;
 
-		case 748:
+		case 729: // NåªÄñÅ¢Ü·B¢«É¶Ü·©HiY/Nj
 			c = readC();
 			if (c == 0) { // No
 				;
@@ -374,7 +366,32 @@ public class C_Attr extends ClientBasePacket {
 			}
 			break;
 
-		case 951:  
+		case 738: 
+			c = readC();
+			if (c == 0) { // No
+				;
+			} else if (c == 1 && pc.getExpRes() == 1) { // Yes
+				int cost = 0;
+				int level = pc.getLevel();
+				int lawful = pc.getLawful();
+				if (level < 45) {
+					cost = level * level * 100;
+				} else {
+					cost = level * level * 200;
+				}
+				if (lawful >= 0) {
+					cost = (cost / 2);
+				}
+				if (pc.getInventory().consumeItem(L1ItemId.ADENA, cost)) {
+					pc.resExp();
+					pc.setExpRes(0);
+				} else {
+					pc.sendPackets(new S_ServerMessage(189)); // \f1Afiªs«µÄ¢Ü·B
+				}
+			}
+			break;
+
+		case 951: // `bgp[eB[µÒðÂµÜ·©HiY/Nj
 			c = readC();
 			L1PcInstance chatPc = (L1PcInstance) L1World.getInstance()
 					.findObject(pc.getPartyID());

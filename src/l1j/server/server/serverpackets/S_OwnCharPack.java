@@ -45,7 +45,7 @@ public class S_OwnCharPack extends ServerBasePacket {
 
 	private void buildPacket(L1PcInstance pc) {
 		int status = STATUS_PC;
-		int light = pc.hasSkillEffect(2) ? 14 : 0;
+
 
 		if (pc.isInvisble() || pc.isGmInvis()) {
 			status |= STATUS_INVISIBLE;
@@ -94,7 +94,7 @@ public class S_OwnCharPack extends ServerBasePacket {
 		}
 		writeC(pc.getHeading());
 		// writeC(addbyte);
-		writeC(light); // status (0x01 = running)
+		writeC(pc.getOwnLightSize());
 		writeC(pc.getMoveSpeed());
 		writeD(pc.getExp());
 		writeH(pc.getLawful());

@@ -25,6 +25,7 @@ import java.util.Random;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.IdFactory;
+import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Attack;
@@ -145,6 +146,8 @@ public class L1PetInstance extends L1NpcInstance {
 		setMaxMp(l1pet.get_mp());
 		setCurrentMpDirect(l1pet.get_mp());
 		setExp(l1pet.get_exp());
+		setExpPercent(ExpTable.getExpPercentage(l1pet.get_level(), l1pet
+				.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
 
@@ -315,7 +318,10 @@ public class L1PetInstance extends L1NpcInstance {
 		int size = _inventory.getSize();
 		for (int i = 0; i < size; i++) {
 			L1ItemInstance item = items.get(0);
-			if (_petMaster.getInventory().checkAddItem(
+			if (item.isEquipped()) { // õÌybgACe
+				continue;
+			}
+			if (_petMaster.getInventory().checkAddItem( // eÊdÊmFyÑbZ[WM
 					item, item.getCount()) == L1Inventory.OK) {
 				_inventory.tradeItem(item, item.getCount(), targetInventory);
 				_petMaster.sendPackets(new S_ServerMessage(143, getName(), item
@@ -335,6 +341,7 @@ public class L1PetInstance extends L1NpcInstance {
 		int size = _inventory.getSize();
 		for (int i = 0; i < size; i++) {
 			L1ItemInstance item = items.get(0);
+			item.setEquipped(false);
 			_inventory.tradeItem(item, item.getCount(), targetInventory);
 		}
 	}
@@ -444,7 +451,18 @@ public class L1PetInstance extends L1NpcInstance {
 			for (Object petObject : petList) {
 				if (petObject instanceof L1PetInstance) { 
 					L1PetInstance pet = (L1PetInstance) petObject;
-					pet.setCurrentPetStatus(status);
+					if (_petMaster != null && _petMaster.getLevel() >= pet
+							.getLevel()) {
+						pet.setCurrentPetStatus(status);
+					} else {
+						L1PetType type = PetTypeTable.getInstance().get(
+								pet.getNpcTemplate().get_npcId());
+						int id = type.getDefyMessageId();
+						if (id != 0) {
+							broadcastPacket(new S_NpcChatPacket(pet,
+									"$" + id, 0));
+						}
+					}
 				}
 			}
 		}
@@ -562,6 +580,46 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public int getExpPercent() {
 		return _expPercent;
+	}
+
+	private L1ItemInstance _weapon;
+
+	public void setWeapon(L1ItemInstance weapon) {
+		_weapon = weapon;
+	}
+
+	public L1ItemInstance getWeapon() {
+		return _weapon;
+	}
+
+	private L1ItemInstance _armor;
+
+	public void setArmor(L1ItemInstance armor) {
+		_armor = armor;
+	}
+
+	public L1ItemInstance getArmor() {
+		return _armor;
+	}
+
+	private int _hitByWeapon;
+
+	public void setHitByWeapon(int i) {
+		_hitByWeapon = i;
+	}
+
+	public int getHitByWeapon() {
+		return _hitByWeapon;
+	}
+
+	private int _damageByWeapon;
+
+	public void setDamageByWeapon(int i) {
+		_damageByWeapon = i;
+	}
+
+	public int getDamageByWeapon() {
+		return _damageByWeapon;
 	}
 
 	private int _currentPetStatus;

@@ -78,6 +78,9 @@ public class L1Inventory extends L1Object {
 		if (item == null) {
 			return -1;
 		}
+		if (item.getCount() <= 0 || count <= 0) {
+			return -1;
+		}
 		if (getSize() > Config.MAX_NPC_ITEM
 				|| (getSize() == Config.MAX_NPC_ITEM
 						&& (!item.isStackable() || !checkItem(item
@@ -108,6 +111,9 @@ public class L1Inventory extends L1Object {
 		if (item == null) {
 			return -1;
 		}
+		if (item.getCount() <= 0 || count <= 0) {
+			return -1;
+		}
 
 		int maxSize = 100;
 		if (type == WAREHOUSE_TYPE_PERSONAL) {
@@ -125,7 +131,10 @@ public class L1Inventory extends L1Object {
 	}
 
 	//
-	public L1ItemInstance storeItem(int id, int count) {
+	public synchronized L1ItemInstance storeItem(int id, int count) {
+		if (count <= 0) {
+			return null;
+		}
 		L1Item temp = ItemTable.getInstance().getTemplate(id);
 		if (temp == null) {
 			return null;
@@ -154,6 +163,44 @@ public class L1Inventory extends L1Object {
 	}
 
 	public synchronized L1ItemInstance storeItem(L1ItemInstance item) {
+		if (item.getCount() <= 0) {
+			return null;
+		}
+		int itemId = item.getItem().getItemId();
+		if (item.isStackable()) {
+			L1ItemInstance findItem = findItemId(itemId);
+			if (findItem != null) {
+				findItem.setCount(findItem.getCount() + item.getCount());
+				updateItem(findItem);
+				return findItem;
+			}
+		}
+		item.setX(getX());
+		item.setY(getY());
+		item.setMap(getMapId());
+		int chargeCount = item.getItem().getMaxChargeCount();
+		if (itemId == 40006 || itemId == 40007
+				|| itemId == 40008 || itemId == 140006
+				|| itemId == 140008 || itemId == 41401) {
+			Random random = new Random();
+			chargeCount -= random.nextInt(5);
+		}
+		if (itemId == 20383) {
+			chargeCount = 50;
+		}
+		item.setChargeCount(chargeCount);
+		if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
+			item.setRemainingTime(item.getItem().getLightFuel());
+		} else {
+			item.setRemainingTime(item.getItem().getMaxUseTime());
+		}
+		_items.add(item);
+		insertItem(item);
+		return item;
+	}
+
+	// /tradeAqÉ©çüèµ½ACeÌi[
+	public synchronized L1ItemInstance storeTradeItem(L1ItemInstance item) {
 		if (item.isStackable()) {
 			L1ItemInstance findItem = findItemId(item.getItem().getItemId());
 			if (findItem != null) {
@@ -185,25 +232,10 @@ public class L1Inventory extends L1Object {
 		return item;
 	}
 
-	public L1ItemInstance storeTradeItem(L1ItemInstance item) {
-		if (item.isStackable()) {
-			L1ItemInstance findItem = findItemId(item.getItem().getItemId());
-			if (findItem != null) {
-				findItem.setCount(findItem.getCount() + item.getCount());
-				updateItem(findItem);
-				return findItem;
-			}
-		}
-		item.setX(getX());
-		item.setY(getY());
-		item.setMap(getMapId());
-		_items.add(item);
-		insertItem(item);
-		return item;
-	}
-
-	@SuppressWarnings("unchecked")
 	public boolean consumeItem(int itemid, int count) {
+		if (count <= 0) {
+			return false;
+		}
 		if (ItemTable.getInstance().getTemplate(itemid).isStackable()) {
 			L1ItemInstance item = findItemId(itemid);
 			if (item != null && item.getCount() >= count) {
@@ -244,6 +276,9 @@ public class L1Inventory extends L1Object {
 
 	public int removeItem(L1ItemInstance item, int count) {
 		if (item == null) {
+			return 0;
+		}
+		if (item.getCount() <= 0 || count <= 0) {
 			return 0;
 		}
 		if (item.getCount() < count) {
@@ -287,9 +322,12 @@ public class L1Inventory extends L1Object {
 		return tradeItem(item, count, inventory);
 	}
 
-	public L1ItemInstance tradeItem(L1ItemInstance item, int count,
+	public synchronized L1ItemInstance tradeItem(L1ItemInstance item, int count,
 			L1Inventory inventory) {
 		if (item == null) {
+			return null;
+		}
+		if (item.getCount() <= 0 || count <= 0) {
 			return null;
 		}
 		if (item.isEquipped()) {
@@ -312,6 +350,7 @@ public class L1Inventory extends L1Object {
 			carryItem.setIdentified(item.isIdentified());
 			carryItem.set_durability(item.get_durability());
 			carryItem.setChargeCount(item.getChargeCount());
+			carryItem.setRemainingTime(item.getRemainingTime());
 			carryItem.setLastUsed(item.getLastUsed());
 		}
 		return inventory.storeTradeItem(carryItem);

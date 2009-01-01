@@ -21,6 +21,7 @@ package l1j.server.server.model;
 import java.util.ArrayList;
 
 import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.model.L1EquipmentTimer;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
@@ -30,8 +31,10 @@ import l1j.server.server.serverpackets.S_DelSkill;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Invis;
 import l1j.server.server.serverpackets.S_SPMR;
+import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.templates.L1Item;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1EquipmentSlot {
 	private L1PcInstance _owner;
@@ -54,6 +57,7 @@ public class L1EquipmentSlot {
 	private void setWeapon(L1ItemInstance weapon) {
 		_owner.setWeapon(weapon);
 		_owner.setCurrentWeapon(weapon.getItem().getType1());
+		weapon.startEquipmentTimer(_owner);
 		_weapon = weapon;
 	}
 
@@ -79,8 +83,16 @@ public class L1EquipmentSlot {
 
 		for (L1ArmorSet armorSet : L1ArmorSet.getAllSet()) {
 			if (armorSet.isPartOfSet(itemId) && armorSet.isValid(_owner)) {
-				armorSet.giveEffect(_owner);
-				_currentArmorSet.add(armorSet);
+				if (armor.getItem().getType2() == 2
+						&& armor.getItem().getType() == 9) { // ring
+					if (!armorSet.isEquippedRingOfArmorSet(_owner)) {
+						armorSet.giveEffect(_owner);
+						_currentArmorSet.add(armorSet);
+					}
+				} else {
+					armorSet.giveEffect(_owner);
+					_currentArmorSet.add(armorSet);
+				}
 			}
 		}
 
@@ -102,6 +114,7 @@ public class L1EquipmentSlot {
 						.COL_CHARGE_COUNT);
 			}
 		}
+		armor.startEquipmentTimer(_owner);
 	}
 
 	public ArrayList<L1ItemInstance> getArmors() {
@@ -109,10 +122,10 @@ public class L1EquipmentSlot {
 	}
 
 	private void removeWeapon(L1ItemInstance weapon) {
-		//Never used
-		//int itemId = weapon.getItem().getItemId();
+		int itemId = weapon.getItem().getItemId();
 		_owner.setWeapon(null);
 		_owner.setCurrentWeapon(0);
+		weapon.stopEquipmentTimer(_owner);
 		_weapon = null;
 		if (_owner.hasSkillEffect(L1SkillId.COUNTER_BARRIER)) {
 			_owner.removeSkillEffect(L1SkillId.COUNTER_BARRIER);
@@ -148,6 +161,7 @@ public class L1EquipmentSlot {
 		if (itemId == 20288) { // ROTC
 			_owner.sendPackets(new S_Ability(1, false));
 		}
+		armor.stopEquipmentTimer(_owner);
 
 		_armors.remove(armor);
 	}
@@ -192,12 +206,20 @@ public class L1EquipmentSlot {
 				_owner.broadcastPacket(new S_SkillHaste(_owner.getId(), 1, 0));
 			}
 		}
-		_owner.getEquipSlot().setMagicHelm(equipment);
+		if (item.getItemId() == 20383) { // Rnpw
+			if (_owner.hasSkillEffect(STATUS_BRAVE)) {
+				_owner.killSkillEffectTimer(STATUS_BRAVE);
+				_owner.sendPackets(new S_SkillBrave(_owner.getId(), 0, 0));
+				_owner.setBraveSpeed(0);
+			}
+		}
+ 		_owner.getEquipSlot().setMagicHelm(equipment);
 
 		if (item.getType2() == 1) {
 			setWeapon(equipment);
 		} else if (item.getType2() == 2) {
 			setArmor(equipment);
+			_owner.sendPackets(new S_SPMR(_owner));
 		}
 	}
 

@@ -71,13 +71,16 @@ public class L1Spawn {
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
 
-		private SpawnTask(int spawnNumber) {
+		private int _objectId;
+
+		private SpawnTask(int spawnNumber, int objectId) {
 			_spawnNumber = spawnNumber;
+			_objectId = objectId;
 		}
 
 		@Override
 		public void run() {
-			doSpawn(_spawnNumber);
+			doSpawn(_spawnNumber, _objectId);
 		}
 	}
 
@@ -263,8 +266,8 @@ public class L1Spawn {
 	 * @param spawnNumber L1Spawn Which is administered by the numbers. 
 	 * Home to specify what point does not exist and it's good.
 	 */
-	public void executeSpawnTask(int spawnNumber) {
-		SpawnTask task = new SpawnTask(spawnNumber);
+	public void executeSpawnTask(int spawnNumber, int objectId) {
+		SpawnTask task = new SpawnTask(spawnNumber, objectId);
 		GeneralThreadPool.getInstance().schedule(task, calcRespawnDelay());
 	}
 
@@ -296,7 +299,11 @@ public class L1Spawn {
 	 * If you have a point home, spawnNumber based spawn.
 	 * If not, spawnNumber not used.
 	 */
-	protected void doSpawn(int spawnNumber) {
+	protected void doSpawn(int spawnNumber) { // úzu
+		doSpawn(spawnNumber, 0);
+	}
+
+	protected void doSpawn(int spawnNumber, int objectId) { // Äo»
 		L1NpcInstance mob = null;
 		try {
 			Object parameters[] = { _template };
@@ -306,7 +313,11 @@ public class L1Spawn {
 			int tryCount = 0;
 
 			mob = (L1NpcInstance) _constructor.newInstance(parameters);
-			mob.setId(IdFactory.getInstance().nextId());
+			if (objectId == 0) {
+				mob.setId(IdFactory.getInstance().nextId());
+			} else {
+				mob.setId(objectId); // IuWFNgIDÄp
+			}
 
 			if (0 <= getHeading() && getHeading() <= 7) {
 				mob.setHeading(getHeading());
@@ -315,10 +326,10 @@ public class L1Spawn {
 				mob.setHeading(5);
 			}
 
-			if (mob.getNpcTemplate().get_npcId() == 45488 && getMapId() == 9) { 
+			int npcId = mob.getNpcTemplate().get_npcId();
+			if (npcId == 45488 && getMapId() == 9) { // JXp[
 				mob.setMap((short) (getMapId() + _random.nextInt(2)));
-			} else if (mob.getNpcTemplate().get_npcId() == 45601
-					&& getMapId() == 11) { 
+			} else if (npcId == 45601 && getMapId() == 11) { // fXiCg
 				mob.setMap((short) (getMapId() + _random.nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
@@ -383,8 +394,7 @@ public class L1Spawn {
 				mob.setHomeY(newlocy);
 
 				if (mob.getMap().isInMap(mob.getLocation())
-						&& mob.getMap().isPassable(mob.getLocation())
-						&& mob.getPassispeed() > 0 || mob.getPassispeed() == 0) {
+						&& mob.getMap().isPassable(mob.getLocation())) {
 					if (mob instanceof L1MonsterInstance) {
 						if (isRespawnScreen()) {
 							break;
@@ -395,7 +405,8 @@ public class L1Spawn {
 							break;
 						}
 						// To make the PC screen can not occur in the three seconds after the re-scheduling 
-						SpawnTask task = new SpawnTask(spawnNumber);
+						SpawnTask task = new SpawnTask(spawnNumber, mob
+								.getId());
 						GeneralThreadPool.getInstance().schedule(task, 3000L);
 						return;
 					}
@@ -420,6 +431,13 @@ public class L1Spawn {
 					((L1MonsterInstance) mob).set_storeDroped(true);
 				}
 			}
+			if (npcId == 45573 && mob.getMapId() == 2) { // otHbg
+				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+					if (pc.getMapId() == 2) {
+						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0, true);
+					}
+				}
+			}
 
 			L1World.getInstance().storeObject(mob);
 			L1World.getInstance().addVisibleObject(mob);
@@ -434,6 +452,8 @@ public class L1Spawn {
 				L1MobGroupSpawn.getInstance().doSpawn(mob, getGroupId(),
 						isRespawnScreen(), _initSpawn);
 			}
+			mob.turnOnOffLight();
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -447,7 +467,7 @@ public class L1Spawn {
 		return _rest;
 	}
 
-	//private static final int SPAWN_TYPE_NORMAL = 0;
+	private static final int SPAWN_TYPE_NORMAL = 0;
 	private static final int SPAWN_TYPE_PC_AROUND = 1;
 
 	private static final int PC_AROUND_DISTANCE = 30;

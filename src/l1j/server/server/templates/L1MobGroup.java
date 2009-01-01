@@ -33,6 +33,16 @@ public class L1MobGroup {
 		_id = i;
 	}
 
+	private boolean _isRemoveGroupIfLeaderDie;
+
+	public boolean isRemoveGroupIfLeaderDie() {
+		return _isRemoveGroupIfLeaderDie;
+	}
+
+	public void setRemoveGroupIfLeaderDie(boolean flag) {
+		_isRemoveGroupIfLeaderDie = flag;
+	}
+
 	private int _leaderId;
 
 	public int getLeaderId() {

@@ -18,7 +18,11 @@
  */
 package l1j.server.server.model.Instance;
 
+
+
+import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1HauntedHouse;
+import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.skill.L1SkillId;
@@ -44,16 +48,34 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 						getWinnersCount();
 				int goalCount = L1HauntedHouse.getInstance().getGoalCount();
 				if (winnersCount == goalCount + 1) {
-					L1ItemInstance item = pc.getInventory().storeItem(41308, 1);
-					pc.sendPackets(new S_ServerMessage(403, item.getItem()
-							.getName())); 
+					L1ItemInstance item = ItemTable.getInstance()
+							.createItem(41308); // EÒÌpvLÜ
+					int count = 1;
+					if (item != null) {
+						if (pc.getInventory().checkAddItem(item, count) ==
+								L1Inventory.OK) {
+							item.setCount(count);
+							pc.getInventory().storeItem(item);
+							pc.sendPackets(new S_ServerMessage(403, item
+									.getLogName())); // %0ðèÉüêÜµ½B
+						}
+					}
 					L1HauntedHouse.getInstance().endHauntedHouse();
 				} else if (winnersCount > goalCount + 1) {
 					L1HauntedHouse.getInstance().setGoalCount(goalCount + 1);
 					L1HauntedHouse.getInstance().removeMember(pc);
-					L1ItemInstance item = pc.getInventory().storeItem(41308, 1); 
-					pc.sendPackets(new S_ServerMessage(403, item.getItem()
-							.getName())); 
+					L1ItemInstance item = ItemTable.getInstance()
+							.createItem(41308); // EÒÌpvLÜ
+					int count = 1;
+					if (item != null) {
+						if (pc.getInventory().checkAddItem(item, count) ==
+								L1Inventory.OK) {
+							item.setCount(count);
+							pc.getInventory().storeItem(item);
+							pc.sendPackets(new S_ServerMessage(403, item
+									.getLogName())); // %0ðèÉüêÜµ½B
+						}
+					}
 					L1SkillUse l1skilluse = new L1SkillUse();
 					l1skilluse.handleCommands(pc,
 							L1SkillId.CANCELLATION, pc.getId(), pc.getX(),

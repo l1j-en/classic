@@ -81,9 +81,14 @@ public class S_ChatPacket extends ServerBasePacket {
 		} else if (type == 14) { // 
 			writeC(opcode);
 // writeC(type); // 14
-			writeC(11);
+			writeC(type);
+			if (pc.isInvisble()) {
+				writeD(0);
+			} else {
+				writeD(pc.getId());
+			}
 			writeS("(" + pc.getName() + ") " + chat);
-		} else if (type == 16) {// 
+		} else if (type == 16) { // EBXp[
 			writeC(opcode);
 			writeS(pc.getName());
 			writeS(chat);

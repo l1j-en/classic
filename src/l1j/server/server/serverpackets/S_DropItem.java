@@ -50,7 +50,11 @@ public class S_DropItem extends ServerBasePacket {
 		writeH(item.getItem().getGroundGfxId());
 		writeC(0);
 		writeC(0);
-		writeC(0);
+		if (item.isNowLighting()) {
+			writeC(item.getItem().getLightRange());
+		} else {
+			writeC(0);
+		}
 		writeC(0);
 		writeD(item.getCount());
 		writeC(0);
@@ -58,17 +62,19 @@ public class S_DropItem extends ServerBasePacket {
 		if (item.getCount() > 1) {
 			writeS(item.getItem().getName() + " (" + item.getCount() + ")");
 		} else {
+			int itemId = item.getItem().getItemId();
 			int isId = item.isIdentified() ? 1 : 0;
-			if (item.getItem().getItemId() == 20383 && isId == 1) { 
-				writeS(item.getItem().getName() + " [" + item.getChargeCount() + "]");
-			} else if ((item.getItem().getItemId() == 40006 
-					|| item.getItem().getItemId() == 40007
-					|| item.getItem().getItemId() == 40008
-					|| item.getItem().getItemId() == 40009
-					|| item.getItem().getItemId() == 40412
-					|| item.getItem().getItemId() == 140006
-					|| item.getItem().getItemId() == 140008) && isId == 1) {
-				writeS(item.getItem().getName() + " (" + item.getChargeCount() + ")");
+			if (itemId == 20383 && isId == 1) { // Rnpw
+				writeS(item.getItem().getName() + " [" + item
+						.getChargeCount() + "]");
+			} else if ((itemId == 40006 || itemId == 40007
+					|| itemId == 40008 || itemId == 40009
+					|| itemId == 140006 || itemId == 140008) && isId == 1) { // hÞ
+				writeS(item.getItem().getName() + " (" + item
+						.getChargeCount() + ")");
+			} else if (item.getItem().getLightRange() != 0 && item
+					.isNowLighting()) {
+				writeS(item.getItem().getName() + " ($10)");
 			} else {
 				writeS(item.getItem().getName());
 			}

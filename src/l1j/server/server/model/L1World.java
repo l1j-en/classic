@@ -272,6 +272,12 @@ public class L1World {
 					continue;
 				}
 
+				// ¯¶ÀWÉdÈÁÄ¢éêÍÍÍàÆ·é
+				if (location.isSamePoint(element.getLocation())) {
+					result.add(element);
+					continue;
+				}
+
 				int distance = location.getTileLineDistance(element
 						.getLocation());
 				// Straight-line distance of height, width greater than either, so the calculation of range

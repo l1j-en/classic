@@ -66,6 +66,7 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			return;
 		}
 		pc.getInventory().removeItem(item, item.getCount());
+		pc.turnOnOffLight();
 	}
 
 	@Override

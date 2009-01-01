@@ -344,6 +344,7 @@ public class ItemTable {
 						true : false);
 				weapon.setHasteItem(rs.getInt("haste_item") == 0
 						? false : true);
+				weapon.setMaxUseTime(rs.getInt("max_use_time"));
 
 				result.put(new Integer(weapon.getItemId()), weapon);
 			}
@@ -433,6 +434,7 @@ public class ItemTable {
 				armor.set_regist_freeze(rs.getInt("regist_freeze"));
 				armor.set_regist_sustain(rs.getInt("regist_sustain"));
 				armor.set_regist_blind(rs.getInt("regist_blind"));
+				armor.setMaxUseTime(rs.getInt("max_use_time"));
 
 				result.put(new Integer(armor.getItemId()), armor);
 			}

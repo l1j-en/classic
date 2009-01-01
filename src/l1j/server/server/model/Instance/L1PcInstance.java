@@ -90,8 +90,10 @@ import l1j.server.server.serverpackets.S_Liquor;
 import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1BookMark;
@@ -929,7 +931,9 @@ public class L1PcInstance extends L1Character {
 	public void receiveManaDamage(L1Character attacker, int mpDamage) { 
 		if (mpDamage > 0 && !isDead()) {
 			delInvis();
-			L1PinkName.onAction(this, attacker);
+			if (attacker instanceof L1PcInstance) {
+				L1PinkName.onAction(this, attacker);
+			}
 			if (attacker instanceof L1PcInstance
 					&& ((L1PcInstance) attacker).isPinkName()) {
 			
@@ -963,7 +967,9 @@ public class L1PcInstance extends L1Character {
 
 			if (damage > 0) {
 				delInvis();
-				L1PinkName.onAction(this, attacker);
+				if (attacker instanceof L1PcInstance) {
+					L1PinkName.onAction(this, attacker);
+				}
 				if (attacker instanceof L1PcInstance
 						&& ((L1PcInstance) attacker).isPinkName()) {
 					
@@ -1095,7 +1101,24 @@ public class L1PcInstance extends L1Character {
 				return;
 			}
 
-			deathPenalty();
+			 // ¬ÈçyieBÈµ
+			L1PcInstance fightPc = null;
+			if (lastAttacker instanceof L1PcInstance) {
+				fightPc = (L1PcInstance) lastAttacker;
+			}
+			if (fightPc != null) {
+				if (getFightId() == fightPc.getId()
+						&& fightPc.getFightId() == getId()) { // ¬
+					setFightId(0);
+					sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
+					fightPc.setFightId(0);
+					fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
+							0, 0));
+					return;
+				}
+			}
+
+			deathPenalty(); // EXPXg
 
 			setGresValid(true); 
 
@@ -1153,7 +1176,6 @@ public class L1PcInstance extends L1Character {
 // player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
 // .getMaster();
 			}
-// if (player != null && !player.equals(this)) { // 
 			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
 
@@ -1652,6 +1674,12 @@ public class L1PcInstance extends L1Character {
 		return _baseDmgup;
 	}
 
+	private int _baseBowDmgup = 0; //  |_[Wâ³x[Xi-128`127j
+
+	public int getBaseBowDmgup() {
+		return _baseBowDmgup;
+	}
+
 	private int _baseHitup = 0; 
 
 	public int getBaseHitup() {
@@ -2044,6 +2072,16 @@ public class L1PcInstance extends L1Character {
 		_ghostCanTalk = flag;
 	}
 
+	private boolean _isReserveGhost = false; // S[Xgðõ
+
+	public boolean isReserveGhost() {
+		return _isReserveGhost;
+	}
+
+	private void setReserveGhost(boolean flag) {
+		_isReserveGhost = flag;
+	}
+
 	public void beginGhost(int locx, int locy, short mapid, boolean canTalk) {
 		beginGhost(locx, locy, mapid, canTalk, 0);
 	}
@@ -2066,13 +2104,16 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
-	public void endGhost() {
+	public void makeReadyEndGhost() {
+		setReserveGhost(true);
 		L1Teleport.teleport(this, _ghostSaveLocX, _ghostSaveLocY,
 				_ghostSaveMapId, _ghostSaveHeading, true);
+	}
+
+	public void endGhost() {
 		setGhost(false);
 		setGhostCanTalk(true);
-		L1Teleport.teleport(this, _ghostSaveLocX, _ghostSaveLocY,
-				_ghostSaveMapId, _ghostSaveHeading, false);
+		setReserveGhost(false);
 	}
 
 	private ScheduledFuture<?> _ghostFuture;
@@ -2325,15 +2366,18 @@ public class L1PcInstance extends L1Character {
 	}
 	public void resetBaseDmgup() {
 		int newBaseDmgup = 0;
-		if (isKnight()) {
+		int newBaseBowDmgup = 0;
+		if (isKnight() || isDarkelf()) { // iCgA_[NGt
 			newBaseDmgup = getLevel() / 10;
-		} else if (isElf()) {
-			newBaseDmgup = getLevel() / 10;
-		} else if (isDarkelf()) { 
-			newBaseDmgup = getLevel() / 10;
+			newBaseBowDmgup = 0;
+		} else if (isElf()) { // Gt
+			newBaseDmgup = 0;
+			newBaseBowDmgup = getLevel() / 10;
 		}
 		addDmgup(newBaseDmgup - _baseDmgup);
+		addBowDmgup(newBaseBowDmgup - _baseBowDmgup);
 		_baseDmgup = newBaseDmgup;
+		_baseBowDmgup = newBaseBowDmgup;
 	}
 
     public void resetBaseHitup() {
@@ -2522,5 +2566,44 @@ public class L1PcInstance extends L1Character {
 	public void setShowWorldChat(boolean flag) {
 		_isShowWorldChat = flag;
 	}
+
+	private int _fightId;
+
+	public int getFightId() {
+		return _fightId;
+	}
+
+	public void setFightId(int i) {
+		_fightId = i;
+	}
+
+	private byte _chatCount = 0;
+
+	private long _oldChatTimeInMillis = 0L;
+
+	public void checkChatInterval() {
+		long nowChatTimeInMillis = System.currentTimeMillis();
+		if (_chatCount == 0) {
+			_chatCount++;
+			_oldChatTimeInMillis = nowChatTimeInMillis;
+			return;
+		}
+
+		long chatInterval = nowChatTimeInMillis - _oldChatTimeInMillis;
+		if (chatInterval > 2000) {
+			_chatCount = 0;
+			_oldChatTimeInMillis = 0;
+		} else {
+			if (_chatCount >= 3) {
+				setSkillEffect(L1SkillId.STATUS_CHAT_PROHIBITED, 120 * 1000);
+				sendPackets(new S_SkillIconGFX(36, 120));
+				sendPackets(new S_ServerMessage(153)); // \f3ÀfÈ`bg¬µðµ½ÌÅA¡ã2ªÔ`bgðs¤±ÆÍÅ«Ü¹ñB
+				_chatCount = 0;
+				_oldChatTimeInMillis = 0;
+			}
+			_chatCount++;
+		}
+	}
+
 
 }

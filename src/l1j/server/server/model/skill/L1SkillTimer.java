@@ -72,12 +72,12 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				if (!cha.isInvisble()) {
 					L1PcInstance pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_Light(pc.getId(), 0));
-					pc.broadcastPacket(new S_Light(pc.getId(), 0));
+					pc.turnOnOffLight();
 				}
 			}
 		} else if (skillId == GLOWING_AURA) {
 			cha.addHitup(-5);
+			cha.addBowHitup(-5);
 			cha.addMr(-20);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -195,6 +195,7 @@ class L1SkillStop {
 					break;
 				}
 				pc.setAddAttrKind(0);
+				pc.sendPackets(new S_OwnCharAttrDef(pc));
 			} else if (cha instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) cha;
 				int attr = npc.getAddAttrKind();
@@ -453,6 +454,12 @@ class L1SkillStop {
 			}
 		}
 
+		// ****** ÅÖW
+		else if (skillId == STATUS_POISON) { // _[WÅ
+			cha.curePoison();
+		}
+
+		// ****** ¿ÖW
 		else if (skillId == COOKING_1_0_N || skillId == COOKING_1_0_S) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;

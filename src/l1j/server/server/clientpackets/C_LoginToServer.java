@@ -58,6 +58,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
+import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.serverpackets.S_Unknown1;
 import l1j.server.server.serverpackets.S_Unknown2;
 import l1j.server.server.serverpackets.S_War;
@@ -85,6 +86,14 @@ public class C_LoginToServer extends ClientBasePacket {
 		String login = client.getAccountName();
 
 		String charName = readS();
+		
+		if (client.getActiveChar() != null) {
+			_log.info("¯êIDÅÌd¡Ú±Ì×(" + client.getHostname()
+					+ ")ÆÌÚ±ð­§ØfµÜµ½B");
+			client.close();
+			return;
+		}
+
 		L1PcInstance pc = L1PcInstance.load(charName);
 		if (pc == null || !login.equals(pc.getAccountName())) {
 			_log.info("Invalid login request=" + charName + " account=" + login
@@ -188,6 +197,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		items(pc);
 		skills(pc);
 		buff(client, pc);
+		pc.turnOnOffLight();
 
 		if (pc.getCurrentHp() > 0) {
 			pc.setDead(false);
@@ -449,6 +459,10 @@ public class C_LoginToServer extends ClientBasePacket {
 			if (summon.getMaster().getId() == pc.getId()) {
 				summon.setMaster(pc);
 				pc.addPet(summon);
+				for (L1PcInstance visiblePc : L1World.getInstance()
+						.getVisiblePlayer(summon)) {
+					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc));
+				}
 			}
 		}
 	}

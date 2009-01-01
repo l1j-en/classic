@@ -439,6 +439,7 @@ public class L1Attack {
 
 		if (_npc instanceof L1PetInstance) { // LV1 for each additional pet is hit +2
 			_hitRate += _npc.getLevel() * 2;
+			_hitRate += ((L1PetInstance) _npc).getHitByWeapon();
 		}
 
 		_hitRate += _npc.getHitup();
@@ -487,7 +488,7 @@ public class L1Attack {
 
 	// NPC and NPC decision to hit
 	private boolean calcNpcNpcHit() {
-		int target_ac = 10 - _targetNpc.getNpcTemplate().get_ac();
+		int target_ac = 10 - _targetNpc.getAc();
 		int attacker_lvl = _npc.getNpcTemplate().get_level();
 
 		if (target_ac != 0) {
@@ -499,6 +500,7 @@ public class L1Attack {
 
 		if (_npc instanceof L1PetInstance) { // LV1 for each additional pet is hit +2
 			_hitRate += _npc.getLevel() * 2;
+			_hitRate += ((L1PetInstance) _npc).getHitByWeapon();
 		}
 
 		if (_hitRate < attacker_lvl) {
@@ -838,6 +840,7 @@ public class L1Attack {
 
 		if (_npc instanceof L1PetInstance) {
 			dmg += (lvl / 16); // Each additional pet is hit LV16
+			dmg += ((L1PetInstance) _npc).getDamageByWeapon();
 		}
 
 		dmg += _npc.getDmgup();
@@ -927,6 +930,7 @@ public class L1Attack {
 			dmg = _random.nextInt(_npc.getNpcTemplate().get_level())
 					+ _npc.getStr() / 2 + 1;
 			dmg += (lvl / 16); // Each additional pet is hit LV16
+			dmg += ((L1PetInstance) _npc).getDamageByWeapon();
 		} else {
 			dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
 		}
@@ -964,28 +968,10 @@ public class L1Attack {
 
 	// Magic players to strengthen Damage
 	private double calcBuffDamage(double dmg) {
-		if (_weaponType == 20 || _weaponType == 62) { // Gauntlet or arch, the near-magical minutes minus process
-			if (_pc.hasSkillEffect(FIRE_WEAPON)) {
-				dmg -= 4;
-			}
-			if (_pc.hasSkillEffect(FIRE_BLESS)) {
-				dmg -= 4;
-			}
-			if (_pc.hasSkillEffect(BURNING_WEAPON)) {
-				dmg -= 6;
-			}
-		} else {
-			if (_pc.hasSkillEffect(STORM_EYE)) {
-				dmg -= 3;
-			}
-			if (_pc.hasSkillEffect(STORM_SHOT)) {
-				dmg -= 5;
-			}
-		}
-
-		// Arms fire, the damage will be 1.5 times not Berserker
-		if (_pc.hasSkillEffect(BURNING_SPIRIT)
-				|| (_pc.hasSkillEffect(ELEMENTAL_FIRE) && _weaponType != 20 && _weaponType != 62)) {
+		// ÎíAo[T[J[Ì_[WÍ1.5{µÈ¢
+		if (_pc.hasSkillEffect(BURNING_SPIRIT) 
+				|| (_pc.hasSkillEffect(ELEMENTAL_FIRE)
+						&& _weaponType != 20 && _weaponType != 62)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				double tempDmg = dmg;
 				if (_pc.hasSkillEffect(FIRE_WEAPON)) {

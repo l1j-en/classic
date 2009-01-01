@@ -89,12 +89,12 @@ public class DoorSpawnTable {
 					door.setHomeX(rs.getInt(4));
 					door.setHomeY(rs.getInt(5));
 					door.setDirection(rs.getInt(7));
-					door.setEntranceX(rs.getInt(8));
-					door.setEntranceY(rs.getInt(9));
+					door.setLeftEdgeLocation(rs.getInt(8));
+					door.setRightEdgeLocation(rs.getInt(9));
 					door.setMaxHp(rs.getInt(10));
 					door.setCurrentHp(rs.getInt(10));
 					door.setKeeperId(rs.getInt(11));
-					door.setSize(rs.getInt(12));
+
 
 					L1World.getInstance().storeObject(door);
 					L1World.getInstance().addVisibleObject(door);

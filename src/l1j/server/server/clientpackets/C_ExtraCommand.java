@@ -44,8 +44,11 @@ public class C_ExtraCommand extends ClientBasePacket {
 		if (pc.isTeleport()) {
 			return;
 		}
-		if (pc.hasSkillEffect(SHAPE_CHANGE)) {
-			return;
+		if (pc.hasSkillEffect(SHAPE_CHANGE)) { // OÌ×AÏgÍ¼vC[ÉMµÈ¢
+			int gfxId = pc.getTempCharGfx();
+			if (gfxId != 6080 && gfxId != 6094) { // RnpwÏgÍáO
+				return;
+			}
 		}
 		S_DoActionGFX gfx = new S_DoActionGFX(pc.getId(), actionId);
 		pc.broadcastPacket(gfx);

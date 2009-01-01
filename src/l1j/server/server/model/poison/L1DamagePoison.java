@@ -51,6 +51,9 @@ public class L1DamagePoison extends L1Poison {
 					break;
 				}
 
+				if (!_target.hasSkillEffect(L1SkillId.STATUS_POISON)) {
+					break;
+				}
 				if (_target instanceof L1PcInstance) {
 					L1PcInstance player = (L1PcInstance) _target;
 					player.receiveDamage(_attacker, _damage);
@@ -75,7 +78,7 @@ public class L1DamagePoison extends L1Poison {
 	}
 
 	private void doInfection() {
-		_target.setSkillEffect(L1SkillId.STATUS_POISON, 0);
+		_target.setSkillEffect(L1SkillId.STATUS_POISON, 30000);
 		_target.setPoisonEffect(1);
 
 		if (isDamageTarget(_target)) {

@@ -58,7 +58,7 @@ public class C_UseSkill extends ClientBasePacket {
 
 		if (abyte0.length > 4) {
 			try {
-				if (skillId == CALL_MEMBER || skillId == TELEPORT_TO_MEMBER) { 
+				if (skillId == CALL_CLAN || skillId == RUN_CLAN) { // R[NAN
 					charName = readS();
 				} else if (skillId == TRUE_TARGET) { 
 					targetId = readD();
@@ -97,7 +97,7 @@ public class C_UseSkill extends ClientBasePacket {
 		pc.killSkillEffectTimer(MEDITATION);
 
 		try {
-			if (skillId == CALL_MEMBER || skillId == TELEPORT_TO_MEMBER) { 
+			if (skillId == CALL_CLAN || skillId == RUN_CLAN) { 
 				if (charName.isEmpty()) {
 					return;
 				}

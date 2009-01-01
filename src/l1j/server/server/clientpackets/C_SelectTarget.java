@@ -50,12 +50,11 @@ public class C_SelectTarget extends ClientBasePacket {
 		L1Character target = (L1Character) L1World.getInstance().findObject(targetId);
 
 		if (pet != null && target != null) {
-			// check if target is a PC, and if so, ignore attack command if in safety zone
-			if (target instanceof L1PcInstance || target instanceof L1PetInstance ||
-				target instanceof L1SummonInstance)
-			{
-				if (target.getZoneType() == 1)
+			if (target instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) target;
+				if (pc.checkNonPvP(pc, pet)) {
 					return;
+				}
 			}
 			pet.setMasterTarget(target);
 		}

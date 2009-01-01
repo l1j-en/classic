@@ -51,6 +51,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 				item.setIdentified(rs.getInt("is_id") != 0 ? true : false);
 				item.set_durability(rs.getInt("durability"));
 				item.setChargeCount(rs.getInt("charge_count"));
+				item.setRemainingTime(rs.getInt("remaining_time"));
 				item.setLastUsed(rs.getTimestamp("last_used"));
 
 				_items.add(item);
@@ -74,7 +75,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO character_elf_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, last_used = ?");
+					.prepareStatement("INSERT INTO character_elf_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setString(2, _owner.getAccountName());
 			pstm.setInt(3, item.getItemId());
@@ -84,7 +85,8 @@ public class L1DwarfForElfInventory extends L1Inventory {
 			pstm.setInt(7, item.isIdentified() ? 1 : 0);
 			pstm.setInt(8, item.get_durability());
 			pstm.setInt(9, item.getChargeCount());
-			pstm.setTimestamp(10, item.getLastUsed());
+			pstm.setInt(10, item.getRemainingTime());
+			pstm.setTimestamp(11, item.getLastUsed());
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

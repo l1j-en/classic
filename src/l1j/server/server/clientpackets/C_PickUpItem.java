@@ -52,9 +52,10 @@ public class C_PickUpItem extends ClientBasePacket {
 			
 			return;
 		}
-		if (pc.isGhost()) {
+		if (pc.isDead() || pc.isGhost()) {
 			return;
 		}
+		
 
 		if (pc.isInvisble()) {
 			return;
@@ -69,6 +70,15 @@ public class C_PickUpItem extends ClientBasePacket {
 
 		if (object != null && !pc.isDead()) {
 			L1ItemInstance item = (L1ItemInstance) object;
+			if (item.getItemOwnerId() != 0
+					&& pc.getId() != item.getItemOwnerId()) {
+				pc.sendPackets(new S_ServerMessage(623)); // ACeªE¦Ü¹ñÅµ½B
+				return;
+			}
+			if (pc.getLocation().getTileLineDistance(item.getLocation()) > 3) {
+				return;
+			}
+
 			if (item.getItem().getItemId() == L1ItemId.ADENA) {
 				L1ItemInstance inventoryItem = pc.getInventory().findItemId(
 						L1ItemId.ADENA);
@@ -88,6 +98,7 @@ public class C_PickUpItem extends ClientBasePacket {
 				if (item.getX() != 0 && item.getY() != 0) { 
 					groundInventory.tradeItem(item, pickupCount, pc
 							.getInventory());
+					pc.turnOnOffLight();
 
 					pc.sendPackets(new S_AttackStatus(pc, objectId,
 							ActionCodes.ACTION_Pickup));

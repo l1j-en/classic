@@ -43,7 +43,7 @@ public class S_DollPack extends ServerBasePacket {
 		writeH(pet.getGfxId()); // SpriteID in List.spr
 		writeC(pet.getStatus()); // Modes in List.spr
 		writeC(pet.getHeading());
-		writeC(pet.getLightSize()); // (Bright) - 0~15
+		writeC(0); // (Bright) - 0~15
 		writeC(pet.getMoveSpeed()); // 0:normal,1:fast,2:slow
 		writeD(0);
 		writeH(0);

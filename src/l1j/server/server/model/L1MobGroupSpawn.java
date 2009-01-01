@@ -71,6 +71,7 @@ public class L1MobGroupSpawn {
 		_isInitSpawn = isInitSpawn;
 
 		L1MobGroupInfo mobGroupInfo = new L1MobGroupInfo();
+		mobGroupInfo.setRemoveGroup(mobGroup.isRemoveGroupIfLeaderDie());
 		mobGroupInfo.addMember(leader);
 
 		if (mobGroup.getMinion1Id() > 0 && mobGroup.getMinion1Count() > 0) {
@@ -164,9 +165,11 @@ public class L1MobGroupSpawn {
 
 			if (mob instanceof L1MonsterInstance) {
 				if (!_isInitSpawn && mob.getHiddenStatus() == 0) {
-					mob.onNpcAI();
+					mob.onNpcAI(); // X^[Ì`hðJn
 				}
 			}
+			mob.turnOnOffLight();
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -175,8 +178,7 @@ public class L1MobGroupSpawn {
 
 	private boolean isDoSpawn(L1NpcInstance mob) {
 		if (mob.getMap().isInMap(mob.getLocation())
-				&& mob.getMap().isPassable(mob.getLocation())
-				&& mob.getPassispeed() > 0 || mob.getPassispeed() == 0) {
+				&& mob.getMap().isPassable(mob.getLocation())) {
 			if (_isRespawnScreen) {
 				return true;
 			}

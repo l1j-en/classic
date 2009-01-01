@@ -165,6 +165,8 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
+	public static final int COL_REMAINING_TIME = 256;
+
 	public static final int COL_CHARGE_COUNT = 128;
 
 	public static final int COL_ITEMID = 64;
@@ -191,6 +193,10 @@ public class L1PcInventory extends L1Inventory {
 
 	@Override
 	public void updateItem(L1ItemInstance item, int column) {
+		if (column >= COL_REMAINING_TIME) { // gpÂ\ÈcèÔ
+			_owner.sendPackets(new S_ItemName(item));
+			column -= COL_REMAINING_TIME;
+		}
 		if (column >= COL_CHARGE_COUNT) { 
 			_owner.sendPackets(new S_ItemName(item));
 			column -= COL_CHARGE_COUNT;
@@ -247,6 +253,10 @@ public class L1PcInventory extends L1Inventory {
 
 		try {
 			CharactersItemStorage storage = CharactersItemStorage.create();
+			if (column >= COL_REMAINING_TIME) { // gpÂ\ÈcèÔ
+				storage.updateItemRemainingTime(item);
+				column -= COL_REMAINING_TIME;
+			}
 			if (column >= COL_CHARGE_COUNT) { 
 				storage.updateItemChargeCount(item);
 				column -= COL_CHARGE_COUNT;
@@ -386,6 +396,25 @@ public class L1PcInventory extends L1Inventory {
 		return equipeitem;
 	}
 
+	// õµÄ¢éO
+	public L1ItemInstance[] getRingEquipped() {
+		L1ItemInstance equipeItem[] = new L1ItemInstance[2];
+		int equipeCount = 0;
+		for (Object itemObject : _items) {
+			L1ItemInstance item = (L1ItemInstance) itemObject;
+			if (item.getItem().getType2() == 2
+					&& item.getItem().getType() == 9 && item.isEquipped()) {
+				equipeItem[equipeCount] = item;
+				equipeCount++;
+				if (equipeCount == 2) {
+					break;
+				}
+			}
+		}
+		return equipeItem;
+	}
+
+	// ÏgÉõÅ«È¢õðO·
 	public void takeoffEquip(int polyid) {
 		takeoffWeapon(polyid);
 		takeoffArmor(polyid);

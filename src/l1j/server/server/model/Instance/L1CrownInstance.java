@@ -20,14 +20,18 @@ package l1j.server.server.model.Instance;
 
 import java.util.List;
 
+import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.ClanTable;
+import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1WarSpawn;
 import l1j.server.server.model.L1World;
 import l1j.server.server.serverpackets.S_CastleMaster;
+import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
@@ -143,10 +147,27 @@ public class L1CrownInstance extends L1NpcInstance {
 			}
 		}
 
+
+		deleteMe();
+
+
+		for (L1Object l1object : L1World.getInstance().getObject()) {
+			if (l1object instanceof L1TowerInstance) {
+				L1TowerInstance tower = (L1TowerInstance) l1object;
+				if (L1CastleLocation.checkInWarArea(castle_id, tower)) {
+					tower.deleteMe();
+				}
+			}
+		}
 		L1WarSpawn warspawn = new L1WarSpawn();
 		warspawn.SpawnTower(castle_id);
 
-		deleteMe();
+
+		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+			if (L1CastleLocation.checkInWarArea(castle_id, door)) {
+				door.repairGate();
+			}
+		}
 	}
 
 	@Override

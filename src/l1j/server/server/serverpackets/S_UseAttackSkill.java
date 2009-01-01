@@ -57,6 +57,11 @@ public class S_UseAttackSkill extends ServerBasePacket {
 	}
 
 	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, int actionId, boolean motion) {
+		buildPacket(cha, targetobj, spellgfx, x, y, actionId, 0, motion);
+	}
+
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
 			int x, int y, int actionId, int isHit) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, isHit, true);
 	}

@@ -145,6 +145,8 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 			pc.sendPackets(s_npcPack);
 		}
 		mob.onNpcAI();
+		mob.turnOnOffLight();
+// mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 	}
 
 	public void spawnAll() {

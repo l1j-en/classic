@@ -375,6 +375,10 @@ public class PacketHandler {
 			new C_ChatParty(abyte0, _client);
 			break;
 
+		case C_OPCODE_FIGHT:
+			new C_Fight(abyte0, _client);
+			break;
+
 		default:
 			// String s = Integer.toHexString(abyte0[0] & 0xff);
 			// _log.warning("");

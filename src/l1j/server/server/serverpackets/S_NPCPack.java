@@ -24,13 +24,25 @@ import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
+import l1j.server.server.model.skill.L1SkillId;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_NPCPack extends ServerBasePacket {
 
-	private static final String _S__1F_NPCPACK = "[S] S_NPCPack";
+	private static final String S_NPC_PACK = "[S] S_NPCPack";
+
+
+	private static final int STATUS_POISON = 1;
+	private static final int STATUS_INVISIBLE = 2;
+	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
+	private static final int STATUS_BRAVE = 16;
+	private static final int STATUS_ELFBRAVE = 32;
+	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
+
 	private byte[] _byte = null;
 
 	public S_NPCPack(L1NpcInstance npc) {
@@ -53,7 +65,7 @@ public class S_NPCPack extends ServerBasePacket {
 			writeC(npc.getStatus());
 		}
 		writeC(npc.getHeading());
-		writeC(npc.getLightSize());
+		writeC(npc.getChaLightSize());
 		writeC(npc.getMoveSpeed());
 		writeD(npc.getExp());
 		writeH(npc.getTempLawful());
@@ -74,14 +86,19 @@ public class S_NPCPack extends ServerBasePacket {
 		 * 1/4 disc news - 0:mob,item(atk pointer), 1:poisoned(), 2:invisible(), 4:pc,
 		 * 8:cursed(), 16:brave(), 32:??, 64:??(??), 128:invisible but name
 		 */
-		int bit = 0;
+		int status = 0;
+		if (npc.getPoison() != null) { // ÅóÔ
+			if (npc.getPoison().getEffectId() == 1) {
+				status |= STATUS_POISON;
+			}
+		}
 		if (npc.getNpcTemplate().is_doppel()) {
 			// PC's and Eva's blessing to attribute.. Dopper with the exception of the Quest for WIZ
 			if (npc.getNpcTemplate().get_npcId() != 81069) {
-				bit |= 4;
+				status |= STATUS_PC;
 			}
 		}
-		writeC(bit);
+		writeC(status);
 
 		writeD(0); // 0 In addition to the flying C_27
 		writeS(null);
@@ -117,7 +134,7 @@ public class S_NPCPack extends ServerBasePacket {
 	}
 
 	public String getType() {
-		return _S__1F_NPCPACK;
+		return S_NPC_PACK;
 	}
 
 }

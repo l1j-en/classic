@@ -29,13 +29,30 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 public class S_SummonPack extends ServerBasePacket {
 
 	private static final String _S__1F_SUMMONPACK = "[S] S_SummonPack";
+
+
+	private static final int STATUS_POISON = 1;
+	private static final int STATUS_INVISIBLE = 2;
+	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
+	private static final int STATUS_BRAVE = 16;
+	private static final int STATUS_ELFBRAVE = 32;
+	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
+
 	private byte[] _byte = null;
 
-	public S_SummonPack(L1SummonInstance pet, L1PcInstance player) {
-		/*
-		 * int addbyte = 0; int addbyte1 = 1; int addbyte2 = 13; int setting =
-		 * 4;
-		 */
+	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc) {
+		buildPacket(pet, pc, true);
+	}
+
+	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc,
+			boolean isCheckMaster) {
+		buildPacket(pet, pc, isCheckMaster);
+	}
+
+	private void buildPacket(L1SummonInstance pet, L1PcInstance pc,
+			boolean isCheckMaster) {
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pet.getX());
 		writeH(pet.getY());
@@ -43,23 +60,31 @@ public class S_SummonPack extends ServerBasePacket {
 		writeH(pet.getGfxId()); // SpriteID in List.spr
 		writeC(pet.getStatus()); // Modes in List.spr
 		writeC(pet.getHeading());
-		writeC(pet.getLightSize()); // (Bright) - 0~15
+		writeC(pet.getChaLightSize()); // (Bright) - 0~15
 		writeC(pet.getMoveSpeed()); // Speed - 0:normal, 1:fast,
 		// 2:slow
 		writeD(0);
 		writeH(0);
 		writeS(pet.getNameId());
 		writeS(pet.getTitle());
-		writeC(0); // 1/4 discs news - 0:mob,item(atk pointer), 1:poisoned(),
-		// 2:invisable(), 4:pc, 8:cursed(), 16:brave(),
-		// 32:??, 64:??(??), 128:invisable but name
-		writeD(0); 
-		writeS(null); 
-		writeS(pet.getMaster() != null ? pet.getMaster().getName() : "");
+		int status = 0;
+		if (pet.getPoison() != null) { // ÅóÔ
+			if (pet.getPoison().getEffectId() == 1) {
+				status |= STATUS_POISON;
+			}
+		}
+		writeC(status);
+		writeD(0);
+		writeS(null);
+		if (isCheckMaster && pet.isExsistMaster()) {
+			writeS(pet.getMaster().getName());
+		} else {
+			writeS("");
+		}
 		writeC(0); 
 		// HP Percent
 		if (pet.getMaster() != null
-				&& pet.getMaster().getId() == player.getId()) {
+				&& pet.getMaster().getId() == pc.getId()) {
 			int percent = pet.getMaxHp() != 0 ? 100 * pet.getCurrentHp()
 					/ pet.getMaxHp() : 100;
 			writeC(percent);

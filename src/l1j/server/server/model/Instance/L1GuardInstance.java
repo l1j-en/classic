@@ -18,8 +18,9 @@
  */
 package l1j.server.server.model.Instance;
 
-//import java.util.logging.Logger;
 
+import l1j.server.server.ActionCodes;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
@@ -28,6 +29,7 @@ import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.skill.L1SkillId;
+import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.types.Point;

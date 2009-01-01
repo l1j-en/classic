@@ -66,6 +66,8 @@ public class MobGroupTable {
 				mobGroup = new L1MobGroup();
 				mobGroupId = rs.getInt("id");
 				mobGroup.setId(mobGroupId);
+				mobGroup.setRemoveGroupIfLeaderDie(rs
+						.getBoolean("remove_group_if_leader_die"));
 				mobGroup.setLeaderId(rs.getInt("leader_id"));
 				mobGroup.setMinion1Id(rs.getInt("minion1_id"));
 				mobGroup.setMinion1Count(rs.getInt("minion1_count"));

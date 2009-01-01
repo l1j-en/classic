@@ -498,6 +498,8 @@ public class L1MobSkillUse {
 						newnpc.broadcastPacket(new S_NPCPack(newnpc));
 					}
 					newnpc.onNpcAI();
+					newnpc.turnOnOffLight();
+					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}

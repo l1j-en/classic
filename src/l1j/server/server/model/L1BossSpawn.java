@@ -32,14 +32,16 @@ public class L1BossSpawn extends L1Spawn {
 
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
+		private int _objectId;
 
-		private SpawnTask(int spawnNumber) {
+		private SpawnTask(int spawnNumber, int objectId) {
 			_spawnNumber = spawnNumber;
+			_objectId = objectId;
 		}
 
 		@Override
 		public void run() {
-			doSpawn(_spawnNumber);
+			doSpawn(_spawnNumber, _objectId);
 		}
 	}
 
@@ -53,7 +55,7 @@ public class L1BossSpawn extends L1Spawn {
 	 * @param spawnNumber L1Spawn Which is administered by the numbers. Home to specify what point does not exist and it's good.
 	 */
 	@Override
-	public void executeSpawnTask(int spawnNumber) {
+	public void executeSpawnTask(int spawnNumber, int objectId) {
 		// count Decrement to check the entire death
 		if (subAndGetCount() != 0) {
 			return; // Not all dead
@@ -73,7 +75,7 @@ public class L1BossSpawn extends L1Spawn {
 			spawnTime = calcNextSpawnTime(_cycle
 					.getLatestStartTime(latestStart));
 		}
-		spawnBoss(spawnTime);
+		spawnBoss(spawnTime, objectId);
 	}
 
 	private int _spawnCount;
@@ -118,7 +120,7 @@ public class L1BossSpawn extends L1Spawn {
 		} else {
 			spawnTime = calcNextSpawnTime(now);
 		}
-		spawnBoss(spawnTime);
+		spawnBoss(spawnTime, 0);
 	}
 
 	// Next calculate the probability of the emergence of time to calculate
@@ -130,7 +132,7 @@ public class L1BossSpawn extends L1Spawn {
 	}
 
 	// The boss at the time specified in the emergence of schedule
-	private void spawnBoss(Calendar spawnTime) {
+	private void spawnBoss(Calendar spawnTime, int objectId) {
 		// The emergence of time to keep. When re-emergence.
 		_activeSpawnTime = spawnTime;
 		long delay = spawnTime.getTimeInMillis() - System.currentTimeMillis();
@@ -139,7 +141,8 @@ public class L1BossSpawn extends L1Spawn {
 		_spawnCount = getAmount();
 		while (cnt < getAmount()) {
 			cnt++;
-			GeneralThreadPool.getInstance().schedule(new SpawnTask(0), delay);
+			GeneralThreadPool.getInstance().schedule(new SpawnTask(0, objectId),
+					delay);
 		}
 		_log.log(Level.FINE, toString());
 	}

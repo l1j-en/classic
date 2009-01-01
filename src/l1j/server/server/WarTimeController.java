@@ -23,13 +23,19 @@ import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
+import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.model.L1CastleLocation;
+import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1WarSpawn;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1CrownInstance;
+import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1TowerInstance;
+import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 
@@ -92,7 +98,26 @@ public class WarTimeController implements Runnable {
 					_is_now_war[i] = true;
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnFlag(i + 1);
-					L1World.getInstance().broadcastPacketToAll(new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1));
+					L1World.getInstance().broadcastPacketToAll(
+							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1)); // %sÌUéíªnÜèÜµ½B
+					int[] loc = new int[3];
+					for (L1PcInstance pc : L1World.getInstance()
+							.getAllPlayers()) {
+						int castleId = i + 1;
+						if (L1CastleLocation.checkInWarArea(castleId, pc)
+								&& !pc.isGm()) { // øàÉé
+							L1Clan clan = L1World.getInstance().getClan(pc
+									.getClanname());
+							if (clan != null) {
+								if (clan.getCastleId() == castleId) { // éåNõ
+									continue;
+								}
+							}
+							loc = L1CastleLocation.getGetBackLoc(castleId);
+							L1Teleport.teleport(pc, loc[0], loc[1],
+									(short) loc[2], 5, true);
+						}
+					}
 				}
 			} else if (_war_end_time[i].before(getRealTime())) {
 				if (_is_now_war[i] == true) {
@@ -119,6 +144,25 @@ public class WarTimeController implements Runnable {
 								L1WarSpawn warspawn = new L1WarSpawn();
 								warspawn.SpawnTower(castle_id);
 							}
+						}
+						// ^[ðêUÁ·
+						if (l1object instanceof L1TowerInstance) {
+							L1TowerInstance tower = (L1TowerInstance) l1object;
+							if (L1CastleLocation.checkInWarArea(castle_id,
+									tower)) {
+								tower.deleteMe();
+							}
+						}
+					}
+					// ^[ðÄo»³¹é
+					L1WarSpawn warspawn = new L1WarSpawn();
+					warspawn.SpawnTower(castle_id);
+
+					// éåð³Éß·
+					for (L1DoorInstance door : DoorSpawnTable.getInstance()
+							.getDoorList()) {
+						if (L1CastleLocation.checkInWarArea(castle_id, door)) {
+							door.repairGate();
 						}
 					}
 				}

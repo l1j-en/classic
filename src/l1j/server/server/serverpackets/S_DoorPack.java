@@ -19,6 +19,9 @@
 
 package l1j.server.server.serverpackets;
 
+
+
+import l1j.server.server.ActionCodes;
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1DoorInstance;
 
@@ -30,7 +33,16 @@ public class S_DoorPack extends ServerBasePacket {
 	private static final String S_DOOR_PACK = "[S] S_DoorPack";
 	private byte[] _byte = null;
 
+	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
+	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
+	private static final int STATUS_BRAVE = 16;
+	private static final int STATUS_ELFBRAVE = 32;
+	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
+
+
 
 	public S_DoorPack(L1DoorInstance door) {
 		buildPacket(door);
@@ -43,7 +55,17 @@ public class S_DoorPack extends ServerBasePacket {
 		writeH(door.getY());
 		writeD(door.getId());
 		writeH(door.getGfxId());
-		writeC(door.getOpenStatus());
+		int doorStatus = door.getStatus();
+		int openStatus = door.getOpenStatus();
+		if (door.isDead()) {
+			writeC(doorStatus);
+		} else if (openStatus == ActionCodes.ACTION_Open) {
+			writeC(openStatus);
+		} else if (door.getMaxHp() > 1 && doorStatus != 0) {
+			writeC(doorStatus);
+		} else {
+			writeC(openStatus);
+		}
 		writeC(0);
 		writeC(0);
 		writeC(0);
@@ -51,11 +73,13 @@ public class S_DoorPack extends ServerBasePacket {
 		writeH(0);
 		writeS(null);
 		writeS(null);
-		if (door.isInvisible()) {
-			writeC(STATUS_INVISIBLE);
-		} else {
-			writeC(0);
+		int status = 0;
+		if (door.getPoison() != null) { // ÅóÔ
+			if (door.getPoison().getEffectId() == 1) {
+				status |= STATUS_POISON;
+			}
 		}
+		writeC(status);
 		writeD(0);
 		writeS(null);
 		writeS(null);

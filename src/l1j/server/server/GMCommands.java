@@ -2402,6 +2402,8 @@ public class GMCommands {
 						L1Object object = L1World.getInstance().findObject(npc.getId());
 						L1NpcInstance newnpc = (L1NpcInstance) object;
 						newnpc.onNpcAI();
+						newnpc.turnOnOffLight();
+						newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 					}
 					if (isPineWand) {
 						L1NpcDeleteTimer timer = new L1NpcDeleteTimer(npc, 300000);

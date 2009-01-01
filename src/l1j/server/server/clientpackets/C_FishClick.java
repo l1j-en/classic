@@ -198,6 +198,7 @@ public class C_FishClick extends ClientBasePacket {
 
 		L1ItemInstance item = ItemTable.getInstance().createItem(itemId);
 		if (item != null) {
+			item.startItemOwnerTimer(pc);
 			L1World.getInstance().getInventory(pc.getX(), pc.getY(),
 					pc.getMapId()).storeItem(item);
 			pc.sendPackets(new S_ServerMessage(1185, message));

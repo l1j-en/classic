@@ -75,11 +75,12 @@ public class PetTypeTable {
 				for (int i = 0; i < 5; i++) {
 					msgIds[i] = rs.getInt("MessageId" + (i + 1));
 				}
+				int defyMsgId = rs.getInt("DefyMessageId");
 				IntRange hpUpRange = new IntRange(hpUpMin, hpUpMax);
 				IntRange mpUpRange = new IntRange(mpUpMin, mpUpMax);
 				_types.put(baseNpcId, new L1PetType(baseNpcId, name,
 						itemIdForTaming, hpUpRange, mpUpRange,
-						npcIdForEvolving, msgIds));
+						npcIdForEvolving, msgIds, defyMsgId));
 				_defaultNames.add(name.toLowerCase());
 			}
 		} catch (SQLException e) {

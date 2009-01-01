@@ -30,19 +30,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.Instance.L1PetInstance;
-import l1j.server.server.model.Instance.L1SummonInstance;
-import l1j.server.server.model.map.L1Map;
-import l1j.server.server.model.map.L1WorldMap;
-import l1j.server.server.model.skill.L1SkillId;
-import l1j.server.server.serverpackets.S_CharVisualUpdate;
-import l1j.server.server.serverpackets.S_DollPack;
-import l1j.server.server.serverpackets.S_SkillIconWindShackle;
-import l1j.server.server.serverpackets.S_MapID;
-import l1j.server.server.serverpackets.S_OtherCharPacks;
-import l1j.server.server.serverpackets.S_OwnCharPack;
-import l1j.server.server.serverpackets.S_PetPack;
-import l1j.server.server.serverpackets.S_SummonPack;
+import l1j.server.server.utils.Teleportation;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -50,8 +38,7 @@ import l1j.server.server.serverpackets.S_SummonPack;
 public class C_Teleport extends ClientBasePacket {
 
 	private static final String C_TELEPORT = "[C] C_Teleport";
-	
-	private static Random _random = new Random();
+
 
 	public C_Teleport(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -59,123 +46,7 @@ public class C_Teleport extends ClientBasePacket {
 
 		L1PcInstance pc = clientthread.getActiveChar();
 
-		if (pc.isDead() || pc.isTeleport()) {
-			return;
-		}
-
-		int x = pc.getTeleportX();
-		int y = pc.getTeleportY();
-		short mapId = pc.getTeleportMapId();
-		int head = pc.getTeleportHeading();
-
-		L1Map map = L1WorldMap.getInstance().getMap(mapId);
-
-		if (!map.isInMap(x, y) && !pc.isGm()) {
-			x = pc.getX();
-			y = pc.getY();
-			mapId = pc.getMapId();
-		}
-
-		pc.setTeleport(true);
-
-		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-		if (clan != null) {
-			if (clan.getWarehouseUsingChar() == pc.getId()) {
-				clan.setWarehouseUsingChar(0); 
-			}
-		}
-
-		L1World.getInstance().moveVisibleObject(pc, mapId);
-		pc.setLocation(x, y, mapId);
-		pc.setHeading(head);
-		pc.sendPackets(new S_MapID(pc.getMapId(), pc.getMap().isUnderwater()));
-
-		if (!pc.isGhost() && !pc.isGmInvis() && !pc.isInvisble()) {
-			pc.broadcastPacket(new S_OtherCharPacks(pc));
-		}
-		pc.sendPackets(new S_OwnCharPack(pc));
-
-		pc.removeAllKnownObjects();
-		pc.sendVisualEffectAtTeleport();
-		pc.updateObject();
-		pc.sendPackets(new S_CharVisualUpdate(pc));
-
-		pc.killSkillEffectTimer(L1SkillId.MEDITATION);
-
-		HashSet<L1PcInstance> subjects = new HashSet<L1PcInstance>();
-		subjects.add(pc);
-
-		if (!pc.isGhost() && pc.getMap().isTakePets()) {
-			for (L1NpcInstance petNpc : pc.getPetList().values()) {
-
-				L1Location loc = pc.getLocation().randomLocation(3, false);
-				int nx = loc.getX();
-				int ny = loc.getY();
-				if (pc.getMapId() == 5125 || pc.getMapId() == 5131
-						|| pc.getMapId() == 5132 || pc.getMapId() == 5133
-						|| pc.getMapId() == 5134) { 
-					nx = 32799 + _random.nextInt(5) - 3;
-					ny = 32864 + _random.nextInt(5) - 3;
-				}
-				teleport(petNpc, nx, ny, mapId, head);
-				if (petNpc instanceof L1SummonInstance) { 
-					L1SummonInstance summon = (L1SummonInstance) petNpc;
-					pc.sendPackets(new S_SummonPack(summon, pc));
-				} else if (petNpc instanceof L1PetInstance) {
-					L1PetInstance pet = (L1PetInstance) petNpc;
-					pc.sendPackets(new S_PetPack(pet, pc));
-				}
-
-				for (L1PcInstance visiblePc : L1World.getInstance()
-						.getVisiblePlayer(petNpc)) {
-					visiblePc.removeKnownObject(petNpc);
-					subjects.add(visiblePc);
-				}
-
-			}
-
-			for (L1DollInstance doll : pc.getDollList().values()) {
-
-				L1Location loc = pc.getLocation().randomLocation(3, false);
-				int nx = loc.getX();
-				int ny = loc.getY();
-
-				teleport(doll, nx, ny, mapId, head);
-				pc.sendPackets(new S_DollPack(doll, pc));
-
-				for (L1PcInstance visiblePc : L1World.getInstance()
-						.getVisiblePlayer(doll)) {
-					visiblePc.removeKnownObject(doll);
-					subjects.add(visiblePc);
-				}
-
-			}
-		}
-
-		for (L1PcInstance updatePc : subjects) {
-			updatePc.updateObject();
-		}
-
-		pc.setTeleport(false);
-
-		if (pc.hasSkillEffect(L1SkillId.WIND_SHACKLE)) {
-			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
-					pc.getSkillEffectTimeSec(L1SkillId.WIND_SHACKLE)));
-		}
-	}
-
-	private static void teleport(L1NpcInstance npc, int x, int y, short map,
-			int head) {
-		L1World.getInstance().moveVisibleObject(npc, map);
-
-		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(),
-				npc.getY(), true);
-		npc.setX(x);
-		npc.setY(y);
-		npc.setMap(map);
-		npc.setHeading(head);
-		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(),
-				npc.getY(), false);
+		Teleportation.Teleportation(pc);
 	}
 
 	@Override

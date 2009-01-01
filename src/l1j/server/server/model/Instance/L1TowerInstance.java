@@ -68,11 +68,35 @@ public class L1TowerInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) { 
 		if (_castle_id == 0) { 
-			_castle_id = L1CastleLocation.getCastleId(getX(), getY(),
-					getMapId());
+			if (isSubTower()) {
+				_castle_id = L1CastleLocation.ADEN_CASTLE_ID;
+			} else {
+				_castle_id = L1CastleLocation.getCastleId(getX(), getY(),
+						getMapId());
+			}
 		}
+
 		if (_castle_id > 0
 				&& WarTimeController.getInstance().isNowWar(_castle_id)) { 
+			// AféÌC^[ÍTu^[ª3ÂÈãjó³êÄ¢éêÌÝUÂ\
+			if (_castle_id == L1CastleLocation.ADEN_CASTLE_ID
+					&& !isSubTower()) {
+				int subTowerDeadCount = 0;
+				for (L1Object l1object : L1World.getInstance().getObject()) {
+					if (l1object instanceof L1TowerInstance) {
+						L1TowerInstance tower = (L1TowerInstance) l1object;
+						if (tower.isSubTower() && tower.isDead()) {
+							subTowerDeadCount++;
+							if (subTowerDeadCount == 4) {
+								break;
+							}
+						}
+					}
+				}
+				if (subTowerDeadCount < 3) {
+					return;
+				}
+			}
 
 			L1PcInstance pc = null;
 			if (attacker instanceof L1PcInstance) {
@@ -179,8 +203,11 @@ public class L1TowerInstance extends L1NpcInstance {
 			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
 					ActionCodes.ACTION_TowerDie));
 
-			L1WarSpawn warspawn = new L1WarSpawn();
-			warspawn.SpawnCrown(_castle_id);
+			// NEðspawn·é
+			if (!isSubTower()) {
+				L1WarSpawn warspawn = new L1WarSpawn();
+				warspawn.SpawnCrown(_castle_id);
+			}
 		}
 	}
 
@@ -199,6 +226,13 @@ public class L1TowerInstance extends L1NpcInstance {
 			pc.sendPackets(new S_RemoveObject(this));
 		}
 		removeAllKnownObjects();
+	}
+
+	public boolean isSubTower() {
+		return (getNpcTemplate().get_npcId() == 81190
+				|| getNpcTemplate().get_npcId() == 81191
+				|| getNpcTemplate().get_npcId() == 81192
+				|| getNpcTemplate().get_npcId() == 81193);
 	}
 
 }

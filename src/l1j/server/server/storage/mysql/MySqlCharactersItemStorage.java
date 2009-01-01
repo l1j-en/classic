@@ -55,8 +55,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 				L1Item itemTemplate = ItemTable.getInstance().getTemplate(
 						itemId);
 				if (itemTemplate == null) {
-					throw new NullPointerException("item_id=" + itemId
-							+ " not found");
+
+					continue;
 				}
 				item = new L1ItemInstance();
 				item.setId(rs.getInt("id"));
@@ -67,6 +67,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 				item.setIdentified(rs.getInt("is_id") != 0 ? true : false);
 				item.set_durability(rs.getInt("durability"));
 				item.setChargeCount(rs.getInt("charge_count"));
+				item.setRemainingTime(rs.getInt("remaining_time"));
 				item.setLastUsed(rs.getTimestamp("last_used"));
 				item.getLastStatus().updateAll();
 				items.add(item);
@@ -88,7 +89,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, last_used = ?");
+					.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setInt(2, item.getItem().getItemId());
 			pstm.setInt(3, objId);
@@ -98,7 +99,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 			pstm.setInt(7, item.isIdentified() ? 1 : 0);
 			pstm.setInt(8, item.get_durability());
 			pstm.setInt(9, item.getChargeCount());
-			pstm.setTimestamp(10, item.getLastUsed());
+			pstm.setInt(10, item.getRemainingTime());
+			pstm.setTimestamp(11, item.getLastUsed());
 			pstm.execute();
 
 		} catch (SQLException e) {
@@ -158,6 +160,14 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 				"UPDATE character_items SET charge_count = ? WHERE id = ?", item
 						.getChargeCount());
 		item.getLastStatus().updateChargeCount();
+	}
+
+	@Override
+	public void updateItemRemainingTime(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET remaining_time = ? WHERE id = ?", item
+						.getRemainingTime());
+		item.getLastStatus().updateRemainingTime();
 	}
 
 	@Override

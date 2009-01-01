@@ -23,6 +23,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -154,10 +155,10 @@ public class L1PetMatch {
 		return -1;
 	}
 
-	public void enterPetMatch(L1PcInstance pc, int amuletId) {
+	public synchronized boolean enterPetMatch(L1PcInstance pc, int amuletId) {
 		int petMatchNo = decidePetMatchNo();
 		if (petMatchNo == -1) {
-			return;
+			return false;
 		}
 
 		L1PetInstance pet = withdrawPet(pc, amuletId);
@@ -167,6 +168,7 @@ public class L1PetMatch {
 		L1PetMatchReadyTimer timer = new L1PetMatchReadyTimer(petMatchNo, pc,
 				pet);
 		timer.begin();
+		return true;
 	}
 
 	private L1PetInstance withdrawPet(L1PcInstance pc, int amuletId) {
@@ -219,15 +221,27 @@ public class L1PetMatch {
 			return;
 		}
 		if (isWin) {
-			pc.sendPackets(new S_ServerMessage(1166, pc.getName()));
-			L1ItemInstance item = pc.getInventory().storeItem(41309, 3);
+			pc.sendPackets(new S_ServerMessage(1166, pc.getName())); // %0%sybg}b`ÅðûßÜµ½B
+			L1ItemInstance item = ItemTable.getInstance().createItem(41309);
+			int count = 3;
 			if (item != null) {
-				pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
+				if (pc.getInventory().checkAddItem(item, count) == L1Inventory
+						.OK) {
+					item.setCount(count);
+					pc.getInventory().storeItem(item);
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // %0ðèÉüêÜµ½B
+				}
 			}
 		} else {
-			L1ItemInstance item = pc.getInventory().storeItem(41309, 1);
+			L1ItemInstance item = ItemTable.getInstance().createItem(41309);
+			int count = 1;
 			if (item != null) {
-				pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
+				if (pc.getInventory().checkAddItem(item, count) == L1Inventory
+						.OK) {
+					item.setCount(count);
+					pc.getInventory().storeItem(item);
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // %0ðèÉüêÜµ½B
+				}
 			}
 		}
 	}
@@ -245,6 +259,7 @@ public class L1PetMatch {
 					pet.deleteMe();
 				}
 			}
+			L1Teleport.teleport(pc1, 32630, 32744, (short) 4, 4, true);
 		}
 		_pc1Name[petMatchNo] = null;
 		_pet1[petMatchNo] = null;
@@ -252,7 +267,6 @@ public class L1PetMatch {
 		L1PcInstance pc2 = L1World.getInstance()
 				.getPlayer(_pc2Name[petMatchNo]);
 		if (pc2 != null && pc2.getMapId() == PET_MATCH_MAPID[petMatchNo]) {
-			L1Teleport.teleport(pc2, 32624, 32813, (short) 4, 5, true);
 			for (Object object : pc2.getPetList().values().toArray()) {
 				if (object instanceof L1PetInstance) {
 					L1PetInstance pet = (L1PetInstance) object;
@@ -261,6 +275,7 @@ public class L1PetMatch {
 					pet.deleteMe();
 				}
 			}
+			L1Teleport.teleport(pc2, 32630, 32744, (short) 4, 4, true);
 		}
 		_pc2Name[petMatchNo] = null;
 		_pet2[petMatchNo] = null;

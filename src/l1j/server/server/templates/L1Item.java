@@ -442,6 +442,16 @@ public abstract class L1Item implements Serializable {
 		_isHasteItem = flag;
 	}
 
+	private int _maxUseTime = 0; //  gpÂ\ÈÔ
+
+	public int getMaxUseTime() {
+		return _maxUseTime;
+	}
+
+	public void setMaxUseTime(int i) {
+		_maxUseTime = i;
+	}
+
 	private int _useType;
 
 	public int getUseType() {
@@ -466,11 +476,30 @@ public abstract class L1Item implements Serializable {
 		if (_itemId == 40001) { //lamp
 			return 11;
 		} else if (_itemId == 40002) { //lantern
-			return 13;
-		} else if (_itemId == 40004) { //magic lantern, removed uncommenting to activate
+			return 14;
+		} else if (_itemId == 40004) { // }WbN^
 			return 14;
 		} else if (_itemId == 40005) { //candle
 			return 8;
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	 * vÈÇÌR¿ÌÊðÔ·B
+	 */
+	public int getLightFuel() {
+		if (_itemId == 40001) { // v
+			return 600;
+		} else if (_itemId == 40002) { // ^
+			return 0;
+		} else if (_itemId == 40003) { // ^IC
+			return 600;
+		} else if (_itemId == 40004) { // }WbN^
+			return 0;
+		} else if (_itemId == 40005) { // Lh
+			return 600;
 		} else {
 			return 0;
 		}
@@ -562,4 +591,29 @@ public abstract class L1Item implements Serializable {
 	public int get_defense_wind() {
 		return 0;
 	}
+
+	public int get_regist_stun() {
+		return 0;
+	}
+
+	public int get_regist_stone() {
+		return 0;
+	}
+
+	public int get_regist_sleep() {
+		return 0;
+	}
+
+	public int get_regist_freeze() {
+		return 0;
+	}
+
+	public int get_regist_sustain() {
+		return 0;
+	}
+
+	public int get_regist_blind() {
+		return 0;
+	}
+
 }

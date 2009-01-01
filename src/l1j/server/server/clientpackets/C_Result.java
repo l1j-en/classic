@@ -128,6 +128,7 @@ public class C_Result extends ClientBasePacket {
 				if (tradable) {
 					pc.getInventory().tradeItem(objectId, count,
 							pc.getDwarfInventory());
+					pc.turnOnOffLight();
 				}
 			}
 		} else if (resultType == 3 && size != 0
@@ -192,6 +193,7 @@ public class C_Result extends ClientBasePacket {
 						if (tradable) {
 							pc.getInventory().tradeItem(objectId, count,
 									clan.getDwarfForClanInventory());
+							pc.turnOnOffLight();
 						}
 					}
 				}
@@ -267,6 +269,7 @@ public class C_Result extends ClientBasePacket {
 				if (tradable) {
 					pc.getInventory().tradeItem(objectId, count,
 							pc.getDwarfForElfInventory());
+					pc.turnOnOffLight();
 				}
 			}
 		} else if (resultType == 9 && size != 0

@@ -270,6 +270,10 @@ public class DropTable {
 		int chanceHate;
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
+			if (item.getItem().getType2() == 0 && item.getItem()
+					.getType() == 2) { // lightnACe
+				item.setNowLighting(false);
+			}
 			item.setIdentified(false);
 			if (((Config.AUTO_LOOT != 0) || item.getItem().getItemId() == L1ItemId.ADENA)
 					&& totalHate > 0) {
@@ -380,6 +384,7 @@ public class DropTable {
 			if(item != null){
 				inventory.tradeItem(item, item.getCount(), targetInventory);
 			}
+			npc.turnOnOffLight();
 		}
 	}
 

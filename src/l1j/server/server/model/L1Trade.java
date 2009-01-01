@@ -100,6 +100,8 @@ public class L1Trade {
 			trading_partner.setTradeOk(false);
 			player.setTradeID(0);
 			trading_partner.setTradeID(0);
+			player.turnOnOffLight();
+			trading_partner.turnOnOffLight();
 		}
 	}
 

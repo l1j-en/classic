@@ -102,6 +102,8 @@ public class L1MonsterTrap extends L1Trap {
 		L1World.getInstance().addVisibleObject(npc);
 
 		npc.onNpcAI();
+		npc.turnOnOffLight();
+		npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
 	}
 
 	@Override

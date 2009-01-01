@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
@@ -112,6 +130,19 @@ public class L1MonsterInstance extends L1NpcInstance {
 				continue;
 			}
 
+			// ¬ZêàÍÏg^¢ÏgÉÀç¸SÄANeBu
+			int mapId = getMapId();
+			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91
+					|| mapId == 95) {
+				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { // CrW`FbN
+					targetPlayer = pc;
+					break;
+				}
+			}
+
+			// Ç¿ç©Ìðð½·êAFDÆ©È³êæ§U³êÈ¢B
+			// EX^[ÌJ}ª}CiXlioO¤X^[jÅPCÌJ}xª1ÈãioOFDj
+			// EX^[ÌJ}ªvXliq¤X^[jÅPCÌJ}xª-1ÈºiqFDj
 			if ((getNpcTemplate().getKarma() < 0 && pc.getKarmaLevel() >= 1)
 					|| (getNpcTemplate().getKarma() > 0 && pc.getKarmaLevel() <= -1)) {
 				continue;
@@ -193,7 +224,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 		setActived(false);
 		startAI();
-		startChat(CHAT_TIMING_APPEARANCE); 
+
 	}
 
 	@Override
@@ -274,9 +305,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 					setStatus(ActionCodes.ACTION_Die);
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
-				}
-				else {
-					distributeExpDropKarma(attacker);
+					// Death(attacker);
+				} else { // Ïg·éX^[
+// distributeExpDropKarma(attacker);
 					transform(transformId);
 				}
 			}

@@ -46,33 +46,41 @@ public class L1WarSpawn {
 		return _instance;
 	}
 
-	public void SpawnTower(int castle_id) {
-		for (L1Object l1object : L1World.getInstance().getObject()) {
-			if (l1object instanceof L1TowerInstance) {
-				L1TowerInstance tower = (L1TowerInstance) l1object;
-				if (L1CastleLocation.checkInWarArea(castle_id, tower)) {
-					tower.deleteMe(); 
-				}
-			}
+	public void SpawnTower(int castleId) {
+		int npcId = 81111;
+		if (castleId == L1CastleLocation.ADEN_CASTLE_ID) {
+			npcId = 81189;
 		}
-
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(81111); 
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId); // K[fBA^[
 		int[] loc = new int[3];
-		loc = L1CastleLocation.getTowerLoc(castle_id);
+		loc = L1CastleLocation.getTowerLoc(castleId);
+		SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
+		if (castleId == L1CastleLocation.ADEN_CASTLE_ID) {
+			spawnSubTower();
+		}
+	}
+
+	private void spawnSubTower() {
+		L1Npc l1npc;
+		int[] loc = new int[3];
+		for (int i = 1; i <= 4; i++) {
+			l1npc = NpcTable.getInstance().getTemplate(81189 + i); // Tu^[
+			loc = L1CastleLocation.getSubTowerLoc(i);
+			SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
+		}
+	}
+
+	public void SpawnCrown(int castleId) {
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(81125); // NE
+		int[] loc = new int[3];
+		loc = L1CastleLocation.getTowerLoc(castleId);
 		SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
 	}
 
-	public void SpawnCrown(int castle_id) {
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(81125); 
-		int[] loc = new int[3];
-		loc = L1CastleLocation.getTowerLoc(castle_id);
-		SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
-	}
-
-	public void SpawnFlag(int castle_id) {
+	public void SpawnFlag(int castleId) {
 		L1Npc l1npc = NpcTable.getInstance().getTemplate(81122); 
 		int[] loc = new int[5];
-		loc = L1CastleLocation.getWarArea(castle_id);
+		loc = L1CastleLocation.getWarArea(castleId);
 		int x = 0;
 		int y = 0;
 		int locx1 = loc[0];
@@ -114,7 +122,7 @@ public class L1WarSpawn {
 				npc.setY(locy);
 				npc.setHomeX(locx);
 				npc.setHomeY(locy);
-				npc.setHeading(5);
+				npc.setHeading(0);
 				npc.setMap(mapid);
 				L1World.getInstance().storeObject(npc);
 				L1World.getInstance().addVisibleObject(npc);

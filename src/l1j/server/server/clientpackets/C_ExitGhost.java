@@ -36,7 +36,7 @@ public class C_ExitGhost extends ClientBasePacket {
 			return;
 		}
 
-		pc.endGhost();
+		pc.makeReadyEndGhost();
 	}
 
 	@Override

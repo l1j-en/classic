@@ -138,17 +138,36 @@ public class L1SummonInstance extends L1NpcInstance {
 	}
 
 	public L1SummonInstance(L1NpcInstance target, L1Character master,
-			boolean createZombie) {
+			boolean isCreateZombie) {
 		super(null);
 		setId(IdFactory.getInstance().nextId());
 
-		if (createZombie)
-		{
-			L1Npc template = NpcTable.getInstance().getTemplate(45065).clone(); 
-			
+		if (isCreateZombie) { // NGCg]r
+			int npcId = 45065;
+			L1PcInstance pc = (L1PcInstance) master;
+			int level = pc.getLevel();
+			if (pc.isWizard()) {
+				if (level >= 24 && level <= 31) {
+					npcId = 81183;
+				} else if (level >= 32 && level <= 39) {
+					npcId = 81184;
+				} else if (level >= 40 && level <= 43) {
+					npcId = 81185;
+				} else if (level >= 44 && level <= 47) {
+					npcId = 81186;
+				} else if (level >= 48 && level <= 51) {
+					npcId = 81187;
+				} else if (level >= 52) {
+					npcId = 81188;
+				}
+			} else if (pc.isElf()) {
+				if (level >= 48) {
+					npcId = 81183;
+				}
+			}
+			L1Npc template = NpcTable.getInstance().getTemplate(npcId).clone();
 			setting_template(template);
-		} else 
-		{
+		} else { // eC~OX^[
 			setting_template(target.getNpcTemplate());
 			setCurrentHpDirect(target.getCurrentHp());
 			setCurrentMpDirect(target.getCurrentMp());
@@ -195,11 +214,10 @@ public class L1SummonInstance extends L1NpcInstance {
 			if (damage > 0) {
 				setHate(attacker, 0); 
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
-			}
-
-			if (!isExsistMaster()) {
-				_currentPetStatus = 1;
-				setTarget(attacker);
+				if (!isExsistMaster()) {
+					_currentPetStatus = 1;
+					setTarget(attacker);
+				}
 			}
 
 			if (attacker instanceof L1PcInstance && damage > 0) {
