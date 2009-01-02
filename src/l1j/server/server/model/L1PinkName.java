@@ -87,15 +87,15 @@ public class L1PinkName {
 
 		boolean isNowWar = false;
 		int castleId = L1CastleLocation.getCastleIdByArea(pc);
-		if (castleId != 0) { // øàÉé
+		if (castleId != 0) { // 
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
 
 		if (pc.getLawful() >= 0
-				&& // pc, attacker¤ÉÂl[
+				&& //
 				!pc.isPinkName() && attacker.getLawful() >= 0
 				&& !attacker.isPinkName()) {
-			if (pc.getZoneType() == 0 && // ¤Ém[}][ÅAíÔàÅøàÅÈ¢
+			if (pc.getZoneType() == 0 && // 
 					attacker.getZoneType() == 0 && isNowWar == false) {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));

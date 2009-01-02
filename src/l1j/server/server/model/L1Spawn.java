@@ -299,11 +299,11 @@ public class L1Spawn {
 	 * If you have a point home, spawnNumber based spawn.
 	 * If not, spawnNumber not used.
 	 */
-	protected void doSpawn(int spawnNumber) { // úzu
+	protected void doSpawn(int spawnNumber) { //
 		doSpawn(spawnNumber, 0);
 	}
 
-	protected void doSpawn(int spawnNumber, int objectId) { // Äo»
+	protected void doSpawn(int spawnNumber, int objectId) { // 
 		L1NpcInstance mob = null;
 		try {
 			Object parameters[] = { _template };
@@ -316,7 +316,7 @@ public class L1Spawn {
 			if (objectId == 0) {
 				mob.setId(IdFactory.getInstance().nextId());
 			} else {
-				mob.setId(objectId); // IuWFNgIDÄp
+				mob.setId(objectId); // 
 			}
 
 			if (0 <= getHeading() && getHeading() <= 7) {
@@ -327,9 +327,9 @@ public class L1Spawn {
 			}
 
 			int npcId = mob.getNpcTemplate().get_npcId();
-			if (npcId == 45488 && getMapId() == 9) { // JXp[
+			if (npcId == 45488 && getMapId() == 9) { // 
 				mob.setMap((short) (getMapId() + _random.nextInt(2)));
-			} else if (npcId == 45601 && getMapId() == 11) { // fXiCg
+			} else if (npcId == 45601 && getMapId() == 11) { // 
 				mob.setMap((short) (getMapId() + _random.nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
@@ -431,7 +431,7 @@ public class L1Spawn {
 					((L1MonsterInstance) mob).set_storeDroped(true);
 				}
 			}
-			if (npcId == 45573 && mob.getMapId() == 2) { // otHbg
+			if (npcId == 45573 && mob.getMapId() == 2) { // 
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() == 2) {
 						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0, true);
@@ -453,7 +453,7 @@ public class L1Spawn {
 						isRespawnScreen(), _initSpawn);
 			}
 			mob.turnOnOffLight();
-			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

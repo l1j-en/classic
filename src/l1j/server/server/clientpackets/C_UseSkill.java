@@ -58,7 +58,7 @@ public class C_UseSkill extends ClientBasePacket {
 
 		if (abyte0.length > 4) {
 			try {
-				if (skillId == CALL_CLAN || skillId == RUN_CLAN) { // R[NAN
+				if (skillId == CALL_CLAN || skillId == RUN_CLAN) { //
 					charName = readS();
 				} else if (skillId == TRUE_TARGET) { 
 					targetId = readD();

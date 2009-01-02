@@ -235,7 +235,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				// ByteArrayUtil(data).dumpToString());
 
 				int opcode = data[0] & 0xFF;
-				// ½dOCÎô
+
 				if (opcode == Opcodes.C_OPCODE_COMMONCLICK
 						|| opcode == Opcodes.C_OPCODE_CHANGECHAR) {
 					_loginStatus = 1;
@@ -455,7 +455,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1Trade trade = new L1Trade();
 			trade.TradeCancel(pc);
 		}
-		// ¬ð~·é
+
 		if (pc.getFightId() != 0) {
 			pc.setFightId(0);
 			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
@@ -467,17 +467,14 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 		}
 
-		// p[eB[ð²¯é
-		if (pc.isInParty()) { // p[eB[
+		if (pc.isInParty()) { //
 			pc.getParty().leaveMember(pc);
 		}
-		// `bgp[eB[ð²¯é
-		if (pc.isInChatParty()) { // `bgp[eB[
+
+		if (pc.isInChatParty()) { // 
 			pc.getChatParty().leaveMember(pc);
 		}
 
-		// ybgð[h}bvã©çÁ·
-		// TÌ\¦¼ðÏX·é
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object petObject : petList) {
 			if (petObject instanceof L1PetInstance) {
@@ -501,7 +498,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			doll.deleteDoll();
 		}
 
-		// ]Òð[h}bvã©çÁµA¯n_ÉÄo»³¹é
 		Object[] followerList = pc.getFollowerList().values().toArray();
 		for (Object followerObject : followerList) {
 			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
@@ -512,7 +508,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			follower.deleteMe();
 		}
 
-		// G`gðDBÌcharacter_buffÉÛ¶·é
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
 		pc.clearSkillEffectTimer();

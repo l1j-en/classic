@@ -58,7 +58,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			return;
 		}
 
-		if (item.getItem().getType2() == 0 // íÊF»Ì¼ÌACe
+		if (item.getItem().getType2() == 0 // 
 				&& item.getItem().getType() == 11) { // petitem
 			int itemId = item.getItem().getItemId();
 			if (itemId >= 40749 && itemId <= 40752
@@ -67,10 +67,10 @@ public class C_UsePetItem extends ClientBasePacket {
 			} else if (itemId >= 40761 && itemId <= 40766) {
 				usePetArmor(pc, pet, item);
 			} else {
-				pc.sendPackets(new S_ServerMessage(79)); // \f1½àN«Ü¹ñÅµ½B
+				pc.sendPackets(new S_ServerMessage(79)); //
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(79)); // \f1½àN«Ü¹ñÅµ½B
+			pc.sendPackets(new S_ServerMessage(79)); //
 		}
 	}
 
@@ -78,7 +78,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			L1ItemInstance weapon) {
 		if (pet.getWeapon() == null) {
 			setPetWeapon(pc, pet, weapon);
-		} else { // ùÉ½©ðõµÄ¢éêAOÌõðÍ¸·
+		} else { //
 			if (pet.getWeapon().equals(weapon)) {
 				removePetWeapon(pc, pet, pet.getWeapon());
 			} else {
@@ -92,7 +92,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			L1ItemInstance armor) {
 		if (pet.getArmor() == null) {
 			setPetArmor(pc, pet, armor);
-		} else { // ùÉ½©ðõµÄ¢éêAOÌõðÍ¸·
+		} else { // 
 			if (pet.getArmor().equals(armor)) {
 				removePetArmor(pc, pet, pet.getArmor());
 			} else {

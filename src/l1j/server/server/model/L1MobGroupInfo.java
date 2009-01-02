@@ -89,7 +89,7 @@ public class L1MobGroupInfo {
 		npc.setMobGroupInfo(null);
 
 		if (isLeader(npc)) {
-			if (isRemoveGroup() && _membersList.size() != 0) { // [_[ªSµ½çO[vð·éê
+			if (isRemoveGroup() && _membersList.size() != 0) { // 
 				for (L1NpcInstance minion : _membersList) {
 					minion.setMobGroupInfo(null);
 					minion.setSpawn(null);

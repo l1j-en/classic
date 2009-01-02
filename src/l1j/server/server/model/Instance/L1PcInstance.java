@@ -1101,14 +1101,13 @@ public class L1PcInstance extends L1Character {
 				return;
 			}
 
-			 // ¬ÈçyieBÈµ
 			L1PcInstance fightPc = null;
 			if (lastAttacker instanceof L1PcInstance) {
 				fightPc = (L1PcInstance) lastAttacker;
 			}
 			if (fightPc != null) {
 				if (getFightId() == fightPc.getId()
-						&& fightPc.getFightId() == getId()) { // ¬
+						&& fightPc.getFightId() == getId()) { //
 					setFightId(0);
 					sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
 					fightPc.setFightId(0);
@@ -1118,7 +1117,7 @@ public class L1PcInstance extends L1Character {
 				}
 			}
 
-			deathPenalty(); // EXPXg
+			deathPenalty(); // 
 
 			setGresValid(true); 
 
@@ -1674,7 +1673,7 @@ public class L1PcInstance extends L1Character {
 		return _baseDmgup;
 	}
 
-	private int _baseBowDmgup = 0; //  |_[Wâ³x[Xi-128`127j
+	private int _baseBowDmgup = 0; //
 
 	public int getBaseBowDmgup() {
 		return _baseBowDmgup;
@@ -2072,7 +2071,7 @@ public class L1PcInstance extends L1Character {
 		_ghostCanTalk = flag;
 	}
 
-	private boolean _isReserveGhost = false; // S[Xgðõ
+	private boolean _isReserveGhost = false; //
 
 	public boolean isReserveGhost() {
 		return _isReserveGhost;
@@ -2367,10 +2366,10 @@ public class L1PcInstance extends L1Character {
 	public void resetBaseDmgup() {
 		int newBaseDmgup = 0;
 		int newBaseBowDmgup = 0;
-		if (isKnight() || isDarkelf()) { // iCgA_[NGt
+		if (isKnight() || isDarkelf()) { // 
 			newBaseDmgup = getLevel() / 10;
 			newBaseBowDmgup = 0;
-		} else if (isElf()) { // Gt
+		} else if (isElf()) { // 
 			newBaseDmgup = 0;
 			newBaseBowDmgup = getLevel() / 10;
 		}
@@ -2597,7 +2596,7 @@ public class L1PcInstance extends L1Character {
 			if (_chatCount >= 3) {
 				setSkillEffect(L1SkillId.STATUS_CHAT_PROHIBITED, 120 * 1000);
 				sendPackets(new S_SkillIconGFX(36, 120));
-				sendPackets(new S_ServerMessage(153)); // \f3ÀfÈ`bg¬µðµ½ÌÅA¡ã2ªÔ`bgðs¤±ÆÍÅ«Ü¹ñB
+				sendPackets(new S_ServerMessage(153)); //
 				_chatCount = 0;
 				_oldChatTimeInMillis = 0;
 			}

@@ -193,7 +193,7 @@ public class L1PcInventory extends L1Inventory {
 
 	@Override
 	public void updateItem(L1ItemInstance item, int column) {
-		if (column >= COL_REMAINING_TIME) { // gpÂ\ÈcèÔ
+		if (column >= COL_REMAINING_TIME) { // 
 			_owner.sendPackets(new S_ItemName(item));
 			column -= COL_REMAINING_TIME;
 		}
@@ -253,7 +253,7 @@ public class L1PcInventory extends L1Inventory {
 
 		try {
 			CharactersItemStorage storage = CharactersItemStorage.create();
-			if (column >= COL_REMAINING_TIME) { // gpÂ\ÈcèÔ
+			if (column >= COL_REMAINING_TIME) { // 
 				storage.updateItemRemainingTime(item);
 				column -= COL_REMAINING_TIME;
 			}
@@ -396,7 +396,6 @@ public class L1PcInventory extends L1Inventory {
 		return equipeitem;
 	}
 
-	// õµÄ¢éO
 	public L1ItemInstance[] getRingEquipped() {
 		L1ItemInstance equipeItem[] = new L1ItemInstance[2];
 		int equipeCount = 0;
@@ -414,7 +413,6 @@ public class L1PcInventory extends L1Inventory {
 		return equipeItem;
 	}
 
-	// ÏgÉõÅ«È¢õðO·
 	public void takeoffEquip(int polyid) {
 		takeoffWeapon(polyid);
 		takeoffArmor(polyid);

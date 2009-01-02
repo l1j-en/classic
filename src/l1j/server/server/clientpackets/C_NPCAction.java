@@ -342,7 +342,7 @@ public class C_NPCAction extends ClientBasePacket {
 		} else if (s.equalsIgnoreCase("castlegate")) { //
 
 			repairGate(pc);
-			htmlid = ""; // EBhEðÁ·
+			htmlid = ""; //
 		} else if (s.equalsIgnoreCase("encw")) { //
 			if (pc.getWeapon() == null) {
 				pc.sendPackets(new S_ServerMessage(79));
@@ -2404,7 +2404,7 @@ public class C_NPCAction extends ClientBasePacket {
 			return "";
 		}
 		if (!L1PetMatch.getInstance().enterPetMatch(pc, objid2)) {
-			pc.sendPackets(new S_ServerMessage(1182)); // à¤Q[ÍnÜÁÄéæB
+			pc.sendPackets(new S_ServerMessage(1182)); //
 		}
 		return "";
 	}
@@ -2583,7 +2583,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		}
 		if (keeperId == 70656 || keeperId == 70549
-				|| keeperId == 70985) { // Pgé
+				|| keeperId == 70985) { //
 			if (isExistDefenseClan(L1CastleLocation.KENT_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.KENT_CASTLE_ID) {
 					return;
@@ -2596,7 +2596,7 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		} else if (keeperId == 70778 || keeperId == 70987
-				|| keeperId == 70687) { // WWé
+				|| keeperId == 70687) { //
 			if (isExistDefenseClan(L1CastleLocation.WW_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.WW_CASTLE_ID) {
 					return;
@@ -2604,21 +2604,21 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		} else if (keeperId == 70817 || keeperId == 70800
 				|| keeperId == 70988 || keeperId == 70990
-				|| keeperId == 70989 || keeperId == 70991) { // Mé
+				|| keeperId == 70989 || keeperId == 70991) { //
 			if (isExistDefenseClan(L1CastleLocation.GIRAN_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.GIRAN_CASTLE_ID) {
 					return;
 				}
 			}
 		} else if (keeperId == 70863 || keeperId == 70992
-				|| keeperId == 70862) { // nClé
+				|| keeperId == 70862) { //
 			if (isExistDefenseClan(L1CastleLocation.HEINE_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.HEINE_CASTLE_ID) {
 					return;
 				}
 			}
 		} else if (keeperId == 70995 || keeperId == 70994
-				|| keeperId == 70993) { // h[té
+				|| keeperId == 70993) { //
 			if (isExistDefenseClan(L1CastleLocation.DOWA_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.DOWA_CASTLE_ID) {
 					return;
@@ -2686,18 +2686,17 @@ public class C_NPCAction extends ClientBasePacket {
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 		if (clan != null) {
 			int castleId = clan.getCastleId();
-			if (castleId != 0) { // éåN
+			if (castleId != 0) { //
 				if (!WarTimeController.getInstance().isNowWar(castleId)) {
-					// éåð³Éß·
 					for (L1DoorInstance door : DoorSpawnTable.getInstance()
 							.getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(castleId, door)) {
 							door.repairGate();
 						}
 					}
-					pc.sendPackets(new S_ServerMessage(990)); // éå©®Cð½ßµÜµ½B
+					pc.sendPackets(new S_ServerMessage(990)); // 
 				} else {
-					pc.sendPackets(new S_ServerMessage(991)); // éå©®C½ßðæèÁµÜµ½B
+					pc.sendPackets(new S_ServerMessage(991)); // 
 				}
 			}
 		}

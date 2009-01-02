@@ -165,11 +165,11 @@ public class L1MobGroupSpawn {
 
 			if (mob instanceof L1MonsterInstance) {
 				if (!_isInitSpawn && mob.getHiddenStatus() == 0) {
-					mob.onNpcAI(); // X^[Ì`hðJn
+					mob.onNpcAI(); // 
 				}
 			}
 			mob.turnOnOffLight();
-			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); //
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

@@ -72,7 +72,7 @@ public class C_PickUpItem extends ClientBasePacket {
 			L1ItemInstance item = (L1ItemInstance) object;
 			if (item.getItemOwnerId() != 0
 					&& pc.getId() != item.getItemOwnerId()) {
-				pc.sendPackets(new S_ServerMessage(623)); // ACeªE¦Ü¹ñÅµ½B
+				pc.sendPackets(new S_ServerMessage(623)); // 
 				return;
 			}
 			if (pc.getLocation().getTileLineDistance(item.getLocation()) > 3) {

@@ -968,7 +968,6 @@ public class L1Attack {
 
 	// Magic players to strengthen Damage
 	private double calcBuffDamage(double dmg) {
-		// ÎíAo[T[J[Ì_[WÍ1.5{µÈ¢
 		if (_pc.hasSkillEffect(BURNING_SPIRIT) 
 				|| (_pc.hasSkillEffect(ELEMENTAL_FIRE)
 						&& _weaponType != 20 && _weaponType != 62)) {

@@ -49,7 +49,7 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 				int goalCount = L1HauntedHouse.getInstance().getGoalCount();
 				if (winnersCount == goalCount + 1) {
 					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41308); // EÒÌpvLÜ
+							.createItem(41308); //
 					int count = 1;
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, count) ==
@@ -57,7 +57,7 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 							item.setCount(count);
 							pc.getInventory().storeItem(item);
 							pc.sendPackets(new S_ServerMessage(403, item
-									.getLogName())); // %0ðèÉüêÜµ½B
+									.getLogName())); //
 						}
 					}
 					L1HauntedHouse.getInstance().endHauntedHouse();
@@ -65,7 +65,7 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 					L1HauntedHouse.getInstance().setGoalCount(goalCount + 1);
 					L1HauntedHouse.getInstance().removeMember(pc);
 					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41308); // EÒÌpvLÜ
+							.createItem(41308); //
 					int count = 1;
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, count) ==
@@ -73,7 +73,7 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 							item.setCount(count);
 							pc.getInventory().storeItem(item);
 							pc.sendPackets(new S_ServerMessage(403, item
-									.getLogName())); // %0ðèÉüêÜµ½B
+									.getLogName())); //
 						}
 					}
 					L1SkillUse l1skilluse = new L1SkillUse();

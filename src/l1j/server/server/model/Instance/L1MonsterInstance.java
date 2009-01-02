@@ -130,19 +130,15 @@ public class L1MonsterInstance extends L1NpcInstance {
 				continue;
 			}
 
-			// ¬ZêàÍÏg^¢ÏgÉÀç¸SÄANeBu
 			int mapId = getMapId();
 			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91
 					|| mapId == 95) {
-				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { // CrW`FbN
+				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { // 
 					targetPlayer = pc;
 					break;
 				}
 			}
 
-			// Ç¿ç©Ìðð½·êAFDÆ©È³êæ§U³êÈ¢B
-			// EX^[ÌJ}ª}CiXlioO¤X^[jÅPCÌJ}xª1ÈãioOFDj
-			// EX^[ÌJ}ªvXliq¤X^[jÅPCÌJ}xª-1ÈºiqFDj
 			if ((getNpcTemplate().getKarma() < 0 && pc.getKarmaLevel() >= 1)
 					|| (getNpcTemplate().getKarma() > 0 && pc.getKarmaLevel() <= -1)) {
 				continue;
@@ -306,7 +302,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
 					// Death(attacker);
-				} else { // Ïg·éX^[
+				} else { //
 // distributeExpDropKarma(attacker);
 					transform(transformId);
 				}

@@ -189,7 +189,7 @@ public class L1Inventory extends L1Object {
 			chargeCount = 50;
 		}
 		item.setChargeCount(chargeCount);
-		if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
+		if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // 
 			item.setRemainingTime(item.getItem().getLightFuel());
 		} else {
 			item.setRemainingTime(item.getItem().getMaxUseTime());
@@ -199,7 +199,7 @@ public class L1Inventory extends L1Object {
 		return item;
 	}
 
-	// /tradeAqÉ©çüèµ½ACeÌi[
+	// 
 	public synchronized L1ItemInstance storeTradeItem(L1ItemInstance item) {
 		if (item.isStackable()) {
 			L1ItemInstance findItem = findItemId(item.getItem().getItemId());

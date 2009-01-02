@@ -221,7 +221,7 @@ public class L1PetMatch {
 			return;
 		}
 		if (isWin) {
-			pc.sendPackets(new S_ServerMessage(1166, pc.getName())); // %0%sybg}b`ÅðûßÜµ½B
+			pc.sendPackets(new S_ServerMessage(1166, pc.getName())); //
 			L1ItemInstance item = ItemTable.getInstance().createItem(41309);
 			int count = 3;
 			if (item != null) {
@@ -229,7 +229,7 @@ public class L1PetMatch {
 						.OK) {
 					item.setCount(count);
 					pc.getInventory().storeItem(item);
-					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // %0ðèÉüêÜµ½B
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); //
 				}
 			}
 		} else {
@@ -240,7 +240,7 @@ public class L1PetMatch {
 						.OK) {
 					item.setCount(count);
 					pc.getInventory().storeItem(item);
-					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // %0ðèÉüêÜµ½B
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); //
 				}
 			}
 		}

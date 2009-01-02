@@ -45,7 +45,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		int status = STATUS_PC;
 		int light = pc.isLightOn() ? 14 : 0;
 
-		if (pc.getPoison() != null) { // ÅóÔ
+		if (pc.getPoison() != null) { // 
 			if (pc.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}

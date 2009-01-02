@@ -318,10 +318,10 @@ public class L1PetInstance extends L1NpcInstance {
 		int size = _inventory.getSize();
 		for (int i = 0; i < size; i++) {
 			L1ItemInstance item = items.get(0);
-			if (item.isEquipped()) { // õÌybgACe
+			if (item.isEquipped()) { // 
 				continue;
 			}
-			if (_petMaster.getInventory().checkAddItem( // eÊdÊmFyÑbZ[WM
+			if (_petMaster.getInventory().checkAddItem( // 
 					item, item.getCount()) == L1Inventory.OK) {
 				_inventory.tradeItem(item, item.getCount(), targetInventory);
 				_petMaster.sendPackets(new S_ServerMessage(143, getName(), item

@@ -66,7 +66,7 @@ public class S_PetPack extends ServerBasePacket {
 		writeS(pet.getName());
 		writeS(pet.getTitle());
 		int status = 0;
-		if (pet.getPoison() != null) { // ÅóÔ
+		if (pet.getPoison() != null) { // 
 			if (pet.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}

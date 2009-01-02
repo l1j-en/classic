@@ -70,7 +70,6 @@ public class L1Teleport {
 				.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
 						false));
 
-		// GtFNgÌ\¦
 		if (effectable && (skillType >= 0 && skillType <= EFFECT_SPR.length)) {
 			S_SkillSound packet = new S_SkillSound(pc.getId(),
 					EFFECT_SPR[skillType]);

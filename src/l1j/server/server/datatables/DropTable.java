@@ -271,7 +271,7 @@ public class DropTable {
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
 			if (item.getItem().getType2() == 0 && item.getItem()
-					.getType() == 2) { // lightnACe
+					.getType() == 2) { //
 				item.setNowLighting(false);
 			}
 			item.setIdentified(false);

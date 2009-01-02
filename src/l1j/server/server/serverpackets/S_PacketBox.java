@@ -253,8 +253,8 @@ public class S_PacketBox extends ServerBasePacket {
 			}
 			break;
 		case MSG_DUEL:
-			writeD(type); // èÌIuWFNgID
-			writeD(time); // ©ªÌIuWFNgID
+			writeD(type); // 
+			writeD(time); // 
 			break;
 		default:
 			break;

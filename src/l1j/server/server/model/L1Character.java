@@ -464,45 +464,18 @@ public class L1Character extends L1Object {
 		return _dolllist;
 	}
 
-	/**
-	 * LN^[Ö]ÒðÇÁ·éB
-	 * 
-	 * @param follower
-	 *            ÇÁ·éfollowerð\·AL1FollowerInstanceIuWFNgB
-	 */
 	public void addFollower(L1FollowerInstance follower) {
 		_followerlist.put(follower.getId(), follower);
 	}
 
-	/**
-	 * LN^[©ç]Òðí·éB
-	 * 
-	 * @param follower
-	 *            í·éfollowerð\·AL1FollowerInstanceIuWFNgB
-	 */
 	public void removeFollower(L1FollowerInstance follower) {
 		_followerlist.remove(follower.getId());
 	}
 
-	/**
-	 * LN^[Ì]ÒXgðÔ·B
-	 * 
-	 * @return LN^[Ì]ÒXgð\·AHashMapIuWFNgB±ÌIuWFNgÌKeyÍIuWFNgIDAValueÍL1FollowerInstanceB
-	 */
 	public Map<Integer, L1FollowerInstance> getFollowerList() {
 		return _followerlist;
 	}
 
-
-
-
-
-	/**
-	 * LN^[ÖAÅðÇÁ·éB
-	 * 
-	 * @param poison
-	 *            Åð\·AL1PoisonIuWFNgB
-	 */
 	public void setPoison(L1Poison poison) {
 		_poison = poison;
 	}
@@ -1238,7 +1211,7 @@ public class L1Character extends L1Object {
 		int lightSize = 0;
 		if (this instanceof L1NpcInstance) {
 			L1NpcInstance npc = (L1NpcInstance) this;
-			lightSize = npc.getLightSize(); // npc.sqlÌCgTCY
+			lightSize = npc.getLightSize(); // 
 		}
 		if (hasSkillEffect(L1SkillId.LIGHT)) {
 			lightSize = 14;
@@ -1246,7 +1219,7 @@ public class L1Character extends L1Object {
 
 		for (L1ItemInstance item : getInventory().getItems()) {
 			if (item.getItem().getType2() == 0 && item.getItem()
-					.getType() == 2) { // lightnACe
+					.getType() == 2) { // 
 				int itemlightSize = item.getItem().getLightRange();
 				if (itemlightSize != 0 && item.isNowLighting()) {
 					if (itemlightSize > lightSize) {
@@ -1264,11 +1237,11 @@ public class L1Character extends L1Object {
 			broadcastPacket(new S_Light(getId(), lightSize));
 		}
 
-		setOwnLightSize(lightSize); // S_OwnCharPackÌCgÍÍ
-		setChaLightSize(lightSize); // S_OtherCharPack, S_NPCPackÈÇÌCgÍÍ
+		setOwnLightSize(lightSize); // 
+		setChaLightSize(lightSize); // 
 	}
 
-	private int _chaLightSize; //  CgÌÍÍ
+	private int _chaLightSize; // 
 
 	public int getChaLightSize() {
 		if (isInvisble()) {
@@ -1281,7 +1254,7 @@ public class L1Character extends L1Object {
 		_chaLightSize = i;
 	}
 
-	private int _ownLightSize; //  CgÌÍÍ(S_OwnCharPackp)
+	private int _ownLightSize; // 
 
 	public int getOwnLightSize() {
 		return _ownLightSize;

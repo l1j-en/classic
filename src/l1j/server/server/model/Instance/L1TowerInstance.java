@@ -78,7 +78,7 @@ public class L1TowerInstance extends L1NpcInstance {
 
 		if (_castle_id > 0
 				&& WarTimeController.getInstance().isNowWar(_castle_id)) { 
-			// AféÌC^[ÍTu^[ª3ÂÈãjó³êÄ¢éêÌÝUÂ\
+			// 
 			if (_castle_id == L1CastleLocation.ADEN_CASTLE_ID
 					&& !isSubTower()) {
 				int subTowerDeadCount = 0;
@@ -203,7 +203,6 @@ public class L1TowerInstance extends L1NpcInstance {
 			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
 					ActionCodes.ACTION_TowerDie));
 
-			// NEðspawn·é
 			if (!isSubTower()) {
 				L1WarSpawn warspawn = new L1WarSpawn();
 				warspawn.SpawnCrown(_castle_id);

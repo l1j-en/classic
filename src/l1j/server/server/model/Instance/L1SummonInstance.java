@@ -142,7 +142,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		super(null);
 		setId(IdFactory.getInstance().nextId());
 
-		if (isCreateZombie) { // NGCg]r
+		if (isCreateZombie) { // 
 			int npcId = 45065;
 			L1PcInstance pc = (L1PcInstance) master;
 			int level = pc.getLevel();
@@ -167,7 +167,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			}
 			L1Npc template = NpcTable.getInstance().getTemplate(npcId).clone();
 			setting_template(template);
-		} else { // eC~OX^[
+		} else { // 
 			setting_template(target.getNpcTemplate());
 			setCurrentHpDirect(target.getCurrentHp());
 			setCurrentMpDirect(target.getCurrentMp());

@@ -126,8 +126,7 @@ public class Dungeon {
 					NewDungeon newDungeon = new NewDungeon(newX, newY,
 						(short) newMapId, heading, dungeonType);
 				if (_dungeonMap.containsKey(key)) {
-					_log.log(Level.WARNING,
-							"¯¶L[Ìdungeonf[^ª èÜ·Bkey=" + key);
+					_log.log(Level.WARNING, "Dungeon exists for the same key data. key=" + key);
 				}
 				_dungeonMap.put(key, newDungeon);
 			}

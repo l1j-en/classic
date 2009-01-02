@@ -281,7 +281,7 @@ public class C_Attr extends ClientBasePacket {
 			if (c == 0) {
 				pc.setFightId(0);
 				fightPc.setFightId(0);
-				fightPc.sendPackets(new S_ServerMessage(631, pc.getName())); // %0%dª È½ÆÌ¬ðfèÜµ½B
+				fightPc.sendPackets(new S_ServerMessage(631, pc.getName())); //
 			} else if (c == 1) {
 				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
 						fightPc.getFightId(), fightPc.getId()));
@@ -290,7 +290,7 @@ public class C_Attr extends ClientBasePacket {
 			}
 			break;
 
-		case 653: // £¥ð·éÆOÍÁ¦ÄµÜ¢Ü·B£¥ð]ÝÜ·©HiY/Nj
+		case 653: //
 			c = readC();
 			if (c == 0) { // No
 				;
@@ -328,7 +328,7 @@ public class C_Attr extends ClientBasePacket {
 			break;
 
 
-		case 729: // NåªÄñÅ¢Ü·B¢«É¶Ü·©HiY/Nj
+		case 729: //
 			c = readC();
 			if (c == 0) { // No
 				;
@@ -386,12 +386,12 @@ public class C_Attr extends ClientBasePacket {
 					pc.resExp();
 					pc.setExpRes(0);
 				} else {
-					pc.sendPackets(new S_ServerMessage(189)); // \f1Afiªs«µÄ¢Ü·B
+					pc.sendPackets(new S_ServerMessage(189)); //
 				}
 			}
 			break;
 
-		case 951: // `bgp[eB[µÒðÂµÜ·©HiY/Nj
+		case 951: //
 			c = readC();
 			L1PcInstance chatPc = (L1PcInstance) L1World.getInstance()
 					.findObject(pc.getPartyID());

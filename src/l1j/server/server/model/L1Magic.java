@@ -657,7 +657,7 @@ public class L1Magic {
 			int spByItem = _pc.getSp() - _pc.getTrueSp();
 			charaIntelligence = _pc.getInt() + spByItem - 12;
 		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			int spByItem = _npc.getSp() - _npc.getTrueSp(); // ACeÉæéSPÏ®
+			int spByItem = _npc.getSp() - _npc.getTrueSp(); // 
 			charaIntelligence = _npc.getInt() + spByItem - 12;
 		}
 		if (charaIntelligence < 1) {

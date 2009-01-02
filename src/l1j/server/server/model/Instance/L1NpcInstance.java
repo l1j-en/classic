@@ -516,7 +516,6 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	// òñÅ¢éóÔ©çACeðTµA êÎ~èÄE¤
 	public void searchItemFromAir() {
 		ArrayList<L1GroundInventory> gInventorys =
 				new ArrayList<L1GroundInventory>();
@@ -530,7 +529,6 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		// E¤ACe(ÌCxg)ð_ÅIè
 		int pickupIndex = (int) (Math.random() * gInventorys.size());
 		L1GroundInventory inventory = gInventorys.get(pickupIndex);
 		for (L1ItemInstance item : inventory.getItems()) {
@@ -704,7 +702,6 @@ public class L1NpcInstance extends L1Character {
 	public void onNpcAI() {
 	}
 
-	// ACe¸»
 	public void refineItem() {
 
 		int[] materials = null;
@@ -1172,8 +1169,6 @@ public class L1NpcInstance extends L1Character {
 		return _spawnNumber;
 	}
 
-	// IuWFNgIDðSpawnTaskÉnµÄp·é
-	// O[vX^[Í¡GÉÈéÌÅÄpµÈ¢
 	public void onDecay(boolean isReuseId) {
 		int id = 0;
 		if (isReuseId) {
@@ -1263,14 +1258,8 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
-			if (getCurrentHp() == getMaxHp()) {
-				if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
-					appearOnGround(pc);
-				}
-			} else {
-// if (getNpcTemplate().get_npcId() != 45681) { // hrIÈO
-					searchItemFromAir();
-// }
+			if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
+				appearOnGround(pc);
 			}
  		}
 	}
@@ -1426,10 +1415,10 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	private boolean isExsistCharacterBetweenTarget(int dir) {
-		if (!(this instanceof L1MonsterInstance)) { // X^[ÈOÍÎÛO
+		if (!(this instanceof L1MonsterInstance)) { //
 			return false;
 		}
-		if (_target == null) { // ^[Qbgª¢È¢ê
+		if (_target == null) { //
 			return false;
 		}
 
@@ -1462,12 +1451,11 @@ public class L1NpcInstance extends L1Character {
 
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this,
 				1)) {
-			// PC, Summon, Petª¢éê
+			// PC, Summon, Pet
 			if (object instanceof L1PcInstance
 					|| object instanceof L1SummonInstance
 					|| object instanceof L1PetInstance) {
 				L1Character cha = (L1Character) object;
-				// isûüÉ§¿Ó³ªÁÄ¢éêA^[QbgXgÉÁ¦é
 				if (cha.getX() == targetX && cha.getY() == targetY
 						&& cha.getMapId() == getMapId()) {
 					_hateList.add(cha, 0);
@@ -1479,7 +1467,6 @@ public class L1NpcInstance extends L1Character {
 		return false;
 	}
 
-	// ÚWÌtûüðÔ·
 	public int targetReverseDirection(int tx, int ty) { 
 		int dir = targetDirection(tx, ty);
 		dir += 4;

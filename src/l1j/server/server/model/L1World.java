@@ -272,7 +272,6 @@ public class L1World {
 					continue;
 				}
 
-				// ¯¶ÀWÉdÈÁÄ¢éêÍÍÍàÆ·é
 				if (location.isSamePoint(element.getLocation())) {
 					result.add(element);
 					continue;

@@ -485,7 +485,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							}
 						}
 					}
-				} else if (l1iteminstance.getItem().getType() == 2) { // lightnACe
+				} else if (l1iteminstance.getItem().getType() == 2) { //
 					if (l1iteminstance.getRemainingTime() <= 0
 							&& itemId != 40004) {
 						return;
@@ -498,19 +498,19 @@ public class C_ItemUSe extends ClientBasePacket {
 						pc.turnOnOffLight();
 					}
 					pc.sendPackets(new S_ItemName(l1iteminstance));
-				} else if (itemId == 40003) { // ^ IC
+				} else if (itemId == 40003) { //
 					for (L1ItemInstance lightItem : pc.getInventory()
 							.getItems()) {
 						if (lightItem.getItem().getItemId() == 40002) {
 							lightItem.setRemainingTime(l1iteminstance.getItem()
 									.getLightFuel());
 							pc.sendPackets(new S_ItemName(lightItem));
-							pc.sendPackets(new S_ServerMessage(230)); // ^ÉICð¬Üµ½B
+							pc.sendPackets(new S_ServerMessage(230)); //
 							break;
 						}
 					}
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 43000) { // Ì|[ViLv99LÌÝªgpÂ\/Lv1ÉßéøÊj
+				} else if (itemId == 43000) { //
 					pc.setExp(1);
 					pc.resetLevel();
 					pc.setBonusStats(0);
@@ -648,7 +648,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId == 41403) {
 					UseHeallingPotion(pc, 300, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId >= 41417 && itemId <= 41421) { // uAfÌÄvCxgÀèACe
+				} else if (itemId >= 41417 && itemId <= 41421) { //
 					UseHeallingPotion(pc, 90, 197);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 40858) { // liquor
@@ -1666,7 +1666,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						pc.sendPackets(new S_ServerMessage(79)); 
 					}
-				} else if (itemId == 40572) { // ATVÌó
+				} else if (itemId == 40572) { //
 					if (pc.getX() == 32778 && pc.getY() == 32738
 							&& pc.getMapId() == 21) {
 						L1Teleport.teleport(pc, 32781, 32728, (short)21, 5,
@@ -2196,7 +2196,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					L1Teleport.teleport(pc, spellsc_x, spellsc_y,
 							pc.getMapId(), pc.getHeading(), true,
 							L1Teleport.CHANGE_POSITION);
-				} else if (itemId == 41293 || itemId == 41294) { // ÞèÆ
+				} else if (itemId == 41293 || itemId == 41294) { //
 					startFishing(pc, itemId, fishX, fishY);
 				} else if (itemId == 41245) {
 					useResolvent(pc, l1iteminstance1, l1iteminstance);
@@ -4017,10 +4017,10 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1MonsterInstance mob = (L1MonsterInstance) cha;
 			if (mob.getLevel() < 50) {
 				int npcId = mob.getNpcTemplate().get_npcId();
-				if (npcId != 45338 && npcId != 45370 && npcId != 45456 // NR_CAofBbg{XAlN}T[
-						&& npcId != 45464 && npcId != 45473 && npcId != 45488 // Z}Ao^U[AJXp[
-						&& npcId != 45497 && npcId != 45516 && npcId != 45529 // LI[ACt[gAhCN(DV)
-						&& npcId != 45458) { // hCN(D·)
+				if (npcId != 45338 && npcId != 45370 && npcId != 45456 // 
+						&& npcId != 45464 && npcId != 45473 && npcId != 45488 // 
+						&& npcId != 45497 && npcId != 45516 && npcId != 45529 // 
+						&& npcId != 45458) { //
 					L1Skills skillTemp = SkillsTable.getInstance()
 							.getTemplate(SHAPE_CHANGE);
 					L1PolyMorph.doPoly(mob, polyId, skillTemp
@@ -4250,7 +4250,6 @@ public class C_ItemUSe extends ClientBasePacket {
 	private void startFishing(L1PcInstance pc, int itemId, int fishX, int fishY) {
 		if (pc.getMapId() != 5124 || fishX <= 32789 || fishX >= 32813
 				|| fishY <= 32786 || fishY >= 32812) {
-			// ±±ÉÞèÆð°é±ÆÍÅ«Ü¹ñB
 			pc.sendPackets(new S_ServerMessage(1138));
 			return;
 		}

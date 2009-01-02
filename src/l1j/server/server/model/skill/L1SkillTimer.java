@@ -455,11 +455,10 @@ class L1SkillStop {
 		}
 
 		// ****** ÅÖW
-		else if (skillId == STATUS_POISON) { // _[WÅ
+		else if (skillId == STATUS_POISON) { //
 			cha.curePoison();
 		}
 
-		// ****** ¿ÖW
 		else if (skillId == COOKING_1_0_N || skillId == COOKING_1_0_S) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;

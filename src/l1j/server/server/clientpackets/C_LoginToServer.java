@@ -88,8 +88,8 @@ public class C_LoginToServer extends ClientBasePacket {
 		String charName = readS();
 		
 		if (client.getActiveChar() != null) {
-			_log.info("¯êIDÅÌd¡Ú±Ì×(" + client.getHostname()
-					+ ")ÆÌÚ±ð­§ØfµÜµ½B");
+			_log.info("Invalid character loging from " + client.getHostname()
+					+ ".");
 			client.close();
 			return;
 		}

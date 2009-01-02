@@ -74,7 +74,7 @@ public class S_DoorPack extends ServerBasePacket {
 		writeS(null);
 		writeS(null);
 		int status = 0;
-		if (door.getPoison() != null) { // ÅóÔ
+		if (door.getPoison() != null) { //
 			if (door.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}

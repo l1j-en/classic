@@ -442,7 +442,7 @@ public abstract class L1Item implements Serializable {
 		_isHasteItem = flag;
 	}
 
-	private int _maxUseTime = 0; //  gpÂ\ÈÔ
+	private int _maxUseTime = 0; // 
 
 	public int getMaxUseTime() {
 		return _maxUseTime;
@@ -477,7 +477,7 @@ public abstract class L1Item implements Serializable {
 			return 11;
 		} else if (_itemId == 40002) { //lantern
 			return 14;
-		} else if (_itemId == 40004) { // }WbN^
+		} else if (_itemId == 40004) { // 
 			return 14;
 		} else if (_itemId == 40005) { //candle
 			return 8;
@@ -487,18 +487,18 @@ public abstract class L1Item implements Serializable {
 	}
 
 	/**
-	 * vÈÇÌR¿ÌÊðÔ·B
+	 * 
 	 */
 	public int getLightFuel() {
-		if (_itemId == 40001) { // v
+		if (_itemId == 40001) { // 
 			return 600;
-		} else if (_itemId == 40002) { // ^
+		} else if (_itemId == 40002) { // 
 			return 0;
-		} else if (_itemId == 40003) { // ^IC
+		} else if (_itemId == 40003) { // 
 			return 600;
-		} else if (_itemId == 40004) { // }WbN^
+		} else if (_itemId == 40004) { // 
 			return 0;
-		} else if (_itemId == 40005) { // Lh
+		} else if (_itemId == 40005) { // 
 			return 600;
 		} else {
 			return 0;

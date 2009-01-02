@@ -66,7 +66,7 @@ public class L1WeaponSkill {
 
 	private int _effectId;
 
-	private int _effectTarget; // GtFNgÌÎÛ 0:è 1:©ª
+	private int _effectTarget; //
 
 	private boolean _isArrowType;
 

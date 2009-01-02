@@ -499,7 +499,7 @@ public class L1MobSkillUse {
 					}
 					newnpc.onNpcAI();
 					newnpc.turnOnOffLight();
-					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
+					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}

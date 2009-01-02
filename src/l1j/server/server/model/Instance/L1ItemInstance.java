@@ -343,7 +343,7 @@ public class L1ItemInstance extends L1Object {
 
 		int itemId = getItem().getItemId();
 
-		if (itemId == 40314 || itemId == 40316) { // ybgÌA~bg
+		if (itemId == 40314 || itemId == 40316) { //
 			L1Pet pet = PetTable.getInstance().getTemplate(getId());
 			if (pet != null) {
 				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcid());
@@ -354,11 +354,11 @@ public class L1ItemInstance extends L1Object {
 			}
 		}
 
-		if (getItem().getType2() == 0 && getItem().getType() == 2) { // lightnACe
+		if (getItem().getType2() == 0 && getItem().getType() == 2) { // 
 			if (isNowLighting()) {
 				name.append(" ($10)");
 			}
-			if (itemId == 40001 || itemId == 40002) { // vor^
+			if (itemId == 40001 || itemId == 40002) { // 
 				if (getRemainingTime() <= 0) {
 					name.append(" ($11)");
 				}
@@ -369,9 +369,9 @@ public class L1ItemInstance extends L1Object {
 			if (itemType2 == 1) {
 				name.append(" ($9)"); //(Armed)
 			} else if (itemType2 == 2) {
-				name.append(" ($117)"); // õ(Worn)
+				name.append(" ($117)"); // 
 			} else if (itemType2 == 0 && getItem().getType() == 11) { // petitem
-				name.append(" ($117)"); // õ(Worn)
+				name.append(" ($117)"); //
 			}
 		}
 		return name.toString();
@@ -405,7 +405,7 @@ public class L1ItemInstance extends L1Object {
 			if (getItem().getItemId() == 20383) {
 				name.append(" (" + getChargeCount() + ")");
 			}
-			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { // íhïÅgpÔ§À è
+			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { //
 				name.append(" (" + getRemainingTime() + ")");
 			}
 		}
@@ -560,59 +560,50 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(30);
 				os.writeC(getItem().get_defense_earth());
 			}
-			// Ï«
 			if (getItem().get_regist_freeze() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_freeze());
 				os.writeC(33);
 				os.writeC(1);
 			}
-			// Î»Ï«
 			if (getItem().get_regist_stone() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_stone());
 				os.writeC(33);
 				os.writeC(2);
 			}
-			// °Ï«
 			if (getItem().get_regist_sleep() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_sleep());
 				os.writeC(33);
 				os.writeC(3);
 			}
-			// ÃÅÏ«
 			if (getItem().get_regist_blind() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_blind());
 				os.writeC(33);
 				os.writeC(4);
 			}
-			// X^Ï«
 			if (getItem().get_regist_stun() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_stun());
 				os.writeC(33);
 				os.writeC(5);
 			}
-			// z[hÏ«
 			if (getItem().get_regist_sustain() != 0) {
 				os.writeC(15);
 				os.writeH(getItem().get_regist_sustain());
 				os.writeC(33);
 				os.writeC(6);
 			}
-			// K^
 // if (getItem.getLuck() != 0) {
 // os.writeC(20);
 // os.writeC(val);
 // }
-			// íÞ
 // if (getItem.getDesc() != 0) {
 // os.writeC(25);
 // os.writeH(val); // desc.tbl ID
 // }
-			// x
 // if (getItem.getLevel() != 0) {
 // os.writeC(26);
 // os.writeH(val);

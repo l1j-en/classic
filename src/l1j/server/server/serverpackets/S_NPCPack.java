@@ -87,7 +87,7 @@ public class S_NPCPack extends ServerBasePacket {
 		 * 8:cursed(), 16:brave(), 32:??, 64:??(??), 128:invisible but name
 		 */
 		int status = 0;
-		if (npc.getPoison() != null) { // ÅóÔ
+		if (npc.getPoison() != null) { //
 			if (npc.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}
