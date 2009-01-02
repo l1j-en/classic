@@ -756,7 +756,17 @@
   <TreasureBox Type="SPECIFIC" ItemId="41410">
     <Item ItemId="40308" Count="4000"></Item>
   </TreasureBox>
-  <TreasureBox Type="SPECIFIC" ItemId="40582"> 
-    <Item ItemId="40583" Count="1" /> 
+  <TreasureBox Type="SPECIFIC" ItemId="40582">
+    <Item ItemId="40583" Count="1"></Item>
+  </TreasureBox>
+
+  <TreasureBox Type="SPECIFIC" ItemId="40556">
+    <Item ItemId="40557" Count="1" />
+    <Item ItemId="40558" Count="1" />
+    <Item ItemId="40559" Count="1" />
+    <Item ItemId="40560" Count="1" />
+    <Item ItemId="40561" Count="1" />
+    <Item ItemId="40562" Count="1" />
+    <Item ItemId="40563" Count="1" />
   </TreasureBox>
 </TreasureBoxList>

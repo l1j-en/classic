@@ -1129,4 +1129,7 @@
 	<Action Name="b" NpcId="71089">
 		<Teleport X="32735" Y="32845" Map="481" Heading="5" Price="0"/>
 	</Action>
+	<Action Name="a" NpcId="70751">
+		<Teleport X="32743" Y="32833" Map="72" Heading="2" Price="0"/>
+	</Action>
 </NpcActionList>
