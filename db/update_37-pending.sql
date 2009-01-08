@@ -3617,3 +3617,10 @@ ALTER TABLE armor_set ADD fire int(5) NOT NULL default '0' AFTER mr;
 # give wet set fire mr bonus
 
 UPDATE armor_set SET fire = 10, note = 'Wet Set' WHERE id = 45;
+
+# get rid of blank names
+
+UPDATE weapon SET name = 'unknown' where name = '';
+UPDATE armor SET name = 'unknown' where name = '';
+UPDATE etcitem SET name = 'unknown' where name = '';
+UPDATE npc SET name = 'unknown' where name = '';
