@@ -28,12 +28,15 @@
  */
 package l1j.server;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 public class ConsoleLogFormatter extends Formatter {
+	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -54,6 +57,8 @@ public class ConsoleLogFormatter extends Formatter {
 				PrintWriter pw = new PrintWriter(sw);
 				record.getThrown().printStackTrace(pw);
 				pw.close();
+				output.append(dateFmt.format(new Date(record.getMillis())));
+				output.append(" ");
 				output.append(sw.toString());
 				output.append("\r\n");
 			} catch (Exception ex) {
