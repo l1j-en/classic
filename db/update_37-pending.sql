@@ -3624,3 +3624,36 @@ UPDATE weapon SET name = 'unknown' where name = '';
 UPDATE armor SET name = 'unknown' where name = '';
 UPDATE etcitem SET name = 'unknown' where name = '';
 UPDATE npc SET name = 'unknown' where name = '';
+# some missed items and changes from jp
+
+UPDATE armor SET use_royal = '1' where item_id = 20049;
+UPDATE armor SET use_darkelf = '0' where item_id = 20049;
+UPDATE armor SET ac = '0' where item_id = 20050;
+UPDATE armor SET use_knight = '0' where item_id = 20050;
+UPDATE armor SET use_mage = '1' where item_id = 20050;
+
+INSERT INTO armor VALUES (21069,'unknown','$5548','belt','blackmithril',40000,2904,1165,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,12,12,0,0,0,0,0,3,0,0,8,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21070,'unknown','$5548','belt','blackmithril',40000,2905,1165,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,12,12,0,0,0,0,0,3,0,0,8,0,1,0,0,0,10,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21071,'unknown','$5548','belt','blackmithril',40000,2906,1165,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,12,12,0,0,0,0,0,3,0,0,8,0,1,0,0,0,0,10,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21072,'unknown','$5548','belt','blackmithril',40000,2907,1165,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,12,12,0,0,0,0,0,3,0,0,8,0,1,0,0,0,0,0,10,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21073,'unknown','$5548','belt','blackmithril',40000,2908,1165,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,12,12,0,0,0,0,0,3,0,0,8,0,1,0,0,0,0,0,0,10,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21074,'unknown','$5549','earring','gemstone',5000,3237,3963,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21075,'unknown','$5549','earring','gemstone',5000,3242,3963,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21076,'unknown','$5549','earring','gemstone',5000,3239,3963,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21077,'unknown','$5549','earring','gemstone',5000,3240,3963,0,-1,0,1,1,1,1,1,0,0,0,0,0,0,10,5,0,0,0,0,0,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21078,'unknown','$5549','earring','gemstone',5000,3250,3963,0,0,0,1,1,1,1,1,0,0,0,0,0,0,20,0,0,0,0,0,0,2,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21079,'unknown','$5549','earring','gemstone',5000,3246,3963,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,10,0,0,0,0,0,2,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21080,'unknown','$5549','earring','gemstone',5000,3248,3963,0,0,0,1,1,1,1,1,0,0,0,0,0,0,10,5,0,0,0,0,0,2,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21081,'unknown','$5545','earring','gemstone',5000,2132,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21082,'unknown','$5545','earring','gemstone',5000,2133,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21083,'unknown','$5545','earring','gemstone',5000,2134,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,10,5,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21084,'unknown','$5545','earring','gemstone',5000,2135,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,15,5,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21085,'unknown','$5545','earring','gemstone',5000,2136,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,15,5,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21086,'unknown','$5545','earring','gemstone',5000,2137,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,15,10,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21087,'unknown','$5545','earring','gemstone',5000,2138,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,15,10,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21088,'unknown','$5545','earring','gemstone',5000,2139,5785,3055,0,0,1,1,1,1,1,0,0,0,0,0,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21089,'unknown','$5545','earring','gemstone',5000,2140,5785,0,0,0,1,1,1,1,1,1,0,0,0,0,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21090,'unknown','$5545','earring','gemstone',5000,2140,5785,0,0,0,1,1,1,1,1,0,0,1,0,0,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO armor VALUES (21091,'unknown','$5545','earring','gemstone',5000,2140,5785,0,0,0,1,1,1,1,1,0,0,0,0,1,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
+
