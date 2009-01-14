@@ -3656,4 +3656,40 @@ INSERT INTO armor VALUES (21089,'unknown','$5545','earring','gemstone',5000,2140
 INSERT INTO armor VALUES (21090,'unknown','$5545','earring','gemstone',5000,2140,5785,0,0,0,1,1,1,1,1,0,0,1,0,0,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
 INSERT INTO armor VALUES (21091,'unknown','$5545','earring','gemstone',5000,2140,5785,0,0,0,1,1,1,1,1,0,0,0,0,1,0,20,10,2,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
-
+# fix some unknowns, props to zylia for finding the info
+UPDATE npc SET name = "Guardian Tower" WHERE npcid = 81189;
+UPDATE npc SET name = "Guardian Tower: Eva" WHERE npcid = 80090;
+UPDATE npc SET name = "Guardian Tower: Paagrio" WHERE npcid = 81191;
+UPDATE npc SET name = "Guardian Tower: Maphr" WHERE npcid = 81192;
+UPDATE npc SET name = "Guardian Tower: Sayha" WHERE npcid = 81193;
+UPDATE npc SET name = "Sign Post" WHERE npcid = 81194 OR npcid = 81195 OR npcid = 81196 OR npcid = 81197 OR npcid = 81198 OR npcid = 81199;
+UPDATE npc SET name = "Middle Oum" WHERE npcid = 46015;
+UPDATE npc SET name = "Heavy Oum" WHERE npcid = 46016;
+UPDATE npc SET name = "Plate Worm" WHERE npcid = 46017;
+UPDATE npc SET name = "Black Wizard" WHERE npcid = 46018;
+UPDATE npc SET name = "Guard Dog" WHERE npcid = 46019;
+UPDATE npc SET name = "Greedy Soldier" WHERE npcid = 46020;
+UPDATE npc SET name = "Greedy Wizard" WHERE npcid = 46021;
+UPDATE npc SET name = "Greedy Warrior" WHERE npcid = 46022;
+UPDATE npc SET name = "Greedy Archer" WHERE npcid = 46023;
+UPDATE npc SET name = "Count Elite Guard General" where npcid = 46024;
+UPDATE npc SET name = "Count Taros" WHERE npcid = 46025;
+UPDATE npc SET name = "Mammon" WHERE npcid = 46026;
+UPDATE npc SET name = "Corrupted Zombie" WHERE npcid = 46027 OR npcid = 46028;
+UPDATE npc SET name = "Corrupted Skeleton Archer" WHERE npcid = 46029;
+UPDATE npc SET name = "Corrupted Skeleton Axeman" WHERE npcid = 46030;
+UPDATE npc SET name = "Corrupted Skeleton Soldier" WHERE npcid = 46031;
+UPDATE npc SET name = "Corrupted Zombie Spearman" WHERE npcid = 46032;
+UPDATE npc SET name = "Corrupted Zombie Wizard" WHERE npcid = 46033;
+UPDATE npc SET name = "Corrupted Zombie General" WHERE npcid = 46034;
+UPDATE npc SET name = "Corrupted Zombie Lord" WHERE npcid = 46035;
+UPDATE npc SET name = "Corrupted Skeleton Knight" WHERE npcid = 46036;
+UPDATE npc SET name = "Dark Wizard Maya" WHERE npcid = 46037;
+UPDATE npc SET name = "Summoned Stuff of Maya" WHERE npcid = 46038 OR npcid = 46039 OR npcid = 46040;
+UPDATE npc SET name = "Baby Kangaroo" WHERE npcid = 46042;
+UPDATE npc SET name = "Kangaroo of Fire" WHERE npcid = 46043;
+UPDATE npc SET name = "Baby Panda" WHERE npcid = 46044;
+UPDATE npc SET name = "Horrific Panda" WHERE npcid = 46045;
+UPDATE npc SET name = "Gold Dragon" WHERE npcid = 46046;
+UPDATE npc SET name = "Dark Elf General" WHERE npcid = 46047;
+UPDATE npc SET name = "Kans Horse" WHERE npcid = 70886;
