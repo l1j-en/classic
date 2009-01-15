@@ -1110,6 +1110,9 @@ public class L1SkillUse {
 		if (_skillId == SHAPE_CHANGE) { // 
 			return;
 		}
+		if (_skillId == CURSE_BLIND || _skillId == DARKNESS) { // 
+			return;
+		}
 		if (_skillId == BLESSED_ARMOR || _skillId == HOLY_WEAPON 
 				|| _skillId == ENCHANT_WEAPON || _skillId == BLESS_WEAPON
 				|| _skillId == SHADOW_FANG) {
@@ -1119,6 +1122,7 @@ public class L1SkillUse {
 				&& !_isFreeze) {
 			return;
 		}
+
 		cha.setSkillEffect(_skillId, _getBuffDuration);
 
 		if (cha instanceof L1PcInstance && repetition) { 
