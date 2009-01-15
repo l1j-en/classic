@@ -1110,7 +1110,7 @@ public class L1SkillUse {
 		if (_skillId == SHAPE_CHANGE) { // 
 			return;
 		}
-		if (_skillId == CURSE_BLIND || _skillId == DARKNESS) { // 
+		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS)) { // 
 			return;
 		}
 		if (_skillId == BLESSED_ARMOR || _skillId == HOLY_WEAPON 
