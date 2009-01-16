@@ -3693,3 +3693,7 @@ UPDATE npc SET name = "Horrific Panda" WHERE npcid = 46045;
 UPDATE npc SET name = "Gold Dragon" WHERE npcid = 46046;
 UPDATE npc SET name = "Dark Elf General" WHERE npcid = 46047;
 UPDATE npc SET name = "Kans Horse" WHERE npcid = 70886;
+
+# fix iron set
+UPDATE armor_set SET ac = -7, note = "Iron Set", hp = 30, str = 1 WHERE id = 40;
+
