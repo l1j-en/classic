@@ -1,3 +1,11 @@
+-- IMPORTANT: THIS UPDATE IS NOT YET FINISHED
+
+-- Queries that are pending an update should be placed here. This allows them 
+-- to be verified as working together. Once complete, the -pending suffix will
+-- be removed.
+
+-- update 38
+
 # restore crystal caverns
 # jp took it out (I think) because crystal caverns is getting a major 
 # overhaul soon. We can just leave it as is until that is complete
