@@ -51,3 +51,9 @@ INSERT INTO spawnlist VALUES (7400006, 'Maid of the Ice Queen', 2, 45102, 0, 327
 # fix red knight set bonuses
 INSERT INTO armor_set VALUES (55, 'Red Knight Set', '20230,20027', -1, -2, 10, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0);
 
+# fix the crystal cave exits
+
+INSERT INTO dungeon VALUES (32746, 32786, 72, 34177, 32183, 4, 4, "CrystalCave1F->OrenGlacialLakeB");
+INSERT INTO dungeon VALUES (32747, 32786, 72, 34177, 32183, 4, 4, "CrystalCave1F->OrenGlacialLakeB");
+INSERT INTO dungeon VALUES (32815, 32803, 72, 34213, 32249, 4, 6, "CrystalCave1F->OrenGlacialLakeA");
+INSERT INTO dungeon VALUES (32815, 32804, 72, 34213, 32249, 4, 6, "CrystalCave1F->OrenGlacialLakeA");
