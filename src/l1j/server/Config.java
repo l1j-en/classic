@@ -406,14 +406,6 @@ public final class Config {
 
 	public static final int MANA_DRAIN_LIMIT_PER_SOM_ATTACK = 9;
 
-	public static final boolean DEVELOPER = false;
-
-	public static int DEADLOCK_CHECK_INTERVAL;  
-
-	public static boolean RESTART_ON_DEADLOCK;  
-
-	public static boolean DEADLOCK_DETECTOR;
-
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
 	public static int Show_INGAMENEWS_Time;
@@ -476,10 +468,9 @@ public final class Config {
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean.parseBoolean(serverSettings.getProperty("CharacterConfigInServerSide", "true"));
 			ALLOW_2PC = Boolean.parseBoolean(serverSettings.getProperty("Allow2PC", "true"));
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty("LevelDownRange", "0"));
-			DEADLOCK_DETECTOR = Boolean.parseBoolean(serverSettings.getProperty("DeadLockDetector", "false"));  
-			DEADLOCK_CHECK_INTERVAL  = Integer.parseInt(serverSettings.getProperty("DeadLockCheckInterval", "20"));  
-			RESTART_ON_DEADLOCK = Boolean.parseBoolean(serverSettings.getProperty("RestartOnDeadlock", "false"));  
 
+			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings
+					.getProperty("SendPacketBeforeTeleport", "true"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
@@ -530,6 +521,10 @@ public final class Config {
 			ALT_NONPVP = Boolean.parseBoolean(altSettings.getProperty("NonPvP", "true"));
 			ALT_ATKMSG = Boolean.parseBoolean(altSettings.getProperty("AttackMessageOn", "true"));
 			CHANGE_TITLE_BY_ONESELF = Boolean.parseBoolean(altSettings.getProperty("ChangeTitleByOneself", "false"));
+			MAX_CLAN_MEMBER = Integer.parseInt(altSettings.getProperty(
+					"MaxClanMember", "0"));
+			CLAN_ALLIANCE = Boolean.parseBoolean(altSettings.getProperty(
+					"ClanAlliance", "true"));
 			MAX_PT = Integer.parseInt(altSettings.getProperty("MaxPT", "8"));
 			MAX_CHAT_PT = Integer.parseInt(altSettings.getProperty("MaxChatPT", "8")); 
 			SIM_WAR_PENALTY = Boolean.parseBoolean(altSettings.getProperty("SimWarPenalty", "true"));
@@ -542,11 +537,6 @@ public final class Config {
 			ALT_HALLOWEENIVENT = Boolean.parseBoolean(altSettings.getProperty("HalloweenIvent", "true"));
 			ALT_WHO_COMMAND = Boolean.parseBoolean(altSettings.getProperty("WhoCommand", "false"));
 			ALT_REVIVAL_POTION = Boolean.parseBoolean(altSettings.getProperty("RevivalPotion", "false"));
-			RETURN_TO_NATURE = Boolean.parseBoolean(altSettings.getProperty("ReturnToNature", "false")); 
-			MAX_NPC_ITEM = Integer.parseInt(altSettings.getProperty("MaxNpcItem", "8"));  
-			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty("MaxPersonalWarehouseItem", "100"));   
-			MAX_CLAN_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty("MaxClanWarehouseItem", "200")); 
-			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings.getProperty("DeleteCharacterAfter7Days", "True"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
@@ -588,6 +578,16 @@ public final class Config {
 			GHEY_MARRAIGE = Boolean.parseBoolean(altSettings.getProperty("GheyMarraige", "false"));
 			MAX_CLAN_MEMBER = Integer.parseInt(altSettings.getProperty("MaxClanMember", "0"));   
 			CLAN_ALLIANCE = Boolean.parseBoolean(altSettings.getProperty("ClanAlliance", "true")); 
+			RETURN_TO_NATURE = Boolean.parseBoolean(altSettings.getProperty(
+					"ReturnToNature", "false"));
+			MAX_NPC_ITEM = Integer.parseInt(altSettings.getProperty(
+					"MaxNpcItem", "8"));
+			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.parseInt(altSettings
+					.getProperty("MaxPersonalWarehouseItem", "100"));
+			MAX_CLAN_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty(
+					"MaxClanWarehouseItem", "200"));
+			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings
+					.getProperty("DeleteCharacterAfter7Days", "True"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
@@ -597,7 +597,8 @@ public final class Config {
 		System.out.println("Loading CharSettings config.");
 		try {
 			Properties charSettings = new Properties();
-			InputStream is = new FileInputStream(new File(CHAR_SETTINGS_CONFIG_FILE));
+			InputStream is = new FileInputStream(new File(
+					CHAR_SETTINGS_CONFIG_FILE));
 			charSettings.load(is);
 			is.close();
 
@@ -674,9 +675,9 @@ public final class Config {
 
 			PLAYER_COMMANDS = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerCommands", "true"));
 			PLAYER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerBuff", "true"));
-			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "flase"));
+			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "false"));
 
-		}catch (Exception e) {
+		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + PCOMMANDS_SETTINGS_FILE	+ " File.");
 		}

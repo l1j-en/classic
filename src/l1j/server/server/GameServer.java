@@ -65,7 +65,6 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.L1TreasureBox;
 import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.trap.L1WorldTraps;
-import l1j.server.server.utils.DeadLockDetector;
 import l1j.server.server.utils.SystemUtil;
 
 // Referenced classes of package l1j.server.server:
@@ -83,7 +82,7 @@ public class GameServer extends Thread {
 	private int _port;
 	private LoginController _loginController;
 	private int chatlvl;
-	private DeadLockDetector _deadDetectThread;
+
 	@Override
 	public void run() {
 		System.out.println("Server Started. Memory Used: " + SystemUtil.getUsedMemoryMB() + " MB");
@@ -164,15 +163,6 @@ public class GameServer extends Thread {
 				} else {  
 					System.out.println("InGameNews = Off"); 
 				} 
-			
-			if (Config.DEADLOCK_DETECTOR) 
-			{ 
-				_deadDetectThread = new DeadLockDetector(); 
-				_deadDetectThread.setDaemon(true); 
-				_deadDetectThread.start(); 
-			} 
-			else 
-				_deadDetectThread = null; 
 			 System.gc(); 	
 			 
 			int maxOnlineUsers = Config.MAX_ONLINE_USERS;
@@ -277,7 +267,8 @@ public class GameServer extends Thread {
 	 * All players online to kick, character and preservation of information.
 	 */
 	public void disconnectAllCharacters() {
-		Collection<L1PcInstance> players = L1World.getInstance().getAllPlayers();
+		Collection<L1PcInstance> players = L1World.getInstance()
+				.getAllPlayers();
 		for (L1PcInstance pc : players) {
 			pc.getNetConnection().setActiveChar(null);
 			pc.getNetConnection().kick();

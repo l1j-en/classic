@@ -38,9 +38,10 @@ import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
-public class AuctionTimeController implements Runnable 
- {
-	private static Logger _log = Logger.getLogger(AuctionTimeController.class.getName());
+public class AuctionTimeController implements Runnable {
+	private static Logger _log = Logger.getLogger(AuctionTimeController.class
+			.getName());
+
 	private static AuctionTimeController _instance;
 
 	public static AuctionTimeController getInstance() {
@@ -96,7 +97,8 @@ public class AuctionTimeController implements Runnable
 				L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
 				item.setCount(payPrice);
 				try {
-					CharactersItemStorage storage = CharactersItemStorage.create();
+					CharactersItemStorage storage = CharactersItemStorage
+							.create();
 					storage.storeItem(oldOwnerId, item);
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
