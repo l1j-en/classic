@@ -521,10 +521,6 @@ public final class Config {
 			ALT_NONPVP = Boolean.parseBoolean(altSettings.getProperty("NonPvP", "true"));
 			ALT_ATKMSG = Boolean.parseBoolean(altSettings.getProperty("AttackMessageOn", "true"));
 			CHANGE_TITLE_BY_ONESELF = Boolean.parseBoolean(altSettings.getProperty("ChangeTitleByOneself", "false"));
-			MAX_CLAN_MEMBER = Integer.parseInt(altSettings.getProperty(
-					"MaxClanMember", "0"));
-			CLAN_ALLIANCE = Boolean.parseBoolean(altSettings.getProperty(
-					"ClanAlliance", "true"));
 			MAX_PT = Integer.parseInt(altSettings.getProperty("MaxPT", "8"));
 			MAX_CHAT_PT = Integer.parseInt(altSettings.getProperty("MaxChatPT", "8")); 
 			SIM_WAR_PENALTY = Boolean.parseBoolean(altSettings.getProperty("SimWarPenalty", "true"));
