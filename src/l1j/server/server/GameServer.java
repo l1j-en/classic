@@ -129,20 +129,16 @@ public class GameServer extends Thread {
 		System.out.println("=================================================");
 		chatlvl = Config.GLOBAL_CHAT_LEVEL;
 		_port = Config.GAME_SERVER_PORT;
-		_internal = Config.INTERNAL_HOSTNAME;
-		_external = Config.EXTERNAL_HOSTNAME;
 		if (!"*".equals(s)) {
 			InetAddress inetaddress = InetAddress.getByName(s);
 			inetaddress.getHostAddress();
-		    System.out.println("Login Server ready on "+(inetaddress == null ? "Port" : inetaddress.getHostAddress())+":"+Config.PORT_LOGIN); 
+		    System.out.println("Login Server ready on "+(inetaddress == null ? "Port" : inetaddress.getHostAddress())+":"+_port); 
 			_serverSocket = new ServerSocket(_port);
 			System.out.println("Port = "+_port + " opened");
 		} else {
 			_serverSocket = new ServerSocket(_port);
 			System.out.println("Port = "+ _port+ " opened");
 		
-			System.out.println("Ip internal = "+ _internal +" ready");
-			System.out.println("Ip external = "+ _external +" ready");
 			System.out.println("XP = " + rateXp);
 			System.out.println("Lawful = " + Lawful); 
 			System.out.println("Karma = "+ rateKarma); 

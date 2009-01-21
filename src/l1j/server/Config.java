@@ -256,11 +256,6 @@ public final class Config {
 	
 	public static boolean GHEY_MARRAIGE;
 
-	public static String     INTERNAL_HOSTNAME; 
-	
-	public static String     EXTERNAL_HOSTNAME; 
-
-	public static String     GAMESERVER_HOSTNAME; 
 	/** CharSettings control */
 	public static int PRINCE_MAX_HP;
 
@@ -388,8 +383,6 @@ public final class Config {
 	public static boolean PLAYER_BUFF;
 	
 	public static boolean POWER_BUFF;
-	
-	public static int PORT_LOGIN;
 
 	/** Configuration files */
 	public static final String SERVER_CONFIG_FILE = "./config/server.properties";
@@ -418,9 +411,6 @@ public final class Config {
 			InputStream is = new FileInputStream(new File(SERVER_CONFIG_FILE));
 			serverSettings.load(is);
 			is.close();
-			EXTERNAL_HOSTNAME       = serverSettings.getProperty("ExternalHostname", "*"); 
-			INTERNAL_HOSTNAME       = serverSettings.getProperty("InternalHostname", "127.0.0.1");
-			GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
 			GAME_SERVER_HOST_NAME = serverSettings.getProperty("GameserverHostname", "*");
 			GAME_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("GameserverPort", "2000"));
 			DB_DRIVER = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
@@ -464,7 +454,6 @@ public final class Config {
 			TELNET_SERVER = Boolean.parseBoolean(serverSettings.getProperty("TelnetServer", "false"));
 			TELNET_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("TelnetServerPort", "23"));
 			PC_RECOGNIZE_RANGE = Integer.parseInt(serverSettings.getProperty("PcRecognizeRange", "20"));
-			PORT_LOGIN            = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2000"));
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean.parseBoolean(serverSettings.getProperty("CharacterConfigInServerSide", "true"));
 			ALLOW_2PC = Boolean.parseBoolean(serverSettings.getProperty("Allow2PC", "true"));
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty("LevelDownRange", "0"));
