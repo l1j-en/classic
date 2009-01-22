@@ -106,16 +106,22 @@ public class L1GuardInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onAction(L1PcInstance player) {
-		if (getCurrentHp() > 0 && !isDead()) {
-			L1Attack attack = new L1Attack(player, this);
-			if (attack.calcHit()) {
-				attack.calcDamage();
-				attack.calcStaffOfMana();
-				attack.addPcPoisonAttack(player, this);
+	public void onAction(L1PcInstance pc) {
+		if (!isDead()) {
+			if (getCurrentHp() > 0) {
+				L1Attack attack = new L1Attack(pc, this);
+				if (attack.calcHit()) {
+					attack.calcDamage();
+					attack.calcStaffOfMana();
+					attack.addPcPoisonAttack(pc, this);
+				}
+				attack.action();
+				attack.commit();
+			} else {
+				L1Attack attack = new L1Attack(pc, this);
+				attack.calcHit();
+				attack.action();
 			}
-			attack.action();
-			attack.commit();
 		}
 	}
 
@@ -370,20 +376,81 @@ public class L1GuardInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void receiveDamage(L1Character attacker, int damage)
-	{
-		if (damage >= 0) {
-			// int Hate = damage / 10 + 10; 
-			// setHate(attacker, Hate);
-			setHate(attacker, damage);
-			removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
+	public void receiveDamage(L1Character attacker, int damage) { //
+		if (getCurrentHp() > 0 && !isDead()) {
+			if (damage >= 0) {
+				if (!(attacker instanceof L1EffectInstance)) { // 
+					setHate(attacker, damage);
+				}
+			}
+			if (damage > 0) {
+				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
+			}
+
+			onNpcAI();
+
+			if (attacker instanceof L1PcInstance && damage > 0) {
+				L1PcInstance pc = (L1PcInstance) attacker;
+				pc.setPetTarget(this);
+			}
+
+			int newHp = getCurrentHp() - damage;
+			if (newHp <= 0 && !isDead()) {
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_Die);
+				Death death = new Death(attacker);
+				GeneralThreadPool.getInstance().execute(death);
+			}
+			if (newHp > 0) {
+				setCurrentHp(newHp);
+			}
+		} else if (!isDead()) { // 
+			setDead(true);
+			setStatus(ActionCodes.ACTION_Die);
+			Death death = new Death(attacker);
+			GeneralThreadPool.getInstance().execute(death);
+		}
+	}
+
+	@Override
+	public void setCurrentHp(int i) {
+		int currentHp = i;
+		if (currentHp >= getMaxHp()) {
+			currentHp = getMaxHp();
+		}
+		setCurrentHpDirect(currentHp);
+
+		if (getMaxHp() > getCurrentHp()) {
+			startHpRegeneration();
+		}
+	}
+
+	class Death implements Runnable {
+		L1Character _lastAttacker;
+
+		public Death(L1Character lastAttacker) {
+			_lastAttacker = lastAttacker;
 		}
 
-		onNpcAI();
+		@Override
+		public void run() {
+			setDeathProcessing(true);
+			setCurrentHpDirect(0);
+			setDead(true);
+			setStatus(ActionCodes.ACTION_Die);
 
-		if (attacker instanceof L1PcInstance && damage > 0) {
-			L1PcInstance player = (L1PcInstance) attacker;
-			player.setPetTarget(this);
+			getMap().setPassable(getLocation(), true);
+
+			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
+
+			startChat(CHAT_TIMING_DEAD);
+
+			setDeathProcessing(false);
+
+			allTargetClear();
+
+			startDeleteTimer();
 		}
 	}
 

@@ -65,7 +65,7 @@ public class L1ItemInstance extends L1Object {
 	private int _durability;
 
 	private int _chargeCount;
-	
+
 	private int _remainingTime;
 
 	private Timestamp _lastUsed = null;
@@ -232,6 +232,7 @@ public class L1ItemInstance extends L1Object {
 		}
 	}
 
+
 	public class LastStatus {
 		public int count;
 
@@ -246,6 +247,7 @@ public class L1ItemInstance extends L1Object {
 		public int durability;
 
 		public int chargeCount;
+
 		public int remainingTime;
 
 		public Timestamp lastUsed = null;
@@ -340,7 +342,6 @@ public class L1ItemInstance extends L1Object {
 	public String getNumberedViewName(int count) {
 		StringBuilder name = new StringBuilder(getNumberedName(count));
 		int itemType2 = getItem().getType2();
-
 		int itemId = getItem().getItemId();
 
 		if (itemId == 40314 || itemId == 40316) { //

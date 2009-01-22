@@ -61,7 +61,6 @@ public class L1HauntedHouse {
 
 	private void readyHauntedHouse() {
 		setHauntedHouseStatus(STATUS_READY);
-
 		L1HauntedHouseReadyTimer hhrTimer = new L1HauntedHouseReadyTimer();
 		hhrTimer.begin();
 	}

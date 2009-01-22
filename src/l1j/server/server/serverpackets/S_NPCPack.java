@@ -46,10 +46,6 @@ public class S_NPCPack extends ServerBasePacket {
 	private byte[] _byte = null;
 
 	public S_NPCPack(L1NpcInstance npc) {
-		buildPacket(npc);
-	}
-
-	private void buildPacket(L1NpcInstance npc) {
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(npc.getX());
 		writeH(npc.getY());

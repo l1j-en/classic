@@ -20,7 +20,8 @@ public class L1V2Map extends L1Map {
 	private boolean _isRecallPets;
 	private boolean _isUsableItem;
 	private boolean _isUsableSkill;
-	
+
+
 	private static final byte BITFLAG_IS_IMPASSABLE = (byte) 128; // 1000 0000
 
 	private int offset(int x, int y) {

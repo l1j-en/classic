@@ -104,9 +104,12 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 				}
 			}
 
+
 			if (htmlid != null) {
 				if (htmldata != null) {
-					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid, htmldata));
+					pc
+							.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+									htmldata));
 				} else {
 					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 				}

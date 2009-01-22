@@ -200,7 +200,8 @@ public class DropTable {
 							< randomChance) {
 				continue;
 			}
-
+		
+			// Changed to prevent adena rates of >1 to always result in even numbers
 			double amount = DropItemTable.getInstance().getDropAmount(itemId);
 			int min;
 			int max;
@@ -217,6 +218,10 @@ public class DropTable {
 			if (addCount > 1) {
 				itemCount += random.nextInt(addCount);
 			}
+			// intentionally removed
+			//if (itemId == L1ItemId.ADENA) { // 
+			//	itemCount *= adenarate;
+			//}
 			if (itemCount < 0) {
 				itemCount = 0;
 			}
@@ -250,7 +255,7 @@ public class DropTable {
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			} else if (acquisitor != null
-					&& !acquisitor.isDead()
+					&& !acquisitor.isDead() // added
 					&& acquisitor.getMapId() == npc.getMapId()
 					&& acquisitor.getLocation().getTileLineDistance(
 							npc.getLocation()) <= Config.LOOTING_RANGE) {
@@ -274,7 +279,7 @@ public class DropTable {
 					.getType() == 2) { //
 				item.setNowLighting(false);
 			}
-			item.setIdentified(false);
+			item.setIdentified(false); // changed
 			if (((Config.AUTO_LOOT != 0) || item.getItem().getItemId() == L1ItemId.ADENA)
 					&& totalHate > 0) {
 				randomInt = random.nextInt(totalHate);
@@ -288,6 +293,7 @@ public class DropTable {
 							targetInventory = acquisitor.getInventory();
 							if (acquisitor instanceof L1PcInstance) {
 								player = (L1PcInstance) acquisitor;
+								// added to exclude quest drops from invalid classes
 								if(_questDrops.containsKey(item.getItemId())) {
 									if(!classCode(player).equals(_questDrops.get(item.getItemId()))) {
 										inventory.deleteItem(item);
@@ -306,7 +312,8 @@ public class DropTable {
 									player.sendPackets(new S_SystemMessage("The limit of the itemcount is 2000000000"));
 								} else {
 									if (player.isInParty()) {
-										partyMember = player.getParty().getMembers();
+										partyMember = player.getParty()
+												.getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
 											partyMember[p]
 													.sendPackets(new S_ServerMessage(
@@ -316,12 +323,18 @@ public class DropTable {
 															player.getName()));
 										}
 									} else {
-										player.sendPackets(new S_ServerMessage(143, npc.getNpcTemplate().get_name(), item.getLogName()));
+										
+										player.sendPackets(new S_ServerMessage(
+												143, npc.getName(), item
+														.getLogName()));
 									}
 								}
 							}
 						} else {
-							targetInventory = L1World.getInstance().getInventory(acquisitor.getX(), acquisitor.getY(), acquisitor.getMapId());
+							targetInventory = L1World.getInstance()
+									.getInventory(acquisitor.getX(),
+											acquisitor.getY(),
+											acquisitor.getMapId());
 						}
 						break;
 					}

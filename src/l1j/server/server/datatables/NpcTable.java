@@ -146,7 +146,6 @@ public class NpcTable {
 				npc.setLightSize(rs.getInt("light_size"));
 				npc.setAmountFixed(rs.getBoolean("amount_fixed"));
 				npc.set_agrochao(rs.getBoolean("aggrochao"));
-				
 				_npcs.put(new Integer(npcId), npc);
 			}
 		} catch (SQLException e) {

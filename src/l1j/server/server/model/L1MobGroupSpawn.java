@@ -71,6 +71,7 @@ public class L1MobGroupSpawn {
 		_isInitSpawn = isInitSpawn;
 
 		L1MobGroupInfo mobGroupInfo = new L1MobGroupInfo();
+
 		mobGroupInfo.setRemoveGroup(mobGroup.isRemoveGroupIfLeaderDie());
 		mobGroupInfo.addMember(leader);
 

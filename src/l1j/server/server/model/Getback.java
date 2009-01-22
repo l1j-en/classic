@@ -90,10 +90,12 @@ public class Getback {
 				getback._getbackMapId = rs.getInt("getback_mapid");
 				getback._getbackTownId = rs.getInt("getback_townid");
 				getback._getbackTownIdForElf = rs.getInt("getback_townid_elf");
-				getback._getbackTownIdForDarkelf = rs.getInt("getback_townid_darkelf");
+				getback._getbackTownIdForDarkelf = rs
+						.getInt("getback_townid_darkelf");
 				//TODO Not used
 				//getback._escapable = rs.getBoolean("scrollescape");
-				ArrayList<Getback> getbackList = _getback.get(getback._areaMapId);
+				ArrayList<Getback> getbackList = _getback
+						.get(getback._areaMapId);
 				if (getbackList == null) {
 					getbackList = new ArrayList<Getback>();
 					_getback.put(getback._areaMapId, getbackList);

@@ -23,14 +23,21 @@ import l1j.server.server.utils.IntRange;
 
 public class L1PetType {
 	private final int _baseNpcId;
+
 	private final L1Npc _baseNpcTemplate;
+
 	private final String _name;
+
 	private final int _itemIdForTaming;
+
 	private final IntRange _hpUpRange;
+
 	private final IntRange _mpUpRange;
+
 	private final int _npcIdForEvolving;
+
 	private final int _msgIds[];
-	
+
 	private final int _defyMsgId;
 
 	public L1PetType(int baseNpcId, String name, int itemIdForTaming,
@@ -108,6 +115,7 @@ public class L1PetType {
 		}
 		return 0;
 	}
+
 	public int getDefyMessageId() {
 		return _defyMsgId;
 	}

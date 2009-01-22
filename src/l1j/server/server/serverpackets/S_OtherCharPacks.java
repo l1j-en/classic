@@ -28,7 +28,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_OtherCharPacks extends ServerBasePacket {
 
 	private static final String S_OTHER_CHAR_PACKS = "[S] S_OtherCharPacks";
-	private byte[] _byte = null;
+
 
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
@@ -39,7 +39,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
 
-
+	private byte[] _byte = null;
 
 	public S_OtherCharPacks(L1PcInstance pc) {
 		int status = STATUS_PC;

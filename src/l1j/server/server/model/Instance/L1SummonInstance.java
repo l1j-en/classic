@@ -488,7 +488,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			startHpRegeneration();
 		}
 
-		if (_master != null) {
+		if (_master instanceof L1PcInstance) {
 			int HpRatio = 100 * currentHp / getMaxHp();
 			L1PcInstance Master = (L1PcInstance) _master;
 			Master.sendPackets(new S_HPMeter(getId(), HpRatio));
@@ -506,13 +506,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (getMaxMp() > getCurrentMp()) {
 			startMpRegeneration();
 		}
-//		if (_master != null) {
-//			int MpRatio = 100 * currentMp / get_maxMp();
-//			L1PcInstance Master = (L1PcInstance) _master;
-//			Master.sendPackets(new S_MpMeter(getId(), MpRatio));
-//		}
 	}
-
 
 	public void set_currentPetStatus(int i) {
 		_currentPetStatus = i;

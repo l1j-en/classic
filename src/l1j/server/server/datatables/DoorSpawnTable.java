@@ -95,7 +95,6 @@ public class DoorSpawnTable {
 					door.setCurrentHp(rs.getInt(10));
 					door.setKeeperId(rs.getInt(11));
 
-
 					L1World.getInstance().storeObject(door);
 					L1World.getInstance().addVisibleObject(door);
 

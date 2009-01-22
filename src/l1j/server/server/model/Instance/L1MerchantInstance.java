@@ -668,7 +668,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "seghem7";
 				}
 			} else if (npcid == 70784) {
-				boolean hascastle = checkHasCastle(player, L1CastleLocation.WW_CASTLE_ID);
+				boolean hascastle = checkHasCastle(player,
+						L1CastleLocation.WW_CASTLE_ID);
 				if (hascastle) {
 					if (checkClanLeader(player)) {
 						htmlid = "othmond1";
@@ -1537,7 +1538,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "orcfkame5";
 				}
 			} else if (npcid == 71055) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 3) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
+						== 3) {
 					htmlid = "lukein13";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
 						== L1Quest.QUEST_END
@@ -1826,6 +1828,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "jeron7";
 				}
 			}
+
+
 			if (htmlid != null) {
 				if (htmldata != null) {
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,

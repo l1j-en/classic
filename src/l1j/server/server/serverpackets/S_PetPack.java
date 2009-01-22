@@ -28,7 +28,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 
 public class S_PetPack extends ServerBasePacket {
 	private static final String S_PET_PACK = "[S] S_PetPack";
-	
+
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;

@@ -31,7 +31,6 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 public class S_DoorPack extends ServerBasePacket {
 
 	private static final String S_DOOR_PACK = "[S] S_DoorPack";
-	private byte[] _byte = null;
 
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
@@ -42,14 +41,13 @@ public class S_DoorPack extends ServerBasePacket {
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
 
-
+	private byte[] _byte = null;
 
 	public S_DoorPack(L1DoorInstance door) {
 		buildPacket(door);
 	}
 
 	private void buildPacket(L1DoorInstance door) {
-
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(door.getX());
 		writeH(door.getY());

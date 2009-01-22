@@ -91,6 +91,7 @@ public class L1NpcInstance extends L1Character {
 
 	private L1Spawn _spawn;
 	private int _spawnNumber; 
+
 	private int _petcost; 
 	public L1Inventory _inventory = new L1Inventory();
 	private L1MobSkillUse mobSkill;
@@ -302,6 +303,7 @@ public class L1NpcInstance extends L1Character {
 	public void setHate(L1Character cha, int hate) {
 		if (cha != null && cha.getId() != getId()) {
 			if (!isFirstAttack() && hate != 0) {
+
 				hate += getMaxHp() / 10;
 				setFirstAttack(true);
 			}
@@ -504,7 +506,7 @@ public class L1NpcInstance extends L1Character {
 		if (gInventorys.size() == 0) {
 			return;
 		}
-		
+
 		int pickupIndex = (int) (Math.random() * gInventorys.size());
 		L1GroundInventory inventory = gInventorys.get(pickupIndex);
 		for (L1ItemInstance item : inventory.getItems()) {
@@ -1265,6 +1267,7 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void appearOnGround(L1PcInstance pc) {
+		// fix for invis gms not to de-sink hidden mops
 		if(pc.isGmInvis()) {
 			return;
 		} else if (getHiddenStatus() == HIDDEN_STATUS_SINK) {

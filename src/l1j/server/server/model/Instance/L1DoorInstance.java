@@ -271,8 +271,6 @@ public class L1DoorInstance extends L1NpcInstance {
 		}
 	}
 
-	private int _entranceX = 0;
-
 	public int getEntranceX() {
 		int entranceX = 0;
 		if (getDirection() == 0) { //

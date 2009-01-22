@@ -1,7 +1,6 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-
 import java.util.StringTokenizer;
 
 
@@ -119,12 +118,14 @@ class L1ArmorSetImpl extends L1ArmorSet {
 		}
 		return false;
 	}
+
 	@Override
 	public boolean isEquippedRingOfArmorSet(L1PcInstance pc) {
 		L1PcInventory pcInventory = pc.getInventory();
 		L1ItemInstance armor = null;
 		boolean isSetContainRing = false;
-
+
+
 		for (int id : _ids) {
 			armor = pcInventory.findItemId(id);
 			if (armor.getItem().getType2() == 2

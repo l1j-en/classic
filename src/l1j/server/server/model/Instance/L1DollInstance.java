@@ -39,7 +39,7 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_WEREWOLF = 2;
 	public static final int DOLL_TIME = 1800000;
 
-	private ScheduledFuture _dollFuture;
+	private ScheduledFuture<?> _dollFuture;
 	private static Random _random = new Random();
 	private int _dollType;
 	private int _itemObjId;

@@ -45,6 +45,7 @@ public class CharacterTable {
 
 	private static Logger _log = Logger.getLogger(CharacterTable.class
 			.getName());
+
 	private final Map<String, L1CharName> _charNameList =
 			new ConcurrentHashMap<String, L1CharName>();
 
@@ -183,6 +184,7 @@ public class CharacterTable {
 		}
 		return result;
 	}
+
 	public void loadAllCharName() {
 		L1CharName cn = null;
 		String name = null;

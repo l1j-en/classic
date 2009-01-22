@@ -1177,12 +1177,10 @@ public class L1PcInstance extends L1Character {
 			}
 			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
-
 					boolean isChangePkCount = false;
 					if (player.getLawful() < 30000) {
 						player.set_PKcount(player.get_PKcount() + 1);
 						isChangePkCount = true;
-// player.setLastPk();
 					}
 					player.setLastPk();
 
@@ -1511,7 +1509,6 @@ public class L1PcInstance extends L1Character {
 	private static Timer _regenTimer = new Timer(true);
 	private boolean _mpRegenActive;
 	private boolean _mpRegenActiveByDoll;
-	private boolean _hpRegenActiveByDoll;
 	private boolean _hpRegenActive;
 	private L1EquipmentSlot _equipSlot;
 
@@ -2013,9 +2010,10 @@ public class L1PcInstance extends L1Character {
 				sendPackets(new S_bonusstats(getId(), 1));
 			}
 		}
+		// added hp/mp refill on lvl up
 		setCurrentHp(getMaxHp());
 		setCurrentMp(getMaxMp());
-		
+
 		sendPackets(new S_OwnCharStatus(this));
 	}
 

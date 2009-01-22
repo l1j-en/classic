@@ -220,7 +220,6 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 		setActived(false);
 		startAI();
-
 	}
 
 	@Override

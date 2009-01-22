@@ -123,7 +123,7 @@ public class Dungeon {
 						|| srcX == 32736 && srcY == 32794 && srcMapId == 446) {
 					dungeonType = DungeonType.SHIP_FOR_HIDDENDOCK;
 				}
-					NewDungeon newDungeon = new NewDungeon(newX, newY,
+				NewDungeon newDungeon = new NewDungeon(newX, newY,
 						(short) newMapId, heading, dungeonType);
 				if (_dungeonMap.containsKey(key)) {
 					_log.log(Level.WARNING, "Dungeon exists for the same key data. key=" + key);
@@ -158,7 +158,8 @@ public class Dungeon {
 	}
 
 	public boolean dg(int locX, int locY, int mapId, L1PcInstance pc) {
-		int servertime = L1GameTimeClock.getInstance().getGameTime().getSeconds();
+		int servertime = L1GameTimeClock.getInstance().getGameTime()
+				.getSeconds();
 		int nowtime = servertime % 86400;
 		String key = new StringBuilder().append(mapId).append(locX).append(locY).toString();
 		if (_dungeonMap.containsKey(key)) {

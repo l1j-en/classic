@@ -70,7 +70,6 @@ public class L1Spawn {
 
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
-
 		private int _objectId;
 
 		private SpawnTask(int spawnNumber, int objectId) {

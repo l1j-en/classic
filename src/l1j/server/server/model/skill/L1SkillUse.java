@@ -1110,7 +1110,7 @@ public class L1SkillUse {
 		if (_skillId == SHAPE_CHANGE) { // 
 			return;
 		}
-		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS)) { // 
+		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS)) { // BCM: fix darkness exploit
 			return;
 		}
 		if (_skillId == BLESSED_ARMOR || _skillId == HOLY_WEAPON 
@@ -1122,7 +1122,6 @@ public class L1SkillUse {
 				&& !_isFreeze) {
 			return;
 		}
-
 		cha.setSkillEffect(_skillId, _getBuffDuration);
 
 		if (cha instanceof L1PcInstance && repetition) { 

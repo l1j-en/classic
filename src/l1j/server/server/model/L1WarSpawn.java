@@ -137,5 +137,4 @@ public class L1WarSpawn {
 		} catch (Exception exception) {
 		}
 	}
-
 }
