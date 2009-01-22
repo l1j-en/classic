@@ -147,7 +147,8 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 
 			if (readSize != dataLength) {
-				_log.warning("Incomplete Packet is sent to the server, closing connection.");
+				_log
+						.warning("Incomplete Packet is sent to the server, closing connection.");
 				throw new RuntimeException();
 			}
 
@@ -196,7 +197,8 @@ public class ClientThread implements Runnable, PacketOutput {
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
 
-		ClientThreadObserver observer = new ClientThreadObserver(Config.AUTOMATIC_KICK * 60 * 1000);
+		ClientThreadObserver observer =
+				new ClientThreadObserver(Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
 			observer.start();
 		}

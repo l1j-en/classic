@@ -82,6 +82,8 @@ public class Server {
 		Config.load();
 
 		// L1DatabaseFactory
+		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL,
+				Config.DB_LOGIN, Config.DB_PASSWORD);
 		L1DatabaseFactory.getInstance();
 
 		GameServer.getInstance().initialize();

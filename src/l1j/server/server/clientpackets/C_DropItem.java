@@ -74,7 +74,8 @@ public class C_DropItem extends ClientBasePacket {
 				if (petObject instanceof L1PetInstance) {
 					L1PetInstance pet = (L1PetInstance) petObject;
 					if (item.getId() == pet.getItemObjId()) {
-						pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(210, item.getItem()
+								.getName()));
 						return;
 					}
 				}

@@ -64,7 +64,8 @@ public class LoginController {
 			@Override
 			public void run() {
 				if (client.getActiveChar() != null) {
-					client.getActiveChar().sendPackets(new S_ServerMessage(357));
+					client.getActiveChar()
+							.sendPackets(new S_ServerMessage(357));
 				}
 
 				try {

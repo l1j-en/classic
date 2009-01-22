@@ -411,7 +411,8 @@ public class C_Attr extends ClientBasePacket {
 						L1ChatParty chatParty = new L1ChatParty();
 						chatParty.addMember(chatPc);
 						chatParty.addMember(pc);
-						chatPc.sendPackets(new S_ServerMessage(424, pc.getName()));  
+						chatPc.sendPackets(new S_ServerMessage(424, pc
+								.getName())); 
 					}
 				}
 			}
@@ -433,6 +434,7 @@ public class C_Attr extends ClientBasePacket {
 						if (target.getParty().isVacancy() || target.isGm()) {
 							target.getParty().addMember(pc);
 						} else {
+
 							target.sendPackets(new S_ServerMessage(417));
 						}
 					} else {

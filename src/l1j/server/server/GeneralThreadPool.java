@@ -26,18 +26,23 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.model.monitor.L1PcMonitor;
 
-public class GeneralThreadPool 
-{
+public class GeneralThreadPool {
+	private static Logger _log = Logger.getLogger(GeneralThreadPool.class
+			.getName());
+
 	private static GeneralThreadPool _instance;
 
 	private static final int SCHEDULED_CORE_POOL_SIZE = 10;
+
 	private Executor _executor;
 	private ScheduledExecutorService _scheduler;
 	private ScheduledExecutorService _pcScheduler;
+
 	private final int _pcSchedulerPoolSize = 1 + Config.MAX_ONLINE_USERS / 20;
 
 	public static GeneralThreadPool getInstance() {

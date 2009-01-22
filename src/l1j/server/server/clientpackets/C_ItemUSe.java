@@ -786,8 +786,9 @@ public class C_ItemUSe extends ClientBasePacket {
 						|| itemId == 41145) {
 					usePolyPotion(pc, itemId);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-					} else if (itemId == 40317) {
-					if (l1iteminstance1.getItem().getType2() != 0 
+ 				} else if (itemId == 40317) {
+
+					if (l1iteminstance1.getItem().getType2() != 0
 							&& l1iteminstance1.get_durability() > 0) {
 						String msg0;
 						pc.getInventory().recoveryDamage(l1iteminstance1);
@@ -853,23 +854,37 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId == 40090 || itemId == 40091
 						|| itemId == 40092 || itemId == 40093
 						|| itemId == 40094) {
+
 					if (pc.isWizard()) {
 						if (itemId == 40090 && blanksc_skillid <= 7 ||
+								//
 								itemId == 40091 && blanksc_skillid <= 15 ||
+								//
 								itemId == 40092 && blanksc_skillid <= 22 ||
+								//
 								itemId == 40093 && blanksc_skillid <= 31 ||
+								//
 								itemId == 40094 && blanksc_skillid <= 39) {
+
 							L1ItemInstance spellsc = ItemTable.getInstance()
 									.createItem(40859 + blanksc_skillid);
 							if (spellsc != null) {
 								if (pc.getInventory().checkAddItem(spellsc, 1) == L1Inventory.OK) {
-									L1Skills l1skills = SkillsTable.getInstance().getTemplate(blanksc_skillid + 1); // blanksc_skillid
-									if (pc.getCurrentHp() + 1 < l1skills.getHpConsume() + 1) {
-										pc.sendPackets(new S_ServerMessage(279));
+									L1Skills l1skills = SkillsTable
+											.getInstance().getTemplate(
+													blanksc_skillid + 1); // blanksc_skillid
+									if (pc.getCurrentHp() + 1 < l1skills
+											.getHpConsume() + 1) {
+										pc
+												.sendPackets(new S_ServerMessage(
+														279));
 										return;
 									}
-									if (pc.getCurrentMp() < l1skills.getMpConsume()) {
-										pc.sendPackets(new S_ServerMessage(278));
+									if (pc.getCurrentMp() < l1skills
+											.getMpConsume()) {
+										pc
+												.sendPackets(new S_ServerMessage(
+														278));
 										return;
 									}
 									if (l1skills.getItemConsumeId() != 0) {
@@ -1041,7 +1056,8 @@ public class C_ItemUSe extends ClientBasePacket {
 										.getInstance().getVisiblePlayer(target,
 												0)) {
 									if (!visiblePc.isDead()) {
-                                		pc.sendPackets(new S_ServerMessage(
+
+										pc.sendPackets(new S_ServerMessage(
 												592));
 										return;
 									}
@@ -1213,6 +1229,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							}
 						}
 					} else if (byte0 == 1 || byte0 == 2) {
+
 						pc.sendPackets(new S_ServerMessage(79));
 						S_SkillSound effect = new S_SkillSound(pc.getId(), 10);
 						pc.sendPackets(effect);

@@ -54,7 +54,8 @@ public class C_CreateClan extends ClientBasePacket {
 						return;
 					}
 				}
-				L1Clan clan = ClanTable.getInstance().createClan(l1pcinstance, s); 
+				L1Clan clan = ClanTable.getInstance().createClan(l1pcinstance,
+						s); 
 				if (clan != null) {
 					l1pcinstance.sendPackets(new S_ServerMessage(84, s)); 
 				}

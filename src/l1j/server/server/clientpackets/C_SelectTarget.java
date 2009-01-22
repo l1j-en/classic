@@ -24,8 +24,8 @@ package l1j.server.server.clientpackets;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:

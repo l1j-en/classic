@@ -26,7 +26,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class ShipTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(ShipTimeController.class.getName());
+	private static Logger _log = Logger.getLogger(ShipTimeController.class
+			.getName());
 
 	private static ShipTimeController _instance;
 
@@ -49,7 +50,8 @@ public class ShipTimeController implements Runnable {
 	}
 
 	private void checkShipTime() {
-		int servertime = L1GameTimeClock.getInstance().getGameTime().getSeconds();
+		int servertime = L1GameTimeClock.getInstance().getGameTime()
+				.getSeconds();
 		int nowtime = servertime % 86400;
 		if (nowtime >= 455 * 60 && nowtime < 480 * 60 // 7.35~8
 				|| nowtime >= 635 * 60 && nowtime < 660 * 60 // 10.35~11

@@ -55,7 +55,6 @@ public class C_PickUpItem extends ClientBasePacket {
 		if (pc.isDead() || pc.isGhost()) {
 			return;
 		}
-		
 
 		if (pc.isInvisble()) {
 			return;

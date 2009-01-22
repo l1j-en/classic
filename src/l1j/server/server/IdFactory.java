@@ -40,38 +40,10 @@ public class IdFactory {
 
 	private static IdFactory _instance = new IdFactory();
 
-	protected IdFactory() {
+	private IdFactory() {
 		loadState();
-		setAllCharacterOffline(); 
 	}
 
-	private void setAllCharacterOffline() 
-	     { 
-	         java.sql.Connection con2 = null; 
-	         try 
-	         { 
-	             con2 = L1DatabaseFactory.getInstance().getConnection(); 
-	             Statement s2 = con2.createStatement(); 
-	             s2.executeUpdate("update characters set online=0"); 
-	             _log.info("Updated characters online status."); 
-	  
-	             s2.close(); 
-	         } 
-	         catch (SQLException e) 
-	         { 
-	         } 
-	         finally 
-	         { 
-	             try 
-	             { 
-	                 con2.close(); 
-	             } 
-	             catch (Exception e) 
-	             { 
-	           } 
-	      } 
-	}
-	
 	public static IdFactory getInstance() {
 		return _instance;
 	}

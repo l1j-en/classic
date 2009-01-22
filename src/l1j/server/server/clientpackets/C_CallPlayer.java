@@ -31,7 +31,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_CallPlayer extends ClientBasePacket {
 
 	private static final String C_CALL = "[C] C_Call";
-	
+
 	public C_CallPlayer(byte[] decrypt, ClientThread client) {
 		super(decrypt);
 		L1PcInstance pc = client.getActiveChar();

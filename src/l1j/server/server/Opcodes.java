@@ -331,8 +331,6 @@ public class Opcodes {
 
 	public static final int S_OPCODE_HPMETER = 70;
 
-	public static final int S_OPCODE_MPMETER = 70;
-	
 	public static final int S_OPCODE_SYSMSG = 71;
 
 	public static final int S_OPCODE_GLOBALCHAT = 71;

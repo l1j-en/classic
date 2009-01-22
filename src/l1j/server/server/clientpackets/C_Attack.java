@@ -53,6 +53,7 @@ public class C_Attack extends ClientBasePacket {
 
 		L1Object target = L1World.getInstance().findObject(targetId);
 
+
 		if (pc.getInventory().getWeight30() > 24) { 
 			pc.sendPackets(new S_ServerMessage(110)); 
 			return;
@@ -87,6 +88,7 @@ public class C_Attack extends ClientBasePacket {
 				return;
 			}
 		}
+
 
 		if (pc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) { 
 			pc.killSkillEffectTimer(L1SkillId.ABSOLUTE_BARRIER);

@@ -54,14 +54,14 @@ public class C_GiveItem extends ClientBasePacket {
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-	
+
 		if (count < 0)
 		{
 			_log.info(pc.getName() + " attempted dupe exploit (C_GiveItem).");
-			
+
 			return;
 		}
-		
+
 		if (pc.isGhost()) {
 			return;
 		}

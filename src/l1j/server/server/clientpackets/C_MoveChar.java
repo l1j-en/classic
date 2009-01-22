@@ -43,8 +43,10 @@ public class C_MoveChar extends ClientBasePacket {
 		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(
 				pc.getLocation())));
 	}
-	
-	public C_MoveChar(byte decrypt[], ClientThread client) throws Exception {
+
+
+	public C_MoveChar(byte decrypt[], ClientThread client)
+			throws Exception {
 		super(decrypt);
 		int locx = readH();
 		int locy = readH();
@@ -118,6 +120,7 @@ public class C_MoveChar extends ClientBasePacket {
 			return;
 		}
 
+		// esc bug fix
 		L1Location oldLoc = pc.getLocation();
 		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) 
 				|| (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))

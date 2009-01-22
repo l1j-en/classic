@@ -38,7 +38,9 @@ import l1j.server.Config;
 
 public class ThreadPoolManager {
 
-	private static Logger _log = Logger.getLogger(ThreadPoolManager.class.getName());
+	private static Logger _log = Logger.getLogger(ThreadPoolManager.class
+			.getName());
+
 	private static ThreadPoolManager _instance;
 
 	private final ScheduledThreadPoolExecutor _effectsScheduledThreadPool;

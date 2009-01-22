@@ -195,6 +195,7 @@ public class C_UsePetItem extends ClientBasePacket {
 		pet.setArmor(null);
 		armor.setEquipped(false);
 	}
+
 	@Override
 	public String getType() {
 		return C_USE_PET_ITEM;

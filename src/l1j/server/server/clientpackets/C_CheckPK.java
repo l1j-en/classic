@@ -38,7 +38,8 @@ public class C_CheckPK extends ClientBasePacket {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
-		player.sendPackets(new S_ServerMessage(562, String.valueOf(player.get_PKcount()))); 
+		player.sendPackets(new S_ServerMessage(562, String.valueOf(player
+				.get_PKcount()))); 
 	}
 
 	@Override
