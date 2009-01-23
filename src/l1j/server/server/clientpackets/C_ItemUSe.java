@@ -4624,7 +4624,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			try {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId);
 				if (l1npc != null) {
-					Object obj = null;
+					// unused
+					//Object obj = null;
 					try {
 						String s = l1npc.getImpl();
 						Constructor constructor = Class.forName(

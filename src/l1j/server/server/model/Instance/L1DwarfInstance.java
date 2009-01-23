@@ -37,9 +37,10 @@ public class L1DwarfInstance extends L1NpcInstance {
 	private static Logger _log = Logger.getLogger(L1DwarfInstance.class
 			.getName());
 
-	private ArrayList _tpLocs;
+	// commented out - not used
+	//private ArrayList _tpLocs;
 
-	private int _tpId;
+	//private int _tpId;
 
 	/**
 	 * @param template
