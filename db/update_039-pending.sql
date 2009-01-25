@@ -219,3 +219,27 @@ UPDATE spawnlist SET count = 2 where id = 19001;
 UPDATE spawnlist SET count = 2 where id = 19003;
 UPDATE spawnlist SET count = 2 where id = 19005;
 UPDATE spawnlist SET count = 2 where id = 19007;
+
+# correct the first drake bosses name
+
+UPDATE npc SET name = "Drake" where npcid = 45458;
+
+# remove extra drops, hes dropping the same items as the quest rewards
+# this makes him only drop the key
+
+DELETE FROM droplist WHERE mobid = 45458 AND itemid != 40621;
+
+# add spawns for drake quest
+
+INSERT INTO spawnlist VALUES
+(48300001, 'Spirit of Drake', 1, 45878, 0, 32798, 32875, 0, 0, 0, 0, 0, 0, 0, 0, 0, 483, 0, 0, 1, 0),
+(48300002, 'Diego', 1, 45413, 0, 32737, 32890, 0, 0, 0, 0, 0, 0, 4, 0, 0, 483, 0, 0, 0, 0),
+(48300003, 'Skeleton Head', 3, 45330, 0, 32737, 32890, 5, 5, 0, 0, 0, 0, 4, 20, 20, 483, 0, 0, 0, 0),
+(48300004, 'Goblin', 1, 45421, 0, 32760, 32928, 0, 0, 0, 0, 0, 0, 6, 0, 0, 483, 0, 0, 1, 0),
+(48300005, 'Goblin', 1, 45879, 0, 32764, 32930, 0, 0, 0, 0, 0, 0, 6, 0, 0, 483, 0, 0, 1, 0),
+(48300006, 'Goblin', 1, 45880, 0, 32768, 32922, 0, 0, 0, 0, 0, 0, 6, 0, 0, 483, 0, 0, 1, 0),
+(48300007, 'Goblin', 1, 45881, 0, 32765, 32920, 0, 0, 0, 0, 0, 0, 6, 0, 0, 483, 0, 0, 1, 0),
+(48300008, 'Goblin', 1, 45882, 0, 32761, 32924, 0, 0, 0, 0, 0, 0, 6, 0, 0, 483, 0, 0, 1, 0);
+
+
+
