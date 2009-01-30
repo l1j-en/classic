@@ -288,12 +288,11 @@ public class L1Magic {
 						|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
 						|| skillId == STRIKER_GALE || skillId == SHOCK_STUN
 						|| skillId == FOG_OF_SLEEPING || skillId == ICE_LANCE
-						|| skillId == FREEZING_BLIZZARD
-						|| skillId == POLLUTE_WATER
-						|| skillId == ELEMENTAL_FALL_DOWN
-						|| skillId == RETURN_TO_NATURE
-						|| skillId == DECAY_POTION
-						|| skillId == SILENCE) {
+						|| skillId == FREEZING_BLIZZARD || skillId == CANCELLATION
+						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
+						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
+						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
+						|| skillId == SILENCE || skillId == SHOCK_STUN) {
 					return false;
 				}
 			}
