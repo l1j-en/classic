@@ -52,6 +52,9 @@ public class UbTimeController implements Runnable {
 		for (L1UltimateBattle ub : UBTable.getInstance().getAllUb()) {
 			if (ub.checkUbTime() && !ub.isActive()) {
 				ub.start(); // UB Start
+				Announcements.getInstance().announceToAll("\\fR[******] The " + ub.getUbName() + ",Ultimate Battle");
+				Announcements.getInstance().announceToAll("\\fR will begin in 5 minute's.");
+				Announcements.getInstance().announceToAll("\\fR Please enter the colloseum now.");
 			}
 		}
 	}

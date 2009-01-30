@@ -51,6 +51,7 @@ public class L1UltimateBattle {
 	private int _locY;
 	private L1Location _location; 
 	private short _mapId;
+	private String _UbName;
 	private int _locX1;
 	private int _locY1;
 	private int _locX2;
@@ -336,7 +337,12 @@ public class L1UltimateBattle {
 	public void setUbId(int id) {
 		_ubId = id;
 	}
-
+	public String getUbName() {
+		return _UbName;
+	}
+	public void setUbName(String UbName) {
+		_UbName = UbName;
+	}
 	public short getMapId() {
 		return _mapId;
 	}
