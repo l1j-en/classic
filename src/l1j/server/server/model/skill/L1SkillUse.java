@@ -682,7 +682,7 @@ public class L1SkillUse {
 						|| _skillId == MASS_SLOW || _skillId == SLOW
 						|| _skillId == CANCELLATION || _skillId == SILENCE
 						|| _skillId == DECAY_POTION || _skillId == MASS_TELEPORT
-						|| _skillId == DETECTION
+						|| _skillId == DETECTION || _skillId == DARK_BLIND 
 						|| _skillId == COUNTER_DETECTION
 						|| _skillId == ERASE_MAGIC || _skillId == ENTANGLE
 						|| _skillId == PHYSICAL_ENCHANT_DEX
@@ -1110,7 +1110,7 @@ public class L1SkillUse {
 		if (_skillId == SHAPE_CHANGE) { // 
 			return;
 		}
-		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS)) { // BCM: fix darkness exploit
+		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS || _skillId == DARK_BLIND)) { // BCM: fix darkness exploit
 			return;
 		}
 		if (_skillId == BLESSED_ARMOR || _skillId == HOLY_WEAPON 
@@ -1867,7 +1867,7 @@ public class L1SkillUse {
 							continue;
 						}
 					}
-				} else if (_skillId == CURSE_BLIND || _skillId == DARKNESS) {
+				} else if (_skillId == CURSE_BLIND || _skillId == DARKNESS || _skillId == DARK_BLIND) {
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						if (pc.hasSkillEffect(STATUS_FLOATING_EYE)) {
