@@ -322,7 +322,7 @@ class L1SkillStop {
 			}
 		}
 		// ****** If changes in state-melted
-		else if (skillId == CURSE_BLIND || skillId == DARKNESS) {
+		else if (skillId == CURSE_BLIND || skillId == DARKNESS || skillId == DARK_BLIND) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_CurseBlind(0));
