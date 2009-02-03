@@ -292,7 +292,7 @@ public class L1Magic {
 						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
 						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
 						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
-						|| skillId == SILENCE || skillId == SHOCK_STUN) {
+						|| skillId == SILENCE) {
 					return false;
 				}
 			}
