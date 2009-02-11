@@ -48,6 +48,8 @@ public class ConsoleLogFormatter extends Formatter {
 	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
+		output.append(dateFmt.format(new Date(record.getMillis())));
+		output.append(" ");
 		output.append(record.getMessage());
 		output.append("\r\n");
 
