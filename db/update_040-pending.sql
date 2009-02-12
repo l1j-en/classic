@@ -17,3 +17,6 @@ update ub_settings set ub_name = 'Werldern' where ub_id = 2;
 update ub_settings set ub_name = 'Gludio' where ub_id = 3;
 update ub_settings set ub_name = 'TI' where ub_id = 4;
 update ub_settings set ub_name = 'SKT' where ub_id = 5;
+
+-- DK Sword shouldn't take dmg
+update weapon set canbedmg = 0 where item_id = 58;
