@@ -20,3 +20,7 @@ update ub_settings set ub_name = 'SKT' where ub_id = 5;
 
 -- DK Sword shouldn't take dmg
 update weapon set canbedmg = 0 where item_id = 58;
+
+-- Fix Dark Elf Apprentice mobskill dmg (was way too high)
+update mobskill set leverage = 4 where mobid = 45447 and actno = 0; -- was 15
+update mobskill set leverage = 9 where mobid = 45447 and actno = 1; -- was 15
