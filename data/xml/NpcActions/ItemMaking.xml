@@ -2662,7 +2662,7 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request new surprise bag" NpcId="80089">
+	<Action Name="request petmatch surprise bag" NpcId="80089">
 		<MakeItem>
 			<Material Amount="150" ItemId="41309"/>
 			<Item Amount="1" ItemId="41416"/>

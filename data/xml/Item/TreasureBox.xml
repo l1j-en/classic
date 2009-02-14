@@ -769,4 +769,9 @@
     <Item ItemId="40562" Count="1" />
     <Item ItemId="40563" Count="1" />
   </TreasureBox>
+  
+  <!-- TreasureBox reward for the exchange of 150 medals -->
+  <TreasureBox Type="RANDOM" ItemId="41416">
+    <Item ItemId="41254" Count="1" Chance="100" />
+  </TreasureBox>
 </TreasureBoxList>
