@@ -89,17 +89,44 @@ public class L1WarSpawn {
 		int locy2 = loc[3];
 		short mapid = (short) loc[4];
 
+		try {
+
 		for (x = locx1, y = locy1; x <= locx2; x += 8) {
+
 			SpawnWarObject(l1npc, x, y, mapid);
+			Thread.sleep(300); 
+		} }catch (Exception e1) {
+
 		}
+		try {
+
 		for (x = locx2, y = locy1; y <= locy2; y += 8) {
+
 			SpawnWarObject(l1npc, x, y, mapid);
+			Thread.sleep(300); 
+
+		} }catch (Exception e1) {
+
 		}
+		try {
+
 		for (x = locx2, y = locy2; x >= locx1; x -= 8) {
+
 			SpawnWarObject(l1npc, x, y, mapid);
+			Thread.sleep(300); 
+
+		} }catch (Exception e1) {
+
 		}
+		try {
+
 		for (x = locx1, y = locy2; y >= locy1; y -= 8) {
+
 			SpawnWarObject(l1npc, x, y, mapid);
+			Thread.sleep(300); 
+
+		} }catch (Exception e1) {
+
 		}
 	}
 

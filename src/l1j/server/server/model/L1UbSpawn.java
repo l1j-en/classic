@@ -149,9 +149,10 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 // mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); //
 	}
 
-	public void spawnAll() {
+	public void spawnAll() throws InterruptedException {
 		for (int i = 0; i < getAmount(); i++) {
 			spawnOne();
+			Thread.sleep(200);
 		}
 	}
 

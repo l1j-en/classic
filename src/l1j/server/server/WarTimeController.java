@@ -103,6 +103,7 @@ public class WarTimeController implements Runnable {
 					L1World.getInstance().broadcastPacketToAll(
 							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1)); //
 					int[] loc = new int[3];
+					try {
 					for (L1PcInstance pc : L1World.getInstance()
 							.getAllPlayers()) {
 						int castleId = i + 1;
@@ -119,7 +120,10 @@ public class WarTimeController implements Runnable {
 							L1Teleport.teleport(pc, loc[0], loc[1],
 									(short) loc[2], 5, true);
 						}
-					}
+					Thread.sleep(500);
+					} } catch (Exception e1) {
+
+		}
 				}
 			} else if (_war_end_time[i].before(getRealTime())) {
 				if (_is_now_war[i] == true) {

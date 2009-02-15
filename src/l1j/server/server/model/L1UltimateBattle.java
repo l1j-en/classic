@@ -122,7 +122,7 @@ public class L1UltimateBattle {
 	private void removeRetiredMembers() {
 		L1PcInstance[] temp = getMembersArray();
 		for (int i = 0; i < temp.length; i++) {
-			if (temp[i].getMapId() != _mapId) {
+			if (temp[i].getMapId() != _mapId || temp[i].getCurrentHp() == 0) {
 				removeMember(temp[i]);
 			}
 		}
@@ -257,7 +257,7 @@ public class L1UltimateBattle {
 						}
 
 						Thread.sleep(spawn.getSpawnDelay() * 1000);
-// removeRetiredMembers();
+						removeRetiredMembers();
 					}
 
 					if (getMembersCount() > 0) {
