@@ -27,3 +27,6 @@ update npc set hpr = 28 where npcid = 81101; -- was 50
 update npc set hpr = 28 where npcid = 81102; -- was 40
 update npc set hpr = 60 where npcid = 81103; -- was 100
 update npc set hpr = 60 where npcid = 81104; -- was 100
+
+-- correct Black Knight Captain name
+update npc set name = 'Black Knight Captain' where npcid = 81115;
