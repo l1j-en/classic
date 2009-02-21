@@ -30,3 +30,11 @@ update npc set hpr = 60 where npcid = 81104; -- was 100
 
 -- correct Black Knight Captain name
 update npc set name = 'Black Knight Captain' where npcid = 81115;
+
+-- Fix semi-exploit of killing subterranean turtles/elekkadoms without taking magic dmg
+update mobskill set trirange = -2 where mobid = 45422 and actno = 3;
+update mobskill set trirange = -2 where mobid = 45487 and actno = 0;
+
+-- Reduce overpowered subterranean turtle magic attack
+update mobskill set leverage = 40 where mobid = 45422 and actno = 3;
+
