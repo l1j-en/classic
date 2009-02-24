@@ -41,3 +41,21 @@ update mobskill set leverage = 40 where mobid = 45422 and actno = 3;
 -- tweak negative karma frag droprates
 update droplist set chance = 20000 where itemid = 40718 and mobid in (45739, 45740, 45741, 45742, 45743, 45744);
 update droplist set chance = 500000 where itemid = 40718 and mobid in (45745, 45746, 45747, 45749, 45751, 45753);
+
+-- add a few crappy drops to desire cave lesser demons
+-- NOTE: keep an eye out if jp adds some drops here later
+-- adena
+insert into droplist values(45736, 40308, 56, 112, 1000000);
+-- fragment of bloodstone
+insert into droplist values(45736, 40718, 1, 1, 10000);
+-- blue pot
+insert into droplist values(45736, 40015, 1, 1, 50000);
+-- brave
+insert into droplist values(45736, 40014, 1, 1, 50000);
+-- black rough mith
+insert into droplist values(45736, 40444, 1, 1, 25000);
+-- black pure mith
+insert into droplist values(45736, 40443, 1, 1, 10000);
+-- bbs
+insert into droplist values(45736, 40678, 1, 1, 30000);
+
