@@ -38,3 +38,6 @@ update mobskill set trirange = -2 where mobid = 45487 and actno = 0;
 -- Reduce overpowered subterranean turtle magic attack
 update mobskill set leverage = 40 where mobid = 45422 and actno = 3;
 
+-- tweak negative karma frag droprates
+update droplist set chance = 20000 where itemid = 40718 and mobid in (45739, 45740, 45741, 45742, 45743, 45744);
+update droplist set chance = 500000 where itemid = 40718 and mobid in (45745, 45746, 45747, 45749, 45751, 45753);
