@@ -65,4 +65,7 @@ update spawnlist set min_respawn_delay = 120, max_respawn_delay = 180 where grou
 -- make crystal of dark elf soul tradable
 update etcitem set trade = 0 where item_id = 40969;
 
+-- reduce GC dark elementalist mobskill leverage
+update mobskill set leverage = 10 where mobid = 45363 and actno = 0;
+update mobskill set leverage = 10 where mobid = 45907 and actno = 0;
 
