@@ -62,3 +62,7 @@ insert into droplist values(45736, 40678, 1, 1, 30000);
 -- up the respawn delay for SKT BK groups (was 60-120)
 update spawnlist set min_respawn_delay = 120, max_respawn_delay = 180 where group_id = 50;
 
+-- make crystal of dark elf soul tradable
+update etcitem set trade = 0 where item_id = 40969;
+
+
