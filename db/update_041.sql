@@ -1,9 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED
-
--- Queries that are pending an update should be placed here. This allows them 
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 -- update 41
 
 -- reduce the uber regen of most summons to about 60-75% previous value
