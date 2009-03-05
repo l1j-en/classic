@@ -26,3 +26,17 @@ update droplist set chance = 75000 where itemid = 40047 and mobid = 45101;
 
 -- I dont think these should be markable - lasta - underground passage - upper PI - some PI dungeon areas
 update mapids set markable = 0 where mapid = 490 or mapid = 492 or mapid = 494 or mapid = 480 or mapid = 496 or mapid = 481 or mapid = 482 or mapid = 483 or mapid = 484 or mapid = 491 or mapid = 493 or mapid = 495;
+
+-- Adjust earthbind
+update skills set probability_value = 50,probability_dice = 30 where skill_id = 157;
+
+-- Adjust entangle
+update skills set probability_value = 50,probability_dice = 30 where skill_id = 152;
+
+-- Adjust erase
+update skills set probability_value = 50,probability_dice = 30 where skill_id = 153;
+
+-- Adjust shockstun
+update skills set probability_value = 50 where skill_id = 87;
+
+
