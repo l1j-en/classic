@@ -39,4 +39,35 @@ update skills set probability_value = 50,probability_dice = 30 where skill_id = 
 -- Adjust shockstun
 update skills set probability_value = 50 where skill_id = 87;
 
+-- rebalance bdai drops slightly
+update droplist set chance = 4000 where mobid in (45341, 45420, 45497) and itemid = 140087;
+update droplist set chance = 1500 where mobid = 45384 and itemid = 140087;
+update droplist set chance = 5000 where mobid in (45473, 45488) and itemid = 140087;
+update droplist set chance = 100000 where mobid = 45600 and itemid = 140087;
 
+-- minor bb 45223 drop rebalance
+update droplist set chance = 18000 where mobid = 45223 and itemid = 20115;
+update droplist set chance = 18000 where mobid = 45223 and itemid = 40087;
+update droplist set chance = 17000 where mobid = 45223 and itemid = 143;
+update droplist set chance = 4500 where mobid = 45223 and itemid = 145;
+update droplist set chance = 9000 where mobid = 45223 and itemid = 148;
+
+-- adjust bb 45738 drops to match bb 45223
+update droplist set chance = 18000 where mobid = 45223 and itemid = 20115;
+update droplist set chance = 38000 where mobid = 45223 and itemid = 40074;
+update droplist set chance = 18000 where mobid = 45223 and itemid = 40087;
+update droplist set chance = 75000 where mobid = 45223 and itemid = 140100;
+update droplist set chance = 17000 where mobid = 45223 and itemid = 143;
+update droplist set chance = 4500 where mobid = 45223 and itemid = 145;
+update droplist set chance = 9000 where mobid = 45223 and itemid = 148;
+
+-- rebalance some ndai drops slightly
+update droplist set chance = 3000 where mobid = 45173 and itemid = 40087;
+update droplist set chance = 18000 where mobid = 45298 and itemid = 40087;
+update droplist set chance = 22000 where mobid = 45321 and itemid = 40087;
+update droplist set chance = 22000 where mobid = 45359 and itemid = 40087;
+
+-- minor kbb drop rebalance
+update droplist set chance = 15000 where mobid = 45298 and itemid = 20101;
+update droplist set chance = 18000 where mobid = 45298 and itemid = 20115;
+update droplist set chance = 15000 where mobid = 45298 and itemid = 143;2
