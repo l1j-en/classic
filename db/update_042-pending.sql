@@ -70,4 +70,8 @@ update droplist set chance = 22000 where mobid = 45359 and itemid = 40087;
 -- minor kbb drop rebalance
 update droplist set chance = 15000 where mobid = 45298 and itemid = 20101;
 update droplist set chance = 18000 where mobid = 45298 and itemid = 20115;
-update droplist set chance = 15000 where mobid = 45298 and itemid = 143;2
+update droplist set chance = 15000 where mobid = 45298 and itemid = 143;
+
+-- fix some shop prices
+update shop set selling_price = 23000 where npc_id = 70058 and item_id = 20101;
+update shop set selling_price = 150 where npc_id = 70095 and item_id = 20043;
