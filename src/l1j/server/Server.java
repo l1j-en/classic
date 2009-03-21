@@ -16,25 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-/*
- * $Header: /cvsroot/l2j/L2_Gameserver/java/net/sf/l2j/Server.java,v 1.5 2004/11/19 08:54:43 l2chef Exp $
- *
- * $Author: l2chef $
- * $Date: 2004/11/19 08:54:43 $
- * $Revision: 1.5 $
- * $Log: Server.java,v $
- * Revision 1.5  2004/11/19 08:54:43  l2chef
- * database is now used
- *
- * Revision 1.4  2004/07/08 22:42:28  l2chef
- * logfolder is created automatically
- *
- * Revision 1.3  2004/06/30 21:51:33  l2chef
- * using jdk logger instead of println
- *
- * Revision 1.2  2004/06/27 08:12:59  jeichhorn
- * Added copyright notice
- */
 package l1j.server;
 
 import java.io.BufferedInputStream;
@@ -59,13 +40,6 @@ public class Server {
 
 	private static final String LOG_PROP = "./config/log.properties";
 
-	/**
-	 * 
-	 *
-	 * @param args
-	 *      
-	 * @throws Exception
-	 */
 	public static void main(final String[] args) throws Exception {
 		File logFolder = new File("log");
 		logFolder.mkdir();
@@ -79,6 +53,8 @@ public class Server {
 			_log.log(Level.SEVERE, "Failed to Load " + LOG_PROP + " File.", e);
 			System.exit(0);
 		}
+		
+		// Config Reader
 		Config.load();
 
 		// L1DatabaseFactory
