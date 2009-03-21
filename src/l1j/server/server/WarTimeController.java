@@ -35,7 +35,6 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
-import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 

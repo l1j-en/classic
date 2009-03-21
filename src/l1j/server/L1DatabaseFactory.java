@@ -96,9 +96,7 @@ public class L1DatabaseFactory {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log
-						.warning("L1DatabaseFactory: getConnection() failed, trying again "
-								+ e);
+				_log.warning("L1DatabaseFactory: getConnection() failed, trying again "+ e);
 			}
 		}
 		return con;
