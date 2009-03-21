@@ -19,52 +19,16 @@
 
 package l1j.server.server;
 
-import static l1j.server.server.model.skill.L1SkillId.ADDITIONAL_FIRE;
-import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
-import static l1j.server.server.model.skill.L1SkillId.AQUA_PROTECTER;
-import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
-import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.BOUNCE_ATTACK;
-import static l1j.server.server.model.skill.L1SkillId.BRAVE_AURA;
-import static l1j.server.server.model.skill.L1SkillId.BURNING_SPIRIT;
-import static l1j.server.server.model.skill.L1SkillId.BURNING_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.CLEAR_MIND;
-import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
-import static l1j.server.server.model.skill.L1SkillId.DOUBLE_BRAKE;
-import static l1j.server.server.model.skill.L1SkillId.DRESS_EVASION;
-import static l1j.server.server.model.skill.L1SkillId.ELEMENTAL_FIRE;
-import static l1j.server.server.model.skill.L1SkillId.ELEMENTAL_PROTECTION;
-import static l1j.server.server.model.skill.L1SkillId.ENCHANT_VENOM;
-import static l1j.server.server.model.skill.L1SkillId.EXOTIC_VITALIZE;
-import static l1j.server.server.model.skill.L1SkillId.GLOWING_AURA;
-import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_HPBAR;
-import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_SHOWTRAPS;
-import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
-import static l1j.server.server.model.skill.L1SkillId.IRON_SKIN;
-import static l1j.server.server.model.skill.L1SkillId.LIGHT;
-import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
-import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
-import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
-import static l1j.server.server.model.skill.L1SkillId.REDUCTION_ARMOR;
-import static l1j.server.server.model.skill.L1SkillId.RESIST_MAGIC;
-import static l1j.server.server.model.skill.L1SkillId.SOLID_CARRIAGE;
-import static l1j.server.server.model.skill.L1SkillId.SOUL_OF_FLAME;
-import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
-import static l1j.server.server.model.skill.L1SkillId.STATUS_CHAT_PROHIBITED;
-import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
-import static l1j.server.server.model.skill.L1SkillId.UNCANNY_DODGE;
-import static l1j.server.server.model.skill.L1SkillId.VENOM_RESIST;
-import static l1j.server.server.model.skill.L1SkillId.WATER_LIFE;
-
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.NumberFormatException;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -100,6 +64,7 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.serverpackets.S_AddSkill;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_HPMeter;
@@ -110,7 +75,6 @@ import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_OpCode_Test;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
@@ -122,9 +86,10 @@ import l1j.server.server.templates.L1Drop;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skills;
-import l1j.server.server.utils.CalcExp;
 import l1j.server.server.utils.IntRange;
+import l1j.server.server.utils.CalcExp;
 import l1j.server.server.utils.SQLUtil;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server:
 // ClientThread, Shutdown, IpTable, MobTable,
