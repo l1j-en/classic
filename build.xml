@@ -33,7 +33,7 @@
         <fileset dir="${lib.dir}">
             <include name="c3p0-0.9.1.2.jar" />
             <include name="javolution.jar" />
-        	<include name="mysql-connector-java-5.1.6-bin.jar" />
+        	<include name="mysql-connector-java-5.1.7-bin.jar" />
         </fileset>
     </path>
 
