@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model.gametime;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -27,38 +28,51 @@ import l1j.server.server.utils.IntRange;
 public class L1GameTime {
 	private static final long BASE_TIME_IN_MILLIS_REAL = 1057233600000L;
 
-	private static int _time;
+	private final int _time;
 
 	private final Calendar _calendar;
 
 	private Calendar makeCalendar(int time) {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 		cal.setTimeInMillis(0);
-		cal.add(Calendar.SECOND, _time);
+		cal.add(Calendar.SECOND, time);
 		return cal;
 	}
 
-	public L1GameTime(long timeMillis) {
+	private L1GameTime(int time) {
+		_time = time;
+		_calendar = makeCalendar(time);
+	}
+
+	public static L1GameTime valueOf(long timeMillis) {
 		long t1 = timeMillis - BASE_TIME_IN_MILLIS_REAL;
 		if (t1 < 0) {
 			throw new IllegalArgumentException();
 		}
 		int t2 = (int) ((t1 * 6) / 1000L);
 		int t3 = t2 % 3;
-		_time = t2 - t3;
-
-		_calendar = makeCalendar(_time);
+		return new L1GameTime(t2 - t3);
 	}
 
-	public L1GameTime() {
-		this(System.currentTimeMillis());
+	public static L1GameTime fromSystemCurrentTime() {
+		return L1GameTime.valueOf(System.currentTimeMillis());
+	}
+
+	public static L1GameTime valueOfGameTime(Time time) {
+		long t = time.getTime() + TimeZone.getDefault().getRawOffset();
+		return new L1GameTime((int) (t / 1000L));
+	}
+
+	public Time toTime() {
+		int t = _time % (24 * 3600); // t
+		return new Time(t * 1000L - TimeZone.getDefault().getRawOffset());
 	}
 
 	public int get(int field) {
 		return _calendar.get(field);
 	}
 
-	public static int getSeconds() {
+	public int getSeconds() {
 		return _time;
 	}
 

@@ -31,7 +31,8 @@ public class L1GameTimeClock {
 			.getName());
 
 	private static L1GameTimeClock _instance;
-	private volatile L1GameTime _currentTime = new L1GameTime();
+	private volatile L1GameTime _currentTime = L1GameTime
+			.fromSystemCurrentTime();
 	private L1GameTime _previousTime = null;
 
 	private List<L1GameTimeListener> _listeners = new CopyOnWriteArrayList<L1GameTimeListener>();
@@ -41,7 +42,7 @@ public class L1GameTimeClock {
 		public void run() {
 			while (true) {
 				_previousTime = _currentTime;
-				_currentTime = new L1GameTime();
+				_currentTime = L1GameTime.fromSystemCurrentTime();
 				notifyChanged();
 
 				try {
@@ -92,7 +93,7 @@ public class L1GameTimeClock {
 		return _instance;
 	}
 
-	public L1GameTime getGameTime() {
+	public L1GameTime currentTime() {
 		return _currentTime;
 	}
 
