@@ -47,6 +47,7 @@ public class S_bonusstats extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_bonusstats";
 	}

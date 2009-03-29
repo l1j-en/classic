@@ -37,6 +37,7 @@ public class S_Liquor extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__19_LIQUOR;
 	}

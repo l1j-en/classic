@@ -38,6 +38,7 @@ public class S_TaxRate extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__66_TAXRATE;
 	}

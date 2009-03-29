@@ -37,6 +37,7 @@ public class S_PinkName extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__2C_PINKNAME;
 	}

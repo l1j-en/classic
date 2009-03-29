@@ -32,7 +32,7 @@ import l1j.server.server.Opcodes;
 public class S_CommonNews extends ServerBasePacket {
 
 	public S_CommonNews() {
-		_announcements = new ArrayList<String>();
+		_announcements = new ArrayList();
 		loadAnnouncements();
 		writeC(Opcodes.S_OPCODE_COMMONNEWS);
 		String message = "";
@@ -82,13 +82,13 @@ public class S_CommonNews extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__0B_COMMONNEWS;
 	}
 
 	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
-	@SuppressWarnings("unused")
 	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
-	private ArrayList<String> _announcements;
+	private ArrayList _announcements;
 
 }

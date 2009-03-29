@@ -64,6 +64,7 @@ public class S_CharPacks extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_CHAR_PACKS;
 	}

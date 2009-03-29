@@ -41,6 +41,7 @@ public class S_Strup extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__25_S_Strup;
 	}

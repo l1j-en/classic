@@ -52,6 +52,7 @@ public class S_Sound extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_SOUND;
 	}

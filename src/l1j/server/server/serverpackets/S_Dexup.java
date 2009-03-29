@@ -40,6 +40,7 @@ public class S_Dexup extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_Dexup";
 	}

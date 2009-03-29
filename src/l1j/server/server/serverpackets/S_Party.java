@@ -56,6 +56,7 @@ public class S_Party extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S_Party;
 	}

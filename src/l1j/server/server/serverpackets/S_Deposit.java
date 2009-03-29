@@ -36,6 +36,7 @@ public class S_Deposit extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_Deposit";
 	}

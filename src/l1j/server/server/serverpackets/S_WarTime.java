@@ -70,6 +70,7 @@ public class S_WarTime extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_WAR_TIME;
 	}

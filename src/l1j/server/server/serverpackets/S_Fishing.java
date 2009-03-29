@@ -61,6 +61,7 @@ public class S_Fishing extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_FISHING;
 	}

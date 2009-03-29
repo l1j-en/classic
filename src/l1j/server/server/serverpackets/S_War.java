@@ -56,6 +56,7 @@ public class S_War extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_WAR;
 	}

@@ -92,6 +92,7 @@ public class S_UseMap extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_USE_MAP;
 	}

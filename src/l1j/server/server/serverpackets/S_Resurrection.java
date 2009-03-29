@@ -40,6 +40,7 @@ public class S_Resurrection extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__FF_RESURRECTION;
 	}

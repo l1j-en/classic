@@ -156,6 +156,7 @@ public class S_UseAttackSkill extends ServerBasePacket {
 		return newheading;
 	}
 
+	@Override
 	public String getType() {
 		return S_USE_ATTACK_SKILL;
 	}

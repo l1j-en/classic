@@ -55,6 +55,7 @@ public class S_Door extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_DOOR;
 	}

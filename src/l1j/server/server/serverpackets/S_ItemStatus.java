@@ -53,6 +53,7 @@ public class S_ItemStatus extends ServerBasePacket {
 		return _bao.toByteArray();
 	}
 
+	@Override
 	public String getType() {
 		return S_ITEM_STATUS;
 	}

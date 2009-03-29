@@ -52,6 +52,7 @@ public class S_Ability extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_ABILITY;
 	}

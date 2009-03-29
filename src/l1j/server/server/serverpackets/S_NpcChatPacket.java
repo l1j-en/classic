@@ -60,6 +60,7 @@ public class S_NpcChatPacket extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_NPC_CHAT_PACKET;
 	}

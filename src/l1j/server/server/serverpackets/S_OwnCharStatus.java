@@ -32,7 +32,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 	private byte[] _byte = null;
 
 	public S_OwnCharStatus(L1PcInstance pc) {
-		int time = L1GameTimeClock.getInstance().getGameTime().getSeconds();
+		int time = L1GameTimeClock.getInstance().currentTime().getSeconds();
 		time = time - (time % 300);
 		// _log.warning((new
 		// StringBuilder()).append("Transmission time:").append(i).toString());
@@ -77,6 +77,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_OWB_CHAR_STATUS;
 	}

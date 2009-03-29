@@ -63,6 +63,7 @@ public class S_PetInventory extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_PET_INVENTORY;
 	}

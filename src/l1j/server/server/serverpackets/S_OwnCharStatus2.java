@@ -48,6 +48,7 @@ public class S_OwnCharStatus2 extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__4F_S_OwnChraStatus2;
 	}

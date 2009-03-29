@@ -18,8 +18,8 @@
  */
 package l1j.server.server.serverpackets;
 
+import l1j.server.Config;
 import l1j.server.server.Opcodes;
-import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class S_ServerVersion extends ServerBasePacket {
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
@@ -72,6 +72,7 @@ public class S_ServerVersion extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_SERVER_VERSION;
 	}

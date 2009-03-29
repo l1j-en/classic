@@ -99,6 +99,7 @@ public class S_DoorPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_DOOR_PACK;
 	}

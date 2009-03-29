@@ -60,6 +60,7 @@ public class S_Emblem extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_EMBLEM;
 	}

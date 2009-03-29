@@ -46,10 +46,10 @@ public class S_PetPack extends ServerBasePacket {
 
 	private void buildPacket(L1PetInstance pet, L1PcInstance pc) {
 		//Not used
-		/*int addbyte = 0;
+		int addbyte = 0;
 		int addbyte1 = 1;
 		int addbyte2 = 13;
-		int setting = 4;*/
+		int setting = 4;
 
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pet.getX());
@@ -98,6 +98,7 @@ public class S_PetPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_PET_PACK;
 	}

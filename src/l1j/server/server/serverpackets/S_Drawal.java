@@ -37,6 +37,7 @@ public class S_Drawal extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_Drawal";
 	}

@@ -51,6 +51,7 @@ public class S_NPCTalkActionTPUrl extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__25_TalkReturnAction;
 	}

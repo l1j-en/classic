@@ -42,6 +42,7 @@ public class S_CantMove extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_CANT_MOVE;
 	}

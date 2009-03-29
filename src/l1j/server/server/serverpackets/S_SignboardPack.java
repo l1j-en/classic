@@ -87,6 +87,7 @@ public class S_SignboardPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_SIGNBOARD_PACK;
 	}

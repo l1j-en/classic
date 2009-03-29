@@ -73,6 +73,7 @@ public class S_ShopBuyList extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_SHOP_BUY_LIST;
 	}

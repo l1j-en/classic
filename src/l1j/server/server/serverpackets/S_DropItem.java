@@ -101,6 +101,7 @@ public class S_DropItem extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__OB_DropItem;
 	}

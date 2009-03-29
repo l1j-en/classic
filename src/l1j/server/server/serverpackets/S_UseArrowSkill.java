@@ -84,6 +84,7 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_USE_ARROW_SKILL;
 	}

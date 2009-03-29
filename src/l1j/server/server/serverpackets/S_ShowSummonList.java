@@ -35,6 +35,7 @@ public class S_ShowSummonList extends ServerBasePacket {
 		return _bao.toByteArray();
 	}
 
+	@Override
 	public String getType() {
 		return S_ShowSummonList;
 	}

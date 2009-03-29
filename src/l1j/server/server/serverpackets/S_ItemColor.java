@@ -46,6 +46,7 @@ public class S_ItemColor extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_ITEM_COLOR;
 	}

@@ -36,6 +36,7 @@ public class S_WhoAmount extends ServerBasePacket {
 		return getBytes();
 	}
 	
+	@Override
 	public String getType() {
 		return S_WHO_AMOUNT;
 	}

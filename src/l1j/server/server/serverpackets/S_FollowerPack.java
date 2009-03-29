@@ -87,6 +87,7 @@ public class S_FollowerPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_FOLLOWER_PACK;
 	}

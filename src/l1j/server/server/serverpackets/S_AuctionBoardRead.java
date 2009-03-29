@@ -96,6 +96,7 @@ public class S_AuctionBoardRead extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_AUCTIONBOARDREAD;
 	}

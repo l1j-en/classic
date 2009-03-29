@@ -45,6 +45,7 @@ public class S_Teleport extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_TELEPORT;
 	}

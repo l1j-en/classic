@@ -42,6 +42,7 @@ public class S_DeleteInventoryItem extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_DELETE_INVENTORY_ITEM;
 	}

@@ -81,6 +81,7 @@ public class S_PetList extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_PETLIST;
 	}

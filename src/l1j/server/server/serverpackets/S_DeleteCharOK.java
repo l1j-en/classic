@@ -36,6 +36,7 @@ public class S_DeleteCharOK extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_DELETE_CHAR_OK;
 	}

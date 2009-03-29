@@ -57,6 +57,7 @@ public class S_AddItem extends ServerBasePacket {
 		return _bao.toByteArray();
 	}
 
+	@Override
 	public String getType() {
 		return S_ADD_ITEM;
 	}

@@ -37,6 +37,7 @@ public class S_HPMeter extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _typeString;
 	}

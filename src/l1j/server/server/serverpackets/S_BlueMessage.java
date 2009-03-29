@@ -69,6 +69,7 @@ public class S_BlueMessage extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__18_BLUEMESSAGE;
 	}

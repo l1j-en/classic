@@ -35,6 +35,7 @@ public class S_TradeStatus extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__2A_TRADESTATUS;
 	}

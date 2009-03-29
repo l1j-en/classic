@@ -105,6 +105,7 @@ public class S_AddSkill extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_ADD_SKILL;
 	}

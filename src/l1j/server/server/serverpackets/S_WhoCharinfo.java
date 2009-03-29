@@ -70,6 +70,7 @@ public class S_WhoCharinfo extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_WHO_CHARINFO;
 	}

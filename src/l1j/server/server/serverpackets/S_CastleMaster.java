@@ -48,6 +48,7 @@ public class S_CastleMaster extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__08_CASTLEMASTER;
 	}

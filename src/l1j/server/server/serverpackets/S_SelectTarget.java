@@ -49,6 +49,7 @@ public class S_SelectTarget extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_SELECT_TARGET;
 	}

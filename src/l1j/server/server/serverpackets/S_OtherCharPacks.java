@@ -43,7 +43,6 @@ public class S_OtherCharPacks extends ServerBasePacket {
 
 	public S_OtherCharPacks(L1PcInstance pc) {
 		int status = STATUS_PC;
-		int light = pc.isLightOn() ? 14 : 0;
 
 		if (pc.getPoison() != null) { // 
 			if (pc.getPoison().getEffectId() == 1) {
@@ -52,13 +51,15 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		}
 		if (pc.isInvisble()) {
 			status |= STATUS_INVISIBLE;
-			light = 0; // if the state INBIJI Wright OFF
 		}
 		if (pc.isBrave()) {
 			status |= STATUS_BRAVE;
-			if (pc.isElf()) {
-				status |= STATUS_ELFBRAVE;
 			}
+		if (pc.isElfBrave()) {
+			// GbtASTATUS_BRAVESTATUS_ELFBRAVEB
+			// STATUS_ELFBRAVEH
+			status |= STATUS_BRAVE;
+				status |= STATUS_ELFBRAVE;
 		}
 		if (pc.isFastMovable()) {
 			status |= STATUS_FASTMOVABLE;
@@ -116,6 +117,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_OTHER_CHAR_PACKS;
 	}

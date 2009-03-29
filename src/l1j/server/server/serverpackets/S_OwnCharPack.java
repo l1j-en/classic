@@ -52,23 +52,11 @@ public class S_OwnCharPack extends ServerBasePacket {
 		}
 		if (pc.isBrave()) {
 			status |= STATUS_BRAVE;
-			if (pc.isElf()) {
-				status |= STATUS_ELFBRAVE;
 			}
-		}
+		if (pc.isElfBrave()) {
 		
 		//need to be tested
-		if (pc.isPoison()) { // status |= STATUS_POISON; //  
-			status |= STATUS_POISON;
-			} 
-		//need to be tested
-		if (pc.isFreeze()) { // status |= STATUS_FREEZE; //  
-			status |= STATUS_FREEZE;
-			} 
-		
-		if (pc.isWisPot())
-		{
-			// there's two bitflags for braves, trying to set first, but not second
+			status |= STATUS_BRAVE;
 			status |= STATUS_ELFBRAVE;
 		}
 		if (pc.isFastMovable()) {
@@ -126,6 +114,7 @@ public class S_OwnCharPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_OWN_CHAR_PACK;
 	}

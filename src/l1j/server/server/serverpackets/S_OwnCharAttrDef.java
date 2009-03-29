@@ -50,6 +50,7 @@ public class S_OwnCharAttrDef extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_OWNCHARATTRDEF;
 	}

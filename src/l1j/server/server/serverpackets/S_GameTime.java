@@ -27,7 +27,7 @@ public class S_GameTime extends ServerBasePacket {
 	}
 
 	public S_GameTime() {
-		int time = L1GameTimeClock.getInstance().getGameTime().getSeconds();
+		int time = L1GameTimeClock.getInstance().currentTime().getSeconds();
 		buildPacket(time);
 	}
 

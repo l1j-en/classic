@@ -36,6 +36,7 @@ public class S_CharTitle extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__0B_CHARTITLE;
 	}

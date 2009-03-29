@@ -62,6 +62,7 @@ public class S_InvList extends ServerBasePacket {
 		return _bao.toByteArray();
 	}
 
+	@Override
 	public String getType() {
 		return S_INV_LIST;
 	}

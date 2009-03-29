@@ -81,6 +81,7 @@ public class S_AttackMissPacket extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__OB_ATTACKMISSPACKET;
 	}

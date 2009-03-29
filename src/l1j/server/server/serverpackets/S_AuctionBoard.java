@@ -144,6 +144,7 @@ public class S_AuctionBoard extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_AUCTIONBOARD;
 	}

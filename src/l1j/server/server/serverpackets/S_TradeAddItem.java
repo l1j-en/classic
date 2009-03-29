@@ -55,6 +55,7 @@ public class S_TradeAddItem extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_TRADE_ADD_ITEM;
 	}

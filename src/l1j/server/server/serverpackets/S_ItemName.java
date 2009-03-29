@@ -48,6 +48,7 @@ public class S_ItemName extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_ITEM_NAME;
 	}

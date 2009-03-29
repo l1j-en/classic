@@ -106,6 +106,7 @@ public class S_RangeSkill extends ServerBasePacket {
 		return newheading;
 	}
 
+	@Override
 	public String getType() {
 		return S_RANGE_SKILL;
 	}

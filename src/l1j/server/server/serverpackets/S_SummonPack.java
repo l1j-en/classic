@@ -107,6 +107,7 @@ public class S_SummonPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__1F_SUMMONPACK;
 	}

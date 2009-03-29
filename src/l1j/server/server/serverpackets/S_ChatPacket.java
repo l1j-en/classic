@@ -103,6 +103,7 @@ public class S_ChatPacket extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__1F_NORMALCHATPACK;
 	}

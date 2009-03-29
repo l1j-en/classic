@@ -42,6 +42,7 @@ public class S_ChangeHeading extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_ChangeHeading";
 	}

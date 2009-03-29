@@ -44,6 +44,7 @@ public class S_Bookmarks extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__1F_S_Bookmarks;
 	}

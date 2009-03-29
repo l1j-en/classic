@@ -25,6 +25,7 @@ public class S_MoveNpcPacket extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__1F_S_MOVENPCPACKET;
 	}

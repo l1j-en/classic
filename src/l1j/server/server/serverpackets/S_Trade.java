@@ -35,6 +35,7 @@ public class S_Trade extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__77_TRADE;
 	}

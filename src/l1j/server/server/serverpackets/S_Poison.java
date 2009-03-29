@@ -57,6 +57,7 @@ public class S_Poison extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_POISON;
 	}

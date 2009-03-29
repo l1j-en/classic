@@ -60,6 +60,7 @@ public class S_Message_YN extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return "[S] S_Message_YN";
 	}

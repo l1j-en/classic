@@ -113,6 +113,7 @@ public class S_ServerMessage extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_SERVER_MESSAGE;
 	}

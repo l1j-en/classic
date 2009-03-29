@@ -69,6 +69,7 @@ public class S_FixWeaponList extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return S_FIX_WEAPON_LIST;
 	}

@@ -48,6 +48,7 @@ public class S_HouseMap extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_HOUSEMAP;
 	}

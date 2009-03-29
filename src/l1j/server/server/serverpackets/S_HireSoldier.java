@@ -51,6 +51,7 @@ public class S_HireSoldier extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_HIRE_SOLDIER;
 	}

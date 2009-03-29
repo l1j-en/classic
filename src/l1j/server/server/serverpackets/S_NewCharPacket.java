@@ -71,6 +71,7 @@ public class S_NewCharPacket extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__25_NEWCHARPACK;
 	}

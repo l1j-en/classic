@@ -63,6 +63,7 @@ public class S_Pledge extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S_Pledge;
 	}

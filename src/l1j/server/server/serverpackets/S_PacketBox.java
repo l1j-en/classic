@@ -165,14 +165,6 @@ public class S_PacketBox extends ServerBasePacket {
 			break;
 		case CALL_SOMETHING:
 			callSomething();
-		case COOK_WINDOW:
-			writeC(0xdb); // ?
-			writeC(0x31);
-			writeC(0xdf);
-			writeC(0x02);
-			writeC(0x01);
-			writeC(0x00);
-			break;
 		default:
 			break;
 		}
@@ -205,11 +197,16 @@ public class S_PacketBox extends ServerBasePacket {
 		case MSG_COLOSSEUM:
 			writeC(value); // msg id
 			break;
-		case MSG_DUEL: // Arguments do not know the meaning 
-			writeC(value);
-			break;
 		case MSG_LEVEL_OVER:
 			writeC(0); // ?
+			writeC(value); // 0-49O\
+			break;
+		case COOK_WINDOW:
+			writeC(0xdb); // ?
+			writeC(0x31);
+			writeC(0xdf);
+			writeC(0x02);
+			writeC(0x01);
 			writeC(value); // 0-49 Not only display
 			break;
 		default:
@@ -342,6 +339,7 @@ public class S_PacketBox extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_PACKETBOX;
 	}

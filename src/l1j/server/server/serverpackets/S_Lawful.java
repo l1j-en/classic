@@ -45,6 +45,7 @@ public class S_Lawful extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_LAWFUL;
 	}

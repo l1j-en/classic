@@ -81,6 +81,7 @@ public class S_Paralysis extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__2F_PARALYSIS;
 	}

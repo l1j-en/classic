@@ -91,6 +91,7 @@ public class S_MoveCharPacket extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return _S__1F_MOVECHARPACKET;
 	}

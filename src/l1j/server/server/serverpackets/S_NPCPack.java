@@ -129,6 +129,7 @@ public class S_NPCPack extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_NPC_PACK;
 	}

@@ -73,6 +73,7 @@ public class S_BoardRead extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_BoardRead;
 	}

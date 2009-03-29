@@ -38,6 +38,7 @@ public class S_CharVisualUpdate extends ServerBasePacket {
 		return getBytes();
 	}
 
+	@Override
 	public String getType() {
 		return _S__0B_S_CharVisualUpdate;
 	}

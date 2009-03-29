@@ -41,6 +41,7 @@ public class S_DoActionGFX extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_DOACTIONGFX;
 	}

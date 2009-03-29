@@ -86,6 +86,7 @@ public class S_CharacterConfig extends ServerBasePacket {
 		return _byte;
 	}
 
+	@Override
 	public String getType() {
 		return S_CHARACTER_CONFIG;
 	}
