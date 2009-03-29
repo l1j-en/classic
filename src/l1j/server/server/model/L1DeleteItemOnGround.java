@@ -30,6 +30,7 @@ import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 //import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.model:
 // L1DeleteItemOnGround
@@ -45,15 +46,16 @@ public class L1DeleteItemOnGround {
 	public L1DeleteItemOnGround() {
 	}
 
-	class DeleteTimer implements Runnable {
+	private class DeleteTimer implements Runnable {
 		public DeleteTimer() {
 		}
 
 		@Override
 		public void run() {
+			int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
 			for (;;) {
 				try {
-					Thread.sleep(_time);
+					Thread.sleep(time);
 				} catch (Exception exception) {
 					_log.warning("L1DeleteItemOnGround error: " + exception);
 					break;
@@ -72,30 +74,26 @@ public class L1DeleteItemOnGround {
 				/* L1World.getInstance().broadcastPacketToAll(
 						new S_ServerMessage(166, "Item on the world map ", " will be removed in 10 seconds.")); 
 				// %2
-				 *
-				 */
 			}
 		}
 	}
 
-	public void onAction() {
-		_range = Config.ALT_ITEM_DELETION_RANGE;
-		if (_range > 5 && _range < 0) {
-			_range = 0;
+	public void initialize() {
+		if (!Config.ALT_ITEM_DELETION_TYPE.equalsIgnoreCase("auto")) {
+			return;
 		}
 
-		if (Config.ALT_ITEM_DELETION_TIME > 0
-				&& Config.ALT_ITEM_DELETION_TIME <= 35791) {
-			_time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
-			_deleteTimer = new DeleteTimer();
+				_deleteTimer = new DeleteTimer();
 			GeneralThreadPool.getInstance().execute(_deleteTimer); // Start timer
 		}
+	private void deleteItem() {
+		int numOfDeleted = 0;
+		for (L1Object obj : L1World.getInstance().getObject()) {
+			if (!(obj instanceof L1ItemInstance)) {
+				continue;
 	}
 
-	private void deleteItem() {
-		for (L1Object l1object : L1World.getInstance().getObject()) {
-			if (l1object instanceof L1ItemInstance) {
-				L1ItemInstance item = (L1ItemInstance) l1object;
+			L1ItemInstance item = (L1ItemInstance) obj;
 				if (item.getX() == 0 && item.getY() == 0) { // Items on the ground, rather than someone else's property
 					continue;
 				}
@@ -108,30 +106,15 @@ public class L1DeleteItemOnGround {
 				}
 
 				List<L1PcInstance> players = L1World.getInstance()
-						.getVisiblePlayer(item, _range);
-				if (0 == players.size()) {
-					L1Inventory groundInventory = L1World.getInstance()
-							.getInventory(item.getX(), item.getY(),
-									item.getMapId());
-					int itemId = item.getItem().getItemId();
-					if (itemId == 40314 || itemId == 40316) { // Amulet pets
-						PetTable.getInstance().deletePet(item.getId());
-					} else if (itemId >= 49016 && itemId <= 49025) { // Stationery
-						LetterTable lettertable = new LetterTable();
-						lettertable.deleteLetter(item.getId());
-					} else if (itemId >= 41383 && itemId <= 41400) { // Furniture
-						if (l1object instanceof L1FurnitureInstance) {
-							L1FurnitureInstance furniture =
-									(L1FurnitureInstance) l1object;
-							if (furniture.getItemObjId() == item.getId()) { //
-								FurnitureSpawnTable.getInstance()
-										.deleteFurniture(furniture);
+					.getVisiblePlayer(item, Config.ALT_ITEM_DELETION_RANGE);
+			if (players.isEmpty()) { // wvC[
+				L1Inventory groundInventory = L1World
+						.getInstance()
+						.getInventory(item.getX(), item.getY(), item.getMapId());
+				groundInventory.removeItem(item);
+				numOfDeleted++;
 							}
 						}
-					}
-					groundInventory.deleteItem(item);
-				}
-			}
-		}
+		_log.fine("Deleted ground items: " + numOfDeleted);
 	}
 }

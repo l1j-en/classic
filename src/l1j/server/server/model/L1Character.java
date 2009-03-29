@@ -1122,41 +1122,14 @@ public class L1Character extends L1Object {
 	}
 
 	public int getMagicLevel() {
-		int magiclevel = 0;
-		if (this instanceof L1PcInstance) {
-			L1PcInstance pc = (L1PcInstance) this;
-			if (pc.isKnight()) { 
-				magiclevel = getLevel() / 50;
-			} else if (pc.isCrown()) { 
-				magiclevel = getLevel() / 10;
-				if (magiclevel > 2) {
-					magiclevel = 2;
-				}
-			} else if (pc.isElf()) { 
-				magiclevel = getLevel() / 8;
-				if (magiclevel > 6) {
-					magiclevel = 6;
-				}
-			} else if (pc.isDarkelf()) { 
-				magiclevel = getLevel() / 12;
-				if (magiclevel > 2) {
-					magiclevel = 2;
-				}
-			} else if (pc.isWizard()) { 
-				magiclevel = getLevel() / 4;
-				if (magiclevel > 10) {
-					magiclevel = 10;
-				}
-			}
-		} else {
-			magiclevel = getLevel() / 4;
-		}
-		return magiclevel;
+		return getLevel() / 4;
 	}
 
 	public int getMagicBonus() {
 		int i = getInt();
-		if (i <= 8) {
+		if (i <= 5) {
+			return -2;
+		} else if (i <= 8) {
 			return -1;
 		} else if (i <= 11) {
 			return 0;
@@ -1164,18 +1137,24 @@ public class L1Character extends L1Object {
 			return 1;
 		} else if (i <= 17) {
 			return 2;
-		} else {
+		} else if (i <= 24) {
 			return i - 15;
+		} else if (i <= 35) {
+			return 10;
+		} else if (i <= 42) {
+			return 11;
+		} else if (i <= 49) {
+			return 12;
+		} else if (i <= 50) {
+			return 13;
+		} else {
+			return i - 25;
 		}
 	}
 
 	public boolean isInvisble() {
 		return (hasSkillEffect(L1SkillId.INVISIBILITY)
 				|| hasSkillEffect(L1SkillId.BLIND_HIDING));
-	}
-
-	public boolean isLightOn() {
-		return hasSkillEffect(L1SkillId.LIGHT);
 	}
 
 	public void healHp(int pt) {

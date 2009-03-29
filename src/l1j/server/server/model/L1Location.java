@@ -109,15 +109,25 @@ public class L1Location extends Point {
 	}
 
 	@Override
-	public L1Location clone() {
-		return new L1Location(this);
-	}
-
-	@Override
 	public int hashCode() {
 		return 7 * _map.getId() + super.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return String.format("(%d, %d) on %d", _x, _y, _map.getId());
+	}
+
+	/**
+	 * LocationA\_LocationB
+	 * _e|[gAGAAAWgLocationpB
+	 * 
+	 * @param max
+	 *            _l
+	 * @param isRandomTeleport
+	 *            _e|[g
+	 * @return VLocation
+	 */
 	public L1Location randomLocation(int max, boolean isRandomTeleport) {
 		return randomLocation(0, max, isRandomTeleport);
 	}
@@ -129,7 +139,7 @@ public class L1Location extends Point {
 	public static L1Location randomLocation(L1Location baseLocation, int min,
 			int max, boolean isRandomTeleport) {
 		if (min > max) {
-			throw new IllegalArgumentException("min > max locations");
+			throw new IllegalArgumentException("min > max");
 		}
 		if (max <= 0) {
 			return new L1Location(baseLocation);

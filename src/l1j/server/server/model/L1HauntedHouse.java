@@ -80,7 +80,7 @@ public class L1HauntedHouse {
 			l1skilluse.handleCommands(pc,
 					L1SkillId.CANCELLATION, pc.getId(), pc.getX(), pc.getY(),
 					null, 0, L1SkillUse.TYPE_LOGIN);
-			L1PolyMorph.doPoly(pc, 6284, 300);
+			L1PolyMorph.doPoly(pc, 6284, 300, L1PolyMorph.MORPH_BY_NPC);
 		}
 
 		for (L1Object object : L1World.getInstance().getObject()) {

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Random;
 
 import l1j.server.server.datatables.CastleTable;
+import l1j.server.server.model.L1Character;
 import l1j.server.server.model.gametime.L1GameTime;
 import l1j.server.server.model.gametime.L1GameTimeAdapter;
 import l1j.server.server.model.gametime.L1GameTimeClock;

@@ -41,7 +41,7 @@ public class L1HateList {
 		_hateMap = new HashMap<L1Character, Integer>();
 	}
 
-	public void add(L1Character cha, int hate) {
+	public synchronized void add(L1Character cha, int hate) {
 		if (cha == null) {
 			return;
 		}
@@ -52,47 +52,40 @@ public class L1HateList {
 		}
 	}
 
-	public int get(L1Character cha) {
+	public synchronized int get(L1Character cha) {
 		return _hateMap.get(cha);
 	}
 
-	public boolean containsKey(L1Character cha) {
+	public synchronized boolean containsKey(L1Character cha) {
 		return _hateMap.containsKey(cha);
 	}
 
-	public void remove(L1Character cha) {
+	public synchronized void remove(L1Character cha) {
 		_hateMap.remove(cha);
 	}
 
-	public void clear() {
+	public synchronized void clear() {
 		_hateMap.clear();
 	}
 
-	public boolean isEmpty() {
+	public synchronized boolean isEmpty() {
 		return _hateMap.isEmpty();
 	}
 
-	public L1Character getMaxHateCharacter() {
+	public synchronized L1Character getMaxHateCharacter() {
 		L1Character cha = null;
 		int hate = Integer.MIN_VALUE;
 
-		try
-		{
 			for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
 				if (hate < e.getValue()) {
 					cha = e.getKey();
 					hate = e.getValue();
 				}
 			}
-		}
-		catch (java.util.ConcurrentModificationException e)
-		{
-			_log.severe("Concurrency error in getMaxHateCharacter()");
-		}
 		return cha;
 	}
 
-	public void removeInvalidCharacter(L1NpcInstance npc) {
+	public synchronized void removeInvalidCharacter(L1NpcInstance npc) {
 		ArrayList<L1Character> invalidChars = new ArrayList<L1Character>();
 		for (L1Character cha : _hateMap.keySet()) {
 			if (cha == null || cha.isDead() || !npc.knownsObject(cha)) {
@@ -105,7 +98,7 @@ public class L1HateList {
 		}
 	}
 
-	public int getTotalHate() {
+	public synchronized int getTotalHate() {
 		int totalHate = 0;
 		for (int hate : _hateMap.values()) {
 			totalHate += hate;
@@ -113,7 +106,7 @@ public class L1HateList {
 		return totalHate;
 	}
 
-	public int getTotalLawfulHate() {
+	public synchronized int getTotalLawfulHate() {
 		int totalHate = 0;
 		for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
 			if (e.getKey() instanceof L1PcInstance) {
@@ -123,7 +116,7 @@ public class L1HateList {
 		return totalHate;
 	}
 
-	public int getPartyHate(L1Party party) {
+	public synchronized int getPartyHate(L1Party party) {
 		int partyHate = 0;
 
 		for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
@@ -145,7 +138,7 @@ public class L1HateList {
 		return partyHate;
 	}
 
-	public int getPartyLawfulHate(L1Party party) {
+	public synchronized int getPartyLawfulHate(L1Party party) {
 		int partyHate = 0;
 
 		for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
@@ -161,19 +154,19 @@ public class L1HateList {
 		return partyHate;
 	}
 
-	public L1HateList copy() {
+	public synchronized L1HateList copy() {
 		return new L1HateList(new HashMap<L1Character, Integer>(_hateMap));
 	}
 
-	public Set<Entry<L1Character, Integer>> entrySet() {
+	public synchronized Set<Entry<L1Character, Integer>> entrySet() {
 		return _hateMap.entrySet();
 	}
 
-	public ArrayList<L1Character> toTargetArrayList() {
+	public synchronized ArrayList<L1Character> toTargetArrayList() {
 		return new ArrayList<L1Character>(_hateMap.keySet());
 	}
 
-	public ArrayList<Integer> toHateArrayList() {
+	public synchronized ArrayList<Integer> toHateArrayList() {
 		return new ArrayList<Integer>(_hateMap.values());
 	}
 }

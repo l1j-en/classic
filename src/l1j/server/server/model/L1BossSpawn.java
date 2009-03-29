@@ -45,8 +45,7 @@ public class L1BossSpawn extends L1Spawn {
 		}
 	}
 
-	public L1BossSpawn(L1Npc mobTemplate) throws SecurityException,
-			ClassNotFoundException {
+	public L1BossSpawn(L1Npc mobTemplate) {
 		super(mobTemplate);
 	}
 
@@ -141,8 +140,8 @@ public class L1BossSpawn extends L1Spawn {
 		_spawnCount = getAmount();
 		while (cnt < getAmount()) {
 			cnt++;
-			GeneralThreadPool.getInstance().schedule(new SpawnTask(0, objectId),
-					delay);
+			GeneralThreadPool.getInstance().schedule(
+					new SpawnTask(0, objectId), delay);
 		}
 		_log.log(Level.FINE, toString());
 	}

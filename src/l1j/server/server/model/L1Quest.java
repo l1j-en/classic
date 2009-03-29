@@ -40,6 +40,10 @@ public class L1Quest {
 	public static final int QUEST_CRYSTAL = 33;
 	public static final int QUEST_LIZARD = 34;
 	public static final int QUEST_KEPLISHA = 35;
+	public static final int QUEST_DESIRE = 36;
+	public static final int QUEST_SHADOWS = 37;
+	public static final int QUEST_ROI = 38;
+	public static final int QUEST_TOSCROLL = 39;
 
 	public static final int QUEST_END = 255; 
 

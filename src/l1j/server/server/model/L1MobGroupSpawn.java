@@ -28,7 +28,7 @@ import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1MobGroup;
-import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1NpcCount;
 
 // Referenced classes of package l1j.server.server.model:
 // L1MobGroupSpawn
@@ -75,41 +75,12 @@ public class L1MobGroupSpawn {
 		mobGroupInfo.setRemoveGroup(mobGroup.isRemoveGroupIfLeaderDie());
 		mobGroupInfo.addMember(leader);
 
-		if (mobGroup.getMinion1Id() > 0 && mobGroup.getMinion1Count() > 0) {
-			for (int i = 0; i < mobGroup.getMinion1Count(); i++) {
-				mob = spawn(leader, mobGroup.getMinion1Id());
-				if (mob != null) {
-					mobGroupInfo.addMember(mob);
+		for (L1NpcCount minion : mobGroup.getMinions()) {
+			if (minion.isZero()) {
+				continue;
 				}
-			}
-		}
-		if (mobGroup.getMinion2Id() > 0 && mobGroup.getMinion2Count() > 0) {
-			for (int i = 0; i < mobGroup.getMinion2Count(); i++) {
-				mob = spawn(leader, mobGroup.getMinion2Id());
-				if (mob != null) {
-					mobGroupInfo.addMember(mob);
-				}
-			}
-		}
-		if (mobGroup.getMinion3Id() > 0 && mobGroup.getMinion3Count() > 0) {
-			for (int i = 0; i < mobGroup.getMinion3Count(); i++) {
-				mob = spawn(leader, mobGroup.getMinion3Id());
-				if (mob != null) {
-					mobGroupInfo.addMember(mob);
-				}
-			}
-		}
-		if (mobGroup.getMinion4Id() > 0 && mobGroup.getMinion4Count() > 0) {
-			for (int i = 0; i < mobGroup.getMinion4Count(); i++) {
-				mob = spawn(leader, mobGroup.getMinion4Id());
-				if (mob != null) {
-					mobGroupInfo.addMember(mob);
-				}
-			}
-		}
-		if (mobGroup.getMinion5Id() > 0 && mobGroup.getMinion5Count() > 0) {
-			for (int i = 0; i < mobGroup.getMinion5Count(); i++) {
-				mob = spawn(leader, mobGroup.getMinion5Id());
+			for (int i = 0; i < minion.getCount(); i++) {
+				mob = spawn(leader, minion.getId());
 				if (mob != null) {
 					mobGroupInfo.addMember(mob);
 				}
@@ -120,18 +91,9 @@ public class L1MobGroupSpawn {
 	private L1NpcInstance spawn(L1NpcInstance leader, int npcId) {
 		L1NpcInstance mob = null;
 		try {
-			L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId);
-			if (l1npc == null) {
-				return null;
-			}
+			mob = NpcTable.getInstance().newNpcInstance(npcId);
 
-			String s = l1npc.getImpl();
-			Constructor constructor = Class.forName(
-					"l1j.server.server.model.Instance." + s + "Instance")
-					.getConstructors()[0];
-			Object parameters[] = { l1npc };
-			mob = (L1NpcInstance) constructor.newInstance(parameters);
-			mob.setId(IdFactory.getInstance().nextId());
+				mob.setId(IdFactory.getInstance().nextId());
 
 			mob.setHeading(leader.getHeading());
 			mob.setMap(leader.getMapId());
@@ -140,7 +102,7 @@ public class L1MobGroupSpawn {
 
 			mob.setX(leader.getX() + _random.nextInt(5) - 2);
 			mob.setY(leader.getY() + _random.nextInt(5) - 2);
-			if (!isDoSpawn(mob)) {
+			if (!canSpawn(mob)) {
 				mob.setX(leader.getX());
 				mob.setY(leader.getY());
 			}
@@ -177,7 +139,7 @@ public class L1MobGroupSpawn {
 		return mob;
 	}
 
-	private boolean isDoSpawn(L1NpcInstance mob) {
+	private boolean canSpawn(L1NpcInstance mob) {
 		if (mob.getMap().isInMap(mob.getLocation())
 				&& mob.getMap().isPassable(mob.getLocation())) {
 			if (_isRespawnScreen) {

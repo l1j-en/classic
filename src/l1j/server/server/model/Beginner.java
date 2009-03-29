@@ -87,7 +87,7 @@ public class Beginner {
 					pstm2.setInt(5, rs.getInt("count"));
 					pstm2.setInt(6, 0);
 					pstm2.setInt(7, rs.getInt("enchantlvl"));
-					pstm2.setInt(8, rs.getInt("is_id"));
+					pstm2.setInt(8, 0);
 					pstm2.setInt(9, 0);
 					pstm2.setInt(10, rs.getInt("charge_count"));
 					pstm2.execute();

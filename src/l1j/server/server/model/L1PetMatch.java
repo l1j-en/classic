@@ -130,15 +130,6 @@ public class L1PetMatch {
 		return STATUS_NONE;
 	}
 
-	public synchronized boolean isVacancy() {
-		for (int i = 0; i < MAX_PET_MATCH; i++) {
-			if (getPetMatchStatus(i) != STATUS_PLAYING) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	private int decidePetMatchNo() {
 		for (int i = 0; i < MAX_PET_MATCH; i++) {
 			int status = getPetMatchStatus(i);
@@ -250,7 +241,6 @@ public class L1PetMatch {
 		L1PcInstance pc1 = L1World.getInstance()
 				.getPlayer(_pc1Name[petMatchNo]);
 		if (pc1 != null && pc1.getMapId() == PET_MATCH_MAPID[petMatchNo]) {
-			L1Teleport.teleport(pc1, 32624, 32813, (short) 4, 5, true);
 			for (Object object : pc1.getPetList().values().toArray()) {
 				if (object instanceof L1PetInstance) {
 					L1PetInstance pet = (L1PetInstance) object;

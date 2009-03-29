@@ -90,6 +90,9 @@ public class L1NpcXmlParser {
 		_questIds.put("resta", L1Quest.QUEST_RESTA);
 		_questIds.put("kamyla", L1Quest.QUEST_KAMYLA);
 		_questIds.put("lizard", L1Quest.QUEST_LIZARD);
+		_questIds.put("desire", L1Quest.QUEST_DESIRE);
+		_questIds.put("shadows", L1Quest.QUEST_SHADOWS);
+		_questIds.put("toscroll", L1Quest.QUEST_TOSCROLL);
 	}
 	public static int parseQuestId(String questId) {
 		if (questId.equals("")) {

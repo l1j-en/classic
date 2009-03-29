@@ -20,8 +20,7 @@ package l1j.server.server.model.poison;
 
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
-//import l1j.server.server.serverpackets.S_Poison;
+import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public abstract class L1Poison {
@@ -40,7 +39,7 @@ public abstract class L1Poison {
 		L1PcInstance player = (L1PcInstance) cha;
 		if (player.getInventory().checkEquipped(20298)
 				|| player.getInventory().checkEquipped(20117)
-				|| player.hasSkillEffect(VENOM_RESIST)) {
+				|| player.hasSkillEffect(104)) {
 			return false;
 		}
 		return true;

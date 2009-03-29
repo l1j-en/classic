@@ -252,7 +252,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 				return;
 			}
 		}
-		L1PolyMorph.doPoly(pc, _gfxId, 0);
+		L1PolyMorph.doPoly(pc, _gfxId, 0, L1PolyMorph.MORPH_BY_ITEMMAGIC);
 	}
 
 	@Override

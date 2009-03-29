@@ -210,6 +210,7 @@ public class L1EquipmentSlot {
 			if (_owner.hasSkillEffect(STATUS_BRAVE)) {
 				_owner.killSkillEffectTimer(STATUS_BRAVE);
 				_owner.sendPackets(new S_SkillBrave(_owner.getId(), 0, 0));
+				_owner.broadcastPacket(new S_SkillBrave(_owner.getId(), 0, 0));
 				_owner.setBraveSpeed(0);
 			}
 		}
@@ -259,6 +260,7 @@ public class L1EquipmentSlot {
 			if (_owner.getHasteItemEquipped() == 0) {
 				_owner.setMoveSpeed(0);
 				_owner.sendPackets(new S_SkillHaste(_owner.getId(), 0, 0));
+				_owner.broadcastPacket(new S_SkillHaste(_owner.getId(), 0, 0));
 			}
 		}
 		_owner.getEquipSlot().removeMagicHelm(_owner.getId(), equipment);

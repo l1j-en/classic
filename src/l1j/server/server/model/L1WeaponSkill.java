@@ -39,6 +39,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1Skills;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1PcInstance
@@ -70,9 +71,11 @@ public class L1WeaponSkill {
 
 	private boolean _isArrowType;
 
+	private int _attr;
+
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
-			int effectId, int effectTarget, boolean isArrowType) {
+			int effectId, int effectTarget, boolean isArrowType, int attr) {
 		_weaponId = weaponId;
 		_probability = probability;
 		_fixDamage = fixDamage;
@@ -83,6 +86,7 @@ public class L1WeaponSkill {
 		_effectId = effectId;
 		_effectTarget = effectTarget;
 		_isArrowType = isArrowType;
+		_attr = attr;
 	}
 
 	public int getWeaponId() {
@@ -125,6 +129,10 @@ public class L1WeaponSkill {
 		return _isArrowType;
 	}
 
+	public int getAttr() {
+		return _attr;
+	}
+
 	public static double getWeaponSkillDamage(L1PcInstance pc, L1Character cha,
 			int weaponId) {
 		L1WeaponSkill weaponSkill = WeaponSkillTable.getInstance().getTemplate(
@@ -142,7 +150,10 @@ public class L1WeaponSkill {
 		if (skillId != 0) {
 			L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
 			if (skill != null && skill.getTarget().equals("buff")) {
-				cha.setSkillEffect(skillId, weaponSkill.getSkillTime() * 1000);
+				if (!isFreeze(cha)) { // orJE^[}WbN
+					cha.setSkillEffect(skillId, weaponSkill
+							.getSkillTime() * 1000);
+				}
 			}
 		}
 
@@ -167,7 +178,7 @@ public class L1WeaponSkill {
 			}
 		}
 
-		int damage = 0;
+		double damage = 0;
 		int randomDamage = weaponSkill.getRandomDamage();
 		if (randomDamage != 0) {
 			damage = _random.nextInt(randomDamage);
@@ -209,27 +220,33 @@ public class L1WeaponSkill {
 					}
 				}
 
+				damage = calcDamageReduction((L1Character) object, damage,
+						weaponSkill.getAttr());
+				if (damage <= 0) {
+					continue;
+				}
 				if (object instanceof L1PcInstance) {
 					L1PcInstance targetPc = (L1PcInstance) object;
 					targetPc.sendPackets(new S_DoActionGFX(targetPc.getId(),
 							ActionCodes.ACTION_Damage));
 					targetPc.broadcastPacket(new S_DoActionGFX(targetPc.getId(),
 							ActionCodes.ACTION_Damage));
-					targetPc.receiveDamage(pc, damage);
+					targetPc.receiveDamage(pc, (int) damage);
 				} else if (object instanceof L1SummonInstance
 						|| object instanceof L1PetInstance
 						|| object instanceof L1MonsterInstance) {
 					L1NpcInstance targetNpc = (L1NpcInstance) object;
 					targetNpc.broadcastPacket(new S_DoActionGFX(targetNpc
 							.getId(), ActionCodes.ACTION_Damage));
-					targetNpc.receiveDamage(pc, damage);
+					targetNpc.receiveDamage(pc, (int) damage);
 				}
 			}
 		}
-		return damage;
+		return calcDamageReduction(cha, damage, weaponSkill.getAttr());
 	}
 
-	public static double getBaphometStaffDamage(L1PcInstance pc, L1Character cha) {
+	public static double getBaphometStaffDamage(L1PcInstance pc,
+			L1Character cha) {
 		double dmg = 0;
 		int chance = _random.nextInt(100) + 1;
 		if (14 >= chance) {
@@ -238,7 +255,7 @@ public class L1WeaponSkill {
 			int sp = pc.getSp();
 			int intel = pc.getInt();
 			double bsk = 0;
-			if (pc.hasSkillEffect(L1SkillId.BERSERKERS)) {
+			if (pc.hasSkillEffect(BERSERKERS)) {
 				bsk = 0.2;
 			}
 			dmg = (intel + sp) * (1.8 + bsk) + _random.nextInt(intel + sp)
@@ -247,7 +264,7 @@ public class L1WeaponSkill {
 			pc.sendPackets(packet);
 			pc.broadcastPacket(packet);
 		}
-		return dmg;
+		return calcDamageReduction(cha, dmg, L1Skills.ATTR_EARTH);
 	}
 
 	public static double getDiceDaggerDamage(L1PcInstance pc,
@@ -266,29 +283,97 @@ public class L1WeaponSkill {
 		return dmg;
 	}
 
-	public static void giveFettersEffect(L1Character cha) {
+	public static void giveFettersEffect(L1PcInstance pc, L1Character cha) {
 		int fettersTime = 8000;
-		if (cha.hasSkillEffect(L1SkillId.STATUS_FREEZE)) {
+		if (isFreeze(cha)) { // orJE^[}WbN
 			return;
 		}
 		if ((_random.nextInt(100) + 1) <= 2) {
 			L1EffectSpawn.getInstance().spawnEffect(81182, fettersTime,
 					cha.getX(), cha.getY(), cha.getMapId());
 			if (cha instanceof L1PcInstance) {
-				L1PcInstance pc = (L1PcInstance) cha;
-				pc.setSkillEffect(L1SkillId.STATUS_FREEZE, fettersTime);
-				pc.sendPackets(new S_SkillSound(pc.getId(), 4184));
-				pc.broadcastPacket(new S_SkillSound(pc.getId(), 4184));
-				pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_BIND, true));
+				L1PcInstance targetPc = (L1PcInstance) cha;
+				targetPc.setSkillEffect(STATUS_FREEZE, fettersTime);
+				targetPc.sendPackets(new S_SkillSound(targetPc.getId(), 4184));
+				targetPc.broadcastPacket(new S_SkillSound(targetPc.getId(),
+						4184));
+				targetPc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_BIND,
+						true));
 			} else if (cha instanceof L1MonsterInstance
 					|| cha instanceof L1SummonInstance
 					|| cha instanceof L1PetInstance) {
 				L1NpcInstance npc = (L1NpcInstance) cha;
-				npc.setSkillEffect(L1SkillId.STATUS_FREEZE, fettersTime);
+				npc.setSkillEffect(STATUS_FREEZE, fettersTime);
 				npc.broadcastPacket(new S_SkillSound(npc.getId(), 4184));
 				npc.setParalyzed(true);
 			}
 		}
+	}
+
+	private static double calcDamageReduction(L1Character cha, double dmg, int attr) {
+		// orJE^[}WbN
+		if (isFreeze(cha)) {
+			return 0;
+}
+		int mr = cha.getMr();
+		int rnd = _random.nextInt(100) + 1;
+		if (mr >= rnd) {
+			dmg /= 2;
+		}
+
+		// _[Wy
+		int resist = 0;
+		if (attr == L1Skills.ATTR_EARTH) {
+			resist = cha.getEarth();
+		} else if (attr == L1Skills.ATTR_FIRE) {
+			resist = cha.getFire();
+		} else if (attr == L1Skills.ATTR_WATER) {
+			resist = cha.getWater();
+		} else if (attr == L1Skills.ATTR_WIND) {
+			resist = cha.getWind();
+		}
+		int resistFloor = (int) (0.32 * Math.abs(resist));
+		if (resist >= 0) {
+			resistFloor *= 1;
+		} else {
+			resistFloor *= -1;
+		}
+		double attrDeffence = resistFloor / 32.0;
+		dmg = (1.0 - attrDeffence) * dmg;
+
+		return dmg;
+	}
+
+	private static boolean isFreeze(L1Character cha) {
+		if (cha.hasSkillEffect(STATUS_FREEZE)) {
+			return true;
+		}
+		if (cha.hasSkillEffect(ABSOLUTE_BARRIER)) {
+			return true;
+		}
+		if (cha.hasSkillEffect(ICE_LANCE)) {
+			return true;
+		}
+		if (cha.hasSkillEffect(FREEZING_BLIZZARD)) {
+			return true;
+		}
+		if (cha.hasSkillEffect(EARTH_BIND)) {
+			return true;
+		}
+
+		// JE^[}WbN
+		if (cha.hasSkillEffect(COUNTER_MAGIC)) {
+			cha.removeSkillEffect(COUNTER_MAGIC);
+			int castgfx = SkillsTable.getInstance().getTemplate(
+					COUNTER_MAGIC).getCastGfx();
+			cha.broadcastPacket(new S_SkillSound(cha.getId(), castgfx));
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				pc.sendPackets(new S_SkillSound(pc.getId(), castgfx));
+			}
+			return true;
+		}
+		return false;
 	}
 
 }

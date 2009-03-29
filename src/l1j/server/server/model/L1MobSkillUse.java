@@ -214,7 +214,7 @@ public class L1MobSkillUse {
 			default:
 				break;
 			}
-			L1PolyMorph.doPoly(pc, polyId, 1800);
+			L1PolyMorph.doPoly(pc, polyId, 1800, L1PolyMorph.MORPH_BY_NPC);
 
 			usePoly = true;
 		}

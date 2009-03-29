@@ -413,6 +413,7 @@ public class L1TownLocation {
 		case 70052: 
 		case 70053: 
 		//case 70049:
+		case 70049: // [[i|[Vj
 		case 70051: 
 		case 70047: 
 		case 70058: 

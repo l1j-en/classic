@@ -82,13 +82,16 @@ public class L1Inventory extends L1Object {
 			return -1;
 		}
 		if (getSize() > Config.MAX_NPC_ITEM
-				|| (getSize() == Config.MAX_NPC_ITEM
-						&& (!item.isStackable() || !checkItem(item
+				|| (getSize() == Config.MAX_NPC_ITEM && (!item.isStackable() || !checkItem(item
 						.getItem().getItemId())))) { 
 			return SIZE_OVER;
 		}
 
-		int weight = getWeight() + item.getItem().getWeight() * count / 1000 + 1;
+		int weight = getWeight() + item.getItem().getWeight() * count / 1000
+				+ 1;
+		if (weight < 0 || (item.getItem().getWeight() * count / 1000) < 0) {
+			return WEIGHT_OVER;
+		}
 		if (weight > (MAX_WEIGHT * Config.RATE_WEIGHT_LIMIT_PET)) { 
 			return WEIGHT_OVER;
 		}
@@ -106,8 +109,7 @@ public class L1Inventory extends L1Object {
 
 	public static final int WAREHOUSE_TYPE_CLAN = 1;
 
-	public int checkAddItemToWarehouse(L1ItemInstance item, int count,
-			int type) {
+	public int checkAddItemToWarehouse(L1ItemInstance item, int count, int type) {
 		if (item == null) {
 			return -1;
 		}
@@ -122,8 +124,8 @@ public class L1Inventory extends L1Object {
 			maxSize = Config.MAX_CLAN_WAREHOUSE_ITEM;
 		}
 		if (getSize() > maxSize
-				|| (getSize() == maxSize && (!item.isStackable()
-						 || !checkItem(item.getItem().getItemId())))) { //
+				|| (getSize() == maxSize && (!item.isStackable() || !checkItem(item
+						.getItem().getItemId())))) { // emF
 			return SIZE_OVER;
 		}
 
@@ -179,9 +181,8 @@ public class L1Inventory extends L1Object {
 		item.setY(getY());
 		item.setMap(getMapId());
 		int chargeCount = item.getItem().getMaxChargeCount();
-		if (itemId == 40006 || itemId == 40007
-				|| itemId == 40008 || itemId == 140006
-				|| itemId == 140008 || itemId == 41401) {
+		if (itemId == 40006 || itemId == 40007 || itemId == 40008
+				|| itemId == 140006 || itemId == 140008 || itemId == 41401) {
 			Random random = new Random();
 			chargeCount -= random.nextInt(5);
 		}
@@ -274,6 +275,10 @@ public class L1Inventory extends L1Object {
 		return removeItem(item, count);
 	}
 
+	public int removeItem(L1ItemInstance item) {
+		return removeItem(item, item.getCount());
+	}
+
 	public int removeItem(L1ItemInstance item, int count) {
 		if (item == null) {
 			return 0;
@@ -294,11 +299,10 @@ public class L1Inventory extends L1Object {
 			} else if (itemId >= 41383 && itemId <= 41400) { 
 				for (L1Object l1object : L1World.getInstance().getObject()) {
 					if (l1object instanceof L1FurnitureInstance) {
-						L1FurnitureInstance furniture =
-								(L1FurnitureInstance) l1object;
+						L1FurnitureInstance furniture = (L1FurnitureInstance) l1object;
 						if (furniture.getItemObjId() == item.getId()) { 
-							FurnitureSpawnTable.getInstance()
-									.deleteFurniture(furniture);
+							FurnitureSpawnTable.getInstance().deleteFurniture(
+									furniture);
 						}
 					}
 				}
@@ -322,8 +326,8 @@ public class L1Inventory extends L1Object {
 		return tradeItem(item, count, inventory);
 	}
 
-	public synchronized L1ItemInstance tradeItem(L1ItemInstance item, int count,
-			L1Inventory inventory) {
+	public synchronized L1ItemInstance tradeItem(L1ItemInstance item,
+			int count, L1Inventory inventory) {
 		if (item == null) {
 			return null;
 		}

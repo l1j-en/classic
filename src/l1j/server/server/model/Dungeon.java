@@ -47,7 +47,7 @@ public class Dungeon {
 
 	private enum DungeonType {
 		NONE, SHIP_FOR_FI, SHIP_FOR_HEINE, SHIP_FOR_PI, SHIP_FOR_HIDDENDOCK,
-		SHIP_FOR_GLUDIO, SHIP_FOR_TALKING
+		SHIP_FOR_GLUDIN, SHIP_FOR_TI
 	};
 
 	public static Dungeon getInstance() {
@@ -78,50 +78,37 @@ public class Dungeon {
 				int newMapId = rs.getInt("new_mapid");
 				int heading = rs.getInt("new_heading");
 				DungeonType dungeonType = DungeonType.NONE;
-				if (srcX == 32630 && srcY == 32983 && srcMapId == 0
-						|| srcX == 32631 && srcY == 32983 && srcMapId == 0
-						|| srcX == 32632 && srcY == 32983 && srcMapId == 0
-						|| srcX == 33733 && srcY == 32796 && srcMapId == 5
-						|| srcX == 33734 && srcY == 32796 && srcMapId == 5) {
-					dungeonType = DungeonType.SHIP_FOR_GLUDIO;
-				} else if (srcX == 32540 && srcY == 32728 && srcMapId == 4
-						|| srcX == 32542 && srcY == 32728 && srcMapId == 4
-						|| srcX == 32543 && srcY == 32728 && srcMapId == 4
-						|| srcX == 32544 && srcY == 32728 && srcMapId == 4
-						|| srcX == 32734 && srcY == 32794 && srcMapId == 6
-						|| srcX == 32735 && srcY == 32794 && srcMapId == 6
-						|| srcX == 32736 && srcY == 32794 && srcMapId == 6) {
-					dungeonType = DungeonType.SHIP_FOR_TALKING;
-				} else if (srcX == 33423 && srcY == 33502 && srcMapId == 4
-						|| srcX == 33424 && srcY == 33502 && srcMapId == 4
-						|| srcX == 33425 && srcY == 33502 && srcMapId == 4
-						|| srcX == 33426 && srcY == 33502 && srcMapId == 4
-						|| srcX == 32733 && srcY == 32794 && srcMapId == 83
-						|| srcX == 32734 && srcY == 32794 && srcMapId == 83
-						|| srcX == 32735 && srcY == 32794 && srcMapId == 83
-						|| srcX == 32736 && srcY == 32794 && srcMapId == 83) {
+				if ((srcX == 33423 || srcX == 33424 || srcX == 33425
+						|| srcX == 33426) && srcY == 33502 && srcMapId == 4 // nClD->FIsD
+						|| (srcX == 32733 || srcX == 32734 || srcX == 32735
+						|| srcX == 32736) && srcY == 32794 && srcMapId == 83) { // FIsD->nClD
 					dungeonType = DungeonType.SHIP_FOR_FI;
-				} else if (srcX == 32935 && srcY == 33058 && srcMapId == 70
-						|| srcX == 32936 && srcY == 33058 && srcMapId == 70
-						|| srcX == 32937 && srcY == 33058 && srcMapId == 70
-						|| srcX == 32732 && srcY == 32796 && srcMapId == 84
-						|| srcX == 32733 && srcY == 32796 && srcMapId == 84
-						|| srcX == 32734 && srcY == 32796 && srcMapId == 84
-						|| srcX == 32735 && srcY == 32796 && srcMapId == 84) {
+				} else if ((srcX == 32935 || srcX == 32936 || srcX == 32937)
+						&& srcY == 33058 && srcMapId == 70 // FID->nClsD
+						|| (srcX == 32732 || srcX == 32733 || srcX == 32734
+						|| srcX == 32735) && srcY == 32796 && srcMapId == 84) { // nClsD->FID
 					dungeonType = DungeonType.SHIP_FOR_HEINE;
-				} else if (srcX == 32750 && srcY == 32874 && srcMapId == 445
-						|| srcX == 32751 && srcY == 32874 && srcMapId == 445
-						|| srcX == 32752 && srcY == 32874 && srcMapId == 445
-						|| srcX == 32731 && srcY == 32796 && srcMapId == 447
-						|| srcX == 32732 && srcY == 32796 && srcMapId == 447
-						|| srcX == 32733 && srcY == 32796 && srcMapId == 447) {
+				} else if ((srcX == 32750 || srcX == 32751 || srcX == 32752)
+						&& srcY == 32874 && srcMapId == 445 // BD->CsD
+						|| (srcX == 32731 || srcX == 32732 || srcX == 32733)
+						&& srcY == 32796 && srcMapId == 447) { // CsD->BD
 					dungeonType = DungeonType.SHIP_FOR_PI;
-				} else if (srcX == 32296 && srcY == 33087 && srcMapId == 440
-						|| srcX == 32297 && srcY == 33087 && srcMapId == 440
-						|| srcX == 32298 && srcY == 33087 && srcMapId == 440
-						|| srcX == 32735 && srcY == 32794 && srcMapId == 446
-						|| srcX == 32736 && srcY == 32794 && srcMapId == 446) {
+				} else if ((srcX == 32296 || srcX == 32297 || srcX == 32298)
+						&& srcY == 33087 && srcMapId == 440 // CD->BDsD
+						|| (srcX == 32735 ||  srcX == 32736 ||  srcX == 32737)
+						&& srcY == 32794 && srcMapId == 446) { // BDsD->CD
 					dungeonType = DungeonType.SHIP_FOR_HIDDENDOCK;
+				} else if ((srcX == 32630 || srcX == 32631 || srcX == 32632)
+						&& srcY == 32983 && srcMapId == 0 // TalkingIsland->TalkingIslandShiptoAdenMainland
+						|| (srcX == 32733 || srcX == 32734 || srcX == 32735)
+						&& srcY == 32796 && srcMapId == 5) { // TalkingIslandShiptoAdenMainland->TalkingIsland
+					dungeonType = DungeonType.SHIP_FOR_GLUDIN;
+				} else if ((srcX == 32540 || srcX == 32542 || srcX == 32543
+						|| srcX == 32544 || srcX == 32545) && srcY == 32728
+						&& srcMapId == 4 // AdenMainland->AdenMainlandShiptoTalkingIsland
+						|| (srcX == 32734 || srcX == 32735 || srcX == 32736
+						|| srcX == 32737) && srcY == 32794 && srcMapId == 6) { // AdenMainlandShiptoTalkingIsland->AdenMainland
+					dungeonType = DungeonType.SHIP_FOR_TI;
 				}
 				NewDungeon newDungeon = new NewDungeon(newX, newY,
 						(short) newMapId, heading, dungeonType);
@@ -158,10 +145,11 @@ public class Dungeon {
 	}
 
 	public boolean dg(int locX, int locY, int mapId, L1PcInstance pc) {
-		int servertime = L1GameTimeClock.getInstance().getGameTime()
+		int servertime = L1GameTimeClock.getInstance().currentTime()
 				.getSeconds();
 		int nowtime = servertime % 86400;
-		String key = new StringBuilder().append(mapId).append(locX).append(locY).toString();
+		String key = new StringBuilder().append(mapId).append(locX)
+				.append(locY).toString();
 		if (_dungeonMap.containsKey(key)) {
 			NewDungeon newDungeon = _dungeonMap.get(key);
 			short newMap = newDungeon._newMapId;
@@ -173,51 +161,40 @@ public class Dungeon {
 
 			if (dungeonType == DungeonType.NONE) {
 				teleportable = true;
-			} else if (dungeonType == DungeonType.SHIP_FOR_TALKING) {
-				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1
-						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4
-						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7
-						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10
-						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13
-						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16
-						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19
-						|| nowtime >= 1260 * 60 && nowtime < 1320 * 60 // 21~22
-						) && pc.getInventory().checkItem(40298, 1)) {
+			} else {
+				if (nowtime >= 15 * 360 && nowtime < 25 * 360 // 1.30~2.30
+						|| nowtime >= 45 * 360 && nowtime < 55 * 360 // 4.30~5.30
+						|| nowtime >= 75 * 360 && nowtime < 85 * 360 // 7.30~8.30
+						|| nowtime >= 105 * 360 && nowtime < 115 * 360 // 10.30~11.30
+						|| nowtime >= 135 * 360 && nowtime < 145 * 360
+						|| nowtime >= 165 * 360 && nowtime < 175 * 360
+						|| nowtime >= 195 * 360 && nowtime < 205 * 360
+						|| nowtime >= 225 * 360 && nowtime < 235  * 360) {
+					if ((pc.getInventory().checkItem(40299, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_GLUDIN) // TalkingIslandShiptoAdenMainland
+							|| (pc.getInventory().checkItem(40301, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_HEINE) // AdenMainlandShiptoForgottenIsland
+							|| (pc.getInventory().checkItem(40302, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_PI)) { // ShipPirateislandtoHiddendock
 					teleportable = true;
 				}
-			} else if (dungeonType == DungeonType.SHIP_FOR_GLUDIO) {
-				if ((nowtime >= 90 * 60 && nowtime < 150 * 60 // 1.30~2.30
-						|| nowtime >= 270 * 60 && nowtime < 330 * 60 // 4.30~5.30
-						|| nowtime >= 450 * 60 && nowtime < 510 * 60 // 7.30~8.30
-						|| nowtime >= 630 * 60 && nowtime < 690 * 60 // 10.30~11.30
-						|| nowtime >= 810 * 60 && nowtime < 870 * 60 // 13.30~14.30
-						|| nowtime >= 990 * 60 && nowtime < 1050 * 60 // 16.30~17.30
-						|| nowtime >= 1170 * 60 && nowtime < 1230 * 60 // 19.30~20.30
-						|| nowtime >= 1350 * 60 && nowtime < 1410 * 60 // 22.30~23.30
-						) && pc.getInventory().checkItem(40299, 1)) {
+				} else if ( nowtime >= 0  && nowtime < 360
+						|| nowtime >= 30 * 360 && nowtime < 40 * 360
+						|| nowtime >= 60 * 360 && nowtime < 70 * 360
+						|| nowtime >= 90 * 360 && nowtime < 100 * 360
+						|| nowtime >= 120 * 360 && nowtime < 130 * 360
+						|| nowtime >= 150 * 360 && nowtime < 160 * 360
+						|| nowtime >= 180 * 360 && nowtime < 190 * 360
+						|| nowtime >= 210 * 360 && nowtime < 220 * 360) {
+					if ((pc.getInventory().checkItem(40298, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_TI) // AdenMainlandShiptoTalkingIsland
+							|| (pc.getInventory().checkItem(40300, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_FI) // ForgottenIslandShiptoAdenMainland
+							|| (pc.getInventory().checkItem(40303, 1)
+							&& dungeonType == DungeonType.SHIP_FOR_HIDDENDOCK)) { // ShipHiddendocktoPirateisland
 					teleportable = true;
 				}
-			} else if (dungeonType == DungeonType.SHIP_FOR_FI) { // nClDê->FIs«ÌD
-				if ((nowtime >= 0 && nowtime < 60 * 60 // 0~1
-						|| nowtime >= 180 * 60 && nowtime < 240 * 60 // 3~4
-						|| nowtime >= 360 * 60 && nowtime < 420 * 60 // 6~7
-						|| nowtime >= 540 * 60 && nowtime < 600 * 60 // 9~10
-						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13
-						|| nowtime >= 900 * 60 && nowtime < 960 * 60 // 15~16
-						|| nowtime >= 1080 * 60 && nowtime < 1140 * 60 // 18~19
-						) && pc.getInventory().checkItem(40303, 1)) { // HiddenDock Ticket
-					teleportable = true;
-					pc.getInventory().consumeItem(40303, 1);
-	 			}
-			} else if (dungeonType == DungeonType.SHIP_FOR_PI) {
-				if ((nowtime >= 480 * 60 && nowtime < 1260 * 60 // 8~9
-						|| nowtime >= 720 * 60 && nowtime < 780 * 60 // 12~13
-						|| nowtime >= 960 * 60 && nowtime < 1020 * 60  // 16~17
-						|| nowtime >= 1200 * 60 && nowtime < 1260 * 60 // 20~21
-						) && pc.getInventory().checkItem(40302, 1)) { // Pirate Island Ticket					
-					teleportable = true;
-					pc.getInventory().consumeItem(40302, 1);
-				}
+					}
 			}
 			if (teleportable) {
 				// 2 seconds of invincibility

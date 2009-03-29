@@ -154,11 +154,10 @@ public class AcceleratorChecker {
 			interval *= HASTE_RATE;
 		}
 		if (_pc.isBrave()) {
-			if (_pc.isElf()) {
-				interval *= WAFFLE_RATE;
-			} else {
 				interval *= HASTE_RATE;
 			}
+		if (_pc.isElfBrave()) {
+			interval *= WAFFLE_RATE;
 		}
 
 		return interval;

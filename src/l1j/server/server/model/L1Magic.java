@@ -25,6 +25,7 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.WarTimeController;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
+import l1j.server.server.model.Instance.L1MagicInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -163,6 +164,42 @@ public class L1Magic {
 					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 				return false;
 			}
+			if (npcId == 45752 // oO(gO)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+				return false;
+			}
+			if (npcId == 45753 // oO(g)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+				return false;
+			}
+			if (npcId == 45675 // q(gO)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				return false;
+			}
+			if (npcId == 81082 // q(g)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				return false;
+			}
+			if (npcId == 45625 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				return false;
+			}
+			if (npcId == 45674 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				return false;
+			}
+			if (npcId == 45685 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				return false;
+			}
+			if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+					&& _pc.getTempCharGfx() == 6035) {
+				return false;
+			}
+			if (npcId >= 46092 && npcId <= 46106 // e_amob
+					&& _pc.getTempCharGfx() == 6034) {
+				return false;
+			}
 		}
 
  		if (!checkZone(skillId)) {
@@ -288,11 +325,10 @@ public class L1Magic {
 						|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
 						|| skillId == STRIKER_GALE || skillId == SHOCK_STUN
 						|| skillId == FOG_OF_SLEEPING || skillId == ICE_LANCE
-						|| skillId == FREEZING_BLIZZARD || skillId == CANCELLATION
-						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
-						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
-						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
-						|| skillId == SILENCE) {
+						|| skillId == FREEZING_BLIZZARD
+						|| skillId == POLLUTE_WATER
+						|| skillId == ELEMENTAL_FALL_DOWN
+						|| skillId == RETURN_TO_NATURE) {
 					return false;
 				}
 			}
@@ -498,12 +534,12 @@ public class L1Magic {
 			}
 			if (!isNowWar) {
 				if (_npc instanceof L1PetInstance) {
-					dmg /= 16; // was 8
+					dmg /= 8;
 				}
 				if (_npc instanceof L1SummonInstance) {
 					L1SummonInstance summon = (L1SummonInstance) _npc;
 					if (summon.isExsistMaster()) {
-						dmg /= 16; // was 8
+						dmg /= 8;
 					}
 				}
 			}
@@ -589,12 +625,12 @@ public class L1Magic {
 			}
 			if (!isNowWar) {
 				if (_targetNpc instanceof L1PetInstance) {
-					dmg /= 16; // was 8
+					dmg /= 8;
 				}
 				if (_targetNpc instanceof L1SummonInstance) {
 					L1SummonInstance summon = (L1SummonInstance) _targetNpc;
 					if (summon.isExsistMaster()) {
-						dmg /= 16; // was 8
+						dmg /= 8;
 					}
 				}
 			}
@@ -622,6 +658,42 @@ public class L1Magic {
 			}
 			if (npcId == 45941 //
 					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+				dmg = 0;
+			}
+			if (npcId == 45752 // oO(gO)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+				dmg = 0;
+			}
+			if (npcId == 45753 // oO(g)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+				dmg = 0;
+			}
+			if (npcId == 45675 // q(gO)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				dmg = 0;
+			}
+			if (npcId == 81082 // q(g)
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				dmg = 0;
+			}
+			if (npcId == 45625 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				dmg = 0;
+			}
+			if (npcId == 45674 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				dmg = 0;
+			}
+			if (npcId == 45685 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+				dmg = 0;
+			}
+			if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+					&& _pc.getTempCharGfx() == 6035) {
+				dmg = 0;
+			}
+			if (npcId >= 46092 && npcId <= 46106 // e_amob
+					&& _pc.getTempCharGfx() == 6034) {
 				dmg = 0;
 			}
 		}

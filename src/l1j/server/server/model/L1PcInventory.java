@@ -109,6 +109,12 @@ public class L1PcInventory extends L1Inventory {
 		}
 
 		int weight = getWeight() + item.getItem().getWeight() * count / 1000 + 1;
+		if (weight < 0 || (item.getItem().getWeight() * count / 1000) < 0) {
+			if (message) {
+				sendOverMessage(82); // ACedAB
+			}
+			return WEIGHT_OVER;
+		}
 		if (calcWeight30(weight) >= 29) {
 			if (message) {
 				sendOverMessage(82);

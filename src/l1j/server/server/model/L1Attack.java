@@ -126,13 +126,15 @@ public class L1Attack {
 	}
 
 	// If the attacker is the player's status correction
-	private static final int[] strHit = { -2, -2, -2, -2, -2, -2, -2, -2, -2,
-			-2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9,
-			9, 10, 10, 11, 11, 12, 12, 13, 13, 14 };
+	private static final int[] strHit = { -2, -2, -2, -2, -2, -2, -2, // 0`7
+			-1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, // 8`26
+			7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 12, // 27`44
+			13, 13, 13, 14, 14, 14, 15, 15, 15, 16, 16, 16, 17, 17, 17}; // 45`59
 
-	private static final int[] dexHit = { -2, -2, -2, -2, -2, -2, -2, -2, -2,
-			-1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8,
-			9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14 };
+	private static final int[] dexHit = { -2, -2, -2, -2, -2, -2, -1, -1, 0, 0, // 1`10
+			1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, // 11`30
+			17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, // 31`45
+			32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46 }; // 46`60
 
 	private static final int[] strDmg = new int[128];
 
@@ -226,7 +228,8 @@ public class L1Attack {
 				_weaponType = weapon.getItem().getType1();
 				_weaponAddHit = weapon.getItem().getHitModifier()
 						 + weapon.getHitByMagic();
-				_weaponAddDmg = weapon.getItem().getDmgModifier();
+				_weaponAddDmg = weapon.getItem().getDmgModifier()
+						+ weapon.getDmgByMagic();
 				_weaponSmall = weapon.getItem().getDmgSmall();
 				_weaponLarge = weapon.getItem().getDmgLarge();
 				_weaponBless = weapon.getItem().getBless();
@@ -421,6 +424,42 @@ public class L1Attack {
 		}
 		if (npcId == 45941
 				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45752 // oO(gO)
+				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45753 // oO(g)
+				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45675 // q(gO)
+				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			_hitRate = 0;
+		}
+		if (npcId == 81082 // q(g)
+				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45625 // 
+				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45674 // 
+				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			_hitRate = 0;
+		}
+		if (npcId == 45685 // 
+				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			_hitRate = 0;
+		}
+		if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+				&& _pc.getTempCharGfx() == 6035) {
+			_hitRate = 0;
+		}
+		if (npcId >= 46092 && npcId <= 46106 // e_amob
+				&& _pc.getTempCharGfx() == 6034) {
 			_hitRate = 0;
 		}
 
@@ -618,7 +657,7 @@ public class L1Attack {
 		} else if (_weaponId == 2 || _weaponId == 200002) { // 
 			dmg = L1WeaponSkill.getDiceDaggerDamage(_pc, _targetPc, weapon);
 		} else if (_weaponId == 204 || _weaponId == 100204) { //
-			L1WeaponSkill.giveFettersEffect(_targetPc); 
+			L1WeaponSkill.giveFettersEffect(_pc, _targetPc); 
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
@@ -777,7 +816,7 @@ public class L1Attack {
 		if (_weaponId == 124) {
 			dmg += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
 		} else if (_weaponId == 204 || _weaponId == 100204) { //
-			L1WeaponSkill.giveFettersEffect(_targetNpc); 
+			L1WeaponSkill.giveFettersEffect(_pc, _targetNpc); 
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
@@ -802,12 +841,12 @@ public class L1Attack {
 		}
 		if (!isNowWar) {
 			if (_targetNpc instanceof L1PetInstance) {
-				dmg /= 16; // was 8
+				dmg /= 8;
 			}
 			if (_targetNpc instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) _targetNpc;
 				if (summon.isExsistMaster()) {
-					dmg /= 16; // was 8
+					dmg /= 8;
 				}
 			}
 		}
@@ -903,12 +942,12 @@ public class L1Attack {
 		}
 		if (!isNowWar) {
 			if (_npc instanceof L1PetInstance) {
-				dmg /= 16;  // was 8
+				dmg /= 8;
 			}
 			if (_npc instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) _npc;
 				if (summon.isExsistMaster()) {
-					dmg /= 16;  // was 8
+					dmg /= 8;
 				}
 			}
 		}
@@ -1026,7 +1065,7 @@ public class L1Attack {
 	private boolean isUndeadDamage() {
 		boolean flag = false;
 		int undead = _npc.getNpcTemplate().get_undead();
-		boolean isNight = L1GameTimeClock.getInstance().getGameTime().isNight();
+		boolean isNight = L1GameTimeClock.getInstance().currentTime().isNight();
 		if (isNight && (undead == 1 || undead == 3)) { // 18 to 6 pm, and the curse-the curse-boss
 			flag = true;
 		}
