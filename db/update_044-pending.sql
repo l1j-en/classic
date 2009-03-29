@@ -8,6 +8,9 @@
 
 -- database changes to match the latest merge
 
+-- these changes are active on lineagedc, so please dont edit them in
+-- place. use update queries at the end if changes are needed.
+
 ### item table modifications ###
 
 #drop and add some items for renaming and a few other tweaks
