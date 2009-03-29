@@ -37,7 +37,7 @@ public class CharBuffTable {
 
 	private static final int[] buffSkill = { 2, 67,
 			3, 99, 151, 159, 168, 
-			43, 54, 1000, 1001,
+			43, 54, 1000, 1001, STATUS_ELFBRAVE, // wCXgAO[^[wCXgAuCu|[VAO[|[VAGbt
 			52, 101, 150, 
 			26, 42, 109, 110, 
 			114, 115, 117, 

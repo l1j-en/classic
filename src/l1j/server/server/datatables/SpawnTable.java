@@ -95,8 +95,8 @@ public class SpawnTable {
 					}
 					double amount_rate = MapsTable.getInstance()
 							.getMonsterAmount(rs.getShort("mapid"));
-					count = calcCount(template1,
-							rs.getInt("count"), amount_rate);
+					count = calcCount(template1, rs.getInt("count"),
+							amount_rate);
 					if (count == 0) {
 						continue;
 					}
@@ -122,6 +122,8 @@ public class SpawnTable {
 							.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("near_spawn"));
+					spawnDat.setTime(SpawnTimeTable.getInstance().get(
+							spawnDat.getId()));
 
 					spawnDat.setName(template1.get_name());
 
@@ -212,8 +214,8 @@ public class SpawnTable {
 		if (rate == 1 || npc.isAmountFixed()) {
 			return count;
 		} else {
-			return NumberUtil.randomRound((double) (count * rate));
+			return NumberUtil.randomRound((count * rate));
 		}
-		
+
 	}
 }

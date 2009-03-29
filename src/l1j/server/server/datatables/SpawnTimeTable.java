@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -24,70 +23,63 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.templates.L1MobGroup;
-import l1j.server.server.templates.L1NpcCount;
+import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.utils.collections.Lists;
 
-public class MobGroupTable {
-	private static Logger _log = Logger
-			.getLogger(MobGroupTable.class.getName());
+public class SpawnTimeTable {
+	private static Logger _log = Logger.getLogger(SpawnTimeTable.class
+			.getName());
 
-	private static MobGroupTable _instance;
+	private static SpawnTimeTable _instance;
 
-	private final HashMap<Integer, L1MobGroup> _mobGroupIndex = new HashMap<Integer, L1MobGroup>();
+	private final Map<Integer, L1SpawnTime> _times = new HashMap<Integer, L1SpawnTime>();
 
-	public static MobGroupTable getInstance() {
+	public static SpawnTimeTable getInstance() {
 		if (_instance == null) {
-			_instance = new MobGroupTable();
+			_instance = new SpawnTimeTable();
 		}
 		return _instance;
 	}
 
-	private MobGroupTable() {
-		loadMobGroup();
+	private SpawnTimeTable() {
+		load();
 	}
 
-	private void loadMobGroup() {
+	public L1SpawnTime get(int id) {
+		return _times.get(id);
+	}
+
+	private void load() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM mobgroup");
+			pstm = con.prepareStatement("SELECT * FROM spawnlist_time");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				int mobGroupId = rs.getInt("id");
-				boolean isRemoveGroup = (rs
-						.getBoolean("remove_group_if_leader_die"));
-				int leaderId = rs.getInt("leader_id");
-				List<L1NpcCount> minions = Lists.newArrayList();
-				for (int i = 1; i <= 5; i++) {
-					int id = rs.getInt("minion" + i + "_id");
-					int count = rs.getInt("minion" + i + "_count");
-					minions.add(new L1NpcCount(id, count));
-				}
-				L1MobGroup mobGroup = new L1MobGroup(mobGroupId, leaderId,
-						minions, isRemoveGroup);
-				_mobGroupIndex.put(mobGroupId, mobGroup);
+				int id = rs.getInt("spawn_id");
+				L1SpawnTime.L1SpawnTimeBuilder builder = new L1SpawnTime.L1SpawnTimeBuilder(
+						id);
+				builder.setTimeStart(rs.getTime("time_start"));
+				builder.setTimeEnd(rs.getTime("time_end"));
+				// builder.setPeriodStart(rs.getTimestamp("period_start"));
+				// builder.setPeriodEnd(rs.getTimestamp("period_end"));
+				builder.setDeleteAtEndTime(rs.getBoolean("delete_at_endtime"));
+
+				_times.put(id, builder.build());
 			}
-		_log.config("Mob Group Lists: " + _mobGroupIndex.size() + " loaded.");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating mobgroup table", e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
 	}
-
-	public L1MobGroup getTemplate(int mobGroupId) {
-		return _mobGroupIndex.get(mobGroupId);
-	}
-
 }

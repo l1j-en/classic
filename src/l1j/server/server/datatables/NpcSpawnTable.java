@@ -72,10 +72,7 @@ public class NpcSpawnTable {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_npc");
 			rs = pstm.executeQuery();
-			do {
-				if (!rs.next()) {
-					break;
-				}
+			while (rs.next()) {
 				if (Config.ALT_GMSHOP == false) {
 					int npcid = rs.getInt(1);
 					if (npcid >= Config.ALT_GMSHOP_MIN_ID
@@ -85,7 +82,27 @@ public class NpcSpawnTable {
 				}
 				if (Config.ALT_HALLOWEENIVENT == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 130852 && npcid <= 130862) {
+					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656
+							&& npcid <= 26734) {
+						continue;
+					}
+				}
+				if (Config.ALT_JPPRIVILEGED == false) {
+					int npcid = rs.getInt("id");
+					if (npcid >= 1310368 && npcid <= 1310379) {
+						continue;
+					}
+				}
+				if (Config.ALT_TALKINGSCROLLQUEST == false) {
+					int npcid = rs.getInt("id");
+					if (npcid >= 87537 && npcid <= 87551 || npcid >= 1310387
+							&& npcid <= 1310389) {
+						continue;
+					}
+				}
+				if (Config.ALT_TALKINGSCROLLQUEST == true) {
+					int npcid = rs.getInt("id");
+					if (npcid >= 90066 && npcid <= 90069) {
 						continue;
 					}
 				}
@@ -125,7 +142,7 @@ public class NpcSpawnTable {
 					}
 				}
 
-			} while (true);
+			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} catch (SecurityException e) {

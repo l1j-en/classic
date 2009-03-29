@@ -127,7 +127,7 @@ public class PetTable {
 		}
 	}
 
-	public static void storePet(L1Pet pet) {
+	public void storePet(L1Pet pet) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {

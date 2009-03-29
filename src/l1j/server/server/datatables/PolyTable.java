@@ -78,9 +78,10 @@ public class PolyTable {
 			int weaponEquipFlg = rs.getInt("weaponequip");
 			int armorEquipFlg = rs.getInt("armorequip");
 			boolean canUseSkill = rs.getBoolean("isSkillUse");
+			int causeFlg = rs.getInt("cause");
 
 			L1PolyMorph poly = new L1PolyMorph(id, name, polyId, minLevel,
-					weaponEquipFlg, armorEquipFlg, canUseSkill);
+					weaponEquipFlg, armorEquipFlg, canUseSkill, causeFlg);
 
 			_polymorphs.put(name, poly);
 			_polyIdIndex.put(polyId, poly);

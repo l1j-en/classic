@@ -18,6 +18,7 @@
  */
 package l1j.server.server.datatables;
 
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
@@ -39,10 +41,11 @@ public class NpcTable {
 
 	private static NpcTable _instance;
 
-	private final HashMap<Integer, L1Npc> _npcs;
+	private final HashMap<Integer, L1Npc> _npcs = new HashMap<Integer, L1Npc>();
+	private final HashMap<String, Constructor<?>> _constructorCache = new HashMap<String, Constructor<?>>();
 
-	private static final Map<String, Integer> _familyTypes =
-			NpcTable.buildFamily();
+	private static final Map<String, Integer> _familyTypes = NpcTable
+			.buildFamily();
 
 	public static NpcTable getInstance() {
 		if (_instance == null) {
@@ -56,9 +59,27 @@ public class NpcTable {
 	}
 
 	private NpcTable() {
-		_npcs = new HashMap<Integer, L1Npc>();
 		loadNpcData();
 		_initialized = true;
+	}
+
+	private Constructor<?> getConstructor(String implName) {
+		try {
+			String implFullName = "l1j.server.server.model.Instance."
+					+ implName + "Instance";
+			Constructor<?> con = Class.forName(implFullName).getConstructors()[0];
+			return con;
+		} catch (ClassNotFoundException e) {
+			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+		}
+		return null;
+	}
+
+	private void registerConstructorCache(String implName) {
+		if (implName.isEmpty() || _constructorCache.containsKey(implName)) {
+			return;
+		}
+		_constructorCache.put(implName, getConstructor(implName));
 	}
 
 	private void loadNpcData() {
@@ -90,10 +111,7 @@ public class NpcTable {
 				npc.set_exp(rs.getInt("exp"));
 				npc.set_lawful(rs.getInt("lawful"));
 				npc.set_size(rs.getString("size"));
-				npc.set_weakwater(rs.getInt("weak_water"));
-				npc.set_weakwind(rs.getInt("weak_wind"));
-				npc.set_weakfire(rs.getInt("weak_fire"));
-				npc.set_weakearth(rs.getInt("weak_earth"));
+				npc.set_weakAttr(rs.getInt("weakAttr"));
 				npc.set_ranged(rs.getInt("ranged"));
 				npc.setTamable(rs.getBoolean("tamable"));
 				npc.set_passispeed(rs.getInt("passispeed"));
@@ -145,8 +163,10 @@ public class NpcTable {
 				npc.setTransformGfxId(rs.getInt("transform_gfxid"));
 				npc.setLightSize(rs.getInt("light_size"));
 				npc.setAmountFixed(rs.getBoolean("amount_fixed"));
-				npc.set_agrochao(rs.getBoolean("aggrochao"));
-				_npcs.put(new Integer(npcId), npc);
+				npc.setChangeHead(rs.getBoolean("change_head"));
+
+				registerConstructorCache(npc.getImpl());
+				_npcs.put(npcId, npc);
 			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -159,6 +179,25 @@ public class NpcTable {
 
 	public L1Npc getTemplate(int id) {
 		return _npcs.get(id);
+	}
+
+	public L1NpcInstance newNpcInstance(int id) {
+		L1Npc npcTemp = getTemplate(id);
+		if (npcTemp == null) {
+			throw new IllegalArgumentException(String.format(
+					"NpcTemplate: %d not found", id));
+		}
+		return newNpcInstance(npcTemp);
+	}
+
+	public L1NpcInstance newNpcInstance(L1Npc template) {
+		try {
+			Constructor<?> con = _constructorCache.get(template.getImpl());
+			return (L1NpcInstance) con.newInstance(new Object[] { template });
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+		return null;
 	}
 
 	public static Map<String, Integer> buildFamily() {
@@ -187,28 +226,20 @@ public class NpcTable {
 	}
 
 	public int findNpcIdByName(String name) {
-		int npcid = 0;
-		Iterator<Integer> iter = _npcs.keySet().iterator();
-		while (iter.hasNext()) {
-			npcid = iter.next();
-			L1Npc npc = _npcs.get(npcid);
+		for (L1Npc npc : _npcs.values()) {
 			if (npc.get_name().equals(name)) {
-				break;
+				return npc.get_npcId();
 			}
 		}
-		return npcid;
+		return 0;
 	}
 
 	public int findNpcIdByNameWithoutSpace(String name) {
-		int npcid = 0;
-		Iterator<Integer> iter = _npcs.keySet().iterator();
-		while (iter.hasNext()) {
-			npcid = iter.next();
-			L1Npc npc = _npcs.get(npcid);
+		for (L1Npc npc : _npcs.values()) {
 			if (npc.get_name().replace(" ", "").equals(name)) {
-				break;
+				return npc.get_npcId();
 			}
 		}
-		return npcid;
+		return 0;
 	}
 }

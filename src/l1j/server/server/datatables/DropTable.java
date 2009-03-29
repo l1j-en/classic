@@ -134,19 +134,20 @@ public class DropTable {
 			pstm = con.prepareStatement("select * from droplist");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				L1Drop l1drop = new L1Drop();
-				l1drop.setMobid(rs.getInt("mobId"));
-				l1drop.setItemid(rs.getInt("itemId"));
-				l1drop.setMin(rs.getInt("min"));
-				l1drop.setMax(rs.getInt("max"));
-				l1drop.setChance(rs.getInt("chance"));
+				int mobId = rs.getInt("mobId");
+				int itemId = rs.getInt("itemId");
+				int min = rs.getInt("min");
+				int max = rs.getInt("max");
+				int chance = rs.getInt("chance");
 
-				ArrayList<L1Drop> dropList = droplistMap.get(l1drop.getMobid());
+				L1Drop drop = new L1Drop(mobId, itemId, min, max, chance);
+
+				ArrayList<L1Drop> dropList = droplistMap.get(drop.getMobid());
 				if (dropList == null) {
 					dropList = new ArrayList<L1Drop>();
-					droplistMap.put(new Integer(l1drop.getMobid()), dropList);
+					droplistMap.put(new Integer(drop.getMobid()), dropList);
 				}
-				dropList.add(l1drop);
+				dropList.add(drop);
 			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -191,13 +192,11 @@ public class DropTable {
 			}
 
 			randomChance = random.nextInt(0xf4240) + 1;
-			double rateOfMapId = MapsTable.getInstance()
-					.getDropRate(npc.getMapId());
-			double rateOfItem = DropItemTable.getInstance()
-					.getDropRate(itemId);
+			double rateOfMapId = MapsTable.getInstance().getDropRate(
+					npc.getMapId());
+			double rateOfItem = DropItemTable.getInstance().getDropRate(itemId);
 			if (droprate == 0
-					|| drop.getChance() * droprate * rateOfMapId * rateOfItem
-							< randomChance) {
+					|| drop.getChance() * droprate * rateOfMapId * rateOfItem < randomChance) {
 				continue;
 			}
 		
@@ -236,8 +235,8 @@ public class DropTable {
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList<L1Character> acquisitorList, 
-			ArrayList<Integer> hateList) {
+	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList,
+			ArrayList hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;
@@ -250,8 +249,7 @@ public class DropTable {
 		for (int i = hateList.size() - 1; i >= 0; i--) {
 			acquisitor = (L1Character) acquisitorList.get(i);
 			if ((Config.AUTO_LOOT == 2) 
-					&& (acquisitor instanceof L1SummonInstance
-							|| acquisitor instanceof L1PetInstance)) {
+					&& (acquisitor instanceof L1SummonInstance || acquisitor instanceof L1PetInstance)) {
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			} else if (acquisitor != null
@@ -275,8 +273,7 @@ public class DropTable {
 		int chanceHate;
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
-			if (item.getItem().getType2() == 0 && item.getItem()
-					.getType() == 2) { //
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
 				item.setNowLighting(false);
 			}
 			item.setIdentified(false); // changed
@@ -317,8 +314,7 @@ public class DropTable {
 										for (int p = 0; p < partyMember.length; p++) {
 											partyMember[p]
 													.sendPackets(new S_ServerMessage(
-															813,
-															npc.getName(),
+															813, npc.getName(),
 															item.getLogName(),
 															player.getName()));
 										}
