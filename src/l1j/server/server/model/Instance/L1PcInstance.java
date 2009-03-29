@@ -1858,9 +1858,8 @@ public class L1PcInstance extends L1Character {
 		}
 
 		CharacterTable.getInstance().storeCharacter(this);
-		//TODO add Pets saving here
 	}
-		//TODO add Pets saving here
+
 
 	public void saveInventory() {
 		for (L1ItemInstance item : getInventory().getItems()) {

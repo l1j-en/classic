@@ -53,8 +53,6 @@ public class Server {
 			_log.log(Level.SEVERE, "Failed to Load " + LOG_PROP + " File.", e);
 			System.exit(0);
 		}
-		
-		// Config Reader
 		try {
 		Config.load();
 		} catch (Exception e) {

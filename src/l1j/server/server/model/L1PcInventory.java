@@ -125,7 +125,9 @@ public class L1PcInventory extends L1Inventory {
 		L1ItemInstance itemExist = findItemId(item.getItemId());
 		if (itemExist != null && (itemExist.getCount() + count) > MAX_AMOUNT) {
 			if (message) {
-				getOwner().sendPackets(new S_ServerMessage(166));
+				getOwner().sendPackets(new S_ServerMessage(166,
+						"",
+						"2,000,000,000")); 
 			}
 			return AMOUNT_OVER;
 		}
