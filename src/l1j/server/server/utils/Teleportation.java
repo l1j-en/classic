@@ -103,6 +103,7 @@ public class Teleportation {
 		pc.sendPackets(new S_CharVisualUpdate(pc));
 
 		pc.killSkillEffectTimer(L1SkillId.MEDITATION);
+		pc.setCallClanId(0); // R[N
 
 		
 		HashSet<L1PcInstance> subjects = new HashSet<L1PcInstance>();

@@ -20,9 +20,9 @@
 package l1j.server.server.utils;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SQLUtil {
 	public static SQLException close(Connection con) {
@@ -36,7 +36,7 @@ public class SQLUtil {
 		return null;
 	}
 
-	public static SQLException close(PreparedStatement ps) {
+	public static SQLException close(Statement ps) {
 		try {
 			if (ps != null) {
 				ps.close();
@@ -58,8 +58,7 @@ public class SQLUtil {
 		return null;
 	}
 
-	public static void close(ResultSet rs, PreparedStatement pstm,
-			Connection con) {
+	public static void close(ResultSet rs, Statement pstm, Connection con) {
 		close(rs);
 		close(pstm);
 		close(con);

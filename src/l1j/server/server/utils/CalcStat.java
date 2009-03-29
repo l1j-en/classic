@@ -215,41 +215,4 @@ public class CalcStat {
 		return (short) randommp;
 	}
 
-	public static int calcStatHit(int i, int j) {
-		int k = 0;
-		if (i == 0) {
-			if (j % 5 == 0) {
-				k++;
-			}
-		} else if (i == 1) {
-			if (j % 3 == 0) {
-				k++;
-			}
-		} else if (i == 2) {
-			if (j % 5 == 0) {
-				k++;
-			}
-		} else if (i != 3 && i == 4 && j % 3 == 0) {
-			k++;
-		}
-		return k;
-	}
-
-	public static int calcStatDmg(int i, long level) {
-		int k = 0;
-		if (i != 0) {
-			if (i == 1) {
-				if (level % 10 == 0) {
-					k++;
-				}
-			} else if (i == 2) {
-				if (level % 10 == 0) {
-					k++;
-				}
-			} else if (i != 3 && i == 4 && level % 10 == 0) {
-				k++;
-			}
-		}
-		return k;
-	}
 }

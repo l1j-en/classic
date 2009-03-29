@@ -101,11 +101,6 @@ public class IntRange {
 	}
 
 	@Override
-	public IntRange clone() {
-		return new IntRange(this);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof IntRange)) {
 			return false;
