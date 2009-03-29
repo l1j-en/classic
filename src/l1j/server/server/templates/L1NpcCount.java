@@ -18,40 +18,24 @@
  */
 package l1j.server.server.templates;
 
+public class L1NpcCount {
+	private final int _id;
+	private final int _count;
 
-public class L1Drop {
-
-	int _mobId;
-	int _itemId;
-	int _min;
-	int _max;
-	int _chance;
-
-	public L1Drop(int mobId, int itemId, int min, int max, int chance) {
-		_mobId = mobId;
-		_itemId = itemId;
-		_min = min;
-		_max = max;
-		_chance = chance;
+	public L1NpcCount(int id, int count) {
+		_id = id;
+		_count = count;
 	}
 
-	public int getChance() {
-		return _chance;
+	public int getId() {
+		return _id;
 	}
 
-	public int getItemid() {
-		return _itemId;
+	public int getCount() {
+		return _count;
 	}
 
-	public int getMax() {
-		return _max;
-	}
-
-	public int getMin() {
-		return _min;
-	}
-
-	public int getMobid() {
-		return _mobId;
+	public boolean isZero() {
+		return _id == 0 && _count == 0;
 	}
 }

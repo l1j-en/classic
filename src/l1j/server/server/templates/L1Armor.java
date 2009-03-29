@@ -121,6 +121,7 @@ public class L1Armor extends L1Item {
 		_regist_stun = i;
 	}
 
+	@Override
 	public int get_regist_stun() {
 		return this._regist_stun;
 	}
@@ -131,6 +132,7 @@ public class L1Armor extends L1Item {
 		_regist_stone = i;
 	}
 
+	@Override
 	public int get_regist_stone() {
 		return this._regist_stone;
 	}
@@ -141,6 +143,7 @@ public class L1Armor extends L1Item {
 		_regist_sleep = i;
 	}
 
+	@Override
 	public int get_regist_sleep() {
 		return this._regist_sleep;
 	}
@@ -151,6 +154,7 @@ public class L1Armor extends L1Item {
 		_regist_freeze = i;
 	}
 
+	@Override
 	public int get_regist_freeze() {
 		return this._regist_freeze;
 	}
@@ -161,6 +165,7 @@ public class L1Armor extends L1Item {
 		_regist_sustain = i;
 	}
 
+	@Override
 	public int get_regist_sustain() {
 		return this._regist_sustain;
 	}
@@ -171,6 +176,7 @@ public class L1Armor extends L1Item {
 		_regist_blind = i;
 	}
 
+	@Override
 	public int get_regist_blind() {
 		return this._regist_blind;
 	}

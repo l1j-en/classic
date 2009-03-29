@@ -199,44 +199,14 @@ public class L1Npc extends L1Object implements Cloneable {
 		_size = s;
 	}
 
-	private int _weakwater;
+	private int _weakAttr;
 
-	public int get_weakwater() {
-		return _weakwater;
+	public int get_weakAttr() {
+		return _weakAttr;
 	}
 
-	public void set_weakwater(int i) {
-		_weakwater = i;
-	}
-
-	private int _weakwind;
-
-	public int get_weakwind() {
-		return _weakwind;
-	}
-
-	public void set_weakwind(int i) {
-		_weakwind = i;
-	}
-
-	private int _weakfire;
-
-	public int get_weakfire() {
-		return _weakfire;
-	}
-
-	public void set_weakfire(int i) {
-		_weakfire = i;
-	}
-
-	private int _weakearth;
-
-	public int get_weakearth() {
-		return _weakearth;
-	}
-
-	public void set_weakearth(int i) {
-		_weakearth = i;
+	public void set_weakAttr(int i) {
+		_weakAttr= i;
 	}
 
 	private int _ranged;
@@ -677,5 +647,14 @@ public class L1Npc extends L1Object implements Cloneable {
 
 	public void setAmountFixed(boolean fixed) {
 		_amountFixed = fixed;
+	}
+	private boolean _changeHead;
+
+	public boolean getChangeHead() {
+		return _changeHead;
+	}
+
+	public void setChangeHead(boolean changeHead) {
+		_changeHead = changeHead;
 	}
 }

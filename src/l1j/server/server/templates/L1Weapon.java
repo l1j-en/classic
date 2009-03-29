@@ -51,6 +51,7 @@ public class L1Weapon extends L1Item {
 
 	private int _doubleDmgChance; //
 
+	@Override
 	public int getDoubleDmgChance() {
 		return _doubleDmgChance;
 	}

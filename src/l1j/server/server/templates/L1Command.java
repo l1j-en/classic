@@ -18,40 +18,26 @@
  */
 package l1j.server.server.templates;
 
+public class L1Command {
+	private final String _name;
+	private final int _level;
+	private final String _executorClassName;
 
-public class L1Drop {
-
-	int _mobId;
-	int _itemId;
-	int _min;
-	int _max;
-	int _chance;
-
-	public L1Drop(int mobId, int itemId, int min, int max, int chance) {
-		_mobId = mobId;
-		_itemId = itemId;
-		_min = min;
-		_max = max;
-		_chance = chance;
+	public L1Command(String name, int level, String executorClassName) {
+		_name = name;
+		_level = level;
+		_executorClassName = executorClassName;
 	}
 
-	public int getChance() {
-		return _chance;
+	public String getName() {
+		return _name;
 	}
 
-	public int getItemid() {
-		return _itemId;
+	public int getLevel() {
+		return _level;
 	}
 
-	public int getMax() {
-		return _max;
-	}
-
-	public int getMin() {
-		return _min;
-	}
-
-	public int getMobid() {
-		return _mobId;
+	public String getExecutorClassName() {
+		return _executorClassName;
 	}
 }
