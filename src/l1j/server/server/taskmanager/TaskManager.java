@@ -17,6 +17,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package l1j.server.server.taskmanager;
+import static l1j.server.server.taskmanager.TaskTypes.TYPE_GLOBAL_TASK;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +50,6 @@ public final class TaskManager {
 			"UPDATE global_tasks SET last_activation=? WHERE id=?",
 			"SELECT id FROM global_tasks WHERE task=?",
 			"INSERT INTO global_tasks (task,type,last_activation,param1,param2,param3) VALUES(?,?,?,?,?,?)" };
-	public static final TaskTypes TYPE_GLOBAL_TASK = null;
 
 	private final FastMap<Integer, Task> _tasks = new FastMap<Integer, Task>();
 	protected final FastList<ExecutedTask> _currentTasks = new FastList<ExecutedTask>();
@@ -60,7 +60,7 @@ public final class TaskManager {
 		Task _task;
 		TaskTypes _type;
 		String[] _params;
-		ScheduledFuture<?> _scheduled;
+		ScheduledFuture _scheduled;
 
 		public ExecutedTask(Task task, TaskTypes type, ResultSet rset)
 				throws SQLException {
@@ -174,6 +174,7 @@ public final class TaskManager {
 					continue;
 				}
 				//TODO Not used
+				TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 				//TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 			}
 
