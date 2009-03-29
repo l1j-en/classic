@@ -3060,29 +3060,45 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.setBraveSpeed(0);
 			}
 		} else if (item_id == 140068) {
-			addtime = 700;
+			time = 700;
+			if (pc.hasSkillEffect(STATUS_BRAVE)) { // ¼_ÌRCÆÍd¡µÈ¢
+				pc.killSkillEffectTimer(STATUS_BRAVE);
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.setBraveSpeed(0);
+			}
 			if (pc.hasSkillEffect(WIND_WALK)) {
 				pc.killSkillEffectTimer(WIND_WALK);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
 		} else if (item_id == 40031) {
 			addtime = 600;
 		} else if (item_id == 40733) {
 			addtime = 600;
+			if (pc.hasSkillEffect(STATUS_ELFBRAVE)) { // GbtÆÍd¡µÈ¢
+				pc.killSkillEffectTimer(STATUS_ELFBRAVE);
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.setBraveSpeed(0);
+			}
 			if (pc.hasSkillEffect(HOLY_WALK)) {
 				pc.killSkillEffectTimer(HOLY_WALK);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
 			if (pc.hasSkillEffect(MOVING_ACCELERATION)) {
 				pc.killSkillEffectTimer(MOVING_ACCELERATION);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
 			if (pc.hasSkillEffect(WIND_WALK)) {
 				pc.killSkillEffectTimer(WIND_WALK);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
 		}
@@ -3101,14 +3117,16 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (item_id == 40068 || item_id == 140068 || item_id == 40733 && pc.isElf()) {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 3, time));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 3, 0));
+			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
 		} else {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 1, time));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
+			pc.setSkillEffect(STATUS_BRAVE, time * 1000);
 		}
 		pc.sendPackets(new S_SkillSound(pc.getId(), 751));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 		pc.setBraveSpeed(1);
-
-		pc.setSkillEffect(STATUS_BRAVE, time * 1000);
 	}
 
 	private void useBluePotion(L1PcInstance pc, int item_id) {
