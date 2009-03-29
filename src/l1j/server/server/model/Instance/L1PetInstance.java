@@ -49,7 +49,7 @@ public class L1PetInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
 	private static Random _random = new Random();
 
-	@Override
+	//@Override
 	public boolean noTarget(int depth) {
 		if (_currentPetStatus == 3) { // If pet is in rest mode
 			return true;

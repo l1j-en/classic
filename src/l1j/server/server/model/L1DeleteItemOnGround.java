@@ -73,7 +73,7 @@ public class L1DeleteItemOnGround {
 				deleteItem();
 				/* L1World.getInstance().broadcastPacketToAll(
 						new S_ServerMessage(166, "Item on the world map ", " will be removed in 10 seconds.")); 
-				// %2
+				*/
 			}
 		}
 	}

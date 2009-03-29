@@ -71,7 +71,6 @@ public class L1GuardInstance extends L1NpcInstance {
 		}
 	}
 
-	@Override
 	public boolean noTarget(int depth) {
 		if (getLocation()
 				.getTileLineDistance(new Point(getHomeX(), getHomeY())) > 0) {

@@ -119,12 +119,12 @@ public class C_MoveChar extends ClientBasePacket {
 		}
 
 		// esc bug fix
-		L1Location oldLoc = pc.getLocation();
-		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) 
-				|| (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
-		{
-			return;
-		}
+		//L1Location oldLoc = pc.getLocation();
+		//if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) 
+		//		|| (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
+		//{
+		//	return;
+		//}
 		pc.getLocation().set(locx, locy);
 		pc.setHeading(heading);
 		if (!pc.isGmInvis() && !pc.isGhost() && !pc.isInvisble()) {

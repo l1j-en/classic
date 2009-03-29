@@ -18,8 +18,9 @@
  */
 package l1j.server.server.model.skill;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.SkillsTable;
@@ -280,7 +281,7 @@ class L1SkillStop {
 			}
 		} else if (skillId == STORM_SHOT) { 
 			cha.addBowDmgup(-5);
-			cha.addBowHitup(3);
+			cha.addBowHitup(1);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconAura(165, 0));
@@ -298,12 +299,14 @@ class L1SkillStop {
 				pc.addMaxMp(-pc.getAdvenMp());
 				pc.setAdvenHp(0);
 				pc.setAdvenMp(0);
-				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
+				pc
+						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
 						.getMaxHp()));
 				if (pc.isInParty()) { // During Party
 					pc.getParty().updateMiniHP(pc);
 				}
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
+				pc
+						.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
 						.getMaxMp()));
 			}
 		} else if (skillId == HASTE || skillId == GREATER_HASTE) {
@@ -423,7 +426,7 @@ class L1SkillStop {
 		}
 
 		// ****** Status IDs
-		else if (skillId == STATUS_BRAVE) {
+		else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE) { 
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
@@ -474,7 +477,8 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addMaxHp(-30);
-				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
+				pc
+						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
 						.getMaxHp()));
 				if (pc.isInParty()) { 
 					pc.getParty().updateMiniHP(pc);
@@ -499,7 +503,8 @@ class L1SkillStop {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addMaxMp(-20);
-				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
+				pc
+						.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
 						.getMaxMp()));
 				pc.sendPackets(new S_PacketBox(53, 4, 0));
 				pc.setCookingId(0);
@@ -593,8 +598,10 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 	private int _remainingTime;
 }
 
-class L1SkillTimerTimerImpl extends TimerTask implements L1SkillTimer {
-	private static final Timer _timer = new Timer();
+class L1SkillTimerTimerImpl implements L1SkillTimer, Runnable {
+	private static Logger _log = Logger.getLogger(L1SkillTimerTimerImpl.class
+			.getName());
+	private ScheduledFuture<?> _future = null;
 
 	public L1SkillTimerTimerImpl(L1Character cha, int skillId, int timeMillis) {
 		_cha = cha;
@@ -614,18 +621,25 @@ class L1SkillTimerTimerImpl extends TimerTask implements L1SkillTimer {
 
 	@Override
 	public void begin() {
-		_timer.scheduleAtFixedRate(this, 1000, 1000);
+		_future = GeneralThreadPool.getInstance().scheduleAtFixedRate(this,
+				1000, 1000);
 	}
 
 	@Override
 	public void end() {
-		this.cancel();
+		kill();
+		try {
 		L1SkillStop.stopSkill(_cha, _skillId);
+		} catch (Throwable e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
 	}
 
 	@Override
 	public void kill() {
-		this.cancel();
+		if (_future != null) {
+			_future.cancel(false);
+		}
 	}
 
 	@Override

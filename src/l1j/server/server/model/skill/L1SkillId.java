@@ -373,7 +373,9 @@ public class L1SkillId {
 
 	public static final int STATUS_HOLY_WATER_OF_EVA = 1015;
 
-	public static final int STATUS_END = 1015;
+	public static final int STATUS_ELFBRAVE = 1016;
+
+	public static final int STATUS_END = 1016;
 
 	public static final int GMSTATUS_BEGIN = 2000;
 
@@ -423,10 +425,10 @@ public class L1SkillId {
 
 	public static final int STATUS_FREEZE = 10071;
 
-	/* Elven attributes */
-	public static final int ELF_NONE = 0;
-	public static final int ELF_EARTH = 1;
-	public static final int ELF_FIRE = 2;
-	public static final int ELF_WATER = 4;
-	public static final int ELF_WIND = 8;
+	public static final int CURSE_PARALYZE2 = 10101;
+
+	public static final int STATUS_CURSE_BARLOG = 1015;
+
+	public static final int STATUS_CURSE_YAHEE = 1014;
+
 }

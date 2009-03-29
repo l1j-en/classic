@@ -95,10 +95,6 @@ public class BossSpawnTable {
 
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} catch (SecurityException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} catch (ClassNotFoundException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

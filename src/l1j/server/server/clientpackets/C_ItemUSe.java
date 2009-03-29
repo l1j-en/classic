@@ -111,6 +111,8 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1Skills;
+import l1j.server.server.types.Point;
+import l1j.server.server.utils.L1SpawnUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -1851,6 +1853,8 @@ public class C_ItemUSe extends ClientBasePacket {
 								spellsc_objid);
 					if (target == pc || !pc.getMap().isSafetyZone(pc.getLocation()) && target !=null) {
 						L1Character cha = (L1Character) target;
+						if (!cha.getMap().isSafetyZone(cha.getLocation()) || target == pc)
+						{
 						polyAction(pc, cha);
 						cancelAbsoluteBarrier(pc);
 						if (itemId == 40008 || itemId == 140008) {
@@ -1863,6 +1867,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
+					} } else { pc.sendPackets(new S_ServerMessage(79)); }
 					}
 				} else if (itemId >= 40289 && itemId <= 40297) { // toi charms
 					useToiTeleportAmulet(pc, itemId, l1iteminstance);

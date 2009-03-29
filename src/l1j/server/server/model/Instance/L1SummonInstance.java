@@ -33,7 +33,6 @@ public class L1SummonInstance extends L1NpcInstance {
 	private boolean _isReturnToNature = false;
 	private static Random _random = new Random();
 
-	@Override
 	public boolean noTarget(int depth) {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
 			return true;
