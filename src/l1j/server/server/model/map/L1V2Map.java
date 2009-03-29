@@ -18,6 +18,9 @@
  */
 package l1j.server.server.model.map;
 
+import l1j.server.server.ActionCodes;
+import l1j.server.server.datatables.DoorSpawnTable;
+import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.types.Point;
 
 public class L1V2Map extends L1Map {
@@ -130,25 +133,48 @@ public class L1V2Map extends L1Map {
 	@Override
 	public boolean isArrowPassable(int x, int y, int heading) {
 		int tile;
+		int newX;
+		int newY;
+
 		if (heading == 0) {
 			tile = accessOriginalTile(x, y - 1);
+			newX = x;
+			newY = y - 1;
 		} else if (heading == 1) {
 			tile = accessOriginalTile(x + 1, y - 1);
+			newX = x + 1;
+			newY = y - 1;
 		} else if (heading == 2) {
 			tile = accessOriginalTile(x + 1, y);
+			newX = x + 1;
+			newY = y;
 		} else if (heading == 3) {
 			tile = accessOriginalTile(x + 1, y + 1);
+			newX = x + 1;
+			newY = y + 1;
 		} else if (heading == 4) {
 			tile = accessOriginalTile(x, y + 1);
+			newX = x;
+			newY = y + 1;
 		} else if (heading == 5) {
 			tile = accessOriginalTile(x - 1, y + 1);
+			newX = x - 1;
+			newY = y + 1;
 		} else if (heading == 6) {
 			tile = accessOriginalTile(x - 1, y);
+			newX = x - 1;
+			newY = y;
 		} else if (heading == 7) {
 			tile = accessOriginalTile(x - 1, y - 1);
+			newX = x - 1;
+			newY = y - 1;
 		} else {
 			return false;
 		}
+		if (isExistDoor(newX, newY)) {
+			return false;
+		}
+
 		return (tile != 1);
 	}
 
@@ -320,6 +346,42 @@ public class L1V2Map extends L1Map {
 	public boolean isFishingZone(int x, int y) {
 		return accessOriginalTile(x, y) == 16;
     }
+
+	public boolean isExistDoor(int x, int y) {
+		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
+				continue;
+			}
+			if (door.isDead()) {
+				continue;
+			}
+			int leftEdgeLocation = door.getLeftEdgeLocation();
+			int rightEdgeLocation = door.getRightEdgeLocation();
+			int size = rightEdgeLocation - leftEdgeLocation;
+			if (size == 0) { // 1}XhA
+				if (x == door.getX() && y == door.getY()) {
+					return true;
+				}
+			} else { // 2}XhA
+				if (door.getDirection() == 0) { // ^
+					for (int doorX = leftEdgeLocation;
+							doorX <= rightEdgeLocation; doorX++) {
+						if (x == doorX && y == door.getY()) {
+							return true;
+						}
+					}
+				} else { // _
+					for (int doorY = leftEdgeLocation;
+							doorY <= rightEdgeLocation; doorY++) {
+						if (x == door.getX() && y == doorY) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public String toString(Point pt) {

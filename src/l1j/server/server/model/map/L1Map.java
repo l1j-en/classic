@@ -299,6 +299,10 @@ class L1NullMap extends L1Map {
 		return false;
 	}
 
+	public boolean isExistDoor(int x, int y) {
+		return false;
+	}
+
 	@Override
 	public String toString(Point pt) {
 		return "null";
