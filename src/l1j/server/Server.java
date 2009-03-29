@@ -55,7 +55,12 @@ public class Server {
 		}
 		
 		// Config Reader
+		try {
 		Config.load();
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			System.exit(0);
+		}
 
 		// L1DatabaseFactory
 		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL,

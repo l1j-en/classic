@@ -92,9 +92,11 @@ public class AuctionTimeController implements Runnable {
 				oldOwnerPc.getInventory().storeItem(L1ItemId.ADENA, payPrice);
 				// Your house was owned by the Adena 1 percent in the final bid price. %n
 				// Commission, excluding the remaining 10% percent of the amount of Adena 0% response. %n Thank you. %n%n
-				oldOwnerPc.sendPackets(new S_ServerMessage(527, String.valueOf(payPrice)));
+				oldOwnerPc.sendPackets(new S_ServerMessage(527, String
+						.valueOf(payPrice)));
 			} else { // During the previous owner is offline
-				L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
+				L1ItemInstance item = ItemTable.getInstance().createItem(
+						L1ItemId.ADENA);
 				item.setCount(payPrice);
 				try {
 					CharactersItemStorage storage = CharactersItemStorage

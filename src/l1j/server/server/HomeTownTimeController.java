@@ -199,6 +199,7 @@ public class HomeTownTimeController {
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(rs2);
+			SQLUtil.close(rs3);
 			SQLUtil.close(pstm1);
 			SQLUtil.close(pstm2);
 			SQLUtil.close(pstm3);

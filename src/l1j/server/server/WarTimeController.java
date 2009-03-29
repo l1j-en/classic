@@ -35,6 +35,7 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
+import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 
@@ -99,10 +100,16 @@ public class WarTimeController implements Runnable {
 					_is_now_war[i] = true;
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnFlag(i + 1);
+					for (L1DoorInstance door : DoorSpawnTable.getInstance()
+							.getDoorList()) {
+						if (L1CastleLocation.checkInWarArea(i + 1, door)) {
+							door.repairGate();
+						}
+					}
+
 					L1World.getInstance().broadcastPacketToAll(
 							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1)); //
 					int[] loc = new int[3];
-					try {
 					for (L1PcInstance pc : L1World.getInstance()
 							.getAllPlayers()) {
 						int castleId = i + 1;
@@ -119,9 +126,6 @@ public class WarTimeController implements Runnable {
 							L1Teleport.teleport(pc, loc[0], loc[1],
 									(short) loc[2], 5, true);
 						}
-					Thread.sleep(500);
-					} } catch (Exception e1) {
-
 		}
 				}
 			} else if (_war_end_time[i].before(getRealTime())) {

@@ -33,6 +33,8 @@ public class Opcodes {
 
 	public static final int C_OPCODE_CHANGECHAR = 9;
 
+	public static final int C_OPCODE_SHIP = 10;
+
 	public static final int C_OPCODE_RANK = 11;
 
 	public static final int C_OPCODE_MOVECHAR = 12;

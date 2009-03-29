@@ -68,6 +68,7 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.L1TreasureBox;
 import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.trap.L1WorldTraps;
+import l1j.server.server.utils.SystemUtil;
 
 // Referenced classes of package l1j.server.server:
 // ClientThread, Logins, RateTable, IdFactory,
@@ -85,6 +86,7 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
+		System.out.println("Server Started. Memory Used: " + SystemUtil.getUsedMemoryMB() + " MB");
 		System.out.println("Waiting for Connections!");
 		while (true) {
 			try {
@@ -118,7 +120,7 @@ public class GameServer extends Thread {
 	public void initialize() throws Exception {
 		String s = Config.GAME_SERVER_HOST_NAME;
 		double rateXp = Config.RATE_XP;
-		double Lawful = Config.RATE_LA;
+		double LA = Config.RATE_LA;
 		double rateKarma = Config.RATE_KARMA;
 		double rateDropItems = Config.RATE_DROP_ITEMS;
 		double rateDropAdena = Config.RATE_DROP_ADENA;
@@ -139,7 +141,7 @@ public class GameServer extends Thread {
 		}
 
 		System.out.println("XP              = " + rateXp);
-		System.out.println("Lawful          = " + Lawful); 
+		System.out.println("Lawful          = " + LA); 
 		System.out.println("Karma           = "+ rateKarma); 
 		System.out.println("Drop            = " + rateDropItems);
 		System.out.println("Adena           = "+ rateDropAdena);
@@ -185,11 +187,6 @@ public class GameServer extends Thread {
 		GeneralThreadPool.getInstance().execute(warTimeController);
 
 		// Controllers ship time
-		ShipTimeController shipTimeController = ShipTimeController
-				.getInstance();
-		GeneralThreadPool.getInstance().execute(shipTimeController);
-
-		// Elemental stone spawn
 		if (Config.ELEMENTAL_STONE_AMOUNT > 0) {
 			ElementalStoneGenerator elementalStoneGenerator
 					= ElementalStoneGenerator.getInstance();
@@ -215,7 +212,7 @@ public class GameServer extends Thread {
 		Announcements.getInstance();
 		NpcTable.getInstance();
 		L1DeleteItemOnGround deleteitem = new L1DeleteItemOnGround();
-		deleteitem.onAction();
+		deleteitem.initialize();
 
 		if (!NpcTable.getInstance().isInitialized()) {
 			throw new Exception("Could not initialize the npc table");
@@ -261,10 +258,6 @@ public class GameServer extends Thread {
 		System.out.println("Database Tables Loaded Successfully!");
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		this.start();
-		long freeMem = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime()
-			.freeMemory()) / 1048576; // 1024 * 1024 = 1048576;
-		long totalMem = Runtime.getRuntime().maxMemory() / 1048576;
-		_log.info("GameServer Started, used memory " + (totalMem - freeMem) + " MB");
 	}
 
 	/**

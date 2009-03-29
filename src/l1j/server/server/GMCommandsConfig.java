@@ -35,32 +35,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import l1j.server.server.model.L1Location;
+import l1j.server.server.templates.L1ItemSetItem;
 import l1j.server.server.utils.IterableElementList;
-
-class ItemSetItem {
-	private final int id;
-	private final int amount;
-	private final int enchant;
-
-	public ItemSetItem(int id, int amount, int enchant) {
-		super();
-		this.id = id;
-		this.amount = amount;
-		this.enchant = enchant;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public int getEnchant() {
-		return enchant;
-	}
-}
 
 public class GMCommandsConfig {
 	private static Logger _log = Logger.getLogger(GMCommandsConfig.class
@@ -110,16 +86,16 @@ public class GMCommandsConfig {
 			super("ItemSet");
 		}
 
-		public ItemSetItem loadItem(Element element) {
+		public L1ItemSetItem loadItem(Element element) {
 			int id = Integer.valueOf(element.getAttribute("Id"));
 			int amount = Integer.valueOf(element.getAttribute("Amount"));
 			int enchant = Integer.valueOf(element.getAttribute("Enchant"));
-			return new ItemSetItem(id, amount, enchant);
+			return new L1ItemSetItem(id, amount, enchant);
 		}
 
 		@Override
 		public void loadElement(Element element) {
-			List<ItemSetItem> list = new ArrayList<ItemSetItem>();
+			List<L1ItemSetItem> list = new ArrayList<L1ItemSetItem>();
 			NodeList nodes = element.getChildNodes();
 			for (Element elem : new IterableElementList(nodes)) {
 				if (elem.getNodeName().equalsIgnoreCase("Item")) {
@@ -139,7 +115,7 @@ public class GMCommandsConfig {
 	}
 
 	public static HashMap<String, L1Location> ROOMS = new HashMap<String, L1Location>();
-	public static HashMap<String, List<ItemSetItem>> ITEM_SETS = new HashMap<String, List<ItemSetItem>>();
+	public static HashMap<String, List<L1ItemSetItem>> ITEM_SETS = new HashMap<String, List<L1ItemSetItem>>();
 
 	private static Document loadXml(String file)
 			throws ParserConfigurationException, SAXException, IOException {

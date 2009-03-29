@@ -53,7 +53,7 @@ public class LightTimeController implements Runnable {
 	}
 
 	private void checkLightTime() {
-		int serverTime = L1GameTimeClock.getInstance().getGameTime()
+		int serverTime = L1GameTimeClock.getInstance().currentTime()
 				.getSeconds();
 		int nowTime = serverTime % 86400;
 		if (nowTime >= ((5 * 3600) + 3300) && nowTime < ((17 * 3600) + 3300)) { // 5:55~17:55

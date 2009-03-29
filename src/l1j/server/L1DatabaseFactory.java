@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import l1j.server.server.utils.LeakCheckedConnection;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -96,9 +97,12 @@ public class L1DatabaseFactory {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log.warning("L1DatabaseFactory: getConnection() failed, trying again "+ e);
+				_log
+						.warning("L1DatabaseFactory: getConnection() failed, trying again "
+								+ e);
 			}
 		}
-		return con;
+		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection
+				.create(con) : con;
 	}
 }

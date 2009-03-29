@@ -14,6 +14,8 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Skills;
 import l1j.server.server.utils.SQLUtil;
+import l1j.server.server.templates.L1Skills;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());
@@ -136,7 +138,7 @@ public class PCommands {
 			return;
 		}
 		
-		if (_player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false
+		if (_player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false
 				&& _player.isDead() == false && _player.getMapId() != 99) {
 			try {
 				String s1 = cmd2.substring(5);
