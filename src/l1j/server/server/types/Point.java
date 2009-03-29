@@ -60,12 +60,37 @@ public class Point {
 		_y = y;
 	}
 
+	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
+
 	/**
 	 * The coordinates to return to the straight line distance.
 	 * 
-	 * @param pt Point object to hold coordinate
+	 * @param heading
+	 *            (0~7)
+	 */
+	public void forward(int heading) {
+		_x += HEADING_TABLE_X[heading];
+		_y += HEADING_TABLE_Y[heading];
+	}
+
+	/**
+	 * wtWiB
 	 *            
-	 * @return Coordinate the crow flies
+	 * @param heading
+	 *            (0~7)
+	 */
+	public void backward(int heading) {
+		_x -= HEADING_TABLE_X[heading];
+		_y -= HEADING_TABLE_Y[heading];
+	}
+
+	/**
+	 * wWB
+	 * 
+	 * @param pt
+	 *            WPointIuWFNg
+	 * @return W
 	 */
 	public double getLineDistance(Point pt) {
 		long diffX = pt.getX() - this.getX();
@@ -113,23 +138,17 @@ public class Point {
 		} else {
 //			Point pointZero = new Point(this.getX() - 15, this.getY() - 15);
 //			int dist2 = pointZero.getTileDistance(pt);
-			int dist2 = Math.abs(pt.getX() - (this.getX() - 15)) +
-					Math.abs(pt.getY() - (this.getY() - 15));
+			int dist2 = Math.abs(pt.getX() - (this.getX() - 15))
+					+ Math.abs(pt.getY() - (this.getY() - 15));
 			if (17 <= dist2 && dist2 <= 43) {
 				return true;
-			} else {
-				return false;
 			}
+				return false;
 		}
 	}
 
 	public boolean isSamePoint(Point pt) {
 		return (pt.getX() == getX() && pt.getY() == getY());
-	}
-
-	@Override
-	public Point clone() {
-		return new Point(this);
 	}
 
 	@Override
@@ -144,5 +163,9 @@ public class Point {
 		}
 		Point pt = (Point) obj;
 		return (this.getX() == pt.getX()) && (this.getY() == pt.getY());
+	}
+	@Override
+	public String toString() {
+		return String.format("(%d, %d)", _x, _y);
 	}
 }
