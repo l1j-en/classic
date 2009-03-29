@@ -44,7 +44,6 @@ public class C_Drawal extends ClientBasePacket {
 	public C_Drawal(byte abyte0[], ClientThread clientthread)
 			throws Exception {
 		super(abyte0);
-		@SuppressWarnings("unused")
 		int i = readD();
 		int j = readD();
 

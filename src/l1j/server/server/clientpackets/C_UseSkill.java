@@ -22,6 +22,7 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.AcceleratorChecker;
@@ -54,6 +55,23 @@ public class C_UseSkill extends ClientBasePacket {
 		if (!pc.getMap().isUsableSkill()) {
 			pc.sendPackets(new S_ServerMessage(563));
 			return;
+		}
+
+		// vu`FbN
+		if (Config.CHECK_SPELL_INTERVAL) {
+			int result;
+			// FIXME XLdir/no dirfK
+			if (SkillsTable.getInstance().getTemplate(skillId).getActionId() ==
+						ActionCodes.ACTION_SkillAttack) {
+				result = pc.getAcceleratorChecker().checkInterval(
+						AcceleratorChecker.ACT_TYPE.SPELL_DIR);
+			} else {
+				result = pc.getAcceleratorChecker().checkInterval(
+						AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
+			}
+			if (result == AcceleratorChecker.R_DISCONNECTED) {
+				return;
+			}
 		}
 
 		if (abyte0.length > 4) {
@@ -114,6 +132,14 @@ public class C_UseSkill extends ClientBasePacket {
 					return;
 				}
 				targetId = target.getId();
+				if (skillId == CALL_CLAN) {
+					// ANR[NAO
+					int callClanId = pc.getCallClanId();
+					if (callClanId == 0 || callClanId != targetId) {
+						pc.setCallClanId(targetId);
+						pc.setCallClanHeading(pc.getHeading());
+					}
+				}
 			}
 			L1SkillUse l1skilluse = new L1SkillUse();
 			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY,

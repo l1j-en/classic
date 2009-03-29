@@ -56,7 +56,6 @@ public class C_Amount extends ClientBasePacket {
 		super(decrypt);
 		int objectId = readD();
 		int amount = readD();
-		@SuppressWarnings("unused")
 		int c = readC();
 		String s = readS();
 

@@ -22,9 +22,12 @@ package l1j.server.server.clientpackets;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
+import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1CharName;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -33,33 +36,32 @@ public class C_AddBuddy extends ClientBasePacket {
 
 	private static final String C_ADD_BUDDY = "[C] C_AddBuddy";
 
-	public C_AddBuddy(byte[] decrypt, ClientThread clientthread) {
+	public C_AddBuddy(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		L1PcInstance srcPc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		BuddyTable buddyTable = BuddyTable.getInstance();
-		L1Buddy buddyList = buddyTable.getBuddyTable(srcPc.getId());
+		L1Buddy buddyList = buddyTable.getBuddyTable(pc.getId());
 		String charName = readS();
 
-		if (charName.equalsIgnoreCase(srcPc.getName())) {
-			// l1pcinstance.sendPackets(new S_ServerMessage("you can't add
-			// yourself to buddylist."));
+		if (charName.equalsIgnoreCase(pc.getName())) {
 			return;
 		} else if (buddyList.containsName(charName)) {
 			// l1pcinstance.sendPackets(new S_ServerMessage("you can't add this
+			pc.sendPackets(new S_ServerMessage(1052, charName)); // %s
 			// id again."));
 			return;
 		}
 
-		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
-			if (charName.equalsIgnoreCase(pc.getName())) {
-				int objId = pc.getId();
-				String name = pc.getName();
-
+		for (L1CharName cn : CharacterTable.getInstance().getCharNameList()) {
+			if (charName.equalsIgnoreCase(cn.getName())) {
+				int objId = cn.getId();
+				String name = cn.getName();
 				buddyList.add(objId, name);
-				buddyTable.addBuddy(srcPc.getId(), objId, name);
-				break;
+				buddyTable.addBuddy(pc.getId(), objId, name);
+				return;
 			}
 		}
+		pc.sendPackets(new S_ServerMessage(109, charName)); // %0OlB
 	}
 
 	@Override

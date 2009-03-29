@@ -35,8 +35,7 @@ public class C_ChatWhisper extends ClientBasePacket {
 
 	private static final String C_CHAT_WHISPER = "[C] C_ChatWhisper";
 
-	public C_ChatWhisper(byte abyte0[], ClientThread client)
-			throws Exception {
+	public C_ChatWhisper(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		String targetName = readS();
 		String text = readS();
@@ -44,6 +43,12 @@ public class C_ChatWhisper extends ClientBasePacket {
 
 		if (whisperFrom.hasSkillEffect(1005)) {
 			whisperFrom.sendPackets(new S_ServerMessage(242));
+			return;
+		}
+		//this should be a config option, fixing that later
+		if (whisperFrom.getLevel() < 5) {
+			whisperFrom.sendPackets(new S_ServerMessage(404, String
+					.valueOf(5))); 
 			return;
 		}
 		L1PcInstance whisperTo = L1World.getInstance().getPlayer(targetName);
@@ -57,15 +62,15 @@ public class C_ChatWhisper extends ClientBasePacket {
 			return;
 		}
 
-		if (whisperTo.excludes(whisperFrom.getName()) && !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not remove gm/mon whisper ability
-			whisperFrom.sendPackets(new S_ServerMessage(117,
-					whisperTo.getName()));
+		if (whisperTo.getExcludingList().contains(whisperFrom.getName())) {
+			whisperFrom.sendPackets(new S_ServerMessage(117, whisperTo
+					.getName())); // %0fB
 			return;
 		}
 		//
-		if(!whisperTo.isCanWhisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not remove gm/mon whisper ability
-			whisperFrom.sendPackets(new S_ServerMessage(205,
-					whisperTo.getName()));
+		if (!whisperTo.isCanWhisper()) {
+			whisperFrom.sendPackets(new S_ServerMessage(205, whisperTo
+					.getName()));
 			return;
 		}
 

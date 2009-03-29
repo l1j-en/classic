@@ -22,7 +22,9 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
+import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Trade;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -66,6 +68,18 @@ public class C_TradeAddItem extends ClientBasePacket {
 				}
 			}
 		}
+		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance()
+				.findObject(pc.getTradeID());
+		if (tradingPartner == null) {
+			return;
+		}
+		if (tradingPartner.getInventory().checkAddItem(item, itemcount)
+				!= L1Inventory.OK) { // edmFybZ[WM
+			tradingPartner.sendPackets(new S_ServerMessage(270)); // \f1dB
+			pc.sendPackets(new S_ServerMessage(271)); // \f1B
+			return;
+		}
+
 		trade.TradeAddItem(pc, itemid, itemcount);
 	}
 

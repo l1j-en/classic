@@ -40,8 +40,7 @@ public class C_CreateClan extends ClientBasePacket {
 			throws Exception {
 		super(abyte0);
 		String s = readS();
-		//TODO Never used
-		//int i = s.length();
+		int i = s.length();
 
 		L1PcInstance l1pcinstance = clientthread.getActiveChar();
 		if (l1pcinstance.isCrown()) {

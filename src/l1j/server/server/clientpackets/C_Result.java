@@ -299,7 +299,7 @@ public class C_Result extends ClientBasePacket {
 			int order;
 			int count;
 			int price;
-			ArrayList<L1PrivateShopSellList> sellList;
+			ArrayList sellList;
 			L1PrivateShopSellList pssl;
 			int itemObjectId;
 			int sellPrice;
@@ -395,7 +395,7 @@ public class C_Result extends ClientBasePacket {
 		} else if (resultType == 1 && size != 0 && isPrivateShop) {
 			int count;
 			int order;
-			ArrayList<L1PrivateShopBuyList> buyList;
+			ArrayList buyList;
 			L1PrivateShopBuyList psbl;
 			int itemObjectId;
 			L1ItemInstance item;

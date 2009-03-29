@@ -32,17 +32,11 @@ public class C_HireSoldier extends ClientBasePacket {
 	// S_HireSoldier
 	public C_HireSoldier(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		//TODO Not used
-		readH();
-		readH();
-		readD();
-		readD();
-		readH();
-		/*int something1 = readH(); // S_HireSoldie
+		int something1 = readH(); // S_HireSoldierpPbg
 		int something2 = readH(); // S_HireSoldier
 		int something3 = readD(); // 1
 		int something4 = readD(); // S_HireSoldier
-		int number = readH();*/
+		int number = readH();
 	}
 
 	@Override

@@ -483,20 +483,24 @@ public class C_LoginToServer extends ClientBasePacket {
 				int remaining_time = rs.getInt("remaining_time");
 				if (skillid == SHAPE_CHANGE) { 
 					int poly_id = rs.getInt("poly_id");
-					L1PolyMorph.doPoly(pc, poly_id, remaining_time);
+					L1PolyMorph.doPoly(pc, poly_id, remaining_time, L1PolyMorph
+							.MORPH_BY_LOGIN);
 				} else if (skillid == STATUS_BRAVE) {
-					if (pc.isElf()) {
-						pc.sendPackets(new S_SkillBrave(pc.getId(), 3,
-								remaining_time));
-					} else {
 						pc.sendPackets(new S_SkillBrave(pc.getId(), 1,
 								remaining_time));
-					}
+					pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
+					pc.setBraveSpeed(1);
+					pc.setSkillEffect(skillid, remaining_time * 1000);
+				} else if (skillid == STATUS_ELFBRAVE) { // Gbt
+						pc.sendPackets(new S_SkillBrave(pc.getId(), 3,
+								remaining_time));
+					pc.broadcastPacket(new S_SkillBrave(pc.getId(), 3, 0));
 					pc.setBraveSpeed(1);
 					pc.setSkillEffect(skillid, remaining_time * 1000);
 				} else if (skillid == STATUS_HASTE) { 
 					pc.sendPackets(new S_SkillHaste(pc.getId(), 1,
 							remaining_time));
+					pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1, 0));
 					pc.setMoveSpeed(1);
 					pc.setSkillEffect(skillid, remaining_time * 1000);
 				} else if (skillid == STATUS_BLUE_POTION) { 

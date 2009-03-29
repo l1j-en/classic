@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import l1j.server.server.ClientThread;
+import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -43,15 +44,16 @@ public class C_Exclude extends ClientBasePacket {
 		}
 		L1PcInstance pc = client.getActiveChar();
 		try {
-			if (pc.isExcludeListFull()) {
+			L1ExcludingList exList = pc.getExcludingList();
+			if (exList.isFull()) {
 				pc.sendPackets(new S_ServerMessage(472));
 				return;
 			}
-			if (pc.excludes(name)) {
-				String temp = pc.removeExclude(name);
+			if (exList.contains(name)) {
+				String temp = exList.remove(name);
 				pc.sendPackets(new S_PacketBox(S_PacketBox.REM_EXCLUDE, temp));
 			} else {
-				pc.addExclude(name);
+				exList.add(name);
 				pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
 			}
 		} catch (Exception e) {

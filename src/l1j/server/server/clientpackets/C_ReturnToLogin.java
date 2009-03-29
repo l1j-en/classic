@@ -39,6 +39,8 @@ public class C_ReturnToLogin extends ClientBasePacket {
 		_log.finest((new StringBuilder()).append("account : ").append(account)
 				.toString());
 		//LoginController.getInstance().logout(client); we do not use it here
+		//without this threads dont die properly when people log out.  Please inform me if I am mistaken - Tricid		
+		LoginController.getInstance().logout(client);
 	}
 
 	@Override

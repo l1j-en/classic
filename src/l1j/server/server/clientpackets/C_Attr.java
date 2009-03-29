@@ -31,10 +31,11 @@ import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1Clan;
-import l1j.server.server.model.L1Location;
+import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1Teleport;
@@ -44,6 +45,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.model.map.L1Map;
 import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;
@@ -333,36 +335,7 @@ public class C_Attr extends ClientBasePacket {
 			if (c == 0) { // No
 				;
 			} else if (c == 1) { // Yes
-				L1PcInstance callClanPc = (L1PcInstance) L1World.getInstance()
-						.findObject(pc.getTempID());
-				pc.setTempID(0);
-				if (callClanPc != null) {
-					if (pc.getMap().isEscapable() || pc.isGm()) {
-						boolean isInWarArea = false;
-						int castleId = L1CastleLocation
-								.getCastleIdByArea(callClanPc);
-						if (castleId != 0) {
-							isInWarArea = true;
-							if (WarTimeController.getInstance()
-									.isNowWar(castleId)) {
-								isInWarArea = false;
-							}
-						}
-						if ((callClanPc.getMapId() == 0
-								|| callClanPc.getMapId() == 4 || callClanPc
-								.getMapId() == 304)
-								&& isInWarArea == false) {
-							L1Teleport.teleport(pc, callClanPc.getLocation(),
-									5, true, L1Teleport.CALL_CLAN);
-						} else {
-							pc.sendPackets(new S_ServerMessage(547));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(647)); 
-						L1Teleport.teleport(pc, pc.getLocation(),
-								pc.getHeading(), false);
-					}
-				}
+				callClan(pc);
 			}
 			break;
 
@@ -620,6 +593,116 @@ public class C_Attr extends ClientBasePacket {
 		pc.getInventory().updateItem(item); 
 		pc.sendPackets(new S_ChangeName(pet.getId(), name));
 		pc.broadcastPacket(new S_ChangeName(pet.getId(), name));
+	}
+
+	private void callClan(L1PcInstance pc) {
+		L1PcInstance callClanPc = (L1PcInstance) L1World.getInstance()
+				.findObject(pc.getTempID());
+		pc.setTempID(0);
+		if (callClanPc == null) {
+			return;
+		}
+		if (!pc.getMap().isEscapable() && !pc.isGm()) {
+			// GlM[e|[gWQBAe|[ggpB
+			pc.sendPackets(new S_ServerMessage(647));
+			L1Teleport.teleport(pc, pc.getLocation(), pc.getHeading(), false);
+			return;
+		}
+		if (pc.getId() != callClanPc.getCallClanId()) {
+			return;
+		}
+
+		boolean isInWarArea = false;
+		int castleId = L1CastleLocation.getCastleIdByArea(callClanPc);
+		if (castleId != 0) {
+			isInWarArea = true;
+			if (WarTimeController.getInstance().isNowWar(castleId)) {
+				isInWarArea = false; // gp\
+			}
+		}
+		short mapId = callClanPc.getMapId();
+		if (mapId != 0 && mapId != 4 && mapId != 304 || isInWarArea) {
+			// \f1p[gi[svCB
+			pc.sendPackets(new S_ServerMessage(547));
+			return;
+		}
+
+		L1Map map = callClanPc.getMap();
+		int callCalnX = callClanPc.getX();
+		int callCalnY = callClanPc.getY();
+		int locX = 0;
+		int locY = 0;
+		int heading = 0;
+		switch (callClanPc.getCallClanHeading()) {
+		case 0:
+			locY = callCalnY - 1;
+			heading = 4;
+			break;
+
+		case 1:
+			locX = callCalnX + 1;
+			locY = callCalnY - 1;
+			heading = 5;
+			break;
+
+		case 2:
+			locX = callCalnX + 1;
+			heading = 6;
+			break;
+
+		case 3:
+			locX = callCalnX + 1;
+			locY = callCalnY + 1;
+			heading = 7;
+			break;
+
+		case 4:
+			locY = callCalnY + 1;
+			heading = 0;
+			break;
+
+		case 5:
+			locX = callCalnX - 1;
+			locY = callCalnY + 1;
+			heading = 1;
+			break;
+
+		case 6:
+			locX = callCalnX - 1;
+			heading = 2;
+			break;
+
+		case 7:
+			locX = callCalnX - 1;
+			locY = callCalnY - 1;
+			heading = 3;
+			break;
+
+		default:
+			break;
+		}
+
+		boolean isExsistCharacter = false;
+		for (L1Object object : L1World.getInstance()
+				.getVisibleObjects(callClanPc, 1)) {
+			if (object instanceof L1Character) {
+				L1Character cha = (L1Character) object;
+				if (cha.getX() == locX && cha.getY() == locY
+						&& cha.getMapId() == mapId) {
+					isExsistCharacter = true;
+					break;
+				}
+			}
+		}
+
+		if (locX == 0 && locY == 0 || !map.isPassable(locX, locY)
+				|| isExsistCharacter) {
+			// QB
+			pc.sendPackets(new S_ServerMessage(627));
+			return;
+		}
+		L1Teleport.teleport(pc, locX, locY, mapId, heading, true, L1Teleport
+				.CALL_CLAN);
 	}
 
 	@Override

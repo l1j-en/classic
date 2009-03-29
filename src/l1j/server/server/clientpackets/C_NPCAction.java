@@ -90,6 +90,7 @@ import l1j.server.server.serverpackets.S_ShopBuyList;
 import l1j.server.server.serverpackets.S_ShopSellList;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
+import l1j.server.server.serverpackets.S_SkillIconBlessOfEva;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_TaxRate;
@@ -99,6 +100,7 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skills;
 import l1j.server.server.templates.L1Town;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class C_NPCAction extends ClientBasePacket {
 
@@ -106,8 +108,7 @@ public class C_NPCAction extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_NPCAction.class.getName());
 	private static Random _random = new Random();
 
-	public C_NPCAction(byte abyte0[], ClientThread client)
-			throws Exception {
+	public C_NPCAction(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int objid = readD();
 		String s = readS();
@@ -120,8 +121,7 @@ public class C_NPCAction extends ClientBasePacket {
 		} else if (s.equalsIgnoreCase("ent")) {
 			L1Object obj = L1World.getInstance().findObject(objid);
 			if (obj != null && obj instanceof L1NpcInstance) {
-				if (((L1NpcInstance) obj).getNpcTemplate().get_npcId()
-						== 80088) {
+				if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80088) {
 					s2 = readS();
 				}
 			}
@@ -351,8 +351,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (pc.getWeapon().equals(item)) {
 						L1SkillUse l1skilluse = new L1SkillUse();
 						l1skilluse.handleCommands(pc, L1SkillId.ENCHANT_WEAPON,
-								item.getId(), 0, 0,
-								null, 0, L1SkillUse.TYPE_SPELLSC);
+								item.getId(), 0, 0, null, 0,
+								L1SkillUse.TYPE_SPELLSC);
 						break;
 					}
 				}
@@ -362,9 +362,8 @@ public class C_NPCAction extends ClientBasePacket {
 			L1ItemInstance item = pc.getInventory().getItemEquipped(2, 2);
 			if (item != null) {
 				L1SkillUse l1skilluse = new L1SkillUse();
-				l1skilluse.handleCommands(pc, L1SkillId.BLESSED_ARMOR,
-						item.getId(), 0, 0,
-						null, 0, L1SkillUse.TYPE_SPELLSC);
+				l1skilluse.handleCommands(pc, L1SkillId.BLESSED_ARMOR, item
+						.getId(), 0, 0, null, 0, L1SkillUse.TYPE_SPELLSC);
 			} else {
 				pc.sendPackets(new S_ServerMessage(79));
 			}
@@ -440,8 +439,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance()
-							.getHouseTable(houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(
+							houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -460,8 +459,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance()
-							.getHouseTable(houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(
+							houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -490,8 +489,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance()
-							.getHouseTable(houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(
+							houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -499,8 +498,8 @@ public class C_NPCAction extends ClientBasePacket {
 							if (house.isPurchaseBasement()) {
 								pc.sendPackets(new S_ServerMessage(1135));
 							} else {
-								if (pc.getInventory().consumeItem(L1ItemId
-										.ADENA, 5000000)) {
+								if (pc.getInventory().consumeItem(
+										L1ItemId.ADENA, 5000000)) {
 									house.setPurchaseBasement(true);
 									HouseTable.getInstance().updateHouse(house);
 									pc.sendPackets(new S_ServerMessage(1099));
@@ -521,8 +520,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance()
-							.getHouseTable(houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(
+							houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -672,7 +671,9 @@ public class C_NPCAction extends ClientBasePacket {
 			if (npcid == 70514) {
 				pc.sendPackets(new S_ServerMessage(183));
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 1, 1600));
+				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1, 0));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 755));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 755));
 				pc.setMoveSpeed(1);
 				pc.setSkillEffect(L1SkillId.STATUS_HASTE, 1600 * 1000);
 				htmlid = ""; 
@@ -905,6 +906,21 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80052) {
+			// EEE
+			if (s.equalsIgnoreCase("a")) {
+				if (pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+					pc.sendPackets(new S_ServerMessage(79)); // \f1NB
+				} else {
+					pc.setSkillEffect(STATUS_CURSE_BARLOG, 1020 * 1000);
+					pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), 1020));
+					pc.sendPackets(new S_SkillSound(pc.getId(), 750));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
+					pc.sendPackets(new S_ServerMessage(1127));
+				}
+			}
+		}
+		// qb
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80053) {
 			int karmaLevel = pc.getKarmaLevel();
 			if (s.equalsIgnoreCase("a")) {
@@ -1103,6 +1119,21 @@ public class C_NPCAction extends ClientBasePacket {
 			L1NpcInstance npc = (L1NpcInstance) obj;
 			htmlid = getBarlogEarring(pc, npc, s);
 		}
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80073) {
+			// EEE
+			if (s.equalsIgnoreCase("a")) {
+				if (pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+					pc.sendPackets(new S_ServerMessage(79)); // \f1NB
+				} else {
+					pc.setSkillEffect(STATUS_CURSE_YAHEE, 1020 * 1000);
+					pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), 1020));
+					pc.sendPackets(new S_SkillSound(pc.getId(), 750));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
+					pc.sendPackets(new S_ServerMessage(1127));
+				}
+			}
+		}
+		// oOb
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80072) {
 			int karmaLevel = pc.getKarmaLevel();
 			if (s.equalsIgnoreCase("0")) {
@@ -1401,37 +1432,11 @@ public class C_NPCAction extends ClientBasePacket {
 				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70806
 				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70830
 				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70876) {
-			int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
-			int town_id = L1TownLocation.getTownIdByNpcid(npcid);
-			if (town_id >= 1 && town_id <= 10) {
 				if (s.equalsIgnoreCase("r")) {//TODO Town mayor report about income
 					if (obj instanceof L1NpcInstance) {
-						if(TownTable.getInstance().isLeader(client.getActiveChar(), town_id)) {
-							String salesMoney = ""+TownTable.getInstance().getTodaySales(town_id);
-							String salesMoneyYesterday = ""+TownTable.getInstance().getYesterdaySales(town_id);
-							htmlid = "secretary4";
-							htmldata = new String[] { salesMoneyYesterday, salesMoney };
-							}
-						}
-				} else if (s.equalsIgnoreCase("t")) {//TODO Town mayor change tax rates
-					if (obj instanceof L1NpcInstance) {
-						if(TownTable.getInstance().isLeader(client.getActiveChar(), town_id)) {
-						}
-					}
-				} else if (s.equalsIgnoreCase("c")) {//TODO Town mayor recieve compensation
-					if (obj instanceof L1NpcInstance) {
-						L1PcInstance player = client.getActiveChar();
-						if(TownTable.getInstance().isLeader(player, town_id)) {
-							int taxMoney = TownTable.getInstance().recieveInfoAboutTaxes(town_id);
-							L1ItemInstance item = ItemTable.getInstance().createItem(40308);
-							item.setCount(taxMoney);
-							if (player.getInventory().checkAddItem(item , taxMoney) == L1Inventory.OK) {
-								TownTable.getInstance().removeTaxes(town_id);
-								player.getInventory().storeItem(item);
-								player.sendPackets(new S_SystemMessage("You recieved "+taxMoney+" adena in taxes."));
-							}
-						}
-					}
+					int npcid = ((L1NpcInstance) obj).getNpcTemplate()
+							.get_npcId();
+					int town_id = L1TownLocation.getTownIdByNpcid(npcid);
 				}
 			}
 			else if (s.equalsIgnoreCase("t")) {
@@ -1471,10 +1476,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getQuest().set_step(L1Quest.QUEST_DOROMOND, 2);
 					htmlid = "";
 				}
-			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70999) {
-			if (s.equalsIgnoreCase("2")) {
+			} else if (s.equalsIgnoreCase("2")) {
 				final int[] item_ids = { 41227 };
 				final int[] item_amounts = { 1 };
 				for (int i = 0; i < item_ids.length; i++) {
@@ -1483,12 +1485,11 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(143,
 							((L1NpcInstance) obj).getNpcTemplate().get_name(),
 							item.getLogName()));
-					pc.getQuest().set_step(L1Quest.QUEST_AREX,
-							L1Quest.QUEST_END);
+				}
+				pc.getQuest().set_step(L1Quest.QUEST_AREX, L1Quest.QUEST_END);
 					htmlid = "";
 				}
 			}
-		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71005) {
 			if (s.equalsIgnoreCase("0")) {
 				if (!pc.getInventory().checkItem(41209)) {
@@ -1548,21 +1549,25 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.setCurrentHp(pc.getCurrentHp() + hp);
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-				pc.sendPackets(
-						new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-				htmlid = ""; 
+				pc
+						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
+								.getMaxHp()));
+				htmlid = ""; // EBhE
 			}
 		}
+		// tiPFHPMPj
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71037) {
 			if (s.equalsIgnoreCase("0")) {
 				pc.setCurrentHp(pc.getMaxHp());
 				pc.setCurrentMp(pc.getMaxMp());
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-				pc.sendPackets(
-						new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-				pc.sendPackets(
-						new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
+				pc
+						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
+								.getMaxHp()));
+				pc
+						.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
+								.getMaxMp()));
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71030) {
@@ -1795,8 +1800,23 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "kamyla13";
 				pc.getInventory().consumeItem(40630, 1);
 				pc.getQuest().set_step(L1Quest.QUEST_KAMYLA, 4);
+			} else if (s.equalsIgnoreCase("i")) {
+				htmlid = "kamyla25";
+			} else if (s.equalsIgnoreCase("b")) { // J[~itR{j
+				if (pc.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 1) {
+					L1Teleport.teleport(pc, 32679, 32742, (short) 482, 5, true);
+				}
+			} else if (s.equalsIgnoreCase("d")) { // J[~ifBGSSj
+				if (pc.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 3) {
+					L1Teleport.teleport(pc, 32736, 32800, (short) 483, 5, true);
+				}
+			} else if (s.equalsIgnoreCase("f")) { // J[~izZnSj
+				if (pc.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 4) {
+					L1Teleport.teleport(pc, 32746, 32807, (short) 484, 5, true);
+				}
 			}
 		}
+		// tR(C)
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71089) {
 			if (s.equalsIgnoreCase("a")) {
 				htmlid = "francu10";
@@ -1884,22 +1904,15 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "lelder10";
 				pc.getInventory().consumeItem(40633, 1);
 				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 3);
-			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71075) {
-			if (s.equalsIgnoreCase("start")) {
-				htmlid = "llizard2";
-				final int[] item_ids = { 40633 };
-				final int[] item_amounts = { 1 };
-				for (int i = 0; i < item_ids.length; i++) {
-					L1ItemInstance item = pc.getInventory().storeItem(
-							item_ids[i], item_amounts[i]);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate().get_name(),
-							item.getItem().getName()));
-					pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 2);
+			} else if (s.equalsIgnoreCase("C")) {
+				htmlid = "lelder13";
+				if (pc.getQuest().get_step(L1Quest.QUEST_LIZARD) == L1Quest.QUEST_END) {
 				}
-			} else {
+				materials = new int[] { 40634 };
+				counts = new int[] { 1 };
+				createitem = new int[] { 20167 }; // U[h}O[u
+				createcount = new int[] { 1 };
+				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, L1Quest.QUEST_END);
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71198) {
@@ -1909,8 +1922,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(41339, 5)) { 
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41340);
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							41340); // bc eBI
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
@@ -1942,8 +1955,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(41343, 1)) { 
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(21057); 
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							21057); // PRm}g1
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
@@ -1964,8 +1977,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(41344, 1)) {
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(21058); 
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							21058); // PRm}g2
 					if (item != null) {
 						pc.getInventory().consumeItem(21057, 1);
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
@@ -1987,8 +2000,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(41345, 1)) { 
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(21059); 
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							21059); // |CY T[yg N[N
 					if (item != null) {
 						pc.getInventory().consumeItem(21058, 1);
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
@@ -2025,8 +2038,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(40308, 1000000)) {
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41341); 
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							41341); // WF{
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
@@ -2048,8 +2061,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				if (pc.getInventory().consumeItem(41342, 1)) { 
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41341); 
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							41341); // WF{
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
@@ -2116,7 +2129,7 @@ public class C_NPCAction extends ClientBasePacket {
 						pc.getInventory().consumeItem(41314, 1);
 						int html = _random.nextInt(9) + 1;
 						int PolyId = 6180 + _random.nextInt(64);
-						poly(client, PolyId);
+						polyByKeplisha(client, PolyId);
 						switch (html) {
 						case 1:
 							htmlid = "horomon11";
@@ -2174,8 +2187,8 @@ public class C_NPCAction extends ClientBasePacket {
 					createitem = new int[] { 41293 };
 					createcount = new int[] { 1 };
 					L1PolyMorph.undoPoly(pc);
-					L1Teleport.teleport(pc, 32815, 32809, (short) 5124, 6,
-							true);
+					L1Teleport
+							.teleport(pc, 32815, 32809, (short) 5124, 6, true);
 				} else {
 					htmlid = "fk_in_0";
 				}
@@ -2186,8 +2199,8 @@ public class C_NPCAction extends ClientBasePacket {
 					createitem = new int[] { 41294 };
 					createcount = new int[] { 1 };
 					L1PolyMorph.undoPoly(pc);
-					L1Teleport.teleport(pc, 32815, 32809, (short) 5124, 6,
-							true);
+					L1Teleport
+							.teleport(pc, 32815, 32809, (short) 5124, 6, true);
 				} else {
 					htmlid = "fk_in_0";
 				}
@@ -2224,14 +2237,13 @@ public class C_NPCAction extends ClientBasePacket {
 			if (s.equalsIgnoreCase("c")) {
 				if (pc.isCrown()) {
 					if (pc.getInventory().checkItem(20383, 1)) {
-						if (pc.getInventory().checkItem(L1ItemId.ADENA,
-								100000)) {
-							L1ItemInstance item = pc.getInventory()
-									.findItemId(20383);
+						if (pc.getInventory().checkItem(L1ItemId.ADENA, 100000)) {
+							L1ItemInstance item = pc.getInventory().findItemId(
+									20383);
 							if (item != null && item.getChargeCount() != 50) {
 								item.setChargeCount(50);
-								pc.getInventory().updateItem(item, L1PcInventory
-										.COL_CHARGE_COUNT);
+								pc.getInventory().updateItem(item,
+										L1PcInventory.COL_CHARGE_COUNT);
 								pc.getInventory().consumeItem(L1ItemId.ADENA,
 										100000);
 								htmlid = "";
@@ -2244,6 +2256,718 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		}
 
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71126) {
+			// uBv
+			if (s.equalsIgnoreCase("B")) {
+				if (pc.getInventory().checkItem(41007, 1)) { // CXF
+					htmlid = "eris10";
+				} else {
+					L1NpcInstance npc = (L1NpcInstance) obj;
+					L1ItemInstance item = pc.getInventory().storeItem(41007, 1);
+					String npcName = npc.getNpcTemplate().get_name();
+					String itemName = item.getItem().getName();
+					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+					htmlid = "eris6";
+				}
+			} else if (s.equalsIgnoreCase("C")) {
+				if (pc.getInventory().checkItem(41009, 1)) { // CXFv
+					htmlid = "eris10";
+				} else {
+					L1NpcInstance npc = (L1NpcInstance) obj;
+					L1ItemInstance item = pc.getInventory().storeItem(41009, 1);
+					String npcName = npc.getNpcTemplate().get_name();
+					String itemName = item.getItem().getName();
+					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+					htmlid = "eris8";
+				}
+			} else if (s.equalsIgnoreCase("A")) {
+				if (pc.getInventory().checkItem(41007, 1)) { // CXF
+					if (pc.getInventory().checkItem(40969, 20)) { // _[NGt
+						htmlid = "eris18";
+						materials = new int[] { 40969, 41007 };
+						counts = new int[] { 20, 1 };
+						createitem = new int[] { 41008 }; // CXobN
+						createcount = new int[] { 1 };
+					} else {
+						htmlid = "eris5";
+					}
+				} else {
+					htmlid = "eris2";
+				}
+			} else if (s.equalsIgnoreCase("E")) {
+				if (pc.getInventory().checkItem(41010, 1)) { // CXE
+					htmlid = "eris19";
+				} else {
+					htmlid = "eris7";
+				}
+			} else if (s.equalsIgnoreCase("D")) {
+				if (pc.getInventory().checkItem(41010, 1)) { // CXE
+					htmlid = "eris19";
+				} else {
+					if (pc.getInventory().checkItem(41009, 1)) { // CXFv
+						if (pc.getInventory().checkItem(40959, 1)) { // @R
+							htmlid = "eris17";
+							materials = new int[] { 40959, 41009 }; // @R
+							counts = new int[] { 1, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40960, 1)) { // R
+							htmlid = "eris16";
+							materials = new int[] { 40960, 41009 }; // R
+							counts = new int[] { 1, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40961, 1)) { // bR
+							htmlid = "eris15";
+							materials = new int[] { 40961, 41009 }; // bR
+							counts = new int[] { 1, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40962, 1)) { // ER
+							htmlid = "eris14";
+							materials = new int[] { 40962, 41009 }; // ER
+							counts = new int[] { 1, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40635, 10)) { // RobW
+							htmlid = "eris12";
+							materials = new int[] { 40635, 41009 }; // RobW
+							counts = new int[] { 10, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40638, 10)) { // bRobW
+							htmlid = "eris11";
+							materials = new int[] { 40638, 41009 }; // RobW
+							counts = new int[] { 10, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40642, 10)) { // @RobW
+							htmlid = "eris13";
+							materials = new int[] { 40642, 41009 }; // @RobW
+							counts = new int[] { 10, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else if (pc.getInventory().checkItem(40667, 10)) { // ERobW
+							htmlid = "eris13";
+							materials = new int[] { 40667, 41009 }; // ERobW
+							counts = new int[] { 10, 1 };
+							createitem = new int[] { 41010 }; // CXE
+							createcount = new int[] { 1 };
+						} else {
+							htmlid = "eris8";
+						}
+					} else {
+						htmlid = "eris7";
+					}
+				}
+			}
+		}
+		// |qCm
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80076) {
+			if (s.equalsIgnoreCase("A")) {
+				int[] diaryno = { 49082, 49083 };
+				int pid = _random.nextInt(diaryno.length);
+				int di = diaryno[pid];
+				if (di == 49082) { // y[W
+					htmlid = "voyager6a";
+					L1NpcInstance npc = (L1NpcInstance) obj;
+					L1ItemInstance item = pc.getInventory().storeItem(di, 1);
+					String npcName = npc.getNpcTemplate().get_name();
+					String itemName = item.getItem().getName();
+					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+				} else if (di == 49083) { // y[W
+					htmlid = "voyager6b";
+					L1NpcInstance npc = (L1NpcInstance) obj;
+					L1ItemInstance item = pc.getInventory().storeItem(di, 1);
+					String npcName = npc.getNpcTemplate().get_name();
+					String itemName = item.getItem().getName();
+					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+				}
+			}
+		}
+		// Bpt y^[
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71128) {
+			if (s.equals("A")) {
+				if (pc.getInventory().checkItem(41010, 1)) { // CXE
+					htmlid = "perita2";
+				} else {
+					htmlid = "perita3";
+				}
+			} else if (s.equals("p")) {
+				// ubNCAO
+				if (pc.getInventory().checkItem(40987, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(40988, 1) // iCgNX
+						&& pc.getInventory().checkItem(40989, 1)) { // EH[ANX
+					htmlid = "perita43";
+				} else if (pc.getInventory().checkItem(40987, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(40989, 1)) { // EH[ANX
+					htmlid = "perita44";
+				} else if (pc.getInventory().checkItem(40987, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(40988, 1)) { // iCgNX
+					htmlid = "perita45";
+				} else if (pc.getInventory().checkItem(40988, 1) // iCgNX
+						&& pc.getInventory().checkItem(40989, 1)) { // EH[ANX
+					htmlid = "perita47";
+				} else if (pc.getInventory().checkItem(40987, 1)) { // EBU[hNX
+					htmlid = "perita46";
+				} else if (pc.getInventory().checkItem(40988, 1)) { // iCgNX
+					htmlid = "perita49";
+				} else if (pc.getInventory().checkItem(40987, 1)) { // EH[ANX
+					htmlid = "perita48";
+				} else {
+					htmlid = "perita50";
+				}
+			} else if (s.equals("q")) {
+				// ubNCAO
+				if (pc.getInventory().checkItem(41173, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41174, 1) // iCgNX
+						&& pc.getInventory().checkItem(41175, 1)) { // EH[ANX
+					htmlid = "perita54";
+				} else if (pc.getInventory().checkItem(41173, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41175, 1)) { // EH[ANX
+					htmlid = "perita55";
+				} else if (pc.getInventory().checkItem(41173, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41174, 1)) { // iCgNX
+					htmlid = "perita56";
+				} else if (pc.getInventory().checkItem(41174, 1) // iCgNX
+						&& pc.getInventory().checkItem(41175, 1)) { // EH[ANX
+					htmlid = "perita58";
+				} else if (pc.getInventory().checkItem(41174, 1)) { // EBU[hNX
+					htmlid = "perita57";
+				} else if (pc.getInventory().checkItem(41175, 1)) { // iCgNX
+					htmlid = "perita60";
+				} else if (pc.getInventory().checkItem(41176, 1)) { // EH[ANX
+					htmlid = "perita59";
+				} else {
+					htmlid = "perita61";
+				}
+			} else if (s.equals("s")) {
+				// ~XeAX ubNCAO
+				if (pc.getInventory().checkItem(41161, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41162, 1) // iCgNX
+						&& pc.getInventory().checkItem(41163, 1)) { // EH[ANX
+					htmlid = "perita62";
+				} else if (pc.getInventory().checkItem(41161, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41163, 1)) { // EH[ANX
+					htmlid = "perita63";
+				} else if (pc.getInventory().checkItem(41161, 1) // EBU[hNX
+						&& pc.getInventory().checkItem(41162, 1)) { // iCgNX
+					htmlid = "perita64";
+				} else if (pc.getInventory().checkItem(41162, 1) // iCgNX
+						&& pc.getInventory().checkItem(41163, 1)) { // EH[ANX
+					htmlid = "perita66";
+				} else if (pc.getInventory().checkItem(41161, 1)) { // EBU[hNX
+					htmlid = "perita65";
+				} else if (pc.getInventory().checkItem(41162, 1)) { // iCgNX
+					htmlid = "perita68";
+				} else if (pc.getInventory().checkItem(41163, 1)) { // EH[ANX
+					htmlid = "perita67";
+				} else {
+					htmlid = "perita69";
+				}
+			} else if (s.equals("B")) {
+				// |[V
+				if (pc.getInventory().checkItem(40651, 10) // 
+						&& pc.getInventory().checkItem(40643, 10) // 
+						&& pc.getInventory().checkItem(40618, 10) // n
+						&& pc.getInventory().checkItem(40645, 10) // 
+						&& pc.getInventory().checkItem(40676, 10) // 
+						&& pc.getInventory().checkItem(40442, 5) // vbut
+						&& pc.getInventory().checkItem(40051, 1)) { // Gh
+					htmlid = "perita7";
+					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
+							40442, 40051 };
+					counts = new int[] { 10, 10, 10, 10, 20, 5, 1 };
+					createitem = new int[] { 40925 }; // |[V
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita8";
+				}
+			} else if (s.equals("G") || s.equals("h") || s.equals("i")) {
+				// ~XeAX |[VFPiK
+				if (pc.getInventory().checkItem(40651, 5) // 
+						&& pc.getInventory().checkItem(40643, 5) // 
+						&& pc.getInventory().checkItem(40618, 5) // n
+						&& pc.getInventory().checkItem(40645, 5) // 
+						&& pc.getInventory().checkItem(40676, 5) // 
+						&& pc.getInventory().checkItem(40675, 5) // z
+						&& pc.getInventory().checkItem(40049, 3) // r[
+						&& pc.getInventory().checkItem(40051, 1)) { // Gh
+					htmlid = "perita27";
+					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
+							40675, 40049, 40051 };
+					counts = new int[] { 5, 5, 5, 5, 10, 10, 3, 1 };
+					createitem = new int[] { 40926 }; // ~XeAX|[VFPiK
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita28";
+				}
+			} else if (s.equals("H") || s.equals("j") || s.equals("k")) {
+				// ~XeAX |[VFQiK
+				if (pc.getInventory().checkItem(40651, 10) // 
+						&& pc.getInventory().checkItem(40643, 10) // 
+						&& pc.getInventory().checkItem(40618, 10) // n
+						&& pc.getInventory().checkItem(40645, 10) // 
+						&& pc.getInventory().checkItem(40676, 20) // 
+						&& pc.getInventory().checkItem(40675, 10) // z
+						&& pc.getInventory().checkItem(40048, 3) // _CAh
+						&& pc.getInventory().checkItem(40051, 1)) { // Gh
+					htmlid = "perita29";
+					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
+							40675, 40048, 40051 };
+					counts = new int[] { 10, 10, 10, 10, 20, 10, 3, 1 };
+					createitem = new int[] { 40927 }; // ~XeAX|[VFQiK
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita30";
+				}
+			} else if (s.equals("I") || s.equals("l") || s.equals("m")) {
+				// ~XeAX |[VFRiK
+				if (pc.getInventory().checkItem(40651, 20) // 
+						&& pc.getInventory().checkItem(40643, 20) // 
+						&& pc.getInventory().checkItem(40618, 20) // n
+						&& pc.getInventory().checkItem(40645, 20) // 
+						&& pc.getInventory().checkItem(40676, 30) // 
+						&& pc.getInventory().checkItem(40675, 10) // z
+						&& pc.getInventory().checkItem(40050, 3) // Tt@CA
+						&& pc.getInventory().checkItem(40051, 1)) { // Gh
+					htmlid = "perita31";
+					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
+							40675, 40050, 40051 };
+					counts = new int[] { 20, 20, 20, 20, 30, 10, 3, 1 };
+					createitem = new int[] { 40928 }; // ~XeAX|[VFRiK
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita32";
+				}
+			} else if (s.equals("J") || s.equals("n") || s.equals("o")) {
+				// ~XeAX |[VFSiK
+				if (pc.getInventory().checkItem(40651, 30) // 
+						&& pc.getInventory().checkItem(40643, 30) // 
+						&& pc.getInventory().checkItem(40618, 30) // n
+						&& pc.getInventory().checkItem(40645, 30) // 
+						&& pc.getInventory().checkItem(40676, 30) // 
+						&& pc.getInventory().checkItem(40675, 20) // z
+						&& pc.getInventory().checkItem(40052, 1) // _CAh
+						&& pc.getInventory().checkItem(40051, 1)) { // Gh
+					htmlid = "perita33";
+					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
+							40675, 40052, 40051 };
+					counts = new int[] { 30, 30, 30, 30, 30, 20, 1, 1 };
+					createitem = new int[] { 40928 }; // ~XeAX|[VFSiK
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita34";
+				}
+			} else if (s.equals("K")) { // PiKCAO(CAO)
+				int earinga = 0;
+				int earingb = 0;
+				if (pc.getInventory().checkEquipped(21014)
+						|| pc.getInventory().checkEquipped(21006)
+						|| pc.getInventory().checkEquipped(21007)) {
+					htmlid = "perita36";
+				} else if (pc.getInventory().checkItem(21014, 1)) { // EBU[hNX
+					earinga = 21014;
+					earingb = 41176;
+				} else if (pc.getInventory().checkItem(21006, 1)) { // iCgNX
+					earinga = 21006;
+					earingb = 41177;
+				} else if (pc.getInventory().checkItem(21007, 1)) { // EH[ANX
+					earinga = 21007;
+					earingb = 41178;
+				} else {
+					htmlid = "perita36";
+				}
+				if (earinga > 0) {
+					materials = new int[] { earinga };
+					counts = new int[] { 1 };
+					createitem = new int[] { earingb };
+					createcount = new int[] { 1 };
+				}
+			} else if (s.equals("L")) { // QiKCAO(mbCAO)
+				if (pc.getInventory().checkEquipped(21015)) {
+					htmlid = "perita22";
+				} else if (pc.getInventory().checkItem(21015, 1)) {
+					materials = new int[] { 21015 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41179 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita22";
+				}
+			} else if (s.equals("M")) { // RiKCAO(^CAO)
+				if (pc.getInventory().checkEquipped(21016)) {
+					htmlid = "perita26";
+				} else if (pc.getInventory().checkItem(21016, 1)) {
+					materials = new int[] { 21016 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41182 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita26";
+				}
+			} else if (s.equals("b")) { // QiKCAO(MCAO)
+				if (pc.getInventory().checkEquipped(21009)) {
+					htmlid = "perita39";
+				} else if (pc.getInventory().checkItem(21009, 1)) {
+					materials = new int[] { 21009 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41180 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita39";
+				}
+			} else if (s.equals("d")) { // RiKCAO(_CAO)
+				if (pc.getInventory().checkEquipped(21012)) {
+					htmlid = "perita41";
+				} else if (pc.getInventory().checkItem(21012, 1)) {
+					materials = new int[] { 21012 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41183 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita41";
+				}
+			} else if (s.equals("a")) { // QiKCAO({CAO)
+				if (pc.getInventory().checkEquipped(21008)) {
+					htmlid = "perita38";
+				} else if (pc.getInventory().checkItem(21008, 1)) {
+					materials = new int[] { 21008 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41181 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita38";
+				}
+			} else if (s.equals("c")) { // RiKCAO(ECAO)
+				if (pc.getInventory().checkEquipped(21010)) {
+					htmlid = "perita40";
+				} else if (pc.getInventory().checkItem(21010, 1)) {
+					materials = new int[] { 21010 };
+					counts = new int[] { 1 };
+					createitem = new int[] { 41184 };
+					createcount = new int[] { 1 };
+				} else {
+					htmlid = "perita40";
+				}
+			}
+		}
+		// Ht [BX
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71129) {
+			if (s.equals("Z")) {
+				htmlid = "rumtis2";
+			} else if (s.equals("Y")) {
+				if (pc.getInventory().checkItem(41010, 1)) { // CXE
+					htmlid = "rumtis3";
+				} else {
+					htmlid = "rumtis4";
+				}
+			} else if (s.equals("q")) {
+				htmlid = "rumtis92";
+			} else if (s.equals("A")) {
+				if (pc.getInventory().checkItem(41161, 1)) {
+					// ~XeAXubNCAO
+					htmlid = "rumtis6";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("B")) {
+				if (pc.getInventory().checkItem(41164, 1)) {
+					// ~XeAXEBU[hCAO
+					htmlid = "rumtis7";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("C")) {
+				if (pc.getInventory().checkItem(41167, 1)) {
+					// ~XeAXO[EBU[hCAO
+					htmlid = "rumtis8";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("T")) {
+				if (pc.getInventory().checkItem(41167, 1)) {
+					// ~XeAXzCgEBU[hCAO
+					htmlid = "rumtis9";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("w")) {
+				if (pc.getInventory().checkItem(41162, 1)) {
+					// ~XeAXubNCAO
+					htmlid = "rumtis14";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("x")) {
+				if (pc.getInventory().checkItem(41165, 1)) {
+					// ~XeAXiCgCAO
+					htmlid = "rumtis15";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("y")) {
+				if (pc.getInventory().checkItem(41168, 1)) {
+					// ~XeAXO[iCgCAO
+					htmlid = "rumtis16";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("z")) {
+				if (pc.getInventory().checkItem(41171, 1)) {
+					// ~XeAXzCgiCgCAO
+					htmlid = "rumtis17";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("U")) {
+				if (pc.getInventory().checkItem(41163, 1)) {
+					// ~XeAXubNCAO
+					htmlid = "rumtis10";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("V")) {
+				if (pc.getInventory().checkItem(41166, 1)) {
+					// ~XeAXEH[ACAO
+					htmlid = "rumtis11";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("W")) {
+				if (pc.getInventory().checkItem(41169, 1)) {
+					// ~XeAXO[EH[ACAO
+					htmlid = "rumtis12";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("X")) {
+				if (pc.getInventory().checkItem(41172, 1)) {
+					// ~XeAXzCEH[ACAO
+					htmlid = "rumtis13";
+				} else {
+					htmlid = "rumtis101";
+				}
+			} else if (s.equals("D") || s.equals("E") || s.equals("F")
+					|| s.equals("G")) {
+				int insn = 0;
+				int bacn = 0;
+				int me = 0;
+				int mr = 0;
+				int mj = 0;
+				int an = 0;
+				int men = 0;
+				int mrn = 0;
+				int mjn = 0;
+				int ann = 0;
+				if (pc.getInventory().checkItem(40959, 1) // @R
+						&& pc.getInventory().checkItem(40960, 1) // R
+						&& pc.getInventory().checkItem(40961, 1) // bR
+						&& pc.getInventory().checkItem(40962, 1)) { // ER
+					insn = 1;
+					me = 40959;
+					mr = 40960;
+					mj = 40961;
+					an = 40962;
+					men = 1;
+					mrn = 1;
+					mjn = 1;
+					ann = 1;
+				} else if (pc.getInventory().checkItem(40642, 10) // @RobW
+						&& pc.getInventory().checkItem(40635, 10) // RobW
+						&& pc.getInventory().checkItem(40638, 10) // bRobW
+						&& pc.getInventory().checkItem(40667, 10)) { // ERobW
+					bacn = 1;
+					me = 40642;
+					mr = 40635;
+					mj = 40638;
+					an = 40667;
+					men = 10;
+					mrn = 10;
+					mjn = 10;
+					ann = 10;
+				}
+				if (pc.getInventory().checkItem(40046, 1) // Tt@CA
+						&& pc.getInventory().checkItem(40618, 5) // n
+						&& pc.getInventory().checkItem(40643, 5) // 
+						&& pc.getInventory().checkItem(40645, 5) // 
+						&& pc.getInventory().checkItem(40651, 5) // 
+						&& pc.getInventory().checkItem(40676, 5)) { // 
+					if (insn == 1 || bacn == 1) {
+						htmlid = "rumtis60";
+						materials = new int[] { me, mr, mj, an, 40046, 40618,
+								40643, 40651, 40676 };
+						counts = new int[] { men, mrn, mjn, ann, 1, 5, 5, 5, 5,
+								5 };
+						createitem = new int[] { 40926 }; // HTt@CAFPiK
+						createcount = new int[] { 1 };
+					} else {
+						htmlid = "rumtis18";
+					}
+				}
+			}
+		}
+		// A^[
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71119) {
+			// uX^ohj18Snv
+			if (s.equalsIgnoreCase("request las history book")) {
+				materials = new int[] { 41019, 41020, 41021, 41022, 41023,
+						41024, 41025, 41026 };
+				counts = new int[] { 1, 1, 1, 1, 1, 1, 1, 1 };
+				createitem = new int[] { 41027 };
+				createcount = new int[] { 1 };
+				htmlid = "";
+			}
+		}
+		// VsNX
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71170) {
+			// uX^ohjnv
+			if (s.equalsIgnoreCase("request las weapon manual")) {
+				materials = new int[] { 41027 };
+				counts = new int[] { 1 };
+				createitem = new int[] { 40965 };
+				createcount = new int[] { 1 };
+				htmlid = "";
+			}
+		}
+		// ^ _eX
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71168) {
+			// uEv
+			if (s.equalsIgnoreCase("a")) {
+				if (pc.getInventory().checkItem(41028, 1)) {
+					L1Teleport.teleport(pc, 32648, 32921, (short) 535, 6, true);
+					pc.getInventory().consumeItem(41028, 1);
+				}
+			}
+		}
+		// (~]A)
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80067) {
+			// uhv
+			if (s.equalsIgnoreCase("n")) {
+				htmlid = "";
+				poly(client, 6034);
+				final int[] item_ids = { 41132, 41133, 41134 };
+				final int[] item_amounts = { 1, 1, 1 };
+				for (int i = 0; i < item_ids.length; i++) {
+					L1ItemInstance item = pc.getInventory().storeItem(
+							item_ids[i], item_amounts[i]);
+					pc.sendPackets(new S_ServerMessage(143,
+							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+							item.getItem().getName()));
+					pc.getQuest().set_step(L1Quest.QUEST_DESIRE, 1);
+				}
+				// uCv
+			} else if (s.equalsIgnoreCase("d")) {
+				htmlid = "minicod09";
+				pc.getInventory().consumeItem(41130, 1);
+				pc.getInventory().consumeItem(41131, 1);
+				// uv
+			} else if (s.equalsIgnoreCase("k")) {
+				htmlid = "";
+				pc.getInventory().consumeItem(41132, 1); // 
+				pc.getInventory().consumeItem(41133, 1); // 
+				pc.getInventory().consumeItem(41134, 1); // 
+				pc.getInventory().consumeItem(41135, 1); // Jw
+				pc.getInventory().consumeItem(41136, 1); // Jw
+				pc.getInventory().consumeItem(41137, 1); // Jw
+				pc.getInventory().consumeItem(41138, 1); // Jw
+				pc.getQuest().set_step(L1Quest.QUEST_DESIRE, 0);
+				// n
+			} else if (s.equalsIgnoreCase("e")) {
+				if (pc.getQuest().get_step(L1Quest.QUEST_DESIRE) == L1Quest.QUEST_END
+						|| pc.getKarmaLevel() >= 1) {
+					htmlid = "";
+				} else {
+					if (pc.getInventory().checkItem(41138)) {
+						htmlid = "";
+						pc.addKarma((int) (1600 * Config.RATE_KARMA));
+						pc.getInventory().consumeItem(41130, 1); // _
+						pc.getInventory().consumeItem(41131, 1); // w
+						pc.getInventory().consumeItem(41138, 1); // Jw
+						pc.getQuest().set_step(L1Quest.QUEST_DESIRE,
+								L1Quest.QUEST_END);
+					} else {
+						htmlid = "minicod04";
+					}
+				}
+				// v[g
+			} else if (s.equalsIgnoreCase("g")) {
+				htmlid = "";
+				final int[] item_ids = { 41130 }; // _
+				final int[] item_amounts = { 1 };
+				for (int i = 0; i < item_ids.length; i++) {
+					L1ItemInstance item = pc.getInventory().storeItem(
+							item_ids[i], item_amounts[i]);
+					pc.sendPackets(new S_ServerMessage(143,
+							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+							item.getItem().getName()));
+				}
+			}
+		}
+		// (e_a)
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81202) {
+			// uv
+			if (s.equalsIgnoreCase("n")) {
+				htmlid = "";
+				poly(client, 6035);
+				final int[] item_ids = { 41123, 41124, 41125 };
+				final int[] item_amounts = { 1, 1, 1 };
+				for (int i = 0; i < item_ids.length; i++) {
+					L1ItemInstance item = pc.getInventory().storeItem(
+							item_ids[i], item_amounts[i]);
+					pc.sendPackets(new S_ServerMessage(143,
+							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+							item.getItem().getName()));
+					pc.getQuest().set_step(L1Quest.QUEST_SHADOWS, 1);
+				}
+				// uCv
+			} else if (s.equalsIgnoreCase("d")) {
+				htmlid = "minitos09";
+				pc.getInventory().consumeItem(41121, 1);
+				pc.getInventory().consumeItem(41122, 1);
+				// uv
+			} else if (s.equalsIgnoreCase("k")) {
+				htmlid = "";
+				pc.getInventory().consumeItem(41123, 1); // Jw
+				pc.getInventory().consumeItem(41124, 1); // Jw
+				pc.getInventory().consumeItem(41125, 1); // Jw
+				pc.getInventory().consumeItem(41126, 1); // 
+				pc.getInventory().consumeItem(41127, 1); // 
+				pc.getInventory().consumeItem(41128, 1); // 
+				pc.getInventory().consumeItem(41129, 1); // 
+				pc.getQuest().set_step(L1Quest.QUEST_SHADOWS, 0);
+				// n
+			} else if (s.equalsIgnoreCase("e")) {
+				if (pc.getQuest().get_step(L1Quest.QUEST_SHADOWS) == L1Quest.QUEST_END
+						|| pc.getKarmaLevel() >= 1) {
+					htmlid = "";
+				} else {
+					if (pc.getInventory().checkItem(41129)) {
+						htmlid = "";
+						pc.addKarma((int) (-1600 * Config.RATE_KARMA));
+						pc.getInventory().consumeItem(41121, 1); // Jw_
+						pc.getInventory().consumeItem(41122, 1); // Jww
+						pc.getInventory().consumeItem(41129, 1); // 
+						pc.getQuest().set_step(L1Quest.QUEST_SHADOWS,
+								L1Quest.QUEST_END);
+					} else {
+						htmlid = "minitos04";
+					}
+				}
+				// f
+			} else if (s.equalsIgnoreCase("g")) {
+				htmlid = "";
+				final int[] item_ids = { 41121 }; // Jw_
+				final int[] item_amounts = { 1 };
+				for (int i = 0; i < item_ids.length; i++) {
+					L1ItemInstance item = pc.getInventory().storeItem(
+							item_ids[i], item_amounts[i]);
+					pc.sendPackets(new S_ServerMessage(143,
+							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+							item.getItem().getName()));
+				}
+			}
+		}
 		// else System.out.println("C_NpcAction: " + s);
 		if (htmlid != null && htmlid.equalsIgnoreCase("colos2")) {
 			htmldata = makeUbInfoStrings(((L1NpcInstance) obj).getNpcTemplate()
@@ -2378,8 +3102,7 @@ public class C_NPCAction extends ClientBasePacket {
 	}
 
 	private String enterHauntedHouse(L1PcInstance pc) {
-		if (L1HauntedHouse.getInstance().getHauntedHouseStatus() ==
-				L1HauntedHouse.STATUS_PLAYING) { 
+		if (L1HauntedHouse.getInstance().getHauntedHouseStatus() == L1HauntedHouse.STATUS_PLAYING) { // Z
 			pc.sendPackets(new S_ServerMessage(1182)); 
 			return "";
 		}
@@ -2394,10 +3117,6 @@ public class C_NPCAction extends ClientBasePacket {
 	}
 
 	private String enterPetMatch(L1PcInstance pc, int objid2) {
-		if (!L1PetMatch.getInstance().isVacancy()) {
-			pc.sendPackets(new S_ServerMessage(1182)); //
-			return "";
-		}
 		Object[] petlist = pc.getPetList().values().toArray();
 		if (petlist.length > 0) {
 			pc.sendPackets(new S_ServerMessage(1187)); //
@@ -2470,7 +3189,19 @@ public class C_NPCAction extends ClientBasePacket {
 		if (pc.getInventory().checkItem(L1ItemId.ADENA, 100)) { 
 			pc.getInventory().consumeItem(L1ItemId.ADENA, 100); 
 
-			L1PolyMorph.doPoly(pc, polyId, 1800);
+			L1PolyMorph.doPoly(pc, polyId, 1800, L1PolyMorph.MORPH_BY_NPC);
+		} else {
+			pc.sendPackets(new S_ServerMessage(337, "$4")); // AfisB
+		}
+	}
+
+	private void polyByKeplisha(ClientThread clientthread, int polyId) {
+		L1PcInstance pc = clientthread.getActiveChar();
+
+		if (pc.getInventory().checkItem(L1ItemId.ADENA, 100)) { // check
+			pc.getInventory().consumeItem(L1ItemId.ADENA, 100); // del
+
+			L1PolyMorph.doPoly(pc, polyId, 1800, L1PolyMorph.MORPH_BY_KEPLISHA);
 		} else {
 			pc.sendPackets(new S_ServerMessage(337, "$4")); 
 		}
@@ -2575,6 +3306,7 @@ public class C_NPCAction extends ClientBasePacket {
 	}
 
 	private void openCloseGate(L1PcInstance pc, int keeperId, boolean isOpen) {
+		boolean isNowWar = false;
 		int pcCastleId = 0;
 		if (pc.getClanid() != 0) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
@@ -2582,62 +3314,74 @@ public class C_NPCAction extends ClientBasePacket {
 				pcCastleId = clan.getCastleId();
 			}
 		}
-		if (keeperId == 70656 || keeperId == 70549
-				|| keeperId == 70985) { //
+		if (keeperId == 70656 || keeperId == 70549 || keeperId == 70985) { // Pg
 			if (isExistDefenseClan(L1CastleLocation.KENT_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.KENT_CASTLE_ID) {
 					return;
 				}
 			}
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.KENT_CASTLE_ID);
 		} else if (keeperId == 70600) { // OT
 			if (isExistDefenseClan(L1CastleLocation.OT_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.OT_CASTLE_ID) {
 					return;
 				}
 			}
-		} else if (keeperId == 70778 || keeperId == 70987
-				|| keeperId == 70687) { //
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.OT_CASTLE_ID);
+		} else if (keeperId == 70778 || keeperId == 70987 || keeperId == 70687) { // WW
 			if (isExistDefenseClan(L1CastleLocation.WW_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.WW_CASTLE_ID) {
 					return;
 				}
 			}
-		} else if (keeperId == 70817 || keeperId == 70800
-				|| keeperId == 70988 || keeperId == 70990
-				|| keeperId == 70989 || keeperId == 70991) { //
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.WW_CASTLE_ID);
+		} else if (keeperId == 70817 || keeperId == 70800 || keeperId == 70988
+				|| keeperId == 70990 || keeperId == 70989 || keeperId == 70991) { // M
 			if (isExistDefenseClan(L1CastleLocation.GIRAN_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.GIRAN_CASTLE_ID) {
 					return;
 				}
 			}
-		} else if (keeperId == 70863 || keeperId == 70992
-				|| keeperId == 70862) { //
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.GIRAN_CASTLE_ID);
+		} else if (keeperId == 70863 || keeperId == 70992 || keeperId == 70862) { // nCl
 			if (isExistDefenseClan(L1CastleLocation.HEINE_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.HEINE_CASTLE_ID) {
 					return;
 				}
 			}
-		} else if (keeperId == 70995 || keeperId == 70994
-				|| keeperId == 70993) { //
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.HEINE_CASTLE_ID);
+		} else if (keeperId == 70995 || keeperId == 70994 || keeperId == 70993) { // h[t
 			if (isExistDefenseClan(L1CastleLocation.DOWA_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.DOWA_CASTLE_ID) {
 					return;
 				}
 			}
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.DOWA_CASTLE_ID);
 		} else if (keeperId == 70996) { 
 			if (isExistDefenseClan(L1CastleLocation.ADEN_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.ADEN_CASTLE_ID) {
 					return;
 				}
 			}
+			isNowWar = WarTimeController.getInstance().isNowWar(
+					L1CastleLocation.ADEN_CASTLE_ID);
 		}
 
 		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 			if (door.getKeeperId() == keeperId) {
+				if (isNowWar && door.getMaxHp() > 1) { // Js
+				} else {
 				if (isOpen) { //
 					door.open();
 				} else { //
 					door.close();
+					}
 				}
 			}
 		}
@@ -2742,8 +3486,9 @@ public class C_NPCAction extends ClientBasePacket {
 					int month = cal.get(Calendar.MONTH) + 1;
 					int day = cal.get(Calendar.DATE);
 					int hour = cal.get(Calendar.HOUR_OF_DAY);
-					result = new String[] { name, "2000", String.valueOf(month),
-							String.valueOf(day), String.valueOf(hour)};
+					result = new String[] { name, "2000",
+							String.valueOf(month), String.valueOf(day),
+							String.valueOf(hour) };
 				}
 			}
 		}
