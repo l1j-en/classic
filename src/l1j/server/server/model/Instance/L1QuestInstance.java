@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
+import l1j.server.server.model.L1Quest;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.templates.L1Npc;
@@ -42,11 +43,16 @@ public class L1QuestInstance extends L1NpcInstance {
 
 	@Override
 	public void onNpcAI() {
+		int npcId = getNpcTemplate().get_npcId();
 		if (isAiRunning()) {
 			return;
 		}
+		if (npcId == 71075 || npcId == 70957 || npcId == 81209) {
+			return;			
+		} else {
 		setActived(false);
 		startAI();
+		}
 	}
 
 	@Override
@@ -100,6 +106,27 @@ public class L1QuestInstance extends L1NpcInstance {
 			} else {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "endiaq4"));
 			}
+		} else if (npcId == 71062) { // J~bg
+			if (pc.getQuest().get_step(L1Quest.QUEST_CADMUS)
+					== 2) {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "kamit1b"));
+			} else {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "kamit1"));
+			}
+		} else if (npcId == 71075) { // U[h}t@C^[
+			if (pc.getQuest().get_step(L1Quest.QUEST_LIZARD)
+					== 1) {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "llizard1b"));
+			} else {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "llizard1a"));
+			}
+		} else if (npcId == 70957 || npcId == 81209) { // C
+			if (pc.getQuest().get_step(L1Quest.QUEST_ROI)
+					!= 1) {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "roi1"));
+			} else {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
+			}
 		}
 
 		synchronized (this) {
@@ -125,6 +152,26 @@ public class L1QuestInstance extends L1NpcInstance {
 			} else if (npcId == 71094
 					&& pc.isDarkelf() && pc.getQuest().get_step(4) == 1) {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(71094);
+				L1FollowerInstance follow = new L1FollowerInstance(l1npc,
+						this, pc);
+				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
+			} else if (npcId == 71062
+					&& pc.getQuest().get_step(L1Quest.QUEST_CADMUS)
+					== 2) {
+				L1Npc l1npc = NpcTable.getInstance().getTemplate(71062);
+				L1FollowerInstance follow = new L1FollowerInstance(l1npc,
+						this, pc);
+				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
+			} else if (npcId == 71075
+					&& pc.getQuest().get_step(L1Quest.QUEST_LIZARD)
+					== 1) {
+				L1Npc l1npc = NpcTable.getInstance().getTemplate(71075);
+				L1FollowerInstance follow = new L1FollowerInstance(l1npc,
+						this, pc);
+				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
+			} else if (npcId == 70957 || npcId == 81209) {
+
+				L1Npc l1npc = NpcTable.getInstance().getTemplate(70957);
 				L1FollowerInstance follow = new L1FollowerInstance(l1npc,
 						this, pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));

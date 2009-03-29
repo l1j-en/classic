@@ -618,6 +618,7 @@ class EnchantTimer extends TimerTask {
 	public EnchantTimer() {
 	}
 
+	@Override
 	public void run() {
 		try {
 			int type = getItem().getType();

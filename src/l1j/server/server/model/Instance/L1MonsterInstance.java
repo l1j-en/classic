@@ -31,6 +31,7 @@ import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Location;
+import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
@@ -43,6 +44,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
+import l1j.server.server.datatables.NPCTalkDataTable;
+import l1j.server.server.serverpackets.S_NPCTalkReturn;
 
 public class L1MonsterInstance extends L1NpcInstance {
 
@@ -126,7 +129,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
+					|| pc.isMonitor() || pc.isGhost()) {
 				continue;
 			}
 
@@ -144,6 +147,23 @@ public class L1MonsterInstance extends L1NpcInstance {
 				continue;
 			}
 
+			if (pc.getTempCharGfx() == 6034 && getNpcTemplate().getKarma() < 0 
+					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().getKarma() > 0
+					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().get_npcId() == 46070
+					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().get_npcId() == 46072) {
+				continue;
+			}
+
+			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
+					&& getNpcTemplate().is_agrogfxid1() < 0
+					&& getNpcTemplate().is_agrogfxid2() < 0) { // SmANeBuX^[
+				if (pc.getLawful() < -1000) { // vC[JIeBbN
+					targetPlayer = pc;
+					break;
+				}
+				continue;
+			}
+
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { 
 				if (pc.hasSkillEffect(67)) {
 					if (getNpcTemplate().is_agrososc()) { 
@@ -153,13 +173,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				} else if (getNpcTemplate().is_agro()) { 
 					targetPlayer = pc;
 					break;
-				} else if (getNpcTemplate().is_agrochao()) { 
-					if (pc.getLawful() < -10) {
-						targetPlayer = pc;
-						break;
 					}
-				}
-			}
 			if (getNpcTemplate().is_agrogfxid1() >= 0
 					&& getNpcTemplate().is_agrogfxid1() <= 4) {
 				if (_classGfxId[getNpcTemplate().is_agrogfxid1()][0] == pc
@@ -188,6 +202,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				targetPlayer = pc;
 				break;
 			}
+		}
 		}
 		if (targetPlayer != null) {
 			_hateList.add(targetPlayer, 0);
@@ -220,6 +235,31 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 		setActived(false);
 		startAI();
+	}
+
+	@Override
+	public void onTalkAction(L1PcInstance pc) {
+		int objid = getId();
+		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(
+				getNpcTemplate().get_npcId());
+		String htmlid = null;
+		String[] htmldata = null;
+
+			// html\pPbgM
+			if (htmlid != null) { // htmlidw
+				if (htmldata != null) { // htmlw\
+					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+							htmldata));
+				} else {
+					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
+				}
+			} else {
+				if (pc.getLawful() < -1000) { // vC[JIeBbN
+					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
+				} else {
+					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
+				}
+			}
 	}
 
 	@Override
@@ -422,8 +462,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				int maxHate = 0;
 				for (int i = hateList.size() - 1; i >= 0; i--) {
 					if (maxHate < ((Integer) hateList.get(i))) {
-						maxHate = ((Integer) hateList.get(i));
-						lastAttacker = (L1Character) targetList.get(i);
+						maxHate = (hateList.get(i));
+						lastAttacker = targetList.get(i);
 					}
 				}
 				if (lastAttacker instanceof L1PcInstance) {
@@ -482,7 +522,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			L1UltimateBattle ub = UBTable.getInstance().getUb(getUbId());
 			if (ub != null) {
 				for (L1PcInstance pc : ub.getMembersArray()) {
-					if (pc != null && !pc.isDead()) {
+					if (pc != null && !pc.isDead() && !pc.isGhost()) {
 						L1ItemInstance item = pc.getInventory()
 								.storeItem(41402, getUbSealCount());
 						pc.sendPackets(new S_ServerMessage(403, item

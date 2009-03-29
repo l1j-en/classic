@@ -250,7 +250,7 @@ public class L1NpcInstance extends L1Character {
 			}
 
 			if (_targetItem == null) {
-				if (noTarget(1)) {
+				if (noTarget()) {
 					return true;
 				}
 			} else {
@@ -605,7 +605,7 @@ public class L1NpcInstance extends L1Character {
 		setSleepTime(1000);
 	}
 
-	public boolean noTarget(int depth) {
+	public boolean noTarget() {
 		if (_master != null && _master.getMapId() == getMapId()
 				&& getLocation().getTileLineDistance(_master
 						.getLocation()) > 2) { 
@@ -1260,8 +1260,14 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
+			if (getCurrentHp() == getMaxHp()) {
 			if (pc.getLocation().getTileLineDistance(this.getLocation()) <= 1) {
 				appearOnGround(pc);
+			}
+			} else {
+// if (getNpcTemplate().get_npcId() != 45681) { // hrIO
+					searchItemFromAir();
+// }
 			}
  		}
 	}
@@ -1461,6 +1467,12 @@ public class L1NpcInstance extends L1Character {
 				L1Character cha = (L1Character) object;
 				if (cha.getX() == targetX && cha.getY() == targetY
 						&& cha.getMapId() == getMapId()) {
+					if (object instanceof L1PcInstance) {
+						L1PcInstance pc = (L1PcInstance) object;
+						if (pc.isGhost()) { // UBPC
+							continue;
+						}
+					}
 					_hateList.add(cha, 0);
 					_target = cha;
 					return true;
@@ -2210,24 +2222,4 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	@Override
-	public void onTalkAction(L1PcInstance player) {
-		int objid = getId();
-
-		_log.finest("Npc activated: " + objid);
-
-		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(getNpcTemplate().get_npcId());
-		if (talking != null) {
-			_log.finest("sending talk packet (init) for : " + objid);
-			S_NPCTalkReturn talk = null;
-			if (player.getLawful() < -1000) {
-				talk = new S_NPCTalkReturn(talking, objid, 2);
-			} else {
-				talk = new S_NPCTalkReturn(talking, objid, 1);
-			}
-			player.sendPackets(talk);
-		} else {
-			_log.finest("No actions for Npc id : " + objid);
-		}
-	}
- }
+}

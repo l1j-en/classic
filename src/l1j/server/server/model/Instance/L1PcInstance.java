@@ -18,6 +18,7 @@
  */
 
 package l1j.server.server.model.Instance;
+import l1j.server.server.model.L1World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import l1j.server.server.GMCommands;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.WarTimeController;
+import l1j.server.server.command.executor.L1HpBar;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
@@ -48,6 +50,7 @@ import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1DwarfForElfInventory;
 import l1j.server.server.model.L1DwarfInventory;
 import l1j.server.server.model.L1EquipmentSlot;
+import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Karma;
 import l1j.server.server.model.L1Magic;
@@ -337,8 +340,8 @@ public class L1PcInstance extends L1Character {
 					}
 				}
 			}
-			if (isGm() && hasSkillEffect(L1SkillId.GMSTATUS_HPBAR)
-					&& GMCommands.isHpBarTarget(visible)) {
+			if (hasSkillEffect(L1SkillId.GMSTATUS_HPBAR)
+					&& L1HpBar.isHpBarTarget(visible)) {
 				sendPackets(new S_HPMeter((L1Character) visible));
 			}
 		}
@@ -719,14 +722,14 @@ public class L1PcInstance extends L1Character {
 	private ArrayList<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
 
 
-	public ArrayList<L1PrivateShopSellList> getSellList() {
+	public ArrayList getSellList() {
 		return _sellList;
 	}
 
 	private ArrayList<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
 
-	public ArrayList<L1PrivateShopBuyList> getBuyList() {
+	public ArrayList getBuyList() {
 		return _buyList;
 	}
 
@@ -937,8 +940,8 @@ public class L1PcInstance extends L1Character {
 			if (attacker instanceof L1PcInstance
 					&& ((L1PcInstance) attacker).isPinkName()) {
 			
-				for (L1Object object : L1World.getInstance()
-						.getVisibleObjects(attacker)) {
+				for (L1Object object : L1World.getInstance().getVisibleObjects(
+						attacker)) {
 					if (object instanceof L1GuardInstance) {
 						L1GuardInstance guard = (L1GuardInstance) object;
 						guard.setTarget(((L1PcInstance) attacker));
@@ -973,14 +976,14 @@ public class L1PcInstance extends L1Character {
 				if (attacker instanceof L1PcInstance
 						&& ((L1PcInstance) attacker).isPinkName()) {
 					
-					for (L1Object object : L1World.getInstance()
-							.getVisibleObjects(attacker)) {
-						if (object instanceof L1GuardInstance) {
-							L1GuardInstance guard = (L1GuardInstance) object;
-							guard.setTarget(((L1PcInstance) attacker));
-						}
+				for (L1Object object : L1World.getInstance()
+						.getVisibleObjects(attacker)) {
+					if (object instanceof L1GuardInstance) {
+						L1GuardInstance guard = (L1GuardInstance) object;
+						guard.setTarget(((L1PcInstance) attacker));
 					}
 				}
+			}
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
 			}
 
@@ -1233,6 +1236,7 @@ public class L1PcInstance extends L1Character {
 						item.isStackable() ? item.getCount() : 1,
 						L1World.getInstance().getInventory(getX(), getY(),
 								getMapId()));
+			} else {
 			}
 		}
 	}
@@ -1855,12 +1859,8 @@ public class L1PcInstance extends L1Character {
 
 		CharacterTable.getInstance().storeCharacter(this);
 		//TODO add Pets saving here
-		for (L1PetInstance pet : L1World.getInstance().getAllPets()) {
-			if (getName().toLowerCase().equals(pet.getMaster().getName().toLowerCase())) {
-				pet.save();
-			}
-		}
 	}
+		//TODO add Pets saving here
 
 	public void saveInventory() {
 		for (L1ItemInstance item : getInventory().getItems()) {
@@ -1896,8 +1896,8 @@ public class L1PcInstance extends L1Character {
 			weightReductionByMagic = 10;
 		}
 
-		int weightReduction = weightReductionByArmor + weightReductionByDoll +
-				weightReductionByMagic;
+		int weightReduction = weightReductionByArmor + weightReductionByDoll
+				+ weightReductionByMagic;
 		maxWeight += ((maxWeight / 100) * weightReduction);
 
 		maxWeight *= Config.RATE_WEIGHT_LIMIT;
@@ -1907,23 +1907,21 @@ public class L1PcInstance extends L1Character {
 
 	public boolean isFastMovable() {
 		return (hasSkillEffect(L1SkillId.HOLY_WALK)
-				|| hasSkillEffect(L1SkillId.MOVING_ACCELERATION)
-				|| hasSkillEffect(L1SkillId.WIND_WALK));
+				|| hasSkillEffect(L1SkillId.MOVING_ACCELERATION) || hasSkillEffect(L1SkillId.WIND_WALK));
 	}
 
 	public boolean isBrave() {
 		return hasSkillEffect(L1SkillId.STATUS_BRAVE);
 	}
 
+	public boolean isElfBrave() {
+		return hasSkillEffect(L1SkillId.STATUS_ELFBRAVE);
+	}
+
 	public boolean isHaste() {
 		return (hasSkillEffect(L1SkillId.STATUS_HASTE)
 				|| hasSkillEffect(L1SkillId.HASTE)
-				|| hasSkillEffect(L1SkillId.GREATER_HASTE)
-				|| getMoveSpeed() == 1);
-	}
-	
-	public boolean isWisPot() {
-		return hasSkillEffect(L1SkillId.STATUS_WISDOM_POTION);
+				|| hasSkillEffect(L1SkillId.GREATER_HASTE) || getMoveSpeed() == 1);
 	}
 
 	private int invisDelayCounter = 0;
@@ -2015,6 +2013,14 @@ public class L1PcInstance extends L1Character {
 		setCurrentMp(getMaxMp());
 
 		sendPackets(new S_OwnCharStatus(this));
+		if (getLevel() >= 52) { // wx
+			if (getMapId() == 777) { // n(e_a)
+				L1Teleport.teleport(this, 34043, 32184, (short) 4, 5, true); // O
+			} else if (getMapId() == 778
+					|| getMapId() == 779) { // n(~]A)
+				L1Teleport.teleport(this, 32608, 33178, (short) 4, 5, true); // WB
+			}
+		}
 	}
 
 	private void levelDown(int gap) {
@@ -2237,6 +2243,7 @@ public class L1PcInstance extends L1Character {
 		_deleteTime = time;
 	}
 
+	@Override
     public int getMagicLevel() {
 		return getClassFeature().getMagicLevel(getLevel());
 	}
@@ -2438,36 +2445,15 @@ public class L1PcInstance extends L1Character {
 		resetBaseAc();
 	}
 
-	private ArrayList<String> _excludeList = new ArrayList<String>();
+	private final L1ExcludingList _excludingList = new L1ExcludingList();
 
-	public void addExclude(String name) {
-		_excludeList.add(name);
+	public L1ExcludingList getExcludingList() {
+		return _excludingList;
 	}
 
-	public String removeExclude(String name) {
-		for (String each : _excludeList) {
-			if (each.equalsIgnoreCase(name)) {
-				_excludeList.remove(each);
-				return each;
-			}
-		}
-		return null;
-	}
-
-	public boolean excludes(String name) {
-		for (String each : _excludeList) {
-			if (each.equalsIgnoreCase(name)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isExcludeListFull() {
-		return (_excludeList.size() >= 16) ? true : false;
-	}
-
-	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(this);
+	// -- m@\ --
+	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(
+			this);
 
 	public AcceleratorChecker getAcceleratorChecker() {
 		return _acceleratorChecker;
@@ -2602,5 +2588,24 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
+	private int _callClanId;
+
+	public int getCallClanId() {
+		return _callClanId;
+	}
+
+	public void setCallClanId(int i) {
+		_callClanId = i;
+	}
+
+	private int _callClanHeading;
+
+	public int getCallClanHeading() {
+		return _callClanHeading;
+	}
+
+	public void setCallClanHeading(int i) {
+		_callClanHeading = i;
+	}
 
 }

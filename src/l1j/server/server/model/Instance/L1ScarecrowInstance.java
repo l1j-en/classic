@@ -21,7 +21,7 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 		L1Attack attack = new L1Attack(player, this);
 		if (attack.calcHit()) {
 			if (player.getLevel() < 5) { //
-				ArrayList<L1Character> targetList = new ArrayList<L1Character>();
+				ArrayList<L1PcInstance> targetList = new ArrayList<L1PcInstance>();
 
 				targetList.add(player);
 				ArrayList<Integer> hateList = new ArrayList<Integer>();

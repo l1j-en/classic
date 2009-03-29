@@ -34,6 +34,7 @@ import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.serverpackets.S_FollowerPack;
@@ -45,6 +46,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
 
 
+	@Override
 	public boolean noTarget() {
 		L1NpcInstance targetNpc = null;
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
@@ -68,6 +70,53 @@ public class L1FollowerInstance extends L1NpcInstance {
 					}
 					deleteMe();
 					return true;
+				} else if (npc.getNpcTemplate().get_npcId() == 71061 // JhX
+						&& getNpcTemplate().get_npcId() == 71062) { // J~bg
+					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
+						L1PcInstance pc = (L1PcInstance) _master;	
+						if((pc.getX() >= 32448 && pc.getX() <= 32452) // JhXW
+								&& (pc.getY() >= 33048 && pc.getY() <= 33052)
+								&& (pc.getMapId() == 440)) {						
+							setParalyzed(true);
+							if (!pc.getInventory().checkItem(40711)) {
+								createNewItem(pc, 40711, 1);
+								pc.getQuest().set_step(L1Quest.QUEST_CADMUS, 3);
+							}
+							deleteMe();
+							return true;
+						}
+					}
+				} else if (npc.getNpcTemplate().get_npcId() == 71074 // U[h}V
+						&& getNpcTemplate().get_npcId() == 71075) { 
+					// U[h}t@C^[
+					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
+						L1PcInstance pc = (L1PcInstance) _master;	
+						if((pc.getX() >= 32731 && pc.getX() <= 32735) // U[h}VW
+								&& (pc.getY() >= 32854 && pc.getY() <= 32858)
+								&& (pc.getMapId() == 480)) {
+							setParalyzed(true);
+							if (!pc.getInventory().checkItem(40633)) {
+								createNewItem(pc, 40633, 1);
+								pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 2);
+							}
+							deleteMe();
+							return true;
+						}
+					}
+				} else if (npc.getNpcTemplate().get_npcId() == 70964 // obV
+						&& getNpcTemplate().get_npcId() == 70957) { // C
+					if (getLocation().getTileLineDistance(_master.getLocation()) < 3){
+						L1PcInstance pc = (L1PcInstance) _master;	
+						if((pc.getX() >= 32917 && pc.getX() <= 32921) // obVW
+								&& (pc.getY() >= 32974 && pc.getY() <= 32978)
+								&& (pc.getMapId() == 410)) {
+							setParalyzed(true);
+							createNewItem(pc, 41003, 1);
+							pc.getQuest().set_step(L1Quest.QUEST_ROI, 0);					
+							deleteMe();
+							return true;
+						}
+					}
 				}
 			}
 		}
@@ -150,6 +199,24 @@ public class L1FollowerInstance extends L1NpcInstance {
 				player.sendPackets(new S_NPCTalkReturn(getId(), "endiaq2"));
 			} else {
 				player.sendPackets(new S_NPCTalkReturn(getId(), "endiaq4"));
+			}
+		} else if (getNpcTemplate().get_npcId() == 71062) {
+			if (_master.equals(player)) {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "kamit2"));
+			} else {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "kamit1"));
+			}
+		} else if (getNpcTemplate().get_npcId() == 71075) {
+			if (_master.equals(player)) {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "llizard2"));
+			} else {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "llizard1a"));
+			}
+		} else if (getNpcTemplate().get_npcId() == 70957) {
+			if (_master.equals(player)) {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
+			} else {
+				player.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
 			}
 		}
 	}
