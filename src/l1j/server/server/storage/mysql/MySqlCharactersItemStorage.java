@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
@@ -33,6 +34,8 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.SQLUtil;
 
 public class MySqlCharactersItemStorage extends CharactersItemStorage {
+	private static final Logger _log =
+			Logger.getLogger(MySqlCharactersItemStorage.class.getName());
 
 	@Override
 	public ArrayList<L1ItemInstance> loadItems(int objId) throws Exception {
@@ -56,6 +59,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 						itemId);
 				if (itemTemplate == null) {
 
+					_log.warning(String.format("item id:%d not found", itemId));
 					continue;
 				}
 				item = new L1ItemInstance();
