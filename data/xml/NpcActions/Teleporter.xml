@@ -1081,16 +1081,16 @@
 	<Action Name="4" NpcId="80047">
 		<Teleport X="32929" Y="32995" Map="410" Heading="5" Price="0"/>
 	</Action>
-	<Action Name="1" NpcId="80048">
+	<Action Name="1" NpcId="80048" LevelMin="45">
 		<Teleport X="32676" Y="32960" Map="521" Heading="5" Price="0"/>
 	</Action>
-	<Action Name="3" NpcId="80048">
-		<Teleport X="32834" Y="32790" Map="778" Heading="5" Price="0"/>
+	<Action Name="3" NpcId="80048" LevelMin="45" LevelMax="51">
+		<Teleport X="32538" Y="32958" Map="777" Heading="2" Price="0"/>
 	</Action>
-	<Action Name="a" NpcId="80058">
+	<Action Name="a" NpcId="80058" LevelMin="45">
 		<Teleport X="32757" Y="32794" Map="600" Heading="5" Price="0"/>
 	</Action>
-	<Action Name="b" NpcId="80058">
+	<Action Name="b" NpcId="80058" LevelMin="45" LevelMax="51">
 		<Teleport X="32834" Y="32790" Map="778" Heading="5" Price="0"/>
 	</Action>
 	<Action Name="4" NpcId="80065">
@@ -1131,5 +1131,8 @@
 	</Action>
 	<Action Name="a" NpcId="70751">
 		<Teleport X="32743" Y="32833" Map="72" Heading="2" Price="0"/>
+	</Action>
+	<Action Name="teleport si-in" NpcId="50083">
+		<Teleport X="32778" Y="32779" Map="68" Heading="2" Price="0"/>
 	</Action>
 </NpcActionList>

@@ -610,4 +610,80 @@
 			<Material Amount="1000" ItemId="40308"/>
 		</MakeItem>
 	</Action>
+	<Action Name="a" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21070"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="b" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21072"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="c" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21071"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="d" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21073"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="e" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21075"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="f" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21076"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="g" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21077"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="h" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21078"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="i" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21079"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="j" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21080"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="request dantes manual" NpcId="71169">
+		<MakeItem>
+			<Item Amount="1" ItemId="40966"/>
+			<Material Amount="1" ItemId="41035"/>
+		</MakeItem>
+	</Action>
 </NpcActionList>

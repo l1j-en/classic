@@ -774,4 +774,47 @@
   <TreasureBox Type="RANDOM" ItemId="41416">
     <Item ItemId="41254" Count="1" Chance="100" />
   </TreasureBox>
+  <TreasureBox Type="RANDOM" ItemId="41008">
+	<Item ItemId="40308" Count="200" Chance="38" />
+	<Item ItemId="40100" Count="1" Chance="20" />
+	<Item ItemId="40044" Count="1" Chance="10" />
+	<Item ItemId="40045" Count="1" Chance="10" />
+	<Item ItemId="40046" Count="1" Chance="10" />
+	<Item ItemId="40047" Count="1" Chance="10" />
+	<Item ItemId="20421" Count="1" Chance="1" />
+	<Item ItemId="20434" Count="1" Chance="1" />
+  </TreasureBox>
+  <!-- -->
+  <TreasureBox Type="RANDOM" ItemId="41059">
+    <Item ItemId="114" Count="1" Chance="0.4" />
+    <Item ItemId="204" Count="1" Chance="0.4" />
+    <Item ItemId="207" Count="1" Chance="0.4" />
+    <Item ItemId="40022" Count="10" Chance="14" />
+    <Item ItemId="40023" Count="10" Chance="10" />
+    <Item ItemId="40024" Count="10" Chance="2" />
+    <Item ItemId="40053" Count="1" Chance="6" />
+    <Item ItemId="40054" Count="1" Chance="6" />
+    <Item ItemId="40055" Count="1" Chance="6" />
+    <Item ItemId="40074" Count="1" Chance="3.6" />
+    <Item ItemId="40087" Count="1" Chance="3.6" />
+    <Item ItemId="40089" Count="1" Chance="7" />
+    <Item ItemId="40100" Count="1" Chance="5" />
+    <Item ItemId="40308" Count="10000" Chance="11" />
+    <Item ItemId="40308" Count="20000" Chance="8" />
+    <Item ItemId="40308" Count="30000" Chance="2" />
+    <Item ItemId="40308" Count="100000" Chance="0.6" />
+    <Item ItemId="40524" Count="3" Chance="3" />
+    <Item ItemId="40524" Count="5" Chance="2" />
+    <Item ItemId="40524" Count="10" Chance="1" />
+    <Item ItemId="140088" Count="3" Chance="2" />
+    <Item ItemId="140089" Count="3" Chance="6" />
+ </TreasureBox>
+ <!-- -->
+  <TreasureBox Type="RANDOM" ItemId="41003">
+    <Item ItemId="40089" Count="1" Chance="20" />
+    <Item ItemId="40015" Count="1" Chance="20" />
+    <Item ItemId="40016" Count="1" Chance="20" />
+    <Item ItemId="40088" Count="1" Chance="20" />
+    <Item ItemId="40308" Count="10000" Chance="20" />
+  </TreasureBox>
 </TreasureBoxList>

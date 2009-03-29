@@ -143,6 +143,7 @@
     <Room Name="Great Cavern Resistance Area" LocX="32572" LocY="32663" MapId="400"/>
     <Room Name="Sanctuary of Evil" LocX="32929" LocY="32995" MapId="410"/>
     <Room Name="Elemental Grave" LocX="32922" LocY="32812" MapId="430"/>
+	<Room Name="Pirate Island" LocX="32422" LocY="33074" MapId="440"/>
     <Room Name="Front Gate of Lastavard" LocX="32658" LocY="32853" MapId="450"/>
     <Room Name="1F Meeting Area" LocX="32726" LocY="32847" MapId="451"/>
     <Room Name="1F Shock Squad Training Area" LocX="32726" LocY="32824" MapId="452"/>

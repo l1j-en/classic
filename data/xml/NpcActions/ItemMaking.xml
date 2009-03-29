@@ -2818,4 +2818,29 @@
 			<Item Amount="1" ItemId="40677"/>
 		</MakeItem>
 	</Action>
+	<Action Name="f" NpcId="71175">
+		<MakeItem>
+			<Item Amount="1" ItemId="20451"/>
+			<Material Amount="1" ItemId="40959"/>
+			<Material Amount="1" ItemId="40960"/>
+			<Material Amount="1" ItemId="40961"/>
+			<Material Amount="1" ItemId="40962"/>
+			<Succeed>
+				<ShowHtml HtmlId="Ep5event11"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="Ep5event8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="B" NpcId="80076">
+		<MakeItem>
+		<Item Amount="1" ItemId="41059"/>
+		<Material Amount="1" ItemId="41058"/>
+			<Succeed>
+				<ShowHtml HtmlId="voyager10"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
 </NpcActionList>
