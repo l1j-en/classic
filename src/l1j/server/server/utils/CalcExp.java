@@ -341,6 +341,7 @@ public class CalcExp {
 	}
 
 	private static void AddExp(L1PcInstance pc, int exp, int lawful) {
+		// dont remove
 		if(pc.isDead()){
 			return;
 		}
@@ -400,8 +401,6 @@ public class CalcExp {
 			petTemplate.set_mp(pet.getMaxMp());
 			PetTable.getInstance().storePet(petTemplate);
 			pc.sendPackets(new S_ServerMessage(320, pet.getName())); 
-
-
 			// top off pet's HP/MP on level up
 			pet.setCurrentHp(pet.getMaxHp());
 			pet.setCurrentMp(pet.getMaxMp());
