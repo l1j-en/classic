@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NpcActionList>
   <!-- Lv15 prince Quest / zero -->
-	<MakeItem Name="request cloak of red" Class="P" AmountInputable="false" QuestId="Level15" QuestStep="0">
+  <MakeItem Name="request cloak of red" Class="P" AmountInputable="false" QuestId="Level15" QuestStep="0">
     <Item Amount="1" ItemId="20065"/>
     <Material Amount="1" ItemId="40565"/>
     <Succeed>
@@ -13,7 +13,7 @@
   </MakeItem>
 
   <!-- Lv15 prince Quest / Gunther -->
-	<MakeItem Name="request spellbook112" Class="P" AmountInputable="false" QuestId="Level15" QuestStep="1">
+  <MakeItem Name="request spellbook112" Class="P" AmountInputable="false" QuestId="Level15" QuestStep="1">
     <Item Amount="1" ItemId="40226"/>
     <Material Amount="1" ItemId="40564"/>
     <Succeed>
@@ -31,7 +31,7 @@
     <ShowHtml HtmlId="aria2"/>
   </Action>
   <!-- To pass the belongings of the villagers -->
-	<MakeItem Name="request questitem" Class="P" AmountInputable="false" QuestId="Level30" QuestStep="1">
+  <MakeItem Name="request questitem" Class="P" AmountInputable="false" QuestId="Level30" QuestStep="1">
     <Item Amount="1" ItemId="40570"/>
     <Material Amount="1" ItemId="40547"/>
     <Succeed>
@@ -45,7 +45,7 @@
     <SetQuest Id="Level45" Step="1"/>
     <ShowHtml HtmlId="masha3"/>
   </Action>
-	<MakeItem Name="request ring of guardian" Class="P" AmountInputable="false" QuestId="Level45" QuestStep="3">
+  <MakeItem Name="request ring of guardian" Class="P" AmountInputable="false" QuestId="Level45" QuestStep="3">
     <Item Amount="1" ItemId="20287"/>
     <Material Amount="1" ItemId="40586"/>
     <Material Amount="1" ItemId="40587"/>
@@ -81,7 +81,7 @@
     </Succeed>
   </MakeItem>
   <!-- Night Quest Lv15 / Hanon -->
-	<MakeItem Name="request hood of red knight" Class="K" AmountInputable="false" QuestId="Level15" QuestStep="1">
+  <MakeItem Name="request hood of red knight" Class="K" AmountInputable="false" QuestId="Level15" QuestStep="1">
     <Item Amount="1" ItemId="20027"/>
     <Material Amount="1" ItemId="20005"/>
     <Material Amount="1" ItemId="40540"/>
@@ -102,7 +102,7 @@
     <SetQuest Id="Level30" Step="2"/>
     <ShowHtml HtmlId="gunterkE2"/>
   </Action>
-	<MakeItem Name="request sword of red knights" Class="K" AmountInputable="false" QuestId="Level30" QuestStep="2">
+  <MakeItem Name="request sword of red knights" Class="K" AmountInputable="false" QuestId="Level30" QuestStep="2">
     <Item Amount="1" ItemId="30"/>
     <Material Amount="1" ItemId="40590"/>
     <Succeed>
@@ -127,7 +127,7 @@
     <SetQuest Id="Level30" Step="6"/>
     <ShowHtml HtmlId="gerardkE4"/>
   </Action>
-	<MakeItem Name="request shield of red knights" Class="K" AmountInputable="false" QuestId="Level30" QuestStep="7">
+  <MakeItem Name="request shield of red knights" Class="K" AmountInputable="false" QuestId="Level30" QuestStep="7">
     <Item Amount="1" ItemId="20230"/>
     <Material Amount="1" ItemId="40529"/>
     <Succeed>
@@ -149,11 +149,11 @@
     <SetQuest Id="Level45" Step="1"/>
     <ShowHtml HtmlId="mashak2"/>
   </Action>
-	<MakeItem Name="request belt of bravery" Class="K" AmountInputable="false" QuestId="Level45" QuestStep="4">
+  <MakeItem Name="request belt of bravery" Class="K" AmountInputable="false" QuestId="Level45" QuestStep="4">
     <Item Amount="1" ItemId="20318"/>
-		<Material Amount="1" ItemId="20026"/>
+    <Material Amount="1" ItemId="20026"/>
     <Material Amount="1" ItemId="40593"/>
-		<Material Amount="1" ItemId="40597"/>
+    <Material Amount="1" ItemId="40597"/>
     <Succeed>
       <SetQuest Id="Level45" Step="End"/>
       <ShowHtml HtmlId="mashak3"/>
@@ -180,7 +180,7 @@
   </MakeItem>
 
   <!-- Lv15 Elf Quest / m -->
-	<MakeItem Name="request dex helmet of elven" Class="E" AmountInputable="false" QuestId="Level15" QuestStep="0">
+  <MakeItem Name="request dex helmet of elven" Class="E" AmountInputable="false" QuestId="Level15" QuestStep="0">
     <Item Amount="1" ItemId="20021"/>
     <Material Amount="1" ItemId="40609"/>
     <Material Amount="1" ItemId="40610"/>
@@ -190,7 +190,7 @@
       <SetQuest Id="Level15" Step="End"/>
     </Succeed>
   </MakeItem>
-	<MakeItem Name="request con helmet of elven" Class="E" AmountInputable="false" QuestId="Level15" QuestStep="0">
+  <MakeItem Name="request con helmet of elven" Class="E" AmountInputable="false" QuestId="Level15" QuestStep="0">
     <Item Amount="1" ItemId="20039"/>
     <Material Amount="1" ItemId="40609"/>
     <Material Amount="1" ItemId="40610"/>
@@ -205,7 +205,7 @@
     <SetQuest Id="Level30" Step="1"/>
     <ShowHtml HtmlId="motherEE2"/>
   </Action>
-	<MakeItem Name="request questitem2" Class="E" AmountInputable="false" QuestId="Level30" QuestStep="1">
+  <MakeItem Name="request questitem2" Class="E" AmountInputable="false" QuestId="Level30" QuestStep="1">
     <Item Amount="1" ItemId="40588"/>
     <Material Amount="1" ItemId="40592"/>
     <Succeed>
@@ -217,7 +217,7 @@
     <SetQuest Id="Level45" Step="1"/>
     <ShowHtml HtmlId="mashae2"/>
   </Action>
-	<MakeItem Name="request bag of masha" Class="E" AmountInputable="false" QuestId="Level45" QuestStep="4">
+  <MakeItem Name="request bag of masha" Class="E" AmountInputable="false" QuestId="Level45" QuestStep="4">
     <Item Amount="1" ItemId="40546"/>
     <Material Amount="1" ItemId="192"/>
     <Succeed>
@@ -249,7 +249,7 @@
     <Material Amount="1" ItemId="40538"/>
     <Material Amount="1" ItemId="40539"/>
   </MakeItem>
-	<MakeItem Name="request book of magical powers" Class="W" AmountInputable="false" QuestId="Level15" QuestStep="0">
+  <MakeItem Name="request book of magical powers" Class="W" AmountInputable="false" QuestId="Level15" QuestStep="0">
     <Item Amount="1" ItemId="20226"/>
     <Material Amount="1" ItemId="40591"/>
     <Material Amount="1" ItemId="40605"/>
@@ -286,7 +286,7 @@
     <SetQuest Id="Level30" Step="5"/>
     <ShowHtml HtmlId="talassE2"/>
   </Action>
-	<MakeItem Name="request crystal staff" Class="W" AmountInputable="false" QuestId="Level30" QuestStep="5">
+  <MakeItem Name="request crystal staff" Class="W" AmountInputable="false" QuestId="Level30" QuestStep="5">
     <Item Amount="1" ItemId="115"/>
     <Material Amount="1" ItemId="40569"/>
     <Material Amount="1" ItemId="40580"/>
@@ -313,7 +313,7 @@
     <SetQuest Id="Level45" Step="1"/>
     <ShowHtml HtmlId="talassmq2"/>
   </Action>
-	<MakeItem Name="request magic bag of talass" Class="W" AmountInputable="false" QuestId="Level45" QuestStep="3">
+  <MakeItem Name="request magic bag of talass" Class="W" AmountInputable="false" QuestId="Level45" QuestStep="3">
     <Item Amount="1" ItemId="40599"/>
     <Material Amount="1" ItemId="40536"/>
     <Succeed>
@@ -326,7 +326,7 @@
     <SetQuest Id="Level15" Step="1"/>
     <ShowHtml HtmlId="kanguard2"/>
   </Action>
-	<MakeItem Name="request kanbag" Class="D" AmountInputable="false" QuestId="Level15" QuestStep="1">
+  <MakeItem Name="request kanbag" Class="D" AmountInputable="false" QuestId="Level15" QuestStep="1">
     <Item Amount="1" ItemId="40598"/>
     <Material Amount="1" ItemId="40585"/>
     <Succeed>
@@ -351,7 +351,7 @@
     <SetQuest Id="Level30" Step="3"/>
     <ShowHtml HtmlId="ronde4"/>
   </Action>
-	<MakeItem Name="request rondebag" Class="D" AmountInputable="false" QuestId="Level30" QuestStep="3">
+  <MakeItem Name="request rondebag" Class="D" AmountInputable="false" QuestId="Level30" QuestStep="3">
     <Item Amount="1" ItemId="40545"/>
     <Material Amount="1" ItemId="40596"/>
     <Succeed>
@@ -364,7 +364,7 @@
     <SetQuest Id="Level45" Step="1"/>
     <ShowHtml HtmlId="bluedikaq2"/>
   </Action>
-	<MakeItem Name="request bluedikabag" Class="D" AmountInputable="false" QuestId="Level45" QuestStep="5">
+  <MakeItem Name="request bluedikabag" Class="D" AmountInputable="false" QuestId="Level45" QuestStep="5">
     <Item Amount="1" ItemId="40553"/>
     <Material Amount="1" ItemId="40572"/>
     <Material Amount="1" ItemId="40595"/>
@@ -399,7 +399,7 @@
   <Action Name="quest 24 bluedikaq7" Class="D">
     <ShowHtml HtmlId="bluedikaq7"/>
   </Action>
-	<MakeItem Name="request finger of death" Class="D" AmountInputable="false" QuestId="Level50" QuestStep="0">
+  <MakeItem Name="request finger of death" Class="D" AmountInputable="false" QuestId="Level50" QuestStep="0">
     <Item Amount="1" ItemId="13"/>
     <Material Amount="1" ItemId="40603"/>
     <Material Amount="1" ItemId="40648"/>
@@ -415,7 +415,7 @@
     <SetQuest Id="Level50" Step="1"/>
     <ShowHtml HtmlId="dicardingp2"/>
   </Action>
-	<MakeItem Name="request gold stick" Class="P" AmountInputable="false" QuestId="Level50" QuestStep="1">
+  <MakeItem Name="request gold stick" Class="P" AmountInputable="false" QuestId="Level50" QuestStep="1">
     <Item Amount="1" ItemId="51"/>
     <Material Amount="1" ItemId="40552"/>
     <Succeed>
@@ -427,7 +427,7 @@
     <SetQuest Id="Level50" Step="1"/>
     <ShowHtml HtmlId="dicardingk2"/>
   </Action>
-	<MakeItem Name="request death blade" Class="K" AmountInputable="false" QuestId="Level50" QuestStep="1">
+  <MakeItem Name="request death blade" Class="K" AmountInputable="false" QuestId="Level50" QuestStep="1">
     <Item Amount="1" ItemId="56"/>
     <Material Amount="1" ItemId="65"/>
     <Material Amount="1" ItemId="40549"/>
@@ -440,7 +440,7 @@
     <SetQuest Id="Level50" Step="1"/>
     <ShowHtml HtmlId="dicardinge2"/>
   </Action>
-	<MakeItem Name="request flame bow" Class="E" AmountInputable="false" QuestId="Level50" QuestStep="1">
+  <MakeItem Name="request flame bow" Class="E" AmountInputable="false" QuestId="Level50" QuestStep="1">
     <Item Amount="1" ItemId="184"/>
     <Material Amount="1" ItemId="192"/>
     <Material Amount="1" ItemId="40551"/>
@@ -448,7 +448,7 @@
       <SetQuest Id="Level50" Step="End"/>
     </Succeed>
   </MakeItem>
-	<MakeItem Name="request flame sword" Class="E" AmountInputable="false" QuestId="Level50" QuestStep="1">
+  <MakeItem Name="request flame sword" Class="E" AmountInputable="false" QuestId="Level50" QuestStep="1">
     <Item Amount="1" ItemId="50"/>
     <Material Amount="1" ItemId="192"/>
     <Material Amount="1" ItemId="40551"/>
@@ -461,7 +461,7 @@
     <SetQuest Id="Level50" Step="1"/>
     <ShowHtml HtmlId="dicardingw2"/>
   </Action>
-	<MakeItem Name="request mana crystal" Class="W" AmountInputable="false" QuestId="Level50" QuestStep="1">
+  <MakeItem Name="request mana crystal" Class="W" AmountInputable="false" QuestId="Level50" QuestStep="1">
     <Item Amount="1" ItemId="20225"/>
     <Material Amount="1" ItemId="133"/>
     <Material Amount="1" ItemId="40550"/>
@@ -519,7 +519,7 @@
       <ShowHtml HtmlId="resta15"/>
       <SetQuest Id="resta" Step="End"/>
     </Succeed>
-  </MakeItem> 
+  </MakeItem>	
   <!-- Pirate Island "treasure map 4" Quest / KADOMUSU -->
   <MakeItem Name="B" Class="PWEKD" NpcId="71061" AmountInputable="false">
     <Item Amount="1" ItemId="40692"/>
@@ -529,8 +529,8 @@
       <SetQuest Id="cadmus" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="g" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
+  <!-- -->
+  <MakeItem Name="g" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
     <Item Amount="1" ItemId="33"/>
     <Material Amount="1" ItemId="40717"/>
     <Succeed>
@@ -538,8 +538,8 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="h" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
+  <!-- -->
+  <MakeItem Name="h" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
     <Item Amount="1" ItemId="79"/>
     <Material Amount="1" ItemId="40717"/>
     <Succeed>
@@ -547,8 +547,8 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="i" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
+  <!-- -->
+  <MakeItem Name="i" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
     <Item Amount="1" ItemId="178"/>
     <Material Amount="1" ItemId="40717"/>
     <Succeed>
@@ -556,8 +556,8 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="j" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
+  <!-- -->
+  <MakeItem Name="j" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
     <Item Amount="1" ItemId="118"/>
     <Material Amount="1" ItemId="40717"/>
     <Succeed>
@@ -565,8 +565,8 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="k" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
+  <!-- -->
+  <MakeItem Name="k" Class="PWEKD" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
     <Item Amount="1" ItemId="20234"/>
     <Material Amount="1" ItemId="40717"/>
     <Succeed>
@@ -574,8 +574,8 @@
       <SetQuest Id="kamyla" Step="End"/>
     </Succeed>
   </MakeItem>
-	<!-- -->
-	<MakeItem Name="C" Class="PWEKD" NpcId="71074" AmountInputable="false" QuestId="lizard" QuestStep="3">
+  <!-- -->
+  <MakeItem Name="C" Class="PWEKD" NpcId="71074" AmountInputable="false" QuestId="lizard" QuestStep="3">
     <Item Amount="1" ItemId="20167"/>
     <Material Amount="1" ItemId="40634"/>
     <Succeed>
@@ -583,309 +583,309 @@
       <SetQuest Id="lizard" Step="End"/>
     </Succeed>
   </MakeItem>
-    <MakeItem Name="k" Class="PWEKD" NpcId="81208" AmountInputable="false" QuestId="desire" QuestStep="1">
-        <Item Amount="1" ItemId="41138"/>
-        <Material Amount="1" ItemId="41135"/>
-        <Material Amount="1" ItemId="41136"/>
-        <Material Amount="1" ItemId="41137"/>
-        <Succeed>
-            <ShowHtml HtmlId="minibrob03"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="k" Class="PWEKD" NpcId="81208" AmountInputable="false" QuestId="desire" QuestStep="1">
+    <Item Amount="1" ItemId="41138"/>
+    <Material Amount="1" ItemId="41135"/>
+    <Material Amount="1" ItemId="41136"/>
+    <Material Amount="1" ItemId="41137"/>
+    <Succeed>
+      <ShowHtml HtmlId="minibrob03"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="k" Class="PWEKD" NpcId="81208" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41129"/>
-        <Material Amount="1" ItemId="41126"/>
-        <Material Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41128"/>
-        <Succeed>
-            <ShowHtml HtmlId="minibrob03"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="k" Class="PWEKD" NpcId="81208" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41129"/>
+    <Material Amount="1" ItemId="41126"/>
+    <Material Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41128"/>
+    <Succeed>
+      <ShowHtml HtmlId="minibrob03"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46069" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41126"/>
-        <Material Amount="1" ItemId="41123"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46069" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41126"/>
+    <Material Amount="1" ItemId="41123"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr3" Class="PWEKD" NpcId="46070" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41128"/>
-        <Material Amount="1" ItemId="41125"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr3" Class="PWEKD" NpcId="46070" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41128"/>
+    <Material Amount="1" ItemId="41125"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46072" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41124"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46072" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41124"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46074" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41124"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46074" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41124"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr3" Class="PWEKD" NpcId="46075" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41128"/>
-        <Material Amount="1" ItemId="41125"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr3" Class="PWEKD" NpcId="46075" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41128"/>
+    <Material Amount="1" ItemId="41125"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46076" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41126"/>
-        <Material Amount="1" ItemId="41123"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46076" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41126"/>
+    <Material Amount="1" ItemId="41123"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46077" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41124"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46077" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41124"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46078" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41126"/>
-        <Material Amount="1" ItemId="41123"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46078" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41126"/>
+    <Material Amount="1" ItemId="41123"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46079" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41124"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46079" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41124"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46080" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41126"/>
-        <Material Amount="1" ItemId="41123"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr1" Class="PWEKD" NpcId="46080" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41126"/>
+    <Material Amount="1" ItemId="41123"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46076" AmountInputable="false" QuestId="shadows" QuestStep="1">
-        <Item Amount="1" ItemId="41127"/>
-        <Material Amount="1" ItemId="41124"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mtosr2" Class="PWEKD" NpcId="46076" AmountInputable="false" QuestId="shadows" QuestStep="1">
+    <Item Amount="1" ItemId="41127"/>
+    <Material Amount="1" ItemId="41124"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mcodr3" Class="PWEKD" NpcId="46092" AmountInputable="false" QuestId="desire" QuestStep="1">
-        <Item Amount="1" ItemId="41137"/>
-        <Material Amount="1" ItemId="41134"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mcodr3" Class="PWEKD" NpcId="46092" AmountInputable="false" QuestId="desire" QuestStep="1">
+    <Item Amount="1" ItemId="41137"/>
+    <Material Amount="1" ItemId="41134"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mcodr3" Class="PWEKD" NpcId="46093" AmountInputable="false" QuestId="desire" QuestStep="1">
-        <Item Amount="1" ItemId="41137"/>
-        <Material Amount="1" ItemId="41134"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mcodr3" Class="PWEKD" NpcId="46093" AmountInputable="false" QuestId="desire" QuestStep="1">
+    <Item Amount="1" ItemId="41137"/>
+    <Material Amount="1" ItemId="41134"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-　　<MakeItem Name="request mcodr2" Class="PWEKD" NpcId="46094" AmountInputable="false" QuestId="desire" QuestStep="1">
-　　　　<Item Amount="1" ItemId="41136"/>
-　　　　<Material Amount="1" ItemId="41133"/>
-　　　　<Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  　　<MakeItem Name="request mcodr2" Class="PWEKD" NpcId="46094" AmountInputable="false" QuestId="desire" QuestStep="1">
+    <Item Amount="1" ItemId="41136"/>
+    <Material Amount="1" ItemId="41133"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="request mcodr2" Class="PWEKD" NpcId="46095" AmountInputable="false" QuestId="desire" QuestStep="1">
-        <Item Amount="1" ItemId="41136"/>
-        <Material Amount="1" ItemId="41133"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="request mcodr2" Class="PWEKD" NpcId="46095" AmountInputable="false" QuestId="desire" QuestStep="1">
+    <Item Amount="1" ItemId="41136"/>
+    <Material Amount="1" ItemId="41133"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50113" AmountInputable="false" QuestId="toscroll" QuestStep="0">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40085"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="1"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50113" AmountInputable="false" QuestId="toscroll" QuestStep="0">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40085"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="1"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50112" AmountInputable="false" QuestId="toscroll" QuestStep="0">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40085"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="1"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50112" AmountInputable="false" QuestId="toscroll" QuestStep="0">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40085"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="1"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50111" AmountInputable="false" QuestId="toscroll" QuestStep="1">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40080"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="2"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50111" AmountInputable="false" QuestId="toscroll" QuestStep="1">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40080"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="2"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50116" AmountInputable="false" QuestId="toscroll" QuestStep="2">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40122"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="3"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50116" AmountInputable="false" QuestId="toscroll" QuestStep="2">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40122"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="3"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50117" AmountInputable="false" QuestId="toscroll" QuestStep="3">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40115"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="4"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50117" AmountInputable="false" QuestId="toscroll" QuestStep="3">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40115"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="4"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50119" AmountInputable="false" QuestId="toscroll" QuestStep="4">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40125"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="5"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50119" AmountInputable="false" QuestId="toscroll" QuestStep="4">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40125"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="5"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50121" AmountInputable="false" QuestId="toscroll" QuestStep="5">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40114"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="6"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50121" AmountInputable="false" QuestId="toscroll" QuestStep="5">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40114"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="6"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50114" AmountInputable="false" QuestId="toscroll" QuestStep="6">
-        <Item Amount="1" ItemId="20282"/> 
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40117"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="7"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50114" AmountInputable="false" QuestId="toscroll" QuestStep="6">
+    <Item Amount="1" ItemId="20282"/> 
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40117"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="7"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50120" AmountInputable="false" QuestId="toscroll" QuestStep="7">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40081"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="8"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50120" AmountInputable="false" QuestId="toscroll" QuestStep="7">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40081"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="8"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50122" AmountInputable="false" QuestId="toscroll" QuestStep="8">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40123"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="9"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50122" AmountInputable="false" QuestId="toscroll" QuestStep="8">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40123"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="9"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50123" AmountInputable="false" QuestId="toscroll" QuestStep="9">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40103"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="10"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50123" AmountInputable="false" QuestId="toscroll" QuestStep="9">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40103"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="10"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50125" AmountInputable="false" QuestId="toscroll" QuestStep="10">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40116"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="11"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50125" AmountInputable="false" QuestId="toscroll" QuestStep="10">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40116"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="11"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50124" AmountInputable="false" QuestId="toscroll" QuestStep="11">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="40102"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="12"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50124" AmountInputable="false" QuestId="toscroll" QuestStep="11">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="40102"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="12"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50126" AmountInputable="false" QuestId="toscroll" QuestStep="12">
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="20" ItemId="41425"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="13"/>
-        </Succeed>
-    </MakeItem>
+  <MakeItem Name="0" Class="PWEKD" NpcId="50126" AmountInputable="false" QuestId="toscroll" QuestStep="12">
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="20" ItemId="41425"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="13"/>
+    </Succeed>
+  </MakeItem>
 
-    <MakeItem Name="0" Class="PWEKD" NpcId="50115" AmountInputable="false" QuestId="toscroll" QuestStep="13">
-        <Item Amount="1" ItemId="20082"/>       
-        <Item Amount="20" ItemId="40029"/>
-        <Item Amount="1" ItemId="40641"/>
-        <Material Amount="1" ItemId="40641"/>
-        <Succeed>
-            <ShowHtml HtmlId=""/>
-            <SetQuest Id="toscroll" Step="End"/>
-      </Succeed> 
-   </MakeItem> 
+  <MakeItem Name="0" Class="PWEKD" NpcId="50115" AmountInputable="false" QuestId="toscroll" QuestStep="13">
+    <Item Amount="1" ItemId="20082"/>       
+    <Item Amount="20" ItemId="40029"/>
+    <Item Amount="1" ItemId="40641"/>
+    <Material Amount="1" ItemId="40641"/>
+    <Succeed>
+      <ShowHtml HtmlId=""/>
+      <SetQuest Id="toscroll" Step="End"/>
+    </Succeed> 
+  </MakeItem> 
 </NpcActionList>

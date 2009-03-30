@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NpcActionList>
-	<!---->
+	<!-- Sell animal skins -->
 	<Action Name="request adena2">
 		<MakeItem>
 			<Item Amount="2" ItemId="40308"/>
 			<Material Amount="1" ItemId="40405"/>
 		</MakeItem>
 	</Action>
-	<!---->
+	<!-- Sell leather -->
 	<Action Name="request adena30">
 		<MakeItem>
 			<Item Amount="30" ItemId="40308"/>
 			<Material Amount="1" ItemId="40406"/>
 		</MakeItem>
 	</Action>
-	<!---->
+	<!-- Metal light to sell -->
 	<Action Name="request adena5">
 		<MakeItem>
 			<Item Amount="5" ItemId="40308"/>
 			<Material Amount="1" ItemId="40408"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- BONPISU sell -->
 	<Action Name="request adena10">
 		<MakeItem>
 			<Item Amount="10" ItemId="40308"/>
 			<Material Amount="1" ItemId="40407"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- Dark crossbow -->
 	<Action Name="request dark crossbow">
 		<MakeItem>
 			<Item Amount="1" ItemId="168"/>
@@ -38,7 +38,7 @@
 			<Material Amount="30" ItemId="40406"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- Dark claw -->
 	<Action Name="request dark claw">
 		<MakeItem>
 			<Item Amount="1" ItemId="158"/>
@@ -48,7 +48,7 @@
 			<Material Amount="10" ItemId="40406"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- Dark Edoryu -->
 	<Action Name="request dark dualblade">
 		<MakeItem>
 			<Item Amount="1" ItemId="75"/>
@@ -57,7 +57,7 @@
 			<Material Amount="20" ItemId="40406"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- Silver Claw -->
 	<Action Name="request silver claw">
 		<MakeItem>
 			<Item Amount="1" ItemId="157"/>
@@ -70,7 +70,7 @@
 			<Material Amount="30" ItemId="40467"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- Silver Edoryu -->
 	<Action Name="request silver dualblade">
 		<MakeItem>
 			<Item Amount="1" ItemId="74"/>
@@ -83,7 +83,7 @@
 			<Material Amount="20" ItemId="40467"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- brave crossbow -->
 	<Action Name="request blind crossbow">
 		<MakeItem>
 			<Item Amount="1" ItemId="177"/>
@@ -94,7 +94,7 @@
 			<Material Amount="20" ItemId="40323"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- brave claw -->
 	<Action Name="request blind claw">
 		<MakeItem>
 			<Item Amount="1" ItemId="162"/>
@@ -105,7 +105,7 @@
 			<Material Amount="10" ItemId="40323"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
+	<!-- brave edoryu -->
 	<Action Name="request blind dualblade">
 		<MakeItem>
 			<Item Amount="1" ItemId="81"/>
