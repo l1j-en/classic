@@ -1122,7 +1122,36 @@ public class L1Character extends L1Object {
 	}
 
 	public int getMagicLevel() {
-		return getLevel() / 4;
+		int magiclevel = 0;
+		if (this instanceof L1PcInstance) {
+			L1PcInstance pc = (L1PcInstance) this;
+			if (pc.isKnight()) { 
+				magiclevel = getLevel() / 50;
+			} else if (pc.isCrown()) { 
+				magiclevel = getLevel() / 10;
+				if (magiclevel > 2) {
+					magiclevel = 2;
+				}
+			} else if (pc.isElf()) { 
+				magiclevel = getLevel() / 8;
+				if (magiclevel > 6) {
+					magiclevel = 6;
+				}
+			} else if (pc.isDarkelf()) { 
+				magiclevel = getLevel() / 12;
+				if (magiclevel > 2) {
+					magiclevel = 2;
+				}
+			} else if (pc.isWizard()) { 
+				magiclevel = getLevel() / 4;
+				if (magiclevel > 10) {
+					magiclevel = 10;
+				}
+			}
+		} else {
+			magiclevel = getLevel() / 4;
+		}
+		return magiclevel;
 	}
 
 	public int getMagicBonus() {
