@@ -2242,7 +2242,7 @@ update etcitem set name = "Sapphire of Taros" where item_id = 49029;
 update etcitem set name = "Emerald of Taros" where item_id = 49030;
 
 
-update house set tax_deadline = '2009-01-24 00:00:00';
+update house set tax_deadline = '2009-04-24 00:00:00';
 
 update spawnlist_boss set locx = 32729,locy = 32813,mapid = 51 where id = 45;
 
