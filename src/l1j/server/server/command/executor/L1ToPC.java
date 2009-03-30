@@ -44,13 +44,13 @@ public class L1ToPC implements L1CommandExecutor {
 				L1Teleport.teleport(pc, target.getX(), target.getY(), target
 						.getMapId(), 5, false);
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(arg).append("B").toString()));
+						.append("You appear next to ").append(arg).toString()));
 			} else {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(arg).append("B").toString()));
+						.append(arg).append(" is not online.").toString()));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " LN^[ B"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " char_name"));
 		}
 	}
 }

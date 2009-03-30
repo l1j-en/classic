@@ -20,7 +20,6 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.server.ClientThread;
-//import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
