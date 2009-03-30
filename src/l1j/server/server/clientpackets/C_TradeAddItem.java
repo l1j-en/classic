@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Inventory;
@@ -35,7 +35,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_TradeAddItem extends ClientBasePacket {
 	private static final String C_TRADE_ADD_ITEM = "[C] C_TradeAddItem";
-	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
+	private static Logger log = Logger.getLogger(C_TradeAddItem.class
 			.getName());
 
 	public C_TradeAddItem(byte abyte0[], ClientThread client)
@@ -47,7 +47,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		if (itemcount < 0)
 		{
-			_log.info(pc.getName() + " attempted dupe exploit (C_TradeAddItem).");
+			log.info(pc.getName() + " attempted dupe exploit (C_TradeAddItem).");
 			
 			return;
 		}

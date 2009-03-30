@@ -18,14 +18,15 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class C_NewCharSelect extends ClientBasePacket {
 	private static final String C_NEW_CHAR_SELECT = "[C] C_NewCharSelect";
-	private static Logger _log = Logger.getLogger(C_NewCharSelect.class
+	private static Logger log = Logger.getLogger(C_NewCharSelect.class
 			.getName());
 
 	public C_NewCharSelect(byte[] decrypt, ClientThread client) {
@@ -33,7 +34,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 		client.CharReStart(true);
 		if (client.getActiveChar() != null) {
 			L1PcInstance pc = client.getActiveChar();
-			_log.fine("Disconnect from: " + pc.getName());
+			log.log(Level.DEBUG, "Disconnect from: " + pc.getName());
 			ClientThread.quitGame(pc);
 
 			synchronized (pc) {
@@ -41,7 +42,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 				client.setActiveChar(null);
 			}
 		} else {
-			_log.fine("Disconnect Request from Account : "
+			log.log(Level.DEBUG, "Disconnect Request from Account : "
 					+ client.getAccountName());
 		}
 	}

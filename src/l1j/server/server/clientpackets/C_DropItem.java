@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
@@ -29,7 +29,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_Disconnect;
 
 public class C_DropItem extends ClientBasePacket {
-	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
+	private static Logger log = Logger.getLogger(C_DropItem.class.getName());
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
 	public C_DropItem(byte[] decrypt, ClientThread client)
@@ -44,7 +44,7 @@ public class C_DropItem extends ClientBasePacket {
 		
 		if (count < 0)
 		{
-			_log.info(pc.getName() + " attempted dupe exploit (C_DropItem).");
+			log.warn(pc.getName() + " attempted dupe exploit (C_DropItem).");
 			
 			L1World world = L1World.getInstance();
 

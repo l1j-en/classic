@@ -20,8 +20,9 @@
 package l1j.server.server.clientpackets;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
@@ -37,7 +38,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_LeaveClan extends ClientBasePacket {
 
 	private static final String C_LEAVE_CLAN = "[C] C_LeaveClan";
-	private static Logger _log = Logger.getLogger(C_LeaveClan.class.getName());
+	private static Logger log = Logger.getLogger(C_LeaveClan.class.getName());
 
 	public C_LeaveClan(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -76,7 +77,7 @@ public class C_LeaveClan extends ClientBasePacket {
 							offline_pc.setClanRank(0);
 							offline_pc.save();
 						} catch (Exception e) {
-							_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+							log.log(Level.ERROR, e.getLocalizedMessage(), e);
 						}
 					}
 				}

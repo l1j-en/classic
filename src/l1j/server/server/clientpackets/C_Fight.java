@@ -19,8 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
@@ -35,7 +34,7 @@ import l1j.server.server.utils.FaceToFace;
 public class C_Fight extends ClientBasePacket {
 
 	private static final String C_FIGHT = "[C] C_Fight";
-	private static Logger _log = Logger.getLogger(C_Fight.class.getName());
+	private static Logger log = Logger.getLogger(C_Fight.class.getName());
 
 	public C_Fight(byte abyte0[], ClientThread client)
 			throws Exception {

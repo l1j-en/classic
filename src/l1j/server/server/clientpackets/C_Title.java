@@ -19,8 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
@@ -36,7 +36,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Title extends ClientBasePacket {
 
 	private static final String C_TITLE = "[C] C_Title";
-	private static Logger _log = Logger.getLogger(C_Title.class.getName());
+	private static Logger log = Logger.getLogger(C_Title.class.getName());
 
 	public C_Title(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -114,7 +114,7 @@ public class C_Title extends ClientBasePacket {
 		try {
 			pc.save(); 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 	}
 

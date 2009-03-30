@@ -17,8 +17,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package l1j.server.server.clientpackets;
-
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -26,7 +25,7 @@ import l1j.server.server.serverpackets.S_ChangeHeading;
 
 public class C_ChangeHeading extends ClientBasePacket {
 	private static final String C_CHANGE_HEADING = "[C] C_ChangeHeading";
-	private static Logger _log = Logger.getLogger(C_ChangeHeading.class
+	private static Logger log = Logger.getLogger(C_ChangeHeading.class
 			.getName());
 
 	public C_ChangeHeading(byte[] decrypt, ClientThread client) {
@@ -37,7 +36,7 @@ public class C_ChangeHeading extends ClientBasePacket {
 
 		pc.setHeading(heading);
 
-		_log.finest("Change Heading : " + pc.getHeading());
+		log.debug("Change Heading : " + pc.getHeading());
 
 		if (!pc.isGmInvis() && !pc.isGhost() && !pc.isInvisble()) {
 			pc.broadcastPacket(new S_ChangeHeading(pc));

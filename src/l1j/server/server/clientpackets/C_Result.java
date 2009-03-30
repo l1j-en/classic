@@ -19,7 +19,8 @@
 package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
-//import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ShopTable;
@@ -41,8 +42,8 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 
 public class C_Result extends ClientBasePacket {
 
-	//private static Logger _log = Logger.getLogger(C_Result.class
-	//		.getName());
+	private static Logger log = Logger.getLogger(C_Result.class
+	.getName());
 	private static final String C_RESULT = "[C] C_Result";
 
 	public C_Result(byte abyte0[], ClientThread clientthread)

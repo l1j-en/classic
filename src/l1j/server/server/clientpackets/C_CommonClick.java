@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -39,8 +40,7 @@ import l1j.server.server.utils.SQLUtil;
 public class C_CommonClick {
 	private static final String C_COMMON_CLICK = "[C] C_CommonClick";
 
-	private static Logger _log = Logger
-			.getLogger(C_CommonClick.class.getName());
+	private static Logger log = Logger.getLogger(C_CommonClick.class.getName());
 
 	public C_CommonClick(ClientThread client) {
 		deleteCharacter(client);
@@ -83,7 +83,7 @@ public class C_CommonClick {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -152,7 +152,7 @@ public class C_CommonClick {
 				client.sendPacket(cpk);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

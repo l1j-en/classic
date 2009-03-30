@@ -20,7 +20,7 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
@@ -34,7 +34,7 @@ import l1j.server.server.serverpackets.S_Buddy;
 public class C_Buddy extends ClientBasePacket {
 
 	private static final String C_BUDDY = "[C] C_Buddy";
-	private static Logger _log = Logger.getLogger(C_Buddy.class.getName());
+	private static Logger log = Logger.getLogger(C_Buddy.class.getName());
 
 	public C_Buddy(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

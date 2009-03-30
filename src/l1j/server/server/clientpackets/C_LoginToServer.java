@@ -23,8 +23,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -76,7 +77,7 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class C_LoginToServer extends ClientBasePacket {
 
 	private static final String C_LOGIN_TO_SERVER = "[C] C_LoginToServer";
-	private static Logger _log = Logger.getLogger(C_LoginToServer.class
+	private static Logger log = Logger.getLogger(C_LoginToServer.class
 			.getName());
 
 	public C_LoginToServer(byte abyte0[], ClientThread client)
@@ -88,7 +89,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		String charName = readS();
 
 		if (client.getActiveChar() != null) {
-			_log.info("Invalid character loging from " + client.getHostname()
+			log.warn("Invalid character loging from " + client.getHostname()
 					+ ".");
 			client.close();
 			return;
@@ -96,7 +97,7 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		L1PcInstance pc = L1PcInstance.load(charName);
 		if (pc == null || !login.equals(pc.getAccountName())) {
-			_log.info("Invalid login request=" + charName + " account=" + login
+			log.warn("Invalid login request=" + charName + " account=" + login
 					+ " host=" + client.getHostname());
 			client.close();
 			return;
@@ -104,14 +105,14 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		if (Config.LEVEL_DOWN_RANGE != 0) {
 			if (pc.getHighLevel() - pc.getLevel() >= Config.LEVEL_DOWN_RANGE) {
-				_log.info("Login request of the character Which Exceeded: char="
+				log.warn("Login request of the character Which Exceeded: char="
 						+ charName + " account=" + login + " host=" + client.getHostname());
 				client.kick();
 				return;
 			}
 		}
 
-		_log.info("Character login: char=" + charName + " account=" + login
+		log.info("Character login: char=" + charName + " account=" + login
 				+ " host=" + client.getHostname());
 
 		pc.setOnlineStatus(1);
@@ -316,7 +317,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			}
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -446,7 +447,7 @@ public class C_LoginToServer extends ClientBasePacket {
 						lv16, lv17, lv18, lv19, lv20, lv21, lv22, lv23, lv24));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -520,7 +521,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

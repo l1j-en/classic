@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -35,7 +35,7 @@ import l1j.server.server.templates.L1Castle;
 public class C_Deposit extends ClientBasePacket {
 
 	private static final String C_DEPOSIT = "[C] C_Deposit";
-	private static Logger _log = Logger.getLogger(C_Deposit.class
+	private static Logger log = Logger.getLogger(C_Deposit.class
 			.getName());
 
 	public C_Deposit(byte abyte0[], ClientThread clientthread)
@@ -48,7 +48,7 @@ public class C_Deposit extends ClientBasePacket {
 
 		if (j < 0)
 		{
-			_log.info(player.getName() + " attempted dupe exploit (C_Deposit).");
+			log.warn(player.getName() + " attempted dupe exploit (C_Deposit).");
 			
 			return;
 		}

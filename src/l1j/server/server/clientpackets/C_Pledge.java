@@ -19,7 +19,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
@@ -33,7 +34,7 @@ import l1j.server.server.serverpackets.S_Pledge;
 public class C_Pledge extends ClientBasePacket {
 
 	private static final String C_PLEDGE = "[C] C_Pledge";
-	private static Logger _log = Logger.getLogger(C_Pledge.class.getName());
+	private static Logger log = Logger.getLogger(C_Pledge.class.getName());
 
 	public C_Pledge(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

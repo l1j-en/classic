@@ -21,7 +21,8 @@ package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
@@ -37,7 +38,7 @@ import l1j.server.server.model.item.L1ItemId;
 public class C_BoardWrite extends ClientBasePacket {
 
 	private static final String C_BOARD_WRITE = "[C] C_BoardWrite";
-	private static Logger _log = Logger.getLogger(C_BoardWrite.class.getName());
+	private static Logger log = Logger.getLogger(C_BoardWrite.class.getName());
 
 	public C_BoardWrite(byte decrypt[], ClientThread client) {
 		super(decrypt);
@@ -53,7 +54,7 @@ public class C_BoardWrite extends ClientBasePacket {
 			pc.getInventory().consumeItem(L1ItemId.ADENA, 300);
 			BoardTable.getInstance().writeTopic(pc, date, title, content);
 		} else {
-			_log.warning("C_BoardWrite: Illegal NPCID : " + id);
+			log.warn("C_BoardWrite: Illegal NPCID : " + id);
 		}
 	}
 
