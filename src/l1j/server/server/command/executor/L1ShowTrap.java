@@ -18,7 +18,7 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -28,7 +28,7 @@ import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1ShowTrap implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1ShowTrap.class.getName());
+	private static Logger log = Logger.getLogger(L1ShowTrap.class.getName());
 
 	private L1ShowTrap() {
 	}

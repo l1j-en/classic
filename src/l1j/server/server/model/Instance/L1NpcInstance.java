@@ -28,8 +28,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -178,7 +179,7 @@ public class L1NpcInstance extends L1Character {
 				}
 				stop();
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.log(Level.WARN, "NpcAI", e);
 			}
 		}
 
@@ -228,7 +229,7 @@ public class L1NpcInstance extends L1Character {
 				allTargetClear();
 				setAiRunning(false);
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.log(Level.WARN, "NpcAI", e);
 			}
 		}
 	}
@@ -907,7 +908,7 @@ public class L1NpcInstance extends L1Character {
 					_hprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			}
 		}
 
@@ -938,7 +939,7 @@ public class L1NpcInstance extends L1Character {
 					_mprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			}
 		}
 

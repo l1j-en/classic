@@ -28,8 +28,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class LeakCheckedConnection {
 	private static final Logger _log = Logger
@@ -75,12 +76,12 @@ public class LeakCheckedConnection {
 	void closeAll() {
 		if (!_openedResultSets.isEmpty()) {
 			for (Throwable t : _openedResultSets.values()) {
-				_log.log(Level.WARNING, "Leaked ResultSets detected.", t);
+				_log.log(Level.WARN, "Leaked ResultSets detected.", t);
 			}
 		}
 		if (!_openedStatements.isEmpty()) {
 			for (Throwable t : _openedStatements.values()) {
-				_log.log(Level.WARNING, "Leaked Statement detected.", t);
+				_log.log(Level.WARN, "Leaked Statement detected.", t);
 			}
 		}
 		for (ResultSet rs : _openedResultSets.keySet()) {
@@ -98,7 +99,7 @@ public class LeakCheckedConnection {
 		@Override
 		protected void finalize() throws Throwable {
 			if (!_con.isClosed()) {
-				_log.log(Level.WARNING, "Leaked Connection detected.",
+				_log.log(Level.WARN, "Leaked Connection detected.",
 						_stackTrace);
 				_con.close();
 			}

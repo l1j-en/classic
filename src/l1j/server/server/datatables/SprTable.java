@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import static l1j.server.server.ActionCodes.*;
@@ -116,13 +117,13 @@ public class SprTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.config("SPR entries " + _dataMap.size() + " loaded.");
+		_log.info("SPR entries " + _dataMap.size() + " loaded.");
 	}
 	
 	private int calcActionSpeed(int frameCount, int frameRate) {

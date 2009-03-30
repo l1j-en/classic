@@ -3,8 +3,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
+
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Inventory;
@@ -15,7 +16,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Item;
 
 public class L1Search implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Search.class.getName());
+	private static Logger log = Logger.getLogger(L1Search.class.getName());
 
 	private L1Search() {
 	}

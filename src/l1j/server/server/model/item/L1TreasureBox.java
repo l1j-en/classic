@@ -24,8 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -133,12 +134,12 @@ public class L1TreasureBox {
 			_totalChance += each.getChance();
 			if (ItemTable.getInstance().getTemplate(each.getItemId()) == null) {
 				getItems().remove(each);
-				_log.warning("TreasureBox item ID " + each.getItemId()
+				_log.warn("TreasureBox item ID " + each.getItemId()
 						+ " is invalid.");
 			}
 		}
 		if (getTotalChance() != 0 && getTotalChance() != 1000000) {
-			_log.warning("ID " + getBoxId() + " total chance does not equal 0 or 100.");
+			_log.warn("ID " + getBoxId() + " total chance does not equal 0 or 100.");
 		}
 	}
 
@@ -160,7 +161,7 @@ public class L1TreasureBox {
 				_dataMap.put(each.getBoxId(), each);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, PATH + " is invalid for a TreasureBox load.", e);
+			_log.log(Level.ERROR, PATH + " is invalid for a TreasureBox load.", e);
 			System.exit(0);
 		}
 		System.out.println("    OK!     " + timer.get() + "ms");

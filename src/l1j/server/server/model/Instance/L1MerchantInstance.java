@@ -20,7 +20,6 @@ package l1j.server.server.model.Instance;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.TownTable;

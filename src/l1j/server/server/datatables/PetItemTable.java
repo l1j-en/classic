@@ -24,8 +24,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1PetItem;
@@ -62,7 +63,7 @@ public class PetItemTable {
 			rs = pstm.executeQuery();
 			fillPetItemTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating etcitem_petitem table",
+			_log.log(Level.ERROR, "error while creating etcitem_petitem table",
 					e);
 		} finally {
 			SQLUtil.close(rs);

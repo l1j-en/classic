@@ -18,7 +18,7 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
@@ -27,7 +27,7 @@ import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1SKick implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1SKick.class.getName());
+	private static Logger log = Logger.getLogger(L1SKick.class.getName());
 
 	private L1SKick() {
 	}
@@ -51,7 +51,7 @@ public class L1SKick implements L1CommandExecutor {
 				target.sendPackets(new S_Disconnect());
 				ClientThread targetClient = target.getNetConnection();
 				targetClient.kick();
-				_log.warning("GMskickR}h(" + targetClient.getAccountName()
+				log.warn("GMskickR}h(" + targetClient.getAccountName()
 						+ ":" + targetClient.getHostname() + ")fB");
 			} else {
 				pc.sendPackets(new S_SystemMessage(

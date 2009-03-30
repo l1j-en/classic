@@ -19,7 +19,9 @@
 package l1j.server.server.command.executor;
 import java.util.StringTokenizer;
 import java.util.Collection;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
+
 import l1j.server.Config;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -27,7 +29,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_WhoAmount;
 
 public class L1Rates implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Rates.class.getName());
+	private static Logger log = Logger.getLogger(L1Rates.class.getName());
 
 	private L1Rates() {
 	}

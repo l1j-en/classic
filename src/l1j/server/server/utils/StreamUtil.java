@@ -20,8 +20,9 @@ package l1j.server.server.utils;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class StreamUtil {
 
@@ -34,7 +35,7 @@ public class StreamUtil {
 					c.close();
 				}
 			} catch (IOException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			}
 		}
 	}

@@ -20,8 +20,8 @@ package l1j.server.server.model.Instance;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;

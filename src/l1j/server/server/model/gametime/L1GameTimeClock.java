@@ -21,8 +21,9 @@ package l1j.server.server.model.gametime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.GeneralThreadPool;
 
@@ -48,7 +49,7 @@ public class L1GameTimeClock {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 				}
 			}
 		}

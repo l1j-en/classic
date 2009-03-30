@@ -25,9 +25,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.Timestamp;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -1847,7 +1848,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			result = CharacterTable.getInstance().loadCharacter(charName);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 		return result;
 	}
@@ -1985,7 +1986,7 @@ public class L1PcInstance extends L1Character {
 					sendPackets(new S_SystemMessage("You use Revival Potion and have returned to level 1."));
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 				sendPackets(new S_SystemMessage("Use of Revival Potion failed!"));
 			}
 		}
@@ -2009,7 +2010,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 		if (getLevel() >= 51 && getLevel() - 50 > getBonusStats()) {
 			if ((getBaseStr() + getBaseDex() + getBaseCon() + getBaseInt()
@@ -2055,7 +2056,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 		sendPackets(new S_OwnCharStatus(this));
 	}

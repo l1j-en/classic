@@ -24,8 +24,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1WeaponSkill;
@@ -62,7 +63,7 @@ public class WeaponSkillTable {
 			rs = pstm.executeQuery();
 			fillWeaponSkillTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating weapon_skill table",
+			_log.log(Level.ERROR, "error while creating weapon_skill table",
 					e);
 		} finally {
 			SQLUtil.close(rs);
@@ -89,7 +90,7 @@ public class WeaponSkillTable {
 					effectTarget, isArrowType, attr);
 			_weaponIdIndex.put(weaponId, weaponSkill);
 		}
-		_log.config("List of weapons skills: " + _weaponIdIndex.size() + " Loaded");
+		_log.info("List of weapons skills: " + _weaponIdIndex.size() + " Loaded");
 	}
 
 	public L1WeaponSkill getTemplate(int weaponId) {

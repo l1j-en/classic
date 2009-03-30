@@ -24,8 +24,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1MobSkill;
@@ -115,7 +116,7 @@ public class MobSkillTable {
 
 					_mobskills.put(new Integer(mobid), mobskill);
 				} catch (SQLException e1) {
-					_log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
+					_log.log(Level.ERROR, e1.getLocalizedMessage(), e1);
 
 				} finally {
 					SQLUtil.close(rs2);
@@ -123,7 +124,7 @@ public class MobSkillTable {
 			}
 
 		} catch (SQLException e2) {
-			_log.log(Level.SEVERE, "Error while creating mobskill table.", e2);
+			_log.log(Level.ERROR, "Error while creating mobskill table.", e2);
 
 		} finally {
 			SQLUtil.close(rs1);

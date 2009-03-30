@@ -24,15 +24,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Command;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Commands {
-	private static Logger _log = Logger.getLogger(L1Commands.class.getName());
+	private static Logger log = Logger.getLogger(L1Commands.class.getName());
 
 	private static L1Command fromResultSet(ResultSet rs) throws SQLException {
 		return new L1Command(rs.getString("name"), rs.getInt("access_level"),
@@ -56,7 +57,7 @@ public class L1Commands {
 			}
 			return fromResultSet(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "Commands", e);
+			log.log(Level.ERROR, "Commands", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -80,7 +81,7 @@ public class L1Commands {
 				result.add(fromResultSet(rs));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "Commands", e);
+			log.log(Level.ERROR, "Commands", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

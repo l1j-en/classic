@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
@@ -76,7 +77,7 @@ public class ClanTable {
 				}
 
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			} finally {
 				SQLUtil.close(rs);
 				SQLUtil.close(pstm);
@@ -101,7 +102,7 @@ public class ClanTable {
 					clan.addMemberName(rs.getString(1));
 				}
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			} finally {
 				SQLUtil.close(rs);
 				SQLUtil.close(pstm);
@@ -143,7 +144,7 @@ public class ClanTable {
 			pstm.setInt(6, clan.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -159,7 +160,7 @@ public class ClanTable {
 			// DB
 			player.save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 		return clan;
 	}
@@ -179,7 +180,7 @@ public class ClanTable {
 			pstm.setString(6, clan.getClanName());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -200,7 +201,7 @@ public class ClanTable {
 			pstm.setString(1, clan_name);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

@@ -19,7 +19,8 @@
 package l1j.server.server.command.executor;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1DwarfInventory;

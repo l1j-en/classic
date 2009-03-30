@@ -20,7 +20,8 @@ package l1j.server.server.command.executor;
 
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.GMCommandsConfig;
 import l1j.server.server.datatables.ItemTable;
@@ -31,7 +32,7 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1ItemSetItem;
 
 public class L1CreateItemSet implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1CreateItemSet.class
+	private static Logger log = Logger.getLogger(L1CreateItemSet.class
 			.getName());
 
 	private L1CreateItemSet() {

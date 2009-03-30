@@ -19,8 +19,9 @@
 package l1j.server.server.model.map;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.MapReader;
 import l1j.server.server.utils.PerformanceTimer;
@@ -51,7 +52,7 @@ public class L1WorldMap {
 			}
 		} catch (Exception e) {
 			// No return
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 
 			System.exit(0);
 		}

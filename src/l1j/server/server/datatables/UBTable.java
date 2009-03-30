@@ -24,8 +24,9 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1UltimateBattle;
@@ -85,7 +86,7 @@ public class UBTable {
 				_ub.put(ub.getUbId(), ub);
 			}
 		} catch (SQLException e) {
-			_log.warning("ubsettings couldnt be initialized:" + e);
+			_log.warn("ubsettings couldnt be initialized:" + e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -103,7 +104,7 @@ public class UBTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.warning("ub_managers couldnt be initialized:" + e);
+			_log.warn("ub_managers couldnt be initialized:" + e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -121,11 +122,11 @@ public class UBTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.warning("ub_times couldnt be initialized:" + e);
+			_log.warn("ub_times couldnt be initialized:" + e);
 		} finally {
 			SQLUtil.close(rs, pstm, con);
 		}
-		_log.config("UB List: " + _ub.size() + " Loaded");
+		_log.info("UB List: " + _ub.size() + " Loaded");
 	}
 
 	public L1UltimateBattle getUb(int ubId) {
@@ -168,7 +169,7 @@ public class UBTable {
 				n = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

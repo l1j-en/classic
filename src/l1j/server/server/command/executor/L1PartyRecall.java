@@ -18,8 +18,8 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1Teleport;
@@ -56,7 +56,7 @@ public class L1PartyRecall implements L1CommandExecutor {
 								.sendPackets(new S_SystemMessage(
 										""));
 					} catch (Exception e) {
-						_log.log(Level.SEVERE, "", e);
+						_log.log(Level.ERROR, "", e);
 					}
 				}
 			} else {

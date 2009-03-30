@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -46,7 +46,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	@Override
 	public void onAction(L1PcInstance pc) {
-		if (getMaxHp() == 0 || getMaxHp() == 1) { //
+		if (getMaxHp() == 0 || getMaxHp() == 1) {
 			return;
 		}
 
@@ -275,7 +275,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		int entranceX = 0;
 		if (getDirection() == 0) { //
 			entranceX = getX();
-		} else { // _ü«
+		} else { //
 			entranceX = getX() - 1;
 		}
 		return entranceX;
@@ -285,7 +285,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		int entranceY = 0;
 		if (getDirection() == 0) { //
 			entranceY = getY() + 1;
-		} else { // _ü«
+		} else { //
 			entranceY = getY();
 		}
 		return entranceY;

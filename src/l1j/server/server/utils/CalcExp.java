@@ -20,7 +20,8 @@
 package l1j.server.server.utils;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.ExpTable;
@@ -391,7 +392,7 @@ public class CalcExp {
 			L1Pet petTemplate = PetTable.getInstance()
 					.getTemplate(petItemObjId);
 			if (petTemplate == null) { // PetTable no
-				_log.warning("L1Pet == null");
+				_log.warn("L1Pet == null");
 				return;
 			}
 			petTemplate.set_exp(pet.getExp());

@@ -19,8 +19,9 @@
 package l1j.server.server.command.executor;
 
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Inventory;
@@ -31,7 +32,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Item;
 
 public class L1CreateItem implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1CreateItem.class.getName());
+	private static Logger log = Logger.getLogger(L1CreateItem.class.getName());
 
 	private L1CreateItem() {
 	}
@@ -107,7 +108,7 @@ public class L1CreateItem implements L1CommandExecutor {
 				pc.sendPackets(new S_SystemMessage(" something"));
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(
 					".item itemid amount enchant isID"));
 		}

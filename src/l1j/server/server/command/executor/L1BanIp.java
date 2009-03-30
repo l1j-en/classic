@@ -19,7 +19,8 @@
 package l1j.server.server.command.executor;
 
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.model.L1World;
@@ -27,7 +28,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1BanIp implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1BanIp.class.getName());
+	private static Logger log = Logger.getLogger(L1BanIp.class.getName());
 
 	private L1BanIp() {
 	}

@@ -21,8 +21,9 @@ package l1j.server.server.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1BossSpawn;
@@ -55,7 +56,7 @@ public class BossSpawnTable {
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId
+					_log.warn("mob data for id:" + npcTemplateId
 							+ " missing in npc table");
 					spawnDat = null;
 				} else {
@@ -94,12 +95,12 @@ public class BossSpawnTable {
 			}
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.log(Level.FINE, "The total number of boss npcs: " + spawnCount + " mobs");
+		_log.log(Level.INFO, "The total number of boss npcs: " + spawnCount + " mobs");
 	}
 }
