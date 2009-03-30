@@ -1837,11 +1837,11 @@ public class C_ItemUSe extends ClientBasePacket {
 							|| pc.getMapId() == 779) { // gps
 						pc.sendPackets(new S_ServerMessage(563)); // \f1gB
 					} else {
-					pc.sendPackets(new S_AttackStatus(pc, 0,
-							ActionCodes.ACTION_Wand));
-					pc.broadcastPacket(new S_AttackStatus(pc, 0,
-							ActionCodes.ACTION_Wand));
-					int chargeCount = l1iteminstance.getChargeCount();
+						pc.sendPackets(new S_AttackStatus(pc, 0,
+								ActionCodes.ACTION_Wand));
+						pc.broadcastPacket(new S_AttackStatus(pc, 0,
+								ActionCodes.ACTION_Wand));
+						int chargeCount = l1iteminstance.getChargeCount();
 						if (chargeCount <= 0 && itemId != 40410
 								|| pc.getTempCharGfx() == 6034
 								|| pc.getTempCharGfx() == 6035) {
@@ -1851,23 +1851,21 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 						L1Object target = L1World.getInstance().findObject(
 								spellsc_objid);
-					if (target == pc || !pc.getMap().isSafetyZone(pc.getLocation()) && target !=null) {
-						L1Character cha = (L1Character) target;
-						if (!cha.getMap().isSafetyZone(cha.getLocation()) || target == pc)
-						{
-						polyAction(pc, cha);
-						cancelAbsoluteBarrier(pc);
-						if (itemId == 40008 || itemId == 140008) {
-							l1iteminstance.setChargeCount(l1iteminstance
-									.getChargeCount() - 1);
-							pc.getInventory().updateItem(l1iteminstance,
-									L1PcInventory.COL_CHARGE_COUNT);
+						if (target == pc || !pc.getMap().isSafetyZone(pc.getLocation()) && target !=null) {
+							L1Character cha = (L1Character) target;
+							polyAction(pc, cha);
+							cancelAbsoluteBarrier(pc);
+							if (itemId == 40008 || itemId == 140008) {
+								l1iteminstance.setChargeCount(l1iteminstance
+										.getChargeCount() - 1);
+								pc.getInventory().updateItem(l1iteminstance,
+										L1PcInventory.COL_CHARGE_COUNT);
+							} else {
+								pc.getInventory().removeItem(l1iteminstance, 1);
+							}
 						} else {
-							pc.getInventory().removeItem(l1iteminstance, 1);
+							pc.sendPackets(new S_ServerMessage(79));
 						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					} } else { pc.sendPackets(new S_ServerMessage(79)); }
 					}
 				} else if (itemId >= 40289 && itemId <= 40297) { // toi charms
 					useToiTeleportAmulet(pc, itemId, l1iteminstance);

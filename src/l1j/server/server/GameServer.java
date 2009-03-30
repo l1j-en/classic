@@ -186,7 +186,7 @@ public class GameServer extends Thread {
 		WarTimeController warTimeController = WarTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(warTimeController);
 
-		// Controllers ship time
+		// Elemental stone spawn
 		if (Config.ELEMENTAL_STONE_AMOUNT > 0) {
 			ElementalStoneGenerator elementalStoneGenerator
 					= ElementalStoneGenerator.getInstance();

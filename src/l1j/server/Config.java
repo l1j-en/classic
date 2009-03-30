@@ -447,7 +447,7 @@ public final class Config {
 					"com.mysql.jdbc.Driver");
 			DB_URL = serverSettings
 					.getProperty("URL",
-							"jdbc:mysql://localhost/l1jdb?useUnicode=true&characterEncoding=sjis");
+							"jdbc:mysql://localhost/l1jdb?useUnicode=true&characterEncoding=utf8");
 			DB_LOGIN = serverSettings.getProperty("Login", "root");
 			DB_PASSWORD = serverSettings.getProperty("Password", "");
 			PASSWORD_SALT = serverSettings.getProperty("PasswordSalt", "");
@@ -811,6 +811,21 @@ public final class Config {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + CHAR_SETTINGS_CONFIG_FILE
 					+ " File.");
+		}
+		System.out.println("Loading PcCommandSettings config.");
+		try {
+			Properties pcommandSettings = new Properties();
+			InputStream is = new FileInputStream(new File(PCOMMANDS_SETTINGS_FILE));
+			pcommandSettings.load(is);
+			is.close();
+
+			PLAYER_COMMANDS = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerCommands", "true"));
+			PLAYER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerBuff", "true"));
+			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "false"));
+
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			throw new Error("Failed to Load " + PCOMMANDS_SETTINGS_FILE	+ " File.");
 		}
 		validate();
 	}

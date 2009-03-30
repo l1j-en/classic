@@ -54,7 +54,7 @@ public class Server {
 			System.exit(0);
 		}
 		try {
-		Config.load();
+			Config.load();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			System.exit(0);
@@ -68,13 +68,13 @@ public class Server {
 		GameServer.getInstance().initialize();
 		
 		if ( Config.TELNET_SERVER )
-			{
-				TelnetServer.getInstance().start();
-				System.out.println("Telnet server initialized.");
-			}
-			else
-			{
-			    _log.info("Telnet server is currently disabled.");
-			}
+		{
+			TelnetServer.getInstance().start();
+			System.out.println("Telnet server initialized.");
+		}
+		else
+		{
+		    _log.info("Telnet server is currently disabled.");
 		}
 	}
+}
