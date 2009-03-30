@@ -57,10 +57,10 @@ public class C_UseSkill extends ClientBasePacket {
 			return;
 		}
 
-		// vu`FbN
+		// 
 		if (Config.CHECK_SPELL_INTERVAL) {
 			int result;
-			// FIXME XLdir/no dirfK
+			// FIXME dir/no dir
 			if (SkillsTable.getInstance().getTemplate(skillId).getActionId() ==
 						ActionCodes.ACTION_SkillAttack) {
 				result = pc.getAcceleratorChecker().checkInterval(

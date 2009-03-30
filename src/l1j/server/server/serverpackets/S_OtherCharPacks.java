@@ -56,10 +56,8 @@ public class S_OtherCharPacks extends ServerBasePacket {
 			status |= STATUS_BRAVE;
 			}
 		if (pc.isElfBrave()) {
-			// GbtASTATUS_BRAVESTATUS_ELFBRAVEB
-			// STATUS_ELFBRAVEH
 			status |= STATUS_BRAVE;
-				status |= STATUS_ELFBRAVE;
+			status |= STATUS_ELFBRAVE;
 		}
 		if (pc.isFastMovable()) {
 			status |= STATUS_FASTMOVABLE;

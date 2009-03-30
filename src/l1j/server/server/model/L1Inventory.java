@@ -125,7 +125,7 @@ public class L1Inventory extends L1Object {
 		}
 		if (getSize() > maxSize
 				|| (getSize() == maxSize && (!item.isStackable() || !checkItem(item
-						.getItem().getItemId())))) { // emF
+						.getItem().getItemId())))) { //
 			return SIZE_OVER;
 		}
 

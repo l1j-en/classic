@@ -128,8 +128,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 				return; 
 			}
 
+			// NOTE: Don't remove non-aggro to shopmode
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isMonitor() || pc.isGhost()) {
+					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
 				continue;
 			}
 
@@ -156,8 +157,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
 					&& getNpcTemplate().is_agrogfxid1() < 0
-					&& getNpcTemplate().is_agrogfxid2() < 0) { // SmANeBuX^[
-				if (pc.getLawful() < -1000) { // vC[JIeBbN
+					&& getNpcTemplate().is_agrogfxid2() < 0) { //
+				if (pc.getLawful() < -1000) { // 
 					targetPlayer = pc;
 					break;
 				}
@@ -173,36 +174,36 @@ public class L1MonsterInstance extends L1NpcInstance {
 				} else if (getNpcTemplate().is_agro()) { 
 					targetPlayer = pc;
 					break;
+				}
+				if (getNpcTemplate().is_agrogfxid1() >= 0
+						&& getNpcTemplate().is_agrogfxid1() <= 4) {
+					if (_classGfxId[getNpcTemplate().is_agrogfxid1()][0] == pc
+							.getTempCharGfx()
+							|| _classGfxId[getNpcTemplate().is_agrogfxid1()][1] == pc
+									.getTempCharGfx()) {
+						targetPlayer = pc;
+						break;
 					}
-			if (getNpcTemplate().is_agrogfxid1() >= 0
-					&& getNpcTemplate().is_agrogfxid1() <= 4) {
-				if (_classGfxId[getNpcTemplate().is_agrogfxid1()][0] == pc
-						.getTempCharGfx()
-						|| _classGfxId[getNpcTemplate().is_agrogfxid1()][1] == pc
-								.getTempCharGfx()) {
+				} else if (pc.getTempCharGfx() == getNpcTemplate()
+						.is_agrogfxid1()) { 
 					targetPlayer = pc;
 					break;
 				}
-			} else if (pc.getTempCharGfx() == getNpcTemplate()
-					.is_agrogfxid1()) { 
-				targetPlayer = pc;
-				break;
-			}
-			if (getNpcTemplate().is_agrogfxid2() >= 0
-					&& getNpcTemplate().is_agrogfxid2() <= 4) {
-				if (_classGfxId[getNpcTemplate().is_agrogfxid2()][0] == pc
-						.getTempCharGfx()
-						|| _classGfxId[getNpcTemplate().is_agrogfxid2()][1] == pc
-								.getTempCharGfx()) {
+				if (getNpcTemplate().is_agrogfxid2() >= 0
+						&& getNpcTemplate().is_agrogfxid2() <= 4) {
+					if (_classGfxId[getNpcTemplate().is_agrogfxid2()][0] == pc
+							.getTempCharGfx()
+							|| _classGfxId[getNpcTemplate().is_agrogfxid2()][1] == pc
+									.getTempCharGfx()) {
+						targetPlayer = pc;
+						break;
+					}
+				} else if (pc.getTempCharGfx() == getNpcTemplate()
+						.is_agrogfxid2()) { 
 					targetPlayer = pc;
 					break;
 				}
-			} else if (pc.getTempCharGfx() == getNpcTemplate()
-					.is_agrogfxid2()) { 
-				targetPlayer = pc;
-				break;
 			}
-		}
 		}
 		if (targetPlayer != null) {
 			_hateList.add(targetPlayer, 0);
@@ -245,21 +246,20 @@ public class L1MonsterInstance extends L1NpcInstance {
 		String htmlid = null;
 		String[] htmldata = null;
 
-			// html\pPbgM
-			if (htmlid != null) { // htmlidw
-				if (htmldata != null) { // htmlw\
-					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
-							htmldata));
-				} else {
-					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
-				}
+		if (htmlid != null) { //
+			if (htmldata != null) { //
+				pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+						htmldata));
 			} else {
-				if (pc.getLawful() < -1000) { // vC[JIeBbN
-					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
-				} else {
-					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
-				}
+				pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 			}
+		} else {
+			if (pc.getLawful() < -1000) { //
+				pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
+			} else {
+				pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
+			}
+		}
 	}
 
 	@Override

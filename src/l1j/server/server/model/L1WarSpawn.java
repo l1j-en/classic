@@ -135,7 +135,6 @@ public class L1WarSpawn {
 			if (l1npc != null) {
 				//TODO Not used
 				//Object obj = null;
-				Object obj = null;
 				String s = l1npc.getImpl();
 				_constructor = Class.forName(
 						(new StringBuilder()).append(

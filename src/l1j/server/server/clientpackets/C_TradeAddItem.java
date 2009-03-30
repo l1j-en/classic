@@ -74,9 +74,9 @@ public class C_TradeAddItem extends ClientBasePacket {
 			return;
 		}
 		if (tradingPartner.getInventory().checkAddItem(item, itemcount)
-				!= L1Inventory.OK) { // edmFybZ[WM
-			tradingPartner.sendPackets(new S_ServerMessage(270)); // \f1dB
-			pc.sendPackets(new S_ServerMessage(271)); // \f1B
+				!= L1Inventory.OK) { // 
+			tradingPartner.sendPackets(new S_ServerMessage(270)); // 
+			pc.sendPackets(new S_ServerMessage(271)); // 
 			return;
 		}
 

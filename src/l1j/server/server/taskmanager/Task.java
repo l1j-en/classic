@@ -37,7 +37,7 @@ public abstract class Task {
 	}
 
 	//Since its not used this is the best fix
-	public ScheduledFuture launchSpecial(ExecutedTask instance) {
+	public ScheduledFuture<?> launchSpecial(ExecutedTask instance) {
 		return null;
 	}
 

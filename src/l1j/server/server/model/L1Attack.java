@@ -426,19 +426,19 @@ public class L1Attack {
 				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45752 // oO(gO)
+		if (npcId == 45752 //
 				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45753 // oO(g)
+		if (npcId == 45753 //
 				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45675 // q(gO)
+		if (npcId == 45675 //
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId == 81082 // q(g)
+		if (npcId == 81082 //
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
@@ -454,11 +454,11 @@ public class L1Attack {
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+		if (npcId >= 46068 && npcId <= 46091 //
 				&& _pc.getTempCharGfx() == 6035) {
 			_hitRate = 0;
 		}
-		if (npcId >= 46092 && npcId <= 46106 // e_amob
+		if (npcId >= 46092 && npcId <= 46106 //
 				&& _pc.getTempCharGfx() == 6034) {
 			_hitRate = 0;
 		}

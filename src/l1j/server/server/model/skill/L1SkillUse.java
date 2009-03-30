@@ -855,7 +855,25 @@ public class L1SkillUse {
 
 	private void sendHappenMessage(L1PcInstance pc) {
 		int msgID = _skill.getSysmsgIdHappen();
-		if (msgID > 0) {
+		if(msgID == 161) { //TODO
+			if (_skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON) {	// happen message not needed here now
+				return;
+			} else if ((_skillId == BLESS_WEAPON || _skillId == HOLY_WEAPON) && pc != null) {
+				L1ItemInstance weapon = pc.getWeapon();
+				String weaponString = "";
+				if (weapon != null)
+				{
+					weaponString = weapon.getName();
+				}
+				else
+				{
+					weaponString = "hands";
+				}
+				pc.sendPackets(new S_ServerMessage(msgID, weaponString, "blue", "short while"));
+			} else {//Have to get other fixes here for items that are not selected
+				pc.sendPackets(new S_ServerMessage(msgID));
+			}
+		} else if (msgID > 0) {
 			pc.sendPackets(new S_ServerMessage(msgID));
 		}
 	}
@@ -1988,7 +2006,7 @@ public class L1SkillUse {
 										.getId(), "$2488"));
 							}
 						}
-						if (npcId == 81209) { // C
+						if (npcId == 81209) { // 
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(4310);
 								npc.broadcastPacket(new S_ChangeShape(npc
@@ -2713,7 +2731,7 @@ public class L1SkillUse {
 							L1Npc npcTemp = ((L1MonsterInstance) cha)
 									.getNpcTemplate();
 							int weakAttr = npcTemp.get_weakAttr();
-							if ((weakAttr & 1) == 1) { // n
+							if ((weakAttr & 1) == 1) { // 
 								cha.broadcastPacket(new S_SkillSound(cha
 										.getId(), 2169));
 							}

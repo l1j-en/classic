@@ -118,16 +118,6 @@ public class L1Location extends Point {
 		return String.format("(%d, %d) on %d", _x, _y, _map.getId());
 	}
 
-	/**
-	 * LocationA\_LocationB
-	 * _e|[gAGAAAWgLocationpB
-	 * 
-	 * @param max
-	 *            _l
-	 * @param isRandomTeleport
-	 *            _e|[g
-	 * @return VLocation
-	 */
 	public L1Location randomLocation(int max, boolean isRandomTeleport) {
 		return randomLocation(0, max, isRandomTeleport);
 	}

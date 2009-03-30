@@ -212,6 +212,6 @@ public class SpawnTable {
 		} else {
 			return NumberUtil.randomRound((count * rate));
 		}
-
+		
 	}
 }

@@ -1876,41 +1876,32 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getQuest().get_step(71199) == 255) {
 					htmlid = "jeron7";
 				}
-			} else if (npcid == 81200) { // TACel
-				if (player.getInventory().checkItem(21069) // Vxg
-						|| player.getInventory().checkItem(21074)) { // erCAO
+			} else if (npcid == 81200) { // 
+				if (player.getInventory().checkItem(21069) // 
+						|| player.getInventory().checkItem(21074)) { // 
 					htmlid = "c_belt";
 				}
-			} else if (npcid == 80076) { // |qCm
-				if (player.getInventory().checkItem(41058)) { // qC
+			} else if (npcid == 80076) { // 
+				if (player.getInventory().checkItem(41058)) { // 
 					htmlid = "voyager8";
-				} else if (player.getInventory().checkItem(49082) // qC
+				} else if (player.getInventory().checkItem(49082) // 
 						|| player.getInventory().checkItem(49083)) {
-						// y[W
-					if (player.getInventory().checkItem(41038) // qC 1y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 2y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 3y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 4y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 5y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 6y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 7y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 8y[W
-							|| player.getInventory().checkItem(41039) // qC
-																		// 9y[W
-							|| player.getInventory().checkItem(41039)){ // qC
-																		// 10y[W
+						// 
+					if (player.getInventory().checkItem(41038) 
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039) 
+							|| player.getInventory().checkItem(41039)){ 
 						htmlid = "voyager9";
 					} else {
 						htmlid = "voyager7";
 					}
-				} else if (player.getInventory().checkItem(49082) // qC
+				} else if (player.getInventory().checkItem(49082)
 						|| player.getInventory().checkItem(49083)
 						|| player.getInventory().checkItem(49084)
 						|| player.getInventory().checkItem(49085)
@@ -1920,10 +1911,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getInventory().checkItem(49089)
 						|| player.getInventory().checkItem(49090)
 						|| player.getInventory().checkItem(49091)) {
-						// y[W
+						//
 					htmlid = "voyager7";
 				}
-			} else if (npcid == 80048) { // c
+			} else if (npcid == 80048) { //
 				int level = player.getLevel();
 				if (level <= 44) {
 					htmlid = "entgate3";
@@ -1932,26 +1923,26 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "entgate";
 				}
-			} else if (npcid == 71168) { // ^ _eX
-				if (player.getInventory().checkItem(41028)) { // fXiCg
+			} else if (npcid == 71168) { // 
+				if (player.getInventory().checkItem(41028)) { // 
 					htmlid = "dantes1";
 				}
-			} else if (npcid == 80067) { //(~]A)
+			} else if (npcid == 80067) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
 						== L1Quest.QUEST_END) {
 					htmlid = "minicod10";
 				} else if (player.getKarmaLevel() >= 1) {				
 					htmlid = "minicod07";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== 1 && player.getTempCharGfx() == 6034) { // Rvv[Xgg
+						== 1 && player.getTempCharGfx() == 6034) { //
 					htmlid = "minicod03";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
 						== 1 && player.getTempCharGfx() != 6034) {
 					htmlid = "minicod05";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== L1Quest.QUEST_END // e_aNGXgI
-						|| player.getInventory().checkItem(41121) // Jww
-						|| player.getInventory().checkItem(41122)) { // Jw
+						== L1Quest.QUEST_END // 
+						|| player.getInventory().checkItem(41121) // 
+						|| player.getInventory().checkItem(41122)) { // 
 					htmlid = "minicod01";
 				} else if (player.getInventory().checkItem(41130) // w
 						&& player.getInventory().checkItem(41131)) { // 
@@ -1959,42 +1950,42 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getInventory().checkItem(41130)) { // 
 					htmlid = "minicod02";
 				}
-			} else if (npcid == 81202) { //(e_a)
+			} else if (npcid == 81202) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
 						== L1Quest.QUEST_END) {
 					htmlid = "minitos10";
 				} else if (player.getKarmaLevel() <= -1) {				
 					htmlid = "minitos07";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== 1 && player.getTempCharGfx() == 6035) { // bT[f[g
+						== 1 && player.getTempCharGfx() == 6035) { // 
 					htmlid = "minitos03";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
 						== 1 && player.getTempCharGfx() != 6035) {
 					htmlid = "minitos05";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== L1Quest.QUEST_END // ~]ANGXgI
-						|| player.getInventory().checkItem(41130) // w
+						== L1Quest.QUEST_END // 
+						|| player.getInventory().checkItem(41130) // 
 						|| player.getInventory().checkItem(41131)) { // 
 					htmlid = "minitos01";
-				} else if (player.getInventory().checkItem(41121) // Jww
-						&& player.getInventory().checkItem(41122)) { // Jw
+				} else if (player.getInventory().checkItem(41121) // 
+						&& player.getInventory().checkItem(41122)) { // 
 					htmlid = "minitos06";
-				} else if (player.getInventory().checkItem(41121)) { // Jw
+				} else if (player.getInventory().checkItem(41121)) { // 
 					htmlid = "minitos02";
 				}
-			} else if (npcid == 81208) { // ubu
+			} else if (npcid == 81208) { // 
 				if (player.getInventory().checkItem(41129) // 
-						||	player.getInventory().checkItem(41138)) { // Jw
+						||	player.getInventory().checkItem(41138)) { // 
 					htmlid = "minibrob04";
 				} else if (player.getInventory().checkItem(41126) // 
 						&& player.getInventory().checkItem(41127) // 
 						&& player.getInventory().checkItem(41128) // 
-						|| player.getInventory().checkItem(41135) // Jw
-						&& player.getInventory().checkItem(41136) // Jw
-						&& player.getInventory().checkItem(41137)) { // Jw
+						|| player.getInventory().checkItem(41135) // 
+						&& player.getInventory().checkItem(41136) // 
+						&& player.getInventory().checkItem(41137)) { // 
 					htmlid = "minibrob02";
 				}
-			} else if (npcid == 50113) { // kJ bN}
+			} else if (npcid == 50113) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orena14";
@@ -2038,7 +2029,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orena13";
 				}
-			} else if (npcid == 50112) { // E ZA	
+			} else if (npcid == 50112) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenb14";
@@ -2082,7 +2073,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenb13";
 				}
-			} else if (npcid == 50111) { // b [	
+			} else if (npcid == 50111) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenc14";
@@ -2126,7 +2117,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenc13";
 				}
-			} else if (npcid == 50116) { // OfBI MI
+			} else if (npcid == 50116) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orend14";
@@ -2170,7 +2161,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orend13";
 				}
-			} else if (npcid == 50117) { // Pg VA
+			} else if (npcid == 50117) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orene14";
@@ -2214,7 +2205,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orene13";
 				}
-			} else if (npcid == 50119) { // EbhxbN IV[A
+			} else if (npcid == 50119) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenf14";
@@ -2258,7 +2249,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenf13";
 				}
-			} else if (npcid == 50121) { // c z[j
+			} else if (npcid == 50121) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreng14";
@@ -2302,7 +2293,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "oreng13";
 				}
-			} else if (npcid == 50114) { // GtX `R
+			} else if (npcid == 50114) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenh14";
@@ -2346,7 +2337,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenh13";
 				}
-			} else if (npcid == 50120) { // Vo[iCg^E zbv
+			} else if (npcid == 50120) { //
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreni14";
@@ -2390,7 +2381,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "oreni13";
 				}
-			} else if (npcid == 50122) { // M ^[N
+			} else if (npcid == 50122) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenj14";
@@ -2434,7 +2425,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenj13";
 				}
-			} else if (npcid == 50123) { // nCl KI
+			} else if (npcid == 50123) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenk14";
@@ -2478,7 +2469,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenk13";
 				}
-			} else if (npcid == 50125) { //  Mo[g
+			} else if (npcid == 50125) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenl14";
@@ -2522,7 +2513,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenl13";
 				}
-			} else if (npcid == 50124) { // EF_ tHJ
+			} else if (npcid == 50124) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenm14";
@@ -2566,7 +2557,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenm13";
 				}
-			} else if (npcid == 50126) { // Af WFbN
+			} else if (npcid == 50126) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenn14";
@@ -2610,7 +2601,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenn0";
 				}
-			} else if (npcid == 50115) { // A U}
+			} else if (npcid == 50115) { // 
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreno0";

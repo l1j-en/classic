@@ -235,8 +235,8 @@ public class DropTable {
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList,
-			ArrayList hateList) {
+	public void dropShare(L1NpcInstance npc, ArrayList<L1Character> acquisitorList, 
+			ArrayList<Integer> hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;
@@ -273,7 +273,7 @@ public class DropTable {
 		int chanceHate;
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
-			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // 
 				item.setNowLighting(false);
 			}
 			item.setIdentified(false); // changed

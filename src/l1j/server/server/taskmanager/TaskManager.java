@@ -60,7 +60,7 @@ public final class TaskManager {
 		Task _task;
 		TaskTypes _type;
 		String[] _params;
-		ScheduledFuture _scheduled;
+		ScheduledFuture<?> _scheduled;
 
 		public ExecutedTask(Task task, TaskTypes type, ResultSet rset)
 				throws SQLException {

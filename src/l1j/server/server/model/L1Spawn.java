@@ -259,16 +259,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 		if (_delayInterval > 0) {
 			respawnDelay += _random.nextInt(_delayInterval) * 1000;
 		}
-		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
-		if (_time != null && !_time.getTimePeriod().includes(currentTime)) { // wOw
-			long diff = (_time.getTimeStart().getTime() - currentTime.toTime()
-					.getTime());
-			if (diff < 0) {
-				diff += 24 * 1000L * 3600L;
-			}
-			diff /= 6; // real time to game time
-			respawnDelay = (int) diff;
-		}
 		return respawnDelay;
 	}
 
@@ -288,7 +278,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 
 	public void init() {
 		if (_time != null && _time.isDeleteAtEndTime()) {
-			// OwAomB
+			// 
 			L1GameTimeClock.getInstance().addListener(this);
 		}
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
@@ -384,7 +374,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 					if (isAreaSpawn()) { // Coordinates of the range specified in the case
 						Point pt = null;
 						if (_spawnHomePoint
-								&& null != (pt = _homePoint.get(spawnNumber))) { // z[|Cgo
+								&& null != (pt = _homePoint.get(spawnNumber))) { // 
 							L1Location loc = new L1Location(pt, getMapId())
 									.randomLocation(
 											Config.SPAWN_HOME_POINT_RANGE,
@@ -527,7 +517,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (_mobs.isEmpty()) {
 				return;
 			}
-			// wO
+			// 
 			for (L1NpcInstance mob : _mobs) {
 				mob.setCurrentHpDirect(0);
 				mob.setDead(true);

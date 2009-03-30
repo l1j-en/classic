@@ -31,11 +31,9 @@ public class S_SkillBuy extends ServerBasePacket {
 	public S_SkillBuy(int o, L1PcInstance player) {
 		//Not used
 		//int C = 0;
-		int C = 0;
 		int count = Scount(player);
 		//Not used
 		//boolean own = false;
-		boolean own = false;
 
 		writeC(Opcodes.S_OPCODE_SKILLBUY);
 		writeD(100);

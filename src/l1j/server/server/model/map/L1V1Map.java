@@ -466,19 +466,19 @@ public class L1V1Map extends L1Map {
 			int leftEdgeLocation = door.getLeftEdgeLocation();
 			int rightEdgeLocation = door.getRightEdgeLocation();
 			int size = rightEdgeLocation - leftEdgeLocation;
-			if (size == 0) { // 1}XhA
+			if (size == 0) { // 
 				if (x == door.getX() && y == door.getY()) {
 					return true;
 				}
-			} else { // 2}XhA
-				if (door.getDirection() == 0) { // ^
+			} else { // 
+				if (door.getDirection() == 0) { // 
 					for (int doorX = leftEdgeLocation;
 							doorX <= rightEdgeLocation; doorX++) {
 						if (x == doorX && y == door.getY()) {
 							return true;
 						}
 					}
-				} else { // _
+				} else { // 
 					for (int doorY = leftEdgeLocation;
 							doorY <= rightEdgeLocation; doorY++) {
 						if (x == door.getX() && y == doorY) {

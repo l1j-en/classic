@@ -54,5 +54,5 @@ public class L1MobGroup {
 		return _isRemoveGroupIfLeaderDie;
 	}
 
-	}
+}
 

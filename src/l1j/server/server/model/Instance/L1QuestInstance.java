@@ -50,8 +50,8 @@ public class L1QuestInstance extends L1NpcInstance {
 		if (npcId == 71075 || npcId == 70957 || npcId == 81209) {
 			return;			
 		} else {
-		setActived(false);
-		startAI();
+			setActived(false);
+			startAI();
 		}
 	}
 
@@ -106,21 +106,21 @@ public class L1QuestInstance extends L1NpcInstance {
 			} else {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "endiaq4"));
 			}
-		} else if (npcId == 71062) { // J~bg
+		} else if (npcId == 71062) { // 
 			if (pc.getQuest().get_step(L1Quest.QUEST_CADMUS)
 					== 2) {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "kamit1b"));
 			} else {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "kamit1"));
 			}
-		} else if (npcId == 71075) { // U[h}t@C^[
+		} else if (npcId == 71075) { // 
 			if (pc.getQuest().get_step(L1Quest.QUEST_LIZARD)
 					== 1) {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "llizard1b"));
 			} else {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "llizard1a"));
 			}
-		} else if (npcId == 70957 || npcId == 81209) { // C
+		} else if (npcId == 70957 || npcId == 81209) { // 
 			if (pc.getQuest().get_step(L1Quest.QUEST_ROI)
 					!= 1) {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "roi1"));

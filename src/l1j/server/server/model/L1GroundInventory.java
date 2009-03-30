@@ -33,8 +33,8 @@ public class L1GroundInventory extends L1Inventory {
 		public void run() {
 			try {
 				synchronized (L1GroundInventory.this) {
-					if (!_items.contains(_item)) {// E^C~O
-						return; // E
+					if (!_items.contains(_item)) {//
+						return; //
 					}
 					removeItem(_item);
 				}

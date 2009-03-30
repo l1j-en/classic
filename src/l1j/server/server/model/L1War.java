@@ -41,7 +41,6 @@ public class L1War {
 	private int _warType = 0;
 	//TODO Not used
 	//private int _castleId = 0;
-	private int _castleId = 0;
 	private L1Castle _castle = null;
 	private Calendar _warEndTime;
 
@@ -115,7 +114,6 @@ public class L1War {
 		if (war_type == 1) {
 			//TODO Not used
 			//_castleId = GetCastleId();
-			_castleId = GetCastleId();
 			_castle = GetCastle();
 			if (_castle != null) {
 				Calendar cal = (Calendar) _castle.getWarTime().clone();

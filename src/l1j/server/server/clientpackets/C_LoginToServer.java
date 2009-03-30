@@ -491,7 +491,7 @@ public class C_LoginToServer extends ClientBasePacket {
 					pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
 					pc.setBraveSpeed(1);
 					pc.setSkillEffect(skillid, remaining_time * 1000);
-				} else if (skillid == STATUS_ELFBRAVE) { // Gbt
+				} else if (skillid == STATUS_ELFBRAVE) { // 
 						pc.sendPackets(new S_SkillBrave(pc.getId(), 3,
 								remaining_time));
 					pc.broadcastPacket(new S_SkillBrave(pc.getId(), 3, 0));

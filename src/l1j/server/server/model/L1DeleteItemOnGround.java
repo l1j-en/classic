@@ -83,38 +83,39 @@ public class L1DeleteItemOnGround {
 			return;
 		}
 
-				_deleteTimer = new DeleteTimer();
-			GeneralThreadPool.getInstance().execute(_deleteTimer); // Start timer
-		}
+		_deleteTimer = new DeleteTimer();
+		GeneralThreadPool.getInstance().execute(_deleteTimer); // start timer
+	}
+
 	private void deleteItem() {
 		int numOfDeleted = 0;
 		for (L1Object obj : L1World.getInstance().getObject()) {
 			if (!(obj instanceof L1ItemInstance)) {
 				continue;
-	}
+			}
 
 			L1ItemInstance item = (L1ItemInstance) obj;
-				if (item.getX() == 0 && item.getY() == 0) { // Items on the ground, rather than someone else's property
-					continue;
-				}
-				if (item.getItem().getItemId() == 40515) { // Spirit's rock
-					continue;
-				}
-				if (L1HouseLocation.isInHouse(item.getX(), item.getY(), item
-						.getMapId())) { // Hideout in
-					continue;
-				}
+			if (item.getX() == 0 && item.getY() == 0) { // Items on the ground, rather than someone else's property
+				continue;
+			}
+			if (item.getItem().getItemId() == 40515) { // Spirit's rock
+				continue;
+			}
+			if (L1HouseLocation.isInHouse(item.getX(), item.getY(), item
+					.getMapId())) { // Hideout in
+				continue;
+			}
 
-				List<L1PcInstance> players = L1World.getInstance()
+			List<L1PcInstance> players = L1World.getInstance()
 					.getVisiblePlayer(item, Config.ALT_ITEM_DELETION_RANGE);
-			if (players.isEmpty()) { // wvC[
+			if (players.isEmpty()) { // 
 				L1Inventory groundInventory = L1World
 						.getInstance()
 						.getInventory(item.getX(), item.getY(), item.getMapId());
 				groundInventory.removeItem(item);
 				numOfDeleted++;
-							}
-						}
+			}
+		}
 		_log.fine("Deleted ground items: " + numOfDeleted);
 	}
 }

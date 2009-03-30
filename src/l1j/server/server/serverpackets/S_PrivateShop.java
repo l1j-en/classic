@@ -46,7 +46,7 @@ public class S_PrivateShop extends ServerBasePacket {
 		writeD(objectId);
 
 		if (type == 0) {
-			ArrayList list = shopPc.getSellList();
+			ArrayList<L1PrivateShopSellList> list = shopPc.getSellList();
 			int size = list.size();
 			pc.setPartnersPrivateShopItemCount(size);
 			writeH(size);
@@ -68,7 +68,7 @@ public class S_PrivateShop extends ServerBasePacket {
 				}
 			}
 		} else if (type == 1) {
-			ArrayList list = shopPc.getBuyList();
+			ArrayList<L1PrivateShopBuyList> list = shopPc.getBuyList();
 			int size = list.size();
 			writeH(size);
 			for (int i = 0; i < size; i++) {

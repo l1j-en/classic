@@ -62,14 +62,16 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
 				try {
-				int houseId = clan.getHouseId();
-				if (houseId != 0) {
-					L1House house = HouseTable.getInstance().getHouseTable(houseId);
-					if (npcid == house.getKeeperId()) {
-						isOwner = true;
-					}
-				} } catch (Exception e) {
-						System.out.println(e);
+					int houseId = clan.getHouseId();
+					if (houseId != 0) {
+						L1House house = HouseTable.getInstance().getHouseTable(houseId);
+	
+						if (npcid == house.getKeeperId()) {
+							isOwner = true;
+						}
+					} 
+				} catch (Exception e) {
+					System.out.println(e);
 				}
 			}
 

@@ -722,14 +722,14 @@ public class L1PcInstance extends L1Character {
 	private ArrayList<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
 
 
-	public ArrayList getSellList() {
+	public ArrayList<L1PrivateShopSellList> getSellList() {
 		return _sellList;
 	}
 
 	private ArrayList<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
 
-	public ArrayList getBuyList() {
+	public ArrayList<L1PrivateShopBuyList> getBuyList() {
 		return _buyList;
 	}
 
@@ -1858,8 +1858,13 @@ public class L1PcInstance extends L1Character {
 		}
 
 		CharacterTable.getInstance().storeCharacter(this);
+		//TODO add Pets saving here
+		for (L1PetInstance pet : L1World.getInstance().getAllPets()) {
+			if (getName().toLowerCase().equals(pet.getMaster().getName().toLowerCase())) {
+				pet.save();
+			}
+		}
 	}
-
 
 	public void saveInventory() {
 		for (L1ItemInstance item : getInventory().getItems()) {
@@ -1921,6 +1926,11 @@ public class L1PcInstance extends L1Character {
 		return (hasSkillEffect(L1SkillId.STATUS_HASTE)
 				|| hasSkillEffect(L1SkillId.HASTE)
 				|| hasSkillEffect(L1SkillId.GREATER_HASTE) || getMoveSpeed() == 1);
+
+	}
+	
+	public boolean isWisPot() {
+		return hasSkillEffect(L1SkillId.STATUS_WISDOM_POTION);
 	}
 
 	private int invisDelayCounter = 0;
@@ -2012,12 +2022,12 @@ public class L1PcInstance extends L1Character {
 		setCurrentMp(getMaxMp());
 
 		sendPackets(new S_OwnCharStatus(this));
-		if (getLevel() >= 52) { // wx
-			if (getMapId() == 777) { // n(e_a)
-				L1Teleport.teleport(this, 34043, 32184, (short) 4, 5, true); // O
+		if (getLevel() >= 52) { // 
+			if (getMapId() == 777) { //
+				L1Teleport.teleport(this, 34043, 32184, (short) 4, 5, true); // 
 			} else if (getMapId() == 778
-					|| getMapId() == 779) { // n(~]A)
-				L1Teleport.teleport(this, 32608, 33178, (short) 4, 5, true); // WB
+					|| getMapId() == 779) { //
+				L1Teleport.teleport(this, 32608, 33178, (short) 4, 5, true); // 
 			}
 		}
 	}
@@ -2450,7 +2460,6 @@ public class L1PcInstance extends L1Character {
 		return _excludingList;
 	}
 
-	// -- m@\ --
 	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(
 			this);
 

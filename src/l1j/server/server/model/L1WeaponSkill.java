@@ -150,7 +150,7 @@ public class L1WeaponSkill {
 		if (skillId != 0) {
 			L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
 			if (skill != null && skill.getTarget().equals("buff")) {
-				if (!isFreeze(cha)) { // orJE^[}WbN
+				if (!isFreeze(cha)) { //
 					cha.setSkillEffect(skillId, weaponSkill
 							.getSkillTime() * 1000);
 				}
@@ -285,7 +285,7 @@ public class L1WeaponSkill {
 
 	public static void giveFettersEffect(L1PcInstance pc, L1Character cha) {
 		int fettersTime = 8000;
-		if (isFreeze(cha)) { // orJE^[}WbN
+		if (isFreeze(cha)) { 
 			return;
 		}
 		if ((_random.nextInt(100) + 1) <= 2) {
@@ -311,7 +311,7 @@ public class L1WeaponSkill {
 	}
 
 	private static double calcDamageReduction(L1Character cha, double dmg, int attr) {
-		// orJE^[}WbN
+		//
 		if (isFreeze(cha)) {
 			return 0;
 }
@@ -321,7 +321,7 @@ public class L1WeaponSkill {
 			dmg /= 2;
 		}
 
-		// _[Wy
+		// 
 		int resist = 0;
 		if (attr == L1Skills.ATTR_EARTH) {
 			resist = cha.getEarth();
@@ -361,7 +361,7 @@ public class L1WeaponSkill {
 			return true;
 		}
 
-		// JE^[}WbN
+		// 
 		if (cha.hasSkillEffect(COUNTER_MAGIC)) {
 			cha.removeSkillEffect(COUNTER_MAGIC);
 			int castgfx = SkillsTable.getInstance().getTemplate(

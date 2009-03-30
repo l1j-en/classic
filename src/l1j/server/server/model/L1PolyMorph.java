@@ -83,7 +83,7 @@ public class L1PolyMorph {
 
 	public static final int MORPH_BY_GM = 2;
 
-	public static final int MORPH_BY_NPC = 4; // ptPvVONPC
+	public static final int MORPH_BY_NPC = 4; // 
 
 	public static final int MORPH_BY_KEPLISHA = 8;
 
@@ -194,10 +194,10 @@ public class L1PolyMorph {
 				if (pc.getTempCharGfx() == 6034
 						|| pc.getTempCharGfx() == 6035) {
 					pc.sendPackets(new S_ServerMessage(181));
-					// \f1X^[gB					
+					//				
 				} else {
-				doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
-				pc.sendPackets(new S_CloseList(pc.getId()));
+					doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
+					pc.sendPackets(new S_CloseList(pc.getId()));
 				}
 			} else {
 				pc.sendPackets(new S_ServerMessage(181));
@@ -218,11 +218,11 @@ public class L1PolyMorph {
 			}
 			if (pc.getTempCharGfx() == 6034
 					|| pc.getTempCharGfx() == 6035) {
-				pc.sendPackets(new S_ServerMessage(181)); // \f1X^[gB
+				pc.sendPackets(new S_ServerMessage(181)); // 
 				return;	
 			}
 			if (!isMatchCause(polyId, cause)) {
-				pc.sendPackets(new S_ServerMessage(181)); // \f1X^[gB
+				pc.sendPackets(new S_ServerMessage(181)); // 
 				return;
 			}
 

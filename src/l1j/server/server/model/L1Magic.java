@@ -164,19 +164,19 @@ public class L1Magic {
 					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 				return false;
 			}
-			if (npcId == 45752 // oO(gO)
+			if (npcId == 45752 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				return false;
 			}
-			if (npcId == 45753 // oO(g)
+			if (npcId == 45753 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				return false;
 			}
-			if (npcId == 45675 // q(gO)
+			if (npcId == 45675 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId == 81082 // q(g)
+			if (npcId == 81082 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
@@ -192,7 +192,7 @@ public class L1Magic {
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+			if (npcId >= 46068 && npcId <= 46091 // 
 					&& _pc.getTempCharGfx() == 6035) {
 				return false;
 			}
@@ -325,10 +325,11 @@ public class L1Magic {
 						|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
 						|| skillId == STRIKER_GALE || skillId == SHOCK_STUN
 						|| skillId == FOG_OF_SLEEPING || skillId == ICE_LANCE
-						|| skillId == FREEZING_BLIZZARD
-						|| skillId == POLLUTE_WATER
-						|| skillId == ELEMENTAL_FALL_DOWN
-						|| skillId == RETURN_TO_NATURE) {
+						|| skillId == FREEZING_BLIZZARD || skillId == CANCELLATION
+						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
+						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
+						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
+						|| skillId == SILENCE) {
 					return false;
 				}
 			}
@@ -532,14 +533,15 @@ public class L1Magic {
 			if (castleId > 0) {
 				isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 			}
+			// NOTE: changed these dmgs since pets will get insta-pwned by magic mobs
 			if (!isNowWar) {
 				if (_npc instanceof L1PetInstance) {
-					dmg /= 8;
+					dmg /= 16; // was 8
 				}
 				if (_npc instanceof L1SummonInstance) {
 					L1SummonInstance summon = (L1SummonInstance) _npc;
 					if (summon.isExsistMaster()) {
-						dmg /= 8;
+						dmg /= 16; // was 8
 					}
 				}
 			}
@@ -660,19 +662,19 @@ public class L1Magic {
 					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 				dmg = 0;
 			}
-			if (npcId == 45752 // oO(gO)
+			if (npcId == 45752 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				dmg = 0;
 			}
-			if (npcId == 45753 // oO(g)
+			if (npcId == 45753 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				dmg = 0;
 			}
-			if (npcId == 45675 // q(gO)
+			if (npcId == 45675 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId == 81082 // q(g)
+			if (npcId == 81082 // 
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
@@ -688,11 +690,11 @@ public class L1Magic {
 					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId >= 46068 && npcId <= 46091 // ~]Amob
+			if (npcId >= 46068 && npcId <= 46091 // 
 					&& _pc.getTempCharGfx() == 6035) {
 				dmg = 0;
 			}
-			if (npcId >= 46092 && npcId <= 46106 // e_amob
+			if (npcId >= 46092 && npcId <= 46106 // 
 					&& _pc.getTempCharGfx() == 6034) {
 				dmg = 0;
 			}
