@@ -26,8 +26,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javolution.text.TextBuilder;
 import l1j.server.Config;
@@ -35,7 +36,7 @@ import l1j.server.Config;
 
 public class ThreadPoolManager {
 
-	private static Logger _log = Logger.getLogger(ThreadPoolManager.class
+	private static Logger log = Logger.getLogger(ThreadPoolManager.class
 			.getName());
 
 	private static ThreadPoolManager _instance;
@@ -338,7 +339,7 @@ public class ThreadPoolManager {
 			_aiThreadPool.shutdown();
 			System.out.println("All ThreadPools are now stopped");
 		} catch (InterruptedException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 
 		}
 	}

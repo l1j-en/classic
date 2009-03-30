@@ -28,8 +28,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CharBuffTable;
@@ -59,7 +60,7 @@ import l1j.server.server.utils.SystemUtil;
 //
 public class ClientThread implements Runnable, PacketOutput {
 
-	private static Logger _log = Logger.getLogger(ClientThread.class.getName());
+	private static Logger log = Logger.getLogger(ClientThread.class.getName());
 
 	private InputStream _in;
 
@@ -146,8 +147,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 
 			if (readSize != dataLength) {
-				_log
-						.warning("Incomplete Packet is sent to the server, closing connection.");
+				log.warn("Incomplete Packet is sent to the server, closing connection.");
 				throw new RuntimeException();
 			}
 
@@ -178,14 +178,14 @@ public class ClientThread implements Runnable, PacketOutput {
 				_lastSavedTime_inventory = System.currentTimeMillis();
 			}
 		} catch (Exception e) {
-			_log.warning("Client autosave failure.");
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.warn("Client autosave failure.");
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			throw e;
 		}
 	}
 
 	public void run() {
-		_log.info("(" + _hostname + ") Login detected");
+		log.info("(" + _hostname + ") Login detected");
 		System.out.println("Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB");
 		System.out.println("Starting client thread...");
 
@@ -270,7 +270,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 			}
 		} catch (Throwable e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			try {
 				if (_activeChar != null) {
@@ -285,15 +285,15 @@ public class ClientThread implements Runnable, PacketOutput {
 
 				StreamUtil.close(_out, _in);
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			} finally {
 				LoginController.getInstance().logout(this);
 			}
 		}
 		_csocket = null;
-		_log.fine("Server thread[C] stopped");
+		log.log(Level.FATAL, "Server thread[C] stopped");
 		if (_kick < 1) {
-			_log.info(getAccountName() + ":" + _hostname);
+			log.info(getAccountName() + ":" + _hostname);
 			System.out.println(": " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 			System.out.println("Awaiting connections...");
 		}
@@ -381,13 +381,13 @@ public class ClientThread implements Runnable, PacketOutput {
 				if (_activeChar == null 
 						|| _activeChar != null && !_activeChar.isPrivateShop()) { 
 					kick();
-					_log.warning("Kicking active char from (" + _hostname
+					log.warn("Kicking active char from (" + _hostname
 							+ ").");
 					cancel();
 					return;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				log.log(Level.ERROR, e.getLocalizedMessage(), e);
 				cancel();
 			}
 		}
@@ -518,7 +518,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.save();
 			pc.saveInventory();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 	}
 }

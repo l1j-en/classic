@@ -26,8 +26,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import l1j.server.Base64;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -53,7 +55,7 @@ public class Account {
 
 	private boolean _isValid = false;
 	
-	private static Logger _log = Logger.getLogger(Account.class.getName());
+	private static Logger log = Logger.getLogger(Account.class.getName());
 
 	/**
 	 *
@@ -118,15 +120,15 @@ public class Account {
 			pstm.setString(6, account._host);
 			pstm.setInt(7, account._banned ? 1 : 0);
 			pstm.execute();
-			_log.info("Created new account for " + name + ".");
+			log.info("Created new account for " + name + ".");
 
 			return account;
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} catch (UnsupportedEncodingException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -165,9 +167,9 @@ public class Account {
 			account._host = rs.getString("host");
 			account._banned = rs.getInt("banned") == 0 ? false : true;
 
-			_log.fine("account exists");
+			log.log(Level.INFO, "account exists");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -196,9 +198,9 @@ public class Account {
 			pstm.setString(2, account.getName());
 			pstm.execute();
 			account._lastActive = ts;
-			_log.fine("update lastactive for " + account.getName());
+			log.log(Level.INFO, "update lastactive for " + account.getName());
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -225,7 +227,7 @@ public class Account {
 				result = rs.getInt("cnt");
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -250,7 +252,7 @@ public class Account {
 			pstm.setString(1, login);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -301,9 +303,9 @@ public class Account {
 			pstm.setString(1, pass);
 			pstm.setString(2, _name);
 			pstm.execute();
-			_log.info("Rehashed password for " + _name + ".");
+			log.info("Rehashed password for " + _name + ".");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -333,7 +335,7 @@ public class Account {
 			}
 			return _isValid;
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 		}
 		return false;
 	}

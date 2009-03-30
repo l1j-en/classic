@@ -20,8 +20,10 @@ package l1j.server;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import l1j.server.server.utils.LeakCheckedConnection;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -31,7 +33,7 @@ public class L1DatabaseFactory {
 
 	private ComboPooledDataSource _source;
 
-	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class.getName());
+	private static Logger log = Logger.getLogger(L1DatabaseFactory.class.getName());
 
 	private static String _driver;
 
@@ -61,11 +63,11 @@ public class L1DatabaseFactory {
 			/* Test the connection */
 			_source.getConnection().close();
 		} catch (SQLException x) {
-			_log.fine("Database Connection FAILED");
+			log.log(Level.INFO,"Database Connection FAILED");
 			// rethrow the exception
 			throw x;
 		} catch (Exception e) {
-			_log.fine("Database Connection FAILED");
+			log.log(Level.INFO, "Database Connection FAILED");
 			throw new SQLException("could not init DB connection:" + e);
 		}
 	}
@@ -74,12 +76,12 @@ public class L1DatabaseFactory {
 		try {
 			_source.close();
 		} catch (Exception e) {
-			_log.log(Level.INFO, "", e);
+			log.log(Level.INFO, "", e);
 		}
 		try {
 			_source = null;
 		} catch (Exception e) {
-			_log.log(Level.INFO, "", e);
+			log.log(Level.INFO, "", e);
 		}
 	}
 
@@ -97,8 +99,7 @@ public class L1DatabaseFactory {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log
-						.warning("L1DatabaseFactory: getConnection() failed, trying again "
+				log.warn("L1DatabaseFactory: getConnection() failed, trying again "
 								+ e);
 			}
 		}

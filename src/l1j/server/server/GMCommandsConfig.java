@@ -22,13 +22,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -39,7 +39,7 @@ import l1j.server.server.templates.L1ItemSetItem;
 import l1j.server.server.utils.IterableElementList;
 
 public class GMCommandsConfig {
-	private static Logger _log = Logger.getLogger(GMCommandsConfig.class
+	private static Logger log = Logger.getLogger(GMCommandsConfig.class
 			.getName());
 
 	private interface ConfigLoader {
@@ -136,7 +136,7 @@ public class GMCommandsConfig {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "GMCommands.xml Failure to load", e);
+			log.log(Level.ERROR, "GMCommands.xml Failure to load", e);
 		}
 	}
 }

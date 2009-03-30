@@ -22,8 +22,9 @@ package l1j.server.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.command.L1Commands;
 import l1j.server.server.command.executor.L1CommandExecutor;
@@ -38,7 +39,7 @@ import l1j.server.server.templates.L1Command;
 //
 
 public class GMCommands {
-	private static Logger _log = Logger.getLogger(GMCommands.class.getName());
+	private static Logger log = Logger.getLogger(GMCommands.class.getName());
 
 	boolean spawnTF = false;
 	
@@ -82,10 +83,10 @@ public class GMCommands {
 			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod(
 					"getInstance").invoke(null);
 			exe.execute(pc, name, arg);
-			_log.info(pc.getName() + " commanded " + name + " " + arg);
+			log.info(pc.getName() + " commanded " + name + " " + arg);
 			return true;
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "error gm command", e);
+			log.log(Level.ERROR, "error gm command", e);
 		}
 		return false;
 	}
@@ -131,7 +132,7 @@ public class GMCommands {
 				handleCommands(pc, cmd);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(pc.getName() + "failed to do .r"));
 		}
 	}

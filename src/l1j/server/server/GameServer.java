@@ -23,7 +23,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collection;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
@@ -79,7 +80,7 @@ import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
 	private ServerSocket _serverSocket;
-	private static Logger _log = Logger.getLogger(GameServer.class.getName());
+	private static Logger log = Logger.getLogger(GameServer.class.getName());
 	private int _port;
 	private LoginController _loginController;
 	private int chatlvl;
@@ -94,7 +95,7 @@ public class GameServer extends Thread {
 				System.out.println("Connection accepted from IP: "+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 				if (IpTable.getInstance().isBannedIp(host)) {
-					_log.info("Banned IP(" + host + ")");
+					log.info("Banned IP(" + host + ")");
 				} else {
 					ClientThread client = new ClientThread(socket);
 					GeneralThreadPool.getInstance().execute(client);

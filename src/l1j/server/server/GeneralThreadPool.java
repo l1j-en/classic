@@ -26,13 +26,14 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.model.monitor.L1PcMonitor;
 
 public class GeneralThreadPool {
-	private static Logger _log = Logger.getLogger(GeneralThreadPool.class
+	private static Logger log = Logger.getLogger(GeneralThreadPool.class
 			.getName());
 
 	private static GeneralThreadPool _instance;

@@ -27,8 +27,9 @@ import java.io.LineNumberReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import l1j.server.server.datatables.MapsTable;
 import l1j.server.server.model.map.L1Map;
@@ -40,7 +41,7 @@ import l1j.server.server.model.map.L1V1Map;
 public class TextMapReader extends MapReader {
 
 	/** For the message log. */
-	private static Logger _log = Logger
+	private static Logger log = Logger
 			.getLogger(TextMapReader.class.getName());
 
 	/** Map holder. */
@@ -169,7 +170,7 @@ public class TextMapReader extends MapReader {
 
 				maps.put(mapId, map);
 			} catch (IOException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				log.log(Level.ERROR, e.getLocalizedMessage(), e);
 			}
 		}
 
