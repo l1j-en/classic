@@ -2593,3 +2593,7 @@ UPDATE weapon_skill SET attr = 1 where weapon_id = 258;
 
 -- alias .goto to the new topc command and set it at 100 access level
 INSERT INTO commands VALUES('goto',100,'L1ToPC');
+-- bring .create back, get rid of current .item
+UPDATE commands SET name = 'create' where class_name = 'L1CreateItem';
+-- bring back our old .item command
+INSERT INTO commands VALUES('item',100,'L1ItemDrops');
