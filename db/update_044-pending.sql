@@ -2597,3 +2597,5 @@ INSERT INTO commands VALUES('goto',100,'L1ToPC');
 UPDATE commands SET name = 'create' where class_name = 'L1CreateItem';
 -- bring back our old .item command
 INSERT INTO commands VALUES('item',100,'L1ItemDrops');
+-- bring back our old .mob command
+INSERT INTO commands VALUES('mob',100,'L1MobDrops');
