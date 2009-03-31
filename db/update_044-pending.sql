@@ -2591,3 +2591,5 @@ UPDATE weapon_skill SET attr = 1 where weapon_id = 256;
 UPDATE weapon_skill SET attr = 1 where weapon_id = 257;
 UPDATE weapon_skill SET attr = 1 where weapon_id = 258;
 
+-- alias .goto to the new topc command and set it at 100 access level
+INSERT INTO commands VALUES('goto',100,'L1ToPC');
