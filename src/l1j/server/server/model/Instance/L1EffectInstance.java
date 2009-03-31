@@ -19,8 +19,7 @@
 package l1j.server.server.model.Instance;
 
 import java.util.concurrent.ScheduledFuture;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;

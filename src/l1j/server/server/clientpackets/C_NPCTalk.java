@@ -19,8 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.NpcActionTable;
@@ -37,7 +36,7 @@ import l1j.server.server.serverpackets.S_NPCTalkReturn;
 public class C_NPCTalk extends ClientBasePacket {
 
 	private static final String C_NPC_TALK = "[C] C_NPCTalk";
-	private static Logger log = Logger.getLogger(C_NPCTalk.class.getName());
+	private static Logger _log = Logger.getLogger(C_NPCTalk.class.getName());
 
 	public C_NPCTalk(byte abyte0[], ClientThread client)
 			throws Exception {
@@ -58,11 +57,11 @@ public class C_NPCTalk extends ClientBasePacket {
 		} else {
 			if (obj == null && pc != null)
 			{
-				log.log(Level.WARN, pc.getName() + " sent an invalid objectid, objid=" + objid);
+				_log.severe(pc.getName() + " sent an invalid objectid, objid=" + objid);
 			}
 			else
 			{
-				log.warn("Null L1PcInstance in C_RequestNPCTalk.");
+				_log.severe("Null L1PcInstance in C_RequestNPCTalk.");
 			}
 		}
 	}

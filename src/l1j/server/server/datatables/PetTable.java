@@ -23,9 +23,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -79,7 +78,7 @@ public class PetTable {
 				_pets.put(new Integer(itemobjid), pet);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -119,7 +118,7 @@ public class PetTable {
 			pstm.setInt(9, l1pet.get_lawful());
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -146,7 +145,7 @@ public class PetTable {
 			pstm.setInt(9, pet.get_itemobjid());
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -162,7 +161,7 @@ public class PetTable {
 			pstm.setInt(1, itemobjid);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -200,7 +199,7 @@ public class PetTable {
 				return false;
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

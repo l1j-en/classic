@@ -18,8 +18,7 @@
 package l1j.server.server.taskmanager;
 
 import java.util.concurrent.ScheduledFuture;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.taskmanager.TaskManager.ExecutedTask;

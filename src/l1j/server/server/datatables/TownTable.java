@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -88,7 +87,7 @@ public class TownTable {
 				_towns.put(new Integer(townid), town);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -141,7 +140,7 @@ public class TownTable {
 			town.set_town_fix_tax(town.get_town_fix_tax() + townFixTax);
 
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -159,7 +158,7 @@ public class TownTable {
 			pstm.setInt(1, town_id);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -182,7 +181,7 @@ public class TownTable {
 			pstm.setInt(2, town_id);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -215,7 +214,7 @@ public class TownTable {
 					.prepareStatement("UPDATE town SET tax_rate = tax_rate_reserved");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -232,7 +231,7 @@ public class TownTable {
 					.prepareStatement("UPDATE town SET sales_money_yesterday = sales_money, sales_money = 0");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

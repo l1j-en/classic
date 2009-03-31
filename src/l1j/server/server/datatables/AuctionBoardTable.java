@@ -28,9 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1AuctionBoard;
@@ -87,7 +86,7 @@ public class AuctionBoardTable {
 				_boards.put(board.getHouseId(), board);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -136,7 +135,7 @@ public class AuctionBoardTable {
 
 			_boards.put(board.getHouseId(), board);
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -174,7 +173,7 @@ public class AuctionBoardTable {
 			pstm.setInt(10, board.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -193,7 +192,7 @@ public class AuctionBoardTable {
 
 			_boards.remove(houseId);
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

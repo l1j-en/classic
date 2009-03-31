@@ -2,9 +2,8 @@ package l1j.server.server;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -19,7 +18,7 @@ import l1j.server.server.templates.L1Skills;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class PCommands {
-	private static Logger log = Logger.getLogger(PCommands.class.getName());
+	private static Logger _log = Logger.getLogger(PCommands.class.getName());
 	boolean spawnTF = false;
 	private static PCommands _instance;
 
@@ -49,9 +48,9 @@ public class PCommands {
 			} else if(cmd2.startsWith("karma")){
 				checkKarma(_player);
 			}
-			log.info(_player.getName() + " used " + cmd2);
+			_log.info(_player.getName() + " used " + cmd2);
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 

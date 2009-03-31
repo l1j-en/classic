@@ -21,9 +21,7 @@ package l1j.server.server.model.Instance;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import java.lang.reflect.Constructor;

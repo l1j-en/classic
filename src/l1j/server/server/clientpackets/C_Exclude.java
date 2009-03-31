@@ -19,8 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1ExcludingList;
@@ -34,7 +34,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Exclude extends ClientBasePacket {
 
 	private static final String C_EXCLUDE = "[C] C_Exclude";
-	private static Logger log = Logger.getLogger(C_Exclude.class.getName());
+	private static Logger _log = Logger.getLogger(C_Exclude.class.getName());
 
 	public C_Exclude(byte[] decrypt, ClientThread client) {
 		super(decrypt);
@@ -57,7 +57,7 @@ public class C_Exclude extends ClientBasePacket {
 				pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
 			}
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 

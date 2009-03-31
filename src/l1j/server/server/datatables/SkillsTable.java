@@ -25,9 +25,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Skills;
@@ -78,7 +77,7 @@ public class SkillsTable {
 			FillSkillsTable(rs);
 
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, "error while creating skills table", e);
+			_log.log(Level.SEVERE, "error while creating skills table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -124,7 +123,7 @@ public class SkillsTable {
 
 			_skills.put(new Integer(skill_id), l1skills);
 		}
-		_log.info("Skills List: " + _skills.size() + " Loaded");
+		_log.config("Skills List: " + _skills.size() + " Loaded");
 	}
 
 	public void spellMastery(int playerobjid, int skillid, String skillname,
@@ -147,7 +146,7 @@ public class SkillsTable {
 			pstm.setInt(5, time);
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -168,7 +167,7 @@ public class SkillsTable {
 			pstm.setInt(2, skillid);
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -195,7 +194,7 @@ public class SkillsTable {
 				ret = false;
 			}
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(rs);

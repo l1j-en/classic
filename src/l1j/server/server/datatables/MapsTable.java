@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
@@ -104,9 +103,9 @@ public final class MapsTable {
 				_maps.put(new Integer(mapId), data);
 			}
 
-			_log.info("Maps " + _maps.size());
+			_log.config("Maps " + _maps.size());
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -34,7 +34,7 @@ import l1j.server.server.templates.L1Castle;
 public class C_TaxRate extends ClientBasePacket {
 
 	private static final String C_TAX_RATE = "[C] C_TaxRate";
-	private static Logger log = Logger.getLogger(C_TaxRate.class.getName());
+	private static Logger _log = Logger.getLogger(C_TaxRate.class.getName());
 
 	public C_TaxRate(byte abyte0[], ClientThread clientthread)
 			throws Exception {

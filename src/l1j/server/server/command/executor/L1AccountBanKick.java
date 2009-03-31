@@ -18,7 +18,7 @@
  */
 package l1j.server.server.command.executor;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.Account;
 import l1j.server.server.model.L1World;
@@ -27,7 +27,7 @@ import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1AccountBanKick implements L1CommandExecutor {
-	private static Logger log = Logger.getLogger(L1AccountBanKick.class
+	private static Logger _log = Logger.getLogger(L1AccountBanKick.class
 			.getName());
 
 	private L1AccountBanKick() {

@@ -22,9 +22,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
 import java.util.Random;
-
-import org.apache.log4j.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -43,7 +42,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_FishClick extends ClientBasePacket {
 
 	private static final String C_FISHCLICK = "[C] C_FishClick";
-	private static Logger log = Logger.getLogger(C_FishClick.class.getName());
+	private static Logger _log = Logger.getLogger(C_FishClick.class.getName());
 	private static Random _random = new Random();
 
 	public C_FishClick(byte abyte0[], ClientThread clientthread) throws Exception {

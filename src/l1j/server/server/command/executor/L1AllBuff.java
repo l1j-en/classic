@@ -21,8 +21,7 @@ package l1j.server.server.command.executor;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 import java.util.StringTokenizer;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.L1PolyMorph;
@@ -35,7 +34,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Skills;
 
 public class L1AllBuff implements L1CommandExecutor {
-	private static Logger log = Logger.getLogger(L1AllBuff.class.getName());
+	private static Logger _log = Logger.getLogger(L1AllBuff.class.getName());
 
 	private L1AllBuff() {
 	}

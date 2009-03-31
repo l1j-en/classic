@@ -25,11 +25,9 @@ import java.io.LineNumberReader;
 
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Collection;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import javolution.util.FastList;
 
 import l1j.server.Config;
@@ -38,7 +36,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class Announcecycle {
-        private static Logger log = Logger.getLogger(Announcecycle.class.getName());
+        private static Logger _log = Logger.getLogger(Announcecycle.class.getName());
 
         private static Announcecycle _instance;
 
@@ -88,7 +86,7 @@ public class Announcecycle {
                         System.out.println("IngameNews: Loaded " + i + " ingamenews.");
                 } catch (IOException e1)
                 {
-                        log.log(Level.ERROR, "Error reading ingamenews", e1);
+                        _log.log(Level.SEVERE, "Error reading ingamenews", e1);
                 } finally {
                         try {
                                 lnr.close();
@@ -113,7 +111,7 @@ public class Announcecycle {
                                         _ingamenewssize = 0;
                         }
                         catch (Exception e) {
-                                log.log(Level.WARN, "", e);
+                                _log.log(Level.WARNING, "", e);
                         }
                 }
         }

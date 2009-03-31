@@ -22,9 +22,7 @@ package l1j.server.server.model.Instance;
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.apache.log4j.Logger;
-
+//import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
@@ -45,8 +43,8 @@ import l1j.server.server.utils.BinaryOutputStream;
 // L1Object, L1PcInstance
 
 public class L1ItemInstance extends L1Object {
-	private static Logger _log = Logger.getLogger(L1ItemInstance.class
-			.getName());
+	//private static Logger _log = Logger.getLogger(L1ItemInstance.class
+	//		.getName());
 
 	private static final long serialVersionUID = 1L;
 

@@ -19,15 +19,13 @@
 package l1j.server.server.clientpackets;
 
 import java.nio.ByteBuffer;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 
 public abstract class ClientBasePacket {
 
-	private static Logger log = Logger.getLogger(ClientBasePacket.class
+	private static Logger _log = Logger.getLogger(ClientBasePacket.class
 			.getName());
 
 	private byte _decrypt[];
@@ -35,7 +33,7 @@ public abstract class ClientBasePacket {
 	private int _off;
 
 	public ClientBasePacket(byte abyte0[]) {
-		log.log(Level.DEBUG, "type=" + getType() + ", len=" + abyte0.length);
+		_log.finest("type=" + getType() + ", len=" + abyte0.length);
 		_decrypt = abyte0;
 		_off = 1;
 	}
@@ -88,7 +86,7 @@ public abstract class ClientBasePacket {
 			s = s.substring(0, s.indexOf('\0'));
 			_off += s.getBytes("UTF-8").length + 1;
 		} catch (Exception e) {
-			log.log(Level.DEBUG, "OpCode=" + (_decrypt[0] & 0xff), e);
+			_log.log(Level.SEVERE, "OpCode=" + (_decrypt[0] & 0xff), e);
 		}
 		return s;
 	}
@@ -99,7 +97,7 @@ public abstract class ClientBasePacket {
 			System.arraycopy(_decrypt, _off, result, 0, _decrypt.length - _off);
 			_off = _decrypt.length;
 		} catch (Exception e) {
-			log.log(Level.DEBUG, "OpCode=" + (_decrypt[0] & 0xff), e);
+			_log.log(Level.SEVERE, "OpCode=" + (_decrypt[0] & 0xff), e);
 		}
 		return result;
 	}

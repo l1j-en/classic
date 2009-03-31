@@ -27,9 +27,8 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -37,7 +36,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.StreamUtil;
 
 public class Announcements {
-	private static Logger log = Logger
+	private static Logger _log = Logger
 			.getLogger(Announcements.class.getName());
 
 	private static Announcements _instance;
@@ -62,7 +61,7 @@ public class Announcements {
 		if (file.exists()) {
 			readFromDisk(file);
 		} else {
-			log.log(Level.ERROR, "data/announcements.txt doesn't exist");
+			_log.config("data/announcements.txt doesn't exist");
 		}
 	}
 
@@ -87,10 +86,10 @@ public class Announcements {
 					i++;
 				}
 			}
-			log.log(Level.INFO, "Notification " + i + " read.");
+			_log.config("Notification " + i + " read.");
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			StreamUtil.close(lnr);
 		}
@@ -107,7 +106,7 @@ public class Announcements {
 				save.write("\r\n");
 			}
 		} catch (IOException e) {
-			log.log(Level.ERROR, "saving the announcements file has failed",
+			_log.log(Level.SEVERE, "saving the announcements file has failed",
 					e);
 		} finally {
 			StreamUtil.close(save);

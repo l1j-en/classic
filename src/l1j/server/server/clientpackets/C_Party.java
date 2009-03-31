@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Party;
@@ -32,7 +32,7 @@ import l1j.server.server.serverpackets.S_Party;
 public class C_Party extends ClientBasePacket {
 
 	private static final String C_PARTY = "[C] C_Party";
-	private static Logger log = Logger.getLogger(C_Party.class.getName());
+	private static Logger _log = Logger.getLogger(C_Party.class.getName());
 
 	public C_Party(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

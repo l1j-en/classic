@@ -20,9 +20,8 @@
 package l1j.server.server.clientpackets;
 
 import java.io.FileOutputStream;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
@@ -35,7 +34,7 @@ import l1j.server.server.serverpackets.S_Emblem;
 public class C_Emblem extends ClientBasePacket {
 
 	private static final String C_EMBLEM = "[C] C_Emblem";
-	private static Logger log = Logger.getLogger(C_Emblem.class.getName());
+	private static Logger _log = Logger.getLogger(C_Emblem.class.getName());
 
 	public C_Emblem(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -52,7 +51,7 @@ public class C_Emblem extends ClientBasePacket {
 					fos.write(readC());
 				}
 			} catch (Exception e) {
-				log.log(Level.ERROR, e.getLocalizedMessage(), e);
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				throw e;
 			} finally {
 				if (null != fos) {

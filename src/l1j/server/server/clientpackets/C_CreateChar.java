@@ -21,9 +21,8 @@ package l1j.server.server.clientpackets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.BadNamesList;
@@ -43,7 +42,7 @@ import l1j.server.server.templates.L1Skills;
 
 public class C_CreateChar extends ClientBasePacket {
 
-	private static Logger log = Logger.getLogger(C_CreateChar.class.getName());
+	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
 
 	public C_CreateChar(byte[] abyte0, ClientThread client)
@@ -69,7 +68,7 @@ public class C_CreateChar extends ClientBasePacket {
 		}
 
 		if (CharacterTable.doesCharNameExist(name)) {
-			log.warn("Charname: " + pc.getName()
+			_log.fine("Charname: " + pc.getName()
 					+ " already exists. creation failed.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_ALREADY_EXSISTS);
@@ -78,7 +77,7 @@ public class C_CreateChar extends ClientBasePacket {
 		}
 		
 		if (client.getAccount().countCharacters() >= 4) {
-			log.warn("Account: " + client.getAccountName()
+			_log.fine("Account: " + client.getAccountName()
 					+ " attempted to create more than 4 characters.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
@@ -100,14 +99,14 @@ public class C_CreateChar extends ClientBasePacket {
 				+ pc.getInt() + pc.getStr() + pc.getWis();
 
 		if (statusAmount != 75) {
-			log.warn("Character have wrong value");
+			_log.finest("Character have wrong value");
 			S_CharCreateStatus s_charcreatestatus3 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus3);
 			return;
 		}
 
-		log.debug("charname: " + pc.getName() + " classId: "
+		_log.fine("charname: " + pc.getName() + " classId: "
 				+ pc.getClassId());
 		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(
 				S_CharCreateStatus.REASON_OK);
@@ -325,7 +324,7 @@ public class C_CreateChar extends ClientBasePacket {
 		try {
 			numOfNameBytes = name.getBytes("UTF-8").length;
 		} catch (UnsupportedEncodingException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			return false;
 		}
 

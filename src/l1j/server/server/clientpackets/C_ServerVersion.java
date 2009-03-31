@@ -19,8 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
-
+import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 import l1j.server.server.serverpackets.S_ServerVersion;
 
@@ -30,7 +29,7 @@ import l1j.server.server.serverpackets.S_ServerVersion;
 public class C_ServerVersion extends ClientBasePacket {
 
 	private static final String C_SERVER_VERSION = "[C] C_ServerVersion";
-	private static Logger log = Logger.getLogger(C_ServerVersion.class
+	private static Logger _log = Logger.getLogger(C_ServerVersion.class
 			.getName());
 
 	public C_ServerVersion(byte decrypt[], ClientThread client)

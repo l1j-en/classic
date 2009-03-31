@@ -19,7 +19,7 @@
 package l1j.server.server.utils;
 
 import java.sql.Time;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.model.gametime.L1GameTime;
 

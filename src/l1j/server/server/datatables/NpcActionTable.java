@@ -22,9 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -93,7 +92,7 @@ public class NpcActionTable {
 			_instance = new NpcActionTable();
 			System.out.println("      OK!     " + timer.get() + "ms");
 		} catch (Exception e) {
-			_log.log(Level.ERROR, "NpcAction Could not load", e);
+			_log.log(Level.SEVERE, "NpcAction Could not load", e);
 			System.exit(0);
 		}
 	}

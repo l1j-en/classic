@@ -20,8 +20,7 @@ package l1j.server.server.templates;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.utils.TimePeriod;
 

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1NpcTalkData;
@@ -51,7 +51,7 @@ public class L1RequestInstance extends L1NpcInstance {
 				player.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
 			}
 		} else {
-			_log.warn("No actions for npc id : " + objid);
+			_log.finest("No actions for npc id : " + objid);
 		}
 	}
 

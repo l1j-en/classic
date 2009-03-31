@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -39,7 +39,7 @@ import l1j.server.server.templates.L1Castle;
 public class C_Drawal extends ClientBasePacket {
 
 	private static final String C_DRAWAL = "[C] C_Drawal";
-	private static Logger log = Logger.getLogger(C_Drawal.class.getName());
+	private static Logger _log = Logger.getLogger(C_Drawal.class.getName());
 
 	public C_Drawal(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -49,7 +49,7 @@ public class C_Drawal extends ClientBasePacket {
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (j < 0) {
-			log.warn(pc.getName() + " attempted dupe exploit (C_Drawal).");
+			_log.info(pc.getName() + " attempted dupe exploit (C_Drawal).");
 			return;
 		}
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());

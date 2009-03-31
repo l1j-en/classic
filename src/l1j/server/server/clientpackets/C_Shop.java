@@ -20,8 +20,7 @@
 package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -40,7 +39,7 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 public class C_Shop extends ClientBasePacket {
 
 	private static final String C_SHOP = "[C] C_Shop";
-	private static Logger log = Logger.getLogger(C_Shop.class.getName());
+	private static Logger _log = Logger.getLogger(C_Shop.class.getName());
 
 	public C_Shop(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -68,7 +67,7 @@ public class C_Shop extends ClientBasePacket {
 				
 				if (sellCount < 0)
 				{
-					log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
+					_log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
 					
 					return;
 				}
@@ -108,7 +107,7 @@ public class C_Shop extends ClientBasePacket {
 				
 				if (buyCount < 0)
 				{
-					log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
+					_log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
 					
 					return;
 				}

@@ -21,10 +21,9 @@ package l1j.server.server.model.Instance;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Random;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -332,7 +331,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					DropTable.getInstance().dropShare(_npc,
 							dropTargetList, dropHateList);
 				} catch (Exception e) {
-					_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 				player.addKarma((int) (getKarma() * Config.RATE_KARMA));
 			}

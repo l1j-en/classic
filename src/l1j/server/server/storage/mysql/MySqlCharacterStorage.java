@@ -22,9 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -152,9 +151,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pc.setBraveSpeed(0);
 			pc.setGmInvis(false);
 
-			_log.debug("restored char data: ");
+			_log.finest("restored char data: ");
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			return null;
 		} finally {
 			SQLUtil.close(rs);
@@ -227,9 +226,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 
 			pstm.execute();
 
-			_log.debug("stored char data: " + pc.getName());
+			_log.finest("stored char data: " + pc.getName());
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -254,7 +253,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 				 * SELECT
 				 * 
 				 */
-				_log.warn("invalid delete char request: account="
+				_log.warning("invalid delete char request: account="
 						+ accountName + " char=" + charName);
 				throw new RuntimeException("could not delete character");
 			}
@@ -360,9 +359,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setTimestamp(++i, pc.getDeleteTime());
 			pstm.setInt(++i, pc.getId());
 			pstm.execute();
-			_log.debug("stored char data:" + pc.getName());
+			_log.finest("stored char data:" + pc.getName());
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

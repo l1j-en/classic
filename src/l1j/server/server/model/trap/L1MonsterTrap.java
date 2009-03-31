@@ -21,9 +21,8 @@ package l1j.server.server.model.trap;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.NpcTable;
@@ -130,7 +129,7 @@ public class L1MonsterTrap extends L1Trap {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 }

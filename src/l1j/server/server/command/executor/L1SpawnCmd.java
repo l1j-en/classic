@@ -20,9 +20,8 @@ package l1j.server.server.command.executor;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,7 +30,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.L1SpawnUtil;
 
 public class L1SpawnCmd implements L1CommandExecutor {
-	private static Logger log = Logger.getLogger(L1SpawnCmd.class.getName());
+	private static Logger _log = Logger.getLogger(L1SpawnCmd.class.getName());
 
 	private L1SpawnCmd() {
 	}
@@ -86,7 +85,7 @@ public class L1SpawnCmd implements L1CommandExecutor {
 		} catch (NumberFormatException e) {
 			sendErrorMessage(pc, cmdName);
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(cmdName + " G[B"));
 		}
 	}

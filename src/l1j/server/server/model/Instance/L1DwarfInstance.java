@@ -19,8 +19,7 @@
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
@@ -94,17 +93,17 @@ public class L1DwarfInstance extends L1NpcInstance {
 	public void onFinalAction(L1PcInstance pc, String Action) {
 		int objid = getTemplateid();
 		if (Action.equalsIgnoreCase("retrieve")) {
-			_log.debug("Retrive items in storage");
+			_log.finest("Retrive items in storage");
 		} else if (Action.equalsIgnoreCase("retrieve-pledge")) {
-			_log.debug("Retrive items in pledge storage");
+			_log.finest("Retrive items in pledge storage");
 
 			if (pc.getClanname().equalsIgnoreCase(" ")) {
-				_log.debug("pc isnt in a pledge");
+				_log.finest("pc isnt in a pledge");
 				S_ServerMessage talk = new S_ServerMessage(
 						(S_ServerMessage.NO_PLEDGE), Action);
 				pc.sendPackets(talk);
 			} else {
-				_log.debug("pc is in a pledge");
+				_log.finest("pc is in a pledge");
 			}
 		}
 	}

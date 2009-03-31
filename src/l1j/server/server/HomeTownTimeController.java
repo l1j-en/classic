@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collection;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.TownTable;
@@ -39,7 +38,7 @@ import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.utils.SQLUtil;
 
 public class HomeTownTimeController {
-	private static Logger log = Logger.getLogger(HomeTownTimeController.class
+	private static Logger _log = Logger.getLogger(HomeTownTimeController.class
 			.getName());
 
 	private static HomeTownTimeController _instance;
@@ -83,14 +82,14 @@ public class HomeTownTimeController {
 	}
 
 	public void dailyProc() {
-		log.info("Running daily update for tax and sales money.");
+		_log.info("Running daily update for tax and sales money.");
 		TownTable.getInstance().updateTaxRate();
 		TownTable.getInstance().updateSalesMoneyYesterday();
 		TownTable.getInstance().load();
 	}
 
 	public void monthlyProc() {
-		log.info("Running monthly update for tax and sales money.");
+		_log.info("Running monthly update for tax and sales money.");
 		L1World.getInstance().setProcessingContributionTotal(true);
 		Collection<L1PcInstance> players = L1World.getInstance()
 				.getAllPlayers();
@@ -98,7 +97,7 @@ public class HomeTownTimeController {
 			try {
 				pc.save();
 			} catch (Exception e) {
-				log.log(Level.ERROR, e.getLocalizedMessage(), e);
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		}
 
@@ -126,7 +125,7 @@ public class HomeTownTimeController {
 
 				pc.save();
 			} catch (Exception e) {
-				log.log(Level.ERROR, e.getLocalizedMessage(), e);
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		}
 		clearHomeTownID();
@@ -196,7 +195,7 @@ public class HomeTownTimeController {
 			pstm5.setInt(3, townId);
 			pstm5.execute();
 		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(rs2);
@@ -222,7 +221,7 @@ public class HomeTownTimeController {
 					.prepareStatement("UPDATE characters SET HomeTownID = 0 WHERE HomeTownID = -1");
 			pstm.execute();
 		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -253,7 +252,7 @@ public class HomeTownTimeController {
 			pstm2.setInt(1, objid);
 			pstm2.execute();
 		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(pstm1);

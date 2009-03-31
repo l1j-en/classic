@@ -19,9 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
+import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 import l1j.server.server.LoginController;
 
@@ -31,14 +29,14 @@ import l1j.server.server.LoginController;
 public class C_ReturnToLogin extends ClientBasePacket {
 
 	private static final String C_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
-	private static Logger log = Logger.getLogger(C_ReturnToLogin.class
+	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
 			.getName());
 
 	public C_ReturnToLogin(byte decrypt[], ClientThread client)
 			throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();
-		log.log(Level.DEBUG, (new StringBuilder()).append("account : ").append(account)
+		_log.finest((new StringBuilder()).append("account : ").append(account)
 				.toString());
 
 	}

@@ -19,11 +19,10 @@
 package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Random;
 import java.util.TimeZone;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -106,7 +105,7 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class C_NPCAction extends ClientBasePacket {
 
 	private static final String C_NPC_ACTION = "[C] C_NPCAction";
-	private static Logger log = Logger.getLogger(C_NPCAction.class.getName());
+	private static Logger _log = Logger.getLogger(C_NPCAction.class.getName());
 	private static Random _random = new Random();
 
 	public C_NPCAction(byte abyte0[], ClientThread client) throws Exception {
@@ -3059,7 +3058,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.beginGhost(loc.getX(), loc.getY(), (short) loc.getMapId(),
 						true);
 			} catch (Exception e) {
-				log.log(Level.ERROR, e.getLocalizedMessage(), e);
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(189)); 

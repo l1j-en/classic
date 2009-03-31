@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -34,7 +34,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_PickUpItem extends ClientBasePacket {
 
 	private static final String C_PICK_UP_ITEM = "[C] C_PickUpItem";
-	private static Logger log = Logger.getLogger(C_PickUpItem.class
+	private static Logger _log = Logger.getLogger(C_PickUpItem.class
 			.getName());
 
 	public C_PickUpItem(byte decrypt[], ClientThread client)
@@ -48,7 +48,7 @@ public class C_PickUpItem extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		if (pickupCount < 0)
 		{
-			log.info(pc.getName() + " attempted dupe exploit (C_PickUpItem).");
+			_log.info(pc.getName() + " attempted dupe exploit (C_PickUpItem).");
 			
 			return;
 		}

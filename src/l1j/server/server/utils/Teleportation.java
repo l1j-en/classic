@@ -20,9 +20,8 @@
 package l1j.server.server.utils;
 
 import java.util.HashSet;
+import java.util.logging.Logger;
 import java.util.Random;
-
-import org.apache.log4j.Logger;
 
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Location;

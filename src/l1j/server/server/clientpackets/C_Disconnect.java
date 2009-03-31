@@ -18,14 +18,14 @@
  */
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class C_Disconnect extends ClientBasePacket {
 	private static final String C_DISCONNECT = "[C] C_Disconnect";
-	private static Logger log = Logger.getLogger(C_Disconnect.class.getName());
+	private static Logger _log = Logger.getLogger(C_Disconnect.class.getName());
 
 	public C_Disconnect(byte[] decrypt, ClientThread client) {
 		super(decrypt);
@@ -33,7 +33,7 @@ public class C_Disconnect extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		if (pc != null) {
 
-			log.debug("Disconnect from: " + pc.getName());
+			_log.fine("Disconnect from: " + pc.getName());
 
 			ClientThread.quitGame(pc);
 
@@ -42,7 +42,7 @@ public class C_Disconnect extends ClientBasePacket {
 				client.setActiveChar(null);
 			}
 		} else {
-			log.debug("Disconnect Request from Account : "
+			_log.fine("Disconnect Request from Account : "
 					+ client.getAccountName());
 		}
 	}

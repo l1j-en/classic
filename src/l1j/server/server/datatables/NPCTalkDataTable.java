@@ -20,7 +20,7 @@ package l1j.server.server.datatables;
 
 import java.sql.*;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.utils.SQLUtil;
@@ -65,9 +65,9 @@ public class NPCTalkDataTable {
 				_datatable.put(new Integer(l1npctalkdata.getNpcID()),
 						l1npctalkdata);
 			}
-			_log.info("NPC Action List: " + _datatable.size() + " Loaded");
+			_log.config("NPC Action List: " + _datatable.size() + " Loaded");
 		} catch (SQLException e) {
-			_log.warn("error while creating npc action table " + e);
+			_log.warning("error while creating npc action table " + e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

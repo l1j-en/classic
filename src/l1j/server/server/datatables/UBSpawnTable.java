@@ -22,9 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1UbPattern;
@@ -83,13 +82,13 @@ public class UBSpawnTable {
 			}
 		} catch (SQLException e) {
 			// problem with initializing spawn, go to next one
-			_log.warn("spawn couldnt be initialized:" + e);
+			_log.warning("spawn couldnt be initialized:" + e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.info("UB Spawn list: " + _spawnTable.size() + " Loaded");
+		_log.config("UB Spawn list: " + _spawnTable.size() + " Loaded");
 	}
 
 	public L1UbSpawn getSpawn(int spawnId) {
@@ -119,7 +118,7 @@ public class UBSpawnTable {
 				n = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

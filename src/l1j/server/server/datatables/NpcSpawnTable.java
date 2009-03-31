@@ -25,9 +25,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -111,7 +110,7 @@ public class NpcSpawnTable {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(npcTemplateid);
 				L1Spawn l1spawn;
 				if (l1npc == null) {
-					_log.warn("mob data for id:" + npcTemplateid
+					_log.warning("mob data for id:" + npcTemplateid
 							+ " missing in npc table");
 					l1spawn = null;
 				} else {
@@ -144,15 +143,15 @@ public class NpcSpawnTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
 
-		_log.info("NPC Placement list: " + _spawntable.size() + " loaded");
-		_log.info("The total number of NPCs: " + spawnCount + " mobs.");
+		_log.config("NPC Placement list: " + _spawntable.size() + " loaded");
+		_log.fine("The total number of NPCs: " + spawnCount + " mobs.");
 	}
 
 	public void storeSpawn(L1PcInstance pc, L1Npc npc) {
@@ -175,7 +174,7 @@ public class NpcSpawnTable {
 			pstm.setInt(7, pc.getMapId());
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);

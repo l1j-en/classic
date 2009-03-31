@@ -21,9 +21,8 @@ package l1j.server.server.model.npc.action;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
 
@@ -50,7 +49,7 @@ public class L1NpcActionFactory {
 			_actions
 					.put("Teleport", loadConstructor(L1NpcTeleportAction.class));
 		} catch (NoSuchMethodException e) {
-			_log.log(Level.ERROR, "L1NpcActionFactory Error when loading Constructors.", e);
+			_log.log(Level.SEVERE, "L1NpcActionFactory Error when loading Constructors.", e);
 		}
 	}
 
@@ -59,9 +58,9 @@ public class L1NpcActionFactory {
 			Constructor<L1NpcAction> con = _actions.get(element.getNodeName());
 			return con.newInstance(element);
 		} catch (NullPointerException e) {
-			_log.warn("Invalid NpcAction reference for " + element.getNodeName());
+			_log.warning("Invalid NpcAction reference for " + element.getNodeName());
 		} catch (Exception e) {
-			_log.log(Level.ERROR, "L1NpcActionFactory Error when loading actions.", e);
+			_log.log(Level.SEVERE, "L1NpcActionFactory Error when loading actions.", e);
 		}
 		return null;
 	}

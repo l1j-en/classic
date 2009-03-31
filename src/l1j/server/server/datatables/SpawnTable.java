@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -57,7 +56,7 @@ public class SpawnTable {
 		PerformanceTimer timer = new PerformanceTimer();
 		System.out.print("Spawning Mob...");
 		fillSpawnTable();
-		_log.info("Monster placement list: " + _spawntable.size() + " Loaded");
+		_log.config("Monster placement list: " + _spawntable.size() + " Loaded");
 		System.out.println("           OK!     " + timer.get() + "ms");
 	}
 
@@ -87,7 +86,7 @@ public class SpawnTable {
 				int count;
 
 				if (template1 == null) {
-					_log.warn("mob data for id:" + npcTemplateId
+					_log.warning("mob data for id:" + npcTemplateId
 							+ " missing in npc table");
 					spawnDat = null;
 				} else {
@@ -150,13 +149,13 @@ public class SpawnTable {
 			}
 
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.info("The total number of Monster: " + spawnCount + " mobs");
+		_log.fine("The total number of Monster: " + spawnCount + " mobs");
 	}
 
 	public L1Spawn getTemplate(int Id) {
@@ -197,7 +196,7 @@ public class SpawnTable {
 			pstm.execute();
 	
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			NpcTable._log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

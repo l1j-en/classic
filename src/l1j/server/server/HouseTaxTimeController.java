@@ -19,9 +19,8 @@
 package l1j.server.server;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 import java.util.TimeZone;
-
-import org.apache.log4j.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.AuctionBoardTable;
@@ -33,7 +32,7 @@ import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
 public class HouseTaxTimeController implements Runnable {
-	private static Logger log = Logger.getLogger(HouseTaxTimeController.class
+	private static Logger _log = Logger.getLogger(HouseTaxTimeController.class
 			.getName());
 
 	private static HouseTaxTimeController _instance;

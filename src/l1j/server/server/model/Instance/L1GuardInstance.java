@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
+
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NPCTalkDataTable;

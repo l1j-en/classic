@@ -1,43 +1,28 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
+// Decompiled by DJ v3.9.9.91 Copyright 2005 Atanas Neshkov  Date: 2007/05/06 22:06:37
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Logins.java
+
 package l1j.server.server;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import l1j.server.Base64;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class Logins {
-	private static Logger log = Logger.getLogger(Logins.class.getName());
+	private static Logger _log = Logger.getLogger(Logins.class.getName());
 
 	public static boolean loginValid(String account, String password,
 			String ip, String host) {
 		boolean flag1 = false;
-		log.info("Connection from: " + account);
+		_log.info("Connection from: " + account);
 
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -57,7 +42,7 @@ public class Logins {
 			rs = pstm.executeQuery();
 			if (rs.next()) {
 				abyte2 = Base64.decode(rs.getString(1));
-				log.log(Level.INFO, "Account exists");
+				_log.fine("Account exists");
 			}
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -75,10 +60,10 @@ public class Logins {
 					pstm.setString(5, ip);
 					pstm.setString(6, host);
 					pstm.execute();
-					log.info("Created new account for " + account);
+					_log.info("Created new account for " + account);
 					return true;
 				} else {
-					log.warn("Account missing for user " + account);
+					_log.warning("Account missing for user " + account);
 					return false;
 				}
 			}
@@ -97,15 +82,15 @@ public class Logins {
 					i++;
 				} while (true);
 			} catch (Exception e) {
-				log.warn("Could not check password: " + e);
+				_log.warning("Could not check password: " + e);
 				flag1 = false;
 			}
 		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} catch (UnsupportedEncodingException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

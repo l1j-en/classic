@@ -25,9 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -279,7 +278,7 @@ public class L1SkillUse {
 
 		L1Object l1object = L1World.getInstance().findObject(_targetID);
 		if (l1object instanceof L1ItemInstance) {
-		_log.debug("skill target item name: "
+			_log.fine("skill target item name: "
 					+ ((L1ItemInstance) l1object).getViewName());
 			return false;
 		}
@@ -485,7 +484,7 @@ public class L1SkillUse {
 			}
 			setCheckedUseSkill(false);
 		} catch (Exception e) {
-			_log.log(Level.ERROR, "", e);
+			_log.log(Level.SEVERE, "", e);
 		}
 	}
 
@@ -850,7 +849,7 @@ public class L1SkillUse {
 			}
 
 		} catch (Exception e) {
-			_log.warn("exception in L1Skilluse makeTargetList" + e);
+			_log.finest("exception in L1Skilluse makeTargetList" + e);
 		}
 	}
 
@@ -2812,7 +2811,7 @@ public class L1SkillUse {
 			}
 
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 

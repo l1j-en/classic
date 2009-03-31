@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -87,7 +86,7 @@ public final class TaskManager {
 				pstm.setInt(2, _id);
 				pstm.executeUpdate();
 			} catch (SQLException e) {
-				_log.warn("cannot updated the Global Task " + _id + ": "
+				_log.warning("cannot updated the Global Task " + _id + ": "
 						+ e.getMessage());
 			} finally {
 				SQLUtil.close(pstm);
@@ -180,7 +179,7 @@ public final class TaskManager {
 			}
 
 		} catch (Exception e) {
-			_log.log(Level.ERROR, "error while loading Global Task table", e);
+			_log.log(Level.SEVERE, "error while loading Global Task table", e);
 		} finally {
 			if (null != rs) {
 				try {
@@ -221,7 +220,7 @@ public final class TaskManager {
 			String[] hour = task.getParams()[1].split(":");
 
 			if (hour.length != 3) {
-				_log.warn("Task " + task.getId()
+				_log.warning("Task " + task.getId()
 						+ " has incorrect parameters");
 				return false;
 			}
@@ -235,7 +234,7 @@ public final class TaskManager {
 				min.set(Calendar.MINUTE, Integer.valueOf(hour[1]));
 				min.set(Calendar.SECOND, Integer.valueOf(hour[2]));
 			} catch (Exception e) {
-				_log.warn("Bad parameter on task " + task.getId() + ": "
+				_log.warning("Bad parameter on task " + task.getId() + ": "
 						+ e.getMessage());
 				return false;
 			}
@@ -285,7 +284,7 @@ public final class TaskManager {
 
 			return true;
 		} catch (SQLException e) {
-			_log.warn("cannot add the unique task: " + e.getMessage());
+			_log.warning("cannot add the unique task: " + e.getMessage());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -318,7 +317,7 @@ public final class TaskManager {
 
 			return true;
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, "cannot add the task", e);
+			_log.log(Level.SEVERE, "cannot add the task", e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

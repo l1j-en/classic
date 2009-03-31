@@ -20,9 +20,8 @@
 package l1j.server.server.clientpackets;
 
 import java.io.File;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
@@ -64,7 +63,7 @@ import l1j.server.server.templates.L1Pet;
 
 public class C_Attr extends ClientBasePacket {
 
-	private static final Logger log = Logger.getLogger(C_Attr.class.getName());
+	private static final Logger _log = Logger.getLogger(C_Attr.class.getName());
 	private static final String C_ATTR = "[C] C_Attr";
 
 	public C_Attr(byte abyte0[], ClientThread clientthread) throws Exception {
@@ -539,7 +538,7 @@ public class C_Attr extends ClientBasePacket {
 						//
 						oldClanMember.save();
 					} catch (Exception e) {
-						log.log(Level.ERROR, e.getLocalizedMessage(), e);
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
 					clan.addMemberName(oldClanMember.getName());
 					oldClanMember.sendPackets(new S_ServerMessage(95,
@@ -555,7 +554,7 @@ public class C_Attr extends ClientBasePacket {
 						offClanMember.save(); 
 						clan.addMemberName(offClanMember.getName());
 					} catch (Exception e) {
-						log.log(Level.ERROR, e.getLocalizedMessage(), e);
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
 				}
 			}

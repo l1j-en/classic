@@ -20,8 +20,7 @@
 package l1j.server.server.model.Instance;
 
 import java.util.Random;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NPCTalkDataTable;
@@ -165,7 +164,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				}
 			}
 		} else {
-			_log.warn((new StringBuilder())
+			_log.finest((new StringBuilder())
 					.append("No actions for npc id : ").append(objid)
 					.toString());
 		}
@@ -184,7 +183,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			player.sendPackets(new S_NPCTalkReturn(objid, html));
 		}
 		if (action.startsWith("teleport ")) {
-			_log.debug((new StringBuilder()).append("Setting action to : ")
+			_log.finest((new StringBuilder()).append("Setting action to : ")
 					.append(action).toString());
 			doFinalAction(player, action);
 		}

@@ -19,9 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
 import java.util.Random;
-
-import org.apache.log4j.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.PetTypeTable;
@@ -40,7 +39,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1PetType;
 
 public class C_GiveItem extends ClientBasePacket {
-	private static Logger log = Logger.getLogger(C_GiveItem.class.getName());
+	private static Logger _log = Logger.getLogger(C_GiveItem.class.getName());
 	private static final String C_GIVE_ITEM = "[C] C_GiveItem";
 
 	private static Random _random = new Random();
@@ -58,7 +57,7 @@ public class C_GiveItem extends ClientBasePacket {
 
 		if (count < 0)
 		{
-			log.warn(pc.getName() + " attempted dupe exploit (C_GiveItem).");
+			_log.info(pc.getName() + " attempted dupe exploit (C_GiveItem).");
 
 			return;
 		}

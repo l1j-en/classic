@@ -23,14 +23,13 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Properties;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.utils.IntRange;
 
 public final class Config {
-	private static final Logger log = Logger.getLogger(Config.class.getName());
+	private static final Logger _log = Logger.getLogger(Config.class.getName());
 
 	/** Debug/release mode */
 	public static final boolean DEBUG = false;
@@ -499,7 +498,7 @@ public final class Config {
 							"false"));
 	
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
 		}
 
@@ -556,7 +555,7 @@ public final class Config {
 			RATE_DROP_ITEMS_ORG=RATE_DROP_ITEMS;
 			RATE_WEIGHT_LIMIT_ORG=RATE_WEIGHT_LIMIT;
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + RATES_CONFIG_FILE + " File.");
 		}
 
@@ -675,7 +674,7 @@ public final class Config {
 			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings
 					.getProperty("DeleteCharacterAfter7Days", "True"));
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
 		}
 
@@ -809,7 +808,7 @@ public final class Config {
 			LV99_EXP = Integer.parseInt(charSettings.getProperty("Lv99Exp",
 					"16777216"));
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + CHAR_SETTINGS_CONFIG_FILE
 					+ " File.");
 		}
@@ -825,7 +824,7 @@ public final class Config {
 			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "false"));
 
 		} catch (Exception e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + PCOMMANDS_SETTINGS_FILE	+ " File.");
 		}
 		validate();
@@ -1092,7 +1091,7 @@ public final class Config {
 
 	/* Functions to reset the rates */
 	public static void reset() {
-		log.info("Reloading rates config.");
+		_log.info("Reloading rates config.");
 		try {
 			RATE_XP = RATE_XP_ORG;
 			RATE_DROP_ADENA = RATE_DROP_ADENA_ORG;
@@ -1101,7 +1100,7 @@ public final class Config {
 			RATE_KARMA = RATE_KARMA_ORG;
 			RATE_WEIGHT_LIMIT = RATE_WEIGHT_LIMIT_ORG;
 		} catch (Exception e) {
-			log.error(e.toString());
+			_log.severe(e.toString());
 		}
 	}
 

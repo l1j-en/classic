@@ -19,8 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
@@ -35,7 +35,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Rank extends ClientBasePacket {
 
 	private static final String C_RANK = "[C] C_Rank";
-	private static Logger log = Logger.getLogger(C_Rank.class.getName());
+	private static Logger _log = Logger.getLogger(C_Rank.class.getName());
 
 	public C_Rank(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -88,7 +88,7 @@ public class C_Rank extends ClientBasePacket {
 					}
 					targetPc.sendPackets(new S_ServerMessage(784, rankString)); //
 				} catch (Exception e) {
-					log.log(Level.ERROR, e.getLocalizedMessage(), e);
+					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 			} else {
 				pc.sendPackets(new S_ServerMessage(414)); //
@@ -103,7 +103,7 @@ public class C_Rank extends ClientBasePacket {
 					restorePc.setClanRank(rank);
 					restorePc.save(); //
 				} catch (Exception e) {
-					log.log(Level.ERROR, e.getLocalizedMessage(), e);
+					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 			} else {
 				pc.sendPackets(new S_ServerMessage(109, name)); //

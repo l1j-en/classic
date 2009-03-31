@@ -19,8 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
@@ -35,7 +35,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_BanClan extends ClientBasePacket {
 
 	private static final String C_BAN_CLAN = "[C] C_BanClan";
-	private static Logger log = Logger.getLogger(C_BanClan.class.getName());
+	private static Logger _log = Logger.getLogger(C_BanClan.class.getName());
 
 	public C_BanClan(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -85,7 +85,7 @@ public class C_BanClan extends ClientBasePacket {
 							pc.sendPackets(new S_ServerMessage(109, s)); 
 						}
 					} catch (Exception e) {
-						log.log(Level.ERROR, e.getLocalizedMessage(), e);
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
 				}
 			} else {

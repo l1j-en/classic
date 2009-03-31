@@ -22,8 +22,7 @@ import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-
-import org.apache.log4j.Logger;
+//import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
@@ -49,8 +48,8 @@ import l1j.server.server.templates.L1House;
 
 public class C_Amount extends ClientBasePacket {
 
-	private static final Logger _log = Logger.getLogger(C_Amount.class
-	.getName());
+	//private static final Logger _log = Logger.getLogger(C_Amount.class
+	//		.getName());
 	private static final String C_AMOUNT = "[C] C_Amount";
 
 	public C_Amount(byte[] decrypt, ClientThread client) throws Exception {

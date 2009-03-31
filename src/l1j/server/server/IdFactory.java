@@ -23,15 +23,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class IdFactory {
-	private static Logger log = Logger.getLogger(IdFactory.class.getName());
+	private static Logger _log = Logger.getLogger(IdFactory.class.getName());
 
 	private int _curId;
 
@@ -75,9 +74,9 @@ public class IdFactory {
 				id = FIRST_ID;
 			}
 			_curId = id;
-			log.info("IDFactory current max ID: " + _curId);
+			_log.info("IDFactory current max ID: " + _curId);
 		} catch (SQLException e) {
-			log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

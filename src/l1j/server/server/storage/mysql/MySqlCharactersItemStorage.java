@@ -24,8 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
@@ -60,7 +59,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 						itemId);
 				if (itemTemplate == null) {
 
-					_log.warn(String.format("item id:%d not found", itemId));
+					_log.warning(String.format("item id:%d not found", itemId));
 					continue;
 				}
 				item = new L1ItemInstance();

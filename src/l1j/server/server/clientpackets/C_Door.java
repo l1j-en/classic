@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -34,7 +34,7 @@ import l1j.server.server.templates.L1House;
 
 public class C_Door extends ClientBasePacket {
 
-	private static Logger log = Logger.getLogger(C_Door.class
+	private static Logger _log = Logger.getLogger(C_Door.class
 			.getName());
 	private static final String C_DOOR = "[C] C_Door";
 

@@ -24,9 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1Teleport;
@@ -71,14 +70,14 @@ public class CharacterTable {
 				cn.setId(pc.getId());
 				_charNameList.put(name, cn);
 			}
-			_log.log(Level.DEBUG, "storeNewCharacter");
+			_log.finest("storeNewCharacter");
 		}
 	}
 
 	public void storeCharacter(L1PcInstance pc) throws Exception {
 		synchronized (pc) {
 			_charStorage.storeCharacter(pc);
-			_log.log(Level.DEBUG, "storeCharacter: " + pc.getName());
+			_log.finest("storeCharacter: " + pc.getName());
 		}
 	}
 
@@ -89,7 +88,7 @@ public class CharacterTable {
 		if (_charNameList.containsKey(charName)) {
 			_charNameList.remove(charName);
 		}
-		_log.log(Level.DEBUG, "deleteCharacter");
+		_log.finest("deleteCharacter");
 	}
 
 	public L1PcInstance restoreCharacter(String charName) throws Exception {
@@ -117,9 +116,9 @@ public class CharacterTable {
 			 * clantable.getClan(l1pcinstance.getClanname());
 			 * l1pcinstance.setClanname(clan.GetClanName()); }
 			 */
-			_log.log(Level.DEBUG, "loadCharacter: " + pc.getName());
+			_log.finest("loadCharacter: " + pc.getName());
 		} catch (Exception e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		return pc;
 
@@ -133,7 +132,7 @@ public class CharacterTable {
 			pstm = con.prepareStatement("UPDATE characters SET OnlineStatus=0");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -151,7 +150,7 @@ public class CharacterTable {
 			pstm.setInt(2, pc.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -177,7 +176,7 @@ public class CharacterTable {
 			rs = pstm.executeQuery();
 			result = rs.next();
 		} catch (SQLException e) {
-			_log.warn("could not check existing charname:" + e.getMessage());
+			_log.warning("could not check existing charname:" + e.getMessage());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -205,7 +204,7 @@ public class CharacterTable {
 				_charNameList.put(name, cn);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.ERROR, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
