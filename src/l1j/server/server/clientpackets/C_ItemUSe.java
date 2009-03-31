@@ -3006,7 +3006,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 			pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0, 0));
 		} else {
-			// max bound the brave time to 1800 (30min)
+			// max bound the haste time to 1800 (30min)
 			if (time > 1800 && !usedBGHaste) {
 				time = 1800;
 			}
@@ -3031,6 +3031,9 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (pc.hasSkillEffect(STATUS_BRAVE)) {
 			time = pc.getSkillEffectTimeSec(STATUS_BRAVE);
 		}
+		else if (pc.hasSkillEffect(STATUS_ELFBRAVE)) {
+			time = pc.getSkillEffectTimeSec(STATUS_ELFBRAVE);
+		}
 
 		int addtime = 0;
 		if (item_id == L1ItemId.POTION_OF_EMOTION_BRAVERY) {
@@ -3048,13 +3051,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.setBraveSpeed(0);
 			}
 		} else if (item_id == 140068) {
-			time = 700;
-			if (pc.hasSkillEffect(STATUS_BRAVE)) { 
-				pc.killSkillEffectTimer(STATUS_BRAVE);
-				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.setBraveSpeed(0);
-			}
+			addtime = 700;
 			if (pc.hasSkillEffect(WIND_WALK)) {
 				pc.killSkillEffectTimer(WIND_WALK);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
@@ -3065,12 +3062,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			addtime = 600;
 		} else if (item_id == 40733) {
 			addtime = 600;
-			if (pc.hasSkillEffect(STATUS_ELFBRAVE)) {
-				pc.killSkillEffectTimer(STATUS_ELFBRAVE);
-				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.setBraveSpeed(0);
-			}
 			if (pc.hasSkillEffect(HOLY_WALK)) {
 				pc.killSkillEffectTimer(HOLY_WALK);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
