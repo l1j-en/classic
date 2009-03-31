@@ -73,7 +73,7 @@ public class GMCommands {
 				return false;
 			}
 			if (pc.getAccessLevel() < command.getLevel()) {
-				pc.sendPackets(new S_ServerMessage(74, pc.getName() + " attempted to run " + command)); 
+				pc.sendPackets(new S_ServerMessage(74, command + ", the attempt has been logged")); 
 				return true;
 			}
 
@@ -113,7 +113,7 @@ public class GMCommands {
 			redo(gm, param);
 							return;
 						}
-		gm.sendPackets(new S_SystemMessage("R}h " + cmd + " B"));
+		gm.sendPackets(new S_SystemMessage("The command " + cmd + " doesn't exist."));
 	}
 
 	private static Map<Integer, String> _lastCommands = new HashMap<Integer, String>();
