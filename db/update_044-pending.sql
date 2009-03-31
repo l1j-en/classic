@@ -2599,3 +2599,5 @@ UPDATE commands SET name = 'create' where class_name = 'L1CreateItem';
 INSERT INTO commands VALUES('item',100,'L1ItemDrops');
 -- bring back our old .mob command
 INSERT INTO commands VALUES('mob',100,'L1MobDrops');
+-- bring back our old .pbuff command
+INSERT INTO commands VALUES('pbuff',200,'L1Pbuff');
