@@ -25,6 +25,12 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_WhoAmount;
+import l1j.server.server.utils.SQLUtil;
+import l1j.server.L1DatabaseFactory;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1Who implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Who.class.getName());
@@ -39,30 +45,128 @@ public class L1Who implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			Collection<L1PcInstance> players = L1World.getInstance()
-					.getAllPlayers();
-			String amount = String.valueOf(players.size());
-			S_WhoAmount s_whoamount = new S_WhoAmount(amount);
-			pc.sendPackets(s_whoamount);
-
-			
-			if (arg.equalsIgnoreCase("all")) {
-				pc.sendPackets(new S_SystemMessage("-- Players --"));
-				StringBuffer buf = new StringBuffer();
-				for (L1PcInstance each : players) {
-					buf.append(each.getName());
-					buf.append(" / ");
-					if (buf.length() > 50) {
-						pc.sendPackets(new S_SystemMessage(buf.toString()));
-						buf.delete(0, buf.length() - 1);
-					}
+			if(arg.equals("")){
+					who(pc);
+				} else {
+					who(pc, arg);
 				}
-				if (buf.length() > 0) {
-					pc.sendPackets(new S_SystemMessage(buf.toString()));
-				}
-			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(".who [all]"));
+		}
+	}
+	private void who(L1PcInstance gm, String name) {  
+		try{
+			L1PcInstance target = getPcInstance(name.trim());
+			if(target == null) {
+				gm.sendPackets(new S_SystemMessage("-"+name.trim()+"-"));
+				whoOffline(gm, name);
+			} else {
+				gm.sendPackets(new S_SystemMessage((new StringBuilder())
+						.append(target.getName())
+						.append("(").append(target.getAccountName())
+						.append("): L").append(target.getLevel())
+						.append(" ").append(getSex(target.getClassId()))
+						.append(" ").append(getClass(target.getClassId()))
+						.append(" ").append(target.getMaxHp())
+						.append("/").append(target.getMaxMp()+ " | ")
+						.append("Dmg: +" + gm.getDmgup() + " | ")
+						.append("Hit: +" + gm.getHitup() + " | ")
+						.append("MR: " + gm.getMr() + " | ")
+						.append("HPR: " + gm.getHpr() + gm.getInventory().hpRegenPerTick() + " | ")
+						.append("MPR: " + gm.getMpr() + gm.getInventory().mpRegenPerTick() + " | ")
+						.append("Karma: " + gm.getKarma() + " | ")
+						.append("MR: ").append(target.getMr()).append(" | ")
+						.append("Items: " + gm.getInventory().getSize())
+						.toString()));
+			}
+		} catch (Exception exception) {
+			whoOffline(gm, name);
+		}
+	}
+	private void who(L1PcInstance gm) {
+		try{
+			String charC = "";
+			String charS = "";
+			int i = 1;
+			for (L1PcInstance player : L1World.getInstance().getAllPlayers()){
+				charC = getClass(player.getClassId());
+				charS = getSex(player.getClassId());
+				gm.sendPackets(new S_SystemMessage((new StringBuilder())
+						.append(i).append(". ") .append(player.getName())
+						.append("(").append(player.getAccountName())
+						.append("): L").append(player.getLevel())
+						.append(" ").append(charS).append(" ").append(charC)
+						.append(" ").append(player.getMaxHp())
+						.append("/").append(player.getMaxMp())
+						.append(" ").append(player.getMr()).append("MR")
+						.toString()));
+				i++;
+			}
+		} catch (Exception exception) {
+		}
+	}
+	private void whoOffline(L1PcInstance gm, String name) {  
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("SELECT account_name,char_name,level,MaxHp,MaxMp,Class FROM characters WHERE char_name=?");
+			pstm.setString(1, name);
+			rs = pstm.executeQuery();
+			rs.next();
+			gm.sendPackets(new S_SystemMessage((new StringBuilder())
+					.append(rs.getString("char_name"))
+					.append("(").append(rs.getString("account_name"))
+					.append("): L").append(rs.getInt("level"))
+					.append(" ").append(getSex(rs.getInt("Class")))
+					.append(" ").append(getClass(rs.getInt("Class")))
+					.append(" ").append(rs.getInt("MaxHp"))
+					.append("/").append(rs.getInt("MaxMp"))
+					.append(" (Offline)")
+					.toString()));
+		} catch (Exception exception) {
+			gm.sendPackets(new S_SystemMessage("'" + name + "' is not an existing character."));
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	private L1PcInstance getPcInstance(String name) {
+		L1PcInstance pc = L1World.getInstance().getPlayer(name);
+		if (pc == null) {
+			for (L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+				if (player.getName().toLowerCase().equals(name.toLowerCase())) {
+					pc = player;
+					break;
+				}
+			}
+		}
+		return pc;
+	}
+	private String getSex(int classID){
+		if(classID == 0 || classID == 61 || classID == 138 || classID == 734 || classID == 2786){
+			return "Male";
+		} else if(classID == 1 || classID == 48 || classID == 37 || classID == 1186 || classID == 2796){
+			return "Female";
+		} else{
+			return "error";
+		}
+	}
+	private String getClass(int classID){
+		if(classID == 0 || classID == 1){
+			return "Royal";
+		} else if(classID == 61 || classID == 48){
+			return "Knight";
+		} else if(classID == 138 || classID == 37){
+			return "Elf";
+		} else if(classID == 734 || classID == 1186){
+			return "Mage";
+		} else if(classID == 2786 || classID == 2796){
+			return "Dark Elf";
+		} else{
+			return "error";
 		}
 	}
 }
