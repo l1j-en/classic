@@ -2607,3 +2607,7 @@ update skills set probability_dice = 30,probability_value = 40 where skill_id = 
 
 -- fix aqua protect.  it parses the name to learn it, and they dont match
 update skills set name = 'Aqua Protect' where name = 'aquaprotect';
+
+-- ataroze, needed for quest line to get to dark elf holy place
+insert into spawnlist_npc values(1310354, 'Ataroze', 1, 71119, 32596, 32907, 0, 0, 4, 0, 400, 0);
+
