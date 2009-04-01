@@ -2601,3 +2601,9 @@ INSERT INTO commands VALUES('item',100,'L1ItemDrops');
 INSERT INTO commands VALUES('mob',100,'L1MobDrops');
 -- bring back our old .pbuff command
 INSERT INTO commands VALUES('pbuff',200,'L1Pbuff');
+
+-- give pollute water a sane formula to start with
+update skills set probability_dice = 30,probability_value = 40 where skill_id = 173;
+
+-- fix aqua protect.  it parses the name to learn it, and they dont match
+update skills set name = 'Aqua Protect' where name = 'aquaprotect';
