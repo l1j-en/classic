@@ -94,14 +94,13 @@ public class L1UltimateBattle {
 	}
 
 	private void spawnSupplies(int curRound) {
-		// NOTE: Added esc scrolls back in, since lvl1 blank is useless in DM
 		if (curRound == 1) {
 			spawnGroundItem(L1ItemId.ADENA, 1000, 60);
 			spawnGroundItem(L1ItemId.POTION_OF_CURE_POISON, 3, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_EXTRA_HEALING, 5, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_GREATER_HEALING, 3, 20);
 			spawnGroundItem(40317, 1, 5);
-			spawnGroundItem(42079, 1, 20);
+			spawnGroundItem(40092, 1, 20);
 		} else if (curRound == 2) {
 			spawnGroundItem(L1ItemId.ADENA, 5000, 50);
 			spawnGroundItem(L1ItemId.POTION_OF_CURE_POISON, 5, 20);
@@ -109,7 +108,6 @@ public class L1UltimateBattle {
 			spawnGroundItem(L1ItemId.POTION_OF_GREATER_HEALING, 5, 20);
 			spawnGroundItem(40317, 1, 7); 
 			spawnGroundItem(40093, 1, 10); 
-			spawnGroundItem(42079, 1, 5); 
 		} else if (curRound == 3) {
 			spawnGroundItem(L1ItemId.ADENA, 10000, 30);
 			spawnGroundItem(L1ItemId.POTION_OF_CURE_POISON, 7, 20);
