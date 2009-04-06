@@ -55,3 +55,15 @@ update droplist set chance = 15000 where itemid = 20320 and mobid = 45316;
 
 -- Slight reduction in Giran AG HP regen (was 1500)
 update npc set hpr = 1200 where npcid = 45316;
+
+-- Modify TOI scroll droprates
+-- 11F
+update droplist set chance = 10500 where itemid = 40104 and mobid in (45332, 45348, 45380, 45407);
+-- 21F
+update droplist set chance = 10500 where itemid = 40105 and mobid in (45386, 45394, 45399, 45406, 45409);
+-- 31F
+update droplist set chance = 10500 where itemid = 40106 and mobid in (45384, 45440, 45471);
+-- 41F
+update droplist set chance = 10500 where itemid = 40107 and mobid in (45402, 45403, 45454, 45455, 45493, 45494);
+-- 51F
+update droplist set chance = 12500 where itemid = 40108 and mobid in (45480, 45522);
