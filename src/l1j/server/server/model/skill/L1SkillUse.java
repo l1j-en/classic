@@ -1318,6 +1318,8 @@ public class L1SkillUse {
 						return;
 					} else if (_skillId == DECREASE_WEIGHT && isSkillAction) {
 						_player.sendPackets(new S_SkillSound(targetid, _skill.getCastGfx()));
+						_player.broadcastPacket(new S_SkillSound(targetid,
+								_skill.getCastGfx()));
 					} else {
 						_player.sendPackets(new S_SkillSound(targetid,
 								castgfx));
