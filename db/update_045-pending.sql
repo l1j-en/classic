@@ -107,3 +107,9 @@ update spawnlist set npc_templateid = 45363 where mapid = 309 and npc_templateid
 update commands set name = 'invis' where name = 'invisible';
 -- .visible -> .show
 update commands set name = 'show' where name = 'visible';
+
+-- Delete invalid items from droplist
+delete from droplist where itemid in (41223, 41224, 41215, 41236, 41216, 41214, 41422);
+
+-- Remove unknown shadow spawn from IT8
+delete from spawnlist where npc_templateid = 46041;
