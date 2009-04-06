@@ -73,7 +73,7 @@ public class GMCommands {
 				return false;
 			}
 			if (pc.getAccessLevel() < command.getLevel()) {
-				pc.sendPackets(new S_ServerMessage(74, command + ", the attempt has been logged")); 
+				pc.sendPackets(new S_ServerMessage(74, "GM commands, the attempt has been logged")); 
 				return true;
 			}
 
