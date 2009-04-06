@@ -102,3 +102,8 @@ update spawnlist set count = 1 where mapid = 309;
 -- Replace lasta3f dark elementalist spawn with one that has mobskills
 update spawnlist set npc_templateid = 45363 where mapid = 309 and npc_templateid = 45245;
 
+-- Revert some GM commands to old names
+-- .invisible -> .invis
+update commands set name = 'invis' where name = 'invisible';
+-- .visible -> .show
+update commands set name = 'show' where name = 'visible';
