@@ -100,5 +100,5 @@ update droplist set chance = 7500 where itemid = 40330 and mobid = 45502;
 update spawnlist set count = 1 where mapid = 309;
 
 -- Replace lasta3f dark elementalist spawn with one that has mobskills
-update spawnlist set npc_templateid = 45363 where mapid = 309 and mobid = 45245;
+update spawnlist set npc_templateid = 45363 where mapid = 309 and npc_templateid = 45245;
 
