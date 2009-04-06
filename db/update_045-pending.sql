@@ -67,3 +67,32 @@ update droplist set chance = 10500 where itemid = 40106 and mobid in (45384, 454
 update droplist set chance = 10500 where itemid = 40107 and mobid in (45402, 45403, 45454, 45455, 45493, 45494);
 -- 51F
 update droplist set chance = 12500 where itemid = 40108 and mobid in (45480, 45522);
+
+-- Modify spellbook droprates
+-- sb:i2h
+update droplist set chance = 100 where itemid = 40213 and mobid in (45221, 45241, 45244);
+update droplist set chance = 75 where itemid = 40213 and mobid = 45283;
+update droplist set chance = 500 where itemid = 40213 and mobid = 45379;
+update droplist set chance = 700 where itemid = 40213 and mobid = 45241;
+update droplist set chance = 1000 where itemid = 40213 and mobid = 45935;
+-- sb:blizz
+update droplist set chance = 2500 where itemid = 40204 and mobid in (45279, 45393, 45394);
+-- sb:silence
+update droplist set chance = 3000 where itemid = 40209 and mobid = 45327;
+update droplist set chance = 3500 where itemid = 40209 and mobid = 45420;
+update droplist set chance = 35000 where itemid = 40209 and mobid in (45610, 45650);
+update droplist set chance = 3000 where itemid = 40209 and mobid = 45901;
+-- sb:decay
+update droplist set chance = 300 where itemid = 40216 and mobid in (45272, 45416, 45418, 45501, 45502);
+-- sb:ms
+update droplist set chance = 4500 where itemid = 40219 and mobid = 45617;
+update droplist set chance = 400 where itemid = 40219 and mobid in (45972, 45973, 46047);
+-- sb:destroy
+update droplist set chance = 2500 where itemid = 40222 and mobid = 45801;
+-- sb:ab
+update droplist set chance = 50 where itemid = 40223 and mobid = 45244;
+
+-- Modify u-quiv droprates
+update droplist set chance = 4500 where itemid = 40330 and mobid in (45217, 45247, 45274, 45330);
+update droplist set chance = 7500 where itemid = 40330 and mobid = 45502;
+
