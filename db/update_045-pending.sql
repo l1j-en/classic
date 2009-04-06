@@ -96,3 +96,9 @@ update droplist set chance = 50 where itemid = 40223 and mobid = 45244;
 update droplist set chance = 4500 where itemid = 40330 and mobid in (45217, 45247, 45274, 45330);
 update droplist set chance = 7500 where itemid = 40330 and mobid = 45502;
 
+-- Spread out lasta3f spawn.
+update spawnlist set count = 1 where mapid = 309;
+
+-- Replace lasta3f dark elementalist spawn with one that has mobskills
+update spawnlist set npc_templateid = 45363 where mapid = 309 and mobid = 45245;
+
