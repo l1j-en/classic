@@ -126,3 +126,6 @@ update commands set name = 'tele' where name = 'move';
 -- fix bloodstone drop rates
 update droplist set chance = 50000 where itemid = 40718 and chance = 500000;
 
+-- remove .topc command
+delete from commands where name = 'topc';
+
