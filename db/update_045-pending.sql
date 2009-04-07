@@ -113,3 +113,6 @@ delete from droplist where itemid in (41223, 41224, 41215, 41236, 41216, 41214, 
 
 -- Remove unknown shadow spawn from IT8
 delete from spawnlist where npc_templateid = 46041;
+
+-- Re-add .jail command
+insert into commands values('jail', 200, 'L1Jail');

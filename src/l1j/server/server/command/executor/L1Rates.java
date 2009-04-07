@@ -105,7 +105,8 @@ public class L1Rates implements L1CommandExecutor {
 			}
 		}
 	}
-private void broadcastToAll(String s) {
+	
+	private void broadcastToAll(String s) {
 		L1World.getInstance().broadcastPacketToAll(new S_SystemMessage(s));
 	}
-	}
+}
