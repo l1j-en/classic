@@ -123,4 +123,6 @@ update commands set name = 'kill' where name = 'death';
 -- .move -> .tele
 update commands set name = 'tele' where name = 'move';
 
+-- fix bloodstone drop rates
+update droplist set chance = 50000 where itemid = 40718 and chance = 500000;
 
