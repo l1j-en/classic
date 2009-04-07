@@ -129,3 +129,5 @@ update droplist set chance = 50000 where itemid = 40718 and chance = 500000;
 -- remove .topc command
 delete from commands where name = 'topc';
 
+-- fix aden message board nameid (in front of aden church)
+update npc set nameid = '$1385' where npcid = 81201;
