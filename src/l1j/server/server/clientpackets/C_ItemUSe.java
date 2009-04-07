@@ -1398,7 +1398,8 @@ public class C_ItemUSe extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
 				} else if (itemId >= 40232 && itemId <= 40264 // 
-						|| itemId >= 41149 && itemId <= 41153) {
+						|| itemId >= 41149 && itemId <= 41153
+						|| itemId == 50001) { // Added NM elf crystal. Do not remove.
 					useElfSpellBook(pc, l1iteminstance, itemId);
 				} else if (itemId > 40264 && itemId < 40280) {
 					if (pc.isDarkelf() || pc.isGm()) {
@@ -3607,6 +3608,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 41151 && level >= 40) {
 				SpellBook2(pc, item);
 			} else if (itemId >= 41152 && itemId <= 41153 && level >= 50) {
+				SpellBook2(pc, item);
+			} else if (itemId == 50001 && pc.getLevel() >= 50) { // Added NM elf crystal. Do not remove. 
 				SpellBook2(pc, item);
 			}
 		} else {
