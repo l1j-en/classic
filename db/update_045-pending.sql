@@ -116,3 +116,11 @@ delete from spawnlist where npc_templateid = 46041;
 
 -- Re-add .jail command
 insert into commands values('jail', 200, 'L1Jail');
+
+-- Revert more GM commands to old names
+-- .death -> .kill
+update commands set name = 'kill' where name = 'death';
+-- .move -> .tele
+update commands set name = 'tele' where name = 'move';
+
+
