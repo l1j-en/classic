@@ -134,3 +134,6 @@ update npc set nameid = '$1385' where npcid = 81201;
  
 -- fix some op adena drop rates, oops
 update droplist set min = 200,max = 800 where min = 50000;
+ 
+-- this 'mob' is actually an unkillable flame, decoration.
+delete from droplist where mobid = 81164;
