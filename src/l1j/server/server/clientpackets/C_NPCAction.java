@@ -1926,15 +1926,22 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "lelder10";
 				pc.getInventory().consumeItem(40633, 1);
 				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 3);
-			} else if (s.equalsIgnoreCase("C")) {
-				htmlid = "lelder13";
-				if (pc.getQuest().get_step(L1Quest.QUEST_LIZARD) == L1Quest.QUEST_END) {
+			}
+		}
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71075) {
+			if (s.equalsIgnoreCase("start")) {
+				htmlid = "llizard2";
+				final int[] item_ids = { 40633 };
+				final int[] item_amounts = { 1 };
+				for (int i = 0; i < item_ids.length; i++) {
+					L1ItemInstance item = pc.getInventory().storeItem(
+							item_ids[i], item_amounts[i]);
+					pc.sendPackets(new S_ServerMessage(143,
+							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+							item.getItem().getName()));
+					pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 2);
 				}
-				materials = new int[] { 40634 };
-				counts = new int[] { 1 };
-				createitem = new int[] { 20167 }; //
-				createcount = new int[] { 1 };
-				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, L1Quest.QUEST_END);
+			} else {
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71198) {
