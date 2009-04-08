@@ -131,3 +131,6 @@ delete from commands where name = 'topc';
 
 -- fix aden message board nameid (in front of aden church)
 update npc set nameid = '$1385' where npcid = 81201;
+ 
+-- fix some op adena drop rates, oops
+update droplist set min = 200,max = 800 where min = 50000;
