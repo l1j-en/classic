@@ -137,3 +137,9 @@ update droplist set min = 200,max = 800 where min = 50000;
  
 -- this 'mob' is actually an unkillable flame, decoration.
 delete from droplist where mobid = 81164;
+
+-- restore our -bug related commands
+insert into commands values
+('resolve',200,'L1Resolve'),
+('viewbug',200,'L1ViewBug'),
+('gotobug',200,'L1GotoBug');
