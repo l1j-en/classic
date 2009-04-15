@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +114,17 @@ public class HouseTable {
 			pstm.setInt(4, house.getKeeperId());
 			pstm.setInt(5, house.isOnSale() == true ? 1 : 0);
 			pstm.setInt(6, house.isPurchaseBasement() == true ? 1 : 0);
-			String fm = DateFormat.getDateTimeInstance().format(
-					house.getTaxDeadline().getTime());
-			pstm.setString(7, fm);
+			//String fm = DateFormat.getDateTimeInstance().format(
+			//		house.getTaxDeadline().getTime());
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat parse = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+			try {
+				String dateString = format.format(parse.parse(house.getTaxDeadline().getTime().toString()));
+				pstm.setString(7, dateString);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//pstm.setString(7, fm);
 			pstm.setInt(8, house.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
