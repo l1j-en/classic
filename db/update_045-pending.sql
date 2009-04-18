@@ -150,3 +150,6 @@ update droplist set chance = 250 where itemid = 20284 and mobid in (45580, 45522
 update droplist set chance = 150 where itemid = 20284 and mobid = 45496;
 update droplist set chance = 3500 where itemid = 20284 and mobid in (45601, 45606, 45650);
 update droplist set chance = 4000 where itemid = 20284 and mobid in (45618, 45652);
+
+-- reduce the number of teleport traps in haunted house
+update spawnlist_trap set count = 5 where id between 321 and 325;
