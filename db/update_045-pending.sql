@@ -143,3 +143,10 @@ insert into commands values
 ('resolve',200,'L1Resolve'),
 ('viewbug',200,'L1ViewBug'),
 ('gotobug',200,'L1GotoBug');
+
+-- rebalance some rosc droprates
+update droplist set chance = 500 where itemid = 20284 and mobid in (45464, 45473, 45488, 45497, 45573);
+update droplist set chance = 250 where itemid = 20284 and mobid in (45580, 45522, 45480, 45456);
+update droplist set chance = 150 where itemid = 20284 and mobid = 45496;
+update droplist set chance = 3500 where itemid = 20284 and mobid in (45601, 45606, 45650);
+update droplist set chance = 4000 where itemid = 20284 and mobid in (45618, 45652);
