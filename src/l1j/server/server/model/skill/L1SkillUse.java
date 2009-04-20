@@ -158,19 +158,10 @@ public class L1SkillUse {
 			166, 168, 169, 170, 171, SOUL_OF_FLAME, ADDITIONAL_FIRE, 10026,
 			10027, 10028, 10029 };
 
-	private static final Map<Integer, Integer> CAN_STACK = new HashMap<Integer, Integer>();
+	private static final int[] CAN_STACK = {HASTE, HOLY_WALK, MOVING_ACCELERATION,
+		UNCANNY_DODGE, DRESS_MIGHTY, DRESS_DEXTERITY, DRESS_EVASION};
 
 	public L1SkillUse() {
-		CAN_STACK.put(HASTE, 1800);
-		CAN_STACK.put(HOLY_WALK, 1800);
-//		CAN_STACK.put(ENCHANT_VENOM, 1800);
-//		CAN_STACK.put(SHADOW_ARMOR, 1800);
-		CAN_STACK.put(MOVING_ACCELERATION, 1800);
-//		CAN_STACK.put(BURNING_SPIRIT, 1800);
-		CAN_STACK.put(UNCANNY_DODGE, 1800);
-		CAN_STACK.put(DRESS_MIGHTY, 1800);
-		CAN_STACK.put(DRESS_DEXTERITY, 1800);
-		CAN_STACK.put(DRESS_EVASION, 1800);
 	}
 
 	private static class TargetStatus {
@@ -421,6 +412,15 @@ public class L1SkillUse {
 		return false;
 	}
 
+	private boolean isStackableSkill() {
+		for (int skillId : CAN_STACK) {
+			if (skillId == _skillId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void handleCommands(L1PcInstance player, int skillId, int targetId,
 			int x, int y, String message, int timeSecs, int type) {
 		L1Character attacker = null;
@@ -448,12 +448,12 @@ public class L1SkillUse {
 				_skillTime = SkillsTable.getInstance().getTemplate(_skillId).getBuffDuration();
 
 				if(Config.STACKING) {					
-					if (CAN_STACK.containsKey(_skillId)) {
+					if (isStackableSkill()) {
 						if (_target.hasSkillEffect(_skillId)) {
 							_skillTime += _target.getSkillEffectTimeSec(_skillId);
 						}
-						if(_skillTime > CAN_STACK.get(_skillId)){
-							_skillTime = CAN_STACK.get(_skillId);
+						if(_skillTime > 1800){
+							_skillTime = 1800;
 						}
 					}
 				}
