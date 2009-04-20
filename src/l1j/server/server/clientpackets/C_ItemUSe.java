@@ -1537,7 +1537,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.getInventory().removeItem(l1iteminstance, 1);
 					cancelAbsoluteBarrier(pc);
 				} else if (itemId >= 40080 && itemId <= 40085
-						|| itemId >= 40102 && itemId <= 40118
+						|| itemId >= 40101 && itemId <= 40118
 						|| itemId >= 40120 && itemId <= 40123
 						|| itemId == 40125 || itemId >= 40801
 						&& itemId <= 40898 || itemId >= 42001
