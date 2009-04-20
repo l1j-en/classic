@@ -286,3 +286,5 @@ INSERT INTO droplist values
 ('45112', '40308', '40', '90', '1000000'),
 ('45112', '40653', '1', '1', '1000000');
 
+-- Fix for Issue 63 (Stationaries)
+update etcitem set trade = 1 where item_id = 40310;
