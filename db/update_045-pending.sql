@@ -288,3 +288,19 @@ INSERT INTO droplist values
 
 -- Fix for Issue 63 (Stationaries)
 update etcitem set trade = 1 where item_id = 40310;
+
+-- update dc_checkdropmops stored proc to order by chance
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `dc_CheckDropMops` $$
+CREATE PROCEDURE `dc_CheckDropMops`( IN ItemID INT )
+BEGIN
+  select
+    n.name, n.npcid, d.chance
+  from
+    npc n, droplist d
+  where n.npcid = d.mobid
+    and d.itemid = ItemID
+  order by d.chance desc;
+END $$
+DELIMITER ;
