@@ -19,9 +19,7 @@
         02111-1307, USA.
 
         http://www.gnu.org/copyleft/gpl.html
-
     </description>
-
 
     <!-- Set Property -->
     <property name="src.dir" value="src" />
@@ -33,14 +31,12 @@
         <fileset dir="${lib.dir}">
             <include name="c3p0-0.9.1.2.jar" />
             <include name="javolution.jar" />
-        	<include name="mysql-connector-java-5.1.7-bin.jar" />
+            <include name="mysql-connector-java-5.1.7-bin.jar" />
         </fileset>
     </path>
 
-
     <!-- Set DefaultTarget -->
     <target name="all" depends="clean,compile,jar,clean2" />
-
 
     <!-- clean Target -->
     <target name="clean">
@@ -59,9 +55,9 @@
     </target>
 
     <!-- jar Target -->
-       <target name="jar">
-            <jar manifest="${src.dir}/META-INF/MANIFEST.MF" basedir="${build.dir}" jarfile="${jarfile}" />
-       </target>
+    <target name="jar">
+        <jar manifest="${src.dir}/META-INF/MANIFEST.MF" basedir="${build.dir}" jarfile="${jarfile}" />
+    </target>
 
     <!-- clean Target -->
     <target name="clean2">
