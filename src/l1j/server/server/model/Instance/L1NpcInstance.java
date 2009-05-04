@@ -1200,6 +1200,7 @@ public class L1NpcInstance extends L1Character {
 		L1World.getInstance().removeObject(this);
 		List<L1PcInstance> players = L1World.getInstance().getRecognizePlayer(
 				this);
+
 		if (players.size() > 0) {
 			S_RemoveObject s_deleteNewObject = new S_RemoveObject(this);
 			for (L1PcInstance pc : players) {

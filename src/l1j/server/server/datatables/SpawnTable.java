@@ -122,8 +122,7 @@ public class SpawnTable {
 							.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("near_spawn"));
-					spawnDat.setTime(SpawnTimeTable.getInstance().get(
-							spawnDat.getId()));
+					//spawnDat.setTime(SpawnTimeTable.getInstance().get(spawnDat.getId()));
 
 					spawnDat.setName(template1.get_name());
 
@@ -150,7 +149,11 @@ public class SpawnTable {
 
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} finally {
+		} catch (SecurityException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (ClassNotFoundException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -210,8 +213,8 @@ public class SpawnTable {
 		if (rate == 1 || npc.isAmountFixed()) {
 			return count;
 		} else {
-			return NumberUtil.randomRound((count * rate));
+			return NumberUtil.randomRound((double) (count * rate));
 		}
-		
+
 	}
 }

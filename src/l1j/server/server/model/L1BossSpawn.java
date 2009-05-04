@@ -45,7 +45,8 @@ public class L1BossSpawn extends L1Spawn {
 		}
 	}
 
-	public L1BossSpawn(L1Npc mobTemplate) {
+	public L1BossSpawn(L1Npc mobTemplate) throws SecurityException,
+			ClassNotFoundException {
 		super(mobTemplate);
 	}
 
