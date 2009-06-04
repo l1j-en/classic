@@ -555,3 +555,10 @@ update spawnlist set location = 'Wyvern' where id = 53500011;
 update spawnlist set location = 'Zombie' where id = 26510;
 update spawnlist set location = 'Zombie Lord of Fear' where id = 18300004;
 update spawnlist set location = 'Zombie Lord of Fear' where id = 18700004;
+
+-- Update Fagment of Summoning Device to reflect that it is stackable
+-- This brings the item in line with NCSoft Live Server behavior
+update etcitem set stackable = 1 where item_id = 41030;
+
+-- Stackable  and Naming Convention Update for "Evidence of Death Knight"
+update etcitem set stackable = 1, name = 'Writing of Death Knight' where item_id = 41028;
