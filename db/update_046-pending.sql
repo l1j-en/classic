@@ -562,3 +562,101 @@ update etcitem set stackable = 1 where item_id = 41030;
 
 -- Stackable  and Naming Convention Update for "Evidence of Death Knight"
 update etcitem set stackable = 1, name = 'Writing of Death Knight' where item_id = 41028;
+
+
+-- Update fix for mob name in earth area of desire cavern. was displaying as Judigo in DB
+update spawnlist set location = "Sand Tomb" where id = 60700002;
+
+-- Name fix for mobgroup where entries were previously blank
+update mobgroup set note = 'Black Knight Search Party(8)' where id = 1;
+update mobgroup set note = 'Elmore General(1) Elmore Soldier(2) Elmore Wizard(2)' where id = 2;
+update mobgroup set note = 'Elmore General(1) Elmore Soldier(1) Elmore Wizard(2)' where id = 3;
+update mobgroup set note = 'Elmore General(1) Elmore Soldier(2) Elmore Wizard(1)' where id = 4;
+update mobgroup set note = 'Goblin(8)' where id = 5;
+update mobgroup set note = 'Hobgoblin(1) Goblin(3)' where id = 6;
+update mobgroup set note = 'Elder(1) Floating Eye(2)' where id = 7;
+update mobgroup set note = 'Orc Fighter(1) Orc(2) Orc Archer(2)' where id = 8;
+update mobgroup set note = 'Fire Egg(4)' where id = 9;
+update mobgroup set note = 'Ghast Lord(1) Ghast(3)' where id = 10;
+update mobgroup set note = 'Zombie(16)' where id = 11;
+update mobgroup set note = 'Mermaid(1) Merman(3)' where id = 12;
+update mobgroup set note = 'Kurtz (1) Black Knight(8)' where id = 13;
+update mobgroup set note = 'Caspa(1) Merkyor(1) Baltazar(1) Sema(1)' where id = 14;
+update mobgroup set note = 'Necromancer(1) Ghoul(4) Floating Eye(2)' where id = 15;
+update mobgroup set note = 'Dark Elder(1) Spartoi(2)' where id = 16;
+update mobgroup set note = 'Drake(2)' where id = 17;
+update mobgroup set note = 'Ken Rahuel(1) Cerenis(1)' where id = 18;
+update mobgroup set note = 'Dread King Baranka(1) Laia(1)' where id = 19;
+update mobgroup set note = 'Mambo Rabbit(1) Mambo Rabbit Servant(3)' where id = 20;
+update mobgroup set note = 'Mambo Rabbit(1) Mambo Rabbit Servant(3)' where id = 21;
+update mobgroup set note = 'Abyss Master(1) Fang of Earth(1) Fang of Water(1)Fang of Flame(1) Fang of Wind(1)' where id = 22;
+update mobgroup set note = 'Mutant Arachnevil Elder(3)' where id = 23;
+update mobgroup set note = 'Medusa(3)' where id = 24;
+update mobgroup set note = 'Cimaera(3)' where id = 25;
+update mobgroup set note = 'Cockatrice(3)' where id = 26;
+update mobgroup set note = 'Succubus(3)' where id = 27;
+update mobgroup set note = 'Dire Wolf(3)' where id = 28;
+update mobgroup set note = 'Wicked Beholder(3)' where id = 29;
+update mobgroup set note = 'Dancing Sword(3)' where id = 30;
+update mobgroup set note = 'Nightmare(3)' where id = 31;
+update mobgroup set note = 'Horrific Fire Egg(3)' where id = 32;
+update mobgroup set note = 'Horrific Cerberus(3)' where id = 33;
+update mobgroup set note = 'Lesser Demon(3)' where id = 34;
+update mobgroup set note = 'Ifrit(3)' where id = 35;
+update mobgroup set note = 'Raging Skeleton Pike(3)' where id = 36;
+update mobgroup set note = 'Raging Ghoul(3)' where id = 37;
+update mobgroup set note = 'Raging Spartoi(3)' where id = 38;
+update mobgroup set note = 'Raging Skeleton Marksman(3)' where id = 39;
+update mobgroup set note = 'Cursed Elmore General(3)' where id = 40;
+update mobgroup set note = 'Spirit Taurverus of Fire(3)' where id = 41;
+update mobgroup set note = 'Astagio of Fire(3)' where id = 42;
+update mobgroup set note = 'Fire Archer of Darkness(3)' where id = 43;
+update mobgroup set note = 'Insolent Zenith Queen(3)' where id = 44;
+update mobgroup set note = 'Marquise Vampire(3)' where id = 45;
+update mobgroup set note = 'Zombie Lord of Fear(3)' where id = 46;
+update mobgroup set note = 'Great Spirit of Fire(2)' where id = 47;
+update mobgroup set note = 'Great Spirit of Water(2)' where id = 48;
+update mobgroup set note = 'Kuman(1) Heavy Lizardman(2)' where id = 49;
+update mobgroup set note = 'Black Knight(8)' where id = 50;
+update mobgroup set note = 'Count Elite Guard General(1) Guard Dog(2)' where id = 51;
+
+-- Name fix for weapon
+update weapon set name = "Magic Wand of Shaman" where item_id = 243;
+update weapon set name_id = "Magic Wand of Shaman" where item_id = 243;
+
+-- Name fix for weapon_skill
+update weapon_skill set note = "Pumpkin Sword" where weapon_id = 256;
+update weapon_skill set note = "Longbow of Moon" where weapon_id = 205;
+
+-- Additions to npc
+INSERT INTO npc VALUES (45007,'Mambo Rabbit Blue Vest','$3462','','L1Monster',4174,50,3000,300,-35,18,18,18,18,18,50,20000,-100,'small',0,1,0,960,800,800,800,0,0,0,1,0,0,'',0,-1,-1,0,0,0,5000,8,5000,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,1,0);
+INSERT INTO npc VALUES (46107,'Treasure Chest of Aden Castle','Treasure Chest of Aden Castle','','L1Monster',5916,30,200,50,-20,16,12,14,10,11,15,901,-15,'small',2,1,0,1280,1120,1120,1120,0,0,0,0,0,0,0,0,-1,-1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0);
+
+-- Additions to spawnlist_boss
+INSERT INTO spawnlist_boss VALUES (12,'Evil Spirit of Heine','1Drake',1,45923,0,32700,32830,0,0,32640,32768,32767,32895,0,59,1,100,0,0,100);
+INSERT INTO spawnlist_boss VALUES (13,'Evil Spirit of Heine','1Drake',1,45923,0,32700,32830,0,0,32640,32768,32767,32895,0,60,1,100,0,0,100);
+INSERT INTO spawnlist_boss VALUES (14,'Evil Spirit of Heine','1Drake',1,45923,0,32700,32830,0,0,32640,32768,32767,32895,0,61,1,100,0,0,100);
+
+-- Family fix for npc
+update npc set family = "" where npcid = 45534;
+update npc set family = "Giant" where npcid = 45318;
+
+-- AgroFamily fix for npc
+update npc set agrofamily = "0" where npcid = 45534;
+update npc set agrofamily = "0" where npcid = 45317;
+
+-- Lastavard stair fix from 1F Sanctuary of Darkness to 1F Gathering Room
+INSERT INTO dungeon VALUES (32667,'32849','457','32813','32834',451,6,'1F Sanctuary of Darkness to 1F Gathering Room');
+INSERT INTO dungeon VALUES (32666,'32849','457','32813','32834',451,6,'1F Sanctuary of Darkness to 1F Gathering Room');
+
+-- Glacial Lake stair fix from 2F Crystal Caves
+INSERT INTO dungeon VALUES (32726,'32845','73','33968','32338',4,6,'2F Crystal Caves to Glacial Lake');
+INSERT INTO dungeon VALUES (32726,'32846','73','33968','32338',4,6,'2F Crystal Caves to Glacial Lake');
+
+-- Additions to spawnlist
+INSERT INTO spawnlist VALUES (63000, 'Treasure Chest of Aden Castle', 25, 46107, 0, 32770, 32851, 0, 0, 32704, 32768, 32831, 32895, 0, 0, 0, 248, 0, 100, 0, 0);
+INSERT INTO spawnlist VALUES (63001, 'Treasure Chest of Aden Castle', 10, 46107, 0, 32770, 32851, 0, 0, 32704, 32768, 32831, 32895, 0, 0, 0, 249, 0, 100, 0, 0);
+INSERT INTO spawnlist VALUES (63002, 'Treasure Chest of Aden Castle', 20, 46107, 0, 32770, 32851, 0, 0, 32704, 32768, 32831, 32895, 0, 0, 0, 250, 0, 100, 0, 0);
+
+-- Name corrections to area
+update area set areaname = 'Giran Castle Dungeon 4F Boss' where areaid = 350;
