@@ -234,3 +234,13 @@ INSERT INTO mobskill VALUES (45248,0,'Undead Elmore General',1,50,0,0,-3,0,0,1,0
 INSERT INTO mobskill VALUES (45216,0,'Undead Elmore Soldier',1,50,0,0,-3,0,0,2,0,0,9,0,0,30,0,0,0,0);
 INSERT INTO mobskill VALUES (45224,1,'Undead Elmore Wizard',1,50,0,0,-3,0,0,1,0,0,11,0,0,30,0,0,0,0);
 INSERT INTO mobskill VALUES (45294,0,'Yeti',1,50,0,0,-3,0,0,1,0,0,10,0,0,30,0,0,0,0);
+
+-- adjust bb 45738 drops to match bb 45223  (fixed by Lysandria)
+update droplist set chance = 18000 where mobid = 45738 and itemid = 20115;
+update droplist set chance = 38000 where mobid = 45738 and itemid = 40074;
+update droplist set chance = 18000 where mobid = 45738 and itemid = 40087;
+update droplist set chance = 75000 where mobid = 45738 and itemid = 140100;
+update droplist set chance = 17000 where mobid = 45738 and itemid = 143;
+update droplist set chance = 4500 where mobid = 45738 and itemid = 145;
+update droplist set chance = 9000 where mobid = 45738 and itemid = 148;
+

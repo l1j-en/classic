@@ -47,13 +47,13 @@ update droplist set chance = 4500 where mobid = 45223 and itemid = 145;
 update droplist set chance = 9000 where mobid = 45223 and itemid = 148;
 
 -- adjust bb 45738 drops to match bb 45223
-update droplist set chance = 18000 where mobid = 45223 and itemid = 20115;
-update droplist set chance = 38000 where mobid = 45223 and itemid = 40074;
-update droplist set chance = 18000 where mobid = 45223 and itemid = 40087;
-update droplist set chance = 75000 where mobid = 45223 and itemid = 140100;
-update droplist set chance = 17000 where mobid = 45223 and itemid = 143;
-update droplist set chance = 4500 where mobid = 45223 and itemid = 145;
-update droplist set chance = 9000 where mobid = 45223 and itemid = 148;
+update droplist set chance = 18000 where mobid = 45738 and itemid = 20115;
+update droplist set chance = 38000 where mobid = 45738 and itemid = 40074;
+update droplist set chance = 18000 where mobid = 45738 and itemid = 40087;
+update droplist set chance = 75000 where mobid = 45738 and itemid = 140100;
+update droplist set chance = 17000 where mobid = 45738 and itemid = 143;
+update droplist set chance = 4500 where mobid = 45738 and itemid = 145;
+update droplist set chance = 9000 where mobid = 45738 and itemid = 148;
 
 -- rebalance some ndai drops slightly
 update droplist set chance = 3000 where mobid = 45173 and itemid = 40087;
