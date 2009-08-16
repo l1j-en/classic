@@ -1,10 +1,4 @@
 
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED
-
--- Queries that are pending an update should be placed here. This allows them 
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 -- update 47
 
 -- update to spawnlist_boss for missing bosses in giran castle dungeon 4f
@@ -28,6 +22,7 @@ update npc set agrososc = 0 where npcid = 45625;
 -- Name fix for NPC
 update npc set name = 'Doppleganger Boss' where npcid = 45828;
 update npc set name = 'Captain Drake' where npcid = 45458;
+update npc set nameid = 'Captain Drake' where npcid = 45458;
 
 -- Note fix for Forgotten Island Mobs
 update npc set note = 'Forgotten Island' where npcid = 45505;
@@ -38,8 +33,6 @@ update npcchat set note = 'Baphomet' where npc_id = 45573;
 -- Update name fix for mismarked wooden shield
 update armor set name = "Small Shield" where item_id = 20239;
 
--- Update incorrect name for polymorph
-update polymorphs set name = 'Death Knight 52' where id = 6137;
 
 -- update description mob id 45239 for Blue Tail
 update skills set name = 'Blue Tail\'s Laser Attack' where skill_id = 10046;
@@ -157,16 +150,15 @@ update armor_set set polyid = 3864 where id = 34;
 update armor_set set polyid = 3863 where id = 35;
 
 -- update misnamed quest item: Money Pouch of Reona
-update etcitem set name = 'Ring of Resta' where item_id = 40631;
+update etcitem set name = 'Resta\'s Ring' where item_id = 40631;
 
 -- Fix for -bug # - Submitted by Cronicx
-update npc set change_head = 1 where npcid_id = 45215;
+update npc set change_head = 1 where npcid = 45215;
 
 -- Update to mobskills, thanks to Cronicx for research and testing, formatting and error control by Zylia
+update mobskill set trirnd = 50 where mobid = 45572 and actno = 0;
 INSERT INTO mobskill VALUES (45359,0,'Astagio',1,50,0,0,-3,0,0,1,0,0,9,0,0,30,0,0,0,0);
 INSERT INTO mobskill VALUES (45572,1,'Astagio of Fire',1,50,0,0,-3,0,0,1,0,0,26,0,0,30,0,0,0,0);
-INSERT INTO mobskill VALUES (45572,0,'Astagio of Fire',1,50,0,0,-1,0,0,1,0,0,30,0,0,0,0,0,0,0);
-INSERT INTO mobskill VALUES (45473,0,'Baltuzar',2,20,0,0,-6,0,0,0,0,0,14,45,0,0,0,0,0,0);
 INSERT INTO mobskill VALUES (45381,0,'Basilisk',2,50,0,0,-3,0,0,15,0,0,10,10015,0,18,0,0,0,0);
 INSERT INTO mobskill VALUES (45165,0,'Black Knight',1,50,0,0,-3,0,0,1,0,0,9,0,0,30,0,0,0,0);
 INSERT INTO mobskill VALUES (45239,0,'Blue Tail',1,50,0,0,-3,0,0,1,0,0,11,0,0,30,0,0,0,0);
@@ -244,3 +236,33 @@ update droplist set chance = 17000 where mobid = 45738 and itemid = 143;
 update droplist set chance = 4500 where mobid = 45738 and itemid = 145;
 update droplist set chance = 9000 where mobid = 45738 and itemid = 148;
 
+
+# Fix NPC Names improperly labeled
+update npc set name = 'Helen' where npcid = 70643;
+update npc set name = 'Herbert' where npcid = 70641;
+update npc set name = 'Treasure Chest' where npcid = 45876;
+update npc set name = 'Gludin Town Guard' where npcid = 60528;
+update npc set name = 'Kan' where npcid = 70885;
+
+# Fix NPC nameid's improperly labeled
+update npc set nameid = '$5410' where npcid = 45022;# Rudolph
+update npc set nameid = '$3451' where npcid = 45001;# Dummy
+update npc set nameid = '$3451' where npcid = 45002;# Dummy
+update npc set nameid = '$3451' where npcid = 45003;# Dummy
+update npc set nameid = '$3451' where npcid = 45004;# Dummy
+update npc set nameid = '$1429' where npcid = 45228;# Sea Dancer
+update npc set nameid = '$1242 $2109' where npcid = 45316;# Giran Ancient Giant
+update npc set nameid = '$2408' where npcid = 45876;# Treasure Chest
+update npc set nameid = '$2408' where npcid = 45877;# Treasure Chest
+update npc set nameid = '$2984' where npcid = 81114;# 
+update npc set nameid = '$2049' where npcid = 81081;# 
+update npc set nameid = '$4145 $4147' where npcid = 45773;# 
+update npc set nameid = '$364 $240' where npcid = 60528;# Gludin Town Guard
+update npc set nameid = '$2430' where npcid = 70885;# Kan
+
+# Fix Spell cast gfx for Solid Carriage and Counter Barrier
+update skills set castgfx = 5831 where skill_id = 90;
+update skills set castgfx = 5832 where skill_id = 91;
+
+-- update Robiel nameid to match name
+update npc set nameid = "Robiel" where npcid = 70840;

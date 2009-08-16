@@ -464,6 +464,15 @@
 			<Material Amount="1" ItemId="40511"/>
 		</MakeItem>
 	</Action>
+		<!--Robiel request silver arrow-->
+	<Action Name="request silver arrow" NpcId="70840">
+		<MakeItem>
+			<Material Amount="1" ItemId="173"/>
+			<Material Amount="1" ItemId="29001"/>
+			<Material Amount="1" ItemId="40507"/>
+			<Item Amount="200" ItemId="40744"/>
+		</MakeItem>
+	</Action>
 	<!-- -->
 	<Action Name="request bow of sayha">
 		<MakeItem>
