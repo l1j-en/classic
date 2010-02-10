@@ -657,4 +657,14 @@ public class L1Npc extends L1Object implements Cloneable {
 	public void setChangeHead(boolean changeHead) {
 		_changeHead = changeHead;
 	}
+	
+	private boolean _isCantResurrect;
+
+	public boolean isCantResurrect() {
+		return _isCantResurrect;
+	}
+
+	public void setCantResurrect(boolean isCantResurrect) {
+		_isCantResurrect = isCantResurrect;
+	}	
 }

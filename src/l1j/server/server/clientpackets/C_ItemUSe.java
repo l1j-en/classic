@@ -1351,6 +1351,12 @@ public class C_ItemUSe extends ClientBasePacket {
 						} else if (resobject instanceof L1NpcInstance) {
 							if (!(resobject instanceof L1TowerInstance)) {
 								L1NpcInstance npc = (L1NpcInstance) resobject;
+								if (npc.getNpcTemplate().isCantResurrect()//added for cant ress
+										&& !(npc instanceof L1PetInstance)) {
+									pc.getInventory().removeItem(l1iteminstance,
+											1);
+									return;
+								}
 								if (npc instanceof L1PetInstance
 										&& L1World.getInstance()
 												.getVisiblePlayer(npc, 0)

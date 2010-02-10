@@ -41,7 +41,14 @@ public class S_OtherCharPacks extends ServerBasePacket {
 
 	private byte[] _byte = null;
 
+	public S_OtherCharPacks(L1PcInstance pc, boolean isFindInvis) {
+		buildPacket(pc, isFindInvis);
+	}
+
 	public S_OtherCharPacks(L1PcInstance pc) {
+		buildPacket(pc, false);
+	}		
+	private void buildPacket(L1PcInstance pc, boolean isFindInvis) {
 		int status = STATUS_PC;
 
 		if (pc.getPoison() != null) { // 
@@ -49,7 +56,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 				status |= STATUS_POISON;
 			}
 		}
-		if (pc.isInvisble()) {
+		if (pc.isInvisble() && !isFindInvis) {
 			status |= STATUS_INVISIBLE;
 		}
 		if (pc.isBrave()) {

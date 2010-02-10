@@ -164,6 +164,7 @@ public class NpcTable {
 				npc.setLightSize(rs.getInt("light_size"));
 				npc.setAmountFixed(rs.getBoolean("amount_fixed"));
 				npc.setChangeHead(rs.getBoolean("change_head"));
+				npc.setCantResurrect(rs.getBoolean("cant_resurrect"));
 
 				registerConstructorCache(npc.getImpl());
 				_npcs.put(npcId, npc);

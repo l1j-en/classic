@@ -358,6 +358,10 @@ public class CalcExp {
 		pc.addExp(add_exp);
 	}
 
+	public static void LevelPet(L1PetInstance pet, int level) {  
+		AddExpPet(pet, ExpTable.getExpByLevel(level)-pet.getExp());
+	}
+	
 	private static void AddExpPet(L1PetInstance pet, int exp) {
 		L1PcInstance pc = (L1PcInstance) pet.getMaster();
 

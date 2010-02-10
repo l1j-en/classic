@@ -41,6 +41,7 @@ import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.IntRange;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1Object, Die, L1PcInstance, L1MonsterInstance,
@@ -160,6 +161,21 @@ public class L1Character extends L1Object {
 		for (L1PcInstance pc : L1World.getInstance()
 				.getVisiblePlayerExceptTargetSight(this, target)) {
 			pc.sendPackets(packet);
+		}
+	}
+
+	public void broadcastPacketForFindInvis(ServerBasePacket packet,
+			boolean isFindInvis) {
+		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
+			if (isFindInvis) {
+				if (pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+					pc.sendPackets(packet);
+				}
+			} else {
+				if (!pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+					pc.sendPackets(packet);
+				}
+			}
 		}
 	}
 

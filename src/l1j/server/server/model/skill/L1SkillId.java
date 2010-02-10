@@ -385,7 +385,9 @@ public class L1SkillId {
 
 	public static final int GMSTATUS_SHOWTRAPS = 2002;
 
-	public static final int GMSTATUS_END = 2002;
+	public static final int GMSTATUS_FINDINVIS = 2003;	
+	
+	public static final int GMSTATUS_END = 2003;
 
 	public static final int COOKING_BEGIN = 3000;
 

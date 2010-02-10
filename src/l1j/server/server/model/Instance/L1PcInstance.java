@@ -104,6 +104,7 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 import l1j.server.server.utils.CalcStat;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1Character, L1DropTable, L1Object, L1ItemInstance,
@@ -262,12 +263,16 @@ public class L1PcInstance extends L1Character {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
-		if (isGmInvis() || isGhost() || isInvisble()) {
+		if (isGmInvis() || isGhost()) {
+			return;
+		}
+		if (isInvisble() && !perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS)) {
 			return;
 		}
 
 		perceivedFrom.addKnownObject(this);
-		perceivedFrom.sendPackets(new S_OtherCharPacks(this)); 
+		perceivedFrom.sendPackets(new S_OtherCharPacks(this, 
+				perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS))); 
 		if (isInParty() && getParty().isMember(perceivedFrom)) {
 			perceivedFrom.sendPackets(new S_HPMeter(this));
 		}
