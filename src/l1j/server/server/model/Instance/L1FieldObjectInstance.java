@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
-
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1HauntedHouse;
@@ -30,10 +30,14 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1FieldObjectInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
+
+	private static Logger _log = Logger.getLogger(L1FieldObjectInstance.class
+			.getName());
 
 	public L1FieldObjectInstance(L1Npc template) {
 		super(template);
@@ -49,7 +53,7 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 				int goalCount = L1HauntedHouse.getInstance().getGoalCount();
 				if (winnersCount == goalCount + 1) {
 					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41308); //
+							.createItem(49280); //
 					int count = 1;
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, count) ==
@@ -64,8 +68,19 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 				} else if (winnersCount > goalCount + 1) {
 					L1HauntedHouse.getInstance().setGoalCount(goalCount + 1);
 					L1HauntedHouse.getInstance().removeMember(pc);
-					L1ItemInstance item = ItemTable.getInstance()
-							.createItem(41308); //
+					L1ItemInstance item = null;
+					if (winnersCount == 3) {
+						if (goalCount == 1) {
+							item = ItemTable.getInstance()
+									.createItem(49278); 
+						} else if (goalCount == 2) {
+							item = ItemTable.getInstance()
+									.createItem(49279); 
+						}
+					} else if (winnersCount == 2) {
+						item = ItemTable.getInstance()
+								.createItem(49279); 
+					}
 					int count = 1;
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, count) ==

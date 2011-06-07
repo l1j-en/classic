@@ -21,6 +21,7 @@ package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.ActionCodes;
@@ -43,6 +44,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PetType;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1PetInstance extends L1NpcInstance {
 
@@ -622,6 +624,8 @@ public class L1PetInstance extends L1NpcInstance {
 		return _damageByWeapon;
 	}
 
+	private static Logger _log = Logger
+			.getLogger(L1PetInstance.class.getName());
 	private int _currentPetStatus;
 	private L1PcInstance _petMaster;
 	private int _itemObjId;

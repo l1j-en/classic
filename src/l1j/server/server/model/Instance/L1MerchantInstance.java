@@ -43,6 +43,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static Logger _log = Logger.getLogger(L1MerchantInstance.class
+			.getName());
 
 	/**
 	 * @param template
@@ -52,11 +54,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onAction(L1PcInstance player) {
-		L1Attack attack = new L1Attack(player, this);
-		attack.addPcPoisonAttack(player, this);
-	    attack.calcHit();
-	    attack.action();
+	public void onAction(L1PcInstance pc) {
+		L1Attack attack = new L1Attack(pc, this);
+		attack.calcHit();
+		attack.action();
 	}
 	
 	@Override
@@ -77,6 +78,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		L1Quest quest = player.getQuest();
 		String htmlid = null;
 		String[] htmldata = null;
+
 		int pcX = player.getX();
 		int pcY = player.getY();
 		int npcX = getX();
@@ -794,9 +796,17 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "olle7";
 				}
-			} else if (npcid == 80057) {
-				switch (player.getKarmaLevel()) {
-				case 0:
+			} else if (npcid == 80057) { 
+				int karmaLevel = player.getKarmaLevel();
+				String[] html1 = { "alfons1", "cbk1", "cbk2", "cbk3", "cbk4",
+						"cbk5", "cbk6", "cbk7", "cbk8" }; // 0 ~ 8
+				String[] html2 = { "cyk1", "cyk2", "cyk3", "cyk4", "cyk5",
+						"cyk6", "cyk7", "cyk8" }; // -1 ~ -8
+				if (karmaLevel < 0) {
+					htmlid = html2[Math.abs(karmaLevel) - 1];
+				} else if (karmaLevel >= 0) {
+					htmlid = html1[karmaLevel];
+				} else {
 					htmlid = "alfons1";
 					break;
 				case -1:
@@ -1210,22 +1220,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 				}
 			} else if (npcid == 80072) {
 				int karmaLevel = player.getKarmaLevel();
-				if (karmaLevel == 1) {
-					htmlid = "lsmith0";
-				} else if (karmaLevel == 2) {
-					htmlid = "lsmith1";
-				} else if (karmaLevel == 3) {
-					htmlid = "lsmith2";
-				} else if (karmaLevel == 4) {
-					htmlid = "lsmith3";
-				} else if (karmaLevel == 5) {
-					htmlid = "lsmith4";
-				} else if (karmaLevel == 6) {
-					htmlid = "lsmith5";
-				} else if (karmaLevel == 7) {
-					htmlid = "lsmith7";
-				} else if (karmaLevel == 8) {
-					htmlid = "lsmith8";
+				String[] html = { "lsmith0", "lsmith1", "lsmith2", "lsmith3",
+						"lsmith4", "lsmith5", "lsmith7", "lsmith8" };
+				if (karmaLevel <= 8) {
+					htmlid = html[karmaLevel - 1];
 				} else {
 					htmlid = "";
 				}
@@ -2644,6 +2642,358 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== 13) {
 					htmlid = "oreno1";
+				}
+			} else if (npcid == 71256) {
+				if (!player.isElf()) {
+					htmlid = "robinhood2";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 255) {
+					htmlid = "robinhood12";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 8) {
+					if (player.getInventory().checkItem(40491,30)
+							&& player.getInventory().checkItem(40495,40)
+							&& player.getInventory().checkItem(100,1)
+							&& player.getInventory().checkItem(40509,12)
+							&& player.getInventory().checkItem(40052,1)
+							&& player.getInventory().checkItem(40053,1)
+							&& player.getInventory().checkItem(40054,1)
+							&& player.getInventory().checkItem(40055,1)
+							&& player.getInventory().checkItem(41347,1)
+							&& player.getInventory().checkItem(41350,1)) {
+						htmlid = "robinhood11";
+					} else if (player.getInventory().checkItem(40491,30)
+							&& player.getInventory().checkItem(40495,40)
+							&& player.getInventory().checkItem(100,1)
+							&& player.getInventory().checkItem(40509,12)) {
+						htmlid = "robinhood16";
+					} else if ((!(player.getInventory().checkItem(40491,30)
+							&& player.getInventory().checkItem(40495,40)
+							&& player.getInventory().checkItem(100,1)
+							&& player.getInventory().checkItem(40509,12)))) {
+						htmlid = "robinhood17";
+					}
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 7) {
+					if (player.getInventory().checkItem(41352,4)
+							&& player.getInventory().checkItem(40618,30)
+							&& player.getInventory().checkItem(40643,30)
+							&& player.getInventory().checkItem(40645,30)
+							&& player.getInventory().checkItem(40651,30)
+							&& player.getInventory().checkItem(40676,30)
+							&& player.getInventory().checkItem(40514,20)
+							&& player.getInventory().checkItem(41351,1)
+							&& player.getInventory().checkItem(41346,1)) {
+						htmlid = "robinhood9";
+					} else if (player.getInventory().checkItem(41351,1)
+							&& player.getInventory().checkItem(41352,4)) {
+						htmlid = "robinhood14";
+					} else if (player.getInventory().checkItem(41351,1)
+							&& (!(player.getInventory().checkItem(41352,4)))) {
+						htmlid = "robinhood15";
+					} else if (player.getInventory().checkItem(41351)) {
+						htmlid = "robinhood9";
+					} else {
+						htmlid = "robinhood18";
+					}
+				} else if ((player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 2)
+						|| (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 3)
+						|| (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 4)
+						|| (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 5)
+						|| (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 6)) {
+					htmlid = "robinhood13";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 1) {
+					htmlid = "robinhood8";
+				} else {
+					htmlid = "robinhood1";
+				}
+			} else if (npcid == 71257) { 
+				if (!player.isElf()) {
+					htmlid = "zybril16";
+				} else if ((player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) >= 7)) {
+					htmlid = "zybril19";
+				} else if (player.getInventory().checkItem(41349)
+						&& (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 7)) {
+					htmlid = "zybril19";
+				} else if (player.getInventory().checkItem(41349)
+						&& (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 6)) {
+					htmlid = "zybril18";
+				} else if ((player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 6)
+						&& (!(player.getInventory().checkItem(41354)))) {
+					htmlid = "zybril7";
+				} else if ((player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 6)
+						&& player.getInventory().checkItem(41354)) {
+					htmlid = "zybril17";
+				} else if (player.getInventory().checkItem(41353)
+						&& player.getInventory().checkItem(40514,10)
+						&& player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 5) {
+					htmlid = "zybril8";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 5) {
+					htmlid = "zybril13";
+				} else if (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 4
+						&& player.getInventory().checkItem(40048,10)
+						&& player.getInventory().checkItem(40049,10)
+						&& player.getInventory().checkItem(40050,10)
+						&& player.getInventory().checkItem(40051,10)) {
+					htmlid = "zybril7";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 4) {
+					htmlid = "zybril12";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_MOONOFLONGBOW) == 3) {
+					htmlid = "zybril3";
+				} else if ((player.isElf())
+						&& ((player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 2)
+						|| (player.getQuest().get_step(L1Quest
+								.QUEST_MOONOFLONGBOW) == 1))){
+					htmlid = "zybril1";
+				} else {
+					htmlid = "zybril1";
+				}
+			} else if (npcid == 71258) {
+				if (player.getLawful() <= -501) {
+					htmlid = "marba1";
+				} else if (player.isCrown()
+						|| player.isDarkelf()
+						|| player.isKnight()
+						|| player.isWizard()
+						|| player.isDragonKnight()
+						|| player.isIllusionist()) {
+					htmlid = "marba2";
+				} else if (player.getInventory().checkItem(40665)
+						&& (player.getInventory().checkItem(40693)
+						|| player.getInventory().checkItem(40694)
+						|| player.getInventory().checkItem(40695)
+						|| player.getInventory().checkItem(40697)
+						|| player.getInventory().checkItem(40698)
+						|| player.getInventory().checkItem(40699))) {
+					htmlid = "marba8";
+				} else if(player.getInventory().checkItem(40665)) {
+					htmlid = "marba17";
+				} else if (player.getInventory().checkItem(40664)) {
+					htmlid = "marba19";
+				} else if (player.getInventory().checkItem(40637)) {
+					htmlid = "marba18";
+				} else {
+					htmlid = "marba3";
+				}
+			} else if (npcid == 71259) {
+				if (player.getLawful() <= -501) {
+					htmlid = "aras12";
+				} else if (player.isCrown()
+						|| player.isDarkelf()
+						|| player.isKnight()
+						|| player.isWizard()
+						|| player.isDragonKnight()
+						|| player.isIllusionist()) {
+					htmlid = "aras11";
+				} else if (player.getInventory().checkItem(40665)
+						&& (player.getInventory().checkItem(40679)
+						|| player.getInventory().checkItem(40680)
+						|| player.getInventory().checkItem(40681)
+						|| player.getInventory().checkItem(40682)
+						|| player.getInventory().checkItem(40683)
+						|| player.getInventory().checkItem(40684))) {
+					htmlid = "aras3";
+				} else if (player.getInventory().checkItem(40665)) {
+					htmlid = "aras8";
+				} else if (player.getInventory().checkItem(40679)
+						|| player.getInventory().checkItem(40680)
+						|| player.getInventory().checkItem(40681)
+						|| player.getInventory().checkItem(40682)
+						|| player.getInventory().checkItem(40683)
+						|| player.getInventory().checkItem(40684)
+						|| player.getInventory().checkItem(40693)
+						|| player.getInventory().checkItem(40694)
+						|| player.getInventory().checkItem(40695)
+						|| player.getInventory().checkItem(40697)
+						|| player.getInventory().checkItem(40698)
+						|| player.getInventory().checkItem(40699)) {
+					htmlid = "aras3";
+				} else if(player.getInventory().checkItem(40664)) {
+					htmlid = "aras6";
+				} else if(player.getInventory().checkItem(40637)) {
+					htmlid = "aras1";
+				} else {
+					htmlid ="aras7";
+				}
+			} else if (npcid == 70838) { 
+				if (player.isCrown()
+						|| player.isKnight()
+						|| player.isWizard()
+						|| player.isDragonKnight()
+						|| player.isIllusionist()) {
+					htmlid = "nerupam1";
+				} else if (player.isDarkelf()
+						&& (player.getLawful() <= -1)) {
+					htmlid = "nerupaM2";
+				} else if (player.isDarkelf()) {
+					htmlid = "nerupace1";
+				} else if (player.isElf()) {
+					htmlid = "nerupae1";
+				}
+			} else if (npcid == 80094) { 
+				if (player.isIllusionist()) {
+					htmlid = "altar1";
+				} else if (!player.isIllusionist()) {
+					htmlid = "altar2";
+				}
+			} else if (npcid == 80099) { 
+				if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 1) {
+					if (player.getInventory().checkItem(41325, 1)) {
+						htmlid = "rarson8";
+					} else {
+						htmlid = "rarson10";
+					}
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 2) {
+					if (player.getInventory().checkItem(41317, 1)
+							&& player.getInventory().checkItem(41315, 1)) {
+						htmlid = "rarson13";
+					} else {
+						htmlid = "rarson19";
+					}
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 3) {
+					htmlid = "rarson14";
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
+					if (!(player.getInventory().checkItem(41326, 1))) {
+						htmlid = "rarson18";
+					} else if (player.getInventory().checkItem(41326, 1)) {
+						htmlid = "rarson11";
+					} else {
+						htmlid = "rarson17";
+					}
+				} else if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) >= 5 ) {
+					htmlid = "rarson1";
+				}
+			} else if (npcid == 80101) { 
+				if (player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
+					if ((player.getInventory().checkItem(41315, 1))
+							&& player.getInventory().checkItem(40494, 30)
+							&& player.getInventory().checkItem(41317, 1)) {
+						htmlid = "kuen4";
+					} else if (player.getInventory().checkItem(41316, 1)) {
+						htmlid = "kuen1";
+					} else if (!player.getInventory().checkItem(41316)) {
+						player.getQuest().set_step(L1Quest
+								.QUEST_GENERALHAMELOFRESENTMENT, 1);
+					}
+				} else if ((player.getQuest().get_step(L1Quest
+						.QUEST_GENERALHAMELOFRESENTMENT) == 2)
+						&& (player.getInventory().checkItem(41317, 1))) {
+					htmlid = "kuen3";
+				} else {
+					htmlid = "kuen1";
+				}
+			} else if (npcid == 80134) { 
+				if(player.isDragonKnight()) { 
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if(player.getLevel() >= 30 && lv30_step == 2) {
+						htmlid = "talrion1";
+					} else if(player.getLevel() >= 45 && lv45_step == 5) {
+						htmlid = "talrion9";
+					}
+				}
+			} else if (npcid == 80135) { 
+				if(player.isDragonKnight()) { 
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					if (lv30_step == L1Quest.QUEST_END) {
+						htmlid = "elas6";
+					} else  if(player.getLevel() >= 30
+							&& lv30_step >= 1) {
+						htmlid = "elas1";
+					}
+				}
+			} else if (npcid == 80136) { 
+				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
+				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+				if (player.isDragonKnight()) { 
+					if(player.getLevel() >= 50
+							&& lv45_step == L1Quest.QUEST_END) {
+						if(lv50_step == 0) {
+							htmlid = "prokel21";
+						} else if(lv50_step == L1Quest.QUEST_END) { 
+							htmlid = "prokel32";
+						} else {
+							htmlid = "prokel24";
+						}
+					} else if(player.getLevel() >= 45
+							&& lv30_step == L1Quest.QUEST_END) {
+						if(lv45_step == 0) {
+							htmlid = "prokel15";
+						} else if(lv45_step >= 5) { 
+							htmlid = "prokel20";
+						} else {
+							htmlid = "prokel17";
+						}
+					} else if (player.getLevel() >= 30
+							&& lv15_step == L1Quest.QUEST_END) {
+						if(lv30_step == 0) {
+							htmlid = "prokel8";
+						} else if(lv30_step >= 2) { 
+							htmlid = "prokel14";
+						} else {
+							htmlid = "prokel10";
+						}
+					} else if (player.getLevel() >= 15) {
+						if (lv15_step == 0 ) {
+							htmlid = "prokel2";
+						} else if (	lv15_step == L1Quest.QUEST_END) { 
+							htmlid = "prokel7";
+						} else {
+							htmlid = "prokel4";
+						}
+					} else { 
+						htmlid = "prokel1";
+					}
+				}
+			} else if (npcid == 80145) { 
+				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
+				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+				if (player.isDragonKnight()) { 
+					if(player.getLevel() >= 45 && lv45_step == 1) {
+						htmlid = "silrein37";
+					} else if (player.getLevel() >= 45 && lv45_step == 2) {
+						htmlid = "silrein38";
+					} else if (player.getLevel() >= 45 && lv45_step == 3) {
+						htmlid = "silrein40";
+					} else if (player.getLevel() >= 45 && lv45_step == 4) {
+						htmlid = "silrein43";
+					}
+				}
+			} else if (npcid == 81245) { 
+				if (player.isDragonKnight()) {
+					if (player.getTempCharGfx() == 6984) { 
+						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
+						if (lv30_step == 1) {
+							htmlid = "spy_orc1";
+						}
+					}
 				}
 			}
 

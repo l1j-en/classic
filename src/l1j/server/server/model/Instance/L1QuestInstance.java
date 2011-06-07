@@ -20,7 +20,6 @@ package l1j.server.server.model.Instance;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
@@ -62,6 +61,7 @@ public class L1QuestInstance extends L1NpcInstance {
 			attack.calcDamage();
 			attack.calcStaffOfMana();
 			attack.addPcPoisonAttack(pc, this);
+			attack.addChaserAttack();
 		}
 		attack.action();
 		attack.commit();

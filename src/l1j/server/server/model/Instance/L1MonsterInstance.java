@@ -27,25 +27,26 @@ import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.DropTable;
+import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1NpcTalkData;
+import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_RemoveObject;
-import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_NPCPack;
+import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
-import l1j.server.server.datatables.NPCTalkDataTable;
-import l1j.server.server.serverpackets.S_NPCTalkReturn;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1MonsterInstance extends L1NpcInstance {
 
@@ -84,6 +85,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 		}
+		//TRICIDTODO: maybe make this configurable
 		if (getCurrentHp() * 100 / getMaxHp() < 40) { 
 			if (this.getInt() > 13) // only mobs with > 13 int will use pots
 			{
@@ -97,7 +99,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 		perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		if (0 < getCurrentHp()) {
-			if (getHiddenStatus() == HIDDEN_STATUS_SINK) {
+			if (getHiddenStatus() == HIDDEN_STATUS_SINK
+					|| getHiddenStatus() == HIDDEN_STATUS_ICE) {
 				perceivedFrom.sendPackets(new S_DoActionGFX(getId(),
 						ActionCodes.ACTION_Hide));
 			} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
@@ -109,8 +112,11 @@ public class L1MonsterInstance extends L1NpcInstance {
 			if (getBraveSpeed() == 1) {
 				perceivedFrom.sendPackets(new S_SkillBrave(getId(), 1, 600000));
 			}
+		} else {
+			perceivedFrom.sendPackets(new S_NPCPack(this));
 		}
 	}
+
 
 	public static int[][] _classGfxId = { { 0, 1 }, { 48, 61 }, { 37, 138 },
 			{ 734, 1186 }, { 2786, 2796 } };
@@ -138,6 +144,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91
 					|| mapId == 95) {
 				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { // 
+					targetPlayer = pc;
+					break;
+				}
+			}
+
+			if (getNpcId() == 45600){ // J[c
+				if (pc.isCrown() || pc.isDarkelf()
+						|| pc.getTempCharGfx() != pc.getClassId()) { // ¢ÏgÌNåADEÉÍANeBu
 					targetPlayer = pc;
 					break;
 				}
@@ -246,21 +260,22 @@ public class L1MonsterInstance extends L1NpcInstance {
 		String htmlid = null;
 		String[] htmldata = null;
 
-		if (htmlid != null) { //
-			if (htmldata != null) { //
-				pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
-						htmldata));
+
+			if (htmlid != null) { 
+				if (htmldata != null) { 
+					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
+							htmldata));
+				} else {
+					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
+				}
 			} else {
-				pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
-			}
-		} else {
-			if (pc.getLawful() < -1000) { //
-				pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
-			} else {
-				pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
+				if (pc.getLawful() < -1000) { 
+					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
+				} else {
+					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
+				}
 			}
 		}
-	}
 
 	@Override
 	public void onAction(L1PcInstance pc) {
@@ -270,6 +285,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				attack.calcDamage();
 				attack.calcStaffOfMana();
 				attack.addPcPoisonAttack(pc, this);
+				attack.addChaserAttack();
 			}
 			attack.action();
 			attack.commit();
@@ -299,7 +315,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) { 
 		if (getCurrentHp() > 0 && !isDead()) {
-			if (getHiddenStatus() != HIDDEN_STATUS_NONE) {
+			if (getHiddenStatus() == HIDDEN_STATUS_SINK
+					|| getHiddenStatus() == HIDDEN_STATUS_FLY) {
 				return;
 			}
 			if (damage >= 0) {
@@ -338,6 +355,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 					setCurrentHpDirect(0);
 					setDead(true);
 					setStatus(ActionCodes.ACTION_Die);
+					openDoorWhenNpcDied(this);
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
 					// Death(attacker);
@@ -355,9 +373,38 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setStatus(ActionCodes.ACTION_Die);
 			Death death = new Death(attacker);
 			GeneralThreadPool.getInstance().execute(death);
+			// Death(attacker);
 		}
 	}
 
+	private static void openDoorWhenNpcDied(L1NpcInstance npc) {
+		int[] npcId = { 46143, 46144, 46145, 46146, 46147, 46148,
+				46149, 46150, 46151, 46152};
+		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006,
+				5007, 5008, 5009, 5010};
+
+		for (int i = 0; i < npcId.length; i++) {
+			if (npc.getNpcTemplate().get_npcId() == npcId[i]) {
+				openDoorInCrystalCave(doorId[i]);
+			}
+		}
+	}
+
+	private static void openDoorInCrystalCave(int doorId) {
+		for (L1Object object : L1World.getInstance().getObject()) {
+			if (object instanceof L1DoorInstance) {
+				L1DoorInstance door = (L1DoorInstance) object;
+				if (door.getDoorId() == doorId) {
+					door.open();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param pc
+	 */
 	private void recall(L1PcInstance pc) {
 		if (getMapId() != pc.getMapId()) {
 			return;
@@ -434,6 +481,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 	}
 
 	private void distributeExpDropKarma(L1Character lastAttacker) {
+		if (lastAttacker == null) {
+			return;
+		}
 		L1PcInstance pc = null;
 		if (lastAttacker instanceof L1PcInstance) {
 			pc = (L1PcInstance) lastAttacker;
@@ -475,12 +525,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 					pc = (L1PcInstance) ((L1SummonInstance)
 							lastAttacker).getMaster();
 				}
-				int exp = getExp();
-				CalcExp.calcExp(pc, getId(), targetList, hateList, exp);
-				//
-				if (isDead()) {
-					distributeDrop();
-					giveKarma(pc);
+				if (pc != null) {
+					int exp = getExp();
+					CalcExp.calcExp(pc, getId(), targetList, hateList, exp);
+
+					if (isDead()) {
+						distributeDrop();
+						giveKarma(pc);
+					}
 				}
 			}
 		}
@@ -619,6 +671,19 @@ public class L1MonsterInstance extends L1NpcInstance {
 					broadcastPacket(new S_NPCPack(this));
 				}
 			}
+		} else if (npcid == 46107 
+				 || npcid == 46108) { 
+			if (getMaxHp() / 4 > getCurrentHp()) {
+				int rnd = _random.nextInt(10);
+				if (1 > rnd) {
+					allTargetClear();
+					setHiddenStatus(HIDDEN_STATUS_SINK);
+					broadcastPacket(new S_DoActionGFX(getId(),
+							ActionCodes.ACTION_Hide));
+					setStatus(13);
+					broadcastPacket(new S_NPCPack(this));
+				}
+			}
 		}
 	}
 
@@ -630,7 +695,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				|| npcid == 45455) { 
 			int rnd = _random.nextInt(3);
 			if (1 > rnd) {
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_SINK);
+				setHiddenStatus(HIDDEN_STATUS_SINK);
 				setStatus(13);
 			}
 		} else if (npcid == 45045 
@@ -648,44 +713,61 @@ public class L1MonsterInstance extends L1NpcInstance {
 				|| npcid == 45090 
 				|| npcid == 45321 
 				|| npcid == 45445) { 
-			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_FLY);
+			setHiddenStatus(HIDDEN_STATUS_FLY);
 			setStatus(4);
 		} else if (npcid == 45681) { 
-			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_FLY);
+			setHiddenStatus(HIDDEN_STATUS_FLY);
 			setStatus(11);
+		} else if (npcid == 46107 
+				 || npcid == 46108) { 
+			int rnd = _random.nextInt(3);
+			if (1 > rnd) {
+				setHiddenStatus(HIDDEN_STATUS_SINK);
+				setStatus(13);
+			}
+		} else if (npcid >= 46125 && npcid <= 46128) {
+			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_ICE);
+			setStatus(4);
 		}
 	}
 
 	public void initHideForMinion(L1NpcInstance leader) {
+
 		int npcid = getNpcTemplate().get_npcId();
-		if (leader.getHiddenStatus() == L1NpcInstance.HIDDEN_STATUS_SINK) {
-			if (npcid == 45061
-					|| npcid == 45161
-					|| npcid == 45181
+		if (leader.getHiddenStatus() == HIDDEN_STATUS_SINK) {
+			if (npcid == 45061 
+					|| npcid == 45161 
+					|| npcid == 45181 
 					|| npcid == 45455) { 
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_SINK);
+				setHiddenStatus(HIDDEN_STATUS_SINK);
 				setStatus(13);
 			} else if (npcid == 45045 
 					|| npcid == 45126 
-					|| npcid == 45134
+					|| npcid == 45134 
 					|| npcid == 45281) { 
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_SINK);
+				setHiddenStatus(HIDDEN_STATUS_SINK);
 				setStatus(4);
+			} else if (npcid == 46107 
+					 || npcid == 46108) { 
+				setHiddenStatus(HIDDEN_STATUS_SINK);
+				setStatus(13);
 			}
-		} else if (leader.getHiddenStatus() == L1NpcInstance
-				.HIDDEN_STATUS_FLY) {
-			if (npcid == 45067 
-					|| npcid == 45264 
-					|| npcid == 45452
-					|| npcid == 45090 
-					|| npcid == 45321 
-					|| npcid == 45445) {
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_FLY);
+		} else if (leader.getHiddenStatus() == HIDDEN_STATUS_FLY) {
+			if (npcid == 45067 // o[n[s[
+					|| npcid == 45264 // n[s[
+					|| npcid == 45452 // n[s[
+					|| npcid == 45090 // o[OtH
+					|| npcid == 45321 // OtH
+					|| npcid == 45445) { // OtH
+				setHiddenStatus(HIDDEN_STATUS_FLY);
 				setStatus(4);
 			} else if (npcid == 45681) { 
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_FLY);
+				setHiddenStatus(HIDDEN_STATUS_FLY);
 				setStatus(11);
 			}
+		} else if (npcid >= 46125 && npcid <= 46128) {
+			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_ICE);
+			setStatus(4);
 		}
 	}
 

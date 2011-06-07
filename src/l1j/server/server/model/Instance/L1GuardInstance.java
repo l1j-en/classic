@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model.Instance;
 
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -33,14 +34,15 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.types.Point;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1GuardInstance extends L1NpcInstance {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//private static Logger _log = Logger.getLogger(L1GuardInstance.class
-	//		.getName());
+	private static Logger _log = Logger.getLogger(L1GuardInstance.class
+			.getName());
 
 	@Override
 	public void searchTarget() {
@@ -71,7 +73,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		}
 	}
 
-	public boolean noTarget(int depth) {
+	public boolean noTarget() {
 		if (getLocation()
 				.getTileLineDistance(new Point(getHomeX(), getHomeY())) > 0) {
 			int dir = moveDirection(getHomeX(), getHomeY());
@@ -113,6 +115,7 @@ public class L1GuardInstance extends L1NpcInstance {
 					attack.calcDamage();
 					attack.calcStaffOfMana();
 					attack.addPcPoisonAttack(pc, this);
+					attack.addChaserAttack();
 				}
 				attack.action();
 				attack.commit();
@@ -404,7 +407,8 @@ public class L1GuardInstance extends L1NpcInstance {
 			if (newHp > 0) {
 				setCurrentHp(newHp);
 			}
-		} else if (!isDead()) { // 
+		} else if (getCurrentHp() == 0 && !isDead()) {
+		} else if (!isDead()) { 
 			setDead(true);
 			setStatus(ActionCodes.ACTION_Die);
 			Death death = new Death(attacker);

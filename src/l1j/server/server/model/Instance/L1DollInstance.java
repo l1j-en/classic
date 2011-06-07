@@ -21,6 +21,7 @@ package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.GeneralThreadPool;
@@ -36,16 +37,22 @@ public class L1DollInstance extends L1NpcInstance {
 
 	public static final int DOLLTYPE_BUGBEAR = 0;
 	public static final int DOLLTYPE_SUCCUBUS = 1;
-	public static final int DOLLTYPE_WEREWOLF = 2;
+	public static final int DOLLTYPE_WAREWOLF = 2;
+	public static final int DOLLTYPE_ELDER = 3;
+	public static final int DOLLTYPE_CRUSTANCEAN = 4;
+	public static final int DOLLTYPE_GOLEM = 5;
 	public static final int DOLL_TIME = 1800000;
 
+	private static Logger _log = Logger.getLogger(L1DollInstance.class
+			.getName());
 	private ScheduledFuture<?> _dollFuture;
 	private static Random _random = new Random();
 	private int _dollType;
 	private int _itemObjId;
 
-	//@Override
-	public boolean noTarget(int depth) {
+
+	@Override
+	public boolean noTarget() {
 		if (_master.isDead()) {
 			deleteDoll();
 			return true;
@@ -159,7 +166,8 @@ public class L1DollInstance extends L1NpcInstance {
 
 	public int getDamageByDoll() {
 		int damage = 0;
-		if (getDollType() == DOLLTYPE_WEREWOLF) {
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_WAREWOLF || dollType == DOLLTYPE_CRUSTANCEAN) {
 			int chance = _random.nextInt(100) + 1;
 			if (chance <= 3) {
 				damage = 15;
@@ -177,7 +185,8 @@ public class L1DollInstance extends L1NpcInstance {
 
 	public boolean isMpRegeneration() {
 		boolean isMpRegeneration = false;
-		if (getDollType() == DOLLTYPE_SUCCUBUS) {
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_SUCCUBUS || dollType == DOLLTYPE_ELDER) {
 			isMpRegeneration = true;
 		}
 		return isMpRegeneration;
@@ -185,10 +194,23 @@ public class L1DollInstance extends L1NpcInstance {
 
 	public int getWeightReductionByDoll() {
 		int weightReduction = 0;
-		if (getDollType() == DOLLTYPE_BUGBEAR) {
-			weightReduction = 10;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_BUGBEAR) {
+			weightReduction = 20;
 		}
 		return weightReduction;
+	}
+
+	public int getDamageReductionByDoll() {
+		int damageReduction = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_GOLEM) {
+			int chance = _random.nextInt(100) + 1;
+			if (chance <= 4) {
+				damageReduction = 15;
+			}
+		}
+		return damageReduction;
 	}
 
 }

@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model.Instance;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.WarTimeController;
@@ -37,6 +39,8 @@ import l1j.server.server.templates.L1Npc;
 public class L1TowerInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
+	private static Logger _log = Logger.getLogger(L1TowerInstance.class
+			.getName());
 
 	public L1TowerInstance(L1Npc template) {
 		super(template);
@@ -59,6 +63,7 @@ public class L1TowerInstance extends L1NpcInstance {
 			if (attack.calcHit()) {
 				attack.calcDamage();
 				attack.addPcPoisonAttack(player, this);
+				attack.addChaserAttack();
 			}
 			attack.action();
 			attack.commit();

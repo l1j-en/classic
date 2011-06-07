@@ -3,6 +3,7 @@ package l1j.server.server.model.Instance;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.ActionCodes;
@@ -23,9 +24,13 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.templates.L1Npc;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1SummonInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
+
+	private static Logger _log = Logger.getLogger(L1SummonInstance.class
+			.getName());
 	private ScheduledFuture<?> _summonFuture;
 	private static final long SUMMON_TIME = 3600000L;
 	private int _currentPetStatus;
@@ -33,7 +38,7 @@ public class L1SummonInstance extends L1NpcInstance {
 	private boolean _isReturnToNature = false;
 	private static Random _random = new Random();
 
-	public boolean noTarget(int depth) {
+	public boolean noTarget() {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
 			return true;
 		} else if (_currentPetStatus == 4) {
@@ -232,6 +237,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			}
 		} else if (!isDead())
 		{
+			System.out.println("xFTÌgo¸­ª³µ­síêÄ¢È¢Óª èÜ·B¦àµ­ÍÅ©çgoO");
 			Death(attacker);
 		}
 	}

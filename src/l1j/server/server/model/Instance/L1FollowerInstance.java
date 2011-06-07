@@ -18,16 +18,10 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Logger;
 
-import l1j.server.server.ActionCodes;
 import java.lang.reflect.Constructor;
-import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.IdFactory;
-import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
@@ -45,9 +39,11 @@ import l1j.server.server.templates.L1Npc;
 public class L1FollowerInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
 
+	private static Logger _log = Logger.getLogger(L1FollowerInstance.class
+			.getName());
 
 	@Override
-	public boolean noTarget(int depth) {
+	public boolean noTarget() {
 		L1NpcInstance targetNpc = null;
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
 			if (object instanceof L1NpcInstance) {
@@ -178,6 +174,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 			attack.calcDamage();
 			attack.calcStaffOfMana();
 			attack.addPcPoisonAttack(pc, this);
+			attack.addChaserAttack();
 		}
 		attack.action();
 		attack.commit();

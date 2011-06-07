@@ -17,7 +17,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package l1j.server.server.model.Instance;
-import l1j.server.server.serverpackets.S_SystemMessage;
+
+import java.util.logging.Logger;
+
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
@@ -33,7 +35,9 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private static Logger _log = Logger.getLogger(L1HousekeeperInstance.class
+			.getName());
+
 	/**
 	 * @param template
 	 */
@@ -61,17 +65,13 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 		if (talking != null) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
-				try {
-					int houseId = clan.getHouseId();
-					if (houseId != 0) {
-						L1House house = HouseTable.getInstance().getHouseTable(houseId);
-	
-						if (npcid == house.getKeeperId()) {
-							isOwner = true;
-						}
-					} 
-				} catch (Exception e) {
-					System.out.println(e);
+				int houseId = clan.getHouseId();
+				if (houseId != 0) {
+					L1House house = HouseTable.getInstance()
+							.getHouseTable(houseId);
+					if (npcid == house.getKeeperId()) {
+						isOwner = true;
+					}
 				}
 			}
 
