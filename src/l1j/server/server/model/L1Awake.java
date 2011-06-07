@@ -41,20 +41,20 @@ public class L1Awake {
 	}
 
 	public static void start(L1PcInstance pc, int skillId) {
-		if (skillId == pc.getAwakeSkillId()) { // 再詠唱なら解除
+		if (skillId == pc.getAwakeSkillId()) { // r
 			stop(pc);
-		} else if (pc.getAwakeSkillId() != 0) { // 他の覚醒スキルの場合はリターン
+		} else if (pc.getAwakeSkillId() != 0) { // oXL^[
 			return;
 		} else {
-			if (skillId == AWAKEN_ANTHARAS) { // 覚醒：アンタラス
+			if (skillId == AWAKEN_ANTHARAS) { // oFA^X
 				pc.addMaxHp(127);
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(),
 						pc.getMaxHp()));
-				if (pc.isInParty()) { // パーティー中
+				if (pc.isInParty()) { // p[eB[
 					pc.getParty().updateMiniHP(pc);
 				}
 				pc.addAc(-12);
-			} else if (skillId == AWAKEN_FAFURION) { // 覚醒：パプリオン
+			} else if (skillId == AWAKEN_FAFURION) { // oFpvI
 				pc.addMr(30);
 				pc.sendPackets(new S_SPMR(pc));
 				pc.addWind(30);
@@ -62,7 +62,7 @@ public class L1Awake {
 				pc.addFire(30);
 				pc.addEarth(30);
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
-			} else if (skillId == AWAKEN_VALAKAS) { // 覚醒：ヴァラカス
+			} else if (skillId == AWAKEN_VALAKAS) { // oF@JX
 				pc.addStr(5);
 				pc.addCon(5);
 				pc.addDex(5);
@@ -79,15 +79,15 @@ public class L1Awake {
 
 	public static void stop(L1PcInstance pc) {
 		int skillId = pc.getAwakeSkillId();
-		if (skillId == AWAKEN_ANTHARAS) { // 覚醒：アンタラス
+		if (skillId == AWAKEN_ANTHARAS) { // oFA^X
 			pc.addMaxHp(-127);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(),
 					pc.getMaxHp()));
-			if (pc.isInParty()) { // パーティー中
+			if (pc.isInParty()) { // p[eB[
 				pc.getParty().updateMiniHP(pc);
 			}
 			pc.addAc(12);
-		} else if (skillId == AWAKEN_FAFURION) { // 覚醒：パプリオン
+		} else if (skillId == AWAKEN_FAFURION) { // oFpvI
 			pc.addMr(-30);
 			pc.sendPackets(new S_SPMR(pc));
 			pc.addWind(-30);
@@ -95,7 +95,7 @@ public class L1Awake {
 			pc.addFire(-30);
 			pc.addEarth(-30);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (skillId == AWAKEN_VALAKAS) { // 覚醒：ヴァラカス
+		} else if (skillId == AWAKEN_VALAKAS) { // oF@JX
 			pc.addStr(-5);
 			pc.addCon(-5);
 			pc.addDex(-5);
