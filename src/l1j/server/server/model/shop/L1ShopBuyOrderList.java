@@ -20,6 +20,7 @@ package l1j.server.server.model.shop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.model.L1TaxCalculator;
@@ -44,6 +45,9 @@ class L1ShopBuyOrder {
 }
 
 public class L1ShopBuyOrderList {
+	private static Logger _log = Logger.getLogger(L1ShopBuyOrder.class
+			.getName());
+
 	private final L1Shop _shop;
 	private final List<L1ShopBuyOrder> _list = new ArrayList<L1ShopBuyOrder>();
 	private final L1TaxCalculator _taxCalc;
@@ -71,12 +75,11 @@ public class L1ShopBuyOrderList {
 				return;
 			}
 		}
-		_totalPrice += price * count;
-		if(_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from taxes
-			_totalPriceTaxIncluded += _taxCalc.layTax(price) * count;
-		} else {
-			_totalPriceTaxIncluded += price * count;
+		if (_totalPrice < 0) {
+			return;
 		}
+		_totalPrice += price * count;
+		_totalPriceTaxIncluded += _taxCalc.layTax(price) * count;
 		_totalWeight += shopItem.getItem().getWeight() * count
 				* shopItem.getPackCount();
 

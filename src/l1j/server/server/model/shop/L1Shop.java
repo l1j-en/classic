@@ -74,6 +74,9 @@ public class L1Shop {
 		if (item.getEnchantLevel() != 0) { 
 			return false;
 		}
+		if (item.getBless() >= 128) { 
+			return false;
+		}
 
 		return true;
 	}
