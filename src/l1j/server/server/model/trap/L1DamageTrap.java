@@ -42,6 +42,6 @@ public class L1DamageTrap extends L1Trap {
 
 		int dmg = _dice.roll(_diceCount) + _base;
 
-		trodFrom.receiveDamage(trodFrom, dmg);
+		trodFrom.receiveDamage(trodFrom, dmg, false);
 	}
 }

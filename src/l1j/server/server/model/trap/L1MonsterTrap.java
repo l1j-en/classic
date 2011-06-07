@@ -43,8 +43,8 @@ public class L1MonsterTrap extends L1Trap {
 	private final int _npcId;
 	private final int _count;
 
-	private L1Npc _npcTemp = null; // Performance for cash	
-	private Constructor _constructor = null; // Performance for cash
+	private L1Npc _npcTemp = null; 
+	private Constructor _constructor = null; 
 
 	public L1MonsterTrap(TrapStorage storage) {
 		super(storage);
@@ -64,7 +64,7 @@ public class L1MonsterTrap extends L1Trap {
 		L1Map m = loc.getMap();
 		int x = loc.getX();
 		int y = loc.getY();
-		// loc centered on one side of the square to draw a tile d make a list Point
+
 		for (int i = 0; i < d; i++) {
 			addListIfPassable(result, m, new Point(d - i + x, i + y));
 			addListIfPassable(result, m, new Point(-(d - i) + x, -i + y));
@@ -103,7 +103,7 @@ public class L1MonsterTrap extends L1Trap {
 
 		npc.onNpcAI();
 		npc.turnOnOffLight();
-		npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
+		npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); 
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class L1MonsterTrap extends L1Trap {
 
 		List<Point> points = getSpawnablePoints(trapObj.getLocation(), 5);
 		
-		// place, we will end
+
 		if (points.isEmpty()) {
 			return;
 		}
