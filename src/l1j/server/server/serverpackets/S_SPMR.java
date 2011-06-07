@@ -18,12 +18,16 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class S_SPMR extends ServerBasePacket {
 
+	private static Logger _log = Logger.getLogger(S_SPMR.class.getName());
 	private static final String S_SPMR = "[S] S_S_SPMR";
 
 	private byte[] _byte = null;
@@ -34,9 +38,9 @@ public class S_SPMR extends ServerBasePacket {
 
 	private void buildPacket(L1PcInstance pc) {
 		writeC(Opcodes.S_OPCODE_SPMR);
-		// UIZUDAMUPOSHON S_SkillBrave the SP is updated so when you send it off
-		if (pc.hasSkillEffect(L1SkillId.STATUS_WISDOM_POTION)) {
-			writeC(pc.getSp() - pc.getTrueSp() - 2); // SP increase in equipment
+
+		if (pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
+			writeC(pc.getSp() - pc.getTrueSp() - 2); 
 		} else {
 			writeC(pc.getSp() - pc.getTrueSp()); // SP increase in equipment
 		}

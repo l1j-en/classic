@@ -21,7 +21,6 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ActionCodes;
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1SignboardInstance;
 
@@ -52,7 +51,7 @@ public class S_SignboardPack extends ServerBasePacket {
 		writeD(signboard.getId());
 		writeH(signboard.getGfxId());
 		writeC(0);
-		writeC(0);
+		writeC(getDirection(signboard.getHeading()));
 		writeC(0);
 		writeC(0);
 		writeD(0);
@@ -76,6 +75,28 @@ public class S_SignboardPack extends ServerBasePacket {
 		writeC(0);
 		writeC(0xFF);
 		writeC(0xFF);
+	}
+
+	private int getDirection(int heading) {
+		int dir = 0;
+		switch (heading) {
+		case 2:
+			dir = 1;
+			break;
+		case 3:
+			dir = 2;
+			break;
+		case 4:
+			dir = 3;
+			break;
+		case 6:
+			dir = 4;
+			break;
+		case 7:
+			dir = 5;
+			break;
+		}
+		return dir;
 	}
 
 	@Override

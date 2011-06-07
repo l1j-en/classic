@@ -20,6 +20,7 @@
 package l1j.server.server.serverpackets;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.datatables.ShopTable;
@@ -35,6 +36,9 @@ import l1j.server.server.serverpackets.S_NoSell;
 // ServerBasePacket, S_SystemMessage
 
 public class S_ShopBuyList extends ServerBasePacket {
+
+	private static Logger _log = Logger
+			.getLogger(S_ShopBuyList.class.getName());
 
 	private static final String S_SHOP_BUY_LIST = "[S] S_ShopBuyList";
 

@@ -20,6 +20,7 @@
 package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Character;
@@ -30,6 +31,9 @@ import l1j.server.server.model.L1Character;
 public class S_RangeSkill extends ServerBasePacket {
 
 	private static final String S_RANGE_SKILL = "[S] S_RangeSkill";
+	private static Logger _log = Logger.getLogger(S_RangeSkill.class
+			.getName());
+
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 
 	private byte[] _byte = null;

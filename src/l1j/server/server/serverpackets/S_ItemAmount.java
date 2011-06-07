@@ -18,6 +18,8 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
@@ -28,6 +30,9 @@ public class S_ItemAmount extends ServerBasePacket {
 
 	private static final String S_ITEM_AMOUNT = "[S] S_ItemAmount";
 
+	private static Logger _log = Logger.getLogger(S_ItemAmount.class
+			.getName());
+
 	public S_ItemAmount(L1ItemInstance item) {
 		if (item == null) {
 			return;
@@ -37,10 +42,25 @@ public class S_ItemAmount extends ServerBasePacket {
 	}
 
 	private void buildPacket(L1ItemInstance item) {
+// writeC(Opcodes.S_OPCODE_ITEMAMOUNT);
+// writeD(item.getId());
+// writeD(item.getCount());
+// writeC(0);
+		// 3.0
 		writeC(Opcodes.S_OPCODE_ITEMAMOUNT);
 		writeD(item.getId());
+		writeS(item.getViewName());
 		writeD(item.getCount());
-		writeC(0);
+		if (!item.isIdentified()) { 
+			writeC(0);
+		} else {
+			byte[] status = item.getStatusBytes();
+			writeC(status.length);
+			for (byte b : status) {
+				writeC(b);
+			}
+		}
+		// 3.0 end
 	}
 
 	@Override

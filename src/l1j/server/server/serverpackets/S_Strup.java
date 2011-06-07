@@ -31,7 +31,7 @@ public class S_Strup extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_STRUP);
 		writeH(time);
 		writeC(pc.getStr());
-		writeC(pc.getInventory().getWeight30());
+		writeC(pc.getInventory().getWeight240());
 		writeC(type);
 		writeD(0);
 	}
@@ -43,7 +43,7 @@ public class S_Strup extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__25_S_Strup;
+		return "[S] S_Strup";
 	}
 
 	private static final String _S__25_S_Strup = "[S] S_Strup";

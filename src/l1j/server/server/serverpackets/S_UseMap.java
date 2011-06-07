@@ -18,10 +18,13 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_UseMap extends ServerBasePacket {
+	private static Logger _log = Logger.getLogger(S_UseMap.class.getName());
 	private static final String S_USE_MAP = "[S] S_UseMap";
 
 	public S_UseMap(L1PcInstance pc, int objid, int itemid) {

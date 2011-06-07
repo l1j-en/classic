@@ -18,6 +18,8 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -40,7 +42,7 @@ public class S_OwnCharStatus2 extends ServerBasePacket {
 		writeC(cha.getDex());
 		writeC(cha.getCon());
 		writeC(cha.getCha());
-		writeC(cha.getInventory().getWeight30());
+		writeC(cha.getInventory().getWeight240());
 	}
 
 	@Override
@@ -50,9 +52,11 @@ public class S_OwnCharStatus2 extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__4F_S_OwnChraStatus2;
+		return "[C] S_OwnCharStatus2";
 	}
 
 	private static final String _S__4F_S_OwnChraStatus2 = "[C] S_OwnCharStatus2";
+	private static Logger _log = Logger.getLogger(S_OwnCharStatus2.class
+			.getName());
 	private L1PcInstance cha = null;
 }

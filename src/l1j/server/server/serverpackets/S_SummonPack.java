@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
@@ -29,7 +31,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 public class S_SummonPack extends ServerBasePacket {
 
 	private static final String _S__1F_SUMMONPACK = "[S] S_SummonPack";
-
+	private static Logger _log = Logger.getLogger(S_SummonPack.class.getName());
 
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;

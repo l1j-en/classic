@@ -18,10 +18,15 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 
 public class S_ServerMessage extends ServerBasePacket {
 	private static final String S_SERVER_MESSAGE = "[S] S_ServerMessage";
+
+	private static Logger _log = Logger.getLogger(S_ServerMessage.class
+			.getName());
 
 	public static final int NO_PLEDGE = 208;
 

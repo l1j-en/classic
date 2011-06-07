@@ -43,10 +43,6 @@ public class S_Board extends ServerBasePacket {
 	public S_Board(L1NpcInstance board, int number) {
 		buildPacket(board, number);
 	}
-	public S_Board(L1NpcInstance board, boolean ck){ //Ãß°¡
-		  buildPacket(board,0);
-	}
-
 
 	private void buildPacket(L1NpcInstance board, int number) {
 		int count = 0;

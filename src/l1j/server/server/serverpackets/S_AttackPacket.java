@@ -18,26 +18,32 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
-import l1j.server.server.model.L1Character;
+import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_AttackPacket extends ServerBasePacket {
-	private static final String _S__1F_ATTACKPACKET = "[S] S_AttackPacket";
+	private static final String S_ATTACK_PACKET = "[S] S_AttackPacket";
+	private static Logger _log = Logger.getLogger(S_AttackPacket.class
+			.getName());
+
 	private byte[] _byte = null;
 
-	public S_AttackPacket(L1Character cha, int objid, int type) {
-		buildpacket(cha, objid, type);
+	public S_AttackPacket(L1PcInstance pc, int objid, int type) {
+		buildpacket(pc, objid, type);
 	}
 
-	private void buildpacket(L1Character cha, int objid, int type) {
+	private void buildpacket(L1PcInstance pc, int objid, int type) {
 		writeC(Opcodes.S_OPCODE_ATTACKPACKET);
 		writeC(type);
+		writeD(pc.getId());
 		writeD(objid);
-		writeD(cha.getId());
-		writeC(0x4E);
-		writeC(cha.getHeading());
-		writeD(0x00000000);
-		writeC(0x00);
+		writeC(0x01); // damage
+		writeC(pc.getHeading());
+		writeH(0x0000); // target x
+		writeH(0x0000); // target y
+		writeC(0x00); // 0x00:none 0x04:Claw 0x08:CounterMirror
 	}
 
 	@Override
@@ -51,6 +57,6 @@ public class S_AttackPacket extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__1F_ATTACKPACKET;
+		return S_ATTACK_PACKET;
 	}
 }

@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -27,10 +29,12 @@ import l1j.server.server.Opcodes;
 public class S_AddSkill extends ServerBasePacket {
 	private static final String S_ADD_SKILL = "[S] S_AddSkill";
 
+	private static Logger _log = Logger.getLogger(S_AddSkill.class.getName());
+
 	private byte[] _byte = null;
 
 	public S_AddSkill(int level, int id) {
-		int ids[] = new int[24];
+		int ids[] = new int[28];
 		for (int i = 0; i < ids.length; i++) {
 			ids[i] = 0;
 		}
@@ -45,7 +49,7 @@ public class S_AddSkill extends ServerBasePacket {
 		} else if (hasLevel9to10) {
 			writeC(100);
 		} else {
-			writeC(22);
+			writeC(32);
 		}
 		for (int i : ids) {
 			writeC(i);
@@ -58,7 +62,7 @@ public class S_AddSkill extends ServerBasePacket {
 			int level5, int level6, int level7, int level8, int level9,
 			int level10, int knight, int l2, int de1, int de2, int royal,
 			int l3, int elf1, int elf2, int elf3, int elf4, int elf5, int elf6,
-			int k5, int l5) {
+			int k5, int l5, int m5, int n5, int o5, int p5) {
 		int i6 = level5 + level6 + level7 + level8;
 		int j6 = level9 + level10;
 		writeC(Opcodes.S_OPCODE_ADDSKILL);
@@ -67,7 +71,7 @@ public class S_AddSkill extends ServerBasePacket {
 		} else if (j6 > 0) {
 			writeC(100);
 		} else {
-			writeC(22);
+			writeC(32);
 		}
 		writeC(level1);
 		writeC(level2);
@@ -93,6 +97,10 @@ public class S_AddSkill extends ServerBasePacket {
 		writeC(elf6);
 		writeC(k5);
 		writeC(l5);
+		writeC(m5);
+		writeC(n5);
+		writeC(o5);
+		writeC(p5);
 		writeD(0);
 		writeD(0);
 	}

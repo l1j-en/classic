@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1DoorInstance;
 
@@ -26,6 +28,8 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 // ServerBasePacket
 
 public class S_Door extends ServerBasePacket {
+
+	private static Logger _log = Logger.getLogger(S_Door.class.getName());
 	private static final String S_DOOR = "[S] S_Door";
 	private byte[] _byte = null;
 

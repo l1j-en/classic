@@ -17,6 +17,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
@@ -24,6 +26,8 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket
 
 public class S_AddItem extends ServerBasePacket {
+
+	private static Logger _log = Logger.getLogger(S_AddItem.class.getName());
 
 	private static final String S_ADD_ITEM = "[S] S_AddItem";
 
@@ -36,7 +40,7 @@ public class S_AddItem extends ServerBasePacket {
 		writeC(item.getItem().getUseType());
 		writeC(0);
 		writeH(item.get_gfxid());
-		writeC(item.getItem().getBless());
+		writeC(item.getBless());
 		writeD(item.getCount());
 		writeC((item.isIdentified()) ? 1 : 0);
 		writeS(item.getViewName());

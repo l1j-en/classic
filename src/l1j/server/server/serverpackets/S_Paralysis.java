@@ -83,7 +83,7 @@ public class S_Paralysis extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__2F_PARALYSIS;
+		return "[S] S_Paralysis";
 	}
 
 	public static final int TYPE_PARALYSIS = 1;

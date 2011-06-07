@@ -39,7 +39,7 @@ public class S_Underwater extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__19_UNDERWATER;
+		return "[S] S_Underwater";
 	}
 
 	private static final String _S__19_UNDERWATER = "[S] S_Underwater";

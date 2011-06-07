@@ -18,6 +18,8 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
@@ -27,6 +29,9 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_ItemName extends ServerBasePacket {
 
 	private static final String S_ITEM_NAME = "[S] S_ItemName";
+
+	private static Logger _log = Logger.getLogger(S_ItemName.class
+			.getName());
 
 	/**
 	 * To change the name of the item. Equipment and strengthening of state when someone has changed.

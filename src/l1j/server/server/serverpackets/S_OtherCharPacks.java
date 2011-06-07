@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -28,7 +30,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_OtherCharPacks extends ServerBasePacket {
 
 	private static final String S_OTHER_CHAR_PACKS = "[S] S_OtherCharPacks";
-
+	private static Logger _log = Logger.getLogger(S_OtherCharPacks.class
+			.getName());
 
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
@@ -47,7 +50,8 @@ public class S_OtherCharPacks extends ServerBasePacket {
 
 	public S_OtherCharPacks(L1PcInstance pc) {
 		buildPacket(pc, false);
-	}		
+	}
+
 	private void buildPacket(L1PcInstance pc, boolean isFindInvis) {
 		int status = STATUS_PC;
 

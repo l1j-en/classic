@@ -18,11 +18,15 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_IdentifyDesc extends ServerBasePacket {
-	private static final String S_ITEM_DESC = "[S] S_ItemDesc";
+
+	private static Logger _log = Logger.getLogger(S_IdentifyDesc.class.getName());
+
 	private byte[] _byte = null;
 
 	/**

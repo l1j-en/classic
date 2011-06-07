@@ -22,10 +22,10 @@ import l1j.server.server.Opcodes;
 
 public class S_Unknown2 extends ServerBasePacket {
 	public S_Unknown2() {
-		writeC(Opcodes.S_OPCODE_UNKNOWN2);
-		writeC(0xFF);
-		writeC(0x7F);
-		writeC(0x03);
+// writeC(Opcodes.S_OPCODE_UNKNOWN2);
+// writeC(0xFF);
+// writeC(0x7F);
+// writeC(0x03);
 	}
 
 	@Override

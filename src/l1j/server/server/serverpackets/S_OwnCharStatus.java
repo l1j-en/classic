@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
@@ -27,6 +29,9 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 // ServerBasePacket
 
 public class S_OwnCharStatus extends ServerBasePacket {
+	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class
+			.getName());
+
 	private static final String S_OWB_CHAR_STATUS = "[S] S_OwnCharStatus";
 
 	private byte[] _byte = null;
@@ -61,7 +66,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 		writeC(pc.getAc());
 		writeD(time);
 		writeC(pc.get_food());
-		writeC(pc.getInventory().getWeight30());
+		writeC(pc.getInventory().getWeight240());
 		writeH(pc.getLawful());
 		writeC(pc.getFire());
 		writeC(pc.getWater());

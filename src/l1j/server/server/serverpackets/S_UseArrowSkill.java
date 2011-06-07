@@ -20,6 +20,7 @@
 package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Character;
@@ -30,13 +31,15 @@ import l1j.server.server.model.L1Character;
 public class S_UseArrowSkill extends ServerBasePacket {
 
 	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
+	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class
+			.getName());
 
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 
 	private byte[] _byte = null;
 
 	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y) {
+			int x, int y, boolean isHit) {
 
 		int aid = 1;
 
@@ -47,7 +50,7 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		writeC(aid);
 		writeD(cha.getId());
 		writeD(targetobj);
-		writeC(6);
+		writeC(isHit ? 6 : 0);
 		writeC(cha.getHeading());
 		// writeD(0x12000000);
 		// writeD(246);

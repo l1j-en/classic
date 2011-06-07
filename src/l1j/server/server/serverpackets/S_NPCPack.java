@@ -19,12 +19,13 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
@@ -32,7 +33,7 @@ import l1j.server.server.model.skill.L1SkillId;
 public class S_NPCPack extends ServerBasePacket {
 
 	private static final String S_NPC_PACK = "[S] S_NPCPack";
-
+	private static Logger _log = Logger.getLogger(S_NPCPack.class.getName());
 
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;

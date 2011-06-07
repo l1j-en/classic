@@ -19,7 +19,7 @@
 
 package l1j.server.server.serverpackets;
 
-
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.Opcodes;
@@ -30,6 +30,7 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 
 public class S_DoorPack extends ServerBasePacket {
 
+	private static Logger _log = Logger.getLogger(S_DoorPack.class.getName());
 	private static final String S_DOOR_PACK = "[S] S_DoorPack";
 
 	private static final int STATUS_POISON = 1;

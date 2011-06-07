@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -26,6 +28,7 @@ import l1j.server.server.Opcodes;
 
 public class S_War extends ServerBasePacket {
 
+	private static Logger _log = Logger.getLogger(S_War.class.getName());
 	private static final String S_WAR = "[S] S_War";
 	private byte[] _byte = null;
 

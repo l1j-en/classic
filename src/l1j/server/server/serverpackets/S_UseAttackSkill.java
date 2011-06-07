@@ -20,13 +20,14 @@
 package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
-import l1j.server.server.types.Point;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
@@ -34,6 +35,9 @@ import l1j.server.server.types.Point;
 public class S_UseAttackSkill extends ServerBasePacket {
 
 	private static final String S_USE_ATTACK_SKILL = "[S] S_UseAttackSkill";
+	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class
+			.getName());
+
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 
 	private byte[] _byte = null;

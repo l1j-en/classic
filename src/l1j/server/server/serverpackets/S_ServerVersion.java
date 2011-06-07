@@ -24,6 +24,8 @@ import l1j.server.server.Opcodes;
 public class S_ServerVersion extends ServerBasePacket {
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
 
+	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
+
 /*
  * main.Server -> main.Client [ opc.116 len.32 ] 0.050ms
  * ##########################################################################
@@ -50,21 +52,28 @@ public class S_ServerVersion extends ServerBasePacket {
 		// inputs /ver to be able to print out all version in game
 		// If the user level isn't a administrator
 		// inputs /ver to be able to print out client version in game
-		writeD(0x00009D7C); // server verion
-		writeD(0x0000791A); // cache verion
-		writeD(0x0000791A); // auth verion
-		writeD(0x00009DD1); // npc verion
+// writeD(0x00009D7C); // server verion // 2.70C
+// writeD(0x0000791A); // cache verion // 2.70C
+// writeD(0x0000791A); // auth verion // 2.70C
+// writeD(0x00009DD1); // npc verion // 2.70C
+		writeD(0x000160c9); // server verion
+		writeD(0x0001606a); // cache verion
+		writeD(0x0000ee01); // auth verion
+		writeD(0x00013cdb); // npc verion
 
-		// unknown
-		// Old 270Lin.bin
-		// New 270Lin.bin
-		// isn't game time
-		writeD(0x882a2cc6);
+		// « unknown
+		// « Old 270Lin.bin
+		// « New 270Lin.bin
+		// « isn't game time
+// writeD(0x882a2cc6); // 2.70C
+		writeD(0x49c466ec);
 
-		writeC(0x00); // unk 1
-		writeC(0x00); // unk 2
-		// TODO try with 0?
-		writeC(0x01); // 0: English 4: JP
+		writeC(0x00); // unknown
+		writeC(0x00); // unknown
+
+		// Country
+		// 0.US 3.Taiwan 4.Janpan 5.China
+		writeC(CLIENT_LANGUAGE);
 	}
 
 	@Override

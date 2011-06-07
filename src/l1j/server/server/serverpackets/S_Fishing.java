@@ -19,12 +19,16 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_Fishing extends ServerBasePacket {
+
+	private static Logger _log = Logger.getLogger(S_Fishing.class.getName());
 	private static final String S_FISHING = "[S] S_Fishing";
 	private byte[] _byte = null;
 

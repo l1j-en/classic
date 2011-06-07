@@ -90,6 +90,7 @@ public class S_ShopSellList extends ServerBasePacket {
 				}
 			}
 		}
+		writeH(0x07); // 0x00:kaimo 0x01:pearl 0x07:adena
 	}
 
 	@Override

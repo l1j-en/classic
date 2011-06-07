@@ -18,10 +18,14 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.L1Object;
 
 public class S_RemoveObject extends ServerBasePacket {
+	private static Logger _log = Logger.getLogger(S_RemoveObject.class
+			.getName());
 
 	private byte[] _byte = null;
 

@@ -18,6 +18,7 @@
 package l1j.server.server.serverpackets;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -26,6 +27,9 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket
 
 public class S_InvList extends ServerBasePacket {
+
+	private static Logger _log = Logger.getLogger(S_InvList.class.getName());
+
 	private static final String S_INV_LIST = "[S] S_InvList";
 
 	/**
@@ -40,7 +44,7 @@ public class S_InvList extends ServerBasePacket {
 			writeC(item.getItem().getUseType());
 			writeC(0);
 			writeH(item.get_gfxid());
-			writeC(item.getItem().getBless());
+			writeC(item.getBless());
 			writeD(item.getCount());
 			writeC((item.isIdentified()) ? 1 : 0);
 			writeS(item.getViewName());

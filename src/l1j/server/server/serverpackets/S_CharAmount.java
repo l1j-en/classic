@@ -18,21 +18,29 @@
  */
 package l1j.server.server.serverpackets;
 
+import l1j.server.Config;
+import l1j.server.server.Account;
+import l1j.server.server.ClientThread;
 import l1j.server.server.Opcodes;
 
 public class S_CharAmount extends ServerBasePacket {
 
 	private byte[] _byte = null;
 
-	public S_CharAmount(int value) {
-		buildPacket(value);
+	public S_CharAmount(int value, ClientThread client) {
+		buildPacket(value, client);
 	}
 
-	private void buildPacket(int value) {
+	private void buildPacket(int value, ClientThread client) {
+		Account account = Account.load(client.getAccountName());
+		int characterSlot = account.getCharacterSlot();
+		int maxAmount = Config.DEFAULT_CHARACTER_SLOT + characterSlot;
+
 		writeC(Opcodes.S_OPCODE_CHARAMOUNT);
 		writeC(value);
-		writeD(0x00000000);
-		writeD(0x0000);
+// writeD(0x00000000);
+// writeD(0x0000);
+		writeC(maxAmount); // max amount
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class S_Liquor extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__19_LIQUOR;
+		return "[S] S_Liquor";
 	}
 
 	private static final String _S__19_LIQUOR = "[S] S_Liquor";

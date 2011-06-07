@@ -19,6 +19,8 @@
 
 package l1j.server.server.serverpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -26,6 +28,7 @@ import l1j.server.server.Opcodes;
 
 public class S_Weather extends ServerBasePacket {
 
+	private static Logger _log = Logger.getLogger(S_WhoAmount.class.getName());
 	private static final String S_WEATHER = "[S] S_Weather";
 	private byte[] _byte = null;
 

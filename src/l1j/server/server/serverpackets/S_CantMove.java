@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-//import l1j.server.server.Opcodes;
-
 public class S_CantMove extends ServerBasePacket {
 
 	private static final String S_CANT_MOVE = "[S] S_CantMove";

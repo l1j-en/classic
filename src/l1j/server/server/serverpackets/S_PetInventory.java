@@ -20,6 +20,7 @@
 package l1j.server.server.serverpackets;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -30,6 +31,8 @@ import l1j.server.server.model.Instance.L1PetInstance;
 
 public class S_PetInventory extends ServerBasePacket {
 
+	private static Logger _log = Logger.getLogger(S_PetInventory.class
+			.getName());
 	private static final String S_PET_INVENTORY = "[S] S_PetInventory";
 	private byte[] _byte = null;
 
@@ -46,7 +49,7 @@ public class S_PetInventory extends ServerBasePacket {
 				writeD(item.getId());
 				writeC(0x13);
 				writeH(item.get_gfxid());
-				writeC(item.getItem().getBless());
+				writeC(item.getBless());
 				writeD(item.getCount());
 				writeC(item.isIdentified() ? 1 : 0);
 				writeS(item.getViewName());

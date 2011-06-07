@@ -55,7 +55,7 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 					writeD(item.getId());
 					writeC(0);
 					writeH(item.get_gfxid());
-					writeC(item.getItem().getBless());
+					writeC(item.getBless());
 					writeD(item.getCount());
 					writeC(item.isIdentified() ? 1 : 0);
 					writeS(item.getViewName());

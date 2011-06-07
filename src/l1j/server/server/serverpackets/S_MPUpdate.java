@@ -24,8 +24,8 @@ public class S_MPUpdate extends ServerBasePacket {
 	public S_MPUpdate(int currentmp, int maxmp) {
 		writeC(Opcodes.S_OPCODE_MPUPDATE);
 
-		if (currentmp < 1) {
-			writeH(1);
+		if (currentmp < 0) {
+			writeH(0);
 		} else if (currentmp > 32767) {
 			writeH(32767);
 		} else {

@@ -38,7 +38,7 @@ public class S_CharTitle extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return _S__0B_CHARTITLE;
+		return "[S] S_CharTitle";
 	}
 
 	private static final String _S__0B_CHARTITLE = "[S] S_CharTitle";
