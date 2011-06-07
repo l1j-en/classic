@@ -24,12 +24,13 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillSound;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1BuffUtil {
 	private static Logger _log = Logger.getLogger(L1BuffUtil.class.getName());
 
 	public static void haste(L1PcInstance pc, int timeMillis) {
-		pc.setSkillEffect(L1SkillId.STATUS_HASTE, timeMillis);
+		pc.setSkillEffect(STATUS_HASTE, timeMillis);
 
 		int objId = pc.getId();
 		pc.sendPackets(new S_SkillHaste(objId, 1, timeMillis / 1000));
@@ -40,7 +41,43 @@ public class L1BuffUtil {
 	}
 
 	public static void brave(L1PcInstance pc, int timeMillis) {
-		pc.setSkillEffect(L1SkillId.STATUS_BRAVE, timeMillis);
+		if (pc.hasSkillEffect(STATUS_ELFBRAVE)) { 
+			pc.killSkillEffectTimer(STATUS_ELFBRAVE);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.setBraveSpeed(0);
+		}
+		if (pc.hasSkillEffect(HOLY_WALK)) { 
+			pc.killSkillEffectTimer(HOLY_WALK);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.setBraveSpeed(0);
+		}
+		if (pc.hasSkillEffect(MOVING_ACCELERATION)) { 
+			pc.killSkillEffectTimer(MOVING_ACCELERATION);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.setBraveSpeed(0);
+		}
+		if (pc.hasSkillEffect(WIND_WALK)) { 
+			pc.killSkillEffectTimer(WIND_WALK);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.setBraveSpeed(0);
+		}
+		if (pc.hasSkillEffect(STATUS_RIBRAVE)) { 
+			pc.killSkillEffectTimer(STATUS_RIBRAVE);
+
+			pc.setBraveSpeed(0);
+		}
+		if (pc.hasSkillEffect(BLOODLUST)) { 
+			pc.killSkillEffectTimer(BLOODLUST);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
+			pc.setBraveSpeed(0);
+		}
+
+		pc.setSkillEffect(STATUS_BRAVE, timeMillis);
 
 		int objId = pc.getId();
 		pc.sendPackets(new S_SkillBrave(objId, 1, timeMillis / 1000));
