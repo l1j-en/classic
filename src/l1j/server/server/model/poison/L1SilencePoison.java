@@ -20,6 +20,7 @@ package l1j.server.server.model.poison;
 
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.skill.L1SkillId;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1SilencePoison extends L1Poison {
 	private final L1Character _target;
@@ -43,7 +44,7 @@ public class L1SilencePoison extends L1Poison {
 		_target.setPoisonEffect(1);
 		sendMessageIfPlayer(_target, 310);
 
-		_target.setSkillEffect(L1SkillId.STATUS_POISON_SILENCE, 0);
+		_target.setSkillEffect(STATUS_POISON_SILENCE, 0);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class L1SilencePoison extends L1Poison {
 		_target.setPoisonEffect(0);
 		sendMessageIfPlayer(_target, 311);
 
-		_target.killSkillEffectTimer(L1SkillId.STATUS_POISON_SILENCE);
+		_target.killSkillEffectTimer(STATUS_POISON_SILENCE);
 		_target.setPoison(null);
 	}
 }
