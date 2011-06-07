@@ -33,56 +33,44 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 /**
- * ログインの為の様々なインターフェースを提供する.
  */
 public class Account {
-	/** アカウント名. */
+
 	private String _name;
 
-	/** 接続先のIPアドレス. */
+
 	private String _ip;
 
-	/** パスワード(暗号化されている). */
+
 	private String _password;
 
-	/** 最終アクティブ日. */
+
 	private Timestamp _lastActive;
 
-	/** アクセスレベル(GMか？). */
+
 	private int _accessLevel;
 
-	/** 接続先のホスト名. */
+
 	private String _host;
 
-	/** アクセス禁止の有無(Trueで禁止). */
+
 	private boolean _banned;
 
-	/** キャラクターの追加スロット数 */
+
 	private int _characterSlot;
 
-	/** アカウントが有効か否か(Trueで有効). */
+
 	private boolean _isValid = false;
 
-	/** メッセージログ用. */
+
 	private static Logger _log = Logger.getLogger(Account.class.getName());
 
-	/**
-	 * コンストラクタ.
-	 */
+
+
 	private Account() {
 	}
 
-	/**
-	 * パスワードを暗号化する.
-	 * 
-	 * @param rawPassword
-	 *            平文のパスワード
-	 * @return String
-	 * @throws NoSuchAlgorithmException
-	 *             暗号アルゴリズムが使用できない環境の時
-	 * @throws UnsupportedEncodingException
-	 *             文字のエンコードがサポートされていない時
-	 */
+
 	private static String encodePassword(final String rawPassword)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		byte[] buf = rawPassword.getBytes("UTF-8");
@@ -91,19 +79,7 @@ public class Account {
 		return Base64.encodeBytes(buf);
 	}
 
-	/**
-	 * アカウントを新規作成する.
-	 * 
-	 * @param name
-	 *            アカウント名
-	 * @param rawPassword
-	 *            平文パスワード
-	 * @param ip
-	 *            接続先のIPアドレス
-	 * @param host
-	 *            接続先のホスト名
-	 * @return Account
-	 */
+
 	public static Account create(final String name, final String rawPassword,
 			final String ip, final String host) {
 		Connection con = null;
@@ -146,13 +122,7 @@ public class Account {
 		return null;
 	}
 
-	/**
-	 * アカウント情報をDBから抽出する.
-	 * 
-	 * @param name
-	 *            アカウント名
-	 * @return Account
-	 */
+
 	public static Account load(final String name) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -190,12 +160,7 @@ public class Account {
 		return account;
 	}
 
-	/**
-	 * 最終ログイン日をDBに反映する.
-	 * 
-	 * @param account
-	 *            アカウント
-	 */
+
 	public static void updateLastActive(final Account account) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -218,12 +183,7 @@ public class Account {
 		}
 	}
 
-	/**
-	 * スロット数をDBに反映する.
-	 * 
-	 * @param account
-	 *            アカウント
-	 */
+
 	public static void updateCharacterSlot(final Account account) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -245,11 +205,7 @@ public class Account {
 		}
 	}
 
-	/**
-	 * キャラクター所有数をカウントする.
-	 * 
-	 * @return int
-	 */
+
 	public int countCharacters() {
 		int result = 0;
 		Connection con = null;
@@ -274,12 +230,7 @@ public class Account {
 		return result;
 	}
 
-	/**
-	 * アカウントを無効にする.
-	 * 
-	 * @param login
-	 *            アカウント名
-	 */
+
 	public static void ban(final String login) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -297,22 +248,16 @@ public class Account {
 		}
 	}
 
-	/**
-	 * 入力されたパスワードとDB上のパスワードを照合する.
-	 * 
-	 * @param rawPassword
-	 *            平文パスワード
-	 * @return boolean
-	 */
+
 	public boolean validatePassword(final String rawPassword) {
-		// 認証成功後に再度認証された場合は失敗させる。
+
 		if (_isValid) {
 			return false;
 		}
 		try {
 			_isValid = _password.equals(encodePassword(rawPassword));
 			if (_isValid) {
-				_password = null; // 認証が成功した場合、パスワードを破棄する。
+				_password = null;
 			}
 			return _isValid;
 		} catch (Exception e) {
@@ -321,81 +266,47 @@ public class Account {
 		return false;
 	}
 
-	/**
-	 * アカウントが有効かどうかを返す(Trueで有効).
-	 * 
-	 * @return boolean
-	 */
+
 	public boolean isValid() {
 		return _isValid;
 	}
 
-	/**
-	 * アカウントがゲームマスタかどうか返す(Trueでゲームマスタ).
-	 * 
-	 * @return boolean
-	 */
+
 	public boolean isGameMaster() {
 		return 0 < _accessLevel;
 	}
 
-	/**
-	 * アカウント名を取得する.
-	 * 
-	 * @return String
-	 */
+
 	public String getName() {
 		return _name;
 	}
 
-	/**
-	 * 接続先のIPアドレスを取得する.
-	 * 
-	 * @return String
-	 */
+
 	public String getIp() {
 		return _ip;
 	}
 
-	/**
-	 * 最終ログイン日を取得する.
-	 */
+
 	public Timestamp getLastActive() {
 		return _lastActive;
 	}
 
-	/**
-	 * アクセスレベルを取得する.
-	 * 
-	 * @return int
-	 */
+
 	public int getAccessLevel() {
 		return _accessLevel;
 	}
 
-	/**
-	 * ホスト名を取得する.
-	 * 
-	 * @return String
-	 */
+
 	public String getHost() {
 		return _host;
 	}
 
-	/**
-	 * アクセス禁止情報を取得する.
-	 * 
-	 * @return boolean
-	 */
+
 	public boolean isBanned() {
 		return _banned;
 	}
 
-	/**
-	 * キャラクターの追加スロット数を取得する.
-	 * 
-	 * @return int
-	 */
+
 	public int getCharacterSlot() {
 		return _characterSlot;
 	}

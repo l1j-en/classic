@@ -53,12 +53,12 @@ public class GMCommands {
 	}
 
 	private String complementClassName(String className) {
-		// .が含まれていればフルパスと見なしてそのまま返す
+
 		if (className.contains(".")) {
 			return className;
 		}
 
-		// デフォルトパッケージ名を補完
+
 		return "l1j.server.server.command.executor." + className;
 	}
 
@@ -70,7 +70,7 @@ public class GMCommands {
 				return false;
 			}
 			if (pc.getAccessLevel() < command.getLevel()) {
-				pc.sendPackets(new S_ServerMessage(74, "コマンド" + name)); // \f1%0は使用できません。
+				pc.sendPackets(new S_ServerMessage(74, "" + name)); 
 				return true;
 			}
 
@@ -79,7 +79,7 @@ public class GMCommands {
 			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod(
 					"getInstance").invoke(null);
 			exe.execute(pc, name, arg);
-			_log.info(pc.getName() + "が." + name + " " + arg + "コマンドを使用しました。");
+			_log.info(pc.getName() + "" + name + " " + arg + "");
 			return true;
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "error gm command", e);
@@ -89,7 +89,7 @@ public class GMCommands {
 
 	public void handleCommands(L1PcInstance gm, String cmdLine) {
 		StringTokenizer token = new StringTokenizer(cmdLine);
-		// 最初の空白までがコマンド、それ以降は空白を区切りとしたパラメータとして扱う
+
 		String cmd = token.nextToken();
 		String param = "";
 		while (token.hasMoreTokens()) {
@@ -98,7 +98,7 @@ public class GMCommands {
 		}
 		param = param.trim();
 
-		// データベース化されたコマンド
+
 		if (executeDatabaseCommand(gm, cmd, param)) {
 			if (!cmd.equalsIgnoreCase("r")) {
 				_lastCommands.put(gm.getId(), cmdLine);
@@ -107,13 +107,13 @@ public class GMCommands {
 		}
 		if (cmd.equalsIgnoreCase("r")) {
 			if (!_lastCommands.containsKey(gm.getId())) {
-				gm.sendPackets(new S_ServerMessage(74, "コマンド" + cmd)); // \f1%0は使用できません。
+				gm.sendPackets(new S_ServerMessage(74, "" + cmd)); 
 				return;
 			}
 			redo(gm, param);
 			return;
 		}
-		gm.sendPackets(new S_SystemMessage("コマンド " + cmd + " は存在しません。"));
+		gm.sendPackets(new S_SystemMessage("" + cmd + ""));
 	}
 
 	private static Map<Integer, String> _lastCommands = new HashMap<Integer, String>();
@@ -122,19 +122,19 @@ public class GMCommands {
 		try {
 			String lastCmd = _lastCommands.get(pc.getId());
 			if (arg.isEmpty()) {
-				pc.sendPackets(new S_SystemMessage("コマンド " + lastCmd
-						+ " を再実行します"));
+				pc.sendPackets(new S_SystemMessage("" + lastCmd
+						+ " "));
 				handleCommands(pc, lastCmd);
 			} else {
-				// 引数を変えて実行
+
 				StringTokenizer token = new StringTokenizer(lastCmd);
 				String cmd = token.nextToken() + " " + arg;
-				pc.sendPackets(new S_SystemMessage("コマンド " + cmd + " を実行します。"));
+				pc.sendPackets(new S_SystemMessage("" + cmd + " "));
 				handleCommands(pc, cmd);
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			pc.sendPackets(new S_SystemMessage(".r コマンドエラー"));
+			pc.sendPackets(new S_SystemMessage(""));
 		}
 	}
 }

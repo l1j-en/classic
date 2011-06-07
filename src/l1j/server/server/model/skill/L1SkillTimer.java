@@ -627,7 +627,7 @@ class L1SkillStop {
 				pc.addMaxHp(-30);
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(),
 						pc.getMaxHp()));
-				if (pc.isInParty()) { // パーティー中
+				if (pc.isInParty()) { 
 					pc.getParty().updateMiniHP(pc);
 				}
 				pc.addMaxMp(-30);
