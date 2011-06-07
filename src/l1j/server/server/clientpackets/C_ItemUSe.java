@@ -113,7 +113,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1Skills;
 import l1j.server.server.types.Point;
-import l1jtr -cd '\11\12\15\40-\176' < file-with-binary-char.server.server.utils.L1SpawnUtil;
+import l1j.server.server.utils.L1SpawnUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -679,6 +679,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						pc.sendPackets(new S_OwnCharStatus2(pc));
 						pc.save();
 						; // DBLN^[
+
 					} else {
 						pc.sendPackets(new S_ServerMessage(481)); // \f1\ll25B\lIB
 					}
