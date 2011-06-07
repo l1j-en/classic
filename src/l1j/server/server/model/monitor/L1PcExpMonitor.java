@@ -20,8 +20,7 @@ package l1j.server.server.model.monitor;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Lawful;
-import l1j.server.server.serverpackets.S_OwnCharStatus;
-import l1j.server.server.utils.IntRange;
+// import l1j.server.server.utils.IntRange;
 
 public class L1PcExpMonitor extends L1PcMonitor {
 
@@ -35,16 +34,19 @@ public class L1PcExpMonitor extends L1PcMonitor {
 
 	@Override
 	public void execTask(L1PcInstance pc) {
-		if (_old_lawful != pc.getLawful() && !((IntRange.includes(_old_lawful, 9000, 32767) && IntRange
-						.includes(pc.getLawful(), 9000, 32767)) || (IntRange
-						.includes(_old_lawful, -32768, -2000) && IntRange
-						.includes(pc.getLawful(), -32768, -2000)))) {
+
+		// EtªÏíÁ½êÍS_LawfulðM
+// // ½¾µFªÏíçÈ¢êÍMµÈ¢
+// if (_old_lawful != pc.getLawful()
+// && !((IntRange.includes(_old_lawful, 9000, 32767) && IntRange
+// .includes(pc.getLawful(), 9000, 32767)) || (IntRange
+// .includes(_old_lawful, -32768, -2000) && IntRange
+// .includes(pc.getLawful(), -32768, -2000)))) {
+		if (_old_lawful != pc.getLawful()) {
 			_old_lawful = pc.getLawful();
 			S_Lawful s_lawful = new S_Lawful(pc.getId(), _old_lawful);
 			pc.sendPackets(s_lawful);
 			pc.broadcastPacket(s_lawful);
-		} else if (_old_lawful != pc.getLawful()) {
-			pc.sendPackets(new S_OwnCharStatus(pc));
 		}
 
 		if (_old_exp != pc.getExp()) {
