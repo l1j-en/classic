@@ -83,13 +83,16 @@ public class ArmorSetTable {
 			as.setHpr(rs.getInt("hpr"));
 			as.setMpr(rs.getInt("mpr"));
 			as.setMr(rs.getInt("mr"));
-			as.setFire(rs.getInt("fire"));
 			as.setStr(rs.getInt("str"));
 			as.setDex(rs.getInt("dex"));
 			as.setCon(rs.getInt("con"));
 			as.setWis(rs.getInt("wis"));
 			as.setCha(rs.getInt("cha"));
 			as.setIntl(rs.getInt("intl"));
+			as.setDefenseWater(rs.getInt("defense_water"));
+			as.setDefenseWind(rs.getInt("defense_wind"));
+			as.setDefenseFire(rs.getInt("defense_fire"));
+			as.setDefenseEarth(rs.getInt("defense_earth"));
 
 			_armorSetList.add(as);
 		}

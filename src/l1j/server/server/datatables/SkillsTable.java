@@ -32,6 +32,9 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Skills;
 import l1j.server.server.utils.SQLUtil;
 
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.L1World;
+
 public class SkillsTable {
 
 	private static Logger _log = Logger.getLogger(SkillsTable.class.getName());
@@ -112,11 +115,12 @@ public class SkillsTable {
 			l1skills.setLawful(rs.getInt("lawful"));
 			l1skills.setRanged(rs.getInt("ranged"));
 			l1skills.setArea(rs.getInt("area"));
-			l1skills.setIsThrough(rs.getInt("through"));
+			l1skills.setThrough(rs.getBoolean("through"));
 			l1skills.setId(rs.getInt("id"));
 			l1skills.setNameId(rs.getString("nameid"));
 			l1skills.setActionId(rs.getInt("action_id"));
 			l1skills.setCastGfx(rs.getInt("castgfx"));
+			l1skills.setCastGfx2(rs.getInt("castgfx2"));
 			l1skills.setSysmsgIdHappen(rs.getInt("sysmsgID_happen"));
 			l1skills.setSysmsgIdStop(rs.getInt("sysmsgID_stop"));
 			l1skills.setSysmsgIdFail(rs.getInt("sysmsgID_fail"));
@@ -128,10 +132,15 @@ public class SkillsTable {
 
 	public void spellMastery(int playerobjid, int skillid, String skillname,
 			int active, int time) {
-
 		if (spellCheck(playerobjid, skillid)) {
 			return;
 		}
+		L1PcInstance pc = (L1PcInstance) L1World.getInstance()
+				.findObject(playerobjid);
+		if (pc != null) {
+			pc.setSkillMastery(skillid);
+		}
+
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -155,6 +164,11 @@ public class SkillsTable {
 	}
 
 	public void spellLost(int playerobjid, int skillid) {
+		L1PcInstance pc = (L1PcInstance) L1World.getInstance()
+				.findObject(playerobjid);
+		if (pc != null) {
+			pc.removeSkillMastery(skillid);
+		}
 
 		Connection con = null;
 		PreparedStatement pstm = null;

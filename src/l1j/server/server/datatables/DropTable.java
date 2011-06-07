@@ -36,6 +36,7 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
+import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -271,9 +272,12 @@ public class DropTable {
 		Random random = new Random();
 		int randomInt;
 		int chanceHate;
+		int itemId;
 		for (int i = inventory.getSize(); i > 0; i--) {
 			item = inventory.getItems().get(0);
-			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // 
+			itemId = item.getItemId();
+			boolean isGround = false;
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
 				item.setNowLighting(false);
 			}
 			item.setIdentified(false); // changed
@@ -285,6 +289,19 @@ public class DropTable {
 					chanceHate += (Integer) hateList.get(j);
 					if (chanceHate > randomInt) {
 						acquisitor = (L1Character) acquisitorList.get(j);
+						if (itemId >= 40131 && itemId <= 40135) {
+							if (!(acquisitor instanceof L1PcInstance)
+									|| hateList.size() > 1) {
+								targetInventory = null;
+								break;
+							}
+							player = (L1PcInstance) acquisitor;
+							if (player.getQuest().get_step(L1Quest
+									.QUEST_LYRA) != 1) {
+								targetInventory = null;
+								break;
+							}
+						}
 						if (acquisitor.getInventory().checkAddItem(item,
 								item.getCount()) == L1Inventory.OK) {
 							targetInventory = acquisitor.getInventory();
@@ -305,8 +322,10 @@ public class DropTable {
 									targetInventory = L1World.getInstance()
 											.getInventory(acquisitor.getX(),
 													acquisitor.getY(),
-													acquisitor.getMapId());
-									player.sendPackets(new S_SystemMessage("The limit of the itemcount is 2000000000"));
+													acquisitor.getMapId()); //
+									isGround = true;
+									player.sendPackets(new S_ServerMessage(166,
+											"The limit of the itemcount is 2000000000")); // \f1%0ª%4%1%3%2
 								} else {
 									if (player.isInParty()) {
 										partyMember = player.getParty()
@@ -330,7 +349,8 @@ public class DropTable {
 							targetInventory = L1World.getInstance()
 									.getInventory(acquisitor.getX(),
 											acquisitor.getY(),
-											acquisitor.getMapId());
+											acquisitor.getMapId()); // 
+							isGround = true;
 						}
 						break;
 					}
@@ -389,15 +409,16 @@ public class DropTable {
 				} while (!npc.getMap().isPassable(npc.getX(), npc.getY(), dir));
 				targetInventory = L1World.getInstance().getInventory(
 						npc.getX() + x, npc.getY() + y, npc.getMapId());
+				isGround = true;
 			}
-			if(item != null){
-				inventory.tradeItem(item, item.getCount(), targetInventory);
+			if (itemId >= 40131 && itemId <= 40135) {
+				if (isGround || targetInventory == null) {
+					inventory.removeItem(item, item.getCount());
+					continue;
+				}
 			}
-			npc.turnOnOffLight();
+			inventory.tradeItem(item, item.getCount(), targetInventory);
 		}
+		npc.turnOnOffLight();
 	}
 
-	public ArrayList<L1Drop> getDrops(int mobID) {//New for GMCommands
-		return _droplists.get(mobID);
-	}
-}

@@ -24,7 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +34,6 @@ import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
-@SuppressWarnings("unused")
 public class FurnitureSpawnTable {
 	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class
 			.getName());
@@ -53,7 +51,6 @@ public class FurnitureSpawnTable {
 		FillFurnitureSpawnTable();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void FillFurnitureSpawnTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;

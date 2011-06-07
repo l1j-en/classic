@@ -44,6 +44,8 @@ public class NpcChatTable {
 			= new HashMap<Integer, L1NpcChat>();
 	private HashMap<Integer, L1NpcChat> _npcChatHide
 			= new HashMap<Integer, L1NpcChat>();
+	private HashMap<Integer, L1NpcChat> _npcChatGameTime
+			= new HashMap<Integer, L1NpcChat>();
 
 	public static NpcChatTable getInstance() {
 		if (_instance == null) {
@@ -77,8 +79,10 @@ public class NpcChatTable {
 				npcChat.setChatId5(rs.getString("chat_id5"));
 				npcChat.setChatInterval(rs.getInt("chat_interval"));
 				npcChat.setShout(rs.getBoolean("is_shout"));
+				npcChat.setWorldChat(rs.getBoolean("is_world_chat"));
 				npcChat.setRepeat(rs.getBoolean("is_repeat"));
 				npcChat.setRepeatInterval(rs.getInt("repeat_interval"));
+				npcChat.setGameTime(rs.getInt("game_time"));
 
 				if (npcChat.getChatTiming() == L1NpcInstance
 						.CHAT_TIMING_APPEARANCE) {
@@ -90,6 +94,10 @@ public class NpcChatTable {
 				} else if (npcChat.getChatTiming() == L1NpcInstance
 						.CHAT_TIMING_HIDE) {
 					_npcChatHide.put(new Integer(npcChat.getNpcId()), npcChat);
+				} else if (npcChat.getChatTiming() == L1NpcInstance
+						.CHAT_TIMING_GAME_TIME) {
+					_npcChatGameTime.put(new Integer(npcChat.getNpcId()),
+							npcChat);
 				}
 			}
 		} catch (SQLException e) {
@@ -113,4 +121,12 @@ public class NpcChatTable {
 		return _npcChatHide.get(new Integer(i));
 	}
 
+	public L1NpcChat getTemplateGameTime(int i) {
+		return _npcChatGameTime.get(new Integer(i));
+	}
+
+	public L1NpcChat[] getAllGameTime() {
+		return _npcChatGameTime.values()
+				.toArray(new L1NpcChat[_npcChatGameTime.size()]);
+	}
 }

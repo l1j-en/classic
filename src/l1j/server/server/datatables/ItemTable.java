@@ -111,6 +111,7 @@ public class ItemTable {
 		_useTypes.put("ring", new Integer(23));
 		_useTypes.put("amulet", new Integer(24));
 		_useTypes.put("shield", new Integer(25));
+		_useTypes.put("guarder", new Integer(25));
 		_useTypes.put("dai", new Integer(26));
 		_useTypes.put("zel", new Integer(27));
 		_useTypes.put("blank", new Integer(28));
@@ -126,6 +127,7 @@ public class ItemTable {
 		//_useTypes.put("spell_long2", new Integer(39)); // The ground / object selection (long-distance) and the same?
 		_useTypes.put("earring", new Integer(40));
 		_useTypes.put("fishing_rod", new Integer(42));
+		_useTypes.put("del", new Integer(46));
 
 		_armorTypes.put("none", new Integer(0));
 		_armorTypes.put("helm", new Integer(1));
@@ -140,6 +142,7 @@ public class ItemTable {
 		_armorTypes.put("belt", new Integer(10));
 		_armorTypes.put("ring2", new Integer(11));
 		_armorTypes.put("earring", new Integer(12));
+		_armorTypes.put("guarder", new Integer(13));
 
 		_weaponTypes.put("sword", new Integer(1));
 		_weaponTypes.put("dagger", new Integer(2));
@@ -157,6 +160,8 @@ public class ItemTable {
 		_weaponTypes.put("singlespear", new Integer(14));
 		_weaponTypes.put("tohandblunt", new Integer(15));
 		_weaponTypes.put("tohandstaff", new Integer(16));
+		_weaponTypes.put("kiringku", new Integer(17));
+		_weaponTypes.put("chainsword", new Integer(18));
 
 		_weaponId.put("sword", new Integer(4));
 		_weaponId.put("dagger", new Integer(46));
@@ -174,6 +179,8 @@ public class ItemTable {
 		_weaponId.put("singlespear", new Integer(24));
 		_weaponId.put("tohandblunt", new Integer(11));
 		_weaponId.put("tohandstaff", new Integer(40));
+		_weaponId.put("kiringku", new Integer(58));
+		_weaponId.put("chainsword", new Integer(24));
 
 		_materialTypes.put("none", new Integer(0));
 		_materialTypes.put("liquid", new Integer(1));
@@ -230,7 +237,9 @@ public class ItemTable {
 				item = new L1EtcItem();
 				item.setItemId(rs.getInt("item_id"));
 				item.setName(rs.getString("name"));
-				item.setNameId(rs.getString("name_id"));
+				item.setUnidentifiedNameId(rs
+						.getString("unidentified_name_id"));
+				item.setIdentifiedNameId(rs.getString("identified_name_id"));
 				item.setType((_etcItemTypes
 						.get(rs.getString("item_type"))).intValue());
 				item.setUseType(_useTypes
@@ -248,6 +257,8 @@ public class ItemTable {
 				item.setBless(rs.getInt("bless"));
 				item.setTradable(rs.getInt("trade") == 0 ? true : false);
 				item.setCantDelete(rs.getInt("cant_delete") == 1 ?
+						true : false);
+				item.setCanSeal(rs.getInt("can_seal") == 1 ?
 						true : false);
 				item.setDmgSmall(rs.getInt("dmg_small"));
 				item.setDmgLarge(rs.getInt("dmg_large"));
@@ -296,7 +307,9 @@ public class ItemTable {
 				weapon = new L1Weapon();
 				weapon.setItemId(rs.getInt("item_id"));
 				weapon.setName(rs.getString("name"));
-				weapon.setNameId(rs.getString("name_id"));
+				weapon.setUnidentifiedNameId(rs
+						.getString("unidentified_name_id"));
+				weapon.setIdentifiedNameId(rs.getString("identified_name_id"));
 				weapon.setType((_weaponTypes
 						.get(rs.getString("type"))).intValue());
 				weapon.setType1((_weaponId
@@ -311,6 +324,7 @@ public class ItemTable {
 				weapon.setItemDescId(rs.getInt("itemdesc_id"));
 				weapon.setDmgSmall(rs.getInt("dmg_small"));
 				weapon.setDmgLarge(rs.getInt("dmg_large"));
+				weapon.setRange(rs.getInt("range"));
 				weapon.set_safeenchant(rs.getInt("safenchant"));
 				weapon.setUseRoyal(rs.getInt("use_royal") == 0 ? false : true);
 				weapon.setUseKnight(rs.getInt("use_knight") == 0
@@ -318,6 +332,10 @@ public class ItemTable {
 				weapon.setUseElf(rs.getInt("use_elf") == 0 ? false : true);
 				weapon.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
 				weapon.setUseDarkelf(rs.getInt("use_darkelf") == 0
+						? false : true);
+				weapon.setUseDragonknight(rs.getInt("use_dragonknight") == 0
+						? false : true);
+				weapon.setUseIllusionist(rs.getInt("use_illusionist") == 0
 						? false : true);
 				weapon.setHitModifier(rs.getInt("hitmodifier"));
 				weapon.setDmgModifier(rs.getInt("dmgmodifier"));
@@ -380,7 +398,9 @@ public class ItemTable {
 				armor = new L1Armor();
 				armor.setItemId(rs.getInt("item_id"));
 				armor.setName(rs.getString("name"));
-				armor.setNameId(rs.getString("name_id"));
+				armor.setUnidentifiedNameId(rs
+						.getString("unidentified_name_id"));
+				armor.setIdentifiedNameId(rs.getString("identified_name_id"));
 				armor.setType((_armorTypes
 						.get(rs.getString("type"))).intValue());
 //				armor.setType1((_armorId
@@ -402,6 +422,10 @@ public class ItemTable {
 				armor.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
 				armor.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false
 						: true);
+				armor.setUseDragonknight(rs.getInt("use_dragonknight") == 0
+						? false : true);
+				armor.setUseIllusionist(rs.getInt("use_illusionist") == 0
+						? false : true);
 				armor.set_addstr(rs.getByte("add_str"));
 				armor.set_addcon(rs.getByte("add_con"));
 				armor.set_adddex(rs.getByte("add_dex"));
@@ -418,7 +442,10 @@ public class ItemTable {
 				armor.set_mdef(rs.getInt("m_def"));
 				armor.setDamageReduction(rs.getInt("damage_reduction"));
 				armor.setWeightReduction(rs.getInt("weight_reduction"));
-				armor.setBowHitRate(rs.getInt("bow_hit_rate"));
+				armor.setHitModifierByArmor(rs.getInt("hit_modifier"));
+				armor.setDmgModifierByArmor(rs.getInt("dmg_modifier"));
+				armor.setBowHitModifierByArmor(rs.getInt("bow_hit_modifier"));
+				armor.setBowDmgModifierByArmor(rs.getInt("bow_dmg_modifier"));
 				armor.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				armor.setBless(rs.getInt("bless"));
 				armor.setTradable(rs.getInt("trade") == 0 ? true : false);

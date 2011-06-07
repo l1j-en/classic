@@ -24,7 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,6 +115,7 @@ public class NpcTable {
 				npc.setTamable(rs.getBoolean("tamable"));
 				npc.set_passispeed(rs.getInt("passispeed"));
 				npc.set_atkspeed(rs.getInt("atkspeed"));
+				npc.setAltAtkSpeed(rs.getInt("alt_atk_speed"));
 				npc.setAtkMagicSpeed(rs.getInt("atk_magic_speed"));
 				npc.setSubMagicSpeed(rs.getInt("sub_magic_speed"));
 				npc.set_undead(rs.getInt("undead"));

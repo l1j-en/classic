@@ -87,110 +87,8 @@ public final class ExpTable {
 		if (level < 50) {
 			return 1.0;
 		}
-
 		double expPenalty = 1.0;
-
-		if (level == 50) {
-			expPenalty = 1.0 / Config.LV50_EXP;
-		} else if (level == 51) {
-			expPenalty = 1.0 / Config.LV51_EXP;
-		} else if (level == 52) {
-			expPenalty = 1.0 / Config.LV52_EXP;
-		} else if (level == 53) {
-			expPenalty = 1.0 / Config.LV53_EXP;
-		} else if (level == 54) {
-			expPenalty = 1.0 / Config.LV54_EXP;
-		} else if (level == 55) {
-			expPenalty = 1.0 / Config.LV55_EXP;
-		} else if (level == 56) {
-			expPenalty = 1.0 / Config.LV56_EXP;
-		} else if (level == 57) {
-			expPenalty = 1.0 / Config.LV57_EXP;
-		} else if (level == 58) {
-			expPenalty = 1.0 / Config.LV58_EXP;
-		} else if (level == 59) {
-			expPenalty = 1.0 / Config.LV59_EXP;
-		} else if (level == 60) {
-			expPenalty = 1.0 / Config.LV60_EXP;
-		} else if (level == 61) {
-			expPenalty = 1.0 / Config.LV61_EXP;
-		} else if (level == 62) {
-			expPenalty = 1.0 / Config.LV62_EXP;
-		} else if (level == 63) {
-			expPenalty = 1.0 / Config.LV63_EXP;
-		} else if (level == 64) {
-			expPenalty = 1.0 / Config.LV64_EXP;
-		} else if (level == 65) {
-			expPenalty = 1.0 / Config.LV65_EXP;
-		} else if (level == 66) {
-			expPenalty = 1.0 / Config.LV66_EXP;
-		} else if (level == 67) {
-			expPenalty = 1.0 / Config.LV67_EXP;
-		} else if (level == 68) {
-			expPenalty = 1.0 / Config.LV68_EXP;
-		} else if (level == 69) {
-			expPenalty = 1.0 / Config.LV69_EXP;
-		} else if (level == 70) {
-			expPenalty = 1.0 / Config.LV70_EXP;
-		} else if (level == 71) {
-			expPenalty = 1.0 / Config.LV71_EXP;
-		} else if (level == 72) {
-			expPenalty = 1.0 / Config.LV72_EXP;
-		} else if (level == 73) {
-			expPenalty = 1.0 / Config.LV73_EXP;
-		} else if (level == 74) {
-			expPenalty = 1.0 / Config.LV74_EXP;
-		} else if (level == 75) {
-			expPenalty = 1.0 / Config.LV75_EXP;
-		} else if (level == 76) {
-			expPenalty = 1.0 / Config.LV76_EXP;
-		} else if (level == 77) {
-			expPenalty = 1.0 / Config.LV77_EXP;
-		} else if (level == 78) {
-			expPenalty = 1.0 / Config.LV78_EXP;
-		} else if (level == 79) {
-			expPenalty = 1.0 / Config.LV79_EXP;
-		} else if (level == 80) {
-			expPenalty = 1.0 / Config.LV80_EXP;
-		} else if (level == 81) {
-			expPenalty = 1.0 / Config.LV81_EXP;
-		} else if (level == 82) {
-			expPenalty = 1.0 / Config.LV82_EXP;
-		} else if (level == 83) {
-			expPenalty = 1.0 / Config.LV83_EXP;
-		} else if (level == 84) {
-			expPenalty = 1.0 / Config.LV84_EXP;
-		} else if (level == 85) {
-			expPenalty = 1.0 / Config.LV85_EXP;
-		} else if (level == 86) {
-			expPenalty = 1.0 / Config.LV86_EXP;
-		} else if (level == 87) {
-			expPenalty = 1.0 / Config.LV87_EXP;
-		} else if (level == 88) {
-			expPenalty = 1.0 / Config.LV88_EXP;
-		} else if (level == 89) {
-			expPenalty = 1.0 / Config.LV89_EXP;
-		} else if (level == 90) {
-			expPenalty = 1.0 / Config.LV90_EXP;
-		} else if (level == 91) {
-			expPenalty = 1.0 / Config.LV91_EXP;
-		} else if (level == 92) {
-			expPenalty = 1.0 / Config.LV92_EXP;
-		} else if (level == 93) {
-			expPenalty = 1.0 / Config.LV93_EXP;
-		} else if (level == 94) {
-			expPenalty = 1.0 / Config.LV94_EXP;
-		} else if (level == 95) {
-			expPenalty = 1.0 / Config.LV95_EXP;
-		} else if (level == 96) {
-			expPenalty = 1.0 / Config.LV96_EXP;
-		} else if (level == 97) {
-			expPenalty = 1.0 / Config.LV97_EXP;
-		} else if (level == 98) {
-			expPenalty = 1.0 / Config.LV98_EXP;
-		} else if (level == 99) {
-			expPenalty = 1.0 / Config.LV99_EXP;
-		}
+		expPenalty = 1.0 / _expPenalty[level - 50];
 
 		return expPenalty;
 	}
@@ -216,4 +114,22 @@ public final class ExpTable {
 			0x594ffe32, 0x5b764d76, 0x5d9c9cba, 0x5fc2ebfe, 0x61e93b42,
 			0x640f8a86, 0x6635d9ca, 0x685c290e, 0x6a827852, 0x6ca8c796,
 			0x6ecf16da, };
+
+	/**
+	 *
+	 */
+	private static final int _expPenalty[] = { Config.LV50_EXP,
+			Config.LV51_EXP, Config.LV52_EXP, Config.LV53_EXP, Config.LV54_EXP,
+			Config.LV55_EXP, Config.LV56_EXP, Config.LV57_EXP, Config.LV58_EXP,
+			Config.LV59_EXP, Config.LV60_EXP, Config.LV61_EXP, Config.LV62_EXP,
+			Config.LV63_EXP, Config.LV64_EXP, Config.LV65_EXP, Config.LV66_EXP,
+			Config.LV67_EXP, Config.LV68_EXP, Config.LV69_EXP, Config.LV70_EXP,
+			Config.LV71_EXP, Config.LV72_EXP, Config.LV73_EXP, Config.LV74_EXP,
+			Config.LV75_EXP, Config.LV76_EXP, Config.LV77_EXP, Config.LV78_EXP,
+			Config.LV79_EXP, Config.LV80_EXP, Config.LV81_EXP, Config.LV82_EXP,
+			Config.LV83_EXP, Config.LV84_EXP, Config.LV85_EXP, Config.LV86_EXP,
+			Config.LV87_EXP, Config.LV88_EXP, Config.LV89_EXP, Config.LV90_EXP,
+			Config.LV91_EXP, Config.LV92_EXP, Config.LV93_EXP, Config.LV94_EXP,
+			Config.LV95_EXP, Config.LV96_EXP, Config.LV97_EXP, Config.LV98_EXP,
+			Config.LV99_EXP };
 }

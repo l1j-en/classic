@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +40,9 @@ import l1j.server.server.utils.SQLUtil;
 public class ClanTable {
 
 	private static Logger _log = Logger.getLogger(ClanTable.class.getName());
+
+	private final HashMap<Integer, L1Clan> _clans
+			= new HashMap<Integer, L1Clan>();
 
 	private static ClanTable _instance;
 
@@ -73,6 +77,7 @@ public class ClanTable {
 					clan.setHouseId(rs.getInt(6));
 
 					L1World.getInstance().storeClan(clan);
+					_clans.put(clan_id, clan);
 				}
 
 			} catch (SQLException e) {
@@ -150,6 +155,7 @@ public class ClanTable {
 		}
 
 		L1World.getInstance().storeClan(clan);
+		_clans.put(clan.getClanId(), clan);
 
 		player.setClanid(clan.getClanId());
 		player.setClanname(clan.getClanName());
@@ -209,6 +215,11 @@ public class ClanTable {
 		clan.getDwarfForClanInventory().deleteAllItems();
 
 		L1World.getInstance().removeClan(clan);
+		_clans.remove(clan.getClanId());
+	}
+
+	public L1Clan getTemplate(int clan_id) {
+		return _clans.get(clan_id);
 	}
 
 }
