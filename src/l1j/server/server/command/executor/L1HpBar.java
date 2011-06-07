@@ -28,6 +28,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_HPMeter;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1HpBar implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1HpBar.class.getName());
@@ -42,9 +43,9 @@ public class L1HpBar implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		if (arg.equalsIgnoreCase("on")) {
-			pc.setSkillEffect(L1SkillId.GMSTATUS_HPBAR, 0);
+			pc.setSkillEffect(GMSTATUS_HPBAR, 0);
 		} else if (arg.equalsIgnoreCase("off")) {
-			pc.removeSkillEffect(L1SkillId.GMSTATUS_HPBAR);
+			pc.removeSkillEffect(GMSTATUS_HPBAR);
 
 			for (L1Object obj : pc.getKnownObjects()) {
 				if (isHpBarTarget(obj)) {

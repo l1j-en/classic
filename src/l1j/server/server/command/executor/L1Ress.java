@@ -42,6 +42,8 @@ public class L1Ress implements L1CommandExecutor {
 			int objid = pc.getId();
 			pc.sendPackets(new S_SkillSound(objid, 759));
 			pc.broadcastPacket(new S_SkillSound(objid, 759));
+			pc.setCurrentHp(pc.getMaxHp());
+			pc.setCurrentMp(pc.getMaxMp());
 			for (L1PcInstance tg : L1World.getInstance().getVisiblePlayer(pc)) {
 				if (tg.getCurrentHp() == 0 && tg.isDead()) {
 					tg.sendPackets(new S_SystemMessage(""));

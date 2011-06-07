@@ -26,6 +26,7 @@ import l1j.server.server.model.Instance.L1TrapInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ShowTrap implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1ShowTrap.class.getName());
@@ -40,9 +41,9 @@ public class L1ShowTrap implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		if (arg.equalsIgnoreCase("on")) {
-			pc.setSkillEffect(L1SkillId.GMSTATUS_SHOWTRAPS, 0);
+			pc.setSkillEffect(GMSTATUS_SHOWTRAPS, 0);
 		} else if (arg.equalsIgnoreCase("off")) {
-			pc.removeSkillEffect(L1SkillId.GMSTATUS_SHOWTRAPS);
+			pc.removeSkillEffect(GMSTATUS_SHOWTRAPS);
 
 			for (L1Object obj : pc.getKnownObjects()) {
 				if (obj instanceof L1TrapInstance) {

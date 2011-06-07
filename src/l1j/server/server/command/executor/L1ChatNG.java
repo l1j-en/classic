@@ -27,6 +27,7 @@ import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ChatNG implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1ChatNG.class.getName());
@@ -48,7 +49,7 @@ public class L1ChatNG implements L1CommandExecutor {
 			L1PcInstance tg = L1World.getInstance().getPlayer(name);
 
 			if (tg != null) {
-				tg.setSkillEffect(L1SkillId.STATUS_CHAT_PROHIBITED,
+				tg.setSkillEffect(STATUS_CHAT_PROHIBITED,
 						time * 60 * 1000);
 				tg.sendPackets(new S_SkillIconGFX(36, time * 60));
 				tg.sendPackets(new S_ServerMessage(286, String.valueOf(time))); 

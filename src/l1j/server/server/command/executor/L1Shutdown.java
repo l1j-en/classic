@@ -37,19 +37,16 @@ public class L1Shutdown implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			//bugged
-			//if (arg.equalsIgnoreCase("now")) {
-			//	GameServer.getInstance().shutdown();
-			//	return;
-			//}
+			if (arg.equalsIgnoreCase("now")) {
+				GameServer.getInstance().shutdown();
+				return;
+			}
 			if (arg.equalsIgnoreCase("abort")) {
 				GameServer.getInstance().abortShutdown();
 				return;
 			}
 			int sec = Math.max(5, Integer.parseInt(arg));
-			if (sec > 10) {
-				GameServer.getInstance().shutdownWithCountdown(sec);
-			} else { GameServer.getInstance().shutdownWithCountdown(sec);}
+			GameServer.getInstance().shutdownWithCountdown(sec);
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(
 					".shutdown sec|abort"));
