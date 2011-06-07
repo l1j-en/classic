@@ -62,17 +62,27 @@ public abstract class L1Item implements Serializable {
 		_name = name;
 	}
 
-	private String _nameId;
+	private String _unidentifiedNameId; //  ¢ÓèACeÌl[hc
 
-	public String getNameId() {
-		return _nameId;
+	public String getUnidentifiedNameId() {
+		return _unidentifiedNameId;
 	}
 
-	public void setNameId(String nameid) {
-		_nameId = nameid;
+	public void setUnidentifiedNameId(String unidentifiedNameId) {
+		_unidentifiedNameId = unidentifiedNameId;
 	}
 
-	private int _type;
+	private String _identifiedNameId; //  ÓèÏÝACeÌl[hc
+
+	public String getIdentifiedNameId() {
+		return _identifiedNameId;
+	}
+
+	public void setIdentifiedNameId(String identifiedNameId) {
+		_identifiedNameId = identifiedNameId;
+	}
+
+	private int _type; //  Ú×È^Cv
 
 	/**
 	 * getType<br>
@@ -312,7 +322,27 @@ public abstract class L1Item implements Serializable {
 		_useDarkelf = flag;
 	}
 
-	private byte _addstr = 0;
+	private boolean _useDragonknight = false; //  hSiCgåäõÅ«é©
+
+	public boolean isUseDragonknight() {
+		return _useDragonknight;
+	}
+
+	public void setUseDragonknight(boolean flag) {
+		_useDragonknight = flag;
+	}
+
+	private boolean _useIllusionist = false; //  C[WjXgåäõÅ«é©
+
+	public boolean isUseIllusionist() {
+		return _useIllusionist;
+	}
+
+	public void setUseIllusionist(boolean flag) {
+		_useIllusionist = flag;
+	}
+
+	private byte _addstr = 0; //  rsqâ³
 
 	public byte get_addstr() {
 		return _addstr;
@@ -490,15 +520,15 @@ public abstract class L1Item implements Serializable {
 	 * 
 	 */
 	public int getLightFuel() {
-		if (_itemId == 40001) { // 
-			return 600;
-		} else if (_itemId == 40002) { // 
+		if (_itemId == 40001) { // v
+			return 6000;
+		} else if (_itemId == 40002) { // ^
+			return 12000;
+		} else if (_itemId == 40003) { // ^IC
+			return 12000;
+		} else if (_itemId == 40004) { // }WbN^
 			return 0;
-		} else if (_itemId == 40003) { // 
-			return 600;
-		} else if (_itemId == 40004) { // 
-			return 0;
-		} else if (_itemId == 40005) { // 
+		} else if (_itemId == 40005) { // Lh
 			return 600;
 		} else {
 			return 0;
@@ -534,7 +564,15 @@ public abstract class L1Item implements Serializable {
 		return 0;
 	}
 
-	// L1Weapon
+	public boolean isCanSeal() {
+		return false;
+	}
+
+	// ¡¡¡¡¡¡ L1Weapon ÅI[o[Ch·éÚ ¡¡¡¡¡¡
+	public int getRange() {
+		return 0;
+	}
+
 	public int getHitModifier() {
 		return 0;
 	}
@@ -572,7 +610,19 @@ public abstract class L1Item implements Serializable {
 		return 0;
 	}
 
-	public int getBowHitRate() {
+	public int getHitModifierByArmor() {
+		return 0;
+	}
+
+	public int getDmgModifierByArmor() {
+		return 0;
+	}
+
+	public int getBowHitModifierByArmor() {
+		return 0;
+	}
+
+	public int getBowDmgModifierByArmor() {
 		return 0;
 	}
 

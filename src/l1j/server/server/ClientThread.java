@@ -89,10 +89,14 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0x87, (byte) 0x7D, (byte) 0x75, (byte) 0x7D,
 	// (byte) 0xA1, (byte) 0x3B, (byte) 0x62, (byte) 0x2C,
 	// (byte) 0x5E, (byte) 0x3E, (byte) 0x9F }; // for Episode 6
-	private static final byte[] FIRST_PACKET = {
-			(byte) 0xb1, (byte) 0x3c, (byte) 0x2c, (byte) 0x28,
-			(byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
-			(byte) 0x56, (byte) 0xe3, (byte) 0xef };
+	// private static final byte[] FIRST_PACKET = { 2.70C
+	// (byte) 0xb1, (byte) 0x3c, (byte) 0x2c, (byte) 0x28,
+	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
+	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
+	private static final byte[] FIRST_PACKET = { // 3.0
+			(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d,
+			(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00,
+			(byte) 0x02, (byte) 0x08, (byte) 0x00 };
 
 	/**
 	 * for Test
@@ -184,6 +188,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 	}
 
+	@Override
 	public void run() {
 		_log.info("(" + _hostname + ") Login detected");
 		System.out.println("Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB");
@@ -203,17 +208,17 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 
 		try {
-			// add for 2.70C start
-			long seed = 0x5cc690ecL;
+			// long seed = 0x5cc690ecL; // 2.70C
+			long seed = 0x7c98bdfa; // 3.0
 			byte Bogus = (byte)(FIRST_PACKET.length + 7);
 			_out.write(Bogus & 0xFF);
 			_out.write(Bogus >> 8 & 0xFF);
-			_out.write(0x20);
+			// _out.write(0x20); // 2.70C
+			_out.write(0x7d); // 3.0
 			_out.write((byte)(seed & 0xFF));
 			_out.write((byte)(seed >> 8 & 0xFF));
 			_out.write((byte)(seed >> 16 & 0xFF));
 			_out.write((byte)(seed >> 24 & 0xFF));
-			// add for 2.70C end
 
 			_out.write(FIRST_PACKET);
 			_out.flush();
@@ -450,9 +455,11 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setY(loc[1]);
 			pc.setMap((short) loc[2]);
 			pc.setCurrentHp(pc.getLevel());
-			pc.set_food(5);
+			pc.set_food(40);
 		}
-		if (pc.getTradeID() != 0) {
+
+
+		if (pc.getTradeID() != 0) { 
 			L1Trade trade = new L1Trade();
 			trade.TradeCancel(pc);
 		}

@@ -609,6 +609,16 @@ public class L1Npc extends L1Object implements Cloneable {
 		_transformGfxId = i;
 	}
 
+	private int _altAtkSpeed;
+
+	public int getAltAtkSpeed() {
+		return _altAtkSpeed;
+	}
+
+	public void setAltAtkSpeed(int altAtkSpeed) {
+		_altAtkSpeed = altAtkSpeed;
+	}
+
 	private int _atkMagicSpeed;
 
 	public int getAtkMagicSpeed() {

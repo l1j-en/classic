@@ -284,16 +284,12 @@ public class L1Skills {
 
 	boolean _isThrough;
 
-	public boolean getIsThrough() {
+	public boolean isThrough() {
 		return _isThrough;
 	}
 
-	public void setIsThrough(int flag) {
-		if (flag == 0) {
-			_isThrough = false;
-		} else {
-			_isThrough = true;
-		}
+	public void setThrough(boolean flag) {
+		_isThrough = flag;
 	}
 
 	private int _id;
@@ -335,6 +331,17 @@ public class L1Skills {
 	public void setCastGfx(int i) {
 		_castGfx = i;
 	}
+
+	private int _castGfx2;
+
+	public int getCastGfx2() {
+		return _castGfx2;
+	}
+
+	public void setCastGfx2(int i) {
+		_castGfx2 = i;
+	}
+
 
 	private int _sysmsgIdHappen;
 

@@ -22,7 +22,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import l1j.server.Config;
+
 public class BinaryOutputStream extends OutputStream {
+	private static final String CLIENT_LANGUAGE_CODE = Config
+			.CLIENT_LANGUAGE_CODE;
+
 	private final ByteArrayOutputStream _bao = new ByteArrayOutputStream();
 
 	public BinaryOutputStream() {
@@ -72,7 +77,7 @@ public class BinaryOutputStream extends OutputStream {
 	public void writeS(String text) {
 		try {
 			if (text != null) {
-				_bao.write(text.getBytes("Shift-JIS"));
+				_bao.write(text.getBytes(CLIENT_LANGUAGE_CODE));
 			}
 		} catch (Exception e) {
 		}

@@ -64,6 +64,11 @@ public final class Config {
 
 	public static int CLIENT_LANGUAGE;
 
+	public static String CLIENT_LANGUAGE_CODE;
+
+	public static String[] LANGUAGE_CODE_ARRAY = { "UTF8", "EUCKR", "UTF8",
+			"BIG5", "SJIS", "GBK" };
+
 	public static boolean HOSTNAME_LOOKUPS;
 
 	public static int AUTOMATIC_KICK;
@@ -149,6 +154,8 @@ public final class Config {
 	public static int ENCHANT_CHANCE_WEAPON;
 
 	public static int ENCHANT_CHANCE_ARMOR;
+
+	public static int ATTR_ENCHANT_CHANCE;
 
 	public static double RATE_WEIGHT_LIMIT;
 
@@ -284,6 +291,10 @@ public final class Config {
 	
 	public static boolean GHEY_MARRAIGE;
 
+	public static int NPC_DELETION_TIME;
+
+	public static int DEFAULT_CHARACTER_SLOT;
+
 	/** CharSettings control */
 	public static int PRINCE_MAX_HP;
 
@@ -304,6 +315,14 @@ public final class Config {
 	public static int DARKELF_MAX_HP;
 
 	public static int DARKELF_MAX_MP;
+
+	public static int DRAGONKNIGHT_MAX_HP;
+
+	public static int DRAGONKNIGHT_MAX_MP;
+
+	public static int ILLUSIONIST_MAX_HP;
+
+	public static int ILLUSIONIST_MAX_MP;
 
 	public static int LV50_EXP;
 
@@ -453,8 +472,10 @@ public final class Config {
 			PASSWORD_SALT = serverSettings.getProperty("PasswordSalt", "");
 			THREAD_P_TYPE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolType", "0"), 10);
 			THREAD_P_SIZE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolSize", "0"), 10);
-			CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty("ClientLanguage", "4"));
-			TIME_ZONE = serverSettings.getProperty("TimeZone", "EST");
+			CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty(
+					"ClientLanguage", "4"));
+			CLIENT_LANGUAGE_CODE = LANGUAGE_CODE_ARRAY[CLIENT_LANGUAGE];
+			TIME_ZONE = serverSettings.getProperty("TimeZone", "JST");
 			HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostnameLookups", "false"));
 			AUTOMATIC_KICK = Integer.parseInt(serverSettings.getProperty("AutomaticKick", "10"));
 			AUTO_CREATE_ACCOUNTS = Boolean.parseBoolean(serverSettings.getProperty("AutoCreateAccounts", "true"));
@@ -524,6 +545,8 @@ public final class Config {
 					"EnchantChanceWeapon", "68"));
 			ENCHANT_CHANCE_ARMOR = Integer.parseInt(rateSettings.getProperty(
 					"EnchantChanceArmor", "52"));
+			ATTR_ENCHANT_CHANCE = Integer.parseInt(rateSettings.getProperty(
+					"AttrEnchantChance", "10"));
 			RATE_WEIGHT_LIMIT = Double.parseDouble(rateSettings.getProperty(
 					"RateWeightLimit", "1"));
 			RATE_WEIGHT_LIMIT_PET = Double.parseDouble(rateSettings
@@ -673,6 +696,10 @@ public final class Config {
 					"MaxClanWarehouseItem", "200"));
 			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings
 					.getProperty("DeleteCharacterAfter7Days", "True"));
+			NPC_DELETION_TIME = Integer.parseInt(altSettings.getProperty(
+					"NpcDeletionTime", "10"));
+			DEFAULT_CHARACTER_SLOT = Integer.parseInt(altSettings.getProperty(
+					"DefaultCharacterSlot", "6"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
@@ -707,6 +734,14 @@ public final class Config {
 					"DarkelfMaxHP", "1000"));
 			DARKELF_MAX_MP = Integer.parseInt(charSettings.getProperty(
 					"DarkelfMaxMP", "900"));
+			DRAGONKNIGHT_MAX_HP = Integer.parseInt(charSettings.getProperty(
+					"DragonKnightMaxHP", "1400"));
+			DRAGONKNIGHT_MAX_MP = Integer.parseInt(charSettings.getProperty(
+					"DragonKnightMaxMP", "600"));
+			ILLUSIONIST_MAX_HP = Integer.parseInt(charSettings.getProperty(
+					"IllusionistMaxHP", "900"));
+			ILLUSIONIST_MAX_MP = Integer.parseInt(charSettings.getProperty(
+					"IllusionistMaxMP", "1100"));
 			LV50_EXP = Integer.parseInt(charSettings
 					.getProperty("Lv50Exp", "1"));
 			LV51_EXP = Integer.parseInt(charSettings
@@ -892,6 +927,8 @@ public final class Config {
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("EnchantChanceArmor")) {
 			ENCHANT_CHANCE_ARMOR = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("AttrEnchantChance")) {
+			ATTR_ENCHANT_CHANCE = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("Weightrate")) {
 			RATE_WEIGHT_LIMIT = Byte.parseByte(pValue);
 		}
@@ -952,6 +989,10 @@ public final class Config {
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("DeleteCharacterAfter7Days")) {
 			DELETE_CHARACTER_AFTER_7DAYS = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("NpcDeletionTime")) {
+			NPC_DELETION_TIME = Integer.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("DefaultCharacterSlot")) {
+			DEFAULT_CHARACTER_SLOT = Integer.valueOf(pValue);
 		}
 		// charsettings.properties
 		else if (pName.equalsIgnoreCase("PrinceMaxHP")) {
@@ -974,6 +1015,14 @@ public final class Config {
 			DARKELF_MAX_HP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("DarkelfMaxMP")) {
 			DARKELF_MAX_MP = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("DragonKnightMaxHP")) {
+			DRAGONKNIGHT_MAX_HP = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("DragonKnightMaxMP")) {
+			DRAGONKNIGHT_MAX_MP = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("IllusionistMaxHP")) {
+			ILLUSIONIST_MAX_HP = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("IllusionistMaxMP")) {
+			ILLUSIONIST_MAX_MP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("Lv50Exp")) {
 			LV50_EXP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("Lv51Exp")) {

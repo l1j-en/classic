@@ -27,7 +27,18 @@ public class L1Weapon extends L1Item {
 	public L1Weapon() {
 	}
 
-	private int _hitModifier = 0; // hit rate correction
+	private int _range = 0; //  ËöÍÍ
+
+	@Override
+	public int getRange() {
+		return _range;
+	}
+
+	public void setRange(int i) {
+		_range = i;
+	}
+
+	private int _hitModifier = 0; //  ½¦â³
 
 	@Override
 	public int getHitModifier() {
@@ -89,7 +100,7 @@ public class L1Weapon extends L1Item {
 		boolean bool = (weapon_type == 3 || weapon_type == 4
 				|| weapon_type == 5 || weapon_type == 11
 				|| weapon_type == 12 || weapon_type == 15
-				|| weapon_type == 16);
+				|| weapon_type == 16 || weapon_type == 18);
 
 		return bool;
 	}

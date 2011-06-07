@@ -123,6 +123,16 @@ public class L1NpcChat {
 		_isShout = flag;
 	}
 
+	private boolean _isWorldChat;
+
+	public boolean isWorldChat() {
+		return _isWorldChat;
+	}
+
+	public void setWorldChat(boolean flag) {
+		_isWorldChat = flag;
+	}
+
 	private boolean _isRepeat;
 
 	public boolean isRepeat() {
@@ -141,6 +151,16 @@ public class L1NpcChat {
 
 	public void setRepeatInterval(int i) {
 		_repeatInterval = i;
+	}
+
+	private int _gameTime;
+
+	public int getGameTime() {
+		return _gameTime;
+	}
+
+	public void setGameTime(int i) {
+		_gameTime = i;
 	}
 
 }

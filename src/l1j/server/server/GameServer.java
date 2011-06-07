@@ -38,6 +38,7 @@ import l1j.server.server.datatables.GetBackRestartTable;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.LightSpawnTable;
+import l1j.server.server.datatables.MailTable;
 import l1j.server.server.datatables.MapsTable;
 import l1j.server.server.datatables.MobGroupTable;
 import l1j.server.server.datatables.NpcActionTable;
@@ -209,6 +210,16 @@ public class GameServer extends Thread {
 				.getInstance();
 		GeneralThreadPool.getInstance().execute(fishingTimeController);
 
+		// NPC`bg^CRg[[
+		NpcChatTimeController npcChatTimeController = NpcChatTimeController
+				.getInstance();
+		GeneralThreadPool.getInstance().execute(npcChatTimeController);
+
+		// Cg^CRg[[
+		LightTimeController lightTimeController = LightTimeController
+				.getInstance();
+		GeneralThreadPool.getInstance().execute(lightTimeController);
+
 		Announcements.getInstance();
 		NpcTable.getInstance();
 		L1DeleteItemOnGround deleteitem = new L1DeleteItemOnGround();
@@ -254,7 +265,7 @@ public class GameServer extends Thread {
 		FurnitureSpawnTable.getInstance();
 		NpcChatTable.getInstance();
 		LightSpawnTable.getInstance();
-
+		MailTable.getInstance();
 		System.out.println("Database Tables Loaded Successfully!");
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		this.start();

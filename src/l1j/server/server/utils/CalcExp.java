@@ -36,6 +36,7 @@ import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.utils:
 // CalcStat
@@ -350,23 +351,26 @@ public class CalcExp {
 
 		double exppenalty = ExpTable.getPenaltyRate(pc.getLevel());
 		double foodBonus = 1.0;
-		if (pc.hasSkillEffect(L1SkillId.COOKING_1_7_N)
-				|| pc.hasSkillEffect(L1SkillId.COOKING_1_7_S)) {
+		if (pc.hasSkillEffect(COOKING_1_7_N)
+				|| pc.hasSkillEffect(COOKING_1_7_S)) {
 			foodBonus = 1.01;
+		}
+		if (pc.hasSkillEffect(COOKING_2_7_N)
+				|| pc.hasSkillEffect(COOKING_2_7_S)) {
+			foodBonus = 1.02;
+		}
+		if (pc.hasSkillEffect(COOKING_3_7_N)
+				|| pc.hasSkillEffect(COOKING_3_7_S)) {
+			foodBonus = 1.03;
 		}
 		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus);
 		pc.addExp(add_exp);
 	}
 
-	public static void LevelPet(L1PetInstance pet, int level) {  
-		AddExpPet(pet, ExpTable.getExpByLevel(level)-pet.getExp());
-	}
-	
 	private static void AddExpPet(L1PetInstance pet, int exp) {
 		L1PcInstance pc = (L1PcInstance) pet.getMaster();
 
-		//TODO Not used
-		//int petNpcId = pet.getNpcTemplate().get_npcId();
+		int petNpcId = pet.getNpcTemplate().get_npcId();
 		int petItemObjId = pet.getItemObjId();
 
 		int levelBefore = pet.getLevel();

@@ -18,8 +18,10 @@
  */
 package l1j.server.server.templates;
 
+import java.util.logging.Logger;
 
 public class L1Drop {
+	private static Logger _log = Logger.getLogger(L1Drop.class.getName());
 
 	int _mobId;
 	int _itemId;

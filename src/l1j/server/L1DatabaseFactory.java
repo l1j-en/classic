@@ -90,7 +90,8 @@ public class L1DatabaseFactory {
 		return _instance;
 	}
 
-	public Connection getConnection() throws SQLException {
+
+	public Connection getConnection() {
 		Connection con = null;
 
 		while (con == null) {

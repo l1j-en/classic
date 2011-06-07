@@ -19,6 +19,8 @@
 
 package l1j.server.server;
 
+import java.util.logging.Logger;
+
 import static l1j.server.server.Opcodes.*;
 import l1j.server.Config;
 import l1j.server.server.clientpackets.*;
@@ -383,6 +385,18 @@ public class PacketHandler {
 			new C_Ship(abyte0, _client);
  			break;
 
+		case C_OPCODE_MAIL:
+			new C_Mail(abyte0, _client);
+			break;
+
+		case C_OPCODE_CHARRESET:
+			new C_CharReset(abyte0, _client);
+			break;
+
+		case C_OPCODE_CLAN:
+			new C_Clan(abyte0, _client);
+			break;
+
 		default:
 			// String s = Integer.toHexString(abyte0[0] & 0xff);
 			// _log.warning("");
@@ -392,5 +406,9 @@ public class PacketHandler {
 			break;
 		}
 	}
+
+	private static Logger _log = Logger
+			.getLogger(PacketHandler.class.getName());
+
 	private final ClientThread _client;
 }

@@ -31,7 +31,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class FaceToFace {
 
-	@SuppressWarnings("unused")
 	private static Logger _log = Logger.getLogger(FaceToFace.class.getName());
 
 	private FaceToFace() {

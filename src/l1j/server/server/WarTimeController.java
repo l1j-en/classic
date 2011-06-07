@@ -19,6 +19,7 @@
 package l1j.server.server;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 import java.util.TimeZone;
 
 import l1j.server.Config;
@@ -35,11 +36,13 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
-import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 
 public class WarTimeController implements Runnable {
+	private static Logger _log = Logger.getLogger(WarTimeController.class
+			.getName());
+
 	private static WarTimeController _instance;
 	private L1Castle[] _l1castle = new L1Castle[8];
 	private Calendar[] _war_start_time = new Calendar[8];

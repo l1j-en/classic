@@ -106,37 +106,52 @@ public class CalcStat {
 		if (baseCon > 15) {
 			randomhp = (short) (baseCon - 15);
 		}
-		if (charType == 0) { // Prince
-			randomhp += (short) (5 + rnd.nextInt(6)); 
+		if (charType == 0) { // vX
+			randomhp += (short) (11 + rnd.nextInt(2)); // úlªÇÁ
 
 			if (baseMaxHp + randomhp > Config.PRINCE_MAX_HP) {
 				randomhp = (short) (Config.PRINCE_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 1) { // Knight
-			randomhp += (short) (6 + rnd.nextInt(7)); 
+		} else if (charType == 1) { // iCg
+			randomhp += (short) (17 + rnd.nextInt(2)); // úlªÇÁ
 
 			if (baseMaxHp + randomhp > Config.KNIGHT_MAX_HP) {
 				randomhp = (short) (Config.KNIGHT_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 2) { // Elf
-			randomhp += (short) (5 + rnd.nextInt(6));
+		} else if (charType == 2) { // Gt
+			randomhp += (short) (10 + rnd.nextInt(2)); // úlªÇÁ
 
 			if (baseMaxHp + randomhp > Config.ELF_MAX_HP) {
 				randomhp = (short) (Config.ELF_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 3) { // Wizard
-			randomhp += (short) (3 + rnd.nextInt(4)); 
+		} else if (charType == 3) { // EBU[h
+			randomhp += (short) (7 + rnd.nextInt(2)); // úlªÇÁ
 
 			if (baseMaxHp + randomhp > Config.WIZARD_MAX_HP) {
 				randomhp = (short) (Config.WIZARD_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 4) { // Dark Elf
-			randomhp += (short) (5 + rnd.nextInt(6)); 
+		} else if (charType == 4) { // _[NGt
+			randomhp += (short) (10 + rnd.nextInt(2)); // úlªÇÁ
 
 			if (baseMaxHp + randomhp > Config.DARKELF_MAX_HP) {
 				randomhp = (short) (Config.DARKELF_MAX_HP - baseMaxHp);
 			}
+		} else if (charType == 5) { // hSiCg
+			randomhp += (short) (13 + rnd.nextInt(2)); // úlªÇÁ
+
+			if (baseMaxHp + randomhp > Config.DRAGONKNIGHT_MAX_HP) {
+				randomhp = (short) (Config.DRAGONKNIGHT_MAX_HP - baseMaxHp);
+			}
+		} else if (charType == 6) { // C[WjXg
+			randomhp += (short) (9 + rnd.nextInt(2)); // úlªÇÁ
+
+			if (baseMaxHp + randomhp > Config.ILLUSIONIST_MAX_HP) {
+				randomhp = (short) (Config.ILLUSIONIST_MAX_HP - baseMaxHp);
+			}
 		}
+
+		randomhp += originalHpup;
+
 		if (randomhp < 0) {
 			randomhp = 0;
 		}
@@ -153,44 +168,51 @@ public class CalcStat {
 	 */
 	public static short calcStatMp(int charType, int baseMaxMp, byte baseWis) {
 		int randommp = 0;
-		int seed = 0;
-		if (baseWis <= 9) {
-			seed = -2;
-		} else if (baseWis == 10 || baseWis == 11) {
-			seed = -1;
-		} else if (baseWis >= 12 && baseWis <= 14) {
-			seed = 0;
-		} else if (baseWis >= 15 && baseWis <= 17) {
-			seed = 2;
-		} else if (baseWis == 18 || baseWis == 19) {
-			seed = 3;
-		} else if (baseWis == 20) {
-			seed = 4;
-		} else if (baseWis >= 21 && baseWis <= 23) {
-			seed = 5;
-		} else if (baseWis == 24) {
-			seed = 6;
-		} else if (baseWis == 25) {
-			seed = 7;
+		int seedY = 0;
+		int seedZ = 0;
+		if (baseWis < 9 || baseWis > 9 && baseWis < 12) {
+			seedY = 2;
+		} else if (baseWis == 9 || baseWis >= 12 && baseWis <= 17) {
+			seedY = 3;
+		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25
+					|| baseWis == 26 || baseWis == 29
+					|| baseWis == 30 || baseWis == 33
+					|| baseWis == 34) {
+			seedY = 4;
+		} else if (baseWis == 24 ||baseWis == 27
+				 ||baseWis == 28 ||baseWis == 31
+				 ||baseWis == 32 ||baseWis >= 35) {
+			seedY = 5;
 		}
-		randommp = 2 + rnd.nextInt(3 + seed % 2 + (seed / 6) * 2) + seed / 2
-				- seed / 6;
 
-		if (charType == 0) { // Prince
+		if (baseWis >= 7 && baseWis <= 9) {
+			seedZ = 0;
+		} else if (baseWis >= 10 && baseWis <= 14) {
+			seedZ = 1;
+		} else if (baseWis >= 15 && baseWis <= 20) {
+			seedZ = 2;
+		} else if (baseWis >= 21 && baseWis <= 24) {
+			seedZ = 3;
+		} else if (baseWis >= 25 && baseWis <= 28) {
+			seedZ = 4;
+		} else if (baseWis >= 29 && baseWis <= 32) {
+			seedZ = 5;
+		} else if (baseWis >= 33) {
+			seedZ = 6;
+		}
+
+		randommp = rnd.nextInt(seedY) + 1 + seedZ;
+
+		if (charType == 0) { // vX
 			if (baseMaxMp + randommp > Config.PRINCE_MAX_MP) {
 				randommp = Config.PRINCE_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 1) { // Knight
-			if (baseWis == 9) {
-				randommp -= 1;
-			} else {
-				randommp = (int) (1.0 * randommp / 2 + 0.5);
-			}
-
+		} else if (charType == 1) { // iCg
+			randommp = (int) (randommp * 2 / 3);
 			if (baseMaxMp + randommp > Config.KNIGHT_MAX_MP) {
 				randommp = Config.KNIGHT_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 2) { // Elf
+		} else if (charType == 2) { // Gt
 			randommp = (int) (randommp * 1.5);
 
 			if (baseMaxMp + randommp > Config.ELF_MAX_MP) {
@@ -208,7 +230,22 @@ public class CalcStat {
 			if (baseMaxMp + randommp > Config.DARKELF_MAX_MP) {
 				randommp = Config.DARKELF_MAX_MP - baseMaxMp;
 			}
+		} else if (charType == 5) { // hSiCg
+			randommp = (int) (randommp * 2 / 3);
+
+			if (baseMaxMp + randommp > Config.DRAGONKNIGHT_MAX_MP) {
+				randommp = Config.DRAGONKNIGHT_MAX_MP - baseMaxMp;
+			}
+		} else if (charType == 6) { // C[WjXg
+			randommp = (int) (randommp * 5 / 3);
+
+			if (baseMaxMp + randommp > Config.ILLUSIONIST_MAX_MP) {
+				randommp = Config.ILLUSIONIST_MAX_MP - baseMaxMp;
+			}
 		}
+
+		randommp += originalMpup;
+
 		if (randommp < 0) {
 			randommp = 0;
 		}

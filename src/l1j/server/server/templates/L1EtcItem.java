@@ -43,6 +43,8 @@ public class L1EtcItem extends L1Item {
 
 	private int _maxChargeCount;
 
+	private boolean _isCanSeal; //  óXN[ÅóÂ\
+
 	@Override
 	public boolean isStackable() {
 		return _stackable;
@@ -113,5 +115,15 @@ public class L1EtcItem extends L1Item {
 	public int getMaxChargeCount() {
 		return _maxChargeCount;
 	}
+
+	@Override
+	public boolean isCanSeal() {
+		return _isCanSeal;
+	}
+
+	public void setCanSeal(boolean flag) {
+		_isCanSeal = flag;
+	}
+
 
 }
