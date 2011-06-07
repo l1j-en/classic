@@ -18,23 +18,30 @@
  */
 package l1j.server.server.model;
 
-import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import l1j.server.Config;
+import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.IdFactory;
+import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.gametime.L1GameTime;
+import l1j.server.server.model.gametime.L1GameTimeAdapter;
+import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.types.Point;
 
-public class L1Spawn {
+public class L1Spawn extends L1GameTimeAdapter {
 	private static Logger _log = Logger.getLogger(L1Spawn.class.getName());
 	private final L1Npc _template;
 
@@ -54,15 +61,15 @@ public class L1Spawn {
 	private int _heading;
 	private int _minRespawnDelay;
 	private int _maxRespawnDelay;
-	@SuppressWarnings("unchecked")
-	private final Constructor _constructor;
 	private short _mapid;
 	private boolean _respaenScreen;
 	private int _movementDistance;
 	private boolean _rest;
 	private int _spawnType;
 	private int _delayInterval;
-	private HashMap<Integer, Point> _homePoint = null; // init spawn of individual objects in the home points
+	private L1SpawnTime _time;
+	private HashMap<Integer, Point> _homePoint = null; // initでspawnした個々のオブジェクトのホームポイント
+	private List<L1NpcInstance> _mobs = new ArrayList<L1NpcInstance>();
 
 	private static Random _random = new Random();
 
@@ -83,13 +90,8 @@ public class L1Spawn {
 		}
 	}
 
-	public L1Spawn(L1Npc mobTemplate) throws SecurityException,
-			ClassNotFoundException {
+	public L1Spawn(L1Npc mobTemplate) {
 		_template = mobTemplate;
-		String implementationName = _template.getImpl();
-		_constructor = Class.forName(
-				"l1j.server.server.model.Instance." + implementationName
-						+ "Instance").getConstructors()[0];
 	}
 
 	public String getName() {
@@ -257,13 +259,24 @@ public class L1Spawn {
 		if (_delayInterval > 0) {
 			respawnDelay += _random.nextInt(_delayInterval) * 1000;
 		}
+		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
+		if (_time != null && !_time.getTimePeriod().includes(currentTime)) { // 指定時間外なら指定時間までの時間を足す
+			long diff = (_time.getTimeStart().getTime() - currentTime.toTime()
+					.getTime());
+			if (diff < 0) {
+				diff += 24 * 1000L * 3600L;
+			}
+			diff /= 6; // real time to game time
+			respawnDelay = (int) diff;
+		}
 		return respawnDelay;
 	}
 
 	/**
-	 * SpawnTask To start.
-	 * @param spawnNumber L1Spawn Which is administered by the numbers. 
-	 * Home to specify what point does not exist and it's good.
+	 * SpawnTaskを起動する。
+	 * 
+	 * @param spawnNumber
+	 *            L1Spawnで管理されている番号。ホームポイントが無ければ何を指定しても良い。
 	 */
 	public void executeSpawnTask(int spawnNumber, int objectId) {
 		SpawnTask task = new SpawnTask(spawnNumber, objectId);
@@ -275,9 +288,13 @@ public class L1Spawn {
 	private boolean _spawnHomePoint;
 
 	public void init() {
+		if (_time != null && _time.isDeleteAtEndTime()) {
+			// 時間外削除が指定されているなら、時間経過の通知を受ける。
+			L1GameTimeClock.getInstance().addListener(this);
+		}
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
-		// Points to give the home or
+		// ホームポイントを持たせるか
 		if (Config.SPAWN_HOME_POINT
 				&& Config.SPAWN_HOME_POINT_COUNT <= getAmount()
 				&& Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay()
@@ -288,47 +305,54 @@ public class L1Spawn {
 
 		int spawnNum = 0;
 		while (spawnNum < _maximumCount) {
-			// spawnNum maxmumCount
+			// spawnNumは1～maxmumCountまで
 			doSpawn(++spawnNum);
 		}
 		_initSpawn = false;
 	}
 
 	/**
-	 * If you have a point home, spawnNumber based spawn.
-	 * If not, spawnNumber not used.
+	 * ホームポイントがある場合は、spawnNumberを基にspawnする。 それ以外の場合は、spawnNumberは未使用。
 	 */
-	protected void doSpawn(int spawnNumber) { //
+	protected void doSpawn(int spawnNumber) { // 初期配置
+		// 指定時間外であれば、次spawnを予約して終わる。
+		if (_time != null
+				&& !_time.getTimePeriod().includes(
+						L1GameTimeClock.getInstance().currentTime())) {
+			executeSpawnTask(spawnNumber, 0);
+			return;
+		}
 		doSpawn(spawnNumber, 0);
 	}
 
-	protected void doSpawn(int spawnNumber, int objectId) { // 
+	protected void doSpawn(int spawnNumber, int objectId) { // 再出現
 		L1NpcInstance mob = null;
 		try {
-			Object parameters[] = { _template };
-
 			int newlocx = getLocX();
 			int newlocy = getLocY();
 			int tryCount = 0;
 
-			mob = (L1NpcInstance) _constructor.newInstance(parameters);
+			mob = NpcTable.getInstance().newNpcInstance(_template);
+			synchronized (_mobs) {
+				_mobs.add(mob);
+			}
 			if (objectId == 0) {
 				mob.setId(IdFactory.getInstance().nextId());
 			} else {
-				mob.setId(objectId); // 
+				mob.setId(objectId); // オブジェクトID再利用
 			}
 
 			if (0 <= getHeading() && getHeading() <= 7) {
 				mob.setHeading(getHeading());
 			} else {
-				// heading Value is not correct
+				// heading値が正しくない
 				mob.setHeading(5);
 			}
 
 			int npcId = mob.getNpcTemplate().get_npcId();
-			if (npcId == 45488 && getMapId() == 9) { // 
+			if (npcId == 45488 && getMapId() == 9) { // カスパー
 				mob.setMap((short) (getMapId() + _random.nextInt(2)));
-			} else if (npcId == 45601 && getMapId() == 11) { // 
+			} else if (npcId == 45601 && getMapId() == 11) { // デスナイト
 				mob.setMap((short) (getMapId() + _random.nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
@@ -337,8 +361,8 @@ public class L1Spawn {
 			mob.setRest(isRest());
 			while (tryCount <= 50) {
 				switch (getSpawnType()) {
-				case SPAWN_TYPE_PC_AROUND: // Area real PC to type
-					if (!_initSpawn) { // The initial deployment is usually spawn unconditionally
+				case SPAWN_TYPE_PC_AROUND: // PC周辺に湧くタイプ
+					if (!_initSpawn) { // 初期配置では無条件に通常spawn
 						ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>();
 						for (L1PcInstance pc : L1World.getInstance()
 								.getAllPlayers()) {
@@ -356,11 +380,12 @@ public class L1Spawn {
 							break;
 						}
 					}
-					// PC floor if you have no way normal appearance
+					// フロアにPCがいなければ通常の出現方法
 				default:
-					if (isAreaSpawn()) { // Coordinates of the range specified in the case
-						if (!_initSpawn && _spawnHomePoint) { // Home to the original point out that if re-emergence
-							Point pt = _homePoint.get(spawnNumber);
+					if (isAreaSpawn()) { // 座標が範囲指定されている場合
+						Point pt = null;
+						if (_spawnHomePoint
+								&& null != (pt = _homePoint.get(spawnNumber))) { // ホームポイントを元に再出現させる場合
 							L1Location loc = new L1Location(pt, getMapId())
 									.randomLocation(
 											Config.SPAWN_HOME_POINT_RANGE,
@@ -373,16 +398,16 @@ public class L1Spawn {
 							newlocx = _random.nextInt(rangeX) + getLocX1();
 							newlocy = _random.nextInt(rangeY) + getLocY1();
 						}
-						if (tryCount > 49) { // When that happens appearance position locx, locy value
+						if (tryCount > 49) { // 出現位置が決まらない時はlocx,locyの値
 							newlocx = getLocX();
 							newlocy = getLocY();
 						}
-					} else if (isRandomSpawn()) { // Coordinate random value is if
+					} else if (isRandomSpawn()) { // 座標のランダム値が指定されている場合
 						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
 								.random() * getRandomx())));
 						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
 								.random() * getRandomy())));
-					} else { // Both did not specify if
+					} else { // どちらも指定されていない場合
 						newlocx = getLocX();
 						newlocy = getLocY();
 					}
@@ -403,26 +428,24 @@ public class L1Spawn {
 								.size() == 0) {
 							break;
 						}
-						// To make the PC screen can not occur in the three seconds after the re-scheduling 
-						SpawnTask task = new SpawnTask(spawnNumber, mob
-								.getId());
+						// 画面内にPCが居て出現できない場合は、3秒後にスケジューリングしてやり直し
+						SpawnTask task = new SpawnTask(spawnNumber, mob.getId());
 						GeneralThreadPool.getInstance().schedule(task, 3000L);
 						return;
 					}
 				}
 				tryCount++;
 			}
-
 			if (mob instanceof L1MonsterInstance) {
 				((L1MonsterInstance) mob).initHide();
 			}
 
 			mob.setSpawn(this);
 			mob.setreSpawn(true);
-			mob.setSpawnNumber(spawnNumber); // Number of L1Spawn (Home points)
-			if (_initSpawn && _spawnHomePoint) { // Home points to set the initial deployment
+			mob.setSpawnNumber(spawnNumber); // L1Spawnでの管理番号(ホームポイントに使用)
+			if (_initSpawn && _spawnHomePoint) { // 初期配置でホームポイントを設定
 				Point pt = new Point(mob.getX(), mob.getY());
-				_homePoint.put(spawnNumber, pt); // This saved a point when the re-emergence use
+				_homePoint.put(spawnNumber, pt); // ここで保存したpointを再出現時に使う
 			}
 
 			if (mob instanceof L1MonsterInstance) {
@@ -430,13 +453,25 @@ public class L1Spawn {
 					((L1MonsterInstance) mob).set_storeDroped(true);
 				}
 			}
-			if (npcId == 45573 && mob.getMapId() == 2) { // 
+			if (npcId == 45573 && mob.getMapId() == 2) { // バフォメット
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() == 2) {
-						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0, true);
+						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0,
+								true);
 					}
 				}
 			}
+
+			if (npcId == 46142 && mob.getMapId() == 73
+					|| npcId == 46141 && mob.getMapId() == 74) {
+				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+					if (pc.getMapId() >= 72 && pc.getMapId() <= 74) {
+						L1Teleport.teleport(pc, 32840, 32833, (short) 72,
+								pc.getHeading(), true);
+					}
+				}
+			}
+			doCrystalCave(npcId);
 
 			L1World.getInstance().storeObject(mob);
 			L1World.getInstance().addVisibleObject(mob);
@@ -444,7 +479,7 @@ public class L1Spawn {
 			if (mob instanceof L1MonsterInstance) {
 				L1MonsterInstance mobtemp = (L1MonsterInstance) mob;
 				if (!_initSpawn && mobtemp.getHiddenStatus() == 0) {
-					mobtemp.onNpcAI(); // Monster AI to start
+					mobtemp.onNpcAI(); // モンスターのＡＩを開始
 				}
 			}
 			if (getGroupId() != 0) {
@@ -452,7 +487,7 @@ public class L1Spawn {
 						isRespawnScreen(), _initSpawn);
 			}
 			mob.turnOnOffLight();
-			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // チャット開始
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -486,5 +521,57 @@ public class L1Spawn {
 
 	private boolean isRandomSpawn() {
 		return getRandomx() != 0 || getRandomy() != 0;
+	}
+
+	public L1SpawnTime getTime() {
+		return _time;
+	}
+
+	public void setTime(L1SpawnTime time) {
+		_time = time;
+	}
+
+	@Override
+	public void onMinuteChanged(L1GameTime time) {
+		if (_time.getTimePeriod().includes(time)) {
+			return;
+		}
+		synchronized (_mobs) {
+			if (_mobs.isEmpty()) {
+				return;
+			}
+			// 指定時間外になっていれば削除
+			for (L1NpcInstance mob : _mobs) {
+				mob.setCurrentHpDirect(0);
+				mob.setDead(true);
+				mob.setStatus(ActionCodes.ACTION_Die);
+				mob.deleteMe();
+			}
+			_mobs.clear();
+		}
+	}
+
+	public static void doCrystalCave(int npcId) {
+		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147,
+				46148, 46149, 46150, 46151, 46152 };
+		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006,
+				5007, 5008, 5009, 5010};
+
+		for (int i = 0; i < npcId2.length; i++) {
+			if (npcId == npcId2[i]) {
+				closeDoorInCrystalCave(doorId[i]);
+			}
+		}
+	}
+
+	private static void closeDoorInCrystalCave(int doorId) {
+		for (L1Object object : L1World.getInstance().getObject()) {
+			if (object instanceof L1DoorInstance) {
+				L1DoorInstance door = (L1DoorInstance) object;
+				if (door.getDoorId() == doorId) {
+					door.close();
+				}
+			}
+		}
 	}
 }

@@ -26,14 +26,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Quest;
@@ -45,7 +43,6 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ServerMessage;
-import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Drop;
 import l1j.server.server.utils.SQLUtil;
 
@@ -58,7 +55,7 @@ public class DropTable {
 
 	private static DropTable _instance;
 
-	private final HashMap<Integer, ArrayList<L1Drop>> _droplists;
+	private final HashMap<Integer, ArrayList<L1Drop>> _droplists; // ƒ‚ƒ“ƒXƒ^[–ˆ‚ÌƒhƒƒbƒvƒŠƒXƒg
 
 	public static DropTable getInstance() {
 		if (_instance == null) {
@@ -67,61 +64,8 @@ public class DropTable {
 		return _instance;
 	}
 
-	private static Map<Integer, String> _questDrops;
-
-	public static final int CLASSID_KNIGHT_MALE = 61;
-	public static final int CLASSID_KNIGHT_FEMALE = 48;
-	public static final int CLASSID_ELF_MALE = 138;
-	public static final int CLASSID_ELF_FEMALE = 37;
-	public static final int CLASSID_WIZARD_MALE = 734;
-	public static final int CLASSID_WIZARD_FEMALE = 1186;
-	public static final int CLASSID_DARK_ELF_MALE = 2786;
-	public static final int CLASSID_DARK_ELF_FEMALE = 2796;
-	public static final int CLASSID_PRINCE = 0;
-	public static final int CLASSID_PRINCESS = 1;
-
 	private DropTable() {
 		_droplists = allDropList();
-		_questDrops = questDrops();
-	}
-
-	private Map<Integer, String> questDrops() {
-		Map<Integer, String> questDropsMap = new HashMap<Integer, String>();
-		Connection con = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("select * from quest_drops");
-			rs = pstm.executeQuery();
-			while (rs.next()) {
-				questDropsMap.put(rs.getInt("item_id"), rs.getString("class"));
-			}
-		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} finally {
-			SQLUtil.close(rs);
-			SQLUtil.close(pstm);
-			SQLUtil.close(con);
-		}
-		return questDropsMap;
-	}
-
-	private String classCode(L1PcInstance pc) {
-		int i = pc.getClassId();
-		if(i == CLASSID_KNIGHT_MALE || i == CLASSID_KNIGHT_FEMALE) {
-			return "K";
-		} else if(i == CLASSID_ELF_MALE || i == CLASSID_ELF_FEMALE) {
-			return "E";
-		} else if(i == CLASSID_WIZARD_MALE || i == CLASSID_WIZARD_FEMALE) {
-			return "W";
-		} else if(i == CLASSID_DARK_ELF_MALE || i == CLASSID_DARK_ELF_FEMALE) {
-			return "D";
-		} else if(i == CLASSID_PRINCE || i == CLASSID_PRINCESS) {
-			return "P";
-		} else {
-			return null;
-		}
 	}
 
 	private HashMap<Integer, ArrayList<L1Drop>> allDropList() {
@@ -160,13 +104,16 @@ public class DropTable {
 		return droplistMap;
 	}
 
+	// ƒCƒ“ƒxƒ“ƒgƒŠ‚Éƒhƒƒbƒv‚ğİ’è
 	public void setDrop(L1NpcInstance npc, L1Inventory inventory) {
+		// ƒhƒƒbƒvƒŠƒXƒg‚Ìæ“¾
 		int mobId = npc.getNpcTemplate().get_npcId();
 		ArrayList<L1Drop> dropList = _droplists.get(mobId);
 		if (dropList == null) {
 			return;
 		}
 
+		// ƒŒ[ƒgæ“¾
 		double droprate = Config.RATE_DROP_ITEMS;
 		if (droprate <= 0) {
 			droprate = 0;
@@ -187,11 +134,13 @@ public class DropTable {
 		Random random = new Random();
 
 		for (L1Drop drop : dropList) {
+			// ƒhƒƒbƒvƒAƒCƒeƒ€‚Ìæ“¾
 			itemId = drop.getItemid();
 			if (adenarate == 0 && itemId == L1ItemId.ADENA) {
-				continue;
+				continue; // ƒAƒfƒiƒŒ[ƒg‚O‚Åƒhƒƒbƒv‚ªƒAƒfƒi‚Ìê‡‚ÍƒXƒ‹[
 			}
 
+			// ƒhƒƒbƒvƒ`ƒƒƒ“ƒX”»’è
 			randomChance = random.nextInt(0xf4240) + 1;
 			double rateOfMapId = MapsTable.getInstance().getDropRate(
 					npc.getMapId());
@@ -200,28 +149,20 @@ public class DropTable {
 					|| drop.getChance() * droprate * rateOfMapId * rateOfItem < randomChance) {
 				continue;
 			}
-		
-			// Changed to prevent adena rates of >1 to always result in even numbers
+
+			// ƒhƒƒbƒvŒÂ”‚ğİ’è
 			double amount = DropItemTable.getInstance().getDropAmount(itemId);
-			int min;
-			int max;
-			if(itemId == L1ItemId.ADENA) {
-				min = (int)(drop.getMin() * amount * adenarate);
-				max = (int)(drop.getMax() * amount * adenarate);
-			} else {
-				min = (int)(drop.getMin() * amount);
-				max = (int)(drop.getMax() * amount);
-			}
+			int min = (int) (drop.getMin() * amount);
+			int max = (int) (drop.getMax() * amount);
 
 			itemCount = min;
 			addCount = max - min + 1;
 			if (addCount > 1) {
 				itemCount += random.nextInt(addCount);
 			}
-			// intentionally removed
-			//if (itemId == L1ItemId.ADENA) { // 
-			//	itemCount *= adenarate;
-			//}
+			if (itemId == L1ItemId.ADENA) { // ƒhƒƒbƒv‚ªƒAƒfƒi‚Ìê‡‚ÍƒAƒfƒiƒŒ[ƒg‚ğŠ|‚¯‚é
+				itemCount *= adenarate;
+			}
 			if (itemCount < 0) {
 				itemCount = 0;
 			}
@@ -229,15 +170,18 @@ public class DropTable {
 				itemCount = 2000000000;
 			}
 
+			// ƒAƒCƒeƒ€‚Ì¶¬
 			item = ItemTable.getInstance().createItem(itemId);
 			item.setCount(itemCount);
 
+			// ƒAƒCƒeƒ€Ši”[
 			inventory.storeItem(item);
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList<L1Character> acquisitorList, 
-			ArrayList<Integer> hateList) {
+	// ƒhƒƒbƒv‚ğ•ª”z
+	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList,
+			ArrayList hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;
@@ -245,26 +189,27 @@ public class DropTable {
 		if (acquisitorList.size() != hateList.size()) {
 			return;
 		}
+		// ƒwƒCƒg‚Ì‡Œv‚ğæ“¾
 		int totalHate = 0;
 		L1Character acquisitor;
 		for (int i = hateList.size() - 1; i >= 0; i--) {
 			acquisitor = (L1Character) acquisitorList.get(i);
-			if ((Config.AUTO_LOOT == 2) 
+			if ((Config.AUTO_LOOT == 2) // ƒI[ƒgƒ‹[ƒeƒBƒ“ƒO‚Q‚Ìê‡‚ÍƒTƒ‚ƒ“‹y‚Ñƒyƒbƒg‚ÍÈ‚­
 					&& (acquisitor instanceof L1SummonInstance || acquisitor instanceof L1PetInstance)) {
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			} else if (acquisitor != null
-					&& !acquisitor.isDead() // added
 					&& acquisitor.getMapId() == npc.getMapId()
 					&& acquisitor.getLocation().getTileLineDistance(
 							npc.getLocation()) <= Config.LOOTING_RANGE) {
 				totalHate += (Integer) hateList.get(i);
-			} else {
+			} else { // null‚¾‚Á‚½‚è€‚ñ‚Å‚½‚è‰“‚©‚Á‚½‚ç”rœ
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			}
 		}
 
+		// ƒhƒƒbƒv‚Ì•ª”z
 		L1ItemInstance item;
 		L1Inventory targetInventory = null;
 		L1PcInstance player;
@@ -277,12 +222,12 @@ public class DropTable {
 			item = inventory.getItems().get(0);
 			itemId = item.getItemId();
 			boolean isGround = false;
-			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightÂŒnÂƒAÂƒCÂƒeÂƒÂ€
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightŒnƒAƒCƒeƒ€
 				item.setNowLighting(false);
 			}
-			item.setIdentified(false); // changed
-			if (((Config.AUTO_LOOT != 0) || item.getItem().getItemId() == L1ItemId.ADENA)
-					&& totalHate > 0) {
+
+			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA)
+					&& totalHate > 0) { // ƒI[ƒgƒ‹[ƒeƒBƒ“ƒO‚©ƒAƒfƒi‚Åæ“¾Ò‚ª‚¢‚éê‡
 				randomInt = random.nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
@@ -307,27 +252,21 @@ public class DropTable {
 							targetInventory = acquisitor.getInventory();
 							if (acquisitor instanceof L1PcInstance) {
 								player = (L1PcInstance) acquisitor;
-								// added to exclude quest drops from invalid classes
-								if(_questDrops.containsKey(item.getItemId())) {
-									if(!classCode(player).equals(_questDrops.get(item.getItemId()))) {
-										inventory.deleteItem(item);
-										break;
-									}
-								}
 								L1ItemInstance l1iteminstance = player
 										.getInventory().findItemId(
-												L1ItemId.ADENA);
+												L1ItemId.ADENA); // ŠƒAƒfƒi‚ğƒ`ƒFƒbƒN
 								if (l1iteminstance != null
 										&& l1iteminstance.getCount() > 2000000000) {
 									targetInventory = L1World.getInstance()
 											.getInventory(acquisitor.getX(),
 													acquisitor.getY(),
-													acquisitor.getMapId()); //
+													acquisitor.getMapId()); // ‚Ä‚È‚¢‚Ì‚Å‘«Œ³‚É—‚Æ‚·
 									isGround = true;
 									player.sendPackets(new S_ServerMessage(166,
-											"The limit of the itemcount is 2000000000")); // \f1%0Â‚Âª%4%1%3%2
+											"Š‚µ‚Ä‚¢‚éƒAƒfƒi",
+											"2,000,000,000‚ğ’´‰ß‚µ‚Ä‚¢‚Ü‚·B")); // \f1%0‚ª%4%1%3%2
 								} else {
-									if (player.isInParty()) {
+									if (player.isInParty()) { // ƒp[ƒeƒB‚Ìê‡
 										partyMember = player.getParty()
 												.getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
@@ -338,10 +277,10 @@ public class DropTable {
 															player.getName()));
 										}
 									} else {
-										
+										// ƒ\ƒ‚Ìê‡
 										player.sendPackets(new S_ServerMessage(
 												143, npc.getName(), item
-														.getLogName()));
+														.getLogName())); // \f1%0‚ª%1‚ğ‚­‚ê‚Ü‚µ‚½B
 									}
 								}
 							}
@@ -349,13 +288,13 @@ public class DropTable {
 							targetInventory = L1World.getInstance()
 									.getInventory(acquisitor.getX(),
 											acquisitor.getY(),
-											acquisitor.getMapId()); // 
+											acquisitor.getMapId()); // ‚Ä‚È‚¢‚Ì‚Å‘«Œ³‚É—‚Æ‚·
 							isGround = true;
 						}
 						break;
 					}
 				}
-			} else {
+			} else { // ƒmƒ“ƒI[ƒgƒ‹[ƒeƒBƒ“ƒO
 				List<Integer> dirList = new ArrayList<Integer>();
 				for (int j = 0; j < 8; j++) {
 					dirList.add(j);
@@ -422,3 +361,4 @@ public class DropTable {
 		npc.turnOnOffLight();
 	}
 
+}

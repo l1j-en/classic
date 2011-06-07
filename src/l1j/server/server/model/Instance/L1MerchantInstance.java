@@ -113,157 +113,157 @@ public class L1MerchantInstance extends L1NpcInstance {
 				_restTimer.schedule(_monitor, REST_MILLISEC);
 			}
 		}
-
+	
 		if (talking != null) {
-			if (npcid == 70841) {
-				if (player.isElf()) {
+			if (npcid == 70841) { // ルーディエル
+				if (player.isElf()) { // エルフ
 					htmlid = "luudielE1";
-				} else if (player.isDarkelf()) {
+				} else if (player.isDarkelf()) { // ダークエルフ
 					htmlid = "luudielCE1";
 				} else {
 					htmlid = "luudiel1";
 				}
-			} else if (npcid == 70522) {
-				if (player.isCrown()) {
+			} else if (npcid == 70522) { // グンター
+				if (player.isCrown()) { // 君主
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step == 2 || lv15_step == L1Quest.QUEST_END) { 
+						if (lv15_step == 2 || lv15_step == L1Quest.QUEST_END) { // クリア済み
 							htmlid = "gunterp11";
 						} else {
 							htmlid = "gunterp9";
 						}
-					} else { // Lv15
+					} else { // Lv15未満
 						htmlid = "gunterp12";
 					}
-				} else if (player.isKnight()) {
+				} else if (player.isKnight()) { // ナイト
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
-					if (lv30_step == 0) {
+					if (lv30_step == 0) { // 未開始
 						htmlid = "gunterk9";
 					} else if (lv30_step == 1) {
 						htmlid = "gunterkE1";
-					} else if (lv30_step == 2) {
+					} else if (lv30_step == 2) { // グンター同意済み
 						htmlid = "gunterkE2";
-					} else if (lv30_step >= 3) {
+					} else if (lv30_step >= 3) { // グンター終了済み
 						htmlid = "gunterkE3";
 					}
-				} else if (player.isElf()) {
+				} else if (player.isElf()) { // エルフ
 					htmlid = "guntere1";
-				} else if (player.isWizard()) {
+				} else if (player.isWizard()) { // ウィザード
 					htmlid = "gunterw1";
-				} else if (player.isDarkelf()) {
+				} else if (player.isDarkelf()) { // ダークエルフ
 					htmlid = "gunterde1";
 				}
-			} else if (npcid == 70653) {
-				if (player.isCrown()) {
+			} else if (npcid == 70653) { // マシャー
+				if (player.isCrown()) { // 君主
 					if (player.getLevel() >= 45) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // lv30
+						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // lv30クリア済み
 							int lv45_step = quest
 									.get_step(L1Quest.QUEST_LEVEL45);
-							if (lv45_step == L1Quest.QUEST_END) {
+							if (lv45_step == L1Quest.QUEST_END) { // クリア済み
 								htmlid = "masha4";
-							} else if (lv45_step >= 1) {
+							} else if (lv45_step >= 1) { // 同意済み
 								htmlid = "masha3";
-							} else {
+							} else { // 未同意
 								htmlid = "masha1";
 							}
 						}
 					}
-				} else if (player.isKnight()) {
+				} else if (player.isKnight()) { // ナイト
 					if (player.getLevel() >= 45) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) {
+						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // Lv30クエスト終了済み
 							int lv45_step = quest
 									.get_step(L1Quest.QUEST_LEVEL45);
-							if (lv45_step == L1Quest.QUEST_END) {
+							if (lv45_step == L1Quest.QUEST_END) { // クリア済み
 								htmlid = "mashak3";
-							} else if (lv45_step == 0) {
+							} else if (lv45_step == 0) { // 未開始
 								htmlid = "mashak1";
-							} else if (lv45_step >= 1) {
+							} else if (lv45_step >= 1) { // 同意済み
 								htmlid = "mashak2";
 							}
 						}
 					}
-				} else if (player.isElf()) {
+				} else if (player.isElf()) { // エルフ
 					if (player.getLevel() >= 45) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // Lv30
+						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) { // Lv30クエスト終了済み
 							int lv45_step = quest
 									.get_step(L1Quest.QUEST_LEVEL45);
-							if (lv45_step == L1Quest.QUEST_END) {
+							if (lv45_step == L1Quest.QUEST_END) { // クリア済み
 								htmlid = "mashae3";
-							} else if (lv45_step >= 1) {
+							} else if (lv45_step >= 1) { // 同意済み
 								htmlid = "mashae2";
-							} else {
+							} else { // 未同意
 								htmlid = "mashae1";
 							}
 						}
 					}
 				}
-			} else if (npcid == 70554) {
-				if (player.isCrown()) {
+			} else if (npcid == 70554) { // ゼロ
+				if (player.isCrown()) { // 君主
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step == 1) {
+						if (lv15_step == 1) { // ゼロクリア済み
 							htmlid = "zero5";
-						} else if (lv15_step == L1Quest.QUEST_END) {
+						} else if (lv15_step == L1Quest.QUEST_END) { // ゼロ、グンタークリア済み
 							htmlid = "zero1";// 6
 						} else {
 							htmlid = "zero1";
 						}
-					} else { // Lv15
+					} else { // Lv15未満
 						htmlid = "zero6";
 					}
 				}
-			} else if (npcid == 70783) {
-				if (player.isCrown()) {
+			} else if (npcid == 70783) { // アリア
+				if (player.isCrown()) { // 君主
 					if (player.getLevel() >= 30) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // lv15
+						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // lv15試練クリア済み
 							int lv30_step = quest
 									.get_step(L1Quest.QUEST_LEVEL30);
-							if (lv30_step == L1Quest.QUEST_END) {
+							if (lv30_step == L1Quest.QUEST_END) { // クリア済み
 								htmlid = "aria3";
-							} else if (lv30_step == 1) {
+							} else if (lv30_step == 1) { // 同意済み
 								htmlid = "aria2";
-							} else {
+							} else { // 未同意
 								htmlid = "aria1";
 							}
 						}
 					}
 				}
-			} else if (npcid == 70782) {
-				if (player.getTempCharGfx() == 1037) {
-					if (player.isCrown()) {
+			} else if (npcid == 70782) { // サーチアント
+				if (player.getTempCharGfx() == 1037) {// ジャイアントアント変身
+					if (player.isCrown()) { // 君主
 						if (quest.get_step(L1Quest.QUEST_LEVEL30) == 1) {
 							htmlid = "ant1";
 						} else {
 							htmlid = "ant3";
 						}
-					} else {
+					} else { // 君主以外
 						htmlid = "ant3";
 					}
 				}
-			} else if (npcid == 70545) {
-				if (player.isCrown()) {
+			} else if (npcid == 70545) { // リチャード
+				if (player.isCrown()) { // 君主
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step >= 1 && lv45_step != L1Quest.QUEST_END) {
-						if (player.getInventory().checkItem(40586)) {
+					if (lv45_step >= 1 && lv45_step != L1Quest.QUEST_END) { // 開始かつ未終了
+						if (player.getInventory().checkItem(40586)) { // 王家の紋章(左)
 							htmlid = "richard4";
 						} else {
 							htmlid = "richard1";
 						}
 					}
 				}
-			} else if (npcid == 70776) {
-				if (player.isCrown()) {
+			} else if (npcid == 70776) { // メグ
+				if (player.isCrown()) { // 君主
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if (lv45_step == 1) {
 						htmlid = "meg1";
-					} else if (lv45_step == 2 && lv45_step <= 3 ) { //
+					} else if (lv45_step == 2 && lv45_step <= 3 ) { // メグ同意済み
 						htmlid = "meg2";
-					} else if (lv45_step >= 4) { //
+					} else if (lv45_step >= 4) { // メグクリア済み
 						htmlid = "meg3";
 					}
 				}
-			} else if (npcid == 71200) { //
-				if (player.isCrown()) { //
+			} else if (npcid == 71200) { // 白魔術師 ピエタ
+				if (player.isCrown()) { // 君主
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if (lv45_step == 2 && player.getInventory().checkItem(41422)) {	
 						player.getInventory().consumeItem(41422, 1);
@@ -275,63 +275,66 @@ public class L1MerchantInstance extends L1NpcInstance {
 						}
 					}
 				}
-			//} else if (npcid == 71200) { //
-				//if (player.isCrown()) { //
-					//int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					//if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END  ) { //
-						//htmlid = "pieta9";
-					//} else if (lv45_step == 2) { //
-						//htmlid = "pieta2";
-					//} else if (lv45_step == 2 || 
-								//player.getInventory().checkItem(41422) ) {//
-						//htmlid = "pieta4";
-					//} else if (lv45_step == 3) { //
-						//htmlid = "pieta6";
-					//} else {//
-						//htmlid = "pieta8";
-					//}	
-				//} else { //
-					//htmlid = "pieta1";
-				//}
-			//} else if (npcid == 70751) { //
-				//if (player.isCrown()) { //
-					//if (player.getLevel() >= 45) {
-						//if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { //
-							//htmlid = "brad1";
-						//}
-					//}
-				//}
-			} else if (npcid == 70798) { //
-				if (player.isKnight()) { //
+			// } else if (npcid == 71200) { // 白魔術師 ピエタ
+				// if (player.isCrown()) { // 君主
+					// int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					// if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END ) {
+					// //メグクリア済みor終了
+						// htmlid = "pieta9";
+					// } else if (lv45_step == 2) { // クエスト開始前・メグ同意済み
+						// htmlid = "pieta2";
+					// } else if (lv45_step == 2 ||
+								// player.getInventory().checkItem(41422) ) {//
+								// 輝きを失った魂保持
+						// htmlid = "pieta4";
+					// } else if (lv45_step == 3) { // 輝きを失った魂入後
+						// htmlid = "pieta6";
+					// } else {//lv45未満orクエスト30未
+						// htmlid = "pieta8";
+					// }
+				// } else { // 君主以外
+					// htmlid = "pieta1";
+				// }
+			// } else if (npcid == 70751) { // ブラッド
+				// if (player.isCrown()) { // 君主
+					// if (player.getLevel() >= 45) {
+						// if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { //
+						// メグ同意済み
+							// htmlid = "brad1";
+						// }
+					// }
+				// }
+			} else if (npcid == 70798) { // リッキー
+				if (player.isKnight()) { // ナイト
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step >= 1) {
+						if (lv15_step >= 1) { // リッキークリア済み
 							htmlid = "riky5";
 						} else {
 							htmlid = "riky1";
 						}
-					} else { // Lv15
+					} else { // Lv15未満
 						htmlid = "riky6";
 					}
 				}
-			} else if (npcid == 70802) {
-				if (player.isKnight()) {
+			} else if (npcid == 70802) { // アノン
+				if (player.isKnight()) { // ナイト
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step == L1Quest.QUEST_END) {
+						if (lv15_step == L1Quest.QUEST_END) { // アノンクリア済み
 							htmlid = "aanon7";
-						} else if (lv15_step == 1) {
+						} else if (lv15_step == 1) { // リッキークリア済み
 							htmlid = "aanon4";
 						}
 					}
 				}
-			} else if (npcid == 70775) {
-				if (player.isKnight()) {
+			} else if (npcid == 70775) { // マーク
+				if (player.isKnight()) { // ナイト
 					if (player.getLevel() >= 30) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
+						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // LV15クエスト終了済み
 							int lv30_step = quest
 									.get_step(L1Quest.QUEST_LEVEL30);
-							if (lv30_step == 0) {
+							if (lv30_step == 0) { // 未開始
 								htmlid = "mark1";
 							} else {
 								htmlid = "mark2";
@@ -339,163 +342,163 @@ public class L1MerchantInstance extends L1NpcInstance {
 						}
 					}
 				}
-			} else if (npcid == 70794) {
-				if (player.isCrown()) {
+			} else if (npcid == 70794) { // ゲラド
+				if (player.isCrown()) { // 君主
 					htmlid = "gerardp1";
-				} else if (player.isKnight()) {
+				} else if (player.isKnight()) { // ナイト
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
-					if (lv30_step == L1Quest.QUEST_END) {
+					if (lv30_step == L1Quest.QUEST_END) { // ゲラド終了済み
 						htmlid = "gerardkEcg";
-					} else if (lv30_step < 3) {
+					} else if (lv30_step < 3) { // グンター未終了
 						htmlid = "gerardk7";
-					} else if (lv30_step == 3) {
+					} else if (lv30_step == 3) { // グンター終了済み
 						htmlid = "gerardkE1";
-					} else if (lv30_step == 4) {
+					} else if (lv30_step == 4) { // ゲラド同意済み
 						htmlid = "gerardkE2";
-					} else if (lv30_step == 5) {
+					} else if (lv30_step == 5) { // ラミアの鱗 終了済み
 						htmlid = "gerardkE3";
-					} else if (lv30_step >= 6) {
+					} else if (lv30_step >= 6) { // 復活のポーション同意済み
 						htmlid = "gerardkE4";
 					}
-				} else if (player.isElf()) {
+				} else if (player.isElf()) { // エルフ
 					htmlid = "gerarde1";
-				} else if (player.isWizard()) {
+				} else if (player.isWizard()) { // ウィザード
 					htmlid = "gerardw1";
-				} else if (player.isDarkelf()) {
+				} else if (player.isDarkelf()) { // ダークエルフ
 					htmlid = "gerardde1";
 				}
-			} else if (npcid == 70555) {
-				if (player.getTempCharGfx() == 2374) {
-					if (player.isKnight()) {
-						if (quest.get_step(L1Quest.QUEST_LEVEL30) == 6) {
+			} else if (npcid == 70555) { // ジム
+				if (player.getTempCharGfx() == 2374) { // スケルトン変身
+					if (player.isKnight()) { // ナイト
+						if (quest.get_step(L1Quest.QUEST_LEVEL30) == 6) { // 復活のポーション同意済み
 							htmlid = "jim2";
 						} else {
 							htmlid = "jim4";
 						}
-					} else {
+					} else { // ナイト以外
 						htmlid = "jim4";
 					}
 				}
-			} else if (npcid == 70715) {
-				if (player.isKnight()) {
+			} else if (npcid == 70715) { // ジーム
+				if (player.isKnight()) { // ナイト
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step == 1) {
+					if (lv45_step == 1) { // マシャー同意済み
 						htmlid = "jimuk1";
-					} else if (lv45_step >= 2) {
+					} else if (lv45_step >= 2) { // ジーム同意済み
 						htmlid = "jimuk2";
 					}
 				}
-			} else if (npcid == 70711) {
-				if (player.isKnight()) {
+			} else if (npcid == 70711) { // ジャイアント エルダー
+				if (player.isKnight()) { // ナイト
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step == 2) {
-						if (player.getInventory().checkItem(20026)) {
+					if (lv45_step == 2) { // ジーム同意済み
+						if (player.getInventory().checkItem(20026)) { // ナイトビジョン
 							htmlid = "giantk1";
 						}
-					} else if (lv45_step == 3) {
+					} else if (lv45_step == 3) { // ジャイアントエルダー同意済み
 						htmlid = "giantk2";
-					} else if (lv45_step >= 4) {
+					} else if (lv45_step >= 4) { // 古代のキー：上半分
 						htmlid = "giantk3";
 					}
 				}
-			} else if (npcid == 70826) {
-				if (player.isElf()) {
+			} else if (npcid == 70826) { // オス
+				if (player.isElf()) { // エルフ
 					if (player.getLevel() >= 15) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
 							htmlid = "oth5";
 						} else {
 							htmlid = "oth1";
 						}
-					} else {
+					} else { // レベル１５未満
 						htmlid = "oth6";
 					}
 				}
-			} else if (npcid == 70844) {
-				if (player.isElf()) {
+			} else if (npcid == 70844) { // 森とエルフの母
+				if (player.isElf()) { // エルフ
 					if (player.getLevel() >= 30) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // Lv15
+						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // Lv15終了済み
 							int lv30_step = quest
 									.get_step(L1Quest.QUEST_LEVEL30);
-							if (lv30_step == L1Quest.QUEST_END) {
+							if (lv30_step == L1Quest.QUEST_END) { // 終了済み
 								htmlid = "motherEE3";
-							} else if (lv30_step >= 1) {
+							} else if (lv30_step >= 1) { // 同意済み
 								htmlid = "motherEE2";
-							} else if (lv30_step <= 0) {
+							} else if (lv30_step <= 0) { // 未同意
 								htmlid = "motherEE1";
 							}
-						} else { // Lv15
+						} else { // Lv15未終了
 							htmlid = "mothere1";
 						}
-					} else { // Lv30
+					} else { // Lv30未満
 						htmlid = "mothere1";
 					}
 				}
-			} else if (npcid == 70724) {
-				if (player.isElf()) {
+			} else if (npcid == 70724) { // ヘイト
+				if (player.isElf()) { // エルフ
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step >= 4) {
+					if (lv45_step >= 4) { // ヘイト終了済み
 						htmlid = "heit5";
-					} else if (lv45_step >= 3) {
+					} else if (lv45_step >= 3) { // フルート交換済み
 						htmlid = "heit3";
-					} else if (lv45_step >= 2) {
+					} else if (lv45_step >= 2) { // ヘイト同意済み
 						htmlid = "heit2";
-					} else if (lv45_step >= 1) {
+					} else if (lv45_step >= 1) { // マシャー同意済み
 						htmlid = "heit1";
 					}
 				}
-			} else if (npcid == 70531) {
-				if (player.isWizard()) {
+			} else if (npcid == 70531) { // ゼム
+				if (player.isWizard()) { // ウィザード
 					if (player.getLevel() >= 15) {
-						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
+						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) { // 終了済み
 							htmlid = "jem6";
 						} else {
 							htmlid = "jem1";
 						}
 					}
 				}
-			} else if (npcid == 70009) {
-				if (player.isCrown()) {
+			} else if (npcid == 70009) { // ゲレン
+				if (player.isCrown()) { // 君主
 					htmlid = "gerengp1";
-				} else if (player.isKnight()) {
+				} else if (player.isKnight()) { // ナイト
 					htmlid = "gerengk1";
-				} else if (player.isElf()) {
+				} else if (player.isElf()) { // エルフ
 					htmlid = "gerenge1";
-				} else if (player.isWizard()) {
+				} else if (player.isWizard()) { // ウィザード
 					if (player.getLevel() >= 30) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
 							int lv30_step = quest
 									.get_step(L1Quest.QUEST_LEVEL30);
-							if (lv30_step >= 4) {
+							if (lv30_step >= 4) { // ゲレン終了済み
 								htmlid = "gerengw3";
-							} else if (lv30_step >= 3) {
+							} else if (lv30_step >= 3) { // 要求済み
 								htmlid = "gerengT4";
-							} else if (lv30_step >= 2) {
+							} else if (lv30_step >= 2) { // アンデッドの骨交換済み
 								htmlid = "gerengT3";
-							} else if (lv30_step >= 1) {
+							} else if (lv30_step >= 1) { // 同意済み
 								htmlid = "gerengT2";
-							} else {
+							} else { // 未同意
 								htmlid = "gerengT1";
 							}
-						} else { // Lv15
+						} else { // Lv15クエスト未終了
 							htmlid = "gerengw3";
 						}
-					} else { // Lv30
+					} else { // Lv30未満
 						htmlid = "gerengw3";
 					}
-				} else if (player.isDarkelf()) {
+				} else if (player.isDarkelf()) { // ダークエルフ
 					htmlid = "gerengde1";
 				}
-			} else if (npcid == 70763) {
-				if (player.isWizard()) {
+			} else if (npcid == 70763) { // タラス
+				if (player.isWizard()) { // ウィザード
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					if (lv30_step == L1Quest.QUEST_END) {
 						if (player.getLevel() >= 45) {
 							int lv45_step = quest
 									.get_step(L1Quest.QUEST_LEVEL45);
 							if (lv45_step >= 1
-									&& lv45_step != L1Quest.QUEST_END) {
+									&& lv45_step != L1Quest.QUEST_END) { // 同意済み
 								htmlid = "talassmq2";
-							} else if (lv45_step <= 0) {
+							} else if (lv45_step <= 0) { // 未同意
 								htmlid = "talassmq1";
 							}
 						}
@@ -505,138 +508,138 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "talassE2";
 					}
 				}
-			} else if (npcid == 81105) {
-				if (player.isWizard()) {
+			} else if (npcid == 81105) { // 神秘の岩
+				if (player.isWizard()) { // ウィザード
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step >= 3) {
+					if (lv45_step >= 3) { // 神秘の岩終了済み
 						htmlid = "stoenm3";
-					} else if (lv45_step >= 2) {
+					} else if (lv45_step >= 2) { // 神秘の岩 同意済み
 						htmlid = "stoenm2";
-					} else if (lv45_step >= 1) {
+					} else if (lv45_step >= 1) { // タラス 同意済み
 						htmlid = "stoenm1";
 					}
 				}
-			} else if (npcid == 70739) {
+			} else if (npcid == 70739) { // ディガルディン
 				if (player.getLevel() >= 50) {
 					int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
 					if (lv50_step == L1Quest.QUEST_END) {
-						if (player.isCrown()) {
+						if (player.isCrown()) { // 君主
 							htmlid = "dicardingp3";
-						} else if (player.isKnight()) {
+						} else if (player.isKnight()) { // ナイト
 							htmlid = "dicardingk3";
-						} else if (player.isElf()) {
+						} else if (player.isElf()) { // エルフ
 							htmlid = "dicardinge3";
-						} else if (player.isWizard()) {
+						} else if (player.isWizard()) { // ウィザード
 							htmlid = "dicardingw3";
-						} else if (player.isDarkelf()) {
+						} else if (player.isDarkelf()) { // ダークエルフ
 							htmlid = "dicarding";
 						}
-					} else if (lv50_step >= 1) {
-						if (player.isCrown()) {
+					} else if (lv50_step >= 1) { // ディガルディン 同意済み
+						if (player.isCrown()) { // 君主
 							htmlid = "dicardingp2";
-						} else if (player.isKnight()) {
+						} else if (player.isKnight()) { // ナイト
 							htmlid = "dicardingk2";
-						} else if (player.isElf()) {
+						} else if (player.isElf()) { // エルフ
 							htmlid = "dicardinge2";
-						} else if (player.isWizard()) {
+						} else if (player.isWizard()) { // ウィザード
 							htmlid = "dicardingw2";
-						} else if (player.isDarkelf()) {
+						} else if (player.isDarkelf()) { // ダークエルフ
 							htmlid = "dicarding";
 						}
 					} else if (lv50_step >= 0) {
-						if (player.isCrown()) {
+						if (player.isCrown()) { // 君主
 							htmlid = "dicardingp1";
-						} else if (player.isKnight()) {
+						} else if (player.isKnight()) { // ナイト
 							htmlid = "dicardingk1";
-						} else if (player.isElf()) {
+						} else if (player.isElf()) { // エルフ
 							htmlid = "dicardinge1";
-						} else if (player.isWizard()) {
+						} else if (player.isWizard()) { // ウィザード
 							htmlid = "dicardingw1";
-						} else if (player.isDarkelf()) {
+						} else if (player.isDarkelf()) { // ダークエルフ
 							htmlid = "dicarding";
 						}
 					} else {
 						htmlid = "dicarding";
 					}
-				} else { // Lv50
+				} else { // Lv50未満
 					htmlid = "dicarding";
 				}
-			} else if (npcid == 70885) {
-				if (player.isDarkelf()) {
+			} else if (npcid == 70885) { // カーン
+				if (player.isDarkelf()) { // ダークエルフ
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step == L1Quest.QUEST_END) {
+						if (lv15_step == L1Quest.QUEST_END) { // 終了済み
 							htmlid = "kanguard3";
-						} else if (lv15_step >= 1) {
+						} else if (lv15_step >= 1) { // 同意済み
 							htmlid = "kanguard2";
-						} else {
+						} else { // 未同意
 							htmlid = "kanguard1";
 						}
-					} else { // Lv15
+					} else { // Lv15未満
 						htmlid = "kanguard5";
 					}
 				}
-			} else if (npcid == 70892) {
-				if (player.isDarkelf()) {
+			} else if (npcid == 70892) { // ロンドゥ
+				if (player.isDarkelf()) { // ダークエルフ
 					if (player.getLevel() >= 30) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL15)) {
 							int lv30_step = quest
 									.get_step(L1Quest.QUEST_LEVEL30);
-							if (lv30_step == L1Quest.QUEST_END) {
+							if (lv30_step == L1Quest.QUEST_END) { // 終了済み
 								htmlid = "ronde5";
-							} else if (lv30_step >= 2) {
+							} else if (lv30_step >= 2) { // 名簿交換済み
 								htmlid = "ronde3";
-							} else if (lv30_step >= 1) {
+							} else if (lv30_step >= 1) { // 同意済み
 								htmlid = "ronde2";
-							} else {
+							} else { // 未同意
 								htmlid = "ronde1";
 							}
-						} else { // Lv15
+						} else { // Lv15クエスト未終了
 							htmlid = "ronde7";
 						}
-					} else { // Lv30
+					} else { // Lv30未満
 						htmlid = "ronde7";
 					}
 				}
-			} else if (npcid == 70895) {
-				if (player.isDarkelf()) {
+			} else if (npcid == 70895) { // ブルディカ
+				if (player.isDarkelf()) { // ダークエルフ
 					if (player.getLevel() >= 45) {
 						if (quest.isEnd(L1Quest.QUEST_LEVEL30)) {
 							int lv45_step = quest
 									.get_step(L1Quest.QUEST_LEVEL45);
-							if (lv45_step == L1Quest.QUEST_END) {
-								if (player.getLevel() < 50) { // Lv50
+							if (lv45_step == L1Quest.QUEST_END) { // 終了済み
+								if (player.getLevel() < 50) { // Lv50未満
 									htmlid = "bluedikaq3";
 								} else {
 									int lv50_step = quest
 											.get_step(L1Quest.QUEST_LEVEL50);
-									if (lv50_step == L1Quest.QUEST_END) {
+									if (lv50_step == L1Quest.QUEST_END) { // 終了済み
 										htmlid = "bluedikaq8";
 									} else {
 										htmlid = "bluedikaq6";
 									}
 								}
-							} else if (lv45_step >= 1) {
+							} else if (lv45_step >= 1) { // 同意済み
 								htmlid = "bluedikaq2";
-							} else {
+							} else { // 未同意
 								htmlid = "bluedikaq1";
 							}
-						} else { // Lv30
+						} else { // Lv30クエスト未終了
 							htmlid = "bluedikaq5";
 						}
-					} else { // Lv45
+					} else { // Lv45未満
 						htmlid = "bluedikaq5";
 					}
 				}
-			} else if (npcid == 70904) {
+			} else if (npcid == 70904) { // クプ
 				if (player.isDarkelf()) {
-					if (quest.get_step(L1Quest.QUEST_LEVEL45) == 1) {
+					if (quest.get_step(L1Quest.QUEST_LEVEL45) == 1) { // ブルディカ同意済み
 						htmlid = "koup12";
 					}
 				}
-			} else if (npcid == 70824) { //
+			} else if (npcid == 70824) { // アサシンマスターの追従者
 				if (player.isDarkelf()) {
-					if (player.getTempCharGfx() == 3634) { //
+					if (player.getTempCharGfx() == 3634) { // アサシン変身
 						int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 						if (lv45_step == 1) {
 							htmlid = "assassin1";
@@ -645,58 +648,58 @@ public class L1MerchantInstance extends L1NpcInstance {
 						} else {
 							htmlid = "assassin3";
 						}
-					} else { //
+					} else { // ダークエルフ以外
 						htmlid = "assassin3";
 					}
 				}
-			} else if (npcid == 70744) {
-				if (player.isDarkelf()) {
+			} else if (npcid == 70744) { // ロジェ
+				if (player.isDarkelf()) { // ダークエルフ
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step >= 5) {
+					if (lv45_step >= 5) { // ロジェ２回目同意済み
 						htmlid = "roje14";
-					} else if (lv45_step >= 4) {
+					} else if (lv45_step >= 4) { // イエティの頭部 交換済み
 						htmlid = "roje13";
-					} else if (lv45_step >= 3) {
+					} else if (lv45_step >= 3) { // ロジェ 同意済み
 						htmlid = "roje12";
-					} else if (lv45_step >= 2) {
+					} else if (lv45_step >= 2) { // アサシンマスターの追従者 同意済み
 						htmlid = "roje11";
-					} else {
+					} else { // アサシンマスターの追従者 未同意
 						htmlid = "roje15";
 					}
 				}
-			} else if (npcid == 70811) {
-				if (quest.get_step(L1Quest.QUEST_LYRA) >= 1) {
+			} else if (npcid == 70811) { // ライラ
+				if (quest.get_step(L1Quest.QUEST_LYRA) >= 1) { // 契約済み
 					htmlid = "lyraEv3";
-				} else {
+				} else { // 未契約
 					htmlid = "lyraEv1";
 				}
-			} else if (npcid == 70087) {
+			} else if (npcid == 70087) { // セディア
 				if (player.isDarkelf()) {
 					htmlid = "sedia";
 				}
-			} else if (npcid == 70099) {
+			} else if (npcid == 70099) { // クーパー
 				if (!quest.isEnd(L1Quest.QUEST_OILSKINMANT)) {
 					if (player.getLevel() > 13) {
 						htmlid = "kuper1";
 					}
 				}
-			} else if (npcid == 70796) {
+			} else if (npcid == 70796) { // ダンハム
 				if (!quest.isEnd(L1Quest.QUEST_OILSKINMANT)) {
 					if (player.getLevel() > 13) {
 						htmlid = "dunham1";
 					}
 				}
-			} else if (npcid == 70011) {
+			} else if (npcid == 70011) { // 話せる島の船着き管理人
 				int time = L1GameTimeClock.getInstance().currentTime()
 						.getSeconds() % 86400;
-				if (time < 60 * 60 * 6 || time > 60 * 60 * 20) { // 20:00 6:00
+				if (time < 60 * 60 * 6 || time > 60 * 60 * 20) { // 20:00～6:00
 					htmlid = "shipEvI6";
 				}
-			} else if (npcid == 70553) {
+			} else if (npcid == 70553) { // ケント城 侍従長 イスマエル
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.KENT_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "ishmael1";
 					} else {
 						htmlid = "ishmael6";
@@ -705,11 +708,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "ishmael7";
 				}
-			} else if (npcid == 70822) {
+			} else if (npcid == 70822) { // オークの森 セゲム アトゥバ
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.OT_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "seghem1";
 					} else {
 						htmlid = "seghem6";
@@ -718,11 +721,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "seghem7";
 				}
-			} else if (npcid == 70784) {
+			} else if (npcid == 70784) { // ウィンダウッド城 侍従長 オスモンド
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.WW_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "othmond1";
 					} else {
 						htmlid = "othmond6";
@@ -731,11 +734,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "othmond7";
 				}
-			} else if (npcid == 70623) {
+			} else if (npcid == 70623) { // ギラン城 侍従長 オービル
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.GIRAN_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "orville1";
 					} else {
 						htmlid = "orville6";
@@ -744,11 +747,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orville7";
 				}
-			} else if (npcid == 70880) {
+			} else if (npcid == 70880) { // ハイネ城 侍従長 フィッシャー
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.HEINE_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "fisher1";
 					} else {
 						htmlid = "fisher6";
@@ -757,11 +760,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "fisher7";
 				}
-			} else if (npcid == 70665) {
+			} else if (npcid == 70665) { // ドワーフ城 侍従長 ポテンピン
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.DOWA_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "potempin1";
 					} else {
 						htmlid = "potempin6";
@@ -770,11 +773,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "potempin7";
 				}
-			} else if (npcid == 70721) {
+			} else if (npcid == 70721) { // アデン城 侍従長 ティモン
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.ADEN_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "timon1";
 					} else {
 						htmlid = "timon6";
@@ -783,11 +786,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "timon7";
 				}
-			} else if (npcid == 81155) {
+			} else if (npcid == 81155) { // ディアド要塞 オーレ
 				boolean hascastle = checkHasCastle(player,
 						L1CastleLocation.DIAD_CASTLE_ID);
-				if (hascastle) {
-					if (checkClanLeader(player)) {
+				if (hascastle) { // 城主クラン員
+					if (checkClanLeader(player)) { // 血盟主
 						htmlid = "olle1";
 					} else {
 						htmlid = "olle6";
@@ -796,7 +799,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "olle7";
 				}
-			} else if (npcid == 80057) { 
+			} else if (npcid == 80057) { // アルフォンス
 				int karmaLevel = player.getKarmaLevel();
 				String[] html1 = { "alfons1", "cbk1", "cbk2", "cbk3", "cbk4",
 						"cbk5", "cbk6", "cbk7", "cbk8" }; // 0 ~ 8
@@ -808,60 +811,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = html1[karmaLevel];
 				} else {
 					htmlid = "alfons1";
-					break;
-				case -1:
-					htmlid = "cyk1";
-					break;
-				case -2:
-					htmlid = "cyk2";
-					break;
-				case -3:
-					htmlid = "cyk3";
-					break;
-				case -4:
-					htmlid = "cyk4";
-					break;
-				case -5:
-					htmlid = "cyk5";
-					break;
-				case -6:
-					htmlid = "cyk6";
-					break;
-				case -7:
-					htmlid = "cyk7";
-					break;
-				case -8:
-					htmlid = "cyk8";
-					break;
-				case 1:
-					htmlid = "cbk1";
-					break;
-				case 2:
-					htmlid = "cbk2";
-					break;
-				case 3:
-					htmlid = "cbk3";
-					break;
-				case 4:
-					htmlid = "cbk4";
-					break;
-				case 5:
-					htmlid = "cbk5";
-					break;
-				case 6:
-					htmlid = "cbk6";
-					break;
-				case 7:
-					htmlid = "cbk7";
-					break;
-				case 8:
-					htmlid = "cbk8";
-					break;
-				default:
-					htmlid = "alfons1";
-					break;
 				}
-			} else if (npcid == 80058) {
+			} else if (npcid == 80058) { // 次元の扉(砂漠)
 				int level = player.getLevel();
 				if (level <= 44) {
 					htmlid = "cpass03";
@@ -870,127 +821,127 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "cpass01";
 				}
-			} else if (npcid == 80059) {
+			} else if (npcid == 80059) { // 次元の扉(土)
 				if (player.getKarmaLevel() > 0) {
 					htmlid = "cpass03";
-				} else if (player.getInventory().checkItem(40921)) {
+				} else if (player.getInventory().checkItem(40921)) { // 元素の支配者
 					htmlid = "wpass02";
-				} else if (player.getInventory().checkItem(40917)) {
+				} else if (player.getInventory().checkItem(40917)) { // 地の支配者
 					htmlid = "wpass14";
-				} else if (player.getInventory().checkItem(40912)
-						|| player.getInventory().checkItem(40910)
-						|| player.getInventory().checkItem(40911)) {
+				} else if (player.getInventory().checkItem(40912) // 風の通行証
+						|| player.getInventory().checkItem(40910) // 水の通行証
+						|| player.getInventory().checkItem(40911)) { // 火の通行証
 					htmlid = "wpass04";
-				} else if (player.getInventory().checkItem(40909)) {
+				} else if (player.getInventory().checkItem(40909)) { // 地の通行証
 					int count = getNecessarySealCount(player);
-					if (player.getInventory().checkItem(40913, count)) {
+					if (player.getInventory().checkItem(40913, count)) { // 地の印章
 						createRuler(player, 1, count);
 						htmlid = "wpass06";
 					} else {
 						htmlid = "wpass03";
 					}
-				} else if (player.getInventory().checkItem(40913)) {
+				} else if (player.getInventory().checkItem(40913)) { // 地の印章
 					htmlid = "wpass08";
 				} else {
 					htmlid = "wpass05";
 				}
-			} else if (npcid == 80060) {
+			} else if (npcid == 80060) { // 次元の扉(風)
 				if (player.getKarmaLevel() > 0) {
 					htmlid = "cpass03";
-				} else if (player.getInventory().checkItem(40921)) {
+				} else if (player.getInventory().checkItem(40921)) { // 元素の支配者
 					htmlid = "wpass02";
-				} else if (player.getInventory().checkItem(40920)) {
+				} else if (player.getInventory().checkItem(40920)) { // 風の支配者
 					htmlid = "wpass13";
-				} else if (player.getInventory().checkItem(40909)
-						|| player.getInventory().checkItem(40910)
-						|| player.getInventory().checkItem(40911)) {
+				} else if (player.getInventory().checkItem(40909) // 地の通行証
+						|| player.getInventory().checkItem(40910) // 水の通行証
+						|| player.getInventory().checkItem(40911)) { // 火の通行証
 					htmlid = "wpass04";
-				} else if (player.getInventory().checkItem(40912)) {
+				} else if (player.getInventory().checkItem(40912)) { // 風の通行証
 					int count = getNecessarySealCount(player);
-					if (player.getInventory().checkItem(40916, count)) {
+					if (player.getInventory().checkItem(40916, count)) { // 風の印章
 						createRuler(player, 8, count);
 						htmlid = "wpass06";
 					} else {
 						htmlid = "wpass03";
 					}
-				} else if (player.getInventory().checkItem(40916)) {
+				} else if (player.getInventory().checkItem(40916)) { // 風の印章
 					htmlid = "wpass08";
 				} else {
 					htmlid = "wpass05";
 				}
-			} else if (npcid == 80061) {
+			} else if (npcid == 80061) { // 次元の扉(水)
 				if (player.getKarmaLevel() > 0) {
 					htmlid = "cpass03";
-				} else if (player.getInventory().checkItem(40921)) {
+				} else if (player.getInventory().checkItem(40921)) { // 元素の支配者
 					htmlid = "wpass02";
-				} else if (player.getInventory().checkItem(40918)) {
+				} else if (player.getInventory().checkItem(40918)) { // 水の支配者
 					htmlid = "wpass11";
-				} else if (player.getInventory().checkItem(40909)
-						|| player.getInventory().checkItem(40912)
-						|| player.getInventory().checkItem(40911)) {
+				} else if (player.getInventory().checkItem(40909) // 地の通行証
+						|| player.getInventory().checkItem(40912) // 風の通行証
+						|| player.getInventory().checkItem(40911)) { // 火の通行証
 					htmlid = "wpass04";
-				} else if (player.getInventory().checkItem(40910)) {
+				} else if (player.getInventory().checkItem(40910)) { // 水の通行証
 					int count = getNecessarySealCount(player);
-					if (player.getInventory().checkItem(40914, count)) {
+					if (player.getInventory().checkItem(40914, count)) { // 水の印章
 						createRuler(player, 4, count);
 						htmlid = "wpass06";
 					} else {
 						htmlid = "wpass03";
 					}
-				} else if (player.getInventory().checkItem(40914)) {
+				} else if (player.getInventory().checkItem(40914)) { // 水の印章
 					htmlid = "wpass08";
 				} else {
 					htmlid = "wpass05";
 				}
-			} else if (npcid == 80062) {
+			} else if (npcid == 80062) { // 次元の扉(火)
 				if (player.getKarmaLevel() > 0) {
 					htmlid = "cpass03";
-				} else if (player.getInventory().checkItem(40921)) {
+				} else if (player.getInventory().checkItem(40921)) { // 元素の支配者
 					htmlid = "wpass02";
-				} else if (player.getInventory().checkItem(40919)) {
+				} else if (player.getInventory().checkItem(40919)) { // 火の支配者
 					htmlid = "wpass12";
-				} else if (player.getInventory().checkItem(40909)
-						|| player.getInventory().checkItem(40912)
-						|| player.getInventory().checkItem(40910)) {
+				} else if (player.getInventory().checkItem(40909) // 地の通行証
+						|| player.getInventory().checkItem(40912) // 風の通行証
+						|| player.getInventory().checkItem(40910)) { // 水の通行証
 					htmlid = "wpass04";
-				} else if (player.getInventory().checkItem(40911)) {
+				} else if (player.getInventory().checkItem(40911)) { // 火の通行証
 					int count = getNecessarySealCount(player);
-					if (player.getInventory().checkItem(40915, count)) {
+					if (player.getInventory().checkItem(40915, count)) { // 火の印章
 						createRuler(player, 2, count);
 						htmlid = "wpass06";
 					} else {
 						htmlid = "wpass03";
 					}
-				} else if (player.getInventory().checkItem(40915)) {
+				} else if (player.getInventory().checkItem(40915)) { // 火の印章
 					htmlid = "wpass08";
 				} else {
 					htmlid = "wpass05";
 				}
-			} else if (npcid == 80065) {
+			} else if (npcid == 80065) { // バルログの密偵
 				if (player.getKarmaLevel() < 3) {
 					htmlid = "uturn0";
 				} else {
 					htmlid = "uturn1";
 				}
-			} else if (npcid == 80047) {
+			} else if (npcid == 80047) { // ヤヒの召使
 				if (player.getKarmaLevel() > -3) {
 					htmlid = "uhelp1";
 				} else {
 					htmlid = "uhelp2";
 				}
-			} else if (npcid == 80049) {
+			} else if (npcid == 80049) { // 揺らぐ者
 				if (player.getKarma() <= -10000000) {
 					htmlid = "betray11";
 				} else {
 					htmlid = "betray12";
 				}
-			} else if (npcid == 80050) {
+			} else if (npcid == 80050) { // ヤヒの執政官
 				if (player.getKarmaLevel() > -1) {
 					htmlid = "meet103";
 				} else {
 					htmlid = "meet101";
 				}
-			} else if (npcid == 80053) {
+			} else if (npcid == 80053) { // ヤヒの鍛冶屋
 				int karmaLevel = player.getKarmaLevel();
 				if (karmaLevel == 0) {
 					htmlid = "aliceyet";
@@ -1060,23 +1011,23 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "alice_no";
 					}
 				}
-			} else if (npcid == 80055) {
+			} else if (npcid == 80055) { // ヤヒの補佐官
 				int amuletLevel = 0;
-				if (player.getInventory().checkItem(20358)) {
+				if (player.getInventory().checkItem(20358)) { // 奴隷のアミュレット
 					amuletLevel = 1;
-				} else if (player.getInventory().checkItem(20359)) {
+				} else if (player.getInventory().checkItem(20359)) { // 約束のアミュレット
 					amuletLevel = 2;
-				} else if (player.getInventory().checkItem(20360)) {
+				} else if (player.getInventory().checkItem(20360)) { // 解放のアミュレット
 					amuletLevel = 3;
-				} else if (player.getInventory().checkItem(20361)) {
+				} else if (player.getInventory().checkItem(20361)) { // 猟犬のアミュレット
 					amuletLevel = 4;
-				} else if (player.getInventory().checkItem(20362)) {
+				} else if (player.getInventory().checkItem(20362)) { // 魔族のアミュレット
 					amuletLevel = 5;
-				} else if (player.getInventory().checkItem(20363)) {
+				} else if (player.getInventory().checkItem(20363)) { // 勇士のアミュレット
 					amuletLevel = 6;
-				} else if (player.getInventory().checkItem(20364)) {
+				} else if (player.getInventory().checkItem(20364)) { // 将軍のアミュレット
 					amuletLevel = 7;
-				} else if (player.getInventory().checkItem(20365)) {
+				} else if (player.getInventory().checkItem(20365)) { // 大将軍のアミュレット
 					amuletLevel = 8;
 				}
 				if (player.getKarmaLevel() == -1) {
@@ -1130,41 +1081,41 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "uamulet0";
 				}
-			} else if (npcid == 80056) {
+			} else if (npcid == 80056) { // 業の管理者
 				if (player.getKarma() <= -10000000) {
 					htmlid = "infamous11";
 				} else {
 					htmlid = "infamous12";
 				}
-			} else if (npcid == 80064) {
+			} else if (npcid == 80064) { // バルログの執政官
 				if (player.getKarmaLevel() < 1) {
 					htmlid = "meet003";
 				} else {
 					htmlid = "meet001";
 				}
-			} else if (npcid == 80066) {
+			} else if (npcid == 80066) { // 揺らめく者
 				if (player.getKarma() >= 10000000) {
 					htmlid = "betray01";
 				} else {
 					htmlid = "betray02";
 				}
-			} else if (npcid == 80071) {
+			} else if (npcid == 80071) { // バルログの補佐官
 				int earringLevel = 0;
-				if (player.getInventory().checkItem(21020)) {
+				if (player.getInventory().checkItem(21020)) { // 踊躍のイアリング
 					earringLevel = 1;
-				} else if (player.getInventory().checkItem(21021)) {
+				} else if (player.getInventory().checkItem(21021)) { // 双子のイアリング
 					earringLevel = 2;
-				} else if (player.getInventory().checkItem(21022)) {
+				} else if (player.getInventory().checkItem(21022)) { // 友好のイアリング
 					earringLevel = 3;
-				} else if (player.getInventory().checkItem(21023)) {
+				} else if (player.getInventory().checkItem(21023)) { // 極知のイアリング
 					earringLevel = 4;
-				} else if (player.getInventory().checkItem(21024)) {
+				} else if (player.getInventory().checkItem(21024)) { // 暴走のイアリング
 					earringLevel = 5;
-				} else if (player.getInventory().checkItem(21025)) {
+				} else if (player.getInventory().checkItem(21025)) { // 従魔のイアリング
 					earringLevel = 6;
-				} else if (player.getInventory().checkItem(21026)) {
+				} else if (player.getInventory().checkItem(21026)) { // 血族のイアリング
 					earringLevel = 7;
-				} else if (player.getInventory().checkItem(21027)) {
+				} else if (player.getInventory().checkItem(21027)) { // 奴隷のイアリング
 					earringLevel = 8;
 				}
 				if (player.getKarmaLevel() == 1) {
@@ -1218,7 +1169,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "lring0";
 				}
-			} else if (npcid == 80072) {
+			} else if (npcid == 80072) { // バルログの鍛冶屋
 				int karmaLevel = player.getKarmaLevel();
 				String[] html = { "lsmith0", "lsmith1", "lsmith2", "lsmith3",
 						"lsmith4", "lsmith5", "lsmith7", "lsmith8" };
@@ -1227,88 +1178,88 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "";
 				}
-			} else if (npcid == 80074) {
+			} else if (npcid == 80074) { // 業の管理者
 				if (player.getKarma() >= 10000000) {
 					htmlid = "infamous01";
 				} else {
 					htmlid = "infamous02";
 				}
-			} else if (npcid == 80104) { 
-				if (!player.isCrown()) { 
+			} else if (npcid == 80104) { // アデン騎馬団員
+				if (!player.isCrown()) { // 君主
 					htmlid = "horseseller4";
 				}
-			} else if (npcid == 70528) {
+			} else if (npcid == 70528) { // 話せる島の村 タウンマスター
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_TALKING_ISLAND);
-			} else if (npcid == 70546) { 
+			} else if (npcid == 70546) { // ケント村 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_KENT);
-			} else if (npcid == 70567) {
+			} else if (npcid == 70567) { // グルーディン村 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_GLUDIO);
-			} else if (npcid == 70815) { 
+			} else if (npcid == 70815) { // 火田村 タウンマスター
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_ORCISH_FOREST);
-			} else if (npcid == 70774) { 
+			} else if (npcid == 70774) { // ウッドベック村 タウンマスター
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_WINDAWOOD);
-			} else if (npcid == 70799) {
+			} else if (npcid == 70799) { // シルバーナイトタウン タウンマスター
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_SILVER_KNIGHT_TOWN);
-			} else if (npcid == 70594) { 
+			} else if (npcid == 70594) { // ギラン都市 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_GIRAN);
-			} else if (npcid == 70860) {
+			} else if (npcid == 70860) { // ハイネ都市 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_HEINE);
-			} else if (npcid == 70654) {
+			} else if (npcid == 70654) { // ウェルダン村 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_WERLDAN);
-			} else if (npcid == 70748) {
+			} else if (npcid == 70748) { // 象牙の塔の村 タウンマスター
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_OREN);
-			} else if (npcid == 70534) {
+			} else if (npcid == 70534) { // 話せる島の村 タウンアドバイザー
 				htmlid = talkToTownadviser(player,
 						L1TownLocation.TOWNID_TALKING_ISLAND);
-			} else if (npcid == 70556) {
+			} else if (npcid == 70556) { // ケント村 タウンアドバイザー
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_KENT);
-			} else if (npcid == 70572) {
+			} else if (npcid == 70572) { // グルーディン村 タウンアドバイザー
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_GLUDIO);
-			} else if (npcid == 70830) {
+			} else if (npcid == 70830) { // 火田村 タウンアドバイザー
 				htmlid = talkToTownadviser(player,
 						L1TownLocation.TOWNID_ORCISH_FOREST);
-			} else if (npcid == 70788) {
+			} else if (npcid == 70788) { // ウッドベック村 タウンアドバイザー
 				htmlid = talkToTownadviser(player,
 						L1TownLocation.TOWNID_WINDAWOOD);
-			} else if (npcid == 70806) {
+			} else if (npcid == 70806) { // シルバーナイトタウン タウンアドバイザー
 				htmlid = talkToTownadviser(player,
 						L1TownLocation.TOWNID_SILVER_KNIGHT_TOWN);
-			} else if (npcid == 70631) {
+			} else if (npcid == 70631) { // ギラン都市 タウンアドバイザー
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_GIRAN);
-			} else if (npcid == 70876) {
+			} else if (npcid == 70876) { // ハイネ都市 タウンアドバイザー
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_HEINE);
-			} else if (npcid == 70663) {
+			} else if (npcid == 70663) { // ウェルダン村 タウンアドバイザー
 				htmlid = talkToTownadviser(player,
 						L1TownLocation.TOWNID_WERLDAN);
-			} else if (npcid == 70761) {
+			} else if (npcid == 70761) { // 象牙の塔の村 タウンアドバイザー
 				htmlid = talkToTownadviser(player, L1TownLocation.TOWNID_OREN);
-			} else if (npcid == 70997) {
+			} else if (npcid == 70997) { // ドロモンド
 				htmlid = talkToDoromond(player);
-			} else if (npcid == 70998) {
+			} else if (npcid == 70998) { // 歌う島のガイド
 				htmlid = talkToSIGuide(player);
-			} else if (npcid == 70999) {
+			} else if (npcid == 70999) { // アレックス(歌う島)
 				htmlid = talkToAlex(player);
-			} else if (npcid == 71000) {
+			} else if (npcid == 71000) { // アレックス(訓練場)
 				htmlid = talkToAlexInTrainingRoom(player);
-			} else if (npcid == 71002) {
+			} else if (npcid == 71002) { // キャンセレーション師
 				htmlid = cancellation(player);
-			} else if (npcid == 70506) {
+			} else if (npcid == 70506) { // ルバー
 				htmlid = talkToRuba(player);
-			} else if (npcid == 71005) {
+			} else if (npcid == 71005) { // ポピレア
 				htmlid = talkToPopirea(player);
-			} else if (npcid == 71009) {
+			} else if (npcid == 71009) { // ブリアナ
 				if (player.getLevel() < 13) {
 					htmlid = "jpe0071";
 				}
-			} else if (npcid == 71011) {
+			} else if (npcid == 71011) { // チコリー
 				if (player.getLevel() < 13) {
 					htmlid = "jpe0061";
 				}
-			} else if (npcid == 71013) {
+			} else if (npcid == 71013) { // カレン
 				if (player.isDarkelf()) {
 					if (player.getLevel() <= 3) {
 						htmlid = "karen1";
@@ -1318,21 +1269,21 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "karen4";
 					}
 				}
-			} else if (npcid == 71014) {
+			} else if (npcid == 71014) { // 村の自警団(右)
 				if (player.getLevel() < 13) {
 					htmlid = "en0241";
 				}
-			} else if (npcid == 71015) {
+			} else if (npcid == 71015) { // 村の自警団(上)
 				if (player.getLevel() < 13) {
 					htmlid = "en0261";
 				} else if (player.getLevel() >= 13 && player.getLevel() < 25) {
 					htmlid = "en0262";
 				}
-			} else if (npcid == 71031) {
+			} else if (npcid == 71031) { // 傭兵ライアン
 				if (player.getLevel() < 25) {
 					htmlid = "en0081";
 				}
-			} else if (npcid == 71032) {
+			} else if (npcid == 71032) { // 冒険者エータ
 				if (player.isElf()) {
 					htmlid = "en0091e";
 				} else if (player.isDarkelf()) {
@@ -1344,8 +1295,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.isCrown()) {
 					htmlid = "en0091p";
 				}
-			} else if (npcid == 71034) {
-				if (player.getInventory().checkItem(41227)) {
+			} else if (npcid == 71034) { // ラビ
+				if (player.getInventory().checkItem(41227)) { // アレックスの紹介状
 					if (player.isElf()) {
 						htmlid = "en0201e";
 					} else if (player.isDarkelf()) {
@@ -1358,8 +1309,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "en0201p";
 					}
 				}
-			} else if (npcid == 71033) {
-				if (player.getInventory().checkItem(41228)) {
+			} else if (npcid == 71033) { // ハーミット
+				if (player.getInventory().checkItem(41228)) { // ラビのお守り
 					if (player.isElf()) {
 						htmlid = "en0211e";
 					} else if (player.isDarkelf()) {
@@ -1372,7 +1323,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "en0211p";
 					}
 				}
-			} else if (npcid == 71026) {
+			} else if (npcid == 71026) { // ココ
 				if (player.getLevel() < 10) {
 					htmlid = "en0113";
 				} else if (player.getLevel() >= 10 && player.getLevel() < 25) {
@@ -1380,7 +1331,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getLevel() > 25) {
 					htmlid = "en0112";
 				}
-			} else if (npcid == 71027) {
+			} else if (npcid == 71027) { // クン
 				if (player.getLevel() < 10) {
 					htmlid = "en0283";
 				} else if (player.getLevel() >= 10 && player.getLevel() < 25) {
@@ -1388,13 +1339,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getLevel() > 25) {
 					htmlid = "en0282";
 				}
-			} else if (npcid == 71021) {
+			} else if (npcid == 71021) { // 骨細工師マッティー
 				if (player.getLevel() < 12) {
 					htmlid = "en0197";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
 					htmlid = "en0191";
 				}
-			} else if (npcid == 71022) {
+			} else if (npcid == 71022) { // 骨細工師ジーナン
 				if (player.getLevel() < 12) {
 					htmlid = "jpe0155";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
@@ -1409,7 +1360,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "jpe0158";
 					}
 				}
-			} else if (npcid == 71023) {
+			} else if (npcid == 71023) { // 骨細工師ケーイ
 				if (player.getLevel() < 12) {
 					htmlid = "jpe0145";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
@@ -1426,7 +1377,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "jpe0144";
 					}
 				}
-			} else if (npcid == 71020) {
+			} else if (npcid == 71020) { // ジョン
 				if (player.getLevel() < 12) {
 					htmlid = "jpe0125";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
@@ -1442,52 +1393,52 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "jpe0126";
 					}
 				}
-			} else if (npcid == 71019) {
+			} else if (npcid == 71019) { // 弟子ヴィート
 				if (player.getLevel() < 12) {
 					htmlid = "jpe0114";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
-					if (player.getInventory().checkItem(41239)) {
+					if (player.getInventory().checkItem(41239)) { // ヴィートへの手紙
 						htmlid = "jpe0113";
 					} else {
 						htmlid = "jpe0111";
 					}
 				}
-			} else if (npcid == 71018) {
+			} else if (npcid == 71018) { // フェーダ
 				if (player.getLevel() < 12) {
 					htmlid = "jpe0133";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
-					if (player.getInventory().checkItem(41240)) {
+					if (player.getInventory().checkItem(41240)) { // フェーダへの手紙
 						htmlid = "jpe0132";
 					} else {
 						htmlid = "jpe0131";
 					}
 				}
-			} else if (npcid == 71025) {
+			} else if (npcid == 71025) { // ケスキン
 				if (player.getLevel() < 10) {
 					htmlid = "jpe0086";
 				} else if (player.getLevel() >= 10 && player.getLevel() < 25) {
-					if (player.getInventory().checkItem(41226)) {
+					if (player.getInventory().checkItem(41226)) { // パゴの薬
 						htmlid = "jpe0084";
-					} else if (player.getInventory().checkItem(41225)) {
+					} else if (player.getInventory().checkItem(41225)) { // ケスキンの発注書
 						htmlid = "jpe0083";
 					} else if (player.getInventory().checkItem(40653)
-							|| player.getInventory().checkItem(40613)) {
+							|| player.getInventory().checkItem(40613)) { // 赤い鍵・黒い鍵
 						htmlid = "jpe0081";
 					}
 				}
-			} else if (npcid == 70512) {
+			} else if (npcid == 70512) { // 治療師（歌う島 村の中）
 				if (player.getLevel() >= 25) {
 					htmlid = "jpe0102";
 				}
-			} else if (npcid == 70514) {
+			} else if (npcid == 70514) { // ヘイスト師
 				if (player.getLevel() >= 25) {
 					htmlid = "jpe0092";
 				}
-			} else if (npcid == 71038) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41090)
-							|| player.getInventory().checkItem(41091)
-							|| player.getInventory().checkItem(41092)) {
+			} else if (npcid == 71038) { // 長老 ノナメ
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41090) // ネルガのトーテム
+							|| player.getInventory().checkItem(41091) // ドゥダ-マラのトーテム
+							|| player.getInventory().checkItem(41092)) { // アトゥバのトーテム
 						htmlid = "orcfnoname7";
 					} else {
 						htmlid = "orcfnoname8";
@@ -1495,13 +1446,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfnoname1";
 				}
-			} else if (npcid == 71040) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41065)) {
-						if (player.getInventory().checkItem(41086)
-								|| player.getInventory().checkItem(41087)
-								|| player.getInventory().checkItem(41088)
-								|| player.getInventory().checkItem(41089)) {
+			} else if (npcid == 71040) { // 調査団長 アトゥバ ノア
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41065)) { // 調査団の証書
+						if (player.getInventory().checkItem(41086) // スピリッドの根
+								|| player.getInventory().checkItem(41087) // スピリッドの表皮
+								|| player.getInventory().checkItem(41088) // スピリッドの葉
+								|| player.getInventory().checkItem(41089)) { // スピリッドの木の枝
 							htmlid = "orcfnoa6";
 						} else {
 							htmlid = "orcfnoa5";
@@ -1512,14 +1463,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfnoa1";
 				}
-			} else if (npcid == 71041) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41064)) {
-						if (player.getInventory().checkItem(41081)
-								|| player.getInventory().checkItem(41082)
-								|| player.getInventory().checkItem(41083)
-								|| player.getInventory().checkItem(41084)
-								|| player.getInventory().checkItem(41085)) {
+			} else if (npcid == 71041) { // ネルガ フウモ
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41064)) { // 調査団の証書
+						if (player.getInventory().checkItem(41081) // オークのバッジ
+								|| player.getInventory().checkItem(41082) // オークのアミュレット
+								|| player.getInventory().checkItem(41083) // シャーマンパウダー
+								|| player.getInventory().checkItem(41084) // イリュージョンパウダー
+								|| player.getInventory().checkItem(41085)) { // 予言者のパール
 							htmlid = "orcfhuwoomo2";
 						} else {
 							htmlid = "orcfhuwoomo8";
@@ -1530,14 +1481,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfhuwoomo5";
 				}
-			} else if (npcid == 71042) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41062)) {
-						if (player.getInventory().checkItem(41071)
-								|| player.getInventory().checkItem(41072)
-								|| player.getInventory().checkItem(41073)
-								|| player.getInventory().checkItem(41074)
-								|| player.getInventory().checkItem(41075)) {
+			} else if (npcid == 71042) { // ネルガ バクモ
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41062)) { // 調査団の証書
+						if (player.getInventory().checkItem(41071) // 銀のお盆
+								|| player.getInventory().checkItem(41072) // 銀の燭台
+								|| player.getInventory().checkItem(41073) // バンディッドの鍵
+								|| player.getInventory().checkItem(41074) // バンディッドの袋
+								|| player.getInventory().checkItem(41075)) { // 汚れた髪の毛
 							htmlid = "orcfbakumo2";
 						} else {
 							htmlid = "orcfbakumo8";
@@ -1548,14 +1499,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfbakumo5";
 				}
-			} else if (npcid == 71043) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41063)) {
-						if (player.getInventory().checkItem(41076)
-								|| player.getInventory().checkItem(41077)
-								|| player.getInventory().checkItem(41078)
-								|| player.getInventory().checkItem(41079)
-								|| player.getInventory().checkItem(41080)) {
+			} else if (npcid == 71043) { // ドゥダ-マラ ブカ
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41063)) { // 調査団の証書
+						if (player.getInventory().checkItem(41076) // 汚れた地のコア
+								|| player.getInventory().checkItem(41077) // 汚れた水のコア
+								|| player.getInventory().checkItem(41078) // 汚れた火のコア
+								|| player.getInventory().checkItem(41079) // 汚れた風のコア
+								|| player.getInventory().checkItem(41080)) { // 汚れた精霊のコア
 							htmlid = "orcfbuka2";
 						} else {
 							htmlid = "orcfbuka8";
@@ -1566,14 +1517,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfbuka5";
 				}
-			} else if (npcid == 71044) {
-				if (player.getInventory().checkItem(41060)) {
-					if (player.getInventory().checkItem(41061)) {
-						if (player.getInventory().checkItem(41066)
-								|| player.getInventory().checkItem(41067)
-								|| player.getInventory().checkItem(41068)
-								|| player.getInventory().checkItem(41069)
-								|| player.getInventory().checkItem(41070)) {
+			} else if (npcid == 71044) { // ドゥダ-マラ カメ
+				if (player.getInventory().checkItem(41060)) { // ノナメの推薦書
+					if (player.getInventory().checkItem(41061)) { // 調査団の証書
+						if (player.getInventory().checkItem(41066) // 汚れた根
+								|| player.getInventory().checkItem(41067) // 汚れた枝
+								|| player.getInventory().checkItem(41068) // 汚れた抜け殻
+								|| player.getInventory().checkItem(41069) // 汚れたタテガミ
+								|| player.getInventory().checkItem(41070)) { // 汚れた妖精の羽
 							htmlid = "orcfkame2";
 						} else {
 							htmlid = "orcfkame8";
@@ -1584,7 +1535,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "orcfkame5";
 				}
-			} else if (npcid == 71055) {
+			} else if (npcid == 71055) { // ルケイン（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
 						== 3) {
 					htmlid = "lukein13";
@@ -1608,50 +1559,50 @@ public class L1MerchantInstance extends L1NpcInstance {
 						<= 10) {
 					htmlid = "lukein8";
 				}
-			} else if (npcid == 71063) {
+			} else if (npcid == 71063) { // 小さな箱-１番目（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_TBOX1)
 						== L1Quest.QUEST_END) {
 				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
 						== 1) {
 					htmlid = "maptbox";
 				}
-			} else if (npcid == 71064) {
+			} else if (npcid == 71064) { // 小さな箱-2番目-ｂ地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 2) {
 					htmlid = talkToSecondtbox(player);
 				}
-			} else if (npcid == 71065) {
+			} else if (npcid == 71065) { // 小さな箱-2番目-c地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 3) {
 					htmlid = talkToSecondtbox(player);
 				}
-			} else if (npcid == 71066) {
+			} else if (npcid == 71066) { // 小さな箱-2番目-d地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 4) {
 					htmlid = talkToSecondtbox(player);
 				}
-			} else if (npcid == 71067) {
+			} else if (npcid == 71067) { // 小さな箱-3番目-e地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 5) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71068) {
+			} else if (npcid == 71068) { // 小さな箱-3番目-f地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 6) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71069) {
+			} else if (npcid == 71069) { // 小さな箱-3番目-g地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 7) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71070) {
+			} else if (npcid == 71070) { // 小さな箱-3番目-h地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 8) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71071) {
+			} else if (npcid == 71071) { // 小さな箱-3番目-i地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 9) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71072) {
+			} else if (npcid == 71072) { // 小さな箱-3番目-j地点（海賊島の秘密）
 				if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 10) {
 					htmlid = talkToThirdtbox(player);
 				}
-			} else if (npcid == 71056) {
+			} else if (npcid == 71056) { // シミズ（消えた息子）
 				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
 						== 4) {
 					if (player.getInventory().checkItem(40631)) {
@@ -1669,12 +1620,12 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 1) {
 					htmlid = "SIMIZZ6";
 				}
-			} else if (npcid == 71057) {
+			} else if (npcid == 71057) { // ドイル（宝の地図1）
 				if (player.getQuest().get_step(L1Quest.QUEST_DOIL)
 						== L1Quest.QUEST_END) {
 					htmlid = "doil4b";
 				}
-			} else if (npcid == 71059) {
+			} else if (npcid == 71059) { // ルディアン（宝の地図2）
 				if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN)
 						== L1Quest.QUEST_END) {
 					htmlid = "rudian1c";
@@ -1687,7 +1638,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "rudian1a";
 				}
-			} else if (npcid == 71060) {
+			} else if (npcid == 71060) { // レスタ（宝の地図3）
 				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
 						== L1Quest.QUEST_END) {
 					htmlid = "resta1e";
@@ -1718,7 +1669,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 2) {
 					htmlid = "resta1b";
 				}
-			} else if (npcid == 71061) {
+			} else if (npcid == 71061) { // カドムス（宝の地図4）
 				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
 						== L1Quest.QUEST_END) {
 					htmlid = "cadmus1c";
@@ -1732,15 +1683,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== L1Quest.QUEST_END) {
 					htmlid = "cadmus1b";
 				}
-			} else if (npcid == 71062) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						>= 3) {
-					htmlid = "kamit2";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== 2) {
-					htmlid = "kamit1b";
-				}
-			} else if (npcid == 71036) {
+			} else if (npcid == 71036) { // カミーラ（ドレイクの真実）
 				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
 						== L1Quest.QUEST_END) {
 					htmlid = "kamyla26";
@@ -1767,12 +1710,12 @@ public class L1MerchantInstance extends L1NpcInstance {
 							.checkItem(40621)) {
 					htmlid = "kamyla1";
 				}
-			} else if (npcid == 71089) {
+			} else if (npcid == 71089) { // フランコ（ドレイクの真実）
 				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
 						== 2 ) {
 					htmlid = "francu12";
 				}
-			} else if (npcid == 71090) {
+			} else if (npcid == 71090) { // 試練のクリスタル2（ドレイクの真実）
 				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
 						== 1 && player.getInventory().checkItem(40620)) {
 					htmlid = "jcrystal2";
@@ -1780,12 +1723,12 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 1){
 					htmlid = "jcrystal3";
 				}
-			} else if (npcid == 71091) {
+			} else if (npcid == 71091) { // 試練のクリスタル3（ドレイクの真実）
 				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
 						== 2 && player.getInventory().checkItem(40654)) {
 					htmlid = "jcrystall2";
 				}
-			} else if (npcid == 71074) { 
+			} else if (npcid == 71074) { // リザードマンの長老
 				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
 						== L1Quest.QUEST_END) {
 					htmlid = "lelder0";
@@ -1807,53 +1750,47 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getLevel() >= 40) {
 					htmlid = "lelder1";
 				}
-			} else if (npcid == 71075) {
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 1) {
-					htmlid = "llizard1b";
-				} else {
-				}
-			} else if (npcid == 71076) {
+			} else if (npcid == 71076) { // ヤングリザードマンファイター
 				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
 						== L1Quest.QUEST_END) {
 					htmlid = "ylizardb";
 				} else {
 				}
-			} else if (npcid == 80079) { 
+			} else if (npcid == 80079) { // ケプリシャ
 				if (player.getQuest().get_step(L1Quest.QUEST_KEPLISHA)
 						== L1Quest.QUEST_END
 								&& !player.getInventory().checkItem(41312)) {
 					htmlid = "keplisha6";
 				} else {
-					if (player.getInventory().checkItem(41314)) { 
+					if (player.getInventory().checkItem(41314)) { // 占星術師のお守り
 						htmlid = "keplisha3";
-					} else if (player.getInventory().checkItem(41313)) { 
+					} else if (player.getInventory().checkItem(41313)) { // 占星術師の玉
 						htmlid = "keplisha2";
-					} else if (player.getInventory().checkItem(41312)) { 
+					} else if (player.getInventory().checkItem(41312)) { // 占星術師の壺
 						htmlid = "keplisha4";
 					}
 				}
-			} else if (npcid == 80102) {
-				if (player.getInventory().checkItem(41329)) { 
+			} else if (npcid == 80102) { // フィリス
+				if (player.getInventory().checkItem(41329)) { // 剥製の製作依頼書
 					htmlid = "fillis3";
 				}
-			} else if (npcid == 71167) { 
-				if (player.getTempCharGfx() == 3887) {
+			} else if (npcid == 71167) { // フリム
+				if (player.getTempCharGfx() == 3887) {// キャリングダークエルフ変身
 					htmlid = "frim1";
 				}
-			} else if (npcid == 71141) { //
-				if (player.getTempCharGfx() == 3887) {//
+			} else if (npcid == 71141) { // 坑夫オーム1
+				if (player.getTempCharGfx() == 3887) {// キャリングダークエルフ変身
 					htmlid = "moumthree1";
 				}
-			} else if (npcid == 71142) { //
-				if (player.getTempCharGfx() == 3887) {//
+			} else if (npcid == 71142) { // 坑夫オーム2
+				if (player.getTempCharGfx() == 3887) {// キャリングダークエルフ変身
 					htmlid = "moumtwo1";
 				}
-			} else if (npcid == 71145) { //
-				if (player.getTempCharGfx() == 3887) {//
+			} else if (npcid == 71145) { // 坑夫オーム3
+				if (player.getTempCharGfx() == 3887) {// キャリングダークエルフ変身
 					htmlid = "moumone1";
 				}
-			} else if (npcid == 71198) { //
+			} else if (npcid == 71198) { // 傭兵団長 ティオン
 				if (player.getQuest().get_step(71198) == 1) {
 					htmlid = "tion4";
 				} else if (player.getQuest().get_step(71198) == 2) {
@@ -1867,39 +1804,49 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getInventory().checkItem(21059, 1)) {
 					htmlid = "tion19";
 				}
-			} else if (npcid == 71199) {
+			} else if (npcid == 71199) { // ジェロン
 				if (player.getQuest().get_step(71199) == 1) {
 					htmlid = "jeron3";
 				} else if (player.getInventory().checkItem(21059, 1)
 						|| player.getQuest().get_step(71199) == 255) {
 					htmlid = "jeron7";
 				}
-			} else if (npcid == 81200) { // 
-				if (player.getInventory().checkItem(21069) // 
-						|| player.getInventory().checkItem(21074)) { // 
+			
+			} else if (npcid == 81200) { // 特典アイテム管理人
+				if (player.getInventory().checkItem(21069) // 新生のベルト
+						|| player.getInventory().checkItem(21074)) { // 親睦のイアリング
 					htmlid = "c_belt";
 				}
-			} else if (npcid == 80076) { // 
-				if (player.getInventory().checkItem(41058)) { // 
+			} else if (npcid == 80076) { // 倒れた航海士
+				if (player.getInventory().checkItem(41058)) { // 完成した航海日誌
 					htmlid = "voyager8";
-				} else if (player.getInventory().checkItem(49082) // 
+				} else if (player.getInventory().checkItem(49082) // 未完成の航海日誌
 						|| player.getInventory().checkItem(49083)) {
-						// 
-					if (player.getInventory().checkItem(41038) 
-							|| player.getInventory().checkItem(41039)
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039)
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039)){ 
+						// ページを追加していない状態
+					if (player.getInventory().checkItem(41038) // 航海日誌 1ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 2ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 3ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 4ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 5ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 6ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 7ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 8ページ
+							|| player.getInventory().checkItem(41039) // 航海日誌
+																		// 9ページ
+							|| player.getInventory().checkItem(41039)){ // 航海日誌
+																		// 10ページ
 						htmlid = "voyager9";
 					} else {
 						htmlid = "voyager7";
 					}
-				} else if (player.getInventory().checkItem(49082)
+				} else if (player.getInventory().checkItem(49082) // 未完成の航海日誌
 						|| player.getInventory().checkItem(49083)
 						|| player.getInventory().checkItem(49084)
 						|| player.getInventory().checkItem(49085)
@@ -1909,10 +1856,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getInventory().checkItem(49089)
 						|| player.getInventory().checkItem(49090)
 						|| player.getInventory().checkItem(49091)) {
-						//
+						// ページを追加した状態
 					htmlid = "voyager7";
 				}
-			} else if (npcid == 80048) { //
+			} else if (npcid == 80048) { // 空間の歪み
 				int level = player.getLevel();
 				if (level <= 44) {
 					htmlid = "entgate3";
@@ -1921,69 +1868,69 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "entgate";
 				}
-			} else if (npcid == 71168) { // 
-				if (player.getInventory().checkItem(41028)) { // 
+			} else if (npcid == 71168) { // 真冥王 ダンテス
+				if (player.getInventory().checkItem(41028)) { // デスナイトの書
 					htmlid = "dantes1";
 				}
-			} else if (npcid == 80067) { //
+			} else if (npcid == 80067) { // 諜報員(欲望の洞窟)
 				if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
 						== L1Quest.QUEST_END) {
 					htmlid = "minicod10";
 				} else if (player.getKarmaLevel() >= 1) {				
 					htmlid = "minicod07";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== 1 && player.getTempCharGfx() == 6034) { //
+						== 1 && player.getTempCharGfx() == 6034) { // コラププリースト変身
 					htmlid = "minicod03";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
 						== 1 && player.getTempCharGfx() != 6034) {
 					htmlid = "minicod05";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== L1Quest.QUEST_END // 
-						|| player.getInventory().checkItem(41121) // 
-						|| player.getInventory().checkItem(41122)) { // 
+						== L1Quest.QUEST_END // 影の神殿側クエスト終了
+						|| player.getInventory().checkItem(41121) // カヘルの指令書
+						|| player.getInventory().checkItem(41122)) { // カヘルの命令書
 					htmlid = "minicod01";
-				} else if (player.getInventory().checkItem(41130) // w
-						&& player.getInventory().checkItem(41131)) { // 
+				} else if (player.getInventory().checkItem(41130) // 血痕の指令書
+						&& player.getInventory().checkItem(41131)) { // 血痕の命令書
 					htmlid = "minicod06";
-				} else if (player.getInventory().checkItem(41130)) { // 
+				} else if (player.getInventory().checkItem(41130)) { // 血痕の命令書
 					htmlid = "minicod02";
 				}
-			} else if (npcid == 81202) { //
+			} else if (npcid == 81202) { // 諜報員(影の神殿)
 				if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
 						== L1Quest.QUEST_END) {
 					htmlid = "minitos10";
 				} else if (player.getKarmaLevel() <= -1) {				
 					htmlid = "minitos07";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== 1 && player.getTempCharGfx() == 6035) { // 
+						== 1 && player.getTempCharGfx() == 6035) { // レッサーデーモン変身
 					htmlid = "minitos03";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
 						== 1 && player.getTempCharGfx() != 6035) {
 					htmlid = "minitos05";
 				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== L1Quest.QUEST_END // 
-						|| player.getInventory().checkItem(41130) // 
-						|| player.getInventory().checkItem(41131)) { // 
+						== L1Quest.QUEST_END // 欲望の洞窟側クエスト終了
+						|| player.getInventory().checkItem(41130) // 血痕の指令書
+						|| player.getInventory().checkItem(41131)) { // 血痕の命令書
 					htmlid = "minitos01";
-				} else if (player.getInventory().checkItem(41121) // 
-						&& player.getInventory().checkItem(41122)) { // 
+				} else if (player.getInventory().checkItem(41121) // カヘルの指令書
+						&& player.getInventory().checkItem(41122)) { // カヘルの命令書
 					htmlid = "minitos06";
-				} else if (player.getInventory().checkItem(41121)) { // 
+				} else if (player.getInventory().checkItem(41121)) { // カヘルの命令書
 					htmlid = "minitos02";
 				}
-			} else if (npcid == 81208) { // 
-				if (player.getInventory().checkItem(41129) // 
-						||	player.getInventory().checkItem(41138)) { // 
+			} else if (npcid == 81208) { // 汚れたブロッブ
+				if (player.getInventory().checkItem(41129) // 血痕の精髄
+						||	player.getInventory().checkItem(41138)) { // カヘルの精髄
 					htmlid = "minibrob04";
-				} else if (player.getInventory().checkItem(41126) // 
-						&& player.getInventory().checkItem(41127) // 
-						&& player.getInventory().checkItem(41128) // 
-						|| player.getInventory().checkItem(41135) // 
-						&& player.getInventory().checkItem(41136) // 
-						&& player.getInventory().checkItem(41137)) { // 
+				} else if (player.getInventory().checkItem(41126) // 血痕の堕落した精髄
+						&& player.getInventory().checkItem(41127) // 血痕の無力な精髄
+						&& player.getInventory().checkItem(41128) // 血痕の我執な精髄
+						|| player.getInventory().checkItem(41135) // カヘルの堕落した精髄
+						&& player.getInventory().checkItem(41136) // カヘルの我執な精髄
+						&& player.getInventory().checkItem(41137)) { // カヘルの我執な精髄
 					htmlid = "minibrob02";
 				}
-			} else if (npcid == 50113) { // 
+			} else if (npcid == 50113) { // 渓谷の村 レックマン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orena14";
@@ -2027,7 +1974,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orena13";
 				}
-			} else if (npcid == 50112) { //
+			} else if (npcid == 50112) { // 旧・歌う島 セリアン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenb14";
@@ -2071,7 +2018,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenb13";
 				}
-			} else if (npcid == 50111) { // 
+			} else if (npcid == 50111) { // 話せる島 リリー
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenc14";
@@ -2115,7 +2062,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenc13";
 				}
-			} else if (npcid == 50116) { //
+			} else if (npcid == 50116) { // グルディオ ギオン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orend14";
@@ -2159,7 +2106,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orend13";
 				}
-			} else if (npcid == 50117) { //
+			} else if (npcid == 50117) { // ケント シリア
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orene14";
@@ -2203,7 +2150,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orene13";
 				}
-			} else if (npcid == 50119) { //
+			} else if (npcid == 50119) { // ウッドベック オシーリア
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenf14";
@@ -2247,7 +2194,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenf13";
 				}
-			} else if (npcid == 50121) { // 
+			} else if (npcid == 50121) { // 火田村 ホーニン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreng14";
@@ -2291,7 +2238,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "oreng13";
 				}
-			} else if (npcid == 50114) { //
+			} else if (npcid == 50114) { // エルフの森 チコ
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenh14";
@@ -2335,7 +2282,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenh13";
 				}
-			} else if (npcid == 50120) { //
+			} else if (npcid == 50120) { // シルバーナイトタウン ホップ
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreni14";
@@ -2379,7 +2326,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "oreni13";
 				}
-			} else if (npcid == 50122) { // 
+			} else if (npcid == 50122) { // ギラン ターク
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenj14";
@@ -2423,7 +2370,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenj13";
 				}
-			} else if (npcid == 50123) { // 
+			} else if (npcid == 50123) { // ハイネ ガリオン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenk14";
@@ -2467,7 +2414,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenk13";
 				}
-			} else if (npcid == 50125) { // 
+			} else if (npcid == 50125) { // 象牙の塔 ギルバート
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenl14";
@@ -2511,7 +2458,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenl13";
 				}
-			} else if (npcid == 50124) { // 
+			} else if (npcid == 50124) { // ウェルダン フォリカン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenm14";
@@ -2555,7 +2502,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenm13";
 				}
-			} else if (npcid == 50126) { // 
+			} else if (npcid == 50126) { // アデン ジェリック
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "orenn14";
@@ -2599,7 +2546,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "orenn0";
 				}
-			} else if (npcid == 50115) { // 
+			} else if (npcid == 50115) { // 沈黙の洞窟 ザルマン
 				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
 						== L1Quest.QUEST_END) {
 					htmlid = "oreno0";
@@ -2643,7 +2590,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						== 13) {
 					htmlid = "oreno1";
 				}
-			} else if (npcid == 71256) {
+			} else if (npcid == 71256) { // ロビンフッド
 				if (!player.isElf()) {
 					htmlid = "robinhood2";
 				} else if (player.getQuest().get_step(L1Quest
@@ -2713,7 +2660,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "robinhood1";
 				}
-			} else if (npcid == 71257) { 
+			} else if (npcid == 71257) { // ジブリル
 				if (!player.isElf()) {
 					htmlid = "zybril16";
 				} else if ((player.getQuest().get_step(L1Quest
@@ -2765,7 +2712,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "zybril1";
 				}
-			} else if (npcid == 71258) {
+			} else if (npcid == 71258) { // マルバ
 				if (player.getLawful() <= -501) {
 					htmlid = "marba1";
 				} else if (player.isCrown()
@@ -2792,7 +2739,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "marba3";
 				}
-			} else if (npcid == 71259) {
+			} else if (npcid == 71259) { // アラス
 				if (player.getLawful() <= -501) {
 					htmlid = "aras12";
 				} else if (player.isCrown()
@@ -2832,7 +2779,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid ="aras7";
 				}
-			} else if (npcid == 70838) { 
+			} else if (npcid == 70838) { // ネルファ
 				if (player.isCrown()
 						|| player.isKnight()
 						|| player.isWizard()
@@ -2847,13 +2794,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.isElf()) {
 					htmlid = "nerupae1";
 				}
-			} else if (npcid == 80094) { 
+			} else if (npcid == 80094) { // 祭壇
 				if (player.isIllusionist()) {
 					htmlid = "altar1";
 				} else if (!player.isIllusionist()) {
 					htmlid = "altar2";
 				}
-			} else if (npcid == 80099) { 
+			} else if (npcid == 80099) { // 治安団長ラルソン
 				if (player.getQuest().get_step(L1Quest
 						.QUEST_GENERALHAMELOFRESENTMENT) == 1) {
 					if (player.getInventory().checkItem(41325, 1)) {
@@ -2885,7 +2832,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						.QUEST_GENERALHAMELOFRESENTMENT) >= 5 ) {
 					htmlid = "rarson1";
 				}
-			} else if (npcid == 80101) { 
+			} else if (npcid == 80101) { // クエン
 				if (player.getQuest().get_step(L1Quest
 						.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
 					if ((player.getInventory().checkItem(41315, 1))
@@ -2905,8 +2852,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "kuen1";
 				}
-			} else if (npcid == 80134) { 
-				if(player.isDragonKnight()) { 
+			} else if (npcid == 80134) { // タリオン
+				if(player.isDragonKnight()) { // ドラゴンナイト
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if(player.getLevel() >= 30 && lv30_step == 2) {
@@ -2915,8 +2862,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "talrion9";
 					}
 				}
-			} else if (npcid == 80135) { 
-				if(player.isDragonKnight()) { 
+			} else if (npcid == 80135) { // エルラス
+				if(player.isDragonKnight()) { // ドラゴンナイト
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					if (lv30_step == L1Quest.QUEST_END) {
 						htmlid = "elas6";
@@ -2925,17 +2872,17 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "elas1";
 					}
 				}
-			} else if (npcid == 80136) { 
+			} else if (npcid == 80136) { // 長老 プロケル
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isDragonKnight()) { 
+				if (player.isDragonKnight()) { // ドラゴンナイト
 					if(player.getLevel() >= 50
 							&& lv45_step == L1Quest.QUEST_END) {
 						if(lv50_step == 0) {
 							htmlid = "prokel21";
-						} else if(lv50_step == L1Quest.QUEST_END) { 
+						} else if(lv50_step == L1Quest.QUEST_END) { // クリア済み
 							htmlid = "prokel32";
 						} else {
 							htmlid = "prokel24";
@@ -2944,7 +2891,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 							&& lv30_step == L1Quest.QUEST_END) {
 						if(lv45_step == 0) {
 							htmlid = "prokel15";
-						} else if(lv45_step >= 5) { 
+						} else if(lv45_step >= 5) { // クリア済み
 							htmlid = "prokel20";
 						} else {
 							htmlid = "prokel17";
@@ -2953,7 +2900,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 							&& lv15_step == L1Quest.QUEST_END) {
 						if(lv30_step == 0) {
 							htmlid = "prokel8";
-						} else if(lv30_step >= 2) { 
+						} else if(lv30_step >= 2) { // クリア済み
 							htmlid = "prokel14";
 						} else {
 							htmlid = "prokel10";
@@ -2961,21 +2908,21 @@ public class L1MerchantInstance extends L1NpcInstance {
 					} else if (player.getLevel() >= 15) {
 						if (lv15_step == 0 ) {
 							htmlid = "prokel2";
-						} else if (	lv15_step == L1Quest.QUEST_END) { 
+						} else if (	lv15_step == L1Quest.QUEST_END) { // クリア済み)
 							htmlid = "prokel7";
 						} else {
 							htmlid = "prokel4";
 						}
-					} else { 
+					} else { // Lv15未満
 						htmlid = "prokel1";
 					}
 				}
-			} else if (npcid == 80145) { 
+			} else if (npcid == 80145) { // 長老 シルレイン
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isDragonKnight()) { 
+				if (player.isDragonKnight()) { // ドラゴンナイト
 					if(player.getLevel() >= 45 && lv45_step == 1) {
 						htmlid = "silrein37";
 					} else if (player.getLevel() >= 45 && lv45_step == 2) {
@@ -2986,9 +2933,9 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "silrein43";
 					}
 				}
-			} else if (npcid == 81245) { 
+			} else if (npcid == 81245) { // オーク密使(HC3)
 				if (player.isDragonKnight()) {
-					if (player.getTempCharGfx() == 6984) { 
+					if (player.getTempCharGfx() == 6984) { // オーク密使変身
 						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
 						if (lv30_step == 1) {
 							htmlid = "spy_orc1";
@@ -2997,16 +2944,16 @@ public class L1MerchantInstance extends L1NpcInstance {
 				}
 			}
 
-
-			if (htmlid != null) {
-				if (htmldata != null) {
+			// html表示パケット送信
+			if (htmlid != null) { // htmlidが指定されている場合
+				if (htmldata != null) { // html指定がある場合は表示
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,
 							htmldata));
 				} else {
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 				}
 			} else {
-				if (player.getLawful() < -1000) {
+				if (player.getLawful() < -1000) { // プレイヤーがカオティック
 					player.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
 				} else {
 					player.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
@@ -3045,7 +2992,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 	}
 
 	private boolean checkHasCastle(L1PcInstance player, int castle_id) {
-		if (player.getClanid() != 0) {
+		if (player.getClanid() != 0) { // クラン所属中
 			L1Clan clan = L1World.getInstance().getClan(player.getClanname());
 			if (clan != null) {
 				if (clan.getCastleId() == castle_id) {
@@ -3057,7 +3004,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 	}
 
 	private boolean checkClanLeader(L1PcInstance player) {
-		if (player.isCrown()) {
+		if (player.isCrown()) { // 君主
 			L1Clan clan = L1World.getInstance().getClan(player.getClanname());
 			if (clan != null) {
 				if (player.getId() == clan.getLeaderId()) {
@@ -3071,16 +3018,16 @@ public class L1MerchantInstance extends L1NpcInstance {
 	private int getNecessarySealCount(L1PcInstance pc) {
 		int rulerCount = 0;
 		int necessarySealCount = 10;
-		if (pc.getInventory().checkItem(40917)) {
+		if (pc.getInventory().checkItem(40917)) { // 地の支配者
 			rulerCount++;
 		}
-		if (pc.getInventory().checkItem(40920)) {
+		if (pc.getInventory().checkItem(40920)) { // 風の支配者
 			rulerCount++;
 		}
-		if (pc.getInventory().checkItem(40918)) {
+		if (pc.getInventory().checkItem(40918)) { // 水の支配者
 			rulerCount++;
 		}
-		if (pc.getInventory().checkItem(40919)) {
+		if (pc.getInventory().checkItem(40919)) { // 火の支配者
 			rulerCount++;
 		}
 		if (rulerCount == 0) {
@@ -3096,6 +3043,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 	}
 
 	private void createRuler(L1PcInstance pc, int attr, int sealCount) {
+		// 1.地属性,2.火属性,4.水属性,8.風属性
 		int rulerId = 0;
 		int protectionId = 0;
 		int sealId = 0;
@@ -3121,7 +3069,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		L1ItemInstance item = pc.getInventory().storeItem(rulerId, 1);
 		if (item != null) {
 			pc.sendPackets(new S_ServerMessage(143,
-					getNpcTemplate().get_name(), item.getLogName()));
+					getNpcTemplate().get_name(), item.getLogName())); // \f1%0が%1をくれました。
 		}
 	}
 
@@ -3145,7 +3093,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		} else if (pc.getQuest().get_step(L1Quest.QUEST_AREX) == L1Quest.QUEST_END) {
 			htmlid = "jpe0023";
 		} else if (pc.getLevel() >= 10 && pc.getLevel() < 25) {
-			if (pc.getInventory().checkItem(41227)) {
+			if (pc.getInventory().checkItem(41227)) { // アレックスの紹介状
 				htmlid = "jpe0023";
 			} else if (pc.isCrown()) {
 				htmlid = "jpe0024p";
@@ -3270,7 +3218,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		}
 		return htmlid;
 	}
-
+	
 	private static final long REST_MILLISEC = 10000;
 
 	private static final Timer _restTimer = new Timer(true);

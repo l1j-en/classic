@@ -105,7 +105,10 @@ public class L1MobSkillUse {
 		return _mobSkillTemplate;
 	}
 
-	public boolean skillUse(L1Character tg) {
+	/*
+	 * トリガーの条件のみチェック。
+	 */
+	public boolean isSkillTrigger(L1Character tg) {
 		if (_mobSkillTemplate == null) {
 			return false;
 		}
@@ -122,42 +125,101 @@ public class L1MobSkillUse {
 		for (i = 0; i < getMobSkillTemplate().getSkillSize()
 				&& getMobSkillTemplate().getType(i) != L1MobSkill.TYPE_NONE; i++) {
 
+			// changeTargetが設定されている場合、ターゲットの入れ替え
 			int changeType = getMobSkillTemplate().getChangeTarget(i);
 			if (changeType > 0) {
 				_target = changeTarget(changeType, i);
 			} else {
+				// 設定されてない場合は本来のターゲットにする
 				_target = tg;
 			}
 
-			if (isSkillUseble(i) == false) {
-				continue;
+			if (isSkillUseble(i, false)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/*
+	 * スキル攻撃 スキル攻撃可能ならばtrueを返す。 攻撃できなければfalseを返す。
+	 */
+	public boolean skillUse(L1Character tg, boolean isTriRnd) {
+		if (_mobSkillTemplate == null) {
+			return false;
+		}
+		_target = tg;
+
+		int type;
+		type = getMobSkillTemplate().getType(0);
+
+		if (type == L1MobSkill.TYPE_NONE) {
+			return false;
+		}
+
+		int[] skills = null;
+		int skillSizeCounter = 0;
+		int skillSize = getMobSkillTemplate().getSkillSize();
+		if (skillSize >= 0) {
+			skills = new int[skillSize];
+		}
+
+		int i = 0;
+		for (i = 0; i < getMobSkillTemplate().getSkillSize()
+				&& getMobSkillTemplate().getType(i) != L1MobSkill.TYPE_NONE; i++) {
+
+			// changeTargetが設定されている場合、ターゲットの入れ替え
+			int changeType = getMobSkillTemplate().getChangeTarget(i);
+			if (changeType > 0) {
+				_target = changeTarget(changeType, i);
+			} else {
+				// 設定されてない場合は本来のターゲットにする
+				_target = tg;
 			}
 
-			type = getMobSkillTemplate().getType(i);
-			if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) {
-				if (physicalAttack(i) == true) {
-					skillUseCountUp(i);
-					return true;
-				}
-			} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
-				if (magicAttack(i) == true) {
-					skillUseCountUp(i);
-					return true;
-				}
-			} else if (type == L1MobSkill.TYPE_SUMMON) {
-				if (summon(i) == true) {
-					skillUseCountUp(i);
-					return true;
-				}
-			} else if (type == L1MobSkill.TYPE_POLY) {
-				if (poly(i) == true) {
-					skillUseCountUp(i);
-					return true;
-				}
+			if (isSkillUseble(i, isTriRnd) == false) {
+				continue;
+			} else { // 条件にあうスキルが存在する
+				skills[skillSizeCounter] = i;
+				skillSizeCounter++;
+			}
+		}
+
+		if (skillSizeCounter != 0) {
+			int num = _rnd.nextInt(skillSizeCounter);
+			if (useSkill(skills[num])) { // スキル使用
+				return true;
 			}
 		}
 
 		return false;
+	}
+
+	private boolean useSkill(int i) {
+		boolean isUseSkill = false;
+		int type = getMobSkillTemplate().getType(i);
+		if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) { // 物理攻撃
+			if (physicalAttack(i) == true) {
+				skillUseCountUp(i);
+				isUseSkill = true;
+			}
+		} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) { // 魔法攻撃
+			if (magicAttack(i) == true) {
+				skillUseCountUp(i);
+				isUseSkill = true;
+			}
+		} else if (type == L1MobSkill.TYPE_SUMMON) { // サモンする
+			if (summon(i) == true) {
+				skillUseCountUp(i);
+				isUseSkill = true;
+			}
+		} else if (type == L1MobSkill.TYPE_POLY) { // 強制変身させる
+			if (poly(i) == true) {
+				skillUseCountUp(i);
+				isUseSkill = true;
+			}
+		}
+		return isUseSkill;
 	}
 
 	private boolean summon(int idx) {
@@ -173,8 +235,10 @@ public class L1MobSkillUse {
 		count = _rnd.nextInt(max) + min;
 		mobspawn(summonId, count);
 
+		// 魔方陣の表示
 		_attacker.broadcastPacket(new S_SkillSound(_attacker.getId(), 761));
 
+		// 魔法を使う動作のエフェクト
 		S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
 				ActionCodes.ACTION_SkillBuff);
 		_attacker.broadcastPacket(gfx);
@@ -183,6 +247,9 @@ public class L1MobSkillUse {
 		return true;
 	}
 
+	/*
+	 * 15セル以内で射線が通るPCを指定したモンスターに強制変身させる。 対PCしか使えない。
+	 */
 	private boolean poly(int idx) {
 		int polyId = getMobSkillTemplate().getPolyId(idx);
 		boolean usePoly = false;
@@ -193,7 +260,7 @@ public class L1MobSkillUse {
 
 		for (L1PcInstance pc : L1World.getInstance()
 				.getVisiblePlayer(_attacker)) {
-			if (pc.isDead()) { 
+			if (pc.isDead()) { // 死亡している
 				continue;
 			}
 			if (pc.isGhost()) {
@@ -203,13 +270,13 @@ public class L1MobSkillUse {
 				continue;
 			}
 			if (_attacker.glanceCheck(pc.getX(), pc.getY()) == false) {
-				continue; 
+				continue; // 射線が通らない
 			}
 
 			int npcId = _attacker.getNpcTemplate().get_npcId();
 			switch (npcId) {
-			case 81082: 
-				pc.getInventory().takeoffEquip(945);
+			case 81082: // ヤヒの場合
+				pc.getInventory().takeoffEquip(945); // 牛のpolyIdで装備を全部外す。
 				break;
 			default:
 				break;
@@ -219,8 +286,14 @@ public class L1MobSkillUse {
 			usePoly = true;
 		}
 		if (usePoly) {
-			_attacker.broadcastPacket(new S_SkillSound(_attacker.getId(), 230));
-
+			// 変身させた場合、オレンジの柱を表示する。
+			for (L1PcInstance pc : L1World.getInstance()
+					.getVisiblePlayer(_attacker)) {
+				pc.sendPackets(new S_SkillSound(pc.getId(), 230));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 230));
+				break;
+			}
+			// 魔法を使う動作のエフェクト
 			S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
 					ActionCodes.ACTION_SkillBuff);
 			_attacker.broadcastPacket(gfx);
@@ -249,10 +322,11 @@ public class L1MobSkillUse {
 			skillUse.handleCommands(null, skillid, _target.getId(), _target
 					.getX(), _target.getX(), null, 0, L1SkillUse.TYPE_NORMAL,
 					_attacker);
+			// 使用スキルによるsleepTimeの設定
 			L1Skills skill = SkillsTable.getInstance().getTemplate(skillid);
-			if (skill.getTarget().equals("attack") && skillid != 18) { 
+			if (skill.getTarget().equals("attack") && skillid != 18) { // 有方向魔法
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
-			} else { 
+			} else { // 無方向魔法
 				_sleepTime = _attacker.getNpcTemplate().getSubMagicSpeed();
 			}
 
@@ -261,6 +335,9 @@ public class L1MobSkillUse {
 		return false;
 	}
 
+	/*
+	 * 物理攻撃
+	 */
 	private boolean physicalAttack(int idx) {
 		Map<Integer, Integer> targetList = new ConcurrentHashMap<Integer, Integer>();
 		int areaWidth = getMobSkillTemplate().getAreaWidth(idx);
@@ -269,38 +346,43 @@ public class L1MobSkillUse {
 		int actId = getMobSkillTemplate().getActid(idx);
 		int gfxId = getMobSkillTemplate().getGfxid(idx);
 
+		// レンジ外
 		if (_attacker.getLocation().getTileLineDistance(_target.getLocation()) > range) {
 			return false;
 		}
 
+		// 障害物がある場合攻撃不可能
 		if (!_attacker.glanceCheck(_target.getX(), _target.getY())) {
 			return false;
 		}
 
 		_attacker.setHeading(_attacker.targetDirection(_target.getX(), _target
-				.getY()));
+				.getY())); // 向きのセット
 
 		if (areaHeight > 0) {
+			// 範囲攻撃
 			ArrayList<L1Object> objs = L1World.getInstance()
 					.getVisibleBoxObjects(_attacker, _attacker.getHeading(),
 							areaWidth, areaHeight);
 
 			for (L1Object obj : objs) {
-				if (!(obj instanceof L1Character)) { 
+				if (!(obj instanceof L1Character)) { // ターゲットがキャラクター以外の場合何もしない。
 					continue;
 				}
 
 				L1Character cha = (L1Character) obj;
-				if (cha.isDead()) { 
+				if (cha.isDead()) { // 死んでるキャラクターは対象外
 					continue;
 				}
 
+				// ゴースト状態は対象外
 				if (cha instanceof L1PcInstance) {
 					if (((L1PcInstance) cha).isGhost()) {
 						continue;
 					}
 				}
 
+				// 障害物がある場合は対象外
 				if (!_attacker.glanceCheck(cha.getX(), cha.getY())) {
 					continue;
 				}
@@ -308,6 +390,7 @@ public class L1MobSkillUse {
 				if (_target instanceof L1PcInstance
 						|| _target instanceof L1SummonInstance
 						|| _target instanceof L1PetInstance) {
+					// 対PC
 					if (obj instanceof L1PcInstance
 							&& !((L1PcInstance) obj).isGhost()
 							&& !((L1PcInstance) obj).isGmInvis()
@@ -316,14 +399,15 @@ public class L1MobSkillUse {
 						targetList.put(obj.getId(), 0);
 					}
 				} else {
+					// 対NPC
 					if (obj instanceof L1MonsterInstance) {
 						targetList.put(obj.getId(), 0);
 					}
 				}
 			}
 		} else {
-
-			targetList.put(_target.getId(), 0); 
+			// 単体攻撃
+			targetList.put(_target.getId(), 0); // ターゲットのみ追加
 		}
 
 		if (targetList.size() == 0) {
@@ -344,7 +428,7 @@ public class L1MobSkillUse {
 			if (actId > 0) {
 				attack.setActId(actId);
 			}
-
+			// 攻撃モーションは実際のターゲットに対してのみ行う
 			if (targetId == _target.getId()) {
 				if (gfxId > 0) {
 					_attacker.broadcastPacket(new S_SkillSound(_attacker
@@ -359,15 +443,22 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	private boolean isSkillUseble(int skillIdx) {
+	/*
+	 * トリガーの条件のみチェック
+	 */
+	private boolean isSkillUseble(int skillIdx, boolean isTriRnd) {
 		boolean useble = false;
+		int type = getMobSkillTemplate().getType(skillIdx);
 
-		if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
-			int chance = _rnd.nextInt(100) + 1;
-			if (chance < getMobSkillTemplate().getTriggerRandom(skillIdx)) {
-				useble = true;
-			} else {
-				return false;
+		if (isTriRnd || type == L1MobSkill.TYPE_SUMMON
+				|| type == L1MobSkill.TYPE_POLY) {
+			if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
+				int chance = _rnd.nextInt(100) + 1;
+				if (chance < getMobSkillTemplate().getTriggerRandom(skillIdx)) {
+					useble = true;
+				} else {
+					return false;
+				}
 			}
 		}
 
@@ -392,7 +483,7 @@ public class L1MobSkillUse {
 			if (hpRatio <= getMobSkillTemplate()
 					.getTriggerCompanionHp(skillIdx)) {
 				useble = true;
-				_target = companionNpc; 
+				_target = companionNpc; // ターゲットの入れ替え
 			} else {
 				return false;
 			}
@@ -483,11 +574,11 @@ public class L1MobSkillUse {
 					L1Object object = L1World.getInstance().findObject(
 							mob.getId());
 					L1MonsterInstance newnpc = (L1MonsterInstance) object;
-					newnpc.set_storeDroped(true); 
-					if (summonId == 45061 
-							|| summonId == 45161 
-							|| summonId == 45181 
-							|| summonId == 45455) {
+					newnpc.set_storeDroped(true); // 召喚されたモンスターはドロップ無し
+					if (summonId == 45061 // カーズドスパルトイ
+							|| summonId == 45161 // スパルトイ
+							|| summonId == 45181 // スパルトイ
+							|| summonId == 45455) { // デッドリースパルトイ
 						newnpc.broadcastPacket(new S_DoActionGFX(
 								newnpc.getId(), ActionCodes.ACTION_Hide));
 						newnpc.setStatus(13);
@@ -499,7 +590,7 @@ public class L1MobSkillUse {
 					}
 					newnpc.onNpcAI();
 					newnpc.turnOnOffLight();
-					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
+					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // チャット開始
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
@@ -509,6 +600,7 @@ public class L1MobSkillUse {
 		}
 	}
 
+	// 現在ChangeTargetで有効な値は2,3のみ
 	private L1Character changeTarget(int type, int idx) {
 		L1Character target;
 
@@ -517,6 +609,7 @@ public class L1MobSkillUse {
 			target = _attacker;
 			break;
 		case L1MobSkill.CHANGE_TARGET_RANDOM:
+			// ターゲット候補の選定
 			List<L1Character> targetList = new ArrayList<L1Character>();
 			for (L1Object obj : L1World.getInstance().getVisibleObjects(
 					_attacker)) {
@@ -527,22 +620,25 @@ public class L1MobSkillUse {
 					int distance = _attacker.getLocation().getTileLineDistance(
 							cha.getLocation());
 
+					// 発動範囲外のキャラクターは対象外
 					if (!getMobSkillTemplate().isTriggerDistance(idx, distance)) {
 						continue;
 					}
 
+					// 障害物がある場合は対象外
 					if (!_attacker.glanceCheck(cha.getX(), cha.getY())) {
 						continue;
 					}
 
-					if (!_attacker.getHateList().containsKey(cha)) {
+					if (!_attacker.getHateList().containsKey(cha)) { // ヘイトがない場合対象外
 						continue;
 					}
 
-					if (cha.isDead()) { 
+					if (cha.isDead()) { // 死んでるキャラクターは対象外
 						continue;
 					}
 
+					// ゴースト状態は対象外
 					if (cha instanceof L1PcInstance) {
 						if (((L1PcInstance) cha).isGhost()) {
 							continue;
