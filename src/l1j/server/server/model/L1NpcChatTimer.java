@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1NpcInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.templates.L1NpcChat;
 
@@ -54,6 +55,7 @@ public class L1NpcChatTimer extends TimerTask {
 			int chatTiming = _npcChat.getChatTiming();
 			int chatInterval = _npcChat.getChatInterval();
 			boolean isShout = _npcChat.isShout();
+			boolean isWorldChat = _npcChat.isWorldChat();
 			String chatId1 = _npcChat.getChatId1();
 			String chatId2 = _npcChat.getChatId2();
 			String chatId3 = _npcChat.getChatId3();
@@ -61,27 +63,27 @@ public class L1NpcChatTimer extends TimerTask {
 			String chatId5 = _npcChat.getChatId5();
 
 			if (!chatId1.equals("")) {
-				chat(_npc, chatTiming, chatId1, isShout);
+				chat(_npc, chatTiming, chatId1, isShout, isWorldChat);
 			}
 
 			if (!chatId2.equals("")) {
 				Thread.sleep(chatInterval);
-				chat(_npc, chatTiming, chatId2, isShout);
+				chat(_npc, chatTiming, chatId2, isShout, isWorldChat);
 			}
 
 			if (!chatId3.equals("")) {
 				Thread.sleep(chatInterval);
-				chat(_npc, chatTiming, chatId3, isShout);
+				chat(_npc, chatTiming, chatId3, isShout, isWorldChat);
 			}
 
 			if (!chatId4.equals("")) {
 				Thread.sleep(chatInterval);
-				chat(_npc, chatTiming, chatId4, isShout);
+				chat(_npc, chatTiming, chatId4, isShout, isWorldChat);
 			}
 
 			if (!chatId5.equals("")) {
 				Thread.sleep(chatInterval);
-				chat(_npc, chatTiming, chatId5, isShout);
+				chat(_npc, chatTiming, chatId5, isShout, isWorldChat);
 			}
 		} catch (Throwable e) {
 			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
@@ -89,7 +91,7 @@ public class L1NpcChatTimer extends TimerTask {
 	}
 
 	private void chat(L1NpcInstance npc, int chatTiming, String chatId,
-			boolean isShout) {
+			boolean isShout, boolean isWorldChat) {
 		if (chatTiming == L1NpcInstance.CHAT_TIMING_APPEARANCE && npc.
 				isDead()) {
 			return;
@@ -101,11 +103,20 @@ public class L1NpcChatTimer extends TimerTask {
 			return;
 		}
 
-
 		if (!isShout) {
 			npc.broadcastPacket(new S_NpcChatPacket(npc, chatId, 0));
 		} else {
 			npc.wideBroadcastPacket(new S_NpcChatPacket(npc, chatId, 2));
+		}
+
+		if (isWorldChat) {
+
+			for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+				if (pc != null) {
+					pc.sendPackets(new S_NpcChatPacket(npc, chatId, 3));
+				}
+				break;
+			}
 		}
 	}
 

@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -33,7 +34,9 @@ import l1j.server.server.templates.L1Castle;
 // L1CastleLocation
 
 public class L1CastleLocation {
-	
+	private static final Logger _log = Logger.getLogger(L1CastleLocation.class
+			.getName());
+
 	// castle_id
 	public static final int KENT_CASTLE_ID = 1;
 

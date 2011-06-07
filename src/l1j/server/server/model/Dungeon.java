@@ -32,6 +32,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.utils.SQLUtil;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1Teleport, L1PcInstance
@@ -84,19 +85,19 @@ public class Dungeon {
 						|| srcX == 32736) && srcY == 32794 && srcMapId == 83) { // FIsD->nClD
 					dungeonType = DungeonType.SHIP_FOR_FI;
 				} else if ((srcX == 32935 || srcX == 32936 || srcX == 32937)
-						&& srcY == 33058 && srcMapId == 70 // FID->nClsD
+						&& srcY == 33058 && srcMapId == 70 
 						|| (srcX == 32732 || srcX == 32733 || srcX == 32734
 						|| srcX == 32735) && srcY == 32796 && srcMapId == 84) { // nClsD->FID
 					dungeonType = DungeonType.SHIP_FOR_HEINE;
 				} else if ((srcX == 32750 || srcX == 32751 || srcX == 32752)
-						&& srcY == 32874 && srcMapId == 445 // BD->CsD
+						&& srcY == 32874 && srcMapId == 445 
 						|| (srcX == 32731 || srcX == 32732 || srcX == 32733)
-						&& srcY == 32796 && srcMapId == 447) { // CsD->BD
+						&& srcY == 32796 && srcMapId == 447) { 
 					dungeonType = DungeonType.SHIP_FOR_PI;
 				} else if ((srcX == 32296 || srcX == 32297 || srcX == 32298)
-						&& srcY == 33087 && srcMapId == 440 // CD->BDsD
+						&& srcY == 33087 && srcMapId == 440 
 						|| (srcX == 32735 ||  srcX == 32736 ||  srcX == 32737)
-						&& srcY == 32794 && srcMapId == 446) { // BDsD->CD
+						&& srcY == 32794 && srcMapId == 446) { 
 					dungeonType = DungeonType.SHIP_FOR_HIDDENDOCK;
 				} else if ((srcX == 32630 || srcX == 32631 || srcX == 32632)
 						&& srcY == 32983 && srcMapId == 0 // TalkingIsland->TalkingIslandShiptoAdenMainland

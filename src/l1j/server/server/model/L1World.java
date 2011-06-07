@@ -57,7 +57,6 @@ public class L1World {
 
 	private static L1World _instance;
 
-	@SuppressWarnings("unchecked")
 	private L1World() {
 		_allPlayers = new ConcurrentHashMap<String, L1PcInstance>(); 
 		_allPets = new ConcurrentHashMap<Integer, L1PetInstance>();

@@ -30,6 +30,7 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.templates.L1Npc;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1EffectSpawn
@@ -65,7 +66,12 @@ public class L1EffectSpawn {
 	 */
 	public L1EffectInstance spawnEffect(int npcid, int time, int locX,
 			int locY, short mapId) {
-		L1Npc template = NpcTable.getInstance().getTemplate(npcid);
+		return spawnEffect(npcId, time, locX, locY, mapId, null, 0);
+	}
+
+	public L1EffectInstance spawnEffect(int npcId, int time, int locX,
+			int locY, short mapId, L1PcInstance user, int skiiId) {
+		L1Npc template = NpcTable.getInstance().getTemplate(npcId);
 		L1EffectInstance effect = null;
 
 		if (template == null) {
@@ -89,6 +95,8 @@ public class L1EffectSpawn {
 			effect.setHomeY(locY);
 			effect.setHeading(0);
 			effect.setMap(mapId);
+			effect.setUser(user);
+			effect.setSkillId(skiiId);
 			L1World.getInstance().storeObject(effect);
 			L1World.getInstance().addVisibleObject(effect);
 
@@ -111,7 +119,7 @@ public class L1EffectSpawn {
 	public void doSpawnFireWall(L1Character cha, int targetX, int targetY) {
 		L1Npc firewall = NpcTable.getInstance().getTemplate(81157);
 		int duration = SkillsTable.getInstance().getTemplate(
-				L1SkillId.FIRE_WALL).getBuffDuration();
+				FIRE_WALL).getBuffDuration();
 
 		if (firewall == null) {
 			throw new NullPointerException(

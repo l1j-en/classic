@@ -24,6 +24,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 /*
  * L1ParalysisPoison
@@ -38,12 +39,12 @@ public class L1CurseParalysis extends L1Paralysis {
 	private class ParalysisDelayTimer extends Thread {
 		@Override
 		public void run() {
-			_target.setSkillEffect(L1SkillId.STATUS_CURSE_PARALYZING, 0);
+			_target.setSkillEffect(STATUS_CURSE_PARALYZING, 0);
 
 			try {
 				Thread.sleep(_delay); 
 			} catch (InterruptedException e) {
-				_target.killSkillEffectTimer(L1SkillId.STATUS_CURSE_PARALYZING);
+				_target.killSkillEffectTimer(STATUS_CURSE_PARALYZING);
 				return;
 			}
 
@@ -65,14 +66,14 @@ public class L1CurseParalysis extends L1Paralysis {
 	private class ParalysisTimer extends Thread {
 		@Override
 		public void run() {
-			_target.killSkillEffectTimer(L1SkillId.STATUS_CURSE_PARALYZING);
-			_target.setSkillEffect(L1SkillId.STATUS_CURSE_PARALYZED, 0);
+			_target.killSkillEffectTimer(STATUS_CURSE_PARALYZING);
+			_target.setSkillEffect(STATUS_CURSE_PARALYZED, 0);
 			try {
 				Thread.sleep(_time);
 			} catch (InterruptedException e) {
 			}
 
-			_target.killSkillEffectTimer(L1SkillId.STATUS_CURSE_PARALYZED);
+			_target.killSkillEffectTimer(STATUS_CURSE_PARALYZED);
 			if (_target instanceof L1PcInstance) {
 				L1PcInstance player = (L1PcInstance) _target;
 				if (!player.isDead()) {
@@ -108,9 +109,9 @@ public class L1CurseParalysis extends L1Paralysis {
 		if (!(cha instanceof L1PcInstance || cha instanceof L1MonsterInstance)) {
 			return false;
 		}
-		if (cha.hasSkillEffect(L1SkillId.STATUS_CURSE_PARALYZING)
-				|| cha.hasSkillEffect(L1SkillId.STATUS_CURSE_PARALYZED)) {
-			return false; 
+		if (cha.hasSkillEffect(STATUS_CURSE_PARALYZING)
+				|| cha.hasSkillEffect(STATUS_CURSE_PARALYZED)) {
+			return false;
 		}
 
 		cha.setParalaysis(new L1CurseParalysis(cha, delay, time));

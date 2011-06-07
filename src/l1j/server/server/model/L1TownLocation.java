@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.datatables.TownTable;
@@ -28,7 +29,9 @@ import l1j.server.server.types.Point;
 // L1CastleLocation
 
 public class L1TownLocation {
-	
+	private static final Logger _log = Logger.getLogger(L1TownLocation.class
+			.getName());
+
 	// town_id
 	public static final int TOWNID_TALKING_ISLAND = 1;
 

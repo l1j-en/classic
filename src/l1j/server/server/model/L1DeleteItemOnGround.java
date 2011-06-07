@@ -23,13 +23,8 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.datatables.FurnitureSpawnTable;
-import l1j.server.server.datatables.LetterTable;
-import l1j.server.server.datatables.PetTable;
-import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-//import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.model:
@@ -37,8 +32,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class L1DeleteItemOnGround {
 	private DeleteTimer _deleteTimer;
-	private int _time = 0;
-	private int _range = 0;
 
 	private static final Logger _log = Logger
 			.getLogger(L1DeleteItemOnGround.class.getName());
@@ -60,10 +53,10 @@ public class L1DeleteItemOnGround {
 					_log.warning("L1DeleteItemOnGround error: " + exception);
 					break;
 				}
-				/*L1World.getInstance().broadcastPacketToAll(
+				L1World.getInstance().broadcastPacketToAll(
 						new S_ServerMessage(166, "Item on the world map ",
 								" will be removed in 10 seconds."));
-								*/
+								
 				try {
 					Thread.sleep(10000);
 				} catch (Exception exception) {
@@ -71,9 +64,9 @@ public class L1DeleteItemOnGround {
 					break;
 				}
 				deleteItem();
-				/* L1World.getInstance().broadcastPacketToAll(
+				L1World.getInstance().broadcastPacketToAll(
 						new S_ServerMessage(166, "Item on the world map ", " will be removed in 10 seconds.")); 
-				*/
+				
 			}
 		}
 	}

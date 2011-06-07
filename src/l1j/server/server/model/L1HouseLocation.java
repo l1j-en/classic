@@ -19,6 +19,7 @@
 package l1j.server.server.model;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.types.Point;
@@ -27,6 +28,8 @@ import l1j.server.server.types.Point;
 // L1HouseLocation
 
 public class L1HouseLocation {
+	private static final Logger _log = Logger.getLogger(L1HouseLocation.class
+			.getName());
 
 	private static final int[] TELEPORT_LOC_MAPID = { 4, 4, 4, 350, };
 

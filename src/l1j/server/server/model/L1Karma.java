@@ -22,8 +22,9 @@ import l1j.server.server.utils.IntRange;
 
 public class L1Karma {
 	private static final int[] KARMA_POINT = { 10000, 20000, 100000, 500000,
-			1500000, 3500000, 6500000, 10500000, 15500000 };
-	// The upper and lower limit +-15500000
+			1500000, 3000000, 5000000, 10000000, 15500000 };
+
+
 	private static IntRange KARMA_RANGE = new IntRange(-15500000, 15500000);
 
 	private int _karma = 0;

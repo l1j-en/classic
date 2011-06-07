@@ -18,6 +18,7 @@ public class L1GroundInventory extends L1Inventory {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private static final Timer _timer = new Timer();
 
 	private Map<Integer, DeletionTimer> _reservedTimers = new HashMap<Integer, DeletionTimer>();
@@ -110,12 +111,12 @@ public class L1GroundInventory extends L1Inventory {
 			pc.removeKnownObject(item);
 		}
 
-		// _items.remove(_items.indexOf(item));
 		_items.remove(item);
 		if (_items.size() == 0) {
 			L1World.getInstance().removeVisibleObject(this);
 		}
 	}
+
 	private static Logger _log = Logger
 			.getLogger(L1PcInventory.class.getName());
 }

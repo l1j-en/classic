@@ -19,12 +19,12 @@
 package l1j.server.server.model;
 
 import java.lang.reflect.Constructor;
+import java.util.logging.Logger;
 
 import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.Instance.L1TowerInstance;
 import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.templates.L1Npc;
 
@@ -32,6 +32,9 @@ import l1j.server.server.templates.L1Npc;
 // L1WarSpawn
 
 public class L1WarSpawn {
+	private static final Logger _log = Logger.getLogger(L1WarSpawn.class
+			.getName());
+
 	private static L1WarSpawn _instance;
 
 	private Constructor _constructor;
@@ -133,8 +136,7 @@ public class L1WarSpawn {
 	private void SpawnWarObject(L1Npc l1npc, int locx, int locy, short mapid) {
 		try {
 			if (l1npc != null) {
-				//TODO Not used
-				//Object obj = null;
+				Object obj = null;
 				String s = l1npc.getImpl();
 				_constructor = Class.forName(
 						(new StringBuilder()).append(

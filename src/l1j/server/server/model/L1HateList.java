@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,8 +30,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class L1HateList {
 	private final Map<L1Character, Integer> _hateMap;
 
-	private static Logger _log = Logger.getLogger(L1HateList.class.getName());
-	
 	private L1HateList(Map<L1Character, Integer> hateMap) {
 		_hateMap = hateMap;
 	}
@@ -76,12 +73,12 @@ public class L1HateList {
 		L1Character cha = null;
 		int hate = Integer.MIN_VALUE;
 
-			for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
-				if (hate < e.getValue()) {
-					cha = e.getKey();
-					hate = e.getValue();
-				}
+		for (Map.Entry<L1Character, Integer> e : _hateMap.entrySet()) {
+			if (hate < e.getValue()) {
+				cha = e.getKey();
+				hate = e.getValue();
 			}
+		}
 		return cha;
 	}
 

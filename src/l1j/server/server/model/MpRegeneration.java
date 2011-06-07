@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
+import l1j.server.server.types.Point;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class MpRegeneration extends TimerTask {
 	private static Logger _log = Logger.getLogger(MpRegeneration.class
@@ -57,24 +59,51 @@ public class MpRegeneration extends TimerTask {
 			baseMpr = 3;
 		}
 
-		if (_pc.hasSkillEffect(L1SkillId.STATUS_BLUE_POTION) == true) { 
-			if (wis < 11) {
+		if (_pc.hasSkillEffect(STATUS_BLUE_POTION)) { 
+			if (wis < 11) { 
 				wis = 11;
 			}
 			// probably should change this to class based.
 			// doesn't make sense for knight to get 6MP/tick, for example.
 			baseMpr += wis - 10 + 5;
 		}
-		if (_pc.hasSkillEffect(L1SkillId.MEDITATION) == true) { 
+		if (_pc.hasSkillEffect(MEDITATION) == true) { 
 			baseMpr += 5;
+		}
+		if (_pc.hasSkillEffect(CONCENTRATION)) { // RZg[V
+			baseMpr += 2;
 		}
 		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
 			baseMpr += 3;
 		}
-		if (_pc.hasSkillEffect(L1SkillId.COOKING_1_2_N)
-				|| _pc.hasSkillEffect(L1SkillId.COOKING_1_2_S)) {
+		if (_pc.getMapId() == 16384 || _pc.getMapId() == 16896
+				|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
+				|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
+				|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
+				|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
+				|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
+				|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
+				|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
+				|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
 			baseMpr += 3;
 		}
+		if ((_pc.getLocation().isInScreen(new Point(33055,32336))
+				&& _pc.getMapId() == 4 && _pc.isElf())) {
+			baseMpr += 3;
+		}
+		if (_pc.hasSkillEffect(COOKING_1_2_N)
+				|| _pc.hasSkillEffect(COOKING_1_2_S)) {
+			baseMpr += 3;
+		}
+ 		if (_pc.hasSkillEffect(COOKING_2_4_N)
+				|| _pc.hasSkillEffect(COOKING_2_4_S)
+				|| _pc.hasSkillEffect(COOKING_3_5_N)
+				|| _pc.hasSkillEffect(COOKING_3_5_S)) {
+			baseMpr += 2;
+		}
+ 		if (_pc.getOriginalMpr() > 0) { 
+ 			baseMpr += _pc.getOriginalMpr();
+ 		}
 
 		int itemMpr = _pc.getInventory().mpRegenPerTick();
 		itemMpr += _pc.getMpr();
@@ -98,11 +127,12 @@ public class MpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE)
-				|| pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
+
+		if (pc.hasSkillEffect(EXOTIC_VITALIZE)
+				|| pc.hasSkillEffect(ADDITIONAL_FIRE)) {
 			return false;
 		}
 
-		return (14 < pc.getInventory().getWeight30()) ? true : false;
+		return (120 <= pc.getInventory().getWeight240()) ? true : false;
 	}
 }

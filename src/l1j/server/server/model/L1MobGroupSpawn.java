@@ -16,7 +16,6 @@
  */
 package l1j.server.server.model;
 
-import java.lang.reflect.Constructor;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,8 +38,6 @@ public class L1MobGroupSpawn {
 			.getName());
 
 	private static L1MobGroupSpawn _instance;
-
-	private Constructor _constructor;
 
 	private static Random _random = new Random();
 
@@ -78,7 +75,7 @@ public class L1MobGroupSpawn {
 		for (L1NpcCount minion : mobGroup.getMinions()) {
 			if (minion.isZero()) {
 				continue;
-				}
+			}
 			for (int i = 0; i < minion.getCount(); i++) {
 				mob = spawn(leader, minion.getId());
 				if (mob != null) {
@@ -93,7 +90,7 @@ public class L1MobGroupSpawn {
 		try {
 			mob = NpcTable.getInstance().newNpcInstance(npcId);
 
-				mob.setId(IdFactory.getInstance().nextId());
+			mob.setId(IdFactory.getInstance().nextId());
 
 			mob.setHeading(leader.getHeading());
 			mob.setMap(leader.getMapId());

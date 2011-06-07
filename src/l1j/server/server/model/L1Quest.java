@@ -44,6 +44,8 @@ public class L1Quest {
 	public static final int QUEST_SHADOWS = 37;
 	public static final int QUEST_ROI = 38;
 	public static final int QUEST_TOSCROLL = 39;
+	public static final int QUEST_MOONOFLONGBOW = 40;
+	public static final int QUEST_GENERALHAMELOFRESENTMENT = 41;
 
 	public static final int QUEST_END = 255; 
 

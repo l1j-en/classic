@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
@@ -50,6 +51,9 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger _log = Logger.getLogger(L1Character.class
+			.getName());
 
 	private L1Poison _poison = null;
 	private boolean _paralyzed;
@@ -1138,36 +1142,7 @@ public class L1Character extends L1Object {
 	}
 
 	public int getMagicLevel() {
-		int magiclevel = 0;
-		if (this instanceof L1PcInstance) {
-			L1PcInstance pc = (L1PcInstance) this;
-			if (pc.isKnight()) { 
-				magiclevel = getLevel() / 50;
-			} else if (pc.isCrown()) { 
-				magiclevel = getLevel() / 10;
-				if (magiclevel > 2) {
-					magiclevel = 2;
-				}
-			} else if (pc.isElf()) { 
-				magiclevel = getLevel() / 8;
-				if (magiclevel > 6) {
-					magiclevel = 6;
-				}
-			} else if (pc.isDarkelf()) { 
-				magiclevel = getLevel() / 12;
-				if (magiclevel > 2) {
-					magiclevel = 2;
-				}
-			} else if (pc.isWizard()) { 
-				magiclevel = getLevel() / 4;
-				if (magiclevel > 10) {
-					magiclevel = 10;
-				}
-			}
-		} else {
-			magiclevel = getLevel() / 4;
-		}
-		return magiclevel;
+		return getLevel() / 4;
 	}
 
 	public int getMagicBonus() {
@@ -1198,8 +1173,8 @@ public class L1Character extends L1Object {
 	}
 
 	public boolean isInvisble() {
-		return (hasSkillEffect(L1SkillId.INVISIBILITY)
-				|| hasSkillEffect(L1SkillId.BLIND_HIDING));
+		return (hasSkillEffect(INVISIBILITY)
+				|| hasSkillEffect(BLIND_HIDING));
 	}
 
 	public void healHp(int pt) {

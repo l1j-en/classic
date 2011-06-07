@@ -19,7 +19,6 @@
 package l1j.server.server.model;
 
 import java.util.logging.Logger;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import l1j.server.server.model.Instance.L1ItemInstance;

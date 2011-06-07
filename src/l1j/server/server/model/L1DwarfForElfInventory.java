@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +52,9 @@ public class L1DwarfForElfInventory extends L1Inventory {
 				item.setChargeCount(rs.getInt("charge_count"));
 				item.setRemainingTime(rs.getInt("remaining_time"));
 				item.setLastUsed(rs.getTimestamp("last_used"));
+				item.setBless(rs.getInt("bless"));
+				item.setAttrEnchantKind(rs.getInt("attr_enchant_kind"));
+				item.setAttrEnchantLevel(rs.getInt("attr_enchant_level"));
 
 				_items.add(item);
 				L1World.getInstance().storeObject(item);
@@ -75,7 +77,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO character_elf_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?");
+					.prepareStatement("INSERT INTO character_elf_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setString(2, _owner.getAccountName());
 			pstm.setInt(3, item.getItemId());
@@ -87,6 +89,9 @@ public class L1DwarfForElfInventory extends L1Inventory {
 			pstm.setInt(9, item.getChargeCount());
 			pstm.setInt(10, item.getRemainingTime());
 			pstm.setTimestamp(11, item.getLastUsed());
+			pstm.setInt(12, item.getBless());
+			pstm.setInt(13, item.getAttrEnchantKind());
+			pstm.setInt(14, item.getAttrEnchantLevel());
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

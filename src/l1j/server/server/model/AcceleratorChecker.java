@@ -153,12 +153,14 @@ public class AcceleratorChecker {
 		if (type.equals(ACT_TYPE.MOVE) && _pc.isFastMovable()) {
 			interval *= HASTE_RATE;
 		}
+		if (type.equals(ACT_TYPE.ATTACK) && _pc.isFastAttackable()) {
+			interval *= HASTE_RATE;
+		}
 		if (_pc.isBrave()) {
-			if (_pc.isElf()) {
-				interval *= WAFFLE_RATE;
-			} else {
-				interval *= HASTE_RATE;
-			}
+			interval *= HASTE_RATE;
+		}
+		if (_pc.isElfBrave()) {
+			interval *= WAFFLE_RATE;
 		}
 
 		return interval;

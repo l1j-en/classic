@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,7 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.utils.SQLUtil;
-import java.util.Random;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1Teleport, L1PcInstance
@@ -133,7 +134,7 @@ public class DungeonRandom {
 			int newY = newDungeonRandom._newY[rnd];
 			int heading = newDungeonRandom._heading;
 
-			pc.setSkillEffect(L1SkillId.ABSOLUTE_BARRIER, 2000);
+			pc.setSkillEffect(ABSOLUTE_BARRIER, 2000);
 			pc.stopHpRegeneration();
 			pc.stopMpRegeneration();
 			pc.stopMpRegenerationByDoll();

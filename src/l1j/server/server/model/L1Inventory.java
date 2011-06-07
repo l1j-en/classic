@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.Config;
@@ -38,6 +39,9 @@ import l1j.server.server.templates.L1Item;
 public class L1Inventory extends L1Object {
 
 	private static final long serialVersionUID = 1L;
+
+	private static Logger _log = Logger.getLogger(L1Inventory.class.getName());
+
 	protected List<L1ItemInstance> _items = new CopyOnWriteArrayList<L1ItemInstance>();
 
 	public static final int MAX_AMOUNT = 2000000000; // 2G
@@ -195,6 +199,7 @@ public class L1Inventory extends L1Object {
 		} else {
 			item.setRemainingTime(item.getItem().getMaxUseTime());
 		}
+		item.setBless(item.getItem().getBless());
 		_items.add(item);
 		insertItem(item);
 		return item;
@@ -262,7 +267,6 @@ public class L1Inventory extends L1Object {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	public class DataComparator implements java.util.Comparator {
 		public int compare(Object item1, Object item2) {
 			return ((L1ItemInstance) item1).getEnchantLevel()
@@ -356,6 +360,7 @@ public class L1Inventory extends L1Object {
 			carryItem.setChargeCount(item.getChargeCount());
 			carryItem.setRemainingTime(item.getRemainingTime());
 			carryItem.setLastUsed(item.getLastUsed());
+			carryItem.setBless(item.getBless());
 		}
 		return inventory.storeTradeItem(carryItem);
 	}
@@ -491,6 +496,41 @@ public class L1Inventory extends L1Object {
 		}
 		return false;
 	}
+
+
+
+	public boolean checkEnchantItem(int id, int enchant, int count) {
+		int num = 0;
+		for (L1ItemInstance item : _items) {
+			if (item.isEquipped()) { 
+				continue;
+			}
+			if (item.getItemId() == id && item.getEnchantLevel() == enchant) {
+				num ++;
+				if (num == count) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+
+	public boolean consumeEnchantItem(int id, int enchant, int count) {
+		for (L1ItemInstance item : _items) {
+			if (item.isEquipped()) { 
+				continue;
+			}
+			if (item.getItemId() == id && item.getEnchantLevel() == enchant) {
+				removeItem(item);
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 
 	public boolean checkItemNotEquipped(int id, int count) {
 		if (count == 0) {

@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -29,20 +31,21 @@ import l1j.server.server.templates.L1EtcItem;
 
 public class L1ItemDelay {
 
+	private static final Logger _log = Logger.getLogger(L1ItemDelay.class
+			.getName());
+
 	private L1ItemDelay() {
 	}
 
 	static class ItemDelayTimer implements Runnable {
 		private int _delayId;
-		//TODO Not used
-		//private int _delayTime;
+		private int _delayTime;
 		private L1Character _cha;
 
 		public ItemDelayTimer(L1Character cha, int id, int time) {
 			_cha = cha;
 			_delayId = id;
-			//TODO Not used
-			//_delayTime = time;
+			_delayTime = time;
 		}
 
 		@Override

@@ -20,6 +20,7 @@ package l1j.server.server.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -31,12 +32,14 @@ import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_CloseList;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 // L1PcInstance
 
 public class L1PolyMorph {
-	
+	private static Logger _log = Logger.getLogger(L1PolyMorph.class.getName());
+
 	// weapon equip bit
 	private static final int DAGGER_EQUIP = 1;
 
@@ -54,7 +57,11 @@ public class L1PolyMorph {
 
 	private static final int CLAW_EQUIP = 128;
 
-	private static final int BOW_EQUIP = 256;
+	private static final int BOW_EQUIP = 256; 
+
+	private static final int KIRINGKU_EQUIP = 512;
+
+	private static final int CHAINSWORD_EQUIP= 1024;
 
 	// armor equip bit
 	private static final int HELM_EQUIP = 1;
@@ -78,6 +85,8 @@ public class L1PolyMorph {
 	private static final int RING_EQUIP = 512;
 
 	private static final int BOOTS_EQUIP = 1024;
+
+	private static final int GUARDER_EQUIP = 2048;
 
 	public static final int MORPH_BY_ITEMMAGIC = 1;
 
@@ -107,6 +116,8 @@ public class L1PolyMorph {
 		weaponFlgMap.put(14, SPEAR_EQUIP);
 		weaponFlgMap.put(15, AXE_EQUIP);
 		weaponFlgMap.put(16, STAFF_EQUIP);
+		weaponFlgMap.put(17, KIRINGKU_EQUIP);
+		weaponFlgMap.put(18, CHAINSWORD_EQUIP);
 	}
 	private static final Map<Integer, Integer> armorFlgMap = new HashMap<Integer, Integer>();
 	static {
@@ -121,6 +132,7 @@ public class L1PolyMorph {
 		armorFlgMap.put(9, RING_EQUIP);
 		armorFlgMap.put(10, BELT_EQUIP);
 		armorFlgMap.put(12, EARRING_EQUIP);
+		armorFlgMap.put(13, GUARDER_EQUIP);
 	}
 
 	private int _id;
@@ -187,8 +199,8 @@ public class L1PolyMorph {
 				if (pc.getTempCharGfx() == 6034
 						|| pc.getTempCharGfx() == 6035) {
 				} else {
-				pc.removeSkillEffect(L1SkillId.SHAPE_CHANGE);
-				pc.sendPackets(new S_CloseList(pc.getId()));
+					pc.removeSkillEffect(SHAPE_CHANGE);
+					pc.sendPackets(new S_CloseList(pc.getId()));
 				}
 			} else if (pc.getLevel() >= poly.getMinLevel() || pc.isGm()) {
 				if (pc.getTempCharGfx() == 6034
@@ -196,8 +208,8 @@ public class L1PolyMorph {
 					pc.sendPackets(new S_ServerMessage(181));
 					//				
 				} else {
-					doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
-					pc.sendPackets(new S_CloseList(pc.getId()));
+				doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
+				pc.sendPackets(new S_CloseList(pc.getId()));
 				}
 			} else {
 				pc.sendPackets(new S_ServerMessage(181));
@@ -238,6 +250,13 @@ public class L1PolyMorph {
 				if (!pc.isGmInvis() && !pc.isInvisble()) {
 					pc.broadcastPacket(new S_ChangeShape(pc.getId(), polyId));
 				}
+				if (pc.isGmInvis()) {
+				} else if (pc.isInvisble()) {
+					pc.broadcastPacketForFindInvis(new S_ChangeShape(pc
+							.getId(), polyId), true);
+				} else {
+					pc.broadcastPacket(new S_ChangeShape(pc.getId(), polyId));
+				}
 				pc.getInventory().takeoffEquip(polyId);
 				weapon = pc.getWeapon();
 				if (weapon != null) {
@@ -249,8 +268,8 @@ public class L1PolyMorph {
 			pc.sendPackets(new S_SkillIconGFX(35, timeSecs));
 		} else if (cha instanceof L1MonsterInstance) {
 			L1MonsterInstance mob = (L1MonsterInstance) cha;
-			mob.killSkillEffectTimer(L1SkillId.SHAPE_CHANGE);
-			mob.setSkillEffect(L1SkillId.SHAPE_CHANGE, timeSecs * 1000);
+			mob.killSkillEffectTimer(SHAPE_CHANGE);
+			mob.setSkillEffect(SHAPE_CHANGE, timeSecs * 1000);
 			if (mob.getTempCharGfx() != polyId) { 
 				mob.setTempCharGfx(polyId);
 				mob.broadcastPacket(new S_ChangeShape(mob.getId(), polyId));
@@ -307,7 +326,7 @@ public class L1PolyMorph {
 		L1PolyMorph poly = PolyTable.getInstance().getTemplate(polyId);
 		if (poly == null) {
 			return true;
-}
+		}
 		if (cause == MORPH_BY_LOGIN) {
 			return true;
 		}
