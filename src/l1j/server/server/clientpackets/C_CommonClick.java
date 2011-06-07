@@ -45,7 +45,7 @@ public class C_CommonClick {
 	public C_CommonClick(ClientThread client) {
 		deleteCharacter(client);
 		int amountOfChars = client.getAccount().countCharacters();
-		client.sendPacket(new S_CharAmount(amountOfChars));
+		client.sendPacket(new S_CharAmount(amountOfChars, client));
 		if (amountOfChars > 0) {
 			sendCharPacks(client);
 		}

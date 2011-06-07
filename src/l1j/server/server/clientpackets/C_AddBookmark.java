@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1HouseLocation;
@@ -32,6 +34,8 @@ import l1j.server.server.templates.L1BookMark;
 public class C_AddBookmark extends ClientBasePacket {
 
 	private static final String C_ADD_BOOKMARK = "[C] C_AddBookmark";
+	private static Logger _log = Logger.getLogger(C_AddBookmark.class
+			.getName());
 
 	public C_AddBookmark(byte[] decrypt, ClientThread client) {
 		super(decrypt);

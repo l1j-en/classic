@@ -25,6 +25,7 @@ import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Party;
+import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -46,8 +47,9 @@ public class C_Party extends ClientBasePacket {
 					.getId(), party.getLeader().getName(), party
 					.getMembersNameList()));
 		} else {
-			pc.sendPackets(new S_Party("party", pc
-					.getId()));
+			pc.sendPackets(new S_ServerMessage(425)); // 
+// pc.sendPackets(new S_Party("party", pc
+// .getId()));
 		}
 	}
 

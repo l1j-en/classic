@@ -19,6 +19,8 @@ package l1j.server.server.clientpackets;
 
 import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 
+import java.util.logging.Logger;
+
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.AcceleratorChecker;
@@ -26,17 +28,25 @@ import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
-import l1j.server.server.model.L1Location;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
 import l1j.server.server.serverpackets.S_SystemMessage;
-//import l1j.server.server.serverpackets.S_SystemMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
+
 public class C_MoveChar extends ClientBasePacket {
 
+	private static Logger _log = Logger.getLogger(C_MoveChar.class.getName());
 
+	private static final byte HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+
+	private static final byte HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
+
+	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
+
+	// 
 	private void sendMapTileLog(L1PcInstance pc) {
 		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(
 				pc.getLocation())));
@@ -65,53 +75,24 @@ public class C_MoveChar extends ClientBasePacket {
 			}
 		}
 
-		pc.killSkillEffectTimer(L1SkillId.MEDITATION);
-		pc.setCallClanId(0); //
+		pc.killSkillEffectTimer(MEDITATION);
+		pc.setCallClanId(0); // 
 
-		if (!pc.hasSkillEffect(L1SkillId.ABSOLUTE_BARRIER)) { // 
+		if (!pc.hasSkillEffect(ABSOLUTE_BARRIER)) { //
 			pc.setRegenState(REGENSTATE_MOVE);
 		}
 		pc.getMap().setPassable(pc.getLocation(), true);
 
-		switch (heading) {
-		case 1: // '\001'
-			locx++;
-			locy--;
-			break;
-
-		case 2: // '\002'
-			locx++;
-			break;
-
-		case 3: // '\003'
-			locx++;
-			locy++;
-			break;
-
-		case 4: // '\004'
-			locy++;
-			break;
-
-		case 5: // '\005'
-			locx--;
-			locy++;
-			break;
-
-		case 6: // '\006'
-			locx--;
-			break;
-
-		case 7: // '\007'
-			locx--;
-			locy--;
-			break;
-
-		case 0: // '\0'
-			locy--;
-			break;
+		if (CLIENT_LANGUAGE == 3) { // Taiwan Only
+			heading ^= 0x49;
+			locx = pc.getX();
+			locy = pc.getY();
 		}
 
-		if (Dungeon.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { 
+		locx += HEADING_TABLE_X[heading];
+		locy += HEADING_TABLE_Y[heading];
+
+		if (Dungeon.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { // _WÉe|[gµ½ê
 			return;
 		}
 		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(),
@@ -128,7 +109,10 @@ public class C_MoveChar extends ClientBasePacket {
 		}
 		pc.getLocation().set(locx, locy);
 		pc.setHeading(heading);
-		if (!pc.isGmInvis() && !pc.isGhost() && !pc.isInvisble()) {
+		if (pc.isGmInvis() || pc.isGhost()) {
+		} else if (pc.isInvisble()) {
+			pc.broadcastPacketForFindInvis(new S_MoveCharPacket(pc), true);
+		} else {
 			pc.broadcastPacket(new S_MoveCharPacket(pc));
 		}
 

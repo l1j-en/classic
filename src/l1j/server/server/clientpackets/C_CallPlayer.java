@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Teleport;
@@ -31,6 +33,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_CallPlayer extends ClientBasePacket {
 
 	private static final String C_CALL = "[C] C_Call";
+
+	private static Logger _log = Logger.getLogger(C_CallPlayer.class.getName());
 
 	public C_CallPlayer(byte[] decrypt, ClientThread client) {
 		super(decrypt);

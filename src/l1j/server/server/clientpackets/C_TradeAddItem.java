@@ -45,6 +45,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 		int itemid = readD();
 		int itemcount = readD();
 		L1PcInstance pc = client.getActiveChar();
+		//TRICIDTODO: set configurable autoban
 		if (itemcount < 0)
 		{
 			_log.info(pc.getName() + " attempted dupe exploit (C_TradeAddItem).");
@@ -54,6 +55,11 @@ public class C_TradeAddItem extends ClientBasePacket {
 		L1Trade trade = new L1Trade();
 		L1ItemInstance item = pc.getInventory().getItem(itemid);
 		if (!item.getItem().isTradable()) {
+			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName())); // \f1%0ÍÌÄ½èÜ½Í¼lÉæ¨é±ÆªÅ«Ü¹ñB
+			return;
+		}
+		if (item.getBless() >= 128) { // 
+			// 
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
@@ -71,6 +77,9 @@ public class C_TradeAddItem extends ClientBasePacket {
 		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance()
 				.findObject(pc.getTradeID());
 		if (tradingPartner == null) {
+			return;
+		}
+		if (pc.getTradeOk()) {
 			return;
 		}
 		if (tradingPartner.getInventory().checkAddItem(item, itemcount)

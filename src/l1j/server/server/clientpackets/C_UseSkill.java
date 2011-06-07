@@ -37,6 +37,8 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class C_UseSkill extends ClientBasePacket {
 
+	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
+
 	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int row = readC();
@@ -53,7 +55,10 @@ public class C_UseSkill extends ClientBasePacket {
 			return;
 		}
 		if (!pc.getMap().isUsableSkill()) {
-			pc.sendPackets(new S_ServerMessage(563));
+			pc.sendPackets(new S_ServerMessage(563)); //
+			return;
+		}
+		if (!pc.isSkillMastery(skillId)) {
 			return;
 		}
 

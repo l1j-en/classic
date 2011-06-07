@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1World;
@@ -38,6 +40,9 @@ import l1j.server.server.serverpackets.S_Weather;
 // ClientBasePacket
 
 public class C_Restart extends ClientBasePacket {
+
+	private static Logger _log = Logger.getLogger(C_Restart.class.getName());
+
 	private static final String C_RESTART = "[C] C_Restart";
 
 	public C_Restart(byte abyte0[], ClientThread clientthread)
@@ -60,7 +65,7 @@ public class C_Restart extends ClientBasePacket {
 		pc.broadcastPacket(new S_RemoveObject(pc));
 
 		pc.setCurrentHp(pc.getLevel());
-		pc.set_food(5);
+		pc.set_food(40);
 		pc.setDead(false);
 		pc.setStatus(0);
 		L1World.getInstance().moveVisibleObject(pc, loc[2]);
@@ -78,6 +83,7 @@ public class C_Restart extends ClientBasePacket {
 			pc.beginHell(false);
 		}
 		// NOTE: Don't remove. Refills HP/MP in n00b areas.
+		//TRICIDTODO:  Make configurable option
 		if ((pc.getMapId() == 68 || pc.getMapId() == 69) && (pc.getCurrentHp() <= (pc.getMaxHp() / 2))) {
 			pc.setCurrentHp(pc.getMaxHp());
 			pc.setCurrentMp(pc.getMaxMp());

@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
@@ -31,6 +33,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_TradeOK extends ClientBasePacket {
 
 	private static final String C_TRADE_CANCEL = "[C] C_TradeOK";
+	private static Logger _log = Logger.getLogger(C_TradeOK.class.getName());
+
 	public C_TradeOK(byte abyte0[], ClientThread clientthread)
 			throws Exception {
 		super(abyte0);

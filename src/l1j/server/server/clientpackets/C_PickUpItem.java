@@ -28,7 +28,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
-import l1j.server.server.serverpackets.S_AttackStatus;
+import l1j.server.server.serverpackets.S_AttackPacket;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_PickUpItem extends ClientBasePacket {
@@ -46,6 +46,7 @@ public class C_PickUpItem extends ClientBasePacket {
 		int pickupCount = readD();
 
 		L1PcInstance pc = client.getActiveChar();
+		//TRICIDTODO: Set configurable auto ban
 		if (pickupCount < 0)
 		{
 			_log.info(pc.getName() + " attempted dupe exploit (C_PickUpItem).");

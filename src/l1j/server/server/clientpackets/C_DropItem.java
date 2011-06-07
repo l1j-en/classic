@@ -41,7 +41,7 @@ public class C_DropItem extends ClientBasePacket {
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-		
+		//TRICIDTODO: set configurable auto ban
 		if (count < 0)
 		{
 			_log.info(pc.getName() + " attempted dupe exploit (C_DropItem).");
@@ -83,6 +83,12 @@ public class C_DropItem extends ClientBasePacket {
 
 			if (item.isEquipped()) {
 				pc.sendPackets(new S_ServerMessage(125));
+				return;
+			}
+			if (item.getBless() >= 128) { //
+
+				pc.sendPackets(new S_ServerMessage(210, item.getItem()
+						.getName()));
 				return;
 			}
 

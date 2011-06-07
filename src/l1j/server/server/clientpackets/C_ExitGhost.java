@@ -17,6 +17,8 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -24,6 +26,10 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ClientBasePacket
 
 public class C_ExitGhost extends ClientBasePacket {
+
+	private static Logger _log = Logger.getLogger(C_ExitGhost.class
+			.getName());
+
 	private static final String C_EXIT_GHOST = "[C] C_ExitGhost";
 
 	public C_ExitGhost(byte decrypt[], ClientThread client)

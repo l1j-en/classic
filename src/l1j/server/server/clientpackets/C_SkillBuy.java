@@ -19,7 +19,7 @@
 
 package l1j.server.server.clientpackets;
 
-//import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,6 +31,7 @@ import l1j.server.server.serverpackets.S_SkillBuy;
 public class C_SkillBuy extends ClientBasePacket {
 
 	private static final String C_SKILL_BUY = "[C] C_SkillBuy";
+	private static Logger _log = Logger.getLogger(C_SkillBuy.class.getName());
 
 	public C_SkillBuy(byte abyte0[], ClientThread clientthread)
 			throws Exception {

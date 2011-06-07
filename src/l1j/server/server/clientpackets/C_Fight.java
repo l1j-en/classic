@@ -19,10 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;

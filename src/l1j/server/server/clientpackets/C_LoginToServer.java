@@ -114,6 +114,9 @@ public class C_LoginToServer extends ClientBasePacket {
 		_log.info("Character login: char=" + charName + " account=" + login
 				+ " host=" + client.getHostname());
 
+		int currentHpAtLoad = pc.getCurrentHp();
+		int currentMpAtLoad = pc.getCurrentMp();
+		pc.clearSkillMastery();
 		pc.setOnlineStatus(1);
 		CharacterTable.updateOnlineStatus(pc);
 		L1World.getInstance().storeObject(pc);
@@ -263,12 +266,18 @@ public class C_LoginToServer extends ClientBasePacket {
 			if (partner != null && partner.getPartnerId() != 0) {
 				if (pc.getPartnerId() == partner.getId()
 						&& partner.getPartnerId() == pc.getId()) {
-					pc.sendPackets(new S_ServerMessage(548)); 
-					partner.sendPackets(new S_ServerMessage(549));
+					pc.sendPackets(new S_ServerMessage(548)); // 
+					partner.sendPackets(new S_ServerMessage(549)); // 
 				}
 			}
 		}
 
+		if (currentHpAtLoad > pc.getCurrentHp()) {
+			pc.setCurrentHp(currentHpAtLoad);
+		}
+		if (currentMpAtLoad > pc.getCurrentMp()) {
+			pc.setCurrentMp(currentMpAtLoad);
+		}
 		pc.startHpRegeneration();
 		pc.startMpRegeneration();
 		pc.startObjectAutoUpdate();
@@ -360,6 +369,10 @@ public class C_LoginToServer extends ClientBasePacket {
 			int lv22 = 0;
 			int lv23 = 0;
 			int lv24 = 0;
+			int lv25 = 0;
+			int lv26 = 0;
+			int lv27 = 0;
+			int lv28 = 0;
 			while (rs.next()) {
 				int skillId = rs.getInt("skill_id");
 				L1Skills l1skills = SkillsTable.getInstance().getTemplate(
@@ -436,9 +449,22 @@ public class C_LoginToServer extends ClientBasePacket {
 				if (l1skills.getSkillLevel() == 24) {
 					lv24 |= l1skills.getId();
 				}
+				if (l1skills.getSkillLevel() == 25) {
+					lv25 |= l1skills.getId();
+				}
+				if (l1skills.getSkillLevel() == 26) {
+					lv26 |= l1skills.getId();
+				}
+				if (l1skills.getSkillLevel() == 27) {
+					lv27 |= l1skills.getId();
+				}
+				if (l1skills.getSkillLevel() == 28) {
+					lv28 |= l1skills.getId();
+				}
 				i = lv1 + lv2 + lv3 + lv4 + lv5 + lv6 + lv7 + lv8 + lv9 + lv10
 						+ lv11 + lv12 + lv13 + lv14 + lv15 + lv16 + lv17 + lv18
-						+ lv19 + lv20 + lv21 + lv22 + lv23 + lv24;
+						+ lv19 + lv20 + lv21 + lv22 + lv23 + lv24 + lv25 + lv26 + lv27 + lv28;
+				pc.setSkillMastery(skillId);
 			}
 			if (i > 0) {
 				pc.sendPackets(new S_AddSkill(lv1, lv2, lv3, lv4, lv5, lv6,
@@ -510,7 +536,11 @@ public class C_LoginToServer extends ClientBasePacket {
 					pc.sendPackets(new S_SkillIconGFX(36, remaining_time));
 					pc.setSkillEffect(skillid, remaining_time * 1000);
 				} else if (skillid >= COOKING_1_0_N && skillid <= COOKING_1_6_N
-						|| skillid >= COOKING_1_0_S && skillid <= COOKING_1_6_S) { 
+						|| skillid >= COOKING_1_0_S && skillid <= COOKING_1_6_S
+						|| skillid >= COOKING_2_0_N && skillid <= COOKING_2_6_N
+						|| skillid >= COOKING_2_0_S && skillid <= COOKING_2_6_S
+						|| skillid >= COOKING_3_0_N && skillid <= COOKING_3_6_N
+						|| skillid >= COOKING_3_0_S && skillid <= COOKING_3_6_S) { // ¿(fU[gÍ­)
 					L1Cooking.eatCooking(pc, skillid, remaining_time);
 				} else {
 					L1SkillUse l1skilluse = new L1SkillUse();

@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -29,6 +31,9 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 
 public class C_DeleteInventoryItem extends ClientBasePacket {
+
+	private static Logger _log = Logger.getLogger(C_DeleteInventoryItem.class
+			.getName());
 	private static final String C_DELETE_INVENTORY_ITEM
 			= "[C] C_DeleteInventoryItem";
 
@@ -65,6 +70,12 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(125));
 			return;
 		}
+		if (item.getBless() >= 128) { //
+
+			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+			return;
+		}
+
 		pc.getInventory().removeItem(item, item.getCount());
 		pc.turnOnOffLight();
 	}

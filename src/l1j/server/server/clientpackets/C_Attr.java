@@ -47,6 +47,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.map.L1Map;
 import l1j.server.server.serverpackets.S_ChangeName;
+import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;
 import l1j.server.server.serverpackets.S_PacketBox;
@@ -65,6 +66,9 @@ public class C_Attr extends ClientBasePacket {
 
 	private static final Logger _log = Logger.getLogger(C_Attr.class.getName());
 	private static final String C_ATTR = "[C] C_Attr";
+
+	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
 	public C_Attr(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
@@ -127,6 +131,10 @@ public class C_Attr extends ClientBasePacket {
 							joinPc.setClanid(clan_id);
 							joinPc.setClanname(clanName);
 							joinPc.setClanRank(L1Clan.CLAN_RANK_PUBLIC);
+							joinPc.setTitle("");
+							joinPc.sendPackets(new S_CharTitle(joinPc.getId(), ""));
+							joinPc.broadcastPacket(new S_CharTitle(joinPc
+									.getId(), ""));
 							joinPc.save(); 
 							clan.addMemberName(joinPc.getName());
 							joinPc.sendPackets(new S_ServerMessage(95,
@@ -210,11 +218,14 @@ public class C_Attr extends ClientBasePacket {
 				} else if (c == 1) { // Yes
 					pc.sendPackets(new S_SkillSound(pc.getId(), '\346'));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), '\346'));
+					// pc.resurrect(pc.getLevel());
+					// pc.setCurrentHp(pc.getLevel());
 					pc.resurrect(pc.getMaxHp() / 2);
 					pc.setCurrentHp(pc.getMaxHp() / 2);
 					pc.startHpRegeneration();
 					pc.startMpRegeneration();
 					pc.startMpRegenerationByDoll();
+					pc.stopPcDeleteTimer();
 					pc.sendPackets(new S_Resurrection(pc, resusepc1, 0));
 					pc.broadcastPacket(new S_Resurrection(pc, resusepc1, 0));
 					pc.sendPackets(new S_CharVisualUpdate(pc));
@@ -239,6 +250,7 @@ public class C_Attr extends ClientBasePacket {
 					pc.startHpRegeneration();
 					pc.startMpRegeneration();
 					pc.startMpRegenerationByDoll();
+					pc.stopPcDeleteTimer();
 					pc.sendPackets(new S_Resurrection(pc, resusepc2, 0));
 					pc.broadcastPacket(new S_Resurrection(pc, resusepc2, 0));
 					pc.sendPackets(new S_CharVisualUpdate(pc));
@@ -292,14 +304,25 @@ public class C_Attr extends ClientBasePacket {
 			}
 			break;
 
-		case 653: //
+		case 653: 
 			c = readC();
+			L1PcInstance target653 = (L1PcInstance) L1World.getInstance()
+					.findObject(pc.getPartnerId());
 			if (c == 0) { // No
-				;
+				return;
 			} else if (c == 1) { // Yes
-				pc.setPartnerId(0);
-				pc.save();
+				if (target653 != null) {
+					target653.setPartnerId(0);
+					target653.save();
+					target653.sendPackets(new S_ServerMessage(662)); 
+				} else {
+					CharacterTable.getInstance().updatePartnerId(pc
+							.getPartnerId());
+				}
 			}
+			pc.setPartnerId(0);
+			pc.save(); 
+			pc.sendPackets(new S_ServerMessage(662)); 
 			break;
 
 		case 654: 
@@ -428,7 +451,8 @@ public class C_Attr extends ClientBasePacket {
 					return;
 				}
 				if (s.toLowerCase().equals("str".toLowerCase())) {
-					if (pc.getBaseStr() < 25) {
+					// if(l1pcinstance.get_str() < 255)
+					if (pc.getBaseStr() < 35) {
 						pc.addBaseStr((byte) 1); 
 						pc.setBonusStats(pc.getBonusStats() + 1);
 						pc.sendPackets(new S_OwnCharStatus2(pc));
@@ -438,7 +462,8 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481));
 					}
 				} else if (s.toLowerCase().equals("dex".toLowerCase())) {
-					if (pc.getBaseDex() < 25) {
+					// if(l1pcinstance.get_dex() < 255)
+					if (pc.getBaseDex() < 35) {
 						pc.addBaseDex((byte) 1); 
 						pc.resetBaseAc();
 						pc.setBonusStats(pc.getBonusStats() + 1);
@@ -449,8 +474,9 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481)); 
 					}
 				} else if (s.toLowerCase().equals("con".toLowerCase())) {
-					if (pc.getBaseCon() < 25) {
-						pc.addBaseCon((byte) 1);
+					// if(l1pcinstance.get_con() < 255)
+					if (pc.getBaseCon() < 35) {
+						pc.addBaseCon((byte) 1); 
 						pc.setBonusStats(pc.getBonusStats() + 1);
 						pc.sendPackets(new S_OwnCharStatus2(pc));
 						pc.sendPackets(new S_CharVisualUpdate(pc));
@@ -459,8 +485,9 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481)); 
 					}
 				} else if (s.toLowerCase().equals("int".toLowerCase())) {
-					if (pc.getBaseInt() < 25) {
-						pc.addBaseInt((byte) 1);
+					// if(l1pcinstance.get_int() < 255)
+					if (pc.getBaseInt() < 35) {
+						pc.addBaseInt((byte) 1); 
 						pc.setBonusStats(pc.getBonusStats() + 1);
 						pc.sendPackets(new S_OwnCharStatus2(pc));
 						pc.sendPackets(new S_CharVisualUpdate(pc));
@@ -469,8 +496,9 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481)); 
 					}
 				} else if (s.toLowerCase().equals("wis".toLowerCase())) {
-					if (pc.getBaseWis() < 25) {
-						pc.addBaseWis((byte) 1);
+					// if(l1pcinstance.get_wis() < 255)
+					if (pc.getBaseWis() < 35) {
+						pc.addBaseWis((byte) 1); 
 						pc.resetBaseMr();
 						pc.setBonusStats(pc.getBonusStats() + 1);
 						pc.sendPackets(new S_OwnCharStatus2(pc));
@@ -480,7 +508,8 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481));
 					}
 				} else if (s.toLowerCase().equals("cha".toLowerCase())) {
-					if (pc.getBaseCha() < 25) {
+					// if(l1pcinstance.get_cha() < 255)
+					if (pc.getBaseCha() < 35) {
 						pc.addBaseCha((byte) 1); 
 						pc.setBonusStats(pc.getBonusStats() + 1);
 						pc.sendPackets(new S_OwnCharStatus2(pc));
@@ -603,7 +632,7 @@ public class C_Attr extends ClientBasePacket {
 			return;
 		}
 		if (!pc.getMap().isEscapable() && !pc.isGm()) {
-			// GlM[e|[gWQBAe|[ggpB
+			//
 			pc.sendPackets(new S_ServerMessage(647));
 			L1Teleport.teleport(pc, pc.getLocation(), pc.getHeading(), false);
 			return;
@@ -617,70 +646,23 @@ public class C_Attr extends ClientBasePacket {
 		if (castleId != 0) {
 			isInWarArea = true;
 			if (WarTimeController.getInstance().isNowWar(castleId)) {
-				isInWarArea = false; // gp\
+				isInWarArea = false; //
 			}
 		}
 		short mapId = callClanPc.getMapId();
 		if (mapId != 0 && mapId != 4 && mapId != 304 || isInWarArea) {
-			// \f1p[gi[svCB
+			//
 			pc.sendPackets(new S_ServerMessage(547));
 			return;
 		}
 
 		L1Map map = callClanPc.getMap();
-		int callCalnX = callClanPc.getX();
-		int callCalnY = callClanPc.getY();
-		int locX = 0;
-		int locY = 0;
-		int heading = 0;
-		switch (callClanPc.getCallClanHeading()) {
-		case 0:
-			locY = callCalnY - 1;
-			heading = 4;
-			break;
-
-		case 1:
-			locX = callCalnX + 1;
-			locY = callCalnY - 1;
-			heading = 5;
-			break;
-
-		case 2:
-			locX = callCalnX + 1;
-			heading = 6;
-			break;
-
-		case 3:
-			locX = callCalnX + 1;
-			locY = callCalnY + 1;
-			heading = 7;
-			break;
-
-		case 4:
-			locY = callCalnY + 1;
-			heading = 0;
-			break;
-
-		case 5:
-			locX = callCalnX - 1;
-			locY = callCalnY + 1;
-			heading = 1;
-			break;
-
-		case 6:
-			locX = callCalnX - 1;
-			heading = 2;
-			break;
-
-		case 7:
-			locX = callCalnX - 1;
-			locY = callCalnY - 1;
-			heading = 3;
-			break;
-
-		default:
-			break;
-		}
+		int locX = callClanPc.getX();
+		int locY = callClanPc.getY();
+		int heading = callClanPc.getCallClanHeading();
+		locX += HEADING_TABLE_X[heading];
+		locY += HEADING_TABLE_Y[heading];
+		heading = (heading + 4) % 4;
 
 		boolean isExsistCharacter = false;
 		for (L1Object object : L1World.getInstance()
@@ -697,7 +679,7 @@ public class C_Attr extends ClientBasePacket {
 
 		if (locX == 0 && locY == 0 || !map.isPassable(locX, locY)
 				|| isExsistCharacter) {
-			// QB
+			//
 			pc.sendPackets(new S_ServerMessage(627));
 			return;
 		}

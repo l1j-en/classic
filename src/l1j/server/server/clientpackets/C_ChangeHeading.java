@@ -39,7 +39,10 @@ public class C_ChangeHeading extends ClientBasePacket {
 
 		_log.finest("Change Heading : " + pc.getHeading());
 
-		if (!pc.isGmInvis() && !pc.isGhost() && !pc.isInvisble()) {
+		if (pc.isGmInvis() || pc.isGhost()) {
+		} else if (pc.isInvisble()) {
+			pc.broadcastPacketForFindInvis(new S_ChangeHeading(pc), true);
+		} else {
 			pc.broadcastPacket(new S_ChangeHeading(pc));
 		}
 	}

@@ -19,16 +19,20 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
 import l1j.server.server.serverpackets.S_DoActionGFX;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 
 public class C_ExtraCommand extends ClientBasePacket {
 	private static final String C_EXTRA_COMMAND = "[C] C_ExtraCommand";
+	private static Logger _log = Logger.getLogger(C_ExtraCommand.class
+			.getName());
 
 	public C_ExtraCommand(byte abyte0[], ClientThread client)
 			throws Exception {

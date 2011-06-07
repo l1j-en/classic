@@ -45,7 +45,7 @@ public class C_Deposit extends ClientBasePacket {
 		int j = readD();
 
 		L1PcInstance player = clientthread.getActiveChar();
-
+		//TRICIDTODO:  set configurable auto ban
 		if (j < 0)
 		{
 			_log.info(player.getName() + " attempted dupe exploit (C_Deposit).");

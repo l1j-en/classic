@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
@@ -35,6 +37,7 @@ import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -42,6 +45,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Chat extends ClientBasePacket {
 
 	private static final String C_CHAT = "[C] C_Chat";
+	private static Logger _log = Logger.getLogger(C_Chat.class.getName());
 
 	public C_Chat(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -49,9 +53,9 @@ public class C_Chat extends ClientBasePacket {
 		L1PcInstance pc = clientthread.getActiveChar();
 		int chatType = readC();
 		String chatText = readS();
-		if (pc.hasSkillEffect(L1SkillId.SILENCE)
-				|| pc.hasSkillEffect(L1SkillId.AREA_OF_SILENCE)
-				|| pc.hasSkillEffect(L1SkillId.STATUS_POISON_SILENCE)) {
+		if (pc.hasSkillEffect(SILENCE)
+				|| pc.hasSkillEffect(AREA_OF_SILENCE)
+				|| pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
 			return;
 		}
 		if (pc.hasSkillEffect(1005)) { 
@@ -220,6 +224,7 @@ public class C_Chat extends ClientBasePacket {
 							chatType));
 		} else if (pc.getLevel() >= Config.GLOBAL_CHAT_LEVEL) {
 			if (L1World.getInstance().isWorldChatElabled()) {
+				//TRICIDTODO: Make this a configurable option
 				if (pc.get_food() >= 2) {
 					// pc.set_food(pc.get_food() - 2); // we dont want this on lineagedc
 					ChatLogTable.getInstance().storeChat(pc, null, chatText,
@@ -249,7 +254,7 @@ public class C_Chat extends ClientBasePacket {
 			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(195, String
-					.valueOf(Config.GLOBAL_CHAT_LEVEL))); // x%0LN^[`bgB
+					.valueOf(Config.GLOBAL_CHAT_LEVEL))); //
 		}
 	}
 

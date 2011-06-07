@@ -26,6 +26,7 @@ import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Pledge;
+import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -50,7 +51,8 @@ public class C_Pledge extends ClientBasePacket {
 						clan.getClanName(), clan.getOnlineMembersFP()));
 			}
 		} else {
-			pc.sendPackets(new S_Pledge("pledge", pc.getId()));
+			pc.sendPackets(new S_ServerMessage(1064)); //
+// pc.sendPackets(new S_Pledge("pledge", pc.getId()));
 		}
 	}
 

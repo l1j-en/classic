@@ -61,6 +61,10 @@ public class C_DeleteChar extends ClientBasePacket {
 						pc.setType(35);
 					} else if (pc.isDarkelf()) {
 						pc.setType(36);
+					} else if (pc.isDragonKnight()) {
+						pc.setType(37);
+					} else if (pc.isIllusionist()) {
+						pc.setType(38);
 					}
 					Timestamp deleteTime = new Timestamp(System
 							.currentTimeMillis() + 604800000); // 7 Days
@@ -77,6 +81,10 @@ public class C_DeleteChar extends ClientBasePacket {
 						pc.setType(3);
 					} else if (pc.isDarkelf()) {
 						pc.setType(4);
+					} else if (pc.isDragonKnight()) {
+						pc.setType(5);
+					} else if (pc.isIllusionist()) {
+						pc.setType(6);
 					}
 					pc.setDeleteTime(null);
 					pc.save();

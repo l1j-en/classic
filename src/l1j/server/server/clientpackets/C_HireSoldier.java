@@ -19,6 +19,8 @@
 
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -27,15 +29,20 @@ import l1j.server.server.ClientThread;
 public class C_HireSoldier extends ClientBasePacket {
 
 	private static final String C_HIRE_SOLDIER = "[C] C_HireSoldier";
-	
-	// S_HireSoldier
+
+	private static Logger _log = Logger.getLogger(C_HireSoldier.class
+			.getName());
+
+
 	public C_HireSoldier(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		int something1 = readH(); // S_HireSoldierpPbg
-		int something2 = readH(); // S_HireSoldier
-		int something3 = readD(); // 1
-		int something4 = readD(); // S_HireSoldier
-		int number = readH();
+		int something1 = readH(); // 
+		int something2 = readH(); // 
+		int something3 = readD(); // 
+		int something4 = readD(); // 
+		int number = readH(); //
+		
+		// 
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class C_ReturnToLogin extends ClientBasePacket {
 		String account = client.getAccountName();
 		_log.finest((new StringBuilder()).append("account : ").append(account)
 				.toString());
-
+		LoginController.getInstance().logout(client);
 	}
 
 	@Override

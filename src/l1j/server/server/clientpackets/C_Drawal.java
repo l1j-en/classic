@@ -48,6 +48,7 @@ public class C_Drawal extends ClientBasePacket {
 		int j = readD();
 
 		L1PcInstance pc = clientthread.getActiveChar();
+		//TRICIDTODO: set configurable auto ban
 		if (j < 0) {
 			_log.info(pc.getName() + " attempted dupe exploit (C_Drawal).");
 			return;

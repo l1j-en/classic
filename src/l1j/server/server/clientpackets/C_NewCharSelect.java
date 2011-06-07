@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_PacketBox;
 
 public class C_NewCharSelect extends ClientBasePacket {
 	private static final String C_NEW_CHAR_SELECT = "[C] C_NewCharSelect";
@@ -30,6 +31,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 
 	public C_NewCharSelect(byte[] decrypt, ClientThread client) {
 		super(decrypt);
+		client.sendPacket(new S_PacketBox(S_PacketBox.LOGOUT)); // 2.70C->3.0ÅÇÁ
 		client.CharReStart(true);
 		if (client.getActiveChar() != null) {
 			L1PcInstance pc = client.getActiveChar();
