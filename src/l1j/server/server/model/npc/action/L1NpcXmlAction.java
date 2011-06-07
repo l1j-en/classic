@@ -76,6 +76,8 @@ public abstract class L1NpcXmlAction implements L1NpcAction {
 		_charTypes.put('E', 2);
 		_charTypes.put('W', 3);
 		_charTypes.put('D', 4);
+		_charTypes.put('R', 5);
+		_charTypes.put('I', 6);
 	}
 
 	private int[] parseNpcIds(String npcIds) {
