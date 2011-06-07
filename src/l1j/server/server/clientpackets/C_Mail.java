@@ -42,31 +42,31 @@ public class C_Mail extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_Mail.class.getName());
 
-	private static int TYPE_NORMAL_MAIL = 0; // 一般
-	private static int TYPE_CLAN_MAIL = 1; // 血盟
-	private static int TYPE_MAIL_BOX = 2; // 保管箱
+	private static int TYPE_NORMAL_MAIL = 0; // 
+	private static int TYPE_CLAN_MAIL = 1; // 
+	private static int TYPE_MAIL_BOX = 2; // 
 
 	public C_Mail(byte abyte0[], ClientThread client) {
 		super(abyte0);
 		int type = readC();
 		L1PcInstance pc = client.getActiveChar();
 
-		if (type == 0x00 || type == 0x01 || type == 0x02) { // 開く
+		if (type == 0x00 || type == 0x01 || type == 0x02) { // J
 			pc.sendPackets(new S_Mail(pc.getName(), type));
-		} else if (type == 0x10 || type == 0x11 || type == 0x12) { // 読む
+		} else if (type == 0x10 || type == 0x11 || type == 0x12) { // 
 			int mailId = readD();
 			L1Mail mail = MailTable.getInstance().getMail(mailId);
 			if (mail.getReadStatus() == 0) {
 				MailTable.getInstance().setReadStatus(mailId);
 			}
 			pc.sendPackets(new S_Mail(mailId, type));
-		} else if (type == 0x20) { // 一般メールを書く
+		} else if (type == 0x20) { // [
 			int unknow = readH();
 			String receiverName = readS();
 			byte[] text = readByte();
 			L1PcInstance receiver = L1World.getInstance().
 					getPlayer(receiverName);
-			if (receiver != null) { // オンライン中
+			if (receiver != null) { // IC
 				if (getMailSizeByReceiver(receiverName,
 						TYPE_NORMAL_MAIL) >= 20) {
 					pc.sendPackets(new S_Mail(type));
@@ -78,7 +78,7 @@ public class C_Mail extends ClientBasePacket {
 					receiver.sendPackets(new S_Mail(receiverName,
 							TYPE_NORMAL_MAIL));
 				}
-			} else { // オフライン中
+			} else { // ItC
 				try {
 					L1PcInstance restorePc = CharacterTable.getInstance()
 							.restoreCharacter(receiverName);
@@ -91,13 +91,13 @@ public class C_Mail extends ClientBasePacket {
 						MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL,
 								receiverName, pc, text);
 					} else {
-						pc.sendPackets(new S_ServerMessage(109, receiverName)); // %0という名前の人はいません。
+						pc.sendPackets(new S_ServerMessage(109, receiverName)); // %0OlB
 					}
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 			}
-		} else if (type == 0x21) { // 血盟メールを書く
+		} else if (type == 0x21) { // [
 			int unknow = readH();
 			String clanName = readS();
 			byte[] text = readByte();
@@ -112,17 +112,17 @@ public class C_Mail extends ClientBasePacket {
 							pc, text);
 					L1PcInstance clanPc = L1World.getInstance().
 							getPlayer(name);
-					if (clanPc != null) { // オンライン中
+					if (clanPc != null) { // IC
 						clanPc.sendPackets(new S_Mail(name,
 								TYPE_CLAN_MAIL));
 					}
 				}
 			}
-		} else if (type == 0x30 || type == 0x31 || type == 0x32) { // 削除
+		} else if (type == 0x30 || type == 0x31 || type == 0x32) { // 
 			int mailId = readD();
 			MailTable.getInstance().deleteMail(mailId);
 			pc.sendPackets(new S_Mail(mailId, type));
-		} else if(type == 0x40) { // 保管箱に保存
+		} else if(type == 0x40) { // 
 			int mailId = readD();
 			MailTable.getInstance().setMailType(mailId, TYPE_MAIL_BOX);
 			pc.sendPackets(new S_Mail(mailId, type));

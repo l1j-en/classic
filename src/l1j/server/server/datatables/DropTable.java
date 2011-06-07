@@ -55,7 +55,7 @@ public class DropTable {
 
 	private static DropTable _instance;
 
-	private final HashMap<Integer, ArrayList<L1Drop>> _droplists; // モンスター毎のドロップリスト
+	private final HashMap<Integer, ArrayList<L1Drop>> _droplists; // X^[hbvXg
 
 	public static DropTable getInstance() {
 		if (_instance == null) {
@@ -104,16 +104,16 @@ public class DropTable {
 		return droplistMap;
 	}
 
-	// インベントリにドロップを設定
+	// Cxghbv
 	public void setDrop(L1NpcInstance npc, L1Inventory inventory) {
-		// ドロップリストの取得
+		// hbvXg
 		int mobId = npc.getNpcTemplate().get_npcId();
 		ArrayList<L1Drop> dropList = _droplists.get(mobId);
 		if (dropList == null) {
 			return;
 		}
 
-		// レート取得
+		// [g
 		double droprate = Config.RATE_DROP_ITEMS;
 		if (droprate <= 0) {
 			droprate = 0;
@@ -134,13 +134,13 @@ public class DropTable {
 		Random random = new Random();
 
 		for (L1Drop drop : dropList) {
-			// ドロップアイテムの取得
+			// hbvACe
 			itemId = drop.getItemid();
 			if (adenarate == 0 && itemId == L1ItemId.ADENA) {
-				continue; // アデナレート０でドロップがアデナの場合はスルー
+				continue; // Afi[gOhbvAfiX[
 			}
 
-			// ドロップチャンス判定
+			// hbv`X
 			randomChance = random.nextInt(0xf4240) + 1;
 			double rateOfMapId = MapsTable.getInstance().getDropRate(
 					npc.getMapId());
@@ -150,7 +150,7 @@ public class DropTable {
 				continue;
 			}
 
-			// ドロップ個数を設定
+			// hbv
 			double amount = DropItemTable.getInstance().getDropAmount(itemId);
 			int min = (int) (drop.getMin() * amount);
 			int max = (int) (drop.getMax() * amount);
@@ -160,7 +160,7 @@ public class DropTable {
 			if (addCount > 1) {
 				itemCount += random.nextInt(addCount);
 			}
-			if (itemId == L1ItemId.ADENA) { // ドロップがアデナの場合はアデナレートを掛ける
+			if (itemId == L1ItemId.ADENA) { // hbvAfiAfi[g|
 				itemCount *= adenarate;
 			}
 			if (itemCount < 0) {
@@ -170,16 +170,16 @@ public class DropTable {
 				itemCount = 2000000000;
 			}
 
-			// アイテムの生成
+			// ACe
 			item = ItemTable.getInstance().createItem(itemId);
 			item.setCount(itemCount);
 
-			// アイテム格納
+			// ACei[
 			inventory.storeItem(item);
 		}
 	}
 
-	// ドロップを分配
+	// hbvz
 	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList,
 			ArrayList hateList) {
 		L1Inventory inventory = npc.getInventory();
@@ -189,12 +189,12 @@ public class DropTable {
 		if (acquisitorList.size() != hateList.size()) {
 			return;
 		}
-		// ヘイトの合計を取得
+		// wCgv
 		int totalHate = 0;
 		L1Character acquisitor;
 		for (int i = hateList.size() - 1; i >= 0; i--) {
 			acquisitor = (L1Character) acquisitorList.get(i);
-			if ((Config.AUTO_LOOT == 2) // オートルーティング２の場合はサモン及びペットは省く
+			if ((Config.AUTO_LOOT == 2) // I[g[eBOQTyybg
 					&& (acquisitor instanceof L1SummonInstance || acquisitor instanceof L1PetInstance)) {
 				acquisitorList.remove(i);
 				hateList.remove(i);
@@ -203,13 +203,13 @@ public class DropTable {
 					&& acquisitor.getLocation().getTileLineDistance(
 							npc.getLocation()) <= Config.LOOTING_RANGE) {
 				totalHate += (Integer) hateList.get(i);
-			} else { // nullだったり死んでたり遠かったら排除
+			} else { // nullr
 				acquisitorList.remove(i);
 				hateList.remove(i);
 			}
 		}
 
-		// ドロップの分配
+		// hbvz
 		L1ItemInstance item;
 		L1Inventory targetInventory = null;
 		L1PcInstance player;
@@ -222,12 +222,12 @@ public class DropTable {
 			item = inventory.getItems().get(0);
 			itemId = item.getItemId();
 			boolean isGround = false;
-			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // light系アイテム
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { // lightnACe
 				item.setNowLighting(false);
 			}
 
 			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA)
-					&& totalHate > 0) { // オートルーティングかアデナで取得者がいる場合
+					&& totalHate > 0) { // I[g[eBOAfi
 				randomInt = random.nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
@@ -254,19 +254,19 @@ public class DropTable {
 								player = (L1PcInstance) acquisitor;
 								L1ItemInstance l1iteminstance = player
 										.getInventory().findItemId(
-												L1ItemId.ADENA); // 所持アデナをチェック
+												L1ItemId.ADENA); // Afi`FbN
 								if (l1iteminstance != null
 										&& l1iteminstance.getCount() > 2000000000) {
 									targetInventory = L1World.getInstance()
 											.getInventory(acquisitor.getX(),
 													acquisitor.getY(),
-													acquisitor.getMapId()); // 持てないので足元に落とす
+													acquisitor.getMapId()); // 
 									isGround = true;
 									player.sendPackets(new S_ServerMessage(166,
-											"所持しているアデナ",
-											"2,000,000,000を超過しています。")); // \f1%0が%4%1%3%2
+											"Afi",
+											"2,000,000,000B")); // \f1%0%4%1%3%2
 								} else {
-									if (player.isInParty()) { // パーティの場合
+									if (player.isInParty()) { // p[eB
 										partyMember = player.getParty()
 												.getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
@@ -277,10 +277,10 @@ public class DropTable {
 															player.getName()));
 										}
 									} else {
-										// ソロの場合
+										// \
 										player.sendPackets(new S_ServerMessage(
 												143, npc.getName(), item
-														.getLogName())); // \f1%0が%1をくれました。
+														.getLogName())); // \f1%0%1B
 									}
 								}
 							}
@@ -288,13 +288,13 @@ public class DropTable {
 							targetInventory = L1World.getInstance()
 									.getInventory(acquisitor.getX(),
 											acquisitor.getY(),
-											acquisitor.getMapId()); // 持てないので足元に落とす
+											acquisitor.getMapId()); // 
 							isGround = true;
 						}
 						break;
 					}
 				}
-			} else { // ノンオートルーティング
+			} else { // mI[g[eBO
 				List<Integer> dirList = new ArrayList<Integer>();
 				for (int j = 0; j < 8; j++) {
 					dirList.add(j);
