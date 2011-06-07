@@ -42,6 +42,14 @@ public abstract class L1ClassFeature {
 				|| classId == L1PcInstance.CLASSID_DARK_ELF_FEMALE) {
 			return new L1DarkElfClassFeature();
 		}
+		if (classId == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE
+				|| classId == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE) {
+			return new L1DragonKnightClassFeature();
+		}
+		if (classId == L1PcInstance.CLASSID_ILLUSIONIST_MALE
+				|| classId == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE) {
+			return new L1IllusionistClassFeature();
+		}
 		throw new IllegalArgumentException();
 	}
 

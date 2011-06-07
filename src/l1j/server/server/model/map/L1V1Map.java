@@ -18,12 +18,17 @@
  */
 package l1j.server.server.model.map;
 
+import java.util.logging.Logger;
+
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.types.Point;
 
 public class L1V1Map extends L1Map {
+	private static Logger _log = Logger.getLogger(L1Map.class.getName());
+
 	private int _mapId;
 
 	private int _worldTopLeftX;
@@ -452,6 +457,7 @@ public class L1V1Map extends L1Map {
 		return accessOriginalTile(x, y) == 16;
 	}
 
+	@Override
 	public boolean isExistDoor(int x, int y) {
 		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 			if (_mapId != door.getMapId()) {
