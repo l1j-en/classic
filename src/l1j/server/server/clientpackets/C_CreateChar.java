@@ -162,15 +162,13 @@ public class C_CreateChar extends ClientBasePacket {
 		initNewChar(client, pc);
 	}
 
-	  private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786 };
-        private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796 };
-        private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090 };//{ 32734, 32734, 32734, 32734, 32734 };
-        private static final int[] LOCY_LIST = new int[] { 33392, 33392, 33392, 33392, 33392 };//{ 32798, 32798, 32798, 32798, 32798 };
-        private static final short[] MAPID_LIST = new short[] { 4, 4, 4, 4, 4 };
+	  private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };
+        private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };
+        private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090, 33090, 33090};//{ 32734, 32734, 32734, 32734, 32734 };
+        private static final int[] LOCY_LIST = new int[] { 33392, 33392, 33392, 33392, 33392, 33392, 33392 };//{ 32798, 32798, 32798, 32798, 32798 };
+        private static final short[] MAPID_LIST = new short[] { 4, 4, 4, 4, 4, 4, 4 };
 
-        private static final int[] LOCX_LIST_ORG = new int[] { 32780, 32714, 33043, 32780, 32876 };
-        private static final int[] LOCY_LIST_ORG = new int[] { 32781, 32877, 32336, 32781, 32910 };
-        private static final short[] MAPID_LIST_ORG = new short[] { 68, 69, 4, 68, 304 };
+   
 
 // private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714,
 // 32780, 32714, 32714, 32714 };
