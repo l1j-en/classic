@@ -473,7 +473,7 @@ public final class Config {
 			THREAD_P_TYPE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolType", "0"), 10);
 			THREAD_P_SIZE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolSize", "0"), 10);
 			CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty(
-					"ClientLanguage", "4"));
+					"ClientLanguage", "0"));
 			CLIENT_LANGUAGE_CODE = LANGUAGE_CODE_ARRAY[CLIENT_LANGUAGE];
 			TIME_ZONE = serverSettings.getProperty("TimeZone", "JST");
 			HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostnameLookups", "false"));
