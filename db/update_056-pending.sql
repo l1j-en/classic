@@ -1,7 +1,8 @@
 -- starting to get our db shaped back to match the latest code
 
 -- I'd definitely not use this if anyone is looking.  wait till we're finished
-
+-- The order of the sections isn't important, but the order WITHIN each
+-- section is.  Please don't move things around
 
 -- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE
 
@@ -25,6 +26,36 @@ alter table armor add hit_modifier int(10) NOT NULL default '0' after weight_red
 alter table armor add dmg_modifier int(10) NOT NULL default '0' after hit_modifier;
 alter table armor add bow_hit_modifier int(10) NOT NULL default '0' after dmg_modifier;
 alter table armor add bow_dmg_modifier int(10) NOT NULL default '0' after bow_hit_modifier;
+
+-- characters
+alter table characters add PkCountForElf int(10) NOT NULL default '0' after Pkcount;
+alter table characters add LastPkForElf datetime default NULL after LastPk;
+alter table characters add OriginalStr int(3) NOT NULL default '0' after DeleteTime;
+alter table characters add OriginalCon int(3) NOT NULL default '0' after OriginalStr;
+alter table characters add OriginalDex int(3) NOT NULL default '0' after OriginalCon;
+alter table characters add OriginalCha int(3) NOT NULL default '0' after OriginalDex;
+alter table characters add OriginalInt int(3) NOT NULL default '0' after OriginalCha;
+alter table characters add OriginalWis int(3) NOT NULL default '0' after OriginalInt;
+
+-- character_elf_warehouse
+alter table character_elf_warehouse add bless int(11) default NULL after last_used;
+alter table character_elf_warehouse add attr_enchant_kind int(11) default NULL after bless;
+alter table character_elf_warehouse add attr_enchant_level int(11) default NULL after bless;
+
+-- character_items
+alter table character_items add bless int(11) default NULL after last_used;
+alter table character_items add attr_enchant_kind int(11) default NULL after bless;
+alter table character_items add attr_enchant_level int(11) default NULL after bless;
+
+-- character_warehouse
+alter table character_warehouse add bless int(11) default NULL after last_used;
+alter table character_warehouse add attr_enchant_kind int(11) default NULL after bless;
+alter table character_warehouse add attr_enchant_level int(11) default NULL after bless;
+
+-- clan_warehouse
+alter table clan_warehouse add bless int(11) default NULL after last_used;
+alter table clan_warehouse add attr_enchant_kind int(11) default NULL after bless;
+alter table clan_warehouse add attr_enchant_level int(11) default NULL after bless;
 
 -- etcitem
 alter table etcitem add unidentified_name_id varchar(45) NOT NULL default '' after name;
@@ -70,33 +101,6 @@ alter table weapon add identified_name_id varchar(45) NOT NULL default '' after 
 alter table weapon add `range` int(10) NOT NULL default '0' after dmg_large;
 alter table weapon add use_dragonknight int(2) unsigned NOT NULL default '0' after use_darkelf;
 alter table weapon add use_illusionist int(2) unsigned NOT NULL default '0' after use_dragonknight;
-
-
-
-alter table character_elf_warehouse add bless int(11) default NULL after last_used;
-alter table character_items add bless int(11) default NULL after last_used;
-alter table character_warehouse add bless int(11) default NULL after last_used;
-alter table clan_warehouse add bless int(11) default NULL after last_used;
-alter table characters add PkCountForElf int(10) NOT NULL default '0' after Pkcount;
-alter table characters add LastPkForElf datetime default NULL after LastPk;
-alter table characters add OriginalStr int(3) NOT NULL default '0' after DeleteTime;
-alter table characters add OriginalCon int(3) NOT NULL default '0' after OriginalStr;
-alter table characters add OriginalDex int(3) NOT NULL default '0' after OriginalCon;
-alter table characters add OriginalCha int(3) NOT NULL default '0' after OriginalDex;
-alter table characters add OriginalInt int(3) NOT NULL default '0' after OriginalCha;
-alter table characters add OriginalWis int(3) NOT NULL default '0' after OriginalInt;
-
-alter table character_elf_warehouse add attr_enchant_kind int(11) default NULL after bless;
-alter table character_elf_warehouse add attr_enchant_level int(11) default NULL after bless;
-
-alter table character_items add attr_enchant_kind int(11) default NULL after bless;
-alter table character_items add attr_enchant_level int(11) default NULL after bless;
-
-alter table character_warehouse add attr_enchant_kind int(11) default NULL after bless;
-alter table character_warehouse add attr_enchant_level int(11) default NULL after bless;
-
-alter table clan_warehouse add attr_enchant_kind int(11) default NULL after bless;
-alter table clan_warehouse add attr_enchant_level int(11) default NULL after bless;
 
 -- NEW DATA
 
