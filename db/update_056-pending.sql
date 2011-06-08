@@ -3,7 +3,7 @@
 -- I'd definitely not use this if anyone is looking.  wait till we're finished
 
 
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED
+-- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE
 
 -- Queries that are pending an update should be placed here. This allows them 
 -- to be verified as working together. Once complete, the -pending suffix will
@@ -11,7 +11,7 @@
 
 -- update 56
 
--- structure changes
+-- STRUCTURE CHANGES / New Tables (no data)
 
 -- armor
 alter table armor add unidentified_name_id varchar(45) NOT NULL default '' after name;
@@ -28,13 +28,26 @@ alter table etcitem add unidentified_name_id varchar(45) NOT NULL default '' aft
 alter table etcitem add identified_name_id varchar(45) NOT NULL default '' after unidentified_name_id;
 alter table etcitem add can_seal int(2) unsigned NOT NULL default '0' after cant_delete;
 
+-- mail
+CREATE TABLE `mail` (
+  `id` int(10) unsigned NOT NULL default '0',
+  `type` int(10) unsigned NOT NULL default '0',
+  `sender` varchar(16) default NULL,
+  `receiver` varchar(16) default NULL,
+  `date` varchar(16) default NULL,
+  `read_status` tinyint(1) unsigned NOT NULL default '0',
+  `subject` BLOB,
+  `content` BLOB,
+  PRIMARY KEY (`id`)
+);
+
 -- mobgroup
 alter table mobgroup add minion6_id int(10) unsigned NOT NULL default '0' after minion5_count;
 alter table mobgroup add minion6_count int(10) unsigned NOT NULL default '0' after minion6_id;
 alter table mobgroup add minion7_id int(10) unsigned NOT NULL default '0' after minion6_count;
 alter table mobgroup add minion7_count int(10) unsigned NOT NULL default '0' after minion7_id;
 
---npc
+-- npc
 alter table npc add alt_atk_speed int(10) unsigned not null default '0' after atkspeed;
 
 -- npcchat
@@ -55,5 +68,7 @@ alter table weapon add `range` int(10) NOT NULL default '0' after dmg_large;
 alter table weapon add use_dragonknight int(2) unsigned NOT NULL default '0' after use_darkelf;
 alter table weapon add use_illusionist int(2) unsigned NOT NULL default '0' after use_dragonknight;
 
+-- NEW DATA
 
+-- ALTERED DATA
 
