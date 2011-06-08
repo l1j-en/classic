@@ -77,12 +77,14 @@ import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_AttackPacket;
+import l1j.server.server.serverpackets.S_AttackStatus;
 import l1j.server.server.serverpackets.S_CurseBlind;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Fishing;
 import l1j.server.server.serverpackets.S_IdentifyDesc;
 import l1j.server.server.serverpackets.S_ItemName;
 import l1j.server.server.serverpackets.S_Letter;
+import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_Liquor;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
@@ -127,6 +129,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
 
 	private static Random _random = new Random();
+	private int addtime; // used for stacking. do not remove.
 
 	public C_ItemUSe(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
@@ -921,9 +924,9 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId == L1ItemId.POTION_OF_BLINDNESS) { // IyCN|[V
 					useBlindPotion(pc);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40088 // gXN[
-						|| itemId == 40096 // gXN[
-						|| itemId == 140088) { // jgXN[
+				} else if (itemId == L1ItemId.SCROLL_OF_POLYMORPH
+						|| itemId == L1ItemId.IT_SCROLL_OF_POLYMORPH
+						|| itemId == L1ItemId.B_SCROLL_OF_POLYMORPH) { 
 					if (usePolyScroll(pc, itemId, s)) {
 						pc.getInventory().removeItem(l1iteminstance, 1);
 					} else {
