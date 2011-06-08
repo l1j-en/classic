@@ -60,24 +60,8 @@ public class L1SummonInstance extends L1NpcInstance {
 				int dir = moveDirection(getHomeX(), getHomeY());
 				if (dir == -1) { // If the summon cant find a way to the owner
 						//Original code
-						/*setHomeX(getX());
-						setHomeY(getY());*/
-					//Fix by Ssargon, should make summons move better without getting stuck
-					try {
-						Thread.sleep(200);
-						// Prevent infinite recursion by max-bounding retry depth
-						if (depth > 80) {
 							setHomeX(getX());
 							setHomeY(getY());
-							return true;
-						} else {
-							return noTarget(depth+1);
-						}
-					} catch (Exception exception) {
-						setHomeX(getX());
-						setHomeY(getY());
-						return true;
-					}
 				} else {
 					setDirectionMove(dir);
 					setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
@@ -217,7 +201,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (getCurrentHp() > 0) {
 			if (damage > 0) {
 				setHate(attacker, 0); 
-				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
+				removeSkillEffect(FOG_OF_SLEEPING);
 				if (!isExsistMaster()) {
 					_currentPetStatus = 1;
 					setTarget(attacker);

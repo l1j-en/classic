@@ -71,6 +71,8 @@ public class L1UltimateBattle {
 	private boolean _enterMage;
 	private boolean _enterElf;
 	private boolean _enterDarkelf;
+	private boolean _enterDragonKnight;
+	private boolean _enterIllusionist;
 	private boolean _enterMale;
 	private boolean _enterFemale;
 	private boolean _usePot;
@@ -394,6 +396,14 @@ public class L1UltimateBattle {
 		this._enterDarkelf = enterDarkelf;
 	}
 
+	public void setEnterDragonKnight(boolean enterDragonKnight) {
+		this._enterDragonKnight = enterDragonKnight;
+	}
+
+	public void setEnterIllusionist(boolean enterIllusionist) {
+		this._enterIllusionist = enterIllusionist;
+	}
+
 	public void setEnterMale(boolean enterMale) {
 		this._enterMale = enterMale;
 	}
@@ -528,8 +538,10 @@ public class L1UltimateBattle {
 		}
 
 		if (!((pc.isCrown() && _enterRoyal) || (pc.isKnight() && _enterKnight)
-				|| (pc.isWizard() && _enterMage) || (pc.isElf() && _enterElf) || (pc
-				.isDarkelf() && _enterDarkelf))) {
+				|| (pc.isWizard() && _enterMage) || (pc.isElf() && _enterElf)
+				|| (pc.isDarkelf() && _enterDarkelf)
+				|| (pc.isDragonKnight() && _enterDragonKnight)
+				|| (pc.isIllusionist() && _enterIllusionist))) {
 			return false;
 		}
 
@@ -558,6 +570,12 @@ public class L1UltimateBattle {
 		}
 		if (_enterRoyal) {
 			classesBuff.append("Royal ");
+		}
+		if (_enterDragonKnight) {
+			classesBuff.append("Dragon Knight ");
+		}
+		if (_enterIllusionist) {
+			classesBuff.append("Illusionist ");
 		}
 		String classes = classesBuff.toString().trim();
 		StringBuilder sexBuff = new StringBuilder();

@@ -69,6 +69,7 @@ import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.TimerPool;
 import static l1j.server.server.model.item.L1ItemId.*;
+import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1NpcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
@@ -80,10 +81,12 @@ public class L1NpcInstance extends L1Character {
 	public static final int HIDDEN_STATUS_NONE = 0;
 	public static final int HIDDEN_STATUS_SINK = 1;
 	public static final int HIDDEN_STATUS_FLY = 2;
+	public static final int HIDDEN_STATUS_ICE = 3;
 
 	public static final int CHAT_TIMING_APPEARANCE = 0;
 	public static final int CHAT_TIMING_DEAD = 1;
 	public static final int CHAT_TIMING_HIDE = 2;
+	public static final int CHAT_TIMING_GAME_TIME = 3;
 
 	private static Logger _log = Logger
 			.getLogger(L1NpcInstance.class.getName());
@@ -250,7 +253,7 @@ public class L1NpcInstance extends L1Character {
 			}
 
 			if (_targetItem == null) {
-				if (noTarget(1)) {
+				if (noTarget()) {
 					return true;
 				}
 			} else {
@@ -367,19 +370,34 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else { 
-			boolean isSkillUse = false;
-			isSkillUse = mobSkill.skillUse(target);
-			if (isSkillUse == true) {
-				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
-						MAGIC_SPEED));
-				return;
-			}
-
 			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate()
 					.get_ranged())) {
+				if (mobSkill.isSkillTrigger(target)) { 
+					if (_random.nextInt(2) >= 1) { 
+						setHeading(targetDirection(target.getX(), target
+								.getY()));
+						attackTarget(target);
+					} else {
+						if (mobSkill.skillUse(target, true)) { 
+							setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
+									MAGIC_SPEED));
+						} else { 
+							setHeading(targetDirection(target.getX(), target
+									.getY()));
+							attackTarget(target);
+						}
+					}
+				} else {
 				setHeading(targetDirection(target.getX(), target.getY()));
 				attackTarget(target);
+				}
 			} else {
+				if (mobSkill.skillUse(target, false)) {
+					setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
+							MAGIC_SPEED));
+					return;
+				}
+
 				if (getPassispeed() > 0) {
 					int distance = getLocation().getTileDistance(
 							target.getLocation());
@@ -470,10 +488,10 @@ public class L1NpcInstance extends L1Character {
 		boolean isCounterBarrier = false;
 		L1Attack attack = new L1Attack(this, target);
 		if (attack.calcHit()) {
-			if (target.hasSkillEffect(L1SkillId.COUNTER_BARRIER)) {
+			if (target.hasSkillEffect(COUNTER_BARRIER)) {
 				L1Magic magic = new L1Magic(target, this);
 				boolean isProbability = magic
-						.calcProbabilityMagic(L1SkillId.COUNTER_BARRIER);
+						.calcProbabilityMagic(COUNTER_BARRIER);
 				boolean isShortDistance = attack.isShortDistance();
 				if (isProbability && isShortDistance) {
 					isCounterBarrier = true;
@@ -605,7 +623,7 @@ public class L1NpcInstance extends L1Character {
 		setSleepTime(1000);
 	}
 
-	public boolean noTarget(int depth) {
+	public boolean noTarget() {
 		if (_master != null && _master.getMapId() == getMapId()
 				&& getLocation().getTileLineDistance(_master
 						.getLocation()) > 2) { 
@@ -1073,7 +1091,10 @@ public class L1NpcInstance extends L1Character {
 		if (template.get_randomexp() == 0) {
 			setExp(template.get_exp());
 		} else {
-			setExp(template.get_randomexp() + randomlevel);
+			int level = getLevel();
+			int exp = level * level;
+			exp += 1;
+			setExp(exp);
 		}
 		if (template.get_randomlawful() == 0) {
 			setLawful(template.get_lawful());
@@ -1269,6 +1290,10 @@ public class L1NpcInstance extends L1Character {
 // if (getNpcTemplate().get_npcId() != 45681) { // hrIO
 					searchItemFromAir();
 // }
+			}
+ 		} else if (getHiddenStatus() == HIDDEN_STATUS_ICE) {
+			if (getCurrentHp() < getMaxHp()) {
+				appearOnGround(pc);
 			}
  		}
 	}
@@ -1746,7 +1771,7 @@ public class L1NpcInstance extends L1Character {
 
 	private void useHealPotion(int healHp, int effectId) {
 		broadcastPacket(new S_SkillSound(getId(), effectId));
-		if (this.hasSkillEffect(L1SkillId.POLLUTE_WATER)) { 
+		if (this.hasSkillEffect(POLLUTE_WATER)) { 
 			healHp /= 2;
 		}
 		if (this instanceof L1PetInstance) {
@@ -1762,7 +1787,7 @@ public class L1NpcInstance extends L1Character {
 		broadcastPacket(new S_SkillHaste(getId(), 1, time));
 		broadcastPacket(new S_SkillSound(getId(), 191));
 		setMoveSpeed(1);
-		setSkillEffect(L1SkillId.STATUS_HASTE, time * 1000);
+		setSkillEffect(STATUS_HASTE, time * 1000);
 	}
 
 	public static final int USEITEM_HEAL = 0;
@@ -2122,14 +2147,12 @@ public class L1NpcInstance extends L1Character {
 		//
 		//
 		L1SkillUse skill = new L1SkillUse();
-		skill.handleCommands(null, L1SkillId.CANCELLATION, getId(), getX(),
+		skill.handleCommands(null, CANCELLATION, getId(), getX(),
 				getY(), null, 0, L1SkillUse.TYPE_LOGIN, this);
 	}
 
 	private DeleteTimer _deleteTask;
 	private ScheduledFuture<?> _future = null;
-
-	private static final long DELETE_TIME = 10000L;
 
 	protected synchronized void startDeleteTimer() {
 		if (_deleteTask != null) {
@@ -2137,7 +2160,7 @@ public class L1NpcInstance extends L1Character {
 		}
 		_deleteTask = new DeleteTimer(getId());
 		_future = GeneralThreadPool.getInstance().schedule(_deleteTask,
-				DELETE_TIME);
+				Config.NPC_DELETION_TIME * 1000);
 	}
 
 	protected static class DeleteTimer extends TimerTask {
@@ -2208,6 +2231,8 @@ public class L1NpcInstance extends L1Character {
 			npcChat = NpcChatTable.getInstance().getTemplateDead(npcId);
 		} else if (chatTiming == CHAT_TIMING_HIDE) {
 			npcChat = NpcChatTable.getInstance().getTemplateHide(npcId);
+		} else if (chatTiming == CHAT_TIMING_GAME_TIME) {
+			npcChat = NpcChatTable.getInstance().getTemplateGameTime(npcId);
 		}
 		if (npcChat == null) {
 			return;

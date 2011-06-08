@@ -99,51 +99,52 @@ public class CalcStat {
 	 * @param charType
 	 * @param baseMaxHp
 	 * @param baseCon
-	 * @return randomhp
+	 * @param originalHpup
+	 * @return 
 	 */
-	public static short calcStatHp(int charType, int baseMaxHp, byte baseCon) {
+	public static short calcStatHp(int charType, int baseMaxHp, byte baseCon, int originalHpup) {
 		short randomhp = 0;
 		if (baseCon > 15) {
 			randomhp = (short) (baseCon - 15);
 		}
-		if (charType == 0) { // vX
-			randomhp += (short) (11 + rnd.nextInt(2)); // úlªÇÁ
+		if (charType == 0) { // vX
+			randomhp += (short) (11 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.PRINCE_MAX_HP) {
 				randomhp = (short) (Config.PRINCE_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 1) { // iCg
-			randomhp += (short) (17 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 1) { // iCg
+			randomhp += (short) (17 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.KNIGHT_MAX_HP) {
 				randomhp = (short) (Config.KNIGHT_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 2) { // Gt
-			randomhp += (short) (10 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 2) { // Gt
+			randomhp += (short) (10 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.ELF_MAX_HP) {
 				randomhp = (short) (Config.ELF_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 3) { // EBU[h
-			randomhp += (short) (7 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 3) { // EBU[h
+			randomhp += (short) (7 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.WIZARD_MAX_HP) {
 				randomhp = (short) (Config.WIZARD_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 4) { // _[NGt
-			randomhp += (short) (10 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 4) { // _[NGt
+			randomhp += (short) (10 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.DARKELF_MAX_HP) {
 				randomhp = (short) (Config.DARKELF_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 5) { // hSiCg
-			randomhp += (short) (13 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 5) { // hSiCg
+			randomhp += (short) (13 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.DRAGONKNIGHT_MAX_HP) {
 				randomhp = (short) (Config.DRAGONKNIGHT_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 6) { // C[WjXg
-			randomhp += (short) (9 + rnd.nextInt(2)); // úlªÇÁ
+		} else if (charType == 6) { // C[WjXg
+			randomhp += (short) (9 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.ILLUSIONIST_MAX_HP) {
 				randomhp = (short) (Config.ILLUSIONIST_MAX_HP - baseMaxHp);
@@ -164,9 +165,10 @@ public class CalcStat {
 	 * @param charType
 	 * @param baseMaxMp
 	 * @param baseWis
-	 * @return MP Rise in value
+	 * @param originalMpup
+	 * @return MPl
 	 */
-	public static short calcStatMp(int charType, int baseMaxMp, byte baseWis) {
+	public static short calcStatMp(int charType, int baseMaxMp, byte baseWis, int originalMpup) {
 		int randommp = 0;
 		int seedY = 0;
 		int seedZ = 0;
@@ -203,16 +205,16 @@ public class CalcStat {
 
 		randommp = rnd.nextInt(seedY) + 1 + seedZ;
 
-		if (charType == 0) { // vX
+		if (charType == 0) { // vX
 			if (baseMaxMp + randommp > Config.PRINCE_MAX_MP) {
 				randommp = Config.PRINCE_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 1) { // iCg
+		} else if (charType == 1) { // iCg
 			randommp = (int) (randommp * 2 / 3);
 			if (baseMaxMp + randommp > Config.KNIGHT_MAX_MP) {
 				randommp = Config.KNIGHT_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 2) { // Gt
+		} else if (charType == 2) { // Gt
 			randommp = (int) (randommp * 1.5);
 
 			if (baseMaxMp + randommp > Config.ELF_MAX_MP) {
@@ -230,13 +232,13 @@ public class CalcStat {
 			if (baseMaxMp + randommp > Config.DARKELF_MAX_MP) {
 				randommp = Config.DARKELF_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 5) { // hSiCg
+		} else if (charType == 5) { // hSiCg
 			randommp = (int) (randommp * 2 / 3);
 
 			if (baseMaxMp + randommp > Config.DRAGONKNIGHT_MAX_MP) {
 				randommp = Config.DRAGONKNIGHT_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 6) { // C[WjXg
+		} else if (charType == 6) { // C[WjXg
 			randommp = (int) (randommp * 5 / 3);
 
 			if (baseMaxMp + randommp > Config.ILLUSIONIST_MAX_MP) {

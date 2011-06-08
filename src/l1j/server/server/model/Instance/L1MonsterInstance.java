@@ -96,7 +96,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
-		perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
+		//TRICIDTODO: wont compile after merge
+		//perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		if (0 < getCurrentHp()) {
 			if (getHiddenStatus() == HIDDEN_STATUS_SINK
@@ -325,7 +326,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 			if (damage > 0) {
-				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
+				removeSkillEffect(FOG_OF_SLEEPING);
 			}
 
 			onNpcAI();
@@ -704,7 +705,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				|| npcid == 45281) {
 			int rnd = _random.nextInt(3);
 			if (1 > rnd) {
-				setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_SINK);
+				setHiddenStatus(HIDDEN_STATUS_SINK);
 				setStatus(4);
 			}
 		} else if (npcid == 45067 
@@ -753,12 +754,12 @@ public class L1MonsterInstance extends L1NpcInstance {
 				setStatus(13);
 			}
 		} else if (leader.getHiddenStatus() == HIDDEN_STATUS_FLY) {
-			if (npcid == 45067 // o[n[s[
-					|| npcid == 45264 // n[s[
-					|| npcid == 45452 // n[s[
-					|| npcid == 45090 // o[OtH
-					|| npcid == 45321 // OtH
-					|| npcid == 45445) { // OtH
+			if (npcid == 45067 
+					|| npcid == 45264 
+					|| npcid == 45452 
+					|| npcid == 45090 
+					|| npcid == 45321 
+					|| npcid == 45445) { 
 				setHiddenStatus(HIDDEN_STATUS_FLY);
 				setStatus(4);
 			} else if (npcid == 45681) { 

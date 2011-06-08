@@ -299,7 +299,6 @@ class L1NullMap extends L1Map {
 		return false;
 	}
 
-	@Override
 	public boolean isExistDoor(int x, int y) {
 		return false;
 	}

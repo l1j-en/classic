@@ -540,7 +540,7 @@ public class L1SkillUse {
 		setCheckedUseSkill(false);
 		// e|[gXL
 		if (_skillId == TELEPORT || _skillId == MASS_TELEPORT
-				|| _skillId == TELEPORT_TO_MATHER) {
+				|| _skillId == TELEPORT_TO_MOTHER) {
 			// e|[gANCAg
 			// e|[gi2j
 			_player.sendPackets(new S_Paralysis(
@@ -2424,7 +2424,7 @@ public class L1SkillUse {
 										pc.getMapId(), pc.getHeading(), false);
 							}
 						}
-					} else if (_skillId == TELEPORT_TO_MATHER) { // e|[g gD
+					} else if (_skillId == TELEPORT_TO_MOTHER) { // e|[g gD
 																	// }U[
 						L1PcInstance pc = (L1PcInstance) cha;
 						if (pc.getMap().isEscapable() || pc.isGm()) {

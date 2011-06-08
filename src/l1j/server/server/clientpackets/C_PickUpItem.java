@@ -100,10 +100,10 @@ public class C_PickUpItem extends ClientBasePacket {
 							.getInventory());
 					pc.turnOnOffLight();
 
-					pc.sendPackets(new S_AttackStatus(pc, objectId,
+					pc.sendPackets(new S_AttackPacket(pc, objectId,
 							ActionCodes.ACTION_Pickup));
 					if (!pc.isGmInvis()) {
-						pc.broadcastPacket(new S_AttackStatus(pc, objectId,
+						pc.broadcastPacket(new S_AttackPacket(pc, objectId,
 								ActionCodes.ACTION_Pickup));
 					}
 				}

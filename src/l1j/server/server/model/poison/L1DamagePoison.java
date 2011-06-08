@@ -62,7 +62,7 @@ public class L1DamagePoison extends L1Poison {
 				}
 				if (_target instanceof L1PcInstance) {
 					L1PcInstance player = (L1PcInstance) _target;
-					player.receiveDamage(_attacker, _damage);
+					player.receiveDamage(_attacker, _damage, false);
 					if (player.isDead()) { 
 						break;
 					}

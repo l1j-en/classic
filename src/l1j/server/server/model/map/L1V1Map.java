@@ -457,7 +457,6 @@ public class L1V1Map extends L1Map {
 		return accessOriginalTile(x, y) == 16;
 	}
 
-	@Override
 	public boolean isExistDoor(int x, int y) {
 		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 			if (_mapId != door.getMapId()) {
