@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model.classes;
 
+import l1j.server.Config;
+
 class L1DragonKnightClassFeature extends L1ClassFeature {
 	@Override
 	public int getAcDefenseMax(int ac) {
