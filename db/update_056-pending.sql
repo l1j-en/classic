@@ -26,6 +26,8 @@ alter table armor add hit_modifier int(10) NOT NULL default '0' after weight_red
 alter table armor add dmg_modifier int(10) NOT NULL default '0' after hit_modifier;
 alter table armor add bow_hit_modifier int(10) NOT NULL default '0' after dmg_modifier;
 alter table armor add bow_dmg_modifier int(10) NOT NULL default '0' after bow_hit_modifier;
+alter table armor drop name_id;
+alter table armor drop bow_hit_rate;
 
 -- characters
 alter table characters add PkCountForElf int(10) NOT NULL default '0' after Pkcount;
@@ -61,7 +63,7 @@ alter table clan_warehouse add attr_enchant_level int(11) default NULL after ble
 alter table etcitem add unidentified_name_id varchar(45) NOT NULL default '' after name;
 alter table etcitem add identified_name_id varchar(45) NOT NULL default '' after unidentified_name_id;
 alter table etcitem add can_seal int(2) unsigned NOT NULL default '0' after cant_delete;
-
+alter table etcitem drop name_id;
 -- mail
 CREATE TABLE `mail` (
   `id` int(10) unsigned NOT NULL default '0',
@@ -101,6 +103,7 @@ alter table weapon add identified_name_id varchar(45) NOT NULL default '' after 
 alter table weapon add `range` int(10) NOT NULL default '0' after dmg_large;
 alter table weapon add use_dragonknight int(2) unsigned NOT NULL default '0' after use_darkelf;
 alter table weapon add use_illusionist int(2) unsigned NOT NULL default '0' after use_dragonknight;
+alter table weapon drop name_id;
 
 -- NEW DATA
 
