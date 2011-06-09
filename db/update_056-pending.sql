@@ -29,6 +29,14 @@ alter table armor add bow_dmg_modifier int(10) NOT NULL default '0' after bow_hi
 alter table armor drop name_id;
 alter table armor drop bow_hit_rate;
 
+-- armor_set
+
+alter table armor_set drop fire;
+alter table armor_set add defense_water int(2) NOT NULL default '0' after intl;
+alter table armor_set add defense_wind int(2) NOT NULL default '0' after defense_water;
+alter table armor_set add defense_fire int(2) NOT NULL default '0' after defense_wind;
+alter table armor_set add defense_earth int(2) NOT NULL default '0' after defense_fire;
+
 -- characters
 alter table characters add PkCountForElf int(10) NOT NULL default '0' after Pkcount;
 alter table characters add LastPkForElf datetime default NULL after LastPk;
