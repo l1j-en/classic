@@ -53,9 +53,9 @@ public class L1DeleteItemOnGround {
 					_log.warning("L1DeleteItemOnGround error: " + exception);
 					break;
 				}
-				L1World.getInstance().broadcastPacketToAll(
-						new S_ServerMessage(166, "Item on the world map ",
-								" will be removed in 10 seconds."));
+//				L1World.getInstance().broadcastPacketToAll(
+//						new S_ServerMessage(166, "Item on the world map ",
+//								" will be removed in 10 seconds."));
 								
 				try {
 					Thread.sleep(10000);
@@ -64,9 +64,9 @@ public class L1DeleteItemOnGround {
 					break;
 				}
 				deleteItem();
-				L1World.getInstance().broadcastPacketToAll(
-						new S_ServerMessage(166, "Item on the world map ", " will be removed in 10 seconds.")); 
-				
+//				L1World.getInstance().broadcastPacketToAll(
+//						new S_ServerMessage(166, "Item on the world map ", " will be removed in 10 seconds.")); 
+//				
 			}
 		}
 	}
