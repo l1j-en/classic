@@ -21,7 +21,14 @@ package l1j.server.server.model.classes;
 class L1IllusionistClassFeature extends L1ClassFeature {
 	@Override
 	public int getAcDefenseMax(int ac) {
-		return ac / 3;
+		if (Config.SOFT_AC)
+		{
+			return ac / 5;
+		}
+		else
+		{
+			return ac / 2; 
+		}
 	}
 
 	@Override
