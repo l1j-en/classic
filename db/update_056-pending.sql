@@ -2626,3 +2626,4 @@ UPDATE weapon SET unidentified_name_id = '$10089', identified_name_id = '$10089'
 UPDATE weapon SET unidentified_name_id = '$10091', identified_name_id = '$10091', `range` = 1, use_dragonknight = 1, use_illusionist = 0 WHERE item_id = 258;
 -- ALTERED DATA
 
+update shop set selling_price = 1 where selling_price = 0;
