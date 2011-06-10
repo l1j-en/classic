@@ -1,689 +1,1133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NpcActionList>
-  <!-- One legacy of Marble -> magic stone / alchemist -->
-  <Action Name="a" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40304"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="20" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 10 heritage -> magic stone / alchemist -->
-  <Action Name="b" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40304"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="200" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 50 heritage -> magic stone / alchemist -->
-  <Action Name="c" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40304"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1000" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- One legacy of Marble -> Spirit ball / alchemist -->
-  <Action Name="d" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40304"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="40" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 10 heritage -> Spirit ball / alchemist -->
-  <Action Name="e" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40304"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="400" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 50 heritage -> Spirit ball / alchemist -->
-  <Action Name="f" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40304"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="2000" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- One legacy of Marble -> Black Magic Stone / alchemist -->
-  <Action Name="g" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40304"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="10" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 10 heritage -> Black Magic Stone / alchemist -->
-  <Action Name="h" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40304"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="100" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- Marble's 50 heritage -> Black Magic Stone / alchemist -->
-  <Action Name="i" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40304"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="500" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- SAIHA one's legacy -> magic stone / alchemist -->
-  <Action Name="j" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40307"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="25" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 SAIHA heritage -> magic stone / alchemist -->
-  <Action Name="k" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40307"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="250" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 SAIHA heritage -> magic stone / alchemist -->
-  <Action Name="l" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40307"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1250" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- SAIHA one's legacy -> Spirit ball / alchemist -->
-  <Action Name="m" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40307"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="60" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 SAIHA heritage -> Spirit ball / alchemist -->
-  <Action Name="n" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40307"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="600" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 SAIHA heritage -> Spirit ball / alchemist -->
-  <Action Name="o" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40307"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="3000" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- SAIHA one's legacy -> Black Magic Stone / alchemist -->
-  <Action Name="p" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40307"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="20" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 SAIHA heritage -> Black Magic Stone / alchemist -->
-  <Action Name="q" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40307"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="200" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 SAIHA heritage -> Black Magic Stone / alchemist -->
-  <Action Name="r" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40307"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1000" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- One of Eva's legacy -> magic stone / alchemist -->
-  <Action Name="s" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40306"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="30" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 Eva's heritage -> magic stone / alchemist -->
-  <Action Name="t" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40306"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="300" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 Eva's heritage -> magic stone / alchemist -->
-  <Action Name="u" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40306"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1500" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- One of Eva's legacy -> Spirit ball / alchemist -->
-  <Action Name="v" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40306"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="50" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 Eva's heritage -> Spirit ball / alchemist -->
-  <Action Name="w" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40306"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="500" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 Eva's heritage -> Spirit ball / alchemist -->
-  <Action Name="x" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40306"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="2500" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- One of Eva's legacy -> Black Magic Stone / alchemist -->
-  <Action Name="y" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40306"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="20" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 Eva's heritage -> Black Magic Stone / alchemist -->
-  <Action Name="z" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40306"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="200" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 Eva's heritage -> Black Magic Stone / alchemist -->
-  <Action Name="A" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40306"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1000" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- One FAAGURIO heritage -> magic stone / alchemist -->
-  <Action Name="B" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40305"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="25" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 FAAGURIO heritage -> magic stone / alchemist -->
-  <Action Name="C" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40305"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="250" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 FAAGURIO heritage -> magic stone / alchemist -->
-  <Action Name="D" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40305"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1250" ItemId="40318"/>
-    </MakeItem>
-  </Action>
-  <!-- One FAAGURIO heritage -> Spirit ball / alchemist -->
-  <Action Name="E" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40305"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="30" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 FAAGURIO heritage -> Spirit ball / alchemist -->
-  <Action Name="F" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40305"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="300" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 FAAGURIO heritage -> Spirit ball / alchemist -->
-  <Action Name="G" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40305"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="1500" ItemId="40319"/>
-    </MakeItem>
-  </Action>
-  <!-- One FAAGURIO heritage -> Black Magic Stone / alchemist -->
-  <Action Name="H" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40305"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="10" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 10 FAAGURIO heritage -> Black Magic Stone / alchemist -->
-  <Action Name="I" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40305"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="100" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- 50 FAAGURIO heritage -> Black Magic Stone / alchemist -->
-  <Action Name="J" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40305"/>
-      <Material Amount="50000" ItemId="40308"/>
-      <Item Amount="500" ItemId="40320"/>
-    </MakeItem>
-  </Action>
-  <!-- One black blood / alchemist -->
-  <Action Name="K" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40524"/>
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="1" ItemId="40304"/>
-      <Item Amount="1" ItemId="40305"/>
-      <Item Amount="1" ItemId="40306"/>
-      <Item Amount="1" ItemId="40307"/>
-    </MakeItem>
-  </Action>
-  <!-- Black bloodstains 10 / alchemist -->
-  <Action Name="L" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10" ItemId="40524"/>
-      <Material Amount="100000" ItemId="40308"/>
-      <Item Amount="10" ItemId="40304"/>
-      <Item Amount="10" ItemId="40305"/>
-      <Item Amount="10" ItemId="40306"/>
-      <Item Amount="10" ItemId="40307"/>
-    </MakeItem>
-  </Action>
-  <!-- Black bloodstains 50 / alchemist -->
-  <Action Name="M" NpcId="70520">
-    <MakeItem AmountInputable="false">
-      <Material Amount="50" ItemId="40524"/>
-      <Material Amount="500000" ItemId="40308"/>
-      <Item Amount="50" ItemId="40304"/>
-      <Item Amount="50" ItemId="40305"/>
-      <Item Amount="50" ItemId="40306"/>
-      <Item Amount="50" ItemId="40307"/>
-    </MakeItem>
-  </Action>
-  <!-- Calculator / blaze -->
-  <Action Name="1" NpcId="70605">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40526"/>
-      <Material Amount="5" ItemId="40779"/>
-      <Material Amount="1000" ItemId="40308"/>
-      <Item Amount="1" ItemId="40391"/>
-    </MakeItem>
-  </Action>
-  <!-- Abrasive / Timmie -->
-  <Action Name="1" NpcId="71006">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41209"/>
-      <Item Amount="1" ItemId="41210"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0055"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- Herb / Ron Blacksmith -->
-  <Action Name="request ei004" NpcId="71003">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41210"/>
-      <Item Amount="1" ItemId="41211"/>
-    </MakeItem>
-  </Action>
-  <!-- Official candy / pharmacist IKUSHI -->
-  <Action Name="request ei005" NpcId="71001">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41211"/>
-      <Item Amount="1" ItemId="41212"/>
-    </MakeItem>
-  </Action> 
-  <!-- SHIANPOSHON / chicory -->
-  <Action Name="1" NpcId="71009">
-    <MakeItem AmountInputable="false">
-      <Material Amount="3" ItemId="41222"/>
-      <Item Amount="1" ItemId="40017"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0074"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- Banana juice / Burriana -->
-  <Action Name="1" NpcId="71011">
-    <MakeItem AmountInputable="false">
-      <Material Amount="3" ItemId="40060"/>
-      <Material Amount="3" ItemId="40061"/>
-      <Material Amount="3" ItemId="40062"/>
-      <Item Amount="1" ItemId="40026"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0065"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- Prince bag / eta adventurers -->
-  <Action Name="request ei028" NpcId="71032">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41214"/>
-      <Material Amount="5" ItemId="41215"/>
-      <Material Amount="5" ItemId="41216"/>
-      <Item Amount="1" ItemId="41217"/>
-    </MakeItem>
-  </Action>
-  <!-- Night bag / eta adventurers -->
-  <Action Name="request ei029" NpcId="71032">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41214"/>
-      <Material Amount="5" ItemId="41215"/>
-      <Material Amount="5" ItemId="41216"/>
-      <Item Amount="1" ItemId="41218"/>
-    </MakeItem>
-  </Action>
-  <!-- Elf bag / eta adventurers -->
-  <Action Name="request ei030" NpcId="71032">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41214"/>
-      <Material Amount="5" ItemId="41215"/>
-      <Material Amount="5" ItemId="41216"/>
-      <Item Amount="1" ItemId="41219"/>
-    </MakeItem>
-  </Action>
-  <!-- Wizard bag / eta adventurers -->
-  <Action Name="request ei031" NpcId="71032">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41214"/>
-      <Material Amount="5" ItemId="41215"/>
-      <Material Amount="5" ItemId="41216"/>
-      <Item Amount="1" ItemId="41220"/>
-    </MakeItem>
-  </Action>
-  <!-- Dark Elves bag / eta adventurers -->
-  <Action Name="request ei032" NpcId="71032">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41214"/>
-      <Material Amount="5" ItemId="41215"/>
-      <Material Amount="5" ItemId="41216"/>
-      <Item Amount="1" ItemId="41221"/>
-    </MakeItem>
-  </Action>
-  <!-- Signs Valley / RUBA -->
-  <Action Name="request amulet of valley" NpcId="70506">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40653"/>
-      <Item Amount="1" ItemId="20243"/>
-    </MakeItem>
-  </Action>
-  <!-- Island Signs / RUBA -->
-  <Action Name="request amulet of island" NpcId="70506">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="40613"/>
-      <Item Amount="1" ItemId="20259"/>
-    </MakeItem>
-  </Action>
-  <!-- Rabbi Charm / rabbi -->
-  <Action Name="request ei034" NpcId="71034">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41227"/>
-      <Item Amount="1" ItemId="41228"/>
-    </MakeItem>
-  </Action>
-  <!-- Ivory tower ring / Hermit -->
-  <Action Name="request ring of oren tower" NpcId="71033">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41228"/>
-      <Item Amount="1" ItemId="20282"/>
-    </MakeItem>
-  </Action>
-  <!-- JINAN letter / bone-smith JINAN -->
-  <Action Name="0" NpcId="71022">
-    <MakeItem AmountInputable="false">
-      <Material Amount="5" ItemId="41229"/>
-      <Item Amount="1" ItemId="41230"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0154"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- MATTI letter / MATTI bone-smith -->
-  <Action Name="request ei021" NpcId="71021">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41230"/>
-      <Item Amount="1" ItemId="41231"/>
-    </MakeItem>
-  </Action>
-  <!-- John delivered the goods / Region -->
-  <Action Name="0" NpcId="71020">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41231"/>
-      <Item Amount="1" ItemId="41232"/>
-    </MakeItem>
-  </Action>
-  <!-- Material list / KEI bone-smith -->
-  <Action Name="0" NpcId="71023">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41233"/>
-      <Material Amount="1" ItemId="41234"/>
-      <Item Amount="1" ItemId="41235"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0146"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- Delivered the goods KEI / KEI bone-smith -->
-  <Action Name="1" NpcId="71023">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41235"/>
-      <Material Amount="3" ItemId="41236"/>
-      <Material Amount="3" ItemId="41237"/>
-      <Item Amount="1" ItemId="41238"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0147"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- A bag of bone-smith / Vito disciples -->
-  <Action Name="0" NpcId="71019">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41239"/>
-      <Item Amount="1" ItemId="41241"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0116"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- BONAMA / fader -->
-  <Action Name="0" NpcId="71018">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41240"/>
-      <Item Amount="1" ItemId="20124"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0135"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- PAGO medicine / PAGO -->
-  <Action Name="request ei014" NpcId="70005">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41225"/>
-      <Item Amount="1" ItemId="41226"/>
-    </MakeItem>
-  </Action>
-  <!-- 1000 Adena / KESUKIN -->
-  <Action Name="1" NpcId="71025">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41226"/>
-      <Material Amount="1" ItemId="40653"/>
-      <Item Amount="1000" ItemId="40308"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0085"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- 1000 Adena / KESUKIN -->
-  <Action Name="2" NpcId="71025">
-    <MakeItem AmountInputable="false">
-      <Material Amount="1" ItemId="41226"/>
-      <Material Amount="1" ItemId="40613"/>
-      <Item Amount="1000" ItemId="40308"/>
-      <Succeed>
-        <ShowHtml HtmlId="jpe0085"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="A" NpcId="80091">
-    <MakeItem AmountInputable="false">
-      <Material Amount="10000" ItemId="40308"/>
-      <Item Amount="1" ItemId="41255"/>
-      <Succeed>
-        <ShowHtml HtmlId="rrafons1"/>
-      </Succeed>
-      <Fail>
-        <ShowHtml HtmlId="rrafons2"/>
-      </Fail>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request mineral bag">
-    <MakeItem>
-      <Item Amount="1" ItemId="41002"/>
-      <Material Amount="1" ItemId="40614"/>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request hoe" NpcId="71166">
-    <MakeItem>
-      <Item Amount="1" ItemId="40527"/>
-      <Material Amount="5" ItemId="40899"/>
-      <Material Amount="300" ItemId="40308"/>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request oum giftbag" NpcId="71146">
-    <MakeItem>
-      <Item Amount="1" ItemId="40687"/>
-      <Material Amount="1" ItemId="40527"/>
-      <Succeed>
-	<ShowHtml HtmlId="midoum3"/>
-      </Succeed>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request not_broken earring" NpcId="80081">
-    <MakeItem>
-      <Item Amount="1" ItemId="21049"/>
-      <Material Amount="1" ItemId="41305"/>
-      <Material Amount="1" ItemId="41303"/>
-      <Material Amount="1000" ItemId="40308"/>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request not_broken ring left" NpcId="80081">
-    <MakeItem>
-      <Item Amount="1" ItemId="21048"/>
-      <Material Amount="1" ItemId="41306"/>
-      <Material Amount="1" ItemId="41302"/>
-      <Material Amount="1000" ItemId="40308"/>
-    </MakeItem>
-  </Action>
-  <!-- -->
-  <Action Name="request not_broken amulet" NpcId="80081">
-    <MakeItem>
-      <Item Amount="1" ItemId="21050"/>
-      <Material Amount="1" ItemId="41307"/>
-      <Material Amount="1" ItemId="41301"/>
-      <Material Amount="1000" ItemId="40308"/>
-    </MakeItem>
-  </Action>
-  <Action Name="a" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21070"/>
-      <Material Amount="1" ItemId="21069"/>
-    </MakeItem>
-  </Action>
+	<!-- One legacy of Marble -> magic stone / alchemist -->
+	<Action Name="a" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40304"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="20" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 10 heritage -> magic stone / alchemist -->
+	<Action Name="b" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40304"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="200" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 50 heritage -> magic stone / alchemist -->
+	<Action Name="c" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40304"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1000" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- One legacy of Marble -> Spirit ball / alchemist -->
+	<Action Name="d" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40304"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="40" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 10 heritage -> Spirit ball / alchemist -->
+	<Action Name="e" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40304"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="400" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 50 heritage -> Spirit ball / alchemist -->
+	<Action Name="f" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40304"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="2000" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- One legacy of Marble -> Black Magic Stone / alchemist -->
+	<Action Name="g" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40304"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="10" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 10 heritage -> Black Magic Stone / alchemist -->
+	<Action Name="h" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40304"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="100" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- Marble's 50 heritage -> Black Magic Stone / alchemist -->
+	<Action Name="i" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40304"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="500" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- SAIHA one's legacy -> magic stone / alchemist -->
+	<Action Name="j" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40307"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="25" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 SAIHA heritage -> magic stone / alchemist -->
+	<Action Name="k" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40307"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="250" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 SAIHA heritage -> magic stone / alchemist -->
+	<Action Name="l" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40307"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1250" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- SAIHA one's legacy -> Spirit ball / alchemist -->
+	<Action Name="m" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40307"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="60" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 SAIHA heritage -> Spirit ball / alchemist -->
+	<Action Name="n" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40307"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="600" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 SAIHA heritage -> Spirit ball / alchemist -->
+	<Action Name="o" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40307"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="3000" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- SAIHA one's legacy -> Black Magic Stone / alchemist -->
+	<Action Name="p" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40307"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="20" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 SAIHA heritage -> Black Magic Stone / alchemist -->
+	<Action Name="q" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40307"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="200" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 SAIHA heritage -> Black Magic Stone / alchemist -->
+	<Action Name="r" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40307"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1000" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- One of Eva's legacy -> magic stone / alchemist -->
+	<Action Name="s" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40306"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="30" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 Eva's heritage -> magic stone / alchemist -->
+	<Action Name="t" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40306"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="300" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 Eva's heritage -> magic stone / alchemist -->
+	<Action Name="u" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40306"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1500" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- One of Eva's legacy -> Spirit ball / alchemist -->
+	<Action Name="v" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40306"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="50" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 Eva's heritage -> Spirit ball / alchemist -->
+	<Action Name="w" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40306"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="500" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 Eva's heritage -> Spirit ball / alchemist -->
+	<Action Name="x" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40306"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="2500" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- One of Eva's legacy -> Black Magic Stone / alchemist -->
+	<Action Name="y" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40306"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="20" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 Eva's heritage -> Black Magic Stone / alchemist -->
+	<Action Name="z" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40306"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="200" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 Eva's heritage -> Black Magic Stone / alchemist -->
+	<Action Name="A" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40306"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1000" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- One FAAGURIO heritage -> magic stone / alchemist -->
+	<Action Name="B" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40305"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="25" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 FAAGURIO heritage -> magic stone / alchemist -->
+	<Action Name="C" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40305"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="250" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 FAAGURIO heritage -> magic stone / alchemist -->
+	<Action Name="D" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40305"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1250" ItemId="40318"/>
+		</MakeItem>
+	</Action>
+	<!-- One FAAGURIO heritage -> Spirit ball / alchemist -->
+	<Action Name="E" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40305"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="30" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 FAAGURIO heritage -> Spirit ball / alchemist -->
+	<Action Name="F" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40305"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="300" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 FAAGURIO heritage -> Spirit ball / alchemist -->
+	<Action Name="G" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40305"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="1500" ItemId="40319"/>
+		</MakeItem>
+	</Action>
+	<!-- One FAAGURIO heritage -> Black Magic Stone / alchemist -->
+	<Action Name="H" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40305"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="10" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 10 FAAGURIO heritage -> Black Magic Stone / alchemist -->
+	<Action Name="I" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40305"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="100" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- 50 FAAGURIO heritage -> Black Magic Stone / alchemist -->
+	<Action Name="J" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40305"/>
+			<Material Amount="50000" ItemId="40308"/>
+			<Item Amount="500" ItemId="40320"/>
+		</MakeItem>
+	</Action>
+	<!-- One black blood / alchemist -->
+	<Action Name="K" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40524"/>
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="1" ItemId="40304"/>
+			<Item Amount="1" ItemId="40305"/>
+			<Item Amount="1" ItemId="40306"/>
+			<Item Amount="1" ItemId="40307"/>
+		</MakeItem>
+	</Action>
+	<!-- Black bloodstains 10 / alchemist -->
+	<Action Name="L" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="40524"/>
+			<Material Amount="100000" ItemId="40308"/>
+			<Item Amount="10" ItemId="40304"/>
+			<Item Amount="10" ItemId="40305"/>
+			<Item Amount="10" ItemId="40306"/>
+			<Item Amount="10" ItemId="40307"/>
+		</MakeItem>
+	</Action>
+	<!-- Black bloodstains 50 / alchemist -->
+	<Action Name="M" NpcId="70520">
+		<MakeItem AmountInputable="false">
+			<Material Amount="50" ItemId="40524"/>
+			<Material Amount="500000" ItemId="40308"/>
+			<Item Amount="50" ItemId="40304"/>
+			<Item Amount="50" ItemId="40305"/>
+			<Item Amount="50" ItemId="40306"/>
+			<Item Amount="50" ItemId="40307"/>
+		</MakeItem>
+	</Action>
+	<!-- Calculator / blaze -->
+	<Action Name="1" NpcId="70605">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40526"/>
+			<Material Amount="5" ItemId="40779"/>
+			<Material Amount="1000" ItemId="40308"/>
+			<Item Amount="1" ItemId="40391"/>
+		</MakeItem>
+	</Action>
+	<!-- Abrasive / Timmie -->
+	<Action Name="1" NpcId="71006">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41209"/>
+			<Item Amount="1" ItemId="41210"/>
+			<Succeed>
+				<ShowHtml HtmlId="jpe0055"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- Herb / Ron Blacksmith -->
+	<Action Name="request ei004" NpcId="71003">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41210"/>
+			<Item Amount="1" ItemId="41211"/>
+		</MakeItem>
+	</Action>
+	<!-- Official candy / pharmacist IKUSHI -->
+	<Action Name="request ei005" NpcId="71001">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41211"/>
+			<Item Amount="1" ItemId="41212"/>
+		</MakeItem>
+	</Action> 
+	<!-- SHIANPOSHON / chicory -->
+	<Action Name="1" NpcId="71009">
+		<MakeItem AmountInputable="false">
+			<Material Amount="3" ItemId="41222"/>
+			<Item Amount="1" ItemId="40017"/>
+			<Succeed>
+				<ShowHtml HtmlId="jpe0074"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- Banana juice / Burriana -->
+	<Action Name="1" NpcId="71011">
+		<MakeItem AmountInputable="false">
+			<Material Amount="3" ItemId="40060"/>
+			<Material Amount="3" ItemId="40061"/>
+			<Material Amount="3" ItemId="40062"/>
+			<Item Amount="1" ItemId="40026"/>
+			<Succeed>
+				<ShowHtml HtmlId="jpe0065"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- Prince bag / eta adventurers -->
+	<Action Name="request ei028" NpcId="71032">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41214"/>
+			<Material Amount="5" ItemId="41215"/>
+			<Material Amount="5" ItemId="41216"/>
+			<Item Amount="1" ItemId="41217"/>
+		</MakeItem>
+	</Action>
+	<!-- Night bag / eta adventurers -->
+	<Action Name="request ei029" NpcId="71032">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41214"/>
+			<Material Amount="5" ItemId="41215"/>
+			<Material Amount="5" ItemId="41216"/>
+			<Item Amount="1" ItemId="41218"/>
+		</MakeItem>
+	</Action>
+	<!-- Elf bag / eta adventurers -->
+	<Action Name="request ei030" NpcId="71032">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41214"/>
+			<Material Amount="5" ItemId="41215"/>
+			<Material Amount="5" ItemId="41216"/>
+			<Item Amount="1" ItemId="41219"/>
+		</MakeItem>
+	</Action>
+	<!-- Wizard bag / eta adventurers -->
+	<Action Name="request ei031" NpcId="71032">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41214"/>
+			<Material Amount="5" ItemId="41215"/>
+			<Material Amount="5" ItemId="41216"/>
+			<Item Amount="1" ItemId="41220"/>
+		</MakeItem>
+	</Action>
+	<!-- Dark Elves bag / eta adventurers -->
+	<Action Name="request ei032" NpcId="71032">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41214"/>
+			<Material Amount="5" ItemId="41215"/>
+			<Material Amount="5" ItemId="41216"/>
+			<Item Amount="1" ItemId="41221"/>
+		</MakeItem>
+	</Action>
+	<!-- Signs Valley / RUBA -->
+	<Action Name="request amulet of valley" NpcId="70506">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40653"/>
+			<Item Amount="1" ItemId="20243"/>
+		</MakeItem>
+	</Action>
+	<!-- Island Signs / RUBA -->
+	<Action Name="request amulet of island" NpcId="70506">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40613"/>
+			<Item Amount="1" ItemId="20259"/>
+		</MakeItem>
+	</Action>
+	<!-- Rabbi Charm / rabbi -->
+	<Action Name="request ei034" NpcId="71034">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41227"/>
+			<Item Amount="1" ItemId="41228"/>
+		</MakeItem>
+	</Action>
+	<!-- Ivory tower ring / Hermit -->
+	<Action Name="request ring of oren tower" NpcId="71033">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41228"/>
+			<Item Amount="1" ItemId="20282"/>
+		</MakeItem>
+	</Action>
+	<!-- JINAN letter / bone-smith JINAN -->
+	<Action Name="0" NpcId="71022">
+		<MakeItem AmountInputable="false">
+			<Material Amount="5" ItemId="41229"/>
+			<Item Amount="1" ItemId="41230"/>
+			<Succeed>
+				<ShowHtml HtmlId="jpe0154"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- MATTI letter / MATTI bone-smith -->
+	<Action Name="request ei021" NpcId="71021">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41230"/>
+			<Item Amount="1" ItemId="41231"/>
+		</MakeItem>
+	</Action>
+	<!-- John delivered the goods / Region -->
+	<Action Name="0" NpcId="71020">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41231"/>
+			<Item Amount="1" ItemId="41232"/>
+		</MakeItem>
+	</Action>
+	<!-- Material list / KEI bone-smith -->
+	<Action Name="0" NpcId="71023">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41233"/>
+			<Material Amount="1" ItemId="41234"/>
+			<Item Amount="1" ItemId="41235"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0146"/>
+		</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- Delivered the goods KEI / KEI bone-smith -->
+	<Action Name="1" NpcId="71023">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41235"/>
+			<Material Amount="3" ItemId="41236"/>
+			<Material Amount="3" ItemId="41237"/>
+			<Item Amount="1" ItemId="41238"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0147"/>
+		</Succeed>
+		</MakeItem>
+	</Action>	
 
-  <Action Name="b" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21072"/>
-      <Material Amount="1" ItemId="21069"/>
-    </MakeItem>
-  </Action>
+	<Action Name="0" NpcId="71019">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41239"/>
+			<Item Amount="1" ItemId="41241"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0116"/>
+		</Succeed>
+		</MakeItem>
+	</Action>
 
-  <Action Name="c" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21071"/>
-      <Material Amount="1" ItemId="21069"/>
-    </MakeItem>
-  </Action>
+	<Action Name="0" NpcId="71018">
+	<MakeItem AmountInputable="false">
+		<Material Amount="1" ItemId="41240"/>
+		<Item Amount="1" ItemId="20124"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0135"/>
+		</Succeed>
+		</MakeItem>
+	</Action>
 
-  <Action Name="d" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21073"/>
-      <Material Amount="1" ItemId="21069"/>
-    </MakeItem>
-  </Action>
+	<Action Name="request ei014" NpcId="70005">
+	<MakeItem AmountInputable="false">
+		<Material Amount="1" ItemId="41225"/>
+		<Item Amount="1" ItemId="41226"/>
+		</MakeItem>
+	</Action>
 
-  <Action Name="e" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21075"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="1" NpcId="71025">
+	<MakeItem AmountInputable="false">
+		<Material Amount="1" ItemId="41226"/>
+		<Material Amount="1" ItemId="40653"/>
+		<Item Amount="1000" ItemId="40308"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0085"/>
+		</Succeed>
+		</MakeItem>
+	</Action>
 
-  <Action Name="f" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21076"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="2" NpcId="71025">
+	<MakeItem AmountInputable="false">
+		<Material Amount="1" ItemId="41226"/>
+		<Material Amount="1" ItemId="40613"/>
+		<Item Amount="1000" ItemId="40308"/>
+		<Succeed>
+			<ShowHtml HtmlId="jpe0085"/>
+		</Succeed>
+		</MakeItem>
+	</Action>
 
-  <Action Name="g" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21077"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="A" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10000" ItemId="40308"/>
+			<Item Amount="1" ItemId="41255"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons1"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons2"/>
+			</Fail>
+		</MakeItem>
+	</Action>
 
-  <Action Name="h" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21078"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="B" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="3000" ItemId="40308"/>
+			<Material Amount="1" ItemId="41255"/>
+			<Item Amount="1" ItemId="41256"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
 
-  <Action Name="i" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21079"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="q" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="5000" ItemId="40308"/>
+			<Material Amount="1" ItemId="41256"/>
+			<Item Amount="1" ItemId="41257"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons10"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons11"/>
+			</Fail>
+		</MakeItem>
+	</Action>
 
-  <Action Name="j" NpcId="81200">
-    <MakeItem>
-      <Item Amount="1" ItemId="21080"/>
-      <Material Amount="1" ItemId="21074"/>
-    </MakeItem>
-  </Action>
+	<Action Name="a" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41277"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
 
-  <Action Name="request dantes manual" NpcId="71169">
-    <MakeItem>
-      <Item Amount="1" ItemId="40966"/>
-      <Material Amount="1" ItemId="41035"/>
-    </MakeItem>
-  </Action>
+	<Action Name="b" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41278"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="c" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41279"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="d" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41280"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="e" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41281"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="f" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41282"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="g" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41283"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="h" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="41284"/>
+			<Item Amount="1" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="i" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41277"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="j" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41278"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="k" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41279"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="l" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41280"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="m" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41281"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="n" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41282"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="o" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41283"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="p" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="41284"/>
+			<Item Amount="10" ItemId="49048"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons7"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons6"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="s" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49049"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="t" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49050"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="u" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49051"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="v" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49052"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="w" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49053"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="x" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49054"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="y" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49055"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="z" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="49056"/>
+			<Item Amount="1" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="C" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49049"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="D" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49050"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="E" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49051"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="F" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49052"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="G" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49053"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="H" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49054"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="I" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49055"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+
+	<Action Name="J" NpcId="80091">
+		<MakeItem AmountInputable="false">
+			<Material Amount="10" ItemId="49056"/>
+			<Item Amount="10" ItemId="49243"/>
+			<Succeed>
+				<ShowHtml HtmlId="rrafons12"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="rrafons14"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request mineral bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="41002"/>
+			<Material Amount="1" ItemId="40614"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request hoe" NpcId="71166">
+		<MakeItem>
+			<Item Amount="1" ItemId="40527"/>
+			<Material Amount="5" ItemId="40899"/>
+			<Material Amount="300" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request oum giftbag" NpcId="71146">
+		<MakeItem>
+			<Item Amount="1" ItemId="40687"/>
+			<Material Amount="1" ItemId="40527"/>
+			<Succeed>
+				<ShowHtml HtmlId="midoum3"/>
+			</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken earring" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21049"/>
+			<Material Amount="1" ItemId="41305"/>
+			<Material Amount="1" ItemId="41303"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken ring left" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21048"/>
+			<Material Amount="1" ItemId="41306"/>
+			<Material Amount="1" ItemId="41302"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request not_broken amulet" NpcId="80081">
+		<MakeItem>
+			<Item Amount="1" ItemId="21050"/>
+			<Material Amount="1" ItemId="41307"/>
+			<Material Amount="1" ItemId="41301"/>
+			<Material Amount="1000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<Action Name="a" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21070"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="b" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21072"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="c" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21071"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="d" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21073"/>
+			<Material Amount="1" ItemId="21069"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="e" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21075"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="f" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21076"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="g" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21077"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="h" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21078"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="i" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21079"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="j" NpcId="81200">
+		<MakeItem>
+			<Item Amount="1" ItemId="21080"/>
+			<Material Amount="1" ItemId="21074"/>
+		</MakeItem>
+	</Action>
+
+	<Action Name="request dantes manual" NpcId="71169">
+		<MakeItem>
+			<Item Amount="1" ItemId="40966"/>
+			<Material Amount="1" ItemId="41035"/>
+		</MakeItem>
+	</Action>
 </NpcActionList>

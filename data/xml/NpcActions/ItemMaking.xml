@@ -457,20 +457,35 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request a fruit of ent">
+	<Action Name="request wooden jacket" NpcId="70838">
 		<MakeItem>
-			<Item Amount="1" ItemId="40506"/>
-			<Material Amount="1" ItemId="40514"/>
-			<Material Amount="1" ItemId="40511"/>
+			<Material Amount="10" ItemId="40507"/>
+			<Material Amount="6" ItemId="40502"/>
+			<Item Amount="1" ItemId="21107"/>
 		</MakeItem>
 	</Action>
 		<!--Robiel request silver arrow-->
 	<Action Name="request silver arrow" NpcId="70840">
 		<MakeItem>
 			<Material Amount="1" ItemId="173"/>
-			<Material Amount="1" ItemId="29001"/>
+			<Material Amount="1" ItemId="21107"/>
 			<Material Amount="1" ItemId="40507"/>
 			<Item Amount="200" ItemId="40744"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request elvenforest map" NpcId="70847">
+		<MakeItem>
+			<Material Amount="1" ItemId="40507"/>
+			<Item Amount="1" ItemId="40378"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request a fruit of ent">
+		<MakeItem>
+			<Item Amount="1" ItemId="40506"/>
+			<Material Amount="1" ItemId="40514"/>
+			<Material Amount="1" ItemId="40511"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
@@ -1314,7 +1329,7 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request potion of emotion bravery">
+	<Action Name="request potion of emotion:bravery">
 		<MakeItem>
 			<Item Amount="2" ItemId="40014"/>
 			<Material Amount="10" ItemId="40430"/>
@@ -1324,7 +1339,7 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request potion of emotion prudence">
+	<Action Name="request potion of emotion:prudence">
 		<MakeItem>
 			<Item Amount="2" ItemId="40016"/>
 			<Material Amount="20" ItemId="40438"/>
@@ -1882,32 +1897,46 @@
 			<Material Amount="1" ItemId="40324"/>
 		</MakeItem>
 	</Action>
-	<!-- Pumpkin Seed -->
-	<Action Name="request pumpkin seed">
+	<!-- -->
+	<Action Name="request pumpkin hat">
 		<MakeItem>
-			<Item Amount="1" ItemId="40726"/>
-			<Material Amount="25" ItemId="40721"/>
+			<Item Amount="1" ItemId="20046"/>
+			<Material Amount="5000" ItemId="40308"/>
 		</MakeItem>
 	</Action>
-	<!-- Bronze Pumpkin -->
-	<Action Name="request copper pumpkin">
+	<!-- -->
+	<Action Name="request candy for jack">
+		<MakeItem>
+			<Item Amount="1" ItemId="40725"/>
+			<Material Amount="5" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request ei2202">
+		<MakeItem>
+			<Item Amount="1" ItemId="40721"/>
+			<Material Amount="25" ItemId="40726"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request ei2205">
 		<MakeItem>
 			<Item Amount="1" ItemId="40724"/>
 			<Material Amount="10" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- Silver Pumpkin -->
-	<Action Name="request silver pumpkin">
+	<Action Name="request ei2204">
 		<MakeItem>
 			<Item Amount="1" ItemId="40723"/>
 			<Material Amount="25" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- Gold Pumpkin -->
-	<Action Name="request gold pumpkin">
+	<Action Name="request ei2203">
 		<MakeItem>
 			<Item Amount="1" ItemId="40722"/>
-			<Material Amount="50" ItemId="40726"/>
+			<Material Amount="3" ItemId="40721"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
@@ -2332,6 +2361,13 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
+	<Action Name="request new surprise bag" NpcId="80128">
+		<MakeItem>
+			<Item Amount="1" ItemId="41311"/>
+			<Material Amount="50" ItemId="41402"/>
+		</MakeItem>
+	</Action>
+	<!-- I think this was a fix? -->
 	<Action Name="request pet match coin" NpcId="80128">
 		<MakeItem>
 			<Item Amount="1" ItemId="41254"/>
@@ -2671,7 +2707,7 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request petmatch surprise bag" NpcId="80089">
+	<Action Name="request new surprise bag" NpcId="80089">
 		<MakeItem>
 			<Material Amount="150" ItemId="41309"/>
 			<Item Amount="1" ItemId="41416"/>
@@ -2845,11 +2881,560 @@
 	<!-- -->
 	<Action Name="B" NpcId="80076">
 		<MakeItem>
-		<Item Amount="1" ItemId="41059"/>
-		<Material Amount="1" ItemId="41058"/>
+			<Item Amount="1" ItemId="41059"/>
+			<Material Amount="1" ItemId="41058"/>
+				<Succeed>
+					<ShowHtml HtmlId="voyager10"/>
+				</Succeed>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request eveurol bag" NpcId="70872">
+		<MakeItem>
+			<Item Amount="1" ItemId="41336"/>
+			<Material Amount="1" ItemId="41343"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request chainsword destroyer" NpcId="80133">
+		<MakeItem>
+			<Material Amount="1" ItemId="17"/>
+			<Material Amount="20" ItemId="40406"/>
+			<Material Amount="20" ItemId="40503"/>
+			<Material Amount="1" ItemId="40393"/>
+			<Material Amount="1000000" ItemId="40308"/>
+			<Item Amount="1" ItemId="273"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request guarder of ancient archer" NpcId="80133">
+		<MakeItem>
+			<Material Amount="1" ItemId="20140"/>
+			<Material Amount="3" ItemId="40445"/>
+			<Material Amount="20" ItemId="40504"/>
+			<Material Amount="50" ItemId="40505"/>
+			<Material Amount="20" ItemId="40521"/>
+			<Material Amount="50" ItemId="40495"/>
+			<Material Amount="1000000" ItemId="40308"/>
+			<Item Amount="1" ItemId="21105"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request guarder of ancient champion" NpcId="80133">
+		<MakeItem>
+			<Material Amount="1" ItemId="20143"/>
+			<Material Amount="5" ItemId="40445"/>
+			<Material Amount="1000000" ItemId="40308"/>
+			<Item Amount="1" ItemId="21106"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request halpas symbol" NpcId="80133">
+		<MakeItem>
+			<Material Amount="1" ItemId="49215"/>
+			<Item Amount="1" ItemId="49223"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="request obsidian kiringku" NpcId="80142">
+		<MakeItem>
+			<Material Amount="10" ItemId="40052"/>
+			<Material Amount="10" ItemId="40053"/>
+			<Material Amount="10" ItemId="40054"/>
+			<Material Amount="10" ItemId="40055"/>
+			<Material Amount="30" ItemId="40520"/>
+			<Material Amount="2" ItemId="49092"/>
+			<Material Amount="1000000" ItemId="40308"/>
+			<Item Amount="1" ItemId="271"/>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="1" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40699"/>
+			<Material Amount="3" ItemId="40516"/>
+			<Material Amount="3" ItemId="40517"/>
+			<Material Amount="3" ItemId="40518"/>
+			<Material Amount="5" ItemId="40512"/>
+			<Material Amount="10" ItemId="40495"/>
+			<Item Amount="1" ItemId="214"/>
 			<Succeed>
-				<ShowHtml HtmlId="voyager10"/>
+				<ShowHtml HtmlId="marba21"/>
 			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="2" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40698"/>
+			<Material Amount="3" ItemId="40492"/>
+			<Material Amount="3" ItemId="40501"/>
+			<Material Amount="3" ItemId="40523"/>
+			<Material Amount="5" ItemId="40510"/>
+			<Material Amount="10" ItemId="40495"/>
+			<Item Amount="1" ItemId="20389"/>
+			<Succeed>
+				<ShowHtml HtmlId="marba21"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="3" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40693"/>
+			<Material Amount="5" ItemId="40516"/>
+			<Material Amount="5" ItemId="40517"/>
+			<Material Amount="5" ItemId="40518"/>
+			<Material Amount="6" ItemId="40510"/>
+			<Material Amount="10" ItemId="40510"/>
+			<Material Amount="100" ItemId="40508"/>
+			<Item Amount="1" ItemId="20393"/>
+			<Succeed>
+				<ShowHtml HtmlId="marba21"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="4" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40697"/>
+			<Material Amount="5" ItemId="40500"/>
+			<Material Amount="5" ItemId="40522"/>
+			<Material Amount="5" ItemId="40523"/>
+			<Material Amount="3" ItemId="40510"/>
+			<Material Amount="10" ItemId="40495"/>
+			<Item Amount="1" ItemId="20409"/>
+			<Succeed>
+				<ShowHtml HtmlId="marba21"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="5" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40695"/>
+			<Material Amount="5" ItemId="40500"/>
+			<Material Amount="5" ItemId="40522"/>
+			<Material Amount="5" ItemId="40523"/>
+			<Material Amount="3" ItemId="40510"/>
+			<Material Amount="50" ItemId="40508"/>
+			<Item Amount="1" ItemId="20406"/>
+			<Succeed>
+				<ShowHtml HtmlId="marba21"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="6" NpcId="71258">
+		<MakeItem>
+			<Material Amount="1" ItemId="40694"/>
+			<Material Amount="1" ItemId="40492"/>
+			<Material Amount="1" ItemId="40500"/>
+			<Material Amount="1" ItemId="40501"/>
+			<Material Amount="10" ItemId="40495"/>
+			<Material Amount="35" ItemId="40520"/>
+			<Item Amount="1" ItemId="20401"/>
+			<Succeed>
+				<ShowHtml HtmlId="marba21"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="marba16"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="1" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40684"/>
+			<Item Amount="1" ItemId="40699"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="2" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40683"/>
+			<Item Amount="1" ItemId="40698"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="3" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40679"/>
+			<Item Amount="1" ItemId="40693"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="4" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40682"/>
+			<Item Amount="1" ItemId="40697"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="5" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40681"/>
+			<Item Amount="1" ItemId="40695"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="6" NpcId="71259">
+		<MakeItem>
+			<Material Amount="1" ItemId="40680"/>
+			<Item Amount="1" ItemId="40694"/>
+			<Succeed>
+				<ShowHtml HtmlId="aras4"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="aras5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="A" NpcId="80094" AmountInputable="false">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41319"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="B" NpcId="80094">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41320"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="C" NpcId="80094">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41321"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="D" NpcId="80094">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41322"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="E" NpcId="80094">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41323"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="F" NpcId="80094">
+		<MakeItem>
+			<Material Amount="20" ItemId="41327"/>
+			<Material Amount="1" ItemId="41324"/>
+			<Item Amount="1" ItemId="41325"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="G" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41319"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="H" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41320"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="I" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41321"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="J" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41322"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="K" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41323"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="L" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="41328"/>
+			<Material Amount="1" ItemId="41324"/>
+			<Item Amount="1" ItemId="41326"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="M" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="49187"/>
+			<Material Amount="1" ItemId="41319"/>
+			<Item Amount="1" ItemId="274"/>
+			<Item Amount="1" ItemId="49188"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar3"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="N" NpcId="80094">
+		<MakeItem>
+			<Material Amount="1" ItemId="274"/>
+			<Material Amount="1" ItemId="49190"/>
+			<Material Amount="1" ItemId="41322"/>
+			<Item Amount="1" ItemId="49191"/>
+			<Succeed>
+				<ShowHtml HtmlId="altar10"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="altar8"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="A" NpcId="71180">
+		<MakeItem>
+			<Material Amount="1000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41093"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp6"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="B" NpcId="71180">
+		<MakeItem>
+			<Material Amount="5000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41094"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp6"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="C" NpcId="71180">
+		<MakeItem>
+			<Material Amount="10000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41095"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp6"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="D" NpcId="71180">
+		<MakeItem>
+			<Material Amount="100000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41096"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp6"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="E" NpcId="71180">
+		<MakeItem>
+			<Material Amount="1000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41098"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp8"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="F" NpcId="71180">
+		<MakeItem>
+			<Material Amount="5000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41099"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp8"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="G" NpcId="71180">
+		<MakeItem>
+			<Material Amount="10000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41100"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp8"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
+		</MakeItem>
+	</Action>
+	<!-- -->
+	<Action Name="H" NpcId="71180">
+		<MakeItem>
+			<Material Amount="100000" ItemId="49026"/>
+			<Item Amount="1" ItemId="41101"/>
+			<Succeed>
+				<ShowHtml HtmlId="jp8"/>
+			</Succeed>
+			<Fail>
+				<ShowHtml HtmlId="jp5"/>
+			</Fail>
 		</MakeItem>
 	</Action>
 </NpcActionList>

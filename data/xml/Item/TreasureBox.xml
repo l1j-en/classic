@@ -3,818 +3,1133 @@
 	<!--Type = SPECIFIC If the list of all items for myself. Chance I was without specifying. -->
 	<!--Type = RANDOM If the item from a list of some one for myself. Chance You need to specify. -->
 	<!--Chance Unit %(0.0001% Allowed to specify). A total of 100% to be set. -->
-  <!-- diamond kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49005">
-    <Item ItemId="40010" Count="2" Chance="21" />
-    <Item ItemId="40408" Count="2" Chance="16" />
-    <Item ItemId="40013" Count="1" Chance="12" />
-    <Item ItemId="40021" Count="1" Chance="11" />
-    <Item ItemId="40018" Count="1" Chance="10" />
-    <Item ItemId="40494" Count="5" Chance="9" />
-    <Item ItemId="40014" Count="1" Chance="5" />
-    <Item ItemId="40779" Count="1" Chance="5" />
-    <Item ItemId="40400" Count="1" Chance="5" />
-    <Item ItemId="40317" Count="1" Chance="3" />
-    <Item ItemId="40487" Count="1" Chance="1" />
-    <Item ItemId="40304" Count="1" Chance="1" />
-    <Item ItemId="40428" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- ruby kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49006">
-    <Item ItemId="40011" Count="2" Chance="17" />
-    <Item ItemId="40013" Count="1" Chance="14" />
-    <Item ItemId="40408" Count="2" Chance="12" />
-    <Item ItemId="40320" Count="3" Chance="10" />
-    <Item ItemId="40018" Count="1" Chance="10" />
-    <Item ItemId="40406" Count="4" Chance="8" />
-    <Item ItemId="40458" Count="1" Chance="5" />
-    <Item ItemId="40014" Count="1" Chance="5" />
-    <Item ItemId="40496" Count="2" Chance="5" />
-    <Item ItemId="40020" Count="1" Chance="5" />
-    <Item ItemId="40399" Count="1" Chance="5" />
-    <Item ItemId="40441" Count="1" Chance="2" />
-    <Item ItemId="40468" Count="1" Chance="1" />
-    <Item ItemId="40305" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- sapphire kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49007">
-    <Item ItemId="40010" Count="5" Chance="19" />
-    <Item ItemId="40013" Count="2" Chance="15" />
-    <Item ItemId="40408" Count="2" Chance="15" />
-    <Item ItemId="40015" Count="2" Chance="12" />
-    <Item ItemId="40318" Count="1" Chance="10" />
-    <Item ItemId="40016" Count="1" Chance="10" />
-    <Item ItemId="40494" Count="5" Chance="6" />
-    <Item ItemId="40398" Count="1" Chance="5" />
-    <Item ItemId="40521" Count="1" Chance="3" />
-    <Item ItemId="40444" Count="1" Chance="1" />
-    <Item ItemId="40489" Count="1" Chance="1" />
-    <Item ItemId="40441" Count="1" Chance="1" />
-    <Item ItemId="40068" Count="1" Chance="1" />
-    <Item ItemId="40307" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- emerald kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49008">
-    <Item ItemId="40010" Count="3" Chance="20" />
-    <Item ItemId="40408" Count="3" Chance="17" />
-    <Item ItemId="40508" Count="4" Chance="8" />
-    <Item ItemId="40015" Count="1" Chance="8" />
-    <Item ItemId="40012" Count="1" Chance="8" />
-    <Item ItemId="40013" Count="1" Chance="8" />
-    <Item ItemId="40458" Count="1" Chance="7" />
-    <Item ItemId="40468" Count="1" Chance="5" />
-    <Item ItemId="40779" Count="1" Chance="5" />
-    <Item ItemId="40397" Count="1" Chance="5" />
-    <Item ItemId="40515" Count="1" Chance="5" />
-    <Item ItemId="40068" Count="1" Chance="2" />
-    <Item ItemId="40444" Count="1" Chance="1" />
-    <Item ItemId="40306" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- hqd kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49009">
-    <Item ItemId="40010" Count="20" Chance="15" />
-    <Item ItemId="40014" Count="2" Chance="9" />
-    <Item ItemId="40018" Count="3" Chance="9" />
-    <Item ItemId="40021" Count="2" Chance="9" />
-    <Item ItemId="40317" Count="1" Chance="9" />
-    <Item ItemId="40318" Count="3" Chance="9" />
-    <Item ItemId="40408" Count="3" Chance="9" />
-    <Item ItemId="40779" Count="2" Chance="9" />
-    <Item ItemId="40494" Count="30" Chance="9" />
-    <Item ItemId="40400" Count="2" Chance="9" />
-    <Item ItemId="40304" Count="1" Chance="1" />
-    <Item ItemId="40487" Count="1" Chance="1" />
-    <Item ItemId="40428" Count="1" Chance="1" />
-    <Item ItemId="40396" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- hqr kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49011">
-    <Item ItemId="40011" Count="5" Chance="15" />
-    <Item ItemId="40013" Count="5" Chance="8" />
-    <Item ItemId="40018" Count="2" Chance="8" />
-    <Item ItemId="40014" Count="2" Chance="8" />
-    <Item ItemId="40020" Count="5" Chance="8" />
-    <Item ItemId="40021" Count="2" Chance="8" />
-    <Item ItemId="40320" Count="5" Chance="8" />
-    <Item ItemId="40408" Count="4" Chance="8" />
-    <Item ItemId="40496" Count="3" Chance="8" />
-    <Item ItemId="40458" Count="2" Chance="8" />
-    <Item ItemId="40399" Count="1" Chance="8" />
-    <Item ItemId="40489" Count="1" Chance="1" />
-    <Item ItemId="40441" Count="1" Chance="1" />
-    <Item ItemId="40305" Count="1" Chance="1" />
-    <Item ItemId="40513" Count="1" Chance="1" />
-    <Item ItemId="40393" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- hqs kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49012">
-    <Item ItemId="40010" Count="20" Chance="15" />
-    <Item ItemId="40016" Count="2" Chance="8" />
-    <Item ItemId="40018" Count="2" Chance="8" />
-    <Item ItemId="40015" Count="2" Chance="8" />
-    <Item ItemId="40318" Count="4" Chance="8" />
-    <Item ItemId="40068" Count="2" Chance="8" />
-    <Item ItemId="40408" Count="5" Chance="8" />
-    <Item ItemId="40494" Count="40" Chance="8" />
-    <Item ItemId="40521" Count="2" Chance="8" />
-    <Item ItemId="40458" Count="1" Chance="8" />
-    <Item ItemId="40398" Count="1" Chance="8" />
-    <Item ItemId="40444" Count="1" Chance="1" />
-    <Item ItemId="40489" Count="2" Chance="1" />
-    <Item ItemId="40441" Count="1" Chance="1" />
-    <Item ItemId="40307" Count="1" Chance="1" />
-    <Item ItemId="40394" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- hqe kafir pouch -->
-  <TreasureBox Type="RANDOM" ItemId="49010">
-    <Item ItemId="40011" Count="8" Chance="14" />
-    <Item ItemId="40012" Count="5" Chance="9" />
-    <Item ItemId="40016" Count="2" Chance="9" />
-    <Item ItemId="40015" Count="3" Chance="9" />
-    <Item ItemId="40014" Count="1" Chance="9" />
-    <Item ItemId="40408" Count="5" Chance="9" />
-    <Item ItemId="40508" Count="8" Chance="9" />
-    <Item ItemId="40458" Count="2" Chance="9" />
-    <Item ItemId="40779" Count="1" Chance="9" />
-    <Item ItemId="40397" Count="1" Chance="9" />
-    <Item ItemId="40515" Count="1" Chance="1" />
-    <Item ItemId="40468" Count="2" Chance="1" />
-    <Item ItemId="40444" Count="1" Chance="1" />
-    <Item ItemId="40306" Count="1" Chance="1" />
-    <Item ItemId="40395" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- 1st Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40623">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 2nd Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40624">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 3rd Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40625">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 4th Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40626">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 5th Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40627">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 6th Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40628">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- 7th Generation Heirloom of the Druga Clan -->
-  <TreasureBox Type="RANDOM" ItemId="40629">
-    <Item ItemId="40308" Count="1000000" Chance="9" />
-    <Item ItemId="20130" Count="1" Chance="7" />
-    <Item ItemId="20153" Count="1" Chance="7" />
-    <Item ItemId="20108" Count="1" Chance="7" />
-    <Item ItemId="20119" Count="1" Chance="7" />
-    <Item ItemId="66" Count="1" Chance="7" />
-    <Item ItemId="40666" Count="1" Chance="7" />
-    <Item ItemId="40076" Count="1" Chance="7" />
-    <Item ItemId="40033" Count="1" Chance="7" />
-    <Item ItemId="40034" Count="1" Chance="7" />
-    <Item ItemId="40035" Count="1" Chance="7" />
-    <Item ItemId="40036" Count="1" Chance="7" />
-    <Item ItemId="40037" Count="1" Chance="7" />
-    <Item ItemId="40038" Count="1" Chance="7" />
-  </TreasureBox>
-  <!-- Gift Bag from Pierce -->
-  <TreasureBox Type="RANDOM" ItemId="40715">
-    <Item ItemId="152" Count="1" Chance="7" />
-    <Item ItemId="153" Count="1" Chance="6" />
-    <Item ItemId="154" Count="1" Chance="6" />
-    <Item ItemId="157" Count="1" Chance="6" />
-    <Item ItemId="158" Count="1" Chance="6" />
-    <Item ItemId="159" Count="1" Chance="6" />
-    <Item ItemId="161" Count="1" Chance="6" />
-    <Item ItemId="162" Count="1" Chance="3" />
-    <Item ItemId="69" Count="1" Chance="6" />
-    <Item ItemId="71" Count="1" Chance="6" />
-    <Item ItemId="72" Count="1" Chance="6" />
-    <Item ItemId="74" Count="1" Chance="6" />
-    <Item ItemId="75" Count="1" Chance="6" />
-    <Item ItemId="77" Count="1" Chance="6" />
-    <Item ItemId="80" Count="1" Chance="6" />
-    <Item ItemId="81" Count="1" Chance="3" />
-    <Item ItemId="168" Count="1" Chance="6" />
-    <Item ItemId="177" Count="1" Chance="3" />
-  </TreasureBox>
-  <!-- Golden Pumpkin -->
-  <TreasureBox Type="RANDOM" ItemId="40722">
-    <Item ItemId="40524" Count="10" Chance="13" />
-    <Item ItemId="40043" Count="10" Chance="15" />
-    <Item ItemId="40068" Count="30" Chance="15" />
-    <Item ItemId="40039" Count="10" Chance="5" />
-    <Item ItemId="40040" Count="10" Chance="5" />
-    <Item ItemId="40031" Count="10" Chance="5" />
-    <Item ItemId="20342" Count="1" Chance="5" />
-    <Item ItemId="20079" Count="1" Chance="5" />
-    <Item ItemId="20047" Count="1" Chance="5" />
-    <Item ItemId="20086" Count="1" Chance="5">
-      <!-- Doublet Lomejeech -->
-    </Item>
-    <Item ItemId="20087" Count="1" Chance="5">
-      <!-- Doublet Lomebuich -->
-    </Item>
-    <Item ItemId="20088" Count="1" Chance="5">
-      <!-- Doublet Lomechech -->
-    </Item>
-    <Item ItemId="100029" Count="1" Chance="1" />
-    <Item ItemId="100037" Count="1" Chance="1" />
-    <Item ItemId="100042" Count="1" Chance="1" />
-    <Item ItemId="100049" Count="1" Chance="1" />
-    <Item ItemId="100074" Count="1" Chance="1" />
-    <Item ItemId="120280" Count="1" Chance="1" />
-    <Item ItemId="120309" Count="1" Chance="1" />
-    <Item ItemId="120310" Count="1" Chance="1" />
-    <Item ItemId="120311" Count="1" Chance="1" />
-    <Item ItemId="120317" Count="1" Chance="1" />
-    <Item ItemId="120320" Count="1" Chance="1" />
-    <Item ItemId="120321" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- Silver Pumpkin -->
-  <TreasureBox Type="RANDOM" ItemId="40723">
-    <Item ItemId="40021" Count="9" Chance="12" />
-    <Item ItemId="40024" Count="20" Chance="5" />
-    <Item ItemId="40015" Count="20" Chance="5" />
-    <Item ItemId="40068" Count="5" Chance="5" />
-    <Item ItemId="40093" Count="8" Chance="5" />
-    <Item ItemId="40094" Count="8" Chance="5" />
-    <Item ItemId="40524" Count="1" Chance="5" />
-    <Item ItemId="40074" Count="1" Chance="5" />
-    <Item ItemId="40087" Count="1" Chance="5" />
-    <Item ItemId="20347" Count="1" Chance="5" />
-    <Item ItemId="20348" Count="1" Chance="5" />
-    <Item ItemId="20350" Count="1" Chance="5" />
-    <Item ItemId="40212" Count="1" Chance="5" />
-    <Item ItemId="40218" Count="1" Chance="5" />
-    <Item ItemId="140068" Count="1" Chance="5" />
-    <Item ItemId="100004" Count="1" Chance="2" />
-    <Item ItemId="100025" Count="1" Chance="2" />
-    <Item ItemId="100062" Count="1" Chance="2" />
-    <Item ItemId="100099" Count="1" Chance="2" />
-    <Item ItemId="100132" Count="1" Chance="2" />
-    <Item ItemId="100169" Count="1" Chance="2" />
-    <Item ItemId="120011" Count="1" Chance="2" />
-    <Item ItemId="120085" Count="1" Chance="2" />
-    <Item ItemId="120137" Count="1" Chance="2" />
-  </TreasureBox>
-  <!-- Bronze Pumpkin -->
-  <TreasureBox Type="RANDOM" ItemId="40724">
-    <Item ItemId="40028" Count="60" Chance="5" />
-    <Item ItemId="40058" Count="3" Chance="5" />
-    <Item ItemId="40071" Count="1" Chance="5" />
-    <Item ItemId="40018" Count="1" Chance="5" />
-    <Item ItemId="40088" Count="3" Chance="5" />
-    <Item ItemId="40015" Count="5" Chance="5" />
-    <Item ItemId="40318" Count="20" Chance="5" />
-    <Item ItemId="40014" Count="10" Chance="5" />
-    <Item ItemId="40068" Count="1" Chance="5" />
-    <Item ItemId="40089" Count="10" Chance="5" />
-    <Item ItemId="40043" Count="1" Chance="5" />
-    <Item ItemId="20345" Count="1" Chance="5" />
-    <Item ItemId="20346" Count="1" Chance="5" />
-    <Item ItemId="20349" Count="1" Chance="5" />
-    <Item ItemId="140061" Count="1" Chance="5" />
-    <Item ItemId="140062" Count="1" Chance="5" />
-    <Item ItemId="140065" Count="1" Chance="5" />
-    <Item ItemId="140069" Count="1" Chance="5" />
-    <Item ItemId="140072" Count="1" Chance="5" />
-    <Item ItemId="140506" Count="1" Chance="5" />
-  </TreasureBox>
-  <!-- Old Leather Pouch -->
-  <TreasureBox Type="RANDOM" ItemId="40167">
-    <Item ItemId="40058" Count="1" Chance="40" />
-    <Item ItemId="40071" Count="1" Chance="30" />
-    <Item ItemId="40331" Count="1" Chance="3" />
-    <Item ItemId="40332" Count="1" Chance="3" />
-    <Item ItemId="40333" Count="1" Chance="3" />
-    <Item ItemId="40334" Count="1" Chance="3" />
-    <Item ItemId="40335" Count="1" Chance="3" />
-    <Item ItemId="40336" Count="1" Chance="3" />
-    <Item ItemId="40337" Count="1" Chance="3" />
-    <Item ItemId="40338" Count="1" Chance="3" />
-    <Item ItemId="40339" Count="1" Chance="3" />
-    <Item ItemId="40340" Count="1" Chance="3" />
-  </TreasureBox>
-  <!-- Old Silk Pouch -->
-  <TreasureBox Type="RANDOM" ItemId="40168">
-    <Item ItemId="40058" Count="1" Chance="40" />
-    <Item ItemId="40071" Count="1" Chance="30" />
-    <Item ItemId="40331" Count="1" Chance="3" />
-    <Item ItemId="40332" Count="1" Chance="3" />
-    <Item ItemId="40333" Count="1" Chance="3" />
-    <Item ItemId="40334" Count="1" Chance="3" />
-    <Item ItemId="40335" Count="1" Chance="3" />
-    <Item ItemId="40336" Count="1" Chance="3" />
-    <Item ItemId="40337" Count="1" Chance="3" />
-    <Item ItemId="40338" Count="1" Chance="3" />
-    <Item ItemId="40339" Count="1" Chance="3" />
-    <Item ItemId="40340" Count="1" Chance="3" />
-  </TreasureBox>
-  <!-- Relic Pouch -->
-  <TreasureBox Type="RANDOM" ItemId="40415">
-    <Item ItemId="40058" Count="1" Chance="40" />
-    <Item ItemId="40071" Count="1" Chance="30" />
-    <Item ItemId="40331" Count="1" Chance="3" />
-    <Item ItemId="40332" Count="1" Chance="3" />
-    <Item ItemId="40333" Count="1" Chance="3" />
-    <Item ItemId="40334" Count="1" Chance="3" />
-    <Item ItemId="40335" Count="1" Chance="3" />
-    <Item ItemId="40336" Count="1" Chance="3" />
-    <Item ItemId="40337" Count="1" Chance="3" />
-    <Item ItemId="40338" Count="1" Chance="3" />
-    <Item ItemId="40339" Count="1" Chance="3" />
-    <Item ItemId="40340" Count="1" Chance="3" />
-  </TreasureBox>
-  <!-- Unlimited Quiver -->
-  <TreasureBox Type="RANDOM" ItemId="40330">
-    <Item ItemId="40744" Count="4000" Chance="80" />
-    <Item ItemId="40746" Count="1000" Chance="10" />
-    <Item ItemId="40747" Count="1000" Chance="5" />
-    <Item ItemId="40748" Count="1000" Chance="5" />
-  </TreasureBox>
-  <!-- Cursed Blood -->
-  <TreasureBox Type="RANDOM" ItemId="40416">
-    <Item ItemId="40031" Count="1" Chance="24" />
-    <Item ItemId="40009" Count="1" Chance="16" />
-    <Item ItemId="40006" Count="1" Chance="15" />
-    <Item ItemId="40007" Count="1" Chance="15" />
-    <Item ItemId="40008" Count="1" Chance="15" />
-    <Item ItemId="40524" Count="1" Chance="15" />
-  </TreasureBox>
-  <!-- Alchemist's Stone -->
-  <TreasureBox Type="RANDOM" ItemId="40414">
-    <Item ItemId="40042" Count="1" Chance="11" />
-    <Item ItemId="40010" Count="1" Chance="9" />
-    <Item ItemId="40011" Count="1" Chance="8" />
-    <Item ItemId="49012" Count="1" Chance="8" />
-    <Item ItemId="40013" Count="1" Chance="8" />
-    <Item ItemId="40014" Count="1" Chance="8" />
-    <Item ItemId="40015" Count="1" Chance="8" />
-    <Item ItemId="40016" Count="1" Chance="8" />
-    <Item ItemId="40017" Count="1" Chance="8" />
-    <Item ItemId="40018" Count="1" Chance="8" />
-    <Item ItemId="40025" Count="1" Chance="8" />
-    <Item ItemId="40425" Count="1" Chance="8" />
-  </TreasureBox>
-  <!-- Aria's Reward -->
-  <TreasureBox Type="SPECIFIC" ItemId="40570">
-    <Item ItemId="20051" Count="1" />
-    <Item ItemId="40228" Count="1" />
-  </TreasureBox>
-  <!-- Mysterious Bag -->
-  <TreasureBox Type="SPECIFIC" ItemId="40568">
-    <Item ItemId="40576" Count="1" />
-    <Item ItemId="40577" Count="1" />
-    <Item ItemId="40578" Count="1" />
-  </TreasureBox>
-  <!-- Crystal Piece of Soul -->
-  <TreasureBox Type="SPECIFIC" ItemId="40576">
-    <Item ItemId="40573" Count="1" />
-  </TreasureBox>
-  <!-- Crystal Piece of Soul -->
-  <TreasureBox Type="SPECIFIC" ItemId="40577">
-    <Item ItemId="40574" Count="1" />
-  </TreasureBox>
-  <!-- Crystal Piece of Soul -->
-  <TreasureBox Type="SPECIFIC" ItemId="40578">
-    <Item ItemId="40575" Count="1" />
-  </TreasureBox>
-  <!-- Scroll of Soul -->
-  <TreasureBox Type="SPECIFIC" ItemId="49013">
-    <Item ItemId="49014" Count="1" />
-  </TreasureBox>
-  <!-- Fruit of Black Ent -->
-  <TreasureBox Type="SPECIFIC" ItemId="40411">
-    <Item ItemId="20299" Count="1" />
-  </TreasureBox>
-  <!-- Guardian's Bag -->
-  <TreasureBox Type="SPECIFIC" ItemId="40528">
-    <Item ItemId="65" Count="1" />
-    <Item ItemId="40597" Count="1" />
-    <Item ItemId="40537" Count="1" />
-    <Item ItemId="40593" Count="1" />
-  </TreasureBox>
-  <!--  Elven Treasure -->
-  <TreasureBox Type="SPECIFIC" ItemId="40588">
-    <Item ItemId="40243" Count="1" />
-    <Item ItemId="20084" Count="1" />
-  </TreasureBox>
-  <!-- Apparition's Bag -->
-  <TreasureBox Type="SPECIFIC" ItemId="40548">
-    <Item ItemId="40533" Count="1" />
-    <Item ItemId="192" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40546">
-    <Item ItemId="192" Count="1" />
-    <Item ItemId="20171" Count="1" />
-    <Item ItemId="40245" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40599">
-    <Item ItemId="133" Count="1" />
-    <Item ItemId="20055" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40598">
-    <Item ItemId="20004" Count="1" />
-    <Item ItemId="40268" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40556">
-    <Item ItemId="40596" Count="1">
-      <!--  -->
-    </Item>
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40545">
-    <Item ItemId="20164" Count="1" />
-    <Item ItemId="40270" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40571">
-    <Item ItemId="40648" Count="1" />
-    <Item ItemId="40595" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40553">
-    <Item ItemId="20195" Count="1"></Item>
-    <Item ItemId="40276" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41217">
-    <Item ItemId="20384" Count="1" />
-    <Item ItemId="20391" Count="1" />
-    <Item ItemId="20397" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41218">
-    <Item ItemId="20385" Count="1" />
-    <Item ItemId="20394" Count="1" />
-    <Item ItemId="20398" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41219">
-    <Item ItemId="20386" Count="1" />
-    <Item ItemId="20392" Count="1" />
-    <Item ItemId="20403" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41220">
-    <Item ItemId="20387" Count="1" />
-    <Item ItemId="20399" Count="1" />
-    <Item ItemId="20404" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41221">
-    <Item ItemId="20388" Count="1" />
-    <Item ItemId="20400" Count="1" />
-    <Item ItemId="20405" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41232">
-    <Item ItemId="41233" Count="1" />
-    <Item ItemId="41234" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41238">
-    <Item ItemId="41239" Count="1" />
-    <Item ItemId="41240" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41241">
-    <Item ItemId="20045" Count="1" />
-    <Item ItemId="20221" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41242">
-    <Item ItemId="40930" Count="1" />
-    <Item ItemId="41081" Count="1" />
-    <Item ItemId="41082" Count="1" />
-    <Item ItemId="41085" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41074">
-    <Item ItemId="40308" Count="500" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="40702">
-    <Item ItemId="40701" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="SPECIFIC" ItemId="41312">
-    <Item ItemId="41313" Count="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="40636">
-    <Item ItemId="40308" Count="300" Chance="80" />
-    <Item ItemId="40308" Count="1000" Chance="19" />
-    <Item ItemId="40308" Count="10000" Chance="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="40639">
-    <Item ItemId="40308" Count="300" Chance="80" />
-    <Item ItemId="40308" Count="1000" Chance="19" />
-    <Item ItemId="40308" Count="10000" Chance="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="40640">
-    <Item ItemId="40308" Count="300" Chance="80" />
-    <Item ItemId="40308" Count="1000" Chance="19" />
-    <Item ItemId="40308" Count="10000" Chance="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="40668">
-    <Item ItemId="40308" Count="300" Chance="80" />
-    <Item ItemId="40308" Count="1000" Chance="19" />
-    <Item ItemId="40308" Count="10000" Chance="1" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="41243">
-    <Item ItemId="40308" Count="300" Chance="30" />
-    <Item ItemId="40308" Count="1000" Chance="10" />
-    <Item ItemId="40308" Count="10000" Chance="1" />
-    <Item ItemId="40006" Count="1" Chance="1" />	
-    <Item ItemId="40008" Count="1" Chance="1" />
-    <Item ItemId="40044" Count="1" Chance="5" />
-    <Item ItemId="40045" Count="1" Chance="5" />
-    <Item ItemId="40046" Count="1" Chance="5" />
-    <Item ItemId="40047" Count="1" Chance="5" />
-    <Item ItemId="40048" Count="1" Chance="3" />
-    <Item ItemId="40049" Count="1" Chance="3" />
-    <Item ItemId="40050" Count="1" Chance="3" />
-    <Item ItemId="40051" Count="1" Chance="3" />
-    <Item ItemId="40052" Count="1" Chance="1" />
-    <Item ItemId="40053" Count="1" Chance="1" />
-    <Item ItemId="40054" Count="1" Chance="1" />
-    <Item ItemId="40055" Count="1" Chance="1" />
-    <Item ItemId="40429" Count="1" Chance="10" />
-    <Item ItemId="40441" Count="1" Chance="1" />
-    <Item ItemId="40444" Count="1" Chance="1" />
-    <Item ItemId="40468" Count="1" Chance="1" />
-    <Item ItemId="40489" Count="1" Chance="1" />
-    <Item ItemId="40508" Count="1" Chance="1" />
-    <Item ItemId="40524" Count="1" Chance="1" />
-    <Item ItemId="140074" Count="1" Chance="1" />
-    <Item ItemId="140087" Count="1" Chance="1" />
-    <Item ItemId="140100" Count="3" Chance="3" />
-  </TreasureBox>
-  <!--  -->
-  <TreasureBox Type="RANDOM" ItemId="41244">
-    <Item ItemId="6" Count="1" Chance="1" />
-    <Item ItemId="10" Count="1" Chance="1" />
-    <Item ItemId="38" Count="1" Chance="1" />
-    <Item ItemId="82" Count="1" Chance="1" />
-    <Item ItemId="101" Count="1" Chance="1" />
-    <Item ItemId="122" Count="1" Chance="1" />
-    <Item ItemId="176" Count="1" Chance="1" />
-    <Item ItemId="187" Count="1" Chance="1" />
-    <Item ItemId="188" Count="1" Chance="1" />
-    <Item ItemId="20032" Count="1" Chance="1" />
-    <Item ItemId="20102" Count="1" Chance="1" />
-    <Item ItemId="20103" Count="1" Chance="1" />
-    <Item ItemId="20104" Count="1" Chance="1" />
-    <Item ItemId="20105" Count="1" Chance="1" />
-    <Item ItemId="20132" Count="1" Chance="1" />
-    <Item ItemId="20199" Count="1" Chance="1" />
-    <Item ItemId="20224" Count="1" Chance="1" />
-    <Item ItemId="40675" Count="1" Chance="20" />
-    <Item ItemId="40675" Count="2" Chance="20" />
-    <Item ItemId="40675" Count="3" Chance="20" />
-    <Item ItemId="40746" Count="10" Chance="4" />
-    <Item ItemId="40746" Count="15" Chance="4" />
-    <Item ItemId="40746" Count="20" Chance="4" />
-    <Item ItemId="40746" Count="25" Chance="3" />
-    <Item ItemId="40746" Count="30" Chance="3" />
-    <Item ItemId="40746" Count="35" Chance="2" />
-    <Item ItemId="40746" Count="40" Chance="2" />
-    <Item ItemId="40746" Count="50" Chance="1" />
-  </TreasureBox>
-  <!-- doll? -->
-  <TreasureBox Type="RANDOM" ItemId="41308">
-    <Item ItemId="41251" Count="1" Chance="10" />
-    <Item ItemId="40010" Count="30" Chance="10" />
-    <Item ItemId="40010" Count="15" Chance="20" />
-    <Item ItemId="40011" Count="15" Chance="20" />
-    <Item ItemId="40012" Count="15" Chance="20" />
-    <Item ItemId="40088" Count="6" Chance="20" />
-  </TreasureBox>
-  <!-- Doll-child by magic bag -->
-  <TreasureBox Type="RANDOM" ItemId="41247">
-    <Item ItemId="41248" Count="1" Chance="33" />
-    <Item ItemId="41249" Count="1" Chance="33" />
-    <Item ItemId="41250" Count="1" Chance="34" />
-  </TreasureBox>
-  <!-- -->
-  <TreasureBox Type="RANDOM" ItemId="41355">
-    <Item ItemId="140074" Count="1" Chance="0.41" />
-    <Item ItemId="140087" Count="1" Chance="0.25" />
-    <Item ItemId="40074" Count="1" Chance="1.25" />
-    <Item ItemId="40087" Count="1" Chance="1.49" />
-    <Item ItemId="40441" Count="1" Chance="3.56" />
-    <Item ItemId="40458" Count="1" Chance="7.62" />
-    <Item ItemId="40444" Count="1" Chance="2.90" />
-    <Item ItemId="40508" Count="1" Chance="3.39" />
-    <Item ItemId="40410" Count="1" Chance="25.25" />
-    <Item ItemId="40412" Count="1" Chance="5.38" />
-    <Item ItemId="40024" Count="1" Chance="16.72" />
-    <Item ItemId="40023" Count="1" Chance="13.41" />
-    <Item ItemId="40022" Count="1" Chance="12.42" />
-    <Item ItemId="40304" Count="1" Chance="1.32" />
-    <Item ItemId="40305" Count="1" Chance="1.74" />
-    <Item ItemId="40306" Count="1" Chance="1.32" />
-    <Item ItemId="40307" Count="1" Chance="1.57" />
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41001">
-    <Item ItemId="40308" Count="200"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41405">
-    <Item ItemId="40308" Count="1000"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41002">
-	<Item ItemId="40444" Count="1"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="RANDOM" ItemId="40687">
-    <Item ItemId="40691" Count="1" Chance="40" />
-    <Item ItemId="40689" Count="1" Chance="30" />
-    <Item ItemId="40690" Count="1" Chance="15" />
-    <Item ItemId="40685" Count="1" Chance="7" />
-    <Item ItemId="40688" Count="1" Chance="5" />
-    <Item ItemId="40686" Count="1" Chance="3" />
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="40632">
-    <Item ItemId="40308" Count="300"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41406">
-    <Item ItemId="40308" Count="500"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41407">
-    <Item ItemId="40308" Count="1000"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41408">
-    <Item ItemId="40308" Count="1700"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41409">
-    <Item ItemId="40308" Count="2600"></Item>
-  </TreasureBox>
-  <!-- --> 
-  <TreasureBox Type="SPECIFIC" ItemId="41410">
-    <Item ItemId="40308" Count="4000"></Item>
-  </TreasureBox>
-  <TreasureBox Type="SPECIFIC" ItemId="40582">
-    <Item ItemId="40583" Count="1"></Item>
-  </TreasureBox>
+	<!-- diamond kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49005">
+		<Item ItemId="40010" Count="2" Chance="21" />
+		<Item ItemId="40408" Count="2" Chance="16" />
+		<Item ItemId="40013" Count="1" Chance="12" />
+		<Item ItemId="40021" Count="1" Chance="11" />
+		<Item ItemId="40018" Count="1" Chance="10" />
+		<Item ItemId="40494" Count="5" Chance="9" />
+		<Item ItemId="40014" Count="1" Chance="5" />
+		<Item ItemId="40779" Count="1" Chance="5" />
+		<Item ItemId="40400" Count="1" Chance="5" />
+		<Item ItemId="40317" Count="1" Chance="3" />
+		<Item ItemId="40489" Count="1" Chance="1" />
+		<Item ItemId="40304" Count="1" Chance="1" />
+		<Item ItemId="40428" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- ruby kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49006">
+		<Item ItemId="40011" Count="2" Chance="17" />
+		<Item ItemId="40013" Count="1" Chance="14" />
+		<Item ItemId="40408" Count="2" Chance="12" />
+		<Item ItemId="40320" Count="3" Chance="10" />
+		<Item ItemId="40018" Count="1" Chance="10" />
+		<Item ItemId="40406" Count="4" Chance="8" />
+		<Item ItemId="40458" Count="1" Chance="5" />
+		<Item ItemId="40014" Count="1" Chance="5" />
+		<Item ItemId="40496" Count="2" Chance="5" />
+		<Item ItemId="40020" Count="1" Chance="5" />
+		<Item ItemId="40399" Count="1" Chance="5" />
+		<Item ItemId="40441" Count="1" Chance="2" />
+		<Item ItemId="40468" Count="1" Chance="1" />
+		<Item ItemId="40305" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- sapphire kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49007">
+		<Item ItemId="40010" Count="5" Chance="19" />
+		<Item ItemId="40013" Count="2" Chance="15" />
+		<Item ItemId="40408" Count="2" Chance="15" />
+		<Item ItemId="40015" Count="2" Chance="12" />
+		<Item ItemId="40318" Count="1" Chance="10" />
+		<Item ItemId="40016" Count="1" Chance="10" />
+		<Item ItemId="40494" Count="5" Chance="6" />
+		<Item ItemId="40398" Count="1" Chance="5" />
+		<Item ItemId="40521" Count="1" Chance="3" />
+		<Item ItemId="40444" Count="1" Chance="1" />
+		<Item ItemId="40489" Count="1" Chance="1" />
+		<Item ItemId="40441" Count="1" Chance="1" />
+		<Item ItemId="40068" Count="1" Chance="1" />
+		<Item ItemId="40307" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- emerald kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49008">
+		<Item ItemId="40010" Count="3" Chance="20" />
+		<Item ItemId="40408" Count="3" Chance="17" />
+		<Item ItemId="40508" Count="4" Chance="8" />
+		<Item ItemId="40015" Count="1" Chance="8" />
+		<Item ItemId="40012" Count="1" Chance="8" />
+		<Item ItemId="40013" Count="1" Chance="8" />
+		<Item ItemId="40458" Count="1" Chance="7" />
+		<Item ItemId="40468" Count="1" Chance="5" />
+		<Item ItemId="40779" Count="1" Chance="5" />
+		<Item ItemId="40397" Count="1" Chance="5" />
+		<Item ItemId="40515" Count="1" Chance="5" />
+		<Item ItemId="40068" Count="1" Chance="2" />
+		<Item ItemId="40444" Count="1" Chance="1" />
+		<Item ItemId="40306" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- hqd kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49009">
+		<Item ItemId="40010" Count="20" Chance="15" />
+		<Item ItemId="40014" Count="2" Chance="9" />
+		<Item ItemId="40018" Count="3" Chance="9" />
+		<Item ItemId="40021" Count="2" Chance="9" />
+		<Item ItemId="40317" Count="1" Chance="9" />
+		<Item ItemId="40318" Count="3" Chance="9" />
+		<Item ItemId="40408" Count="3" Chance="9" />
+		<Item ItemId="40779" Count="2" Chance="9" />
+		<Item ItemId="40494" Count="30" Chance="9" />
+		<Item ItemId="40400" Count="2" Chance="9" />
+		<Item ItemId="40304" Count="1" Chance="1" />
+		<Item ItemId="40489" Count="1" Chance="1" />
+		<Item ItemId="40428" Count="1" Chance="1" />
+		<Item ItemId="40396" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- hqr kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49011">
+		<Item ItemId="40011" Count="5" Chance="15" />
+		<Item ItemId="40013" Count="5" Chance="8" />
+		<Item ItemId="40018" Count="2" Chance="8" />
+		<Item ItemId="40014" Count="2" Chance="8" />
+		<Item ItemId="40020" Count="5" Chance="8" />
+		<Item ItemId="40021" Count="2" Chance="8" />
+		<Item ItemId="40320" Count="5" Chance="8" />
+		<Item ItemId="40408" Count="4" Chance="8" />
+		<Item ItemId="40496" Count="3" Chance="8" />
+		<Item ItemId="40458" Count="2" Chance="8" />
+		<Item ItemId="40399" Count="1" Chance="8" />
+		<Item ItemId="40489" Count="1" Chance="1" />
+		<Item ItemId="40441" Count="1" Chance="1" />
+		<Item ItemId="40305" Count="1" Chance="1" />
+		<Item ItemId="40513" Count="1" Chance="1" />
+		<Item ItemId="40393" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- hqs kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49012">
+		<Item ItemId="40010" Count="20" Chance="15" />
+		<Item ItemId="40016" Count="2" Chance="8" />
+		<Item ItemId="40018" Count="2" Chance="8" />
+		<Item ItemId="40015" Count="2" Chance="8" />
+		<Item ItemId="40318" Count="4" Chance="8" />
+		<Item ItemId="40068" Count="2" Chance="8" />
+		<Item ItemId="40408" Count="5" Chance="8" />
+		<Item ItemId="40494" Count="40" Chance="8" />
+		<Item ItemId="40521" Count="2" Chance="8" />
+		<Item ItemId="40458" Count="1" Chance="8" />
+		<Item ItemId="40398" Count="1" Chance="8" />
+		<Item ItemId="40444" Count="1" Chance="1" />
+		<Item ItemId="40489" Count="2" Chance="1" />
+		<Item ItemId="40441" Count="1" Chance="1" />
+		<Item ItemId="40307" Count="1" Chance="1" />
+		<Item ItemId="40394" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- hqe kafir pouch -->
+	<TreasureBox Type="RANDOM" ItemId="49010">
+		<Item ItemId="40011" Count="8" Chance="14" />
+		<Item ItemId="40012" Count="5" Chance="9" />
+		<Item ItemId="40016" Count="2" Chance="9" />
+		<Item ItemId="40015" Count="3" Chance="9" />
+		<Item ItemId="40014" Count="1" Chance="9" />
+		<Item ItemId="40408" Count="5" Chance="9" />
+		<Item ItemId="40508" Count="8" Chance="9" />
+		<Item ItemId="40458" Count="2" Chance="9" />
+		<Item ItemId="40779" Count="1" Chance="9" />
+		<Item ItemId="40397" Count="1" Chance="9" />
+		<Item ItemId="40515" Count="1" Chance="1" />
+		<Item ItemId="40468" Count="2" Chance="1" />
+		<Item ItemId="40444" Count="1" Chance="1" />
+		<Item ItemId="40306" Count="1" Chance="1" />
+		<Item ItemId="40395" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- 1st Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40623">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 2nd Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40624">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 3rd Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40625">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 4th Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40626">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 5th Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40627">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 6th Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40628">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- 7th Generation Heirloom of the Druga Clan -->
+	<TreasureBox Type="RANDOM" ItemId="40629">
+		<Item ItemId="40308" Count="1000000" Chance="9" />
+		<Item ItemId="20130" Count="1" Chance="7" />
+		<Item ItemId="20153" Count="1" Chance="7" />
+		<Item ItemId="20108" Count="1" Chance="7" />
+		<Item ItemId="20119" Count="1" Chance="7" />
+		<Item ItemId="66" Count="1" Chance="7" />
+		<Item ItemId="40666" Count="1" Chance="7" />
+		<Item ItemId="40076" Count="1" Chance="7" />
+		<Item ItemId="40033" Count="1" Chance="7" />
+		<Item ItemId="40034" Count="1" Chance="7" />
+		<Item ItemId="40035" Count="1" Chance="7" />
+		<Item ItemId="40036" Count="1" Chance="7" />
+		<Item ItemId="40037" Count="1" Chance="7" />
+		<Item ItemId="40038" Count="1" Chance="7" />
+	</TreasureBox>
+	<!-- Gift Bag from Pierce -->
+	<TreasureBox Type="RANDOM" ItemId="40715">
+		<Item ItemId="152" Count="1" Chance="6" />
+		<Item ItemId="69" Count="1" Chance="6" />
+		<Item ItemId="153" Count="1" Chance="5" />
+		<Item ItemId="71" Count="1" Chance="5" />
+		<Item ItemId="154" Count="1" Chance="5" />
+		<Item ItemId="72" Count="1" Chance="5" />
+		<Item ItemId="159" Count="1" Chance="5" />
+		<Item ItemId="77" Count="1" Chance="5" />
+		<Item ItemId="161" Count="1" Chance="5" />
+		<Item ItemId="80" Count="1" Chance="5" />
+		<Item ItemId="158" Count="1" Chance="4" />
+		<Item ItemId="75" Count="1" Chance="4" />
+		<Item ItemId="168" Count="1" Chance="4" />
+		<Item ItemId="162" Count="1" Chance="1" />
+		<Item ItemId="81" Count="1" Chance="1" />
+		<Item ItemId="177" Count="1" Chance="1" />
+		<Item ItemId="40739" Count="1000" Chance="6" />
+		<Item ItemId="40738" Count="1000" Chance="6" />
+		<Item ItemId="40740" Count="500" Chance="6" />
+		<Item ItemId="20032" Count="1" Chance="3" />
+		<Item ItemId="20070" Count="1" Chance="3" />
+		<Item ItemId="20180" Count="1" Chance="3" />
+		<Item ItemId="20132" Count="1" Chance="3" />
+		<Item ItemId="20210" Count="1" Chance="3" />
+	</TreasureBox>
+	<!-- Golden Pumpkin -->
+	<TreasureBox Type="RANDOM" ItemId="40722">
+		<Item ItemId="40524" Count="10" Chance="13" />
+		<Item ItemId="40043" Count="10" Chance="15" />
+		<Item ItemId="40068" Count="30" Chance="15" />
+		<Item ItemId="40039" Count="10" Chance="5" />
+		<Item ItemId="40040" Count="10" Chance="5" />
+		<Item ItemId="40031" Count="10" Chance="5" />
+		<Item ItemId="20342" Count="1" Chance="5" />
+		<Item ItemId="20079" Count="1" Chance="5" />
+		<Item ItemId="20047" Count="1" Chance="5" />
+		<Item ItemId="20086" Count="1" Chance="5">
+			<!-- Doublet Lomejeech -->
+		</Item>
+		<Item ItemId="20087" Count="1" Chance="5">
+			<!-- Doublet Lomebuich -->
+		</Item>
+		<Item ItemId="20088" Count="1" Chance="5">
+			<!-- Doublet Lomechech -->
+		</Item>
+		<Item ItemId="100029" Count="1" Chance="1" />
+		<Item ItemId="100037" Count="1" Chance="1" />
+		<Item ItemId="100042" Count="1" Chance="1" />
+		<Item ItemId="100049" Count="1" Chance="1" />
+		<Item ItemId="100074" Count="1" Chance="1" />
+		<Item ItemId="120280" Count="1" Chance="1" />
+		<Item ItemId="120309" Count="1" Chance="1" />
+		<Item ItemId="120310" Count="1" Chance="1" />
+		<Item ItemId="120311" Count="1" Chance="1" />
+		<Item ItemId="120317" Count="1" Chance="1" />
+		<Item ItemId="120320" Count="1" Chance="1" />
+		<Item ItemId="120321" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- Silver Pumpkin -->
+	<TreasureBox Type="RANDOM" ItemId="40723">
+		<Item ItemId="40021" Count="9" Chance="12" />
+		<Item ItemId="40024" Count="20" Chance="5" />
+		<Item ItemId="40015" Count="20" Chance="5" />
+		<Item ItemId="40068" Count="5" Chance="5" />
+		<Item ItemId="40093" Count="8" Chance="5" />
+		<Item ItemId="40094" Count="8" Chance="5" />
+		<Item ItemId="40524" Count="1" Chance="5" />
+		<Item ItemId="40074" Count="1" Chance="5" />
+		<Item ItemId="40087" Count="1" Chance="5" />
+		<Item ItemId="20347" Count="1" Chance="5" />
+		<Item ItemId="20348" Count="1" Chance="5" />
+		<Item ItemId="20350" Count="1" Chance="5" />
+		<Item ItemId="40212" Count="1" Chance="5" />
+		<Item ItemId="40218" Count="1" Chance="5" />
+		<Item ItemId="140068" Count="1" Chance="5" />
+		<Item ItemId="100004" Count="1" Chance="2" />
+		<Item ItemId="100025" Count="1" Chance="2" />
+		<Item ItemId="100062" Count="1" Chance="2" />
+		<Item ItemId="100099" Count="1" Chance="2" />
+		<Item ItemId="100132" Count="1" Chance="2" />
+		<Item ItemId="100169" Count="1" Chance="2" />
+		<Item ItemId="120011" Count="1" Chance="2" />
+		<Item ItemId="120085" Count="1" Chance="2" />
+		<Item ItemId="120137" Count="1" Chance="2" />
+	</TreasureBox>
+	<!-- Bronze Pumpkin -->
+	<TreasureBox Type="RANDOM" ItemId="40724">
+		<Item ItemId="40028" Count="60" Chance="5" />
+		<Item ItemId="40058" Count="3" Chance="5" />
+		<Item ItemId="40071" Count="1" Chance="5" />
+		<Item ItemId="40018" Count="1" Chance="5" />
+		<Item ItemId="40088" Count="3" Chance="5" />
+		<Item ItemId="40015" Count="5" Chance="5" />
+		<Item ItemId="40318" Count="20" Chance="5" />
+		<Item ItemId="40014" Count="10" Chance="5" />
+		<Item ItemId="40068" Count="1" Chance="5" />
+		<Item ItemId="40089" Count="10" Chance="5" />
+		<Item ItemId="40043" Count="1" Chance="5" />
+		<Item ItemId="20345" Count="1" Chance="5" />
+		<Item ItemId="20346" Count="1" Chance="5" />
+		<Item ItemId="20349" Count="1" Chance="5" />
+		<Item ItemId="140061" Count="1" Chance="5" />
+		<Item ItemId="140062" Count="1" Chance="5" />
+		<Item ItemId="140065" Count="1" Chance="5" />
+		<Item ItemId="140069" Count="1" Chance="5" />
+		<Item ItemId="140072" Count="1" Chance="5" />
+		<Item ItemId="140506" Count="1" Chance="5" />
+	</TreasureBox>
+	<!-- Old Leather Pouch -->
+	<TreasureBox Type="RANDOM" ItemId="40167">
+		<Item ItemId="40058" Count="1" Chance="40" />
+		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40331" Count="1" Chance="3" />
+		<Item ItemId="40332" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="3" />
+		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40335" Count="1" Chance="3" />
+		<Item ItemId="40336" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="3" />
+		<Item ItemId="40338" Count="1" Chance="3" />
+		<Item ItemId="40339" Count="1" Chance="3" />
+		<Item ItemId="40340" Count="1" Chance="3" />
+	</TreasureBox>
+	<!-- Old Silk Pouch -->
+	<TreasureBox Type="RANDOM" ItemId="40168">
+		<Item ItemId="40058" Count="1" Chance="40" />
+		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40331" Count="1" Chance="3" />
+		<Item ItemId="40332" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="3" />
+		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40335" Count="1" Chance="3" />
+		<Item ItemId="40336" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="3" />
+		<Item ItemId="40338" Count="1" Chance="3" />
+		<Item ItemId="40339" Count="1" Chance="3" />
+		<Item ItemId="40340" Count="1" Chance="3" />
+	</TreasureBox>
+	<!-- Relic Pouch -->
+	<TreasureBox Type="RANDOM" ItemId="40415">
+		<Item ItemId="40058" Count="1" Chance="40" />
+		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40331" Count="1" Chance="3" />
+		<Item ItemId="40332" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="3" />
+		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40335" Count="1" Chance="3" />
+		<Item ItemId="40336" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="3" />
+		<Item ItemId="40338" Count="1" Chance="3" />
+		<Item ItemId="40339" Count="1" Chance="3" />
+		<Item ItemId="40340" Count="1" Chance="3" />
+	</TreasureBox>
+	<!-- Unlimited Quiver -->
+	<TreasureBox Type="RANDOM" ItemId="40330">
+		<Item ItemId="40744" Count="4000" Chance="80" />
+		<Item ItemId="40746" Count="1000" Chance="10" />
+		<Item ItemId="40747" Count="1000" Chance="5" />
+		<Item ItemId="40748" Count="1000" Chance="5" />
+	</TreasureBox>
+	<!-- Cursed Blood -->
+	<TreasureBox Type="RANDOM" ItemId="40416">
+		<Item ItemId="40031" Count="1" Chance="24" />
+		<Item ItemId="40009" Count="1" Chance="16" />
+		<Item ItemId="40006" Count="1" Chance="15" />
+		<Item ItemId="40007" Count="1" Chance="15" />
+		<Item ItemId="40008" Count="1" Chance="15" />
+		<Item ItemId="40524" Count="1" Chance="15" />
+	</TreasureBox>
+	<!-- Alchemist's Stone -->
+	<TreasureBox Type="RANDOM" ItemId="40414">
+		<Item ItemId="40042" Count="1" Chance="11" />
+		<Item ItemId="40010" Count="1" Chance="9" />
+		<Item ItemId="40011" Count="1" Chance="8" />
+		<Item ItemId="49012" Count="1" Chance="8" />
+		<Item ItemId="40013" Count="1" Chance="8" />
+		<Item ItemId="40014" Count="1" Chance="8" />
+		<Item ItemId="40015" Count="1" Chance="8" />
+		<Item ItemId="40016" Count="1" Chance="8" />
+		<Item ItemId="40017" Count="1" Chance="8" />
+		<Item ItemId="40018" Count="1" Chance="8" />
+		<Item ItemId="40025" Count="1" Chance="8" />
+		<Item ItemId="40425" Count="1" Chance="8" />
+	</TreasureBox>
+	<!-- Aria's Reward -->
+	<TreasureBox Type="SPECIFIC" ItemId="40570">
+		<Item ItemId="20051" Count="1" />
+		<Item ItemId="40228" Count="1" />
+	</TreasureBox>
+	<!-- Mysterious Bag -->
+	<TreasureBox Type="SPECIFIC" ItemId="40568">
+		<Item ItemId="40576" Count="1" />
+		<Item ItemId="40577" Count="1" />
+		<Item ItemId="40578" Count="1" />
+	</TreasureBox>
+	<!-- Crystal Piece of Soul -->
+	<TreasureBox Type="SPECIFIC" ItemId="40576">
+		<Item ItemId="40573" Count="1" />
+	</TreasureBox>
+	<!-- Crystal Piece of Soul -->
+	<TreasureBox Type="SPECIFIC" ItemId="40577">
+		<Item ItemId="40574" Count="1" />
+	</TreasureBox>
+	<!-- Crystal Piece of Soul -->
+	<TreasureBox Type="SPECIFIC" ItemId="40578">
+		<Item ItemId="40575" Count="1" />
+	</TreasureBox>
+	<!-- Scroll of Soul -->
+	<TreasureBox Type="SPECIFIC" ItemId="49013">
+		<Item ItemId="49014" Count="1" />
+	</TreasureBox>
+	<!-- Fruit of Black Ent -->
+	<TreasureBox Type="SPECIFIC" ItemId="40411">
+		<Item ItemId="20299" Count="1" />
+	</TreasureBox>
+	<!-- Guardian's Bag -->
+	<TreasureBox Type="SPECIFIC" ItemId="40528">
+		<Item ItemId="65" Count="1" />
+		<Item ItemId="40597" Count="1" />
+		<Item ItemId="40537" Count="1" />
+		<Item ItemId="40593" Count="1" />
+	</TreasureBox>
+	<!--	Elven Treasure -->
+	<TreasureBox Type="SPECIFIC" ItemId="40588">
+		<Item ItemId="40243" Count="1" />
+		<Item ItemId="20084" Count="1" />
+	</TreasureBox>
+	<!-- Apparition's Bag -->
+	<TreasureBox Type="SPECIFIC" ItemId="40548">
+		<Item ItemId="40533" Count="1" />
+		<Item ItemId="192" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40546">
+		<Item ItemId="192" Count="1" />
+		<Item ItemId="20171" Count="1" />
+		<Item ItemId="40245" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40599">
+		<Item ItemId="133" Count="1" />
+		<Item ItemId="20055" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40598">
+		<Item ItemId="20004" Count="1" />
+		<Item ItemId="40268" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40556">
+		<Item ItemId="40596" Count="1">
+			<!--	-->
+		</Item>
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40545">
+		<Item ItemId="20164" Count="1" />
+		<Item ItemId="40270" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40571">
+		<Item ItemId="40648" Count="1" />
+		<Item ItemId="40595" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40553">
+		<Item ItemId="20195" Count="1"></Item>
+		<Item ItemId="40276" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41217">
+		<Item ItemId="20384" Count="1" />
+		<Item ItemId="20391" Count="1" />
+		<Item ItemId="20397" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41218">
+		<Item ItemId="20385" Count="1" />
+		<Item ItemId="20394" Count="1" />
+		<Item ItemId="20398" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41219">
+		<Item ItemId="20386" Count="1" />
+		<Item ItemId="20392" Count="1" />
+		<Item ItemId="20403" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41220">
+		<Item ItemId="20387" Count="1" />
+		<Item ItemId="20399" Count="1" />
+		<Item ItemId="20404" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41221">
+		<Item ItemId="20388" Count="1" />
+		<Item ItemId="20400" Count="1" />
+		<Item ItemId="20405" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41232">
+		<Item ItemId="41233" Count="1" />
+		<Item ItemId="41234" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41238">
+		<Item ItemId="41239" Count="1" />
+		<Item ItemId="41240" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41241">
+		<Item ItemId="20045" Count="1" />
+		<Item ItemId="20221" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41242">
+		<Item ItemId="40930" Count="1" />
+		<Item ItemId="41081" Count="1" />
+		<Item ItemId="41082" Count="1" />
+		<Item ItemId="41085" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41074">
+		<Item ItemId="40308" Count="500" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="40702">
+		<Item ItemId="40701" Count="1" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="SPECIFIC" ItemId="41312">
+		<Item ItemId="41313" Count="1" />
+	</TreasureBox>
 
-  <TreasureBox Type="SPECIFIC" ItemId="40556">
-    <Item ItemId="40557" Count="1" />
-    <Item ItemId="40558" Count="1" />
-    <Item ItemId="40559" Count="1" />
-    <Item ItemId="40560" Count="1" />
-    <Item ItemId="40561" Count="1" />
-    <Item ItemId="40562" Count="1" />
-    <Item ItemId="40563" Count="1" />
-  </TreasureBox>
-  
-  <!-- TreasureBox reward for the exchange of 150 medals -->
-  <TreasureBox Type="RANDOM" ItemId="41416">
-    <Item ItemId="41254" Count="1" Chance="100" />
-  </TreasureBox>
-  <TreasureBox Type="RANDOM" ItemId="41008">
-	<Item ItemId="40308" Count="200" Chance="38" />
-	<Item ItemId="40100" Count="1" Chance="20" />
-	<Item ItemId="40044" Count="1" Chance="10" />
-	<Item ItemId="40045" Count="1" Chance="10" />
-	<Item ItemId="40046" Count="1" Chance="10" />
-	<Item ItemId="40047" Count="1" Chance="10" />
-	<Item ItemId="20421" Count="1" Chance="1" />
-	<Item ItemId="20434" Count="1" Chance="1" />
-  </TreasureBox>
-  <!-- -->
-  <TreasureBox Type="RANDOM" ItemId="41059">
-    <Item ItemId="114" Count="1" Chance="0.4" />
-    <Item ItemId="204" Count="1" Chance="0.4" />
-    <Item ItemId="207" Count="1" Chance="0.4" />
-    <Item ItemId="40022" Count="10" Chance="14" />
-    <Item ItemId="40023" Count="10" Chance="10" />
-    <Item ItemId="40024" Count="10" Chance="2" />
-    <Item ItemId="40053" Count="1" Chance="6" />
-    <Item ItemId="40054" Count="1" Chance="6" />
-    <Item ItemId="40055" Count="1" Chance="6" />
-    <Item ItemId="40074" Count="1" Chance="3.6" />
-    <Item ItemId="40087" Count="1" Chance="3.6" />
-    <Item ItemId="40089" Count="1" Chance="7" />
-    <Item ItemId="40100" Count="1" Chance="5" />
-    <Item ItemId="40308" Count="10000" Chance="11" />
-    <Item ItemId="40308" Count="20000" Chance="8" />
-    <Item ItemId="40308" Count="30000" Chance="2" />
-    <Item ItemId="40308" Count="100000" Chance="0.6" />
-    <Item ItemId="40524" Count="3" Chance="3" />
-    <Item ItemId="40524" Count="5" Chance="2" />
-    <Item ItemId="40524" Count="10" Chance="1" />
-    <Item ItemId="140088" Count="3" Chance="2" />
-    <Item ItemId="140089" Count="3" Chance="6" />
+	<TreasureBox Type="RANDOM" ItemId="41243">
+		<Item ItemId="40308" Count="300" Chance="30" />
+		<Item ItemId="40308" Count="1000" Chance="10" />
+		<Item ItemId="40308" Count="10000" Chance="1" />
+		<Item ItemId="40006" Count="1" Chance="1" />	
+		<Item ItemId="40008" Count="1" Chance="1" />
+		<Item ItemId="40044" Count="1" Chance="5" />
+		<Item ItemId="40045" Count="1" Chance="5" />
+		<Item ItemId="40046" Count="1" Chance="5" />
+		<Item ItemId="40047" Count="1" Chance="5" />
+		<Item ItemId="40048" Count="1" Chance="3" />
+		<Item ItemId="40049" Count="1" Chance="3" />
+		<Item ItemId="40050" Count="1" Chance="3" />
+		<Item ItemId="40051" Count="1" Chance="3" />
+		<Item ItemId="40052" Count="1" Chance="1" />
+		<Item ItemId="40053" Count="1" Chance="1" />
+		<Item ItemId="40054" Count="1" Chance="1" />
+		<Item ItemId="40055" Count="1" Chance="1" />
+		<Item ItemId="40429" Count="1" Chance="10" />
+		<Item ItemId="40441" Count="1" Chance="1" />
+		<Item ItemId="40444" Count="1" Chance="1" />
+		<Item ItemId="40468" Count="1" Chance="1" />
+		<Item ItemId="40489" Count="1" Chance="1" />
+		<Item ItemId="40508" Count="1" Chance="1" />
+		<Item ItemId="40524" Count="1" Chance="1" />
+		<Item ItemId="140074" Count="1" Chance="1" />
+		<Item ItemId="140087" Count="1" Chance="1" />
+		<Item ItemId="140100" Count="3" Chance="3" />
+	</TreasureBox>
+	<!--	-->
+	<TreasureBox Type="RANDOM" ItemId="41244">
+		<Item ItemId="6" Count="1" Chance="1" />
+		<Item ItemId="10" Count="1" Chance="1" />
+		<Item ItemId="38" Count="1" Chance="1" />
+		<Item ItemId="82" Count="1" Chance="1" />
+		<Item ItemId="101" Count="1" Chance="1" />
+		<Item ItemId="122" Count="1" Chance="1" />
+		<Item ItemId="176" Count="1" Chance="1" />
+		<Item ItemId="187" Count="1" Chance="1" />
+		<Item ItemId="188" Count="1" Chance="1" />
+		<Item ItemId="20032" Count="1" Chance="1" />
+		<Item ItemId="20102" Count="1" Chance="1" />
+		<Item ItemId="20103" Count="1" Chance="1" />
+		<Item ItemId="20104" Count="1" Chance="1" />
+		<Item ItemId="20105" Count="1" Chance="1" />
+		<Item ItemId="20132" Count="1" Chance="1" />
+		<Item ItemId="20199" Count="1" Chance="1" />
+		<Item ItemId="20224" Count="1" Chance="1" />
+		<Item ItemId="40675" Count="1" Chance="20" />
+		<Item ItemId="40675" Count="2" Chance="20" />
+		<Item ItemId="40675" Count="3" Chance="20" />
+		<Item ItemId="40746" Count="10" Chance="4" />
+		<Item ItemId="40746" Count="15" Chance="4" />
+		<Item ItemId="40746" Count="20" Chance="4" />
+		<Item ItemId="40746" Count="25" Chance="3" />
+		<Item ItemId="40746" Count="30" Chance="3" />
+		<Item ItemId="40746" Count="35" Chance="2" />
+		<Item ItemId="40746" Count="40" Chance="2" />
+		<Item ItemId="40746" Count="50" Chance="1" />
+	</TreasureBox>
+	<!-- doll? -->
+	<TreasureBox Type="RANDOM" ItemId="41308">
+		<Item ItemId="41251" Count="1" Chance="10" />
+		<Item ItemId="40010" Count="30" Chance="10" />
+		<Item ItemId="40010" Count="15" Chance="20" />
+		<Item ItemId="40011" Count="15" Chance="20" />
+		<Item ItemId="40012" Count="15" Chance="20" />
+		<Item ItemId="40088" Count="6" Chance="20" />
+	</TreasureBox>
+	<!-- Doll-child by magic bag -->
+	<TreasureBox Type="RANDOM" ItemId="41247">
+		<Item ItemId="41248" Count="1" Chance="16.6" />
+		<Item ItemId="41249" Count="1" Chance="16.6" />
+		<Item ItemId="41250" Count="1" Chance="16.6" />
+		<Item ItemId="49037" Count="1" Chance="16.6" />
+		<Item ItemId="49038" Count="1" Chance="16.6" />
+		<Item ItemId="49039" Count="1" Chance="17" />
+	</TreasureBox>
+	<!-- -->
+	<TreasureBox Type="RANDOM" ItemId="41355">
+		<Item ItemId="140074" Count="1" Chance="0.41" />
+		<Item ItemId="140087" Count="1" Chance="0.25" />
+		<Item ItemId="40074" Count="1" Chance="1.25" />
+		<Item ItemId="40087" Count="1" Chance="1.49" />
+		<Item ItemId="40441" Count="1" Chance="3.56" />
+		<Item ItemId="40458" Count="1" Chance="7.62" />
+		<Item ItemId="40444" Count="1" Chance="2.90" />
+		<Item ItemId="40508" Count="1" Chance="3.39" />
+		<Item ItemId="40410" Count="1" Chance="25.25" />
+		<Item ItemId="40412" Count="1" Chance="5.38" />
+		<Item ItemId="40024" Count="1" Chance="16.72" />
+		<Item ItemId="40023" Count="1" Chance="13.41" />
+		<Item ItemId="40022" Count="1" Chance="12.42" />
+		<Item ItemId="40304" Count="1" Chance="1.32" />
+		<Item ItemId="40305" Count="1" Chance="1.74" />
+		<Item ItemId="40306" Count="1" Chance="1.32" />
+		<Item ItemId="40307" Count="1" Chance="1.57" />
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41001">
+		<Item ItemId="40308" Count="200"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41405">
+		<Item ItemId="40308" Count="1000"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41002">
+		<Item ItemId="40444" Count="1"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="RANDOM" ItemId="40687">
+		<Item ItemId="40691" Count="1" Chance="40" />
+		<Item ItemId="40689" Count="1" Chance="30" />
+		<Item ItemId="40690" Count="1" Chance="15" />
+		<Item ItemId="40685" Count="1" Chance="7" />
+		<Item ItemId="40688" Count="1" Chance="5" />
+		<Item ItemId="40686" Count="1" Chance="3" />
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="40632">
+		<Item ItemId="40308" Count="300"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41406">
+		<Item ItemId="40308" Count="500"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41407">
+		<Item ItemId="40308" Count="1000"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41408">
+		<Item ItemId="40308" Count="1700"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41409">
+		<Item ItemId="40308" Count="2600"></Item>
+	</TreasureBox>
+	<!-- --> 
+	<TreasureBox Type="SPECIFIC" ItemId="41410">
+		<Item ItemId="40308" Count="4000"></Item>
+	</TreasureBox>
+	<TreasureBox Type="SPECIFIC" ItemId="40582">
+		<Item ItemId="40583" Count="1"></Item>
+	</TreasureBox>
+
+	<TreasureBox Type="SPECIFIC" ItemId="40556">
+		<Item ItemId="40557" Count="1" />
+		<Item ItemId="40558" Count="1" />
+		<Item ItemId="40559" Count="1" />
+		<Item ItemId="40560" Count="1" />
+		<Item ItemId="40561" Count="1" />
+		<Item ItemId="40562" Count="1" />
+		<Item ItemId="40563" Count="1" />
+	</TreasureBox>
+	
+	<!-- TreasureBox reward for the exchange of 150 medals -->
+	<TreasureBox Type="RANDOM" ItemId="41416">
+		<Item ItemId="41254" Count="1" Chance="100" />
+	</TreasureBox>
+	<TreasureBox Type="RANDOM" ItemId="41008">
+		<Item ItemId="40308" Count="200" Chance="38" />
+		<Item ItemId="40100" Count="1" Chance="20" />
+		<Item ItemId="40044" Count="1" Chance="10" />
+		<Item ItemId="40045" Count="1" Chance="10" />
+		<Item ItemId="40046" Count="1" Chance="10" />
+		<Item ItemId="40047" Count="1" Chance="10" />
+		<Item ItemId="20421" Count="1" Chance="1" />
+		<Item ItemId="20434" Count="1" Chance="1" />
+	</TreasureBox>
+	<!-- -->
+	<TreasureBox Type="RANDOM" ItemId="41059">
+		<Item ItemId="114" Count="1" Chance="0.4" />
+		<Item ItemId="204" Count="1" Chance="0.4" />
+		<Item ItemId="207" Count="1" Chance="0.4" />
+		<Item ItemId="40022" Count="10" Chance="14" />
+		<Item ItemId="40023" Count="10" Chance="10" />
+		<Item ItemId="40024" Count="10" Chance="2" />
+		<Item ItemId="40053" Count="1" Chance="6" />
+		<Item ItemId="40054" Count="1" Chance="6" />
+		<Item ItemId="40055" Count="1" Chance="6" />
+		<Item ItemId="40074" Count="1" Chance="3.6" />
+		<Item ItemId="40087" Count="1" Chance="3.6" />
+		<Item ItemId="40089" Count="1" Chance="7" />
+		<Item ItemId="40100" Count="1" Chance="5" />
+		<Item ItemId="40308" Count="10000" Chance="11" />
+		<Item ItemId="40308" Count="20000" Chance="8" />
+		<Item ItemId="40308" Count="30000" Chance="2" />
+		<Item ItemId="40308" Count="100000" Chance="0.6" />
+		<Item ItemId="40524" Count="3" Chance="3" />
+		<Item ItemId="40524" Count="5" Chance="2" />
+		<Item ItemId="40524" Count="10" Chance="1" />
+		<Item ItemId="140088" Count="3" Chance="2" />
+		<Item ItemId="140089" Count="3" Chance="6" />
  </TreasureBox>
  <!-- -->
-  <TreasureBox Type="RANDOM" ItemId="41003">
-    <Item ItemId="40089" Count="1" Chance="20" />
-    <Item ItemId="40015" Count="1" Chance="20" />
-    <Item ItemId="40016" Count="1" Chance="20" />
-    <Item ItemId="40088" Count="1" Chance="20" />
-    <Item ItemId="40308" Count="10000" Chance="20" />
-  </TreasureBox>
+	<TreasureBox Type="RANDOM" ItemId="41003">
+		<Item ItemId="40089" Count="1" Chance="20" />
+		<Item ItemId="40015" Count="1" Chance="20" />
+		<Item ItemId="40016" Count="1" Chance="20" />
+		<Item ItemId="40088" Count="1" Chance="20" />
+		<Item ItemId="40308" Count="10000" Chance="20" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="40636">
+		<Item ItemId="40635" Count="3" Chance="80" />
+		<Item ItemId="40675" Count="1" Chance="8" />
+		<Item ItemId="40703" Count="1" Chance="2" />
+		<Item ItemId="20030" Count="1" Chance="2" />
+		<Item ItemId="20067" Count="1" Chance="2" />
+		<Item ItemId="20176" Count="1" Chance="2" />
+		<Item ItemId="20208" Count="1" Chance="2" />
+		<Item ItemId="20109" Count="1" Chance="1" />
+		<Item ItemId="20253" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="40639">
+		<Item ItemId="40638" Count="1" Chance="80" />
+		<Item ItemId="40675" Count="1" Chance="8" />
+		<Item ItemId="40703" Count="1" Chance="2" />
+		<Item ItemId="20020" Count="1" Chance="2" />
+		<Item ItemId="20058" Count="1" Chance="2" />
+		<Item ItemId="20168" Count="1" Chance="2" />
+		<Item ItemId="20201" Count="1" Chance="2" />
+		<Item ItemId="20200" Count="1" Chance="1" />
+		<Item ItemId="155" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="40640">
+		<Item ItemId="40642" Count="1" Chance="80" />
+		<Item ItemId="40675" Count="1" Chance="8" />
+		<Item ItemId="40703" Count="1" Chance="2" />
+		<Item ItemId="20030" Count="1" Chance="2" />
+		<Item ItemId="20067" Count="1" Chance="2" />
+		<Item ItemId="20176" Count="1" Chance="2" />
+		<Item ItemId="20208" Count="1" Chance="2" />
+		<Item ItemId="20057" Count="1" Chance="1" />
+		<Item ItemId="20255" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="40668">
+		<Item ItemId="40667" Count="1" Chance="80" />
+		<Item ItemId="40675" Count="1" Chance="8" />
+		<Item ItemId="40703" Count="1" Chance="2" />
+		<Item ItemId="20030" Count="1" Chance="2" />
+		<Item ItemId="20067" Count="1" Chance="2" />
+		<Item ItemId="20176" Count="1" Chance="2" />
+		<Item ItemId="20208" Count="1" Chance="2" />
+		<Item ItemId="78" Count="1" Chance="1" />
+		<Item ItemId="20178" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="41336">
+		<Item ItemId="41337" Count="1" Chance="25" />
+		<Item ItemId="41338" Count="1" Chance="25" />
+		<Item ItemId="41337" Count="2" Chance="15" />
+		<Item ItemId="41338" Count="2" Chance="15" />
+		<Item ItemId="41337" Count="3" Chance="10" />
+		<Item ItemId="41338" Count="3" Chance="10" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49096">
+		<Item ItemId="40044" Count="3" Chance="13" />
+		<Item ItemId="40045" Count="3" Chance="13" />
+		<Item ItemId="40046" Count="3" Chance="13" />
+		<Item ItemId="40047" Count="3" Chance="13" />
+		<Item ItemId="40048" Count="1" Chance=" 8" />
+		<Item ItemId="40049" Count="1" Chance=" 8" />
+		<Item ItemId="40050" Count="1" Chance=" 8" />
+		<Item ItemId="40051" Count="1" Chance=" 8" />
+		<Item ItemId="40074" Count="1" Chance=" 6" />
+		<Item ItemId="40087" Count="1" Chance=" 6" />
+		<Item ItemId="  265" Count="1" Chance=" 1" />
+		<Item ItemId="  266" Count="1" Chance=" 1" />
+		<Item ItemId="  267" Count="1" Chance=" 1" />
+		<Item ItemId="  268" Count="1" Chance=" 1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49100">
+		<Item ItemId=" 40044" Count="3" Chance=" 7" />
+		<Item ItemId=" 40045" Count="3" Chance=" 7" />
+		<Item ItemId=" 40046" Count="3" Chance=" 7" />
+		<Item ItemId=" 40047" Count="3" Chance=" 7" />
+		<Item ItemId=" 40048" Count="2" Chance=" 6" />
+		<Item ItemId=" 40049" Count="2" Chance=" 6" />
+		<Item ItemId=" 40050" Count="2" Chance=" 6" />
+		<Item ItemId=" 40051" Count="2" Chance=" 6" />
+		<Item ItemId=" 40052" Count="1" Chance=" 5" />
+		<Item ItemId=" 40053" Count="1" Chance=" 5" />
+		<Item ItemId=" 40054" Count="1" Chance=" 5" />
+		<Item ItemId=" 40055" Count="1" Chance=" 5" />
+		<Item ItemId=" 40074" Count="1" Chance=" 4" />
+		<Item ItemId=" 40087" Count="1" Chance=" 4" />
+		<Item ItemId="140074" Count="1" Chance=" 4" />
+		<Item ItemId="140087" Count="1" Chance=" 4" />
+		<Item ItemId="   265" Count="1" Chance=" 3" />
+		<Item ItemId="   266" Count="1" Chance=" 3" />
+		<Item ItemId="   267" Count="1" Chance=" 3" />
+		<Item ItemId="   268" Count="1" Chance=" 3" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="40696">
+		<Item ItemId="40679" Count="1" Chance="20" />
+		<Item ItemId="40680" Count="1" Chance="16" />
+		<Item ItemId="40681" Count="1" Chance="16" />
+		<Item ItemId="40682" Count="1" Chance="16" />
+		<Item ItemId="40683" Count="1" Chance="16" />
+		<Item ItemId="40684" Count="1" Chance="16" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49032">
+		<Item ItemId="49034" Count="1" Chance="1" />
+		<Item ItemId="40308" Count="2000" Chance="15" />
+		<Item ItemId="40308" Count="5000" Chance="15" />
+		<Item ItemId="40308" Count="10000" Chance="15" />
+		<Item ItemId="40308" Count="100000" Chance="5" />
+		<Item ItemId="40015" Count="7" Chance="11" />
+		<Item ItemId="40016" Count="7" Chance="11" />
+		<Item ItemId="40018" Count="7" Chance="11" />
+		<Item ItemId="40068" Count="3" Chance="5" />
+		<Item ItemId="40088" Count="5" Chance="11" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49033">
+		<Item ItemId="49034" Count="1" Chance="2" />
+		<Item ItemId="40308" Count="2000" Chance="11" />
+		<Item ItemId="40308" Count="5000" Chance="11" />
+		<Item ItemId="40308" Count="10000" Chance="11" />
+		<Item ItemId="40308" Count="100000" Chance="10" />
+		<Item ItemId="40015" Count="7" Chance="11" />
+		<Item ItemId="40016" Count="7" Chance="11" />
+		<Item ItemId="40018" Count="7" Chance="11" />
+		<Item ItemId="40068" Count="3" Chance="11" />
+		<Item ItemId="40088" Count="5" Chance="11" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49034">
+		<Item ItemId="40" Count="1" Chance="3.88" />
+		<Item ItemId="55" Count="1" Chance="3.88" />
+		<Item ItemId="57" Count="1" Chance="3.88" />
+		<Item ItemId="81" Count="1" Chance="3.88" />
+		<Item ItemId="130" Count="1" Chance="3.88" />
+		<Item ItemId="162" Count="1" Chance="3.88" />
+		<Item ItemId="177" Count="1" Chance="3.88" />
+		<Item ItemId="189" Count="1" Chance="0.54" />
+		<Item ItemId="20010" Count="1" Chance="0.94" />
+		<Item ItemId="20042" Count="1" Chance="0.94" />
+		<Item ItemId="20100" Count="1" Chance="0.94" />
+		<Item ItemId="20151" Count="1" Chance="0.94" />
+		<Item ItemId="20185" Count="1" Chance="0.94" />
+		<Item ItemId="20166" Count="1" Chance="0.94" />
+		<Item ItemId="20198" Count="1" Chance="0.94" />
+		<Item ItemId="20215" Count="1" Chance="0.94" />
+		<Item ItemId="20254" Count="1" Chance="3.88" />
+		<Item ItemId="20256" Count="1" Chance="3.88" />
+		<Item ItemId="20264" Count="1" Chance="3.88" />
+		<Item ItemId="20266" Count="1" Chance="0.94" />
+		<Item ItemId="20267" Count="1" Chance="4.88" />
+		<Item ItemId="20268" Count="1" Chance="3.88" />
+		<Item ItemId="20280" Count="1" Chance="0.94" />
+		<Item ItemId="20281" Count="1" Chance="0.94" />
+		<Item ItemId="20284" Count="1" Chance="3.88" />
+		<Item ItemId="20285" Count="1" Chance="0.94" />
+		<Item ItemId="20288" Count="1" Chance="0.54" />
+		<Item ItemId="20302" Count="1" Chance="0.94" />
+		<Item ItemId="20303" Count="1" Chance="3.88" />
+		<Item ItemId="20309" Count="1" Chance="3.88" />
+		<Item ItemId="20310" Count="1" Chance="3.88" />
+		<Item ItemId="20311" Count="1" Chance="3.88" />
+		<Item ItemId="40074" Count="1" Chance="5.45" />
+		<Item ItemId="40087" Count="1" Chance="5.45" />
+		<Item ItemId="40219" Count="1" Chance="0.54" />
+		<Item ItemId="40223" Count="1" Chance="0.54" />
+		<Item ItemId="140074" Count="1" Chance="3.88" />
+		<Item ItemId="140087" Count="1" Chance="3.88" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49271">
+		<Item ItemId="49268" Count="1" Chance="97.625" />
+		<Item ItemId="41" Count="1" Chance="0.625" />
+		<Item ItemId="20063" Count="1" Chance="0.625" />
+		<Item ItemId="40087" Count="1" Chance="0.375" />
+		<Item ItemId="40074" Count="1" Chance="0.375" />
+		<Item ItemId="20281" Count="1" Chance="0.125" />
+		<Item ItemId="20288" Count="1" Chance="0.125" />
+		<Item ItemId="20284" Count="1" Chance="0.125" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49272">
+		<Item ItemId="49268" Count="1" Chance="95.25" />
+		<Item ItemId="41" Count="1" Chance="1.25" />
+		<Item ItemId="20063" Count="1" Chance="1.25" />
+		<Item ItemId="40087" Count="1" Chance="0.75" />
+		<Item ItemId="40074" Count="1" Chance="0.75" />
+		<Item ItemId="20281" Count="1" Chance="0.25" />
+		<Item ItemId="20288" Count="1" Chance="0.25" />
+		<Item ItemId="20284" Count="1" Chance="0.25" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49273">
+		<Item ItemId="49268" Count="1" Chance="90.5" />
+		<Item ItemId="41" Count="1" Chance="2.5" />
+		<Item ItemId="20063" Count="1" Chance="2.5" />
+		<Item ItemId="40087" Count="1" Chance="1.5" />
+		<Item ItemId="40074" Count="1" Chance="1.5" />
+		<Item ItemId="20281" Count="1" Chance="0.5" />
+		<Item ItemId="20288" Count="1" Chance="0.5" />
+		<Item ItemId="20284" Count="1" Chance="0.5" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="41097">
+		<Item ItemId="49268" Count="1" Chance="81" />
+		<Item ItemId="41" Count="1" Chance="5" />
+		<Item ItemId="20063" Count="1" Chance="5" />
+		<Item ItemId="40087" Count="1" Chance="3" />
+		<Item ItemId="40074" Count="1" Chance="3" />
+		<Item ItemId="20281" Count="1" Chance="1" />
+		<Item ItemId="20288" Count="1" Chance="1" />
+		<Item ItemId="20284" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49274">
+		<Item ItemId="49269" Count="1" Chance="97.625" />
+		<Item ItemId="41" Count="1" Chance="0.625" />
+		<Item ItemId="20063" Count="1" Chance="0.625" />
+		<Item ItemId="40087" Count="1" Chance="0.375" />
+		<Item ItemId="40074" Count="1" Chance="0.375" />
+		<Item ItemId="20281" Count="1" Chance="0.125" />
+		<Item ItemId="20288" Count="1" Chance="0.125" />
+		<Item ItemId="20284" Count="1" Chance="0.125" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49275">
+		<Item ItemId="49269" Count="1" Chance="95.25" />
+		<Item ItemId="41" Count="1" Chance="1.25" />
+		<Item ItemId="20063" Count="1" Chance="1.25" />
+		<Item ItemId="40087" Count="1" Chance="0.75" />
+		<Item ItemId="40074" Count="1" Chance="0.75" />
+		<Item ItemId="20281" Count="1" Chance="0.25" />
+		<Item ItemId="20288" Count="1" Chance="0.25" />
+		<Item ItemId="20284" Count="1" Chance="0.25" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49276">
+		<Item ItemId="49269" Count="1" Chance="90.5" />
+		<Item ItemId="41" Count="1" Chance="2.5" />
+		<Item ItemId="20063" Count="1" Chance="2.5" />
+		<Item ItemId="40087" Count="1" Chance="1.5" />
+		<Item ItemId="40074" Count="1" Chance="1.5" />
+		<Item ItemId="20281" Count="1" Chance="0.5" />
+		<Item ItemId="20288" Count="1" Chance="0.5" />
+		<Item ItemId="20284" Count="1" Chance="0.5" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="41102">
+		<Item ItemId="49269" Count="1" Chance="81" />
+		<Item ItemId="41" Count="1" Chance="5" />
+		<Item ItemId="20063" Count="1" Chance="5" />
+		<Item ItemId="40087" Count="1" Chance="3" />
+		<Item ItemId="40074" Count="1" Chance="3" />
+		<Item ItemId="20281" Count="1" Chance="1" />
+		<Item ItemId="20288" Count="1" Chance="1" />
+		<Item ItemId="20284" Count="1" Chance="1" />
+	</TreasureBox>
+
+	<TreasureBox Type="RANDOM" ItemId="49278">
+		<Item ItemId="40010" Count="45" Chance="10" />	<!--RP-->
+		<Item ItemId="40011" Count="25" Chance="11" />	<!--OP-->
+		<Item ItemId="40012" Count="12" Chance="5" />	<!--CP-->
+		<Item ItemId="40013" Count="15" Chance="15" />	<!--GP-->
+		<Item ItemId="40018" Count="8" Chance="5" />	<!--GGP-->
+		<Item ItemId="40074" Count="1" Chance="7" />	<!--ZEL-->
+		<Item ItemId="40087" Count="1" Chance="4" />	<!--DAI-->
+		<Item ItemId="40088" Count="8" Chance="5" />	<!--SOSC-->
+		<Item ItemId="40318" Count="15" Chance="10" />
+		<Item ItemId="40319" Count="30" Chance="12" />
+		<Item ItemId="49143" Count="1" Chance="4" />
+		<Item ItemId="49143" Count="2" Chance="5" />
+		<Item ItemId="49143" Count="3" Chance="6" />
+		<Item ItemId="41251" Count="1" Chance="1" />
+	</TreasureBox>
+	<!--?????????(?)-->
+	<TreasureBox Type="RANDOM" ItemId="49279">
+		<Item ItemId="40010" Count="30" Chance="12.5" />	<!--RP-->
+		<Item ItemId="40011" Count="15" Chance="15" />	<!--OP-->
+		<Item ItemId="40012" Count="8" Chance="5.4" />	<!--CP-->
+		<Item ItemId="40013" Count="10" Chance="15" />	<!--GP-->
+		<Item ItemId="40018" Count="4" Chance="5" />	<!--GGP-->
+		<Item ItemId="40074" Count="1" Chance="5" />	<!--ZEL-->
+		<Item ItemId="40087" Count="1" Chance="2.5" />	<!--DAI-->
+		<Item ItemId="40088" Count="4" Chance="5" />	<!--SOSC-->
+		<Item ItemId="40318" Count="10" Chance="10" />
+		<Item ItemId="40319" Count="20" Chance="15" />
+		<Item ItemId="49143" Count="1" Chance="4" />
+		<Item ItemId="49143" Count="2" Chance="5" />
+		<Item ItemId="41251" Count="1" Chance="0.6" />
+	</TreasureBox>
+	<!--?????????(?)-->
+	<TreasureBox Type="RANDOM" ItemId="49280">
+		<Item ItemId="40010" Count="15" Chance="17.3" />	<!--RP-->
+		<Item ItemId="40011" Count="8" Chance="16.3" />	<!--OP-->
+		<Item ItemId="40012" Count="4" Chance="5" />	<!--CP-->
+		<Item ItemId="40013" Count="5" Chance="15.2" />	<!--GP-->
+		<Item ItemId="40018" Count="2" Chance="5" />	<!--GGP-->
+		<Item ItemId="40074" Count="1" Chance="2" />	<!--ZEL-->
+		<Item ItemId="40088" Count="2" Chance="5.3" />	<!--SOSC-->
+		<Item ItemId="40318" Count="5" Chance="8" />
+		<Item ItemId="40319" Count="10" Chance="16.3" />
+		<Item ItemId="49143" Count="1" Chance="6" />
+		<Item ItemId="49143" Count="2" Chance="3.3" />
+		<Item ItemId="41251" Count="1" Chance="0.3" />
+	</TreasureBox>
+	<!--?????-->
+	<TreasureBox Type="RANDOM" ItemId="41311">
+		<Item ItemId="40014" Count="10" Chance="7" />	<!--BP-->
+		<Item ItemId="40031" Count="10" Chance="7" />
+		<Item ItemId="40068" Count="10" Chance="7" />
+		<Item ItemId="40861" Count="10" Chance="7" />
+		<Item ItemId="40867" Count="10" Chance="7" />
+		<Item ItemId="40872" Count="10" Chance="7" />
+		<Item ItemId="40879" Count="10" Chance="7" />
+		<Item ItemId="40884" Count="10" Chance="7" />
+		<Item ItemId="49281" Count="10" Chance="6" />
+		<Item ItemId="49282" Count="10" Chance="6" />
+		<Item ItemId="49283" Count="10" Chance="5" />
+		<Item ItemId="49284" Count="10" Chance="5" />
+		<Item ItemId="49285" Count="10" Chance="5" />
+		<Item ItemId="49286" Count="10" Chance="5" />
+		<Item ItemId="41251" Count="1" Chance="3" />
+		<Item ItemId="41252" Count="1" Chance="3" />
+		<Item ItemId="41253" Count="1" Chance="3" />
+		<Item ItemId="41254" Count="1" Chance="3" />
+	</TreasureBox>
 </TreasureBoxList>
