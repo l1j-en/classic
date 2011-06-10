@@ -30,7 +30,7 @@ public class C_KeepALIVE extends ClientBasePacket {
 
 	public C_KeepALIVE(byte decrypt[], ClientThread client) {
 		super(decrypt);
-		// XXX:GameTimeðMi3oCgÌf[^ðÁÄÄ¢éÌÅ»êð½©ÉpµÈ¢Æ¢¯È¢©àµêÈ¢j
+		// XXX:GameTime Send (3 bytes of data to send it to come because you do not have to use something maybe)
 // L1PcInstance pc = client.getActiveChar();
 // pc.sendPackets(new S_GameTime());
 	}

@@ -47,6 +47,7 @@ public class C_GiveItem extends ClientBasePacket {
 	public C_GiveItem(byte decrypt[], ClientThread client) {
 		super(decrypt);
 		int targetId = readD();
+		@SuppressWarnings("unused")
 		int x = readH();
 		int y = readH();
 		int itemId = readD();
@@ -85,10 +86,10 @@ public class C_GiveItem extends ClientBasePacket {
 			return;
 		}
 		if (!item.getItem().isTradable()) {
-			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName())); // \f1%0ÍÌÄ½èÜ½Í¼lÉæ¨é±ÆªÅ«Ü¹ñB
+			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
-		if (item.getBless() >= 128) { // 
+		if (item.getBless() >= 128) {
 
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;

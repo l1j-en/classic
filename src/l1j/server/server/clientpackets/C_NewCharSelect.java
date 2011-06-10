@@ -31,7 +31,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 
 	public C_NewCharSelect(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		client.sendPacket(new S_PacketBox(S_PacketBox.LOGOUT)); // 2.70C->3.0ÅÇÁ
+		client.sendPacket(new S_PacketBox(S_PacketBox.LOGOUT)); // 2.70C->3.0
 		client.CharReStart(true);
 		if (client.getActiveChar() != null) {
 			L1PcInstance pc = client.getActiveChar();

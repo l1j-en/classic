@@ -541,7 +541,7 @@ public class C_LoginToServer extends ClientBasePacket {
 						|| skillid >= COOKING_2_0_N && skillid <= COOKING_2_6_N
 						|| skillid >= COOKING_2_0_S && skillid <= COOKING_2_6_S
 						|| skillid >= COOKING_3_0_N && skillid <= COOKING_3_6_N
-						|| skillid >= COOKING_3_0_S && skillid <= COOKING_3_6_S) { // ¿(fU[gÍ­)
+						|| skillid >= COOKING_3_0_S && skillid <= COOKING_3_6_S) {
 					L1Cooking.eatCooking(pc, skillid, remaining_time);
 				} else {
 					L1SkillUse l1skilluse = new L1SkillUse();
