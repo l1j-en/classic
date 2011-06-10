@@ -100,9 +100,9 @@ public class C_CreateChar extends ClientBasePacket {
 			return;
 		}
 		
-		if (client.getAccount().countCharacters() >= 4) {
+		if (client.getAccount().countCharacters() >= 6) {
 			_log.fine("Account: " + client.getAccountName()
-					+ " attempted to create more than 4 characters.");
+					+ " attempted to create more than 6 characters.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus1);
