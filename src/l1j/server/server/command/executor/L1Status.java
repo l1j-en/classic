@@ -54,7 +54,7 @@ public class L1Status implements L1CommandExecutor {
 			}
 
 			if (target == null) {
-				pc.sendPackets(new S_ServerMessage(73, char_name)); // \f1%0Q[B
+				pc.sendPackets(new S_ServerMessage(73, char_name)); 
 				return;
 			}
 
@@ -114,8 +114,8 @@ public class L1Status implements L1CommandExecutor {
 				target.save(); // DBLN^[
 			}
 			target.sendPackets(new S_OwnCharStatus(target));
-			pc.sendPackets(new S_SystemMessage(target.getName() + " " + param
-					+ "" + value + "XB"));
+			pc.sendPackets(new S_SystemMessage("Changed " + target.getName() + "'s " + param
+					+ "to " + value));
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName
 					+ " player AC/MR/HIT/DMG/HP/MP/LAWFUL/KARMA/GM/STR/CON/DEX/INT/WIS/CHA"));
