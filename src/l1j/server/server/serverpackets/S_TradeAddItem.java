@@ -38,8 +38,6 @@ public class S_TradeAddItem extends ServerBasePacket {
 		writeC(type); // 0: The upper level of a window Trade: Trade window Lower Level
 		writeH(item.getItem().getGfxId());
 		writeS(item.getNumberedViewName(count));
-		// 0:j  1:Êí 2:ô¢ 3:¢Óè
-		// 128:j&ó 129:&ó 130:ô¢&ó 131:¢Óè&ó
 		writeC(item.getBless());
 		writeC(0x00);
 	}

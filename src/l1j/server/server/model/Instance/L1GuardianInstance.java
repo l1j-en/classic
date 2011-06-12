@@ -76,11 +76,11 @@ public class L1GuardianInstance extends L1NpcInstance {
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
 				if (!pc.isElf()) {
 					targetPlayer = pc;
-					wideBroadcastPacket(new S_NpcChatPacket(this, "$804", 2)); // GtÈOÌÒæA½ªÉµ¯êÎ­±±©çêB±±Í_¹Èê¾B
+					wideBroadcastPacket(new S_NpcChatPacket(this, "$804", 2));
 					break;
 				} else if (pc.isElf() && pc.isWantedForElf()) {
 					targetPlayer = pc;
-					wideBroadcastPacket(new S_NpcChatPacket(this, "$815", 1)); // ¯°ðEµ½àÌÍAÈÌÅ»Ìßð ªÈ¤±ÆÉÈé¾ë¤B
+					wideBroadcastPacket(new S_NpcChatPacket(this, "$815", 1));
 					break;
 				}
 			}

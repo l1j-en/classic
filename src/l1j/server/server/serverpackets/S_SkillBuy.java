@@ -68,13 +68,13 @@ public class S_SkillBuy extends ServerBasePacket {
 			}
 			break;
 
-		case 1: // iCg
+		case 1: // Knight
 			if (pc.getLevel() >= 50 || pc.isGm()) {
 				RC = 8;
 			}
 			break;
 
-		case 2: // Gt
+		case 2: // Elf
 			if (pc.getLevel() >= 24 || pc.isGm()) {
 				RC = 23;
 			} else if (pc.getLevel() >= 16) {

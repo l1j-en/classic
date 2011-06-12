@@ -27,7 +27,7 @@ public class L1Weapon extends L1Item {
 	public L1Weapon() {
 	}
 
-	private int _range = 0; //  ËöÍÍ
+	private int _range = 0; // 
 
 	@Override
 	public int getRange() {
@@ -38,7 +38,7 @@ public class L1Weapon extends L1Item {
 		_range = i;
 	}
 
-	private int _hitModifier = 0; //  ½¦â³
+	private int _hitModifier = 0; // hit rate correction
 
 	@Override
 	public int getHitModifier() {

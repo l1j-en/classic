@@ -498,7 +498,7 @@ public class L1ItemInstance extends L1Object {
 					name.append(attrStr + " ");
 				}
 			}
-			if (getItem().getType2() == 1 || getItem().getType2() == 2) { // íEhï
+			if (getItem().getType2() == 1 || getItem().getType2() == 2) {
 				if (getEnchantLevel() >= 0) {
 					name.append("+" + getEnchantLevel() + " ");
 				} else if (getEnchantLevel() < 0) {

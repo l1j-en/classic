@@ -116,38 +116,33 @@ public class Teleportation {
 
 		if (!pc.isGhost()) {
 			if (pc.getMap().isTakePets()) {
-				// ybgÆTàêÉÚ®³¹éB
 				for (L1NpcInstance petNpc : pc.getPetList().values()) {
-					// e|[gæÌÝè
 					L1Location loc = pc.getLocation().randomLocation(3, false);
 					int nx = loc.getX();
 					int ny = loc.getY();
 					if (pc.getMapId() == 5125 || pc.getMapId() == 5131
 							|| pc.getMapId() == 5132 || pc.getMapId() == 5133
-							|| pc.getMapId() == 5134) { // ybg}b`ïê
+							|| pc.getMapId() == 5134) {
 						nx = 32799 + _random.nextInt(5) - 3;
 						ny = 32864 + _random.nextInt(5) - 3;
 					}
 					teleport(petNpc, nx, ny, mapId, head);
-					if (petNpc instanceof L1SummonInstance) { // TX^[
+					if (petNpc instanceof L1SummonInstance) {
 						L1SummonInstance summon = (L1SummonInstance) petNpc;
 						pc.sendPackets(new S_SummonPack(summon, pc));
-					} else if (petNpc instanceof L1PetInstance) { // ybg
+					} else if (petNpc instanceof L1PetInstance) {
 						L1PetInstance pet = (L1PetInstance) petNpc;
 						pc.sendPackets(new S_PetPack(pet, pc));
 					}
 
 					for (L1PcInstance visiblePc : L1World.getInstance()
 							.getVisiblePlayer(petNpc)) {
-						// e|[g³ÆæÉ¯¶PCª½êA³µ­XV³êÈ¢×Aêxremove·éB
 						visiblePc.removeKnownObject(petNpc);
 						subjects.add(visiblePc);
 					}
 				}
 
-				// }WbNh[àêÉÚ®³¹éB
 				for (L1DollInstance doll : pc.getDollList().values()) {
-					// e|[gæÌÝè
 					L1Location loc = pc.getLocation().randomLocation(3, false);
 					int nx = loc.getX();
 					int ny = loc.getY();
@@ -157,14 +152,12 @@ public class Teleportation {
 
 					for (L1PcInstance visiblePc : L1World.getInstance()
 							.getVisiblePlayer(doll)) {
-						// e|[g³ÆæÉ¯¶PCª½êA³µ­XV³êÈ¢×Aêxremove·éB
 						visiblePc.removeKnownObject(doll);
 						subjects.add(visiblePc);
 					}
 				}
 			} else {
 				for (L1DollInstance doll : pc.getDollList().values()) {
-					// e|[gæÌÝè
 					L1Location loc = pc.getLocation().randomLocation(3, false);
 					int nx = loc.getX();
 					int ny = loc.getY();
@@ -174,7 +167,6 @@ public class Teleportation {
 
 					for (L1PcInstance visiblePc : L1World.getInstance()
 							.getVisiblePlayer(doll)) {
-						// e|[g³ÆæÉ¯¶PCª½êA³µ­XV³êÈ¢×Aêxremove·éB
 						visiblePc.removeKnownObject(doll);
 						subjects.add(visiblePc);
 					}

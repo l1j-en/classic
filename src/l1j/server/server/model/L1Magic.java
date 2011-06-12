@@ -344,6 +344,7 @@ public class L1Magic {
 		L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
 		int attackLevel = 0;
 		int defenseLevel = 0;
+		@SuppressWarnings("unused")
 		int mr = 0;
 		int probability = 0;
 
@@ -586,7 +587,7 @@ public class L1Magic {
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
 
-		Object[] targetDollList = _targetPc.getDollList().values().toArray(); // }WbNh[Éæé_[Wy¸
+		Object[] targetDollList = _targetPc.getDollList().values().toArray();
 		for (Object dollObject : targetDollList) {
 			L1DollInstance doll = (L1DollInstance) dollObject;
 			dmg -= doll.getDamageReductionByDoll();

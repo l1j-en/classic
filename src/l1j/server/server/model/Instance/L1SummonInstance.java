@@ -38,7 +38,7 @@ public class L1SummonInstance extends L1NpcInstance {
 	private boolean _isReturnToNature = false;
 	private static Random _random = new Random();
 
-	public boolean noTarget() {
+	public boolean noTarget(int depth) {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
 			return true;
 		} else if (_currentPetStatus == 4) {
@@ -60,8 +60,24 @@ public class L1SummonInstance extends L1NpcInstance {
 				int dir = moveDirection(getHomeX(), getHomeY());
 				if (dir == -1) { // If the summon cant find a way to the owner
 						//Original code
+						/*setHomeX(getX());
+						setHomeY(getY());*/
+					//Fix by Ssargon, should make summons move better without getting stuck
+					try {
+						Thread.sleep(200);
+						// Prevent infinite recursion by max-bounding retry depth
+						if (depth > 80) {
 							setHomeX(getX());
 							setHomeY(getY());
+							return true;
+						} else {
+							return noTarget(depth+1);
+						}
+					} catch (Exception exception) {
+						setHomeX(getX());
+						setHomeY(getY());
+						return true;
+					}
 				} else {
 					setDirectionMove(dir);
 					setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
@@ -221,7 +237,6 @@ public class L1SummonInstance extends L1NpcInstance {
 			}
 		} else if (!isDead())
 		{
-			System.out.println("xFTÌgo¸­ª³µ­síêÄ¢È¢Óª èÜ·B¦àµ­ÍÅ©çgoO");
 			Death(attacker);
 		}
 	}

@@ -70,7 +70,7 @@ public class MpRegeneration extends TimerTask {
 		if (_pc.hasSkillEffect(MEDITATION) == true) { 
 			baseMpr += 5;
 		}
-		if (_pc.hasSkillEffect(CONCENTRATION)) { // RZg[V
+		if (_pc.hasSkillEffect(CONCENTRATION)) {
 			baseMpr += 2;
 		}
 		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {

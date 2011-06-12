@@ -267,6 +267,7 @@ public class L1Inventory extends L1Object {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	public class DataComparator implements java.util.Comparator {
 		public int compare(Object item1, Object item2) {
 			return ((L1ItemInstance) item1).getEnchantLevel()

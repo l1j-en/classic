@@ -50,9 +50,8 @@ public class L1DollInstance extends L1NpcInstance {
 	private int _dollType;
 	private int _itemObjId;
 
-
-	@Override
-	public boolean noTarget() {
+	//@Override
+	public boolean noTarget(int depth) {
 		if (_master.isDead()) {
 			deleteDoll();
 			return true;

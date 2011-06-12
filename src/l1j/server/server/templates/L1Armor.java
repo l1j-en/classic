@@ -60,7 +60,7 @@ public class L1Armor extends L1Item {
 		_weightReduction = i;
 	}
 
-	private int _hitModifierByArmor = 0; //  ½¦â³
+	private int _hitModifierByArmor = 0; 
 
 	@Override
 	public int getHitModifierByArmor() {
@@ -71,7 +71,7 @@ public class L1Armor extends L1Item {
 		_hitModifierByArmor = i;
 	}
 
-	private int _dmgModifierByArmor = 0; //  _[Wâ³
+	private int _dmgModifierByArmor = 0; 
 
 	@Override
 	public int getDmgModifierByArmor() {
@@ -82,7 +82,7 @@ public class L1Armor extends L1Item {
 		_dmgModifierByArmor = i;
 	}
 
-	private int _bowHitModifierByArmor = 0; //  |Ì½¦â³
+	private int _bowHitModifierByArmor = 0;
 
 	@Override
 	public int getBowHitModifierByArmor() {
@@ -93,7 +93,7 @@ public class L1Armor extends L1Item {
 		_bowHitModifierByArmor = i;
 	}
 
-	private int _bowDmgModifierByArmor = 0; //  |Ì_[Wâ³
+	private int _bowDmgModifierByArmor = 0;
 
 	@Override
 	public int getBowDmgModifierByArmor() {
@@ -104,7 +104,7 @@ public class L1Armor extends L1Item {
 		_bowDmgModifierByArmor = i;
 	}
 
-	private int _defense_water = 0; //  Ì®«hä
+	private int _defense_water = 0;
 
 	public void set_defense_water(int i) {
 		_defense_water = i;

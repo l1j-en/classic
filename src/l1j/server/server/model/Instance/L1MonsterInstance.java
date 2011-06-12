@@ -150,9 +150,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 
-			if (getNpcId() == 45600){ // J[c
+			if (getNpcId() == 45600){
 				if (pc.isCrown() || pc.isDarkelf()
-						|| pc.getTempCharGfx() != pc.getClassId()) { // ¢ÏgÌNåADEÉÍANeBu
+						|| pc.getTempCharGfx() != pc.getClassId()) { 
 					targetPlayer = pc;
 					break;
 				}

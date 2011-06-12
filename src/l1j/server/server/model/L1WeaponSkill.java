@@ -303,7 +303,7 @@ public class L1WeaponSkill {
 		}
 		kiringkuDamage += value;
 
-		int spByItem = pc.getSp() - pc.getTrueSp(); // ACeÉæéSPÏ®
+		int spByItem = pc.getSp() - pc.getTrueSp(); 
 		charaIntelligence = pc.getInt() + spByItem - 12;
 		if (charaIntelligence < 1) {
 			charaIntelligence = 1;
@@ -338,10 +338,10 @@ public class L1WeaponSkill {
 		int probability = 0;
 		int attr = 0;
 		int chance = _random.nextInt(100) + 1;
-		if (weaponId == 263) { // t[WOT[
+		if (weaponId == 263) {
 			probability = 5;
 			attr = L1Skills.ATTR_WATER;
-		} else if (weaponId == 260) { // CWOEBh
+		} else if (weaponId == 260) {
 			probability = 4;
 			attr = L1Skills.ATTR_WIND;
 		}
@@ -354,13 +354,13 @@ public class L1WeaponSkill {
 			L1Character areaBase = cha;
 			double damageRate = 0;
 
-			if (weaponId == 263) { // t[WOT[
+			if (weaponId == 263) {
 				area = 3;
 				damageRate = 1.4D;
 				effectTargetId = cha.getId();
 				effectId = 1804;
 				areaBase = cha;
-			} else if (weaponId == 260) { // CWOEBh
+			} else if (weaponId == 260) {
 				area = 4;
 				damageRate = 1.5D;
 				effectTargetId = pc.getId();
@@ -387,12 +387,10 @@ public class L1WeaponSkill {
 				if (object.getId() == pc.getId()) {
 					continue;
 				}
-				if (object.getId() == cha.getId()) { // UÎÛÍO
+				if (object.getId() == cha.getId()) {
 					continue;
 				}
 
-				// UÎÛªMOBÌêÍAÍÍàÌMOBÉÌÝ½é
-				// UÎÛªPC,Summon,PetÌêÍAÍÍàÌPC,Summon,Pet,MOBÉ½é
 				if (cha instanceof L1MonsterInstance) {
 					if (!(object instanceof L1MonsterInstance)) {
 						continue;
@@ -496,7 +494,6 @@ public class L1WeaponSkill {
 
 	public static double calcDamageReduction(L1PcInstance pc, L1Character cha,
 			double dmg, int attr) {
-		// óÔorJE^[}WbN
 		if (isFreeze(cha)) {
 			return 0;
 		}

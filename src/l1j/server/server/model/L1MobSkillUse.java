@@ -105,9 +105,6 @@ public class L1MobSkillUse {
 		return _mobSkillTemplate;
 	}
 
-	/*
-	 * gK[`FbNB
-	 */
 	public boolean isSkillTrigger(L1Character tg) {
 		if (_mobSkillTemplate == null) {
 			return false;
@@ -125,12 +122,10 @@ public class L1MobSkillUse {
 		for (i = 0; i < getMobSkillTemplate().getSkillSize()
 				&& getMobSkillTemplate().getType(i) != L1MobSkill.TYPE_NONE; i++) {
 
-			// changeTargetA^[Qbg
 			int changeType = getMobSkillTemplate().getChangeTarget(i);
 			if (changeType > 0) {
 				_target = changeTarget(changeType, i);
 			} else {
-				// {^[Qbg
 				_target = tg;
 			}
 
@@ -141,9 +136,6 @@ public class L1MobSkillUse {
 		return false;
 	}
 
-	/*
-	 * XLU XLU\trueB UfalseB
-	 */
 	public boolean skillUse(L1Character tg, boolean isTriRnd) {
 		if (_mobSkillTemplate == null) {
 			return false;
@@ -173,13 +165,12 @@ public class L1MobSkillUse {
 			if (changeType > 0) {
 				_target = changeTarget(changeType, i);
 			} else {
-				// {^[Qbg
 				_target = tg;
 			}
 
 			if (isSkillUseble(i, isTriRnd) == false) {
 				continue;
-			} else { // XL
+			} else {
 				skills[skillSizeCounter] = i;
 				skillSizeCounter++;
 			}
@@ -187,7 +178,7 @@ public class L1MobSkillUse {
 
 		if (skillSizeCounter != 0) {
 			int num = _rnd.nextInt(skillSizeCounter);
-			if (useSkill(skills[num])) { // XLgp
+			if (useSkill(skills[num])) {
 				return true;
 			}
 		}
@@ -198,22 +189,22 @@ public class L1MobSkillUse {
 	private boolean useSkill(int i) {
 		boolean isUseSkill = false;
 		int type = getMobSkillTemplate().getType(i);
-		if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) { // U
+		if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) {
 			if (physicalAttack(i) == true) {
 				skillUseCountUp(i);
 				isUseSkill = true;
 			}
-		} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) { // @U
+		} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
 			if (magicAttack(i) == true) {
 				skillUseCountUp(i);
 				isUseSkill = true;
 			}
-		} else if (type == L1MobSkill.TYPE_SUMMON) { // T
+		} else if (type == L1MobSkill.TYPE_SUMMON) {
 			if (summon(i) == true) {
 				skillUseCountUp(i);
 				isUseSkill = true;
 			}
-		} else if (type == L1MobSkill.TYPE_POLY) { // g
+		} else if (type == L1MobSkill.TYPE_POLY) {
 			if (poly(i) == true) {
 				skillUseCountUp(i);
 				isUseSkill = true;
@@ -235,10 +226,8 @@ public class L1MobSkillUse {
 		count = _rnd.nextInt(max) + min;
 		mobspawn(summonId, count);
 
-		// w\
 		_attacker.broadcastPacket(new S_SkillSound(_attacker.getId(), 761));
 
-		// @gGtFNg
 		S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
 				ActionCodes.ACTION_SkillBuff);
 		_attacker.broadcastPacket(gfx);
@@ -247,9 +236,6 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	/*
-	 * 15ZPCwX^[gB PCgB
-	 */
 	private boolean poly(int idx) {
 		int polyId = getMobSkillTemplate().getPolyId(idx);
 		boolean usePoly = false;
@@ -260,7 +246,7 @@ public class L1MobSkillUse {
 
 		for (L1PcInstance pc : L1World.getInstance()
 				.getVisiblePlayer(_attacker)) {
-			if (pc.isDead()) { // S
+			if (pc.isDead()) { 
 				continue;
 			}
 			if (pc.isGhost()) {
@@ -270,13 +256,13 @@ public class L1MobSkillUse {
 				continue;
 			}
 			if (_attacker.glanceCheck(pc.getX(), pc.getY()) == false) {
-				continue; // 
+				continue; 
 			}
 
 			int npcId = _attacker.getNpcTemplate().get_npcId();
 			switch (npcId) {
-			case 81082: // q
-				pc.getInventory().takeoffEquip(945); // polyIdSOB
+			case 81082: 
+				pc.getInventory().takeoffEquip(945);
 				break;
 			default:
 				break;
@@ -286,14 +272,12 @@ public class L1MobSkillUse {
 			usePoly = true;
 		}
 		if (usePoly) {
-			// gAIW\B
 			for (L1PcInstance pc : L1World.getInstance()
 					.getVisiblePlayer(_attacker)) {
 				pc.sendPackets(new S_SkillSound(pc.getId(), 230));
 				pc.broadcastPacket(new S_SkillSound(pc.getId(), 230));
 				break;
 			}
-			// @gGtFNg
 			S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
 					ActionCodes.ACTION_SkillBuff);
 			_attacker.broadcastPacket(gfx);
@@ -322,11 +306,10 @@ public class L1MobSkillUse {
 			skillUse.handleCommands(null, skillid, _target.getId(), _target
 					.getX(), _target.getX(), null, 0, L1SkillUse.TYPE_NORMAL,
 					_attacker);
-			// gpXLsleepTime
 			L1Skills skill = SkillsTable.getInstance().getTemplate(skillid);
-			if (skill.getTarget().equals("attack") && skillid != 18) { // L@
+			if (skill.getTarget().equals("attack") && skillid != 18) { 
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
-			} else { // @
+			} else { 
 				_sleepTime = _attacker.getNpcTemplate().getSubMagicSpeed();
 			}
 
@@ -335,9 +318,6 @@ public class L1MobSkillUse {
 		return false;
 	}
 
-	/*
-	 * U
-	 */
 	private boolean physicalAttack(int idx) {
 		Map<Integer, Integer> targetList = new ConcurrentHashMap<Integer, Integer>();
 		int areaWidth = getMobSkillTemplate().getAreaWidth(idx);
@@ -346,43 +326,38 @@ public class L1MobSkillUse {
 		int actId = getMobSkillTemplate().getActid(idx);
 		int gfxId = getMobSkillTemplate().getGfxid(idx);
 
-		// WO
 		if (_attacker.getLocation().getTileLineDistance(_target.getLocation()) > range) {
 			return false;
 		}
 
-		// QUs\
 		if (!_attacker.glanceCheck(_target.getX(), _target.getY())) {
 			return false;
 		}
 
 		_attacker.setHeading(_attacker.targetDirection(_target.getX(), _target
-				.getY())); // Zbg
+				.getY()));
 
 		if (areaHeight > 0) {
-			// U
 			ArrayList<L1Object> objs = L1World.getInstance()
 					.getVisibleBoxObjects(_attacker, _attacker.getHeading(),
 							areaWidth, areaHeight);
 
 			for (L1Object obj : objs) {
-				if (!(obj instanceof L1Character)) { // ^[QbgLN^[OB
+				if (!(obj instanceof L1Character)) { 
 					continue;
 				}
 
 				L1Character cha = (L1Character) obj;
-				if (cha.isDead()) { // LN^[O
+				if (cha.isDead()) { 
 					continue;
 				}
 
-				// S[XgO
 				if (cha instanceof L1PcInstance) {
 					if (((L1PcInstance) cha).isGhost()) {
 						continue;
 					}
 				}
 
-				// QO
 				if (!_attacker.glanceCheck(cha.getX(), cha.getY())) {
 					continue;
 				}
@@ -406,8 +381,8 @@ public class L1MobSkillUse {
 				}
 			}
 		} else {
-			// PU
-			targetList.put(_target.getId(), 0); // ^[Qbg
+
+			targetList.put(_target.getId(), 0); 
 		}
 
 		if (targetList.size() == 0) {
@@ -428,7 +403,7 @@ public class L1MobSkillUse {
 			if (actId > 0) {
 				attack.setActId(actId);
 			}
-			// U[V^[Qbgs
+
 			if (targetId == _target.getId()) {
 				if (gfxId > 0) {
 					_attacker.broadcastPacket(new S_SkillSound(_attacker
@@ -443,9 +418,6 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	/*
-	 * gK[`FbN
-	 */
 	private boolean isSkillUseble(int skillIdx, boolean isTriRnd) {
 		boolean useble = false;
 		int type = getMobSkillTemplate().getType(skillIdx);
@@ -483,7 +455,7 @@ public class L1MobSkillUse {
 			if (hpRatio <= getMobSkillTemplate()
 					.getTriggerCompanionHp(skillIdx)) {
 				useble = true;
-				_target = companionNpc; // ^[Qbg
+				_target = companionNpc; 
 			} else {
 				return false;
 			}
@@ -574,11 +546,11 @@ public class L1MobSkillUse {
 					L1Object object = L1World.getInstance().findObject(
 							mob.getId());
 					L1MonsterInstance newnpc = (L1MonsterInstance) object;
-					newnpc.set_storeDroped(true); // X^[hbv
-					if (summonId == 45061 // J[YhXpgC
-							|| summonId == 45161 // XpgC
-							|| summonId == 45181 // XpgC
-							|| summonId == 45455) { // fbh[XpgC
+					newnpc.set_storeDroped(true); 
+					if (summonId == 45061 
+							|| summonId == 45161 
+							|| summonId == 45181 
+							|| summonId == 45455) {
 						newnpc.broadcastPacket(new S_DoActionGFX(
 								newnpc.getId(), ActionCodes.ACTION_Hide));
 						newnpc.setStatus(13);
@@ -590,7 +562,7 @@ public class L1MobSkillUse {
 					}
 					newnpc.onNpcAI();
 					newnpc.turnOnOffLight();
-					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
+					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
@@ -609,7 +581,6 @@ public class L1MobSkillUse {
 			target = _attacker;
 			break;
 		case L1MobSkill.CHANGE_TARGET_RANDOM:
-			// ^[QbgI
 			List<L1Character> targetList = new ArrayList<L1Character>();
 			for (L1Object obj : L1World.getInstance().getVisibleObjects(
 					_attacker)) {
@@ -620,25 +591,22 @@ public class L1MobSkillUse {
 					int distance = _attacker.getLocation().getTileLineDistance(
 							cha.getLocation());
 
-					// OLN^[O
 					if (!getMobSkillTemplate().isTriggerDistance(idx, distance)) {
 						continue;
 					}
 
-					// QO
 					if (!_attacker.glanceCheck(cha.getX(), cha.getY())) {
 						continue;
 					}
 
-					if (!_attacker.getHateList().containsKey(cha)) { // wCgO
+					if (!_attacker.getHateList().containsKey(cha)) {
 						continue;
 					}
 
-					if (cha.isDead()) { // LN^[O
+					if (cha.isDead()) { 
 						continue;
 					}
 
-					// S[XgO
 					if (cha instanceof L1PcInstance) {
 						if (((L1PcInstance) cha).isGhost()) {
 							continue;

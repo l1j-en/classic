@@ -34,6 +34,7 @@ import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
+@SuppressWarnings("unused")
 public class FurnitureSpawnTable {
 	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class
 			.getName());
@@ -51,6 +52,7 @@ public class FurnitureSpawnTable {
 		FillFurnitureSpawnTable();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void FillFurnitureSpawnTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;

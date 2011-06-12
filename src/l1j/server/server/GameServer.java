@@ -210,12 +210,10 @@ public class GameServer extends Thread {
 				.getInstance();
 		GeneralThreadPool.getInstance().execute(fishingTimeController);
 
-		// NPC`bg^CRg[[
 		NpcChatTimeController npcChatTimeController = NpcChatTimeController
 				.getInstance();
 		GeneralThreadPool.getInstance().execute(npcChatTimeController);
 
-		// Cg^CRg[[
 		LightTimeController lightTimeController = LightTimeController
 				.getInstance();
 		GeneralThreadPool.getInstance().execute(lightTimeController);

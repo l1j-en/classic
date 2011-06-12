@@ -50,11 +50,12 @@ public class L1PcInventory extends L1Inventory {
 
 	private static final int MAX_SIZE = 180;
 
-	private final L1PcInstance _owner; // LvC[
+	private final L1PcInstance _owner; 
 
-	private int _arrowId; // DgpA[ItemID
+	private int _arrowId; 
 
-	private int _stingId; // DgpXeBOItemID
+	private int _stingId; 
+
 
 	public L1PcInventory(L1PcInstance owner) {
 		_owner = owner;
@@ -66,12 +67,10 @@ public class L1PcInventory extends L1Inventory {
 		return _owner;
 	}
 	
-	// 240iKEFCg
 	public int getWeight240() {
 		return calcWeight240(getWeight());
 	}
 
-	// 240iKEFCgZo
 	public int calcWeight240(int weight) {
 		int weight240 = 0;
 		if (Config.RATE_WEIGHT_LIMIT != 0) {
@@ -85,7 +84,7 @@ public class L1PcInventory extends L1Inventory {
 				wpTemp = Math.round(wpTemp);
 				weight240 = (int) (wpTemp);
 			}
-		} else { // EFCg[gOdO
+		} else {
 			weight240 = 0;
 		}
 		return weight240;
@@ -102,9 +101,9 @@ public class L1PcInventory extends L1Inventory {
 		}
 		if (getSize() > MAX_SIZE
 				|| (getSize() == MAX_SIZE && (!item.isStackable() || !checkItem(item
-						.getItem().getItemId())))) { // emF
+						.getItem().getItemId())))) {
 			if (message) {
-				sendOverMessage(263); // \f1lLN^[ACe180B
+				sendOverMessage(263); 
 			}
 			return SIZE_OVER;
 		}
@@ -112,13 +111,13 @@ public class L1PcInventory extends L1Inventory {
 		int weight = getWeight() + item.getItem().getWeight() * count / 1000 + 1;
 		if (weight < 0 || (item.getItem().getWeight() * count / 1000) < 0) {
 			if (message) {
-				sendOverMessage(82); // ACedAB
+				sendOverMessage(82); // 
 			}
 			return WEIGHT_OVER;
 		}
 		if (calcWeight240(weight) >= 240) {
 			if (message) {
-				sendOverMessage(82); // ACedAB
+				sendOverMessage(82);
 			}
 			return WEIGHT_OVER;
 		}
@@ -127,8 +126,8 @@ public class L1PcInventory extends L1Inventory {
 		if (itemExist != null && (itemExist.getCount() + count) > MAX_AMOUNT) {
 			if (message) {
 				getOwner().sendPackets(new S_ServerMessage(166,
-						"Afi",
-						"2,000,000,000B")); // \f1%0%4%1%3%2
+						"",
+						"2,000,000,000")); 
 			}
 			return AMOUNT_OVER;
 		}
@@ -140,7 +139,6 @@ public class L1PcInventory extends L1Inventory {
 		_owner.sendPackets(new S_ServerMessage(message_id));
 	}
 
-	// cacharacter_items
 	@Override
 	public void loadItems() {
 		try {
@@ -154,7 +152,7 @@ public class L1PcInventory extends L1Inventory {
 					setEquipped(item, true, true, false);
 				}
 				if (item.getItem().getType2() == 0 && item.getItem()
-						.getType() == 2) { // lightnACe
+						.getType() == 2) {
 					item.setRemainingTime(item.getItem().getLightFuel());
 				}
 				L1World.getInstance().storeObject(item);
@@ -164,7 +162,6 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	// cacharacter_itemso^
 	@Override
 	public void insertItem(L1ItemInstance item) {
 		_owner.sendPackets(new S_AddItem(item));
@@ -212,14 +209,6 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	/**
-	 * CxgACeXVB
-	 * 
-	 * @param item -
-	 *            XVACe
-	 * @param column -
-	 *            XVXe[^X
-	 */
 	@Override
 	public void updateItem(L1ItemInstance item, int column) {
 		if (column >= COL_ATTR_ENCHANT_LEVEL) { // 
@@ -230,29 +219,29 @@ public class L1PcInventory extends L1Inventory {
 			_owner.sendPackets(new S_ItemStatus(item));
 			column -= COL_ATTR_ENCHANT_KIND;
 		}
-		if (column >= COL_BLESS) { // jE
+		if (column >= COL_BLESS) {
 			_owner.sendPackets(new S_ItemColor(item));
 			column -= COL_BLESS;
 		}
-		if (column >= COL_REMAINING_TIME) { // gp\c
+		if (column >= COL_REMAINING_TIME) {
 			_owner.sendPackets(new S_ItemName(item));
 			column -= COL_REMAINING_TIME;
 		}
-		if (column >= COL_CHARGE_COUNT) { // `[W
+		if (column >= COL_CHARGE_COUNT) { 
 			_owner.sendPackets(new S_ItemName(item));
 			column -= COL_CHARGE_COUNT;
 		}
-		if (column >= COL_ITEMID) { // ACe(J)
+		if (column >= COL_ITEMID) { 
 			_owner.sendPackets(new S_ItemStatus(item));
 			_owner.sendPackets(new S_ItemColor(item));
 			_owner.sendPackets(new S_PacketBox(
 					S_PacketBox.WEIGHT, getWeight240()));
 			column -= COL_ITEMID;
 		}
-		if (column >= COL_DELAY_EFFECT) { // fBC
+		if (column >= COL_DELAY_EFFECT) { 
 			column -= COL_DELAY_EFFECT;
 		}
-		if (column >= COL_COUNT) { // JEg
+		if (column >= COL_COUNT) { 
 			_owner.sendPackets(new S_ItemAmount(item));
 
 			int weight = item.getWeight();
@@ -263,39 +252,30 @@ public class L1PcInventory extends L1Inventory {
 				_owner.sendPackets(new S_ItemName(item));
 			}
 			if (item.getItem().getWeight() != 0) {
-				// XXX 240iKEFCg
 				_owner.sendPackets(new S_PacketBox(
 						S_PacketBox.WEIGHT, getWeight240()));
 			}
 			column -= COL_COUNT;
 		}
-		if (column >= COL_EQUIPPED) { // 
+		if (column >= COL_EQUIPPED) {
 			_owner.sendPackets(new S_ItemName(item));
 			column -= COL_EQUIPPED;
 		}
-		if (column >= COL_ENCHANTLVL) { // G`g
+		if (column >= COL_ENCHANTLVL) {
 			_owner.sendPackets(new S_ItemStatus(item));
 			column -= COL_ENCHANTLVL;
 		}
-		if (column >= COL_IS_ID) { // mF
+		if (column >= COL_IS_ID) { 
 			_owner.sendPackets(new S_ItemStatus(item));
 			_owner.sendPackets(new S_ItemColor(item));
 			column -= COL_IS_ID;
 		}
-		if (column >= COL_DURABILITY) { // v
+		if (column >= COL_DURABILITY) {
 			_owner.sendPackets(new S_ItemStatus(item));
 			column -= COL_DURABILITY;
 		}
 	}
-
-	/**
-	 * CxgACeDBB
-	 * 
-	 * @param item -
-	 *            XVACe
-	 * @param column -
-	 *            XVXe[^X
-	 */
+	
 	public void saveItem(L1ItemInstance item, int column) {
 		if (column == 0) {
 			return;
@@ -311,43 +291,43 @@ public class L1PcInventory extends L1Inventory {
 				storage.updateItemAttrEnchantKind(item);
 				column -= COL_ATTR_ENCHANT_KIND;
 			}
-			if (column >= COL_BLESS) { // jE
+			if (column >= COL_BLESS) {
 				storage.updateItemBless(item);
 				column -= COL_BLESS;
 			}
-			if (column >= COL_REMAINING_TIME) { // gp\c
+			if (column >= COL_REMAINING_TIME) {
 				storage.updateItemRemainingTime(item);
 				column -= COL_REMAINING_TIME;
 			}
-			if (column >= COL_CHARGE_COUNT) { // `[W
+			if (column >= COL_CHARGE_COUNT) { 
 				storage.updateItemChargeCount(item);
 				column -= COL_CHARGE_COUNT;
 			}
-			if (column >= COL_ITEMID) { // ACe(J)
+			if (column >= COL_ITEMID) { 
 				storage.updateItemId(item);
 				column -= COL_ITEMID;
 			}
-			if (column >= COL_DELAY_EFFECT) { // fBC
+			if (column >= COL_DELAY_EFFECT) { 
 				storage.updateItemDelayEffect(item);
 				column -= COL_DELAY_EFFECT;
 			}
-			if (column >= COL_COUNT) { // JEg
+			if (column >= COL_COUNT) {
 				storage.updateItemCount(item);
 				column -= COL_COUNT;
 			}
-			if (column >= COL_EQUIPPED) { // 
+			if (column >= COL_EQUIPPED) { 
 				storage.updateItemEquipped(item);
 				column -= COL_EQUIPPED;
 			}
-			if (column >= COL_ENCHANTLVL) { // G`g
+			if (column >= COL_ENCHANTLVL) {
 				storage.updateItemEnchantLevel(item);
 				column -= COL_ENCHANTLVL;
 			}
-			if (column >= COL_IS_ID) { // mF
+			if (column >= COL_IS_ID) { 
 				storage.updateItemIdentified(item);
 				column -= COL_IS_ID;
 			}
-			if (column >= COL_DURABILITY) { // v
+			if (column >= COL_DURABILITY) { 
 				storage.updateItemDurability(item);
 				column -= COL_DURABILITY;
 			}
@@ -356,7 +336,6 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	// cacharacter_items
 	@Override
 	public void deleteItem(L1ItemInstance item) {
 		try {
@@ -377,21 +356,20 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	// ACeEiL1ItemInstanceXAlAcharacter_itemsXVApPbgMj
 	public void setEquipped(L1ItemInstance item, boolean equipped) {
 		setEquipped(item, equipped, false, false);
 	}
 
 	public void setEquipped(L1ItemInstance item, boolean equipped,
 			boolean loaded, boolean changeWeapon) {
-		if (item.isEquipped() != equipped) { // l
+		if (item.isEquipped() != equipped) { 
 			L1Item temp = item.getItem();
-			if (equipped) { // 
+			if (equipped) {
 				item.setEquipped(true);
 				_owner.getEquipSlot().set(item);
-			} else { // E
+			} else { 
 				if (!loaded) {
-					// CrWreBN[N oOubfBN[NCrWCrW
+
 					if (temp.getItemId() == 20077 || temp.getItemId() == 20062
 							|| temp.getItemId() == 120077) {
 						if (_owner.isInvisble()) {
@@ -403,23 +381,19 @@ public class L1PcInventory extends L1Inventory {
 				item.setEquipped(false);
 				_owner.getEquipSlot().remove(item);
 			}
-			if (!loaded) { // capPbgA
-				// XXX:Zb^[
+			if (!loaded) { 
 				_owner.setCurrentHp(_owner.getCurrentHp());
 				_owner.setCurrentMp(_owner.getCurrentMp());
 				updateItem(item, COL_EQUIPPED);
 				_owner.sendPackets(new S_OwnCharStatus(_owner));
-				if (temp.getType2() == 1 && changeWeapon == false) { // rWAXVBAEXV
+				if (temp.getType2() == 1 && changeWeapon == false) { 
 					_owner.sendPackets(new S_CharVisualUpdate(_owner));
 					_owner.broadcastPacket(new S_CharVisualUpdate(_owner));
 				}
-				// _owner.getNetConnection().saveCharToDisk(_owner); //
-				// DBLN^[
 			}
 		}
 	}
 
-	// ACemF
 	public boolean checkEquipped(int id) {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
@@ -430,7 +404,6 @@ public class L1PcInventory extends L1Inventory {
 		return false;
 	}
 
-	// ACeSmFiZbg{[iXmFpj
 	public boolean checkEquipped(int[] ids) {
 		for (int id : ids) {
 			if (!checkEquipped(id)) {
@@ -440,7 +413,6 @@ public class L1PcInventory extends L1Inventory {
 		return true;
 	}
 
-	// ^CvACe
 	public int getTypeEquipped(int type2, int type) {
 		int equipeCount = 0;
 		for (Object itemObject : _items) {
@@ -453,7 +425,6 @@ public class L1PcInventory extends L1Inventory {
 		return equipeCount;
 	}
 
-	// ^CvACe
 	public L1ItemInstance getItemEquipped(int type2, int type) {
 		L1ItemInstance equipeitem = null;
 		for (Object itemObject : _items) {
@@ -467,7 +438,6 @@ public class L1PcInventory extends L1Inventory {
 		return equipeitem;
 	}
 
-	// O
 	public L1ItemInstance[] getRingEquipped() {
 		L1ItemInstance equipeItem[] = new L1ItemInstance[2];
 		int equipeCount = 0;
@@ -485,21 +455,18 @@ public class L1PcInventory extends L1Inventory {
 		return equipeItem;
 	}
 
-	// gO
 	public void takeoffEquip(int polyid) {
 		takeoffWeapon(polyid);
 		takeoffArmor(polyid);
 	}
 
-	// gO
 	private void takeoffWeapon(int polyid) {
-		if (_owner.getWeapon() == null) { // f
+		if (_owner.getWeapon() == null) {
 			return;
 		}
 
 		boolean takeoff = false;
 		int weapon_type = _owner.getWeapon().getItem().getType();
-		// oH
 		takeoff = !L1PolyMorph.isEquipableWeapon(polyid, weapon_type);
 
 		if (takeoff) {
@@ -507,16 +474,13 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	// ghO
 	private void takeoffArmor(int polyid) {
 		L1ItemInstance armor = null;
 
-		// wK[_[`FbN
 		for (int type = 0; type <= 13; type++) {
-			// AsO
 			if (getTypeEquipped(2, type) != 0
 					&& !L1PolyMorph.isEquipableArmor(polyid, type)) {
-				if (type == 9) { // OAO
+				if (type == 9) { 
 					armor = getItemEquipped(2, type);
 					if (armor != null) {
 						setEquipped(armor, false, false, false);
@@ -535,12 +499,10 @@ public class L1PcInventory extends L1Inventory {
 		}
 	}
 
-	// gpA[
 	public L1ItemInstance getArrow() {
 		return getBullet(0);
 	}
 
-	// gpXeBO
 	public L1ItemInstance getSting() {
 		return getBullet(15);
 	}
@@ -549,17 +511,17 @@ public class L1PcInventory extends L1Inventory {
 		L1ItemInstance bullet;
 		int priorityId = 0;
 		if (type == 0) {
-			priorityId = _arrowId; // A[
+			priorityId = _arrowId; 
 		}
 		if (type == 15) {
-			priorityId = _stingId; // XeBO
+			priorityId = _stingId; 
 		}
-		if (priorityId > 0) // De
+		if (priorityId > 0) 
 		{
 			bullet = findItemId(priorityId);
 			if (bullet != null) {
 				return bullet;
-			} else // D
+			} else 
 			{
 				if (type == 0) {
 					_arrowId = 0;
@@ -570,15 +532,15 @@ public class L1PcInventory extends L1Inventory {
 			}
 		}
 
-		for (Object itemObject : _items) // eT
+		for (Object itemObject : _items)
 		{
 			bullet = (L1ItemInstance) itemObject;
 			if (bullet.getItem().getType() == type) {
 				if (type == 0) {
-					_arrowId = bullet.getItem().getItemId(); // D
+					_arrowId = bullet.getItem().getItemId();
 				}
 				if (type == 15) {
-					_stingId = bullet.getItem().getItemId(); // D
+					_stingId = bullet.getItem().getItemId(); 
 				}
 				return bullet;
 			}
@@ -586,17 +548,14 @@ public class L1PcInventory extends L1Inventory {
 		return null;
 	}
 
-	// DA[
 	public void setArrow(int id) {
 		_arrowId = id;
 	}
 
-	// DXeBO
 	public void setSting(int id) {
 		_stingId = id;
 	}
 
-	// goR
 	public int hpRegenPerTick() {
 		int hpr = 0;
 		for (Object itemObject : _items) {
@@ -608,7 +567,6 @@ public class L1PcInventory extends L1Inventory {
 		return hpr;
 	}
 
-	// loR
 	public int mpRegenPerTick() {
 		int mpr = 0;
 		for (Object itemObject : _items) {
@@ -624,7 +582,7 @@ public class L1PcInventory extends L1Inventory {
 		Random random = new Random();
 		int rnd = random.nextInt(_items.size());
 		L1ItemInstance penaltyItem = _items.get(rnd);
-		if (penaltyItem.getItem().getItemId() == L1ItemId.ADENA // AfiAg[hsACe
+		if (penaltyItem.getItem().getItemId() == L1ItemId.ADENA 
 				|| !penaltyItem.getItem().isTradable()) {
 			return null;
 		}

@@ -62,7 +62,7 @@ public abstract class L1Item implements Serializable {
 		_name = name;
 	}
 
-	private String _unidentifiedNameId; //  ¢ÓèACeÌl[hc
+	private String _unidentifiedNameId;
 
 	public String getUnidentifiedNameId() {
 		return _unidentifiedNameId;
@@ -72,7 +72,7 @@ public abstract class L1Item implements Serializable {
 		_unidentifiedNameId = unidentifiedNameId;
 	}
 
-	private String _identifiedNameId; //  ÓèÏÝACeÌl[hc
+	private String _identifiedNameId;
 
 	public String getIdentifiedNameId() {
 		return _identifiedNameId;
@@ -82,7 +82,7 @@ public abstract class L1Item implements Serializable {
 		_identifiedNameId = identifiedNameId;
 	}
 
-	private int _type; //  Ú×È^Cv
+	private int _type;
 
 	/**
 	 * getType<br>
@@ -322,7 +322,7 @@ public abstract class L1Item implements Serializable {
 		_useDarkelf = flag;
 	}
 
-	private boolean _useDragonknight = false; //  hSiCgåäõÅ«é©
+	private boolean _useDragonknight = false;
 
 	public boolean isUseDragonknight() {
 		return _useDragonknight;
@@ -332,7 +332,7 @@ public abstract class L1Item implements Serializable {
 		_useDragonknight = flag;
 	}
 
-	private boolean _useIllusionist = false; //  C[WjXgåäõÅ«é©
+	private boolean _useIllusionist = false;
 
 	public boolean isUseIllusionist() {
 		return _useIllusionist;
@@ -342,7 +342,7 @@ public abstract class L1Item implements Serializable {
 		_useIllusionist = flag;
 	}
 
-	private byte _addstr = 0; //  rsqâ³
+	private byte _addstr = 0;
 
 	public byte get_addstr() {
 		return _addstr;
@@ -520,15 +520,15 @@ public abstract class L1Item implements Serializable {
 	 * 
 	 */
 	public int getLightFuel() {
-		if (_itemId == 40001) { // v
+		if (_itemId == 40001) { // 
 			return 6000;
-		} else if (_itemId == 40002) { // ^
+		} else if (_itemId == 40002) { // 
 			return 12000;
-		} else if (_itemId == 40003) { // ^IC
+		} else if (_itemId == 40003) { // 
 			return 12000;
-		} else if (_itemId == 40004) { // }WbN^
+		} else if (_itemId == 40004) { // 
 			return 0;
-		} else if (_itemId == 40005) { // Lh
+		} else if (_itemId == 40005) { // 
 			return 600;
 		} else {
 			return 0;
@@ -568,7 +568,6 @@ public abstract class L1Item implements Serializable {
 		return false;
 	}
 
-	// ¡¡¡¡¡¡ L1Weapon ÅI[o[Ch·éÚ ¡¡¡¡¡¡
 	public int getRange() {
 		return 0;
 	}

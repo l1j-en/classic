@@ -253,7 +253,7 @@ public class L1NpcInstance extends L1Character {
 			}
 
 			if (_targetItem == null) {
-				if (noTarget()) {
+				if (noTarget(1)) {
 					return true;
 				}
 			} else {
@@ -623,7 +623,7 @@ public class L1NpcInstance extends L1Character {
 		setSleepTime(1000);
 	}
 
-	public boolean noTarget() {
+	public boolean noTarget(int depth) {
 		if (_master != null && _master.getMapId() == getMapId()
 				&& getLocation().getTileLineDistance(_master
 						.getLocation()) > 2) { 

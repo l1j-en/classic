@@ -283,53 +283,53 @@ public class L1Cooking {
 			pc.sendPackets(new S_SPMR(pc));
 		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S) {
 			cookingType = 7;
-		} else if (cookingId == COOKING_2_0_N || cookingId == COOKING_2_0_S) { // LrAJiby
+		} else if (cookingId == COOKING_2_0_N || cookingId == COOKING_2_0_S) {
 			cookingType = 8;
-		} else if (cookingId == COOKING_2_1_N || cookingId == COOKING_2_1_S) { // AQ[^[Xe[L
+		} else if (cookingId == COOKING_2_1_N || cookingId == COOKING_2_1_S) {
 			cookingType = 9;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-			if (pc.isInParty()) { // p[eB[
+			if (pc.isInParty()) {
 				pc.getParty().updateMiniHP(pc);
 			}
 			pc.addMaxMp(30);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
-		} else if (cookingId == COOKING_2_2_N || cookingId == COOKING_2_2_S) { // ^[ghSÌÙq
+		} else if (cookingId == COOKING_2_2_N || cookingId == COOKING_2_2_S) {
 			cookingType = 10;
 			pc.addAc(-2);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == COOKING_2_3_N || cookingId == COOKING_2_3_S) { // LEBpbgÄ«
+		} else if (cookingId == COOKING_2_3_N || cookingId == COOKING_2_3_S) {
 			cookingType = 11;
-		} else if (cookingId == COOKING_2_4_N || cookingId == COOKING_2_4_S) { // XR[sIÄ«
+		} else if (cookingId == COOKING_2_4_N || cookingId == COOKING_2_4_S) {
 			cookingType = 12;
-		} else if (cookingId == COOKING_2_5_N || cookingId == COOKING_2_5_S) { // CbJhV`[
+		} else if (cookingId == COOKING_2_5_N || cookingId == COOKING_2_5_S) {
 			cookingType = 13;
 			pc.addMr(10);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_2_6_N || cookingId == COOKING_2_6_S) { // NrÌøÄ«
+		} else if (cookingId == COOKING_2_6_N || cookingId == COOKING_2_6_S) {
 			cookingType = 14;
 			pc.addSp(1);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_2_7_N || cookingId == COOKING_2_7_S) { // NuX[v
+		} else if (cookingId == COOKING_2_7_N || cookingId == COOKING_2_7_S) {
 			cookingType = 15;
-		} else if (cookingId == COOKING_3_0_N || cookingId == COOKING_3_0_S) { // NX^VAÌnT~Ä«
+		} else if (cookingId == COOKING_3_0_N || cookingId == COOKING_3_0_S) {
 			cookingType = 16;
-		} else if (cookingId == COOKING_3_1_N || cookingId == COOKING_3_1_S) { // OtHÄ«
+		} else if (cookingId == COOKING_3_1_N || cookingId == COOKING_3_1_S) {
 			cookingType = 17;
 			pc.addMaxHp(50);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-			if (pc.isInParty()) { // p[eB[
+			if (pc.isInParty()) {
 				pc.getParty().updateMiniHP(pc);
 			}
 			pc.addMaxMp(50);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
-		} else if (cookingId == COOKING_3_2_N || cookingId == COOKING_3_2_S) { // RJgXXe[L
+		} else if (cookingId == COOKING_3_2_N || cookingId == COOKING_3_2_S) {
 			cookingType = 18;
-		} else if (cookingId == COOKING_3_3_N || cookingId == COOKING_3_3_S) { // ^[ghSÄ«
+		} else if (cookingId == COOKING_3_3_N || cookingId == COOKING_3_3_S) {
 			cookingType = 19;
 			pc.addAc(-3);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == COOKING_3_4_N || cookingId == COOKING_3_4_S) { // bT[hSÌèHæ
+		} else if (cookingId == COOKING_3_4_N || cookingId == COOKING_3_4_S) {
 			cookingType = 20;
 			pc.addMr(15);
 			pc.sendPackets(new S_SPMR(pc));
@@ -338,18 +338,18 @@ public class L1Cooking {
 			pc.addFire(10);
 			pc.addEarth(10);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (cookingId == COOKING_3_5_N || cookingId == COOKING_3_5_S) { // hCNÄ«
+		} else if (cookingId == COOKING_3_5_N || cookingId == COOKING_3_5_S) {
 			cookingType = 21;
 			pc.addSp(2);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_3_6_N || cookingId == COOKING_3_6_S) { // [CÌV`[
+		} else if (cookingId == COOKING_3_6_N || cookingId == COOKING_3_6_S) {
 			cookingType = 22;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
-			if (pc.isInParty()) { // p[eB[
+			if (pc.isInParty()) {
 				pc.getParty().updateMiniHP(pc);
 			}
-		} else if (cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S) { // oVXNÌX[v
+		} else if (cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S) {
 			cookingType = 23;
 		}
 		pc.sendPackets(new S_PacketBox(53, cookingType, time));

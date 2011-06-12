@@ -280,7 +280,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 		if (awakeSkillId == AWAKEN_ANTHARAS
 				|| awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
-			pc.sendPackets(new S_ServerMessage(1384)); // »ÝÌóÔÅÍÏgÅ«Ü¹ñB
+			pc.sendPackets(new S_ServerMessage(1384));
 			return;
 		}
 		if (_gfxId == 6080 || _gfxId == 6094) {

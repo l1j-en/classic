@@ -40,7 +40,7 @@ public class S_SPMR extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_SPMR);
 
 		if (pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
-			writeC(pc.getSp() - pc.getTrueSp() - 2); 
+			writeC(pc.getSp() - pc.getTrueSp() - 2); // SP increase in equipment
 		} else {
 			writeC(pc.getSp() - pc.getTrueSp()); // SP increase in equipment
 		}

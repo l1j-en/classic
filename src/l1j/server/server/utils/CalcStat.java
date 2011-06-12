@@ -107,43 +107,43 @@ public class CalcStat {
 		if (baseCon > 15) {
 			randomhp = (short) (baseCon - 15);
 		}
-		if (charType == 0) { // vX
-			randomhp += (short) (11 + rnd.nextInt(2)); // l
+		if (charType == 0) { // Prince
+			randomhp += (short) (11 + rnd.nextInt(2));
 
 			if (baseMaxHp + randomhp > Config.PRINCE_MAX_HP) {
 				randomhp = (short) (Config.PRINCE_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 1) { // iCg
-			randomhp += (short) (17 + rnd.nextInt(2)); // l
+		} else if (charType == 1) { // Knight
+			randomhp += (short) (17 + rnd.nextInt(2));
 
 			if (baseMaxHp + randomhp > Config.KNIGHT_MAX_HP) {
 				randomhp = (short) (Config.KNIGHT_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 2) { // Gt
-			randomhp += (short) (10 + rnd.nextInt(2)); // l
+		} else if (charType == 2) { // Elf
+			randomhp += (short) (10 + rnd.nextInt(2));
 
 			if (baseMaxHp + randomhp > Config.ELF_MAX_HP) {
 				randomhp = (short) (Config.ELF_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 3) { // EBU[h
-			randomhp += (short) (7 + rnd.nextInt(2)); // l
+		} else if (charType == 3) { // Wizard
+			randomhp += (short) (7 + rnd.nextInt(2));
 
 			if (baseMaxHp + randomhp > Config.WIZARD_MAX_HP) {
 				randomhp = (short) (Config.WIZARD_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 4) { // _[NGt
-			randomhp += (short) (10 + rnd.nextInt(2)); // l
+		} else if (charType == 4) { // Dark Elf
+			randomhp += (short) (10 + rnd.nextInt(2));
 
 			if (baseMaxHp + randomhp > Config.DARKELF_MAX_HP) {
 				randomhp = (short) (Config.DARKELF_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 5) { // hSiCg
+		} else if (charType == 5) { // Dragon Knight
 			randomhp += (short) (13 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.DRAGONKNIGHT_MAX_HP) {
 				randomhp = (short) (Config.DRAGONKNIGHT_MAX_HP - baseMaxHp);
 			}
-		} else if (charType == 6) { // C[WjXg
+		} else if (charType == 6) { // Illusionist
 			randomhp += (short) (9 + rnd.nextInt(2)); // l
 
 			if (baseMaxHp + randomhp > Config.ILLUSIONIST_MAX_HP) {
@@ -205,16 +205,16 @@ public class CalcStat {
 
 		randommp = rnd.nextInt(seedY) + 1 + seedZ;
 
-		if (charType == 0) { // vX
+		if (charType == 0) { // Prince
 			if (baseMaxMp + randommp > Config.PRINCE_MAX_MP) {
 				randommp = Config.PRINCE_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 1) { // iCg
+		} else if (charType == 1) { // Knight
 			randommp = (int) (randommp * 2 / 3);
 			if (baseMaxMp + randommp > Config.KNIGHT_MAX_MP) {
 				randommp = Config.KNIGHT_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 2) { // Gt
+		} else if (charType == 2) { // Elf
 			randommp = (int) (randommp * 1.5);
 
 			if (baseMaxMp + randommp > Config.ELF_MAX_MP) {
@@ -232,13 +232,13 @@ public class CalcStat {
 			if (baseMaxMp + randommp > Config.DARKELF_MAX_MP) {
 				randommp = Config.DARKELF_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 5) { // hSiCg
+		} else if (charType == 5) { // Dragon Knight
 			randommp = (int) (randommp * 2 / 3);
 
 			if (baseMaxMp + randommp > Config.DRAGONKNIGHT_MAX_MP) {
 				randommp = Config.DRAGONKNIGHT_MAX_MP - baseMaxMp;
 			}
-		} else if (charType == 6) { // C[WjXg
+		} else if (charType == 6) { // Illusionist
 			randommp = (int) (randommp * 5 / 3);
 
 			if (baseMaxMp + randommp > Config.ILLUSIONIST_MAX_MP) {

@@ -43,7 +43,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 			.getName());
 
 	@Override
-	public boolean noTarget() {
+	public boolean noTarget(int depth) {
 		L1NpcInstance targetNpc = null;
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
 			if (object instanceof L1NpcInstance) {
