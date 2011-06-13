@@ -711,6 +711,14 @@ UPDATE armor SET unidentified_name_id = '$5545', identified_name_id = '$5545', u
 UPDATE armor SET unidentified_name_id = '$5545', identified_name_id = '$5545', use_dragonknight = 1, use_illusionist = 1, hit_modifier = 0, dmg_modifier = 0, bow_hit_modifier = 0, bow_dmg_modifier = 0 WHERE item_id = 21088;
 UPDATE armor SET unidentified_name_id = '$5545', identified_name_id = '$5545', use_dragonknight = 1, use_illusionist = 1, hit_modifier = 0, dmg_modifier = 0, bow_hit_modifier = 0, bow_dmg_modifier = 0 WHERE item_id = 21089;
 UPDATE armor SET unidentified_name_id = '$5545', identified_name_id = '$5545', use_dragonknight = 1, use_illusionist = 1, hit_modifier = 0, dmg_modifier = 0, bow_hit_modifier = 0, bow_dmg_modifier = 0 WHERE item_id = 21090;
+
+-- armor_set
+INSERT INTO armor_set VALUES(56, '????????', '21062', 5412, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO armor_set VALUES(57, '?????????', '21063', 6746, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO armor_set VALUES(58, '??????????', '21064', 6747, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO armor_set VALUES(59, '??????????', '21065', 6749, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO armor_set VALUES(60, '????????', '21066', 6750, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 -- etcitem
 UPDATE etcitem SET unidentified_name_id = '$2', identified_name_id = '$2', can_seal = 0 WHERE item_id = 40001;
 UPDATE etcitem SET unidentified_name_id = '$326', identified_name_id = '$326', can_seal = 0 WHERE item_id = 40002;
