@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server;
 
 import java.sql.Connection;
@@ -74,7 +92,7 @@ public class PCommands {
 				for (int a = 0; a <= 2; a++){
 					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
-						new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
+					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
 				}
 			}
@@ -82,8 +100,7 @@ public class PCommands {
 				for (int a = 0; a <= 5; a++){
 					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
-						new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time,
-								L1SkillUse.TYPE_SPELLSC);
+					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
 				}
 			}
@@ -91,8 +108,7 @@ public class PCommands {
 				for (int a = 0; a <= 7; a++){
 					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
-						new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time,
-								L1SkillUse.TYPE_SPELLSC);
+					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
 				}
 			}
@@ -100,13 +116,12 @@ public class PCommands {
 				for (int a = 0; a <= 8; a++){
 					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
-						new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time,
-								L1SkillUse.TYPE_SPELLSC);
+					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
 				}
 			}
 		} else {
-			_player.sendPackets(new S_SystemMessage("Buff command is disabled."));
+			_player.sendPackets(new S_SystemMessage("Buff Command Is Disabled."));
 		}	
 	}
 
@@ -117,8 +132,7 @@ public class PCommands {
 			for (int a = 0; a <= 14; a++){
 				L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
 				if (skill.getTarget().equals("buff")) {
-					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time,
-					L1SkillUse.TYPE_SPELLSC);
+				new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 				}
 			}
 		}else if (Config.PLAYER_COMMANDS == true && !Config.POWER_BUFF == true){
@@ -138,8 +152,7 @@ public class PCommands {
 			return;
 		}
 		
-		if (_player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false
-				&& _player.isDead() == false && _player.getMapId() != 99) {
+		if (_player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false && _player.isDead() == false && _player.getMapId() != 99) {
 			try {
 				String s1 = cmd2.substring(5);
 				int i = Integer.parseInt(s1);
@@ -190,7 +203,7 @@ public class PCommands {
 					_player.sendPackets(new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern"));
 			}
 		} else{
-			_player.sendPackets(new S_SystemMessage("You cannot warp in your current state."));
+			_player.sendPackets(new S_SystemMessage("You Cannot Warp In Your Current State."));
 		}
 	}
 
@@ -222,7 +235,7 @@ public class PCommands {
 	}
 
 	private void checkKarma(L1PcInstance pc){
-		pc.sendPackets(new S_SystemMessage("Your karma is currently: " + pc.getKarma()));
+		pc.sendPackets(new S_SystemMessage("Your karma Is Currently: " + pc.getKarma()));
 	
 	}
 }

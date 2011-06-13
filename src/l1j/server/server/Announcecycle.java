@@ -45,14 +45,13 @@ public class Announcecycle {
         private int _ingamenewssize = 0;
 
         private Announcecycle() {
-                loadAnnouncecycle();
+           loadAnnouncecycle();
         }
 
         public static Announcecycle getInstance() {
                 if (_instance == null) {
                         _instance = new Announcecycle();
                 }
-
                 return _instance;
         }
 
@@ -60,10 +59,10 @@ public class Announcecycle {
                 _ingamenews.clear();
                 File file = new File("data/ingamenews.txt");
                 if (file.exists()) {
-                        readFromDiskmulti(file);
-                        doAnnouncecycle(); 
+                   readFromDiskmulti(file);
+                   doAnnouncecycle(); 
                 } else {
-                	System.out.println("data/ingamenews.txt loaded");
+                	System.out.println("data/ingamenews.txt Loaded");
                 }
         }
 
@@ -76,14 +75,12 @@ public class Announcecycle {
                         while ( (line = lnr.readLine()) != null) { 
                                 StringTokenizer st = new StringTokenizer(line,"\n\r"); 
                                 if (st.hasMoreTokens()) {
-                                        String showAnnouncecycle = st.nextToken(); 
-                                        _ingamenews.add(showAnnouncecycle);
-
-                                        i++;
+                                    String showAnnouncecycle = st.nextToken(); 
+                                    _ingamenews.add(showAnnouncecycle);
+                                    i++;
                                 }
                         }
-
-                        System.out.println("IngameNews: Loaded " + i + " ingamenews.");
+                        System.out.println("IngameNews: Loaded " + i + " Ingamenews.");
                 } catch (IOException e1)
                 {
                         _log.log(Level.SEVERE, "Error reading ingamenews", e1);
@@ -97,8 +94,8 @@ public class Announcecycle {
         }
 
         public void doAnnouncecycle() {
-                AnnouncTask rs = new AnnouncTask();
-                GeneralThreadPool.getInstance().scheduleAtFixedRate(rs, 60000, (Config.Show_INGAMENEWS_Time * 60000));     
+           AnnouncTask rs = new AnnouncTask();
+           GeneralThreadPool.getInstance().scheduleAtFixedRate(rs, 60000, (Config.Show_INGAMENEWS_Time * 60000));     
         }
 
         /** The task launching the function doIngamenewsCycle() */
@@ -108,10 +105,10 @@ public class Announcecycle {
                                 ShowAnnounceToAll(_ingamenews.get(_ingamenewssize)); 
                                 _ingamenewssize++;
                                 if(_ingamenewssize >= _ingamenews.size())
-                                        _ingamenewssize = 0;
+                                  _ingamenewssize = 0;
                         }
                         catch (Exception e) {
-                                _log.log(Level.WARNING, "", e);
+                           _log.log(Level.WARNING, "", e);
                         }
                 }
         }
@@ -119,6 +116,6 @@ public class Announcecycle {
         private void ShowAnnounceToAll(String msg) {
                 Collection <L1PcInstance> allpc = L1World.getInstance().getAllPlayers();
                 for ( L1PcInstance pc : allpc )
-                        pc.sendPackets( new S_SystemMessage(msg));
+                    pc.sendPackets( new S_SystemMessage(msg));
         }
 }

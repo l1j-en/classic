@@ -77,7 +77,6 @@ import l1j.server.server.utils.SystemUtil;
 // MobTable, SpawnTable, SkillsTable, PolyTable,
 // TeleportLocations, ShopTable, NPCTalkDataTable, NpcSpawnTable,
 // IpTable, Shutdown, NpcTable, MobGroupTable, NpcShoutTable
-
 public class GameServer extends Thread {
 	private ServerSocket _serverSocket;
 	private static Logger _log = Logger.getLogger(GameServer.class.getName());
@@ -88,11 +87,11 @@ public class GameServer extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Server Started. Memory Used: " + SystemUtil.getUsedMemoryMB() + " MB");
-		System.out.println("Waiting for Connections!");
+		System.out.println("Waiting For Connections!");
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
-				System.out.println("Connection accepted from IP: "+ socket.getInetAddress());
+				System.out.println("Accepted Connection From Ip : "+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 				if (IpTable.getInstance().isBannedIp(host)) {
 					_log.info("Banned IP(" + host + ")");
@@ -154,13 +153,14 @@ public class GameServer extends Thread {
 			System.out.println("PvP             = Off");
 		}
 
+		// Announce Chat Cycle
 		Announcecycle.getInstance();
 
 		if (Config.Use_Show_INGAMENEWS_Time) {  
 			System.out.println("IngameNews = On");  
-			} else {  
-				System.out.println("InGameNews = Off"); 
-			} 
+		} else {  
+			System.out.println("InGameNews = Off"); 
+		} 
 		 System.gc(); 	
 
 		int maxOnlineUsers = Config.MAX_ONLINE_USERS;
@@ -170,7 +170,7 @@ public class GameServer extends Thread {
 		_loginController = LoginController.getInstance();
 		_loginController.setMaxAllowedOnlinePlayers(maxOnlineUsers);
 
-		//
+		// CharacterTable
 		CharacterTable.getInstance().loadAllCharName();
 
 		// Reset status online
@@ -189,8 +189,7 @@ public class GameServer extends Thread {
 
 		// Elemental stone spawn
 		if (Config.ELEMENTAL_STONE_AMOUNT > 0) {
-			ElementalStoneGenerator elementalStoneGenerator
-					= ElementalStoneGenerator.getInstance();
+			ElementalStoneGenerator elementalStoneGenerator = ElementalStoneGenerator.getInstance();
 			GeneralThreadPool.getInstance().execute(elementalStoneGenerator);
 		}
 
@@ -198,28 +197,32 @@ public class GameServer extends Thread {
 		HomeTownTimeController.getInstance();
 
 		// Controllers auction time Hideout
-		AuctionTimeController auctionTimeController = AuctionTimeController
-				.getInstance();
+		AuctionTimeController auctionTimeController = AuctionTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(auctionTimeController);
 
-		HouseTaxTimeController houseTaxTimeController = HouseTaxTimeController
-				.getInstance();
+		// HouseTax Update Controller
+		HouseTaxTimeController houseTaxTimeController = HouseTaxTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(houseTaxTimeController);
 
-		FishingTimeController fishingTimeController = FishingTimeController
-				.getInstance();
+		// Fishing Time Controller
+		FishingTimeController fishingTimeController = FishingTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(fishingTimeController);
 
-		NpcChatTimeController npcChatTimeController = NpcChatTimeController
-				.getInstance();
+		// Npc And Monster Chat Controller
+		NpcChatTimeController npcChatTimeController = NpcChatTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(npcChatTimeController);
 
-		LightTimeController lightTimeController = LightTimeController
-				.getInstance();
+		// LightTime Controller
+		LightTimeController lightTimeController = LightTimeController.getInstance();
 		GeneralThreadPool.getInstance().execute(lightTimeController);
 
+		// AnnounceMents
 		Announcements.getInstance();
+		
+		// Npc Table
 		NpcTable.getInstance();
+		
+		// Delete Items On Ground
 		L1DeleteItemOnGround deleteitem = new L1DeleteItemOnGround();
 		deleteitem.initialize();
 
@@ -273,8 +276,7 @@ public class GameServer extends Thread {
 	 * All players online to kick, character and preservation of information.
 	 */
 	public void disconnectAllCharacters() {
-		Collection<L1PcInstance> players = L1World.getInstance()
-				.getAllPlayers();
+		Collection<L1PcInstance> players = L1World.getInstance().getAllPlayers();
 		for (L1PcInstance pc : players) {
 			pc.getNetConnection().setActiveChar(null);
 			pc.getNetConnection().kick();
@@ -298,16 +300,15 @@ public class GameServer extends Thread {
 			L1World world = L1World.getInstance();
 			try {
 				int secondsCount = _secondsCount;
-				world.broadcastServerMessage("Get to a safe spot. The server will restart shortly!");
-				world.broadcastServerMessage("Repeat, the server is going down for maintanence shortly!");
+				world.broadcastServerMessage("Get To A Safe Spot. The Server Will Restart Soon!");
+				world.broadcastServerMessage("Repeat, The Server Is Going Down For Maintanence Soon!");
 				while (0 < secondsCount) {
 					if (secondsCount <= 10) {
-						world.broadcastServerMessage("Server will shut down in " + secondsCount
-								+ " seconds.  Please get to a safe area and log out");
+						world.broadcastServerMessage("Server Will Shutdown In " + secondsCount
+						+ " Seconds.  Please Get To A Safe Area And Logout.");
 					} else {
 						if (secondsCount % 60 == 0) {
-							world.broadcastServerMessage("Server will shutdown in " + secondsCount
-									/ 60 + " minutes.");
+							world.broadcastServerMessage("Server will shutdown in " + secondsCount / 60 + " Minutes.");
 						}
 					}
 					Thread.sleep(1000);
@@ -315,7 +316,7 @@ public class GameServer extends Thread {
 				}
 				shutdown();
 			} catch (InterruptedException e) {
-				world.broadcastServerMessage("Server shutdown aborted! You may continue playing!");
+				world.broadcastServerMessage("Server Shutdown Aborted! You May Continue Playing!");
 				return;
 			}
 		}
@@ -344,7 +345,6 @@ public class GameServer extends Thread {
 			// TODO error may need to be notified
 			return;
 		}
-
 		_shutdownThread.interrupt();
 		_shutdownThread = null;
 	}

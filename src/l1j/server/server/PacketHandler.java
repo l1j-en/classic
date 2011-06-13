@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server;
 
 import java.util.logging.Logger;
@@ -29,15 +28,16 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server:
 // Opcodes, LoginController, ClientThread, Logins
-
 public class PacketHandler {
 
+	private static Logger _log = Logger.getLogger(PacketHandler.class.getName());
+	private final ClientThread _client;
+	
 	public PacketHandler(ClientThread clientthread) {
 		_client = clientthread;
 	}
 
-	public void handlePacket(byte abyte0[], L1PcInstance object)
-			throws Exception {
+	public void handlePacket(byte abyte0[], L1PcInstance object) throws Exception {
 		int i = abyte0[0] & 0xff;
 		if(_client.getActiveChar() != null) {
 			if(Config.LOGGING_INCOMING_PACKETS && (_client.getActiveChar().isGm() || _client.getActiveChar().isMonitor())){
@@ -48,7 +48,7 @@ public class PacketHandler {
 		case C_OPCODE_EXCLUDE:
 			new C_Exclude(abyte0, _client);
 			break;
-
+			
 		case C_OPCODE_CHARACTERCONFIG:
 			new C_CharcterConfig(abyte0, _client);
 			break;
@@ -406,9 +406,4 @@ public class PacketHandler {
 			break;
 		}
 	}
-
-	private static Logger _log = Logger
-			.getLogger(PacketHandler.class.getName());
-
-	private final ClientThread _client;
 }

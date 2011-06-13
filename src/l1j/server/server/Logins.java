@@ -1,8 +1,21 @@
-// Decompiled by DJ v3.9.9.91 Copyright 2005 Atanas Neshkov  Date: 2007/05/06 22:06:37
-// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
-// Decompiler options: packimports(3) 
-// Source File Name:   Logins.java
-
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server;
 
 import java.io.UnsupportedEncodingException;
@@ -17,12 +30,12 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class Logins {
+
 	private static Logger _log = Logger.getLogger(Logins.class.getName());
 
-	public static boolean loginValid(String account, String password,
-			String ip, String host) {
+	public static boolean loginValid(String account, String password, String ip, String host) {
 		boolean flag1 = false;
-		_log.info("Connection from: " + account);
+		_log.info("Connection From: " + account);
 
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -36,13 +49,12 @@ public class Logins {
 			abyte2 = null;
 
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT password FROM accounts WHERE login=? LIMIT 1");
+			pstm = con.prepareStatement("SELECT password FROM accounts WHERE login=? LIMIT 1");
 			pstm.setString(1, account);
 			rs = pstm.executeQuery();
 			if (rs.next()) {
 				abyte2 = Base64.decode(rs.getString(1));
-				_log.fine("Account exists");
+				_log.fine("Account Exists");
 			}
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -51,8 +63,7 @@ public class Logins {
 			if (abyte2 == null) {
 				if (Config.AUTO_CREATE_ACCOUNTS) {
 					con = L1DatabaseFactory.getInstance().getConnection();
-					pstm = con
-							.prepareStatement("INSERT INTO accounts SET login=?,password=?,lastactive=?,access_level=?,ip=?,host=?");
+					pstm = con.prepareStatement("INSERT INTO accounts SET login=?,password=?,lastactive=?,access_level=?,ip=?,host=?");
 					pstm.setString(1, account);
 					pstm.setString(2, Base64.encodeBytes(abyte1));
 					pstm.setLong(3, 0L);
@@ -60,10 +71,10 @@ public class Logins {
 					pstm.setString(5, ip);
 					pstm.setString(6, host);
 					pstm.execute();
-					_log.info("Created new account for " + account);
+					_log.info("Created New Account For " + account);
 					return true;
 				} else {
-					_log.warning("Account missing for user " + account);
+					_log.warning("Account Missing For User " + account);
 					return false;
 				}
 			}
@@ -82,7 +93,7 @@ public class Logins {
 					i++;
 				} while (true);
 			} catch (Exception e) {
-				_log.warning("Could not check password: " + e);
+				_log.warning("Could Not Check Password: " + e);
 				flag1 = false;
 			}
 		} catch (SQLException e) {

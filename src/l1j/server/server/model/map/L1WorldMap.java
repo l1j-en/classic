@@ -55,7 +55,6 @@ public class L1WorldMap {
 
 			System.exit(0);
 		}
-
 		System.out.println("            OK!     " + timer.get() + "ms");
 	}
 

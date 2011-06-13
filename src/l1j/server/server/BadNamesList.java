@@ -48,8 +48,7 @@ public class BadNamesList {
 
 		try {
 			File mobDataFile = new File("data/badnames.txt");
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(
-					mobDataFile)));
+			lnr = new LineNumberReader(new BufferedReader(new FileReader(mobDataFile)));
 
 			String line = null;
 			while ((line = lnr.readLine()) != null) {
@@ -57,11 +56,10 @@ public class BadNamesList {
 					continue;
 				}
 				StringTokenizer st = new StringTokenizer(line, ";");
-
 				_nameList.add(st.nextToken());
 			}
 
-			_log.config("loaded " + _nameList.size() + " bad names");
+			_log.config("loaded " + _nameList.size() + " BadNames");
 		} catch (FileNotFoundException e) {
 			_log.warning("badnames.txt is missing in data folder");
 		} catch (Exception e) {

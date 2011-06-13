@@ -25,13 +25,11 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_LoginToServerOK extends ClientBasePacket {
 
 	private static final String C_LOGIN_TO_SERVER_OK = "[C] C_LoginToServerOK";
 
-	private static Logger _log = Logger.getLogger(C_LoginToServerOK.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_LoginToServerOK.class.getName());
 
 	public C_LoginToServerOK(byte[] decrypt, ClientThread client) {
 		super(decrypt);

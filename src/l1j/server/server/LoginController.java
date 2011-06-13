@@ -25,10 +25,10 @@ import java.util.logging.Logger;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class LoginController {
+
 	private static LoginController _instance;
 
-	private static Logger _log = Logger.getLogger(LoginController.class
-			.getName());
+	private static Logger _log = Logger.getLogger(LoginController.class.getName());
 
 	private Map<String, ClientThread> _accounts = new ConcurrentHashMap<String, ClientThread>();
 
@@ -69,12 +69,11 @@ public class LoginController {
 			@Override
 			public void run() {
 				if (client.getActiveChar() != null) {
-					client.getActiveChar()
-							.sendPackets(new S_ServerMessage(357));
+					client.getActiveChar().sendPackets(new S_ServerMessage(357));
 				}
 
 				try {
-					Thread.sleep(1000);
+				Thread.sleep(1000);
 				} catch (Exception e) {
 				}
 				client.kick();
@@ -82,20 +81,17 @@ public class LoginController {
 		});
 	}
 
-	public synchronized void login(ClientThread client, Account account)
-			throws GameServerFullException, AccountAlreadyLoginException {
+	public synchronized void login(ClientThread client, Account account) throws GameServerFullException, AccountAlreadyLoginException {
 		if (!account.isValid()) {
 			throw new IllegalArgumentException("Invalid account encountered in LoginController.login.");
 		}
-		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount())
-				&& !account.isGameMaster()) {
+		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount()) && !account.isGameMaster()) {
 			throw new GameServerFullException();
 		}
 		if (_accounts.containsKey(account.getName())) {
 			kickClient(_accounts.remove(account.getName()));
 			throw new AccountAlreadyLoginException();
 		}
-
 		_accounts.put(account.getName(), client);
 	}
 

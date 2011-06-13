@@ -45,8 +45,7 @@ public class Server {
 		logFolder.mkdir();
 
 		try {
-			InputStream is = new BufferedInputStream(new FileInputStream(
-					LOG_PROP));
+			InputStream is = new BufferedInputStream(new FileInputStream(LOG_PROP));
 			LogManager.getLogManager().readConfiguration(is);
 			is.close();
 		} catch (IOException e) {
@@ -65,16 +64,18 @@ public class Server {
 		Config.DB_LOGIN, Config.DB_PASSWORD);
 		L1DatabaseFactory.getInstance();
 
+		// Intialize GameServer
 		GameServer.getInstance().initialize();
 		
+		// Telent Server
 		if ( Config.TELNET_SERVER )
 		{
 			TelnetServer.getInstance().start();
-			System.out.println("Telnet server initialized.");
+			System.out.println("Telnet Server Initialized.");
 		}
 		else
 		{
-		    _log.info("Telnet server is currently disabled.");
+		    _log.info("Telnet Server Is Currently Disabled.");
 		}
 	}
 }

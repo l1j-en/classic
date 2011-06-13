@@ -36,7 +36,6 @@ import l1j.server.server.model.map.L1Map;
 import l1j.server.server.model.map.L1V1Map;
 import l1j.server.server.utils.FileUtil;
 
-
 public class CachedMapReader extends MapReader {
 
 	private static final String MAP_DIR = "./maps/";
@@ -75,8 +74,7 @@ public class CachedMapReader extends MapReader {
 
 		L1V1Map map = (L1V1Map) new TextMapReader().read(mapId);
 
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(
-				new FileOutputStream(CACHE_DIR + mapId + ".map")));
+		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(CACHE_DIR + mapId + ".map")));
 
 		out.writeInt(map.getId());
 		out.writeInt(map.getX());
@@ -102,8 +100,7 @@ public class CachedMapReader extends MapReader {
 			return cacheMap(mapId);
 		}
 
-		DataInputStream in = new DataInputStream(new BufferedInputStream(
-				new FileInputStream(CACHE_DIR + mapId + ".map")));
+		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(CACHE_DIR + mapId + ".map")));
 
 		int id = in.readInt();
 		if (mapId != id) {

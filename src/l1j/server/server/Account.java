@@ -38,54 +38,37 @@ public class Account {
 
 	private String _name;
 
-
 	private String _ip;
-
 
 	private String _password;
 
-
 	private Timestamp _lastActive;
-
 
 	private int _accessLevel;
 
-
 	private String _host;
-
 
 	private boolean _banned;
 
-
 	private int _characterSlot;
-
 
 	private boolean _isValid = false;
 
-
 	private static Logger _log = Logger.getLogger(Account.class.getName());
-
-
 
 	private Account() {
 	}
 
-
-	private static String encodePassword(final String rawPassword)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	private static String encodePassword(final String rawPassword) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		byte[] buf = rawPassword.getBytes("UTF-8");
 		buf = MessageDigest.getInstance("SHA").digest(buf);
-
 		return Base64.encodeBytes(buf);
 	}
 
-
-	public static Account create(final String name, final String rawPassword,
-			final String ip, final String host) {
+	public static Account create(final String name, final String rawPassword, final String ip, final String host) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
-
 			Account account = new Account();
 			account._name = name;
 			account._password = encodePassword(rawPassword);
@@ -106,8 +89,7 @@ public class Account {
 			pstm.setInt(7, account._banned ? 1 : 0);
 			pstm.setInt(8, 0);
 			pstm.execute();
-			_log.info("created new account for " + name);
-
+			_log.info("New Account Created For : " + name);
 			return account;
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -122,13 +104,12 @@ public class Account {
 		return null;
 	}
 
-
 	public static Account load(final String name) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		Account account = null;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "SELECT * FROM accounts WHERE login=? LIMIT 1";
@@ -148,7 +129,7 @@ public class Account {
 			account._banned = rs.getInt("banned") == 0 ? false : true;
 			account._characterSlot = rs.getInt("character_slot");
 
-			_log.fine("account exists");
+			_log.fine("Account All Ready Excists.");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -156,10 +137,8 @@ public class Account {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-
 		return account;
 	}
-
 
 	public static void updateLastActive(final Account account) {
 		Connection con = null;
@@ -174,7 +153,7 @@ public class Account {
 			pstm.setString(2, account.getName());
 			pstm.execute();
 			account._lastActive = ts;
-			_log.fine("update lastactive for " + account.getName());
+			_log.fine("Update lastactive For : " + account.getName());
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -182,7 +161,6 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
-
 
 	public static void updateCharacterSlot(final Account account) {
 		Connection con = null;
@@ -196,7 +174,7 @@ public class Account {
 			pstm.setString(2, account.getName());
 			pstm.execute();
 			account._characterSlot = account.getCharacterSlot();
-			_log.fine("update characterslot for " + account.getName());
+			_log.fine("Update CharacterSlot For : " + account.getName());
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -204,7 +182,6 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
-
 
 	public int countCharacters() {
 		int result = 0;
@@ -230,7 +207,6 @@ public class Account {
 		return result;
 	}
 
-
 	public static void ban(final String login) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -247,7 +223,6 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
-
 
 	public boolean validatePassword(final String rawPassword) {
 
@@ -266,11 +241,9 @@ public class Account {
 		return false;
 	}
 
-
 	public boolean isValid() {
 		return _isValid;
 	}
-
 
 	public boolean isGameMaster() {
 		return 0 < _accessLevel;
@@ -281,31 +254,25 @@ public class Account {
 		return _name;
 	}
 
-
 	public String getIp() {
 		return _ip;
 	}
-
 
 	public Timestamp getLastActive() {
 		return _lastActive;
 	}
 
-
 	public int getAccessLevel() {
 		return _accessLevel;
 	}
-
 
 	public String getHost() {
 		return _host;
 	}
 
-
 	public boolean isBanned() {
 		return _banned;
 	}
-
 
 	public int getCharacterSlot() {
 		return _characterSlot;

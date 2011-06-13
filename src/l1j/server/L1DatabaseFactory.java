@@ -98,12 +98,9 @@ public class L1DatabaseFactory {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log
-						.warning("L1DatabaseFactory: getConnection() failed, trying again "
-								+ e);
+				_log.warning("L1DatabaseFactory: getConnection() failed, trying again " + e);
 			}
 		}
-		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection
-				.create(con) : con;
+		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection.create(con) : con;
 	}
 }

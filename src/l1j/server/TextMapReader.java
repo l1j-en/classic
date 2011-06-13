@@ -40,8 +40,7 @@ import l1j.server.server.model.map.L1V1Map;
 public class TextMapReader extends MapReader {
 
 	/** For the message log. */
-	private static Logger _log = Logger
-			.getLogger(TextMapReader.class.getName());
+	private static Logger _log = Logger.getLogger(TextMapReader.class.getName());
 
 	/** Map holder. */
 	private static final String MAP_DIR = "./maps/";
@@ -73,11 +72,9 @@ public class TextMapReader extends MapReader {
 	 * @return byte[][]
 	 * @throws IOException
 	 */
-	public byte[][] read(final int mapId, final int xSize, final int ySize)
-			throws IOException {
+	public byte[][] read(final int mapId, final int xSize, final int ySize) throws IOException {
 		byte[][] map = new byte[xSize][ySize];
-		LineNumberReader in = new LineNumberReader(new BufferedReader(
-				new FileReader(MAP_DIR + mapId + ".txt")));
+		LineNumberReader in = new LineNumberReader(new BufferedReader(new FileReader(MAP_DIR + mapId + ".txt")));
 
 		int y = 0;
 		String line;
@@ -91,7 +88,7 @@ public class TextMapReader extends MapReader {
 			while (tok.hasMoreTokens()) {
 				byte tile = Byte.parseByte(tok.nextToken());
 				map[x][y] = tile;
-
+				
 				x++;
 			}
 			y++;

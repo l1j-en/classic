@@ -39,8 +39,7 @@ import l1j.server.server.templates.L1ItemSetItem;
 import l1j.server.server.utils.IterableElementList;
 
 public class GMCommandsConfig {
-	private static Logger _log = Logger.getLogger(GMCommandsConfig.class
-			.getName());
+	private static Logger _log = Logger.getLogger(GMCommandsConfig.class.getName());
 
 	private interface ConfigLoader {
 		public void load(Element element);
@@ -63,12 +62,12 @@ public class GMCommandsConfig {
 			}
 		}
 
-		public abstract void loadElement(Element element);
+	public abstract void loadElement(Element element);
 	}
 
 	private class RoomLoader extends ListLoaderAdapter {
 		public RoomLoader() {
-			super("Room");
+		super("Room");
 		}
 
 		@Override
@@ -83,7 +82,7 @@ public class GMCommandsConfig {
 
 	private class ItemSetLoader extends ListLoaderAdapter {
 		public ItemSetLoader() {
-			super("ItemSet");
+		super("ItemSet");
 		}
 
 		public L1ItemSetItem loadItem(Element element) {
@@ -117,10 +116,8 @@ public class GMCommandsConfig {
 	public static HashMap<String, L1Location> ROOMS = new HashMap<String, L1Location>();
 	public static HashMap<String, List<L1ItemSetItem>> ITEM_SETS = new HashMap<String, List<L1ItemSetItem>>();
 
-	private static Document loadXml(String file)
-			throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-				.newDocumentBuilder();
+	private static Document loadXml(String file) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		return builder.parse(file);
 	}
 
@@ -129,14 +126,13 @@ public class GMCommandsConfig {
 			Document doc = loadXml("./data/xml/GmCommands/GMCommands.xml");
 			NodeList nodes = doc.getDocumentElement().getChildNodes();
 			for (int i = 0; i < nodes.getLength(); i++) {
-				ConfigLoader loader = _loaders.get(nodes.item(i).getNodeName()
-						.toLowerCase());
+				ConfigLoader loader = _loaders.get(nodes.item(i).getNodeName().toLowerCase());
 				if (loader != null) {
 					loader.load((Element) nodes.item(i));
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "GMCommands.xml Failure to load", e);
+			_log.log(Level.SEVERE, "GMCommands.xml Failed To Load", e);
 		}
 	}
 }

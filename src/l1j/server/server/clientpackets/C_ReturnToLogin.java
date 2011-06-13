@@ -25,19 +25,15 @@ import l1j.server.server.LoginController;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_ReturnToLogin extends ClientBasePacket {
 
 	private static final String C_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
-	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class.getName());
 
-	public C_ReturnToLogin(byte decrypt[], ClientThread client)
-			throws Exception {
+	public C_ReturnToLogin(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();
-		_log.finest((new StringBuilder()).append("account : ").append(account)
-				.toString());
+		_log.finest((new StringBuilder()).append("Account : ").append(account).toString());
 		LoginController.getInstance().logout(client);
 	}
 
@@ -45,5 +41,4 @@ public class C_ReturnToLogin extends ClientBasePacket {
 	public String getType() {
 		return "[C] C_ReturnToLogin";
 	}
-
 }

@@ -32,8 +32,8 @@ import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
 public class HouseTaxTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(HouseTaxTimeController.class
-			.getName());
+
+	private static Logger _log = Logger.getLogger(HouseTaxTimeController.class.getName());
 
 	private static HouseTaxTimeController _instance;
 
@@ -106,5 +106,4 @@ public class HouseTaxTimeController implements Runnable {
 			}
 		}
 	}
-
 }

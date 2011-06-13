@@ -36,7 +36,6 @@ import l1j.server.server.templates.L1Command;
 // ClientThread, Shutdown, IpTable, MobTable,
 // PolyTable, IdFactory
 //
-
 public class GMCommands {
 	private static Logger _log = Logger.getLogger(GMCommands.class.getName());
 
@@ -57,8 +56,6 @@ public class GMCommands {
 		if (className.contains(".")) {
 			return className;
 		}
-
-
 		return "l1j.server.server.command.executor." + className;
 	}
 
@@ -73,11 +70,8 @@ public class GMCommands {
 				pc.sendPackets(new S_ServerMessage(74, "" + name)); 
 				return true;
 			}
-
-			Class<?> cls = Class.forName(complementClassName(command
-					.getExecutorClassName()));
-			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod(
-					"getInstance").invoke(null);
+			Class<?> cls = Class.forName(complementClassName(command.getExecutorClassName()));
+			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod("getInstance").invoke(null);
 			exe.execute(pc, name, arg);
 			_log.info(pc.getName() + "" + name + " " + arg + "");
 			return true;
@@ -93,8 +87,7 @@ public class GMCommands {
 		String cmd = token.nextToken();
 		String param = "";
 		while (token.hasMoreTokens()) {
-			param = new StringBuilder(param).append(token.nextToken()).append(
-					' ').toString();
+			param = new StringBuilder(param).append(token.nextToken()).append(' ').toString();
 		}
 		param = param.trim();
 
@@ -113,7 +106,7 @@ public class GMCommands {
 			redo(gm, param);
 			return;
 		}
-		gm.sendPackets(new S_SystemMessage("The command " + cmd + " doesn't exist."));
+		gm.sendPackets(new S_SystemMessage("The command " + cmd + " Doesn't Exist."));
 	}
 
 	private static Map<Integer, String> _lastCommands = new HashMap<Integer, String>();
@@ -122,11 +115,9 @@ public class GMCommands {
 		try {
 			String lastCmd = _lastCommands.get(pc.getId());
 			if (arg.isEmpty()) {
-				pc.sendPackets(new S_SystemMessage("" + lastCmd
-						+ " "));
+				pc.sendPackets(new S_SystemMessage("" + lastCmd + " "));
 				handleCommands(pc, lastCmd);
 			} else {
-
 				StringTokenizer token = new StringTokenizer(lastCmd);
 				String cmd = token.nextToken() + " " + arg;
 				pc.sendPackets(new S_SystemMessage("" + cmd + " "));

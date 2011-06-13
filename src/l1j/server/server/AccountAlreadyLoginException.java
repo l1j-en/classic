@@ -20,7 +20,7 @@ package l1j.server.server;
 
 public class AccountAlreadyLoginException extends Exception {
 	/**
-	 * 
+	 * Throw Exception For Account
 	 */
 	private static final long serialVersionUID = 1L;
 

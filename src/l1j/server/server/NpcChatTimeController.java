@@ -31,8 +31,8 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1NpcChat;
 
 public class NpcChatTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(NpcChatTimeController.class
-			.getName());
+	
+	private static Logger _log = Logger.getLogger(NpcChatTimeController.class.getName());
 
 	private static NpcChatTimeController _instance;
 
@@ -47,7 +47,7 @@ public class NpcChatTimeController implements Runnable {
 	public void run() {
 		try {
 			while (true) {
-				checkNpcChatTime(); // `bgJn`FbN
+				checkNpcChatTime();
 				Thread.sleep(60000);
 			}
 		} catch (Exception e1) {
@@ -84,5 +84,4 @@ public class NpcChatTimeController implements Runnable {
 		Calendar cal = Calendar.getInstance(_tz);
 		return cal;
 	}
-
 }

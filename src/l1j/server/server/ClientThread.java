@@ -94,9 +94,9 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
 	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
 	private static final byte[] FIRST_PACKET = { // 3.0
-			(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d,
-			(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00,
-			(byte) 0x02, (byte) 0x08, (byte) 0x00 };
+	(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d,
+	(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00,
+	(byte) 0x02, (byte) 0x08, (byte) 0x00 };
 
 	/**
 	 * for Test
@@ -150,8 +150,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 
 			if (readSize != dataLength) {
-				_log
-						.warning("Incomplete Packet is sent to the server, closing connection.");
+				_log.warning("Incomplete Packet Is Sent To The Server, Closing Connection.");
 				throw new RuntimeException();
 			}
 
@@ -162,7 +161,6 @@ public class ClientThread implements Runnable, PacketOutput {
 	}
 
 	private long _lastSavedTime = System.currentTimeMillis();
-
 	private long _lastSavedTime_inventory = System.currentTimeMillis();
 
 	private void doAutoSave() throws Exception {
@@ -170,14 +168,12 @@ public class ClientThread implements Runnable, PacketOutput {
 			return;
 		}
 		try {
-			if (Config.AUTOSAVE_INTERVAL * 1000
-					< System.currentTimeMillis() - _lastSavedTime) {
+			if (Config.AUTOSAVE_INTERVAL * 1000 < System.currentTimeMillis() - _lastSavedTime) {
 				_activeChar.save();
 				_lastSavedTime = System.currentTimeMillis();
 			}
 
-			if (Config.AUTOSAVE_INTERVAL_INVENTORY * 1000
-					< System.currentTimeMillis() - _lastSavedTime_inventory) {
+			if (Config.AUTOSAVE_INTERVAL_INVENTORY * 1000 < System.currentTimeMillis() - _lastSavedTime_inventory) {
 				_activeChar.saveInventory();
 				_lastSavedTime_inventory = System.currentTimeMillis();
 			}
@@ -190,9 +186,9 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	@Override
 	public void run() {
-		_log.info("(" + _hostname + ") Login detected");
+		_log.info("(" + _hostname + ") Login Detected");
 		System.out.println("Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB");
-		System.out.println("Starting client thread...");
+		System.out.println("Starting Client Thread...");
 
 		Socket socket = _csocket;
 
@@ -201,8 +197,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
 
-		ClientThreadObserver observer =
-				new ClientThreadObserver(Config.AUTOMATIC_KICK * 60 * 1000);
+		ClientThreadObserver observer = new ClientThreadObserver(Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
 			observer.start();
 		}
@@ -219,7 +214,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			_out.write((byte)(seed >> 8 & 0xFF));
 			_out.write((byte)(seed >> 16 & 0xFF));
 			_out.write((byte)(seed >> 24 & 0xFF));
-
 			_out.write(FIRST_PACKET);
 			_out.flush();
 			try {
@@ -242,8 +236,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 				int opcode = data[0] & 0xFF;
 
-				if (opcode == Opcodes.C_OPCODE_COMMONCLICK
-						|| opcode == Opcodes.C_OPCODE_CHANGECHAR) {
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
 					_loginStatus = 1;
 				}
 				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
@@ -251,8 +244,7 @@ public class ClientThread implements Runnable, PacketOutput {
 						continue;
 					}
 				}
-				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK
-						|| opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
 					_loginStatus = 0;
 				}
 
@@ -264,9 +256,8 @@ public class ClientThread implements Runnable, PacketOutput {
 					_handler.handlePacket(data, _activeChar);
 					continue;
 				}
-				if (opcode == Opcodes.C_OPCODE_CHANGECHAR
-						|| opcode == Opcodes.C_OPCODE_DROPITEM
-						|| opcode == Opcodes.C_OPCODE_DELETEINVENTORYITEM) {
+				if (opcode == Opcodes.C_OPCODE_CHANGECHAR || opcode == Opcodes.C_OPCODE_DROPITEM
+					|| opcode == Opcodes.C_OPCODE_DELETEINVENTORYITEM) {
 					_handler.handlePacket(data, _activeChar);
 				} else if (opcode == Opcodes.C_OPCODE_MOVECHAR) {
 					movePacket.requestWork(data);
@@ -287,8 +278,8 @@ public class ClientThread implements Runnable, PacketOutput {
 					}
 				}
 				sendPacket(new S_Disconnect());
-
 				StreamUtil.close(_out, _in);
+
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
@@ -296,11 +287,11 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 		}
 		_csocket = null;
-		_log.fine("Server thread[C] stopped");
+		_log.fine("Server thread[C] Stopped");
 		if (_kick < 1) {
 			_log.info(getAccountName() + ":" + _hostname);
 			System.out.println(": " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			System.out.println("Awaiting connections...");
+			System.out.println("Waiting For Connections...");
 		}
 		return;
 	}
@@ -366,8 +357,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 
 		public void start() {
-			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0,
-					_disconnectTimeMillis);
+			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0, _disconnectTimeMillis);
 		}
 
 		@Override
@@ -383,11 +373,9 @@ public class ClientThread implements Runnable, PacketOutput {
 					return;
 				}
 
-				if (_activeChar == null 
-						|| _activeChar != null && !_activeChar.isPrivateShop()) { 
+				if (_activeChar == null || _activeChar != null && !_activeChar.isPrivateShop()) { 
 					kick();
-					_log.warning("Kicking active char from (" + _hostname
-							+ ").");
+					_log.warning("Kicking Character From (" + _hostname + ").");
 					cancel();
 					return;
 				}
@@ -457,8 +445,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setCurrentHp(pc.getLevel());
 			pc.set_food(40);
 		}
-
-
+		
 		if (pc.getTradeID() != 0) { 
 			L1Trade trade = new L1Trade();
 			trade.TradeCancel(pc);
@@ -466,20 +453,18 @@ public class ClientThread implements Runnable, PacketOutput {
 
 		if (pc.getFightId() != 0) {
 			pc.setFightId(0);
-			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
-					.findObject(pc.getFightId());
+			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance().findObject(pc.getFightId());
 			if (fightPc != null) {
 				fightPc.setFightId(0);
-				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
-						0, 0));
+				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
 			}
 		}
 
-		if (pc.isInParty()) { //
+		if (pc.isInParty()) {
 			pc.getParty().leaveMember(pc);
 		}
 
-		if (pc.isInChatParty()) { // 
+		if (pc.isInChatParty()) {
 			pc.getChatParty().leaveMember(pc);
 		}
 
@@ -493,10 +478,8 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 			if (petObject instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) petObject;
-				for (L1PcInstance visiblePc : L1World.getInstance()
-						.getVisiblePlayer(summon)) {
-					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc,
-							false));
+				for (L1PcInstance visiblePc : L1World.getInstance().getVisiblePlayer(summon)) {
+					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc, false));
 				}
 			}
 		}
@@ -511,8 +494,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
 			follower.setParalyzed(true);
 			follower.spawn(follower.getNpcTemplate().get_npcId(),
-					follower.getX(), follower.getY(), follower.getHeading(),
-					follower.getMapId());
+			follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
 			follower.deleteMe();
 		}
 

@@ -52,9 +52,6 @@ public abstract class MapReader {
 	 * @return MapReader
 	 */
 	public static MapReader getDefaultReader() {
-		if (Config.LOAD_V2_MAP_FILES) {
-			return new V2MapReader();
-		}
 		if (Config.CACHE_MAP_FILES) {
 			return new CachedMapReader();
 		}
