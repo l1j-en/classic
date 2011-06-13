@@ -137,6 +137,30 @@ public final class Config {
 	public static boolean DETECT_DB_RESOURCE_LEAKS;
 
 	/** Rate control */
+	public static int RATE_HP_REGEN;
+	
+    public static int RATE_MP_REGEN;
+    
+    public static int RATE_HP_CASTLE;
+    
+    public static int RATE_HP_HOUSE;
+    
+    public static int RATE_HP_HOTEL;
+    
+    public static int RATE_HP_MOTHERTREE;
+    
+    public static int RATE_MP_CASTLE;
+    
+    public static int RATE_MP_HOUSE;
+    
+    public static int RATE_MP_HOTEL;
+    
+    public static int RATE_MP_MOTHERTREE;
+    
+	public static double PETEXP_RATE;
+	
+	public static double PARTYEXP_RATE;
+	
 	public static double RATE_XP;
 
 	public static double RATE_LA;
@@ -514,7 +538,18 @@ public final class Config {
 			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
 			rateSettings.load(is);
 			is.close();
-
+			RATE_HP_REGEN = Integer.parseInt(rateSettings.getProperty("RateHpRegen", "2"));
+			RATE_MP_REGEN = Integer.parseInt(rateSettings.getProperty("RateMpRegen", "1"));
+			RATE_HP_CASTLE = Integer.parseInt(rateSettings.getProperty("RateHpCastle", "5"));
+			RATE_MP_CASTLE = Integer.parseInt(rateSettings.getProperty("RateMpCastle", "3"));
+			RATE_HP_HOUSE = Integer.parseInt(rateSettings.getProperty("RateHpHouse", "5"));
+			RATE_MP_HOUSE = Integer.parseInt(rateSettings.getProperty("RateMpHouse", "3"));
+			RATE_HP_HOTEL = Integer.parseInt(rateSettings.getProperty("RateHpHotel", "5"));
+			RATE_MP_HOTEL = Integer.parseInt(rateSettings.getProperty("RateMpHotel", "3"));
+			RATE_HP_MOTHERTREE = Integer.parseInt(rateSettings.getProperty("RateHpMotherTree", "5"));
+			RATE_MP_MOTHERTREE = Integer.parseInt(rateSettings.getProperty("RateMpMotherTree", "3"));
+			PETEXP_RATE = Double.parseDouble(rateSettings.getProperty("PetExp", "1.0"));
+			PARTYEXP_RATE = Double.parseDouble(rateSettings.getProperty("PartyExp", "1.0"));
 			RATE_XP = Double.parseDouble(rateSettings.getProperty("RateXp", "1.0"));
 			RATE_LA = Double.parseDouble(rateSettings.getProperty("RateLawful", "1.0"));
 			RATE_KARMA = Double.parseDouble(rateSettings.getProperty("RateKarma", "1.0"));
@@ -773,7 +808,31 @@ public final class Config {
 			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(pValue);
 		}
 		// rates.properties
-		else if (pName.equalsIgnoreCase("RateXp")) {
+		else if (pName.equalsIgnoreCase("RateHpRegen")) {
+			RATE_HP_REGEN = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateMpRegen")) {
+			RATE_MP_REGEN = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateHpCastle")) {
+			RATE_HP_CASTLE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateMpCastle")) {
+			RATE_MP_CASTLE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateHpHouse")) {
+			RATE_HP_HOUSE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateMpHouse")) {
+			RATE_MP_HOUSE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateHpHotel")) {
+			RATE_HP_HOTEL = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateMpHotel")) {
+			RATE_MP_HOTEL = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateHpMotherTree")) {
+			RATE_HP_MOTHERTREE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("RateMpMotherTree")) {
+			RATE_MP_MOTHERTREE = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("PetExp")) {
+			PETEXP_RATE = Double.parseDouble(pValue);
+		} else if (pName.equalsIgnoreCase("PartyExp")) {
+		    PARTYEXP_RATE = Double.parseDouble(pValue);
+		} else if (pName.equalsIgnoreCase("RateXp")) {
 			RATE_XP = Double.parseDouble(pValue);
 		} else if (pName.equalsIgnoreCase("RateLawful")) {
 			RATE_LA = Double.parseDouble(pValue);

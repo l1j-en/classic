@@ -1,22 +1,38 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server.model;
 
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.types.Point;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class MpRegeneration extends TimerTask {
-	private static Logger _log = Logger.getLogger(MpRegeneration.class
-			.getName());
-
+	
+	private static Logger _log = Logger.getLogger(MpRegeneration.class.getName());
 	private final L1PcInstance _pc;
-
 	private int _regenPoint = 0;
-
 	private int _curPoint = 4;
 
 	public MpRegeneration(L1PcInstance pc) {
@@ -27,7 +43,6 @@ public class MpRegeneration extends TimerTask {
 		if (_curPoint < state) {
 			return;
 		}
-
 		_curPoint = state;
 	}
 
@@ -35,13 +50,13 @@ public class MpRegeneration extends TimerTask {
 	public void run() {
 		try {
 			if (_pc.isDead()) {
-				return;
+			return;
 			}
 
 			_regenPoint += _curPoint;
 			_curPoint = 4;
 
-			if (64 <= _regenPoint) {
+			if (64 <= (_regenPoint * Config.RATE_MP_REGEN)) {
 				_regenPoint = 0;
 				regenMp();
 			}
@@ -74,31 +89,29 @@ public class MpRegeneration extends TimerTask {
 			baseMpr += 2;
 		}
 		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
-			baseMpr += 3;
+			baseMpr += Config.RATE_MP_HOUSE;
 		}
 		if (_pc.getMapId() == 16384 || _pc.getMapId() == 16896
-				|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
-				|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
-				|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
-				|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
-				|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
-				|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
-				|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
-				|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
+			|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
+			|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
+			|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
+			|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
+			|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
+			|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
+			|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
+			|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
+			baseMpr += Config.RATE_MP_HOTEL;
+		}
+		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 || _pc.getMapId() == 64 ||  _pc.getMapId() == 66 || _pc.getMapId() == 300) {
+        	baseMpr += Config.RATE_MP_CASTLE;
+        }
+		if ((_pc.getLocation().isInScreen(new Point(33055,32336)) && _pc.getMapId() == 4 && _pc.isElf())) {
+			baseMpr += Config.RATE_MP_MOTHERTREE;
+		}
+		if (_pc.hasSkillEffect(COOKING_1_2_N) || _pc.hasSkillEffect(COOKING_1_2_S)) {
 			baseMpr += 3;
 		}
-		if ((_pc.getLocation().isInScreen(new Point(33055,32336))
-				&& _pc.getMapId() == 4 && _pc.isElf())) {
-			baseMpr += 3;
-		}
-		if (_pc.hasSkillEffect(COOKING_1_2_N)
-				|| _pc.hasSkillEffect(COOKING_1_2_S)) {
-			baseMpr += 3;
-		}
- 		if (_pc.hasSkillEffect(COOKING_2_4_N)
-				|| _pc.hasSkillEffect(COOKING_2_4_S)
-				|| _pc.hasSkillEffect(COOKING_3_5_N)
-				|| _pc.hasSkillEffect(COOKING_3_5_S)) {
+ 		if (_pc.hasSkillEffect(COOKING_2_4_N) || _pc.hasSkillEffect(COOKING_2_4_S) || _pc.hasSkillEffect(COOKING_3_5_N) || _pc.hasSkillEffect(COOKING_3_5_S)) {
 			baseMpr += 2;
 		}
  		if (_pc.getOriginalMpr() > 0) { 
@@ -128,11 +141,9 @@ public class MpRegeneration extends TimerTask {
 
 	private boolean isOverWeight(L1PcInstance pc) {
 
-		if (pc.hasSkillEffect(EXOTIC_VITALIZE)
-				|| pc.hasSkillEffect(ADDITIONAL_FIRE)) {
+		if (pc.hasSkillEffect(EXOTIC_VITALIZE) || pc.hasSkillEffect(ADDITIONAL_FIRE)) {
 			return false;
 		}
-
 		return (120 <= pc.getInventory().getWeight240()) ? true : false;
 	}
 }

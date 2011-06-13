@@ -185,8 +185,8 @@ public class CalcExp {
 					}
 				}
 
-				party_exp = (int) (party_exp * (1 + pt_bonus + pri_bonus));
-
+				party_exp = (int) (party_exp * Config.PARTYEXP_RATE *(1 + pt_bonus + pri_bonus));
+				
 				// Summon the pet's character and self-hate sums
 				if (party_level > 0) {
 					dist = ((l1pcinstance.getLevel() * l1pcinstance.getLevel()) / party_level);
@@ -374,7 +374,7 @@ public class CalcExp {
 		int petItemObjId = pet.getItemObjId();
 
 		int levelBefore = pet.getLevel();
-		int totalExp = (int) (exp * Config.RATE_XP + pet.getExp());
+		int totalExp = (int) (exp * Config.PETEXP_RATE + pet.getExp());
 		if (totalExp >= ExpTable.getExpByLevel(51)) {
 			totalExp = ExpTable.getExpByLevel(51) - 1;
 		}

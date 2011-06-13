@@ -124,7 +124,16 @@ public class GameServer extends Thread {
 		double rateKarma = Config.RATE_KARMA;
 		double rateDropItems = Config.RATE_DROP_ITEMS;
 		double rateDropAdena = Config.RATE_DROP_ADENA;
-
+		double hpregen = Config.RATE_HP_REGEN;
+		double mpregen = Config.RATE_MP_REGEN;
+		double castlehp = Config.RATE_HP_CASTLE;
+		double househp = Config.RATE_HP_HOUSE;
+		double hotelhp = Config.RATE_HP_HOTEL;
+		double motherhp = Config.RATE_HP_MOTHERTREE;
+		double mpcastle = Config.RATE_MP_CASTLE;
+		double mphouse = Config.RATE_MP_HOUSE;
+		double mphotel = Config.RATE_MP_HOTEL;
+		double mpmother = Config.RATE_MP_MOTHERTREE;
 		System.out.println("=================================================");
 		System.out.println("               L1J-En Server Starting");
 		System.out.println("=================================================");
@@ -140,17 +149,33 @@ public class GameServer extends Thread {
 			System.out.println("Port " + _port + " opened");
 		}
 
-		System.out.println("XP              = " + rateXp);
-		System.out.println("Lawful          = " + LA); 
-		System.out.println("Karma           = "+ rateKarma); 
-		System.out.println("Drop            = " + rateDropItems);
-		System.out.println("Adena           = "+ rateDropAdena);
-		System.out.println("Global Chat Lvl = " + (chatlvl));
-
+		System.out.println("HP-REGEN RATE        = " + hpregen);
+		System.out.println("MP-REGEN RATE        = " + mpregen);
+		System.out.println("HP-CASTLE RATE       = " + castlehp);
+		System.out.println("MP-CASTLE RATE       = " + mpcastle);
+		System.out.println("HP-HOUSE RATE        = " + househp);
+		System.out.println("MP-HOUSE RATE        = " + mphouse);
+		System.out.println("HP-HOTEL RATE        = " + hotelhp);
+		System.out.println("MP-HOTEL RATE        = " + mphotel);
+		System.out.println("HP-MOTHERTREE RATE   = " + motherhp);
+		System.out.println("MP-MOTHERTREE RATE   = " + mpmother);
+		System.out.println("PartyExp RATE        = " + (Config.PARTYEXP_RATE));
+		System.out.println("PetExp RATE          = " + (Config.PETEXP_RATE));		
+		System.out.println("XP RATE              = " + rateXp);
+		System.out.println("Lawful RATE          = " + LA); 
+		System.out.println("Karma RATE           = " + rateKarma); 
+		System.out.println("Drop RATE            = " + rateDropItems);
+		System.out.println("Adena RATE           = " + rateDropAdena);
+		System.out.println("EnchantWeapon Change = " + (Config.ENCHANT_CHANCE_WEAPON) + "%");
+		System.out.println("EnchantArmor Change  = " + (Config.ENCHANT_CHANCE_ARMOR)+ "%");
+		System.out.println("AttrEnchant Change   = " + (Config.ATTR_ENCHANT_CHANCE)+ "%");
+		System.out.println("Global Chat LvL      = " + (chatlvl));
+		System.out.println("Whisper Chat LvL     = " + (Config.WHISPER_CHAT_LEVEL));
+		
 		if (Config.ALT_NONPVP) { // Non-PvP Setting
-			System.out.println("PvP             = On");
+			System.out.println("PvP  = On");
 		} else {
-			System.out.println("PvP             = Off");
+			System.out.println("PvP  = Off");
 		}
 
 		// Announce Chat Cycle

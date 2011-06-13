@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model;
 
 import java.util.TimerTask;
@@ -24,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
 
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1EffectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
@@ -32,22 +32,15 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class HpRegeneration extends TimerTask {
 
-	private static Logger _log = Logger.getLogger(HpRegeneration.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(HpRegeneration.class.getName());
 	private final L1PcInstance _pc;
-
 	private int _regenMax = 0;
-
 	private int _regenPoint = 0;
-
 	private int _curPoint = 4;
-
 	private static Random _random = new Random();
 
 	public HpRegeneration(L1PcInstance pc) {
 		_pc = pc;
-
 		updateLevel();
 	}
 
@@ -55,7 +48,6 @@ public class HpRegeneration extends TimerTask {
 		if (_curPoint < state) {
 			return;
 		}
-
 		_curPoint = state;
 	}
 
@@ -63,14 +55,12 @@ public class HpRegeneration extends TimerTask {
 	public void run() {
 		try {
 			if (_pc.isDead()) {
-				return;
+			return;
 			}
-
 			_regenPoint += _curPoint;
 			_curPoint = 4;
-
 			synchronized (this) {
-				if (_regenMax <= _regenPoint) {
+				if (_regenMax <= (_regenPoint * Config.RATE_HP_REGEN)) {
 					_regenPoint = 0;
 					regenHp();
 				}
@@ -81,14 +71,12 @@ public class HpRegeneration extends TimerTask {
 	}
 
 	public void updateLevel() {
-		final int lvlTable[] = new int[] { 30, 25, 20, 16, 14, 12, 11, 10, 9,
-				3, 2 };
+		final int lvlTable[] = new int[] { 30, 25, 20, 16, 14, 12, 11, 10, 9, 3, 2 };
 
 		int regenLvl = Math.min(10, _pc.getLevel());
 		if (30 <= _pc.getLevel() && _pc.isKnight()) {
 			regenLvl = 11;
 		}
-
 		synchronized (this) {
 			_regenMax = lvlTable[regenLvl - 1] * 4;
 		}
@@ -96,7 +84,7 @@ public class HpRegeneration extends TimerTask {
 
 	public void regenHp() {
 		if (_pc.isDead()) {
-			return;
+		return;
 		}
 
 		int maxBonus = 1;
@@ -116,31 +104,29 @@ public class HpRegeneration extends TimerTask {
 			bonus += 15;
 		}
 		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
-			bonus += 5;
+			bonus += Config.RATE_HP_HOUSE;
 		}
 		if (_pc.getMapId() == 16384 || _pc.getMapId() == 16896
-				|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
-				|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
-				|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
-				|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
-				|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
-				|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
-				|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
-				|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
-			bonus += 5;
+			|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
+			|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
+			|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
+			|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
+			|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
+			|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
+			|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
+			|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
+			bonus += Config.RATE_HP_HOTEL;
 		}
-		if ((_pc.getLocation().isInScreen(new Point(33055,32336))
-				&& _pc.getMapId() == 4 && _pc.isElf())) {
-			bonus += 5;
+		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 || _pc.getMapId() == 64 || _pc.getMapId() == 66 || _pc.getMapId() == 300) {
+	        bonus += Config.RATE_HP_CASTLE;
+	    }
+		if ((_pc.getLocation().isInScreen(new Point(33055,32336)) && _pc.getMapId() == 4 && _pc.isElf())) {
+			bonus += Config.RATE_HP_MOTHERTREE;
 		}
- 		if (_pc.hasSkillEffect(COOKING_1_5_N)
-				|| _pc.hasSkillEffect(COOKING_1_5_S)) {
+ 		if (_pc.hasSkillEffect(COOKING_1_5_N) || _pc.hasSkillEffect(COOKING_1_5_S)) {
 			bonus += 3;
 		}
- 		if (_pc.hasSkillEffect(COOKING_2_4_N)
-				|| _pc.hasSkillEffect(COOKING_2_4_S)
-				|| _pc.hasSkillEffect(COOKING_3_6_N)
-				|| _pc.hasSkillEffect(COOKING_3_6_S)) {
+ 		if (_pc.hasSkillEffect(COOKING_2_4_N) || _pc.hasSkillEffect(COOKING_2_4_S) || _pc.hasSkillEffect(COOKING_3_6_N) || _pc.hasSkillEffect(COOKING_3_6_S)) {
 			bonus += 2;
 		}
  		if (_pc.getOriginalHpr() > 0) {
@@ -153,8 +139,7 @@ public class HpRegeneration extends TimerTask {
 			bonus += 3;
 		}
 
-		if (_pc.get_food() < 3 || isOverWeight(_pc)
-				|| _pc.hasSkillEffect(BERSERKERS)) {
+		if (_pc.get_food() < 3 || isOverWeight(_pc) || _pc.hasSkillEffect(BERSERKERS)) {
 			bonus = 0;
 			if (equipHpr > 0) {
 				equipHpr = 0;
@@ -206,7 +191,7 @@ public class HpRegeneration extends TimerTask {
 				}
 			}
 		}
-
+		
 		if (!_pc.isDead()) {
 			_pc.setCurrentHp(Math.min(newHp, _pc.getMaxHp()));
 		}
@@ -220,9 +205,7 @@ public class HpRegeneration extends TimerTask {
 		if (pc.hasSkillEffect(L1SkillId.STATUS_UNDERWATER_BREATH) || pc.isMonitor()) {
 			return false;
 		}
-		if (pc.getInventory().checkEquipped(21048)
-				&& pc.getInventory().checkEquipped(21049)
-				&& pc.getInventory().checkEquipped(21050)) {
+		if (pc.getInventory().checkEquipped(21048) && pc.getInventory().checkEquipped(21049) && pc.getInventory().checkEquipped(21050)) {
 			return false;
 		}
 
@@ -230,14 +213,12 @@ public class HpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE)
-				|| pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
+		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE) || pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
 			return false;
 		}
 		if (pc.getInventory().checkEquipped(20049)) {
 			return false;
 		}
-
 		return (120 <= pc.getInventory().getWeight240()) ? true : false;
 	}
 
@@ -252,8 +233,7 @@ public class HpRegeneration extends TimerTask {
 				continue;
 			}
 			L1EffectInstance effect = (L1EffectInstance) object;
-			if (effect.getNpcId() == 81169 && effect.getLocation()
-					.getTileLineDistance(pc.getLocation()) < 4) {
+			if (effect.getNpcId() == 81169 && effect.getLocation().getTileLineDistance(pc.getLocation()) < 4) {
 				return true;
 			}
 		}
