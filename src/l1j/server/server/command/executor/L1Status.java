@@ -92,8 +92,7 @@ public class L1Status implements L1CommandExecutor {
 						value = 200;
 					}
 					target.setAccessLevel((short) value);
-					target.sendPackets(new S_SystemMessage(
-							"X^[gAGMiB"));
+					target.sendPackets(new S_SystemMessage("Your " + param + " was changed to " + value));
 				} else if (param.equalsIgnoreCase("STR")) {
 					target.addBaseStr((byte) (value - target.getBaseStr()));
 				} else if (param.equalsIgnoreCase("CON")) {
@@ -107,11 +106,10 @@ public class L1Status implements L1CommandExecutor {
 				} else if (param.equalsIgnoreCase("CHA")) {
 					target.addBaseCha((byte) (value - target.getBaseCha()));
 				} else {
-					pc.sendPackets(new S_SystemMessage("Xe[^X " + param
-							+ " sB"));
+					pc.sendPackets(new S_SystemMessage(param + " is an unknown setting"));
 					return;
 				}
-				target.save(); // DBLN^[
+				target.save();
 			}
 			target.sendPackets(new S_OwnCharStatus(target));
 			pc.sendPackets(new S_SystemMessage("Changed " + target.getName() + "'s " + param
