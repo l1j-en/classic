@@ -2357,6 +2357,16 @@ UPDATE etcitem SET unidentified_name_id = '$4403', identified_name_id = '$4403',
 UPDATE etcitem SET unidentified_name_id = '$4403', identified_name_id = '$4403', can_seal = 0 WHERE item_id = 49087;
 UPDATE etcitem SET unidentified_name_id = '$4403', identified_name_id = '$4403', can_seal = 0 WHERE item_id = 49089;
 
+-- mapids
+INSERT INTO mapids VALUES(780, '?????', 32576, 32831, 32704, 33087, 1.0, 1.0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(781, '??? ???????', 32704, 33023, 32704, 32895, 1.0, 1.0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(782, '??? ??????', 32704, 32831, 32768, 32895, 1.0, 1.0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(783, 'Tikal Temple', 32768, 33279, 32640, 32895, 1.0, 1.0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(784, 'Kukulcan altar', 32704, 32831, 32768, 32895, 1.0, 1.0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(1000, '?????', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(1001, '????', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+INSERT INTO mapids VALUES(2004, '???', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
+
 -- skills
 INSERT INTO skills VALUES(177, '', 23, 0, 0, 0, 0, 0, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0, 0, 0, 0, 0, 0);
 INSERT INTO skills VALUES(178, '', 23, 1, 0, 0, 0, 0, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0, 0, 0, 0, 0, 0);
