@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -29,19 +28,17 @@ import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Fight extends ClientBasePacket {
 
 	private static final String C_FIGHT = "[C] C_Fight";
 	private static Logger _log = Logger.getLogger(C_Fight.class.getName());
 
-	public C_Fight(byte abyte0[], ClientThread client)
-			throws Exception {
+	public C_Fight(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 
 		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
-			return;
+		return;
 		}
 		L1PcInstance target = FaceToFace.faceToFace(pc);
 		if (target != null) {
@@ -64,5 +61,4 @@ public class C_Fight extends ClientBasePacket {
 	public String getType() {
 		return C_FIGHT;
 	}
-
 }

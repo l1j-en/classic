@@ -30,7 +30,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Pledge extends ClientBasePacket {
 
 	private static final String C_PLEDGE = "[C] C_Pledge";
@@ -43,16 +42,12 @@ public class C_Pledge extends ClientBasePacket {
 		if (pc.getClanid() > 0) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
-				pc.sendPackets(new S_Pledge("pledgeM", pc.getId(),
-						clan.getClanName(), clan.getOnlineMembersFPWithRank(),
-						clan.getAllMembersFPWithRank()));
+				pc.sendPackets(new S_Pledge("pledgeM", pc.getId(), clan.getClanName(), clan.getOnlineMembersFPWithRank(), clan.getAllMembersFPWithRank()));
 			} else {
-				pc.sendPackets(new S_Pledge("pledge", pc.getId(),
-						clan.getClanName(), clan.getOnlineMembersFP()));
+				pc.sendPackets(new S_Pledge("pledge", pc.getId(), clan.getClanName(), clan.getOnlineMembersFP()));
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(1064)); //
-// pc.sendPackets(new S_Pledge("pledge", pc.getId()));
+			pc.sendPackets(new S_ServerMessage(1064));
 		}
 	}
 
@@ -60,5 +55,4 @@ public class C_Pledge extends ClientBasePacket {
 	public String getType() {
 		return C_PLEDGE;
 	}
-
 }

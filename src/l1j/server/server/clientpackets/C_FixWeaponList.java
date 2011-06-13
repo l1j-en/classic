@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -31,8 +30,7 @@ import l1j.server.server.serverpackets.S_FixWeaponList;
 public class C_FixWeaponList extends ClientBasePacket {
 
 	private static final String C_FIX_WEAPON_LIST = "[C] C_FixWeaponList";
-	private static Logger _log = Logger.getLogger(C_FixWeaponList.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_FixWeaponList.class.getName());
 
 	public C_FixWeaponList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -44,5 +42,4 @@ public class C_FixWeaponList extends ClientBasePacket {
 	public String getType() {
 		return C_FIX_WEAPON_LIST;
 	}
-
 }

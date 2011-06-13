@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -35,14 +34,12 @@ import l1j.server.server.templates.L1Castle;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Drawal extends ClientBasePacket {
 
 	private static final String C_DRAWAL = "[C] C_Drawal";
 	private static Logger _log = Logger.getLogger(C_Drawal.class.getName());
 
-	public C_Drawal(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_Drawal(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		int i = readD();
 		int j = readD();
@@ -50,31 +47,28 @@ public class C_Drawal extends ClientBasePacket {
 		L1PcInstance pc = clientthread.getActiveChar();
 		//TRICIDTODO: set configurable auto ban
 		if (j < 0) {
-			_log.info(pc.getName() + " attempted dupe exploit (C_Drawal).");
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
 			return;
 		}
+		
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		
 		if (clan != null) {
 			int castle_id = clan.getCastleId();
 			if (castle_id != 0) {
-				L1Castle l1castle = CastleTable.getInstance().getCastleTable(
-						castle_id);
+				L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
 				int money = l1castle.getPublicMoney();
 				money -= j;
-				L1ItemInstance item = ItemTable.getInstance().createItem(
-						L1ItemId.ADENA);
+				L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
 				if (item != null) {
 					l1castle.setPublicMoney(money);
 					CastleTable.getInstance().updateCastle(l1castle);
 					if (pc.getInventory().checkAddItem(item, j) == L1Inventory.OK) {
 						pc.getInventory().storeItem(L1ItemId.ADENA, j);
 					} else {
-						L1World.getInstance().getInventory(pc.getX(),
-								pc.getY(), pc.getMapId()).storeItem(
-								L1ItemId.ADENA, j);
+						L1World.getInstance().getInventory(pc.getX(), pc.getY(), pc.getMapId()).storeItem(L1ItemId.ADENA, j);
 					}
-					pc.sendPackets(new S_ServerMessage(143, "$457", "$4" + " ("
-							+ j + ")"));
+					pc.sendPackets(new S_ServerMessage(143, "$457", "$4" + " (" + j + ")"));
 				}
 			}
 		}
@@ -84,5 +78,4 @@ public class C_Drawal extends ClientBasePacket {
 	public String getType() {
 		return C_DRAWAL;
 	}
-
 }

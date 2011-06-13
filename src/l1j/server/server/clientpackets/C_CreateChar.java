@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.io.IOException;
@@ -41,32 +40,22 @@ import l1j.server.server.utils.CalcInitHpMp;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_CreateChar extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
 
-	private static final int[] ORIGINAL_STR
-			= new int[] { 13, 16, 11, 8, 12, 13, 11 };
-	private static final int[] ORIGINAL_DEX
-			= new int[] { 10, 12, 12, 7, 15, 11, 10 };
-	private static final int[] ORIGINAL_CON
-			= new int[] { 10, 14, 12, 12, 8, 14, 12 };
-	private static final int[] ORIGINAL_WIS
-			= new int[] { 11, 9, 12, 12, 10, 12, 12 };
-	private static final int[] ORIGINAL_CHA
-			= new int[] { 13, 12, 9, 8, 9, 8, 8 };
-	private static final int[] ORIGINAL_INT
-			= new int[] { 10, 8, 12, 12, 11, 11, 12 };
-	private static final int[] ORIGINAL_AMOUNT
-			= new int[] { 8, 4, 7, 16, 10, 6, 10 };
+	private static final int[] ORIGINAL_STR = new int[] { 13, 16, 11, 8, 12, 13, 11 };
+	private static final int[] ORIGINAL_DEX = new int[] { 10, 12, 12, 7, 15, 11, 10 };
+	private static final int[] ORIGINAL_CON = new int[] { 10, 14, 12, 12, 8, 14, 12 };
+	private static final int[] ORIGINAL_WIS = new int[] { 11, 9, 12, 12, 10, 12, 12 };
+	private static final int[] ORIGINAL_CHA = new int[] { 13, 12, 9, 8, 9, 8, 8 };
+	private static final int[] ORIGINAL_INT = new int[] { 10, 8, 12, 12, 11, 11, 12 };
+	private static final int[] ORIGINAL_AMOUNT = new int[] { 8, 4, 7, 16, 10, 6, 10 };
 
-	private static final String CLIENT_LANGUAGE_CODE = Config
-			.CLIENT_LANGUAGE_CODE;
+	private static final String CLIENT_LANGUAGE_CODE = Config.CLIENT_LANGUAGE_CODE;
 
-	public C_CreateChar(byte[] abyte0, ClientThread client)
-			throws Exception {
+	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
 		String name = readS();
@@ -78,33 +67,27 @@ public class C_CreateChar extends ClientBasePacket {
 		name = name.replaceAll("\\s", "");
         name = name.replaceAll("@", "");
 		if (name.length() == 0) {
-			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(
-					S_CharCreateStatus.REASON_INVALID_NAME);
+			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(S_CharCreateStatus.REASON_INVALID_NAME);
 			client.sendPacket(s_charcreatestatus);
 			return;
 		}
 
 		if (isInvalidName(name)) {
-			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(
-					S_CharCreateStatus.REASON_INVALID_NAME);
+			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(S_CharCreateStatus.REASON_INVALID_NAME);
 			client.sendPacket(s_charcreatestatus);
 			return;
 		}
 
 		if (CharacterTable.doesCharNameExist(name)) {
-			_log.fine("Charname: " + pc.getName()
-					+ " already exists. creation failed.");
-			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
-					S_CharCreateStatus.REASON_ALREADY_EXSISTS);
+			_log.fine("Character Name: " + pc.getName() + " Already Exists. Creation Failed.");
+			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(S_CharCreateStatus.REASON_ALREADY_EXSISTS);
 			client.sendPacket(s_charcreatestatus1);
 			return;
 		}
 		
 		if (client.getAccount().countCharacters() >= 6) {
-			_log.fine("Account: " + client.getAccountName()
-					+ " attempted to create more than 6 characters.");
-			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
-					S_CharCreateStatus.REASON_WRONG_AMOUNT);
+			_log.fine("Account: " + client.getAccountName() + " Attempted To Create More Than 6 Characters.");
+			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus1);
 			return;
 		}
@@ -129,56 +112,45 @@ public class C_CreateChar extends ClientBasePacket {
 		int originalAmount = ORIGINAL_AMOUNT[pc.getType()];
 
 		if ((pc.getBaseStr() < originalStr
-				|| pc.getBaseDex() < originalDex
-				|| pc.getBaseCon() < originalCon
-				|| pc.getBaseWis() < originalWis
-				|| pc.getBaseCha() < originalCha
-				|| pc.getBaseInt() < originalInt)
-				|| (pc.getBaseStr() > originalStr + originalAmount
-				|| pc.getBaseDex() > originalDex + originalAmount
-				|| pc.getBaseCon() > originalCon + originalAmount
-				|| pc.getBaseWis() > originalWis + originalAmount
-				|| pc.getBaseCha() > originalCha + originalAmount
-				|| pc.getBaseInt() > originalInt + originalAmount)) {
+			|| pc.getBaseDex() < originalDex
+			|| pc.getBaseCon() < originalCon
+			|| pc.getBaseWis() < originalWis
+			|| pc.getBaseCha() < originalCha
+			|| pc.getBaseInt() < originalInt)
+			|| (pc.getBaseStr() > originalStr + originalAmount
+			|| pc.getBaseDex() > originalDex + originalAmount
+			|| pc.getBaseCon() > originalCon + originalAmount
+			|| pc.getBaseWis() > originalWis + originalAmount
+			|| pc.getBaseCha() > originalCha + originalAmount
+			|| pc.getBaseInt() > originalInt + originalAmount)) {
 			isStatusError = true;
 		}
 
-		int statusAmount = pc.getDex() + pc.getCha() + pc.getCon()
-				+ pc.getInt() + pc.getStr() + pc.getWis();
+		int statusAmount = pc.getDex() + pc.getCha() + pc.getCon() + pc.getInt() + pc.getStr() + pc.getWis();
 
 		if (statusAmount != 75 || isStatusError) {
 			_log.finest("Character have wrong value");
-			S_CharCreateStatus s_charcreatestatus3 = new S_CharCreateStatus(
-					S_CharCreateStatus.REASON_WRONG_AMOUNT);
+			S_CharCreateStatus s_charcreatestatus3 = new S_CharCreateStatus(S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus3);
 			return;
 		}
 
-		_log.fine("charname: " + pc.getName() + " classId: "
-				+ pc.getClassId());
-		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(
-				S_CharCreateStatus.REASON_OK);
+		_log.fine("Character Name : " + pc.getName() + " ClassId: " + pc.getClassId());
+		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(S_CharCreateStatus.REASON_OK);
 		client.sendPacket(s_charcreatestatus2);
 		initNewChar(client, pc);
 	}
 
 	  private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };
-        private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };
-        private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090, 33090, 33090};//{ 32734, 32734, 32734, 32734, 32734 };
-        private static final int[] LOCY_LIST = new int[] { 33392, 33392, 33392, 33392, 33392, 33392, 33392 };//{ 32798, 32798, 32798, 32798, 32798 };
-        private static final short[] MAPID_LIST = new short[] { 4, 4, 4, 4, 4, 4, 4 };
+      private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };
+      private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090, 33090, 33090};//{ 32734, 32734, 32734, 32734, 32734 };
+      private static final int[] LOCY_LIST = new int[] { 33392, 33392, 33392, 33392, 33392, 33392, 33392 };//{ 32798, 32798, 32798, 32798, 32798 };
+      private static final short[] MAPID_LIST = new short[] { 4, 4, 4, 4, 4, 4, 4 };
+     // private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714, 32780, 32714, 32714, 32714 };
+     // private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32877, 32781, 32877, 32877, 32877 };
+     // private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69, 69, 69 };
 
-   
-
-// private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714,
-// 32780, 32714, 32714, 32714 };
-// private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32877,
-// 32781, 32877, 32877, 32877 };
-// private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69,
-// 69, 69 };
-
-	private static void initNewChar(ClientThread client, L1PcInstance pc)
-			throws IOException, Exception {
+	private static void initNewChar(ClientThread client, L1PcInstance pc) throws IOException, Exception {
 
 		pc.setId(IdFactory.getInstance().nextId());
 		if (pc.get_sex() == 0) {
@@ -226,14 +198,12 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setBanned(false);
 		pc.setKarma(0);
 		if (pc.isWizard()) { // WIZ
-			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			int object_id = pc.getId();
 			L1Skills l1skills = SkillsTable.getInstance().getTemplate(4); // EB
 			String skill_name = l1skills.getName();
 			int skill_id = l1skills.getSkillId();
-			SkillsTable.getInstance().spellMastery(object_id, skill_id,
-					skill_name, 0, 0); 
+			SkillsTable.getInstance().spellMastery(object_id, skill_id, skill_name, 0, 0); 
 		}
 		Beginner.getInstance().GiveItem(pc);
 		pc.setAccountName(client.getAccountName());

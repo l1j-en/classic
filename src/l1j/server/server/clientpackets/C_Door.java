@@ -33,34 +33,32 @@ import l1j.server.server.templates.L1House;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_Door
-
 public class C_Door extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_Door.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_Door.class.getName());
 	private static final String C_DOOR = "[C] C_Door";
 
-	public C_Door(byte abyte0[], ClientThread client)
-			throws Exception {
+	public C_Door(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int locX = readH();
 		int locY = readH();
 		int objectId = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-		L1DoorInstance door = (L1DoorInstance)L1World.getInstance()
-				.findObject(objectId);
+		L1DoorInstance door = (L1DoorInstance)L1World.getInstance().findObject(objectId);
 		if (door == null) {
 			return;
 		}
 
-		if ((door.getDoorId() >= 5001 && door.getDoorId() <= 5010)) { //
+		if ((door.getDoorId() >= 5001 && door.getDoorId() <= 5010)) {
 			return;
+
 		} else if (door.getDoorId() == 6006) { // TIC2F
 			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
 				return;
 			}
-			if (pc.getInventory().consumeItem(40163,1)) { //
+			
+			if (pc.getInventory().consumeItem(40163,1)) {
 				door.open();
 				CloseTimer closetimer = new CloseTimer(door);
 				closetimer.begin();
@@ -69,7 +67,7 @@ public class C_Door extends ClientBasePacket {
 			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
 				return;
 			}
-			if (pc.getInventory().consumeItem(40313,1)) { //
+			if (pc.getInventory().consumeItem(40313,1)) {
 				door.open();
 				CloseTimer closetimer = new CloseTimer(door);
 				closetimer.begin();
@@ -94,7 +92,7 @@ public class C_Door extends ClientBasePacket {
 			if (houseId != 0) {
 				L1House house = HouseTable.getInstance().getHouseTable(houseId);
 				if (keeperId == house.getKeeperId()) {
-					return false;
+				return false;
 				}
 			}
 		}

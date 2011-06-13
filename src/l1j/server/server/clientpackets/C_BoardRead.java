@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_BoardRead extends ClientBasePacket {
 
 	private static final String C_BOARD_READ = "[C] C_BoardRead";
@@ -47,5 +45,4 @@ public class C_BoardRead extends ClientBasePacket {
 	public String getType() {
 		return C_BOARD_READ;
 	}
-
 }

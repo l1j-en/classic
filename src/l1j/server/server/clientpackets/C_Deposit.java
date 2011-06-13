@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -31,15 +30,12 @@ import l1j.server.server.templates.L1Castle;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Deposit extends ClientBasePacket {
 
 	private static final String C_DEPOSIT = "[C] C_Deposit";
-	private static Logger _log = Logger.getLogger(C_Deposit.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_Deposit.class.getName());
 
-	public C_Deposit(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_Deposit(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		int i = readD();
 		int j = readD();
@@ -48,8 +44,7 @@ public class C_Deposit extends ClientBasePacket {
 		//TRICIDTODO:  set configurable auto ban
 		if (j < 0)
 		{
-			_log.info(player.getName() + " attempted dupe exploit (C_Deposit).");
-			
+			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
 			return;
 		}
 		
@@ -58,12 +53,10 @@ public class C_Deposit extends ClientBasePacket {
 			if (clan != null) {
 				int castle_id = clan.getCastleId();
 				if (castle_id != 0) { 
-					L1Castle l1castle = CastleTable.getInstance()
-							.getCastleTable(castle_id);
+					L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
 					synchronized (l1castle) {
 						int money = l1castle.getPublicMoney();
-						if (player.getInventory()
-								.consumeItem(L1ItemId.ADENA, j)) {
+						if (player.getInventory().consumeItem(L1ItemId.ADENA, j)) {
 							money += j;
 							l1castle.setPublicMoney(money);
 							CastleTable.getInstance().updateCastle(l1castle);
@@ -78,5 +71,4 @@ public class C_Deposit extends ClientBasePacket {
 	public String getType() {
 		return C_DEPOSIT;
 	}
-
 }

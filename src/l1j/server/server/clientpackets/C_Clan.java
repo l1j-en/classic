@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Level;
@@ -50,5 +49,4 @@ public class C_Clan extends ClientBasePacket {
 	public String getType() {
 		return C_CLAN;
 	}
-
 }

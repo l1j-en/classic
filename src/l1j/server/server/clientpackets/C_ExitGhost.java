@@ -24,16 +24,12 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_ExitGhost extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_ExitGhost.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(C_ExitGhost.class.getName());
 	private static final String C_EXIT_GHOST = "[C] C_ExitGhost";
 
-	public C_ExitGhost(byte decrypt[], ClientThread client)
-			throws Exception {
+	public C_ExitGhost(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 
 		L1PcInstance pc = client.getActiveChar();
@@ -41,7 +37,6 @@ public class C_ExitGhost extends ClientBasePacket {
 		if (!pc.isGhost()) {
 			return;
 		}
-
 		pc.makeReadyEndGhost();
 	}
 

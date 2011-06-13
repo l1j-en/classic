@@ -16,9 +16,9 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
@@ -34,7 +34,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_UseSkill extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
@@ -54,25 +53,23 @@ public class C_UseSkill extends ClientBasePacket {
 		if (pc.isTeleport() || pc.isDead()) {
 			return;
 		}
+		
 		if (!pc.getMap().isUsableSkill()) {
-			pc.sendPackets(new S_ServerMessage(563)); //
+			pc.sendPackets(new S_ServerMessage(563));
 			return;
 		}
+		
 		if (!pc.isSkillMastery(skillId)) {
 			return;
 		}
 
-		// 
 		if (Config.CHECK_SPELL_INTERVAL) {
 			int result;
 			// FIXME dir/no dir
-			if (SkillsTable.getInstance().getTemplate(skillId).getActionId() ==
-						ActionCodes.ACTION_SkillAttack) {
-				result = pc.getAcceleratorChecker().checkInterval(
-						AcceleratorChecker.ACT_TYPE.SPELL_DIR);
+			if (SkillsTable.getInstance().getTemplate(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
+				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_DIR);
 			} else {
-				result = pc.getAcceleratorChecker().checkInterval(
-						AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
+				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
 			}
 			if (result == AcceleratorChecker.R_DISCONNECTED) {
 				return;
@@ -81,7 +78,7 @@ public class C_UseSkill extends ClientBasePacket {
 
 		if (abyte0.length > 4) {
 			try {
-				if (skillId == CALL_CLAN || skillId == RUN_CLAN) { //
+				if (skillId == CALL_CLAN || skillId == RUN_CLAN) {
 					charName = readS();
 				} else if (skillId == TRUE_TARGET) { 
 					targetId = readD();
@@ -100,13 +97,14 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 				}
 			} catch (Exception e) {
-				// _log.log(Level.SEVERE, "", e);
+				_log.log(Level.SEVERE, "", e);
 			}
 		}
 
 		if (pc.isTeleport()) {
 			return;
 		}
+		
 		if (pc.isDead()) {
 			return;
 		}
@@ -122,23 +120,22 @@ public class C_UseSkill extends ClientBasePacket {
 		try {
 			if (skillId == CALL_CLAN || skillId == RUN_CLAN) { 
 				if (charName.isEmpty()) {
-					return;
+				return;
 				}
 
 				L1PcInstance target = L1World.getInstance().getPlayer(charName);
 
 				if (target == null) {
-
 					pc.sendPackets(new S_ServerMessage(73, charName)); 
 					return;
 				}
+				
 				if (pc.getClanid() != target.getClanid()) {
 					pc.sendPackets(new S_ServerMessage(414));
 					return;
 				}
 				targetId = target.getId();
 				if (skillId == CALL_CLAN) {
-					// ANR[NAO
 					int callClanId = pc.getCallClanId();
 					if (callClanId == 0 || callClanId != targetId) {
 						pc.setCallClanId(targetId);
@@ -147,9 +144,7 @@ public class C_UseSkill extends ClientBasePacket {
 				}
 			}
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY,
-					message, 0, L1SkillUse.TYPE_NORMAL);
-
+			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY, message, 0, L1SkillUse.TYPE_NORMAL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

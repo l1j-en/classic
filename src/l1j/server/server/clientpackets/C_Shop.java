@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class C_Shop extends ClientBasePacket {
 
 		int mapId = pc.getMapId();
 		if (mapId != 340 && mapId != 350 && mapId != 360 && mapId != 370) {
-			pc.sendPackets(new S_ServerMessage(876)); //
+			pc.sendPackets(new S_ServerMessage(876));
 			return;
 		}
 
@@ -73,15 +72,14 @@ public class C_Shop extends ClientBasePacket {
 				//TRICIDTODO: Set configurable autoban
 				if (sellCount < 0)
 				{
-					_log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
+					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
 					
 					return;
 				}
 				checkItem = pc.getInventory().getItem(sellObjectId);
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(166,
-							checkItem.getItem().getName(), "Ready"));
+					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
 				}
 				Object[] petlist = pc.getPetList().values().toArray();
 				for (Object petObject : petlist) {
@@ -89,9 +87,7 @@ public class C_Shop extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (checkItem.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(166,
-									checkItem.getItem().getName(),
-									"Ready"));
+							pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
 							break;
 						}
 					}
@@ -113,32 +109,26 @@ public class C_Shop extends ClientBasePacket {
 				//TRICIDTODO: Set configurable autoban
 				if (buyCount < 0)
 				{
-					_log.info(pc.getName() + " attempted dupe exploit (C_Shop).");
+					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
 					
 					return;
 				}
 				checkItem = pc.getInventory().getItem(buyObjectId);
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(166,
-							checkItem.getItem().getName(), "Ready"));
+					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
 				}
-				if (checkItem.getBless() >= 128) { //
-					// 
-					pc.sendPackets(new S_ServerMessage(210, checkItem.getItem()
-							.getName()));
+				if (checkItem.getBless() >= 128) {
+					pc.sendPackets(new S_ServerMessage(210, checkItem.getItem().getName()));
 					return;
 				}
-
 				Object[] petlist = pc.getPetList().values().toArray();
 				for (Object petObject : petlist) {
 					if (petObject instanceof L1PetInstance) {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (checkItem.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(166,
-									checkItem.getItem().getName(),
-									"Ready"));
+							pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
 							break;
 						}
 					}
@@ -153,27 +143,21 @@ public class C_Shop extends ClientBasePacket {
 				sellList.clear();
 				buyList.clear();
 				pc.setPrivateShop(false);
-				pc.sendPackets(new S_DoActionGFX(pc.getId(),
-						ActionCodes.ACTION_Idle));
-				pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
-						ActionCodes.ACTION_Idle));
+				pc.sendPackets(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
+				pc.broadcastPacket(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
 				return;
 			}
 			byte[] chat = readByte();
 			pc.setShopChat(chat);
 			pc.setPrivateShop(true);
-			pc.sendPackets(new S_DoActionShop(pc.getId(),
-					ActionCodes.ACTION_Shop, chat));
-			pc.broadcastPacket(new S_DoActionShop(pc.getId(),
-					ActionCodes.ACTION_Shop, chat));
+			pc.sendPackets(new S_DoActionShop(pc.getId(), ActionCodes.ACTION_Shop, chat));
+			pc.broadcastPacket(new S_DoActionShop(pc.getId(), ActionCodes.ACTION_Shop, chat));
 		} else if (type == 1) { 
 			sellList.clear();
 			buyList.clear();
 			pc.setPrivateShop(false);
-			pc.sendPackets(new S_DoActionGFX(pc.getId(),
-					ActionCodes.ACTION_Idle));
-			pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
-					ActionCodes.ACTION_Idle));
+			pc.sendPackets(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
+			pc.broadcastPacket(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
 		}
 	}
 
@@ -181,5 +165,4 @@ public class C_Shop extends ClientBasePacket {
 	public String getType() {
 		return C_SHOP;
 	}
-
 }

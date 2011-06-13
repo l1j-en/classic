@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -27,48 +26,25 @@ import l1j.server.server.serverpackets.S_SkillBuy;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_SkillBuy extends ClientBasePacket {
 
 	private static final String C_SKILL_BUY = "[C] C_SkillBuy";
 	private static Logger _log = Logger.getLogger(C_SkillBuy.class.getName());
 
-	public C_SkillBuy(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_SkillBuy(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 
 		int i = readD();
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-			return;
+		return;
 		}
 		pc.sendPackets(new S_SkillBuy(i, pc));
-		/*
-		 * int type = player.get_type(); int lvl = player.get_level();
-		 * 
-		 * switch(type) { case 0: // if (lvl >= 10) { player.sendPackets(new
-		 * S_SkillBuy(i, player)); } break;
-		 * 
-		 * case 1: // if (lvl >= 50) { player.sendPackets(new S_SkillBuy(i,
-		 * player)); } break;
-		 * 
-		 * case 2: // if (lvl >= 8) { player.sendPackets(new S_SkillBuy(i,
-		 * player)); } break;
-		 * 
-		 * case 3: // WIZ if (lvl >= 4) { player.sendPackets(new S_SkillBuy(i,
-		 * player)); } break;
-		 * 
-		 * case 4: //DE if (lvl >= 12) { player.sendPackets(new S_SkillBuy(i,
-		 * player)); } break;
-		 * 
-		 * default: break; }
-		 */
 	}
 
 	@Override
 	public String getType() {
 		return C_SKILL_BUY;
 	}
-
 }

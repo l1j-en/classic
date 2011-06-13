@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -31,14 +30,12 @@ import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_JoinClan extends ClientBasePacket {
 
 	private static final String C_JOIN_CLAN = "[C] C_JoinClan";
 	private static Logger _log = Logger.getLogger(C_JoinClan.class.getName());
 
-	public C_JoinClan(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_JoinClan(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 
 		L1PcInstance pc = clientthread.getActiveChar();
@@ -78,8 +75,8 @@ public class C_JoinClan extends ClientBasePacket {
 		if (player.getClanid() != 0) { 
 			if (player.isCrown()) {
 				String player_clan_name = player.getClanname();
-				L1Clan player_clan = L1World.getInstance().getClan(
-						player_clan_name);
+				L1Clan player_clan = L1World.getInstance().getClan(player_clan_name);
+				
 				if (player_clan == null) {
 					return;
 				}
@@ -89,8 +86,7 @@ public class C_JoinClan extends ClientBasePacket {
 					return;
 				}
 
-				if (player_clan.getCastleId() != 0 || 
-						player_clan.getHouseId() != 0) {
+				if (player_clan.getCastleId() != 0 || player_clan.getHouseId() != 0) {
 					player.sendPackets(new S_ServerMessage(665)); 
 					return;
 				}
@@ -99,7 +95,6 @@ public class C_JoinClan extends ClientBasePacket {
 				return;
 			}
 		}
-
 		target.setTempID(player.getId());
 		target.sendPackets(new S_Message_YN(97, player.getName())); 
 	}

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -29,7 +28,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_CallPlayer extends ClientBasePacket {
 
 	private static final String C_CALL = "[C] C_Call";
@@ -55,10 +53,8 @@ public class C_CallPlayer extends ClientBasePacket {
 			return;
 		}
 
-		L1Location loc =
-				L1Location.randomLocation(target.getLocation(), 1, 2, false);
-		L1Teleport.teleport(pc, loc.getX(), loc.getY(), target.getMapId(), pc
-				.getHeading(), false);
+		L1Location loc = L1Location.randomLocation(target.getLocation(), 1, 2, false);
+		L1Teleport.teleport(pc, loc.getX(), loc.getY(), target.getMapId(), pc.getHeading(), false);
 	}
 
 	@Override

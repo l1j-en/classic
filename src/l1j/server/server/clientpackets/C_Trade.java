@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,14 +27,12 @@ import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Trade extends ClientBasePacket {
 
 	private static final String C_TRADE = "[C] C_Trade";
 	private static Logger _log = Logger.getLogger(C_Trade.class.getName());
 
-	public C_Trade(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_Trade(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();

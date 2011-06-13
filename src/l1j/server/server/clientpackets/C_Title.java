@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Level;
@@ -78,8 +77,7 @@ public class C_Title extends ClientBasePacket {
 				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 				if (clan != null) {
 					for (L1PcInstance clanPc : clan.getOnlineClanMember()) {
-						clanPc.sendPackets(new S_ServerMessage(203, pc
-								.getName(), charName, title));
+						clanPc.sendPackets(new S_ServerMessage(203, pc.getName(), charName, title));
 					}
 				}
 			}
@@ -97,8 +95,7 @@ public class C_Title extends ClientBasePacket {
 			} else { 
 				if (pc.isCrown()) { 
 					if (pc.getClanid() == target.getClanid()) {
-						pc.sendPackets(new S_ServerMessage(201, pc
-								.getClanname()));
+						pc.sendPackets(new S_ServerMessage(201, pc.getClanname()));
 						return;
 					}
 				}
@@ -135,5 +132,4 @@ public class C_Title extends ClientBasePacket {
 	public String getType() {
 		return C_TITLE;
 	}
-
 }

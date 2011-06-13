@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ import l1j.server.server.serverpackets.S_OwnCharPack;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Ship extends ClientBasePacket {
 
 	private static final String C_SHIP = "[C] C_Ship";

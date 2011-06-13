@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -42,8 +41,7 @@ import l1j.server.server.templates.L1Pet;
 public class C_SelectList extends ClientBasePacket {
 
 	private static final String C_SELECT_LIST = "[C] C_SelectList";
-	private static Logger _log = Logger.getLogger(C_SelectList.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_SelectList.class.getName());
 
 	public C_SelectList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -85,13 +83,13 @@ public class C_SelectList extends ClientBasePacket {
 				charisma += 6;
 			} else if (pc.isElf()) {
 				charisma += 12;
-			} else if (pc.isWizard()) { // WIZ
+			} else if (pc.isWizard()) {
 				charisma += 6;
-			} else if (pc.isDarkelf()) { // DE
+			} else if (pc.isDarkelf()) {
 				charisma += 6;
-			} else if (pc.isDragonKnight()) { // 
+			} else if (pc.isDragonKnight()) {
 				charisma += 6;
-			} else if (pc.isIllusionist()) { // 
+			} else if (pc.isIllusionist()) {
 				charisma += 6;
 			}
 
@@ -99,15 +97,14 @@ public class C_SelectList extends ClientBasePacket {
 			if (l1pet != null) {
 				int npcId = l1pet.get_npcid();
 				charisma -= petCost;
-				if (npcId == 45313 || npcId == 45710 //
-						|| npcId == 45711 || npcId == 45712) { //
+				if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712) {
 					divisor = 12;
 				} else {
 					divisor = 6;
 				}
 				petCount = charisma / divisor;
 				if (petCount <= 0) {
-					pc.sendPackets(new S_ServerMessage(489)); // 
+					pc.sendPackets(new S_ServerMessage(489));
 					return;
 				}
 				L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);

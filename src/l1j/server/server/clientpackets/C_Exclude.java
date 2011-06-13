@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -30,7 +29,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Exclude extends ClientBasePacket {
 
 	private static final String C_EXCLUDE = "[C] C_Exclude";
@@ -40,7 +38,7 @@ public class C_Exclude extends ClientBasePacket {
 		super(decrypt);
 		String name = readS();
 		if (name.isEmpty()) {
-			return;
+		return;
 		}
 		L1PcInstance pc = client.getActiveChar();
 		try {

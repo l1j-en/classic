@@ -17,7 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  * Author: ChrisLiu.2007.07.20
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_DelBuddy extends ClientBasePacket {
 
 	private static final String C_DEL_BUDDY = "[C] C_DelBuddy";
@@ -45,5 +43,4 @@ public class C_DelBuddy extends ClientBasePacket {
 	public String getType() {
 		return C_DEL_BUDDY;
 	}
-
 }

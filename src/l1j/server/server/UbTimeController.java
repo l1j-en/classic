@@ -24,8 +24,7 @@ import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1UltimateBattle;
 
 public class UbTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(UbTimeController.class
-			.getName());
+	private static Logger _log = Logger.getLogger(UbTimeController.class.getName());
 
 	private static UbTimeController _instance;
 
@@ -52,10 +51,9 @@ public class UbTimeController implements Runnable {
 		for (L1UltimateBattle ub : UBTable.getInstance().getAllUb()) {
 			if (ub.checkUbTime() && !ub.isActive()) {
 				ub.start(); // UB Start
-				Announcements.getInstance().announceToAll("\\fR[******] The " + ub.getUbName() + " Deathmatch will begin in 5");
-				Announcements.getInstance().announceToAll("\\fR         minutes. Please enter the colosseum now.");
+				Announcements.getInstance().announceToAll("\\fR[******] The " + ub.getUbName() + " Deathmatch Will Begin In 5");
+				Announcements.getInstance().announceToAll("\\fR         Minutes. Please Enter The Colosseum Now.");
 			}
 		}
 	}
-
 }

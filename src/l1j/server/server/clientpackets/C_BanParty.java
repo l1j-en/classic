@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_BanParty extends ClientBasePacket {
 
 	private static final String C_BAN_PARTY = "[C] C_BanParty";
@@ -56,5 +54,4 @@ public class C_BanParty extends ClientBasePacket {
 	public String getType() {
 		return C_BAN_PARTY;
 	}
-
 }

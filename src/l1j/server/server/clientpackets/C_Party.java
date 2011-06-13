@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -29,7 +28,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Party extends ClientBasePacket {
 
 	private static final String C_PARTY = "[C] C_Party";
@@ -39,17 +37,13 @@ public class C_Party extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-			return;
+		return;
 		}
 		L1Party party = pc.getParty();
 		if (pc.isInParty()) {
-			pc.sendPackets(new S_Party("party", pc
-					.getId(), party.getLeader().getName(), party
-					.getMembersNameList()));
+			pc.sendPackets(new S_Party("party", pc.getId(), party.getLeader().getName(), party.getMembersNameList()));
 		} else {
-			pc.sendPackets(new S_ServerMessage(425)); // 
-// pc.sendPackets(new S_Party("party", pc
-// .getId()));
+			pc.sendPackets(new S_ServerMessage(425));
 		}
 	}
 
@@ -57,5 +51,4 @@ public class C_Party extends ClientBasePacket {
 	public String getType() {
 		return C_PARTY;
 	}
-
 }

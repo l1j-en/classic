@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -30,12 +29,10 @@ import l1j.server.server.templates.L1BookMark;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_AddBookmark extends ClientBasePacket {
 
 	private static final String C_ADD_BOOKMARK = "[C] C_AddBookmark";
-	private static Logger _log = Logger.getLogger(C_AddBookmark.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_AddBookmark.class.getName());
 
 	public C_AddBookmark(byte[] decrypt, ClientThread client) {
 		super(decrypt);
@@ -47,10 +44,7 @@ public class C_AddBookmark extends ClientBasePacket {
 		}
 
 		if (pc.getMap().isMarkable() || pc.isGm()) {
-			if ((L1CastleLocation.checkInAllWarArea(pc.getX(), pc.getY(), pc
-					.getMapId()) || L1HouseLocation.isInHouse(pc.getX(), pc
-					.getY(), pc.getMapId()))
-					&& !pc.isGm()) {
+			if ((L1CastleLocation.checkInAllWarArea(pc.getX(), pc.getY(), pc.getMapId()) || L1HouseLocation.isInHouse(pc.getX(), pc.getY(), pc.getMapId())) && !pc.isGm()) {
 				pc.sendPackets(new S_ServerMessage(214));
 			} else {
 				L1BookMark.addBookmark(pc, s);

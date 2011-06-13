@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_LoginToServerOK extends ClientBasePacket {
 
 	private static final String C_LOGIN_TO_SERVER_OK = "[C] C_LoginToServerOK";
-
 	private static Logger _log = Logger.getLogger(C_LoginToServerOK.class.getName());
 
 	public C_LoginToServerOK(byte[] decrypt, ClientThread client) {
@@ -53,19 +51,19 @@ public class C_LoginToServerOK extends ClientBasePacket {
 				pc.setShowWorldChat(false); // close
 				pc.setCanWhisper(false); // close
 			}
-		} else if (type == 0) { //
+		} else if (type == 0) { // Normal Chat
 			if (button == 0) { // close
 				pc.setShowWorldChat(false);
 			} else if (button == 1) { // open
 				pc.setShowWorldChat(true);
 			}
-		} else if (type == 2) { // Whisper
+		} else if (type == 2) { // Shout
 			if (button == 0) { // close
 				pc.setCanWhisper(false);
 			} else if (button == 1) { // open
 				pc.setCanWhisper(true);
 			}
-		} else if (type == 6) { // 
+		} else if (type == 6) { // Trade
 			if (button == 0) { // close
 				pc.setShowTradeChat(false);
 			} else if (button == 1) { // open

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Level;
@@ -31,14 +30,12 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_BanClan extends ClientBasePacket {
 
 	private static final String C_BAN_CLAN = "[C] C_BanClan";
 	private static Logger _log = Logger.getLogger(C_BanClan.class.getName());
 
-	public C_BanClan(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_BanClan(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		String s = readS();
 
@@ -50,7 +47,7 @@ public class C_BanClan extends ClientBasePacket {
 			if (pc.isCrown() && pc.getId() == clan.getLeaderId()) { 
 				for (i = 0; i < clanMemberName.length; i++) {
 					if (pc.getName().toLowerCase().equals(s.toLowerCase())) { 
-						return;
+					return;
 					}
 				}
 				L1PcInstance tempPc = L1World.getInstance().getPlayer(s);
@@ -61,26 +58,21 @@ public class C_BanClan extends ClientBasePacket {
 						tempPc.setClanRank(0);
 						tempPc.save(); 
 						clan.delMemberName(tempPc.getName());
-						tempPc.sendPackets(new S_ServerMessage(238, pc
-								.getClanname())); 
-						pc.sendPackets(new S_ServerMessage(240, tempPc
-								.getName())); 
+						tempPc.sendPackets(new S_ServerMessage(238, pc.getClanname())); 
+						pc.sendPackets(new S_ServerMessage(240, tempPc.getName())); 
 					} else {
 						pc.sendPackets(new S_ServerMessage(109, s)); 
 					}
 				} else { 
 					try {
-						L1PcInstance restorePc = CharacterTable.getInstance()
-								.restoreCharacter(s);
-						if (restorePc != null
-								&& restorePc.getClanid() == pc.getClanid()) { 
+						L1PcInstance restorePc = CharacterTable.getInstance().restoreCharacter(s);
+						if (restorePc != null && restorePc.getClanid() == pc.getClanid()) { 
 							restorePc.setClanid(0);
 							restorePc.setClanname("");
 							restorePc.setClanRank(0);
 							restorePc.save(); 
 							clan.delMemberName(restorePc.getName());
-							pc.sendPackets(new S_ServerMessage(240, restorePc
-									.getName())); 
+							pc.sendPackets(new S_ServerMessage(240, restorePc.getName())); 
 						} else {
 							pc.sendPackets(new S_ServerMessage(109, s)); 
 						}

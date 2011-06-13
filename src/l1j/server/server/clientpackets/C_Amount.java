@@ -48,8 +48,7 @@ import l1j.server.server.templates.L1House;
 
 public class C_Amount extends ClientBasePacket {
 
-	private static final Logger _log = Logger.getLogger(C_Amount.class
-			.getName());
+	private static final Logger _log = Logger.getLogger(C_Amount.class.getName());
 	private static final String C_AMOUNT = "[C] C_Amount";
 
 	public C_Amount(byte[] decrypt, ClientThread client) throws Exception {
@@ -60,10 +59,9 @@ public class C_Amount extends ClientBasePacket {
 		String s = readS();
 
 		L1PcInstance pc = client.getActiveChar();
-		L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(
-				objectId);
+		L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(objectId);
 		if (npc == null) {
-			return;
+		return;
 		}
 
 		String s1 = "";
@@ -96,19 +94,14 @@ public class C_Amount extends ClientBasePacket {
 					board.setBidderId(pc.getId());
 					boardTable.updateAuctionBoard(board);
 					if (nowBidderId != 0) {
-						L1PcInstance bidPc = (L1PcInstance) L1World
-								.getInstance().findObject(nowBidderId);
+						L1PcInstance bidPc = (L1PcInstance) L1World.getInstance().findObject(nowBidderId);
 						if (bidPc != null) { 
-							bidPc.getInventory().storeItem(L1ItemId.ADENA,
-									nowPrice);
-							bidPc.sendPackets(new S_ServerMessage(525, String
-									.valueOf(nowPrice)));
+							bidPc.getInventory().storeItem(L1ItemId.ADENA, nowPrice);
+							bidPc.sendPackets(new S_ServerMessage(525, String.valueOf(nowPrice)));
 						} else { 
-							L1ItemInstance item = ItemTable.getInstance()
-									.createItem(L1ItemId.ADENA);
+							L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
 							item.setCount(nowPrice);
-							CharactersItemStorage storage = CharactersItemStorage
-									.create();
+							CharactersItemStorage storage = CharactersItemStorage.create();
 							storage.storeItem(nowBidderId, item);
 						}
 					}
@@ -138,7 +131,6 @@ public class C_Amount extends ClientBasePacket {
 				board.setBidder("");
 				board.setBidderId(0);
 				boardTable.insertAuctionBoard(board);
-
 				house.setOnSale(true); 
 				house.setPurchaseBasement(true); 
 				HouseTable.getInstance().updateHouse(house); 

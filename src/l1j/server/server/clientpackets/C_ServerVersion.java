@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -29,18 +28,15 @@ import l1j.server.server.serverpackets.S_ServerVersion;
 public class C_ServerVersion extends ClientBasePacket {
 
 	private static final String C_SERVER_VERSION = "[C] C_ServerVersion";
-	private static Logger _log = Logger.getLogger(C_ServerVersion.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_ServerVersion.class.getName());
 
-	public C_ServerVersion(byte decrypt[], ClientThread client)
-			throws Exception {
+	public C_ServerVersion(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		client.sendPacket(new S_ServerVersion());
 	}
 
 	@Override
 	public String getType() {
-		return C_SERVER_VERSION;
+	return C_SERVER_VERSION;
 	}
-
 }

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -32,10 +31,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_DeleteInventoryItem extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_DeleteInventoryItem.class
-			.getName());
-	private static final String C_DELETE_INVENTORY_ITEM
-			= "[C] C_DeleteInventoryItem";
+	private static Logger _log = Logger.getLogger(C_DeleteInventoryItem.class.getName());
+	private static final String C_DELETE_INVENTORY_ITEM = "[C] C_DeleteInventoryItem";
 
 	public C_DeleteInventoryItem(byte[] decrypt, ClientThread client) {
 		super(decrypt);
@@ -48,7 +45,6 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 		}
 
 		if (item.getItem().isCantDelete()) {
-			//
 			pc.sendPackets(new S_ServerMessage(125));
 			return;
 		}
@@ -58,9 +54,7 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					
-					pc.sendPackets(new S_ServerMessage(210, item.getItem()
-							.getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 					return;
 				}
 			}
@@ -70,8 +64,8 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(125));
 			return;
 		}
-		if (item.getBless() >= 128) { //
-
+		
+		if (item.getBless() >= 128) {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}

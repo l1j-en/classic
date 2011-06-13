@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.io.FileOutputStream;
@@ -36,8 +35,7 @@ public class C_Emblem extends ClientBasePacket {
 	private static final String C_EMBLEM = "[C] C_Emblem";
 	private static Logger _log = Logger.getLogger(C_Emblem.class.getName());
 
-	public C_Emblem(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_Emblem(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
@@ -48,21 +46,19 @@ public class C_Emblem extends ClientBasePacket {
 			try {
 				fos = new FileOutputStream("emblem/" + emblem_file);
 				for (short cnt = 0; cnt < 384; cnt++) {
-					fos.write(readC());
+				fos.write(readC());
 				}
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				throw e;
 			} finally {
 				if (null != fos) {
-					fos.close();
+				fos.close();
 				}
 				fos = null;
 			}
 			player.sendPackets(new S_Emblem(player.getClanid()));
-			// player.broadcastPacket(new S_Emblem(player.getClanid()));
-			L1World.getInstance().broadcastPacketToAll(
-					new S_Emblem(player.getClanid()));
+			L1World.getInstance().broadcastPacketToAll(new S_Emblem(player.getClanid()));
 		}
 	}
 

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -64,16 +63,15 @@ public class C_Propose extends ClientBasePacket {
 						return;
 					}
 				}
+				
 				if (pc.getX() >= 33974 && pc.getX() <= 33976
-						&& pc.getY() >= 33362 && pc.getY() <= 33365
-						&& pc.getMapId() == 4 && target.getX() >= 33974
-						&& target.getX() <= 33976 && target.getY() >= 33362
-						&& target.getY() <= 33365 && target.getMapId() == 4) {
+					&& pc.getY() >= 33362 && pc.getY() <= 33365 && pc.getMapId() == 4 && target.getX() >= 33974
+					&& target.getX() <= 33976 && target.getY() >= 33362 && target.getY() <= 33365 && target.getMapId() == 4) {
 					target.setTempID(pc.getId()); 
 					target.sendPackets(new S_Message_YN(654, pc.getName())); 
 				}
 			}
-		} else if (c == 1) { // /divorce
+		} else if (c == 1) { //divorce
 			if (pc.getPartnerId() == 0) {
 				pc.sendPackets(new S_ServerMessage(662)); 
 				return;

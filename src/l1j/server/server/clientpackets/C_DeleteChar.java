@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.sql.Timestamp;
@@ -33,23 +32,18 @@ import l1j.server.server.serverpackets.S_DeleteCharOK;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_DeleteChar
-
 public class C_DeleteChar extends ClientBasePacket {
 
 	private static final String C_DELETE_CHAR = "[C] RequestDeleteChar";
-
 	private static Logger _log = Logger.getLogger(C_DeleteChar.class.getName());
 
-	public C_DeleteChar(byte decrypt[], ClientThread client)
-			throws Exception {
+	public C_DeleteChar(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		String name = readS();
 
 		try {
-			L1PcInstance pc = CharacterTable.getInstance()
-					.restoreCharacter(name);
-			if (pc != null && pc.getLevel() >= 30
-					&& Config.DELETE_CHARACTER_AFTER_7DAYS) {
+			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);
+			if (pc != null && pc.getLevel() >= 30 && Config.DELETE_CHARACTER_AFTER_7DAYS) {
 				if (pc.getType() < 32) {
 					if (pc.isCrown()) {
 						pc.setType(32);
@@ -66,8 +60,7 @@ public class C_DeleteChar extends ClientBasePacket {
 					} else if (pc.isIllusionist()) {
 						pc.setType(38);
 					}
-					Timestamp deleteTime = new Timestamp(System
-							.currentTimeMillis() + 604800000); // 7 Days
+					Timestamp deleteTime = new Timestamp(System.currentTimeMillis() + 604800000); // 7 Days
 					pc.setDeleteTime(deleteTime);
 					pc.save();
 				} else {
@@ -89,8 +82,7 @@ public class C_DeleteChar extends ClientBasePacket {
 					pc.setDeleteTime(null);
 					pc.save();
 				}
-				client.sendPacket(new S_DeleteCharOK(S_DeleteCharOK
-						.DELETE_CHAR_AFTER_7DAYS));
+				client.sendPacket(new S_DeleteCharOK(S_DeleteCharOK.DELETE_CHAR_AFTER_7DAYS));
 				return;
 			}
 
@@ -100,8 +92,7 @@ public class C_DeleteChar extends ClientBasePacket {
 					clan.delMemberName(name);
 				}
 			}
-			CharacterTable.getInstance().deleteCharacter(
-					client.getAccountName(), name);
+			CharacterTable.getInstance().deleteCharacter(client.getAccountName(), name);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			client.close();
@@ -114,5 +105,4 @@ public class C_DeleteChar extends ClientBasePacket {
 	public String getType() {
 		return C_DELETE_CHAR;
 	}
-
 }

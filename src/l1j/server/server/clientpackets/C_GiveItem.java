@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -39,9 +38,9 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1PetType;
 
 public class C_GiveItem extends ClientBasePacket {
+
 	private static Logger _log = Logger.getLogger(C_GiveItem.class.getName());
 	private static final String C_GIVE_ITEM = "[C] C_GiveItem";
-
 	private static Random _random = new Random();
 
 	public C_GiveItem(byte decrypt[], ClientThread client) {
@@ -57,8 +56,7 @@ public class C_GiveItem extends ClientBasePacket {
 		//TRICIDTODO: set configurable auto ban
 		if (count < 0)
 		{
-			_log.info(pc.getName() + " attempted dupe exploit (C_GiveItem).");
-
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
 			return;
 		}
 
@@ -90,7 +88,6 @@ public class C_GiveItem extends ClientBasePacket {
 			return;
 		}
 		if (item.getBless() >= 128) {
-
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
@@ -98,8 +95,7 @@ public class C_GiveItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					pc.sendPackets(new S_ServerMessage(210, item.getItem()
-							.getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 					return;
 				}
 			}
@@ -109,12 +105,13 @@ public class C_GiveItem extends ClientBasePacket {
 			return;
 		}
 		item = inv.tradeItem(item, count, targetInv);
+		
 		target.onGetItem(item);
 		target.turnOnOffLight();
+		
 		pc.turnOnOffLight();
-
-		L1PetType petType = PetTypeTable.getInstance().get(
-				target.getNpcTemplate().get_npcId());
+		
+		L1PetType petType = PetTypeTable.getInstance().get(target.getNpcTemplate().get_npcId());
 		if (petType == null || target.isDead()) {
 			return;
 		}
@@ -122,54 +119,50 @@ public class C_GiveItem extends ClientBasePacket {
 		if (item.getItemId() == petType.getItemIdForTaming()) {
 			tamePet(pc, target);
 		}
+		
 		if (item.getItemId() == 40070 && petType.canEvolve()) {
 			evolvePet(pc, target);
 		}
 	}
 
-	private final static String receivableImpls[] = new String[] { "L1Npc",
-			"L1Monster", 
-			"L1Guardian", 
-			"L1Teleporter", 
-			"L1Guard" }; 
+	private final static String receivableImpls[] = new String[] { "L1Npc", "L1Monster", "L1Guardian", "L1Teleporter", "L1Guard" }; 
 
 	private boolean isNpcItemReceivable(L1Npc npc) {
 		for (String impl : receivableImpls) {
 			if (npc.getImpl().equals(impl)) {
-				return true;
+			return true;
 			}
 		}
 		return false;
 	}
 
 	private void tamePet(L1PcInstance pc, L1NpcInstance target) {
-		if (target instanceof L1PetInstance
-				|| target instanceof L1SummonInstance) {
+		if (target instanceof L1PetInstance || target instanceof L1SummonInstance) {
 			return;
 		}
 
 		int petcost = 0;
 		Object[] petlist = pc.getPetList().values().toArray();
 		for (Object pet : petlist) {
-			petcost += ((L1NpcInstance) pet).getPetcost();
+		petcost += ((L1NpcInstance) pet).getPetcost();
 		}
 		int charisma = pc.getCha();
-		if (pc.isCrown()) { 
+		if (pc.isCrown()) {
 			charisma += 6;
-		} else if (pc.isElf()) { 
+		} else if (pc.isElf()) {
 			charisma += 12;
-		} else if (pc.isWizard()) { 
+		} else if (pc.isWizard()) {
 			charisma += 6;
-		} else if (pc.isDarkelf()) { // DE
+		} else if (pc.isDarkelf()) {
 			charisma += 6;
-		} else if (pc.isDragonKnight()) { // 
+		} else if (pc.isDragonKnight()) {
 			charisma += 6;
-		} else if (pc.isIllusionist()) { // 
+		} else if (pc.isIllusionist()) {
 			charisma += 6;
 		}
 		charisma -= petcost;
-
 		L1PcInventory inv = pc.getInventory();
+		
 		if (charisma >= 6 && inv.getSize() < 180) {
 			if (isTamePet(target)) {
 				L1ItemInstance petamu = inv.storeItem(40314, 1);
@@ -185,18 +178,15 @@ public class C_GiveItem extends ClientBasePacket {
 
 	private void evolvePet(L1PcInstance pc, L1NpcInstance target) {
 		if (!(target instanceof L1PetInstance)) {
-			return;
+		return;
 		}
 		L1PcInventory inv = pc.getInventory();
 		L1PetInstance pet = (L1PetInstance) target;
 		L1ItemInstance petamu = inv.getItem(pet.getItemObjId());
-		if (pet.getLevel() >= 30 && // Lv30
-				pc == pet.getMaster() && 
-				petamu != null) {
+		if (pet.getLevel() >= 30 && pc == pet.getMaster() && petamu != null) {
 			L1ItemInstance highpetamu = inv.storeItem(40316, 1);
 			if (highpetamu != null) {
-				pet.evolvePet( 
-						highpetamu.getId());
+				pet.evolvePet(highpetamu.getId());
 				pc.sendPackets(new S_ItemName(highpetamu));
 				inv.removeItem(petamu, 1);
 			}
@@ -206,9 +196,9 @@ public class C_GiveItem extends ClientBasePacket {
 	private boolean isTamePet(L1NpcInstance npc) {
 		boolean isSuccess = false;
 		int npcId = npc.getNpcTemplate().get_npcId();
+		
 		if (npcId == 45313) {
-			if (npc.getMaxHp() / 3 > npc.getCurrentHp() 
-					&& _random.nextInt(16) == 15) {
+			if (npc.getMaxHp() / 3 > npc.getCurrentHp() && _random.nextInt(16) == 15) {
 				isSuccess = true;
 			}
 		} else {
@@ -222,7 +212,6 @@ public class C_GiveItem extends ClientBasePacket {
 				isSuccess = false;
 			}
 		}
-
 		return isSuccess;
 	}
 

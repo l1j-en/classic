@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ import l1j.server.server.serverpackets.S_PrivateShop;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_ShopList extends ClientBasePacket {
 
 	private static final String C_SHOP_LIST = "[C] C_ShopList";
@@ -41,7 +39,7 @@ public class C_ShopList extends ClientBasePacket {
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-			return;
+		return;
 		}
 
 		pc.sendPackets(new S_PrivateShop(pc, objectId, type));
@@ -51,5 +49,4 @@ public class C_ShopList extends ClientBasePacket {
 	public String getType() {
 		return C_SHOP_LIST;
 	}
-
 }

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -42,11 +41,9 @@ import l1j.server.server.serverpackets.S_Weather;
 public class C_Restart extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_Restart.class.getName());
-
 	private static final String C_RESTART = "[C] C_Restart";
 
-	public C_Restart(byte abyte0[], ClientThread clientthread)
-			throws Exception {
+	public C_Restart(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 
@@ -60,10 +57,8 @@ public class C_Restart extends ClientBasePacket {
 		} else {
 			loc = Getback.GetBack_Location(pc, true);
 		}
-
 		pc.removeAllKnownObjects();
 		pc.broadcastPacket(new S_RemoveObject(pc));
-
 		pc.setCurrentHp(pc.getLevel());
 		pc.set_food(40);
 		pc.setDead(false);

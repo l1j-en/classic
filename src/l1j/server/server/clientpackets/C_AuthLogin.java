@@ -31,7 +31,6 @@ import l1j.server.server.serverpackets.S_LoginResult;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_AuthLogin extends ClientBasePacket {
 
 	private static final String C_AUTH_LOGIN = "[C] C_AuthLogin";
@@ -41,20 +40,16 @@ public class C_AuthLogin extends ClientBasePacket {
 		super(decrypt);
 		String accountName = readS().toLowerCase();
 		String password = readS();
-
 		String ip = client.getIp();
 		String host = client.getHostname();
 
-		_log.finest("Request AuthLogin from user : " + accountName);
+		_log.finest("Request AuthLogin From User : " + accountName);
 
 		if (!Config.ALLOW_2PC) {
-			for (ClientThread tempClient : LoginController.getInstance()
-					.getAllAccounts()) {
+			for (ClientThread tempClient : LoginController.getInstance().getAllAccounts()) {
 				if (ip.equalsIgnoreCase(tempClient.getIp())) {
-					_log.info("2nd PC login on account="
-							+ accountName + " host=" + host);
-					client.sendPacket(new S_LoginResult(
-							S_LoginResult.REASON_USER_OR_PASS_WRONG));
+					_log.info("2nd PC Login On Account = " + accountName + " Host = " + host);
+					client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
 					return;
 				}
 			}
@@ -65,19 +60,18 @@ public class C_AuthLogin extends ClientBasePacket {
 			if (Config.AUTO_CREATE_ACCOUNTS) {
 				account = Account.create(accountName, password, ip, host);
 			} else {
-				_log.warning("account missing for user " + accountName);
+				_log.warning("Account Missing For User " + accountName);
 			}
 		}
+		
 		if (account == null || !account.validatePassword(password)) {
-			client.sendPacket(new S_LoginResult(
-					S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
 			return;
 		}
+		
 		if (account.isBanned()) { // BAN
-			_log.info("Banned account attempted login: account=" + accountName + " host="
-					+ host);
-			client.sendPacket(new S_LoginResult(
-					S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			_log.info("Banned Account Attempted Login: Account = " + accountName + " Host = " + host);
+			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
 			return;
 		}
 
@@ -89,13 +83,11 @@ public class C_AuthLogin extends ClientBasePacket {
 			client.sendPacket(new S_CommonNews());
 		} catch (GameServerFullException e) {
 			client.kick();
-			_log.info("Connection terminated (" + client.getHostname()
-					+ ") due to server full.");
+			_log.info("Connection Terminated (" + client.getHostname() + ") Server Is Full.");
 			return;
 		} catch (AccountAlreadyLoginException e) {
 			client.kick();
-			_log.info("Already logged in account (" + client.getHostname()
-					+ ") connection refused.");
+			_log.info("Account Allready Loggedin (" + client.getHostname() + ") Connection Refused.");
 			return;
 		}
 	}
@@ -104,5 +96,4 @@ public class C_AuthLogin extends ClientBasePacket {
 	public String getType() {
 		return C_AUTH_LOGIN;
 	}
-
 }

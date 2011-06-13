@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -32,34 +31,32 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_TradeAddItem extends ClientBasePacket {
 	private static final String C_TRADE_ADD_ITEM = "[C] C_TradeAddItem";
-	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_TradeAddItem.class.getName());
 
-	public C_TradeAddItem(byte abyte0[], ClientThread client)
-			throws Exception {
+	public C_TradeAddItem(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 
 		int itemid = readD();
 		int itemcount = readD();
 		L1PcInstance pc = client.getActiveChar();
+		
 		//TRICIDTODO: set configurable autoban
 		if (itemcount < 0)
 		{
-			_log.info(pc.getName() + " attempted dupe exploit (C_TradeAddItem).");
-			
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_TradeAddItem).");
 			return;
 		}
 		L1Trade trade = new L1Trade();
 		L1ItemInstance item = pc.getInventory().getItem(itemid);
+		
 		if (!item.getItem().isTradable()) {
-			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName())); // \f1%0ÍÌÄ½èÜ½Í¼lÉæ¨é±ÆªÅ«Ü¹ñB
+			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
-		if (item.getBless() >= 128) { // 
-			// 
+
+		if (item.getBless() >= 128) {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
@@ -68,27 +65,26 @@ public class C_TradeAddItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					pc.sendPackets(new S_ServerMessage(210, item.getItem()
-							.getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 					return;
 				}
 			}
 		}
-		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance()
-				.findObject(pc.getTradeID());
+		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance().findObject(pc.getTradeID());
+		
 		if (tradingPartner == null) {
 			return;
 		}
+		
 		if (pc.getTradeOk()) {
 			return;
 		}
-		if (tradingPartner.getInventory().checkAddItem(item, itemcount)
-				!= L1Inventory.OK) { // 
-			tradingPartner.sendPackets(new S_ServerMessage(270)); // 
-			pc.sendPackets(new S_ServerMessage(271)); // 
+		
+		if (tradingPartner.getInventory().checkAddItem(item, itemcount) != L1Inventory.OK) {
+			tradingPartner.sendPackets(new S_ServerMessage(270));
+			pc.sendPackets(new S_ServerMessage(271));
 			return;
 		}
-
 		trade.TradeAddItem(pc, itemid, itemcount);
 	}
 

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -34,8 +33,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_CreateParty extends ClientBasePacket {
 
 	private static final String C_CREATE_PARTY = "[C] C_CreateParty";
-	private static Logger _log = Logger.getLogger(C_CreateParty.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_CreateParty.class.getName());
 
 	public C_CreateParty(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
@@ -48,9 +46,11 @@ public class C_CreateParty extends ClientBasePacket {
 			L1Object temp = L1World.getInstance().findObject(targetId);
 			if (temp instanceof L1PcInstance) {
 				L1PcInstance targetPc = (L1PcInstance) temp;
+				
 				if (pc.getId() == targetPc.getId()) {
 					return;
 				}
+				
 				if (targetPc.isInParty()) {
 					pc.sendPackets(new S_ServerMessage(415));
 					return;
@@ -59,8 +59,7 @@ public class C_CreateParty extends ClientBasePacket {
 				if (pc.isInParty()) {
 					if (pc.getParty().isLeader(pc)) {
 						targetPc.setPartyID(pc.getId());
-						targetPc.sendPackets(new S_Message_YN(953, pc
-								.getName()));
+						targetPc.sendPackets(new S_Message_YN(953, pc.getName()));
 					} else {
 						pc.sendPackets(new S_ServerMessage(416));
 					}
@@ -76,9 +75,11 @@ public class C_CreateParty extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(109));
 				return;
 			}
+			
 			if (pc.getId() == targetPc.getId()) {
 				return;
 			}
+			
 			if (targetPc.isInChatParty()) {
 				pc.sendPackets(new S_ServerMessage(415));
 				return;
@@ -96,12 +97,10 @@ public class C_CreateParty extends ClientBasePacket {
 				targetPc.sendPackets(new S_Message_YN(951, pc.getName()));
 			}
 		}
-
 	}
 
 	@Override
 	public String getType() {
 		return C_CREATE_PARTY;
 	}
-
 }

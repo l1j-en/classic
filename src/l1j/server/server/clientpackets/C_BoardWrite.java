@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
@@ -33,7 +32,6 @@ import l1j.server.server.model.item.L1ItemId;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_BoardWrite extends ClientBasePacket {
 
 	private static final String C_BOARD_WRITE = "[C] C_BoardWrite";
@@ -88,5 +86,4 @@ private static String currentTime() {
 	public String getType() {
 		return C_BOARD_WRITE;
 	}
-
 }

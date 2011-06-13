@@ -17,7 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  * Author: ChrisLiu.2007.07.20
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;

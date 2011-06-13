@@ -27,14 +27,9 @@ import l1j.server.server.ClientThread;
 
 public abstract class ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(ClientBasePacket.class
-			.getName());
-
-	private static final String CLIENT_LANGUAGE_CODE = Config
-			.CLIENT_LANGUAGE_CODE;
-
+	private static Logger _log = Logger.getLogger(ClientBasePacket.class.getName());
+	private static final String CLIENT_LANGUAGE_CODE = Config.CLIENT_LANGUAGE_CODE;
 	private byte _decrypt[];
-
 	private int _off;
 
 	public ClientBasePacket(byte abyte0[]) {
@@ -87,8 +82,7 @@ public abstract class ClientBasePacket {
 	public String readS() {
 		String s = null;
 		try {
-			s = new String(_decrypt, _off, _decrypt.length - _off,
-					CLIENT_LANGUAGE_CODE);
+			s = new String(_decrypt, _off, _decrypt.length - _off, CLIENT_LANGUAGE_CODE);
 			s = s.substring(0, s.indexOf('\0'));
 			_off += s.getBytes(CLIENT_LANGUAGE_CODE).length + 1;
 		} catch (Exception e) {

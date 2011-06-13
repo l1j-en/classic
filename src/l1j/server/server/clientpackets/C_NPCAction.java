@@ -104,26 +104,24 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class C_NPCAction extends ClientBasePacket {
 
 	private static final String	C_NPC_ACTION	= "[C] C_NPCAction";
-	private static Logger		_log			= Logger
-														.getLogger(C_NPCAction.class
-																.getName());
-	private static Random		_random			= new Random();
+	private static Logger _log = Logger.getLogger(C_NPCAction.class.getName());
+	private static Random _random = new Random();
 
 	public C_NPCAction(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
+		
 		int objid = readD();
+		
 		String s = readS();
-
 		String s2 = null;
-		if (s.equalsIgnoreCase("select")
-				|| s.equalsIgnoreCase("map") 
-				|| s.equalsIgnoreCase("apply")) {
+		
+		if (s.equalsIgnoreCase("select") || s.equalsIgnoreCase("map") || s.equalsIgnoreCase("apply")) {
 			s2 = readS();
 		} else if (s.equalsIgnoreCase("ent")) {
 			L1Object obj = L1World.getInstance().findObject(objid);
 			if (obj != null && obj instanceof L1NpcInstance) {
 				if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80088) {
-					s2 = readS();
+				s2 = readS();
 				}
 			}
 		}
@@ -147,7 +145,7 @@ public class C_NPCAction extends ClientBasePacket {
 				int difflocx = Math.abs(pc.getX() - npc.getX());
 				int difflocy = Math.abs(pc.getY() - npc.getY());
 				if (difflocx > 3 || difflocy > 3) {
-					return;
+				return;
 				}
 				npc.onFinalAction(pc, s);
 			} else if (obj instanceof L1PcInstance) {
@@ -159,27 +157,21 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				} else {
 					int awakeSkillId = target.getAwakeSkillId();
-					if (awakeSkillId == AWAKEN_ANTHARAS
-							|| awakeSkillId == AWAKEN_FAFURION
-							|| awakeSkillId == AWAKEN_VALAKAS) {
-						target.sendPackets(new S_ServerMessage(1384)); // gB
+					if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION || awakeSkillId == AWAKEN_VALAKAS) {
+						target.sendPackets(new S_ServerMessage(1384));
 						return;
 					}
 					if (target.isShapeChange()) {
 						L1PolyMorph.handleCommands(target, s);
 						target.setShapeChange(false);
 					} else {
-						L1PolyMorph poly = PolyTable.getInstance()
-								.getTemplate(s);
+						L1PolyMorph poly = PolyTable.getInstance().getTemplate(s);
 						if (poly != null || s.equals("none")) {
-							if (target.getInventory().checkItem(40088)
-									&& usePolyScroll(target, 40088, s)) {
+							if (target.getInventory().checkItem(40088) && usePolyScroll(target, 40088, s)) {
 							}
-							if (target.getInventory().checkItem(40096)
-									&& usePolyScroll(target, 40096, s)) {
+							if (target.getInventory().checkItem(40096) && usePolyScroll(target, 40096, s)) {
 							}
-							if (target.getInventory().checkItem(140088)
-									&& usePolyScroll(target, 140088, s)) {
+							if (target.getInventory().checkItem(140088) && usePolyScroll(target, 140088, s)) {
 							}
 						}
 					}
@@ -244,26 +236,22 @@ public class C_NPCAction extends ClientBasePacket {
 			if (pc.getLevel() >= 5) {
 				pc.sendPackets(new S_RetrieveList(objid, pc));
 			}
-		} else if (s.equalsIgnoreCase("retrieve-elven")) { //
+		} else if (s.equalsIgnoreCase("retrieve-elven")) {
 			if (pc.getLevel() >= 5 && pc.isElf()) {
 				pc.sendPackets(new S_RetrieveElfList(objid, pc));
 			}
-		} else if (s.equalsIgnoreCase("retrieve-pledge")) { //
+		} else if (s.equalsIgnoreCase("retrieve-pledge")) {
 			if (pc.getLevel() >= 5) {
 				if (pc.getClanid() == 0) {
-					//
 					pc.sendPackets(new S_ServerMessage(208));
 					return;
 				}
 				int rank = pc.getClanRank();
-				if (rank != L1Clan.CLAN_RANK_PUBLIC
-						&& rank != L1Clan.CLAN_RANK_GUARDIAN
-						&& rank != L1Clan.CLAN_RANK_PRINCE) {
+				if (rank != L1Clan.CLAN_RANK_PUBLIC && rank != L1Clan.CLAN_RANK_GUARDIAN && rank != L1Clan.CLAN_RANK_PRINCE) {
 					pc.sendPackets(new S_ServerMessage(728));
 					return;
 				}
-				if (rank != L1Clan.CLAN_RANK_PRINCE
-						&& pc.getTitle().equalsIgnoreCase("")) {
+				if (rank != L1Clan.CLAN_RANK_PRINCE && pc.getTitle().equalsIgnoreCase("")) {
 					pc.sendPackets(new S_ServerMessage(728));
 					return;
 				}
@@ -282,26 +270,16 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			else if (npcId == 70528 || npcId == 70546 || npcId == 70567
 					|| npcId == 70594 || npcId == 70654 || npcId == 70748
-					|| npcId == 70774 || npcId == 70799 || npcId == 70815
-					|| npcId == 70860) {
-
+					|| npcId == 70774 || npcId == 70799 || npcId == 70815 || npcId == 70860) {
 				if (pc.getHomeTownId() > 0) {
-
 				} else {
-
 				}
 			}
 		} else if (s.equalsIgnoreCase("fix")) { 
-
 		} else if (s.equalsIgnoreCase("room")) { 
-
-		} else if (s.equalsIgnoreCase("hall")
-				&& obj instanceof L1MerchantInstance) { 
-
+		} else if (s.equalsIgnoreCase("hall") && obj instanceof L1MerchantInstance) { 
 		} else if (s.equalsIgnoreCase("return")) { 
-
 		} else if (s.equalsIgnoreCase("enter")) { 
-
 		} else if (s.equalsIgnoreCase("openigate")) { 
 			L1NpcInstance npc = (L1NpcInstance) obj;
 			openCloseGate(pc, npc.getNpcTemplate().get_npcId(), true);
@@ -322,19 +300,19 @@ public class C_NPCAction extends ClientBasePacket {
 				htmldata = makeWarTimeStrings(L1CastleLocation.WW_CASTLE_ID);
 				htmlid = "wdguard7";
 			} else if (npc.getNpcTemplate().get_npcId() == 60524 || 
-					npc.getNpcTemplate().get_npcId() == 60525 || 
-					npc.getNpcTemplate().get_npcId() == 60529) { 
+				npc.getNpcTemplate().get_npcId() == 60525 || 
+				npc.getNpcTemplate().get_npcId() == 60529) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.GIRAN_CASTLE_ID);
 				htmlid = "grguard7";
 			} else if (npc.getNpcTemplate().get_npcId() == 70857) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.HEINE_CASTLE_ID);
 				htmlid = "heguard7";
 			} else if (npc.getNpcTemplate().get_npcId() == 60530 ||
-					npc.getNpcTemplate().get_npcId() == 60531) {
+				npc.getNpcTemplate().get_npcId() == 60531) {
 				htmldata = makeWarTimeStrings(L1CastleLocation.DOWA_CASTLE_ID);
 				htmlid = "dcguard7";
 			} else if (npc.getNpcTemplate().get_npcId() == 60533 ||
-					npc.getNpcTemplate().get_npcId() == 60534) {
+				npc.getNpcTemplate().get_npcId() == 60534) {
 				htmldata = makeWarTimeStrings(L1CastleLocation.ADEN_CASTLE_ID);
 				htmlid = "adguard7";
 			} else if (npc.getNpcTemplate().get_npcId() == 81156) { 
@@ -346,11 +324,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int castle_id = clan.getCastleId();
 				if (castle_id != 0) { 
-					L1Castle l1castle = CastleTable.getInstance()
-							.getCastleTable(castle_id);
-					pc.sendPackets(new S_ServerMessage(309, 
-							l1castle.getName(), String.valueOf(l1castle
-									.getPublicMoney())));
+					L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
+					pc.sendPackets(new S_ServerMessage(309, l1castle.getName(), String.valueOf(l1castle.getPublicMoney())));
 					htmlid = "";
 				}
 			}
@@ -361,10 +336,8 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int castle_id = clan.getCastleId();
 				if (castle_id != 0) { 
-					L1Castle l1castle = CastleTable.getInstance()
-							.getCastleTable(castle_id);
-					pc.sendPackets(new S_Drawal(pc.getId(), l1castle
-							.getPublicMoney()));
+					L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
+					pc.sendPackets(new S_Drawal(pc.getId(), l1castle.getPublicMoney()));
 				}
 			}
 		} else if (s.equalsIgnoreCase("cdeposit")) { 
@@ -373,31 +346,28 @@ public class C_NPCAction extends ClientBasePacket {
 
 		} else if (s.equalsIgnoreCase("arrange")) { 
 
-		} else if (s.equalsIgnoreCase("castlegate")) { //
+		} else if (s.equalsIgnoreCase("castlegate")) {
 
 			repairGate(pc);
-			htmlid = ""; //
-		} else if (s.equalsIgnoreCase("encw")) { //
+			htmlid = "";
+		} else if (s.equalsIgnoreCase("encw")) {
 			if (pc.getWeapon() == null) {
 				pc.sendPackets(new S_ServerMessage(79));
 			} else {
 				for (L1ItemInstance item : pc.getInventory().getItems()) {
 					if (pc.getWeapon().equals(item)) {
 						L1SkillUse l1skilluse = new L1SkillUse();
-						l1skilluse.handleCommands(pc, ENCHANT_WEAPON,
-								item.getId(), 0, 0, null, 0,
-								L1SkillUse.TYPE_SPELLSC);
+						l1skilluse.handleCommands(pc, ENCHANT_WEAPON, item.getId(), 0, 0, null, 0, L1SkillUse.TYPE_SPELLSC);
 						break;
 					}
 				}
 			}
-			htmlid = ""; // 
-		} else if (s.equalsIgnoreCase("enca")) { //
+			htmlid = "";
+		} else if (s.equalsIgnoreCase("enca")) {
 			L1ItemInstance item = pc.getInventory().getItemEquipped(2, 2);
 			if (item != null) {
 				L1SkillUse l1skilluse = new L1SkillUse();
-				l1skilluse.handleCommands(pc, BLESSED_ARMOR, item
-						.getId(), 0, 0, null, 0, L1SkillUse.TYPE_SPELLSC);
+				l1skilluse.handleCommands(pc, BLESSED_ARMOR, item.getId(), 0, 0, null, 0, L1SkillUse.TYPE_SPELLSC);
 			} else {
 				pc.sendPackets(new S_ServerMessage(79));
 			}
@@ -473,8 +443,7 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance().getHouseTable(
-							houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -493,27 +462,21 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance().getHouseTable(
-							houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
 						int[] loc = new int[3];
 						if (s.equalsIgnoreCase("tel0")) {
-							loc = L1HouseLocation.getHouseTeleportLoc(houseId,
-									0);
+							loc = L1HouseLocation.getHouseTeleportLoc(houseId, 0);
 						} else if (s.equalsIgnoreCase("tel1")) {
-							loc = L1HouseLocation.getHouseTeleportLoc(houseId,
-									1);
+							loc = L1HouseLocation.getHouseTeleportLoc(houseId, 1);
 						} else if (s.equalsIgnoreCase("tel2")) {
-							loc = L1HouseLocation.getHouseTeleportLoc(houseId,
-									2);
+							loc = L1HouseLocation.getHouseTeleportLoc(houseId, 2);
 						} else if (s.equalsIgnoreCase("tel3")) {
-							loc = L1HouseLocation.getHouseTeleportLoc(houseId,
-									3);
+							loc = L1HouseLocation.getHouseTeleportLoc(houseId, 3);
 						}
-						L1Teleport.teleport(pc, loc[0], loc[1], (short) loc[2],
-								5, true);
+						L1Teleport.teleport(pc, loc[0], loc[1], (short) loc[2], 5, true);
 					}
 				}
 			}
@@ -523,8 +486,7 @@ public class C_NPCAction extends ClientBasePacket {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance().getHouseTable(
-							houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
@@ -532,8 +494,7 @@ public class C_NPCAction extends ClientBasePacket {
 							if (house.isPurchaseBasement()) {
 								pc.sendPackets(new S_ServerMessage(1135));
 							} else {
-								if (pc.getInventory().consumeItem(
-										L1ItemId.ADENA, 5000000)) {
+								if (pc.getInventory().consumeItem(L1ItemId.ADENA, 5000000)) {
 									house.setPurchaseBasement(true);
 									HouseTable.getInstance().updateHouse(house);
 									pc.sendPackets(new S_ServerMessage(1099));
@@ -548,22 +509,19 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 			htmlid = "";
-		} else if (s.equalsIgnoreCase("hall")
-				&& obj instanceof L1HousekeeperInstance) { 
+		} else if (s.equalsIgnoreCase("hall") && obj instanceof L1HousekeeperInstance) { 
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance().getHouseTable(
-							houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == keeperId) {
 						if (house.isPurchaseBasement()) {
 							int[] loc = new int[3];
 							loc = L1HouseLocation.getBasementLoc(houseId);
-							L1Teleport.teleport(pc, loc[0], loc[1],
-									(short) (loc[2]), 5, true);
+							L1Teleport.teleport(pc, loc[0], loc[1], (short) (loc[2]), 5, true);
 						} else {
 							pc.sendPackets(new S_ServerMessage(1098));
 						}
@@ -572,8 +530,6 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			htmlid = ""; 
 		}
-
-		// 
 		else if (s.equalsIgnoreCase("fire")) 
 		{
 			if (pc.isElf()) {
@@ -622,21 +578,17 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 				for (int cnt = 129; cnt <= 176; cnt++)
 				{
-					L1Skills l1skills1 = SkillsTable.getInstance().getTemplate(
-							cnt);
+					L1Skills l1skills1 = SkillsTable.getInstance().getTemplate(cnt);
 					int skill_attr = l1skills1.getAttr();
 					if (skill_attr != 0) 
 					{
-						SkillsTable.getInstance().spellLost(pc.getId(),
-								l1skills1.getSkillId());
+						SkillsTable.getInstance().spellLost(pc.getId(), l1skills1.getSkillId());
 					}
 				}
 				if (pc.hasSkillEffect(ELEMENTAL_PROTECTION)) {
 					pc.removeSkillEffect(ELEMENTAL_PROTECTION);
 				}
-				pc.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 248, 252, 252, 255, 0, 0, 0, 0, 0,
-						0));
+				pc.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 252, 252, 255, 0, 0, 0, 0, 0, 0));
 				pc.setElfAttr(0);
 				pc.save(); 
 				pc.sendPackets(new S_ServerMessage(678));
@@ -668,8 +620,7 @@ public class C_NPCAction extends ClientBasePacket {
 			} else {
 				if (pc.getInventory().consumeItem(L1ItemId.ADENA, 700000)) {
 					pc.set_PKcount(pc.get_PKcount() - 5);
-					pc.sendPackets(new S_ServerMessage(561, String.valueOf(pc
-							.get_PKcount()))); 
+					pc.sendPackets(new S_ServerMessage(561, String.valueOf(pc.get_PKcount()))); 
 				} else {
 					pc.sendPackets(new S_ServerMessage(189)); 
 				}
@@ -690,15 +641,12 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				L1SkillUse l1skilluse = new L1SkillUse();
-				l1skilluse.handleCommands(pc, CANCELLATION,
-						pc.getId(), pc.getX(), pc.getY(), null, 0,
-						L1SkillUse.TYPE_LOGIN);
+				l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(), pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 				pc.getInventory().takeoffEquip(945);
 				L1Teleport.teleport(pc, 32737, 32789, (short) 997, 4, false);
 				int initStatusPoint = 75 + pc.getElixirStats();
 				int pcStatusPoint = pc.getBaseStr() + pc.getBaseInt()
-						+ pc.getBaseWis() + pc.getBaseDex() + pc.getBaseCon()
-						+ pc.getBaseCha();
+				+ pc.getBaseWis() + pc.getBaseDex() + pc.getBaseCon() + pc.getBaseCha();
 				if (pc.getLevel() > 50) {
 					pcStatusPoint += (pc.getLevel() - 50 - pc.getBonusStats());
 				}

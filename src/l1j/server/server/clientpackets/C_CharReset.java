@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Level;
@@ -66,8 +65,7 @@ public class C_CharReset extends ClientBasePacket {
 			int cha = readC();
 			int hp = CalcInitHpMp.calcInitHp(pc);
 			int mp = CalcInitHpMp.calcInitMp(pc);
-			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis,
-					dex, con, cha));
+			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
 			CharacterTable.getInstance().saveCharStatus(pc);
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
@@ -76,7 +74,7 @@ public class C_CharReset extends ClientBasePacket {
 				setLevelUp(pc, 1); 
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
 				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10) {
-					return;
+				return;
 				}
 				setLevelUp(pc,10);
 			} else if (type2 == 0x01) {
@@ -156,11 +154,11 @@ public class C_CharReset extends ClientBasePacket {
 			pc.setBonusStats(0);
 		}
 		pc.sendPackets(new S_OwnCharStatus(pc));
-		L1ItemInstance item = pc.getInventory().findItemId(49142); // ]E\N
+		L1ItemInstance item = pc.getInventory().findItemId(49142);
 		if (item != null) {
 			try {
 				pc.getInventory().removeItem(item, 1);
-				pc.save(); // DBLN^[
+				pc.save();
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
@@ -168,8 +166,7 @@ public class C_CharReset extends ClientBasePacket {
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 	}
 
-	private void initCharStatus(L1PcInstance pc, int hp, int mp, int str,
-			int intel, int wis, int dex, int con, int cha) {
+	private void initCharStatus(L1PcInstance pc, int hp, int mp, int str, int intel, int wis, int dex, int con, int cha) {
 		pc.addBaseMaxHp((short)(hp - pc.getBaseMaxHp()));
 		pc.addBaseMaxMp((short)(mp - pc.getBaseMaxMp()));
 		pc.addBaseStr((byte)(str - pc.getBaseStr()));
@@ -186,18 +183,17 @@ public class C_CharReset extends ClientBasePacket {
 	private void setLevelUp(L1PcInstance pc ,int addLv) {
 		pc.setTempLevel(pc.getTempLevel()+ addLv);
 		for (int i = 0; i < addLv; i++) {
-			short randomHp = CalcStat.calcStatHp(pc.getType(),
-					pc.getBaseMaxHp(), pc.getBaseCon(), pc.getOriginalHpup());
-			short randomMp = CalcStat.calcStatMp(pc.getType(),
-					pc.getBaseMaxMp(), pc.getBaseWis(), pc.getOriginalMpup());
+			short randomHp = CalcStat.calcStatHp(pc.getType(), pc.getBaseMaxHp(), pc.getBaseCon(), pc.getOriginalHpup());
+			short randomMp = CalcStat.calcStatMp(pc.getType(), pc.getBaseMaxMp(), pc.getBaseWis(), pc.getOriginalMpup());
 			pc.addBaseMaxHp(randomHp);
 			pc.addBaseMaxMp(randomMp);
 		}
 		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex());
+		
 		pc.sendPackets(new S_CharReset(pc,pc.getTempLevel(),
-				pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc,
-				pc.getBaseStr(), pc.getBaseInt(), pc.getBaseWis(),
-				pc.getBaseDex(), pc.getBaseCon(), pc.getBaseCha()));
+		pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc,
+		pc.getBaseStr(), pc.getBaseInt(), pc.getBaseWis(),
+		pc.getBaseDex(), pc.getBaseCon(), pc.getBaseCha()));
 	}
 
 	private int getInitialHp (L1PcInstance pc) {
@@ -225,37 +221,37 @@ public class C_CharReset extends ClientBasePacket {
 		if (pc.isCrown()) {
 			switch (pc.getWis()) {
 			case 11:
-				mp = 2;
-				break;
+			mp = 2;
+			break;
 			case 12:
 			case 13:
 			case 14:
 			case 15:
-				mp = 3;
-				break;
+			mp = 3;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			default:
-				mp = 2;
-				break;
+			mp = 2;
+			break;
 			}
 		} else if (pc.isKnight()) {
 			switch (pc.getWis()) {
 			case 9:
 			case 10:
 			case 11:
-				mp = 1;
-				break;
+			mp = 1;
+			break;
 			case 12:
 			case 13:
-				mp = 2;
-				break;
+			mp = 2;
+			break;
 			default:
-				mp = 1;
-				break;
+			mp = 1;
+			break;
 			}
 		} else if (pc.isElf()) {
 			switch (pc.getWis()) {
@@ -263,16 +259,16 @@ public class C_CharReset extends ClientBasePacket {
 			case 13:
 			case 14:
 			case 15:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			default:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			}
 		} else if (pc.isWizard()) {
 			switch (pc.getWis()) {
@@ -280,37 +276,37 @@ public class C_CharReset extends ClientBasePacket {
 			case 13:
 			case 14:
 			case 15:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 8;
-				break;
+			mp = 8;
+			break;
 			default:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			}
 		} else if (pc.isDarkelf()) {
 			switch (pc.getWis()) {
 			case 10:
 			case 11:
-				mp = 3;
-				break;
+			mp = 3;
+			break;
 			case 12:
 			case 13:
 			case 14:
 			case 15:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			default:
-				mp = 3;
-				break;
+			mp = 3;
+			break;
 			}
 		} else if (pc.isDragonKnight()) {
 			switch (pc.getWis()) {
@@ -318,16 +314,16 @@ public class C_CharReset extends ClientBasePacket {
 			case 13:
 			case 14:
 			case 15:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			default:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			}
 		} else if (pc.isIllusionist()) {
 			switch (pc.getWis()) {
@@ -335,16 +331,16 @@ public class C_CharReset extends ClientBasePacket {
 			case 13:
 			case 14:
 			case 15:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			case 16:
 			case 17:
 			case 18:
-				mp = 6;
-				break;
+			mp = 6;
+			break;
 			default:
-				mp = 4;
-				break;
+			mp = 4;
+			break;
 			}
 		}
 		return mp;
@@ -354,5 +350,4 @@ public class C_CharReset extends ClientBasePacket {
 	public String getType() {
 		return C_CHAR_RESET;
 	}
-
 }

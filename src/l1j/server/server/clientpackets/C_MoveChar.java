@@ -36,26 +36,20 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_MoveChar extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_MoveChar.class.getName());
 
 	private static final byte HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
-
 	private static final byte HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
 	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
 
-	// 
 	private void sendMapTileLog(L1PcInstance pc) {
-		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(
-				pc.getLocation())));
+		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(pc.getLocation())));
 	}
 
-
-	public C_MoveChar(byte decrypt[], ClientThread client)
-			throws Exception {
+	public C_MoveChar(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		int locx = readH();
 		int locy = readH();
@@ -69,17 +63,16 @@ public class C_MoveChar extends ClientBasePacket {
 
 		if (Config.CHECK_MOVE_INTERVAL) {
 			int result;
-			result = pc.getAcceleratorChecker()
-					.checkInterval(AcceleratorChecker.ACT_TYPE.MOVE);
+			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.MOVE);
 			if (result == AcceleratorChecker.R_DISCONNECTED) {
 				return;
 			}
 		}
 
 		pc.killSkillEffectTimer(MEDITATION);
-		pc.setCallClanId(0); // 
+		pc.setCallClanId(0);
 
-		if (!pc.hasSkillEffect(ABSOLUTE_BARRIER)) { //
+		if (!pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			pc.setRegenState(REGENSTATE_MOVE);
 		}
 		pc.getMap().setPassable(pc.getLocation(), true);
@@ -93,23 +86,22 @@ public class C_MoveChar extends ClientBasePacket {
 		locx += HEADING_TABLE_X[heading];
 		locy += HEADING_TABLE_Y[heading];
 
-		if (Dungeon.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { // _WÉe|[gµ½ê
+		if (Dungeon.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) {
 			return;
 		}
-		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(),
-				pc)) { 
+		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { 
 			return;
 		}
 
 		// Esc bug fix. Don't remove.
 		L1Location oldLoc = pc.getLocation();
-		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) 
-				|| (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
+		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) || (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
 		{
 			return;
 		}
 		pc.getLocation().set(locx, locy);
 		pc.setHeading(heading);
+		
 		if (pc.isGmInvis() || pc.isGhost()) {
 		} else if (pc.isInvisble()) {
 			pc.broadcastPacketForFindInvis(new S_MoveCharPacket(pc), true);
@@ -120,7 +112,6 @@ public class C_MoveChar extends ClientBasePacket {
 		// sendMapTileLog(pc); 
 
 		L1WorldTraps.getInstance().onPlayerMoved(pc);
-
 		pc.getMap().setPassable(pc.getLocation(), false);
 		// user.UpdateObject(); 
 	}

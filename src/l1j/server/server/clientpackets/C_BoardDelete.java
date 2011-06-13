@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -28,12 +27,10 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_BoardDelete extends ClientBasePacket {
 
 	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
-	private static Logger _log = Logger.getLogger(C_BoardDelete.class
-			.getName());
+	private static Logger _log = Logger.getLogger(C_BoardDelete.class.getName());
 
 	public C_BoardDelete(byte decrypt[], ClientThread client) {
 		super(decrypt);
@@ -50,5 +47,4 @@ public class C_BoardDelete extends ClientBasePacket {
 	public String getType() {
 		return C_BOARD_DELETE;
 	}
-
 }

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
@@ -40,7 +39,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_Attack extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_Attack.class.getName());
@@ -80,29 +78,25 @@ public class C_Attack extends ClientBasePacket {
 		}
 
 		if (target instanceof L1Character) {
-			if (target.getMapId() != pc.getMapId()
-					|| pc.getLocation().getLineDistance(target.getLocation()) > 20D) { 
+			if (target.getMapId() != pc.getMapId() || pc.getLocation().getLineDistance(target.getLocation()) > 20D) { 
 				return;
 			}
 		}
 
 		if (target instanceof L1NpcInstance) {
 			int hiddenStatus = ((L1NpcInstance) target).getHiddenStatus();
-			if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK
-					|| hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) { 
+			if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK || hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) { 
 				return;
 			}
 		}
 
 		if (Config.CHECK_ATTACK_INTERVAL) {
 			int result;
-			result = pc.getAcceleratorChecker()
-					.checkInterval(AcceleratorChecker.ACT_TYPE.ATTACK);
+			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.ATTACK);
 			if (result == AcceleratorChecker.R_DISCONNECTED) {
 				return;
 			}
 		}
-
 
 		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) { 
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
@@ -138,29 +132,21 @@ public class C_Attack extends ClientBasePacket {
 			if (weaponType == 20 && (weaponId == 190 || arrow != null)) {
 				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
 				if (arrow != null) { 
-					pc.sendPackets(new S_UseArrowSkill(pc, 0, 66, _targetX,
-							_targetY, true));
-					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 66, _targetX,
-							_targetY, true));
+					pc.sendPackets(new S_UseArrowSkill(pc, 0, 66, _targetX, _targetY, true));
+					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 66, _targetX, _targetY, true));
 					pc.getInventory().removeItem(arrow, 1);
 				} else if (weaponId == 190) { 
-					pc.sendPackets(new S_UseArrowSkill(pc, 0, 2349, _targetX,
-							_targetY, true));
-					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2349,
-							_targetX, _targetY, true));
+					pc.sendPackets(new S_UseArrowSkill(pc, 0, 2349, _targetX, _targetY, true));
+					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2349, _targetX, _targetY, true));
 				}
 			} else if (weaponType == 62 && sting != null) {
 				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
-				pc.sendPackets(new S_UseArrowSkill(pc, 0, 2989, _targetX,
-						_targetY, true));
-				pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2989, _targetX,
-						_targetY, true));
+				pc.sendPackets(new S_UseArrowSkill(pc, 0, 2989, _targetX, _targetY, true));
+				pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2989, _targetX, _targetY, true));
 				pc.getInventory().removeItem(sting, 1);
 			} else {
-				pc.sendPackets(new S_AttackPacket(pc, 0, ActionCodes
-						.ACTION_Attack));
-				pc.broadcastPacket(new S_AttackPacket(pc, 0, ActionCodes
-						.ACTION_Attack));
+				pc.sendPackets(new S_AttackPacket(pc, 0, ActionCodes.ACTION_Attack));
+				pc.broadcastPacket(new S_AttackPacket(pc, 0, ActionCodes.ACTION_Attack));
 			}
 		}
 	}

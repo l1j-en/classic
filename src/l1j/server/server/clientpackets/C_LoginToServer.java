@@ -15,7 +15,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.clientpackets;
 
 import java.io.FileNotFoundException;
@@ -82,11 +81,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		super(abyte0);
 
 		String login = client.getAccountName();
-
 		String charName = readS();
 
 		if (client.getActiveChar() != null) {
-			_log.info("Invalid Character Login From " + client.getHostname() + ".");
+			_log.info("Invalid Character LoggedIn From " + client.getHostname() + ".");
 			client.close();
 			return;
 		}
@@ -101,13 +99,13 @@ public class C_LoginToServer extends ClientBasePacket {
 		if (Config.LEVEL_DOWN_RANGE != 0) {
 			if (pc.getHighLevel() - pc.getLevel() >= Config.LEVEL_DOWN_RANGE) {
 				_log.info("Login request of the character Which Exceeded: char="
-				+ charName + " account=" + login + " host=" + client.getHostname());
+				+ charName + " account = " + login + " host = " + client.getHostname());
 				client.kick();
 				return;
 			}
 		}
 		
-		_log.info("Character login: char=" + charName + " account=" + login + " host=" + client.getHostname());
+		_log.info("Character Login : char = " + charName + " account=" + login + " host = " + client.getHostname());
 
 		int currentHpAtLoad = pc.getCurrentHp();
 		int currentMpAtLoad = pc.getCurrentMp();

@@ -121,12 +121,10 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 //
-
 public class C_ItemUSe extends ClientBasePacket {
 
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
-
 	private static Random _random = new Random();
 	private int addtime; // used for stacking. do not remove.
 
@@ -252,12 +250,10 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41431
 				|| itemId == 41432) {
 			l = readD();
-		} else if (itemId == 140100 || itemId == 40100 || itemId == 40099
-				|| itemId == 40086 || itemId == 40863) {
+		} else if (itemId == 140100 || itemId == 40100 || itemId == 40099 || itemId == 40086 || itemId == 40863) {
 			bmapid = readH();
 			btele = readD();
-			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
-					false));
+			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 		} else if (itemId == 40090 || itemId == 40091 || itemId == 40092
 				|| itemId == 40093 || itemId == 40094) {
 			blanksc_skillid = readC();
@@ -269,8 +265,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			spellsc_y = readH();
 		} else if (itemId == 40089 || itemId == 140089) {
 			resid = readD();
-		} else if (itemId == 40310 || itemId == 40311 || itemId == 40730
-				|| itemId == 40731 || itemId == 40732) { 
+		} else if (itemId == 40310 || itemId == 40311 || itemId == 40730 || itemId == 40731 || itemId == 40732) { 
 			letterCode = readH();
 			letterReceiver = readS();
 			letterText = readByte();
@@ -297,8 +292,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 			boolean isDelayEffect = false;
 			if (l1iteminstance.getItem().getType2() == 0) {
-				int delayEffect = ((L1EtcItem) l1iteminstance.getItem())
-						.get_delayEffect();
+				int delayEffect = ((L1EtcItem) l1iteminstance.getItem()).get_delayEffect();
 				if (delayEffect > 0) {
 					isDelayEffect = true;
 					Timestamp lastUsed = l1iteminstance.getLastUsed();
@@ -6474,12 +6468,9 @@ public class C_ItemUSe extends ClientBasePacket {
 					//Object obj = null;
 					try {
 						String s = l1npc.getImpl();
-						Constructor constructor = Class.forName(
-								"l1j.server.server.model.Instance." + s
-										+ "Instance").getConstructors()[0];
+						Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
 						Object aobj[] = { l1npc };
-						furniture = (L1FurnitureInstance) constructor
-								.newInstance(aobj);
+						furniture = (L1FurnitureInstance) constructor.newInstance(aobj);
 						furniture.setId(IdFactory.getInstance().nextId());
 						furniture.setMap(pc.getMapId());
 						if (pc.getHeading() == 0) {
@@ -6496,8 +6487,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 						L1World.getInstance().storeObject(furniture);
 						L1World.getInstance().addVisibleObject(furniture);
-						FurnitureSpawnTable.getInstance().insertFurniture(
-								furniture);
+						FurnitureSpawnTable.getInstance().insertFurniture(furniture);
 					} catch (Exception e) {
 						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
@@ -6510,15 +6500,13 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 	}
 
-	private void useFurnitureRemovalWand(L1PcInstance pc, int targetId,
-			L1ItemInstance item) {
-		S_AttackPacket s_attackPacket = new S_AttackPacket(pc, 0,
-				ActionCodes.ACTION_Wand);
+	private void useFurnitureRemovalWand(L1PcInstance pc, int targetId, L1ItemInstance item) {
+		S_AttackPacket s_attackPacket = new S_AttackPacket(pc, 0, ActionCodes.ACTION_Wand);
 		pc.sendPackets(s_attackPacket);
 		pc.broadcastPacket(s_attackPacket);
 		int chargeCount = item.getChargeCount();
 		if (chargeCount <= 0) {
-			return;
+		return;
 		}
 
 		L1Object target = L1World.getInstance().findObject(targetId);

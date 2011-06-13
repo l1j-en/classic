@@ -32,8 +32,7 @@ public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
-	public C_DropItem(byte[] decrypt, ClientThread client)
-			throws Exception {
+	public C_DropItem(byte[] decrypt, ClientThread client) throws Exception {
 		super(decrypt);
 		int x = readH();
 		int y = readH();
@@ -41,19 +40,19 @@ public class C_DropItem extends ClientBasePacket {
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
+		
 		//TRICIDTODO: set configurable auto ban
 		if (count < 0)
 		{
-			_log.info(pc.getName() + " attempted dupe exploit (C_DropItem).");
-			
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem).");
+
 			L1World world = L1World.getInstance();
 
 			//TODO Not used
 			//IpTable iptable = IpTable.getInstance();
 
-			world.broadcastServerMessage("Player " + pc.getName() + " attempted a dupe exploit!");
+			world.broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
-			
 			return;
 		}
 		
@@ -64,8 +63,7 @@ public class C_DropItem extends ClientBasePacket {
 		L1ItemInstance item = pc.getInventory().getItem(objectId);
 		if (item != null) {
 			if (!item.getItem().isTradable()) {
-				pc.sendPackets(new S_ServerMessage(210, item.getItem()
-						.getName()));
+				pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 				return;
 			}
 
@@ -74,8 +72,7 @@ public class C_DropItem extends ClientBasePacket {
 				if (petObject instanceof L1PetInstance) {
 					L1PetInstance pet = (L1PetInstance) petObject;
 					if (item.getId() == pet.getItemObjId()) {
-						pc.sendPackets(new S_ServerMessage(210, item.getItem()
-								.getName()));
+						pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 						return;
 					}
 				}
@@ -85,15 +82,11 @@ public class C_DropItem extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(125));
 				return;
 			}
-			if (item.getBless() >= 128) { //
-
-				pc.sendPackets(new S_ServerMessage(210, item.getItem()
-						.getName()));
+			if (item.getBless() >= 128) {
+				pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 				return;
 			}
-
-			pc.getInventory().tradeItem(item, count,
-					L1World.getInstance().getInventory(x, y, pc.getMapId()));
+			pc.getInventory().tradeItem(item, count, L1World.getInstance().getInventory(x, y, pc.getMapId()));
 			pc.turnOnOffLight();
 		}
 	}
