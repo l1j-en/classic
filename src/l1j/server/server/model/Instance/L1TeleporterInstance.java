@@ -66,11 +66,6 @@ public class L1TeleporterInstance extends L1NpcInstance {
 		String htmlid = null;
 
 		if (talking != null) {
-
-			//block players over level 12 from entering HV/SI
-			if ((npcid == 50055 && player.getLevel() > 12) || (npcid == 50016 && player.getLevel() > 12)) {
-			}
-
 			if (npcid == 50014) {
 				if (player.isWizard()) {
 					if (quest.get_step(L1Quest.QUEST_LEVEL30) == 1
