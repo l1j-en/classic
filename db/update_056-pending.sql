@@ -2366,7 +2366,8 @@ INSERT INTO mapids VALUES(784, 'Kukulcan altar', 32704, 32831, 32768, 32895, 1.0
 INSERT INTO mapids VALUES(1000, '?????', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
 INSERT INTO mapids VALUES(1001, '????', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
 INSERT INTO mapids VALUES(2004, '???', 32704, 32895, 32768, 32959, 1.0, 1.0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1);
-
+update mapids set teleportable=1, escapable=1, resurrection=1 where mapid = 1000;
+update mapids set teleportable=1, escapable=1, resurrection=1 where mapid = 1001;
 -- skills
 INSERT INTO skills VALUES(177, '', 23, 0, 0, 0, 0, 0, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0, 0, 0, 0, 0, 0);
 INSERT INTO skills VALUES(178, '', 23, 1, 0, 0, 0, 0, 0, 0, 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0, 0, 0, 0, 0, 0);
