@@ -115,6 +115,15 @@ alter table weapon drop name_id;
 
 -- NEW DATA
 
+-- area
+INSERT INTO area VALUES(780, 780, 'Thebes Desert', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(781, 781, 'Thebes Pyramid Inside', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(782, 782, 'Thebes Osiris Altar', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(783, 783, 'Tikal Temple', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(784, 784, 'Kukulcan altar', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(1000, 1000, 'Silveria', 0, 0, 0, 0, 0, 0);
+INSERT INTO area VALUES(1001, 1001, 'Behemoth', 0, 0, 0, 0, 0, 0);
+
 -- armor
 UPDATE armor SET unidentified_name_id = '$1021', identified_name_id = '$1021', use_dragonknight = 1, use_illusionist = 1, hit_modifier = 0, dmg_modifier = 0, bow_hit_modifier = 0, bow_dmg_modifier = 0 WHERE item_id = 20001;
 UPDATE armor SET unidentified_name_id = '$1023', identified_name_id = '$1023', use_dragonknight = 1, use_illusionist = 1, hit_modifier = 0, dmg_modifier = 0, bow_hit_modifier = 0, bow_dmg_modifier = 0 WHERE item_id = 20002;
