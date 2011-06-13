@@ -134,20 +134,17 @@ public class C_CreateChar extends ClientBasePacket {
 			client.sendPacket(s_charcreatestatus3);
 			return;
 		}
-
 		_log.fine("Character Name : " + pc.getName() + " ClassId: " + pc.getClassId());
 		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(S_CharCreateStatus.REASON_OK);
 		client.sendPacket(s_charcreatestatus2);
 		initNewChar(client, pc);
 	}
-    //TODO Special Darkwolf
-	// i will check the new classes soonif i can find info for there locations they have now illusionist starts at hidden and dragonknight on singing.
+
 	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
 	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
-	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 33043, 32780, 32876, 32780, 32714 };  
-	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32336, 32781, 32910, 32781, 32877 };  
-	private static final short[] MAPID_LIST = new short[] { 68, 69, 4, 68, 304, 68, 69 };
-
+	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 33043, 32780, 32876, 32791, 32791 };  
+	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32336, 32781, 32910, 32864, 32864 };  
+	private static final short[] MAPID_LIST = new short[] { 68, 69, 4, 68, 304, 1001, 1000 };
 	//  private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };
      // private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };
     //  private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090, 33090, 33090};//{ 32734, 32734, 32734, 32734, 32734 };
