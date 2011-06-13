@@ -65,6 +65,7 @@ public class Announcements {
 	}
 
 	public void showAnnouncements(L1PcInstance showTo) {
+		loadAnnouncements();
 		for (String msg : _announcements) {
 			showTo.sendPackets(new S_SystemMessage(msg));
 		}
