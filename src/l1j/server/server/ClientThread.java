@@ -150,7 +150,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 
 			if (readSize != dataLength) {
-				_log.warning("Incomplete Packet Is Sent To The Server, Closing Connection.");
+				_log.warning("Incomplete packet is sent to the server, closing connection.");
 				throw new RuntimeException();
 			}
 
@@ -186,9 +186,9 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	@Override
 	public void run() {
-		_log.info("(" + _hostname + ") Login Detected");
-		System.out.println("Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB");
-		System.out.println("Starting Client Thread...");
+		_log.info("(" + _hostname + ") Login detected");
+		System.out.println("Current memory: " + SystemUtil.getUsedMemoryMB() + "MB");
+		System.out.println("Starting client thread...");
 
 		Socket socket = _csocket;
 
@@ -287,11 +287,11 @@ public class ClientThread implements Runnable, PacketOutput {
 			}
 		}
 		_csocket = null;
-		_log.fine("Server thread[C] Stopped");
+		_log.fine("Server thread[C] stopped");
 		if (_kick < 1) {
 			_log.info(getAccountName() + ":" + _hostname);
 			System.out.println(": " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			System.out.println("Waiting For Connections...");
+			System.out.println("Waiting for connections...");
 		}
 		return;
 	}
@@ -375,7 +375,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 				if (_activeChar == null || _activeChar != null && !_activeChar.isPrivateShop()) { 
 					kick();
-					_log.warning("Kicking Character From (" + _hostname + ").");
+					_log.warning("Kicking character from (" + _hostname + ").");
 					cancel();
 					return;
 				}

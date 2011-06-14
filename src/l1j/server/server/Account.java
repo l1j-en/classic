@@ -89,7 +89,7 @@ public class Account {
 			pstm.setInt(7, account._banned ? 1 : 0);
 			pstm.setInt(8, 0);
 			pstm.execute();
-			_log.info("New Account Created For : " + name);
+			_log.info("New account created for: " + name);
 			return account;
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -129,7 +129,7 @@ public class Account {
 			account._banned = rs.getInt("banned") == 0 ? false : true;
 			account._characterSlot = rs.getInt("character_slot");
 
-			_log.fine("Account All Ready Excists.");
+			_log.fine("Account already exists.");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -153,7 +153,7 @@ public class Account {
 			pstm.setString(2, account.getName());
 			pstm.execute();
 			account._lastActive = ts;
-			_log.fine("Update lastactive For : " + account.getName());
+			_log.fine("Update lastactive for: " + account.getName());
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -174,7 +174,7 @@ public class Account {
 			pstm.setString(2, account.getName());
 			pstm.execute();
 			account._characterSlot = account.getCharacterSlot();
-			_log.fine("Update CharacterSlot For : " + account.getName());
+			_log.fine("Update CharacterSlot for: " + account.getName());
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {

@@ -84,28 +84,28 @@ public class C_LoginToServer extends ClientBasePacket {
 		String charName = readS();
 
 		if (client.getActiveChar() != null) {
-			_log.info("Invalid Character LoggedIn From " + client.getHostname() + ".");
+			_log.info("Invalid character logged in from " + client.getHostname() + ".");
 			client.close();
 			return;
 		}
 
 		L1PcInstance pc = L1PcInstance.load(charName);
 		if (pc == null || !login.equals(pc.getAccountName())) {
-			_log.info("Invalid Login Request=" + charName + " account=" + login + " host=" + client.getHostname());
+			_log.info("Invalid login request=" + charName + " account=" + login + " host=" + client.getHostname());
 			client.close();
 			return;
 		}
 
 		if (Config.LEVEL_DOWN_RANGE != 0) {
 			if (pc.getHighLevel() - pc.getLevel() >= Config.LEVEL_DOWN_RANGE) {
-				_log.info("Login request of the character Which Exceeded: char="
-				+ charName + " account = " + login + " host = " + client.getHostname());
+				_log.info("Login request of the character which exceeded: char="
+				+ charName + " account=" + login + " host=" + client.getHostname());
 				client.kick();
 				return;
 			}
 		}
 		
-		_log.info("Character Login : char = " + charName + " account=" + login + " host = " + client.getHostname());
+		_log.info("Character login: char=" + charName + " account=" + login + " host=" + client.getHostname());
 
 		int currentHpAtLoad = pc.getCurrentHp();
 		int currentMpAtLoad = pc.getCurrentMp();

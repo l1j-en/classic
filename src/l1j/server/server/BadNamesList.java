@@ -59,11 +59,11 @@ public class BadNamesList {
 				_nameList.add(st.nextToken());
 			}
 
-			_log.config("loaded " + _nameList.size() + " BadNames");
+			_log.config("Loaded " + _nameList.size() + " bad names.");
 		} catch (FileNotFoundException e) {
-			_log.warning("badnames.txt is missing in data folder");
+			_log.warning("badnames.txt is missing in data folder.");
 		} catch (Exception e) {
-			_log.warning("error while loading bad names list : " + e);
+			_log.warning("Error while loading bad names list: " + e);
 		} finally {
 			StreamUtil.close(lnr);
 		}

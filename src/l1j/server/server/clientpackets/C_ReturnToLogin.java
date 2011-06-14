@@ -32,7 +32,7 @@ public class C_ReturnToLogin extends ClientBasePacket {
 	public C_ReturnToLogin(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();
-		_log.finest((new StringBuilder()).append("Account : ").append(account).toString());
+		_log.finest((new StringBuilder()).append("Account: ").append(account).toString());
 		LoginController.getInstance().logout(client);
 	}
 

@@ -189,7 +189,7 @@ public class GameServer extends Thread {
 		 System.gc(); 	
 
 		int maxOnlineUsers = Config.MAX_ONLINE_USERS;
-		System.out.println("Max Online Users : " + (maxOnlineUsers));
+		System.out.println("Max online users : " + (maxOnlineUsers));
 		IdFactory.getInstance();
 		L1WorldMap.getInstance();
 		_loginController = LoginController.getInstance();
@@ -292,7 +292,7 @@ public class GameServer extends Thread {
 		NpcChatTable.getInstance();
 		LightSpawnTable.getInstance();
 		MailTable.getInstance();
-		System.out.println("Database Tables Loaded Successfully!");
+		System.out.println("Database tables loaded successfully!");
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		this.start();
 	}
@@ -325,15 +325,15 @@ public class GameServer extends Thread {
 			L1World world = L1World.getInstance();
 			try {
 				int secondsCount = _secondsCount;
-				world.broadcastServerMessage("Get To A Safe Spot. The Server Will Restart Soon!");
-				world.broadcastServerMessage("Repeat, The Server Is Going Down For Maintanence Soon!");
+				world.broadcastServerMessage("Get to a safe spot. The server will restart soon!");
+				world.broadcastServerMessage("Repeat, the server is going down for maintanence soon!");
 				while (0 < secondsCount) {
 					if (secondsCount <= 10) {
-						world.broadcastServerMessage("Server Will Shutdown In " + secondsCount
-						+ " Seconds.  Please Get To A Safe Area And Logout.");
+						world.broadcastServerMessage("Server will shutdown in " + secondsCount
+						+ " seconds.  Please get to a safe area and logout.");
 					} else {
 						if (secondsCount % 60 == 0) {
-							world.broadcastServerMessage("Server will shutdown in " + secondsCount / 60 + " Minutes.");
+							world.broadcastServerMessage("Server will shutdown in " + secondsCount / 60 + " minutes.");
 						}
 					}
 					Thread.sleep(1000);
@@ -341,7 +341,7 @@ public class GameServer extends Thread {
 				}
 				shutdown();
 			} catch (InterruptedException e) {
-				world.broadcastServerMessage("Server Shutdown Aborted! You May Continue Playing!");
+				world.broadcastServerMessage("Server shutdown aborted! You may continue playing!");
 				return;
 			}
 		}

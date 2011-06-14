@@ -81,7 +81,7 @@ public class HomeTownTimeController {
 	}
 
 	public void dailyProc() {
-		_log.info("Running Daily Update For Tax And Sales Money.");
+		_log.info("Running daily update for tax and sales money.");
 		TownTable.getInstance().updateTaxRate();
 		TownTable.getInstance().updateSalesMoneyYesterday();
 		TownTable.getInstance().load();

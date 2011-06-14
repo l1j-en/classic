@@ -60,7 +60,7 @@ public class Announcements {
 		if (file.exists()) {
 			readFromDisk(file);
 		} else {
-			_log.config("data/announcements.txt Doesn't Exist");
+			_log.config("data/announcements.txt doesn't exist.");
 		}
 	}
 
@@ -85,7 +85,7 @@ public class Announcements {
 					i++;
 				}
 			}
-			_log.config("Notification " + i + " Read.");
+			_log.config("Notification " + i + " read.");
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -105,7 +105,7 @@ public class Announcements {
 				save.write("\r\n");
 			}
 		} catch (IOException e) {
-			_log.log(Level.SEVERE, "Saving The Announcements File Has Failed",
+			_log.log(Level.SEVERE, "Saving the announcements file has failed.",
 					e);
 		} finally {
 			StreamUtil.close(save);

@@ -471,7 +471,7 @@ public final class Config {
 	public static int Show_INGAMENEWS_Time;
 
 	public static void load() {
-		System.out.println("Loading Gameserver Config.");
+		System.out.println("Loading GameServer config.");
 		// server.properties
 		try {
 			Properties serverSettings = new Properties();
@@ -528,11 +528,11 @@ public final class Config {
 			DETECT_DB_RESOURCE_LEAKS = Boolean.parseBoolean(serverSettings.getProperty("EnableDatabaseResourceLeaksDetection", "False"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			throw new Error("Failed to Load " + SERVER_CONFIG_FILE + " File.");
+			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
 		}
 
 		// rates.properties
-		System.out.println("Loading Rates Config.");
+		System.out.println("Loading Rates config.");
 		try {
 			Properties rateSettings = new Properties();
 			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
@@ -578,11 +578,11 @@ public final class Config {
 			RATE_WEIGHT_LIMIT_ORG=RATE_WEIGHT_LIMIT;
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			throw new Error("Failed to Load " + RATES_CONFIG_FILE + " File.");
+			throw new Error("Failed to load " + RATES_CONFIG_FILE + " file.");
 		}
 
 		// altsettings.properties
-		System.out.println("Loading AltSettings Config.");
+		System.out.println("Loading AltSettings config.");
 		try {
 			Properties altSettings = new Properties();
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
@@ -663,11 +663,11 @@ public final class Config {
 			DEFAULT_CHARACTER_SLOT = Integer.parseInt(altSettings.getProperty("DefaultCharacterSlot", "6"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
+			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");
 		}
 
 		// charsettings.properties
-		System.out.println("Loading CharSettings Config.");
+		System.out.println("Loading CharSettings config.");
 		try {
 			Properties charSettings = new Properties();
 			InputStream is = new FileInputStream(new File(CHAR_SETTINGS_CONFIG_FILE));
@@ -740,9 +740,9 @@ public final class Config {
 			LV99_EXP = Integer.parseInt(charSettings.getProperty("Lv99Exp", "16777216"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			throw new Error("Failed to Load " + CHAR_SETTINGS_CONFIG_FILE + " File.");
+			throw new Error("Failed to load " + CHAR_SETTINGS_CONFIG_FILE + " file.");
 		}
-		System.out.println("Loading PcCommandSettings Config.");
+		System.out.println("Loading PcCommandSettings config.");
 		try {
 			Properties pcommandSettings = new Properties();
 			InputStream is = new FileInputStream(new File(PCOMMANDS_SETTINGS_FILE));
@@ -755,7 +755,7 @@ public final class Config {
 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			throw new Error("Failed to Load " + PCOMMANDS_SETTINGS_FILE	+ " File.");
+			throw new Error("Failed to load " + PCOMMANDS_SETTINGS_FILE	+ " file.");
 		}
 		validate();
 	}

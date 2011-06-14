@@ -121,7 +121,7 @@ public class PCommands {
 				}
 			}
 		} else {
-			_player.sendPackets(new S_SystemMessage("Buff Command Is Disabled."));
+			_player.sendPackets(new S_SystemMessage("Buff command is disabled."));
 		}	
 	}
 
@@ -203,7 +203,7 @@ public class PCommands {
 					_player.sendPackets(new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern"));
 			}
 		} else{
-			_player.sendPackets(new S_SystemMessage("You Cannot Warp In Your Current State."));
+			_player.sendPackets(new S_SystemMessage("You cannot warp in your current state."));
 		}
 	}
 
@@ -235,7 +235,7 @@ public class PCommands {
 	}
 
 	private void checkKarma(L1PcInstance pc){
-		pc.sendPackets(new S_SystemMessage("Your karma Is Currently: " + pc.getKarma()));
+		pc.sendPackets(new S_SystemMessage("Your karma is currently: " + pc.getKarma()));
 	
 	}
 }

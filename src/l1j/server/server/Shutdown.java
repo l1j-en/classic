@@ -275,12 +275,12 @@ public class Shutdown extends Thread {
 			break;
 
 		}
-		_an.announceToAll("Server is " + _modeText[shutdownMode] + " NOW! bye bye");
+		_an.announceToAll("Server is " + _modeText[shutdownMode] + " NOW!  Bye.");
 
 		// we cannt abort shutdown anymore, so i removed the "if"
 		GameServer.getInstance().disconnectAllCharacters();
 
-		System.err.println("Data Saved. All Players Disconnected, Shutting Down.");
+		System.err.println("Data saved. All players disconnected, shutting down.");
 		try {
 			int delay = 500;
 			Thread.sleep(delay);

@@ -49,7 +49,7 @@ public class Server {
 			LogManager.getLogManager().readConfiguration(is);
 			is.close();
 		} catch (IOException e) {
-			_log.log(Level.SEVERE, "Failed to Load " + LOG_PROP + " File.", e);
+			_log.log(Level.SEVERE, "Failed to load " + LOG_PROP + " file.", e);
 			System.exit(0);
 		}
 		try {
@@ -71,11 +71,11 @@ public class Server {
 		if ( Config.TELNET_SERVER )
 		{
 			TelnetServer.getInstance().start();
-			System.out.println("Telnet Server Initialized.");
+			System.out.println("Telnet server initialized.");
 		}
 		else
 		{
-		    _log.info("Telnet Server Is Currently Disabled.");
+		    _log.info("Telnet server is currently disabled.");
 		}
 	}
 }

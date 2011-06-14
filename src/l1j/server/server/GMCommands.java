@@ -106,7 +106,7 @@ public class GMCommands {
 			redo(gm, param);
 			return;
 		}
-		gm.sendPackets(new S_SystemMessage("The command " + cmd + " Doesn't Exist."));
+		gm.sendPackets(new S_SystemMessage("The command " + cmd + " doesn't exist."));
 	}
 
 	private static Map<Integer, String> _lastCommands = new HashMap<Integer, String>();

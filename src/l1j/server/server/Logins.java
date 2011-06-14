@@ -35,7 +35,7 @@ public class Logins {
 
 	public static boolean loginValid(String account, String password, String ip, String host) {
 		boolean flag1 = false;
-		_log.info("Connection From: " + account);
+		_log.info("Connection from: " + account);
 
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -54,7 +54,7 @@ public class Logins {
 			rs = pstm.executeQuery();
 			if (rs.next()) {
 				abyte2 = Base64.decode(rs.getString(1));
-				_log.fine("Account Exists");
+				_log.fine("Account exists");
 			}
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -71,10 +71,10 @@ public class Logins {
 					pstm.setString(5, ip);
 					pstm.setString(6, host);
 					pstm.execute();
-					_log.info("Created New Account For " + account);
+					_log.info("Created new account for " + account);
 					return true;
 				} else {
-					_log.warning("Account Missing For User " + account);
+					_log.warning("Account missing for user " + account);
 					return false;
 				}
 			}
@@ -93,7 +93,7 @@ public class Logins {
 					i++;
 				} while (true);
 			} catch (Exception e) {
-				_log.warning("Could Not Check Password: " + e);
+				_log.warning("Could not check password: " + e);
 				flag1 = false;
 			}
 		} catch (SQLException e) {

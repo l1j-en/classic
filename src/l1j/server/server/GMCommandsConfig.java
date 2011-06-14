@@ -132,7 +132,7 @@ public class GMCommandsConfig {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "GMCommands.xml Failed To Load", e);
+			_log.log(Level.SEVERE, "GMCommands.xml failed to load", e);
 		}
 	}
 }
