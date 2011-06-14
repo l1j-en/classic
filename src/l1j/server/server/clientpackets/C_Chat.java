@@ -84,6 +84,37 @@ public class C_Chat extends ClientBasePacket {
 				return;
 			}
 
+			// Cheap hack to fix shouting.  The client insists that ! chat is of chatType 0.
+			// This is a (hopefully temporary) workaround that provides shouting via !!.
+			if (chatText.startsWith("!")) {
+				if (pc.isGhost()) {
+					return;
+				}
+				chatText = chatText.substring(1, chatText.length());
+				ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);
+				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_NORMALCHAT, 2);
+				if (!pc.getExcludingList().contains(pc.getName())) {
+					pc.sendPackets(s_chatpacket);
+				}
+				for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(pc, 50)) {
+					if (!listner.getExcludingList().contains(pc.getName())) {
+						listner.sendPackets(s_chatpacket);
+					}
+				}
+
+				for (L1Object obj : pc.getKnownObjects()) {
+					if (obj instanceof L1MonsterInstance) {
+						L1MonsterInstance mob = (L1MonsterInstance) obj;
+						if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName())) {
+							for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(mob, 50)) {
+								listner.sendPackets(new S_NpcChatPacket(mob, chatText, 2));
+							}
+						}
+					}
+				}
+				return;
+			}
+
 			ChatLogTable.getInstance().storeChat(pc, null, chatText,chatType);
 			S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_NORMALCHAT, 0);
 			
