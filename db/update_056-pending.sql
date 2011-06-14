@@ -2869,3 +2869,20 @@ UPDATE weapon SET unidentified_name_id = '$10091', identified_name_id = '$10091'
 -- ALTERED DATA
 
 update shop set selling_price = 1 where selling_price = 0;
+
+-- Valakas update
+
+-- Update to fix errors on startup due to missing Treasurebox items
+insert into etcitem values (49268,'Portrait of Emai','$4831','$4831','questitem','normal','paper',5000,2440,4355,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1);
+insert into etcitem values (49269,'Portrait of Esem','$4847','$4847','questitem','normal','paper',5000,2443,4355,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1);
+insert into etcitem values (49143,'Crystal of Bravery','$5786','$5786','gem','normal','gemstone',1000,2977,6455,3292,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (49281,'Spell Scroll (Enchant Mighty)','$1487 $1462','$1487 $1462','scroll','spell_buff','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into etcitem values (49282,'Spell Scroll (Bless Weapon)','$1487 $1985','$1487 $1985','scroll','spell_buff','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into etcitem values (49283,'Spell Scroll (Heal Pledge)','$1487 $1466','$1487 $1466','scroll','normal','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into etcitem values (49284,'Spell Scroll (Holywalk)','$1487 $1469','$1487 $1469','scroll','normal','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into etcitem values (49285,'Spell Scroll (Greater Haste)','$1487 $1976','$1487 $1976','scroll','normal','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into etcitem values (49286,'Spell Scroll (Full Heal)','$1487 $1471','$1487 $1471','scroll','spell_buff','paper',630,863,22,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5,1800,0,0,0);
+insert into weapon values (265,'Edoryu of Thebes Osiris','$5718','$5718','edoryu','gold',30000,3049,6957,3263,16,11,1,6,0,0,0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,30,0,0,0,0,1,0,0,0);
+insert into weapon values (266,'Two-handed Sword of Thebes Osiris','$5719','$5719','tohandsword','gold',100000,3047,6956,3264,21,26,1,6,1,1,0,0,0,1,0,5,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0);
+insert into weapon values (267,'Bow of Thebes Osiris','$5720','$5720','bow','gold',5000,3053,6959,3265,3,3,-1,6,0,0,0,1,0,0,0,0,1,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0);
+insert into weapon values (268,'Staff of Thebes Osiris','$5721','$5721','tohandstaff','gold',5000,3051,6958,3266,20,18,1,6,0,0,1,0,0,0,1,0,3,2,0,0,0,0,0,0,0,0,7,2,0,0,0,0,0,0,0,1,0,0,0);
