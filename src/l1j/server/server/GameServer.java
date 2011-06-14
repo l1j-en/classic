@@ -86,12 +86,12 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Server Started. Memory Used: " + SystemUtil.getUsedMemoryMB() + " MB");
-		System.out.println("Waiting For Connections!");
+		System.out.println("Server started. Memory used: " + SystemUtil.getUsedMemoryMB() + "MB");
+		System.out.println("Waiting for connections!");
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
-				System.out.println("Accepted Connection From Ip : "+ socket.getInetAddress());
+				System.out.println("Accepted connection from IP: "+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 				if (IpTable.getInstance().isBannedIp(host)) {
 					_log.info("Banned IP(" + host + ")");
@@ -326,7 +326,7 @@ public class GameServer extends Thread {
 			try {
 				int secondsCount = _secondsCount;
 				world.broadcastServerMessage("Get to a safe spot. The server will restart soon!");
-				world.broadcastServerMessage("Repeat, the server is going down for maintanence soon!");
+				world.broadcastServerMessage("Repeat, the server is going down for maintenance soon!");
 				while (0 < secondsCount) {
 					if (secondsCount <= 10) {
 						world.broadcastServerMessage("Server will shutdown in " + secondsCount
@@ -341,7 +341,7 @@ public class GameServer extends Thread {
 				}
 				shutdown();
 			} catch (InterruptedException e) {
-				world.broadcastServerMessage("Server shutdown aborted! You may continue playing!");
+				world.broadcastServerMessage("Server shutdown aborted!  You may continue playing!");
 				return;
 			}
 		}
