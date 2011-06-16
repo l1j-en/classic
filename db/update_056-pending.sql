@@ -2424,7 +2424,7 @@ INSERT INTO `npc` VALUES
 (81238, '', '$1554', 'summon eternal', 'L1Monster', 2389, 58, 1000, 100, -30, 20, 19, 18, 15, 17, 80, 0, 0, 'small', 0, 1, 0, 1040, 1440, 0, 1440, 1440, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 5000, 15, 5000, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0),
 (81239, '', '$2106', 'summon eternal', 'L1Monster', 2402, 58, 1000, 100, -65, 30, 20, 12, 17, 18, 60, 0, 0, 'large', 2, 1, 0, 960, 1520, 0, 1520, 1520, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 5000, 15, 5000, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 1),
 (81240, '', '$2587', 'summon eternal', 'L1Monster', 3049, 63, 1000, 400, -65, 65, 20, 63, 8, 20, 75, 0, 0, 'large', 0, 1, 0, 480, 440, 1560, 440, 440, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 5000, 20, 5000, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0),
-(71251, 'Lolo', '$5590', '', 'L1Merchant', 6768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 1, 0);
+(71251, 'ÂƒÂ�ÂƒÂ�Lolo', '$5590', '', 'L1Merchant', 6768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 1, 0);
 
 -- npcaction
 INSERT INTO `npcaction` VALUES
@@ -3255,3 +3255,8 @@ UPDATE weapon SET unidentified_name_id = 'Eva\'s Scorn', identified_name_id = 'E
 UPDATE weapon SET unidentified_name_id = '$2449 $2453', identified_name_id = '$2449 $2453' WHERE item_id = 81;
 UPDATE weapon SET unidentified_name_id = '$372 $2453', identified_name_id = '$372 $2453' WHERE item_id = 162;
 UPDATE weapon SET unidentified_name_id = '$2451 $2453', identified_name_id = '$2451 $2453' WHERE item_id = 177;
+
+update npc set name = 'Polly' where npcid = 70035;
+update npc set name = 'Secil' where npcid = 70042;
+update npc set nameid = 'Polly' where npcid = 70035;
+update npc set nameid = 'Secil' where npcid = 70042;
