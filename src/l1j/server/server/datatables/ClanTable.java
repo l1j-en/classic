@@ -36,14 +36,10 @@ import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class ClanTable {
 
 	private static Logger _log = Logger.getLogger(ClanTable.class.getName());
-
-	private final HashMap<Integer, L1Clan> _clans
-			= new HashMap<Integer, L1Clan>();
-
+	private final HashMap<Integer, L1Clan> _clans = new HashMap<Integer, L1Clan>();
 	private static ClanTable _instance;
 
 	public static ClanTable getInstance() {
@@ -61,13 +57,10 @@ public class ClanTable {
 
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con
-						.prepareStatement("SELECT * FROM clan_data ORDER BY clan_id");
-
+				pstm = con.prepareStatement("SELECT * FROM clan_data ORDER BY clan_id");
 				rs = pstm.executeQuery();
 				while (rs.next()) {
 					L1Clan clan = new L1Clan();
-					// clan.SetClanId(clanData.getInt(1));
 					int clan_id = rs.getInt(1);
 					clan.setClanId(clan_id);
 					clan.setClanName(rs.getString(2));
@@ -75,7 +68,6 @@ public class ClanTable {
 					clan.setLeaderName(rs.getString(4));
 					clan.setCastleId(rs.getInt(5));
 					clan.setHouseId(rs.getInt(6));
-
 					L1World.getInstance().storeClan(clan);
 					_clans.put(clan_id, clan);
 				}
@@ -97,13 +89,12 @@ public class ClanTable {
 
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE ClanID = ?");
+				pstm = con.prepareStatement("SELECT char_name FROM characters WHERE ClanID = ?");
 				pstm.setInt(1, clan.getClanId());
 				rs = pstm.executeQuery();
 
 				while (rs.next()) {
-					clan.addMemberName(rs.getString(1));
+				clan.addMemberName(rs.getString(1));
 				}
 			} catch (SQLException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -132,14 +123,12 @@ public class ClanTable {
 		clan.setLeaderName(player.getName());
 		clan.setCastleId(0);
 		clan.setHouseId(0);
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO clan_data SET clan_id=?, clan_name=?, leader_id=?, leader_name=?, hascastle=?, hashouse=?");
+			pstm = con.prepareStatement("INSERT INTO clan_data SET clan_id=?, clan_name=?, leader_id=?, leader_name=?, hascastle=?, hashouse=?");
 			pstm.setInt(1, clan.getClanId());
 			pstm.setString(2, clan.getClanName());
 			pstm.setInt(3, clan.getLeaderId());
@@ -153,10 +142,8 @@ public class ClanTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-
 		L1World.getInstance().storeClan(clan);
 		_clans.put(clan.getClanId(), clan);
-
 		player.setClanid(clan.getClanId());
 		player.setClanname(clan.getClanName());
 		player.setClanRank(L1Clan.CLAN_RANK_PRINCE);
@@ -175,8 +162,7 @@ public class ClanTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE clan_data SET clan_id=?, leader_id=?, leader_name=?, hascastle=?, hashouse=? WHERE clan_name=?");
+			pstm = con.prepareStatement("UPDATE clan_data SET clan_id=?, leader_id=?, leader_name=?, hascastle=?, hashouse=? WHERE clan_name=?");
 			pstm.setInt(1, clan.getClanId());
 			pstm.setInt(2, clan.getLeaderId());
 			pstm.setString(3, clan.getLeaderName());
@@ -199,10 +185,10 @@ public class ClanTable {
 		}
 		Connection con = null;
 		PreparedStatement pstm = null;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("DELETE FROM clan_data WHERE clan_name=?");
+			pstm = con.prepareStatement("DELETE FROM clan_data WHERE clan_name=?");
 			pstm.setString(1, clan_name);
 			pstm.execute();
 		} catch (SQLException e) {
@@ -213,7 +199,6 @@ public class ClanTable {
 		}
 		clan.getDwarfForClanInventory().clearItems();
 		clan.getDwarfForClanInventory().deleteAllItems();
-
 		L1World.getInstance().removeClan(clan);
 		_clans.remove(clan.getClanId());
 	}
@@ -221,5 +206,4 @@ public class ClanTable {
 	public L1Clan getTemplate(int clan_id) {
 		return _clans.get(clan_id);
 	}
-
 }

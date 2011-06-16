@@ -31,11 +31,9 @@ import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class BoardTable {
 
 	private static Logger _log = Logger.getLogger(BoardTable.class.getName());
-
 	private static BoardTable _instance;
 
 	private BoardTable() {
@@ -58,22 +56,18 @@ public class BoardTable {
 		PreparedStatement pstm2 = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con
-					.prepareStatement("SELECT * FROM board ORDER BY id DESC");
+			pstm1 = con.prepareStatement("SELECT * FROM board ORDER BY id DESC");
 			rs = pstm1.executeQuery();
 			if (rs.next()) {
 				count = rs.getInt("id");
 			}
-
-			pstm2 = con
-					.prepareStatement("INSERT INTO board SET id=?, name=?, date=?, title=?, content=?");
+			pstm2 = con.prepareStatement("INSERT INTO board SET id=?, name=?, date=?, title=?, content=?");
 			pstm2.setInt(1, (count + 1));
 			pstm2.setString(2, pc.getName());
 			pstm2.setString(3, date);
 			pstm2.setString(4, title);
 			pstm2.setString(5, content);
 			pstm2.execute();
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -87,8 +81,8 @@ public class BoardTable {
 	public void deleteTopic(int number) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		try {
 
+		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("DELETE FROM board WHERE id=?");
 			pstm.setInt(1, number);
@@ -100,5 +94,4 @@ public class BoardTable {
 			SQLUtil.close(con);
 		}
 	}
-
 }

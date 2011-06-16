@@ -23,9 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,13 +36,10 @@ import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class CastleTable {
 
 	private static Logger _log = Logger.getLogger(CastleTable.class.getName());
-
 	private static CastleTable _instance;
-
 	private final Map<Integer, L1Castle> _castles = new ConcurrentHashMap<Integer, L1Castle>();
 
 	public static CastleTable getInstance() {
@@ -76,11 +71,9 @@ public class CastleTable {
 
 			while (rs.next()) {
 				L1Castle castle = new L1Castle(rs.getInt(1), rs.getString(2));
-				castle.setWarTime(timestampToCalendar((Timestamp) rs
-						.getObject(3)));
+				castle.setWarTime(timestampToCalendar((Timestamp) rs.getObject(3)));
 				castle.setTaxRate(rs.getInt(4));
 				castle.setPublicMoney(rs.getInt(5));
-
 				_castles.put(castle.getId(), castle);
 			}
 		} catch (SQLException e) {
@@ -105,28 +98,15 @@ public class CastleTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE castle SET name=?, war_time=?, tax_rate=?, public_money=? WHERE castle_id=?");
+			pstm = con.prepareStatement("UPDATE castle SET name=?, war_time=?, tax_rate=?, public_money=? WHERE castle_id=?");
 			pstm.setString(1, castle.getName());
-			//String fm = DateFormat.getDateTimeInstance().format(
-			//		castle.getWarTime().getTime());
-			//pstm.setString(2, fm);
-			// TODO: change this to assign proper datetime objects to the query so the driver can handle the date conversion
-			SimpleDateFormat format =
-	            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat parse =
-	            new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
-			try {
-				String dateString = format.format(parse.parse(castle.getWarTime().getTime().toString()));
-				pstm.setString(2, dateString);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //this format saves and updates the time of your system for castletable
+			String dateString = format.format(castle.getWarTime().getTime());
+			pstm.setString(2, dateString);
 			pstm.setInt(3, castle.getTaxRate());
 			pstm.setInt(4, castle.getPublicMoney());
 			pstm.setInt(5, castle.getId());
 			pstm.execute();
-
 			_castles.put(castle.getId(), castle);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -135,5 +115,4 @@ public class CastleTable {
 			SQLUtil.close(con);
 		}
 	}
-
 }
