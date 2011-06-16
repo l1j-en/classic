@@ -53,8 +53,6 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final int[] ORIGINAL_INT = new int[] { 10, 8, 12, 12, 11, 11, 12 };
 	private static final int[] ORIGINAL_AMOUNT = new int[] { 8, 4, 7, 16, 10, 6, 10 };
 
-	private static final String CLIENT_LANGUAGE_CODE = Config.CLIENT_LANGUAGE_CODE;
-
 	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
@@ -235,7 +233,7 @@ public class C_CreateChar extends ClientBasePacket {
 	private static boolean isInvalidName(String name) {
 		int numOfNameBytes = 0;
 		try {
-			numOfNameBytes = name.getBytes(CLIENT_LANGUAGE_CODE).length;
+			numOfNameBytes = name.getBytes("UTF-8").length;
 		} catch (UnsupportedEncodingException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			return false;

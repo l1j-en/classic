@@ -18,14 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.Config;
 import l1j.server.server.Opcodes;
 
 public class S_ServerVersion extends ServerBasePacket {
+	
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
-
-	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
-
 /*
  * main.Server -> main.Client [ opc.116 len.32 ] 0.050ms
  * ##########################################################################
@@ -73,7 +70,7 @@ public class S_ServerVersion extends ServerBasePacket {
 
 		// Country
 		// 0.US 3.Taiwan 4.Janpan 5.China
-		writeC(CLIENT_LANGUAGE);
+		writeC(0x00);
 	}
 
 	@Override

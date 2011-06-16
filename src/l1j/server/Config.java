@@ -64,10 +64,6 @@ public final class Config {
 
 	public static int CLIENT_LANGUAGE;
 
-	public static String CLIENT_LANGUAGE_CODE;
-
-	public static String[] LANGUAGE_CODE_ARRAY = { "UTF-8", "EUCKR", "UTF8", "BIG5", "SJIS", "GBK" };
-
 	public static boolean HOSTNAME_LOOKUPS;
 
 	public static int AUTOMATIC_KICK;
@@ -487,8 +483,6 @@ public final class Config {
 			PASSWORD_SALT = serverSettings.getProperty("PasswordSalt", "");
 			THREAD_P_TYPE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolType", "0"), 10);
 			THREAD_P_SIZE_GENERAL = Integer.parseInt(serverSettings.getProperty("GeneralThreadPoolSize", "0"), 10);
-			CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty("ClientLanguage", "0"));
-			CLIENT_LANGUAGE_CODE = LANGUAGE_CODE_ARRAY[CLIENT_LANGUAGE];
 			TIME_ZONE = serverSettings.getProperty("TimeZone", "EST");
 			HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostnameLookups", "False"));
 			AUTOMATIC_KICK = Integer.parseInt(serverSettings.getProperty("AutomaticKick", "10"));

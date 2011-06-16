@@ -93,10 +93,10 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0xb1, (byte) 0x3c, (byte) 0x2c, (byte) 0x28,
 	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
 	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
-	private static final byte[] FIRST_PACKET = { // 3.0
-	(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d,
-	(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00,
-	(byte) 0x02, (byte) 0x08, (byte) 0x00 };
+	 private static final byte[] FIRST_PACKET = { // 3.3C Taiwan Server          
+(byte) 0x65, (byte) 0xb6, (byte) 0xbd, (byte) 0x65, (byte) 0xcc,                          
+(byte) 0xd0, (byte) 0x7e, (byte) 0x53, (byte) 0x2e, (byte) 0xfa,                         
+(byte) 0xc1 };
 
 	/**
 	 * for Test
