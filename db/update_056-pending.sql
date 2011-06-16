@@ -4,6 +4,11 @@
 -- The order of the sections isn't important, but the order WITHIN each
 -- section is.  Please don't move things around
 
+-- From this point if we could put new changes at the bottom of the file
+-- and ignore the sections I created that would be great.
+-- Its selfish of me, but I'm running live on this now and it'll make it easier
+-- for me to apply future updates between now and the final version
+
 -- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE
 
 -- Queries that are pending an update should be placed here. This allows them 
@@ -2886,3 +2891,14 @@ insert into weapon values (265,'Edoryu of Thebes Osiris','$5718','$5718','edoryu
 insert into weapon values (266,'Two-handed Sword of Thebes Osiris','$5719','$5719','tohandsword','gold',100000,3047,6956,3264,21,26,1,6,1,1,0,0,0,1,0,5,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0);
 insert into weapon values (267,'Bow of Thebes Osiris','$5720','$5720','bow','gold',5000,3053,6959,3265,3,3,-1,6,0,0,0,1,0,0,0,0,1,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0);
 insert into weapon values (268,'Staff of Thebes Osiris','$5721','$5721','tohandstaff','gold',5000,3051,6958,3266,20,18,1,6,0,0,1,0,0,0,1,0,3,2,0,0,0,0,0,0,0,0,7,2,0,0,0,0,0,0,0,1,0,0,0);
+
+-- fix some migration issues
+UPDATE armor p, character_items pp
+SET pp.bless = p.bless
+WHERE pp.item_id = p.item_id;
+UPDATE weapon p, character_items pp
+SET pp.bless = p.bless
+WHERE pp.item_id = p.item_id;
+UPDATE etcitem p, character_items pp
+SET pp.bless = p.bless
+WHERE pp.item_id = p.item_id;
