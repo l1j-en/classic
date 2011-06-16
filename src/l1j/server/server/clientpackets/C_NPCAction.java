@@ -1492,29 +1492,22 @@ public class C_NPCAction extends ClientBasePacket {
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70512) {
 			if (s.equalsIgnoreCase("0") || s.equalsIgnoreCase("fullheal")) {
-				int hp = _random.nextInt(21) + 70;
+				int hp = _random.nextInt(30) + 70;
 				pc.setCurrentHp(pc.getCurrentHp() + hp);
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-				pc
-						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
-								.getMaxHp()));
-				htmlid = ""; // EBhE
+				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+				htmlid = "";
 			}
 		}
-		// tiPFHPMPj
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71037) {
 			if (s.equalsIgnoreCase("0")) {
 				pc.setCurrentHp(pc.getMaxHp());
 				pc.setCurrentMp(pc.getMaxMp());
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-				pc
-						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
-								.getMaxHp()));
-				pc
-						.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-								.getMaxMp()));
+				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71030) {
@@ -1525,10 +1518,8 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.setCurrentMp(pc.getMaxMp());
 					pc.sendPackets(new S_ServerMessage(77));
 					pc.sendPackets(new S_SkillSound(pc.getId(), 830));
-					pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
-							.getMaxHp()));
-					pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-							.getMaxMp()));
+					pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+					pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 					if (pc.isInParty()) {
 						pc.getParty().updateMiniHP(pc);
 					}
@@ -1541,9 +1532,7 @@ public class C_NPCAction extends ClientBasePacket {
 			if (s.equalsIgnoreCase("0")) {
 				if (pc.getLevel() <= 13) {
 					L1SkillUse skillUse = new L1SkillUse();
-					skillUse.handleCommands(pc, CANCELLATION, pc
-							.getId(), pc.getX(), pc.getY(), null, 0,
-							L1SkillUse.TYPE_NPCBUFF, (L1NpcInstance) obj);
+					skillUse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(), pc.getY(), null, 0, L1SkillUse.TYPE_NPCBUFF, (L1NpcInstance) obj);
 					htmlid = ""; 
 				}
 			}
@@ -1551,19 +1540,15 @@ public class C_NPCAction extends ClientBasePacket {
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71025) {
 			if (s.equalsIgnoreCase("0")) {
 				L1ItemInstance item = pc.getInventory().storeItem(41225, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
-						item.getItem().getName()));
+				pc.sendPackets(new S_ServerMessage(143, ((L1NpcInstance) obj).getNpcTemplate().get_name(), item.getItem().getName()));
 				htmlid = "jpe0083";
 			}
 		}
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71055) {
 			if (s.equalsIgnoreCase("0")) {
 				L1ItemInstance item = pc.getInventory().storeItem(40701, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
-						item.getItem().getName()));
-						pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 1);
+				pc.sendPackets(new S_ServerMessage(143, ((L1NpcInstance) obj).getNpcTemplate().get_name(), item.getItem().getName()));
+				pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 1);
 				htmlid = "lukein8";
 			} else if (s.equalsIgnoreCase("2")) {
 				htmlid = "lukein12";
@@ -1582,11 +1567,11 @@ public class C_NPCAction extends ClientBasePacket {
 				int pid = _random.nextInt(nextbox.length);
 				int nb = nextbox[pid];
 				if (nb == 1) { 
-					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 2);
+				pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 2);
 				} else if (nb == 2) { 
-					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 3);
+				pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 3);
 				} else if (nb == 3) { 
-					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 4);
+				pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 4);
 				}
 			}
 		}
@@ -3852,11 +3837,11 @@ public class C_NPCAction extends ClientBasePacket {
 
 		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 			if (door.getKeeperId() == keeperId) {
-				if (isNowWar && door.getMaxHp() > 1) { //
+				if (isNowWar && door.getMaxHp() > 1) {
 				} else {
-					if (isOpen) { //
+					if (isOpen) {
 						door.open();
-					} else { //
+					} else {
 						door.close();
 					}
 				}
