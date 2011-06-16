@@ -24,7 +24,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_ChatPacket extends ServerBasePacket {
 
 	private static Logger _log = Logger.getLogger(S_ChatPacket.class.getName());

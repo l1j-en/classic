@@ -430,7 +430,4 @@ public class Opcodes {
 	public static final int S_OPCODE_MOVEOBJECT = 126;
 
 	public static final int S_OPCODE_MAIL = 127;
-
-
-
 }

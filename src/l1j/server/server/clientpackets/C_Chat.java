@@ -92,7 +92,7 @@ public class C_Chat extends ClientBasePacket {
 				}
 				chatText = chatText.substring(1, chatText.length());
 				ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);
-				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_NORMALCHAT, 2);
+				S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_NPCSHOUT, 2);
 				if (!pc.getExcludingList().contains(pc.getName())) {
 					pc.sendPackets(s_chatpacket);
 				}
