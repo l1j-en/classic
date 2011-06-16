@@ -3260,3 +3260,8 @@ update npc set name = 'Polly' where npcid = 70035;
 update npc set name = 'Secil' where npcid = 70042;
 update npc set nameid = 'Polly' where npcid = 70035;
 update npc set nameid = 'Secil' where npcid = 70042;
+
+-- Turtle Island
+update mapids set locationname = 'Turtle Island' where mapid = 701;
+INSERT INTO `etcitem` VALUES ('240102', 'turtle island scroll', '$230 - Turtle Island Scroll', '$230 - Turtle Island Scroll', 'scroll', 'normal', 'paper', '0', '1813', '22', '0', '0', '0', '0', '0', '0', '0', '32790', '32766', '701', '1', '0', '0', '0', '4', '150', '0', '0', '0');
+INSERT INTO `shop` VALUES ('70014',0 , '240102', 0, '46', '10000', '1', '1200');
