@@ -2368,10 +2368,8 @@ public class L1PcInstance extends L1Character {
 		}
 
 		for (int i = 0; i < gap; i++) {
-			short randomHp = CalcStat.calcStatHp(getType(), getBaseMaxHp(),
-					getBaseCon(), getOriginalHpup());
-			short randomMp = CalcStat.calcStatMp(getType(), getBaseMaxMp(),
-					getBaseWis(), getOriginalMpup());
+			short randomHp = CalcStat.calcStatHp(getType(), getBaseMaxHp(), getBaseCon(), getOriginalHpup());
+			short randomMp = CalcStat.calcStatMp(getType(), getBaseMaxMp(), getBaseWis(), getOriginalMpup());
 			addBaseMaxHp(randomHp);
 			addBaseMaxMp(randomMp);
 		}
@@ -2398,17 +2396,20 @@ public class L1PcInstance extends L1Character {
 		setCurrentHp(getMaxHp());
 		setCurrentMp(getMaxMp());
 
-		sendPackets(new S_OwnCharStatus(this));
-		if (getLevel() >= 52) { // 
-			if (getMapId() == 777) { //
-				L1Teleport.teleport(this, 34043, 32184, (short) 4, 5, true); // 
-			} else if (getMapId() == 778
-					|| getMapId() == 779) { //
-				L1Teleport.teleport(this, 32608, 33178, (short) 4, 5, true); // 
+        if ((getMapId() == 58 || getMapId() == 85 || getMapId() == 57 || getMapId() == 2005 || getMapId() == 86)) {
+             if (getLevel() >= 12) {
+             L1Teleport.teleport(this, 32580, 32931, (short) 0, 5, true); // Talking Island
+        }
+		if (getLevel() >= 52) {
+			if (getMapId() == 777) {
+				L1Teleport.teleport(this, 34043, 32184, (short) 4, 5, true);
+			} else if (getMapId() == 778 || getMapId() == 779) {
+				L1Teleport.teleport(this, 32608, 33178, (short) 4, 5, true);
 			}
-		}
+		 }
+       }
 	}
-
+	
 	private void levelDown(int gap) {
 		resetLevel();
 
