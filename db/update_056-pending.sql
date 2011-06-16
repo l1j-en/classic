@@ -2902,3 +2902,19 @@ WHERE pp.item_id = p.item_id;
 UPDATE etcitem p, character_items pp
 SET pp.bless = p.bless
 WHERE pp.item_id = p.item_id;
+
+-- fix some name_ids. should fix issue 147
+UPDATE armor SET unidentified_name_id = 'Wooden Jacket', identified_name_id = 'Wooden Jacket' WHERE item_id = 29001;
+UPDATE armor SET unidentified_name_id = 'Pink Unisex Earrings', identified_name_id = 'Pink Unisex Earrings' WHERE item_id = 29002;
+UPDATE armor SET unidentified_name_id = '$5545', identified_name_id = '$5545' WHERE item_id = 21091;
+
+UPDATE weapon SET unidentified_name_id = 'Thor\'s Hammer', identified_name_id = 'Thor\'s Hammer' WHERE item_id = 450000;
+UPDATE weapon SET unidentified_name_id = 'Paagrio\'s Hatred', identified_name_id = 'Paagrio\'s Hatred' WHERE item_id = 450001;
+UPDATE weapon SET unidentified_name_id = 'Maphr\'s Retribution', identified_name_id = 'Maphr\'s Retribution' WHERE item_id = 450002;
+UPDATE weapon SET unidentified_name_id = 'Orcish Bume Smache', identified_name_id = 'Orcish Bume Smache' WHERE item_id = 450003;
+UPDATE weapon SET unidentified_name_id = 'Diamond Sword', identified_name_id = 'Diamond Sword' WHERE item_id = 450004;
+
+UPDATE etcitem SET unidentified_name_id = 'Personal Lubricant', identified_name_id = 'Personal Lubricant' WHERE item_id = 50000;
+UPDATE etcitem SET unidentified_name_id = '$1853', identified_name_id = '$1853' WHERE item_id = 50001;
+UPDATE etcitem SET unidentified_name_id = 'SuperDK', identified_name_id = 'SuperDK' WHERE item_id = 240101;
+UPDATE etcitem SET unidentified_name_id = '$4403', identified_name_id = '$4403' WHERE item_id = 49091;
