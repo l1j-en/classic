@@ -30,14 +30,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1Castle;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class CastleTable {
-
 	private static Logger _log = Logger.getLogger(CastleTable.class.getName());
 	private static CastleTable _instance;
 	private final Map<Integer, L1Castle> _castles = new ConcurrentHashMap<Integer, L1Castle>();
@@ -63,12 +62,11 @@ public class CastleTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM castle");
-
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				L1Castle castle = new L1Castle(rs.getInt(1), rs.getString(2));
 				castle.setWarTime(timestampToCalendar((Timestamp) rs.getObject(3)));
@@ -96,6 +94,7 @@ public class CastleTable {
 	public void updateCastle(L1Castle castle) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("UPDATE castle SET name=?, war_time=?, tax_rate=?, public_money=? WHERE castle_id=?");

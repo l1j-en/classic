@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -29,7 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Npc;
@@ -37,16 +36,10 @@ import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // MobTable, IdFactory
-
 public class NpcSpawnTable {
-
-	private static Logger _log = Logger
-			.getLogger(NpcSpawnTable.class.getName());
-
+	private static Logger _log = Logger.getLogger(NpcSpawnTable.class.getName());
 	private static NpcSpawnTable _instance;
-
 	private Map<Integer, L1Spawn> _spawntable = new HashMap<Integer, L1Spawn>();
-
 	private int _highestId;
 
 	public static NpcSpawnTable getInstance() {
@@ -61,29 +54,24 @@ public class NpcSpawnTable {
 	}
 
 	private void fillNpcSpawnTable() {
-
 		int spawnCount = 0;
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_npc");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				if (Config.ALT_GMSHOP == false) {
 					int npcid = rs.getInt(1);
-					if (npcid >= Config.ALT_GMSHOP_MIN_ID
-							&& npcid <= Config.ALT_GMSHOP_MAX_ID) {
+					if (npcid >= Config.ALT_GMSHOP_MIN_ID && npcid <= Config.ALT_GMSHOP_MAX_ID) {
 						continue;
 					}
 				}
 				if (Config.ALT_HALLOWEENIVENT == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656
-							&& npcid <= 26734) {
+					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656 && npcid <= 26734) {
 						continue;
 					}
 				}
@@ -95,8 +83,7 @@ public class NpcSpawnTable {
 				}
 				if (Config.ALT_TALKINGSCROLLQUEST == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 87537 && npcid <= 87551 || npcid >= 1310387
-							&& npcid <= 1310389) {
+					if (npcid >= 87537 && npcid <= 87551 || npcid >= 1310387 && npcid <= 1310389) {
 						continue;
 					}
 				}
@@ -110,8 +97,7 @@ public class NpcSpawnTable {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(npcTemplateid);
 				L1Spawn l1spawn;
 				if (l1npc == null) {
-					_log.warning("mob data for id:" + npcTemplateid
-							+ " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateid + " missing in npc table");
 					l1spawn = null;
 				} else {
 					if (rs.getInt("count") == 0) {
@@ -135,7 +121,6 @@ public class NpcSpawnTable {
 					l1spawn.setName(l1npc.get_name());
 					l1spawn.init();
 					spawnCount += l1spawn.getAmount();
-
 					_spawntable.put(new Integer(l1spawn.getId()), l1spawn);
 					if (l1spawn.getId() > _highestId) {
 						_highestId = l1spawn.getId();
@@ -149,7 +134,6 @@ public class NpcSpawnTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-
 		_log.config("NPC Placement list: " + _spawntable.size() + " loaded");
 		_log.fine("The total number of NPCs: " + spawnCount + " mobs.");
 	}
@@ -161,10 +145,8 @@ public class NpcSpawnTable {
 		try {
 			int count = 1;
 			String note = npc.get_name();
-
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO spawnlist_npc SET location=?,count=?,npc_templateid=?,locx=?,locy=?,heading=?,mapid=?");
+			pstm = con.prepareStatement("INSERT INTO spawnlist_npc SET location=?,count=?,npc_templateid=?,locx=?,locy=?,heading=?,mapid=?");
 			pstm.setString(1, note);
 			pstm.setInt(2, count);
 			pstm.setInt(3, npc.get_npcId());
@@ -175,7 +157,6 @@ public class NpcSpawnTable {
 			pstm.execute();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -191,5 +172,4 @@ public class NpcSpawnTable {
 		l1spawn.setId(_highestId);
 		_spawntable.put(l1spawn.getId(), l1spawn);
 	}
-
 }

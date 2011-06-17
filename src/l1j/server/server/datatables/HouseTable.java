@@ -32,15 +32,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1House;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class HouseTable {
-
 	private static Logger _log = Logger.getLogger(HouseTable.class.getName());
 	private static HouseTable _instance;
 	private final Map<Integer, L1House> _house = new ConcurrentHashMap<Integer, L1House>();
@@ -58,12 +56,10 @@ public class HouseTable {
 		return cal;
 	}
 
-
 	public HouseTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM house ORDER BY house_id");
@@ -127,7 +123,6 @@ public class HouseTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT house_id FROM house ORDER BY house_id");

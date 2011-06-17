@@ -16,14 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.Opcodes;
 import l1j.server.server.utils.SQLUtil;
 
@@ -31,9 +30,7 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_ApplyAuction extends ServerBasePacket {
-
-	private static Logger _log = Logger.getLogger(S_ApplyAuction.class.
-			getName());
+	private static Logger _log = Logger.getLogger(S_ApplyAuction.class.getName());
 	private static final String S_APPLYAUCTION = "[S] S_ApplyAuction";
 	private byte[] _byte = null;
 

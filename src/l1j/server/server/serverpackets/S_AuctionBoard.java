@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.sql.*;
@@ -25,18 +24,15 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_AuctionBoard extends ServerBasePacket {
-
-	private static Logger _log = Logger.getLogger(S_AuctionBoard.class.
-			getName());
+	private static Logger _log = Logger.getLogger(S_AuctionBoard.class.getName());
 	private static final String S_AUCTIONBOARD = "[S] S_AuctionBoard";
 	private byte[] _byte = null;
 
@@ -57,7 +53,6 @@ public class S_AuctionBoard extends ServerBasePacket {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM board_auction");
@@ -102,8 +97,7 @@ public class S_AuctionBoard extends ServerBasePacket {
 					id[i] = rs.getInt(1);
 					name[i] = rs.getString(2);
 					area[i] = rs.getInt(3);
-					Calendar cal = timestampToCalendar((Timestamp) rs.
-							getObject(4));
+					Calendar cal = timestampToCalendar((Timestamp) rs.getObject(4));
 					month[i] = cal.get(Calendar.MONTH) + 1;
 					day[i] = cal.get(Calendar.DATE);
 					price[i] = rs.getInt(5);
@@ -116,7 +110,6 @@ public class S_AuctionBoard extends ServerBasePacket {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-
 		writeC(Opcodes.S_OPCODE_HOUSELIST);
 		writeD(board.getId());
 		writeH(count); // Number of records

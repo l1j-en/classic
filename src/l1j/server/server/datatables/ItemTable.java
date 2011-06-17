@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -41,33 +41,20 @@ import l1j.server.server.utils.SQLUtil;
 
 public class ItemTable {
 	private static final long serialVersionUID = 1L;
-
 	private static Logger _log = Logger.getLogger(ItemTable.class.getName());
-
 	private static final Map<String, Integer> _armorTypes = new HashMap<String, Integer>();
-
 	private static final Map<String, Integer> _weaponTypes = new HashMap<String, Integer>();
-
 	private static final Map<String, Integer> _weaponId = new HashMap<String, Integer>();
-
 	private static final Map<String, Integer> _materialTypes = new HashMap<String, Integer>();
-
 	private static final Map<String, Integer> _etcItemTypes = new HashMap<String, Integer>();
-
 	private static final Map<String, Integer> _useTypes = new HashMap<String, Integer>();
-
 	private static ItemTable _instance;
-
 	private L1Item _allTemplates[];
-
 	private final Map<Integer, L1EtcItem> _etcitems;
-
 	private final Map<Integer, L1Armor> _armors;
-
 	private final Map<Integer, L1Weapon> _weapons;
 
 	static {
-
 		_etcItemTypes.put("arrow", new Integer(0));
 		_etcItemTypes.put("wand", new Integer(1));
 		_etcItemTypes.put("light", new Integer(2));
@@ -90,8 +77,8 @@ public class ItemTable {
 		_useTypes.put("normal", new Integer(0));
 		_useTypes.put("weapon", new Integer(1));
 		_useTypes.put("armor", new Integer(2));
-//		_useTypes.put("wand1", new Integer(3));
-//		_useTypes.put("wand", new Integer(4));
+		//_useTypes.put("wand1", new Integer(3));
+		//_useTypes.put("wand", new Integer(4));
 		// Wand to wave to take action(C_RequestExtraCommand Is sent)
 		_useTypes.put("spell_long", new Integer(5)); // The ground / object selection (long-distance)
 		_useTypes.put("ntele", new Integer(6));
@@ -223,7 +210,6 @@ public class ItemTable {
 
 	private Map<Integer, L1EtcItem> allEtcItem() {
 		Map<Integer, L1EtcItem> result = new HashMap<Integer, L1EtcItem>();
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -231,23 +217,17 @@ public class ItemTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("select * from etcitem");
-
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				item = new L1EtcItem();
 				item.setItemId(rs.getInt("item_id"));
 				item.setName(rs.getString("name"));
-				item.setUnidentifiedNameId(rs
-						.getString("unidentified_name_id"));
+				item.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
 				item.setIdentifiedNameId(rs.getString("identified_name_id"));
-				item.setType((_etcItemTypes
-						.get(rs.getString("item_type"))).intValue());
-				item.setUseType(_useTypes
-						.get(rs.getString("use_type")).intValue());
-//				item.setType1(0); // Do not
+				item.setType((_etcItemTypes.get(rs.getString("item_type"))).intValue());
+				item.setUseType(_useTypes.get(rs.getString("use_type")).intValue());
 				item.setType2(0);
-				item.setMaterial((_materialTypes
-						.get(rs.getString("material"))).intValue());
+				item.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
 				item.setWeight(rs.getInt("weight"));
 				item.setGfxId(rs.getInt("invgfx"));
 				item.setGroundGfxId(rs.getInt("grdgfx"));
@@ -256,10 +236,8 @@ public class ItemTable {
 				item.setMaxLevel(rs.getInt("max_lvl"));
 				item.setBless(rs.getInt("bless"));
 				item.setTradable(rs.getInt("trade") == 0 ? true : false);
-				item.setCantDelete(rs.getInt("cant_delete") == 1 ?
-						true : false);
-				item.setCanSeal(rs.getInt("can_seal") == 1 ?
-						true : false);
+				item.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false);
+				item.setCanSeal(rs.getInt("can_seal") == 1 ? true : false);
 				item.setDmgSmall(rs.getInt("dmg_small"));
 				item.setDmgLarge(rs.getInt("dmg_large"));
 				item.set_stackable(rs.getInt("stackable") == 1 ? true : false);
@@ -271,16 +249,11 @@ public class ItemTable {
 				item.set_delaytime(rs.getInt("delay_time"));
 				item.set_delayEffect(rs.getInt("delay_effect"));
 				item.setFoodVolume(rs.getInt("food_volume"));
-				item.setToBeSavedAtOnce(
-						(rs.getInt("save_at_once") == 1) ? true : false);
-
+				item.setToBeSavedAtOnce((rs.getInt("save_at_once") == 1) ? true : false);
 				result.put(new Integer(item.getItemId()), item);
 			}
 		} catch (NullPointerException e) {
-			_log.log(Level.SEVERE, new StringBuilder()
-					.append(item.getName())
-					.append("(" + item.getItemId() + ")")
-					.append(" Failed to load.").toString());
+			_log.log(Level.SEVERE, new StringBuilder().append(item.getName()).append("(" + item.getItemId() + ")").append(" Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -293,7 +266,6 @@ public class ItemTable {
 
 	private Map<Integer, L1Weapon> allWeapon() {
 		Map<Integer, L1Weapon> result = new HashMap<Integer, L1Weapon>();
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -301,23 +273,18 @@ public class ItemTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("select * from weapon");
-
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				weapon = new L1Weapon();
 				weapon.setItemId(rs.getInt("item_id"));
 				weapon.setName(rs.getString("name"));
-				weapon.setUnidentifiedNameId(rs
-						.getString("unidentified_name_id"));
+				weapon.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
 				weapon.setIdentifiedNameId(rs.getString("identified_name_id"));
-				weapon.setType((_weaponTypes
-						.get(rs.getString("type"))).intValue());
-				weapon.setType1((_weaponId
-						.get(rs.getString("type"))).intValue());
+				weapon.setType((_weaponTypes.get(rs.getString("type"))).intValue());
+				weapon.setType1((_weaponId.get(rs.getString("type"))).intValue());
 				weapon.setType2(1);
 				weapon.setUseType(1);
-				weapon.setMaterial((_materialTypes
-						.get(rs.getString("material"))).intValue());
+				weapon.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
 				weapon.setWeight(rs.getInt("weight"));
 				weapon.setGfxId(rs.getInt("invgfx"));
 				weapon.setGroundGfxId(rs.getInt("grdgfx"));
@@ -327,16 +294,12 @@ public class ItemTable {
 				weapon.setRange(rs.getInt("range"));
 				weapon.set_safeenchant(rs.getInt("safenchant"));
 				weapon.setUseRoyal(rs.getInt("use_royal") == 0 ? false : true);
-				weapon.setUseKnight(rs.getInt("use_knight") == 0
-						? false : true);
+				weapon.setUseKnight(rs.getInt("use_knight") == 0 ? false : true);
 				weapon.setUseElf(rs.getInt("use_elf") == 0 ? false : true);
 				weapon.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
-				weapon.setUseDarkelf(rs.getInt("use_darkelf") == 0
-						? false : true);
-				weapon.setUseDragonknight(rs.getInt("use_dragonknight") == 0
-						? false : true);
-				weapon.setUseIllusionist(rs.getInt("use_illusionist") == 0
-						? false : true);
+				weapon.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false : true);
+				weapon.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false : true);
+				weapon.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false : true);
 				weapon.setHitModifier(rs.getInt("hitmodifier"));
 				weapon.setDmgModifier(rs.getInt("dmgmodifier"));
 				weapon.set_addstr(rs.getByte("add_str"));
@@ -358,12 +321,9 @@ public class ItemTable {
 				weapon.setMaxLevel(rs.getInt("max_lvl"));
 				weapon.setBless(rs.getInt("bless"));
 				weapon.setTradable(rs.getInt("trade") == 0 ? true : false);
-				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ?
-						true : false);
-				weapon.setHasteItem(rs.getInt("haste_item") == 0
-						? false : true);
+				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false);
+				weapon.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				weapon.setMaxUseTime(rs.getInt("max_use_time"));
-
 				result.put(new Integer(weapon.getItemId()), weapon);
 			}
 		} catch (NullPointerException e) {
@@ -373,7 +333,6 @@ public class ItemTable {
 					.append(" Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -392,24 +351,17 @@ public class ItemTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("select * from armor");
-
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				armor = new L1Armor();
 				armor.setItemId(rs.getInt("item_id"));
 				armor.setName(rs.getString("name"));
-				armor.setUnidentifiedNameId(rs
-						.getString("unidentified_name_id"));
+				armor.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
 				armor.setIdentifiedNameId(rs.getString("identified_name_id"));
-				armor.setType((_armorTypes
-						.get(rs.getString("type"))).intValue());
-//				armor.setType1((_armorId
-//						.get(rs.getString("armor_type"))).intValue()); // Do not
+				armor.setType((_armorTypes.get(rs.getString("type"))).intValue());
 				armor.setType2(2);
-				armor.setUseType((_useTypes
-						.get(rs.getString("type"))).intValue());
-				armor.setMaterial((_materialTypes
-						.get(rs.getString("material"))).intValue());
+				armor.setUseType((_useTypes.get(rs.getString("type"))).intValue());
+				armor.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
 				armor.setWeight(rs.getInt("weight"));
 				armor.setGfxId(rs.getInt("invgfx"));
 				armor.setGroundGfxId(rs.getInt("grdgfx"));
@@ -420,12 +372,9 @@ public class ItemTable {
 				armor.setUseKnight(rs.getInt("use_knight") == 0 ? false : true);
 				armor.setUseElf(rs.getInt("use_elf") == 0 ? false : true);
 				armor.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
-				armor.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false
-						: true);
-				armor.setUseDragonknight(rs.getInt("use_dragonknight") == 0
-						? false : true);
-				armor.setUseIllusionist(rs.getInt("use_illusionist") == 0
-						? false : true);
+				armor.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false : true);
+				armor.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false : true);
+				armor.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false : true);
 				armor.set_addstr(rs.getByte("add_str"));
 				armor.set_addcon(rs.getByte("add_con"));
 				armor.set_adddex(rs.getByte("add_dex"));
@@ -449,8 +398,7 @@ public class ItemTable {
 				armor.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				armor.setBless(rs.getInt("bless"));
 				armor.setTradable(rs.getInt("trade") == 0 ? true : false);
-				armor.setCantDelete(rs.getInt("cant_delete") == 1 ?
-						true : false);
+				armor.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false);
 				armor.set_defense_earth(rs.getInt("defense_earth"));
 				armor.set_defense_water(rs.getInt("defense_water"));
 				armor.set_defense_wind(rs.getInt("defense_wind"));
@@ -462,14 +410,10 @@ public class ItemTable {
 				armor.set_regist_sustain(rs.getInt("regist_sustain"));
 				armor.set_regist_blind(rs.getInt("regist_blind"));
 				armor.setMaxUseTime(rs.getInt("max_use_time"));
-
 				result.put(new Integer(armor.getItemId()), armor);
 			}
 		} catch (NullPointerException e) {
-			_log.log(Level.SEVERE, new StringBuilder()
-					.append(armor.getName())
-					.append("(" + armor.getItemId() + ")")
-					.append(" Failed to load.").toString());
+			_log.log(Level.SEVERE, new StringBuilder().append(armor.getName()).append("(" + armor.getItemId() + ")").append("Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -507,22 +451,19 @@ public class ItemTable {
 
 		_allTemplates = new L1Item[highestId + 1];
 
-		for (Iterator<Integer> iter = _etcitems.keySet().iterator(); iter
-				.hasNext();) {
+		for (Iterator<Integer> iter = _etcitems.keySet().iterator(); iter.hasNext();) {
 			Integer id = iter.next();
 			L1EtcItem item = _etcitems.get(id);
 			_allTemplates[id.intValue()] = item;
 		}
 
-		for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter
-				.hasNext();) {
+		for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter.hasNext();) {
 			Integer id = iter.next();
 			L1Weapon item = _weapons.get(id);
 			_allTemplates[id.intValue()] = item;
 		}
 
-		for (Iterator<Integer> iter = _armors.keySet().iterator(); iter
-				.hasNext();) {
+		for (Iterator<Integer> iter = _armors.keySet().iterator(); iter.hasNext();) {
 			Integer id = iter.next();
 			L1Armor item = _armors.get(id);
 			_allTemplates[id.intValue()] = item;

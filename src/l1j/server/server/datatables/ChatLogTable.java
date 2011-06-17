@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -26,13 +25,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class ChatLogTable {
 	private static Logger _log = Logger.getLogger(ChatLogTable.class.getName());
-
 	/*
 	 * HashMap in the code should be used, but the performance problems might have used an array compromise.
 	 * HashMap to consider changes to the performance or the lack of sufficient attention to the problem.
@@ -72,7 +70,6 @@ public class ChatLogTable {
 		if (!isLoggingTarget(type)) {
 			return;
 		}
-
 		// type
 		// 0: Normal chat
 		// 1: Whisper
@@ -88,8 +85,7 @@ public class ChatLogTable {
 
 			con = L1DatabaseFactory.getInstance().getConnection();
 			if (target != null) {
-				pstm = con
-						.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, target_account_name, target_id, target_name, target_clan_id, target_clan_name, target_locx, target_locy, target_mapid, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
+				pstm = con.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, target_account_name, target_id, target_name, target_clan_id, target_clan_name, target_locx, target_locy, target_mapid, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
 				pstm.setString(1, pc.getAccountName());
 				pstm.setInt(2, pc.getId());
 				pstm.setString(3, pc.isGm() ? "******" : pc.getName());
@@ -109,8 +105,7 @@ public class ChatLogTable {
 				pstm.setInt(17, target.getMapId());
 				pstm.setString(18, text);
 			} else {
-				pstm = con
-						.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
+				pstm = con.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
 				pstm.setString(1, pc.getAccountName());
 				pstm.setInt(2, pc.getId());
 				pstm.setString(3, pc.isGm() ? "******" : pc.getName());
@@ -123,7 +118,6 @@ public class ChatLogTable {
 				pstm.setString(10, text);
 			}
 			pstm.execute();
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -131,5 +125,4 @@ public class ChatLogTable {
 			SQLUtil.close(con);
 		}
 	}
-
 }

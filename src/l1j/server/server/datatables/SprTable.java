@@ -26,27 +26,21 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import static l1j.server.server.ActionCodes.*;
 import l1j.server.server.utils.SQLUtil;
 
 public class SprTable {
-
 	private static Logger _log = Logger.getLogger(SprTable.class.getName());
-
+	private static final HashMap<Integer, Spr> _dataMap = new HashMap<Integer, Spr>();
+	private static final SprTable _instance = new SprTable();
+	
 	private static class Spr {
 		private final HashMap<Integer, Integer> moveSpeed = new HashMap<Integer, Integer>();
-
 		private final HashMap<Integer, Integer> attackSpeed = new HashMap<Integer, Integer>();
-
 		private int nodirSpellSpeed = 1200;
-
 		private int dirSpellSpeed = 1200;
 	}
-
-	private static final HashMap<Integer, Spr> _dataMap = new HashMap<Integer, Spr>();
-
-	private static final SprTable _instance = new SprTable();
 
 	private SprTable() {
 		loadSprAction();

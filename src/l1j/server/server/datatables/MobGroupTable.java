@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -28,18 +27,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1MobGroup;
 import l1j.server.server.templates.L1NpcCount;
 import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.utils.collections.Lists;
 
 public class MobGroupTable {
-	private static Logger _log = Logger
-			.getLogger(MobGroupTable.class.getName());
-
+	private static Logger _log = Logger.getLogger(MobGroupTable.class.getName());
 	private static MobGroupTable _instance;
-
 	private final HashMap<Integer, L1MobGroup> _mobGroupIndex = new HashMap<Integer, L1MobGroup>();
 
 	public static MobGroupTable getInstance() {
@@ -63,8 +59,7 @@ public class MobGroupTable {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int mobGroupId = rs.getInt("id");
-				boolean isRemoveGroup = (rs
-						.getBoolean("remove_group_if_leader_die"));
+				boolean isRemoveGroup = (rs.getBoolean("remove_group_if_leader_die"));
 				int leaderId = rs.getInt("leader_id");
 				List<L1NpcCount> minions = Lists.newArrayList();
 				for (int i = 1; i <= 7; i++) {
@@ -72,8 +67,7 @@ public class MobGroupTable {
 					int count = rs.getInt("minion" + i + "_count");
 					minions.add(new L1NpcCount(id, count));
 				}
-				L1MobGroup mobGroup = new L1MobGroup(mobGroupId, leaderId,
-						minions, isRemoveGroup);
+				L1MobGroup mobGroup = new L1MobGroup(mobGroupId, leaderId, minions, isRemoveGroup);
 				_mobGroupIndex.put(mobGroupId, mobGroup);
 			}
 		_log.config("Mob Group Lists: " + _mobGroupIndex.size() + " loaded.");
@@ -89,5 +83,4 @@ public class MobGroupTable {
 	public L1MobGroup getTemplate(int mobGroupId) {
 		return _mobGroupIndex.get(mobGroupId);
 	}
-
 }

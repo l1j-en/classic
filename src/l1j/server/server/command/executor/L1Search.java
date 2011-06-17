@@ -1,18 +1,31 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server.command.executor;
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import l1j.server.L1DatabaseFactory;
-import l1j.server.server.datatables.ItemTable;
-import l1j.server.server.model.L1Inventory;
-import l1j.server.server.model.Instance.L1ItemInstance;
+
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Item;
 
 public class L1Search implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Search.class.getName());
@@ -109,10 +122,10 @@ public class L1Search implements L1CommandExecutor {
 					   else{
 						   blessed = "\\fY";
 					   }
-					   pc.sendPackets(new S_SystemMessage(blessed+"ID: "+ str1 + ", " + str2));
+					   pc.sendPackets(new S_SystemMessage(blessed + "ID: " + str1 + ", " + str2));
 				   }
 				   else {
-					   pc.sendPackets(new S_SystemMessage("ID: "+ str1 + ", " + str2));
+					   pc.sendPackets(new S_SystemMessage("ID: " + str1 + ", " + str2));
 				   }
 				   count++;
 			   }
@@ -135,17 +148,14 @@ public class L1Search implements L1CommandExecutor {
 		   java.sql.Connection con = null;
 		   con = L1DatabaseFactory.getInstance().getConnection();
 		   PreparedStatement statement = null;
-
 		   pc.sendPackets(new S_SystemMessage(" "));
-
 		   pc.sendPackets(new S_SystemMessage("Searching for '" + name.replace("%"," ") + "' in all places:"));
-
 		   statement = con.prepareStatement("select item_id,name,bless from armor where name Like '%" + name + "%'");
 		   int count1 = 0;
 		   ResultSet rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count1==0){
-				   pc.sendPackets(new S_SystemMessage("Armors:"));
+			   pc.sendPackets(new S_SystemMessage("Armors:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -164,13 +174,12 @@ public class L1Search implements L1CommandExecutor {
 		   }
 		   rs.close();
 		   statement.close();
-
 		   statement = con.prepareStatement("select item_id,name,bless from weapon where name Like '%" + name + "%'");
 		   int count2 = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count2==0){
-				   pc.sendPackets(new S_SystemMessage("Weapons:"));
+			   pc.sendPackets(new S_SystemMessage("Weapons:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -189,13 +198,12 @@ public class L1Search implements L1CommandExecutor {
 		   }
 		   rs.close();
 		   statement.close();
-
 		   statement = con.prepareStatement("select item_id,name,bless from etcitem where name Like '%" + name + "%'");
 		   int count3 = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count3==0){
-				   pc.sendPackets(new S_SystemMessage("Etcitems:"));
+				pc.sendPackets(new S_SystemMessage("Etcitems:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -214,7 +222,6 @@ public class L1Search implements L1CommandExecutor {
 		   }
 		   rs.close();
 		   statement.close();
-
 		   statement = con.prepareStatement("select polyid,name from polymorphs where name Like '%" + name + "%'");
 		   int count4 = 0;
 		   rs = statement.executeQuery();
@@ -229,13 +236,12 @@ public class L1Search implements L1CommandExecutor {
 		   }
 		   rs.close();
 		   statement.close();
-
 		   statement = con.prepareStatement("select npcid,name from npc where name Like '%" + name + "%'");
 		   int count5 = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count5==0){
-				   pc.sendPackets(new S_SystemMessage("NPCs:"));
+			   pc.sendPackets(new S_SystemMessage("NPCs:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);

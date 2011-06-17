@@ -17,12 +17,14 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package l1j.server.server.command.executor;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
-import l1j.server.L1DatabaseFactory;
+
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -51,17 +53,9 @@ public class L1ViewBug implements L1CommandExecutor {
 			rs = pstm.executeQuery();
 			rs.next();
 			if(rs.getInt("resolved")==1) {
-				pc.sendPackets(new S_SystemMessage(rs.getInt("id")+"(Resolved). "+
-					rs.getString("charname")+" (on Map:"+rs.getInt("mapID")+
-					", X:"+rs.getInt("mapX")+", Y:"+rs.getInt("mapY")+
-					") wrote: "+rs.getString("bugtext")+"."
-					));
+				pc.sendPackets(new S_SystemMessage(rs.getInt("id") + "(Resolved). " + rs.getString("charname")+" (on Map:" + rs.getInt("mapID") + ", X:" + rs.getInt("mapX")+", Y:" + rs.getInt("mapY") + ") wrote: " + rs.getString("bugtext") + "."));
 			} else {
-				pc.sendPackets(new S_SystemMessage(rs.getInt("id")+". "+
-					rs.getString("charname")+" (on Map:"+rs.getInt("mapID")+
-					", X:"+rs.getInt("mapX")+", Y:"+rs.getInt("mapY")+
-					") wrote: "+rs.getString("bugtext")+"."
-					));
+				pc.sendPackets(new S_SystemMessage(rs.getInt("id") + ". " + rs.getString("charname")+" (on Map:" + rs.getInt("mapID") + ", X:" + rs.getInt("mapX")+", Y:" + rs.getInt("mapY")+ ") wrote: " + rs.getString("bugtext") + "."));
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -78,16 +72,16 @@ public class L1ViewBug implements L1CommandExecutor {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-
 			pstm = con.prepareStatement("select * from bugs where resolved = 0");// ORDER BY id
 			rs = pstm.executeQuery();
 			while (rs.next()){
 				String str1 = rs.getString("bugtext");
 				int str1length=str1.length();
 				if(str1length>45){
-					str1length=45;
+				str1length=45;
 				}
 				pc.sendPackets(new S_SystemMessage(rs.getInt("id") + ": " + rs.getString("bugtext").substring(0,str1length)));
 			}

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DoorInstance;
@@ -36,13 +36,10 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class DoorSpawnTable {
-	private static Logger _log = Logger.getLogger(DoorSpawnTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(DoorSpawnTable.class.getName());
 	private static DoorSpawnTable _instance;
 
-	private final ArrayList<L1DoorInstance> _doorList =
-			new ArrayList<L1DoorInstance>();
+	private final ArrayList<L1DoorInstance> _doorList = new ArrayList<L1DoorInstance>();
 
 	public static DoorSpawnTable getInstance() {
 		if (_instance == null) {
@@ -60,7 +57,6 @@ public class DoorSpawnTable {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_door");
 			rs = pstm.executeQuery();
@@ -68,19 +64,14 @@ public class DoorSpawnTable {
 				if (!rs.next()) {
 					break;
 				}
-
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(81158);
 				if (l1npc != null) {
 					String s = l1npc.getImpl();
-					Constructor constructor = Class.forName(
-							"l1j.server.server.model.Instance." + s
-									+ "Instance").getConstructors()[0];
+					Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
 					Object parameters[] = { l1npc };
-					L1DoorInstance door = (L1DoorInstance) constructor
-							.newInstance(parameters);
+					L1DoorInstance door = (L1DoorInstance) constructor.newInstance(parameters);
 					door = (L1DoorInstance) constructor.newInstance(parameters);
 					door.setId(IdFactory.getInstance().nextId());
-
 					door.setDoorId(rs.getInt(1));
 					door.setGfxId(rs.getInt(3));
 					door.setX(rs.getInt(4));
@@ -94,11 +85,9 @@ public class DoorSpawnTable {
 					door.setMaxHp(rs.getInt(10));
 					door.setCurrentHp(rs.getInt(10));
 					door.setKeeperId(rs.getInt(11));
-
 					L1World.getInstance().storeObject(door);
 					L1World.getInstance().addVisibleObject(door);
-
-						_doorList.add(door);
+					_doorList.add(door);
 				}
 			} while (true);
 		} catch (SQLException e) {

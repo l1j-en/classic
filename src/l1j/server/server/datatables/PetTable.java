@@ -26,20 +26,16 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class PetTable {
-
 	private static Logger _log = Logger.getLogger(PetTable.class.getName());
-
 	private static PetTable _instance;
-
 	private final HashMap<Integer, L1Pet> _pets = new HashMap<Integer, L1Pet>();
 
 	public static PetTable getInstance() {
@@ -60,7 +56,6 @@ public class PetTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM pets");
-
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				L1Pet pet = new L1Pet();
@@ -74,7 +69,6 @@ public class PetTable {
 				pet.set_mp(rs.getInt(7));
 				pet.set_exp(rs.getInt(8));
 				pet.set_lawful(rs.getInt(9));
-
 				_pets.put(new Integer(itemobjid), pet);
 			}
 		} catch (SQLException e) {
@@ -83,12 +77,10 @@ public class PetTable {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
-
 		}
 	}
 
 	public void storeNewPet(L1NpcInstance pet, int objid, int itemobjid) {
-		// XXX Previous process called duplication and
 		L1Pet l1pet = new L1Pet();
 		l1pet.set_itemobjid(itemobjid);
 		l1pet.set_objid(objid);
@@ -100,13 +92,11 @@ public class PetTable {
 		l1pet.set_exp(750); // Lv.5 EXP
 		l1pet.set_lawful(0);
 		_pets.put(new Integer(itemobjid), l1pet);
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
+			pstm = con.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
@@ -119,7 +109,6 @@ public class PetTable {
 			pstm.execute();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -132,8 +121,7 @@ public class PetTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=? WHERE item_obj_id=?");
+			pstm = con.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=? WHERE item_obj_id=?");
 			pstm.setInt(1, pet.get_objid());
 			pstm.setInt(2, pet.get_npcid());
 			pstm.setString(3, pet.get_name());
@@ -162,7 +150,6 @@ public class PetTable {
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -184,12 +171,7 @@ public class PetTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			/*
-			 * In the same name. MySQL by default because the case insensitive
-			 * LOWER original is not required, binary to change the case.
-			 */
-			pstm = con
-					.prepareStatement("SELECT item_obj_id FROM pets WHERE LOWER(name)=?");
+			pstm = con.prepareStatement("SELECT item_obj_id FROM pets WHERE LOWER(name)=?");
 			pstm.setString(1, nameLower);
 			rs = pstm.executeQuery();
 			if (!rs.next()) { // Do not have the same name

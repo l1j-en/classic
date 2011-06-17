@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.WarTimeController;
@@ -46,8 +46,8 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ActiveSpells;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_Bookmarks;
-import l1j.server.server.serverpackets.S_CharacterConfig;
 import l1j.server.server.serverpackets.S_CharTitle;
+import l1j.server.server.serverpackets.S_CharacterConfig;
 import l1j.server.server.serverpackets.S_InvList;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OwnCharPack;
@@ -88,14 +88,12 @@ public class C_LoginToServer extends ClientBasePacket {
 			client.close();
 			return;
 		}
-
 		L1PcInstance pc = L1PcInstance.load(charName);
 		if (pc == null || !login.equals(pc.getAccountName())) {
 			_log.info("Invalid login request=" + charName + " account=" + login + " host=" + client.getHostname());
 			client.close();
 			return;
 		}
-
 		if (Config.LEVEL_DOWN_RANGE != 0) {
 			if (pc.getHighLevel() - pc.getLevel() >= Config.LEVEL_DOWN_RANGE) {
 				_log.info("Login request of the character which exceeded: char="
@@ -104,20 +102,23 @@ public class C_LoginToServer extends ClientBasePacket {
 				return;
 			}
 		}
-		
 		_log.info("Character login: char=" + charName + " account=" + login + " host=" + client.getHostname());
 
 		int currentHpAtLoad = pc.getCurrentHp();
 		int currentMpAtLoad = pc.getCurrentMp();
+		
 		pc.clearSkillMastery();
+		
 		pc.setOnlineStatus(1);
 		CharacterTable.updateOnlineStatus(pc);
+		
 		L1World.getInstance().storeObject(pc);
-
+		
 		pc.setNetConnection(client);
+		
 		pc.setPacketOutput(client);
 		client.setActiveChar(pc);
-
+		
 		S_Unknown1 s_unknown1 = new S_Unknown1();
 		pc.sendPackets(s_unknown1);
 		S_Unknown2 s_unknown2 = new S_Unknown2();
@@ -135,7 +136,6 @@ public class C_LoginToServer extends ClientBasePacket {
 				break;
 			}
 		}
-
 		if (Config.GET_BACK) {
 			int[] loc = Getback.GetBack_Location(pc, true);
 			pc.setX(loc[0]);
@@ -168,7 +168,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		L1World.getInstance().addVisibleObject(pc);
 		S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
 		pc.sendPackets(s_activespells);
-
+		
 		pc.beginGameTimeCarrier();
 
 		S_OwnCharStatus s_owncharstatus = new S_OwnCharStatus(pc);
@@ -202,14 +202,12 @@ public class C_LoginToServer extends ClientBasePacket {
 			pc.setDead(true);
 			pc.setStatus(ActionCodes.ACTION_Die);
 		}
-
 		if (pc.getLevel() >= 51 && pc.getLevel() - 50 > pc.getBonusStats()) {
 			if ((pc.getBaseStr() + pc.getBaseDex() + pc.getBaseCon()
 				+ pc.getBaseInt() + pc.getBaseWis() + pc.getBaseCha()) < 210) {
 				pc.sendPackets(new S_bonusstats(pc.getId(), 1));
 			}
 		}
-
 		if (Config.CHARACTER_CONFIG_IN_SERVER_SIDE) {
 			pc.sendPackets(new S_CharacterConfig(pc.getId()));
 		}
@@ -229,7 +227,6 @@ public class C_LoginToServer extends ClientBasePacket {
 							clanMember.sendPackets(new S_ServerMessage(843, pc.getName()));
 						}
 					}
-
 					for (L1War war : L1World.getInstance().getWarList()) {
 						boolean ret = war.CheckClanInWar(pc.getClanname());
 						if (ret) { 
@@ -248,7 +245,6 @@ public class C_LoginToServer extends ClientBasePacket {
 				}
 			}
 		}
-
 		if (pc.getPartnerId() != 0) { 
 			L1PcInstance partner = (L1PcInstance) L1World.getInstance().findObject(pc.getPartnerId());
 			if (partner != null && partner.getPartnerId() != 0) {
@@ -258,7 +254,6 @@ public class C_LoginToServer extends ClientBasePacket {
 				}
 			}
 		}
-
 		if (currentHpAtLoad > pc.getCurrentHp()) {
 			pc.setCurrentHp(currentHpAtLoad);
 		}
@@ -271,9 +266,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		client.CharReStart(false);
 		pc.beginExpMonitor();
 		pc.save(); 
-
 		pc.sendPackets(new S_OwnCharStatus(pc));
-
 		if (pc.getHellTime() > 0) {
 			pc.beginHell(false);
 		}
@@ -307,7 +300,6 @@ public class C_LoginToServer extends ClientBasePacket {
 				pc.addBookMark(bookmark);
 				pc.sendPackets(s_bookmarks);
 			}
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {

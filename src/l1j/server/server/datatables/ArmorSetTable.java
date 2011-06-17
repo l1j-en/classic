@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -27,18 +26,14 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1ArmorSets;
 import l1j.server.server.utils.SQLUtil;
 
 public class ArmorSetTable {
-	private static Logger _log = Logger.getLogger(ArmorSetTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(ArmorSetTable.class.getName());
 	private static ArmorSetTable _instance;
-
-	private final ArrayList<L1ArmorSets> _armorSetList
-			= new ArrayList<L1ArmorSets>();
+	private final ArrayList<L1ArmorSets> _armorSetList = new ArrayList<L1ArmorSets>();
 
 	public static ArmorSetTable getInstance() {
 		if (_instance == null) {
@@ -55,15 +50,14 @@ public class ArmorSetTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		try {
 
+		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM armor_set");
 			rs = pstm.executeQuery();
 			fillTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating armor_set table",
-					e);
+			_log.log(Level.SEVERE, "error while creating armor_set table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -93,7 +87,6 @@ public class ArmorSetTable {
 			as.setDefenseWind(rs.getInt("defense_wind"));
 			as.setDefenseFire(rs.getInt("defense_fire"));
 			as.setDefenseEarth(rs.getInt("defense_earth"));
-
 			_armorSetList.add(as);
 		}
 	}
@@ -101,5 +94,4 @@ public class ArmorSetTable {
 	public L1ArmorSets[] getAllList() {
 		return _armorSetList.toArray(new L1ArmorSets[_armorSetList.size()]);
 	}
-
 }

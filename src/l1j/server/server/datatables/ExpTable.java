@@ -16,11 +16,9 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import l1j.server.Config;
-
 /**
  * Experience to provide value-class table
  */
@@ -29,7 +27,6 @@ public final class ExpTable {
 	}
 
 	public static final int MAX_LEVEL = 99;
-
 	public static final int MAX_EXP = 0x6ecf16da;
 
 	/**
@@ -61,12 +58,11 @@ public final class ExpTable {
 	 * @return Asked level
 	 */
 	public static int getLevelByExp(int exp) {
-
 		int level;
 		for (level = 1; level < _expTable.length; level++) {
 			// Might be tricky
 			if (exp < _expTable[level]) {
-				break;
+			break;
 			}
 		}
 		return Math.min(level, MAX_LEVEL);
@@ -85,11 +81,10 @@ public final class ExpTable {
 	 */
 	public static double getPenaltyRate(int level) {
 		if (level < 50) {
-			return 1.0;
+		return 1.0;
 		}
 		double expPenalty = 1.0;
 		expPenalty = 1.0 / _expPenalty[level - 50];
-
 		return expPenalty;
 	}
 
@@ -115,9 +110,6 @@ public final class ExpTable {
 			0x640f8a86, 0x6635d9ca, 0x685c290e, 0x6a827852, 0x6ca8c796,
 			0x6ecf16da, };
 
-	/**
-	 *
-	 */
 	private static final int _expPenalty[] = { Config.LV50_EXP,
 			Config.LV51_EXP, Config.LV52_EXP, Config.LV53_EXP, Config.LV54_EXP,
 			Config.LV55_EXP, Config.LV56_EXP, Config.LV57_EXP, Config.LV58_EXP,

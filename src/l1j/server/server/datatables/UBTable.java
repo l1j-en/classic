@@ -27,15 +27,13 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.utils.SQLUtil;
 
 public class UBTable {
 	private static Logger _log = Logger.getLogger(UBTable.class.getName());
-
 	private static UBTable _instance = new UBTable();
-
 	private HashMap<Integer, L1UltimateBattle> _ub = new HashMap<Integer, L1UltimateBattle>();
 
 	public static UBTable getInstance() {
@@ -47,18 +45,14 @@ public class UBTable {
 	}
 
 	private void loadTable() {
-
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM ub_settings");
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
-
 				L1UltimateBattle ub = new L1UltimateBattle();
 				ub.setUbId(rs.getInt("ub_id"));
 				ub.setMapId(rs.getShort("ub_mapid"));
@@ -83,7 +77,6 @@ public class UBTable {
 				ub.setHpr(rs.getInt("hpr_bonus"));
 				ub.setMpr(rs.getInt("mpr_bonus"));
 				ub.resetLoc();
-
 				_ub.put(ub.getUbId(), ub);
 			}
 		} catch (SQLException e) {
@@ -92,12 +85,10 @@ public class UBTable {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 		}
-
 		// ub_managers load
 		try {
 			pstm = con.prepareStatement("SELECT * FROM ub_managers");
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				L1UltimateBattle ub = getUb(rs.getInt("ub_id"));
 				if (ub != null) {
@@ -110,12 +101,10 @@ public class UBTable {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 		}
-
 		// ub_times load
 		try {
 			pstm = con.prepareStatement("SELECT * FROM ub_times");
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				L1UltimateBattle ub = getUb(rs.getInt("ub_id"));
 				if (ub != null) {
@@ -159,11 +148,9 @@ public class UBTable {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
+			pstm = con.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
 			pstm.setInt(1, ubId);
 			rs = pstm.executeQuery();
 			if (rs.next()) {
@@ -178,5 +165,4 @@ public class UBTable {
 		}
 		return n;
 	}
-
 }

@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class MapsTable {
@@ -52,7 +52,6 @@ public final class MapsTable {
 	}
 
 	private static Logger _log = Logger.getLogger(MapsTable.class.getName());
-
 	private static MapsTable _instance;
 
 	/**
@@ -77,7 +76,6 @@ public final class MapsTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM mapids");
-
 			for (rs = pstm.executeQuery(); rs.next();) {
 				MapData data = new MapData();
 				int mapId = rs.getInt("mapid");
@@ -99,10 +97,8 @@ public final class MapsTable {
 				data.isRecallPets = rs.getBoolean("recall_pets");
 				data.isUsableItem = rs.getBoolean("usable_item");
 				data.isUsableSkill = rs.getBoolean("usable_skill");
-
 				_maps.put(new Integer(mapId), data);
 			}
-
 			_log.config("Maps " + _maps.size());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -375,5 +371,4 @@ public final class MapsTable {
 		}
 		return _maps.get(mapId).isUsableSkill;
 	}
-
 }

@@ -31,18 +31,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class AuctionBoardTable {
-
 	private static Logger _log = Logger.getLogger(AuctionBoardTable.class.getName());
-
 	private static AuctionBoardTable _instance;
-
 	private final Map<Integer, L1AuctionBoard> _boards = new ConcurrentHashMap<Integer, L1AuctionBoard>();
 
 	private static AuctionBoardTable getInstance() {
@@ -62,6 +59,7 @@ public class AuctionBoardTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM board_auction ORDER BY house_id");
@@ -100,6 +98,7 @@ public class AuctionBoardTable {
 	public void insertAuctionBoard(L1AuctionBoard board) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("INSERT INTO board_auction SET house_id=?, house_name=?, house_area=?, deadline=?, price=?, location=?, old_owner=?, old_owner_id=?, bidder=?, bidder_id=?");
@@ -128,6 +127,7 @@ public class AuctionBoardTable {
 	public void updateAuctionBoard(L1AuctionBoard board) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("UPDATE board_auction SET house_name=?, house_area=?, deadline=?, price=?, location=?, old_owner=?, old_owner_id=?, bidder=?, bidder_id=? WHERE house_id=?");
@@ -155,6 +155,7 @@ public class AuctionBoardTable {
 	public void deleteAuctionBoard(int houseId) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("DELETE FROM board_auction WHERE house_id=?");

@@ -28,23 +28,18 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class NpcTable {
 	static Logger _log = Logger.getLogger(NpcTable.class.getName());
-
 	private final boolean _initialized;
-
 	private static NpcTable _instance;
-
 	private final HashMap<Integer, L1Npc> _npcs = new HashMap<Integer, L1Npc>();
 	private final HashMap<String, Constructor<?>> _constructorCache = new HashMap<String, Constructor<?>>();
-
-	private static final Map<String, Integer> _familyTypes = NpcTable
-			.buildFamily();
+	private static final Map<String, Integer> _familyTypes = NpcTable.buildFamily();
 
 	public static NpcTable getInstance() {
 		if (_instance == null) {
@@ -64,8 +59,7 @@ public class NpcTable {
 
 	private Constructor<?> getConstructor(String implName) {
 		try {
-			String implFullName = "l1j.server.server.model.Instance."
-					+ implName + "Instance";
+			String implFullName = "l1j.server.server.model.Instance." + implName + "Instance";
 			Constructor<?> con = Class.forName(implFullName).getConstructors()[0];
 			return con;
 		} catch (ClassNotFoundException e) {
@@ -165,7 +159,6 @@ public class NpcTable {
 				npc.setAmountFixed(rs.getBoolean("amount_fixed"));
 				npc.setChangeHead(rs.getBoolean("change_head"));
 				npc.setCantResurrect(rs.getBoolean("cant_resurrect"));
-
 				registerConstructorCache(npc.getImpl());
 				_npcs.put(npcId, npc);
 			}
@@ -185,8 +178,7 @@ public class NpcTable {
 	public L1NpcInstance newNpcInstance(int id) {
 		L1Npc npcTemp = getTemplate(id);
 		if (npcTemp == null) {
-			throw new IllegalArgumentException(String.format(
-					"NpcTemplate: %d not found", id));
+			throw new IllegalArgumentException(String.format("NpcTemplate: %d not found", id));
 		}
 		return newNpcInstance(npcTemp);
 	}
@@ -208,8 +200,7 @@ public class NpcTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("select distinct(family) as family from npc WHERE NOT trim(family) =''");
+			pstm = con.prepareStatement("select distinct(family) as family from npc WHERE NOT trim(family) =''");
 			rs = pstm.executeQuery();
 			int id = 1;
 			while (rs.next()) {
@@ -238,7 +229,7 @@ public class NpcTable {
 	public int findNpcIdByNameWithoutSpace(String name) {
 		for (L1Npc npc : _npcs.values()) {
 			if (npc.get_name().replace(" ", "").equals(name)) {
-				return npc.get_npcId();
+			return npc.get_npcId();
 			}
 		}
 		return 0;

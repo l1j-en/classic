@@ -27,16 +27,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.utils.SQLUtil;
 
 public class SpawnTimeTable {
-	private static Logger _log = Logger.getLogger(SpawnTimeTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(SpawnTimeTable.class.getName());
 	private static SpawnTimeTable _instance;
-
 	private final Map<Integer, L1SpawnTime> _times = new HashMap<Integer, L1SpawnTime>();
 
 	public static SpawnTimeTable getInstance() {
@@ -64,14 +61,10 @@ public class SpawnTimeTable {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("spawn_id");
-				L1SpawnTime.L1SpawnTimeBuilder builder = new L1SpawnTime.L1SpawnTimeBuilder(
-						id);
+				L1SpawnTime.L1SpawnTimeBuilder builder = new L1SpawnTime.L1SpawnTimeBuilder(id);
 				builder.setTimeStart(rs.getTime("time_start"));
 				builder.setTimeEnd(rs.getTime("time_end"));
-				// builder.setPeriodStart(rs.getTimestamp("period_start"));
-				// builder.setPeriodEnd(rs.getTimestamp("period_end"));
 				builder.setDeleteAtEndTime(rs.getBoolean("delete_at_endtime"));
-
 				_times.put(id, builder.build());
 			}
 		} catch (SQLException e) {

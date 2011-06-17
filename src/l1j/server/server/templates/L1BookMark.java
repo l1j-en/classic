@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Bookmarks;
@@ -33,18 +33,13 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1BookMark {
+	
 	private static Logger _log = Logger.getLogger(L1BookMark.class.getName());
-
 	private int _charId;
-
 	private int _id;
-
 	private String _name;
-
 	private int _locX;
-
 	private int _locY;
-
 	private short _mapId;
 
 	public L1BookMark() {
@@ -55,11 +50,10 @@ public class L1BookMark {
 		if (book != null) {
 			Connection con = null;
 			PreparedStatement pstm = null;
+			
 			try {
-
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con
-						.prepareStatement("DELETE FROM character_teleport WHERE id=?");
+				pstm = con.prepareStatement("DELETE FROM character_teleport WHERE id=?");
 				pstm.setInt(1, book.getId());
 				pstm.execute();
 				player.removeBookMark(book);
@@ -78,7 +72,6 @@ public class L1BookMark {
 //			pc.sendPackets(new S_ServerMessage(204));
 //			return;
 //		}
-
 		if (!pc.getMap().isMarkable()) {
 			pc.sendPackets(new S_ServerMessage(214)); // Remember, you can not here.
 			return;
@@ -103,8 +96,7 @@ public class L1BookMark {
 
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con
-						.prepareStatement("INSERT INTO character_teleport SET id = ?, char_id = ?, name = ?, locx = ?, locy = ?, mapid = ?");
+				pstm = con.prepareStatement("INSERT INTO character_teleport SET id = ?, char_id = ?, name = ?, locx = ?, locy = ?, mapid = ?");
 				pstm.setInt(1, bookmark.getId());
 				pstm.setInt(2, bookmark.getCharId());
 				pstm.setString(3, bookmark.getName());
@@ -118,10 +110,8 @@ public class L1BookMark {
 				SQLUtil.close(pstm);
 				SQLUtil.close(con);
 			}
-
 			pc.addBookMark(bookmark);
-			pc.sendPackets(new S_Bookmarks(s, bookmark.getMapId(),
-					bookmark.getId()));
+			pc.sendPackets(new S_Bookmarks(s, bookmark.getMapId(), bookmark.getId()));
 		} else {
 			pc.sendPackets(new S_ServerMessage(327)); // The same name already exists.
 		}

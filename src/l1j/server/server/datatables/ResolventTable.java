@@ -27,17 +27,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class ResolventTable {
-	private static Logger _log = Logger.getLogger(ResolventTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(ResolventTable.class.getName());
 	private static ResolventTable _instance;
-
-	private final Map<Integer, Integer> _resolvent
-			= new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> _resolvent = new HashMap<Integer, Integer>();
 
 	public static ResolventTable getInstance() {
 		if (_instance == null) {
@@ -57,14 +53,11 @@ public final class ResolventTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM resolvent");
-
 			for (rs = pstm.executeQuery(); rs.next();) {
 				int itemId = rs.getInt("item_id");
 				int crystalCount = rs.getInt("crystal_count");
-
 				_resolvent.put(new Integer(itemId), crystalCount);
 			}
-
 			_log.config("resolvent " + _resolvent.size());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -82,5 +75,4 @@ public final class ResolventTable {
 		}
 		return crystalCount;
 	}
-
 }

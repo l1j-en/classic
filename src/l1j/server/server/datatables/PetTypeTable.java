@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.templates.L1PetType;
 import l1j.server.server.utils.IntRange;
 import l1j.server.server.utils.SQLUtil;
@@ -59,9 +59,7 @@ public class PetTypeTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM pettypes");
-
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				int baseNpcId = rs.getInt("BaseNpcId");
 				String name = rs.getString("Name");
@@ -78,9 +76,7 @@ public class PetTypeTable {
 				int defyMsgId = rs.getInt("DefyMessageId");
 				IntRange hpUpRange = new IntRange(hpUpMin, hpUpMax);
 				IntRange mpUpRange = new IntRange(mpUpMin, mpUpMax);
-				_types.put(baseNpcId, new L1PetType(baseNpcId, name,
-						itemIdForTaming, hpUpRange, mpUpRange,
-						npcIdForEvolving, msgIds, defyMsgId));
+				_types.put(baseNpcId, new L1PetType(baseNpcId, name, itemIdForTaming, hpUpRange, mpUpRange, npcIdForEvolving, msgIds, defyMsgId));
 				_defaultNames.add(name.toLowerCase());
 			}
 		} catch (SQLException e) {

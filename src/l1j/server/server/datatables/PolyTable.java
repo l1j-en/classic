@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -27,15 +26,13 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.utils.SQLUtil;
 
 public class PolyTable {
 	private static Logger _log = Logger.getLogger(PolyTable.class.getName());
-
 	private static PolyTable _instance;
-
 	private final HashMap<String, L1PolyMorph> _polymorphs = new HashMap<String, L1PolyMorph>();
 	private final HashMap<Integer, L1PolyMorph> _polyIdIndex = new HashMap<Integer, L1PolyMorph>();
 
@@ -55,7 +52,6 @@ public class PolyTable {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM polymorphs");
 			rs = pstm.executeQuery();
@@ -79,14 +75,10 @@ public class PolyTable {
 			int armorEquipFlg = rs.getInt("armorequip");
 			boolean canUseSkill = rs.getBoolean("isSkillUse");
 			int causeFlg = rs.getInt("cause");
-
-			L1PolyMorph poly = new L1PolyMorph(id, name, polyId, minLevel,
-					weaponEquipFlg, armorEquipFlg, canUseSkill, causeFlg);
-
+			L1PolyMorph poly = new L1PolyMorph(id, name, polyId, minLevel, weaponEquipFlg, armorEquipFlg, canUseSkill, causeFlg);
 			_polymorphs.put(name, poly);
 			_polyIdIndex.put(polyId, poly);
 		}
-
 		_log.config("Polymorphs List: " + _polymorphs.size() + " Loaded");
 	}
 
@@ -97,5 +89,4 @@ public class PolyTable {
 	public L1PolyMorph getTemplate(int polyId) {
 		return _polyIdIndex.get(polyId);
 	}
-
 }

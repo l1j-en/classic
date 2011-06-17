@@ -24,39 +24,34 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1BossSpawn;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class BossSpawnTable {
-	private static Logger _log = Logger.getLogger(BossSpawnTable.class
-			.getName());
+	private static Logger _log = Logger.getLogger(BossSpawnTable.class.getName());
 
 	private BossSpawnTable() {
 	}
 
 	public static void fillSpawnTable() {
-
 		int spawnCount = 0;
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_boss");
 			rs = pstm.executeQuery();
-
 			L1BossSpawn spawnDat;
 			L1Npc template1;
 			while (rs.next()) {
 				int npcTemplateId = rs.getInt("npc_id");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
-
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId
-							+ " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateId + " missing in npc table");
 					spawnDat = null;
 				} else {
 					spawnDat = new L1BossSpawn(template1);
@@ -77,22 +72,16 @@ public class BossSpawnTable {
 					spawnDat.setHeading(rs.getInt("heading"));
 					spawnDat.setMapId(rs.getShort("mapid"));
 					spawnDat.setRespawnScreen(rs.getBoolean("respawn_screen"));
-					spawnDat
-							.setMovementDistance(rs.getInt("movement_distance"));
+					spawnDat.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("spawn_type"));
 					spawnDat.setPercentage(rs.getInt("percentage"));
-
 					spawnDat.setName(template1.get_name());
-
 					// start the spawning
 					spawnDat.init();
 					spawnCount += spawnDat.getAmount();
-
 				}
-
 			}
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {

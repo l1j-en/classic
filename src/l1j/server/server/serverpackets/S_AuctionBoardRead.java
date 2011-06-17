@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.sql.*;
@@ -24,7 +23,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.Opcodes;
 import l1j.server.server.utils.SQLUtil;
 
@@ -32,9 +31,7 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_AuctionBoardRead extends ServerBasePacket {
-
-	private static Logger _log = Logger.getLogger(S_AuctionBoardRead.class.
-			getName());
+	private static Logger _log = Logger.getLogger(S_AuctionBoardRead.class.getName());
 	private static final String S_AUCTIONBOARDREAD = "[S] S_AuctionBoardRead";
 	private byte[] _byte = null;
 
@@ -64,8 +61,7 @@ public class S_AuctionBoardRead extends ServerBasePacket {
 				writeS(rs.getString(7)); 
 				writeS(rs.getString(9)); 
 				writeS(String.valueOf(rs.getInt(5))); 
-				Calendar cal = timestampToCalendar((Timestamp) rs.
-						getObject(4));
+				Calendar cal = timestampToCalendar((Timestamp) rs.getObject(4));
 				int month = cal.get(Calendar.MONTH) + 1;
 				int day = cal.get(Calendar.DATE);
 				int hour = cal.get(Calendar.HOUR_OF_DAY);

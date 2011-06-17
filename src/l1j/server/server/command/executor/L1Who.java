@@ -18,19 +18,16 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.Collection;
 import java.util.logging.Logger;
 
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.serverpackets.S_WhoAmount;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1Who implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Who.class.getName());
@@ -62,22 +59,22 @@ public class L1Who implements L1CommandExecutor {
 				whoOffline(gm, name);
 			} else {
 				gm.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(target.getName())
-						.append("(").append(target.getAccountName())
-						.append("): L").append(target.getLevel())
-						.append(" ").append(getSex(target.getClassId()))
-						.append(" ").append(getClass(target.getClassId()))
-						.append(" ").append(target.getMaxHp())
-						.append("/").append(target.getMaxMp()+ " | ")
-						.append("Dmg: +" + gm.getDmgup() + " | ")
-						.append("Hit: +" + gm.getHitup() + " | ")
-						.append("MR: " + gm.getMr() + " | ")
-						.append("HPR: " + gm.getHpr() + gm.getInventory().hpRegenPerTick() + " | ")
-						.append("MPR: " + gm.getMpr() + gm.getInventory().mpRegenPerTick() + " | ")
-						.append("Karma: " + gm.getKarma() + " | ")
-						.append("MR: ").append(target.getMr()).append(" | ")
-						.append("Items: " + gm.getInventory().getSize())
-						.toString()));
+				.append(target.getName())
+				.append("(").append(target.getAccountName())
+				.append("): L").append(target.getLevel())
+				.append(" ").append(getSex(target.getClassId()))
+				.append(" ").append(getClass(target.getClassId()))
+				.append(" ").append(target.getMaxHp())
+				.append("/").append(target.getMaxMp()+ " | ")
+				.append("Dmg: +" + gm.getDmgup() + " | ")
+				.append("Hit: +" + gm.getHitup() + " | ")
+				.append("MR: " + gm.getMr() + " | ")
+				.append("HPR: " + gm.getHpr() + gm.getInventory().hpRegenPerTick() + " | ")
+				.append("MPR: " + gm.getMpr() + gm.getInventory().mpRegenPerTick() + " | ")
+				.append("Karma: " + gm.getKarma() + " | ")
+				.append("MR: ").append(target.getMr()).append(" | ")
+				.append("Items: " + gm.getInventory().getSize())
+				.toString()));
 			}
 		} catch (Exception exception) {
 			whoOffline(gm, name);
@@ -92,14 +89,14 @@ public class L1Who implements L1CommandExecutor {
 				charC = getClass(player.getClassId());
 				charS = getSex(player.getClassId());
 				gm.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(i).append(". ") .append(player.getName())
-						.append("(").append(player.getAccountName())
-						.append("): L").append(player.getLevel())
-						.append(" ").append(charS).append(" ").append(charC)
-						.append(" ").append(player.getMaxHp())
-						.append("/").append(player.getMaxMp())
-						.append(" ").append(player.getMr()).append("MR")
-						.toString()));
+				.append(i).append(". ") .append(player.getName())
+				.append("(").append(player.getAccountName())
+				.append("): L").append(player.getLevel())
+				.append(" ").append(charS).append(" ").append(charC)
+				.append(" ").append(player.getMaxHp())
+				.append("/").append(player.getMaxMp())
+				.append(" ").append(player.getMr()).append("MR")
+				.toString()));
 				i++;
 			}
 		} catch (Exception exception) {
@@ -116,15 +113,15 @@ public class L1Who implements L1CommandExecutor {
 			rs = pstm.executeQuery();
 			rs.next();
 			gm.sendPackets(new S_SystemMessage((new StringBuilder())
-					.append(rs.getString("char_name"))
-					.append("(").append(rs.getString("account_name"))
-					.append("): L").append(rs.getInt("level"))
-					.append(" ").append(getSex(rs.getInt("Class")))
-					.append(" ").append(getClass(rs.getInt("Class")))
-					.append(" ").append(rs.getInt("MaxHp"))
-					.append("/").append(rs.getInt("MaxMp"))
-					.append(" (Offline)")
-					.toString()));
+			.append(rs.getString("char_name"))
+			.append("(").append(rs.getString("account_name"))
+			.append("): L").append(rs.getInt("level"))
+			.append(" ").append(getSex(rs.getInt("Class")))
+			.append(" ").append(getClass(rs.getInt("Class")))
+			.append(" ").append(rs.getInt("MaxHp"))
+			.append("/").append(rs.getInt("MaxMp"))
+			.append(" (Offline)")
+			.toString()));
 		} catch (Exception exception) {
 			gm.sendPackets(new S_SystemMessage("'" + name + "' is not an existing character."));
 		} finally {

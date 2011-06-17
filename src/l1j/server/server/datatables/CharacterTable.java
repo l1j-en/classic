@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
 import l1j.server.server.model.map.L1WorldMap;
@@ -38,14 +38,10 @@ import l1j.server.server.utils.SQLUtil;
 
 public class CharacterTable {
 	private CharacterStorage _charStorage;
-
 	private static CharacterTable _instance;
+	private static Logger _log = Logger.getLogger(CharacterTable.class.getName());
 
-	private static Logger _log = Logger.getLogger(CharacterTable.class
-			.getName());
-
-	private final Map<String, L1CharName> _charNameList =
-			new ConcurrentHashMap<String, L1CharName>();
+	private final Map<String, L1CharName> _charNameList = new ConcurrentHashMap<String, L1CharName>();
 
 	private CharacterTable() {
 		_charStorage = new MySqlCharacterStorage();
@@ -79,8 +75,7 @@ public class CharacterTable {
 		}
 	}
 
-	public void deleteCharacter(String accountName, String charName)
-			throws Exception {
+	public void deleteCharacter(String accountName, String charName) throws Exception {
 		// We probably do not need synchronization
 		_charStorage.deleteCharacter(accountName, charName);
 		if (_charNameList.containsKey(charName)) {
@@ -98,7 +93,7 @@ public class CharacterTable {
 		L1PcInstance pc = null;
 		try {
 			pc = restoreCharacter(charName);
-
+			
 			// SKT is beyond the scope of the map move
 			L1Map map = L1WorldMap.getInstance().getMap(pc.getMapId());
 
@@ -107,13 +102,6 @@ public class CharacterTable {
 				pc.setY(33396);
 				pc.setMap((short) 4);
 			}
-
-			/*
-			 * if(l1pcinstance.getClanid() != 0) { L1Clan clan = new L1Clan();
-			 * ClanTable clantable = new ClanTable(); clan =
-			 * clantable.getClan(l1pcinstance.getClanname());
-			 * l1pcinstance.setClanname(clan.GetClanName()); }
-			 */
 			_log.finest("loadCharacter: " + pc.getName());
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -142,8 +130,7 @@ public class CharacterTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE characters SET OnlineStatus=? WHERE objid=?");
+			pstm = con.prepareStatement("UPDATE characters SET OnlineStatus=? WHERE objid=?");
 			pstm.setInt(1, pc.getOnlineStatus());
 			pstm.setInt(2, pc.getId());
 			pstm.execute();
@@ -164,8 +151,7 @@ public class CharacterTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE characters SET PartnerID=? WHERE objid=?");
+			pstm = con.prepareStatement("UPDATE characters SET PartnerID=? WHERE objid=?");
 			pstm.setInt(1, partnerId);
 			pstm.setInt(2, targetId);
 			pstm.execute();
@@ -182,11 +168,7 @@ public class CharacterTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("UPDATE characters SET OriginalStr= ?"
-							+ ", OriginalCon= ?, OriginalDex= ?, OriginalCha= ?"
-							+ ", OriginalInt= ?, OriginalWis= ?"
-							+ " WHERE objid=?");
+			pstm = con.prepareStatement("UPDATE characters SET OriginalStr= ?" + ", OriginalCon= ?, OriginalDex= ?, OriginalCha= ?" + ", OriginalInt= ?, OriginalWis= ?" + " WHERE objid=?");
 			pstm.setInt(1, pc.getBaseStr());
 			pstm.setInt(2, pc.getBaseCon());
 			pstm.setInt(3, pc.getBaseDex());
@@ -216,8 +198,7 @@ public class CharacterTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
+			pstm = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
 			pstm.setString(1, name);
 			rs = pstm.executeQuery();
 			result = rs.next();
@@ -239,8 +220,7 @@ public class CharacterTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT * FROM characters");
+			pstm = con.prepareStatement("SELECT * FROM characters");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				cn = new L1CharName();
@@ -259,8 +239,6 @@ public class CharacterTable {
 	}
 
 	public L1CharName[] getCharNameList() {
-		return _charNameList.values().toArray(new L1CharName[_charNameList
-				.size()]);
+		return _charNameList.values().toArray(new L1CharName[_charNameList.size()]);
 	}
-
 }

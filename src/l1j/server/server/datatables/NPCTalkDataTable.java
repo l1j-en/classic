@@ -21,17 +21,14 @@ package l1j.server.server.datatables;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import l1j.server.L1DatabaseFactory;
+
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.utils.SQLUtil;
 
 public class NPCTalkDataTable {
-
-	private static Logger _log = Logger.getLogger(NPCTalkDataTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(NPCTalkDataTable.class.getName());
 	private static NPCTalkDataTable _instance;
-
 	private HashMap<Integer, L1NpcTalkData> _datatable = new HashMap<Integer, L1NpcTalkData>();
 
 	public static NPCTalkDataTable getInstance() {
@@ -50,10 +47,8 @@ public class NPCTalkDataTable {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM npcaction");
-
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				L1NpcTalkData l1npctalkdata = new L1NpcTalkData();
@@ -62,8 +57,7 @@ public class NPCTalkDataTable {
 				l1npctalkdata.setCaoticAction(rs.getString(3));
 				l1npctalkdata.setTeleportURL(rs.getString(4));
 				l1npctalkdata.setTeleportURLA(rs.getString(5));
-				_datatable.put(new Integer(l1npctalkdata.getNpcID()),
-						l1npctalkdata);
+				_datatable.put(new Integer(l1npctalkdata.getNpcID()), l1npctalkdata);
 			}
 			_log.config("NPC Action List: " + _datatable.size() + " Loaded");
 		} catch (SQLException e) {
@@ -78,5 +72,4 @@ public class NPCTalkDataTable {
 	public L1NpcTalkData getTemplate(int i) {
 		return _datatable.get(new Integer(i));
 	}
-
 }

@@ -27,18 +27,14 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class Getback {
-
 	private static Logger _log = Logger.getLogger(Getback.class.getName());
-
 	private static Random _random = new Random();
-
 	private static HashMap<Integer, ArrayList<Getback>> _getback = new HashMap<Integer, ArrayList<Getback>>();
-
 	private int _areaX1;
 	private int _areaY1;
 	private int _areaX2;
@@ -89,11 +85,9 @@ public class Getback {
 				getback._getbackMapId = rs.getInt("getback_mapid");
 				getback._getbackTownId = rs.getInt("getback_townid");
 				getback._getbackTownIdForElf = rs.getInt("getback_townid_elf");
-				getback._getbackTownIdForDarkelf = rs
-						.getInt("getback_townid_darkelf");
+				getback._getbackTownIdForDarkelf = rs.getInt("getback_townid_darkelf");
 				getback._escapable = rs.getBoolean("scrollescape");
-				ArrayList<Getback> getbackList = _getback
-						.get(getback._areaMapId);
+				ArrayList<Getback> getbackList = _getback.get(getback._areaMapId);
 				if (getbackList == null) {
 					getbackList = new ArrayList<Getback>();
 					_getback.put(getback._areaMapId, getbackList);
@@ -117,11 +111,8 @@ public class Getback {
 	 * @return locx,locy,mapid
 	 */
 	public static int[] GetBack_Location(L1PcInstance pc, boolean bScroll_Escape) {
-
 		int[] loc = new int[3];
-
 		int nPosition = _random.nextInt(3);
-
 		int pcLocX = pc.getX();
 		int pcLocY = pc.getY();
 		int pcMapId = pc.getMapId();
@@ -131,8 +122,7 @@ public class Getback {
 			Getback getback = null;
 			for (Getback gb : getbackList) {
 				if (gb.isSpecifyArea()) {
-					if (gb._areaX1 <= pcLocX && pcLocX <= gb._areaX2
-							&& gb._areaY1 <= pcLocY && pcLocY <= gb._areaY2) {
+					if (gb._areaX1 <= pcLocX && pcLocX <= gb._areaX2 && gb._areaY1 <= pcLocY && pcLocY <= gb._areaY2) {
 						getback = gb;
 						break;
 					}
@@ -141,16 +131,13 @@ public class Getback {
 					break;
 				}
 			}
-
 			loc = ReadGetbackInfo(getback, nPosition);
 
 			// town_id
 			if (pc.isElf() && getback._getbackTownIdForElf > 0) {
-				loc = L1TownLocation
-						.getGetBackLoc(getback._getbackTownIdForElf);
+				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForElf);
 			} else if (pc.isDarkelf() && getback._getbackTownIdForDarkelf > 0) {
-				loc = L1TownLocation
-						.getGetBackLoc(getback._getbackTownIdForDarkelf);
+				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForDarkelf);
 			} else if (getback._getbackTownId > 0) {
 				loc = L1TownLocation.getGetBackLoc(getback._getbackTownId);
 			}
@@ -183,7 +170,6 @@ public class Getback {
 			break;
 		}
 		loc[2] = getback._getbackMapId;
-
 		return loc;
 	}
 }

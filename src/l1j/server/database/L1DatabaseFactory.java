@@ -16,33 +16,29 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server;
+package l1j.server.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import l1j.server.Config;
 import l1j.server.server.utils.LeakCheckedConnection;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class L1DatabaseFactory {
+	
 	private static L1DatabaseFactory _instance;
-
 	private ComboPooledDataSource _source;
-
 	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class.getName());
-
 	private static String _driver;
-
 	private static String _url;
-
 	private static String _user;
-
 	private static String _password;
 
-	public static void setDatabaseSettings(final String driver,
-			final String url, final String user, final String password) {
+	public static void setDatabaseSettings(final String driver, final String url, final String user, final String password) {
 		_driver = driver;
 		_url = url;
 		_user = user;
@@ -57,7 +53,6 @@ public class L1DatabaseFactory {
 			_source.setJdbcUrl(_url);
 			_source.setUser(_user);
 			_source.setPassword(_password);
-
 			/* Test the connection */
 			_source.getConnection().close();
 		} catch (SQLException x) {
@@ -93,7 +88,6 @@ public class L1DatabaseFactory {
 
 	public Connection getConnection() {
 		Connection con = null;
-
 		while (con == null) {
 			try {
 				con = _source.getConnection();

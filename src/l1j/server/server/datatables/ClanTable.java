@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.IdFactory;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -37,7 +37,6 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class ClanTable {
-
 	private static Logger _log = Logger.getLogger(ClanTable.class.getName());
 	private final HashMap<Integer, L1Clan> _clans = new HashMap<Integer, L1Clan>();
 	private static ClanTable _instance;
@@ -54,7 +53,6 @@ public class ClanTable {
 			Connection con = null;
 			PreparedStatement pstm = null;
 			ResultSet rs = null;
-
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
 				pstm = con.prepareStatement("SELECT * FROM clan_data ORDER BY clan_id");
@@ -71,7 +69,6 @@ public class ClanTable {
 					L1World.getInstance().storeClan(clan);
 					_clans.put(clan_id, clan);
 				}
-
 			} catch (SQLException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
@@ -80,19 +77,16 @@ public class ClanTable {
 				SQLUtil.close(con);
 			}
 		}
-
 		Collection<L1Clan> AllClan = L1World.getInstance().getAllClans();
 		for (L1Clan clan : AllClan) {
 			Connection con = null;
 			PreparedStatement pstm = null;
 			ResultSet rs = null;
-
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
 				pstm = con.prepareStatement("SELECT char_name FROM characters WHERE ClanID = ?");
 				pstm.setInt(1, clan.getClanId());
 				rs = pstm.executeQuery();
-
 				while (rs.next()) {
 				clan.addMemberName(rs.getString(1));
 				}
@@ -113,7 +107,7 @@ public class ClanTable {
 	public L1Clan createClan(L1PcInstance player, String clan_name) {
 		for (L1Clan oldClans : L1World.getInstance().getAllClans()) {
 			if (oldClans.getClanName().equalsIgnoreCase(clan_name)) {
-				return null;
+			return null;
 			}
 		}
 		L1Clan clan = new L1Clan();
@@ -125,7 +119,6 @@ public class ClanTable {
 		clan.setHouseId(0);
 		Connection con = null;
 		PreparedStatement pstm = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("INSERT INTO clan_data SET clan_id=?, clan_name=?, leader_id=?, leader_name=?, hascastle=?, hashouse=?");
@@ -181,7 +174,7 @@ public class ClanTable {
 	public void deleteClan(String clan_name) {
 		L1Clan clan = L1World.getInstance().getClan(clan_name);
 		if (clan == null) {
-			return;
+		return;
 		}
 		Connection con = null;
 		PreparedStatement pstm = null;

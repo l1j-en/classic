@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -27,18 +26,14 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1WeaponSkill;
 import l1j.server.server.utils.SQLUtil;
 
 public class WeaponSkillTable {
-	private static Logger _log = Logger.getLogger(WeaponSkillTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(WeaponSkillTable.class.getName());
 	private static WeaponSkillTable _instance;
-
-	private final HashMap<Integer, L1WeaponSkill> _weaponIdIndex
-			= new HashMap<Integer, L1WeaponSkill>();
+	private final HashMap<Integer, L1WeaponSkill> _weaponIdIndex = new HashMap<Integer, L1WeaponSkill>();
 
 	public static WeaponSkillTable getInstance() {
 		if (_instance == null) {
@@ -56,14 +51,12 @@ public class WeaponSkillTable {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM weapon_skill");
 			rs = pstm.executeQuery();
 			fillWeaponSkillTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating weapon_skill table",
-					e);
+			_log.log(Level.SEVERE, "error while creating weapon_skill table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -84,9 +77,7 @@ public class WeaponSkillTable {
 			int effectTarget = rs.getInt("effect_target");
 			boolean isArrowType = rs.getBoolean("arrow_type");
 			int attr = rs.getInt("attr");
-			L1WeaponSkill weaponSkill = new L1WeaponSkill(weaponId, probability,
-					fixDamage, randomDamage, area, skillId, skillTime, effectId,
-					effectTarget, isArrowType, attr);
+			L1WeaponSkill weaponSkill = new L1WeaponSkill(weaponId, probability, fixDamage, randomDamage, area, skillId, skillTime, effectId, effectTarget, isArrowType, attr);
 			_weaponIdIndex.put(weaponId, weaponSkill);
 		}
 		_log.config("List of weapons skills: " + _weaponIdIndex.size() + " Loaded");
@@ -95,5 +86,4 @@ public class WeaponSkillTable {
 	public L1WeaponSkill getTemplate(int weaponId) {
 		return _weaponIdIndex.get(weaponId);
 	}
-
 }

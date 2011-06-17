@@ -28,32 +28,21 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import l1j.server.Base64;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
-/**
- */
 public class Account {
-
 	private String _name;
-
 	private String _ip;
-
 	private String _password;
-
 	private Timestamp _lastActive;
-
 	private int _accessLevel;
-
 	private String _host;
-
 	private boolean _banned;
-
 	private int _characterSlot;
-
 	private boolean _isValid = false;
-
 	private static Logger _log = Logger.getLogger(Account.class.getName());
 
 	private Account() {
@@ -76,7 +65,6 @@ public class Account {
 			account._host = host;
 			account._banned = false;
 			account._lastActive = new Timestamp(System.currentTimeMillis());
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "INSERT INTO accounts SET login=?,password=?,lastactive=?,access_level=?,ip=?,host=?,banned=?,character_slot=?";
 			pstm = con.prepareStatement(sqlstr);
@@ -109,7 +97,6 @@ public class Account {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		Account account = null;
-		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "SELECT * FROM accounts WHERE login=? LIMIT 1";
@@ -128,7 +115,6 @@ public class Account {
 			account._host = rs.getString("host");
 			account._banned = rs.getInt("banned") == 0 ? false : true;
 			account._characterSlot = rs.getInt("character_slot");
-
 			_log.fine("Account already exists.");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -144,7 +130,6 @@ public class Account {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "UPDATE accounts SET lastactive=? WHERE login = ?";
@@ -165,7 +150,6 @@ public class Account {
 	public static void updateCharacterSlot(final Account account) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			String sqlstr = "UPDATE accounts SET character_slot=? WHERE login=?";

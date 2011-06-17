@@ -16,24 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.Opcodes;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class S_Board extends ServerBasePacket {
-
 	private static final String S_BOARD = "[S] S_Board";
-
 	private static Logger _log = Logger.getLogger(S_Board.class.getName());
-
 	private byte[] _byte = null;
 
 	public S_Board(L1NpcInstance board) {
@@ -73,7 +69,6 @@ public class S_Board extends ServerBasePacket {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-
 		writeC(Opcodes.S_OPCODE_BOARD);
 		writeD(board.getId());
 		writeC(0xFF); // ?

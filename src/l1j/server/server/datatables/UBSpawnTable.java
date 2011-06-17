@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1UbPattern;
 import l1j.server.server.model.L1UbSpawn;
 import l1j.server.server.templates.L1Npc;
@@ -33,9 +33,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class UBSpawnTable {
 	private static Logger _log = Logger.getLogger(UBSpawnTable.class.getName());
-
 	private static UBSpawnTable _instance;
-
 	private HashMap<Integer, L1UbSpawn> _spawnTable = new HashMap<Integer, L1UbSpawn>();;
 
 	public static UBSpawnTable getInstance() {
@@ -50,23 +48,18 @@ public class UBSpawnTable {
 	}
 
 	private void loadSpawnTable() {
-
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_ub");
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
-				L1Npc npcTemp = NpcTable.getInstance()
-						.getTemplate(rs.getInt(6));
+				L1Npc npcTemp = NpcTable.getInstance().getTemplate(rs.getInt(6));
 				if (npcTemp == null) {
 					continue;
 				}
-
 				L1UbSpawn spawnDat = new L1UbSpawn();
 				spawnDat.setId(rs.getInt(1));
 				spawnDat.setUbId(rs.getInt(2));
@@ -77,11 +70,9 @@ public class UBSpawnTable {
 				spawnDat.setAmount(rs.getInt(7));
 				spawnDat.setSpawnDelay(rs.getInt(8));
 				spawnDat.setSealCount(rs.getInt(9));
-
 				_spawnTable.put(spawnDat.getId(), spawnDat);
 			}
 		} catch (SQLException e) {
-			// problem with initializing spawn, go to next one
 			_log.warning("spawn couldnt be initialized:" + e);
 		} finally {
 			SQLUtil.close(rs);
@@ -107,11 +98,9 @@ public class UBSpawnTable {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
+			pstm = con.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
 			pstm.setInt(1, ubId);
 			rs = pstm.executeQuery();
 			if (rs.next()) {
@@ -135,7 +124,6 @@ public class UBSpawnTable {
 			}
 		}
 		pattern.freeze();
-
 		return pattern;
 	}
 }

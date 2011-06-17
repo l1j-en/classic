@@ -28,7 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Npc;
@@ -38,9 +38,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class SpawnTable {
 	private static Logger _log = Logger.getLogger(SpawnTable.class.getName());
-
 	private static SpawnTable _instance;
-
 	private Map<Integer, L1Spawn> _spawntable = new HashMap<Integer, L1Spawn>();
 
 	private int _highestId;
@@ -61,12 +59,10 @@ public class SpawnTable {
 	}
 
 	private void fillSpawnTable() {
-
 		int spawnCount = 0;
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist");
@@ -80,11 +76,10 @@ public class SpawnTable {
 						continue;
 					}
 				}
-				
 				int npcTemplateId = rs.getInt("npc_templateid");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				int count;
-
+				
 				if (template1 == null) {
 					_log.warning("mob data for id:" + npcTemplateId + " missing in npc table");
 					spawnDat = null;
@@ -117,7 +112,6 @@ public class SpawnTable {
 					spawnDat.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("near_spawn"));
-					//spawnDat.setTime(SpawnTimeTable.getInstance().get(spawnDat.getId()));
 					spawnDat.setName(template1.get_name());
 					if (count > 1 && spawnDat.getLocX1() == 0) {
 						// And multiple fixed spawn, the population range from 6 to spawn change.
@@ -128,7 +122,6 @@ public class SpawnTable {
 						spawnDat.setLocX2(spawnDat.getLocX() + range);
 						spawnDat.setLocY2(spawnDat.getLocY() + range);
 					}
-					// start the spawning
 					spawnDat.init();
 					spawnCount += spawnDat.getAmount();
 				}
@@ -160,7 +153,6 @@ public class SpawnTable {
 	public static void storeSpawn(L1PcInstance pc, L1Npc npc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
 		try {
 			int count = 1;
 			int randomXY = 12;
@@ -199,6 +191,5 @@ public class SpawnTable {
 		} else {
 			return NumberUtil.randomRound((double) (count * rate));
 		}
-
 	}
 }

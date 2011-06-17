@@ -26,11 +26,15 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class IpTable {
-
+	private static Logger _log = Logger.getLogger(IpTable.class.getName());
+	private static ArrayList<String> _banip;
+	public static boolean isInitialized;
+	private static IpTable _instance;
+	
 	public static IpTable getInstance() {
 		if (_instance == null) {
 			_instance = new IpTable();
@@ -48,9 +52,7 @@ public class IpTable {
 	public void banIp(String ip) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("INSERT INTO ban_ip SET ip=?");
 			pstm.setString(1, ip);
@@ -76,15 +78,11 @@ public class IpTable {
 
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM ban_ip");
-
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				_banip.add(rs.getString(1));
 			}
-
 			isInitialized = true;
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -98,9 +96,7 @@ public class IpTable {
 		boolean ret = false;
 		Connection con = null;
 		PreparedStatement pstm = null;
-
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("DELETE FROM ban_ip WHERE ip=?");
 			pstm.setString(1, ip);
@@ -114,13 +110,4 @@ public class IpTable {
 		}
 		return ret;
 	}
-
-	private static Logger _log = Logger.getLogger(IpTable.class.getName());
-
-	private static ArrayList<String> _banip;
-
-	public static boolean isInitialized;
-
-	private static IpTable _instance;
-
 }

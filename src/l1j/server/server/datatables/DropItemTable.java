@@ -27,22 +27,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class DropItemTable {
-	private class dropItemData {
-		public double dropRate = 1;
-		public double dropAmount = 1;
-	}
-
-	private static Logger _log = Logger.getLogger(DropItemTable.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(DropItemTable.class.getName());
 	private static DropItemTable _instance;
-
-	private final Map<Integer, dropItemData> _dropItem
-			= new HashMap<Integer, dropItemData>();
+	private final Map<Integer, dropItemData> _dropItem = new HashMap<Integer, dropItemData>();
 
 	public static DropItemTable getInstance() {
 		if (_instance == null) {
@@ -51,6 +42,11 @@ public final class DropItemTable {
 		return _instance;
 	}
 
+	private class dropItemData {
+	public double dropRate = 1;
+	public double dropAmount = 1;
+	}
+	
 	private DropItemTable() {
 		loadMapsFromDatabase();
 	}
@@ -62,16 +58,13 @@ public final class DropItemTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM drop_item");
-
 			for (rs = pstm.executeQuery(); rs.next();) {
 				dropItemData data = new dropItemData();
 				int itemId = rs.getInt("item_id");
 				data.dropRate = rs.getDouble("drop_rate");
 				data.dropAmount = rs.getDouble("drop_amount");
-
 				_dropItem.put(new Integer(itemId), data);
 			}
-
 			_log.config("drop_item " + _dropItem.size());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -85,7 +78,7 @@ public final class DropItemTable {
 	public double getDropRate(int itemId) {
 		dropItemData data = _dropItem.get(itemId);
 		if (data == null) {
-			return 1;
+		return 1;
 		}
 		return data.dropRate;
 	}
@@ -93,9 +86,8 @@ public final class DropItemTable {
 	public double getDropAmount(int itemId) {
 		dropItemData data = _dropItem.get(itemId);
 		if (data == null) {
-			return 1;
+		return 1;
 		}
 		return data.dropAmount;
 	}
-
 }

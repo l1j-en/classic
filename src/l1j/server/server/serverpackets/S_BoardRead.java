@@ -16,23 +16,19 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.Opcodes;
 import l1j.server.server.utils.SQLUtil;
 
 public class S_BoardRead extends ServerBasePacket {
-
 	private static final String S_BoardRead = "[C] S_BoardRead";
-
 	private static Logger _log = Logger.getLogger(S_BoardRead.class.getName());
-
 	private byte[] _byte = null;
 
 	public S_BoardRead(int number) {

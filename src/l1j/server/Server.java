@@ -28,16 +28,14 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.GameServer;
 import l1j.server.telnet.TelnetServer;
-
 /**
  * l1j-En
  */
 public class Server {
-
 	private static Logger _log = Logger.getLogger(Server.class.getName());
-
 	private static final String LOG_PROP = "./config/log.properties";
 
 	public static void main(final String[] args) throws Exception {
@@ -60,8 +58,7 @@ public class Server {
 		}
 
 		// L1DatabaseFactory
-		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL,
-		Config.DB_LOGIN, Config.DB_PASSWORD);
+		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL, Config.DB_LOGIN, Config.DB_PASSWORD);
 		L1DatabaseFactory.getInstance();
 
 		// Intialize GameServer

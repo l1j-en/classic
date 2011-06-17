@@ -19,19 +19,17 @@
 package l1j.server.server.command.executor;
 
 import java.util.logging.Logger;
-
-import l1j.server.server.model.L1Teleport;
-import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_SystemMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.templates.L1Item;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
+
 public class L1ItemDrops implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1ItemDrops.class.getName());
 
@@ -77,7 +75,6 @@ public class L1ItemDrops implements L1CommandExecutor {
 				else{
 					blessed = "\\fY";
 				}
-
 				con = L1DatabaseFactory.getInstance().getConnection();
 				pstm = con.prepareStatement("SELECT mobId,min,max,chance FROM droplist WHERE itemId=?");
 				pstm.setInt(1, dropID);
@@ -90,7 +87,6 @@ public class L1ItemDrops implements L1CommandExecutor {
 				chance = new double[rows];
 				name = new String[rows];
 				rs.beforeFirst();
-
 				int i=0;
 				while(rs.next()) {
 					mobID[i]=rs.getInt("mobId");
@@ -101,18 +97,17 @@ public class L1ItemDrops implements L1CommandExecutor {
 				}
 				rs.close();
 				pstm.close();
-
 				pc.sendPackets(new S_SystemMessage(blessed+item.getName()+"("+dropID+") drops from:"));
 				for(int j=0; j<mobID.length; j++) {
 					pstm = con.prepareStatement("SELECT name FROM npc WHERE npcid=?");
 					pstm.setInt(1, mobID[j]);
 					rs = pstm.executeQuery();
 					while(rs.next()) {
-						name[j]=rs.getString("name");
+					name[j]=rs.getString("name");
 					}
 					rs.close();
 					pstm.close();
-					pc.sendPackets(new S_SystemMessage(min[j]+"-"+max[j]+" "+mobID[j]+" "+name[j]+" "+chance[j]+"%"));
+					pc.sendPackets(new S_SystemMessage(min[j] + "-"+max[j] + " "+mobID[j] + " "+name[j] + " "+chance[j] + "%"));
 				}
 			} catch (Exception e) {
 				pc.sendPackets(new S_SystemMessage(".item itemID"));
@@ -122,6 +117,5 @@ public class L1ItemDrops implements L1CommandExecutor {
 				SQLUtil.close(con);
 			}
 		}
-	
 	}
 }

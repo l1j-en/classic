@@ -29,19 +29,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.templates.L1ShopItem;
 import l1j.server.server.utils.SQLUtil;
 
 public class ShopTable {
-
 	private static final long serialVersionUID = 1L;
-
 	private static Logger _log = Logger.getLogger(ShopTable.class.getName());
-
 	private static ShopTable _instance;
-
 	private final Map<Integer, L1Shop> _allShops = new HashMap<Integer, L1Shop>();
 
 	public static ShopTable getInstance() {
@@ -57,7 +53,6 @@ public class ShopTable {
 
 	private ArrayList<Integer> enumNpcIds() {
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -86,13 +81,11 @@ public class ShopTable {
 			int packCount = rs.getInt("pack_count");
 			packCount = packCount == 0 ? 1 : packCount;
 			if (0 <= sellingPrice) {
-				L1ShopItem item = new L1ShopItem(itemId, sellingPrice,
-						packCount);
+				L1ShopItem item = new L1ShopItem(itemId, sellingPrice, packCount);
 				sellingList.add(item);
 			}
 			if (0 <= purchasingPrice) {
-				L1ShopItem item = new L1ShopItem(itemId, purchasingPrice,
-						packCount);
+				L1ShopItem item = new L1ShopItem(itemId, purchasingPrice, packCount);
 				purchasingList.add(item);
 			}
 		}
@@ -105,8 +98,7 @@ public class ShopTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT * FROM shop WHERE npc_id=? ORDER BY order_id");
+			pstm = con.prepareStatement("SELECT * FROM shop WHERE npc_id=? ORDER BY order_id");
 			for (int npcId : enumNpcIds()) {
 				pstm.setInt(1, npcId);
 				rs = pstm.executeQuery();

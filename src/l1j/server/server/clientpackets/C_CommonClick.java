@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
@@ -37,9 +37,8 @@ import l1j.server.server.serverpackets.S_CharPacks;
 import l1j.server.server.utils.SQLUtil;
 
 public class C_CommonClick {
-	
-	private static final String C_COMMON_CLICK = "[C] C_CommonClick";
 
+	private static final String C_COMMON_CLICK = "[C] C_CommonClick";
 	private static Logger _log = Logger.getLogger(C_CommonClick.class.getName());
 
 	public C_CommonClick(ClientThread client) {
@@ -61,7 +60,6 @@ public class C_CommonClick {
 			pstm = conn.prepareStatement("SELECT * FROM characters WHERE account_name=? ORDER BY objid");
 			pstm.setString(1, client.getAccountName());
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				String name = rs.getString("char_name");
 				String clanname = rs.getString("Clanname");
@@ -72,7 +70,7 @@ public class C_CommonClick {
 					if (checkDeleteTime >= 0) {
 						L1Clan clan = L1World.getInstance().getClan(clanname);
 						if (clan != null) {
-							clan.delMemberName(name);
+						clan.delMemberName(name);
 						}
 						CharacterTable.getInstance().deleteCharacter(client.getAccountName(), name);
 					}
@@ -97,28 +95,24 @@ public class C_CommonClick {
 			pstm = conn.prepareStatement("SELECT * FROM characters WHERE account_name=? ORDER BY objid");
 			pstm.setString(1, client.getAccountName());
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				String name = rs.getString("char_name");
 				String clanname = rs.getString("Clanname");
 				int type = rs.getInt("Type");
 				byte sex = rs.getByte("Sex");
 				int lawful = rs.getInt("Lawful");
-
 				int currenthp = rs.getInt("CurHp");
 				if (currenthp < 1) {
 					currenthp = 1;
 				} else if (currenthp > 32767) {
 					currenthp = 32767;
 				}
-
 				int currentmp = rs.getInt("CurMp");
 				if (currentmp < 1) {
 					currentmp = 1;
 				} else if (currentmp > 32767) {
 					currentmp = 32767;
 				}
-
 				int lvl;
 				if (Config.CHARACTER_CONFIG_IN_SERVER_SIDE) {
 					lvl = rs.getInt("level");
@@ -130,7 +124,6 @@ public class C_CommonClick {
 				} else {
 					lvl = 1;
 				}
-
 				int ac = rs.getByte("Ac");
 				int str = rs.getByte("Str");
 				int dex = rs.getByte("Dex");
@@ -139,7 +132,6 @@ public class C_CommonClick {
 				int cha = rs.getByte("Cha");
 				int intel = rs.getByte("Intel");
 				int accessLevel = rs.getShort("AccessLevel");
-
 				S_CharPacks cpk = new S_CharPacks(name, clanname, type, sex,
 				lawful, currenthp, currentmp, ac, lvl, str, dex, con,
 				wis, cha, intel, accessLevel);

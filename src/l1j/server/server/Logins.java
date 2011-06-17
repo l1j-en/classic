@@ -21,25 +21,28 @@ package l1j.server.server;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import l1j.server.Base64;
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class Logins {
-
 	private static Logger _log = Logger.getLogger(Logins.class.getName());
 
 	public static boolean loginValid(String account, String password, String ip, String host) {
 		boolean flag1 = false;
 		_log.info("Connection from: " + account);
-
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		
 		try {
 			byte abyte1[];
 			byte abyte2[];
@@ -47,7 +50,6 @@ public class Logins {
 			byte abyte0[] = password.getBytes("UTF-8");
 			abyte1 = messagedigest.digest(abyte0);
 			abyte2 = null;
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT password FROM accounts WHERE login=? LIMIT 1");
 			pstm.setString(1, account);

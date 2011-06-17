@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -32,7 +32,6 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Skills;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.templates.L1Skills;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class PCommands {
@@ -210,6 +209,7 @@ public class PCommands {
 	private void reportBug(L1PcInstance pc, String bug){
 		Connection con = null;
 		PreparedStatement pstm = null;
+		
 		try {
 			bug = bug.substring(3).trim();
 			if(bug.equals("")) {

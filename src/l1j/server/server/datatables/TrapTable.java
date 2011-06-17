@@ -28,28 +28,23 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.L1DatabaseFactory;
+import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.model.trap.L1Trap;
 import l1j.server.server.storage.TrapStorage;
 import l1j.server.server.utils.SQLUtil;
 
 public class TrapTable {
 	private static Logger _log = Logger.getLogger(TrapTable.class.getName());
-
 	private static TrapTable _instance;
-
 	private Map<Integer, L1Trap> _traps = new HashMap<Integer, L1Trap>();
 
 	private TrapTable() {
 		initialize();
 	}
 
-	private L1Trap createTrapInstance(String name, TrapStorage storage)
-			throws Exception {
+	private L1Trap createTrapInstance(String name, TrapStorage storage) throws Exception {
 		final String packageName = "l1j.server.server.model.trap.";
-
-		Constructor con = Class.forName(packageName + name).getConstructor(
-				new Class[] { TrapStorage.class });
+		Constructor con = Class.forName(packageName + name).getConstructor(new Class[] { TrapStorage.class });
 		return (L1Trap) con.newInstance(storage);
 	}
 
@@ -57,20 +52,13 @@ public class TrapTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-
 			pstm = con.prepareStatement("SELECT * FROM trap");
-
 			rs = pstm.executeQuery();
-
 			while (rs.next()) {
 				String typeName = rs.getString("type");
-
-				L1Trap trap = createTrapInstance(typeName, new SqlTrapStorage(
-						rs));
-
+				L1Trap trap = createTrapInstance(typeName, new SqlTrapStorage(rs));
 				_traps.put(trap.getId(), trap);
 			}
 		} catch (SQLException e) {
@@ -94,7 +82,6 @@ public class TrapTable {
 	public static void reload() {
 		TrapTable oldInstance = _instance;
 		_instance = new TrapTable();
-
 		oldInstance._traps.clear();
 	}
 
@@ -123,7 +110,6 @@ public class TrapTable {
 			try {
 				return _rs.getInt(name);
 			} catch (SQLException e) {
-
 			}
 			return 0;
 		}
