@@ -237,6 +237,8 @@ public final class Config {
 	public static boolean SIM_WAR_PENALTY;
 
 	public static boolean GET_BACK;
+	
+	public static int NEWBIEMAPLEVELS;
 
 	public static String ALT_ITEM_DELETION_TYPE;
 
@@ -582,11 +584,11 @@ public final class Config {
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 			altSettings.load(is);
 			is.close();
-
 			GLOBAL_CHAT_LEVEL = Short.parseShort(altSettings.getProperty("GlobalChatLevel", "30"));
 			WHISPER_CHAT_LEVEL = Short.parseShort(altSettings.getProperty("WhisperChatLevel", "5"));
 			AUTO_LOOT = Byte.parseByte(altSettings.getProperty("AutoLoot", "2"));
 			LOOTING_RANGE = Integer.parseInt(altSettings.getProperty("LootingRange", "3"));
+			NEWBIEMAPLEVELS = Integer.parseInt(altSettings.getProperty("Newbiemaplevel", "15"));
 			ALT_NONPVP = Boolean.parseBoolean(altSettings.getProperty("NonPvP", "True"));
 			ALT_ATKMSG = Boolean.parseBoolean(altSettings.getProperty("AttackMessageOn", "False"));
 			CHANGE_TITLE_BY_ONESELF = Boolean.parseBoolean(altSettings.getProperty("ChangeTitleByOneself", "False"));

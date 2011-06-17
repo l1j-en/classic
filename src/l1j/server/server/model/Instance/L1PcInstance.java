@@ -111,7 +111,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // L1Character, L1DropTable, L1Object, L1ItemInstance,
 // L1World
 //
-
 public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
 
@@ -2396,9 +2395,9 @@ public class L1PcInstance extends L1Character {
 		setCurrentHp(getMaxHp());
 		setCurrentMp(getMaxMp());
 		
-		if (getLevel() >= 15) {
-        if ((getMapId() == 68 || getMapId() == 69 || getMapId() == 304 || getMapId() == 2005 || getMapId() == 85 || getMapId() ==86)) {
-             L1Teleport.teleport(this, 32580, 32931, (short) 0, 5, true); // Talking Island
+		if (getLevel() >= Config.NEWBIEMAPLEVELS) {
+        if ((getMapId() == 68 || getMapId() == 69 || getMapId() == 2005 || getMapId() == 85 || getMapId() == 86)) {
+             L1Teleport.teleport(this, 32580, 32931, (short) 0, 3, true); // Talking Island
         }
 		if (getLevel() >= 52) {
 			if (getMapId() == 777) {
