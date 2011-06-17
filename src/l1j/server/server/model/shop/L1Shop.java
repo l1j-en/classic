@@ -50,7 +50,6 @@ public class L1Shop {
 		if (sellingItems == null || purchasingItems == null) {
 			throw new NullPointerException();
 		}
-
 		_npcId = npcId;
 		_sellingItems = sellingItems;
 		_purchasingItems = purchasingItems;
@@ -77,14 +76,13 @@ public class L1Shop {
 		if (item.getBless() >= 128) { 
 			return false;
 		}
-
 		return true;
 	}
 
 	private L1ShopItem getPurchasingItem(int itemId) {
 		for (L1ShopItem shopItem : _purchasingItems) {
 			if (shopItem.getItemId() == itemId) {
-				return shopItem;
+			return shopItem;
 			}
 		}
 		return null;
@@ -93,14 +91,13 @@ public class L1Shop {
 	public L1AssessedItem assessItem(L1ItemInstance item) {
 		L1ShopItem shopItem = getPurchasingItem(item.getItemId());
 		if (shopItem == null) {
-			return null;
+		return null;
 		}
 		return new L1AssessedItem(item.getId(), getAssessedPrice(shopItem));
 	}
 
 	private int getAssessedPrice(L1ShopItem item) {
-		return (int) (item.getPrice() * Config.RATE_SHOP_PURCHASING_PRICE / item
-				.getPackCount());
+		return (int) (item.getPrice() * Config.RATE_SHOP_PURCHASING_PRICE / item.getPackCount());
 	}
 
 	public List<L1AssessedItem> assessItems(L1PcInventory inv) {
@@ -110,9 +107,7 @@ public class L1Shop {
 				if (!isPurchaseableItem(targetItem)) {
 					continue;
 				}
-
-				result.add(new L1AssessedItem(targetItem.getId(),
-						getAssessedPrice(item)));
+				result.add(new L1AssessedItem(targetItem.getId(), getAssessedPrice(item)));
 			}
 		}
 		return result;
@@ -139,7 +134,7 @@ public class L1Shop {
 			L1Item temp = order.getItem().getItem();
 			if (temp.isStackable()) {
 				if (!pc.getInventory().checkItem(temp.getItemId())) {
-					totalCount += 1;
+				totalCount += 1;
 				}
 			} else {
 				totalCount += 1;
@@ -156,20 +151,16 @@ public class L1Shop {
 		L1TaxCalculator calc = orderList.getTaxCalculator();
 
 		int price = orderList.getTotalPrice();
-
 		int castleId = L1CastleLocation.getCastleIdByNpcid(_npcId);
 		int castleTax = calc.calcCastleTaxPrice(price);
 		int nationalTax = calc.calcNationalTaxPrice(price);
-		if (castleId == L1CastleLocation.ADEN_CASTLE_ID
-				|| castleId == L1CastleLocation.DIAD_CASTLE_ID) {
+		if (castleId == L1CastleLocation.ADEN_CASTLE_ID || castleId == L1CastleLocation.DIAD_CASTLE_ID) {
 			castleTax += nationalTax;
 			nationalTax = 0;
 		}
 
 		if (castleId != 0 && castleTax > 0) {
-			L1Castle castle = CastleTable.getInstance()
-					.getCastleTable(castleId);
-
+			L1Castle castle = CastleTable.getInstance().getCastleTable(castleId);
 			synchronized (castle) {
 				int money = castle.getPublicMoney();
 				if (2000000000 > money) {
@@ -180,8 +171,7 @@ public class L1Shop {
 			}
 
 			if (nationalTax > 0) {
-				L1Castle aden = CastleTable.getInstance().getCastleTable(
-						L1CastleLocation.ADEN_CASTLE_ID);
+				L1Castle aden = CastleTable.getInstance().getCastleTable(L1CastleLocation.ADEN_CASTLE_ID);
 				synchronized (aden) {
 					int money = aden.getPublicMoney();
 					if (2000000000 > money) {
@@ -201,11 +191,10 @@ public class L1Shop {
 
 		int diadTax = calc.calcDiadTaxPrice(price);
 		if (diadTax <= 0) {
-			return;
+		return;
 		}
 
-		L1Castle castle = CastleTable.getInstance().getCastleTable(
-				L1CastleLocation.DIAD_CASTLE_ID);
+		L1Castle castle = CastleTable.getInstance().getCastleTable(L1CastleLocation.DIAD_CASTLE_ID);
 		synchronized (castle) {
 			int money = castle.getPublicMoney();
 			if (2000000000 > money) {
@@ -234,8 +223,7 @@ public class L1Shop {
 	}
 
 	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList) {
-		if (!inv.consumeItem(L1ItemId.ADENA, orderList
-				.getTotalPriceTaxIncluded())) {
+		if (!inv.consumeItem(L1ItemId.ADENA, orderList.getTotalPriceTaxIncluded())) {
 			throw new IllegalStateException("Unable to consume required adena.");
 		}
 		for (L1ShopBuyOrder order : orderList.getList()) {
@@ -256,9 +244,9 @@ public class L1Shop {
 				} else if (chance >= 31 && chance <= 70) {
 					item.setEnchantLevel(0);
 				} else if (chance >= 71 && chance <= 87) {
-					item.setEnchantLevel(random.nextInt(2)+1);
+					item.setEnchantLevel(random.nextInt(2) + 1);
 				} else if (chance >= 88 && chance <= 97) {
-					item.setEnchantLevel(random.nextInt(3)+3);
+					item.setEnchantLevel(random.nextInt(3) + 3);
 				} else if (chance >= 98 && chance <= 99) {
 					item.setEnchantLevel(6);
 				} else if (chance == 100) {
@@ -270,9 +258,8 @@ public class L1Shop {
 
 	public void sellItems(L1PcInstance pc, L1ShopBuyOrderList orderList) {
 		if (!ensureSell(pc, orderList)) {
-			return;
+		return;
 		}
-
 		sellItems(pc.getInventory(), orderList);
 		payTax(orderList);
 	}
@@ -281,11 +268,9 @@ public class L1Shop {
 		L1PcInventory inv = orderList.getPc().getInventory();
 		int totalPrice = 0;
 		for (L1ShopSellOrder order : orderList.getList()) {
-			int count = inv.removeItem(order.getItem().getTargetId(), order
-					.getCount());
+			int count = inv.removeItem(order.getItem().getTargetId(), order.getCount());
 			totalPrice += order.getItem().getAssessedPrice() * count;
 		}
-
 		totalPrice = IntRange.ensure(totalPrice, 0, 2000000000);
 		if (0 < totalPrice) {
 			inv.storeItem(L1ItemId.ADENA, totalPrice);

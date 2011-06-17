@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class BinaryOutputStream extends OutputStream {
-
 	private final ByteArrayOutputStream _bao = new ByteArrayOutputStream();
 
 	public BinaryOutputStream() {

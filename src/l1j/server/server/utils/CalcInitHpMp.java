@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.utils;
 
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -189,5 +188,4 @@ public class CalcInitHpMp {
 		}
 		return mp;
 	}
-
 }

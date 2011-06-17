@@ -40,17 +40,14 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public class NpcActionTable {
-	private static Logger _log = Logger.getLogger(NpcActionTable.class
-			.getName());
+	private static Logger _log = Logger.getLogger(NpcActionTable.class.getName());
 	private static NpcActionTable _instance;
 	private final List<L1NpcAction> _actions = new ArrayList<L1NpcAction>();
 	private final List<L1NpcAction> _talkActions = new ArrayList<L1NpcAction>();
-
 	private List<L1NpcAction> loadAction(File file, String nodeName)
 
 	throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-				.newDocumentBuilder();
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = builder.parse(file);
 
 		if (!doc.getDocumentElement().getNodeName().equalsIgnoreCase(nodeName)) {
@@ -90,7 +87,7 @@ public class NpcActionTable {
 			PerformanceTimer timer = new PerformanceTimer();
 			System.out.print("Loading NPCAction...");
 			_instance = new NpcActionTable();
-			System.out.println("      OK!     " + timer.get() + "ms");
+			System.out.println("      OK!     " + timer.elapsedTimeMillis() + "ms");
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "NpcAction Could not load", e);
 			System.exit(0);

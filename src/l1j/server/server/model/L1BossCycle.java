@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server.model;
 
 import java.io.File;
@@ -102,8 +120,7 @@ public class L1BossCycle {
 	private int _endTime; 
 	private static SimpleDateFormat _sdfYmd = new SimpleDateFormat("yyyy/MM/dd");
 	private static SimpleDateFormat _sdfTime = new SimpleDateFormat("HH:mm");
-	private static SimpleDateFormat _sdf = new SimpleDateFormat(
-			"yyyy/MM/dd HH:mm");
+	private static SimpleDateFormat _sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	private static Date _initDate = new Date();
 	private static String _initTime = "0:00";
 	private static final Calendar START_UP = Calendar.getInstance();
@@ -132,18 +149,15 @@ public class L1BossCycle {
 		// Criteria to determine the date and time
 		Calendar baseCal = Calendar.getInstance();
 		baseCal.setTime(_sdf.parse(base.getDate() + " " + base.getTime()));
-
 		// the initial period of emergence, check
 		Cycle spawn = getCycle();
 		if (spawn == null || spawn.getPeriod() == null) {
 			throw new Exception("Cycle Period(");
 		}
-
 		String period = spawn.getPeriod();
 		_periodDay = getTimeParse(period, "d");
 		_periodHour = getTimeParse(period, "h");
 		_periodMinute = getTimeParse(period, "m");
-
 		String start = spawn.getStart();
 		int sDay = getTimeParse(start, "d");
 		int sHour = getTimeParse(start, "h");
@@ -152,7 +166,6 @@ public class L1BossCycle {
 		int eDay = getTimeParse(end, "d");
 		int eHour = getTimeParse(end, "h");
 		int eMinute = getTimeParse(end, "m");
-
 		// Portion Exchange
 		_period = (_periodDay * 24 * 60) + (_periodHour * 60) + _periodMinute;
 		_startTime = (sDay * 24 * 60) + (sHour * 60) + sMinute;
@@ -180,7 +193,6 @@ public class L1BossCycle {
 				_endTime++;
 			}
 		}
-
 		// Recent period of correction 
 		// (re-calculated to calculate exactly when, where only close to the appropriate correction)
 		while (!(baseCal.after(START_UP))) {
@@ -190,7 +202,6 @@ public class L1BossCycle {
 		}
 		_baseDate = baseCal;
 	}
-
 	/*
 	 * Including the specified time period (start time) to return
 	 * Ex. If the period is 2 hours
@@ -337,12 +348,9 @@ public class L1BossCycle {
 		System.out.print("Loading Boss Cycle...");
 		try {
 			// BookOrder To generate the context of a binding class
-			JAXBContext context = JAXBContext
-					.newInstance(L1BossCycle.L1BossCycleList.class);
-
+			JAXBContext context = JAXBContext.newInstance(L1BossCycle.L1BossCycleList.class);
 			// XML -> POJO Conversion of the generating xml
 			Unmarshaller um = context.createUnmarshaller();
-
 			// XML -> POJO Conversion
 			File file = new File("./data/xml/Cycle/BossCycle.xml");
 			L1BossCycleList bossList = (L1BossCycleList) um.unmarshal(file);
@@ -351,12 +359,10 @@ public class L1BossCycle {
 				cycle.init();
 				_cycleMap.put(cycle.getName(), cycle);
 			}
-
 			// user If the data is overwritten
 			File userFile = new File("./data/xml/Cycle/users/BossCycle.xml");
 			if (userFile.exists()) {
 				bossList = (L1BossCycleList) um.unmarshal(userFile);
-
 				for (L1BossCycle cycle : bossList.getBossCycles()) {
 					cycle.init();
 					_cycleMap.put(cycle.getName(), cycle);
@@ -368,7 +374,7 @@ public class L1BossCycle {
 			_log.log(Level.SEVERE, "BossCycle Could not load", e);
 			System.exit(0);
 		}
-		System.out.println("     OK!     " + timer.get() + "ms");
+		System.out.println("     OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	/**

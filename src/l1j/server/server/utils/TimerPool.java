@@ -28,14 +28,14 @@ public class TimerPool {
 	public TimerPool(int numOfTimers) {
 		_timers = new Timer[numOfTimers];
 		for (int i = 0; i < numOfTimers; i++) {
-			_timers[i] = new Timer();
+		_timers[i] = new Timer();
 		}
 		_numOfTimers = numOfTimers;
 	}
 
 	public synchronized Timer getTimer() {
 		if (_numOfTimers <= _pointer) {
-			_pointer = 0;
+		_pointer = 0;
 		}
 		return _timers[_pointer++];
 	}

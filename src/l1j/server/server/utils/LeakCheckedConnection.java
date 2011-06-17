@@ -32,8 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LeakCheckedConnection {
-	private static final Logger _log = Logger
-			.getLogger(LeakCheckedConnection.class.getName());
+	private static final Logger _log = Logger.getLogger(LeakCheckedConnection.class.getName());
 	private Connection _con;
 	private Throwable _stackTrace;
 	private Map<Statement, Throwable> _openedStatements = new HashMap<Statement, Throwable>();
@@ -42,13 +41,12 @@ public class LeakCheckedConnection {
 
 	private LeakCheckedConnection(Connection con) {
 		_con = con;
-		_proxy = Proxy.newProxyInstance(Connection.class.getClassLoader(),
-				new Class[] { Connection.class }, new ConnectionHandler());
+		_proxy = Proxy.newProxyInstance(Connection.class.getClassLoader(), new Class[] { Connection.class }, new ConnectionHandler());
 		_stackTrace = new Throwable();
 	}
 
 	public static Connection create(Connection con) {
-		return (Connection) new LeakCheckedConnection(con)._proxy;
+	return (Connection) new LeakCheckedConnection(con)._proxy;
 	}
 
 	private Object send(Object o, Method m, Object[] args) throws Throwable {
@@ -56,7 +54,7 @@ public class LeakCheckedConnection {
 			return m.invoke(o, args);
 		} catch (InvocationTargetException e) {
 			if (e.getCause() != null) {
-				throw e.getCause();
+			throw e.getCause();
 			}
 			throw e;
 		}
@@ -64,30 +62,30 @@ public class LeakCheckedConnection {
 
 	private void remove(Object o) {
 		if (o instanceof ResultSet) {
-			_openedResultSets.remove(o);
+		_openedResultSets.remove(o);
 		} else if (o instanceof Statement) {
-			_openedStatements.remove(o);
+		_openedStatements.remove(o);
 		} else {
-			throw new IllegalArgumentException("bad class:" + o);
+		throw new IllegalArgumentException("bad class:" + o);
 		}
 	}
 
 	void closeAll() {
 		if (!_openedResultSets.isEmpty()) {
 			for (Throwable t : _openedResultSets.values()) {
-				_log.log(Level.WARNING, "Leaked ResultSets detected.", t);
+			_log.log(Level.WARNING, "Leaked ResultSets detected.", t);
 			}
 		}
 		if (!_openedStatements.isEmpty()) {
-			for (Throwable t : _openedStatements.values()) {
-				_log.log(Level.WARNING, "Leaked Statement detected.", t);
+		    for (Throwable t : _openedStatements.values()) {
+		    _log.log(Level.WARNING, "Leaked Statement detected.", t);
 			}
 		}
 		for (ResultSet rs : _openedResultSets.keySet()) {
-			SQLUtil.close(rs);
+		SQLUtil.close(rs);
 		}
 		for (Statement ps : _openedStatements.keySet()) {
-			SQLUtil.close(ps);
+		SQLUtil.close(ps);
 		}
 	}
 
@@ -98,9 +96,8 @@ public class LeakCheckedConnection {
 		@Override
 		protected void finalize() throws Throwable {
 			if (!_con.isClosed()) {
-				_log.log(Level.WARNING, "Leaked Connection detected.",
-						_stackTrace);
-				_con.close();
+			_log.log(Level.WARNING, "Leaked Connection detected.", _stackTrace);
+			_con.close();
 			}
 		}
 	};
@@ -108,8 +105,7 @@ public class LeakCheckedConnection {
 	private class ConnectionHandler implements
 			java.lang.reflect.InvocationHandler {
 		@Override
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (method.getName().equals("close")) {
 				closeAll();
 			}
@@ -125,17 +121,14 @@ public class LeakCheckedConnection {
 	private class Delegate implements InvocationHandler {
 		private Object _delegateProxy;
 		private Object _original;
-
 		Delegate(Object o, Class c) {
 			_original = o;
-			_delegateProxy = Proxy.newProxyInstance(c.getClassLoader(),
-					new Class[] { c }, this);
+			_delegateProxy = Proxy.newProxyInstance(c.getClassLoader(), new Class[] { c }, this);
 		}
 
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (method.getName().equals("close")) {
-				remove(_original);
+			remove(_original);
 			}
 			Object o = send(_original, method, args);
 			if (o instanceof ResultSet) {

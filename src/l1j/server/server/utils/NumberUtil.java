@@ -21,7 +21,6 @@ package l1j.server.server.utils;
 import java.util.Random;
 
 public class NumberUtil {
-
 	/**
 	 * 2 until a few decimal points above or below the chance that the returns rolled integer.
 	 * For example, a 30% probability of 1.3 truncation, a 70 percent chance of reevaluation.
@@ -31,7 +30,7 @@ public class NumberUtil {
 	 */
 	public static int randomRound(double number) {
 		double percentage = (number - Math.floor(number)) * 100;
-		
+
 		if (percentage == 0) {
 			return ((int) number);
 		} else {

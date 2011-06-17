@@ -31,26 +31,22 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class L1SpawnUtil {
 	private static Logger _log = Logger.getLogger(L1SpawnUtil.class.getName());
 
-	public static void spawn(L1PcInstance pc, int npcId, int randomRange,
-			int timeMillisToDelete) {
+	public static void spawn(L1PcInstance pc, int npcId, int randomRange, int timeMillisToDelete) {
 		try {
 			L1NpcInstance npc = NpcTable.getInstance().newNpcInstance(npcId);
 			npc.setId(IdFactory.getInstance().nextId());
 			npc.setMap(pc.getMapId());
 			if (randomRange == 0) {
-				npc.getLocation().set(pc.getLocation());
-				npc.getLocation().forward(pc.getHeading());
+			npc.getLocation().set(pc.getLocation());
+			npc.getLocation().forward(pc.getHeading());
 			} else {
 				int tryCount = 0;
 				do {
 					tryCount++;
-					npc.setX(pc.getX() + (int) (Math.random() * randomRange)
-							- (int) (Math.random() * randomRange));
-					npc.setY(pc.getY() + (int) (Math.random() * randomRange)
-							- (int) (Math.random() * randomRange));
-					if (npc.getMap().isInMap(npc.getLocation())
-							&& npc.getMap().isPassable(npc.getLocation())) {
-						break;
+					npc.setX(pc.getX() + (int) (Math.random() * randomRange) - (int) (Math.random() * randomRange));
+					npc.setY(pc.getY() + (int) (Math.random() * randomRange) - (int) (Math.random() * randomRange));
+					if (npc.getMap().isInMap(npc.getLocation()) && npc.getMap().isPassable(npc.getLocation())) {
+					break;
 					}
 					Thread.sleep(1);
 				} while (tryCount < 50);
@@ -60,23 +56,19 @@ public class L1SpawnUtil {
 					npc.getLocation().forward(pc.getHeading());
 				}
 			}
-
 			npc.setHomeX(npc.getX());
 			npc.setHomeY(npc.getY());
 			npc.setHeading(pc.getHeading());
-
 			L1World.getInstance().storeObject(npc);
 			L1World.getInstance().addVisibleObject(npc);
-
 			npc.turnOnOffLight();
-			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // `bgJn
+			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 			if (0 < timeMillisToDelete) {
-				L1NpcDeleteTimer timer = new L1NpcDeleteTimer(npc,
-						timeMillisToDelete);
+				L1NpcDeleteTimer timer = new L1NpcDeleteTimer(npc, timeMillisToDelete);
 				timer.begin();
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 }

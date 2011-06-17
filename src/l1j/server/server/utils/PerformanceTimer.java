@@ -19,13 +19,21 @@
 package l1j.server.server.utils;
 
 public class PerformanceTimer {
-	private long _begin = System.currentTimeMillis();
+	private long _begin = System.nanoTime();
 
 	public void reset() {
-		_begin = System.currentTimeMillis();
+		_begin = System.nanoTime();
 	}
 
-	public long get() {
-		return System.currentTimeMillis() - _begin;
+	public long elapsedTimeMillis() {
+		return (System.nanoTime() - _begin) / 1000 / 1000;
+	}
+
+	public long elapsedTimeMicros() {
+		return (System.nanoTime() - _begin) / 1000;
+	}
+
+	public long elapsedTimeNanos() {
+		return System.nanoTime() - _begin;
 	}
 }

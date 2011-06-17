@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.utils;
 
 import java.util.List;
@@ -28,7 +27,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.utils:
 // FaceToFace
-
 public class FaceToFace {
 
 	@SuppressWarnings("unused")
@@ -41,8 +39,7 @@ public class FaceToFace {
 		int pcX = pc.getX();
 		int pcY = pc.getY();
 		int pcHeading = pc.getHeading();
-		List<L1PcInstance> players = L1World.getInstance().getVisiblePlayer(pc,
-				1);
+		List<L1PcInstance> players = L1World.getInstance().getVisiblePlayer(pc, 1);
 
 		if (players.size() == 0) { // The PC is a cell if
 			pc.sendPackets(new S_ServerMessage(93)); // f1 there was no one.
@@ -54,13 +51,12 @@ public class FaceToFace {
 			int targetHeading = target.getHeading();
 			if (pcHeading == 0 && pcX == targetX && pcY == (targetY + 1)) {
 				if (targetHeading == 4) {
-					return target;
+				return target;
 				} else {
 					pc.sendPackets(new S_ServerMessage(91, target.getName())); // You do not have to look at
 					return null;
 				}
-			} else if (pcHeading == 1 && pcX == (targetX - 1)
-					&& pcY == (targetY + 1)) {
+			} else if (pcHeading == 1 && pcX == (targetX - 1) && pcY == (targetY + 1)) {
 				if (targetHeading == 5) {
 					return target;
 				} else {
@@ -74,8 +70,7 @@ public class FaceToFace {
 					pc.sendPackets(new S_ServerMessage(91, target.getName())); // You have to see.
 					return null;
 				}
-			} else if (pcHeading == 3 && pcX == (targetX - 1)
-					&& pcY == (targetY - 1)) {
+			} else if (pcHeading == 3 && pcX == (targetX - 1) && pcY == (targetY - 1)) {
 				if (targetHeading == 7) {
 					return target;
 				} else {
@@ -89,8 +84,7 @@ public class FaceToFace {
 					pc.sendPackets(new S_ServerMessage(91, target.getName())); // You have to see.
 					return null;
 				}
-			} else if (pcHeading == 5 && pcX == (targetX + 1)
-					&& pcY == (targetY - 1)) {
+			} else if (pcHeading == 5 && pcX == (targetX + 1) && pcY == (targetY - 1)) {
 				if (targetHeading == 1) {
 					return target;
 				} else {
@@ -104,8 +98,7 @@ public class FaceToFace {
 					pc.sendPackets(new S_ServerMessage(91, target.getName())); // You have to see.
 					return null;
 				}
-			} else if (pcHeading == 7 && pcX == (targetX + 1)
-					&& pcY == (targetY + 1)) {
+			} else if (pcHeading == 7 && pcX == (targetX + 1) && pcY == (targetY + 1)) {
 				if (targetHeading == 3) {
 					return target;
 				} else {

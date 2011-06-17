@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.utils;
 
 import java.util.ArrayList;
@@ -40,21 +39,15 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.utils:
 // CalcStat
-
 public class CalcExp {
-
 	private static final long serialVersionUID = 1L;
-
 	private static Logger _log = Logger.getLogger(CalcExp.class.getName());
-
 	public static final int MAX_EXP = ExpTable.getExpByLevel(100) - 1;
 
 	private CalcExp() {
 	}
 
-	public static void calcExp(L1PcInstance l1pcinstance, int targetid,
-			ArrayList acquisitorList, ArrayList hateList, int exp) {
-
+	public static void calcExp(L1PcInstance l1pcinstance, int targetid, ArrayList acquisitorList, ArrayList hateList, int exp) {
 		int i = 0;
 		double party_level = 0;
 		double dist = 0;
@@ -62,7 +55,6 @@ public class CalcExp {
 		int member_lawful = 0;
 		L1Object l1object = L1World.getInstance().findObject(targetid);
 		L1NpcInstance npc = (L1NpcInstance) l1object;
-
 		// The total acquisition Hate
 		L1Character acquisitor;
 		int hate = 0;
@@ -96,11 +88,9 @@ public class CalcExp {
 			return;
 		}
 
-		if (l1object != null && !(npc instanceof L1PetInstance)
-				&& !(npc instanceof L1SummonInstance)) {
+		if (l1object != null && !(npc instanceof L1PetInstance) && !(npc instanceof L1SummonInstance)) {
 			// int exp = npc.get_exp();
-			if (!L1World.getInstance().isProcessingContributionTotal()
-					&& l1pcinstance.getHomeTownId() > 0) {
+			if (!L1World.getInstance().isProcessingContributionTotal() && l1pcinstance.getHomeTownId() > 0) {
 				int contribution = npc.getLevel() / 10;
 				l1pcinstance.addContribution(contribution);
 			}
@@ -166,25 +156,20 @@ public class CalcExp {
 
 				double pri_bonus = 0;
 				L1PcInstance leader = l1pcinstance.getParty().getLeader();
-				if (leader.isCrown()
-						&& (l1pcinstance.knownsObject(leader)
-								|| l1pcinstance.equals(leader))) {
+				if (leader.isCrown() && (l1pcinstance.knownsObject(leader) || l1pcinstance.equals(leader))) {
 					pri_bonus = 0.059;
 				}
-
 				// PT Calculate the value of experience
 				L1PcInstance[] ptMembers = l1pcinstance.getParty().getMembers();
 				double pt_bonus = 0;
 				for (L1PcInstance each : ptMembers) {
-					if (l1pcinstance.knownsObject(each)
-							|| l1pcinstance.equals(each)) {
+					if (l1pcinstance.knownsObject(each) || l1pcinstance.equals(each)) {
 						party_level += each.getLevel() * each.getLevel();
 					}
 					if (l1pcinstance.knownsObject(each)) {
 						pt_bonus += 0.04;
 					}
 				}
-
 				party_exp = (int) (party_exp * Config.PARTYEXP_RATE *(1 + pt_bonus + pri_bonus));
 				
 				// Summon the pet's character and self-hate sums
@@ -201,19 +186,19 @@ public class CalcExp {
 					if (acquisitor instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) acquisitor;
 						if (pc == l1pcinstance) {
-							ownHateExp += hate;
+						ownHateExp += hate;
 						}
 					} else if (acquisitor instanceof L1PetInstance) {
 						L1PetInstance pet = (L1PetInstance) acquisitor;
 						L1PcInstance master = (L1PcInstance) pet.getMaster();
 						if (master == l1pcinstance) {
-							ownHateExp += hate;
+						ownHateExp += hate;
 						}
 					} else if (acquisitor instanceof L1SummonInstance) {
 						L1SummonInstance summon = (L1SummonInstance) acquisitor;
 						L1PcInstance master = (L1PcInstance) summon.getMaster();
 						if (master == l1pcinstance) {
-							ownHateExp += hate;
+						ownHateExp += hate;
 						}
 					}
 				}
@@ -226,14 +211,13 @@ public class CalcExp {
 							L1PcInstance pc = (L1PcInstance) acquisitor;
 							if (pc == l1pcinstance) {
 								if (ownHateExp > 0) {
-									acquire_exp = (member_exp * hate / ownHateExp);
+								acquire_exp = (member_exp * hate / ownHateExp);
 								}
 								AddExp(pc, acquire_exp, member_lawful);
 							}
 						} else if (acquisitor instanceof L1PetInstance) {
 							L1PetInstance pet = (L1PetInstance) acquisitor;
-							L1PcInstance master = (L1PcInstance) pet
-									.getMaster();
+							L1PcInstance master = (L1PcInstance) pet.getMaster();
 							if (master == l1pcinstance) {
 								if (ownHateExp > 0) {
 									acquire_exp = (member_exp * hate / ownHateExp);
@@ -252,8 +236,7 @@ public class CalcExp {
 				for (int cnt = 0; cnt < ptMembers.length; cnt++) {
 					if (l1pcinstance.knownsObject(ptMembers[cnt])) {
 						if (party_level > 0) {
-							dist = ((ptMembers[cnt].getLevel() * ptMembers[cnt]
-									.getLevel()) / party_level);
+							dist = ((ptMembers[cnt].getLevel() * ptMembers[cnt].getLevel()) / party_level);
 						}
 						member_exp = (int) (party_exp * dist);
 						member_lawful = (int) (party_lawful * dist);
@@ -265,42 +248,38 @@ public class CalcExp {
 							if (acquisitor instanceof L1PcInstance) {
 								L1PcInstance pc = (L1PcInstance) acquisitor;
 								if (pc == ptMembers[cnt]) {
-									ownHateExp += hate;
+								ownHateExp += hate;
 								}
 							} else if (acquisitor instanceof L1PetInstance) {
 								L1PetInstance pet = (L1PetInstance) acquisitor;
-								L1PcInstance master = (L1PcInstance) pet
-										.getMaster();
+								L1PcInstance master = (L1PcInstance) pet.getMaster();
 								if (master == ptMembers[cnt]) {
-									ownHateExp += hate;
+								ownHateExp += hate;
 								}
 							} else if (acquisitor instanceof L1SummonInstance) {
 								L1SummonInstance summon = (L1SummonInstance) acquisitor;
-								L1PcInstance master = (L1PcInstance) summon
-										.getMaster();
+								L1PcInstance master = (L1PcInstance) summon.getMaster();
 								if (master == ptMembers[cnt]) {
-									ownHateExp += hate;
+								ownHateExp += hate;
 								}
 							}
 						}
 						// Party members and their pets and distributes Salmon
 						if (ownHateExp != 0) { // Participating in the attack.
 							for (i = hateList.size() - 1; i >= 0; i--) {
-								acquisitor = (L1Character) acquisitorList
-										.get(i);
+								acquisitor = (L1Character) acquisitorList.get(i);
 								hate = (Integer) hateList.get(i);
 								if (acquisitor instanceof L1PcInstance) {
 									L1PcInstance pc = (L1PcInstance) acquisitor;
 									if (pc == ptMembers[cnt]) {
 										if (ownHateExp > 0) {
-											acquire_exp = (member_exp * hate / ownHateExp);
+										acquire_exp = (member_exp * hate / ownHateExp);
 										}
 										AddExp(pc, acquire_exp, member_lawful);
 									}
 								} else if (acquisitor instanceof L1PetInstance) {
 									L1PetInstance pet = (L1PetInstance) acquisitor;
-									L1PcInstance master = (L1PcInstance) pet
-											.getMaster();
+									L1PcInstance master = (L1PcInstance) pet.getMaster();
 									if (master == ptMembers[cnt]) {
 										if (ownHateExp > 0) {
 											acquire_exp = (member_exp * hate / ownHateExp);
@@ -324,7 +303,7 @@ public class CalcExp {
 					acquire_exp = (exp * hate / totalHateExp);
 					if (acquisitor instanceof L1PcInstance) {
 						if (totalHateLawful > 0) {
-							acquire_lawful = (lawful * hate / totalHateLawful);
+						acquire_lawful = (lawful * hate / totalHateLawful);
 						}
 					}
 
@@ -344,23 +323,20 @@ public class CalcExp {
 	private static void AddExp(L1PcInstance pc, int exp, int lawful) {
 		// dont remove
 		if(pc.isDead()){
-			return;
+		return;
 		}
 		int add_lawful = (int) (lawful * Config.RATE_LA) * -1;
 		pc.addLawful(add_lawful);
 
 		double exppenalty = ExpTable.getPenaltyRate(pc.getLevel());
 		double foodBonus = 1.0;
-		if (pc.hasSkillEffect(COOKING_1_7_N)
-				|| pc.hasSkillEffect(COOKING_1_7_S)) {
+		if (pc.hasSkillEffect(COOKING_1_7_N) || pc.hasSkillEffect(COOKING_1_7_S)) {
 			foodBonus = 1.01;
 		}
-		if (pc.hasSkillEffect(COOKING_2_7_N)
-				|| pc.hasSkillEffect(COOKING_2_7_S)) {
+		if (pc.hasSkillEffect(COOKING_2_7_N) || pc.hasSkillEffect(COOKING_2_7_S)) {
 			foodBonus = 1.02;
 		}
-		if (pc.hasSkillEffect(COOKING_3_7_N)
-				|| pc.hasSkillEffect(COOKING_3_7_S)) {
+		if (pc.hasSkillEffect(COOKING_3_7_N) || pc.hasSkillEffect(COOKING_3_7_S)) {
 			foodBonus = 1.03;
 		}
 		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus);
@@ -372,14 +348,12 @@ public class CalcExp {
 
 		int petNpcId = pet.getNpcTemplate().get_npcId();
 		int petItemObjId = pet.getItemObjId();
-
 		int levelBefore = pet.getLevel();
 		int totalExp = (int) (exp * Config.PETEXP_RATE + pet.getExp());
 		if (totalExp >= ExpTable.getExpByLevel(51)) {
 			totalExp = ExpTable.getExpByLevel(51) - 1;
 		}
 		pet.setExp(totalExp);
-
 		pet.setLevel(ExpTable.getLevelByExp(totalExp));
 
 		int expPercentage = ExpTable.getExpPercentage(pet.getLevel(), totalExp);
@@ -396,8 +370,7 @@ public class CalcExp {
 		pc.sendPackets(new S_PetPack(pet, pc));
 
 		if (gap != 0) { // After you write the next level DB
-			L1Pet petTemplate = PetTable.getInstance()
-					.getTemplate(petItemObjId);
+			L1Pet petTemplate = PetTable.getInstance().getTemplate(petItemObjId);
 			if (petTemplate == null) { // PetTable no
 				_log.warning("L1Pet == null");
 				return;
@@ -408,8 +381,6 @@ public class CalcExp {
 			petTemplate.set_mp(pet.getMaxMp());
 			PetTable.getInstance().storePet(petTemplate);
 			pc.sendPackets(new S_ServerMessage(320, pet.getName())); 
-
-
 			// top off pet's HP/MP on level up
 			pet.setCurrentHp(pet.getMaxHp());
 			pet.setCurrentMp(pet.getMaxMp());

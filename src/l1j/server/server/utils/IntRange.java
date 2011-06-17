@@ -19,7 +19,6 @@
 package l1j.server.server.utils;
 
 import java.util.Random;
-
 /**
  * <p>
  * The maximum value from high and low values surrounded by a numerical range of classes.
@@ -35,12 +34,12 @@ public class IntRange {
 	private int _high;
 
 	public IntRange(int low, int high) {
-		_low = low;
-		_high = high;
+	  _low = low;
+	  _high = high;
 	}
 
 	public IntRange(IntRange range) {
-		this(range._low, range._high);
+	this(range._low, range._high);
 	}
 
 	/**
@@ -51,11 +50,11 @@ public class IntRange {
 	 * @return If the range true
 	 */
 	public boolean includes(int i) {
-		return (_low <= i) && (i <= _high);
+	return (_low <= i) && (i <= _high);
 	}
 
 	public static boolean includes(int i, int low, int high) {
-		return (low <= i) && (i <= high);
+	return (low <= i) && (i <= high);
 	}
 
 	/**
@@ -85,25 +84,25 @@ public class IntRange {
 	 * @return Random value range
 	 */
 	public int randomValue() {
-		return _rnd.nextInt(getWidth() + 1) + _low;
+    return _rnd.nextInt(getWidth() + 1) + _low;
 	}
 
 	public int getLow() {
-		return _low;
+	return _low;
 	}
 
 	public int getHigh() {
-		return _high;
+	return _high;
 	}
 
 	public int getWidth() {
-		return _high - _low;
+	return _high - _low;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof IntRange)) {
-			return false;
+		return false;
 		}
 		IntRange range = (IntRange) obj;
 		return (this._low == range._low) && (this._high == range._high);

@@ -57,7 +57,7 @@ public class SpawnTable {
 		System.out.print("Spawning Mob...");
 		fillSpawnTable();
 		_log.config("Monster placement list: " + _spawntable.size() + " Loaded");
-		System.out.println("           OK!     " + timer.get() + "ms");
+		System.out.println("           OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	private void fillSpawnTable() {
@@ -66,12 +66,11 @@ public class SpawnTable {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		
 		try {
-
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM spawnlist");
 			rs = pstm.executeQuery();
-
 			L1Spawn spawnDat;
 			L1Npc template1;
 			while (rs.next()) {
@@ -81,26 +80,23 @@ public class SpawnTable {
 						continue;
 					}
 				}
+				
 				int npcTemplateId = rs.getInt("npc_templateid");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				int count;
 
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId
-							+ " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateId + " missing in npc table");
 					spawnDat = null;
 				} else {
 					if (rs.getInt("count") == 0) {
 						continue;
 					}
-					double amount_rate = MapsTable.getInstance()
-							.getMonsterAmount(rs.getShort("mapid"));
-					count = calcCount(template1, rs.getInt("count"),
-							amount_rate);
+					double amount_rate = MapsTable.getInstance().getMonsterAmount(rs.getShort("mapid"));
+					count = calcCount(template1, rs.getInt("count"), amount_rate);
 					if (count == 0) {
 						continue;
 					}
-
 					spawnDat = new L1Spawn(template1);
 					spawnDat.setId(rs.getInt("id"));
 					spawnDat.setAmount(count);
@@ -118,14 +114,11 @@ public class SpawnTable {
 					spawnDat.setMaxRespawnDelay(rs.getInt("max_respawn_delay"));
 					spawnDat.setMapId(rs.getShort("mapid"));
 					spawnDat.setRespawnScreen(rs.getBoolean("respawn_screen"));
-					spawnDat
-							.setMovementDistance(rs.getInt("movement_distance"));
+					spawnDat.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("near_spawn"));
 					//spawnDat.setTime(SpawnTimeTable.getInstance().get(spawnDat.getId()));
-
 					spawnDat.setName(template1.get_name());
-
 					if (count > 1 && spawnDat.getLocX1() == 0) {
 						// And multiple fixed spawn, the population range from 6 to spawn change.
 						// But not exceed the range of 30 to
@@ -135,18 +128,15 @@ public class SpawnTable {
 						spawnDat.setLocX2(spawnDat.getLocX() + range);
 						spawnDat.setLocY2(spawnDat.getLocY() + range);
 					}
-
 					// start the spawning
 					spawnDat.init();
 					spawnCount += spawnDat.getAmount();
 				}
-
 				_spawntable.put(new Integer(spawnDat.getId()), spawnDat);
 				if (spawnDat.getId() > _highestId) {
 					_highestId = spawnDat.getId();
 				}
 			}
-
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
@@ -170,16 +160,15 @@ public class SpawnTable {
 	public static void storeSpawn(L1PcInstance pc, L1Npc npc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+		
 		try {
 			int count = 1;
 			int randomXY = 12;
 			int minRespawnDelay = 60;
 			int maxRespawnDelay = 120;
 			String note = npc.get_name();
-	
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO spawnlist SET location=?,count=?,npc_templateid=?,group_id=?,locx=?,locy=?,randomx=?,randomy=?,heading=?,min_respawn_delay=?,max_respawn_delay=?,mapid=?");
+			pstm = con.prepareStatement("INSERT INTO spawnlist SET location=?,count=?,npc_templateid=?,group_id=?,locx=?,locy=?,randomx=?,randomy=?,heading=?,min_respawn_delay=?,max_respawn_delay=?,mapid=?");
 			pstm.setString(1, note);
 			pstm.setInt(2, count);
 			pstm.setInt(3, npc.get_npcId());
@@ -193,7 +182,6 @@ public class SpawnTable {
 			pstm.setInt(11, maxRespawnDelay);
 			pstm.setInt(12, pc.getMapId());
 			pstm.execute();
-	
 		} catch (Exception e) {
 			NpcTable._log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {

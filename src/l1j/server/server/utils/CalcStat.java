@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.utils;
 
 import java.util.Random;
@@ -150,7 +149,6 @@ public class CalcStat {
 				randomhp = (short) (Config.ILLUSIONIST_MAX_HP - baseMaxHp);
 			}
 		}
-
 		randomhp += originalHpup;
 
 		if (randomhp < 0) {
@@ -176,14 +174,9 @@ public class CalcStat {
 			seedY = 2;
 		} else if (baseWis == 9 || baseWis >= 12 && baseWis <= 17) {
 			seedY = 3;
-		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25
-					|| baseWis == 26 || baseWis == 29
-					|| baseWis == 30 || baseWis == 33
-					|| baseWis == 34) {
+		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25 || baseWis == 26 || baseWis == 29 || baseWis == 30 || baseWis == 33 || baseWis == 34) {
 			seedY = 4;
-		} else if (baseWis == 24 ||baseWis == 27
-				 ||baseWis == 28 ||baseWis == 31
-				 ||baseWis == 32 ||baseWis >= 35) {
+		} else if (baseWis == 24 || baseWis == 27 || baseWis == 28 || baseWis == 31 || baseWis == 32 || baseWis >= 35) {
 			seedY = 5;
 		}
 
@@ -253,5 +246,4 @@ public class CalcStat {
 		}
 		return (short) randommp;
 	}
-
 }

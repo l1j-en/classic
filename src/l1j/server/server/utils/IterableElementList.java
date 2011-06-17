@@ -41,8 +41,8 @@ public class IterableElementList implements Iterable<Element> {
 			while (_itr.hasNext()) {
 				Node node = _itr.next();
 				if (node instanceof Element) {
-					_next = (Element) node;
-					return;
+				_next = (Element) node;
+				return;
 				}
 			}
 			_next = null;
@@ -50,13 +50,13 @@ public class IterableElementList implements Iterable<Element> {
 
 		@Override
 		public boolean hasNext() {
-			return _next != null;
+		return _next != null;
 		}
 
 		@Override
 		public Element next() {
 			if (!hasNext()) {
-				throw new NoSuchElementException();
+			throw new NoSuchElementException();
 			}
 			Element result = _next;
 			updateNextElement();
@@ -65,7 +65,7 @@ public class IterableElementList implements Iterable<Element> {
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException();
 		}
 	}
 
@@ -75,7 +75,6 @@ public class IterableElementList implements Iterable<Element> {
 
 	@Override
 	public Iterator<Element> iterator() {
-		return new MyIterator(_list.iterator());
+	return new MyIterator(_list.iterator());
 	}
-
 }
