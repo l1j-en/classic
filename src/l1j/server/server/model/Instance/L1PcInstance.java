@@ -2396,8 +2396,8 @@ public class L1PcInstance extends L1Character {
 		setCurrentHp(getMaxHp());
 		setCurrentMp(getMaxMp());
 		
-		if (getLevel() >= 12) {
-        if ((getMapId() == 58 || getMapId() == 85 || getMapId() == 57 || getMapId() == 2005 || getMapId() == 86)) {
+		if (getLevel() >= 15) {
+        if ((getMapId() == 68 || getMapId() == 69 || getMapId() == 304 || getMapId() == 2005 || getMapId() == 85 || getMapId() ==86)) {
              L1Teleport.teleport(this, 32580, 32931, (short) 0, 5, true); // Talking Island
         }
 		if (getLevel() >= 52) {
