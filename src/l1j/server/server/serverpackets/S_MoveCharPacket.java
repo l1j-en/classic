@@ -16,70 +16,54 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_MoveCharPacket extends ServerBasePacket {
-
 	private static final String _S__1F_MOVECHARPACKET = "[S] S_MoveCharPacket";
-
-	private static Logger _log = Logger.getLogger(S_MoveCharPacket.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_MoveCharPacket.class.getName());
 	private byte[] _byte = null;
 
 	public S_MoveCharPacket(L1Character cha) {
 		int x = cha.getX();
 		int y = cha.getY();
-		// if(cha instanceof L1PcInstance)
-		// {
-
 		switch (cha.getHeading()) {
 		case 1: // '\001'
 			x--;
 			y++;
 			break;
-
 		case 2: // '\002'
 			x--;
 			break;
-
 		case 3: // '\003'
 			x--;
 			y--;
 			break;
-
 		case 4: // '\004'
 			y--;
 			break;
-
 		case 5: // '\005'
 			x++;
 			y--;
 			break;
-
 		case 6: // '\006'
 			x++;
 			break;
-
 		case 7: // '\007'
 			x++;
 			y++;
 			break;
-
 		case 0: // '\0'
 			y++;
 			break;
 		}
-
 		writeC(Opcodes.S_OPCODE_MOVEOBJECT);
 		writeD(cha.getId());
 		writeH(x);

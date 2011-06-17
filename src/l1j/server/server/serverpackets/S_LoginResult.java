@@ -18,25 +18,17 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_LoginResult extends ServerBasePacket {
 	public static final String S_LOGIN_RESULT = "[S] S_LoginResult";
-
 	public static final int REASON_LOGIN_OK = 0x00;
-
 	public static final int REASON_ACCOUNT_IN_USE = 0x16;
-
 	public static final int REASON_ACCOUNT_ALREADY_EXISTS = 0x07;
-
 	public static final int REASON_ACCESS_FAILED = 0x08;
-
 	public static final int REASON_USER_OR_PASS_WRONG = 0x08;
-
 	public static final int REASON_PASS_WRONG = 0x08;
-
 	// public static int REASON_SYSTEM_ERROR = 0x01;
-
 	private byte[] _byte = null;
 
 	public S_LoginResult(int reason) {

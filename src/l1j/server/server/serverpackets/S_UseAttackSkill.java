@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
@@ -31,52 +31,29 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_UseAttackSkill extends ServerBasePacket {
-
 	private static final String S_USE_ATTACK_SKILL = "[S] S_UseAttackSkill";
-	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
-
 	private byte[] _byte = null;
 
-// public S_UseAttackSkill(L1Character caster, L1Character target,
-// int spellgfx, boolean motion) {
-// Point pt = target.getLocation();
-// buildPacket(caster, target.getId(), spellgfx, pt.getX(), pt.getY(),
-// ActionCodes.ACTION_SkillAttack, 6, motion);
-// }
-
-// public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
-// int x, int y) {
-// buildPacket(cha, targetobj, spellgfx, x, y,
-// ActionCodes.ACTION_SkillAttack, 6, true);
-// }
-
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, int actionId) {
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, 6, true);
 	}
 
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, int actionId, boolean motion) {
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, boolean motion) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, 0, motion);
 	}
 
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, int actionId, int isHit) {
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, int isHit) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, isHit, true);
 	}
 
-	private void buildPacket(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, int actionId, int isHit, boolean withCastMotion) {
+	private void buildPacket(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, int isHit, boolean withCastMotion) {
 		if (cha instanceof L1PcInstance) {
 			// Shadow system transforms into a magic during the attack and 
 			// the client to use a provisional to fall into the corresponding
-			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE)
-					&& actionId == ActionCodes.ACTION_SkillAttack) {
+			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE) && actionId == ActionCodes.ACTION_SkillAttack) {
 				int tempchargfx = cha.getTempCharGfx();
 				if (tempchargfx == 5727 || tempchargfx == 5730) {
 					actionId = ActionCodes.ACTION_SkillBuff;
@@ -93,7 +70,6 @@ public class S_UseAttackSkill extends ServerBasePacket {
 		if (cha.getTempCharGfx() == 4013) {
 			actionId = ActionCodes.ACTION_Attack;
 		}
-
 		int newheading = calcheading(cha.getX(), cha.getY(), x, y);
 		cha.setHeading(newheading);
 		writeC(Opcodes.S_OPCODE_ATTACKPACKET);
@@ -127,7 +103,6 @@ public class S_UseAttackSkill extends ServerBasePacket {
 			_byte[14] = (byte) (seq >> 16 & 0xff);
 			_byte[15] = (byte) (seq >> 24 & 0xff);
 		}
-
 		return _byte;
 	}
 
@@ -164,5 +139,4 @@ public class S_UseAttackSkill extends ServerBasePacket {
 	public String getType() {
 		return S_USE_ATTACK_SKILL;
 	}
-
 }

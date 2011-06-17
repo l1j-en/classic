@@ -18,17 +18,13 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_CharCreateStatus extends ServerBasePacket {
 	private static final String S_CHAR_CREATE_STATUS = "[S] S_CharCreateStatus";
-
 	public static final int REASON_OK = 0x02;
-
 	public static final int REASON_ALREADY_EXSISTS = 0x06;
-
 	public static final int REASON_INVALID_NAME = 0x09;
-
 	public static final int REASON_WRONG_AMOUNT = 0x15;
 
 	public S_CharCreateStatus(int reason) {

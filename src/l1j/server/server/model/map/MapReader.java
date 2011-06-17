@@ -16,13 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server;
+package l1j.server.server.model.map;
 
 import java.io.IOException;
 import java.util.Map;
 
+import l1j.server.Config;
 import l1j.server.server.model.map.L1Map;
-
 /**
  * Abstract map for the class to read.
  */
@@ -34,7 +34,6 @@ public abstract class MapReader {
 	 * @throws IOException
 	 */
 	public abstract Map<Integer, L1Map> read() throws IOException;
-
 	/**
 	 * Map specified number of text to read the map.
 	 *
@@ -44,7 +43,6 @@ public abstract class MapReader {
 	 * @throws IOException
 	 */
 	public abstract L1Map read(int id) throws IOException;
-
 	/**
 	 * The judge read the map files (text or map cache map map text or V2).
 	 *

@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.MobGroupTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1MobGroupInfo;
@@ -31,20 +31,13 @@ import l1j.server.server.templates.L1NpcCount;
 
 // Referenced classes of package l1j.server.server.model:
 // L1MobGroupSpawn
-
 public class L1MobGroupSpawn {
-
-	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class
-			.getName());
-
+	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class.getName());
 	private static L1MobGroupSpawn _instance;
-
 	private static Random _random = new Random();
-
 	private boolean _isRespawnScreen;
-
 	private boolean _isInitSpawn;
-
+	
 	private L1MobGroupSpawn() {
 	}
 
@@ -55,23 +48,18 @@ public class L1MobGroupSpawn {
 		return _instance;
 	}
 
-	public void doSpawn(L1NpcInstance leader, int groupId,
-			boolean isRespawnScreen, boolean isInitSpawn) {
+	public void doSpawn(L1NpcInstance leader, int groupId, boolean isRespawnScreen, boolean isInitSpawn) {
 
 		L1MobGroup mobGroup = MobGroupTable.getInstance().getTemplate(groupId);
 		if (mobGroup == null) {
 			return;
 		}
-
 		L1NpcInstance mob;
 		_isRespawnScreen = isRespawnScreen;
 		_isInitSpawn = isInitSpawn;
-
 		L1MobGroupInfo mobGroupInfo = new L1MobGroupInfo();
-
 		mobGroupInfo.setRemoveGroup(mobGroup.isRemoveGroupIfLeaderDie());
 		mobGroupInfo.addMember(leader);
-
 		for (L1NpcCount minion : mobGroup.getMinions()) {
 			if (minion.isZero()) {
 				continue;
@@ -89,14 +77,11 @@ public class L1MobGroupSpawn {
 		L1NpcInstance mob = null;
 		try {
 			mob = NpcTable.getInstance().newNpcInstance(npcId);
-
 			mob.setId(IdFactory.getInstance().nextId());
-
 			mob.setHeading(leader.getHeading());
 			mob.setMap(leader.getMapId());
 			mob.setMovementDistance(leader.getMovementDistance());
 			mob.setRest(leader.isRest());
-
 			mob.setX(leader.getX() + _random.nextInt(5) - 2);
 			mob.setY(leader.getY() + _random.nextInt(5) - 2);
 			if (!canSpawn(mob)) {
@@ -105,31 +90,26 @@ public class L1MobGroupSpawn {
 			}
 			mob.setHomeX(mob.getX());
 			mob.setHomeY(mob.getY());
-
 			if (mob instanceof L1MonsterInstance) {
 				((L1MonsterInstance) mob).initHideForMinion(leader);
 			}
-
 			mob.setSpawn(leader.getSpawn());
 			mob.setreSpawn(leader.isReSpawn());
 			mob.setSpawnNumber(leader.getSpawnNumber());
-
 			if (mob instanceof L1MonsterInstance) {
 				if (mob.getMapId() == 666) {
 					((L1MonsterInstance) mob).set_storeDroped(true);
 				}
 			}
-
 			L1World.getInstance().storeObject(mob);
 			L1World.getInstance().addVisibleObject(mob);
-
 			if (mob instanceof L1MonsterInstance) {
 				if (!_isInitSpawn && mob.getHiddenStatus() == 0) {
-					mob.onNpcAI(); // 
+					mob.onNpcAI();
 				}
 			}
 			mob.turnOnOffLight();
-			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); //
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -137,8 +117,7 @@ public class L1MobGroupSpawn {
 	}
 
 	private boolean canSpawn(L1NpcInstance mob) {
-		if (mob.getMap().isInMap(mob.getLocation())
-				&& mob.getMap().isPassable(mob.getLocation())) {
+		if (mob.getMap().isInMap(mob.getLocation()) && mob.getMap().isPassable(mob.getLocation())) {
 			if (_isRespawnScreen) {
 				return true;
 			}
@@ -148,5 +127,4 @@ public class L1MobGroupSpawn {
 		}
 		return false;
 	}
-
 }

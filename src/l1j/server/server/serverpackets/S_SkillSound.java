@@ -18,11 +18,10 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_SkillSound extends ServerBasePacket {
 	private static final String S_SKILL_SOUND = "[S] S_SkillSound";
-
 	private byte[] _byte = null;
 
 	public S_SkillSound(int objid, int gfxid, int aid) {

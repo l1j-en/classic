@@ -31,9 +31,8 @@ import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
-import l1j.server.server.FishingTimeController;
-import l1j.server.server.GMCommands;
-import l1j.server.server.IdFactory;
+import l1j.server.server.controllers.FishingTimeController;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.datatables.ItemTable;
@@ -77,14 +76,11 @@ import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_AttackPacket;
-import l1j.server.server.serverpackets.S_AttackStatus;
 import l1j.server.server.serverpackets.S_CurseBlind;
-import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Fishing;
 import l1j.server.server.serverpackets.S_IdentifyDesc;
 import l1j.server.server.serverpackets.S_ItemName;
 import l1j.server.server.serverpackets.S_Letter;
-import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_Liquor;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
@@ -122,7 +118,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // ClientBasePacket
 //
 public class C_ItemUSe extends ClientBasePacket {
-
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
 	private static Random _random = new Random();

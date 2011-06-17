@@ -16,24 +16,19 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_OwnCharStatus extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class.getName());
 	private static final String S_OWB_CHAR_STATUS = "[S] S_OwnCharStatus";
-
 	private byte[] _byte = null;
 
 	public S_OwnCharStatus(L1PcInstance pc) {
@@ -43,7 +38,6 @@ public class S_OwnCharStatus extends ServerBasePacket {
 		// StringBuilder()).append("Transmission time:").append(i).toString());
 		writeC(Opcodes.S_OPCODE_OWNCHARSTATUS);
 		writeD(pc.getId());
-
 		if (pc.getLevel() < 1) {
 			writeC(1);
 		} else if (pc.getLevel() > 127) {
@@ -52,7 +46,6 @@ public class S_OwnCharStatus extends ServerBasePacket {
 			writeC(pc.getLevel());
 		}
 		writeD(pc.getExp());
-
 		writeC(pc.getStr());
 		writeC(pc.getInt());
 		writeC(pc.getWis());

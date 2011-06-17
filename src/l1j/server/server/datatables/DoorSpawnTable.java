@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.database.L1DatabaseFactory;
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.templates.L1Npc;
@@ -38,7 +38,6 @@ import l1j.server.server.utils.SQLUtil;
 public class DoorSpawnTable {
 	private static Logger _log = Logger.getLogger(DoorSpawnTable.class.getName());
 	private static DoorSpawnTable _instance;
-
 	private final ArrayList<L1DoorInstance> _doorList = new ArrayList<L1DoorInstance>();
 
 	public static DoorSpawnTable getInstance() {

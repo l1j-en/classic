@@ -18,11 +18,10 @@
  */
 package l1j.server.server.model.map;
 
-import java.util.*;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.MapReader;
 import l1j.server.server.utils.PerformanceTimer;
 
 public class L1WorldMap {
@@ -41,23 +40,19 @@ public class L1WorldMap {
 	private L1WorldMap() {
 		PerformanceTimer timer = new PerformanceTimer();
 		System.out.print("Loading Map...");
-
 		MapReader in = MapReader.getDefaultReader();
-
 		try {
 			_maps = in.read();
 			if (_maps == null) {
-				throw new RuntimeException("Failure to read the maps");
+			throw new RuntimeException("Failure to read the maps");
 			}
 		} catch (Exception e) {
 			// No return
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-
 			System.exit(0);
 		}
 		System.out.println("            OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
-
 	/**
 	 * The map information to hold L1Map returns.
 	 */

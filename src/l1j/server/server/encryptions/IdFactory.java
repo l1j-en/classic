@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.encryptions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

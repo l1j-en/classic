@@ -16,16 +16,14 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_SkillIconGFX, S_CharVisualUpdate
 
 public class S_ChangeShape extends ServerBasePacket {
-
 	private byte[] _byte = null;
 
 	public S_ChangeShape(int objId, int polyId) {

@@ -16,18 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_War extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_War.class.getName());
 	private static final String S_WAR = "[S] S_War";
 	private byte[] _byte = null;
@@ -44,7 +41,6 @@ public class S_War extends ServerBasePacket {
 		// 6: _ _ clan and clan is allied with the team.
 		// 7: _ _ clan and the clan's alliance has been removed.
 		// 8: Your blood is currently at war _ clan.
-
 		writeC(Opcodes.S_OPCODE_WAR);
 		writeC(type);
 		writeS(clan_name1);

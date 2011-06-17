@@ -16,21 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_TradeAddItem extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_TradeAddItem.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_TradeAddItem.class.getName());
 	private static final String S_TRADE_ADD_ITEM = "[S] S_TradeAddItem";
 
 	public S_TradeAddItem(L1ItemInstance item, int count, int type) {

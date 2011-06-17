@@ -16,26 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_HireSoldier extends ServerBasePacket {
-
-	private static Logger _log = Logger
-			.getLogger(S_HireSoldier.class.getName());
-
+	private static Logger _log = Logger.getLogger(S_HireSoldier.class.getName());
 	private static final String S_HIRE_SOLDIER = "[S] S_HireSldier";
-
 	private byte[] _byte = null;
-
 	// HTML is open and when to send the packet to appear npcdeloy-j.html
 	// OK button and flying C_127
 	public S_HireSoldier(L1PcInstance pc) {

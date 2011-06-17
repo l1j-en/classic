@@ -25,14 +25,13 @@ import l1j.server.server.Account;
 import l1j.server.server.AccountAlreadyLoginException;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GameServerFullException;
-import l1j.server.server.LoginController;
+import l1j.server.server.controllers.LoginController;
 import l1j.server.server.serverpackets.S_CommonNews;
 import l1j.server.server.serverpackets.S_LoginResult;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_AuthLogin extends ClientBasePacket {
-
 	private static final String C_AUTH_LOGIN = "[C] C_AuthLogin";
 	private static Logger _log = Logger.getLogger(C_AuthLogin.class.getName());
 

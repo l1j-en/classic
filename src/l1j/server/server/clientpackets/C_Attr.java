@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.HouseTable;
@@ -61,10 +61,8 @@ import l1j.server.server.templates.L1Pet;
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_Attr extends ClientBasePacket {
-
 	private static final Logger _log = Logger.getLogger(C_Attr.class.getName());
 	private static final String C_ATTR = "[C] C_Attr";
-
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 

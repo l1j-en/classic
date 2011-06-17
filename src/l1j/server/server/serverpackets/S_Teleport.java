@@ -16,19 +16,16 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Teleport extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_Teleport.class.getName());
 	private static final String S_TELEPORT = "[S] S_Teleport";
 	private byte[] _byte = null;

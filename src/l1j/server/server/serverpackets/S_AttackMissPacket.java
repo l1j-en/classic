@@ -16,19 +16,16 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_AttackMissPacket extends ServerBasePacket {
-
 	private static final String _S__OB_ATTACKMISSPACKET = "[S] S_AttackMissPacket";
-
 	private byte[] _byte = null;
 
 	public S_AttackMissPacket(L1Character attacker, int targetId) {

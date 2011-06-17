@@ -26,14 +26,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.database.L1DatabaseFactory;
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Bookmarks;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1BookMark {
-	
 	private static Logger _log = Logger.getLogger(L1BookMark.class.getName());
 	private int _charId;
 	private int _id;
@@ -50,7 +49,6 @@ public class L1BookMark {
 		if (book != null) {
 			Connection con = null;
 			PreparedStatement pstm = null;
-			
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
 				pstm = con.prepareStatement("DELETE FROM character_teleport WHERE id=?");
@@ -76,12 +74,10 @@ public class L1BookMark {
 			pc.sendPackets(new S_ServerMessage(214)); // Remember, you can not here.
 			return;
 		}
-
 		int size = pc.getBookMarkSize();
 		if (size > 49) {
 			return;
 		}
-
 		if (pc.getBookMark(s) == null) {
 			L1BookMark bookmark = new L1BookMark();
 			bookmark.setId(IdFactory.getInstance().nextId());
@@ -90,10 +86,8 @@ public class L1BookMark {
 			bookmark.setLocX(pc.getX());
 			bookmark.setLocY(pc.getY());
 			bookmark.setMapId(pc.getMapId());
-
 			Connection con = null;
 			PreparedStatement pstm = null;
-
 			try {
 				con = L1DatabaseFactory.getInstance().getConnection();
 				pstm = con.prepareStatement("INSERT INTO character_teleport SET id = ?, char_id = ?, name = ?, locx = ?, locy = ?, mapid = ?");

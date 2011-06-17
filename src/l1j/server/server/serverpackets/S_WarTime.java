@@ -16,18 +16,16 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.Calendar;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_WarTime extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_WarTime.class.getName());
 	private static final String S_WAR_TIME = "[S] S_WarTime";	
@@ -43,7 +41,6 @@ public class S_WarTime extends ServerBasePacket {
 		diff = diff / 60000; // Truncation minutes or less
 		// time 1 and 3:02 summing (182 minutes) forward
 		int time = (int) (diff / 182);
-
 		// writeD just before the hour adjustable writeC
 		// Dwindle to just 0.7 times the amount of time
 		// Adjust the one that spread and the next time?

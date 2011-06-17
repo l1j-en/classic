@@ -32,10 +32,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
@@ -58,27 +60,23 @@ import l1j.server.server.utils.SystemUtil;
 // ClanTable, IdFactory
 //
 public class ClientThread implements Runnable, PacketOutput {
-
 	private static Logger _log = Logger.getLogger(ClientThread.class.getName());
-
 	private InputStream _in;
-
 	private OutputStream _out;
-
 	private PacketHandler _handler;
-
 	private Account _account;
-
 	private L1PcInstance _activeChar;
-
 	private String _ip;
-
 	private String _hostname;
-
 	private Socket _csocket;
-
 	private int _loginStatus = 0;
-
+	private boolean _charRestart = true;
+	private long _lastSavedTime = System.currentTimeMillis();
+	private long _lastSavedTime_inventory = System.currentTimeMillis();
+	private static final int M_CAPACITY = 3;
+	private static final int H_CAPACITY = 2;
+	private int _kick = 0;
+	private LineageKeys _clkey;
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
 	// 90, 120, 0 }; // for Episode5
 	// private static final byte[] FIRST_PACKET =
@@ -93,14 +91,11 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0xb1, (byte) 0x3c, (byte) 0x2c, (byte) 0x28,
 	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
 	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
-	 private static final byte[] FIRST_PACKET = { // 3.3C Taiwan Server          
-(byte) 0x65, (byte) 0xb6, (byte) 0xbd, (byte) 0x65, (byte) 0xcc,                          
-(byte) 0xd0, (byte) 0x7e, (byte) 0x53, (byte) 0x2e, (byte) 0xfa,                         
-(byte) 0xc1 };
+	 private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket          
+     (byte) 0x65, (byte) 0xb6, (byte) 0xbd, (byte) 0x65, (byte) 0xcc,                          
+     (byte) 0xd0, (byte) 0x7e, (byte) 0x53, (byte) 0x2e, (byte) 0xfa,                         
+     (byte) 0xc1 };
 
-	/**
-	 * for Test
-	 */
 	protected ClientThread() {}
 
 	public ClientThread(Socket socket) throws IOException {
@@ -124,13 +119,9 @@ public class ClientThread implements Runnable, PacketOutput {
 		return _hostname;
 	}
 
-	private boolean _charRestart = true;
-
 	public void CharReStart(boolean flag) {
 		_charRestart = flag;
 	}
-
-	private LineageKeys _clkey;
 
 	private byte[] readPacket() throws Exception {
 		try {
@@ -140,29 +131,21 @@ public class ClientThread implements Runnable, PacketOutput {
 				throw new RuntimeException();
 			}
 			int dataLength = (loByte * 256 + hiByte) - 2;
-
 			byte data[] = new byte[dataLength];
-
 			int readSize = 0;
-
 			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
 				i = _in.read(data, readSize, dataLength - readSize);
 			}
-
 			if (readSize != dataLength) {
 				_log.warning("Incomplete packet is sent to the server, closing connection.");
 				throw new RuntimeException();
 			}
-
 			return LineageEncryption.decrypt(data, dataLength, _clkey);
 		} catch (IOException e) {
 			throw e;
 		}
 	}
-
-	private long _lastSavedTime = System.currentTimeMillis();
-	private long _lastSavedTime_inventory = System.currentTimeMillis();
-
+	
 	private void doAutoSave() throws Exception {
 		if (_activeChar == null || _charRestart) {
 			return;
@@ -172,7 +155,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				_activeChar.save();
 				_lastSavedTime = System.currentTimeMillis();
 			}
-
 			if (Config.AUTOSAVE_INTERVAL_INVENTORY * 1000 < System.currentTimeMillis() - _lastSavedTime_inventory) {
 				_activeChar.saveInventory();
 				_lastSavedTime_inventory = System.currentTimeMillis();
@@ -189,19 +171,15 @@ public class ClientThread implements Runnable, PacketOutput {
 		_log.info("(" + _hostname + ") Login detected");
 		System.out.println("Current memory: " + SystemUtil.getUsedMemoryMB() + "MB");
 		System.out.println("Starting client thread...");
-
 		Socket socket = _csocket;
-
 		HcPacket movePacket = new HcPacket(M_CAPACITY);
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
-
 		ClientThreadObserver observer = new ClientThreadObserver(Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
 			observer.start();
 		}
-
 		try {
 			// long seed = 0x5cc690ecL; // 2.70C
 			long seed = 0x7c98bdfa; // 3.0
@@ -224,7 +202,6 @@ public class ClientThread implements Runnable, PacketOutput {
 
 			while (true) {
 				doAutoSave();
-
 				byte data[] = null;
 				try {
 					data = readPacket();
@@ -233,7 +210,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 				// _log.finest("[C]\n" + new
 				// ByteArrayUtil(data).dumpToString());
-
 				int opcode = data[0] & 0xFF;
 
 				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
@@ -251,7 +227,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
 				}
-				
 				if (_activeChar == null) {
 					_handler.handlePacket(data, _activeChar);
 					continue;
@@ -271,15 +246,13 @@ public class ClientThread implements Runnable, PacketOutput {
 			try {
 				if (_activeChar != null) {
 					quitGame(_activeChar);
-
 					synchronized (_activeChar) {
-						_activeChar.logout();
-						setActiveChar(null);
+					_activeChar.logout();
+					setActiveChar(null);
 					}
 				}
 				sendPacket(new S_Disconnect());
 				StreamUtil.close(_out, _in);
-
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
@@ -296,16 +269,11 @@ public class ClientThread implements Runnable, PacketOutput {
 		return;
 	}
 
-	private int _kick = 0;
-
 	public void kick() {
 		sendPacket(new S_Disconnect());
 		_kick = 1;
 		StreamUtil.close(_out, _in);
 	}
-
-	private static final int M_CAPACITY = 3;
-	private static final int H_CAPACITY = 2;
 
 	class HcPacket implements Runnable {
 		private final Queue<byte[]> _queue;
@@ -400,7 +368,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				ac = LineageEncryption.encrypt(ac, _clkey);
 				abyte0 = UByte8.fromArray(ac);
 				int j = abyte0.length + 2;
-
 				_out.write(j & 0xff);
 				_out.write(j >> 8 & 0xff);
 				_out.write(abyte0);
@@ -445,12 +412,10 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setCurrentHp(pc.getLevel());
 			pc.set_food(40);
 		}
-		
 		if (pc.getTradeID() != 0) { 
 			L1Trade trade = new L1Trade();
 			trade.TradeCancel(pc);
 		}
-
 		if (pc.getFightId() != 0) {
 			pc.setFightId(0);
 			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance().findObject(pc.getFightId());
@@ -459,7 +424,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
 			}
 		}
-
 		if (pc.isInParty()) {
 			pc.getParty().leaveMember(pc);
 		}
@@ -467,7 +431,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		if (pc.isInChatParty()) {
 			pc.getChatParty().leaveMember(pc);
 		}
-
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object petObject : petList) {
 			if (petObject instanceof L1PetInstance) {
@@ -488,7 +451,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			L1DollInstance doll = (L1DollInstance) dollObject;
 			doll.deleteDoll();
 		}
-
 		Object[] followerList = pc.getFollowerList().values().toArray();
 		for (Object followerObject : followerList) {
 			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
@@ -497,7 +459,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
 			follower.deleteMe();
 		}
-
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
 		pc.clearSkillEffectTimer();

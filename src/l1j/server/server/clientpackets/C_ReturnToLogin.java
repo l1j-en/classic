@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
-import l1j.server.server.LoginController;
+import l1j.server.server.controllers.LoginController;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket

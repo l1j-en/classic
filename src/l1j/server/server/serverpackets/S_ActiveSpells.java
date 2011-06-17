@@ -18,11 +18,10 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_ActiveSpells extends ServerBasePacket {
-
 	private byte[] _byte = null;
 
 	public S_ActiveSpells(L1PcInstance pc) {
@@ -45,7 +44,6 @@ public class S_ActiveSpells extends ServerBasePacket {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
 		}
-
 		return _byte;
 	}
 }

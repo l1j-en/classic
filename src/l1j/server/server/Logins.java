@@ -28,9 +28,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Base64;
 import l1j.server.Config;
 import l1j.server.database.L1DatabaseFactory;
+import l1j.server.server.encryptions.Base64;
 import l1j.server.server.utils.SQLUtil;
 
 public class Logins {
@@ -80,7 +80,6 @@ public class Logins {
 					return false;
 				}
 			}
-
 			try {
 				flag1 = true;
 				int i = 0;

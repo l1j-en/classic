@@ -18,11 +18,10 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_DeleteCharOK extends ServerBasePacket {
 	private static final String S_DELETE_CHAR_OK = "[S] S_DeleteCharOK";
-
 	public static final int DELETE_CHAR_NOW = 0x05;
 	public static final int DELETE_CHAR_AFTER_7DAYS = 0x51;
 

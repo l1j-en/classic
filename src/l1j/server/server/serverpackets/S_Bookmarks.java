@@ -20,13 +20,11 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_Bookmarks extends ServerBasePacket {
 	private static final String _S__1F_S_Bookmarks = "[S] S_Bookmarks";
-
 	private static Logger _log = Logger.getLogger(S_Bookmarks.class.getName());
-
 	private byte[] _byte = null;
 
 	public S_Bookmarks(String name, int map, int id) {

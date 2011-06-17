@@ -21,7 +21,7 @@ package l1j.server.server.utils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1NpcDeleteTimer;
 import l1j.server.server.model.L1World;

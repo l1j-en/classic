@@ -20,7 +20,7 @@ package l1j.server.server.model;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.Instance.L1MonsterInstance;
@@ -28,6 +28,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_NPCPack;
 
 public class L1UbSpawn implements Comparable<L1UbSpawn> {
+	private static final Logger _log = Logger.getLogger(L1UbSpawn.class.getName());
 	private int _id;
 	private int _ubId;
 	private int _pattern;
@@ -38,7 +39,6 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 	private int _sealCount;
 	private String _name;
 
-	// --------------------start getter/setter--------------------
 	public int getId() {
 		return _id;
 	}
@@ -111,19 +111,14 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 		_name = name;
 	}
 
-	// --------------------end getter/setter--------------------
-
 	public void spawnOne() {
 		L1UltimateBattle ub = UBTable.getInstance().getUb(_ubId);
-		L1Location loc = ub.getLocation().randomLocation(
-				(ub.getLocX2() - ub.getLocX1()) / 2, false);
-		L1MonsterInstance mob = new L1MonsterInstance(NpcTable.getInstance()
-				.getTemplate(getNpcTemplateId()));
+		L1Location loc = ub.getLocation().randomLocation((ub.getLocX2() - ub.getLocX1()) / 2, false);
+		L1MonsterInstance mob = new L1MonsterInstance(NpcTable.getInstance().getTemplate(getNpcTemplateId()));
 		if (mob == null) {
 			_log.warning("mob == null");
 			return;
 		}
-
 		mob.setId(IdFactory.getInstance().nextId());
 		mob.setHeading(5);
 		mob.setX(loc.getX());
@@ -134,10 +129,8 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 		mob.set_storeDroped(!(3 < getGroup()));
 		mob.setUbSealCount(getSealCount());
 		mob.setUbId(getUbId());
-
 		L1World.getInstance().storeObject(mob);
 		L1World.getInstance().addVisibleObject(mob);
-
 		S_NPCPack s_npcPack = new S_NPCPack(mob);
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(mob)) {
 			pc.addKnownObject(mob);
@@ -146,7 +139,6 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 		}
 		mob.onNpcAI();
 		mob.turnOnOffLight();
-// mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); //
 	}
 
 	public void spawnAll() throws InterruptedException {
@@ -165,7 +157,4 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 		}
 		return 0;
 	}
-
-	private static final Logger _log = Logger.getLogger(L1UbSpawn.class
-			.getName());
 }

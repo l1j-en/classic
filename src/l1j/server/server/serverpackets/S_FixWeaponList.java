@@ -16,14 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -31,10 +30,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket, S_SystemMessage
 
 public class S_FixWeaponList extends ServerBasePacket {
-
-	private static Logger _log = Logger.getLogger(S_FixWeaponList.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_FixWeaponList.class.getName());
 	private static final String S_FIX_WEAPON_LIST = "[S] S_FixWeaponList";
 
 	public S_FixWeaponList(L1PcInstance pc) {
@@ -44,11 +40,9 @@ public class S_FixWeaponList extends ServerBasePacket {
 	private void buildPacket(L1PcInstance pc) {
 		writeC(Opcodes.S_OPCODE_SELECTLIST);
 		writeD(0x000000c8); // Price
-
 		List<L1ItemInstance> weaponList = new ArrayList<L1ItemInstance>();
 		List<L1ItemInstance> itemList = pc.getInventory().getItems();
 		for (L1ItemInstance item : itemList) {
-
 			// Find Weapon
 			switch (item.getItem().getType2()) {
 			case 1:
@@ -58,11 +52,8 @@ public class S_FixWeaponList extends ServerBasePacket {
 				break;
 			}
 		}
-
 		writeH(weaponList.size()); // Weapon Amount
-
 		for (L1ItemInstance weapon : weaponList) {
-
 			writeD(weapon.getId()); // Item ID
 			writeC(weapon.get_durability()); // Fix Level
 		}

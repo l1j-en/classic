@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.npc.L1NpcHtml;
 
@@ -26,11 +26,8 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 	private static final String _S__25_TalkReturn = "[S] _S__25_TalkReturn";
 	private byte[] _byte = null;
 
-	public S_NPCTalkReturn(L1NpcTalkData npc, int objid, int action,
-			String[] data) {
-
+	public S_NPCTalkReturn(L1NpcTalkData npc, int objid, int action, String[] data) {
 		String htmlid = "";
-
 		if (action == 1) {
 			htmlid = npc.getNormalAction();
 		} else if (action == 2) {
@@ -38,7 +35,6 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 		} else {
 			throw new IllegalArgumentException();
 		}
-
 		buildPacket(objid, htmlid, data);
 	}
 
@@ -59,7 +55,6 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 	}
 
 	private void buildPacket(int objid, String htmlid, String[] data) {
-
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
 		writeD(objid);
 		writeS(htmlid);

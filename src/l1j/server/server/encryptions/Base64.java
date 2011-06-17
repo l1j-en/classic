@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server;
+package l1j.server.server.encryptions;
 
 import l1j.server.server.utils.StreamUtil;
 

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -37,10 +37,8 @@ import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.templates.L1Npc;
 
 public class L1TowerInstance extends L1NpcInstance {
-
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1TowerInstance.class
-			.getName());
+	private static Logger _log = Logger.getLogger(L1TowerInstance.class.getName());
 
 	public L1TowerInstance(L1Npc template) {
 		super(template);
@@ -76,16 +74,12 @@ public class L1TowerInstance extends L1NpcInstance {
 			if (isSubTower()) {
 				_castle_id = L1CastleLocation.ADEN_CASTLE_ID;
 			} else {
-				_castle_id = L1CastleLocation.getCastleId(getX(), getY(),
-						getMapId());
+				_castle_id = L1CastleLocation.getCastleId(getX(), getY(), getMapId());
 			}
 		}
 
-		if (_castle_id > 0
-				&& WarTimeController.getInstance().isNowWar(_castle_id)) { 
-			// 
-			if (_castle_id == L1CastleLocation.ADEN_CASTLE_ID
-					&& !isSubTower()) {
+		if (_castle_id > 0 && WarTimeController.getInstance().isNowWar(_castle_id)) { 
+			if (_castle_id == L1CastleLocation.ADEN_CASTLE_ID && !isSubTower()) {
 				int subTowerDeadCount = 0;
 				for (L1Object l1object : L1World.getInstance().getObject()) {
 					if (l1object instanceof L1TowerInstance) {
@@ -93,7 +87,7 @@ public class L1TowerInstance extends L1NpcInstance {
 						if (tower.isSubTower() && tower.isDead()) {
 							subTowerDeadCount++;
 							if (subTowerDeadCount == 4) {
-								break;
+							break;
 							}
 						}
 					}
@@ -144,28 +138,24 @@ public class L1TowerInstance extends L1NpcInstance {
 					_crackStatus = 0;
 					Death death = new Death();
 					GeneralThreadPool.getInstance().execute(death);
-					// Death(attacker);
 				}
 				if (newHp > 0) {
 					setCurrentHp(newHp);
 					if ((getMaxHp() * 1 / 4) > getCurrentHp()) {
 						if (_crackStatus != 3) {
-							broadcastPacket(new S_DoActionGFX(getId(),
-									ActionCodes.ACTION_TowerCrack3));
+							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack3));
 							setStatus(ActionCodes.ACTION_TowerCrack3);
 							_crackStatus = 3;
 						}
 					} else if ((getMaxHp() * 2 / 4) > getCurrentHp()) {
 						if (_crackStatus != 2) {
-							broadcastPacket(new S_DoActionGFX(getId(),
-									ActionCodes.ACTION_TowerCrack2));
+							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack2));
 							setStatus(ActionCodes.ACTION_TowerCrack2);
 							_crackStatus = 2;
 						}
 					} else if ((getMaxHp() * 3 / 4) > getCurrentHp()) {
 						if (_crackStatus != 1) {
-							broadcastPacket(new S_DoActionGFX(getId(),
-									ActionCodes.ACTION_TowerCrack1));
+							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack1));
 							setStatus(ActionCodes.ACTION_TowerCrack1);
 							_crackStatus = 1;
 						}
@@ -177,7 +167,6 @@ public class L1TowerInstance extends L1NpcInstance {
 				_lastattacker = attacker;
 				Death death = new Death();
 				GeneralThreadPool.getInstance().execute(death);
-				// Death(attacker);
 			}
 		}
 	}
@@ -204,9 +193,7 @@ public class L1TowerInstance extends L1NpcInstance {
 			int targetobjid = npc.getId();
 
 			npc.getMap().setPassable(npc.getLocation(), true);
-
-			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
-					ActionCodes.ACTION_TowerDie));
+			npc.broadcastPacket(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_TowerDie));
 
 			if (!isSubTower()) {
 				L1WarSpawn warspawn = new L1WarSpawn();
@@ -233,10 +220,6 @@ public class L1TowerInstance extends L1NpcInstance {
 	}
 
 	public boolean isSubTower() {
-		return (getNpcTemplate().get_npcId() == 81190
-				|| getNpcTemplate().get_npcId() == 81191
-				|| getNpcTemplate().get_npcId() == 81192
-				|| getNpcTemplate().get_npcId() == 81193);
+		return (getNpcTemplate().get_npcId() == 81190 || getNpcTemplate().get_npcId() == 81191 || getNpcTemplate().get_npcId() == 81192 || getNpcTemplate().get_npcId() == 81193);
 	}
-
 }

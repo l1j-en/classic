@@ -16,16 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Invis extends ServerBasePacket {
-
+	private static final String S_INVIS = "[S] S_Invis";
+	
 	private byte[] _byte = null;
 
 	public S_Invis(int objid, int type) {
@@ -50,6 +49,4 @@ public class S_Invis extends ServerBasePacket {
 	public String getType() {
 		return S_INVIS;
 	}
-
-	private static final String S_INVIS = "[S] S_Invis";
 }

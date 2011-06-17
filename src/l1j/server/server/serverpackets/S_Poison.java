@@ -16,16 +16,14 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Poison extends ServerBasePacket {
-
+	private static final String S_POISON = "[S] S_Poison";
 	/**
 	 * Character venomous look to change the state to send the packet to build
 	 * 
@@ -37,7 +35,6 @@ public class S_Poison extends ServerBasePacket {
 	public S_Poison(int objId, int type) {
 		writeC(Opcodes.S_OPCODE_POISON);
 		writeD(objId);
-
 		if (type == 0) {
 			writeC(0);
 			writeC(0);
@@ -61,6 +58,4 @@ public class S_Poison extends ServerBasePacket {
 	public String getType() {
 		return S_POISON;
 	}
-
-	private static final String S_POISON = "[S] S_Poison";
 }

@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.controllers;
 
 import java.util.logging.Logger;
 
@@ -27,11 +27,8 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 
 public class LightTimeController implements Runnable {
-	
 	private static Logger _log = Logger.getLogger(LightTimeController.class.getName());
-
 	private static LightTimeController _instance;
-
 	private boolean isSpawn = false;
 
 	public static LightTimeController getInstance() {
@@ -61,19 +58,15 @@ public class LightTimeController implements Runnable {
 				for (L1Object object : L1World.getInstance().getObject()) {
 					if (object instanceof L1FieldObjectInstance) {
 						L1FieldObjectInstance npc = (L1FieldObjectInstance) object;
-						if ((npc.getNpcTemplate().get_npcId() == 81177
-							|| npc.getNpcTemplate().get_npcId() == 81178
-							|| npc.getNpcTemplate().get_npcId() == 81179
-							|| npc.getNpcTemplate().get_npcId() == 81180
-							|| npc.getNpcTemplate().get_npcId() == 81181)
-							&& (npc.getMapId() == 0 || npc.getMapId() == 4)) {
+						if ((npc.getNpcTemplate().get_npcId() == 81177 || npc.getNpcTemplate().get_npcId() == 81178 
+							|| npc.getNpcTemplate().get_npcId() == 81179 || npc.getNpcTemplate().get_npcId() == 81180
+							|| npc.getNpcTemplate().get_npcId() == 81181) && (npc.getMapId() == 0 || npc.getMapId() == 4)) {
 						npc.deleteMe();
 						}
 					}
 				}
 			}
-		} else if ((nowTime >= ((17 * 3600) + 3300) && nowTime <= 24 * 3600)
-				|| (nowTime >= 0 * 3600 && nowTime < ((5 * 3600) + 3300))) { // 17:55~24:00,0:00~5:55
+		} else if ((nowTime >= ((17 * 3600) + 3300) && nowTime <= 24 * 3600) || (nowTime >= 0 * 3600 && nowTime < ((5 * 3600) + 3300))) { // 17:55~24:00,0:00~5:55
 			if (!isSpawn) {
 				isSpawn = true;
 				LightSpawnTable.getInstance();

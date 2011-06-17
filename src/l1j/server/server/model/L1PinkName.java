@@ -21,16 +21,14 @@ package l1j.server.server.model;
 import java.util.logging.Logger;
 
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PinkName;
 
 // Referenced classes of package l1j.server.server.model:
 // L1PinkName
-
 public class L1PinkName {
-	private static final Logger _log = Logger.getLogger(L1PinkName.class
-			.getName());
+	private static final Logger _log = Logger.getLogger(L1PinkName.class.getName());
 
 	private L1PinkName() {
 	}
@@ -87,21 +85,16 @@ public class L1PinkName {
 
 		boolean isNowWar = false;
 		int castleId = L1CastleLocation.getCastleIdByArea(pc);
-		if (castleId != 0) { // 
+		if (castleId != 0) {
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
 
-		if (pc.getLawful() >= 0
-				&& //
-				!pc.isPinkName() && attacker.getLawful() >= 0
-				&& !attacker.isPinkName()) {
-			if (pc.getZoneType() == 0 && // 
-					attacker.getZoneType() == 0 && isNowWar == false) {
+		if (pc.getLawful() >= 0 && !pc.isPinkName() && attacker.getLawful() >= 0 && !attacker.isPinkName()) {
+			if (pc.getZoneType() == 0 && attacker.getZoneType() == 0 && isNowWar == false) {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
 				if (!attacker.isGmInvis()) {
-					attacker.broadcastPacket(new S_PinkName(attacker.getId(),
-							180));
+					attacker.broadcastPacket(new S_PinkName(attacker.getId(), 180));
 				}
 				PinkNameTimer pink = new PinkNameTimer(attacker);
 				GeneralThreadPool.getInstance().execute(pink);

@@ -18,12 +18,10 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_Lawful extends ServerBasePacket {
-
 	private static final String S_LAWFUL = "[S] S_Lawful";
-
 	private byte[] _byte = null;
 
 	public S_Lawful(int objid, int lawful) {
@@ -49,5 +47,4 @@ public class S_Lawful extends ServerBasePacket {
 	public String getType() {
 		return S_LAWFUL;
 	}
-
 }

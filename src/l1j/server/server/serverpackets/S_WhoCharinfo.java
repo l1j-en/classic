@@ -20,14 +20,12 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_WhoCharinfo extends ServerBasePacket {
 	private static final String S_WHO_CHARINFO = "[S] S_WhoCharinfo";
-	private static Logger _log = Logger
-			.getLogger(S_WhoCharinfo.class.getName());
-
+	private static Logger _log = Logger.getLogger(S_WhoCharinfo.class.getName());
 	private byte[] _byte = null;
 
 	public S_WhoCharinfo(L1PcInstance pc) {
@@ -42,23 +40,17 @@ public class S_WhoCharinfo extends ServerBasePacket {
 		} else if (lawful >= 500) {
 			lawfulness = "(Lawful)";
 		}
-
 		writeC(Opcodes.S_OPCODE_SYSMSG);
 		writeC(0x08);
-
 		String title = "";
 		String clan = "";
-
 		if (pc.getTitle().equalsIgnoreCase("") == false) {
 			title = pc.getTitle() + " ";
 		}
-
 		if (pc.getClanid() > 0) {
 			clan = "[" + pc.getClanname() + "]";
 		}
-
 		writeS(title + pc.getName() + " " + lawfulness + " " + clan);
-		// writeD(0x80157FE4);
 		writeD(0);
 	}
 

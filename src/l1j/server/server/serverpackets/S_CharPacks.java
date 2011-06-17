@@ -16,24 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_CharPacks extends ServerBasePacket {
 	private static final String S_CHAR_PACKS = "[S] S_CharPacks";
 
 	private static Logger _log = Logger.getLogger(S_CharPacks.class.getName());
 
-	public S_CharPacks(String name, String clanName, int type, int sex,
-			int lawful, int hp, int mp, int ac, int lv, int str, int dex,
-			int con, int wis, int cha, int intel, int accessLevel) {
+	public S_CharPacks(String name, String clanName, int type, int sex, int lawful, int hp, int mp, int ac, int lv, int str, int dex, int con, int wis, int cha, int intel, int accessLevel) {
 		writeC(Opcodes.S_OPCODE_CHARLIST);
 		writeS(name);
 		writeS(clanName);
@@ -50,17 +46,7 @@ public class S_CharPacks extends ServerBasePacket {
 		writeC(wis);
 		writeC(cha);
 		writeC(intel);
-
-		// is Administrator
-		// 0 = false
-		// 1 = true , can't attack
-		// > 1 true , can't attack
-		// can use Public GameMaster Command
-// if (accessLevel == 200) {
-// writeC(1);
-// } else {
-			writeC(0);
-// }
+		writeC(0);
 	}
 
 	@Override

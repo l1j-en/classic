@@ -16,16 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_PinkName extends ServerBasePacket {
-
+	private static final String _S__2C_PINKNAME = "[S] S_PinkName";
+	
 	public S_PinkName(int objecId, int time) {
 		writeC(Opcodes.S_OPCODE_PINKNAME);
 		writeD(objecId);
@@ -41,6 +40,4 @@ public class S_PinkName extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_PinkName";
 	}
-
-	private static final String _S__2C_PINKNAME = "[S] S_PinkName";
 }

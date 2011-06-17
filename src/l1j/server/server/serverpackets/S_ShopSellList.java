@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 import l1j.server.Config;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Object;
@@ -35,36 +35,29 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1ShopItem;
 
 public class S_ShopSellList extends ServerBasePacket {
-
-
 	/**
 	 * A list of goods store. BUY character and send button.
 	 */
 	public S_ShopSellList(int objId) {
 		writeC(Opcodes.S_OPCODE_SHOWSHOPBUYLIST);
 		writeD(objId);
-
 		L1Object npcObj = L1World.getInstance().findObject(objId);
 		if (!(npcObj instanceof L1NpcInstance)) {
 			writeH(0);
 			return;
 		}
 		int npcId = ((L1NpcInstance) npcObj).getNpcTemplate().get_npcId();
-
 		L1TaxCalculator calc = new L1TaxCalculator(npcId);
 		L1Shop shop = ShopTable.getInstance().get(npcId);
 		List<L1ShopItem> shopItems = shop.getSellingItems();
-
 		writeH(shopItems.size());
-		
 		// In order to use the L1ItemInstance getStatusBytes
 		L1ItemInstance dummy = new L1ItemInstance();
-
 		for (int i = 0; i < shopItems.size(); i++) {
 			L1ShopItem shopItem = shopItems.get(i);
 			L1Item item = shopItem.getItem();
 			int price;
-			if(npcId != 70017 && npcId != 70049) {  // Exclude Orim and Rozen from taxes
+			if(npcId != 70017 && npcId != 70049) {// Exclude Orim and Rozen from taxes
 				price = calc.layTax((int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE));
 			} else {
 				price = (int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE);
@@ -77,8 +70,7 @@ public class S_ShopSellList extends ServerBasePacket {
 			} else {
 				writeS(item.getName());
 			}
-			L1Item template = ItemTable
-					.getInstance().getTemplate(item.getItemId());
+			L1Item template = ItemTable.getInstance().getTemplate(item.getItemId());
 			if (template == null) {
 				writeC(0);
 			} else {
@@ -86,7 +78,7 @@ public class S_ShopSellList extends ServerBasePacket {
 				byte[] status = dummy.getStatusBytes();
 				writeC(status.length);
 				for (byte b : status) {
-					writeC(b);
+				writeC(b);
 				}
 			}
 		}

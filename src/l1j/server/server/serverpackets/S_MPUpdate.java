@@ -18,12 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_MPUpdate extends ServerBasePacket {
 	public S_MPUpdate(int currentmp, int maxmp) {
 		writeC(Opcodes.S_OPCODE_MPUPDATE);
-
 		if (currentmp < 0) {
 			writeH(0);
 		} else if (currentmp > 32767) {
@@ -31,7 +30,6 @@ public class S_MPUpdate extends ServerBasePacket {
 		} else {
 			writeH(currentmp);
 		}
-
 		if (maxmp < 1) {
 			writeH(1);
 		} else if (maxmp > 32767) {
@@ -39,11 +37,6 @@ public class S_MPUpdate extends ServerBasePacket {
 		} else {
 			writeH(maxmp);
 		}
-
-		// writeH(currentmp);
-		// writeH(maxmp);
-		// writeC(0);
-		// writeD(GameTimeController.getInstance().getGameTime());
 	}
 
 	@Override

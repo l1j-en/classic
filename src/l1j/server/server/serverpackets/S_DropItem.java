@@ -16,22 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_DropItem extends ServerBasePacket {
-
 	private static final String _S__OB_DropItem = "[S] S_DropItem";
 	private static Logger _log = Logger.getLogger(S_DropItem.class.getName());
-
 	private byte[] _byte = null;
 
 	public S_DropItem(L1ItemInstance item) {
@@ -39,10 +35,6 @@ public class S_DropItem extends ServerBasePacket {
 	}
 
 	private void buildPacket(L1ItemInstance item) {
-		// int addbyte = 0;
-		// int addbyte1 = 1;
-		// int addbyte2 = 13;
-		// int setting = 4;
 		writeC(Opcodes.S_OPCODE_DROPITEM);
 		writeH(item.getX());
 		writeH(item.getY());
@@ -65,15 +57,10 @@ public class S_DropItem extends ServerBasePacket {
 			int itemId = item.getItem().getItemId();
 			int isId = item.isIdentified() ? 1 : 0;
 			if (itemId == 20383 && isId == 1) { // 
-				writeS(item.getItem().getName() + " [" + item
-						.getChargeCount() + "]");
-			} else if ((itemId == 40006 || itemId == 40007
-					|| itemId == 40008 || itemId == 40009
-					|| itemId == 140006 || itemId == 140008) && isId == 1) { // 
-				writeS(item.getItem().getName() + " (" + item
-						.getChargeCount() + ")");
-			} else if (item.getItem().getLightRange() != 0 && item
-					.isNowLighting()) {
+				writeS(item.getItem().getName() + " [" + item.getChargeCount() + "]");
+			} else if ((itemId == 40006 || itemId == 40007 || itemId == 40008 || itemId == 40009 || itemId == 140006 || itemId == 140008) && isId == 1) {
+				writeS(item.getItem().getName() + " (" + item.getChargeCount() + ")");
+			} else if (item.getItem().getLightRange() != 0 && item.isNowLighting()) {
 				writeS(item.getItem().getName() + " ($10)");
 			} else {
 				writeS(item.getItem().getName());
@@ -87,7 +74,6 @@ public class S_DropItem extends ServerBasePacket {
 		writeC(0);
 		writeC(0);
 		writeH(65535);
-		// writeD(0x401799a);
 		writeD(0);
 		writeC(8);
 		writeC(0);
@@ -105,5 +91,4 @@ public class S_DropItem extends ServerBasePacket {
 	public String getType() {
 		return _S__OB_DropItem;
 	}
-
 }

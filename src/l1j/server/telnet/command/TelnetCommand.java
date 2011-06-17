@@ -21,7 +21,7 @@ package l1j.server.telnet.command;
 import java.util.StringTokenizer;
 
 import l1j.server.server.GameServer;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
@@ -58,12 +58,10 @@ class CharStatusCommand implements TelnetCommand {
 		int id = Integer.valueOf(args);
 		L1Object obj = L1World.getInstance().findObject(id);
 		if (obj == null) {
-			return new TelnetCommandResult(CMD_INTERNAL_ERROR, "ObjectId " + id
-					+ " not found");
+			return new TelnetCommandResult(CMD_INTERNAL_ERROR, "ObjectId " + id + " not found");
 		}
 		if (!(obj instanceof L1Character)) {
-			return new TelnetCommandResult(CMD_INTERNAL_ERROR, "ObjectId " + id
-					+ " is not a character");
+			return new TelnetCommandResult(CMD_INTERNAL_ERROR, "ObjectId " + id + " is not a character");
 		}
 		L1Character cha = (L1Character) obj;
 		StringBuilder result = new StringBuilder();
@@ -89,9 +87,7 @@ class GlobalChatCommand implements TelnetCommand {
 		}
 		pc.getLocation().set(-1, -1, 0);
 		ChatLogTable.getInstance().storeChat(pc, null, text, 3);
-
-		L1World.getInstance().broadcastPacketToAll(
-				new S_ChatPacket(pc, text, Opcodes.S_OPCODE_GLOBALCHAT, 3));
+		L1World.getInstance().broadcastPacketToAll(new S_ChatPacket(pc, text, Opcodes.S_OPCODE_GLOBALCHAT, 3));
 		return new TelnetCommandResult(CMD_OK, "");
 	}
 }
@@ -101,7 +97,6 @@ class ShutDownCommand implements TelnetCommand {
 	public TelnetCommandResult execute(String args) {
 		int sec = args.isEmpty() ? 0 : Integer.parseInt(args);
 		sec = IntRange.ensure(sec, 30, Integer.MAX_VALUE);
-
 		GameServer.getInstance().shutdownWithCountdown(sec);
 		return new TelnetCommandResult(CMD_OK, "");
 	}

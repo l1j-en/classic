@@ -16,13 +16,12 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
@@ -34,12 +33,8 @@ import l1j.server.server.serverpackets.S_NoSell;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_SystemMessage
-
 public class S_ShopBuyList extends ServerBasePacket {
-
-	private static Logger _log = Logger
-			.getLogger(S_ShopBuyList.class.getName());
-
+	private static Logger _log = Logger.getLogger(S_ShopBuyList.class.getName());
 	private static final String S_SHOP_BUY_LIST = "[S] S_ShopBuyList";
 
 	public S_ShopBuyList(int objid, L1PcInstance pc) {
@@ -54,18 +49,14 @@ public class S_ShopBuyList extends ServerBasePacket {
 			pc.sendPackets(new S_NoSell(npc));
 			return;
 		}
-
-		List<L1AssessedItem> assessedItems = shop
-				.assessItems(pc.getInventory());
+		List<L1AssessedItem> assessedItems = shop.assessItems(pc.getInventory());
 		if (assessedItems.isEmpty()) {
 			pc.sendPackets(new S_NoSell(npc));
 			return;
 		}
-
 		writeC(Opcodes.S_OPCODE_SHOWSHOPSELLLIST);
 		writeD(objid);
 		writeH(assessedItems.size());
-
 		for (L1AssessedItem item : assessedItems) {
 			writeD(item.getTargetId());
 			writeD(item.getAssessedPrice());

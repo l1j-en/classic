@@ -18,18 +18,18 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.IdFactory;
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -44,7 +44,6 @@ import l1j.server.server.types.Point;
 public class L1Spawn extends L1GameTimeAdapter {
 	private static Logger _log = Logger.getLogger(L1Spawn.class.getName());
 	private final L1Npc _template;
-
 	private int _id; // just to find this in the spawn table
 	private String _location;
 	private int _maximumCount;
@@ -70,9 +69,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 	private L1SpawnTime _time;
 	private HashMap<Integer, Point> _homePoint = null; // init spawn of individual objects in the home points
 	private List<L1NpcInstance> _mobs = new ArrayList<L1NpcInstance>();
-
 	private static Random _random = new Random();
-
 	private String _name;
 
 	private class SpawnTask implements Runnable {
@@ -260,9 +257,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 			respawnDelay += _random.nextInt(_delayInterval) * 1000;
 		}
 		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
-		if (_time != null && !_time.getTimePeriod().includes(currentTime)) { // wOw
-			long diff = (_time.getTimeStart().getTime() - currentTime.toTime()
-					.getTime());
+		if (_time != null && !_time.getTimePeriod().includes(currentTime)) {
+			long diff = (_time.getTimeStart().getTime() - currentTime.toTime().getTime());
 			if (diff < 0) {
 				diff += 24 * 1000L * 3600L;
 			}
@@ -283,7 +279,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 	}
 
 	private boolean _initSpawn = false;
-
 	private boolean _spawnHomePoint;
 
 	public void init() {
@@ -293,14 +288,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
 		// Points to give the home or
-		if (Config.SPAWN_HOME_POINT
-				&& Config.SPAWN_HOME_POINT_COUNT <= getAmount()
-				&& Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay()
-				&& isAreaSpawn()) {
+		if (Config.SPAWN_HOME_POINT && Config.SPAWN_HOME_POINT_COUNT <= getAmount() && Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay() && isAreaSpawn()) {
 			_spawnHomePoint = true;
 			_homePoint = new HashMap<Integer, Point>();
 		}
-
 		int spawnNum = 0;
 		while (spawnNum < _maximumCount) {
 			// spawnNum maxmumCount
@@ -313,17 +304,15 @@ public class L1Spawn extends L1GameTimeAdapter {
 	 * If you have a point home, spawnNumber based spawn.
 	 * If not, spawnNumber not used.
 	 */
-	protected void doSpawn(int spawnNumber) { //
-		if (_time != null
-				&& !_time.getTimePeriod().includes(
-						L1GameTimeClock.getInstance().currentTime())) {
+	protected void doSpawn(int spawnNumber) {
+		if (_time != null && !_time.getTimePeriod().includes(L1GameTimeClock.getInstance().currentTime())) {
 			executeSpawnTask(spawnNumber, 0);
 			return;
 		}
 		doSpawn(spawnNumber, 0);
 	}
 
-	protected void doSpawn(int spawnNumber, int objectId) { // 
+	protected void doSpawn(int spawnNumber, int objectId) {
 		L1NpcInstance mob = null;
 		try {
 			int newlocx = getLocX();
@@ -337,9 +326,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (objectId == 0) {
 				mob.setId(IdFactory.getInstance().nextId());
 			} else {
-				mob.setId(objectId); // 
+				mob.setId(objectId);
 			}
-
 			if (0 <= getHeading() && getHeading() <= 7) {
 				mob.setHeading(getHeading());
 			} else {
@@ -348,9 +336,9 @@ public class L1Spawn extends L1GameTimeAdapter {
 			}
 
 			int npcId = mob.getNpcTemplate().get_npcId();
-			if (npcId == 45488 && getMapId() == 9) { // 
+			if (npcId == 45488 && getMapId() == 9) {
 				mob.setMap((short) (getMapId() + _random.nextInt(2)));
-			} else if (npcId == 45601 && getMapId() == 11) { // 
+			} else if (npcId == 45601 && getMapId() == 11) {
 				mob.setMap((short) (getMapId() + _random.nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
@@ -362,17 +350,14 @@ public class L1Spawn extends L1GameTimeAdapter {
 				case SPAWN_TYPE_PC_AROUND: // Area real PC to type
 					if (!_initSpawn) { // The initial deployment is usually spawn unconditionally
 						ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>();
-						for (L1PcInstance pc : L1World.getInstance()
-								.getAllPlayers()) {
+						for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 							if (getMapId() == pc.getMapId()) {
 								players.add(pc);
 							}
 						}
 						if (players.size() > 0) {
-							L1PcInstance pc = players.get(_random
-									.nextInt(players.size()));
-							L1Location loc = pc.getLocation().randomLocation(
-									PC_AROUND_DISTANCE, false);
+							L1PcInstance pc = players.get(_random.nextInt(players.size()));
+							L1Location loc = pc.getLocation().randomLocation(PC_AROUND_DISTANCE, false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
 							break;
@@ -382,12 +367,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 				default:
 					if (isAreaSpawn()) { // Coordinates of the range specified in the case
 						Point pt = null;
-						if (_spawnHomePoint
-								&& null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
-							L1Location loc = new L1Location(pt, getMapId())
-									.randomLocation(
-											Config.SPAWN_HOME_POINT_RANGE,
-											false);
+						if (_spawnHomePoint && null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
+							L1Location loc = new L1Location(pt, getMapId()).randomLocation(Config.SPAWN_HOME_POINT_RANGE, false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
 						} else {
@@ -401,10 +382,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 							newlocy = getLocY();
 						}
 					} else if (isRandomSpawn()) { // Coordinate random value is if
-						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
-								.random() * getRandomx())));
-						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
-								.random() * getRandomy())));
+						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math.random() * getRandomx())));
+						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math.random() * getRandomy())));
 					} else { // Both did not specify if
 						newlocx = getLocX();
 						newlocy = getLocY();
@@ -415,15 +394,13 @@ public class L1Spawn extends L1GameTimeAdapter {
 				mob.setY(newlocy);
 				mob.setHomeY(newlocy);
 
-				if (mob.getMap().isInMap(mob.getLocation())
-						&& mob.getMap().isPassable(mob.getLocation())) {
+				if (mob.getMap().isInMap(mob.getLocation()) && mob.getMap().isPassable(mob.getLocation())) {
 					if (mob instanceof L1MonsterInstance) {
 						if (isRespawnScreen()) {
 							break;
 						}
 						L1MonsterInstance mobtemp = (L1MonsterInstance) mob;
-						if (L1World.getInstance().getVisiblePlayer(mobtemp)
-								.size() == 0) {
+						if (L1World.getInstance().getVisiblePlayer(mobtemp).size() == 0) {
 							break;
 						}
 						// To make the PC screen can not occur in the three seconds after the re-scheduling 
@@ -437,7 +414,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (mob instanceof L1MonsterInstance) {
 				((L1MonsterInstance) mob).initHide();
 			}
-
 			mob.setSpawn(this);
 			mob.setreSpawn(true);
 			mob.setSpawnNumber(spawnNumber); // Number of L1Spawn (Home points)
@@ -445,32 +421,26 @@ public class L1Spawn extends L1GameTimeAdapter {
 				Point pt = new Point(mob.getX(), mob.getY());
 				_homePoint.put(spawnNumber, pt); // This saved a point when the re-emergence use
 			}
-
 			if (mob instanceof L1MonsterInstance) {
 				if (mob.getMapId() == 666) {
 					((L1MonsterInstance) mob).set_storeDroped(true);
 				}
 			}
-			if (npcId == 45573 && mob.getMapId() == 2) { // 
+			if (npcId == 45573 && mob.getMapId() == 2) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() == 2) {
-						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0,
-								true);
+						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0, true);
 					}
 				}
 			}
-
-			if (npcId == 46142 && mob.getMapId() == 73
-					|| npcId == 46141 && mob.getMapId() == 74) {
+			if (npcId == 46142 && mob.getMapId() == 73 || npcId == 46141 && mob.getMapId() == 74) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() >= 72 && pc.getMapId() <= 74) {
-						L1Teleport.teleport(pc, 32840, 32833, (short) 72,
-								pc.getHeading(), true);
+						L1Teleport.teleport(pc, 32840, 32833, (short) 72, pc.getHeading(), true);
 					}
 				}
 			}
 			doCrystalCave(npcId);
-
 			L1World.getInstance().storeObject(mob);
 			L1World.getInstance().addVisibleObject(mob);
 
@@ -481,11 +451,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 				}
 			}
 			if (getGroupId() != 0) {
-				L1MobGroupSpawn.getInstance().doSpawn(mob, getGroupId(),
-						isRespawnScreen(), _initSpawn);
+				L1MobGroupSpawn.getInstance().doSpawn(mob, getGroupId(), isRespawnScreen(), _initSpawn);
 			}
 			mob.turnOnOffLight();
-			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); // 
+			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -501,7 +470,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 
 	private static final int SPAWN_TYPE_NORMAL = 0;
 	private static final int SPAWN_TYPE_PC_AROUND = 1;
-
 	private static final int PC_AROUND_DISTANCE = 30;
 
 	private int getSpawnType() {
@@ -513,8 +481,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 	}
 
 	private boolean isAreaSpawn() {
-		return getLocX1() != 0 && getLocY1() != 0 && getLocX2() != 0
-				&& getLocY2() != 0;
+		return getLocX1() != 0 && getLocY1() != 0 && getLocX2() != 0 && getLocY2() != 0;
 	}
 
 	private boolean isRandomSpawn() {
@@ -549,14 +516,11 @@ public class L1Spawn extends L1GameTimeAdapter {
 	}
 
 	public static void doCrystalCave(int npcId) {
-		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147,
-				46148, 46149, 46150, 46151, 46152 };
-		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006,
-				5007, 5008, 5009, 5010};
-
+		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147, 46148, 46149, 46150, 46151, 46152 };
+		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010};
 		for (int i = 0; i < npcId2.length; i++) {
 			if (npcId == npcId2[i]) {
-				closeDoorInCrystalCave(doorId[i]);
+			closeDoorInCrystalCave(doorId[i]);
 			}
 		}
 	}
@@ -566,7 +530,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
 				if (door.getDoorId() == doorId) {
-					door.close();
+				door.close();
 				}
 			}
 		}

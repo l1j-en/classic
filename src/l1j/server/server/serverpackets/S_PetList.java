@@ -16,23 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_PetList extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_PetList.class.getName());
 	private static final String S_PETLIST = "[S] S_PetList";
 	private byte[] _byte = null;
@@ -45,8 +42,7 @@ public class S_PetList extends ServerBasePacket {
 		List<L1ItemInstance> amuletList = new ArrayList<L1ItemInstance>();
 		for (Object itemObject : pc.getInventory().getItems()) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
-			if (item.getItem().getItemId() == 40314
-					|| item.getItem().getItemId() == 40316) {
+			if (item.getItem().getItemId() == 40314 || item.getItem().getItemId() == 40316) {
 				if (!isWithdraw(pc, item)) {
 					amuletList.add(item);
 				}

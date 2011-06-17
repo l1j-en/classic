@@ -22,7 +22,7 @@ import java.lang.reflect.Constructor;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -50,12 +50,9 @@ public class L1GfxId implements L1CommandExecutor {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(45001);
 				if (l1npc != null) {
 					String s = l1npc.getImpl();
-					Constructor constructor = Class.forName(
-							"l1j.server.server.model.Instance." + s
-									+ "Instance").getConstructors()[0];
+					Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
 					Object aobj[] = { l1npc };
-					L1NpcInstance npc = (L1NpcInstance) constructor
-							.newInstance(aobj);
+					L1NpcInstance npc = (L1NpcInstance) constructor.newInstance(aobj);
 					npc.setId(IdFactory.getInstance().nextId());
 					npc.setGfxId(gfxid + i);
 					npc.setTempCharGfx(0);
@@ -66,15 +63,12 @@ public class L1GfxId implements L1CommandExecutor {
 					npc.setHomeX(npc.getX());
 					npc.setHomeY(npc.getY());
 					npc.setHeading(4);
-
 					L1World.getInstance().storeObject(npc);
 					L1World.getInstance().addVisibleObject(npc);
 				}
 			}
 		} catch (Exception exception) {
-			pc
-					.sendPackets(new S_SystemMessage(cmdName
-							+ " id"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " id"));
 		}
 	}
 }

@@ -16,13 +16,12 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -31,7 +30,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_SkillBuy extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_SkillBuy.class.getName());
 	private static final String _S_SKILL_BUY = "[S] S_SkillBuy";
-
 	private byte[] _byte = null;
 
 	public S_SkillBuy(int o, L1PcInstance pc) {
@@ -42,7 +40,6 @@ public class S_SkillBuy extends ServerBasePacket {
 				inCount++;
 			}
 		}
-
 		try {
 			writeC(Opcodes.S_OPCODE_SKILLBUY);
 			writeD(100);
@@ -60,20 +57,18 @@ public class S_SkillBuy extends ServerBasePacket {
 	public int Scount(L1PcInstance pc) {
 		int RC = 0;
 		switch (pc.getType()) {
-		case 0: // Nå
+		case 0:
 			if (pc.getLevel() > 20 || pc.isGm()) {
 				RC = 16;
 			} else if (pc.getLevel() > 10) {
 				RC = 8;
 			}
 			break;
-
 		case 1: // Knight
 			if (pc.getLevel() >= 50 || pc.isGm()) {
 				RC = 8;
 			}
 			break;
-
 		case 2: // Elf
 			if (pc.getLevel() >= 24 || pc.isGm()) {
 				RC = 23;
@@ -83,7 +78,6 @@ public class S_SkillBuy extends ServerBasePacket {
 				RC = 8;
 			}
 			break;
-
 		case 3: // WIZ
 			if (pc.getLevel() >= 12 || pc.isGm()) {
 				RC = 23;
@@ -93,7 +87,6 @@ public class S_SkillBuy extends ServerBasePacket {
 				RC = 8;
 			}
 			break;
-
 		case 4: // DE
 			if (pc.getLevel() >= 24 || pc.isGm()) {
 				RC = 16;
@@ -101,7 +94,6 @@ public class S_SkillBuy extends ServerBasePacket {
 				RC = 8;
 			}
 			break;
-
 		default:
 			break;
 		}
@@ -120,5 +112,4 @@ public class S_SkillBuy extends ServerBasePacket {
 	public String getType() {
 		return _S_SKILL_BUY;
 	}
-
 }

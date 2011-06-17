@@ -19,11 +19,10 @@
 
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_SkillIconShield extends ServerBasePacket {
 
 	public S_SkillIconShield(int type, int time) {

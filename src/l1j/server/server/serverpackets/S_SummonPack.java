@@ -16,12 +16,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 
@@ -29,10 +28,8 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 // ServerBasePacket, S_SummonPack
 
 public class S_SummonPack extends ServerBasePacket {
-
 	private static final String _S__1F_SUMMONPACK = "[S] S_SummonPack";
 	private static Logger _log = Logger.getLogger(S_SummonPack.class.getName());
-
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -41,20 +38,17 @@ public class S_SummonPack extends ServerBasePacket {
 	private static final int STATUS_ELFBRAVE = 32;
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
-
 	private byte[] _byte = null;
 
 	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc) {
 		buildPacket(pet, pc, true);
 	}
 
-	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc,
-			boolean isCheckMaster) {
+	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc, boolean isCheckMaster) {
 		buildPacket(pet, pc, isCheckMaster);
 	}
 
-	private void buildPacket(L1SummonInstance pet, L1PcInstance pc,
-			boolean isCheckMaster) {
+	private void buildPacket(L1SummonInstance pet, L1PcInstance pc, boolean isCheckMaster) {
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pet.getX());
 		writeH(pet.getY());
@@ -85,10 +79,8 @@ public class S_SummonPack extends ServerBasePacket {
 		}
 		writeC(0); 
 		// HP Percent
-		if (pet.getMaster() != null
-				&& pet.getMaster().getId() == pc.getId()) {
-			int percent = pet.getMaxHp() != 0 ? 100 * pet.getCurrentHp()
-					/ pet.getMaxHp() : 100;
+		if (pet.getMaster() != null && pet.getMaster().getId() == pc.getId()) {
+			int percent = pet.getMaxHp() != 0 ? 100 * pet.getCurrentHp() / pet.getMaxHp() : 100;
 			writeC(percent);
 		} else {
 			writeC(0xFF);
@@ -105,7 +97,6 @@ public class S_SummonPack extends ServerBasePacket {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
 		}
-
 		return _byte;
 	}
 
@@ -113,5 +104,4 @@ public class S_SummonPack extends ServerBasePacket {
 	public String getType() {
 		return _S__1F_SUMMONPACK;
 	}
-
 }

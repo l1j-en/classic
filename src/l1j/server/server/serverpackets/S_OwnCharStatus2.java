@@ -20,21 +20,21 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_SendInvOnLogin
-
 public class S_OwnCharStatus2 extends ServerBasePacket {
-
+	private static final String _S__4F_S_OwnChraStatus2 = "[C] S_OwnCharStatus2";
+	private static Logger _log = Logger.getLogger(S_OwnCharStatus2.class.getName());
+	private L1PcInstance cha = null;
+	
 	public S_OwnCharStatus2(L1PcInstance l1pcinstance) {
 		if (l1pcinstance == null) {
 			return;
 		}
-
 		cha = l1pcinstance;
-
 		writeC(Opcodes.S_OPCODE_OWNCHARSTATUS2);
 		writeC(cha.getStr());
 		writeC(cha.getInt());
@@ -54,9 +54,4 @@ public class S_OwnCharStatus2 extends ServerBasePacket {
 	public String getType() {
 		return "[C] S_OwnCharStatus2";
 	}
-
-	private static final String _S__4F_S_OwnChraStatus2 = "[C] S_OwnCharStatus2";
-	private static Logger _log = Logger.getLogger(S_OwnCharStatus2.class
-			.getName());
-	private L1PcInstance cha = null;
 }

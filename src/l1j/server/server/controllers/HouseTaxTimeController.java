@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.controllers;
 
 import java.util.Calendar;
 import java.util.logging.Logger;
@@ -32,9 +32,7 @@ import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
 public class HouseTaxTimeController implements Runnable {
-
 	private static Logger _log = Logger.getLogger(HouseTaxTimeController.class.getName());
-
 	private static HouseTaxTimeController _instance;
 
 	public static HouseTaxTimeController getInstance() {
@@ -97,7 +95,6 @@ public class HouseTaxTimeController implements Runnable {
 			cal.add(Calendar.DATE, Config.HOUSE_TAX_INTERVAL);
 			house.setTaxDeadline(cal);
 			HouseTable.getInstance().updateHouse(house);
-
 			for (L1Clan clan : L1World.getInstance().getAllClans()) {
 				if (clan.getHouseId() == houseId) {
 					clan.setHouseId(0);

@@ -16,33 +16,25 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_UseArrowSkill extends ServerBasePacket {
-
 	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
-	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
-
 	private byte[] _byte = null;
 
-	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, boolean isHit) {
-
+	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, boolean isHit) {
 		int aid = 1;
-
 		if (cha.getTempCharGfx() == 3860) {
 			aid = 21;
 		}
@@ -52,8 +44,6 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		writeD(targetobj);
 		writeC(isHit ? 6 : 0);
 		writeC(cha.getHeading());
-		// writeD(0x12000000);
-		// writeD(246);
 		writeD(_sequentialNumber.incrementAndGet());
 		writeH(spellgfx);
 		writeC(127); // Using the skills of space in the light source?
@@ -61,11 +51,6 @@ public class S_UseArrowSkill extends ServerBasePacket {
 		writeH(cha.getY());
 		writeH(x);
 		writeH(y);
-		// writeC(228);
-		// writeC(231);
-		// writeC(95);
-		// writeC(82);
-		// writeC(170);
 		writeC(0);
 		writeC(0);
 		writeC(0);
@@ -91,5 +76,4 @@ public class S_UseArrowSkill extends ServerBasePacket {
 	public String getType() {
 		return S_USE_ARROW_SKILL;
 	}
-
 }

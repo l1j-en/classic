@@ -16,29 +16,24 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_PetInventory extends ServerBasePacket {
-
-	private static Logger _log = Logger.getLogger(S_PetInventory.class
-			.getName());
+	private static Logger _log = Logger.getLogger(S_PetInventory.class.getName());
 	private static final String S_PET_INVENTORY = "[S] S_PetInventory";
 	private byte[] _byte = null;
 
 	public S_PetInventory(L1PetInstance pet) {
 		List<L1ItemInstance> itemList = pet.getInventory().getItems();
-
 		writeC(Opcodes.S_OPCODE_SHOWRETRIEVELIST);
 		writeD(pet.getId());
 		writeH(itemList.size());

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_ShowPolyList extends ServerBasePacket {
 	public S_ShowPolyList(int objid) {

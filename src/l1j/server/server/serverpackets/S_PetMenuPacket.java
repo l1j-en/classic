@@ -18,13 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 
 public class S_PetMenuPacket extends ServerBasePacket {
-
 	private byte[] _byte = null;
 
 	public S_PetMenuPacket(L1NpcInstance npc, int exppercet) {
@@ -33,7 +32,6 @@ public class S_PetMenuPacket extends ServerBasePacket {
 
 	private void buildpacket(L1NpcInstance npc, int exppercet) {
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
-
 		if (npc instanceof L1PetInstance) { 
 			L1PetInstance pet = (L1PetInstance) npc;
 			writeD(pet.getId());
@@ -62,17 +60,6 @@ public class S_PetMenuPacket extends ServerBasePacket {
 			writeS(Integer.toString(pet.getCurrentMp())); 
 			writeS(Integer.toString(pet.getMaxMp())); 
 			writeS(Integer.toString(pet.getLevel())); 
-
-			// Character names down more than 8
-			// Why? "St. Bernard", "Brave Rabbit" is OK
-			// String pet_name = pet.get_name();
-			// if (pet_name.equalsIgnoreCase("high doberman")) {
-			// pet_name = "High Doberman";
-			// }
-			// else if (pet_name.equalsIgnoreCase("Saint Bernard High")) {
-			// pet_name = "High Saint Bernard";
-			// }
-			// writeS(pet_name);
 			writeS(""); // Pet's name to appear and become unstable, you want to hide
 			writeS("$611"); // Too much
 			writeS(Integer.toString(exppercet)); // exp
@@ -105,9 +92,6 @@ public class S_PetMenuPacket extends ServerBasePacket {
 			writeS(Integer.toString(summon.getCurrentMp()));
 			writeS(Integer.toString(summon.getMaxMp()));
 			writeS(Integer.toString(summon.getLevel()));
-			// writeS(summon.getNpcTemplate().get_nameid());
-			// writeS(Integer.toString(0));
-			// writeS(Integer.toString(790));
 		}
 	}
 

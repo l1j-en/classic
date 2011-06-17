@@ -16,16 +16,16 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.controllers;
 
 import java.util.logging.Logger;
 
+import l1j.server.server.Announcements;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1UltimateBattle;
 
 public class UbTimeController implements Runnable {
 	private static Logger _log = Logger.getLogger(UbTimeController.class.getName());
-
 	private static UbTimeController _instance;
 
 	public static UbTimeController getInstance() {

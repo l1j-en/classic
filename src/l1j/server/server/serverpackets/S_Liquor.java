@@ -16,16 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Liquor extends ServerBasePacket {
-
+	private static final String _S__19_LIQUOR = "[S] S_Liquor";
+	
 	public S_Liquor(int objecId) {
 		writeC(Opcodes.S_OPCODE_LIQUOR);
 		writeD(objecId);
@@ -41,6 +40,4 @@ public class S_Liquor extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_Liquor";
 	}
-
-	private static final String _S__19_LIQUOR = "[S] S_Liquor";
 }

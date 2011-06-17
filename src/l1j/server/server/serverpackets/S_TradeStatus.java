@@ -16,15 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_TradeStatus extends ServerBasePacket {
+	private static final String _S__2A_TRADESTATUS = "[S] S_TradeStatus";
+	
 	public S_TradeStatus(int type) {
 		writeC(Opcodes.S_OPCODE_TRADESTATUS);
 		writeC(type); // 0: complete a deal: trade canceled
@@ -39,6 +39,4 @@ public class S_TradeStatus extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_TradeStatus";
 	}
-
-	private static final String _S__2A_TRADESTATUS = "[S] S_TradeStatus";
 }

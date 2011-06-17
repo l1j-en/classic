@@ -16,22 +16,22 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_DelSkill extends ServerBasePacket {
-
+	private static final String _S__OB_DelSKILL = "[S] S_DelSkill";
+	private static Logger _log = Logger.getLogger(S_DelSkill.class.getName());
+	
 	public S_DelSkill(int i, int j, int k, int l, int i1, int j1, int k1,
-			int l1, int i2, int j2, int k2, int l2, int i3, int j3, int k3,
-			int l3, int i4, int j4, int k4, int l4, int i5, int j5, int k5,
-			int l5, int m5, int n5, int o5, int p5) {
+		int l1, int i2, int j2, int k2, int l2, int i3, int j3, int k3,
+		int l3, int i4, int j4, int k4, int l4, int i5, int j5, int k5,
+		int l5, int m5, int n5, int o5, int p5) {
 		int i6 = i1 + j1 + k1 + l1;
 		int j6 = i2 + j2;
 		writeC(Opcodes.S_OPCODE_DELSKILL);
@@ -83,9 +83,4 @@ public class S_DelSkill extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_DelSkill";
 	}
-
-	private static final String _S__OB_DelSKILL = "[S] S_DelSkill";
-
-	private static Logger _log = Logger.getLogger(S_DelSkill.class.getName());
-
 }

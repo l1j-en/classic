@@ -18,12 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_Disconnect extends ServerBasePacket {
 	public S_Disconnect() {
 		int content = 500;
-
 		writeC(Opcodes.S_OPCODE_DISCONNECT);
 		writeH(content);
 		writeD(0x00000000);

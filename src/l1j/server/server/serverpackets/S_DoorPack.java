@@ -16,23 +16,20 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1DoorInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_DoorPack
 
 public class S_DoorPack extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_DoorPack.class.getName());
 	private static final String S_DOOR_PACK = "[S] S_DoorPack";
-
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -41,7 +38,6 @@ public class S_DoorPack extends ServerBasePacket {
 	private static final int STATUS_ELFBRAVE = 32;
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
-
 	private byte[] _byte = null;
 
 	public S_DoorPack(L1DoorInstance door) {
@@ -73,7 +69,7 @@ public class S_DoorPack extends ServerBasePacket {
 		writeS(null);
 		writeS(null);
 		int status = 0;
-		if (door.getPoison() != null) { //
+		if (door.getPoison() != null) {
 			if (door.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}
@@ -96,7 +92,6 @@ public class S_DoorPack extends ServerBasePacket {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
 		}
-
 		return _byte;
 	}
 
@@ -104,5 +99,4 @@ public class S_DoorPack extends ServerBasePacket {
 	public String getType() {
 		return S_DOOR_PACK;
 	}
-
 }

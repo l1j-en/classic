@@ -25,15 +25,13 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_PacketBox extends ServerBasePacket {
 	private static final String S_PACKETBOX = "[S] S_PacketBox";
-
 	private static Logger _log = Logger.getLogger(S_PacketBox.class.getName());
-
 	private byte[] _byte = null;
 
 	// *** S_107 sub code list ***
@@ -153,7 +151,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case MSG_WAR_INITIATIVE:
 		case MSG_WAR_OCCUPY:
@@ -173,7 +170,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, int value) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case ICON_BLUEPOTION:
 		case ICON_CHATBAN:
@@ -217,7 +213,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, int type, int time) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case ICON_COOKING:
 			if (type != 7) {
@@ -250,8 +245,8 @@ public class S_PacketBox extends ServerBasePacket {
 			}
 			break;
 		case MSG_DUEL:
-			writeD(type); // 
-			writeD(time); // 
+			writeD(type);
+			writeD(time);
 			break;
 		default:
 			break;
@@ -261,7 +256,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, String name) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case ADD_EXCLUDE:
 		case REM_EXCLUDE:
@@ -276,7 +270,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, int id, String name, String clanName) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case MSG_WIN_LASTAVARD:
 			writeD(id); // Clan ID or something?
@@ -291,7 +284,6 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, Object[] names) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
-
 		switch (subCode) {
 		case ADD_EXCLUDE2:
 			writeC(names.length);
@@ -306,25 +298,20 @@ public class S_PacketBox extends ServerBasePacket {
 
 	private void callSomething() {
 		Iterator<L1PcInstance> itr = L1World.getInstance().getAllPlayers().iterator();
-
 		writeC(L1World.getInstance().getAllPlayers().size());
-
 		while (itr.hasNext()) {
 			L1PcInstance pc = itr.next();
 			Account acc = Account.load(pc.getAccountName());
-
 			if (acc == null) {
 				writeD(0);
 			} else {
-				Calendar cal = Calendar
-						.getInstance(TimeZone.getTimeZone(Config.TIME_ZONE));
+				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(Config.TIME_ZONE));
 				long lastactive = acc.getLastActive().getTime();
 				cal.setTimeInMillis(lastactive);
 				cal.set(Calendar.YEAR, 1970);
 				int time = (int) (cal.getTimeInMillis() / 1000);
 				writeD(time); // JST 1970 1/1 09:00
 			}
-
 			writeS(pc.getName()); 
 			writeS(pc.getClanname()); 
 		}

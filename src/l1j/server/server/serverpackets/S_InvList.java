@@ -20,25 +20,20 @@ package l1j.server.server.serverpackets;
 import java.util.List;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_InvList extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_InvList.class.getName());
-
 	private static final String S_INV_LIST = "[S] S_InvList";
-
 	/**
 	 * Inventory items to add several at once.
 	 */
 	public S_InvList(List<L1ItemInstance> items) {
 		writeC(Opcodes.S_OPCODE_INVLIST);
 		writeC(items.size()); // The number of items
-
 		for (L1ItemInstance item : items) {
 			writeD(item.getId());
 			writeC(item.getItem().getUseType());

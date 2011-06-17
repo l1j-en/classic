@@ -21,7 +21,7 @@ package l1j.server.server.serverpackets;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_CharAmount extends ServerBasePacket {
 
@@ -35,7 +35,6 @@ public class S_CharAmount extends ServerBasePacket {
 		Account account = Account.load(client.getAccountName());
 		int characterSlot = account.getCharacterSlot();
 		int maxAmount = Config.DEFAULT_CHARACTER_SLOT + characterSlot;
-
 		writeC(Opcodes.S_OPCODE_CHARAMOUNT);
 		writeC(value);
 // writeD(0x00000000);

@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -33,8 +33,7 @@ public class S_RetrieveElfList extends ServerBasePacket {
 				writeD(objid);
 				writeH(size);
 				writeC(9); //
-				for (Object itemObject : pc.getDwarfForElfInventory()
-						.getItems()) {
+				for (Object itemObject : pc.getDwarfForElfInventory().getItems()) {
 					L1ItemInstance item = (L1ItemInstance) itemObject;
 					writeD(item.getId());
 					writeC(0);
@@ -54,5 +53,4 @@ public class S_RetrieveElfList extends ServerBasePacket {
 	public byte[] getContent() throws IOException {
 		return getBytes();
 	}
-
 }

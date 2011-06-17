@@ -20,16 +20,12 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_ItemColor extends ServerBasePacket {
-
 	private static final String S_ITEM_COLOR = "[S] S_ItemColor";
-
-	private static Logger _log = Logger.getLogger(S_ItemColor.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_ItemColor.class.getName());
 	/**
 	 * To change the color of the item. Blessings and curses when to change state to send
 	 */
@@ -43,8 +39,6 @@ public class S_ItemColor extends ServerBasePacket {
 	private void buildPacket(L1ItemInstance item) {
 		writeC(Opcodes.S_OPCODE_ITEMCOLOR);
 		writeD(item.getId());
-
-
 		writeC(item.getBless());
 	}
 
@@ -57,5 +51,4 @@ public class S_ItemColor extends ServerBasePacket {
 	public String getType() {
 		return S_ITEM_COLOR;
 	}
-
 }

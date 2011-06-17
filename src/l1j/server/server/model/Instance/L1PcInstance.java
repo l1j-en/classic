@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
@@ -31,10 +30,9 @@ import java.sql.Timestamp;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
-import l1j.server.server.GMCommands;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.command.executor.L1HpBar;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
@@ -84,7 +82,6 @@ import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_DoActionShop;
-import l1j.server.server.serverpackets.S_Emblem;
 import l1j.server.server.serverpackets.S_HPMeter;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_Invis;
@@ -104,7 +101,6 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 import l1j.server.server.utils.CalcStat;
-import l1j.server.server.utils.IntRange;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
@@ -113,7 +109,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 //
 public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
-
 	public static final int CLASSID_KNIGHT_MALE = 61;
 	public static final int CLASSID_KNIGHT_FEMALE = 48;
 	public static final int CLASSID_ELF_MALE = 138;
@@ -128,12 +123,14 @@ public class L1PcInstance extends L1Character {
 	public static final int CLASSID_DRAGON_KNIGHT_FEMALE = 6661;
 	public static final int CLASSID_ILLUSIONIST_MALE = 6671;
 	public static final int CLASSID_ILLUSIONIST_FEMALE = 6650;
-
 	private static Random _random = new Random();
-
 	private short _hpr = 0;
 	private short _trueHpr = 0;
-
+	private short _mpr = 0;
+	private short _trueMpr = 0;
+	public short _originalHpr = 0; // HPR
+	public short _originalMpr = 0; // MPR
+	
 	public short getHpr() {
 		return _hpr;
 	}
@@ -142,9 +139,6 @@ public class L1PcInstance extends L1Character {
 		_trueHpr += i;
 		_hpr = (short) Math.max(0, _trueHpr);
 	}
-
-	private short _mpr = 0;
-	private short _trueMpr = 0;
 
 	public short getMpr() {
 		return _mpr;
@@ -155,14 +149,10 @@ public class L1PcInstance extends L1Character {
 		_mpr = (short) Math.max(0, _trueMpr);
 	}
 
-	public short _originalHpr = 0; // HPR
-
 	public short getOriginalHpr() {
 
 		return _originalHpr;
 	}
-
-	public short _originalMpr = 0; // MPR
 
 	public short getOriginalMpr() {
 

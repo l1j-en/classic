@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.controllers;
 
 import java.util.Calendar;
 import java.util.logging.Logger;
@@ -40,7 +40,6 @@ import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.templates.L1Castle;
 
 public class WarTimeController implements Runnable {
-	
 	private static Logger _log = Logger.getLogger(WarTimeController.class.getName());
 	private static WarTimeController _instance;
 	private L1Castle[] _l1castle = new L1Castle[8];
@@ -102,7 +101,7 @@ public class WarTimeController implements Runnable {
 					warspawn.SpawnFlag(i + 1);
 					for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(i + 1, door)) {
-							door.repairGate();
+						door.repairGate();
 						}
 					}
 
@@ -114,7 +113,7 @@ public class WarTimeController implements Runnable {
 							L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 							if (clan != null) {
 								if (clan.getCastleId() == castleId) {
-									continue;
+								continue;
 								}
 							}
 							loc = L1CastleLocation.getGetBackLoc(castleId);
@@ -131,7 +130,6 @@ public class WarTimeController implements Runnable {
 					_l1castle[i].setTaxRate(10);
 					_l1castle[i].setPublicMoney(0);
 					CastleTable.getInstance().updateCastle(_l1castle[i]);
-
 					int castle_id = i + 1;
 					for (L1Object l1object : L1World.getInstance().getObject()) {
 						if (l1object instanceof L1FieldObjectInstance) {
@@ -153,10 +151,8 @@ public class WarTimeController implements Runnable {
 							}
 						}
 					}
-					
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnTower(castle_id);
-
 					for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(castle_id, door)) {
 							door.repairGate();

@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -44,11 +44,6 @@ public class S_RetrieveList extends ServerBasePacket {
 					writeS(item.getViewName());
 				}
 			}
-			// Not find an appropriate message to clients hide
-			/*
-			 * else { l1pcinstance.sendPackets(new
-			 * S_SystemMessage("You are not guaranteed anything.")); }
-			 */
 		} else {
 			pc.sendPackets(new S_ServerMessage(263)); // People have the character could walk up to a maximum of 180 items.
 		}
@@ -58,5 +53,4 @@ public class S_RetrieveList extends ServerBasePacket {
 	public byte[] getContent() throws IOException {
 		return getBytes();
 	}
-
 }

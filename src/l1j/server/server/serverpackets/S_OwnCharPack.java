@@ -16,23 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_OwnCharPack extends ServerBasePacket {
-
 	private static final String S_OWN_CHAR_PACK = "[S] S_OwnCharPack";
-	private static Logger _log = Logger
-			.getLogger(S_OwnCharPack.class.getName());
-
+	private static Logger _log = Logger.getLogger(S_OwnCharPack.class.getName());
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -41,7 +36,6 @@ public class S_OwnCharPack extends ServerBasePacket {
 	private static final int STATUS_ELFBRAVE = 32;
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
-
 	private byte[] _byte = null;
 
 	public S_OwnCharPack(L1PcInstance pc) {
@@ -50,16 +44,13 @@ public class S_OwnCharPack extends ServerBasePacket {
 
 	private void buildPacket(L1PcInstance pc) {
 		int status = STATUS_PC;
-
-
 		if (pc.isInvisble() || pc.isGmInvis()) {
 			status |= STATUS_INVISIBLE;
 		}
 		if (pc.isBrave()) {
 			status |= STATUS_BRAVE;
 			}
-		if (pc.isElfBrave()) {
-		
+		if (pc.isElfBrave()) {	
 		//need to be tested
 			status |= STATUS_BRAVE;
 			status |= STATUS_ELFBRAVE;
@@ -70,7 +61,6 @@ public class S_OwnCharPack extends ServerBasePacket {
 		if (pc.isGhost()) {
 			status |= STATUS_GHOST;
 		}
-
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pc.getX());
 		writeH(pc.getY());
@@ -86,7 +76,6 @@ public class S_OwnCharPack extends ServerBasePacket {
 			writeC(pc.getCurrentWeapon());
 		}
 		writeC(pc.getHeading());
-		// writeC(addbyte);
 		writeC(pc.getOwnLightSize());
 		writeC(pc.getMoveSpeed());
 		writeD(pc.getExp());
@@ -123,5 +112,4 @@ public class S_OwnCharPack extends ServerBasePacket {
 	public String getType() {
 		return S_OWN_CHAR_PACK;
 	}
-
 }

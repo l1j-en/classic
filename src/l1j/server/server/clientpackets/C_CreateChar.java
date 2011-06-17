@@ -27,7 +27,7 @@ import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.BadNamesList;
 import l1j.server.server.ClientThread;
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.model.Beginner;
@@ -41,10 +41,8 @@ import l1j.server.server.utils.CalcInitHpMp;
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_CreateChar extends ClientBasePacket {
-
 	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
-
 	private static final int[] ORIGINAL_STR = new int[] { 13, 16, 11, 8, 12, 13, 11 };
 	private static final int[] ORIGINAL_DEX = new int[] { 10, 12, 12, 7, 15, 11, 10 };
 	private static final int[] ORIGINAL_CON = new int[] { 10, 14, 12, 12, 8, 14, 12 };
@@ -52,7 +50,12 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final int[] ORIGINAL_CHA = new int[] { 13, 12, 9, 8, 9, 8, 8 };
 	private static final int[] ORIGINAL_INT = new int[] { 10, 8, 12, 12, 11, 11, 12 };
 	private static final int[] ORIGINAL_AMOUNT = new int[] { 8, 4, 7, 16, 10, 6, 10 };
-
+	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
+	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
+	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 33043, 32780, 32876, 32791, 32791 };  
+	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32336, 32781, 32910, 32864, 32864 };  
+	private static final short[] MAPID_LIST = new short[] { 68, 69, 4, 68, 304, 1001, 1000 };
+	
 	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
@@ -69,27 +72,23 @@ public class C_CreateChar extends ClientBasePacket {
 			client.sendPacket(s_charcreatestatus);
 			return;
 		}
-
 		if (isInvalidName(name)) {
 			S_CharCreateStatus s_charcreatestatus = new S_CharCreateStatus(S_CharCreateStatus.REASON_INVALID_NAME);
 			client.sendPacket(s_charcreatestatus);
 			return;
 		}
-
 		if (CharacterTable.doesCharNameExist(name)) {
 			_log.fine("Character Name: " + pc.getName() + " Already Exists. Creation Failed.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(S_CharCreateStatus.REASON_ALREADY_EXSISTS);
 			client.sendPacket(s_charcreatestatus1);
 			return;
 		}
-		
 		if (client.getAccount().countCharacters() >= 6) {
 			_log.fine("Account: " + client.getAccountName() + " Attempted To Create More Than 6 Characters.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus1);
 			return;
 		}
-
 		pc.setName(name);
 		pc.setType(readC());
 		pc.set_sex(readC());
@@ -99,7 +98,6 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.addBaseWis((byte) readC());
 		pc.addBaseCha((byte) readC());
 		pc.addBaseInt((byte) readC());
-
 		boolean isStatusError = false;
 		int originalStr = ORIGINAL_STR[pc.getType()];
 		int originalDex = ORIGINAL_DEX[pc.getType()];
@@ -138,19 +136,7 @@ public class C_CreateChar extends ClientBasePacket {
 		initNewChar(client, pc);
 	}
 
-	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
-	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
-	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 33043, 32780, 32876, 32791, 32791 };  
-	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32336, 32781, 32910, 32864, 32864 };  
-	private static final short[] MAPID_LIST = new short[] { 68, 69, 4, 68, 304, 1001, 1000 };
-	//  private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };
-     // private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };
-    //  private static final int[] LOCX_LIST = new int[] { 33090, 33090, 33090, 33090, 33090, 33090, 33090};//{ 32734, 32734, 32734, 32734, 32734 };
-    //  private static final int[] LOCY_LIST = new int[] { 33392, 33392, 33392, 33392, 33392, 33392, 33392 };//{ 32798, 32798, 32798, 32798, 32798 };
-    //  private static final short[] MAPID_LIST = new short[] { 4, 4, 4, 4, 4, 4, 4 };
-
 	private static void initNewChar(ClientThread client, L1PcInstance pc) throws IOException, Exception {
-
 		pc.setId(IdFactory.getInstance().nextId());
 		if (pc.get_sex() == 0) {
 			pc.setClassId(MALE_LIST[pc.getType()]);
@@ -162,7 +148,6 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setMap(MAPID_LIST[pc.getType()]);
 		pc.setHeading(0);
 		pc.setLawful(0);
-
 		int initHp = CalcInitHpMp.calcInitHp(pc);
 		int initMp = CalcInitHpMp.calcInitMp(pc);
 		pc.addBaseMaxHp((short) initHp);
@@ -238,15 +223,12 @@ public class C_CreateChar extends ClientBasePacket {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			return false;
 		}
-
 		if (isAlphaNumeric(name)) {
 			return false;
 		}
-
 		if (5 < (numOfNameBytes - name.length()) || 12 < numOfNameBytes) {
 			return false;
 		}
-
 		if (BadNamesList.getInstance().isBadName(name)) {
 			return false;
 		}

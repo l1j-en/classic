@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1NpcTalkData;
 
 public class S_NPCTalkActionTPUrl extends ServerBasePacket {
@@ -37,7 +37,6 @@ public class S_NPCTalkActionTPUrl extends ServerBasePacket {
 		writeS(htmlid);
 		writeH(0x01); // Unknown
 		writeH(prices.length); // Number of arguments
-
 		for (Object price : prices) {
 			writeS(String.valueOf(((Integer) price).intValue()));
 		}

@@ -21,7 +21,7 @@ package l1j.server.server.model;
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,13 +30,9 @@ import l1j.server.server.templates.L1Npc;
 
 // Referenced classes of package l1j.server.server.model:
 // L1WarSpawn
-
 public class L1WarSpawn {
-	private static final Logger _log = Logger.getLogger(L1WarSpawn.class
-			.getName());
-
+	private static final Logger _log = Logger.getLogger(L1WarSpawn.class.getName());
 	private static L1WarSpawn _instance;
-
 	private Constructor _constructor;
 
 	public L1WarSpawn() {
@@ -54,7 +50,7 @@ public class L1WarSpawn {
 		if (castleId == L1CastleLocation.ADEN_CASTLE_ID) {
 			npcId = 81189;
 		}
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId); // 
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId);
 		int[] loc = new int[3];
 		loc = L1CastleLocation.getTowerLoc(castleId);
 		SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
@@ -67,14 +63,14 @@ public class L1WarSpawn {
 		L1Npc l1npc;
 		int[] loc = new int[3];
 		for (int i = 1; i <= 4; i++) {
-			l1npc = NpcTable.getInstance().getTemplate(81189 + i); //
+			l1npc = NpcTable.getInstance().getTemplate(81189 + i);
 			loc = L1CastleLocation.getSubTowerLoc(i);
 			SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
 		}
 	}
 
 	public void SpawnCrown(int castleId) {
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(81125); //
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(81125);
 		int[] loc = new int[3];
 		loc = L1CastleLocation.getTowerLoc(castleId);
 		SpawnWarObject(l1npc, loc[0], loc[1], (short) (loc[2]));
@@ -91,43 +87,30 @@ public class L1WarSpawn {
 		int locy1 = loc[2];
 		int locy2 = loc[3];
 		short mapid = (short) loc[4];
-
 		try {
-
 		for (x = locx1, y = locy1; x <= locx2; x += 8) {
 
 			SpawnWarObject(l1npc, x, y, mapid);
 			Thread.sleep(300); 
 		} }catch (Exception e1) {
-
 		}
 		try {
-
 		for (x = locx2, y = locy1; y <= locy2; y += 8) {
-
 			SpawnWarObject(l1npc, x, y, mapid);
 			Thread.sleep(300); 
 
 		} }catch (Exception e1) {
-
 		}
 		try {
-
 		for (x = locx2, y = locy2; x >= locx1; x -= 8) {
-
 			SpawnWarObject(l1npc, x, y, mapid);
 			Thread.sleep(300); 
-
 		} }catch (Exception e1) {
-
 		}
 		try {
-
 		for (x = locx1, y = locy2; y >= locy1; y -= 8) {
-
 			SpawnWarObject(l1npc, x, y, mapid);
 			Thread.sleep(300); 
-
 		} }catch (Exception e1) {
 
 		}
@@ -138,14 +121,9 @@ public class L1WarSpawn {
 			if (l1npc != null) {
 				Object obj = null;
 				String s = l1npc.getImpl();
-				_constructor = Class.forName(
-						(new StringBuilder()).append(
-								"l1j.server.server.model.Instance.").append(s)
-								.append("Instance").toString())
-						.getConstructors()[0];
+				_constructor = Class.forName((new StringBuilder()).append("l1j.server.server.model.Instance.").append(s).append("Instance").toString()).getConstructors()[0];
 				Object aobj[] = { l1npc };
-				L1NpcInstance npc = (L1NpcInstance) _constructor
-						.newInstance(aobj);
+				L1NpcInstance npc = (L1NpcInstance) _constructor.newInstance(aobj);
 				npc.setId(IdFactory.getInstance().nextId());
 				npc.setX(locx);
 				npc.setY(locy);
@@ -155,7 +133,6 @@ public class L1WarSpawn {
 				npc.setMap(mapid);
 				L1World.getInstance().storeObject(npc);
 				L1World.getInstance().addVisibleObject(npc);
-
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					npc.addKnownObject(pc);
 					pc.addKnownObject(npc);

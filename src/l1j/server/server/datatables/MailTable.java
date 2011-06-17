@@ -31,14 +31,13 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.database.L1DatabaseFactory;
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Mail;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
-
 public class MailTable {
 	private static Logger _log = Logger.getLogger(MailTable.class.getName());
 	private static MailTable _instance;

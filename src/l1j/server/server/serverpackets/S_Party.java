@@ -16,13 +16,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_Party extends ServerBasePacket {
-
 	private static final String _S_Party = "[S] S_Party";
 	private byte[] _byte = null;
 
@@ -30,14 +28,11 @@ public class S_Party extends ServerBasePacket {
 		buildPacket(htmlid, objid, "", "", 0);
 	}
 
-	public S_Party(String htmlid, int objid, String partyname,
-			String partymembers) {
-
+	public S_Party(String htmlid, int objid, String partyname, String partymembers) {
 		buildPacket(htmlid, objid, partyname, partymembers, 1);
 	}
 
-	private void buildPacket(String htmlid, int objid, String partyname,
-			String partymembers, int type) {
+	private void buildPacket(String htmlid, int objid, String partyname, String partymembers, int type) {
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
 		writeD(objid);
 		writeS(htmlid);
@@ -52,7 +47,6 @@ public class S_Party extends ServerBasePacket {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
 		}
-
 		return _byte;
 	}
 
@@ -60,5 +54,4 @@ public class S_Party extends ServerBasePacket {
 	public String getType() {
 		return _S_Party;
 	}
-
 }

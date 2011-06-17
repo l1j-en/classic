@@ -20,15 +20,12 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_IdentifyDesc extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_IdentifyDesc.class.getName());
-
 	private byte[] _byte = null;
-
 	/**
 	 * Scroll confirmation message when you use the
 	 */
@@ -39,26 +36,19 @@ public class S_IdentifyDesc extends ServerBasePacket {
 	private void buildPacket(L1ItemInstance item) {
 		writeC(Opcodes.S_OPCODE_IDENTIFYDESC);
 		writeH(item.getItem().getItemDescId());
-
 		StringBuilder name = new StringBuilder();
-
 		if (item.getItem().getBless() == 0) {
 			name.append("$227 "); // Blessed
 		} else if (item.getItem().getBless() == 2) {
 			name.append("$228 "); // Haunted
 		}
-
 		name.append(item.getItem().getIdentifiedNameId());
-
 		if (item.getItem().getType2() == 1) { // weapon
 			writeH(134); // Monster little monster hit big blow% 1% 2
 			writeC(3);
 			writeS(name.toString());
-			writeS(item.getItem().getDmgSmall()
-					+ "+" + item.getEnchantLevel());
-			writeS(item.getItem().getDmgLarge()
-					+ "+" + item.getEnchantLevel());
-
+			writeS(item.getItem().getDmgSmall() + "+" + item.getEnchantLevel());
+			writeS(item.getItem().getDmgLarge() + "+" + item.getEnchantLevel());
 		} else if (item.getItem().getType2() == 2) { // armor
 			if (item.getItem().getItemId() == 20383) { // helmet for horse riding
 				writeH(137); 
@@ -69,10 +59,8 @@ public class S_IdentifyDesc extends ServerBasePacket {
 				writeH(135); // 1 percent of defense force protection equipment
 				writeC(2);
 				writeS(name.toString());
-				writeS(Math.abs(item.getItem().get_ac())
-						+ "+" + item.getEnchantLevel());
+				writeS(Math.abs(item.getItem().get_ac()) + "+" + item.getEnchantLevel());
 			}
-
 		} else if (item.getItem().getType2() == 0) { // etcitem
 			if (item.getItem().getType() == 1) { // wand
 				writeH(137); // number of available 1 percent of the weight of 2%]

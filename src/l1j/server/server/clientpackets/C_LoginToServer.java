@@ -29,7 +29,7 @@ import l1j.server.Config;
 import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.GetBackRestartTable;
 import l1j.server.server.datatables.SkillsTable;
@@ -71,9 +71,7 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-//
 public class C_LoginToServer extends ClientBasePacket {
-
 	private static final String C_LOGIN_TO_SERVER = "[C] C_LoginToServer";
 	private static Logger _log = Logger.getLogger(C_LoginToServer.class.getName());
 

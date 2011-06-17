@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.PCommands;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.model.L1Clan;
@@ -31,17 +31,14 @@ import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
-import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_Chat extends ClientBasePacket {
-
 	private static final String C_CHAT = "[C] C_Chat";
 	private static Logger _log = Logger.getLogger(C_Chat.class.getName());
 
@@ -58,23 +55,19 @@ public class C_Chat extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(242)); 
 			return;
 		}
-
 		if (chatType == 0) { 
 			if (pc.isGhost() && !(pc.isGm() || pc.isMonitor())) {
 				return;
 			}
-			
 			if (chatText.startsWith(".")) {
 				String cmd = chatText.substring(1);
 				GMCommands.getInstance().handleCommands(pc, cmd);
 				return;
-
 			} else if (chatText.startsWith("-")) {
 				String cmd = chatText.substring(1);
 				PCommands.getInstance().handleCommands(pc, cmd);
 				return;
 			}
-
 			if (chatText.startsWith("$")) {
 				String text = chatText.substring(1);
 				chatWorld(pc, text, 12);
@@ -83,7 +76,6 @@ public class C_Chat extends ClientBasePacket {
 				}
 				return;
 			}
-
 			// Cheap hack to fix shouting.  The client insists that ! chat is of chatType 0.
 			// This is a (hopefully temporary) workaround that provides shouting via !!.
 			if (chatText.startsWith("!")) {
@@ -101,7 +93,6 @@ public class C_Chat extends ClientBasePacket {
 						listner.sendPackets(s_chatpacket);
 					}
 				}
-
 				for (L1Object obj : pc.getKnownObjects()) {
 					if (obj instanceof L1MonsterInstance) {
 						L1MonsterInstance mob = (L1MonsterInstance) obj;
@@ -148,7 +139,6 @@ public class C_Chat extends ClientBasePacket {
 					listner.sendPackets(s_chatpacket);
 				}
 			}
-
 			for (L1Object obj : pc.getKnownObjects()) {
 				if (obj instanceof L1MonsterInstance) {
 					L1MonsterInstance mob = (L1MonsterInstance) obj;

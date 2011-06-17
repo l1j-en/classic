@@ -21,7 +21,7 @@ package l1j.server.server.command.executor;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.HomeTownTimeController;
+import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -48,8 +48,7 @@ public class L1HomeTown implements L1CommandExecutor {
 				throw new Exception();
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(
-					".hometown daily|monthly"));
+			pc.sendPackets(new S_SystemMessage(".hometown daily|monthly"));
 		}
 	}
 }

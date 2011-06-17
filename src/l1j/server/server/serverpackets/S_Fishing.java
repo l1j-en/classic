@@ -16,18 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Fishing extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_Fishing.class.getName());
 	private static final String S_FISHING = "[S] S_Fishing";
 	private byte[] _byte = null;
@@ -42,9 +39,9 @@ public class S_Fishing extends ServerBasePacket {
 
 	private void buildPacket() {
 		writeC(Opcodes.S_OPCODE_DOACTIONGFX);
-		writeC(0x37); // ?
-		writeD(0x76002822); // ?
-		writeH(0x8AC3); // ?
+		writeC(0x37);
+		writeD(0x76002822);
+		writeH(0x8AC3);
 	}
 
 	private void buildPacket(int objectId, int motionNum, int x, int y) {

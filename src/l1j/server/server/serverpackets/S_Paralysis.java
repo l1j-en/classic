@@ -16,16 +16,22 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Paralysis extends ServerBasePacket {
-
+	public static final int TYPE_PARALYSIS = 1;
+	public static final int TYPE_PARALYSIS2 = 2;
+	public static final int TYPE_SLEEP = 3;
+	public static final int TYPE_FREEZE = 4;
+	public static final int TYPE_STUN = 5;
+	public static final int TYPE_BIND = 6;
+	public static final int TYPE_TELEPORT_UNLOCK = 7;
+	private static final String _S__2F_PARALYSIS = "[S] S_Paralysis";
+	
 	public S_Paralysis(int type, boolean flag) {
 		writeC(Opcodes.S_OPCODE_PARALYSIS);
 		if (type == TYPE_PARALYSIS) // The body is completely paralyzed.
@@ -85,20 +91,4 @@ public class S_Paralysis extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_Paralysis";
 	}
-
-	public static final int TYPE_PARALYSIS = 1;
-
-	public static final int TYPE_PARALYSIS2 = 2;
-
-	public static final int TYPE_SLEEP = 3;
-
-	public static final int TYPE_FREEZE = 4;
-
-	public static final int TYPE_STUN = 5;
-
-	public static final int TYPE_BIND = 6;
-
-	public static final int TYPE_TELEPORT_UNLOCK = 7;
-
-	private static final String _S__2F_PARALYSIS = "[S] S_Paralysis";
 }

@@ -26,7 +26,7 @@ import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
-import l1j.server.server.WarTimeController;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.datatables.HouseTable;
@@ -64,7 +64,6 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.model.npc.action.L1NpcAction;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ApplyAuction;
 import l1j.server.server.serverpackets.S_AuctionBoardRead;

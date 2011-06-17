@@ -16,23 +16,18 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_OtherCharPacks
-
 public class S_OtherCharPacks extends ServerBasePacket {
-
 	private static final String S_OTHER_CHAR_PACKS = "[S] S_OtherCharPacks";
-	private static Logger _log = Logger.getLogger(S_OtherCharPacks.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_OtherCharPacks.class.getName());
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -41,7 +36,6 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	private static final int STATUS_ELFBRAVE = 32;
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
-
 	private byte[] _byte = null;
 
 	public S_OtherCharPacks(L1PcInstance pc, boolean isFindInvis) {
@@ -55,7 +49,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	private void buildPacket(L1PcInstance pc, boolean isFindInvis) {
 		int status = STATUS_PC;
 
-		if (pc.getPoison() != null) { // 
+		if (pc.getPoison() != null) {
 			if (pc.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}
@@ -73,10 +67,6 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		if (pc.isFastMovable()) {
 			status |= STATUS_FASTMOVABLE;
 		}
-
-		// int addbyte = 0;
-		// int addbyte1 = 1;
-
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pc.getX());
 		writeH(pc.getY());
@@ -105,11 +95,6 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeS(pc.getClanname()); // Clan name
 		writeS(null);
 		writeC(0);
-		/*
-		 * if(pc.is_isInParty()) // During Party { writeC(100 * pc.get_currentHp() /
-		 * pc.get_maxHp()); } else { writeC(0xFF); }
-		 */
-
 		writeC(0xFF);
 		writeC(0); // 
 		writeC(0); // PC = 0, Mon = Lv
@@ -130,5 +115,4 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	public String getType() {
 		return S_OTHER_CHAR_PACKS;
 	}
-
 }

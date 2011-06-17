@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.io.IOException;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -32,15 +32,12 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 		if (clan == null) {
 			return;
 		}
-
-		if (clan.getWarehouseUsingChar() != 0
-				&& clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan is a non-self-storage use
+		if (clan.getWarehouseUsingChar() != 0 && clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan is a non-self-storage use
 		{
 			// warehouse other clan members are in use. From use at a later time, please.
 			pc.sendPackets(new S_ServerMessage(209));
 			return;
 		}
-
 		if (pc.getInventory().getSize() < 180) {
 			int size = clan.getDwarfForClanInventory().getSize();
 			if (size > 0) {
@@ -49,8 +46,7 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 				writeD(objid);
 				writeH(size);
 				writeC(5); // Clan warehouse
-				for (Object itemObject : clan.getDwarfForClanInventory()
-						.getItems()) {
+				for (Object itemObject : clan.getDwarfForClanInventory().getItems()) {
 					L1ItemInstance item = (L1ItemInstance) itemObject;
 					writeD(item.getId());
 					writeC(0);

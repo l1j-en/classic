@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.IdFactory;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DollPack;
@@ -33,8 +32,8 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 
 public class L1DollInstance extends L1NpcInstance {
+	private static Logger _log = Logger.getLogger(L1DollInstance.class.getName());
 	private static final long serialVersionUID = 1L;
-
 	public static final int DOLLTYPE_BUGBEAR = 0;
 	public static final int DOLLTYPE_SUCCUBUS = 1;
 	public static final int DOLLTYPE_WAREWOLF = 2;
@@ -42,15 +41,11 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_CRUSTANCEAN = 4;
 	public static final int DOLLTYPE_GOLEM = 5;
 	public static final int DOLL_TIME = 1800000;
-
-	private static Logger _log = Logger.getLogger(L1DollInstance.class
-			.getName());
 	private ScheduledFuture<?> _dollFuture;
 	private static Random _random = new Random();
 	private int _dollType;
 	private int _itemObjId;
 
-	//@Override
 	public boolean noTarget(int depth) {
 		if (_master.isDead()) {
 			deleteDoll();
@@ -85,23 +80,18 @@ public class L1DollInstance extends L1NpcInstance {
 		}
 	}
 
-	public L1DollInstance(L1Npc template, L1PcInstance master, int dollType,
-			int itemObjId) {
+	public L1DollInstance(L1Npc template, L1PcInstance master, int dollType, int itemObjId) {
 		super(template);
 		setId(IdFactory.getInstance().nextId());
-
 		setDollType(dollType);
 		setItemObjId(itemObjId);
-		_dollFuture = GeneralThreadPool.getInstance().schedule(
-				new DollTimer(), DOLL_TIME);
-
+		_dollFuture = GeneralThreadPool.getInstance().schedule(new DollTimer(), DOLL_TIME);
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
 		setMap(master.getMapId());
 		setHeading(5);
 		setLightSize(template.getLightSize());
-
 		L1World.getInstance().storeObject(this);
 		L1World.getInstance().addVisibleObject(this);
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
@@ -172,11 +162,9 @@ public class L1DollInstance extends L1NpcInstance {
 				damage = 15;
 				if (_master instanceof L1PcInstance) {
 					L1PcInstance pc = (L1PcInstance) _master;
-					pc.sendPackets(new S_SkillSound(_master.getId(),
-							6319));
+					pc.sendPackets(new S_SkillSound(_master.getId(), 6319));
 				}
-				_master.broadcastPacket(new S_SkillSound(_master
-						.getId(), 6319));
+				_master.broadcastPacket(new S_SkillSound(_master.getId(), 6319));
 			}
 		}
 		return damage;
@@ -211,5 +199,4 @@ public class L1DollInstance extends L1NpcInstance {
 		}
 		return damageReduction;
 	}
-
 }

@@ -16,16 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Underwater extends ServerBasePacket {
-
+	private static final String _S__19_UNDERWATER = "[S] S_Underwater";
+	
 	public S_Underwater(int playerobjecId, int type) {
 		writeC(Opcodes.S_OPCODE_UNDERWATER);
 		writeD(playerobjecId);
@@ -41,6 +40,4 @@ public class S_Underwater extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_Underwater";
 	}
-
-	private static final String _S__19_UNDERWATER = "[S] S_Underwater";
 }

@@ -20,7 +20,7 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_UseMap extends ServerBasePacket {
@@ -28,10 +28,8 @@ public class S_UseMap extends ServerBasePacket {
 	private static final String S_USE_MAP = "[S] S_UseMap";
 
 	public S_UseMap(L1PcInstance pc, int objid, int itemid) {
-
 		writeC(Opcodes.S_OPCODE_USEMAP);
 		writeD(objid);
-
 		switch (itemid) {
 		case 40373:
 			writeD(16);

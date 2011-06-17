@@ -22,17 +22,15 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.serverpackets.S_ServerMessage;
-import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
-
 public class C_ChatWhisper extends ClientBasePacket {
 
 	private static final String C_CHAT_WHISPER = "[C] C_ChatWhisper";
@@ -48,7 +46,6 @@ public class C_ChatWhisper extends ClientBasePacket {
 			whisperFrom.sendPackets(new S_ServerMessage(242));
 			return;
 		}
-
 		if (whisperFrom.getLevel() < Config.WHISPER_CHAT_LEVEL) {
 			whisperFrom.sendPackets(new S_ServerMessage(404, String.valueOf(Config.WHISPER_CHAT_LEVEL)));
 			return;
@@ -59,7 +56,6 @@ public class C_ChatWhisper extends ClientBasePacket {
 			whisperFrom.sendPackets(new S_ServerMessage(73, targetName));
 			return;
 		}
-
 		if (whisperTo.equals(whisperFrom)) {
 			return;
 		}
@@ -68,12 +64,10 @@ public class C_ChatWhisper extends ClientBasePacket {
 			whisperFrom.sendPackets(new S_ServerMessage(117, whisperTo.getName()));
 			return;
 		}
-
 		if (!whisperTo.isCanWhisper() && !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not remove gm/mon whisper ability
 			whisperFrom.sendPackets(new S_ServerMessage(205, whisperTo.getName()));
 			return;
 		}
-
 		ChatLogTable.getInstance().storeChat(whisperFrom, whisperTo, text, 1);
 		whisperFrom.sendPackets(new S_ChatPacket(whisperTo, text, Opcodes.S_OPCODE_GLOBALCHAT, 9));
 		whisperTo.sendPackets(new S_ChatPacket(whisperFrom, text, Opcodes.S_OPCODE_WHISPERCHAT, 16));

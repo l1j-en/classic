@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server;
+package l1j.server.server.model.map;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -37,9 +37,7 @@ import l1j.server.server.model.map.L1V1Map;
 import l1j.server.server.utils.FileUtil;
 
 public class CachedMapReader extends MapReader {
-
 	private static final String MAP_DIR = "./maps/";
-
 	private static final String CACHE_DIR = "./data/mapcache/";
 
 	private ArrayList<Integer> listMapIds() {
@@ -71,17 +69,13 @@ public class CachedMapReader extends MapReader {
 		if (!file.exists()) {
 			file.mkdir();
 		}
-
 		L1V1Map map = (L1V1Map) new TextMapReader().read(mapId);
-
 		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(CACHE_DIR + mapId + ".map")));
-
 		out.writeInt(map.getId());
 		out.writeInt(map.getX());
 		out.writeInt(map.getY());
 		out.writeInt(map.getWidth());
 		out.writeInt(map.getHeight());
-
 		for (byte[] line : map.getRawTiles()) {
 			for (byte tile : line) {
 				out.writeByte(tile);
@@ -89,7 +83,6 @@ public class CachedMapReader extends MapReader {
 		}
 		out.flush();
 		out.close();
-
 		return map;
 	}
 
@@ -99,37 +92,32 @@ public class CachedMapReader extends MapReader {
 		if (!file.exists()) {
 			return cacheMap(mapId);
 		}
-
 		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(CACHE_DIR + mapId + ".map")));
-
 		int id = in.readInt();
 		if (mapId != id) {
 			throw new FileNotFoundException();
 		}
-
 		int xLoc = in.readInt();
 		int yLoc = in.readInt();
 		int width = in.readInt();
 		int height = in.readInt();
-
 		byte[][] tiles = new byte[width][height];
 		for (byte[] line : tiles) {
 			in.read(line);
 		}
-
 		in.close();
 		L1V1Map map = new L1V1Map(id, tiles, xLoc, yLoc,
-				MapsTable.getInstance().isUnderwater(mapId),
-				MapsTable.getInstance().isMarkable(mapId),
-				MapsTable.getInstance().isTeleportable(mapId),
-				MapsTable.getInstance().isEscapable(mapId),
-				MapsTable.getInstance().isUseResurrection(mapId),
-				MapsTable.getInstance().isUsePainwand(mapId),
-				MapsTable.getInstance().isEnabledDeathPenalty(mapId),
-				MapsTable.getInstance().isTakePets(mapId),
-				MapsTable.getInstance().isRecallPets(mapId),
-				MapsTable.getInstance().isUsableItem(mapId),
-				MapsTable.getInstance().isUsableSkill(mapId));
+		MapsTable.getInstance().isUnderwater(mapId),
+		MapsTable.getInstance().isMarkable(mapId),
+		MapsTable.getInstance().isTeleportable(mapId),
+		MapsTable.getInstance().isEscapable(mapId),
+		MapsTable.getInstance().isUseResurrection(mapId),
+		MapsTable.getInstance().isUsePainwand(mapId),
+		MapsTable.getInstance().isEnabledDeathPenalty(mapId),
+		MapsTable.getInstance().isTakePets(mapId),
+		MapsTable.getInstance().isRecallPets(mapId),
+		MapsTable.getInstance().isUsableItem(mapId),
+		MapsTable.getInstance().isUsableSkill(mapId));
 		return map;
 	}
 

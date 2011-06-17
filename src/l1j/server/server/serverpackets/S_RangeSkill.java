@@ -16,39 +16,30 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
 public class S_RangeSkill extends ServerBasePacket {
-
 	private static final String S_RANGE_SKILL = "[S] S_RangeSkill";
-	private static Logger _log = Logger.getLogger(S_RangeSkill.class
-			.getName());
-
+	private static Logger _log = Logger.getLogger(S_RangeSkill.class.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
-
 	private byte[] _byte = null;
-
 	public static final int TYPE_NODIR = 0;
-
 	public static final int TYPE_DIR = 8;
 
-	public S_RangeSkill(L1Character cha, L1Character[] target, int spellgfx,
-			int actionId, int type) {
+	public S_RangeSkill(L1Character cha, L1Character[] target, int spellgfx, int actionId, int type) {
 		buildPacket(cha, target, spellgfx, actionId, type);
 	}
 
-	private void buildPacket(L1Character cha, L1Character[] target,
-			int spellgfx, int actionId, int type) {
+	private void buildPacket(L1Character cha, L1Character[] target, int spellgfx, int actionId, int type) {
 		writeC(Opcodes.S_OPCODE_RANGESKILLS);
 		writeC(actionId);
 		writeD(cha.getId());
@@ -57,8 +48,7 @@ public class S_RangeSkill extends ServerBasePacket {
 		if (type == TYPE_NODIR) {
 			writeC(cha.getHeading());
 		} else if (type == TYPE_DIR) {
-			int newHeading = calcheading(cha.getX(), cha.getY(),
-					target[0].getX(), target[0].getY());
+			int newHeading = calcheading(cha.getX(), cha.getY(), target[0].getX(), target[0].getY());
 			cha.setHeading(newHeading);
 			writeC(cha.getHeading());
 		}
@@ -114,5 +104,4 @@ public class S_RangeSkill extends ServerBasePacket {
 	public String getType() {
 		return S_RANGE_SKILL;
 	}
-
 }

@@ -18,13 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 public class S_DoActionGFX extends ServerBasePacket {
 	private static final String S_DOACTIONGFX = "[S] S_SkillGFX";
-
 	public static int ACTION_MAGIC = 0x16;
-
 	private byte[] _byte = null;
 
 	public S_DoActionGFX(int objectId, int actionId) {

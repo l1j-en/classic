@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
 import java.io.*;
@@ -24,21 +23,22 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_CommonNews extends ServerBasePacket {
-
+	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
+	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
+	private ArrayList _announcements;
+	
 	public S_CommonNews() {
 		_announcements = new ArrayList();
 		loadAnnouncements();
 		writeC(Opcodes.S_OPCODE_COMMONNEWS);
 		String message = "";
 		for (int i = 0; i < _announcements.size(); i++) {
-			message = (new StringBuilder()).append(message).append(
-					_announcements.get(i).toString()).append("\n").toString();
+			message = (new StringBuilder()).append(message).append(_announcements.get(i).toString()).append("\n").toString();
 		}
 		writeS(message);
 	}
@@ -86,11 +86,4 @@ public class S_CommonNews extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_CommonNews";
 	}
-
-	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
-
-	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
-
-	private ArrayList _announcements;
-
 }

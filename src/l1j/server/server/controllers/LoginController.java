@@ -16,22 +16,23 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.controllers;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
+import l1j.server.server.Account;
+import l1j.server.server.AccountAlreadyLoginException;
+import l1j.server.server.ClientThread;
+import l1j.server.server.GameServerFullException;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class LoginController {
-
 	private static LoginController _instance;
-
 	private static Logger _log = Logger.getLogger(LoginController.class.getName());
-
 	private Map<String, ClientThread> _accounts = new ConcurrentHashMap<String, ClientThread>();
-
 	private int _maxAllowedOnlinePlayers;
 
 	private LoginController() {

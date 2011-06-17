@@ -20,15 +20,12 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_Exp extends ServerBasePacket {
-
 	private static Logger _log = Logger.getLogger(S_Exp.class.getName());
-
 	private static final String S_EXP = "[S] S_Exp";
-
 	/**
 	 * Experience level and send the data value.
 	 * @param pc - PC
@@ -37,13 +34,6 @@ public class S_Exp extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_EXP);
 		writeC(pc.getLevel());
 		writeD(pc.getExp());
-
-//		writeC(Opcodes.S_OPCODE_EXP);
-//		writeC(0x39);// level
-//		writeD(_objid);// ??
-//		writeC(0x0A);// ??
-//		writeH(getexp);// min exp
-//		writeH(getexpreward);// max exp
 	}
 
 	@Override

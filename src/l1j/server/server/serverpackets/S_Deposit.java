@@ -16,16 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.Opcodes;
+import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
-
 public class S_Deposit extends ServerBasePacket {
-
+	private static final String _S__53_DEPOSIT = "[S] S_Deposit";
+	
 	public S_Deposit(int objecId) {
 		writeC(Opcodes.S_OPCODE_DEPOSIT);
 		writeD(objecId);
@@ -40,6 +39,4 @@ public class S_Deposit extends ServerBasePacket {
 	public String getType() {
 		return "[S] S_Deposit";
 	}
-
-	private static final String _S__53_DEPOSIT = "[S] S_Deposit";
 }
