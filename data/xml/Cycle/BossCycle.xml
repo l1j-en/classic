@@ -10,37 +10,72 @@
 		</BossCycle>
 	-->
 	<BossCycle Name="DK">
-		<Base Date="2008/5/18" Time="0:00" />
 		<Cycle Period="7h" Start="3h30m"/>
 	</BossCycle>
 	<BossCycle Name="Oren">
-		<Base Date="2002/7/23" />
 		<Cycle Period="5h" Start="2h30m"/>
 	</BossCycle>
 	<BossCycle Name="Aden">
-		<Base Time="1:30" />
 		<Cycle Period="4h" Start="1h30m"/>
 	</BossCycle>
 	<BossCycle Name="Caspa">
 		<Cycle Period="1h" Start="30m"/>
 	</BossCycle>
 	<BossCycle Name="1Drake">
-		<Cycle Period="2h" End="1h"/>
+		<Cycle Period="2h" Start="1h"/>
+        </BossCycle>
+        <BossCycle Name="Tiger">
+		<Cycle Period="4h" Start="1h"/>
+	</BossCycle>
+        <BossCycle Name="Bandit">
+		<Cycle Period="7h" Start="2h"/>
+	</BossCycle>
+        <BossCycle Name="BanditLeader">
+		<Cycle Period="8h" Start="10m"/>
+	</BossCycle>
+        <BossCycle Name="DarkElder">
+		<Cycle Period="24h" Start="10m"/>
+	</BossCycle>
+        <BossCycle Name="DoppelGanger">
+		<Cycle Period="24h" Start="8h"/>
+	</BossCycle>
+        <BossCycle Name="SeaDancer">
+		<Cycle Period="1h" Start="30m"/>
+	</BossCycle>
+	<BossCycle Name="Ifrit">
+		<Cycle Period="24h" Start="1h"/>
+        </BossCycle>
+        <BossCycle Name="Crocodile">
+		<Cycle Period="24h" Start="1h"/>
+	</BossCycle>
+        <BossCycle Name="ZenithQueen">
+		<Cycle Period="8h" Start="4h"/>
+	</BossCycle>
+	<BossCycle Name="Seer">
+		<Cycle Period="5h" Start="2h30m"/>
+	</BossCycle>
+	<BossCycle Name="Baphomet">
+		<Cycle Period="5h" Start="2h30m"/>
+	</BossCycle>
+	<BossCycle Name="Beleth">
+		<Cycle Period="5h" Start="2h30m"/>
+	</BossCycle>
+        <BossCycle Name="Unicorn">
+		<Cycle Period="24h" Start="20m"/>
 	</BossCycle>
 	<BossCycle Name="2Drake">
 		<Cycle Period="3h" Start="1h30m"/>
 	</BossCycle>
 	<BossCycle Name="Night">
-		<Cycle Period="4h" End="2h"/>
+		<Cycle Period="4h" Start="2h"/>
 	</BossCycle>
 	<BossCycle Name="Dragon">
-		<Cycle Period="1d"/>
+		<Cycle Period="24h"/>
 	</BossCycle>
 	<BossCycle Name="etc1">
-		<Cycle Period="10m" />
+		<Cycle Period="24h" Start="10m"/>
 	</BossCycle>
 	<BossCycle Name="Unknown">
-		<Base Date="2008/5/18" Time="0:00" />
-		<Cycle Period="7h" Start="3h30m"/>
+	<Cycle Period="7h" Start="3h30m"/>
 	</BossCycle>
 </BossCycleList>

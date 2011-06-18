@@ -43,6 +43,22 @@ import l1j.server.server.utils.PerformanceTimer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class L1BossCycle {
+	private static Logger _log = Logger.getLogger(L1BossCycle.class.getName());
+	private static final Random _rnd = new Random();
+	private Calendar _baseDate;
+	private int _period; // Portion Exchange
+	private int _periodDay;
+	private int _periodHour;
+	private int _periodMinute;
+	private int _startTime; 
+	private int _endTime; 
+	private static SimpleDateFormat _sdfYmd = new SimpleDateFormat("yyyy/MM/dd");
+	private static SimpleDateFormat _sdfTime = new SimpleDateFormat("HH:mm");
+	private static SimpleDateFormat _sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+	private static Date _initDate = new Date();
+	private static String _initTime = "0:00";
+	private static final Calendar START_UP = Calendar.getInstance();
+
 	@XmlAttribute(name = "Name")
 	private String _name;
 	@XmlElement(name = "Base")
@@ -108,22 +124,6 @@ public class L1BossCycle {
 			_end = end;
 		}
 	}
-
-	private static final Random _rnd = new Random();
-	private Calendar _baseDate;
-	private int _period; // Portion Exchange
-	private int _periodDay;
-	private int _periodHour;
-	private int _periodMinute;
-
-	private int _startTime; 
-	private int _endTime; 
-	private static SimpleDateFormat _sdfYmd = new SimpleDateFormat("yyyy/MM/dd");
-	private static SimpleDateFormat _sdfTime = new SimpleDateFormat("HH:mm");
-	private static SimpleDateFormat _sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-	private static Date _initDate = new Date();
-	private static String _initTime = "0:00";
-	private static final Calendar START_UP = Calendar.getInstance();
 
 	public void init() throws Exception {
 		// Date set standards
@@ -417,6 +417,4 @@ public class L1BossCycle {
 	public void setCycle(Cycle cycle) {
 		this._cycle = cycle;
 	}
-
-	private static Logger _log = Logger.getLogger(L1BossCycle.class.getName());
 }
