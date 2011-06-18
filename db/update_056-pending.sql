@@ -3320,3 +3320,58 @@ update npc set impl = 'L1Guard' where npcid = 46106;
 
 -- update giran arena spawnlist the spawns are now 40 of each mob type thats too much even a gm cannot handle it.
 update spawnlist_ub set count = '10' where ub_id = 1;
+
+-- summon name corrections + some npcs.
+update npc set name = 'Hobgoblin' where npcid = 81210;
+update npc set name = 'Eidlon' where npcid = 81211;
+update npc set name = 'Imp' where npcid = 81212;
+update npc set name = 'Gandi orc' where npcid = 81213;
+update npc set name = 'Duda-Mara orc' where npcid = 81214;
+update npc set name = 'Orc scout' where npcid = 81215;
+update npc set name = 'Wild Fang' where npcid = 81216;
+update npc set name = 'Wild Venom' where npcid = 81217;
+update npc set name = 'Wild Magic' where npcid = 81218;
+update npc set name = 'Bugbear' where npcid = 81219;
+update npc set name = 'King Bugbear' where npcid = 81220;
+update npc set name = 'Ice Man' where npcid = 81221;
+update npc set name = 'Mad Lizardman' where npcid = 81222;
+update npc set name = 'Heavy Lizardman' where npcid = 81223;
+update npc set name = 'High Lizardman' where npcid = 81224;
+update npc set name = 'Salamander' where npcid = 81225;
+update npc set name = 'Fire Warrior' where npcid = 81226;
+update npc set name = 'Fire Archer' where npcid = 81227;
+update npc set name = 'Dire Bear' where npcid = 81228;
+update npc set name = 'Dire Wolf' where npcid = 81229;
+update npc set name = 'Dire Bat' where npcid = 81230;
+update npc set name = 'Giant Guardian Ant' where npcid = 81231;
+update npc set name = 'Mountain Fortress Ants Troop' where npcid = 81232;
+update npc set name = 'Giant Mountain Fortress Ant' where npcid = 81233;
+update npc set name = 'Hell Creature' where npcid = 81234;
+update npc set name = 'Greater Dark Elemental' where npcid = 81235;
+update npc set name = 'Otyu' where npcid = 81236;
+update npc set name = 'Hell Bound' where npcid = 81237;
+update npc set name = 'Doppelganger' where npcid = 81238;
+update npc set name = 'Greater Minotaur' where npcid = 81239;
+update npc set name = 'Cougar' where npcid = 81240;
+
+-- illusionist town npcs
+update npc set name = 'Sveil' where npcid = 81241;
+update npc set name = 'Blacksmith Bahturu' where npcid = 81242;
+update npc set name = 'Azael' where npcid = 81243;
+update npc set name = 'Lark' where npcid = 81244;
+update npc set name = 'Elder Sleyin' where npcid = 81245;
+update npc set name = 'Charriere' where npcid = 81246;
+update npc set name = 'Guard' where npcid = 80147;
+update npc set name = 'Guard' where npcid = 80148;
+
+-- dragonknight town npcs
+update npc set name = 'Decavia' where npcid = 80132;
+update npc set name = 'Blacksmith Pual' where npcid = 80133;
+update npc set name = 'Talion' where npcid = 80134;
+update npc set name = 'Elas' where npcid = 80135;
+update npc set name = 'Elder Prochel' where npcid = 80136;
+update npc set name = 'Gepharu' where npcid = 80137;
+update npc set name = 'Guard' where npcid = 80138;
+update npc set name = 'Guard' where npcid = 80139;
+update npc set name = 'Little guy need real name' where npcid = 80200;
+update npc set name = 'Message Board' where npcid = 80201;
