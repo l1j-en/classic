@@ -3481,8 +3481,9 @@ public class C_NPCAction extends ClientBasePacket {
 		if (pc.getInventory().consumeItem(L1ItemId.ADENA, 100)) {
 			try {
 				pc.save();
-				pc.beginGhost(loc.getX(), loc.getY(), (short) loc.getMapId(),
-						true);
+				pc.beginGhost(loc.getX(), loc.getY(), (short) loc.getMapId(), true);
+				pc.isInvisble();
+				pc.isGhost();
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
