@@ -3317,3 +3317,6 @@ update npc set impl = 'L1Guard' where npcid = 46103;
 update npc set impl = 'L1Guard' where npcid = 46104;
 update npc set impl = 'L1Guard' where npcid = 46105;
 update npc set impl = 'L1Guard' where npcid = 46106;
+
+-- update giran arena spawnlist the spawns are now 40 of each mob type thats too much even a gm cannot handle it.
+update spawnlist_ub set count = '10' where ub_id = 1;
