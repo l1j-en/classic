@@ -3375,3 +3375,12 @@ update npc set name = 'Guard' where npcid = 80138;
 update npc set name = 'Guard' where npcid = 80139;
 update npc set name = 'Little guy need real name' where npcid = 80200;
 update npc set name = 'Message Board' where npcid = 80201;
+
+-- add dull weapons to shops
+INSERT INTO shop VALUES(70023, 'Aden Chamber of Commerce', 41206, 'Dull Weapon', 0, -1, 0, 30000);
+INSERT INTO shop VALUES(70037, 'Aden Chamber of Commerce', 41206, 'Dull Weapon', 0, -1, 0, 30000);
+INSERT INTO shop VALUES(70064, 'Aden Chamber of Commerce', 41206, 'Dull Weapon', 0, -1, 0, 30000);
+INSERT INTO shop VALUES(70076, 'Aden Chamber of Commerce', 41206, 'Dull Weapon', 0, -1, 0, 30000);
+
+-- reduce dull weapon drop rates to 1.5%
+UPDATE droplist SET chance = 15000 WHERE itemId = 41206;
