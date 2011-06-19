@@ -90,7 +90,7 @@ public class L1NpcInstance extends L1Character {
 
 	private static Logger _log = Logger
 			.getLogger(L1NpcInstance.class.getName());
-	private static L1Npc _npcTemplate;
+	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
 	private int _spawnNumber; 
@@ -1164,7 +1164,7 @@ public class L1NpcInstance extends L1Character {
 		return _npcTemplate;
 	}
 
-	public static int getNpcId() {
+	public int getNpcId() {
 		return _npcTemplate.get_npcId();
 	}
 
