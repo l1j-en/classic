@@ -3384,3 +3384,18 @@ INSERT INTO shop VALUES(70076, 'Aden Chamber of Commerce', 41206, 'Dull Weapon',
 
 -- reduce dull weapon drop rates to 1.5%
 UPDATE droplist SET chance = 15000 WHERE itemId = 41206;
+
+-- new table to track pvp kills
+CREATE TABLE character_pvp ( 
+killer_char_obj_id INT,
+killer_char_name VARCHAR(20),
+killer_lvl INT, 
+victim_char_obj_id INT,
+victim_char_name varchar(20),
+victim_lvl INT,
+date INT,
+locx INT, 
+locy INT, 
+mapid INT, 
+penalty INT
+);
