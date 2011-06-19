@@ -1668,7 +1668,17 @@ public class L1SkillUse {
 					}
 				}
 
-				//
+				if (L1NpcInstance.getNpcId() == 45373 || L1NpcInstance.getNpcId() == 45505){
+					if (cha.getMoveSpeed() != 2) {
+						if (cha instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) cha;
+							npc.broadcastPacket(new S_SkillHaste(npc.getId(), 1, 0));
+							npc.broadcastPacket(new S_SkillSound(npc.getId(), 755));
+							npc.setMoveSpeed(1);
+							npc.setSkillEffect(STATUS_HASTE, 20 * 1000);
+						   }
+						}
+					} 
 				if (_skillId == HASTE) {
 					if (cha.getMoveSpeed() != 2) {
 						if (cha instanceof L1PcInstance) {

@@ -3375,3 +3375,7 @@ update npc set name = 'Guard' where npcid = 80138;
 update npc set name = 'Guard' where npcid = 80139;
 update npc set name = 'Little guy need real name' where npcid = 80200;
 update npc set name = 'Message Board' where npcid = 80201;
+
+-- fix for ettin haste
+DELETE from mobskill where mobid = 45373;
+DELETE from mobskill where mobid = 45505;
