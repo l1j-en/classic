@@ -16,8 +16,15 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
 package l1j.server.server.model.Instance;
 
+import l1j.server.server.model.L1World;
+import java.sql.Timestamp;
+import l1j.server.server.utils.SQLUtil;
+import l1j.server.database.L1DatabaseFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -1235,6 +1242,80 @@ public class L1PcInstance extends L1Character {
 			broadcastPacket(new S_DoActionGFX(targetobjid,
 					ActionCodes.ACTION_Die));
 
+if (lastAttacker.getMapId() != 509) {
+try {
+if (lastAttacker != L1PcInstance.this) {
+
+
+					L1PcInstance player = null;
+					if (lastAttacker instanceof L1PcInstance) {
+player = (L1PcInstance) lastAttacker;
+			L1World.getInstance().broadcastServerMessage(player.getName() + " just owned " + getName() + " in battle!");
+						
+					} else if (lastAttacker instanceof L1PetInstance) {
+						player = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
+			L1World.getInstance().broadcastServerMessage(player.getName() + " just ate " + getName() + "'s face with uber pets!");
+
+								
+					} else if (lastAttacker instanceof L1SummonInstance) {
+						player = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
+			L1World.getInstance().broadcastServerMessage(player.getName() + " just tore up " + getName() + " with evil summons!");
+
+								
+					}
+					if (player != null) {
+
+
+if (player instanceof L1PcInstance) {
+
+			try {
+
+			Timestamp ts = new Timestamp(System.currentTimeMillis());	
+			Connection con = null;
+			PreparedStatement pstm = null;		
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
+			pstm.setInt(1, player.getId());
+			pstm.setString(2, player.getName());
+			pstm.setInt(3, player.getLevel());
+			pstm.setInt(4, getId());
+			pstm.setString(5, getName());
+			pstm.setInt(6, getLevel());
+			pstm.setTimestamp(7, ts);
+			pstm.setInt(8, getX());
+			pstm.setInt(9, getY());
+			pstm.setInt(10, getMapId());
+			if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 1);
+			} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && !getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 2);
+			} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && !getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 3);
+			//doorway
+			} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 4);
+			} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 5);
+			} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && !getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 6);
+			} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && !getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 7);
+			//normal zone
+			} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && getMap().isEnabledDeathPenalty()) {
+				pstm.setInt(11, 8);
+			} else {
+				pstm.setInt(11, 9);
+			}
+			pstm.execute();			
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+				} catch (Exception e) { _log.log(Level.SEVERE, e.getLocalizedMessage(), e); } 
+						
+		} } } 
+
+
+} catch (Exception e) { _log.log(Level.SEVERE, e.getLocalizedMessage(),  e); }
+}
 			if (lastAttacker != L1PcInstance.this) {
 				if (getZoneType() != 0) {
 					L1PcInstance player = null;
