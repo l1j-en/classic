@@ -92,13 +92,10 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
 	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
 	 private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket          
-			(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d,
-			(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00,
-			(byte) 0x02, (byte) 0x08, (byte) 0x00 };
-
-	/**
-	 * for Test
-	 */
+     (byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01,                          
+     (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD,                         
+     (byte) 0xCC, (byte) 0xC0 };
+	 
 	protected ClientThread() {}
 
 	public ClientThread(Socket socket) throws IOException {
@@ -185,12 +182,12 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 		try {
 			// long seed = 0x5cc690ecL; // 2.70C
-			long seed = 0x7c98bdfa; // 3.0
+			long seed = 0x7C98BDFA; // 3.0 English Packet Seed
 			byte Bogus = (byte)(FIRST_PACKET.length + 7);
 			_out.write(Bogus & 0xFF);
 			_out.write(Bogus >> 8 & 0xFF);
 			// _out.write(0x20); // 2.70C
-			_out.write(0x7d); // 3.0
+			_out.write(0x7D); // 3.0 English Version Check.
 			_out.write((byte)(seed & 0xFF));
 			_out.write((byte)(seed >> 8 & 0xFF));
 			_out.write((byte)(seed >> 16 & 0xFF));
