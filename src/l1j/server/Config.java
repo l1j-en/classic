@@ -312,6 +312,8 @@ public final class Config {
 	public static int NPC_DELETION_TIME;
 
 	public static int DEFAULT_CHARACTER_SLOT;
+	
+	public static int MONSTERPOTIONINTUSE;
 
 	/** CharSettings control */
 	public static int PRINCE_MAX_HP;
@@ -609,6 +611,7 @@ public final class Config {
 			ALT_TALKINGSCROLLQUEST = Boolean.parseBoolean(altSettings.getProperty("TalkingScrollQuest", "False"));
 			ALT_WHO_COMMAND = Boolean.parseBoolean(altSettings.getProperty("WhoCommand", "False"));
 			ALT_REVIVAL_POTION = Boolean.parseBoolean(altSettings.getProperty("RevivalPotion", "False"));
+			MONSTERPOTIONINTUSE = Integer.parseInt(altSettings.getProperty("MonsterIntPotions", "13"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

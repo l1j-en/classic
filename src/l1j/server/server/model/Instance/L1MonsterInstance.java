@@ -49,7 +49,6 @@ import l1j.server.server.utils.CalcExp;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1MonsterInstance extends L1NpcInstance {
-
 	/**
 	 * 
 	 */
@@ -85,9 +84,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 		}
-		//TRICIDTODO: maybe make this configurable
 		if (getCurrentHp() * 100 / getMaxHp() < 40) { 
-			if (this.getInt() > 13) // only mobs with > 13 int will use pots
+			if (this.getInt() > Config.MONSTERPOTIONINTUSE) // only mobs with > 13 int will use pots
 			{
 				useItem(USEITEM_HEAL, 30); 
 			}
@@ -144,7 +142,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			int mapId = getMapId();
 			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91
 					|| mapId == 95) {
-				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { // 
+				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
 					targetPlayer = pc;
 					break;
 				}
@@ -172,8 +170,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
 					&& getNpcTemplate().is_agrogfxid1() < 0
-					&& getNpcTemplate().is_agrogfxid2() < 0) { //
-				if (pc.getLawful() < -1000) { // 
+					&& getNpcTemplate().is_agrogfxid2() < 0) {
+				if (pc.getLawful() < -1000) {
 					targetPlayer = pc;
 					break;
 				}
@@ -220,7 +218,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 		}
-		if (targetPlayer != null) {
+		if (_target != null && _target instanceof L1PcInstance ) {
 			_hateList.add(targetPlayer, 0);
 			_target = targetPlayer;
 		}
