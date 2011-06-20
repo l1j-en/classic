@@ -274,7 +274,7 @@ public class L1Attack {
 				_isHit = false; // If there is no mistake arrow
 			} else if (_weaponType == 62 && _sting == null) {
 				_isHit = false; // If there is no mistake Sting
-			} else if (!_pc.glanceCheck(_targetX, _targetY)) {
+			} else if ( _weaponRange != 1 && !_pc.glanceCheck(_targetX, _targetY)) {
 				_isHit = false; // If the attacker is the player's decision is an obstacle
 			} else if (_weaponId == 247 || _weaponId == 248 || _weaponId == 249) {
 				_isHit = false; // B ~ C sword attack ordeal disabled
@@ -546,7 +546,17 @@ public class L1Attack {
 
 	//NPC decision from the players to hit
 	private boolean calcNpcPcHit() {
-
+		if (_weaponRange != -1) {
+			if (_pc.getLocation().getTileLineDistance(_target.getLocation()) > _weaponRange + 1) {
+				_isHit = false; 
+				return _isHit;
+			}
+		} else {
+			if (!_pc.getLocation().isInScreen(_target.getLocation())) {
+				_isHit = false;
+				return _isHit;
+			}
+		}
 		_hitRate += _npc.getLevel();
 
 		if (_npc instanceof L1PetInstance) {

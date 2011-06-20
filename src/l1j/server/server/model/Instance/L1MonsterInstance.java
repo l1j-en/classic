@@ -37,7 +37,6 @@ import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_NPCPack;
@@ -122,9 +121,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	@Override
 	public void searchTarget() {
-		
+		L1PcInstance lastTarget = null;
 		L1PcInstance targetPlayer = null;
 
+		if (_target != null) {  
+			lastTarget = (L1PcInstance) _target; 
+			tagertClear(); 
+		}
+		
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
 					&& getNpcTemplate().is_agrogfxid1() < 0
@@ -134,7 +138,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 
 			// NOTE: Don't remove non-aggro to shopmode
-			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
+			if ( pc == lastTarget || pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
 					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
 				continue;
 			}

@@ -420,7 +420,7 @@ public class L1NpcInstance extends L1Character {
 					}
 					int dir = moveDirection(target.getX(), target.getY());
 					if (dir == -1) {
-						tagertClear();
+						searchTarget();
 					} else {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(),
