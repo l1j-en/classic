@@ -3617,6 +3617,8 @@ INSERT INTO weapon VALUES(272, '', '$5668', '$5668', 'chainsword', 'silver', 100
 INSERT INTO weapon VALUES(273, '', '$5669', '$5669', 'chainsword', 'iron', 110000, 3056, 6962, 0, 19, 17, 2, 6, 0, 0, 0, 0, 0, 1, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 INSERT INTO weapon VALUES(274, '', '$5631', '$5631', 'staff', 'gold', 40000, 1020, 781, 3173, 16, 12, 1, -1, 0, 0, 0, 0, 0, 0, 1, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0);
 INSERT INTO weapon VALUES(275, '', '$5664', '$5664', 'tohandsword', 'iron', 80000, 3022, 6940, 3219, 19, 17, 1, 6, 0, 0, 0, 0, 0, 1, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0);
+
+-- change some magic mana costs
 update skills set mpconsume = '8' where skill_id = 10;
 update skills set ranged = '3' where skill_id = 10;
 update skills set mpconsume = '6' where skill_id = 15;
@@ -3670,6 +3672,8 @@ update skills set buffduration = '1200' where skill_id = 79;
 update skills set damage_value = '3' where skill_id = 80;
 update skills set damage_dice = '10' where skill_id = 80;
 update skills set damage_dice_count = '3' where skill_id = 80;
+
+-- change teleport gfxids
 update npc set gfxid = '6377' where npcid = 50015;
 update npc set gfxid = '6377' where npcid = 50020;
 update npc set gfxid = '6377' where npcid = 50024;
@@ -3682,3 +3686,36 @@ update npc set gfxid = '6377' where npcid = 50054;
 update npc set gfxid = '6377' where npcid = 50056;
 update npc set gfxid = '6377' where npcid = 50066;
 update npc set gfxid = '6377' where npcid = 50079;
+
+-- fix dk skills
+update skills set name = "DragonSkin" where skill_id = 181;
+update skills set name = "BurningSlash" where skill_id = 182;
+update skills set name = "GuardBreak" where skill_id = 183;
+update skills set name = "MagmaBreath" where skill_id = 184;
+update skills set name = "AwakenAntharas" where skill_id = 185;
+update skills set name = "BloodLust" where skill_id = 186;
+update skills set name = "FoeSlayer" where skill_id = 187;
+update skills set name = "ResistFear" where skill_id = 188;
+update skills set name = "ShockSkin" where skill_id = 189;
+update skills set name = "AwakenFafurion" where skill_id = 190;
+update skills set name = "MortalBody" where skill_id = 191;
+update skills set name = "ThunderGrab" where skill_id = 192;
+update skills set name = "HorrorOfDeath" where skill_id = 193;
+update skills set name = "FreezingBreath" where skill_id = 194;
+update skills set name = "AwakenValakas" where skill_id = 195;
+
+update etcitem set name = "Dragon Tablet(DragonSkin)" where item_id = 49102;
+update etcitem set name = "Dragon Tablet(BurningSlash)" where item_id = 49103;
+update etcitem set name = "Dragon Tablet(GuardBreak)" where item_id = 49104;
+update etcitem set name = "Dragon Tablet(MagmaBreath)" where item_id = 49105;
+update etcitem set name = "Dragon Tablet(AwakenAntharas)" where item_id = 49106;
+update etcitem set name = "Dragon Tablet(BloodLust)" where item_id = 49107;
+update etcitem set name = "Dragon Tablet(FoeSlayer)" where item_id = 49108;
+update etcitem set name = "Dragon Tablet(ResistFear)" where item_id = 49109;
+update etcitem set name = "Dragon Tablet(ShockSkin)" where item_id = 49110;
+update etcitem set name = "Dragon Tablet(AwakenFafurion)" where item_id = 49111;
+update etcitem set name = "Dragon Tablet(MortalBody)" where item_id = 49112;
+update etcitem set name = "Dragon Tablet(ThunderGrab)" where item_id = 49113;
+update etcitem set name = "Dragon Tablet(HorrorOfDeath)" where item_id = 49114;
+update etcitem set name = "Dragon Tablet(FreezingBreath)" where item_id = 49115;
+update etcitem set name = "Dragon Tablet(AwakenValakas)" where item_id = 49116;
