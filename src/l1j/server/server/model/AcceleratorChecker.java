@@ -115,7 +115,7 @@ public class AcceleratorChecker {
 			_pc.sendPackets(new S_ServerMessage(945)); 
 			_pc.sendPackets(new S_Disconnect());
 			_log.info(String.format(
-					"Injustice count limit exceeded for player: ", _pc.getName()));
+					"Injustice count limit exceeded for player: " + _pc.getName()));
 		} else {
 			_pc.sendPackets(new S_SystemMessage(
 					"Injustice count limit exceeded."));
