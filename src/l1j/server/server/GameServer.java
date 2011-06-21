@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
+import l1j.server.server.model.MpBugTest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SystemUtil;
@@ -86,6 +87,8 @@ public class GameServer extends Thread {
 			_serverSocket = new ServerSocket(_port);
 			System.out.println("Port " + _port + " opened");
 		}
+		MpBugTest mpbug = new MpBugTest();
+		mpbug.initialize();
         GameServerThread.getInstance();
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		this.start();
