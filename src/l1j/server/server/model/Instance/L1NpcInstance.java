@@ -284,7 +284,6 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void searchTarget() {
-		tagertClear();
 	}
 
 	public void checkTarget() {
@@ -293,7 +292,7 @@ public class L1NpcInstance extends L1Character {
 				|| _target.getCurrentHp() <= 0
 				|| _target.isDead()
 				|| (_target.isInvisble() && !getNpcTemplate().is_agrocoi() && !_hateList
-						.containsKey(_target)) || _target.getTileLineDistance(this) > 30 ) {
+						.containsKey(_target))) {
 			if (_target != null) {
 				tagertClear();
 			}
@@ -420,7 +419,7 @@ public class L1NpcInstance extends L1Character {
 					}
 					int dir = moveDirection(target.getX(), target.getY());
 					if (dir == -1) {
-						searchTarget();
+						tagertClear();
 					} else {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(),

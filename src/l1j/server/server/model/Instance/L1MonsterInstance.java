@@ -121,13 +121,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	@Override
 	public void searchTarget() {
-		L1PcInstance lastTarget = null;
 		L1PcInstance targetPlayer = null;
-
-		if (_target != null) {  
-			lastTarget = (L1PcInstance) _target; 
-			tagertClear(); 
-		}
 		
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
@@ -138,7 +132,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 
 			// NOTE: Don't remove non-aggro to shopmode
-			if ( pc == lastTarget || pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
+			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
 					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
 				continue;
 			}
