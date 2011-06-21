@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.storage.CharactersItemStorage;
@@ -193,14 +193,20 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	}
 
 	@Override
-	public void updateItemAttrEnchantKind(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET attr_enchant_kind = ? WHERE id = ?", item.getAttrEnchantKind());
+	public void updateItemAttrEnchantKind(L1ItemInstance item) throws
+			Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET attr_enchant_kind = ? WHERE id = ?",
+						item.getAttrEnchantKind());
 		item.getLastStatus().updateAttrEnchantKind();
 	}
 
 	@Override
-	public void updateItemAttrEnchantLevel(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET attr_enchant_level = ? WHERE id = ?", item.getAttrEnchantLevel());
+	public void updateItemAttrEnchantLevel(L1ItemInstance item) throws
+			Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET attr_enchant_level = ? WHERE id = ?",
+						item.getAttrEnchantLevel());
 		item.getLastStatus().updateAttrEnchantLevel();
 	}
 
@@ -228,7 +234,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		return count;
 	}
 
-	private void executeUpdate(int objId, String sql, int updateNum) throws SQLException {
+	private void executeUpdate(int objId, String sql, int updateNum)
+			throws SQLException {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -245,7 +252,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		}
 	}
 
-	private void executeUpdate(int objId, String sql, Timestamp ts) throws SQLException {
+	private void executeUpdate(int objId, String sql, Timestamp ts)
+			throws SQLException {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {

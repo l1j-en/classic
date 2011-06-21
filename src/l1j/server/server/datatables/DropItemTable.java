@@ -27,10 +27,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class DropItemTable {
+	private class dropItemData {
+		public double dropRate = 1;
+		public double dropAmount = 1;
+	}
+
 	private static Logger _log = Logger.getLogger(DropItemTable.class.getName());
 	private static DropItemTable _instance;
 	private final Map<Integer, dropItemData> _dropItem = new HashMap<Integer, dropItemData>();
@@ -42,11 +47,6 @@ public final class DropItemTable {
 		return _instance;
 	}
 
-	private class dropItemData {
-	public double dropRate = 1;
-	public double dropAmount = 1;
-	}
-	
 	private DropItemTable() {
 		loadMapsFromDatabase();
 	}
@@ -78,7 +78,7 @@ public final class DropItemTable {
 	public double getDropRate(int itemId) {
 		dropItemData data = _dropItem.get(itemId);
 		if (data == null) {
-		return 1;
+			return 1;
 		}
 		return data.dropRate;
 	}
@@ -86,7 +86,7 @@ public final class DropItemTable {
 	public double getDropAmount(int itemId) {
 		dropItemData data = _dropItem.get(itemId);
 		if (data == null) {
-		return 1;
+			return 1;
 		}
 		return data.dropAmount;
 	}

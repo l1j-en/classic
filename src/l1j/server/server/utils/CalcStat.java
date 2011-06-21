@@ -174,9 +174,14 @@ public class CalcStat {
 			seedY = 2;
 		} else if (baseWis == 9 || baseWis >= 12 && baseWis <= 17) {
 			seedY = 3;
-		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25 || baseWis == 26 || baseWis == 29 || baseWis == 30 || baseWis == 33 || baseWis == 34) {
+		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25
+					|| baseWis == 26 || baseWis == 29
+					|| baseWis == 30 || baseWis == 33
+					|| baseWis == 34) {
 			seedY = 4;
-		} else if (baseWis == 24 || baseWis == 27 || baseWis == 28 || baseWis == 31 || baseWis == 32 || baseWis >= 35) {
+		} else if (baseWis == 24 ||baseWis == 27
+				 ||baseWis == 28 ||baseWis == 31
+				 ||baseWis == 32 ||baseWis >= 35) {
 			seedY = 5;
 		}
 

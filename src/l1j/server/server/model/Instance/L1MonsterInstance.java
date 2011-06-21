@@ -216,7 +216,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			}
 		}
-		if (_target != null && _target instanceof L1PcInstance ) {
+		if (targetPlayer != null) {
 			_hateList.add(targetPlayer, 0);
 			_target = targetPlayer;
 		}

@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.utils.SQLUtil;
 
@@ -65,7 +65,8 @@ public class BuddyTable {
 					L1Buddy buddy = new L1Buddy(charId);
 					buddysRS = buddysPS.executeQuery();
 					while (buddysRS.next()) {
-					buddy.add(buddysRS.getInt("buddy_id"), buddysRS.getString("buddy_name"));
+						buddy.add(buddysRS.getInt("buddy_id"), buddysRS
+								.getString("buddy_name"));
 					}
 					_buddys.put(buddy.getCharId(), buddy);
 				} catch (Exception e) {
@@ -118,7 +119,7 @@ public class BuddyTable {
 		PreparedStatement pstm = null;
 		L1Buddy buddy = getBuddyTable(charId);
 		if (!buddy.containsName(buddyName)) {
-		return;
+			return;
 		}
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();

@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
@@ -70,7 +70,7 @@ public class C_CommonClick {
 					if (checkDeleteTime >= 0) {
 						L1Clan clan = L1World.getInstance().getClan(clanname);
 						if (clan != null) {
-						clan.delMemberName(name);
+							clan.delMemberName(name);
 						}
 						CharacterTable.getInstance().deleteCharacter(client.getAccountName(), name);
 					}

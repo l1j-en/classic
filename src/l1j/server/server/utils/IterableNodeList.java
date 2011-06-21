@@ -35,20 +35,20 @@ public class IterableNodeList implements Iterable<Node> {
 
 		@Override
 		public boolean hasNext() {
-		return _idx < _list.getLength();
+			return _idx < _list.getLength();
 		}
 
 		@Override
 		public Node next() {
 			if (!hasNext()) {
-			throw new NoSuchElementException();
+				throw new NoSuchElementException();
 			}
 			return _list.item(_idx++);
 		}
 
 		@Override
 		public void remove() {
-		throw new UnsupportedOperationException();
+			throw new UnsupportedOperationException();
 		}
 	}
 
@@ -58,6 +58,6 @@ public class IterableNodeList implements Iterable<Node> {
 
 	@Override
 	public Iterator<Node> iterator() {
-	return new MyIterator();
+		return new MyIterator();
 	}
 }

@@ -30,7 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Mail;
@@ -157,7 +157,7 @@ public class MailTable {
 					spacePosition1 = i;
 				} else if (spacePosition1 != 0 && spacePosition2 == 0) {
 					spacePosition2 = i;
-				break;
+					break;
 				}
 			}
 		}
@@ -212,7 +212,7 @@ public class MailTable {
 	public static L1Mail getMail(int mailId) {
 		for (L1Mail mail : _allMail) {
 			if (mail.getId() == mailId) {
-			return mail;
+				return mail;
 			}
 		}
 		return null;

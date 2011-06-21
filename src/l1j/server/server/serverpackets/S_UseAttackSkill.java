@@ -37,23 +37,29 @@ public class S_UseAttackSkill extends ServerBasePacket {
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
 
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId) {
+
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, int actionId) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, 6, true);
 	}
 
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, boolean motion) {
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, int actionId, boolean motion) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, 0, motion);
 	}
 
-	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, int isHit) {
+	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, int actionId, int isHit) {
 		buildPacket(cha, targetobj, spellgfx, x, y, actionId, isHit, true);
 	}
 
-	private void buildPacket(L1Character cha, int targetobj, int spellgfx, int x, int y, int actionId, int isHit, boolean withCastMotion) {
+	private void buildPacket(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, int actionId, int isHit, boolean withCastMotion) {
 		if (cha instanceof L1PcInstance) {
 			// Shadow system transforms into a magic during the attack and 
 			// the client to use a provisional to fall into the corresponding
-			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE) && actionId == ActionCodes.ACTION_SkillAttack) {
+			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE)
+					&& actionId == ActionCodes.ACTION_SkillAttack) {
 				int tempchargfx = cha.getTempCharGfx();
 				if (tempchargfx == 5727 || tempchargfx == 5730) {
 					actionId = ActionCodes.ACTION_SkillBuff;

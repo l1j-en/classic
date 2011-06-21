@@ -143,40 +143,52 @@ public class L1Magic {
 
 		if (_calcType == PC_NPC && _targetNpc != null) {
 			int npcId = _targetNpc.getNpcTemplate().get_npcId();
-			if (npcId >= 45912 && npcId <= 45915 && !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
+			if (npcId >= 45912 && npcId <= 45915
+					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
 				return false;
 			}
-			if (npcId == 45916 && !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
+			if (npcId == 45916 
+					&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
 				return false;
 			}
-			if (npcId == 45941 && !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+			if (npcId == 45941 
+					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 				return false;
 			}
-			if (npcId == 45752 && !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			if (npcId == 45752 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				return false;
 			}
-			if (npcId == 45753 && !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			if (npcId == 45753 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				return false;
 			}
-			if (npcId == 45675 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45675 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId == 81082 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 81082 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId == 45625 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45625 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId == 45674 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45674 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId == 45685 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45685 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				return false;
 			}
-			if (npcId >= 46068 && npcId <= 46091 && _pc.getTempCharGfx() == 6035) {
+			if (npcId >= 46068 && npcId <= 46091 // 
+					&& _pc.getTempCharGfx() == 6035) {
 				return false;
 			}
-			if (npcId >= 46092 && npcId <= 46106 && _pc.getTempCharGfx() == 6034) {
+			if (npcId >= 46092 && npcId <= 46106 // e_amob
+					&& _pc.getTempCharGfx() == 6034) {
 				return false;
 			}
 		}
@@ -266,10 +278,12 @@ public class L1Magic {
 			msg3 = "failed";
 		}
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3, msg4)); 
+			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3,
+					msg4)); 
 		}
 		if (_calcType == NPC_PC || _calcType == PC_PC) { 
-			_targetPc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3, msg4)); 
+			_targetPc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2,
+					msg3, msg4)); 
 		}
 
 		return isSuccess;
@@ -326,9 +340,15 @@ public class L1Magic {
 		}
 
 		if (skillId == ELEMENTAL_FALL_DOWN || skillId == RETURN_TO_NATURE
-			|| skillId == ENTANGLE || skillId == ERASE_MAGIC || skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
-			|| skillId == STRIKER_GALE || skillId == POLLUTE_WATER || skillId == EARTH_BIND) {
-			probability = (int) (((l1skills.getProbabilityDice()) / 10D) * (attackLevel - defenseLevel)) + l1skills.getProbabilityValue();
+				|| skillId == ENTANGLE || skillId == ERASE_MAGIC
+				|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
+				|| skillId == STRIKER_GALE || skillId == POLLUTE_WATER
+				|| skillId == EARTH_BIND) {
+			probability = (int) (((l1skills.getProbabilityDice()) / 10D)
+					* (attackLevel - defenseLevel)) + l1skills
+					.getProbabilityValue();
+
+
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
@@ -433,11 +453,14 @@ public class L1Magic {
 			if (_calcType == PC_PC || _calcType == NPC_PC) {
 				probability -= _targetPc.getRegistSleep();
 			}
-		} else if (skillId == ICE_LANCE || skillId == FREEZING_BLIZZARD || skillId == FREEZING_BREATH) {
+		} else if (skillId == ICE_LANCE
+				|| skillId == FREEZING_BLIZZARD
+				|| skillId == FREEZING_BREATH) {
 			if (_calcType == PC_PC || _calcType == NPC_PC) {
 				probability -= _targetPc.getRegistFreeze();
 			}
-		} else if (skillId == CURSE_BLIND || skillId == DARKNESS || skillId == DARK_BLIND) {
+		} else if (skillId == CURSE_BLIND
+				|| skillId == DARKNESS || skillId == DARK_BLIND) {
 			if (_calcType == PC_PC || _calcType == NPC_PC) {
 				probability -= _targetPc.getRegistBlind();
 			}
@@ -619,7 +642,8 @@ public class L1Magic {
 				}
 			} else if (_calcType == NPC_PC) {
 				int npcId = _npc.getNpcTemplate().get_npcId();
-				if (npcId == 45681 || npcId == 45682 || npcId == 45683 || npcId == 45684) {
+				if (npcId == 45681 || npcId == 45682 || npcId == 45683
+						|| npcId == 45684) {
 				} else if (!_npc.getNpcTemplate().get_IsErase()) {
 				} else {
 					if (_targetPc.getWis() >= _random.nextInt(100)) {
@@ -683,40 +707,52 @@ public class L1Magic {
 		}
 		if (_calcType == PC_NPC && _targetNpc != null) {
 			int npcId = _targetNpc.getNpcTemplate().get_npcId();
-			if (npcId >= 45912 && npcId <= 45915 && !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
+			if (npcId >= 45912 && npcId <= 45915 //
+					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
 				dmg = 0;
 			}
-			if (npcId == 45916 && !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
+			if (npcId == 45916 //
+					&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
 				dmg = 0;
 			}
-			if (npcId == 45941 && !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+			if (npcId == 45941 //
+					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 				dmg = 0;
 			}
-			if (npcId == 45752 && !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			if (npcId == 45752 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				dmg = 0;
 			}
-			if (npcId == 45753 && !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
+			if (npcId == 45753 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 				dmg = 0;
 			}
-			if (npcId == 45675 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45675 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId == 81082 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 81082 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId == 45625 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45625 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId == 45674 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45674 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId == 45685 && !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
+			if (npcId == 45685 // 
+					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 				dmg = 0;
 			}
-			if (npcId >= 46068 && npcId <= 46091 && _pc.getTempCharGfx() == 6035) {
+			if (npcId >= 46068 && npcId <= 46091 // 
+					&& _pc.getTempCharGfx() == 6035) {
 				dmg = 0;
 			}
-			if (npcId >= 46092 && npcId <= 46106 && _pc.getTempCharGfx() == 6034) {
+			if (npcId >= 46092 && npcId <= 46106 // 
+					&& _pc.getTempCharGfx() == 6034) {
 				dmg = 0;
 			}
 		}
@@ -828,11 +864,11 @@ public class L1Magic {
 			}
 			dmg *= mrCoefficient;
 		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-		Random random = new Random();
-		int rnd = random.nextInt(100) + 1;
-		if (mr >= rnd) {
-			dmg /= 2;
-		   }
+			Random random = new Random();
+			int rnd = random.nextInt(100) + 1;
+			if (mr >= rnd) {
+				dmg /= 2;
+			}
 		}
 		return dmg;
 	}
@@ -872,10 +908,12 @@ public class L1Magic {
 			return;
 		}
 		if (Config.ALT_ATKMSG) {
-			if ((_calcType == PC_PC || _calcType == PC_NPC) && !_pc.isGm()) {
+			if ((_calcType == PC_PC || _calcType == PC_NPC)
+					&& !_pc.isGm()) {
 				return;
 			}
-			if ((_calcType == PC_PC || _calcType == NPC_PC) && !_targetPc.isGm()) {
+			if ((_calcType == PC_PC || _calcType == NPC_PC)
+					&& !_targetPc.isGm()) {
 				return;
 			}
 		}
@@ -902,10 +940,12 @@ public class L1Magic {
 		msg3 = damage + "currentHp";
 
 		if (_calcType == PC_PC || _calcType == PC_NPC) { 
-			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3, msg4)); 
+			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3,
+					msg4)); 
 		}
 		if (_calcType == NPC_PC || _calcType == PC_PC) {
-			_targetPc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3, msg4)); 
+			_targetPc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2,
+					msg3, msg4)); 
 		}
 	}
 

@@ -92,7 +92,8 @@ public class L1TreasureBox {
 
 	private static final String PATH = "./data/xml/Item/TreasureBox.xml";
 
-	private static final HashMap<Integer, L1TreasureBox> _dataMap = new HashMap<Integer, L1TreasureBox>();
+	private static final HashMap<Integer, L1TreasureBox> _dataMap =
+			new HashMap<Integer, L1TreasureBox>();
 
 	public static L1TreasureBox get(int id) {
 		return _dataMap.get(id);
@@ -193,7 +194,8 @@ public class L1TreasureBox {
 		} else {
 			int itemId = getBoxId();
 
-			if (itemId == 40576 || itemId == 40577 || itemId == 40578 || itemId == 40411 || itemId == 49013) {
+			if (itemId == 40576 || itemId == 40577 || itemId == 40578
+					|| itemId == 40411 || itemId == 49013) {
 				pc.death(null); 
 			}
 			return true;

@@ -16,14 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.database;
+package l1j.server;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Config;
 import l1j.server.server.utils.LeakCheckedConnection;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;

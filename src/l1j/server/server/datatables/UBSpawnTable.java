@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1UbPattern;
 import l1j.server.server.model.L1UbSpawn;
 import l1j.server.server.templates.L1Npc;

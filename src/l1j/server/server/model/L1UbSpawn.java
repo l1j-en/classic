@@ -113,8 +113,10 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 
 	public void spawnOne() {
 		L1UltimateBattle ub = UBTable.getInstance().getUb(_ubId);
-		L1Location loc = ub.getLocation().randomLocation((ub.getLocX2() - ub.getLocX1()) / 2, false);
-		L1MonsterInstance mob = new L1MonsterInstance(NpcTable.getInstance().getTemplate(getNpcTemplateId()));
+		L1Location loc = ub.getLocation().randomLocation(
+				(ub.getLocX2() - ub.getLocX1()) / 2, false);
+		L1MonsterInstance mob = new L1MonsterInstance(NpcTable.getInstance()
+				.getTemplate(getNpcTemplateId()));
 		if (mob == null) {
 			_log.warning("mob == null");
 			return;

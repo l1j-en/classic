@@ -25,7 +25,7 @@ public class FileUtil {
 		String fileName = file.getName();
 		int index = fileName.lastIndexOf('.');
 		if (index != -1) {
-		return fileName.substring(index + 1, fileName.length());
+			return fileName.substring(index + 1, fileName.length());
 		}
 		return "";
 	}
@@ -34,7 +34,7 @@ public class FileUtil {
 		String fileName = file.getName();
 		int index = fileName.lastIndexOf('.');
 		if (index != -1) {
-		return fileName.substring(0, index);
+			return fileName.substring(0, index);
 		}
 		return "";
 	}

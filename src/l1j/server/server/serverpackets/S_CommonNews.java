@@ -38,7 +38,8 @@ public class S_CommonNews extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_COMMONNEWS);
 		String message = "";
 		for (int i = 0; i < _announcements.size(); i++) {
-			message = (new StringBuilder()).append(message).append(_announcements.get(i).toString()).append("\n").toString();
+			message = (new StringBuilder()).append(message).append(
+					_announcements.get(i).toString()).append("\n").toString();
 		}
 		writeS(message);
 	}

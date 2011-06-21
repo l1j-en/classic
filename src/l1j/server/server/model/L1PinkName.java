@@ -89,12 +89,17 @@ public class L1PinkName {
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
 
-		if (pc.getLawful() >= 0 && !pc.isPinkName() && attacker.getLawful() >= 0 && !attacker.isPinkName()) {
-			if (pc.getZoneType() == 0 && attacker.getZoneType() == 0 && isNowWar == false) {
+		if (pc.getLawful() >= 0
+				&& //
+				!pc.isPinkName() && attacker.getLawful() >= 0
+				&& !attacker.isPinkName()) {
+			if (pc.getZoneType() == 0 && // 
+					attacker.getZoneType() == 0 && isNowWar == false) {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
 				if (!attacker.isGmInvis()) {
-					attacker.broadcastPacket(new S_PinkName(attacker.getId(), 180));
+					attacker.broadcastPacket(new S_PinkName(attacker.getId(),
+							180));
 				}
 				PinkNameTimer pink = new PinkNameTimer(attacker);
 				GeneralThreadPool.getInstance().execute(pink);

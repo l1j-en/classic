@@ -32,7 +32,10 @@ import l1j.server.server.templates.L1NpcCount;
 // Referenced classes of package l1j.server.server.model:
 // L1MobGroupSpawn
 public class L1MobGroupSpawn {
-	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class.getName());
+
+	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class
+			.getName());
+
 	private static L1MobGroupSpawn _instance;
 	private static Random _random = new Random();
 	private boolean _isRespawnScreen;
@@ -48,7 +51,8 @@ public class L1MobGroupSpawn {
 		return _instance;
 	}
 
-	public void doSpawn(L1NpcInstance leader, int groupId, boolean isRespawnScreen, boolean isInitSpawn) {
+	public void doSpawn(L1NpcInstance leader, int groupId,
+			boolean isRespawnScreen, boolean isInitSpawn) {
 
 		L1MobGroup mobGroup = MobGroupTable.getInstance().getTemplate(groupId);
 		if (mobGroup == null) {
@@ -117,7 +121,8 @@ public class L1MobGroupSpawn {
 	}
 
 	private boolean canSpawn(L1NpcInstance mob) {
-		if (mob.getMap().isInMap(mob.getLocation()) && mob.getMap().isPassable(mob.getLocation())) {
+		if (mob.getMap().isInMap(mob.getLocation())
+				&& mob.getMap().isPassable(mob.getLocation())) {
 			if (_isRespawnScreen) {
 				return true;
 			}

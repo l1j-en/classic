@@ -45,7 +45,9 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1SummonInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1SummonInstance.class.getName());
+
+	private static Logger _log = Logger.getLogger(L1SummonInstance.class
+			.getName());
 	private ScheduledFuture<?> _summonFuture;
 	private static final long SUMMON_TIME = 3600000L;
 	private int _currentPetStatus;
@@ -57,7 +59,9 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
 			return true;
 		} else if (_currentPetStatus == 4) {
-			if (_master != null && _master.getMapId() == getMapId() && getLocation().getTileLineDistance(_master.getLocation()) < 5) {
+			if (_master != null
+					&& _master.getMapId() == getMapId()
+					&& getLocation().getTileLineDistance(_master.getLocation()) < 5) {
 				int dir = targetReverseDirection(_master.getX(), _master.getY());
 				dir = checkObject(getX(), getY(), getMapId(), dir);
 				setDirectionMove(dir);
@@ -132,7 +136,10 @@ public class L1SummonInstance extends L1NpcInstance {
 	public L1SummonInstance(L1Npc template, L1Character master) {
 		super(template);
 		setId(IdFactory.getInstance().nextId());
-		_summonFuture = GeneralThreadPool.getInstance().schedule(new SummonTimer(), SUMMON_TIME);
+
+		_summonFuture = GeneralThreadPool.getInstance().schedule(
+				new SummonTimer(), SUMMON_TIME);
+
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -184,7 +191,10 @@ public class L1SummonInstance extends L1NpcInstance {
 			setCurrentHpDirect(target.getCurrentHp());
 			setCurrentMpDirect(target.getCurrentMp());
 		}
-		_summonFuture = GeneralThreadPool.getInstance().schedule(new SummonTimer(), SUMMON_TIME);
+
+		_summonFuture = GeneralThreadPool.getInstance().schedule(
+				new SummonTimer(), SUMMON_TIME);
+
 		setMaster(master);
 		setX(target.getX());
 		setY(target.getY());
@@ -192,7 +202,9 @@ public class L1SummonInstance extends L1NpcInstance {
 		setHeading(target.getHeading());
 		setLightSize(target.getLightSize());
 		setPetcost(6);
-		if (target instanceof L1MonsterInstance && !((L1MonsterInstance) target).is_storeDroped()) {
+
+		if (target instanceof L1MonsterInstance
+				&& !((L1MonsterInstance) target).is_storeDroped()) {
 			DropTable.getInstance().setDrop(target, target.getInventory());
 		}
 		setInventory(target.getInventory());
@@ -252,17 +264,23 @@ public class L1SummonInstance extends L1NpcInstance {
 			L1Inventory targetInventory = _master.getInventory();
 			List<L1ItemInstance> items = _inventory.getItems();
 			for (L1ItemInstance item : items) {
-				if (_master.getInventory().checkAddItem(item, item.getCount()) == L1Inventory.OK) {
-					_inventory.tradeItem(item, item.getCount(), targetInventory);
-					((L1PcInstance) _master).sendPackets(new S_ServerMessage(143, getName(), item.getLogName()));
+				if (_master.getInventory().checkAddItem( 
+						item, item.getCount()) == L1Inventory.OK) {
+					_inventory
+							.tradeItem(item, item.getCount(), targetInventory);
+					((L1PcInstance) _master).sendPackets(new S_ServerMessage(
+							143, getName(), item.getLogName()));
 				} else {
-					targetInventory = L1World.getInstance().getInventory(getX(), getY(), getMapId());
-					_inventory.tradeItem(item, item.getCount(), targetInventory);
+					targetInventory = L1World.getInstance().getInventory(
+							getX(), getY(), getMapId());
+					_inventory
+							.tradeItem(item, item.getCount(), targetInventory);
 				}
 			}
 
 			if (_tamed) {
-				broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
+				broadcastPacket(new S_DoActionGFX(getId(),
+						ActionCodes.ACTION_Die));
 				startDeleteTimer();
 			} else {
 				deleteMe();
@@ -277,12 +295,17 @@ public class L1SummonInstance extends L1NpcInstance {
 			L1Inventory targetInventory = _master.getInventory();
 			List<L1ItemInstance> items = _inventory.getItems();
 			for (L1ItemInstance item : items) {
-				if (_master.getInventory().checkAddItem(item, item.getCount()) == L1Inventory.OK) {
-					_inventory.tradeItem(item, item.getCount(), targetInventory);
-					((L1PcInstance) _master).sendPackets(new S_ServerMessage(143, getName(), item.getLogName()));
+				if (_master.getInventory().checkAddItem( 
+						item, item.getCount()) == L1Inventory.OK) {
+					_inventory
+							.tradeItem(item, item.getCount(), targetInventory);
+					((L1PcInstance) _master).sendPackets(new S_ServerMessage(
+							143, getName(), item.getLogName()));
 				} else {
-					targetInventory = L1World.getInstance().getInventory(getX(), getY(), getMapId());
-					_inventory.tradeItem(item, item.getCount(), targetInventory);
+					targetInventory = L1World.getInstance().getInventory(
+							getX(), getY(), getMapId());
+					_inventory
+							.tradeItem(item, item.getCount(), targetInventory);
 				}
 			}
 			deleteMe();
@@ -327,7 +350,8 @@ public class L1SummonInstance extends L1NpcInstance {
 	}
 
 	public void setTarget(L1Character target) {
-		if (target != null && (_currentPetStatus == 1 || _currentPetStatus == 2 || _currentPetStatus == 5)) {
+		if (target != null
+				&& (_currentPetStatus == 1 || _currentPetStatus == 2 || _currentPetStatus == 5)) {
 			setHate(target, 0);
 			if (!isAiRunning()) {
 				startAI();
@@ -336,7 +360,8 @@ public class L1SummonInstance extends L1NpcInstance {
 	}
 
 	public void setMasterTarget(L1Character target) {
-		if (target != null && (_currentPetStatus == 1 || _currentPetStatus == 5)) {
+		if (target != null
+				&& (_currentPetStatus == 1 || _currentPetStatus == 5)) {
 			setHate(target, 0);
 			if (!isAiRunning()) {
 				startAI();
@@ -357,7 +382,8 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (master.isTeleport()) {
 			return;
 		}
-		if ((getZoneType() == 1 || attacker.getZoneType() == 1) && isExsistMaster()) {
+		if ((getZoneType() == 1 || attacker.getZoneType() == 1)
+				&& isExsistMaster()) {
 			L1Attack attack_mortion = new L1Attack(attacker, this);
 			attack_mortion.action();
 			return;
@@ -438,7 +464,8 @@ public class L1SummonInstance extends L1NpcInstance {
 			if (getCurrentHp() != getMaxHp()) {
 				useItem(USEITEM_HEAL, 100);
 			}
-		} else if (Arrays.binarySearch(haestPotions, item.getItem().getItemId()) >= 0) {
+		} else if (Arrays
+				.binarySearch(haestPotions, item.getItem().getItemId()) >= 0) {
 			useItem(USEITEM_HASTE, 100);
 		}
 	}

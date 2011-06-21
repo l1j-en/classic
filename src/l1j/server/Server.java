@@ -28,7 +28,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.database.L1DatabaseFactory;
 import l1j.server.server.GameServer;
 import l1j.server.telnet.TelnetServer;
 /**
@@ -58,7 +57,8 @@ public class Server {
 		}
 
 		// L1DatabaseFactory
-		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL, Config.DB_LOGIN, Config.DB_PASSWORD);
+		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL,
+		Config.DB_LOGIN, Config.DB_PASSWORD);
 		L1DatabaseFactory.getInstance();
 
 		// Intialize GameServer

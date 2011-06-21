@@ -33,7 +33,9 @@ public class S_UseArrowSkill extends ServerBasePacket {
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
 
-	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx, int x, int y, boolean isHit) {
+	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,
+			int x, int y, boolean isHit) {
+
 		int aid = 1;
 		if (cha.getTempCharGfx() == 3860) {
 			aid = 21;

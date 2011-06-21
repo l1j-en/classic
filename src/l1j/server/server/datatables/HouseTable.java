@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1House;
 import l1j.server.server.utils.SQLUtil;
 
@@ -128,8 +128,8 @@ public class HouseTable {
 			pstm = con.prepareStatement("SELECT house_id FROM house ORDER BY house_id");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-			int houseId = rs.getInt("house_id");
-			houseIdList.add(Integer.valueOf(houseId));
+				int houseId = rs.getInt("house_id");
+				houseIdList.add(Integer.valueOf(houseId));
 			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

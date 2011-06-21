@@ -57,7 +57,8 @@ public class L1War {
 			for (;;) {
 				try {
 					Thread.sleep(1000);
-					if (_warEndTime.before(WarTimeController.getInstance().getRealTime())) {
+					if (_warEndTime.before(WarTimeController.getInstance()
+							.getRealTime())) {
 						break;
 					}
 				} catch (Exception exception) {
@@ -93,7 +94,8 @@ public class L1War {
 		}
 	}
 
-	public void handleCommands(int war_type, String attack_clan_name, String defence_clan_name) {
+	public void handleCommands(int war_type, String attack_clan_name,
+			String defence_clan_name) {
 		// war_type - 1: siege warfare 2: mock battle
 		// Attack_clan_name - a clan name of war
 		// Defence_clan_name - the clan name of war (wartime siege of the owner CRAN)
@@ -132,7 +134,8 @@ public class L1War {
 		if (clan1 != null) {
 			L1PcInstance clan1_member[] = clan1.getOnlineClanMember();
 			for (int cnt = 0; cnt < clan1_member.length; cnt++) {
-				clan1_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+				clan1_member[cnt].sendPackets(new S_War(type, clan1_name,
+						clan2_name));
 			}
 		}
 
@@ -144,21 +147,28 @@ public class L1War {
 				L1PcInstance clan2_member[] = clan2.getOnlineClanMember();
 				for (int cnt = 0; cnt < clan2_member.length; cnt++) {
 					if (type == 1) { 
-						clan2_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+						clan2_member[cnt].sendPackets(new S_War(type,
+								clan1_name, clan2_name));
 					} else if (type == 2) { 
-						clan2_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+						clan2_member[cnt].sendPackets(new S_War(type,
+								clan1_name, clan2_name));
 						if (attack_clan_num == 1) {
-							clan2_member[cnt].sendPackets(new S_War(4, clan2_name, clan1_name));
+							clan2_member[cnt].sendPackets(new S_War(4,
+									clan2_name, clan1_name));
 						} else {
-							clan2_member[cnt].sendPackets(new S_ServerMessage(228, clan1_name, clan2_name));
+							clan2_member[cnt].sendPackets(new S_ServerMessage( 
+									228, clan1_name, clan2_name));
 							RemoveAttackClan(clan1_name);
 						}
 					} else if (type == 3) { 
-						clan2_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+						clan2_member[cnt].sendPackets(new S_War(type,
+								clan1_name, clan2_name));
 						if (attack_clan_num == 1) { 
-							clan2_member[cnt].sendPackets(new S_War(4, clan2_name, clan1_name));
+							clan2_member[cnt].sendPackets(new S_War(4,
+									clan2_name, clan1_name));
 						} else {
-							clan2_member[cnt].sendPackets(new S_ServerMessage(227, clan1_name, clan2_name));
+							clan2_member[cnt].sendPackets(new S_ServerMessage( 
+									227, clan1_name, clan2_name));
 							RemoveAttackClan(clan1_name);
 						}
 					}
@@ -180,7 +190,8 @@ public class L1War {
 		if (clan1 != null) {
 			L1PcInstance clan1_member[] = clan1.getOnlineClanMember();
 			for (int cnt = 0; cnt < clan1_member.length; cnt++) {
-				clan1_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+				clan1_member[cnt].sendPackets(new S_War(type, clan1_name,
+						clan2_name));
 			}
 		}
 
@@ -190,10 +201,13 @@ public class L1War {
 				L1PcInstance clan2_member[] = clan2.getOnlineClanMember();
 				for (int cnt = 0; cnt < clan2_member.length; cnt++) {
 					if (type == 1) { 
-						clan2_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
+						clan2_member[cnt].sendPackets(new S_War(type,
+								clan1_name, clan2_name));
 					} else if (type == 2 || type == 3) { 
-						clan2_member[cnt].sendPackets(new S_War(type, clan1_name, clan2_name));
-						clan2_member[cnt].sendPackets(new S_War(4, clan2_name, clan1_name));
+						clan2_member[cnt].sendPackets(new S_War(type,
+								clan1_name, clan2_name));
+						clan2_member[cnt].sendPackets(new S_War(4, clan2_name,
+								clan1_name));
 					}
 				}
 			}
@@ -206,26 +220,31 @@ public class L1War {
 
 	public void WinCastleWar(String clan_name) { 
 		String defence_clan_name = GetDefenceClanName();
-		L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(231, clan_name, defence_clan_name));
+		L1World.getInstance().broadcastPacketToAll(new S_ServerMessage( 
+				231, clan_name, defence_clan_name));
 
 		L1Clan defence_clan = L1World.getInstance().getClan(defence_clan_name);
 		if (defence_clan != null) {
-			L1PcInstance defence_clan_member[] = defence_clan.getOnlineClanMember();
+			L1PcInstance defence_clan_member[] = defence_clan
+					.getOnlineClanMember();
 			for (int i = 0; i < defence_clan_member.length; i++) {
 				for (String clanName : GetAttackClanList()) {
-					defence_clan_member[i].sendPackets(new S_War(3, defence_clan_name, clanName));
+					defence_clan_member[i].sendPackets(new S_War(3,
+							defence_clan_name, clanName));
 				}
 			}
 		}
 		String clanList[] = GetAttackClanList();
 		for (int j = 0; j < clanList.length; j++) {
 			if (clanList[j] != null) {
-				L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(227, defence_clan_name, clanList[j]));
+				L1World.getInstance().broadcastPacketToAll(new S_ServerMessage( 
+						227, defence_clan_name, clanList[j]));
 				L1Clan clan = L1World.getInstance().getClan(clanList[j]);
 				if (clan != null) {
 					L1PcInstance clan_member[] = clan.getOnlineClanMember();
 					for (int k = 0; k < clan_member.length; k++) {
-						clan_member[k].sendPackets(new S_War(3, clanList[j], defence_clan_name));
+						clan_member[k].sendPackets(new S_War(3, clanList[j],
+								defence_clan_name));
 					}
 				}
 			}
@@ -238,24 +257,29 @@ public class L1War {
 		String defence_clan_name = GetDefenceClanName();
 		String clanList[] = GetAttackClanList();
 		if (defence_clan_name != null) {
-			L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(231, defence_clan_name, clanList[0]));
+			L1World.getInstance().broadcastPacketToAll(new S_ServerMessage( 
+					231, defence_clan_name, clanList[0]));
 		}
 
 		L1Clan defence_clan = L1World.getInstance().getClan(defence_clan_name);
 		if (defence_clan != null) {
-			L1PcInstance defence_clan_member[] = defence_clan.getOnlineClanMember();
+			L1PcInstance defence_clan_member[] = defence_clan
+					.getOnlineClanMember();
 			for (int i = 0; i < defence_clan_member.length; i++) {
-				defence_clan_member[i].sendPackets(new S_War(4, defence_clan_name, clanList[0]));
+				defence_clan_member[i].sendPackets(new S_War(4,
+						defence_clan_name, clanList[0]));
 			}
 		}
 		for (int j = 0; j < clanList.length; j++) {
 			if (clanList[j] != null) {
-				L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(227, defence_clan_name, clanList[j]));
+				L1World.getInstance().broadcastPacketToAll(new S_ServerMessage( 
+						227, defence_clan_name, clanList[j]));
 				L1Clan clan = L1World.getInstance().getClan(clanList[j]);
 				if (clan != null) {
 					L1PcInstance clan_member[] = clan.getOnlineClanMember();
 					for (int k = 0; k < clan_member.length; k++) {
-						clan_member[k].sendPackets(new S_War(3, clanList[j], defence_clan_name));
+						clan_member[k].sendPackets(new S_War(3, clanList[j],
+								defence_clan_name));
 					}
 				}
 			}
@@ -306,16 +330,20 @@ public class L1War {
 		return ret;
 	}
 
-	public boolean CheckClanInSameWar(String player_clan_name, String target_clan_name) { 
+	public boolean CheckClanInSameWar(String player_clan_name,
+			String target_clan_name) { 
 		boolean player_clan_flag;
 		boolean target_clan_flag;
 
-		if (GetDefenceClanName().toLowerCase().equals(player_clan_name.toLowerCase())) { 
+		if (GetDefenceClanName().toLowerCase().equals(
+				player_clan_name.toLowerCase())) { 
 			player_clan_flag = true;
 		} else {
 			player_clan_flag = CheckAttackClan(player_clan_name); 
 		}
-		if (GetDefenceClanName().toLowerCase().equals(target_clan_name.toLowerCase())) { 
+
+		if (GetDefenceClanName().toLowerCase().equals(
+				target_clan_name.toLowerCase())) { 
 			target_clan_flag = true;
 		} else {
 			target_clan_flag = CheckAttackClan(target_clan_name); 
@@ -329,7 +357,8 @@ public class L1War {
 
 	public String GetEnemyClanName(String player_clan_name) { 
 		String enemy_clan_name = null;
-		if (GetDefenceClanName().toLowerCase().equals(player_clan_name.toLowerCase())) { 
+		if (GetDefenceClanName().toLowerCase().equals(
+				player_clan_name.toLowerCase())) { 
 			String clanList[] = GetAttackClanList();
 			for (int cnt = 0; cnt < clanList.length; cnt++) {
 				if (clanList[cnt] != null) {

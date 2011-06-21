@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ThreadPoolManager;
 import l1j.server.server.taskmanager.tasks.TaskRestart;
 import l1j.server.server.taskmanager.tasks.TaskShutdown;
@@ -44,7 +44,10 @@ public final class TaskManager {
 	private static TaskManager _instance;
 
 	protected static final String[] SQL_STATEMENTS = {
-	"SELECT id,task,type,last_activation,param1,param2,param3 FROM global_tasks", "UPDATE global_tasks SET last_activation=? WHERE id=?", "SELECT id FROM global_tasks WHERE task=?", "INSERT INTO global_tasks (task,type,last_activation,param1,param2,param3) VALUES(?,?,?,?,?,?)" };
+			"SELECT id,task,type,last_activation,param1,param2,param3 FROM global_tasks",
+			"UPDATE global_tasks SET last_activation=? WHERE id=?",
+			"SELECT id FROM global_tasks WHERE task=?",
+			"INSERT INTO global_tasks (task,type,last_activation,param1,param2,param3) VALUES(?,?,?,?,?,?)" };
 
 	private final FastMap<Integer, Task> _tasks = new FastMap<Integer, Task>();
 	protected final FastList<ExecutedTask> _currentTasks = new FastList<ExecutedTask>();
@@ -57,12 +60,14 @@ public final class TaskManager {
 		String[] _params;
 		ScheduledFuture _scheduled;
 
-		public ExecutedTask(Task task, TaskTypes type, ResultSet rset) throws SQLException {
+		public ExecutedTask(Task task, TaskTypes type, ResultSet rset)
+				throws SQLException {
 			_task = task;
 			_type = type;
 			_id = rset.getInt("id");
 			_lastActivation = rset.getLong("last_activation");
-			_params = new String[] { rset.getString("param1"), rset.getString("param2"), rset.getString("param3") };
+			_params = new String[] { rset.getString("param1"),
+					rset.getString("param2"), rset.getString("param3") };
 		}
 
 		public void run() {
@@ -225,11 +230,13 @@ public final class TaskManager {
 		return false;
 	}
 
-	public static boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3) {
+	public static boolean addUniqueTask(String task, TaskTypes type,
+			String param1, String param2, String param3) {
 		return addUniqueTask(task, type, param1, param2, param3, 0);
 	}
 
-	public static boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3, long lastActivation) {
+	public static boolean addUniqueTask(String task, TaskTypes type,
+			String param1, String param2, String param3, long lastActivation) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -259,11 +266,13 @@ public final class TaskManager {
 		return false;
 	}
 
-	public static boolean addTask(String task, TaskTypes type, String param1, String param2, String param3) {
+	public static boolean addTask(String task, TaskTypes type, String param1,
+			String param2, String param3) {
 		return addTask(task, type, param1, param2, param3, 0);
 	}
 
-	public static boolean addTask(String task, TaskTypes type, String param1, String param2, String param3, long lastActivation) {
+	public static boolean addTask(String task, TaskTypes type, String param1,
+			String param2, String param3, long lastActivation) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		try {

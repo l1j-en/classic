@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
@@ -57,7 +57,7 @@ public class BoardTable {
 			pstm1 = con.prepareStatement("SELECT * FROM board ORDER BY id DESC");
 			rs = pstm1.executeQuery();
 			if (rs.next()) {
-			count = rs.getInt("id");
+				count = rs.getInt("id");
 			}
 			pstm2 = con.prepareStatement("INSERT INTO board SET id=?, name=?, date=?, title=?, content=?");
 			pstm2.setInt(1, (count + 1));

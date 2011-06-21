@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.utils.SQLUtil;
 
@@ -75,7 +75,10 @@ public class PolyTable {
 			int armorEquipFlg = rs.getInt("armorequip");
 			boolean canUseSkill = rs.getBoolean("isSkillUse");
 			int causeFlg = rs.getInt("cause");
-			L1PolyMorph poly = new L1PolyMorph(id, name, polyId, minLevel, weaponEquipFlg, armorEquipFlg, canUseSkill, causeFlg);
+
+			L1PolyMorph poly = new L1PolyMorph(id, name, polyId, minLevel,
+					weaponEquipFlg, armorEquipFlg, canUseSkill, causeFlg);
+
 			_polymorphs.put(name, poly);
 			_polyIdIndex.put(polyId, poly);
 		}

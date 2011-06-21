@@ -32,7 +32,9 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 		if (clan == null) {
 			return;
 		}
-		if (clan.getWarehouseUsingChar() != 0 && clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan is a non-self-storage use
+
+		if (clan.getWarehouseUsingChar() != 0
+				&& clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan is a non-self-storage use
 		{
 			// warehouse other clan members are in use. From use at a later time, please.
 			pc.sendPackets(new S_ServerMessage(209));

@@ -22,7 +22,6 @@ package l1j.server.server.model.Instance;
 import l1j.server.server.model.L1World;
 import java.sql.Timestamp;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.database.L1DatabaseFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import java.util.logging.Logger;
 import java.sql.Timestamp;
 
 import l1j.server.Config;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GeneralThreadPool;
@@ -133,11 +133,7 @@ public class L1PcInstance extends L1Character {
 	private static Random _random = new Random();
 	private short _hpr = 0;
 	private short _trueHpr = 0;
-	private short _mpr = 0;
-	private short _trueMpr = 0;
-	public short _originalHpr = 0; // HPR
-	public short _originalMpr = 0; // MPR
-	
+
 	public short getHpr() {
 		return _hpr;
 	}
@@ -146,6 +142,9 @@ public class L1PcInstance extends L1Character {
 		_trueHpr += i;
 		_hpr = (short) Math.max(0, _trueHpr);
 	}
+
+	private short _mpr = 0;
+	private short _trueMpr = 0;
 
 	public short getMpr() {
 		return _mpr;
@@ -156,10 +155,14 @@ public class L1PcInstance extends L1Character {
 		_mpr = (short) Math.max(0, _trueMpr);
 	}
 
+	public short _originalHpr = 0; // HPR
+
 	public short getOriginalHpr() {
 
 		return _originalHpr;
 	}
+
+	public short _originalMpr = 0; // MPR
 
 	public short getOriginalMpr() {
 
@@ -2438,8 +2441,10 @@ if (player instanceof L1PcInstance) {
 		}
 
 		for (int i = 0; i < gap; i++) {
-			short randomHp = CalcStat.calcStatHp(getType(), getBaseMaxHp(), getBaseCon(), getOriginalHpup());
-			short randomMp = CalcStat.calcStatMp(getType(), getBaseMaxMp(), getBaseWis(), getOriginalMpup());
+			short randomHp = CalcStat.calcStatHp(getType(), getBaseMaxHp(),
+					getBaseCon(), getOriginalHpup());
+			short randomMp = CalcStat.calcStatMp(getType(), getBaseMaxMp(),
+					getBaseWis(), getOriginalMpup());
 			addBaseMaxHp(randomHp);
 			addBaseMaxMp(randomMp);
 		}

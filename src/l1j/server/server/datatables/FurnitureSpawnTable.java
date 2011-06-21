@@ -27,13 +27,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1FurnitureInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
+@SuppressWarnings("unused")
 public class FurnitureSpawnTable {
 	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class.getName());
 	private static FurnitureSpawnTable _instance;
@@ -49,6 +50,7 @@ public class FurnitureSpawnTable {
 		FillFurnitureSpawnTable();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void FillFurnitureSpawnTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -64,10 +66,14 @@ public class FurnitureSpawnTable {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(rs.getInt(2));
 				if (l1npc != null) {
 					String s = l1npc.getImpl();
-					Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
+					Constructor constructor = Class.forName(
+							"l1j.server.server.model.Instance." + s
+									+ "Instance").getConstructors()[0];
 					Object parameters[] = { l1npc };
-					L1FurnitureInstance furniture = (L1FurnitureInstance) constructor.newInstance(parameters);
-					furniture = (L1FurnitureInstance) constructor.newInstance(parameters);
+					L1FurnitureInstance furniture = (L1FurnitureInstance) constructor
+							.newInstance(parameters);
+					furniture = (L1FurnitureInstance) constructor
+							.newInstance(parameters);
 					furniture.setId(IdFactory.getInstance().nextId());
 					furniture.setItemObjId(rs.getInt(1));
 					furniture.setX(rs.getInt(3));

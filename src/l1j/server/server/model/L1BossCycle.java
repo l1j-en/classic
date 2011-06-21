@@ -348,7 +348,9 @@ public class L1BossCycle {
 		System.out.print("Loading Boss Cycle...");
 		try {
 			// BookOrder To generate the context of a binding class
-			JAXBContext context = JAXBContext.newInstance(L1BossCycle.L1BossCycleList.class);
+			JAXBContext context = JAXBContext
+					.newInstance(L1BossCycle.L1BossCycleList.class);
+
 			// XML -> POJO Conversion of the generating xml
 			Unmarshaller um = context.createUnmarshaller();
 			// XML -> POJO Conversion

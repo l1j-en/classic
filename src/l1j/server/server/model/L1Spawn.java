@@ -288,7 +288,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
 		// Points to give the home or
-		if (Config.SPAWN_HOME_POINT && Config.SPAWN_HOME_POINT_COUNT <= getAmount() && Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay() && isAreaSpawn()) {
+		if (Config.SPAWN_HOME_POINT
+				&& Config.SPAWN_HOME_POINT_COUNT <= getAmount()
+				&& Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay()
+				&& isAreaSpawn()) {
 			_spawnHomePoint = true;
 			_homePoint = new HashMap<Integer, Point>();
 		}
@@ -305,7 +308,9 @@ public class L1Spawn extends L1GameTimeAdapter {
 	 * If not, spawnNumber not used.
 	 */
 	protected void doSpawn(int spawnNumber) {
-		if (_time != null && !_time.getTimePeriod().includes(L1GameTimeClock.getInstance().currentTime())) {
+		if (_time != null
+				&& !_time.getTimePeriod().includes(
+						L1GameTimeClock.getInstance().currentTime())) {
 			executeSpawnTask(spawnNumber, 0);
 			return;
 		}
@@ -356,8 +361,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 							}
 						}
 						if (players.size() > 0) {
-							L1PcInstance pc = players.get(_random.nextInt(players.size()));
-							L1Location loc = pc.getLocation().randomLocation(PC_AROUND_DISTANCE, false);
+							L1PcInstance pc = players.get(_random
+									.nextInt(players.size()));
+							L1Location loc = pc.getLocation().randomLocation(
+									PC_AROUND_DISTANCE, false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
 							break;
@@ -367,8 +374,12 @@ public class L1Spawn extends L1GameTimeAdapter {
 				default:
 					if (isAreaSpawn()) { // Coordinates of the range specified in the case
 						Point pt = null;
-						if (_spawnHomePoint && null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
-							L1Location loc = new L1Location(pt, getMapId()).randomLocation(Config.SPAWN_HOME_POINT_RANGE, false);
+						if (_spawnHomePoint
+								&& null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
+							L1Location loc = new L1Location(pt, getMapId())
+									.randomLocation(
+											Config.SPAWN_HOME_POINT_RANGE,
+											false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
 						} else {
@@ -382,8 +393,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 							newlocy = getLocY();
 						}
 					} else if (isRandomSpawn()) { // Coordinate random value is if
-						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math.random() * getRandomx())));
-						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math.random() * getRandomy())));
+						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
+								.random() * getRandomx())));
+						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
+								.random() * getRandomy())));
 					} else { // Both did not specify if
 						newlocx = getLocX();
 						newlocy = getLocY();
@@ -394,13 +407,15 @@ public class L1Spawn extends L1GameTimeAdapter {
 				mob.setY(newlocy);
 				mob.setHomeY(newlocy);
 
-				if (mob.getMap().isInMap(mob.getLocation()) && mob.getMap().isPassable(mob.getLocation())) {
+				if (mob.getMap().isInMap(mob.getLocation())
+						&& mob.getMap().isPassable(mob.getLocation())) {
 					if (mob instanceof L1MonsterInstance) {
 						if (isRespawnScreen()) {
 							break;
 						}
 						L1MonsterInstance mobtemp = (L1MonsterInstance) mob;
-						if (L1World.getInstance().getVisiblePlayer(mobtemp).size() == 0) {
+						if (L1World.getInstance().getVisiblePlayer(mobtemp)
+								.size() == 0) {
 							break;
 						}
 						// To make the PC screen can not occur in the three seconds after the re-scheduling 
@@ -429,14 +444,18 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (npcId == 45573 && mob.getMapId() == 2) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() == 2) {
-						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0, true);
+						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0,
+								true);
 					}
 				}
 			}
-			if (npcId == 46142 && mob.getMapId() == 73 || npcId == 46141 && mob.getMapId() == 74) {
+
+			if (npcId == 46142 && mob.getMapId() == 73
+					|| npcId == 46141 && mob.getMapId() == 74) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() >= 72 && pc.getMapId() <= 74) {
-						L1Teleport.teleport(pc, 32840, 32833, (short) 72, pc.getHeading(), true);
+						L1Teleport.teleport(pc, 32840, 32833, (short) 72,
+								pc.getHeading(), true);
 					}
 				}
 			}
@@ -451,7 +470,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 				}
 			}
 			if (getGroupId() != 0) {
-				L1MobGroupSpawn.getInstance().doSpawn(mob, getGroupId(), isRespawnScreen(), _initSpawn);
+				L1MobGroupSpawn.getInstance().doSpawn(mob, getGroupId(),
+						isRespawnScreen(), _initSpawn);
 			}
 			mob.turnOnOffLight();
 			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
@@ -481,7 +501,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 	}
 
 	private boolean isAreaSpawn() {
-		return getLocX1() != 0 && getLocY1() != 0 && getLocX2() != 0 && getLocY2() != 0;
+		return getLocX1() != 0 && getLocY1() != 0 && getLocX2() != 0
+				&& getLocY2() != 0;
 	}
 
 	private boolean isRandomSpawn() {
@@ -516,11 +537,14 @@ public class L1Spawn extends L1GameTimeAdapter {
 	}
 
 	public static void doCrystalCave(int npcId) {
-		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147, 46148, 46149, 46150, 46151, 46152 };
-		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010};
+		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147,
+				46148, 46149, 46150, 46151, 46152 };
+		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006,
+				5007, 5008, 5009, 5010};
+
 		for (int i = 0; i < npcId2.length; i++) {
 			if (npcId == npcId2[i]) {
-			closeDoorInCrystalCave(doorId[i]);
+				closeDoorInCrystalCave(doorId[i]);
 			}
 		}
 	}
@@ -530,7 +554,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
 				if (door.getDoorId() == doorId) {
-				door.close();
+					door.close();
 				}
 			}
 		}

@@ -75,7 +75,9 @@ public class L1Inventory extends L1Object {
 		if (item.getCount() <= 0 || count <= 0) {
 			return -1;
 		}
-		if (getSize() > Config.MAX_NPC_ITEM || (getSize() == Config.MAX_NPC_ITEM && (!item.isStackable() || !checkItem(item.getItem().getItemId())))) { 
+		if (getSize() > Config.MAX_NPC_ITEM
+				|| (getSize() == Config.MAX_NPC_ITEM && (!item.isStackable() || !checkItem(item
+						.getItem().getItemId())))) { 
 			return SIZE_OVER;
 		}
 		int weight = getWeight() + item.getItem().getWeight() * count / 1000 + 1;
@@ -105,7 +107,9 @@ public class L1Inventory extends L1Object {
 		} else if (type == WAREHOUSE_TYPE_CLAN) {
 			maxSize = Config.MAX_CLAN_WAREHOUSE_ITEM;
 		}
-		if (getSize() > maxSize || (getSize() == maxSize && (!item.isStackable() || !checkItem(item.getItem().getItemId())))) {
+		if (getSize() > maxSize
+				|| (getSize() == maxSize && (!item.isStackable() || !checkItem(item
+						.getItem().getItemId())))) { //
 			return SIZE_OVER;
 		}
 		return OK;
@@ -156,7 +160,8 @@ public class L1Inventory extends L1Object {
 		item.setY(getY());
 		item.setMap(getMapId());
 		int chargeCount = item.getItem().getMaxChargeCount();
-		if (itemId == 40006 || itemId == 40007 || itemId == 40008 || itemId == 140006 || itemId == 140008 || itemId == 41401) {
+		if (itemId == 40006 || itemId == 40007 || itemId == 40008
+				|| itemId == 140006 || itemId == 140008 || itemId == 41401) {
 			Random random = new Random();
 			chargeCount -= random.nextInt(5);
 		}
@@ -236,9 +241,11 @@ public class L1Inventory extends L1Object {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	public class DataComparator implements java.util.Comparator {
 		public int compare(Object item1, Object item2) {
-			return ((L1ItemInstance) item1).getEnchantLevel() - ((L1ItemInstance) item2).getEnchantLevel();
+			return ((L1ItemInstance) item1).getEnchantLevel()
+					- ((L1ItemInstance) item2).getEnchantLevel();
 		}
 	}
 
@@ -273,7 +280,8 @@ public class L1Inventory extends L1Object {
 					if (l1object instanceof L1FurnitureInstance) {
 						L1FurnitureInstance furniture = (L1FurnitureInstance) l1object;
 						if (furniture.getItemObjId() == item.getId()) { 
-						FurnitureSpawnTable.getInstance().deleteFurniture(furniture);
+							FurnitureSpawnTable.getInstance().deleteFurniture(
+									furniture);
 						}
 					}
 				}
@@ -291,12 +299,14 @@ public class L1Inventory extends L1Object {
 		_items.remove(item);
 	}
 
-	public synchronized L1ItemInstance tradeItem(int objectId, int count, L1Inventory inventory) {
+	public synchronized L1ItemInstance tradeItem(int objectId, int count,
+			L1Inventory inventory) {
 		L1ItemInstance item = getItem(objectId);
 		return tradeItem(item, count, inventory);
 	}
 
-	public synchronized L1ItemInstance tradeItem(L1ItemInstance item, int count, L1Inventory inventory) {
+	public synchronized L1ItemInstance tradeItem(L1ItemInstance item,
+			int count, L1Inventory inventory) {
 		if (item == null) {
 			return null;
 		}
@@ -316,7 +326,8 @@ public class L1Inventory extends L1Object {
 		} else {
 			item.setCount(item.getCount() - count);
 			updateItem(item);
-			carryItem = ItemTable.getInstance().createItem(item.getItem().getItemId());
+			carryItem = ItemTable.getInstance().createItem(
+					item.getItem().getItemId());
 			carryItem.setCount(count);
 			carryItem.setEnchantLevel(item.getEnchantLevel());
 			carryItem.setIdentified(item.isIdentified());
@@ -399,7 +410,7 @@ public class L1Inventory extends L1Object {
 	public L1ItemInstance findItemId(int id) {
 		for (L1ItemInstance item : _items) {
 			if (item.getItem().getItemId() == id) {
-			return item;
+				return item;
 			}
 		}
 		return null;
@@ -409,7 +420,7 @@ public class L1Inventory extends L1Object {
 		ArrayList<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
 		for (L1ItemInstance item : _items) {
 			if (item.getItemId() == id) {
-			itemList.add(item);
+				itemList.add(item);
 			}
 		}
 		return itemList.toArray(new L1ItemInstance[] {});
@@ -420,7 +431,7 @@ public class L1Inventory extends L1Object {
 		for (L1ItemInstance item : _items) {
 			if (item.getItemId() == id) {
 				if (!item.isEquipped()) {
-				itemList.add(item);
+					itemList.add(item);
 				}
 			}
 		}
@@ -431,7 +442,7 @@ public class L1Inventory extends L1Object {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
 			if (item.getId() == objectId) {
-			return item;
+				return item;
 			}
 		}
 		return null;

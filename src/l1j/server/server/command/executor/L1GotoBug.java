@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -54,9 +54,17 @@ public class L1GotoBug implements L1CommandExecutor {
 			rs.next();
 			L1Teleport.teleport(pc, rs.getInt("mapX"), rs.getInt("mapY"), (short) rs.getInt("mapID"), 5, true);
 			if(rs.getInt("resolved")==1) {
-				pc.sendPackets(new S_SystemMessage(rs.getInt("id") + "(Resolved). " + rs.getString("charname") + " (on Map:"+rs.getInt("mapID") + ", X:"+rs.getInt("mapX") + ", Y:"+rs.getInt("mapY") + ") wrote: "+rs.getString("bugtext") + "."));
+				pc.sendPackets(new S_SystemMessage(rs.getInt("id")+"(Resolved). "+
+					rs.getString("charname")+" (on Map:"+rs.getInt("mapID")+
+					", X:"+rs.getInt("mapX")+", Y:"+rs.getInt("mapY")+
+					") wrote: "+rs.getString("bugtext")+"."
+					));
 			} else {
-				pc.sendPackets(new S_SystemMessage(rs.getInt("id") + ". " + rs.getString("charname") + " (on Map:" + rs.getInt("mapID") + ", X:"+rs.getInt("mapX") + ", Y:"+rs.getInt("mapY") + ") wrote: " + rs.getString("bugtext") + "."));
+				pc.sendPackets(new S_SystemMessage(rs.getInt("id")+". "+
+					rs.getString("charname")+" (on Map:"+rs.getInt("mapID")+
+					", X:"+rs.getInt("mapX")+", Y:"+rs.getInt("mapY")+
+					") wrote: "+rs.getString("bugtext")+"."
+					));
 			}
 			rs.close();
 		} catch (Exception e) {

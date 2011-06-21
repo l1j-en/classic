@@ -28,7 +28,7 @@ public class ByteArrayUtil {
 	public String getTerminatedString(int i) {
 		StringBuffer stringbuffer = new StringBuffer();
 		for (int j = i; j < _byteArray.length && _byteArray[j] != 0; j++) {
-		stringbuffer.append((char) _byteArray[j]);
+			stringbuffer.append((char) _byteArray[j]);
 		}
 		return stringbuffer.toString();
 	}
@@ -38,11 +38,13 @@ public class ByteArrayUtil {
 		int j = 0;
 		for (int k = 0; k < _byteArray.length; k++) {
 			if (j % 16 == 0) {
-			stringbuffer.append((new StringBuilder()).append(fillHex(k, 4)).append(": ").toString());
+				stringbuffer.append((new StringBuilder()).append(fillHex(k, 4))
+						.append(": ").toString());
 			}
-			stringbuffer.append((new StringBuilder()).append(fillHex(_byteArray[k] & 0xff, 2)).append(" ").toString());
+			stringbuffer.append((new StringBuilder()).append(
+					fillHex(_byteArray[k] & 0xff, 2)).append(" ").toString());
 			if (++j != 16) {
-			continue;
+				continue;
 			}
 			stringbuffer.append("   ");
 			int i1 = k - 15;
@@ -61,7 +63,7 @@ public class ByteArrayUtil {
 		int l = _byteArray.length % 16;
 		if (l > 0) {
 			for (int j1 = 0; j1 < 17 - l; j1++) {
-			  stringbuffer.append("   ");
+				stringbuffer.append("   ");
 			}
 
 			int k1 = _byteArray.length - l;

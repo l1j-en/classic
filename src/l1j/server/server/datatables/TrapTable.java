@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.trap.L1Trap;
 import l1j.server.server.storage.TrapStorage;
 import l1j.server.server.utils.SQLUtil;

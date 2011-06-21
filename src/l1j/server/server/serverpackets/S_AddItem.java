@@ -47,7 +47,7 @@ public class S_AddItem extends ServerBasePacket {
 			byte[] status = item.getStatusBytes();
 			writeC(status.length);
 			for (byte b : status) {
-			writeC(b);
+				writeC(b);
 			}
 		}
 	}

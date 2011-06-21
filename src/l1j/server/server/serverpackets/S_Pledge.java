@@ -33,11 +33,15 @@ public class S_Pledge extends ServerBasePacket {
 		buildPacket(htmlid, objid, 1, clanname, olmembers, "");
 	}
 
-	public S_Pledge(String htmlid, int objid, String clanname, String olmembers, String allmembers) {
+	public S_Pledge(String htmlid, int objid, String clanname,
+			String olmembers, String allmembers) {
+
 		buildPacket(htmlid, objid, 2, clanname, olmembers, allmembers);
 	}
 
-	private void buildPacket(String htmlid, int objid, int type, String clanname, String olmembers, String allmembers) {
+	private void buildPacket(String htmlid, int objid, int type,
+			String clanname, String olmembers, String allmembers) {
+
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
 		writeD(objid);
 		writeS(htmlid);

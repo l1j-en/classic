@@ -54,7 +54,7 @@ public class Teleportation {
 
 	public static void Teleportation(L1PcInstance pc) {
 		if (pc.isDead() || pc.isTeleport()) {
-		return;
+			return;
 		}
 
 		int x = pc.getTeleportX();
@@ -75,7 +75,7 @@ public class Teleportation {
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 		if (clan != null) {
 			if (clan.getWarehouseUsingChar() == pc.getId()) { 
-			clan.setWarehouseUsingChar(0); 
+				clan.setWarehouseUsingChar(0); 
 			}
 		}
 
@@ -85,13 +85,14 @@ public class Teleportation {
 		pc.sendPackets(new S_MapID(pc.getMapId(), pc.getMap().isUnderwater()));
 
 		if (pc.isReserveGhost()) { 
-		pc.endGhost();
+			pc.endGhost();
 		}
 		if (pc.isGhost() || pc.isGmInvis()) {
 		} else if (pc.isInvisble()) {
-		pc.broadcastPacketForFindInvis(new S_OtherCharPacks(pc, true), true);
+			pc.broadcastPacketForFindInvis(new S_OtherCharPacks(pc, true),
+					true);
 		} else {
-		pc.broadcastPacket(new S_OtherCharPacks(pc));
+			pc.broadcastPacket(new S_OtherCharPacks(pc));
 		}
 		pc.sendPackets(new S_OwnCharPack(pc));
 		pc.removeAllKnownObjects();
@@ -108,7 +109,9 @@ public class Teleportation {
 					L1Location loc = pc.getLocation().randomLocation(3, false);
 					int nx = loc.getX();
 					int ny = loc.getY();
-					if (pc.getMapId() == 5125 || pc.getMapId() == 5131 || pc.getMapId() == 5132 || pc.getMapId() == 5133 || pc.getMapId() == 5134) {
+					if (pc.getMapId() == 5125 || pc.getMapId() == 5131
+							|| pc.getMapId() == 5132 || pc.getMapId() == 5133
+							|| pc.getMapId() == 5134) {
 						nx = 32799 + _random.nextInt(5) - 3;
 						ny = 32864 + _random.nextInt(5) - 3;
 					}
@@ -120,7 +123,9 @@ public class Teleportation {
 						L1PetInstance pet = (L1PetInstance) petNpc;
 						pc.sendPackets(new S_PetPack(pet, pc));
 					}
-					for (L1PcInstance visiblePc : L1World.getInstance().getVisiblePlayer(petNpc)) {
+
+					for (L1PcInstance visiblePc : L1World.getInstance()
+							.getVisiblePlayer(petNpc)) {
 						visiblePc.removeKnownObject(petNpc);
 						subjects.add(visiblePc);
 					}
@@ -131,7 +136,9 @@ public class Teleportation {
 					int ny = loc.getY();
 					teleport(doll, nx, ny, mapId, head);
 					pc.sendPackets(new S_DollPack(doll, pc));
-					for (L1PcInstance visiblePc : L1World.getInstance().getVisiblePlayer(doll)) {
+
+					for (L1PcInstance visiblePc : L1World.getInstance()
+							.getVisiblePlayer(doll)) {
 						visiblePc.removeKnownObject(doll);
 						subjects.add(visiblePc);
 					}
@@ -143,7 +150,9 @@ public class Teleportation {
 					int ny = loc.getY();
 					teleport(doll, nx, ny, mapId, head);
 					pc.sendPackets(new S_DollPack(doll, pc));
-					for (L1PcInstance visiblePc : L1World.getInstance().getVisiblePlayer(doll)) {
+
+					for (L1PcInstance visiblePc : L1World.getInstance()
+							.getVisiblePlayer(doll)) {
 						visiblePc.removeKnownObject(doll);
 						subjects.add(visiblePc);
 					}
@@ -151,22 +160,27 @@ public class Teleportation {
 			}
 		}
 		for (L1PcInstance updatePc : subjects) {
-		updatePc.updateObject();
+			updatePc.updateObject();
 		}
 		pc.setTeleport(false);
 		
 		if (pc.hasSkillEffect(WIND_SHACKLE)) {
-			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(), pc.getSkillEffectTimeSec(WIND_SHACKLE)));
+			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
+					pc.getSkillEffectTimeSec(WIND_SHACKLE)));
 		}
 	}
 
-	private static void teleport(L1NpcInstance npc, int x, int y, short map, int head) {
+	private static void teleport(L1NpcInstance npc, int x, int y, short map,
+			int head) {
 		L1World.getInstance().moveVisibleObject(npc, map);
-		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(), npc.getY(), true);
+
+		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(),
+				npc.getY(), true);
 		npc.setX(x);
 		npc.setY(y);
 		npc.setMap(map);
 		npc.setHeading(head);
-		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(), npc.getY(), false);
+		L1WorldMap.getInstance().getMap(npc.getMapId()).setPassable(npc.getX(),
+				npc.getY(), false);
 	}
 }

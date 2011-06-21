@@ -62,7 +62,7 @@ public final class ExpTable {
 		for (level = 1; level < _expTable.length; level++) {
 			// Might be tricky
 			if (exp < _expTable[level]) {
-			break;
+				break;
 			}
 		}
 		return Math.min(level, MAX_LEVEL);
@@ -81,7 +81,7 @@ public final class ExpTable {
 	 */
 	public static double getPenaltyRate(int level) {
 		if (level < 50) {
-		return 1.0;
+			return 1.0;
 		}
 		double expPenalty = 1.0;
 		expPenalty = 1.0 / _expPenalty[level - 50];

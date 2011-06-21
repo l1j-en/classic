@@ -44,7 +44,7 @@ public class L1WorldMap {
 		try {
 			_maps = in.read();
 			if (_maps == null) {
-			throw new RuntimeException("Failure to read the maps");
+				throw new RuntimeException("Failure to read the maps");
 			}
 		} catch (Exception e) {
 			// No return

@@ -78,7 +78,7 @@ public class S_ShopSellList extends ServerBasePacket {
 				byte[] status = dummy.getStatusBytes();
 				writeC(status.length);
 				for (byte b : status) {
-				writeC(b);
+					writeC(b);
 				}
 			}
 		}

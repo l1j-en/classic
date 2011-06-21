@@ -29,7 +29,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.TrapTable;
 import l1j.server.server.model.L1Location;
@@ -78,11 +78,13 @@ public class L1WorldTraps {
 				int count = rs.getInt("count");
 				int span = rs.getInt("span");
 				for (int i = 0; i < count; i++) {
-					L1TrapInstance trap = new L1TrapInstance(IdFactory.getInstance().nextId(), trapTemp, loc, rndPt, span);
+					L1TrapInstance trap = new L1TrapInstance(IdFactory
+							.getInstance().nextId(), trapTemp, loc, rndPt, span);
 					L1World.getInstance().addVisibleObject(trap);
 					_allTraps.add(trap);
 				}
-				L1TrapInstance base = new L1TrapInstance(IdFactory.getInstance().nextId(), loc);
+				L1TrapInstance base = new L1TrapInstance(IdFactory
+						.getInstance().nextId(), loc);
 				L1World.getInstance().addVisibleObject(base);
 				_allBases.add(base);
 			}
@@ -113,15 +115,15 @@ public class L1WorldTraps {
 
 	private void resetTimer() {
 		synchronized (this) {
-		_timer.cancel();
-		_timer = new Timer();
+			_timer.cancel();
+			_timer = new Timer();
 		}
 	}
 
 	private void disableTrap(L1TrapInstance trap) {
 		trap.disableTrap();
 		synchronized (this) {
-		_timer.schedule(new TrapSpawnTimer(trap), trap.getSpan());
+			_timer.schedule(new TrapSpawnTimer(trap), trap.getSpan());
 		}
 	}
 
@@ -137,8 +139,8 @@ public class L1WorldTraps {
 		for (L1TrapInstance trap : _allTraps) {
 			if (trap.isEnable() && loc.equals(trap.getLocation())) {
 				if(!player.isGmInvis()) {
-				trap.onTrod(player);
-				disableTrap(trap);
+					trap.onTrod(player);
+					disableTrap(trap);
 				}
 			}
 		}

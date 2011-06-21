@@ -87,7 +87,7 @@ public class L1TowerInstance extends L1NpcInstance {
 						if (tower.isSubTower() && tower.isDead()) {
 							subTowerDeadCount++;
 							if (subTowerDeadCount == 4) {
-							break;
+								break;
 							}
 						}
 					}
@@ -143,19 +143,22 @@ public class L1TowerInstance extends L1NpcInstance {
 					setCurrentHp(newHp);
 					if ((getMaxHp() * 1 / 4) > getCurrentHp()) {
 						if (_crackStatus != 3) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack3));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack3));
 							setStatus(ActionCodes.ACTION_TowerCrack3);
 							_crackStatus = 3;
 						}
 					} else if ((getMaxHp() * 2 / 4) > getCurrentHp()) {
 						if (_crackStatus != 2) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack2));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack2));
 							setStatus(ActionCodes.ACTION_TowerCrack2);
 							_crackStatus = 2;
 						}
 					} else if ((getMaxHp() * 3 / 4) > getCurrentHp()) {
 						if (_crackStatus != 1) {
-							broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_TowerCrack1));
+							broadcastPacket(new S_DoActionGFX(getId(),
+									ActionCodes.ACTION_TowerCrack1));
 							setStatus(ActionCodes.ACTION_TowerCrack1);
 							_crackStatus = 1;
 						}
@@ -193,7 +196,9 @@ public class L1TowerInstance extends L1NpcInstance {
 			int targetobjid = npc.getId();
 
 			npc.getMap().setPassable(npc.getLocation(), true);
-			npc.broadcastPacket(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_TowerDie));
+
+			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
+					ActionCodes.ACTION_TowerDie));
 
 			if (!isSubTower()) {
 				L1WarSpawn warspawn = new L1WarSpawn();
@@ -220,6 +225,9 @@ public class L1TowerInstance extends L1NpcInstance {
 	}
 
 	public boolean isSubTower() {
-		return (getNpcTemplate().get_npcId() == 81190 || getNpcTemplate().get_npcId() == 81191 || getNpcTemplate().get_npcId() == 81192 || getNpcTemplate().get_npcId() == 81193);
+		return (getNpcTemplate().get_npcId() == 81190
+				|| getNpcTemplate().get_npcId() == 81191
+				|| getNpcTemplate().get_npcId() == 81192
+				|| getNpcTemplate().get_npcId() == 81193);
 	}
 }

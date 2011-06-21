@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
@@ -64,7 +64,9 @@ public class LightSpawnTable {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(rs.getInt(2));
 				if (l1npc != null) {
 					String s = l1npc.getImpl();
-					Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
+					Constructor constructor = Class.forName(
+							"l1j.server.server.model.Instance." + s
+									+ "Instance").getConstructors()[0];
 					Object parameters[] = { l1npc };
 					L1FieldObjectInstance field = (L1FieldObjectInstance) constructor.newInstance(parameters);
 					field = (L1FieldObjectInstance) constructor.newInstance(parameters);

@@ -35,11 +35,13 @@ public class S_RangeSkill extends ServerBasePacket {
 	public static final int TYPE_NODIR = 0;
 	public static final int TYPE_DIR = 8;
 
-	public S_RangeSkill(L1Character cha, L1Character[] target, int spellgfx, int actionId, int type) {
+	public S_RangeSkill(L1Character cha, L1Character[] target, int spellgfx,
+			int actionId, int type) {
 		buildPacket(cha, target, spellgfx, actionId, type);
 	}
 
-	private void buildPacket(L1Character cha, L1Character[] target, int spellgfx, int actionId, int type) {
+	private void buildPacket(L1Character cha, L1Character[] target,
+			int spellgfx, int actionId, int type) {
 		writeC(Opcodes.S_OPCODE_RANGESKILLS);
 		writeC(actionId);
 		writeD(cha.getId());
@@ -48,7 +50,8 @@ public class S_RangeSkill extends ServerBasePacket {
 		if (type == TYPE_NODIR) {
 			writeC(cha.getHeading());
 		} else if (type == TYPE_DIR) {
-			int newHeading = calcheading(cha.getX(), cha.getY(), target[0].getX(), target[0].getY());
+			int newHeading = calcheading(cha.getX(), cha.getY(),
+					target[0].getX(), target[0].getY());
 			cha.setHeading(newHeading);
 			writeC(cha.getHeading());
 		}

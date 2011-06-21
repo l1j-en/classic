@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -155,7 +155,7 @@ public class L1Search implements L1CommandExecutor {
 		   ResultSet rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count1==0){
-			   pc.sendPackets(new S_SystemMessage("Armors:"));
+				   pc.sendPackets(new S_SystemMessage("Armors:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -179,7 +179,7 @@ public class L1Search implements L1CommandExecutor {
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count2==0){
-			   pc.sendPackets(new S_SystemMessage("Weapons:"));
+				   pc.sendPackets(new S_SystemMessage("Weapons:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -203,7 +203,7 @@ public class L1Search implements L1CommandExecutor {
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count3==0){
-				pc.sendPackets(new S_SystemMessage("Etcitems:"));
+				   pc.sendPackets(new S_SystemMessage("Etcitems:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);
@@ -241,7 +241,7 @@ public class L1Search implements L1CommandExecutor {
 		   rs = statement.executeQuery();
 		   while (rs.next()){
 			   if(count5==0){
-			   pc.sendPackets(new S_SystemMessage("NPCs:"));
+				   pc.sendPackets(new S_SystemMessage("NPCs:"));
 			   }
 			   str1 = rs.getString(1);
 			   str2 = rs.getString(2);

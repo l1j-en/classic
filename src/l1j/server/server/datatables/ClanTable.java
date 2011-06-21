@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -88,7 +88,7 @@ public class ClanTable {
 				pstm.setInt(1, clan.getClanId());
 				rs = pstm.executeQuery();
 				while (rs.next()) {
-				clan.addMemberName(rs.getString(1));
+					clan.addMemberName(rs.getString(1));
 				}
 			} catch (SQLException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -107,7 +107,7 @@ public class ClanTable {
 	public L1Clan createClan(L1PcInstance player, String clan_name) {
 		for (L1Clan oldClans : L1World.getInstance().getAllClans()) {
 			if (oldClans.getClanName().equalsIgnoreCase(clan_name)) {
-			return null;
+				return null;
 			}
 		}
 		L1Clan clan = new L1Clan();
@@ -174,7 +174,7 @@ public class ClanTable {
 	public void deleteClan(String clan_name) {
 		L1Clan clan = L1World.getInstance().getClan(clan_name);
 		if (clan == null) {
-		return;
+			return;
 		}
 		Connection con = null;
 		PreparedStatement pstm = null;

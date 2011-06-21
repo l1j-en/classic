@@ -247,8 +247,8 @@ public class ClientThread implements Runnable, PacketOutput {
 				if (_activeChar != null) {
 					quitGame(_activeChar);
 					synchronized (_activeChar) {
-					_activeChar.logout();
-					setActiveChar(null);
+						_activeChar.logout();
+						setActiveChar(null);
 					}
 				}
 				sendPacket(new S_Disconnect());

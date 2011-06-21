@@ -32,7 +32,8 @@ public class S_Door extends ServerBasePacket {
 	private byte[] _byte = null;
 
 	public S_Door(L1DoorInstance door) {
-		buildPacket(door.getEntranceX(), door.getEntranceY(), door.getDirection(), door.getPassable());
+		buildPacket(door.getEntranceX(), door.getEntranceY(), door
+				.getDirection(), door.getPassable());
 	}
 
 	public S_Door(int x, int y, int direction, int passable) {

@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
@@ -229,7 +229,7 @@ public class NpcTable {
 	public int findNpcIdByNameWithoutSpace(String name) {
 		for (L1Npc npc : _npcs.values()) {
 			if (npc.get_name().replace(" ", "").equals(name)) {
-			return npc.get_npcId();
+				return npc.get_npcId();
 			}
 		}
 		return 0;

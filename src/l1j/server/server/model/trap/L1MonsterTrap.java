@@ -70,7 +70,9 @@ public class L1MonsterTrap extends L1Trap {
 	}
 
 	private Constructor getConstructor(L1Npc npc) throws ClassNotFoundException {
-		return Class.forName("l1j.server.server.model.Instance." + npc.getImpl() + "Instance").getConstructors()[0];
+		return Class.forName(
+				"l1j.server.server.model.Instance." + npc.getImpl()
+						+ "Instance").getConstructors()[0];
 	}
 
 	private L1NpcInstance createNpc() throws Exception {
@@ -80,7 +82,9 @@ public class L1MonsterTrap extends L1Trap {
 		if (_constructor == null) {
 			_constructor = getConstructor(_npcTemp);
 		}
-		return (L1NpcInstance) _constructor.newInstance(new Object[] { _npcTemp });
+
+		return (L1NpcInstance) _constructor
+				.newInstance(new Object[] { _npcTemp });
 	}
 
 	private void spawn(L1Location loc) throws Exception {
@@ -111,7 +115,7 @@ public class L1MonsterTrap extends L1Trap {
 					spawn(new L1Location(pt, trapObj.getMap()));
 					cnt++;
 					if (_count <= cnt) {
-					return;
+						return;
 					}
 				}
 			}

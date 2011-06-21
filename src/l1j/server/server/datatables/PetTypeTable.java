@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.database.L1DatabaseFactory;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1PetType;
 import l1j.server.server.utils.IntRange;
 import l1j.server.server.utils.SQLUtil;

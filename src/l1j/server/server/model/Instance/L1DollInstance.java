@@ -80,12 +80,15 @@ public class L1DollInstance extends L1NpcInstance {
 		}
 	}
 
-	public L1DollInstance(L1Npc template, L1PcInstance master, int dollType, int itemObjId) {
+	public L1DollInstance(L1Npc template, L1PcInstance master, int dollType,
+			int itemObjId) {
 		super(template);
 		setId(IdFactory.getInstance().nextId());
 		setDollType(dollType);
 		setItemObjId(itemObjId);
-		_dollFuture = GeneralThreadPool.getInstance().schedule(new DollTimer(), DOLL_TIME);
+		_dollFuture = GeneralThreadPool.getInstance().schedule(
+				new DollTimer(), DOLL_TIME);
+
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -162,9 +165,11 @@ public class L1DollInstance extends L1NpcInstance {
 				damage = 15;
 				if (_master instanceof L1PcInstance) {
 					L1PcInstance pc = (L1PcInstance) _master;
-					pc.sendPackets(new S_SkillSound(_master.getId(), 6319));
+					pc.sendPackets(new S_SkillSound(_master.getId(),
+							6319));
 				}
-				_master.broadcastPacket(new S_SkillSound(_master.getId(), 6319));
+				_master.broadcastPacket(new S_SkillSound(_master
+						.getId(), 6319));
 			}
 		}
 		return damage;
