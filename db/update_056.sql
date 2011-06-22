@@ -1,21 +1,6 @@
--- starting to get our db shaped back to match the latest code
-
--- I'd definitely not use this if anyone is looking.  wait till we're finished
--- The order of the sections isn't important, but the order WITHIN each
--- section is.  Please don't move things around
-
--- From this point if we could put new changes at the bottom of the file
--- and ignore the sections I created that would be great.
--- Its selfish of me, but I'm running live on this now and it'll make it easier
--- for me to apply future updates between now and the final version
-
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE
-
--- Queries that are pending an update should be placed here. This allows them 
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 -- update 56
+
+-- FINALIZED.  DO NOT EDIT, MAKE CHANGES IN THE NEXT UPDATE.
 
 -- STRUCTURE CHANGES / New Tables (no data)
 
