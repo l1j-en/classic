@@ -71,7 +71,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		}
 	}
 
-	public boolean noTarget() {
+	public boolean noTarget(int depth) {
 		if (getLocation()
 				.getTileLineDistance(new Point(getHomeX(), getHomeY())) > 0) {
 			int dir = moveDirection(getHomeX(), getHomeY());
