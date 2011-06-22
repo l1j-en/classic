@@ -374,48 +374,48 @@
 	</TreasureBox>
 	<!-- Old Leather Pouch -->
 	<TreasureBox Type="RANDOM" ItemId="40167">
-		<Item ItemId="40058" Count="1" Chance="40" />
-		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40058" Count="1" Chance="45.5" />
+		<Item ItemId="40071" Count="1" Chance="36" />
 		<Item ItemId="40331" Count="1" Chance="3" />
 		<Item ItemId="40332" Count="1" Chance="3" />
-		<Item ItemId="40333" Count="1" Chance="3" />
-		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="0.75" />
+		<Item ItemId="40334" Count="1" Chance="1.25" />
 		<Item ItemId="40335" Count="1" Chance="3" />
 		<Item ItemId="40336" Count="1" Chance="3" />
-		<Item ItemId="40337" Count="1" Chance="3" />
-		<Item ItemId="40338" Count="1" Chance="3" />
-		<Item ItemId="40339" Count="1" Chance="3" />
-		<Item ItemId="40340" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="0.75" />
+		<Item ItemId="40338" Count="1" Chance="1.25" />
+		<Item ItemId="40339" Count="1" Chance="1.25" />
+		<Item ItemId="40340" Count="1" Chance="1.25" />
 	</TreasureBox>
 	<!-- Old Silk Pouch -->
 	<TreasureBox Type="RANDOM" ItemId="40168">
-		<Item ItemId="40058" Count="1" Chance="40" />
-		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40058" Count="1" Chance="45.5" />
+		<Item ItemId="40071" Count="1" Chance="36" />
 		<Item ItemId="40331" Count="1" Chance="3" />
 		<Item ItemId="40332" Count="1" Chance="3" />
-		<Item ItemId="40333" Count="1" Chance="3" />
-		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="0.75" />
+		<Item ItemId="40334" Count="1" Chance="1.25" />
 		<Item ItemId="40335" Count="1" Chance="3" />
 		<Item ItemId="40336" Count="1" Chance="3" />
-		<Item ItemId="40337" Count="1" Chance="3" />
-		<Item ItemId="40338" Count="1" Chance="3" />
-		<Item ItemId="40339" Count="1" Chance="3" />
-		<Item ItemId="40340" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="0.75" />
+		<Item ItemId="40338" Count="1" Chance="1.25" />
+		<Item ItemId="40339" Count="1" Chance="1.25" />
+		<Item ItemId="40340" Count="1" Chance="1.25" />
 	</TreasureBox>
 	<!-- Relic Pouch -->
 	<TreasureBox Type="RANDOM" ItemId="40415">
-		<Item ItemId="40058" Count="1" Chance="40" />
-		<Item ItemId="40071" Count="1" Chance="30" />
+		<Item ItemId="40058" Count="1" Chance="45.5" />
+		<Item ItemId="40071" Count="1" Chance="36" />
 		<Item ItemId="40331" Count="1" Chance="3" />
 		<Item ItemId="40332" Count="1" Chance="3" />
-		<Item ItemId="40333" Count="1" Chance="3" />
-		<Item ItemId="40334" Count="1" Chance="3" />
+		<Item ItemId="40333" Count="1" Chance="0.75" />
+		<Item ItemId="40334" Count="1" Chance="1.25" />
 		<Item ItemId="40335" Count="1" Chance="3" />
 		<Item ItemId="40336" Count="1" Chance="3" />
-		<Item ItemId="40337" Count="1" Chance="3" />
-		<Item ItemId="40338" Count="1" Chance="3" />
-		<Item ItemId="40339" Count="1" Chance="3" />
-		<Item ItemId="40340" Count="1" Chance="3" />
+		<Item ItemId="40337" Count="1" Chance="0.75" />
+		<Item ItemId="40338" Count="1" Chance="1.25" />
+		<Item ItemId="40339" Count="1" Chance="1.25" />
+		<Item ItemId="40340" Count="1" Chance="1.25" />
 	</TreasureBox>
 	<!-- Unlimited Quiver -->
 	<TreasureBox Type="RANDOM" ItemId="40330">
