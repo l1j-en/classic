@@ -145,6 +145,10 @@ public final class Config {
     
     public static int RATE_HP_MOTHERTREE;
     
+    public static int RATE_HP_DRAGONKNIGHTTOWN;
+    
+    public static int RATE_HP_ILLUSIONISTTOWN;
+    
     public static int RATE_MP_CASTLE;
     
     public static int RATE_MP_HOUSE;
@@ -152,6 +156,10 @@ public final class Config {
     public static int RATE_MP_HOTEL;
     
     public static int RATE_MP_MOTHERTREE;
+    
+    public static int RATE_MP_DRAGONKNIGHTTOWN;
+    
+    public static int RATE_MP_ILLUSIONISTTOWN;
     
 	public static double PETEXP_RATE;
 	
@@ -546,6 +554,12 @@ public final class Config {
 			RATE_MP_HOTEL = Integer.parseInt(rateSettings.getProperty("RateMpHotel", "3"));
 			RATE_HP_MOTHERTREE = Integer.parseInt(rateSettings.getProperty("RateHpMotherTree", "5"));
 			RATE_MP_MOTHERTREE = Integer.parseInt(rateSettings.getProperty("RateMpMotherTree", "3"));
+			
+			RATE_HP_ILLUSIONISTTOWN = Integer.parseInt(rateSettings.getProperty("RateHpIllusionisttown", "5"));
+			RATE_MP_ILLUSIONISTTOWN = Integer.parseInt(rateSettings.getProperty("RateMpIllusionisttown", "3"));
+			RATE_HP_DRAGONKNIGHTTOWN = Integer.parseInt(rateSettings.getProperty("RateHpDragonknighttown", "5"));
+			RATE_MP_DRAGONKNIGHTTOWN = Integer.parseInt(rateSettings.getProperty("RateMpDragonknighttown", "3"));
+			
 			PETEXP_RATE = Double.parseDouble(rateSettings.getProperty("PetExp", "1.0"));
 			PARTYEXP_RATE = Double.parseDouble(rateSettings.getProperty("PartyExp", "1.0"));
 			RATE_XP = Double.parseDouble(rateSettings.getProperty("RateXp", "1.0"));

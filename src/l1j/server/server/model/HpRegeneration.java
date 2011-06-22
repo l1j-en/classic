@@ -117,16 +117,27 @@ public class HpRegeneration extends TimerTask {
 			|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
 			bonus += Config.RATE_HP_HOTEL;
 		}
-		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 || _pc.getMapId() == 64 || _pc.getMapId() == 66 || _pc.getMapId() == 300) {
+		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 
+				|| _pc.getMapId() == 64 || _pc.getMapId() == 66 || _pc.getMapId() == 300) {
 	        bonus += Config.RATE_HP_CASTLE;
 	    }
-		if ((_pc.getLocation().isInScreen(new Point(33055,32336)) && _pc.getMapId() == 4 && _pc.isElf())) {
+		if ((_pc.getLocation().isInScreen(new Point(33055,32336)) 
+				&& _pc.getMapId() == 4 && _pc.isElf())) {
 			bonus += Config.RATE_HP_MOTHERTREE;
 		}
+		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
+				&& (_pc.getMapId() == 1000 || _pc.isIllusionist()))) {
+			bonus += Config.RATE_HP_ILLUSIONISTTOWN;
+        }
+		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
+				&& (_pc.getMapId() == 1001 || _pc.isDragonKnight()))) {
+			bonus += Config.RATE_HP_DRAGONKNIGHTTOWN;
+        }
  		if (_pc.hasSkillEffect(COOKING_1_5_N) || _pc.hasSkillEffect(COOKING_1_5_S)) {
 			bonus += 3;
 		}
- 		if (_pc.hasSkillEffect(COOKING_2_4_N) || _pc.hasSkillEffect(COOKING_2_4_S) || _pc.hasSkillEffect(COOKING_3_6_N) || _pc.hasSkillEffect(COOKING_3_6_S)) {
+ 		if (_pc.hasSkillEffect(COOKING_2_4_N) || _pc.hasSkillEffect(COOKING_2_4_S) 
+ 				|| _pc.hasSkillEffect(COOKING_3_6_N) || _pc.hasSkillEffect(COOKING_3_6_S)) {
 			bonus += 2;
 		}
  		if (_pc.getOriginalHpr() > 0) {
