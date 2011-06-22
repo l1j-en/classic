@@ -189,14 +189,14 @@ public class L1DoorInstance extends L1NpcInstance {
 		int rightEdgeLocation = getRightEdgeLocation();
 
 		int size = rightEdgeLocation - leftEdgeLocation;
-		if (size == 0) { //
+		if (size == 0) {
 			sendPacket(pc, entranceX, entranceY);
-		} else { //
-			if (getDirection() == 0) { //
+		} else {
+			if (getDirection() == 0) {
 				for (int x = leftEdgeLocation; x <= rightEdgeLocation; x++) {
 					sendPacket(pc, x, entranceY);
 				}
-			} else { //
+			} else {
 				for (int y = leftEdgeLocation; y <= rightEdgeLocation; y++) {
 					sendPacket(pc, entranceX, y);
 				}
@@ -206,7 +206,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	private void sendPacket(L1PcInstance pc, int x, int y) {
 		S_Door packet = new S_Door(x, y, getDirection(), getPassable());
-		if (pc != null) { //
+		if (pc != null) {
 			if (getOpenStatus() == ActionCodes.ACTION_Close) {
 				pc.sendPackets(packet);
 			}
@@ -223,6 +223,7 @@ public class L1DoorInstance extends L1NpcInstance {
 			setOpenStatus(ActionCodes.ACTION_Open);
 			setPassable(L1DoorInstance.PASS);
 			broadcastPacket(new S_DoorPack(this));
+			broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Open));
 			sendDoorPacket(null);
 		}
 	}
@@ -235,6 +236,7 @@ public class L1DoorInstance extends L1NpcInstance {
 			setOpenStatus(ActionCodes.ACTION_Close);
 			setPassable(L1DoorInstance.NOT_PASS);
 			broadcastPacket(new S_DoorPack(this));
+			broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Close));
 			sendDoorPacket(null);
 		}
 	}
@@ -260,7 +262,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		_doorId = i;
 	}
 
-	private int _direction = 0; //
+	private int _direction = 0;
 
 	public int getDirection() {
 		return _direction;
@@ -274,9 +276,9 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public int getEntranceX() {
 		int entranceX = 0;
-		if (getDirection() == 0) { //
+		if (getDirection() == 0) {
 			entranceX = getX();
-		} else { // _ü«
+		} else {
 			entranceX = getX() - 1;
 		}
 		return entranceX;
@@ -284,15 +286,15 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public int getEntranceY() {
 		int entranceY = 0;
-		if (getDirection() == 0) { //
+		if (getDirection() == 0) {
 			entranceY = getY() + 1;
-		} else { // _ü«
+		} else {
 			entranceY = getY();
 		}
 		return entranceY;
 	}
 
-	private int _leftEdgeLocation = 0; //
+	private int _leftEdgeLocation = 0;
 
 	public int getLeftEdgeLocation() {
 		return _leftEdgeLocation;
@@ -302,7 +304,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		_leftEdgeLocation = i;
 	}
 
-	private int _rightEdgeLocation = 0; //
+	private int _rightEdgeLocation = 0;
 
 	public int getRightEdgeLocation() {
 		return _rightEdgeLocation;
@@ -355,5 +357,4 @@ public class L1DoorInstance extends L1NpcInstance {
 	public void setCrackStatus(int i) {
 		_crackStatus = i;
 	}
-
 }
