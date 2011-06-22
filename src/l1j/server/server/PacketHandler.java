@@ -113,6 +113,9 @@ public class PacketHandler {
 		case C_OPCODE_KEEPALIVE:
 			new C_KeepALIVE(abyte0, _client);
 			break;
+		case C_OPCODE_PING_REQUEST:
+			new C_PING_REQUEST(abyte0, _client);
+			break;
 		case C_OPCODE_ATTR:
 			new C_Attr(abyte0, _client);
 			break;

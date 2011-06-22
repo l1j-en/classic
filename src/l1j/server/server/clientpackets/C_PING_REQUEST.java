@@ -22,22 +22,17 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_PingPacket;
+import l1j.server.server.serverpackets.S_PONG;
 
-// Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket
-public class C_KeepALIVE extends ClientBasePacket {
+public class C_PING_REQUEST extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_KeepALIVE.class.getName());
 	private static final String C_KEEP_ALIVE = "[C] C_KeepALIVE";
 
-	public C_KeepALIVE(byte decrypt[], ClientThread client) throws IOException {
+	public C_PING_REQUEST(byte decrypt[], ClientThread client) throws IOException {
 		super(decrypt);
-        L1PcInstance pc = client.getActiveChar();
-		long lastMS = pc.getNetConnection().getLastPingTimeMS();
-		if(lastMS > 0)
-		pc.getNetConnection().setLastPingTimeMS(System.currentTimeMillis());
-		pc.sendPackets(new S_PingPacket());
-		//System.out.println("C_KeepAlive ping sended ");  testing the package
+		L1PcInstance pc = client.getActiveChar();
+		pc.sendPackets(new S_PONG());
+		//System.out.println("Ping Response sended "); testing the package
 	}
 
 	@Override

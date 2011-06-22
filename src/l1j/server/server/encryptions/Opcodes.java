@@ -225,4 +225,5 @@ public class Opcodes {
 	public static final int S_OPCODE_LIGHT = 124;
 	public static final int S_OPCODE_MOVEOBJECT = 126;
 	public static final int S_OPCODE_MAIL = 127;
+	public static final int C_OPCODE_PING_REQUEST = 2;
 }
