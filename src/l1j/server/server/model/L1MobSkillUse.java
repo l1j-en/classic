@@ -161,6 +161,7 @@ public class L1MobSkillUse {
 			} else {
 				skills[skillSizeCounter] = i;
 				skillSizeCounter++;
+				break;
 			}
 		}
 		if (skillSizeCounter != 0) {
