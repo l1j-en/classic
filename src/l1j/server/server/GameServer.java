@@ -30,6 +30,7 @@ import l1j.server.server.datatables.IpTable;
 import l1j.server.server.model.MpBugTest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
@@ -100,6 +101,7 @@ public class GameServer extends Thread {
 	public void disconnectAllCharacters() {
 		Collection<L1PcInstance> players = L1World.getInstance().getAllPlayers();
 		for (L1PcInstance pc : players) {
+			pc.sendPackets(new S_Disconnect());
 			pc.getNetConnection().setActiveChar(null);
 			pc.getNetConnection().kick();
 		}
