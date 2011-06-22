@@ -37,7 +37,6 @@ public class C_KeepALIVE extends ClientBasePacket {
 		if(lastMS > 0)
 		pc.getNetConnection().setLastPingTimeMS(System.currentTimeMillis());
 		pc.sendPackets(new S_PingPacket());
-		//System.out.println("C_KeepAlive ping sended ");  testing the package
 	}
 
 	@Override

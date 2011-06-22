@@ -226,14 +226,6 @@ public class ClientThread implements Runnable, PacketOutput {
 				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
 					_loginStatus = 0;
 				}
-				if (opcode != Opcodes.C_OPCODE_PING_REQUEST) {
-				observer.packetReceived();
-					//System.out.println("Client Pong Request received "); testing the package
-				}
-				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
-					observer.packetReceived();
-					//System.out.println("Client Ping received ");  testing the package
-				}
 				if (_activeChar == null) {
 					_handler.handlePacket(data, _activeChar);
 					continue;

@@ -31,7 +31,6 @@ public class S_PingPacket extends ServerBasePacket {
     	private void buildPacket() {
                 // XXX:ServerPingTime Send)
                 writeC(Opcodes.S_OPCODE_PINGTIME);
-               // System.out.println("Server Ping sended ");  testing the package
         }
 
     	@Override
