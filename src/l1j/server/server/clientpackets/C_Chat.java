@@ -96,7 +96,8 @@ public class C_Chat extends ClientBasePacket {
 				for (L1Object obj : pc.getKnownObjects()) {
 					if (obj instanceof L1MonsterInstance) {
 						L1MonsterInstance mob = (L1MonsterInstance) obj;
-						if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName())) {
+						// Added HP check to prevent dead doppels from talking.
+						if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName()) && mob.getCurrentHp() > 0) {
 							for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(mob, 50)) {
 								listner.sendPackets(new S_NpcChatPacket(mob, chatText, 2));
 							}
@@ -120,7 +121,8 @@ public class C_Chat extends ClientBasePacket {
 			for (L1Object obj : pc.getKnownObjects()) {
 				if (obj instanceof L1MonsterInstance) {
 					L1MonsterInstance mob = (L1MonsterInstance) obj;
-					if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName())) {
+					// Added HP check to prevent dead doppels from talking.
+					if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName()) && mob.getCurrentHp() > 0) {
 						mob.broadcastPacket(new S_NpcChatPacket(mob, chatText, 0));
 					}
 				}
@@ -142,7 +144,8 @@ public class C_Chat extends ClientBasePacket {
 			for (L1Object obj : pc.getKnownObjects()) {
 				if (obj instanceof L1MonsterInstance) {
 					L1MonsterInstance mob = (L1MonsterInstance) obj;
-					if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName())) {
+					// Added HP check to prevent dead doppels from talking.
+					if (mob.getNpcTemplate().is_doppel() && mob.getName().equals(pc.getName()) && mob.getCurrentHp() > 0) {
 						for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(mob, 50)) {
 							listner.sendPackets(new S_NpcChatPacket(mob, chatText, 2));
 						}
