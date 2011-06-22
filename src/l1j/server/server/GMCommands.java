@@ -73,7 +73,7 @@ public class GMCommands {
 			Class<?> cls = Class.forName(complementClassName(command.getExecutorClassName()));
 			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod("getInstance").invoke(null);
 			exe.execute(pc, name, arg);
-			_log.info(pc.getName() + "" + name + " " + arg + "");
+			_log.info(pc.getName() + " ran " + name + " " + arg + "");
 			return true;
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "error gm command", e);
