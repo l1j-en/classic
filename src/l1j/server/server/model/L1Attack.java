@@ -1108,11 +1108,7 @@ public class L1Attack {
 	private int calcNpcPcDamage() {
 		int lvl = _npc.getLevel();
 		double dmg = 0D;
-		if (lvl < 10) {
-			dmg = _random.nextInt(lvl) + 10D + _npc.getStr() / 2 + 1;
-		} else {
-			dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
-		}
+		dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
 			dmg += (lvl / 16); // Each additional pet is hit LV16
