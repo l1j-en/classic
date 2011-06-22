@@ -17,19 +17,20 @@
  */
 package l1j.server.server.serverpackets;
 
+import l1j.server.server.encryptions.Opcodes;
+
 // Referenced classes of package l1j.server.server.serverpackets:
 // ClientBasePacket
 public class S_PingPacket extends ServerBasePacket {
         private static final String S_ServerPing = "[S] S_ServerPing";
     	private byte[] _byte = null;
-		private String ping;
 
     	public S_PingPacket() {
     		buildPacket();
     	}
     	private void buildPacket() {
                 // XXX:ServerPingTime Send)
-                writeC(0x00);
+                writeC(Opcodes.S_OPCODE_SERVERPING);
         }
 
     	@Override
