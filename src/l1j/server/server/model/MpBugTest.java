@@ -136,7 +136,8 @@ public class MpBugTest {
 		if (_lastrand == 0 || _lastrand != _checkedrand) {
 			_checkedrand = _lastrand;
 			_checkedpc = _lastpc;
-		} else if (_checkedrand == _lastrand && _checkedpc == _lastpc) {			
+		} else if (L1World.getInstance().getAllPlayers().size() > 1 &&
+				_checkedrand == _lastrand && _checkedpc == _lastpc) {			
 			System.out.println("* * * MP BUG DETECTED	* * *");
 			try {
 				System.out.println("* * * Rescuing thread pool	* * *");
