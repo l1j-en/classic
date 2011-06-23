@@ -58,7 +58,7 @@ public class L1GMRoom implements L1CommandExecutor {
 			} else {
 				L1Location loc = GMCommandsConfig.ROOMS.get(arg.toLowerCase());
 				if (loc == null) {
-					pc.sendPackets(new S_SystemMessage(arg + " Room"));
+					pc.sendPackets(new S_SystemMessage(arg + " room."));
 					return;
 				}
 				L1Teleport.teleport(pc, loc.getX(), loc.getY(), (short) loc

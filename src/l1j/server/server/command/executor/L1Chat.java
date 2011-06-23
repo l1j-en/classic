@@ -44,10 +44,10 @@ public class L1Chat implements L1CommandExecutor {
 				String msg;
 				if (flag.compareToIgnoreCase("on") == 0) {
 					L1World.getInstance().set_worldChatElabled(true);
-					msg = "Global Chat Enabled";
+					msg = "Global chat enabled.";
 				} else if (flag.compareToIgnoreCase("off") == 0) {
 					L1World.getInstance().set_worldChatElabled(false);
-					msg = "Global Chat Disabled";
+					msg = "Global chat disabled.";
 				} else {
 					throw new Exception();
 				}

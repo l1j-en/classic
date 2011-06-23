@@ -36,10 +36,10 @@ public class L1Pbuff implements L1CommandExecutor {
 		L1World world = L1World.getInstance();
     		if (Config.POWER_BUFF == false){
     			Config.POWER_BUFF = true;
-    			world.broadcastServerMessage("Power Buff Command has been Enabled!");	
+    			world.broadcastServerMessage("The power buff command has been enabled!");	
     		}else{
     			Config.POWER_BUFF = false;
-    			world.broadcastServerMessage("Power Buff Command has been Disabled!");
+    			world.broadcastServerMessage("The power buff command has been disabled!");
     	}
 	}
 }

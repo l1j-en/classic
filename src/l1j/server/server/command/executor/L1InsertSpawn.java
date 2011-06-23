@@ -52,7 +52,7 @@ public class L1InsertSpawn implements L1CommandExecutor {
 			L1Npc template = NpcTable.getInstance().getTemplate(npcId);
 
 			if (template == null) {
-				msg = "not found";
+				msg = "Not found.";
 				return;
 			}
 			if (type.equals("mob")) {

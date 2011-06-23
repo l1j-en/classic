@@ -64,7 +64,7 @@ public class L1CreateItem implements L1CommandExecutor {
 				itemid = ItemTable.getInstance().findItemIdByNameWithoutSpace(
 						nameid);
 				if (itemid == 0) {
-					pc.sendPackets(new S_SystemMessage("give an itemid stupid"));
+					pc.sendPackets(new S_SystemMessage("Give an itemid, stupid."));
 					return;
 				}
 			}
@@ -104,7 +104,7 @@ public class L1CreateItem implements L1CommandExecutor {
 					}
 				}
 			} else {
-				pc.sendPackets(new S_SystemMessage(" something"));
+				pc.sendPackets(new S_SystemMessage(" something."));
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

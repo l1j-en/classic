@@ -51,13 +51,13 @@ public class L1LevelPresent implements L1CommandExecutor {
 
 			L1Item temp = ItemTable.getInstance().getTemplate(itemid);
 			if (temp == null) {
-				pc.sendPackets(new S_SystemMessage("ACeIDB"));
+				pc.sendPackets(new S_SystemMessage("The itemid does not exist."));
 				return;
 			}
 
 			L1DwarfInventory.present(minlvl, maxlvl, itemid, enchant, count);
-			pc.sendPackets(new S_SystemMessage(temp.getName() + "" + count
-					+ "v[gB(Lv" + minlvl + "`" + maxlvl + ")"));
+			pc.sendPackets(new S_SystemMessage(count + " " + temp.getName() 
+					+ " were given to (lvl " + minlvl + "-" + maxlvl + ")."));
 		} catch (Exception e) {
 			pc
 					.sendPackets(new S_SystemMessage(

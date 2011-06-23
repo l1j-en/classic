@@ -40,7 +40,7 @@ public class L1SpawnCmd implements L1CommandExecutor {
 	}
 
 	private void sendErrorMessage(L1PcInstance pc, String cmdName) {
-		String errorMsg = cmdName + " npcid|name [] [] B";
+		String errorMsg = cmdName + " npcid|name [number] [area]";
 		pc.sendPackets(new S_SystemMessage(errorMsg));
 	}
 
@@ -71,13 +71,13 @@ public class L1SpawnCmd implements L1CommandExecutor {
 
 			L1Npc npc = NpcTable.getInstance().getTemplate(npcid);
 			if (npc == null) {
-				pc.sendPackets(new S_SystemMessage("YNPCB"));
+				pc.sendPackets(new S_SystemMessage("Cannot find NPC."));
 				return;
 			}
 			for (int i = 0; i < count; i++) {
 				L1SpawnUtil.spawn(pc, npcid, randomrange, 0);
 			}
-			String msg = String.format("%s(%d) (%d) B (:%d)", npc
+			String msg = String.format("%s(%d) (%d) has been summoned. (range: %d)", npc
 					.get_name(), npcid, count, randomrange);
 			pc.sendPackets(new S_SystemMessage(msg));
 		} catch (NoSuchElementException e) {
@@ -86,7 +86,7 @@ public class L1SpawnCmd implements L1CommandExecutor {
 			sendErrorMessage(pc, cmdName);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			pc.sendPackets(new S_SystemMessage(cmdName + " G[B"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " error."));
 		}
 	}
 }

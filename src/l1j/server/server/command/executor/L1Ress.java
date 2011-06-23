@@ -46,14 +46,14 @@ public class L1Ress implements L1CommandExecutor {
 			pc.setCurrentMp(pc.getMaxMp());
 			for (L1PcInstance tg : L1World.getInstance().getVisiblePlayer(pc)) {
 				if (tg.getCurrentHp() == 0 && tg.isDead()) {
-					tg.sendPackets(new S_SystemMessage(""));
+					tg.sendPackets(new S_SystemMessage("GM resurrected you."));
 					tg.broadcastPacket(new S_SkillSound(tg.getId(), 3944));
 					tg.sendPackets(new S_SkillSound(tg.getId(), 3944));
 					
 					tg.setTempID(objid);
 					tg.sendPackets(new S_Message_YN(322, "")); 
 				} else {
-					tg.sendPackets(new S_SystemMessage(""));
+					tg.sendPackets(new S_SystemMessage("GM healed you."));
 					tg.broadcastPacket(new S_SkillSound(tg.getId(), 832));
 					tg.sendPackets(new S_SkillSound(tg.getId(), 832));
 					tg.setCurrentHp(tg.getMaxHp());
