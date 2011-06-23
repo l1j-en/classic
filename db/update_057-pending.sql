@@ -14,7 +14,7 @@ update droplist set chance = 9000 where mobid = 45075 and itemid = 40074;
 update droplist set chance = 9000 where mobid = 45074 and itemid = 40087;
 update droplist set chance = 9000 where mobid = 45076 and itemid = 40087;
 update droplist set chance = 7500 where mobid = 45086 and itemid = 240087;
-
+-- mental note.  our live is updated to anything above this point as of 6/23/11
 -- some missing npcs added. -- stats needs to be checked.
 INSERT INTO `npc` VALUES ('71255', 'Baell Zaer', '$3671', '$3671', 'L1Monster', '1612', '20', '120', '40', '10', '0', '0', '0', '0', '0', '0', '401', '-15', 'small', '3', '0', '0', '640', '880', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
 INSERT INTO `npc` VALUES ('71256', 'Cronos', '$2038', '$2038', 'L1Monster', '1020', '9', '165', '0', '0', '0', '0', '0', '0', '0', '0', '82', '-12', 'small', '1', '0', '0', '640', '1160', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
