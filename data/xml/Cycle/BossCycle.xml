@@ -9,6 +9,21 @@
 			<Cycle Period="1d2h31m" Start="3h30m" End="1d5m" />
 		</BossCycle>
 	-->
+	<BossCycle Name="Cronos">
+		<Cycle Period="24h" Start="10m"/>
+	</BossCycle>
+	<BossCycle Name="Kugas">
+		<Cycle Period="24h" Start="15m"/>
+	</BossCycle>
+		<BossCycle Name="Elazer">
+		<Cycle Period="24h" Start="15m"/>
+	</BossCycle>
+		<BossCycle Name="Zarlok">
+		<Cycle Period="24h" Start="15m"/>
+	</BossCycle>
+	<BossCycle Name="BaellZaer">
+		<Cycle Period="24h" Start="15m"/>
+	</BossCycle>
 	<BossCycle Name="DK">
 		<Cycle Period="7h" Start="3h30m"/>
 	</BossCycle>
@@ -70,7 +85,7 @@
 		<Cycle Period="4h" Start="2h"/>
 	</BossCycle>
 	<BossCycle Name="Dragon">
-		<Cycle Period="24h"/>
+		<Cycle Period="24h" Start="1h"/>
 	</BossCycle>
 	<BossCycle Name="etc1">
 		<Cycle Period="24h" Start="10m"/>
