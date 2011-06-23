@@ -79,7 +79,6 @@ public class ClientThread implements Runnable, PacketOutput {
 	private LineageKeys _clkey;
 	//MP Bug fix - dont remove - tricid
 	private boolean stop = false;
-	private long lastPingTimeMS;
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
 	// 90, 120, 0 }; // for Episode5
 	// private static final byte[] FIRST_PACKET =
@@ -225,6 +224,10 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
 					_loginStatus = 0;
+				}
+
+				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
+					observer.packetReceived();
 				}
 				if (_activeChar == null) {
 					_handler.handlePacket(data, _activeChar);
@@ -405,7 +408,6 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	}
 	public void close() throws IOException {
-		//new S_Disconnect();
 		_csocket.close();
 	}
 
@@ -502,17 +504,4 @@ public class ClientThread implements Runnable, PacketOutput {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
-	
-	/**
-	 * @return the lastPingTimeMS
-	 */
-	//public long getLastPingTimeMS() {
-	//	return lastPingTimeMS;
-	//}
-	/**
-	 * @param lastPingTimeMS the lastPingTimeMS to set
-	 */
-	//public void setLastPingTimeMS(long lastPingTimeMS) {
-    //    this.lastPingTimeMS = lastPingTimeMS;
-    //}
 }
