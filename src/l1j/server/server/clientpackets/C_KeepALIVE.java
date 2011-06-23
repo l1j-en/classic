@@ -30,15 +30,22 @@ public class C_KeepALIVE extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_KeepALIVE.class.getName());
 	private static final String C_KEEP_ALIVE = "[C] C_KeepALIVE";
 
-	public C_KeepALIVE(byte decrypt[], ClientThread client) throws IOException {
+	/*
+	* public C_KeepALIVE(byte decrypt[], ClientThread client) throws IOException {
+	*	super(decrypt);
+    *    L1PcInstance pc = client.getActiveChar();
+	*	long lastMS = pc.getNetConnection().getLastPingTimeMS();
+	*	if(lastMS > 0)
+	*	pc.getNetConnection().setLastPingTimeMS(System.currentTimeMillis());
+	*	pc.sendPackets(new S_PingPacket());
+	*}
+	*/
+public C_KeepALIVE(byte decrypt[], ClientThread client) {
 		super(decrypt);
-        L1PcInstance pc = client.getActiveChar();
-		long lastMS = pc.getNetConnection().getLastPingTimeMS();
-		if(lastMS > 0)
-		pc.getNetConnection().setLastPingTimeMS(System.currentTimeMillis());
-		pc.sendPackets(new S_PingPacket());
+		// XXX:GameTime Send (3 bytes of data to send it to come because you do not have to use something maybe)
+// L1PcInstance pc = client.getActiveChar();
+// pc.sendPackets(new S_GameTime());
 	}
-
 	@Override
 	public String getType() {
 		return C_KEEP_ALIVE;
