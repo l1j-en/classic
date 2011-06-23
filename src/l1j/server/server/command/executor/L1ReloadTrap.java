@@ -37,6 +37,6 @@ public class L1ReloadTrap implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		L1WorldTraps.reloadTraps();
-		pc.sendPackets(new S_SystemMessage("All Traps Reloaded"));
+		pc.sendPackets(new S_SystemMessage("All traps reloaded."));
 	}
 }

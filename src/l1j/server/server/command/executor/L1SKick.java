@@ -42,23 +42,23 @@ public class L1SKick implements L1CommandExecutor {
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
 			if (target != null) {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(target.getName()).append("LbNB")
+						.append(target.getName()).append(" was kicked.")
 						.toString()));
-				// SKT
+				// Move to SKT.
 				target.setX(33080);
 				target.setY(33392);
 				target.setMap((short) 4);
 				target.sendPackets(new S_Disconnect());
 				ClientThread targetClient = target.getNetConnection();
 				targetClient.kick();
-				_log.warning("GMskickR}h(" + targetClient.getAccountName()
-						+ ":" + targetClient.getHostname() + ")fB");
+				_log.warning("GM skick of (" + targetClient.getAccountName()
+						+ ":" + targetClient.getHostname() + ") closing connections.");
 			} else {
 				pc.sendPackets(new S_SystemMessage(
-						"OLN^[[hB"));
+						"No such player."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " LN^[ B"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
 		}
 	}
 }

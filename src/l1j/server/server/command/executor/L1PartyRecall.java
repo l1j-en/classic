@@ -54,16 +54,16 @@ public class L1PartyRecall implements L1CommandExecutor {
 						L1Teleport.teleport(pc2, x, y, map, 5, true);
 						pc2
 								.sendPackets(new S_SystemMessage(
-										""));
+										"Summoned to the GM."));
 					} catch (Exception e) {
 						_log.log(Level.SEVERE, "", e);
 					}
 				}
 			} else {
-				pc.sendPackets(new S_SystemMessage(""));
+				pc.sendPackets(new S_SystemMessage("There are no party members."));
 			}
 		} else {
-			pc.sendPackets(new S_SystemMessage(""));
+			pc.sendPackets(new S_SystemMessage("No such target."));
 		}
 	}
 }

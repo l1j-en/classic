@@ -62,12 +62,12 @@ public class L1BanIp implements L1CommandExecutor {
 			if ("add".equals(s2) && !isBanned) {
 				iptable.banIp(s1); 
 				String msg = new StringBuilder().append(" IP: ").append(s1)
-						.append(" has been banned. ").toString();
+						.append(" has been banned.").toString();
 				pc.sendPackets(new S_SystemMessage(msg));
 			} else if ("del".equals(s2) && isBanned) {
 				if (iptable.liftBanIp(s1)) {
 					String msg = new StringBuilder().append(" IP: ").append(s1)
-							.append(" has been unbanned. ").toString();
+							.append(" has been unbanned.").toString();
 					pc.sendPackets(new S_SystemMessage(msg));
 				}
 			} else {

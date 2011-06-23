@@ -99,9 +99,9 @@ public class L1Rates implements L1CommandExecutor {
 		}
 		if(!changed.equals("Error")) {
 			if(changed.equals("RESET")) {
-				broadcastToAll("Rates have been reset to x1.0");
+				broadcastToAll("Rates have been reset to x1.0.");
 			} else {
-				broadcastToAll("Rates for "+changed+" changed by x"+data);
+				broadcastToAll("Rates for "+changed+" changed by x" + data + ".");
 			}
 		}
 	}
