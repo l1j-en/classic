@@ -405,7 +405,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	}
 	public void close() throws IOException {
-		new S_Disconnect();
+		//new S_Disconnect();
 		_csocket.close();
 	}
 
@@ -506,13 +506,13 @@ public class ClientThread implements Runnable, PacketOutput {
 	/**
 	 * @return the lastPingTimeMS
 	 */
-	public long getLastPingTimeMS() {
-		return lastPingTimeMS;
-	}
+	//public long getLastPingTimeMS() {
+	//	return lastPingTimeMS;
+	//}
 	/**
 	 * @param lastPingTimeMS the lastPingTimeMS to set
 	 */
-	public void setLastPingTimeMS(long lastPingTimeMS) {
-        this.lastPingTimeMS = lastPingTimeMS;
-    }
+	//public void setLastPingTimeMS(long lastPingTimeMS) {
+    //    this.lastPingTimeMS = lastPingTimeMS;
+    //}
 }
