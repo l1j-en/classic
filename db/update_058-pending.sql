@@ -116,3 +116,8 @@ insert into spawnlist values (801500695, 'Ellne', 1, 70825, 0, 32750, 32447, 10,
 insert into spawnlist values (801500696, 'Ofo', 1, 70828, 0, 32742, 32451, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
 insert into spawnlist values (801500697, 'Tommy', 1, 70833, 0, 32734, 32456, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
 insert into spawnlist values (801500698, 'Torban', 1, 70834, 0, 32721, 32452, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+
+-- Checked live, and orc wizards are aggro to unpoly.
+update npc set agro = 1 where npcid = 45121;
+-- Minotaur (axe) are aggro to unpoly, sosc, and coi.
+update npc set agro = 1, agrososc = 1, agrocoi = 1 where npcid = 45390;
