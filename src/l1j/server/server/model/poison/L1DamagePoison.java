@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1MonsterInstance;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
@@ -83,7 +84,12 @@ public class L1DamagePoison extends L1Poison {
 	}
 
 	private void doInfection() {
-		_target.setSkillEffect(STATUS_POISON, 30000);
+		// Modified to allow lengthy NPC poison times, like live has.
+		if (_target instanceof L1NpcInstance) {
+			_target.setSkillEffect(STATUS_POISON, 7200000);
+		} else {
+			_target.setSkillEffect(STATUS_POISON, 30000);
+		}
 		_target.setPoisonEffect(1);
 
 		if (isDamageTarget(_target)) {
