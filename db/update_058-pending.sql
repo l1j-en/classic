@@ -130,3 +130,18 @@ update spawnlist set count = 15 where id = 801500425;
 update spawnlist set count = 15 where id = 801500426;
 update spawnlist set count = 15 where id = 801500427;
 
+-- EF roaming NPCs.
+update npc set impl = 'L1Monster', lvl = 2, hp = 30, mp = 0, ac = 10, str = 5, con = 12, dex = 12, wis = 1, intel = 0, mr = 0, exp = 5, lawful = 1000, size = 'small', ranged = 1, passispeed = 1280, isErase = 1, light_size = 0, amount_fixed = 1 where npcid in (70839, 70854);
+insert into spawnlist values (801500699, 'Doett', 1, 70839, 0, 33058, 32319, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500700, 'Hurindalien', 1, 70854, 0, 33069, 32330, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+
+-- Heine roaming NPCs.
+update npc set impl = 'L1Monster', lvl = 2, hp = 30, mp = 0, ac = 10, str = 5, con = 12, dex = 12, wis = 1, intel = 0, mr = 0, exp = 5, lawful = 1000, size = 'small', ranged = 1, passispeed = 1280, isErase = 1, light_size = 0, amount_fixed = 1 where npcid in (70858, 70867, 70871, 70877, 70878);
+insert into spawnlist values (801500701, 'Derick', 1, 70858, 0, 33615, 33253, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500702, 'Shannon', 1, 70867, 0, 33615, 33246, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500703, 'Annabel', 1, 70871, 0, 33615, 33239, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500704, 'Trion', 1, 70877, 0, 33615, 33232, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500705, 'Felix', 1, 70878, 0, 33597, 33233, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+
+-- Add the Kent Castle Guard at the guard post by Kent bridge.
+insert into spawnlist_npc values (1310418, 'Kent Castle Guard', 1, 71183, 32975, 32782, 0, 0, 4, 0, 4, 0);
