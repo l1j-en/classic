@@ -121,3 +121,12 @@ insert into spawnlist values (801500698, 'Torban', 1, 70834, 0, 32721, 32452, 10
 update npc set agro = 1 where npcid = 45121;
 -- Minotaur (axe) are aggro to unpoly, sosc, and coi.
 update npc set agro = 1, agrososc = 1, agrocoi = 1 where npcid = 45390;
+
+-- De-uberfied OF spawnrate (to reduce AOE-spamfests).
+update spawnlist set count = 15 where id = 801500422;
+update spawnlist set count = 8 where id = 801500423;
+update spawnlist set count = 15 where id = 801500424;
+update spawnlist set count = 15 where id = 801500425;
+update spawnlist set count = 15 where id = 801500426;
+update spawnlist set count = 15 where id = 801500427;
+
