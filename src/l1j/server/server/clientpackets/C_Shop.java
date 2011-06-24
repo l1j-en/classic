@@ -121,7 +121,9 @@ public class C_Shop extends ClientBasePacket {
 				buyPrice = readD();
 				buyCount = readD();
 				checkItem = pc.getInventory().getItem(buyObjectId);
-				if (buyObjectId != checkItem.getId() || (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 || buyCount <= 0 || buyCount > 2000000000 || buyCount > checkItem.getCount()) {
+				//removed some checks that don't make sense here
+				//just commented them out to test for now
+				if (buyObjectId != checkItem.getId()  || /*buyCount > checkItem.getCount()|| (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 ||*/ buyCount <= 0 || buyCount > 2000000000) {
 					Account.ban(pc.getAccountName());
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
