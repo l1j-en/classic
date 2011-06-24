@@ -30,15 +30,10 @@
 
 package l1j.server.server.model;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_GameTime;
 
 public class MpBugTest {

@@ -20,7 +20,6 @@ package l1j.server.server.model.poison;
 
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public abstract class L1Poison {

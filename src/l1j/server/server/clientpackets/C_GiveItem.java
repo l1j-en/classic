@@ -20,7 +20,10 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 import java.util.Random;
+import l1j.server.server.Account;
 
+import l1j.server.server.datatables.IpTable;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Inventory;
@@ -53,10 +56,13 @@ public class C_GiveItem extends ClientBasePacket {
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-		//TRICIDTODO: set configurable auto ban
-		if (count < 0)
-		{
+		//additional dupe checks.  Thanks Mike
+		if (pc.getOnlineStatus() != 1) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 
@@ -76,6 +82,15 @@ public class C_GiveItem extends ClientBasePacket {
 
 		L1Inventory inv = pc.getInventory();
 		L1ItemInstance item = inv.getItem(itemId);
+		//TRICIDTODO: set configurable auto ban
+		if (itemId != item.getId() || (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+		}
 		if (item == null) {
 			return;
 		}

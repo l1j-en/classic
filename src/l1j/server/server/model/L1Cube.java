@@ -28,10 +28,8 @@ import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Paralysis;
-import l1j.server.server.serverpackets.S_SPMR;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Cube extends TimerTask {

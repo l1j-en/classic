@@ -30,7 +30,6 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1FieldObjectInstance extends L1NpcInstance {
 

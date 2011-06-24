@@ -21,7 +21,6 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;

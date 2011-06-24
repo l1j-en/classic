@@ -27,7 +27,6 @@ import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.serverpackets.S_MoveCharPacket;

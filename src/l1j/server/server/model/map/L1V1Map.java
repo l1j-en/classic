@@ -20,7 +20,6 @@ package l1j.server.server.model.map;
 
 import java.util.logging.Logger;
 
-import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.DoorSpawnTable;
 import l1j.server.server.model.Instance.L1DoorInstance;

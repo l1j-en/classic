@@ -26,7 +26,6 @@ import java.util.TimerTask;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import static l1j.server.server.model.skill.L1SkillId.*;

@@ -7,7 +7,6 @@ import l1j.server.server.model.L1Attack;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
-import l1j.server.server.model.L1Character;
 
 public class L1ScarecrowInstance extends L1NpcInstance {
 
