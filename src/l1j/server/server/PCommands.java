@@ -162,37 +162,37 @@ public class PCommands {
 					//Pandora	
 						case 1: 
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32644, 32955, (short) 0, 5, false);
+								L1Teleport.teleport(_player, 32644, 32955, (short) 0, 5, true);
 								break;
 								//Pandora
 						case 2:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33080, 33392, (short) 4, 5, false);
+								L1Teleport.teleport(_player, 33080, 33392, (short) 4, 5, true);
 								break;
 								//SKT
 						case 3:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33442, 32797, (short) 4, 5, false);
+								L1Teleport.teleport(_player, 33442, 32797, (short) 4, 5, true);
 								break;
 								//Giran
 						case 4:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33705, 32504, (short) 4, 5, false);
+								L1Teleport.teleport(_player, 33705, 32504, (short) 4, 5, true);
 								break;
 								//Weldern
 						case 5:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 34061, 32276, (short) 4, 5, false);
+								L1Teleport.teleport(_player, 34061, 32276, (short) 4, 5, true);
 								break;
 								//Oren
 						case 6:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32715, 32448, (short) 4, 5, false);
+								L1Teleport.teleport(_player, 32715, 32448, (short) 4, 5, true);
 								break;
 								//Orc Town
 						case 7:
 								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32857, 32898, (short) 304, 5, false);
+								L1Teleport.teleport(_player, 32857, 32898, (short) 304, 5, true);
 								//Silent Cave
 						}
 				} else {
@@ -235,7 +235,7 @@ public class PCommands {
 	}
 
 	private void checkKarma(L1PcInstance pc){
-		pc.sendPackets(new S_SystemMessage("Your karma is currently: " + pc.getKarma()));
+		pc.sendPackets(new S_SystemMessage("Your karma is currently: " + pc.getKarma() + "."));
 	
 	}
 }
