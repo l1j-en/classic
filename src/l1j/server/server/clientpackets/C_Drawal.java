@@ -77,14 +77,6 @@ public class C_Drawal extends ClientBasePacket {
 				money -= j;
 				L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
 				if (item != null) {
-					if (L1ItemId.ADENA != item.getId() || (!item.isStackable() && j != 1) || item.getCount() <= 0 || j <= 0 || j > 2000000000 || j > item.getCount()) {
-						Account.ban(pc.getAccountName());
-						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-						_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
-						L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
-						pc.sendPackets(new S_Disconnect());
-						return;
-					}
 					l1castle.setPublicMoney(money);
 					CastleTable.getInstance().updateCastle(l1castle);
 					if (pc.getInventory().checkAddItem(item, j) == L1Inventory.OK) {
