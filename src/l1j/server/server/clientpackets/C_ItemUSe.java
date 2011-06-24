@@ -5259,7 +5259,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l8 = 0;
 		for (int j6 = 201; j6 <= 220; j6++) {
 			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
-			String s1 = "Li" + l1skills.getName() + "j";
+			String s1 = "Memory Crystal(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
 				int i7 = l1skills.getId();
