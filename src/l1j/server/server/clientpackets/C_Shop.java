@@ -20,7 +20,10 @@ package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
+import l1j.server.server.Account;
+import l1j.server.server.model.L1World;
+import l1j.server.server.datatables.IpTable;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -47,7 +50,15 @@ public class C_Shop extends ClientBasePacket {
 		if (pc.isGhost()) {
 			return;
 		}
-
+		//additional dupe checks.  Thanks Mike
+		if (pc.getOnlineStatus() != 1) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+		}
 		int mapId = pc.getMapId();
 		if (mapId != 340 && mapId != 350 && mapId != 360 && mapId != 370) {
 			pc.sendPackets(new S_ServerMessage(876));
@@ -69,14 +80,17 @@ public class C_Shop extends ClientBasePacket {
 				sellObjectId = readD();
 				sellPrice = readD();
 				sellCount = readD();
+				checkItem = pc.getInventory().getItem(sellObjectId);
 				//TRICIDTODO: Set configurable autoban
-				if (sellCount < 0)
-				{
+				if (sellObjectId != checkItem.getId() || (!checkItem.isStackable() && sellCount != 1) || checkItem.getCount() <= 0 || sellCount <= 0 || sellCount > 2000000000 || sellCount > checkItem.getCount()) {
+					Account.ban(pc.getAccountName());
+					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
-					
+					L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+					pc.sendPackets(new S_Disconnect());
 					return;
 				}
-				checkItem = pc.getInventory().getItem(sellObjectId);
+
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
 					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
@@ -106,14 +120,16 @@ public class C_Shop extends ClientBasePacket {
 				buyObjectId = readD();
 				buyPrice = readD();
 				buyCount = readD();
-				//TRICIDTODO: Set configurable autoban
-				if (buyCount < 0)
-				{
+				checkItem = pc.getInventory().getItem(buyObjectId);
+				if (buyObjectId != checkItem.getId() || (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 || buyCount <= 0 || buyCount > 2000000000 || buyCount > checkItem.getCount()) {
+					Account.ban(pc.getAccountName());
+					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
-					
+					L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+					pc.sendPackets(new S_Disconnect());
 					return;
 				}
-				checkItem = pc.getInventory().getItem(buyObjectId);
+
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
 					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));

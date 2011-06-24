@@ -19,7 +19,10 @@
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
+import l1j.server.server.Account;
 
+import l1j.server.server.datatables.IpTable;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.ItemTable;
@@ -45,9 +48,22 @@ public class C_Drawal extends ClientBasePacket {
 		int j = readD();
 
 		L1PcInstance pc = clientthread.getActiveChar();
+		//additional dupe checks.  Thanks Mike
+		if (pc.getOnlineStatus() != 1) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+		}
 		//TRICIDTODO: set configurable auto ban
 		if (j < 0) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 		
@@ -61,6 +77,14 @@ public class C_Drawal extends ClientBasePacket {
 				money -= j;
 				L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
 				if (item != null) {
+					if (L1ItemId.ADENA != item.getId() || (!item.isStackable() && j != 1) || item.getCount() <= 0 || j <= 0 || j > 2000000000 || j > item.getCount()) {
+						Account.ban(pc.getAccountName());
+						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+						_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
+						L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+						pc.sendPackets(new S_Disconnect());
+						return;
+					}
 					l1castle.setPublicMoney(money);
 					CastleTable.getInstance().updateCastle(l1castle);
 					if (pc.getInventory().checkAddItem(item, j) == L1Inventory.OK) {

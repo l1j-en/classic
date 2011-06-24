@@ -19,7 +19,10 @@
 package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
+import l1j.server.server.Account;
 
+import l1j.server.server.datatables.IpTable;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Inventory;
@@ -44,10 +47,23 @@ public class C_PickUpItem extends ClientBasePacket {
 		int pickupCount = readD();
 
 		L1PcInstance pc = client.getActiveChar();
+		//additional dupe checks.  Thanks Mike
+		if (pc.getOnlineStatus() != 1) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+		}
 		//TRICIDTODO: Set configurable auto ban
 		if (pickupCount < 0)
 		{
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 		
@@ -68,6 +84,14 @@ public class C_PickUpItem extends ClientBasePacket {
 
 		if (object != null && !pc.isDead()) {
 			L1ItemInstance item = (L1ItemInstance) object;
+			if (objectId != item.getId() || (!item.isStackable() && pickupCount != 1) || item.getCount() <= 0 || pickupCount <= 0 || pickupCount > 2000000000 || pickupCount > item.getCount()) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+			}
 
 			if (item.getItemOwnerId() != 0 && pc.getId() != item.getItemOwnerId()) {
 				pc.sendPackets(new S_ServerMessage(623));

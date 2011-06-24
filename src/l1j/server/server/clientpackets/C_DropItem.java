@@ -20,13 +20,16 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.server.Account;
+
+import l1j.server.server.datatables.IpTable;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
-import l1j.server.server.serverpackets.S_Disconnect;
 
 public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
@@ -41,17 +44,22 @@ public class C_DropItem extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		
+		//additional dupe checks.  Thanks Mike
+		if (pc.getOnlineStatus() != 1) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
+		}
 		//TRICIDTODO: set configurable auto ban
 		if (count < 0)
 		{
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem).");
-
-			L1World world = L1World.getInstance();
-
-			//TODO Not used
-			//IpTable iptable = IpTable.getInstance();
-
-			world.broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
@@ -61,10 +69,20 @@ public class C_DropItem extends ClientBasePacket {
 		}
 
 		L1ItemInstance item = pc.getInventory().getItem(objectId);
+		
 		if (item != null) {
 			if (!item.getItem().isTradable()) {
 				pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 				return;
+			}
+						
+			if (objectId != item.getId() || (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+			Account.ban(pc.getAccountName());
+			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem).");
+			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
+			return;
 			}
 
 			Object[] petlist = pc.getPetList().values().toArray();

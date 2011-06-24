@@ -20,7 +20,6 @@ package l1j.server.server.command.executor;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.model.L1World;
 
 public class L1Pbuff implements L1CommandExecutor {
