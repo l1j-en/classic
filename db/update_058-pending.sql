@@ -148,3 +148,6 @@ insert into spawnlist_npc values (1310418, 'Kent Castle Guard', 1, 71183, 32975,
 
 -- Change a shop price.
 update shop set purchasing_price = 25 where npc_id = 71127 and item_id = 40126;
+
+-- Fix helm of speed purchasing price on some shops.
+update shop set purchasing_price = 11000 where item_id = 20013 and purchasing_price = 1100;
