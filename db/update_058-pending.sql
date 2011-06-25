@@ -397,7 +397,6 @@ update skills set hpConsume = 120 where skill_id = 89;
 update skills set mpConsume = 6, hpConsume = 0 where skill_id = 147;
 
 -- Merge latest mobskill changes.
-INSERT INTO `mobskill` VALUES ('45263', '0', 'Bomb Flower', '10 cell ranged', '2', '100', '0', '0', '-10', '0', '0', '10', '0', '0', '0', '10034', '0', '0', '0', '0', '0', '0');
 INSERT INTO `mobskill` VALUES ('45309', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
 INSERT INTO `mobskill` VALUES ('45323', '0', 'Beast Summoner', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '2', '0', '0', '30', '0', '0', '0', '0');
 INSERT INTO `mobskill` VALUES ('45357', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
