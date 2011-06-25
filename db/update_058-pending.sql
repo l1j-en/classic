@@ -151,3 +151,6 @@ update shop set purchasing_price = 25 where npc_id = 71127 and item_id = 40126;
 
 -- Fix helm of speed purchasing price on some shops.
 update shop set purchasing_price = 11000 where item_id = 20013 and purchasing_price = 1100;
+
+-- Set all wand sell prices to 3a (like they are on live).
+update shop set purchasing_price = 3 where item_id in (40006, 40007, 40008, 40009, 140006, 140008) and purchasing_price > 0;
