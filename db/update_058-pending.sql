@@ -269,3 +269,8 @@ INSERT INTO npcchat VALUES ('46159', '1', 'Orc Emissary', '0', '$6127', '', '', 
 INSERT INTO npcchat VALUES ('81175', '0', 'Wanted Criminal Kuzak', '0', '$5325', '', '', '', '', '0', '1', '0', '1', '15000', '0');
 INSERT INTO npcchat VALUES ('81175', '1', 'Wanted Criminal Kuzak', '0', '$5327', '', '', '', '', '0', '0', '0', '0', '0', '0');
 INSERT INTO npcchat VALUES ('45458', '1', 'Captain Drake', '0', '$3603', '', '', '', '', '0', '0', '0', '0', '0', '0');
+
+-- Move our custom RK set to a higher ID, as it clobbered some new set.
+update armor_set set id = 75 where id = 55;
+-- Reinsert set 55.
+INSERT INTO armor_set VALUES ('55', '', '21061', '5484', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
