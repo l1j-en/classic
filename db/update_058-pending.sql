@@ -154,3 +154,6 @@ update shop set purchasing_price = 11000 where item_id = 20013 and purchasing_pr
 
 -- Set all wand sell prices to 3a (like they are on live).
 update shop set purchasing_price = 3 where item_id in (40006, 40007, 40008, 40009, 140006, 140008) and purchasing_price > 0;
+
+-- Correct dwarvish iron helm sell price.
+update shop set purchasing_price = 150 where item_id = 20007;
