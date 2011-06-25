@@ -535,3 +535,6 @@ update skills set castgfx = 4655 where skill_id = 10059;
 update skills set castgfx = 1991 where skill_id = 10034;
 -- Re-add bomb flower skill.
 INSERT INTO `mobskill` VALUES ('45263', '0', 'Bomb Flower', '10 cell ranged', '2', '100', '0', '0', '-10', '0', '0', '10', '0', '0', '0', '10034', '0', '0', '0', '0', '0', '0');
+
+-- Fix bomb flower npc entry.
+update npc set ranged = 0, agrogfxid1= 1440, agrogfxid1 = 1440, bowActId = 0 where npcid = 45263;
