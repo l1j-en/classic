@@ -104,7 +104,7 @@ insert into spawnlist values (801500690, 'Jeti', 1, 70901, 0, 32863, 32895, 10, 
 
 -- WW roaming NPCs.
 update npc set impl = 'L1Monster', lvl = 2, hp = 30, mp = 0, ac = 10, str = 5, con = 12, dex = 12, wis = 1, intel = 0, mr = 0, exp = 5, lawful = 1000, size = 'small', ranged = 1, passispeed = 1280, isErase = 1, light_size = 0, amount_fixed = 1 where npcid in (70770);
-insert into spawnlist values (801500690, 'Deker', 1, 70770, 0, 32612, 33195, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
+insert into spawnlist values (801500706, 'Deker', 1, 70770, 0, 32612, 33195, 10, 10, 0, 0, 0, 0, 0, 120, 180, 4, 0, 100, 0, 0);
 
 -- OT roaming NPCs.
 update npc set impl = 'L1Monster', lvl = 2, hp = 30, mp = 0, ac = 10, str = 5, con = 12, dex = 12, wis = 1, intel = 0, mr = 0, exp = 5, lawful = 1000, size = 'small', ranged = 1, passispeed = 1280, isErase = 1, light_size = 0, amount_fixed = 1 where npcid in (70812, 70814, 70819, 70821, 70825, 70828, 70833, 70834);
@@ -395,3 +395,44 @@ update skills set buffDuration = 1800 where skill_id = 79;
 update skills set hpConsume = 120 where skill_id = 89;
 -- Correct protection from elemental's cost.
 update skills set mpConsume = 6, hpConsume = 0 where skill_id = 147;
+
+-- Merge latest mobskill changes.
+INSERT INTO `mobskill` VALUES ('45263', '0', 'Bomb Flower', '10 cell ranged', '2', '100', '0', '0', '-10', '0', '0', '10', '0', '0', '0', '10034', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45309', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45323', '0', 'Beast Summoner', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '2', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45357', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45374', '0', 'Subterranean Lizardman', '', '2', '100', '0', '0', '-6', '0', '0', '6', '0', '0', '0', '10133', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45382', '0', 'Subterranean Scormystic', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45383', '0', 'Subterranean Scorpaitan', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45423', '0', 'Subterranean Beholder', '', '2', '25', '0', '0', '-4', '0', '0', '4', '0', '0', '0', '167', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45448', '0', 'Lastabad Tormenter', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '2', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45483', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45498', '0', 'Grave Guardian', '', '1', '50', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45530', '0', 'Grave Guardian Mage', '', '1', '45', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45530', '1', 'Grave Guardian Mage', '', '1', '50', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '18', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45530', '2', 'Grave Guardian Mage', '', '2', '85', '0', '0', '-6', '0', '0', '0', '0', '0', '45', '10136', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45537', '0', 'Grave Guardian Knight', '', '1', '50', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45574', '0', 'Palace General Kyte', '', '2', '80', '0', '0', '-8', '0', '0', '0', '0', '0', '12', '10104', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45588', '1', 'Division Commander Sinclair', '', '2', '30', '0', '0', '-15', '0', '0', '0', '0', '0', '30', '10107', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45602', '0', 'Evil Magic Squad Leader Carmiel', '', '2', '80', '0', '0', '-8', '0', '0', '0', '0', '0', '12', '10105', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45603', '0', 'Large Grave Guardian', '', '1', '50', '0', '0', '0', '0', '0', '5', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45612', '0', 'Temple Head Bounty', '', '2', '80', '0', '0', '-8', '0', '0', '0', '0', '0', '15', '10103', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45727', '1', 'Grave Sea Dancer', '', '2', '100', '0', '0', '-10', '0', '0', '0', '0', '0', '20', '10097', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45743', '0', 'Sand Tomb', '', '1', '30', '0', '0', '-1', '0', '0', '1', '0', '0', '20', '0', '0', '18', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45812', '1', 'Sea Dancer', '', '2', '100', '0', '0', '-10', '0', '0', '8', '0', '0', '0', '10097', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45836', '0', 'Black Tiger', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '0', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45837', '0', 'Lastabad Tormenter', '', '1', '50', '0', '0', '-2', '0', '0', '2', '0', '0', '2', '0', '0', '30', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45845', '0', 'Dark Elementalist', '', '2', '100', '0', '0', '-3', '4', '0', '3', '0', '0', '0', '10091', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45852', '0', 'Dark Elementalist', '', '2', '100', '0', '0', '-3', '4', '0', '3', '0', '0', '0', '10091', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45926', '0', 'Cursed Beholder', '', '2', '50', '0', '0', '-2', '0', '0', '0', '0', '0', '0', '10101', '0', '18', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45931', '0', 'Spirit of Water', '', '2', '30', '0', '0', '-10', '0', '0', '0', '0', '0', '20', '6', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('45931', '1', 'Spirit of Water', '', '3', '50', '0', '0', '-2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '45932', '2', '2', '0');
+
+
+
+
+
+
+
+
+
