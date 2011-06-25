@@ -528,5 +528,10 @@ INSERT INTO `mobskill` VALUES ('81238', '1', 'Doppelganger', '', '2', '30', '0',
 INSERT INTO `mobskill` VALUES ('81238', '2', 'Doppelganger', '', '1', '30', '0', '0', '-1', '0', '0', '1', '0', '0', '30', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `mobskill` VALUES ('81239', '1', 'Greater Minotaur', '', '1', '30', '0', '0', '-1', '0', '0', '1', '0', '0', '30', '0', '0', '0', '0', '0', '0', '0');
 
-
-
+-- Fix some unchosen one skills.
+update skills set castgfx = 4696 where skill_id = 10058;
+update skills set castgfx = 4655 where skill_id = 10059;
+-- Fix bomb flower graphic to prevent crashes.
+update skills set castgfx = 1991 where skill_id = 10034;
+-- Re-add bomb flower skill.
+INSERT INTO `mobskill` VALUES ('45263', '0', 'Bomb Flower', '10 cell ranged', '2', '100', '0', '0', '-10', '0', '0', '10', '0', '0', '0', '10034', '0', '0', '0', '0', '0', '0');
