@@ -145,3 +145,6 @@ insert into spawnlist values (801500705, 'Felix', 1, 70878, 0, 33597, 33233, 10,
 
 -- Add the Kent Castle Guard at the guard post by Kent bridge.
 insert into spawnlist_npc values (1310418, 'Kent Castle Guard', 1, 71183, 32975, 32782, 0, 0, 4, 0, 4, 0);
+
+-- Change a shop price.
+update shop set purchasing_price = 25 where npc_id = 71127 and item_id = 40126;
