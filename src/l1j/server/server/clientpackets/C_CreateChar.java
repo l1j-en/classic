@@ -52,9 +52,9 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final int[] ORIGINAL_AMOUNT = new int[] { 8, 4, 7, 16, 10, 6, 10 };
 	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
 	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
-	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 33043, 32780, 32876, 32791, 32791 };  
-	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32336, 32781, 32910, 32864, 32864 };  
-	private static final short[] MAPID_LIST = new short[] { 68, 69, 4, 68, 304, 1001, 1000 };
+	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714, 32780, 32714, 32780, 32714 };  
+	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32877, 32781, 32877, 32781, 32877 };  
+	private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69, 68, 69 };
 	
 	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
 		super(abyte0);
