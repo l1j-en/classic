@@ -1243,6 +1243,14 @@
 	<Action Name="teleport gludin-behemoth" NpcId="50024">
 		<Teleport X="32779" Y="32887" Map="1001" Heading="5" Price="1000"/>
 	</Action>
+	<!-- Asha -->
+	<Action Name="teleport illusionist island-in" NpcId="90000">
+		<Teleport X="32841" Y="32856" Map="1000" Heading="5" Price="0"/>
+	</Action>
+	<!-- Feaena -->
+	<Action Name="teleport dragonknight island-in" NpcId="90001">
+		<Teleport X="32779" Y="32887" Map="1001" Heading="5" Price="0"/>
+	</Action>
 
 	<Action Name="guidestart"  NpcId="50020,50024,50036,50039,50044,50046,50051,50054,50056,50066,50068,50072,50073,50079">
 		<ShowHtml HtmlId="guidestart"/>

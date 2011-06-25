@@ -159,9 +159,9 @@ update shop set purchasing_price = 3 where item_id in (40006, 40007, 40008, 4000
 update shop set purchasing_price = 150 where item_id = 20007;
 
 -- Add non-interactive arachne for Nerupa's cave.
-insert into npc values (81246, 'Arachne', '$752', '', 'L1Guardian', 864, 30, 3000, 300, 0, 30, 30, 30, 30, 30, 70, 0, 0, 'small', 0, 2, 0, 420, 840, 0, 840, 840, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0);
+insert into npc values (90002, 'Arachne', '$752', '', 'L1Guardian', 864, 30, 3000, 300, 0, 30, 30, 30, 30, 30, 70, 0, 0, 'small', 0, 2, 0, 420, 840, 0, 840, 840, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0);
 -- 2 aranches in Nerupa's cave
-insert into spawnlist_npc values (1310419, 'Arachne', 2, 81246, 32739, 32800, 0, 0, 4, 0, 17, 0);
+insert into spawnlist_npc values (1310419, 'Arachne', 2, 90002, 32739, 32800, 0, 0, 4, 0, 17, 0);
 
 -- Merged in our missing npcactions.
 INSERT INTO npcaction VALUES ('46069', 'minicod1', 'minicod1', '', '');
@@ -538,3 +538,18 @@ INSERT INTO `mobskill` VALUES ('45263', '0', 'Bomb Flower', '10 cell ranged', '2
 
 -- Fix bomb flower npc entry.
 update npc set ranged = 0, agrogfxid1= 1440, agrogfxid1 = 1440, bowActId = 0 where npcid = 45263;
+
+-- Sharna npc added --
+
+insert into npc values (81246,'Sharna','$4883','','L1Merchant',2090,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+delete from spawnlist_npc where id = 1310416;
+insert into spawnlist_npc values (1310416,'Sharna',1,81246,34052,32262,0,0,5,0,4,100);
+
+-- noob area teleport npcs added dk and ills --
+
+insert into npc values (90000,'Asha','Asha','HV','L1Teleporter',6977,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+insert into npc values (90001,'Feaena','Feaena','SI','L1Teleporter',6793,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+insert into npcaction values (90000,'asha3','asha3','asha1','');
+insert into npcaction values (90001,'feaena3','feaena3','feaena1','');
+insert into spawnlist_npc values (1900000,'Asha',1,90000,32679,32847,0,0,4,0,69,0);
+insert into spawnlist_npc values (1900001,'Feaena',1,90001,32788,32758,0,0,4,0,68,0);
