@@ -274,3 +274,31 @@ INSERT INTO npcchat VALUES ('45458', '1', 'Captain Drake', '0', '$3603', '', '',
 update armor_set set id = 75 where id = 55;
 -- Reinsert set 55.
 INSERT INTO armor_set VALUES ('55', '', '21061', '5484', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+
+-- An attempt at merging the dungeon table.  There's definitely a lot of
+-- changes, but I also don't want to clobber our fixes.  These entries are
+-- completely new.
+INSERT INTO `dungeon` VALUES ('32810', '32890', '780', '32742', '32800', '781', '4', '');
+INSERT INTO `dungeon` VALUES ('32810', '32891', '780', '32742', '32800', '781', '4', '');
+INSERT INTO `dungeon` VALUES ('32742', '32800', '781', '32810', '32890', '780', '6', '');
+INSERT INTO `dungeon` VALUES ('32786', '32861', '1000', '34090', '32168', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32786', '32862', '1000', '34091', '32167', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32787', '32862', '1000', '34090', '32165', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32802', '32877', '1000', '34094', '32170', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32802', '32878', '1000', '34093', '32169', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32803', '32878', '1000', '34093', '32167', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32779', '32857', '1001', '33639', '32400', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32780', '32858', '1001', '33641', '32402', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32810', '32887', '1001', '33640', '32400', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32811', '32888', '1001', '33641', '32401', '4', '10', '');
+INSERT INTO `dungeon` VALUES ('32624', '32725', '1005', '32671', '32667', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32679', '32745', '1005', '32937', '32802', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32680', '32743', '1005', '32809', '32802', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32681', '32742', '1005', '32681', '32802', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32682', '32741', '1005', '32937', '32610', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32683', '32924', '1005', '32658', '32678', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32703', '32670', '1005', '32796', '32662', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32811', '32924', '1005', '32658', '32678', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32939', '32924', '1005', '32658', '32678', '1005', '1', '');
+INSERT INTO `dungeon` VALUES ('32939', '32732', '1005', '32658', '32678', '1005', '1', '');
+
