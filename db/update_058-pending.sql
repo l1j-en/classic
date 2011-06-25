@@ -386,4 +386,12 @@ INSERT INTO `polymorphs` VALUES ('7340', 'spearm 65', '7340', '65', '1040', '409
 INSERT INTO `polymorphs` VALUES ('7341', 'spearm 70', '7341', '70', '1040', '4095', '1', '7');
 INSERT INTO `polymorphs` VALUES ('7332', 'spearm 52', '7332', '50', '1040', '4095', '1', '7');
 
-
+-- Merge in latest skills changes.
+-- Fix life stream fail msg (should fix issue 50).
+update skills set sysmsgID_fail = 0 where skill_id = 63;
+-- AS duration increase.
+update skills set buffDuration = 1800 where skill_id = 79;
+-- Bounce attack should consume 120 HP.
+update skills set hpConsume = 120 where skill_id = 89;
+-- Correct protection from elemental's cost.
+update skills set mpConsume = 6, hpConsume = 0 where skill_id = 147;
