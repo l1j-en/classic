@@ -302,3 +302,88 @@ INSERT INTO `dungeon` VALUES ('32811', '32924', '1005', '32658', '32678', '1005'
 INSERT INTO `dungeon` VALUES ('32939', '32924', '1005', '32658', '32678', '1005', '1', '');
 INSERT INTO `dungeon` VALUES ('32939', '32732', '1005', '32658', '32678', '1005', '1', '');
 
+-- New getback records.
+INSERT INTO getback VALUES ('0', '0', '0', '0', '780', '32639', '32876', '32639', '32876', '32639', '32876', '780', '0', '0', '0', '0', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '781', '32639', '32876', '32639', '32876', '32639', '32876', '780', '0', '0', '0', '0', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '782', '32639', '32876', '32639', '32876', '32639', '32876', '780', '0', '0', '0', '0', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '783', '32879', '32750', '32879', '32750', '32879', '32750', '783', '0', '0', '0', '1', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '784', '32879', '32750', '32879', '32750', '32879', '32750', '783', '0', '0', '0', '1', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '1002', '32820', '32904', '32820', '32904', '32820', '32904', '1002', '0', '0', '0', '1', '');
+INSERT INTO getback VALUES ('0', '0', '0', '0', '2005', '32688', '32873', '32675', '32863', '32691', '32862', '2005', '0', '0', '0', '1', '');
+
+-- New getback_restart records.
+INSERT INTO getback_restart VALUES ('53', '', '33426', '32823', '4');
+INSERT INTO getback_restart VALUES ('54', '', '33426', '32823', '4');
+INSERT INTO getback_restart VALUES ('55', '', '33426', '32823', '4');
+INSERT INTO getback_restart VALUES ('56', '', '33426', '32823', '4');
+INSERT INTO getback_restart VALUES ('777', '', '34043', '32184', '4');
+INSERT INTO getback_restart VALUES ('779', '', '32608', '33178', '4');
+INSERT INTO getback_restart VALUES ('780', '', '33966', '33253', '4');
+INSERT INTO getback_restart VALUES ('781', '', '33966', '33253', '4');
+INSERT INTO getback_restart VALUES ('782', '', '33966', '33253', '4');
+INSERT INTO getback_restart VALUES ('783', '', '32795', '32751', '783');
+INSERT INTO getback_restart VALUES ('784', '', '32795', '32751', '783');
+INSERT INTO getback_restart VALUES ('1002', '', '33705', '32504', '4');
+INSERT INTO getback_restart VALUES ('2005', '', '32691', '32864', '2005');
+INSERT INTO getback_restart VALUES ('5143', '', '32628', '32772', '4');
+
+-- Need to move our custom mobgroups up in ID to make room for the new ones.
+update mobgroup set id = 172 where id = 72;
+update mobgroup set id = 173 where id = 73;
+update mobgroup set id = 174 where id = 74;
+update mobgroup set id = 175 where id = 75;
+update mobgroup set id = 176 where id = 76;
+-- Update all spawns that use the above groups.
+update spawnlist set group_id = 172 where group_id = 72;
+update spawnlist set group_id = 173 where group_id = 73;
+update spawnlist set group_id = 174 where group_id = 74;
+update spawnlist set group_id = 175 where group_id = 75;
+update spawnlist set group_id = 176 where group_id = 76;
+
+-- New mobgroup records.
+INSERT INTO mobgroup VALUES ('52', '', '0', '46082', '46083', '1', '46084', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('53', '', '0', '46085', '46086', '1', '46087', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('54', '', '0', '46088', '46089', '1', '46090', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('55', '', '0', '46097', '46098', '1', '46099', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('56', '', '0', '46100', '46101', '1', '46102', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('57', '', '0', '46103', '46104', '1', '46105', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('58', '', '0', '45539', '45501', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('59', '', '0', '45539', '45502', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('60', '', '0', '45422', '45297', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('61', '', '0', '45423', '45374', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('62', '', '0', '45603', '45537', '1', '45530', '1', '45498', '1', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('63', '', '0', '46107', '46107', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('64', '', '0', '46135', '46135', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('65', '', '0', '46138', '46138', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('66', '', '0', '46139', '46139', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('67', '', '0', '46137', '46137', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('68', '', '0', '46141', '46140', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('69', '', '0', '45448', '45836', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('70', '', '0', '45315', '45647', '1', '45579', '1', '45569', '1', '45482', '1', '45450', '1', '45391', '1', '0', '0');
+INSERT INTO mobgroup VALUES ('71', '', '0', '45570', '45571', '1', '45582', '1', '45587', '1', '45605', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('72', '', '1', '46157', '46160', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('73', '', '1', '46158', '46160', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('74', '', '1', '46159', '46160', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('75', '', '0', '45624', '45628', '2', '45629', '1', '45630', '1', '45596', '2', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('76', '', '0', '45623', '45631', '2', '45632', '4', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('77', '', '0', '91266', '91265', '2', '91266', '2', '91267', '2', '91268', '2', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('78', '', '0', '91272', '91273', '2', '91270', '1', '91271', '3', '91276', '1', '91274', '1', '91275', '1', '0', '0');
+INSERT INTO mobgroup VALUES ('79', '', '0', '91272', '91273', '4', '91270', '3', '91271', '3', '91274', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('80', '', '0', '91271', '91273', '2', '91270', '2', '91271', '1', '91274', '4', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('81', '', '0', '91272', '91273', '1', '91271', '2', '91276', '3', '91275', '2', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('82', '', '0', '91269', '91273', '2', '91270', '3', '91271', '2', '91276', '1', '91274', '1', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('83', '', '0', '91270', '91273', '1', '91270', '1', '91271', '2', '91272', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('84', '', '0', '91273', '91273', '1', '91271', '3', '91276', '2', '91274', '2', '91275', '3', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('86', '', '0', '91340', '91340', '1', '45278', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('85', '', '0', '91341', '91340', '2', '91341', '2', '91342', '2', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO mobgroup VALUES ('87', '', '0', '91341', '91341', '1', '45298', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+
+-- New polymorphs records.
+INSERT INTO `polymorphs` VALUES ('6894', 'awake', '6894', '1', '751', '4095', '1', '7');
+INSERT INTO `polymorphs` VALUES ('7338', 'spearm 55', '7338', '55', '1040', '4095', '1', '7');
+INSERT INTO `polymorphs` VALUES ('7339', 'spearm 60', '7339', '60', '1040', '4095', '1', '7');
+INSERT INTO `polymorphs` VALUES ('7340', 'spearm 65', '7340', '65', '1040', '4095', '1', '7');
+INSERT INTO `polymorphs` VALUES ('7341', 'spearm 70', '7341', '70', '1040', '4095', '1', '7');
+INSERT INTO `polymorphs` VALUES ('7332', 'spearm 52', '7332', '50', '1040', '4095', '1', '7');
+
+
