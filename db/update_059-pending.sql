@@ -218,8 +218,9 @@ update npc set alt_atk_speed = 1520 where npcid = 45733;
 update npc set passispeed = 960, atkspeed = 960, alt_atk_speed = 1000, atk_magic_speed = 1440, sub_magic_speed = 1440 where npcid = 45734;
 update npc set gfxid = 5708, passispeed = 800, atkspeed = 720, alt_atk_speed = 640, atk_magic_speed = 1440, sub_magic_speed = 1440 where npcid = 45735;
 
-
-
+-- Quick fix for Pine/Maple wands recharge bug --
+update etcitem set trade = '1' where item_id = 40006;
+update etcitem set trade = '1' where item_id = 40008;
 
 
 
