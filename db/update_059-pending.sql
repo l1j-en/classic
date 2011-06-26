@@ -17,5 +17,5 @@ update spawnlist set min_respawn_delay = '240' where id = 400002;
 update spawnlist set max_respawn_delay = '420' where id = 400002;
 update spawnlist set locx = '32631' where id = 400003;
 update spawnlist set locy = '33105' where id = 400003;
-update spawnlist set min_respawn_delay = '240' where id = 400002;
-update spawnlist set max_respawn_delay = '420' where id = 400002;
+update spawnlist set min_respawn_delay = '240' where id = 400003;
+update spawnlist set max_respawn_delay = '420' where id = 400003;
