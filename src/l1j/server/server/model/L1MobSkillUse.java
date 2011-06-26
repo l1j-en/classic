@@ -105,7 +105,7 @@ public class L1MobSkillUse {
 		return _mobSkillTemplate;
 	}
 
-	public boolean isSkillTrigger(L1Character tg) {
+	public boolean skillUse(L1Character tg) {
 		if (_mobSkillTemplate == null) {
 			return false;
 		}
@@ -129,87 +129,35 @@ public class L1MobSkillUse {
 				_target = tg;
 			}
 
-			if (isSkillUseble(i, false)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean skillUse(L1Character tg, boolean isTriRnd) {
-		if (_mobSkillTemplate == null) {
-			return false;
-		}
-		_target = tg;
-
-		int type;
-		type = getMobSkillTemplate().getType(0);
-
-		if (type == L1MobSkill.TYPE_NONE) {
-			return false;
-		}
-
-		int[] skills = null;
-		int skillSizeCounter = 0;
-		int skillSize = getMobSkillTemplate().getSkillSize();
-		if (skillSize >= 0) {
-			skills = new int[skillSize];
-		}
-
-		int i = 0;
-		for (i = 0; i < getMobSkillTemplate().getSkillSize()
-				&& getMobSkillTemplate().getType(i) != L1MobSkill.TYPE_NONE; i++) {
-
-			int changeType = getMobSkillTemplate().getChangeTarget(i);
-			if (changeType > 0) {
-				_target = changeTarget(changeType, i);
-			} else {
-				_target = tg;
-			}
-
-			if (isSkillUseble(i, isTriRnd) == false) {
+			if (isSkillUseble(i) == false) {
 				continue;
-			} else { 
-				skills[skillSizeCounter] = i;
-				skillSizeCounter++;
 			}
-		}
 
-		if (skillSizeCounter != 0) {
-			int num = _rnd.nextInt(skillSizeCounter);
-			if (useSkill(skills[num])) { 
-				return true;
+			type = getMobSkillTemplate().getType(i);
+			if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) {
+				if (physicalAttack(i) == true) {
+					skillUseCountUp(i);
+					return true;
+				}
+			} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
+				if (magicAttack(i) == true) {
+					skillUseCountUp(i);
+					return true;
+				}
+			} else if (type == L1MobSkill.TYPE_SUMMON) {
+				if (summon(i) == true) {
+					skillUseCountUp(i);
+					return true;
+				}
+			} else if (type == L1MobSkill.TYPE_POLY) {
+				if (poly(i) == true) {
+					skillUseCountUp(i);
+					return true;
+				}
 			}
 		}
 
 		return false;
-	}
-
-	private boolean useSkill(int i) {
-		boolean isUseSkill = false;
-		int type = getMobSkillTemplate().getType(i);
-		if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) { 
-			if (physicalAttack(i) == true) {
-				skillUseCountUp(i);
-				isUseSkill = true;
-			}
-		} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
-			if (magicAttack(i) == true) {
-				skillUseCountUp(i);
-				isUseSkill = true;
-			}
-		} else if (type == L1MobSkill.TYPE_SUMMON) {
-			if (summon(i) == true) {
-				skillUseCountUp(i);
-				isUseSkill = true;
-			}
-		} else if (type == L1MobSkill.TYPE_POLY) { 
-			if (poly(i) == true) {
-				skillUseCountUp(i);
-				isUseSkill = true;
-			}
-		}
-		return isUseSkill;
 	}
 
 	private boolean summon(int idx) {
@@ -261,7 +209,7 @@ public class L1MobSkillUse {
 			int npcId = _attacker.getNpcTemplate().get_npcId();
 			switch (npcId) {
 			case 81082: 
-				pc.getInventory().takeoffEquip(945); 
+				pc.getInventory().takeoffEquip(945);
 				break;
 			default:
 				break;
@@ -414,19 +362,15 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	private boolean isSkillUseble(int skillIdx, boolean isTriRnd) {
+	private boolean isSkillUseble(int skillIdx) {
 		boolean useble = false;
-		int type = getMobSkillTemplate().getType(skillIdx);
 
-		if (isTriRnd || type == L1MobSkill.TYPE_SUMMON
-				|| type == L1MobSkill.TYPE_POLY) {
-			if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
-				int chance = _rnd.nextInt(100) + 1;
-				if (chance < getMobSkillTemplate().getTriggerRandom(skillIdx)) {
-					useble = true;
-				} else {
-					return false;
-				}
+		if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
+			int chance = _rnd.nextInt(100) + 1;
+			if (chance < getMobSkillTemplate().getTriggerRandom(skillIdx)) {
+				useble = true;
+			} else {
+				return false;
 			}
 		}
 
@@ -451,7 +395,7 @@ public class L1MobSkillUse {
 			if (hpRatio <= getMobSkillTemplate()
 					.getTriggerCompanionHp(skillIdx)) {
 				useble = true;
-				_target = companionNpc;
+				_target = companionNpc; 
 			} else {
 				return false;
 			}

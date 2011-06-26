@@ -367,34 +367,19 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else { 
+			boolean isSkillUse = false;
+			isSkillUse = mobSkill.skillUse(target);
+			if (isSkillUse == true) {
+				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
+						MAGIC_SPEED));
+				return;
+			}
+
 			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate()
 					.get_ranged())) {
-				if (mobSkill.isSkillTrigger(target)) { 
-					if (_random.nextInt(2) >= 1) { 
-						setHeading(targetDirection(target.getX(), target
-								.getY()));
-						attackTarget(target);
-					} else {
-						if (mobSkill.skillUse(target, true)) { 
-							setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
-									MAGIC_SPEED));
-						} else { 
-							setHeading(targetDirection(target.getX(), target
-									.getY()));
-							attackTarget(target);
-						}
-					}
-				} else {
 				setHeading(targetDirection(target.getX(), target.getY()));
 				attackTarget(target);
-				}
 			} else {
-				if (mobSkill.skillUse(target, false)) {
-					setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
-							MAGIC_SPEED));
-					return;
-				}
-
 				if (getPassispeed() > 0) {
 					int distance = getLocation().getTileDistance(
 							target.getLocation());
