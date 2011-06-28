@@ -852,3 +852,156 @@ INSERT INTO `npc` VALUES (81244, '', '', '', 'L1Merchant', 98, 0, 0, 0, 0, 0, 0,
 
 -- Fix turtle island scroll name.
 update etcitem set name = 'Scroll of Teleportation - Turtle Island', unidentified_name_id = '$230 - Turtle Island', identified_name_id = '$230 - Turtle Island' where item_id = 240102;
+
+-- Necro group often ends up never respawning due to some ghoul or floating eye
+-- that no one ever kills.  This solves that.
+update mobgroup set remove_group_if_leader_die = 1 where id = 15;
+
+-- Merged weapon table.
+-- Blade of Revenge
+update weapon set dmg_small = 4, dmg_large = 36 where item_id = 16;
+-- Sealed Forgotten Great Sword
+update weapon set dmg_small = 3, dmg_large = 6, hitmodifier = 3, dmgmodifier =
+3 where item_id = 16;
+-- Sword of Red Desire
+update weapon set add_hpr = -3 where item_id = 34;
+-- Large Sword of Blood
+update weapon set dmg_small = 13, dmg_large = 15 where item_id = 40;
+-- IT Two Handed Sword
+update weapon set dmg_small = 15, dmg_large = 15 where item_id = 48;
+-- Two Handed Sword
+update weapon set dmg_small = 17, dmg_large = 21 where item_id = 52;
+-- Sword of Brave Lizardman Soldier
+update weapon set dmg_small = 17, dmg_large = 21 where item_id = 53;
+-- Fire Sword of Death Knight
+update weapon set canbedmg = 1 where item_id = 58;
+-- Executuion Sword of Fidelity
+update weapon set dmg_small = 28, dmg_large = 33 where item_id = 61;
+-- Two-Handed Sword of Pretender King
+update weapon set weight = 150000, grdgfx = 4954, dmg_small = 19, dmg_large =
+23, dmgmodifier = 5 where item_id = 62;
+-- Great Sword
+update weapon set dmg_small = 20, dmg_large = 17 where item_id = 64;
+-- Sword of Heaven
+update weapon set cant_delete = 1 where item_id = 65;
+-- Dragon Slayer
+update weapon set dmg_small = 24, dmg_large = 33 where item_id = 66;
+-- Ancient Great Sword
+update weapon set dmg_small = 27, dmg_large = 45 where item_id = 67;
+-- Edoryu of Abyss
+update weapon set double_dmg_chance = 25 where item_id = 79;
+-- Lastavard Edoryu
+update weapon set double_dmg_chance = 25 where item_id = 82;
+-- Devil's Edoryu
+update weapon set double_dmg_chance = 25 where item_id = 85;
+-- Bardiche
+update weapon set dmg_small = 10, dmg_large = 12 where item_id = 90;
+-- Bill-guisarme
+update weapon set dmg_small = 10, dmg_large = 17 where item_id = 92;
+-- Guisarme
+update weapon set dmg_small = 12, dmg_large = 14 where item_id = 97;
+-- Glaive
+update weapon set dmg_small = 12, dmg_large = 16 where item_id = 98;
+-- Lucern Hammer
+update weapon set dmg_small = 15, dmg_large = 17 where item_id = 102;
+-- Halbred
+update weapon set dmg_small = 16, dmg_large = 12 where item_id = 103;
+-- Fauchard
+update weapon set dmg_small = 16, dmg_large = 16 where item_id = 104;
+-- Ivory Tower Spear
+update weapon set dmg_small = 16, dmg_large = 17 where item_id = 105;
+-- Bec de Corbin
+update weapon set dmg_small = 17, dmg_large = 17 where item_id = 106;
+-- Crimson Lance
+update weapon set dmg_small = 21, dmg_large = 21, hitmodifier = 4 where item_id
+= 107;
+-- Wand of Laia
+update weapon set add_sp = -2 where item_id = 117;
+-- Wisdom of the Ancient People
+update weapon set cant_delete = 1 where item_id = 133;
+-- War Hammer
+update weapon set dmg_small = 17, dmg_large = 19 where item_id = 141;
+-- Silver Axe
+update weapon set dmg_small = 17, dmg_large = 24 where item_id = 142;
+-- Battle Axe
+update weapon set dmg_small = 18, dmg_large = 18 where item_id = 143;
+-- Dwarvish Axe
+update weapon set dmg_small = 18, dmg_large = 24 where item_id = 144;
+-- Berserker Axe
+update weapon set dmg_small = 19, dmg_large = 19 where item_id = 145;
+-- Ivory Tower Axe
+update weapon set dmg_small = 20, dmg_large = 23 where item_id = 147;
+-- Great Axe
+update weapon set dmg_small = 20, dmg_large = 26 where item_id = 148;
+-- Axe of Minotaur
+update weapon set dmg_small = 22, dmg_large = 24 where item_id = 149;
+-- Demon Axe
+update weapon set dmg_small = 30, dmg_large = 30 where item_id = 151;
+-- Bronze Claw
+update weapon set double_dmg_chance = 33 where item_id = 152;
+-- Steel Claw
+update weapon set double_dmg_chance = 33 where item_id = 153;
+-- Two-Handed Sword of Varlok
+update weapon set dmg_small = 6, dmg_large = 8, hitmodifier = 4 where item_id =
+196;
+update weapon set dmg_small = 7, dmg_large = 9, hitmodifier = 5 where item_id =
+197;
+update weapon set dmg_small = 8, dmg_large = 10, hitmodifier = 6 where item_id
+= 198;
+update weapon set dmg_small = 9, dmg_large = 11, hitmodifier = 7 where item_id
+= 199;
+update weapon set dmg_small = 10, dmg_large = 12, hitmodifier = 8 where item_id
+= 200;
+update weapon set dmg_small = 11, dmg_large = 13, hitmodifier = 9 where item_id
+= 201;
+update weapon set dmg_small = 12, dmg_large = 14, hitmodifier = 10 where
+item_id = 202;
+update weapon set dmg_small = 13, dmg_large = 15, hitmodifier = 11 where
+item_id = 203;
+-- Claw of Purgatory
+update weapon set double_dmg_chance = 33 where item_id = 207;
+-- Spear of Sheba Human
+update weapon set dmg_small = 11, dmg_large = 26, hitmodifier = 3, add_hp = 80
+where item_id = 210;
+-- Trident of the Sea God
+update weapon set dmg_small = 20, dmg_large = 22, hitmodifier = 4 where item_id
+= 212;
+-- Sword of Kirtas
+update weapon set dmg_small = 43, dmg_large = 53 where item_id = 217;
+-- Iron Mace of Angus
+update weapon set haste_item = 1 where item_id = 218;
+-- Sword of Legend
+update weapon set grdgfx = 4413 where item_id = 228;
+-- Dagger of Blue Sky
+update weapon set max_use_time = 300000 where item_id = 231;
+-- Edoryu of Blue Sky
+update weapon set double_dmg_chance = 25 where item_id = 236;
+-- Claw of Blue Sky
+update weapon set double_dmg_chance = 33 where item_id = 237;
+-- Unknown Claw
+update weapon set double_dmg_chance = 33 where item_id = 244;
+-- Two Handed Sword
+update weapon set dmg_small = 17, dmg_large = 21 where item_id = 100052;
+-- Two-Handed Sword of Pretender King
+update weapon set weight = 150000, dmg_small = 19, dmg_large = 23, dmgmodifier
+= 5 where item_id = 100062;
+-- Great Sword
+update weapon set dmg_small = 20, dmg_large = 17 where item_id = 100064;
+-- Glaive
+update weapon set dmg_small = 12, dmg_large = 16 where item_id = 100098;
+-- Lucern Hammer
+update weapon set dmg_small = 15, dmg_large = 17, hitmodifier = 3 where item_id
+= 100102;
+-- Halberd
+update weapon set dmg_small = 16, dmg_large = 12 where item_id = 100103;
+-- Crimson Lance
+update weapon set dmg_small = 21, dmg_large = 21 where item_id = 100107;
+-- Battle Axe
+update weapon set dmg_small = 18, dmg_large = 18 where item_id = 100143;
+-- Demon Axe
+update weapon set dmg_small = 30, dmg_large = 30 where item_id = 100151;
+-- Trident of the Sea God
+update weapon set dmg_small = 20, dmg_large = 22, hitmodifier = 4 where item_id
+= 100212;
+-- Two-Handed Sword
+update weapon set dmg_small = 17, dmg_large = 21 where item_id = 200052;
