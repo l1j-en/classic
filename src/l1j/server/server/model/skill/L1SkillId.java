@@ -20,7 +20,6 @@ package l1j.server.server.model.skill;
 
 public class L1SkillId {
 	public static final int SKILLS_BEGIN = 1;
-
 	/*
 	 * Regular Magic Lv1-10
 	 */
@@ -594,5 +593,4 @@ public class L1SkillId {
 	public static final int STATUS_CURSE_BARLOG = 1015;
 
 	public static final int STATUS_CURSE_YAHEE = 1014;
-
 }

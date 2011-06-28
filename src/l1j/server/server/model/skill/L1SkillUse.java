@@ -2141,7 +2141,21 @@ public class L1SkillUse {
 										.getId(), "$2488"));
 							}
 						}
-						if (npcId == 81209) { // 
+						if (_skillId == 12001) {
+							L1CurseParalysis.curse(cha, 8000, 16000);
+						}
+						if (npcId == 45361) {
+						//if ((_skill.getType() == L1Skills.TYPE_CURSE || _skill.getType() == L1Skills.TYPE_PROBABILITY)
+						//		&& isTargetFailure(cha)) {
+						//	iter.remove();
+						//	continue;
+							L1CurseParalysis.curse(cha, 8000, 16000);
+							npc.broadcastPacket(new S_Poison(npc.getId(), 2));
+							npc.setParalyzed(true);
+							npc.setParalysisTime(30);
+						//}
+						}
+						if (npcId == 81209) {
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(4310);
 								npc.broadcastPacket(new S_ChangeShape(npc
@@ -2727,19 +2741,20 @@ public class L1SkillUse {
 					} else if (_skillId == INVISIBILITY
 							|| _skillId == BLIND_HIDING) { 
 						L1PcInstance pc = (L1PcInstance) cha;
+						pc.sendPackets(new S_Sound(147));
 						pc.sendPackets(new S_Invis(pc.getId(), 1));
-						pc.broadcastPacketForFindInvis(new S_RemoveObject(pc),
-								false);
+						pc.broadcastPacketForFindInvis(new S_RemoveObject(pc), 
+						false);
 					} else if (_skillId == IRON_SKIN) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-10);
-						pc.sendPackets(new S_SkillIconShield(10,
-								_getBuffIconDuration));
+						pc.sendPackets(new S_SkillIconShield(10, 
+						_getBuffIconDuration));
 					} else if (_skillId == EARTH_SKIN) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-6);
-						pc.sendPackets(new S_SkillIconShield(6,
-								_getBuffIconDuration));
+						pc.sendPackets(new S_SkillIconShield(6, 
+						_getBuffIconDuration));
 					} else if (_skillId == PHYSICAL_ENCHANT_STR) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addStr((byte) 5);

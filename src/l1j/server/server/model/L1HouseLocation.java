@@ -809,5 +809,4 @@ public class L1HouseLocation {
 		}
 		return loc;
 	}
-
 }

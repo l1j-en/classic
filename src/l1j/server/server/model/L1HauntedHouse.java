@@ -180,8 +180,6 @@ public class L1HauntedHouse {
 		return _goalCount;
 	}
 
-
-
 public class L1HauntedHouseReadyTimer extends TimerTask {
 
 	public L1HauntedHouseReadyTimer() {
