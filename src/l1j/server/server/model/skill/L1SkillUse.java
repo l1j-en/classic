@@ -2141,20 +2141,6 @@ public class L1SkillUse {
 										.getId(), "$2488"));
 							}
 						}
-						if (_skillId == 12001) {
-							L1CurseParalysis.curse(cha, 8000, 16000);
-						}
-						if (npcId == 45361) {
-						//if ((_skill.getType() == L1Skills.TYPE_CURSE || _skill.getType() == L1Skills.TYPE_PROBABILITY)
-						//		&& isTargetFailure(cha)) {
-						//	iter.remove();
-						//	continue;
-							L1CurseParalysis.curse(cha, 8000, 16000);
-							npc.broadcastPacket(new S_Poison(npc.getId(), 2));
-							npc.setParalyzed(true);
-							npc.setParalysisTime(30);
-						//}
-						}
 						if (npcId == 81209) {
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(4310);
@@ -2578,7 +2564,6 @@ public class L1SkillUse {
 										}
 										npcattr *= 2;
 									}
-						
 									if (summonid == 0) {
 										Random random = new Random();
 										int k3 = random.nextInt(4);
@@ -2604,7 +2589,7 @@ public class L1SkillUse {
 
 					if (_skillId == LIGHT) { 
 						
-					} else if (_skillId == GLOWING_AURA) { // 
+					} else if (_skillId == GLOWING_AURA) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addHitup(5);
 						pc.addBowHitup(5);
