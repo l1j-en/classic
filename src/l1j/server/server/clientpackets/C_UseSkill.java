@@ -93,8 +93,8 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 				} else {
 					targetId = readD();
-					targetX = readH();
-					targetY = readH();
+					//targetX = readH();
+					//targetY = readH();
 				}
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, "", e);
