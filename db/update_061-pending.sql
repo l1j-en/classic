@@ -1005,3 +1005,9 @@ update weapon set dmg_small = 20, dmg_large = 22, hitmodifier = 4 where item_id
 = 100212;
 -- Two-Handed Sword
 update weapon set dmg_small = 17, dmg_large = 21 where item_id = 200052;
+
+-- Added Reinforced and Fortified T-shirts
+insert into armor values (30000,'Reinforced T-Shirt','Reinforced T-Shirt','Reinforced T-Shirt','T','steel',6000,2000,5051,0,-2,4,0,1,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+insert into armor values (30001,'Fortified T-Shirt','Fortified T-Shirt','Fortified T-Shirt','T','steel',7500,302,9,0,-4,4,0,1,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,45,0,0,0,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+insert into etcitem values (90009,'Fiery Coal','Fiery Coal','Fiery Coal','material','none','none',500,244,774,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into droplist values (45512,'Hell Bound',90009,'Fiery Coal',1,1,4500);
