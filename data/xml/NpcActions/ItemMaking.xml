@@ -3500,4 +3500,23 @@
 			<Material Amount="4" ItemId="40018"/>
 		</MakeItem>
 	</Action>
+	<!-- Request Reinforced T-Shirt -->
+	<Action Name="request knight t1 t-shirt">
+		<MakeItem>
+			<Item Amount="1" ItemId="30000"/>
+			<Material Amount="20000" ItemId="40308"/>
+			<Material Amount="15" ItemId="40779"/>
+			<Material Amount="1" ItemId="20085"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Fortified T-Shirt -->
+	<Action Name="request knight t2 t-shirt">
+		<MakeItem>
+			<Item Amount="1" ItemId="30001"/>
+			<Material Amount="1" ItemId="30000"/>
+			<Material Amount="20000" ItemId="40308"/>
+			<Material Amount="10" ItemId="40779"/>
+			<Material Amount="1" ItemId="90009"/>
+	</MakeItem>
+	</Action>
 </NpcActionList>
