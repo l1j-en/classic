@@ -5733,12 +5733,23 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
-		if (l1pet != null) {
-			L1Npc npcTemp = NpcTable.getInstance().getTemplate(
-					l1pet.get_npcid());
-			L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
-			pet.setPetcost(6);
-		}
+			if (l1pet != null) {
+				int npcId = l1pet.get_npcid();
+				charisma -= petCost;
+				if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712) {
+					divisor = 12;
+				} else {
+					divisor = 6;
+				}
+				petCount = charisma / divisor;
+				if (petCount <= 0) {
+					pc.sendPackets(new S_ServerMessage(489));
+					return;
+				}
+				L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
+				L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
+				pet.setPetcost(divisor);
+			}
 		return true;
 	}
 
