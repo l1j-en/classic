@@ -55,14 +55,14 @@ insert into spawnlist_npc values (1900006,'Bag Girl',1,90013,33454,32823,0,0,6,0
 insert into spawnlist_npc values (1900007,'Bag Girl',1,90013,33736,32493,0,0,4,0,4,0);
 insert into spawnlist_npc values (1900008,'Bag Girl',1,90013,34062,32290,0,0,4,0,4,0);
 update etcitem set weight = 4500 where item_id = "40031";
-insert into etcitem values (90000,'Bag of Greater Mana Potion\'s','Bag of Greater Mana Potion\'s','Bag of Greater Mana Potion\'s','treasure_box','normal','leather',14100,1645,4248,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90001,'Bag of Greater Haste Potion\'s','Bag of Greater Haste Potion\'s','Bag of Greater Haste Potion\'s','treasure_box','normal','leather',14100,957,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90002,'Bag of Elven Wafer\'s','Bag of Elven Wafer\'s','Bag of Elven Wafer\'s','treasure_box','normal','leather',15000,1396,3461,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90003,'Bag of Brave Potion\'s','Bag of Brave Potion\'s','Bag of Brave Potion\'s','treasure_box','normal','leather',13500,958,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90000,'Bag of Greater Mana Potions','Bag of Greater Mana Potions','Bag of Greater Mana Potions','treasure_box','normal','leather',14100,1645,4248,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90001,'Bag of Greater Haste Potions','Bag of Greater Haste Potions','Bag of Greater Haste Potions','treasure_box','normal','leather',14100,957,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90002,'Bag of Elven Wafers','Bag of Elven Wafers','Bag of Elven Wafers','treasure_box','normal','leather',15000,1396,3461,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90003,'Bag of Brave Potions','Bag of Brave Potions','Bag of Brave Potions','treasure_box','normal','leather',13500,958,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
 insert into etcitem values (90004,'Bag of Devil\'s Blood','Bag of Devil\'s Blood','Bag of Devil\'s Blood','treasure_box','normal','leather',13500,1417,4248,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90005,'Bag of Wisdom Potion\'s','Bag of Wisdom Potion\'s','Bag of Wisdom Potion\'s','treasure_box','normal','leather',13500,1643,4246,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90006,'Bag of Mana Potion\'s','Bag of Mana Potion\'s','Bag of Mana Potion\'s','treasure_box','normal','leather',23400,1645,4248,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
-insert into etcitem values (90007,'Bag of Haste Potion\'s','Bag of Haste Potion\'s','Bag of Haste Potion\'s','treasure_box','normal','leather',11700,957,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90005,'Bag of Wisdom Potions','Bag of Wisdom Potions','Bag of Wisdom Potions','treasure_box','normal','leather',13500,1643,4246,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90006,'Bag of Mana Potions','Bag of Mana Potions','Bag of Mana Potions','treasure_box','normal','leather',23400,1645,4248,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (90007,'Bag of Haste Potions','Bag of Haste Potions','Bag of Haste Potions','treasure_box','normal','leather',11700,957,3963,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
 insert into etcitem values (90008,'Greater Potion of Mana','Greater Potion of Mana','Greater Potion of Mana','potion','normal','glass',7050,75,20,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0);
 
 -- Lots more npc table merges.
