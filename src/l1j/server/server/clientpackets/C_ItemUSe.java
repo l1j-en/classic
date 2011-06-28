@@ -5700,7 +5700,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(563));
 			return false;
 		}
-
+		int divisor = 6;
 		int petCost = 0;
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object pet : petList) {
@@ -5744,7 +5744,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				petCount = charisma / divisor;
 				if (petCount <= 0) {
 					pc.sendPackets(new S_ServerMessage(489));
-					return;
+					return true;
 				}
 				L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
 				L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
