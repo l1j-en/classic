@@ -849,3 +849,6 @@ INSERT INTO `npc` VALUES (81241, '', '', '', 'L1Merchant', 98, 0, 0, 0, 0, 0, 0,
 INSERT INTO `npc` VALUES (81242, '', '', '', 'L1Merchant', 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 1, 0);
 INSERT INTO `npc` VALUES (81243, '', '', '', 'L1Merchant', 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 1, 0);
 INSERT INTO `npc` VALUES (81244, '', '', '', 'L1Merchant', 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 1, 0);
+
+-- Fix turtle island scroll name.
+update etcitem set name = 'Scroll of Teleportation - Turtle Island', unidentified_name_id = '$230 - Turtle Island', identified_name_id = '$230 - Turtle Island' where item_id = 240102;
