@@ -44,6 +44,7 @@ public class L1GuardInstance extends L1NpcInstance {
 
 	@Override
 	public void searchTarget() {
+		int npcid = getNpcTemplate().get_npcId();
 		L1PcInstance targetPlayer = null;
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
@@ -52,7 +53,16 @@ public class L1GuardInstance extends L1NpcInstance {
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi())
 			{
-				if (pc.isWanted()) {// PK
+				//target pk'ers if not casle owners
+				//custom, do not remove in merges
+				if (pc.isWanted() && ( npcid == 60514 && !checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) && 
+					( npcid == 81156 && !checkHasCastle(pc,L1CastleLocation.DIAD_CASTLE_ID)) && 
+					( (npcid == 60533 || npcid == 60534) && !checkHasCastle(pc,L1CastleLocation.ADEN_CASTLE_ID)) && 
+					( (npcid == 60530 || npcid == 60531) && !checkHasCastle(pc,L1CastleLocation.DOWA_CASTLE_ID)) && 
+					( npcid == 70857 && !checkHasCastle(pc,L1CastleLocation.HEINE_CASTLE_ID)) && 
+					( (npcid == 60524 || npcid == 60525 || npcid == 60529) && !checkHasCastle(pc,L1CastleLocation.GIRAN_CASTLE_ID)) && 
+					( npcid == 60552 && !checkHasCastle(pc,L1CastleLocation.OT_CASTLE_ID)) && 
+					( npcid == 60560 && !checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID))) {
 					targetPlayer = pc;
 					break;
 				}
