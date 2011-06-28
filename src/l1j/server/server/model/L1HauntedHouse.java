@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import l1j.server.Config;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -33,7 +34,6 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class L1HauntedHouse {
 	private static final Logger _log = Logger.getLogger(L1HauntedHouse.class
 			.getName());
-
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
 	public static final int STATUS_PLAYING = 2;
@@ -101,6 +101,7 @@ public class L1HauntedHouse {
 			}
 		}
 		clearMembers();
+		
 		for (L1Object object : L1World.getInstance().getObject()) {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
@@ -195,9 +196,8 @@ public class L1HauntedHouseReadyTimer extends TimerTask {
 
 	public void begin() {
 		Timer timer = new Timer();
-		timer.schedule(this, 90000); 
+		timer.schedule(this, Config.HAUNTEDHOUSETIME); 
 	}
-
 }
 
 public class L1HauntedHouseTimer extends TimerTask {
@@ -215,7 +215,5 @@ public class L1HauntedHouseTimer extends TimerTask {
 		Timer timer = new Timer();
 		timer.schedule(this, 300000); 
 	}
-
-}
-
+  }
 }
