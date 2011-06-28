@@ -975,3 +975,6 @@ update npc set undead = 0, hprinterval = 5000, hpr = 10, isErase = 0 where
 npcid = 45843;
 update npc set exp = 0, lawful = 0 where npcid = 45845;
 
+-- make basi untamable
+
+update npc set tamable = 0 where npcid = 45381;
