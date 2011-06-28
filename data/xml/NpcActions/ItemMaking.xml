@@ -3437,4 +3437,67 @@
 			</Fail>
 		</MakeItem>
 	</Action>
+	<!-- Request Candle of Reminiscence -->
+	<Action Name="request candle of memory">
+		<MakeItem>
+			<Item Amount="1" ItemId="49142"/>
+			<Material Amount="10000000" ItemId="40308"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Haste Potions -->
+	<Action Name="request haste bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90007"/>
+			<Material Amount="6" ItemId="40013"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Brave Potions -->
+	<Action Name="request brave bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90003"/>
+			<Material Amount="6" ItemId="40014"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Wafers -->
+	<Action Name="request wafer bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90002"/>
+			<Material Amount="6" ItemId="40068"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Devils Blood -->
+	<Action Name="request essence bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90004"/>
+			<Material Amount="6" ItemId="40031"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Mana Potions -->
+	<Action Name="request mana bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90006"/>
+			<Material Amount="6" ItemId="40015"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Wisdom Potions -->
+	<Action Name="request wisdom bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90005"/>
+			<Material Amount="6" ItemId="40016"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Greater Mana Potions -->
+	<Action Name="request gmana bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90000"/>
+			<Material Amount="4" ItemId="90008"/>
+		</MakeItem>
+	</Action>
+	<!-- Request Bag of Greater Haste Potions -->
+	<Action Name="request ghaste bag">
+		<MakeItem>
+			<Item Amount="1" ItemId="90001"/>
+			<Material Amount="4" ItemId="40018"/>
+		</MakeItem>
+	</Action>
 </NpcActionList>

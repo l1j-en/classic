@@ -1132,4 +1132,36 @@
 		<Item ItemId="41253" Count="1" Chance="3" />
 		<Item ItemId="41254" Count="1" Chance="3" />
 	</TreasureBox>
+	<!-- Bag of Greater Mana Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90000">
+		<Item ItemId="90008" Count="4"></Item>
+	</TreasureBox>
+	<!-- Bag of Greater Haste Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90001">
+		<Item ItemId="40018" Count="4"></Item>
+	</TreasureBox>
+	<!-- Bag of Haste Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90007">
+		<Item ItemId="40013" Count="6"></Item>
+	</TreasureBox>
+	<!-- Bag of Brave Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90003">
+		<Item ItemId="40014" Count="6"></Item>
+	</TreasureBox>
+	<!-- Bag of Wafers --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90002">
+		<Item ItemId="40068" Count="6"></Item>
+	</TreasureBox>
+	<!-- Bag of Devils Blood --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90004">
+		<Item ItemId="40031" Count="6"></Item>
+	</TreasureBox>
+	<!-- Bag of Mana Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90006">
+		<Item ItemId="40015" Count="6"></Item>
+	</TreasureBox>
+	<!-- Bag of Wisdom Potions --> 
+	<TreasureBox Type="SPECIFIC" ItemId="90005">
+		<Item ItemId="40016" Count="6"></Item>
+	</TreasureBox>
 </TreasureBoxList>
