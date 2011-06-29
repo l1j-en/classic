@@ -956,14 +956,14 @@
 	<!-- -->
 	<Action Name="request karif bag1">
 		<MakeItem>
-			<Item Amount="1" ItemId="49005"/>
+			<Item Amount="1" ItemId="49007"/>
 			<Material Amount="1" ItemId="40044"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
 	<Action Name="request karif bag2">
 		<MakeItem>
-			<Item Amount="1" ItemId="49008"/>
+			<Item Amount="1" ItemId="49005"/>
 			<Material Amount="1" ItemId="40047"/>
 		</MakeItem>
 	</Action>
@@ -977,21 +977,21 @@
 	<!-- -->
 	<Action Name="request karif bag4">
 		<MakeItem>
-			<Item Amount="1" ItemId="49007"/>
+			<Item Amount="1" ItemId="49008"/>
 			<Material Amount="1" ItemId="40046"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
 	<Action Name="request karif bag5">
 		<MakeItem>
-			<Item Amount="1" ItemId="49009"/>
+			<Item Amount="1" ItemId="49012"/>
 			<Material Amount="1" ItemId="40048"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
 	<Action Name="request karif bag6">
 		<MakeItem>
-			<Item Amount="1" ItemId="49010"/>
+			<Item Amount="1" ItemId="49009"/>
 			<Material Amount="1" ItemId="40051"/>
 		</MakeItem>
 	</Action>
@@ -1005,7 +1005,7 @@
 	<!-- -->
 	<Action Name="request karif bag8">
 		<MakeItem>
-			<Item Amount="1" ItemId="49012"/>
+			<Item Amount="1" ItemId="49010"/>
 			<Material Amount="1" ItemId="40050"/>
 		</MakeItem>
 	</Action>
@@ -2707,7 +2707,7 @@
 		</MakeItem>
 	</Action>
 	<!-- -->
-	<Action Name="request new surprise bag" NpcId="80089">
+	<Action Name="request petmatch surprise bag" NpcId="80089">
 		<MakeItem>
 			<Material Amount="150" ItemId="41309"/>
 			<Item Amount="1" ItemId="41416"/>
