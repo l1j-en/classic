@@ -192,21 +192,7 @@ public class L1Inventory extends L1Object {
 		item.setX(getX());
 		item.setY(getY());
 		item.setMap(getMapId());
-		int chargeCount = item.getItem().getMaxChargeCount();
-		if (item.getItem().getItemId() == 40006
-			|| item.getItem().getItemId() == 40007
-			|| item.getItem().getItemId() == 40008
-			|| item.getItem().getItemId() == 40412 
-			|| item.getItem().getItemId() == 140006
-			|| item.getItem().getItemId() == 140008
-			|| item.getItem().getItemId() == 41401) {
-			Random random = new Random();
-			chargeCount -= random.nextInt(5);
-		}
-		if (item.getItem().getItemId() == 20383) {
-			chargeCount = 50;
-		}
-		item.setChargeCount(chargeCount);
+		
 		_items.add(item);
 		insertItem(item);
 		return item;
