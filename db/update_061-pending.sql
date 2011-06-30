@@ -1197,8 +1197,6 @@ update etcitem set locx = 32728, locy = 32815 where item_id = 42004;
 update etcitem set invgfx = 2878 where item_id = 42029;
 
 update etcitem set locx = 32572, locy = 32663 where item_id = 40083;
--- Updated treasure XML to fix this.  JP has this confused with 40696.
-update etcitem set use_type = 'treasure_box', item_type = 'normal' where item_id = 40697;
 update etcitem set invgfx = 2878 where item_id = 42030;
 update etcitem set invgfx = 2878 where item_id = 42031;
 update etcitem set invgfx = 2878 where item_id = 42032;
@@ -1211,6 +1209,7 @@ update etcitem set invgfx = 2878 where item_id = 42039;
 update etcitem set stackable = 1 where item_id = 49032;
 update etcitem set stackable = 1 where item_id = 49033;
 
+-- Fix Relic of Expedition Member treasure bag.
 delete from etcitem where item_id in (40696, 40697);
 INSERT INTO `etcitem` VALUES (40696, 'Gloves of Expedition Member', '$3978', '$3978', 'treasure_box', 'normal', 'none', 0, 957, 3963, 1838, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1);
 INSERT INTO `etcitem` VALUES (40697, 'Relic of Expedition Member', '$3992', '$3992', 'questitem', 'normal', 'leather', 0, 2054, 3963, 1841, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1);
