@@ -1015,3 +1015,188 @@ insert into droplist values (45512,'Hell Bound',90009,'Fiery Coal',1,1,4500);
 -- Revert Temp fix for Pine/Maple wands recharge bug --
 update etcitem set trade = '0' where item_id = 40006;
 update etcitem set trade = '0' where item_id = 40008;
+
+-- etcitem table merge.
+update etcitem set weight = 2930 where item_id = 40026;
+update etcitem set weight = 2930 where item_id = 40027;
+update etcitem set weight = 2930 where item_id = 40028;
+update etcitem set trade = 0 where item_id = 40310;
+update etcitem set grdgfx = 5001 where item_id = 40667;
+update etcitem set use_type = 'choice' where item_id = 40925;
+update etcitem set use_type = 'choice' where item_id = 40926;
+update etcitem set use_type = 'choice' where item_id = 40927;
+update etcitem set use_type = 'choice' where item_id = 40928;
+update etcitem set use_type = 'choice' where item_id = 40929;
+update etcitem set use_type = 'choice' where item_id = 40931;
+update etcitem set use_type = 'choice' where item_id = 40932;
+update etcitem set use_type = 'choice' where item_id = 40933;
+update etcitem set use_type = 'choice' where item_id = 40934;
+update etcitem set use_type = 'choice' where item_id = 40935;
+update etcitem set use_type = 'choice' where item_id = 40936;
+update etcitem set use_type = 'choice' where item_id = 40937;
+update etcitem set use_type = 'choice' where item_id = 40938;
+update etcitem set use_type = 'choice' where item_id = 40939;
+update etcitem set use_type = 'choice' where item_id = 40940;
+update etcitem set use_type = 'choice' where item_id = 40941;
+update etcitem set use_type = 'choice' where item_id = 40942;
+update etcitem set use_type = 'choice' where item_id = 40943;
+update etcitem set use_type = 'choice' where item_id = 40944;
+update etcitem set use_type = 'choice' where item_id = 40945;
+update etcitem set use_type = 'choice' where item_id = 40946;
+update etcitem set use_type = 'choice' where item_id = 40947;
+update etcitem set use_type = 'choice' where item_id = 40948;
+update etcitem set use_type = 'choice' where item_id = 40949;
+update etcitem set use_type = 'choice' where item_id = 40950;
+update etcitem set use_type = 'choice' where item_id = 40951;
+update etcitem set use_type = 'choice' where item_id = 40952;
+update etcitem set use_type = 'choice' where item_id = 40953;
+update etcitem set use_type = 'choice' where item_id = 40954;
+update etcitem set use_type = 'choice' where item_id = 40955;
+update etcitem set use_type = 'choice' where item_id = 40958;
+update etcitem set use_type = 'choice' where item_id = 40959;
+update etcitem set use_type = 'choice' where item_id = 40964;
+update etcitem set itemdesc_id = 2261 where item_id = 40987;
+update etcitem set itemdesc_id = 2263 where item_id = 40988;
+update etcitem set itemdesc_id = 2262 where item_id = 40989;
+update etcitem set grdgfx = 3832 where item_id = 41002;
+update etcitem set stackable = 1 where item_id = 41003;
+update etcitem set stackable = 1 where item_id = 41008;
+update etcitem set use_type = 'choice', stackable = 1 where item_id = 41029;
+update etcitem set stackable = 1 where item_id = 41036;
+update etcitem set unidentified_name_id = '$4502', identified_name_id =
+'$4502', invgfx = 2308, itemdesc_id = 2271 where item_id = 41161;
+update etcitem set unidentified_name_id = '$4502', identified_name_id =
+'$4502', invgfx = 2308, itemdesc_id = 2279 where item_id = 41162;
+update etcitem set unidentified_name_id = '$4502', identified_name_id =
+'$4502', invgfx = 2308, itemdesc_id = 2275 where item_id = 41163;
+update etcitem set unidentified_name_id = '$4503', identified_name_id =
+'$4503', itemdesc_id = 2276 where item_id = 41164;
+update etcitem set unidentified_name_id = '$4511', identified_name_id =
+'$4511', itemdesc_id = 2276 where item_id = 41165;
+update etcitem set unidentified_name_id = '$4507', identified_name_id =
+'$4507', itemdesc_id = 2276 where item_id = 41166;
+update etcitem set unidentified_name_id = '$4504', identified_name_id =
+'$4504', invgfx = 2308, itemdesc_id = 2277 where item_id = 41167;
+update etcitem set unidentified_name_id = '$4512', identified_name_id =
+'$4512', itemdesc_id = 2276 where item_id = 41168;
+update etcitem set unidentified_name_id = '$4508', identified_name_id =
+'$4508', invgfx = 2308, itemdesc_id = 2277 where item_id = 41169;
+update etcitem set unidentified_name_id = '$4505', identified_name_id =
+'$4505', itemdesc_id = 2278 where item_id = 41170;
+update etcitem set unidentified_name_id = '$4513', identified_name_id =
+'$4513', invgfx = 2308, itemdesc_id = 2278 where item_id = 41171;
+update etcitem set itemdesc_id = 2278 where item_id = 41172;
+update etcitem set unidentified_name_id = '$4579', identified_name_id =
+'$4579', invgfx = 2297, itemdesc_id = 2264 where item_id = 41173;
+update etcitem set unidentified_name_id = '$4579', identified_name_id =
+'$4579', invgfx = 2297, itemdesc_id = 2266 where item_id = 41174;
+update etcitem set unidentified_name_id = '$4579', identified_name_id =
+'$4579', invgfx = 2297, itemdesc_id = 2265 where item_id = 41175;
+update etcitem set unidentified_name_id = '$4514', identified_name_id =
+'$4514', invgfx = 2306, itemdesc_id = 2283 where item_id = 41176;
+update etcitem set unidentified_name_id = '$4520', identified_name_id =
+'$4520', itemdesc_id = 2283 where item_id = 41177;
+update etcitem set unidentified_name_id = '$4517', identified_name_id =
+'$4517', invgfx = 2306, itemdesc_id = 2283 where item_id = 41178;
+update etcitem set unidentified_name_id = '$4515', identified_name_id =
+'$4515', itemdesc_id = 2284 where item_id = 41179;
+update etcitem set unidentified_name_id = '$4521', identified_name_id =
+'$4521', invgfx = 2306, itemdesc_id = 2284 where item_id = 41180;
+update etcitem set unidentified_name_id = '$4518', identified_name_id =
+'$4518', invgfx = 2306, itemdesc_id = 2283 where item_id = 41181;
+update etcitem set unidentified_name_id = '$4516', identified_name_id =
+'$4516', itemdesc_id = 2285 where item_id = 41182;
+update etcitem set unidentified_name_id = '$4522', identified_name_id =
+'$4522', itemdesc_id = 2285 where item_id = 41183;
+update etcitem set unidentified_name_id = '$4519', identified_name_id =
+'$4519', invgfx = 2306, itemdesc_id = 2285 where item_id = 41184;
+update etcitem set unidentified_name_id = '$4559', identified_name_id =
+'$4559' where item_id = 41185;
+update etcitem set unidentified_name_id = '$4551', identified_name_id =
+'$4551' where item_id = 41186;
+update etcitem set unidentified_name_id = '$4543', identified_name_id =
+'$4543' where item_id = 41187;
+update etcitem set unidentified_name_id = '$4552', identified_name_id =
+'$4552' where item_id = 41190;
+update etcitem set unidentified_name_id = '$4544', identified_name_id =
+'$4544' where item_id = 41191;
+update etcitem set unidentified_name_id = '$4568', identified_name_id =
+'$4568' where item_id = 41192;
+update etcitem set unidentified_name_id = '$4561', identified_name_id =
+'$4561' where item_id = 41193;
+update etcitem set unidentified_name_id = '$4553', identified_name_id =
+'$4553' where item_id = 41194;
+update etcitem set unidentified_name_id = '$4569', identified_name_id =
+'$4569' where item_id = 41196;
+update etcitem set unidentified_name_id = '$4562', identified_name_id =
+'$4562' where item_id = 41197;
+update etcitem set unidentified_name_id = '$4546', identified_name_id =
+'$4546' where item_id = 41199;
+update etcitem set unidentified_name_id = '$4570', identified_name_id =
+'$4570' where item_id = 41200;
+update etcitem set use_type = 'normal', locx = 32833, locy = 33089 where
+item_id = 45208;
+update etcitem set itemdesc_id = 2777 where item_id = 45251;
+update etcitem set itemdesc_id = 2552, stackable = 0 where item_id = 45255;
+update etcitem set itemdesc_id = 2553, stackable = 0 where item_id = 45256;
+update etcitem set itemdesc_id = 2554, stackable = 0 where item_id = 45257;
+update etcitem set itemdesc_id = 2555, stackable = 0 where item_id = 45258;
+update etcitem set itemdesc_id = 2556, stackable = 0 where item_id = 45259;
+update etcitem set itemdesc_id = 2564 where item_id = 41263;
+update etcitem set weight = 1000, itemdesc_id = 2564 where item_id = 45264;
+update etcitem set itemdesc_id = 2564 where item_id = 41265;
+update etcitem set itemdesc_id = 2564 where item_id = 41266;
+update etcitem set weight = 1000, itemdesc_id = 2564 where item_id = 41267;
+update etcitem set itemdesc_id = 2564 where item_id = 41274;
+update etcitem set itemdesc_id = 2564 where item_id = 41275;
+update etcitem set itemdesc_id = 2564 where item_id = 41276;
+update etcitem set weight = 2000, itemdesc_id = 2562 where item_id = 41277;
+update etcitem set weight = 2000, itemdesc_id = 2563 where item_id = 41278;
+update etcitem set weight = 2000, itemdesc_id = 2564 where item_id = 41279;
+update etcitem set weight = 2000, itemdesc_id = 2565 where item_id = 41280;
+update etcitem set weight = 2000, itemdesc_id = 2566 where item_id = 41281;
+update etcitem set weight = 2000, itemdesc_id = 2567 where item_id = 41282;
+update etcitem set weight = 2000, itemdesc_id = 2568 where item_id = 41283;
+update etcitem set weight = 2000, itemdesc_id = 2569 where item_id = 41284;
+update etcitem set weight = 2000 where item_id = 41285;
+update etcitem set weight = 2000 where item_id = 41286;
+update etcitem set weight = 2000 where item_id = 41287;
+update etcitem set weight = 3000 where item_id = 41288;
+update etcitem set weight = 3000 where item_id = 41289;
+update etcitem set weight = 3000 where item_id = 41290;
+update etcitem set weight = 2000 where item_id = 41291;
+update etcitem set weight = 2000 where item_id = 41292;
+update etcitem set use_type = 'treasure_box' where item_id = 41311;
+update etcitem set itemdesc_id = 2653 where item_id = 41319;
+update etcitem set itemdesc_id = 2654 where item_id = 41320;
+update etcitem set itemdesc_id = 2655 where item_id = 41321;
+update etcitem set itemdesc_id = 2656 where item_id = 41322;
+update etcitem set itemdesc_id = 2657 where item_id = 41323;
+update etcitem set itemdesc_id = 2658 where item_id = 41324;
+update etcitem set itemdesc_id = 2660 where item_id = 41327;
+update etcitem set itemdesc_id = 2661 where item_id = 41328;
+update etcitem set use_type = 'treasure_box' where item_id = 41336;
+update etcitem set delay_id = 2, delay_time = 1000 where item_id = 41337;
+update etcitem set itemdesc_id = 2594 where item_id = 41339;
+update etcitem set itemdesc_id = 1760 where item_id = 41340;
+update etcitem set itemdesc_id = 2597 where item_id = 41341;
+update etcitem set invgfx = 324, itemdesc_id = 2605 where item_id = 41342;
+update etcitem set itemdesc_id = 2598 where item_id = 41343;
+update etcitem set itemdesc_id = 2595 where item_id = 41344;
+update etcitem set itemdesc_id = 2596 where item_id = 41345;
+update etcitem set invgfx = 1760, itemdesc_id = 2602 where item_id = 41346;
+update etcitem set invgfx = 1760, itemdesc_id = 2603 where item_id = 41347;
+update etcitem set invgfx = 1760, itemdesc_id = 2604 where item_id = 41348;
+update etcitem set invgfx = 313 where item_id = 41356;
+update etcitem set invgfx = 2867, itemdesc_id = 2979 where item_id = 41402;
+update etcitem set unidentified_name_id = '$5523', identified_name_id = '$5523'
+where item_id = 41422;
+update etcitem set locx = 32743, locy = 32833 where item_id = 42002;
+update etcitem set locx = 32782, locy = 32736 where item_id = 42003;
+update etcitem set locx = 32728, locy = 32815 where item_id = 42004;
+update etcitem set invgfx = 2878 where item_id = 42029;
+
+
+
+
+
