@@ -900,7 +900,7 @@
 		<Item ItemId="   268" Count="1" Chance=" 3" />
 	</TreasureBox>
 
-	<TreasureBox Type="RANDOM" ItemId="40696">
+	<TreasureBox Type="RANDOM" ItemId="40697">
 		<Item ItemId="40679" Count="1" Chance="20" />
 		<Item ItemId="40680" Count="1" Chance="16" />
 		<Item ItemId="40681" Count="1" Chance="16" />
