@@ -480,6 +480,14 @@ public final class Config {
 
 	public static int Show_INGAMENEWS_Time;
 
+	public static String titleadmin;
+
+	public static String titlegm;
+
+	public static String titlemon;
+
+	public static String titledev;
+
 	public static void load() {
 		System.out.println("Loading GameServer config.");
 		// server.properties
@@ -704,6 +712,10 @@ public final class Config {
 			DRAGONKNIGHT_MAX_MP = Integer.parseInt(charSettings.getProperty("DragonKnightMaxMP", "600"));
 			ILLUSIONIST_MAX_HP = Integer.parseInt(charSettings.getProperty("IllusionistMaxHP", "900"));
 			ILLUSIONIST_MAX_MP = Integer.parseInt(charSettings.getProperty("IllusionistMaxMP", "1100"));
+			titleadmin = charSettings.getProperty("TitleAdmin", "\\f=<Admin>");
+			titlegm = charSettings.getProperty("TitleGm", "\\f<GM>");
+			titlemon = charSettings.getProperty("TitleMon", "\\f<Mon>");
+			titledev = charSettings.getProperty("TitleDev", "\\f<Dev>");
 			LV50_EXP = Integer.parseInt(charSettings.getProperty("Lv50Exp", "1"));
 			LV51_EXP = Integer.parseInt(charSettings.getProperty("Lv51Exp", "1"));
 			LV52_EXP = Integer.parseInt(charSettings.getProperty("Lv52Exp", "1"));
@@ -958,6 +970,14 @@ public final class Config {
 			ILLUSIONIST_MAX_HP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("IllusionistMaxMP")) {
 			ILLUSIONIST_MAX_MP = Integer.parseInt(pValue);
+		} else if (pName.equalsIgnoreCase("TitleAdmin")) {
+			titleadmin = pValue;
+		} else if (pName.equalsIgnoreCase("TitleGm")) {
+			titlegm = pValue;
+		} else if (pName.equalsIgnoreCase("TitleMon")) {
+			titlemon = pValue;
+		} else if (pName.equalsIgnoreCase("TitleDev")) {
+			titledev = pValue;
 		} else if (pName.equalsIgnoreCase("Lv50Exp")) {
 			LV50_EXP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("Lv51Exp")) {
