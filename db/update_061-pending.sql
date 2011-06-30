@@ -1214,5 +1214,6 @@ delete from etcitem where item_id in (40696, 40697);
 INSERT INTO `etcitem` VALUES (40696, 'Gloves of Expedition Member', '$3978', '$3978', 'treasure_box', 'normal', 'none', 0, 957, 3963, 1838, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1);
 INSERT INTO `etcitem` VALUES (40697, 'Relic of Expedition Member', '$3992', '$3992', 'questitem', 'normal', 'leather', 0, 2054, 3963, 1841, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1);
 
-
-
+-- Fix boots and dark boots name ids.
+update armor set unidentified_name_id = '$329', identified_name_id = '$329' where item_id = 20205;
+update armor set unidentified_name_id = '$2452 $329', identified_name_id = '$2452 $329' where item_id = 20210;
