@@ -966,20 +966,28 @@ where item_id = 210;
 -- Trident of the Sea God
 update weapon set dmg_small = 20, dmg_large = 22, hitmodifier = 4 where item_id
 = 212;
--- Sword of Kirtas
-update weapon set dmg_small = 43, dmg_large = 53 where item_id = 217;
+-- Sword of Girtas
+update weapon set name = 'Sword of Girtas', dmg_small = 43, dmg_large = 53 where item_id = 217;
 -- Iron Mace of Angus
 update weapon set haste_item = 1 where item_id = 218;
 -- Sword of Legend
 update weapon set grdgfx = 4413 where item_id = 228;
 -- Dagger of Blue Sky
 update weapon set max_use_time = 300000 where item_id = 231;
+-- Great Sword of Blue Sky
+update weapon set dmg_large = 22, where item_id = 233;
 -- Edoryu of Blue Sky
 update weapon set double_dmg_chance = 25 where item_id = 236;
 -- Claw of Blue Sky
 update weapon set double_dmg_chance = 33 where item_id = 237;
 -- Unknown Claw
 update weapon set double_dmg_chance = 33 where item_id = 244;
+-- Two Handed Sword of Illusion
+update weapon set name = 'Two-Handed Sword of Illusion', unidentified_name_id = 'Two-Handed Sword of Illusion', identified_name_id = 'Two-Handed Sword of Illusion' where item_id = 251;
+-- Axe of Raging Wind
+update weapon set name = 'Axe of Raging Wind' where item_id = 260;
+-- Great Sword of Destruction
+update weapon set name = 'Great Sword of Destruction' where item_id = 262;
 -- Two Handed Sword
 update weapon set dmg_small = 17, dmg_large = 21 where item_id = 100052;
 -- Two-Handed Sword of Pretender King
