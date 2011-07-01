@@ -1240,5 +1240,7 @@ update commands set access_level = 100 where name = 'weather';
 update commands set access_level = 100 where name = 'show';
 update commands set access_level = 100 where name = 'viewbug';
 update commands set access_level = 100 where name = 'tele';
+update commands set access_level = 100 where name = 'invis';
+
 
 
