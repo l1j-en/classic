@@ -1237,5 +1237,8 @@ update commands set access_level = 100 where name = 'pbuff';
 update commands set access_level = 100 where name = 'speed';
 update commands set access_level = 100 where name = 'who';
 update commands set access_level = 100 where name = 'weather';
+update commands set access_level = 100 where name = 'show';
+update commands set access_level = 100 where name = 'viewbug';
+update commands set access_level = 100 where name = 'tele';
 
 
