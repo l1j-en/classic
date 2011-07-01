@@ -81,20 +81,7 @@ public class S_OwnCharPack extends ServerBasePacket {
 		writeC(pc.getMoveSpeed());
 		writeD(pc.getExp());
 		writeH(pc.getLawful());
-		String title = "";
-		if (pc.getAccessLevel() == 200) {
-			title = Config.titleadmin;
-		}
-		if (pc.getAccessLevel() == 100) {
-			title = Config.titlegm;
-		}
-		if (pc.getAccessLevel() == 50) {
-			title = Config.titlemon;
-		}
-		if (pc.getAccessLevel() == 150) {
-			title = Config.titledev;
-		}
-		writeS(pc.getName() + title);
+		writeS(pc.getName());
 		writeS(pc.getTitle());
 		writeC(status);
 		writeD(pc.getClanid());
