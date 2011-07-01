@@ -1228,3 +1228,14 @@ update armor set unidentified_name_id = '$2452 $329', identified_name_id = '$245
 
 -- Change Contaminated Cyclops droplist for Relic of Expedition Member to Gloves of Expedition Member.
 update droplist set itemId = 40697 where mobId = 45137 and itemId = 40696;
+
+-- Change some commands' access_level to allow monitor use.
+update commands set access_level = 100 where name = 'gmroom';
+update commands set access_level = 100 where name = 'help';
+update commands set access_level = 100 where name = 'loc';
+update commands set access_level = 100 where name = 'pbuff';
+update commands set access_level = 100 where name = 'speed';
+update commands set access_level = 100 where name = 'who';
+update commands set access_level = 100 where name = 'weather';
+
+
