@@ -862,7 +862,7 @@ update mobgroup set remove_group_if_leader_die = 1 where id = 15;
 update weapon set dmg_small = 4, dmg_large = 36 where item_id = 16;
 -- Sealed Forgotten Great Sword
 update weapon set dmg_small = 3, dmg_large = 6, hitmodifier = 3, dmgmodifier =
-3 where item_id = 16;
+3 where item_id = 17;
 -- Sword of Red Desire
 update weapon set add_hpr = -3 where item_id = 34;
 -- Large Sword of Blood
