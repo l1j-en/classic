@@ -33,7 +33,6 @@ public class L1Teleport {
 
 	private static Logger _log = Logger.getLogger(L1Teleport.class.getName());
 
-
 	public static final int TELEPORT = 0;
 
 	public static final int CHANGE_POSITION = 1;
@@ -69,8 +68,7 @@ public class L1Teleport {
 	public static void teleport(L1PcInstance pc, int x, int y, short mapId,
 			int head, boolean effectable, int skillType) {
 
-		pc
-				.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
+		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
 						false));
 
 		if (effectable && (skillType >= 0 && skillType <= EFFECT_SPR.length)) {

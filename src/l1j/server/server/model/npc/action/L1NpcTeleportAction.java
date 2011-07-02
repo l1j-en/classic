@@ -60,5 +60,4 @@ public class L1NpcTeleportAction extends L1NpcXmlAction {
 				.getMapId(), _heading, _effect);
 		return null;
 	}
-
 }

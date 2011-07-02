@@ -54,6 +54,10 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 		buildPacket(objid, html.getName(), html.getArgs());
 	}
 
+    public S_NPCTalkReturn(int objid, L1NpcHtml html, String[] data) { 
+    	buildPacket(objid, html.getName(), data); 
+    }
+    
 	private void buildPacket(int objid, String htmlid, String[] data) {
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
 		writeD(objid);
