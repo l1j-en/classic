@@ -975,7 +975,7 @@ update weapon set grdgfx = 4413 where item_id = 228;
 -- Dagger of Blue Sky
 update weapon set max_use_time = 300000 where item_id = 231;
 -- Great Sword of Blue Sky
-update weapon set dmg_large = 22, where item_id = 233;
+update weapon set dmg_large = 22 where item_id = 233;
 -- Edoryu of Blue Sky
 update weapon set double_dmg_chance = 25 where item_id = 236;
 -- Claw of Blue Sky
@@ -1174,7 +1174,8 @@ update etcitem set weight = 3000 where item_id = 41289;
 update etcitem set weight = 3000 where item_id = 41290;
 update etcitem set weight = 2000 where item_id = 41291;
 update etcitem set weight = 2000 where item_id = 41292;
-update etcitem set use_type = 'treasure_box' where item_id = 41311;
+update etcitem set item_type = 'treasure_box' where item_id = 41311;
+update etcitem set use_type = 'normal' where item_id = 41311;
 update etcitem set itemdesc_id = 2653 where item_id = 41319;
 update etcitem set itemdesc_id = 2654 where item_id = 41320;
 update etcitem set itemdesc_id = 2655 where item_id = 41321;
@@ -1183,7 +1184,8 @@ update etcitem set itemdesc_id = 2657 where item_id = 41323;
 update etcitem set itemdesc_id = 2658 where item_id = 41324;
 update etcitem set itemdesc_id = 2660 where item_id = 41327;
 update etcitem set itemdesc_id = 2661 where item_id = 41328;
-update etcitem set use_type = 'treasure_box' where item_id = 41336;
+update etcitem set item_type = 'treasure_box' where item_id = 41336;
+update etcitem set use_type = 'normal' where item_id = 41336;
 update etcitem set delay_id = 2, delay_time = 1000 where item_id = 41337;
 update etcitem set itemdesc_id = 2594 where item_id = 41339;
 update etcitem set itemdesc_id = 1760 where item_id = 41340;
@@ -1241,6 +1243,3 @@ update commands set access_level = 100 where name = 'show';
 update commands set access_level = 100 where name = 'viewbug';
 update commands set access_level = 100 where name = 'tele';
 update commands set access_level = 100 where name = 'invis';
-
-
-
