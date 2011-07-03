@@ -1098,18 +1098,14 @@
 	</TreasureBox>
 	<!--?????????(?)-->
 	<TreasureBox Type="RANDOM" ItemId="49280">
-		<Item ItemId="40010" Count="15" Chance="17.3" />	<!--RP-->
-		<Item ItemId="40011" Count="8" Chance="16.3" />	<!--OP-->
-		<Item ItemId="40012" Count="4" Chance="5" />	<!--CP-->
-		<Item ItemId="40013" Count="5" Chance="15.2" />	<!--GP-->
-		<Item ItemId="40018" Count="2" Chance="5" />	<!--GGP-->
-		<Item ItemId="40074" Count="1" Chance="2" />	<!--ZEL-->
-		<Item ItemId="40088" Count="2" Chance="5.3" />	<!--SOSC-->
-		<Item ItemId="40318" Count="5" Chance="8" />
-		<Item ItemId="40319" Count="10" Chance="16.3" />
-		<Item ItemId="49143" Count="1" Chance="6" />
-		<Item ItemId="49143" Count="2" Chance="3.3" />
-		<Item ItemId="41251" Count="1" Chance="0.3" />
+		<Item ItemId="40074" Count="1" Chance="11" />	<!--ZEL-->
+		<Item ItemId="40087" Count="1" Chance="11" />	<!--DAI-->
+		<Item ItemId="40088" Count="8" Chance="14" />	<!--SOSC-->
+		<Item ItemId="40318" Count="15" Chance="13" />
+		<Item ItemId="40319" Count="30" Chance="13" />
+		<Item ItemId="49143" Count="1" Chance="7" />
+		<Item ItemId="49143" Count="2" Chance="6" />
+		<Item ItemId="41251" Count="1" Chance="25" />
 	</TreasureBox>
 	<!--?????-->
 	<TreasureBox Type="RANDOM" ItemId="41311">
