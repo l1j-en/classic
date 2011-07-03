@@ -1244,5 +1244,7 @@ update commands set access_level = 100 where name = 'viewbug';
 update commands set access_level = 100 where name = 'tele';
 update commands set access_level = 100 where name = 'invis';
 
--- fix for Spirit of Water who was summoning too much
+-- fix for Spirit of Water who was summoning too much and family missing
 update mobskill set trirnd = 5 where mobid = 45931 and actno = 1;
+update npc set family = 'waters' where npcid > 45930 and npcid < 45933;
+update npc set agrofamily = '1' where npcid > 45930 and npcid < 45933;
