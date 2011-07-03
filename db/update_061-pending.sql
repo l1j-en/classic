@@ -1243,3 +1243,6 @@ update commands set access_level = 100 where name = 'show';
 update commands set access_level = 100 where name = 'viewbug';
 update commands set access_level = 100 where name = 'tele';
 update commands set access_level = 100 where name = 'invis';
+
+-- fix for Spirit of Water who was summoning too much
+update mobskill set trirnd = 5 where mobid = 45931 and actno = 1;
