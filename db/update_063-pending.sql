@@ -5,3 +5,6 @@
 -- be removed.
 
 -- update 63
+
+-- fix the unchosen ones tele skill amount
+update mobskill set trirnd = 10 where mobid = 46096;
