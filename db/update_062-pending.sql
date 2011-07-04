@@ -6,6 +6,9 @@
 
 -- update 62
 
+-- double devils blood drops
+UPDATE droplist SET chance = chance*2 WHERE itemid = 40031;
+
 -- make lasta non rtele
 UPDATE mapids SET teleportable = 0 WHERE mapid > 490 AND mapid < 497;
 
