@@ -4101,7 +4101,7 @@ update mapids set locationname = '1F Taros underground Dungeon' where mapid = 24
 update mapids set locationname = '2F Coveters Trap' where mapid = 249;
 update mapids set locationname = '3F Hall of Greed' where mapid = 250;
 update mapids set locationname = '4F Counts Room' where mapid = 251;
-update mapids set locationname = 'All Associations bigmap with allot locationnames' where mapid = 400;
+update mapids set locationname = 'All Associations Region' where mapid = 400;
 update mapids set locationname = 'Ship to Hidden to Dock' where mapid = 446;
 update mapids set locationname = 'Ship to Pirate Island' where mapid = 447;
 update mapids set locationname = 'Lastavard Main Gate' where mapid = 450;
