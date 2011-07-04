@@ -264,29 +264,32 @@
 	</TreasureBox>
 	<!-- Gift Bag from Pierce -->
 	<TreasureBox Type="RANDOM" ItemId="40715">
-		<Item ItemId="152" Count="1" Chance="6" />
+
 		<Item ItemId="69" Count="1" Chance="6" />
-		<Item ItemId="153" Count="1" Chance="5" />
 		<Item ItemId="71" Count="1" Chance="5" />
-		<Item ItemId="154" Count="1" Chance="5" />
 		<Item ItemId="72" Count="1" Chance="5" />
-		<Item ItemId="159" Count="1" Chance="5" />
-		<Item ItemId="77" Count="1" Chance="5" />
-		<Item ItemId="161" Count="1" Chance="5" />
-		<Item ItemId="80" Count="1" Chance="5" />
-		<Item ItemId="158" Count="1" Chance="4" />
+   		<Item ItemId="74" Count="1" Chance="6" />
 		<Item ItemId="75" Count="1" Chance="4" />
-		<Item ItemId="168" Count="1" Chance="4" />
-		<Item ItemId="162" Count="1" Chance="1" />
+		<Item ItemId="77" Count="1" Chance="5" />
+		<Item ItemId="80" Count="1" Chance="5" />
 		<Item ItemId="81" Count="1" Chance="1" />
+		<Item ItemId="152" Count="1" Chance="6" />
+		<Item ItemId="153" Count="1" Chance="5" />
+		<Item ItemId="154" Count="1" Chance="5" />
+    	<Item ItemId="157" Count="1" Chance="6" />
+		<Item ItemId="158" Count="1" Chance="4" />
+		<Item ItemId="159" Count="1" Chance="5" />
+		<Item ItemId="161" Count="1" Chance="5" />
+		<Item ItemId="162" Count="1" Chance="1" />
+		<Item ItemId="168" Count="1" Chance="4" />
 		<Item ItemId="177" Count="1" Chance="1" />
-		<Item ItemId="40739" Count="1000" Chance="6" />
 		<Item ItemId="40738" Count="1000" Chance="6" />
+		<Item ItemId="40739" Count="1000" Chance="6" />
 		<Item ItemId="40740" Count="500" Chance="6" />
 		<Item ItemId="20032" Count="1" Chance="3" />
 		<Item ItemId="20070" Count="1" Chance="3" />
-		<Item ItemId="20180" Count="1" Chance="3" />
 		<Item ItemId="20132" Count="1" Chance="3" />
+		<Item ItemId="20180" Count="1" Chance="3" />
 		<Item ItemId="20210" Count="1" Chance="3" />
 	</TreasureBox>
 	<!-- Golden Pumpkin -->
