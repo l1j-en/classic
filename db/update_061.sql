@@ -765,6 +765,10 @@ update npc set karma = 0, transform_id = -1 where npcid = 81179;
 update npc set karma = 0, transform_id = -1 where npcid = 81180;
 update npc set karma = 0, transform_id = -1 where npcid = 81181;
 
+-- npc name length fix
+ALTER TABLE npc MODIFY name varchar(60);
+ALTER TABLE npc MODIFY nameid varchar(60);
+
 -- Add new NPCs.
 INSERT INTO `npc` VALUES (46108, 'Mandragora', '$5492', '', 'L1Monster', 6557, 26, 320, 50, -15, 13, 12, 13, 10, 10, 50, 677, -18, 'small', 4, 1, 0, 480, 1600, 0, 1600, 1600, 0, 0, 0, 0, 0, 0, 'tebe_m', 0, -1, -1, 0, 0, 0, 5000, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0);
 INSERT INTO `npc` VALUES (46109, 'Scarab', '$5493', '', 'L1Monster', 6592, 29, 400, 70, -25, 15, 15, 14, 10, 10, 60, 842, -20, 'small', 2, 1, 0, 600, 920, 0, 920, 920, 0, 0, 0, 0, 0, 0, 'tebe_s', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0);
