@@ -6,6 +6,9 @@
 
 -- update 62
 
+-- make lasta non rtele
+UPDATE mapids SET teleportable = 0 WHERE mapid > 490 AND mapid < 497;
+
 -- make chaos agro players
 UPDATE npc SET agro=1, agrososc = 1, agrocoi = 1 where npcid = 45625;
 
