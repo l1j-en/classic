@@ -6,6 +6,9 @@
 
 -- update 63
 
+-- undo the devils blood change
+UPDATE droplist SET chance = chance/2 WHERE itemid = 40031;
+
 -- fix the unchosen ones tele skill amount
 update mobskill set trirnd = 10 where mobid = 46096;
 
