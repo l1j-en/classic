@@ -213,3 +213,10 @@ Update armor set identified_name_id = 'Swimwear Men\'s Trunks' where item_id = 2
 Update armor set identified_name_id = 'Swimwear Women\'s One Piece' where item_id = 21065;
 Update armor set identified_name_id = 'Swimwear Women\'s Bikini' where item_id = 21066;
 Update armor set identified_name_id = '$5256' where item_id = 21108;
+
+-- updated some missing dark elementalist spawns
+update spawnlist set count = 1 where npc_templateid = 45363;
+
+-- added mermaid ring and drops
+insert into armor values (30006,'Mermaid\'s Ring','Mermaid\'s Ring','Mermaid\'s Ring','ring','gold',1000,629,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+insert into droplist values (45154,'Mermaid',30006,'Mermaid\'s Ring',1,1,8000);
