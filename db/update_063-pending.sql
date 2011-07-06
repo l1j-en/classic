@@ -239,6 +239,8 @@ insert into spawnlist_npc values
 (1900009,'Benole',1,90014,33604,33253,0,0,4,0,4,0),
 (1900010,'Sarah',1,90015,33593,33242,0,0,6,0,4,0),
 (1900011,'Arina',1,70870,33593,33247,0,0,6,0,4,0);
+insert into etcitem values 
+(90010,'Lump of Metal','Lump of Metal','Lump of Metal','material','none','iron',400,521,1498,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
 insert into droplist values 
 (45008,'Goblin',90010,'Lump of Metal',1,2,75000),
 (45009,'Orc',90010,'Lump of Metal',1,2,75000),
