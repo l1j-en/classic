@@ -6,6 +6,11 @@
 
 -- update 63
 
+-- populate some null fields in droplist
+UPDATE droplist p, weapon pp SET p.item_name = pp.name where p.itemid = pp.item_id;
+UPDATE droplist p, armor pp SET p.item_name = pp.name where p.itemid = pp.item_id;
+UPDATE droplist p, etcitem pp SET p.item_name = pp.name where p.itemid = pp.item_id;
+
 -- undo the devils blood change
 UPDATE droplist SET chance = chance/2 WHERE itemid = 40031;
 
