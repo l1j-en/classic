@@ -3519,4 +3519,72 @@
 			<Material Amount="1" ItemId="90009"/>
 	</MakeItem>
 	</Action>
+	<!-- Request Ring / Sarah -->
+	<Action Name="request loa base ring">
+		<MakeItem>
+			<Item Amount="1" ItemId="20305"/> <!-- Ring -->
+			<Material Amount="2" ItemId="90010"/>  <!-- Lump of Metal -->
+			<Material Amount="20" ItemId="40308"/> <!-- Adena -->
+	</MakeItem>
+	</Action>
+	<!-- Request Ammy / Sarah -->
+	<Action Name="request loa amulet5">
+		<MakeItem>
+			<Item Amount="1" ItemId="30007"/> <!-- Amulet -->
+			<Material Amount="10" ItemId="40408"/> <!-- Lump of Iron -->
+			<Material Amount="50" ItemId="90010"/> <!-- Lump of Metal -->
+			<Material Amount="1000" ItemId="40308"/> <!-- Adena -->
+	</MakeItem>
+	</Action>
+	<!-- Request Mermaid Necklace -->
+	<Action Name="request loa amulet6">
+		<MakeItem>
+			<Item Amount="1" ItemId="30008"/> <!-- Mermaid Necklace -->
+			<Material Amount="1" ItemId="30007"/> <!-- Amulet -->
+			<Material Amount="1" ItemId="40050"/> <!-- High Quality Sapphire -->
+			<Material Amount="10" ItemId="40041"/> <!-- Mermaid Scales -->
+	</MakeItem>
+	</Action>
+	<!-- Ruby Ring / Benole -->
+	<Action Name="ringq2">
+		<ShowHtml HtmlId="ringq2"/>
+	</Action>
+	<MakeItem Name="request loa quest1 ring">
+		<Item Amount="1" ItemId="30002"/> <!-- Ruby Ring -->
+		<Material Amount="1" ItemId="20305"/> <!-- Ring -->
+		<Material Amount="1" ItemId="40045"/> <!-- Ruby -->
+		<Material Amount="100" ItemId="40308"/> <!-- Adena -->
+	</MakeItem>
+	<!-- Sapphire Ring / Benole -->
+	<Action Name="ringq3">
+		<ShowHtml HtmlId="ringq3"/>
+	</Action>
+	<MakeItem Name="request loa quest2 ring">
+		<Item Amount="1" ItemId="30003"/> <!-- Sapphire Ring -->
+		<Material Amount="1" ItemId="20305"/> <!-- Ring -->
+		<Material Amount="1" ItemId="40046"/>  <!-- Sapphire -->
+		<Material Amount="100" ItemId="40308"/>  <!-- Adena -->
+	</MakeItem>
+	<!-- Moonstone Ring / Benole -->
+	<Action Name="ringq4">
+		<ShowHtml HtmlId="ringq4"/>
+	</Action>
+	<MakeItem Name="request loa quest3 ring">
+		<Item Amount="1" ItemId="30004"/> <!-- Moonstone Ring -->
+		<Material Amount="1" ItemId="20305"/>  <!-- Ring -->
+		<Material Amount="1" ItemId="40047"/>  <!-- Emerald -->
+		<Material Amount="1" ItemId="40014"/>  <!-- Potion of Bravery -->
+		<Material Amount="100" ItemId="40308"/>  <!-- Adena -->
+	</MakeItem>
+	<!-- Carnelian Ring / Benole -->
+	<Action Name="ringq5">
+		<ShowHtml HtmlId="ringq5"/>
+	</Action>
+	<MakeItem Name="request loa quest4 ring">
+		<Item Amount="1" ItemId="30005"/> <!-- Carnelian Ring -->
+		<Material Amount="1" ItemId="20305"/>  <!-- Ring -->
+		<Material Amount="1" ItemId="40044"/>  <!-- Diamond -->
+		<Material Amount="2" ItemId="40010"/>  <!-- Lesser Healing Potion -->
+		<Material Amount="500" ItemId="40308"/>  <!-- Adena -->
+	</MakeItem>
 </NpcActionList>
