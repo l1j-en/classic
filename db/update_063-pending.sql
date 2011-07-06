@@ -225,3 +225,37 @@ update spawnlist set count = 1 where npc_templateid = 45363;
 -- added mermaid ring and drops
 insert into armor values (30006,'Mermaid\'s Ring','Mermaid\'s Ring','Mermaid\'s Ring','ring','gold',1000,629,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 insert into droplist values (45154,'Mermaid',30006,'Mermaid\'s Ring',1,1,8000);
+
+-- added sarah, benole, arina ring/ammy crafters in heine
+update npc set impl = "L1Merchant" where npcid = 70870;
+insert into npc values 
+(90014,'Benole','Benole','','L1Merchant',1271,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
+(90015,'Sarah','Sarah','','L1Merchant',706,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+insert into npcaction values 
+(90014,'ringq6','','',''),
+(90015,'ammymkr','','',''),
+(70870,'arina1x','','','');
+insert into spawnlist_npc values 
+(1900009,'Benole',1,90014,33604,33253,0,0,4,0,4,0),
+(1900010,'Sarah',1,90015,33593,33242,0,0,6,0,4,0),
+(1900011,'Arina',1,70870,33593,33247,0,0,6,0,4,0);
+insert into droplist values 
+(45008,'Goblin',90010,'Lump of Metal',1,2,75000),
+(45009,'Orc',90010,'Lump of Metal',1,2,75000),
+(45016,'Kobold',90010,'Lump of Metal',1,2,75000),
+(45017,'Orc',90010,'Lump of Metal',1,2,75000),
+(45018,'Orc Archer',90010,'Lump of Metal',1,2,75000),
+(45050,'Orc Archer',90010,'Lump of Metal',1,2,75000),
+(45140,'Hobgoblin',90010,'Lump of Metal',1,2,75000);
+insert into resolvent values 
+(90010,'Lump of Metal',2);
+insert into armor values 
+(30008,'Mermaid`s Necklace','Mermaid`s Necklace','Mermaid`s Necklace','amulet','gemstone',5000,436,3161,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(30002,'Ruby Ring','Ruby Ring','Ruby Ring','ring','iron',1000,628,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(30003,'Sapphire Ring','Sapphire Ring','Sapphire Ring','ring','iron',1000,629,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(30004,'Moonstone Ring','Moonstone Ring','Moonstone Ring','ring','iron',1000,630,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,-4,8,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(30005,'Carnelian Ring','Carnelian Ring','Carnelian Ring','ring','iron',1000,627,21,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(30007,'Amulet','Amulet','Amulet','amulet','gemstone',5000,6,3164,0,0,-1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
+-- correct a mistake on the mermaid ring previously added
+update armor set bless = "1" where item_id = 30006;
