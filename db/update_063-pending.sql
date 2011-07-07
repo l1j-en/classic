@@ -6,6 +6,9 @@
 
 -- update 63
 
+-- girtas fix from darkwolf.  
+update npc set passispeed = 0, alt_atk_speed = 2200, ranged=10 where npcid = 81163;
+
 -- populate some null fields in droplist
 UPDATE droplist p, weapon pp SET p.item_name = pp.name where p.itemid = pp.item_id;
 UPDATE droplist p, armor pp SET p.item_name = pp.name where p.itemid = pp.item_id;
