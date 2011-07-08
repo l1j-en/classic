@@ -55,14 +55,39 @@ public class L1GuardInstance extends L1NpcInstance {
 			{
 				//target pk'ers if not casle owners
 				//custom, do not remove in merges
-				if (pc.isWanted() && ( npcid == 60514 && !checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) ||
-					( npcid == 81156 && !checkHasCastle(pc,L1CastleLocation.DIAD_CASTLE_ID)) ||
-					( (npcid == 60533 || npcid == 60534) && !checkHasCastle(pc,L1CastleLocation.ADEN_CASTLE_ID)) || 
-					( (npcid == 60530 || npcid == 60531) && !checkHasCastle(pc,L1CastleLocation.DOWA_CASTLE_ID)) || 
-					( npcid == 70857 && !checkHasCastle(pc,L1CastleLocation.HEINE_CASTLE_ID)) ||
-					( (npcid == 60524 || npcid == 60525 || npcid == 60529) && !checkHasCastle(pc,L1CastleLocation.GIRAN_CASTLE_ID)) ||
-					( npcid == 60552 && !checkHasCastle(pc,L1CastleLocation.OT_CASTLE_ID)) || 
-					( npcid == 60560 && !checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID))) {
+				if (pc.isWanted() && npcid == 60513 && checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60514 && checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 70549 && checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 70656 && checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 81156 && checkHasCastle(pc,L1CastleLocation.DIAD_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60533 && checkHasCastle(pc,L1CastleLocation.ADEN_CASTLE_ID)) { 
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60534 && checkHasCastle(pc,L1CastleLocation.ADEN_CASTLE_ID)) { 
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60530 && checkHasCastle(pc,L1CastleLocation.DOWA_CASTLE_ID)) { 
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60531 && checkHasCastle(pc,L1CastleLocation.DOWA_CASTLE_ID)) { 
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 70857 && checkHasCastle(pc,L1CastleLocation.HEINE_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60524 && checkHasCastle(pc,L1CastleLocation.GIRAN_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60525 && checkHasCastle(pc,L1CastleLocation.GIRAN_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60529 && checkHasCastle(pc,L1CastleLocation.GIRAN_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60552 && checkHasCastle(pc,L1CastleLocation.OT_CASTLE_ID)) {
+					targetPlayer = null;
+				} else if (pc.isWanted() && npcid == 60560 && checkHasCastle(pc,L1CastleLocation.KENT_CASTLE_ID)) {	
+					targetPlayer = null;
+				} else if (!pc.isWanted()) {
+					targetPlayer = null;
+				} else {
 					targetPlayer = pc;
 					break;
 				}
