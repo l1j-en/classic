@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model.Instance;
 
 import l1j.server.server.model.L1World;
@@ -306,6 +305,10 @@ public class L1PcInstance extends L1Character {
 			return;
 		}
 
+		if (perceivedFrom.getMapId() > 10000 
+				&& perceivedFrom.getInnKeyId() != getInnKeyId()) { 
+			return;
+        }
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_OtherCharPacks(this, 
 				perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS))); 
@@ -360,7 +363,7 @@ public class L1PcInstance extends L1Character {
  
 	public void updateObject() {
 		removeOutOfRangeObjects();
-
+		if (getMapId() <= 10000) {
 		for (L1Object visible : L1World.getInstance().getVisibleObjects(this,
 				Config.PC_RECOGNIZE_RANGE)) {
 			if (!knownsObject(visible)) {
@@ -379,7 +382,19 @@ public class L1PcInstance extends L1Character {
 				sendPackets(new S_HPMeter((L1Character) visible));
 			}
 		}
-	}
+		} else {
+			for (L1Object visible : L1World.getInstance().getVisiblePlayer(this)) {
+				if (!knownsObject(visible)) {
+					visible.onPerceive(this);
+					}
+				if (hasSkillEffect(GMSTATUS_HPBAR) && L1HpBar.isHpBarTarget(visible)) {
+					if (getInnKeyId() == ((L1Character) visible).getInnKeyId()) {
+						sendPackets(new S_HPMeter((L1Character) visible));
+						}
+					}
+				}
+			}
+		}
 
 	private void sendVisualEffect() {
 		int poisonId = 0;

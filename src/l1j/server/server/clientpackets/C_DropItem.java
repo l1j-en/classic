@@ -26,10 +26,12 @@ import l1j.server.server.datatables.IpTable;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
+
 
 public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
@@ -66,8 +68,11 @@ public class C_DropItem extends ClientBasePacket {
 		
 		if (pc.isGhost()) {
 			return;
-		}
-
+	    } else if (pc.getMapId() > 10000) { 
+		pc.sendPackets(new S_ServerMessage(76)); 
+		return;
+	    }
+		
 		L1ItemInstance item = pc.getInventory().getItem(objectId);
 		
 		if (item != null) {
@@ -95,7 +100,16 @@ public class C_DropItem extends ClientBasePacket {
 					}
 				}
 			}
-
+			Object[] dollList = pc.getDollList().values().toArray();
+			for (Object dollObject : dollList) {
+				if (dollObject instanceof L1DollInstance) {
+					L1DollInstance doll = (L1DollInstance) dollObject;
+					if (doll.getItemObjId() == item.getId()) {
+						pc.sendPackets(new S_ServerMessage(1181));
+						return;
+					}
+				}
+			}
 			if (item.isEquipped()) {
 				pc.sendPackets(new S_ServerMessage(125));
 				return;
