@@ -23,10 +23,10 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
-import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorSpawnTable;
@@ -251,7 +251,8 @@ public class C_NPCAction extends ClientBasePacket {
 					return;
 				}
 				int rank = pc.getClanRank();
-				if (rank != L1Clan.CLAN_RANK_PUBLIC && rank != L1Clan.CLAN_RANK_GUARDIAN && rank != L1Clan.CLAN_RANK_PRINCE) {
+				if (rank != L1Clan.CLAN_RANK_PUBLIC && rank != L1Clan.CLAN_RANK_GUARDIAN 
+						&& rank != L1Clan.CLAN_RANK_PRINCE) {
 					pc.sendPackets(new S_ServerMessage(728));
 					return;
 				}
@@ -273,12 +274,62 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = ""; 
 			}
 			else if (npcId == 70528 || npcId == 70546 || npcId == 70567
-					|| npcId == 70594 || npcId == 70654 || npcId == 70748
-					|| npcId == 70774 || npcId == 70799 || npcId == 70815 || npcId == 70860) {
-				if (pc.getHomeTownId() > 0) {
-				} else {
-				}
-			}
+                    || npcId == 70594 || npcId == 70654 || npcId == 70748
+                    || npcId == 70774 || npcId == 70799 || npcId == 70815
+                    || npcId == 70860) {
+            int townId = pc.getHomeTownId();
+            int pay = pc.getPay();
+            int cb = pc.getContribution();
+            htmlid = "";
+            if (pay < 1) {
+                    pc.sendPackets(new S_ServerMessage(767));
+            } else if ((pay > 0) && (cb < 500)) {
+                    pc.sendPackets(new S_ServerMessage(766));
+            } else if (townId > 0) {
+                    double payBonus = 1.0;
+                    boolean isLeader = TownTable.getInstance().isLeader(pc,
+                                    townId);
+                    L1ItemInstance item = pc.getInventory().findItemId(
+                                    L1ItemId.ADENA);
+                    if ((cb > 999) && (cb < 1500)) {
+                            payBonus = 1.5;
+                    } else if ((cb > 1499) && (cb < 2000)) {
+                            payBonus = 2.0;
+                    } else if ((cb > 1999) && (cb < 2500)) {
+                            payBonus = 2.5;
+                    } else if ((cb > 2499) && (cb < 3000)) {
+                            payBonus = 3.0;
+                    } else if (cb > 2999) {
+                            payBonus = 4.0;
+                    }
+                    if (isLeader) {
+                            payBonus++;
+                    }
+                    if ((item != null)
+                                    && (item.getCount() + pay * payBonus > 2000000000)) {
+                            pc.sendPackets(new S_ServerMessage(166,
+                                            "Max PayBonus 2,000,000,000 reached"));
+                            htmlid = "";
+                    } else if ((item != null)
+                                    && (item.getCount() + pay * payBonus < 2000000001)) {
+                            pay = (int) (HomeTownTimeController.getPay(pc.getId()) * payBonus);
+                            pc.getInventory().storeItem(L1ItemId.ADENA, pay);
+                            pc.sendPackets(new S_ServerMessage(761, "" + pay));
+                            pc.setPay(0);
+                    }
+            }
+          } else if (s.equalsIgnoreCase("townscore")) {
+            if ((npcId == 70528) || (npcId == 70546) || (npcId == 70567)
+                            || (npcId == 70594) || (npcId == 70654)
+                            || (npcId == 70748) || (npcId == 70774)
+                            || (npcId == 70799) || (npcId == 70815)
+                            || (npcId == 70860)) {
+                    if (pc.getHomeTownId() > 0) {
+                            pc.sendPackets(new S_ServerMessage(1569, String
+                                            .valueOf(pc.getContribution())));
+                    }
+            }
+          }
 		} else if (s.equalsIgnoreCase("fix")) { 
 		} else if (s.equalsIgnoreCase("room")) {
 			L1NpcInstance npc = (L1NpcInstance) obj;
@@ -663,13 +714,16 @@ public class C_NPCAction extends ClientBasePacket {
 			expelOtherClan(pc, npc.getNpcTemplate().get_npcId());
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("pay")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			htmldata = makeHouseTaxStrings(pc, npc);
-			htmlid = "agpay";
-		} else if (s.equalsIgnoreCase("payfee")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			payFee(pc, npc);
-			htmlid = "";
+            if (obj instanceof L1HousekeeperInstance) {
+                    htmldata = ((L1HousekeeperInstance) obj)
+                                    .makeHouseTaxStrings(pc);
+            }
+            htmlid = "agpay";
+        } else if (s.equalsIgnoreCase("payfee")) {
+            if (obj instanceof L1HousekeeperInstance) {
+                    ((L1HousekeeperInstance) obj).payFree(pc);
+            }
+            htmlid = "";
 		} else if (s.equalsIgnoreCase("name")) { 
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
@@ -2173,7 +2227,7 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 				if (pc.getInventory().consumeItem(40308, 1000000)) {
 					L1ItemInstance item = ItemTable.getInstance().createItem(
-							41341); // 
+							41341);
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
@@ -2614,91 +2668,91 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "perita8";
 				}
 			} else if (s.equals("G") || s.equals("h") || s.equals("i")) {
-				if (pc.getInventory().checkItem(40651, 5) // 
-						&& pc.getInventory().checkItem(40643, 5) // 
-						&& pc.getInventory().checkItem(40618, 5) // 
-						&& pc.getInventory().checkItem(40645, 5) // 
-						&& pc.getInventory().checkItem(40676, 5) // 
-						&& pc.getInventory().checkItem(40675, 5) // 
-						&& pc.getInventory().checkItem(40049, 3) // 
-						&& pc.getInventory().checkItem(40051, 1)) { // 
+				if (pc.getInventory().checkItem(40651, 5)
+						&& pc.getInventory().checkItem(40643, 5)
+						&& pc.getInventory().checkItem(40618, 5)
+						&& pc.getInventory().checkItem(40645, 5)
+						&& pc.getInventory().checkItem(40676, 5)
+						&& pc.getInventory().checkItem(40675, 5)
+						&& pc.getInventory().checkItem(40049, 3)
+						&& pc.getInventory().checkItem(40051, 1)) {
 					htmlid = "perita27";
 					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
 							40675, 40049, 40051 };
 					counts = new int[] { 5, 5, 5, 5, 10, 10, 3, 1 };
-					createitem = new int[] { 40926 }; // 
+					createitem = new int[] { 40926 };
 					createcount = new int[] { 1 };
 				} else {
 					htmlid = "perita28";
 				}
 			} else if (s.equals("H") || s.equals("j") || s.equals("k")) {
-				if (pc.getInventory().checkItem(40651, 10) // 
-						&& pc.getInventory().checkItem(40643, 10) // 
-						&& pc.getInventory().checkItem(40618, 10) // 
-						&& pc.getInventory().checkItem(40645, 10) // 
-						&& pc.getInventory().checkItem(40676, 20) // 
-						&& pc.getInventory().checkItem(40675, 10) // 
-						&& pc.getInventory().checkItem(40048, 3) // 
-						&& pc.getInventory().checkItem(40051, 1)) { // 
+				if (pc.getInventory().checkItem(40651, 10)
+						&& pc.getInventory().checkItem(40643, 10)
+						&& pc.getInventory().checkItem(40618, 10)
+						&& pc.getInventory().checkItem(40645, 10)
+						&& pc.getInventory().checkItem(40676, 20)
+						&& pc.getInventory().checkItem(40675, 10)
+						&& pc.getInventory().checkItem(40048, 3)
+						&& pc.getInventory().checkItem(40051, 1)) {
 					htmlid = "perita29";
 					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
 							40675, 40048, 40051 };
 					counts = new int[] { 10, 10, 10, 10, 20, 10, 3, 1 };
-					createitem = new int[] { 40927 }; // 
+					createitem = new int[] { 40927 };
 					createcount = new int[] { 1 };
 				} else {
 					htmlid = "perita30";
 				}
 			} else if (s.equals("I") || s.equals("l") || s.equals("m")) {
-				if (pc.getInventory().checkItem(40651, 20) // 
-						&& pc.getInventory().checkItem(40643, 20) // 
-						&& pc.getInventory().checkItem(40618, 20) // 
-						&& pc.getInventory().checkItem(40645, 20) // 
-						&& pc.getInventory().checkItem(40676, 30) // 
-						&& pc.getInventory().checkItem(40675, 10) // 
-						&& pc.getInventory().checkItem(40050, 3) // 
-						&& pc.getInventory().checkItem(40051, 1)) { // 
+				if (pc.getInventory().checkItem(40651, 20)
+						&& pc.getInventory().checkItem(40643, 20)
+						&& pc.getInventory().checkItem(40618, 20)
+						&& pc.getInventory().checkItem(40645, 20)
+						&& pc.getInventory().checkItem(40676, 30)
+						&& pc.getInventory().checkItem(40675, 10)
+						&& pc.getInventory().checkItem(40050, 3)
+						&& pc.getInventory().checkItem(40051, 1)) {
 					htmlid = "perita31";
 					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
 							40675, 40050, 40051 };
 					counts = new int[] { 20, 20, 20, 20, 30, 10, 3, 1 };
-					createitem = new int[] { 40928 }; //
+					createitem = new int[] { 40928 };
 					createcount = new int[] { 1 };
 				} else {
 					htmlid = "perita32";
 				}
 			} else if (s.equals("J") || s.equals("n") || s.equals("o")) {
-				if (pc.getInventory().checkItem(40651, 30) // 
-						&& pc.getInventory().checkItem(40643, 30) // 
-						&& pc.getInventory().checkItem(40618, 30) // 
-						&& pc.getInventory().checkItem(40645, 30) // 
-						&& pc.getInventory().checkItem(40676, 30) // 
-						&& pc.getInventory().checkItem(40675, 20) // 
-						&& pc.getInventory().checkItem(40052, 1) // 
-						&& pc.getInventory().checkItem(40051, 1)) { // 
+				if (pc.getInventory().checkItem(40651, 30)
+						&& pc.getInventory().checkItem(40643, 30)
+						&& pc.getInventory().checkItem(40618, 30)
+						&& pc.getInventory().checkItem(40645, 30)
+						&& pc.getInventory().checkItem(40676, 30)
+						&& pc.getInventory().checkItem(40675, 20)
+						&& pc.getInventory().checkItem(40052, 1)
+						&& pc.getInventory().checkItem(40051, 1)) {
 					htmlid = "perita33";
 					materials = new int[] { 40651, 40643, 40618, 40645, 40676,
 							40675, 40052, 40051 };
 					counts = new int[] { 30, 30, 30, 30, 30, 20, 1, 1 };
-					createitem = new int[] { 40928 }; // 
+					createitem = new int[] { 40928 };
 					createcount = new int[] { 1 };
 				} else {
 					htmlid = "perita34";
 				}
-			} else if (s.equals("K")) { // 
+			} else if (s.equals("K")) {
 				int earinga = 0;
 				int earingb = 0;
 				if (pc.getInventory().checkEquipped(21014)
 						|| pc.getInventory().checkEquipped(21006)
 						|| pc.getInventory().checkEquipped(21007)) {
 					htmlid = "perita36";
-				} else if (pc.getInventory().checkItem(21014, 1)) { // 
+				} else if (pc.getInventory().checkItem(21014, 1)) {
 					earinga = 21014;
 					earingb = 41176;
-				} else if (pc.getInventory().checkItem(21006, 1)) { // 
+				} else if (pc.getInventory().checkItem(21006, 1)) {
 					earinga = 21006;
 					earingb = 41177;
-				} else if (pc.getInventory().checkItem(21007, 1)) { // 
+				} else if (pc.getInventory().checkItem(21007, 1)) {
 					earinga = 21007;
 					earingb = 41178;
 				} else {
@@ -2710,7 +2764,7 @@ public class C_NPCAction extends ClientBasePacket {
 					createitem = new int[] { earingb };
 					createcount = new int[] { 1 };
 				}
-			} else if (s.equals("L")) { // 
+			} else if (s.equals("L")) {
 				if (pc.getInventory().checkEquipped(21015)) {
 					htmlid = "perita22";
 				} else if (pc.getInventory().checkItem(21015, 1)) {
@@ -2721,7 +2775,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "perita22";
 				}
-			} else if (s.equals("M")) { // 
+			} else if (s.equals("M")) {
 				if (pc.getInventory().checkEquipped(21016)) {
 					htmlid = "perita26";
 				} else if (pc.getInventory().checkItem(21016, 1)) {
@@ -2732,7 +2786,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "perita26";
 				}
-			} else if (s.equals("b")) { // 
+			} else if (s.equals("b")) {
 				if (pc.getInventory().checkEquipped(21009)) {
 					htmlid = "perita39";
 				} else if (pc.getInventory().checkItem(21009, 1)) {
@@ -2743,7 +2797,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "perita39";
 				}
-			} else if (s.equals("d")) { // 
+			} else if (s.equals("d")) {
 				if (pc.getInventory().checkEquipped(21012)) {
 					htmlid = "perita41";
 				} else if (pc.getInventory().checkItem(21012, 1)) {
@@ -2754,7 +2808,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "perita41";
 				}
-			} else if (s.equals("a")) { // 
+			} else if (s.equals("a")) {
 				if (pc.getInventory().checkEquipped(21008)) {
 					htmlid = "perita38";
 				} else if (pc.getInventory().checkItem(21008, 1)) {
@@ -2765,7 +2819,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "perita38";
 				}
-			} else if (s.equals("c")) { // 
+			} else if (s.equals("c")) {
 				if (pc.getInventory().checkEquipped(21010)) {
 					htmlid = "perita40";
 				} else if (pc.getInventory().checkItem(21010, 1)) {
@@ -2782,7 +2836,7 @@ public class C_NPCAction extends ClientBasePacket {
 			if (s.equals("Z")) {
 				htmlid = "rumtis2";
 			} else if (s.equals("Y")) {
-				if (pc.getInventory().checkItem(41010, 1)) { // 
+				if (pc.getInventory().checkItem(41010, 1)) {
 					htmlid = "rumtis3";
 				} else {
 					htmlid = "rumtis4";
@@ -2873,10 +2927,10 @@ public class C_NPCAction extends ClientBasePacket {
 				int mrn = 0;
 				int mjn = 0;
 				int ann = 0;
-				if (pc.getInventory().checkItem(40959, 1) // 
-						&& pc.getInventory().checkItem(40960, 1) // 
-						&& pc.getInventory().checkItem(40961, 1) // 
-						&& pc.getInventory().checkItem(40962, 1)) { // 
+				if (pc.getInventory().checkItem(40959, 1)
+						&& pc.getInventory().checkItem(40960, 1)
+						&& pc.getInventory().checkItem(40961, 1)
+						&& pc.getInventory().checkItem(40962, 1)) {
 					insn = 1;
 					me = 40959;
 					mr = 40960;
@@ -2886,10 +2940,10 @@ public class C_NPCAction extends ClientBasePacket {
 					mrn = 1;
 					mjn = 1;
 					ann = 1;
-				} else if (pc.getInventory().checkItem(40642, 10) // 
-						&& pc.getInventory().checkItem(40635, 10) // 
-						&& pc.getInventory().checkItem(40638, 10) // 
-						&& pc.getInventory().checkItem(40667, 10)) { // 
+				} else if (pc.getInventory().checkItem(40642, 10)
+						&& pc.getInventory().checkItem(40635, 10)
+						&& pc.getInventory().checkItem(40638, 10)
+						&& pc.getInventory().checkItem(40667, 10)) {
 					bacn = 1;
 					me = 40642;
 					mr = 40635;
@@ -2900,19 +2954,19 @@ public class C_NPCAction extends ClientBasePacket {
 					mjn = 10;
 					ann = 10;
 				}
-				if (pc.getInventory().checkItem(40046, 1) // 
-						&& pc.getInventory().checkItem(40618, 5) // 
-						&& pc.getInventory().checkItem(40643, 5) // 
-						&& pc.getInventory().checkItem(40645, 5) // 
-						&& pc.getInventory().checkItem(40651, 5) // 
-						&& pc.getInventory().checkItem(40676, 5)) { // 
+				if (pc.getInventory().checkItem(40046, 1)
+						&& pc.getInventory().checkItem(40618, 5)
+						&& pc.getInventory().checkItem(40643, 5)
+						&& pc.getInventory().checkItem(40645, 5)
+						&& pc.getInventory().checkItem(40651, 5)
+						&& pc.getInventory().checkItem(40676, 5)) {
 					if (insn == 1 || bacn == 1) {
 						htmlid = "rumtis60";
 						materials = new int[] { me, mr, mj, an, 40046, 40618,
 								40643, 40651, 40676 };
 						counts = new int[] { men, mrn, mjn, ann, 1, 5, 5, 5, 5,
 								5 };
-						createitem = new int[] { 40926 }; // 
+						createitem = new int[] { 40926 };
 						createcount = new int[] { 1 };
 					} else {
 						htmlid = "rumtis18";
@@ -2967,13 +3021,13 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.getInventory().consumeItem(41131, 1);
 			} else if (s.equalsIgnoreCase("k")) {
 				htmlid = "";
-				pc.getInventory().consumeItem(41132, 1); // 
-				pc.getInventory().consumeItem(41133, 1); // 
-				pc.getInventory().consumeItem(41134, 1); // 
-				pc.getInventory().consumeItem(41135, 1); // 
-				pc.getInventory().consumeItem(41136, 1); // 
-				pc.getInventory().consumeItem(41137, 1); // 
-				pc.getInventory().consumeItem(41138, 1); // 
+				pc.getInventory().consumeItem(41132, 1);
+				pc.getInventory().consumeItem(41133, 1);
+				pc.getInventory().consumeItem(41134, 1);
+				pc.getInventory().consumeItem(41135, 1);
+				pc.getInventory().consumeItem(41136, 1);
+				pc.getInventory().consumeItem(41137, 1);
+				pc.getInventory().consumeItem(41138, 1);
 				pc.getQuest().set_step(L1Quest.QUEST_DESIRE, 0);
 			} else if (s.equalsIgnoreCase("e")) {
 				if (pc.getQuest().get_step(L1Quest.QUEST_DESIRE) == L1Quest.QUEST_END
@@ -4015,7 +4069,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pcCastleId = clan.getCastleId();
 			}
 		}
-		if (keeperId == 70656 || keeperId == 70549 || keeperId == 70985) { // 
+		if (keeperId == 70656 || keeperId == 70549 || keeperId == 70985) {
 			if (isExistDefenseClan(L1CastleLocation.KENT_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.KENT_CASTLE_ID) {
 					return;
@@ -4031,7 +4085,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			isNowWar = WarTimeController.getInstance().isNowWar(
 					L1CastleLocation.OT_CASTLE_ID);
-		} else if (keeperId == 70778 || keeperId == 70987 || keeperId == 70687) { // 
+		} else if (keeperId == 70778 || keeperId == 70987 || keeperId == 70687) {
 			if (isExistDefenseClan(L1CastleLocation.WW_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.WW_CASTLE_ID) {
 					return;
@@ -4040,7 +4094,7 @@ public class C_NPCAction extends ClientBasePacket {
 			isNowWar = WarTimeController.getInstance().isNowWar(
 					L1CastleLocation.WW_CASTLE_ID);
 		} else if (keeperId == 70817 || keeperId == 70800 || keeperId == 70988
-				|| keeperId == 70990 || keeperId == 70989 || keeperId == 70991) { // 
+				|| keeperId == 70990 || keeperId == 70989 || keeperId == 70991) {
 			if (isExistDefenseClan(L1CastleLocation.GIRAN_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.GIRAN_CASTLE_ID) {
 					return;
@@ -4048,7 +4102,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			isNowWar = WarTimeController.getInstance().isNowWar(
 					L1CastleLocation.GIRAN_CASTLE_ID);
-		} else if (keeperId == 70863 || keeperId == 70992 || keeperId == 70862) { // 
+		} else if (keeperId == 70863 || keeperId == 70992 || keeperId == 70862) {
 			if (isExistDefenseClan(L1CastleLocation.HEINE_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.HEINE_CASTLE_ID) {
 					return;
@@ -4056,7 +4110,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			isNowWar = WarTimeController.getInstance().isNowWar(
 					L1CastleLocation.HEINE_CASTLE_ID);
-		} else if (keeperId == 70995 || keeperId == 70994 || keeperId == 70993) { // 
+		} else if (keeperId == 70995 || keeperId == 70994 || keeperId == 70993) {
 			if (isExistDefenseClan(L1CastleLocation.DOWA_CASTLE_ID)) {
 				if (pcCastleId != L1CastleLocation.DOWA_CASTLE_ID) {
 					return;
@@ -4131,7 +4185,7 @@ public class C_NPCAction extends ClientBasePacket {
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 		if (clan != null) {
 			int castleId = clan.getCastleId();
-			if (castleId != 0) { //
+			if (castleId != 0) {
 				if (!WarTimeController.getInstance().isNowWar(castleId)) {
 					for (L1DoorInstance door : DoorSpawnTable.getInstance()
 							.getDoorList()) {
@@ -4139,61 +4193,12 @@ public class C_NPCAction extends ClientBasePacket {
 							door.repairGate();
 						}
 					}
-					pc.sendPackets(new S_ServerMessage(990)); // 
+					pc.sendPackets(new S_ServerMessage(990));
 				} else {
-					pc.sendPackets(new S_ServerMessage(991)); // 
+					pc.sendPackets(new S_ServerMessage(991));
 				}
 			}
 		}
-	}
-
-	private void payFee(L1PcInstance pc, L1NpcInstance npc) {
-		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-		if (clan != null) {
-			int houseId = clan.getHouseId();
-			if (houseId != 0) {
-				L1House house = HouseTable.getInstance().getHouseTable(houseId);
-				int keeperId = house.getKeeperId();
-				if (npc.getNpcTemplate().get_npcId() == keeperId) {
-					if (pc.getInventory().checkItem(L1ItemId.ADENA, 2000)) {
-						pc.getInventory().consumeItem(L1ItemId.ADENA, 2000);
-						TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
-						Calendar cal = Calendar.getInstance(tz);
-						cal.add(Calendar.DATE, Config.HOUSE_TAX_INTERVAL);
-						cal.set(Calendar.MINUTE, 0);
-						cal.set(Calendar.SECOND, 0);
-						house.setTaxDeadline(cal);
-						HouseTable.getInstance().updateHouse(house); 
-					} else {
-						pc.sendPackets(new S_ServerMessage(189));
-					}
-				}
-			}
-		}
-	}
-
-	private String[] makeHouseTaxStrings(L1PcInstance pc, L1NpcInstance npc) {
-		String name = npc.getNpcTemplate().get_name();
-		String[] result;
-		result = new String[] { name, "2000", "1", "1", "00" };
-		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
-		if (clan != null) {
-			int houseId = clan.getHouseId();
-			if (houseId != 0) {
-				L1House house = HouseTable.getInstance().getHouseTable(houseId);
-				int keeperId = house.getKeeperId();
-				if (npc.getNpcTemplate().get_npcId() == keeperId) {
-					Calendar cal = house.getTaxDeadline();
-					int month = cal.get(Calendar.MONTH) + 1;
-					int day = cal.get(Calendar.DATE);
-					int hour = cal.get(Calendar.HOUR_OF_DAY);
-					result = new String[] { name, "2000",
-							String.valueOf(month), String.valueOf(day),
-							String.valueOf(hour) };
-				}
-			}
-		}
-		return result;
 	}
 
 	private String[] makeWarTimeStrings(int castleId) {

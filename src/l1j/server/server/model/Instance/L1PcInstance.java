@@ -2257,6 +2257,16 @@ if (player instanceof L1PcInstance) {
 		_contribution = i;
 	}
 
+	private int _pay; // HomeTownTimeController update
+
+    public int getPay() {
+            return _pay;
+    }
+
+    public void setPay(int i) {
+            _pay = i;
+    }
+
 	private int _hellTime;
 
 	public int getHellTime() {
