@@ -24,7 +24,7 @@ import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
-import l1j.server.server.datatables.DoorSpawnTable;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
@@ -99,7 +99,7 @@ public class WarTimeController implements Runnable {
 					_is_now_war[i] = true;
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnFlag(i + 1);
-					for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+					for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(i + 1, door)) {
 						door.repairGate();
 						}
@@ -153,7 +153,7 @@ public class WarTimeController implements Runnable {
 					}
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnTower(castle_id);
-					for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+					for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(castle_id, door)) {
 							door.repairGate();
 						}

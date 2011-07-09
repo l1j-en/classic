@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import l1j.server.server.datatables.ClanTable;
-import l1j.server.server.datatables.DoorSpawnTable;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
@@ -164,7 +164,7 @@ public class L1CrownInstance extends L1NpcInstance {
 		warspawn.SpawnTower(castle_id);
 
 
-		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+		for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
 			if (L1CastleLocation.checkInWarArea(castle_id, door)) {
 				door.repairGate();
 			}

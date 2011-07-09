@@ -56,6 +56,7 @@ import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Karma;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1PcDeleteTimer;
 import l1j.server.server.model.L1PcInventory;
@@ -1331,6 +1332,10 @@ if (player instanceof L1PcInstance) {
 
 } catch (Exception e) { _log.log(Level.SEVERE, e.getLocalizedMessage(),  e); }
 }
+
+            if (getMapId() == 5153) {
+                L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
+             }
 			if (lastAttacker != L1PcInstance.this) {
 				if (getZoneType() != 0) {
 					L1PcInstance player = null;
@@ -4113,6 +4118,50 @@ if (player instanceof L1PcInstance) {
 	public void setAwakeSkillId(int i) {
 		_awakeSkillId = i;
 	}
+
+	 private int _lap = 1;
+
+     public void setLap(int i) {
+             _lap = i;
+     }
+
+     public int getLap() {
+             return _lap;
+     }
+
+     private int _lapCheck = 0;
+
+     public void setLapCheck(int i) {
+             _lapCheck = i;
+     }
+
+     public int getLapCheck() {
+             return _lapCheck;
+     }
+
+     public int getLapScore() {
+             return _lap * 29 + _lapCheck;
+     }
+
+     private boolean _order_list = false;
+
+     public boolean isInOrderList() {
+             return _order_list;
+     }
+
+     public void setInOrderList(boolean bool) {
+             _order_list = bool;
+     }
+
+     private int _basepoly = 0;
+
+     public void setBasePoly(int i) {
+             _basepoly = i;
+     }
+
+     public int getBasePoly() {
+             return _basepoly;
+     }
 
 	private boolean _isSummonMonster = false;
 
