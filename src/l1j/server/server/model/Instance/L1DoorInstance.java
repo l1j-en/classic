@@ -24,12 +24,14 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
+import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1World;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Door;
 import l1j.server.server.serverpackets.S_DoorPack;
 import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1DoorGfx;
 
 public class L1DoorInstance extends L1NpcInstance {
 
@@ -42,6 +44,23 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public L1DoorInstance(L1Npc template) {
 		super(template);
+	}
+
+	public L1DoorInstance(int doorId, L1DoorGfx gfx, L1Location loc, int hp,
+			int keeper) {
+		super(null);
+		setDoorId(doorId);
+		setMaxHp(hp);
+		setCurrentHp(hp);
+		setGfxId(gfx.getGfxId());
+		setLocation(loc);
+		setHomeX(loc.getX());
+		setHomeY(loc.getY());
+		setDirection(gfx.getDirection());
+		int baseLoc = gfx.getDirection() == 0 ? loc.getX() : loc.getY();
+		setLeftEdgeLocation(baseLoc + gfx.getLeftEdgeOffset());
+		setRightEdgeLocation(baseLoc + gfx.getRightEdgeOffset());
+		setKeeperId(keeper);
 	}
 
 	@Override

@@ -238,6 +238,12 @@ public final class Config {
 
 	public static boolean CLAN_ALLIANCE;
 
+    public static int PET_RACE_MIN_PLAYER = 1;
+
+    public static int PET_RACE_MAX_LAP = 3;
+    
+    public static int DEATH_MATCH_MIN_PLAYER = 1;
+
 	public static int MAX_PT;
 
 	public static int MAX_CHAT_PT;

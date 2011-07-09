@@ -33,7 +33,7 @@ import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.datatables.ClanTable;
-import l1j.server.server.datatables.DoorSpawnTable;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.DropItemTable;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.FurnitureSpawnTable;
@@ -243,7 +243,7 @@ public GameServerThread() throws Exception {
 	CastleTable.getInstance();
 	L1CastleLocation.setCastleTaxRate(); // This must be after the initial CastleTable 
 	GetBackRestartTable.getInstance();
-	DoorSpawnTable.getInstance();
+	DoorTable.initialize();
 	GeneralThreadPool.getInstance();
 	L1NpcRegenerationTimer.getInstance();
 	ChatLogTable.getInstance();

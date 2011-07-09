@@ -504,7 +504,8 @@ class L1SkillStop {
 		}
 
 
-		else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE) { 
+		else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE 
+				|| skillId == STATUS_BRAVE2) { 
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));

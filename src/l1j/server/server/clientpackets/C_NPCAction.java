@@ -29,7 +29,7 @@ import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
-import l1j.server.server.datatables.DoorSpawnTable;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.InnKeyTable;
 import l1j.server.server.datatables.InnTable;
@@ -40,6 +40,8 @@ import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.datatables.TownTable;
 import l1j.server.server.datatables.UBTable;
+import l1j.server.server.model.L1PolyRace;
+import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Clan;
@@ -914,10 +916,14 @@ public class C_NPCAction extends ClientBasePacket {
 			htmlid = "";
 		} else if (s.equalsIgnoreCase("ent")) {
 			int npcId = ((L1NpcInstance) obj).getNpcId();
-			if (npcId == 80085 || npcId == 80086 || npcId == 80087) {
+			if (npcId == 80085) {
 				htmlid = enterHauntedHouse(pc);
 			} else if (npcId == 80088) {
 				htmlid = enterPetMatch(pc, Integer.valueOf(s2));
+            } else if (npcId == 80168) {
+                L1PolyRace.getInstance().enterGame(pc);
+            } else if (npcId == 80086 || npcId == 80087) {
+                L1DeathMatch.getInstance().enterGame(pc);
 			} else if (npcId == 50038 || npcId == 50042 || npcId == 50029
 					|| npcId == 50019 || npcId == 50062) {
 				htmlid = watchUb(pc, npcId);
@@ -956,7 +962,7 @@ public class C_NPCAction extends ClientBasePacket {
 			htmlid = enterUb(pc, ((L1NpcInstance) obj).getNpcId());
 		} else if (s.equalsIgnoreCase("info")) { 
 			int npcId = ((L1NpcInstance) obj).getNpcId();
-			if (npcId == 80085 || npcId == 80086 || npcId == 80087) {
+			if (npcId == 80085) {
 			} else {
 				htmlid = "colos2";
 			}
@@ -4006,7 +4012,7 @@ public class C_NPCAction extends ClientBasePacket {
 					L1DoorInstance door2 = null;
 					L1DoorInstance door3 = null;
 					L1DoorInstance door4 = null;
-					for (L1DoorInstance door : DoorSpawnTable.getInstance()
+					for (L1DoorInstance door : DoorTable.getInstance()
 							.getDoorList()) {
 						if (door.getKeeperId() == keeperId) {
 							if (door1 == null) {
@@ -4128,7 +4134,7 @@ public class C_NPCAction extends ClientBasePacket {
 					L1CastleLocation.ADEN_CASTLE_ID);
 		}
 
-		for (L1DoorInstance door : DoorSpawnTable.getInstance().getDoorList()) {
+		for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
 			if (door.getKeeperId() == keeperId) {
 				if (isNowWar && door.getMaxHp() > 1) {
 				} else {
@@ -4187,7 +4193,7 @@ public class C_NPCAction extends ClientBasePacket {
 			int castleId = clan.getCastleId();
 			if (castleId != 0) {
 				if (!WarTimeController.getInstance().isNowWar(castleId)) {
-					for (L1DoorInstance door : DoorSpawnTable.getInstance()
+					for (L1DoorInstance door : DoorTable.getInstance()
 							.getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(castleId, door)) {
 							door.repairGate();

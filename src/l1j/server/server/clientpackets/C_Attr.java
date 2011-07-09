@@ -40,6 +40,8 @@ import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.L1PolyRace;
+import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -469,6 +471,12 @@ public class C_Attr extends ClientBasePacket {
 				}
 			}
 			break;
+		case 1256:
+               L1PolyRace.getInstance().requsetAttr(pc, readC());
+            break;
+		case 1268:
+               L1DeathMatch.getInstance().requsetAttr(pc, readC());
+            break;
 		default:
 			break;
 		}
