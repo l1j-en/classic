@@ -238,11 +238,11 @@ public final class Config {
 
 	public static boolean CLAN_ALLIANCE;
 
-    public static int PET_RACE_MIN_PLAYER = 1;
+    public static int PET_RACE_MIN_PLAYER = 2;
 
     public static int PET_RACE_MAX_LAP = 3;
     
-    public static int DEATH_MATCH_MIN_PLAYER = 1;
+    public static int DEATH_MATCH_MIN_PLAYER = 2;
 
 	public static int MAX_PT;
 
@@ -683,6 +683,9 @@ public final class Config {
 			DELETE_CHARACTER_AFTER_7DAYS = Boolean.parseBoolean(altSettings.getProperty("DeleteCharacterAfter7Days", "True"));
 			NPC_DELETION_TIME = Integer.parseInt(altSettings.getProperty("NpcDeletionTime", "10"));
 			DEFAULT_CHARACTER_SLOT = Integer.parseInt(altSettings.getProperty("DefaultCharacterSlot", "6"));
+			PET_RACE_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("RaceMinPlayer", "2"));
+			PET_RACE_MAX_LAP = Integer.parseInt(altSettings.getProperty("RaceMaxLap", "3"));
+			DEATH_MATCH_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("DeathMatchMinPlayer", "2"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");
