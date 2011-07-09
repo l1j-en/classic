@@ -6,6 +6,9 @@
 
 -- update 63
 
+-- lesser demon poly fix from "Cronic"
+DELETE FROM polymorphs WHERE id = 6035;
+
 -- girtas fix from darkwolf.  
 update npc set passispeed = 0, alt_atk_speed = 2200, ranged=10 where npcid = 81163;
 
