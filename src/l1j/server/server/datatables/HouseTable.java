@@ -93,6 +93,14 @@ public class HouseTable {
 		return _house.get(houseId);
 	}
 
+	public L1House findByKeeperId(int keeperId) {
+		for (L1House house : _house.values()) {
+			if (house.getKeeperId() == keeperId) {
+				return house;
+                }
+			}
+	   return null;
+	}
 	public void updateHouse(L1House house) {
 		Connection con = null;
 		PreparedStatement pstm = null;

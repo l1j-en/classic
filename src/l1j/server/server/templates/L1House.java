@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.templates;
 
 import java.util.Calendar;
@@ -26,7 +25,6 @@ public class L1House {
 	}
 
 	private int _houseId;
-
 	public int getHouseId() {
 		return _houseId;
 	}
@@ -36,7 +34,6 @@ public class L1House {
 	}
 
 	private String _houseName;
-
 	public String getHouseName() {
 		return _houseName;
 	}
@@ -46,7 +43,6 @@ public class L1House {
 	}
 
 	private int _houseArea;
-
 	public int getHouseArea() {
 		return _houseArea;
 	}
@@ -56,7 +52,6 @@ public class L1House {
 	}
 
 	private String _location;
-
 	public String getLocation() {
 		return _location;
 	}
@@ -66,7 +61,6 @@ public class L1House {
 	}
 
 	private int _keeperId;
-
 	public int getKeeperId() {
 		return _keeperId;
 	}
@@ -76,7 +70,6 @@ public class L1House {
 	}
 
 	private boolean _isOnSale;
-
 	public boolean isOnSale() {
 		return _isOnSale;
 	}
@@ -86,7 +79,6 @@ public class L1House {
 	}
 
 	private boolean _isPurchaseBasement;
-
 	public boolean isPurchaseBasement() {
 		return _isPurchaseBasement;
 	}
@@ -96,7 +88,6 @@ public class L1House {
 	}
 
 	private Calendar _taxDeadline;
-
 	public Calendar getTaxDeadline() {
 		return _taxDeadline;
 	}
@@ -104,5 +95,4 @@ public class L1House {
 	public void setTaxDeadline(Calendar i) {
 		_taxDeadline = i;
 	}
-
 }
