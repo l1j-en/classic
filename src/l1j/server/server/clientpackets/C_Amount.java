@@ -18,6 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -28,8 +29,11 @@ import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.AuctionBoardTable;
 import l1j.server.server.datatables.HouseTable;
+import l1j.server.server.datatables.InnKeyTable;
+import l1j.server.server.datatables.InnTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcActionTable;
+import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -42,10 +46,10 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
+import l1j.server.server.templates.L1Inn;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_Amount
-
 public class C_Amount extends ClientBasePacket {
 
 	private static final Logger _log = Logger.getLogger(C_Amount.class.getName());
@@ -136,13 +140,80 @@ public class C_Amount extends ClientBasePacket {
 				HouseTable.getInstance().updateHouse(house); 
 			}
 		} else {
-			L1NpcAction action = NpcActionTable.getInstance().get(s, pc, npc);
-			if (action != null) {
-				L1NpcHtml result = action.executeWithAmount(s, pc, npc, amount);
-				if (result != null) {
-					pc.sendPackets(new S_NPCTalkReturn(npc.getId(), result));
+			// Inn NPC
+			int npcId = npc.getNpcId();
+			if (npcId == 70070 || npcId == 70019 || npcId == 70075
+					|| npcId == 70012 || npcId == 70031 || npcId == 70084
+					|| npcId == 70065 || npcId == 70054 || npcId == 70096) {
+
+				if (pc.getInventory().checkItem(L1ItemId.ADENA, (300 * amount))) {
+					L1Inn inn = InnTable.getInstance().getTemplate(npcId,
+							pc.getInnRoomNumber());
+					if (inn != null) {
+						Timestamp dueTime = inn.getDueTime();
+						if (dueTime != null) {
+							Calendar cal = Calendar.getInstance();
+							if (((cal.getTimeInMillis() - dueTime.getTime()) / 1000) < 0) {
+								pc.sendPackets(new S_NPCTalkReturn(npcId, ""));
+								return;
+							}
+						}
+						Timestamp ts = new Timestamp(System.currentTimeMillis()
+								+ (60 * 60 * 4 * 1000));
+						L1ItemInstance item = ItemTable.getInstance()
+								.createItem(40312);
+						if (item != null) {
+							item.setKeyId(item.getId());
+							item.setInnNpcId(npcId);
+							item.setHall(pc.checkRoomOrHall());
+							item.setDueTime(ts);
+							item.setCount(amount);
+							inn.setKeyId(item.getKeyId());
+							inn.setLodgerId(pc.getId());
+							inn.setHall(pc.checkRoomOrHall());
+							inn.setDueTime(ts);
+							InnTable.getInstance().updateInn(inn);
+							
+							pc.getInventory().consumeItem(L1ItemId.ADENA, (300 * amount));
+							L1Inventory inventory;
+							
+							if (pc.getInventory().checkAddItem(item, amount) == L1Inventory.OK) {
+								inventory = pc.getInventory();
+							} else {
+								inventory = L1World.getInstance().getInventory(pc.getLocation());
+							}
+							inventory.storeItem(item);
+
+							if (InnKeyTable.checkey(item)) {
+								InnKeyTable.DeleteKey(item);
+								InnKeyTable.StoreKey(item);
+							} else {
+								InnKeyTable.StoreKey(item);
+							}
+
+							String itemName = (item.getItem().getName() + item.getInnKeyName());
+							if (amount > 1) {
+								itemName = (itemName + " (" + amount + ")");
+							}
+							String[] msg = { npc.getName() };
+							pc.sendPackets(new S_NPCTalkReturn(npcId, "inn4", msg));
+						}
+					}
+				} else {
+					String[] msg = { npc.getName() };
+					pc.sendPackets(new S_NPCTalkReturn(npcId, "inn3", msg));
 				}
-				return;
+			} else {
+				L1NpcAction action = NpcActionTable.getInstance().get(s, pc,
+						npc);
+				if (action != null) {
+					L1NpcHtml result = action.executeWithAmount(s, pc, npc,
+							amount);
+					if (result != null) {
+						pc.sendPackets(new S_NPCTalkReturn(npc.getId(), result));
+					}
+					return;
+				}
 			}
 		}
 	}

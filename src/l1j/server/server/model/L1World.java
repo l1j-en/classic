@@ -53,7 +53,7 @@ public class L1World {
 
 	private boolean _processingContributionTotal = false;
 
-	private static final int MAX_MAP_ID = 8105;
+	private static final int MAX_MAP_ID = 10000;
 
 	private static L1World _instance;
 
