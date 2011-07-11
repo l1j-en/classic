@@ -1023,3 +1023,10 @@ insert into spawnlist values
 update etcitem set use_type = 'normal' where item_id = 49189;
 update etcitem set use_type = 'normal' where item_id = 49188;
 update etcitem set stackable = '1' where item_id = 49169;
+
+-- added Joe's Stone Golem a weapon crafter
+insert into spawnlist_npc values (90452,'Joe\'s Stone Golem',1,71252,33712,32494,0,0,4,0,4,0);
+update weapon set name = 'Dagger of Magic Power' where item_id = 259;
+update weapon set name = 'Arch Mage\'s Staff' where item_id = 261;
+update weapon set name = 'Spear of Intense Winter' where item_id = 263;
+update weapon set name = 'Thunder God\'s Sword' where item_id = 264;
