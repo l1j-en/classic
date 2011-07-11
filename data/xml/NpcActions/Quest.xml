@@ -965,4 +965,31 @@
 			<ShowHtml HtmlId="silrein42"/>
 		</Fail>
 	</MakeItem>
+	<!-- IllLv15 -->
+	<MakeItem Name="b" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level15" QuestStep="1">
+		<Item Amount="1" ItemId="269"/>
+		<Item Amount="1" ItemId="49121"/>
+		<Material Amount="1" ItemId="49170"/>
+		<Material Amount="1" ItemId="40510"/>
+		<Material Amount="1" ItemId="40511"/>
+		<Material Amount="1" ItemId="40512"/>
+		<Material Amount="10" ItemId="49169"/>
+		<Succeed>
+			<SetQuest Id="Level15" Step="End"/>
+			<ShowHtml HtmlId="silrein7"/>
+		</Succeed>
+		<Fail>
+			<ShowHtml HtmlId="silrein8"/>
+		</Fail>
+	</MakeItem>
+	<!-- IllLv30 -->
+	<MakeItem Name="d" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level30">
+		<Item Amount="1" ItemId="21101"/>
+		<Item Amount="1" ItemId="49131"/>
+		<Material Amount="1" ItemId="49191"/>
+		<Succeed>
+			<SetQuest Id="Level30" Step="End"/>
+			<ShowHtml HtmlId="silrein13"/>
+		</Succeed>
+	</MakeItem>
 </NpcActionList>

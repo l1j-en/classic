@@ -3308,8 +3308,9 @@
 		<MakeItem>
 			<Material Amount="1" ItemId="49187"/>
 			<Material Amount="1" ItemId="41319"/>
+			<Material Amount="1" ItemId="49186"/>
 			<Item Amount="1" ItemId="274"/>
-			<Item Amount="1" ItemId="49188"/>
+			<Item Amount="1" ItemId="49189"/>
 			<Succeed>
 				<ShowHtml HtmlId="altar3"/>
 			</Succeed>

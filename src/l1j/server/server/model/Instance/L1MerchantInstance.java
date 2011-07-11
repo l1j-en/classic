@@ -2921,12 +2921,64 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "prokel1";
 					}
 				}
-			} else if (npcid == 80145) { // 
+			} 
+
+			 else if (npcid == 81245) { // 
+				if (player.isDragonKnight()) {
+					if (player.getTempCharGfx() == 6984) { // 
+						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
+						if (lv30_step == 1) {
+							htmlid = "spy_orc1";
+						}
+					}
+				}
+			}
+			  else if (npcid == 80145) { // Elder Sleyin
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isDragonKnight()) { // 
+				if (player.isIllusionist()) { // 
+					if(player.getLevel() >= 50
+							&& lv45_step == L1Quest.QUEST_END) {
+						if(lv50_step == 0) {
+							htmlid = "silrein27";
+						} else if(lv50_step == L1Quest.QUEST_END) { // 
+							htmlid = "silrein36";
+						} else {
+							htmlid = "silrein30";
+						}
+					} else if(player.getLevel() >= 45
+							&& lv30_step == L1Quest.QUEST_END) {
+						if(lv45_step == 0) {
+							htmlid = "silrein18";
+						} else if(lv45_step >= 5) { // 
+							htmlid = "silrein26";
+						} else {
+							htmlid = "silrein23";
+						}
+					} else if (player.getLevel() >= 30
+							&& lv15_step == L1Quest.QUEST_END) {
+						if(lv30_step == 0) {
+							htmlid = "silrein11";
+						} else if(lv30_step >= 2) { // 
+							htmlid = "silrein15";
+						} else {
+							htmlid = "silrein14";
+						}
+					} else if (player.getLevel() >= 15) {
+						if (lv15_step == 0 ) {
+							htmlid = "silrein2";
+						} else if (	lv15_step == L1Quest.QUEST_END) { // 
+							htmlid = "silrein7";
+						} else {
+							htmlid = "silrein4";
+						}
+					} else { // Lv15
+						htmlid = "silrein1";
+					}
+}
+				else if (player.isDragonKnight()) { // 
 					if(player.getLevel() >= 45 && lv45_step == 1) {
 						htmlid = "silrein37";
 					} else if (player.getLevel() >= 45 && lv45_step == 2) {
@@ -2935,15 +2987,6 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "silrein40";
 					} else if (player.getLevel() >= 45 && lv45_step == 4) {
 						htmlid = "silrein43";
-					}
-				}
-			} else if (npcid == 81245) { // 
-				if (player.isDragonKnight()) {
-					if (player.getTempCharGfx() == 6984) { // 
-						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
-						if (lv30_step == 1) {
-							htmlid = "spy_orc1";
-						}
 					}
 				}
 			}
