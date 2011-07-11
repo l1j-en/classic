@@ -1215,6 +1215,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
+
 				} else if (itemId == 40090 || itemId == 40091
 						|| itemId == 40092 || itemId == 40093
 						|| itemId == 40094) {
@@ -2873,6 +2874,21 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId == 49288) {
 					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
 							"fifth_p"));
+				} else if (itemId == 49172) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
+							"silrein1lt"));
+				} else if (itemId == 49173) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
+							"silrein2lt"));
+				} else if (itemId == 49174) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
+							"silrein3lt"));
+				} else if (itemId == 49175) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
+							"silrein4lt"));
+				} else if (itemId == 49176) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
+							"silrein5lt"));
 				} else if (itemId == 49222) {
 					if (pc.isDragonKnight()
 							&& pc.getMapId() == 61) {
@@ -2895,7 +2911,30 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 						pc.getInventory().consumeItem(49222, 1);
 					}
-				
+				}
+					else if (itemId == 49189) {
+					if (pc.isIllusionist()
+							&& pc.getMapId() == 4) {
+						boolean found = false;
+						for (L1Object obj : L1World.getInstance().getObject()) {
+							if (obj instanceof L1MonsterInstance) {
+								L1MonsterInstance mob = (L1MonsterInstance) obj;
+								if (mob != null) {
+									if (mob.getNpcTemplate().get_npcId() == 46163) {
+										found = true;
+										break;
+									}
+								}
+							}
+						}
+						if (found) {
+							pc.sendPackets(new S_ServerMessage(79));
+						} else {
+							L1SpawnUtil.spawn(pc, 46163, 0, 0);
+						}
+						pc.getInventory().consumeItem(49189, 1);
+				}
+
 				} else {
 					int locX = ((L1EtcItem) l1iteminstance.getItem())
 							.get_locx();

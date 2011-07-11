@@ -1163,4 +1163,8 @@
 	<TreasureBox Type="SPECIFIC" ItemId="90005">
 		<Item ItemId="40016" Count="6"></Item>
 	</TreasureBox>
+	<TreasureBox Type="SPECIFIC" ItemId="49179">
+		<Item ItemId="49186" Count="1"></Item>
+		<Item ItemId="49183" Count="1"></Item>
+	</TreasureBox>
 </TreasureBoxList>

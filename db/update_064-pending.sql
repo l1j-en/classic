@@ -1001,3 +1001,25 @@ update getback set note = 'Singing Island North' where area_mapid = 8015;
 update getback set note = 'Franco`s Labyrinth' where area_mapid = 482;
 update getback set note = 'Closed Jail of Diego' where area_mapid = 483;
 update getback set note = 'Underground Jail of Jose' where area_mapid = 484;
+
+-- added info for Illusionist quests 15,30
+update droplist set chance = 50000 where mobid = 45152 and itemid = 40510;
+update droplist set chance = 50000 where mobid = 45152 and itemid = 40511;
+update droplist set chance = 50000 where mobid = 45152 and itemid = 40512;
+
+insert into droplist values
+(46163,'Vengeful Spirit of Elmore Commander',49190,'Sealed Article of Solsheica',1,1,1000000), 
+(45117,'Contaminated Orc',49169,'Contaminated Breath of Orcs',1,1,100000),
+(45118,'Contaminated Orc Archer',49169,'Contaminated Breath of Orcs',1,1,100000),
+(45128,'Contaminated Orc Warrior',49169,'Contaminated Breath of Orcs',1,1,100000),
+(45153,'Contaminated Fairy',49170,'Contaminated Nucleus of Spirit',1,1,75000),
+(46162,'Elmore Zombie Commander',40013,'Haste Potion',1,2,90000),
+(46162,'Elmore Zombie Commander',40014,'Potion of Bravery',1,2,90000),
+(46162,'Elmore Zombie Commander',49187,'Breath of Elmore Zombie Commander',1,1,1000000);
+
+insert into spawnlist values
+(400004,'Elmore Zombie Commander',1,46162,0,34144,32276,10,10,0,0,0,0,5,240,420,4,0,100,0,0);
+
+update etcitem set use_type = 'normal' where item_id = 49189;
+update etcitem set use_type = 'normal' where item_id = 49188;
+update etcitem set stackable = '1' where item_id = 49169;
