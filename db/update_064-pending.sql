@@ -1032,11 +1032,11 @@ update weapon set name = 'Spear of Intense Winter' where item_id = 263;
 update weapon set name = 'Thunder God`s Sword' where item_id = 264;
 
 -- update missing or incorrect mapids
-UPDATE mapids set locationname = 'Hardin`s Laboratory' WHERE mapid = 16
-UPDATE mapids set locationname = 'Gerard`s Test Dungeon' WHERE mapid = 22
-UPDATE mapids set locationname = 'Thebes Desert' WHERE mapid = 780
-UPDATE mapids set locationname = 'Thebes Pyramid Inside' WHERE mapid = 781
-UPDATE mapids set locationname = 'Thebes Osiris Altar' WHERE mapid = 782
+UPDATE mapids set locationname = 'Hardin`s Laboratory' WHERE mapid = 16;
+UPDATE mapids set locationname = 'Gerard`s Test Dungeon' WHERE mapid = 22;
+UPDATE mapids set locationname = 'Thebes Desert' WHERE mapid = 780;
+UPDATE mapids set locationname = 'Thebes Pyramid Inside' WHERE mapid = 781;
+UPDATE mapids set locationname = 'Thebes Osiris Altar' WHERE mapid = 782;
 
 # Remove old Crystal Caverns Dungeon Data
 DELETE FROM dungeon WHERE src_mapid = 72;
