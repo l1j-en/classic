@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Base64;
 import l1j.server.server.utils.SQLUtil;
@@ -60,7 +60,7 @@ public class Account {
 		try {
 			Account account = new Account();
 			account._name = name;
-			account._password = encodePassword(rawPassword);
+			account._password=makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(name)); //Ssargon change
 			account._ip = ip;
 			account._host = host;
 			account._banned = false;
@@ -208,15 +208,80 @@ public class Account {
 		}
 	}
 
+	/* Convert from Byte[] to String */
+	private static String convertToString(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+        	int halfbyte = (data[i] >>> 4) & 0x0F;
+        	int two_halfs = 0;
+        	do {
+	        	if ((0 <= halfbyte) && (halfbyte <= 9))
+	                buf.append((char) ('0' + halfbyte));
+	            else
+	            	buf.append((char) ('a' + (halfbyte - 10)));
+	        	halfbyte = data[i] & 0x0F;
+        	} while(two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+	/* Make SHA256 of input String */
+	public static String makeSHA256(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+		MessageDigest md;
+		md = MessageDigest.getInstance("SHA-256");
+		byte[] sha256hash = new byte[32];
+		md.update(text.getBytes("UTF-8"), 0, text.length());
+		sha256hash = md.digest();
+		return convertToString(sha256hash);
+	}
+	/* Make MD5 of input String */
+	public static String makeMD5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+		MessageDigest md;
+		md = MessageDigest.getInstance("MD5");
+		byte[] md5hash = new byte[32];
+		md.update(text.getBytes("UTF-8"), 0, text.length());
+		md5hash = md.digest();
+		return convertToString(md5hash);
+	}
+	/* Change password for account to input String password */
+	public void change_password(String pass){
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("UPDATE accounts SET password=? WHERE login=?");
+			pstm.setString(1, pass);
+			pstm.setString(2, _name);
+			pstm.execute();
+			_log.info("Rehashed password for " + _name + ".");
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	/*Ssargon change end*/
+	/**
+	 *
+	 *
+	 * @param rawPassword
+	 *
+	 * @return boolean
+	 */
 	public boolean validatePassword(final String rawPassword) {
 
 		if (_isValid) {
 			return false;
 		}
 		try {
-			_isValid = _password.equals(encodePassword(rawPassword));
+			_isValid = _password.equals(makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(_name)));//Ssargon change
 			if (_isValid) {
 				_password = null;
+			} else { // If password does not match
+				_isValid = _password.equals(encodePassword(rawPassword));
+				if(_isValid){ //If its old scheme password
+					change_password(makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(_name))); //Make new style password
+				}
 			}
 			return _isValid;
 		} catch (Exception e) {
