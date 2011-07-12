@@ -3588,4 +3588,13 @@
 		<Material Amount="2" ItemId="40010"/>  <!-- Lesser Healing Potion -->
 		<Material Amount="500" ItemId="40308"/>  <!-- Adena -->
 	</MakeItem>
+	<!-- KillGlance Ring -->
+	<MakeItem Name="request loa ring3">
+		<Item Amount="1" ItemId="30009"/> <!-- KillGlance Ring -->
+		<Material Amount="1" ItemId="20303"/>  <!-- Ring of Magic Resistance -->
+		<Material Amount="1" ItemId="40053"/>  <!-- Highest Quality Ruby -->
+		<Material Amount="1" ItemId="40054"/>  <!-- Highest Quality Sapphire -->
+		<Material Amount="1" ItemId="40052"/>  <!-- Highest Quality Diamond -->
+		<Material Amount="1" ItemId="40055"/>  <!-- Highest Quality Emerald -->
+	</MakeItem>
 </NpcActionList>
