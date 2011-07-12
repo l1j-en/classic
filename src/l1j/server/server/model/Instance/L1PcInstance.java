@@ -306,10 +306,6 @@ public class L1PcInstance extends L1Character {
 			return;
 		}
 
-		if (perceivedFrom.getMapId() > 10000 
-				&& perceivedFrom.getInnKeyId() != getInnKeyId()) { 
-			return;
-        }
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_OtherCharPacks(this, 
 				perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS))); 
@@ -360,11 +356,11 @@ public class L1PcInstance extends L1Character {
 				}
 			}
 		}
-	}
- 
+ 	}
+
 	public void updateObject() {
 		removeOutOfRangeObjects();
-		if (getMapId() <= 10000) {
+
 		for (L1Object visible : L1World.getInstance().getVisibleObjects(this,
 				Config.PC_RECOGNIZE_RANGE)) {
 			if (!knownsObject(visible)) {
@@ -381,18 +377,6 @@ public class L1PcInstance extends L1Character {
 			if (hasSkillEffect(GMSTATUS_HPBAR)
 					&& L1HpBar.isHpBarTarget(visible)) {
 				sendPackets(new S_HPMeter((L1Character) visible));
-			}
-		}
-		} else {
-			for (L1Object visible : L1World.getInstance().getVisiblePlayer(this)) {
-				if (!knownsObject(visible)) {
-					visible.onPerceive(this);
-					}
-				if (hasSkillEffect(GMSTATUS_HPBAR) && L1HpBar.isHpBarTarget(visible)) {
-					if (getInnKeyId() == ((L1Character) visible).getInnKeyId()) {
-						sendPackets(new S_HPMeter((L1Character) visible));
-						}
-					}
 				}
 			}
 		}
@@ -2261,16 +2245,6 @@ if (player instanceof L1PcInstance) {
 	public void setContribution(int i) {
 		_contribution = i;
 	}
-
-	private int _pay; // HomeTownTimeController update
-
-    public int getPay() {
-            return _pay;
-    }
-
-    public void setPay(int i) {
-            _pay = i;
-    }
 
 	private int _hellTime;
 

@@ -29,7 +29,6 @@ import java.util.Random;
 import l1j.server.Config;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.FurnitureSpawnTable;
-import l1j.server.server.datatables.InnKeyTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.LetterTable;
 import l1j.server.server.datatables.PetTable;
@@ -110,7 +109,7 @@ public class L1Inventory extends L1Object {
 		}
 		if (getSize() > maxSize
 				|| (getSize() == maxSize && (!item.isStackable() || !checkItem(item
-						.getItem().getItemId())))) {
+						.getItem().getItemId())))) { //
 			return SIZE_OVER;
 		}
 		return OK;
@@ -121,24 +120,18 @@ public class L1Inventory extends L1Object {
 			return null;
 		}
 		L1Item temp = ItemTable.getInstance().getTemplate(id);
+		if (temp == null) {
+			return null;
+		}
 
-		if (id == 40312) {
+		if (temp.isStackable()) {
 			L1ItemInstance item = new L1ItemInstance(temp, count);
-			if (findKeyId(id) == null) {
-				item.setId(IdFactory.getInstance().nextId());
-				L1World.getInstance().storeObject(item);
-			}
-			return storeItem(item);
-		} else if (temp.isStackable()) {
-			L1ItemInstance item = new L1ItemInstance(temp, count);
-
 			if (findItemId(id) == null) {
 				item.setId(IdFactory.getInstance().nextId());
 				L1World.getInstance().storeObject(item);
 			}
 			return storeItem(item);
 		}
-
 		L1ItemInstance result = null;
 		for (int i = 0; i < count; i++) {
 			L1ItemInstance item = new L1ItemInstance(temp, 1);
@@ -159,8 +152,6 @@ public class L1Inventory extends L1Object {
 			L1ItemInstance findItem = findItemId(itemId);
 			if (findItem != null) {
 				findItem.setCount(findItem.getCount() + item.getCount());
-			} else if (itemId == 40312) { 
-				findItem = findKeyId(itemId); 
 				updateItem(findItem);
 				return findItem;
 			}
@@ -168,11 +159,6 @@ public class L1Inventory extends L1Object {
 		item.setX(getX());
 		item.setY(getY());
 		item.setMap(getMapId());
-		if (item.getItem().getItemId() == 40312) {
-			if (!InnKeyTable.checkey(item)) {
-				InnKeyTable.StoreKey(item);
-				}
-		}
 		int chargeCount = item.getItem().getMaxChargeCount();
 		if (itemId == 40006 || itemId == 40007 || itemId == 40008
 				|| itemId == 140006 || itemId == 140008 || itemId == 41401) {
@@ -195,14 +181,7 @@ public class L1Inventory extends L1Object {
 	}
 
 	public synchronized L1ItemInstance storeTradeItem(L1ItemInstance item) {
-		if (item.getItem().getItemId() == 40312) { 
-			L1ItemInstance findItem = findKeyId(item.getKeyId()); 
-			if (findItem != null) { 
-				findItem.setCount(findItem.getCount() + item.getCount()); 
-				updateItem(findItem); 
-				return findItem; 
-				} 
-			} else if (item.isStackable()) {
+		if (item.isStackable()) {
 			L1ItemInstance findItem = findItemId(item.getItem().getItemId());
 			if (findItem != null) {
 				findItem.setCount(findItem.getCount() + item.getCount());
@@ -213,26 +192,7 @@ public class L1Inventory extends L1Object {
 		item.setX(getX());
 		item.setY(getY());
 		item.setMap(getMapId());
-		if (item.getItem().getItemId() == 40312) { 
-			if (!InnKeyTable.checkey(item)) { 
-				InnKeyTable.StoreKey(item); 
-				} 
-		}
-		int chargeCount = item.getItem().getMaxChargeCount();
-		if (item.getItem().getItemId() == 40006
-			|| item.getItem().getItemId() == 40007
-			|| item.getItem().getItemId() == 40008
-			|| item.getItem().getItemId() == 40412 
-			|| item.getItem().getItemId() == 140006
-			|| item.getItem().getItemId() == 140008
-			|| item.getItem().getItemId() == 41401) {
-			Random random = new Random();
-			chargeCount -= random.nextInt(5);
-		}
-		if (item.getItem().getItemId() == 20383) {
-			chargeCount = 50;
-		}
-		item.setChargeCount(chargeCount);
+		
 		_items.add(item);
 		insertItem(item);
 		return item;
@@ -322,9 +282,6 @@ public class L1Inventory extends L1Object {
 	}
 
 	public void deleteItem(L1ItemInstance item) {
-		if (item.getItem().getItemId() == 40312) {
-			InnKeyTable.DeleteKey(item);
-	      }
 		_items.remove(item);
 	}
 
@@ -365,13 +322,7 @@ public class L1Inventory extends L1Object {
 			carryItem.setRemainingTime(item.getRemainingTime());
 			carryItem.setLastUsed(item.getLastUsed());
 			carryItem.setBless(item.getBless());
-			if (carryItem.getItem().getItemId() == 40312) { 
-				carryItem.setInnNpcId(item.getInnNpcId()); 
-				carryItem.setKeyId(item.getKeyId()); 
-				carryItem.setHall(item.checkRoomOrHall()); 
-				carryItem.setDueTime(item.getDueTime()); 
-				}
-			}
+		}
 		return inventory.storeTradeItem(carryItem);
 	}
 
@@ -451,15 +402,6 @@ public class L1Inventory extends L1Object {
 		return null;
 	}
 
-	public L1ItemInstance findKeyId(int id) { 
-		for (L1ItemInstance item : _items) { 
-			if (item.getKeyId() == id) { 
-				return item; 
-				} 
-			} 
-		return null;
-	}
-	
 	public L1ItemInstance[] findItemsId(int id) {
 		ArrayList<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
 		for (L1ItemInstance item : _items) {

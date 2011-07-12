@@ -57,7 +57,6 @@ import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.datatables.SpawnTable;
 import l1j.server.server.datatables.SprTable;
-import l1j.server.server.datatables.InnTable;
 import l1j.server.server.datatables.UBSpawnTable;
 import l1j.server.server.datatables.WeaponSkillTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -251,7 +250,6 @@ public GameServerThread() throws Exception {
 	NpcActionTable.load();
 	GMCommandsConfig.load();
 	Getback.loadGetBack();
-	InnTable.getInstance();
 	PetTypeTable.load();
 	L1BossCycle.load();
 	L1TreasureBox.load();

@@ -146,36 +146,6 @@ public class L1Character extends L1Object {
 		_paralysis = p;
 	}
 
-	private int _innRoomNumber;
-	
-	public int getInnRoomNumber() { 
-		return _innRoomNumber; 
-	} 
-	
-	public void setInnRoomNumber(int i) { 
-		_innRoomNumber = i; 
-	} 
-	
-	private int _innKeyId;
-	
-	public int getInnKeyId() {
-         return _innKeyId; 
-    } 
-	
-	public void setInnKeyId(int i) { 
-		_innKeyId = i; 
-	} 
-	
-	private boolean _isHall; 
-	
-	public boolean checkRoomOrHall() { 
-		return _isHall; 
-	} 
-	
-	public void setHall(boolean i) { 
-		_isHall = i; 
-	}
-	
 	public void cureParalaysis() {
 		if (_paralysis != null) {
 			_paralysis.cure();
@@ -184,12 +154,7 @@ public class L1Character extends L1Object {
 
 	public void broadcastPacket(ServerBasePacket packet) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (pc.getMapId() <= 10000) { 
-				pc.sendPackets(packet); 
-				} 
-			else if (pc.getInnKeyId() == getInnKeyId()) { 
-				pc.sendPackets(packet); 
-			}
+			pc.sendPackets(packet);
 		}
 	}
 
