@@ -18,21 +18,18 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
+import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
-import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.HouseTable;
-import l1j.server.server.datatables.InnKeyTable;
-import l1j.server.server.datatables.InnTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcActionTable;
 import l1j.server.server.datatables.NpcTable;
@@ -78,7 +75,6 @@ import l1j.server.server.serverpackets.S_DelSkill;
 import l1j.server.server.serverpackets.S_Deposit;
 import l1j.server.server.serverpackets.S_Drawal;
 import l1j.server.server.serverpackets.S_HouseMap;
-import l1j.server.server.serverpackets.S_HowManyKey;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_Message_YN;
@@ -100,7 +96,6 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_TaxRate;
 import l1j.server.server.templates.L1Castle;
 import l1j.server.server.templates.L1House;
-import l1j.server.server.templates.L1Inn;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skills;
@@ -277,294 +272,16 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			else if (npcId == 70528 || npcId == 70546 || npcId == 70567
                     || npcId == 70594 || npcId == 70654 || npcId == 70748
-                    || npcId == 70774 || npcId == 70799 || npcId == 70815
-                    || npcId == 70860) {
-            int townId = pc.getHomeTownId();
-            int pay = pc.getPay();
-            int cb = pc.getContribution();
-            htmlid = "";
-            if (pay < 1) {
-                    pc.sendPackets(new S_ServerMessage(767));
-            } else if ((pay > 0) && (cb < 500)) {
-                    pc.sendPackets(new S_ServerMessage(766));
-            } else if (townId > 0) {
-                    double payBonus = 1.0;
-                    boolean isLeader = TownTable.getInstance().isLeader(pc,
-                                    townId);
-                    L1ItemInstance item = pc.getInventory().findItemId(
-                                    L1ItemId.ADENA);
-                    if ((cb > 999) && (cb < 1500)) {
-                            payBonus = 1.5;
-                    } else if ((cb > 1499) && (cb < 2000)) {
-                            payBonus = 2.0;
-                    } else if ((cb > 1999) && (cb < 2500)) {
-                            payBonus = 2.5;
-                    } else if ((cb > 2499) && (cb < 3000)) {
-                            payBonus = 3.0;
-                    } else if (cb > 2999) {
-                            payBonus = 4.0;
-                    }
-                    if (isLeader) {
-                            payBonus++;
-                    }
-                    if ((item != null)
-                                    && (item.getCount() + pay * payBonus > 2000000000)) {
-                            pc.sendPackets(new S_ServerMessage(166,
-                                            "Max PayBonus 2,000,000,000 reached"));
-                            htmlid = "";
-                    } else if ((item != null)
-                                    && (item.getCount() + pay * payBonus < 2000000001)) {
-                            pay = (int) (HomeTownTimeController.getPay(pc.getId()) * payBonus);
-                            pc.getInventory().storeItem(L1ItemId.ADENA, pay);
-                            pc.sendPackets(new S_ServerMessage(761, "" + pay));
-                            pc.setPay(0);
-                    }
-            }
-          } else if (s.equalsIgnoreCase("townscore")) {
-            if ((npcId == 70528) || (npcId == 70546) || (npcId == 70567)
-                            || (npcId == 70594) || (npcId == 70654)
-                            || (npcId == 70748) || (npcId == 70774)
-                            || (npcId == 70799) || (npcId == 70815)
-                            || (npcId == 70860)) {
+					|| npcId == 70774 || npcId == 70799 || npcId == 70815 || npcId == 70860) {
                     if (pc.getHomeTownId() > 0) {
-                            pc.sendPackets(new S_ServerMessage(1569, String
-                                            .valueOf(pc.getContribution())));
-                    }
+				} else {
             }
           }
 		} else if (s.equalsIgnoreCase("fix")) { 
 		} else if (s.equalsIgnoreCase("room")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			int npcId = npc.getNpcTemplate().get_npcId();
-			boolean canRent = false;
-			boolean findRoom = false;
-			boolean isRent = false;
-			boolean isHall = false;
-			int roomNumber = 0;
-			byte roomCount = 0;
-			for (int i = 0; i < 16; i++) {
-				L1Inn inn = InnTable.getInstance().getTemplate(npcId, i);
-				if (inn != null) {
-					Timestamp dueTime = inn.getDueTime();
-					Calendar cal = Calendar.getInstance();
-					long checkDueTime = (cal.getTimeInMillis() - dueTime.getTime()) / 1000;
-					if (dueTime != null) {
-						if (inn.getLodgerId() == pc.getId()
-								&& checkDueTime < 0) {
-							if (inn.isHall()) {
-								isHall = true;
-							}
-							isRent = true;
-							break;
-						}
-						if ((!findRoom)) {
-							if (checkDueTime >= 0) {
-								canRent = true;
-								findRoom = true;
-								roomNumber = inn.getRoomNumber();
-								break;
-							} else {
-								if (!inn.isHall()) {
-									roomCount++;
-								}
-							}
-						}
-					} else {
-						if (!findRoom) {
-							canRent = true;
-							findRoom = true;
-							roomNumber = inn.getRoomNumber();
-							break;
-						}
-					}
-				}
-			}
-			if (isRent) {
-				if (isHall) {
-					htmlid = "inn15";
-				} else {
-					htmlid = "inn5";
-				}
-			}
-			else if (roomCount >= 12) {
-				htmlid = "inn6";
-			}
-			else if (canRent) {
-				pc.setInnRoomNumber(roomNumber);
-				pc.setHall(false);
-				pc.sendPackets(new S_HowManyKey(npc, 300, 1, 8, "inn2"));
-			}
-		}
-		else if (s.equalsIgnoreCase("hall") && (obj instanceof L1MerchantInstance)) {
-			if (pc.isCrown()) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
-				int npcId = npc.getNpcTemplate().get_npcId();
-				boolean canRent = false;
-				boolean findRoom = false;
-				boolean isRent = false;
-				boolean isHall = false;
-				int roomNumber = 0;
-				byte roomCount = 0;
-				for (int i = 0; i < 16; i++) {
-					L1Inn inn = InnTable.getInstance().getTemplate(npcId, i);
-					if (inn != null) {
-						Timestamp dueTime = inn.getDueTime();
-						Calendar cal = Calendar.getInstance();
-						long checkDueTime = (cal.getTimeInMillis() - dueTime.getTime()) / 1000;
-						if (dueTime != null) {
-							if (inn.getLodgerId() == pc.getId()
-									&& checkDueTime < 0) {
-								if (inn.isHall()) {
-									isHall = true;
-								}
-								isRent = true;
-								break;
-							}
-							if ((!findRoom)) {
-								if (checkDueTime >= 0) {
-									canRent = true;
-									findRoom = true;
-									roomNumber = inn.getRoomNumber();
-									break;
-								} else {
-									if (inn.isHall()) {
-										roomCount++;
-									}
-								}
-							}
-						} else {
-							if (!findRoom) {
-								canRent = true;
-								findRoom = true;
-								roomNumber = inn.getRoomNumber();
-								break;
-							}
-						}
-					}
-				}
-				if (isRent) {
-					if (isHall) {
-						htmlid = "inn15";
-					} else {
-						htmlid = "inn5";
-					}
-				}
-				else if (roomCount >= 4) {
-					htmlid = "inn16";
-				}
-				else if (canRent) {
-					pc.setInnRoomNumber(roomNumber);
-					pc.setHall(true);
-					pc.sendPackets(new S_HowManyKey(npc, 300, 1, 8, "inn12"));
-				}
-			} else {
-				htmlid = "inn10";
-			}
-		}
-		else if (s.equalsIgnoreCase("return")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			int npcId = npc.getNpcTemplate().get_npcId();
-			int price = 0;
-			boolean isBreak = false;
-			for (int i = 0; i < 16; i++) {
-				L1Inn inn = InnTable.getInstance().getTemplate(npcId, i);
-				if (inn != null) {
-					if (inn.getLodgerId() == pc.getId()) {
-						Timestamp dueTime = inn.getDueTime();
-						if (dueTime != null) {
-							Calendar cal = Calendar.getInstance();
-							if (((cal.getTimeInMillis() - dueTime.getTime()) / 1000) < 0) {
-								isBreak = true;
-								price += 60;
-							}
-						}
-						Timestamp ts = new Timestamp(System.currentTimeMillis());
-						inn.setDueTime(ts);
-						inn.setLodgerId(0);
-						inn.setKeyId(0);
-						inn.setHall(false);
-						InnTable.getInstance().updateInn(inn);
-						break;
-					}
-				}
-			}
-			for (L1ItemInstance item : pc.getInventory().getItems()) {
-				if (item.getInnNpcId() == npcId) {
-					price += 20 * item.getCount();
-					InnKeyTable.DeleteKey(item);
-					pc.getInventory().removeItem(item);
-					isBreak = true;
-				}
-			}
-			if (isBreak) {
-				htmldata = new String[]  {npc.getName(), String.valueOf(price)};
-				htmlid = "inn20";
-				pc.getInventory().storeItem(L1ItemId.ADENA, price);
-			} else {
-				htmlid = "";
-			}
-		}
-		else if (s.equalsIgnoreCase("enter")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			int npcId = npc.getNpcTemplate().get_npcId();
-
-			for (L1ItemInstance item : pc.getInventory().getItems()) {
-				if (item.getInnNpcId() == npcId) {
-					for (int i = 0; i < 16; i++) {
-						L1Inn inn = InnTable.getInstance().getTemplate(npcId, i);
-						if (inn.getKeyId() == item.getKeyId()) {
-							Timestamp dueTime = item.getDueTime();
-							if (dueTime != null) {
-								Calendar cal = Calendar.getInstance();
-								if (((cal.getTimeInMillis() - dueTime.getTime()) / 1000) < 0) {
-									int[] data = null;
-									switch (npcId) {
-										case 70012:
-											data = new int[] {32745, 32803, 16384, 32743, 32808, 16896};
-											break;
-										case 70019:
-											data = new int[] {32743, 32803, 17408, 32744, 32807, 17920};
-											break;
-										case 70031:
-											data = new int[] {32744, 32803, 18432, 32744, 32807, 18944};
-											break;
-										case 70065:
-											data = new int[] {32744, 32803, 19456, 32744, 32807, 19968};
-											break;
-										case 70070:
-											data = new int[] {32744, 32803, 20480, 32744, 32807, 20992};
-											break;
-										case 70075:
-											data = new int[] {32744, 32803, 21504, 32744, 32807, 22016};
-											break;
-										case 70084:
-											data = new int[] {32744, 32803, 22528, 32744, 32807, 23040};
-											break;
-										case 70054:
-											data = new int[] {32744, 32803, 24576, 32744, 32807, 24064};
-											break;
-										case 70096:
-											data = new int[] {32744, 32803, 23552, 32744, 32807, 25088};
-											break;
-										default:
-											break;
-									}
-
-									pc.setInnKeyId(item.getKeyId());
-
-									if (!item.checkRoomOrHall()) {
-										L1Teleport.teleport(pc, data[0], data[1], (short) data[2], 6, true);
-									} else {
-										L1Teleport.teleport(pc, data[3], data[4], (short) data[5], 6, true);
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		} else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 91328) { 
+		} else if (s.equalsIgnoreCase("hall") && obj instanceof L1MerchantInstance) { 
+		} else if (s.equalsIgnoreCase("return")) { 
+		} else if (s.equalsIgnoreCase("enter")) { 
 		} else if (s.equalsIgnoreCase("openigate")) { 
 			L1NpcInstance npc = (L1NpcInstance) obj;
 			openCloseGate(pc, npc.getNpcTemplate().get_npcId(), true);
@@ -716,15 +433,12 @@ public class C_NPCAction extends ClientBasePacket {
 			expelOtherClan(pc, npc.getNpcTemplate().get_npcId());
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("pay")) {
-            if (obj instanceof L1HousekeeperInstance) {
-                    htmldata = ((L1HousekeeperInstance) obj)
-                                    .makeHouseTaxStrings(pc);
-            }
+			L1NpcInstance npc = (L1NpcInstance) obj;
+			htmldata = makeHouseTaxStrings(pc, npc);
             htmlid = "agpay";
         } else if (s.equalsIgnoreCase("payfee")) {
-            if (obj instanceof L1HousekeeperInstance) {
-                    ((L1HousekeeperInstance) obj).payFree(pc);
-            }
+			L1NpcInstance npc = (L1NpcInstance) obj;
+			payFee(pc, npc);
             htmlid = "";
 		} else if (s.equalsIgnoreCase("name")) { 
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
@@ -4248,6 +3962,55 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
+	}
+
+	private void payFee(L1PcInstance pc, L1NpcInstance npc) {
+		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		if (clan != null) {
+			int houseId = clan.getHouseId();
+			if (houseId != 0) {
+				L1House house = HouseTable.getInstance().getHouseTable(houseId);
+				int keeperId = house.getKeeperId();
+				if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					if (pc.getInventory().checkItem(L1ItemId.ADENA, 2000)) {
+						pc.getInventory().consumeItem(L1ItemId.ADENA, 2000);
+						TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
+						Calendar cal = Calendar.getInstance(tz);
+						cal.add(Calendar.DATE, Config.HOUSE_TAX_INTERVAL);
+						cal.set(Calendar.MINUTE, 0);
+						cal.set(Calendar.SECOND, 0);
+						house.setTaxDeadline(cal);
+						HouseTable.getInstance().updateHouse(house); 
+					} else {
+						pc.sendPackets(new S_ServerMessage(189));
+					}
+				}
+			}
+		}
+	}
+
+	private String[] makeHouseTaxStrings(L1PcInstance pc, L1NpcInstance npc) {
+		String name = npc.getNpcTemplate().get_name();
+		String[] result;
+		result = new String[] { name, "2000", "1", "1", "00" };
+		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		if (clan != null) {
+			int houseId = clan.getHouseId();
+			if (houseId != 0) {
+				L1House house = HouseTable.getInstance().getHouseTable(houseId);
+				int keeperId = house.getKeeperId();
+				if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					Calendar cal = house.getTaxDeadline();
+					int month = cal.get(Calendar.MONTH) + 1;
+					int day = cal.get(Calendar.DATE);
+					int hour = cal.get(Calendar.HOUR_OF_DAY);
+					result = new String[] { name, "2000",
+							String.valueOf(month), String.valueOf(day),
+							String.valueOf(hour) };
+				}
+			}
+		}
+		return result;
 	}
 
 	private String[] makeWarTimeStrings(int castleId) {

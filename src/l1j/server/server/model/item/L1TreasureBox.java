@@ -141,7 +141,7 @@ public class L1TreasureBox {
 
 	public static void load() {
 		PerformanceTimer timer = new PerformanceTimer();
-		System.out.print("Loading TreasureBox...");
+		System.out.print("loading TreasureBox...");
 		try {
 			JAXBContext context = JAXBContext.newInstance(L1TreasureBox.TreasureBoxList.class);
 			Unmarshaller um = context.createUnmarshaller();

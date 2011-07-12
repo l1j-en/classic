@@ -168,9 +168,6 @@ public class Teleportation {
 			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
 					pc.getSkillEffectTimeSec(WIND_SHACKLE)));
 		}
-		if (pc.getMapId() <= 10000 && pc.getInnKeyId() != 0) { 
-				pc.setInnKeyId(0); 
-			}
 	}
 
 	private static void teleport(L1NpcInstance npc, int x, int y, short map,
