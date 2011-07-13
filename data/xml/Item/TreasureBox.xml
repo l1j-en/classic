@@ -276,16 +276,16 @@
 		<Item ItemId="152" Count="1" Chance="6" />
 		<Item ItemId="153" Count="1" Chance="5" />
 		<Item ItemId="154" Count="1" Chance="5" />
-    	<Item ItemId="157" Count="1" Chance="6" />
+    	        <Item ItemId="157" Count="1" Chance="6" />
 		<Item ItemId="158" Count="1" Chance="4" />
 		<Item ItemId="159" Count="1" Chance="5" />
 		<Item ItemId="161" Count="1" Chance="5" />
 		<Item ItemId="162" Count="1" Chance="1" />
 		<Item ItemId="168" Count="1" Chance="4" />
 		<Item ItemId="177" Count="1" Chance="1" />
-		<Item ItemId="40738" Count="1000" Chance="6" />
-		<Item ItemId="40739" Count="1000" Chance="6" />
-		<Item ItemId="40740" Count="500" Chance="6" />
+		<Item ItemId="40738" Count="1000" Chance="2" />
+		<Item ItemId="40739" Count="1000" Chance="2" />
+		<Item ItemId="40740" Count="500" Chance="2" />
 		<Item ItemId="20032" Count="1" Chance="3" />
 		<Item ItemId="20070" Count="1" Chance="3" />
 		<Item ItemId="20132" Count="1" Chance="3" />
