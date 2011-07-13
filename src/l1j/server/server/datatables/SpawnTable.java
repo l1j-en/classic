@@ -112,6 +112,12 @@ public class SpawnTable {
 					spawnDat.setMovementDistance(rs.getInt("movement_distance"));
 					spawnDat.setRest(rs.getBoolean("rest"));
 					spawnDat.setSpawnType(rs.getInt("near_spawn"));
+					spawnDat.setSpawnHome(rs.getInt("spawn_home"));
+					spawnDat.setSpawnHomeRange(rs.getInt("spawn_home_range"));
+					spawnDat.setSpawnHomeCount(rs.getInt("spawn_home_count"));
+					spawnDat.setSpawnHomeDelay(rs.getInt("spawn_home_delay"));
+
+
 					spawnDat.setName(template1.get_name());
 					if (count > 1 && spawnDat.getLocX1() == 0) {
 						// And multiple fixed spawn, the population range from 6 to spawn change.
