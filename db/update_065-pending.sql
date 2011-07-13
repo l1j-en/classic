@@ -165,6 +165,10 @@ INSERT INTO door_gfxs VALUES
 (6694, 'Death match', 1, -1, 0),
 (7536, 'Hardin Quest', 0, 0, 0);
 
+ALTER TABLE spawnlist_door DROP direction;
+ALTER TABLE spawnlist_door DROP left_edge_location;
+ALTER TABLE spawnlist_door DROP right_edge_location;
+
 INSERT INTO `spawnlist_door` VALUES ('9000', 'race', '6677', '32762', '32848', '5143', '0', '5143');
 
 -- make ZL only drop 1 wand of each type.  this was causing issues
@@ -179,3 +183,9 @@ UPDATE npc SET ac = -223 WHERE npcid = 45562;
 
 -- remove the broken lancemaster poly's
 DELETE FROM polymorphs WHERE id > 7000;
+
+-- make some spawn config changes for better future spawns
+ALTER TABLE `spawnlist` ADD `spawn_home` tinyint(1) unsigned NOT NULL DEFAULT 1 AFTER near_spawn;
+ALTER TABLE `spawnlist` ADD `spawn_home_range` int(10) NOT NULL DEFAULT 8 AFTER spawn_home;
+ALTER TABLE `spawnlist` ADD `spawn_home_count` int(10) NOT NULL DEFAULT 2 AFTER spawn_home_range;
+ALTER TABLE `spawnlist` ADD `spawn_home_delay` int(10) NOT NULL DEFAULT 100 AFTER spawn_home_count;

@@ -71,6 +71,10 @@ public class L1Spawn extends L1GameTimeAdapter {
 	private List<L1NpcInstance> _mobs = new ArrayList<L1NpcInstance>();
 	private static Random _random = new Random();
 	private String _name;
+	private int _spawnHome;
+	private int _spawnHomeRange;
+	private int _spawnHomeCount;
+	private int _spawnHomeDelay;
 
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
@@ -187,6 +191,19 @@ public class L1Spawn extends L1GameTimeAdapter {
 		return _maxRespawnDelay;
 	}
 
+	public int getSpawnHome() {
+		return _spawnHome;
+	}
+	public int getSpawnHomeRange() {
+		return _spawnHomeRange;
+	}
+	public int getSpawnHomeCount() {
+		return _spawnHomeCount;
+	}
+	public int getSpawnHomeDelay() {
+		return _spawnHomeDelay;
+	}
+
 	public void setAmount(int amount) {
 		_maximumCount = amount;
 	}
@@ -249,6 +266,19 @@ public class L1Spawn extends L1GameTimeAdapter {
 
 	public void setMaxRespawnDelay(int i) {
 		_maxRespawnDelay = i;
+	}	
+	public void setSpawnHome(int i) {
+		_spawnHome = i;
+	}
+
+	public void setSpawnHomeRange(int i) {
+		_spawnHomeRange = i;
+	}
+	public void setSpawnHomeCount(int i) {
+		_spawnHomeCount = i;
+	}
+	public void setSpawnHomeDelay(int i) {
+		_spawnHomeDelay = i;
 	}
 
 	private int calcRespawnDelay() {
@@ -288,9 +318,9 @@ public class L1Spawn extends L1GameTimeAdapter {
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
 		// Points to give the home or
-		if (Config.SPAWN_HOME_POINT
-				&& Config.SPAWN_HOME_POINT_COUNT <= getAmount()
-				&& Config.SPAWN_HOME_POINT_DELAY >= getMinRespawnDelay()
+		if (getSpawnHome() == 1
+				&& getSpawnHomeCount() <= getAmount()
+				&& getSpawnHomeDelay() >= getMinRespawnDelay()
 				&& isAreaSpawn()) {
 			_spawnHomePoint = true;
 			_homePoint = new HashMap<Integer, Point>();
@@ -378,7 +408,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 								&& null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
 							L1Location loc = new L1Location(pt, getMapId())
 									.randomLocation(
-											Config.SPAWN_HOME_POINT_RANGE,
+											getSpawnHomeRange(),
 											false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
