@@ -167,3 +167,5 @@ INSERT INTO door_gfxs VALUES
 
 INSERT INTO `spawnlist_door` VALUES ('9000', 'race', '6677', '32762', '32848', '5143', '0', '5143');
 
+-- make ZL only drop 1 wand of each type.  this was causing issues
+UPDATE droplist SET min = 1 WHERE item_name LIKE '%wand%' AND min > 1;
