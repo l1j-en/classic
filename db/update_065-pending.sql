@@ -169,3 +169,10 @@ INSERT INTO `spawnlist_door` VALUES ('9000', 'race', '6677', '32762', '32848', '
 
 -- make ZL only drop 1 wand of each type.  this was causing issues
 UPDATE droplist SET min = 1 WHERE item_name LIKE '%wand%' AND min > 1;
+
+-- lower droprate of pollute water by a good bit.  this shouldn't be easily farmable imo
+UPDATE droplist SET chance = chance / 4 WHERE (itemid = 41152 AND mobid = 45735) OR (itemid = 41152 AND mobid = 45942);
+UPDATE droplist SET chance = chance / 2 WHERE (itemid = 41152 AND mobid = 45943) OR (itemid = 41152 AND mobid = 45944);
+
+-- make guardian armor basically resistant to physical damage
+UPDATE npc SET ac = -223 WHERE npcid = 45562;
