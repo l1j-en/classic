@@ -176,3 +176,6 @@ UPDATE droplist SET chance = chance / 2 WHERE (itemid = 41152 AND mobid = 45943)
 
 -- make guardian armor basically resistant to physical damage
 UPDATE npc SET ac = -223 WHERE npcid = 45562;
+
+-- remove the broken lancemaster poly's
+DELETE FROM polymorphs WHERE id > 7000;
