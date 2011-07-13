@@ -189,3 +189,8 @@ ALTER TABLE `spawnlist` ADD `spawn_home` tinyint(1) unsigned NOT NULL DEFAULT 1 
 ALTER TABLE `spawnlist` ADD `spawn_home_range` int(10) NOT NULL DEFAULT 8 AFTER spawn_home;
 ALTER TABLE `spawnlist` ADD `spawn_home_count` int(10) NOT NULL DEFAULT 2 AFTER spawn_home_range;
 ALTER TABLE `spawnlist` ADD `spawn_home_delay` int(10) NOT NULL DEFAULT 100 AFTER spawn_home_count;
+
+-- make jindo pup's spawn closer to the way they should
+DELETE FROM spawnlist WHERE id > 801500428 and id < 801500457 and npc_templateid = 45711;
+update spawnlist set locx1 = 32576, locx2 = 33023, locy1 = 32512, locy2 = 32959, spawn_home = 0, min_respawn_delay = 900, max_respawn_delay = 1800 where id = 801500428;
+update spawnlist set locx1 = 32512, locx2 = 32831, locy1 = 32704, locy2 = 33023, spawn_home = 0, min_respawn_delay = 900, max_respawn_delay = 1800 where id = 801500457;
