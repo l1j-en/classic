@@ -637,7 +637,7 @@ public class C_NPCAction extends ClientBasePacket {
             } else if (npcId == 80168) {
                 L1PolyRace.getInstance().enterGame(pc);
             } else if (npcId == 80086 || npcId == 80087) {
-                L1DeathMatch.getInstance().enterGame(pc);
+                L1DeathMatch.getInstance().enterGame(pc, npcId);
 			} else if (npcId == 50038 || npcId == 50042 || npcId == 50029
 					|| npcId == 50019 || npcId == 50062) {
 				htmlid = watchUb(pc, npcId);

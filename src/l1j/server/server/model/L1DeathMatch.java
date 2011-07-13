@@ -77,7 +77,7 @@ public class L1DeathMatch {
 	private final L1DoorInstance _doorLeft;
 
 	private L1DeathMatch() {
-		if (Config.DEATH_MATCH_MIN_PLAYER < 2) {
+		if (Config.DEATH_MATCH_MIN_PLAYER < 5) {
 			gameStartMinPlayer = 6;
 			orderEntMinPlayer = 10;
 		}
@@ -110,10 +110,14 @@ public class L1DeathMatch {
 		this.startTime = startTime;
 	}
 
-	public void enterGame(L1PcInstance pc) {
-		if (!(pc.getLevel() > 29 && pc.getLevel() < 52)) {
-			pc.sendPackets(new S_ServerMessage(1273, "30", "51"));
+	public void enterGame(L1PcInstance pc, int npcId) {
+		if (npcId == 80087 && pc.getLevel() < 52) {
+			pc.sendPackets(new S_ServerMessage(1273, "52", "99"));
 			return;
+		}
+		if (npcId == 80086) {
+			pc.sendPackets(new S_SystemMessage("We're sorry, this death match is currently disabled"));
+			return;	
 		}
 		if (getOrderCancelList(pc) > 4) {
 			if (lastPlayTime.containsKey(pc.getName())) {
