@@ -194,3 +194,5 @@ ALTER TABLE `spawnlist` ADD `spawn_home_delay` int(10) NOT NULL DEFAULT 100 AFTE
 DELETE FROM spawnlist WHERE id > 801500428 and id < 801500457 and npc_templateid = 45711;
 update spawnlist set locx1 = 32576, locx2 = 33023, locy1 = 32512, locy2 = 32959, spawn_home = 0, min_respawn_delay = 900, max_respawn_delay = 1800 where id = 801500428;
 update spawnlist set locx1 = 32512, locx2 = 32831, locy1 = 32704, locy2 = 33023, spawn_home = 0, min_respawn_delay = 900, max_respawn_delay = 1800 where id = 801500457;
+INSERT INTO spawnlist VALUES(801500429, "Aden", 5, 45711, 0, 32767, 32767, 10, 10, 32384, 32064, 34303, 33535, 3, 1800, 3600, 4, 0, 0, 0, 0, 0, 8, 2, 100);
+
