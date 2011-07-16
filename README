@@ -38,3 +38,5 @@ One slight change in a dev's normal "process", that I believe will help a ton, a
 I know that seems like many more steps than our old svn system, but it starts to come naturally very quickly, and the benefits are enormous.  Some of the commands have the same name as the old svn commands, but work a little differently.  That can cause some confusion but again you get used to it very quickly.
 
 If you need any help just ask me.
+
+test: ignore this line
