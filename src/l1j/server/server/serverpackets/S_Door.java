@@ -21,31 +21,23 @@ package l1j.server.server.serverpackets;
 import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
-import l1j.server.server.model.Instance.L1DoorInstance;
-
-// Referenced classes of package l1j.server.server.serverpackets:
-// ServerBasePacket
-
 public class S_Door extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_Door.class.getName());
 	private static final String S_DOOR = "[S] S_Door";
 	private byte[] _byte = null;
 
-	public S_Door(L1DoorInstance door) {
-		buildPacket(door.getEntranceX(), door.getEntranceY(), door
-				.getDirection(), door.getPassable());
+	private static final int PASS = 0;
+	private static final int NOT_PASS = 1;
+
+	public S_Door(int x, int y, int direction, boolean isPassable) {
+		buildPacket(x, y, direction, isPassable);
 	}
 
-	public S_Door(int x, int y, int direction, int passable) {
-		buildPacket(x, y, direction, passable);
-	}
-
-	private void buildPacket(int x, int y, int direction, int passable) {
+	private void buildPacket(int x, int y, int direction, boolean isPassable) {
 		writeC(Opcodes.S_OPCODE_ATTRIBUTE);
 		writeH(x);
 		writeH(y);
-		writeC(direction); // 0 direction of the door: / 1:\
-		writeC(passable);
+		writeC(direction);
+		writeC(isPassable ? PASS : NOT_PASS);
 	}
 
 	@Override

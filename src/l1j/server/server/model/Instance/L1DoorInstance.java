@@ -18,29 +18,23 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ActionCodes;
-import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1World;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Door;
 import l1j.server.server.serverpackets.S_DoorPack;
-import l1j.server.server.templates.L1Npc;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.templates.L1DoorGfx;
+import l1j.server.server.templates.L1Npc;
 
 public class L1DoorInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	public static final int PASS = 0;
-	public static final int NOT_PASS = 1;
-
-	private static Logger _log = Logger.getLogger(L1DoorInstance.class
-			.getName());
+	private static final int DOOR_NPC_ID = 81158;
 
 	public L1DoorInstance(L1Npc template) {
 		super(template);
@@ -48,7 +42,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public L1DoorInstance(int doorId, L1DoorGfx gfx, L1Location loc, int hp,
 			int keeper) {
-		super(null);
+		super(NpcTable.getInstance().getTemplate(DOOR_NPC_ID));
 		setDoorId(doorId);
 		setMaxHp(hp);
 		setCurrentHp(hp);
@@ -65,7 +59,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	@Override
 	public void onAction(L1PcInstance pc) {
-		if (getMaxHp() == 0 || getMaxHp() == 1) { //
+		if (getMaxHp() == 0) {
 			return;
 		}
 
@@ -90,7 +84,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	@Override
 	public void deleteMe() {
-		setPassable(PASS);
+		setDead(true);
 		sendDoorPacket(null);
 
 		_destroyed = true;
@@ -110,64 +104,41 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
-		if (getMaxHp() == 0 || getMaxHp() == 1) { //
+		if (getMaxHp() == 0) {
+			return;
+		}
+		if (getCurrentHp() <= 0 || isDead()) {
 			return;
 		}
 
-		if (getCurrentHp() > 0 && !isDead()) {
-			int newHp = getCurrentHp() - damage;
-			if (newHp <= 0 && !isDead()) {
-				setCurrentHpDirect(0);
-				setDead(true);
-				setStatus(ActionCodes.ACTION_DoorDie);
-				Death death = new Death(attacker);
-				GeneralThreadPool.getInstance().execute(death);
-			}
-			if (newHp > 0) {
-				setCurrentHp(newHp);
-				if ((getMaxHp() * 1 / 6) > getCurrentHp()) {
-					if (_crackStatus != 5) {
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_DoorAction5));
-						setStatus(ActionCodes.ACTION_DoorAction5);
-						_crackStatus = 5;
-					}
-				} else if ((getMaxHp() * 2 / 6) > getCurrentHp()) {
-					if (_crackStatus != 4) {
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_DoorAction4));
-						setStatus(ActionCodes.ACTION_DoorAction4);
-						_crackStatus = 4;
-					}
-				} else if ((getMaxHp() * 3 / 6) > getCurrentHp()) {
-					if (_crackStatus != 3) {
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_DoorAction3));
-						setStatus(ActionCodes.ACTION_DoorAction3);
-						_crackStatus = 3;
-					}
-				} else if ((getMaxHp() * 4 / 6) > getCurrentHp()) {
-					if (_crackStatus != 2) {
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_DoorAction2));
-						setStatus(ActionCodes.ACTION_DoorAction2);
-						_crackStatus = 2;
-					}
-				} else if ((getMaxHp() * 5 / 6) > getCurrentHp()) {
-					if (_crackStatus != 1) {
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_DoorAction1));
-						setStatus(ActionCodes.ACTION_DoorAction1);
-						_crackStatus = 1;
-					}
-				}
-			}
-		} else if (!isDead()) { //
-			setDead(true);
-			setStatus(ActionCodes.ACTION_DoorDie);
-			Death death = new Death(attacker);
-			GeneralThreadPool.getInstance().execute(death);
+		int newHp = getCurrentHp() - damage;
+		if (newHp <= 0 && !isDead()) {
+			die();
+			return;
 		}
+
+		setCurrentHpDirect(newHp);
+		updateStatus();
+	}
+
+	private void updateStatus() {
+		int newStatus = 0;
+		if ((getMaxHp() * 1 / 6) > getCurrentHp()) {
+			newStatus = ActionCodes.ACTION_DoorAction5;
+		} else if ((getMaxHp() * 2 / 6) > getCurrentHp()) {
+			newStatus = ActionCodes.ACTION_DoorAction4;
+		} else if ((getMaxHp() * 3 / 6) > getCurrentHp()) {
+			newStatus = ActionCodes.ACTION_DoorAction3;
+		} else if ((getMaxHp() * 4 / 6) > getCurrentHp()) {
+			newStatus = ActionCodes.ACTION_DoorAction2;
+		} else if ((getMaxHp() * 5 / 6) > getCurrentHp()) {
+			newStatus = ActionCodes.ACTION_DoorAction1;
+		}
+		if (getStatus() == newStatus) {
+			return;
+		}
+		setStatus(newStatus);
+		broadcastPacket(new S_DoActionGFX(getId(), newStatus));
 	}
 
 	@Override
@@ -179,29 +150,18 @@ public class L1DoorInstance extends L1NpcInstance {
 		setCurrentHpDirect(currentHp);
 	}
 
-	class Death implements Runnable {
-		L1Character _lastAttacker;
+	private void die() {
+		setCurrentHpDirect(0);
+		setDead(true);
+		setStatus(ActionCodes.ACTION_DoorDie);
 
-		public Death(L1Character lastAttacker) {
-			_lastAttacker = lastAttacker;
-		}
+		getMap().setPassable(getLocation(), true);
 
-		@Override
-		public void run() {
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_DoorDie);
-
-			getMap().setPassable(getLocation(), true);
-
-			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes
-					.ACTION_DoorDie));
-			setPassable(PASS);
-			sendDoorPacket(null);
-		}
+		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_DoorDie));
+		sendDoorPacket(null);
 	}
 
-	private void sendDoorPacket(L1PcInstance pc) {
+	public void sendDoorPacket(L1PcInstance pc) {
 		int entranceX = getEntranceX();
 		int entranceY = getEntranceY();
 		int leftEdgeLocation = getLeftEdgeLocation();
@@ -223,9 +183,13 @@ public class L1DoorInstance extends L1NpcInstance {
 		}
 	}
 
+	private boolean isPassable() {
+		return isDead() || getOpenStatus() == ActionCodes.ACTION_Open;
+	}
+
 	private void sendPacket(L1PcInstance pc, int x, int y) {
-		S_Door packet = new S_Door(x, y, getDirection(), getPassable());
-		if (pc != null) {
+		S_Door packet = new S_Door(x, y, getDirection(), isPassable());
+		if (pc != null) {	
 			if (getOpenStatus() == ActionCodes.ACTION_Close) {
 				pc.sendPackets(packet);
 			}
@@ -235,40 +199,37 @@ public class L1DoorInstance extends L1NpcInstance {
 	}
 
 	public void open() {
-		if (isDead()) {
+		if (isDead() || getOpenStatus() == ActionCodes.ACTION_Open) {
 			return;
 		}
-		if (getOpenStatus() == ActionCodes.ACTION_Close) {
-			setOpenStatus(ActionCodes.ACTION_Open);
-			setPassable(L1DoorInstance.PASS);
-			broadcastPacket(new S_DoorPack(this));
-			broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Open));
-			sendDoorPacket(null);
-		}
+
+		setOpenStatus(ActionCodes.ACTION_Open);
+		broadcastPacket(new S_DoorPack(this));
+		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Open));
+		sendDoorPacket(null);
 	}
 
 	public void close() {
-		if (isDead()) {
+		if (isDead() || getOpenStatus() == ActionCodes.ACTION_Close) {
 			return;
 		}
-		if (getOpenStatus() == ActionCodes.ACTION_Open) {
-			setOpenStatus(ActionCodes.ACTION_Close);
-			setPassable(L1DoorInstance.NOT_PASS);
-			broadcastPacket(new S_DoorPack(this));
-			broadcastPacket(new S_DoActionGFX(getId(),ActionCodes.ACTION_Close));
-			sendDoorPacket(null);
-		}
+
+		setOpenStatus(ActionCodes.ACTION_Close);
+		broadcastPacket(new S_DoorPack(this));
+		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Close));
+		sendDoorPacket(null);
 	}
 
 	public void repairGate() {
-		if (getMaxHp() > 1) {
-			setDead(false);
-			setCurrentHp(getMaxHp());
-			setStatus(0);
-			setCrackStatus(0);
-			setOpenStatus(ActionCodes.ACTION_Open);
-			close();
+		if (getMaxHp() <= 1) {
+			return;
 		}
+
+		setDead(false);
+		setCurrentHp(getMaxHp());
+		setStatus(0);
+		setOpenStatus(ActionCodes.ACTION_Open);
+		close();
 	}
 
 	private int _doorId = 0;
@@ -288,9 +249,10 @@ public class L1DoorInstance extends L1NpcInstance {
 	}
 
 	public void setDirection(int i) {
-		if (i == 0 || i == 1) {
-			_direction = i;
+		if (i != 0 && i != 1) {
+			throw new IllegalArgumentException();
 		}
+		_direction = i;
 	}
 
 	public int getEntranceX() {
@@ -339,22 +301,12 @@ public class L1DoorInstance extends L1NpcInstance {
 		return _openStatus;
 	}
 
-	public void setOpenStatus(int i) {
-		if (i == ActionCodes.ACTION_Open || i == ActionCodes.ACTION_Close) {
-			_openStatus = i;
+	private void setOpenStatus(int newStatus) {
+		if (newStatus != ActionCodes.ACTION_Open
+				&& newStatus != ActionCodes.ACTION_Close) {
+			throw new IllegalArgumentException();
 		}
-	}
-
-	private int _passable = NOT_PASS;
-
-	public int getPassable() {
-		return _passable;
-	}
-
-	public void setPassable(int i) {
-		if (i == PASS || i == NOT_PASS) {
-			_passable = i;
-		}
+		_openStatus = newStatus;
 	}
 
 	private int _keeperId = 0;
@@ -365,15 +317,5 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public void setKeeperId(int i) {
 		_keeperId = i;
-	}
-
-	private int _crackStatus;
-
-	public int getCrackStatus() {
-		return _crackStatus;
-	}
-
-	public void setCrackStatus(int i) {
-		_crackStatus = i;
 	}
 }

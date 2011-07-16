@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
@@ -48,8 +49,9 @@ public class CastleTable {
 		return _instance;
 	}
 
-	private CastleTable() {
-		load();
+
+	public CastleTable() {
+		CastleTable();
 	}
 
 	private Calendar timestampToCalendar(Timestamp ts) {
@@ -58,7 +60,7 @@ public class CastleTable {
 		return cal;
 	}
 
-	private void load() {
+	private void CastleTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -91,6 +93,31 @@ public class CastleTable {
 		return _castles.get(id);
 	}
 
+	public void insertCastle(L1Castle castle) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("INSERT INTO castle SET name=?, war_time=?, " +
+					"tax_rate=?, public_money=? WHERE castle_id=?");
+			pstm.setString(1, castle.getName());
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //this format saves and updates the time of your system for auctiontable
+			String dateString = format.format(castle.getWarTime().getTime());
+			pstm.setString(2, dateString);
+			pstm.setInt(3, castle.getTaxRate());
+			pstm.setInt(4, castle.getPublicMoney());
+			pstm.setInt(5, castle.getId());
+			pstm.execute();
+			_castles.put(castle.getId(), castle);
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	
 	public void updateCastle(L1Castle castle) {
 		Connection con = null;
 		PreparedStatement pstm = null;
