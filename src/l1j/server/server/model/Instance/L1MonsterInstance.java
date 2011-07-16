@@ -237,6 +237,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 	@Override
 	public void onNpcAI() {
 		if (isAiRunning()) {
+			getZoneType();
 			return;
 		}
 		if (!_storeDroped)
@@ -271,6 +272,16 @@ public class L1MonsterInstance extends L1NpcInstance {
 				} else {
 					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
 				}
+			}
+		}
+
+	public int getZoneType() {
+		if (getMap().isSafetyZone(getLocation())) {
+			return -1;
+		} else if (getMap().isCombatZone(getLocation())) {
+			return -1;
+		} else { 
+			return -1;
 			}
 		}
 
