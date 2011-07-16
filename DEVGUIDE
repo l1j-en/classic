@@ -1,0 +1,3 @@
+Please commit all changes to the development branch first (other than your own local branches), and from their let them follow up through testing in to main.
+
+Please make commit's as "small" as possible, one change (or complete feature) per commit.  This will make testing and maintanance much easier.
