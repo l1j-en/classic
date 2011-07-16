@@ -35,8 +35,8 @@ CREATE TABLE `door_gfxs` (
 # Records of door_gfxs
 # ----------------------------
 INSERT INTO door_gfxs VALUES
-(92, 'Pagos Room', 0, 0, 1),
-(93, 'Pagos Room', 1, 0, 0),
+(92, 'Pago`s Room', 0, 0, 1),
+(93, 'Pago`s Room', 1, 0, 0),
 (339, 'Kent Castle', 0, -1, 0),
 (442, 'Windawood', 0, 0, 0),
 (443, 'Dwarf Castle', 1, 0, 1),
@@ -196,3 +196,103 @@ update spawnlist set locx1 = 32576, locx2 = 33023, locy1 = 32512, locy2 = 32959,
 update spawnlist set locx1 = 32512, locx2 = 32831, locy1 = 32704, locy2 = 33023, spawn_home = 0, min_respawn_delay = 900, max_respawn_delay = 1800 where id = 801500457;
 INSERT INTO spawnlist VALUES(801500429, "Aden", 5, 45711, 0, 32767, 32767, 10, 10, 32384, 32064, 34303, 33535, 3, 1800, 3600, 4, 0, 0, 0, 0, 0, 8, 2, 100);
 
+# Increase Item Name Size Limit
+ALTER TABLE etcitem MODIFY name varchar(60);
+ALTER TABLE etcitem MODIFY unidentified_name_id varchar(60);
+ALTER TABLE etcitem MODIFY identified_name_id varchar(60);
+
+# Update missing etcitem names
+UPDATE etcitem SET name = 'Cracked Nucleus' WHERE item_id = 49092;
+UPDATE etcitem SET name = 'Piece of Low-grade Treasure Chest of Osiris' WHERE item_id = 49093;
+UPDATE etcitem SET name = 'Piece of Low-grade Treasure Chest of Osiris' WHERE item_id = 49094;
+UPDATE etcitem SET name = 'Locked Low-grade Treasure Chest of Osiris' WHERE item_id = 49095;
+UPDATE etcitem SET name = 'Opened Low-grade Treasure Chest of Osiris' WHERE item_id = 49096;
+UPDATE etcitem SET name = 'Piece of High-grade Treasure Chest of Osiris' WHERE item_id = 49097;
+UPDATE etcitem SET name = 'Piece of High-grade Treasure Chest of Osiris' WHERE item_id = 49098;
+UPDATE etcitem SET name = 'Locked High-Grade Treasure Chest of Osiris' WHERE item_id = 49099;
+UPDATE etcitem SET name = 'Opened High-Grade Treasure Chest of Osiris' WHERE item_id = 49100;
+UPDATE etcitem SET name = 'Fragment of Time' WHERE item_id = 49101;
+UPDATE etcitem SET name = 'Lastavard Supplies Bag' WHERE item_id = 41243;
+UPDATE etcitem SET name = 'Lastavard Supplies Box' WHERE item_id = 41244;
+UPDATE etcitem SET name = 'Evidence Box of Dark Spirit Army' WHERE item_id = 40636;
+UPDATE etcitem SET name = 'Incomplete Logbook 2,4,6,8,10' WHERE item_id = 49082;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,3,5,7,9' WHERE item_id = 49083;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,4,6,8,10' WHERE item_id = 49084;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,5,7,9' WHERE item_id = 49085;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,6,8,10' WHERE item_id = 49086;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,5,7,9' WHERE item_id = 49087;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,5,6,8,10' WHERE item_id = 49088;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,5,6,7,9' WHERE item_id = 49089;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,5,6,7,8,10' WHERE item_id = 49090;
+UPDATE etcitem SET name = 'Incomplete Logbook 1,2,3,4,5,6,7,8,9' WHERE item_id = 49091;
+UPDATE etcitem SET name = 'Cracked Nucleus' WHERE item_id = 49092;
+UPDATE etcitem SET name = 'Piece of Low-grade Treasure Chest of Osiris (Upper)' WHERE item_id = 49093;
+UPDATE etcitem SET name = 'Piece of Low-grade Treasure Chest of Osiris (Lower)' WHERE item_id = 49094;
+UPDATE etcitem SET name = 'Locked Low-grade Treasure Chest of Osiris' WHERE item_id = 49095;
+UPDATE etcitem SET name = 'Opened Low-grade Treasure Chest of Osiris' WHERE item_id = 49096;
+UPDATE etcitem SET name = 'Piece of High-grade Treasure Chest of Osiris (Upper)' WHERE item_id = 49097;
+UPDATE etcitem SET name = 'Piece of High-grade Treasure Chest of Osiris (Lower)' WHERE item_id = 49098;
+UPDATE etcitem SET name = 'Locked High-Grade Treasure Chest of Osiris' WHERE item_id = 49099;
+UPDATE etcitem SET name = 'Opened High-Grade Treasure Chest of Osiris' WHERE item_id = 49100;
+UPDATE etcitem SET name = 'Fragment of Time' WHERE item_id = 49101;
+UPDATE etcitem SET unidentified_name_id = '$3030' WHERE item_id = 40467;
+UPDATE etcitem SET identified_name_id = '$3030' WHERE item_id = 40467;
+UPDATE etcitem SET name = 'Sealed Scroll' WHERE item_id = 41426;
+UPDATE etcitem SET name = 'Seal Release Scroll' WHERE item_id = 41427;
+UPDATE etcitem SET name = 'Ancient Royal Seal' WHERE item_id = 41428;
+UPDATE etcitem SET name = 'Scroll of Enchant Weapon: Wind' WHERE item_id = 41429;
+UPDATE etcitem SET name = 'Scroll of Enchant Weapon: Earth' WHERE item_id = 41430;
+UPDATE etcitem SET name = 'Scroll of Enchant Weapon: Water' WHERE item_id = 41431;
+UPDATE etcitem SET name = 'Scroll of Enchant Weapon: Fire' WHERE item_id = 41432;
+UPDATE etcitem SET name = 'Herb' WHERE item_id = 49243;
+UPDATE etcitem SET name = 'Roasted Claw of Crustacean' WHERE item_id = 49244;
+UPDATE etcitem SET name = 'Griffon Roast' WHERE item_id = 49245;
+UPDATE etcitem SET name = 'Cockatrice Steak' WHERE item_id = 49246;
+UPDATE etcitem SET name = 'Great King Turtle Roast' WHERE item_id = 49247;
+UPDATE etcitem SET name = 'Lesser Dragon Wing Skewers' WHERE item_id = 49248;
+UPDATE etcitem SET name = 'Drake Roast' WHERE item_id = 49249;
+UPDATE etcitem SET name = 'Deep Sea Fish Stew' WHERE item_id = 49250;
+UPDATE etcitem SET name = 'Basilisk Egg Soup' WHERE item_id = 49251;
+UPDATE etcitem SET unidentified_name_id = '$6099 $4928' WHERE item_id = 49252;
+UPDATE etcitem SET unidentified_name_id = '$6100 $4928' WHERE item_id = 49253;
+UPDATE etcitem SET unidentified_name_id = '$6101 $4928' WHERE item_id = 49254;
+UPDATE etcitem SET unidentified_name_id = '$6102 $4928' WHERE item_id = 49255;
+UPDATE etcitem SET unidentified_name_id = '$6103 $4928' WHERE item_id = 49256;
+UPDATE etcitem SET unidentified_name_id = '$6104 $4928' WHERE item_id = 49257;
+UPDATE etcitem SET unidentified_name_id = '$6105 $4928' WHERE item_id = 49258;
+UPDATE etcitem SET unidentified_name_id = '$6106 $4928' WHERE item_id = 49259;
+UPDATE etcitem SET identified_name_id = '$6099 $4928' WHERE item_id = 49252;
+UPDATE etcitem SET identified_name_id = '$6100 $4928' WHERE item_id = 49253;
+UPDATE etcitem SET identified_name_id = '$6101 $4928' WHERE item_id = 49254;
+UPDATE etcitem SET identified_name_id = '$6102 $4928' WHERE item_id = 49255;
+UPDATE etcitem SET identified_name_id = '$6103 $4928' WHERE item_id = 49256;
+UPDATE etcitem SET identified_name_id = '$6104 $4928' WHERE item_id = 49257;
+UPDATE etcitem SET identified_name_id = '$6105 $4928' WHERE item_id = 49258;
+UPDATE etcitem SET identified_name_id = '$6106 $4928' WHERE item_id = 49259;
+UPDATE etcitem SET name = 'Roasted Claw of Crustacean of Fantasy' WHERE item_id = 49252;
+UPDATE etcitem SET name = 'Griffon Roast of Fantasy' WHERE item_id = 49253;
+UPDATE etcitem SET name = 'Cockatrice Steak of Fantasy' WHERE item_id = 49254;
+UPDATE etcitem SET name = 'Great King Turtle Roast of Fantasy' WHERE item_id = 49255;
+UPDATE etcitem SET name = 'Lesser Dragon Wing Skewers of Fantasy' WHERE item_id = 49256;
+UPDATE etcitem SET name = 'Drake Roast of Fantasy' WHERE item_id = 49257;
+UPDATE etcitem SET name = 'Deep Sea Fish Stew of Fantasy' WHERE item_id = 49258;
+UPDATE etcitem SET name = 'Basilisk Egg Soup of Fantasy' WHERE item_id = 49259;
+UPDATE etcitem SET name = 'Claw of Crustacean' WHERE item_id = 49260;
+UPDATE etcitem SET name = 'Griffon Meat' WHERE item_id = 49261;
+UPDATE etcitem SET name = 'Cockatrice Tail' WHERE item_id = 49262;
+UPDATE etcitem SET name = 'Great King Turtle Meat' WHERE item_id = 49263;
+UPDATE etcitem SET name = 'Lesser Dragon Wing' WHERE item_id = 49264;
+UPDATE etcitem SET name = 'Drake Meat' WHERE item_id = 49265;
+UPDATE etcitem SET name = 'Deep Sea Fish Meat' WHERE item_id = 49266;
+UPDATE etcitem SET name = 'Basilisk Egg' WHERE item_id = 49267;
+UPDATE etcitem SET name = 'Gem Stone Powder' WHERE item_id = 49270;
+UPDATE etcitem SET name = 'Heart of Emai 1' WHERE item_id = 49271;
+UPDATE etcitem SET name = 'Heart of Emai 2' WHERE item_id = 49272;
+UPDATE etcitem SET name = 'Heart of Emai 3' WHERE item_id = 49273;
+UPDATE etcitem SET name = 'Heart of Emai 4' WHERE item_id = 49274;
+UPDATE etcitem SET name = 'Heart of Emai 5' WHERE item_id = 49275;
+UPDATE etcitem SET name = 'Heart of Emai 6' WHERE item_id = 49276;
+UPDATE etcitem SET name = 'Bronze Pumpkin of a Brave Man (Gold)' WHERE item_id = 49278;
+UPDATE etcitem SET name = 'Bronze Pumpkin of a Brave Man (Silver)' WHERE item_id = 49279;
+UPDATE etcitem SET name = 'Bronze Pumpkin of a Brave Man (Copper)' WHERE item_id = 49280;
+UPDATE etcitem SET name = 'Heart of Emai (Quest)' WHERE item_id = 41097;
