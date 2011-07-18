@@ -244,6 +244,8 @@ public final class Config {
     
     public static int DEATH_MATCH_MIN_PLAYER = 2;
 
+    public static boolean USE_TOI_CHARM_ANYWHERE;
+
 	public static int MAX_PT;
 
 	public static int MAX_CHAT_PT;
@@ -674,6 +676,7 @@ public final class Config {
 			PET_RACE_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("RaceMinPlayer", "2"));
 			PET_RACE_MAX_LAP = Integer.parseInt(altSettings.getProperty("RaceMaxLap", "3"));
 			DEATH_MATCH_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("DeathMatchMinPlayer", "2"));
+			USE_TOI_CHARM_ANYWHERE = Boolean.parseBoolean(altSettings.getProperty("UseToiCharmsAnywhere", "False"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");

@@ -5594,7 +5594,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 
-		if (isTeleport) {
+		if (isTeleport || Config.USE_TOI_CHARM_ANYWHERE) {
 			L1Teleport.teleport(pc, item.getItem().get_locx(), item.getItem()
 					.get_locy(), item.getItem().get_mapid(), 5, true);
 		} else {
