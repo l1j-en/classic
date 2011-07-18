@@ -301,9 +301,6 @@ UPDATE npc SET sub_magic_speed = 2640 WHERE npcid = 45045;
 -- passispeed changed from 960
 UPDATE npc SET passispeed = 800 WHERE npcid = 45049;
 
--- Skill:Cone of Cold Gfxid changed from 1809 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45049 and actNo = 0;
-
 
 
 --
@@ -1456,9 +1453,6 @@ UPDATE mobskill SET SkillId = 10142 WHERE mobid = 45241 and actNo = 0;
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45241 and actNo = 0;
 
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45241 and actNo = 0;
-
 
 
 --
@@ -1503,9 +1497,6 @@ UPDATE mobskill SET TriRnd = 80 WHERE mobid = 45256 and actNo = 1;
 
 -- atk_magic_speed changed from 1000
 UPDATE npc SET atk_magic_speed = 1760 WHERE npcid = 45263;
-
--- agrogfxid1 changed from 1440
-UPDATE npc SET agrogfxid1 = -1 WHERE npcid = 45263;
 
 -- sub_magic_speed changed from 1000
 UPDATE npc SET sub_magic_speed = 1440 WHERE npcid = 45263;
@@ -1656,9 +1647,6 @@ UPDATE mobskill SET SkillId = 10142 WHERE mobid = 45283 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45283 and actNo = 0;
-
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45283 and actNo = 0;
 
 
 
@@ -1999,9 +1987,6 @@ UPDATE mobskill SET TriCount = 8 WHERE mobid = 45341 and actNo = 0;
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45341 and actNo = 0;
 
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45341 and actNo = 0;
-
 
 
 --
@@ -2274,9 +2259,6 @@ UPDATE mobskill SET Range = 2 WHERE mobid = 45368 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45368 and actNo = 0;
-
--- Skill:None Gfxid changed from 3696 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45368 and actNo = 0;
 
 
 
@@ -2637,9 +2619,6 @@ UPDATE mobskill SET TriCount = 8 WHERE mobid = 45408 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45408 and actNo = 0;
-
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45408 and actNo = 0;
 
 
 
@@ -3028,9 +3007,6 @@ UPDATE mobskill SET TriCount = 5 WHERE mobid = 45471 and actNo = 0;
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45471 and actNo = 0;
 
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45471 and actNo = 0;
-
 
 
 --
@@ -3084,9 +3060,6 @@ UPDATE mobskill SET SkillId = 10142 WHERE mobid = 45476 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45476 and actNo = 0;
-
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45476 and actNo = 0;
 
 
 
@@ -3219,9 +3192,6 @@ UPDATE mobskill SET Range = 6 WHERE mobid = 45487 and actNo = 0;
 
 -- Skill:None TriRange changed from -2 
 UPDATE mobskill SET TriRange = -6 WHERE mobid = 45487 and actNo = 0;
-
--- Skill:None Gfxid changed from 1714 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45487 and actNo = 0;
 
 
 
@@ -3540,9 +3510,6 @@ UPDATE mobskill SET SkillId = 10143 WHERE mobid = 45520 and actNo = 0;
 
 -- Skill:None TriCount changed from 2 
 UPDATE mobskill SET TriCount = 16 WHERE mobid = 45520 and actNo = 0;
-
--- Skill:None Gfxid changed from 954 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45520 and actNo = 0;
 
 
 
@@ -4855,9 +4822,6 @@ UPDATE npc SET atk_magic_speed = 1080 WHERE npcid = 45692;
 -- Skill:Stalac Leverage changed from 5 
 UPDATE mobskill SET Leverage = 0 WHERE mobid = 45692 and actNo = 0;
 
--- Skill:Stalac Gfxid changed from 1583 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45692 and actNo = 0;
-
 
 
 --
@@ -4866,16 +4830,6 @@ UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45692 and actNo = 0;
 
 -- atk_magic_speed changed from 1040
 UPDATE npc SET atk_magic_speed = 1200 WHERE npcid = 45693;
-
-
-
---
-
--- High Fox 45694
-
--- Skill:Fire Arrow Gfxid changed from 1801 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45694 and actNo = 0;
-
 
 
 --
@@ -5223,9 +5177,6 @@ UPDATE mobskill SET TriRange = -3 WHERE mobid = 45732 and actNo = 0;
 
 -- Skill:None AreaWidth changed from 0 
 UPDATE mobskill SET AreaWidth = 5 WHERE mobid = 45732 and actNo = 0;
-
--- Skill:None Gfxid changed from 1714 
-UPDATE mobskill SET Gfxid = 0 WHERE mobid = 45732 and actNo = 0;
 
 
 
