@@ -19,7 +19,7 @@ One slight change in a dev's normal "process", that I believe will help a ton, a
 
 1. checkout
 
-2. git checkout development (always work against the development branch please)
+2. git checkout master
 
 3. git branch thebes (create your own local branch to work on a specific feature)
 
@@ -27,7 +27,7 @@ One slight change in a dev's normal "process", that I believe will help a ton, a
 
 5. git commit -a (commit changes to your local "thebes" branch)
 
-6. git checkout development (switch to the global development branch)
+6. git checkout (switch to the global development branch)
 
 7. git merge thebes (merge in any changes from your thebes branch)
 
@@ -39,5 +39,3 @@ I know that seems like many more steps than our old svn system, but it starts to
 
 If you need any help just ask me.
 
-test: ignore this line
-test2: ignore me
