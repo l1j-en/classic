@@ -26,6 +26,7 @@ import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorTable;
@@ -662,6 +663,30 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 			htmlid = "";
+
+		} else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 90521) {
+            int pccount = 0;
+            for (L1PcInstance map784pc : L1World.getInstance().getAllPlayers()) {
+                    if (map784pc.getMapId() == 784) {
+                            pccount++;
+                    }
+            }
+            if (pccount >= 20) {
+                    htmlid = "tikalgate4";
+            }
+            if (s.equalsIgnoreCase("e") && pccount <= 19) {
+                    if (CrackOfTimeController.getStart().map784gateopen() == false) {
+                            htmlid = "tikalgate2";
+                    } else {
+                            if (pc.getInventory().checkItem(49308, 1)) {
+                                    pc.getInventory().consumeItem(49308, 1);
+                                    L1Teleport.teleport(pc, 32730, 32866, (short) 784, 2, true);
+                                    htmlid = "";
+                            } else {
+                                    htmlid = "tikalgate3";
+                            }
+                    }
+            }
 		} else if (s.equalsIgnoreCase("ent")) {
 			int npcId = ((L1NpcInstance) obj).getNpcId();
 			if (npcId == 80085) {
@@ -1231,6 +1256,7 @@ public class C_NPCAction extends ClientBasePacket {
 			if (s.equalsIgnoreCase("contract1yes")) {
 				htmlid = "lyraev5";
 			} else if (s.equalsIgnoreCase("contract1no")) {
+
 				pc.getQuest().set_step(L1Quest.QUEST_LYRA, 0);
 				htmlid = "lyraev4";
 			}
@@ -3339,6 +3365,22 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
+		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80145) {
+			if (pc.isDragonKnight()) {
+				int lv45_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL45);
+				if (s.equalsIgnoreCase("l") && lv45_step == 1) {
+					if (pc.getInventory().checkItem(49209, 1)) {
+						pc.getInventory().consumeItem(49209, 1);
+						pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 2);
+						htmlid = "silrein38";
+					}
+				} else if (s.equalsIgnoreCase("m") && lv45_step == 2) {
+					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 3);
+					htmlid = "silrein39";
+				}
+			}
+		}
+
 
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80135) {
 			if (pc.isDragonKnight()) {
