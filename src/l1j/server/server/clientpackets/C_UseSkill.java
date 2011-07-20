@@ -97,7 +97,8 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, "", e);
+				//_log.log(Level.SEVERE, "", e);
+				System.out.println("SKILL ERROR: skillid " + skillId + " has some sort of issue");
 			}
 		}
 
