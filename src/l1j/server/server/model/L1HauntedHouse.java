@@ -136,6 +136,13 @@ public class L1HauntedHouse {
 		}
 	}
 
+	public void checkLeaveGame(L1PcInstance pc) {
+		if (pc.getMapId() == 5140) {
+			removeMember(pc);
+			L1PolyMorph.undoPoly(pc);
+		}
+	}
+	
 	public void removeMember(L1PcInstance pc) {
 		_members.remove(pc);
 	}
