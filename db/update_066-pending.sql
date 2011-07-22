@@ -10,6 +10,23 @@
 -- this may give us a slightly more sane starting point for further adjusting
 -- some of our values were obviously wrong just by glancing at them
 
+
+-- reverse the id's on solidcarriage and counterbarrier
+-- this should fix issue #25, and also matches l1j-jp
+
+-- Skill:SolidCarriage-90 id changed from 4 
+UPDATE skills SET id = `2` WHERE skill_id = 90
+
+-- Skill:CounterBarrier-91 probability_value changed from 50 
+UPDATE skills SET probability_value = `25` WHERE skill_id = 91
+
+-- Skill:CounterBarrier-91 id changed from 2 
+UPDATE skills SET id = `4` WHERE skill_id = 91
+
+
+
+
+
 -- Unchosen One 46069
 
 -- atk_magic_speed changed from 880
