@@ -18,6 +18,9 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,6 +59,7 @@ public class L1DeathMatch {
 	
 	public static final int[] SKILL_TYPE = { 0, 1, 2, 3, 4 };
 	private static final int maxPlayer = 20;
+	private final ArrayList<L1PcInstance> _members = new ArrayList<L1PcInstance>();
 	private static int gameStartMinPlayer = Config.DEATH_MATCH_MIN_PLAYER;
 	private static int orderEntMinPlayer = Config.DEATH_MATCH_MIN_PLAYER;
 	private static int limitTime = 60 * 30 * 1000;
@@ -718,8 +722,27 @@ public class L1DeathMatch {
 			giftWinner();
 			setGameInit();
 			this.cancel();
+			for (L1PcInstance pc : getMembersArray()) {
+				if (pc.getMapId() == 5153) {
+					L1SkillUse l1skilluse = new L1SkillUse();
+					l1skilluse.handleCommands(pc,
+							CANCELLATION, pc.getId(), pc.getX(),
+							pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
+					L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, false);
+				}
+			}
+		clearMembers();
+		
+		for (L1Object object : L1World.getInstance().getObject()) {
+			if (object instanceof L1DoorInstance) {
+				L1DoorInstance door = (L1DoorInstance) object;
+				if (door.getMapId() == 5153) {
+					door.close();
+				}
+			}
 		}
-
+	}
+	
 		public void begin() {
 			Timer timer = new Timer();
 			timer.schedule(this, 10000);
@@ -729,6 +752,14 @@ public class L1DeathMatch {
 	private L1PcInstance _1stwinner = null;
 	private L1PcInstance _4thwinner = null;
 
+	public void clearMembers() {
+		_members.clear();
+	}
+	
+	public L1PcInstance[] getMembersArray() {
+		return _members.toArray(new L1PcInstance[_members.size()]);
+	}
+	
 	public void set1stWinner(L1PcInstance pc) {
 		_1stwinner = pc;
 	}
