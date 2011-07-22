@@ -162,8 +162,13 @@ public class L1Who implements L1CommandExecutor {
 			return "Mage";
 		} else if(classID == 2786 || classID == 2796){
 			return "Dark Elf";
+		} else if (classID == 6658 || classID == 6661){
+			return "Dragon Knight";
+		} else if (classID == 6671 || classID == 6650){
+			return "Illusionist";
 		} else{
 			return "error";
 		}
+
 	}
 }
