@@ -100,17 +100,6 @@ INSERT INTO spawnlist VALUES
 (78100020,'Thebes Elder - Purple',3,46122,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
 (78100026,'Thebes Elder - Purple',,46122,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0);
 
-(46111,'Kalbis - Dark'
-(46112,'Kalbis - Red',
-(46115,'Sphinx - White',
-(46116,'Sphinx - Dark',
-(46117,'Horus Falcon - Yellow',
-(46118,'Horus Falcon - Blue',
-(46119,'Thebes Guardian - Dark',
-(46120,'Thebes Guardian - Red',
-(46121,'Thebes Elder - Yellow',
-(46122,'Thebes Elder - Purple',
-
 # map: 782
 UPDATE mapids SET locationname = 'Thebes Osiris Altar' where mapid = 782;
 INSERT INTO spawnlist_boss VALUES
@@ -294,3 +283,67 @@ INSERT into mobskills VALUES
 (46124,2,'Thebes Anubis','',1,10,0,0,-1,0,0,1,0,2,10,0,0,30,0,0,0,0),
 (46124,3,'Thebes Anubis','Summon Thebes Guardian',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46120,2,2,0),
 (46124,4,'Thebes Anubis','Summon Thebes Elder',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46122,2,2,0);
+
+# update npc info
+UPDATE npc set name = 'Mandragora' where npcid = 46107;
+UPDATE npc set agrofamily = 1 where npcid = 46107;
+UPDATE npc set name = 'Mandragora' where npcid = 46108;
+UPDATE npc set agrofamily = 1 where npcid = 46108;
+UPDATE npc set agro = 1 where npcid = 46108;
+UPDATE npc set agrososc = 1 where npcid = 46108;
+UPDATE npc set name = 'Scarab' where npcid = 46109;
+UPDATE npc set agrofamily = 1 where npcid = 46109;
+UPDATE npc set name = 'Scarab' where npcid = 46110;
+UPDATE npc set agrofamily = 1 where npcid = 46110;
+UPDATE npc set name = 'Kalbis' where npcid = 46111;
+UPDATE npc set agrofamily = 1 where npcid = 46111;
+UPDATE npc set name = 'Kalbis' where npcid = 46112;
+UPDATE npc set agrofamily = 1 where npcid = 46112;
+UPDATE npc set name = 'Obelisk' where npcid = 46113;
+UPDATE npc set agrofamily = 1 where npcid = 46113;
+UPDATE npc set name = 'Obelisk' where npcid = 46114;
+UPDATE npc set agrofamily = 1 where npcid = 46114;
+UPDATE npc set agro = 1 where npcid = 46114;
+UPDATE npc set agrososc = 1 where npcid = 46114;
+UPDATE npc set name = 'Sphinx' where npcid = 46115;
+UPDATE npc set agrofamily = 1 where npcid = 46115;
+UPDATE npc set name = 'Sphinx' where npcid = 46116;
+UPDATE npc set agrofamily = 1 where npcid = 46116;
+UPDATE npc set name = 'Horus Falcon' where npcid = 46117;
+UPDATE npc set agrofamily = 1 where npcid = 46117;
+UPDATE npc set family = 'tebes' where npcid = 46117;
+UPDATE npc set name = 'Horus Falcon' where npcid = 46118;
+UPDATE npc set agrofamily = 1 where npcid = 46118;
+UPDATE npc set family = 'tebes' where npcid = 46118;
+UPDATE npc set name = 'Thebes Guardian' where npcid = 46119;
+UPDATE npc set agrofamily = 1 where npcid = 46119;
+UPDATE npc set family = 'tebes' where npcid = 46119;
+UPDATE npc set name = 'Thebes Guardian' where npcid = 46120;
+UPDATE npc set agrofamily = 1 where npcid = 46120;
+UPDATE npc set family = 'tebes' where npcid = 46120;
+UPDATE npc set name = 'Thebes Elder' where npcid = 46121;
+UPDATE npc set agrofamily = 1 where npcid = 46121;
+UPDATE npc set family = 'tebes' where npcid = 46121;
+UPDATE npc set name = 'Thebes Elder' where npcid = 46122;
+UPDATE npc set agrofamily = 1 where npcid = 46122;
+UPDATE npc set family = 'tebes' where npcid = 46122;
+UPDATE npc set agrofamily = 1 where npcid = 46123;
+UPDATE npc set family = 'tebes' where npcid = 46123;
+UPDATE npc set agrofamily = 1 where npcid = 46124;
+UPDATE npc set family = 'tebes' where npcid = 46124;
+UPDATE npc set note = 'White' where npcid = 46107;
+UPDATE npc set note = 'Black' where npcid = 46108;
+UPDATE npc set note = 'Yellow' where npcid = 46109;
+UPDATE npc set note = 'Black' where npcid = 46110;
+UPDATE npc set note = 'Black' where npcid = 46111;
+UPDATE npc set note = 'Red' where npcid = 46112;
+UPDATE npc set note = 'White' where npcid = 46113;
+UPDATE npc set note = 'Black' where npcid = 46114;
+UPDATE npc set note = 'White' where npcid = 46115;
+UPDATE npc set note = 'Black' where npcid = 46116;
+UPDATE npc set note = 'Yellow' where npcid = 46117;
+UPDATE npc set note = 'Blue' where npcid = 46118;
+UPDATE npc set note = 'Black' where npcid = 46119;
+UPDATE npc set note = 'Red' where npcid = 46120;
+UPDATE npc set note = 'Yellow' where npcid = 46121;
+UPDATE npc set note = 'Purple' where npcid = 46122;
