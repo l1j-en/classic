@@ -1,38 +1,26 @@
 -- Thebes updates for LinRet -- July 10, 2011 -- Zylia
 
-# Cleanup invalid mob data 46107 = Mandragora not Treasure Chest of Aden Castle
-UPDATE npc set name = 'Mandragora - White' where npcid = 46107;
-UPDATE npc set name = 'Mandragora - Dark' where npcid = 46108;
-UPDATE npc set name = 'Scarab - Yellow' where npcid = 46109;
-UPDATE npc set name = 'Scarab - Blue' where npcid = 46110;
-UPDATE npc set name = 'Kalbis - Dark' where npcid = 46111;
-UPDATE npc set name = 'Kalbis - Red' where npcid = 46112;
-UPDATE npc set name = 'Obelisk - White' where npcid = 46113;
-UPDATE npc set name = 'Obelisk - Dark' where npcid = 46114;
-UPDATE npc set name = 'Sphinx - White' where npcid = 46115;
-UPDATE npc set name = 'Sphinx - Dark' where npcid = 46116;
-UPDATE npc set name = 'Horus Falcon - Yellow' where npcid = 46117;
-UPDATE npc set name = 'Horus Falcon - Blue' where npcid = 46118;
-UPDATE npc set name = 'Thebes Guardian - Dark' where npcid = 46119;
-UPDATE npc set name = 'Thebes Guardian - Red' where npcid = 46120;
-UPDATE npc set name = 'Thebes Elder - Yellow' where npcid = 46121;
-UPDATE npc set name = 'Thebes Elder - Purple' where npcid = 46122;
-UPDATE npc set note = 'White' where npcid = 46107;
-UPDATE npc set note = 'Black' where npcid = 46108;
-UPDATE npc set note = 'Yellow' where npcid = 46109;
-UPDATE npc set note = 'Black' where npcid = 46110;
-UPDATE npc set note = 'Black' where npcid = 46111;
-UPDATE npc set note = 'Red' where npcid = 46112;
-UPDATE npc set note = 'White' where npcid = 46113;
-UPDATE npc set note = 'Black' where npcid = 46114;
-UPDATE npc set note = 'White' where npcid = 46115;
-UPDATE npc set note = 'Black' where npcid = 46116;
-UPDATE npc set note = 'Yellow' where npcid = 46117;
-UPDATE npc set note = 'Blue' where npcid = 46118;
-UPDATE npc set note = 'Black' where npcid = 46119;
-UPDATE npc set note = 'Red' where npcid = 46120;
-UPDATE npc set note = 'Yellow' where npcid = 46121;
-UPDATE npc set note = 'Purple' where npcid = 46122;
+# Create NPC data
+DELETE FROM npc WHERE npcid > 46106 and npcid < 46125;
+INSERT INTO npc VALUES
+(46107,'Mandragora - White','$5492','White','L1Monster',6555,23,280,40,-10,13,12,13,10,10,50,530,-16,'small',2,1,0,480,1600,0,1600,1600,0,0,0,0,0,0,'mandragora',0,-1,-1,0,0,0,5000,20,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46108,'Mandragora - Dark','$5492','Black','L1Monster',6557,26,320,50,-15,13,12,13,10,10,50,677,-18,'small',2,1,0,480,1600,0,1600,1600,0,0,0,0,0,0,'mandragora',0,-1,-1,0,0,0,5000,20,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46109,'Scarab - Yellow','$5493','Yellow','L1Monster',6592,29,400,70,-25,15,15,14,10,10,60,842,-20,'small',10,1,0,600,920,0,920,920,0,0,0,0,0,0,'scarab',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46110,'Scarab - Blue','$5493','Black','L1Monster',6593,32,480,70,-25,15,15,15,11,11,65,1025,-20,'small',10,1,0,600,920,0,920,920,0,0,0,1,1,0,'scarab',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46111,'Kalbis - Dark','$5494','Black','L1Monster',6601,35,480,70,-20,17,15,15,12,12,66,1226,-22,'small',2,1,0,640,800,1280,800,800,0,1,0,0,0,0,'kalbas',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46112,'Kalbis - Red','$5494','Red','L1Monster',6603,39,600,72,-25,17,16,15,12,12,66,1522,-25,'small',2,1,0,600,800,1280,800,800,0,1,0,1,1,0,'kalbas',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46113,'Obelisk - White','$5495','White','L1Monster',6645,41,700,92,-25,23,19,10,13,18,80,1682,-25,'large',8,1,0,1280,1840,0,1840,1840,0,0,0,0,0,0,'obelisk',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+(46114,'Obelisk - Dark','$5495','Black','L1Monster',6649,44,800,100,-25,23,22,10,13,18,80,1937,-28,'large',8,1,0,1280,1840,0,1840,1840,0,0,0,0,0,1,'obelisk',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+(46115,'Sphinx - White','$5496','White','L1Monster',6699,47,880,115,-29,24,18,18,21,19,100,2210,-28,'large',0,2,0,720,1240,1440,1240,1240,0,0,0,0,0,0,'sphinx',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46116,'Sphinx - Dark','$5496','Black','L1Monster',6704,50,1120,140,-32,24,19,19,21,21,100,2501,-32,'large',0,2,0,720,1240,1440,1240,1240,0,0,0,1,1,1,'sphinx',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46117,'Horus Falcon - Yellow','$5497','Yellow','L1Monster',6664,50,900,250,-20,20,15,18,18,17,60,2501,-32,'small',2,1,0,640,1280,0,1280,1280,0,0,0,0,0,0,'h_falcon',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46118,'Horus Falcon - Blue','$5497','Blue','L1Monster',6665,52,1120,200,-30,20,15,18,18,17,60,2705,-32,'small',2,1,0,640,1280,0,1280,1280,0,0,0,1,1,1,'h_falcon',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46119,'Thebes Guardian - Dark','$5499','Black','L1Monster',6653,54,1200,1200,-40,24,17,20,15,16,65,2917,-34,'small',10,2,0,640,880,1720,1720,1720,0,0,0,0,0,0,'t_guardian',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46120,'Thebes Guardian - Red','$5499','Red','L1Monster',6654,56,1300,1300,-40,24,17,20,15,16,65,3137,-34,'small',10,2,0,640,880,1720,1720,1720,0,0,0,1,1,1,'t_guardian',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46121,'Thebes Elder - Yellow','$5498','Yellow','L1Monster',6562,58,1400,190,-30,18,18,19,21,18,70,3365,-37,'small',3,1,0,600,920,1240,960,960,0,0,0,0,0,0,'t_elder',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46122,'Thebes Elder - Purple','$5498','Purple','L1Monster',6563,60,1500,100,-30,18,18,19,21,18,70,3601,-37,'small',3,1,0,600,920,1240,960,960,0,0,0,1,1,1,'t_elder',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46123,'Thebes Horus','$5501','','L1Monster',6569,70,20000,100,-140,70,22,21,21,22,80,4901,-315,'large',0,1,0,600,1720,1760,960,1720,0,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,5000,5000,20,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(46124,'Thebes Anubis','$5500','','L1Monster',6595,70,25000,100,-140,75,22,21,21,23,80,4901,-315,'large',0,1,0,600,1800,1400,1600,1600,0,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,5000,5000,20,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0);
 
 # Update dungeon content
 UPDATE dungeon SET src_loc_name = 'Thebes Desert' WHERE src_mapid = 780;
@@ -53,52 +41,53 @@ UPDATE getback_restart SET note = 'Thebes Osiris Altar' WHERE area = 782;
 # map: 780
 UPDATE mapids SET locationname = 'Thebes Desert' where mapid = 780;
 INSERT INTO spawnlist VALUES
-(78000001,'Mandragora - White',20,46107,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000002,'Mandragora - Dark',20,46108,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000003,'Scarab - Yellow',20,46109,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000004,'Scarab - Blue',20,46110,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000005,'Kalbis - Dark',15,46111,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000006,'Kalbis - Red',15,46112,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000007,'Obelisk - White',15,46113,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000008,'Obelisk - Dark',15,46114,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0),
-(78000009,'Sphinx - White',6,46115,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0),
-(78000010,'Sphinx - Dark',6,46116,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0);
+(78000001,'Mandragora - Light',20,46107,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000002,'Mandragora - Dark',20,46108,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000003,'Scarab - Yellow',20,46109,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000004,'Scarab - Blue',20,46110,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000005,'Kalbis - Dark',15,46111,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000006,'Kalbis - Red',15,46112,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000007,'Obelisk - Light',15,46113,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000008,'Obelisk - Dark',15,46114,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000009,'Sphinx - Light',6,46115,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000010,'Sphinx - Dark',6,46116,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0,1,8,2,100);
 
 # Mob Groups
-(63, 46107,'Mandragora - White', x2
-(46108,'Mandragora - Dark', x2
-(46109,'Scarab - Yellow', x3
-(46110,'Scarab - Blue', x2
+#INSERT INTO mobgroup VALUES
+#(63, 46107,'Mandragora - Light', x2
+#(46108,'Mandragora - Dark', x2
+#(46109,'Scarab - Yellow', x3
+#(46110,'Scarab - Blue', x2
 
 # map: 781
 UPDATE mapids SET locationname = 'Thebes Pyramid Inside' where mapid = 781;
 INSERT INTO spawnlist VALUES
-(78100001,'Horus Falcon - Yellow',3,46117,0,32757,32845,0,0,32730,32828,32784,32862,0,0,0,781,1,0,0,0),
-(78100003,'Horus Falcon - Yellow',2,46117,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100009,'Horus Falcon - Yellow',3,46117,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100015,'Horus Falcon - Yellow',3,46117,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100021,'Horus Falcon - Yellow',3,46117,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0),
-(78100002,'Horus Falcon - Blue',3,46118,0,32757,32845,0,0,32730,32828,32784,32862,0,0,0,781,1,0,0,0),
-(78100004,'Horus Falcon - Blue',2,46118,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100010,'Horus Falcon - Blue',3,46118,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100016,'Horus Falcon - Blue',3,46118,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100022,'Horus Falcon - Blue',3,46118,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0),
-(78100005,'Thebes Guardian - Dark',3,46119,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100011,'Thebes Guardian - Dark',3,46119,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100017,'Thebes Guardian - Dark',3,46119,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100023,'Thebes Guardian - Dark',3,46119,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0),
-(78100006,'Thebes Guardian - Red',3,46120,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100012,'Thebes Guardian - Red',3,46120,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100018,'Thebes Guardian - Red',3,46120,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100024,'Thebes Guardian - Red',3,46120,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0),
-(78100007,'Thebes Elder - Yellow',3,46121,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100013,'Thebes Elder - Yellow',3,46121,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100019,'Thebes Elder - Yellow',3,46121,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100025,'Thebes Elder - Yellow',3,46121,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0),
-(78100008,'Thebes Elder - Purple',3,46122,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0),
-(78100014,'Thebes Elder - Purple',3,46122,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0),
-(78100020,'Thebes Elder - Purple',3,46122,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0),
-(78100026,'Thebes Elder - Purple',,46122,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0);
+(78100001,'Horus Falcon - Yellow',3,46117,0,32757,32845,0,0,32730,32828,32784,32862,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100003,'Horus Falcon - Yellow',2,46117,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100009,'Horus Falcon - Yellow',3,46117,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100015,'Horus Falcon - Yellow',3,46117,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100021,'Horus Falcon - Yellow',3,46117,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100002,'Horus Falcon - Blue',3,46118,0,32757,32845,0,0,32730,32828,32784,32862,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100004,'Horus Falcon - Blue',2,46118,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100010,'Horus Falcon - Blue',3,46118,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100016,'Horus Falcon - Blue',3,46118,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100022,'Horus Falcon - Blue',3,46118,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100005,'Thebes Guardian - Dark',3,46119,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100011,'Thebes Guardian - Dark',3,46119,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100017,'Thebes Guardian - Dark',3,46119,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100023,'Thebes Guardian - Dark',3,46119,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100006,'Thebes Guardian - Red',3,46120,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100012,'Thebes Guardian - Red',3,46120,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100018,'Thebes Guardian - Red',3,46120,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100024,'Thebes Guardian - Red',3,46120,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100007,'Thebes Elder - Yellow',3,46121,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100013,'Thebes Elder - Yellow',3,46121,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100019,'Thebes Elder - Yellow',3,46121,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100025,'Thebes Elder - Yellow',3,46121,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100008,'Thebes Elder - Purple',3,46122,0,32790,32794,0,0,32758,32727,32822,32861,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100014,'Thebes Elder - Purple',3,46122,0,32942,32858,0,0,32892,32847,32993,32870,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100020,'Thebes Elder - Purple',3,46122,0,32870,32746,0,0,32828,32729,32913,32764,0,0,0,781,1,0,0,0,1,8,2,100),
+(78100026,'Thebes Elder - Purple',3,46122,0,32913,32792,0,0,32838,32775,32989,32809,0,0,0,781,1,0,0,0,1,8,2,100);
 
 # map: 782
 UPDATE mapids SET locationname = 'Thebes Osiris Altar' where mapid = 782;
@@ -119,11 +108,11 @@ DELETE FROM droplist WHERE mobid = 46122;
 
 # Add Droplist missing Data
 INSERT INTO droplist VALUES
-(46107,'Mandragora - White',49101,'Fragment of Time',3,3,150000),
-(46107,'Mandragora - White',40020,'Condensed Healing Potion',1,1,100000),
-(46107,'Mandragora - White',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,50000),
-(46107,'Mandragora - White',40304,'Relic of Maphr',1,1,10000),
-(46107,'Mandragora - White',49111,'Dragon Tablet(AwakenFafurion)',1,1,5000),
+(46107,'Mandragora - Light',49101,'Fragment of Time',3,3,150000),
+(46107,'Mandragora - Light',40020,'Condensed Healing Potion',1,1,100000),
+(46107,'Mandragora - Light',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,50000),
+(46107,'Mandragora - Light',40304,'Relic of Maphr',1,1,10000),
+(46107,'Mandragora - Light',49111,'Dragon Tablet(AwakenFafurion)',1,1,5000),
 (46108,'Mandragora - Dark',49101,'Fragment of Time',3,3,50000),
 (46108,'Mandragora - Dark',40020,'Condensed Healing Potion',1,1,100000),
 (46108,'Mandragora - Dark',49094,'Piece of Low-grade Treasure Chest of Osiris (Lower)',1,1,20000),
@@ -146,21 +135,21 @@ INSERT INTO droplist VALUES
 (46112,'Kalbis - Red',49094,'Piece of Low-grade Treasure Chest of Osiris (Lower)',1,1,10000),
 (46112,'Kalbis - Red',40304,'Relic of Maphr',1,1,10000),
 (46112,'Kalbis - Red',49106,'Dragon Tablet(AwakenAntharas)',1,1,5000),
-(46113,'Obelisk - White',49101,'Fragment of Time',3,3,150000),
-(46113,'Obelisk - White',40020,'Condensed Healing Potion',1,1,100000),
-(46113,'Obelisk - White',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,50000),
-(46113,'Obelisk - White',40304,'Relic of Maphr',1,1,10000),
-(46113,'Obelisk - White',49126,'Memory Crystal(CubeQuake)',1,1,5000),
+(46113,'Obelisk - Light',49101,'Fragment of Time',3,3,150000),
+(46113,'Obelisk - Light',40020,'Condensed Healing Potion',1,1,100000),
+(46113,'Obelisk - Light',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,50000),
+(46113,'Obelisk - Light',40304,'Relic of Maphr',1,1,10000),
+(46113,'Obelisk - Light',49126,'Memory Crystal(CubeQuake)',1,1,5000),
 (46114,'Obelisk - Dark',49101,'Fragment of Time',3,3,150000),
 (46114,'Obelisk - Dark',40020,'Condensed Healing Potion',1,1,100000),
 (46114,'Obelisk - Dark',49094,'Piece of Low-grade Treasure Chest of Osiris (Lower)',1,1,10000),
 (46114,'Obelisk - Dark',40304,'Relic of Maphr',1,1,10000),
 (46114,'Obelisk - Dark',49126,'Memory Crystal(CubeQuake)',1,1,5000),
-(46115,'Sphinx - White',49101,'Fragment of Time',3,3,150000),
-(46115,'Sphinx - White',40020,'Condensed Healing Potion',1,1,100000),
-(46115,'Sphinx - White',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,20000),
-(46115,'Sphinx - White',40304,'Relic of Maphr',1,1,10000),
-(46115,'Sphinx - White',49110,'Dragon Tablet(ShockSkin)',1,1,500),
+(46115,'Sphinx - Light',49101,'Fragment of Time',3,3,150000),
+(46115,'Sphinx - Light',40020,'Condensed Healing Potion',1,1,100000),
+(46115,'Sphinx - Light',49093,'Piece of Low-grade Treasure Chest of Osiris (Upper)',1,1,20000),
+(46115,'Sphinx - Light',40304,'Relic of Maphr',1,1,10000),
+(46115,'Sphinx - Light',49110,'Dragon Tablet(ShockSkin)',1,1,500),
 (46116,'Sphinx - Dark',49101,'Fragment of Time',3,3,150000),
 (46116,'Sphinx - Dark',40020,'Condensed Healing Potion',1,1,100000),
 (46116,'Sphinx - Dark',49094,'Piece of Low-grade Treasure Chest of Osiris (Lower)',1,1,20000),
@@ -194,32 +183,32 @@ INSERT INTO droplist VALUES
 (46121,'Thebes Elder - Yellow',49113,'Dragon Tablet(ThunderGrab)',1,1,3000),
 (46122,'Thebes Elder - Purple',49101,'Fragment of Time',3,3,150000),
 (46122,'Thebes Elder - Purple',49242,'Thebes Osiris Altar Key',1,1,20000),
-(46122,'Thebes Elder - Purple',40021,'Condensed Greater Healing Potion'1,1,100000),
+(46122,'Thebes Elder - Purple',40021,'Condensed Greater Healing Potion',1,1,100000),
 (46122,'Thebes Elder - Purple',49098,'Piece of High-grade Treasure Chest of Osiris (Lower)',1,1,10000),
 (46122,'Thebes Elder - Purple',40304,'Relic of Maphr',1,1,10000),
 (46122,'Thebes Elder - Purple',49113,'Dragon Tablet(ThunderGrab)',1,1,3000),
-(46124,'Thebes Anubis'20264,'Amulet of Strength',1,1,5000),
-(46124,'Thebes Anubis'20256,'Amulet of Dexterity',1,1,10000),
-(46124,'Thebes Anubis'20268,'Amulet of Constitution',1,1,7500),
-(46124,'Thebes Anubis'20266,'Amulet of Intelligence',1,1,3000),
-(46124,'Thebes Anubis'20267,'Amulet of Wisdom',1,1,5000),
-(46124,'Thebes Anubis'20254,'Amulet of Charisma',1,1,5000),
-(46124,'Thebes Anubis'20284,'Ring of Summon Control',1,1,20000),
-(46124,'Thebes Anubis'20281,'Ring of Polymorph Conrol',1,1,15000),
-(46124,'Thebes Anubis'20288,'Ring of Teleport Control',1,1,20000),
-(46124,'Thebes Anubis'20303,'Ring of Magic Resistance',1,1,3000),
-(46124,'Thebes Anubis'20280,'Ring of Immunity to Magic',1,1,1500),
-(46124,'Thebes Anubis'21095,'Belt of Thebes Osiris',1,1,1000),
-(46124,'Thebes Anubis'21093,'Ring of Thebes Osiris',1,1,1000),
-(46124,'Thebes Anubis'21094,'Ring of Thebes Anubis',1,1,1000),
-(46124,'Thebes Anubis'40024,'Ancient Greater Healing Potion',1,20,1000000),
-(46124,'Thebes Anubis'49099,'Locked High-Grade Treasure Chest of Osiris',1,1,1000000),
-(46124,'Thebes Anubis'49092,'Cracked Nucleus',1,1,1000000),
-(46124,'Thebes Anubis'140100,'Scroll of Teleportation',1,1,500000),
-(46124,'Thebes Anubis'40087,'Scroll of Enchant Weapon',1,1,1000000),
-(46124,'Thebes Anubis'140087,'Scroll of Enchant Weapon',1,1,500000),
-(46124,'Thebes Anubis'40074,'Scroll of Enchant Armor',1,1,1000000),
-(46124,'Thebes Anubis'140074,'Scroll of Enchant Armor',1,1,500000),
+(46124,'Thebes Anubis',20264,'Amulet of Strength',1,1,5000),
+(46124,'Thebes Anubis',20256,'Amulet of Dexterity',1,1,10000),
+(46124,'Thebes Anubis',20268,'Amulet of Constitution',1,1,7500),
+(46124,'Thebes Anubis',20266,'Amulet of Intelligence',1,1,3000),
+(46124,'Thebes Anubis',20267,'Amulet of Wisdom',1,1,5000),
+(46124,'Thebes Anubis',20254,'Amulet of Charisma',1,1,5000),
+(46124,'Thebes Anubis',20284,'Ring of Summon Control',1,1,20000),
+(46124,'Thebes Anubis',20281,'Ring of Polymorph Conrol',1,1,15000),
+(46124,'Thebes Anubis',20288,'Ring of Teleport Control',1,1,20000),
+(46124,'Thebes Anubis',20303,'Ring of Magic Resistance',1,1,3000),
+(46124,'Thebes Anubis',20280,'Ring of Immunity to Magic',1,1,1500),
+(46124,'Thebes Anubis',21095,'Belt of Thebes Osiris',1,1,1000),
+(46124,'Thebes Anubis',21093,'Ring of Thebes Osiris',1,1,1000),
+(46124,'Thebes Anubis',21094,'Ring of Thebes Anubis',1,1,1000),
+(46124,'Thebes Anubis',40024,'Ancient Greater Healing Potion',1,20,1000000),
+(46124,'Thebes Anubis',49099,'Locked High-Grade Treasure Chest of Osiris',1,1,1000000),
+(46124,'Thebes Anubis',49092,'Cracked Nucleus',1,1,1000000),
+(46124,'Thebes Anubis',140100,'Scroll of Teleportation',1,1,500000),
+(46124,'Thebes Anubis',40087,'Scroll of Enchant Weapon',1,1,1000000),
+(46124,'Thebes Anubis',140087,'Scroll of Enchant Weapon',1,1,500000),
+(46124,'Thebes Anubis',40074,'Scroll of Enchant Armor',1,1,1000000),
+(46124,'Thebes Anubis',140074,'Scroll of Enchant Armor',1,1,500000),
 (46123,'Thebes Horus',20264,'Amulet of Strength',1,1,5000),
 (46123,'Thebes Horus',20256,'Amulet of Dexterity',1,1,10000),
 (46123,'Thebes Horus',20268,'Amulet of Constitution',1,1,7500),
@@ -255,15 +244,15 @@ INSERT INTO droplist VALUES
 # map 4, 34272, 33361, Twilight Mountains SE
 
 # Mobskills compiled and corrected by Valakas
-INSERT into mobskills VALUES
+INSERT into mobskill VALUES
 (46111,0,'Kalbis - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
 (46112,0,'Kalbis - Red','',1,10,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46113,0,'Obelisk - White','Tornado',2,10,0,0,-4,0,0,0,0,0,20,10131,0,0,0,0,0,0),
-(46113,1,'Obelisk - White','',1,30,0,0,-1,0,0,1,0,0,15,0,0,1,0,0,0,0),
+(46113,0,'Obelisk - Light','Tornado',2,10,0,0,-4,0,0,0,0,0,20,10131,0,0,0,0,0,0),
+(46113,1,'Obelisk - Light','',1,30,0,0,-1,0,0,1,0,0,15,0,0,1,0,0,0,0),
 (46114,0,'Obelisk - Dark','Tornado',2,10,0,0,-4,0,0,0,0,0,20,10131,0,0,0,0,0,0),
 (46114,1,'Obelisk - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,1,0,0,0,0),
-(46115,0,'Sphinx - White','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46115,1,'Sphinx - White','',2,15,0,0,-2,0,0,0,0,0,10,10132,0,3,0,0,0,0),
+(46115,0,'Sphinx - Light','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
+(46115,1,'Sphinx - Light','',2,15,0,0,-2,0,0,0,0,0,10,10132,0,3,0,0,0,0),
 (46116,0,'Sphinx - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
 (46116,1,'Sphinx - Dark','',2,15,0,0,-2,0,0,0,0,0,10,10132,0,0,0,0,0,0),
 (46117,0,'Horus Falcon - Yellow','',2,20,0,0,-6,0,0,0,0,0,12,10137,0,0,0,0,0,0),
@@ -283,67 +272,3 @@ INSERT into mobskills VALUES
 (46124,2,'Thebes Anubis','',1,10,0,0,-1,0,0,1,0,2,10,0,0,30,0,0,0,0),
 (46124,3,'Thebes Anubis','Summon Thebes Guardian',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46120,2,2,0),
 (46124,4,'Thebes Anubis','Summon Thebes Elder',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46122,2,2,0);
-
-# update npc info
-UPDATE npc set name = 'Mandragora' where npcid = 46107;
-UPDATE npc set agrofamily = 1 where npcid = 46107;
-UPDATE npc set name = 'Mandragora' where npcid = 46108;
-UPDATE npc set agrofamily = 1 where npcid = 46108;
-UPDATE npc set agro = 1 where npcid = 46108;
-UPDATE npc set agrososc = 1 where npcid = 46108;
-UPDATE npc set name = 'Scarab' where npcid = 46109;
-UPDATE npc set agrofamily = 1 where npcid = 46109;
-UPDATE npc set name = 'Scarab' where npcid = 46110;
-UPDATE npc set agrofamily = 1 where npcid = 46110;
-UPDATE npc set name = 'Kalbis' where npcid = 46111;
-UPDATE npc set agrofamily = 1 where npcid = 46111;
-UPDATE npc set name = 'Kalbis' where npcid = 46112;
-UPDATE npc set agrofamily = 1 where npcid = 46112;
-UPDATE npc set name = 'Obelisk' where npcid = 46113;
-UPDATE npc set agrofamily = 1 where npcid = 46113;
-UPDATE npc set name = 'Obelisk' where npcid = 46114;
-UPDATE npc set agrofamily = 1 where npcid = 46114;
-UPDATE npc set agro = 1 where npcid = 46114;
-UPDATE npc set agrososc = 1 where npcid = 46114;
-UPDATE npc set name = 'Sphinx' where npcid = 46115;
-UPDATE npc set agrofamily = 1 where npcid = 46115;
-UPDATE npc set name = 'Sphinx' where npcid = 46116;
-UPDATE npc set agrofamily = 1 where npcid = 46116;
-UPDATE npc set name = 'Horus Falcon' where npcid = 46117;
-UPDATE npc set agrofamily = 1 where npcid = 46117;
-UPDATE npc set family = 'tebes' where npcid = 46117;
-UPDATE npc set name = 'Horus Falcon' where npcid = 46118;
-UPDATE npc set agrofamily = 1 where npcid = 46118;
-UPDATE npc set family = 'tebes' where npcid = 46118;
-UPDATE npc set name = 'Thebes Guardian' where npcid = 46119;
-UPDATE npc set agrofamily = 1 where npcid = 46119;
-UPDATE npc set family = 'tebes' where npcid = 46119;
-UPDATE npc set name = 'Thebes Guardian' where npcid = 46120;
-UPDATE npc set agrofamily = 1 where npcid = 46120;
-UPDATE npc set family = 'tebes' where npcid = 46120;
-UPDATE npc set name = 'Thebes Elder' where npcid = 46121;
-UPDATE npc set agrofamily = 1 where npcid = 46121;
-UPDATE npc set family = 'tebes' where npcid = 46121;
-UPDATE npc set name = 'Thebes Elder' where npcid = 46122;
-UPDATE npc set agrofamily = 1 where npcid = 46122;
-UPDATE npc set family = 'tebes' where npcid = 46122;
-UPDATE npc set agrofamily = 1 where npcid = 46123;
-UPDATE npc set family = 'tebes' where npcid = 46123;
-UPDATE npc set agrofamily = 1 where npcid = 46124;
-UPDATE npc set family = 'tebes' where npcid = 46124;
-UPDATE npc set note = 'White' where npcid = 46107;
-UPDATE npc set note = 'Black' where npcid = 46108;
-UPDATE npc set note = 'Yellow' where npcid = 46109;
-UPDATE npc set note = 'Black' where npcid = 46110;
-UPDATE npc set note = 'Black' where npcid = 46111;
-UPDATE npc set note = 'Red' where npcid = 46112;
-UPDATE npc set note = 'White' where npcid = 46113;
-UPDATE npc set note = 'Black' where npcid = 46114;
-UPDATE npc set note = 'White' where npcid = 46115;
-UPDATE npc set note = 'Black' where npcid = 46116;
-UPDATE npc set note = 'Yellow' where npcid = 46117;
-UPDATE npc set note = 'Blue' where npcid = 46118;
-UPDATE npc set note = 'Black' where npcid = 46119;
-UPDATE npc set note = 'Red' where npcid = 46120;
-UPDATE npc set note = 'Yellow' where npcid = 46121;
-UPDATE npc set note = 'Purple' where npcid = 46122;

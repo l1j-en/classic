@@ -10,18 +10,17 @@
 -- this may give us a slightly more sane starting point for further adjusting
 -- some of our values were obviously wrong just by glancing at them
 
-
 -- reverse the id's on solidcarriage and counterbarrier
 -- this should fix issue #25, and also matches l1j-jp
 
 -- Skill:SolidCarriage-90 id changed from 4 
-UPDATE skills SET id = `2` WHERE skill_id = 90
+UPDATE skills SET id = 2 WHERE skill_id = 90;
 
 -- Skill:CounterBarrier-91 probability_value changed from 50 
-UPDATE skills SET probability_value = `25` WHERE skill_id = 91
+UPDATE skills SET probability_value = 25 WHERE skill_id = 91;
 
 -- Skill:CounterBarrier-91 id changed from 2 
-UPDATE skills SET id = `4` WHERE skill_id = 91
+UPDATE skills SET id = 4 WHERE skill_id = 91;
 
 -- Unchosen One 46069
 -- atk_magic_speed changed from 880
@@ -471,3 +470,14 @@ INSERT INTO polymorphs VALUES
 (7339,'Spear Master 60',7339,60,1080,4095,1,7),
 (7340,'Spear Master 65',7340,65,1080,4095,1,7),
 (7341,'Spear Master 70',7341,70,1080,4095,1,7);
+
+# Update npc names
+UPDATE npc SET name = 'Patrol 1 - Demon' WHERE npcid = 46082;
+UPDATE npc SET name = 'Patrol 2 - Demon' WHERE npcid = 46083;
+UPDATE npc SET name = 'Patrol 3 - Demon' WHERE npcid = 46084;
+UPDATE npc SET name = 'Patrol 4 - Demon' WHERE npcid = 46085;
+UPDATE npc SET name = 'Patrol 5 - Demon' WHERE npcid = 46086;
+UPDATE npc SET name = 'Patrol 6 - Demon' WHERE npcid = 46087;
+UPDATE npc SET name = 'Patrol 7 - Demon' WHERE npcid = 46088;
+UPDATE npc SET name = 'Patrol 8 - Demon' WHERE npcid = 46089;
+UPDATE npc SET name = 'Patrol 9 - Demon' WHERE npcid = 46090;
