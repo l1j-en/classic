@@ -88,7 +88,11 @@ public class GMCommandsConfig {
 		public L1ItemSetItem loadItem(Element element) {
 			int id = Integer.valueOf(element.getAttribute("Id"));
 			int amount = Integer.valueOf(element.getAttribute("Amount"));
-			int enchant = Integer.valueOf(element.getAttribute("Enchant"));
+			int enchant = 0; 
+			String enchantValue = element.getAttribute("Enchant"); 
+			if (!enchantValue.isEmpty()) { 
+				enchant = Integer.valueOf(enchantValue); 
+			}
 			return new L1ItemSetItem(id, amount, enchant);
 		}
 

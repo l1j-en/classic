@@ -23,6 +23,7 @@ import l1j.server.server.encryptions.Opcodes;
 public class S_LoginResult extends ServerBasePacket {
 	public static final String S_LOGIN_RESULT = "[S] S_LoginResult";
 	public static final int REASON_LOGIN_OK = 0x00;
+	public static final int REASON_SERVER = 0x04;
 	public static final int REASON_ACCOUNT_IN_USE = 0x16;
 	public static final int REASON_ACCOUNT_ALREADY_EXISTS = 0x07;
 	public static final int REASON_ACCESS_FAILED = 0x08;

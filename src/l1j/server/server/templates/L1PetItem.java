@@ -153,4 +153,13 @@ public class L1PetItem {
 		_addMr = i;
 	}
 
+	 private int _useType;
+
+     public int getUseType() {
+             return _useType;
+     }
+
+     public void setUseType(int i) {
+             _useType = i;
+     }
 }

@@ -31,6 +31,7 @@ import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1TownLocation;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1QuestInstance.RestMonitor;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -2860,10 +2861,15 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if(player.isDragonKnight()) { // 
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
 					if(player.getLevel() >= 30 && lv30_step == 2) {
 						htmlid = "talrion1";
 					} else if(player.getLevel() >= 45 && lv45_step == 5) {
 						htmlid = "talrion9";
+					} else if ((player.getLevel() >= 50) && (lv50_step == 4)) { 
+						htmlid = "talrion10"; 
+					} else { 
+						htmlid = "talrion4";
 					}
 				}
 			} else if (npcid == 80135) { // 
@@ -2871,8 +2877,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					if (lv30_step == L1Quest.QUEST_END) {
 						htmlid = "elas6";
-					} else  if(player.getLevel() >= 30
-							&& lv30_step >= 1) {
+					} else if ((player.getLevel() >= 30) && (lv30_step >= 1)) {
 						htmlid = "elas1";
 					}
 				}
@@ -2882,12 +2887,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
 				if (player.isDragonKnight()) { // 
-					if(player.getLevel() >= 50
-							&& lv45_step == L1Quest.QUEST_END) {
+					if ((player.getLevel() >= 50)
+							&& (lv45_step == L1Quest.QUEST_END)) {
 						if(lv50_step == 0) {
 							htmlid = "prokel21";
-						} else if(lv50_step == L1Quest.QUEST_END) { // 
+						} else if (lv50_step > 3) {
 							htmlid = "prokel32";
+						} else if (lv50_step > 1) {
+							htmlid = "prokel25";
 						} else {
 							htmlid = "prokel24";
 						}
@@ -2921,64 +2928,12 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "prokel1";
 					}
 				}
-			} 
-
-			 else if (npcid == 81245) { // 
-				if (player.isDragonKnight()) {
-					if (player.getTempCharGfx() == 6984) { // 
-						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
-						if (lv30_step == 1) {
-							htmlid = "spy_orc1";
-						}
-					}
-				}
-			}
-			  else if (npcid == 80145) { // Elder Sleyin
+			} else if (npcid == 80145) {
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isIllusionist()) { // 
-					if(player.getLevel() >= 50
-							&& lv45_step == L1Quest.QUEST_END) {
-						if(lv50_step == 0) {
-							htmlid = "silrein27";
-						} else if(lv50_step == L1Quest.QUEST_END) { // 
-							htmlid = "silrein36";
-						} else {
-							htmlid = "silrein30";
-						}
-					} else if(player.getLevel() >= 45
-							&& lv30_step == L1Quest.QUEST_END) {
-						if(lv45_step == 0) {
-							htmlid = "silrein18";
-						} else if(lv45_step >= 5) { // 
-							htmlid = "silrein26";
-						} else {
-							htmlid = "silrein23";
-						}
-					} else if (player.getLevel() >= 30
-							&& lv15_step == L1Quest.QUEST_END) {
-						if(lv30_step == 0) {
-							htmlid = "silrein11";
-						} else if(lv30_step >= 2) { // 
-							htmlid = "silrein15";
-						} else {
-							htmlid = "silrein14";
-						}
-					} else if (player.getLevel() >= 15) {
-						if (lv15_step == 0 ) {
-							htmlid = "silrein2";
-						} else if (	lv15_step == L1Quest.QUEST_END) { // 
-							htmlid = "silrein7";
-						} else {
-							htmlid = "silrein4";
-						}
-					} else { // Lv15
-						htmlid = "silrein1";
-					}
-}
-				else if (player.isDragonKnight()) { // 
+				if (player.isDragonKnight()) {
 					if(player.getLevel() >= 45 && lv45_step == 1) {
 						htmlid = "silrein37";
 					} else if (player.getLevel() >= 45 && lv45_step == 2) {
@@ -2989,9 +2944,206 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "silrein43";
 					}
 				}
+			} else if (npcid == 81247) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 1) {
+							htmlid = "wcorpse2";
+						} else {
+							htmlid = "wcorpse1";
 			}
-
-
+					}
+				}
+			} else if (npcid == 81248) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 2) {
+							htmlid = "wcorpse5";
+						} else {
+							htmlid = "wcorpse4";
+						}
+					}
+				}
+			} else if (npcid == 81249) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 3) {
+							htmlid = "wcorpse8";
+						} else {
+							htmlid = "wcorpse7";
+						}
+					}
+				}
+			} else if (npcid == 81250) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 5) {
+							htmlid = "wa_earth2";
+						} else {
+							htmlid = "wa_earth1";
+						}
+					}
+				}
+			} else if (npcid == 81251) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 6) {
+							htmlid = "wa_acidw2";
+						} else {
+							htmlid = "wa_acidw1";
+						}
+					}
+				}
+			} else if (npcid == 81252) {
+				if (player.isIllusionist()) {
+					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 7) {
+							htmlid = "wa_egg2";
+						} else {
+							htmlid = "wa_egg1";
+						}
+					}
+				}
+			} else if (npcid == 81310) {
+				if (player.isDragonKnight()) {
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+					if (player.getLevel() > 49
+							&& lv45_step == L1Quest.QUEST_END) {
+						if (lv50_step == 3) {
+							htmlid = "redsoul_f2";
+						} else {
+							htmlid = "redsoul_f1";
+						}
+					}
+				}
+			} else if (npcid == 81311) {
+				if (player.isIllusionist()) {
+					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+					if (player.getLevel() > 49
+							&& lv45_step == L1Quest.QUEST_END) {
+						if (lv50_step == 3) {
+							htmlid = "bluesoul_f2";
+						} else {
+							htmlid = "bluesoul_f1";
+						}
+					}
+				}
+			} else if (npcid == 80145) {
+				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
+				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+				if (player.isDragonKnight()) {
+					if (player.getLevel() >= 45 && lv45_step == 1) {
+						htmlid = "silrein37";
+					} else if (player.getLevel() >= 45 && lv45_step == 2) {
+						htmlid = "silrein38";
+					} else if (player.getLevel() >= 45 && lv45_step == 3) {
+						htmlid = "silrein40";
+					} else if (player.getLevel() >= 45 && lv45_step == 4) {
+						htmlid = "silrein43";
+					}
+				}
+				if (player.isIllusionist()) {
+					if (player.getLevel() > 49
+							&& lv45_step == L1Quest.QUEST_END) {
+						if (lv50_step == 0) {
+							htmlid = "silrein27";
+						} else if (lv50_step > 4) { 
+							htmlid = "silrein36";
+						} else if (lv50_step > 3) {
+							htmlid = "silrein35";
+						} else if (lv50_step > 2) {
+							if (player.getInventory().checkItem(49206)) {
+								htmlid = "silrein33";
+							}
+						} else if (lv50_step > 1) {
+							if (player.getInventory().checkItem(49178) && player.getInventory().checkItem(49202)) {
+								htmlid = "silrein32";
+							} else {
+							htmlid = "silrein34";
+							}
+						} else if (lv50_step > 0) {
+							htmlid = "silrein29";
+						} else {
+							htmlid = "silrein26";
+						}
+					} else if (player.getLevel() > 44
+							&& lv30_step == L1Quest.QUEST_END) {
+						if (lv45_step == 0) {
+							htmlid = "silrein18";
+						} else if (lv45_step == L1Quest.QUEST_END) {
+							htmlid = "silrein26";
+						} else if (lv45_step > 4) {
+							if (player.getInventory().checkItem(49202)) {
+								htmlid = "silrein23";
+							} else {
+								htmlid = "silrein24";
+							}
+						} else if (lv45_step > 0) {
+							if (player.getInventory().checkItem(49194) 
+									&& player.getInventory().checkItem(49195) 
+									&& player.getInventory().checkItem(49196)) {
+								htmlid = "silrein20";
+							} else {
+								htmlid = "silrein21";
+							}
+						} else {
+							htmlid = "silrein19";
+						}
+					} else if (player.getLevel() > 29
+							&& lv15_step == L1Quest.QUEST_END) {
+						if (lv30_step == 0) {
+							htmlid = "silrein11";
+						} else if (lv30_step == L1Quest.QUEST_END) {
+							htmlid = "silrein15";
+						} else if (lv30_step > 0) {
+							htmlid = "silrein14";
+						} else {
+							htmlid = "silrein10";
+						}
+					} else if (player.getLevel() > 14) {
+						if (lv15_step == 0) {
+							htmlid = "silrein2";
+						} else if (lv15_step == L1Quest.QUEST_END) {
+							htmlid = "silrein5";
+						} else {
+							htmlid = "silrein4";
+						}
+					} else {
+						htmlid = "silrein1";
+					}
+				}
+			} else if (npcid == 81245) {
+				if (player.isDragonKnight()) {
+					if (player.getTempCharGfx() == 6984) {
+						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
+						if (lv30_step == 1) {
+							htmlid = "spy_orc1";
+						}
+					}
+				}
+			}
 			if (htmlid != null) {
 				if (htmldata != null) {
 					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Random;
 
 import l1j.server.Config;
+import l1j.server.server.hackdetections.LogShopBuy;
+import l1j.server.server.hackdetections.LogShopSell;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.TownTable;
@@ -44,7 +46,7 @@ public class L1Shop {
 	private final int _npcId;
 	private final List<L1ShopItem> _sellingItems;
 	private final List<L1ShopItem> _purchasingItems;
-
+	 L1PcInstance pc; // do not remove its for the shop hack detection.
 	public L1Shop(int npcId, List<L1ShopItem> sellingItems,
 			List<L1ShopItem> purchasingItems) {
 		if (sellingItems == null || purchasingItems == null) {
@@ -231,6 +233,11 @@ public class L1Shop {
 	}
 
 	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList) {
+		  int beforeadena = inv.countItems(L1ItemId.ADENA);
+		  int afteradena = inv.countItems(L1ItemId.ADENA);
+		  int _totalPrice = 0;
+
+		  L1TaxCalculator calc = orderList.getTaxCalculator();
 		if (!inv.consumeItem(L1ItemId.ADENA, orderList
 				.getTotalPriceTaxIncluded())) {
 			throw new IllegalStateException("Unable to consume required adena.");
@@ -238,11 +245,23 @@ public class L1Shop {
 		for (L1ShopBuyOrder order : orderList.getList()) {
 			int itemId = order.getItem().getItemId();
 			int amount = order.getCount();
+			 if(order.getItem().getPackCount() != 0){
+				amount /= order.getItem().getPackCount();
+			}
+			int price = (int) (order.getItem().getPrice() * Config.RATE_SHOP_SELLING_PRICE);
+			beforeadena = afteradena;
+			_totalPrice += calc.layTax(price) * amount;
+			afteradena -= calc.layTax(price) * amount;
 			L1ItemInstance item = ItemTable.getInstance().createItem(itemId);
 			item.setCount(amount);
 			item.setIdentified(true);
 			inv.storeItem(item);
-			if (_npcId == 70068 || _npcId == 70020) {
+			LogShopBuy lsb = new LogShopBuy();
+			lsb.storeLogShopBuy(pc, item, amount, beforeadena, afteradena, calc.layTax(price));
+		    if (!inv.consumeItem(L1ItemId.ADENA, _totalPrice)) {
+			   throw new IllegalStateException("shop exploit detected");
+			}
+			if (_npcId == 70068 || _npcId == 70020 || _npcId == 70056) {
 				item.setIdentified(false);
 				Random random = new Random();
 				int chance = random.nextInt(100) + 1;

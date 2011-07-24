@@ -61,7 +61,19 @@ public class S_PetMenuPacket extends ServerBasePacket {
 			writeS(Integer.toString(pet.getMaxMp())); 
 			writeS(Integer.toString(pet.getLevel())); 
 			writeS(""); // Pet's name to appear and become unstable, you want to hide
-			writeS("$611"); // Too much
+			String s = "$610";
+			if (pet.get_food() > 80) {
+				s = "$612";
+			} else if (pet.get_food() > 60) {
+				s = "$611";
+			} else if (pet.get_food() > 30) {
+				s = "$610";
+			} else if (pet.get_food() > 10) {
+				s = "$609";
+			} else if (pet.get_food() >= 0) {
+				s = "$608";
+			}
+			writeS(s);
 			writeS(Integer.toString(exppercet)); // exp
 			writeS(Integer.toString(pet.getLawful())); // Alignment
 		} else if (npc instanceof L1SummonInstance) { // summon monster

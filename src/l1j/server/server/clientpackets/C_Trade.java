@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
+import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -41,6 +42,10 @@ public class C_Trade extends ClientBasePacket {
 		}
 		L1PcInstance target = FaceToFace.faceToFace(player);
 		if (target != null && target.getTradeID() == 0) { // fix for trade bug
+			if (player.getInventory().getWeight240() >= 197) { 
+				player.sendPackets(new S_ServerMessage(110)); 
+				return;
+			}
 			if (!target.isParalyzed()) {
 				player.setTradeID(target.getId()); 
 				target.setTradeID(player.getId());

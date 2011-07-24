@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import l1j.server.Config;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -37,7 +36,6 @@ public class L1HauntedHouse {
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
 	public static final int STATUS_PLAYING = 2;
-
 	private final ArrayList<L1PcInstance> _members =
 			new ArrayList<L1PcInstance>();
 	private int _hauntedHouseStatus = STATUS_NONE;
@@ -100,8 +98,7 @@ public class L1HauntedHouse {
 				L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);
 			}
 		}
-		clearMembers();
-		
+		clearMembers();		
 		for (L1Object object : L1World.getInstance().getObject()) {
 			if (object instanceof L1DoorInstance) {
 				L1DoorInstance door = (L1DoorInstance) object;
@@ -136,19 +133,19 @@ public class L1HauntedHouse {
 		}
 	}
 
-	public void checkLeaveGame(L1PcInstance pc) {
-		if (pc.getMapId() == 5140) {
-			removeMember(pc);
-			L1PolyMorph.undoPoly(pc);
-		}
-	}
-	
 	public void removeMember(L1PcInstance pc) {
 		_members.remove(pc);
 	}
 
 	public void clearMembers() {
 		_members.clear();
+	}
+
+	public void checkLeaveGame(L1PcInstance pc) {
+		if (pc.getMapId() == 5140) {
+			removeMember(pc);
+			L1PolyMorph.undoPoly(pc);
+		}
 	}
 
 	public boolean isMember(L1PcInstance pc) {
@@ -201,8 +198,9 @@ public class L1HauntedHouseReadyTimer extends TimerTask {
 
 	public void begin() {
 		Timer timer = new Timer();
-		timer.schedule(this, Config.HAUNTEDHOUSETIME); 
+		timer.schedule(this, 90000); 
 	}
+
 }
 
 public class L1HauntedHouseTimer extends TimerTask {

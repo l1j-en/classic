@@ -303,9 +303,12 @@ public class L1Magic {
 						|| skillId == FOG_OF_SLEEPING || skillId == ICE_LANCE
 						|| skillId == FREEZING_BLIZZARD || skillId == CANCELLATION
 						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
-						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
-						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
-						|| skillId == SILENCE || skillId == FREEZING_BREATH) {
+						|| skillId == BEHOLDER_STONE || skillId == COCKATRICE_STONE 
+						|| skillId == BASLISK_STONE || skillId == MEDUSA_STONE 
+						|| skillId == FLOATINGEYE_STONE || skillId == ELEMENTAL_FALL_DOWN 
+						|| skillId == CURSE_BLIND || skillId == RETURN_TO_NATURE 
+						|| skillId == DARK_BLIND || skillId == SILENCE 
+						|| skillId == FREEZING_BREATH) {
 					return false;
 				}
 			}
