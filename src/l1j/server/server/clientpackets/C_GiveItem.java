@@ -26,6 +26,7 @@ import l1j.server.server.datatables.IpTable;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.PetTypeTable;
+import l1j.server.server.datatables.PetItemTable;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
@@ -37,6 +38,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_ItemName;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1PetItem;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1PetType;
 
@@ -57,7 +59,7 @@ public class C_GiveItem extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		//additional dupe checks.  Thanks Mike
-		if (pc.getOnlineStatus() != 1) {
+		if (pc.getOnlineStatus() != 1 || count < 0) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
@@ -121,7 +123,7 @@ public class C_GiveItem extends ClientBasePacket {
 		}
 		item = inv.tradeItem(item, count, targetInv);
 		
-		target.onGetItem(item);
+		target.onGetItem(item, count);
 		target.turnOnOffLight();
 		
 		pc.turnOnOffLight();
@@ -134,9 +136,31 @@ public class C_GiveItem extends ClientBasePacket {
 		if (item.getItemId() == petType.getItemIdForTaming()) {
 			tamePet(pc, target);
 		}
-		
-		if (item.getItemId() == 40070 && petType.canEvolve()) {
+		if (!(target instanceof L1PetInstance)) { 
+			return; 
+		} 
+		L1PetInstance pet = (L1PetInstance) target;
+		if (item.getItemId() == petType.getEvolvItemId() && petType.canEvolve()) {
 			evolvePet(pc, target);
+		}
+		if (item.getItem().getType2() == 0) {
+			if ((item.getItem().getType() == 11) && (petType.canUseEquipment())) {
+				usePetWeaponArmor(target, item);
+			}
+		}
+	}
+
+	private void usePetWeaponArmor(L1NpcInstance target, L1ItemInstance item) {
+        if (!(target instanceof L1PetInstance)) {
+                return;
+        }
+        L1PetInstance pet = (L1PetInstance) target;
+        L1PetItem petItem = PetItemTable.getInstance().getTemplate(
+                        item.getItemId());
+        if (petItem.getUseType() == 1) {
+                pet.usePetWeapon(pet, item);
+        } else if (petItem.getUseType() == 0) {
+                pet.usePetArmor(pet, item);
 		}
 	}
 

@@ -190,6 +190,20 @@ public class SkillsTable {
 		return ret;
 	}
 
+	public L1Skills findBySkillId(int skillId) {
+		return _skills.get(skillId);
+	}
+
+	public L1Skills findByItemName(String itemName) { 
+		String skillName = itemName.replaceFirst("^.*\\((.+)\\).*$", "$1"); 
+		for (L1Skills skill : _skills.values()) { 
+			if (skill.getName().equalsIgnoreCase(skillName)) { 
+				return skill; 
+			} 
+		} 
+		return null; 
+	}
+	
 	public boolean isInitialized() {
 		return _initialized;
 	}

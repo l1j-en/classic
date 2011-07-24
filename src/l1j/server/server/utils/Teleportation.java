@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1DragonSlayer; 
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DollInstance;
@@ -168,6 +169,14 @@ public class Teleportation {
 			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
 					pc.getSkillEffectTimeSec(WIND_SHACKLE)));
 		}
+		if (pc.getPortalNumber() != -1 
+				 && (pc.getMapId() !=  (1005 + pc.getPortalNumber()))) { 
+			 L1DragonSlayer.getInstance().removePlayer(pc, pc.getPortalNumber()); 
+			 pc.setPortalNumber(-1); 
+		}
+		if (pc.getMapId() <= 10000 && pc.getInnKeyId() != 0) { 
+				pc.setInnKeyId(0); 
+			}
 	}
 
 	private static void teleport(L1NpcInstance npc, int x, int y, short map,

@@ -35,6 +35,11 @@ public class S_DropItem extends ServerBasePacket {
 	}
 
 	private void buildPacket(L1ItemInstance item) {
+		String itemName = item.getItem().getUnidentifiedNameId(); 
+		int isId = item.isIdentified() ? 1 : 0; 
+		if (isId == 1) { 
+			itemName = item.getItem().getIdentifiedNameId(); 
+		}
 		writeC(Opcodes.S_OPCODE_DROPITEM);
 		writeH(item.getX());
 		writeH(item.getY());
@@ -52,10 +57,13 @@ public class S_DropItem extends ServerBasePacket {
 		writeC(0);
 		writeC(0);
 		if (item.getCount() > 1) {
-			writeS(item.getItem().getName() + " (" + item.getCount() + ")");
+			if (item.getItem().getItemId() == 40312 && item.getKeyId() != 0) {
+				writeS(itemName + item.getInnKeyName() + " (" + item.getCount() + ")");
+		} else {
+			writeS(itemName + " (" + item.getCount() + ")"); 
+		}
 		} else {
 			int itemId = item.getItem().getItemId();
-			int isId = item.isIdentified() ? 1 : 0;
 			if (itemId == 20383 && isId == 1) { // 
 				writeS(item.getItem().getName() + " [" + item
 						.getChargeCount() + "]");

@@ -20,6 +20,8 @@ package l1j.server.server.model;
 
 import java.util.List;
 
+import l1j.server.server.hackdetections.LogTradeAddItem;
+import l1j.server.server.hackdetections.LogTradeComplete;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_TradeAddItem;
@@ -47,6 +49,7 @@ public class L1Trade {
 		L1ItemInstance l1iteminstance = player.getInventory().getItem(itemid);
 		if (l1iteminstance != null && trading_partner != null) {
 			if (!l1iteminstance.isEquipped()) {
+				int itembefore = player.getInventory().countItems(l1iteminstance.getItem().getItemId());
 				if (l1iteminstance.getCount() < itemcount || 0 > itemcount) {
 					player.sendPackets(new S_TradeStatus(1));
 					trading_partner.sendPackets(new S_TradeStatus(1));
@@ -62,6 +65,11 @@ public class L1Trade {
 						itemcount, 0));
 				trading_partner.sendPackets(new S_TradeAddItem(l1iteminstance,
 						itemcount, 1));
+				int itemafter = player.getInventory().countItems(l1iteminstance.getItem()
+						.getItemId()); 
+				LogTradeAddItem ltai = new LogTradeAddItem(); 
+				ltai.storeLogTradeAddItem(player, trading_partner, l1iteminstance, 
+						itembefore, itemafter, itemcount);
 			}
 		}
 	}
@@ -80,18 +88,26 @@ public class L1Trade {
 					.getTradeWindowInventory().getSize();
 
 			for (cnt = 0; cnt < player_tradecount; cnt++) {
-				L1ItemInstance l1iteminstance1 = (L1ItemInstance) player_tradelist
-						.get(0);
-				player.getTradeWindowInventory().tradeItem(l1iteminstance1,
-						l1iteminstance1.getCount(),
+				L1ItemInstance l1iteminstance1 = (L1ItemInstance) player_tradelist.get(0);
+				int itembeforeinven = player.getInventory().countItems(l1iteminstance1.getItem().getItemId());
+				player.getTradeWindowInventory().tradeItem(l1iteminstance1, l1iteminstance1.getCount(),
 						trading_partner.getInventory());
+				  int itemafter = player.getInventory().countItems(l1iteminstance1.getItem().getItemId()); 
+				  LogTradeComplete ltc = new LogTradeComplete(); 
+				  ltc.storeLogTradeComplete(player, trading_partner, l1iteminstance1, player_tradecount,
+						  itembeforeinven, itemafter, player_tradecount);
 			}
 			for (cnt = 0; cnt < trading_partner_tradecount; cnt++) {
 				L1ItemInstance l1iteminstance2 = (L1ItemInstance) trading_partner_tradelist
 						.get(0);
+				int itembeforeinven = player.getInventory().countItems(l1iteminstance2.getItem().getItemId()); 
 				trading_partner.getTradeWindowInventory().tradeItem(
 						l1iteminstance2, l1iteminstance2.getCount(),
 						player.getInventory());
+				 int itemafter = player.getInventory().countItems(l1iteminstance2.getItem().getItemId()); 
+				 LogTradeComplete ltc = new LogTradeComplete(); 
+				 ltc.storeLogTradeComplete(trading_partner, player, l1iteminstance2, trading_partner_tradecount, 
+						 itembeforeinven, itemafter, trading_partner_tradecount);
 			}
 
 			player.sendPackets(new S_TradeStatus(0));

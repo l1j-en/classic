@@ -356,7 +356,7 @@ public class CalcExp {
 		pc.addExp(add_exp);
 	}
 
-	private static void AddExpPet(L1PetInstance pet, int exp) {
+	public static void AddExpPet(L1PetInstance pet, int exp) {
 		L1PcInstance pc = (L1PcInstance) pet.getMaster();
 
 		int petNpcId = pet.getNpcTemplate().get_npcId();

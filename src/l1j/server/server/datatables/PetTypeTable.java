@@ -68,15 +68,19 @@ public class PetTypeTable {
 				int hpUpMax = rs.getInt("HpUpMax");
 				int mpUpMin = rs.getInt("MpUpMin");
 				int mpUpMax = rs.getInt("MpUpMax");
+				int evolvItemId = rs.getInt("EvolvItemId");
 				int npcIdForEvolving = rs.getInt("NpcIdForEvolving");
 				int msgIds[] = new int[5];
 				for (int i = 0; i < 5; i++) {
 					msgIds[i] = rs.getInt("MessageId" + (i + 1));
 				}
 				int defyMsgId = rs.getInt("DefyMessageId");
+				boolean canUseEquipment = rs.getBoolean("canUseEquipment");
 				IntRange hpUpRange = new IntRange(hpUpMin, hpUpMax);
 				IntRange mpUpRange = new IntRange(mpUpMin, mpUpMax);
-				_types.put(baseNpcId, new L1PetType(baseNpcId, name, itemIdForTaming, hpUpRange, mpUpRange, npcIdForEvolving, msgIds, defyMsgId));
+				_types.put(baseNpcId, new L1PetType(baseNpcId, name, 
+				itemIdForTaming, hpUpRange, mpUpRange, evolvItemId,
+                npcIdForEvolving, msgIds, defyMsgId, canUseEquipment));
 				_defaultNames.add(name.toLowerCase());
 			}
 		} catch (SQLException e) {

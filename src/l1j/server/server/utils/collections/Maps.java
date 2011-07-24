@@ -19,9 +19,20 @@
 package l1j.server.server.utils.collections;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javolution.util.FastMap;
+
 public class Maps {
+	public static <K, V> Map<K, V> newMap() {
+		return new FastMap<K, V>();
+	}
+
+	public static <K, V> Map<K, V> newMap(Map<K, V> from) {
+		return new FastMap<K, V>(from);
+	}
+
 	public static <K, V> HashMap<K, V> newHashMap() {
 		return new HashMap<K, V>();
 	}
