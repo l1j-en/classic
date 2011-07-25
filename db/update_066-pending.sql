@@ -1833,3 +1833,6 @@ INSERT INTO `checkwartime` VALUES ('5', 'Heine Castle', '0');
 INSERT INTO `checkwartime` VALUES ('6', 'Dwarf Castle', '0');
 INSERT INTO `checkwartime` VALUES ('7', 'Aden Castle', '0');
 INSERT INTO `checkwartime` VALUES ('8', 'Diad Fortress', '0');
+
+-- add Dwarf Adelio
+INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
