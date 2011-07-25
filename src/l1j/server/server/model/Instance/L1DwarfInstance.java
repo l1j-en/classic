@@ -40,10 +40,6 @@ public class L1DwarfInstance extends L1NpcInstance {
 	private static Logger _log = Logger.getLogger(L1DwarfInstance.class
 			.getName());
 
-	private ArrayList _tpLocs;
-
-	private int _tpId;
-
 	/**
 	 * @param template
 	 */
@@ -93,7 +89,7 @@ public class L1DwarfInstance extends L1NpcInstance {
 
 	@Override
 	public void onFinalAction(L1PcInstance pc, String Action) {
-		int objid = getTemplateid();
+		getTemplateid();
 		int price = 30;
 		
 		for (L1ItemInstance item : pc.getInventory().getItems()) {

@@ -28,12 +28,11 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_CommonNews extends ServerBasePacket {
-	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
 	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
-	private ArrayList _announcements;
+	private ArrayList<String> _announcements;
 	
 	public S_CommonNews() {
-		_announcements = new ArrayList();
+		_announcements = new ArrayList<String>();
 		loadAnnouncements();
 		writeC(Opcodes.S_OPCODE_COMMONNEWS);
 		String message = "";

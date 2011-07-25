@@ -39,7 +39,6 @@ public class L1War {
 	private final ArrayList<String> _attackClanList = new ArrayList<String>();
 	private String _defenceClanName = null;
 	private int _warType = 0;
-	private int _castleId = 0;
 	private L1Castle _castle = null;
 	private Calendar _warEndTime;
 	private boolean _isWarTimerDelete = false;

@@ -51,9 +51,7 @@ public class C_CreateChar extends ClientBasePacket {
 		String name = readS();
 
 		Account account = Account.load(client.getAccountName());
-		int characterSlot = account.getCharacterSlot();
-		int maxAmount = Config.DEFAULT_CHARACTER_SLOT + characterSlot;
-
+		account.getCharacterSlot();
 		name = name.replaceAll("\\s", "");
         name = name.replaceAll("@", "");
 		if (name.length() == 0) {

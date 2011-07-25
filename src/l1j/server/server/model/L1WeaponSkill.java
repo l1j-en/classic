@@ -291,7 +291,6 @@ public class L1WeaponSkill {
 		int value = 0;
 		int kiringkuDamage = 0;
 		int charaIntelligence = 0;
-		int getTargetMr = 0;
 		if (pc.getWeapon().getItem().getItemId() == 270) {
 			value = 16;
 		} else {
