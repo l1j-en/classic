@@ -21,6 +21,7 @@ package l1j.server.server;
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.AuctionTimeController;
+import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.HouseTaxTimeController;
@@ -30,6 +31,7 @@ import l1j.server.server.controllers.NpcChatTimeController;
 import l1j.server.server.controllers.UbTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
+import l1j.server.server.datatables.CheckWarTime;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.datatables.ClanTable;
@@ -57,6 +59,7 @@ import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.datatables.SkillsTable;
 import l1j.server.server.datatables.SpawnTable;
 import l1j.server.server.datatables.SprTable;
+import l1j.server.server.datatables.InnTable;
 import l1j.server.server.datatables.UBSpawnTable;
 import l1j.server.server.datatables.WeaponSkillTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -209,6 +212,10 @@ public GameServerThread() throws Exception {
 	GeneralThreadPool.getInstance().execute(lightTimeController);
 
 	// AnnounceMents
+	CrackOfTimeController crackTimeController = CrackOfTimeController.getStart();
+	GeneralThreadPool.getInstance().execute(crackTimeController);
+	
+	// AnnounceMents
 	Announcements.getInstance();
 	
 	// Npc Table
@@ -241,6 +248,7 @@ public GameServerThread() throws Exception {
 	ClanTable.getInstance();
 	CastleTable.getInstance();
 	L1CastleLocation.setCastleTaxRate(); // This must be after the initial CastleTable 
+	CheckWarTime.getInstance();
 	GetBackRestartTable.getInstance();
 	DoorTable.initialize();
 	GeneralThreadPool.getInstance();
@@ -250,6 +258,7 @@ public GameServerThread() throws Exception {
 	NpcActionTable.load();
 	GMCommandsConfig.load();
 	Getback.loadGetBack();
+	InnTable.getInstance();
 	PetTypeTable.load();
 	L1BossCycle.load();
 	L1TreasureBox.load();

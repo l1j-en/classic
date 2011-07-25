@@ -124,7 +124,7 @@ public class LeakCheckedConnection {
 	private class Delegate implements InvocationHandler {
 		private Object _delegateProxy;
 		private Object _original;
-		Delegate(Object o, Class c) {
+		Delegate(Object o, Class<?> c) {
 			_original = o;
 			_delegateProxy = Proxy.newProxyInstance(c.getClassLoader(),
 					new Class[] { c }, this);

@@ -58,7 +58,7 @@ public final class TaskManager {
 		Task _task;
 		TaskTypes _type;
 		String[] _params;
-		ScheduledFuture _scheduled;
+		ScheduledFuture<?> _scheduled;
 
 		public ExecutedTask(Task task, TaskTypes type, ResultSet rset)
 				throws SQLException {
@@ -162,9 +162,7 @@ public final class TaskManager {
 				if (task == null) {
 					continue;
 				}
-				//TODO Not used
-				TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
-				//TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
+				TaskTypes.valueOf(rs.getString("type"));
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "error while loading Global Task table", e);

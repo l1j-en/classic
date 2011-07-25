@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.InnKeyTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Item;
@@ -55,7 +56,9 @@ public class L1DwarfInventory extends L1Inventory {
 				item.setBless(rs.getInt("bless"));
 				item.setAttrEnchantKind(rs.getInt("attr_enchant_kind"));
 				item.setAttrEnchantLevel(rs.getInt("attr_enchant_level"));
-
+				if (item.getItem().getItemId() == 40312) {
+					InnKeyTable.checkey(item);
+				}
 				_items.add(item);
 				L1World.getInstance().storeObject(item);
 			}

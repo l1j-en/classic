@@ -40,8 +40,8 @@ public class C_Door extends ClientBasePacket {
 
 	public C_Door(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
-		int locX = readH();
-		int locY = readH();
+		readH();
+		readH();
 		int objectId = readD();
 
 		L1PcInstance pc = client.getActiveChar();

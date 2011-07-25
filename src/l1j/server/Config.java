@@ -220,6 +220,9 @@ public final class Config {
 	public static int CREATE_CHANCE_HISTORY_BOOK;
 
 	/** AltSettings control */
+
+        public static boolean SHOW_NPC_LVL;
+
 	public static short GLOBAL_CHAT_LEVEL;
 
 	public static short WHISPER_CHAT_LEVEL;
@@ -326,6 +329,10 @@ public final class Config {
 	public static int MONSTERPOTIONINTUSE;
 
 	/** CharSettings control */
+	public static int MAX_ABILITY;
+
+	public static int MAX_ABILITY2;
+
 	public static int PRINCE_MAX_HP;
 
 	public static int PRINCE_MAX_MP;
@@ -602,6 +609,7 @@ public final class Config {
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 			altSettings.load(is);
 			is.close();
+			SHOW_NPC_LVL = Boolean.parseBoolean(altSettings.getProperty("ShowNpcLevel", "False"));
 			GLOBAL_CHAT_LEVEL = Short.parseShort(altSettings.getProperty("GlobalChatLevel", "30"));
 			WHISPER_CHAT_LEVEL = Short.parseShort(altSettings.getProperty("WhisperChatLevel", "5"));
 			AUTO_LOOT = Byte.parseByte(altSettings.getProperty("AutoLoot", "2"));
@@ -690,6 +698,8 @@ public final class Config {
 			charSettings.load(is);
 			is.close();
 
+			MAX_ABILITY = Integer.parseInt(charSettings.getProperty("MaxAbility", "35"));
+			MAX_ABILITY2 = Integer.parseInt(charSettings.getProperty("MaxAbility2", "35"));
 			PRINCE_MAX_HP = Integer.parseInt(charSettings.getProperty("PrinceMaxHP", "1000"));
 			PRINCE_MAX_MP = Integer.parseInt(charSettings.getProperty("PrinceMaxMP", "800"));
 			KNIGHT_MAX_HP = Integer.parseInt(charSettings.getProperty("KnightMaxHP", "1400"));
