@@ -1815,3 +1815,21 @@ update npc set Mprinterval = 10000 where npcid = 45685;
 update npc set hpr = 350 where npcid = 45685;
 update npc set mpr = 200 where npcid = 45685;
 
+-- ----------------------------
+-- Table structure for checkwartime
+-- ----------------------------
+CREATE TABLE `checkwartime` (
+  `castle_id` int(12) NOT NULL auto_increment,
+  `name` varchar(45) default NULL,
+  `isActive` int(1) NOT NULL default '1',
+  PRIMARY KEY  (`castle_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+INSERT INTO `checkwartime` VALUES ('1', 'Kent Castle', '0');
+INSERT INTO `checkwartime` VALUES ('2', 'Orc Castle', '0');
+INSERT INTO `checkwartime` VALUES ('3', 'Windawood Castle', '0');
+INSERT INTO `checkwartime` VALUES ('4', 'Giran Castle', '0');
+INSERT INTO `checkwartime` VALUES ('5', 'Heine Castle', '0');
+INSERT INTO `checkwartime` VALUES ('6', 'Dwarf Castle', '0');
+INSERT INTO `checkwartime` VALUES ('7', 'Aden Castle', '0');
+INSERT INTO `checkwartime` VALUES ('8', 'Diad Fortress', '0');
