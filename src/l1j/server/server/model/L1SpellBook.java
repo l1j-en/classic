@@ -269,7 +269,7 @@ public class L1SpellBook {
 		int i6 = 0;
 		for (int j6 = 97; j6 < 112; j6++) {
 			L1Skills l1skills = SkillsTable.getInstance().findBySkillId(j6);
-			String s1 = "Spellbook(" + l1skills.getName() + ")";
+			String s1 = "Dark Spirit Crystal(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
 				int i7 = l1skills.getId();
