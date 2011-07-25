@@ -222,7 +222,13 @@ public class L1Attack {
 				if (_weaponType == 20) { // Arrow acquisition
 					_arrow = _pc.getInventory().getArrow();
 					if (_arrow != null) {
-						_weaponBless = _arrow.getItem().getBless();
+						//if weapon or arrow is blessed, set weapon blessed
+						//else just go by the arrow
+						if (weapon.getItem().getBless() == 0 || _arrow.getItem().getBless() == 0) {
+							_weaponBless = 0;
+						} else {
+							_weaponBless = _arrow.getItem().getBless();
+						}
 						_weaponMaterial = _arrow.getItem().getMaterial();
 					}
 				}
