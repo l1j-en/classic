@@ -239,7 +239,7 @@ public class L1SpellBook {
 		return false;
 	}
 
-	public static void SpellBook1(L1PcInstance pc,
+	public static void learnDarkElfMagic(L1PcInstance pc,
 			L1ItemInstance l1iteminstance, ClientThread clientthread) {
 		String s = "";
 		int i = 0;

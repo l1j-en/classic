@@ -1520,13 +1520,13 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (pc.isDarkelf() || pc.isGm()) {
 						if (itemId >= 40265 && itemId <= 40269 
 								&& pc.getLevel() >= 15) {
-							L1SpellBook.SpellBook1(pc, l1iteminstance, client);
+							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
 						} else if (itemId >= 40270 && itemId <= 40274 
 								&& pc.getLevel() >= 30) {
-							L1SpellBook.SpellBook1(pc, l1iteminstance, client);
+							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
 						} else if (itemId >= 40275 && itemId <= 40279
 								&& pc.getLevel() >= 45) {
-							L1SpellBook.SpellBook1(pc, l1iteminstance, client);
+							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
 						} else {
 							pc.sendPackets(new S_ServerMessage(312));
 						}
