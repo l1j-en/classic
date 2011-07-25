@@ -541,45 +541,49 @@ public class L1Attack {
 				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45752 //
+		if (npcId == 45752
 				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45753 //
+		if (npcId == 45753
 				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45675 //
+		if (npcId == 45675
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId == 81082 //
+		if (npcId == 81082
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45625 // 
+		if (npcId == 45625
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45674 // 
+		if (npcId == 45674
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId == 45685 // 
+		if (npcId == 45685
 				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 			_hitRate = 0;
 		}
-		if (npcId >= 46068 && npcId <= 46091 //
+		if (npcId >= 46068 && npcId <= 46091
 				&& _pc.getTempCharGfx() == 6035) {
 			_hitRate = 0;
 		}
-		if (npcId >= 46092 && npcId <= 46106 //
+		if (npcId >= 46092 && npcId <= 46106
 				&& _pc.getTempCharGfx() == 6034) {
 			_hitRate = 0;
 		}
- 		int rnd = _random.nextInt(100) + 1;
-		return _hitRate >= rnd;
-	}
+		if (_pc.isAttackMiss(_pc, _targetNpc.getNpcTemplate().get_npcId())) {
+            _hitRate = 0;
+        }
+        int rnd = _random.nextInt(100) + 1;
+        return _hitRate >= rnd;
+        }
+
 
 	//NPC decision from the players to hit
 	private boolean calcNpcPcHit() {
@@ -644,6 +648,12 @@ public class L1Attack {
 		}
 		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
 			_hitRate = 0;
+		} else if ((_npc instanceof L1PetInstance)
+				|| (_npc instanceof L1SummonInstance)) {//NONPVP
+			if ((_targetPc.getZoneType() == 1) || (_npc.getZoneType() == 1)
+					|| (_targetPc.checkNonPvP(_targetPc, _npc))) {
+				_hitRate = 0;
+			}
 		}
 
 		int rnd = _random.nextInt(100) + 1;
@@ -1108,11 +1118,13 @@ public class L1Attack {
 	private int calcNpcPcDamage() {
 		int lvl = _npc.getLevel();
 		double dmg = 0D;
-		dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
-
 		if (_npc instanceof L1PetInstance) {
-			dmg += (lvl / 16); // Each additional pet is hit LV16
+			dmg = _random.nextInt(_npc.getNpcTemplate().get_level())
+			+ _npc.getStr() / 2 + 1; 
+			dmg += (lvl / 16);
 			dmg += ((L1PetInstance) _npc).getDamageByWeapon();
+		} else { 
+			dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
 		}
 
 		dmg += _npc.getDmgup();
@@ -1542,6 +1554,10 @@ public class L1Attack {
 		} else {
 			actId = ActionCodes.ACTION_Attack;
 		}
+		if (!_isHit) { // Miss
+            _damage = 0;
+        }
+
 		// The distance between two or more of the attacker's arch Action ID if you have far-attack
 		if (isLongRange && bowActId > 0) {
 			_npc.broadcastPacket(new S_UseArrowSkill(_npc, _targetId,
@@ -1687,10 +1703,8 @@ public class L1Attack {
 				actId = ActionCodes.ACTION_Attack;
 			}
 			if (getGfxId() > 0) {
-				_npc
-						.broadcastPacket(new S_UseAttackSkill(_target, _npc
-								.getId(), getGfxId(), _targetX, _targetY,
-								actId, 0));
+				_npc.broadcastPacket(new S_UseAttackSkill(_target, _npc
+				.getId(), getGfxId(), _targetX, _targetY, actId, 0));
 			} else {
 				_npc.broadcastPacket(new S_AttackMissPacket(_npc, _targetId,
 						actId));

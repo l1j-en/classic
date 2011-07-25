@@ -30,8 +30,6 @@ public class S_Paralysis extends ServerBasePacket {
 	public static final int TYPE_STUN = 5;
 	public static final int TYPE_BIND = 6;
 	public static final int TYPE_TELEPORT_UNLOCK = 7;
-	private static final String _S__2F_PARALYSIS = "[S] S_Paralysis";
-	
 	public S_Paralysis(int type, boolean flag) {
 		writeC(Opcodes.S_OPCODE_PARALYSIS);
 		if (type == TYPE_PARALYSIS) // The body is completely paralyzed.

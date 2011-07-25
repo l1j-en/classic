@@ -42,13 +42,20 @@ public class S_IdentifyDesc extends ServerBasePacket {
 		} else if (item.getItem().getBless() == 2) {
 			name.append("$228 "); // Haunted
 		}
+		
 		name.append(item.getItem().getIdentifiedNameId());
+		
+		if (item.getItem().getItemId() == 40312 && item.getKeyId() != 0) { 
+			name.append(item.getInnKeyName()); 
+		}
 		if (item.getItem().getType2() == 1) { // weapon
 			writeH(134); // Monster little monster hit big blow% 1% 2
 			writeC(3);
 			writeS(name.toString());
-			writeS(item.getItem().getDmgSmall() + "+" + item.getEnchantLevel());
-			writeS(item.getItem().getDmgLarge() + "+" + item.getEnchantLevel());
+			writeS(item.getItem().getDmgSmall() + "+"  
+					+ item.getEnchantLevel());
+			writeS(item.getItem().getDmgLarge() + "+"  
+					+ item.getEnchantLevel());
 		} else if (item.getItem().getType2() == 2) { // armor
 			if (item.getItem().getItemId() == 20383) { // helmet for horse riding
 				writeH(137); 
@@ -59,7 +66,8 @@ public class S_IdentifyDesc extends ServerBasePacket {
 				writeH(135); // 1 percent of defense force protection equipment
 				writeC(2);
 				writeS(name.toString());
-				writeS(Math.abs(item.getItem().get_ac()) + "+" + item.getEnchantLevel());
+				writeS(Math.abs(item.getItem().get_ac()) + "+"  
+					+ item.getEnchantLevel());
 			}
 		} else if (item.getItem().getType2() == 0) { // etcitem
 			if (item.getItem().getType() == 1) { // wand

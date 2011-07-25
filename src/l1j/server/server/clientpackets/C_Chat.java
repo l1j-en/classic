@@ -114,7 +114,10 @@ public class C_Chat extends ClientBasePacket {
 				pc.sendPackets(s_chatpacket);
 			}
 			for (L1PcInstance listner : L1World.getInstance().getRecognizePlayer(pc)) {
-				if (!listner.getExcludingList().contains(pc.getName())) {
+				if (listner.getMapId() > 10000 
+						&& listner.getInnKeyId() != pc.getInnKeyId()) {
+	              break; 
+				} else if (!listner.getExcludingList().contains(pc.getName())) {
 					listner.sendPackets(s_chatpacket);
 				}
 			}
@@ -132,12 +135,17 @@ public class C_Chat extends ClientBasePacket {
 				return;
 			}
 			ChatLogTable.getInstance().storeChat(pc, null, chatText, chatType);
-			S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText, Opcodes.S_OPCODE_NORMALCHAT, 2);
+			S_ChatPacket s_chatpacket = new S_ChatPacket(pc, chatText,
+					Opcodes.S_OPCODE_NORMALCHAT, 2);
 			if (!pc.getExcludingList().contains(pc.getName())) {
 				pc.sendPackets(s_chatpacket);
 			}
-			for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(pc, 50)) {
-				if (!listner.getExcludingList().contains(pc.getName())) {
+			for (L1PcInstance listner : L1World.getInstance().getVisiblePlayer(
+					pc, 50)) {
+				if (listner.getMapId() > 10000
+						&& listner.getInnKeyId() != pc.getInnKeyId()) {
+					break;
+				} else if (!listner.getExcludingList().contains(pc.getName())) {
 					listner.sendPackets(s_chatpacket);
 				}
 			}

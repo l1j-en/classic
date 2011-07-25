@@ -16,20 +16,28 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model.Instance;
 
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.LineNumberReader;
 
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.datatables.InnKeyTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.datatables.LetterTable;
+import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.model.L1EquipmentTimer;
 import l1j.server.server.model.L1ItemOwnerTimer;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.L1PcInventory;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Armor;
@@ -141,6 +149,35 @@ public class L1ItemInstance extends L1Object {
 	public void setItemId(int itemId) {
 		_itemId = itemId;
 	}
+    private int _keyId = 0;
+
+    public int getKeyId() {
+            return _keyId;
+    }
+
+    public void setKeyId(int i) {
+            _keyId = i;
+    }
+
+    private int _innNpcId = 0;
+
+    public int getInnNpcId() {
+            return _innNpcId;
+    }
+
+    public void setInnNpcId(int i) {
+            _innNpcId = i;
+    }
+
+    private boolean _isHall;
+
+    public boolean checkRoomOrHall() {
+            return _isHall;
+    }
+
+    public void setHall(boolean i) {
+            _isHall = i;
+    }
 
 	public boolean isStackable() {
 		return _item.isStackable();
@@ -173,6 +210,16 @@ public class L1ItemInstance extends L1Object {
 	public int get_durability() {
 		return _durability;
 	}
+
+    private Timestamp _dueTime;
+
+    public Timestamp getDueTime() {
+            return _dueTime;
+    }
+
+    public void setDueTime(Timestamp i) {
+            _dueTime = i;
+    }
 
 	public int getChargeCount() {
 		return _chargeCount;
@@ -404,22 +451,20 @@ public class L1ItemInstance extends L1Object {
 		int itemType2 = getItem().getType2();
 		int itemId = getItem().getItemId();
 
-		if (itemId == 40314 || itemId == 40316) { //
+		if (itemId == 40314 || itemId == 40316) {
 			L1Pet pet = PetTable.getInstance().getTemplate(getId());
 			if (pet != null) {
-				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcid());
-// name.append("[Lv." + pet.get_level() + " "
-// + npc.get_nameid() + "]");
+				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcId());
 				name.append("[Lv." + pet.get_level() + " " + pet.get_name()
 						+ "]HP" + pet.get_hp() + " " + npc.get_nameid());
 			}
 		}
 
-		if (getItem().getType2() == 0 && getItem().getType() == 2) { // 
+		if (getItem().getType2() == 0 && getItem().getType() == 2) {
 			if (isNowLighting()) {
 				name.append(" ($10)");
 			}
-			if (itemId == 40001 || itemId == 40002) { // 
+			if (itemId == 40001 || itemId == 40002) {
 				if (getRemainingTime() <= 0) {
 					name.append(" ($11)");
 				}
@@ -430,9 +475,9 @@ public class L1ItemInstance extends L1Object {
 			if (itemType2 == 1) {
 				name.append(" ($9)"); //(Armed)
 			} else if (itemType2 == 2) {
-				name.append(" ($117)"); // 
+				name.append(" ($117)");
 			} else if (itemType2 == 0 && getItem().getType() == 11) { // petitem
-				name.append(" ($117)"); //
+				name.append(" ($117)");
 			}
 		}
 		return name.toString();
@@ -517,15 +562,42 @@ public class L1ItemInstance extends L1Object {
 			if (getItem().getItemId() == 20383) {
 				name.append(" (" + getChargeCount() + ")");
 			}
-			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { //
+			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) {
 				name.append(" (" + getRemainingTime() + ")");
 			}
 		}
-
+		if (getItem().getItemId() == 40312 && getKeyId() != 0) {
+			name.append(getInnKeyName());
+		}
 		if (count > 1) {
 			name.append(" (" + count + ")");
 		}
 
+		return name.toString();
+	}
+
+	public String getInnKeyName() {
+		StringBuilder name = new StringBuilder();
+		name.append(" #");
+		String chatText = String.valueOf(getKeyId());
+		String s1 = "";
+		String s2 = "";
+		for (int i = 0; i < chatText.length(); i++) {
+			if (i >= 5) {
+				break;
+			}
+			s1 = s1 + String.valueOf(chatText.charAt(i));
+		}
+		name.append(s1);
+		for (int i = 0; i < chatText.length(); i++) {
+			if ((i % 2) == 0) {
+				s1 = String.valueOf(chatText.charAt(i));
+			} else {
+				s2 = s1 + String.valueOf(chatText.charAt(i));
+				name.append(Integer.toHexString(Integer.valueOf(s2))
+						.toLowerCase());
+			}
+		}
 		return name.toString();
 	}
 
@@ -549,6 +621,11 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(1); 
 				os.writeC(getItem().getDmgSmall());
 				os.writeC(getItem().getDmgLarge());
+				break;
+			case 11: 
+				os.writeC(7);
+				os.writeC(128);
+				os.writeC(23);
 				break;
 			default:
 				os.writeC(23);
@@ -936,4 +1013,24 @@ class EnchantTimer extends TimerTask {
 		_isNowLighting = flag;
 	}
 
+	private void onDelete() {
+        int itemId = getItem().getItemId();
+        if (itemId == 40314 || itemId == 40316) {
+                PetTable.getInstance().deletePet(getId());
+        } else if (itemId >= 49016 && itemId <= 49025) {
+                LetterTable lettertable = new LetterTable();
+                lettertable.deleteLetter(getId());
+        } else if (itemId >= 41383 && itemId <= 41400) {
+                for (L1Object l1object : L1World.getInstance().getObject()) {
+                        if (l1object instanceof L1FurnitureInstance) {
+                            L1FurnitureInstance furniture = (L1FurnitureInstance) l1object;
+                        if (furniture.getItemObjId() == getId()) {
+                            FurnitureSpawnTable.getInstance().deleteFurniture(furniture);
+                            }
+                     }
+              }
+        } else if (getItem().getItemId() == 40312) {
+                InnKeyTable.DeleteKey(this);
+        }
+    }
 }

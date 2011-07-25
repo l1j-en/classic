@@ -18,6 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
@@ -40,7 +41,7 @@ public class C_Clan extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		L1Clan clan = ClanTable.getInstance().getTemplate(clanId);
-		String name = clan.getClanName();
+		clan.getClanName();
 		pc.sendPackets(new S_Emblem(clan.getClanId()));
 	}
 

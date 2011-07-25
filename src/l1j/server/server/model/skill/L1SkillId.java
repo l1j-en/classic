@@ -20,6 +20,7 @@ package l1j.server.server.model.skill;
 
 public class L1SkillId {
 	public static final int SKILLS_BEGIN = 1;
+
 	/*
 	 * Regular Magic Lv1-10
 	 */
@@ -595,4 +596,20 @@ public class L1SkillId {
 	public static final int STATUS_CURSE_YAHEE = 1014;
 
 	public static final int STATUS_BRAVE2 = 20001;
+	
+	public static final int EFFECT_BLOODSTAIN_OF_ANTHARAS = 4011;
+	
+	public static final int EFFECT_BLESS_OF_CRAY = 4056;
+
+	public static final int EFFECT_BLESS_OF_SAELL = 4057;
+	
+	public static final int COCKATRICE_STONE = 12001;
+	
+	public static final int BASLISK_STONE = 10015;
+	
+	public static final int MEDUSA_STONE = 10011;
+	
+	public static final int FLOATINGEYE_STONE = 12002;
+	
+	public static final int BEHOLDER_STONE = 12003;
 }

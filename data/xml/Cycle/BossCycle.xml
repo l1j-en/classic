@@ -36,6 +36,9 @@
 	<BossCycle Name="Caspa">
 		<Cycle Period="1h" Start="30m"/>
 	</BossCycle>
+	<BossCycle Name="Girtas">
+		<Cycle Period="24h" Start="8h"/>
+	</BossCycle>
 	<BossCycle Name="1Drake">
 		<Cycle Period="2h" Start="1h"/>
         </BossCycle>
@@ -47,6 +50,9 @@
 	</BossCycle>
         <BossCycle Name="BanditLeader">
 		<Cycle Period="8h" Start="10m"/>
+	</BossCycle>
+	<BossCycle Name="DreadTomKid">
+		<Cycle Period="24h" Start="10m"/>
 	</BossCycle>
         <BossCycle Name="DarkElder">
 		<Cycle Period="24h" Start="10m"/>

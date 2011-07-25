@@ -47,6 +47,9 @@ public class C_Restart extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 
+		if (!pc.isDead())
+			return;
+		
 		int[] loc;
 		
 		if (pc.getHellTime() > 0) {

@@ -16,7 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
 package l1j.server.server.model.skill;
 
 import java.util.ArrayList;
@@ -696,6 +695,10 @@ public class L1SkillUse {
 			return false;
 		}
 
+		if (cha.hasSkillEffect(SHOCK_STUN) && (_skillId == SHOCK_STUN)) {
+			return false;
+		}
+		
 		if (cha.hasSkillEffect(EARTH_BIND) && _skillId == EARTH_BIND) {
 			return false; 
 		}
@@ -1166,7 +1169,22 @@ public class L1SkillUse {
 			_getBuffDuration = _shockStunDuration;
 		}
 
-		if (_skillId == CURSE_POISON) { // 
+		if (_skillId == CURSE_POISON) {
+			return;
+		}
+		if (_skillId == BEHOLDER_STONE) {
+			return;
+		}
+		if (_skillId == COCKATRICE_STONE) {
+			return;
+		}
+		if (_skillId == BASLISK_STONE) {
+			return;
+		}
+		if (_skillId == MEDUSA_STONE) {
+			return;
+		}
+		if (_skillId == FLOATINGEYE_STONE) {
 			return;
 		}
 		if (_skillId == CURSE_PARALYZE
@@ -1176,7 +1194,8 @@ public class L1SkillUse {
 		if (_skillId == SHAPE_CHANGE) { // 
 			return;
 		}
-		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND || _skillId == DARKNESS || _skillId == DARK_BLIND)) { // BCM: fix darkness exploit
+		if (!(cha instanceof L1PcInstance) && (_skillId == CURSE_BLIND 
+				|| _skillId == DARKNESS || _skillId == DARK_BLIND)) { // BCM: fix darkness exploit
 			return;
 		}
 		if (_skillId == BLESSED_ARMOR || _skillId == HOLY_WEAPON 
@@ -2013,7 +2032,9 @@ public class L1SkillUse {
 				} else if (_skillId == CURSE_POISON) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 5);
 				} else if (_skillId == CURSE_PARALYZE
-						|| _skillId == CURSE_PARALYZE2) {
+						|| _skillId == CURSE_PARALYZE2 || _skillId == BEHOLDER_STONE 
+						|| _skillId == COCKATRICE_STONE || _skillId == BASLISK_STONE 
+						|| _skillId == MEDUSA_STONE || _skillId == FLOATINGEYE_STONE) {
 					if (!cha.hasSkillEffect(EARTH_BIND)
 							&& !cha.hasSkillEffect(ICE_LANCE)
 							&& !cha.hasSkillEffect(FREEZING_BLIZZARD)
@@ -2076,10 +2097,12 @@ public class L1SkillUse {
 						npc.setParalysisTime(_skill.getBuffDuration() * 1000);
 					}
 				} else if (_skillId == SHOCK_STUN) {
-					int[] stunTimeArray = { 500, 1000, 1500, 2000, 2500, 3000 };
+					int[] stunTimeArray = { 1000, 1050, 1100, 1150, 1200, 1250,  2064,
+					1300, 1350, 1400, 1450, 1500, 1550, 1600, 1650,  2065,
+					1700, 1750, 1800, 1850, 1900, 1950, 2000 };
 					Random random = new Random();
 					int rnd = random.nextInt(stunTimeArray.length);
-					_shockStunDuration = stunTimeArray[rnd];
+					_shockStunDuration = stunTimeArray[rnd] * 6;
 					if (cha instanceof L1PcInstance
 							&& cha.hasSkillEffect(SHOCK_STUN)) {
 						_shockStunDuration += cha
@@ -2141,7 +2164,7 @@ public class L1SkillUse {
 										.getId(), "$2488"));
 							}
 						}
-						if (npcId == 81209) {
+						if (npcId == 81209) { // 
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(4310);
 								npc.broadcastPacket(new S_ChangeShape(npc
@@ -2564,6 +2587,7 @@ public class L1SkillUse {
 										}
 										npcattr *= 2;
 									}
+						
 									if (summonid == 0) {
 										Random random = new Random();
 										int k3 = random.nextInt(4);
@@ -2589,7 +2613,7 @@ public class L1SkillUse {
 
 					if (_skillId == LIGHT) { 
 						
-					} else if (_skillId == GLOWING_AURA) {
+					} else if (_skillId == GLOWING_AURA) { // 
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addHitup(5);
 						pc.addBowHitup(5);
@@ -2726,20 +2750,19 @@ public class L1SkillUse {
 					} else if (_skillId == INVISIBILITY
 							|| _skillId == BLIND_HIDING) { 
 						L1PcInstance pc = (L1PcInstance) cha;
-						pc.sendPackets(new S_Sound(147));
 						pc.sendPackets(new S_Invis(pc.getId(), 1));
-						pc.broadcastPacketForFindInvis(new S_RemoveObject(pc), 
-						false);
+						pc.broadcastPacketForFindInvis(new S_RemoveObject(pc),
+								false);
 					} else if (_skillId == IRON_SKIN) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-10);
-						pc.sendPackets(new S_SkillIconShield(10, 
-						_getBuffIconDuration));
+						pc.sendPackets(new S_SkillIconShield(10,
+								_getBuffIconDuration));
 					} else if (_skillId == EARTH_SKIN) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-6);
-						pc.sendPackets(new S_SkillIconShield(6, 
-						_getBuffIconDuration));
+						pc.sendPackets(new S_SkillIconShield(6,
+								_getBuffIconDuration));
 					} else if (_skillId == PHYSICAL_ENCHANT_STR) { 
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addStr((byte) 5);

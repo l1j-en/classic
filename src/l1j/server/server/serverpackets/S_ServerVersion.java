@@ -31,29 +31,25 @@ public class S_ServerVersion extends ServerBasePacket {
 		// > 1 no check
 		// type : boolean
 		writeC(0x00);
+
 		// your server id, first id = 2
 		// id = 0, ????
 		// id = 1, ????
 		writeC(0x02);
-		// all version
-		// If the user level is a administrator,
-		// inputs /ver to be able to print out all version in game
-		// If the user level isn't a administrator
-		// inputs /ver to be able to print out client version in game
-// writeD(0x00009D7C); // server verion // 2.70C
-// writeD(0x0000791A); // cache verion // 2.70C
-// writeD(0x0000791A); // auth verion // 2.70C
-// writeD(0x00009DD1); // npc verion // 2.70C
+
 		writeD(0x000160c9); // server verion
 		writeD(0x0001606a); // cache verion
 		writeD(0x0000ee01); // auth verion
 		writeD(0x00013cdb); // npc verion
-// writeD(0x882a2cc6); // 2.70C
+		
 		writeD(0x49c466ec);
+
 		writeC(0x00); // unknown
 		writeC(0x00); // unknown
+
 		// Country
 		// 0.US 3.Taiwan 4.Janpan 5.China
+		//writeC(Config.CLIENT_LANGUAGE);
 		writeC(0x00);
 	}
 

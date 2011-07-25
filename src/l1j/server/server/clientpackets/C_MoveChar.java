@@ -22,11 +22,15 @@ import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.hackdetections.LogSpeedHack;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
+import l1j.server.server.model.L1Location;
+import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1PolyRace;
 import l1j.server.server.model.trap.L1WorldTraps;
@@ -38,12 +42,11 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // ClientBasePacket
 public class C_MoveChar extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_MoveChar.class.getName());
+	private static Logger _log = Logger.getLogger(C_MoveChar.class
+			.getName());
 
 	private static final byte HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final byte HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
-
-	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
 
 	private void sendMapTileLog(L1PcInstance pc) {
 		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(pc.getLocation())));
@@ -60,11 +63,16 @@ public class C_MoveChar extends ClientBasePacket {
 		if (pc.isTeleport()) { 
 			return;
 		}
-
+		if (pc.isDead()) {
+			return;
+		}
 		if (Config.CHECK_MOVE_INTERVAL) {
 			int result;
-			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.MOVE);
+			result = pc.getAcceleratorChecker().checkInterval(
+					AcceleratorChecker.ACT_TYPE.MOVE);
 			if (result == AcceleratorChecker.R_DISCONNECTED) {
+				LogSpeedHack lsh = new LogSpeedHack();
+				lsh.storeLogSpeedHack(pc);
 				return;
 			}
 		}
@@ -77,12 +85,6 @@ public class C_MoveChar extends ClientBasePacket {
 		}
 		pc.getMap().setPassable(pc.getLocation(), true);
 
-		if (CLIENT_LANGUAGE == 3) { // Taiwan Only
-			heading ^= 0x49;
-			locx = pc.getX();
-			locy = pc.getY();
-		}
-
 		locx += HEADING_TABLE_X[heading];
 		locy += HEADING_TABLE_Y[heading];
 
@@ -92,11 +94,23 @@ public class C_MoveChar extends ClientBasePacket {
 		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { 
 			return;
 		}
+		if ((pc.getMapId() == 68 || pc.getMapId() == 85|| pc.getMapId() == 86|| pc.getMapId() == 69)&& pc.getLevel() >= 13) {
+			switch(pc.getMapId()){
+			case 69: case 86:
+				L1Teleport.teleport(pc, 33080, 33392, (short)4, (byte)5, true);
+				return;
 
+			case 68: case 85:
+				L1Teleport.teleport(pc, 32580, 32931, (short)0, (byte)5, true);
+				return;
+			}
+		}
 		// Esc bug fix. Don't remove.
 		L1Location oldLoc = pc.getLocation();
-		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) || (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
-		{
+		if ((oldLoc.getX() + 10 < locx) 
+			|| (oldLoc.getX() - 10 > locx) 
+			|| (oldLoc.getY() + 10 < locy) 
+			|| (oldLoc.getY() - 10 > locx)) { 
 			return;
 		}
 		pc.getLocation().set(locx, locy);
