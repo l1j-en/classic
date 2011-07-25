@@ -786,13 +786,13 @@ public class L1PcInstance extends L1Character {
 
 	private ArrayList<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
 
-	public ArrayList getSellList() {
+	public ArrayList<L1PrivateShopSellList> getSellList() {
 		return _sellList;
 	}
 
 	private ArrayList<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
-	public ArrayList getBuyList() {
+	public ArrayList<L1PrivateShopBuyList> getBuyList() {
 		return _buyList;
 	}
 
@@ -1426,14 +1426,12 @@ if (player instanceof L1PcInstance) {
 			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
 					boolean isChangePkCount = false;
-					boolean isChangePkCountForElf = false;
 					if (player.getLawful() < 30000) {
 						player.set_PKcount(player.get_PKcount() + 1);
 						isChangePkCount = true;
 						if (player.isElf() && isElf()) {
 							player.setPkCountForElf(player
 									.getPkCountForElf() +1);
-							isChangePkCountForElf = true;
 						}
 					}
 					player.setLastPk();
@@ -2052,8 +2050,6 @@ if (player instanceof L1PcInstance) {
 		return _originalHitup;
 	}
 
-	private int _originalBowHitup = 0; //  IWiDEX 
-
 	public int getOriginalBowHitup() {
 
 		return _originalHitup;
@@ -2443,10 +2439,7 @@ if (player instanceof L1PcInstance) {
 			}
 		}
 
-		double dh = (getCurrentHp() * 1.00) / (getMaxHp() * 1.00);
-        double dm = (getCurrentMp() * 1.00) / (getMaxMp() * 1.00);
-
-        for (int i = 0; i < gap; i++) {
+		for (int i = 0; i < gap; i++) {
 			short randomHp = (short) _classFeature.calclvUpHp(getCon());
 			short randomMp = (short) _classFeature.calclvUpMp(getWis());
 			if (getBaseMaxHp() + randomHp > _classFeature.MaxHp()) {
@@ -3355,31 +3348,20 @@ if (player instanceof L1PcInstance) {
 	public void resetOriginalBowHitup() {
 		int originalDex = getOriginalDex();
 		if (isCrown()) {
-			_originalBowHitup = 0;
 		} else if (isKnight()) {
-			_originalBowHitup = 0;
 		} else if (isElf()) {
 			if (originalDex >= 13 && originalDex <= 15) {
-				_originalBowHitup = 2;
 			} else if (originalDex >= 16) {
-				_originalBowHitup = 3;
 			} else {
-				_originalBowHitup = 0;
 			}
 		} else if (isDarkelf()) {
 			if (originalDex == 17) {
-				_originalBowHitup = 1;
 			} else if (originalDex == 18) {
-				_originalBowHitup = 2;
 			} else {
-				_originalBowHitup = 0;
 			}
 		} else if (isWizard()) {
-			_originalBowHitup = 0;
 		} else if (isDragonKnight()) {
-			_originalBowHitup = 0;
 		} else if (isIllusionist()) {
-			_originalBowHitup = 0;
 		}
 	}
 

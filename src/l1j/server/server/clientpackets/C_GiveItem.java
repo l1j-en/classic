@@ -53,7 +53,7 @@ public class C_GiveItem extends ClientBasePacket {
 		int targetId = readD();
 		@SuppressWarnings("unused")
 		int x = readH();
-		int y = readH();
+		readH();
 		int itemId = readD();
 		int count = readD();
 
@@ -139,7 +139,6 @@ public class C_GiveItem extends ClientBasePacket {
 		if (!(target instanceof L1PetInstance)) { 
 			return; 
 		} 
-		L1PetInstance pet = (L1PetInstance) target;
 		if (item.getItemId() == petType.getEvolvItemId() && petType.canEvolve()) {
 			evolvePet(pc, target);
 		}

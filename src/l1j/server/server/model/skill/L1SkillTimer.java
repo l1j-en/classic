@@ -525,7 +525,6 @@ class L1SkillStop {
 			cha.setBraveSpeed(0);
 		} else if (skillId == STATUS_RIBRAVE) { 
 			if (cha instanceof L1PcInstance) {
-				L1PcInstance pc = (L1PcInstance) cha;
 
 			}
 			cha.setBraveSpeed(0);

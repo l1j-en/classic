@@ -31,13 +31,6 @@ public class S_SummonPack extends ServerBasePacket {
 	private static final String _S__1F_SUMMONPACK = "[S] S_SummonPack";
 	private static Logger _log = Logger.getLogger(S_SummonPack.class.getName());
 	private static final int STATUS_POISON = 1;
-	private static final int STATUS_INVISIBLE = 2;
-	private static final int STATUS_PC = 4;
-	private static final int STATUS_FREEZE = 8;
-	private static final int STATUS_BRAVE = 16;
-	private static final int STATUS_ELFBRAVE = 32;
-	private static final int STATUS_FASTMOVABLE = 64;
-	private static final int STATUS_GHOST = 128;
 	private byte[] _byte = null;
 
 	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc) {

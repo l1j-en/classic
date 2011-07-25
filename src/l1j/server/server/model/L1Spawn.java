@@ -518,7 +518,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 		return _rest;
 	}
 
-	private static final int SPAWN_TYPE_NORMAL = 0;
 	private static final int SPAWN_TYPE_PC_AROUND = 1;
 	private static final int PC_AROUND_DISTANCE = 30;
 

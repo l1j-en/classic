@@ -485,7 +485,7 @@ public class L1MobSkillUse {
 				L1NpcInstance mob = null;
 				try {
 					String implementationName = spawnmonster.getImpl();
-					Constructor _constructor = Class.forName(
+					Constructor<?> _constructor = Class.forName(
 							(new StringBuilder()).append(
 									"l1j.server.server.model.Instance.")
 									.append(implementationName).append(
