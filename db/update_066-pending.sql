@@ -1840,3 +1840,6 @@ INSERT INTO `checkwartime` VALUES ('8', 'Diad Fortress', '0');
 
 -- add Dwarf Adelio
 INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
+
+-- pvp deathmatch map
+INSERT INTO `mapids` VALUES ('5153', 'Death Match', '32576', '32703', '32832', '32959', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1');
