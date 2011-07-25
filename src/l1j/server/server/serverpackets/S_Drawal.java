@@ -23,8 +23,6 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Drawal extends ServerBasePacket {
-	private static final String _S__37_DRAWAL = "[S] S_Drawal";
-	
 	public S_Drawal(int objectId, int count) {
 		writeC(Opcodes.S_OPCODE_DRAWAL);
 		writeD(objectId);

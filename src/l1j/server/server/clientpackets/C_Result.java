@@ -58,7 +58,7 @@ public class C_Result extends ClientBasePacket {
 		int npcObjectId = readD();
 		int resultType = readC();
 		int size = readC();
-		int unknown = readC();
+		readC();
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		int level = pc.getLevel();
@@ -359,7 +359,7 @@ public class C_Result extends ClientBasePacket {
 			int order;
 			int count;
 			int price;
-			ArrayList sellList;
+			ArrayList<L1PrivateShopSellList> sellList;
 			L1PrivateShopSellList pssl;
 			int itemObjectId;
 			int sellPrice;
@@ -457,14 +457,13 @@ public class C_Result extends ClientBasePacket {
 		} else if (resultType == 1 && size != 0 && isPrivateShop) {
 			int count;
 			int order;
-			ArrayList buyList;
+			ArrayList<L1PrivateShopBuyList> buyList;
 			L1PrivateShopBuyList psbl;
 			int itemObjectId;
 			L1ItemInstance item;
 			int buyPrice;
 			int buyTotalCount;
 			int buyCount;
-			L1ItemInstance targetItem;
 			boolean[] isRemoveFromList = new boolean[8];
 
 			L1PcInstance targetPc = null;

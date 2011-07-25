@@ -2929,10 +2929,10 @@ public class L1MerchantInstance extends L1NpcInstance {
 					}
 				}
 			} else if (npcid == 80145) {
-				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
+				quest.get_step(L1Quest.QUEST_LEVEL15);
+				quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+				quest.get_step(L1Quest.QUEST_LEVEL50);
 				if (player.isDragonKnight()) {
 					if(player.getLevel() >= 45 && lv45_step == 1) {
 						htmlid = "silrein37";

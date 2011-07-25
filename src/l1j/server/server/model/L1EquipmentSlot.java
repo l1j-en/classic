@@ -135,7 +135,7 @@ public class L1EquipmentSlot {
 	}
 
 	private void removeWeapon(L1ItemInstance weapon) {
-		int itemId = weapon.getItem().getItemId();
+		weapon.getItem().getItemId();
 		_owner.setWeapon(null);
 		_owner.setCurrentWeapon(0);
 		weapon.stopEquipmentTimer(_owner);
