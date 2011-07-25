@@ -41,7 +41,7 @@ public class C_SelectTarget extends ClientBasePacket {
 		super(abyte0);
 
 		int petId = readD();
-		int type = readC();
+		readC();
 		int targetId = readD();
 
 		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(petId);

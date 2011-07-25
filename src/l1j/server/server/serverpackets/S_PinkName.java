@@ -23,8 +23,6 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_PinkName extends ServerBasePacket {
-	private static final String _S__2C_PINKNAME = "[S] S_PinkName";
-	
 	public S_PinkName(int objecId, int time) {
 		writeC(Opcodes.S_OPCODE_PINKNAME);
 		writeD(objecId);

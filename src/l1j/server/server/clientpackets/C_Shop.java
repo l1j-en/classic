@@ -65,8 +65,8 @@ public class C_Shop extends ClientBasePacket {
 			return;
 		}
 
-		ArrayList sellList = pc.getSellList();
-		ArrayList buyList = pc.getBuyList();
+		ArrayList<L1PrivateShopSellList> sellList = pc.getSellList();
+		ArrayList<L1PrivateShopBuyList> buyList = pc.getBuyList();
 		L1ItemInstance checkItem;
 		boolean tradable = true;
 

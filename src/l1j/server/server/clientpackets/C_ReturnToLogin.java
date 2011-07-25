@@ -26,7 +26,6 @@ import l1j.server.server.controllers.LoginController;
 // ClientBasePacket
 public class C_ReturnToLogin extends ClientBasePacket {
 
-	private static final String C_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
 	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class.getName());
 
 	public C_ReturnToLogin(byte decrypt[], ClientThread client) throws Exception {

@@ -34,7 +34,7 @@ public class C_ClientReport extends ClientBasePacket {
 
 		private static final String C_CLIENT_REPORT = "[C] C_ClientReport";
 		private static Logger _log = Logger.getLogger(C_ClientReport.class.getName());
-		private FastTable _ToAll;
+		private FastTable<String> _ToAll;
 		public C_ClientReport(byte abyte0[], ClientThread clientthread)
 		throws Exception {
 
@@ -42,7 +42,7 @@ public class C_ClientReport extends ClientBasePacket {
 
 			L1PcInstance pc = clientthread.getActiveChar();
 
-			_ToAll = new FastTable();
+			_ToAll = new FastTable<String>();
 			loadAnnouncements();
 			String message = "";
 			for (int i = 0; i < _ToAll.size(); i++) {

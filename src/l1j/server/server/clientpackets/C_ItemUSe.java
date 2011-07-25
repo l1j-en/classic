@@ -120,8 +120,6 @@ public class C_ItemUSe extends ClientBasePacket {
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
 	private static Random _random = new Random();
-	private int addtime; // used for stacking. do not remove.
-
 	public C_ItemUSe(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int itemObjid = readD();
@@ -156,7 +154,6 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l = 0;
 
 		String s = "";
-		int bmapid = 0;
 		int btele = 0;
 		int blanksc_skillid = 0;
 		int spellsc_objid = 0;
@@ -245,7 +242,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41432) {
 			l = readD();
 		} else if (itemId == 140100 || itemId == 40100 || itemId == 40099 || itemId == 40086 || itemId == 40863) {
-			bmapid = readH();
+			readH();
 			btele = readD();
 			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 		} else if (itemId == 40090 || itemId == 40091 || itemId == 40092
@@ -2749,7 +2746,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				} else if (itemId == 41426) {
 					L1ItemInstance lockItem = pc.getInventory().getItem(l);
-					int lockItemId = lockItem.getItem().getItemId();
+					lockItem.getItem().getItemId();
 					if (lockItem != null && lockItem.getItem().getType2() == 1
 							|| lockItem.getItem().getType2() == 2
 							|| lockItem.getItem().getType2() == 0
@@ -2787,7 +2784,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				} else if (itemId == 41427) {
 					L1ItemInstance lockItem = pc.getInventory().getItem(l);
-					int lockItemId = lockItem.getItem().getItemId();
+					lockItem.getItem().getItemId();
 					if (lockItem != null && lockItem.getItem().getType2() == 1
 							|| lockItem.getItem().getType2() == 2
 							|| lockItem.getItem().getType2() == 0
@@ -4186,7 +4183,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1MonsterInstance mob = (L1MonsterInstance) target;
 			mob.receiveDamage(user, dmg);
 		} else if (target instanceof L1NpcInstance) {
-			L1NpcInstance npc = (L1NpcInstance) target;
 		}
 	}
 
@@ -5225,7 +5221,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					//Object obj = null;
 					try {
 						String s = l1npc.getImpl();
-						Constructor constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
+						Constructor<?> constructor = Class.forName("l1j.server.server.model.Instance." + s + "Instance").getConstructors()[0];
 						Object aobj[] = { l1npc };
 						furniture = (L1FurnitureInstance) constructor.newInstance(aobj);
 						furniture.setId(IdFactory.getInstance().nextId());

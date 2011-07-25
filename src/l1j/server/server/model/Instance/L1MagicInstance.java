@@ -31,7 +31,7 @@ public class L1MagicInstance {
 		int mobDmg = npc.getLevel() + 6;
 		int randomMobDmg = 0;
 		int useMagic = 0;
-		int bID = npc.getNpcTemplate().get_npcId();
+		npc.getNpcTemplate().get_npcId();
 
 		if (rangeMonster == 1) {
 			// npc.sendPackets(new S_AttackPacket(player, targetobjid,
