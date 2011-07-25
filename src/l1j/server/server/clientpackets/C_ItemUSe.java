@@ -339,7 +339,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				}
 				int weaponId = l1iteminstance1.getItem().getItemId();
-				if (weaponId == 36 || weaponId == 183 || weaponId >= 250
+				if (weaponId == 183 || weaponId >= 250
 						&& weaponId <= 255) { 
 					if (itemId == 40128) { 
 					} else {
@@ -348,7 +348,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				}
 				if (itemId == 40128) {
-					if (weaponId == 36 || weaponId == 183 || weaponId >= 250
+					if (weaponId == 183 || weaponId >= 250
 							&& weaponId <= 255) { 
 					} else {
 						pc.sendPackets(new S_ServerMessage(79)); 
