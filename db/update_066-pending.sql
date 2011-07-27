@@ -485,6 +485,7 @@ UPDATE npc SET name = 'Patrol 6 - Demon' WHERE npcid = 46087;
 UPDATE npc SET name = 'Patrol 7 - Demon' WHERE npcid = 46088;
 UPDATE npc SET name = 'Patrol 8 - Demon' WHERE npcid = 46089;
 UPDATE npc SET name = 'Patrol 9 - Demon' WHERE npcid = 46090;
+<<<<<<< HEAD
 
 -- pet food collum added + equipe
 ALTER TABLE pets ADD food int(2) NOT NULL DEFAULT 0 after lawful;
@@ -1843,3 +1844,5 @@ INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
 
 -- pvp deathmatch map
 INSERT INTO `mapids` VALUES ('5153', 'Death Match', '32576', '32703', '32832', '32959', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1');
+=======
+>>>>>>> parent of cea0a68... some db stuff needed for the dw merge
