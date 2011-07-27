@@ -47,12 +47,6 @@ public class C_Restart extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 
-<<<<<<< HEAD
-		//if (!pc.isDead())
-		//	return;
-		
-=======
->>>>>>> parent of 1e773c9... Merge branch 'dwtemp'
 		int[] loc;
 		
 		if (pc.getHellTime() > 0) {
