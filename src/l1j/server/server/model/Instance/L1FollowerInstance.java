@@ -42,6 +42,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 
 	@Override
 	public boolean noTarget(int depth) {
+		L1NpcInstance targetNpc = null;
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
 			if (object instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) object;
@@ -235,7 +236,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 			L1NpcInstance mob = null;
 			try {
 				String implementationName = l1npc.getImpl();
-				Constructor<?> _constructor = Class.forName((new StringBuilder())
+				Constructor _constructor = Class.forName((new StringBuilder())
 						.append("l1j.server.server.model.Instance.")
 						.append(implementationName).append("Instance")
 						.toString()).getConstructors()[0];

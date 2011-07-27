@@ -70,7 +70,6 @@ public class S_Board extends ServerBasePacket {
 			SQLUtil.close(con);
 		}
 		writeC(Opcodes.S_OPCODE_BOARD);
-		writeC(0); // DragonKeybbs = 1
 		writeD(board.getId());
 		writeC(0xFF); // ?
 		writeC(0xFF); // ?

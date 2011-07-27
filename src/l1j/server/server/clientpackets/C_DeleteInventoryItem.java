@@ -20,7 +20,6 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.hackdetections.LogDeleteItem;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -70,8 +69,7 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
-		LogDeleteItem ldi = new LogDeleteItem();
-		ldi.storeLogDeleteItem(pc, item);
+
 		pc.getInventory().removeItem(item, item.getCount());
 		pc.turnOnOffLight();
 	}

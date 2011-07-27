@@ -59,7 +59,7 @@ public class C_Mail extends ClientBasePacket {
 			}
 			pc.sendPackets(new S_Mail(mailId, type));
 		} else if (type == 0x20) {
-			readH();
+			int unknow = readH();
 			String receiverName = readS();
 			byte[] text = readByte();
 			L1PcInstance receiver = L1World.getInstance().getPlayer(receiverName);
@@ -93,7 +93,7 @@ public class C_Mail extends ClientBasePacket {
 				}
 			}
 		} else if (type == 0x21) {
-			readH();
+			int unknow = readH();
 			String clanName = readS();
 			byte[] text = readByte();
 			L1Clan clan = L1World.getInstance().getClan(clanName);

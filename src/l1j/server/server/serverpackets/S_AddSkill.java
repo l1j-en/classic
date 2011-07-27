@@ -18,24 +18,48 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.List;
+import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
-import l1j.server.server.datatables.SkillsTable;
-import l1j.server.server.templates.L1Skills;
-import l1j.server.server.utils.IntRange;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
+
 public class S_AddSkill extends ServerBasePacket {
 	private static final String S_ADD_SKILL = "[S] S_AddSkill";
+	private static Logger _log = Logger.getLogger(S_AddSkill.class.getName());
 	private byte[] _byte = null;
 
+	public S_AddSkill(int level, int id) {
+		int ids[] = new int[28];
+		for (int i = 0; i < ids.length; i++) {
+			ids[i] = 0;
+		}
+		ids[level] = id;
+
+		boolean hasLevel5to8 = 0 < (ids[4] + ids[5] + ids[6] + ids[7]);
+		boolean hasLevel9to10 = 0 < (ids[8] + ids[9]);
+
+		writeC(Opcodes.S_OPCODE_ADDSKILL);
+		if (hasLevel5to8 && !hasLevel9to10) {
+			writeC(50);
+		} else if (hasLevel9to10) {
+			writeC(100);
+		} else {
+			writeC(32);
+		}
+		for (int i : ids) {
+			writeC(i);
+		}
+		writeD(0);
+		writeD(0);
+	}
+
 	public S_AddSkill(int level1, int level2, int level3, int level4,
-			int level5, int level6, int level7, int level8, int level9,
-			int level10, int knight, int l2, int de1, int de2, int royal,
-			int l3, int elf1, int elf2, int elf3, int elf4, int elf5, int elf6,
-			int k5, int l5, int m5, int n5, int o5, int p5) {
+		int level5, int level6, int level7, int level8, int level9,
+		int level10, int knight, int l2, int de1, int de2, int royal,
+		int l3, int elf1, int elf2, int elf3, int elf4, int elf5, int elf6,
+		int k5, int l5, int m5, int n5, int o5, int p5) {
 		int i6 = level5 + level6 + level7 + level8;
 		int j6 = level9 + level10;
 		writeC(Opcodes.S_OPCODE_ADDSKILL);
@@ -76,62 +100,6 @@ public class S_AddSkill extends ServerBasePacket {
 		writeC(p5);
 		writeD(0);
 		writeD(0);
-	}
-
-	public S_AddSkill(List<L1Skills> skills) {
-		if (skills == null) {
-			throw new IllegalArgumentException();
-		}
-		buildPacket(makeLevels(skills));
-	}
-
-	private void buildPacket(int[] levels) {
-		writeC(Opcodes.S_OPCODE_ADDSKILL);
-		writeC(getHeader(levels));
-		for (int i : levels) {
-			writeC(i);
-		}
-		// unknown 5 bytes
-		writeC(0);
-		writeC(0);
-		writeC(0);
-		writeC(0);
-		writeC(0);
-	}
-
-	public S_AddSkill(L1Skills skill) {
-		buildPacket(makeLevels(skill));
-	}
-
-	private int[] makeLevels(L1Skills skill) {
-		int[] result = new int[28];
-		result[skill.getSkillLevel() - 1] = skill.getId();
-		return result;
-	}
-
-	private int[] makeLevels(List<L1Skills> skills) {
-		int[] result = new int[28];
-		IntRange levelRange = new IntRange(1, 28);
-		for (L1Skills skill : skills) {
-			L1Skills skillTemp = SkillsTable.getInstance().findBySkillId(
-					skill.getSkillId());
-			int level = skillTemp.getSkillLevel();
-			if (levelRange.includes(level)) {
-				result[level - 1] |= skillTemp.getId();
-			}
-		}
-		return result;
-	}
-
-	private int getHeader(int[] levels) {
-		boolean level5To8 = (levels[4] + levels[5] + levels[6] + levels[7]) > 0;
-		boolean level9And10 = (levels[8] + levels[9]) > 0;
-		if (level5To8 && !level9And10) {
-			return 50;
-		} else if (level9And10) {
-			return 100;
-		}
-		return 32;
 	}
 
 	@Override

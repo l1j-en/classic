@@ -24,6 +24,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Strup extends ServerBasePacket {
+	private static final String _S__25_S_Strup = "[S] S_Strup";
+	
 	public S_Strup(L1PcInstance pc, int type, int time) {
 		writeC(Opcodes.S_OPCODE_STRUP);
 		writeH(time);

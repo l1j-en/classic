@@ -20,14 +20,12 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.Config;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1NpcTalkData;
-import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1FieldObjectInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
-import l1j.server.server.model.Instance.L1MonsterInstance;
+
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 
@@ -35,9 +33,14 @@ public class S_NPCPack extends ServerBasePacket {
 	private static final String S_NPC_PACK = "[S] S_NPCPack";
 	private static Logger _log = Logger.getLogger(S_NPCPack.class.getName());
 	private static final int STATUS_POISON = 1;
+	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
+	private static final int STATUS_FREEZE = 8;
+	private static final int STATUS_BRAVE = 16;
+	private static final int STATUS_ELFBRAVE = 32;
+	private static final int STATUS_FASTMOVABLE = 64;
+	private static final int STATUS_GHOST = 128;
 	private byte[] _byte = null;
-	private String _title = "";
 
 	public S_NPCPack(L1NpcInstance npc) {
 		writeC(Opcodes.S_OPCODE_CHARPACK);
@@ -49,8 +52,7 @@ public class S_NPCPack extends ServerBasePacket {
 		} else {
 			writeH(npc.getTempCharGfx());
 		}
-		if (npc.getNpcTemplate().is_doppel() 
-			&& npc.getGfxId() != 31) { // Slime to see if the Dopper
+		if (npc.getNpcTemplate().is_doppel() && npc.getGfxId() != 31) { // Slime to see if the Dopper
 			writeC(4);
 		} else {
 			writeC(npc.getStatus());
@@ -62,26 +64,17 @@ public class S_NPCPack extends ServerBasePacket {
 		writeH(npc.getTempLawful());
 		writeS(npc.getNameId());
 		if (npc instanceof L1FieldObjectInstance) {
-			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance()
-			.getTemplate(npc.getNpcTemplate().get_npcId());
+			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance().getTemplate(npc.getNpcTemplate().get_npcId());
 			if (talkdata != null) {
 				writeS(talkdata.getNormalAction()); // HTML title is interpreted as the name
 			} else {
 				writeS(null);
 			}
 		} else {
-			if (Config.SHOW_NPC_LVL && npc instanceof L1MonsterInstance) {
-			 String t = "\\f2  Level " + npc.getLevel();
-			 //if (_title != null)
-			// t += " " + _title;
-			 // we have only 1 problem let that is that it shows a dogcoller next to the npc name. dont know why
-			_title = t;
-	        }			
-		   writeS(_title);
+			writeS(npc.getTitle());
 		}
 
 		int status = 0;
-		
 		if (npc.getPoison() != null) { //
 			if (npc.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
@@ -94,13 +87,14 @@ public class S_NPCPack extends ServerBasePacket {
 			}
 		}
 		writeC(status);
-		writeD(0x00);// 0 In addition to the flying C_27
+		writeD(0); // 0 In addition to the flying C_27
 		writeS(null);
 		writeS(null); // Master name?
-		writeC(0x00);
+		writeC(0);
 		writeC(0xFF); // HP
-		writeC(0x00);
-		writeC(0x00);
+		writeC(0);
+		writeC(npc.getLevel());
+		writeC(0);
 		writeC(0xFF);
 		writeC(0xFF);
 	}
@@ -110,6 +104,7 @@ public class S_NPCPack extends ServerBasePacket {
 		if (_byte == null) {
 			_byte = _bao.toByteArray();
 		}
+
 		return _byte;
 	}
 

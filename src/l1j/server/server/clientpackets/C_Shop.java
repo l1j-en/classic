@@ -65,8 +65,8 @@ public class C_Shop extends ClientBasePacket {
 			return;
 		}
 
-		ArrayList<L1PrivateShopSellList> sellList = pc.getSellList();
-		ArrayList<L1PrivateShopBuyList> buyList = pc.getBuyList();
+		ArrayList sellList = pc.getSellList();
+		ArrayList buyList = pc.getBuyList();
 		L1ItemInstance checkItem;
 		boolean tradable = true;
 
@@ -90,6 +90,7 @@ public class C_Shop extends ClientBasePacket {
 					pc.sendPackets(new S_Disconnect());
 					return;
 				}
+
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
 					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
@@ -122,7 +123,7 @@ public class C_Shop extends ClientBasePacket {
 				checkItem = pc.getInventory().getItem(buyObjectId);
 				//removed some checks that don't make sense here
 				//just commented them out to test for now
-				if (buyObjectId != checkItem.getId() || /*buyCount > checkItem.getCount()|| (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 ||*/ buyCount <= 0 || buyCount > 2000000000) {
+				if (buyObjectId != checkItem.getId()  || /*buyCount > checkItem.getCount()|| (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 ||*/ buyCount <= 0 || buyCount > 2000000000) {
 					Account.ban(pc.getAccountName());
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");

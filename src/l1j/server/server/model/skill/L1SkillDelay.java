@@ -35,10 +35,12 @@ public class L1SkillDelay {
 	}
 
 	static class SkillDelayTimer implements Runnable {
+		private int _delayTime;
 		private L1Character _cha;
 
 		public SkillDelayTimer(L1Character cha, int time) {
 			_cha = cha;
+			_delayTime = time;
 		}
 
 		@Override

@@ -167,7 +167,7 @@ public class L1PetMatch {
 		if (l1pet == null) {
 			return null;
 		}
-		L1Npc npcTemp = NpcTable.getInstance().getTemplate(l1pet.get_npcId());
+		L1Npc npcTemp = NpcTable.getInstance().getTemplate(l1pet.get_npcid());
 		L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
 		pet.setPetcost(6);
 		return pet;

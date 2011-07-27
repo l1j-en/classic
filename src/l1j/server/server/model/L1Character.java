@@ -21,12 +21,9 @@ package l1j.server.server.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
-import l1j.server.server.model.Instance.L1PetInstance; 
-import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -48,6 +45,7 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // Referenced classes of package l1j.server.server.model:
 // L1Object, Die, L1PcInstance, L1MonsterInstance,
 // L1World, ActionFailed
+
 public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
@@ -148,46 +146,6 @@ public class L1Character extends L1Object {
 		_paralysis = p;
 	}
 
-	private int _food;
-
-    public int get_food() {
-            return _food;
-    }
-
-    public void set_food(int i) {
-            _food = i;
-    }
-
-	private int _innRoomNumber;
-	
-	public int getInnRoomNumber() { 
-		return _innRoomNumber; 
-	} 
-	
-	public void setInnRoomNumber(int i) { 
-		_innRoomNumber = i; 
-	} 
-	
-	private int _innKeyId;
-	
-	public int getInnKeyId() {
-         return _innKeyId; 
-    } 
-	
-	public void setInnKeyId(int i) { 
-		_innKeyId = i; 
-	} 
-	
-	private boolean _isHall; 
-	
-	public boolean checkRoomOrHall() { 
-		return _isHall; 
-	} 
-	
-	public void setHall(boolean i) { 
-		_isHall = i; 
-	}
-	
 	public void cureParalaysis() {
 		if (_paralysis != null) {
 			_paralysis.cure();
@@ -196,12 +154,7 @@ public class L1Character extends L1Object {
 
 	public void broadcastPacket(ServerBasePacket packet) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (pc.getMapId() <= 10000) { 
-				pc.sendPackets(packet); 
-				} 
-			else if (pc.getInnKeyId() == getInnKeyId()) { 
-				pc.sendPackets(packet); 
-			}
+			pc.sendPackets(packet);
 		}
 	}
 
@@ -512,7 +465,7 @@ public class L1Character extends L1Object {
 	public void removePet(L1NpcInstance npc) {
 		_petlist.remove(npc.getId());
 	}
-	
+
 	public Map<Integer, L1NpcInstance> getPetList() {
 		return _petlist;
 	}
@@ -1087,17 +1040,7 @@ public class L1Character extends L1Object {
 		_sp += i;
 	}
 
-	private int _portalNumber = -1;
-	
-	public int getPortalNumber() {
-		return _portalNumber;
-	} 
-	
-	public void setPortalNumber(int portalNumber) {
-		_portalNumber = portalNumber;
-	}
-
-	private boolean _isDead;
+	private boolean _isDead; //
 
 	public boolean isDead() {
 		return _isDead;
@@ -1308,7 +1251,7 @@ public class L1Character extends L1Object {
 		_chaLightSize = i;
 	}
 
-	private int _ownLightSize;
+	private int _ownLightSize; // 
 
 	public int getOwnLightSize() {
 		return _ownLightSize;
@@ -1318,71 +1261,4 @@ public class L1Character extends L1Object {
 		_ownLightSize = i;
 	}
 
-	// put here the npc spells that need tobe miss sometimes.
-	public boolean isAttackMiss(L1Character cha, int npcId) {
-        switch (npcId) {
-        case 45912:
-        case 45913:
-        case 45914:
-        case 45915:
-                if (!cha.hasSkillEffect(STATUS_HOLY_WATER)) {
-                        return true;
-                }
-                return false;
-        case 45916:
-                if (!cha.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-                        return true;
-                }
-                return false;
-        case 45941:
-                if (!cha.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-                        return true;
-                }
-                return false;
-        case 45752:
-                if (!cha.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-                        return true;
-                }
-                return false;
-        case 45753:
-                if (!cha.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-                        return true;
-                }
-                return false;
-        case 45675:
-                if (!cha.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-                        return true;
-                }
-                return false;
-        case 81082:
-                if (!cha.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-                        return true;
-                }
-                return false;
-        case 45625:
-                if (!cha.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-                        return true;
-                }
-                return false;
-        case 45674:
-                if (!cha.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-                        return true;
-                }
-                return false;
-        case 45685:
-                if (!cha.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-                        return true;
-                }
-                return false;
-        default:
-                if ((npcId >= 46068) && (npcId <= 46091)
-                                && (cha.getTempCharGfx() == 6035)) {
-                        return true;
-                } else if ((npcId >= 46092) && (npcId <= 46106)
-                                && (cha.getTempCharGfx() == 6034)) {
-                        return true;
-                }
-                return false;
-        }
-    }
 }

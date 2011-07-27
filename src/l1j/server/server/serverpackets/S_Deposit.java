@@ -23,6 +23,8 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Deposit extends ServerBasePacket {
+	private static final String _S__53_DEPOSIT = "[S] S_Deposit";
+	
 	public S_Deposit(int objecId) {
 		writeC(Opcodes.S_OPCODE_DEPOSIT);
 		writeD(objecId);

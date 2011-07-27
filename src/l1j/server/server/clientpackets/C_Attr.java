@@ -23,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.hackdetections.LogStatusUp;
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
@@ -470,14 +469,6 @@ public class C_Attr extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481)); 
 					}
 				}
-				int str = pc.getBaseStr();
-				int dex = pc.getBaseDex();
-				int con = pc.getBaseCon();
-				int Int = pc.getBaseInt();
-				int wis = pc.getBaseWis();
-				int cha = pc.getBaseCha();
-				LogStatusUp lsu = new LogStatusUp();
-				lsu.storeLogStatusUp(pc, str, dex, con, Int, wis, cha);
 			}
 			break;
 		case 1256:
@@ -573,7 +564,7 @@ public class C_Attr extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(327)); 
 			return;
 		}
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(pet.get_npcId());
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(pet.getNpcId());
 		
 		if (!(pet.getName().equalsIgnoreCase(l1npc.get_name())) ) {
 			pc.sendPackets(new S_ServerMessage(326)); 

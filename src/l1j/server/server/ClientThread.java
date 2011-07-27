@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +44,6 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1PolyRace;
 import l1j.server.server.model.L1HauntedHouse;
-import l1j.server.server.model.L1DragonSlayer;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -99,42 +97,27 @@ public class ClientThread implements Runnable, PacketOutput {
 	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
 	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
 	 private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket          
-	(byte) 0xec, (byte) 0x64, (byte) 0x3e, (byte) 0x0d, 
-	(byte) 0xc0, (byte) 0x82, (byte) 0x00, (byte) 0x00, 
-	(byte) 0x02, (byte) 0x08, (byte) 0x00 };
+     (byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01,                          
+     (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD,                         
+     (byte) 0xCC, (byte) 0xC0 };
 	 
 	protected ClientThread() {}
 
 	public ClientThread(Socket socket) throws IOException {
 		_csocket = socket;
-		_in = socket.getInputStream();
-		_out = socket.getOutputStream(); 
 		_ip = socket.getInetAddress().getHostAddress();
-		_handler = new PacketHandler(this);
-	    
-		if (!socket.getKeepAlive()) {
-	        socket.setKeepAlive(true);
-	       // System.out.println("ClientThread_Keepalive Sended");
-	       // System.out.println("SO_KEEPALIVE is enabled. " + socket.getKeepAlive());
-	     }
-		
 		if (Config.HOSTNAME_LOOKUPS) {
 			_hostname = socket.getInetAddress().getHostName();
 		} else {
 			_hostname = _ip;
 		}
+		_in = socket.getInputStream();
+		_out = new BufferedOutputStream(socket.getOutputStream());
+		_handler = new PacketHandler(this);
 	}
 
 	public String getIp() {
 		return _ip;
-	}
-
-	public void setKeepAlive(boolean on) throws SocketException {
-		_csocket.setKeepAlive(on);
-	}
-	
-	public boolean getKeepAlive() throws SocketException {
-		return _csocket.getKeepAlive();
 	}
 
 	public String getHostname() {
@@ -204,12 +187,12 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 		try {
 			// long seed = 0x5cc690ecL; // 2.70C
-			long seed = 0x7c98bdfa; // 3.0 English Packet Seed
+			long seed = 0x7C98BDFA; // 3.0 English Packet Seed
 			byte Bogus = (byte)(FIRST_PACKET.length + 7);
 			_out.write(Bogus & 0xFF);
 			_out.write(Bogus >> 8 & 0xFF);
 			// _out.write(0x20); // 2.70C
-			_out.write(Opcodes.S_OPCODE_INITPACKET); // 3.2 English Version Check.
+			_out.write(0x7D); // 3.0 English Version Check.
 			_out.write((byte)(seed & 0xFF));
 			_out.write((byte)(seed >> 8 & 0xFF));
 			_out.write((byte)(seed >> 16 & 0xFF));
@@ -234,8 +217,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				// ByteArrayUtil(data).dumpToString());
 				int opcode = data[0] & 0xFF;
 
-				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || 
-						opcode == Opcodes.C_OPCODE_CHANGECHAR) {
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
 					_loginStatus = 1;
 				}
 				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
@@ -243,22 +225,18 @@ public class ClientThread implements Runnable, PacketOutput {
 						continue;
 					}
 				}
-				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || 
-						opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
 					_loginStatus = 0;
 				}
 
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
 					observer.packetReceived();
-					//System.out.println("Keepalive received");
 				}
-				
 				if (_activeChar == null) {
 					_handler.handlePacket(data, _activeChar);
 					continue;
 				}
-				if (opcode == Opcodes.C_OPCODE_CHANGECHAR || 
-						opcode == Opcodes.C_OPCODE_DROPITEM
+				if (opcode == Opcodes.C_OPCODE_CHANGECHAR || opcode == Opcodes.C_OPCODE_DROPITEM
 					|| opcode == Opcodes.C_OPCODE_DELETEINVENTORYITEM) {
 					_handler.handlePacket(data, _activeChar);
 				} else if (opcode == Opcodes.C_OPCODE_MOVECHAR) {
@@ -491,7 +469,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		for (Object petObject : petList) {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
-				pet.stopFoodTimer(pet);
 				pet.dropItem();
 				pc.getPetList().remove(pet.getId());
 				pet.deleteMe();
@@ -519,9 +496,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		L1DeathMatch.getInstance().checkLeaveGame(pc);
 		L1PolyRace.getInstance().checkLeaveGame(pc);
 		L1HauntedHouse.getInstance().checkLeaveGame(pc);
-		if (pc.getPortalNumber() != -1) { 
-			L1DragonSlayer.getInstance().removePlayer(pc, pc.getPortalNumber()); 
-		}
 		CharBuffTable.DeleteBuff(pc);
 		CharBuffTable.SaveBuff(pc);
 		pc.clearSkillEffectTimer();

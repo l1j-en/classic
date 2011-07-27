@@ -26,25 +26,14 @@ import l1j.server.server.controllers.LoginController;
 // ClientBasePacket
 public class C_ReturnToLogin extends ClientBasePacket {
 
+	private static final String C_RETURN_TO_LOGIN = "[C] C_ReturnToLogin";
 	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class.getName());
 
 	public C_ReturnToLogin(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();
-		synchronized (client)
-		{
-			try {
-				if (client.getActiveChar() != null) {
-					client.kick();
-				}
-			}catch (Exception e) {
-				client.kick();
-			}
-			finally {
 		_log.finest((new StringBuilder()).append("Account: ").append(account).toString());
 		LoginController.getInstance().logout(client);
-			}
-		}
 	}
 
 	@Override

@@ -969,11 +969,11 @@
 	<MakeItem Name="b" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level15" QuestStep="1">
 		<Item Amount="1" ItemId="269"/>
 		<Item Amount="1" ItemId="49121"/>
-		<Material Amount="10" ItemId="49169"/>
 		<Material Amount="1" ItemId="49170"/>
 		<Material Amount="1" ItemId="40510"/>
 		<Material Amount="1" ItemId="40511"/>
 		<Material Amount="1" ItemId="40512"/>
+		<Material Amount="10" ItemId="49169"/>
 		<Succeed>
 			<SetQuest Id="Level15" Step="End"/>
 			<ShowHtml HtmlId="silrein7"/>
@@ -991,131 +991,5 @@
 			<SetQuest Id="Level30" Step="End"/>
 			<ShowHtml HtmlId="silrein13"/>
 		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="silrein12"/>
-		</Fail>
-	</MakeItem>
-<MakeItem Name="a" Class="I" NpcId="81247" AmountInputable="false" QuestId="Level45" QuestStep="1">
-		<Item Amount="1" ItemId="49194"/>
-		<Material Amount="1" ItemId="49192"/>
-		<Succeed>
-			<SetQuest Id="Level45" Step="2"/>
-			<ShowHtml HtmlId="wcorpse3"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="wcorpse1"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="a" Class="I" NpcId="81248" AmountInputable="false" QuestId="Level45" QuestStep="2">
-		<Item Amount="1" ItemId="49195"/>
-		<Material Amount="1" ItemId="49192"/>
-		<Succeed>
-			<SetQuest Id="Level45" Step="3"/>
-			<ShowHtml HtmlId="wcorpse6"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="wcorpse4"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="a" Class="I" NpcId="81249" AmountInputable="false" QuestId="Level45" QuestStep="3">
-		<Item Amount="1" ItemId="49196"/>
-		<Material Amount="1" ItemId="49192"/>
-		<Succeed>
-			<SetQuest Id="Level45" Step="4"/>
-			<ShowHtml HtmlId="wcorpse9"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="wcorpse7"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="f" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level45" QuestStep="4">
-		<Item Amount="1" ItemId="49175"/>
-		<Item Amount="1" ItemId="49185"/>
-		<Item Amount="3" ItemId="49193"/>
-		<Material Amount="1" ItemId="49194"/>
-		<Material Amount="1" ItemId="49195"/>
-		<Material Amount="1" ItemId="49196"/>
-		<Succeed>
-			<SetQuest Id="Level45" Step="5"/>
-			<ShowHtml HtmlId="silrein22"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="silrein21"/>
-		</Fail>
-	</MakeItem>
-<MakeItem Name="g" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level45" QuestStep="8">
-		<Item Amount="1" ItemId="21100"/>
-		<Material Amount="1" ItemId="49202"/>
-		<Succeed>
-			<SetQuest Id="Level45" Step="End"/>
-			<ShowHtml HtmlId="silrein25"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="silrein24"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="i" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level50" QuestStep="1">
-		<Item Amount="1" ItemId="49177"/>
-		<Item Amount="1" ItemId="49178"/>
-		<Item Amount="1" ItemId="49202"/>
-		<Material Amount="100" ItemId="49101"/>
-		<Succeed>
-			<SetQuest Id="Level50" Step="2"/>
-			<ShowHtml HtmlId="silrein31"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="silrein30"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="a" Class="I" NpcId="81311" AmountInputable="false" QuestId="Level50" QuestStep="2">
-		<Item Amount="1" ItemId="49207"/>
-		<Item Amount="1" ItemId="49208"/>
-		<Material Amount="5" ItemId="49203"/>
-		<Material Amount="5" ItemId="49204"/>
-		<Succeed>
-			<SetQuest Id="Level50" Step="3"/>
-			<ShowHtml HtmlId="bluesoul_f2"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="bluesoul_f3"/>
-		</Fail>
-	</MakeItem>
-	<Action Name="k" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level50" QuestStep="3">
-		<SetQuest Id="Level50" Step="4"/>
-		<ShowHtml HtmlId="silrein35"/>
-	</Action>
-	<MakeItem Name="j" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level50" QuestStep="4">
-		<Item Amount="1" ItemId="49171"/>
-		<Item Amount="1" ItemId="49205"/>
-		<Material Amount="1" ItemId="49206"/>
-		<Material Amount="1" ItemId="49207"/>
-		<Succeed>
-			<SetQuest Id="Level50" Step="5"/>
-		</Succeed>
-	</MakeItem>
-<MakeItem Name="i" Class="R" NpcId="80136" AmountInputable="false" QuestId="Level50" QuestStep="1">
-		<Item Amount="1" ItemId="49202"/>
-		<Item Amount="1" ItemId="49216"/>
-		<Item Amount="1" ItemId="49288"/>
-		<Material Amount="100" ItemId="49101"/>
-		<Succeed>
-			<SetQuest Id="Level50" Step="2"/>
-			<ShowHtml HtmlId="prokel23"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="prokel31"/>
-		</Fail>
-	</MakeItem>
-	<MakeItem Name="j" Class="R" NpcId="80136" AmountInputable="false" QuestId="Level50" QuestStep="3">
-		<Item Amount="1" ItemId="49228"/>
-		<Material Amount="1" ItemId="49207"/>
-		<Material Amount="1" ItemId="49231"/>
-		<Succeed>
-			<SetQuest Id="Level50" Step="4"/>
-			<ShowHtml HtmlId="prokel26"/>
-		</Succeed>
-		<Fail>
-			<ShowHtml HtmlId="prokel22"/>
-		</Fail>
 	</MakeItem>
 </NpcActionList>

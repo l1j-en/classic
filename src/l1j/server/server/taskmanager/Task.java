@@ -36,7 +36,7 @@ public abstract class Task {
 		}
 	}
 
-	public ScheduledFuture<?> launchSpecial(ExecutedTask instance) {
+	public ScheduledFuture launchSpecial(ExecutedTask instance) {
 		return null;
 	}
 
