@@ -1524,15 +1524,6 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (pc.isDarkelf() || pc.isGm()) {
 						if (itemId >= 40265 && itemId <= 40269 
 								&& pc.getLevel() >= 15) {
-<<<<<<< HEAD
-							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
-						} else if (itemId >= 40270 && itemId <= 40274 
-								&& pc.getLevel() >= 30) {
-							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
-						} else if (itemId >= 40275 && itemId <= 40279
-								&& pc.getLevel() >= 45) {
-							L1SpellBook.learnDarkElfMagic(pc, l1iteminstance, client);
-=======
 							SpellBook1(pc, l1iteminstance, client);
 						} else if (itemId >= 40270 && itemId <= 40274 
 								&& pc.getLevel() >= 30) {
@@ -1540,7 +1531,6 @@ public class C_ItemUSe extends ClientBasePacket {
 						} else if (itemId >= 40275 && itemId <= 40279
 								&& pc.getLevel() >= 45) {
 							SpellBook1(pc, l1iteminstance, client);
->>>>>>> parent of 1e773c9... Merge branch 'dwtemp'
 						} else {
 							pc.sendPackets(new S_ServerMessage(312));
 						}
