@@ -5,3 +5,6 @@
 -- be removed.
 
 -- update 67
+
+-- make Firey sword of death knight unbreakable
+UPDATE weapon SET canbedmg = 0 WHERE item_id = 58;
