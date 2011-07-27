@@ -95,7 +95,7 @@ public class C_SelectList extends ClientBasePacket {
 
 			L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
 			if (l1pet != null) {
-				int npcId = l1pet.get_npcId();
+				int npcId = l1pet.get_npcid();
 				charisma -= petCost;
 				if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712) {
 					divisor = 12;

@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_Disconnect;
 
 public class C_Disconnect extends ClientBasePacket {
 	private static final String C_DISCONNECT = "[C] C_Disconnect";
@@ -37,10 +36,8 @@ public class C_Disconnect extends ClientBasePacket {
 			_log.fine("Disconnect From: " + pc.getName());
 			ClientThread.quitGame(pc);
 			synchronized (pc) {
-				pc.sendPackets(new S_Disconnect());
 				pc.logout();
 				client.setActiveChar(null);
-				ClientThread.quitGame(pc);
 			}
 		} else {
 			_log.fine("Disconnect Request From Account : " + client.getAccountName());

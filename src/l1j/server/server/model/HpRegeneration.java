@@ -244,7 +244,7 @@ public class HpRegeneration extends TimerTask {
 				continue;
 			}
 			L1EffectInstance effect = (L1EffectInstance) object;
-			if (effect.get_npcId() == 81169 && effect.getLocation().getTileLineDistance(pc.getLocation()) < 4) {
+			if (effect.getNpcId() == 81169 && effect.getLocation().getTileLineDistance(pc.getLocation()) < 4) {
 				return true;
 			}
 		}

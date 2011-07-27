@@ -216,7 +216,7 @@ public class DropTable {
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList<?> acquisitorList, ArrayList<?> hateList) {
+	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList, ArrayList hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;

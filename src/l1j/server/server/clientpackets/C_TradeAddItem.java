@@ -24,12 +24,10 @@ import l1j.server.server.Account;
 
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.serverpackets.S_Disconnect;
-import l1j.server.server.hackdetections.LogTradeBugItem;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.L1CheckPcItem;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -47,11 +45,9 @@ public class C_TradeAddItem extends ClientBasePacket {
 		int itemid = readD();
 		int itemcount = readD();
 		L1PcInstance pc = client.getActiveChar();
-		L1PcInstance target = (L1PcInstance) L1World.getInstance().findObject(
-				pc.getTradeID());
 		
 		//additional dupe checks.  Thanks Mike
-		if (pc.getOnlineStatus() != 1 || itemcount < 0) {
+		if (pc.getOnlineStatus() != 1) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_TradeAddItem).");
@@ -70,13 +66,8 @@ public class C_TradeAddItem extends ClientBasePacket {
 			return;
 		}
 		L1Trade trade = new L1Trade();
-		L1CheckPcItem checkPcItem = new L1CheckPcItem();
-		boolean isCheat = checkPcItem.checkPcItem(item, pc);
-		if (isCheat) {
-			LogTradeBugItem ltbi = new LogTradeBugItem();
-			ltbi.storeLogTradeBugItem(pc, target, item);
-			return;
-		}
+
+		
 		if (!item.getItem().isTradable()) {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
@@ -109,11 +100,6 @@ public class C_TradeAddItem extends ClientBasePacket {
 		if (tradingPartner.getInventory().checkAddItem(item, itemcount) != L1Inventory.OK) {
 			tradingPartner.sendPackets(new S_ServerMessage(270));
 			pc.sendPackets(new S_ServerMessage(271));
-			return;
-		}
-		if (isCheat) {
-			LogTradeBugItem ltbi = new LogTradeBugItem();
-			ltbi.storeLogTradeBugItem(tradingPartner, pc, item);
 			return;
 		}
 		trade.TradeAddItem(pc, itemid, itemcount);

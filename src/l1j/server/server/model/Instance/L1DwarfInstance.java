@@ -24,9 +24,6 @@ import java.util.logging.Logger;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1NpcTalkData;
-import l1j.server.server.model.L1PcInventory;
-import l1j.server.server.model.item.L1ItemId;
-import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
@@ -39,6 +36,10 @@ public class L1DwarfInstance extends L1NpcInstance {
 
 	private static Logger _log = Logger.getLogger(L1DwarfInstance.class
 			.getName());
+
+	private ArrayList _tpLocs;
+
+	private int _tpId;
 
 	/**
 	 * @param template
@@ -89,20 +90,11 @@ public class L1DwarfInstance extends L1NpcInstance {
 
 	@Override
 	public void onFinalAction(L1PcInstance pc, String Action) {
-		getTemplateid();
-		int price = 30;
-		
-		for (L1ItemInstance item : pc.getInventory().getItems()) {
+		int objid = getTemplateid();
 		if (Action.equalsIgnoreCase("retrieve")) {
-			price += 0 * item.getCount();
-			item.getItemId();
-			pc.getInventory().consumeItem(L1ItemId.ADENA, price);
-			_log.finest("Retrieve items in storage");
+			_log.finest("Retrive items in storage");
 		} else if (Action.equalsIgnoreCase("retrieve-pledge")) {
-			price += 0 * item.getCount();
-			item.getItemId();
-			pc.getInventory().consumeItem(L1ItemId.ADENA, price);
-			_log.finest("Retrieve items in pledge storage");
+			_log.finest("Retrive items in pledge storage");
 
 			if (pc.getClanname().equalsIgnoreCase(" ")) {
 				_log.finest("pc isnt in a pledge");
@@ -114,4 +106,4 @@ public class L1DwarfInstance extends L1NpcInstance {
 			}
 		}
 	}
-}}
+}

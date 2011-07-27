@@ -39,11 +39,13 @@ public class L1ItemDelay {
 
 	static class ItemDelayTimer implements Runnable {
 		private int _delayId;
+		private int _delayTime;
 		private L1Character _cha;
 
 		public ItemDelayTimer(L1Character cha, int id, int time) {
 			_cha = cha;
 			_delayId = id;
+			_delayTime = time;
 		}
 
 		@Override

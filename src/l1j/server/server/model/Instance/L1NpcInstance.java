@@ -34,10 +34,8 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.NpcChatTable;
 import l1j.server.server.datatables.NpcTable;
-import l1j.server.server.datatables.SprTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1GroundInventory;
@@ -48,7 +46,6 @@ import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.L1MobSkillUse;
 import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1NpcChatTimer;
-import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.L1World;
@@ -62,7 +59,6 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
 import l1j.server.server.serverpackets.S_NPCPack;
-import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
@@ -371,34 +367,19 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else { 
+			boolean isSkillUse = false;
+			isSkillUse = mobSkill.skillUse(target);
+			if (isSkillUse == true) {
+				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
+						MAGIC_SPEED));
+				return;
+			}
+
 			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate()
 					.get_ranged())) {
-				if (mobSkill.isSkillTrigger(target)) { 
-					if (_random.nextInt(2) >= 1) { 
-						setHeading(targetDirection(target.getX(), target
-								.getY()));
-						attackTarget(target);
-					} else {
-						if (mobSkill.skillUse(target, true)) { 
-							setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
-									MAGIC_SPEED));
-						} else { 
-							setHeading(targetDirection(target.getX(), target
-									.getY()));
-							attackTarget(target);
-						}
-					}
-				} else {
 				setHeading(targetDirection(target.getX(), target.getY()));
 				attackTarget(target);
-				}
 			} else {
-				if (mobSkill.skillUse(target, false)) {
-					setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
-							MAGIC_SPEED));
-					return;
-				}
-
 				if (getPassispeed() > 0) {
 					int distance = getLocation().getTileDistance(
 							target.getLocation());
@@ -613,13 +594,12 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void pickupTargetItem(L1ItemInstance targetItem) {
-		int count = targetItem.getCount();
 		L1Inventory groundInventory = L1World.getInstance().getInventory(
 				targetItem.getX(), targetItem.getY(), targetItem.getMapId());
 		L1ItemInstance item = groundInventory.tradeItem(targetItem, targetItem
 				.getCount(), getInventory());
 		turnOnOffLight();
-		onGetItem(item, count);
+		onGetItem(item);
 		_targetItemList.remove(_targetItem);
 		_targetItem = null;
 		setSleepTime(1000);
@@ -1166,7 +1146,7 @@ public class L1NpcInstance extends L1Character {
 		return _npcTemplate;
 	}
 
-	public int get_npcId() {
+	public int getNpcId() {
 		return _npcTemplate.get_npcId();
 	}
 
@@ -1265,7 +1245,7 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	public void onGetItem(L1ItemInstance item, int count) {
+	public void onGetItem(L1ItemInstance item) {
 		refineItem();
 		getInventory().shuffle();
 		if (getNpcTemplate().get_digestitem() > 0) {
@@ -1409,7 +1389,6 @@ public class L1NpcInstance extends L1Character {
 					if (getLocation().getLineDistance(
 							new Point(getHomeX(), getHomeY())) > getMovementDistance()) {
 						teleport(getHomeX(), getHomeY(), getHeading());
-						checkObject(getX(), getY(), getMapId(), dir);
 					}
 				}
 			}
@@ -2021,11 +2000,6 @@ public class L1NpcInstance extends L1Character {
 	public void setTempLawful(int i) {
 		_tempLawful = i;
 	}
-
-	public void npcSleepTime(int i, int type) {
-        setSleepTime(calcSleepTime(SprTable.getInstance()
-        .getSprSpeed(getTempCharGfx(), i), type));
-   }
 
 	protected int calcSleepTime(int sleepTime, int type) {
 		switch (getMoveSpeed()) {

@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-import l1j.server.server.encryptions.Opcodes;
-
 public class S_Unknown2 extends ServerBasePacket {
 	public S_Unknown2() {
 // writeC(Opcodes.S_OPCODE_UNKNOWN2);

@@ -118,6 +118,10 @@ public class Base64 {
 	 */
 	};
 
+	private final static byte BAD_ENCODING = -9; // Indicates error in
+
+	// encoding
+
 	private final static byte WHITE_SPACE_ENC = -5; // Indicates white space in
 
 	// encoding
@@ -614,6 +618,8 @@ public class Base64 {
 	 * @since 1.3
 	 */
 	public static class InputStream extends java.io.FilterInputStream {
+		private int options; // Options specified
+
 		private boolean encode; // Encoding or decoding
 
 		private int position; // Current position in the buffer
@@ -667,6 +673,7 @@ public class Base64 {
 		 */
 		public InputStream(java.io.InputStream in, int options) {
 			super(in);
+			this.options = options;
 			this.breakLines = (options & DONT_BREAK_LINES) != DONT_BREAK_LINES;
 			this.encode = (options & ENCODE) == ENCODE;
 			this.bufferLength = encode ? 4 : 3;
@@ -839,6 +846,8 @@ public class Base64 {
 	 * @since 1.3
 	 */
 	public static class OutputStream extends java.io.FilterOutputStream {
+		private int options;
+
 		private boolean encode;
 
 		private int position;
@@ -895,6 +904,7 @@ public class Base64 {
 		 */
 		public OutputStream(java.io.OutputStream out, int options) {
 			super(out);
+			this.options = options;
 			this.breakLines = (options & DONT_BREAK_LINES) != DONT_BREAK_LINES;
 			this.encode = (options & ENCODE) == ENCODE;
 			this.bufferLength = encode ? 3 : 4;

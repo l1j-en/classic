@@ -31,11 +31,11 @@ public class C_HireSoldier extends ClientBasePacket {
 
 	public C_HireSoldier(byte[] decrypt, ClientThread client) {
 		super(decrypt);
-		readH();
-		readH();
-		readD();
-		readD();
-		readH();
+		int something1 = readH();
+		int something2 = readH();
+		int something3 = readD();
+		int something4 = readD();
+		int number = readH();
 	}
 
 	@Override

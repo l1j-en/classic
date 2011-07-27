@@ -16,6 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
 package l1j.server.server.templates;
 
 public class L1Pet {
@@ -44,11 +45,11 @@ public class L1Pet {
 
 	private int _npcid;
 
-	public int get_npcId() {
+	public int get_npcid() {
 		return _npcid;
 	}
 
-	public void set_npcId(int i) {
+	public void set_npcid(int i) {
 		_npcid = i;
 	}
 
@@ -110,15 +111,5 @@ public class L1Pet {
 
 	public void set_lawful(int i) {
 		_lawful = i;
-	}
-
-	private int _food;
-
-	public int get_food() {
-		return _food;
-	}
-
-	public void set_food(int i) {
-		_food = i;
 	}
 }

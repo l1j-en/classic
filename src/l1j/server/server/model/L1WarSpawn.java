@@ -33,7 +33,7 @@ import l1j.server.server.templates.L1Npc;
 public class L1WarSpawn {
 	private static final Logger _log = Logger.getLogger(L1WarSpawn.class.getName());
 	private static L1WarSpawn _instance;
-	private Constructor<?> _constructor;
+	private Constructor _constructor;
 
 	public L1WarSpawn() {
 	}
@@ -119,6 +119,7 @@ public class L1WarSpawn {
 	private void SpawnWarObject(L1Npc l1npc, int locx, int locy, short mapid) {
 		try {
 			if (l1npc != null) {
+				Object obj = null;
 				String s = l1npc.getImpl();
 				_constructor = Class.forName(
 						(new StringBuilder()).append(

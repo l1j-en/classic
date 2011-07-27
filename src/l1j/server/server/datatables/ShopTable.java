@@ -92,7 +92,7 @@ public class ShopTable {
 		return new L1Shop(npcId, sellingList, purchasingList);
 	}
 
-	public void loadShops() {
+	private void loadShops() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -110,52 +110,6 @@ public class ShopTable {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs, pstm, con);
-		}
-	}
-
-	public void updOrder(int npc_id, int item_id, int order_id) {
-		try {
-			Connection connection = null;
-			connection = L1DatabaseFactory.getInstance().getConnection();
-			PreparedStatement preparedstatement = connection.prepareStatement("UPDATE `shop` SET `order_id`=? WHERE `npc_id`=? AND `item_id`=?");
-			preparedstatement.setInt(1, order_id);
-			preparedstatement.setInt(2, npc_id);
-			preparedstatement.setInt(3, item_id);
-			preparedstatement.execute();		
-			preparedstatement.close();
-			connection.close();
-		    }catch(Exception e){
-			System.out.println("ShopTable cannot be updated correctly.");
-		}
-	}
-
-	public void InsertItem(int npcid, int itemid, int order) {
-		int maxorder = 0;
-		L1Shop target_shop = get(npcid);
-		for (int i = 0; i <target_shop.getSellingItems().size(); i++){
-			if(order == -1){
-				if((target_shop.getSellingItems().size() -1) > maxorder)
-					maxorder = target_shop.getSellingItems().size();
-			} else {
-				maxorder = order;
-				if((target_shop.getSellingItems().size() -1) >= order){
-					updOrder(npcid,target_shop.getSellingItems().get(i).getItemId(), i);
-				}
-			}
-		}
-		
-		try {
-			Connection con = L1DatabaseFactory.getInstance().getConnection();
-			PreparedStatement pstmt = con.prepareStatement("INSERT INTO `shop` (`npc_id`,`item_id`,`order_id`,`pack_count`,`purchasing_price`) VALUES(?,?,?,?,?)");
-			pstmt.setInt(1, npcid);
-			pstmt.setInt(2, itemid);
-			pstmt.setInt(3, maxorder);
-			pstmt.setInt(4, 1);
-			pstmt.execute();
-			con.close();
-			pstmt.close();
-		}catch(Exception e){
-			_log.warning("Can't insert item into the shop" + e);
 		}
 	}
 

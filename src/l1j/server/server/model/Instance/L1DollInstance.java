@@ -119,10 +119,6 @@ public class L1DollInstance extends L1NpcInstance {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
-		if (perceivedFrom.getMapId() > 10000 
-				&& perceivedFrom.getInnKeyId() != _master.getInnKeyId()) { 
-			return; 
-		}
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_DollPack(this, perceivedFrom));
 	}
@@ -135,7 +131,7 @@ public class L1DollInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onGetItem(L1ItemInstance item, int count) {
+	public void onGetItem(L1ItemInstance item) {
 		if (getNpcTemplate().get_digestitem() > 0) {
 			setDigestItem(item);
 		}
