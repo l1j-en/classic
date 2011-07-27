@@ -486,3 +486,449 @@ UPDATE npc SET name = 'Patrol 7 - Demon' WHERE npcid = 46088;
 UPDATE npc SET name = 'Patrol 8 - Demon' WHERE npcid = 46089;
 UPDATE npc SET name = 'Patrol 9 - Demon' WHERE npcid = 46090;
 
+-- ----------------------------
+-- Table structure for `logclanwarehousein`
+-- ----------------------------
+DROP TABLE IF EXISTS `logclanwarehousein`;
+CREATE TABLE `logclanwarehousein` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ClanId` int(11) DEFAULT NULL,
+  `ClanName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `InCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `logclanwarehouseOut`
+-- ----------------------------
+DROP TABLE IF EXISTS `logclanwarehouseOut`;
+CREATE TABLE `logclanwarehouseOut` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ClanId` int(11) DEFAULT NULL,
+  `ClanName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `InCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogDeleteChar`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogDeleteChar`;
+CREATE TABLE `LogDeleteChar` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogDeleteItem`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogDeleteItem`;
+CREATE TABLE `LogDeleteItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogDropItem`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogDropItem`;
+CREATE TABLE `LogDropItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `BeforeInven` int(11) DEFAULT NULL,
+  `AfterInven` int(11) DEFAULT NULL,
+  `BeforeGround` int(11) DEFAULT NULL,
+  `AfterGround` int(11) DEFAULT NULL,
+  `Count` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		
+-- ----------------------------
+-- Table structure for `LogElfWareHouseIn`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogElfWareHouseIn`;
+CREATE TABLE `LogElfWareHouseIn` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ClanId` int(11) DEFAULT NULL,
+  `ClanName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `InCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogElfWareHouseOut`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogElfWareHouseOut`;
+CREATE TABLE `LogElfWareHouseOut` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ClanId` int(11) DEFAULT NULL,
+  `ClanName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `InCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogEnchantFail`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogEnchantFail`;
+CREATE TABLE `LogEnchantFail` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogEnchantSuccess`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogEnchantSuccess`;
+CREATE TABLE `LogEnchantSuccess` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `EnchantBefore` int(11) DEFAULT NULL,
+  `EnchantAfter` int(11) DEFAULT NULL,
+  `EnchantDiff` int(11) DEFAULT NULL,
+  `EnchantNum` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogPickUpItem`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogPickUpItem`;
+CREATE TABLE `LogPickUpItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `BeforeInven` int(11) DEFAULT NULL,
+  `AfterInven` int(11) DEFAULT NULL,
+  `BeforeGround` int(11) DEFAULT NULL,
+  `AfterGround` int(11) DEFAULT NULL,
+  `PickupCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogPrivateShopBuy`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogPrivateShopBuy`;
+CREATE TABLE `LogPrivateShopBuy` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `TargetIp` varchar(255) DEFAULT NULL,
+  `TargetAccount` varchar(255) DEFAULT NULL,
+  `TargetCharId` int(11) DEFAULT NULL,
+  `TargetCharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `ItemBefore` int(11) DEFAULT NULL,
+  `ItemAfter` int(11) DEFAULT NULL,
+  `ItemDiff` int(11) DEFAULT NULL,
+  `BuyCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogPrivateShopSell`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogPrivateShopSell`;
+CREATE TABLE `LogPrivateShopSell` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `TargetIp` varchar(255) DEFAULT NULL,
+  `TargetAccount` varchar(255) DEFAULT NULL,
+  `TargetCharId` int(11) DEFAULT NULL,
+  `TargetCharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `ItemBefore` int(11) DEFAULT NULL,
+  `ItemAfter` int(11) DEFAULT NULL,
+  `ItemDiff` int(11) DEFAULT NULL,
+  `SellCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogShopBuy`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogShopBuy`;
+CREATE TABLE `LogShopBuy` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `AdenaBefore` int(11) DEFAULT NULL,
+  `AdenaAfter` int(11) DEFAULT NULL,
+  `AdenaDiff` int(11) DEFAULT NULL,
+  `BuyPrice` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogShopSell`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogShopSell`;
+CREATE TABLE `LogShopSell` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `AdenaBefore` int(11) DEFAULT NULL,
+  `AdenaAfter` int(11) DEFAULT NULL,
+  `AdenaDiff` int(11) DEFAULT NULL,
+  `SellPrice` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogSpeedHack`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogSpeedHack`;
+CREATE TABLE `LogSpeedHack` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	
+-- ----------------------------
+-- Table structure for `LogStatusUp`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogStatusUp`;
+CREATE TABLE `LogStatusUp` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `Level` int(11) DEFAULT NULL,
+  `Str` int(11) DEFAULT NULL,
+  `BaseStr` int(11) DEFAULT NULL,
+  `Dex` int(11) DEFAULT NULL,
+  `BaseDex` int(11) DEFAULT NULL,
+  `Con` int(11) DEFAULT NULL,
+  `BaseCon` int(11) DEFAULT NULL,
+  `Int` int(11) DEFAULT NULL,
+  `BaseInt` int(11) DEFAULT NULL,
+  `Wis` int(11) DEFAULT NULL,
+  `BaseWis` int(11) DEFAULT NULL,
+  `Cha` int(11) DEFAULT NULL,
+  `BaseCha` int(11) DEFAULT NULL,
+  `SorceStat` int(11) DEFAULT NULL,
+  `BonusStats` int(11) DEFAULT NULL,
+  `AllStats` int(11) DEFAULT NULL,
+  `DiffSc` int(11) DEFAULT NULL,
+  `DiffSr` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogTradeAddItem`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogTradeAddItem`;
+CREATE TABLE `LogTradeAddItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `TargetIp` varchar(255) DEFAULT NULL,
+  `TargetAccount` varchar(255) DEFAULT NULL,
+  `TargetCharId` int(11) DEFAULT NULL,
+  `TargetCharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `ItemBefore` int(11) DEFAULT NULL,
+  `ItemAfter` int(11) DEFAULT NULL,
+  `ItemDiff` int(11) DEFAULT NULL,
+  `TradeCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogTradeBugItem`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogTradeBugItem`;
+CREATE TABLE `LogTradeBugItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `TargetIp` varchar(255) DEFAULT NULL,
+  `TargetAccount` varchar(255) DEFAULT NULL,
+  `TargetCharId` int(11) DEFAULT NULL,
+  `TargetCharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogTradeComplete`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogTradeComplete`;
+CREATE TABLE `LogTradeComplete` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `TargetIp` varchar(255) DEFAULT NULL,
+  `TargetAccount` varchar(255) DEFAULT NULL,
+  `TargetCharId` int(11) DEFAULT NULL,
+  `TargetCharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `ItemBeforeTrade` int(11) DEFAULT NULL,
+  `ItemBeforeInven` int(11) DEFAULT NULL,
+  `ItemAfter` int(11) DEFAULT NULL,
+  `ItemDiff` int(11) DEFAULT NULL,
+  `TradeCount` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogWareHouseIn`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogWareHouseIn`;
+CREATE TABLE `LogWareHouseIn` (
+  `Account` varchar(255) DEFAULT NULL,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `InCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `LogWareHouseOut`
+-- ----------------------------
+DROP TABLE IF EXISTS `LogWareHouseOut`;
+CREATE TABLE `LogWareHouseOut` (
+  `Account` varchar(255) DEFAULT NULL,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `ItemCountBefore` int(11) DEFAULT NULL,
+  `ItemCountAfter` int(11) DEFAULT NULL,
+  `ItemCountDiff` int(11) DEFAULT NULL,
+  `ItemCount` int(11) DEFAULT NULL,
+  `OutCount` int(11) DEFAULT NULL,
+  `CountDiff` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `BotReport`
+-- ----------------------------
+DROP TABLE IF EXISTS `BotReport`;
+CREATE TABLE `BotReport` (
+  `id` int(11) NOT NULL,
+  `date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `charname` varchar(45) DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

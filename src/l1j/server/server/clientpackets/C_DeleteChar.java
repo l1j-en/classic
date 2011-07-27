@@ -23,10 +23,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.hackdetections.LogDeleteChar;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DeleteCharOK;
 
@@ -40,7 +42,8 @@ public class C_DeleteChar extends ClientBasePacket {
 	public C_DeleteChar(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);
 		String name = readS();
-
+		String hostip = client.getHostname();
+		
 		try {
 			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);
 			if (pc != null && pc.getLevel() >= 30 && Config.DELETE_CHARACTER_AFTER_7DAYS) {
@@ -92,6 +95,8 @@ public class C_DeleteChar extends ClientBasePacket {
 					clan.delMemberName(name);
 				}
 			}
+			LogDeleteChar ldc = new LogDeleteChar();
+			ldc.storeLogDeleteChar(pc, hostip);
 			CharacterTable.getInstance().deleteCharacter(client.getAccountName(), name);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
