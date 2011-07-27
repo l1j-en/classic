@@ -21,6 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.hackdetections.LogSpeedHack;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.AcceleratorChecker;
@@ -30,6 +31,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_AttackPacket;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
@@ -93,6 +95,8 @@ public class C_Attack extends ClientBasePacket {
 			int result;
 			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.ATTACK);
 			if (result == AcceleratorChecker.R_DISCONNECTED) {
+				LogSpeedHack lsh = new LogSpeedHack();
+				lsh.storeLogSpeedHack(pc);
 				return;
 			}
 		}
