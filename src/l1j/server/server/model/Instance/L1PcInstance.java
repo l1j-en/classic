@@ -1150,7 +1150,7 @@ public class L1PcInstance extends L1Character {
 				damage *= 1.5;
 			}
 			if (hasSkillEffect(ILLUSION_AVATAR)) {
-				damage *= 1.5;
+				damage *= 1.2;
 			}
 			int newHp = getCurrentHp() - (int) (damage);
 			if (newHp > getMaxHp()) {
