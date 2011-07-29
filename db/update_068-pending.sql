@@ -5,3 +5,6 @@
 -- be removed.
 
 -- update 68
+
+-- remove duplicate spawns in oren market
+DELETE FROM spawnlist WHERE mapid = 360;
