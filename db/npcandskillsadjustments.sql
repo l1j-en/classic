@@ -484,11 +484,6 @@ UPDATE npc SET sub_magic_speed = 1600 WHERE npcid = 45066;
 -- atk_magic_speed changed from 1240
 UPDATE npc SET atk_magic_speed = 2160 WHERE npcid = 45067;
 
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45067;
-
-
-
 --
 
 -- Floating Eye 45068
@@ -531,9 +526,6 @@ UPDATE npc SET atk_magic_speed = 1080 WHERE npcid = 45070;
 
 -- atk_magic_speed changed from 640
 UPDATE npc SET atk_magic_speed = 760 WHERE npcid = 45071;
-
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45071;
 
 -- sub_magic_speed changed from 640
 UPDATE npc SET sub_magic_speed = 760 WHERE npcid = 45071;
@@ -619,9 +611,6 @@ UPDATE npc SET atk_magic_speed = 760 WHERE npcid = 45081;
 -- atkspeed changed from 680
 UPDATE npc SET atkspeed = 640 WHERE npcid = 45081;
 
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45081;
-
 -- sub_magic_speed changed from 680
 UPDATE npc SET sub_magic_speed = 760 WHERE npcid = 45081;
 
@@ -664,19 +653,7 @@ UPDATE npc SET sub_magic_speed = 1640 WHERE npcid = 45085;
 -- atk_magic_speed changed from 1120
 UPDATE npc SET atk_magic_speed = 1480 WHERE npcid = 45086;
 
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45086;
-
-
-
 --
-
--- Valley Griffon 45090
-
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45090;
-
-
 
 --
 
@@ -687,11 +664,6 @@ UPDATE npc SET atk_magic_speed = 1080 WHERE npcid = 45091;
 
 -- passispeed changed from 800
 UPDATE npc SET passispeed = 920 WHERE npcid = 45091;
-
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45091;
-
-
 
 --
 
@@ -724,9 +696,6 @@ UPDATE npc SET sub_magic_speed = 1760 WHERE npcid = 45094;
 -- atk_magic_speed changed from 1040
 UPDATE npc SET atk_magic_speed = 1760 WHERE npcid = 45095;
 
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45095;
-
 -- sub_magic_speed changed from 1040
 UPDATE npc SET sub_magic_speed = 1760 WHERE npcid = 45095;
 
@@ -738,11 +707,6 @@ UPDATE npc SET sub_magic_speed = 1760 WHERE npcid = 45095;
 
 -- family changed from cockatrice
 UPDATE npc SET family = alligator WHERE npcid = 45096;
-
--- agro changed from 0
-UPDATE npc SET agro = 1 WHERE npcid = 45096;
-
-
 
 --
 
