@@ -47,3 +47,5 @@ UPDATE npc SET agro = 1 WHERE npcid = 45096;
 # update non-spawning mobs
 update spawnlist set count = 1 where count = 0;
 
+-- add gmcommand account
+INSERT INTO commands VALUES('account', 200, 'L1Account');
