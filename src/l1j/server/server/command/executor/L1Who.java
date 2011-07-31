@@ -73,7 +73,8 @@ public class L1Who implements L1CommandExecutor {
 						.append("MPR: " + gm.getMpr() + gm.getInventory().mpRegenPerTick() + " | ")
 						.append("Karma: " + gm.getKarma() + " | ")
 						.append("MR: ").append(target.getMr()).append(" | ")
-						.append("Items: " + gm.getInventory().getSize())
+						.append("Items: " + gm.getInventory().getSize() + " | ")
+						.append("Gold: " + target.getInventory().countItems(40308))
 						.toString()));
 			}
 		} catch (Exception exception) {
