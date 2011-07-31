@@ -22,8 +22,8 @@ import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.hackdetections.LogSpeedHack;
 import l1j.server.server.ClientThread;
+import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
