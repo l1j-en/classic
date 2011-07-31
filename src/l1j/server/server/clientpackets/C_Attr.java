@@ -23,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.hackdetections.LogStatusUp;
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
@@ -31,6 +30,7 @@ import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.log.LogStatusUp;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1ChatParty;

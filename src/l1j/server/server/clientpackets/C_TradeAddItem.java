@@ -24,8 +24,8 @@ import l1j.server.server.Account;
 
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.serverpackets.S_Disconnect;
-import l1j.server.server.hackdetections.LogTradeBugItem;
 import l1j.server.server.ClientThread;
+import l1j.server.server.log.LogTradeBugItem;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;

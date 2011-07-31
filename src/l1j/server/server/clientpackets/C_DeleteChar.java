@@ -23,9 +23,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.hackdetections.LogDeleteChar;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
+import l1j.server.server.log.LogDeleteChar;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.classes.L1ClassId;

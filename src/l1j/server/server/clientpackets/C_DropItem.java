@@ -25,6 +25,8 @@ import l1j.server.server.Account;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.ClientThread;
+import l1j.server.server.log.LogDropItem;
+import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -118,8 +120,32 @@ public class C_DropItem extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 				return;
 			}
+			L1Inventory groundInventory = L1World.getInstance().getInventory(x, y, pc.getMapId());
+			L1ItemInstance gditem = groundInventory.getItem(objectId);
+			int before_inven = pc.getInventory().getItem(objectId).getCount();
+			int brfore_ground = 0;
+			if (item.isStackable()) {
+				brfore_ground = groundInventory.countItems(item.getItem().getItemId());
+			} else {
+				if (gditem != null) {
+					brfore_ground = gditem.getCount();
+				}
+			}
 			pc.getInventory().tradeItem(item, count, L1World.getInstance().getInventory(x, y, pc.getMapId()));
 			pc.turnOnOffLight();
+			L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
+			int after_inven = 0;
+			if (pcitem != null) {
+				after_inven = pcitem.getCount();
+			}
+			int after_ground = 0;
+			if (item.isStackable()) {
+				after_ground = groundInventory.countItems(item.getItem().getItemId());
+			} else {
+				after_ground = groundInventory.getItem(objectId).getCount();
+			}
+			LogDropItem ldi = new LogDropItem();
+			ldi.storeLogDropItem(pc, item, before_inven, after_inven, brfore_ground, after_ground, count);
 		}
 	}
 

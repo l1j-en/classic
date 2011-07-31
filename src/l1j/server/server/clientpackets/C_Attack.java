@@ -21,9 +21,9 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.hackdetections.LogSpeedHack;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
+import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
