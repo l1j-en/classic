@@ -26,6 +26,8 @@ import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.TownTable;
+import l1j.server.server.log.LogShopBuy;
+import l1j.server.server.log.LogShopSell;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1PcInventory;
 import l1j.server.server.model.L1TaxCalculator;
@@ -123,7 +125,7 @@ public class L1Shop {
 			return false;
 		}
 		if (!pc.getInventory().checkItem(L1ItemId.ADENA, price)) {
-			System.out.println(price);
+			System.out.println("Copy this to tricid: " + price);
 			pc.sendPackets(new S_ServerMessage(189));
 			return false;
 		}
@@ -230,10 +232,24 @@ public class L1Shop {
 		payDiadTax(orderList);
 	}
 
-	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList) {
+	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList, L1PcInstance pc) {
+		int adenabefore = 0;
+		int adenaafter = 0;
+		
+		L1ItemInstance pcitem = pc.getInventory().findItemId(40308);
+		if (pcitem != null) {
+			adenabefore = pcitem.getCount();
+		}
+		
+
+
 		if (!inv.consumeItem(L1ItemId.ADENA, orderList
 				.getTotalPriceTaxIncluded())) {
 			throw new IllegalStateException("Unable to consume required adena.");
+		}
+		
+		if (pcitem != null) {
+			adenaafter = pcitem.getCount();
 		}
 		for (L1ShopBuyOrder order : orderList.getList()) {
 			int itemId = order.getItem().getItemId();
@@ -262,6 +278,9 @@ public class L1Shop {
 					item.setEnchantLevel(7);
 				}
 			}
+			LogShopBuy lsb = new LogShopBuy();
+			lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,orderList.getTotalPriceTaxIncluded() );
+
 		}
 	}
 
@@ -269,17 +288,28 @@ public class L1Shop {
 		if (!ensureSell(pc, orderList)) {
 			return;
 		}
-		sellItems(pc.getInventory(), orderList);
+		sellItems(pc.getInventory(), orderList, pc);
 		payTax(orderList);
 	}
 
 	public void buyItems(L1ShopSellOrderList orderList) {
+
+		LogShopSell lsb = new LogShopSell();
+
+		L1PcInstance pc = orderList.getPc();
 		L1PcInventory inv = orderList.getPc().getInventory();
 		int totalPrice = 0;
+		int adenabefore = pc.getInventory().findItemId(40308).getCount();
+		int adenaafter = 0;
 		for (L1ShopSellOrder order : orderList.getList()) {
+
 			int count = inv.removeItem(order.getItem().getTargetId(), order
 					.getCount());
 			totalPrice += order.getItem().getAssessedPrice() * count;
+			adenaafter = adenabefore + (order.getItem().getAssessedPrice()*count);
+			//lsb.storeLogShopSell(pc, item, adenabefore, adenaafter, itemprice)
+			lsb.storeLogShopSell(pc, inv.getItem(order.getItem().getTargetId()), adenabefore, adenaafter,order.getItem().getAssessedPrice()*count);
+			adenabefore = adenaafter;
 		}
 		totalPrice = IntRange.ensure(totalPrice, 0, 2000000000);
 		if (0 < totalPrice) {
