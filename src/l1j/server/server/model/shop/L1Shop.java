@@ -279,8 +279,12 @@ public class L1Shop {
 				}
 			}
 			LogShopBuy lsb = new LogShopBuy();
+			try {
 			lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,orderList.getTotalPriceTaxIncluded() );
-
+			} catch (Exception e) {
+				System.out.println("Problem with storeLogShopBuy");
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -302,13 +306,18 @@ public class L1Shop {
 		int adenabefore = pc.getInventory().findItemId(40308).getCount();
 		int adenaafter = 0;
 		for (L1ShopSellOrder order : orderList.getList()) {
-
+			L1ItemInstance sellme = inv.getItem(order.getItem().getTargetId());
 			int count = inv.removeItem(order.getItem().getTargetId(), order
 					.getCount());
 			totalPrice += order.getItem().getAssessedPrice() * count;
 			adenaafter = adenabefore + (order.getItem().getAssessedPrice()*count);
 			//lsb.storeLogShopSell(pc, item, adenabefore, adenaafter, itemprice)
-			lsb.storeLogShopSell(pc, inv.getItem(order.getItem().getTargetId()), adenabefore, adenaafter,order.getItem().getAssessedPrice()*count);
+			try {
+			lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter,order.getItem().getAssessedPrice()*count);
+			} catch (Exception e) {
+				System.out.println("Problem with storeLogShopSell");
+				System.out.println(e);
+			}
 			adenabefore = adenaafter;
 		}
 		totalPrice = IntRange.ensure(totalPrice, 0, 2000000000);
