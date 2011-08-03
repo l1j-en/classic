@@ -116,7 +116,7 @@ public class L1EffectInstance extends L1NpcInstance {
 								}
 							}
 							L1Magic magic = new L1Magic(_effect, pc);
-							int damage = magic.calcPcFireWallDamage();
+							int damage = magic.calcFireWallDamage();
 							if (damage == 0) {
 								continue;
 							}
@@ -131,7 +131,7 @@ public class L1EffectInstance extends L1NpcInstance {
 								continue;
 							}
 							L1Magic magic = new L1Magic(_effect, mob);
-							int damage = magic.calcNpcFireWallDamage();
+							int damage = magic.calcFireWallDamage();
 							if (damage == 0) {
 								continue;
 							}
