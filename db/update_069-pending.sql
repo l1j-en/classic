@@ -5,3 +5,7 @@
 -- be removed.
 
 -- update 69
+
+-- add Dwarf Adelio
+
+INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
