@@ -51,6 +51,14 @@ public class L1Magic {
 	private int _leverage = 10; 
 	private static Random _random = new Random();
 
+	private final L1Character _attacker;
+	private final L1Character _target;
+
+	private static final int MAX_PROBABILITY = 90;
+	private static final int INT_ADJUSTMENT = 12;
+	private static final int BASE_CRIT_RATE = 10;
+	private static final double CRITICAL_COEFFICIENT = 1.5;
+
 	public void setLeverage(int i) {
 		_leverage = i;
 	}
@@ -81,56 +89,9 @@ public class L1Magic {
 				_targetNpc = (L1NpcInstance) target;
 			}
 		}
-	}
 
-	private int getSpellPower() {
-		int spellPower = 0;
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			spellPower = _pc.getSp();
-		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			spellPower = _npc.getSp();
-		}
-		return spellPower;
-	}
-
-	private int getMagicLevel() {
-		int magicLevel = 0;
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			magicLevel = _pc.getMagicLevel();
-		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			magicLevel = _npc.getMagicLevel();
-		}
-		return magicLevel;
-	}
-
-	private int getMagicBonus() {
-		int magicBonus = 0;
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			magicBonus = _pc.getMagicBonus();
-		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			magicBonus = _npc.getMagicBonus();
-		}
-		return magicBonus;
-	}
-
-	private int getLawful() {
-		int lawful = 0;
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			lawful = _pc.getLawful();
-		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			lawful = _npc.getLawful();
-		}
-		return lawful;
-	}
-
-	private int getTargetMr() {
-		int mr = 0;
-		if (_calcType == PC_PC || _calcType == NPC_PC) {
-			mr = _targetPc.getMr();
-		} else {
-			mr = _targetNpc.getMr();
-		}
-		return mr;
+		_attacker = attacker;
+		_target = target;
 	}
 
 	public boolean calcProbabilityMagic(int skillId) {
@@ -218,30 +179,17 @@ public class L1Magic {
 				return true;
 			}
 		}
-		if (_calcType == PC_PC || _calcType == NPC_PC) {
-			if (_targetPc.hasSkillEffect(EARTH_BIND)) {
-				if (skillId != WEAPON_BREAK && skillId != CANCELLATION) {
-					return false;
-				}
-			}
-		} else {
-			if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
-				if (skillId != WEAPON_BREAK && skillId != CANCELLATION) {
-					return false;
-				}
+		if(_target.hasSkillEffect(EARTH_BIND)) {
+			if (skillId != WEAPON_BREAK && skillId != CANCELLATION) {
+				return false;
 			}
 		}
 		probability = calcProbability(skillId);
-		Random random = new Random();
-		int rnd = random.nextInt(100) + 1;
-		if (probability > 90) {
-			probability = 90;
+		int rnd = _random.nextInt(100) + 1;
+		if (probability > MAX_PROBABILITY) {
+			probability = MAX_PROBABILITY;
 		}
-		if (probability >= rnd) {
-			isSuccess = true;
-		} else {
-			isSuccess = false;
-		}
+		isSuccess = probability >= rnd;
 
 		if (!Config.ALT_ATKMSG) {
 			return isSuccess;
@@ -255,28 +203,12 @@ public class L1Magic {
 			}
 		}
 
-		String msg0 = "";
+		String msg0 = _attacker.getName();
 		String msg1 = "to";
-		String msg2 = "";
-		String msg3 = "";
-		String msg4 = "";
+		String msg2 = "probability:" + probability + "%";
+		String msg3 = isSuccess ? "success" : "failed";
+		String msg4 = _target.getName();
 
-		if (_calcType == PC_PC || _calcType == PC_NPC) { 
-			msg0 = _pc.getName();
-		} else if (_calcType == NPC_PC) {
-			msg0 = _npc.getName();
-		}
-		msg2 = "probability:" + probability + "%";
-		if (_calcType == NPC_PC || _calcType == PC_PC) { 
-			msg4 = _targetPc.getName();
-		} else if (_calcType == PC_NPC) { 
-			msg4 = _targetNpc.getName();
-		}
-		if (isSuccess == true) {
-			msg3 = "success";
-		} else {
-			msg3 = "failed";
-		}
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
 			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3,
 					msg4)); 
@@ -314,71 +246,52 @@ public class L1Magic {
 	}
 
 	private int calcProbability(int skillId) {
-		L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
-		int attackLevel = 0;
-		int defenseLevel = 0;
-		@SuppressWarnings("unused")
-		int mr = 0;
-		int probability = 0;
-
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			attackLevel = _pc.getLevel();
-		} else {
-			attackLevel = _npc.getLevel();
-		}
-
-		if (_calcType == PC_PC || _calcType == NPC_PC) {
-			defenseLevel = _targetPc.getLevel();
-		} else {
-			defenseLevel = _targetNpc.getLevel();
-			if (skillId == RETURN_TO_NATURE) {
-				if (_targetNpc instanceof L1SummonInstance) {
-					L1SummonInstance summon = (L1SummonInstance) _targetNpc;
-					defenseLevel = summon.getMaster().getLevel();
-				}
+		L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
+		
+		int defenseLevel = _target.getLevel();
+		if (skillId == RETURN_TO_NATURE) {
+			if (_targetNpc instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) _targetNpc;
+				defenseLevel = summon.getMaster().getLevel();
 			}
 		}
 
+		int levelDifference = _attacker.getLevel() - defenseLevel;
+
+		int probability = 0;
 		if (skillId == ELEMENTAL_FALL_DOWN || skillId == RETURN_TO_NATURE
 				|| skillId == ENTANGLE || skillId == ERASE_MAGIC
 				|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
 				|| skillId == STRIKER_GALE || skillId == POLLUTE_WATER
 				|| skillId == EARTH_BIND) {
-			probability = (int) (((l1skills.getProbabilityDice()) / 10D)
-					* (attackLevel - defenseLevel)) + l1skills
-					.getProbabilityValue();
-
+			probability = skill.getProbabilityValue() +
+				(int) (((skill.getProbabilityDice()) / 10D) * levelDifference);
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == SHOCK_STUN) {
 
-			probability = l1skills.getProbabilityValue() + (attackLevel - defenseLevel) * 2;
+			probability = skill.getProbabilityValue() + levelDifference * 2;
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == COUNTER_BARRIER) {
 
-			probability = l1skills.getProbabilityValue() + attackLevel - defenseLevel;
+			probability = skill.getProbabilityValue() + levelDifference;
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == GUARD_BRAKE || skillId == RESIST_FEAR
 				|| skillId ==HORROR_OF_DEATH) {
-			Random random = new Random();
-			int dice = l1skills.getProbabilityDice();
-			int value = l1skills.getProbabilityValue();
-			int diceCount = 0;
-			diceCount = getMagicBonus() + getMagicLevel();
-
-			if (diceCount < 1) {
-				diceCount = 1;
-			}
+			int dice = skill.getProbabilityDice();
+			int value = skill.getProbabilityValue();
+			int diceCount = Math.min(1, _attacker.getMagicBonus() + _attacker.getMagicLevel());
+			
 			for (int i = 0; i < diceCount; i++) {
-				probability += (random.nextInt(dice) + 1 + value);
+				probability += (_random.nextInt(dice) + 1 + value);
 			}
 
 			probability = probability * getLeverage() / 10;
@@ -387,16 +300,15 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 
-			if (probability >= getTargetMr()) {
-				probability = 100;				
-			} else {
-				probability = 0;
-			}
+			probability = probability >= _target.getMr() ? 100 : 0;
 		} else {
-			Random random = new Random();
-			int dice = l1skills.getProbabilityDice();
-			int diceCount = 0;
+			int dice = skill.getProbabilityDice();
+			int diceCount = 
+				_attacker.getMagicBonus() + _attacker.getMagicLevel();
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
+				diceCount += _pc.isWizard() ? 1 : -1;
+				/* Bug? Need to verify intention here, maybe elves and/or
+				 * illusionists should be +0?
 				if (_pc.isWizard()) {
 					diceCount = getMagicBonus() + getMagicLevel() + 1;
 				} else if (_pc.isElf()) {
@@ -404,15 +316,12 @@ public class L1Magic {
 				} else {
 					diceCount = getMagicBonus() + getMagicLevel() - 1;
 				}
-			} else {
-				diceCount = getMagicBonus() + getMagicLevel();
+				*/
 			}
-			if (diceCount < 1) {
-				diceCount = 1;
-			}
+			diceCount = Math.min(1, diceCount);
 
 			for (int i = 0; i < diceCount; i++) {
-				probability += (random.nextInt(dice) + 1);
+				probability += (_random.nextInt(dice) + 1);
 			}
 			probability = probability * getLeverage() / 10;
 
@@ -421,7 +330,7 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 
-			probability -= getTargetMr();
+			probability -= _target.getMr();
 
 			if (skillId == TAMING_MONSTER) {
 				double probabilityRevision = 1;
@@ -479,49 +388,25 @@ public class L1Magic {
 		return damage;
 	}
 
-	public int calcPcFireWallDamage() {
+	public int calcFireWallDamage() {
 		int dmg = 0;
 		double attrDeffence = calcAttrResistance(L1Skills.ATTR_FIRE);
 		L1Skills l1skills = SkillsTable.getInstance().getTemplate(FIRE_WALL);
 		dmg = (int) ((1.0 - attrDeffence) * l1skills.getDamageValue());
 
-		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
+		if (_target.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
+		if (_target.hasSkillEffect(ICE_LANCE)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
+		if (_target.hasSkillEffect(FREEZING_BLIZZARD)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(FREEZING_BREATH)) {
+		if (_target.hasSkillEffect(FREEZING_BREATH)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
-		}
-		if (dmg < 0) {
-			dmg = 0;
-		}
-		return dmg;
-	}
-
-	public int calcNpcFireWallDamage() {
-		int dmg = 0;
-		double attrDeffence = calcAttrResistance(L1Skills.ATTR_FIRE);
-		L1Skills l1skills = SkillsTable.getInstance().getTemplate(FIRE_WALL);
-		dmg = (int) ((1.0 - attrDeffence) * l1skills.getDamageValue());
-
-		if (_targetNpc.hasSkillEffect(ICE_LANCE)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BLIZZARD)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
+		if (_target.hasSkillEffect(EARTH_BIND)) {
 			dmg = 0;
 		}
 		if (dmg < 0) {
@@ -531,17 +416,9 @@ public class L1Magic {
 	}
 
 	private int calcPcMagicDamage(int skillId) {
-		int dmg = 0;
-		if (skillId == FINAL_BURN) {
-			if (_calcType == PC_PC || _calcType == PC_NPC) {
-				dmg = _pc.getCurrentMp();
-			} else {
-				dmg = _npc.getCurrentMp();
-			}
-		} else {
-			dmg = calcMagicDiceDamage(skillId);
-			dmg = (dmg * getLeverage()) / 10;
-		}
+		int dmg = skillId == FINAL_BURN
+			? _attacker.getCurrentMp()
+			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
 
@@ -664,17 +541,10 @@ public class L1Magic {
 	}
 
 	private int calcNpcMagicDamage(int skillId) {
-		int dmg = 0;
-		if (skillId == FINAL_BURN) {
-			if (_calcType == PC_PC || _calcType == PC_NPC) {
-				dmg = _pc.getCurrentMp();
-			} else {
-				dmg = _npc.getCurrentMp();
-			}
-		} else {
-			dmg = calcMagicDiceDamage(skillId);
-			dmg = (dmg * getLeverage()) / 10;
-		}
+		int dmg = skillId == FINAL_BURN
+			? _attacker.getCurrentMp()
+			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
+
 		if (_calcType == PC_NPC) {
 			boolean isNowWar = false;
 			int castleId = L1CastleLocation.getCastleIdByArea(_targetNpc);
@@ -766,10 +636,9 @@ public class L1Magic {
 		int value = l1skills.getDamageValue();
 		int magicDamage = 0;
 		int charaIntelligence = 0;
-		Random random = new Random();
 
 		for (int i = 0; i < diceCount; i++) {
-			magicDamage += (random.nextInt(dice) + 1);
+			magicDamage += (_random.nextInt(dice) + 1);
 		}
 		magicDamage += value;
 
@@ -781,13 +650,8 @@ public class L1Magic {
 			}
 			magicDamage += weaponAddDmg;
 		}
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			int spByItem = _pc.getSp() - _pc.getTrueSp();
-			charaIntelligence = _pc.getInt() + spByItem - 12;
-		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			int spByItem = _npc.getSp() - _npc.getTrueSp(); // 
-			charaIntelligence = _npc.getInt() + spByItem - 12;
-		}
+		int spByItem = _attacker.getSp() - _attacker.getTrueSp();
+		charaIntelligence = _attacker.getInt() + spByItem - INT_ADJUSTMENT;
 		if (charaIntelligence < 1) {
 			charaIntelligence = 1;
 		}
@@ -799,19 +663,15 @@ public class L1Magic {
 
 		magicDamage *= coefficient;
 
-		double criticalCoefficient = 1.5; 
-		int rnd = random.nextInt(100) + 1;
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			if (l1skills.getSkillLevel() <= 6) {
-				if (rnd <= (10 + _pc.getOriginalMagicCritical())) {
-					magicDamage *= criticalCoefficient;
-				}
+		if (_calcType == PC_PC || _calcType == PC_NPC) { 
+			if (l1skills.getSkillLevel() <= 6 &&
+					_random.nextInt(100) + 1 <= BASE_CRIT_RATE +
+						_pc.getOriginalMagicCritical()) {
+				magicDamage *= CRITICAL_COEFFICIENT;
 			}
-		}
-		if (_calcType == PC_PC || _calcType == PC_NPC) { 
+
 			magicDamage += _pc.getOriginalMagicDamage();
-		}
-		if (_calcType == PC_PC || _calcType == PC_NPC) { 
+			
 			if (_pc.hasSkillEffect(ILLUSION_AVATAR)) {
 				magicDamage += 10;
 			}
@@ -825,20 +685,19 @@ public class L1Magic {
 		int value = l1skills.getDamageValue();
 		int magicDamage = 0;
 
-		int magicBonus = getMagicBonus();
+		int magicBonus = _attacker.getMagicBonus();
 		if (magicBonus > 10) {
 			magicBonus = 10;
 		}
 
-		Random random = new Random();
 		int diceCount = value + magicBonus;
 		for (int i = 0; i < diceCount; i++) {
-			magicDamage += (random.nextInt(dice) + 1);
+			magicDamage += (_random.nextInt(dice) + 1);
 		}
 
 		double alignmentRevision = 1.0;
-		if (getLawful() > 0) {
-			alignmentRevision += (getLawful() / 32768.0);
+		if (_attacker.getLawful() > 0) {
+			alignmentRevision += (_attacker.getLawful() / 32768.0);
 		}
 
 		magicDamage *= alignmentRevision;
@@ -847,7 +706,7 @@ public class L1Magic {
 	}
 
 	private int calcMrDefense(int dmg) {
-		int mr = getTargetMr();
+		int mr = _target.getMr();
 
 		double mrFloor = 0;
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
@@ -864,9 +723,7 @@ public class L1Magic {
 			}
 			dmg *= mrCoefficient;
 		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			Random random = new Random();
-			int rnd = random.nextInt(100) + 1;
-			if (mr >= rnd) {
+			if (mr >= _random.nextInt(100) + 1) {
 				dmg /= 2;
 			}
 		}
@@ -885,7 +742,6 @@ public class L1Magic {
 			} else if (attr == L1Skills.ATTR_WIND) {
 				resist = _targetPc.getWind();
 			}
-		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 		}
 		int resistFloor = (int) (0.32 * Math.abs(resist));
 		if (resist >= 0) {
@@ -918,26 +774,17 @@ public class L1Magic {
 			}
 		}
 
-		String msg0 = "";
+		String msg0 = _attacker.getName();
 		String msg1 = "to";
 		String msg2 = "";
-		String msg3 = "";
-		String msg4 = "";
+		String msg3 = damage + "currentHp";
+		String msg4 = _target.getName();
 
-		if (_calcType == PC_PC || _calcType == PC_NPC) {
-			msg0 = _pc.getName();
-		} else if (_calcType == NPC_PC) { 
-			msg0 = _npc.getName();
-		}
 		if (_calcType == NPC_PC || _calcType == PC_PC) { 
-			msg4 = _targetPc.getName();
 			msg2 = "THP" + _targetPc.getCurrentHp();
 		} else if (_calcType == PC_NPC) {
-			msg4 = _targetNpc.getName();
 			msg2 = "THp" + _targetNpc.getCurrentHp();
 		}
-
-		msg3 = damage + "currentHp";
 
 		if (_calcType == PC_PC || _calcType == PC_NPC) { 
 			_pc.sendPackets(new S_ServerMessage(166, msg0, msg1, msg2, msg3,
