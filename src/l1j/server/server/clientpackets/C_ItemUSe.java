@@ -42,7 +42,7 @@ import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.ResolventTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -109,7 +109,7 @@ import l1j.server.server.templates.L1EtcItem;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.L1SpawnUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
@@ -1235,8 +1235,8 @@ public class C_ItemUSe extends ClientBasePacket {
 									.createItem(40859 + blanksc_skillid);
 							if (spellsc != null) {
 								if (pc.getInventory().checkAddItem(spellsc, 1) == L1Inventory.OK) {
-									L1Skills l1skills = SkillsTable
-											.getInstance().getTemplate(
+									L1Skill l1skills = SkillTable
+											.getInstance().findBySkillId(
 													blanksc_skillid + 1); // blanksc_skillid0n
 									if (pc.getCurrentHp() + 1 < l1skills
 											.getHpConsume() + 1) {
@@ -4386,7 +4386,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l5 = 0;
 		int i6 = 0;
 		for (int skillId = 1; skillId < 81; skillId++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(skillId);
 			String s1 = "Spellbook(" + l1skills.getName() + ")";
 			if (item.getItem().getName().equalsIgnoreCase(s1)) {
 				int skillLevel = l1skills.getSkillLevel();
@@ -4502,7 +4502,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				: 231);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(objid, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(objid, i, s, 0, 0);
 		pc.getInventory().removeItem(item, 1);
 	}
 
@@ -4535,7 +4535,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l5 = 0;
 		int i6 = 0;
 		for (int j6 = 97; j6 < 112; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = "Dark Spirit Crystal(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
@@ -4648,7 +4648,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 231);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 
@@ -4680,7 +4680,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l5 = 0;
 		int i6 = 0;
 		for (int j6 = 129; j6 <= 176; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = "Spirit Crystal(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				if (!pc.isGm() && l1skills.getAttr() != 0
@@ -4802,7 +4802,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 
@@ -4835,7 +4835,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l5 = 0;
 		int i6 = 0;
 		for (int j6 = 87; j6 <= 91; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = (new StringBuilder()).append("TechnicalDocument(").append(
 					l1skills.getName()).append(")").toString();
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
@@ -4949,7 +4949,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 
@@ -4982,7 +4982,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l5 = 0;
 		int i6 = 0;
 		for (int j6 = 113; j6 < 121; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = "Spellbook(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
@@ -5095,7 +5095,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 	
@@ -5132,7 +5132,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int k8 = 0;
 		int l8 = 0;
 		for (int j6 = 181; j6 <= 195; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = "Dragon Tablet(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
@@ -5260,7 +5260,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 
@@ -5297,7 +5297,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int k8 = 0;
 		int l8 = 0;
 		for (int j6 = 201; j6 <= 220; j6++) {
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(j6);
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = "Memory Crystal(" + l1skills.getName() + ")";
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
@@ -5425,7 +5425,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
-		SkillsTable.getInstance().spellMastery(k6, i, s, 0, 0);
+		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
 	
@@ -5509,7 +5509,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				pc.sendPackets(new S_ServerMessage(966));
 			} else {
-				L1Skills skillTemp = SkillsTable.getInstance().getTemplate(
+				L1Skill skillTemp = SkillTable.getInstance().findBySkillId(
 						SHAPE_CHANGE);
 
 				L1PolyMorph.doPoly(pc, polyId, skillTemp.getBuffDuration(),
@@ -5528,7 +5528,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						&& npcId != 45464 && npcId != 45473 && npcId != 45488 // 
 						&& npcId != 45497 && npcId != 45516 && npcId != 45529 // 
 						&& npcId != 45458) { //
-					L1Skills skillTemp = SkillsTable.getInstance().getTemplate(
+					L1Skill skillTemp = SkillTable.getInstance().findBySkillId(
 							SHAPE_CHANGE);
 					L1PolyMorph.doPoly(mob, polyId,
 							skillTemp.getBuffDuration(),

@@ -18,8 +18,15 @@
  */
 package l1j.server.server.templates;
 
-public class L1Skills {
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import l1j.server.server.model.skill.executor.L1BuffSkillExecutor;
+import l1j.server.server.model.skill.executor.L1SkillExecutor;
+import l1j.server.server.utils.ReflectionUtil;
+import l1j.server.server.utils.StringUtil;
+
+public class L1Skill {
 	public static final int ATTR_NONE = 0;
 
 	public static final int ATTR_EARTH = 1;
@@ -62,14 +69,15 @@ public class L1Skills {
 
 	public static final int TARGET_TO_PLACE = 32;
 
+	private static final String DEFAULT_PACKAGE = "l1j.server.server.model.skill.executor";
+
 	private int _skillId;
+
+	private L1Skill() {
+	}
 
 	public int getSkillId() {
 		return _skillId;
-	}
-
-	public void setSkillId(int i) {
-		_skillId = i;
 	}
 
 	private String _name;
@@ -78,18 +86,10 @@ public class L1Skills {
 		return _name;
 	}
 
-	public void setName(String s) {
-		_name = s;
-	}
-
 	private int _skillLevel;
 
 	public int getSkillLevel() {
 		return _skillLevel;
-	}
-
-	public void setSkillLevel(int i) {
-		_skillLevel = i;
 	}
 
 	private int _skillNumber;
@@ -98,18 +98,10 @@ public class L1Skills {
 		return _skillNumber;
 	}
 
-	public void setSkillNumber(int i) {
-		_skillNumber = i;
-	}
-
 	private int _mpConsume;
 
 	public int getMpConsume() {
 		return _mpConsume;
-	}
-
-	public void setMpConsume(int i) {
-		_mpConsume = i;
 	}
 
 	private int _hpConsume;
@@ -118,18 +110,10 @@ public class L1Skills {
 		return _hpConsume;
 	}
 
-	public void setHpConsume(int i) {
-		_hpConsume = i;
-	}
-
 	private int _itmeConsumeId;
 
 	public int getItemConsumeId() {
 		return _itmeConsumeId;
-	}
-
-	public void setItemConsumeId(int i) {
-		_itmeConsumeId = i;
 	}
 
 	private int _itmeConsumeCount;
@@ -138,28 +122,16 @@ public class L1Skills {
 		return _itmeConsumeCount;
 	}
 
-	public void setItemConsumeCount(int i) {
-		_itmeConsumeCount = i;
-	}
-
-	private int _reuseDelay; 
+	private int _reuseDelay; // 単位：ミリ秒
 
 	public int getReuseDelay() {
 		return _reuseDelay;
 	}
 
-	public void setReuseDelay(int i) {
-		_reuseDelay = i;
-	}
-
-	private int _buffDuration; 
+	private int _buffDuration; // 単位：秒
 
 	public int getBuffDuration() {
 		return _buffDuration;
-	}
-
-	public void setBuffDuration(int i) {
-		_buffDuration = i;
 	}
 
 	private String _target;
@@ -168,28 +140,16 @@ public class L1Skills {
 		return _target;
 	}
 
-	public void setTarget(String s) {
-		_target = s;
-	}
-
-	private int _targetTo; 
+	private int _targetTo; // 対象 0:自分 1:PC 2:NPC 4:血盟 8:パーティ 16:ペット 32:場所
 
 	public int getTargetTo() {
 		return _targetTo;
 	}
 
-	public void setTargetTo(int i) {
-		_targetTo = i;
-	}
+	private double _damageValue;
 
-	private int _damageValue;
-
-	public int getDamageValue() {
+	public double getDamageValue() {
 		return _damageValue;
-	}
-
-	public void setDamageValue(int i) {
-		_damageValue = i;
 	}
 
 	private int _damageDice;
@@ -198,18 +158,10 @@ public class L1Skills {
 		return _damageDice;
 	}
 
-	public void setDamageDice(int i) {
-		_damageDice = i;
-	}
-
 	private int _damageDiceCount;
 
 	public int getDamageDiceCount() {
 		return _damageDiceCount;
-	}
-
-	public void setDamageDiceCount(int i) {
-		_damageDiceCount = i;
 	}
 
 	private int _probabilityValue;
@@ -218,38 +170,30 @@ public class L1Skills {
 		return _probabilityValue;
 	}
 
-	public void setProbabilityValue(int i) {
-		_probabilityValue = i;
-	}
-
 	private int _probabilityDice;
 
 	public int getProbabilityDice() {
 		return _probabilityDice;
 	}
 
-	public void setProbabilityDice(int i) {
-		_probabilityDice = i;
-	}
-
 	private int _attr;
 
+	/**
+	 * スキルの属性を返す。<br>
+	 * 0.無属性魔法,1.地魔法,2.火魔法,4.水魔法,8.風魔法,16.光魔法
+	 */
 	public int getAttr() {
 		return _attr;
 	}
 
-	public void setAttr(int i) {
-		_attr = i;
-	}
+	private int _type; // タイプ
 
-	private int _type; 
-
+	/**
+	 * スキルの作用の種類を返す。<br>
+	 * 1.確率系,2.エンチャント,4.呪い,8.死,16.治療,32.復活,64.攻撃,128.その他特殊
+	 */
 	public int getType() {
 		return _type;
-	}
-
-	public void setType(int i) {
-		_type = i;
 	}
 
 	private int _lawful;
@@ -258,18 +202,10 @@ public class L1Skills {
 		return _lawful;
 	}
 
-	public void setLawful(int i) {
-		_lawful = i;
-	}
-
 	private int _ranged;
 
 	public int getRanged() {
 		return _ranged;
-	}
-
-	public void setRanged(int i) {
-		_ranged = i;
 	}
 
 	private int _area;
@@ -278,18 +214,10 @@ public class L1Skills {
 		return _area;
 	}
 
-	public void setArea(int i) {
-		_area = i;
-	}
-
 	boolean _isThrough;
 
 	public boolean isThrough() {
 		return _isThrough;
-	}
-
-	public void setThrough(boolean flag) {
-		_isThrough = flag;
 	}
 
 	private int _id;
@@ -298,18 +226,10 @@ public class L1Skills {
 		return _id;
 	}
 
-	public void setId(int i) {
-		_id = i;
-	}
-
 	private String _nameId;
 
 	public String getNameId() {
 		return _nameId;
-	}
-
-	public void setNameId(String s) {
-		_nameId = s;
 	}
 
 	private int _actionId;
@@ -318,18 +238,10 @@ public class L1Skills {
 		return _actionId;
 	}
 
-	public void setActionId(int i) {
-		_actionId = i;
-	}
-
 	private int _castGfx;
 
 	public int getCastGfx() {
 		return _castGfx;
-	}
-
-	public void setCastGfx(int i) {
-		_castGfx = i;
 	}
 
 	private int _castGfx2;
@@ -338,19 +250,10 @@ public class L1Skills {
 		return _castGfx2;
 	}
 
-	public void setCastGfx2(int i) {
-		_castGfx2 = i;
-	}
-
-
 	private int _sysmsgIdHappen;
 
 	public int getSysmsgIdHappen() {
 		return _sysmsgIdHappen;
-	}
-
-	public void setSysmsgIdHappen(int i) {
-		_sysmsgIdHappen = i;
 	}
 
 	private int _sysmsgIdStop;
@@ -359,18 +262,94 @@ public class L1Skills {
 		return _sysmsgIdStop;
 	}
 
-	public void setSysmsgIdStop(int i) {
-		_sysmsgIdStop = i;
-	}
-
 	private int _sysmsgIdFail;
 
 	public int getSysmsgIdFail() {
 		return _sysmsgIdFail;
 	}
 
-	public void setSysmsgIdFail(int i) {
-		_sysmsgIdFail = i;
+	private boolean _canCastWithInvis;
+
+	public boolean canCastWithInvis() {
+		return _canCastWithInvis;
 	}
 
+	private boolean _ignoresCounterMagic;
+
+	public boolean ignoresCounterMagic() {
+		return _ignoresCounterMagic;
+	}
+
+	private boolean _isBuff;
+
+	public boolean isBuff() {
+		return _isBuff;
+	}
+
+	private String _impl;
+
+	public String getImpl() {
+		return _impl;
+	}
+
+	public static L1Skill fromResultSet(ResultSet rs) throws SQLException {
+		L1Skill skill = new L1Skill();
+		int skillId = rs.getInt("skill_id");
+		skill._skillId = skillId;
+		skill._name = rs.getString("name");
+		skill._skillLevel = rs.getInt("skill_level");
+		skill._skillNumber = rs.getInt("skill_number");
+		skill._mpConsume = rs.getInt("mpConsume");
+		skill._hpConsume = rs.getInt("hpConsume");
+		skill._itmeConsumeId = rs.getInt("itemConsumeId");
+		skill._itmeConsumeCount = rs.getInt("itemConsumeCount");
+		skill._reuseDelay = rs.getInt("reuseDelay");
+		skill._buffDuration = rs.getInt("buffDuration");
+		skill._target = rs.getString("target");
+		skill._targetTo = rs.getInt("target_to");
+		skill._damageValue = rs.getDouble("damage_value");
+		skill._damageDice = rs.getInt("damage_dice");
+		skill._damageDiceCount = rs.getInt("damage_dice_count");
+		skill._probabilityValue = rs.getInt("probability_value");
+		skill._probabilityDice = rs.getInt("probability_dice");
+		skill._attr = rs.getInt("attr");
+		skill._type = rs.getInt("type");
+		skill._lawful = rs.getInt("lawful");
+		skill._ranged = rs.getInt("ranged");
+		skill._area = rs.getInt("area");
+		skill._isThrough = rs.getBoolean("through");
+		skill._id = rs.getInt("id");
+		skill._nameId = rs.getString("nameid");
+		skill._actionId = rs.getInt("action_id");
+		skill._castGfx = rs.getInt("castgfx");
+		skill._castGfx2 = rs.getInt("castgfx2");
+		skill._sysmsgIdHappen = rs.getInt("sysmsgID_happen");
+		skill._sysmsgIdStop = rs.getInt("sysmsgID_stop");
+		skill._sysmsgIdFail = rs.getInt("sysmsgID_fail");
+		skill._canCastWithInvis = rs.getBoolean("can_cast_with_invis");
+		skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
+		skill._isBuff = rs.getBoolean("is_buff");
+		skill._impl = rs.getString("impl");
+
+		return skill;
+	}
+
+	public L1SkillExecutor newExecutor() {
+		if (_impl == null) {
+			return null;
+		}
+		String fullName = StringUtil
+				.complementClassName(_impl, DEFAULT_PACKAGE);
+		L1SkillExecutor exe = ReflectionUtil.newInstance(fullName);
+		exe.initialize(this);
+		return exe;
+	}
+
+	public L1BuffSkillExecutor newBuffSkillExecutor() {
+		L1SkillExecutor exe = newExecutor();
+		if (!(exe instanceof L1BuffSkillExecutor)) {
+			return null;
+		}
+		return (L1BuffSkillExecutor) exe;
+	}
 }

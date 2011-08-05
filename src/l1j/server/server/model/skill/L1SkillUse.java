@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.configure.Config;
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PolyTable;
@@ -41,6 +41,7 @@ import l1j.server.server.model.L1EffectSpawn;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1PcInventory;
 import l1j.server.server.model.L1PinkName;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1Teleport;
@@ -66,7 +67,6 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.Instance.L1TeleporterInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
-import l1j.server.server.model.inventory.L1PcInventory;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.random.RandomGenerator;
@@ -1646,7 +1646,7 @@ public class L1SkillUse {
 				|| _skillId == SMASH
 				|| _skillId == ARM_BREAKER
 				&& _user instanceof L1PcInstance) {
-			_target.onAction(_player, _skillId);
+			_target.onAction(_player);
 		}
 
 		if (!isTargetCalc(_target)) {
@@ -1997,40 +1997,6 @@ public class L1SkillUse {
 							.sendPackets(new S_SkillSound(_player.getId(), 4394));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
 							4394));
-				} else if (_skillId == FOE_SLAYER) { // フォースレイヤー
-					_player.setFoeSlayer(true);
-					for (int i = 3; i > 0; i--) {
-						_target.onAction(_player);
-					}
-					_player.setFoeSlayer(false);
-
-					_player
-							.sendPackets(new S_SkillSound(_target.getId(), 6509));
-					_player
-							.sendPackets(new S_SkillSound(_player.getId(), 7020));
-					_player.broadcastPacket(new S_SkillSound(_target.getId(),
-							6509));
-					_player.broadcastPacket(new S_SkillSound(_player.getId(),
-							7020));
-
-					if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
-						_player
-								.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
-						_player.removeSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
-					} else if (_player
-							.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
-						_player
-								.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
-						_player.removeSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
-					} else if (_player
-							.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
-						_player
-								.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV3);
-						_player.removeSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
-					}
 
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) { // 安息攻撃
@@ -3227,7 +3193,7 @@ public class L1SkillUse {
 
 				if (cha instanceof L1PcInstance) { // ターゲットがPCならば、ACとステータスを送信
 					L1PcInstance pc = (L1PcInstance) cha;
-					pc.updateLight();
+					//pc.updateLight();
 					pc.sendPackets(new S_OwnCharAttrDef(pc));
 					pc.sendPackets(new S_OwnCharStatus(pc));
 					sendHappenMessage(pc); // ターゲットにメッセージを送信
@@ -3237,7 +3203,7 @@ public class L1SkillUse {
 
 				if (cha instanceof L1PcInstance) { // ターゲットがPCならば、ライト状態を更新
 					L1PcInstance pc = (L1PcInstance) cha;
-					pc.updateLight();
+					//pc.updateLight();
 				}
 			}
 
