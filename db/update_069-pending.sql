@@ -9,3 +9,7 @@
 -- add Dwarf Adelio
 
 INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
+
+-- make ebind two cell ranged
+
+UPDATE skills SET ranged = 2 where skill_id = 157;
