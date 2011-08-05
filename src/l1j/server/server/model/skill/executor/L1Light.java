@@ -7,14 +7,14 @@ public class L1Light extends L1BuffSkillExecutorImpl {
 	public void addEffect(L1Character user, L1Character target,
 			int durationSeconds) {
 		if (!target.isInvisble()) {
-			target.updateLight();
+			//target.updateLight();
 		}
 	}
 
 	@Override
 	public void removeEffect(L1Character target) {
 		if (!target.isInvisble()) {
-			target.updateLight();
+			//target.updateLight();
 		}
 	}
 }

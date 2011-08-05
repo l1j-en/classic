@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.MobSkillTable;
 import l1j.server.server.datatables.NpcTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.Instance.L1MonsterInstance;
@@ -45,7 +45,7 @@ import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1MobSkill;
 import l1j.server.server.templates.L1Npc;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 
 public class L1MobSkillUse {
 	private static Logger _log = Logger
@@ -253,7 +253,7 @@ public class L1MobSkillUse {
 			skillUse.handleCommands(null, skillid, _target.getId(), _target
 					.getX(), _target.getX(), null, 0, L1SkillUse.TYPE_NORMAL,
 					_attacker);
-			L1Skills skill = SkillsTable.getInstance().getTemplate(skillid);
+			L1Skill skill = SkillTable.getInstance().findBySkillId(skillid);
 			if (skill.getTarget().equals("attack") && skillid != 18) { 
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
 			} else {

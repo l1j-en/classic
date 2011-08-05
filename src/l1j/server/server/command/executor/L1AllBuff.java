@@ -23,7 +23,7 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,7 +31,7 @@ import l1j.server.server.model.skill.L1BuffUtil;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 
 public class L1AllBuff implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1AllBuff.class.getName());
@@ -66,7 +66,7 @@ public class L1AllBuff implements L1CommandExecutor {
 			L1BuffUtil.brave(target, 3600 * 1000);
 			L1PolyMorph.doPoly(target, 5641, 7200, L1PolyMorph.MORPH_BY_GM);
 			for (int i = 0; i < allBuffSkill.length; i++) {
-				L1Skills skill = SkillsTable.getInstance().getTemplate(
+				L1Skill skill = SkillTable.getInstance().findBySkillId(
 						allBuffSkill[i]);
 				new L1SkillUse().handleCommands(target, allBuffSkill[i], target
 						.getId(), target.getX(), target.getY(), null, skill

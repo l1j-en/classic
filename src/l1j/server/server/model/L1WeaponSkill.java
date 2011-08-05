@@ -22,7 +22,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.datatables.WeaponSkillTable;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -38,7 +38,7 @@ import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
@@ -148,7 +148,7 @@ public class L1WeaponSkill {
 
 		int skillId = weaponSkill.getSkillId();
 		if (skillId != 0) {
-			L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
+			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 			if (skill != null && skill.getTarget().equals("buff")) {
 				if (!isFreeze(cha)) { //
 					cha.setSkillEffect(skillId, weaponSkill
@@ -265,7 +265,7 @@ public class L1WeaponSkill {
 			pc.sendPackets(packet);
 			pc.broadcastPacket(packet);
 		}
-		return calcDamageReduction(pc, cha, dmg, L1Skills.ATTR_EARTH);
+		return calcDamageReduction(pc, cha, dmg, L1Skill.ATTR_EARTH);
 	}
 
 	public static double getDiceDaggerDamage(L1PcInstance pc,
@@ -340,10 +340,10 @@ public class L1WeaponSkill {
 		int chance = _random.nextInt(100) + 1;
 		if (weaponId == 263) {
 			probability = 5;
-			attr = L1Skills.ATTR_WATER;
+			attr = L1Skill.ATTR_WATER;
 		} else if (weaponId == 260) {
 			probability = 4;
-			attr = L1Skills.ATTR_WIND;
+			attr = L1Skill.ATTR_WIND;
 		}
 		if (probability >= chance) {
 			int sp = pc.getSp();
@@ -447,7 +447,7 @@ public class L1WeaponSkill {
 			pc.sendPackets(new S_SkillSound(cha.getId(), 10));
 			pc.broadcastPacket(new S_SkillSound(cha.getId(), 10));
 		}
-		return calcDamageReduction(pc, cha, dmg, L1Skills.ATTR_WIND);
+		return calcDamageReduction(pc, cha, dmg, L1Skill.ATTR_WIND);
 	}
 
 	public static void giveArkMageDiseaseEffect(L1PcInstance pc,
@@ -516,13 +516,13 @@ public class L1WeaponSkill {
 
 
 		int resist = 0;
-		if (attr == L1Skills.ATTR_EARTH) {
+		if (attr == L1Skill.ATTR_EARTH) {
 			resist = cha.getEarth();
-		} else if (attr == L1Skills.ATTR_FIRE) {
+		} else if (attr == L1Skill.ATTR_FIRE) {
 			resist = cha.getFire();
-		} else if (attr == L1Skills.ATTR_WATER) {
+		} else if (attr == L1Skill.ATTR_WATER) {
 			resist = cha.getWater();
-		} else if (attr == L1Skills.ATTR_WIND) {
+		} else if (attr == L1Skill.ATTR_WIND) {
 			resist = cha.getWind();
 		}
 		int resistFloor = (int) (0.32 * Math.abs(resist));
@@ -560,7 +560,7 @@ public class L1WeaponSkill {
 		// 
 		if (cha.hasSkillEffect(COUNTER_MAGIC)) {
 			cha.removeSkillEffect(COUNTER_MAGIC);
-			int castgfx = SkillsTable.getInstance().getTemplate(
+			int castgfx = SkillTable.getInstance().findBySkillId(
 					COUNTER_MAGIC).getCastGfx();
 			cha.broadcastPacket(new S_SkillSound(cha.getId(), castgfx));
 			if (cha instanceof L1PcInstance) {

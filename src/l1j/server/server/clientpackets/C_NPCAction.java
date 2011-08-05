@@ -35,7 +35,7 @@ import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcActionTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PolyTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.datatables.TownTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1PolyRace;
@@ -101,7 +101,7 @@ import l1j.server.server.templates.L1Castle;
 import l1j.server.server.templates.L1House;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import l1j.server.server.templates.L1Town;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
@@ -615,11 +615,11 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 				for (int cnt = 129; cnt <= 176; cnt++)
 				{
-					L1Skills l1skills1 = SkillsTable.getInstance().getTemplate(cnt);
+					L1Skill l1skills1 = SkillTable.getInstance().findBySkillId(cnt);
 					int skill_attr = l1skills1.getAttr();
 					if (skill_attr != 0) 
 					{
-						SkillsTable.getInstance().spellLost(pc.getId(), l1skills1.getSkillId());
+						SkillTable.getInstance().spellLost(pc.getId(), l1skills1.getSkillId());
 					}
 				}
 				if (pc.hasSkillEffect(ELEMENTAL_PROTECTION)) {
