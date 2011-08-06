@@ -53,11 +53,17 @@ public class L1Magic {
 
 	private final L1Character _attacker;
 	private final L1Character _target;
+	private static final int[] PREVENT_DAMAGE = { ABSOLUTE_BARRIER, ICE_LANCE,
+		FREEZING_BLIZZARD, FREEZING_BREATH, EARTH_BIND };
 
+	// Candidates for configuration options.
 	private static final int MAX_PROBABILITY = 90;
 	private static final int INT_ADJUSTMENT = 12;
 	private static final int BASE_CRIT_RATE = 10;
-	private static final double CRITICAL_COEFFICIENT = 1.5;
+	private static final double CRIT_MULTIPLIER = 1.5;
+	private static final int CRIT_LEVEL_LIMIT = 6;
+	// TODO: determine what this should be - one player suggested live is 1.2.
+	private static final double ELEMENTAL_WEAKNESS_MULTIPLIER = 1;
 
 	public void setLeverage(int i) {
 		_leverage = i;
@@ -89,7 +95,6 @@ public class L1Magic {
 				_targetNpc = (L1NpcInstance) target;
 			}
 		}
-
 		_attacker = attacker;
 		_target = target;
 	}
@@ -101,57 +106,8 @@ public class L1Magic {
 		if (_pc != null && _pc.isGm()) {
 			return true;
 		}
-
-		if (_calcType == PC_NPC && _targetNpc != null) {
-			int npcId = _targetNpc.getNpcTemplate().get_npcId();
-			if (npcId >= 45912 && npcId <= 45915
-					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
-				return false;
-			}
-			if (npcId == 45916 
-					&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-				return false;
-			}
-			if (npcId == 45941 
-					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-				return false;
-			}
-			if (npcId == 45752 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-				return false;
-			}
-			if (npcId == 45753 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-				return false;
-			}
-			if (npcId == 45675 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				return false;
-			}
-			if (npcId == 81082 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				return false;
-			}
-			if (npcId == 45625 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				return false;
-			}
-			if (npcId == 45674 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				return false;
-			}
-			if (npcId == 45685 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				return false;
-			}
-			if (npcId >= 46068 && npcId <= 46091 // 
-					&& _pc.getTempCharGfx() == 6035) {
-				return false;
-			}
-			if (npcId >= 46092 && npcId <= 46106 // e_amob
-					&& _pc.getTempCharGfx() == 6034) {
-				return false;
-			}
+		if (isMissingSkillEffect()) {
+			return false;
 		}
  		if (!checkZone(skillId)) {
 			return false;
@@ -345,33 +301,30 @@ public class L1Magic {
 			}
 		}
 
-
-		if (skillId == EARTH_BIND) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= _targetPc.getRegistSustain();
-			}
-		} else if (skillId == SHOCK_STUN) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= 2 * _targetPc.getRegistStun();
-			}
-		} else if (skillId == CURSE_PARALYZE) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= _targetPc.getRegistStone();
-			}
-		} else if (skillId == FOG_OF_SLEEPING) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= _targetPc.getRegistSleep();
-			}
-		} else if (skillId == ICE_LANCE
-				|| skillId == FREEZING_BLIZZARD
-				|| skillId == FREEZING_BREATH) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= _targetPc.getRegistFreeze();
-			}
-		} else if (skillId == CURSE_BLIND
-				|| skillId == DARKNESS || skillId == DARK_BLIND) {
-			if (_calcType == PC_PC || _calcType == NPC_PC) {
-				probability -= _targetPc.getRegistBlind();
+		if (_calcType == PC_PC || _calcType == NPC_PC) {
+			switch(skillId) {
+				case EARTH_BIND:
+					probability -= _target.getRegistSustain();
+					break;
+				case SHOCK_STUN:
+					probability -= 2 * _target.getRegistStun();
+					break;
+				case CURSE_PARALYZE:
+					probability -= _target.getRegistStone();
+					break;
+				case FOG_OF_SLEEPING:
+					probability -= _target.getRegistSleep();
+					break;
+				case ICE_LANCE:
+				case FREEZING_BLIZZARD:
+				case FREEZING_BREATH:
+					probability -= _target.getRegistFreeze();
+					break;
+				case CURSE_BLIND:
+				case DARKNESS:
+				case DARK_BLIND:
+					probability -= _target.getRegistBlind();
+					break;
 			}
 		}
 		return probability;
@@ -384,35 +337,21 @@ public class L1Magic {
 		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 			damage = calcNpcMagicDamage(skillId);
 		}
-		damage = calcMrDefense(damage);
-		return damage;
+		return calcMrDefense(damage);
 	}
 
 	public int calcFireWallDamage() {
-		int dmg = 0;
 		double attrDeffence = calcAttrResistance(L1Skills.ATTR_FIRE);
-		L1Skills l1skills = SkillsTable.getInstance().getTemplate(FIRE_WALL);
-		dmg = (int) ((1.0 - attrDeffence) * l1skills.getDamageValue());
+		L1Skills firewall = SkillsTable.getInstance().getTemplate(FIRE_WALL);
+		int damage = (int) ((1.0 - attrDeffence) * firewall.getDamageValue());
 
-		if (_target.hasSkillEffect(ABSOLUTE_BARRIER)) {
-			dmg = 0;
+		for (int skill : PREVENT_DAMAGE) {
+			if (_target.hasSkillEffect(skill)) {
+				damage = 0;
+				break;
+			}
 		}
-		if (_target.hasSkillEffect(ICE_LANCE)) {
-			dmg = 0;
-		}
-		if (_target.hasSkillEffect(FREEZING_BLIZZARD)) {
-			dmg = 0;
-		}
-		if (_target.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_target.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
-		}
-		if (dmg < 0) {
-			dmg = 0;
-		}
-		return dmg;
+		return damage < 0 ? 0 : damage;
 	}
 
 	private int calcPcMagicDamage(int skillId) {
@@ -491,20 +430,11 @@ public class L1Magic {
 		if (_targetPc.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2;
 		}
-		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
+		for (int skill : PREVENT_DAMAGE) {
+			if (_target.hasSkillEffect(skill)) {
+				dmg = 0;
+				break;
+			}
 		}
 		if (_targetPc.hasSkillEffect(COUNTER_MIRROR)) {
 			if (_calcType == PC_PC) {
@@ -540,6 +470,48 @@ public class L1Magic {
 		return dmg;
 	}
 
+	/**
+	 * Whether or not the attacker (still) needs a buff to affect the
+	 * target. Only arises in pve situations, e.g. attacking Chaos.
+	 * TODO: find a better name.
+	 */
+	private boolean isMissingSkillEffect() {
+		if (_calcType == PC_NPC && _targetNpc != null) {
+			int npcId = _targetNpc.getNpcTemplate().get_npcId();
+			switch (npcId) {
+				case 45912: case 45913: case 45914: case 45915:
+					return !_pc.hasSkillEffect(STATUS_HOLY_WATER);
+				case 45916:
+					return !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
+				case 45941:
+					return !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA);
+				case 45752:
+					return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
+				case 45753:
+					return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
+				case 45675: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+				case 81082: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+				case 45625: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+				case 45674: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+				case 45685: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+			}
+			if (npcId >= 46068 && npcId <= 46091
+					&& _pc.getTempCharGfx() == 6035) {
+				return true;
+			}
+			if (npcId >= 46092 && npcId <= 46106
+					&& _pc.getTempCharGfx() == 6034) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private int calcNpcMagicDamage(int skillId) {
 		int dmg = skillId == FINAL_BURN
 			? _attacker.getCurrentMp()
@@ -563,77 +535,25 @@ public class L1Magic {
 				}
 			}
 		}
-		if (_targetNpc.hasSkillEffect(ICE_LANCE)) {
-			dmg = 0;
+		// TODO: introduced a bug if npcs had a legit way to get Absolute
+		// Barrier cast on them and PCs are supposed to hit through it.
+		for (int skill : PREVENT_DAMAGE) {
+			if (_target.hasSkillEffect(skill)) {
+				dmg = 0;
+				break;
+			}
 		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BLIZZARD)) {
+		if (isMissingSkillEffect()) {
 			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
-		}
-		if (_calcType == PC_NPC && _targetNpc != null) {
-			int npcId = _targetNpc.getNpcTemplate().get_npcId();
-			if (npcId >= 45912 && npcId <= 45915 //
-					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
-				dmg = 0;
-			}
-			if (npcId == 45916 //
-					&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-				dmg = 0;
-			}
-			if (npcId == 45941 //
-					&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-				dmg = 0;
-			}
-			if (npcId == 45752 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-				dmg = 0;
-			}
-			if (npcId == 45753 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-				dmg = 0;
-			}
-			if (npcId == 45675 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				dmg = 0;
-			}
-			if (npcId == 81082 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				dmg = 0;
-			}
-			if (npcId == 45625 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				dmg = 0;
-			}
-			if (npcId == 45674 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				dmg = 0;
-			}
-			if (npcId == 45685 // 
-					&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-				dmg = 0;
-			}
-			if (npcId >= 46068 && npcId <= 46091 // 
-					&& _pc.getTempCharGfx() == 6035) {
-				dmg = 0;
-			}
-			if (npcId >= 46092 && npcId <= 46106 // 
-					&& _pc.getTempCharGfx() == 6034) {
-				dmg = 0;
-			}
 		}
 		return dmg;
 	}
 
 	private int calcMagicDiceDamage(int skillId) {
-		L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
-		int dice = l1skills.getDamageDice();
-		int diceCount = l1skills.getDamageDiceCount();
-		int value = l1skills.getDamageValue();
+		L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
+		int dice = skill.getDamageDice();
+		int diceCount = skill.getDamageDiceCount();
+		int value = skill.getDamageValue();
 		int magicDamage = 0;
 		int charaIntelligence = 0;
 
@@ -655,7 +575,7 @@ public class L1Magic {
 		if (charaIntelligence < 1) {
 			charaIntelligence = 1;
 		}
-		double attrDeffence = calcAttrResistance(l1skills.getAttr());
+		double attrDeffence = calcAttrResistance(skill.getAttr());
 		double coefficient = (1.0 - attrDeffence + charaIntelligence * 3.0 / 32.0);
 		if (coefficient < 0) {
 			coefficient = 0;
@@ -663,11 +583,20 @@ public class L1Magic {
 
 		magicDamage *= coefficient;
 
+		// TODO: determine proper place (order of operations-wise) for this.
+		if (_calcType == PC_NPC) {
+			int weakness = _targetNpc.getNpcTemplate().get_weakAttr();
+			int element = skill.getAttr();
+			if (element != L1Skills.ATTR_NONE && weakness == element) {
+				magicDamage *= ELEMENTAL_WEAKNESS_MULTIPLIER;
+			}
+		}
+
 		if (_calcType == PC_PC || _calcType == PC_NPC) { 
-			if (l1skills.getSkillLevel() <= 6 &&
+			if (skill.getSkillLevel() <= CRIT_LEVEL_LIMIT &&
 					_random.nextInt(100) + 1 <= BASE_CRIT_RATE +
 						_pc.getOriginalMagicCritical()) {
-				magicDamage *= CRITICAL_COEFFICIENT;
+				magicDamage *= CRIT_MULTIPLIER;
 			}
 
 			magicDamage += _pc.getOriginalMagicDamage();
