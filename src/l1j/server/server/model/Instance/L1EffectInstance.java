@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.WarTimeController;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Cube;
@@ -214,7 +214,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToAlly(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx = SkillsTable.getInstance().getTemplate(getSkillId())
+		int castGfx = SkillTable.getInstance().findBySkillId(getSkillId())
 				.getCastGfx();
 		L1PcInstance pc = null;
 
@@ -267,7 +267,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToEnemy(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx2 = SkillsTable.getInstance().getTemplate(getSkillId())
+		int castGfx2 = SkillTable.getInstance().findBySkillId(getSkillId())
 				.getCastGfx2();
 		L1PcInstance pc = null;
 		if (npcId == 80149) { 

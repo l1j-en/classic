@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -34,7 +34,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Magic {
@@ -202,7 +202,7 @@ public class L1Magic {
 	}
 
 	private int calcProbability(int skillId) {
-		L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
+		L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 		
 		int defenseLevel = _target.getLevel();
 		if (skillId == RETURN_TO_NATURE) {
@@ -341,9 +341,11 @@ public class L1Magic {
 	}
 
 	public int calcFireWallDamage() {
-		double attrDeffence = calcAttrResistance(L1Skills.ATTR_FIRE);
-		L1Skills firewall = SkillsTable.getInstance().getTemplate(FIRE_WALL);
+
+		double attrDeffence = calcAttrResistance(L1Skill.ATTR_FIRE);
+		L1Skill firewall = SkillTable.getInstance().findBySkillId(FIRE_WALL);
 		int damage = (int) ((1.0 - attrDeffence) * firewall.getDamageValue());
+
 
 		for (int skill : PREVENT_DAMAGE) {
 			if (_target.hasSkillEffect(skill)) {
@@ -550,10 +552,12 @@ public class L1Magic {
 	}
 
 	private int calcMagicDiceDamage(int skillId) {
-		L1Skills skill = SkillsTable.getInstance().getTemplate(skillId);
+
+		L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 		int dice = skill.getDamageDice();
 		int diceCount = skill.getDamageDiceCount();
-		int value = skill.getDamageValue();
+		int value = (int) skill.getDamageValue();
+
 		int magicDamage = 0;
 		int charaIntelligence = 0;
 
@@ -587,7 +591,7 @@ public class L1Magic {
 		if (_calcType == PC_NPC) {
 			int weakness = _targetNpc.getNpcTemplate().get_weakAttr();
 			int element = skill.getAttr();
-			if (element != L1Skills.ATTR_NONE && weakness == element) {
+			if (element != L1Skill.ATTR_NONE && weakness == element) {
 				magicDamage *= ELEMENTAL_WEAKNESS_MULTIPLIER;
 			}
 		}
@@ -609,9 +613,9 @@ public class L1Magic {
 	}
 
 	public int calcHealing(int skillId) {
-		L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
+		L1Skill l1skills = SkillTable.getInstance().findBySkillId(skillId);
 		int dice = l1skills.getDamageDice();
-		int value = l1skills.getDamageValue();
+		int value = (int)l1skills.getDamageValue();
 		int magicDamage = 0;
 
 		int magicBonus = _attacker.getMagicBonus();
@@ -662,13 +666,13 @@ public class L1Magic {
 	private double calcAttrResistance(int attr) {
 		int resist = 0;
 		if (_calcType == PC_PC || _calcType == NPC_PC) {
-			if (attr == L1Skills.ATTR_EARTH) {
+			if (attr == L1Skill.ATTR_EARTH) {
 				resist = _targetPc.getEarth();
-			} else if (attr == L1Skills.ATTR_FIRE) {
+			} else if (attr == L1Skill.ATTR_FIRE) {
 				resist = _targetPc.getFire();
-			} else if (attr == L1Skills.ATTR_WATER) {
+			} else if (attr == L1Skill.ATTR_WATER) {
 				resist = _targetPc.getWater();
-			} else if (attr == L1Skills.ATTR_WIND) {
+			} else if (attr == L1Skill.ATTR_WIND) {
 				resist = _targetPc.getWind();
 			}
 		}

@@ -18,6 +18,8 @@
  */
 package l1j.server.server;
 
+import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
@@ -25,14 +27,13 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());
@@ -89,7 +90,7 @@ public class PCommands {
 			}
 			if(_player.getLevel() >= 45){
 				for (int a = 0; a <= 2; a++){
-					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
+					L1Skill skill = SkillTable.getInstance().findBySkillId(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
 					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
@@ -97,7 +98,7 @@ public class PCommands {
 			}
 			else if (_player.getLevel() >= 50){
 				for (int a = 0; a <= 5; a++){
-					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
+					L1Skill skill = SkillTable.getInstance().findBySkillId(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
 					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
@@ -105,7 +106,7 @@ public class PCommands {
 			}
 			else if (_player.getLevel() >= 55){
 				for (int a = 0; a <= 7; a++){
-					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
+					L1Skill skill = SkillTable.getInstance().findBySkillId(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
 					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
@@ -113,7 +114,7 @@ public class PCommands {
 			}
 			else if (_player.getLevel() >= 60){
 				for (int a = 0; a <= 8; a++){
-					L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
+					L1Skill skill = SkillTable.getInstance().findBySkillId(skillZ[a]);
 					if (skill.getTarget().equals("buff")) {
 					new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 					}
@@ -129,7 +130,7 @@ public class PCommands {
 		int time = 0;
 		if (Config.POWER_BUFF == true && Config.PLAYER_COMMANDS == true){
 			for (int a = 0; a <= 14; a++){
-				L1Skills skill = SkillsTable.getInstance().getTemplate(skillZ[a]);
+				L1Skill skill = SkillTable.getInstance().findBySkillId(skillZ[a]);
 				if (skill.getTarget().equals("buff")) {
 				new L1SkillUse().handleCommands(_player, skillZ[a], _player.getId(), _player.getX(), _player.getY(), null, time, L1SkillUse.TYPE_SPELLSC);
 				}

@@ -16,10 +16,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server.model.skill;
+ package l1j.server.server.model.skill;
 
 public class L1SkillId {
 	public static final int SKILLS_BEGIN = 1;
+
 	/*
 	 * Regular Magic Lv1-10
 	 */
@@ -206,9 +207,9 @@ public class L1SkillId {
 
 	public static final int SHADOW_ARMOR = 99;
 
-	public static final int BRING_STONE = 100; // E: PURIFY_STONE
+	public static final int BRING_STONE = 100;
 
-	public static final int MOVING_ACCELERATION = 101;
+	public static final int MOVING_ACCELERATION = 101; // E: PURIFY_STONE
 
 	public static final int BURNING_SPIRIT = 102;
 
@@ -255,7 +256,7 @@ public class L1SkillId {
 
 	public static final int BODY_TO_MIND = 130;
 
-	public static final int TELEPORT_TO_MOTHER = 131;
+	public static final int TELEPORT_TO_MATHER = 131;
 
 	public static final int TRIPLE_ARROW = 132;
 
@@ -413,6 +414,7 @@ public class L1SkillId {
 
 	public static final int SKILLS_END = 220;
 
+	public static final int MASS_SHOCK_STUN = 500; // 範囲スタン
 	/*
 	 * Status
 	 */
@@ -480,8 +482,8 @@ public class L1SkillId {
 
 	public static final int GMSTATUS_SHOWTRAPS = 2002;
 
-	public static final int GMSTATUS_FINDINVIS = 2003;	
-	
+	public static final int GMSTATUS_FINDINVIS = 2003;
+
 	public static final int GMSTATUS_END = 2003;
 
 	public static final int COOKING_NOW = 2999;
@@ -594,5 +596,13 @@ public class L1SkillId {
 
 	public static final int STATUS_CURSE_YAHEE = 1014;
 
-	public static final int STATUS_BRAVE2 = 20001;
+	public static final int STATUS_WEAKNESS_EXPOSURE_LV1 = 1026;
+
+	public static final int STATUS_WEAKNESS_EXPOSURE_LV2 = 1027;
+
+	public static final int STATUS_WEAKNESS_EXPOSURE_LV3 = 1028;
+
+	public static final int STATUS_DESTRUCTION_NOSTRUM = 1029;
+
+	public static final int STATUS_BRAVE2 = 20001; //TODO ペットレース用ステータス
 }

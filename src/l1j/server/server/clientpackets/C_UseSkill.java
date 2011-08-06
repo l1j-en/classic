@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -66,7 +66,7 @@ public class C_UseSkill extends ClientBasePacket {
 		if (Config.CHECK_SPELL_INTERVAL) {
 			int result;
 			// FIXME dir/no dir
-			if (SkillsTable.getInstance().getTemplate(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
+			if (SkillTable.getInstance().findBySkillId(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
 				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_DIR);
 			} else {
 				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
