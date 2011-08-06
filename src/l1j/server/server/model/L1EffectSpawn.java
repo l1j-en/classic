@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1EffectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
@@ -108,7 +108,7 @@ public class L1EffectSpawn {
 
 	public void doSpawnFireWall(L1Character cha, int targetX, int targetY) {
 		L1Npc firewall = NpcTable.getInstance().getTemplate(81157);
-		int duration = SkillsTable.getInstance().getTemplate(
+		int duration = SkillTable.getInstance().findBySkillId(
 				FIRE_WALL).getBuffDuration();
 
 		if (firewall == null) {
