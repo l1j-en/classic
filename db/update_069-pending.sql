@@ -13,3 +13,7 @@ INSERT INTO spawnlist_npc VALUES(NULL,'',1,71125,32579,32659,0,0,6,0,400,0);
 -- make ebind two cell ranged
 
 UPDATE skills SET ranged = 2 where skill_id = 157;
+
+-- Make iris ammy drop from 9xF iris's
+
+INSERT INTO droplist VALUES(45595,"Iris - Toi 9xf", 20260, "Amulet of Iris", 1, 1, 1200);
