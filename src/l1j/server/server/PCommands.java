@@ -152,7 +152,7 @@ public class PCommands {
 			return;
 		}
 		
-		if (_player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false && _player.isDead() == false && _player.getMapId() != 99) {
+		if (!_player.isPrivateShop() || _player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false && _player.isDead() == false && _player.getMapId() != 99) {
 			try {
 				String s1 = cmd2.substring(5);
 				int i = Integer.parseInt(s1);
