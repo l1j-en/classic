@@ -83,7 +83,7 @@ public class C_DropItem extends ClientBasePacket {
 				return;
 			}
 						
-			if (objectId != item.getId() || (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+			if (/*objectId != item.getId() ||*/ (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem).");
