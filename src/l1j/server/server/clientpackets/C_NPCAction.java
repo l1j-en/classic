@@ -3365,22 +3365,6 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80145) {
-			if (pc.isDragonKnight()) {
-				int lv45_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL45);
-				if (s.equalsIgnoreCase("l") && lv45_step == 1) {
-					if (pc.getInventory().checkItem(49209, 1)) {
-						pc.getInventory().consumeItem(49209, 1);
-						pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 2);
-						htmlid = "silrein38";
-					}
-				} else if (s.equalsIgnoreCase("m") && lv45_step == 2) {
-					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 3);
-					htmlid = "silrein39";
-				}
-			}
-		}
-
 
 		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80135) {
 			if (pc.isDragonKnight()) {
