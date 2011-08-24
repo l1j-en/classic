@@ -29,13 +29,13 @@ import l1j.server.server.BadNamesList;
 import l1j.server.server.ClientThread;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.CharacterTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Beginner;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_NewCharPacket;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.CalcInitHpMp;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -184,10 +184,10 @@ public class C_CreateChar extends ClientBasePacket {
 		if (pc.isWizard()) { // WIZ
 			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			int object_id = pc.getId();
-			L1Skills l1skills = SkillsTable.getInstance().getTemplate(4); // EB
+			L1Skill l1skills = SkillTable.getInstance().findBySkillId(4); // EB
 			String skill_name = l1skills.getName();
 			int skill_id = l1skills.getSkillId();
-			SkillsTable.getInstance().spellMastery(object_id, skill_id, skill_name, 0, 0); 
+			SkillTable.getInstance().spellMastery(object_id, skill_id, skill_name, 0, 0); 
 		}
 		Beginner.getInstance().GiveItem(pc);
 		pc.setAccountName(client.getAccountName());

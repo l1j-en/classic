@@ -21,7 +21,7 @@ package l1j.server.server.model;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Ability;
@@ -339,44 +339,44 @@ public class L1EquipmentSlot {
 	public void removeMagicHelm(int objectId, L1ItemInstance item) {
 		switch (item.getItemId()) {
 		case 20013: 
-			if (!SkillsTable.getInstance().spellCheck(objectId,
+			if (!SkillTable.getInstance().spellCheck(objectId,
 					PHYSICAL_ENCHANT_DEX)) {
 				_owner.removeSkillMastery(PHYSICAL_ENCHANT_DEX);
 				_owner.sendPackets(new S_DelSkill(0, 0, 0, 2, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
-			if (!SkillsTable.getInstance().spellCheck(objectId, HASTE)) {
+			if (!SkillTable.getInstance().spellCheck(objectId, HASTE)) {
 				_owner.removeSkillMastery(HASTE);
 				_owner.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 4, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
 			break;
 		case 20014: 
-			if (!SkillsTable.getInstance().spellCheck(objectId, HEAL)) {
+			if (!SkillTable.getInstance().spellCheck(objectId, HEAL)) {
 				_owner.removeSkillMastery(HEAL);
 				_owner.sendPackets(new S_DelSkill(1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
-			if (!SkillsTable.getInstance().spellCheck(objectId, EXTRA_HEAL)) {
+			if (!SkillTable.getInstance().spellCheck(objectId, EXTRA_HEAL)) {
 				_owner.removeSkillMastery(EXTRA_HEAL);
 				_owner.sendPackets(new S_DelSkill(0, 0, 4, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
 			break;
 		case 20015: 
-			if (!SkillsTable.getInstance().spellCheck(objectId,
+			if (!SkillTable.getInstance().spellCheck(objectId,
 					ENCHANT_WEAPON)) {
 				_owner.removeSkillMastery(ENCHANT_WEAPON);
 				_owner.sendPackets(new S_DelSkill(0, 8, 0, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
-			if (!SkillsTable.getInstance().spellCheck(objectId, DETECTION)) {
+			if (!SkillTable.getInstance().spellCheck(objectId, DETECTION)) {
 				_owner.removeSkillMastery(DETECTION);
 				_owner.sendPackets(new S_DelSkill(0, 16, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 						0));
 			}
-			if (!SkillsTable.getInstance().spellCheck(objectId,
+			if (!SkillTable.getInstance().spellCheck(objectId,
 					PHYSICAL_ENCHANT_STR)) {
 				_owner.removeSkillMastery(PHYSICAL_ENCHANT_STR);
 				_owner.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
@@ -384,14 +384,14 @@ public class L1EquipmentSlot {
 			}
 			break;
 		case 20008: 
-			if (!SkillsTable.getInstance().spellCheck(objectId, HASTE)) {
+			if (!SkillTable.getInstance().spellCheck(objectId, HASTE)) {
 				_owner.removeSkillMastery(HASTE);
 				_owner.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 4, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			}
 			break;
 		case 20023: 
-			if (!SkillsTable.getInstance().spellCheck(objectId,
+			if (!SkillTable.getInstance().spellCheck(objectId,
 					GREATER_HASTE)) {
 				_owner.removeSkillMastery(GREATER_HASTE);
 				_owner.sendPackets(new S_DelSkill(0, 0, 0, 0, 0, 0, 32, 0, 0,
