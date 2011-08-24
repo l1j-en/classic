@@ -32,7 +32,7 @@ import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.GetBackRestartTable;
-import l1j.server.server.datatables.SkillsTable;
+import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
@@ -65,7 +65,7 @@ import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1GetBackRestart;
-import l1j.server.server.templates.L1Skills;
+import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
@@ -348,7 +348,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			int lv28 = 0;
 			while (rs.next()) {
 				int skillId = rs.getInt("skill_id");
-				L1Skills l1skills = SkillsTable.getInstance().getTemplate(skillId);
+				L1Skill l1skills = SkillTable.getInstance().findBySkillId(skillId);
 				if (l1skills.getSkillLevel() == 1) {
 					lv1 |= l1skills.getId();
 				}
