@@ -326,10 +326,10 @@ public class L1Skill {
 		skill._sysmsgIdHappen = rs.getInt("sysmsgID_happen");
 		skill._sysmsgIdStop = rs.getInt("sysmsgID_stop");
 		skill._sysmsgIdFail = rs.getInt("sysmsgID_fail");
-		skill._canCastWithInvis = rs.getBoolean("can_cast_with_invis");
-		skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
-		skill._isBuff = rs.getBoolean("is_buff");
-		skill._impl = rs.getString("impl");
+		//skill._canCastWithInvis = rs.getBoolean("can_cast_with_invis");
+		//skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
+		//skill._isBuff = rs.getBoolean("is_buff");
+		//skill._impl = rs.getString("impl");
 
 		return skill;
 	}
