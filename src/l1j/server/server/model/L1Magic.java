@@ -337,7 +337,10 @@ public class L1Magic {
 		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 			damage = calcNpcMagicDamage(skillId);
 		}
-		return calcMrDefense(damage);
+		if (skillId != JOY_OF_PAIN && skillId != FINAL_BURN) {
+		return calcMrDefense(damage); } else {
+		return damage;
+		}
 	}
 
 	public int calcFireWallDamage() {
@@ -357,12 +360,15 @@ public class L1Magic {
 	}
 
 	private int calcPcMagicDamage(int skillId) {
+		
 		int dmg = skillId == FINAL_BURN
 			? _attacker.getCurrentMp()
 			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
+		
+
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
-
+		
 		Object[] targetDollList = _targetPc.getDollList().values().toArray();
 		for (Object dollObject : targetDollList) {
 			L1DollInstance doll = (L1DollInstance) dollObject;
@@ -469,6 +475,19 @@ public class L1Magic {
 		if (dmg < 0) {
 			dmg = 0;
 		}
+
+		if (skillId == FINAL_BURN) {
+			dmg = _attacker.getCurrentMp();
+			if (dmg < 0) {
+				dmg = 0;
+			}
+		} else if (skillId == JOY_OF_PAIN) {
+			int missinghp = _attacker.getMaxHp() - _attacker.getCurrentHp();
+			dmg = missinghp/3;
+			if (dmg < 5) {
+				dmg = 5;
+			}			
+		}
 		return dmg;
 	}
 
@@ -515,10 +534,25 @@ public class L1Magic {
 	}
 
 	private int calcNpcMagicDamage(int skillId) {
+		/*
 		int dmg = skillId == FINAL_BURN
 			? _attacker.getCurrentMp()
 			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
-
+		*/
+		
+		int dmg = 0;
+		
+		if (skillId == FINAL_BURN) {
+			dmg = _attacker.getCurrentMp();
+		} else if (skillId == JOY_OF_PAIN) {
+			int missinghp = _attacker.getMaxHp() - _attacker.getCurrentHp();
+			dmg = missinghp/3;
+			if (dmg < 5) {
+				dmg = 5;
+			}			
+		} else {
+			dmg = (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
+		}
 		if (_calcType == PC_NPC) {
 			boolean isNowWar = false;
 			int castleId = L1CastleLocation.getCastleIdByArea(_targetNpc);
