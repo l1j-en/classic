@@ -429,6 +429,8 @@ class L1SkillStop {
 				L1NpcInstance npc = (L1NpcInstance) cha;
 				npc.setParalyzed(false);
 			}
+		} else if (skillId == ARM_BREAKER) {
+			cha.addHitup(5);
 		}
 		// ****** アイテム関係
 		else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE

@@ -2468,6 +2468,7 @@ public class L1SkillUse {
 						if (cha instanceof L1PcInstance) {
 							if (cha instanceof L1PcInstance) {
 								L1PcInstance pc = (L1PcInstance) cha;
+								pc.addHitup(-5);
 								pc.setSkillEffect(ARM_BREAKER, time);
 								pc.sendPackets(new S_SkillIconGFX(74,
 										(time / 3)));
@@ -2476,6 +2477,7 @@ public class L1SkillUse {
 								|| cha instanceof L1SummonInstance
 								|| cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
+							npc.addHitup(-5);
 							npc.setSkillEffect(ARM_BREAKER, time);
 						}
 					}
