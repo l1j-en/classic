@@ -2919,6 +2919,11 @@ public class L1SkillUse {
 					} else if (_skillId == BLOODY_SOUL) { // ブラッディ ソウル
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.setCurrentMp(pc.getCurrentMp() + 12);
+					} else if (_skillId == MIND_BREAK) {
+						if (cha.getCurrentMp() > 10) {
+						cha.setCurrentMp(cha.getCurrentMp() - 10);
+						cha.setCurrentHp(cha.getCurrentHp() -20);
+						}
 					} else if (_skillId == ELEMENTAL_PROTECTION) { // エレメンタルプロテクション
 						L1PcInstance pc = (L1PcInstance) cha;
 						int attr = pc.getElfAttr();
