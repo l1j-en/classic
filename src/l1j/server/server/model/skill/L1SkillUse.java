@@ -2398,7 +2398,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					int intbonus = _user.getInt() - 12;
 					//System.out.println(intbonus);
 					if (intbonus > 0) {
-						_boneBreakDuration = _boneBreakDuration + (intbonus*100);
+						_boneBreakDuration = _boneBreakDuration + (intbonus*75);
 					}
 					if (_boneBreakDuration > 6000) {
 						_boneBreakDuration = 6000;
