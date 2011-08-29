@@ -142,9 +142,9 @@ public class L1Magic {
 		}
 		probability = calcProbability(skillId);
 		int rnd = _random.nextInt(100) + 1;
-		//if (probability > MAX_PROBABILITY) {
-		//	probability = MAX_PROBABILITY;
-		//}
+		if (probability > MAX_PROBABILITY) {
+			probability = MAX_PROBABILITY;
+		}
 		isSuccess = probability >= rnd;
 
 		if (!Config.ALT_ATKMSG) {
