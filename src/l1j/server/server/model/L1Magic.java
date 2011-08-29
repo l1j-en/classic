@@ -244,7 +244,9 @@ public class L1Magic {
 				|| skillId ==HORROR_OF_DEATH) {
 			int dice = skill.getProbabilityDice();
 			int value = skill.getProbabilityValue();
-			int diceCount = Math.min(1, _attacker.getMagicBonus() + _attacker.getMagicLevel());
+			int diceCount = _attacker.getMagicBonus() + 
+				_attacker.getMagicLevel();
+			diceCount = diceCount < 1 ? 1 : diceCount;
 			
 			for (int i = 0; i < diceCount; i++) {
 				probability += (_random.nextInt(dice) + 1 + value);
