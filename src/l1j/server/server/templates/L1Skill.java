@@ -268,6 +268,7 @@ public class L1Skill {
 		return _sysmsgIdFail;
 	}
 
+	/*
 	private boolean _canCastWithInvis;
 
 	public boolean canCastWithInvis() {
@@ -285,13 +286,13 @@ public class L1Skill {
 	public boolean isBuff() {
 		return _isBuff;
 	}
-
+	*/
 	private String _impl;
 
 	public String getImpl() {
 		return _impl;
 	}
-
+    
 	public static L1Skill fromResultSet(ResultSet rs) throws SQLException {
 		L1Skill skill = new L1Skill();
 		int skillId = rs.getInt("skill_id");
@@ -329,7 +330,7 @@ public class L1Skill {
 		//skill._canCastWithInvis = rs.getBoolean("can_cast_with_invis");
 		//skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
 		//skill._isBuff = rs.getBoolean("is_buff");
-		//skill._impl = rs.getString("impl");
+		skill._impl = rs.getString("impl");
 
 		return skill;
 	}

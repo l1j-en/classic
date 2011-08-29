@@ -44,7 +44,7 @@ public class SkillTable {
 
 	private final Map<Integer, L1Skill> _skills = Maps.newHashMap();
 
-	private final List<Integer> _buffSkillIds;
+	//private final List<Integer> _buffSkillIds;
 
 	public static void initialize() {
 		if (_instance != null) {
@@ -60,7 +60,7 @@ public class SkillTable {
 
 	private SkillTable() {
 		loadSkills();
-		_buffSkillIds = cacheBuffSkillIds();
+		//_buffSkillIds = cacheBuffSkillIds();
 	}
 
 	private void loadSkills() {
@@ -85,6 +85,7 @@ public class SkillTable {
 		}
 	}
 
+	/*
 	private List<Integer> cacheBuffSkillIds() {
 		List<Integer> result = Lists.newArrayList();
 		for (L1Skill skill : _skills.values()) {
@@ -94,7 +95,8 @@ public class SkillTable {
 		}
 		return result;
 	}
-
+    */
+	
 	public void spellMastery(int playerobjid, int skillid, String skillname,
 			int active, int time) {
 		if (spellCheck(playerobjid, skillid)) {
@@ -194,7 +196,9 @@ public class SkillTable {
 		return null;
 	}
 
+	/*
 	public List<Integer> findBuffSkillIds() {
 		return Lists.newArrayList(_buffSkillIds);
 	}
+	*/
 }
