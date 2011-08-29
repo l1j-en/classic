@@ -189,9 +189,12 @@ public class Dungeon {
 			if (teleportable) {
 				// 2 seconds of invincibility
 				pc.setSkillEffect(L1SkillId.ABSOLUTE_BARRIER, 2000);
-				pc.stopHpRegeneration();
-				pc.stopMpRegeneration();
-				pc.stopMpRegenerationByDoll();
+				
+				//stopping the regen here is breaking stuff, causing some form of dead lock.
+				//The doll one is fine, but I'm not sure why any of this is needed to begin with
+				//pc.stopHpRegeneration();
+				//pc.stopMpRegeneration();
+				//pc.stopMpRegenerationByDoll();
 				L1Teleport.teleport(pc, newX, newY, newMap, heading, false);
 				return true;
 			}
