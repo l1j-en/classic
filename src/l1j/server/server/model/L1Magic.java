@@ -142,9 +142,9 @@ public class L1Magic {
 		}
 		probability = calcProbability(skillId);
 		int rnd = _random.nextInt(100) + 1;
-		if (probability > MAX_PROBABILITY) {
-			probability = MAX_PROBABILITY;
-		}
+		//if (probability > MAX_PROBABILITY) {
+		//	probability = MAX_PROBABILITY;
+		//}
 		isSuccess = probability >= rnd;
 
 		if (!Config.ALT_ATKMSG) {
@@ -264,18 +264,17 @@ public class L1Magic {
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				diceCount += _pc.isWizard() ? 1 : -1;
 				/* Bug? Need to verify intention here, maybe elves and/or
-				 * illusionists should be +0?
+				 * illusionists should be +0? */
 				if (_pc.isWizard()) {
-					diceCount = getMagicBonus() + getMagicLevel() + 1;
+					diceCount = _pc.getMagicBonus() + _pc.getMagicLevel() + 1;
 				} else if (_pc.isElf()) {
-					diceCount = getMagicBonus() + getMagicLevel() - 1;
+					diceCount = _pc.getMagicBonus() + _pc.getMagicLevel() - 1;
 				} else {
-					diceCount = getMagicBonus() + getMagicLevel() - 1;
+					diceCount = _pc.getMagicBonus() + _pc.getMagicLevel() - 1;
 				}
-				*/
+				
 			}
-			diceCount = Math.min(1, diceCount);
-
+			diceCount = diceCount < 1 ? 1 : diceCount;
 			for (int i = 0; i < diceCount; i++) {
 				probability += (_random.nextInt(dice) + 1);
 			}

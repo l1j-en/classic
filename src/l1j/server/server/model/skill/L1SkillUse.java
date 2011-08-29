@@ -136,6 +136,7 @@ public class L1SkillUse {
 	private boolean _checkedUseSkill = false; // 事前チェック済みか
 	private int _leverage = 10; // 1/10倍なので10で1倍
 	private boolean _isFreeze = false;
+	private boolean _isCounterMagic = true;
 	private boolean _isGlanceCheckFail = false;
 
 	private L1Character _user = null;
@@ -154,6 +155,32 @@ public class L1SkillUse {
 	private ArrayList<TargetStatus> _targetList;
 
 	private static Logger _log = Logger.getLogger(L1SkillUse.class.getName());
+
+	private static final int[] CAST_WITH_INVIS = { 1, 2, 3, 5, 8, 9, 12, 13,
+		14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55, 57,
+		60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79, REDUCTION_ARMOR,
+		BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER, 97, 98, 99, 100,
+		101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114, 115, 116,
+		117, 118, 129, 130, 131, 133, 134, 137, 138, 146, 147, 148, 149,
+		150, 151, 155, 156, 158, 159, 163, 164, 165, 166, 168, 169, 170,
+		171, SOUL_OF_FLAME, ADDITIONAL_FIRE, DRAGON_SKIN, AWAKEN_ANTHARAS,
+		AWAKEN_FAFURION, AWAKEN_VALAKAS, MIRROR_IMAGE, ILLUSION_OGRE,
+		ILLUSION_LICH, PATIENCE, ILLUSION_DIA_GOLEM, INSIGHT,
+		ILLUSION_AVATAR };
+
+private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
+		13, 14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55,
+		57, 60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79, SHOCK_STUN,
+		REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER,
+		97, 98, 99, 100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113,
+		114, 115, 116, 117, 118, 129, 130, 131, 132, 134, 137, 138, 146,
+		147, 148, 149, 150, 151, 155, 156, 158, 159, 161, 163, 164, 165,
+		166, 168, 169, 170, 171, SOUL_OF_FLAME, ADDITIONAL_FIRE,
+		DRAGON_SKIN, FOE_SLAYER,
+		AWAKEN_ANTHARAS, AWAKEN_FAFURION, AWAKEN_VALAKAS,
+		MIRROR_IMAGE, ILLUSION_OGRE, ILLUSION_LICH, PATIENCE, 10026, 10027,
+		ILLUSION_DIA_GOLEM, INSIGHT, ILLUSION_AVATAR, 10028, 10029 };
+
 
 	public L1SkillUse() {
 	}
@@ -342,7 +369,7 @@ public class L1SkillUse {
 				return false;
 			}
 			if ((pc.isInvisble() || pc.isInvisDelay())
-					&& !_skill.canCastWithInvis()) { // インビジ中に使用不可のスキル
+					&& !isInvisUsableSkill()) { // インビジ中に使用不可のスキル
 				return false;
 			}
 			if (pc.getInventory().getWeight240() >= 197) { // 重量オーバーならスキルを使用できない
@@ -471,13 +498,22 @@ public class L1SkillUse {
 
 		// インビジ中に使用不可のスキル
 		if ((pc.isInvisble() || pc.isInvisDelay())
-				&& !_skill.canCastWithInvis()) {
+				&& !isInvisUsableSkill()) {
 			return false;
 		}
 
 		return true;
 	}
 
+	private boolean isInvisUsableSkill() {
+		for (int skillId : CAST_WITH_INVIS) {
+			if (skillId == _skillId) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void handleCommands(L1PcInstance player, int skillId, int targetId,
 			int x, int y, String message, int timeSecs, int type) {
 		L1Character attacker = null;
@@ -1640,6 +1676,12 @@ public class L1SkillUse {
 			return;
 		}
 
+		for (int skillId : EXCEPT_COUNTER_MAGIC) {
+			if (_skillId == skillId) {
+				_isCounterMagic = false; 
+				break;
+			}
+		}
 		// NPCにショックスタンを使用させるとonActionでNullPointerExceptionが発生するため
 		// とりあえずPCが使用した時のみ
 		if ((_skillId == SHOCK_STUN || _skillId == BONE_BREAK || _skillId == MASS_SHOCK_STUN)
@@ -2356,7 +2398,7 @@ public class L1SkillUse {
 					int intbonus = _user.getInt() - 12;
 					//System.out.println(intbonus);
 					if (intbonus > 0) {
-						_boneBreakDuration = _boneBreakDuration + (intbonus*200);
+						_boneBreakDuration = _boneBreakDuration + (intbonus*100);
 					}
 					if (_boneBreakDuration > 6000) {
 						_boneBreakDuration = 6000;
@@ -3391,11 +3433,10 @@ public class L1SkillUse {
 
 	// カウンターマジックが発動したか返す
 	private boolean isUseCounterMagic(L1Character cha) {
-		// カウンターマジック有効なスキルでカウンターマジック中
-		if (!_skill.ignoresCounterMagic() && cha.hasSkillEffect(COUNTER_MAGIC)) {
+		if (_isCounterMagic && cha.hasSkillEffect(COUNTER_MAGIC)) {
 			cha.removeSkillEffect(COUNTER_MAGIC);
-			int castgfx = SkillTable.getInstance().findBySkillId(COUNTER_MAGIC)
-					.getCastGfx();
+			int castgfx = SkillTable.getInstance().findBySkillId(
+					COUNTER_MAGIC).getCastGfx();
 			cha.broadcastPacket(new S_SkillSound(cha.getId(), castgfx));
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
