@@ -251,41 +251,41 @@ public class L1Cooking {
 
 	public static void eatCooking(L1PcInstance pc, int cookingId, int time) {
 		int cookingType = 0;
-		if (cookingId == COOKING_1_0_N || cookingId == COOKING_1_0_S) {
+		if (cookingId == COOKING_1_0_N || cookingId == COOKING_1_0_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 0;
 			pc.addWind(10);
 			pc.addWater(10);
 			pc.addFire(10);
 			pc.addEarth(10);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (cookingId == COOKING_1_1_N || cookingId == COOKING_1_1_S) {
+		} else if (cookingId == COOKING_1_1_N || cookingId == COOKING_1_1_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 1;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 			if (pc.isInParty()) { 
 				pc.getParty().updateMiniHP(pc);
 			}
-		} else if (cookingId == COOKING_1_2_N || cookingId == COOKING_1_2_S) {
+		} else if (cookingId == COOKING_1_2_N || cookingId == COOKING_1_2_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 2;
-		} else if (cookingId == COOKING_1_3_N || cookingId == COOKING_1_3_S) {
+		} else if (cookingId == COOKING_1_3_N || cookingId == COOKING_1_3_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 3;
 			pc.addAc(-1);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == COOKING_1_4_N || cookingId == COOKING_1_4_S) {
+		} else if (cookingId == COOKING_1_4_N || cookingId == COOKING_1_4_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 4;
 			pc.addMaxMp(20);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
-		} else if (cookingId == COOKING_1_5_N || cookingId == COOKING_1_5_S) {
+		} else if (cookingId == COOKING_1_5_N || cookingId == COOKING_1_5_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 5;
-		} else if (cookingId == COOKING_1_6_N || cookingId == COOKING_1_6_S) {
+		} else if (cookingId == COOKING_1_6_N || cookingId == COOKING_1_6_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 6;
 			pc.addMr(5);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S) {
+		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 7;
-		} else if (cookingId == COOKING_2_0_N || cookingId == COOKING_2_0_S) {
+		} else if (cookingId == COOKING_2_0_N || cookingId == COOKING_2_0_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 8;
-		} else if (cookingId == COOKING_2_1_N || cookingId == COOKING_2_1_S) {
+		} else if (cookingId == COOKING_2_1_N || cookingId == COOKING_2_1_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 9;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
@@ -294,27 +294,27 @@ public class L1Cooking {
 			}
 			pc.addMaxMp(30);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
-		} else if (cookingId == COOKING_2_2_N || cookingId == COOKING_2_2_S) {
+		} else if (cookingId == COOKING_2_2_N || cookingId == COOKING_2_2_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 10;
 			pc.addAc(-2);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == COOKING_2_3_N || cookingId == COOKING_2_3_S) {
+		} else if (cookingId == COOKING_2_3_N || cookingId == COOKING_2_3_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 11;
-		} else if (cookingId == COOKING_2_4_N || cookingId == COOKING_2_4_S) {
+		} else if (cookingId == COOKING_2_4_N || cookingId == COOKING_2_4_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 12;
-		} else if (cookingId == COOKING_2_5_N || cookingId == COOKING_2_5_S) {
+		} else if (cookingId == COOKING_2_5_N || cookingId == COOKING_2_5_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 13;
 			pc.addMr(10);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_2_6_N || cookingId == COOKING_2_6_S) {
+		} else if (cookingId == COOKING_2_6_N || cookingId == COOKING_2_6_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 14;
 			pc.addSp(1);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_2_7_N || cookingId == COOKING_2_7_S) {
+		} else if (cookingId == COOKING_2_7_N || cookingId == COOKING_2_7_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 15;
-		} else if (cookingId == COOKING_3_0_N || cookingId == COOKING_3_0_S) {
+		} else if (cookingId == COOKING_3_0_N || cookingId == COOKING_3_0_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 16;
-		} else if (cookingId == COOKING_3_1_N || cookingId == COOKING_3_1_S) {
+		} else if (cookingId == COOKING_3_1_N || cookingId == COOKING_3_1_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 17;
 			pc.addMaxHp(50);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
@@ -323,13 +323,13 @@ public class L1Cooking {
 			}
 			pc.addMaxMp(50);
 			pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
-		} else if (cookingId == COOKING_3_2_N || cookingId == COOKING_3_2_S) {
+		} else if (cookingId == COOKING_3_2_N || cookingId == COOKING_3_2_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 18;
-		} else if (cookingId == COOKING_3_3_N || cookingId == COOKING_3_3_S) {
+		} else if (cookingId == COOKING_3_3_N || cookingId == COOKING_3_3_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 19;
 			pc.addAc(-3);
 			pc.sendPackets(new S_OwnCharStatus(pc));
-		} else if (cookingId == COOKING_3_4_N || cookingId == COOKING_3_4_S) {
+		} else if (cookingId == COOKING_3_4_N || cookingId == COOKING_3_4_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 20;
 			pc.addMr(15);
 			pc.sendPackets(new S_SPMR(pc));
@@ -338,18 +338,18 @@ public class L1Cooking {
 			pc.addFire(10);
 			pc.addEarth(10);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (cookingId == COOKING_3_5_N || cookingId == COOKING_3_5_S) {
+		} else if (cookingId == COOKING_3_5_N || cookingId == COOKING_3_5_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 21;
 			pc.addSp(2);
 			pc.sendPackets(new S_SPMR(pc));
-		} else if (cookingId == COOKING_3_6_N || cookingId == COOKING_3_6_S) {
+		} else if (cookingId == COOKING_3_6_N || cookingId == COOKING_3_6_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 22;
 			pc.addMaxHp(30);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 			if (pc.isInParty()) {
 				pc.getParty().updateMiniHP(pc);
 			}
-		} else if (cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S) {
+		} else if (cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S && !pc.hasSkillEffect(cookingId)) {
 			cookingType = 23;
 		}
 		pc.sendPackets(new S_PacketBox(53, cookingType, time));
@@ -359,11 +359,11 @@ public class L1Cooking {
 				|| cookingId >= COOKING_2_0_N && cookingId <= COOKING_2_6_N
 				|| cookingId >= COOKING_2_0_S && cookingId <= COOKING_2_6_S
 				|| cookingId >= COOKING_3_0_N && cookingId <= COOKING_3_6_N
-				|| cookingId >= COOKING_3_0_S && cookingId <= COOKING_3_6_S) {
+				|| cookingId >= COOKING_3_0_S && cookingId <= COOKING_3_6_S && !pc.hasSkillEffect(cookingId)) {
 			pc.setCookingId(cookingId);
 		} else if (cookingId == COOKING_1_7_N || cookingId == COOKING_1_7_S
 				|| cookingId == COOKING_2_7_N || cookingId == COOKING_2_7_S
-				|| cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S) {
+				|| cookingId == COOKING_3_7_N || cookingId == COOKING_3_7_S && !pc.hasSkillEffect(cookingId)) {
 			pc.setDessertId(cookingId);
 		}
 		pc.sendPackets(new S_OwnCharStatus(pc));
