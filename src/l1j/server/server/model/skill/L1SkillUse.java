@@ -2039,7 +2039,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							.sendPackets(new S_SkillSound(_player.getId(), 4394));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
 							4394));
-
+				} else if (_skillId == FOE_SLAYER) {
+					for (int i = 3; i > 0; i--) {
+						_target.onAction(_player);
+					}
+					_player.sendPackets(new S_SkillSound(_target.getId(),
+ 							6509));
+ 					_player.sendPackets(new S_SkillSound(_player.getId(),
+ 							7020));
+					_player.broadcastPacket(new S_SkillSound(_target.getId(),
+							6509));
+					_player.broadcastPacket(new S_SkillSound(_player.getId(),
+							7020));
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) { // 安息攻撃
 					if (_user instanceof L1NpcInstance) {
