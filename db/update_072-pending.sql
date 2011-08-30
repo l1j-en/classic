@@ -242,3 +242,6 @@ UPDATE skills SET type = `2` WHERE skill_id = 217
 -- Skill:JoyofPain-218 target changed from buff 
 UPDATE skills SET target = `attack` WHERE skill_id = 218
 
+-- fix strikers gale learning
+UPDATE skills SET name="Strikers Gale" where skill_id=174;
+
