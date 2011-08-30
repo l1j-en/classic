@@ -2165,10 +2165,56 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						npc.setParalysisTime(_skill.getBuffDuration() * 1000);
 					}
 				} else if (_skillId == SHOCK_STUN) {
-					RandomGenerator random = RandomGeneratorFactory
+					
+					int targetLevel = 0;
+					int diffLevel = 0;
+					int stunTime = 0;
+					if (cha instanceof L1PcInstance) {
+					L1PcInstance pc = (L1PcInstance) cha;
+					targetLevel = pc.getLevel();
+					} else if (cha instanceof L1MonsterInstance
+					|| cha instanceof L1SummonInstance
+					|| cha instanceof L1PetInstance) {
+					L1NpcInstance npc = (L1NpcInstance) cha;
+					targetLevel = npc.getLevel();
+					}
+					diffLevel = _user.getLevel() - targetLevel;
+					RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
+					
+					int basechance = random.nextInt(99) + 1;
+					
+					int chance = basechance+(diffLevel*5);
+					
+					if (chance>90) {
+						stunTime = 6000;
+					} else if (chance > 85) {
+						stunTime = 5500;
+					} else if (chance > 80) {
+						stunTime = 5000;
+					} else if (chance > 75) {
+						stunTime = 4500;
+					} else if (chance > 70) {
+						stunTime = 4000;
+					} else if (chance > 65) {
+						stunTime = 3500;
+					} else if (chance > 60) {
+						stunTime = 3000;
+					} else if (chance > 55) {
+						stunTime = 2500;
+					} else if (chance > 50) {
+						stunTime = 2000;
+					} else if (chance > 45) {
+						stunTime = 1500;
+					} else {
+						stunTime = 1000;
+					} 
+					
+					_shockStunDuration = stunTime;
+					/*RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
 					int stunTime = (random.nextInt(21) + 10) * 100;
 					_shockStunDuration = stunTime;
+					*/
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
 							cha.getMapId());

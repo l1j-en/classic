@@ -5,3 +5,7 @@
 -- be removed.
 
 -- update 73
+
+-- reduce silence timer for sword of silence
+
+UPDATE weapon_skill SET skill_time = 16 where weapon_id = 47;
