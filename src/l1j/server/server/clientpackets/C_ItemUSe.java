@@ -3496,8 +3496,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			addtime = 350;
 		} else if (item_id == 49158) {
 			addtime = 480;
-			if (pc.hasSkillEffect(STATUS_BRAVE)) {
-				pc.killSkillEffectTimer(STATUS_BRAVE);
+			if (pc.hasSkillEffect(STATUS_RIBRAVE)) {
+				pc.killSkillEffectTimer(STATUS_RIBRAVE);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
@@ -3591,7 +3591,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
 		} else if (item_id == 49158) {
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 3, time));
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, time));
 			pc.sendPackets(new S_SkillSound(pc.getId(), 7110));
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 7110));
 			pc.setSkillEffect(STATUS_RIBRAVE, time * 1000);
