@@ -3591,6 +3591,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
 		} else if (item_id == 49158) {
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 3, time));
 			pc.sendPackets(new S_SkillSound(pc.getId(), 7110));
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 7110));
 			pc.setSkillEffect(STATUS_RIBRAVE, time * 1000);
