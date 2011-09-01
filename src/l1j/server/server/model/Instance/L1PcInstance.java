@@ -673,6 +673,7 @@ public class L1PcInstance extends L1Character {
 		notifyPlayersLogout(world.getRecognizePlayer(this));
 		_inventory.clearItems();
 		_dwarf.clearItems();
+		_dwarfForElf.clearItems(); 
 		removeAllKnownObjects();
 		stopHpRegeneration();
 		stopMpRegeneration();
