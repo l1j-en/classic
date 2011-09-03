@@ -133,7 +133,7 @@ public class C_CharReset extends ClientBasePacket {
 		}
 	}
 
-	private void saveNewCharStatus(L1PcInstance pc) {
+	private synchronized void saveNewCharStatus(L1PcInstance pc) {
 		pc.setInCharReset(false);
 		if(pc.getOriginalAc() > 0) {
 			pc.addAc(pc.getOriginalAc());
@@ -180,7 +180,7 @@ public class C_CharReset extends ClientBasePacket {
     	pc.addHitup(0 - pc.getHitup());
 	}
 
-	private void setLevelUp(L1PcInstance pc ,int addLv) {
+	private synchronized void setLevelUp(L1PcInstance pc ,int addLv) {
 		pc.setTempLevel(pc.getTempLevel()+ addLv);
 		for (int i = 0; i < addLv; i++) {
 			short randomHp = CalcStat.calcStatHp(pc.getType(), pc.getBaseMaxHp(), pc.getBaseCon(), pc.getOriginalHpup());
