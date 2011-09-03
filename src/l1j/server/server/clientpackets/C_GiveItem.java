@@ -135,11 +135,36 @@ public class C_GiveItem extends ClientBasePacket {
 			tamePet(pc, target);
 		}
 		
-		if (item.getItemId() == 40070 && petType.canEvolve()) {
+/*		if (item.getItemId() == 40070 && petType.canEvolve()) {
 			evolvePet(pc, target);
 		}
+	}  */
+		
+	if (item.getItemId() == 40070 && petType.canEvolve()) {
+		if (petType.getBaseNpcId()== 45686 || petType.getBaseNpcId() == 45687
+				|| petType.getBaseNpcId() == 45688 || petType.getBaseNpcId() == 45689 || petType.getBaseNpcId() == 45690
+				|| petType.getBaseNpcId() == 45691 || petType.getBaseNpcId() == 45692 || petType.getBaseNpcId() == 45693
+				|| petType.getBaseNpcId() == 45694 || petType.getBaseNpcId() == 45695 || petType.getBaseNpcId() == 45696 
+				|| petType.getBaseNpcId() == 45697 || petType.getBaseNpcId() == 45710 || petType.getBaseNpcId() == 45712){
+			
+		return;
+	}else{
+		evolvePet(pc, target);
 	}
-
+}
+	if (item.getItemId() == 41310 && petType.canEvolve()) { //added for Golden Dragon
+		if (petType.getBaseNpcId()== 45034 || petType.getBaseNpcId() == 45039
+				|| petType.getBaseNpcId() == 45040 || petType.getBaseNpcId() == 45042 || petType.getBaseNpcId() == 45043
+				|| petType.getBaseNpcId() == 45044 || petType.getBaseNpcId() == 45046 || petType.getBaseNpcId() == 45047
+				|| petType.getBaseNpcId() == 45048 || petType.getBaseNpcId() == 45049 || petType.getBaseNpcId() == 45053 
+				|| petType.getBaseNpcId() == 45054 || petType.getBaseNpcId() == 45313 || petType.getBaseNpcId() == 45712){
+			
+		return;
+	}else{
+		evolvePet(pc, target);
+		}
+	}
+}
 	private final static String receivableImpls[] = new String[] { "L1Npc", "L1Monster", "L1Guardian", "L1Teleporter", "L1Guard" }; 
 
 	private boolean isNpcItemReceivable(L1Npc npc) {
