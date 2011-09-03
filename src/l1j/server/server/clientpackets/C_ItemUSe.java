@@ -2119,6 +2119,10 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(76, l1iteminstance
 							.getLogName()));
 					pc.getInventory().removeItem(l1iteminstance, 1);
+				} else if (itemId == 41310) { //added for gold dragon
+					pc.sendPackets(new S_ServerMessage(76, l1iteminstance
+							.getLogName()));
+					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 41298) {
 					UseHeallingPotion(pc, 4, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
