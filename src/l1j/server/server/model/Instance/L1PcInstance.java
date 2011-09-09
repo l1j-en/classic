@@ -2169,11 +2169,11 @@ if (player instanceof L1PcInstance) {
 
 	private int _bonusStats; // 
 
-	public int getBonusStats() {
+	public synchronized int getBonusStats() {
 		return _bonusStats;
 	}
 
-	public void setBonusStats(int i) {
+	public synchronized void setBonusStats(int i) {
 		_bonusStats = i;
 	}
 
