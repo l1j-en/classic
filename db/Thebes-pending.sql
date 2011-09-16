@@ -1,4 +1,5 @@
 -- Thebes updates for LinRet -- July 10, 2011 -- Zylia
+-- Mobskills update Sept 12, 2011 -- Zylia
 
 # Create NPC data
 DELETE FROM npc WHERE npcid > 46106 and npcid < 46125;
@@ -22,6 +23,12 @@ INSERT INTO npc VALUES
 (46123,'Thebes Horus','$5501','','L1Monster',6569,70,20000,100,-140,70,22,21,21,22,80,4901,-315,'large',0,1,0,600,1720,1760,960,1720,0,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,5000,5000,20,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (46124,'Thebes Anubis','$5500','','L1Monster',6595,70,25000,100,-140,75,22,21,21,23,80,4901,-315,'large',0,1,0,600,1800,1400,1600,1600,0,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,5000,5000,20,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0);
 
+# Mob Groups
+UPDATE mobgroup SET note = 'Mandragora - Light(2)' where id = 63;
+INSERT INTO mobgroup VALUES
+(177,'Scarab (3 Yellow)',0,46109,46109,2,0,0,0,0,0,0,0,0,0,0,0,0),
+(178,'Scarab (2 Blue)',0,46110,46110,1,0,0,0,0,0,0,0,0,0,0,0,0);
+
 # Update dungeon content
 UPDATE dungeon SET src_loc_name = 'Thebes Desert' WHERE src_mapid = 780;
 UPDATE dungeon SET new_loc_name = 'Thebes Desert' WHERE src_mapid = 780;
@@ -41,23 +48,16 @@ UPDATE getback_restart SET note = 'Thebes Osiris Altar' WHERE area = 782;
 # map: 780
 UPDATE mapids SET locationname = 'Thebes Desert' where mapid = 780;
 INSERT INTO spawnlist VALUES
-(78000001,'Mandragora - Light',20,46107,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000001,'Mandragora - Light',12,46107,63,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000002,'Mandragora - Dark',20,46108,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
-(78000003,'Scarab - Yellow',20,46109,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
-(78000004,'Scarab - Blue',20,46110,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000003,'Scarab - Yellow',15,46109,177,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
+(78000004,'Scarab - Blue',15,46110,178,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000005,'Kalbis - Dark',15,46111,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000006,'Kalbis - Red',15,46112,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000007,'Obelisk - Light',15,46113,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000008,'Obelisk - Dark',15,46114,0,32685,32895,0,0,32597,32731,32773,33059,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000009,'Sphinx - Light',6,46115,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0,1,8,2,100),
 (78000010,'Sphinx - Dark',6,46116,0,32740,32893,0,0,32702,32782,32778,33005,0,0,0,780,0,0,0,0,1,8,2,100);
-
-# Mob Groups
-#INSERT INTO mobgroup VALUES
-#(63, 46107,'Mandragora - Light', x2
-#(46108,'Mandragora - Dark', x2
-#(46109,'Scarab - Yellow', x3
-#(46110,'Scarab - Blue', x2
 
 # map: 781
 UPDATE mapids SET locationname = 'Thebes Pyramid Inside' where mapid = 781;
@@ -245,24 +245,24 @@ INSERT INTO droplist VALUES
 
 # Mobskills compiled and corrected by Valakas
 INSERT into mobskill VALUES
-(46111,0,'Kalbis - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46112,0,'Kalbis - Red','',1,10,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46113,0,'Obelisk - Light','Tornado',2,10,0,0,-4,0,0,0,0,0,20,10131,0,0,0,0,0,0),
-(46113,1,'Obelisk - Light','',1,30,0,0,-1,0,0,1,0,0,15,0,0,1,0,0,0,0),
-(46114,0,'Obelisk - Dark','Tornado',2,10,0,0,-4,0,0,0,0,0,20,10131,0,0,0,0,0,0),
-(46114,1,'Obelisk - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,1,0,0,0,0),
+(46107,2,'Mandragora - White','Death Scream',2,10,80,0,0,0,0,0,3,3,5,0,0,18,0,0,0,0),
+(46108,2,'Mandragora - Dark','Death Scream',2,10,100,0,0,0,0,0,3,3,5,0,0,18,0,0,0,0),
+(46111,0,'Kalbis - Dark','Tail Stab',1,10,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
+(46112,0,'Kalbis - Red','Tail Stab',1,10,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
+(46113,0,'Obelisk - White','Sandstorm',2,10,0,0,-4,0,0,0,4,4,20,10131,0,0,0,0,0,0),
+(46114,0,'Obelisk - Dark','Sandstorm',2,10,0,0,-4,0,0,0,4,4,15,0,0,0,0,0,0,0),
 (46115,0,'Sphinx - Light','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46115,1,'Sphinx - Light','',2,15,0,0,-2,0,0,0,0,0,10,10132,0,3,0,0,0,0),
+(46115,1,'Sphinx - White','AOE - Rainbow Fluctuations',2,15,0,0,-2,0,0,0,3,3,10,10132,0,0,0,0,0,0),
 (46116,0,'Sphinx - Dark','',1,30,0,0,-1,0,0,1,0,0,15,0,0,30,0,0,0,0),
-(46116,1,'Sphinx - Dark','',2,15,0,0,-2,0,0,0,0,0,10,10132,0,0,0,0,0,0),
-(46117,0,'Horus Falcon - Yellow','',2,20,0,0,-6,0,0,0,0,0,12,10137,0,0,0,0,0,0),
-(46118,0,'Horus Falcon - Blue','',2,20,0,0,-6,0,0,0,0,0,12,10137,0,0,0,0,0,0),
-(46119,0,'Thebes Guardian - Dark','',1,10,0,0,-2,0,0,2,0,0,5,0,0,30,0,0,0,0),
-(46120,0,'Thebes Guardian - Red','',1,10,0,0,-2,0,0,2,0,0,5,0,0,30,0,0,0,0),
-(46121,0,'Thebes Elder - Yellow','Lightning Storm',2,30,0,0,-10,0,0,0,0,0,20,65,0,0,0,0,0,0),
-(46121,1,'Thebes Elder - Yellow','',1,20,0,0,-1,0,0,1,0,0,5,0,0,30,0,0,0,0),
-(46122,0,'Thebes Elder - Purple','Lightning Storm',2,30,0,0,-10,0,0,0,0,0,20,65,0,0,0,0,0,0),
-(46122,1,'Thebes Elder - Purple','',1,20,0,0,-1,0,0,1,0,0,5,0,0,30,0,0,0,0),
+(46116,1,'Sphinx - Dark','AOE - Rainbow Fluctuations',2,15,0,0,-2,0,0,0,3,3,10,10132,0,0,0,0,0,0),
+(46117,0,'Horus Falcon - Yellow','Burning Fireball',2,20,0,0,-6,0,0,0,0,0,12,10137,0,0,0,0,0,0),
+(46118,0,'Horus Falcon - Blue','Burning Fireball',2,20,0,0,-6,0,0,0,0,0,12,10137,0,0,0,0,0,0),
+(46119,0,'Thebes Guardian - Dark','Double Hand Sword Smash',1,10,0,0,-2,0,0,2,0,0,5,0,0,30,0,0,0,0),
+(46120,0,'Thebes Guardian - Red','Double Hand Sword Smash',1,10,0,0,-2,0,0,1,0,0,5,0,0,30,0,0,0,0),
+(46121,0,'Thebes Elder - Yellow','Thunderstorm',2,30,0,0,-10,0,0,0,4,4,20,65,6565,18,0,0,0,0),
+(46121,1,'Thebes Elder - Yellow','Two Hand Claw Swipe',1,20,0,0,-1,0,0,1,0,0,5,0,0,30,0,0,0,0),
+(46122,0,'Thebes Elder - Purple','Thunderstorm',2,30,0,0,-10,0,0,0,4,4,20,65,6565,18,0,0,0,0),
+(46122,1,'Thebes Elder - Purple','Two Hand Claw Swipe',1,20,0,0,-1,0,0,1,0,0,5,0,0,30,0,0,0,0),
 (46123,0,'Thebes Horus','',2,25,0,0,-6,0,0,0,0,0,6,10138,0,0,0,0,0,0),
 (46123,1,'Thebes Horus','',2,10,0,0,-4,0,0,0,0,0,8,10140,0,0,0,0,0,0),
 (46123,2,'Thebes Horus','',1,20,0,0,-1,0,0,1,0,2,10,0,0,30,0,0,0,0),
@@ -272,3 +272,21 @@ INSERT into mobskill VALUES
 (46124,2,'Thebes Anubis','',1,10,0,0,-1,0,0,1,0,2,10,0,0,30,0,0,0,0),
 (46124,3,'Thebes Anubis','Summon Thebes Guardian',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46120,2,2,0),
 (46124,4,'Thebes Anubis','Summon Thebes Elder',3,10,0,0,-3,3,0,0,0,0,0,0,0,18,46122,2,2,0);
+
+# Add npc for Thebes Desert
+# insert into spawnlist_npc values (90453,'Joe`s Stone Golem',1,71253,32627,32895,0,0,4,0,780,0);
+# insert into npc values (71255,'Thebes Osiris Altar Gatekeeper','$6077','','L1Merchant',6992,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+# insert into spawnlist_npc values (90454,'Thebes Osiris Altar Gatekeeper',1,71255,32997,32747,0,0,4,0,781,0);
+
+# Thebes updates for LinRet -- Zylia & Valakas
+
+# Update weaknesses for Thebes Mobs
+# update npc set weakattr = 12 where npcid = 46121;
+# update npc set weakattr = 12 where npcid = 46122;
+# update npc set weakattr = 8 where npcid = 46123; air 3
+# update npc set weakattr = 1 where npcid = 46124; earth 2
+# INSERT into mobskill VALUES
+# (46107,0,'Mandragora - White','Camoflage (Bury Self)',1,30,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,0),
+# (46107,1,'Mandragora - White','Unbury',1,20,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0),
+# (46108,0,'Mandragora - Dark','Camoflage (Bury Self)',1,30,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,0),
+# (46108,1,'Mandragora - Dark','Unbury',1,20,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0),
