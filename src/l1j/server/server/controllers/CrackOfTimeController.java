@@ -144,7 +144,7 @@ public class CrackOfTimeController extends TimerTask {
 
         private void createCrack(int x, int y, short mapId, int to_x, int to_y, short to_mapId) {
                 try {
-                        L1Npc l1npc = NpcTable.getInstance().getTemplate(71254);
+                        L1Npc l1npc = NpcTable.getInstance().getTemplate(90011);
 
                         if (l1npc == null) {
                             return;

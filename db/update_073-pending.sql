@@ -49,6 +49,12 @@ INSERT INTO droplist VALUES(45394, "Succubus", 40394, "White Dragon Scales", 1, 
 INSERT INTO droplist VALUES(45451, "Succubus Queen", 40394, "White Dragon Scales", 1, 1, 80);
 INSERT INTO droplist VALUES(45503, "Black Knight of Darkness", 40394, "White Dragon Scales", 1, 1, 90);
 
+-- Giran DM updates. Normal mob count might need to be racheted up a little.
+update spawnlist_ub set count=20 where ub_id=1 and group_id!=4;
+update spawnlist_ub set count=1 where ub_id=1 and group_id=4;
+delete from spawnlist_ub where id=100 or id=201;
+update spawnlist_ub set count=3 where ub_id=1 and group_id=4 and (npc_templateid=45583 or npc_templateid=45573);
+
 -- FI Mobs - by default, set to same rate as their regular counterparts, since
 -- you can already get other nifty stuff from them.
 -- INSERT INTO droplist VALUES(45738, "Bugbear", 40393, "Red Dragon Scales", 1, 1, 30);
