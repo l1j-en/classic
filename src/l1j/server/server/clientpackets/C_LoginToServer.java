@@ -58,6 +58,7 @@ import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SummonPack;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_Unknown1;
 import l1j.server.server.serverpackets.S_Unknown2;
 import l1j.server.server.serverpackets.S_War;
@@ -268,7 +269,37 @@ public class C_LoginToServer extends ClientBasePacket {
 		if (pc.getHellTime() > 0) {
 			pc.beginHell(false);
 		}
+		checkUnreadMail(pc);
 	}
+
+
+	private void checkUnreadMail(final L1PcInstance character) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		
+		try {
+			connection = L1DatabaseFactory.getInstance().getConnection();
+			statement = connection.prepareStatement("SELECT COUNT(*) FROM mail WHERE receiver=? AND read_status=?");
+			statement.setString(1, character.getName());
+			statement.setInt(2, 0);
+
+			result = statement.executeQuery();
+			result.next();
+			int count = result.getInt(1);
+			if (count > 0) {
+				String message = String.format("You've got %d unread %s!", 
+						count, count == 1 ? "message" : "messages");
+				character.sendPackets(new S_SystemMessage(message));
+			}
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(statement);
+			SQLUtil.close(connection);
+		}
+	}
+	
 
 	private void items(L1PcInstance pc) {
 		CharacterTable.getInstance().restoreInventory(pc);
