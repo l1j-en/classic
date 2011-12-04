@@ -131,6 +131,7 @@ public class L1Who implements L1CommandExecutor {
 			SQLUtil.close(con);
 		}
 	}
+	
 	private L1PcInstance getPcInstance(String name) {
 		L1PcInstance pc = L1World.getInstance().getPlayer(name);
 		if (pc == null) {
@@ -143,33 +144,36 @@ public class L1Who implements L1CommandExecutor {
 		}
 		return pc;
 	}
+	
 	private String getSex(int classID){
-		if(classID == 0 || classID == 61 || classID == 138 || classID == 734 || classID == 2786){
-			return "Male";
-		} else if(classID == 1 || classID == 48 || classID == 37 || classID == 1186 || classID == 2796){
-			return "Female";
-		} else{
-			return "error";
+		switch(classID) {
+			case 0: case 61: case 138: case 734: case 2786: case 6658: case 6671:
+				return "Male";
+			case 1: case 48: case 37: case 1186: case 2796: case 6661: case 6650:
+				return "Female";
+			default:
+				return "Error: unknown gender!";
 		}
 	}
+	
 	private String getClass(int classID){
-		if(classID == 0 || classID == 1){
-			return "Royal";
-		} else if(classID == 61 || classID == 48){
-			return "Knight";
-		} else if(classID == 138 || classID == 37){
-			return "Elf";
-		} else if(classID == 734 || classID == 1186){
-			return "Mage";
-		} else if(classID == 2786 || classID == 2796){
-			return "Dark Elf";
-		} else if (classID == 6658 || classID == 6661){
-			return "Dragon Knight";
-		} else if (classID == 6671 || classID == 6650){
-			return "Illusionist";
-		} else{
-			return "error";
+		switch(classID) {
+			case 0: case 1:
+				return "Royal";
+			case 48: case 61:
+				return "Knight";
+			case 37: case 138:
+				return "Elf";
+			case 734: case 1186:
+				return "Mage";
+			case 2786: case 2796:
+				return "Dark Elf";
+			case 6658: case 6661:
+				return "Dragon Knight";
+			case 6671: case 6650:
+				return "Illusionist";
+			default:
+				return "Error: Unrecognized class!";
 		}
-
 	}
 }

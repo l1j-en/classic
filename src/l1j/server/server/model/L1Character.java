@@ -403,6 +403,13 @@ public class L1Character extends L1Object {
 			timer.end();
 		}
 	}
+	
+	/**
+	 * @return a copy of the skill effects active on the character.
+	 */
+	public Map<Integer, L1SkillTimer> getBuffs() {
+		return new HashMap<Integer, L1SkillTimer>(_skillEffect);
+	}
 
 	public void killSkillEffectTimer(int skillId) {
 		L1SkillTimer timer = _skillEffect.remove(skillId);
