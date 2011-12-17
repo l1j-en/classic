@@ -3017,7 +3017,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.setCurrentMp(pc.getCurrentMp() + 2);
 					} else if (_skillId == BLOODY_SOUL) { // ブラッディ ソウル
 						L1PcInstance pc = (L1PcInstance) cha;
-						pc.setCurrentMp(pc.getCurrentMp() + 12);
+						pc.setCurrentMp(pc.getCurrentMp() + 16);
 					} else if (_skillId == MIND_BREAK) {
 						if (cha.getCurrentMp() > 10) {
 						cha.setCurrentMp(cha.getCurrentMp() - 10);
