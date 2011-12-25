@@ -92,7 +92,10 @@ public enum L1NamedSkill {
 	StatusSilenced(1007, "Poisoned - Silenced"),
 	StatusPartialParalyzed(1008, "Poisoned - Partially Paralyzed"),
 	StatusParalyzed(1009, "Poisoned - Paralyzed"),
-	StatusWafer(1016, "Elven Wafer");
+	StatusWafer(1016, "Elven Wafer"),
+	// Why do I feel compelled to keep the spelling error?
+	StatusBarlog(1015, "Status - Balrog Blessing"),
+	StatusYahee(1014, "Status - Yahee Blessing");
 	
 	/*
 	public static final int STATUS_CHAT_PROHIBITED = 1005;
@@ -283,8 +286,6 @@ public enum L1NamedSkill {
 	public static final int COOKING_END = 3047;
 	public static final int STATUS_FREEZE = 10071;
 	public static final int CURSE_PARALYZE2 = 10101;
-	public static final int STATUS_CURSE_BARLOG = 1015;
-	public static final int STATUS_CURSE_YAHEE = 1014;
 	public static final int STATUS_WEAKNESS_EXPOSURE_LV1 = 1026;
 	public static final int STATUS_WEAKNESS_EXPOSURE_LV2 = 1027;
 	public static final int STATUS_WEAKNESS_EXPOSURE_LV3 = 1028;
@@ -323,9 +324,8 @@ public enum L1NamedSkill {
 	 * @return The name of the skill, given by id.
 	 */
 	public static String getName(int id) {
-		L1NamedSkill skill = idsToSkills.get(id);
+		final L1NamedSkill skill = idsToSkills.get(id);
 		return skill != null 
-				? skill.toString() 
-				: ((Integer) skill.getId()).toString();
+				? skill.toString() : "Id: " + ((Integer) id).toString();
 	}
 }

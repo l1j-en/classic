@@ -30,3 +30,5 @@ insert into spawnlist values
 (78000013,'Sphinx - Dark',3,46116,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,781,1,0,0,0,1,8,2,100);
 update spawnlist set count=count*2 where id>=78000001 and id<=78000013;
 update spawnlist set count=count*2 where id>=78100001 and id<=78100029;
+
+update weapon set dmgmodifier=3 where type='chainsword';
