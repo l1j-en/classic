@@ -39,12 +39,13 @@ public class BuffCheck implements L1CommandExecutor {
 		try {
 			buffCheck(user, target);
 		} catch (Exception e) {
+			e.printStackTrace();
 			user.sendPackets(new S_SystemMessage(".buffCheck <name>"));
 		}
 	}
 	
 	private void buffCheck(L1PcInstance gm, String name) {  
-		L1PcInstance target = getPcInstance(name.trim());
+		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
 		if(target == null) {
 			gm.sendPackets(new S_SystemMessage(
 					".buffCheck doesn't work on offline players yet."));
@@ -59,21 +60,6 @@ public class BuffCheck implements L1CommandExecutor {
 			gm.sendPackets(new S_SystemMessage(
 					name + " currently has: " + buffList.toString()));
 		}
-	}
-	
-	// TODO: figure out why we need this instead of just using 
-	// L1World.getInstance().getPlayer() inline.
-	private L1PcInstance getPcInstance(String name) {
-		L1PcInstance pc = L1World.getInstance().getPlayer(name);
-		if (pc == null) {
-			for (L1PcInstance player : L1World.getInstance().getAllPlayers()) {
-				if (player.getName().toLowerCase().equals(name.toLowerCase())) {
-					pc = player;
-					break;
-				}
-			}
-		}
-		return pc;
 	}
 }
 
