@@ -44,7 +44,7 @@ public class BuffCheck implements L1CommandExecutor {
 		}
 	}
 	
-	private void buffCheck(L1PcInstance gm, String name) {  
+	private void buffCheck(L1PcInstance gm, String name) {
 		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
 		if(target == null) {
 			gm.sendPackets(new S_SystemMessage(
@@ -54,8 +54,10 @@ public class BuffCheck implements L1CommandExecutor {
 			Map<Integer, L1SkillTimer> buffs = target.getBuffs();
 			StringBuilder buffList = new StringBuilder();
 			for (Map.Entry<Integer, L1SkillTimer> buff : buffs.entrySet()) {
-				buffList.append("| " + L1NamedSkill.getName(buff.getKey()) + " " + 
-						buff.getValue().getRemainingTime());	
+				String time = buff.getValue() != null 
+					? ((Integer) buff.getValue().getRemainingTime()).toString()
+					: "forever";
+				buffList.append("| " + L1NamedSkill.getName(buff.getKey()) + " " + time);	
 			}
 			gm.sendPackets(new S_SystemMessage(
 					name + " currently has: " + buffList.toString()));

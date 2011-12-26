@@ -4158,4 +4158,22 @@ if (player instanceof L1PcInstance) {
 		return _isShapeChange;
 	}
 
+	private boolean _dropMessages = true;
+	private boolean _partyDropMessages = true;
+	
+	public void setDropMessages(final boolean dropMessages) {
+		_dropMessages = dropMessages;
+	}
+	
+	public boolean getDropMessages() {
+		return _dropMessages;
+	}
+	
+	public void setPartyDropMessages(final boolean partyDropMessages) {
+		_partyDropMessages = partyDropMessages;
+	}
+	
+	public boolean getPartyDropMessages() {
+		return _partyDropMessages;
+	}
 }

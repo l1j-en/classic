@@ -22,6 +22,8 @@ import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,6 +67,8 @@ public class PCommands {
 				reportBug(_player, cmd2);
 			} else if(cmd2.startsWith("karma")){
 				checkKarma(_player);
+			} else if (cmd2.startsWith("drop")) {
+				setDropOptions(_player, cmd2);
 			}
 			_log.info(_player.getName() + " used " + cmd2);
 		} catch (Exception e) {
@@ -74,9 +78,11 @@ public class PCommands {
 
 	public void showPHelp(L1PcInstance _player){
 		if (Config.PLAYER_BUFF == true && Config.PLAYER_COMMANDS == true)
-			_player.sendPackets(new S_SystemMessage("-warp 1-7, -karma, -buff, -bug, -help"));
+			_player.sendPackets(new S_SystemMessage(
+					"-warp 1-7, -karma, -buff, -bug, -drop, -help"));
 		else
-			_player.sendPackets(new S_SystemMessage("-warp 1-7, -karma, -bug, -help"));
+			_player.sendPackets(new S_SystemMessage(
+					"-warp 1-7, -karma, -bug, -drop, -help"));
 	}
 
 	public void buff(L1PcInstance _player){
@@ -238,5 +244,30 @@ public class PCommands {
 	private void checkKarma(L1PcInstance pc){
 		pc.sendPackets(new S_SystemMessage("Your karma is currently: " + pc.getKarma() + "."));
 	
+	}
+	
+	private void setDropOptions(final L1PcInstance pc, final String options) {
+		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.get(1).equals("all")) {
+			if (pieces.get(2).equals("on")) {
+				pc.setDropMessages(true);
+				pc.setPartyDropMessages(true);
+			} else {
+				pc.setDropMessages(false);
+				pc.setPartyDropMessages(false);
+			}
+		} else if (pieces.get(1).equals("party")) {
+			if (pieces.get(2).equals("on"))
+				pc.setPartyDropMessages(true);
+			else
+				pc.setPartyDropMessages(false);
+		} else if (pieces.get(1).equals("mine")) {
+			if (pieces.get(2).equals("on"))
+				pc.setDropMessages(true);
+			else
+				pc.setDropMessages(false);
+		} else {
+			pc.sendPackets(new S_SystemMessage("-drop all|mine|party on|off"));
+		}
 	}
 }

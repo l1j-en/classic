@@ -45,6 +45,10 @@ public class CrackOfTimeController extends TimerTask {
         private boolean _isOver = false;
         private int _startTime = 0;
 
+        private static final int _delayTime = 5 * 600;
+        private static final int _upTime = 19 * 60 * 60 * 1000 / 2;
+        private static final int _downTime = 13 * 60 * 60 * 1000 / 2;
+        
         private static final int[][] _crack = {
            { 32639, 32876, 780 },
            // { 32794, 32751, 783 }
@@ -91,7 +95,7 @@ public class CrackOfTimeController extends TimerTask {
                         try {
                                 L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(1468));
                                 clear();
-                                Thread.sleep(4*360000000);
+                                Thread.sleep(_downTime);
                         } catch (InterruptedException e) {
                                 e.printStackTrace();
                         }
@@ -100,19 +104,17 @@ public class CrackOfTimeController extends TimerTask {
                 _startTime ++;
                 _gatetime ++;
 
-                int delaytime = (5 * 600) ;
-                int keeptime =(3 * 360000000);
                 int map784gatetimer = (150 * 600);
-                if (_startTime == delaytime ) {
+                if (_startTime == _delayTime) {
                     spawnCrack();
                 }
-                if (_startTime == keeptime ) {
+                if (_startTime == _upTime) {
                     L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(1467));
                 }
-                if (_startTime >= ( keeptime + delaytime )) {
+                if (_startTime >= (_delayTime + _upTime)) {
                     _isOver = true;
                 }
-                if (_gatetime >= (delaytime + map784gatetimer)) {
+                if (_gatetime >= (_delayTime + map784gatetimer)) {
                     _gateopen = true;
                 }
         }

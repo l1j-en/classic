@@ -452,8 +452,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				return false;
 			}
 
-			if (_skillId == SOLID_CARRIAGE
-					&& pcInventory.getTypeEquipped(2, 7) == 0) {
+			if (_skillId == SOLID_CARRIAGE && 
+					pcInventory.getTypeEquipped(2, 7) == 0 && 
+					pcInventory.getTypeEquipped(2, 13) == 0) {
 				// シールドを装備しているかチェック
 				// メッセージは未確認だが一応表示させておく。
 				pc.sendPackets(new S_ServerMessage(1008)); // その状態では詠唱できません。

@@ -304,17 +304,16 @@ public class DropTable {
 									if (player.isInParty()) {
 										partyMember = player.getParty().getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
-											partyMember[p]
-													.sendPackets(new S_ServerMessage(
+											if(partyMember[p].getPartyDropMessages())
+												partyMember[p].sendPackets(
+														new S_ServerMessage(
 															813, npc.getName(),
 															item.getLogName(),
 															player.getName()));
 										}
 									} else {
-										
-										player.sendPackets(new S_ServerMessage(
-												143, npc.getName(), item
-														.getLogName()));
+										if (player.getDropMessages()) 
+											player.sendPackets(new S_ServerMessage(143, npc.getName(), item.getLogName()));
 									}
 								}
 							}
