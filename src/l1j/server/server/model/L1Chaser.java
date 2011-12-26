@@ -31,6 +31,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
+import l1j.server.server.templates.L1Skill;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Chaser extends TimerTask {
@@ -131,7 +132,8 @@ public class L1Chaser extends TimerTask {
 		dmg = (_random.nextInt(6) + 1 + 7) * coefficientA
 				* coefficientB / 10.5 * coefficientC * 2.0;
 
-		dmg = L1WeaponSkill.calcDamageReduction(pc, cha, dmg, 0);
+		dmg = 
+			L1WeaponSkill.calcDamageReduction(pc, cha, dmg, L1Skill.ATTR_EARTH);
 
 		if (cha.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2.0;
