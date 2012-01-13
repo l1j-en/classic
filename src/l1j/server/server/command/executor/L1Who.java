@@ -144,9 +144,9 @@ public class L1Who implements L1CommandExecutor {
 		return pc;
 	}
 	private String getSex(int classID){
-		if(classID == 0 || classID == 61 || classID == 138 || classID == 734 || classID == 2786){
+		if(classID == 0 || classID == 61 || classID == 138 || classID == 734 || classID == 2786 || classID == 6658 || classID == 6671){
 			return "Male";
-		} else if(classID == 1 || classID == 48 || classID == 37 || classID == 1186 || classID == 2796){
+		} else if(classID == 1 || classID == 48 || classID == 37 || classID == 1186 || classID == 2796 || classID == 6661 || classID == 6650){
 			return "Female";
 		} else{
 			return "error";
