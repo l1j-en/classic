@@ -32,3 +32,15 @@ update spawnlist set count=count*2 where id>=78000001 and id<=78000013;
 update spawnlist set count=count*2 where id>=78100001 and id<=78100029;
 
 update weapon set dmgmodifier=3 where type='chainsword';
+
+insert into armor (item_id, name, unidentified_name_id, identified_name_id, type, material, weight, invgfx, ac, safenchant, use_illusionist, add_mp, add_mpr) values (30011, "Cloak of Illusionist", "$5659", "$5659", "cloak", "cloth", 10000, 3004, -1, 6, 1, 20, 4);
+insert into armor (item_id, name, unidentified_name_id, identified_name_id, type, material, weight, invgfx, ac, safenchant, use_darkelf, use_mage, add_mp, add_wis, add_mpr) values (30010, "Hand of the Reaper", "$13789", "$13789", "glove", "bone", 3000, 2008, -1, 0, 1, 1, 20, 1, 3);
+insert into weapon (name, unidentified_name_id, identified_name_id, type, material, weight, invgfx, dmg_small, dmg_large, safenchant, use_knight, use_dragonknight, hitmodifier, dmgmodifier, canbedmg) values ("Spirit Defender", "Spirit Defender", "Spirit Defender", "tohandsword", "iron", 150000, 2082, 22, 22, 6, 1, 1, 1, 2, 0);
+
+update droplist set mob_name="Spirit" where mobId=45795;
+insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45795, 450006, "Spirit Defender", 1, 1, 10000);
+update droplist set mob_name="Grim Reaper" where mobid=45673;
+insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45673, "Grim Reaper", 30010, "Hand of the Reaper", 1, 1, 2000);
+update droplist set mob_name="Great Spirit of Water" where mobid=45620;
+insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45620, "Great Spirit of Water", 41152, "Spirit Crystal(Pollute Water)", 1, 1, 60);
+update droplist set mob_name="Great Spirit of Fire" where mobid=45622;
