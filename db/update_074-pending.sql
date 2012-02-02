@@ -1,4 +1,3 @@
-
 -- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
 
 -- Queries that are pending an update should be placed here. This allows them
@@ -44,3 +43,5 @@ insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) valu
 update droplist set mob_name="Great Spirit of Water" where mobid=45620;
 insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45620, "Great Spirit of Water", 41152, "Spirit Crystal(Pollute Water)", 1, 1, 60);
 update droplist set mob_name="Great Spirit of Fire" where mobid=45622;
+
+update droplist set chance = chance * 10 where (mob_name="Great Spirit of Fire" and itemid=41149) or (mob_name="Great Spirit of Water" and item_id=41152);
