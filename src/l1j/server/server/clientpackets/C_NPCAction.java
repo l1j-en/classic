@@ -724,6 +724,10 @@ public class C_NPCAction extends ClientBasePacket {
 					maxLevel = pc.getLevel();
 				}
 
+				_log.log(Level.INFO, String.format("Candle: %s started " +
+							"candling with maxLevel = %d and pc.getLevel()" +
+							" = %d.", pc.getName(), maxLevel, pc.getLevel()));
+
 				pc.setTempMaxLevel(maxLevel);
 				pc.setTempLevel(1);
 				pc.setInCharReset(true);

@@ -18,18 +18,19 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
+import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
-import l1j.server.server.utils.CalcInitHpMp;
 import l1j.server.server.utils.CalcStat;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -51,20 +52,50 @@ public class C_CharReset extends ClientBasePacket {
  * //\Z 127.0.0.1 Request Work ID : 120 0000: 78 03 23 0a 0b 17 12 0d
  */	
 
+	/**
+	 * Log any suspicious behavior.
+	 */
+	private void checkProvidedStats(final L1PcInstance pc, int str, int intel, int wis, 
+			int dex, int con, int cha) {
+		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
+		if (str < fixedStats.get(L1Attribute.Str) || 
+				intel < fixedStats.get(L1Attribute.Int) ||
+				wis < fixedStats.get(L1Attribute.Wis) ||
+				dex < fixedStats.get(L1Attribute.Dex) ||
+				con < fixedStats.get(L1Attribute.Con) ||
+				cha < fixedStats.get(L1Attribute.Cha))
+			_log.log(Level.SEVERE, 
+					String.format("Candle: %s had less than starting stats!", 
+						pc.getName()));
+	}
+
 	public C_CharReset(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 		int stage = readC();
 
 		if (stage == 0x01) { // 0x01:LN^[
-			int str = readC();
-			int intel = readC();
-			int wis = readC();
-			int dex = readC();
-			int con = readC();
-			int cha = readC();
-			int hp = CalcInitHpMp.calcInitHp(pc);
-			int mp = CalcInitHpMp.calcInitMp(pc);
+			// We can't trust these numbers, since they've been provided by the
+			// client--this is the source of one of the candle glitches.
+			int cStr = readC();
+			int cIntel = readC();
+			int cWis = readC();
+			int cDex = readC();
+			int cCon = readC();
+			int cCha = readC();
+
+			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
+
+			// TODO: check!
+			int str = pc.getStr();
+			int intel = pc.getInt();
+			int wis = pc.getWis();
+			int dex = pc.getDex();
+			int con = pc.getCon();
+			int cha = pc.getCha();
+
+			int hp = pc.getClassFeature().getStartingHp();
+			int mp = pc.getClassFeature().getStartingMp(wis);
 			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
 			CharacterTable.getInstance().saveCharStatus(pc);
@@ -123,12 +154,31 @@ public class C_CharReset extends ClientBasePacket {
 				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
-			pc.addBaseStr((byte) (readC() - pc.getBaseStr()));
-			pc.addBaseInt((byte) (readC() - pc.getBaseInt()));
-			pc.addBaseWis((byte) (readC() - pc.getBaseWis()));
-			pc.addBaseDex((byte) (readC() - pc.getBaseDex()));
-			pc.addBaseCon((byte) (readC() - pc.getBaseCon()));
-			pc.addBaseCha((byte) (readC() - pc.getBaseCha()));
+			// We can't trust these numbers, since they've been provided by the
+			// client--this is the source of one of the candle glitches.
+			int cStr = readC();
+			int cIntel = readC();
+			int cWis = readC();
+			int cDex = readC();
+			int cCon = readC();
+			int cCha = readC();
+
+			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
+
+			// TODO: check!
+			int str = pc.getStr();
+			int intel = pc.getInt();
+			int wis = pc.getWis();
+			int dex = pc.getDex();
+			int con = pc.getCon();
+			int cha = pc.getCha();	
+
+			pc.addBaseStr((byte) (str - pc.getBaseStr()));
+			pc.addBaseInt((byte) (intel - pc.getBaseInt()));
+			pc.addBaseWis((byte) (wis - pc.getBaseWis()));
+			pc.addBaseDex((byte) (dex - pc.getBaseDex()));
+			pc.addBaseCon((byte) (con - pc.getBaseCon()));
+			pc.addBaseCha((byte) (cha - pc.getBaseCha()));
 			saveNewCharStatus(pc);
 		}
 	}
@@ -194,156 +244,6 @@ public class C_CharReset extends ClientBasePacket {
 		pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc,
 		pc.getBaseStr(), pc.getBaseInt(), pc.getBaseWis(),
 		pc.getBaseDex(), pc.getBaseCon(), pc.getBaseCha()));
-	}
-
-	private int getInitialHp (L1PcInstance pc) {
-		int hp = 1;
-		if (pc.isCrown()) {
-			hp = 14;
-		} else if (pc.isKnight()) {
-			hp = 16;
-		} else if (pc.isElf()) {
-			hp = 15;
-		} else if (pc.isWizard()) {
-			hp = 12;
-		} else if (pc.isDarkelf()) {
-			hp = 12;
-		} else if (pc.isDragonKnight()) {
-			hp = 15;
-		} else if (pc.isIllusionist()) {
-			hp = 15;
-		}
-		return hp;
-	}
-
-	private int getInitialMp (L1PcInstance pc) {
-		int mp = 1;
-		if (pc.isCrown()) {
-			switch (pc.getWis()) {
-			case 11:
-			mp = 2;
-			break;
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 3;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 4;
-			break;
-			default:
-			mp = 2;
-			break;
-			}
-		} else if (pc.isKnight()) {
-			switch (pc.getWis()) {
-			case 9:
-			case 10:
-			case 11:
-			mp = 1;
-			break;
-			case 12:
-			case 13:
-			mp = 2;
-			break;
-			default:
-			mp = 1;
-			break;
-			}
-		} else if (pc.isElf()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		} else if (pc.isWizard()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 6;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 8;
-			break;
-			default:
-			mp = 6;
-			break;
-			}
-		} else if (pc.isDarkelf()) {
-			switch (pc.getWis()) {
-			case 10:
-			case 11:
-			mp = 3;
-			break;
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 3;
-			break;
-			}
-		} else if (pc.isDragonKnight()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		} else if (pc.isIllusionist()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		}
-		return mp;
 	}
 
 	@Override
