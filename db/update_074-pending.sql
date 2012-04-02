@@ -24,9 +24,9 @@ insert into spawnlist values
 (78100027,'Thebes Guardian - Red',3,46120,0,32835,32848,0,0,32866,32747,32980,32849,0,0,0,781,1,0,0,0,1,8,2,100),
 (78100028,'Thebes Elder - Purple',3,46122,0,32835,32848,0,0,32866,32747,32980,32849,0,0,0,781,1,0,0,0,1,8,2,100),
 (78100029,'Horus Falcon - Blue',3,46118,0,32835,32848,0,0,32866,32747,32980,32849,0,0,0,781,1,0,0,0,1,8,2,100),
-(78000011,'Kalbis - Red',3,46112,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,781,1,0,0,0,1,8,2,100),
-(78000012,'Obelisk - Dark',3,46114,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,781,1,0,0,0,1,8,2,100),
-(78000013,'Sphinx - Dark',3,46116,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,781,1,0,0,0,1,8,2,100);
+(78000011,'Kalbis - Red',3,46112,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,780,1,0,0,0,1,8,2,100),
+(78000012,'Obelisk - Dark',3,46114,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,780,1,0,0,0,1,8,2,100),
+(78000013,'Sphinx - Dark',3,46116,0,32777,32836,0,0,32787,32832,32798,33000,0,0,0,780,1,0,0,0,1,8,2,100);
 update spawnlist set count=count*2 where id>=78000001 and id<=78000013;
 update spawnlist set count=count*2 where id>=78100001 and id<=78100029;
 
@@ -45,3 +45,6 @@ insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) valu
 update droplist set mob_name="Great Spirit of Fire" where mobid=45622;
 
 update droplist set chance = chance * 10 where (mob_name="Great Spirit of Fire" and itemid=41149) or (mob_name="Great Spirit of Water" and item_id=41152);
+
+alter table pets add weapon int(10) unsigned default 0;
+alter table pets add armor int(10) unsigned default 0;

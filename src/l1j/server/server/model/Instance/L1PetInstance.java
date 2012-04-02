@@ -27,6 +27,7 @@ import java.util.Random;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.ExpTable;
+import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Attack;
@@ -154,6 +155,9 @@ public class L1PetInstance extends L1NpcInstance {
 				.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
+		ItemTable items = ItemTable.getInstance();
+		setWeapon(items.createItem(l1pet.get_weapon()));
+		setArmor(items.createItem(l1pet.get_armor()));
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -262,6 +266,8 @@ public class L1PetInstance extends L1NpcInstance {
 		l1pet.set_hp(getMaxHp());
 		l1pet.set_mp(getMaxMp());
 		l1pet.set_exp(getExp());
+		l1pet.set_weapon(getWeapon().getItemId());
+		l1pet.set_armor(getArmor().getItemId());
 		PetTable.getInstance().storeNewPet(this, getId(), new_itemobjid);
 		_itemObjId = new_itemobjid;
 	}
@@ -561,6 +567,13 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setWeapon(L1ItemInstance weapon) {
 		_weapon = weapon;
+	
+		// FIXME: This is a dreadful experimental hack.	
+		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
+		if (l1pet == null) {
+			return;
+		}
+		l1pet.set_weapon(weapon.getItemId());
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -571,6 +584,13 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setArmor(L1ItemInstance armor) {
 		_armor = armor;
+	
+		// FIXME: see note in setWeapon().	
+		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
+		if (l1pet == null) {
+			return;
+		}
+		l1pet.set_armor(armor.getItemId());
 	}
 
 	public L1ItemInstance getArmor() {
