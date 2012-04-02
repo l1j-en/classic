@@ -23,6 +23,9 @@ public class L1Pet {
 	public L1Pet() {
 	}
 
+	private int _weaponId;
+	private int _armorId;
+
 	private int _itemobjid;
 
 	public int get_itemobjid() {
@@ -111,5 +114,21 @@ public class L1Pet {
 
 	public void set_lawful(int i) {
 		_lawful = i;
+	}
+
+	public void set_weapon(int weaponId) {
+		_weaponId = weaponId;
+	}
+
+	public int get_weapon() {
+		return _weaponId;
+	}
+
+	public void set_armor(int armorId) {
+		_armorId = armorId;
+	}
+
+	public int get_armor() {
+		return _armorId;
 	}
 }
