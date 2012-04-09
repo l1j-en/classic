@@ -4,38 +4,85 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum L1NamedSkill {
-	Heal(1, "Lesser Heal"),
+	LesserHeal(1, "Lesser Heal"),
 	Light(2, "Light"),
 	Shield(3, "Shield"),
 	EnergyBolt(4, "EnergyBolt"),
 	Teleport(5, "Teleport"),
+	IceDagger(6, "Ice Dagger"),
+	WindShuriken(7, "Wind Shuriken"),
 	HolyWeapon(8, "Holy Weapon"),
+	CurePoison(9, "Cure Poison"),
+	ChillTouch(10, "Chill Touch"),
+	CursePoison(11, "Curse - Poison"),
 	EnchantWeapon(12, "Enchant Weapon"),
+	Detection(13, "Detection"),
 	DecreaseWeight(14, "Decrease Weight"),
+	FireArrow(15, "Fire Arrow"),
+	Stalactite(16, "Stalactite"),
+	Lightning(17, "Lightning"),
+	TurnUndead(18, "Turn Undead"),
+	Heal(19, "Heal"),
 	CurseBlindess(20, "Curse - Blindness"),
 	BlessedArmor(21, "Blessed Armor"),
+	FrozenCloud(22, "Frozen Cloud"),
+	RevealWeakness(23, "Reveal Weakness"),
+	Fireball(25, "Fireball"),
 	EnchantDex(26, "Enchant Dexterity"),
 	WeaponBreak(27, "Weapon Break"),
+	VampiricTouch(28, "Vampiric Touch"),
 	Slow(29, "Slow"),
 	EarthJail(30, "Earth Jail"),
 	CounterMagic(31, "Counter Magic"),
 	Meditation(32, "Meditation"),
 	CurseParalyze(33, "Curse - Paralyze"),
+	CallLightning(34, "Call Lightning"),
+	GreaterHeal(35, "Greater Heal"),
+	TameMonster(36, "Tame Monster"),
+	RemoveCurse(37, "Remove Curse"),
+	ConeOfCold(38, "Cone of Cold"),
+	ManaDrain(39, "Mana Drain"),
 	Darkness(40, "Darkness"),
+	CreateZombie(41, "Create Zombie"),
 	EnchantStr(42, "Enchant Strength"),
 	Haste(43, "Haste"),
+	CancelMagic(44, "Cancel Magic"),
+	Eruption(45, "Eruption"),
+	Sunburst(46, "Sunburst"),
 	Weakness(47, "Weakness"),
 	BlessedWeapon(48, "Blessed Weapon"),
+	HealPledge(49, "Heal Pledge"),
+	IceLance(50, "Ice Lance"),
+	SummonMonster(51, "Summon Monster"),
 	HolyWalk(52, "Holy Walk"),
+	Tornado(53, "Tornado"),
 	GreaterHaste(54, "Greater Haste"),
 	Berserkers(55, "Berserkers"),
 	Disease(56, "Disease"),
+	Fullheal(57, "Full Heal"),
+	Firewall(58, "Firewall"),
+	Blizzard(59, "Blizzard"),
 	Invisibility(60, "Invisibility"),
+	Resurrection(61, "Resurrection"),
+	Earthquake(62, "Earthquake"),
+	LifeStream(63, "Life Stream"),
+	Silence(64, "Silence"),
+	LightningStorm(65, "Lightning Storm"),
+	FogOfSleeping(66, "Fog of Sleeping"),
 	Polymorph(67, "Polymorph"),
 	ImmuneToHarm(68, "Immune to Harm"),
+	MassTeleport(69, "Mass Teleport"),
+	Firestorm(70, "Firestorm"),
+	DecayPotion(71, "Decay Potion"),
+	CounterDetection(72, "Counter Detection"),
+	CreateMagicalWeapon(73, "Create Magic Weapon"),
+	MeteorStrike(74, "Meteor Strike"),
+	GreaterResurrection(75, "Greater Resurrection"),
 	MassSlow(76, "Mass Slow"),
+	Destroy(77, "Destroy"),
 	AbsoluteBarrier(78, "Absolute Barrier"),
 	AdvanceSpirit(79, "Advance Spirit"),
+	FreezingBlizzard(80, "Freezing Blizzard"),
 	ShockStun(87, "Shock Stun"),
 	ReductionArmor(88, "Reduction Armor"),
 	BounceAttack(89, "Bounce Attack"),
@@ -44,20 +91,34 @@ public enum L1NamedSkill {
 	BlindHiding(97, "Blind Hiding"),
 	EnchantVenom(98, "Enchant Venom"),
 	ShadowArmor(99, "Shadow Armor"),
+	BringStone(100, "Bring Stone"),
 	MovingAcceleration(101, "Moving Acceleration"),
+	BurningSpirit(102, "Burning Spirit"),
+	DarkBlind(103, "Dark Blind"),
 	VenomResist(104, "Venom Resist"),
 	DoubleBreak(105, "Double Break"),
 	UncannyDodge(106, "Uncanny Dodge"),
 	ShadowFang(107, "Shadow Fang"),
+	FinalBurn(108, "Final Burn"),
 	DressMighty(109, "Dress Mighty"),
 	DressDexterity(110, "Dress Dexterity"),
 	DressEvasion(111, "Dress Evasion"),
+	TrueTarget(113, "True Target"),
 	GlowingAura(114, "Glowing Aura"),
 	ShiningAura(115, "Shining Aura"),
+	CallPledgeMember(116, "Call Pledge Member"),
 	BraveAura(117, "Brave Aura"),
+	RunClan(118, "Run Clan"),
 	ResistMagic(129, "Resist Magic"),
+	BodyToMind(130, "Body to Mind"),
+	TeleportToMother(131, "Teleport to Mother"),
+	TripleArrow(132, "Triple Arrow"),
+	ElementalFalldown(133, "Elemental Falldown"),
 	CounterMirror(134, "Counter Mirror"),
+	ClearMind(137, "Clear Mind"),
 	ResistElemental(138, "Resist Elemental"),
+	ReturnToNature(145, "Return to Nature"),
+	BloodToSoul(146, "Blood to Soul"),
 	ElementalProtection(147, "Elemental Protection"),
 	FireWeapon(148, "Fire Weapon"),
 	WindShot(149, "Wind Shot"),
@@ -65,13 +126,18 @@ public enum L1NamedSkill {
 	EarthSkin(151, "Earth Skin"),
 	Entangle(152, "Entangle"),
 	EraseMagic(153, "Erase Magic"),
+	LesserElemental(154, "Summon Lesser Elemental"),
 	BlessOfFire(155, "Bless of Fire"),
 	EyeOfStorm(156, "Eye of Storm"),
 	EarthBind(157, "Earth Bind"),
-	BlessOfEarth(159, "Bless of Earth"),
 	NaturesTouch(158, "Nature's Touch"),
+	BlessOfEarth(159, "Bless of Earth"),
+	AquaProtecter(160, "Aqua Protector"), // TODO: look up real name.
+	AreaOfSilence(161, "Area of Silence"),
+	GreaterElemental(162, "Summon Greater Elemental"),
 	BurningWeapon(163, "Burning Weapon"),
 	NaturesBlessing(164, "Nature's Blessing"),
+	CallOfNature(165, "Call of Nature"),
 	StormShot(166, "Storm Shot"),
 	WindShackle(167, "Wind Shackle"),
 	IronSkin(168, "Iron Skin"),
@@ -83,6 +149,41 @@ public enum L1NamedSkill {
 	StrikersGale(174, "Strikers' Gale"),
 	SoulOfFlame(175, "Soul of Flame"),
 	AdditionalFire(176, "Additional Fire"),
+	DragonSkin(181, "Dragon Skin"),
+	BurningSlash(182, "Burning Slash"),
+	GuardBreak(183, "Guard Break"),
+	MagmaBreath(184, "Magma Breath"),
+	AwakenAntharas(185, "Awaken - Antharas"),
+	Bloodlust(186, "Bloodlust"),
+	FoeSlayer(187, "Foe Slayer"),
+	ResistFear(188, "Resist Fear"),
+	ShockSkin(189, "Shock Skin"),
+	AwakenFafurion(190, "Awaken - Fafurion"),
+	MortalBody(191, "Mortal Body"),
+	ThunderGrab(192, "Thunder Grab"),
+	HorrorOfDeath(193, "Horror of Death"),
+	FreezingBreath(194, "Freezing Breath"),
+	AwakenValakas(195, "Awaken - Valakas"),
+	MirrorImage(201, "Mirror Image"),
+	Confusion(202, "Confusion"),
+	Smash(203, "Confusion"),
+	IllusionOgre(204, "Illusion - Ogre"),
+	CubeIgnition(205, "Cube - Ignition"),
+	Concentration(206, "Concentration"),
+	MindBreak(207, "Mind Break"),
+	BoneBreak(208, "Bone Break"),
+	IllusionLich(209, "Illusion - Lich"),
+	CubeQuake(210, "Cube - Quake"),
+	Patience(211, "Patience"),
+	Phantasm(212, "Phantasm"),
+	ArmBreaker(213, "Arm Breaker"),
+	IllusionGolem(214, "Illusion - Diamond Golem"),
+	CubeShock(215, "Cube - Shock"),
+	Insight(216, "Insight"),
+	Panic(217, "Panic"),
+	JoyOfPain(218, "Joy of Pain"),
+	IllusionAvatar(219, "Illusion - Avatar"),
+	CubeBalance(220, "Cube - Balance"),
 	StatusBravery(1000, "Brave"),
 	StatusHaste(1001, "Haste"),
 	StatusManaRegen(1002, "Potion of Mana Regeneration"),
@@ -122,117 +223,9 @@ public enum L1NamedSkill {
 	public static final int GMSTATUS_SHOWTRAPS = 2002;
 	public static final int GMSTATUS_FINDINVIS = 2003;
 	public static final int GMSTATUS_END = 2003;
-	public static final int BODY_TO_MIND = 130;
-	public static final int TELEPORT_TO_MATHER = 131;
-	public static final int TRIPLE_ARROW = 132;
-	public static final int ELEMENTAL_FALL_DOWN = 133;
-	public static final int CLEAR_MIND = 137;
-	public static final int RETURN_TO_NATURE = 145;
-	public static final int BLOODY_SOUL = 146; // E: BLOOD_TO_SOUL
-	public static final int LESSER_ELEMENTAL = 154; // E:SUMMON_LESSER_ELEMENTAL
-	public static final int AQUA_PROTECTER = 160;
-	public static final int AREA_OF_SILENCE = 161;
-	public static final int GREATER_ELEMENTAL = 162; // E:SUMMON_GREATER_ELEMENTAL
-	public static final int CALL_OF_NATURE = 165; // E: NATURES_MIRACLE
-	public static final int DRAGON_SKIN = 181;
-	public static final int BURNING_SLASH = 182;
-	public static final int GUARD_BRAKE = 183;
-	public static final int MAGMA_BREATH = 184;
-	public static final int AWAKEN_ANTHARAS = 185;
-	public static final int BLOODLUST = 186;
-	public static final int FOE_SLAYER = 187;
-	public static final int RESIST_FEAR = 188;
-	public static final int SHOCK_SKIN = 189;
-	public static final int AWAKEN_FAFURION = 190;
-	public static final int MORTAL_BODY = 191;
-	public static final int THUNDER_GRAB = 192;
-	public static final int HORROR_OF_DEATH = 193;
-	public static final int FREEZING_BREATH = 194;
-	public static final int AWAKEN_VALAKAS = 195;
+	SKILLS_END = 220;
+	MASS_SHOCK_STUN = 500; // 範囲スタン
 
-	public static final int MIRROR_IMAGE = 201;
-	public static final int CONFUSION = 202;
-	public static final int SMASH = 203;
-	public static final int ILLUSION_OGRE = 204;
-	public static final int CUBE_IGNITION = 205;
-	public static final int CONCENTRATION = 206;
-	public static final int MIND_BREAK = 207;
-	public static final int BONE_BREAK = 208;
-	public static final int ILLUSION_LICH = 209;
-	public static final int CUBE_QUAKE = 210;
-	public static final int PATIENCE = 211;
-	public static final int PHANTASM = 212;
-	public static final int ARM_BREAKER = 213;
-	public static final int ILLUSION_DIA_GOLEM = 214;
-	public static final int CUBE_SHOCK = 215;
-	public static final int INSIGHT = 216;
-	public static final int PANIC = 217;
-	public static final int JOY_OF_PAIN = 218;
-	public static final int ILLUSION_AVATAR = 219;
-	public static final int CUBE_BALANCE = 220;
-	public static final int SKILLS_END = 220;
-	public static final int MASS_SHOCK_STUN = 500; // 範囲スタン
-
-	public static final int BRING_STONE = 100;
-	public static final int BURNING_SPIRIT = 102;
-	public static final int DARK_BLIND = 103;
-	public static final int FINAL_BURN = 108;
-	
-	public static final int TRUE_TARGET = 113;
-	public static final int CALL_CLAN = 116; // E: CALL_PLEDGE_MEMBER
-	public static final int RUN_CLAN = 118;
-	public static final int CANCELLATION = 44; // E: CANCEL MAGIC
-	public static final int ERUPTION = 45;
-	public static final int SUNBURST = 46;
-	public static final int WEAKNESS = 47;
-	public static final int HEAL_ALL = 49; // E: HEAL_PLEDGE
-	public static final int ICE_LANCE = 50;
-	public static final int SUMMON_MONSTER = 51;
-	public static final int TORNADO = 53;
-	public static final int FULL_HEAL = 57;
-	public static final int FIRE_WALL = 58;
-	public static final int BLIZZARD = 59;
-	public static final int RESURRECTION = 61;
-	public static final int EARTHQUAKE = 62;
-	public static final int LIFE_STREAM = 63;
-	public static final int SILENCE = 64;
-	public static final int LIGHTNING_STORM = 65;
-	public static final int FOG_OF_SLEEPING = 66;
-	public static final int MASS_TELEPORT = 69;
-	public static final int FIRE_STORM = 70;
-	public static final int DECAY_POTION = 71;
-	public static final int COUNTER_DETECTION = 72;
-	public static final int CREATE_MAGICAL_WEAPON = 73;
-	public static final int METEOR_STRIKE = 74;
-	public static final int GREATER_RESURRECTION = 75;
-	public static final int DISINTEGRATE = 77; // E: DESTROY
-	public static final int FREEZING_BLIZZARD = 80;
-	public static final int ICE_DAGGER = 6;
-	public static final int WIND_CUTTER = 7; // E: WIND_SHURIKEN
-	public static final int CURE_POISON = 9;
-	public static final int CHILL_TOUCH = 10;
-	public static final int CURSE_POISON = 11;
-	public static final int DETECTION = 13;
-	public static final int FIRE_ARROW = 15;
-	public static final int STALAC = 16;
-	public static final int LIGHTNING = 17;
-	public static final int TURN_UNDEAD = 18;
-	public static final int EXTRA_HEAL = 19; // E: HEAL
-	public static final int FROZEN_CLOUD = 22;
-	public static final int WEAK_ELEMENTAL = 23; // E: REVEAL_WEAKNESS
-	// none = 24
-	public static final int FIREBALL = 25;
-
-	public static final int WEAPON_BREAK = 27;
-	public static final int VAMPIRIC_TOUCH = 28;
-	
-	public static final int CALL_LIGHTNING = 34;
-	public static final int GREATER_HEAL = 35;
-	public static final int TAMING_MONSTER = 36; // E: TAME_MONSTER
-	public static final int REMOVE_CURSE = 37;
-	public static final int CONE_OF_COLD = 38;
-	public static final int MANA_DRAIN = 39;
-	public static final int CREATE_ZOMBIE = 41;
 	public static final int COOKING_NOW = 2999;
 	public static final int COOKING_BEGIN = 3000;
 	public static final int COOKING_1_0_N = 3000;
@@ -315,8 +308,7 @@ public enum L1NamedSkill {
 		return id;
 	}
 	
-	@Override
-	public String toString() {
+	@Override public String toString() {
 		return name;
 	}
 	

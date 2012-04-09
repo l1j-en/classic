@@ -194,14 +194,17 @@ public class C_NPCAction extends ClientBasePacket {
 			return;
 		}
 
+		// AFDFASGDAFDSFSDAF
+		L1NpcInstance npc = (L1NpcInstance) obj;
+		int npcid = npc.getNpcTemplate().get_npcId();
+		String npcName = npc.getNpcTemplate().get_name();
+
 		if (s.equalsIgnoreCase("buy")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
 			if (isNpcSellOnly(npc)) {
 				return;
 			}
 			pc.sendPackets(new S_ShopSellList(objid));
 		} else if (s.equalsIgnoreCase("sell")) {
-			int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 			if (npcid == 70523 || npcid == 70805) {
 				htmlid = "ladar2";
 			} else if (npcid == 70537 || npcid == 70807) { 
@@ -263,64 +266,58 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.sendPackets(new S_RetrievePledgeList(objid, pc));
 			}
 		} else if (s.equalsIgnoreCase("get")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			int npcId = npc.getNpcTemplate().get_npcId();
-			if (npcId == 70099 || npcId == 70796) {
+			if (npcid == 70099 || npcid == 70796) {
 				L1ItemInstance item = pc.getInventory().storeItem(20081, 1); 
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				pc.getQuest().set_end(L1Quest.QUEST_OILSKINMANT);
 				htmlid = ""; 
-			}
-			else if (npcId == 70528 || npcId == 70546 || npcId == 70567
-                    || npcId == 70594 || npcId == 70654 || npcId == 70748
-					|| npcId == 70774 || npcId == 70799 || npcId == 70815 || npcId == 70860) {
-                    if (pc.getHomeTownId() > 0) {
+			} else if (npcid == 70528 || npcid == 70546 || npcid == 70567
+                    || npcid == 70594 || npcid == 70654 || npcid == 70748
+					|| npcid == 70774 || npcid == 70799 || npcid == 70815 
+					|| npcid == 70860) {
+				if (pc.getHomeTownId() > 0) {
 				} else {
-            }
-          }
+            	}
+         	}
 		} else if (s.equalsIgnoreCase("fix")) { 
 		} else if (s.equalsIgnoreCase("room")) {
 		} else if (s.equalsIgnoreCase("hall") && obj instanceof L1MerchantInstance) { 
 		} else if (s.equalsIgnoreCase("return")) { 
 		} else if (s.equalsIgnoreCase("enter")) { 
 		} else if (s.equalsIgnoreCase("openigate")) { 
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			openCloseGate(pc, npc.getNpcTemplate().get_npcId(), true);
+			openCloseGate(pc, npcid, true);
 			htmlid = "";
 		} else if (s.equalsIgnoreCase("closeigate")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			openCloseGate(pc, npc.getNpcTemplate().get_npcId(), false);
+			openCloseGate(pc, npcid, false);
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("askwartime")) { 
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			if (npc.getNpcTemplate().get_npcId() == 60514) { 
+			if (npcid == 60514) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.KENT_CASTLE_ID);
 				htmlid = "ktguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 60560) { 
+			} else if (npcid == 60560) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.OT_CASTLE_ID);
 				htmlid = "orcguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 60552) { 
+			} else if (npcid == 60552) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.WW_CASTLE_ID);
 				htmlid = "wdguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 60524 || 
-				npc.getNpcTemplate().get_npcId() == 60525 || 
-				npc.getNpcTemplate().get_npcId() == 60529) { 
+			} else if (npcid == 60524 || 
+				npcid == 60525 || 
+				npcid == 60529) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.GIRAN_CASTLE_ID);
 				htmlid = "grguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 70857) { 
+			} else if (npcid == 70857) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.HEINE_CASTLE_ID);
 				htmlid = "heguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 60530 ||
-				npc.getNpcTemplate().get_npcId() == 60531) {
+			} else if (npcid == 60530 ||
+				npcid == 60531) {
 				htmldata = makeWarTimeStrings(L1CastleLocation.DOWA_CASTLE_ID);
 				htmlid = "dcguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 60533 ||
-				npc.getNpcTemplate().get_npcId() == 60534) {
+			} else if (npcid == 60533 ||
+				npcid == 60534) {
 				htmldata = makeWarTimeStrings(L1CastleLocation.ADEN_CASTLE_ID);
 				htmlid = "adguard7";
-			} else if (npc.getNpcTemplate().get_npcId() == 81156) { 
+			} else if (npcid == 81156) { 
 				htmldata = makeWarTimeStrings(L1CastleLocation.DIAD_CASTLE_ID);
 				htmlid = "dfguard3";
 			}
@@ -335,8 +332,6 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		} else if (s.equalsIgnoreCase("declarewar")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			int npcid = npc.getNpcTemplate().get_npcId();
             L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
             if (npcid == 60514 && pc.getClassId() == 1 && isExistDefenseClan(L1CastleLocation.KENT_CASTLE_ID)) {
                     pc.sendPackets(new S_War(1, clan.getClanName(), getDefenseClanName(L1CastleLocation.KENT_CASTLE_ID)));
@@ -460,19 +455,15 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		} else if (s.equalsIgnoreCase("open")
 				|| s.equalsIgnoreCase("close")) { 
-			L1NpcInstance npc = (L1NpcInstance) obj;
 			openCloseDoor(pc, npc, s);
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("expel")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
-			expelOtherClan(pc, npc.getNpcTemplate().get_npcId());
+			expelOtherClan(pc, npcid); 
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("pay")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
 			htmldata = makeHouseTaxStrings(pc, npc);
             htmlid = "agpay";
         } else if (s.equalsIgnoreCase("payfee")) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
 			payFee(pc, npc);
             htmlid = "";
 		} else if (s.equalsIgnoreCase("name")) { 
@@ -482,8 +473,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (houseId != 0) {
 					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
-					L1NpcInstance npc = (L1NpcInstance) obj;
-					if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					if (npcid == keeperId) {
 						pc.setTempID(houseId); 
 						pc.sendPackets(new S_Message_YN(512, ""));
 					}
@@ -501,8 +491,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (houseId != 0) {
 					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
-					L1NpcInstance npc = (L1NpcInstance) obj;
-					if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					if (npcid == keeperId) {
 						int[] loc = new int[3];
 						if (s.equalsIgnoreCase("tel0")) {
 							loc = L1HouseLocation.getHouseTeleportLoc(houseId, 0);
@@ -525,8 +514,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (houseId != 0) {
 					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
-					L1NpcInstance npc = (L1NpcInstance) obj;
-					if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					if (npcid == keeperId) {
 						if (pc.isCrown() && pc.getId() == clan.getLeaderId()) { 
 							if (house.isPurchaseBasement()) {
 								pc.sendPackets(new S_ServerMessage(1135));
@@ -553,8 +541,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (houseId != 0) {
 					L1House house = HouseTable.getInstance().getHouseTable(houseId);
 					int keeperId = house.getKeeperId();
-					L1NpcInstance npc = (L1NpcInstance) obj;
-					if (npc.getNpcTemplate().get_npcId() == keeperId) {
+					if (npcid == keeperId) {
 						if (house.isPurchaseBasement()) {
 							int[] loc = new int[3];
 							loc = L1HouseLocation.getBasementLoc(houseId);
@@ -566,9 +553,7 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 			htmlid = ""; 
-		}
-		else if (s.equalsIgnoreCase("fire")) 
-		{
+		} else if (s.equalsIgnoreCase("fire")) {
 			if (pc.isElf()) {
 				if (pc.getElfAttr() != 0) {
 					return;
@@ -664,7 +649,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			htmlid = "";
 
-		} else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 90521) {
+		} else if (npcid == 90521) {
             int pccount = 0;
             for (L1PcInstance map784pc : L1World.getInstance().getAllPlayers()) {
                     if (map784pc.getMapId() == 784) {
@@ -688,19 +673,18 @@ public class C_NPCAction extends ClientBasePacket {
                     }
             }
 		} else if (s.equalsIgnoreCase("ent")) {
-			int npcId = ((L1NpcInstance) obj).getNpcId();
-			if (npcId == 80085) {
+			if (npcid == 80085) {
 				htmlid = enterHauntedHouse(pc);
-			} else if (npcId == 80088) {
+			} else if (npcid == 80088) {
 				htmlid = enterPetMatch(pc, Integer.valueOf(s2));
-            } else if (npcId == 80168) {
+            } else if (npcid == 80168) {
                 L1PolyRace.getInstance().enterGame(pc);
-            } else if (npcId == 80086 || npcId == 80087) {
-                L1DeathMatch.getInstance().enterGame(pc, npcId);
-			} else if (npcId == 50038 || npcId == 50042 || npcId == 50029
-					|| npcId == 50019 || npcId == 50062) {
-				htmlid = watchUb(pc, npcId);
-			} else if (npcId == 71251) {
+            } else if (npcid == 80086 || npcid == 80087) {
+                L1DeathMatch.getInstance().enterGame(pc, npcid);
+			} else if (npcid == 50038 || npcid == 50042 || npcid == 50029
+					|| npcid == 50019 || npcid == 50062) {
+				htmlid = watchUb(pc, npcid);
+			} else if (npcid == 71251) {
 				if (!pc.getInventory().checkItem(49142)) {
 					pc.sendPackets(new S_ServerMessage(1290));
 					return;
@@ -733,24 +717,19 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.setInCharReset(true);
 				pc.sendPackets(new S_CharReset(pc));
 			} else {
-				htmlid = enterUb(pc, npcId);
+				htmlid = enterUb(pc, npcid);
 			}
 		} else if (s.equalsIgnoreCase("par")) { 
-			htmlid = enterUb(pc, ((L1NpcInstance) obj).getNpcId());
+			htmlid = enterUb(pc, npcid);
 		} else if (s.equalsIgnoreCase("info")) { 
-			int npcId = ((L1NpcInstance) obj).getNpcId();
-			if (npcId == 80085) {
+			if (npcid == 80085) {
 			} else {
 				htmlid = "colos2";
 			}
 		} else if (s.equalsIgnoreCase("sco")) { 
 			htmldata = new String[10];
 			htmlid = "colos3";
-		}
-
-		else if (s.equalsIgnoreCase("haste")) { 
-			L1NpcInstance l1npcinstance = (L1NpcInstance) obj;
-			int npcid = l1npcinstance.getNpcTemplate().get_npcId();
+		} else if (s.equalsIgnoreCase("haste")) { 
 			if (npcid == 70514) {
 				pc.sendPackets(new S_ServerMessage(183));
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 1, 1600));
@@ -761,8 +740,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.setSkillEffect(STATUS_HASTE, 1600 * 1000);
 				htmlid = ""; 
 			}
-		}
-		else if (s.equalsIgnoreCase("skeleton nbmorph")) {
+		} else if (s.equalsIgnoreCase("skeleton nbmorph")) {
 			poly(client, 2374);
 			htmlid = ""; 
 		} else if (s.equalsIgnoreCase("lycanthrope nbmorph")) {
@@ -786,12 +764,9 @@ public class C_NPCAction extends ClientBasePacket {
 		} else if (s.equalsIgnoreCase("troll nbmorph")) {
 			poly(client, 3878);
 			htmlid = ""; 
-		}
-		// lekman talking scroll trade 
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() > 50111 && 
-				((L1NpcInstance) obj).getNpcTemplate().get_npcId() < 50118) { 
+		} else if (npcid > 50111 && npcid < 50118) { 
+			// lekman talking scroll trade 
 			if (s.equalsIgnoreCase("0"))  { 
-				L1NpcInstance npc = (L1NpcInstance) obj; String npcName = npc.getNpcTemplate().get_name(); 
 				if (pc.getInventory().checkItem(40641) == true){  
 					// it ts, it leather armor, it gloves, it sandal, it ring, it edo, it staff, it spear, it axe, it claw, it bow /*
 					/*final int[] item_ids = { 20082, 20126, 20173, 20212, 20282, 73, 105, 120, 147, 156, 174, 40373}; 
@@ -820,120 +795,89 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_SystemMessage("You do not possess a Talking Scroll!"));  
 					}  
 				} 
-			} 
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71038) {
+		} else if (npcid == 71038) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41060, 1); 
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				htmlid = "orcfnoname9";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41060, 1)) {
 					htmlid = "orcfnoname11";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71039) {
+		} else if (npcid == 71039) {
 			if (s.equalsIgnoreCase("teleportURL")) {
 				htmlid = "orcfbuwoo2";
 			}
-		}
-		//
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71040) {
+		} else if (npcid == 71040) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41065, 1); 
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 				htmlid = "orcfnoa4";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41065, 1)) {
 					htmlid = "orcfnoa7";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71041) {
+		} else if (npcid == 71041) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41064, 1);
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				htmlid = "orcfhuwoomo4";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41064, 1)) {
 					htmlid = "orcfhuwoomo6";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71042) {
+		} else if (npcid == 71042) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41062, 1); 
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				htmlid = "orcfbakumo4";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41062, 1)) {
 					htmlid = "orcfbakumo6";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71043) {
+		} else if (npcid == 71043) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41063, 1);
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				htmlid = "orcfbuka4";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41063, 1)) {
 					htmlid = "orcfbuka6";
 				}
 			}
-		}
-		// 
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71044) {
+		} else if (npcid == 71044) {
 			if (s.equalsIgnoreCase("A")) {
-				L1NpcInstance npc = (L1NpcInstance) obj;
 				L1ItemInstance item = pc.getInventory().storeItem(41061, 1); 
-				String npcName = npc.getNpcTemplate().get_name();
 				String itemName = item.getItem().getName();
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName)); 
 				htmlid = "orcfkame4";
-			}
-			else if (s.equalsIgnoreCase("Z")) {
+			} else if (s.equalsIgnoreCase("Z")) {
 				if (pc.getInventory().consumeItem(41061, 1)) {
 					htmlid = "orcfkame6";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71078) {
+		} else if (npcid == 71078) {
 			if (s.equalsIgnoreCase("teleportURL")) {
 				htmlid = "usender2";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71080) {
+		} else if (npcid == 71080) {
 			if (s.equalsIgnoreCase("teleportURL")) {
 				htmlid = "amisoo2";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80048) {
+		} else if (npcid == 80048) {
 			if (s.equalsIgnoreCase("2")) {
 				htmlid = ""; 
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80049) {
+		} else if (npcid == 80049) {
 			if (s.equalsIgnoreCase("1")) {
 				if (pc.getKarma() <= -10000000) {
 					pc.setKarma(1000000);
@@ -941,19 +885,16 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "betray13";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80050) {
+		} else if (npcid == 80050) {
 			if (s.equalsIgnoreCase("1")) {
 				htmlid = "meet105";
-			}
-			else if (s.equalsIgnoreCase("2")) {
+			} else if (s.equalsIgnoreCase("2")) {
 				if (pc.getInventory().checkItem(40718)) { 
 					htmlid = "meet106";
 				} else {
 					htmlid = "meet110";
 				}
-			}
-			else if (s.equalsIgnoreCase("a")) {
+			} else if (s.equalsIgnoreCase("a")) {
 				if (pc.getInventory().consumeItem(40718, 1)) {
 					pc.addKarma((int) (-100 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1079));
@@ -961,8 +902,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet104";
 				}
-			}
-			else if (s.equalsIgnoreCase("b")) {
+			} else if (s.equalsIgnoreCase("b")) {
 				if (pc.getInventory().consumeItem(40718, 10)) {
 					pc.addKarma((int) (-1000 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1079));
@@ -970,8 +910,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet104";
 				}
-			}
-			else if (s.equalsIgnoreCase("c")) {
+			} else if (s.equalsIgnoreCase("c")) {
 				if (pc.getInventory().consumeItem(40718, 100)) {
 					pc.addKarma((int) (-10000 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1079));
@@ -979,8 +918,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet104";
 				}
-			}
-			else if (s.equalsIgnoreCase("d")) {
+			} else if (s.equalsIgnoreCase("d")) {
 				if (pc.getInventory().checkItem(40615) 
 						|| pc.getInventory().checkItem(40616)) { 
 					htmlid = "";
@@ -988,8 +926,7 @@ public class C_NPCAction extends ClientBasePacket {
 					L1Teleport.teleport(pc, 32683, 32895, (short) 608, 5, true);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80052) {
+		} else if (npcid == 80052) {
 			if (s.equalsIgnoreCase("a")) {
 				if (pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
 					pc.sendPackets(new S_ServerMessage(79)); //
@@ -1001,8 +938,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(1127));
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80053) {
+		} else if (npcid == 80053) {
 			if (s.equalsIgnoreCase("a")) {
 				int aliceMaterialId = 0;
 				int karmaLevel = 0;
@@ -1061,19 +997,14 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "alice_8";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80055) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
+		} else if (npcid == 80055) {
 			htmlid = getYaheeAmulet(pc, npc, s);
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80056) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
+		} else if (npcid == 80056) {
 			if (pc.getKarma() <= -10000000) {
 				getBloodCrystalByKarma(pc, npc, s);
 			}
 			htmlid = "";
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80063) {
+		} else if (npcid == 80063) {
 			if (s.equalsIgnoreCase("a")) {
 				if (pc.getInventory().checkItem(40921)) { 
 					L1Teleport.teleport(pc, 32674, 32832, (short) 603, 2, true);
@@ -1081,19 +1012,16 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "gpass02";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80064) {
+		} else if (npcid == 80064) {
 			if (s.equalsIgnoreCase("1")) {
 				htmlid = "meet005";
-			}
-			else if (s.equalsIgnoreCase("2")) {
+			} else if (s.equalsIgnoreCase("2")) {
 				if (pc.getInventory().checkItem(40678)) { 
 					htmlid = "meet006";
 				} else {
 					htmlid = "meet010";
 				}
-			}
-			else if (s.equalsIgnoreCase("a")) {
+			} else if (s.equalsIgnoreCase("a")) {
 				if (pc.getInventory().consumeItem(40678, 1)) {
 					pc.addKarma((int) (100 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1078));
@@ -1101,8 +1029,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet004";
 				}
-			}
-			else if (s.equalsIgnoreCase("b")) {
+			} else if (s.equalsIgnoreCase("b")) {
 				if (pc.getInventory().consumeItem(40678, 10)) {
 					pc.addKarma((int) (1000 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1078));
@@ -1110,8 +1037,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet004";
 				}
-			}
-			else if (s.equalsIgnoreCase("c")) {
+			} else if (s.equalsIgnoreCase("c")) {
 				if (pc.getInventory().consumeItem(40678, 100)) {
 					pc.addKarma((int) (10000 * Config.RATE_KARMA));
 					pc.sendPackets(new S_ServerMessage(1078));
@@ -1119,8 +1045,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					htmlid = "meet004";
 				}
-			}
-			else if (s.equalsIgnoreCase("d")) {
+			} else if (s.equalsIgnoreCase("d")) {
 				if (pc.getInventory().checkItem(40909) 
 						|| pc.getInventory().checkItem(40910) 
 						|| pc.getInventory().checkItem(40911)
@@ -1139,8 +1064,7 @@ public class C_NPCAction extends ClientBasePacket {
 					L1Teleport.teleport(pc, 32674, 32832, (short) 602, 2, true);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80066) {
+		} else if (npcid == 80066) {
 			if (s.equalsIgnoreCase("1")) {
 				if (pc.getKarma() >= 10000000) {
 					pc.setKarma(-1000000);
@@ -1148,12 +1072,9 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "betray03";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80071) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
+		} else if (npcid == 80071) {
 			htmlid = getBarlogEarring(pc, npc, s);
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80073) {
+		} else if (npcid == 80073) {
 			if (s.equalsIgnoreCase("a")) {
 				if (pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
 					pc.sendPackets(new S_ServerMessage(79)); //
@@ -1165,8 +1086,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(1127));
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80072) {
+		} else if (npcid == 80072) {
 			String sEquals = null;
 			int karmaLevel = 0;
 			int[] material = null;
@@ -1221,25 +1141,20 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = htmlId;
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80074) {
-			L1NpcInstance npc = (L1NpcInstance) obj;
+		} else if (npcid == 80074) {
 			if (pc.getKarma() >= 10000000) {
 				getSoulCrystalByKarma(pc, npc, s);
 			}
 			htmlid = "";
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80057) {
+		} else if (npcid == 80057) {
 			htmlid = karmaLevelToHtmlId(pc.getKarmaLevel());
 			htmldata = new String[] { String.valueOf(pc.getKarmaPercent()) };
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80059
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80060
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80061
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80062) {
+		} else if (npcid == 80059
+				|| npcid == 80060
+				|| npcid == 80061
+				|| npcid == 80062) {
 			htmlid = talkToDimensionDoor(pc, (L1NpcInstance) obj, s);
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81124) {
+		} else if (npcid == 81124) {
 			if (s.equalsIgnoreCase("1")) {
 				poly(client, 4002);
 				htmlid = ""; 
@@ -1250,8 +1165,7 @@ public class C_NPCAction extends ClientBasePacket {
 				poly(client, 4950);
 				htmlid = ""; 
 			}
-		}
-		else if (s.equalsIgnoreCase("contract1")) {
+		} else if (s.equalsIgnoreCase("contract1")) {
 			pc.getQuest().set_step(L1Quest.QUEST_LYRA, 1);
 			htmlid = "lyraev2";
 		} else if (s.equalsIgnoreCase("contract1yes") || 
@@ -1338,19 +1252,15 @@ public class C_NPCAction extends ClientBasePacket {
 					totem++;
 				}
 			}
-		}
-		else if (s.equalsIgnoreCase("pandora6") || s.equalsIgnoreCase("cold6")
+		} else if (s.equalsIgnoreCase("pandora6") || s.equalsIgnoreCase("cold6")
 				|| s.equalsIgnoreCase("balsim3")
 				|| s.equalsIgnoreCase("mellin3") || s.equalsIgnoreCase("glen3")) {
 			htmlid = s;
-			int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 			int taxRatesCastle = L1CastleLocation
 					.getCastleTaxRateByNpcId(npcid);
 			htmldata = new String[] { String.valueOf(taxRatesCastle) };
-		}
-		else if (s.equalsIgnoreCase("set")) {
+		} else if (s.equalsIgnoreCase("set")) {
 			if (obj instanceof L1NpcInstance) {
-				int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 				int town_id = L1TownLocation.getTownIdByNpcid(npcid);
 
 				if (town_id >= 1 && town_id <= 10) {
@@ -1389,10 +1299,8 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-		else if (s.equalsIgnoreCase("clear")) {
+		} else if (s.equalsIgnoreCase("clear")) {
 			if (obj instanceof L1NpcInstance) {
-				int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 				int town_id = L1TownLocation.getTownIdByNpcid(npcid);
 				if (town_id > 0) {
 					if (pc.getHomeTownId() > 0) {
@@ -1407,10 +1315,8 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "";
 				}
 			}
-		}
-		else if (s.equalsIgnoreCase("ask")) {
+		} else if (s.equalsIgnoreCase("ask")) {
 			if (obj instanceof L1NpcInstance) {
-				int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 				int town_id = L1TownLocation.getTownIdByNpcid(npcid);
 
 				if (town_id >= 1 && town_id <= 10) {
@@ -1424,19 +1330,11 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70534
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70556
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70572
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70631
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70663
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70761
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70788
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70806
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70830
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70876) {
+		} else if (npcid == 70534 || npcid == 70556 || npcid == 70572
+				|| npcid == 70631 || npcid == 70663 || npcid == 70761 
+				|| npcid == 70788 || npcid == 70806 || npcid == 70830 
+				|| npcid == 70876) {
 			// NOTE: The following is the custom mayor code. Integrate changes carefully.
-			int npcid = ((L1NpcInstance) obj).getNpcTemplate().get_npcId();
 			int town_id = L1TownLocation.getTownIdByNpcid(npcid);
 			if (town_id >= 1 && town_id <= 10) {
 				if (s.equalsIgnoreCase("r")) {//TODO Town mayor report about income
@@ -1468,30 +1366,25 @@ public class C_NPCAction extends ClientBasePacket {
 						}
 					}
 				}
-			}
-			else if (s.equalsIgnoreCase("t")) {
+			} else if (s.equalsIgnoreCase("t")) {
+
+			} else if (s.equalsIgnoreCase("c")) {
 
 			}
-			else if (s.equalsIgnoreCase("c")) {
-
-			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70997) {
+		} else if (npcid == 70997) {
 			if (s.equalsIgnoreCase("0")) {
 				final int[] item_ids = { 41146, 4, 20322, 173, 40743, };
 				final int[] item_amounts = { 1, 1, 1, 1, 500, };
 				for (int i = 0; i < item_ids.length; i++) {
 					L1ItemInstance item = pc.getInventory().storeItem(
 							item_ids[i], item_amounts[i]);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+					pc.sendPackets(new S_ServerMessage(143, npcName,
 							item.getLogName()));
 				}
 				pc.getQuest().set_step(L1Quest.QUEST_DOROMOND, 1);
 				htmlid = "jpe0015";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70999) {
+		} else if (npcid == 70999) {
 			if (s.equalsIgnoreCase("1")) {
 				if (pc.getInventory().consumeItem(41146, 1)) {
 					final int[] item_ids = { 23, 20219, 20193, };
@@ -1499,46 +1392,39 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getLogName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName, 
+									item.getLogName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_DOROMOND, 2);
 					htmlid = "";
 				}
 			} else if (s.equalsIgnoreCase("2")) {
 				L1ItemInstance item = pc.getInventory().storeItem(41227, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getLogName()));
 						pc.getQuest().set_step(L1Quest.QUEST_AREX,
 						L1Quest.QUEST_END);
 				htmlid = "";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71005) {
+		} else if (npcid == 71005) {
 			if (s.equalsIgnoreCase("0")) {
 				if (!pc.getInventory().checkItem(41209)) {
 					L1ItemInstance item = pc.getInventory().storeItem(41209, 1);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate()
-							.get_name(), item.getItem().getName()));
+					pc.sendPackets(new S_ServerMessage(143, npcName,
+							item.getItem().getName()));
 					htmlid = "";
 				}
-			}
-			else if (s.equalsIgnoreCase("1")) {
+			} else if (s.equalsIgnoreCase("1")) {
 				if (pc.getInventory().consumeItem(41213, 1)) {
 					L1ItemInstance item = pc.getInventory().storeItem(40029,
 							20);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate()
-							.get_name(), item.getItem().getName()
+					pc.sendPackets(new S_ServerMessage(143, npcName,
+							item.getItem().getName()
 							+ " (" + 20 + ")"));
 					htmlid = "";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71006) {
+		} else if (npcid == 71006) {
 			if (s.equalsIgnoreCase("0")) {
 				if (pc.getLevel() > 25) {
 					htmlid = "jpe0057";
@@ -1559,8 +1445,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "jpe0057";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70512) {
+		} else if (npcid == 70512) {
 			if (s.equalsIgnoreCase("0") || s.equalsIgnoreCase("fullheal")) {
 				int hp = _random.nextInt(30) + 70;
 				pc.setCurrentHp(pc.getCurrentHp() + hp);
@@ -1569,8 +1454,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 				htmlid = "";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71037) {
+		} else if (npcid == 71037) {
 			if (s.equalsIgnoreCase("0")) {
 				pc.setCurrentHp(pc.getMaxHp());
 				pc.setCurrentMp(pc.getMaxMp());
@@ -1579,8 +1463,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
 				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71030) {
+		} else if (npcid == 71030) {
 			if (s.equalsIgnoreCase("fullheal")) {
 				if (pc.getInventory().checkItem(L1ItemId.ADENA, 5)) { 
 					pc.getInventory().consumeItem(L1ItemId.ADENA, 5); 
@@ -1597,8 +1480,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(337, "$4")); 
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71002) {
+		} else if (npcid == 71002) {
 			if (s.equalsIgnoreCase("0")) {
 				if (pc.getLevel() <= 13) {
 					L1SkillUse skillUse = new L1SkillUse();
@@ -1608,21 +1490,17 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = ""; 
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71025) {
+		} else if (npcid == 71025) {
 			if (s.equalsIgnoreCase("0")) {
 				L1ItemInstance item = pc.getInventory().storeItem(41225, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 				htmlid = "jpe0083";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71055) {
+		} else if (npcid == 71055) {
 			if (s.equalsIgnoreCase("0")) {
 				L1ItemInstance item = pc.getInventory().storeItem(40701, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 						pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 1);
 				htmlid = "lukein8";
@@ -1630,8 +1508,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "lukein12";
 				pc.getQuest().set_step(L1Quest.QUEST_RESTA, 3);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71063) {
+		} else if (npcid == 71063) {
 			if (s.equalsIgnoreCase("0")) {
 				materials = new int[] { 40701 }; 
 				counts = new int[] { 1 };
@@ -1650,10 +1527,9 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 4);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71064
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71065
-				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71066) {
+		} else if (npcid == 71064
+				|| npcid == 71065
+				|| npcid == 71066) {
 			if (s.equalsIgnoreCase("0")) {
 				materials = new int[] { 40701 }; 
 				counts = new int[] { 1 };
@@ -1678,8 +1554,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 10);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71056) {
+		} else if (npcid == 71056) {
 			if (s.equalsIgnoreCase("a")) {
 				pc.getQuest().set_step(L1Quest.QUEST_SIMIZZ, 1);
 				htmlid = "SIMIZZ7";
@@ -1700,8 +1575,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "SIMIZZ12";
 				pc.getQuest().set_step(L1Quest.QUEST_SIMIZZ, L1Quest.QUEST_END);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71057) {
+		} else if (npcid == 71057) {
 			if (s.equalsIgnoreCase("3")) {
 				htmlid = "doil4";
 			} else if (s.equalsIgnoreCase("6")) {
@@ -1719,13 +1593,11 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "doil7";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71059) {
+		} else if (npcid == 71059) {
 			if (s.equalsIgnoreCase("A")) {
 				htmlid = "rudian6";
 				L1ItemInstance item = pc.getInventory().storeItem(40700 , 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 				pc.getQuest().set_step(L1Quest.QUEST_RUDIAN, 1);
 			} else if (s.equalsIgnoreCase("B")) {
@@ -1741,8 +1613,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "rudian9";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71060) {
+		} else if (npcid == 71060) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getQuest().get_step(L1Quest.QUEST_RUDIAN) == L1Quest.QUEST_END) {
 					htmlid = "resta6";
@@ -1753,8 +1624,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "resta10";
 				pc.getQuest().set_step(L1Quest.QUEST_RESTA, 2);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71061) {
+		} else if (npcid == 71061) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getInventory().checkItem(40647, 3)) {
 					htmlid = "cadmus6";
@@ -1765,8 +1635,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getQuest().set_step(L1Quest.QUEST_CADMUS, 1);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71036) {
+		} else if (npcid == 71036) {
 			if (s.equalsIgnoreCase("a")) {
 				htmlid = "kamyla7";
 				pc.getQuest().set_step(L1Quest.QUEST_KAMYLA, 1);
@@ -1793,18 +1662,15 @@ public class C_NPCAction extends ClientBasePacket {
 					L1Teleport.teleport(pc, 32746, 32807, (short) 484, 5, true);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71089) {
+		} else if (npcid == 71089) {
 			if (s.equalsIgnoreCase("a")) {
 				htmlid = "francu10";
 				L1ItemInstance item = pc.getInventory().storeItem(40644, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 				pc.getQuest().set_step(L1Quest.QUEST_KAMYLA, 2);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71090) {
+		} else if (npcid == 71090) {
 			if (s.equalsIgnoreCase("a")) {
 				htmlid = "";
 				final int[] item_ids = { 246, 247, 248, 249, 40660 };
@@ -1812,8 +1678,7 @@ public class C_NPCAction extends ClientBasePacket {
 				for (int i = 0; i < item_ids.length; i++) {
 					L1ItemInstance item = pc.getInventory().storeItem(
 							item_ids[i], item_amounts[i]);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+					pc.sendPackets(new S_ServerMessage(143, npcName,
 							item.getItem().getName()));
 					pc.getQuest().set_step(L1Quest.QUEST_CRYSTAL, 1);
 				}
@@ -1858,8 +1723,7 @@ public class C_NPCAction extends ClientBasePacket {
 					L1Teleport.teleport(pc, 32736, 32800, (short) 483, 4, true);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71091) {
+		} else if (npcid == 71091) {
 			if (s.equalsIgnoreCase("a")) {
 				htmlid = "";
 				pc.getInventory().consumeItem(40654, 1);
@@ -1867,8 +1731,7 @@ public class C_NPCAction extends ClientBasePacket {
 						.set_step(L1Quest.QUEST_CRYSTAL, L1Quest.QUEST_END);
 				L1Teleport.teleport(pc, 32744, 32927, (short) 483, 4, true);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71074) {
+		} else if (npcid == 71074) {
 			if (s.equalsIgnoreCase("A")) {
 				htmlid = "lelder5";
 				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 1);
@@ -1886,8 +1749,7 @@ public class C_NPCAction extends ClientBasePacket {
 				createcount = new int[] { 1 };
 				pc.getQuest().set_step(L1Quest.QUEST_LIZARD, L1Quest.QUEST_END);
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71198) {
+		} else if (npcid == 71198) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getQuest().get_step(71198) != 0
 						|| pc.getInventory().checkItem(21059, 1)) {
@@ -1899,10 +1761,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getQuest().set_step(71198, 1);
@@ -1932,10 +1792,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getQuest().set_step(71198, 3);
@@ -1955,10 +1813,8 @@ public class C_NPCAction extends ClientBasePacket {
 						pc.getInventory().consumeItem(21057, 1);
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getQuest().set_step(71198, 4);
@@ -1978,10 +1834,8 @@ public class C_NPCAction extends ClientBasePacket {
 						pc.getInventory().consumeItem(21058, 1);
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getQuest().set_step(71198, 0);
@@ -1991,8 +1845,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "tion15";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71199) {
+		} else if (npcid == 71199) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getQuest().get_step(71199) != 0
 						|| pc.getInventory().checkItem(21059, 1)) {
@@ -2015,10 +1868,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getInventory().consumeItem(41340, 1);
@@ -2038,10 +1889,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (item != null) {
 						if (pc.getInventory().checkAddItem(item, 1) == 0) {
 							pc.getInventory().storeItem(item);
-							pc.sendPackets(new S_ServerMessage(143,
-									((L1NpcInstance) obj).getNpcTemplate()
-											.get_name(), item.getItem()
-											.getName())); 
+							pc.sendPackets(new S_ServerMessage(143, npcName,
+											item.getItem().getName())); 
 						}
 					}
 					pc.getInventory().consumeItem(41340, 1);
@@ -2051,22 +1900,19 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "jeron9";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80079) {
+		} else if (npcid == 80079) {
 			if (s.equalsIgnoreCase("0")) {
 				if (!pc.getInventory().checkItem(41312)) { 
 					L1ItemInstance item = pc.getInventory().storeItem(41312, 1);
 					if (item != null) {
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+									item.getItem().getName()));
 						pc.getQuest().set_step(L1Quest.QUEST_KEPLISHA,
 								L1Quest.QUEST_END);
 					}
 					htmlid = "keplisha7";
 				}
-			}
-			else if (s.equalsIgnoreCase("1")) {
+			} else if (s.equalsIgnoreCase("1")) {
 				if (!pc.getInventory().checkItem(41314)) {
 					if (pc.getInventory().checkItem(L1ItemId.ADENA, 1000)) {
 						materials = new int[] { L1ItemId.ADENA, 41313 }; 
@@ -2092,8 +1938,7 @@ public class C_NPCAction extends ClientBasePacket {
 						htmlid = "keplisha8";
 					}
 				}
-			}
-			else if (s.equalsIgnoreCase("2")) {
+			} else if (s.equalsIgnoreCase("2")) {
 				if (pc.getTempCharGfx() != pc.getClassId()) {
 					htmlid = "keplisha9";
 				} else {
@@ -2135,8 +1980,7 @@ public class C_NPCAction extends ClientBasePacket {
 						}
 					}
 				}
-			}
-			else if (s.equalsIgnoreCase("3")) {
+			} else if (s.equalsIgnoreCase("3")) {
 				if (pc.getInventory().checkItem(41312)) { 
 					pc.getInventory().consumeItem(41312, 1);
 					htmlid = "";
@@ -2150,8 +1994,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80082) {
+		} else if (npcid == 80082) {
 			if (s.equalsIgnoreCase("L")) {
 				if (pc.getInventory().checkItem(L1ItemId.ADENA, 1000)) {
 					materials = new int[] { L1ItemId.ADENA };
@@ -2177,8 +2020,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "fk_in_0";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80083) {
+		} else if (npcid == 80083) {
 			if (s.equalsIgnoreCase("O")) {
 				if (!pc.getInventory().checkItem(41293, 1)
 						&& !pc.getInventory().checkItem(41294, 1)) {
@@ -2189,23 +2031,20 @@ public class C_NPCAction extends ClientBasePacket {
 					L1Teleport.teleport(pc, 32613, 32781, (short) 4, 4, true);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80084) {
+		} else if (npcid == 80084) {
 			if (s.equalsIgnoreCase("q")) {
 				if (pc.getInventory().checkItem(41356, 1)) {
 					htmlid = "rparum4";
 				} else {
 					L1ItemInstance item = pc.getInventory().storeItem(41356, 1);
 					if (item != null) {
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					htmlid = "rparum3";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80105) {
+		} else if (npcid == 80105) {
 			if (s.equalsIgnoreCase("c")) {
 				if (pc.isCrown()) {
 					if (pc.getInventory().checkItem(20383, 1)) {
@@ -2226,17 +2065,13 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71126) {
+		} else if (npcid == 71126) {
 			// uBv
 			if (s.equalsIgnoreCase("B")) {
 				if (pc.getInventory().checkItem(41007, 1)) { // 
 					htmlid = "eris10";
 				} else {
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(41007, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 					htmlid = "eris6";
@@ -2245,9 +2080,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (pc.getInventory().checkItem(41009, 1)) { // 
 					htmlid = "eris10";
 				} else {
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(41009, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 					htmlid = "eris8";
@@ -2333,30 +2166,24 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80076) {
+		} else if (npcid == 80076) {
 			if (s.equalsIgnoreCase("A")) {
 				int[] diaryno = { 49082, 49083 };
 				int pid = _random.nextInt(diaryno.length);
 				int di = diaryno[pid];
 				if (di == 49082) { // 
 					htmlid = "voyager6a";
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(di, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 				} else if (di == 49083) { // 
 					htmlid = "voyager6b";
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(di, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71128) {
+		} else if (npcid == 71128) {
 			if (s.equals("A")) {
 				if (pc.getInventory().checkItem(41010, 1)) { // 
 					htmlid = "perita2";
@@ -2615,8 +2442,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "perita40";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71129) {
+		} else if (npcid == 71129) {
 			if (s.equals("Z")) {
 				htmlid = "rumtis2";
 			} else if (s.equals("Y")) {
@@ -2757,8 +2583,7 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71119) {
+		} else if (npcid == 71119) {
 			if (s.equalsIgnoreCase("request las history book")) {
 				materials = new int[] { 41019, 41020, 41021, 41022, 41023,
 						41024, 41025, 41026 };
@@ -2767,8 +2592,7 @@ public class C_NPCAction extends ClientBasePacket {
 				createcount = new int[] { 1 };
 				htmlid = "";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71170) {
+		} else if (npcid == 71170) {
 			if (s.equalsIgnoreCase("request las weapon manual")) {
 				materials = new int[] { 41027 };
 				counts = new int[] { 1 };
@@ -2776,16 +2600,14 @@ public class C_NPCAction extends ClientBasePacket {
 				createcount = new int[] { 1 };
 				htmlid = "";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71168) {
+		} else if (npcid == 71168) {
 			if (s.equalsIgnoreCase("a")) {
 				if (pc.getInventory().checkItem(41028, 1)) {
 					L1Teleport.teleport(pc, 32648, 32921, (short) 535, 6, true);
 					pc.getInventory().consumeItem(41028, 1);
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80067) {
+		} else if (npcid == 80067) {
 			if (s.equalsIgnoreCase("n")) {
 				htmlid = "";
 				poly(client, 6034);
@@ -2794,8 +2616,7 @@ public class C_NPCAction extends ClientBasePacket {
 				for (int i = 0; i < item_ids.length; i++) {
 					L1ItemInstance item = pc.getInventory().storeItem(
 							item_ids[i], item_amounts[i]);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+					pc.sendPackets(new S_ServerMessage(143, npcName,
 							item.getItem().getName()));
 					pc.getQuest().set_step(L1Quest.QUEST_DESIRE, 1);
 				}
@@ -2833,12 +2654,10 @@ public class C_NPCAction extends ClientBasePacket {
 			} else if (s.equalsIgnoreCase("g")) {
 				htmlid = "";
 				L1ItemInstance item = pc.getInventory().storeItem(41130 , 1); // 
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName())); 
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81202) {
+		} else if (npcid == 81202) {
 			if (s.equalsIgnoreCase("n")) {
 				htmlid = "";
 				poly(client, 6035);
@@ -2847,8 +2666,7 @@ public class C_NPCAction extends ClientBasePacket {
 				for (int i = 0; i < item_ids.length; i++) {
 					L1ItemInstance item = pc.getInventory().storeItem(
 							item_ids[i], item_amounts[i]);
-					pc.sendPackets(new S_ServerMessage(143,
-							((L1NpcInstance) obj).getNpcTemplate().get_name(),
+					pc.sendPackets(new S_ServerMessage(143, npcName,
 							item.getItem().getName()));
 					pc.getQuest().set_step(L1Quest.QUEST_SHADOWS, 1);
 				}
@@ -2886,12 +2704,10 @@ public class C_NPCAction extends ClientBasePacket {
 			} else if (s.equalsIgnoreCase("g")) {
 				htmlid = "";
 				L1ItemInstance item = pc.getInventory().storeItem(41121 , 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71252) {
+		} else if (npcid == 71252) {
 			int weapon1 = 0;
 			int weapon2 = 0;
 			int newWeapon = 0;
@@ -2935,8 +2751,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.getInventory().consumeItem(41246,1000);
 				pc.getInventory().consumeItem(49143,10);
 				L1ItemInstance item = pc.getInventory().storeItem(newWeapon, 1);
-				pc.sendPackets(new S_ServerMessage(143,
-						((L1NpcInstance) obj).getNpcTemplate().get_name(),
+				pc.sendPackets(new S_ServerMessage(143, npcName,
 						item.getItem().getName()));
 			} else {
 				htmlid = "joegolem15";
@@ -2965,8 +2780,7 @@ public class C_NPCAction extends ClientBasePacket {
 							+ "(" + itemCount + ")" ));
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71253) {
+		} else if (npcid == 71253) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getInventory().checkItem(49101, 100)) {
 					materials = new int[] { 49101 };
@@ -2986,8 +2800,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "joegolem20";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71255) {
+		} else if (npcid == 71255) {
 			if (s.equalsIgnoreCase("e")) {
 				if (pc.getInventory().checkItem(49242, 1)) {
 					pc.getInventory().consumeItem(49242, 1);
@@ -2998,8 +2811,7 @@ public class C_NPCAction extends ClientBasePacket {
 					// htmlid = "tebegate4";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71256) {
+		} else if (npcid == 71256) {
 			if (s.equalsIgnoreCase("E")) {
 				if ((pc.getQuest().get_step(L1Quest.QUEST_MOONOFLONGBOW) == 8)
 						&& pc.getInventory().checkItem(40491,30)
@@ -3072,8 +2884,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "robinhood19";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71257) {
+		} else if (npcid == 71257) {
 			if (s.equalsIgnoreCase("D")) {
 				if (pc.getInventory().checkItem(41349)) {
 					htmlid ="zybril10";
@@ -3120,8 +2931,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "zybril11";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71258) {
+		} else if (npcid == 71258) {
 			if (pc.getInventory().checkItem(40665)) {
 				htmlid = "marba17";
 				if (s.equalsIgnoreCase("B")) {
@@ -3139,16 +2949,13 @@ public class C_NPCAction extends ClientBasePacket {
 				if (pc.getInventory().checkItem(40637)) {
 					htmlid = "marba20";
 				} else {
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(40637, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 					htmlid = "marba6";
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 71259) {
+		} else if (npcid == 71259) {
 			if (pc.getInventory().checkItem(40665)) {
 				htmlid = "aras8";
 			} else if (pc.getInventory().checkItem(40637)) {
@@ -3173,10 +2980,8 @@ public class C_NPCAction extends ClientBasePacket {
 							htmlid = "aras6";
 						}
 					} else {
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(40664,
 								1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName,
 								itemName));
@@ -3185,20 +2990,16 @@ public class C_NPCAction extends ClientBasePacket {
 				} else if (s.equalsIgnoreCase("B")) {
 					if (pc.getInventory().checkItem(40664)) {
 						pc.getInventory().consumeItem(40664, 1);
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(40665,
 								1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName,
 								itemName));
 						htmlid = "aras13";
 					} else {
 						htmlid = "aras14";
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(40665,
 								1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName,
 								itemName));
@@ -3220,8 +3021,7 @@ public class C_NPCAction extends ClientBasePacket {
 			} else {
 				htmlid = "aras7";
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80099) {
+		} else if (npcid == 80099) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getInventory().checkItem(40308, 300)) {
 					pc.getInventory().consumeItem(40308,300);
@@ -3284,8 +3084,7 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80101) {
+		} else if (npcid == 80101) {
 			if (s.equalsIgnoreCase("request letter of kuen")) {
 				if ((pc.getQuest().get_step(L1Quest
 						.QUEST_GENERALHAMELOFRESENTMENT) == 2)
@@ -3315,18 +3114,14 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "";
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80136) {
+		} else if (npcid == 80136) {
 			int lv15_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL15);
 			int lv30_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL30);
 			int lv45_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL45);
 			int lv50_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL50);
 			if (pc.isDragonKnight()) {
 				if (s.equalsIgnoreCase("a") && lv15_step == 0) {
-					L1NpcInstance npc = (L1NpcInstance) obj;
 					L1ItemInstance item = pc.getInventory().storeItem(49210, 1);
-					String npcName = npc.getNpcTemplate().get_name();
 					String itemName = item.getItem().getName();
 					pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL15, 1);
@@ -3337,9 +3132,8 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL30, 1);
 					htmlid = "prokel9";
@@ -3347,9 +3141,7 @@ public class C_NPCAction extends ClientBasePacket {
 					if (pc.getInventory().checkItem(49215, 1)) {
 						htmlid = "prokel35";
 					} else {
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(49215, 1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 						htmlid = "prokel13";
@@ -3360,41 +3152,32 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 1);
 					htmlid = "prokel16";
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80135) {
+		} else if (npcid == 80135) {
 			if (pc.isDragonKnight()) {
 				if (s.equalsIgnoreCase("a")) {
 					if (pc.getInventory().checkItem(49220, 1)) {
 						htmlid = "elas5";
 					} else {
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(49220, 1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 						htmlid = "elas4";
 					}
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81245) {
+		} else if (npcid == 81245) {
 			if (pc.isDragonKnight()) {
 				if(s.equalsIgnoreCase("request flute of spy")) {
 					if (pc.getInventory().checkItem(49223, 1)) {
 						pc.getInventory().consumeItem(49223, 1);
-						L1NpcInstance npc = (L1NpcInstance) obj;
 						L1ItemInstance item = pc.getInventory().storeItem(49222, 1);
-						String npcName = npc.getNpcTemplate().get_name();
 						String itemName = item.getItem().getName();
 						pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
 						htmlid = "";
@@ -3403,9 +3186,7 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 80145) {
+		} else if (npcid == 80145) {
 			int lv15_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL15);
 			int lv30_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL30);
 			int lv45_step = pc.getQuest().get_step(L1Quest.QUEST_LEVEL45);
@@ -3417,9 +3198,8 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL15, 1);
 					htmlid = "silrein3";
@@ -3429,9 +3209,8 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL30, 1);
 					htmlid = "silrein12";
@@ -3441,16 +3220,15 @@ public class C_NPCAction extends ClientBasePacket {
 					for (int i = 0; i < item_ids.length; i++) {
 						L1ItemInstance item = pc.getInventory().storeItem(
 								item_ids[i], item_amounts[i]);
-						pc.sendPackets(new S_ServerMessage(143,
-								((L1NpcInstance) obj).getNpcTemplate()
-										.get_name(), item.getItem().getName()));
+						pc.sendPackets(new S_ServerMessage(143, npcName,
+										item.getItem().getName()));
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 1);
 					htmlid = "silrein19";
 
 				}
 			}
-		if (pc.isDragonKnight()) {
+			if (pc.isDragonKnight()) {
 				if (s.equalsIgnoreCase("l") && lv45_step == 1) {
 					if (pc.getInventory().checkItem(49209, 1)) {
 						pc.getInventory().consumeItem(49209, 1);
@@ -3462,9 +3240,7 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "silrein39";
 				}
 			}
-		}
-
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81246) {
+		} else if (npcid == 81246) {
 			if (s.equalsIgnoreCase("0")) {
 				materials = new int[] { 40308 };
 				counts = new int[] { 2500 };
@@ -3499,8 +3275,7 @@ public class C_NPCAction extends ClientBasePacket {
 
 		// else System.out.println("C_NpcAction: " + s);
 		if (htmlid != null && htmlid.equalsIgnoreCase("colos2")) {
-			htmldata = makeUbInfoStrings(((L1NpcInstance) obj).getNpcTemplate()
-					.get_npcId());
+			htmldata = makeUbInfoStrings(npcid);
 		}
 		if (createitem != null) {
 			boolean isCreate = true;
@@ -3539,9 +3314,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(82)); 
 					return;
 				}
-
 				for (int j = 0; j < materials.length; j++) {
-
 					pc.getInventory().consumeItem(materials[j], counts[j]);
 				}
 				for (int k = 0; k < createitem.length; k++) {
@@ -3552,8 +3325,7 @@ public class C_NPCAction extends ClientBasePacket {
 								createitem[k]).getName();
 						String createrName = "";
 						if (obj instanceof L1NpcInstance) {
-							createrName = ((L1NpcInstance) obj)
-									.getNpcTemplate().get_name();
+							createrName = npcName;
 						}
 						if (createcount[k] > 1) {
 							pc.sendPackets(new S_ServerMessage(143,
@@ -3688,8 +3460,8 @@ public class C_NPCAction extends ClientBasePacket {
 		summonlvl_list = new int[] { 28, 28, 28, 32, 32, 32, 36, 36, 36, 40,
 				40, 40, 44, 44, 44, 48, 48, 48, 52, 52, 52, 56, 56, 56, 60, 60,
 				60, 64, 68, 72, 72 };
-// summoncha_list = new int[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-// 8, 8, 8, 8, 8, 8, 8, 10, 10, 10, 12, 12, 12, 20, 42, 42, 50 };
+		// summoncha_list = new int[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+		// 8, 8, 8, 8, 8, 8, 8, 10, 10, 10, 12, 12, 12, 20, 42, 42, 50 };
 		summoncha_list = new int[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, // 28 ~ 44
 				8, 8, 8, 8, 8, 8, 10, 10, 10, 12, 12, 12, // 48 ~ 60
 				20, 36, 36, 44 }; // 64,68,72,72
@@ -3713,12 +3485,12 @@ public class C_NPCAction extends ClientBasePacket {
 			petcost += ((L1NpcInstance) pet).getPetcost();
 		}
 
-/*
- * if ((summonid == 81103 || summonid ==
- * 81104) && petcost != 0) { pc.sendPackets(new S_CloseList(pc.getId()));
- * return; } int charisma = pc.getCha() + 6 - petcost; int summoncount =
- * charisma / summoncost;
- */
+		/*
+		 * if ((summonid == 81103 || summonid ==
+		 * 81104) && petcost != 0) { pc.sendPackets(new S_CloseList(pc.getId()));
+		 * return; } int charisma = pc.getCha() + 6 - petcost; int summoncount =
+		 * charisma / summoncost;
+		 */
 		int pcCha = pc.getCha();
 		int charisma = 0;
 		int summoncount = 0;
@@ -3742,11 +3514,11 @@ public class C_NPCAction extends ClientBasePacket {
 		L1Npc npcTemp = NpcTable.getInstance().getTemplate(summonid);
 		for (int cnt = 0; cnt < summoncount; cnt++) {
 			L1SummonInstance summon = new L1SummonInstance(npcTemp, pc);
-// if (summonid == 81103 || summonid == 81104) {
-// summon.setPetcost(pc.getCha() + 7);
-// } else {
+			// if (summonid == 81103 || summonid == 81104) {
+			// summon.setPetcost(pc.getCha() + 7);
+			// } else {
 			summon.setPetcost(summoncost);
-// }
+			// }
 		}
 		pc.sendPackets(new S_CloseList(pc.getId()));
 	}
@@ -3823,12 +3595,13 @@ public class C_NPCAction extends ClientBasePacket {
 		@SuppressWarnings("unused")
 		int doorId = 0;
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		int npcid = npc.getNpcTemplate().get_npcId();
 		if (clan != null) {
 			int houseId = clan.getHouseId();
 			if (houseId != 0) {
 				L1House house = HouseTable.getInstance().getHouseTable(houseId);
 				int keeperId = house.getKeeperId();
-				if (npc.getNpcTemplate().get_npcId() == keeperId) {
+				if (npcid == keeperId) {
 					L1DoorInstance door1 = null;
 					L1DoorInstance door2 = null;
 					L1DoorInstance door3 = null;
@@ -3979,6 +3752,7 @@ public class C_NPCAction extends ClientBasePacket {
 		}
 		return isExistDefenseClan;
 	}
+
 	private String getDefenseClanName(int castleId) {
         String DefenseClan = "";
         for (L1Clan clan : L1World.getInstance().getAllClans()) {
@@ -3989,7 +3763,6 @@ public class C_NPCAction extends ClientBasePacket {
         }
         return DefenseClan;
     }
-
 
 	private void expelOtherClan(L1PcInstance clanPc, int keeperId) {
 		int houseId = 0;
@@ -4041,12 +3814,13 @@ public class C_NPCAction extends ClientBasePacket {
 
 	private void payFee(L1PcInstance pc, L1NpcInstance npc) {
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		int npcid = npc.getNpcTemplate().get_npcId();
 		if (clan != null) {
 			int houseId = clan.getHouseId();
 			if (houseId != 0) {
 				L1House house = HouseTable.getInstance().getHouseTable(houseId);
 				int keeperId = house.getKeeperId();
-				if (npc.getNpcTemplate().get_npcId() == keeperId) {
+				if (npcid == keeperId) {
 					if (pc.getInventory().checkItem(L1ItemId.ADENA, 2000)) {
 						pc.getInventory().consumeItem(L1ItemId.ADENA, 2000);
 						TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
@@ -4069,12 +3843,13 @@ public class C_NPCAction extends ClientBasePacket {
 		String[] result;
 		result = new String[] { name, "2000", "1", "1", "00" };
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+		int npcid = npc.getNpcTemplate().get_npcId();
 		if (clan != null) {
 			int houseId = clan.getHouseId();
 			if (houseId != 0) {
 				L1House house = HouseTable.getInstance().getHouseTable(houseId);
 				int keeperId = house.getKeeperId();
-				if (npc.getNpcTemplate().get_npcId() == keeperId) {
+				if (npcid == keeperId) {
 					Calendar cal = house.getTaxDeadline();
 					int month = cal.get(Calendar.MONTH) + 1;
 					int day = cal.get(Calendar.DATE);
@@ -4209,25 +3984,26 @@ public class C_NPCAction extends ClientBasePacket {
 		int locX = 0;
 		int locY = 0;
 		short mapId = 0;
-		if (npc.getNpcTemplate().get_npcId() == 80059) { 
+		int npcid = npc.getNpcTemplate().get_npcId();
+		if (npcid == 80059) { 
 			protectionId = 40909;
 			sealId = 40913;
 			locX = 32773;
 			locY = 32835;
 			mapId = 607;
-		} else if (npc.getNpcTemplate().get_npcId() == 80060) { 
+		} else if (npcid == 80060) { 
 			protectionId = 40912;
 			sealId = 40916;
 			locX = 32757;
 			locY = 32842;
 			mapId = 606;
-		} else if (npc.getNpcTemplate().get_npcId() == 80061) {
+		} else if (npcid == 80061) {
 			protectionId = 40910;
 			sealId = 40914;
 			locX = 32830;
 			locY = 32822;
 			mapId = 604;
-		} else if (npc.getNpcTemplate().get_npcId() == 80062) {
+		} else if (npcid == 80062) {
 			protectionId = 40911;
 			sealId = 40915;
 			locX = 32835;
@@ -4238,28 +4014,23 @@ public class C_NPCAction extends ClientBasePacket {
 		if (s.equalsIgnoreCase("a")) {
 			L1Teleport.teleport(pc, locX, locY, mapId, 5, true);
 			htmlid = "";
-		}
-		else if (s.equalsIgnoreCase("b")) {
+		} else if (s.equalsIgnoreCase("b")) {
 			L1ItemInstance item = pc.getInventory().storeItem(protectionId, 1);
 			if (item != null) {
 				pc.sendPackets(new S_ServerMessage(143, npc.getNpcTemplate()
 						.get_name(), item.getLogName())); 
 			}
 			htmlid = "";
-		}
-		else if (s.equalsIgnoreCase("c")) {
+		} else if (s.equalsIgnoreCase("c")) {
 			htmlid = "wpass07";
-		}
-		else if (s.equalsIgnoreCase("d")) {
+		} else if (s.equalsIgnoreCase("d")) {
 			if (pc.getInventory().checkItem(sealId)) {
 				L1ItemInstance item = pc.getInventory().findItemId(sealId);
 				pc.getInventory().consumeItem(sealId, item.getCount());
 			}
-		}
-		else if (s.equalsIgnoreCase("e")) {
+		} else if (s.equalsIgnoreCase("e")) {
 			htmlid = "";
-		}
-		else if (s.equalsIgnoreCase("f")) {
+		} else if (s.equalsIgnoreCase("f")) {
 			if (pc.getInventory().checkItem(protectionId)) { 
 				pc.getInventory().consumeItem(protectionId, 1);
 			}
@@ -4294,8 +4065,7 @@ public class C_NPCAction extends ClientBasePacket {
 						.get_name(), item.getLogName())); 
 			}
 			pc.sendPackets(new S_ServerMessage(1081));
-		}
-		else if (s.equalsIgnoreCase("2")) {
+		} else if (s.equalsIgnoreCase("2")) {
 			pc.addKarma((int) (5000 * Config.RATE_KARMA));
 			item = pc.getInventory().storeItem(40718, 10);
 			if (item != null) {
@@ -4303,8 +4073,7 @@ public class C_NPCAction extends ClientBasePacket {
 						.get_name(), item.getLogName())); 
 			}
 			pc.sendPackets(new S_ServerMessage(1081));
-		}
-		else if (s.equalsIgnoreCase("3")) {
+		} else if (s.equalsIgnoreCase("3")) {
 			pc.addKarma((int) (50000 * Config.RATE_KARMA));
 			item = pc.getInventory().storeItem(40718, 100);
 			if (item != null) {
@@ -4327,8 +4096,7 @@ public class C_NPCAction extends ClientBasePacket {
 						.get_name(), item.getLogName())); 
 			}
 			pc.sendPackets(new S_ServerMessage(1080));
-		}
-		else if (s.equalsIgnoreCase("2")) {
+		} else if (s.equalsIgnoreCase("2")) {
 			pc.addKarma((int) (-5000 * Config.RATE_KARMA));
 			item = pc.getInventory().storeItem(40678, 10);
 			if (item != null) {
@@ -4336,8 +4104,7 @@ public class C_NPCAction extends ClientBasePacket {
 						.get_name(), item.getLogName())); 
 			}
 			pc.sendPackets(new S_ServerMessage(1080));
-		}
-		else if (s.equalsIgnoreCase("3")) {
+		} else if (s.equalsIgnoreCase("3")) {
 			pc.addKarma((int) (-50000 * Config.RATE_KARMA));
 			item = pc.getInventory().storeItem(40678, 100);
 			if (item != null) {
@@ -4386,5 +4153,4 @@ public class C_NPCAction extends ClientBasePacket {
 	public String getType() {
 		return C_NPC_ACTION;
 	}
-
 }
