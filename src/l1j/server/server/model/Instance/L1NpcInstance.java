@@ -467,26 +467,20 @@ public class L1NpcInstance extends L1Character {
 			}
 		}
 
-		boolean isCounterBarrier = false;
 		L1Attack attack = new L1Attack(this, target);
-		if (attack.calcHit()) {
-			if (target.hasSkillEffect(COUNTER_BARRIER)) {
-				L1Magic magic = new L1Magic(target, this);
-				boolean isProbability = magic
-						.calcProbabilityMagic(COUNTER_BARRIER);
-				boolean isShortDistance = attack.isShortDistance();
-				if (isProbability && isShortDistance) {
-					isCounterBarrier = true;
-				}
-			}
-			if (!isCounterBarrier) {
-				attack.calcDamage();
+
+		if (target.hasSkillEffect(COUNTER_BARRIER)) {
+			L1Magic magic = new L1Magic(target, this);
+			if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
+					attack.isShortDistance()) {
+				attack.actionCounterBarrier();
+				attack.commitCounterBarrier();
+				setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
+				return;
 			}
 		}
-		if (isCounterBarrier) {
-			attack.actionCounterBarrier();
-			attack.commitCounterBarrier();
-		} else {
+		if (attack.calcHit()) {
+			attack.calcDamage();
 			attack.addPcPoisonAttack(target, this);
 			attack.action();
 			attack.commit();
