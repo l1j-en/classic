@@ -865,34 +865,26 @@ public class L1PcInstance extends L1Character {
 		if (getCurrentHp() > 0 && !isDead()) {
 			attacker.delInvis();
 
-			boolean isCounterBarrier = false;
 			L1Attack attack = new L1Attack(attacker, this);
-			if (attack.calcHit()) {
-				if (hasSkillEffect(COUNTER_BARRIER)) {
-					L1Magic magic = new L1Magic(this, attacker);
-					boolean isProbability = magic
-							.calcProbabilityMagic(COUNTER_BARRIER);
-					boolean isShortDistance = attack.isShortDistance();
-					if (isProbability && isShortDistance) {
-						isCounterBarrier = true;
-					}
-				}
-				if (!isCounterBarrier) {
-					attacker.setPetTarget(this);
 
-					attack.calcDamage();
-					attack.calcStaffOfMana();
-					attack.addPcPoisonAttack(attacker, this);
-					attack.addChaserAttack();
+			if (hasSkillEffect(COUNTER_BARRIER)) {
+				L1Magic magic = new L1Magic(this, attacker);
+				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
+						attack.isShortDistance()) {
+					attack.actionCounterBarrier();
+					attack.commitCounterBarrier();
+					return;
 				}
 			}
-			if (isCounterBarrier) {
-				attack.actionCounterBarrier();
-				attack.commitCounterBarrier();
-			} else {
-				attack.action();
-				attack.commit();
+			if (attack.calcHit()) {
+				attacker.setPetTarget(this);
+				attack.calcDamage();
+				attack.calcStaffOfMana();
+				attack.addPcPoisonAttack(attacker, this);
+				attack.addChaserAttack();
 			}
+			attack.action();
+			attack.commit();
 		}
 	}
 
