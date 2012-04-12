@@ -397,15 +397,10 @@ public class L1PcInstance extends L1Character {
 
 	public void sendVisualEffectAtLogin() {
 
-// for (L1Clan clan : L1World.getInstance().getAllClans()) {
-// sendPackets(new S_Emblem(clan.getClanId()));
-// }
-
-		if (getClanid() != 0) { 
+		if (isCrown() && getClanid() != 0) { 
 			L1Clan clan = L1World.getInstance().getClan(getClanname());
 			if (clan != null) {
-				if (isCrown() && getId() == clan.getLeaderId() &&
-						clan.getCastleId() != 0) {
+				if (getId() == clan.getLeaderId() && clan.getCastleId() != 0) {
 					sendPackets(new S_CastleMaster(clan.getCastleId(), getId()));
 				}
 			}

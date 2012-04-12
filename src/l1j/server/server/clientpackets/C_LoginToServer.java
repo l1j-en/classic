@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +66,7 @@ import l1j.server.server.serverpackets.S_Unknown2;
 import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
+import l1j.server.server.serverpackets.S_Emblem;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1GetBackRestart;
 import l1j.server.server.templates.L1Skill;
@@ -75,6 +78,8 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class C_LoginToServer extends ClientBasePacket {
 	private static final String C_LOGIN_TO_SERVER = "[C] C_LoginToServer";
 	private static Logger _log = Logger.getLogger(C_LoginToServer.class.getName());
+	// See note on updateIcons()
+	private static List<String> accountsWithIcons = new ArrayList<String>(); 
 
 	public C_LoginToServer(byte abyte0[], ClientThread client) throws FileNotFoundException, Exception {
 		super(abyte0);
@@ -299,7 +304,20 @@ public class C_LoginToServer extends ClientBasePacket {
 			SQLUtil.close(connection);
 		}
 	}
-	
+
+	// Updates the given client with all pledge icons.
+	// Keeps a cache of seen account names - it's a slow leak, but seems better
+	// than bombarding each client every time a character logs on.
+	private void updateIcons(final L1PcInstance character) {
+		if (accountsWithIcons.contains(character.getAccountName()))
+			return;
+
+		accountsWithIcons.add(character.getAccountName());
+
+		for (L1Clan clan : L1World.getInstance().getAllClans()) {
+			character.sendPackets(new S_Emblem(clan.getClanId()));
+		}
+	}
 
 	private void items(L1PcInstance pc) {
 		CharacterTable.getInstance().restoreInventory(pc);
