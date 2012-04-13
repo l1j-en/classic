@@ -587,13 +587,13 @@ public class L1Attack {
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == 0 || _weaponType == BOW_TYPE || _weaponType == GAUNTLET_TYPE) { 
+		} else if (_weaponType == 0 || isRanged) { 
 			weaponDamage = 0;
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
 		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
-			if (_weaponType != BOW_TYPE && _weaponType != GAUNTLET_TYPE) {
+			if (!isRanged) {
 				weaponDamage = weaponMaxDamage;
 			}
 		}
@@ -619,7 +619,7 @@ public class L1Attack {
 		}
 
 		double dmg;
-		if (_weaponType != BOW_TYPE && _weaponType != GAUNTLET_TYPE) {
+		if (!isRanged) {
 			dmg = weaponTotalDamage + _statusDamage + _pc.getDmgup()
 					+ _pc.getOriginalDmgup();
 		} else {
@@ -627,7 +627,7 @@ public class L1Attack {
 					+ _pc.getOriginalBowDmgup();
 		}
 
-		if (_weaponType == BOW_TYPE) {
+		if (isBow) {
 			if (_arrow != null) {
 				int add_dmg = _arrow.getItem().getDmgSmall();
 				if (add_dmg == 0) {
@@ -637,7 +637,7 @@ public class L1Attack {
 			} else if (_weaponId == 190) { // sahya bow
 				dmg = dmg + _random.nextInt(15) + 1;
 			}
-		} else if (_weaponType == GAUNTLET_TYPE) {
+		} else if (isGauntlet) {
 			int add_dmg = _sting.getItem().getDmgSmall();
 			if (add_dmg == 0) {
 				add_dmg = 1;
@@ -669,12 +669,12 @@ public class L1Attack {
 			dmg = L1WeaponSkill.getKiringkuDamage(_pc, _target);
 			dmg += calcAttrEnchantDmg();
 		}
-		if (_weaponType != BOW_TYPE && _weaponType != GAUNTLET_TYPE) {
+		if (!isRanged) {
 			dmg += _pc.getDmgModifierByArmor();
 		} else {
 			dmg += _pc.getBowDmgModifierByArmor();
 		}
-		if (_weaponType != BOW_TYPE && _weaponType != GAUNTLET_TYPE) {
+		if (!isRanged) {
 			Object[] dollList = _pc.getDollList().values().toArray();
 			for (Object dollObject : dollList) {
 				L1DollInstance doll = (L1DollInstance) dollObject;
@@ -686,7 +686,7 @@ public class L1Attack {
 				|| _pc.hasSkillEffect(COOKING_2_0_S)
 				|| _pc.hasSkillEffect(COOKING_3_2_N)
 				|| _pc.hasSkillEffect(COOKING_3_2_S)) {
-			if (_weaponType != BOW_TYPE && _weaponType != GAUNTLET_TYPE) {
+			if (!isRanged) {
 				dmg += 1;
 			}
 		}
@@ -694,7 +694,7 @@ public class L1Attack {
 				|| _pc.hasSkillEffect(COOKING_2_3_S)
 				|| _pc.hasSkillEffect(COOKING_3_0_N)
 				|| _pc.hasSkillEffect(COOKING_3_0_S)) {
-			if (_weaponType == BOW_TYPE || _weaponType == GAUNTLET_TYPE) {
+			if (isRanged) {
 				dmg += 1;
 			}
 		}
@@ -751,21 +751,10 @@ public class L1Attack {
 		if (_targetPc.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2;
 		}
-		if (_targetPc.hasSkillEffect(ABSOLUTE_BARRIER)) {
+
+		if (isImmune(_targetPc))
 			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(ICE_LANCE)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(FREEZING_BLIZZARD)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_targetPc.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
-		}
+
 		if (dmg <= 0) {
 			_isHit = false;
 			_drainHp = 0;
@@ -790,13 +779,13 @@ public class L1Attack {
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == 0 || _weaponType == 20 || _weaponType == 62) { 
+		} else if (_weaponType == 0 || isRanged) { 
 			weaponDamage = 0;
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
 		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
-			if (_weaponType != 20 && _weaponType != 62) {
+			if (!isRanged) {
 				weaponDamage = weaponMaxDamage;
 			}
 		}
@@ -821,7 +810,7 @@ public class L1Attack {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 		double dmg;
-		if (_weaponType != 20 && _weaponType != 62) {
+		if (!isRanged) {
 			dmg = weaponTotalDamage + _statusDamage + _pc.getDmgup()
 					+ _pc.getOriginalDmgup();
 		} else {
@@ -901,7 +890,7 @@ public class L1Attack {
 				|| _pc.hasSkillEffect(COOKING_2_0_S)
 				|| _pc.hasSkillEffect(COOKING_3_2_N)
 				|| _pc.hasSkillEffect(COOKING_3_2_S)) {
-			if (_weaponType != 20 && _weaponType != 62) {
+			if (!isRanged) {
 				dmg += 1;
 			}
 		}
@@ -909,7 +898,7 @@ public class L1Attack {
 				|| _pc.hasSkillEffect(COOKING_2_3_S)
 				|| _pc.hasSkillEffect(COOKING_3_0_N)
 				|| _pc.hasSkillEffect(COOKING_3_0_S)) {
-			if (_weaponType == 20 || _weaponType == 62) {
+			if (isRanged) {
 				dmg += 1;
 			}
 		}
@@ -931,18 +920,9 @@ public class L1Attack {
 				}
 			}
 		}
-		if (_targetNpc.hasSkillEffect(ICE_LANCE)) {
+		if (isImmune(_targetNpc))
 			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BLIZZARD)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(FREEZING_BREATH)) {
-			dmg = 0;
-		}
-		if (_targetNpc.hasSkillEffect(EARTH_BIND)) {
-			dmg = 0;
-		}
+		
 		if (dmg <= 0) {
 			_isHit = false;
 			_drainHp = 0;
@@ -1262,6 +1242,10 @@ public class L1Attack {
 	}
 
 	public void addChaserAttack() {
+		if (_weaponId != 265 && _weaponId != 266 &&
+			_weaponId != 267 && _weaponId != 268)
+			return;
+
 		int mr = 0;
 		if (_calcType == PC_PC) {
 			mr = _targetPc.getMr() - 2 * _pc.getOriginalMagicHit();
@@ -1273,12 +1257,9 @@ public class L1Attack {
 		if (probability < 3.0) {
 			probability = 3.0;
 		}
-		if (_weaponId == 265 || _weaponId == 266
-				|| _weaponId == 267 || _weaponId == 268) {
-			if (probability > _random.nextInt(100) + 1) {
-				L1Chaser chaser = new L1Chaser(_pc, _target);
-				chaser.begin();
-			}
+		if (probability > _random.nextInt(100) + 1) {
+			L1Chaser chaser = new L1Chaser(_pc, _target);
+			chaser.begin();
 		}
 	}
 
