@@ -67,6 +67,10 @@ public class C_CharReset extends ClientBasePacket {
 			_log.log(Level.SEVERE, 
 					String.format("Candle: %s had less than starting stats!", 
 						pc.getName()));
+		
+		if (str + intel + wis + dex + con + cha > 75 + (pc.getLevel() - 50))
+			_log.log(Level.SEVERE, String.format(
+					"Candle: %s has too many stats!", pc.getName()));
 	}
 
 	public C_CharReset(byte abyte0[], ClientThread clientthread) {
@@ -87,12 +91,12 @@ public class C_CharReset extends ClientBasePacket {
 			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
 
 			// TODO: check!
-			int str = pc.getStr();
-			int intel = pc.getInt();
-			int wis = pc.getWis();
-			int dex = pc.getDex();
-			int con = pc.getCon();
-			int cha = pc.getCha();
+			int str = pc.getBaseStr();
+			int intel = pc.getBaseInt();
+			int wis = pc.getBaseWis();
+			int dex = pc.getBaseDex();
+			int con = pc.getBaseCon();
+			int cha = pc.getBaseCha();
 
 			int hp = pc.getClassFeature().getStartingHp();
 			int mp = pc.getClassFeature().getStartingMp(wis);
@@ -166,12 +170,12 @@ public class C_CharReset extends ClientBasePacket {
 			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
 
 			// TODO: check!
-			int str = pc.getStr();
-			int intel = pc.getInt();
-			int wis = pc.getWis();
-			int dex = pc.getDex();
-			int con = pc.getCon();
-			int cha = pc.getCha();	
+			int str = pc.getBaseStr();
+			int intel = pc.getBaseInt();
+			int wis = pc.getBaseWis();
+			int dex = pc.getBaseDex();
+			int con = pc.getBaseCon();
+			int cha = pc.getBaseCha();	
 
 			pc.addBaseStr((byte) (str - pc.getBaseStr()));
 			pc.addBaseInt((byte) (intel - pc.getBaseInt()));
@@ -184,6 +188,10 @@ public class C_CharReset extends ClientBasePacket {
 	}
 
 	private synchronized void saveNewCharStatus(L1PcInstance pc) {
+		if (pc.getTempMaxLevel() != pc.getLevel()) {
+			_log.log(Level.SEVERE, "Candle: level doesn't match!");
+		}
+		
 		pc.setInCharReset(false);
 		if(pc.getOriginalAc() > 0) {
 			pc.addAc(pc.getOriginalAc());

@@ -95,6 +95,12 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.addBaseInt((byte) readC());
 		boolean isStatusError = false;
 
+		if (pc.get_sex() == 0) {
+			pc.setClassId(MALE_LIST[pc.getType()]);
+		} else {
+			pc.setClassId(FEMALE_LIST[pc.getType()]);
+		}
+		
 		Map<L1Attribute, Integer> startingStats = pc.getClassFeature().getFixedStats();
 		int originalStr = startingStats.get(L1Attribute.Str);
 		int originalDex = startingStats.get(L1Attribute.Dex);
@@ -135,11 +141,7 @@ public class C_CreateChar extends ClientBasePacket {
 
 	private static void initNewChar(ClientThread client, L1PcInstance pc) throws IOException, Exception {
 		pc.setId(IdFactory.getInstance().nextId());
-		if (pc.get_sex() == 0) {
-			pc.setClassId(MALE_LIST[pc.getType()]);
-		} else {
-			pc.setClassId(FEMALE_LIST[pc.getType()]);
-		}
+		
 		pc.setX(LOCX_LIST[pc.getType()]);
 		pc.setY(LOCY_LIST[pc.getType()]);
 		pc.setMap(MAPID_LIST[pc.getType()]);
