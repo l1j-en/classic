@@ -2954,6 +2954,10 @@ if (player instanceof L1PcInstance) {
 
 	public void refresh() {
 		resetLevel();
+		resetBaseHitup();
+		resetBaseDmgup();
+		resetBaseAc();
+		resetBaseMr();
 
 		L1ClassFeature features = getClassFeature();
 		_originalBowHitup = features.getOriginalRangedHit(getOriginalDex());
