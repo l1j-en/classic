@@ -140,6 +140,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public L1PetInstance(L1Npc template, L1PcInstance master, L1Pet l1pet) {
 		super(template);
+		System.out.println("Beginning pet creation.");
 		_petMaster = master;
 		_itemObjId = l1pet.get_itemobjid();
 		_type = PetTypeTable.getInstance().get(template.get_npcId());
@@ -155,9 +156,14 @@ public class L1PetInstance extends L1NpcInstance {
 				.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
+		try {
 		ItemTable items = ItemTable.getInstance();
+		// TODO: need to check empty weapon/armor first.
 		setWeapon(items.createItem(l1pet.get_weapon()));
 		setArmor(items.createItem(l1pet.get_armor()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -171,6 +177,7 @@ public class L1PetInstance extends L1NpcInstance {
 			onPerceive(pc);
 		}
 		master.addPet(this);
+		System.out.println("Pet created successfully.");
 	}
 
 	public L1PetInstance(L1NpcInstance target, L1PcInstance master, int itemid) {
@@ -567,7 +574,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setWeapon(L1ItemInstance weapon) {
 		_weapon = weapon;
-	
+		_inventory.storeItem(weapon);
 		// FIXME: This is a dreadful experimental hack.	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet == null) {
@@ -584,7 +591,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setArmor(L1ItemInstance armor) {
 		_armor = armor;
-	
+		_inventory.storeItem(armor);
 		// FIXME: see note in setWeapon().	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet == null) {
