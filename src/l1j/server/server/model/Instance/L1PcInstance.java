@@ -2956,28 +2956,28 @@ if (player instanceof L1PcInstance) {
 		resetLevel();
 
 		L1ClassFeature features = getClassFeature();
-		_originalBowHitup = features.getOriginalRangedHit(getBaseDex());
-		_originalBowDmgup = features.getOriginalRangedDamage(getBaseDex());
-		_originalHpr = features.getOriginalHpRegen(getBaseCon());
-		_originalMpr = features.getOriginalMpRegen(getBaseWis());
+		_originalBowHitup = features.getOriginalRangedHit(getOriginalDex());
+		_originalBowDmgup = features.getOriginalRangedDamage(getOriginalDex());
+		_originalHpr = features.getOriginalHpRegen(getOriginalCon());
+		_originalMpr = features.getOriginalMpRegen(getOriginalWis());
 		_originalStrWeightReduction = 
-			features.getOriginalStrWeightReduction(getBaseStr());
+			features.getOriginalStrWeightReduction(getOriginalStr());
 		_originalConWeightReduction = 
-			features.getOriginalConWeightReduction(getBaseCon());
-		_originalMagicHit = features.getOriginalMagicHit(getBaseInt());
-		_originalMagicDamage = features.getOriginalMagicDamage(getBaseInt());
+			features.getOriginalConWeightReduction(getOriginalCon());
+		_originalMagicHit = features.getOriginalMagicHit(getOriginalInt());
+		_originalMagicDamage = features.getOriginalMagicDamage(getOriginalInt());
 		_originalMagicConsumeReduction = 
-			features.getOriginalMpReduction(getBaseInt());
-		_originalMagicCritical = features.getOriginalMagicCrit(getBaseInt());
-		_originalEr = features.getOriginalER(getBaseDex());
-		_originalAc = features.getOriginalAC(getBaseDex());
+			features.getOriginalMpReduction(getOriginalInt());
+		_originalMagicCritical = features.getOriginalMagicCrit(getOriginalInt());
+		_originalEr = features.getOriginalER(getOriginalDex());
+		_originalAc = features.getOriginalAC(getOriginalDex());
 		addAc(0 - _originalAc);
-		_originalMr = features.getOriginalMR(getBaseWis());
+		_originalMr = features.getOriginalMR(getOriginalWis());
 		addMr(_originalMr);
-		_originalHitup = features.getOriginalMeleeHit(getBaseStr());
-		_originalDmgup = features.getOriginalMeleeDamage(getBaseStr());
-		_originalHpup = features.getOriginalHpBonus(getBaseCon());
-		_originalMpup = features.getOriginalMpBonus(getBaseWis());
+		_originalHitup = features.getOriginalMeleeHit(getOriginalStr());
+		_originalDmgup = features.getOriginalMeleeDamage(getOriginalStr());
+		_originalHpup = features.getOriginalHpBonus(getOriginalCon());
+		_originalMpup = features.getOriginalMpBonus(getOriginalWis());
 	}
 
 	private final L1ExcludingList _excludingList = new L1ExcludingList();
