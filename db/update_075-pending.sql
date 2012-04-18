@@ -20,3 +20,6 @@ insert into `droplist` values (46164, 'Treasure Chest of Aden Castle', 42096, 'A
 
 -- No idea why this had "Priest of Chaos" on it before. 
 update mobskill set mobname = "Mammon" where mobid = 46026;
+
+-- Fix those missing names in the droplist table.
+update droplist,npc set droplist.mob_name=npc.name where droplist.mobid=npc.npcid and (mob_name='' or mob_name is null);
