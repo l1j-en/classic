@@ -1,9 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
-
--- Queries that are pending an update should be placed here. This allows them
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 insert into commands set name="buffcheck", access_level=100, class_name="BuffCheck";
 
 -- Improving summoned Cougar by a little bit based on old videos.
@@ -41,10 +35,10 @@ insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) valu
 update droplist set mob_name="Grim Reaper" where mobid=45673;
 insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45673, "Grim Reaper", 30010, "Hand of the Reaper", 1, 1, 2000);
 update droplist set mob_name="Great Spirit of Water" where mobid=45620;
-insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45620, "Great Spirit of Water", 41152, "Spirit Crystal(Pollute Water)", 1, 1, 60);
+insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45620, "Great Spirit of Water", 41152, "Spirit Crystal(Pollute Water)", 1, 1, 600);
 update droplist set mob_name="Great Spirit of Fire" where mobid=45622;
 
-update droplist set chance = chance * 10 where (mob_name="Great Spirit of Fire" and itemid=41149) or (mob_name="Great Spirit of Water" and item_id=41152);
+update droplist set chance = 600 where mob_name="Great Spirit of Fire" and itemid=41149;
 
 alter table pets add weapon int(10) unsigned default 0;
 alter table pets add armor int(10) unsigned default 0;
