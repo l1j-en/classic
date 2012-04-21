@@ -70,7 +70,8 @@ public class C_CharReset extends ClientBasePacket {
 					String.format("Candle: %s had less than starting stats!", 
 						pc.getName()));
 		
-		if (str + intel + wis + dex + con + cha > 75 + (pc.getLevel() - 50) +
+		int bonusStats = pc.getLevel() > 50 ? pc.getLevel() - 50 : 0;
+		if (str + intel + wis + dex + con + cha > 75 + bonusStats + 
 				pc.getElixirStats()) {
 			emergencyCleanup(pc, "Candle: %s has too many stats!",
 					"Candle: issue with stats, contact a GM for help.");
