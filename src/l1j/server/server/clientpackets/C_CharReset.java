@@ -31,6 +31,8 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -68,9 +70,11 @@ public class C_CharReset extends ClientBasePacket {
 					String.format("Candle: %s had less than starting stats!", 
 						pc.getName()));
 		
-		if (str + intel + wis + dex + con + cha > 75 + (pc.getLevel() - 50))
-			_log.log(Level.SEVERE, String.format(
-					"Candle: %s has too many stats!", pc.getName()));
+		if (str + intel + wis + dex + con + cha > 75 + (pc.getLevel() - 50) +
+				pc.getElixirStats()) {
+			emergencyCleanup(pc, "Candle: %s has too many stats!",
+					"Candle: issue with stats, contact a GM for help.");
+		}
 	}
 
 	public C_CharReset(byte abyte0[], ClientThread clientthread) {
@@ -80,23 +84,17 @@ public class C_CharReset extends ClientBasePacket {
 
 		if (stage == 0x01) { // 0x01:LN^[
 			// We can't trust these numbers, since they've been provided by the
-			// client--this is the source of one of the candle glitches.
-			int cStr = readC();
-			int cIntel = readC();
-			int cWis = readC();
-			int cDex = readC();
-			int cCon = readC();
-			int cCha = readC();
+			// client--this is the source of one of the candle glitches. On the
+			// other hand, we can't just use the save numbers because that
+			// effectively gives them all those bonus stats again.
+			int str = readC();
+			int intel = readC();
+			int wis = readC();
+			int dex = readC();
+			int con = readC();
+			int cha = readC();
 
-			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
-
-			// TODO: check!
-			int str = pc.getBaseStr();
-			int intel = pc.getBaseInt();
-			int wis = pc.getBaseWis();
-			int dex = pc.getBaseDex();
-			int con = pc.getBaseCon();
-			int cha = pc.getBaseCha();
+			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
 
 			int hp = pc.getClassFeature().getStartingHp();
 			int mp = pc.getClassFeature().getStartingMp(wis);
@@ -158,24 +156,15 @@ public class C_CharReset extends ClientBasePacket {
 				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
-			// We can't trust these numbers, since they've been provided by the
-			// client--this is the source of one of the candle glitches.
-			int cStr = readC();
-			int cIntel = readC();
-			int cWis = readC();
-			int cDex = readC();
-			int cCon = readC();
-			int cCha = readC();
+			// See the note above
+			int str = readC();
+			int intel = readC();
+			int wis = readC();
+			int dex = readC();
+			int con = readC();
+			int cha = readC();
 
-			checkProvidedStats(pc, cStr, cIntel, cWis, cDex, cCon, cCha);
-
-			// TODO: check!
-			int str = pc.getBaseStr();
-			int intel = pc.getBaseInt();
-			int wis = pc.getBaseWis();
-			int dex = pc.getBaseDex();
-			int con = pc.getBaseCon();
-			int cha = pc.getBaseCha();	
+			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
 
 			pc.addBaseStr((byte) (str - pc.getBaseStr()));
 			pc.addBaseInt((byte) (intel - pc.getBaseInt()));
@@ -186,10 +175,20 @@ public class C_CharReset extends ClientBasePacket {
 			saveNewCharStatus(pc);
 		}
 	}
+	
+	private void emergencyCleanup(final L1PcInstance pc, final String logEntry,
+			final String message) {
+		_log.log(Level.SEVERE, logEntry);
+		pc.sendPackets(new S_SystemMessage(message));
+		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
+		// Terrible way to bail, but we're doing it for now.
+		throw new IllegalStateException();
+	}
 
 	private synchronized void saveNewCharStatus(L1PcInstance pc) {
 		if (pc.getTempMaxLevel() != pc.getLevel()) {
-			_log.log(Level.SEVERE, "Candle: level doesn't match!");
+			emergencyCleanup(pc, "Candle: " + pc.getName() + "'s level " +
+				"doesn't match!", "Candle: issue with level, contact a GM!");
 		}
 		
 		pc.setInCharReset(false);
