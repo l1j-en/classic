@@ -711,6 +711,14 @@ public class C_NPCAction extends ClientBasePacket {
 				_log.log(Level.INFO, String.format("Candle: %s started " +
 							"candling with maxLevel = %d and pc.getLevel()" +
 							" = %d.", pc.getName(), maxLevel, pc.getLevel()));
+				
+				if (maxLevel != pc.getLevel()) {
+					pc.sendPackets(new S_SystemMessage(
+							"Your level and stats don't seem to match. " +
+							"Contact a GM for help."));
+					L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
+					return;
+				}
 
 				pc.setTempMaxLevel(maxLevel);
 				pc.setTempLevel(1);
