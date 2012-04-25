@@ -16,7 +16,8 @@ insert into `spawnlist` values ('63000', 'Treasure Chest of Aden Castle', '25', 
 insert into `spawnlist` values ('63001', 'Treasure Chest of Aden Castle', '10', '46164', '0', '32770', '32851', '0', '0', '32704', '32768', '32831', '32895', '0', '0', '0', '249', '0', '100', '0', '0', 1, 8, 2, 100);
 insert into `spawnlist` values ('63002', 'Treasure Chest of Aden Castle', '20', '46164', '0', '32770', '32851', '0', '0', '32704', '32768', '32831', '32895', '0', '0', '0', '250', '0', '100', '0', '0', 1, 8, 2, 100);
 
-insert into `droplist` values (46164, 'Treasure Chest of Aden Castle', 42096, 'Ancient Gold Coin', 1, 1, 80000);
+-- Since etcitem also autoincrements, fill your appropriate id in here.
+insert into `droplist` values (46164, 'Treasure Chest of Aden Castle', 'FILL-ME-IN', 'Ancient Gold Coin', 1, 1, 80000);
 
 -- No idea why this had "Priest of Chaos" on it before. 
 update mobskill set mobname = "Mammon" where mobid = 46026;
