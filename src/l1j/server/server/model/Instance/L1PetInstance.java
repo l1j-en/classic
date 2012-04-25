@@ -159,8 +159,8 @@ public class L1PetInstance extends L1NpcInstance {
 		try {
 		ItemTable items = ItemTable.getInstance();
 		// TODO: need to check empty weapon/armor first.
-		setWeapon(items.createItem(l1pet.get_weapon()));
-		setArmor(items.createItem(l1pet.get_armor()));
+		// setWeapon(items.createItem(l1pet.get_weapon()));
+		// setArmor(items.createItem(l1pet.get_armor()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -573,6 +573,8 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _weapon;
 
 	public void setWeapon(L1ItemInstance weapon) {
+		return;
+		/*
 		_weapon = weapon;
 		_inventory.storeItem(weapon);
 		// FIXME: This is a dreadful experimental hack.	
@@ -581,6 +583,7 @@ public class L1PetInstance extends L1NpcInstance {
 			return;
 		}
 		l1pet.set_weapon(weapon.getItemId());
+		*/
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -590,6 +593,8 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _armor;
 
 	public void setArmor(L1ItemInstance armor) {
+		return;
+		/*
 		_armor = armor;
 		_inventory.storeItem(armor);
 		// FIXME: see note in setWeapon().	
@@ -598,6 +603,7 @@ public class L1PetInstance extends L1NpcInstance {
 			return;
 		}
 		l1pet.set_armor(armor.getItemId());
+		*/
 	}
 
 	public L1ItemInstance getArmor() {
