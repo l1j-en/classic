@@ -156,14 +156,9 @@ public class L1PetInstance extends L1NpcInstance {
 				.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
-		try {
 		ItemTable items = ItemTable.getInstance();
-		// TODO: need to check empty weapon/armor first.
-		// setWeapon(items.createItem(l1pet.get_weapon()));
-		// setArmor(items.createItem(l1pet.get_armor()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		setWeapon(items.createItem(l1pet.get_weapon()));
+		setArmor(items.createItem(l1pet.get_armor()));
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -273,8 +268,12 @@ public class L1PetInstance extends L1NpcInstance {
 		l1pet.set_hp(getMaxHp());
 		l1pet.set_mp(getMaxMp());
 		l1pet.set_exp(getExp());
-		l1pet.set_weapon(getWeapon().getItemId());
-		l1pet.set_armor(getArmor().getItemId());
+		L1ItemInstance armor = getArmor();
+		L1ItemInstance weapon = getWeapon();
+		if (weapon != null)
+			l1pet.set_weapon(weapon.getItemId());
+		if (armor != null)
+			l1pet.set_armor(armor.getItemId());
 		PetTable.getInstance().storeNewPet(this, getId(), new_itemobjid);
 		_itemObjId = new_itemobjid;
 	}
@@ -573,17 +572,17 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _weapon;
 
 	public void setWeapon(L1ItemInstance weapon) {
-		return;
-		/*
 		_weapon = weapon;
-		_inventory.storeItem(weapon);
+
+		if (weapon == null)
+			return;
+		
 		// FIXME: This is a dreadful experimental hack.	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet == null) {
 			return;
 		}
 		l1pet.set_weapon(weapon.getItemId());
-		*/
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -593,17 +592,17 @@ public class L1PetInstance extends L1NpcInstance {
 	private L1ItemInstance _armor;
 
 	public void setArmor(L1ItemInstance armor) {
-		return;
-		/*
 		_armor = armor;
-		_inventory.storeItem(armor);
+
+		if (armor == null)
+			return;
+
 		// FIXME: see note in setWeapon().	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet == null) {
 			return;
 		}
 		l1pet.set_armor(armor.getItemId());
-		*/
 	}
 
 	public L1ItemInstance getArmor() {
