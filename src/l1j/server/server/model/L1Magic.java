@@ -242,24 +242,10 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == GUARD_BRAKE || skillId == RESIST_FEAR
-				|| skillId ==HORROR_OF_DEATH) {
-			int dice = skill.getProbabilityDice();
-			int value = skill.getProbabilityValue();
-			int diceCount = _attacker.getMagicBonus() + 
-				_attacker.getMagicLevel();
-			diceCount = diceCount < 1 ? 1 : diceCount;
-			
-			for (int i = 0; i < diceCount; i++) {
-				probability += (_random.nextInt(dice) + 1 + value);
-			}
-
-			probability = probability * getLeverage() / 10;
-
-			if (_calcType == PC_PC || _calcType == PC_NPC) {
-				probability += 2 * _pc.getOriginalMagicHit();
-			}
-
-			probability = probability >= _target.getMr() ? 100 : 0;
+				|| skillId == HORROR_OF_DEATH) {
+			// As of an update on live early 2012, these skills aren't affected
+			// by MR.
+			probability = 100;
 		} else {
 			int dice = skill.getProbabilityDice();
 			int diceCount = 
@@ -412,7 +398,7 @@ public class L1Magic {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 2;
+			dmg -= 3;
 		}
 		
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
