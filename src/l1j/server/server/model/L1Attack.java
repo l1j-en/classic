@@ -743,7 +743,7 @@ public class L1Attack {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 2;
+			dmg -= 3;
 		}
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
 			dmg -= 2;
@@ -998,7 +998,7 @@ public class L1Attack {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 2;
+			dmg -= 3;
 		}
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
 			dmg -= 2;
