@@ -713,6 +713,9 @@ public class C_NPCAction extends ClientBasePacket {
 							" = %d.", pc.getName(), maxLevel, pc.getLevel()));
 				
 				if (maxLevel != pc.getLevel()) {
+					_log.log(Level.WARNING, String.format("Candle: %s's " +
+							"maxLevel: %d and pc.getLevel(): %d didn't match.",
+							maxLevel, pc.getLevel(), pc.getName()));
 					pc.sendPackets(new S_SystemMessage(
 							"Your level and stats don't seem to match. " +
 							"Contact a GM for help."));

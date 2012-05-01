@@ -19,6 +19,7 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.datatables.SkillTable;
@@ -69,6 +70,29 @@ public class L1EquipmentSlot {
 
 	private void setArmor(L1ItemInstance armor) {
 		L1Item item = armor.getItem();
+		
+		// Quick hack to deal with multiple gear equipment issue. I'm 90% sure
+		// it's a synchronization issue, but that means it'll be a pain to find
+		// the right place(s) to lock access. In the meantime, this should
+		// prevent people from taking advantage of it.
+		int type = item.getType();
+		int ringCount = 0;
+		for (L1ItemInstance equipped : _armors) {
+			L1Item equippedItem = equipped.getItem();
+			if (equippedItem.getType() == 9) {
+				ringCount++;
+				if (ringCount >= 2 && type == 9) {
+					_log.log(Level.WARNING,
+							"Tried to equip too many rings.");
+					return;
+				}
+			} else if (equippedItem.getType() == type) {
+				_log.log(Level.WARNING,
+						"Tried to equip multiple items in same slot.");
+				return;
+			}
+		}
+		
 		int itemId = armor.getItem().getItemId();
 
 		_owner.addAc(item.get_ac() - armor.getEnchantLevel() - armor
@@ -129,11 +153,7 @@ public class L1EquipmentSlot {
 		}
 		armor.startEquipmentTimer(_owner);
 	}
-
-	public ArrayList<L1ItemInstance> getArmors() {
-		return _armors;
-	}
-
+	
 	private void removeWeapon(L1ItemInstance weapon) {
 		int itemId = weapon.getItem().getItemId();
 		_owner.setWeapon(null);
