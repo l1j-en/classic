@@ -144,10 +144,26 @@ public class L1PcInventory extends L1Inventory {
 		try {
 			CharactersItemStorage storage = CharactersItemStorage.create();
 
+			boolean weaponEquipped = false;
+			
 			for (L1ItemInstance item : storage.loadItems(_owner.getId())) {
 				_items.add(item);
 
 				if (item.isEquipped()) {
+					// Quick patch to deal with equipping multiple weapons. Not
+					// the right thing to do, but should deal with the problem
+					// in the short term.
+					if (item.getItem().getType2() == 1) {
+						if (weaponEquipped) {
+							_log.log(Level.WARNING,
+								"Trying to equip extra weapon during load.");
+							item.setEquipped(false);
+							continue;
+						} else {
+							weaponEquipped = true;
+						}
+					}
+					
 					item.setEquipped(false);
 					setEquipped(item, true, true, false);
 				}
