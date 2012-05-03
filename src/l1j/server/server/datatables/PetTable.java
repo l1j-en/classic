@@ -132,9 +132,9 @@ public class PetTable {
 			pstm.setInt(6, pet.get_mp());
 			pstm.setInt(7, pet.get_exp());
 			pstm.setInt(8, pet.get_lawful());
-			pstm.setInt(9, pet.get_itemobjid());
-			pstm.setInt(10, pet.get_weapon());
-			pstm.setInt(11, pet.get_armor());
+			pstm.setInt(9, pet.get_weapon());
+			pstm.setInt(10, pet.get_armor());
+			pstm.setInt(11, pet.get_itemobjid());
 			pstm.execute();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
