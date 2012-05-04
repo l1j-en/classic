@@ -180,7 +180,7 @@ public class L1Inventory extends L1Object {
 		return item;
 	}
 
-	public synchronized L1ItemInstance storeTradeItem(L1ItemInstance item) {
+	private synchronized L1ItemInstance storeTradeItem(L1ItemInstance item) {
 		if (item.isStackable()) {
 			L1ItemInstance findItem = findItemId(item.getItem().getItemId());
 			if (findItem != null) {

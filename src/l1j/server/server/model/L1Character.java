@@ -1013,7 +1013,7 @@ public class L1Character extends L1Object {
 	private int _trueMr = 0; 
 
 	public int getMr() {
-		if (hasSkillEffect(153) == true) {
+		if (hasSkillEffect(ERASE_MAGIC) == true) {
 			return _mr / 4;
 		} else {
 			return _mr;
