@@ -186,6 +186,8 @@ public class L1Inventory extends L1Object {
 			if (findItem != null) {
 				findItem.setCount(findItem.getCount() + item.getCount());
 				updateItem(findItem);
+				// TODO: test me!
+				L1World.getInstance().removeObject(item);
 				return findItem;
 			}
 		}

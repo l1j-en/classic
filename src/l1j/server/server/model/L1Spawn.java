@@ -65,7 +65,6 @@ public class L1Spawn {
 	private int _delayInterval;
 	private L1SpawnTime _time;
 	private HashMap<Integer, Point> _homePoint = null; // init spawn of individual objects in the home points
-	private List<L1NpcInstance> _mobs = new ArrayList<L1NpcInstance>();
 	private static Random _random = new Random();
 	private String _name;
 	private int _spawnHome;
@@ -343,9 +342,6 @@ public class L1Spawn {
 			int tryCount = 0;
 
 			mob = NpcTable.getInstance().newNpcInstance(_template);
-			synchronized (_mobs) {
-				_mobs.add(mob);
-			}
 			if (objectId == 0) {
 				mob.setId(IdFactory.getInstance().nextId());
 			} else {
