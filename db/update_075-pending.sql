@@ -41,3 +41,6 @@ update skills set hpConsume=20, buffDuration=32 where name="HorrorOfDeath";
 
 update weapon set dmg_small=17, hitmodifier=5, dmgmodifier=3 where name = "Destructor's Chain Sword";
 update weapon set dmg_small=21, hitmodifier=5, dmgmodifier=3 where name = "Collapsed One's Chain Sword";
+
+-- Adding skill stacking.
+alter table skills add `stack_limit` int(10) unsigned not null default 1;
