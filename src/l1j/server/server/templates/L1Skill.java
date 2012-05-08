@@ -292,6 +292,12 @@ public class L1Skill {
 	public String getImpl() {
 		return _impl;
 	}
+
+	private int _stackLimit;
+
+	public int getStackLimit() {
+		return _stackLimit;
+	}
     
 	public static L1Skill fromResultSet(ResultSet rs) throws SQLException {
 		L1Skill skill = new L1Skill();
@@ -331,6 +337,7 @@ public class L1Skill {
 		//skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
 		//skill._isBuff = rs.getBoolean("is_buff");
 		skill._impl = rs.getString("impl");
+		skill._stackLimit = rs.getInt("stack_limit");
 
 		return skill;
 	}

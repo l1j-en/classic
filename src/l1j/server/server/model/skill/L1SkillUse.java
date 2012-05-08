@@ -538,26 +538,42 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				}
 			}
 
-			if (type == TYPE_NORMAL) { // 魔法詠唱時
-				if (!_isGlanceCheckFail || _skill.getArea() > 0
-						|| _skill.getTarget().equals("none")) {
+			switch (type) {
+				case TYPE_NORMAL:
+					if (_isGlanceCheckFail || _skill.getArea() <= 0 ||
+							!_skill.getTarget().equals("none"))
+						break;
+
+					// TODO: original version of this used _skillId instead
+					// of skillId - figure out if we can just use the local.
+					if (Config.STACKING && _target.hasSkillEffect(_skillId)) {
+						int max = _skill.getBuffDuration() * 
+							_skill.getStackLimit();
+						_skillTime = _skill.getBuffDuration() + 
+							_target.getSkillEffectTimeSec(_skillId);
+						_skillTime = _skillTime > max ? max : _skillTime;
+					} else
+						_skillTime = _skill.getBuffDuration();
+
 					runSkill();
 					useConsume();
 					sendGrfx(true);
 					sendFailMessageHandle();
 					setDelay();
-				}
-			} else if (type == TYPE_LOGIN) { // ログイン時（HPMP材料消費なし、グラフィックなし）
-				runSkill();
-			} else if (type == TYPE_SPELLSC) { // スペルスクロール使用時（HPMP材料消費なし）
-				runSkill();
-				sendGrfx(true);
-			} else if (type == TYPE_GMBUFF) { // GMBUFF使用時（HPMP材料消費なし、魔法モーションなし）
-				runSkill();
-				sendGrfx(false);
-			} else if (type == TYPE_NPCBUFF) { // NPCBUFF使用時（HPMP材料消費なし）
-				runSkill();
-				sendGrfx(true);
+					break;	
+				case TYPE_LOGIN:
+					runSkill();
+					break;
+				case TYPE_GMBUFF:
+					runSkill();
+					sendGrfx(false);
+					break;
+				case TYPE_NPCBUFF: case TYPE_SPELLSC:
+					runSkill();
+					sendGrfx(true);
+					break;
+				default:
+					_log.log(Level.SEVERE, "Skill didn't have a handled type!");
 			}
 			setCheckedUseSkill(false);
 		} catch (Exception e) {
