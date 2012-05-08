@@ -42,7 +42,7 @@ public class L1Who implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			if(arg.equals("")){
+			if(arg.equals("")) {
 					who(pc);
 				} else {
 					who(pc, arg);
@@ -51,10 +51,11 @@ public class L1Who implements L1CommandExecutor {
 			pc.sendPackets(new S_SystemMessage(".who [all]"));
 		}
 	}
+
 	private void who(L1PcInstance gm, String name) {  
-		try{
+		try {
 			L1PcInstance target = getPcInstance(name.trim());
-			if(target == null) {
+			if (target == null) {
 				gm.sendPackets(new S_SystemMessage("-"+name.trim()+"-"));
 				whoOffline(gm, name);
 			} else {
@@ -66,14 +67,14 @@ public class L1Who implements L1CommandExecutor {
 						.append(" ").append(getClass(target.getClassId()))
 						.append(" ").append(target.getMaxHp())
 						.append("/").append(target.getMaxMp()+ " | ")
-						.append("Dmg: +" + gm.getDmgup() + " | ")
-						.append("Hit: +" + gm.getHitup() + " | ")
-						.append("MR: " + gm.getMr() + " | ")
-						.append("HPR: " + gm.getHpr() + gm.getInventory().hpRegenPerTick() + " | ")
-						.append("MPR: " + gm.getMpr() + gm.getInventory().mpRegenPerTick() + " | ")
-						.append("Karma: " + gm.getKarma() + " | ")
+						.append("Dmg: +" + target.getDmgup() + " | ")
+						.append("Hit: +" + target.getHitup() + " | ")
+						.append("MR: " + target.getMr() + " | ")
+						.append("HPR: " + target.getHpr() + target.getInventory().hpRegenPerTick() + " | ")
+						.append("MPR: " + target.getMpr() + target.getInventory().mpRegenPerTick() + " | ")
+						.append("Karma: " + target.getKarma() + " | ")
 						.append("MR: ").append(target.getMr()).append(" | ")
-						.append("Items: " + gm.getInventory().getSize() + " | ")
+						.append("Items: " + target.getInventory().getSize() + " | ")
 						.append("Gold: " + target.getInventory().countItems(40308))
 						.toString()));
 			}
@@ -81,12 +82,13 @@ public class L1Who implements L1CommandExecutor {
 			whoOffline(gm, name);
 		}
 	}
+
 	private void who(L1PcInstance gm) {
-		try{
+		try {
 			String charC = "";
 			String charS = "";
 			int i = 1;
-			for (L1PcInstance player : L1World.getInstance().getAllPlayers()){
+			for (L1PcInstance player : L1World.getInstance().getAllPlayers()) {
 				charC = getClass(player.getClassId());
 				charS = getSex(player.getClassId());
 				gm.sendPackets(new S_SystemMessage((new StringBuilder())
@@ -100,7 +102,7 @@ public class L1Who implements L1CommandExecutor {
 						.toString()));
 				i++;
 			}
-		} catch (Exception exception) {
+		} catch (Exception exception) { 
 		}
 	}
 	private void whoOffline(L1PcInstance gm, String name) {  
@@ -145,7 +147,7 @@ public class L1Who implements L1CommandExecutor {
 		return pc;
 	}
 	
-	private String getSex(int classID){
+	private String getSex(int classID) {
 		switch(classID) {
 			case 0: case 61: case 138: case 734: case 2786: case 6658: case 6671:
 				return "Male";
@@ -156,7 +158,7 @@ public class L1Who implements L1CommandExecutor {
 		}
 	}
 	
-	private String getClass(int classID){
+	private String getClass(int classID) {
 		switch(classID) {
 			case 0: case 1:
 				return "Royal";
