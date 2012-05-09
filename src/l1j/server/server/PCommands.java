@@ -158,58 +158,54 @@ public class PCommands {
 			return;
 		}
 		
-		if (!_player.isPrivateShop() || _player.hasSkillEffect(EARTH_BIND) == false && _player.isParalyzed() == false && _player.isPinkName() == false && _player.isSleeped() == false && _player.isDead() == false && _player.getMapId() != 99) {
-			try {
-				String s1 = cmd2.substring(5);
-				int i = Integer.parseInt(s1);
-				int delaytimer = 30; 
-				if (i >= 1 && i <= 7 ) {
-					delaytimer *= 100;
-					switch (i){
-					//Pandora	
-						case 1: 
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32644, 32955, (short) 0, 5, true);
-								break;
-								//Pandora
-						case 2:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33080, 33392, (short) 4, 5, true);
-								break;
-								//SKT
-						case 3:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33442, 32797, (short) 4, 5, true);
-								break;
-								//Giran
-						case 4:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 33705, 32504, (short) 4, 5, true);
-								break;
-								//Weldern
-						case 5:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 34061, 32276, (short) 4, 5, true);
-								break;
-								//Oren
-						case 6:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32715, 32448, (short) 4, 5, true);
-								break;
-								//Orc Town
-						case 7:
-								Thread.sleep(delaytimer);
-								L1Teleport.teleport(_player, 32857, 32898, (short) 304, 5, true);
-								//Silent Cave
-						}
-				} else {
-						_player.sendPackets(new S_SystemMessage("Warp 1-7 only."));
+		if (_player.isPrivateShop() || _player.hasSkillEffect(EARTH_BIND) || 
+				_player.isParalyzed() || _player.isPinkName() || 
+				_player.isSleeped() || _player.isDead() || 
+				_player.getMapId() == 99) {
+			_player.sendPackets(
+				new S_SystemMessage("You cannot warp in your current state."));
+			return;
+		}	
+			
+		try {
+			int i = Integer.parseInt(cmd2.substring(5));
+			int delaytimer = 30; 
+			if (i >= 1 && i <= 7 ) {
+				delaytimer *= 100;
+				switch (i) {
+					case 1: // Pandora
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 32644, 32955, (short) 0, 5, true);
+						break;
+					case 2: // SKT
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 33080, 33392, (short) 4, 5, true);
+						break;
+					case 3: // Giran
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 33442, 32797, (short) 4, 5, true);
+						break;
+					case 4: // Weldern
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 33705, 32504, (short) 4, 5, true);
+						break;
+					case 5: // Oren
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 34061, 32276, (short) 4, 5, true);
+						break;
+					case 6: // Orc Town
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 32715, 32448, (short) 4, 5, true);
+						break;
+					case 7: // Silent Cave
+						Thread.sleep(delaytimer);
+						L1Teleport.teleport(_player, 32857, 32898, (short) 304, 5, true);
 				}
-			} catch (Exception exception) {
-					_player.sendPackets(new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern"));
+			} else {
+				_player.sendPackets(new S_SystemMessage("Warp 1-7 only."));
 			}
-		} else{
-			_player.sendPackets(new S_SystemMessage("You cannot warp in your current state."));
+		} catch (Exception exception) {
+			_player.sendPackets(new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern"));
 		}
 	}
 
