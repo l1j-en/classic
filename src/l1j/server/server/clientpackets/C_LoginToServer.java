@@ -275,6 +275,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			pc.beginHell(false);
 		}
 		checkUnreadMail(pc);
+		updateIcons(pc);
 	}
 
 
