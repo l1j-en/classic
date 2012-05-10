@@ -140,7 +140,8 @@ public class L1Skill {
 		return _target;
 	}
 
-	private int _targetTo; // 対象 0:自分 1:PC 2:NPC 4:血盟 8:パーティ 16:ペット 32:場所
+	// Target 0:self 1:PC 2:NPC 4:clan 8:party 16:pet 32:location
+	private int _targetTo; 
 
 	public int getTargetTo() {
 		return _targetTo;
