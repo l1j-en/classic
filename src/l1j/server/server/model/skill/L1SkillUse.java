@@ -540,7 +540,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 			switch (type) {
 				case TYPE_NORMAL:
-					if (_isGlanceCheckFail || _skill.getArea() <= 0 ||
+					if (_isGlanceCheckFail && _skill.getArea() <= 0 &&
 							!_skill.getTarget().equals("none"))
 						break;
 
