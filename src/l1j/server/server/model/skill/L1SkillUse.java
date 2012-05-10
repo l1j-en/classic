@@ -540,6 +540,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 			switch (type) {
 				case TYPE_NORMAL:
+					// Apparently reversing this broke firewall, but now I'm
+					// not sure how it worked originally...
 					if (_isGlanceCheckFail && _skill.getArea() <= 0 &&
 							!_skill.getTarget().equals("none"))
 						break;
@@ -686,10 +688,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			return false;
 		}
 
-		if (((_skill.getTargetTo() & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC
-				|| (_skill.getTargetTo() & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || (_skill
-				.getTargetTo() & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY)
-				&& cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
+		int targetTo = _skill.getTargetTo();
+		if (((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC || 
+			 (targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || 
+			 (targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY) &&
+				cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
 			return true; // ターゲットがパーティーかクラン員のものは自分に効果がある。（ただし、ヒールオールは除外）
 		}
 
@@ -749,36 +752,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			}
 		}
 
-		if (cha.hasSkillEffect(ICE_LANCE)
-				&& (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD || _skillId == FREEZING_BREATH)) {
-			return false; // アイスランス中にアイスランス、フリージングブリザード、フリージングブレス
-		}
+		if (_skillId == ICE_LANCE || 
+		    _skillId == FREEZING_BLIZZARD ||
+			_skillId == FREEZING_BREATH)
+			if (cha.hasSkillEffect(ICE_LANCE) || 
+				cha.hasSkillEffect(FREEZING_BREATH) || 
+				cha.hasSkillEffect(FREEZING_BLIZZARD))
+				return false;
 
-		if (cha.hasSkillEffect(FREEZING_BLIZZARD)
-				&& (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD || _skillId == FREEZING_BREATH)) {
-			return false; // フリージングブリザード中にアイスランス、フリージングブリザード、フリージングブレス
-		}
-
-		if (cha.hasSkillEffect(FREEZING_BREATH)
-				&& (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD || _skillId == FREEZING_BREATH)) {
-			return false; // フリージングブレス中にアイスランス、フリージングブリザード、フリージングブレス
-		}
-
-		if (cha.hasSkillEffect(EARTH_BIND) && _skillId == EARTH_BIND) {
-			return false; // アース バインド中にアース バインド
-		}
-
-		if (cha.hasSkillEffect(EARTH_BIND) && _skillId == BONE_BREAK) {
-			return false; // アース バインド中にﾎﾞｰﾝブレイク
-		}
-
-		if (cha.hasSkillEffect(EARTH_BIND) && _skillId == CONFUSION) {
-			return false; // アース バインド中にコンフュージョン
-		}
-
-		if (cha.hasSkillEffect(EARTH_BIND) && _skillId == ARM_BREAKER) {
-			return false; // アース バインド中にアームブレイカ―
-		}
+		if ((_skillId == EARTH_BIND || _skillId == BONE_BREAK ||
+			 _skillId == CONFUSION || _skillId == ARM_BREAKER) &&
+				cha.hasSkillEffect(EARTH_BIND))
+			return false;
 
 		if (cha.hasSkillEffect(FOG_OF_SLEEPING) && _skillId == PHANTASM) {
 			return false; // フォグオブスリーピング中にファンタズム
@@ -847,15 +832,15 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			}
 		}
 
-		if ((_skill.getTargetTo() & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC // ターゲットがPC
+		if ((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC // ターゲットがPC
 				&& cha instanceof L1PcInstance) {
 			flg = true;
-		} else if ((_skill.getTargetTo() & L1Skill.TARGET_TO_NPC) == L1Skill.TARGET_TO_NPC // ターゲットがNPC
+		} else if ((targetTo & L1Skill.TARGET_TO_NPC) == L1Skill.TARGET_TO_NPC // ターゲットがNPC
 				&& (cha instanceof L1MonsterInstance
 						|| cha instanceof L1NpcInstance
 						|| cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
 			flg = true;
-		} else if ((_skill.getTargetTo() & L1Skill.TARGET_TO_PET) == L1Skill.TARGET_TO_PET
+		} else if ((targetTo & L1Skill.TARGET_TO_PET) == L1Skill.TARGET_TO_PET
 				&& _user instanceof L1PcInstance) { // ターゲットがSummon,Pet
 			if (cha instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) cha;
@@ -876,13 +861,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 
 		if (_calcType == PC_PC && cha instanceof L1PcInstance) {
-			if ((_skill.getTargetTo() & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN
+			if ((targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN
 					&& ((_player.getClanid() != 0 // ターゲットがクラン員
-					&& _player.getClanid() == ((L1PcInstance) cha).getClanid()) || _player
-							.isGm())) {
+					&& _player.getClanid() == ((L1PcInstance) cha).getClanid()) || _player.isGm())) {
 				return true;
 			}
-			if ((_skill.getTargetTo() & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY
+			if ((targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY
 					&& (_player.getParty() // ターゲットがパーティー
 							.isMember((L1PcInstance) cha) || _player.isGm())) {
 				return true;
