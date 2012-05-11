@@ -2948,6 +2948,7 @@
 			<Material Amount="10" ItemId="40054"/>
 			<Material Amount="10" ItemId="40055"/>
 			<Material Amount="30" ItemId="40520"/>
+			<Material Amount="30" ItemId="40969"/>
 			<Material Amount="2" ItemId="49092"/>
 			<Material Amount="1000000" ItemId="40308"/>
 			<Item Amount="1" ItemId="271"/>

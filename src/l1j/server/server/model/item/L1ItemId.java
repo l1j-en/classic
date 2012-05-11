@@ -85,4 +85,9 @@ public class L1ItemId {
 	public static final int IT_SCROLL_OF_POLYMORPH = 40096;
 
 	public static final int ADENA = 40308;
+
+	public static final int ForbiddenFruit = 49158;
+	public static final int ElvenWafer = 40068;
+	public static final int BlessedElvenWafer = 140068;
+	public static final int DevilsBlood = 40031;
 }
