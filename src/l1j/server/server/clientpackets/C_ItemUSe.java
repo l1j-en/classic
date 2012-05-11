@@ -70,7 +70,6 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
-import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.item.L1TreasureBox;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.skill.L1SkillUse;
@@ -113,6 +112,7 @@ import l1j.server.server.templates.L1Skill;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.L1SpawnUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
+import static l1j.server.server.model.item.L1ItemId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -175,9 +175,9 @@ public class C_ItemUSe extends ClientBasePacket {
 		int use_type = l1iteminstance.getItem().getUseType();
 		if (itemId == 40088 || itemId == 40096 || itemId == 140088) {
 			s = readS();
-		} else if (itemId == L1ItemId.SCROLL_OF_ENCHANT_ARMOR
-				|| itemId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON
-				|| itemId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON
+		} else if (itemId == SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON
 				|| itemId == 40077
 				|| itemId == 40078
 				|| itemId == 40126
@@ -186,10 +186,10 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 40130
 				|| itemId == 140129
 				|| itemId == 140130
-				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR
-				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON
-				|| itemId == L1ItemId.C_SCROLL_OF_ENCHANT_ARMOR
-				|| itemId == L1ItemId.C_SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == B_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == B_SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == C_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == C_SCROLL_OF_ENCHANT_WEAPON
 				|| itemId == 41029 
 				|| itemId == 40317
 				|| itemId == 41036
@@ -304,11 +304,11 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1ItemInstance l1iteminstance1 = pc.getInventory().getItem(l);
 			_log.finest("request item use (obj) = " + itemObjid + " action = "
 					+ l + " value = " + s);
-			if (itemId == 40077 || itemId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON
-					|| itemId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON
+			if (itemId == 40077 || itemId == SCROLL_OF_ENCHANT_WEAPON
+					|| itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON
 					|| itemId == 40130 || itemId == 140130
-					|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON
-					|| itemId == L1ItemId.C_SCROLL_OF_ENCHANT_WEAPON
+					|| itemId == B_SCROLL_OF_ENCHANT_WEAPON
+					|| itemId == C_SCROLL_OF_ENCHANT_WEAPON
 					|| itemId == 40128) {
 				if (l1iteminstance1 == null
 						|| l1iteminstance1.getItem().getType2() != 1) {
@@ -329,13 +329,13 @@ public class C_ItemUSe extends ClientBasePacket {
 
 				int quest_weapon = l1iteminstance1.getItem().getItemId();
 				if (quest_weapon >= 246 && quest_weapon <= 249) {
-					if (itemId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON) {
+					if (itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON) {
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 						return;
 					}
 				}
-				if (itemId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON) { 
+				if (itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON) { 
 					if (quest_weapon >= 246 && quest_weapon <= 249) { 
 					} else {
 						pc.sendPackets(new S_ServerMessage(79)); 
@@ -362,7 +362,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 				int enchant_level = l1iteminstance1.getEnchantLevel();
 
-				if (itemId == L1ItemId.C_SCROLL_OF_ENCHANT_WEAPON) { // c-dai
+				if (itemId == C_SCROLL_OF_ENCHANT_WEAPON) { // c-dai
 					pc.getInventory().removeItem(l1iteminstance, 1);
 					if (enchant_level < -6) {
 						FailureEnchant(pc, l1iteminstance1, client);
@@ -466,10 +466,10 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				pc.getInventory().removeItem(l1iteminstance, 1);
 			} else if (itemId == 40078
-					|| itemId == L1ItemId.SCROLL_OF_ENCHANT_ARMOR
+					|| itemId == SCROLL_OF_ENCHANT_ARMOR
 					|| itemId == 40129 || itemId == 140129
-					|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR
-					|| itemId == L1ItemId.C_SCROLL_OF_ENCHANT_ARMOR
+					|| itemId == B_SCROLL_OF_ENCHANT_ARMOR
+					|| itemId == C_SCROLL_OF_ENCHANT_ARMOR
 					|| itemId == 40127) {
 				if (l1iteminstance1 == null
 						 || l1iteminstance1.getItem().getType2() != 2) {
@@ -507,7 +507,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 
 				int enchant_level = l1iteminstance1.getEnchantLevel();
-				if (itemId == L1ItemId.C_SCROLL_OF_ENCHANT_ARMOR) { // c-zel
+				if (itemId == C_SCROLL_OF_ENCHANT_ARMOR) { // c-zel
 					pc.getInventory().removeItem(l1iteminstance, 1);
 					if (enchant_level < -6) {
 						FailureEnchant(pc, l1iteminstance1, client);
@@ -713,23 +713,23 @@ public class C_ItemUSe extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(481));
 					}
 				}
-				else if (itemId == L1ItemId.POTION_OF_HEALING
-						|| itemId == L1ItemId.CONDENSED_POTION_OF_HEALING
+				else if (itemId == POTION_OF_HEALING
+						|| itemId == CONDENSED_POTION_OF_HEALING
 						|| itemId == 40029) {
 					UseHeallingPotion(pc, 15, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 40022) {
 					UseHeallingPotion(pc, 20, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_EXTRA_HEALING
-						|| itemId == L1ItemId.CONDENSED_POTION_OF_EXTRA_HEALING) {
+				} else if (itemId == POTION_OF_EXTRA_HEALING
+						|| itemId == CONDENSED_POTION_OF_EXTRA_HEALING) {
 					UseHeallingPotion(pc, 45, 194);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 40023) {
 					UseHeallingPotion(pc, 30, 194);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_GREATER_HEALING
-						|| itemId == L1ItemId.CONDENSED_POTION_OF_GREATER_HEALING) {
+				} else if (itemId == POTION_OF_GREATER_HEALING
+						|| itemId == CONDENSED_POTION_OF_GREATER_HEALING) {
 					UseHeallingPotion(pc, 75, 197);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 40024) {
@@ -751,16 +751,16 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId == 40734) {
 					UseHeallingPotion(pc, 50, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.B_POTION_OF_HEALING) {
+				} else if (itemId == B_POTION_OF_HEALING) {
 					UseHeallingPotion(pc, 25, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.C_POTION_OF_HEALING) {
+				} else if (itemId == C_POTION_OF_HEALING) {
 					UseHeallingPotion(pc, 10, 189);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.B_POTION_OF_EXTRA_HEALING) {
+				} else if (itemId == B_POTION_OF_EXTRA_HEALING) {
 					UseHeallingPotion(pc, 55, 194);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.B_POTION_OF_GREATER_HEALING) {
+				} else if (itemId == B_POTION_OF_GREATER_HEALING) {
 					UseHeallingPotion(pc, 85, 197);
 					pc.getInventory().removeItem(l1iteminstance, 1);
 				} else if (itemId == 140506) {
@@ -782,7 +782,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.setDrink(true);
 					pc.sendPackets(new S_Liquor(pc.getId()));
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_CURE_POISON
+				} else if (itemId == POTION_OF_CURE_POISON
 						|| itemId == 40507) {
 					if (pc.hasSkillEffect(71) == true) {
 						pc.sendPackets(new S_ServerMessage(698));
@@ -790,7 +790,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						cancelAbsoluteBarrier(pc);
 						pc.sendPackets(new S_SkillSound(pc.getId(), 192));
 						pc.broadcastPacket(new S_SkillSound(pc.getId(), 192));
-						if (itemId == L1ItemId.POTION_OF_CURE_POISON) {
+						if (itemId == POTION_OF_CURE_POISON) {
 							pc.getInventory().removeItem(l1iteminstance, 1);
 						} else if (itemId == 40507) {
 							pc.getInventory().removeItem(l1iteminstance, 1);
@@ -798,8 +798,8 @@ public class C_ItemUSe extends ClientBasePacket {
 
 						pc.curePoison();
 					}
-				} else if (itemId == L1ItemId.POTION_OF_HASTE_SELF
-						|| itemId == L1ItemId.B_POTION_OF_HASTE_SELF
+				} else if (itemId == POTION_OF_HASTE_SELF
+						|| itemId == B_POTION_OF_HASTE_SELF
 						|| itemId == 40018 
 						|| itemId == 140018
 						|| itemId == 40039
@@ -816,8 +816,8 @@ public class C_ItemUSe extends ClientBasePacket {
 						|| itemId == 41342) {
 					useGreenPotion(pc, itemId);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_EMOTION_BRAVERY 
-						|| itemId == L1ItemId.B_POTION_OF_EMOTION_BRAVERY 
+				} else if (itemId == POTION_OF_EMOTION_BRAVERY 
+						|| itemId == B_POTION_OF_EMOTION_BRAVERY 
 						|| itemId == 41415) {
 					if (pc.isKnight()) {
 						useBravePotion(pc, itemId);
@@ -825,22 +825,22 @@ public class C_ItemUSe extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 49158) {
+				} else if (itemId == ForbiddenFruit) {
 					if (pc.isDragonKnight() || pc.isIllusionist()) {
 						useBravePotion(pc, itemId);
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
 					pc.getInventory().removeItem(l1iteminstance, 1); 
-				} else if (itemId == 40068
-						|| itemId == 140068) {
+				} else if (itemId == ElvenWafer
+						|| itemId == BlessedElvenWafer) {
 					if (pc.isElf()) {
 						useBravePotion(pc, itemId);
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40031) {
+				} else if (itemId == DevilsBlood) {
 					if (pc.isCrown()) {
 						useBravePotion(pc, itemId);
 					} else {
@@ -882,25 +882,25 @@ public class C_ItemUSe extends ClientBasePacket {
 						|| itemId == 41344) {
 					useBlessOfEva(pc, itemId);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_MANA 
-						|| itemId == L1ItemId.B_POTION_OF_MANA
+				} else if (itemId == POTION_OF_MANA 
+						|| itemId == B_POTION_OF_MANA
 						|| itemId == 40736) {
 					useBluePotion(pc, itemId);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_EMOTION_WISDOM 
-						|| itemId == L1ItemId.B_POTION_OF_EMOTION_WISDOM) {
+				} else if (itemId == POTION_OF_EMOTION_WISDOM 
+						|| itemId == B_POTION_OF_EMOTION_WISDOM) {
 					if (pc.isWizard()) {
 						useWisdomPotion(pc, itemId);
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.POTION_OF_BLINDNESS) {
+				} else if (itemId == POTION_OF_BLINDNESS) {
 					useBlindPotion(pc);
 					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == L1ItemId.SCROLL_OF_POLYMORPH
-						|| itemId == L1ItemId.IT_SCROLL_OF_POLYMORPH
-						|| itemId == L1ItemId.B_SCROLL_OF_POLYMORPH) { 
+				} else if (itemId == SCROLL_OF_POLYMORPH
+						|| itemId == IT_SCROLL_OF_POLYMORPH
+						|| itemId == B_SCROLL_OF_POLYMORPH) { 
 					if (usePolyScroll(pc, itemId, s)) {
 						pc.getInventory().removeItem(l1iteminstance, 1);
 					} else {
@@ -2171,7 +2171,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (chance >= 0 && chance < 5) {
 						UseHeallingPotion(pc, 15, 189);
 					} else if (chance >= 5 && chance < 9) {
-						createNewItem(pc, 40015, 1);
+						createNewItem(pc, POTION_OF_MANA, 1);
 					} else if (chance >= 9) {
 						int gemChance = _random.nextInt(3);
 						if (gemChance == 0) {
@@ -3387,20 +3387,16 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		cancelAbsoluteBarrier(pc);
 
-		int time = 0;
-
 		// flag for using b-ghaste
 		boolean usedBGHaste = false;
 
-		// grab current haste time
-		if (pc.hasSkillEffect(STATUS_HASTE)) {
-			time = pc.getSkillEffectTimeSec(STATUS_HASTE);
-		}
+		time = pc.getSkillEffectTimeSec(STATUS_HASTE);
+		time < 0 ? 0 : time;
 
 		int addtime = 0;
-		if (itemId == L1ItemId.POTION_OF_HASTE_SELF) {
+		if (itemId == POTION_OF_HASTE_SELF) {
 			addtime = 300;
-		} else if (itemId == L1ItemId.B_POTION_OF_HASTE_SELF) {
+		} else if (itemId == B_POTION_OF_HASTE_SELF) {
 			addtime = 350;
 		} else if (itemId == 40018 || itemId == 41338 || itemId == 41342) {
 			addtime = 1800;
@@ -3418,12 +3414,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41273) {
 			addtime = 30;
 		}
-		//check if we should stack or not
-		if(Config.STACKING){
-			time += addtime;
-		} else {
-			time = addtime;
-		}
+
+		time = Config.STACKING ? time + addtime : addtime;
 
 		pc.sendPackets(new S_SkillSound(pc.getId(), 191));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 191));
@@ -3476,7 +3468,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useBravePotion(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(71) == true) {
+		if (pc.hasSkillEffect(DECAY_POTION) == true) {
 			pc.sendPackets(new S_ServerMessage(698));
 			return;
 		}
@@ -3488,27 +3480,28 @@ public class C_ItemUSe extends ClientBasePacket {
 		// grab the current brave time
 		if (pc.hasSkillEffect(STATUS_BRAVE)) {
 			time = pc.getSkillEffectTimeSec(STATUS_BRAVE);
-		}
-		else if (pc.hasSkillEffect(STATUS_ELFBRAVE)) {
+		} else if (pc.hasSkillEffect(STATUS_ELFBRAVE)) {
 			time = pc.getSkillEffectTimeSec(STATUS_ELFBRAVE);
+		} else if (pc.hasSkillEffect(STATUS_RIBRAVE) {
+			time = pc.getSkillEffectTimeSec(STATUS_RIBRAVE);
 		}
 
 		int addtime = 0;
-		if (item_id == L1ItemId.POTION_OF_EMOTION_BRAVERY) {
+		if (item_id == POTION_OF_EMOTION_BRAVERY) {
 			addtime = 300;
-		} else if (item_id == L1ItemId.B_POTION_OF_EMOTION_BRAVERY) {
+		} else if (item_id == B_POTION_OF_EMOTION_BRAVERY) {
 			addtime = 350;
-		} else if (item_id == 49158) {
+		} else if (item_id == ForbiddenFruit) {
 			addtime = 480;
-			if (pc.hasSkillEffect(STATUS_RIBRAVE)) {
-				pc.killSkillEffectTimer(STATUS_RIBRAVE);
+			if (pc.hasSkillEffect(STATUS_BRAVE)) {
+				pc.killSkillEffectTimer(STATUS_BRAVE);
 				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
 		} else if (item_id == 41415) {
 			addtime = 1800;
-		} else if (item_id == 40068) {
+		} else if (item_id == ElvenWafer) {
 			addtime = 600;
 			if (pc.hasSkillEffect(STATUS_BRAVE)) {
 				pc.killSkillEffectTimer(STATUS_BRAVE);
@@ -3522,7 +3515,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
-		} else if (item_id == 140068) {
+		} else if (item_id == BlessedElvenWafer) {
 			addtime = 700;
 			if (pc.hasSkillEffect(STATUS_BRAVE)) {
 				pc.killSkillEffectTimer(STATUS_BRAVE);
@@ -3536,7 +3529,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
-		} else if (item_id == 40031) {
+		} else if (item_id == DevilsBlood) {
 			addtime = 600;
 		} else if (item_id == 40733) {
 			addtime = 600;
@@ -3576,25 +3569,15 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 
-		//check if we should stack or not
-		if(Config.STACKING){
-			time += addtime;
-		} else {
-			time = addtime;
-		}
+		time = Config.STACKING ? Math.min(time + addtime, 1800) : addtime;
 
-		// max bound the brave time to 1800 (30min)
-		if (time > 1800) {
-			time = 1800;
-		}
-
-		if (item_id == 40068 || item_id == 140068) {
+		if (item_id == ElvenWafer || item_id == BlessedElvenWafer) {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 3, time));
 			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 3, 0));
 			pc.sendPackets(new S_SkillSound(pc.getId(), 751));
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
-		} else if (item_id == 49158) {
+		} else if (item_id == ForbiddenFruit) {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, time));
 			pc.sendPackets(new S_SkillSound(pc.getId(), 7110));
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 7110));
@@ -3619,15 +3602,20 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		cancelAbsoluteBarrier(pc);
 
-		int time = 0;
-		if (item_id == 40015 || item_id == 40736) {
-			time = 600;
+		int time = pc.getSkillEffectTimeSec(STATUS_BLUE_POTION);
+		time = time < 0 ? 0 : time;
+
+		int addtime = 0;
+		if (item_id == POTION_OF_MANA || item_id == 40736) {
+			addtime = 600;
 		} else if (item_id == 140015) {
-			time = 700;
+			addtime = 700;
 		} else {
 			return;
 		}
 
+		time = Config.STACKING ? Math.min(time + addtime, 1200) : addtime;
+	
 		pc.sendPackets(new S_SkillIconGFX(34, time));
 		pc.sendPackets(new S_SkillSound(pc.getId(), 190));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
@@ -3638,41 +3626,27 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useWisdomPotion(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(71) == true) {
+		if (pc.hasSkillEffect(DECAY_POTION) == true) {
 			pc.sendPackets(new S_ServerMessage(698));
 			return;
 		}
 
 		cancelAbsoluteBarrier(pc);
 
-		int time = 0;
-
-		// grab the current wis time
-		if (pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
-			time = pc.getSkillEffectTimeSec(STATUS_WISDOM_POTION);
-		}
+		int time = pc.getSkillEffectTimeSec(STATUS_WISDOM_POTION);
+		time = time < 0 ? 0 : time;
 
 		int addtime = 0;
-		if (item_id == L1ItemId.POTION_OF_EMOTION_WISDOM) {
+		if (item_id == POTION_OF_EMOTION_WISDOM) {
 			addtime = 300;
-		} else if (item_id == L1ItemId.B_POTION_OF_EMOTION_WISDOM) {
+		} else if (item_id == B_POTION_OF_EMOTION_WISDOM) {
 			addtime = 360;
 		}
 
-		//check if we should stack or not
-		if(Config.STACKING){
-			time += addtime;
-		} else {
-			time = addtime;
-		}
+		time = Config.STACKING ? Math.min(time + addtime, 900) : addtime;
 
 		if (!pc.hasSkillEffect(STATUS_WISDOM_POTION)) {
 			pc.addSp(2);
-		}
-
-		// max bound the wis time to 900 (15min)
-		if (time > 900) {
-			time = 900;
 		}
 
 		pc.sendPackets(new S_SkillIconWisdomPotion((int) (time / 4)));
@@ -3683,7 +3657,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useBlessOfEva(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(71) == true) {
+		if (pc.hasSkillEffect(DECAY_POTION) == true) {
 			pc.sendPackets(new S_ServerMessage(698));
 			return;
 		}
@@ -3799,6 +3773,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 		L1PolyMorph.doPoly(pc, polyId, 600, L1PolyMorph.MORPH_BY_ITEMMAGIC);
 	}
+
 	private void useSuperDKScroll (L1PcInstance pc, int itemId) {
 		int polyId = 0;
 		if (itemId == 240101){
@@ -4143,11 +4118,11 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private int RandomELevel(L1ItemInstance item, int itemId) {
-		if (itemId == L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR
-				|| itemId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON
+		if (itemId == B_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == B_SCROLL_OF_ENCHANT_WEAPON
 				|| itemId == 140129 || itemId == 140130) {
+			int j = _random.nextInt(100) + 1;
 			if (item.getEnchantLevel() <= 2) {
-				int j = _random.nextInt(100) + 1;
 				if (j < 32) {
 					return 1;
 				} else if (j >= 33 && j <= 76) {
@@ -4157,15 +4132,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (item.getEnchantLevel() >= 3
 					&& item.getEnchantLevel() <= 5) {
-				int j = _random.nextInt(100) + 1;
 				if (j < 50) {
 					return 2;
 				} else {
 					return 1;
 				}
-			}
-			{
-				return 1;
 			}
 		}
 		return 1;
@@ -4353,7 +4324,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int pcX = pc.getX();
 		int pcY = pc.getY();
 		int pcMapId = pc.getMapId();
-		if (pcX >=32786 && pcX <= 32797 && pcY >= 32842 && pcY <= 32859
+		if (pcX >= 32786 && pcX <= 32797 && pcY >= 32842 && pcY <= 32859
 				&& pcMapId == 75 
 				|| pc.getLocation().isInScreen(new Point(33055,32336))
 				&& pcMapId == 4) {
