@@ -3390,8 +3390,8 @@ public class C_ItemUSe extends ClientBasePacket {
 		// flag for using b-ghaste
 		boolean usedBGHaste = false;
 
-		time = pc.getSkillEffectTimeSec(STATUS_HASTE);
-		time < 0 ? 0 : time;
+		int time = pc.getSkillEffectTimeSec(STATUS_HASTE);
+		time = time < 0 ? 0 : time;
 
 		int addtime = 0;
 		if (itemId == POTION_OF_HASTE_SELF) {
@@ -3482,7 +3482,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			time = pc.getSkillEffectTimeSec(STATUS_BRAVE);
 		} else if (pc.hasSkillEffect(STATUS_ELFBRAVE)) {
 			time = pc.getSkillEffectTimeSec(STATUS_ELFBRAVE);
-		} else if (pc.hasSkillEffect(STATUS_RIBRAVE) {
+		} else if (pc.hasSkillEffect(STATUS_RIBRAVE)) {
 			time = pc.getSkillEffectTimeSec(STATUS_RIBRAVE);
 		}
 

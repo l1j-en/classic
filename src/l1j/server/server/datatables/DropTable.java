@@ -396,7 +396,7 @@ public class DropTable {
 		npc.turnOnOffLight();
 	}
 
-	public ArrayList<L1Drop> getDrops(int mobID) {//New for GMCommands
+	public List<L1Drop> getDrops(int mobID) {//New for GMCommands
 		return _droplists.get(mobID);
 	}
 }

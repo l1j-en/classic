@@ -540,23 +540,20 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 			switch (type) {
 				case TYPE_NORMAL:
-					// Apparently reversing this broke firewall, but now I'm
-					// not sure how it worked originally...
 					if (_isGlanceCheckFail && _skill.getArea() <= 0 &&
 							!_skill.getTarget().equals("none"))
 						break;
 
-					// TODO: original version of this used _skillId instead
-					// of skillId - figure out if we can just use the local.
-					if (Config.STACKING && _target.hasSkillEffect(_skillId)) {
+					if (Config.STACKING && _target != null &&
+							_target.hasSkillEffect(skillId)) {
 						int max = _skill.getBuffDuration() * 
 							_skill.getStackLimit();
 						_skillTime = _skill.getBuffDuration() + 
-							_target.getSkillEffectTimeSec(_skillId);
+							_target.getSkillEffectTimeSec(skillId);
 						_skillTime = _skillTime > max ? max : _skillTime;
 					} else
 						_skillTime = _skill.getBuffDuration();
-
+					
 					runSkill();
 					useConsume();
 					sendGrfx(true);
