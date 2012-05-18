@@ -49,7 +49,7 @@
 		<Cycle Period="8h" Start="10m"/>
 	</BossCycle>
         <BossCycle Name="DarkElder">
-		<Cycle Period="24h" Start="10m"/>
+		<Cycle Period="2h" Start="10m"/>
 	</BossCycle>
         <BossCycle Name="DoppelGanger">
 		<Cycle Period="24h" Start="8h"/>
@@ -58,10 +58,10 @@
 		<Cycle Period="1h" Start="30m"/>
 	</BossCycle>
 	<BossCycle Name="Ifrit">
-		<Cycle Period="24h" Start="1h"/>
+		<Cycle Period="2h" Start="1h"/>
         </BossCycle>
         <BossCycle Name="Crocodile">
-		<Cycle Period="24h" Start="1h"/>
+		<Cycle Period="2h" Start="1h"/>
 	</BossCycle>
         <BossCycle Name="ZenithQueen">
 		<Cycle Period="8h" Start="4h"/>
@@ -76,7 +76,7 @@
 		<Cycle Period="5h" Start="2h30m"/>
 	</BossCycle>
         <BossCycle Name="Unicorn">
-		<Cycle Period="24h" Start="20m"/>
+		<Cycle Period="2h" Start="20m"/>
 	</BossCycle>
 	<BossCycle Name="2Drake">
 		<Cycle Period="3h" Start="1h30m"/>
