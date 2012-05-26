@@ -1098,7 +1098,7 @@ public class L1PcInstance extends L1Character {
 			if (hasSkillEffect(MORTAL_BODY)
 					&& getId() != attacker.getId()) {
 				int rnd = _random.nextInt(100) + 1;
-				if (damage > 0 && rnd <= 10) {
+				if (damage > 0 && rnd <= 23) {
 					if (attacker instanceof L1PcInstance) {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
 						attackPc.sendPackets(new S_DoActionGFX(attackPc
