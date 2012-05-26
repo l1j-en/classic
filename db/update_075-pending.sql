@@ -44,3 +44,5 @@ update weapon set dmg_small=21, hitmodifier=5, dmgmodifier=3 where name = "Colla
 
 -- Adding skill stacking.
 alter table skills add `stack_limit` int(10) unsigned not null default 1;
+
+update skills set hpConsume=12 where name="mortalbody";
