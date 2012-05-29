@@ -2333,9 +2333,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						cha.removeSkillEffect(skillNum);
 					}
 
-					if (cha instanceof L1PcInstance) {
-					}
-
 					// 料理の解除
 					for (int skillNum = COOKING_BEGIN; skillNum <= COOKING_END; skillNum++) {
 						if (isNotCancelable(skillNum)) {

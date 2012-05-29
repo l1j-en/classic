@@ -46,3 +46,14 @@ update weapon set dmg_small=21, hitmodifier=5, dmgmodifier=3 where name = "Colla
 alter table skills add `stack_limit` int(10) unsigned not null default 1;
 
 update skills set hpConsume=12 where name="mortalbody";
+
+-- Grade - used for enchanting accessories.
+alter table armor add `grade` int(2) signed not null default -1;
+
+-- Karma jewelry has been left off this list until we change it so that you can
+-- only get it once.
+update armor set grade=0 where item_id=20320 or item_id=120320 or item_id=20313 or item_id=20253 or item_id=20250 or item_id=20281 or item_id=20288 or item_id=20284 or item_id=20314 or item_id=20260 or item_id=20309 or item_id=120309 or item_id=20311 or item_id=120311 or item_id=20310 or item_id=120310 or item_id=20279 or item_id=20255 or item_id=20261 or item_id=20290 or item_id=21093 or item_id=21094;
+
+update armor set grade=1 where item_id=120280 or item_id=20280 or item_id=20300 or item_id=120300 or item_id=20304 or item_id=120304 or item_id=20285 or item_id=120285 or item_id=20312 or item_id=120312 or item_id=20319 or item_id=120319 or item_id=20316 or item_id=120316 or item_id=20317 or item_id=120317 or item_id=20298 or item_id=20289 or item_id=120289 or item_id=20257 or item_id=20277 or item_id=20278 or item_id=20254 or item_id=120254 or item_id=20267 or item_id=120267 or item_id=20266 or item_id=120266 or item_id=20268 or item_id=120268 or item_id=20256 or item_id=120256 or item_id=20264 or item_id=120264 or item_id=20252 or item_id=20294 or item_id=220294 or item_id=20295 or item_id=220295 or item_id=20296 or item_id=220296 or item_id=20293 or item_id=220293 or item_id=21048 or item_id=21095;
+
+update armor set grade=2 where item_id=20303 or item_id=20302 or item_id=120302 or item_id=20306 or item_id=120306 or item_id=20308 or item_id=120308 or item_id=20307 or item_id=120307 or item_id=20321 or item_id=120321 or item_id=20246 or item_id=120246 or item_id=20245 or item_id=120245 or item_id=20249 or item_id=120249 or item_id=20249 or item_id=120249 or item_id=20247 or item_id=120247 or item_id=20248 or item_id=120248 or item_id=20244 or item_id=120244 or item_id=20263 or item_id=20282 or item_id=20423 or item_id=20424 or item_id=20425 or item_id=21050 or item_id=21049;
