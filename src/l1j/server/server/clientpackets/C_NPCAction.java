@@ -693,6 +693,9 @@ public class C_NPCAction extends ClientBasePacket {
 				l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(), pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 				pc.getInventory().takeoffEquip(945);
 				L1Teleport.teleport(pc, 32737, 32789, (short) 997, 4, false);
+				// NOTE: apparently we're not using the character's (database)
+				// maxLevel so that people who have dlvled keep their current
+				// level. Feature not bug?
 				int initStatusPoint = 75 + pc.getElixirStats();
 				int pcStatusPoint = pc.getBaseStr() + pc.getBaseInt()
 				+ pc.getBaseWis() + pc.getBaseDex() + pc.getBaseCon() + pc.getBaseCha();
@@ -721,10 +724,15 @@ public class C_NPCAction extends ClientBasePacket {
 							"Contact a GM for help."));
 					L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 					return;
-				} else if (maxLevel < pc.getLevel())
+				} else if (maxLevel < pc.getLevel()) {
+					// Minority case where the character candling has lost stat
+					// points. Using their current level should be safe.
 					_log.log(Level.WARNING, String.format("Candle: %s's " +
-							"maxLevel: %d and pc.getLevel(): %d didn't match.",
-							maxLevel, pc.getLevel(), pc.getName()));
+							"maxLevel: %d was less than pc.getLevel(): %d." +
+							" Using pc.getLevel().",
+							pc.getName(), maxLevel, pc.getLevel()));
+					maxLevel = pc.getLevel();
+				}
 
 				pc.setTempMaxLevel(maxLevel);
 				pc.setTempLevel(1);
