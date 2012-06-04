@@ -32,6 +32,7 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.SkillTable;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.L1Awake;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -3021,13 +3022,13 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == ELEMENTAL_PROTECTION) { // エレメンタルプロテクション
 						L1PcInstance pc = (L1PcInstance) cha;
 						int attr = pc.getElfAttr();
-						if (attr == 1) {
+						if (attr == Element.Earth) {
 							pc.addEarth(50);
-						} else if (attr == 2) {
+						} else if (attr == Element.Fire) {
 							pc.addFire(50);
-						} else if (attr == 4) {
+						} else if (attr == Element.Water) {
 							pc.addWater(50);
-						} else if (attr == 8) {
+						} else if (attr == Element.Wind) {
 							pc.addWind(50);
 						}
 					} else if (_skillId == INVISIBILITY
@@ -3246,19 +3247,19 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							L1Npc npcTemp = ((L1MonsterInstance) cha)
 									.getNpcTemplate();
 							int weakAttr = npcTemp.get_weakAttr();
-							if ((weakAttr & 1) == 1) { // 地
+							if ((weakAttr & Element.Earth) == Element.Earth) {
 								cha.broadcastPacket(new S_SkillSound(cha
 										.getId(), 2169));
 							}
-							if ((weakAttr & 2) == 2) { // 火
+							if ((weakAttr & Element.Fire) == Element.Fire) {
 								cha.broadcastPacket(new S_SkillSound(cha
 										.getId(), 2167));
 							}
-							if ((weakAttr & 4) == 4) { // 水
+							if ((weakAttr & Element.Water) == Element.Water) {
 								cha.broadcastPacket(new S_SkillSound(cha
 										.getId(), 2166));
 							}
-							if ((weakAttr & 8) == 8) { // 風
+							if ((weakAttr & Element.Wind) == Element.Wind) {
 								cha.broadcastPacket(new S_SkillSound(cha
 										.getId(), 2168));
 							}
