@@ -18,7 +18,7 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1World;
@@ -42,7 +42,7 @@ public class S_PrivateShop extends ServerBasePacket {
 		writeC(type);
 		writeD(objectId);
 		if (type == 0) {
-			ArrayList list = shopPc.getSellList();
+			List list = shopPc.getSellList();
 			int size = list.size();
 			pc.setPartnersPrivateShopItemCount(size);
 			writeH(size);
@@ -63,7 +63,7 @@ public class S_PrivateShop extends ServerBasePacket {
 				}
 			}
 		} else if (type == 1) {
-			ArrayList list = shopPc.getBuyList();
+			List list = shopPc.getBuyList();
 			int size = list.size();
 			writeH(size);
 			for (int i = 0; i < size; i++) {

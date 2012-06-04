@@ -368,7 +368,7 @@ public class L1Spawn {
 				switch (getSpawnType()) {
 				case SPAWN_TYPE_PC_AROUND: // Area real PC to type
 					if (!_initSpawn) { // The initial deployment is usually spawn unconditionally
-						ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>();
+						List<L1PcInstance> players = new ArrayList<L1PcInstance>();
 						for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 							if (getMapId() == pc.getMapId()) {
 								players.add(pc);
@@ -406,10 +406,8 @@ public class L1Spawn {
 							newlocy = getLocY();
 						}
 					} else if (isRandomSpawn()) { // Coordinate random value is if
-						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
-								.random() * getRandomx())));
-						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
-								.random() * getRandomy())));
+						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math.random() * getRandomx())));
+						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math.random() * getRandomy())));
 					} else { // Both did not specify if
 						newlocx = getLocX();
 						newlocy = getLocY();

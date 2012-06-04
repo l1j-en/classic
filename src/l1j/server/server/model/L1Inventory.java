@@ -19,7 +19,7 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -211,17 +211,16 @@ public class L1Inventory extends L1Object {
 				return true;
 			}
 		} else {
-			L1ItemInstance[] itemList = findItemsId(itemid);
-			if (itemList.length == count) {
+			List<L1ItemInstance> itemList = findItemsId(itemid);
+			if (itemList.size() == count) {
 				for (int i = 0; i < count; i++) {
-					removeItem(itemList[i], 1);
+					removeItem(itemList.get(i), 1);
 				}
 				return true;
-			} else if (itemList.length > count) {
-				DataComparator dc = new DataComparator();
-				Arrays.sort(itemList, dc);
+			} else if (itemList.size() > count) {
+				Collections.sort(itemList, new EnchantComparator());
 				for (int i = 0; i < count; i++) {
-					removeItem(itemList[i], 1);
+					removeItem(itemList.get(i), 1);
 				}
 				return true;
 			}
@@ -230,10 +229,9 @@ public class L1Inventory extends L1Object {
 	}
 
 	@SuppressWarnings("unchecked")
-	public class DataComparator implements java.util.Comparator {
-		public int compare(Object item1, Object item2) {
-			return ((L1ItemInstance) item1).getEnchantLevel()
-					- ((L1ItemInstance) item2).getEnchantLevel();
+	private class EnchantComparator implements Comparator<L1ItemInstance> {
+		public int compare(L1ItemInstance first, L1ItemInstance second) {
+			return first.getEnchantLevel() - second.getEnchantLevel();
 		}
 	}
 
@@ -404,26 +402,24 @@ public class L1Inventory extends L1Object {
 		return null;
 	}
 
-	public L1ItemInstance[] findItemsId(int id) {
-		ArrayList<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
+	public List<L1ItemInstance> findItemsId(int id) {
+		List<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
 		for (L1ItemInstance item : _items) {
 			if (item.getItemId() == id) {
 				itemList.add(item);
 			}
 		}
-		return itemList.toArray(new L1ItemInstance[] {});
+		return itemList;
 	}
 
-	public L1ItemInstance[] findItemsIdNotEquipped(int id) {
-		ArrayList<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
+	private List<L1ItemInstance> findItemsIdNotEquipped(int id) {
+		List<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
 		for (L1ItemInstance item : _items) {
-			if (item.getItemId() == id) {
-				if (!item.isEquipped()) {
-					itemList.add(item);
-				}
+			if (item.getItemId() == id && !item.isEquipped()) {
+				itemList.add(item);
 			}
 		}
-		return itemList.toArray(new L1ItemInstance[] {});
+		return itemList;
 	}
 
 	public L1ItemInstance getItem(int objectId) {
@@ -450,8 +446,7 @@ public class L1Inventory extends L1Object {
 				return true;
 			}
 		} else {
-			Object[] itemList = findItemsId(id);
-			if (itemList.length >= count) {
+			if (findItemsId(id).size() >= count) {
 				return true;
 			}
 		}
@@ -519,8 +514,7 @@ public class L1Inventory extends L1Object {
 				return item.getCount();
 			}
 		} else {
-			Object[] itemList = findItemsIdNotEquipped(id);
-			return itemList.length;
+			return findItemsIdNotEquipped(id).size();
 		}
 		return 0;
 	}

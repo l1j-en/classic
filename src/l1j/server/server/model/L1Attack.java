@@ -98,6 +98,10 @@ public class L1Attack {
 	private static final int BOW_TYPE = 20;
 	private static final int GAUNTLET_TYPE = 62;
 	private static final int KIRINGKU_TYPE = 17;
+	private static final int FIST = 0;
+	private static final int CLAW = 58;
+	private static final int EDORYU = 54;
+	private static final int SAYHAS_BOW = 190;
 	private static final int[] PREVENT_DAMAGE = { ABSOLUTE_BARRIER, ICE_LANCE,
 		FREEZING_BLIZZARD, FREEZING_BREATH, EARTH_BIND };
 
@@ -235,8 +239,8 @@ public class L1Attack {
 				if (isBow) { // Arrow acquisition
 					_arrow = _pc.getInventory().getArrow();
 					if (_arrow != null) {
-						//if weapon or arrow is blessed, set weapon blessed
-						//else just go by the arrow
+						// if weapon or arrow is blessed, set weapon blessed
+						// else just go by the arrow
 						if (weapon.getItem().getBless() == 0 || _arrow.getItem().getBless() == 0) {
 							_weaponBless = 0;
 						} else {
@@ -289,7 +293,7 @@ public class L1Attack {
 					return _isHit;
 				}
 			}
-			if (isBow && _weaponId != 190 && _arrow == null) {
+			if (isBow && _weaponId != SAYHAS_BOW && _arrow == null) {
 				_isHit = false; // If there is no mistake arrow
 			} else if (isGauntlet && _sting == null) {
 				_isHit = false; // If there is no mistake Sting
@@ -583,12 +587,12 @@ public class L1Attack {
 	public int calcPcPcDamage() {
 		int weaponMaxDamage = _weaponSmall;
 		int weaponDamage = 0;
-		if (_weaponType == 58 && (_random.nextInt(100) + 1) <=
+		if (_weaponType == CLAW && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) { // Critical hit
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == 0 || isRanged) { 
+		} else if (_weaponType == FIST || isRanged) { 
 			weaponDamage = 0;
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
@@ -600,7 +604,7 @@ public class L1Attack {
 		}
 
 		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
-		if (_weaponType == 54 && (_random.nextInt(100) + 1) <=
+		if (_weaponType == EDORYU && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) {
 			weaponTotalDamage *= 2;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
@@ -609,7 +613,7 @@ public class L1Attack {
 
 		weaponTotalDamage += calcAttrEnchantDmg();
 		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
-				&& (_weaponType == 54 || _weaponType == 58)) {
+				&& (_weaponType == EDORYU || _weaponType == CLAW)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
 			}
@@ -619,14 +623,9 @@ public class L1Attack {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 
-		double dmg;
-		if (!isRanged) {
-			dmg = weaponTotalDamage + _statusDamage + _pc.getDmgup()
-					+ _pc.getOriginalDmgup();
-		} else {
-			dmg = weaponTotalDamage + _statusDamage + _pc.getBowDmgup()
-					+ _pc.getOriginalBowDmgup();
-		}
+		double dmg = weaponTotalDamage + _statusDamage + (isRanged
+				? _pc.getBowDmgup() + _pc.getOriginalBowDmgup()
+				: _pc.getDmgup() + _pc.getOriginalDmgup());
 
 		if (isBow) {
 			if (_arrow != null) {
@@ -635,7 +634,7 @@ public class L1Attack {
 					add_dmg = 1;
 				}
 				dmg = dmg + _random.nextInt(add_dmg) + 1;
-			} else if (_weaponId == 190) { // sahya bow
+			} else if (_weaponId == SAYHAS_BOW) {
 				dmg = dmg + _random.nextInt(15) + 1;
 			}
 		} else if (isGauntlet) {
@@ -663,7 +662,7 @@ public class L1Attack {
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
-		if (_weaponType == 0) { // bare hands
+		if (_weaponType == FIST) {
 			dmg = (_random.nextInt(5) + 4) / 4;
 		}
 		if (isKiringku) {
@@ -737,8 +736,7 @@ public class L1Attack {
 		}
 
 		if (_targetPc.hasSkillEffect(REDUCTION_ARMOR)) {
-			int targetPcLvl = _targetPc.getLevel();
-			if (targetPcLvl < 50) {
+			int targetPcLvl = _targetPc.getLevel(); if (targetPcLvl < 50) {
 				targetPcLvl = 50;
 			}
 			dmg -= (targetPcLvl - 50) / 5 + 1;
@@ -775,12 +773,12 @@ public class L1Attack {
 		}
 
 		int weaponDamage = 0;
-		if (_weaponType == 58 && (_random.nextInt(100) + 1) <=
+		if (_weaponType == CLAW && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) { // Critical hit
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == 0 || isRanged) { 
+		} else if (_weaponType == FIST || isRanged) { 
 			weaponDamage = 0;
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
@@ -794,7 +792,7 @@ public class L1Attack {
 		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
 
 		weaponTotalDamage += calcMaterialBlessDmg();
-		if (_weaponType == 54 && (_random.nextInt(100) + 1) <=
+		if (_weaponType == EDORYU && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) { // _uqbg
 			weaponTotalDamage *= 2;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
@@ -802,7 +800,7 @@ public class L1Attack {
 		}
 		weaponTotalDamage += calcAttrEnchantDmg();
 		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
-				&& (_weaponType == 54 || _weaponType == 58)) {
+				&& (_weaponType == EDORYU || _weaponType == CLAW)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
 			}
@@ -810,14 +808,10 @@ public class L1Attack {
 		if (_weaponId == 262 && _random.nextInt(100) + 1 <= 75) { // Damage bonus blessing silver
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
-		double dmg;
-		if (!isRanged) {
-			dmg = weaponTotalDamage + _statusDamage + _pc.getDmgup()
-					+ _pc.getOriginalDmgup();
-		} else {
-			dmg = weaponTotalDamage + _statusDamage + _pc.getBowDmgup()
-					+ _pc.getOriginalBowDmgup();
-		}
+
+		double dmg = weaponTotalDamage + _statusDamage + (isRanged
+				? _pc.getBowDmgup() + _pc.getOriginalBowDmgup()
+				: _pc.getDmgup() + _pc.getOriginalDmgup());
 
 		if (isBow) { 
 			if (_arrow != null) {
@@ -835,7 +829,7 @@ public class L1Attack {
 					add_dmg /= 2;
 				}
 				dmg = dmg + _random.nextInt(add_dmg) + 1;
-			} else if (_weaponId == 190) { // sahya bow
+			} else if (_weaponId == SAYHAS_BOW) {
 				dmg = dmg + _random.nextInt(15) + 1;
 			}
 		} else if (isGauntlet) {
@@ -867,7 +861,7 @@ public class L1Attack {
 		} else {
 			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
-		if (_weaponType == 0) {
+		if (_weaponType == FIST) {
 			dmg = (_random.nextInt(5) + 4) / 4;
 		}
 		if (isKiringku) {
@@ -1272,7 +1266,7 @@ public class L1Attack {
 							ActionCodes.ACTION_Damage), _pc);
 				}
 				_pc.getInventory().removeItem(_arrow, 1);
-			} else if (_weaponId == 190) { // If an arrow is superfluous SAIHA
+			} else if (_weaponId == SAYHAS_BOW) {
 				_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 2349,
 						_targetX, _targetY, _isHit));
 				_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId,
@@ -1545,7 +1539,7 @@ public class L1Attack {
 		 */
 		if (_calcType != PC_NPC
 				|| _targetNpc.getNpcTemplate().is_hard() == false
-				|| _weaponType == 0 || weapon.getItem().get_canbedmg() == 0
+				|| _weaponType == FIST || weapon.getItem().get_canbedmg() == 0
 				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
 		}
@@ -1569,7 +1563,7 @@ public class L1Attack {
 	 */
 	private void damagePcWeaponDurability() {
 		// PvP except bare hands, bow, GANTOTORETTO, BAUNSUATAKKU unused nothing if not
-		if (_calcType != PC_PC || _weaponType == 0 || isRanged
+		if (_calcType != PC_PC || _weaponType == FIST || isRanged
 				|| _targetPc.hasSkillEffect(BOUNCE_ATTACK) == false
 				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
