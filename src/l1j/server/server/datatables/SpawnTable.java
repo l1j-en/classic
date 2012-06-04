@@ -195,7 +195,7 @@ public class SpawnTable {
 		if (rate == 1 || npc.isAmountFixed()) {
 			return count;
 		} else {
-			return NumberUtil.randomRound((double) (count * rate));
+			return NumberUtil.randomRound(count * rate);
 		}
 	}
 }

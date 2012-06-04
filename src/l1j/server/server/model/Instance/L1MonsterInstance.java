@@ -519,7 +519,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				//
 				int maxHate = 0;
 				for (int i = hateList.size() - 1; i >= 0; i--) {
-					if (maxHate < ((Integer) hateList.get(i))) {
+					if (maxHate < hateList.get(i)) {
 						maxHate = (hateList.get(i));
 						lastAttacker = targetList.get(i);
 					}

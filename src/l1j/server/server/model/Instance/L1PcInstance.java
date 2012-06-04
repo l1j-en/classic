@@ -773,15 +773,15 @@ public class L1PcInstance extends L1Character {
 		_isPinkName = flag;
 	}
 
-	private ArrayList<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
+	private List<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
 
-	public ArrayList getSellList() {
+	public List getSellList() {
 		return _sellList;
 	}
 
-	private ArrayList<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
+	private List<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
-	public ArrayList getBuyList() {
+	public List getBuyList() {
 		return _buyList;
 	}
 
@@ -1124,12 +1124,12 @@ public class L1PcInstance extends L1Character {
 								.getId(), ActionCodes.ACTION_Damage));
 						attackPc.broadcastPacket(new S_DoActionGFX(attackPc
 								.getId(), ActionCodes.ACTION_Damage));
-						attackPc.receiveDamage(this, (int) (nowDamage / 5), false);
+						attackPc.receiveDamage(this, nowDamage / 5, false);
 					} else if (attacker instanceof L1NpcInstance) {
 						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
 						attackNpc.broadcastPacket(new S_DoActionGFX(attackNpc
 								.getId(), ActionCodes.ACTION_Damage));
-						attackNpc.receiveDamage(this, (int) (nowDamage / 5));
+						attackNpc.receiveDamage(this, nowDamage / 5);
 					}
 				}
 			}
