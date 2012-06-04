@@ -246,6 +246,14 @@ public final class Config {
 
     public static boolean USE_TOI_CHARM_ANYWHERE;
 
+	public static boolean ELEMENTAL_ENCHANTING;
+
+	public static int ELEMENTAL_ENCHANT_LIMIT;
+
+	public static boolean ACCESSORY_ENCHANTING;
+
+	public static int ACCESSORY_ENCHANT_LIMIT;
+
 	public static int MAX_PT;
 
 	public static int MAX_CHAT_PT;
@@ -677,6 +685,10 @@ public final class Config {
 			PET_RACE_MAX_LAP = Integer.parseInt(altSettings.getProperty("RaceMaxLap", "3"));
 			DEATH_MATCH_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("DeathMatchMinPlayer", "2"));
 			USE_TOI_CHARM_ANYWHERE = Boolean.parseBoolean(altSettings.getProperty("UseToiCharmsAnywhere", "False"));
+			ELEMENTAL_ENCHANTING = Boolean.parseBoolean(altSettings.getProperty("ElementalEnchanting", "False"));
+			ELEMENTAL_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("ElementalEnchantLimit", "3"));
+			ACCESSORY_ENCHANTING = Boolean.parseBoolean(altSettings.getProperty("AccessoryEnchanting", "False"));
+			ACCESSORY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("AccessoryEnchantLimit", "10"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");

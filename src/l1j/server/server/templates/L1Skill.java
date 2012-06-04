@@ -27,18 +27,6 @@ import l1j.server.server.utils.ReflectionUtil;
 import l1j.server.server.utils.StringUtil;
 
 public class L1Skill {
-	public static final int ATTR_NONE = 0;
-
-	public static final int ATTR_EARTH = 1;
-
-	public static final int ATTR_FIRE = 2;
-
-	public static final int ATTR_WATER = 4;
-
-	public static final int ATTR_WIND = 8;
-
-	public static final int ATTR_RAY = 16;
-
 	public static final int TYPE_PROBABILITY = 1;
 
 	public static final int TYPE_CHANGE = 2;

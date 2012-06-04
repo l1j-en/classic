@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -1128,46 +1129,31 @@ public class L1Attack {
 	}
 
 	private int calcAttrEnchantDmg() {
-		int damage = 0;
-		if (_weaponAttrEnchantLevel == 1) {
-			damage = 1;
-		} else if (_weaponAttrEnchantLevel == 2) {
-			damage = 3;
-		} else if (_weaponAttrEnchantLevel == 3) {
-			damage = 5;
-		}
+		if (!Config.ELEMENTAL_ENCHANTING || _weaponAttrEnchantLevel < 1)
+			return 0;
+
+		int damage = _weaponAttrEnchantLevel * 2 - 1;
 
 		int resist = 0;
 		if (_calcType == PC_PC) {
-			if (_weaponAttrEnchantKind == 1) {
+			if (_weaponAttrEnchantKind == Element.Earth) {
 				resist = _targetPc.getEarth();
-			} else if (_weaponAttrEnchantKind == 2) {
+			} else if (_weaponAttrEnchantKind == Element.Fire) {
 				resist = _targetPc.getFire();
-			} else if (_weaponAttrEnchantKind == 4) {
+			} else if (_weaponAttrEnchantKind == Element.Water) {
 				resist = _targetPc.getWater();
-			} else if (_weaponAttrEnchantKind == 8) {
+			} else if (_weaponAttrEnchantKind == Element.Wind) {
 				resist = _targetPc.getWind();
 			}
 		} else if (_calcType == PC_NPC) {
-			int weakAttr = _targetNpc.getNpcTemplate().get_weakAttr();
-			if ((_weaponAttrEnchantKind == 1 && weakAttr == 1) // n
-				|| (_weaponAttrEnchantKind == 2 && weakAttr == 2) // 
-				|| (_weaponAttrEnchantKind == 4 && weakAttr == 4) // 
-				|| (_weaponAttrEnchantKind == 8 && weakAttr == 8)) { // 
+			if ((_weaponAttrEnchantKind & 
+					_targetNpc.getNpcTemplate().get_weakAttr()) ==
+					_weaponAttrEnchantKind) {
 				resist = -50;
 			}
 		}
 
-		int resistFloor = (int) (0.32 * Math.abs(resist));
-		if (resist >= 0) {
-			resistFloor *= 1;
-		} else {
-			resistFloor *= -1;
-		}
-		double attrDeffence = resistFloor / 32.0;
-		double attrCoefficient = 1 - attrDeffence;
-		damage *= attrCoefficient;
-		return damage;
+		return (int) (damage * (1 - resist / 100.0));
 	}
 
 	private boolean isUndeadDamage() {
@@ -1270,6 +1256,7 @@ public class L1Attack {
 			actionNpc();
 		}
 	}
+
 	// motion attacking players sent
 	private void actionPc() {
 		_pc.setHeading(_pc.targetDirection(_targetX, _targetY)); // Set-oriented
@@ -1328,6 +1315,7 @@ public class L1Attack {
 			}
 		}
 	}
+	
 	// NPC motion attack sent
 	private void actionNpc() {
 		int _npcObjectId = _npc.getId();

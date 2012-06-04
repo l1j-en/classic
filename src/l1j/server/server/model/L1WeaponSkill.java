@@ -265,7 +265,7 @@ public class L1WeaponSkill {
 			pc.sendPackets(packet);
 			pc.broadcastPacket(packet);
 		}
-		return calcDamageReduction(pc, cha, dmg, L1Skill.ATTR_EARTH);
+		return calcDamageReduction(pc, cha, dmg, Element.Earth);
 	}
 
 	public static double getDiceDaggerDamage(L1PcInstance pc,
@@ -340,10 +340,10 @@ public class L1WeaponSkill {
 		int chance = _random.nextInt(100) + 1;
 		if (weaponId == 263) {
 			probability = 5;
-			attr = L1Skill.ATTR_WATER;
+			attr = Element.Water;
 		} else if (weaponId == 260) {
 			probability = 4;
-			attr = L1Skill.ATTR_WIND;
+			attr = Element.Wind;
 		}
 		if (probability >= chance) {
 			int sp = pc.getSp();
@@ -447,7 +447,7 @@ public class L1WeaponSkill {
 			pc.sendPackets(new S_SkillSound(cha.getId(), 10));
 			pc.broadcastPacket(new S_SkillSound(cha.getId(), 10));
 		}
-		return calcDamageReduction(pc, cha, dmg, L1Skill.ATTR_WIND);
+		return calcDamageReduction(pc, cha, dmg, Element.Wind);
 	}
 
 	public static void giveArkMageDiseaseEffect(L1PcInstance pc,
@@ -493,11 +493,10 @@ public class L1WeaponSkill {
 	}
 
 	public static double calcDamageReduction(L1PcInstance pc, L1Character cha,
-			double dmg, int attr) {
+			double damage, int attr) {
 		if (isFreeze(cha)) {
 			return 0;
 		}
-
 
 		int mr = cha.getMr();
 		double mrFloor = 0;
@@ -512,29 +511,20 @@ public class L1WeaponSkill {
 		} else if (mr >= 100) {
 			mrCoefficient = 0.6 - 0.01 * mrFloor;
 		}
-		dmg *= mrCoefficient;
-
+		damage *= mrCoefficient;
 
 		int resist = 0;
-		if (attr == L1Skill.ATTR_EARTH) {
+		if (attr == Element.Earth) {
 			resist = cha.getEarth();
-		} else if (attr == L1Skill.ATTR_FIRE) {
+		} else if (attr == Element.Fire) {
 			resist = cha.getFire();
-		} else if (attr == L1Skill.ATTR_WATER) {
+		} else if (attr == Element.Water) {
 			resist = cha.getWater();
-		} else if (attr == L1Skill.ATTR_WIND) {
+		} else if (attr == Element.Wind) {
 			resist = cha.getWind();
 		}
-		int resistFloor = (int) (0.32 * Math.abs(resist));
-		if (resist >= 0) {
-			resistFloor *= 1;
-		} else {
-			resistFloor *= -1;
-		}
-		double attrDeffence = resistFloor / 32.0;
-		dmg = (1.0 - attrDeffence) * dmg;
 
-		return dmg;
+		return damage * (1 - resist / 100.0);
 	}
 
 	private static boolean isFreeze(L1Character cha) {

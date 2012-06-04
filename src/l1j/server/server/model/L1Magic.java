@@ -25,6 +25,7 @@ import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.SkillTable;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -63,7 +64,7 @@ public class L1Magic {
 	private static final double CRIT_MULTIPLIER = 1.5;
 	private static final int CRIT_LEVEL_LIMIT = 6;
 	// TODO: determine what this should be - one player suggested live is 1.2.
-	private static final double ELEMENTAL_WEAKNESS_MULTIPLIER = 1;
+	private static final double ELEMENTAL_WEAKNESS_MULTIPLIER = 1.2;
 
 	public void setLeverage(int i) {
 		_leverage = i;
@@ -323,7 +324,7 @@ public class L1Magic {
 
 	public int calcFireWallDamage() {
 
-		double attrDeffence = calcAttrResistance(L1Skill.ATTR_FIRE);
+		double attrDeffence = calcAttrResistance(Element.Fire);
 		L1Skill firewall = SkillTable.getInstance().findBySkillId(FIRE_WALL);
 		int damage = (int) ((1.0 - attrDeffence) * firewall.getDamageValue());
 
@@ -603,7 +604,7 @@ public class L1Magic {
 		if (_calcType == PC_NPC) {
 			int weakness = _targetNpc.getNpcTemplate().get_weakAttr();
 			int element = skill.getAttr();
-			if (element != L1Skill.ATTR_NONE && weakness == element) {
+			if (element != Element.None && weakness == element) {
 				magicDamage *= ELEMENTAL_WEAKNESS_MULTIPLIER;
 			}
 		}
@@ -678,13 +679,13 @@ public class L1Magic {
 	private double calcAttrResistance(int attr) {
 		int resist = 0;
 		if (_calcType == PC_PC || _calcType == NPC_PC) {
-			if (attr == L1Skill.ATTR_EARTH) {
+			if (attr == Element.Earth) {
 				resist = _targetPc.getEarth();
-			} else if (attr == L1Skill.ATTR_FIRE) {
+			} else if (attr == Element.Fire) {
 				resist = _targetPc.getFire();
-			} else if (attr == L1Skill.ATTR_WATER) {
+			} else if (attr == Element.Water) {
 				resist = _targetPc.getWater();
-			} else if (attr == L1Skill.ATTR_WIND) {
+			} else if (attr == Element.Wind) {
 				resist = _targetPc.getWind();
 			}
 		}
