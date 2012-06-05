@@ -43,6 +43,7 @@ import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.ResolventTable;
 import l1j.server.server.datatables.SkillTable;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -3419,7 +3420,16 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		pc.sendPackets(new S_SkillSound(pc.getId(), 191));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 191));
+
 		if (pc.getHasteItemEquipped() > 0) {
+			// We need this check for times when a player wearing a haste item
+			// gets Canceled.
+			pc.removeHasteSkillEffect();
+			if (pc.getMoveSpeed() != 1) {
+				pc.setMoveSpeed(1);
+				pc.sendPackets(new S_SkillHaste(pc.getId(), 1, -1));
+				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1, 0));
+			}
 			return;
 		}
 
@@ -3443,7 +3453,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		// 
-		if (pc.hasSkillEffect(SLOW)) { //
+		if (pc.hasSkillEffect(SLOW)) {
 			pc.killSkillEffectTimer(SLOW);
 			pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 			pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0, 0));
@@ -3589,8 +3599,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_BRAVE, time * 1000);
 		}
-// pc.sendPackets(new S_SkillSound(pc.getId(), 751));
-// pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
+		// pc.sendPackets(new S_SkillSound(pc.getId(), 751));
+		// pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 		pc.setBraveSpeed(1);
 	}
 
@@ -3649,7 +3659,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.addSp(2);
 		}
 
-		pc.sendPackets(new S_SkillIconWisdomPotion((int) (time / 4)));
+		pc.sendPackets(new S_SkillIconWisdomPotion(time / 4));
 		pc.sendPackets(new S_SkillSound(pc.getId(), 750));
 		pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
 
@@ -5740,31 +5750,36 @@ public class C_ItemUSe extends ClientBasePacket {
 		} else if (pc.isIllusionist()) {
 			charisma += 6;
 		}
+
+		// This accounts for the difference between the kennels and using
+		// calling flutes. Need to determine if this was here deliberately.
+		/*
 		charisma -= petCost;
 		int petCount = charisma / 6;
 		if (petCount <= 0) {
 			pc.sendPackets(new S_ServerMessage(489));
 			return false;
 		}
+		*/
 
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
-			if (l1pet != null) {
-				int npcId = l1pet.get_npcid();
-				charisma -= petCost;
-				if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
-					divisor = 12;
-				} else {
-					divisor = 6;
-				}
-				petCount = charisma / divisor;
-				if (petCount <= 0) {
-					pc.sendPackets(new S_ServerMessage(489));
-					return true;
-				}
-				L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
-				L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
-				pet.setPetcost(divisor);
+		if (l1pet != null) {
+			int npcId = l1pet.get_npcid();
+			charisma -= petCost;
+			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
+				divisor = 12;
+			} else {
+				divisor = 6;
 			}
+			int petCount = charisma / divisor;
+			if (petCount <= 0) {
+				pc.sendPackets(new S_ServerMessage(489));
+				return true;
+			}
+			L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
+			L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
+			pet.setPetcost(divisor);
+		}
 		return true;
 	}
 

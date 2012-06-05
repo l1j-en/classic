@@ -269,12 +269,12 @@ public class L1WeaponSkill {
 	}
 
 	public static double getDiceDaggerDamage(L1PcInstance pc,
-			L1PcInstance targetPc, L1ItemInstance weapon) {
+			L1Character target, L1ItemInstance weapon) {
 		double dmg = 0;
 		int chance = _random.nextInt(100) + 1;
 		if (3 >= chance) {
-			dmg = targetPc.getCurrentHp() * 2 / 3;
-			if (targetPc.getCurrentHp() - dmg < 0) {
+			dmg = target.getCurrentHp() * 2 / 3;
+			if (target.getCurrentHp() - dmg < 0) {
 				dmg = 0;
 			}
 			String msg = weapon.getLogName();
