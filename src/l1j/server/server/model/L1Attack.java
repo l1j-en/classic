@@ -25,6 +25,7 @@ import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.Element;
+import l1j.server.server.model.item.WeaponType;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -45,6 +46,7 @@ import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.types.Point;
 import static l1j.server.server.model.skill.L1SkillId.*;
+import static l1j.server.server.model.item.L1ItemId.SayhasBow;
 
 public class L1Attack {
 	private static Logger _log = Logger.getLogger(L1Attack.class.getName());
@@ -95,13 +97,6 @@ public class L1Attack {
 	private boolean isBow;
 	private boolean isGauntlet;
 	private boolean isKiringku;
-	private static final int BOW_TYPE = 20;
-	private static final int GAUNTLET_TYPE = 62;
-	private static final int KIRINGKU_TYPE = 17;
-	private static final int FIST = 0;
-	private static final int CLAW = 58;
-	private static final int EDORYU = 54;
-	private static final int SAYHAS_BOW = 190;
 	private static final int[] PREVENT_DAMAGE = { ABSOLUTE_BARRIER, ICE_LANCE,
 		FREEZING_BLIZZARD, FREEZING_BREATH, EARTH_BIND };
 
@@ -221,7 +216,7 @@ public class L1Attack {
 				_weaponId = weapon.getItem().getItemId();
 				_weaponType = weapon.getItem().getType1();
 				_weaponType2 = weapon.getItem().getType();
-				isKiringku = _weaponType2 == KIRINGKU_TYPE;
+				isKiringku = _weaponType2 == WeaponType.Kiringku;
 				_weaponAddHit = weapon.getItem().getHitModifier()
 						+ weapon.getHitByMagic();
 				_weaponAddDmg = weapon.getItem().getDmgModifier()
@@ -230,8 +225,8 @@ public class L1Attack {
 				_weaponLarge = weapon.getItem().getDmgLarge();
 				_weaponRange = weapon.getItem().getRange();
 				_weaponBless = weapon.getItem().getBless();
-				isBow = _weaponType == BOW_TYPE;
-				isGauntlet = _weaponType == GAUNTLET_TYPE;
+				isBow = _weaponType == WeaponType.Bow;
+				isGauntlet = _weaponType == WeaponType.Gauntlet;
 				isRanged = isBow | isGauntlet;
 				_weaponEnchant = weapon.getEnchantLevel()
 					- (isRanged ? 0 : weapon.get_durability());
@@ -293,7 +288,7 @@ public class L1Attack {
 					return _isHit;
 				}
 			}
-			if (isBow && _weaponId != SAYHAS_BOW && _arrow == null) {
+			if (isBow && _weaponId != SayhasBow && _arrow == null) {
 				_isHit = false; // If there is no mistake arrow
 			} else if (isGauntlet && _sting == null) {
 				_isHit = false; // If there is no mistake Sting
@@ -583,121 +578,133 @@ public class L1Attack {
 		return _damage;
 	}
 
-	// player from the player to calculate the damage
-	public int calcPcPcDamage() {
-		int weaponMaxDamage = _weaponSmall;
+	private double calcPcBaseDamage(boolean small, boolean materialBonus,
+			boolean hardSkinned, boolean diceDagger) {
+		int weaponMaxDamage = small ? _weaponSmall : _weaponLarge;	
 		int weaponDamage = 0;
-		if (_weaponType == CLAW && (_random.nextInt(100) + 1) <=
-				_weaponDoubleDmgChance) { // Critical hit
+		if (_weaponType == WeaponType.Claw && 
+				_random.nextInt(100) + 1 <= _weaponDoubleDmgChance) {
 			weaponDamage = weaponMaxDamage;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == FIST || isRanged) { 
+		} else if (_weaponType == WeaponType.Fist || isRanged) {
 			weaponDamage = 0;
 		} else {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
-		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
-			if (!isRanged) {
-				weaponDamage = weaponMaxDamage;
-			}
-		}
 
+		if (_pc.hasSkillEffect(SOUL_OF_FLAME) && !isRanged) {
+			weaponDamage = weaponMaxDamage;
+		}
+		
 		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
-		if (_weaponType == EDORYU && (_random.nextInt(100) + 1) <=
+
+		if (materialBonus)
+			weaponTotalDamage += calcMaterialBlessDmg();
+
+		if (_weaponType == WeaponType.Edoryu && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) {
 			weaponTotalDamage *= 2;
 			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
 			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3398));
 		}
-
+		
 		weaponTotalDamage += calcAttrEnchantDmg();
+		
 		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
-				&& (_weaponType == EDORYU || _weaponType == CLAW)) {
+				&& (_weaponType == WeaponType.Edoryu || 
+					_weaponType == WeaponType.Claw)) {
 			if ((_random.nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
 			}
 		}
-
+		
 		if (_weaponId == 262 && _random.nextInt(100) + 1 <= 75) {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
-
-		double dmg = weaponTotalDamage + _statusDamage + (isRanged
+		
+		double damage = weaponTotalDamage + _statusDamage + (isRanged
 				? _pc.getBowDmgup() + _pc.getOriginalBowDmgup()
 				: _pc.getDmgup() + _pc.getOriginalDmgup());
 
 		if (isBow) {
 			if (_arrow != null) {
-				int add_dmg = _arrow.getItem().getDmgSmall();
-				if (add_dmg == 0) {
-					add_dmg = 1;
-				}
-				dmg = dmg + _random.nextInt(add_dmg) + 1;
-			} else if (_weaponId == SAYHAS_BOW) {
-				dmg = dmg + _random.nextInt(15) + 1;
+				int arrowDamage = small ? _arrow.getItem().getDmgSmall()
+										: _arrow.getItem().getDmgLarge();
+				if (arrowDamage == 0)
+					arrowDamage = 1;
+				if (hardSkinned)
+					arrowDamage /= 2;
+				damage = damage + _random.nextInt(arrowDamage) + 1;
+			} else if (_weaponId == SayhasBow) {
+				damage = damage + _random.nextInt(15) + 1;
 			}
 		} else if (isGauntlet) {
-			int add_dmg = _sting.getItem().getDmgSmall();
-			if (add_dmg == 0) {
-				add_dmg = 1;
-			}
-			dmg = dmg + _random.nextInt(add_dmg) + 1;
+			int knifeDamage = small ? _sting.getItem().getDmgSmall()
+									: _sting.getItem().getDmgLarge();
+			if (knifeDamage == 0)
+				knifeDamage = 1;
+			damage = damage + _random.nextInt(knifeDamage) + 1;
 		}
-		dmg = calcBuffDamage(dmg);
 
+		damage = calcBuffDamage(damage);
+		
 		if (_weaponId == 124) {
-			dmg += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
-		} else if (_weaponId == 2 || _weaponId == 200002) {
-			dmg = L1WeaponSkill.getDiceDaggerDamage(_pc, _targetPc, weapon);
+			damage += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
+		} else if ((_weaponId == 2 || _weaponId == 200002) && diceDagger) {
+			damage = L1WeaponSkill.getDiceDaggerDamage(_pc, _target, weapon);
 		} else if (_weaponId == 204 || _weaponId == 100204) {
-			L1WeaponSkill.giveFettersEffect(_pc, _targetPc); 
+			L1WeaponSkill.giveFettersEffect(_pc, _target); 
 		} else if (_weaponId == 264) {
-			dmg += L1WeaponSkill.getLightningEdgeDamage(_pc, _target);
+			damage += L1WeaponSkill.getLightningEdgeDamage(_pc, _target);
 		} else if (_weaponId == 260 || _weaponId == 263) {
-			dmg += L1WeaponSkill.getAreaSkillWeaponDamage(_pc, _target,
+			damage += L1WeaponSkill.getAreaSkillWeaponDamage(_pc, _target,
 					_weaponId);
 		} else if (_weaponId == 261) {
 			L1WeaponSkill.giveArkMageDiseaseEffect(_pc, _target);
 		} else {
-			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
+			damage += 
+				L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
 		}
-		if (_weaponType == FIST) {
-			dmg = (_random.nextInt(5) + 4) / 4;
+		if (_weaponType == WeaponType.Fist) {
+			damage = (_random.nextInt(5) + 4) / 4;
 		}
 		if (isKiringku) {
-			dmg = L1WeaponSkill.getKiringkuDamage(_pc, _target);
-			dmg += calcAttrEnchantDmg();
+			damage = L1WeaponSkill.getKiringkuDamage(_pc, _target);
+			damage += calcAttrEnchantDmg();
 		}
-		if (!isRanged) {
-			dmg += _pc.getDmgModifierByArmor();
-		} else {
-			dmg += _pc.getBowDmgModifierByArmor();
-		}
+		
+		damage += isRanged ? _pc.getBowDmgModifierByArmor()
+						   : _pc.getDmgModifierByArmor();
+	
 		if (!isRanged) {
 			Object[] dollList = _pc.getDollList().values().toArray();
 			for (Object dollObject : dollList) {
 				L1DollInstance doll = (L1DollInstance) dollObject;
-				dmg += doll.getDamageByDoll();
+				damage += doll.getDamageByDoll();
 			}
 		}
 
-		if (_pc.hasSkillEffect(COOKING_2_0_N)
-				|| _pc.hasSkillEffect(COOKING_2_0_S)
-				|| _pc.hasSkillEffect(COOKING_3_2_N)
-				|| _pc.hasSkillEffect(COOKING_3_2_S)) {
-			if (!isRanged) {
-				dmg += 1;
-			}
+		if (!isRanged && (_pc.hasSkillEffect(COOKING_2_0_N) ||
+						  _pc.hasSkillEffect(COOKING_2_0_S) ||
+						  _pc.hasSkillEffect(COOKING_3_2_N) ||
+						  _pc.hasSkillEffect(COOKING_3_2_S))) {
+			damage += 1;
 		}
-		if (_pc.hasSkillEffect(COOKING_2_3_N)
-				|| _pc.hasSkillEffect(COOKING_2_3_S)
-				|| _pc.hasSkillEffect(COOKING_3_0_N)
-				|| _pc.hasSkillEffect(COOKING_3_0_S)) {
-			if (isRanged) {
-				dmg += 1;
-			}
+		if (isRanged && (_pc.hasSkillEffect(COOKING_2_3_N) ||
+						 _pc.hasSkillEffect(COOKING_2_3_S) ||
+						 _pc.hasSkillEffect(COOKING_3_0_N) ||
+						 _pc.hasSkillEffect(COOKING_3_0_S))) {
+			damage += 1;
 		}
+
+		return damage;
+	}
+
+	// player from the player to calculate the damage
+	public int calcPcPcDamage() {
+		double dmg = calcPcBaseDamage(true, false, false, true); 	
+
 		dmg -= _targetPc.getDamageReductionByArmor();
 		
 		Object[] targetDollList = _targetPc.getDollList().values().toArray();
@@ -762,141 +769,11 @@ public class L1Attack {
 	}
 
 	private int calcPcNpcDamage() {
-		int weaponMaxDamage = 0;
-		if (_targetNpc.getNpcTemplate().get_size().equalsIgnoreCase("small")
-				&& _weaponSmall > 0) {
-			weaponMaxDamage = _weaponSmall;
-		} else if (_targetNpc.getNpcTemplate().get_size().equalsIgnoreCase(
-				"large")
-				&& _weaponLarge > 0) {
-			weaponMaxDamage = _weaponLarge;
-		}
+		boolean small = 
+			_targetNpc.getNpcTemplate().get_size().equalsIgnoreCase("small");
 
-		int weaponDamage = 0;
-		if (_weaponType == CLAW && (_random.nextInt(100) + 1) <=
-				_weaponDoubleDmgChance) { // Critical hit
-			weaponDamage = weaponMaxDamage;
-			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
-			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
-		} else if (_weaponType == FIST || isRanged) { 
-			weaponDamage = 0;
-		} else {
-			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
-		}
-		if (_pc.hasSkillEffect(SOUL_OF_FLAME)) {
-			if (!isRanged) {
-				weaponDamage = weaponMaxDamage;
-			}
-		}
+		double dmg = calcPcBaseDamage(small, true, true, false);
 
-		int weaponTotalDamage = weaponDamage + _weaponAddDmg + _weaponEnchant;
-
-		weaponTotalDamage += calcMaterialBlessDmg();
-		if (_weaponType == EDORYU && (_random.nextInt(100) + 1) <=
-				_weaponDoubleDmgChance) { // _uqbg
-			weaponTotalDamage *= 2;
-			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
-			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3398));
-		}
-		weaponTotalDamage += calcAttrEnchantDmg();
-		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
-				&& (_weaponType == EDORYU || _weaponType == CLAW)) {
-			if ((_random.nextInt(100) + 1) <= 33) {
-				weaponTotalDamage *= 2;
-			}
-		}
-		if (_weaponId == 262 && _random.nextInt(100) + 1 <= 75) { // Damage bonus blessing silver
-			weaponTotalDamage += calcDestruction(weaponTotalDamage);
-		}
-
-		double dmg = weaponTotalDamage + _statusDamage + (isRanged
-				? _pc.getBowDmgup() + _pc.getOriginalBowDmgup()
-				: _pc.getDmgup() + _pc.getOriginalDmgup());
-
-		if (isBow) { 
-			if (_arrow != null) {
-				int add_dmg = 0;
-				if (_targetNpc.getNpcTemplate().get_size().
-						equalsIgnoreCase("large")) {
-					add_dmg = _arrow.getItem().getDmgLarge();
-				} else {
-					add_dmg = _arrow.getItem().getDmgSmall();
-				}
-				if (add_dmg == 0) {
-					add_dmg = 1;
-				}
-				if (_targetNpc.getNpcTemplate().is_hard()) {
-					add_dmg /= 2;
-				}
-				dmg = dmg + _random.nextInt(add_dmg) + 1;
-			} else if (_weaponId == SAYHAS_BOW) {
-				dmg = dmg + _random.nextInt(15) + 1;
-			}
-		} else if (isGauntlet) {
-			int add_dmg = 0;
-			if (_targetNpc.getNpcTemplate().get_size().
-					equalsIgnoreCase("large")) {
-				add_dmg = _sting.getItem().getDmgLarge();
-			} else {
-				add_dmg = _sting.getItem().getDmgSmall();
-			}
-			if (add_dmg == 0) {
-				add_dmg = 1;
-			}
-			dmg = dmg + _random.nextInt(add_dmg) + 1;
-		}
-		dmg = calcBuffDamage(dmg);
-
-		if (_weaponId == 124) {
-			dmg += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
-		} else if (_weaponId == 204 || _weaponId == 100204) {
-			L1WeaponSkill.giveFettersEffect(_pc, _targetNpc); 
-		} else if (_weaponId == 264) {
-			dmg += L1WeaponSkill.getLightningEdgeDamage(_pc, _target);
-		} else if (_weaponId == 260 || _weaponId == 263) {
-			dmg += L1WeaponSkill.getAreaSkillWeaponDamage(_pc, _target,
-					_weaponId);
-		} else if (_weaponId == 261) {
-			L1WeaponSkill.giveArkMageDiseaseEffect(_pc, _target);
-		} else {
-			dmg += L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
-		}
-		if (_weaponType == FIST) {
-			dmg = (_random.nextInt(5) + 4) / 4;
-		}
-		if (isKiringku) {
-			dmg = L1WeaponSkill.getKiringkuDamage(_pc, _target);
-			dmg += calcAttrEnchantDmg();
-		}
-		if (!isRanged) {
-			dmg += _pc.getDmgModifierByArmor();
-		} else {
-			dmg += _pc.getBowDmgModifierByArmor();
-		}
-		if (!isRanged) {
-			Object[] dollList = _pc.getDollList().values().toArray();
-			for (Object dollObject : dollList) {
-				L1DollInstance doll = (L1DollInstance) dollObject;
-				dmg += doll.getDamageByDoll();
-			}
-		}
-
-		if (_pc.hasSkillEffect(COOKING_2_0_N)
-				|| _pc.hasSkillEffect(COOKING_2_0_S)
-				|| _pc.hasSkillEffect(COOKING_3_2_N)
-				|| _pc.hasSkillEffect(COOKING_3_2_S)) {
-			if (!isRanged) {
-				dmg += 1;
-			}
-		}
-		if (_pc.hasSkillEffect(COOKING_2_3_N)
-				|| _pc.hasSkillEffect(COOKING_2_3_S)
-				|| _pc.hasSkillEffect(COOKING_3_0_N)
-				|| _pc.hasSkillEffect(COOKING_3_0_S)) {
-			if (isRanged) {
-				dmg += 1;
-			}
-		}
 		dmg -= calcNpcDamageReduction();
 
 		boolean isNowWar = false;
@@ -1266,7 +1143,7 @@ public class L1Attack {
 							ActionCodes.ACTION_Damage), _pc);
 				}
 				_pc.getInventory().removeItem(_arrow, 1);
-			} else if (_weaponId == SAYHAS_BOW) {
+			} else if (_weaponId == SayhasBow) {
 				_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 2349,
 						_targetX, _targetY, _isHit));
 				_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId,
@@ -1277,7 +1154,7 @@ public class L1Attack {
 							ActionCodes.ACTION_Damage), _pc);
 				}
 			}
-		} else if (isGauntlet && _sting != null) { // Gauntlet
+		} else if (isGauntlet && _sting != null) {
 			_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 2989,
 					_targetX, _targetY, _isHit));
 			_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId, 2989,
@@ -1539,7 +1416,7 @@ public class L1Attack {
 		 */
 		if (_calcType != PC_NPC
 				|| _targetNpc.getNpcTemplate().is_hard() == false
-				|| _weaponType == FIST || weapon.getItem().get_canbedmg() == 0
+				|| _weaponType == WeaponType.Fist || weapon.getItem().get_canbedmg() == 0
 				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
 		}
@@ -1563,7 +1440,7 @@ public class L1Attack {
 	 */
 	private void damagePcWeaponDurability() {
 		// PvP except bare hands, bow, GANTOTORETTO, BAUNSUATAKKU unused nothing if not
-		if (_calcType != PC_PC || _weaponType == FIST || isRanged
+		if (_calcType != PC_PC || _weaponType == WeaponType.Fist || isRanged
 				|| _targetPc.hasSkillEffect(BOUNCE_ATTACK) == false
 				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;

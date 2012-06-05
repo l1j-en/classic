@@ -90,4 +90,5 @@ public class L1ItemId {
 	public static final int ElvenWafer = 40068;
 	public static final int BlessedElvenWafer = 140068;
 	public static final int DevilsBlood = 40031;
+	public static final int SayhasBow = 190;
 }
