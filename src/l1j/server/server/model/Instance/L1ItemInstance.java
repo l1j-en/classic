@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.L1EquipmentTimer;
 import l1j.server.server.model.L1ItemOwnerTimer;
 import l1j.server.server.model.L1Object;
@@ -145,14 +146,14 @@ public class L1ItemInstance extends L1Object {
 	public boolean isStackable() {
 		return _item.isStackable();
 	}
+	
 	/* For illumination items*/ 
-	public boolean isActive()
-	{ 
+	public boolean isActive() { 
 		return _isActive; 
 	}  
-	public void setActive(boolean isActive)
-	{ 
-		_isActive = isActive; } 
+	public void setActive(boolean isActive) { 
+		_isActive = isActive; 
+	} 
 	
 	@Override
 	public void onAction(L1PcInstance player) {
@@ -288,6 +289,17 @@ public class L1ItemInstance extends L1Object {
 
 		public int attrEnchantLevel;
 
+		public int earthResist;
+		public int fireResist;
+		public int waterResist;
+		public int airResist;
+		public int additionalHp;
+		public int additionalMp;
+		public int hpRegen;
+		public int mpRegen;
+		public int additionalSp;
+		public int magicResist;
+
 		public void updateAll() {
 			count = getCount();
 			itemId = getItemId();
@@ -408,18 +420,18 @@ public class L1ItemInstance extends L1Object {
 			L1Pet pet = PetTable.getInstance().getTemplate(getId());
 			if (pet != null) {
 				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcid());
-// name.append("[Lv." + pet.get_level() + " "
-// + npc.get_nameid() + "]");
+				// name.append("[Lv." + pet.get_level() + " "
+				// + npc.get_nameid() + "]");
 				name.append("[Lv." + pet.get_level() + " " + pet.get_name()
 						+ "]HP" + pet.get_hp() + " " + npc.get_nameid());
 			}
 		}
 
-		if (getItem().getType2() == 0 && getItem().getType() == 2) { // 
+		if (getItem().getType2() == 0 && getItem().getType() == 2) {
 			if (isNowLighting()) {
 				name.append(" ($10)");
 			}
-			if (itemId == 40001 || itemId == 40002) { // 
+			if (itemId == 40001 || itemId == 40002) {
 				if (getRemainingTime() <= 0) {
 					name.append(" ($11)");
 				}
@@ -455,7 +467,7 @@ public class L1ItemInstance extends L1Object {
 				if (attrEnchantLevel > 0) {
 					String attrStr = null;
 					switch (getAttrEnchantKind()) {
-					case 1: 
+					case Element.Earth: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6124";
 						} else if (attrEnchantLevel == 2) {
@@ -464,7 +476,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6126";
 						}
 						break;
-					case 2: 
+					case Element.Fire: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6115";
 						} else if (attrEnchantLevel == 2) {
@@ -473,7 +485,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6117";
 						}
 						break;
-					case 4: 
+					case Element.Water: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6118";
 						} else if (attrEnchantLevel == 2) {
@@ -482,7 +494,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6120";
 						}
 						break;
-					case 8: 
+					case Element.Wind: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6121";
 						} else if (attrEnchantLevel == 2) {
@@ -737,50 +749,47 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(33);
 				os.writeC(6);
 			}
-// if (getItem.getLuck() != 0) {
-// os.writeC(20);
-// os.writeC(val);
-// }
-// if (getItem.getDesc() != 0) {
-// os.writeC(25);
-// os.writeH(val); // desc.tbl ID
-// }
-// if (getItem.getLevel() != 0) {
-// os.writeC(26);
-// os.writeH(val);
-// }
+			// if (getItem.getLuck() != 0) {
+			// os.writeC(20);
+			// os.writeC(val);
+			// }
+			// if (getItem.getDesc() != 0) {
+			// os.writeC(25);
+			// os.writeH(val); // desc.tbl ID
+			// }
+			// if (getItem.getLevel() != 0) {
+			// os.writeC(26);
+			// os.writeH(val);
+			// }
 		}
 		return os.getBytes();
 	}
 
-class EnchantTimer extends TimerTask {
+	class EnchantTimer extends TimerTask {
+		public EnchantTimer() { }
 
-	public EnchantTimer() {
-	}
-
-	@Override
-	public void run() {
-		try {
-			int type = getItem().getType();
-			int type2 = getItem().getType2();
-			int itemId = getItem().getItemId();
-			if (_pc != null && _pc.getInventory().checkItem(itemId)) {
-				if (type == 2 && type2 == 2 && isEquipped()) {
-					_pc.addAc(3);
-					_pc.sendPackets(new S_OwnCharStatus(_pc));
+		@Override public void run() {
+			try {
+				int type = getItem().getType();
+				int type2 = getItem().getType2();
+				int itemId = getItem().getItemId();
+				if (_pc != null && _pc.getInventory().checkItem(itemId)) {
+					if (type == 2 && type2 == 2 && isEquipped()) {
+						_pc.addAc(3);
+						_pc.sendPackets(new S_OwnCharStatus(_pc));
+					}
 				}
+				setAcByMagic(0);
+				setDmgByMagic(0);
+				setHolyDmgByMagic(0);
+				setHitByMagic(0);
+				_pc.sendPackets(new S_ServerMessage(308, getLogName()));
+				_isRunning = false;
+				_timer = null;
+			} catch (Exception e) {
 			}
-			setAcByMagic(0);
-			setDmgByMagic(0);
-			setHolyDmgByMagic(0);
-			setHitByMagic(0);
-			_pc.sendPackets(new S_ServerMessage(308, getLogName()));
-			_isRunning = false;
-			_timer = null;
-		} catch (Exception e) {
 		}
 	}
-}
 
 	private int _acByMagic = 0;
 
@@ -822,7 +831,8 @@ class EnchantTimer extends TimerTask {
 		_hitByMagic = i;
 	}
 
-	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, int skillTime) {
+	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, 
+			int skillTime) {
 		int type = getItem().getType();
 		int type2 = getItem().getType2();
 		if (_isRunning) {
