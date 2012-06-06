@@ -36,7 +36,7 @@ public class Enchant {
 	}
 
 	public static void elementEnchant(final L1PcInstance player,
-			final L1ItemInstance weapon, final L1ItemInstance scroll) {
+			final L1ItemInstance scroll, final L1ItemInstance weapon) {
 		if (!Config.ELEMENTAL_ENCHANTING) {
 			player.sendPackets(new S_SystemMessage(
 						"Elemental enchanting is disabled on this server."));
@@ -86,7 +86,7 @@ public class Enchant {
 		inventory.removeItem(scroll, 1);
 	}
 
-	public static void accessoryEnchant(final L1PcInstance player, 
+	public static void enchantAccessory(final L1PcInstance player, 
 			final L1ItemInstance scroll, final L1ItemInstance accessory) {
 
 		/*
@@ -298,7 +298,7 @@ public class Enchant {
 		return 1;
 	}
 
-	public static void scrollOfEnchantWeaponIvoryTower(
+	public static void enchantIvoryTowerWeapon(
 			final L1PcInstance player, final L1ItemInstance scroll,
 			final L1ItemInstance weapon) {
 		if (weapon == null || weapon.getItem().getType2() != 1 ||
@@ -329,7 +329,7 @@ public class Enchant {
 		}
 	}
 
-	public static void scrollOfEnchantArmorIvoryTower(final L1PcInstance player,
+	public static void enchantIvoryTowerArmor(final L1PcInstance player,
 		   	final L1ItemInstance scroll, final L1ItemInstance armor) {
 		int armorId = armor.getItem().getItemId();
 		if (armor == null || armor.getItem().getType2() != 2 ||
@@ -359,7 +359,7 @@ public class Enchant {
 		}
 	}
 	
-	public static void scrollOfEnchantWeapon(final L1PcInstance player, 
+	public static void enchantWeapon(final L1PcInstance player, 
 			final L1ItemInstance scroll, final L1ItemInstance weapon) {
 		int scrollId = scroll.getItem().getItemId();
 		int safeEnchant = weapon.getItem().get_safeenchant();
@@ -439,7 +439,7 @@ public class Enchant {
 			: Result.Failure;
 	}
 
-	public static void scrollOfEnchantArmor(final L1PcInstance player, 
+	public static void enchantArmor(final L1PcInstance player, 
 			final L1ItemInstance scroll, 
 			final L1ItemInstance armor) {
 		int scrollId = scroll.getItem().getItemId();

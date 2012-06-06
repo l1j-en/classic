@@ -665,4 +665,7 @@ public abstract class L1Item implements Serializable {
 		return 0;
 	}
 
+	public int get_grade() {
+		return 0;
+	}	
 }
