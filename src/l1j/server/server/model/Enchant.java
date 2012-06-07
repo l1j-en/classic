@@ -16,7 +16,6 @@ import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.templates.L1Item;
 
 public class Enchant {
-
 	private static final Random _random = new Random();
 	private static Logger _log = Logger.getLogger(Enchant.class.getName());
 	/* TODO: figure out if we can do something like this.
@@ -57,8 +56,8 @@ public class Enchant {
 			case 41431: newElement = Element.Water; break;
 			case 41432: newElement = Element.Fire; break;
 			default:
-						_log.log(Level.WARNING, "Enchant: bad elemental scroll id.");
-						return;	
+				_log.log(Level.WARNING, "Enchant: bad elemental scroll id.");
+				return;	
 		}
 
 		boolean sameElement = newElement == weapon.getAttrEnchantKind();
@@ -358,6 +357,52 @@ public class Enchant {
 			player.sendPackets(new S_ServerMessage(79));
 		}
 	}
+
+	private static boolean scrollMatchesWeapon(final int weaponId,
+			final int scrollId) {
+		for (int ivoryTowerWeapon : IvoryTowerWeapons) {
+			if (ivoryTowerWeapon == weaponId) {
+				return false;
+			}
+		}
+		
+		if (weaponId >= 246 && weaponId <= 249) {
+			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON;
+		}
+		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON) {
+			return weaponId >= 246 && weaponId <= 249;
+		}
+		
+		if (weaponId == 36 || weaponId == 183 || 
+				(weaponId >= 250 && weaponId <= 255)) {
+			return scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion;
+		}
+		if (scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion) {
+			return weaponId == 36 || weaponId == 183 ||
+				(weaponId >= 150 && weaponId <= 255);
+		}
+
+		return true;
+	}
+
+	private static boolean scrollMatchesArmor(final int armorId,
+			final int scrollId) {
+
+		for (int ivoryTowerArmor : IvoryTowerArmor) {
+			if (armorId == ivoryTowerArmor) {
+				return false;
+			}
+		}
+		
+		if (armorId == 20161 || (armorId >= 21035 && armorId <= 21038)) {
+			return scrollId == L1ItemId.ScrollOfEnchantArmorIllusion;
+		}
+		if (scrollId == L1ItemId.ScrollOfEnchantArmorIllusion) {
+			return armorId == 20161 || (armorId >= 21035 && armorId <= 21038);
+		}
+
+		return true;
+	}
 	
 	public static void enchantWeapon(final L1PcInstance player, 
 			final L1ItemInstance scroll, final L1ItemInstance weapon) {
@@ -371,37 +416,9 @@ public class Enchant {
 			return;
 		}
 
-		for (int ivoryTowerWeapon : IvoryTowerWeapons) {
-			if (ivoryTowerWeapon == weaponId) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
-		}
-
-		if (weaponId >= 246 && weaponId <= 249) {
-			if (scrollId != L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
-		}
-
-		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON &&
-				(weaponId < 246 || weaponId > 249))  {
+		if (!scrollMatchesWeapon(weaponId, scrollId)) {
 			player.sendPackets(new S_ServerMessage(79));
 			return;
-		}
-	
-		if (weaponId == 36 || weaponId == 183 || (weaponId >= 250 && weaponId <= 255)) {
-			if (scrollId != 40128) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
-		}
-		if (scrollId == 40128) {
-			if (weaponId != 36 && weaponId != 183 && (weaponId < 250 || weaponId > 255)) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
 		}
 
 		int enchantLevel = weapon.getEnchantLevel();
@@ -451,24 +468,9 @@ public class Enchant {
 			return;
 		}
 
-		for (int ivoryTowerArmor : IvoryTowerArmor) {
-			if (armorId == ivoryTowerArmor) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
-		}
-		
-		if (armorId == 20161 || (armorId >= 21035 && armorId <= 21038)) {
-			if (scrollId != 40127) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
-		}
-		if (scrollId == 40127) {
-			if (armorId != 20161 && (armorId < 21035 || armorId > 21038)) {
-				player.sendPackets(new S_ServerMessage(79));
-				return;
-			}
+		if (!scrollMatchesArmor(armorId, scrollId)) {
+			player.sendPackets(new S_ServerMessage(79));
+			return;
 		}
 
 		int enchantLevel = armor.getEnchantLevel();

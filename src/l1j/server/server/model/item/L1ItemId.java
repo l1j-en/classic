@@ -91,4 +91,6 @@ public class L1ItemId {
 	public static final int BlessedElvenWafer = 140068;
 	public static final int DevilsBlood = 40031;
 	public static final int SayhasBow = 190;
+	public static final int ScrollOfEnchantArmorIllusion = 40127;
+	public static final int ScrollOfEnchantWeaponIllusion = 40128;
 }
