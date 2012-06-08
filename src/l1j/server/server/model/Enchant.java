@@ -87,7 +87,9 @@ public class Enchant {
 
 	public static void enchantAccessory(final L1PcInstance player, 
 			final L1ItemInstance scroll, final L1ItemInstance accessory) {
-
+		player.sendPackets(new S_SystemMessage(
+				"Accessory enchanting isn't ready yet."));
+		
 		/*
 		if (!Config.ACCESSORY_ENCHANTING) {
 			player.sendPackets(new S_SystemMessage(
@@ -207,8 +209,8 @@ public class Enchant {
 	private static void successEnchant(final L1PcInstance player, 
 			final L1ItemInstance item, final int change) {
 		L1Item baseItem = item.getItem();
-		boolean isWeapon = baseItem.getType() == 1;
-		boolean isArmor = baseItem.getType() == 2;
+		boolean isWeapon = baseItem.getType2() == 1;
+		boolean isArmor = baseItem.getType2() == 2;
 
 		if (!isArmor && !isWeapon) {
 			_log.log(Level.WARNING, "Enchant: trying to enchant something" +
@@ -232,7 +234,7 @@ public class Enchant {
 				sb = "$247";
 				break;
 			case 2: case 3:
-				sa = isWeapon ? "245" : "$252";	
+				sa = isWeapon ? "$245" : "$252";	
 				sb = "$248";
 		}
 		player.sendPackets(new S_ServerMessage(161, s, sa, sb));
@@ -475,6 +477,7 @@ public class Enchant {
 
 		int enchantLevel = armor.getEnchantLevel();
 		Result result = enchantArmor(scrollId, enchantLevel, safeEnchant);
+		player.getInventory().removeItem(scroll, 1);
 		switch (result) {
 			case Success:
 				successEnchant(player, armor, 
