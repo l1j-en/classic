@@ -59,3 +59,7 @@ update armor set grade=1 where item_id=120280 or item_id=20280 or item_id=20300 
 update armor set grade=2 where item_id=20303 or item_id=20306 or item_id=120306 or item_id=20308 or item_id=120308 or item_id=20307 or item_id=120307 or item_id=20321 or item_id=120321 or item_id=20246 or item_id=120246 or item_id=20245 or item_id=120245 or item_id=20249 or item_id=120249 or item_id=20249 or item_id=120249 or item_id=20247 or item_id=120247 or item_id=20248 or item_id=120248 or item_id=20244 or item_id=120244 or item_id=20263 or item_id=20282 or item_id=20423 or item_id=20424 or item_id=20425 or item_id=21050 or item_id=21049 or item_id=21019;
 
 update npc set weakAttr=4 where name="Demon";
+
+update armor set grdgfx=4345 where name="cloak of illusionist";
+update armor set grdgfx=5058 where name="hand of the reaper";
+update weapon set grdgfx=59 where name="spirit defender";
