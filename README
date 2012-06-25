@@ -2,8 +2,15 @@ For general info about l1j-en, see the main github page.
 
 This branch differs from mainline l1j-en in a couple of big ways:
 
-- abandons the "no-refactor" goal - I clean things as I come across them.
-- gpl v2 instead of v3.
+- abandons the "no-refactor" goal - I clean things as I come across them, though
+I've constrained myself to individual files for now. While this violates every 
+style guide in existence, it's useful to me since it immediately identifies any
+section of the code I've touched. It's also been good practice. This would be
+much more of an issue if anyone else was still working on a publicly accessible
+branch of l1j-en or one of the other language forks.
+
+- gpl v2 instead of gpl v3.
 
 In general it's as usable as mainline l1j-en; at least one stable server (WK)
-is using it.
+is using it. Anything WK specific is handled in separate db files or has config
+options.

@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
-import l1j.server.server.model.Element;
 import l1j.server.server.model.item.WeaponType;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -422,12 +421,42 @@ public class L1Attack {
 		return _hitRate >= rnd;
 	}
 
-	private boolean isImmune(L1Character character) {
+	public static boolean isImmune(L1Character character) {
 		for (int skillId : PREVENT_DAMAGE)
 			if (character.hasSkillEffect(skillId))
 				return true;
 		return false;			
-	}	
+	}
+
+	/**
+	 * Whether or not the attacker (still) needs a buff to affect the
+	 * target. Only arises in pve situations, e.g. attacking Chaos.
+	 * See notes in L1Magic.
+	 */
+	private boolean isMissingSkillEffect() {
+		if (_calcType == PC_NPC && _targetNpc != null) {
+			int npcId = _targetNpc.getNpcTemplate().get_npcId();
+			switch (npcId) {
+				case 45912: case 45913: case 45914: case 45915:
+					return !_pc.hasSkillEffect(STATUS_HOLY_WATER);
+				case 45916:
+					return !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
+				case 45941:
+					return !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA);
+				case 45752: case 45753:
+					return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
+				case 45675: case 81082: case 45625: case 45674: case 45685: 
+					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+			}
+			if (npcId >= 46068 && npcId <= 46091) {
+				return _pc.getTempCharGfx() == 6035;
+			}
+			if (npcId >= 46092 && npcId <= 46106) {
+				return _pc.getTempCharGfx() == 6034;
+			}
+		}
+		return false;
+	}
 
 	private boolean calcPcNpcHit() {
 		// NPC's hit rate
@@ -456,56 +485,11 @@ public class L1Attack {
 			_hitRate = 100;
 		}
 
-		int npcId = _targetNpc.getNpcTemplate().get_npcId();
-		if (npcId >= 45912 && npcId <= 45915 
-				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER)) {
+		if (isMissingSkillEffect()) {
 			_hitRate = 0;
 		}
-		if (npcId == 45916
-				&& !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45941
-				&& !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45752 //
-				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45753 //
-				&& !_pc.hasSkillEffect(STATUS_CURSE_BARLOG)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45675 //
-				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-			_hitRate = 0;
-		}
-		if (npcId == 81082 //
-				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45625 // 
-				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45674 // 
-				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-			_hitRate = 0;
-		}
-		if (npcId == 45685 // 
-				&& !_pc.hasSkillEffect(STATUS_CURSE_YAHEE)) {
-			_hitRate = 0;
-		}
-		if (npcId >= 46068 && npcId <= 46091 //
-				&& _pc.getTempCharGfx() == 6035) {
-			_hitRate = 0;
-		}
-		if (npcId >= 46092 && npcId <= 46106 //
-				&& _pc.getTempCharGfx() == 6034) {
-			_hitRate = 0;
-		}
- 		int rnd = _random.nextInt(100) + 1;
+ 		
+		int rnd = _random.nextInt(100) + 1;
 		return _hitRate >= rnd;
 	}
 
@@ -658,8 +642,9 @@ public class L1Attack {
 		} else if (_weaponId == 264) {
 			damage += L1WeaponSkill.getLightningEdgeDamage(_pc, _target);
 		} else if (_weaponId == 260 || _weaponId == 263) {
-			damage += L1WeaponSkill.getAreaSkillWeaponDamage(_pc, _target,
-					_weaponId);
+			damage += L1WeaponSkill.getWindAxeDamage(_pc, _target);
+		} else if (_weaponId == 263) {
+			damage += L1WeaponSkill.getFrozenSpearDamage(_pc, _target);
 		} else if (_weaponId == 261) {
 			L1WeaponSkill.giveArkMageDiseaseEffect(_pc, _target);
 		} else {
@@ -906,36 +891,36 @@ public class L1Attack {
 	}
 
 	private int calcNpcNpcDamage() {
-		int lvl = _npc.getLevel();
-		double dmg = 0;
+		int level = _npc.getLevel();
+		double damage = 0;
 
 		if (_npc instanceof L1PetInstance) {
-			dmg = _random.nextInt(_npc.getNpcTemplate().get_level())
+			damage = _random.nextInt(_npc.getNpcTemplate().get_level())
 					+ _npc.getStr() / 2 + 1;
-			dmg += (lvl / 16); // Each additional pet is hit LV16
-			dmg += ((L1PetInstance) _npc).getDamageByWeapon();
+			damage += (level / 16); // Each additional pet is hit LV16
+			damage += ((L1PetInstance) _npc).getDamageByWeapon();
 		} else {
-			dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
+			damage = _random.nextInt(level) + _npc.getStr() / 2 + 1;
 		}
 		if (isUndeadDamage()) {
-			dmg *= 1.1;
+			damage *= 1.1;
 		}
 
-		dmg = dmg * getLeverage() / 10;
-		dmg -= calcNpcDamageReduction();
+		damage = damage * getLeverage() / 10;
+		damage -= calcNpcDamageReduction();
 
 		if (_npc.isWeaponBreaked()) { 
-			dmg /= 2;
+			damage /= 2;
 		}
 
 		addNpcPoisonAttack(_npc, _targetNpc);
 
 		if (isImmune(_targetNpc))
-			dmg = 0;
-		if (dmg <= 0) {
+			damage = 0;
+		if (damage <= 0) {
 			_isHit = false;
 		}
-		return (int) dmg;
+		return (int) damage;
 	}
 
 	// Magic players to strengthen Damage
@@ -1028,13 +1013,9 @@ public class L1Attack {
 	}
 
 	private boolean isUndeadDamage() {
-		boolean flag = false;
 		int undead = _npc.getNpcTemplate().get_undead();
 		boolean isNight = L1GameTimeClock.getInstance().currentTime().isNight();
-		if (isNight && (undead == 1 || undead == 3 || undead == 4)) {
-			flag = true;
-		}
-		return flag;
+		return isNight && (undead == 1 || undead == 3 || undead == 4);
 	}
 
 	private void addNpcPoisonAttack(L1Character attacker, L1Character target) {
@@ -1080,10 +1061,7 @@ public class L1Attack {
 	}
 
 	private int calcDestruction(int dmg) {
-		_drainHp = (dmg / 8) + 1;
-		if (_drainHp <= 0) {
-			_drainHp = 1;
-		}
+		_drainHp = Math.max(1, (dmg / 8) + 1);
 		return _drainHp;
 	}
 
