@@ -25,7 +25,6 @@ import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.SkillTable;
-import l1j.server.server.model.Element;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -54,8 +53,6 @@ public class L1Magic {
 
 	private final L1Character _attacker;
 	private final L1Character _target;
-	private static final int[] PREVENT_DAMAGE = { ABSOLUTE_BARRIER, ICE_LANCE,
-		FREEZING_BLIZZARD, FREEZING_BREATH, EARTH_BIND };
 
 	// Candidates for configuration options.
 	private static final int MAX_PROBABILITY = 90;
@@ -316,35 +313,27 @@ public class L1Magic {
 		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 			damage = calcNpcMagicDamage(skillId);
 		}
-		if (skillId != JOY_OF_PAIN && skillId != FINAL_BURN) {
-		return calcMrDefense(damage); } else {
-		return damage;
-		}
+		return skillId == JOY_OF_PAIN || skillId == FINAL_BURN
+			? damage
+			: calcMrDefense(damage);
 	}
 
 	public int calcFireWallDamage() {
-
 		double attrDeffence = calcAttrResistance(Element.Fire);
 		L1Skill firewall = SkillTable.getInstance().findBySkillId(FIRE_WALL);
 		int damage = (int) ((1.0 - attrDeffence) * firewall.getDamageValue());
 
-
-		for (int skill : PREVENT_DAMAGE) {
-			if (_target.hasSkillEffect(skill)) {
-				damage = 0;
-				break;
-			}
+		if (L1Attack.isImmune(_target)) {
+			damage = 0;
 		}
+		
 		return damage < 0 ? 0 : damage;
 	}
 
 	private int calcPcMagicDamage(int skillId) {
-		
 		int dmg = skillId == FINAL_BURN
 			? _attacker.getCurrentMp()
 			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
-		
-
 
 		dmg -= _targetPc.getDamageReductionByArmor(); 
 		
@@ -417,11 +406,8 @@ public class L1Magic {
 		if (_targetPc.hasSkillEffect(IMMUNE_TO_HARM)) {
 			dmg /= 2;
 		}
-		for (int skill : PREVENT_DAMAGE) {
-			if (_target.hasSkillEffect(skill)) {
-				dmg = 0;
-				break;
-			}
+		if (L1Attack.isImmune(_target)) {
+			dmg = 0;
 		}
 		if (_targetPc.hasSkillEffect(COUNTER_MIRROR)) {
 			if (_calcType == PC_PC) {
@@ -474,6 +460,8 @@ public class L1Magic {
 	 * Whether or not the attacker (still) needs a buff to affect the
 	 * target. Only arises in pve situations, e.g. attacking Chaos.
 	 * TODO: find a better name.
+	 * TODO: L1Attack and L1Magic both need this check. Duplicating code to
+	 * 		 avoid lots of casting. (Need to test whether it's really worth it.)
 	 */
 	private boolean isMissingSkillEffect() {
 		if (_calcType == PC_NPC && _targetNpc != null) {
@@ -485,50 +473,29 @@ public class L1Magic {
 					return !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
 				case 45941:
 					return !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA);
-				case 45752:
+				case 45752: case 45753:
 					return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
-				case 45753:
-					return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
-				case 45675: 
-					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
-				case 81082: 
-					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
-				case 45625: 
-					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
-				case 45674: 
-					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
-				case 45685: 
+				case 45675: case 81082: case 45625: case 45674: case 45685: 
 					return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
 			}
-			if (npcId >= 46068 && npcId <= 46091
-					&& _pc.getTempCharGfx() == 6035) {
-				return true;
+			if (npcId >= 46068 && npcId <= 46091) {
+				return _pc.getTempCharGfx() == 6035;
 			}
-			if (npcId >= 46092 && npcId <= 46106
-					&& _pc.getTempCharGfx() == 6034) {
-				return true;
+			if (npcId >= 46092 && npcId <= 46106) {
+				return _pc.getTempCharGfx() == 6034;
 			}
 		}
 		return false;
 	}
 
 	private int calcNpcMagicDamage(int skillId) {
-		/*
-		int dmg = skillId == FINAL_BURN
-			? _attacker.getCurrentMp()
-			: (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
-		*/
-		
 		int dmg = 0;
 		
 		if (skillId == FINAL_BURN) {
 			dmg = _attacker.getCurrentMp();
 		} else if (skillId == JOY_OF_PAIN) {
 			int missinghp = _attacker.getMaxHp() - _attacker.getCurrentHp();
-			dmg = missinghp/3;
-			if (dmg < 5) {
-				dmg = 5;
-			}			
+			dmg = Math.max(missinghp / 3, 5);
 		} else {
 			dmg = (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
 		}
@@ -550,34 +517,24 @@ public class L1Magic {
 				}
 			}
 		}
-		// TODO: introduced a bug if npcs had a legit way to get Absolute
-		// Barrier cast on them and PCs are supposed to hit through it.
-		for (int skill : PREVENT_DAMAGE) {
-			if (_target.hasSkillEffect(skill)) {
-				dmg = 0;
-				break;
-			}
-		}
-		if (isMissingSkillEffect()) {
+		if (L1Attack.isImmune(_target) || isMissingSkillEffect()) {
 			dmg = 0;
 		}
 		return dmg;
 	}
 
 	private int calcMagicDiceDamage(int skillId) {
-
 		L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 		int dice = skill.getDamageDice();
 		int diceCount = skill.getDamageDiceCount();
 		int value = (int) skill.getDamageValue();
 
-		int magicDamage = 0;
-		int charaIntelligence = 0;
+		int damage = 0;
 
 		for (int i = 0; i < diceCount; i++) {
-			magicDamage += (_random.nextInt(dice) + 1);
+			damage += (_random.nextInt(dice) + 1);
 		}
-		magicDamage += value;
+		damage += value;
 
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
 			int weaponAddDmg = 0;
@@ -585,27 +542,24 @@ public class L1Magic {
 			if (weapon != null) {
 				weaponAddDmg = weapon.getItem().getMagicDmgModifier();
 			}
-			magicDamage += weaponAddDmg;
+			damage += weaponAddDmg;
 		}
 		int spByItem = _attacker.getSp() - _attacker.getTrueSp();
-		charaIntelligence = _attacker.getInt() + spByItem - INT_ADJUSTMENT;
-		if (charaIntelligence < 1) {
-			charaIntelligence = 1;
-		}
-		double attrDeffence = calcAttrResistance(skill.getAttr());
-		double coefficient = (1.0 - attrDeffence + charaIntelligence * 3.0 / 32.0);
-		if (coefficient < 0) {
-			coefficient = 0;
-		}
+		int charaIntelligence = 
+			Math.max(_attacker.getInt() + spByItem - INT_ADJUSTMENT, 1);
 
-		magicDamage *= coefficient;
+		double attrDeffence = calcAttrResistance(skill.getAttr());
+		double coefficient = 
+			Math.max((1.0 - attrDeffence + charaIntelligence * 3.0 / 32.0), 0);
+
+		damage *= coefficient;
 
 		// TODO: determine proper place (order of operations-wise) for this.
 		if (_calcType == PC_NPC) {
 			int weakness = _targetNpc.getNpcTemplate().get_weakAttr();
 			int element = skill.getAttr();
 			if (element != Element.None && weakness == element) {
-				magicDamage *= ELEMENTAL_WEAKNESS_MULTIPLIER;
+				damage *= ELEMENTAL_WEAKNESS_MULTIPLIER;
 			}
 		}
 
@@ -613,32 +567,29 @@ public class L1Magic {
 			if (skill.getSkillLevel() <= CRIT_LEVEL_LIMIT &&
 					_random.nextInt(100) + 1 <= BASE_CRIT_RATE +
 						_pc.getOriginalMagicCritical()) {
-				magicDamage *= CRIT_MULTIPLIER;
+				damage *= CRIT_MULTIPLIER;
 			}
 
-			magicDamage += _pc.getOriginalMagicDamage();
+			damage += _pc.getOriginalMagicDamage();
 			
 			if (_pc.hasSkillEffect(ILLUSION_AVATAR)) {
-				magicDamage += 10;
+				damage += 10;
 			}
 		}
-		return magicDamage;
+		return damage;
 	}
 
 	public int calcHealing(int skillId) {
-		L1Skill l1skills = SkillTable.getInstance().findBySkillId(skillId);
-		int dice = l1skills.getDamageDice();
-		int value = (int)l1skills.getDamageValue();
-		int magicDamage = 0;
+		L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
+		int dice = skill.getDamageDice();
+		int value = (int) skill.getDamageValue();
+		int damage = 0;
 
-		int magicBonus = _attacker.getMagicBonus();
-		if (magicBonus > 10) {
-			magicBonus = 10;
-		}
+		int magicBonus = Math.min(10, _attacker.getMagicBonus());
 
 		int diceCount = value + magicBonus;
 		for (int i = 0; i < diceCount; i++) {
-			magicDamage += (_random.nextInt(dice) + 1);
+			damage += (_random.nextInt(dice) + 1);
 		}
 
 		double alignmentRevision = 1.0;
@@ -646,9 +597,9 @@ public class L1Magic {
 			alignmentRevision += (_attacker.getLawful() / 32768.0);
 		}
 
-		magicDamage *= alignmentRevision;
-		magicDamage = (magicDamage * getLeverage()) / 10;
-		return magicDamage;
+		damage *= alignmentRevision;
+		damage = (damage * getLeverage()) / 10;
+		return damage;
 	}
 
 	private int calcMrDefense(int dmg) {
