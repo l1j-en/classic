@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -44,6 +45,7 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.types.Point;
+import l1j.server.server.utils.collections.IntArrays;
 import static l1j.server.server.model.skill.L1SkillId.*;
 import static l1j.server.server.model.item.L1ItemId.SayhasBow;
 
@@ -150,6 +152,8 @@ public class L1Attack {
 			}
 			strDmg[str] = dmg;
 		}
+
+		Arrays.sort(PREVENT_DAMAGE);
 	}
 
 	private static final int[] dexDmg = new int[128];

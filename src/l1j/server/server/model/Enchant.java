@@ -1,5 +1,6 @@
 package l1j.server.server.model;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,11 +10,13 @@ import l1j.server.server.datatables.LogEnchantTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.serverpackets.S_ItemStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.templates.L1Item;
+import l1j.server.server.utils.collections.IntArrays;
 
 public class Enchant {
 	private static final Random _random = new Random();
@@ -27,6 +30,11 @@ public class Enchant {
 	private static final int[] IvoryTowerArmor =
 		new int[] { 20028, 20082, 20126, 20173, 20206, 20232, 21138, 21051, 
 			21052, 21053, 21054, 21055, 21056, 21140, 21141 };
+
+	static {
+		Arrays.sort(IvoryTowerWeapons);
+		Arrays.sort(IvoryTowerArmor);
+	}
 	
 	private enum Result {
 		Success,
@@ -87,9 +95,6 @@ public class Enchant {
 
 	public static void enchantAccessory(final L1PcInstance player, 
 			final L1ItemInstance scroll, final L1ItemInstance accessory) {
-		player.sendPackets(new S_SystemMessage(
-				"Accessory enchanting isn't ready yet."));
-		
 		/*
 		if (!Config.ACCESSORY_ENCHANTING) {
 			player.sendPackets(new S_SystemMessage(
@@ -102,88 +107,86 @@ public class Enchant {
 				(accessoryBase.getType2() != 2 || 
 				 accessoryBase.getType() < 8 ||
 				 accessoryBase.getType() > 12 || 
-				 accessoryBase.getGrade() == -1)) { // 封印中
+				 accessoryBase.getGrade() == -1)) {
 			player.sendPackets(new S_ServerMessage(79));
 			return;
-				 }
+		}
 
-		int enchantLevel = accessory.getEnchantLevel();
+		int level = accessory.getEnchantLevel();
 
-		if (enchantLevel < 0 || 
-				enchantLevel >= Config.ACCESSORY_ENCHANT_LIMIT) {
+		if (level < 0 || level >= Config.ACCESSORY_ENCHANT_LIMIT) {
 			player.sendPackets(new S_ServerMessage(79));
 			return;
-				}
+		}
 
-		int rnd = _random.nextInt(100) + 1;
-		int itemStatus = 0;
-		boolean award = enchantLevel > 0 && enchantLevel % 5 == 0;
 		// Roughly +0-85% ~ +9-40%
-		int enchant_chance_accessory = 
-			(50 + enchantLevel) / (enchantLevel + 1) + 35;
+		int chance = (50 + level) / (level + 1) + 35;
 
-		if (rnd < enchant_chance_accessory) {
-			switch (accessory.getItem().getGrade()) {
-				case 0:
-					accessory.setEarthMr(accessory.getEarthMr() + 1);
-					itemStatus += L1PcInventory.COL_EARTHMR;
-					accessory.setFireMr(accessory.getFireMr() + 1);
-					itemStatus += L1PcInventory.COL_FIREMR;
-					accessory.setWaterMr(accessory.getWaterMr() + 1);
-					itemStatus += L1PcInventory.COL_WATERMR;
-					accessory.setWindMr(accessory.getWindMr() + 1);
-					itemStatus += L1PcInventory.COL_WINDMR;
-					if (award) {
-						accessory.setHpr(accessory.getHpr() + 1);
-						itemStatus += L1PcInventory.COL_HPR;
-						accessory.setMpr(accessory.getMpr() + 1);
-						itemStatus += L1PcInventory.COL_MPR;
-					}
-					if (accessory.isEquipped()) {
-						player.addFire(1);
-						player.addWater(1);
-						player.addEarth(1);
-						player.addWind(1);
-					}
-					break;
-				case 1:
-					accessory.setaddHp(accessory.getaddHp() + 2);
-					itemStatus += L1PcInventory.COL_ADDHP;
-					if (award) {
-						accessory.setM_Def(accessory.getM_Def() + 1);
-						itemStatus += L1PcInventory.COL_M_DEF;
-					}
-					if (accessory.isEquipped()) {
-						player.addMaxHp(2);
-						if (award) {
-							player.addMr(1);
-							player.sendPackets(new S_SPMR(player));
-						}
-					}
-					break;
-				case 2:
-					accessory.setaddMp(accessory.getaddMp() + 1);
-					itemStatus += L1PcInventory.COL_ADDMP;
-					if (award) {
-						accessory.setaddSp(accessory.getaddSp() + 1);
-						itemStatus += L1PcInventory.COL_ADDSP;
-					}
-					if (accessory.isEquipped()) {
-						player.addMaxMp(1);
-						if (award) {
-							player.addSp(1);
-							player.sendPackets(new S_SPMR(player));
-						}
-					}
-					break;
-				default:
-					player.sendPackets(new S_ServerMessage(79));
-					return;
-			}
-		} else {
+		if (_random.nextInt(100) + 1 > chance) {
 			failureEnchant(player, accessory);
 			player.getInventory().removeItem(scroll, 1);
 			return;
+		}
+
+		int itemStatus = 0;
+		boolean award = level > 0 && level % 5 == 0;
+
+		switch (accessory.getItem().getGrade()) {
+			case 0:
+				accessory.setEarthMr(accessory.getEarthMr() + 1);
+				itemStatus += L1PcInventory.COL_EARTHMR;
+				accessory.setFireMr(accessory.getFireMr() + 1);
+				itemStatus += L1PcInventory.COL_FIREMR;
+				accessory.setWaterMr(accessory.getWaterMr() + 1);
+				itemStatus += L1PcInventory.COL_WATERMR;
+				accessory.setWindMr(accessory.getWindMr() + 1);
+				itemStatus += L1PcInventory.COL_WINDMR;
+				if (award) {
+					accessory.setHpr(accessory.getHpr() + 1);
+					itemStatus += L1PcInventory.COL_HPR;
+					accessory.setMpr(accessory.getMpr() + 1);
+					itemStatus += L1PcInventory.COL_MPR;
+				}
+				if (accessory.isEquipped()) {
+					player.addFire(1);
+					player.addWater(1);
+					player.addEarth(1);
+					player.addWind(1);
+				}
+				break;
+			case 1:
+				accessory.setaddHp(accessory.getaddHp() + 2);
+				itemStatus += L1PcInventory.COL_ADDHP;
+				if (award) {
+					accessory.setM_Def(accessory.getM_Def() + 1);
+					itemStatus += L1PcInventory.COL_M_DEF;
+				}
+				if (accessory.isEquipped()) {
+					player.addMaxHp(2);
+					if (award) {
+						player.addMr(1);
+						player.sendPackets(new S_SPMR(player));
+					}
+				}
+				break;
+			case 2:
+				accessory.setaddMp(accessory.getaddMp() + 1);
+				itemStatus += L1PcInventory.COL_ADDMP;
+				if (award) {
+					accessory.setaddSp(accessory.getaddSp() + 1);
+					itemStatus += L1PcInventory.COL_ADDSP;
+				}
+				if (accessory.isEquipped()) {
+					player.addMaxMp(1);
+					if (award) {
+						player.addSp(1);
+						player.sendPackets(new S_SPMR(player));
+					}
+				}
+				break;
+			default:
+				player.sendPackets(new S_ServerMessage(79));
+				return;
 		}
 		successEnchant(player, accessory, 1);
 		player.sendPackets(new S_ItemStatus(accessory));
@@ -309,14 +312,8 @@ public class Enchant {
 				}
 
 		int weaponId = weapon.getItem().getItemId();
-		boolean found = false;
-		for (int ivoryTowerWeapon : IvoryTowerWeapons) {
-			if (weaponId == ivoryTowerWeapon) {
-				found = true;
-				break;
-			} 
-		}
-		if (!found) {
+
+		if (!IntArrays.sContains(IvoryTowerWeapons, weaponId)) {
 			player.sendPackets(new S_ServerMessage(79));
 			return;
 		}
@@ -339,14 +336,7 @@ public class Enchant {
 			return;
 		}
 
-		boolean found = false;
-		for (int ivoryTowerArmor : IvoryTowerArmor) {
-			if (armorId == ivoryTowerArmor) {
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
+		if (!IntArrays.sContains(IvoryTowerArmor, armorId)) {
 			player.sendPackets(new S_ServerMessage(79));
 			return;
 		}
@@ -362,11 +352,8 @@ public class Enchant {
 
 	private static boolean scrollMatchesWeapon(final int weaponId,
 			final int scrollId) {
-		for (int ivoryTowerWeapon : IvoryTowerWeapons) {
-			if (ivoryTowerWeapon == weaponId) {
-				return false;
-			}
-		}
+		if (IntArrays.sContains(IvoryTowerWeapons, weaponId))
+			return false;
 		
 		if (weaponId >= 246 && weaponId <= 249) {
 			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON;
@@ -389,12 +376,8 @@ public class Enchant {
 
 	private static boolean scrollMatchesArmor(final int armorId,
 			final int scrollId) {
-
-		for (int ivoryTowerArmor : IvoryTowerArmor) {
-			if (armorId == ivoryTowerArmor) {
-				return false;
-			}
-		}
+		if (IntArrays.sContains(IvoryTowerArmor, armorId))
+			return false;
 		
 		if (armorId == 20161 || (armorId >= 21035 && armorId <= 21038)) {
 			return scrollId == L1ItemId.ScrollOfEnchantArmorIllusion;
