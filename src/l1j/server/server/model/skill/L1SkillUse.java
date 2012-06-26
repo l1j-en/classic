@@ -22,6 +22,7 @@ package l1j.server.server.model.skill;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -109,6 +110,7 @@ import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
+import l1j.server.server.utils.collections.IntArrays;
 
 public class L1SkillUse {
 	public static final int TYPE_NORMAL = 0;
@@ -157,40 +159,79 @@ public class L1SkillUse {
 
 	private static Logger _log = Logger.getLogger(L1SkillUse.class.getName());
 
-	private static final int[] CAST_WITH_INVIS = { 1, 2, 3, 5, 8, 9, 12, 13,
-		14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55, 57,
-		60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79, REDUCTION_ARMOR,
-		BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER, 97, 98, 99, 100,
-		101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114, 115, 116,
-		117, 118, 129, 130, 131, 133, 134, 137, 138, 146, 147, 148, 149,
+	private static final int[] CAST_WITH_INVIS =
+	{
+		1, 2, 3, 5, 8, 9, 12, 13, 14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44,
+		48, 49, 52, 54, 55, 57, 60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79,
+		REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER, 97, 98,
+		99, 100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114, 115,
+		116, 117, 118, 129, 130, 131, 133, 134, 137, 138, 146, 147, 148, 149,
 		150, 151, 155, 156, 158, 159, 163, 164, 165, 166, 168, 169, 170,
 		171, SOUL_OF_FLAME, ADDITIONAL_FIRE, DRAGON_SKIN, AWAKEN_ANTHARAS,
 		AWAKEN_FAFURION, AWAKEN_VALAKAS, MIRROR_IMAGE, ILLUSION_OGRE,
-		ILLUSION_LICH, PATIENCE, ILLUSION_DIA_GOLEM, INSIGHT,
-		ILLUSION_AVATAR };
+		ILLUSION_LICH, PATIENCE, ILLUSION_DIA_GOLEM, INSIGHT, ILLUSION_AVATAR
+	};
 
-private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
-		13, 14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55,
-		57, 60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79, SHOCK_STUN,
-		REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER,
-		97, 98, 99, 100, 101, 102, 104, 105, 106, 107, 109, 110, 111, 113,
-		114, 115, 116, 117, 118, 129, 130, 131, 132, 134, 137, 138, 146,
-		147, 148, 149, 150, 151, 155, 156, 158, 159, 161, 163, 164, 165,
-		166, 168, 169, 170, 171, SOUL_OF_FLAME, ADDITIONAL_FIRE,
-		DRAGON_SKIN, FOE_SLAYER,
-		AWAKEN_ANTHARAS, AWAKEN_FAFURION, AWAKEN_VALAKAS,
-		MIRROR_IMAGE, ILLUSION_OGRE, ILLUSION_LICH, PATIENCE, 10026, 10027,
-		ILLUSION_DIA_GOLEM, INSIGHT, ILLUSION_AVATAR, 10028, 10029 };
+	private static final int[] EXCEPT_COUNTER_MAGIC =
+	{
+		1, 2, 3, 5, 8, 9, 12, 13, 14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44,
+		48, 49, 52, 54, 55, 57, 60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79,
+		SHOCK_STUN, REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, 
+		COUNTER_BARRIER, 97, 98, 99, 100, 101, 102, 104, 105, 106, 107, 109,
+		110, 111, 113, 114, 115, 116, 117, 118, 129, 130, 131, 132, 134, 137,
+		138, 146, 147, 148, 149, 150, 151, 155, 156, 158, 159, 161, 163, 164,
+		165, 166, 168, 169, 170, 171, SOUL_OF_FLAME, ADDITIONAL_FIRE,
+		DRAGON_SKIN, FOE_SLAYER, AWAKEN_ANTHARAS, AWAKEN_FAFURION,
+		AWAKEN_VALAKAS, MIRROR_IMAGE, ILLUSION_OGRE, ILLUSION_LICH, PATIENCE,
+		10026, 10027, ILLUSION_DIA_GOLEM, INSIGHT, ILLUSION_AVATAR, 10028, 10029
+	};
+
+	private static final int[] UNCANCELABLE =
+	{ 
+		ENCHANT_WEAPON, BLESSED_ARMOR, ABSOLUTE_BARRIER, ADVANCE_SPIRIT,
+		SHOCK_STUN, SHADOW_FANG, REDUCTION_ARMOR, SOLID_CARRIAGE,
+		COUNTER_BARRIER, AWAKEN_ANTHARAS, AWAKEN_FAFURION, AWAKEN_VALAKAS,
+		BONE_BREAK, MASS_SHOCK_STUN, CONFUSION
+	};
+		
+	private static final int[][] NONOVERLAPPING_SKILLS = {
+		// これらはL1ItemInstanceで管理
+		// { HOLY_WEAPON, ENCHANT_WEAPON, BLESS_WEAPON, SHADOW_FANG },
+		{ FIRE_WEAPON, WIND_SHOT, FIRE_BLESS, STORM_EYE,
+			BURNING_WEAPON, STORM_SHOT },
+		{ SHIELD, SHADOW_ARMOR, EARTH_SKIN, EARTH_BLESS, IRON_SKIN },
+		{ HOLY_WALK, MOVING_ACCELERATION, WIND_WALK, STATUS_BRAVE,
+			STATUS_ELFBRAVE, BLOODLUST },
+		{ HASTE, GREATER_HASTE, STATUS_HASTE },
+		{ PHYSICAL_ENCHANT_DEX, DRESS_DEXTERITY },
+		{ PHYSICAL_ENCHANT_STR, DRESS_MIGHTY },
+		{ GLOWING_AURA, SHINING_AURA }
+	};
+	
+	// Poison, paralysis, polymorphs, and item-targeted spells all get
+	// handled separately.
+	private static final int[] SEPARATE_TIMERS =
+	{
+		CURSE_POISON, CURSE_PARALYZE, CURSE_PARALYZE2, SHAPE_CHANGE,
+		BLESSED_ARMOR, HOLY_WEAPON, BLESS_WEAPON, SHADOW_FANG,
+		AWAKEN_ANTHARAS, AWAKEN_FAFURION, AWAKEN_VALAKAS
+	};
 
 
-	public L1SkillUse() {
+	static {
+		Arrays.sort(CAST_WITH_INVIS);
+		Arrays.sort(EXCEPT_COUNTER_MAGIC);
+		Arrays.sort(UNCANCELABLE);
+		Arrays.sort(SEPARATE_TIMERS);
 	}
+
+	public L1SkillUse() {}
 
 	private static class TargetStatus {
 		private L1Character _target = null;
-		private boolean _isAction = false; // ダメージモーションが発生するか？
-		private boolean _isSendStatus = false; // キャラクターステータスを送信するか？（ヒール、スローなど状態が変わるとき送る）
-		private boolean _isCalc = true; // ダメージや確率魔法の計算をする必要があるか？
+		private boolean _isAction = false;
+		private boolean _isSendStatus = false;
+		private boolean _isCalc = true;
 
 		public TargetStatus(L1Character _cha) {
 			_target = _cha;
@@ -247,9 +288,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 	public boolean checkUseSkill(L1PcInstance player, int skillid,
 			int target_id, int x, int y, String message, int time, int type,
 			L1Character attacker) {
-		// 初期設定ここから
 		setCheckedUseSkill(true);
-		_targetList = new ArrayList<TargetStatus>(); // ターゲットリストの初期化
+		_targetList = new ArrayList<TargetStatus>();
 
 		_skill = SkillTable.getInstance().findBySkillId(skillid);
 		_skillId = skillid;
@@ -331,14 +371,14 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				|| _skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON
 				|| _skillId == SHADOW_FANG) {
 			_itemobjid = target_id;
-		}
+				}
 		_target = (L1Character) l1object;
 
 		if (!(_target instanceof L1MonsterInstance)
 				&& _skill.getTarget().equals("attack")
 				&& _user.getId() != target_id) {
 			_isPK = true; // ターゲットがモンスター以外で攻撃系スキルで、自分以外の場合PKモードとする。
-		}
+				}
 
 		// 初期設定ここまで
 
@@ -360,8 +400,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 	 * @return false スキルが使用不可能な状態である場合
 	 */
 	private boolean isNormalSkillUsable() {
-
-		// スキル使用者がPCの場合のチェック
 		if (_user instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) _user;
 			L1PcInventory pcInventory = pc.getInventory();
@@ -370,47 +408,42 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				return false;
 			}
 			if ((pc.isInvisble() || pc.isInvisDelay())
-					&& !isInvisUsableSkill()) { // インビジ中に使用不可のスキル
+					&& !isInvisUsableSkill(_skillId)) {
 				return false;
 			}
-			if (pc.getInventory().getWeight240() >= 197) { // 重量オーバーならスキルを使用できない
+			if (pc.getInventory().getWeight240() >= 197) {
 				pc.sendPackets(new S_ServerMessage(316));
 				return false;
 			}
 			int polyId = pc.getTempCharGfx();
 			L1PolyMorph poly = PolyTable.getInstance().getTemplate(polyId);
-			// 魔法が使えない変身
 			if (poly != null && !poly.canUseSkill()) {
-				pc.sendPackets(new S_ServerMessage(285)); // \f1その状態では魔法を使えません。
+				pc.sendPackets(new S_ServerMessage(285));
 				return false;
 			}
 
-			if (!isAttrAgrees()) { // 精霊魔法で、属性が一致しなければ何もしない。
+			if (!isAttrAgrees()) {
 				return false;
 			}
 
 			if (_skillId == ELEMENTAL_PROTECTION && pc.getElfAttr() == 0) {
-				pc.sendPackets(new S_ServerMessage(280)); // \f1魔法が失敗しました。
+				pc.sendPackets(new S_ServerMessage(280));
 				return false;
 			}
 
-			// スキルディレイ中使用不可
 			if (pc.isSkillDelay()) {
 				return false;
 			}
 
-			// サイレンス状態では使用不可
 			if (pc.hasSkillEffect(SILENCE)
 					|| pc.hasSkillEffect(AREA_OF_SILENCE)
 					|| pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
-				pc.sendPackets(new S_ServerMessage(285)); // \f1その状態では魔法を使えません。
+				pc.sendPackets(new S_ServerMessage(285));
 				return false;
 			}
 
-			// DIGはロウフルでのみ使用可
 			if (_skillId == DISINTEGRATE && pc.getLawful() < 500) {
-				// このメッセージであってるか未確認
-				pc.sendPackets(new S_ServerMessage(352, "$967")); // この魔法を利用するには性向値が%0でなければなりません。
+				pc.sendPackets(new S_ServerMessage(352, "$967"));
 				return false;
 			}
 
@@ -420,7 +453,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				boolean isNearSameCube = false;
 				int gfxId = 0;
 				for (L1Object obj : L1World.getInstance().getVisibleObjects(pc,
-						2)) {
+							2)) {
 					if (obj instanceof L1EffectInstance) {
 						L1EffectInstance effect = (L1EffectInstance) obj;
 						gfxId = effect.getGfxId();
@@ -439,7 +472,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				}
 			}
 
-			// 覚醒状態では覚醒スキル以外使用不可
 			if (pc.getAwakeSkillId() == AWAKEN_ANTHARAS
 					&& _skillId != AWAKEN_ANTHARAS && _skillId != MAGMA_BREATH
 					&& _skillId != SHOCK_SKIN && _skillId != FREEZING_BREATH
@@ -466,11 +498,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				_player.sendPackets(new S_ServerMessage(299)); // 詠唱する材料がありません。
 				return false;
 			}
-		}
-		// スキル使用者がNPCの場合のチェック
-		else if (_user instanceof L1NpcInstance) {
+		} else if (_user instanceof L1NpcInstance) {
 
-			// サイレンス状態では使用不可
 			if (_user.hasSkillEffect(SILENCE)) {
 				// NPCにサイレンスが掛かっている場合は1回だけ使用をキャンセルさせる効果。
 				_user.removeSkillEffect(SILENCE);
@@ -478,10 +507,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			}
 		}
 
-		// PC、NPC共通のチェック
-		if (!isHPMPConsume()) { // 消費HP、MPはあるか
+		if (!isHPMPConsume()) {
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -491,31 +520,24 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 	 * @return false スキルが使用不可能な状態である場合
 	 */
 	private boolean isSpellScrollUsable() {
-		// スペルスクロールを使用するのはPCのみ
 		L1PcInstance pc = (L1PcInstance) _user;
 
-		if (pc.isParalyzed()) { // 麻痺・凍結状態か
+		if (pc.isParalyzed()) {
 			return false;
 		}
 
-		// インビジ中に使用不可のスキル
-		if ((pc.isInvisble() || pc.isInvisDelay())
-				&& !isInvisUsableSkill()) {
+		if ((pc.isInvisble() || pc.isInvisDelay()) && 
+				!isInvisUsableSkill(_skillId)) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private boolean isInvisUsableSkill() {
-		for (int skillId : CAST_WITH_INVIS) {
-			if (skillId == _skillId) {
-				return true;
-			}
-		}
-		return false;
+	private static boolean isInvisUsableSkill(int skillId) {
+		return IntArrays.sContains(CAST_WITH_INVIS, skillId);
 	}
-	
+
 	public void handleCommands(L1PcInstance player, int skillId, int targetId,
 			int x, int y, String message, int timeSecs, int type) {
 		L1Character attacker = null;
@@ -528,7 +550,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			L1Character attacker) {
 
 		try {
-			// 事前チェックをしているか？
 			if (!isCheckedUseSkill()) {
 				boolean isUseSkill = checkUseSkill(player, skillId, targetId,
 						x, y, message, timeSecs, type, attacker);
@@ -554,7 +575,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						_skillTime = _skillTime > max ? max : _skillTime;
 					} else
 						_skillTime = _skill.getBuffDuration();
-					
+
 					runSkill();
 					useConsume();
 					sendGrfx(true);
@@ -585,21 +606,14 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 	 * スキルの失敗処理(PCのみ）
 	 */
 	private void failSkill() {
-		// HPが足りなくてスキルが使用できない場合のみ、MPのみ消費したいが未実装（必要ない？）
-		// その他の場合は何も消費されない。
-		// useConsume(); // HP、MPは減らす
 		setCheckedUseSkill(false);
-		// テレポートスキル
-		if (_skillId == TELEPORT || _skillId == MASS_TELEPORT
-				|| _skillId == TELEPORT_TO_MATHER) {
-			// テレポートできない場合でも、クライアント側は応答を待っている
-			// テレポート待ち状態の解除（第2引数に意味はない）
+		if (_skillId == TELEPORT || _skillId == MASS_TELEPORT ||
+				_skillId == TELEPORT_TO_MATHER) {
 			_player.sendPackets(new S_Paralysis(
-					S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
+						S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 		}
 	}
 
-	// ターゲットか？
 	private boolean isTarget(L1Character cha) {
 		boolean flg = false;
 
@@ -612,7 +626,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		if (_calcType == NPC_PC
 				&& (cha instanceof L1PcInstance || cha instanceof L1PetInstance || cha instanceof L1SummonInstance)) {
 			flg = true;
-		}
+				}
 
 		// 破壊不可能なドアは対象外
 		if (cha instanceof L1DoorInstance) {
@@ -632,16 +646,16 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				&& !(_target instanceof L1PetInstance)
 				&& !(_target instanceof L1SummonInstance)
 				&& (cha instanceof L1PetInstance
-						|| cha instanceof L1SummonInstance || cha instanceof L1PcInstance)) {
+					|| cha instanceof L1SummonInstance || cha instanceof L1PcInstance)) {
 			return false;
-		}
+					}
 
 		// 元のターゲットがガード以外のNPCの場合、ガードは対象外
 		if (_calcType == PC_NPC && _target instanceof L1NpcInstance
 				&& !(_target instanceof L1GuardInstance)
 				&& cha instanceof L1GuardInstance) {
 			return false;
-		}
+				}
 
 		// NPC対PCでターゲットがモンスターの場合ターゲットではない。
 		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
@@ -650,7 +664,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				&& !(cha instanceof L1SummonInstance)
 				&& !(cha instanceof L1PcInstance)) {
 			return false;
-		}
+				}
 
 		// NPC対NPCで使用者がMOBで、ターゲットがMOBの場合ターゲットではない。
 		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
@@ -658,28 +672,28 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				&& _user instanceof L1MonsterInstance
 				&& cha instanceof L1MonsterInstance) {
 			return false;
-		}
+				}
 
 		// 無方向範囲攻撃魔法で攻撃できないNPCは対象外
 		if (_skill.getTarget().equals("none")
 				&& _skill.getType() == L1Skill.TYPE_ATTACK
 				&& (cha instanceof L1AuctionBoardInstance
-						|| cha instanceof L1BoardInstance
-						|| cha instanceof L1CrownInstance
-						|| cha instanceof L1DwarfInstance
-						|| cha instanceof L1EffectInstance
-						|| cha instanceof L1FieldObjectInstance
-						|| cha instanceof L1FurnitureInstance
-						|| cha instanceof L1HousekeeperInstance
-						|| cha instanceof L1MerchantInstance || cha instanceof L1TeleporterInstance)) {
+					|| cha instanceof L1BoardInstance
+					|| cha instanceof L1CrownInstance
+					|| cha instanceof L1DwarfInstance
+					|| cha instanceof L1EffectInstance
+					|| cha instanceof L1FieldObjectInstance
+					|| cha instanceof L1FurnitureInstance
+					|| cha instanceof L1HousekeeperInstance
+					|| cha instanceof L1MerchantInstance || cha instanceof L1TeleporterInstance)) {
 			return false;
-		}
+					}
 
 		// 攻撃系スキルで対象が自分は対象外
 		if (_skill.getType() == L1Skill.TYPE_ATTACK
 				&& cha.getId() == _user.getId()) {
 			return false;
-		}
+				}
 
 		// ターゲットが自分でH-Aの場合効果無し
 		if (cha.getId() == _user.getId() && _skillId == HEAL_ALL) {
@@ -688,11 +702,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 		int targetTo = _skill.getTargetTo();
 		if (((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC || 
-			 (targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || 
-			 (targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY) &&
+					(targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || 
+					(targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY) &&
 				cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
 			return true; // ターゲットがパーティーかクラン員のものは自分に効果がある。（ただし、ヒールオールは除外）
-		}
+				}
 
 		// スキル使用者がPCで、PKモードではない場合、自分のサモン・ペットは対象外
 		if (_user instanceof L1PcInstance
@@ -709,7 +723,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					return false;
 				}
 			}
-		}
+				}
 
 		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
 				&& !(cha instanceof L1MonsterInstance)
@@ -720,26 +734,26 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			if (_skillId == COUNTER_DETECTION
 					&& enemy.getZoneType() != 1
 					&& (cha.hasSkillEffect(INVISIBILITY) || cha
-							.hasSkillEffect(BLIND_HIDING))) {
+						.hasSkillEffect(BLIND_HIDING))) {
 				return true; // インビジかブラインドハイディング中
-			}
+						}
 			if (_player.getClanid() != 0 && enemy.getClanid() != 0) { // クラン所属中
 				// 全戦争リストを取得
 				for (L1War war : L1World.getInstance().getWarList()) {
 					if (war.CheckClanInWar(_player.getClanname())) { // 自クランが戦争に参加中
 						if (war.CheckClanInSameWar( // 同じ戦争に参加中
-								_player.getClanname(), enemy.getClanname())) {
+									_player.getClanname(), enemy.getClanname())) {
 							if (L1CastleLocation.checkInAllWarArea(
-									enemy.getX(), enemy.getY(), enemy
-											.getMapId())) {
+										enemy.getX(), enemy.getY(), enemy
+										.getMapId())) {
 								return true;
-							}
-						}
+										}
+									}
 					}
 				}
 			}
 			return false; // 攻撃スキルでPKモードじゃない場合
-		}
+				}
 
 		if (_user.glanceCheck(cha.getX(), cha.getY()) == false
 				&& _skill.isThrough() == false) {
@@ -748,18 +762,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				_isGlanceCheckFail = true;
 				return false; // 直線上に障害物がある
 			}
-		}
+				}
 
 		if (_skillId == ICE_LANCE || 
-		    _skillId == FREEZING_BLIZZARD ||
-			_skillId == FREEZING_BREATH)
+				_skillId == FREEZING_BLIZZARD ||
+				_skillId == FREEZING_BREATH)
 			if (cha.hasSkillEffect(ICE_LANCE) || 
-				cha.hasSkillEffect(FREEZING_BREATH) || 
-				cha.hasSkillEffect(FREEZING_BLIZZARD))
+					cha.hasSkillEffect(FREEZING_BREATH) || 
+					cha.hasSkillEffect(FREEZING_BLIZZARD))
 				return false;
 
 		if ((_skillId == EARTH_BIND || _skillId == BONE_BREAK ||
-			 _skillId == CONFUSION || _skillId == ARM_BREAKER) &&
+					_skillId == CONFUSION || _skillId == ARM_BREAKER) &&
 				cha.hasSkillEffect(EARTH_BIND))
 			return false;
 
@@ -774,24 +788,24 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		if (!(cha instanceof L1MonsterInstance)
 				&& (_skillId == TAMING_MONSTER || _skillId == CREATE_ZOMBIE)) {
 			return false; // ターゲットがモンスターじゃない（テイミングモンスター）
-		}
+				}
 		if (cha.isDead()
 				&& (_skillId != CREATE_ZOMBIE && _skillId != RESURRECTION
-						&& _skillId != GREATER_RESURRECTION && _skillId != CALL_OF_NATURE)) {
+					&& _skillId != GREATER_RESURRECTION && _skillId != CALL_OF_NATURE)) {
 			return false; // ターゲットが死亡している
-		}
+					}
 
 		if (cha.isDead() == false
 				&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
-						|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
+					|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
 			return false; // ターゲットが死亡していない
-		}
+					}
 
 		if ((cha instanceof L1TowerInstance || cha instanceof L1DoorInstance)
 				&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
-						|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
+					|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
 			return false; // ターゲットがガーディアンタワー、ドア
-		}
+					}
 
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;
@@ -835,8 +849,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			flg = true;
 		} else if ((targetTo & L1Skill.TARGET_TO_NPC) == L1Skill.TARGET_TO_NPC // ターゲットがNPC
 				&& (cha instanceof L1MonsterInstance
-						|| cha instanceof L1NpcInstance
-						|| cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
+					|| cha instanceof L1NpcInstance
+					|| cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
 			flg = true;
 		} else if ((targetTo & L1Skill.TARGET_TO_PET) == L1Skill.TARGET_TO_PET
 				&& _user instanceof L1PcInstance) { // ターゲットがSummon,Pet
@@ -856,25 +870,24 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					}
 				}
 			}
-		}
+				}
 
 		if (_calcType == PC_PC && cha instanceof L1PcInstance) {
 			if ((targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN
 					&& ((_player.getClanid() != 0 // ターゲットがクラン員
-					&& _player.getClanid() == ((L1PcInstance) cha).getClanid()) || _player.isGm())) {
+							&& _player.getClanid() == ((L1PcInstance) cha).getClanid()) || _player.isGm())) {
 				return true;
-			}
+							}
 			if ((targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY
 					&& (_player.getParty() // ターゲットがパーティー
-							.isMember((L1PcInstance) cha) || _player.isGm())) {
+						.isMember((L1PcInstance) cha) || _player.isGm())) {
 				return true;
-			}
+						}
 		}
 
 		return flg;
 	}
 
-	// ターゲットの一覧を作成
 	private void makeTargetList() {
 		try {
 			if (_type == TYPE_LOGIN) { // ログイン時(死亡時、お化け屋敷のキャンセレーション含む)は使用者のみ
@@ -885,14 +898,14 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					&& (_skill.getType() & L1Skill.TYPE_ATTACK) != L1Skill.TYPE_ATTACK) {
 				_targetList.add(new TargetStatus(_user)); // ターゲットは使用者のみ
 				return;
-			}
+					}
 
 			// 射程距離-1の場合は画面内のオブジェクトが対象
 			if (_skill.getRanged() != -1) {
 				if (_user.getLocation().getTileLineDistance(
-						_target.getLocation()) > _skill.getRanged()) {
+							_target.getLocation()) > _skill.getRanged()) {
 					return; // 射程範囲外
-				}
+							}
 			} else {
 				if (!_user.getLocation().isInScreen(_target.getLocation())) {
 					return; // 射程範囲外
@@ -903,11 +916,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					&& !(_skill.getTarget().equals("none"))) {
 				// 対象が違うのでスキルが発動しない。
 				return;
-			}
+					}
 
 			if (_skillId == LIGHTNING || _skillId == FREEZING_BREATH) { // ライトニング、フリージングブレス直線的に範囲を決める
 				ArrayList<L1Object> al1object = L1World.getInstance()
-						.getVisibleLineObjects(_user, _target);
+					.getVisibleLineObjects(_user, _target);
 
 				for (L1Object tgobj : al1object) {
 					if (tgobj == null) {
@@ -933,7 +946,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							&& _skillId != 10028 && _skillId != 10029) { // 安息攻撃以外の攻撃スキル
 						_targetList.add(new TargetStatus(_target, false)); // ダメージも発生しないし、ダメージモーションも発生しないが、スキルは発動
 						return;
-					}
+							}
 				}
 				_targetList.add(new TargetStatus(_target));
 			} else { // 範囲の場合
@@ -943,10 +956,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 				if (_skillId != 49
 						&& !(_skill.getTarget().equals("attack") || _skill
-								.getType() == L1Skill.TYPE_ATTACK)) {
+							.getType() == L1Skill.TYPE_ATTACK)) {
 					// 攻撃系以外のスキルとH-A以外はターゲット自身を含める
 					_targetList.add(new TargetStatus(_user));
-				}
+							}
 
 				List<L1Object> objects;
 				if (_skill.getArea() == -1) {
@@ -977,7 +990,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// メッセージの表示（何か起こったとき）
 	private void sendHappenMessage(L1PcInstance pc) {
 		int msgID = _skill.getSysmsgIdHappen();
 		if (msgID > 0) {
@@ -985,10 +997,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// 失敗メッセージ表示のハンドル
 	private void sendFailMessageHandle() {
-		// 攻撃スキル以外で対象を指定するスキルが失敗した場合は失敗したメッセージをクライアントに送信
-		// ※攻撃スキルは障害物があっても成功時と同じアクションであるべき。
 		if (_skill.getType() != L1Skill.TYPE_ATTACK
 				&& !_skill.getTarget().equals("none")
 				&& _targetList.size() == 0) {
@@ -996,7 +1005,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// メッセージの表示（失敗したとき）
 	private void sendFailMessage() {
 		int msgID = _skill.getSysmsgIdFail();
 		if (msgID > 0 && (_user instanceof L1PcInstance)) {
@@ -1004,7 +1012,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// 精霊魔法の属性と使用者の属性は一致するか？（とりあえずの対処なので、対応できたら消去して下さい)
 	private boolean isAttrAgrees() {
 		int magicattr = _skill.getAttr();
 		if (_user instanceof L1NpcInstance) { // NPCが使った場合なんでもOK
@@ -1017,10 +1024,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				&& !_player.isGm()) { // ただしGMは例外
 			return false;
 		}
+		
 		return true;
 	}
 
-	// 必要ＨＰ、ＭＰがあるか？
 	private boolean isHPMPConsume() {
 		_mpConsume = _skill.getMpConsume();
 		_hpConsume = _skill.getHpConsume();
@@ -1069,7 +1076,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				_mpConsume -= (_player.getInt() - 12);
 			}
 
-			// MPの装備軽減
 			if (_skillId == PHYSICAL_ENCHANT_DEX
 					&& _player.getInventory().checkEquipped(20013)) { // 迅速ヘルム装備中にPE:DEX
 				_mpConsume /= 2;
@@ -1133,9 +1139,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		return true;
 	}
 
-	// 必要材料があるか？
 	private boolean isItemConsume() {
-
 		int itemConsume = _skill.getItemConsumeId();
 		int itemConsumeCount = _skill.getItemConsumeCount();
 
@@ -1197,19 +1201,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		_player.getInventory().consumeItem(itemConsume, itemConsumeCount);
 	}
 
-	// マジックリストに追加する。
 	private void addMagicList(L1Character cha, boolean repetition) {
 		int buffDuration;
 		if (_skillTime == 0) {
-			buffDuration = _skill.getBuffDuration() * 1000; // 効果時間
+			buffDuration = _skill.getBuffDuration() * 1000;
 			if (_skill.getBuffDuration() == 0) {
-				if (_skillId == INVISIBILITY) { // インビジビリティ
+				if (_skillId == INVISIBILITY) {
 					cha.setSkillEffect(INVISIBILITY, 0);
 				}
 				return;
 			}
 		} else {
-			buffDuration = _skillTime * 1000; // パラメータのtimeが0以外なら、効果時間として設定する
+			buffDuration = _skillTime * 1000;
 		}
 
 		if (_skillId == SHOCK_STUN || _skillId == MASS_SHOCK_STUN) {
@@ -1221,33 +1224,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		if (_skillId == CONFUSION) {
 			buffDuration = _confusionDuration;
 		}
-		if (_skillId == CURSE_POISON) { // カーズポイズンの効果処理はL1Poisonに移譲。
+
+		if (IntArrays.sContains(SEPARATE_TIMERS, _skillId))
 			return;
-		}
-		if (_skillId == CURSE_PARALYZE || _skillId == CURSE_PARALYZE2) { // カーズパラライズの効果処理はL1CurseParalysisに移譲。
-			return;
-		}
-		if (_skillId == SHAPE_CHANGE) { // シェイプチェンジの効果処理はL1PolyMorphに移譲。
-			return;
-		}
-		if (_skillId == BLESSED_ARMOR
-				|| _skillId == HOLY_WEAPON // 武器・防具に効果がある処理はL1ItemInstanceに移譲。
-				|| _skillId == ENCHANT_WEAPON || _skillId == BLESS_WEAPON
-				|| _skillId == SHADOW_FANG) {
-			return;
-		}
+
 		if ((_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD || _skillId == FREEZING_BREATH)
-				&& !_isFreeze) { // 凍結失敗
-			return;
-		}
-		if (_skillId == AWAKEN_ANTHARAS || _skillId == AWAKEN_FAFURION
-				|| _skillId == AWAKEN_VALAKAS) { // 覚醒の効果処理はL1Awakeに移譲。
+				&& !_isFreeze) {
 			return;
 		}
 
 		cha.setSkillEffect(_skillId, buffDuration);
 
-		if (cha instanceof L1PcInstance && repetition) { // 対象がPCで既にスキルが重複している場合
+		if (cha instanceof L1PcInstance && repetition) {
 			L1PcInstance pc = (L1PcInstance) cha;
 			sendIcon(pc);
 		}
@@ -1262,60 +1250,83 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			buffIconDuration = _skillTime; // パラメータのtimeが0以外なら、効果時間として設定する
 		}
 
-		if (_skillId == SHIELD) { // シールド
-			pc.sendPackets(new S_SkillIconShield(5, buffIconDuration));
-		} else if (_skillId == SHADOW_ARMOR) { // シャドウ アーマー
-			pc.sendPackets(new S_SkillIconShield(3, buffIconDuration));
-		} else if (_skillId == DRESS_DEXTERITY) { // ドレス デクスタリティー
-			pc.sendPackets(new S_Dexup(pc, 2, buffIconDuration));
-		} else if (_skillId == DRESS_MIGHTY) { // ドレス マイティー
-			pc.sendPackets(new S_Strup(pc, 2, buffIconDuration));
-		} else if (_skillId == GLOWING_AURA) { // グローウィング オーラ
-			pc.sendPackets(new S_SkillIconAura(113, buffIconDuration));
-		} else if (_skillId == SHINING_AURA) { // シャイニング オーラ
-			pc.sendPackets(new S_SkillIconAura(114, buffIconDuration));
-		} else if (_skillId == BRAVE_AURA) { // ブレイブ オーラ
-			pc.sendPackets(new S_SkillIconAura(116, buffIconDuration));
-		} else if (_skillId == FIRE_WEAPON) { // ファイアー ウェポン
-			pc.sendPackets(new S_SkillIconAura(147, buffIconDuration));
-		} else if (_skillId == WIND_SHOT) { // ウィンド ショット
-			pc.sendPackets(new S_SkillIconAura(148, buffIconDuration));
-		} else if (_skillId == FIRE_BLESS) { // ファイアー ブレス
-			pc.sendPackets(new S_SkillIconAura(154, buffIconDuration));
-		} else if (_skillId == STORM_EYE) { // ストーム アイ
-			pc.sendPackets(new S_SkillIconAura(155, buffIconDuration));
-		} else if (_skillId == EARTH_BLESS) { // アース ブレス
-			pc.sendPackets(new S_SkillIconShield(7, buffIconDuration));
-		} else if (_skillId == BURNING_WEAPON) { // バーニング ウェポン
-			pc.sendPackets(new S_SkillIconAura(162, buffIconDuration));
-		} else if (_skillId == STORM_SHOT) { // ストーム ショット
-			pc.sendPackets(new S_SkillIconAura(165, buffIconDuration));
-		} else if (_skillId == IRON_SKIN) { // アイアン スキン
-			pc.sendPackets(new S_SkillIconShield(10, buffIconDuration));
-		} else if (_skillId == EARTH_SKIN) { // アース スキン
-			pc.sendPackets(new S_SkillIconShield(6, buffIconDuration));
-		} else if (_skillId == PHYSICAL_ENCHANT_STR) { // フィジカル エンチャント：STR
-			pc.sendPackets(new S_Strup(pc, 5, buffIconDuration));
-		} else if (_skillId == PHYSICAL_ENCHANT_DEX) { // フィジカル エンチャント：DEX
-			pc.sendPackets(new S_Dexup(pc, 5, buffIconDuration));
-		} else if (_skillId == HASTE || _skillId == GREATER_HASTE) { // グレーターヘイスト
-			pc.sendPackets(new S_SkillHaste(pc.getId(), 1, buffIconDuration));
-			pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1, 0));
-		} else if (_skillId == HOLY_WALK || _skillId == MOVING_ACCELERATION
-				|| _skillId == WIND_WALK) { // ホーリーウォーク、ムービングアクセレーション、ウィンドウォーク
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 4, buffIconDuration));
-			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
-		} else if (_skillId == BLOODLUST) { // ブラッドラスト
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, buffIconDuration));
-			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
-		} else if (_skillId == SLOW || _skillId == MASS_SLOW
-				|| _skillId == ENTANGLE) { // スロー、エンタングル、マススロー
-			pc.sendPackets(new S_SkillHaste(pc.getId(), 2, buffIconDuration));
-			pc.broadcastPacket(new S_SkillHaste(pc.getId(), 2, 0));
-		} else if (_skillId == IMMUNE_TO_HARM) {
-			pc.sendPackets(new S_SkillIconGFX(40, buffIconDuration));
+		switch(_skillId) {
+			case SHIELD:
+				pc.sendPackets(new S_SkillIconShield(5, buffIconDuration));
+				break;
+			case SHADOW_ARMOR:
+				pc.sendPackets(new S_SkillIconShield(3, buffIconDuration));
+				break;
+			case DRESS_DEXTERITY:
+				pc.sendPackets(new S_Dexup(pc, 2, buffIconDuration));
+				break;
+			case DRESS_MIGHTY:
+				pc.sendPackets(new S_Strup(pc, 2, buffIconDuration));
+				break;
+			case GLOWING_AURA:
+				pc.sendPackets(new S_SkillIconAura(113, buffIconDuration));
+				break;
+			case SHINING_AURA:
+				pc.sendPackets(new S_SkillIconAura(114, buffIconDuration));
+				break;
+			case BRAVE_AURA:
+				pc.sendPackets(new S_SkillIconAura(116, buffIconDuration));
+				break;
+			case FIRE_WEAPON:
+				pc.sendPackets(new S_SkillIconAura(147, buffIconDuration));
+				break;
+			case WIND_SHOT:
+				pc.sendPackets(new S_SkillIconAura(148, buffIconDuration));
+				break;
+			case FIRE_BLESS:
+				pc.sendPackets(new S_SkillIconAura(154, buffIconDuration));
+				break;
+			case STORM_EYE:
+				pc.sendPackets(new S_SkillIconAura(155, buffIconDuration));
+				break;
+			case EARTH_BLESS:
+				pc.sendPackets(new S_SkillIconShield(7, buffIconDuration));
+				break;
+			case BURNING_WEAPON:
+				pc.sendPackets(new S_SkillIconAura(162, buffIconDuration));
+				break;
+			case STORM_SHOT:
+				pc.sendPackets(new S_SkillIconAura(165, buffIconDuration));
+				break;
+			case IRON_SKIN:
+				pc.sendPackets(new S_SkillIconShield(10, buffIconDuration));
+				break;
+			case EARTH_SKIN:
+				pc.sendPackets(new S_SkillIconShield(6, buffIconDuration));
+				break;
+			case PHYSICAL_ENCHANT_STR:
+				pc.sendPackets(new S_Strup(pc, 5, buffIconDuration));
+				break;
+			case PHYSICAL_ENCHANT_DEX:
+				pc.sendPackets(new S_Dexup(pc, 5, buffIconDuration));
+				break;
+			case HASTE: case GREATER_HASTE:
+				pc.sendPackets(new S_SkillHaste(pc.getId(), 1, buffIconDuration));
+				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1, 0));
+				break;
+			case HOLY_WALK: case MOVING_ACCELERATION: case WIND_WALK:
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 4, buffIconDuration));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
+				break;
+			case BLOODLUST:
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 6, buffIconDuration));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
+				break;
+			case SLOW: case MASS_SLOW: case ENTANGLE:
+				pc.sendPackets(new S_SkillHaste(pc.getId(), 2, buffIconDuration));
+				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 2, 0));
+				break;
+			case IMMUNE_TO_HARM:
+				pc.sendPackets(new S_SkillIconGFX(40, buffIconDuration));
+				break;
+			default:
+				pc.sendPackets(new S_OwnCharStatus(pc));
 		}
-		pc.sendPackets(new S_OwnCharStatus(pc));
 	}
 
 	// グラフィックの送信
@@ -1353,7 +1364,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.broadcastPacket(new S_SkillSound(pc.getId(), 4434));
 					} else if (_target instanceof L1NpcInstance) {
 						_target.broadcastPacket(new S_SkillSound(_target
-								.getId(), 4434));
+									.getId(), 4434));
 					}
 					return;
 				}
@@ -1399,35 +1410,35 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							|| _target.getZoneType() == 1 // 攻撃する側または攻撃される側がセーフティーゾーン
 							|| _player.checkNonPvP(_player, _target)) { // Non-PvP設定
 						_player.sendPackets(new S_UseAttackSkill(_player, 0,
-								castgfx, _targetX, _targetY, actionId));
+									castgfx, _targetX, _targetY, actionId));
 						_player.broadcastPacket(new S_UseAttackSkill(_player,
-								0, castgfx, _targetX, _targetY, actionId));
+									0, castgfx, _targetX, _targetY, actionId));
 						return;
-					}
+							}
 				}
 				if (_skill.getArea() == 0) { // 単体攻撃魔法
 					if (_skillId == MIND_BREAK || _skillId == CONFUSION
 							|| _skillId == JOY_OF_PAIN) {
 						_player
-								.sendPackets(new S_SkillSound(targetid, castgfx));
+							.sendPackets(new S_SkillSound(targetid, castgfx));
 						_player.broadcastPacket(new S_SkillSound(targetid,
-								castgfx));
+									castgfx));
 						S_DoActionGFX gfx = new S_DoActionGFX(_player.getId(),
 								actionId);
 						_player.sendPackets(gfx);
 						_player.broadcastPacket(gfx);
 					} else {
 						_player
-								.sendPackets(new S_UseAttackSkill(_player,
+							.sendPackets(new S_UseAttackSkill(_player,
 										targetid, castgfx, _targetX, _targetY,
 										actionId));
 						_player
-								.broadcastPacket(new S_UseAttackSkill(_player,
+							.broadcastPacket(new S_UseAttackSkill(_player,
 										targetid, castgfx, _targetX, _targetY,
 										actionId));
 						_target.broadcastPacketExceptTargetSight(
 								new S_DoActionGFX(targetid,
-										ActionCodes.ACTION_Damage), _player);
+									ActionCodes.ACTION_Damage), _player);
 					}
 				} else { // 有方向範囲攻撃魔法
 					L1Character[] cha = new L1Character[_targetList.size()];
@@ -1437,9 +1448,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						i++;
 					}
 					_player.sendPackets(new S_RangeSkill(_player, cha, castgfx,
-							actionId, S_RangeSkill.TYPE_DIR));
+								actionId, S_RangeSkill.TYPE_DIR));
 					_player.broadcastPacket(new S_RangeSkill(_player, cha,
-							castgfx, actionId, S_RangeSkill.TYPE_DIR));
+								castgfx, actionId, S_RangeSkill.TYPE_DIR));
 				}
 			} else if (_skill.getTarget().equals("none")
 					&& _skill.getType() == L1Skill.TYPE_ATTACK) { // 無方向範囲攻撃魔法
@@ -1448,15 +1459,15 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				for (TargetStatus ts : _targetList) {
 					cha[i] = ts.getTarget();
 					cha[i]
-							.broadcastPacketExceptTargetSight(
-									new S_DoActionGFX(cha[i].getId(),
-											ActionCodes.ACTION_Damage), _player);
+						.broadcastPacketExceptTargetSight(
+								new S_DoActionGFX(cha[i].getId(),
+									ActionCodes.ACTION_Damage), _player);
 					i++;
 				}
 				_player.sendPackets(new S_RangeSkill(_player, cha, castgfx,
-						actionId, S_RangeSkill.TYPE_NODIR));
+							actionId, S_RangeSkill.TYPE_NODIR));
 				_player.broadcastPacket(new S_RangeSkill(_player, cha, castgfx,
-						actionId, S_RangeSkill.TYPE_NODIR));
+							actionId, S_RangeSkill.TYPE_NODIR));
 			} else { // 補助魔法
 				// テレポート、マステレ、テレポートトゥマザー以外
 				if (_skillId != 5 && _skillId != 69 && _skillId != 131) {
@@ -1471,7 +1482,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							|| _skillId == COUNTER_BARRIER
 							|| _skillId == COUNTER_MIRROR) {
 						_player
-								.sendPackets(new S_SkillSound(targetid, castgfx));
+							.sendPackets(new S_SkillSound(targetid, castgfx));
 					} else if (_skillId == TRUE_TARGET) { // トゥルーターゲットは個別処理で送信済
 						return;
 					} else if (_skillId == AWAKEN_ANTHARAS // 覚醒：アンタラス
@@ -1479,17 +1490,17 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							|| _skillId == AWAKEN_VALAKAS) { // 覚醒：ヴァラカス
 						if (_skillId == _player.getAwakeSkillId()) { // 再詠唱なら解除でエフェクトなし
 							_player.sendPackets(new S_SkillSound(targetid,
-									castgfx));
+										castgfx));
 							_player.broadcastPacket(new S_SkillSound(targetid,
-									castgfx));
+										castgfx));
 						} else {
 							return;
 						}
 					} else {
 						_player
-								.sendPackets(new S_SkillSound(targetid, castgfx));
+							.sendPackets(new S_SkillSound(targetid, castgfx));
 						_player.broadcastPacket(new S_SkillSound(targetid,
-								castgfx));
+									castgfx));
 					}
 				}
 
@@ -1521,9 +1532,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			if (_skill.getTarget().equals("attack") && _skillId != 18) {
 				if (_skill.getArea() == 0) { // 単体攻撃魔法
 					_user.broadcastPacket(new S_UseAttackSkill(_user, targetid,
-							castgfx, _targetX, _targetY, actionId));
+								castgfx, _targetX, _targetY, actionId));
 					_target.broadcastPacketExceptTargetSight(new S_DoActionGFX(
-							targetid, ActionCodes.ACTION_Damage), _user);
+								targetid, ActionCodes.ACTION_Damage), _user);
 				} else { // 有方向範囲攻撃魔法
 					L1Character[] cha = new L1Character[_targetList.size()];
 					int i = 0;
@@ -1531,11 +1542,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						cha[i] = ts.getTarget();
 						cha[i].broadcastPacketExceptTargetSight(
 								new S_DoActionGFX(cha[i].getId(),
-										ActionCodes.ACTION_Damage), _user);
+									ActionCodes.ACTION_Damage), _user);
 						i++;
 					}
 					_user.broadcastPacket(new S_RangeSkill(_user, cha, castgfx,
-							actionId, S_RangeSkill.TYPE_DIR));
+								actionId, S_RangeSkill.TYPE_DIR));
 				}
 			} else if (_skill.getTarget().equals("none")
 					&& _skill.getType() == L1Skill.TYPE_ATTACK) { // 無方向範囲攻撃魔法
@@ -1546,7 +1557,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					i++;
 				}
 				_user.broadcastPacket(new S_RangeSkill(_user, cha, castgfx,
-						actionId, S_RangeSkill.TYPE_NODIR));
+							actionId, S_RangeSkill.TYPE_NODIR));
 			} else { // 補助魔法
 				// テレポート、マステレ、テレポートトゥマザー以外
 				if (_skillId != 5 && _skillId != 69 && _skillId != 131) {
@@ -1560,31 +1571,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// 重複できないスキルの削除
-	// 例：ファイア ウェポンとバーニングウェポンなど
 	private void deleteRepeatedSkills(L1Character cha) {
-		final int[][] repeatedSkills = {
-		// ホーリー ウェポン、エンチャント ウェポン、ブレス ウェポン, シャドウ ファング
-				// これらはL1ItemInstanceで管理
-				// { HOLY_WEAPON, ENCHANT_WEAPON, BLESS_WEAPON, SHADOW_FANG },
-				// ファイアー ウェポン、ウィンド ショット、ファイアー ブレス、ストーム アイ、バーニング ウェポン、ストーム ショット
-				{ FIRE_WEAPON, WIND_SHOT, FIRE_BLESS, STORM_EYE,
-						BURNING_WEAPON, STORM_SHOT },
-				// シールド、シャドウ アーマー、アース スキン、アースブレス、アイアン スキン
-				{ SHIELD, SHADOW_ARMOR, EARTH_SKIN, EARTH_BLESS, IRON_SKIN },
-				// ホーリー ウォーク、ムービング アクセレーション、ウィンド ウォーク、BP、ワッフル、ブラッドラスト
-				{ HOLY_WALK, MOVING_ACCELERATION, WIND_WALK, STATUS_BRAVE,
-						STATUS_ELFBRAVE, BLOODLUST },
-				// ヘイスト、グレーター ヘイスト、GP
-				{ HASTE, GREATER_HASTE, STATUS_HASTE },
-				// フィジカル エンチャント：DEX、ドレス デクスタリティー
-				{ PHYSICAL_ENCHANT_DEX, DRESS_DEXTERITY },
-				// フィジカル エンチャント：STR、ドレス マイティー
-				{ PHYSICAL_ENCHANT_STR, DRESS_MIGHTY },
-				// グローウィングオーラ、シャイニングオーラ
-				{ GLOWING_AURA, SHINING_AURA } };
-
-		for (int[] skills : repeatedSkills) {
+		for (int[] skills : NONOVERLAPPING_SKILLS) {
 			for (int id : skills) {
 				if (id == _skillId) {
 					stopSkillList(cha, skills);
@@ -1593,7 +1581,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// 重複しているスキルを一旦すべて削除
 	private void stopSkillList(L1Character cha, int[] repeat_skill) {
 		for (int skillId : repeat_skill) {
 			if (skillId != _skillId) {
@@ -1602,7 +1589,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	// ディレイの設定
 	private void setDelay() {
 		if (_skill.getReuseDelay() > 0) {
 			L1SkillDelay.onSkillUse(_user, _skill.getReuseDelay());
@@ -1667,22 +1653,15 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						(L1PcInstance) _user, _skillId);
 				return;
 			}
-		}
+				}
 
-		if (_skillId == FIRE_WALL) { // ファイアーウォール
+		if (_skillId == FIRE_WALL) {
 			L1EffectSpawn.getInstance().doSpawnFireWall(_user, _targetX,
 					_targetY);
 			return;
 		}
 
-		for (int skillId : EXCEPT_COUNTER_MAGIC) {
-			if (_skillId == skillId) {
-				_isCounterMagic = false; 
-				break;
-			}
-		}
-		// NPCにショックスタンを使用させるとonActionでNullPointerExceptionが発生するため
-		// とりあえずPCが使用した時のみ
+		_isCounterMagic = !IntArrays.sContains(EXCEPT_COUNTER_MAGIC, _skillId);
 		if ((_skillId == SHOCK_STUN || _skillId == BONE_BREAK || _skillId == MASS_SHOCK_STUN)
 				|| _skillId == SMASH
 				|| _skillId == ARM_BREAKER
@@ -1724,7 +1703,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 				if (cha instanceof L1MonsterInstance) { // アンデットの判定
 					undeadType = ((L1MonsterInstance) cha).getNpcTemplate()
-							.get_undead();
+						.get_undead();
 				}
 
 				// 確率系スキルで失敗が確定している場合
@@ -1732,7 +1711,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						&& isTargetFailure(cha)) {
 					iter.remove();
 					continue;
-				}
+						}
 
 				int buffIconDuration = 0;
 				if (cha instanceof L1PcInstance) { // ターゲットがPCの場合のみアイコンは送信する。
@@ -1776,7 +1755,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								&& cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
 							pc.sendPackets(new S_ServerMessage(297)); // 軽いめまいを覚えました。
-						}
+								}
 						iter.remove();
 						continue;
 					}
@@ -1802,7 +1781,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					if (_skillId != SHAPE_CHANGE) { // シェイプ チェンジは変身を上書き出来るため例外
 						continue;
 					}
-				}
+						}
 
 				// ●●●● PC、NPC両方効果のあるスキル ●●●●
 				if (_skillId == HASTE) { // ヘイスト
@@ -1814,10 +1793,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							}
 							pc.setDrink(false);
 							pc.sendPackets(new S_SkillHaste(pc.getId(), 1,
-									buffIconDuration));
+										buffIconDuration));
 						}
 						cha
-								.broadcastPacket(new S_SkillHaste(cha.getId(),
+							.broadcastPacket(new S_SkillHaste(cha.getId(),
 										1, 0));
 						cha.setMoveSpeed(1);
 					} else { // スロー中
@@ -1843,7 +1822,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					if (cha.hasSkillEffect(STATUS_CURSE_PARALYZING)
 							|| cha.hasSkillEffect(STATUS_CURSE_PARALYZED)) {
 						cha.cureParalaysis();
-					}
+							}
 				} else if (_skillId == RESURRECTION
 						|| _skillId == GREATER_RESURRECTION) { // リザレクション、グレーターリザレクション
 					if (cha instanceof L1PcInstance) {
@@ -1856,12 +1835,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 									if (!visiblePc.isDead()) {
 										// \f1その場所に他の人が立っているので復活させることができません。
 										_player
-												.sendPackets(new S_ServerMessage(
+											.sendPackets(new S_ServerMessage(
 														592));
 										return;
 									}
-								}
-							}
+										}
+									}
 							if (pc.getCurrentHp() == 0 && pc.isDead()) {
 								if (pc.getMap().isUseResurrection()) {
 									if (_skillId == RESURRECTION) {
@@ -1881,21 +1860,21 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							if (npc.getNpcTemplate().isCantResurrect()
 									&& !(npc instanceof L1PetInstance)) {
 								return;
-							}
+									}
 							if (npc instanceof L1PetInstance
 									&& L1World.getInstance().getVisiblePlayer(
-											npc, 0).size() > 0) {
+										npc, 0).size() > 0) {
 								for (L1PcInstance visiblePc : L1World
 										.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
 										// \f1その場所に他の人が立っているので復活させることができません。
 										_player
-												.sendPackets(new S_ServerMessage(
+											.sendPackets(new S_ServerMessage(
 														592));
 										return;
 									}
-								}
-							}
+										}
+										}
 							if (npc.getCurrentHp() == 0 && npc.isDead()) {
 								npc.resurrect(npc.getMaxHp() / 4);
 								npc.setResurrect(true);
@@ -1913,12 +1892,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 									if (!visiblePc.isDead()) {
 										// \f1その場所に他の人が立っているので復活させることができません。
 										_player
-												.sendPackets(new S_ServerMessage(
+											.sendPackets(new S_ServerMessage(
 														592));
 										return;
 									}
-								}
-							}
+										}
+									}
 							if (pc.getCurrentHp() == 0 && pc.isDead()) {
 								pc.setTempID(_player.getId());
 								pc.sendPackets(new S_Message_YN(322, "")); // また復活したいですか？（Y/N）
@@ -1931,21 +1910,21 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							if (npc.getNpcTemplate().isCantResurrect()
 									&& !(npc instanceof L1PetInstance)) {
 								return;
-							}
+									}
 							if (npc instanceof L1PetInstance
 									&& L1World.getInstance().getVisiblePlayer(
-											npc, 0).size() > 0) {
+										npc, 0).size() > 0) {
 								for (L1PcInstance visiblePc : L1World
 										.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
 										// \f1その場所に他の人が立っているので復活させることができません。
 										_player
-												.sendPackets(new S_ServerMessage(
+											.sendPackets(new S_ServerMessage(
 														592));
 										return;
 									}
-								}
-							}
+										}
+										}
 							if (npc.getCurrentHp() == 0 && npc.isDead()) {
 								npc.resurrect(cha.getMaxHp());// HPを全回復する
 								npc.resurrect(cha.getMaxMp() / 100);// MPを0にする
@@ -1979,13 +1958,13 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					if (_user instanceof L1PcInstance) {
 						L1PcInstance pri = (L1PcInstance) _user;
 						pri.sendPackets(new S_TrueTarget(_targetID,
-								pri.getId(), _message));
+									pri.getId(), _message));
 						L1Clan clan = pri.getClan();
 						if (clan != null) {
 							L1PcInstance players[] = clan.getOnlineClanMember();
 							for (L1PcInstance pc : players) {
 								pc.sendPackets(new S_TrueTarget(_targetID, pc
-										.getId(), _message));
+											.getId(), _message));
 							}
 						}
 					}
@@ -1994,8 +1973,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				}
 				// ★★★ 回復系スキル ★★★
 				else if ((_skillId == HEAL || _skillId == EXTRA_HEAL
-						|| _skillId == GREATER_HEAL || _skillId == FULL_HEAL
-						|| _skillId == HEAL_ALL || _skillId == NATURES_BLESSING)
+							|| _skillId == GREATER_HEAL || _skillId == FULL_HEAL
+							|| _skillId == HEAL_ALL || _skillId == NATURES_BLESSING)
 						&& (_user instanceof L1PcInstance)) {
 					cha.removeSkillEffect(WATER_LIFE);
 				} else if (_skillId == NATURES_TOUCH) {
@@ -2015,11 +1994,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					// GFX Check (Made by HuntBoy)
 					boolean gfxcheck = false;
 					int[] BowGFX = { 138, 37, 3860, 3126, 3420, 2284, 3105,
-							3145, 3148, 3151, 3871, 4125, 2323, 3892, 3895,
-							3898, 3901, 4917, 4918, 4919, 4950, 6087, 6140,
-							6145, 6150, 6155, 6160, 6269, 6272, 6275, 6278,
-							6826, 6827, 6836, 6837, 6846, 6847, 6856, 6857,
-							6866, 6867, 6876, 6877, 6886, 6887 };
+						3145, 3148, 3151, 3871, 4125, 2323, 3892, 3895,
+						3898, 3901, 4917, 4918, 4919, 4950, 6087, 6140,
+						6145, 6150, 6155, 6160, 6269, 6272, 6275, 6278,
+						6826, 6827, 6836, 6837, 6846, 6847, 6856, 6857,
+						6866, 6867, 6876, 6877, 6886, 6887 };
 					int playerGFX = _player.getTempCharGfx();
 					for (int gfx : BowGFX) {
 						if (playerGFX == gfx) {
@@ -2035,29 +2014,29 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						_target.onAction(_player);
 					}
 					_player
-							.sendPackets(new S_SkillSound(_player.getId(), 4394));
+						.sendPackets(new S_SkillSound(_player.getId(), 4394));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
-							4394));
+								4394));
 				} else if (_skillId == FOE_SLAYER) {
 					for (int i = 3; i > 0; i--) {
 						_target.onAction(_player);
 					}
 					_player.sendPackets(new S_SkillSound(_target.getId(),
- 							6509));
- 					_player.sendPackets(new S_SkillSound(_player.getId(),
- 							7020));
+								6509));
+					_player.sendPackets(new S_SkillSound(_player.getId(),
+								7020));
 					_player.broadcastPacket(new S_SkillSound(_target.getId(),
-							6509));
+								6509));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
-							7020));
+								7020));
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) { // 安息攻撃
 					if (_user instanceof L1NpcInstance) {
 						_user.broadcastPacket(new S_NpcChatPacket(_npc,
-								"$3717", 0)); // さあ、おまえに安息を与えよう。
+									"$3717", 0)); // さあ、おまえに安息を与えよう。
 					} else {
 						_player.broadcastPacket(new S_ChatPacket(_player,
-								"$3717", 0, 0)); // さあ、おまえに安息を与えよう。
+									"$3717", 0, 0)); // さあ、おまえに安息を与えよう。
 					}
 				} else if (_skillId == 10057) { // 引き寄せ
 					L1Teleport.teleportToTargetFront(cha, _user, 1);
@@ -2077,10 +2056,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
 							pc.sendPackets(new S_SkillHaste(pc.getId(), 2,
-									buffIconDuration));
+										buffIconDuration));
 						}
 						cha.broadcastPacket(new S_SkillHaste(cha.getId(), 2,
-								buffIconDuration));
+									buffIconDuration));
 						cha.setMoveSpeed(2);
 					} else if (cha.getMoveSpeed() == 1) {
 						int skillNum = 0;
@@ -2120,7 +2099,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						} else if (cha instanceof L1MonsterInstance) {
 							L1CurseParalysis.curse(cha, 0, 16000);
 						}
-					}
+							}
 				} else if (_skillId == WEAKNESS) { // ウィークネス
 					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 				} else if (_skillId == DISEASE) { // ディジーズ
@@ -2138,7 +2117,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							pc.sendPackets(new S_Poison(pc.getId(), 2));
 							pc.broadcastPacket(new S_Poison(pc.getId(), 2));
 							pc.sendPackets(new S_Paralysis(
-									S_Paralysis.TYPE_FREEZE, true));
+										S_Paralysis.TYPE_FREEZE, true));
 						} else if (cha instanceof L1MonsterInstance
 								|| cha instanceof L1SummonInstance
 								|| cha instanceof L1PetInstance) {
@@ -2146,7 +2125,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							npc.broadcastPacket(new S_Poison(npc.getId(), 2));
 							npc.setParalyzed(true);
 							npc.setParalysisTime(time);
-						}
+								}
 					}
 				} else if (_skillId == EARTH_BIND) { // アースバインド
 					if (cha instanceof L1PcInstance) {
@@ -2154,7 +2133,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.sendPackets(new S_Poison(pc.getId(), 2));
 						pc.broadcastPacket(new S_Poison(pc.getId(), 2));
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_FREEZE,
-								true));
+									true));
 					} else if (cha instanceof L1MonsterInstance
 							|| cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
@@ -2162,28 +2141,28 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						npc.broadcastPacket(new S_Poison(npc.getId(), 2));
 						npc.setParalyzed(true);
 						npc.setParalysisTime(_skill.getBuffDuration() * 1000);
-					}
+							}
 				} else if (_skillId == SHOCK_STUN) {
-					
+
 					int targetLevel = 0;
 					int diffLevel = 0;
 					int stunTime = 0;
 					if (cha instanceof L1PcInstance) {
-					L1PcInstance pc = (L1PcInstance) cha;
-					targetLevel = pc.getLevel();
+						L1PcInstance pc = (L1PcInstance) cha;
+						targetLevel = pc.getLevel();
 					} else if (cha instanceof L1MonsterInstance
-					|| cha instanceof L1SummonInstance
-					|| cha instanceof L1PetInstance) {
-					L1NpcInstance npc = (L1NpcInstance) cha;
-					targetLevel = npc.getLevel();
-					}
+							|| cha instanceof L1SummonInstance
+							|| cha instanceof L1PetInstance) {
+						L1NpcInstance npc = (L1NpcInstance) cha;
+						targetLevel = npc.getLevel();
+							}
 					diffLevel = _user.getLevel() - targetLevel;
 					RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
-					
+
 					int basechance = random.nextInt(99) + 1;
-					
+
 					int chance = basechance+(diffLevel*5);
-					
+
 					if (chance>90) {
 						stunTime = 6000;
 					} else if (chance > 85) {
@@ -2207,30 +2186,30 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else {
 						stunTime = 1000;
 					} 
-					
+
 					_shockStunDuration = stunTime;
 					/*RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					int stunTime = (random.nextInt(21) + 10) * 100;
-					_shockStunDuration = stunTime;
-					*/
+					  .getSharedRandom();
+					  int stunTime = (random.nextInt(21) + 10) * 100;
+					  _shockStunDuration = stunTime;
+					  */
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
 							cha.getMapId());
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN,
-								true));
+									true));
 					} else if (cha instanceof L1MonsterInstance
 							|| cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc.setParalyzed(true);
 						npc.setParalysisTime(_shockStunDuration);
-					}
+							}
 				} else if (_skillId == MASS_SHOCK_STUN) {
 					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
+						.getSharedRandom();
 					int stunTime = (random.nextInt(21) + 30) * 100;
 
 					_shockStunDuration = stunTime;
@@ -2240,13 +2219,13 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN,
-								true));
+									true));
 					} else if (cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc.setParalyzed(true);
 						npc.setParalysisTime(_shockStunDuration);
-					}
+							}
 				} else if (_skillId == WIND_SHACKLE) { // ウィンド シャックル
 					_skill.newBuffSkillExecutor().addEffect(_user, cha,
 							buffIconDuration);
@@ -2258,7 +2237,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(1314);
 								npc.broadcastPacket(new S_ChangeShape(npc
-										.getId(), 1314));
+											.getId(), 1314));
 								return;
 							} else {
 								return;
@@ -2269,27 +2248,27 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								npc.setCurrentHp(npc.getMaxHp());
 								npc.setTempCharGfx(2332);
 								npc.broadcastPacket(new S_ChangeShape(npc
-										.getId(), 2332));
+											.getId(), 2332));
 								npc.setName("$2103");
 								npc.setNameId("$2103");
 								npc.broadcastPacket(new S_ChangeName(npc
-										.getId(), "$2103"));
+											.getId(), "$2103"));
 							} else if (npc.getTempCharGfx() == 2332) {
 								npc.setCurrentHp(npc.getMaxHp());
 								npc.setTempCharGfx(2755);
 								npc.broadcastPacket(new S_ChangeShape(npc
-										.getId(), 2755));
+											.getId(), 2755));
 								npc.setName("$2488");
 								npc.setNameId("$2488");
 								npc.broadcastPacket(new S_ChangeName(npc
-										.getId(), "$2488"));
+											.getId(), "$2488"));
 							}
 						}
 						if (npcId == 81209) { // ロイ
 							if (npc.getGfxId() == npc.getTempCharGfx()) {
 								npc.setTempCharGfx(4310);
 								npc.broadcastPacket(new S_ChangeShape(npc
-										.getId(), 4310));
+											.getId(), 4310));
 								return;
 							} else {
 								return;
@@ -2304,10 +2283,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						npc.setMoveSpeed(0);
 						npc.setBraveSpeed(0);
 						npc
-								.broadcastPacket(new S_SkillHaste(cha.getId(),
+							.broadcastPacket(new S_SkillHaste(cha.getId(),
 										0, 0));
 						npc
-								.broadcastPacket(new S_SkillBrave(cha.getId(),
+							.broadcastPacket(new S_SkillBrave(cha.getId(),
 										0, 0));
 						npc.setWeaponBreaked(false);
 						npc.setParalyzed(false);
@@ -2330,7 +2309,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								|| skillNum == STATUS_CURSE_BARLOG // バルログの呪いは解除しない
 								|| skillNum == STATUS_CURSE_YAHEE) { // ヤヒの呪いは解除しない
 							continue;
-						}
+								}
 						cha.removeSkillEffect(skillNum);
 					}
 
@@ -2355,7 +2334,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							pc.setMoveSpeed(0);
 							pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 							pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0,
-									0));
+										0));
 						}
 					}
 					cha.removeSkillEffect(STATUS_FREEZE); // Freeze解除
@@ -2365,9 +2344,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.broadcastPacket(new S_CharVisualUpdate(pc));
 						if (pc.isPrivateShop()) {
 							pc.sendPackets(new S_DoActionShop(pc.getId(),
-									ActionCodes.ACTION_Shop, pc.getShopChat()));
+										ActionCodes.ACTION_Shop, pc.getShopChat()));
 							pc.broadcastPacket(new S_DoActionShop(pc.getId(),
-									ActionCodes.ACTION_Shop, pc.getShopChat()));
+										ActionCodes.ACTION_Shop, pc.getShopChat()));
 						}
 						if (_user instanceof L1PcInstance) {
 							L1PinkName.onAction(pc, _user);
@@ -2379,7 +2358,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					dmg = cha.getCurrentHp();
 				} else if (_skillId == MANA_DRAIN) { // マナ ドレイン
 					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
+						.getSharedRandom();
 					int chance = random.nextInt(10) + 5;
 					drainMana = chance + (_user.getInt() / 2);
 					if (cha.getCurrentMp() < drainMana) {
@@ -2396,12 +2375,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							L1ItemInstance weapon = pc.getWeapon();
 							if (weapon != null) {
 								RandomGenerator random = RandomGeneratorFactory
-										.getSharedRandom();
+									.getSharedRandom();
 								int weaponDamage = random.nextInt(_user
 										.getInt() / 3) + 1;
 								// \f1あなたの%0が損傷しました。
 								pc.sendPackets(new S_ServerMessage(268, weapon
-										.getLogName()));
+											.getLogName()));
 								pc.getInventory().receiveDamage(weapon,
 										weaponDamage);
 							}
@@ -2413,14 +2392,14 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_SLEEP,
-								true));
+									true));
 					}
 					cha.setSleeped(true);
 				} else if (_skillId == STATUS_FREEZE) { // Freeze
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_BIND,
-								true));
+									true));
 					}
 				} else if (_skillId == GUARD_BRAKE) { // ガードブレイク
 					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
@@ -2434,18 +2413,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							L1PcInstance targetPc = (L1PcInstance) cha;
 							targetPc.setSkillEffect(STATUS_FREEZE, time);
 							targetPc.sendPackets(new S_Paralysis(
-									S_Paralysis.TYPE_BIND, true));
+										S_Paralysis.TYPE_BIND, true));
 						} else if (cha instanceof L1MonsterInstance
 								|| cha instanceof L1SummonInstance
 								|| cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
 							npc.setSkillEffect(STATUS_FREEZE, time);
 							npc.setParalyzed(true);
-						}
+								}
 					}
 				} else if (_skillId == BONE_BREAK) { // ボーンブレイク
 					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
+						.getSharedRandom();
 					int stunTime = (random.nextInt(14) + 7) * 100;
 					_boneBreakDuration = stunTime;
 					int intbonus = _user.getInt() - 12;
@@ -2461,28 +2440,28 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					//		cha.getMapId());
 					int chance = (random.nextInt(100) + 1);
 					int probability = (l1skills.getProbabilityValue() - (2 * cha
-							.getRegistStun()));
+								.getRegistStun()));
 					// DB ProbabitiyValueからスタン耐性２倍を引く
 					if (chance <= probability) {
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
-  		                                        L1EffectSpawn.getInstance().spawnEffect(91208,
-                                                        _boneBreakDuration, cha.getX(), cha.getY(),
-                                                        cha.getMapId());
+							L1EffectSpawn.getInstance().spawnEffect(91208,
+									_boneBreakDuration, cha.getX(), cha.getY(),
+									cha.getMapId());
 
 							pc.sendPackets(new S_Paralysis(
-									S_Paralysis.TYPE_STUN, true));
+										S_Paralysis.TYPE_STUN, true));
 						} else if (cha instanceof L1MonsterInstance
 								|| cha instanceof L1SummonInstance
 								|| cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
-                                        L1EffectSpawn.getInstance().spawnEffect(91208,
-                                                        _boneBreakDuration, cha.getX(), cha.getY(),
-                                                        cha.getMapId());
+							L1EffectSpawn.getInstance().spawnEffect(91208,
+									_boneBreakDuration, cha.getX(), cha.getY(),
+									cha.getMapId());
 
 							npc.setParalyzed(true);
 							npc.setParalysisTime(_boneBreakDuration);
-						}
+								}
 					}
 				} else if (_skillId == SMASH) { // スマッシュ
 					if (cha instanceof L1PcInstance) {
@@ -2499,12 +2478,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							|| cha instanceof L1HousekeeperInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc
-								.broadcastPacket(new S_SkillSound(npc.getId(),
+							.broadcastPacket(new S_SkillSound(npc.getId(),
 										6526));
-					}
+							}
 				} else if (_skillId == CONFUSION) { // コンフュージョン
 					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
+						.getSharedRandom();
 					int silenceTime = (random.nextInt(60) + 40) * 100;
 					_confusionDuration = silenceTime;
 					int chance = (random.nextInt(100) + 1);
@@ -2520,7 +2499,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								|| cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
 							npc.setSkillEffect(SILENCE, _confusionDuration);
-						}
+								}
 					}
 				} else if (_skillId == PHANTASM) { // ファンタズム　TODO
 					int time = _skill.getBuffDuration() * 1000;
@@ -2528,14 +2507,14 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						L1PcInstance targetPc = (L1PcInstance) cha;
 						targetPc.setSkillEffect(FOG_OF_SLEEPING, time);
 						targetPc.sendPackets(new S_Paralysis(
-								S_Paralysis.TYPE_SLEEP, true));
+									S_Paralysis.TYPE_SLEEP, true));
 					} else if (cha instanceof L1MonsterInstance
 							|| cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc.setSkillEffect(FOG_OF_SLEEPING, time);
 						npc.setSleeped(true);
-					}
+							}
 				} else if (_skillId == ARM_BREAKER) { // アームブレイカ―
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -2551,11 +2530,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							|| cha instanceof L1HousekeeperInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc
-								.broadcastPacket(new S_SkillSound(npc.getId(),
+							.broadcastPacket(new S_SkillSound(npc.getId(),
 										6551));
-					}
+							}
 					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
+						.getSharedRandom();
 					int chance = (random.nextInt(100) + 1);
 					int probability = l1skills.getProbabilityValue();
 					int time = _skill.getBuffDuration();
@@ -2566,7 +2545,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								pc.addHitup(-5);
 								pc.setSkillEffect(ARM_BREAKER, time);
 								pc.sendPackets(new S_SkillIconGFX(74,
-										(time / 3)));
+											(time / 3)));
 							}
 						} else if (cha instanceof L1MonsterInstance
 								|| cha instanceof L1SummonInstance
@@ -2574,7 +2553,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							L1NpcInstance npc = (L1NpcInstance) cha;
 							npc.addHitup(-5);
 							npc.setSkillEffect(ARM_BREAKER, time);
-						}
+								}
 					}
 				}
 
@@ -2592,18 +2571,18 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 								if (_skillId == MASS_TELEPORT) { // マステレポート
 									List<L1PcInstance> clanMember = L1World
-											.getInstance().getVisiblePlayer(pc);
+										.getInstance().getVisiblePlayer(pc);
 									for (L1PcInstance member : clanMember) {
 										if (pc.getLocation()
 												.getTileLineDistance(
-														member.getLocation()) <= 3
+													member.getLocation()) <= 3
 												&& member.getClanid() == pc
-														.getClanid()
+												.getClanid()
 												&& pc.getClanid() != 0
 												&& member.getId() != pc.getId()) {
 											L1Teleport.teleport(member, newX,
 													newY, mapId, 5, true);
-										}
+												}
 									}
 								}
 								L1Teleport.teleport(pc, newX, newY, mapId, 5,
@@ -2616,25 +2595,25 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						} else { // ブックマークが取得出来なかった、あるいは「任意の場所」を選択した場合の処理
 							if (pc.getMap().isTeleportable() || pc.isGm()) {
 								L1Location newLocation = pc.getLocation()
-										.randomLocation(200, true);
+									.randomLocation(200, true);
 								int newX = newLocation.getX();
 								int newY = newLocation.getY();
 								short mapId = (short) newLocation.getMapId();
 
 								if (_skillId == MASS_TELEPORT) { // マステレポート
 									List<L1PcInstance> clanMember = L1World
-											.getInstance().getVisiblePlayer(pc);
+										.getInstance().getVisiblePlayer(pc);
 									for (L1PcInstance member : clanMember) {
 										if (pc.getLocation()
 												.getTileLineDistance(
-														member.getLocation()) <= 3
+													member.getLocation()) <= 3
 												&& member.getClanid() == pc
-														.getClanid()
+												.getClanid()
 												&& pc.getClanid() != 0
 												&& member.getId() != pc.getId()) {
 											L1Teleport.teleport(member, newX,
 													newY, mapId, 5, true);
-										}
+												}
 									}
 								}
 								L1Teleport.teleport(pc, newX, newY, mapId, 5,
@@ -2658,7 +2637,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == CALL_CLAN) { // コールクラン
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1PcInstance clanPc = (L1PcInstance) L1World
-								.getInstance().findObject(_targetID);
+							.getInstance().findObject(_targetID);
 						if (clanPc != null) {
 							clanPc.setTempID(pc.getId()); // 相手のオブジェクトIDを保存しておく
 							clanPc.sendPackets(new S_Message_YN(729, "")); // 君主が呼んでいます。召喚に応じますか？（Y/N）
@@ -2666,17 +2645,17 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == RUN_CLAN) { // ランクラン
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1PcInstance clanPc = (L1PcInstance) L1World
-								.getInstance().findObject(_targetID);
+							.getInstance().findObject(_targetID);
 						if (clanPc != null) {
 							if (pc.getMap().isEscapable() || pc.isGm()) {
 								boolean castle_area = L1CastleLocation
-										.checkInAllWarArea(
-												// いずれかの城エリア
-												clanPc.getX(), clanPc.getY(),
-												clanPc.getMapId());
+									.checkInAllWarArea(
+											// いずれかの城エリア
+											clanPc.getX(), clanPc.getY(),
+											clanPc.getMapId());
 								if ((clanPc.getMapId() == 0
-										|| clanPc.getMapId() == 4 || clanPc
-										.getMapId() == 304)
+											|| clanPc.getMapId() == 4 || clanPc
+											.getMapId() == 304)
 										&& castle_area == false) {
 									L1Teleport.teleport(pc, clanPc.getX(),
 											clanPc.getY(), clanPc.getMapId(),
@@ -2712,12 +2691,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								if (!item.isIdentified()) {// 未鑑定
 									pc.sendPackets( // \f1%0が%2%1光ります。
 											new S_ServerMessage(161, item_name,
-													"$245", "$247"));
+												"$245", "$247"));
 								} else {
 									item_name = "+0 " + item_name;
 									pc.sendPackets( // \f1%0が%2%1光ります。
 											new S_ServerMessage(161, "+0 "
-													+ item_name, "$245", "$247"));
+												+ item_name, "$245", "$247"));
 								}
 								item.setEnchantLevel(1);
 								pc.getInventory().updateItem(item,
@@ -2733,12 +2712,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == BRING_STONE) { // ブリング ストーン
 						L1PcInstance pc = (L1PcInstance) cha;
 						RandomGenerator random = RandomGeneratorFactory
-								.getSharedRandom();
+							.getSharedRandom();
 						L1ItemInstance item = pc.getInventory().getItem(
 								_itemobjid);
 						if (item != null) {
 							int dark = (int) (10 + (pc.getLevel() * 0.8) + (pc
-									.getWis() - 6) * 1.2);
+										.getWis() - 6) * 1.2);
 							int brave = (int) (dark / 2.1);
 							int wise = (int) (brave / 2.0);
 							int kayser = (int) (wise / 1.9);
@@ -2748,7 +2727,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								if (dark >= chance) {
 									pc.getInventory().storeItem(40321, 1);
 									pc.sendPackets(new S_ServerMessage(403,
-											"$2475")); // %0を手に入れました。
+												"$2475")); // %0を手に入れました。
 								} else {
 									pc.sendPackets(new S_ServerMessage(280)); // \f1魔法が失敗しました。
 								}
@@ -2757,7 +2736,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								if (brave >= chance) {
 									pc.getInventory().storeItem(40322, 1);
 									pc.sendPackets(new S_ServerMessage(403,
-											"$2476")); // %0を手に入れました。
+												"$2476")); // %0を手に入れました。
 								} else {
 									pc.sendPackets(new S_ServerMessage(280)); // \f1魔法が失敗しました。
 								}
@@ -2766,7 +2745,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								if (wise >= chance) {
 									pc.getInventory().storeItem(40323, 1);
 									pc.sendPackets(new S_ServerMessage(403,
-											"$2477")); // %0を手に入れました。
+												"$2477")); // %0を手に入れました。
 								} else {
 									pc.sendPackets(new S_ServerMessage(280)); // \f1魔法が失敗しました。
 								}
@@ -2775,7 +2754,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								if (kayser >= chance) {
 									pc.getInventory().storeItem(40324, 1);
 									pc.sendPackets(new S_ServerMessage(403,
-											"$2478")); // %0を手に入れました。
+												"$2478")); // %0を手に入れました。
 								} else {
 									pc.sendPackets(new S_ServerMessage(280)); // \f1魔法が失敗しました。
 								}
@@ -2788,7 +2767,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						if (pc.getMap().isRecallPets() || pc.isGm()) {
 							if (pc.getInventory().checkEquipped(20284)) {
 								pc
-										.sendPackets(new S_ShowSummonList(pc
+									.sendPackets(new S_ShowSummonList(pc
 												.getId()));
 								if (!pc.isSummonMonster()) {
 									pc.setSummonMonster(true);
@@ -2799,7 +2778,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								 * 81086, 81087, 81088, 81089 };
 								 */
 								summons = new int[] { 81210, 81213, 81216,
-										81219, 81222, 81225, 81228 };
+									81219, 81222, 81225, 81228 };
 								int summonid = 0;
 								// int summoncost = 6;
 								int summoncost = 8;
@@ -2809,17 +2788,17 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 											|| i == summons.length - 1) {
 										summonid = summons[i];
 										break;
-									}
+											}
 									levelRange += 4;
 								}
 
 								int petcost = 0;
 								Object[] petlist = pc.getPetList().values()
-										.toArray();
+									.toArray();
 								for (Object pet : petlist) {
 									// 現在のペットコスト
 									petcost += ((L1NpcInstance) pet)
-											.getPetcost();
+										.getPetcost();
 								}
 								int pcCha = pc.getCha();
 								if (pcCha > 34) { // max count = 5
@@ -2829,7 +2808,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								// int charisma = pc.getCha() + 6 - petcost;
 								int summoncount = charisma / summoncost;
 								L1Npc npcTemp = NpcTable.getInstance()
-										.getTemplate(summonid);
+									.getTemplate(summonid);
 								for (int i = 0; i < summoncount; i++) {
 									L1SummonInstance summon = new L1SummonInstance(
 											npcTemp, pc);
@@ -2848,11 +2827,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							if (pc.getMap().isRecallPets() || pc.isGm()) {
 								int petcost = 0;
 								Object[] petlist = pc.getPetList().values()
-										.toArray();
+									.toArray();
 								for (Object pet : petlist) {
 									// 現在のペットコスト
 									petcost += ((L1NpcInstance) pet)
-											.getPetcost();
+										.getPetcost();
 								}
 
 								if (petcost == 0) { // 1匹も所属NPCがいなければ実行
@@ -2860,11 +2839,11 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 									int summons[];
 									if (_skillId == LESSER_ELEMENTAL) { // レッサーエレメンタル[地,火,水,風]
 										summons = new int[] { 45306, 45303,
-												45304, 45305 };
+											45304, 45305 };
 									} else {
 										// グレーターエレメンタル[地,火,水,風]
 										summons = new int[] { 81053, 81050,
-												81051, 81052 };
+											81051, 81052 };
 									}
 									int npcattr = 1;
 									for (int i = 0; i < summons.length; i++) {
@@ -2877,13 +2856,13 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 									// 特殊設定の場合ランダムで出現
 									if (summonid == 0) {
 										RandomGenerator random = RandomGeneratorFactory
-												.getSharedRandom();
+											.getSharedRandom();
 										int k3 = random.nextInt(4);
 										summonid = summons[k3];
 									}
 
 									L1Npc npcTemp = NpcTable.getInstance()
-											.getTemplate(summonid);
+										.getTemplate(summonid);
 									L1SummonInstance summon = new L1SummonInstance(
 											npcTemp, pc);
 									summon.setPetcost(pc.getCha() + 7); // 精霊の他にはNPCを所属させられない
@@ -2905,27 +2884,27 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.addMr(20);
 						pc.sendPackets(new S_SPMR(pc));
 						pc.sendPackets(new S_SkillIconAura(113,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == SHINING_AURA) { // シャイニング オーラ
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-8);
 						pc.sendPackets(new S_SkillIconAura(114,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == BRAVE_AURA) { // ブレイブ オーラ
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addDmgup(5);
 						pc.sendPackets(new S_SkillIconAura(116,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == SHIELD) { // シールド
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-2);
 						pc.sendPackets(new S_SkillIconShield(5,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == SHADOW_ARMOR) { // シャドウ アーマー
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-3);
 						pc.sendPackets(new S_SkillIconShield(3,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == DRESS_DEXTERITY) { // ドレス デクスタリティー
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addDex((byte) 2);
@@ -2950,7 +2929,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								_itemobjid);
 						if (item != null && item.getItem().getType2() == 1) {
 							pc.sendPackets(new S_ServerMessage(161, item
-									.getLogName(), "$245", "$247"));
+										.getLogName(), "$245", "$247"));
 							item.setSkillWeaponEnchant(pc, _skillId, _skill
 									.getBuffDuration() * 1000);
 						} else {
@@ -2969,7 +2948,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						for (L1ItemInstance item : pc.getInventory().getItems()) {
 							if (pc.getWeapon().equals(item)) {
 								pc.sendPackets(new S_ServerMessage(161, item
-										.getLogName(), "$245", "$247"));
+											.getLogName(), "$245", "$247"));
 								item.setSkillWeaponEnchant(pc, _skillId, _skill
 										.getBuffDuration() * 1000);
 								return;
@@ -2982,7 +2961,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						if (item != null && item.getItem().getType2() == 2
 								&& item.getItem().getType() == 2) {
 							pc.sendPackets(new S_ServerMessage(161, item
-									.getLogName(), "$245", "$247"));
+										.getLogName(), "$245", "$247"));
 							item.setSkillArmorEnchant(pc, _skillId, _skill
 									.getBuffDuration() * 1000);
 						} else {
@@ -2992,7 +2971,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-7);
 						pc.sendPackets(new S_SkillIconShield(7,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == RESIST_MAGIC) { // レジスト マジック
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addMr(10);
@@ -3016,8 +2995,8 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.setCurrentMp(pc.getCurrentMp() + 16);
 					} else if (_skillId == MIND_BREAK) {
 						if (cha.getCurrentMp() > 10) {
-						cha.setCurrentMp(cha.getCurrentMp() - 10);
-						cha.setCurrentHp(cha.getCurrentHp() -20);
+							cha.setCurrentMp(cha.getCurrentMp() - 10);
+							cha.setCurrentHp(cha.getCurrentHp() -20);
 						}
 					} else if (_skillId == ELEMENTAL_PROTECTION) { // エレメンタルプロテクション
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -3042,12 +3021,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-10);
 						pc.sendPackets(new S_SkillIconShield(10,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == EARTH_SKIN) { // アース スキン
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addAc(-6);
 						pc.sendPackets(new S_SkillIconShield(6,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == PHYSICAL_ENCHANT_STR) { // フィジカルエンチャント：STR
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addStr((byte) 5);
@@ -3060,35 +3039,35 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addDmgup(4);
 						pc.sendPackets(new S_SkillIconAura(147,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == FIRE_BLESS) { // ファイアー ブレス
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addDmgup(4);
 						pc.sendPackets(new S_SkillIconAura(154,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == BURNING_WEAPON) { // バーニング ウェポン
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addDmgup(6);
 						pc.addHitup(3);
 						pc.sendPackets(new S_SkillIconAura(162,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == WIND_SHOT) { // ウィンド ショット
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addBowHitup(6);
 						pc.sendPackets(new S_SkillIconAura(148,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == STORM_EYE) { // ストーム アイ
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addBowHitup(2);
 						pc.addBowDmgup(3);
 						pc.sendPackets(new S_SkillIconAura(155,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == STORM_SHOT) { // ストーム ショット
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.addBowDmgup(5);
 						pc.addBowHitup(-1);
 						pc.sendPackets(new S_SkillIconAura(165,
-								buffIconDuration));
+									buffIconDuration));
 					} else if (_skillId == BERSERKERS) { // バーサーカー
 						_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 					} else if (_skillId == SHAPE_CHANGE) { // シェイプ チェンジ
@@ -3104,12 +3083,12 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						pc.addMaxHp(pc.getAdvenHp());
 						pc.addMaxMp(pc.getAdvenMp());
 						pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
-								.getMaxHp()));
+									.getMaxHp()));
 						if (pc.isInParty()) { // パーティー中
 							pc.getParty().updateMiniHP(pc);
 						}
 						pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-								.getMaxMp()));
+									.getMaxMp()));
 					} else if (_skillId == GREATER_HASTE) { // グレーター ヘイスト
 						L1PcInstance pc = (L1PcInstance) cha;
 						if (pc.getHasteItemEquipped() > 0) {
@@ -3119,9 +3098,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 							pc.setDrink(false);
 							pc.setMoveSpeed(1);
 							pc.sendPackets(new S_SkillHaste(pc.getId(), 1,
-									buffIconDuration));
+										buffIconDuration));
 							pc.broadcastPacket(new S_SkillHaste(pc.getId(), 1,
-									0));
+										0));
 						} else { // スロー中
 							int skillNum = 0;
 							if (pc.hasSkillEffect(SLOW)) {
@@ -3144,13 +3123,13 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.setBraveSpeed(4);
 						pc.sendPackets(new S_SkillBrave(pc.getId(), 4,
-								buffIconDuration));
+									buffIconDuration));
 						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 					} else if (_skillId == BLOODLUST) { // ブラッドラスト
 						L1PcInstance pc = (L1PcInstance) cha;
 						pc.setBraveSpeed(6);
 						pc.sendPackets(new S_SkillBrave(pc.getId(), 6,
-								buffIconDuration));
+									buffIconDuration));
 						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
 					} else if (_skillId == AWAKEN_ANTHARAS) { // 覚醒：アンタラス
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -3186,10 +3165,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					// ★★★ ペット系スキル ★★★
 					if (_skillId == TAMING_MONSTER
 							&& ((L1MonsterInstance) cha).getNpcTemplate()
-									.isTamable()) { // テイミングモンスター
+							.isTamable()) { // テイミングモンスター
 						int petcost = 0;
 						Object[] petlist = _user.getPetList().values()
-								.toArray();
+							.toArray();
 						for (Object pet : petlist) {
 							// 現在のペットコスト
 							petcost += ((L1NpcInstance) pet).getPetcost();
@@ -3217,7 +3196,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == CREATE_ZOMBIE) { // クリエイトゾンビ
 						int petcost = 0;
 						Object[] petlist = _user.getPetList().values()
-								.toArray();
+							.toArray();
 						for (Object pet : petlist) {
 							// 現在のペットコスト
 							petcost += ((L1NpcInstance) pet).getPetcost();
@@ -3245,23 +3224,23 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					} else if (_skillId == WEAK_ELEMENTAL) { // ウィーク エレメンタル
 						if (cha instanceof L1MonsterInstance) {
 							L1Npc npcTemp = ((L1MonsterInstance) cha)
-									.getNpcTemplate();
+								.getNpcTemplate();
 							int weakAttr = npcTemp.get_weakAttr();
 							if ((weakAttr & Element.Earth) == Element.Earth) {
 								cha.broadcastPacket(new S_SkillSound(cha
-										.getId(), 2169));
+											.getId(), 2169));
 							}
 							if ((weakAttr & Element.Fire) == Element.Fire) {
 								cha.broadcastPacket(new S_SkillSound(cha
-										.getId(), 2167));
+											.getId(), 2167));
 							}
 							if ((weakAttr & Element.Water) == Element.Water) {
 								cha.broadcastPacket(new S_SkillSound(cha
-										.getId(), 2166));
+											.getId(), 2166));
 							}
 							if ((weakAttr & Element.Wind) == Element.Wind) {
 								cha.broadcastPacket(new S_SkillSound(cha
-										.getId(), 2168));
+											.getId(), 2168));
 							}
 						}
 					} else if (_skillId == RETURN_TO_NATURE) { // リターントゥネイチャー
@@ -3269,7 +3248,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 								&& cha instanceof L1SummonInstance) {
 							L1SummonInstance summon = (L1SummonInstance) cha;
 							summon.broadcastPacket(new S_SkillSound(summon
-									.getId(), 2245));
+										.getId(), 2245));
 							summon.returnToNature();
 						} else {
 							if (_user instanceof L1PcInstance) {
@@ -3284,17 +3263,17 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				if (_skill.getType() == L1Skill.TYPE_HEAL
 						&& _calcType == PC_NPC && undeadType == 1) {
 					dmg *= -1; // もし、アンデットで回復系スキルならばダメージになる。
-				}
+						}
 
 				if (_skill.getType() == L1Skill.TYPE_HEAL
 						&& _calcType == PC_NPC && undeadType == 3) {
 					dmg = 0; // もし、アンデット系ボスで回復系スキルならば無効
-				}
+						}
 
 				if ((cha instanceof L1TowerInstance || cha instanceof L1DoorInstance)
 						&& dmg < 0) { // ガーディアンタワー、ドアにヒールを使用
 					dmg = 0;
-				}
+						}
 
 				if (dmg != 0 || drainMana != 0) {
 					_magic.commit(dmg, drainMana); // ダメージ系、回復系の値をターゲットにコミットする。
@@ -3323,7 +3302,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 					L1PcInstance pc = (L1PcInstance) cha;
 					//pc.updateLight();
 				}
-			}
+					}
 
 			if (_skillId == DETECTION || _skillId == COUNTER_DETECTION) { // ディテクション、カウンターディテクション
 				detection(_player);
@@ -3334,31 +3313,22 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 	}
 
-	/**
-	 * キャンセレーションで解除できないスキルかを返す。
-	 */
-	private boolean isNotCancelable(int skillNum) {
-		return skillNum == ENCHANT_WEAPON || skillNum == BLESSED_ARMOR
-				|| skillNum == ABSOLUTE_BARRIER || skillNum == ADVANCE_SPIRIT
-				|| skillNum == SHOCK_STUN || skillNum == SHADOW_FANG
-				|| skillNum == REDUCTION_ARMOR || skillNum == SOLID_CARRIAGE
-				|| skillNum == COUNTER_BARRIER || skillNum == AWAKEN_ANTHARAS
-				|| skillNum == AWAKEN_FAFURION || skillNum == AWAKEN_VALAKAS
-				|| skillNum == BONE_BREAK || skillNum == MASS_SHOCK_STUN
-				|| skillNum == CONFUSION;
+	private static final boolean isNotCancelable(int skillId) {
+		return IntArrays.sContains(UNCANCELABLE, skillId);
 	}
 
 	private void detection(L1PcInstance pc) {
-		if (!pc.isGmInvis() && pc.isInvisble()) { // 自分
+		if (!pc.isGmInvis() && pc.isInvisble()) {
 			pc.delInvis();
 			pc.beginInvisTimer();
 		}
 
-		for (L1PcInstance tgt : L1World.getInstance().getVisiblePlayer(pc)) {
-			if (!tgt.isGmInvis() && tgt.isInvisble()) {
-				tgt.delInvis();
+		for (L1PcInstance target : L1World.getInstance().getVisiblePlayer(pc)) {
+			if (!target.isGmInvis() && target.isInvisble()) {
+				target.delInvis();
 			}
 		}
+		
 		L1WorldTraps.getInstance().onDetection(pc);
 	}
 
@@ -3374,12 +3344,10 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			}
 		}
 
-		// フォグオブスリーピングは自分自身は対象外
 		if (_skillId == FOG_OF_SLEEPING && _user.getId() == cha.getId()) {
 			return false;
 		}
 
-		// マススローは自分自身と自分のペットは対象外
 		if (_skillId == MASS_SLOW) {
 			if (_user.getId() == cha.getId()) {
 				return false;
@@ -3397,7 +3365,6 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 			}
 		}
 
-		// マステレポートは自分自身のみ対象（同時にクラン員もテレポートさせる）
 		if (_skillId == MASS_TELEPORT) {
 			if (_user.getId() != cha.getId()) {
 				return false;
@@ -3443,9 +3410,9 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 				L1PcInstance pc = (L1PcInstance) cha;
 				if (_player.getId() == pc.getId()
 						|| (pc.getClanid() != 0 && _player.getClanid() == pc
-								.getClanid())) {
+							.getClanid())) {
 					return false;
-				}
+							}
 				return true;
 			}
 			return false;
@@ -3461,7 +3428,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 
 		if (cha instanceof L1MonsterInstance) { // アンデットの判定
 			undeadType = ((L1MonsterInstance) cha).getNpcTemplate()
-					.get_undead();
+				.get_undead();
 		}
 
 		// マナドレインが可能か？
@@ -3480,7 +3447,7 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 						|| _skillId == ENTANGLE || _skillId == WIND_SHACKLE) && isErase == false)
 				|| (_skillId == MANA_DRAIN && isManaDrain == false)) {
 			return true;
-		}
+				}
 		return false;
 	}
 
@@ -3499,5 +3466,4 @@ private static final int[] EXCEPT_COUNTER_MAGIC = { 1, 2, 3, 5, 8, 9, 12,
 		}
 		return false;
 	}
-
 }
