@@ -60,6 +60,21 @@ update armor set grade=2 where item_id=20303 or item_id=20306 or item_id=120306 
 
 update npc set weakAttr=4 where name="Demon";
 
+-- If this hasn't been set items turn into the prince sprite when dropped,
+-- effectively destroying the item.
 update armor set grdgfx=4345 where name="cloak of illusionist";
 update armor set grdgfx=5058 where name="hand of the reaper";
 update weapon set grdgfx=59 where name="spirit defender";
+
+-- Accessory enchant modifications. Since the character_items table tends to be
+-- one the largest tables we should keep these as small as possible.
+alter table character_items add `m_def` int(4) unsigned not null default 0;
+alter table character_items add `add_hp` int(6) unsigned not null default 0;
+alter table character_items add `add_mp` int(6) unsigned not null default 0;
+alter table character_items add `add_hpr` int(3) unsigned not null default 0;
+alter table character_items add `add_mpr` int(3) unsigned not null default 0;
+alter table character_items add `add_sp` int(2) unsigned not null default 0;
+alter table character_items add `defense_water` int(2) unsigned not null default 0;
+alter table character_items add `defense_wind` int(2) unsigned not null default 0;
+alter table character_items add `defense_fire` int(2) unsigned not null default 0;
+alter table character_items add `defense_earth` int(2) unsigned not null default 0;

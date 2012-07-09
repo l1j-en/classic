@@ -385,7 +385,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 	//mp bug fix - dont remove - tricid
 	public void rescue() {
-
 		try {		
 		System.out.println("* * * Closing socket	* * * ");
 		_csocket.close();
@@ -406,8 +405,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		} catch (Exception e) {
 		System.out.println("* * * Failed stopping thread	* * *");
 	}
-
-
 
 	}
 	public void close() throws IOException {
