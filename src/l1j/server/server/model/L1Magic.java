@@ -1,21 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.model;
 
 import java.util.Random;
@@ -280,26 +262,26 @@ public class L1Magic {
 		if (_calcType == PC_PC || _calcType == NPC_PC) {
 			switch(skillId) {
 				case EARTH_BIND:
-					probability -= _target.getRegistSustain();
+					probability -= _target.getResistSustain();
 					break;
 				case SHOCK_STUN:
-					probability -= 2 * _target.getRegistStun();
+					probability -= 2 * _target.getResistStun();
 					break;
 				case CURSE_PARALYZE:
-					probability -= _target.getRegistStone();
+					probability -= _target.getResistStone();
 					break;
 				case FOG_OF_SLEEPING:
-					probability -= _target.getRegistSleep();
+					probability -= _target.getResistSleep();
 					break;
 				case ICE_LANCE:
 				case FREEZING_BLIZZARD:
 				case FREEZING_BREATH:
-					probability -= _target.getRegistFreeze();
+					probability -= _target.getResistFreeze();
 					break;
 				case CURSE_BLIND:
 				case DARKNESS:
 				case DARK_BLIND:
-					probability -= _target.getRegistBlind();
+					probability -= _target.getResistBlind();
 					break;
 			}
 		}

@@ -1,21 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.datatables;
 
 import java.sql.Connection;
@@ -42,12 +24,18 @@ import l1j.server.server.utils.SQLUtil;
 public class ItemTable {
 	private static final long serialVersionUID = 1L;
 	private static Logger _log = Logger.getLogger(ItemTable.class.getName());
-	private static final Map<String, Integer> _armorTypes = new HashMap<String, Integer>();
-	private static final Map<String, Integer> _weaponTypes = new HashMap<String, Integer>();
-	private static final Map<String, Integer> _weaponId = new HashMap<String, Integer>();
-	private static final Map<String, Integer> _materialTypes = new HashMap<String, Integer>();
-	private static final Map<String, Integer> _etcItemTypes = new HashMap<String, Integer>();
-	private static final Map<String, Integer> _useTypes = new HashMap<String, Integer>();
+	private static final Map<String, Integer> _armorTypes = 
+		new HashMap<String, Integer>();
+	private static final Map<String, Integer> _weaponTypes = 
+		new HashMap<String, Integer>();
+	private static final Map<String, Integer> _weaponId = 
+		new HashMap<String, Integer>();
+	private static final Map<String, Integer> _materialTypes = 
+		new HashMap<String, Integer>();
+	private static final Map<String, Integer> _etcItemTypes = 
+		new HashMap<String, Integer>();
+	private static final Map<String, Integer> _useTypes = 
+		new HashMap<String, Integer>();
 	private static ItemTable _instance;
 	private L1Item _allTemplates[];
 	private final Map<Integer, L1EtcItem> _etcitems;
@@ -406,12 +394,12 @@ public class ItemTable {
 				armor.set_defense_water(rs.getInt("defense_water"));
 				armor.set_defense_wind(rs.getInt("defense_wind"));
 				armor.set_defense_fire(rs.getInt("defense_fire"));
-				armor.set_regist_stun(rs.getInt("regist_stun"));
-				armor.set_regist_stone(rs.getInt("regist_stone"));
-				armor.set_regist_sleep(rs.getInt("regist_sleep"));
-				armor.set_regist_freeze(rs.getInt("regist_freeze"));
-				armor.set_regist_sustain(rs.getInt("regist_sustain"));
-				armor.set_regist_blind(rs.getInt("regist_blind"));
+				armor.set_resist_stun(rs.getInt("regist_stun"));
+				armor.set_resist_stone(rs.getInt("regist_stone"));
+				armor.set_resist_sleep(rs.getInt("regist_sleep"));
+				armor.set_resist_freeze(rs.getInt("regist_freeze"));
+				armor.set_resist_sustain(rs.getInt("regist_sustain"));
+				armor.set_resist_blind(rs.getInt("regist_blind"));
 				armor.setMaxUseTime(rs.getInt("max_use_time"));
 				result.put(new Integer(armor.getItemId()), armor);
 			}

@@ -1,22 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
-
 package l1j.server.server.model.Instance;
 
 import java.sql.Timestamp;
@@ -39,9 +20,6 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.BinaryOutputStream;
 import static l1j.server.server.model.skill.L1SkillId.*;
-
-// Referenced classes of package l1j.server.server.model:
-// L1Object, L1PcInstance
 
 public class L1ItemInstance extends L1Object {
 	private static Logger _log = Logger.getLogger(L1ItemInstance.class
@@ -713,39 +691,39 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(30);
 				os.writeC(getItem().get_defense_earth());
 			}
-			if (getItem().get_regist_freeze() != 0) {
+			if (getItem().get_resist_freeze() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_freeze());
+				os.writeH(getItem().get_resist_freeze());
 				os.writeC(33);
 				os.writeC(1);
 			}
-			if (getItem().get_regist_stone() != 0) {
+			if (getItem().get_resist_stone() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_stone());
+				os.writeH(getItem().get_resist_stone());
 				os.writeC(33);
 				os.writeC(2);
 			}
-			if (getItem().get_regist_sleep() != 0) {
+			if (getItem().get_resist_sleep() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_sleep());
+				os.writeH(getItem().get_resist_sleep());
 				os.writeC(33);
 				os.writeC(3);
 			}
-			if (getItem().get_regist_blind() != 0) {
+			if (getItem().get_resist_blind() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_blind());
+				os.writeH(getItem().get_resist_blind());
 				os.writeC(33);
 				os.writeC(4);
 			}
-			if (getItem().get_regist_stun() != 0) {
+			if (getItem().get_resist_stun() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_stun());
+				os.writeH(getItem().get_resist_stun());
 				os.writeC(33);
 				os.writeC(5);
 			}
-			if (getItem().get_regist_sustain() != 0) {
+			if (getItem().get_resist_sustain() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_sustain());
+				os.writeH(getItem().get_resist_sustain());
 				os.writeC(33);
 				os.writeC(6);
 			}
