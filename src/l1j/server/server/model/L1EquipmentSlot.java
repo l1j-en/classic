@@ -1,21 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.model;
 
 import java.util.ArrayList;
@@ -107,12 +89,12 @@ public class L1EquipmentSlot {
 		_owner.addWind(item.get_defense_wind());
 		_owner.addWater(item.get_defense_water());
 		_owner.addFire(item.get_defense_fire());
-		_owner.addRegistStun(item.get_regist_stun());
-		_owner.addRegistStone(item.get_regist_stone());
-		_owner.addRegistSleep(item.get_regist_sleep());
-		_owner.add_regist_freeze(item.get_regist_freeze());
-		_owner.addRegistSustain(item.get_regist_sustain());
-		_owner.addRegistBlind(item.get_regist_blind());
+		_owner.addResistStun(item.get_resist_stun());
+		_owner.addResistStone(item.get_resist_stone());
+		_owner.addResistSleep(item.get_resist_sleep());
+		_owner.addResistFreeze(item.get_resist_freeze());
+		_owner.addResistSustain(item.get_resist_sustain());
+		_owner.addResistBlind(item.get_resist_blind());
 
 		_armors.add(armor);
 
@@ -138,7 +120,7 @@ public class L1EquipmentSlot {
 				_owner.sendPackets(new S_Invis(_owner.getId(), 1));
 				_owner.broadcastPacketForFindInvis(new S_RemoveObject(_owner),
 						false);
-// _owner.broadcastPacket(new S_RemoveObject(_owner));
+		// _owner.broadcastPacket(new S_RemoveObject(_owner));
 			}
 		}
 		if (itemId == 20288) { // ROTC
@@ -181,12 +163,12 @@ public class L1EquipmentSlot {
 		_owner.addWind(-item.get_defense_wind());
 		_owner.addWater(-item.get_defense_water());
 		_owner.addFire(-item.get_defense_fire());
-		_owner.addRegistStun(-item.get_regist_stun());
-		_owner.addRegistStone(-item.get_regist_stone());
-		_owner.addRegistSleep(-item.get_regist_sleep());
-		_owner.add_regist_freeze(-item.get_regist_freeze());
-		_owner.addRegistSustain(-item.get_regist_sustain());
-		_owner.addRegistBlind(-item.get_regist_blind());
+		_owner.addResistStun(-item.get_resist_stun());
+		_owner.addResistStone(-item.get_resist_stone());
+		_owner.addResistSleep(-item.get_resist_sleep());
+		_owner.addResistFreeze(-item.get_resist_freeze());
+		_owner.addResistSustain(-item.get_resist_sustain());
+		_owner.addResistBlind(-item.get_resist_blind());
 
 		for (L1ArmorSet armorSet : L1ArmorSet.getAllSet()) {
 			if (armorSet.isPartOfSet(itemId)
