@@ -237,10 +237,10 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
-	private static final long INTERVAL_AUTO_UPDATE = 300;
+	private static final long INTERVAL_AUTO_UPDATE = 500;
 	private ScheduledFuture<?> _autoUpdateFuture;
 
-	private static final long INTERVAL_EXP_MONITOR = 500;
+	private static final long INTERVAL_EXP_MONITOR = 3000;
 	private ScheduledFuture<?> _expMonitorFuture;
 
 	public void onChangeExp() {
@@ -1462,6 +1462,13 @@ public class L1PcInstance extends L1Character {
 			return;
 		}
 		addExp(-exp);
+		// Explicitly checking to close an abusable delvling bug. If a
+		// player dies but disconnects before the exp monitor runs again
+		// characters can effectively delevel (because his or here level will
+		// be recalculated based on experience as part of the next login) without
+		// going through the delevel code, allowing them to repeatedly gain
+		// hitpoints/manapoints from leveling. 
+		onChangeExp();
 	}
 
 	private int _originalEr = 0; // ER
