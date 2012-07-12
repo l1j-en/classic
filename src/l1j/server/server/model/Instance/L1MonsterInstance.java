@@ -1,21 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
@@ -37,24 +19,24 @@ import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.ZoneType;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_NPCPack;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
+import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1MonsterInstance extends L1NpcInstance {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1MonsterInstance.class
-			.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1MonsterInstance.class.getName());
 
 	private static Random _random = new Random();
 
@@ -75,8 +57,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 				setGfxId(targetPc.getClassId());
 				setPassispeed(640);
 				setAtkspeed(900); 
-				for (L1PcInstance pc : L1World.getInstance()
-						.getRecognizePlayer(this)) {
+				for (L1PcInstance pc : 
+						L1World.getInstance().getRecognizePlayer(this)) {
 					pc.sendPackets(new S_RemoveObject(this));
 					pc.removeKnownObject(this);
 					pc.updateObject();
@@ -84,8 +66,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			}
 		}
 		if (getCurrentHp() * 100 / getMaxHp() < 40) { 
-			if (this.getInt() > Config.MONSTERPOTIONINTUSE) // only mobs with > 13 int will use pots
-			{
+			if (this.getInt() > Config.MONSTERPOTIONINTUSE) {
 				useItem(USEITEM_HEAL, 30); 
 			}
 		}
@@ -97,8 +78,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 		//perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		if (0 < getCurrentHp()) {
-			if (getHiddenStatus() == HIDDEN_STATUS_SINK
-					|| getHiddenStatus() == HIDDEN_STATUS_ICE) {
+			if (getHiddenStatus() == HIDDEN_STATUS_SINK || 
+					getHiddenStatus() == HIDDEN_STATUS_ICE) {
 				perceivedFrom.sendPackets(new S_DoActionGFX(getId(),
 						ActionCodes.ACTION_Hide));
 			} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
@@ -115,60 +96,58 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 	}
 
-
 	public static int[][] _classGfxId = { { 0, 1 }, { 48, 61 }, { 37, 138 },
 			{ 734, 1186 }, { 2786, 2796 } };
 
 	@Override
 	public void searchTarget() {
 		L1PcInstance targetPlayer = null;
+		L1Npc base = getNpcTemplate(); 
+		int id = getNpcId();
+		int mapId = getMapId();
+			
+		if (!base.is_agro() && !base.is_agrososc() && !base.is_agrochao() &&
+				base.is_agrogfxid1() < 0 && base.is_agrogfxid2() < 0)
+			return; 
 		
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
-					&& getNpcTemplate().is_agrogfxid1() < 0
-					&& getNpcTemplate().is_agrogfxid2() < 0
-					&& !getNpcTemplate().is_agrochao()) {
-				return; 
-			}
 
 			// NOTE: Don't remove non-aggro to shopmode
-			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
+			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm() || 
+					pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
 				continue;
 			}
 
-			int mapId = getMapId();
-			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91
-					|| mapId == 95) {
-				if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
+			if (mapId == 88 || mapId == 98 || mapId == 92 || mapId == 91 || 
+					mapId == 95) {
+				if (!pc.isInvisble() || base.is_agrocoi()) {
 					targetPlayer = pc;
 					break;
 				}
 			}
 
-			if (getNpcId() == 45600){
-				if (pc.isCrown() || pc.isDarkelf()
-						|| pc.getTempCharGfx() != pc.getClassId()) { 
+			int playerGfx = pc.getTempCharGfx();
+			if (id == 45600) {
+				if (pc.isCrown() || pc.isDarkelf() || 
+						playerGfx != pc.getClassId()) { 
 					targetPlayer = pc;
 					break;
 				}
 			}
 
-			if ((getNpcTemplate().getKarma() < 0 && pc.getKarmaLevel() >= 1)
-					|| (getNpcTemplate().getKarma() > 0 && pc.getKarmaLevel() <= -1)) {
+			if ((base.getKarma() < 0 && pc.getKarmaLevel() >= 1) || 
+					(base.getKarma() > 0 && pc.getKarmaLevel() <= -1)) {
 				continue;
 			}
 
-			if (pc.getTempCharGfx() == 6034 && getNpcTemplate().getKarma() < 0 
-					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().getKarma() > 0
-					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().get_npcId() == 46070
-					|| pc.getTempCharGfx() == 6035 && getNpcTemplate().get_npcId() == 46072) {
+			if (playerGfx == 6034 && base.getKarma() < 0 || 
+					playerGfx == 6035 && (base.getKarma() > 0 || 
+						id == 46070 || id == 46072)) {
 				continue;
 			}
 
-			if (!getNpcTemplate().is_agro() && !getNpcTemplate().is_agrososc()
-					&& getNpcTemplate().is_agrogfxid1() < 0
-					&& getNpcTemplate().is_agrogfxid2() < 0) {
+			if (!base.is_agro() && !base.is_agrososc() && 
+					base.is_agrogfxid1() < 0 && base.is_agrogfxid2() < 0) {
 				if (pc.getLawful() < -1000) {
 					targetPlayer = pc;
 					break;
@@ -176,41 +155,33 @@ public class L1MonsterInstance extends L1NpcInstance {
 				continue;
 			}
 
-			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) { 
+			if (!pc.isInvisble() || base.is_agrocoi()) { 
 				if (pc.hasSkillEffect(67)) {
-					if (getNpcTemplate().is_agrososc()) { 
+					if (base.is_agrososc()) { 
 						targetPlayer = pc;
 						break;
 					}
-				} else if (getNpcTemplate().is_agro()) { 
+				} else if (base.is_agro()) { 
 					targetPlayer = pc;
 					break;
 				}
-				if (getNpcTemplate().is_agrogfxid1() >= 0
-						&& getNpcTemplate().is_agrogfxid1() <= 4) {
-					if (_classGfxId[getNpcTemplate().is_agrogfxid1()][0] == pc
-							.getTempCharGfx()
-							|| _classGfxId[getNpcTemplate().is_agrogfxid1()][1] == pc
-									.getTempCharGfx()) {
+				if (base.is_agrogfxid1() >= 0 && base.is_agrogfxid1() <= 4) {
+					if (_classGfxId[base.is_agrogfxid1()][0] == playerGfx ||
+							_classGfxId[base.is_agrogfxid1()][1] == playerGfx) {
 						targetPlayer = pc;
 						break;
 					}
-				} else if (pc.getTempCharGfx() == getNpcTemplate()
-						.is_agrogfxid1()) { 
+				} else if (playerGfx == base.is_agrogfxid1()) { 
 					targetPlayer = pc;
 					break;
 				}
-				if (getNpcTemplate().is_agrogfxid2() >= 0
-						&& getNpcTemplate().is_agrogfxid2() <= 4) {
-					if (_classGfxId[getNpcTemplate().is_agrogfxid2()][0] == pc
-							.getTempCharGfx()
-							|| _classGfxId[getNpcTemplate().is_agrogfxid2()][1] == pc
-									.getTempCharGfx()) {
+				if (base.is_agrogfxid2() >= 0 && base.is_agrogfxid2() <= 4) {
+					if (_classGfxId[base.is_agrogfxid2()][0] == playerGfx || 
+							_classGfxId[base.is_agrogfxid2()][1] == playerGfx) {
 						targetPlayer = pc;
 						break;
 					}
-				} else if (pc.getTempCharGfx() == getNpcTemplate()
-						.is_agrogfxid2()) { 
+				} else if (playerGfx == base.is_agrogfxid2()) { 
 					targetPlayer = pc;
 					break;
 				}
@@ -221,6 +192,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 			_target = targetPlayer;
 		}
 	}
+	
 	@Override
 	public void setLink(L1Character cha) {
 		if (cha != null && _hateList.isEmpty()) {
@@ -237,7 +209,6 @@ public class L1MonsterInstance extends L1NpcInstance {
 	@Override
 	public void onNpcAI() {
 		if (isAiRunning()) {
-			getZoneType();
 			return;
 		}
 		if (!_storeDroped)
@@ -252,38 +223,15 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	@Override
 	public void onTalkAction(L1PcInstance pc) {
-		int objid = getId();
 		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(
 				getNpcTemplate().get_npcId());
-		String htmlid = null;
-		String[] htmldata = null;
+		pc.sendPackets(new S_NPCTalkReturn(talking, getId(), 
+					pc.getLawful() < -1000 ? 2 : 1));
+	}
 
-
-			if (htmlid != null) { 
-				if (htmldata != null) { 
-					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid,
-							htmldata));
-				} else {
-					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
-				}
-			} else {
-				if (pc.getLawful() < -1000) { 
-					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
-				} else {
-					pc.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
-				}
-			}
-		}
-
-	public int getZoneType() {
-		if (getMap().isSafetyZone(getLocation())) {
-			return -1;
-		} else if (getMap().isCombatZone(getLocation())) {
-			return -1;
-		} else { 
-			return -1;
-			}
-		}
+	@Override public ZoneType getZoneType() {
+		return ZoneType.Combat;
+	}
 
 	@Override
 	public void onAction(L1PcInstance pc) {
@@ -338,27 +286,23 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 			onNpcAI();
 
+			L1Npc template = getNpcTemplate();
 			if (attacker instanceof L1PcInstance) { 
-				serchLink((L1PcInstance) attacker, getNpcTemplate()
-						.get_family());
+				serchLink((L1PcInstance) attacker, template.get_family());
 			}
 
+			int id = getNpcId();
 			if (attacker instanceof L1PcInstance && damage > 0) {
 				L1PcInstance player = (L1PcInstance) attacker;
 				player.setPetTarget(this);
 
-				if (getNpcTemplate().get_npcId() == 45681
-						|| getNpcTemplate().get_npcId() == 45682
-						|| getNpcTemplate().get_npcId() == 45683 
-						|| getNpcTemplate().get_npcId() == 45684) 
-				{
+				if (id >= 45681 && id <= 45684)
 					recall(player);
-				}
 			}
 
 			int newHp = getCurrentHp() - damage;
 			if (newHp <= 0 && !isDead()) {
-				int transformId = getNpcTemplate().getTransformId();
+				int transformId = template.getTransformId();
 				if (transformId == -1) {
 					setCurrentHpDirect(0);
 					setDead(true);
@@ -367,8 +311,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 					Death death = new Death(attacker);
 					GeneralThreadPool.getInstance().execute(death);
 					// Death(attacker);
-				} else { //
-// distributeExpDropKarma(attacker);
+				} else {
+					// distributeExpDropKarma(attacker);
 					transform(transformId);
 				}
 			}
@@ -409,14 +353,10 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 	}
 
-	/**
-	 * 
-	 * @param pc
-	 */
 	private void recall(L1PcInstance pc) {
-		if (getMapId() != pc.getMapId()) {
+		if (getMapId() != pc.getMapId())
 			return;
-		}
+		
 		if (getLocation().getTileLineDistance(pc.getLocation()) > 4) {
 			for (int count = 0; count < 10; count++) {
 				L1Location newLoc = getLocation().randomLocation(3, 4, false);
@@ -506,17 +446,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 			ArrayList<Integer> hateList = _hateList.toHateArrayList();
 			int exp = getExp();
 			CalcExp.calcExp(pc, getId(), targetList, hateList, exp);
-			//
 			if (isDead()) {
 				distributeDrop();
 				giveKarma(pc);
 			}
-		} else if (lastAttacker instanceof L1EffectInstance) { //
+		} else if (lastAttacker instanceof L1EffectInstance) {
 			ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
 			ArrayList<Integer> hateList = _hateList.toHateArrayList();
-			//
 			if (hateList.size() != 0) {
-				//
 				int maxHate = 0;
 				for (int i = hateList.size() - 1; i >= 0; i--) {
 					if (maxHate < hateList.get(i)) {
@@ -547,13 +484,13 @@ public class L1MonsterInstance extends L1NpcInstance {
 	}
 
 	private void distributeDrop() {
-		ArrayList<L1Character> dropTargetList = _dropHateList
-				.toTargetArrayList();
+		ArrayList<L1Character> dropTargetList = 
+			_dropHateList.toTargetArrayList();
 		ArrayList<Integer> dropHateList = _dropHateList.toHateArrayList();
 		try {
 			int npcId = getNpcTemplate().get_npcId();
-			if (npcId != 45640
-					|| (npcId == 45640 && getTempCharGfx() == 2332)) { 
+			if (npcId != 45640 || 
+					(npcId == 45640 && getTempCharGfx() == 2332)) { 
 				DropTable.getInstance().dropShare(L1MonsterInstance.this,
 						dropTargetList, dropHateList);
 			}
@@ -562,33 +499,34 @@ public class L1MonsterInstance extends L1NpcInstance {
 		}
 	}
 
-	private void giveKarma(L1PcInstance pc) {
+	private void giveKarma(final L1PcInstance pc) {
 		int karma = getKarma();
-		if (karma != 0) {
-			int karmaSign = Integer.signum(karma);
-			int pcKarmaLevel = pc.getKarmaLevel();
-			int pcKarmaLevelSign = Integer.signum(pcKarmaLevel);
-			//
-			if (pcKarmaLevelSign != 0 && karmaSign != pcKarmaLevelSign) {
-				karma *= 5;
-			}
-			//
-			pc.addKarma((int) (karma * Config.RATE_KARMA));
+
+		if (karma == 0)
+			return;
+
+		int karmaSign = Integer.signum(karma);
+		int pcKarmaLevel = pc.getKarmaLevel();
+		int pcKarmaLevelSign = Integer.signum(pcKarmaLevel);
+		if (pcKarmaLevelSign != 0 && karmaSign != pcKarmaLevelSign) {
+			karma *= 5;
 		}
+		pc.addKarma((int) (karma * Config.RATE_KARMA));
 	}
 
 	private void giveUbSeal() {
-		if (getUbSealCount() != 0) { //
-			L1UltimateBattle ub = UBTable.getInstance().getUb(getUbId());
-			if (ub != null) {
-				for (L1PcInstance pc : ub.getMembersArray()) {
-					if (pc != null && !pc.isDead() && !pc.isGhost()) {
-						L1ItemInstance item = pc.getInventory()
-								.storeItem(41402, getUbSealCount());
-						pc.sendPackets(new S_ServerMessage(403, item
-								.getLogName())); //
-					}
-				}
+		if (getUbSealCount() == 0)
+			return;
+			
+		L1UltimateBattle ub = UBTable.getInstance().getUb(getUbId());
+		if (ub == null)
+			return;
+
+		for (L1PcInstance pc : ub.getMembersArray()) {
+			if (pc != null && !pc.isDead() && !pc.isGhost()) {
+				L1ItemInstance item = 
+					pc.getInventory().storeItem(41402, getUbSealCount());
+				pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
 			}
 		}
 	}
@@ -611,7 +549,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 		_ubSealCount = i;
 	}
 
-	private int _ubId = 0; // UBID
+	private int _ubId = 0;
 
 	public int getUbId() {
 		return _ubId;
@@ -622,167 +560,89 @@ public class L1MonsterInstance extends L1NpcInstance {
 	}
 
 	private void hide() {
-		int npcid = getNpcTemplate().get_npcId();
-		if (npcid == 45061 
-				|| npcid == 45161 
-				|| npcid == 45181
-				|| npcid == 45455) {
-			if (getMaxHp() / 3 > getCurrentHp()) {
-				int rnd = _random.nextInt(10);
-				if (1 > rnd) {
-					allTargetClear();
-					setHiddenStatus(HIDDEN_STATUS_SINK);
-					broadcastPacket(new S_DoActionGFX(getId(),
-							ActionCodes.ACTION_Hide));
-					setStatus(13);
-					broadcastPacket(new S_NPCPack(this));
-				}
-			}
-		} else if (npcid == 45682) { 
-			if (getMaxHp() / 3 > getCurrentHp()) {
-				int rnd = _random.nextInt(50);
-				if (1 > rnd) {
-					allTargetClear();
-					setHiddenStatus(HIDDEN_STATUS_SINK);
-					broadcastPacket(new S_DoActionGFX(getId(),
+		switch (getNpcTemplate().get_npcId()) {
+			case 45061: case 45161: case 45181: case 45455:
+				hideHelper(3, 10, 13, HIDDEN_STATUS_SINK,
+						new S_DoActionGFX(getId(), ActionCodes.ACTION_Hide));
+				break;
+			case 45682:
+				hideHelper(3, 50, 20, HIDDEN_STATUS_SINK,
+						new S_DoActionGFX(getId(),
 							ActionCodes.ACTION_AntharasHide));
-					setStatus(20);
-					broadcastPacket(new S_NPCPack(this));
-				}
-			}
-		} else if (npcid == 45067 
-				|| npcid == 45264 
-				|| npcid == 45452 
-				|| npcid == 45090 
-				|| npcid == 45321
-				|| npcid == 45445) { 
-			if (getMaxHp() / 3 > getCurrentHp()) {
-				int rnd = _random.nextInt(10);
-				if (1 > rnd) {
-					allTargetClear();
-					setHiddenStatus(HIDDEN_STATUS_FLY);
-					broadcastPacket(new S_DoActionGFX(getId(),
-							ActionCodes.ACTION_Moveup));
-					setStatus(4);
-					broadcastPacket(new S_NPCPack(this));
-				}
-			}
-		} else if (npcid == 45681) { 
-			if (getMaxHp() / 3 > getCurrentHp()) {
-				int rnd = _random.nextInt(50);
-				if (1 > rnd) {
-					allTargetClear();
-					setHiddenStatus(HIDDEN_STATUS_FLY);
-					broadcastPacket(new S_DoActionGFX(getId(),
-							ActionCodes.ACTION_Moveup));
-					setStatus(11);
-					broadcastPacket(new S_NPCPack(this));
-				}
-			}
-		} else if (npcid == 46107 
-				 || npcid == 46108) { 
-			if (getMaxHp() / 4 > getCurrentHp()) {
-				int rnd = _random.nextInt(10);
-				if (1 > rnd) {
-					allTargetClear();
-					setHiddenStatus(HIDDEN_STATUS_SINK);
-					broadcastPacket(new S_DoActionGFX(getId(),
-							ActionCodes.ACTION_Hide));
-					setStatus(13);
-					broadcastPacket(new S_NPCPack(this));
-				}
-			}
+				break;
+			case 45067: case 45264: case 45452: case 45090: 
+			case 4532: case 45445:
+				hideHelper(3, 10, 4, HIDDEN_STATUS_FLY,
+						new S_DoActionGFX(getId(), ActionCodes.ACTION_Moveup));
+				break;
+			case 45681:
+				hideHelper(3, 50, 11, HIDDEN_STATUS_FLY,
+						new S_DoActionGFX(getId(), ActionCodes.ACTION_Moveup));
+				break;
+			case 46107: case 46108:
+				hideHelper(4, 10, 13, HIDDEN_STATUS_SINK,
+						new S_DoActionGFX(getId(), ActionCodes.ACTION_Hide));
+				break;
+			default:
+		}
+	}
+
+	private void hideHelper(int hpFraction, int range, int status,
+			int hiddenStatus, final ServerBasePacket action) {
+		if (getMaxHp() / hpFraction > getCurrentHp() &&
+				1 > _random.nextInt(range)) {
+			allTargetClear();
+			setStatusAndHiddenStatus(status, hiddenStatus);
+			broadcastPacket(action);
+			broadcastPacket(new S_NPCPack(this));
 		}
 	}
 
 	public void initHide() {
+		initHideHelper(true);
+	}
+
+	public void initHideForMinion(final L1NpcInstance leader) {
 		int npcid = getNpcTemplate().get_npcId();
-		if (npcid == 45061 
-				|| npcid == 45161 
-				|| npcid == 45181 
-				|| npcid == 45455) { 
-			int rnd = _random.nextInt(3);
-			if (1 > rnd) {
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(13);
-			}
-		} else if (npcid == 45045 
-				|| npcid == 45126 
-				|| npcid == 45134 
-				|| npcid == 45281) {
-			int rnd = _random.nextInt(3);
-			if (1 > rnd) {
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(4);
-			}
-		} else if (npcid == 45067 
-				|| npcid == 45264 
-				|| npcid == 45452 
-				|| npcid == 45090 
-				|| npcid == 45321 
-				|| npcid == 45445) { 
-			setHiddenStatus(HIDDEN_STATUS_FLY);
-			setStatus(4);
-		} else if (npcid == 45681) { 
-			setHiddenStatus(HIDDEN_STATUS_FLY);
-			setStatus(11);
-		} else if (npcid == 46107 
-				 || npcid == 46108) { 
-			int rnd = _random.nextInt(3);
-			if (1 > rnd) {
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(13);
-			}
-		} else if (npcid >= 46125 && npcid <= 46128) {
-			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_ICE);
-			setStatus(4);
+		if (leader.getHiddenStatus() == HIDDEN_STATUS_SINK ||
+				leader.getHiddenStatus() == HIDDEN_STATUS_FLY ||
+				(npcid >= 46125 && npcid <= 46128))
+			initHideHelper(false);
+	}
+	
+	private void initHideHelper(boolean random) {
+		switch (getNpcTemplate().get_npcId()) {
+			case 45061: case 45161: case 45181: case 45455:
+			case 46107: case 46108:
+				if (!random || 1 > _random.nextInt(3))
+					setStatusAndHiddenStatus(13, HIDDEN_STATUS_SINK);
+				break;
+			case 45045: case 45126: case 45134: case 45281:
+				if (!random || 1 > _random.nextInt(3))
+					setStatusAndHiddenStatus(4, HIDDEN_STATUS_SINK);
+				break;
+			case 45067: case 45264: case 45452: case 45090:
+			case 45321: case 45445:
+				setStatusAndHiddenStatus(4, HIDDEN_STATUS_FLY);
+				break;
+			case 45681:
+				setStatusAndHiddenStatus(11, HIDDEN_STATUS_FLY);
+				break;
+			case 46125: case 46126: case 46127: case 46128:
+				setStatusAndHiddenStatus(4, HIDDEN_STATUS_ICE);
+				break;
+			default:
 		}
 	}
 
-	public void initHideForMinion(L1NpcInstance leader) {
-
-		int npcid = getNpcTemplate().get_npcId();
-		if (leader.getHiddenStatus() == HIDDEN_STATUS_SINK) {
-			if (npcid == 45061 
-					|| npcid == 45161 
-					|| npcid == 45181 
-					|| npcid == 45455) { 
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(13);
-			} else if (npcid == 45045 
-					|| npcid == 45126 
-					|| npcid == 45134 
-					|| npcid == 45281) { 
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(4);
-			} else if (npcid == 46107 
-					 || npcid == 46108) { 
-				setHiddenStatus(HIDDEN_STATUS_SINK);
-				setStatus(13);
-			}
-		} else if (leader.getHiddenStatus() == HIDDEN_STATUS_FLY) {
-			if (npcid == 45067 
-					|| npcid == 45264 
-					|| npcid == 45452 
-					|| npcid == 45090 
-					|| npcid == 45321 
-					|| npcid == 45445) { 
-				setHiddenStatus(HIDDEN_STATUS_FLY);
-				setStatus(4);
-			} else if (npcid == 45681) { 
-				setHiddenStatus(HIDDEN_STATUS_FLY);
-				setStatus(11);
-			}
-		} else if (npcid >= 46125 && npcid <= 46128) {
-			setHiddenStatus(L1NpcInstance.HIDDEN_STATUS_ICE);
-			setStatus(4);
-		}
+	private void setStatusAndHiddenStatus(int status, int hiddenStatus) {
+		setHiddenStatus(hiddenStatus);
+		setStatus(status);
 	}
 
 	@Override
 	protected void transform(int transformId) {
 		super.transform(transformId);
-
 		getInventory().clearItems();
 		DropTable.getInstance().setDrop(this, getInventory());
 		getInventory().shuffle();

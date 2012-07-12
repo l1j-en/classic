@@ -1,5 +1,6 @@
 package l1j.server.server.model;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Skill;
+import l1j.server.server.utils.collections.IntArrays;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Magic {
@@ -44,6 +46,18 @@ public class L1Magic {
 	private static final int CRIT_LEVEL_LIMIT = 6;
 	// TODO: determine what this should be - one player suggested live is 1.2.
 	private static final double ELEMENTAL_WEAKNESS_MULTIPLIER = 1.2;
+
+	private static final int[] NOT_IN_SAFE_ZONES = new int[] {
+		WEAPON_BREAK, SLOW, CURSE_PARALYZE, MANA_DRAIN, DARKNESS, WEAKNESS,
+			DISEASE, DECAY_POTION, MASS_SLOW, ENTANGLE, ERASE_MAGIC, EARTH_BIND,
+			AREA_OF_SILENCE, WIND_SHACKLE, STRIKER_GALE, SHOCK_STUN,
+			FOG_OF_SLEEPING, ICE_LANCE, FREEZING_BLIZZARD, CANCELLATION,
+			POLLUTE_WATER, CURSE_POISON, ELEMENTAL_FALL_DOWN, CURSE_BLIND,
+			RETURN_TO_NATURE, DARK_BLIND, SILENCE, FREEZING_BREATH };
+
+	static {
+		Arrays.sort(NOT_IN_SAFE_ZONES);
+	}
 
 	public void setLeverage(int i) {
 		_leverage = i;
@@ -107,7 +121,8 @@ public class L1Magic {
 						return true;
 					}
 				}
-				if (_pc.getZoneType() == 1 || _targetPc.getZoneType() == 1) {
+				if (_pc.getZoneType() == ZoneType.Safety || 
+						_targetPc.getZoneType() == ZoneType.Safety) {
 					return false;
 				}
 			}
@@ -158,26 +173,13 @@ public class L1Magic {
 	}
 
 	private boolean checkZone(int skillId) {
-		if (_pc != null && _targetPc != null) {
-			if (_pc.getZoneType() == 1 || _targetPc.getZoneType() == 1) {
-				if (skillId == WEAPON_BREAK || skillId == SLOW
-						|| skillId == CURSE_PARALYZE || skillId == MANA_DRAIN
-						|| skillId == DARKNESS || skillId == WEAKNESS
-						|| skillId == DISEASE || skillId == DECAY_POTION
-						|| skillId == MASS_SLOW || skillId == ENTANGLE
-						|| skillId == ERASE_MAGIC || skillId == EARTH_BIND
-						|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
-						|| skillId == STRIKER_GALE || skillId == SHOCK_STUN
-						|| skillId == FOG_OF_SLEEPING || skillId == ICE_LANCE
-						|| skillId == FREEZING_BLIZZARD || skillId == CANCELLATION
-						|| skillId == POLLUTE_WATER || skillId == CURSE_POISON
-						|| skillId == ELEMENTAL_FALL_DOWN || skillId == CURSE_BLIND
-						|| skillId == RETURN_TO_NATURE || skillId == DARK_BLIND
-						|| skillId == SILENCE || skillId == FREEZING_BREATH) {
-					return false;
-				}
-			}
-		}
+		if (_pc == null || _targetPc == null)
+			return true;
+
+		if (_pc.getZoneType() == ZoneType.Safety || 
+				_targetPc.getZoneType() == ZoneType.Safety)
+			return !IntArrays.sContains(NOT_IN_SAFE_ZONES, skillId);
+
 		return true;
 	}
 
