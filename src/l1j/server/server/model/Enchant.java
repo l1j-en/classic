@@ -355,21 +355,17 @@ public class Enchant {
 		if (IntArrays.sContains(IvoryTowerWeapons, weaponId))
 			return false;
 		
-		if (weaponId >= 246 && weaponId <= 249) {
+		if (weaponId >= 246 && weaponId <= 249)
 			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON;
-		}
-		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON) {
+
+		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_QUEST_WEAPON)
 			return weaponId >= 246 && weaponId <= 249;
-		}
 		
-		if (weaponId == 36 || weaponId == 183 || 
-				(weaponId >= 250 && weaponId <= 255)) {
+		if (weaponId == 183 || (weaponId >= 250 && weaponId <= 255))
 			return scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion;
-		}
-		if (scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion) {
-			return weaponId == 36 || weaponId == 183 ||
-				(weaponId >= 150 && weaponId <= 255);
-		}
+		
+		if (scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion)
+			return weaponId == 183 || (weaponId >= 150 && weaponId <= 255);
 
 		return true;
 	}
