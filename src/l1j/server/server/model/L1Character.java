@@ -473,13 +473,13 @@ public class L1Character extends L1Object {
 		broadcastPacket(new S_Poison(getId(), effectId));
 	}
 
-	public int getZoneType() {
+	public ZoneType getZoneType() {
 		if (getMap().isSafetyZone(getLocation())) {
-			return 1;
+			return ZoneType.Safety;
 		} else if (getMap().isCombatZone(getLocation())) {
-			return -1;
+			return ZoneType.Combat;
 		} else { 
-			return 0;
+			return ZoneType.Normal;
 		}
 	}
 

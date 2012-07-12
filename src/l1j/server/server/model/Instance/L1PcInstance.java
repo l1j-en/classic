@@ -50,6 +50,7 @@ import l1j.server.server.model.L1War;
 import l1j.server.server.model.MpReductionByAwake;
 import l1j.server.server.model.MpRegeneration;
 import l1j.server.server.model.MpRegenerationByDoll;
+import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.classes.L1ClassFeature;
 import l1j.server.server.model.gametime.L1GameTimeCarrier;
 import l1j.server.server.model.monitor.L1PcAutoUpdate;
@@ -690,7 +691,8 @@ public class L1PcInstance extends L1Character {
 		if (isTeleport()) {
 			return;
 		}
-		if (getZoneType() == 1 || attacker.getZoneType() == 1) {
+		if (getZoneType() == ZoneType.Safety || 
+				attacker.getZoneType() == ZoneType.Safety) {
 			L1Attack attack_mortion = new L1Attack(attacker, this);
 			attack_mortion.action();
 			return;
@@ -1104,23 +1106,23 @@ public class L1PcInstance extends L1Character {
 									pstm.setInt(8, getX());
 									pstm.setInt(9, getY());
 									pstm.setInt(10, getMapId());
-									if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && getMap().isEnabledDeathPenalty()) {
+									if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 1);
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && !getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 2);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && !getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 3);
 										//doorway
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != 0 && getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 4);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 5);
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && !getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 6);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && !getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 7);
 										//normal zone
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == 0 && getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 8);
 									} else {
 										pstm.setInt(11, 9);
@@ -1141,7 +1143,7 @@ public class L1PcInstance extends L1Character {
                 L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
              }
 			if (lastAttacker != L1PcInstance.this) {
-				if (getZoneType() != 0) {
+				if (getZoneType() != ZoneType.Normal) {
 					L1PcInstance player = null;
 					if (lastAttacker instanceof L1PcInstance) {
 						player = (L1PcInstance) lastAttacker;

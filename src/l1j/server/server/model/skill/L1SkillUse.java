@@ -30,6 +30,7 @@ import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.Instance.L1AuctionBoardInstance;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1CrownInstance;
@@ -713,7 +714,7 @@ public class L1SkillUse {
 			L1PcInstance enemy = (L1PcInstance) cha;
 			// カウンターディテクション
 			if (_skillId == COUNTER_DETECTION
-					&& enemy.getZoneType() != 1
+					&& enemy.getZoneType() != ZoneType.Safety
 					&& (cha.hasSkillEffect(INVISIBILITY) || cha
 						.hasSkillEffect(BLIND_HIDING))) {
 				return true; // インビジかブラインドハイディング中
@@ -1387,9 +1388,9 @@ public class L1SkillUse {
 
 			if (_skill.getTarget().equals("attack") && _skillId != 18) {
 				if (isPcSummonPet(_target)) { // 対象がPC、サモン、ペット
-					if (_player.getZoneType() == 1
-							|| _target.getZoneType() == 1 // 攻撃する側または攻撃される側がセーフティーゾーン
-							|| _player.checkNonPvP(_player, _target)) { // Non-PvP設定
+					if (_player.getZoneType() == ZoneType.Safety || 
+							_target.getZoneType() == ZoneType.Safety || 
+							_player.checkNonPvP(_player, _target)) {
 						_player.sendPackets(new S_UseAttackSkill(_player, 0,
 									castgfx, _targetX, _targetY, actionId));
 						_player.broadcastPacket(new S_UseAttackSkill(_player,
@@ -3313,13 +3314,13 @@ public class L1SkillUse {
 		L1WorldTraps.getInstance().onDetection(pc);
 	}
 
-	// ターゲットについて計算する必要があるか返す
 	private boolean isTargetCalc(L1Character cha) {
 		// 攻撃魔法のNon－PvP判定
-		if (_skill.getTarget().equals("attack") && _skillId != 18) { // 攻撃魔法
-			if (isPcSummonPet(cha)) { // 対象がPC、サモン、ペット
-				if (_player.getZoneType() == 1 || cha.getZoneType() == 1 // 攻撃する側または攻撃される側がセーフティーゾーン
-						|| _player.checkNonPvP(_player, cha)) { // Non-PvP設定
+		if (_skill.getTarget().equals("attack") && _skillId != 18) {
+			if (isPcSummonPet(cha)) {
+				if (_player.getZoneType() == ZoneType.Safety || 
+						cha.getZoneType() == ZoneType.Safety || 
+						_player.checkNonPvP(_player, cha)) {
 					return false;
 				}
 			}
