@@ -74,7 +74,12 @@ alter table character_items add `add_mp` int(6) unsigned not null default 0;
 alter table character_items add `add_hpr` int(3) unsigned not null default 0;
 alter table character_items add `add_mpr` int(3) unsigned not null default 0;
 alter table character_items add `add_sp` int(2) unsigned not null default 0;
-alter table character_items add `defense_water` int(2) unsigned not null default 0;
-alter table character_items add `defense_wind` int(2) unsigned not null default 0;
-alter table character_items add `defense_fire` int(2) unsigned not null default 0;
-alter table character_items add `defense_earth` int(2) unsigned not null default 0;
+alter table character_items add `defense_water` int(4) unsigned not null default 0;
+alter table character_items add `defense_wind` int(4) unsigned not null default 0;
+alter table character_items add `defense_fire` int(4) unsigned not null default 0;
+alter table character_items add `defense_earth` int(4) unsigned not null default 0;
+
+update npc set bowActId=66 where name="Greedy Archer";
+update shop set npc_name = 'Lakuki' where npc_id = 80090;
+update npc set npc_name = 'Lakuki' where npc_id = 80090;
+update skills set attr=4 where name= "Ice Eruption"; 
