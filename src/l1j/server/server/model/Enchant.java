@@ -28,8 +28,7 @@ public class Enchant {
 		new int[] { 7, 35, 48, 73, 105, 120, 147, 156, 174, 175, 224 };
 
 	private static final int[] IvoryTowerArmor =
-		new int[] { 20028, 20082, 20126, 20173, 20206, 20232, 21138, 21051, 
-			21052, 21053, 21054, 21055, 21056, 21140, 21141 };
+		new int[] { 20028, 20082, 20126, 20173, 20206, 20232, 21138, 21140, 21141 };
 
 	static {
 		Arrays.sort(IvoryTowerWeapons);
