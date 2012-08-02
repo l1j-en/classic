@@ -881,16 +881,15 @@ public class L1Attack {
 
 	private int calcNpcNpcDamage() {
 		int level = _npc.getLevel();
-		double damage = 0;
+		double damage = _random.nextInt(level) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
-			damage = _random.nextInt(_npc.getNpcTemplate().get_level())
-					+ _npc.getStr() / 2 + 1;
 			damage += (level / 16); // Each additional pet is hit LV16
 			damage += ((L1PetInstance) _npc).getDamageByWeapon();
-		} else {
-			damage = _random.nextInt(level) + _npc.getStr() / 2 + 1;
 		}
+
+		damage += _npc.getDmgup();
+
 		if (isUndeadDamage()) {
 			damage *= 1.1;
 		}
