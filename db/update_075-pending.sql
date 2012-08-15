@@ -83,3 +83,12 @@ update npc set bowActId=66 where name="Greedy Archer";
 update shop set npc_name = 'Lakuki' where npc_id = 80090;
 update npc set npc_name = 'Lakuki' where npc_id = 80090;
 update skills set attr=4 where name= "Ice Eruption"; 
+
+-- Fix for 42f Horrific Iron Golems
+update mobskill set gfxid = 0 where mobid = 45479;
+update mobskill set actid = 30 where mobid = 45479;
+
+-- Giran Castle Dungeon teleporter
+insert into npc values (81287,'Wizard Merlin','$7441','To Giran Prison','L1Teleporter',2400,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,1 4,0,1,0); 
+insert into spawnlist_npc values (88123,'Wizard Merlin',1,81287,33429,32824,0,0,4,0,4,0);
+insert into npcaction values (81287,'merlin1','merlin1','merlin2','');
