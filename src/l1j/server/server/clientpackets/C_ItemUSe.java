@@ -1,20 +1,5 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
+/**
+ * GPLv2. See License.
  */
 package l1j.server.server.clientpackets;
 
@@ -46,6 +31,7 @@ import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Element;
 import l1j.server.server.model.Enchant;
 import l1j.server.server.model.Getback;
+import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Clan;
@@ -103,6 +89,7 @@ import l1j.server.server.serverpackets.S_Sound;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.serverpackets.S_UseMap;
+import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1Armor;
 import l1j.server.server.templates.L1BookMark;
@@ -113,12 +100,10 @@ import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.L1SpawnUtil;
+import l1j.server.server.utils.collections.IntArrays;
 import static l1j.server.server.model.skill.L1SkillId.*;
 import static l1j.server.server.model.item.L1ItemId.*;
 
-// Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket
-//
 public class C_ItemUSe extends ClientBasePacket {
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
@@ -173,6 +158,8 @@ public class C_ItemUSe extends ClientBasePacket {
 		int cookNo = 0;
 		int fishX = 0;
 		int fishY = 0;
+
+		L1PcInventory inventory = pc.getInventory();
 
 		int use_type = l1iteminstance.getItem().getUseType();
 		if (itemId == 40088 || itemId == 40096 || itemId == 140088) {
@@ -246,2271 +233,1999 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41430
 				|| itemId == 41431
 				|| itemId == 41432) {
-			l = readD();
-		} else if (itemId == 140100 || itemId == 40100 || itemId == 40099 || itemId == 40086 || itemId == 40863) {
-			bmapid = readH();
-			btele = readD();
-			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
-		} else if (itemId == 40090 || itemId == 40091 || itemId == 40092
-				|| itemId == 40093 || itemId == 40094) {
-			blanksc_skillid = readC();
-		} else if (use_type == 30 || itemId == 40870 || itemId == 40879) { // spell_buff
-			spellsc_objid = readD();
-		} else if (use_type == 5 || use_type == 17) { // spell_long // spell_short
-			spellsc_objid = readD();
-			spellsc_x = readH();
-			spellsc_y = readH();
-		} else if (itemId == 40089 || itemId == 140089) {
-			resid = readD();
-		} else if (itemId == 40310 || itemId == 40311 || itemId == 40730 || itemId == 40731 || itemId == 40732) { 
-			letterCode = readH();
-			letterReceiver = readS();
-			letterText = readByte();
-		} else if (itemId >= 41255 && itemId <= 41259) {
-			cookStatus = readC();
-			cookNo = readC();
-		} else if (itemId == 41293 || itemId == 41294) {
-			fishX = readH();
-			fishY = readH();
-		} else {
-			l = readC();
+					l = readD();
+				} else if (itemId == 140100 || itemId == 40100 || itemId == 40099 || itemId == 40086 || itemId == 40863) {
+					bmapid = readH();
+					btele = readD();
+					pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
+				} else if (itemId == 40090 || itemId == 40091 || itemId == 40092
+						|| itemId == 40093 || itemId == 40094) {
+					blanksc_skillid = readC();
+				} else if (use_type == 30 || itemId == 40870 || itemId == 40879) { // spell_buff
+					spellsc_objid = readD();
+				} else if (use_type == 5 || use_type == 17) { // spell_long // spell_short
+					spellsc_objid = readD();
+					spellsc_x = readH();
+					spellsc_y = readH();
+				} else if (itemId == 40089 || itemId == 140089) {
+					resid = readD();
+				} else if (itemId == 40310 || itemId == 40311 || itemId == 40730 || itemId == 40731 || itemId == 40732) { 
+					letterCode = readH();
+					letterReceiver = readS();
+					letterText = readByte();
+				} else if (itemId >= 41255 && itemId <= 41259) {
+					cookStatus = readC();
+					cookNo = readC();
+				} else if (itemId == 41293 || itemId == 41294) {
+					fishX = readH();
+					fishY = readH();
+				} else {
+					l = readC();
+				}
+
+		if (pc.getCurrentHp() <= 0)
+			return;
+
+		int delay_id = 0;
+		if (l1iteminstance.getItem().getType2() == 0) {
+			delay_id = ((L1EtcItem) l1iteminstance.getItem()).get_delayid();
+		}
+		if (delay_id != 0) {
+			if (pc.hasItemDelay(delay_id) == true) {
+				return;
+			}
 		}
 
-		if (pc.getCurrentHp() > 0) {
-			int delay_id = 0;
-			if (l1iteminstance.getItem().getType2() == 0) {
-				delay_id = ((L1EtcItem) l1iteminstance.getItem()).get_delayid();
-			}
-			if (delay_id != 0) {
-				if (pc.hasItemDelay(delay_id) == true) {
-					return;
+		boolean isDelayEffect = false;
+		if (l1iteminstance.getItem().getType2() == 0) {
+			int delayEffect = ((L1EtcItem) l1iteminstance.getItem()).get_delayEffect();
+			if (delayEffect > 0) {
+				isDelayEffect = true;
+				Timestamp lastUsed = l1iteminstance.getLastUsed();
+				if (lastUsed != null) {
+					Calendar cal = Calendar.getInstance();
+					if ((cal.getTimeInMillis() - lastUsed.getTime()) / 1000 <= delayEffect) {
+						pc.sendPackets(new S_ServerMessage(79));
+						return;
+					}
 				}
 			}
+		}
 
-			boolean isDelayEffect = false;
-			if (l1iteminstance.getItem().getType2() == 0) {
-				int delayEffect = ((L1EtcItem) l1iteminstance.getItem()).get_delayEffect();
-				if (delayEffect > 0) {
-					isDelayEffect = true;
-					Timestamp lastUsed = l1iteminstance.getLastUsed();
-					if (lastUsed != null) {
-						Calendar cal = Calendar.getInstance();
-						if ((cal.getTimeInMillis() - lastUsed.getTime()) / 1000 <= delayEffect) {
-							pc.sendPackets(new S_ServerMessage(79));
+		L1ItemInstance l1iteminstance1 = inventory.getItem(l);
+		_log.finest("request item use (obj) = " + itemObjid + " action = "
+				+ l + " value = " + s);
+		if (itemId == 40077 || itemId == SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON
+				|| itemId == 40130 || itemId == 140130
+				|| itemId == B_SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == C_SCROLL_OF_ENCHANT_WEAPON
+				|| itemId == 40128) {
+			Enchant.enchantWeapon(pc, l1iteminstance, l1iteminstance1);
+		} else if (itemId == 41429 || itemId == 41430
+				|| itemId == 41431 || itemId == 41432) {
+			Enchant.elementEnchant(pc, l1iteminstance, l1iteminstance1);
+		} else if (itemId == 40078
+				|| itemId == SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == 40129 || itemId == 140129
+				|| itemId == B_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == C_SCROLL_OF_ENCHANT_ARMOR
+				|| itemId == 40127) {
+			Enchant.enchantArmor(pc, l1iteminstance, l1iteminstance1);
+		} else if (itemId == 49311) {
+			Enchant.enchantIvoryTowerArmor(pc, l1iteminstance, l1iteminstance1);
+		} else if (itemId == 49312) {
+			Enchant.enchantIvoryTowerWeapon(pc, l1iteminstance, l1iteminstance1);
+		} else if (itemId == 49148) {
+			Enchant.enchantAccessory(pc, l1iteminstance, l1iteminstance1);
+		} else if (l1iteminstance.getItem().getType2() == 0) {
+			L1Item template = l1iteminstance.getItem();
+
+			int minLvl = template.getMinLevel();
+			int maxLvl = template.getMaxLevel();
+			if (minLvl != 0 && minLvl > pc.getLevel() && !pc.isGm()) {
+				pc.sendPackets(new S_ServerMessage(318, String.valueOf(minLvl)));
+				return;
+			} else if (maxLvl != 0 && maxLvl < pc.getLevel() && !pc.isGm()) {
+				pc.sendPackets(new S_ServerMessage(673, String.valueOf(maxLvl)));
+				return;
+			}
+
+			if ((itemId == 40576 && !pc.isElf())
+					|| (itemId == 40577 && !pc.isWizard())
+					|| (itemId == 40578 && !pc.isKnight())) {
+				pc.sendPackets(new S_ServerMessage(264));
+				return;
+			}
+
+			if (template.getType() == 0) {
+				inventory.setArrow(template.getItemId());
+				pc.sendPackets(new S_ServerMessage(452, l1iteminstance.getLogName()));
+			} else if (template.getType() == 15) {
+				inventory.setSting(template.getItemId());
+				pc.sendPackets(new S_ServerMessage(452, l1iteminstance.getLogName()));
+			} else if (template.getType() == 16) { // treasure_box
+				L1TreasureBox box = L1TreasureBox.get(itemId);
+
+				if (box != null) {
+					if (box.open(pc)) {
+						L1EtcItem temp = (L1EtcItem) l1iteminstance.getItem();
+						if (temp.get_delayEffect() > 0) {
+							isDelayEffect = true;
+						} else {
+							inventory.removeItem(
+									l1iteminstance.getId(), 1);
+						}
+					}
+				}
+			} else if (template.getType() == 2) { //
+				if (l1iteminstance.getRemainingTime() <= 0
+						&& itemId != 40004) {
+					return;
+				}
+				if (l1iteminstance.isNowLighting()) {
+					l1iteminstance.setNowLighting(false);
+					pc.turnOnOffLight();
+				} else {
+					l1iteminstance.setNowLighting(true);
+					pc.turnOnOffLight();
+				}
+				pc.sendPackets(new S_ItemName(l1iteminstance));
+			} else if (itemId == 40003) { //
+				for (L1ItemInstance lightItem : inventory.getItems()) {
+					if (lightItem.getItem().getItemId() == 40002) {
+						lightItem.setRemainingTime(l1iteminstance.getItem()
+								.getLightFuel());
+						pc.sendPackets(new S_ItemName(lightItem));
+						pc.sendPackets(new S_ServerMessage(230)); //
+						break;
+					}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 43000) { //
+				pc.setExp(1);
+				pc.resetLevel();
+				pc.setBonusStats(0);
+				pc.sendPackets(new S_SkillSound(pcObjid, 191));
+				pc.broadcastPacket(new S_SkillSound(pcObjid, 191));
+				pc.sendPackets(new S_OwnCharStatus(pc));
+				inventory.removeItem(l1iteminstance, 1);
+				pc.sendPackets(new S_ServerMessage(822));
+				pc.save();
+			} else if (itemId == 40033 || itemId == 40034 || itemId == 40035 ||
+					itemId == 40036 || itemId == 40037 || itemId == 40038) {
+				useElixir(pc, itemId, l1iteminstance);
+			} else if (itemId == POTION_OF_HEALING
+					|| itemId == CONDENSED_POTION_OF_HEALING
+					|| itemId == 40029) {
+				UseHealingPotion(pc, 15, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40022) {
+				UseHealingPotion(pc, 20, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_EXTRA_HEALING
+					|| itemId == CONDENSED_POTION_OF_EXTRA_HEALING) {
+				UseHealingPotion(pc, 45, 194);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40023) {
+				UseHealingPotion(pc, 30, 194);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_GREATER_HEALING
+					|| itemId == CONDENSED_POTION_OF_GREATER_HEALING) {
+				UseHealingPotion(pc, 75, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40024) {
+				UseHealingPotion(pc, 55, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40506) {
+				UseHealingPotion(pc, 70, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40026 || itemId == 40027
+					|| itemId == 40028) {
+				UseHealingPotion(pc, 25, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40058) {
+				UseHealingPotion(pc, 30, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40071) {
+				UseHealingPotion(pc, 70, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40734) {
+				UseHealingPotion(pc, 50, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == B_POTION_OF_HEALING) {
+				UseHealingPotion(pc, 25, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == C_POTION_OF_HEALING) {
+				UseHealingPotion(pc, 10, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == B_POTION_OF_EXTRA_HEALING) {
+				UseHealingPotion(pc, 55, 194);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == B_POTION_OF_GREATER_HEALING) {
+				UseHealingPotion(pc, 85, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 140506) {
+				UseHealingPotion(pc, 80, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40043) {
+				UseHealingPotion(pc, 600, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41403) {
+				UseHealingPotion(pc, 300, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId >= 41417 && itemId <= 41421) { //
+				UseHealingPotion(pc, 90, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41337) { // jp
+				UseHealingPotion(pc, 85, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40858) { // liquor
+				pc.setDrink(true);
+				pc.sendPackets(new S_Liquor(pc.getId()));
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_CURE_POISON
+					|| itemId == 40507) {
+				if (pc.hasSkillEffect(DECAY_POTION) == true) {
+					pc.sendPackets(new S_ServerMessage(698));
+				} else {
+					cancelAbsoluteBarrier(pc);
+					pc.sendPackets(new S_SkillSound(pc.getId(), 192));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), 192));
+					if (itemId == POTION_OF_CURE_POISON) {
+						inventory.removeItem(l1iteminstance, 1);
+					} else if (itemId == 40507) {
+						inventory.removeItem(l1iteminstance, 1);
+					}
+
+					pc.curePoison();
+				}
+			} else if (itemId == POTION_OF_HASTE_SELF
+					|| itemId == B_POTION_OF_HASTE_SELF
+					|| itemId == 40018 
+					|| itemId == 140018
+					|| itemId == 40039
+					|| itemId == 40040
+					|| itemId == 40030
+					|| itemId == 41338
+					|| itemId == 41261 
+					|| itemId == 41262 
+					|| itemId == 41268 
+					|| itemId == 41269 
+					|| itemId == 41271 
+					|| itemId == 41272 
+					|| itemId == 41273
+					|| itemId == 41342) {
+				useGreenPotion(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_EMOTION_BRAVERY 
+					|| itemId == B_POTION_OF_EMOTION_BRAVERY 
+					|| itemId == 41415) {
+				if (pc.isKnight()) {
+					useBravePotion(pc, itemId);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == ForbiddenFruit) {
+				if (pc.isDragonKnight() || pc.isIllusionist()) {
+					useBravePotion(pc, itemId);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1); 
+			} else if (itemId == ElvenWafer || itemId == BlessedElvenWafer) {
+				if (pc.isElf()) {
+					useBravePotion(pc, itemId);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == DevilsBlood) {
+				if (pc.isCrown()) {
+					useBravePotion(pc, itemId);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40733) {
+				useBravePotion(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40066 || itemId == 41413) {
+				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.setCurrentMp(pc.getCurrentMp()
+						+ (7 + _random.nextInt(6))); // 7~12
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40067 || itemId == 41414) {
+				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.setCurrentMp(pc.getCurrentMp()
+						+ (15 + _random.nextInt(16))); // 15~30
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40735) {
+				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.setCurrentMp(pc.getCurrentMp() + 60);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40042) {
+				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.setCurrentMp(pc.getCurrentMp() + 50);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41404) { 
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); 
+				pc.setCurrentMp(pc.getCurrentMp()
+						+ (80 + _random.nextInt(21))); // 80~100
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41412) { 
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); 
+				pc.setCurrentMp(pc.getCurrentMp()
+						+ (5 + _random.nextInt(16))); // 5~20
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40032 || itemId == 40041
+					|| itemId == 41344) {
+				useBlessOfEva(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_MANA 
+					|| itemId == B_POTION_OF_MANA
+					|| itemId == 40736) {
+				useBluePotion(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_EMOTION_WISDOM 
+					|| itemId == B_POTION_OF_EMOTION_WISDOM) {
+				if (pc.isWizard()) {
+					useWisdomPotion(pc, itemId);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == POTION_OF_BLINDNESS) {
+				useBlindPotion(pc);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == SCROLL_OF_POLYMORPH
+					|| itemId == IT_SCROLL_OF_POLYMORPH
+					|| itemId == B_SCROLL_OF_POLYMORPH) { 
+				if (usePolyScroll(pc, itemId, s)) {
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(181));
+				}
+			} else if (itemId == 41154
+					|| itemId == 41155
+					|| itemId == 41156
+					|| itemId == 41157
+					|| itemId == 49220) {
+				usePolyScale(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 240101){ //SuperDk
+				useSuperDKScroll (pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41143
+					|| itemId == 41144
+					|| itemId == 41145
+					|| itemId == 49149
+					|| itemId == 49150
+					|| itemId == 49151
+					|| itemId == 49152
+					|| itemId == 49153
+					|| itemId == 49154
+					|| itemId == 49155) {
+				usePolyPotion(pc, itemId);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40317) {
+				if (template.getType2() != 0
+						&& l1iteminstance1.get_durability() > 0) {
+					String msg0;
+					inventory.recoveryDamage(l1iteminstance1);
+					msg0 = l1iteminstance1.getLogName();
+					if (l1iteminstance1.get_durability() == 0) {
+						pc.sendPackets(new S_ServerMessage(464, msg0));
+					} else {
+						pc.sendPackets(new S_ServerMessage(463, msg0));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40097 || itemId == 40119
+					|| itemId == 140119 || itemId == 140329) {
+				for (L1ItemInstance eachItem : inventory.getItems()) {
+					if (eachItem.getItem().getBless() != 2
+							&& eachItem.getItem().getBless() != 130) {
+						continue;
+					}
+					if (!eachItem.isEquipped() && 
+							(itemId == 40119 || itemId == 40097)) {
+						continue;
+					}
+					int id_normal = eachItem.getItemId() - 200000;
+					L1Item normal = ItemTable.getInstance().getTemplate(id_normal);
+					if (template == null) {
+						continue;
+					}
+					if (inventory.checkItem(id_normal)
+							&& normal.isStackable()) {
+						inventory.storeItem(id_normal,
+								eachItem.getCount());
+						inventory.removeItem(eachItem,
+								eachItem.getCount());
+					} else {
+						eachItem.setItem(normal);
+						inventory.updateItem(eachItem,
+								L1PcInventory.COL_ITEMID);
+						inventory.saveItem(eachItem,
+								L1PcInventory.COL_ITEMID);
+					}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+				pc.sendPackets(new S_ServerMessage(155));
+			} else if (itemId == 40126 || itemId == 40098) {
+				if (!l1iteminstance1.isIdentified()) {
+					l1iteminstance1.setIdentified(true);
+					inventory.updateItem(l1iteminstance1,
+							L1PcInventory.COL_IS_ID);
+				}
+				pc.sendPackets(new S_IdentifyDesc(l1iteminstance1));
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41036) {
+				int diaryId = template.getItemId();
+				if (diaryId >= 41038 && 41047 >= diaryId) {
+					if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_DIARY) {
+						createNewItem(pc, diaryId + 10, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(158,
+									l1iteminstance1.getName())); 
+					}
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 41048 && 41055 >= itemId) { 
+				int logbookId = template.getItemId();
+				if (logbookId == (itemId + 8034)) {
+					createNewItem(pc, logbookId + 2, 1);
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId == 41056 || itemId == 41057) {
+				int logbookId = template.getItemId();
+				if (logbookId == (itemId + 8034)) {
+					createNewItem(pc, 41058, 1);
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId == 40925) { 
+				int earingId = template.getItemId();
+				if (earingId >= 40987 && 40989 >= earingId) { 
+					if (_random.nextInt(100) < Config.CREATE_CHANCE_RECOLLECTION) {
+						createNewItem(pc, earingId + 186, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(158,
+									l1iteminstance1.getName())); 
+					}
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId >= 40926 && 40929 >= itemId) {
+				int earing2Id = template.getItemId();
+				int potion1 = 0;
+				int potion2 = 0;
+				if (earing2Id >= 41173 && 41184 >= earing2Id) {
+					if (itemId == 40926) {
+						potion1 = 247;
+						potion2 = 249;
+					} else if (itemId == 40927) {
+						potion1 = 249;
+						potion2 = 251;
+					} else if (itemId == 40928) {
+						potion1 = 251;
+						potion2 = 253;
+					} else if (itemId == 40929) {
+						potion1 = 253;
+						potion2 = 255;
+					}
+					if (earing2Id >= (itemId + potion1)
+							&& (itemId + potion2) >= earing2Id) {
+						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_MYSTERIOUS) {
+							createNewItem(pc, (earing2Id - 12), 1);
+							inventory
+								.removeItem(l1iteminstance1, 1);
+							inventory.removeItem(l1iteminstance, 1);
+						} else {
+							pc.sendPackets(new S_ServerMessage(160,
+										l1iteminstance1.getName()));
+							inventory.removeItem(l1iteminstance, 1);
+						}
+					} else {
+						pc.sendPackets(new S_ServerMessage(79)); 
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId >= 40931 && 40942 >= itemId) {
+				int earing3Id = template.getItemId();
+				int earinglevel = 0;
+				if (earing3Id >= 41161 && 41172 >= earing3Id) {
+					if (earing3Id == (itemId + 230)) {
+						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING) {
+							if (earing3Id == 41161) {
+								earinglevel = 21014;
+							} else if (earing3Id == 41162) {
+								earinglevel = 21006;
+							} else if (earing3Id == 41163) {
+								earinglevel = 21007;
+							} else if (earing3Id == 41164) {
+								earinglevel = 21015;
+							} else if (earing3Id == 41165) {
+								earinglevel = 21009;
+							} else if (earing3Id == 41166) {
+								earinglevel = 21008;
+							} else if (earing3Id == 41167) {
+								earinglevel = 21016;
+							} else if (earing3Id == 41168) {
+								earinglevel = 21012;
+							} else if (earing3Id == 41169) {
+								earinglevel = 21010;
+							} else if (earing3Id == 41170) {
+								earinglevel = 21017;
+							} else if (earing3Id == 41171) {
+								earinglevel = 21013;
+							} else if (earing3Id == 41172) {
+								earinglevel = 21011;
+							}
+							createNewItem(pc, earinglevel, 1);
+						} else {
+							pc.sendPackets(new S_ServerMessage(158,
+										l1iteminstance1.getName()));
+						}
+						inventory.removeItem(l1iteminstance1, 1);
+						inventory.removeItem(l1iteminstance, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(79));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 40943 && 40958 >= itemId) {
+				int ringId = template.getItemId();
+				int ringlevel = 0;
+				int gmas = 0;
+				int gmam = 0;
+				if (ringId >= 41185 && 41200 >= ringId) {
+					if (itemId == 40943 || itemId == 40947
+							|| itemId == 40951 || itemId == 40955) {
+						gmas = 443;
+						gmam = 447;
+					} else if (itemId == 40944 || itemId == 40948
+							|| itemId == 40952 || itemId == 40956) {
+						gmas = 442;
+						gmam = 446;
+					} else if (itemId == 40945 || itemId == 40949
+							|| itemId == 40953 || itemId == 40957) {
+						gmas = 441;
+						gmam = 445;
+					} else if (itemId == 40946 || itemId == 40950
+							|| itemId == 40954 || itemId == 40958) {
+						gmas = 444;
+						gmam = 448;
+							}
+					if (ringId == (itemId + 242)) {
+						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING_DIAMOND) {
+							if (ringId == 41185) {
+								ringlevel = 20435;
+							} else if (ringId == 41186) {
+								ringlevel = 20436;
+							} else if (ringId == 41187) {
+								ringlevel = 20437;
+							} else if (ringId == 41188) {
+								ringlevel = 20438;
+							} else if (ringId == 41189) {
+								ringlevel = 20439;
+							} else if (ringId == 41190) {
+								ringlevel = 20440;
+							} else if (ringId == 41191) {
+								ringlevel = 20441;
+							} else if (ringId == 41192) {
+								ringlevel = 20442;
+							} else if (ringId == 41193) {
+								ringlevel = 20443;
+							} else if (ringId == 41194) {
+								ringlevel = 20444;
+							} else if (ringId == 41195) {
+								ringlevel = 20445;
+							} else if (ringId == 41196) {
+								ringlevel = 20446;
+							} else if (ringId == 41197) {
+								ringlevel = 20447;
+							} else if (ringId == 41198) {
+								ringlevel = 20448;
+							} else if (ringId == 41199) {
+								ringlevel = 20449;
+							} else if (ringId == 411200) {
+								ringlevel = 20450;
+							}
+							pc.sendPackets(new S_ServerMessage(gmas,
+										l1iteminstance1.getName()));
+							createNewItem(pc, ringlevel, 1);
+							inventory
+								.removeItem(l1iteminstance1, 1);
+							inventory.removeItem(l1iteminstance, 1);
+						} else {
+							pc.sendPackets(new S_ServerMessage(gmam,
+										l1iteminstance.getName()));
+							inventory.removeItem(l1iteminstance, 1);
+						}
+					} else {
+						pc.sendPackets(new S_ServerMessage(79));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 41029) {
+				int dantesId = template.getItemId();
+				if (dantesId >= 41030 && 41034 >= dantesId) {
+					if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_DANTES) {
+						createNewItem(pc, dantesId + 1, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(158,
+									l1iteminstance1.getName()));
+					}
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40964) {
+				int historybookId = l1iteminstance1.getItem().getItemId();
+				if (historybookId >= 41011 && 41018 >= historybookId) {
+					if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_HISTORY_BOOK) {
+						createNewItem(pc, historybookId + 8, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(158,
+									l1iteminstance1.getName()));
+					}
+					inventory.removeItem(l1iteminstance1, 1);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40090 || itemId == 40091
+					|| itemId == 40092 || itemId == 40093
+					|| itemId == 40094) {
+				if (pc.isWizard()) {
+					writeScroll(pc, itemId, blanksc_skillid);
+				} else {
+					pc.sendPackets(new S_ServerMessage(264));
+				}
+			} else if ((itemId >= 40859 && itemId <= 40898) && itemId != 40863
+					|| itemId >= 49281 && itemId <= 49286) { // 40863
+				if (spellsc_objid == pc.getId() && template.getUseType() != 30) { // spell_buff
+					pc.sendPackets(new S_ServerMessage(281));
+					return;
+						}
+				inventory.removeItem(l1iteminstance, 1);
+				if (spellsc_objid == 0
+						&& l1iteminstance.getItem().getUseType() != 0
+						&& l1iteminstance.getItem().getUseType() != 26
+						&& l1iteminstance.getItem().getUseType() != 27) {
+					return;
+				}
+				cancelAbsoluteBarrier(pc);
+				int skillid = itemId - 40858;
+				if (itemId == 49281) {
+					skillid = 42;
+				} else if (itemId == 49282) {
+					skillid = 48;
+				} else if (itemId == 49283) {
+					skillid = 49;
+				} else if (itemId == 49284) {
+					skillid = 52;
+					return;
+				} else if (itemId == 49285) {
+					skillid = 54;
+				} else if (itemId == 49286) {
+					skillid = 57;
+				}
+				L1SkillUse l1skilluse = new L1SkillUse();
+				l1skilluse.handleCommands(client.getActiveChar(), skillid,
+						spellsc_objid, spellsc_x, spellsc_y, null, 0,
+						L1SkillUse.TYPE_SPELLSC);
+			} else if (itemId >= 40373 && itemId <= 40382
+					|| itemId >= 40385 && itemId <= 40390) {
+				pc.sendPackets(new S_UseMap(pc, l1iteminstance.getId(),
+							template.getItemId()));
+			} else if (itemId == 40310 || itemId == 40730
+					|| itemId == 40731 || itemId == 40732) {
+				if (writeLetter(itemId, pc, letterCode, letterReceiver,
+							letterText)) {
+					inventory.removeItem(l1iteminstance, 1);
+				}
+			} else if (itemId == 40311) {
+				if (writeClanLetter(itemId, pc, letterCode, letterReceiver,
+							letterText)) {
+					inventory.removeItem(l1iteminstance, 1);
+				}
+			} else if (itemId == 49016 || itemId == 49018
+					|| itemId == 49020 || itemId == 49022
+					|| itemId == 49024) {
+				pc.sendPackets(new S_Letter(l1iteminstance));
+				l1iteminstance.setItemId(itemId + 1);
+				inventory.updateItem(l1iteminstance,
+						L1PcInventory.COL_ITEMID);
+				inventory.saveItem(l1iteminstance,
+						L1PcInventory.COL_ITEMID);
+			} else if (itemId == 49017 || itemId == 49019
+					|| itemId == 49021 || itemId == 49023
+					|| itemId == 49025) {
+				pc.sendPackets(new S_Letter(l1iteminstance));
+			} else if (itemId == 40314 || itemId == 40316) {
+				if (inventory.checkItem(41160)) {
+					if (withdrawPet(pc, itemObjid)) {
+						inventory.consumeItem(41160, 1);
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40315) {
+				pc.sendPackets(new S_Sound(437));
+				pc.broadcastPacket(new S_Sound(437));
+				Object[] petList = pc.getPetList().values().toArray();
+				for (Object petObject : petList) {
+					if (petObject instanceof L1PetInstance) {
+						L1PetInstance pet = (L1PetInstance) petObject;
+						pet.call();
+					}
+				}
+			} else if (itemId == 40493) { // Magic Flute
+				pc.sendPackets(new S_Sound(165));
+				pc.broadcastPacket(new S_Sound(165));
+				for (L1Object visible : pc.getKnownObjects()) {
+					if (visible instanceof L1GuardianInstance) {
+						L1GuardianInstance guardian = (L1GuardianInstance) visible;
+						if (guardian.getNpcTemplate().get_npcId() == 70850) {
+							if (createNewItem(pc, 88, 1)) {
+								inventory.removeItem(l1iteminstance, 1);
+							}
+						}
+					}
+				}
+			} else if (itemId == 40325) { // 2 Faced Dice
+				if (inventory.checkItem(40318, 1)) {
+					int gfxid = 3237 + _random.nextInt(2);
+					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
+					inventory.consumeItem(40318, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40326) {
+				if (inventory.checkItem(40318, 1)) {
+					int gfxid = 3229 + _random.nextInt(3);
+					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
+					inventory.consumeItem(40318, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40327) {
+				if (inventory.checkItem(40318, 1)) {
+					int gfxid = 3241 + _random.nextInt(4);
+					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
+					inventory.consumeItem(40318, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40328) {
+				if (inventory.checkItem(40318, 1)) {
+					int gfxid = 3204 + _random.nextInt(6);
+					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
+					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
+					inventory.consumeItem(40318, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40089 || itemId == 140089) {
+				L1Character resobject = 
+					(L1Character) L1World.getInstance().findObject(resid);
+				if (resobject != null) {
+					if (resobject instanceof L1PcInstance) {
+						L1PcInstance target = (L1PcInstance) resobject;
+						if (pc.getId() == target.getId()) {
 							return;
 						}
-					}
-				}
-			}
-
-			L1ItemInstance l1iteminstance1 = pc.getInventory().getItem(l);
-			_log.finest("request item use (obj) = " + itemObjid + " action = "
-					+ l + " value = " + s);
-			if (itemId == 40077 || itemId == SCROLL_OF_ENCHANT_WEAPON
-					|| itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON
-					|| itemId == 40130 || itemId == 140130
-					|| itemId == B_SCROLL_OF_ENCHANT_WEAPON
-					|| itemId == C_SCROLL_OF_ENCHANT_WEAPON
-					|| itemId == 40128) {
-				Enchant.enchantWeapon(pc, l1iteminstance, l1iteminstance1);
-			} else if (itemId == 41429 || itemId == 41430
-					|| itemId == 41431 || itemId == 41432) {
-				Enchant.elementEnchant(pc, l1iteminstance, l1iteminstance1);
-			} else if (itemId == 40078
-					|| itemId == SCROLL_OF_ENCHANT_ARMOR
-					|| itemId == 40129 || itemId == 140129
-					|| itemId == B_SCROLL_OF_ENCHANT_ARMOR
-					|| itemId == C_SCROLL_OF_ENCHANT_ARMOR
-					|| itemId == 40127) {
-				Enchant.enchantArmor(pc, l1iteminstance, l1iteminstance1);
-			} else if (itemId == 49311) {
-				Enchant.enchantIvoryTowerArmor(pc, l1iteminstance, 
-						l1iteminstance1);
-			} else if (itemId == 49312) {
-				Enchant.enchantIvoryTowerWeapon(pc, l1iteminstance,
-						l1iteminstance1);
-			} else if (itemId == 49148) {
-				Enchant.enchantAccessory(pc, l1iteminstance, l1iteminstance1);
-			} else if (l1iteminstance.getItem().getType2() == 0) {
-				int item_minlvl = ((L1EtcItem) l1iteminstance.getItem())
-						.getMinLevel();
-				int item_maxlvl = ((L1EtcItem) l1iteminstance.getItem())
-						.getMaxLevel();
-				if (item_minlvl != 0 && item_minlvl > pc.getLevel()
-						&& !pc.isGm()) {
-					pc.sendPackets(new S_ServerMessage(318, String
-							.valueOf(item_minlvl))); //
-					return;
-				} else if (item_maxlvl != 0 && item_maxlvl < pc.getLevel()
-						&& !pc.isGm()) {
-					pc.sendPackets(new S_ServerMessage(673, String
-							.valueOf(item_maxlvl))); //
-					return;
-				}
-
-				if ((itemId == 40576 && !pc.isElf())
-						|| (itemId == 40577 && !pc.isWizard())
-						|| (itemId == 40578 && !pc.isKnight())) {
-					pc.sendPackets(new S_ServerMessage(264));
-					return;
-				}
-
-				if (l1iteminstance.getItem().getType() == 0) {
-					pc.getInventory().setArrow(
-							l1iteminstance.getItem().getItemId());
-					pc.sendPackets(new S_ServerMessage(452, l1iteminstance
-							.getLogName())); //
-				} else if (l1iteminstance.getItem().getType() == 15) { //
-					pc.getInventory().setSting(
-							l1iteminstance.getItem().getItemId());
-					pc.sendPackets(new S_ServerMessage(452, 
-							l1iteminstance.getLogName()));
-				} else if (l1iteminstance.getItem().getType() == 16) { // treasure_box
-					L1TreasureBox box = L1TreasureBox.get(itemId);
-
-					if (box != null) {
-						if (box.open(pc)) {
-							L1EtcItem temp = (L1EtcItem) l1iteminstance
-									.getItem();
-							if (temp.get_delayEffect() > 0) {
-								isDelayEffect = true;
-							} else {
-								pc.getInventory().removeItem(
-										l1iteminstance.getId(), 1);
-							}
-						}
-					}
-				} else if (l1iteminstance.getItem().getType() == 2) { //
-					if (l1iteminstance.getRemainingTime() <= 0
-							&& itemId != 40004) {
-						return;
-					}
-					if (l1iteminstance.isNowLighting()) {
-						l1iteminstance.setNowLighting(false);
-						pc.turnOnOffLight();
-					} else {
-						l1iteminstance.setNowLighting(true);
-						pc.turnOnOffLight();
-					}
-					pc.sendPackets(new S_ItemName(l1iteminstance));
-				} else if (itemId == 40003) { //
-					for (L1ItemInstance lightItem : pc.getInventory()
-							.getItems()) {
-						if (lightItem.getItem().getItemId() == 40002) {
-							lightItem.setRemainingTime(l1iteminstance.getItem()
-									.getLightFuel());
-							pc.sendPackets(new S_ItemName(lightItem));
-							pc.sendPackets(new S_ServerMessage(230)); //
-							break;
-						}
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 43000) { //
-					pc.setExp(1);
-					pc.resetLevel();
-					pc.setBonusStats(0);
-					pc.sendPackets(new S_SkillSound(pcObjid, 191));
-					pc.broadcastPacket(new S_SkillSound(pcObjid, 191));
-					pc.sendPackets(new S_OwnCharStatus(pc));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					pc.sendPackets(new S_ServerMessage(822));
-					pc.save();
-				} else if (itemId == 40033) {
-					if (pc.getBaseStr() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseStr((byte) 1);
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				} else if (itemId == 40034) {
-					if (pc.getBaseCon() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseCon((byte) 1);
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				} else if (itemId == 40035) {
-					if (pc.getBaseDex() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseDex((byte) 1);
-						pc.resetBaseAc();
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				} else if (itemId == 40036) {
-					if (pc.getBaseInt() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseInt((byte) 1);
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				} else if (itemId == 40037) {
-					if (pc.getBaseWis() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseWis((byte) 1);
-						pc.resetBaseMr();
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				} else if (itemId == 40038) {
-					if (pc.getBaseCha() < 35 && pc.getElixirStats() < 5) {
-						pc.addBaseCha((byte) 1);
-						pc.setElixirStats(pc.getElixirStats() + 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-						pc.sendPackets(new S_OwnCharStatus2(pc));
-						pc.save();
-                        // db save
-					} else {
-						pc.sendPackets(new S_ServerMessage(481));
-					}
-				}
-				else if (itemId == POTION_OF_HEALING
-						|| itemId == CONDENSED_POTION_OF_HEALING
-						|| itemId == 40029) {
-					UseHeallingPotion(pc, 15, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40022) {
-					UseHeallingPotion(pc, 20, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_EXTRA_HEALING
-						|| itemId == CONDENSED_POTION_OF_EXTRA_HEALING) {
-					UseHeallingPotion(pc, 45, 194);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40023) {
-					UseHeallingPotion(pc, 30, 194);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_GREATER_HEALING
-						|| itemId == CONDENSED_POTION_OF_GREATER_HEALING) {
-					UseHeallingPotion(pc, 75, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40024) {
-					UseHeallingPotion(pc, 55, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40506) {
-					UseHeallingPotion(pc, 70, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40026 || itemId == 40027
-						|| itemId == 40028) {
-					UseHeallingPotion(pc, 25, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40058) {
-					UseHeallingPotion(pc, 30, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40071) {
-					UseHeallingPotion(pc, 70, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40734) {
-					UseHeallingPotion(pc, 50, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == B_POTION_OF_HEALING) {
-					UseHeallingPotion(pc, 25, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == C_POTION_OF_HEALING) {
-					UseHeallingPotion(pc, 10, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == B_POTION_OF_EXTRA_HEALING) {
-					UseHeallingPotion(pc, 55, 194);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == B_POTION_OF_GREATER_HEALING) {
-					UseHeallingPotion(pc, 85, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 140506) {
-					UseHeallingPotion(pc, 80, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40043) {
-					UseHeallingPotion(pc, 600, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41403) {
-					UseHeallingPotion(pc, 300, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId >= 41417 && itemId <= 41421) { //
-					UseHeallingPotion(pc, 90, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41337) { // jp
-					UseHeallingPotion(pc, 85, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40858) { // liquor
-					pc.setDrink(true);
-					pc.sendPackets(new S_Liquor(pc.getId()));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_CURE_POISON
-						|| itemId == 40507) {
-					if (pc.hasSkillEffect(71) == true) {
-						pc.sendPackets(new S_ServerMessage(698));
-					} else {
-						cancelAbsoluteBarrier(pc);
-						pc.sendPackets(new S_SkillSound(pc.getId(), 192));
-						pc.broadcastPacket(new S_SkillSound(pc.getId(), 192));
-						if (itemId == POTION_OF_CURE_POISON) {
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else if (itemId == 40507) {
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						}
-
-						pc.curePoison();
-					}
-				} else if (itemId == POTION_OF_HASTE_SELF
-						|| itemId == B_POTION_OF_HASTE_SELF
-						|| itemId == 40018 
-						|| itemId == 140018
-						|| itemId == 40039
-						|| itemId == 40040
-						|| itemId == 40030
-						|| itemId == 41338
-						|| itemId == 41261 
-						|| itemId == 41262 
-						|| itemId == 41268 
-						|| itemId == 41269 
-						|| itemId == 41271 
-						|| itemId == 41272 
-						|| itemId == 41273
-						|| itemId == 41342) {
-					useGreenPotion(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_EMOTION_BRAVERY 
-						|| itemId == B_POTION_OF_EMOTION_BRAVERY 
-						|| itemId == 41415) {
-					if (pc.isKnight()) {
-						useBravePotion(pc, itemId);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == ForbiddenFruit) {
-					if (pc.isDragonKnight() || pc.isIllusionist()) {
-						useBravePotion(pc, itemId);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1); 
-				} else if (itemId == ElvenWafer
-						|| itemId == BlessedElvenWafer) {
-					if (pc.isElf()) {
-						useBravePotion(pc, itemId);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == DevilsBlood) {
-					if (pc.isCrown()) {
-						useBravePotion(pc, itemId);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40733) {
-					useBravePotion(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40066 || itemId == 41413) {
-					pc.sendPackets(new S_ServerMessage(338, "$1084"));
-					pc.setCurrentMp(pc.getCurrentMp()
-							+ (7 + _random.nextInt(6))); // 7~12
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40067 || itemId == 41414) {
-					pc.sendPackets(new S_ServerMessage(338, "$1084"));
-					pc.setCurrentMp(pc.getCurrentMp()
-							+ (15 + _random.nextInt(16))); // 15~30
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40735) {
-					pc.sendPackets(new S_ServerMessage(338, "$1084"));
-					pc.setCurrentMp(pc.getCurrentMp() + 60);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40042) {
-					pc.sendPackets(new S_ServerMessage(338, "$1084"));
-					pc.setCurrentMp(pc.getCurrentMp() + 50);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41404) { 
-					pc.sendPackets(new S_ServerMessage(338, "$1084")); 
-					pc.setCurrentMp(pc.getCurrentMp()
-							+ (80 + _random.nextInt(21))); // 80~100
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41412) { 
-					pc.sendPackets(new S_ServerMessage(338, "$1084")); 
-					pc.setCurrentMp(pc.getCurrentMp()
-							+ (5 + _random.nextInt(16))); // 5~20
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40032 || itemId == 40041
-						|| itemId == 41344) {
-					useBlessOfEva(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_MANA 
-						|| itemId == B_POTION_OF_MANA
-						|| itemId == 40736) {
-					useBluePotion(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_EMOTION_WISDOM 
-						|| itemId == B_POTION_OF_EMOTION_WISDOM) {
-					if (pc.isWizard()) {
-						useWisdomPotion(pc, itemId);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == POTION_OF_BLINDNESS) {
-					useBlindPotion(pc);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == SCROLL_OF_POLYMORPH
-						|| itemId == IT_SCROLL_OF_POLYMORPH
-						|| itemId == B_SCROLL_OF_POLYMORPH) { 
-					if (usePolyScroll(pc, itemId, s)) {
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(181));
-					}
-				} else if (itemId == 41154
-						|| itemId == 41155
-						|| itemId == 41156
-						|| itemId == 41157
-						|| itemId == 49220) {
-					usePolyScale(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 240101){ //SuperDk
-					useSuperDKScroll (pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41143
-						|| itemId == 41144
-						|| itemId == 41145
-						|| itemId == 49149
-						|| itemId == 49150
-						|| itemId == 49151
-						|| itemId == 49152
-						|| itemId == 49153
-						|| itemId == 49154
-						|| itemId == 49155) {
-					usePolyPotion(pc, itemId);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40317) {
-					if (l1iteminstance1.getItem().getType2() != 0
-							&& l1iteminstance1.get_durability() > 0) {
-						String msg0;
-						pc.getInventory().recoveryDamage(l1iteminstance1);
-						msg0 = l1iteminstance1.getLogName();
-						if (l1iteminstance1.get_durability() == 0) {
-							pc.sendPackets(new S_ServerMessage(464, msg0));
-						} else {
-							pc.sendPackets(new S_ServerMessage(463, msg0));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40097 || itemId == 40119
-						|| itemId == 140119 || itemId == 140329) {
-					for (L1ItemInstance eachItem : pc.getInventory().getItems()) {
-						if (eachItem.getItem().getBless() != 2
-								&& eachItem.getItem().getBless() != 130) {
-							continue;
-						}
-						if (!eachItem.isEquipped()
-								&& (itemId == 40119 || itemId == 40097)) {
-							continue;
-						}
-						int id_normal = eachItem.getItemId() - 200000;
-						L1Item template = ItemTable.getInstance().getTemplate(
-								id_normal);
-						if (template == null) {
-							continue;
-						}
-						if (pc.getInventory().checkItem(id_normal)
-								&& template.isStackable()) {
-							pc.getInventory().storeItem(id_normal,
-									eachItem.getCount());
-							pc.getInventory().removeItem(eachItem,
-									eachItem.getCount());
-						} else {
-							eachItem.setItem(template);
-							pc.getInventory().updateItem(eachItem,
-									L1PcInventory.COL_ITEMID);
-							pc.getInventory().saveItem(eachItem,
-									L1PcInventory.COL_ITEMID);
-						}
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					pc.sendPackets(new S_ServerMessage(155));
-				} else if (itemId == 40126 || itemId == 40098) {
-					if (!l1iteminstance1.isIdentified()) {
-						l1iteminstance1.setIdentified(true);
-						pc.getInventory().updateItem(l1iteminstance1,
-								L1PcInventory.COL_IS_ID);
-					}
-					pc.sendPackets(new S_IdentifyDesc(l1iteminstance1));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41036) {
-					int diaryId = l1iteminstance1.getItem().getItemId();
-					if (diaryId >= 41038 && 41047 >= diaryId) {
-						if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_DIARY) {
-							createNewItem(pc, diaryId + 10, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(158,
-									l1iteminstance1.getName())); 
-						}
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId >= 41048 && 41055 >= itemId) {
-
-					int logbookId = l1iteminstance1.getItem().getItemId();
-					if (logbookId == (itemId + 8034)) {
-						createNewItem(pc, logbookId + 2, 1);
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId == 41056 || itemId == 41057) {
-					// tqCy[WFXCPOy[W
-					int logbookId = l1iteminstance1.getItem().getItemId();
-					if (logbookId == (itemId + 8034)) {
-						createNewItem(pc, 41058, 1);
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId == 40925) { 
-					int earingId = l1iteminstance1.getItem().getItemId();
-					if (earingId >= 40987 && 40989 >= earingId) { 
-						if (_random.nextInt(100) < Config.CREATE_CHANCE_RECOLLECTION) {
-							createNewItem(pc, earingId + 186, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(158,
-									l1iteminstance1.getName())); 
-						}
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId >= 40926 && 40929 >= itemId) {
-					int earing2Id = l1iteminstance1.getItem().getItemId();
-					int potion1 = 0;
-					int potion2 = 0;
-					if (earing2Id >= 41173 && 41184 >= earing2Id) {
-						if (itemId == 40926) {
-							potion1 = 247;
-							potion2 = 249;
-						} else if (itemId == 40927) {
-							potion1 = 249;
-							potion2 = 251;
-						} else if (itemId == 40928) {
-							potion1 = 251;
-							potion2 = 253;
-						} else if (itemId == 40929) {
-							potion1 = 253;
-							potion2 = 255;
-						}
-						if (earing2Id >= (itemId + potion1)
-								&& (itemId + potion2) >= earing2Id) {
-							if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_MYSTERIOUS) {
-								createNewItem(pc, (earing2Id - 12), 1);
-								pc.getInventory()
-										.removeItem(l1iteminstance1, 1);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							} else {
-								pc.sendPackets(new S_ServerMessage(160,
-										l1iteminstance1.getName()));
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							}
-						} else {
-							pc.sendPackets(new S_ServerMessage(79)); 
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId >= 40931 && 40942 >= itemId) {
-					int earing3Id = l1iteminstance1.getItem().getItemId();
-					int earinglevel = 0;
-					if (earing3Id >= 41161 && 41172 >= earing3Id) {
-						if (earing3Id == (itemId + 230)) {
-							if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING) {
-								if (earing3Id == 41161) {
-									earinglevel = 21014;
-								} else if (earing3Id == 41162) {
-									earinglevel = 21006;
-								} else if (earing3Id == 41163) {
-									earinglevel = 21007;
-								} else if (earing3Id == 41164) {
-									earinglevel = 21015;
-								} else if (earing3Id == 41165) {
-									earinglevel = 21009;
-								} else if (earing3Id == 41166) {
-									earinglevel = 21008;
-								} else if (earing3Id == 41167) {
-									earinglevel = 21016;
-								} else if (earing3Id == 41168) {
-									earinglevel = 21012;
-								} else if (earing3Id == 41169) {
-									earinglevel = 21010;
-								} else if (earing3Id == 41170) {
-									earinglevel = 21017;
-								} else if (earing3Id == 41171) {
-									earinglevel = 21013;
-								} else if (earing3Id == 41172) {
-									earinglevel = 21011;
-								}
-								createNewItem(pc, earinglevel, 1);
-							} else {
-								pc.sendPackets(new S_ServerMessage(158,
-										l1iteminstance1.getName()));
-							}
-							pc.getInventory().removeItem(l1iteminstance1, 1);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(79));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId >= 40943 && 40958 >= itemId) {
-					int ringId = l1iteminstance1.getItem().getItemId();
-					int ringlevel = 0;
-					int gmas = 0;
-					int gmam = 0;
-					if (ringId >= 41185 && 41200 >= ringId) {
-						if (itemId == 40943 || itemId == 40947
-								|| itemId == 40951 || itemId == 40955) {
-							gmas = 443;
-							gmam = 447;
-						} else if (itemId == 40944 || itemId == 40948
-								|| itemId == 40952 || itemId == 40956) {
-							gmas = 442;
-							gmam = 446;
-						} else if (itemId == 40945 || itemId == 40949
-								|| itemId == 40953 || itemId == 40957) {
-							gmas = 441;
-							gmam = 445;
-						} else if (itemId == 40946 || itemId == 40950
-								|| itemId == 40954 || itemId == 40958) {
-							gmas = 444;
-							gmam = 448;
-						}
-						if (ringId == (itemId + 242)) {
-							if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING_DIAMOND) {
-								if (ringId == 41185) {
-									ringlevel = 20435;
-								} else if (ringId == 41186) {
-									ringlevel = 20436;
-								} else if (ringId == 41187) {
-									ringlevel = 20437;
-								} else if (ringId == 41188) {
-									ringlevel = 20438;
-								} else if (ringId == 41189) {
-									ringlevel = 20439;
-								} else if (ringId == 41190) {
-									ringlevel = 20440;
-								} else if (ringId == 41191) {
-									ringlevel = 20441;
-								} else if (ringId == 41192) {
-									ringlevel = 20442;
-								} else if (ringId == 41193) {
-									ringlevel = 20443;
-								} else if (ringId == 41194) {
-									ringlevel = 20444;
-								} else if (ringId == 41195) {
-									ringlevel = 20445;
-								} else if (ringId == 41196) {
-									ringlevel = 20446;
-								} else if (ringId == 41197) {
-									ringlevel = 20447;
-								} else if (ringId == 41198) {
-									ringlevel = 20448;
-								} else if (ringId == 41199) {
-									ringlevel = 20449;
-								} else if (ringId == 411200) {
-									ringlevel = 20450;
-								}
-								pc.sendPackets(new S_ServerMessage(gmas,
-										l1iteminstance1.getName()));
-								createNewItem(pc, ringlevel, 1);
-								pc.getInventory()
-										.removeItem(l1iteminstance1, 1);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							} else {
-								pc.sendPackets(new S_ServerMessage(gmam,
-										l1iteminstance.getName()));
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							}
-						} else {
-							pc.sendPackets(new S_ServerMessage(79));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 41029) {
-					int dantesId = l1iteminstance1.getItem().getItemId();
-					if (dantesId >= 41030 && 41034 >= dantesId) {
-						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_DANTES) {
-							createNewItem(pc, dantesId + 1, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(158,
-									l1iteminstance1.getName()));
-						}
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40964) {
-					int historybookId = l1iteminstance1.getItem().getItemId();
-					if (historybookId >= 41011 && 41018 >= historybookId) {
-						if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_HISTORY_BOOK) {
-							createNewItem(pc, historybookId + 8, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(158,
-									l1iteminstance1.getName()));
-						}
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-
-				} else if (itemId == 40090 || itemId == 40091
-						|| itemId == 40092 || itemId == 40093
-						|| itemId == 40094) {
-
-					if (pc.isWizard()) {
-						if (itemId == 40090 && blanksc_skillid <= 7 ||
-								//
-								itemId == 40091 && blanksc_skillid <= 15 ||
-								//
-								itemId == 40092 && blanksc_skillid <= 22 ||
-								//
-								itemId == 40093 && blanksc_skillid <= 31 ||
-								//
-								itemId == 40094 && blanksc_skillid <= 39) {
-
-							L1ItemInstance spellsc = ItemTable.getInstance()
-									.createItem(40859 + blanksc_skillid);
-							if (spellsc != null) {
-								if (pc.getInventory().checkAddItem(spellsc, 1) == L1Inventory.OK) {
-									L1Skill l1skills = SkillTable
-											.getInstance().findBySkillId(
-													blanksc_skillid + 1); // blanksc_skillid0n
-									if (pc.getCurrentHp() + 1 < l1skills
-											.getHpConsume() + 1) {
-										pc
-												.sendPackets(new S_ServerMessage(
-														279));
-										return;
-									}
-									if (pc.getCurrentMp() < l1skills
-											.getMpConsume()) {
-										pc
-												.sendPackets(new S_ServerMessage(
-														278));
-										return;
-									}
-									if (l1skills.getItemConsumeId() != 0) {
-										if (!pc.getInventory().checkItem(
-												l1skills.getItemConsumeId(),
-												l1skills.getItemConsumeCount())) {
-											pc.sendPackets(new S_ServerMessage(
-													299));
-											return;
-										}
-									}
-									pc.setCurrentHp(pc.getCurrentHp()
-											- l1skills.getHpConsume());
-									pc.setCurrentMp(pc.getCurrentMp()
-											- l1skills.getMpConsume());
-									int lawful = pc.getLawful()
-											+ l1skills.getLawful();
-									if (lawful > 32767) {
-										lawful = 32767;
-									}
-									if (lawful < -32767) {
-										lawful = -32767;
-									}
-									pc.setLawful(lawful);
-									if (l1skills.getItemConsumeId() != 0) { //
-										pc.getInventory().consumeItem(
-												l1skills.getItemConsumeId(),
-												l1skills.getItemConsumeCount());
-									}
-									pc.getInventory().removeItem(
-											l1iteminstance, 1);
-									pc.getInventory().storeItem(spellsc);
-								}
-							}
-						} else {
-							pc.sendPackets(new S_ServerMessage(591));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(264));
-					}
-
-				} else if ((itemId >= 40859 && itemId <= 40898)
-						&& itemId != 40863
-						|| itemId >= 49281 && itemId <= 49286) { // 40863
-					if (spellsc_objid == pc.getId()
-							&& l1iteminstance.getItem().getUseType() != 30) { // spell_buff
-						pc.sendPackets(new S_ServerMessage(281));
-						return;
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					if (spellsc_objid == 0
-							&& l1iteminstance.getItem().getUseType() != 0
-							&& l1iteminstance.getItem().getUseType() != 26
-							&& l1iteminstance.getItem().getUseType() != 27) {
-						return;
-					}
-					cancelAbsoluteBarrier(pc);
-					int skillid = itemId - 40858;
-					if (itemId == 49281) {
-						skillid = 42;
-					} else if (itemId == 49282) {
-						skillid = 48;
-					} else if (itemId == 49283) {
-						skillid = 49;
-					} else if (itemId == 49284) {
-						skillid = 52;
-						return;
-					} else if (itemId == 49285) {
-						skillid = 54;
-					} else if (itemId == 49286) {
-						skillid = 57;
-					}
-					L1SkillUse l1skilluse = new L1SkillUse();
-					l1skilluse.handleCommands(client.getActiveChar(), skillid,
-							spellsc_objid, spellsc_x, spellsc_y, null, 0,
-							L1SkillUse.TYPE_SPELLSC);
-				
-				} else if (itemId >= 40373 && itemId <= 40382
-						|| itemId >= 40385 && itemId <= 40390) {
-					pc.sendPackets(new S_UseMap(pc, l1iteminstance.getId(),
-							l1iteminstance.getItem().getItemId()));
-				} else if (itemId == 40310 || itemId == 40730
-						|| itemId == 40731 || itemId == 40732) {
-					if (writeLetter(itemId, pc, letterCode, letterReceiver,
-							letterText)) {
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					}
-				} else if (itemId == 40311) {
-					if (writeClanLetter(itemId, pc, letterCode, letterReceiver,
-							letterText)) {
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					}
-				} else if (itemId == 49016 || itemId == 49018
-						|| itemId == 49020 || itemId == 49022
-						|| itemId == 49024) {
-					pc.sendPackets(new S_Letter(l1iteminstance));
-					l1iteminstance.setItemId(itemId + 1);
-					pc.getInventory().updateItem(l1iteminstance,
-							L1PcInventory.COL_ITEMID);
-					pc.getInventory().saveItem(l1iteminstance,
-							L1PcInventory.COL_ITEMID);
-				} else if (itemId == 49017 || itemId == 49019
-						|| itemId == 49021 || itemId == 49023
-						|| itemId == 49025) {
-					pc.sendPackets(new S_Letter(l1iteminstance));
-				} else if (itemId == 40314 || itemId == 40316) {
-					if (pc.getInventory().checkItem(41160)) {
-						if (withdrawPet(pc, itemObjid)) {
-							pc.getInventory().consumeItem(41160, 1);
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40315) {
-					pc.sendPackets(new S_Sound(437));
-					pc.broadcastPacket(new S_Sound(437));
-					Object[] petList = pc.getPetList().values().toArray();
-					for (Object petObject : petList) {
-						if (petObject instanceof L1PetInstance) {
-							L1PetInstance pet = (L1PetInstance) petObject;
-							pet.call();
-						}
-					}
-				} else if (itemId == 40493) { // Magic Flute
-					pc.sendPackets(new S_Sound(165));
-					pc.broadcastPacket(new S_Sound(165));
-					for (L1Object visible : pc.getKnownObjects()) {
-						if (visible instanceof L1GuardianInstance) {
-							L1GuardianInstance guardian = (L1GuardianInstance) visible;
-							if (guardian.getNpcTemplate().get_npcId() == 70850) {
-								if (createNewItem(pc, 88, 1)) {
-									pc.getInventory().removeItem(
-											l1iteminstance, 1);
+						if (L1World.getInstance().getVisiblePlayer(target, 0).size() > 0) {
+							for (L1PcInstance visiblePc : 
+									L1World.getInstance().getVisiblePlayer(target, 0)) {
+								if (!visiblePc.isDead()) {
+									pc.sendPackets(new S_ServerMessage(592));
+									return;
 								}
 							}
 						}
-					}
-				} else if (itemId == 40325) { // 2 Faced Dice
-					if (pc.getInventory().checkItem(40318, 1)) {
-						int gfxid = 3237 + _random.nextInt(2);
-						pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
-						pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
-						pc.getInventory().consumeItem(40318, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40326) {
-					if (pc.getInventory().checkItem(40318, 1)) {
-						int gfxid = 3229 + _random.nextInt(3);
-						pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
-						pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
-						pc.getInventory().consumeItem(40318, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40327) {
-					if (pc.getInventory().checkItem(40318, 1)) {
-						int gfxid = 3241 + _random.nextInt(4);
-						pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
-						pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
-						pc.getInventory().consumeItem(40318, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40328) {
-					if (pc.getInventory().checkItem(40318, 1)) {
-						int gfxid = 3204 + _random.nextInt(6);
-						pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
-						pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
-						pc.getInventory().consumeItem(40318, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40089 || itemId == 140089) {
-					L1Character resobject = (L1Character) L1World.getInstance()
-							.findObject(resid);
-					if (resobject != null) {
-						if (resobject instanceof L1PcInstance) {
-							L1PcInstance target = (L1PcInstance) resobject;
-							if (pc.getId() == target.getId()) {
+						if (target.getCurrentHp() == 0
+								&& target.isDead() == true) {
+							if (pc.getMap().isUseResurrection()) {
+								target.setTempID(pc.getId());
+								if (itemId == 40089) {
+									target.sendPackets(new S_Message_YN(
+												321, ""));
+								} else if (itemId == 140089) {
+									target.sendPackets(new S_Message_YN(
+												322, ""));
+								}
+							} else {
 								return;
 							}
-							if (L1World.getInstance().getVisiblePlayer(target,
-									0).size() > 0) {
-								for (L1PcInstance visiblePc : L1World
-										.getInstance().getVisiblePlayer(target,
-												0)) {
+						}
+					} else if (resobject instanceof L1NpcInstance) {
+						if (!(resobject instanceof L1TowerInstance)) {
+							L1NpcInstance npc = (L1NpcInstance) resobject;
+							if (npc.getNpcTemplate().isCantResurrect()
+									&& !(npc instanceof L1PetInstance)) {
+								inventory.removeItem(l1iteminstance, 1);
+								return;
+							}
+							if (npc instanceof L1PetInstance && 
+									L1World.getInstance().getVisiblePlayer(npc, 0).size() > 0) {
+								for (L1PcInstance visiblePc : 
+										L1World.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
-
-										pc
-												.sendPackets(new S_ServerMessage(
-														592));
+										pc.sendPackets(new S_ServerMessage(592));
 										return;
 									}
 								}
 							}
-							if (target.getCurrentHp() == 0
-									&& target.isDead() == true) {
-								if (pc.getMap().isUseResurrection()) {
-									target.setTempID(pc.getId());
-									if (itemId == 40089) {
-										target.sendPackets(new S_Message_YN(
-												321, ""));
-									} else if (itemId == 140089) {
-										target.sendPackets(new S_Message_YN(
-												322, ""));
-									}
-								} else {
-									return;
-								}
+							if (npc.getCurrentHp() == 0 && npc.isDead()) {
+								npc.resurrect(npc.getMaxHp() / 4);
+								npc.setResurrect(true);
 							}
-						} else if (resobject instanceof L1NpcInstance) {
-							if (!(resobject instanceof L1TowerInstance)) {
-								L1NpcInstance npc = (L1NpcInstance) resobject;
-								if (npc.getNpcTemplate().isCantResurrect()
-										&& !(npc instanceof L1PetInstance)) {
-									pc.getInventory().removeItem(l1iteminstance,
-											1);
-									return;
-								}
-								if (npc instanceof L1PetInstance
-										&& L1World.getInstance()
-												.getVisiblePlayer(npc, 0)
-												.size() > 0) {
-									for (L1PcInstance visiblePc : L1World
-											.getInstance().getVisiblePlayer(
-													npc, 0)) {
-										if (!visiblePc.isDead()) {
-											pc.sendPackets(new S_ServerMessage(
-													592));
-											return;
+						}
+					}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId > 40169 && itemId < 40226 || itemId >= 45000
+					&& itemId <= 45022) {
+				useSpellBook(pc, l1iteminstance, itemId);
+			} else if (itemId > 40225 && itemId < 40232) {
+				if (pc.isCrown() || pc.isGm()) {
+					if (itemId == 40226 && pc.getLevel() >= 15) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else if (itemId == 40228 && pc.getLevel() >= 30) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else if (itemId == 40227 && pc.getLevel() >= 40) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else if ((itemId == 40231 || itemId == 40232)
+							&& pc.getLevel() >= 45) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else if (itemId == 40230 && pc.getLevel() >= 50) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else if (itemId == 40229 && pc.getLevel() >= 55) {
+						SpellBook4(pc, l1iteminstance, client);
+					} else {
+						pc.sendPackets(new S_ServerMessage(312));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 40232 && itemId <= 40264 // 
+					|| itemId >= 41149 && itemId <= 41153
+					|| itemId == 50001) { // Added NM elf crystal. Do not remove.
+				useElfSpellBook(pc, l1iteminstance, itemId);
+			} else if (itemId > 40264 && itemId < 40280) {
+				if (pc.isDarkelf() || pc.isGm()) {
+					if (itemId >= 40265 && itemId <= 40269 
+							&& pc.getLevel() >= 15) {
+						SpellBook1(pc, l1iteminstance, client);
+					} else if (itemId >= 40270 && itemId <= 40274 
+							&& pc.getLevel() >= 30) {
+						SpellBook1(pc, l1iteminstance, client);
+					} else if (itemId >= 40275 && itemId <= 40279
+							&& pc.getLevel() >= 45) {
+						SpellBook1(pc, l1iteminstance, client);
+					} else {
+						pc.sendPackets(new S_ServerMessage(312));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 40164 && itemId <= 40166
+					|| itemId >= 41147 && itemId <= 41148) {
+				if (pc.isKnight() || pc.isGm()) {
+					if (itemId >= 40164 && itemId <= 40165
+							&& pc.getLevel() >= 50) {
+						SpellBook3(pc, l1iteminstance, client);
+					} else if (itemId >= 41147 && itemId <= 41148 
+							&& pc.getLevel() >= 50) {
+						SpellBook3(pc, l1iteminstance, client);
+					} else if (itemId == 40166 && pc.getLevel() >= 60) {
+						SpellBook3(pc, l1iteminstance, client);
+					} else {
+						pc.sendPackets(new S_ServerMessage(312));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 49102 && itemId <= 49116) {
+				if (pc.isDragonKnight() || pc.isGm()) {
+					if (itemId >= 49102 && itemId <= 49106
+							&& pc.getLevel() >= 15) {
+						SpellBook5(pc, l1iteminstance, client);
+					} else if (itemId >= 49107 && itemId <= 49111
+							&& pc.getLevel() >= 30) {
+						SpellBook5(pc, l1iteminstance, client);
+					} else if (itemId >= 49112 && itemId <= 49116
+							&& pc.getLevel() >= 45) {
+						SpellBook5(pc, l1iteminstance, client);
+					} else {
+						pc.sendPackets(new S_ServerMessage(312));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId >= 49117 && itemId <= 49136) {
+				if (pc.isIllusionist() || pc.isGm()) {
+					if (itemId >= 49117 && itemId <= 49121
+							&& pc.getLevel() >= 10) {
+						SpellBook6(pc, l1iteminstance, client);
+					} else if (itemId >= 49122 && itemId <= 49126
+							&& pc.getLevel() >= 20) {
+						SpellBook6(pc, l1iteminstance, client);
+					} else if (itemId >= 49127 && itemId <= 49131
+							&& pc.getLevel() >= 30) {
+						SpellBook6(pc, l1iteminstance, client);
+					} else if (itemId >= 49132 && itemId <= 49136
+							&& pc.getLevel() >= 40) {
+						SpellBook6(pc, l1iteminstance, client);
+					} else {
+						pc.sendPackets(new S_ServerMessage(312));
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40079 || itemId == 40095) {
+				if (pc.getMap().isEscapable() || pc.isGm()) {
+					int[] loc = Getback.GetBack_Location(pc, true);
+					L1Teleport.teleport(pc, loc[0], loc[1], (short) loc[2],
+							5, true);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(647));
+					// pc.sendPackets(new
+					// S_CharVisualUpdate(pc));
+				}
+				cancelAbsoluteBarrier(pc);
+			} else if (itemId == 40124) { // bp return scroll
+				if (pc.getMap().isEscapable() || pc.isGm()) {
+					int castle_id = 0;
+					int house_id = 0;
+					if (pc.getClanid() != 0) {
+						L1Clan clan = L1World.getInstance().getClan(
+								pc.getClanname());
+						if (clan != null) {
+							castle_id = clan.getCastleId();
+							house_id = clan.getHouseId();
+						}
+					}
+					if (castle_id != 0) {
+						if (pc.getMap().isEscapable() || pc.isGm()) {
+							int[] loc = new int[3];
+							loc = L1CastleLocation.getCastleLoc(castle_id);
+							int locx = loc[0];
+							int locy = loc[1];
+							short mapid = (short) (loc[2]);
+							L1Teleport.teleport(pc, locx, locy, mapid, 5,
+									true);
+							inventory.removeItem(l1iteminstance, 1);
+						} else {
+							pc.sendPackets(new S_ServerMessage(647));
+						}
+					} else if (house_id != 0) {
+						if (pc.getMap().isEscapable() || pc.isGm()) {
+							int[] loc = new int[3];
+							loc = L1HouseLocation.getHouseLoc(house_id);
+							int locx = loc[0];
+							int locy = loc[1];
+							short mapid = (short) (loc[2]);
+							L1Teleport.teleport(pc, locx, locy, mapid, 5,
+									true);
+							inventory.removeItem(l1iteminstance, 1);
+						} else {
+							pc.sendPackets(new S_ServerMessage(647));
+						}
+					} else {
+						if (pc.getHomeTownId() > 0) {
+							int[] loc = L1TownLocation.getGetBackLoc(pc
+									.getHomeTownId());
+							int locx = loc[0];
+							int locy = loc[1];
+							short mapid = (short) (loc[2]);
+							L1Teleport.teleport(pc, locx, locy, mapid, 5,
+									true);
+							inventory.removeItem(l1iteminstance, 1);
+						} else {
+							int[] loc = Getback.GetBack_Location(pc, true);
+							L1Teleport.teleport(pc, loc[0], loc[1],
+									(short) loc[2], 5, true);
+							inventory.removeItem(l1iteminstance, 1);
+						}
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(647));
+				}
+				cancelAbsoluteBarrier(pc);
+			} else if (itemId == 140100 || itemId == 40100 // btele, ntele
+					|| itemId == 40099 // it tele scroll
+					|| itemId == 40086 || itemId == 40863) { // mass tele scroll, lasta scroll?
+				L1BookMark bookm = pc.getBookMark(btele);
+				if (bookm != null) {
+					if (pc.getMap().isEscapable() || pc.isGm()) {
+						int newX = bookm.getLocX();
+						int newY = bookm.getLocY();
+						short mapId = bookm.getMapId();
+
+						if (itemId == 40086) {
+							for (L1PcInstance member : 
+									L1World.getInstance().getVisiblePlayer(pc)) {
+								if (pc.getLocation().getTileLineDistance(
+											member.getLocation()) <= 3 && 
+										member.getClanid() == pc.getClanid() && 
+										pc.getClanid() != 0 && 
+										member.getId() != pc.getId()) {
+									L1Teleport.teleport(member, newX, newY, mapId, 5, true);
 										}
 									}
-								}
-								if (npc.getCurrentHp() == 0 && npc.isDead()) {
-									npc.resurrect(npc.getMaxHp() / 4);
-									npc.setResurrect(true);
-								}
-							}
 						}
-					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId > 40169 && itemId < 40226 || itemId >= 45000
-						&& itemId <= 45022) {
-					useSpellBook(pc, l1iteminstance, itemId);
-				} else if (itemId > 40225 && itemId < 40232) {
-					if (pc.isCrown() || pc.isGm()) {
-						if (itemId == 40226 && pc.getLevel() >= 15) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else if (itemId == 40228 && pc.getLevel() >= 30) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else if (itemId == 40227 && pc.getLevel() >= 40) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else if ((itemId == 40231 || itemId == 40232)
-								&& pc.getLevel() >= 45) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else if (itemId == 40230 && pc.getLevel() >= 50) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else if (itemId == 40229 && pc.getLevel() >= 55) {
-							SpellBook4(pc, l1iteminstance, client);
-						} else {
-							pc.sendPackets(new S_ServerMessage(312));
-						}
+						L1Teleport.teleport(pc, newX, newY, mapId, 5, true);
+						inventory.removeItem(l1iteminstance, 1);
 					} else {
+						L1Teleport.teleport(pc, pc.getX(), pc.getY(),
+								pc.getMapId(), pc.getHeading(), false);
 						pc.sendPackets(new S_ServerMessage(79));
 					}
-				} else if (itemId >= 40232 && itemId <= 40264 // 
-						|| itemId >= 41149 && itemId <= 41153
-						|| itemId == 50001) { // Added NM elf crystal. Do not remove.
-					useElfSpellBook(pc, l1iteminstance, itemId);
-				} else if (itemId > 40264 && itemId < 40280) {
-					if (pc.isDarkelf() || pc.isGm()) {
-						if (itemId >= 40265 && itemId <= 40269 
-								&& pc.getLevel() >= 15) {
-							SpellBook1(pc, l1iteminstance, client);
-						} else if (itemId >= 40270 && itemId <= 40274 
-								&& pc.getLevel() >= 30) {
-							SpellBook1(pc, l1iteminstance, client);
-						} else if (itemId >= 40275 && itemId <= 40279
-								&& pc.getLevel() >= 45) {
-							SpellBook1(pc, l1iteminstance, client);
-						} else {
-							pc.sendPackets(new S_ServerMessage(312));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId >= 40164 && itemId <= 40166
-						|| itemId >= 41147 && itemId <= 41148) {
-					if (pc.isKnight() || pc.isGm()) {
-						if (itemId >= 40164 && itemId <= 40165
-								&& pc.getLevel() >= 50) {
-							SpellBook3(pc, l1iteminstance, client);
-						} else if (itemId >= 41147 && itemId <= 41148 
-								&& pc.getLevel() >= 50) {
-							SpellBook3(pc, l1iteminstance, client);
-						} else if (itemId == 40166 && pc.getLevel() >= 60) {
-							SpellBook3(pc, l1iteminstance, client);
-						} else {
-							pc.sendPackets(new S_ServerMessage(312));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId >= 49102 && itemId <= 49116) {
-					if (pc.isDragonKnight() || pc.isGm()) {
-						if (itemId >= 49102 && itemId <= 49106
-								&& pc.getLevel() >= 15) {
-							SpellBook5(pc, l1iteminstance, client);
-						} else if (itemId >= 49107 && itemId <= 49111
-								&& pc.getLevel() >= 30) {
-							SpellBook5(pc, l1iteminstance, client);
-						} else if (itemId >= 49112 && itemId <= 49116
-								&& pc.getLevel() >= 45) {
-							SpellBook5(pc, l1iteminstance, client);
-						} else {
-							pc.sendPackets(new S_ServerMessage(312));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId >= 49117 && itemId <= 49136) {
-					if (pc.isIllusionist() || pc.isGm()) {
-						if (itemId >= 49117 && itemId <= 49121
-								&& pc.getLevel() >= 10) {
-							SpellBook6(pc, l1iteminstance, client);
-						} else if (itemId >= 49122 && itemId <= 49126
-								&& pc.getLevel() >= 20) {
-							SpellBook6(pc, l1iteminstance, client);
-						} else if (itemId >= 49127 && itemId <= 49131
-								&& pc.getLevel() >= 30) {
-							SpellBook6(pc, l1iteminstance, client);
-						} else if (itemId >= 49132 && itemId <= 49136
-								&& pc.getLevel() >= 40) {
-							SpellBook6(pc, l1iteminstance, client);
-						} else {
-							pc.sendPackets(new S_ServerMessage(312));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40079 || itemId == 40095) {
-					if (pc.getMap().isEscapable() || pc.isGm()) {
-						int[] loc = Getback.GetBack_Location(pc, true);
-						L1Teleport.teleport(pc, loc[0], loc[1], (short) loc[2],
-								5, true);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(647));
-						// pc.sendPackets(new
-						// S_CharVisualUpdate(pc));
-					}
-					cancelAbsoluteBarrier(pc);
-				} else if (itemId == 40124) { // bp return scroll
-					if (pc.getMap().isEscapable() || pc.isGm()) {
-						int castle_id = 0;
-						int house_id = 0;
-						if (pc.getClanid() != 0) {
-							L1Clan clan = L1World.getInstance().getClan(
-									pc.getClanname());
-							if (clan != null) {
-								castle_id = clan.getCastleId();
-								house_id = clan.getHouseId();
-							}
-						}
-						if (castle_id != 0) {
-							if (pc.getMap().isEscapable() || pc.isGm()) {
-								int[] loc = new int[3];
-								loc = L1CastleLocation.getCastleLoc(castle_id);
-								int locx = loc[0];
-								int locy = loc[1];
-								short mapid = (short) (loc[2]);
-								L1Teleport.teleport(pc, locx, locy, mapid, 5,
-										true);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							} else {
-								pc.sendPackets(new S_ServerMessage(647));
-							}
-						} else if (house_id != 0) {
-							if (pc.getMap().isEscapable() || pc.isGm()) {
-								int[] loc = new int[3];
-								loc = L1HouseLocation.getHouseLoc(house_id);
-								int locx = loc[0];
-								int locy = loc[1];
-								short mapid = (short) (loc[2]);
-								L1Teleport.teleport(pc, locx, locy, mapid, 5,
-										true);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							} else {
-								pc.sendPackets(new S_ServerMessage(647));
-							}
-						} else {
-							if (pc.getHomeTownId() > 0) {
-								int[] loc = L1TownLocation.getGetBackLoc(pc
-										.getHomeTownId());
-								int locx = loc[0];
-								int locy = loc[1];
-								short mapid = (short) (loc[2]);
-								L1Teleport.teleport(pc, locx, locy, mapid, 5,
-										true);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							} else {
-								int[] loc = Getback.GetBack_Location(pc, true);
-								L1Teleport.teleport(pc, loc[0], loc[1],
-										(short) loc[2], 5, true);
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							}
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(647));
-					}
-					cancelAbsoluteBarrier(pc);
-				} else if (itemId == 140100 || itemId == 40100 // btele, ntele
-						|| itemId == 40099 // it tele scroll
-						|| itemId == 40086 || itemId == 40863) { // mass tele scroll, lasta scroll?
-					L1BookMark bookm = pc.getBookMark(btele);
-					if (bookm != null) {
-						if (pc.getMap().isEscapable() || pc.isGm()) {
-							int newX = bookm.getLocX();
-							int newY = bookm.getLocY();
-							short mapId = bookm.getMapId();
+				} else {
+					if (pc.getMap().isTeleportable() || pc.isGm()) {
+						L1Location newLocation = pc.getLocation()
+							.randomLocation(200, true);
+						int newX = newLocation.getX();
+						int newY = newLocation.getY();
+						short mapId = (short) newLocation.getMapId();
 
-							if (itemId == 40086) {
-								for (L1PcInstance member : L1World.getInstance()
-										.getVisiblePlayer(pc)) {
-									if (pc.getLocation()
-											.getTileLineDistance(member
-													.getLocation()) <= 3
-											&& member.getClanid() == pc
-													.getClanid()
-											&& pc.getClanid() != 0
-											&& member.getId() != pc.getId()) {
-										L1Teleport.teleport(member, newX,
-												newY, mapId, 5, true);
+						if (itemId == 40086) {
+							for (L1PcInstance member : L1World.getInstance()
+									.getVisiblePlayer(pc)) {
+								if (pc.getLocation().getTileLineDistance(
+											member.getLocation()) <= 3 && 
+										member.getClanid() == pc.getClanid() && 
+										pc.getClanid() != 0 && 
+										member.getId() != pc.getId()) {
+									L1Teleport.teleport(member, newX, newY, mapId, 5, true);
+										}
 									}
-								}
-							}
-							L1Teleport.teleport(pc, newX, newY, mapId, 5, true);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc
-									.getMapId(), pc.getHeading(), false);
-							pc.sendPackets(new S_ServerMessage(79));
 						}
+						L1Teleport.teleport(pc, newX, newY, mapId, 5, true);
+						inventory.removeItem(l1iteminstance, 1);
 					} else {
-						if (pc.getMap().isTeleportable() || pc.isGm()) {
-							L1Location newLocation = pc.getLocation()
-									.randomLocation(200, true);
-							int newX = newLocation.getX();
-							int newY = newLocation.getY();
-							short mapId = (short) newLocation.getMapId();
+						L1Teleport.teleport(pc, pc.getX(), pc.getY(),
+								pc.getMapId(), pc.getHeading(), false);
+						pc.sendPackets(new S_ServerMessage(276));
+					}
+					cancelAbsoluteBarrier(pc);
+				}
+			} else if (itemId == 240100) {
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(),
+						pc.getMapId(), pc.getHeading(), true);
+				inventory.removeItem(l1iteminstance, 1);
+				cancelAbsoluteBarrier(pc);
+			} else if (itemId >= 40080 && itemId <= 40085
+					|| itemId >= 40101 && itemId <= 40118
+					|| itemId >= 40120 && itemId <= 40123
+					|| itemId == 40125 || itemId >= 40801
+					&& itemId <= 40898 || itemId >= 42001
+					&& itemId <= 42033 || itemId >= 42035
+					&& itemId <= 42100) { // various return scrolls
+				if (pc.getMap().isEscapable() || pc.isGm()) {
+					L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance.getItem()).get_locx(),
+							((L1EtcItem) template).get_locy(),
+							((L1EtcItem) template).get_mapid(), 5, true);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(647));
+				}
+				cancelAbsoluteBarrier(pc);
+			} else if (itemId >= 40901 && itemId <= 40908) { // silver ring, wedding ring
+				L1PcInstance partner = null;
+				boolean partner_stat = false;
+				if (pc.getPartnerId() != 0) {
+					partner = 
+						(L1PcInstance) L1World.getInstance().findObject(pc.getPartnerId());
+					if (partner != null && partner.getPartnerId() != 0 && 
+							pc.getPartnerId() == partner.getId() && 
+							partner.getPartnerId() == pc.getId()) {
+						partner_stat = true;
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(662));
+					return;
+				}
 
-							if (itemId == 40086) { // }Xe|[gXN[
-								for (L1PcInstance member : L1World.getInstance()
-										.getVisiblePlayer(pc)) {
-									if (pc.getLocation()
-											.getTileLineDistance(member
-													.getLocation()) <= 3
-											&& member.getClanid() == pc
-													.getClanid()
-											&& pc.getClanid() != 0
-											&& member.getId() != pc.getId()) {
-										L1Teleport.teleport(member, newX,
-												newY, mapId, 5, true);
-									}
-								}
-							}
-							L1Teleport.teleport(pc, newX, newY, mapId, 5, true);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc
-									.getMapId(), pc.getHeading(), false);
-							pc.sendPackets(new S_ServerMessage(276));
-						}
-					}
-					cancelAbsoluteBarrier(pc);
-				} else if (itemId == 240100) {
-					L1Teleport.teleport(pc, pc.getX(), pc.getY(),
-							pc.getMapId(), pc.getHeading(), true);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					cancelAbsoluteBarrier(pc);
-				} else if (itemId >= 40080 && itemId <= 40085
-						|| itemId >= 40101 && itemId <= 40118
-						|| itemId >= 40120 && itemId <= 40123
-						|| itemId == 40125 || itemId >= 40801
-						&& itemId <= 40898 || itemId >= 42001
-						&& itemId <= 42033 || itemId >= 42035
-						&& itemId <= 42100) { // various return scrolls
-					if (pc.getMap().isEscapable() || pc.isGm()) {
-						L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance.getItem()).get_locx(),
-								((L1EtcItem) l1iteminstance.getItem()).get_locy(),
-								((L1EtcItem) l1iteminstance.getItem()).get_mapid(), 5, true);
-						pc.getInventory().removeItem(l1iteminstance, 1);
+				if (partner_stat) {
+					boolean castle_area = L1CastleLocation.checkInAllWarArea(
+							partner.getX(), partner.getY(), partner.getMapId());
+					if ((partner.getMapId() == 0 || partner.getMapId() == 4 || 
+								partner.getMapId() == 304)
+							&& castle_area == false) {
+						L1Teleport.teleport(pc, partner.getX(), 
+								partner.getY(), partner.getMapId(), 5, true);
 					} else {
-						pc.sendPackets(new S_ServerMessage(647));
+						pc.sendPackets(new S_ServerMessage(547));
 					}
-					cancelAbsoluteBarrier(pc);
-				} else if (itemId >= 40901 && itemId <= 40908) { // silver ring, wedding ring
-					L1PcInstance partner = null;
-					boolean partner_stat = false;
-					if (pc.getPartnerId() != 0) {
-						partner = (L1PcInstance) L1World.getInstance()
-								.findObject(pc.getPartnerId());
-						if (partner != null && partner.getPartnerId() != 0
-								&& pc.getPartnerId() == partner.getId()
-								&& partner.getPartnerId() == pc.getId()) {
-							partner_stat = true;
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(662));
-						return;
-					}
-
-					if (partner_stat) {
-						boolean castle_area = L1CastleLocation
-								.checkInAllWarArea(
-								//
-										partner.getX(), partner.getY(), partner
-												.getMapId());
-						if ((partner.getMapId() == 0 || partner.getMapId() == 4 || partner
-								.getMapId() == 304)
-								&& castle_area == false) {
-							L1Teleport.teleport(pc, partner.getX(), partner
-									.getY(), partner.getMapId(), 5, true);
-						} else {
-							pc.sendPackets(new S_ServerMessage(547));
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(546));
-					}
-				} else if (itemId == 40555) { // Secret Room Key
-					if (pc.isKnight()
-							&& (pc.getX() >= 32806 &&
+				} else {
+					pc.sendPackets(new S_ServerMessage(546));
+				}
+			} else if (itemId == 40555) { // Secret Room Key
+				if (pc.isKnight()
+						&& (pc.getX() >= 32806 &&
 							pc.getX() <= 32814)
-							&& (pc.getY() >= 32798 && pc.getY() <= 32807)
-							&& pc.getMapId() == 13) {
-						short mapid = 13;
-						L1Teleport.teleport(pc, 32815, 32810, mapid, 5, false);
-					} else {
+						&& (pc.getY() >= 32798 && pc.getY() <= 32807)
+						&& pc.getMapId() == 13) {
+					short mapid = 13;
+					L1Teleport.teleport(pc, 32815, 32810, mapid, 5, false);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40417) {  // pi crystal
+				if ((pc.getX() >= 32665 &&
+							pc.getX() <= 32674) && (pc.getY() >= 32976 && 
+							pc.getY() <= 32985) && pc.getMapId() == 440) {
+					short mapid = 430;
+					L1Teleport.teleport(pc, 32922, 32812, mapid, 5, true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40566) {
+				if (pc.isElf() && (pc.getX() >= 33971 && pc.getX() <= 33975)
+						&& (pc.getY() >= 32324 && pc.getY() <= 32328)
+						&& pc.getMapId() == 4
+						&& !inventory.checkItem(40548)) {
+					boolean found = false;
+					for (L1Object obj : L1World.getInstance().getObject()) {
+						if (obj instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) obj;
+							if (mob != null) {
+								if (mob.getNpcTemplate().get_npcId() == 45300) {
+									found = true;
+									break;
+								}
+							}
+						}
+					}
+					if (found) {
 						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40417) {  // pi crystal
-					if ((pc.getX() >= 32665 &&
-					pc.getX() <= 32674)
-							&& (pc.getY() >= 32976 && pc.getY() <= 32985)
-							&& pc.getMapId() == 440) {
-						short mapid = 430;
-						L1Teleport.teleport(pc, 32922, 32812, mapid, 5, true);
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						L1SpawnUtil.spawn(pc, 45300, 0, 0);
 					}
-				} else if (itemId == 40566) {
-					if (pc.isElf()
-							&& (pc.getX() >= 33971 && 
-							pc.getX() <= 33975)
-							&& (pc.getY() >= 32324 && pc.getY() <= 32328)
-							&& pc.getMapId() == 4
-							&& !pc.getInventory().checkItem(40548)) {
-						boolean found = false;
-						for (L1Object obj : L1World.getInstance().getObject()) {
-							if (obj instanceof L1MonsterInstance) {
-								L1MonsterInstance mob = (L1MonsterInstance) obj;
-								if (mob != null) {
-									if (mob.getNpcTemplate().get_npcId() == 45300) {
-										found = true;
-										break;
-									}
-								}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId == 40557) {
+				if (pc.getX() == 32620 && pc.getY() == 32641
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45883) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						if (found) {
-							pc.sendPackets(new S_ServerMessage(79));
-						} else {
-							L1SpawnUtil.spawn(pc, 45300, 0, 0); // lS
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId == 40557) { //
-					if (pc.getX() == 32620 && pc.getY() == 32641
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45883) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+							}
+					L1SpawnUtil.spawn(pc, 45883, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); //
+				}
+			} else if (itemId == 40563) { //
+				if (pc.getX() == 32730 && pc.getY() == 32426
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45884) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45883, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); //
-					}
-				} else if (itemId == 40563) { //
-					if (pc.getX() == 32730 && pc.getY() == 32426
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45884) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+							}
+					L1SpawnUtil.spawn(pc, 45884, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40561) { //
+				if (pc.getX() == 33046 && pc.getY() == 32806
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45885) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45884, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
 					}
-				} else if (itemId == 40561) { //
-					if (pc.getX() == 33046 && pc.getY() == 32806
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45885) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+					L1SpawnUtil.spawn(pc, 45885, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); //
+				}
+			} else if (itemId == 40560) { //
+				if (pc.getX() == 32580 && pc.getY() == 33260
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45886) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45885, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); //
 					}
-				} else if (itemId == 40560) { //
-					if (pc.getX() == 32580 && pc.getY() == 33260
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45886) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+					L1SpawnUtil.spawn(pc, 45886, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); //
+				}
+			} else if (itemId == 40562) { //
+				if (pc.getX() == 33447 && pc.getY() == 33476
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45887) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45886, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); //
 					}
-				} else if (itemId == 40562) { //
-					if (pc.getX() == 33447 && pc.getY() == 33476
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45887) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+					L1SpawnUtil.spawn(pc, 45887, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); //
+				}
+			} else if (itemId == 40559) { //
+				if (pc.getX() == 34215 && pc.getY() == 33195
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45888) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45887, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); //
-					}
-				} else if (itemId == 40559) { //
-					if (pc.getX() == 34215 && pc.getY() == 33195
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45888) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
+							}
+					L1SpawnUtil.spawn(pc, 45888, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40558) {
+				if (pc.getX() == 33513 && pc.getY() == 32890
+						&& pc.getMapId() == 4) {
+					for (L1Object object : L1World.getInstance().getObject()) {
+						if (object instanceof L1NpcInstance) {
+							L1NpcInstance npc = (L1NpcInstance) object;
+							if (npc.getNpcTemplate().get_npcId() == 45889) {
+								pc.sendPackets(new S_ServerMessage(79));
+								return;
 							}
 						}
-						L1SpawnUtil.spawn(pc, 45888, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); //
-					}
-				} else if (itemId == 40558) { //
-					if (pc.getX() == 33513 && pc.getY() == 32890
-							&& pc.getMapId() == 4) {
-						for (L1Object object : L1World.getInstance()
-								.getObject()) {
-							if (object instanceof L1NpcInstance) {
-								L1NpcInstance npc = (L1NpcInstance) object;
-								if (npc.getNpcTemplate().get_npcId() == 45889) {
-									pc.sendPackets(new S_ServerMessage(79));
-									return;
-								}
 							}
-						}
-						L1SpawnUtil.spawn(pc, 45889, 0, 300000);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79)); 
-					}
-				} else if (itemId == 40572) { //
-					if (pc.getX() == 32778 && pc.getY() == 32738
-							&& pc.getMapId() == 21) {
-						L1Teleport.teleport(pc, 32781, 32728, (short) 21, 5,
-								true);
-					} else if (pc.getX() == 32781 && pc.getY() == 32728
-							&& pc.getMapId() == 21) {
-						L1Teleport.teleport(pc, 32778, 32738, (short) 21, 5,
-								true);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40006 || itemId == 40412
-						|| itemId == 140006) {
-					if (pc.getMap().isUsePainwand()) {
-						S_AttackPacket s_attackPacket = new S_AttackPacket(pc,
-								0, ActionCodes.ACTION_Wand);
-						pc.sendPackets(s_attackPacket);
-						pc.broadcastPacket(s_attackPacket);
-						int chargeCount = l1iteminstance.getChargeCount();
-						if (chargeCount <= 0 && itemId != 40412) {
-							pc.sendPackets(new S_ServerMessage(79));
-							return;
-						}
-						int[] mobArray = { 45008, 45140, 45016, 45021, 45025,
-								45033, 45099, 45147, 45123, 45130, 45046,
-								45092, 45138, 45098, 45127, 45143, 45149,
-								45171, 45040, 45155, 45192, 45173, 45213,
-								45079, 45144 };
-						/*
-						 * 45005, 45008, 45009, 45016, 45019, 45043, 45060,
-						 * 45066, 45068, 45082, 45093, 45101, 45107, 45126,
-						 * 45129, 45136, 45144, 45157, 45161, 45173, 45184,
-						 * 45223 };
-						 */
-						int rnd = _random.nextInt(mobArray.length);
-						L1SpawnUtil.spawn(pc, mobArray[rnd], 0, 300000);
-						if (itemId == 40006 || itemId == 140006) {
-							l1iteminstance.setChargeCount(l1iteminstance
-									.getChargeCount() - 1);
-							pc.getInventory().updateItem(l1iteminstance,
-									L1PcInventory.COL_CHARGE_COUNT);
-						} else {
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						}
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40007) {
-					cancelAbsoluteBarrier(pc);
+					L1SpawnUtil.spawn(pc, 45889, 0, 300000);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); 
+				}
+			} else if (itemId == 40572) { //
+				if (pc.getX() == 32778 && pc.getY() == 32738
+						&& pc.getMapId() == 21) {
+					L1Teleport.teleport(pc, 32781, 32728, (short) 21, 5,
+							true);
+				} else if (pc.getX() == 32781 && pc.getY() == 32728
+						&& pc.getMapId() == 21) {
+					L1Teleport.teleport(pc, 32778, 32738, (short) 21, 5,
+							true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40006 || itemId == 40412
+					|| itemId == 140006) {
+				if (pc.getMap().isUsePainwand()) {
+					S_AttackPacket s_attackPacket = new S_AttackPacket(pc,
+							0, ActionCodes.ACTION_Wand);
+					pc.sendPackets(s_attackPacket);
+					pc.broadcastPacket(s_attackPacket);
 					int chargeCount = l1iteminstance.getChargeCount();
-					if (chargeCount <= 0) {
+					if (chargeCount <= 0 && itemId != 40412) {
 						pc.sendPackets(new S_ServerMessage(79));
 						return;
 					}
+					int[] mobArray = { 45008, 45140, 45016, 45021, 45025,
+						45033, 45099, 45147, 45123, 45130, 45046,
+						45092, 45138, 45098, 45127, 45143, 45149,
+						45171, 45040, 45155, 45192, 45173, 45213,
+						45079, 45144 };
+					int rnd = _random.nextInt(mobArray.length);
+					L1SpawnUtil.spawn(pc, mobArray[rnd], 0, 300000);
+					if (itemId == 40006 || itemId == 140006) {
+						l1iteminstance.setChargeCount(l1iteminstance
+								.getChargeCount() - 1);
+						inventory.updateItem(l1iteminstance,
+								L1PcInventory.COL_CHARGE_COUNT);
+					} else {
+						inventory.removeItem(l1iteminstance, 1);
+					}
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40007) {
+				cancelAbsoluteBarrier(pc);
+				int chargeCount = l1iteminstance.getChargeCount();
+				if (chargeCount <= 0) {
+					pc.sendPackets(new S_ServerMessage(79));
+					return;
+				}
+				L1Object target = L1World.getInstance().findObject(
+						spellsc_objid);
+				pc.sendPackets(new S_UseAttackSkill(pc, spellsc_objid,
+							10, spellsc_x, spellsc_y, ActionCodes.ACTION_Wand));
+				pc.broadcastPacket(new S_UseAttackSkill(pc, spellsc_objid,
+							10, spellsc_x, spellsc_y, ActionCodes.ACTION_Wand));
+				if (target != null) {
+					doWandAction(pc, target);
+				}
+				l1iteminstance.setChargeCount(l1iteminstance
+						.getChargeCount() - 1);
+				inventory.updateItem(l1iteminstance,
+						L1PcInventory.COL_CHARGE_COUNT);
+			} else if (itemId == 40008 || itemId == 40410
+					|| itemId == 140008) {
+				if (pc.getMapId() == 63 || pc.getMapId() == 552
+						|| pc.getMapId() == 555 || pc.getMapId() == 557
+						|| pc.getMapId() == 558
+						|| pc.getMapId() == 779) {
+					pc.sendPackets(new S_ServerMessage(563));
+				} else {
+					pc.sendPackets(new S_AttackPacket(pc, 0,
+								ActionCodes.ACTION_Wand));
+					pc.broadcastPacket(new S_AttackPacket(pc, 0,
+								ActionCodes.ACTION_Wand));
+					int chargeCount = l1iteminstance.getChargeCount();
+					if (chargeCount <= 0 && itemId != 40410
+							|| pc.getTempCharGfx() == 6034
+							|| pc.getTempCharGfx() == 6035) {
+						pc.sendPackets(new S_ServerMessage(79));
+						return;
+							}
 					L1Object target = L1World.getInstance().findObject(
 							spellsc_objid);
-					pc.sendPackets(new S_UseAttackSkill(pc, spellsc_objid,
-							10, spellsc_x, spellsc_y, ActionCodes.ACTION_Wand));
-					pc.broadcastPacket(new S_UseAttackSkill(pc, spellsc_objid,
-							10, spellsc_x, spellsc_y, ActionCodes.ACTION_Wand));
 					if (target != null) {
-						doWandAction(pc, target);
-					}
-					l1iteminstance.setChargeCount(l1iteminstance
-							.getChargeCount() - 1);
-					pc.getInventory().updateItem(l1iteminstance,
-							L1PcInventory.COL_CHARGE_COUNT);
-				} else if (itemId == 40008 || itemId == 40410
-						|| itemId == 140008) {
-					if (pc.getMapId() == 63 || pc.getMapId() == 552
-							|| pc.getMapId() == 555 || pc.getMapId() == 557
-							|| pc.getMapId() == 558
-							|| pc.getMapId() == 779) {
-						pc.sendPackets(new S_ServerMessage(563));
-					} else {
-						pc.sendPackets(new S_AttackPacket(pc, 0,
-								ActionCodes.ACTION_Wand));
-						pc.broadcastPacket(new S_AttackPacket(pc, 0,
-								ActionCodes.ACTION_Wand));
-						int chargeCount = l1iteminstance.getChargeCount();
-						if (chargeCount <= 0 && itemId != 40410
-								|| pc.getTempCharGfx() == 6034
-								|| pc.getTempCharGfx() == 6035) {
-							pc.sendPackets(new S_ServerMessage(79));
-							return;
-						}
-						L1Object target = L1World.getInstance().findObject(
-								spellsc_objid);
-						if (target != null) {
-							L1Character cha = (L1Character) target;
-							polyAction(pc, cha);
-							cancelAbsoluteBarrier(pc);
-							if (itemId == 40008 || itemId == 140008) {
-								l1iteminstance.setChargeCount(l1iteminstance
-										.getChargeCount() - 1);
-								pc.getInventory().updateItem(l1iteminstance,
-										L1PcInventory.COL_CHARGE_COUNT);
-							} else {
-								pc.getInventory().removeItem(l1iteminstance, 1);
-							}
+						L1Character cha = (L1Character) target;
+						polyAction(pc, cha);
+						cancelAbsoluteBarrier(pc);
+						if (itemId == 40008 || itemId == 140008) {
+							l1iteminstance.setChargeCount(l1iteminstance
+									.getChargeCount() - 1);
+							inventory.updateItem(l1iteminstance,
+									L1PcInventory.COL_CHARGE_COUNT);
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							inventory.removeItem(l1iteminstance, 1);
 						}
+					} else {
+						pc.sendPackets(new S_ServerMessage(79));
 					}
-					// if (pc.getId() == target.getId()) { 
-					// ;
-					// } else if (target instanceof L1PcInstance) {
-					// L1PcInstance targetpc = (L1PcInstance) target;
-					// if (pc.getClanid() != 0
-					// && pc.getClanid() == targetpc.getClanid()) {
-					// ;
-					// }
-					// } else {
-					// }
-				} else if (itemId >= 40289 && itemId <= 40297) { // toi charms
-					useToiTeleportAmulet(pc, itemId, l1iteminstance);
-				} else if (itemId >= 40280 && itemId <= 40288) { // sealed toi charms
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					L1ItemInstance item = pc.getInventory().storeItem(
-							itemId + 9, 1);
-					if (item != null) {
-						pc.sendPackets(new S_ServerMessage(403, item
-								.getLogName()));
-					}
-				} else if (itemId == 40056 || itemId == 40057
-						|| itemId == 40059 || itemId == 40060
-						|| itemId == 40061 || itemId == 40062
-						|| itemId == 40063 || itemId == 40064
-						|| itemId == 40065 || itemId == 40069
-						|| itemId == 40072 || itemId == 40073
-						|| itemId == 140061 || itemId == 140062
-						|| itemId == 140065 || itemId == 140069
-						|| itemId == 140072 || itemId == 41296
-						|| itemId == 41297 || itemId == 41266
-						|| itemId == 41267 || itemId == 41274
-						|| itemId == 41275 || itemId == 41276
-						|| itemId == 41252 || itemId == 49040
-						|| itemId == 49041 || itemId == 49042
-						|| itemId == 49043 || itemId == 49044
-						|| itemId == 49045 || itemId == 49046
-						|| itemId == 49047) {
-					pc.getInventory().removeItem(l1iteminstance, 1);
-					short foodvolume1 = (short)(l1iteminstance.getItem().getFoodVolume() / 10);
-					short foodvolume2 = 0;
-					if (foodvolume1 <= 0) {
-						foodvolume1 = 5;
-					}
-					if (pc.get_food() >= 225) {
+				}
+			} else if (itemId >= 40289 && itemId <= 40297) { // toi charms
+				useToiTeleportAmulet(pc, itemId, l1iteminstance);
+			} else if (itemId >= 40280 && itemId <= 40288) { // sealed toi charms
+				inventory.removeItem(l1iteminstance, 1);
+				L1ItemInstance item = inventory.storeItem(itemId + 9, 1);
+				if (item != null) {
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
+				}
+			} else if (itemId == 40056 || itemId == 40057
+					|| itemId == 40059 || itemId == 40060
+					|| itemId == 40061 || itemId == 40062
+					|| itemId == 40063 || itemId == 40064
+					|| itemId == 40065 || itemId == 40069
+					|| itemId == 40072 || itemId == 40073
+					|| itemId == 140061 || itemId == 140062
+					|| itemId == 140065 || itemId == 140069
+					|| itemId == 140072 || itemId == 41296
+					|| itemId == 41297 || itemId == 41266
+					|| itemId == 41267 || itemId == 41274
+					|| itemId == 41275 || itemId == 41276
+					|| itemId == 41252 || itemId == 49040
+					|| itemId == 49041 || itemId == 49042
+					|| itemId == 49043 || itemId == 49044
+					|| itemId == 49045 || itemId == 49046
+					|| itemId == 49047) {
+				inventory.removeItem(l1iteminstance, 1);
+				short foodvolume1 = (short)(l1iteminstance.getItem().getFoodVolume() / 10);
+				short foodvolume2 = 0;
+				if (foodvolume1 <= 0) {
+					foodvolume1 = 5;
+				}
+				if (pc.get_food() >= 225) {
+					pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, 
+								(short) pc.get_food()));
+				} else {
+					foodvolume2 = (short)(pc.get_food() + foodvolume1);
+					if (foodvolume2 <= 225) {
+						pc.set_food(foodvolume2);
+						pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, 
+									(short) pc.get_food()));
+					} else {
+						pc.set_food((short)225);
 						pc.sendPackets(new S_PacketBox(
-								S_PacketBox.FOOD, (short)pc.get_food()));
-					} else {
-						foodvolume2 = (short)(pc.get_food() + foodvolume1);
-						if (foodvolume2 <= 225) {
-							pc.set_food(foodvolume2);
-							pc.sendPackets(new S_PacketBox(
 									S_PacketBox.FOOD, (short)pc.get_food()));
-						} else {
-							pc.set_food((short)225);
-							pc.sendPackets(new S_PacketBox(
-									S_PacketBox.FOOD, (short)pc.get_food()));
-						}
 					}
-					if (itemId == 40057) { // Floating Eye Meat
-						pc.setSkillEffect(STATUS_FLOATING_EYE, 0);
-					}
-					pc.sendPackets(new S_ServerMessage(76, l1iteminstance
+				}
+				if (itemId == 40057) { // Floating Eye Meat
+					pc.setSkillEffect(STATUS_FLOATING_EYE, 0);
+				}
+				pc.sendPackets(new S_ServerMessage(76, l1iteminstance
 							.getItem().getIdentifiedNameId()));
-				} else if (itemId == 40070) { 
-					pc.sendPackets(new S_ServerMessage(76, l1iteminstance
+			} else if (itemId == 40070) { 
+				pc.sendPackets(new S_ServerMessage(76, l1iteminstance
 							.getLogName()));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41310) { //added for gold dragon
-					pc.sendPackets(new S_ServerMessage(76, l1iteminstance
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41310) { //added for gold dragon
+				pc.sendPackets(new S_ServerMessage(76, l1iteminstance
 							.getLogName()));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41298) {
-					UseHeallingPotion(pc, 4, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41299) {
-					UseHeallingPotion(pc, 15, 194);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41300) {
-					UseHeallingPotion(pc, 35, 197);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41301) {
-					int chance = _random.nextInt(10);
-					if (chance >= 0 && chance < 5) {
-						UseHeallingPotion(pc, 15, 189);
-					} else if (chance >= 5 && chance < 9) {
-						createNewItem(pc, 40019, 1);
-					} else if (chance >= 9) {
-						int gemChance = _random.nextInt(3);
-						if (gemChance == 0) {
-							createNewItem(pc, 40045, 1);
-						} else if (gemChance == 1) {
-							createNewItem(pc, 40049, 1);
-						} else if (gemChance == 2) {
-							createNewItem(pc, 40053, 1);
-						}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41298) {
+				UseHealingPotion(pc, 4, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41299) {
+				UseHealingPotion(pc, 15, 194);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41300) {
+				UseHealingPotion(pc, 35, 197);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41301) {
+				int chance = _random.nextInt(10);
+				if (chance >= 0 && chance < 5) {
+					UseHealingPotion(pc, 15, 189);
+				} else if (chance >= 5 && chance < 9) {
+					createNewItem(pc, 40019, 1);
+				} else if (chance >= 9) {
+					int gemChance = _random.nextInt(3);
+					if (gemChance == 0) {
+						createNewItem(pc, 40045, 1);
+					} else if (gemChance == 1) {
+						createNewItem(pc, 40049, 1);
+					} else if (gemChance == 2) {
+						createNewItem(pc, 40053, 1);
 					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41302) {
-					int chance = _random.nextInt(3);
-					if (chance >= 0 && chance < 5) {
-						UseHeallingPotion(pc, 15, 189);
-					} else if (chance >= 5 && chance < 9) {
-						createNewItem(pc, 40018, 1);
-					} else if (chance >= 9) {
-						int gemChance = _random.nextInt(3);
-						if (gemChance == 0) {
-							createNewItem(pc, 40047, 1);
-						} else if (gemChance == 1) {
-							createNewItem(pc, 40051, 1);
-						} else if (gemChance == 2) {
-							createNewItem(pc, 40055, 1);
-						}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41302) {
+				int chance = _random.nextInt(3);
+				if (chance >= 0 && chance < 5) {
+					UseHealingPotion(pc, 15, 189);
+				} else if (chance >= 5 && chance < 9) {
+					createNewItem(pc, 40018, 1);
+				} else if (chance >= 9) {
+					int gemChance = _random.nextInt(3);
+					if (gemChance == 0) {
+						createNewItem(pc, 40047, 1);
+					} else if (gemChance == 1) {
+						createNewItem(pc, 40051, 1);
+					} else if (gemChance == 2) {
+						createNewItem(pc, 40055, 1);
 					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41303) {
-					int chance = _random.nextInt(3);
-					if (chance >= 0 && chance < 5) {
-						UseHeallingPotion(pc, 15, 189);
-					} else if (chance >= 5 && chance < 9) {
-						createNewItem(pc, POTION_OF_MANA, 1);
-					} else if (chance >= 9) {
-						int gemChance = _random.nextInt(3);
-						if (gemChance == 0) {
-							createNewItem(pc, 40046, 1);
-						} else if (gemChance == 1) {
-							createNewItem(pc, 40050, 1);
-						} else if (gemChance == 2) {
-							createNewItem(pc, 40054, 1);
-						}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41303) {
+				int chance = _random.nextInt(3);
+				if (chance >= 0 && chance < 5) {
+					UseHealingPotion(pc, 15, 189);
+				} else if (chance >= 5 && chance < 9) {
+					createNewItem(pc, POTION_OF_MANA, 1);
+				} else if (chance >= 9) {
+					int gemChance = _random.nextInt(3);
+					if (gemChance == 0) {
+						createNewItem(pc, 40046, 1);
+					} else if (gemChance == 1) {
+						createNewItem(pc, 40050, 1);
+					} else if (gemChance == 2) {
+						createNewItem(pc, 40054, 1);
 					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41304) {
-					int chance = _random.nextInt(3);
-					if (chance >= 0 && chance < 5) {
-						UseHeallingPotion(pc, 15, 189);
-					} else if (chance >= 5 && chance < 9) {
-						createNewItem(pc, 40021, 1);
-					} else if (chance >= 9) {
-						int gemChance = _random.nextInt(3);
-						if (gemChance == 0) {
-							createNewItem(pc, 40044, 1);
-						} else if (gemChance == 1) {
-							createNewItem(pc, 40048, 1);
-						} else if (gemChance == 2) {
-							createNewItem(pc, 40052, 1);
-						}
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41304) {
+				int chance = _random.nextInt(3);
+				if (chance >= 0 && chance < 5) {
+					UseHealingPotion(pc, 15, 189);
+				} else if (chance >= 5 && chance < 9) {
+					createNewItem(pc, 40021, 1);
+				} else if (chance >= 9) {
+					int gemChance = _random.nextInt(3);
+					if (gemChance == 0) {
+						createNewItem(pc, 40044, 1);
+					} else if (gemChance == 1) {
+						createNewItem(pc, 40048, 1);
+					} else if (gemChance == 2) {
+						createNewItem(pc, 40052, 1);
 					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId >= 40136 && itemId <= 40161) {
-					int soundid = 3198;
-					if (itemId == 40154) {
-						soundid = 3198;
-					} else if (itemId == 40152) {
-						soundid = 2031;
-					} else if (itemId == 40141) {
-						soundid = 2028;
-					} else if (itemId == 40160) {
-						soundid = 2030;
-					} else if (itemId == 40145) {
-						soundid = 2029;
-					} else if (itemId == 40159) {
-						soundid = 2033;
-					} else if (itemId == 40151) {
-						soundid = 2032;
-					} else if (itemId == 40161) {
-						soundid = 2037;
-					} else if (itemId == 40142) {
-						soundid = 2036;
-					} else if (itemId == 40146) {
-						soundid = 2039;
-					} else if (itemId == 40148) {
-						soundid = 2043;
-					} else if (itemId == 40143) {
-						soundid = 2041;
-					} else if (itemId == 40156) {
-						soundid = 2042;
-					} else if (itemId == 40139) {
-						soundid = 2040;
-					} else if (itemId == 40137) {
-						soundid = 2047;
-					} else if (itemId == 40136) {
-						soundid = 2046;
-					} else if (itemId == 40138) {
-						soundid = 2048;
-					} else if (itemId == 40140) {
-						soundid = 2051;
-					} else if (itemId == 40144) {
-						soundid = 2053;
-					} else if (itemId == 40147) {
-						soundid = 2045;
-					} else if (itemId == 40149) {
-						soundid = 2034;
-					} else if (itemId == 40150) {
-						soundid = 2055;
-					} else if (itemId == 40153) {
-						soundid = 2038;
-					} else if (itemId == 40155) {
-						soundid = 2044;
-					} else if (itemId == 40157) {
-						soundid = 2035;
-					} else if (itemId == 40158) {
-						soundid = 2049;
-					} else {
-						soundid = 3198;
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId >= 40136 && itemId <= 40161) {
+				int soundid = 3198;
+				if (itemId == 40154) {
+					soundid = 3198;
+				} else if (itemId == 40152) {
+					soundid = 2031;
+				} else if (itemId == 40141) {
+					soundid = 2028;
+				} else if (itemId == 40160) {
+					soundid = 2030;
+				} else if (itemId == 40145) {
+					soundid = 2029;
+				} else if (itemId == 40159) {
+					soundid = 2033;
+				} else if (itemId == 40151) {
+					soundid = 2032;
+				} else if (itemId == 40161) {
+					soundid = 2037;
+				} else if (itemId == 40142) {
+					soundid = 2036;
+				} else if (itemId == 40146) {
+					soundid = 2039;
+				} else if (itemId == 40148) {
+					soundid = 2043;
+				} else if (itemId == 40143) {
+					soundid = 2041;
+				} else if (itemId == 40156) {
+					soundid = 2042;
+				} else if (itemId == 40139) {
+					soundid = 2040;
+				} else if (itemId == 40137) {
+					soundid = 2047;
+				} else if (itemId == 40136) {
+					soundid = 2046;
+				} else if (itemId == 40138) {
+					soundid = 2048;
+				} else if (itemId == 40140) {
+					soundid = 2051;
+				} else if (itemId == 40144) {
+					soundid = 2053;
+				} else if (itemId == 40147) {
+					soundid = 2045;
+				} else if (itemId == 40149) {
+					soundid = 2034;
+				} else if (itemId == 40150) {
+					soundid = 2055;
+				} else if (itemId == 40153) {
+					soundid = 2038;
+				} else if (itemId == 40155) {
+					soundid = 2044;
+				} else if (itemId == 40157) {
+					soundid = 2035;
+				} else if (itemId == 40158) {
+					soundid = 2049;
+				} else {
+					soundid = 3198;
+				}
+				S_SkillSound s_skillsound = new S_SkillSound(pc.getId(), soundid);
+				pc.sendPackets(s_skillsound);
+				pc.broadcastPacket(s_skillsound);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId >= 41357 && itemId <= 41382) {
+				int soundid = itemId - 34946;
+				S_SkillSound s_skillsound = new S_SkillSound(pc.getId(), soundid);
+				pc.sendPackets(s_skillsound);
+				pc.broadcastPacket(s_skillsound);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 40615) { // Key of Shadow Temple 2F
+				if ((pc.getX() >= 32701 && pc.getX() <= 32705)
+						&& (pc.getY() >= 32894 && pc.getY() <= 32898)
+						&& pc.getMapId() == 522) { //
+					L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance.getItem()).get_locx(),
+							((L1EtcItem) l1iteminstance.getItem()).get_locy(),
+							((L1EtcItem) l1iteminstance.getItem()).get_mapid(), 5, true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40616 || itemId == 40782
+					|| itemId == 40783) { // Key of Shadow Temple 3F
+				if ((pc.getX() >= 32698 && pc.getX() <= 32702)
+						&& (pc.getY() >= 32894 && pc.getY() <= 32898)
+						&& pc.getMapId() == 523) { 
+					L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance.getItem()).get_locx(),
+							((L1EtcItem) l1iteminstance.getItem()).get_locy(),
+							((L1EtcItem) l1iteminstance.getItem()).get_mapid(), 5, true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40692) { // item 436?
+				if (inventory.checkItem(40621)) {
+					pc.sendPackets(new S_ServerMessage(79));
+				} else if ((pc.getX() >= 32856 && pc.getX() <= 32858)
+						&& (pc.getY() >= 32857 && pc.getY() <= 32858)
+						&& pc.getMapId() == 443) { 
+					L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance.getItem()).get_locx(),
+							((L1EtcItem) l1iteminstance.getItem()).get_locy(),
+							((L1EtcItem) l1iteminstance.getItem()).get_mapid(), 5, true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 41146) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei001"));
+			} else if (itemId == 40641) { // Talking Scroll
+				if (Config.ALT_TALKINGSCROLLQUEST == true) {
+					if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 0) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolla"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollb"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollc"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolld"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolle"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollf"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollg"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollh"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolli"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollj"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollk"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolll"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollm"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrolln"));
+					} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 255) {
+						pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollo"));
 					}
-
-					S_SkillSound s_skillsound = new S_SkillSound(pc.getId(),
-							soundid);
-					pc.sendPackets(s_skillsound);
-					pc.broadcastPacket(s_skillsound);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId >= 41357 && itemId <= 41382) {
-					int soundid = itemId - 34946;
-					S_SkillSound s_skillsound = new S_SkillSound(pc.getId(),
-							soundid);
-					pc.sendPackets(s_skillsound);
-					pc.broadcastPacket(s_skillsound);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 40615) { // Key of Shadow Temple 2F
-					if ((pc.getX() >= 32701 && pc.getX() <= 32705)
-							&& (pc.getY() >= 32894 && pc.getY() <= 32898)
-							&& pc.getMapId() == 522) { //
-						L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance
+				} else {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tscrollp"));	
+				}
+			} else if (itemId == 40383) { // Map: Singing Island
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei035"));
+			} else if (itemId == 40384) { // Map: Hidden Valley
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei036"));
+			} else if (itemId == 40101) { // Scroll of Return: Hidden Valley
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei037"));
+			} else if (itemId == 41209) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei002"));
+			} else if (itemId == 41210) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei003"));
+			} else if (itemId == 41211) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei004"));
+			} else if (itemId == 41212) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei005"));
+			} else if (itemId == 41213) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei006"));
+			} else if (itemId == 41214) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei012"));
+			} else if (itemId == 41215) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei010"));
+			} else if (itemId == 41216) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei011"));
+			} else if (itemId == 41222) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei008"));
+			} else if (itemId == 41223) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei007"));
+			} else if (itemId == 41224) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei009"));
+			} else if (itemId == 41225) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei013"));
+			} else if (itemId == 41226) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei014"));
+			} else if (itemId == 41227) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei033"));
+			} else if (itemId == 41228) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei034"));
+			} else if (itemId == 41229) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei025"));
+			} else if (itemId == 41230) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei020"));
+			} else if (itemId == 41231) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei021"));
+			} else if (itemId == 41233) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei019"));
+			} else if (itemId == 41234) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei023"));
+			} else if (itemId == 41235) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei024"));
+			} else if (itemId == 41236) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei026"));
+			} else if (itemId == 41237) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei027"));
+			} else if (itemId == 41239) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei018"));
+			} else if (itemId == 41240) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei022"));
+			} else if (itemId == 41060) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "nonames"));
+			} else if (itemId == 41061) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "kames"));
+			} else if (itemId == 41062) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "bakumos"));
+			} else if (itemId == 41063) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "bukas"));
+			} else if (itemId == 41064) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "huwoomos"));
+			} else if (itemId == 41065) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "noas"));
+			} else if (itemId == 41356) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "rparum3"));
+			} else if (itemId == 40701) { //
+				if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 1) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "firsttmap"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 2) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "secondtmapa"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 3) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "secondtmapb"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 4) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "secondtmapc"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 5) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmapd"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 6) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmape"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 7) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmapf"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 8) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmapg"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 9) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmaph"));
+				} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 10) {
+					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "thirdtmapi"));
+				}
+			} else if (itemId == 40663) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "sonsletter"));
+			} else if (itemId == 40630) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "diegodiary"));
+			} else if (itemId == 41340) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tion"));
+			} else if (itemId == 41317) { 
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "rarson"));
+			} else if (itemId == 41318) { 
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "kuen"));
+			} else if (itemId == 41329) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "anirequest"));
+			} else if (itemId == 41346) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "robinscroll"));
+			} else if (itemId == 41347) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "robinscroll2"));
+			} else if (itemId == 41348) { //
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "robinhood"));
+			} else if (itemId == 41007) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "erisscroll"));
+			} else if (itemId == 41009) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "erisscroll2"));
+			} else if (itemId == 41019) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory1"));
+			} else if (itemId == 41020) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory2"));
+			} else if (itemId == 41021) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory3"));
+			} else if (itemId == 41022) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory4"));
+			} else if (itemId == 41023) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory5"));
+			} else if (itemId == 41024) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory6"));
+			} else if (itemId == 41025) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory7"));
+			} else if (itemId == 41026) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "lashistory8"));
+			} else if (itemId == 41208) { //
+				if ((pc.getX() >= 32844 && pc.getX() <= 32845)
+						&& (pc.getY() >= 32693 && pc.getY() <= 32694)
+						&& pc.getMapId() == 550) { //
+					L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance
 								.getItem()).get_locx(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_locy(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_mapid(), 5, true);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40616 || itemId == 40782
-						|| itemId == 40783) { // Key of Shadow Temple 3F
-					if ((pc.getX() >= 32698 && pc.getX() <= 32702)
-							&& (pc.getY() >= 32894 && pc.getY() <= 32898)
-							&& pc.getMapId() == 523) { 
-						L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance
-								.getItem()).get_locx(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_locy(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_mapid(), 5, true);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40692) { // item 436?
-					if (pc.getInventory().checkItem(40621)) {
-						pc.sendPackets(new S_ServerMessage(79));
-					} else if ((pc.getX() >= 32856 && pc.getX() <= 32858)
-							&& (pc.getY() >= 32857 && pc.getY() <= 32858)
-							&& pc.getMapId() == 443) { 
-						L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance
-								.getItem()).get_locx(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_locy(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_mapid(), 5, true);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 41146) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei001"));
-				} else if (itemId == 40641) { // Talking Scroll
-					if (Config.ALT_TALKINGSCROLLQUEST == true) {
-						if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 0) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolla"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 1) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollb"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 2) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollc"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 3) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolld"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 4) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolle"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 5) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollf"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 6) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollg"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 7) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollh"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 8) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolli"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 9) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollj"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 10) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollk"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 11) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolll"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 12) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollm"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 13) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrolln"));
-						} else if (pc.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-								== 255) {
-							pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"tscrollo"));
-						}
-					} else {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-						"tscrollp"));	
-					}
-				} else if (itemId == 40383) { // Map: Singing Island
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei035"));
-				} else if (itemId == 40384) { // Map: Hidden Valley
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei036"));
-				} else if (itemId == 40101) { // Scroll of Return: Hidden Valley
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei037"));
-				} else if (itemId == 41209) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei002"));
-				} else if (itemId == 41210) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei003"));
-				} else if (itemId == 41211) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei004"));
-				} else if (itemId == 41212) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei005"));
-				} else if (itemId == 41213) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei006"));
-				} else if (itemId == 41214) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei012"));
-				} else if (itemId == 41215) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei010"));
-				} else if (itemId == 41216) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei011"));
-				} else if (itemId == 41222) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei008"));
-				} else if (itemId == 41223) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei007"));
-				} else if (itemId == 41224) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei009"));
-				} else if (itemId == 41225) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei013"));
-				} else if (itemId == 41226) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei014"));
-				} else if (itemId == 41227) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei033"));
-				} else if (itemId == 41228) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei034"));
-				} else if (itemId == 41229) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei025"));
-				} else if (itemId == 41230) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei020"));
-				} else if (itemId == 41231) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei021"));
-				} else if (itemId == 41233) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei019"));
-				} else if (itemId == 41234) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei023"));
-				} else if (itemId == 41235) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei024"));
-				} else if (itemId == 41236) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei026"));
-				} else if (itemId == 41237) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei027"));
-				} else if (itemId == 41239) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei018"));
-				} else if (itemId == 41240) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei022"));
-				} else if (itemId == 41060) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "nonames"));
-				} else if (itemId == 41061) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "kames"));
-				} else if (itemId == 41062) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "bakumos"));
-				} else if (itemId == 41063) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "bukas"));
-				} else if (itemId == 41064) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "huwoomos"));
-				} else if (itemId == 41065) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "noas"));
-				} else if (itemId == 41356) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "rparum3"));
-				} else if (itemId == 40701) { //
-					if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 1) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"firsttmap"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 2) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"secondtmapa"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 3) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"secondtmapb"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 4) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"secondtmapc"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 5) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmapd"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 6) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmape"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 7) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmapf"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 8) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmapg"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 9) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmaph"));
-					} else if (pc.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 10) {
-						pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-								"thirdtmapi"));
-					}
-				} else if (itemId == 40663) { //
-					pc
-							.sendPackets(new S_NPCTalkReturn(pc.getId(),
-									"sonsletter"));
-				} else if (itemId == 40630) { //
-					pc
-							.sendPackets(new S_NPCTalkReturn(pc.getId(),
-									"diegodiary"));
-				} else if (itemId == 41340) { //
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "tion"));
-				} else if (itemId == 41317) { 
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "rarson"));
-				} else if (itemId == 41318) { 
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "kuen"));
-				} else if (itemId == 41329) { //
-					pc
-							.sendPackets(new S_NPCTalkReturn(pc.getId(),
-									"anirequest"));
-				} else if (itemId == 41346) { //
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"robinscroll"));
-				} else if (itemId == 41347) { //
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"robinscroll2"));
-				} else if (itemId == 41348) { //
-					pc
-							.sendPackets(new S_NPCTalkReturn(pc.getId(),
-									"robinhood"));
-				} else if (itemId == 41007) {
-					pc
-							.sendPackets(new S_NPCTalkReturn(pc.getId(),
-									"erisscroll"));
-				} else if (itemId == 41009) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"erisscroll2"));
-				} else if (itemId == 41019) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory1"));
-				} else if (itemId == 41020) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory2"));
-				} else if (itemId == 41021) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory3"));
-				} else if (itemId == 41022) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory4"));
-				} else if (itemId == 41023) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory5"));
-				} else if (itemId == 41024) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory6"));
-				} else if (itemId == 41025) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory7"));
-				} else if (itemId == 41026) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"lashistory8"));
-				} else if (itemId == 41208) { //
-					if ((pc.getX() >= 32844 && pc.getX() <= 32845)
-							&& (pc.getY() >= 32693 && pc.getY() <= 32694)
-							&& pc.getMapId() == 550) { //
-						L1Teleport.teleport(pc, ((L1EtcItem) l1iteminstance
-								.getItem()).get_locx(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_locy(),
-								((L1EtcItem) l1iteminstance.getItem())
-										.get_mapid(), 5, true);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 40700) { // Magic Flute
-					pc.sendPackets(new S_Sound(10));
-					pc.broadcastPacket(new S_Sound(10));
-					if ((pc.getX() >= 32619 && pc.getX() <= 32623)
-							&& (pc.getY() >= 33120 && pc.getY() <= 33124)
-							&& pc.getMapId() == 440) {
-						boolean found = false;
-						for (L1Object obj : L1World.getInstance().getObject()) {
-							if (obj instanceof L1MonsterInstance) {
-								L1MonsterInstance mob = (L1MonsterInstance) obj;
-								if (mob != null) {
-									if (mob.getNpcTemplate().get_npcId() == 45875) {
-										found = true;
-										break;
-									}
+							((L1EtcItem) l1iteminstance.getItem())
+							.get_locy(),
+							((L1EtcItem) l1iteminstance.getItem())
+							.get_mapid(), 5, true);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40700) { // Magic Flute
+				pc.sendPackets(new S_Sound(10));
+				pc.broadcastPacket(new S_Sound(10));
+				if ((pc.getX() >= 32619 && pc.getX() <= 32623)
+						&& (pc.getY() >= 33120 && pc.getY() <= 33124)
+						&& pc.getMapId() == 440) {
+					boolean found = false;
+					for (L1Object obj : L1World.getInstance().getObject()) {
+						if (obj instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) obj;
+							if (mob != null) {
+								if (mob.getNpcTemplate().get_npcId() == 45875) {
+									found = true;
+									break;
 								}
 							}
 						}
-						if (found) {
-						} else {
-							L1SpawnUtil.spawn(pc, 45875, 0, 0);
+					}
+					if (found) {
+					} else {
+						L1SpawnUtil.spawn(pc, 45875, 0, 0);
+					}
 						}
-					}
-				} else if (itemId == 41121) {
-					if (pc.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-							== L1Quest.QUEST_END
-							|| pc.getInventory().checkItem(41122, 1)) {
-						pc.sendPackets(new S_ServerMessage(79));
-					} else {
-						createNewItem(pc, 41122, 1);
-					}
-				} else if (itemId == 41130) {
-					if (pc.getQuest().get_step(L1Quest.QUEST_DESIRE)
-							== L1Quest.QUEST_END
-							|| pc.getInventory().checkItem(41131, 1)) {
-						pc.sendPackets(new S_ServerMessage(79));
-					} else {
-						createNewItem(pc, 41131, 1);
-					}
-				} else if (itemId == 42501) {
-					if (pc.getCurrentMp() < 10) {
-						pc.sendPackets(new S_ServerMessage(278));
-						return;
-					}
-					pc.setCurrentMp(pc.getCurrentMp() - 10);
-					// pc.sendPackets(new S_CantMove()); 
-					L1Teleport.teleport(pc, spellsc_x, spellsc_y,
-							pc.getMapId(), pc.getHeading(), true,
-							L1Teleport.CHANGE_POSITION);
-				} else if (itemId == 41293 || itemId == 41294) { //
-					startFishing(pc, itemId, fishX, fishY);
-				} else if (itemId == 41245) {
-					useResolvent(pc, l1iteminstance1, l1iteminstance);
-				} else if (itemId == 41248 || itemId == 41249
-						|| itemId == 41250 || itemId == 49037
-						|| itemId == 49038 || itemId == 49039) {
-					useMagicDoll(pc, itemId, itemObjid);
-				} else if (itemId >= 41255 && itemId <= 41259) {
-					if (cookStatus == 0) {
-						pc.sendPackets(new S_PacketBox(S_PacketBox.COOK_WINDOW,
+			} else if (itemId == 41121) {
+				if (pc.getQuest().get_step(L1Quest.QUEST_SHADOWS)
+						== L1Quest.QUEST_END
+						|| inventory.checkItem(41122, 1)) {
+					pc.sendPackets(new S_ServerMessage(79));
+				} else {
+					createNewItem(pc, 41122, 1);
+				}
+			} else if (itemId == 41130) {
+				if (pc.getQuest().get_step(L1Quest.QUEST_DESIRE)
+						== L1Quest.QUEST_END
+						|| inventory.checkItem(41131, 1)) {
+					pc.sendPackets(new S_ServerMessage(79));
+				} else {
+					createNewItem(pc, 41131, 1);
+				}
+			} else if (itemId == 42501) {
+				if (pc.getCurrentMp() < 10) {
+					pc.sendPackets(new S_ServerMessage(278));
+					return;
+				}
+				pc.setCurrentMp(pc.getCurrentMp() - 10);
+				// pc.sendPackets(new S_CantMove()); 
+				L1Teleport.teleport(pc, spellsc_x, spellsc_y,
+						pc.getMapId(), pc.getHeading(), true,
+						L1Teleport.CHANGE_POSITION);
+			} else if (itemId == 41293 || itemId == 41294) { //
+				startFishing(pc, itemId, fishX, fishY);
+			} else if (itemId == 41245) {
+				useResolvent(pc, l1iteminstance1, l1iteminstance);
+			} else if (itemId == 41248 || itemId == 41249
+					|| itemId == 41250 || itemId == 49037
+					|| itemId == 49038 || itemId == 49039) {
+				useMagicDoll(pc, itemId, itemObjid);
+			} else if (itemId >= 41255 && itemId <= 41259) {
+				if (cookStatus == 0) {
+					pc.sendPackets(new S_PacketBox(S_PacketBox.COOK_WINDOW,
 								(itemId - 41255)));
-					} else {
-						makeCooking(pc, cookNo);
-					}
-				} else if (itemId == 41260) { // Firewood
-					for (L1Object object : L1World.getInstance()
-							.getVisibleObjects(pc, 3)) {
-						if (object instanceof L1EffectInstance) {
-							if (((L1NpcInstance) object).getNpcTemplate()
-									.get_npcId() == 81170) {
-								pc.sendPackets(new S_ServerMessage(1162));
-								return;
-							}
+				} else {
+					makeCooking(pc, cookNo);
+				}
+			} else if (itemId == 41260) { // Firewood
+				for (L1Object object : L1World.getInstance()
+						.getVisibleObjects(pc, 3)) {
+					if (object instanceof L1EffectInstance) {
+						if (((L1NpcInstance) object).getNpcTemplate()
+								.get_npcId() == 81170) {
+							pc.sendPackets(new S_ServerMessage(1162));
+							return;
 						}
 					}
-					int[] loc = new int[2];
-					loc = pc.getFrontLoc();
-					L1EffectSpawn.getInstance().spawnEffect(81170, 600000,
-							loc[0], loc[1], pc.getMapId());
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId >= 41277 && itemId <= 41292
-						|| itemId >= 49049 && itemId <= 49064
-						|| itemId >= 49244 && itemId <= 49259) {
-					L1Cooking.useCookingItem(pc, l1iteminstance);
-				} else if (itemId >= 41383 && itemId <= 41400) {
-					useFurnitureItem(pc, itemId, itemObjid);
-				} else if (itemId == 41401) {
-					useFurnitureRemovalWand(pc, spellsc_objid, l1iteminstance);
-				} else if (itemId == 41411) {
-					UseHeallingPotion(pc, 10, 189);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41345) {
-					L1DamagePoison.doInfection(pc, pc, 3000, 5);
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41315) {
-					if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-						pc.sendPackets(new S_ServerMessage(79));
-						return;
-					}
-					if (pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-						pc.removeSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
-					}
-					pc.setSkillEffect(STATUS_HOLY_WATER, 900 * 1000);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 190));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-					pc.sendPackets(new S_ServerMessage(1141));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41316) { 
-					if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-						pc.sendPackets(new S_ServerMessage(79));
-						return;
-					}
-					if (pc.hasSkillEffect(STATUS_HOLY_WATER)) {
-						pc.removeSkillEffect(STATUS_HOLY_WATER);
-					}
-					pc.setSkillEffect(STATUS_HOLY_MITHRIL_POWDER, 900 * 1000);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 190));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-					pc.sendPackets(new S_ServerMessage(1142));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 41354) {
-					if (pc.hasSkillEffect(STATUS_HOLY_WATER)
-							|| pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-						pc.sendPackets(new S_ServerMessage(79));
-						return;
-					}
-					pc.setSkillEffect(STATUS_HOLY_WATER_OF_EVA, 900 * 1000);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 190));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-					pc.sendPackets(new S_ServerMessage(1140));
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 49092) {
-					int targetItemId = l1iteminstance1.getItem().getItemId();
-					if (targetItemId == 49095 || targetItemId == 49099) {
-						createNewItem(pc, targetItemId + 1, 1);
-						pc.getInventory().consumeItem(targetItemId, 1);
-						pc.getInventory().consumeItem(49092, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-						return;
-					}
-				} else if (itemId == 49093) {
-					if (pc.getInventory().checkItem(49094, 1)) {
-						pc.getInventory().consumeItem(49093, 1);
-						pc.getInventory().consumeItem(49094, 1);
-						createNewItem(pc, 49095, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 49094) {
-					if (pc.getInventory().checkItem(49093, 1)) {
-						pc.getInventory().consumeItem(49093, 1);
-						pc.getInventory().consumeItem(49094, 1);
-						createNewItem(pc, 49095, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 49097) {
-					if (pc.getInventory().checkItem(49098, 1)) {
-						pc.getInventory().consumeItem(49097, 1);
-						pc.getInventory().consumeItem(49098, 1);
-						createNewItem(pc, 49099, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 49098) {
-					if (pc.getInventory().checkItem(49097, 1)) {
-						pc.getInventory().consumeItem(49097, 1);
-						pc.getInventory().consumeItem(49098, 1);
-						createNewItem(pc, 49099, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(79));
-					}
-				} else if (itemId == 41426) {
-					L1ItemInstance lockItem = pc.getInventory().getItem(l);
-					int lockItemId = lockItem.getItem().getItemId();
-					if (lockItem != null && lockItem.getItem().getType2() == 1
-							|| lockItem.getItem().getType2() == 2
-							|| lockItem.getItem().getType2() == 0
-							&& lockItem.getItem().isCanSeal()) {
-						if (lockItem.getBless() == 0
-								|| lockItem.getBless() == 1
-								|| lockItem.getBless() == 2
-								|| lockItem.getBless() == 3) {
-							int bless = 1;
-							switch (lockItem.getBless()) {
+				}
+				int[] loc = new int[2];
+				loc = pc.getFrontLoc();
+				L1EffectSpawn.getInstance().spawnEffect(81170, 600000,
+						loc[0], loc[1], pc.getMapId());
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId >= 41277 && itemId <= 41292
+					|| itemId >= 49049 && itemId <= 49064
+					|| itemId >= 49244 && itemId <= 49259) {
+				L1Cooking.useCookingItem(pc, l1iteminstance);
+			} else if (itemId >= 41383 && itemId <= 41400) {
+				useFurnitureItem(pc, itemId, itemObjid);
+			} else if (itemId == 41401) {
+				useFurnitureRemovalWand(pc, spellsc_objid, l1iteminstance);
+			} else if (itemId == 41411) {
+				UseHealingPotion(pc, 10, 189);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41345) {
+				L1DamagePoison.doInfection(pc, pc, 3000, 5);
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41315) {
+				if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+					pc.sendPackets(new S_ServerMessage(79));
+					return;
+				}
+				if (pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
+					pc.removeSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
+				}
+				pc.setSkillEffect(STATUS_HOLY_WATER, 900 * 1000);
+				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+				pc.sendPackets(new S_ServerMessage(1141));
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41316) { 
+				if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
+					pc.sendPackets(new S_ServerMessage(79));
+					return;
+				}
+				if (pc.hasSkillEffect(STATUS_HOLY_WATER)) {
+					pc.removeSkillEffect(STATUS_HOLY_WATER);
+				}
+				pc.setSkillEffect(STATUS_HOLY_MITHRIL_POWDER, 900 * 1000);
+				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+				pc.sendPackets(new S_ServerMessage(1142));
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 41354) {
+				if (pc.hasSkillEffect(STATUS_HOLY_WATER)
+						|| pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
+					pc.sendPackets(new S_ServerMessage(79));
+					return;
+						}
+				pc.setSkillEffect(STATUS_HOLY_WATER_OF_EVA, 900 * 1000);
+				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+				pc.sendPackets(new S_ServerMessage(1140));
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 49092) {
+				int targetItemId = l1iteminstance1.getItem().getItemId();
+				if (targetItemId == 49095 || targetItemId == 49099) {
+					createNewItem(pc, targetItemId + 1, 1);
+					inventory.consumeItem(targetItemId, 1);
+					inventory.consumeItem(49092, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+					return;
+				}
+			} else if (itemId == 49093) {
+				if (inventory.checkItem(49094, 1)) {
+					inventory.consumeItem(49093, 1);
+					inventory.consumeItem(49094, 1);
+					createNewItem(pc, 49095, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 49094) {
+				if (inventory.checkItem(49093, 1)) {
+					inventory.consumeItem(49093, 1);
+					inventory.consumeItem(49094, 1);
+					createNewItem(pc, 49095, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 49097) {
+				if (inventory.checkItem(49098, 1)) {
+					inventory.consumeItem(49097, 1);
+					inventory.consumeItem(49098, 1);
+					createNewItem(pc, 49099, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 49098) {
+				if (inventory.checkItem(49097, 1)) {
+					inventory.consumeItem(49097, 1);
+					inventory.consumeItem(49098, 1);
+					createNewItem(pc, 49099, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 41426) {
+				L1ItemInstance lockItem = inventory.getItem(l);
+				int lockItemId = lockItem.getItem().getItemId();
+				if (lockItem != null && lockItem.getItem().getType2() == 1
+						|| lockItem.getItem().getType2() == 2
+						|| lockItem.getItem().getType2() == 0
+						&& lockItem.getItem().isCanSeal()) {
+					if (lockItem.getBless() == 0
+							|| lockItem.getBless() == 1
+							|| lockItem.getBless() == 2
+							|| lockItem.getBless() == 3) {
+						int bless = 1;
+						switch (lockItem.getBless()) {
 							case 0:
 								bless = 128;
 								break;
@@ -2523,32 +2238,32 @@ public class C_ItemUSe extends ClientBasePacket {
 							case 3:
 								bless = 131;
 								break;
-							}
-							lockItem.setBless(bless);
-							pc.getInventory().updateItem(lockItem,
-									L1PcInventory.COL_BLESS);
-							pc.getInventory().saveItem(lockItem,
-									L1PcInventory.COL_BLESS);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(79));
 						}
+						lockItem.setBless(bless);
+						inventory.updateItem(lockItem,
+								L1PcInventory.COL_BLESS);
+						inventory.saveItem(lockItem,
+								L1PcInventory.COL_BLESS);
+						inventory.removeItem(l1iteminstance, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
-				} else if (itemId == 41427) {
-					L1ItemInstance lockItem = pc.getInventory().getItem(l);
-					int lockItemId = lockItem.getItem().getItemId();
-					if (lockItem != null && lockItem.getItem().getType2() == 1
-							|| lockItem.getItem().getType2() == 2
-							|| lockItem.getItem().getType2() == 0
-							&& lockItem.getItem().isCanSeal()) {
-						if (lockItem.getBless() == 128
-								|| lockItem.getBless() == 129
-								|| lockItem.getBless() == 130
-								|| lockItem.getBless() == 131) {
-							int bless = 1;
-							switch (lockItem.getBless()) {
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 41427) {
+				L1ItemInstance lockItem = inventory.getItem(l);
+				int lockItemId = lockItem.getItem().getItemId();
+				if (lockItem != null && lockItem.getItem().getType2() == 1
+						|| lockItem.getItem().getType2() == 2
+						|| lockItem.getItem().getType2() == 0
+						&& lockItem.getItem().isCanSeal()) {
+					if (lockItem.getBless() == 128
+							|| lockItem.getBless() == 129
+							|| lockItem.getBless() == 130
+							|| lockItem.getBless() == 131) {
+						int bless = 1;
+						switch (lockItem.getBless()) {
 							case 128:
 								bless = 0;
 								break;
@@ -2561,48 +2276,48 @@ public class C_ItemUSe extends ClientBasePacket {
 							case 131:
 								bless = 3;
 								break;
-							}
-							lockItem.setBless(bless);
-							pc.getInventory().updateItem(lockItem,
-									L1PcInventory.COL_BLESS);
-							pc.getInventory().saveItem(lockItem,
-									L1PcInventory.COL_BLESS);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(79));
 						}
+						lockItem.setBless(bless);
+						inventory.updateItem(lockItem,
+								L1PcInventory.COL_BLESS);
+						inventory.saveItem(lockItem,
+								L1PcInventory.COL_BLESS);
+						inventory.removeItem(l1iteminstance, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(79));
 					}
-				} else if (itemId == 41428) {
-					if (pc != null && l1iteminstance != null) {
-						Account account = Account.load(pc.getAccountName());
-						if (account == null) {
-							pc.sendPackets(new S_ServerMessage(79));
-							return;
-						}
-						int characterSlot = account.getCharacterSlot();
-						int maxAmount = Config.DEFAULT_CHARACTER_SLOT
-								+ characterSlot;
-						if (maxAmount >= 8) {
-							pc.sendPackets(new S_ServerMessage(79));
-							return;
-						}
-						if (characterSlot < 0) {
-							characterSlot = 0;
-						} else {
-							characterSlot += 1;
-						}
-						account.setCharacterSlot(characterSlot);
-						Account.updateCharacterSlot(account);
-						pc.getInventory().removeItem(l1iteminstance, 1);
-					} else {
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 41428) {
+				if (pc != null && l1iteminstance != null) {
+					Account account = Account.load(pc.getAccountName());
+					if (account == null) {
 						pc.sendPackets(new S_ServerMessage(79));
+						return;
 					}
-				} else if (itemId == 40075) {
-					if (l1iteminstance1.getItem().getType2() == 2) {
-						int msg = 0;
-						switch (l1iteminstance1.getItem().getType()) {
+					int characterSlot = account.getCharacterSlot();
+					int maxAmount = Config.DEFAULT_CHARACTER_SLOT
+						+ characterSlot;
+					if (maxAmount >= 8) {
+						pc.sendPackets(new S_ServerMessage(79));
+						return;
+					}
+					if (characterSlot < 0) {
+						characterSlot = 0;
+					} else {
+						characterSlot += 1;
+					}
+					account.setCharacterSlot(characterSlot);
+					Account.updateCharacterSlot(account);
+					inventory.removeItem(l1iteminstance, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79));
+				}
+			} else if (itemId == 40075) {
+				if (l1iteminstance1.getItem().getType2() == 2) {
+					int msg = 0;
+					switch (l1iteminstance1.getItem().getType()) {
 						case 1: // helm
 							msg = 171; 
 							break;
@@ -2627,224 +2342,236 @@ public class C_ItemUSe extends ClientBasePacket {
 						default:
 							msg = 167; 
 							break;
-						}
-						pc.sendPackets(new S_ServerMessage(msg));
-						pc.getInventory().removeItem(l1iteminstance1, 1);
-					} else {
-						pc.sendPackets(new S_ServerMessage(154)); 
 					}
-					pc.getInventory().removeItem(l1iteminstance, 1);
-				} else if (itemId == 49210) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"first_p"));
-				} else if (itemId == 49211) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"second_p"));
-				} else if (itemId == 49212) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"third_p"));
-				} else if (itemId == 49287) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"fourth_p"));
-				} else if (itemId == 49288) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"fifth_p"));
-				} else if (itemId == 49172) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"silrein1lt"));
-				} else if (itemId == 49173) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"silrein2lt"));
-				} else if (itemId == 49174) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"silrein3lt"));
-				} else if (itemId == 49175) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"silrein4lt"));
-				} else if (itemId == 49176) {
-					pc.sendPackets(new S_NPCTalkReturn(pc.getId(),
-							"silrein5lt"));
-				} else if (itemId == 49222) {
-					if (pc.isDragonKnight()
-							&& pc.getMapId() == 61) {
-						boolean found = false;
-						for (L1Object obj : L1World.getInstance().getObject()) {
-							if (obj instanceof L1MonsterInstance) {
-								L1MonsterInstance mob = (L1MonsterInstance) obj;
-								if (mob != null) {
-									if (mob.getNpcTemplate().get_npcId() == 46161) {
-										found = true;
-										break;
-									}
+					pc.sendPackets(new S_ServerMessage(msg));
+					inventory.removeItem(l1iteminstance1, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(154)); 
+				}
+				inventory.removeItem(l1iteminstance, 1);
+			} else if (itemId == 49210) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "first_p"));
+			} else if (itemId == 49211) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "second_p"));
+			} else if (itemId == 49212) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "third_p"));
+			} else if (itemId == 49287) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "fourth_p"));
+			} else if (itemId == 49288) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "fifth_p"));
+			} else if (itemId == 49172) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "silrein1lt"));
+			} else if (itemId == 49173) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "silrein2lt"));
+			} else if (itemId == 49174) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "silrein3lt"));
+			} else if (itemId == 49175) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "silrein4lt"));
+			} else if (itemId == 49176) {
+				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "silrein5lt"));
+			} else if (itemId == 49222) {
+				if (pc.isDragonKnight()
+						&& pc.getMapId() == 61) {
+					boolean found = false;
+					for (L1Object obj : L1World.getInstance().getObject()) {
+						if (obj instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) obj;
+							if (mob != null) {
+								if (mob.getNpcTemplate().get_npcId() == 46161) {
+									found = true;
+									break;
 								}
 							}
 						}
-						if (found) {
-							pc.sendPackets(new S_ServerMessage(79));
-						} else {
-							L1SpawnUtil.spawn(pc, 46161, 0, 0);
-						}
-						pc.getInventory().consumeItem(49222, 1);
 					}
+					if (found) {
+						pc.sendPackets(new S_ServerMessage(79));
+					} else {
+						L1SpawnUtil.spawn(pc, 46161, 0, 0);
+					}
+					inventory.consumeItem(49222, 1);
 				}
-					else if (itemId == 49189) {
-					if (pc.isIllusionist()
-							&& pc.getMapId() == 4) {
-						boolean found = false;
-						for (L1Object obj : L1World.getInstance().getObject()) {
-							if (obj instanceof L1MonsterInstance) {
-								L1MonsterInstance mob = (L1MonsterInstance) obj;
-								if (mob != null) {
-									if (mob.getNpcTemplate().get_npcId() == 46163) {
-										found = true;
-										break;
-									}
+			} else if (itemId == 49189) {
+				if (pc.isIllusionist() && pc.getMapId() == 4) {
+					boolean found = false;
+					for (L1Object obj : L1World.getInstance().getObject()) {
+						if (obj instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) obj;
+							if (mob != null) {
+								if (mob.getNpcTemplate().get_npcId() == 46163) {
+									found = true;
+									break;
 								}
 							}
 						}
-						if (found) {
-							pc.sendPackets(new S_ServerMessage(79));
-						} else {
-							L1SpawnUtil.spawn(pc, 46163, 0, 0);
-						}
-						pc.getInventory().consumeItem(49189, 1);
-				}
-
-				} else {
-					int locX = ((L1EtcItem) l1iteminstance.getItem())
-							.get_locx();
-					int locY = ((L1EtcItem) l1iteminstance.getItem())
-							.get_locy();
-					short mapId = ((L1EtcItem) l1iteminstance.getItem())
-							.get_mapid();
-					if (locX != 0 && locY != 0) {
-						if (pc.getMap().isEscapable() || pc.isGm()) {
-							L1Teleport.teleport(pc, locX, locY, mapId, pc
-									.getHeading(), true);
-							pc.getInventory().removeItem(l1iteminstance, 1);
-						} else {
-							pc.sendPackets(new S_ServerMessage(647));
-						}
-						cancelAbsoluteBarrier(pc);
+					}
+					if (found) {
+						pc.sendPackets(new S_ServerMessage(79));
 					} else {
-						if (l1iteminstance.getCount() < 1) {
-							pc.sendPackets(new S_ServerMessage(329,
+						L1SpawnUtil.spawn(pc, 46163, 0, 0);
+					}
+					inventory.consumeItem(49189, 1);
+				}
+			} else {
+				int locX = ((L1EtcItem) l1iteminstance.getItem()).get_locx();
+				int locY = ((L1EtcItem) l1iteminstance.getItem()).get_locy();
+				short mapId = ((L1EtcItem) l1iteminstance.getItem()).get_mapid();
+				if (locX != 0 && locY != 0) {
+					if (pc.getMap().isEscapable() || pc.isGm()) {
+						L1Teleport.teleport(pc, locX, locY, mapId, 
+								pc.getHeading(), true);
+						inventory.removeItem(l1iteminstance, 1);
+					} else {
+						pc.sendPackets(new S_ServerMessage(647));
+					}
+					cancelAbsoluteBarrier(pc);
+				} else {
+					if (l1iteminstance.getCount() < 1) {
+						pc.sendPackets(new S_ServerMessage(329,
 									l1iteminstance.getLogName()));
-						} else {
-							pc.sendPackets(new S_ServerMessage(74,
+					} else {
+						pc.sendPackets(new S_ServerMessage(74,
 									l1iteminstance.getLogName()));
-						}
 					}
-				}
-
-			} else if (l1iteminstance.getItem().getType2() == 1) {
-				int min = l1iteminstance.getItem().getMinLevel();
-				int max = l1iteminstance.getItem().getMaxLevel();
-				if (min != 0 && min > pc.getLevel()) {
-					pc
-							.sendPackets(new S_ServerMessage(318, String
-									.valueOf(min)));
-				} else if (max != 0 && max < pc.getLevel()) {
-					if (max < 50) {
-						pc.sendPackets(new S_PacketBox(
-								S_PacketBox.MSG_LEVEL_OVER, max));
-					} else {
-						pc.sendPackets(new S_SystemMessage("You must be at or below level " + max
-								+ "to use this item"));
-					}
-				} else {
-					if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal()
-							|| pc.isKnight()
-							&& l1iteminstance.getItem().isUseKnight()
-							|| pc.isElf()
-							&& l1iteminstance.getItem().isUseElf()
-							|| pc.isWizard()
-							&& l1iteminstance.getItem().isUseMage()
-							|| pc.isDarkelf()
-							&& l1iteminstance.getItem().isUseDarkelf()
-							|| pc.isDragonKnight()
-							&& l1iteminstance.getItem().isUseDragonknight()
-							|| pc.isIllusionist()
-							&& l1iteminstance.getItem().isUseIllusionist()) {
-						UseWeapon(pc, l1iteminstance);
-					} else {
-						pc.sendPackets(new S_ServerMessage(264));
-					}
-				}
-			} else if (l1iteminstance.getItem().getType2() == 2) {
-				if (pc.isCrown() && l1iteminstance.getItem().isUseRoyal()
-						|| pc.isKnight()
-						&& l1iteminstance.getItem().isUseKnight() || pc.isElf()
-						&& l1iteminstance.getItem().isUseElf() || pc.isWizard()
-						&& l1iteminstance.getItem().isUseMage()
-						|| pc.isDarkelf()
-						&& l1iteminstance.getItem().isUseDarkelf()
-						|| pc.isDragonKnight()
-						&& l1iteminstance.getItem().isUseDragonknight()
-						|| pc.isIllusionist()
-						&& l1iteminstance.getItem().isUseIllusionist()) {
-
-					int min = ((L1Armor) l1iteminstance.getItem())
-							.getMinLevel();
-					int max = ((L1Armor) l1iteminstance.getItem())
-							.getMaxLevel();
-					if (min != 0 && min > pc.getLevel()) {
-						pc.sendPackets(new S_ServerMessage(318, String
-								.valueOf(min)));
-					} else if (max != 0 && max < pc.getLevel()) {
-						if (max < 50) {
-							pc.sendPackets(new S_PacketBox(
-									S_PacketBox.MSG_LEVEL_OVER, max));
-						} else {
-							pc.sendPackets(new S_SystemMessage("You must be at or below level " + max + " to use this item."));
-						}
-					} else {
-						UseArmor(pc, l1iteminstance);
-					}
-				} else {
-					pc.sendPackets(new S_ServerMessage(264));
 				}
 			}
+		} else if (l1iteminstance.getItem().getType2() == 1) {
+			L1Item template = l1iteminstance.getItem();
+			if (!validClass(pc, template))
+				pc.sendPackets(new S_ServerMessage(264));
+			else if (validLevel(pc, template))
+				useWeapon(pc, l1iteminstance);
+		} else if (l1iteminstance.getItem().getType2() == 2) {
+			L1Item template = l1iteminstance.getItem();
+			if (!validClass(pc, template))
+				pc.sendPackets(new S_ServerMessage(264));
+			else if (validLevel(pc, template))
+				useArmor(pc, l1iteminstance);
+		}
 
-			if (isDelayEffect) {
-				Timestamp ts = new Timestamp(System.currentTimeMillis());
-				l1iteminstance.setLastUsed(ts);
-				pc.getInventory().updateItem(l1iteminstance,
-						L1PcInventory.COL_DELAY_EFFECT);
-				pc.getInventory().saveItem(l1iteminstance,
-						L1PcInventory.COL_DELAY_EFFECT);
-			}
+		if (isDelayEffect) {
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			l1iteminstance.setLastUsed(ts);
+			pc.getInventory().updateItem(l1iteminstance,
+					L1PcInventory.COL_DELAY_EFFECT);
+			pc.getInventory().saveItem(l1iteminstance,
+					L1PcInventory.COL_DELAY_EFFECT);
+		}
 
-			L1ItemDelay.onItemUse(client, l1iteminstance);
+		L1ItemDelay.onItemUse(client, l1iteminstance);
+	}
+
+	// TODO: Move to L1PcInstance.
+	private static byte getBaseStat(final L1PcInstance pc, L1Attribute stat) {
+		switch (stat) {
+			case Str: return pc.getBaseStr();
+			case Dex: return pc.getBaseDex();
+			case Con: return pc.getBaseCon();
+			case Wis: return pc.getBaseWis();
+			case Int: return pc.getBaseInt();
+			case Cha: return pc.getBaseCha();
+			default: return 0; // Can't get here.
 		}
 	}
 
-	private void UseHeallingPotion(L1PcInstance pc, int healHp, int gfxid) {
-		if (pc.hasSkillEffect(71) == true) {
-			pc.sendPackets(new S_ServerMessage(698));
+	// TODO: Move to L1PcInstance.
+	private static void addStat(final L1PcInstance pc, L1Attribute stat,
+			byte amount) {
+		switch (stat) {
+			case Str: pc.addBaseStr(amount); break;
+			case Dex: pc.addBaseDex(amount); break;
+			case Con: pc.addBaseCon(amount); break;
+			case Wis: pc.addBaseWis(amount); break;
+			case Int: pc.addBaseInt(amount); break;
+			case Cha: pc.addBaseCha(amount); break;
+			default: // Can't get here.
+		}
+	}
+
+	private static L1Attribute[] elixirs = { L1Attribute.Str, L1Attribute.Con,
+		L1Attribute.Dex, L1Attribute.Int, L1Attribute.Wis, L1Attribute.Cha };
+	private static final int FirstElixirId = 40033;
+
+	// TODO: deal with throws bs.
+	private static void useElixir(final L1PcInstance pc, 
+			final int itemId, final L1ItemInstance elixir) throws Exception {
+		L1Attribute attribute = elixirs[itemId - FirstElixirId];	
+		if (pc.getElixirStats() >= 5 || getBaseStat(pc, attribute) >= 35) {
+			pc.sendPackets(new S_ServerMessage(481));
 			return;
 		}
 
-		cancelAbsoluteBarrier(pc);
+		addStat(pc, attribute, (byte) 1);
+		pc.setElixirStats(pc.getElixirStats() + 1);
+		pc.getInventory().removeItem(elixir, 1);
+		pc.sendPackets(new S_OwnCharStatus2(pc));
+		pc.save();
+	}
 
-		pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
-		pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
+	private static boolean validClass(final L1PcInstance pc,
+			final L1Item item) {
+		return pc.isGm() ||
+			pc.isCrown() && item.isUseRoyal() || 
+			pc.isKnight() && item.isUseKnight() || 
+			pc.isElf() && item.isUseElf() || 
+			pc.isWizard() && item.isUseMage() || 
+			pc.isDarkelf() && item.isUseDarkelf() || 
+			pc.isDragonKnight() && item.isUseDragonknight() || 
+			pc.isIllusionist() && item.isUseIllusionist();
+	}
+
+	private static boolean validLevel(final L1PcInstance pc,
+			final L1Item item) {
+		if (pc.isGm())
+			return true;
+		int min = item.getMinLevel();
+		int max = item.getMaxLevel();
+		if (min != 0 && min > pc.getLevel()) {
+			pc.sendPackets(new S_ServerMessage(318, String.valueOf(min)));
+			return false;
+		}
+		if (max != 0 && max < pc.getLevel()) {
+			pc.sendPackets(max < 50
+					? new S_PacketBox(S_PacketBox.MSG_LEVEL_OVER, max)
+					: new S_SystemMessage("You must be at or below level " +
+						max + " to use this item."));
+			return false;
+		}
+		return true;
+	}
+
+	// Kludgy - needs a better name.
+	private static boolean potionCheck(final L1PcInstance player) {
+		if (player.hasSkillEffect(DECAY_POTION)) {
+			player.sendPackets(new S_ServerMessage(698));
+			return true;
+		}
+		cancelAbsoluteBarrier(player);
+		return false;
+	}
+
+	private static void sendAndBroadcast(final L1PcInstance player,
+			final ServerBasePacket packet) {
+		player.sendPackets(packet);
+		player.broadcastPacket(packet);
+	}
+
+	private void UseHealingPotion(L1PcInstance pc, int healHp, int gfxid) {
+		if (!potionCheck(pc))
+			return;
+
+		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), gfxid));
 		pc.sendPackets(new S_ServerMessage(77));
 		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
-		if (pc.hasSkillEffect(POLLUTE_WATER)) {
+		if (pc.hasSkillEffect(POLLUTE_WATER))
 			healHp /= 2;
-		}
 		pc.setCurrentHp(pc.getCurrentHp() + healHp);
 	}
 
 	// NOTE: do not remove stacking code
 	private void useGreenPotion(L1PcInstance pc, int itemId) {
-		if (pc.hasSkillEffect(71) == true) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
-
-		cancelAbsoluteBarrier(pc);
 
 		// flag for using b-ghaste
 		boolean usedBGHaste = false;
@@ -2872,7 +2599,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41269 || itemId == 41271 || itemId == 41272
 				|| itemId == 41273) {
 			addtime = 30;
-		}
+				}
 
 		time = Config.STACKING ? time + addtime : addtime;
 
@@ -2936,12 +2663,8 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useBravePotion(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(DECAY_POTION) == true) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
-
-		cancelAbsoluteBarrier(pc);
 
 		int time = 0;
 
@@ -3063,12 +2786,8 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useBluePotion(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(DECAY_POTION)) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
-
-		cancelAbsoluteBarrier(pc);
 
 		int time = pc.getSkillEffectTimeSec(STATUS_BLUE_POTION);
 		time = time < 0 ? 0 : time;
@@ -3083,10 +2802,9 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		time = Config.STACKING ? Math.min(time + addtime, 1200) : addtime;
-	
+
 		pc.sendPackets(new S_SkillIconGFX(34, time));
-		pc.sendPackets(new S_SkillSound(pc.getId(), 190));
-		pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 190));
 
 		pc.setSkillEffect(STATUS_BLUE_POTION, time * 1000);
 
@@ -3094,12 +2812,8 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useWisdomPotion(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(DECAY_POTION) == true) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
-
-		cancelAbsoluteBarrier(pc);
 
 		int time = pc.getSkillEffectTimeSec(STATUS_WISDOM_POTION);
 		time = time < 0 ? 0 : time;
@@ -3118,19 +2832,14 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		pc.sendPackets(new S_SkillIconWisdomPotion(time / 4));
-		pc.sendPackets(new S_SkillSound(pc.getId(), 750));
-		pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
+		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 750));
 
 		pc.setSkillEffect(STATUS_WISDOM_POTION, time * 1000);
 	}
 
 	private void useBlessOfEva(L1PcInstance pc, int item_id) {
-		if (pc.hasSkillEffect(DECAY_POTION) == true) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
-
-		cancelAbsoluteBarrier(pc);
 
 		int time = 0;
 		if (item_id == 40032) {
@@ -3144,40 +2853,27 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		if (pc.hasSkillEffect(STATUS_UNDERWATER_BREATH)) {
-			int timeSec = pc.getSkillEffectTimeSec(STATUS_UNDERWATER_BREATH);
-			time += timeSec;
+			time += pc.getSkillEffectTimeSec(STATUS_UNDERWATER_BREATH);
 			if (time > 3600) {
 				time = 3600;
 			}
 		}
 		pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), time));
-		pc.sendPackets(new S_SkillSound(pc.getId(), 190));
-		pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 190));
 		pc.setSkillEffect(STATUS_UNDERWATER_BREATH, time * 1000);
 	}
 
 	private void useBlindPotion(L1PcInstance pc) {
-		if (pc.hasSkillEffect(DECAY_POTION)) {
-			pc.sendPackets(new S_ServerMessage(698));
+		if (!potionCheck(pc))
 			return;
-		}
 
-		cancelAbsoluteBarrier(pc);
+		pc.killSkillEffectTimer(CURSE_BLIND);
+		pc.killSkillEffectTimer(DARKNESS);
 
-		int time = 16;
-		if (pc.hasSkillEffect(CURSE_BLIND)) {
-			pc.killSkillEffectTimer(CURSE_BLIND);
-		} else if (pc.hasSkillEffect(DARKNESS)) {
-			pc.killSkillEffectTimer(DARKNESS);
-		}
+		pc.sendPackets(new S_CurseBlind(pc.hasSkillEffect(STATUS_FLOATING_EYE)
+					? 2 : 1));
 
-		if (pc.hasSkillEffect(STATUS_FLOATING_EYE)) {
-			pc.sendPackets(new S_CurseBlind(2));
-		} else {
-			pc.sendPackets(new S_CurseBlind(1));
-		}
-
-		pc.setSkillEffect(CURSE_BLIND, time * 1000);
+		pc.setSkillEffect(CURSE_BLIND, 16 * 1000);
 	}
 
 	private boolean usePolyScroll(L1PcInstance pc, int item_id, String s) {
@@ -3187,7 +2883,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| awakeSkillId == AWAKEN_VALAKAS) {
 			pc.sendPackets(new S_ServerMessage(1384));
 			return false;
-		}
+				}
 
 		int time = 0;
 		if (item_id == 40088 || item_id == 40096) {
@@ -3225,7 +2921,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| awakeSkillId == AWAKEN_VALAKAS) {
 			pc.sendPackets(new S_ServerMessage(1384));
 			return;
-		}
+				}
 
 		int polyId = 0;
 		if (itemId == 41154) {
@@ -3243,12 +2939,10 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void useSuperDKScroll (L1PcInstance pc, int itemId) {
-		int polyId = 0;
-		if (itemId == 240101){
-			polyId = 5641; //SuperDK
-		} else {	
-		}
-		L1PolyMorph.doPoly(pc, polyId, 6000, L1PolyMorph.MORPH_BY_ITEMMAGIC);
+		if (itemId != 240101)
+			return;
+
+		L1PolyMorph.doPoly(pc, 5641, 6000, L1PolyMorph.MORPH_BY_ITEMMAGIC);
 	}
 
 	private void usePolyPotion(L1PcInstance pc, int itemId) {
@@ -3258,7 +2952,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| awakeSkillId == AWAKEN_VALAKAS) {
 			pc.sendPackets(new S_ServerMessage(1384));
 			return;
-		}
+				}
 
 		int polyId = 0;
 		if (itemId == 41143) {
@@ -3467,7 +3161,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		L1PolyMorph.doPoly(pc, polyId, 1800, L1PolyMorph.MORPH_BY_ITEMMAGIC);
 	}
 
-	private void UseArmor(L1PcInstance activeChar, L1ItemInstance armor) {
+	private void useArmor(L1PcInstance activeChar, L1ItemInstance armor) {
 		//never used
 		//int itemid = armor.getItem().getItemId();
 		int type = armor.getItem().getType();
@@ -3490,7 +3184,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					|| type == 7 && pcInventory.getTypeEquipped(2, 13) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(124));
 				return;
-			}
+					}
 			if (type == 7 && activeChar.getWeapon() != null) {
 				if (activeChar.getWeapon().getItem().isTwohandedWeapon()) {
 					activeChar.sendPackets(new S_ServerMessage(129));
@@ -3500,15 +3194,15 @@ public class C_ItemUSe extends ClientBasePacket {
 
 			if (type == 3 && pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$224", "$225"));
+					.sendPackets(new S_ServerMessage(126, "$224", "$225"));
 				return;
 			} else if ((type == 3) && pcInventory.getTypeEquipped(2, 2) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$224", "$226"));
+					.sendPackets(new S_ServerMessage(126, "$224", "$226"));
 				return;
 			} else if ((type == 2) && pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$226", "$225"));
+					.sendPackets(new S_ServerMessage(126, "$226", "$225"));
 				return;
 			}
 
@@ -3527,7 +3221,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					&& pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(127));
 				return;
-			}
+					}
 			if (type == 7) {
 				if (activeChar.hasSkillEffect(SOLID_CARRIAGE)) {
 					activeChar.removeSkillEffect(SOLID_CARRIAGE);
@@ -3544,7 +3238,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		activeChar.sendPackets(new S_SPMR(activeChar));
 	}
 
-	private void UseWeapon(L1PcInstance activeChar, L1ItemInstance weapon) {
+	private void useWeapon(L1PcInstance activeChar, L1ItemInstance weapon) {
 		L1PcInventory pcInventory = activeChar.getInventory();
 		if (activeChar.getWeapon() == null
 				|| !activeChar.getWeapon().equals(weapon)) {
@@ -3558,8 +3252,8 @@ public class C_ItemUSe extends ClientBasePacket {
 					&& pcInventory.getTypeEquipped(2, 7) >= 1) {
 				activeChar.sendPackets(new S_ServerMessage(128));
 				return;
-			}
-		}
+					}
+				}
 
 		cancelAbsoluteBarrier(activeChar);
 
@@ -3580,7 +3274,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (weapon.getItemId() == 200002) {
 			activeChar
-					.sendPackets(new S_ServerMessage(149, weapon.getLogName()));
+				.sendPackets(new S_ServerMessage(149, weapon.getLogName()));
 		}
 		pcInventory.setEquipped(weapon, true, false, false);
 	}
@@ -3602,7 +3296,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 40206 || itemId == 40213
 				|| itemId == 40220 || itemId == 40222) {
 			itemAttr = 1;
-		}
+				}
 		if (itemId == 45009 || itemId == 45010 || itemId == 45019
 				|| itemId == 40172 || itemId == 40173
 				|| itemId == 40178 || itemId == 40185
@@ -3611,7 +3305,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 40204 || itemId == 40211
 				|| itemId == 40221 || itemId == 40225) {
 			itemAttr = 2;
-		}
+				}
 		if (pcX > 33116 && pcX < 33128 && pcY > 32930 && pcY < 32942
 				&& mapId == 4
 				|| pcX > 33135 && pcX < 33147 && pcY > 32235 && pcY < 32247
@@ -3620,7 +3314,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				&& mapId == 77) {
 			locAttr = 1;
 			isLawful = true;
-		}
+				}
 		if (pcX > 32880 && pcX < 32892 && pcY > 32646 && pcY < 32658
 				&& mapId == 4
 				|| pcX > 32662
@@ -3628,7 +3322,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				&& mapId == 4) {
 			locAttr = 2;
 			isLawful = false;
-		}
+				}
 		if (pc.isGm()) {
 			SpellBook(pc, item, isLawful);
 		} else if ((itemAttr == locAttr || itemAttr == 0) && locAttr != 0) {
@@ -3764,16 +3458,11 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private boolean isLearnElfMagic(L1PcInstance pc) {
-		int pcX = pc.getX();
-		int pcY = pc.getY();
-		int pcMapId = pc.getMapId();
-		if (pcX >= 32786 && pcX <= 32797 && pcY >= 32842 && pcY <= 32859
-				&& pcMapId == 75 
-				|| pc.getLocation().isInScreen(new Point(33055,32336))
-				&& pcMapId == 4) {
-			return true;
-		}
-		return false ;
+		int x = pc.getX();
+		int y = pc.getY();
+		int map = pc.getMapId();
+		return x >= 32786 && x <= 32797 && y >= 32842 && y <= 32859 && map == 75 ||
+			pc.getLocation().isInScreen(new Point(33055, 32336)) && map == 4;
 	}
 
 	private void SpellBook(L1PcInstance pc, L1ItemInstance item,
@@ -3813,112 +3502,111 @@ public class C_ItemUSe extends ClientBasePacket {
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (skillLevel) {
-				case 1: // '\001'
-					level1 = i7;
-					break;
+					case 1: // '\001'
+						level1 = i7;
+						break;
 
-				case 2: // '\002'
-					level2 = i7;
-					break;
+					case 2: // '\002'
+						level2 = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 				}
 			}
 		}
 
 		int objid = pc.getId();
-		pc
-				.sendPackets(new S_AddSkill(level1, level2, l, i1, j1, k1, l1,
-						i2, j2, k2, l2, i3, j3, k3, l3, i4, j4, k4, l4, i5, j5,
-						k5, l5, i6, 0, 0, 0, 0));
-		S_SkillSound s_skillSound = new S_SkillSound(objid, isLawful ? 224
-				: 231);
+		pc.sendPackets(new S_AddSkill(level1, level2, l, i1, j1, k1, l1,
+					i2, j2, k2, l2, i3, j3, k3, l3, i4, j4, k4, l4, i5, j5,
+					k5, l5, i6, 0, 0, 0, 0));
+		S_SkillSound s_skillSound = 
+			new S_SkillSound(objid, isLawful ? 224 : 231);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
 		SkillTable.getInstance().spellMastery(objid, i, s, 0, 0);
@@ -3962,108 +3650,108 @@ public class C_ItemUSe extends ClientBasePacket {
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 231);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
@@ -4109,115 +3797,115 @@ public class C_ItemUSe extends ClientBasePacket {
 							|| pc.getElfAttr() == 8) {
 						pc.sendPackets(new S_ServerMessage(79));
 						return;
-					}
-				}
+							}
+						}
 				int l6 = l1skills.getSkillLevel();
 				int i7 = l1skills.getId();
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
@@ -4256,115 +3944,115 @@ public class C_ItemUSe extends ClientBasePacket {
 		for (int j6 = 87; j6 <= 91; j6++) {
 			L1Skill l1skills = SkillTable.getInstance().findBySkillId(j6);
 			String s1 = (new StringBuilder()).append("TechnicalDocument(").append(
-					l1skills.getName()).append(")").toString();
+						l1skills.getName()).append(")").toString();
 			if (l1iteminstance.getItem().getName().equalsIgnoreCase(s1)) {
 				int l6 = l1skills.getSkillLevel();
 				int i7 = l1skills.getId();
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
@@ -4409,115 +4097,115 @@ public class C_ItemUSe extends ClientBasePacket {
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, 0, 0, 0, 0));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
 		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
-	
+
 	private void SpellBook5(L1PcInstance pc, L1ItemInstance l1iteminstance,
 			ClientThread clientthread) {
 		String s = "";
@@ -4559,123 +4247,123 @@ public class C_ItemUSe extends ClientBasePacket {
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
-					
-				case 25: // '\031'
-					j8 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 
-				case 26: // '\032'
-					k8 = i7;
-					break;
+					case 25: // '\031'
+						j8 = i7;
+						break;
 
-				case 27: // '\033'
-					l8 = i7;
-					break;
-				case 28: // '\034'
-					i8 = i7;
-					break;
+					case 26: // '\032'
+						k8 = i7;
+						break;
+
+					case 27: // '\033'
+						l8 = i7;
+						break;
+					case 28: // '\034'
+						i8 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, j8, k8, l8, i8));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, j8, k8, l8, i8));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
@@ -4724,130 +4412,130 @@ public class C_ItemUSe extends ClientBasePacket {
 				s = l1skills.getName();
 				i = l1skills.getSkillId();
 				switch (l6) {
-				case 1: // '\001'
-					j = i7;
-					break;
+					case 1: // '\001'
+						j = i7;
+						break;
 
-				case 2: // '\002'
-					k = i7;
-					break;
+					case 2: // '\002'
+						k = i7;
+						break;
 
-				case 3: // '\003'
-					l = i7;
-					break;
+					case 3: // '\003'
+						l = i7;
+						break;
 
-				case 4: // '\004'
-					i1 = i7;
-					break;
+					case 4: // '\004'
+						i1 = i7;
+						break;
 
-				case 5: // '\005'
-					j1 = i7;
-					break;
+					case 5: // '\005'
+						j1 = i7;
+						break;
 
-				case 6: // '\006'
-					k1 = i7;
-					break;
+					case 6: // '\006'
+						k1 = i7;
+						break;
 
-				case 7: // '\007'
-					l1 = i7;
-					break;
+					case 7: // '\007'
+						l1 = i7;
+						break;
 
-				case 8: // '\b'
-					i2 = i7;
-					break;
+					case 8: // '\b'
+						i2 = i7;
+						break;
 
-				case 9: // '\t'
-					j2 = i7;
-					break;
+					case 9: // '\t'
+						j2 = i7;
+						break;
 
-				case 10: // '\n'
-					k2 = i7;
-					break;
+					case 10: // '\n'
+						k2 = i7;
+						break;
 
-				case 11: // '\013'
-					l2 = i7;
-					break;
+					case 11: // '\013'
+						l2 = i7;
+						break;
 
-				case 12: // '\f'
-					i3 = i7;
-					break;
+					case 12: // '\f'
+						i3 = i7;
+						break;
 
-				case 13: // '\r'
-					j3 = i7;
-					break;
+					case 13: // '\r'
+						j3 = i7;
+						break;
 
-				case 14: // '\016'
-					k3 = i7;
-					break;
+					case 14: // '\016'
+						k3 = i7;
+						break;
 
-				case 15: // '\017'
-					l3 = i7;
-					break;
+					case 15: // '\017'
+						l3 = i7;
+						break;
 
-				case 16: // '\020'
-					i4 = i7;
-					break;
+					case 16: // '\020'
+						i4 = i7;
+						break;
 
-				case 17: // '\021'
-					j4 = i7;
-					break;
+					case 17: // '\021'
+						j4 = i7;
+						break;
 
-				case 18: // '\022'
-					k4 = i7;
-					break;
+					case 18: // '\022'
+						k4 = i7;
+						break;
 
-				case 19: // '\023'
-					l4 = i7;
-					break;
+					case 19: // '\023'
+						l4 = i7;
+						break;
 
-				case 20: // '\024'
-					i5 = i7;
-					break;
+					case 20: // '\024'
+						i5 = i7;
+						break;
 
-				case 21: // '\025'
-					j5 = i7;
-					break;
+					case 21: // '\025'
+						j5 = i7;
+						break;
 
-				case 22: // '\026'
-					k5 = i7;
-					break;
+					case 22: // '\026'
+						k5 = i7;
+						break;
 
-				case 23: // '\027'
-					l5 = i7;
-					break;
+					case 23: // '\027'
+						l5 = i7;
+						break;
 
-				case 24: // '\030'
-					i6 = i7;
-					break;
-					
-				case 25: // '\031'
-					j8 = i7;
-					break;
+					case 24: // '\030'
+						i6 = i7;
+						break;
 
-				case 26: // '\032'
-					k8 = i7;
-					break;
+					case 25: // '\031'
+						j8 = i7;
+						break;
 
-				case 27: // '\033'
-					l8 = i7;
-					break;
-				case 28: // '\034'
-					i8 = i7;
-					break;
+					case 26: // '\032'
+						k8 = i7;
+						break;
+
+					case 27: // '\033'
+						l8 = i7;
+						break;
+					case 28: // '\034'
+						i8 = i7;
+						break;
 				}
 			}
 		}
 
 		int k6 = pc.getId();
 		pc.sendPackets(new S_AddSkill(j, k, l, i1, j1, k1, l1, i2, j2, k2, l2,
-				i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, j8, k8, l8, i8));
+					i3, j3, k3, l3, i4, j4, k4, l4, i5, j5, k5, l5, i6, j8, k8, l8, i8));
 		S_SkillSound s_skillSound = new S_SkillSound(k6, 224);
 		pc.sendPackets(s_skillSound);
 		pc.broadcastPacket(s_skillSound);
 		SkillTable.getInstance().spellMastery(k6, i, s, 0, 0);
 		pc.getInventory().removeItem(l1iteminstance, 1);
 	}
-	
+
 	private void doWandAction(L1PcInstance user, L1Object target) {
 		if (user.getId() == target.getId()) {
 			return;
@@ -4864,11 +4552,11 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (pc.getMap().isSafetyZone(pc.getLocation())
 					|| user.checkNonPvP(user, pc)) {
 				return;
-			}
+					}
 			if (pc.hasSkillEffect(50) == true || pc.hasSkillEffect(78) == true
 					|| pc.hasSkillEffect(157) == true) {
 				return;
-			}
+					}
 
 			int newHp = pc.getCurrentHp() - dmg;
 			if (newHp > 0) {
@@ -4896,7 +4584,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 		if (attacker.getId() != cha.getId() && !isSameClan) {
 			int probability = 3 * (attacker.getLevel() - cha.getLevel()) + 100
-					- cha.getMr();
+				- cha.getMr();
 			int rnd = _random.nextInt(100) + 1;
 			if (rnd > probability) {
 				return;
@@ -4904,9 +4592,9 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		int[] polyArray = { 29, 945, 947, 979, 1037, 1039, 3860, 3861, 3862,
-				3863, 3864, 3865, 3904, 3906, 95, 146, 2374, 2376, 2377, 2378,
-				3866, 3867, 3868, 3869, 3870, 3871, 3872, 3873, 3874, 3875,
-				3876 };
+			3863, 3864, 3865, 3904, 3906, 95, 146, 2374, 2376, 2377, 2378,
+			3866, 3867, 3868, 3869, 3870, 3871, 3872, 3873, 3874, 3875,
+			3876 };
 
 		int pid = _random.nextInt(polyArray.length);
 		int polyId = polyArray[pid];
@@ -4919,7 +4607,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					|| awakeSkillId == AWAKEN_VALAKAS) {
 				pc.sendPackets(new S_ServerMessage(1384));
 				return;
-			}
+					}
 
 			if (pc.getInventory().checkEquipped(20281)) {
 				pc.sendPackets(new S_ShowPolyList(pc.getId()));
@@ -4935,7 +4623,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						L1PolyMorph.MORPH_BY_ITEMMAGIC);
 				if (attacker.getId() != pc.getId()) {
 					pc
-							.sendPackets(new S_ServerMessage(241, attacker
+						.sendPackets(new S_ServerMessage(241, attacker
 									.getName()));
 				}
 			}
@@ -4952,12 +4640,12 @@ public class C_ItemUSe extends ClientBasePacket {
 					L1PolyMorph.doPoly(mob, polyId,
 							skillTemp.getBuffDuration(),
 							L1PolyMorph.MORPH_BY_ITEMMAGIC);
-				}
+						}
 			}
 		}
 	}
 
-	private void cancelAbsoluteBarrier(L1PcInstance pc) {
+	private static void cancelAbsoluteBarrier(L1PcInstance pc) {
 		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
 			pc.startHpRegeneration();
@@ -4983,42 +4671,44 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 	}
 
-	private void useToiTeleportAmulet(L1PcInstance pc, int itemId,
-			L1ItemInstance item) {
-		boolean isTeleport = false;
-		if (itemId == 40289 || itemId == 40293) { // 11,51F amulet
-			if (pc.getX() >= 32816 && pc.getX() <= 32821 && pc.getY() >= 32778
-					&& pc.getY() <= 32783 && pc.getMapId() == 101) {
-				isTeleport = true;
-			}
-		} else if (itemId == 40290 || itemId == 40294) { // 21,61F amulet
-			if (pc.getX() >= 32815 && pc.getX() <= 32820 && pc.getY() >= 32815
-					&& pc.getY() <= 32820 && pc.getMapId() == 101) {
-				isTeleport = true;
-			}
-		} else if (itemId == 40291 || itemId == 40295) { // 31,71F amulet
-			if (pc.getX() >= 32779 && pc.getX() <= 32784 && pc.getY() >= 32778
-					&& pc.getY() <= 32783 && pc.getMapId() == 101) {
-				isTeleport = true;
-			}
-		} else if (itemId == 40292 || itemId == 40296) { // 41,81F amulet
-			if (pc.getX() >= 32779 && pc.getX() <= 32784 && pc.getY() >= 32815
-					&& pc.getY() <= 32820 && pc.getMapId() == 101) {
-				isTeleport = true;
-			}
-		} else if (itemId == 40297) { // 91F amulet
-			if (pc.getX() >= 32706 && pc.getX() <= 32710 && pc.getY() >= 32909
-					&& pc.getY() <= 32913 && pc.getMapId() == 190) {
-				isTeleport = true;
-			}
-		}
+	private static boolean properPlaceForToiCharm(final L1PcInstance pc,
+			int charmId) {
+		if (Config.USE_TOI_CHARM_ANYWHERE)
+			return true;
 
-		if (isTeleport || Config.USE_TOI_CHARM_ANYWHERE) {
-			L1Teleport.teleport(pc, item.getItem().get_locx(), item.getItem()
-					.get_locy(), item.getItem().get_mapid(), 5, true);
-		} else {
-			pc.sendPackets(new S_ServerMessage(79));
+		int x = pc.getX();
+		int y = pc.getY();
+		int map = pc.getMapId();
+		switch (charmId) {
+			case 40289: case 40293: // 11,51F amulet
+				return x >= 32816 && x <= 32821 && y >= 32778 && y <= 32783 &&
+					map == 101;
+			case 40290: case 40294: // 21,61F amulet
+				return x >= 32815 && x <= 32820 && y >= 32815 && y <= 32820 &&
+					map == 101;
+			case 40291: case 40295: // 31,71F amulet
+				return x >= 32779 && x <= 32784 && y >= 32778 && y <= 32783 &&
+					map == 101;
+			case 40292: case 40296: // 41,81F amulet
+				return x >= 32779 && x <= 32784 && y >= 32815 && y <= 32820 &&
+					map == 101;
+			case 40297: // 91F amulet
+				return x >= 32706 && x <= 32710 && y >= 32909 && y <= 32913 &&
+					map == 190;
+			default:
+				return false;
 		}
+	}
+
+	private static void useToiTeleportAmulet(L1PcInstance pc, int itemId,
+			L1ItemInstance item) {
+		if (properPlaceForToiCharm(pc, itemId)) {
+			L1Item template = item.getItem();
+			L1Teleport.teleport(pc, template.get_locx(), template.get_locy(),
+					template.get_mapid(), 5, true);
+		}
+		else
+			pc.sendPackets(new S_ServerMessage(79));
 	}
 
 	private boolean writeLetter(int itemId, L1PcInstance pc, int letterCode,
@@ -5054,10 +4744,10 @@ public class C_ItemUSe extends ClientBasePacket {
 		L1Clan targetClan = null;
 		for (L1Clan clan : L1World.getInstance().getAllClans()) {
 			if (clan.getClanName().toLowerCase().equals(
-					letterReceiver.toLowerCase())) {
+						letterReceiver.toLowerCase())) {
 				targetClan = clan;
 				break;
-			}
+						}
 		}
 		if (targetClan == null) {
 			pc.sendPackets(new S_ServerMessage(434));
@@ -5097,9 +4787,9 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (CharacterTable.doesCharNameExist(name)) {
 				try {
 					int targetId = CharacterTable.getInstance()
-							.restoreCharacter(name).getId();
+						.restoreCharacter(name).getId();
 					CharactersItemStorage storage = CharactersItemStorage
-							.create();
+						.create();
 					if (storage.getItemCount(targetId) < 180) {
 						storage.storeItem(targetId, item);
 					} else {
@@ -5158,7 +4848,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(563));
 			return false;
 		}
-		int divisor = 6;
 		int petCost = 0;
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object pet : petList) {
@@ -5169,41 +4858,16 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 			petCost += ((L1NpcInstance) pet).getPetcost();
 		}
-		int charisma = pc.getCha();
-		if (pc.isCrown()) {
-			charisma += 6;
-		} else if (pc.isElf()) {
-			charisma += 12;
-		} else if (pc.isWizard()) { // WIZ
-			charisma += 6;
-		} else if (pc.isDarkelf()) { // DE
-			charisma += 6;
-		} else if (pc.isDragonKnight()) {
-			charisma += 6;
-		} else if (pc.isIllusionist()) {
-			charisma += 6;
-		}
+		int charisma = pc.getCha() + (pc.isElf() ? 12 : 6);
 
-		// This accounts for the difference between the kennels and using
-		// calling flutes. Need to determine if this was here deliberately.
-		/*
-		charisma -= petCost;
-		int petCount = charisma / 6;
-		if (petCount <= 0) {
-			pc.sendPackets(new S_ServerMessage(489));
-			return false;
-		}
-		*/
-
+		int divisor = 6;
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
 		if (l1pet != null) {
 			int npcId = l1pet.get_npcid();
 			charisma -= petCost;
-			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
+			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || 
+					npcId == 45712 || npcId == 46046)
 				divisor = 12;
-			} else {
-				divisor = 6;
-			}
 			int petCount = charisma / divisor;
 			if (petCount <= 0) {
 				pc.sendPackets(new S_ServerMessage(489));
@@ -5221,7 +4885,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| fishY <= 32786 || fishY >= 32812) {
 			pc.sendPackets(new S_ServerMessage(1138));
 			return;
-		}
+				}
 
 		int rodLength = 0;
 		if (itemId == 41293) {
@@ -5242,12 +4906,12 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(1138));
 				} else if (pc.getInventory().consumeItem(41295, 1)) { //
 					pc.sendPackets(new S_Fishing(pc.getId(),
-							ActionCodes.ACTION_Fishing, fishX, fishY));
+								ActionCodes.ACTION_Fishing, fishX, fishY));
 					pc.broadcastPacket(new S_Fishing(pc.getId(),
-							ActionCodes.ACTION_Fishing, fishX, fishY));
+								ActionCodes.ACTION_Fishing, fishX, fishY));
 					pc.setFishing(true);
 					long time = System.currentTimeMillis() + 10000
-							+ _random.nextInt(5) * 1000;
+						+ _random.nextInt(5) * 1000;
 					pc.setFishingTime(time);
 					FishingTimeController.getInstance().addMember(pc);
 				} else {
@@ -5267,46 +4931,39 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(79));
 			return;
 		}
-		if (item.getItem().getType2() == 1 || item.getItem().getType2() == 2) {
-			if (item.getEnchantLevel() != 0) {
-				pc.sendPackets(new S_ServerMessage(1161));
-				return;
-			}
-			if (item.isEquipped()) {
-				pc.sendPackets(new S_ServerMessage(1161));
-				return;
-			}
-		}
-		int crystalCount = ResolventTable.getInstance().getCrystalCount(
-				item.getItem().getItemId());
-		if (crystalCount == 0) {
+
+		L1Item template = item.getItem();
+		int crystalCount = 
+			ResolventTable.getInstance().getCrystalCount(template.getItemId());
+		if (crystalCount == 0 ||
+				(template.getType2() == 1 || template.getType2() == 2) &&
+				(item.getEnchantLevel() != 0 || item.isEquipped())) {
 			pc.sendPackets(new S_ServerMessage(1161));
 			return;
-		}
+				}
 
-		int rnd = _random.nextInt(100) + 1;
-		if (rnd >= 1 && rnd <= 50) {
+		int chance = _random.nextInt(100) + 1;
+		if (chance >= 1 && chance <= 50) {
 			crystalCount = 0;
 			pc.sendPackets(new S_ServerMessage(158, item.getName()));
-		} else if (rnd >= 51 && rnd <= 90) {
-			crystalCount *= 1;
-		} else if (rnd >= 91 && rnd <= 100) {
+		} else if (chance >= 91 && chance <= 100) {
 			crystalCount *= 1.5;
-			pc.getInventory().storeItem(41246, (int) (crystalCount * 1.5));
 		}
+
+		L1Inventory inventory = pc.getInventory();
 		if (crystalCount != 0) {
 			L1ItemInstance crystal = ItemTable.getInstance().createItem(41246);
 			crystal.setCount(crystalCount);
-			if (pc.getInventory().checkAddItem(crystal, 1) == L1Inventory.OK) {
-				pc.getInventory().storeItem(crystal);
+			if (inventory.checkAddItem(crystal, 1) == L1Inventory.OK) {
+				inventory.storeItem(crystal);
 				pc.sendPackets(new S_ServerMessage(403, crystal.getLogName()));
 			} else {
 				L1World.getInstance().getInventory(pc.getX(), pc.getY(),
 						pc.getMapId()).storeItem(crystal);
 			}
-		} 
-		pc.getInventory().removeItem(item, 1);
-		pc.getInventory().removeItem(resolvent, 1);
+		}
+		inventory.removeItem(item, 1);
+		inventory.removeItem(resolvent, 1);
 	}
 
 	private void useMagicDoll(L1PcInstance pc, int itemId, int itemObjectId) {
@@ -5975,7 +5632,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		pc.broadcastPacket(s_attackPacket);
 		int chargeCount = item.getChargeCount();
 		if (chargeCount <= 0) {
-		return;
+			return;
 		}
 
 		L1Object target = L1World.getInstance().findObject(targetId);
@@ -5985,6 +5642,57 @@ public class C_ItemUSe extends ClientBasePacket {
 			FurnitureSpawnTable.getInstance().deleteFurniture(furniture);
 			item.setChargeCount(item.getChargeCount() - 1);
 			pc.getInventory().updateItem(item, L1PcInventory.COL_CHARGE_COUNT);
+		}
+	}
+
+	private static final int[] scrollIds = { 40090, 40091, 40092, 40093, 40094 };
+	private static final int[] scrollLimits = { 7, 15, 22, 31, 39 };
+	
+	private void writeScroll(final L1PcInstance pc, int scrollId, int spellId) {
+		if (!IntArrays.contains(scrollIds, scrollId) ||
+				spellId > scrollLimits[scrollId - scrollIds[0]]) {
+			pc.sendPackets(new S_ServerMessage(591));
+			return;
+		}
+
+		L1ItemInstance scroll = 
+			ItemTable.getInstance().createItem(40859 + spellId);
+		if (scroll == null)
+			return;
+		if (pc.getInventory().checkAddItem(scroll, 1) == L1Inventory.OK) {
+			L1Skill skill = 
+				SkillTable.getInstance().findBySkillId(spellId + 1);
+			if (pc.getCurrentHp() + 1 < skill.getHpConsume() + 1) {
+				pc.sendPackets(new S_ServerMessage(279));
+				return;
+			}
+			if (pc.getCurrentMp() < skill.getMpConsume()) {
+				pc.sendPackets(new S_ServerMessage(278));
+				return;
+			}
+			if (skill.getItemConsumeId() != 0) {
+				if (!pc.getInventory().checkItem(skill.getItemConsumeId(),
+							skill.getItemConsumeCount())) {
+					pc.sendPackets(new S_ServerMessage(299));
+					return;
+				}
+			}
+			pc.setCurrentHp(pc.getCurrentHp() - skill.getHpConsume());
+			pc.setCurrentMp(pc.getCurrentMp() - skill.getMpConsume());
+			int lawful = pc.getLawful() + skill.getLawful();
+			if (lawful > 32767) {
+				lawful = 32767;
+			}
+			if (lawful < -32767) {
+				lawful = -32767;
+			}
+			pc.setLawful(lawful);
+			if (skill.getItemConsumeId() != 0) {
+				pc.getInventory().consumeItem(skill.getItemConsumeId(),
+						skill.getItemConsumeCount());
+			}
+			pc.getInventory().removeItem(scrollId, 1);
+			pc.getInventory().storeItem(scroll);
 		}
 	}
 
