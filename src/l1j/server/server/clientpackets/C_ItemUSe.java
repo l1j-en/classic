@@ -37,13 +37,11 @@ import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.LetterTable;
-import l1j.server.server.datatables.LogEnchantTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.ResolventTable;
 import l1j.server.server.datatables.SkillTable;
-import l1j.server.server.model.Element;
 import l1j.server.server.model.Enchant;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
@@ -116,14 +114,10 @@ import l1j.server.server.utils.L1SpawnUtil;
 import static l1j.server.server.model.skill.L1SkillId.*;
 import static l1j.server.server.model.item.L1ItemId.*;
 
-// Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket
-//
 public class C_ItemUSe extends ClientBasePacket {
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
 	private static Random _random = new Random();
-	private int addtime; // used for stacking. do not remove.
 
 	public C_ItemUSe(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
@@ -5013,7 +5007,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 
-		if (isTeleport || Config.USE_TOI_CHARM_ANYWHERE) {
+		if ((isTeleport || Config.USE_TOI_CHARM_ANYWHERE) &&
+				pc.getMap().isEscapable()) {
 			L1Teleport.teleport(pc, item.getItem().get_locx(), item.getItem()
 					.get_locy(), item.getItem().get_mapid(), 5, true);
 		} else {
