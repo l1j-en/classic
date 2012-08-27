@@ -144,12 +144,14 @@ public class PCommands {
 			return;
 		}
 		int max = 3;
+		/* out for WK temporarily.
 		if (level >= 60)
 			max = BuffSkills.length;
 		else if (level >= 55)
 			max = 5;
 		else if (level >= 50)
 			max = 4;
+			*/
 
 		L1SkillUse skillUse = new L1SkillUse();
 		for (int i = 0; i < max; i++)
