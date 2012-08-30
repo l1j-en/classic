@@ -200,6 +200,13 @@ public class L1DollInstance extends L1NpcInstance {
 			int chance = _random.nextInt(100) + 1;
 			if (chance <= 4) {
 				damageReduction = 15;
+				if (_master instanceof L1PcInstance) {
+					L1PcInstance pc = (L1PcInstance) _master;
+					pc.sendPackets(new S_SkillSound(_master.getId(),
+							6320));
+				}
+				_master.broadcastPacket(new S_SkillSound(_master
+						.getId(), 6320));
 			}
 		}
 		return damageReduction;
