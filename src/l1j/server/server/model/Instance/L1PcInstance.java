@@ -2647,4 +2647,15 @@ public class L1PcInstance extends L1Character {
 		_partyDropMessages = partyDropMessages;
 	}
 	public boolean getPartyDropMessages() { return _partyDropMessages; }
+	
+	// check if FoeSlayer is in use
+	private boolean _FoeSlayer = false;
+
+	public void setFoeSlayer(boolean FoeSlayer) {
+		_FoeSlayer = FoeSlayer;
+	}
+
+	public boolean isFoeSlayer() {
+		return _FoeSlayer;
+	}
 }
