@@ -417,9 +417,9 @@ public class L1SkillUse {
 				return false;
 			}
 
-			if (pc.hasSkillEffect(SILENCE) ||
+			if ((pc.hasSkillEffect(SILENCE) ||
 					pc.hasSkillEffect(AREA_OF_SILENCE) ||
-					pc.hasSkillEffect(STATUS_POISON_SILENCE) &&
+					pc.hasSkillEffect(STATUS_POISON_SILENCE)) &&
 					!IntArrays.sContains(CAST_WITH_SILENCE, _skillId)) {
 				pc.sendPackets(new S_ServerMessage(285));
 				return false;
