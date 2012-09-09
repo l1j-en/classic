@@ -2322,10 +2322,48 @@ public class L1SkillUse {
 				} else if (_skillId == THUNDER_GRAB) { // サンダーグラップ
 					boolean isFetter = _magic.calcProbabilityMagic(_skillId);
 					if (isFetter) {
-						int time = _skill.getBuffDuration() * 1000;
+						int targetLevel = 0;
+						int diffLevel = 0;
+						int time = 0;
+						if (cha instanceof L1PcInstance) {
+							L1PcInstance pc = (L1PcInstance) cha;
+							targetLevel = pc.getLevel();
+						} else if (cha instanceof L1MonsterInstance
+								|| cha instanceof L1SummonInstance
+								|| cha instanceof L1PetInstance) {
+							L1NpcInstance npc = (L1NpcInstance) cha;
+							targetLevel = npc.getLevel();
+								}
+						diffLevel = _user.getLevel() - targetLevel;
+						RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
+
+						int basechance = random.nextInt(99) + 1;
+
+						int chance = basechance+(diffLevel*5);
+
+						if (chance > 85) {
+							time = 4000;
+						} else if (chance > 75) {
+							time = 3500;
+						} else if (chance > 65) {
+							time = 3000;
+						} else if (chance > 55) {
+							time = 2500;
+						} else if (chance > 45) {
+							time = 2000;
+						} else if (chance > 35) {
+							time = 1500;
+						} else {
+							time = 1000;
+						} 
+						
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance targetPc = (L1PcInstance) cha;
 							targetPc.setSkillEffect(STATUS_FREEZE, time);
+							targetPc.sendPackets(new S_SkillSound(targetPc.getId(),
+									4184));
+							targetPc.broadcastPacket(new S_SkillSound(targetPc
+									.getId(), 4184));
 							targetPc.sendPackets(new S_Paralysis(
 										S_Paralysis.TYPE_BIND, true));
 						} else if (cha instanceof L1MonsterInstance
@@ -2333,8 +2371,10 @@ public class L1SkillUse {
 								|| cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
 							npc.setSkillEffect(STATUS_FREEZE, time);
+							npc.broadcastPacket(new S_SkillSound(npc
+									.getId(), 4184));
 							npc.setParalyzed(true);
-								}
+						}
 					}
 				} else if (_skillId == BONE_BREAK) { // ボーンブレイク
 					RandomGenerator random = RandomGeneratorFactory
