@@ -228,7 +228,17 @@ public class L1Magic {
 			// As of an update on live early 2012, these skills aren't affected
 			// by MR.
 			probability = 100;
-		} else {
+		} else if (skillId == THUNDER_GRAB) { 
+			// success rate is probability_value(50%) * (attackerlvl/ defenselvl) + random(0〜-20)
+			probability = skill.getProbabilityValue()
+					* (_attacker.getLevel() / Math.max(1, defenseLevel))
+					- _random.nextInt(21);
+
+			if (_calcType == PC_PC || _calcType == PC_NPC) {
+				probability += 2 * _pc.getOriginalMagicHit();
+			}
+		}		
+		else {
 			int dice = skill.getProbabilityDice();
 			int diceCount = 
 				_attacker.getMagicBonus() + _attacker.getMagicLevel();
