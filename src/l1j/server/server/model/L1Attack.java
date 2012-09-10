@@ -26,6 +26,7 @@ import l1j.server.server.serverpackets.S_AttackPacketForNpc;
 import l1j.server.server.serverpackets.S_AttackPacket;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
@@ -646,6 +647,18 @@ public class L1Attack {
 		if (isKiringku) {
 			damage = L1WeaponSkill.getKiringkuDamage(_pc, _target);
 			damage += calcAttrEnchantDmg();
+		}
+		
+		// DK chain sword reveal weakness effect
+		revealWeakness();
+		if (_weaponType2 == 18) { // check for chain sword 
+			if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
+				damage += 12;
+			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
+				damage += 8;
+			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
+				damage += 4;
+			}
 		}
 		
 		damage += isRanged ? _pc.getBowDmgModifierByArmor()
@@ -1415,5 +1428,35 @@ public class L1Attack {
 			_pc.sendPackets(new S_ServerMessage(268, weapon.getLogName()));
 			_pc.getInventory().receiveDamage(weapon);
 		}
+	}
+	
+	// Chain Sword reveal weakness effect (needs testing)
+	private void revealWeakness() {
+		if (_weaponType2 == 18) { 
+			
+			// Foe Slayer will not trigger reveal Weakness
+			if (_pc.isFoeSlayer()) {
+				return;
+			}
+			
+			int random = _random.nextInt(100) + 1;
+			int weaponWeaknessExposureChance = 30; // could be different for different chain sword 
+			if (random <= weaponWeaknessExposureChance) {
+				if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) { 
+					// Level 3 duration can not be overwritten
+				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) { 
+					_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
+					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3, 16000);
+					_pc.sendPackets(new S_SkillIconGFX(75, 3));
+				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) { 
+					_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
+					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2, 16000);
+					_pc.sendPackets(new S_SkillIconGFX(75, 2));
+				} else {
+					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1, 16000);
+					_pc.sendPackets(new S_SkillIconGFX(75, 1));
+				}
+			}
+		}		
 	}
 }

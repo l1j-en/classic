@@ -94,6 +94,12 @@ public class PCommands {
 		new S_SystemMessage("-bug bugReport");
 	private static final S_SystemMessage BugThanks =
 		new S_SystemMessage("Bug reported. Thank you for your help!");
+	private static final S_SystemMessage NotDK =
+			new S_SystemMessage("Only Dragon Knight can use dkbuff.");
+	private static final S_SystemMessage DKHelp =
+			new S_SystemMessage("You have to equip Helm of Magic to use -dkbuff.");
+	private static final S_SystemMessage NoMp =
+			new S_SystemMessage("You don't have enough mp to use -dkbuff.");
 
 	private PCommands() { }
 
@@ -110,6 +116,8 @@ public class PCommands {
 				showPHelp(player);
 			} else if (cmd2.startsWith("buff")) {
 				buff(player);
+			} else if (cmd2.startsWith("dkbuff")) {
+				dkbuff(player);
 			} else if (cmd2.startsWith("warp")) {
 				warp(player, cmd2);
 			} else if (cmd2.startsWith("pbuff")){
@@ -158,6 +166,42 @@ public class PCommands {
 			skillUse.handleCommands(player, BuffSkills[i], player.getId(),
 					player.getX(), player.getY(), null, 0, 
 					L1SkillUse.TYPE_SPELLSC);
+	}
+	
+	public void dkbuff(L1PcInstance player){
+		if (!Config.PLAYER_BUFF || !Config.PLAYER_COMMANDS) {
+			player.sendPackets(NoBuff);
+			return;
+		}
+
+		if (player.getClassId()==6658||player.getClassId()==6661)
+		{
+			if (player.getCurrentMp()<25) {
+				player.sendPackets(NoMp);
+				return;
+			}
+				
+			L1SkillUse skillUse = new L1SkillUse();
+			if (player.getInventory().checkEquipped(20013))
+			{
+				skillUse.handleCommands(player, PHYSICAL_ENCHANT_DEX, player.getId(),
+					player.getX(), player.getY(), null, 0, 
+					L1SkillUse.TYPE_SPELLSC);
+				player.setCurrentMp(player.getCurrentMp()-25);
+			}
+			else if (player.getInventory().checkEquipped(20015))
+			{
+				skillUse.handleCommands(player, PHYSICAL_ENCHANT_STR, player.getId(),
+					player.getX(), player.getY(), null, 0, 
+					L1SkillUse.TYPE_SPELLSC);
+				player.setCurrentMp(player.getCurrentMp()-25);
+			}
+			else
+				player.sendPackets(DKHelp);
+		}
+		else 
+			player.sendPackets(NotDK);
+
 	}
 
 	public void powerBuff(L1PcInstance player) {
