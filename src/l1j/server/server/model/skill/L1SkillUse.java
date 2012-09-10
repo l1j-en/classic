@@ -1912,9 +1912,11 @@ public class L1SkillUse {
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
 								4394));
 				} else if (_skillId == FOE_SLAYER) {
+					_player.setFoeSlayer(true);
 					for (int i = 3; i > 0; i--) {
 						_target.onAction(_player);
 					}
+					_player.setFoeSlayer(false);
 					_player.sendPackets(new S_SkillSound(_target.getId(),
 								6509));
 					_player.sendPackets(new S_SkillSound(_player.getId(),
@@ -1923,6 +1925,17 @@ public class L1SkillUse {
 								6509));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
 								7020));
+					// Foe Slayer will kill the effect of weakness exposure
+					if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
+						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
+						_player.sendPackets(new S_SkillIconGFX(75, 0));
+					} else if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
+						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
+						_player.sendPackets(new S_SkillIconGFX(75, 0));
+					} else if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
+						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV3);
+						_player.sendPackets(new S_SkillIconGFX(75, 0));
+					}
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) { // 安息攻撃
 					if (_user instanceof L1NpcInstance) {
