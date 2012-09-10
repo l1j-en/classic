@@ -92,8 +92,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_ShopBuyList;
 import l1j.server.server.serverpackets.S_ShopSellList;
 import l1j.server.server.serverpackets.S_SkillHaste;
+import l1j.server.server.serverpackets.S_SkillIconAura;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
-import l1j.server.server.serverpackets.S_SkillIconBlessOfEva;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_TaxRate;
@@ -954,7 +954,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); //
 				} else {
 					pc.setSkillEffect(STATUS_CURSE_BARLOG, 1020 * 1000);
-					pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), 1020));
+					pc.sendPackets(new S_SkillIconAura(221, 1020, 2));
 					pc.sendPackets(new S_SkillSound(pc.getId(), 750));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
 					pc.sendPackets(new S_ServerMessage(1127));
@@ -1102,7 +1102,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); //
 				} else {
 					pc.setSkillEffect(STATUS_CURSE_YAHEE, 1020 * 1000);
-					pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), 1020));
+					pc.sendPackets(new S_SkillIconAura(221, 1020, 2));
 					pc.sendPackets(new S_SkillSound(pc.getId(), 750));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), 750));
 					pc.sendPackets(new S_ServerMessage(1127));
