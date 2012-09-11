@@ -7,5 +7,5 @@ public class WeaponType {
 	public static final int Edoryu = 54;
 	public static final int Claw = 58;
 	public static final int Gauntlet = 62;
-
+	public static final int Chainsword = 18;
 }
