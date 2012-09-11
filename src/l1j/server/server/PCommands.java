@@ -100,6 +100,8 @@ public class PCommands {
 		new S_SystemMessage("You have to equip Helm of Magic to use -dkbuff.");
 	private static final S_SystemMessage NoMp =
 		new S_SystemMessage("You don't have enough mana to use -dkbuff.");
+	private static final S_SystemMessage NoDkBuff =
+		new S_SystemMessage("The -dkbuff command is disabled.");
 
 	private PCommands() { }
 
@@ -169,7 +171,7 @@ public class PCommands {
 	}
 	
 	public void dkbuff(L1PcInstance player){
-		if (!Config.PLAYER_BUFF || !Config.PLAYER_COMMANDS) {
+		if (!Config.DK_BUFF || !Config.PLAYER_COMMANDS) {
 			player.sendPackets(NoBuff);
 			return;
 		}
