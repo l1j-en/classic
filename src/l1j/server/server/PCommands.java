@@ -95,11 +95,11 @@ public class PCommands {
 	private static final S_SystemMessage BugThanks =
 		new S_SystemMessage("Bug reported. Thank you for your help!");
 	private static final S_SystemMessage NotDK =
-			new S_SystemMessage("Only Dragon Knight can use dkbuff.");
+		new S_SystemMessage("Only Dragon Knights can use -dkbuff.");
 	private static final S_SystemMessage DKHelp =
-			new S_SystemMessage("You have to equip Helm of Magic to use -dkbuff.");
+		new S_SystemMessage("You have to equip Helm of Magic to use -dkbuff.");
 	private static final S_SystemMessage NoMp =
-			new S_SystemMessage("You don't have enough mp to use -dkbuff.");
+		new S_SystemMessage("You don't have enough mana to use -dkbuff.");
 
 	private PCommands() { }
 
@@ -174,34 +174,27 @@ public class PCommands {
 			return;
 		}
 
-		if (player.getClassId()==6658||player.getClassId()==6661)
-		{
-			if (player.getCurrentMp()<25) {
-				player.sendPackets(NoMp);
-				return;
-			}
-				
-			L1SkillUse skillUse = new L1SkillUse();
-			if (player.getInventory().checkEquipped(20013))
-			{
-				skillUse.handleCommands(player, PHYSICAL_ENCHANT_DEX, player.getId(),
-					player.getX(), player.getY(), null, 0, 
-					L1SkillUse.TYPE_SPELLSC);
-				player.setCurrentMp(player.getCurrentMp()-25);
-			}
-			else if (player.getInventory().checkEquipped(20015))
-			{
-				skillUse.handleCommands(player, PHYSICAL_ENCHANT_STR, player.getId(),
-					player.getX(), player.getY(), null, 0, 
-					L1SkillUse.TYPE_SPELLSC);
-				player.setCurrentMp(player.getCurrentMp()-25);
-			}
-			else
-				player.sendPackets(DKHelp);
-		}
-		else 
+		if (!player.isDragonKnight()) {
 			player.sendPackets(NotDK);
-
+			return;
+		}
+			
+		if (player.getCurrentMp() < 25) {
+			player.sendPackets(NoMp);
+			return;
+		}
+				
+		L1SkillUse skillUse = new L1SkillUse();
+		if (player.getInventory().checkEquipped(20013)) {
+			skillUse.handleCommands(player, PHYSICAL_ENCHANT_DEX,
+					player.getId(), player.getX(), player.getY(), null, 0, 
+					L1SkillUse.TYPE_NORMAL);
+		} else if (player.getInventory().checkEquipped(20015)) {
+			skillUse.handleCommands(player, PHYSICAL_ENCHANT_STR,
+					player.getId(), player.getX(), player.getY(), null, 0, 
+					L1SkillUse.TYPE_NORMAL);
+		} else
+			player.sendPackets(DKHelp);
 	}
 
 	public void powerBuff(L1PcInstance player) {
