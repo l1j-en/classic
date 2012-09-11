@@ -92,3 +92,21 @@ update mobskill set actid = 30 where mobid = 45479;
 insert into npc values (81287,'Wizard Merlin','$7441','To Giran Prison','L1Teleporter',2400,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,1,4,0,1); 
 insert into spawnlist_npc values (null,'Wizard Merlin',1,81287,33429,32824,0,0,4,0,4,0);
 insert into npcaction values (81287,'merlin1','merlin1','merlin2','');
+
+-- The required two NPC for the Quest of Longbow of Moon, added Pierot for making Apple Juice
+insert into npc values ('71256', 'Robin Hood', 'Robin Hood', '', 'L1Merchant', '916', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'small', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '14', '0', '1', '0');
+
+insert into npc values ('71257', 'Jibril', '$5031', '', 'L1Merchant', '1621', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'small', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '14', '0', '1', '0');
+
+insert into spawnlist_npc values ('87368', 'Robin Hood', '1', '71256', '33031', '32344', '0', '0', '5', '0', '4', '100');
+
+insert into spawnlist_npc values ('87369', 'Jibril', '1', '71257', '32740', '32800', '0', '0', '5', '0', '62', '100');
+
+-- The required material for crafting Longbow of Moon
+-- Note: Unicorn Horn is just a weapon, Blessed Unicorn Horn is the material for crafting the bow.
+insert into droplist values ('45640', 'Unicorn', '41352', 'Blessed Unicorn Horn', '1', '1', '10000');
+
+-- Change the way Unicorn spawns to be like other DI bosses, i.e. independent spawn.
+update spawnlist_boss set count = 1 where location = 'Unicorn';
+insert into spawnlist_boss values (211, 'Unicorn', 'Unicorn', 1, 45640, 0, 32740, 32735, 0, 0, 32728, 32717, 32752, 32753, 4, 303, 1, 0, 0, 0, 100);
+insert into spawnlist_boss values (212, 'Unicorn', 'Unicorn', 1, 45640, 0, 32740, 32735, 0, 0, 32728, 32717, 32752, 32753, 4, 303, 1, 0, 0, 0, 100);
