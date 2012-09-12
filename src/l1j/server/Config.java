@@ -469,6 +469,8 @@ public final class Config {
 	
 	public static boolean POWER_BUFF;
 
+	public static boolean DK_BUFF;
+
 	/** Configuration files */
 	public static final String SERVER_CONFIG_FILE = "./config/server.properties";
 
@@ -780,6 +782,7 @@ public final class Config {
 			PLAYER_COMMANDS = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerCommands", "True"));
 			PLAYER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerBuff", "True"));
 			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "False"));
+			DK_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("DkBuff", "False"));
 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

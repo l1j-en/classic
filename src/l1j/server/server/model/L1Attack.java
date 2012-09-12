@@ -30,6 +30,8 @@ import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
+import l1j.server.server.serverpackets.ServerBasePacket;
+import l1j.server.server.templates.L1Item;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.collections.IntArrays;
 import static l1j.server.server.model.skill.L1SkillId.*;
@@ -202,30 +204,29 @@ public class L1Attack {
 			}
 			weapon = _pc.getWeapon();
 			if (weapon != null) {
-				_weaponId = weapon.getItem().getItemId();
-				_weaponType = weapon.getItem().getType1();
-				_weaponType2 = weapon.getItem().getType();
+				L1Item item = weapon.getItem();
+				_weaponId = item.getItemId();
+				_weaponType = item.getType1();
+				_weaponType2 = item.getType();
 				isKiringku = _weaponType2 == WeaponType.Kiringku;
-				_weaponAddHit = weapon.getItem().getHitModifier()
-						+ weapon.getHitByMagic();
-				_weaponAddDmg = weapon.getItem().getDmgModifier()
-						+ weapon.getDmgByMagic();
-				_weaponSmall = weapon.getItem().getDmgSmall();
-				_weaponLarge = weapon.getItem().getDmgLarge();
-				_weaponRange = weapon.getItem().getRange();
-				_weaponBless = weapon.getItem().getBless();
+				_weaponAddHit = item.getHitModifier() + weapon.getHitByMagic();
+				_weaponAddDmg = item.getDmgModifier() + weapon.getDmgByMagic();
+				_weaponSmall = item.getDmgSmall();
+				_weaponLarge = item.getDmgLarge();
+				_weaponRange = item.getRange();
+				_weaponBless = item.getBless();
 				isBow = _weaponType == WeaponType.Bow;
 				isGauntlet = _weaponType == WeaponType.Gauntlet;
 				isRanged = isBow | isGauntlet;
 				_weaponEnchant = weapon.getEnchantLevel()
 					- (isRanged ? 0 : weapon.get_durability());
-				_weaponMaterial = weapon.getItem().getMaterial();
+				_weaponMaterial = item.getMaterial();
 				if (isBow) { // Arrow acquisition
 					_arrow = _pc.getInventory().getArrow();
 					if (_arrow != null) {
 						// if weapon or arrow is blessed, set weapon blessed
 						// else just go by the arrow
-						if (weapon.getItem().getBless() == 0 || _arrow.getItem().getBless() == 0) {
+						if (_weaponBless == 0 || _arrow.getItem().getBless() == 0) {
 							_weaponBless = 0;
 						} else {
 							_weaponBless = _arrow.getItem().getBless();
@@ -240,7 +241,7 @@ public class L1Attack {
 						_weaponMaterial = _sting.getItem().getMaterial();
 					}
 				}
-				_weaponDoubleDmgChance = weapon.getItem().getDoubleDmgChance();
+				_weaponDoubleDmgChance = item.getDoubleDmgChance();
 				_weaponAttrEnchantKind = weapon.getAttrEnchantKind();
 				_weaponAttrEnchantLevel = weapon.getAttrEnchantLevel();
 			}
@@ -278,9 +279,9 @@ public class L1Attack {
 				}
 			}
 			if (isBow && _weaponId != SayhasBow && _arrow == null) {
-				_isHit = false; // If there is no mistake arrow
+				_isHit = false;
 			} else if (isGauntlet && _sting == null) {
-				_isHit = false; // If there is no mistake Sting
+				_isHit = false;
 			} else if (!_pc.glanceCheck(_targetX, _targetY)) {
 				_isHit = false; // If the attacker is the player's decision is an obstacle
 			} else if (_weaponId == 247 || _weaponId == 248
@@ -567,7 +568,7 @@ public class L1Attack {
 			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
 		}
 
-		if (_pc.hasSkillEffect(SOUL_OF_FLAME) && !isRanged) {
+		if (!isRanged && _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			weaponDamage = weaponMaxDamage;
 		}
 		
@@ -649,9 +650,8 @@ public class L1Attack {
 			damage += calcAttrEnchantDmg();
 		}
 		
-		// DK chain sword reveal weakness effect
-		revealWeakness();
-		if (_weaponType2 == 18) { // check for chain sword 
+		if (_weaponType2 == WeaponType.Chainsword) {
+			revealWeakness();
 			if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
 				damage += 12;
 			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
@@ -1069,9 +1069,9 @@ public class L1Attack {
 	// PC poison attacks added
 	public void addPcPoisonAttack(L1Character attacker, L1Character target) {
 		int chance = _random.nextInt(100) + 1;
-		if ((_weaponId == 13 || _weaponId == 44 // FOD, ancient DAKUERUFUSODO
-				|| (_weaponId != 0 && _pc.hasSkillEffect(ENCHANT_VENOM))) // Enchant venom
-				&& chance <= 10) {
+		if ((_weaponId == 13 || _weaponId == 44 ||
+					(_weaponId != 0 && _pc.hasSkillEffect(ENCHANT_VENOM))) &&
+				chance <= 10) {
 			// Usually poison, 3 second period, HP-5 Damage
 			L1DamagePoison.doInfection(attacker, target, 3000, 5);
 		}
@@ -1112,58 +1112,39 @@ public class L1Attack {
 		_pc.setHeading(_pc.targetDirection(_targetX, _targetY)); // Set-oriented
 		if (isBow) {
 			if (_arrow != null) {
-				_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 66,
-						_targetX, _targetY, _isHit));
-				_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId, 66,
-						_targetX, _targetY, _isHit));
-				if (_isHit) {
-					_target.broadcastPacketExceptTargetSight(
-							new S_DoActionGFX(_targetId,
-							ActionCodes.ACTION_Damage), _pc);
-				}
+				sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 66,
+							_targetX, _targetY, _isHit));
 				_pc.getInventory().removeItem(_arrow, 1);
 			} else if (_weaponId == SayhasBow) {
-				_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 2349,
-						_targetX, _targetY, _isHit));
-				_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId,
-						2349, _targetX, _targetY, _isHit));
-				if (_isHit) {
-					_target.broadcastPacketExceptTargetSight(
-							new S_DoActionGFX(_targetId,
-							ActionCodes.ACTION_Damage), _pc);
-				}
+				sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 2349,
+							_targetX, _targetY, _isHit));
 			}
 		} else if (isGauntlet && _sting != null) {
-			_pc.sendPackets(new S_UseArrowSkill(_pc, _targetId, 2989,
-					_targetX, _targetY, _isHit));
-			_pc.broadcastPacket(new S_UseArrowSkill(_pc, _targetId, 2989,
-					_targetX, _targetY, _isHit));
-			if (_isHit) {
-				_target.broadcastPacketExceptTargetSight(
-						new S_DoActionGFX(_targetId,
-						ActionCodes.ACTION_Damage), _pc);
-			}
+			sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 2989,
+						_targetX, _targetY, _isHit));
 			_pc.getInventory().removeItem(_sting, 1);
 		} else {
 			if (_isHit) {
-				_pc.sendPackets(new S_AttackPacket(_pc, _targetId,
-						ActionCodes.ACTION_Attack));
-				_pc.broadcastPacket(new S_AttackPacket(_pc, _targetId,
-						ActionCodes.ACTION_Attack));
-				_target.broadcastPacketExceptTargetSight(new S_DoActionGFX(
-						_targetId, ActionCodes.ACTION_Damage), _pc);
+				sendAndBroadcast(_pc, new S_AttackPacket(_pc, _targetId,
+							ActionCodes.ACTION_Attack));
 			} else {
 				if (_targetId > 0) {
-					_pc.sendPackets(new S_AttackMissPacket(_pc, _targetId));
-					_pc.broadcastPacket(new S_AttackMissPacket(_pc, _targetId));
+					sendAndBroadcast(_pc, new S_AttackMissPacket(_pc, _targetId));
 				} else {
-					_pc.sendPackets(new S_AttackPacket(_pc, 0,
-							ActionCodes.ACTION_Attack));
-					_pc.broadcastPacket(new S_AttackPacket(_pc, 0,
-							ActionCodes.ACTION_Attack));
+					sendAndBroadcast(_pc, new S_AttackPacket(_pc, 0,
+								ActionCodes.ACTION_Attack));
 				}
 			}
 		}
+		if (_isHit)
+			_target.broadcastPacketExceptTargetSight(new S_DoActionGFX(
+						_targetId, ActionCodes.ACTION_Damage), _pc);
+	}
+
+	private static final void sendAndBroadcast(final L1PcInstance player,
+			final ServerBasePacket packet) {
+		player.sendPackets(packet);
+		player.broadcastPacket(packet);
 	}
 	
 	// NPC motion attack sent
@@ -1328,10 +1309,8 @@ public class L1Attack {
 				actId = ActionCodes.ACTION_Attack;
 			}
 			if (getGfxId() > 0) {
-				_npc
-						.broadcastPacket(new S_UseAttackSkill(_target, _npc
-								.getId(), getGfxId(), _targetX, _targetY,
-								actId, 0));
+				_npc.broadcastPacket(new S_UseAttackSkill(_target, _npc.getId(),
+							getGfxId(), _targetX, _targetY, actId, 0));
 			} else {
 				_npc.broadcastPacket(new S_AttackMissPacket(_npc, _targetId,
 						actId));
@@ -1429,34 +1408,34 @@ public class L1Attack {
 			_pc.getInventory().receiveDamage(weapon);
 		}
 	}
-	
-	// Chain Sword reveal weakness effect (needs testing)
+
+	private static final S_SkillIconGFX Weakness1 = new S_SkillIconGFX(75, 1);
+	private static final S_SkillIconGFX Weakness2 = new S_SkillIconGFX(75, 2);
+	private static final S_SkillIconGFX Weakness3 = new S_SkillIconGFX(75, 3);
+
 	private void revealWeakness() {
-		if (_weaponType2 == 18) { 
-			
-			// Foe Slayer will not trigger reveal Weakness
-			if (_pc.isFoeSlayer()) {
-				return;
+		// Foe Slayer will not trigger reveal Weakness
+		if (_pc.isFoeSlayer()) {
+			return;
+		}
+
+		int random = _random.nextInt(100) + 1;
+		int weaponWeaknessExposureChance = 30;
+		if (random <= weaponWeaknessExposureChance) {
+			if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) { 
+				// Level 3 duration can not be overwritten
+			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) { 
+				_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
+				_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3, 16000);
+				_pc.sendPackets(Weakness3);
+			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) { 
+				_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
+				_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2, 16000);
+				_pc.sendPackets(Weakness2);
+			} else {
+				_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1, 16000);
+				_pc.sendPackets(Weakness1);
 			}
-			
-			int random = _random.nextInt(100) + 1;
-			int weaponWeaknessExposureChance = 30; // could be different for different chain sword 
-			if (random <= weaponWeaknessExposureChance) {
-				if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) { 
-					// Level 3 duration can not be overwritten
-				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) { 
-					_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
-					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3, 16000);
-					_pc.sendPackets(new S_SkillIconGFX(75, 3));
-				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) { 
-					_pc.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
-					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2, 16000);
-					_pc.sendPackets(new S_SkillIconGFX(75, 2));
-				} else {
-					_pc.setSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1, 16000);
-					_pc.sendPackets(new S_SkillIconGFX(75, 1));
-				}
-			}
-		}		
+		}
 	}
 }
