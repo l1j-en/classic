@@ -32,7 +32,8 @@ public class L1PetInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
 	private static Random _random = new Random();
-	private static Logger _log = Logger.getLogger(L1PetInstance.class.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1PetInstance.class.getName());
 	private int _currentPetStatus;
 	private L1PcInstance _petMaster;
 	private int _itemObjId;
@@ -122,7 +123,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public L1PetInstance(L1Npc template, L1PcInstance master, L1Pet l1pet) {
 		super(template);
-		System.out.println("Beginning pet creation.");
+		// System.out.println("Beginning pet creation.");
 		_petMaster = master;
 		_itemObjId = l1pet.get_itemobjid();
 		_type = PetTypeTable.getInstance().get(template.get_npcId());
@@ -134,8 +135,8 @@ public class L1PetInstance extends L1NpcInstance {
 		setMaxMp(l1pet.get_mp());
 		setCurrentMpDirect(l1pet.get_mp());
 		setExp(l1pet.get_exp());
-		setExpPercent(ExpTable.getExpPercentage(l1pet.get_level(), l1pet
-				.get_exp()));
+		setExpPercent(ExpTable.getExpPercentage(l1pet.get_level(), 
+					l1pet.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
 		ItemTable items = ItemTable.getInstance();
@@ -154,7 +155,7 @@ public class L1PetInstance extends L1NpcInstance {
 			onPerceive(pc);
 		}
 		master.addPet(this);
-		System.out.println("Pet created successfully.");
+		// System.out.println("Pet created successfully.");
 	}
 
 	public L1PetInstance(L1NpcInstance target, L1PcInstance master, int itemid) {
@@ -561,10 +562,8 @@ public class L1PetInstance extends L1NpcInstance {
 		
 		// FIXME: This is a dreadful experimental hack.	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
-		if (l1pet == null) {
-			return;
-		}
-		l1pet.set_weapon(weapon.getItemId());
+		if (l1pet != null)
+			l1pet.set_weapon(weapon.getItemId());
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -581,10 +580,8 @@ public class L1PetInstance extends L1NpcInstance {
 
 		// FIXME: see note in setWeapon().	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
-		if (l1pet == null) {
-			return;
-		}
-		l1pet.set_armor(armor.getItemId());
+		if (l1pet == null)
+			l1pet.set_armor(armor.getItemId());
 	}
 
 	public L1ItemInstance getArmor() {
