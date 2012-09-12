@@ -18,13 +18,13 @@
  */
 package l1j.server.server.storage;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.storage.mysql.MySqlCharactersItemStorage;
 
 public abstract class CharactersItemStorage {
-	public abstract ArrayList<L1ItemInstance> loadItems(int objId)
+	public abstract List<L1ItemInstance> loadItems(int objId)
 			throws Exception;
 
 	public abstract void storeItem(int objId, L1ItemInstance item)
@@ -68,6 +68,17 @@ public abstract class CharactersItemStorage {
 
 	public abstract void updateItemAttrEnchantLevel(L1ItemInstance item)
 			throws Exception;
+
+	public abstract void updateAddHp(L1ItemInstance item) throws Exception;
+	public abstract void updateAddMp(L1ItemInstance item) throws Exception;
+	public abstract void updateHpRegen(L1ItemInstance item) throws Exception;
+	public abstract void updateMpRegen(L1ItemInstance item) throws Exception;
+	public abstract void updateFireResist(L1ItemInstance item) throws Exception;
+	public abstract void updateWaterResist(L1ItemInstance item) throws Exception;
+	public abstract void updateEarthResist(L1ItemInstance item) throws Exception;
+	public abstract void updateWindResist(L1ItemInstance item) throws Exception;
+	public abstract void updateSpellpower(L1ItemInstance item) throws Exception;
+	public abstract void updateMagicResist(L1ItemInstance item) throws Exception;
 
 	public static CharactersItemStorage create() {
 		if (_instance == null) {

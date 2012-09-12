@@ -77,18 +77,21 @@ public class L1EquipmentSlot {
 		
 		int itemId = armor.getItem().getItemId();
 
-		_owner.addAc(item.get_ac() - armor.getEnchantLevel() - armor
-				.getAcByMagic());
+		if (item.getType2() == 2 && type >= 8 && type <= 12)
+			_owner.addAc(item.get_ac() - armor.getAcByMagic());
+		else
+			_owner.addAc(item.get_ac() - armor.getEnchantLevel() - armor
+					.getAcByMagic());
 		_owner.addDamageReductionByArmor(item.getDamageReduction());
 		_owner.addWeightReduction(item.getWeightReduction());
 		_owner.addHitModifierByArmor(item.getHitModifierByArmor());
 		_owner.addDmgModifierByArmor(item.getDmgModifierByArmor());
 		_owner.addBowHitModifierByArmor(item.getBowHitModifierByArmor());
 		_owner.addBowDmgModifierByArmor(item.getBowDmgModifierByArmor());
-		_owner.addEarth(item.get_defense_earth());
-		_owner.addWind(item.get_defense_wind());
-		_owner.addWater(item.get_defense_water());
-		_owner.addFire(item.get_defense_fire());
+		_owner.addEarth(item.get_defense_earth() + armor.getEarthResist());
+		_owner.addWind(item.get_defense_wind() + armor.getWindResist());
+		_owner.addWater(item.get_defense_water() + armor.getWaterResist());
+		_owner.addFire(item.get_defense_fire() + armor.getFireResist());
 		_owner.addResistStun(item.get_resist_stun());
 		_owner.addResistStone(item.get_resist_stone());
 		_owner.addResistSleep(item.get_resist_sleep());
@@ -149,20 +152,24 @@ public class L1EquipmentSlot {
 
 	private void removeArmor(L1ItemInstance armor) {
 		L1Item item = armor.getItem();
-		int itemId = armor.getItem().getItemId();
+		int itemId = item.getItemId();
 
-		_owner.addAc(-(item.get_ac() - armor.getEnchantLevel() - armor
-				.getAcByMagic()));
+		int type = item.getType();
+		if (item.getType2() == 2 && type >= 8 && type <= 12)
+			_owner.addAc(-(item.get_ac() - armor.getAcByMagic()));
+		else
+			_owner.addAc(-(item.get_ac() - armor.getEnchantLevel() - armor
+						.getAcByMagic()));
 		_owner.addDamageReductionByArmor(-item.getDamageReduction());
 		_owner.addWeightReduction(-item.getWeightReduction());
 		_owner.addHitModifierByArmor(-item.getHitModifierByArmor());
 		_owner.addDmgModifierByArmor(-item.getDmgModifierByArmor());
 		_owner.addBowHitModifierByArmor(-item.getBowHitModifierByArmor());
 		_owner.addBowDmgModifierByArmor(-item.getBowDmgModifierByArmor());
-		_owner.addEarth(-item.get_defense_earth());
-		_owner.addWind(-item.get_defense_wind());
-		_owner.addWater(-item.get_defense_water());
-		_owner.addFire(-item.get_defense_fire());
+		_owner.addEarth(-item.get_defense_earth() - armor.getEarthResist());
+		_owner.addWind(-item.get_defense_wind() - armor.getWindResist());
+		_owner.addWater(-item.get_defense_water() - armor.getWaterResist());
+		_owner.addFire(-item.get_defense_fire() - armor.getFireResist());
 		_owner.addResistStun(-item.get_resist_stun());
 		_owner.addResistStone(-item.get_resist_stone());
 		_owner.addResistSleep(-item.get_resist_sleep());
@@ -196,12 +203,8 @@ public class L1EquipmentSlot {
 			return;
 		}
 
-		if (item.get_addhp() != 0) {
-			_owner.addMaxHp(item.get_addhp());
-		}
-		if (item.get_addmp() != 0) {
-			_owner.addMaxMp(item.get_addmp());
-		}
+		_owner.addMaxHp(item.get_addhp() + equipment.getAddHp());
+		_owner.addMaxMp(item.get_addmp() + equipment.getAddMp());
 		_owner.addStr(item.get_addstr());
 		_owner.addCon(item.get_addcon());
 		_owner.addDex(item.get_adddex());
@@ -221,8 +224,8 @@ public class L1EquipmentSlot {
 			_owner.addMr(addMr);
 			_owner.sendPackets(new S_SPMR(_owner));
 		}
-		if (item.get_addsp() != 0) {
-			_owner.addSp(item.get_addsp());
+		if (item.get_addsp() != 0 || equipment.getAddSpellpower() != 0) {
+			_owner.addSp(item.get_addsp() + equipment.getAddSpellpower());
 			_owner.sendPackets(new S_SPMR(_owner));
 		}
 		if (item.isHasteItem()) {
@@ -257,13 +260,8 @@ public class L1EquipmentSlot {
 		if (item.getType2() == 0) {
 			return;
 		}
-
-		if (item.get_addhp() != 0) {
-			_owner.addMaxHp(-item.get_addhp());
-		}
-		if (item.get_addmp() != 0) {
-			_owner.addMaxMp(-item.get_addmp());
-		}
+		_owner.addMaxHp(-item.get_addhp() - equipment.getAddHp());
+		_owner.addMaxMp(-item.get_addmp() - equipment.getAddMp());
 		_owner.addStr((byte) -item.get_addstr());
 		_owner.addCon((byte) -item.get_addcon());
 		_owner.addDex((byte) -item.get_adddex());
@@ -283,8 +281,8 @@ public class L1EquipmentSlot {
 			_owner.addMr(addMr);
 			_owner.sendPackets(new S_SPMR(_owner));
 		}
-		if (item.get_addsp() != 0) {
-			_owner.addSp(-item.get_addsp());
+		if (item.get_addsp() != 0 || equipment.getAddSpellpower() != 0) {
+			_owner.addSp(-item.get_addsp() - equipment.getAddSpellpower());
 			_owner.sendPackets(new S_SPMR(_owner));
 		}
 		if (item.isHasteItem()) {

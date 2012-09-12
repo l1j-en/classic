@@ -22,8 +22,7 @@ import l1j.server.server.utils.BinaryOutputStream;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ItemInstance extends L1Object {
-	private static Logger _log = Logger.getLogger(L1ItemInstance.class
-			.getName());
+	private static Logger _log = Logger.getLogger(L1ItemInstance.class.getName());
 
 	private static final long serialVersionUID = 1L;
 
@@ -219,6 +218,7 @@ public class L1ItemInstance extends L1Object {
 				|| getItemId() == 220056) {
 			mr += getEnchantLevel() * 2;
 		}
+		mr += getMagicResist();
 		return mr;
 	}
 
@@ -270,7 +270,7 @@ public class L1ItemInstance extends L1Object {
 		public int earthResist;
 		public int fireResist;
 		public int waterResist;
-		public int airResist;
+		public int windResist;
 		public int additionalHp;
 		public int additionalMp;
 		public int hpRegen;
@@ -291,6 +291,16 @@ public class L1ItemInstance extends L1Object {
 			bless = getBless();
 			attrEnchantKind = getAttrEnchantKind();
 			attrEnchantLevel = getAttrEnchantLevel();
+			earthResist = getEarthResist();
+			fireResist = getFireResist();
+			waterResist = getWaterResist();
+			windResist = getWindResist();
+			additionalHp = getAddHp();
+			additionalMp = getAddMp();
+			hpRegen = getAddHpRegen();
+			mpRegen = getAddMpRegen();
+			additionalSp = getAddSpellpower();
+			magicResist = getMagicResist();
 		}
 
 		public void updateCount() {
@@ -340,6 +350,20 @@ public class L1ItemInstance extends L1Object {
 		public void updateAttrEnchantLevel() {
 			attrEnchantLevel = getAttrEnchantLevel();
 		}
+
+		public void updateFireResist() {
+			;
+		}
+
+		public void updateWaterResist() {}
+		public void updateEarthResist() {}
+		public void updateWindResist() {}
+		public void updateSpellpower() {}
+		public void updateHp() {}
+		public void updateMp() {}
+		public void updateHpRegen() {}
+		public void updateMpRegen() {}
+		public void updateMagicResist() {}
 	}
 
 	public LastStatus getLastStatus() {
@@ -388,6 +412,45 @@ public class L1ItemInstance extends L1Object {
 
 		return column;
 	}
+
+	public int getRecordingColumnsEnchantAccessory() {
+		int column = 0;
+
+		if (getAddHp() != _lastStatus.additionalHp) {
+			column += L1PcInventory.COL_ADDHP;
+		}
+		if (getAddMp() != _lastStatus.additionalMp) {
+			column += L1PcInventory.COL_ADDMP;
+		}
+		if (getAddHpRegen() != _lastStatus.hpRegen) {
+			column += L1PcInventory.COL_HPR;
+		}
+		if (getAddMpRegen() != _lastStatus.mpRegen) {
+			column += L1PcInventory.COL_MPR;
+		}
+		if (getAddSpellpower() != _lastStatus.additionalSp) {
+			column += L1PcInventory.COL_ADDSP;
+		}
+		if (getMagicResist() != _lastStatus.magicResist) {
+			column += L1PcInventory.COL_M_DEF;
+		}
+		if (getEarthResist() != _lastStatus.earthResist) {
+			column += L1PcInventory.COL_EARTHMR;
+		}
+		if (getFireResist() != _lastStatus.fireResist) {
+			column += L1PcInventory.COL_FIREMR;
+		}
+		if (getWaterResist() != _lastStatus.waterResist) {
+			column += L1PcInventory.COL_WATERMR;
+		}
+		if (getWindResist() != _lastStatus.windResist) {
+			column += L1PcInventory.COL_WINDMR;
+		}
+
+		return column;
+	}
+
+
 
 	public String getNumberedViewName(int count) {
 		StringBuilder name = new StringBuilder(getNumberedName(count));
@@ -563,11 +626,17 @@ public class L1ItemInstance extends L1Object {
 				}
 				os.writeC(ac);
 				os.writeC(getItem().getMaterial());
+				os.writeC(getItem().getGrade());
 				os.writeD(getWeight());
 			}
 			if (getEnchantLevel() != 0) {
 				os.writeC(2);
-				os.writeC(getEnchantLevel());
+				if (getItem().getType2() == 2 && getItem().getType() >= 8 &&
+						getItem().getType() <= 12) {
+					os.writeC(0);
+				} else {
+					os.writeC(getEnchantLevel());
+				}
 			}
 			if (get_durability() != 0) {
 				os.writeC(3);
@@ -656,40 +725,40 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(getItem().get_addcha());
 			}
 			// HP, MP
-			if (getItem().get_addhp() != 0) {
+			if (getItem().get_addhp() != 0 || getAddHp() != 0) {
 				os.writeC(14);
-				os.writeH(getItem().get_addhp());
+				os.writeH(getItem().get_addhp() + getAddHp());
 			}
-			if (getItem().get_addmp() != 0) {
+			if (getItem().get_addmp() != 0 || getAddMp() != 0) {
 				os.writeC(32);
-				os.writeC(getItem().get_addmp());
+				os.writeC(getItem().get_addmp() + getAddMp());
 			}
 			if (getMr() != 0) {
 				os.writeC(15);
 				os.writeH(getMr());
 			}
-			if (getItem().get_addsp() != 0) {
+			if (getItem().get_addsp() != 0 || getAddSpellpower() != 0) {
 				os.writeC(17);
-				os.writeC(getItem().get_addsp());
+				os.writeC(getItem().get_addsp() + getAddSpellpower());
 			}
 			if (getItem().isHasteItem()) {
 				os.writeC(18);
 			}
-			if (getItem().get_defense_fire() != 0) {
+			if (getItem().get_defense_fire() != 0 || getFireResist() != 0) {
 				os.writeC(27);
-				os.writeC(getItem().get_defense_fire());
+				os.writeC(getItem().get_defense_fire() + getFireResist());
 			}
-			if (getItem().get_defense_water() != 0) {
+			if (getItem().get_defense_water() != 0 || getWaterResist() != 0) {
 				os.writeC(28);
-				os.writeC(getItem().get_defense_water());
+				os.writeC(getItem().get_defense_water() + getWaterResist());
 			}
-			if (getItem().get_defense_wind() != 0) {
+			if (getItem().get_defense_wind() != 0 || getWindResist() != 0) {
 				os.writeC(29);
-				os.writeC(getItem().get_defense_wind());
+				os.writeC(getItem().get_defense_wind() + getWindResist());
 			}
-			if (getItem().get_defense_earth() != 0) {
+			if (getItem().get_defense_earth() != 0 || getEarthResist() != 0) {
 				os.writeC(30);
-				os.writeC(getItem().get_defense_earth());
+				os.writeC(getItem().get_defense_earth() + getEarthResist());
 			}
 			if (getItem().get_resist_freeze() != 0) {
 				os.writeC(15);
@@ -727,6 +796,19 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(33);
 				os.writeC(6);
 			}
+			if (getMagicResist() != 0) {
+				os.writeC(15);
+				os.writeH(getMagicResist());
+			}
+			if (getItem().get_addhpr() != 0 || getAddHpRegen() != 0) {
+				os.writeC(37);
+				os.writeC(getItem().get_addhpr() + getAddHpRegen());
+			}
+			if (getItem().get_addmpr() != 0 || getAddMpRegen() != 0) {
+				os.writeC(38);
+				os.writeC(getItem().get_addmpr() + getAddMpRegen());
+			}
+
 			// if (getItem.getLuck() != 0) {
 			// os.writeC(20);
 			// os.writeC(val);
@@ -808,6 +890,38 @@ public class L1ItemInstance extends L1Object {
 	public void setHitByMagic(int i) {
 		_hitByMagic = i;
 	}
+
+	private int _fireResist;
+	private int _waterResist;
+	private int _earthResist;
+	private int _windResist;
+	private int _addSpellpower;
+	private int _addHpRegen;
+	private int _addMpRegen;
+	private int _addHp;
+	private int _addMp;
+	private int _addMr;
+
+	public void setFireResist(int resist) { _fireResist = resist; }
+	public int getFireResist() { return _fireResist; }
+	public void setWaterResist(int resist) { _waterResist = resist; }
+	public int getWaterResist() { return _waterResist; }
+	public void setEarthResist(int resist) { _earthResist = resist; }
+	public int getEarthResist() { return _earthResist; }
+	public void setWindResist(int resist) { _windResist = resist; }
+	public int getWindResist() { return _windResist; }
+	public void setAddSpellpower(int spellpower) { _addSpellpower = spellpower; }
+	public int getAddSpellpower() { return _addSpellpower; }
+	public void setAddHpRegen(int regen) { _addHpRegen = regen; }
+	public int getAddHpRegen() { return _addHpRegen; }
+	public void setAddMpRegen(int regen) { _addMpRegen = regen; }
+	public int getAddMpRegen() { return _addMpRegen; }
+	public void setAddHp(int points) { _addHp = points; }
+	public int getAddHp() { return _addHp; }
+	public void setAddMp(int points) { _addMp = points; }
+	public int getAddMp() { return _addMp; }
+	public void setMagicResist(int resist) { _addMr = resist; }
+	public int getMagicResist() { return _addMr; }
 
 	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, 
 			int skillTime) {
