@@ -29,13 +29,13 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1PetItem;
 
-// Referenced classes of package l1j.server.server.clientpackets:
-// ClientBasePacket
 public class C_UsePetItem extends ClientBasePacket {
 
 	private static final String C_USE_PET_ITEM = "[C] C_UsePetItem";
 	private static Logger _log = Logger.getLogger(C_UsePetItem.class.getName());
 
+	private static final S_ServerMessage CantMessage = new S_ServerMessage(79);
+	
 	public C_UsePetItem(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 
@@ -54,17 +54,18 @@ public class C_UsePetItem extends ClientBasePacket {
 			return;
 		}
 
-		if (item.getItem().getType2() == 0 && item.getItem().getType() == 11) { // petitem
-			int itemId = item.getItem().getItemId();
+		L1Item template = item.getItem();
+		if (template.getType2() == 0 && template.getType() == 11) { // petitem
+			int itemId = template.getItemId();
 			if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756 && itemId <= 40758) {
 				usePetWeapon(pc, pet, item);
 			} else if (itemId >= 40761 && itemId <= 40766) {
 				usePetArmor(pc, pet, item);
 			} else {
-				pc.sendPackets(new S_ServerMessage(79));
+				pc.sendPackets(CantMessage);
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(CantMessage);
 		}
 	}
 
@@ -100,7 +101,7 @@ public class C_UsePetItem extends ClientBasePacket {
 		int itemId = weapon.getItem().getItemId();
 		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
 		if (petItem == null) {
-		return;
+			return;
 		}
 		pet.setHitByWeapon(petItem.getHitModifier());
 		pet.setDamageByWeapon(petItem.getDamageModifier());
@@ -121,7 +122,7 @@ public class C_UsePetItem extends ClientBasePacket {
 		int itemId = weapon.getItem().getItemId();
 		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
 		if (petItem == null) {
-		return;
+			return;
 		}
 		pet.setHitByWeapon(0);
 		pet.setDamageByWeapon(0);
@@ -142,7 +143,7 @@ public class C_UsePetItem extends ClientBasePacket {
 		int itemId = armor.getItem().getItemId();
 		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
 		if (petItem == null) {
-		return;
+			return;
 		}
 		pet.addAc(petItem.getAddAc());
 		pet.addStr(petItem.getAddStr());
