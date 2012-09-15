@@ -100,11 +100,9 @@ public class PCommands {
 		new S_SystemMessage("You have to equip Helm of Magic to use -dkbuff.");
 	private static final S_SystemMessage NoMp =
 		new S_SystemMessage("You don't have enough mana to use -dkbuff.");
-<<<<<<< HEAD
-=======
+
 	private static final S_SystemMessage NoDkBuff =
 		new S_SystemMessage("The -dkbuff command is disabled.");
->>>>>>> e8aa4905038390f9f84774d5be22bd420fc758b4
 
 	private PCommands() { }
 
