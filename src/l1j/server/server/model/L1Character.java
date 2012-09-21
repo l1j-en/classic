@@ -135,14 +135,8 @@ public class L1Character extends L1Object {
 	public void broadcastPacketForFindInvis(ServerBasePacket packet,
 			boolean isFindInvis) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (isFindInvis) {
-				if (pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
-					pc.sendPackets(packet);
-				}
-			} else {
-				if (!pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
-					pc.sendPackets(packet);
-				}
+			if (isFindInvis && pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+				pc.sendPackets(packet);
 			}
 		}
 	}
