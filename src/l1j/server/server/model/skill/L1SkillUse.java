@@ -1918,6 +1918,8 @@ public class L1SkillUse {
 								6509));
 					_player.broadcastPacket(new S_SkillSound(_player.getId(),
 								7020));
+					if (!_player.isFoeSlayerSuccess())
+						continue;
 					// Foe Slayer will kill the effect of weakness exposure
 					if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
@@ -1929,6 +1931,7 @@ public class L1SkillUse {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV3);
 						_player.sendPackets(new S_SkillIconGFX(75, 0));
 					}
+					_player.setFoeSlayerSucess(false);
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) {
 					if (_user instanceof L1NpcInstance) {
