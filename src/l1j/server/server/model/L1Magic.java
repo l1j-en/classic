@@ -307,7 +307,7 @@ public class L1Magic {
 		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 			damage = calcNpcMagicDamage(skillId);
 		}
-		return skillId == JOY_OF_PAIN || skillId == FINAL_BURN
+		return skillId == JOY_OF_PAIN
 			? damage
 			: calcMrDefense(damage);
 	}
