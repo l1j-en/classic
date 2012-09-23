@@ -659,7 +659,7 @@ public class L1Attack {
 				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
 					damage += 4;
 				}
-				_pc.setFoeSlayerSucess(true);
+				_pc.setFoeSlayerSuccess(true);
 			}
 			else
 			revealWeakness();

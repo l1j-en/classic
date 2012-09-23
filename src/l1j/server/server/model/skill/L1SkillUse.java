@@ -1931,7 +1931,7 @@ public class L1SkillUse {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV3);
 						_player.sendPackets(new S_SkillIconGFX(75, 0));
 					}
-					_player.setFoeSlayerSucess(false);
+					_player.setFoeSlayerSuccess(false);
 				} else if (_skillId == 10026 || _skillId == 10027
 						|| _skillId == 10028 || _skillId == 10029) {
 					if (_user instanceof L1NpcInstance) {
