@@ -127,6 +127,18 @@ public class L1BossSpawn extends L1Spawn {
 		// The emergence of time to keep. When re-emergence.
 		_activeSpawnTime = spawnTime;
 		long delay = spawnTime.getTimeInMillis() - System.currentTimeMillis();
+		if (Config.RANDOMIZE_BOSS_SPAWNS) {
+			System.out.println(String.format("Original delay: %d.", delay));
+			double adjustment = _rnd.nextGaussian();
+			// Bound the possible values to keep the boss spawns reasonable.
+			if (adjustment > 2.5)
+				adjustment = 2.5;
+			else if (adjustment < -2.5)
+				adjustment = -2.5;
+			delay = delay + (long) (delay * adjustment *
+				Config.RANDOMIZED_BOSS_SPAWN_FACTOR);
+			System.out.println(String.format("New delay: %d.", delay));
+		}
 		int cnt = _spawnCount;
 		_spawnCount = getAmount();
 		while (cnt < getAmount()) {

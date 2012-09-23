@@ -254,6 +254,9 @@ public final class Config {
 
 	public static int ACCESSORY_ENCHANT_LIMIT;
 
+	public static boolean RANDOMIZE_BOSS_SPAWNS;
+	public static double RANDOMIZED_BOSS_SPAWN_FACTOR;
+	
 	public static int MAX_PT;
 
 	public static int MAX_CHAT_PT;
@@ -489,6 +492,9 @@ public final class Config {
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
 	public static int Show_INGAMENEWS_Time;
+	
+	/** Security Settings **/
+	public static int DELAY_DISCONNECT;
 
 	public static void load() {
 		System.out.println("Loading GameServer config.");
@@ -544,6 +550,7 @@ public final class Config {
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty("LevelDownRange", "0"));
 			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings.getProperty("SendPacketBeforeTeleport", "False"));
 			DETECT_DB_RESOURCE_LEAKS = Boolean.parseBoolean(serverSettings.getProperty("EnableDatabaseResourceLeaksDetection", "False"));
+			DELAY_DISCONNECT = Integer.parseInt(serverSettings.getProperty("DelayDisconnect", "0"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
@@ -639,6 +646,8 @@ public final class Config {
 			ALT_REVIVAL_POTION = Boolean.parseBoolean(altSettings.getProperty("RevivalPotion", "False"));
 			MONSTERPOTIONINTUSE = Integer.parseInt(altSettings.getProperty("MonsterIntPotions", "13"));
 			HAUNTEDHOUSETIME = Integer.parseInt(altSettings.getProperty("HauntedHouseTime", "90000"));
+			RANDOMIZE_BOSS_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("RandomizeBossSpawns", "False"));
+			RANDOMIZED_BOSS_SPAWN_FACTOR = Double.parseDouble(altSettings.getProperty("RandomizedBossSpawnFactor", ".5"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
