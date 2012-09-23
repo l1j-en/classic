@@ -2662,7 +2662,7 @@ public class L1PcInstance extends L1Character {
 	// check if FoeSlayer landed successfully
 	private boolean _FoeSlayerSuccess = false;
 	
-	public void setFoeSlayerSucess(boolean FoeSlayerSuccess) {
+	public void setFoeSlayerSuccess(boolean FoeSlayerSuccess) {
 		_FoeSlayerSuccess = FoeSlayerSuccess;
 	}
 
