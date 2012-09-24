@@ -626,7 +626,9 @@ public class L1ItemInstance extends L1Object {
 				}
 				os.writeC(ac);
 				os.writeC(getItem().getMaterial());
-				os.writeC(getItem().getGrade());
+				// US clients aren't expecting this so it messes up the
+				// displayed weight for armor.
+				// os.writeC(getItem().getGrade());
 				os.writeD(getWeight());
 			}
 			if (getEnchantLevel() != 0) {
