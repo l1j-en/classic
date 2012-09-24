@@ -631,8 +631,8 @@ public class L1ItemInstance extends L1Object {
 			}
 			if (getEnchantLevel() != 0) {
 				os.writeC(2);
-				if (getItem().getType2() == 2 && getItem().getType() >= 8 &&
-						getItem().getType() <= 12) {
+				if (getItem().getType2() == 2 && (getItem().getType() >= 8 &&
+						getItem().getType() <= 12)) {
 					os.writeC(0);
 				} else {
 					os.writeC(getEnchantLevel());
