@@ -5655,7 +5655,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			ItemTable.getInstance().createItem(40859 + spellId);
 		if (scroll == null)
 			return;
-		if (pc.getInventory().checkAddItem(scroll, 1) == L1Inventory.OK) {
+		final L1PcInventory inventory = pc.getInventory();
+		if (inventory.checkAddItem(scroll, 1) == L1Inventory.OK) {
 			L1Skill skill = 
 				SkillTable.getInstance().findBySkillId(spellId + 1);
 			if (pc.getCurrentHp() + 1 < skill.getHpConsume() + 1) {
@@ -5684,11 +5685,11 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 			pc.setLawful(lawful);
 			if (skill.getItemConsumeId() != 0) {
-				pc.getInventory().consumeItem(skill.getItemConsumeId(),
+				inventory.consumeItem(skill.getItemConsumeId(),
 						skill.getItemConsumeCount());
 			}
-			pc.getInventory().removeItem(scrollId, 1);
-			pc.getInventory().storeItem(scroll);
+			inventory.removeItem(inventory.findItemId(scrollId), 1);
+			inventory.storeItem(scroll);
 		}
 	}
 
