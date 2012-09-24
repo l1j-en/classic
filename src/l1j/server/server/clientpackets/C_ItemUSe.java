@@ -2541,10 +2541,10 @@ public class C_ItemUSe extends ClientBasePacket {
 	private static boolean potionCheck(final L1PcInstance player) {
 		if (player.hasSkillEffect(DECAY_POTION)) {
 			player.sendPackets(new S_ServerMessage(698));
-			return true;
+			return false;
 		}
 		cancelAbsoluteBarrier(player);
-		return false;
+		return true;
 	}
 
 	private static void sendAndBroadcast(final L1PcInstance player,
