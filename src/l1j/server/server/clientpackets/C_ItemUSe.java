@@ -317,7 +317,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			Enchant.enchantAccessory(pc, l1iteminstance, l1iteminstance1);
 		} else if (l1iteminstance.getItem().getType2() == 0) {
 			L1Item template = l1iteminstance.getItem();
-
+						
 			int minLvl = template.getMinLevel();
 			int maxLvl = template.getMaxLevel();
 			if (minLvl != 0 && minLvl > pc.getLevel() && !pc.isGm()) {
@@ -607,7 +607,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				usePolyPotion(pc, itemId);
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40317) {
-				if (template.getType2() != 0
+				if (l1iteminstance1.getItem().getType2() != 0
 						&& l1iteminstance1.get_durability() > 0) {
 					String msg0;
 					inventory.recoveryDamage(l1iteminstance1);
@@ -662,7 +662,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.sendPackets(new S_IdentifyDesc(l1iteminstance1));
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41036) {
-				int diaryId = template.getItemId();
+				int diaryId = l1iteminstance1.getItem().getItemId();
 				if (diaryId >= 41038 && 41047 >= diaryId) {
 					if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_DIARY) {
 						createNewItem(pc, diaryId + 10, 1);
@@ -676,7 +676,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 			} else if (itemId >= 41048 && 41055 >= itemId) { 
-				int logbookId = template.getItemId();
+				int logbookId = l1iteminstance1.getItem().getItemId();
 				if (logbookId == (itemId + 8034)) {
 					createNewItem(pc, logbookId + 2, 1);
 					inventory.removeItem(l1iteminstance1, 1);
@@ -685,7 +685,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); 
 				}
 			} else if (itemId == 41056 || itemId == 41057) {
-				int logbookId = template.getItemId();
+				int logbookId = l1iteminstance1.getItem().getItemId();
 				if (logbookId == (itemId + 8034)) {
 					createNewItem(pc, 41058, 1);
 					inventory.removeItem(l1iteminstance1, 1);
@@ -694,7 +694,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); 
 				}
 			} else if (itemId == 40925) { 
-				int earingId = template.getItemId();
+				int earingId = l1iteminstance1.getItem().getItemId();;
 				if (earingId >= 40987 && 40989 >= earingId) { 
 					if (_random.nextInt(100) < Config.CREATE_CHANCE_RECOLLECTION) {
 						createNewItem(pc, earingId + 186, 1);
@@ -708,7 +708,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); 
 				}
 			} else if (itemId >= 40926 && 40929 >= itemId) {
-				int earing2Id = template.getItemId();
+				int earing2Id = l1iteminstance1.getItem().getItemId();;
 				int potion1 = 0;
 				int potion2 = 0;
 				if (earing2Id >= 41173 && 41184 >= earing2Id) {
@@ -744,7 +744,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); 
 				}
 			} else if (itemId >= 40931 && 40942 >= itemId) {
-				int earing3Id = template.getItemId();
+				int earing3Id = l1iteminstance1.getItem().getItemId();;
 				int earinglevel = 0;
 				if (earing3Id >= 41161 && 41172 >= earing3Id) {
 					if (earing3Id == (itemId + 230)) {
@@ -788,7 +788,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 			} else if (itemId >= 40943 && 40958 >= itemId) {
-				int ringId = template.getItemId();
+				int ringId = l1iteminstance1.getItem().getItemId();
 				int ringlevel = 0;
 				int gmas = 0;
 				int gmam = 0;
@@ -863,7 +863,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 			} else if (itemId == 41029) {
-				int dantesId = template.getItemId();
+				int dantesId = l1iteminstance1.getItem().getItemId();
 				if (dantesId >= 41030 && 41034 >= dantesId) {
 					if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_DANTES) {
 						createNewItem(pc, dantesId + 1, 1);
