@@ -209,6 +209,9 @@ public class L1SkillUse {
 		COUNTER_BARRIER
 	};
 
+	private static final S_SkillIconGFX EndRevealWeakness =
+		new S_SkillIconGFX(75, 0);
+
 	static {
 		Arrays.sort(CAST_WITH_INVIS);
 		Arrays.sort(EXCEPT_COUNTER_MAGIC);
@@ -1910,26 +1913,22 @@ public class L1SkillUse {
 						_target.onAction(_player);
 					}
 					_player.setFoeSlayer(false);
-					_player.sendPackets(new S_SkillSound(_target.getId(),
-								6509));
-					_player.sendPackets(new S_SkillSound(_player.getId(),
-								7020));
-					_player.broadcastPacket(new S_SkillSound(_target.getId(),
-								6509));
-					_player.broadcastPacket(new S_SkillSound(_player.getId(),
-								7020));
+					_player.sendPackets(new S_SkillSound(_target.getId(), 6509));
+					_player.sendPackets(new S_SkillSound(_player.getId(), 7020));
+					_player.broadcastPacket(new S_SkillSound(_target.getId(), 6509));
+					_player.broadcastPacket(new S_SkillSound(_player.getId(), 7020));
 					if (!_player.isFoeSlayerSuccess())
 						continue;
 					// Foe Slayer will kill the effect of weakness exposure
 					if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV1);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
+						_player.sendPackets(EndRevealWeakness);
 					} else if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV2);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
+						_player.sendPackets(EndRevealWeakness);
 					} else if (_player.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
 						_player.killSkillEffectTimer(STATUS_WEAKNESS_EXPOSURE_LV3);
-						_player.sendPackets(new S_SkillIconGFX(75, 0));
+						_player.sendPackets(EndRevealWeakness);
 					}
 					_player.setFoeSlayerSuccess(false);
 				} else if (_skillId == 10026 || _skillId == 10027
