@@ -653,16 +653,15 @@ public class L1Attack {
 		if (_weaponType2 == WeaponType.Chainsword) {
 			if (_pc.isFoeSlayer()) {
 				if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
-					damage += 12;
+					damage += 60;
 				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
-					damage += 8;
+					damage += 40;
 				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
-					damage += 4;
+					damage += 20;
 				}
 				_pc.setFoeSlayerSuccess(true);
-			}
-			else
-			revealWeakness();
+			} else
+				revealWeakness();
 		}
 		
 		damage += isRanged ? _pc.getBowDmgModifierByArmor()
