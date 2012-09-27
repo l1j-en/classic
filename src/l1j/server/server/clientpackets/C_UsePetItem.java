@@ -47,7 +47,7 @@ public class C_UsePetItem extends ClientBasePacket {
 		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(petId);
 		L1PcInstance pc = clientthread.getActiveChar();
 
-		if (pet == null && pc == null) {
+		if (pet == null || pc == null) {
 			return;
 		}
 		L1ItemInstance item = pet.getInventory().getItems().get(listNo);
@@ -73,12 +73,13 @@ public class C_UsePetItem extends ClientBasePacket {
 	private void usePetWeapon(L1PcInstance pc, L1PetInstance pet,
 			L1ItemInstance weapon) {
 		if (pet.getWeapon() == null) {
+			
 			setPetWeapon(pc, pet, weapon);
 		} else {
 			if (pet.getWeapon().equals(weapon)) {
-				removePetWeapon(pc, pet, pet.getWeapon());
+				pet.removeWeapon(weapon);
 			} else {
-				removePetWeapon(pc, pet, pet.getWeapon());
+				pet.removeWeapon(weapon);
 				setPetWeapon(pc, pet, weapon);
 			}
 		}
@@ -90,94 +91,22 @@ public class C_UsePetItem extends ClientBasePacket {
 			setPetArmor(pc, pet, armor);
 		} else {
 			if (pet.getArmor().equals(armor)) {
-				removePetArmor(pc, pet, pet.getArmor());
+				pet.removeArmor(armor);
 			} else {
-				removePetArmor(pc, pet, pet.getArmor());
+				pet.removeArmor(armor);
 				setPetArmor(pc, pet, armor);
 			}
 		}
 	}
 
 	private void setPetWeapon(L1PcInstance pc, L1PetInstance pet, L1ItemInstance weapon) {
-		int itemId = weapon.getItem().getItemId();
-		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
-		if (petItem == null) {
-			return;
-		}
-		pet.setHitByWeapon(petItem.getHitModifier());
-		pet.setDamageByWeapon(petItem.getDamageModifier());
-		pet.addStr(petItem.getAddStr());
-		pet.addCon(petItem.getAddCon());
-		pet.addDex(petItem.getAddDex());
-		pet.addInt(petItem.getAddInt());
-		pet.addWis(petItem.getAddWis());
-		pet.addMaxHp(petItem.getAddHp());
-		pet.addMaxMp(petItem.getAddMp());
-		pet.addSp(petItem.getAddSp());
-		pet.addMr(petItem.getAddMr());
 		pet.setWeapon(weapon);
-		weapon.setEquipped(true);
-	}
 
-	private void removePetWeapon(L1PcInstance pc, L1PetInstance pet, L1ItemInstance weapon) {
-		int itemId = weapon.getItem().getItemId();
-		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
-		if (petItem == null) {
-			return;
-		}
-		pet.setHitByWeapon(0);
-		pet.setDamageByWeapon(0);
-		pet.addStr(-petItem.getAddStr());
-		pet.addCon(-petItem.getAddCon());
-		pet.addDex(-petItem.getAddDex());
-		pet.addInt(-petItem.getAddInt());
-		pet.addWis(-petItem.getAddWis());
-		pet.addMaxHp(-petItem.getAddHp());
-		pet.addMaxMp(-petItem.getAddMp());
-		pet.addSp(-petItem.getAddSp());
-		pet.addMr(-petItem.getAddMr());
-		pet.setWeapon(null);
-		weapon.setEquipped(false);
 	}
 
 	private void setPetArmor(L1PcInstance pc, L1PetInstance pet, L1ItemInstance armor) {
-		int itemId = armor.getItem().getItemId();
-		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
-		if (petItem == null) {
-			return;
-		}
-		pet.addAc(petItem.getAddAc());
-		pet.addStr(petItem.getAddStr());
-		pet.addCon(petItem.getAddCon());
-		pet.addDex(petItem.getAddDex());
-		pet.addInt(petItem.getAddInt());
-		pet.addWis(petItem.getAddWis());
-		pet.addMaxHp(petItem.getAddHp());
-		pet.addMaxMp(petItem.getAddMp());
-		pet.addSp(petItem.getAddSp());
-		pet.addMr(petItem.getAddMr());
 		pet.setArmor(armor);
-		armor.setEquipped(true);
-	}
 
-	private void removePetArmor(L1PcInstance pc, L1PetInstance pet, L1ItemInstance armor) {
-		int itemId = armor.getItem().getItemId();
-		L1PetItem petItem = PetItemTable.getInstance().getTemplate(itemId);
-		if (petItem == null) {
-			return;
-		}
-		pet.addAc(-petItem.getAddAc());
-		pet.addStr(-petItem.getAddStr());
-		pet.addCon(-petItem.getAddCon());
-		pet.addDex(-petItem.getAddDex());
-		pet.addInt(-petItem.getAddInt());
-		pet.addWis(-petItem.getAddWis());
-		pet.addMaxHp(-petItem.getAddHp());
-		pet.addMaxMp(-petItem.getAddMp());
-		pet.addSp(-petItem.getAddSp());
-		pet.addMr(-petItem.getAddMr());
-		pet.setArmor(null);
-		armor.setEquipped(false);
 	}
 
 	@Override
