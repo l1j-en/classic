@@ -9,6 +9,7 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.PetItemTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Attack;
@@ -26,6 +27,7 @@ import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
+import l1j.server.server.templates.L1PetItem;
 import l1j.server.server.templates.L1PetType;
 
 public class L1PetInstance extends L1NpcInstance {
@@ -564,6 +566,25 @@ public class L1PetInstance extends L1NpcInstance {
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet != null)
 			l1pet.set_weapon(weapon.getItemId());
+
+		// TODO: stat changes
+		int itemId = weapon.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		setHitByWeapon(template.getHitModifier());
+		setDamageByWeapon(template.getDamageModifier());
+		addStr(template.getAddStr());
+		addCon(template.getAddCon());
+		addDex(template.getAddDex());
+		addInt(template.getAddInt());
+		addWis(template.getAddWis());
+		addMaxHp(template.getAddHp());
+		addMaxMp(template.getAddMp());
+		addSp(template.getAddSp());
+		addMr(template.getAddMr());
+		weapon.setEquipped(true);
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -582,6 +603,64 @@ public class L1PetInstance extends L1NpcInstance {
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
 		if (l1pet == null)
 			l1pet.set_armor(armor.getItemId());
+
+		int itemId = armor.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		addAc(template.getAddAc());
+		addStr(template.getAddStr());
+		addCon(template.getAddCon());
+		addDex(template.getAddDex());
+		addInt(template.getAddInt());
+		addWis(template.getAddWis());
+		addMaxHp(template.getAddHp());
+		addMaxMp(template.getAddMp());
+		addSp(template.getAddSp());
+		addMr(template.getAddMr());
+		armor.setEquipped(true);
+	}
+
+	public void removeArmor(final L1ItemInstance armor) {
+		int itemId = armor.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		addAc(-template.getAddAc());
+		addStr(-template.getAddStr());
+		addCon(-template.getAddCon());
+		addDex(-template.getAddDex());
+		addInt(-template.getAddInt());
+		addWis(-template.getAddWis());
+		addMaxHp(-template.getAddHp());
+		addMaxMp(-template.getAddMp());
+		addSp(-template.getAddSp());
+		addMr(-template.getAddMr());
+		setArmor(null);
+		armor.setEquipped(false);
+	}
+
+	public void removeWeapon(final L1ItemInstance weapon) {
+		int itemId = weapon.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		setHitByWeapon(0);
+		setDamageByWeapon(0);
+		addStr(-template.getAddStr());
+		addCon(-template.getAddCon());
+		addDex(-template.getAddDex());
+		addInt(-template.getAddInt());
+		addWis(-template.getAddWis());
+		addMaxHp(-template.getAddHp());
+		addMaxMp(-template.getAddMp());
+		addSp(-template.getAddSp());
+		addMr(-template.getAddMr());
+		setWeapon(null);
+		weapon.setEquipped(false);
 	}
 
 	public L1ItemInstance getArmor() {
