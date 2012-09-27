@@ -2658,4 +2658,15 @@ public class L1PcInstance extends L1Character {
 	public boolean isFoeSlayer() {
 		return _FoeSlayer;
 	}
+	
+	// check if FoeSlayer landed successfully
+	private boolean _FoeSlayerSuccess = false;
+	
+	public void setFoeSlayerSuccess(boolean FoeSlayerSuccess) {
+		_FoeSlayerSuccess = FoeSlayerSuccess;
+	}
+
+	public boolean isFoeSlayerSuccess() {
+		return _FoeSlayerSuccess;
+	}
 }

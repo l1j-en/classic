@@ -651,14 +651,18 @@ public class L1Attack {
 		}
 		
 		if (_weaponType2 == WeaponType.Chainsword) {
-			revealWeakness();
-			if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
-				damage += 12;
-			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
-				damage += 8;
-			} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
-				damage += 4;
+			if (_pc.isFoeSlayer()) {
+				if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
+					damage += 12;
+				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV2)) {
+					damage += 8;
+				} else if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV1)) {
+					damage += 4;
+				}
+				_pc.setFoeSlayerSuccess(true);
 			}
+			else
+			revealWeakness();
 		}
 		
 		damage += isRanged ? _pc.getBowDmgModifierByArmor()
@@ -1414,10 +1418,6 @@ public class L1Attack {
 	private static final S_SkillIconGFX Weakness3 = new S_SkillIconGFX(75, 3);
 
 	private void revealWeakness() {
-		// Foe Slayer will not trigger reveal Weakness
-		if (_pc.isFoeSlayer()) {
-			return;
-		}
 
 		int random = _random.nextInt(100) + 1;
 		int weaponWeaknessExposureChance = 30;
