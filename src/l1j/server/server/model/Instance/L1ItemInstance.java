@@ -12,6 +12,7 @@ import l1j.server.server.model.L1EquipmentTimer;
 import l1j.server.server.model.L1ItemOwnerTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
+import l1j.server.server.model.item.ItemType;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Armor;
@@ -468,7 +469,7 @@ public class L1ItemInstance extends L1Object {
 			}
 		}
 
-		if (getItem().getType2() == 0 && getItem().getType() == 2) {
+		if (getItem().getType2() == ItemType.Etc && getItem().getType() == 2) {
 			if (isNowLighting()) {
 				name.append(" ($10)");
 			}
@@ -480,11 +481,11 @@ public class L1ItemInstance extends L1Object {
 		}
 
 		if (isEquipped()) {
-			if (itemType2 == 1) {
+			if (itemType2 == ItemType.Weapon) {
 				name.append(" ($9)"); //(Armed)
-			} else if (itemType2 == 2) {
+			} else if (itemType2 == ItemType.Armor) {
 				name.append(" ($117)"); // 
-			} else if (itemType2 == 0 && getItem().getType() == 11) { // petitem
+			} else if (itemType2 == ItemType.Etc && getItem().getType() == 11) { // petitem
 				name.append(" ($117)"); //
 			}
 		}
@@ -502,8 +503,10 @@ public class L1ItemInstance extends L1Object {
 	public String getNumberedName(int count) {
 		StringBuilder name = new StringBuilder();
 
+		int generalType = getItem().getType2();
+
 		if (isIdentified()) {
-			if (getItem().getType2() == 1) { 
+			if (generalType == ItemType.Weapon) { 
 				int attrEnchantLevel = getAttrEnchantLevel();
 				if (attrEnchantLevel > 0) {
 					String attrStr = null;
@@ -550,7 +553,7 @@ public class L1ItemInstance extends L1Object {
 					name.append(attrStr + " ");
 				}
 			}
-			if (getItem().getType2() == 1 || getItem().getType2() == 2) {
+			if (generalType == ItemType.Weapon || generalType == ItemType.Armor) {
 				if (getEnchantLevel() >= 0) {
 					name.append("+" + getEnchantLevel() + " ");
 				} else if (getEnchantLevel() < 0) {
@@ -570,7 +573,7 @@ public class L1ItemInstance extends L1Object {
 			if (getItem().getItemId() == 20383) {
 				name.append(" (" + getChargeCount() + ")");
 			}
-			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { //
+			if (getItem().getMaxUseTime() > 0 && generalType != ItemType.Etc) {
 				name.append(" (" + getRemainingTime() + ")");
 			}
 		}
@@ -583,61 +586,60 @@ public class L1ItemInstance extends L1Object {
 	}
 
 	public byte[] getStatusBytes() {
-		// TODO: cache the call to getItem() - there's no reason to make it the
-		// zillion times we do.
-		// L1Item template = getItem();
-		int itemType2 = getItem().getType2();
+		L1Item template = getItem();
+		int itemType2 = template.getType2();
 		int itemId = getItemId();
 		BinaryOutputStream os = new BinaryOutputStream();
+
+		final boolean isWeapon = itemType2 == ItemType.Weapon;
+		final boolean isArmor = itemType2 == ItemType.Armor;
 		
-		if (itemType2 == 0) { // etcitem
-			switch (getItem().getType()) {
+		if (itemType2 == ItemType.Etc) {
+			switch (template.getType()) {
 			case 2: // light
 				os.writeC(22); 
-				os.writeH(getItem().getLightRange());
+				os.writeH(template.getLightRange());
 				break;
 			case 7: // food
 				os.writeC(21);
-				os.writeH(getItem().getFoodVolume());
+				os.writeH(template.getFoodVolume());
 				break;
 			case 0: // arrow
 			case 15: // sting
 				os.writeC(1); 
-				os.writeC(getItem().getDmgSmall());
-				os.writeC(getItem().getDmgLarge());
+				os.writeC(template.getDmgSmall());
+				os.writeC(template.getDmgLarge());
 				break;
 			default:
 				os.writeC(23);
 				break;
 			}
-			os.writeC(getItem().getMaterial());
+			os.writeC(template.getMaterial());
 			os.writeD(getWeight());
-			
-		} else if (itemType2 == 1 || itemType2 == 2) { // weapon | armor
-			if (itemType2 == 1) { // weapon
+		} else if (isWeapon || isArmor) { // Statements below rely on this guard.
+			if (isWeapon) {
 				os.writeC(1);
-				os.writeC(getItem().getDmgSmall());
-				os.writeC(getItem().getDmgLarge());
-				os.writeC(getItem().getMaterial());
+				os.writeC(template.getDmgSmall());
+				os.writeC(template.getDmgLarge());
+				os.writeC(template.getMaterial());
 				os.writeD(getWeight());
-			} else if (itemType2 == 2) { // armor
-				// AC
+			} else {
 				os.writeC(19); 
-				int ac = ((L1Armor) getItem()).get_ac();
+				int ac = ((L1Armor) template).get_ac();
 				if (ac < 0) {
 					ac = ac - ac - ac;
 				}
 				os.writeC(ac);
-				os.writeC(getItem().getMaterial());
+				os.writeC(template.getMaterial());
 				// US clients aren't expecting this so it messes up the
 				// displayed weight for armor.
-				// os.writeC(getItem().getGrade());
+				// os.writeC(template.getGrade());
 				os.writeD(getWeight());
 			}
 			if (getEnchantLevel() != 0) {
 				os.writeC(2);
-				if (getItem().getType2() == 2 && getItem().getType() >= 8 &&
-						getItem().getType() <= 12) {
+				if (isArmor && template.getType() >= 8 &&
+						template.getType() <= 12) {
 					os.writeC(0);
 				} else {
 					os.writeC(getEnchantLevel());
@@ -647,54 +649,54 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(3);
 				os.writeC(get_durability());
 			}
-			if (getItem().isTwohandedWeapon()) {
+			if (template.isTwohandedWeapon()) {
 				os.writeC(4);
 			}
 			
-			if (itemType2 == 1) { // weapon
-				if (getItem().getHitModifier() != 0) {
+			if (isWeapon) {
+				if (template.getHitModifier() != 0) {
 					os.writeC(5);
-					os.writeC(getItem().getHitModifier());
+					os.writeC(template.getHitModifier());
 				}
-			} else if (itemType2 == 2) { // armor
-				if (getItem().getHitModifierByArmor() != 0) {
+			} else {
+				if (template.getHitModifierByArmor() != 0) {
 					os.writeC(5);
-					os.writeC(getItem().getHitModifierByArmor());
+					os.writeC(template.getHitModifierByArmor());
 				}
 			}
 
-			if (itemType2 == 1) { // weapon
-				if (getItem().getDmgModifier() != 0) {
+			if (isWeapon) {
+				if (template.getDmgModifier() != 0) {
 					os.writeC(6);
-					os.writeC(getItem().getDmgModifier());
+					os.writeC(template.getDmgModifier());
 				}
-			} else if (itemType2 == 2) { // armor
-				if (getItem().getDmgModifierByArmor() != 0) {
+			} else {
+				if (template.getDmgModifierByArmor() != 0) {
 					os.writeC(6);
-					os.writeC(getItem().getDmgModifierByArmor());
+					os.writeC(template.getDmgModifierByArmor());
 				}
 			}
 
 			int bit = 0;
-			bit |= getItem().isUseRoyal()   ? 1 : 0;
-			bit |= getItem().isUseKnight()  ? 2 : 0;
-			bit |= getItem().isUseElf()     ? 4 : 0;
-			bit |= getItem().isUseMage()    ? 8 : 0;
-			bit |= getItem().isUseDarkelf() ? 16 : 0;
-			bit |= getItem().isUseDragonknight() ? 32 : 0;
-			bit |= getItem().isUseIllusionist() ? 64 : 0;
-			// bit |= getItem().isUseHiPet() ? 64 : 0; 
+			bit |= template.isUseRoyal()   ? 1 : 0;
+			bit |= template.isUseKnight()  ? 2 : 0;
+			bit |= template.isUseElf()     ? 4 : 0;
+			bit |= template.isUseMage()    ? 8 : 0;
+			bit |= template.isUseDarkelf() ? 16 : 0;
+			bit |= template.isUseDragonknight() ? 32 : 0;
+			bit |= template.isUseIllusionist() ? 64 : 0;
+			// bit |= template.isUseHiPet() ? 64 : 0; 
 			os.writeC(7);
 			os.writeC(bit);
 
-			if (getItem().getBowHitModifierByArmor() != 0) {
+			if (template.getBowHitModifierByArmor() != 0) {
 				os.writeC(24);
-				os.writeC(getItem().getBowHitModifierByArmor());
+				os.writeC(template.getBowHitModifierByArmor());
 			}
 
-			if (getItem().getBowDmgModifierByArmor() != 0) {
+			if (template.getBowDmgModifierByArmor() != 0) {
 				os.writeC(35);
-				os.writeC(getItem().getBowDmgModifierByArmor());
+				os.writeC(template.getBowDmgModifierByArmor());
 			}
 
 			if (itemId == 126 || itemId == 127) { 
@@ -705,99 +707,99 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(34);
 			}
 			// STR~CHA
-			if (getItem().get_addstr() != 0) {
+			if (template.get_addstr() != 0) {
 				os.writeC(8);
-				os.writeC(getItem().get_addstr());
+				os.writeC(template.get_addstr());
 			}
-			if (getItem().get_adddex() != 0) {
+			if (template.get_adddex() != 0) {
 				os.writeC(9);
-				os.writeC(getItem().get_adddex());
+				os.writeC(template.get_adddex());
 			}
-			if (getItem().get_addcon() != 0) {
+			if (template.get_addcon() != 0) {
 				os.writeC(10);
-				os.writeC(getItem().get_addcon());
+				os.writeC(template.get_addcon());
 			}
-			if (getItem().get_addwis() != 0) {
+			if (template.get_addwis() != 0) {
 				os.writeC(11);
-				os.writeC(getItem().get_addwis());
+				os.writeC(template.get_addwis());
 			}
-			if (getItem().get_addint() != 0) {
+			if (template.get_addint() != 0) {
 				os.writeC(12);
-				os.writeC(getItem().get_addint());
+				os.writeC(template.get_addint());
 			}
-			if (getItem().get_addcha() != 0) {
+			if (template.get_addcha() != 0) {
 				os.writeC(13);
-				os.writeC(getItem().get_addcha());
+				os.writeC(template.get_addcha());
 			}
 			// HP, MP
-			if (getItem().get_addhp() != 0 || getAddHp() != 0) {
+			if (template.get_addhp() != 0 || getAddHp() != 0) {
 				os.writeC(14);
-				os.writeH(getItem().get_addhp() + getAddHp());
+				os.writeH(template.get_addhp() + getAddHp());
 			}
-			if (getItem().get_addmp() != 0 || getAddMp() != 0) {
+			if (template.get_addmp() != 0 || getAddMp() != 0) {
 				os.writeC(32);
-				os.writeC(getItem().get_addmp() + getAddMp());
+				os.writeC(template.get_addmp() + getAddMp());
 			}
 			if (getMr() != 0) {
 				os.writeC(15);
 				os.writeH(getMr());
 			}
-			if (getItem().get_addsp() != 0 || getAddSpellpower() != 0) {
+			if (template.get_addsp() != 0 || getAddSpellpower() != 0) {
 				os.writeC(17);
-				os.writeC(getItem().get_addsp() + getAddSpellpower());
+				os.writeC(template.get_addsp() + getAddSpellpower());
 			}
-			if (getItem().isHasteItem()) {
+			if (template.isHasteItem()) {
 				os.writeC(18);
 			}
-			if (getItem().get_defense_fire() != 0 || getFireResist() != 0) {
+			if (template.get_defense_fire() != 0 || getFireResist() != 0) {
 				os.writeC(27);
-				os.writeC(getItem().get_defense_fire() + getFireResist());
+				os.writeC(template.get_defense_fire() + getFireResist());
 			}
-			if (getItem().get_defense_water() != 0 || getWaterResist() != 0) {
+			if (template.get_defense_water() != 0 || getWaterResist() != 0) {
 				os.writeC(28);
-				os.writeC(getItem().get_defense_water() + getWaterResist());
+				os.writeC(template.get_defense_water() + getWaterResist());
 			}
-			if (getItem().get_defense_wind() != 0 || getWindResist() != 0) {
+			if (template.get_defense_wind() != 0 || getWindResist() != 0) {
 				os.writeC(29);
-				os.writeC(getItem().get_defense_wind() + getWindResist());
+				os.writeC(template.get_defense_wind() + getWindResist());
 			}
-			if (getItem().get_defense_earth() != 0 || getEarthResist() != 0) {
+			if (template.get_defense_earth() != 0 || getEarthResist() != 0) {
 				os.writeC(30);
-				os.writeC(getItem().get_defense_earth() + getEarthResist());
+				os.writeC(template.get_defense_earth() + getEarthResist());
 			}
-			if (getItem().get_resist_freeze() != 0) {
+			if (template.get_resist_freeze() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_freeze());
+				os.writeH(template.get_resist_freeze());
 				os.writeC(33);
 				os.writeC(1);
 			}
-			if (getItem().get_resist_stone() != 0) {
+			if (template.get_resist_stone() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_stone());
+				os.writeH(template.get_resist_stone());
 				os.writeC(33);
 				os.writeC(2);
 			}
-			if (getItem().get_resist_sleep() != 0) {
+			if (template.get_resist_sleep() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_sleep());
+				os.writeH(template.get_resist_sleep());
 				os.writeC(33);
 				os.writeC(3);
 			}
-			if (getItem().get_resist_blind() != 0) {
+			if (template.get_resist_blind() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_blind());
+				os.writeH(template.get_resist_blind());
 				os.writeC(33);
 				os.writeC(4);
 			}
-			if (getItem().get_resist_stun() != 0) {
+			if (template.get_resist_stun() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_stun());
+				os.writeH(template.get_resist_stun());
 				os.writeC(33);
 				os.writeC(5);
 			}
-			if (getItem().get_resist_sustain() != 0) {
+			if (template.get_resist_sustain() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_resist_sustain());
+				os.writeH(template.get_resist_sustain());
 				os.writeC(33);
 				os.writeC(6);
 			}
@@ -808,13 +810,13 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(15);
 				os.writeH(getMagicResist());
 			}
-			if (getItem().get_addhpr() != 0 || getAddHpRegen() != 0) {
+			if (template.get_addhpr() != 0 || getAddHpRegen() != 0) {
 				os.writeC(37);
-				os.writeC(getItem().get_addhpr() + getAddHpRegen());
+				os.writeC(template.get_addhpr() + getAddHpRegen());
 			}
-			if (getItem().get_addmpr() != 0 || getAddMpRegen() != 0) {
+			if (template.get_addmpr() != 0 || getAddMpRegen() != 0) {
 				os.writeC(38);
-				os.writeC(getItem().get_addmpr() + getAddMpRegen());
+				os.writeC(template.get_addmpr() + getAddMpRegen());
 			}
 			*/
 
@@ -1007,7 +1009,7 @@ public class L1ItemInstance extends L1Object {
 	private int _itemOwnerId = 0;
 
 	public int getItemOwnerId() {
-	return _itemOwnerId;
+		return _itemOwnerId;
 	}
 
 	public void setItemOwnerId(int i) {
