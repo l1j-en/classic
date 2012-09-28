@@ -583,6 +583,9 @@ public class L1ItemInstance extends L1Object {
 	}
 
 	public byte[] getStatusBytes() {
+		// TODO: cache the call to getItem() - there's no reason to make it the
+		// zillion times we do.
+		// L1Item template = getItem();
 		int itemType2 = getItem().getType2();
 		int itemId = getItemId();
 		BinaryOutputStream os = new BinaryOutputStream();
@@ -798,6 +801,9 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(33);
 				os.writeC(6);
 			}
+			/* Taken from l1j-tw accessory enchanting - these might not be the
+			 * right packets for US clients and could be causing the mangled
+			 * item descriptions.
 			if (getMagicResist() != 0) {
 				os.writeC(15);
 				os.writeH(getMagicResist());
@@ -810,6 +816,7 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(38);
 				os.writeC(getItem().get_addmpr() + getAddMpRegen());
 			}
+			*/
 
 			// if (getItem.getLuck() != 0) {
 			// os.writeC(20);
