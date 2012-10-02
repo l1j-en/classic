@@ -1,9 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
-
--- Queries that are pending an update should be placed here. This allows them
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 -- We used to have info on Aden Castle treasure chests, but apparently it was
 -- always wrong. jp2 doesn't seem to have an entry for them at all (though I'm
 -- really just guessing based on map/spawn ids).
