@@ -2858,8 +2858,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getInventory().consumeItem(41350,1);
 					htmlid = "robinhood12";
 					pc.getInventory().storeItem(205,1);
-					pc.getQuest().set_step(L1Quest.QUEST_MOONOFLONGBOW, L1Quest
-							.QUEST_END);
+					pc.getQuest().set_step(L1Quest.QUEST_MOONOFLONGBOW, 0); // makes the quest repeatable
 				}
 			} else if (s.equalsIgnoreCase("C")) {
 				if (pc.getQuest().get_step(L1Quest.QUEST_MOONOFLONGBOW) == 7) {
