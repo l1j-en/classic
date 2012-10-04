@@ -6,3 +6,7 @@
 
 -- Room in Lasta basement that shouldn't allow random teleportation.
 update mapids set teleportable=false where mapid=490;
+
+-- Make some of Black Knight of Darkness' attacks regular, upping leverage to
+-- compensate.
+update mobskill set trirnd=75,leverage=35 where mobid=45503;
