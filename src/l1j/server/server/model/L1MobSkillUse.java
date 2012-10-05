@@ -339,6 +339,16 @@ public class L1MobSkillUse {
 			int targetId = ite.next();
 			L1Attack attack = new L1Attack(_attacker, (L1Character) L1World
 					.getInstance().findObject(targetId));
+			if (_target.hasSkillEffect(COUNTER_BARRIER)) {
+				L1Magic magic = new L1Magic(_target, _attacker);
+				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
+						_attacker.getLocation().getTileLineDistance(_target.getLocation()) <= 2 &&
+						gfxId == 0) {
+					attack.actionCounterBarrier();
+					attack.commitCounterBarrier();
+					continue;
+				}
+			}
 			if (attack.calcHit()) {
 				if (getMobSkillTemplate().getLeverage(idx) > 0) {
 					attack.setLeverage(getMobSkillTemplate().getLeverage(idx));
