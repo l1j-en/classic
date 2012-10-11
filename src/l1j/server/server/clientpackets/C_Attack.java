@@ -28,6 +28,8 @@ import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.item.WeaponType;
+import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -58,25 +60,18 @@ public class C_Attack extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 
-		if (pc.isGhost() || pc.isDead() || pc.isTeleport()) {
+		if (pc.isGhost() || pc.isDead() || pc.isTeleport() ||
+				pc.isInvisble() || pc.isInvisDelay()) {
 			return;
 		}
-
-		L1Object target = L1World.getInstance().findObject(targetId);
-
-
+		
 		if (pc.getInventory().getWeight240() >= 197) { 
 			pc.sendPackets(new S_ServerMessage(110)); 
 			return;
 		}
 
-		if (pc.isInvisble()) { 
-			return;
-		}
+		L1Object target = L1World.getInstance().findObject(targetId);
 
-		if (pc.isInvisDelay()) {
-			return;
-		}
 
 		if (target instanceof L1Character) {
 			if (target.getMapId() != pc.getMapId() || pc.getLocation().getLineDistance(target.getLocation()) > 20D) { 
@@ -119,37 +114,36 @@ public class C_Attack extends ClientBasePacket {
 			L1ItemInstance weapon = pc.getWeapon();
 			int weaponId = 0;
 			int weaponType = 0;
-			L1ItemInstance arrow = null;
-			L1ItemInstance sting = null;
+			L1ItemInstance ammo = null;
 			if (weapon != null) {
 				weaponId = weapon.getItem().getItemId();
 				weaponType = weapon.getItem().getType1();
-				if (weaponType == 20) {
-					arrow = pc.getInventory().getArrow();
-				}
-				if (weaponType == 62) {
-					sting = pc.getInventory().getSting();
+				if (weaponType == WeaponType.Bow) {
+					ammo = pc.getInventory().getArrow();
+				} else if (weaponType == WeaponType.Gauntlet) {
+					ammo = pc.getInventory().getSting();
 				}
 			}
 			pc.setHeading(pc.targetDirection(x, y));
-			if (weaponType == 20 && (weaponId == 190 || arrow != null)) {
+			if (weaponType == WeaponType.Bow &&
+					(weaponId == L1ItemId.SayhasBow || ammo != null)) {
 				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
-				if (arrow != null) { 
-					pc.sendPackets(new S_UseArrowSkill(pc, 0, 66, _targetX, _targetY, true));
-					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 66, _targetX, _targetY, true));
-					pc.getInventory().removeItem(arrow, 1);
-				} else if (weaponId == 190) { 
-					pc.sendPackets(new S_UseArrowSkill(pc, 0, 2349, _targetX, _targetY, true));
-					pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2349, _targetX, _targetY, true));
+				if (ammo != null) { 
+					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 66,
+								_targetX, _targetY, true));
+					pc.getInventory().removeItem(ammo, 1);
+				} else if (weaponId == L1ItemId.SayhasBow) { 
+					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 2349,
+								_targetX, _targetY, true));
 				}
-			} else if (weaponType == 62 && sting != null) {
+			} else if (weaponType == WeaponType.Gauntlet && ammo != null) {
 				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
-				pc.sendPackets(new S_UseArrowSkill(pc, 0, 2989, _targetX, _targetY, true));
-				pc.broadcastPacket(new S_UseArrowSkill(pc, 0, 2989, _targetX, _targetY, true));
-				pc.getInventory().removeItem(sting, 1);
+				pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 2989, _targetX,
+							_targetY, true));
+				pc.getInventory().removeItem(ammo, 1);
 			} else {
-				pc.sendPackets(new S_AttackPacket(pc, 0, ActionCodes.ACTION_Attack));
-				pc.broadcastPacket(new S_AttackPacket(pc, 0, ActionCodes.ACTION_Attack));
+				pc.sendAndBroadcast(new S_AttackPacket(pc, 0,
+							ActionCodes.ACTION_Attack));
 			}
 		}
 	}

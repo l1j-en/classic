@@ -683,6 +683,11 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
+	public void sendAndBroadcast(ServerBasePacket packet) {
+		sendPackets(packet);
+		broadcastPacket(packet);
+	}
+
 	@Override
 	public void onAction(L1PcInstance attacker) {
 		if (attacker == null) {
