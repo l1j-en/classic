@@ -354,8 +354,7 @@ public class L1PcInstance extends L1Character {
 			poisonId = getParalysis().getEffectId();
 		}
 		if (poisonId != 0) { 
-			sendPackets(new S_Poison(getId(), poisonId));
-			broadcastPacket(new S_Poison(getId(), poisonId));
+			sendAndBroadcast(new S_Poison(getId(), poisonId));
 		}
 	}
 
@@ -948,10 +947,9 @@ public class L1PcInstance extends L1Character {
 				if (damage > 0 && rnd <= 23) {
 					if (attacker instanceof L1PcInstance) {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
-						attackPc.sendPackets(new S_DoActionGFX(attackPc
-								.getId(), ActionCodes.ACTION_Damage));
-						attackPc.broadcastPacket(new S_DoActionGFX(attackPc
-								.getId(), ActionCodes.ACTION_Damage));
+						attackPc.sendAndBroadcast(new S_DoActionGFX(
+									attackPc.getId(),
+									ActionCodes.ACTION_Damage));
 						attackPc.receiveDamage(this, 30, false);
 					} else if (attacker instanceof L1NpcInstance) {
 						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
@@ -967,10 +965,9 @@ public class L1PcInstance extends L1Character {
 				if (nowDamage > 0) {
 					if (attacker instanceof L1PcInstance) {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
-						attackPc.sendPackets(new S_DoActionGFX(attackPc
-								.getId(), ActionCodes.ACTION_Damage));
-						attackPc.broadcastPacket(new S_DoActionGFX(attackPc
-								.getId(), ActionCodes.ACTION_Damage));
+						attackPc.sendAndBroadcast(new S_DoActionGFX(
+									attackPc.getId(),
+									ActionCodes.ACTION_Damage));
 						attackPc.receiveDamage(this, nowDamage / 5, false);
 					} else if (attacker instanceof L1NpcInstance) {
 						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
@@ -1064,8 +1061,7 @@ public class L1PcInstance extends L1Character {
 				tempchargfx = 0;
 					}
 			if (tempchargfx != 0) {
-				sendPackets(new S_ChangeShape(getId(), tempchargfx));
-				broadcastPacket(new S_ChangeShape(getId(), tempchargfx));
+				sendAndBroadcast(new S_ChangeShape(getId(), tempchargfx));
 			} else {
 				try {
 					Thread.sleep(1000);
@@ -1073,8 +1069,7 @@ public class L1PcInstance extends L1Character {
 				}
 			}
 
-			sendPackets(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_Die));
-			broadcastPacket(new S_DoActionGFX(targetobjid,
+			sendAndBroadcast(new S_DoActionGFX(targetobjid,
 						ActionCodes.ACTION_Die));
 
 			if (lastAttacker.getMapId() != 509) {
@@ -1280,10 +1275,8 @@ public class L1PcInstance extends L1Character {
 					}
 					player.setLawful(lawful);
 
-					S_Lawful s_lawful = new S_Lawful(player.getId(), player
-							.getLawful());
-					player.sendPackets(s_lawful);
-					player.broadcastPacket(s_lawful);
+					sendAndBroadcast(new S_Lawful(player.getId(),
+								player.getLawful()));
 
 					if (isChangePkCount && player.get_PKcount() >= 5
 							&& player.get_PKcount() < 10) {
