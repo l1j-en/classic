@@ -2158,12 +2158,16 @@ public class L1NpcInstance extends L1Character {
 					System.out.println("DeleteTimer#run: !npc.isDead().");
 				if (npc._destroyed)
 					System.out.println("DeleteTimer#run: npc._destroyed.");
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 				return; 
 			}
 			try {
 				npc.deleteMe();
 			} catch (Exception e) { 
 				// More leak investigation.
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 
 				e.printStackTrace();
