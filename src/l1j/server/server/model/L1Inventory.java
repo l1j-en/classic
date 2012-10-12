@@ -524,8 +524,7 @@ public class L1Inventory extends L1Object {
 	}
 
 	public void clearItems() {
-		for (Object itemObject : _items) {
-			L1ItemInstance item = (L1ItemInstance) itemObject;
+		for (L1ItemInstance item : _items) {
 			L1World.getInstance().removeObject(item);
 		}
 		_items.clear();
