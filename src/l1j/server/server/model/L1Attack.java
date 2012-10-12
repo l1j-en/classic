@@ -1115,26 +1115,26 @@ public class L1Attack {
 		_pc.setHeading(_pc.targetDirection(_targetX, _targetY)); // Set-oriented
 		if (isBow) {
 			if (_arrow != null) {
-				sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 66,
+				_pc.sendAndBroadcast(new S_UseArrowSkill(_pc, _targetId, 66,
 							_targetX, _targetY, _isHit));
 				_pc.getInventory().removeItem(_arrow, 1);
 			} else if (_weaponId == SayhasBow) {
-				sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 2349,
+				_pc.sendAndBroadcast(new S_UseArrowSkill(_pc, _targetId, 2349,
 							_targetX, _targetY, _isHit));
 			}
 		} else if (isGauntlet && _sting != null) {
-			sendAndBroadcast(_pc, new S_UseArrowSkill(_pc, _targetId, 2989,
+			_pc.sendAndBroadcast(new S_UseArrowSkill(_pc, _targetId, 2989,
 						_targetX, _targetY, _isHit));
 			_pc.getInventory().removeItem(_sting, 1);
 		} else {
 			if (_isHit) {
-				sendAndBroadcast(_pc, new S_AttackPacket(_pc, _targetId,
+				_pc.sendAndBroadcast(new S_AttackPacket(_pc, _targetId,
 							ActionCodes.ACTION_Attack));
 			} else {
 				if (_targetId > 0) {
-					sendAndBroadcast(_pc, new S_AttackMissPacket(_pc, _targetId));
+					_pc.sendAndBroadcast(new S_AttackMissPacket(_pc, _targetId));
 				} else {
-					sendAndBroadcast(_pc, new S_AttackPacket(_pc, 0,
+					_pc.sendAndBroadcast(new S_AttackPacket(_pc, 0,
 								ActionCodes.ACTION_Attack));
 				}
 			}
@@ -1144,12 +1144,6 @@ public class L1Attack {
 						_targetId, ActionCodes.ACTION_Damage), _pc);
 	}
 
-	private static final void sendAndBroadcast(final L1PcInstance player,
-			final ServerBasePacket packet) {
-		player.sendPackets(packet);
-		player.broadcastPacket(packet);
-	}
-	
 	// NPC motion attack sent
 	private void actionNpc() {
 		int _npcObjectId = _npc.getId();
