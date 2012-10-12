@@ -560,8 +560,7 @@ public class L1Attack {
 		if (_weaponType == WeaponType.Claw && 
 				_random.nextInt(100) + 1 <= _weaponDoubleDmgChance) {
 			weaponDamage = weaponMaxDamage;
-			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3671));
-			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3671));
+			_pc.sendAndBroadcast(new S_SkillSound(_pc.getId(), 3671));
 		} else if (_weaponType == WeaponType.Fist || isRanged) {
 			weaponDamage = 0;
 		} else {
@@ -580,8 +579,7 @@ public class L1Attack {
 		if (_weaponType == WeaponType.Edoryu && (_random.nextInt(100) + 1) <=
 				_weaponDoubleDmgChance) {
 			weaponTotalDamage *= 2;
-			_pc.sendPackets(new S_SkillSound(_pc.getId(), 3398));
-			_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 3398));
+			_pc.sendAndBroadcast(new S_SkillSound(_pc.getId(), 3398));
 		}
 		
 		weaponTotalDamage += calcAttrEnchantDmg();
