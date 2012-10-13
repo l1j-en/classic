@@ -18,7 +18,6 @@
  */
 package l1j.server.server.model.Instance;
 
-//
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -85,8 +84,8 @@ public class L1NpcInstance extends L1Character {
 	public static final int CHAT_TIMING_HIDE = 2;
 	public static final int CHAT_TIMING_GAME_TIME = 3;
 
-	private static Logger _log = Logger
-			.getLogger(L1NpcInstance.class.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
@@ -101,9 +100,7 @@ public class L1NpcInstance extends L1Character {
 	private int _drainedMana = 0;
 	private boolean _rest = false;
 
-
 	private int _randomMoveDistance = 0;
-
 	private int _randomMoveDirection = 0;
 
 	interface NpcAI {
@@ -2154,11 +2151,25 @@ public class L1NpcInstance extends L1Character {
 			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance()
 					.findObject(_id);
 			if (npc == null || !npc.isDead() || npc._destroyed) {
+				// Leak investigation.
+				if (npc == null)
+					System.out.println("DeleteTimer#run: npc was null.");
+				if (!npc.isDead())
+					System.out.println("DeleteTimer#run: !npc.isDead().");
+				if (npc._destroyed)
+					System.out.println("DeleteTimer#run: npc._destroyed.");
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 				return; 
 			}
 			try {
 				npc.deleteMe();
 			} catch (Exception e) { 
+				// More leak investigation.
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+
 				e.printStackTrace();
 			}
 		}

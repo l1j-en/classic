@@ -115,9 +115,8 @@ public class L1World {
 	public void removeObject(L1Object object) {
 		/* Debugging in process... =(
 		if (_allPlayers.size() > 0)
-			System.out.println(
-					String.format(
-							"Removing %s with id %d.", object, object.getId()));
+			System.out.println(String.format(
+				"Removing %s with id %d.", object, object.getId()));
 		*/
 		
 		_allObjects.remove(object.getId());
