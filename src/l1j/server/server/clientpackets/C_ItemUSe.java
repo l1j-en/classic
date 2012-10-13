@@ -2547,17 +2547,11 @@ public class C_ItemUSe extends ClientBasePacket {
 		return true;
 	}
 
-	private static void sendAndBroadcast(final L1PcInstance player,
-			final ServerBasePacket packet) {
-		player.sendPackets(packet);
-		player.broadcastPacket(packet);
-	}
-
 	private void UseHealingPotion(L1PcInstance pc, int healHp, int gfxid) {
 		if (!potionCheck(pc))
 			return;
 
-		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), gfxid));
+		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), gfxid));
 		pc.sendPackets(new S_ServerMessage(77));
 		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
 		if (pc.hasSkillEffect(POLLUTE_WATER))
@@ -2801,7 +2795,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		time = Config.STACKING ? Math.min(time + addtime, 1200) : addtime;
 
 		pc.sendPackets(new S_SkillIconGFX(34, time));
-		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 190));
+		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 190));
 
 		pc.setSkillEffect(STATUS_BLUE_POTION, time * 1000);
 
@@ -2829,7 +2823,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		pc.sendPackets(new S_SkillIconWisdomPotion(time / 4));
-		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 750));
+		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 750));
 
 		pc.setSkillEffect(STATUS_WISDOM_POTION, time * 1000);
 	}
@@ -2856,7 +2850,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 		pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), time));
-		sendAndBroadcast(pc, new S_SkillSound(pc.getId(), 190));
+		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 190));
 		pc.setSkillEffect(STATUS_UNDERWATER_BREATH, time * 1000);
 	}
 
