@@ -18,10 +18,15 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
@@ -34,6 +39,7 @@ import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
+import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -102,6 +108,34 @@ public class C_CharReset extends ClientBasePacket {
 			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
 			CharacterTable.getInstance().saveCharStatus(pc);
+			Connection connection = null;
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			try {
+				connection = L1DatabaseFactory.getInstance().getConnection();
+				pstm = connection.prepareStatement("SELECT * FROM characters WHERE char_name=?");
+				pstm.setString(1, pc.getName());
+
+				rs = pstm.executeQuery();
+				if (!rs.next()) {
+					return;
+				}
+				pc.setOriginalStr(rs.getInt("OriginalStr"));
+				pc.setOriginalCon(rs.getInt("OriginalCon"));
+				pc.setOriginalDex(rs.getInt("OriginalDex"));
+				pc.setOriginalCha(rs.getInt("OriginalCha"));
+				pc.setOriginalInt(rs.getInt("OriginalInt"));
+				pc.setOriginalWis(rs.getInt("OriginalWis"));
+				pc.refresh();
+				_log.finest("restored char data: ");
+			} catch (SQLException e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				return;
+			} finally {
+				SQLUtil.close(rs);
+				SQLUtil.close(pstm);
+				SQLUtil.close(connection);
+			}
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
 			int type2 = readC();
 			if (type2 == 0x00) { // 0x00:Lv1UP
