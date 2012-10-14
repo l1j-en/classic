@@ -46,6 +46,7 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1MobSkill;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
 
 public class L1MobSkillUse {
 	private static Logger _log = Logger
