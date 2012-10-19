@@ -103,6 +103,8 @@ public class L1NpcInstance extends L1Character {
 	private int _randomMoveDistance = 0;
 	private int _randomMoveDirection = 0;
 
+	private Timer _chatTimer;
+
 	interface NpcAI {
 		public void start();
 	}
@@ -1206,6 +1208,12 @@ public class L1NpcInstance extends L1Character {
 		}
 		removeAllKnownObjects();
 
+		// TODO: it might be better to kill the actual TimerTask (NpcChatTimer)
+		// when the monster dies - test!
+		if (_chatTimer != null) {
+			_chatTimer.cancel();
+		}
+
 		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 		if (mobGroupInfo == null) {
 			if (isReSpawn()) {
@@ -2225,12 +2233,12 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		Timer timer = new Timer(true);
+		_chatTimer = new Timer(true);
 		L1NpcChatTimer npcChatTimer = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
-			timer.schedule(npcChatTimer, npcChat.getStartDelayTime());
+			_chatTimer.schedule(npcChatTimer, npcChat.getStartDelayTime());
 		} else {
-			timer.scheduleAtFixedRate(npcChatTimer, npcChat.getStartDelayTime(),
+			_chatTimer.schedule(npcChatTimer, npcChat.getStartDelayTime(),
 					npcChat.getRepeatInterval());
 		}
 	}
