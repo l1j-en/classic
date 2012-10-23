@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,7 +57,7 @@ public class L1MobSkillUse {
 
 	private L1NpcInstance _attacker = null;
 
-	private L1Character _target = null;
+	private WeakReference<L1Character> _target = null;
 
 	private Random _rnd = new Random();
 
@@ -110,7 +111,7 @@ public class L1MobSkillUse {
 		if (_mobSkillTemplate == null) {
 			return false;
 		}
-		_target = tg;
+		_target = new WeakReference<L1Character>(tg);
 
 		int type;
 		type = getMobSkillTemplate().getType(0);
@@ -125,9 +126,8 @@ public class L1MobSkillUse {
 
 			int changeType = getMobSkillTemplate().getChangeTarget(i);
 			if (changeType > 0) {
-				_target = changeTarget(changeType, i);
-			} else {
-				_target = tg;
+				_target = 
+					new WeakReference<L1Character>(changeTarget(changeType, i));
 			}
 
 			if (isSkillUseble(i) == false) {
@@ -159,10 +159,6 @@ public class L1MobSkillUse {
 		}
 
 		return false;
-	}
-
-	public void clearTarget() {
-		_target = null;
 	}
 
 	private boolean summon(int idx) {
@@ -245,9 +241,10 @@ public class L1MobSkillUse {
 		int skillid = getMobSkillTemplate().getSkillId(idx);
 		boolean canUseSkill = false;
 
+		L1Character target = _target.get();
 		if (skillid > 0) {
 			canUseSkill = skillUse.checkUseSkill(null, skillid,
-					_target.getId(), _target.getX(), _target.getY(), null, 0,
+					target.getId(), target.getX(), target.getY(), null, 0,
 					L1SkillUse.TYPE_NORMAL, _attacker);
 		}
 
@@ -255,9 +252,8 @@ public class L1MobSkillUse {
 			if (getMobSkillTemplate().getLeverage(idx) > 0) {
 				skillUse.setLeverage(getMobSkillTemplate().getLeverage(idx));
 			}
-			skillUse.handleCommands(null, skillid, _target.getId(), _target
-					.getX(), _target.getX(), null, 0, L1SkillUse.TYPE_NORMAL,
-					_attacker);
+			skillUse.handleCommands(null, skillid, target.getId(), target.getX(), 
+					target.getX(), null, 0, L1SkillUse.TYPE_NORMAL, _attacker);
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillid);
 			if (skill.getTarget().equals("attack") && skillid != 18) { 
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
@@ -277,17 +273,18 @@ public class L1MobSkillUse {
 		int range = getMobSkillTemplate().getRange(idx);
 		int actId = getMobSkillTemplate().getActid(idx);
 		int gfxId = getMobSkillTemplate().getGfxid(idx);
+		L1Character target = _target.get();
 
-		if (_attacker.getLocation().getTileLineDistance(_target.getLocation()) > range) {
+		if (_attacker.getLocation().getTileLineDistance(target.getLocation()) > range) {
 			return false;
 		}
 
-		if (!_attacker.glanceCheck(_target.getX(), _target.getY())) {
+		if (!_attacker.glanceCheck(target.getX(), target.getY())) {
 			return false;
 		}
 
-		_attacker.setHeading(_attacker.targetDirection(_target.getX(), _target
-				.getY())); 
+		_attacker.setHeading(_attacker.targetDirection(target.getX(),
+					target.getY())); 
 
 		if (areaHeight > 0) {
 			ArrayList<L1Object> objs = L1World.getInstance()
@@ -314,9 +311,9 @@ public class L1MobSkillUse {
 					continue;
 				}
 
-				if (_target instanceof L1PcInstance
-						|| _target instanceof L1SummonInstance
-						|| _target instanceof L1PetInstance) {
+				if (target instanceof L1PcInstance
+						|| target instanceof L1SummonInstance
+						|| target instanceof L1PetInstance) {
 					// 
 					if (obj instanceof L1PcInstance
 							&& !((L1PcInstance) obj).isGhost()
@@ -332,7 +329,7 @@ public class L1MobSkillUse {
 				}
 			}
 		} else {
-			targetList.put(_target.getId(), 0); 
+			targetList.put(target.getId(), 0); 
 		}
 
 		if (targetList.size() == 0) {
@@ -344,10 +341,10 @@ public class L1MobSkillUse {
 			int targetId = ite.next();
 			L1Attack attack = new L1Attack(_attacker, (L1Character) L1World
 					.getInstance().findObject(targetId));
-			if (_target.hasSkillEffect(COUNTER_BARRIER)) {
-				L1Magic magic = new L1Magic(_target, _attacker);
+			if (target.hasSkillEffect(COUNTER_BARRIER)) {
+				L1Magic magic = new L1Magic(target, _attacker);
 				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
-						_attacker.getLocation().getTileLineDistance(_target.getLocation()) <= 2 &&
+						_attacker.getLocation().getTileLineDistance(target.getLocation()) <= 2 &&
 						gfxId == 0) {
 					attack.actionCounterBarrier();
 					attack.commitCounterBarrier();
@@ -363,7 +360,7 @@ public class L1MobSkillUse {
 			if (actId > 0) {
 				attack.setActId(actId);
 			}
-			if (targetId == _target.getId()) {
+			if (targetId == target.getId()) {
 				if (gfxId > 0) {
 					_attacker.broadcastPacket(new S_SkillSound(_attacker
 							.getId(), gfxId));
@@ -379,6 +376,7 @@ public class L1MobSkillUse {
 
 	private boolean isSkillUseble(int skillIdx) {
 		boolean useble = false;
+		L1Character target = _target.get();
 
 		if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
 			int chance = _rnd.nextInt(100) + 1;
@@ -410,7 +408,9 @@ public class L1MobSkillUse {
 			if (hpRatio <= getMobSkillTemplate()
 					.getTriggerCompanionHp(skillIdx)) {
 				useble = true;
-				_target = companionNpc; 
+				target = companionNpc;
+				// TODO: might not need this.
+				_target = new WeakReference<L1Character>(companionNpc);
 			} else {
 				return false;
 			}
@@ -418,7 +418,7 @@ public class L1MobSkillUse {
 
 		if (getMobSkillTemplate().getTriggerRange(skillIdx) != 0) {
 			int distance = _attacker.getLocation().getTileLineDistance(
-					_target.getLocation());
+					target.getLocation());
 
 			if (getMobSkillTemplate().isTriggerDistance(skillIdx, distance)) {
 				useble = true;
@@ -528,7 +528,7 @@ public class L1MobSkillUse {
 	}
 
 	private L1Character changeTarget(int type, int idx) {
-		L1Character target;
+		L1Character target = _target.get();
 
 		switch (type) {
 		case L1MobSkill.CHANGE_TARGET_ME:
@@ -570,9 +570,7 @@ public class L1MobSkillUse {
 				}
 			}
 
-			if (targetList.size() == 0) {
-				target = _target;
-			} else {
+			if (targetList.size() > 0) {
 				int randomSize = targetList.size() * 100;
 				int targetIndex = _rnd.nextInt(randomSize) / 100;
 				target = targetList.get(targetIndex);
@@ -580,7 +578,6 @@ public class L1MobSkillUse {
 			break;
 
 		default:
-			target = _target;
 			break;
 		}
 		return target;
