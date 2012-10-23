@@ -195,7 +195,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		_currentPetStatus = 3;
 		_tamed = true;
 		for (L1NpcInstance each : master.getPetList().values()) {
-			each.targetRemove(target);
+			each.removeTarget(target);
 		}
 
 		target.deleteMe();
