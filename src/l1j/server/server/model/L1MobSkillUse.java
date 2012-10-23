@@ -161,6 +161,10 @@ public class L1MobSkillUse {
 		return false;
 	}
 
+	public void clearTarget() {
+		_target = null;
+	}
+
 	private boolean summon(int idx) {
 		int summonId = getMobSkillTemplate().getSummon(idx);
 		int min = getMobSkillTemplate().getSummonMin(idx);

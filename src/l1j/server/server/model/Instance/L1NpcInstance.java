@@ -290,7 +290,7 @@ public class L1NpcInstance extends L1Character {
 				|| (_target.isInvisble() && !getNpcTemplate().is_agrocoi() && !_hateList
 						.containsKey(_target))) {
 			if (_target != null) {
-				tagertClear();
+				targetClear();
 			}
 			if (!_hateList.isEmpty()) {
 				_target = _hateList.getMaxHateCharacter();
@@ -356,7 +356,7 @@ public class L1NpcInstance extends L1Character {
 					escapeDistance = 1;
 				}
 				if (getLocation().getTileLineDistance(target.getLocation()) > escapeDistance) {
-					tagertClear();
+					targetClear();
 				} else {
 					int dir = targetReverseDirection(target.getX(), target
 							.getY());
@@ -366,9 +366,7 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else { 
-			boolean isSkillUse = false;
-			isSkillUse = mobSkill.skillUse(target);
-			if (isSkillUse == true) {
+			if (mobSkill.skillUse(target)) {
 				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
 						MAGIC_SPEED));
 				return;
@@ -400,14 +398,14 @@ public class L1NpcInstance extends L1Character {
 					}
 					int dir = moveDirection(target.getX(), target.getY());
 					if (dir == -1) {
-						tagertClear();
+						targetClear();
 					} else {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(),
 								MOVE_SPEED));
 					}
 				} else {
-					tagertClear();
+					targetClear();
 				}
 			}
 		}
@@ -663,7 +661,7 @@ public class L1NpcInstance extends L1Character {
 	public void onFinalAction(L1PcInstance pc, String s) {
 	}
 
-	public void tagertClear() {
+	public void targetClear() {
 		if (_target == null) {
 			return;
 		}
@@ -671,11 +669,12 @@ public class L1NpcInstance extends L1Character {
 		_target = null;
 	}
 
-	public void targetRemove(L1Character target) {
+	public void removeTarget(L1Character target) {
 		_hateList.remove(target);
 		if (_target != null && _target.equals(target)) {
 			_target = null;
 		}
+		mobSkill.clearTarget();
 	}
 
 	public void allTargetClear() {
