@@ -674,7 +674,6 @@ public class L1NpcInstance extends L1Character {
 		if (_target != null && _target.equals(target)) {
 			_target = null;
 		}
-		mobSkill.clearTarget();
 	}
 
 	public void allTargetClear() {
