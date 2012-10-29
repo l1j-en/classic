@@ -569,23 +569,13 @@ public class L1PcInstance extends L1Character {
 		notifyPlayersLogout(world.getRecognizePlayer(this));
 		_inventory.clearItems();
 		_dwarf.clearItems();
-		_dwarfForElf.clearItems(); 
-		stopNpcTargeting();
+		_dwarfForElf.clearItems();
 		removeAllKnownObjects();
 		stopHpRegeneration();
 		stopMpRegeneration();
 		setDead(true);
 		setNetConnection(null);
 		setPacketOutput(null);
-	}
-
-	// TODO: Testing possible memory leak fix.
-	private void stopNpcTargeting() {
-		for (L1Object object : getKnownObjects()) {
-			if (object instanceof L1NpcInstance) {
-				((L1NpcInstance) object).removeTarget(this);
-			}
-		}
 	}
 
 	public ClientThread getNetConnection() {
