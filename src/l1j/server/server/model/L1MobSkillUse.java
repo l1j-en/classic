@@ -55,14 +55,11 @@ public class L1MobSkillUse {
 
 	private L1MobSkill _mobSkillTemplate = null;
 	private L1NpcInstance _attacker = null;
-	private WeakReference<L1Character> _target = null;
 	private Random _rnd = new Random();
 	private int _sleepTime = 0;
 	private int _skillUseCount[];
 
 	public L1MobSkillUse(L1NpcInstance npc) {
-		_sleepTime = 0;
-
 		_mobSkillTemplate = MobSkillTable.getInstance().getTemplate(
 				npc.getNpcTemplate().get_npcId());
 		if (_mobSkillTemplate == null) {
@@ -94,53 +91,50 @@ public class L1MobSkillUse {
 		return _sleepTime;
 	}
 
-	public void setSleepTime(int i) {
-		_sleepTime = i;
-	}
-
-	public boolean skillUse(L1Character tg) {
+	public boolean skillUse(L1Character firstTarget) {
 		if (_mobSkillTemplate == null) {
 			return false;
 		}
-		_target = new WeakReference<L1Character>(tg);
 
 		int type = _mobSkillTemplate.getType(0);
-
 		if (type == L1MobSkill.TYPE_NONE) {
 			return false;
 		}
 
+		L1Character target = firstTarget;
 		for (int i = 0; i < _mobSkillTemplate.getSkillSize()
 				&& _mobSkillTemplate.getType(i) != L1MobSkill.TYPE_NONE; i++) {
 
 			int changeType = _mobSkillTemplate.getChangeTarget(i);
 			if (changeType > 0) {
-				_target = new WeakReference<L1Character>(
-						changeTarget(changeType, i));
+				target = changeTarget(changeType, i, target);
 			}
 
-			if (isSkillUseble(i) == false) {
+			// TODO: See comment on isSkillUsable().
+			L1Character newTarget = isSkillUsable(i, target);
+			if (newTarget == null)
 				continue;
-			}
-
+			else
+				target = newTarget;
+		
 			type = _mobSkillTemplate.getType(i);
 			if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) {
-				if (physicalAttack(i) == true) {
+				if (physicalAttack(i, target)) {
 					skillUseCountUp(i);
 					return true;
 				}
 			} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
-				if (magicAttack(i) == true) {
+				if (magicAttack(i, target)) {
 					skillUseCountUp(i);
 					return true;
 				}
 			} else if (type == L1MobSkill.TYPE_SUMMON) {
-				if (summon(i) == true) {
+				if (summon(i)) {
 					skillUseCountUp(i);
 					return true;
 				}
 			} else if (type == L1MobSkill.TYPE_POLY) {
-				if (poly(i) == true) {
+				if (poly(i)) {
 					skillUseCountUp(i);
 					return true;
 				}
@@ -212,12 +206,11 @@ public class L1MobSkillUse {
 		return usePoly;
 	}
 
-	private boolean magicAttack(int idx) {
+	private boolean magicAttack(int idx, L1Character target) {
 		L1SkillUse skillUse = new L1SkillUse();
 		int skillid = _mobSkillTemplate.getSkillId(idx);
 		boolean canUseSkill = false;
 
-		L1Character target = _target.get();
 		if (skillid > 0) {
 			canUseSkill = skillUse.checkUseSkill(null, skillid,
 					target.getId(), target.getX(), target.getY(), null, 0,
@@ -243,14 +236,13 @@ public class L1MobSkillUse {
 		return false;
 	}
 
-	private boolean physicalAttack(int idx) {
+	private boolean physicalAttack(int idx, L1Character target) {
 		Map<Integer, Integer> targetList = new ConcurrentHashMap<Integer, Integer>();
 		int areaWidth = _mobSkillTemplate.getAreaWidth(idx);
 		int areaHeight = _mobSkillTemplate.getAreaHeight(idx);
 		int range = _mobSkillTemplate.getRange(idx);
 		int actId = _mobSkillTemplate.getActid(idx);
 		int gfxId = _mobSkillTemplate.getGfxid(idx);
-		L1Character target = _target.get();
 		if (_attacker.getLocation().getTileLineDistance(target.getLocation()) > range) {
 			return false;
 		}
@@ -338,8 +330,8 @@ public class L1MobSkillUse {
 			}
 			if (targetId == target.getId()) {
 				if (gfxId > 0) {
-					_attacker.broadcastPacket(new S_SkillSound(_attacker
-							.getId(), gfxId));
+					_attacker.broadcastPacket(new S_SkillSound(
+								_attacker.getId(), gfxId));
 				}
 				attack.action();
 			}
@@ -350,66 +342,51 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	private boolean isSkillUseble(int skillIdx) {
-		boolean usable = false;
-		L1Character target = _target.get();
+	// FIXME: abuses null/value to replace boolean function that tweaked
+	// (class) global state on the side. If this fixes the memory leak then
+	// it'll be worth refactoring.
+	private L1Character isSkillUsable(int skillIdx, L1Character target) {
+		L1Character newTarget = target;
 
 		if (_mobSkillTemplate.getTriggerRandom(skillIdx) > 0) {
 			int chance = _rnd.nextInt(100) + 1;
-			if (chance < _mobSkillTemplate.getTriggerRandom(skillIdx)) {
-				usable = true;
-			} else {
-				return false;
-			}
+			if (chance >= _mobSkillTemplate.getTriggerRandom(skillIdx))
+				return null;
 		}
 
 		if (_mobSkillTemplate.getTriggerHp(skillIdx) > 0) {
 			int hpRatio = (_attacker.getCurrentHp() * 100)
 					/ _attacker.getMaxHp();
-			if (hpRatio <= _mobSkillTemplate.getTriggerHp(skillIdx)) {
-				usable = true;
-			} else {
-				return false;
-			}
+			if (hpRatio > _mobSkillTemplate.getTriggerHp(skillIdx))
+				return null;
 		}
 
 		if (_mobSkillTemplate.getTriggerCompanionHp(skillIdx) > 0) {
 			L1NpcInstance companionNpc = searchMinCompanionHp();
-			if (companionNpc == null) {
-				return false;
-			}
+			if (companionNpc == null)
+				return null;
 
 			int hpRatio = (companionNpc.getCurrentHp() * 100)
 					/ companionNpc.getMaxHp();
-			if (hpRatio <= _mobSkillTemplate.getTriggerCompanionHp(skillIdx)) {
-				usable = true;
-				target = companionNpc;
-				// TODO: might not need this.
-				_target = new WeakReference<L1Character>(companionNpc);
-			} else {
-				return false;
-			}
+			if (hpRatio > _mobSkillTemplate.getTriggerCompanionHp(skillIdx))
+				newTarget = companionNpc;
+			else
+				return null;
 		}
 
 		if (_mobSkillTemplate.getTriggerRange(skillIdx) != 0) {
 			int distance = _attacker.getLocation().getTileLineDistance(
 					target.getLocation());
 
-			if (_mobSkillTemplate.isTriggerDistance(skillIdx, distance)) {
-				usable = true;
-			} else {
-				return false;
-			}
+			if (!_mobSkillTemplate.isTriggerDistance(skillIdx, distance))
+				return null;
 		}
 
 		if (_mobSkillTemplate.getTriggerCount(skillIdx) > 0) {
-			if (getSkillUseCount(skillIdx) < _mobSkillTemplate.getTriggerCount(skillIdx)) {
-				usable = true;
-			} else {
-				return false;
-			}
+			if (getSkillUseCount(skillIdx) >= _mobSkillTemplate.getTriggerCount(skillIdx))
+				return null;
 		}
-		return usable;
+		return newTarget;
 	}
 
 	private L1NpcInstance searchMinCompanionHp() {
@@ -498,8 +475,8 @@ public class L1MobSkillUse {
 		}
 	}
 
-	private L1Character changeTarget(int type, int idx) {
-		L1Character target = _target.get();
+	private L1Character changeTarget(int type, int idx, L1Character firstTarget) {
+		L1Character target = firstTarget;
 
 		switch (type) {
 		case L1MobSkill.CHANGE_TARGET_ME:
