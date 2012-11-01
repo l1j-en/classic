@@ -115,8 +115,8 @@ public class L1MobSkillUse {
 
 			int changeType = _mobSkillTemplate.getChangeTarget(i);
 			if (changeType > 0) {
-				_target = 
-					new WeakReference<L1Character>(changeTarget(changeType, i));
+				_target = new WeakReference<L1Character>(
+						changeTarget(changeType, i));
 			}
 
 			if (isSkillUseble(i) == false) {
@@ -228,8 +228,9 @@ public class L1MobSkillUse {
 			if (_mobSkillTemplate.getLeverage(idx) > 0) {
 				skillUse.setLeverage(_mobSkillTemplate.getLeverage(idx));
 			}
-			skillUse.handleCommands(null, skillid, target.getId(), target.getX(), 
-					target.getX(), null, 0, L1SkillUse.TYPE_NORMAL, _attacker);
+			skillUse.handleCommands(null, skillid, target.getId(),
+					target.getX(), target.getX(), null, 0,
+					L1SkillUse.TYPE_NORMAL,	_attacker);
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillid);
 			if (skill.getTarget().equals("attack") && skillid != 18) { 
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
@@ -250,7 +251,6 @@ public class L1MobSkillUse {
 		int actId = _mobSkillTemplate.getActid(idx);
 		int gfxId = _mobSkillTemplate.getGfxid(idx);
 		L1Character target = _target.get();
-
 		if (_attacker.getLocation().getTileLineDistance(target.getLocation()) > range) {
 			return false;
 		}
@@ -260,11 +260,12 @@ public class L1MobSkillUse {
 		}
 
 		_attacker.setHeading(_attacker.targetDirection(target.getX(),
-					target.getY())); 
+				target.getY())); 
 
 		if (areaHeight > 0) {
-			ArrayList<L1Object> objs = L1World.getInstance().getVisibleBoxObjects(
-					_attacker, _attacker.getHeading(), areaWidth, areaHeight);
+			ArrayList<L1Object> objs =
+					L1World.getInstance().getVisibleBoxObjects(_attacker,
+							_attacker.getHeading(), areaWidth, areaHeight);
 
 			for (L1Object obj : objs) {
 				if (!(obj instanceof L1Character)) {
