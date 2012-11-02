@@ -1318,7 +1318,7 @@ public class L1Attack {
 	public boolean isShortDistance() {
 		boolean isShortDistance = true;
 		if (_calcType == PC_PC) {
-			isShortDistance = !isRanged;
+			isShortDistance = !isRanged && !isKiringku;
 		} else if (_calcType == NPC_PC) {
 			boolean isLongRange = (_npc.getLocation().getTileLineDistance(
 					new Point(_targetX, _targetY)) > 1);
