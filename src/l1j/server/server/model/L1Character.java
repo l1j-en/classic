@@ -28,23 +28,17 @@ public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger _log = Logger.getLogger(L1Character.class
-			.getName());
+	private static final Logger _log =
+		Logger.getLogger(L1Character.class.getName());
 
 	private L1Poison _poison = null;
 	private boolean _paralyzed;
 	private boolean _sleeped;
 
-	private final Map<Integer, L1NpcInstance> _petlist = 
-		new HashMap<Integer, L1NpcInstance>();
-	private final Map<Integer, L1DollInstance> _dolllist = 
-		new HashMap<Integer, L1DollInstance>();
 	private final Map<Integer, L1SkillTimer> _skillEffect = 
 		new HashMap<Integer, L1SkillTimer>();
 	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = 
 		new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
-	private final Map<Integer, L1FollowerInstance> _followerlist = 
-		new HashMap<Integer, L1FollowerInstance>();
 
 	public L1Character() {
 		_level = 1;
@@ -413,42 +407,6 @@ public class L1Character extends L1Object {
 
 	public L1ItemDelay.ItemDelayTimer getItemDelayTimer(int delayId) {
 		return _itemdelay.get(delayId);
-	}
-
-	public void addPet(L1NpcInstance npc) {
-		_petlist.put(npc.getId(), npc);
-	}
-
-	public void removePet(L1NpcInstance npc) {
-		_petlist.remove(npc.getId());
-	}
-
-	public Map<Integer, L1NpcInstance> getPetList() {
-		return _petlist;
-	}
-
-	public void addDoll(L1DollInstance doll) {
-		_dolllist.put(doll.getId(), doll);
-	}
-
-	public void removeDoll(L1DollInstance doll) {
-		_dolllist.remove(doll.getId());
-	}
-
-	public Map<Integer, L1DollInstance> getDollList() {
-		return _dolllist;
-	}
-
-	public void addFollower(L1FollowerInstance follower) {
-		_followerlist.put(follower.getId(), follower);
-	}
-
-	public void removeFollower(L1FollowerInstance follower) {
-		_followerlist.remove(follower.getId());
-	}
-
-	public Map<Integer, L1FollowerInstance> getFollowerList() {
-		return _followerlist;
 	}
 
 	public void setPoison(L1Poison poison) {
