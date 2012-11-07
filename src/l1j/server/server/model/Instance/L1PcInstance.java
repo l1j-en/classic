@@ -1,12 +1,14 @@
 package l1j.server.server.model.Instance;
 
 import l1j.server.server.model.L1World;
-import java.sql.Timestamp;
 import l1j.server.server.utils.SQLUtil;
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.ScheduledFuture;
@@ -109,6 +111,49 @@ public class L1PcInstance extends L1Character {
 	private static final int MP_REGEN_INTERVAL = 1000;
 	private static final int HP_REGEN_INTERVAL = 1000;
 	private static Random _random = new Random();
+
+	private final Map<Integer, L1FollowerInstance> _followers = 
+		new HashMap<Integer, L1FollowerInstance>();
+	private final Map<Integer, L1DollInstance> _dolls = 
+		new HashMap<Integer, L1DollInstance>();
+	private final Map<Integer, L1NpcInstance> _pets = 
+		new HashMap<Integer, L1NpcInstance>();
+	
+	public void addDoll(L1DollInstance doll) {
+		_dolls.put(doll.getId(), doll);
+	}
+
+	public void removeDoll(L1DollInstance doll) {
+		_dolls.remove(doll.getId());
+	}
+
+	public Map<Integer, L1DollInstance> getDollList() {
+		return _dolls;
+	}
+
+	public void addFollower(L1FollowerInstance follower) {
+		_followers.put(follower.getId(), follower);
+	}
+
+	public void removeFollower(L1FollowerInstance follower) {
+		_followers.remove(follower.getId());
+	}
+
+	public Map<Integer, L1FollowerInstance> getFollowerList() {
+		return _followers;
+	}
+	
+	public void addPet(L1NpcInstance npc) {
+		_pets.put(npc.getId(), npc);
+	}
+
+	public void removePet(L1NpcInstance npc) {
+		_pets.remove(npc.getId());
+	}
+
+	public Map<Integer, L1NpcInstance> getPetList() {
+		return _pets;
+	}
 	
 	private short _trueHpr = 0;
 	private short _hpr = 0;

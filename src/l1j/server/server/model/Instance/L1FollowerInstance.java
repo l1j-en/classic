@@ -38,7 +38,9 @@ import l1j.server.server.templates.L1Npc;
 
 public class L1FollowerInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1FollowerInstance.class.getName());
+	private static Logger _log =
+		Logger.getLogger(L1FollowerInstance.class.getName());
+	private final L1PcInstance _pc;
 
 	@Override
 	public boolean noTarget(int depth) {
@@ -49,32 +51,29 @@ public class L1FollowerInstance extends L1NpcInstance {
 				if (npc.getNpcTemplate().get_npcId() == 70740 
 						&& getNpcTemplate().get_npcId() == 71093) { 
 					setParalyzed(true);
-					L1PcInstance pc = (L1PcInstance) _master;
-					if (!pc.getInventory().checkItem(40593)) {
-						createNewItem(pc, 40593, 1);
+					if (!_pc.getInventory().checkItem(40593)) {
+						createNewItem(_pc, 40593, 1);
 					}
 					deleteMe();
 					return true;
 				} else if (npc.getNpcTemplate().get_npcId() == 70811 
 						&& getNpcTemplate().get_npcId() == 71094) { 
 					setParalyzed(true);
-					L1PcInstance pc = (L1PcInstance) _master;
-					if (!pc.getInventory().checkItem(40582)) {
-						createNewItem(pc, 40582, 1);
+					if (!_pc.getInventory().checkItem(40582)) {
+						createNewItem(_pc, 40582, 1);
 					}
 					deleteMe();
 					return true;
 				} else if (npc.getNpcTemplate().get_npcId() == 71061
 						&& getNpcTemplate().get_npcId() == 71062) {
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32448 && pc.getX() <= 32452)
-								&& (pc.getY() >= 33048 && pc.getY() <= 33052)
-								&& (pc.getMapId() == 440)) {						
+					if (getLocation().getTileLineDistance(_pc.getLocation()) < 3) {
+						if((_pc.getX() >= 32448 && _pc.getX() <= 32452)
+								&& (_pc.getY() >= 33048 && _pc.getY() <= 33052)
+								&& (_pc.getMapId() == 440)) {						
 							setParalyzed(true);
-							if (!pc.getInventory().checkItem(40711)) {
-								createNewItem(pc, 40711, 1);
-								pc.getQuest().set_step(L1Quest.QUEST_CADMUS, 3);
+							if (!_pc.getInventory().checkItem(40711)) {
+								createNewItem(_pc, 40711, 1);
+								_pc.getQuest().set_step(L1Quest.QUEST_CADMUS, 3);
 							}
 							deleteMe();
 							return true;
@@ -82,15 +81,14 @@ public class L1FollowerInstance extends L1NpcInstance {
 					}
 				} else if (npc.getNpcTemplate().get_npcId() == 71074
 						&& getNpcTemplate().get_npcId() == 71075) {
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32731 && pc.getX() <= 32735) // 
-								&& (pc.getY() >= 32854 && pc.getY() <= 32858)
-								&& (pc.getMapId() == 480)) {
+					if (getLocation().getTileLineDistance(_pc.getLocation()) < 3) {
+						if((_pc.getX() >= 32731 && _pc.getX() <= 32735) // 
+								&& (_pc.getY() >= 32854 && _pc.getY() <= 32858)
+								&& (_pc.getMapId() == 480)) {
 							setParalyzed(true);
-							if (!pc.getInventory().checkItem(40633)) {
-								createNewItem(pc, 40633, 1);
-								pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 2);
+							if (!_pc.getInventory().checkItem(40633)) {
+								createNewItem(_pc, 40633, 1);
+								_pc.getQuest().set_step(L1Quest.QUEST_LIZARD, 2);
 							}
 							deleteMe();
 							return true;
@@ -98,14 +96,13 @@ public class L1FollowerInstance extends L1NpcInstance {
 					}
 				} else if (npc.getNpcTemplate().get_npcId() == 70964 // 
 						&& getNpcTemplate().get_npcId() == 70957) { // 
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3){
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32917 && pc.getX() <= 32921) // 
-								&& (pc.getY() >= 32974 && pc.getY() <= 32978)
-								&& (pc.getMapId() == 410)) {
+					if (getLocation().getTileLineDistance(_pc.getLocation()) < 3){
+						if((_pc.getX() >= 32917 && _pc.getX() <= 32921) // 
+								&& (_pc.getY() >= 32974 && _pc.getY() <= 32978)
+								&& (_pc.getMapId() == 410)) {
 							setParalyzed(true);
-							createNewItem(pc, 41003, 1);
-							pc.getQuest().set_step(L1Quest.QUEST_ROI, 0);					
+							createNewItem(_pc, 41003, 1);
+							_pc.getQuest().set_step(L1Quest.QUEST_ROI, 0);					
 							deleteMe();
 							return true;
 						}
@@ -114,16 +111,16 @@ public class L1FollowerInstance extends L1NpcInstance {
 			}
 		}
 
-		if (_master.isDead() || getLocation().getTileLineDistance(_master
-				.getLocation()) > 10) {
+		if (_pc.isDead() || 
+				getLocation().getTileLineDistance(_pc.getLocation()) > 10) {
 			setParalyzed(true);
 			spawn(getNpcTemplate().get_npcId(), getX(), getY(), getHeading(),
 					getMapId());
 			deleteMe();
 			return true;
-		} else if (_master != null && _master.getMapId() == getMapId()) {
-			if (getLocation().getTileLineDistance(_master.getLocation()) > 2) {
-				setDirectionMove(moveDirection(_master.getX(), _master.getY()));
+		} else if (_pc != null && _pc.getMapId() == getMapId()) {
+			if (getLocation().getTileLineDistance(_pc.getLocation()) > 2) {
+				setDirectionMove(moveDirection(_pc.getX(), _pc.getY()));
 				setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
 			}
 		}
@@ -134,6 +131,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 			L1Character master) {
 		super(template);
 		_master = master;
+		_pc = (L1PcInstance) master;
 		setId(IdFactory.getInstance().nextId());
 		setMaster(master);
 		setX(target.getX());
@@ -149,12 +147,12 @@ public class L1FollowerInstance extends L1NpcInstance {
 			onPerceive(pc);
 		}
 		startAI();
-		master.addFollower(this);
+		_pc.addFollower(this);
 	}
 
 	@Override
 	public synchronized void deleteMe() {
-		_master.getFollowerList().remove(getId());
+		_pc.getFollowerList().remove(getId());
 		getMap().setPassable(getLocation(), true);
 		super.deleteMe();
 	}
@@ -174,40 +172,25 @@ public class L1FollowerInstance extends L1NpcInstance {
 
 	@Override
 	public void onTalkAction(L1PcInstance player) {
-		if (isDead()) {
+		if (isDead())
 			return;
+		
+		int template = getNpcTemplate().get_npcId();
+		String message = null;
+		if (template == 71093) {
+			message = _pc.equals(player) ? "searcherk2" : "searcherk4";
+		} else if (template == 71094) {
+			message = _pc.equals(player) ? "endiaq2" : "endiaq4";
+		} else if (template == 71062) {
+			message = _pc.equals(player) ? "kamit2" : "kamit1";
+		} else if (template == 71075) {
+			message = _pc.equals(player) ? "llizard2" : "llizard1a";
+		} else if (template == 70957) {
+			// TODO: Look into this - should probably be like others.
+			message = "roi2";
 		}
-		if (getNpcTemplate().get_npcId() == 71093) {
-			if (_master.equals(player)) {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "searcherk2"));
-			} else {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "searcherk4"));
-			}
-		} else if (getNpcTemplate().get_npcId() == 71094) {
-			if (_master.equals(player)) {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "endiaq2"));
-			} else {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "endiaq4"));
-			}
-		} else if (getNpcTemplate().get_npcId() == 71062) {
-			if (_master.equals(player)) {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "kamit2"));
-			} else {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "kamit1"));
-			}
-		} else if (getNpcTemplate().get_npcId() == 71075) {
-			if (_master.equals(player)) {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "llizard2"));
-			} else {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "llizard1a"));
-			}
-		} else if (getNpcTemplate().get_npcId() == 70957) {
-			if (_master.equals(player)) {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
-			} else {
-				player.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
-			}
-		}
+		if (message != null)
+			player.sendPackets(new S_NPCTalkReturn(getId(), message));
 	}
 
 	@Override
@@ -231,33 +214,35 @@ public class L1FollowerInstance extends L1NpcInstance {
 	}
 
 	public void spawn(int npcId, int X, int Y, int H, short Map) {
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(npcId);
-		if (l1npc != null) {
-			L1NpcInstance mob = null;
-			try {
-				String implementationName = l1npc.getImpl();
-				Constructor _constructor = Class.forName((new StringBuilder())
-						.append("l1j.server.server.model.Instance.")
-						.append(implementationName).append("Instance")
-						.toString()).getConstructors()[0];
-				mob = (L1NpcInstance) _constructor.newInstance(new Object[] { l1npc });
-				mob.setId(IdFactory.getInstance().nextId());
-				mob.setX(X);
-				mob.setY(Y);
-				mob.setHomeX(X);
-				mob.setHomeY(Y);
-				mob.setMap(Map);
-				mob.setHeading(H);
-				L1World.getInstance().storeObject(mob);
-				L1World.getInstance().addVisibleObject(mob);
-				L1Object object = L1World.getInstance().findObject(mob.getId());
-				L1QuestInstance newnpc = (L1QuestInstance) object;
-				newnpc.onNpcAI();
-				newnpc.turnOnOffLight();
-				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		L1Npc template = NpcTable.getInstance().getTemplate(npcId);
+	
+		if (template == null)
+			return;
+
+		L1NpcInstance mob = null;
+		try {
+			String implementationName = template.getImpl();
+			Constructor _constructor = Class.forName((new StringBuilder())
+					.append("l1j.server.server.model.Instance.")
+					.append(implementationName).append("Instance")
+					.toString()).getConstructors()[0];
+			mob = (L1NpcInstance) _constructor.newInstance(new Object[] { template });
+			mob.setId(IdFactory.getInstance().nextId());
+			mob.setX(X);
+			mob.setY(Y);
+			mob.setHomeX(X);
+			mob.setHomeY(Y);
+			mob.setMap(Map);
+			mob.setHeading(H);
+			L1World.getInstance().storeObject(mob);
+			L1World.getInstance().addVisibleObject(mob);
+			L1Object object = L1World.getInstance().findObject(mob.getId());
+			L1QuestInstance newnpc = (L1QuestInstance) object;
+			newnpc.onNpcAI();
+			newnpc.turnOnOffLight();
+			newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

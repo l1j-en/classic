@@ -3048,7 +3048,7 @@ public class L1SkillUse {
 							&& ((L1MonsterInstance) cha).getNpcTemplate()
 							.isTamable()) {
 						int petcost = 0;
-						Object[] petlist = _user.getPetList().values()
+						Object[] petlist = _player.getPetList().values()
 							.toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
@@ -3068,15 +3068,14 @@ public class L1SkillUse {
 						charisma -= petcost;
 						if (charisma >= 6) {
 							L1SummonInstance summon = new L1SummonInstance(
-									_targetNpc, _user, false);
+									_targetNpc, _player, false);
 							_target = summon;
 						} else {
 							_player.sendPackets(new S_ServerMessage(319));
 						}
 					} else if (_skillId == CREATE_ZOMBIE) {
 						int petcost = 0;
-						Object[] petlist = _user.getPetList().values()
-							.toArray();
+						Object[] petlist = _player.getPetList().values().toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
 						}

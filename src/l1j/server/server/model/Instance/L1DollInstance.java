@@ -45,14 +45,15 @@ public class L1DollInstance extends L1NpcInstance {
 	private static Random _random = new Random();
 	private int _dollType;
 	private int _itemObjId;
+	private L1PcInstance _pc;
 
 	public boolean noTarget(int depth) {
-		if (_master.isDead()) {
+		if (_pc.isDead()) {
 			deleteDoll();
 			return true;
-		} else if (_master != null && _master.getMapId() == getMapId()) {
-			if (getLocation().getTileLineDistance(_master.getLocation()) > 2) {
-				int dir = moveDirection(_master.getX(), _master.getY());
+		} else if (_pc != null && _pc.getMapId() == getMapId()) {
+			if (getLocation().getTileLineDistance(_pc.getLocation()) > 2) {
+				int dir = moveDirection(_pc.getX(), _pc.getY());
 				if (dir == -1) {
 					if (!isAiRunning()) {
 						startAI();
@@ -100,20 +101,21 @@ public class L1DollInstance extends L1NpcInstance {
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
 			onPerceive(pc);
 		}
-		master.addDoll(this);
+		_pc = (L1PcInstance) _master;
+		_pc.addDoll(this);
 		if (!isAiRunning()) {
 			startAI();
 		}
 		if (isMpRegeneration()) {
-			master.startMpRegenerationByDoll();
+			_pc.startMpRegenerationByDoll();
 		}
 	}
 
 	public void deleteDoll() {
 		if (isMpRegeneration()) {
-			((L1PcInstance) _master).stopMpRegenerationByDoll();
+			_pc.stopMpRegenerationByDoll();
 		}
-		_master.getDollList().remove(getId());
+		_pc.getDollList().remove(getId());
 		deleteMe();
 	}
 
@@ -163,13 +165,8 @@ public class L1DollInstance extends L1NpcInstance {
 			int chance = _random.nextInt(100) + 1;
 			if (chance <= 3) {
 				damage = 15;
-				if (_master instanceof L1PcInstance) {
-					L1PcInstance pc = (L1PcInstance) _master;
-					pc.sendPackets(new S_SkillSound(_master.getId(),
-							6319));
-				}
-				_master.broadcastPacket(new S_SkillSound(_master
-						.getId(), 6319));
+				_pc.sendPackets(new S_SkillSound(_pc.getId(), 6319));
+				_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 6319));
 			}
 		}
 		return damage;
@@ -200,13 +197,8 @@ public class L1DollInstance extends L1NpcInstance {
 			int chance = _random.nextInt(100) + 1;
 			if (chance <= 4) {
 				damageReduction = 15;
-				if (_master instanceof L1PcInstance) {
-					L1PcInstance pc = (L1PcInstance) _master;
-					pc.sendPackets(new S_SkillSound(_master.getId(),
-							6320));
-				}
-				_master.broadcastPacket(new S_SkillSound(_master
-						.getId(), 6320));
+				_pc.sendPackets(new S_SkillSound(_pc.getId(), 6320));
+				_pc.broadcastPacket(new S_SkillSound(_pc.getId(), 6320));
 			}
 		}
 		return damageReduction;
