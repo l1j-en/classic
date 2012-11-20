@@ -5014,6 +5014,46 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 	}
 
+	private static class Recipe {
+		int[] ingredients;
+		int usual;
+		int special;
+
+		public Recipe(int[] ingredients, int usual, int special) {
+			this.ingredients = ingredients;
+			this.usual = usual;
+			this.special = special;
+		}
+	}
+
+	// Keep these in order!
+	private static final Recipe[] recipes = new Recipe[] {
+		new Recipe(new int[] { 40057 }, 41277, 41285),
+		new Recipe(new int[] { 41275 }, 41278, 41286),
+		new Recipe(new int[] { 40062, 40069, 40064 }, 41279, 41287),
+		new Recipe(new int[] { 41263, 41265 }, 41280, 41288),
+		new Recipe(new int[] { 41274, 41267 }, 41281, 41289),
+		new Recipe(new int[] { 40056, 40060, 40061 }, 41282, 41290),
+		new Recipe(new int[] { 41276 }, 41283, 41291),
+		new Recipe(new int[] { 40499, 40060 }, 41284, 41292),
+		new Recipe(new int[] { 49040, 49048 }, 49049, 49057),
+		new Recipe(new int[] { 49041, 49048 }, 49050, 49058),
+		new Recipe(new int[] { 49042, 41265, 49048 }, 49051, 49059),
+		new Recipe(new int[] { 49043, 49048 }, 49052, 49060),
+		new Recipe(new int[] { 49044, 49048 }, 49053, 49061),
+		new Recipe(new int[] { 49045, 49048 }, 49054, 49062),
+		new Recipe(new int[] { 49046, 49048 }, 49055, 49063),
+		new Recipe(new int[] { 49047, 40499, 49048 }, 49056, 49064),
+		new Recipe(new int[] { 49048, 49243, 49260 }, 49244, 49252),
+		new Recipe(new int[] { 49048, 49243, 49261 }, 49245, 49253),
+		new Recipe(new int[] { 49048, 49243, 49262 }, 49246, 49254),
+		new Recipe(new int[] { 49048, 49243, 49263 }, 49247, 49255),
+		new Recipe(new int[] { 49048, 49243, 49264 }, 49248, 49256),
+		new Recipe(new int[] { 49048, 49243, 49265 }, 49249, 49257),
+		new Recipe(new int[] { 49048, 49243, 49266 }, 49250, 49258),
+		new Recipe(new int[] { 49048, 49243, 49267 }, 49251, 49259),
+	};
+
 	private void makeCooking(L1PcInstance pc, int cookNo) {
 		boolean isNearFire = false;
 		for (L1Object obj : L1World.getInstance().getVisibleObjects(pc, 3)) {
@@ -5038,481 +5078,25 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 		pc.setSkillEffect(COOKING_NOW, 3 * 1000);
 
+		Recipe recipe = recipes[cookNo];
+		L1PcInventory inventory = pc.getInventory();
+		for (int ingredient : recipe.ingredients)
+			if (!inventory.checkItem(ingredient, 1)) {
+				pc.sendPackets(new S_ServerMessage(1102));
+				return;
+			}
+		for (int ingredient : recipe.ingredients)
+			inventory.consumeItem(ingredient, 1);
 		int chance = _random.nextInt(100) + 1;
-		if (cookNo == 0) {
-			if (pc.getInventory().checkItem(40057, 1)) {
-				pc.getInventory().consumeItem(40057, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41277, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41285, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 1) {
-			if (pc.getInventory().checkItem(41275, 1)) {
-				pc.getInventory().consumeItem(41275, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41278, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41286, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 2) {
-			if (pc.getInventory().checkItem(41263, 1)
-					&& pc.getInventory().checkItem(41265, 1)) {
-				pc.getInventory().consumeItem(41263, 1);
-				pc.getInventory().consumeItem(41265, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41279, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41287, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 3) {
-			if (pc.getInventory().checkItem(41274, 1)
-					&& pc.getInventory().checkItem(41267, 1)) {
-				pc.getInventory().consumeItem(41274, 1);
-				pc.getInventory().consumeItem(41267, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41280, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41288, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 4) {
-			if (pc.getInventory().checkItem(40062, 1)
-					&& pc.getInventory().checkItem(40069, 1)
-					&& pc.getInventory().checkItem(40064, 1)) {
-				pc.getInventory().consumeItem(40062, 1);
-				pc.getInventory().consumeItem(40069, 1);
-				pc.getInventory().consumeItem(40064, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41281, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41289, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101)); 
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 5) {
-			if (pc.getInventory().checkItem(40056, 1)
-					&& pc.getInventory().checkItem(40060, 1)
-					&& pc.getInventory().checkItem(40061, 1)) {
-				pc.getInventory().consumeItem(40056, 1);
-				pc.getInventory().consumeItem(40060, 1);
-				pc.getInventory().consumeItem(40061, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41282, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41290, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 6) {
-			if (pc.getInventory().checkItem(41276, 1)) {
-				pc.getInventory().consumeItem(41276, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41283, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41291, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 7) {
-			if (pc.getInventory().checkItem(40499, 1)
-					&& pc.getInventory().checkItem(40060, 1)) {
-				pc.getInventory().consumeItem(40499, 1);
-				pc.getInventory().consumeItem(40060, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 41284, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 41292, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 8) {
-			if (pc.getInventory().checkItem(49040, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49040, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49049, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49057, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 9) {
-			if (pc.getInventory().checkItem(49041, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49041, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49050, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49058, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 10) { 
-			if (pc.getInventory().checkItem(49042, 1)
-					&& pc.getInventory().checkItem(41265, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49042, 1);
-				pc.getInventory().consumeItem(41265, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49051, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49059, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 11) {
-			if (pc.getInventory().checkItem(49043, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49043, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49052, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49060, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 12) {
-			if (pc.getInventory().checkItem(49044, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49044, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49053, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49061, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102)); 
-			}
-		} else if (cookNo == 13) {
-			if (pc.getInventory().checkItem(49045, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49045, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49054, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49062, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 14) {
-			if (pc.getInventory().checkItem(49046, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49046, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49055, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49063, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 15) {
-			if (pc.getInventory().checkItem(49047, 1)
-					&& pc.getInventory().checkItem(40499, 1)
-					&& pc.getInventory().checkItem(49048, 1)) {
-				pc.getInventory().consumeItem(49047, 1);
-				pc.getInventory().consumeItem(40499, 1);
-				pc.getInventory().consumeItem(49048, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49056, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49064, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 16) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49260, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49260, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49244, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49252, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 17) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49261, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49261, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49245, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49253, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 18) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49262, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49262, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49246, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49254, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 19) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49263, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49263, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49247, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49255, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 20) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49264, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49264, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49248, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49256, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 21) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49265, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49265, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49249, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49257, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 22) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49266, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49266, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49250, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49258, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
-		} else if (cookNo == 23) {
-			if (pc.getInventory().checkItem(49048, 1)
-					&& pc.getInventory().checkItem(49243, 1)
-					&& pc.getInventory().checkItem(49267, 1)) {
-				pc.getInventory().consumeItem(49048, 1);
-				pc.getInventory().consumeItem(49243, 1);
-				pc.getInventory().consumeItem(49267, 1);
-				if (chance >= 1 && chance <= 90) {
-					createNewItem(pc, 49251, 1);
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
-				} else if (chance >= 91 && chance <= 95) {
-					createNewItem(pc, 49259, 1);
-					pc.sendPackets(new S_SkillSound(pc.getId(), 6390));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6390));
-				} else if (chance >= 96 && chance <= 100) {
-					pc.sendPackets(new S_ServerMessage(1101));
-					pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
-				}
-			} else {
-				pc.sendPackets(new S_ServerMessage(1102));
-			}
+		if (chance >= 1 && chance <= 90) {
+			createNewItem(pc, recipe.usual, 1);
+			pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
+		} else if (chance >= 91 && chance <= 95) {
+			createNewItem(pc, recipe.special, 1);
+			pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 6390));
+		} else {
+			pc.sendPackets(new S_ServerMessage(1101));
+			pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
 		}
 	}
 
@@ -5539,42 +5123,25 @@ public class C_ItemUSe extends ClientBasePacket {
 				return;
 			}
 			int npcId = 0;
-			if (itemId == 41383) {
-				npcId = 80109;
-			} else if (itemId == 41384) {
-				npcId = 80110;
-			} else if (itemId == 41385) {
-				npcId = 80113;
-			} else if (itemId == 41386) {
-				npcId = 80114;
-			} else if (itemId == 41387) {
-				npcId = 80115;
-			} else if (itemId == 41388) {
-				npcId = 80124;
-			} else if (itemId == 41389) {
-				npcId = 80118;
-			} else if (itemId == 41390) {
-				npcId = 80119;
-			} else if (itemId == 41391) {
-				npcId = 80120;
-			} else if (itemId == 41392) {
-				npcId = 80121;
-			} else if (itemId == 41393) {
-				npcId = 80126;
-			} else if (itemId == 41394) {
-				npcId = 80125;
-			} else if (itemId == 41395) {
-				npcId = 80111;
-			} else if (itemId == 41396) {
-				npcId = 80112;
-			} else if (itemId == 41397) {
-				npcId = 80116;
-			} else if (itemId == 41398) {
-				npcId = 80117;
-			} else if (itemId == 41399) {
-				npcId = 80122;
-			} else if (itemId == 41400) {
-				npcId = 80123;
+			switch (npcId) {
+				case 41383: npcId = 80109; break;
+				case 41384: npcId = 80110; break;
+				case 41385: npcId = 80113; break;
+				case 41386: npcId = 80114; break;
+				case 41387: npcId = 80115; break;
+				case 41388: npcId = 80124; break;
+				case 41389: npcId = 80118; break;
+				case 41390: npcId = 80119; break;
+				case 41391: npcId = 80120; break;
+				case 41392: npcId = 80121; break;
+				case 41393: npcId = 80126; break;
+				case 41394: npcId = 80125; break;
+				case 41395: npcId = 80111; break;
+				case 41396: npcId = 80112; break;
+				case 41397: npcId = 80116; break;
+				case 41398: npcId = 80117; break;
+				case 41399: npcId = 80122; break;
+				case 41400: npcId = 80123; break;
 			}
 
 			try {
