@@ -120,7 +120,8 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	private static final TimerPool _timerPool = new TimerPool(4);
+	// If you've got the threads, kick this up.
+	private static final TimerPool _timerPool = new TimerPool(32);
 
 	class NpcAITimerImpl extends TimerTask implements NpcAI {
 		private class DeathSyncTimer extends TimerTask {
@@ -696,136 +697,62 @@ public class L1NpcInstance extends L1Character {
 	public void onNpcAI() {
 	}
 
-	public void refineItem() {
+	private void consumeAndCreate(int[] ingredients, int[] ingredientCounts,
+			int result, L1Inventory inventory) {
+		if (!inventory.checkItem(ingredients, ingredientCounts))
+			return;
 
-		int[] materials = null;
-		int[] counts = null;
-		int[] createitem = null;
-		int[] createcount = null;
+		for (int i = 0; i < ingredients.length; i++)
+			inventory.consumeItem(ingredients[i], ingredientCounts[i]);
+		inventory.storeItem(result, 1);
+	}
 
-		if (_npcTemplate.get_npcId() == 45032) {
-			if (getExp() != 0 && !_inventory.checkItem(20)) {
-				materials = new int[] { 40508, 40521, 40045 };
-				counts = new int[] { 150, 3, 3 };
-				createitem = new int[] { 20 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+	private void makeIfAbsent(int[] ingredients, int[] ingredientCounts,
+			int result, L1Inventory inventory) {
+		if (inventory.checkItem(result))
+			return;
+		consumeAndCreate(ingredients, ingredientCounts, result, inventory);
+	}
+
+	private void refineItem() {
+		if (getExp() == 0)
+			return;
+
+		if (getNpcId() == 45032) {
+			makeIfAbsent(new int[] { 40508, 40521, 40045 },
+					new int[] { 150, 3, 3 }, 20, _inventory);
+	
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 150, 3 },
+					19, _inventory);
 		
-			if (getExp() != 0 && !_inventory.checkItem(19)) {
-				materials = new int[] { 40494, 40521 };
-				counts = new int[] { 150, 3 };
-				createitem = new int[] { 19 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 50, 1 },
+					3, _inventory);
+			
+			makeIfAbsent(new int[] { 88, 40508, 40045 },
+					new int[] { 4, 80, 3 }, 100, _inventory);
 		
-			if (getExp() != 0 && !_inventory.checkItem(3)) {
-				materials = new int[] { 40494, 40521 };
-				counts = new int[] { 50, 1 };
-				createitem = new int[] { 3 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-			
-			if (getExp() != 0 && !_inventory.checkItem(100)) {
-				materials = new int[] { 88, 40508, 40045 };
-				counts = new int[] { 4, 80, 3 };
-				createitem = new int[] { 100 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-			
-			if (getExp() != 0 && !_inventory.checkItem(89)) {
-				materials = new int[] { 88, 40494 };
-				counts = new int[] { 2, 80 };
-				createitem = new int[] { 89 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						L1ItemInstance item = _inventory.storeItem(
-								createitem[j], createcount[j]);
-						if (getNpcTemplate().get_digestitem() > 0) {
-							setDigestItem(item);
-						}
-					}
-				}
-			}
-		} else if (_npcTemplate.get_npcId() == 81069) { 
-			if (getExp() != 0 && !_inventory.checkItem(40542)) {
-				materials = new int[] { 40032 };
-				counts = new int[] { 1 };
-				createitem = new int[] { 40542 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-		} else if (_npcTemplate.get_npcId() == 45166 
-				|| _npcTemplate.get_npcId() == 45167) {
-			if (getExp() != 0 && !_inventory.checkItem(40726)) {
-				materials = new int[] { 40725 };
-				counts = new int[] { 1 };
-				createitem = new int[] { 40726 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+			makeIfAbsent(new int[] { 88, 40494 }, new int[] { 2, 80 },
+				89, _inventory);
+			L1ItemInstance item = _inventory.findItemId(89);
+			if (item != null && getNpcTemplate().get_digestitem() > 0)
+				setDigestItem(item);
+
+		} else if (getNpcId() == 81069) { 
+			makeIfAbsent(new int[] { 40032 }, new int[] { 1 }, 40542, _inventory);
+		} else if (getNpcId() == 45166 || 
+				getNpcId() == 45167) {
+			makeIfAbsent(new int[] { 40725 }, new int[] { 1 }, 40726, _inventory);
 		}
 	}
 
 	private boolean _aiRunning = false; 
-
 	private boolean _actived = false;
-
 	private boolean _firstAttack = false;
 	private int _sleep_time; 
 	protected L1HateList _hateList = new L1HateList();
 	protected L1HateList _dropHateList = new L1HateList();
 	
-	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(); 
+	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(0); 
 	protected L1Character _target = null; 
 	protected L1ItemInstance _targetItem = null; 
 	protected L1Character _master = null; 
@@ -913,7 +840,6 @@ public class L1NpcInstance extends L1Character {
 		private final int _point;
 	}
 
-
 	private boolean _mprRunning = false;
 
 	private MprTimer _mprTimer;
@@ -943,7 +869,6 @@ public class L1NpcInstance extends L1Character {
 
 		private final int _point;
 	}
-
 
 	private Map<Integer, Integer> _digestItems;
 	public boolean _digestItemRunning = false;
@@ -1411,7 +1336,6 @@ public class L1NpcInstance extends L1Character {
 				new Point(x, y)));
 	}
 
-	
 	public int moveDirection(int x, int y, double d) { 
 		int dir = 0;
 		if (hasSkillEffect(40) == true && d >= 2D) { 
@@ -1501,10 +1425,7 @@ public class L1NpcInstance extends L1Character {
 		return dir;
 	}
 
-
-
 	public static int checkObject(int x, int y, short m, int d) { 
-
 		L1Map map = L1WorldMap.getInstance().getMap(m);
 		if (d == 1) {
 			if (map.isPassable(x, y, 1)) {
@@ -1574,10 +1495,7 @@ public class L1NpcInstance extends L1Character {
 		return -1;
 	}
 
-
-
-	private int _serchCource(int x, int y) 
-	{
+	private int _serchCource(int x, int y) {
 		int i;
 		int locCenter = courceRange + 1;
 		int diff_x = x - locCenter; 
@@ -2128,8 +2046,6 @@ public class L1NpcInstance extends L1Character {
 		}
 		super.resurrect(hp);
 
-		//
-		//
 		L1SkillUse skill = new L1SkillUse();
 		skill.handleCommands(null, CANCELLATION, getId(), getX(),
 				getY(), null, 0, L1SkillUse.TYPE_LOGIN, this);

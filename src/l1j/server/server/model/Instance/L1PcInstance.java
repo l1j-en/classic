@@ -112,12 +112,16 @@ public class L1PcInstance extends L1Character {
 	private static final int HP_REGEN_INTERVAL = 1000;
 	private static Random _random = new Random();
 
+	private static final int DefaultDollCount = 1;
+	private static final int DefaultFollowerCount = 1;
+	private static final int DefaultPetCount = 2;
+
 	private final Map<Integer, L1FollowerInstance> _followers = 
-		new HashMap<Integer, L1FollowerInstance>();
+		new HashMap<Integer, L1FollowerInstance>(DefaultFollowerCount);
 	private final Map<Integer, L1DollInstance> _dolls = 
-		new HashMap<Integer, L1DollInstance>();
+		new HashMap<Integer, L1DollInstance>(DefaultDollCount);
 	private final Map<Integer, L1NpcInstance> _pets = 
-		new HashMap<Integer, L1NpcInstance>();
+		new HashMap<Integer, L1NpcInstance>(DefaultPetCount);
 	
 	public void addDoll(L1DollInstance doll) {
 		_dolls.put(doll.getId(), doll);
