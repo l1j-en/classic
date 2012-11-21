@@ -233,7 +233,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateFireResist(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET firemr = ? WHERE id = ?",
+				"UPDATE character_items SET defense_fire = ? WHERE id = ?",
 				item.getFireResist());
 		item.getLastStatus().updateFireResist();
 	}
@@ -241,7 +241,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateWaterResist(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET watermr = ? WHERE id = ?",
+				"UPDATE character_items SET defense_water = ? WHERE id = ?",
 				item.getWaterResist());
 		item.getLastStatus().updateWaterResist();
 	}
@@ -249,7 +249,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateEarthResist(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET earthmr = ? WHERE id = ?",
+				"UPDATE character_items SET defense_earth = ? WHERE id = ?",
 				item.getEarthResist());
 		item.getLastStatus().updateEarthResist();
 	}
@@ -257,7 +257,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateWindResist(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET windmr = ? WHERE id = ?",
+				"UPDATE character_items SET defense_wind = ? WHERE id = ?",
 				item.getWindResist());
 		item.getLastStatus().updateWindResist();
 	}
@@ -265,7 +265,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateSpellpower(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET addsp = ? WHERE id = ?",
+				"UPDATE character_items SET add_sp = ? WHERE id = ?",
 				item.getAddSpellpower());
 		item.getLastStatus().updateSpellpower();
 	}
@@ -273,7 +273,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateAddHp(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET addhp = ? WHERE id = ?",
+				"UPDATE character_items SET add_hp = ? WHERE id = ?",
 				item.getAddHp());
 		item.getLastStatus().updateHp();
 	}
@@ -281,7 +281,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateAddMp(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET addmp = ? WHERE id = ?",
+				"UPDATE character_items SET add_mp = ? WHERE id = ?",
 				item.getAddMp());
 		item.getLastStatus().updateMp();
 	}
@@ -289,7 +289,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateHpRegen(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET hpr = ? WHERE id = ?",
+				"UPDATE character_items SET add_hpr = ? WHERE id = ?",
 				item.getAddHpRegen());
 		item.getLastStatus().updateHpRegen();
 	}
@@ -297,7 +297,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 	@Override
 	public void updateMpRegen(L1ItemInstance item) throws Exception {
 		executeUpdate(item.getId(),
-				"UPDATE character_items SET mpr = ? WHERE id = ?",
+				"UPDATE character_items SET add_mpr = ? WHERE id = ?",
 				item.getAddMpRegen());
 		item.getLastStatus().updateMpRegen();
 	}

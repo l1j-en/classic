@@ -98,16 +98,17 @@ public class Enchant {
 						"Accessory enchanting is disabled on this server."));
 			return;
 		}
-
+		
 		L1Item accessoryBase = accessory.getItem();
-		if ((accessory == null) || (accessory.getBless() >= 128) ||
-				(accessoryBase.getType2() != 2 || 
+		if (accessory == null || accessory.getBless() >= 128 ||
+				accessoryBase.getType2() != 2 || 
 				 accessoryBase.getType() < 8 ||
 				 accessoryBase.getType() > 12 || 
-				 accessoryBase.getGrade() == -1)) {
+				 accessoryBase.getGrade() == -1) {
 			player.sendPackets(CantEnchant);
 			return;
 		}
+		
 		int level = accessory.getEnchantLevel();
 
 		if (level < 0 || level >= Config.ACCESSORY_ENCHANT_LIMIT) {
@@ -127,46 +128,47 @@ public class Enchant {
 		int itemStatus = 0;
 		boolean award = level > 0 && level % 5 == 0;
 
+		System.out.println(accessoryBase.getGrade());
 		switch (accessoryBase.getGrade()) {
 			case 0:
-				accessory.setEarthResist(accessory.getEarthResist() + 1);
+				accessory.setEarthResist(accessory.getEarthResist() + 2);
 				itemStatus += L1PcInventory.COL_EARTHMR;
-				accessory.setFireResist(accessory.getFireResist() + 1);
+				accessory.setFireResist(accessory.getFireResist() + 2);
 				itemStatus += L1PcInventory.COL_FIREMR;
-				accessory.setWaterResist(accessory.getWaterResist() + 1);
+				accessory.setWaterResist(accessory.getWaterResist() + 2);
 				itemStatus += L1PcInventory.COL_WATERMR;
-				accessory.setWindResist(accessory.getWindResist() + 1);
+				accessory.setWindResist(accessory.getWindResist() + 2);
 				itemStatus += L1PcInventory.COL_WINDMR;
 				if (award) {
-					accessory.setAddHpRegen(accessory.getAddHpRegen() + 1);
+					accessory.setAddHpRegen(accessory.getAddHpRegen() + 3);
 					itemStatus += L1PcInventory.COL_HPR;
-					accessory.setAddMpRegen(accessory.getAddMpRegen() + 1);
+					accessory.setAddMpRegen(accessory.getAddMpRegen() + 3);
 					itemStatus += L1PcInventory.COL_MPR;
 				}
 				if (accessory.isEquipped()) {
-					player.addFire(1);
-					player.addWater(1);
-					player.addEarth(1);
-					player.addWind(1);
+					player.addFire(3);
+					player.addWater(3);
+					player.addEarth(3);
+					player.addWind(3);
 				}
 				break;
 			case 1:
-				accessory.setAddHp(accessory.getAddHp() + 2);
+				accessory.setAddHp(accessory.getAddHp() + 5);
 				itemStatus += L1PcInventory.COL_ADDHP;
 				if (award) {
-					accessory.setMagicResist(accessory.getMagicResist() + 1);
+					accessory.setMagicResist(accessory.getMagicResist() + 5);
 					itemStatus += L1PcInventory.COL_M_DEF;
 				}
 				if (accessory.isEquipped()) {
-					player.addMaxHp(2);
+					player.addMaxHp(5);
 					if (award) {
-						player.addMr(1);
+						player.addMr(5);
 						player.sendPackets(new S_SPMR(player));
 					}
 				}
 				break;
 			case 2:
-				accessory.setAddMp(accessory.getAddMp() + 1);
+				accessory.setAddMp(accessory.getAddMp() + 5);
 				itemStatus += L1PcInventory.COL_ADDMP;
 				if (award) {
 					accessory.setAddSpellpower(accessory.getAddSpellpower() + 1);

@@ -192,4 +192,13 @@ public class L1Armor extends L1Item {
 		return this._resist_blind;
 	}
 
+	private int _grade;
+	
+	@Override public int getGrade() {
+		return _grade;
+	}
+	
+	public void setGrade(int grade) {
+		_grade = grade;
+	}
 }
