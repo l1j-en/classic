@@ -229,7 +229,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				|| itemId == 41429
 				|| itemId == 41430
 				|| itemId == 41431
-				|| itemId == 41432) {
+				|| itemId == 41432
+				|| itemId == 49148) {
 					l = readD();
 				} else if (itemId == 140100 || itemId == 40100 || itemId == 40099 || itemId == 40086 || itemId == 40863) {
 					bmapid = readH();
