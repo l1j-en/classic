@@ -162,6 +162,7 @@ public class S_PacketBox extends ServerBasePacket {
 			break;
 		case CALL_SOMETHING:
 			callSomething();
+			break;
 		default:
 			break;
 		}

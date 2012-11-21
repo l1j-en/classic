@@ -27,12 +27,10 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
 
 import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
