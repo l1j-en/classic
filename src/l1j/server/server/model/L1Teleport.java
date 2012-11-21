@@ -74,8 +74,7 @@ public class L1Teleport {
 		if (effectable && (skillType >= 0 && skillType <= EFFECT_SPR.length)) {
 			S_SkillSound packet = new S_SkillSound(pc.getId(),
 					EFFECT_SPR[skillType]);
-			pc.sendPackets(packet);
-			pc.broadcastPacket(packet);
+			pc.sendAndBroadcast(packet);
 
 			try {
 				Thread.sleep((int) (EFFECT_TIME[skillType] * 0.7));
