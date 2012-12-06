@@ -146,10 +146,10 @@ public class Enchant {
 					itemStatus += L1PcInventory.COL_MPR;
 				}
 				if (accessory.isEquipped()) {
-					player.addFire(3);
-					player.addWater(3);
-					player.addEarth(3);
-					player.addWind(3);
+					player.addFire(2);
+					player.addWater(2);
+					player.addEarth(2);
+					player.addWind(2);
 				}
 				break;
 			case 1:
