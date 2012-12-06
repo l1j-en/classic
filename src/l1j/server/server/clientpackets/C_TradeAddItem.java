@@ -60,13 +60,17 @@ public class C_TradeAddItem extends ClientBasePacket {
 		}
 		L1ItemInstance item = pc.getInventory().getItem(itemid);
 		//TRICIDTODO: set configurable autoban
-		if (itemid != item.getId() || (!item.isStackable() && itemcount != 1) || item.getCount() <= 0 || itemcount <= 0 || itemcount > 2000000000 || itemcount > item.getCount()) {
+		if ((!item.isStackable() && itemcount != 1) || item.getCount() <= 0 || itemcount <= 0 || itemcount > 2000000000 || itemcount > item.getCount()) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_TradeAddItem).");
 			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
+		}
+		if (itemid != item.getId()) {
+			_log.warning(pc.getName() + " had item " +
+					Integer.toString(itemid) + " not match.");
 		}
 		L1Trade trade = new L1Trade();
 		L1CheckPcItem checkPcItem = new L1CheckPcItem();

@@ -83,13 +83,17 @@ public class C_DropItem extends ClientBasePacket {
 				return;
 			}
 						
-			if (/*objectId != item.getId() ||*/ (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-			_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem) - item property off.");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
-			pc.sendPackets(new S_Disconnect());
-			return;
+			if ((!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+				_log.info(pc.getName() + " Attempted Dupe Exploit (C_DropItem) - item property off.");
+				L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+				pc.sendPackets(new S_Disconnect());
+				return;
+			}
+			if (objectId != item.getId()) {
+				_log.warning(pc.getName() + " had item " +
+						Integer.toString(objectId) + " not match.");
 			}
 
 			Object[] petlist = pc.getPetList().values().toArray();

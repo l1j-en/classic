@@ -85,13 +85,17 @@ public class C_PickUpItem extends ClientBasePacket {
 
 		if (object != null && !pc.isDead()) {
 			L1ItemInstance item = (L1ItemInstance) object;
-			if (objectId != item.getId() || (!item.isStackable() && pickupCount != 1) || item.getCount() <= 0 || pickupCount <= 0 || pickupCount > 2000000000 || pickupCount > item.getCount()) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
-			pc.sendPackets(new S_Disconnect());
-			return;
+			if ((!item.isStackable() && pickupCount != 1) || item.getCount() <= 0 || pickupCount <= 0 || pickupCount > 2000000000 || pickupCount > item.getCount()) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+				_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
+				L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+				pc.sendPackets(new S_Disconnect());
+				return;
+			}
+			if (objectId != item.getId()) {
+				_log.warning(pc.getName() + " had item " +
+						Integer.toString(objectId) + " not match.");
 			}
 
 			if (item.getItemOwnerId() != 0 && pc.getId() != item.getItemOwnerId()) {
@@ -115,9 +119,9 @@ public class C_PickUpItem extends ClientBasePacket {
 					return;
 				}
 			}
-			if (pc.getInventory().checkAddItem( // 容量重量確認及びメッセージ送信
+			if (pc.getInventory().checkAddItem( // å®¹é‡�é‡�é‡�ç¢ºèª�å�Šã�³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€�ä¿¡
 					item, pickupCount) == L1Inventory.OK) {
-				if (item.getX() != 0 && item.getY() != 0) { // ワールドマップ上のアイテム
+				if (item.getX() != 0 && item.getY() != 0) { // ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒžãƒƒãƒ—ä¸Šã�®ã‚¢ã‚¤ãƒ†ãƒ 
 					L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
 			int before_inven = 0;
 					if (item.isStackable()) {
