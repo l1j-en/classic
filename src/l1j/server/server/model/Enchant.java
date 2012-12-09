@@ -175,7 +175,7 @@ public class Enchant {
 					itemStatus += L1PcInventory.COL_ADDSP;
 				}
 				if (accessory.isEquipped()) {
-					player.addMaxMp(1);
+					player.addMaxMp(5);
 					if (award) {
 						player.addSp(1);
 						player.sendPackets(new S_SPMR(player));
