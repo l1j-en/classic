@@ -73,6 +73,16 @@ public class L1DwarfForClanInventory extends L1Inventory {
 				item.setBless(rs.getInt("bless"));
 				item.setAttrEnchantKind(rs.getInt("attr_enchant_kind"));
 				item.setAttrEnchantLevel(rs.getInt("attr_enchant_level"));
+				item.setMagicResist(rs.getInt("m_def"));
+				item.setAddHp(rs.getInt("add_hp"));
+				item.setAddMp(rs.getInt("add_mp"));
+				item.setAddHpRegen(rs.getInt("add_hpr"));
+				item.setAddMpRegen(rs.getInt("add_mpr"));
+			 	item.setAddSpellpower(rs.getInt("add_sp"));
+			 	item.setWaterResist(rs.getInt("defense_water"));
+			 	item.setWindResist(rs.getInt("defense_wind"));
+			 	item.setFireResist(rs.getInt("defense_fire"));
+			 	item.setEarthResist(rs.getInt("defense_earth"));
 				_items.add(item);
 				L1World.getInstance().storeObject(item);
 			}
@@ -92,7 +102,7 @@ public class L1DwarfForClanInventory extends L1Inventory {
 		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO clan_warehouse SET id = ?, clan_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id= ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?");
+			pstm = con.prepareStatement("INSERT INTO clan_warehouse SET id = ?, clan_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id= ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?, m_def = ?, add_hp = ?, add_mp = ?, add_hpr = ?, add_mpr = ?, add_sp = ?, defense_water = ?, defense_wind = ?, defense_fire = ?, defense_earth = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setString(2, _clan.getClanName());
 			pstm.setInt(3, item.getItemId());
@@ -107,6 +117,16 @@ public class L1DwarfForClanInventory extends L1Inventory {
 			pstm.setInt(12, item.getBless());
 			pstm.setInt(13, item.getAttrEnchantKind());
 			pstm.setInt(14, item.getAttrEnchantLevel());
+			pstm.setInt(15, item.getMagicResist());
+			pstm.setInt(16, item.getAddHp());
+			pstm.setInt(17, item.getAddMp());
+			pstm.setInt(18, item.getAddHpRegen());
+			pstm.setInt(19, item.getAddMpRegen());
+			pstm.setInt(20, item.getAddSpellpower());
+			pstm.setInt(21, item.getWaterResist());
+			pstm.setInt(22, item.getWindResist());
+			pstm.setInt(23, item.getFireResist());
+			pstm.setInt(24, item.getEarthResist());
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
