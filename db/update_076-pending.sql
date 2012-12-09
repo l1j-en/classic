@@ -10,3 +10,47 @@ update mapids set teleportable=false where mapid=490;
 -- Make some of Black Knight of Darkness' attacks regular, upping leverage to
 -- compensate.
 update mobskill set trirnd=75,leverage=35 where mobid=45503;
+
+-- Other storage tables need accessory bonus columns.
+alter table character_elf_warehouse add `m_def` int(4) unsigned not null default 0;
+alter table character_elf_warehouse add `add_hp` int(6) unsigned not null default 0;
+alter table character_elf_warehouse add `add_mp` int(6) unsigned not null default 0;
+alter table character_elf_warehouse add `add_hpr` int(3) unsigned not null default 0;
+alter table character_elf_warehouse add `add_mpr` int(3) unsigned not null default 0;
+alter table character_elf_warehouse add `add_sp` int(2) unsigned not null default 0;
+alter table character_elf_warehouse add `defense_water` int(4) unsigned not null default 0;
+alter table character_elf_warehouse add `defense_wind` int(4) unsigned not null default 0;
+alter table character_elf_warehouse add `defense_fire` int(4) unsigned not null default 0;
+alter table character_elf_warehouse add `defense_earth` int(4) unsigned not null default 0;
+
+alter table character_warehouse add `m_def` int(4) unsigned not null default 0;
+alter table character_warehouse add `add_hp` int(6) unsigned not null default 0;
+alter table character_warehouse add `add_mp` int(6) unsigned not null default 0;
+alter table character_warehouse add `add_hpr` int(3) unsigned not null default 0;
+alter table character_warehouse add `add_mpr` int(3) unsigned not null default 0;
+alter table character_warehouse add `add_sp` int(2) unsigned not null default 0;
+alter table character_warehouse add `defense_water` int(4) unsigned not null default 0;
+alter table character_warehouse add `defense_wind` int(4) unsigned not null default 0;
+alter table character_warehouse add `defense_fire` int(4) unsigned not null default 0;
+alter table character_warehouse add `defense_earth` int(4) unsigned not null default 0;
+
+alter table clan_warehouse add `m_def` int(4) unsigned not null default 0;
+alter table clan_warehouse add `add_hp` int(6) unsigned not null default 0;
+alter table clan_warehouse add `add_mp` int(6) unsigned not null default 0;
+alter table clan_warehouse add `add_hpr` int(3) unsigned not null default 0;
+alter table clan_warehouse add `add_mpr` int(3) unsigned not null default 0;
+alter table clan_warehouse add `add_sp` int(2) unsigned not null default 0;
+alter table clan_warehouse add `defense_water` int(4) unsigned not null default 0;
+alter table clan_warehouse add `defense_wind` int(4) unsigned not null default 0;
+alter table clan_warehouse add `defense_fire` int(4) unsigned not null default 0;
+alter table clan_warehouse add `defense_earth` int(4) unsigned not null default 0;
+
+-- Resolvent updates.
+update resolvent,armor set note=name where resolvent.item_id=armor.item_id;
+update resolvent,etcitem set note=name where resolvent.item_id=etcitem.item_id;
+update resolvent,weapon set note=name where resolvent.item_id=weapon.item_id;
+
+insert into resolvent values (20244, "Old Amulet of Charisma", 700), (20245, "Old Amulet of Dexterity", 700), (20246, "Old Amulet of Strength", 700), (20248, "Old Amulet of Wisdom", 700), (20247, "Old Amulet of Intelligence", 700), (20249, "Old Amulet of Constitution", 700), (20254, "Amulet of Charisma", 1000), (20256, "Amulet of Dexterity", 1000), (20264, "Amulet of Strength", 1000), (20267, "Amulet of Wisdom", 1000), (20268, "Amulet of Constitution", 1000), (20154, "Plate Mail", 1200), (120154, "Plate Mail", 1800), (120128, "Crystal Plate Mail", 2000), (20128, "Crystal Plate Mail", 1600), (20110, "Chain Mail of Magic Resistance", 1100), (41, "Katana", 800), (100041, "Katana", 1200), (200041, "Katana", 0), (125, "Staff of Sorcery", 750);
+
+update resolvent set crystal_count=2400 where note like "belt of%";
+update resolvent set crystal_count=1200 where note like "old belt of%";
