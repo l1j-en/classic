@@ -85,7 +85,7 @@ public class L1DwarfInventory extends L1Inventory {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO character_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?,, m_def = ?, add_hp = ?, add_mp = ?, add_hpr = ?, add_mpr = ?, add_sp = ?, defense_water = ?, defense_wind = ?, defense_fire = ?, defense_earth = ?");
+					.prepareStatement("INSERT INTO character_warehouse SET id = ?, account_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?, m_def = ?, add_hp = ?, add_mp = ?, add_hpr = ?, add_mpr = ?, add_sp = ?, defense_water = ?, defense_wind = ?, defense_fire = ?, defense_earth = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setString(2, _owner.getAccountName());
 			pstm.setInt(3, item.getItemId());
