@@ -54,3 +54,13 @@ insert into resolvent values (20244, "Old Amulet of Charisma", 700), (20245, "Ol
 
 update resolvent set crystal_count=2400 where note like "belt of%";
 update resolvent set crystal_count=1200 where note like "old belt of%";
+
+-- Remove extraneous columns in elf warehouse log.
+alter table LogElfWareHouseIn drop ClanId;
+alter table LogElfWareHouseIn drop ClanName;
+alter table LogElfWareHouseOut drop ClanId;
+alter table LogElfWareHouseOut drop ClanName;
+
+-- Make Ivory Tower ring unenchantable, since it's infinitely farmable for
+-- free.
+alter table armor set grade=-1 where item_id=20282;
