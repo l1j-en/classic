@@ -5031,9 +5031,9 @@ public class C_ItemUSe extends ClientBasePacket {
 	private static final Recipe[] recipes = new Recipe[] {
 		new Recipe(new int[] { 40057 }, 41277, 41285),
 		new Recipe(new int[] { 41275 }, 41278, 41286),
-		new Recipe(new int[] { 40062, 40069, 40064 }, 41279, 41287),
-		new Recipe(new int[] { 41263, 41265 }, 41280, 41288),
-		new Recipe(new int[] { 41274, 41267 }, 41281, 41289),
+		new Recipe(new int[] { 41263, 41265 }, 41279, 41287),
+		new Recipe(new int[] { 41274, 41267 }, 41280, 41288),
+		new Recipe(new int[] { 40062, 40069, 40064 }, 41281, 41289),
 		new Recipe(new int[] { 40056, 40060, 40061 }, 41282, 41290),
 		new Recipe(new int[] { 41276 }, 41283, 41291),
 		new Recipe(new int[] { 40499, 40060 }, 41284, 41292),

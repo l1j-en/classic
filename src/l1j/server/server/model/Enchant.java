@@ -75,7 +75,8 @@ public class Enchant {
 		}
 
 		final L1PcInventory inventory = player.getInventory();
-		if (Config.ATTR_ENCHANT_CHANCE >= _random.nextInt(100) + 1) {
+		if (!player.isGm() && 
+				Config.ATTR_ENCHANT_CHANCE >= _random.nextInt(100) + 1) {
 			player.sendPackets(new S_ServerMessage(161, weapon.getLogName(), 
 						"$245", "$247"));
 			int newLevel = sameElement ? currentLevel + 1 : 1;
@@ -119,7 +120,7 @@ public class Enchant {
 		// Roughly +0-85% ~ +9-40%
 		int chance = (50 + level) / (level + 1) + 35;
 
-		if (_random.nextInt(100) + 1 > chance) {
+		if (!player.isGm() && _random.nextInt(100) + 1 > chance) {
 			failureEnchant(player, accessory);
 			player.getInventory().removeItem(scroll, 1);
 			return;
@@ -128,7 +129,6 @@ public class Enchant {
 		int itemStatus = 0;
 		boolean award = level > 0 && level % 5 == 0;
 
-		System.out.println(accessoryBase.getGrade());
 		switch (accessoryBase.getGrade()) {
 			case 0:
 				accessory.setEarthResist(accessory.getEarthResist() + 2);
@@ -401,7 +401,9 @@ public class Enchant {
 
 		int enchantLevel = weapon.getEnchantLevel();
 
-		Result result = enchantWeapon(scrollId, enchantLevel, safeEnchant);
+		Result result = player.isGm()
+				? Result.Success
+				: enchantWeapon(scrollId, enchantLevel, safeEnchant);
 		player.getInventory().removeItem(scroll, 1);
 		switch (result) {
 			case Success:
@@ -452,7 +454,9 @@ public class Enchant {
 		}
 
 		int enchantLevel = armor.getEnchantLevel();
-		Result result = enchantArmor(scrollId, enchantLevel, safeEnchant);
+		Result result = player.isGm()
+				? Result.Success
+				: enchantArmor(scrollId, enchantLevel, safeEnchant);
 		player.getInventory().removeItem(scroll, 1);
 		switch (result) {
 			case Success:
