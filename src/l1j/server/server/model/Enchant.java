@@ -75,7 +75,7 @@ public class Enchant {
 		}
 
 		final L1PcInventory inventory = player.getInventory();
-		if (!player.isGm() && 
+		if (player.isGm() ||
 				Config.ATTR_ENCHANT_CHANCE >= _random.nextInt(100) + 1) {
 			player.sendPackets(new S_ServerMessage(161, weapon.getLogName(), 
 						"$245", "$247"));
