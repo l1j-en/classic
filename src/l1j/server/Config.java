@@ -336,6 +336,8 @@ public final class Config {
 	
 	public static int MONSTERPOTIONINTUSE;
 
+	public static int COOKING_TIME;
+
 	/** CharSettings control */
 	public static int PRINCE_MAX_HP;
 
@@ -645,6 +647,7 @@ public final class Config {
 			ALT_WHO_COMMAND = Boolean.parseBoolean(altSettings.getProperty("WhoCommand", "False"));
 			ALT_REVIVAL_POTION = Boolean.parseBoolean(altSettings.getProperty("RevivalPotion", "False"));
 			MONSTERPOTIONINTUSE = Integer.parseInt(altSettings.getProperty("MonsterIntPotions", "13"));
+			COOKING_TIME = Integer.parseInt(altSettings.getProperty("CookingTime", "3"));
 			HAUNTEDHOUSETIME = Integer.parseInt(altSettings.getProperty("HauntedHouseTime", "90000"));
 			RANDOMIZE_BOSS_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("RandomizeBossSpawns", "False"));
 			RANDOMIZED_BOSS_SPAWN_FACTOR = Double.parseDouble(altSettings.getProperty("RandomizedBossSpawnFactor", ".5"));

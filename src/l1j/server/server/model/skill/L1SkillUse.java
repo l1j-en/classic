@@ -2330,44 +2330,37 @@ public class L1SkillUse {
 						}
 					}
 				} else if (_skillId == BONE_BREAK) {
-					RandomGenerator random = RandomGeneratorFactory
-						.getSharedRandom();
-					int stunTime = (random.nextInt(14) + 7) * 100;
+					RandomGenerator random =
+						RandomGeneratorFactory.getSharedRandom();
+					int stunTime = (random.nextInt(10) + 6) * 100;
 					_boneBreakDuration = stunTime;
 					int intbonus = _user.getInt() - 12;
-					//System.out.println(intbonus);
 					if (intbonus > 0) {
-						_boneBreakDuration = _boneBreakDuration + (intbonus*75);
+						_boneBreakDuration = _boneBreakDuration + (intbonus * 40);
 					}
 					if (_boneBreakDuration > 6000) {
 						_boneBreakDuration = 6000;
 					}
-					//L1EffectSpawn.getInstance().spawnEffect(91208,
-					//		_boneBreakDuration, cha.getX(), cha.getY(),
-					//		cha.getMapId());
 					int chance = (random.nextInt(100) + 1);
 					int probability = (l1skills.getProbabilityValue() - (2 * cha
 								.getResistStun()));
 					if (chance <= probability) {
+						L1EffectSpawn.getInstance().spawnEffect(91208,
+								_boneBreakDuration, cha.getX(), cha.getY(),
+								cha.getMapId());
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
-							L1EffectSpawn.getInstance().spawnEffect(91208,
-									_boneBreakDuration, cha.getX(), cha.getY(),
-									cha.getMapId());
 
 							pc.sendPackets(new S_Paralysis(
 										S_Paralysis.TYPE_STUN, true));
-						} else if (cha instanceof L1MonsterInstance
-								|| cha instanceof L1SummonInstance
-								|| cha instanceof L1PetInstance) {
+						} else if (cha instanceof L1MonsterInstance ||
+								cha instanceof L1SummonInstance || 
+								cha instanceof L1PetInstance) {
 							L1NpcInstance npc = (L1NpcInstance) cha;
-							L1EffectSpawn.getInstance().spawnEffect(91208,
-									_boneBreakDuration, cha.getX(), cha.getY(),
-									cha.getMapId());
 
 							npc.setParalyzed(true);
 							npc.setParalysisTime(_boneBreakDuration);
-								}
+						}
 					}
 				} else if (_skillId == SMASH) {
 					if (cha instanceof L1PcInstance) {
