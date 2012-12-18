@@ -13,6 +13,7 @@ update etcitem set stackable=1 where name like "%dragon tablet%";
 update etcitem set stackable=1 where name like "%memory crystal%"; 
 update etcitem set stackable=1 where name="Crystal Ball of Necromancer";
 update etcitem set stackable=1 where item_id=41243 or item_id=41244; -- lasta boxes
+update etcitem set stackable=1 where item_id in (40031, 40131, 40132, 40133, 40134, 40135, 41090, 41091, 41092, 40329, 140329); -- orc totems and native totems
 
 -- dk/kurtz sets usable by all
 -- if you had early custom armor then use
@@ -120,3 +121,6 @@ insert into droplist values
 	(45592, "Abyss Earth Spirit", 41430, "Scroll of Enchant Weapon: Earth", 1, 1, 9000),
 	(45593, "Abyss Wind Spirit", 41429, "Scroll of Enchant Weapon: Wind", 1, 1, 9000),
 	(45594, "Abyss Fire Spirit", 41432, "Scroll of Enchant Weapon: Fire", 1, 1, 9000);
+
+-- Make Ivory Tower rings unenchantable.
+update armor set grade=-1 where item_id=20282;
