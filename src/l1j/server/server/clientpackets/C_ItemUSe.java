@@ -5077,7 +5077,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (pc.hasSkillEffect(COOKING_NOW)) {
 			return;
 		}
-		pc.setSkillEffect(COOKING_NOW, 3 * 1000);
+		pc.setSkillEffect(COOKING_NOW, Config.COOKING_TIME * 1000);
 
 		Recipe recipe = recipes[cookNo];
 		L1PcInventory inventory = pc.getInventory();
