@@ -1255,8 +1255,9 @@ public class L1SkillUse {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 				break;
 			case BLOODLUST:
-				pc.sendPackets(new S_SkillBrave(pc.getId(), 6, buffIconDuration));
-				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 1, buffIconDuration));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
+				// pc.setBraveSpeed(i);
 				break;
 			case SLOW: case MASS_SLOW: case ENTANGLE:
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 2, buffIconDuration));
@@ -3048,7 +3049,7 @@ public class L1SkillUse {
 							&& ((L1MonsterInstance) cha).getNpcTemplate()
 							.isTamable()) {
 						int petcost = 0;
-						Object[] petlist = _player.getPetList().values()
+						Object[] petlist = _user.getPetList().values()
 							.toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
@@ -3068,14 +3069,15 @@ public class L1SkillUse {
 						charisma -= petcost;
 						if (charisma >= 6) {
 							L1SummonInstance summon = new L1SummonInstance(
-									_targetNpc, _player, false);
+									_targetNpc, _user, false);
 							_target = summon;
 						} else {
 							_player.sendPackets(new S_ServerMessage(319));
 						}
 					} else if (_skillId == CREATE_ZOMBIE) {
 						int petcost = 0;
-						Object[] petlist = _player.getPetList().values().toArray();
+						Object[] petlist = _user.getPetList().values()
+							.toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
 						}

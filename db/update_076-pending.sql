@@ -63,4 +63,29 @@ alter table LogElfWareHouseOut drop ClanName;
 
 -- Make Ivory Tower ring unenchantable, since it's infinitely farmable for
 -- free.
-alter table armor set grade=-1 where item_id=20282;
+update armor set grade=-1 where item_id=20282;
+
+-- Dark elf set.
+insert into armor (item_id, name, unidentified_name_id, identified_name_id, type, material, weight, invgfx, grdgfx, ac, safenchant, use_darkelf, use_elf) values (30012, "Dark Elf Tunic", "Dark Elf Tunic", "Dark Elf Tunic", "armor", "cloth", 60000, 982, 3830, -1, 6, 1, 1), (30013, "Dark Elf Sandals", "Dark Elf Sandals", "Dark Elf Sandals", "boots", "leather", 30000, 452, 25, -1, 6, 1, 1), (30014, "Dark Elf Circlet", "Dark Elf Circlet", "Dark Elf Circlet", "helm", "iron", 30000, 511, 18, -1, 6, 1, 1);
+
+-- insert into droplist values ();
+
+insert into armor_set (note, polyname, sets, polyid, ac, defense_wind, dex, hpr, mpr) values ("Dark Elf Set", "Dark Elf", "30012,30013,30014", 6140, -3, 10, 2, -2, -7);
+
+insert into droplist values (45265, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 800);
+insert into droplist values (45265, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 800);
+insert into droplist values (45265, "Dark Elf", 30024, "Dark Elf Circlet", 1, 1, 800);
+insert into droplist values (45364, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 1200);
+insert into droplist values (45364, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 1200);
+insert into droplist values (45364, "Dark Elf", 30024, "Dark Elf Circlet", 1, 1, 1200);
+insert into droplist values (45584, "Greater Minotaur", 30012, "Dark Elf Tunic", 1, 1, 12000);
+insert into droplist values (45584, "Greater Minotaur", 30013, "Dark Elf Sandals", 1, 1, 12000);
+insert into droplist values (45584, "Greater Minotaur", 30024, "Dark Elf Circlet", 1, 1, 12000);
+insert into droplist values (45595, "Iris", 30012, "Dark Elf Tunic", 1, 1, 16000);
+insert into droplist values (45595, "Iris", 30013, "Dark Elf Sandals", 1, 1, 16000);
+insert into droplist values (45595, "Iris", 30024, "Dark Elf Circlet", 1, 1, 16000);
+insert into droplist values (45648, "Slave of Assassin King", 30012, "Dark Elf Tunic", 1, 1, 15000);
+insert into droplist values (45648, "Slave of Assassin King", 30013, "Dark Elf Sandals", 1, 1, 15000);
+insert into droplist values (45648, "Slave of Assassin King", 30024, "Dark Elf Circlet", 1, 1, 15000);
+
+
