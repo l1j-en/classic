@@ -28,6 +28,7 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SkillSound;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_UseArrowSkill;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.serverpackets.ServerBasePacket;
@@ -549,6 +550,10 @@ public class L1Attack {
 			_damage = calcNpcPcDamage();
 		} else if (_calcType == NPC_NPC) {
 			_damage = calcNpcNpcDamage();
+		}
+		if (_pc.getDmgMessages()) {
+			_pc.sendPackets(new S_SystemMessage(
+					"Damage Dealt:" + String.valueOf(_damage)));
 		}
 		return _damage;
 	}
@@ -1340,6 +1345,11 @@ public class L1Attack {
 			_pc.receiveDamage(_targetPc, damage, false);
 		} else if (_calcType == NPC_PC) {
 			_npc.receiveDamage(_targetPc, damage);
+		}
+		
+		if (_pc.getDmgMessages()) {
+			_pc.sendPackets(new S_SystemMessage(
+					"CB Dealt:" + String.valueOf(damage)));
 		}
 	}
 

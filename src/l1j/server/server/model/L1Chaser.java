@@ -31,7 +31,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
-import l1j.server.server.templates.L1Skill;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Chaser extends TimerTask {
@@ -103,6 +103,10 @@ public class L1Chaser extends TimerTask {
 			npc.broadcastPacket(new S_DoActionGFX(npc.getId(), ActionCodes
 					.ACTION_Damage));
 			npc.receiveDamage(_pc, (int) damage);
+		}
+		if (_pc.getDmgMessages()) {
+			_pc.sendPackets(new S_SystemMessage(
+					"Chaser Dealt:" + String.valueOf(damage)));
 		}
 	}
 

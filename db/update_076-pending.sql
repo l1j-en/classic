@@ -72,20 +72,20 @@ insert into armor (item_id, name, unidentified_name_id, identified_name_id, type
 
 insert into armor_set (note, polyname, sets, polyid, ac, defense_wind, dex, hpr, mpr) values ("Dark Elf Set", "Dark Elf", "30012,30013,30014", 6140, -3, 10, 2, -2, -7);
 
-insert into droplist values (45265, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 800);
-insert into droplist values (45265, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 800);
-insert into droplist values (45265, "Dark Elf", 30024, "Dark Elf Circlet", 1, 1, 800);
-insert into droplist values (45364, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 1200);
-insert into droplist values (45364, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 1200);
-insert into droplist values (45364, "Dark Elf", 30024, "Dark Elf Circlet", 1, 1, 1200);
-insert into droplist values (45584, "Greater Minotaur", 30012, "Dark Elf Tunic", 1, 1, 12000);
-insert into droplist values (45584, "Greater Minotaur", 30013, "Dark Elf Sandals", 1, 1, 12000);
-insert into droplist values (45584, "Greater Minotaur", 30024, "Dark Elf Circlet", 1, 1, 12000);
-insert into droplist values (45595, "Iris", 30012, "Dark Elf Tunic", 1, 1, 16000);
-insert into droplist values (45595, "Iris", 30013, "Dark Elf Sandals", 1, 1, 16000);
-insert into droplist values (45595, "Iris", 30024, "Dark Elf Circlet", 1, 1, 16000);
-insert into droplist values (45648, "Slave of Assassin King", 30012, "Dark Elf Tunic", 1, 1, 15000);
-insert into droplist values (45648, "Slave of Assassin King", 30013, "Dark Elf Sandals", 1, 1, 15000);
-insert into droplist values (45648, "Slave of Assassin King", 30024, "Dark Elf Circlet", 1, 1, 15000);
+insert into droplist values (45265, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 200);
+insert into droplist values (45265, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 200);
+insert into droplist values (45265, "Dark Elf", 30014, "Dark Elf Circlet", 1, 1, 200);
+insert into droplist values (45364, "Dark Elf", 30012, "Dark Elf Tunic", 1, 1, 400);
+insert into droplist values (45364, "Dark Elf", 30013, "Dark Elf Sandals", 1, 1, 400);
+insert into droplist values (45364, "Dark Elf", 30014, "Dark Elf Circlet", 1, 1, 400);
+insert into droplist values (45584, "Greater Minotaur", 30012, "Dark Elf Tunic", 1, 1, 6000);
+insert into droplist values (45584, "Greater Minotaur", 30013, "Dark Elf Sandals", 1, 1, 6000);
+insert into droplist values (45584, "Greater Minotaur", 30014, "Dark Elf Circlet", 1, 1, 6000);
+insert into droplist values (45595, "Iris", 30012, "Dark Elf Tunic", 1, 1, 8000);
+insert into droplist values (45595, "Iris", 30013, "Dark Elf Sandals", 1, 1, 8000);
+insert into droplist values (45595, "Iris", 30014, "Dark Elf Circlet", 1, 1, 8000);
+insert into droplist values (45648, "Slave of Assassin King", 30012, "Dark Elf Tunic", 1, 1, 7500);
+insert into droplist values (45648, "Slave of Assassin King", 30013, "Dark Elf Sandals", 1, 1, 7500);
+insert into droplist values (45648, "Slave of Assassin King", 30014, "Dark Elf Circlet", 1, 1, 7500);
 
 

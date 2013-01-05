@@ -2695,6 +2695,18 @@ public class L1PcInstance extends L1Character {
 	}
 	public boolean getPartyDropMessages() { return _partyDropMessages; }
 	
+	private boolean _dmgMessages = false;
+	public boolean getDmgMessages() { return _dmgMessages; }
+	public void setDmgMessages(final boolean dmgMessages) {
+		_dmgMessages = dmgMessages;
+	}
+	
+	private boolean _potionMessages = true;
+	public boolean getPotionMessages() { return _potionMessages; }
+	public void setPotionMessages(final boolean potionMessages) {
+		_potionMessages = potionMessages;
+	}
+	
 	// check if FoeSlayer is in use
 	private boolean _FoeSlayer = false;
 

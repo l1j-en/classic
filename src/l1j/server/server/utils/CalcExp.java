@@ -36,10 +36,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
-// Referenced classes of package l1j.server.server.utils:
-// CalcStat
 public class CalcExp {
-	private static final long serialVersionUID = 1L;
 	private static Logger _log = Logger.getLogger(CalcExp.class.getName());
 	public static final int MAX_EXP = ExpTable.getExpByLevel(100) - 1;
 
@@ -353,6 +350,7 @@ public class CalcExp {
 			foodBonus = 1.03;
 		}
 		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus);
+		
 		pc.addExp(add_exp);
 	}
 
