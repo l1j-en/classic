@@ -87,9 +87,7 @@ import l1j.server.server.serverpackets.S_Sound;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.serverpackets.S_UseMap;
-import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.storage.CharactersItemStorage;
-import l1j.server.server.templates.L1Armor;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1EtcItem;
 import l1j.server.server.templates.L1Item;
@@ -2553,7 +2551,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			return;
 
 		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), gfxid));
-		pc.sendPackets(new S_ServerMessage(77));
+		if(pc.getPotionMessages())
+			pc.sendPackets(new S_ServerMessage(77));
 		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
 		if (pc.hasSkillEffect(POLLUTE_WATER))
 			healHp /= 2;

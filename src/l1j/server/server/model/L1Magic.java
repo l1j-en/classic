@@ -14,9 +14,11 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
+import l1j.server.server.model.skill.L1NamedSkill;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.collections.IntArrays;
 import static l1j.server.server.model.skill.L1SkillId.*;
@@ -307,9 +309,12 @@ public class L1Magic {
 		} else if (_calcType == PC_NPC || _calcType == NPC_NPC) {
 			damage = calcNpcMagicDamage(skillId);
 		}
-		return skillId == JOY_OF_PAIN
-			? damage
-			: calcMrDefense(damage);
+		damage = skillId == JOY_OF_PAIN ? damage : calcMrDefense(damage);
+		if (_pc.getDmgMessages()) {
+			_pc.sendPackets(new S_SystemMessage(L1NamedSkill.getName(skillId) +
+					" Dealt:" + String.valueOf(damage)));
+		}
+		return damage;
 	}
 
 	public int calcFireWallDamage() {

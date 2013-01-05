@@ -67,9 +67,9 @@ public class PCommands {
 	// Starting experiment to see whether caching common messages has an
 	// effect.
 	private static final S_SystemMessage DropHelp =
-		new S_SystemMessage("-drop all|mine|party on|off");
+		new S_SystemMessage("-drop [all|mine|party] [on|off] toggles drop messages.");
 	private static final S_SystemMessage CommandsHelp =
-		new S_SystemMessage("-warp 1-7, -karma, -buff, -bug, -drop, -help");
+		new S_SystemMessage("-warp 1-7, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
 	private static final S_SystemMessage CommandsHelpNoBuff =
 		new S_SystemMessage("-warp 1-7, -karma, -bug, -drop, -help");
 	private static final S_SystemMessage NoBuff =
@@ -100,7 +100,11 @@ public class PCommands {
 		new S_SystemMessage("You don't have enough mana to use -dkbuff.");
 	private static final S_SystemMessage NoDkBuff =
 		new S_SystemMessage("The -dkbuff command is disabled.");
-
+	private static final S_SystemMessage DmgHelp =
+		new S_SystemMessage("dmg [on|off] toggles damage messages.");
+	private static final S_SystemMessage PotionHelp =
+		new S_SystemMessage("potion [on|off] toggles healing potion messages.");
+	
 	private PCommands() { }
 
 	public static PCommands getInstance() {
@@ -128,6 +132,10 @@ public class PCommands {
 				checkKarma(player);
 			} else if (cmd2.startsWith("drop")) {
 				setDropOptions(player, cmd2);
+			} else if (cmd2.startsWith("dmg")) {
+				setDmgOptions(player, cmd2);
+			} else if (cmd2.startsWith("potions")) {
+				setPotionOptions(player, cmd2);
 			}
 			_log.info(player.getName() + " used " + cmd2);
 		} catch (Exception e) {
@@ -169,8 +177,13 @@ public class PCommands {
 	}
 	
 	public void dkbuff(L1PcInstance player){
-		if (!Config.DK_BUFF || !Config.PLAYER_COMMANDS) {
+		if (!Config.PLAYER_COMMANDS) {
 			player.sendPackets(NoBuff);
+			return;
+		}
+		
+		if (!Config.DK_BUFF){
+			player.sendPackets(NoDkBuff);
 			return;
 		}
 
@@ -308,6 +321,28 @@ public class PCommands {
 			pc.setDropMessages(on);
 		} else {
 			pc.sendPackets(DropHelp);
+		}
+	}
+	
+	private void setDmgOptions(final L1PcInstance pc, final String options) {
+		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.get(1).equals("on")) {
+			pc.setDmgMessages(true);
+		} else if (pieces.get(1).equals("off")) {
+			pc.setDmgMessages(false);
+		} else {
+			pc.sendPackets(DmgHelp);
+		}
+	}
+	
+	private void setPotionOptions(final L1PcInstance pc, final String options) {
+		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.get(1).equals("on")) {
+			pc.setPotionMessages(true);
+		} else if (pieces.get(1).equals("off")) {
+			pc.setPotionMessages(false);
+		} else {
+			pc.sendPackets(PotionHelp);
 		}
 	}
 }
