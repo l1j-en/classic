@@ -546,14 +546,14 @@ public class L1Attack {
 			_damage = calcPcPcDamage();
 		} else if (_calcType == PC_NPC) {
 			_damage = calcPcNpcDamage();
+			if (_pc.getDmgMessages()) {
+				_pc.sendPackets(new S_SystemMessage(
+						"Damage Dealt:" + String.valueOf(_damage)));
+			}	
 		} else if (_calcType == NPC_PC) {
 			_damage = calcNpcPcDamage();
 		} else if (_calcType == NPC_NPC) {
 			_damage = calcNpcNpcDamage();
-		}
-		if (_pc.getDmgMessages()) {
-			_pc.sendPackets(new S_SystemMessage(
-					"Damage Dealt:" + String.valueOf(_damage)));
 		}
 		return _damage;
 	}
@@ -1345,11 +1345,10 @@ public class L1Attack {
 			_pc.receiveDamage(_targetPc, damage, false);
 		} else if (_calcType == NPC_PC) {
 			_npc.receiveDamage(_targetPc, damage);
-		}
-		
-		if (_pc.getDmgMessages()) {
-			_pc.sendPackets(new S_SystemMessage(
-					"CB Dealt:" + String.valueOf(damage)));
+			if (_targetPc.getDmgMessages()) {
+				_targetPc.sendPackets(new S_SystemMessage(
+						"CB Dealt:" + String.valueOf(damage)));
+			}
 		}
 	}
 

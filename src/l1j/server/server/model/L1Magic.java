@@ -310,7 +310,7 @@ public class L1Magic {
 			damage = calcNpcMagicDamage(skillId);
 		}
 		damage = skillId == JOY_OF_PAIN ? damage : calcMrDefense(damage);
-		if (_pc.getDmgMessages()) {
+		if (_calcType == PC_PC && _pc.getDmgMessages()) {
 			_pc.sendPackets(new S_SystemMessage(L1NamedSkill.getName(skillId) +
 					" Dealt:" + String.valueOf(damage)));
 		}

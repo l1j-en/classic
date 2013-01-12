@@ -765,7 +765,7 @@ public class L1PcInstance extends L1Character {
 			if (hasSkillEffect(COUNTER_BARRIER)) {
 				L1Magic magic = new L1Magic(this, attacker);
 				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
-						attack.isShortDistance()) {
+						attack.isShortDistance() && !attacker.isFoeSlayer()) {
 					attack.actionCounterBarrier();
 					attack.commitCounterBarrier();
 					return;
@@ -2477,7 +2477,10 @@ public class L1PcInstance extends L1Character {
 		if (isKnight() || isDarkelf() || isDragonKnight()) {
 			newBaseDmgup = getLevel() / 10;
 			newBaseBowDmgup = 0;
-		} else if (isElf()) { // 
+		} else if (isCrown() && Config.ROYAL_LEVEL_DAMAGE) {
+			newBaseDmgup = getLevel() / 10;
+			newBaseBowDmgup = 0;
+		} else if (isElf()) {
 			newBaseDmgup = 0;
 			newBaseBowDmgup = getLevel() / 10;
 		}
