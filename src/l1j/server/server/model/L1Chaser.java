@@ -104,7 +104,7 @@ public class L1Chaser extends TimerTask {
 					.ACTION_Damage));
 			npc.receiveDamage(_pc, (int) damage);
 		}
-		if (_pc.getDmgMessages()) {
+		if (_pc.getDmgMessages() && _cha instanceof L1NpcInstance) {
 			_pc.sendPackets(new S_SystemMessage(
 					"Chaser Dealt:" + String.valueOf(damage)));
 		}
