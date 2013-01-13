@@ -88,4 +88,4 @@ insert into droplist values (45648, "Slave of Assassin King", 30012, "Dark Elf T
 insert into droplist values (45648, "Slave of Assassin King", 30013, "Dark Elf Sandals", 1, 1, 7500);
 insert into droplist values (45648, "Slave of Assassin King", 30014, "Dark Elf Circlet", 1, 1, 7500);
 
-
+insert into commands set name="findskill", access_level=100, class_name="FindSkill";
