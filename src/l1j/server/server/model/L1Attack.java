@@ -626,24 +626,12 @@ public class L1Attack {
 		}
 
 		damage = calcBuffDamage(damage);
-		
-		if (_weaponId == 124) {
-			damage += L1WeaponSkill.getBaphometStaffDamage(_pc, _target);
-		} else if ((_weaponId == 2 || _weaponId == 200002) && diceDagger) {
+	
+		if ((_weaponId == 2 || _weaponId == 200002) && diceDagger) {
 			damage = L1WeaponSkill.getDiceDaggerDamage(_pc, _target, weapon);
-		} else if (_weaponId == 204 || _weaponId == 100204) {
-			L1WeaponSkill.giveFettersEffect(_pc, _target); 
-		} else if (_weaponId == 264) {
-			damage += L1WeaponSkill.getLightningEdgeDamage(_pc, _target);
-		} else if (_weaponId == 260) {
-			damage += L1WeaponSkill.getWindAxeDamage(_pc, _target);
-		} else if (_weaponId == 263) {
-			damage += L1WeaponSkill.getFrozenSpearDamage(_pc, _target);
-		} else if (_weaponId == 261) {
-			L1WeaponSkill.giveArkMageDiseaseEffect(_pc, _target);
 		} else {
-			damage += 
-				L1WeaponSkill.getWeaponSkillDamage(_pc, _target, _weaponId);
+			damage += L1WeaponSkill.getWeaponSkillDamage(
+					_pc, _target, _weaponId);
 		}
 		if (_weaponType == WeaponType.Fist) {
 			damage = (_random.nextInt(5) + 4) / 4;
