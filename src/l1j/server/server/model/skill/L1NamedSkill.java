@@ -1,7 +1,10 @@
 package l1j.server.server.model.skill;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public enum L1NamedSkill {
 	LesserHeal(1, "Lesser Heal"),
@@ -288,7 +291,7 @@ public enum L1NamedSkill {
 	
 	private final int id;
 	private final String name;
-	private final static Map<Integer, L1NamedSkill> idsToSkills = 
+	private static final Map<Integer, L1NamedSkill> idsToSkills = 
 			new HashMap<Integer, L1NamedSkill>();
 	
 	static {
@@ -313,11 +316,24 @@ public enum L1NamedSkill {
 	}
 	
 	/**
-	 * @return The name of the skill, given by id.
+	 * @return the name of the skill, given by id.
 	 */
 	public static String getName(int id) {
 		final L1NamedSkill skill = idsToSkills.get(id);
 		return skill != null 
 				? skill.toString() : "Id: " + ((Integer) id).toString();
+	}
+	
+	/**
+	 * @return get a list of skills matching the given search string.
+	 */
+	public static List<L1NamedSkill> searchNames(String query) {
+		List<L1NamedSkill> results = new ArrayList<L1NamedSkill>(4);
+		Pattern pattern = Pattern.compile(".*" + query + ".*"); 
+		for (L1NamedSkill skill : L1NamedSkill.values()) {
+			if (pattern.matcher(skill.name.toLowerCase()).matches())
+				results.add(skill);
+		}
+		return results;
 	}
 }

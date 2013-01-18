@@ -43,6 +43,7 @@ import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1Skill;
 import static l1j.server.server.model.skill.L1SkillId.*;
+import static l1j.server.server.model.item.L1ItemId.*;
 
 public class L1WeaponSkill {
 
@@ -74,22 +75,30 @@ public class L1WeaponSkill {
 	
 	static {
 		if (Config.USE_INT_PROCS) {
-			// dk, kurtz, iq, eva, orc, varlok, longbow of moon, thor's, ronde edo, silence, paagrio, maph
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, false, element));
-		
-			// silence
-			// ProcMap.put(47, new L1WeaponSkill(47, chance, 0, 0, 0, 64, 16, effectid, 0, false, element));
-			
-			// ProcMap.put(id, new L1WeaponSkill(id, chance, 0, 0, 0, 0, 0, effectid, 0, true, 0));
+			ProcMap.put(SwordOfDeathKnight,new L1WeaponSkill(
+					SwordOfDeathKnight, 7, 0, 0, 0, 0, 0, 1811, 0, false, 2));
+			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
+					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8));
+			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(
+					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1));
+			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(
+					StaffOfIceQueen, 25, 0, 0, 0, 0, 0, 1810, 0, false, 4));
+			ProcMap.put(ThorsHammer, new L1WeaponSkill(
+					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0));
+			ProcMap.put(PaagriosHatred, new L1WeaponSkill(
+					PaagriosHatred, 12, 0, 0, 0, 0, 0, 245, 0, false, 0));
+			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(
+					MaphrsRetribution, 10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
+			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(
+					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0));
+			ProcMap.put(EvasScorn, new L1WeaponSkill(
+					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0));
+			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
+					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2));
+			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
+					SwordOfSilence, 7, 0, 0, 0, 64, 16, 2177, 0, false, 0));
+			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
+					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0));
 		}
 	}
 
