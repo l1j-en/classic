@@ -93,4 +93,16 @@ public class L1ItemId {
 	public static final int SayhasBow = 190;
 	public static final int ScrollOfEnchantArmorIllusion = 40127;
 	public static final int ScrollOfEnchantWeaponIllusion = 40128;
+	public static final int SwordOfSilence = 47;
+	public static final int SwordOfKurtz = 54;
+	public static final int EdoryuOfRonde = 76;
+	public static final int StaffOfIceQueen = 121;
+	public static final int ThorsHammer = 450000;
+	public static final int PaagriosHatred = 450001;
+	public static final int MaphrsRetribution = 450002;
+	public static final int OrcishBumeSmache = 450003;
+	public static final int EvasScorn = 36;
+	public static final int SwordOfVarlok = 203;
+	public static final int LongbowOfMoon = 205;
+	public static final int SwordOfDeathKnight = 58;
 }
