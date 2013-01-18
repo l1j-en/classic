@@ -123,7 +123,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (pc.isTeleport()) {
 			return;
 		}
-		if (l1iteminstance == null && pc.isDead() == true) {
+		if (l1iteminstance == null && pc.isDead()) {
 			return;
 		}
 		if (!pc.getMap().isUsableItem()) {
@@ -1352,9 +1352,12 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (partner_stat) {
 					boolean castle_area = L1CastleLocation.checkInAllWarArea(
 							partner.getX(), partner.getY(), partner.getMapId());
+					// TODO: original would work if players' map locations
+					// were updated properly.
 					if ((partner.getMapId() == 0 || partner.getMapId() == 4 || 
-								partner.getMapId() == 304)
-							&& castle_area == false) {
+								partner.getMapId() == 304) &&
+								castle_area == false &&
+								pc.getMap().isEscapable()) {
 						L1Teleport.teleport(pc, partner.getX(), 
 								partner.getY(), partner.getMapId(), 5, true);
 					} else {
