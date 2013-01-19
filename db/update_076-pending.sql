@@ -92,3 +92,5 @@ insert into commands set name="findskill", access_level=100, class_name="FindSki
 update npc set mpr=300,mprinterval=5000 where npcid=45753;
 update droplist set min=4,max=8,chance=4000 where mobid=45753 and ((itemid >= 40902 and itemid <= 40998) or itemid=40990);
 update droplist set min=32,max=112 where mobid=45753 and itemid=40718;
+
+update spawnlist set near_spawn=0 where near_spawn=1;
