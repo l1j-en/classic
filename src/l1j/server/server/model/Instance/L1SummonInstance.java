@@ -37,7 +37,6 @@ public class L1SummonInstance extends L1NpcInstance {
 	private boolean _tamed;
 	private boolean _isReturnToNature = false;
 	private static Random _random = new Random();
-	private final L1PcInstance _pc;
 
 	public boolean noTarget(int depth) {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
@@ -124,7 +123,6 @@ public class L1SummonInstance extends L1NpcInstance {
 		_summonFuture = GeneralThreadPool.getInstance().schedule(
 				new SummonTimer(), SUMMON_TIME);
 
-		_pc = (L1PcInstance) master;
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -138,7 +136,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
 			onPerceive(pc);
 		}
-		_pc.addPet(this);
+		master.addPet(this);
 	}
 
 	public L1SummonInstance(L1NpcInstance target, L1Character master,
@@ -180,7 +178,6 @@ public class L1SummonInstance extends L1NpcInstance {
 		_summonFuture = GeneralThreadPool.getInstance().schedule(
 				new SummonTimer(), SUMMON_TIME);
 
-		_pc = (L1PcInstance) master;
 		setMaster(master);
 		setX(target.getX());
 		setY(target.getY());
@@ -197,7 +194,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		target.setInventory(null);
 		_currentPetStatus = 3;
 		_tamed = true;
-		for (L1NpcInstance each : _pc.getPetList().values()) {
+		for (L1NpcInstance each : master.getPetList().values()) {
 			each.removeTarget(target);
 		}
 
@@ -207,7 +204,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
 			onPerceive(pc);
 		}
-		_pc.addPet(this);
+		master.addPet(this);
 	}
 
 	@Override
@@ -254,7 +251,7 @@ public class L1SummonInstance extends L1NpcInstance {
 						item, item.getCount()) == L1Inventory.OK) {
 					_inventory
 							.tradeItem(item, item.getCount(), targetInventory);
-					_pc.sendPackets(new S_ServerMessage(
+					((L1PcInstance) _master).sendPackets(new S_ServerMessage(
 							143, getName(), item.getLogName()));
 				} else {
 					targetInventory = L1World.getInstance().getInventory(
@@ -285,7 +282,7 @@ public class L1SummonInstance extends L1NpcInstance {
 						item, item.getCount()) == L1Inventory.OK) {
 					_inventory
 							.tradeItem(item, item.getCount(), targetInventory);
-					_pc.sendPackets(new S_ServerMessage(
+					((L1PcInstance) _master).sendPackets(new S_ServerMessage(
 							143, getName(), item.getLogName()));
 				} else {
 					targetInventory = L1World.getInstance().getInventory(
@@ -308,7 +305,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (!_tamed && !_isReturnToNature) {
 			broadcastPacket(new S_SkillSound(getId(), 169));
 		}
-		_pc.getPetList().remove(getId());
+		_master.getPetList().remove(getId());
 		super.deleteMe();
 
 		if (_summonFuture != null) {
@@ -412,7 +409,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			}
 		} else {
 		
-			Object[] petList = _pc.getPetList().values().toArray();
+			Object[] petList = _master.getPetList().values().toArray();
 			for (Object petObject : petList) {
 				if (petObject instanceof L1SummonInstance) {
 					L1SummonInstance summon = (L1SummonInstance) petObject;
@@ -487,8 +484,11 @@ public class L1SummonInstance extends L1NpcInstance {
 			startHpRegeneration();
 		}
 
-		int HpRatio = 100 * currentHp / getMaxHp();
-		_pc.sendPackets(new S_HPMeter(getId(), HpRatio));
+		if (_master instanceof L1PcInstance) {
+			int HpRatio = 100 * currentHp / getMaxHp();
+			L1PcInstance Master = (L1PcInstance) _master;
+			Master.sendPackets(new S_HPMeter(getId(), HpRatio));
+		}
 	}
 
 	@Override
