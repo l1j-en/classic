@@ -111,53 +111,6 @@ public class L1PcInstance extends L1Character {
 	private static final int MP_REGEN_INTERVAL = 1000;
 	private static final int HP_REGEN_INTERVAL = 1000;
 	private static Random _random = new Random();
-
-	private static final int DefaultDollCount = 1;
-	private static final int DefaultFollowerCount = 1;
-	private static final int DefaultPetCount = 2;
-
-	private final Map<Integer, L1FollowerInstance> _followers = 
-		new HashMap<Integer, L1FollowerInstance>(DefaultFollowerCount);
-	private final Map<Integer, L1DollInstance> _dolls = 
-		new HashMap<Integer, L1DollInstance>(DefaultDollCount);
-	private final Map<Integer, L1NpcInstance> _pets = 
-		new HashMap<Integer, L1NpcInstance>(DefaultPetCount);
-	
-	public void addDoll(L1DollInstance doll) {
-		_dolls.put(doll.getId(), doll);
-	}
-
-	public void removeDoll(L1DollInstance doll) {
-		_dolls.remove(doll.getId());
-	}
-
-	public Map<Integer, L1DollInstance> getDollList() {
-		return _dolls;
-	}
-
-	public void addFollower(L1FollowerInstance follower) {
-		_followers.put(follower.getId(), follower);
-	}
-
-	public void removeFollower(L1FollowerInstance follower) {
-		_followers.remove(follower.getId());
-	}
-
-	public Map<Integer, L1FollowerInstance> getFollowerList() {
-		return _followers;
-	}
-	
-	public void addPet(L1NpcInstance npc) {
-		_pets.put(npc.getId(), npc);
-	}
-
-	public void removePet(L1NpcInstance npc) {
-		_pets.remove(npc.getId());
-	}
-
-	public Map<Integer, L1NpcInstance> getPetList() {
-		return _pets;
-	}
 	
 	private short _trueHpr = 0;
 	private short _hpr = 0;

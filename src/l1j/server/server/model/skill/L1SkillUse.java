@@ -3042,7 +3042,7 @@ public class L1SkillUse {
 							&& ((L1MonsterInstance) cha).getNpcTemplate()
 							.isTamable()) {
 						int petcost = 0;
-						Object[] petlist = _player.getPetList().values()
+						Object[] petlist = _user.getPetList().values()
 							.toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
@@ -3069,7 +3069,7 @@ public class L1SkillUse {
 						}
 					} else if (_skillId == CREATE_ZOMBIE) {
 						int petcost = 0;
-						Object[] petlist = _player.getPetList().values()
+						Object[] petlist = _user.getPetList().values()
 							.toArray();
 						for (Object pet : petlist) {
 							petcost += ((L1NpcInstance) pet).getPetcost();
