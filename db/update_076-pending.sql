@@ -90,7 +90,7 @@ insert into droplist values (45648, "Slave of Assassin King", 30014, "Dark Elf C
 
 insert into commands set name="findskill", access_level=100, class_name="FindSkill";
 update npc set mpr=300,mprinterval=5000 where npcid=45753;
-update droplist set min=4,max=8,chance=4000 where mobid=45753 and itemid in (40995, 40997, 40990;
+update droplist set min=4,max=8,chance=4000 where mobid=45753 and itemid in (40995, 40997, 40990);
 update droplist set min=2,max=4,chance=4000 where mobid=45753 and itemid in (40994, 40993, 30998);
 update droplist set max=2,chance=4000 where mobid=45753 and itemid in (40996, 40992);
 update droplist set min=32,max=112 where mobid=45753 and itemid=40718;
