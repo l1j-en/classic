@@ -59,6 +59,7 @@ public class L1WeaponSkill {
 	private int _effectTarget;
 	private boolean _isArrowType;
 	private int _attr;
+	private double _multiplier;
 
 	private static final int BaphoStaffChance = 14;
 	private static final int DiceDaggerChance = 3;
@@ -75,36 +76,45 @@ public class L1WeaponSkill {
 	
 	static {
 		if (Config.USE_INT_PROCS) {
-			ProcMap.put(SwordOfDeathKnight,new L1WeaponSkill(
-					SwordOfDeathKnight, 7, 0, 0, 0, 0, 0, 1811, 0, false, 2));
+			ProcMap.put(SwordOfDeathKnight,new L1WeaponSkill(SwordOfDeathKnight,
+					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 1.77));
 			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
-					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8));
+					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 1.02));
 			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(
-					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1));
-			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(
-					StaffOfIceQueen, 25, 0, 0, 0, 0, 0, 1810, 0, false, 4));
+					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 1.02));
+			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen,
+					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
 			ProcMap.put(ThorsHammer, new L1WeaponSkill(
-					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0));
+					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, .7));
 			ProcMap.put(PaagriosHatred, new L1WeaponSkill(
 					PaagriosHatred, 12, 0, 0, 0, 0, 0, 245, 0, false, 0));
 			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(
 					MaphrsRetribution, 10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
 			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(
-					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0));
+					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, .65));
 			ProcMap.put(EvasScorn, new L1WeaponSkill(
-					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0));
+					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, .59));
 			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
-					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2));
+					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2, 2.9));
 			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
 					SwordOfSilence, 7, 0, 0, 0, 64, 16, 2177, 0, false, 0));
 			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
-					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0));
+					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 1.02));
 		}
 	}
 
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
 			int effectId, int effectTarget, boolean isArrowType, int attr) {
+		new L1WeaponSkill(weaponId, probability, fixDamage, randomDamage, area,
+				skillId, skillTime, effectId, effectTarget, isArrowType,
+				attr, 0.);
+	}
+	
+	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
+			int randomDamage, int area, int skillId, int skillTime,
+			int effectId, int effectTarget, boolean isArrowType, int attr,
+			double multiplier) {
 		_weaponId = weaponId;
 		_probability = probability;
 		_fixDamage = fixDamage;
@@ -116,8 +126,9 @@ public class L1WeaponSkill {
 		_effectTarget = effectTarget;
 		_isArrowType = isArrowType;
 		_attr = attr;
+		_multiplier = multiplier;
 	}
-
+	
 	public int getWeaponId() {
 		return _weaponId;
 	}
@@ -160,6 +171,10 @@ public class L1WeaponSkill {
 
 	public int getAttr() {
 		return _attr;
+	}
+	
+	public double getMultiplier() {
+		return _multiplier;
 	}
 
 	public static double getWeaponSkillDamage(final L1PcInstance attacker, 
@@ -217,7 +232,7 @@ public class L1WeaponSkill {
 			: new S_SkillSound(hubId, effectId);
 
 		double damage = Config.USE_INT_PROCS
-			? getWeaponDamage(attacker, 1.3) // TODO: Per-weapon.
+			? getWeaponDamage(attacker, weaponSkill.getMultiplier())
 			: weaponSkill.getFixDamage() +
 				_random.nextInt(weaponSkill.getRandomDamage()) + 1;
 
