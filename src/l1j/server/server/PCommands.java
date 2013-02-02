@@ -27,7 +27,9 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.L1PcInventory;
 import l1j.server.server.model.L1Teleport;
+import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -50,6 +52,7 @@ import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
 import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
 import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
+import static l1j.server.server.model.skill.L1SkillId.BRING_STONE;
 
 public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());
@@ -104,6 +107,10 @@ public class PCommands {
 		new S_SystemMessage("dmg [on|off] toggles damage messages.");
 	private static final S_SystemMessage PotionHelp =
 		new S_SystemMessage("potion [on|off] toggles healing potion messages.");
+	private static final S_SystemMessage NoAutoTurning =
+		new S_SystemMessage("The -turn command is disabled.");
+	private static final S_SystemMessage OnlyDarkElvesTurn =
+		new S_SystemMessage("Only Dark Elves can use -turn.");
 	
 	private PCommands() { }
 
@@ -136,6 +143,8 @@ public class PCommands {
 				setDmgOptions(player, cmd2);
 			} else if (cmd2.startsWith("potions")) {
 				setPotionOptions(player, cmd2);
+			} else if (cmd2.startsWith("turn")) {
+				turnAllStones(player);
 			}
 			_log.info(player.getName() + " used " + cmd2);
 		} catch (Exception e) {
@@ -311,6 +320,10 @@ public class PCommands {
 	
 	private void setDropOptions(final L1PcInstance pc, final String options) {
 		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.size() < 3) {
+			pc.sendPackets(DropHelp);
+			return;
+		}
 		boolean on = pieces.get(2).equals("on");
 		if (pieces.get(1).equals("all")) {
 			pc.setDropMessages(on);
@@ -326,6 +339,10 @@ public class PCommands {
 	
 	private void setDmgOptions(final L1PcInstance pc, final String options) {
 		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.size() < 2) {
+			pc.sendPackets(DmgHelp);
+			return;
+		}
 		if (pieces.get(1).equals("on")) {
 			pc.setDmgMessages(true);
 		} else if (pieces.get(1).equals("off")) {
@@ -337,12 +354,42 @@ public class PCommands {
 	
 	private void setPotionOptions(final L1PcInstance pc, final String options) {
 		List<String> pieces = Arrays.asList(options.split("\\s"));
+		if (pieces.size() < 2) {
+			pc.sendPackets(PotionHelp);
+			return;
+		}
 		if (pieces.get(1).equals("on")) {
 			pc.setPotionMessages(true);
 		} else if (pieces.get(1).equals("off")) {
 			pc.setPotionMessages(false);
 		} else {
 			pc.sendPackets(PotionHelp);
+		}
+	}
+	
+	private void turnAllStones(final L1PcInstance player) {
+		if (!Config.AUTO_STONE) {
+			player.sendPackets(NoAutoTurning);
+			return;
+		}
+		
+		if (!player.isDarkelf() || !player.isSkillMastery(BRING_STONE)) {
+			player.sendPackets(OnlyDarkElvesTurn);
+			return;
+		}
+		
+		// TODO: Ugly hack. Should go through the normal skill mechanisms.
+		l1j.server.server.templates.L1Skill skill = 
+				l1j.server.server.datatables.SkillTable.getInstance().findBySkillId(BRING_STONE);
+		int currentMana = player.getCurrentMp();
+		int castingCost = skill.getMpConsume();
+		for (int stone : l1j.server.server.model.item.L1ItemId.StoneList) {
+			L1ItemInstance item = player.getInventory().findItemId(stone);
+			if (item == null)
+				continue;
+			L1SkillUse.turnStone(player, item, .9, Math.min(item.getCount(), currentMana / castingCost), false);
+			player.setCurrentMp(player.getCurrentMp() % castingCost);
+			break;
 		}
 	}
 }

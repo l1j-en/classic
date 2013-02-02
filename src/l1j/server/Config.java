@@ -258,6 +258,7 @@ public final class Config {
 	public static double RANDOMIZED_BOSS_SPAWN_FACTOR;
 	public static boolean ROYAL_LEVEL_DAMAGE;
 	public static boolean USE_INT_PROCS;
+	public static boolean AUTO_STONE;
 	
 	public static int MAX_PT;
 
@@ -655,6 +656,7 @@ public final class Config {
 			RANDOMIZED_BOSS_SPAWN_FACTOR = Double.parseDouble(altSettings.getProperty("RandomizedBossSpawnFactor", ".5"));
 			ROYAL_LEVEL_DAMAGE = Boolean.parseBoolean(altSettings.getProperty("RoyalLevelDamage", "False"));
 			USE_INT_PROCS = Boolean.parseBoolean(altSettings.getProperty("UseIntProcs", "False"));
+			AUTO_STONE = Boolean.parseBoolean(altSettings.getProperty("UseAutoStone", "False"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

@@ -105,4 +105,12 @@ public class L1ItemId {
 	public static final int SwordOfVarlok = 203;
 	public static final int LongbowOfMoon = 205;
 	public static final int SwordOfDeathKnight = 58;
+
+	public static final int BringStone = 40320;
+	public static final int DarkStone = 40321;
+	public static final int BraveStone = 40322;
+	public static final int WiseStone = 40323;
+	public static final int KaiserStone = 40324;
+	public static final int[] StoneList =
+		{ BringStone, DarkStone, BraveStone, WiseStone, KaiserStone };
 }
