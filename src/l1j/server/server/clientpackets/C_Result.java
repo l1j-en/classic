@@ -19,9 +19,12 @@
 package l1j.server.server.clientpackets;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogClanDwarfIn;
 import l1j.server.server.log.LogClanDwarfOut;
@@ -44,6 +47,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.model.shop.L1ShopBuyOrderList;
 import l1j.server.server.model.shop.L1ShopSellOrderList;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
@@ -53,6 +57,13 @@ public class C_Result extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_Result.class.getName());
 	private static final String C_RESULT = "[C] C_Result";
 
+	// TODO: somewhere more accessible, since we use this other places.
+	public void ban(final L1PcInstance player) {
+		Account.ban(player.getAccountName());
+		IpTable.getInstance().banIp(player.getNetConnection().getIp());
+		player.sendPackets(new S_Disconnect());
+	}
+	
 	public C_Result(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		int npcObjectId = readD();
@@ -137,6 +148,13 @@ public class C_Result extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(75));
 					break;
 				}
+				if (count > item.getCount()) {
+					_log.log(Level.SEVERE, pc.getName() + " tried to store " +
+							count + " of " + objectId + " but server has " +
+							item.getCount() + ".");
+					ban(pc);
+					return;
+				}
 				if (tradable) {
 					pc.getInventory().tradeItem(objectId, count, pc.getDwarfInventory());
 					pc.turnOnOffLight();
@@ -148,6 +166,7 @@ public class C_Result extends ClientBasePacket {
 					ldi.storeLogDwarfIn(pc, item, item_count_before, item_count_after, count); 
 				} 
 		    }
+			pc.saveInventory();
 		} else if (resultType == 3 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) {
 			int objectId, count;
 			L1ItemInstance item;
@@ -157,6 +176,13 @@ public class C_Result extends ClientBasePacket {
 				item = pc.getDwarfInventory().getItem(objectId);
 				int item_count_before = item.getCount(); 
 				int item_count_after = 0;
+				if (count > item.getCount()) {
+					_log.log(Level.SEVERE, pc.getName() + " tried to retrieve " +
+							count + " of " + objectId + " but server has " +
+							item.getCount() + ".");
+					ban(pc);
+					return;
+				}
 				if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) 
 				{
 					if (pc.getInventory().consumeItem(L1ItemId.ADENA, 30)) {
@@ -189,6 +215,13 @@ public class C_Result extends ClientBasePacket {
 					L1ItemInstance item = (L1ItemInstance) object;
 					int item_count_before = item.getCount(); 
 					int item_count_after = 0;
+					if (count > item.getCount()) {
+						_log.log(Level.SEVERE, pc.getName() + " tried to (clan) store " +
+								count + " of " + objectId + " but server has " +
+								item.getCount() + ".");
+						ban(pc);
+						return;
+					}
 					if (clan != null) {
 						if (!item.getItem().isTradable()) {
 							tradable = false;
@@ -236,6 +269,7 @@ public class C_Result extends ClientBasePacket {
 						}
 					}
 				}
+				pc.saveInventory();
 			} else {
 				pc.sendPackets(new S_ServerMessage(208)); 
 			}
@@ -251,6 +285,13 @@ public class C_Result extends ClientBasePacket {
 					item = clan.getDwarfForClanInventory().getItem(objectId);
 					int item_count_before = item.getCount(); 
 					int item_count_after = 0;
+					if (count > item.getCount()) {
+						_log.log(Level.SEVERE, pc.getName() + " tried to (clan) retrieve " +
+								count + " of " + objectId + " but server has " +
+								item.getCount() + ".");
+						ban(pc);
+						return;
+					}
 					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) { 
 						if (pc.getInventory().consumeItem(L1ItemId.ADENA, 30)) {
 							clan.getDwarfForClanInventory().tradeItem(item, count, pc.getInventory());
@@ -286,7 +327,14 @@ public class C_Result extends ClientBasePacket {
 				L1Object object = pc.getInventory().getItem(objectId);
 				L1ItemInstance item = (L1ItemInstance) object;
 				int item_count_before = item.getCount(); 
-				int item_count_after = 0;  
+				int item_count_after = 0;
+				if (count > item.getCount()) {
+					_log.log(Level.SEVERE, pc.getName() + " tried to (elf) store " +
+							count + " of " + objectId + " but server has " +
+							item.getCount() + ".");
+					ban(pc);
+					return;
+				}
 				if (!item.getItem().isTradable()) {
 					tradable = false;
 					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
@@ -326,7 +374,8 @@ public class C_Result extends ClientBasePacket {
 					} 
 					LogElfDwarfIn ledi = new LogElfDwarfIn(); 
 					ledi.storeLogElfDwarfIn(pc, item, item_count_before, item_count_after, count); 
-					} 
+				}
+				pc.saveInventory();
 			}
 		} else if (resultType == 9 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5 && pc.isElf()) {
 			int objectId, count;
@@ -337,6 +386,13 @@ public class C_Result extends ClientBasePacket {
 				item = pc.getDwarfForElfInventory().getItem(objectId);
 				int item_count_before = item.getCount();
 				int item_count_after = 0;
+				if (count > item.getCount()) {
+					_log.log(Level.SEVERE, pc.getName() + " tried to (elf) retrieve " +
+							count + " of " + objectId + " but server has " +
+							item.getCount() + ".");
+					ban(pc);
+					return;
+				}
 				if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 					if (pc.getInventory().consumeItem(40494, 2)) {
 						pc.getDwarfForElfInventory().tradeItem(item, count, pc.getInventory());
