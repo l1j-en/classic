@@ -23,18 +23,15 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Skill;
 
 public class L1Buff implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Buff.class.getName());
 
-	private L1Buff() {
-	}
+	private L1Buff() {}
 
 	public static L1CommandExecutor getInstance() {
 		return new L1Buff();
@@ -62,8 +59,6 @@ public class L1Buff implements L1CommandExecutor {
 			if (tok.hasMoreTokens()) {
 				time = Integer.parseInt(tok.nextToken());
 			}
-
-			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 
 			for (L1PcInstance player : players) {
 				new L1SkillUse().handleCommands(player, skillId, player.getId(),

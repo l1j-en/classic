@@ -73,6 +73,7 @@ public class L1Who implements L1CommandExecutor {
 						.append("HPR: " + (target.getHpr() + target.getInventory().hpRegenPerTick()) + " | ")
 						.append("MPR: " + (target.getMpr() + target.getInventory().mpRegenPerTick()) + " | ")
 						.append("Karma: " + target.getKarma() + " | ")
+						.append("AC: " + target.getAc() + " | ")
 						.append("MR: ").append(target.getMr()).append(" | ")
 						.append("Items: " + target.getInventory().getSize() + " | ")
 						.append("Gold: " + target.getInventory().countItems(40308))

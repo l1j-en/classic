@@ -96,4 +96,15 @@ update droplist set max=2,chance=4000 where mobid=45753 and itemid in (40996, 40
 update droplist set min=32,max=112 where mobid=45753 and itemid=40718;
 update mobskill set leverage=30 where mobid=45753 and (skillid=10069 or skillid=10070);
 
-update spawnlist set near_spawn=0 where near_spawn=1;
+update spawnlist set near_spawn=0 where near_spawn=1; 
+
+update mobskill set TriRnd=100, TriHp=75 where ActId=1 and mobname in ('Antharas', 'Fafurion', 'Lindvior', 'Valakas');
+update mobskill set TriHp=50 where leverage=1000 and mobname in ('Antharas', 'Fafurion', 'Lindvior', 'Valakas');
+-- Varlok buff.
+update mobskill set leverage=40 where mobid=45753 and actNo=0 or actNo=1;
+-- Hellvine.
+update npc set str=80, lvl=80, mpr=300, mprinterval=5000, hpr=300, exp=6401 where npcid=45676;
+update npc set mr=150 where name in ('Antharas', 'Valakas', 'Lindvior', 'Fafurion');
+update mobskill set leverage=35 where mobid=45676 and (actNo=2 or actNo=3);
+update mobskill set trirnd=12, summonmin=2, summonmax=4 where mobid=45676 and (actNo=0 or actNo=1);
+
