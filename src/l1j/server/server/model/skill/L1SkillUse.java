@@ -4,6 +4,7 @@
 package l1j.server.server.model.skill;
 
 import static l1j.server.server.model.skill.L1SkillId.*;
+import static l1j.server.server.model.item.L1ItemId.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -219,6 +220,9 @@ public class L1SkillUse {
 		Arrays.sort(SEPARATE_TIMERS);
 		Arrays.sort(CAST_WITH_SILENCE);
 	}
+	
+	private static final S_ServerMessage SkillFailed =
+			new S_ServerMessage(280);
 
 	public L1SkillUse() {}
 
@@ -409,7 +413,7 @@ public class L1SkillUse {
 			}
 
 			if (_skillId == ELEMENTAL_PROTECTION && pc.getElfAttr() == 0) {
-				pc.sendPackets(new S_ServerMessage(280));
+				pc.sendPackets(SkillFailed);
 				return false;
 			}
 
@@ -2595,55 +2599,8 @@ public class L1SkillUse {
 						}
 					} else if (_skillId == BRING_STONE) {
 						L1PcInstance pc = (L1PcInstance) cha;
-						RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-						L1ItemInstance item = pc.getInventory().getItem(
-								_itemobjid);
-						if (item != null) {
-							int dark = (int) (10 + (pc.getLevel() * 0.8) + (pc
-										.getWis() - 6) * 1.2);
-							int brave = (int) (dark / 2.1);
-							int wise = (int) (brave / 2.0);
-							int kayser = (int) (wise / 1.9);
-							int chance = random.nextInt(100) + 1;
-							if (item.getItem().getItemId() == 40320) {
-								pc.getInventory().removeItem(item, 1);
-								if (dark >= chance) {
-									pc.getInventory().storeItem(40321, 1);
-									pc.sendPackets(new S_ServerMessage(403,
-												"$2475"));
-								} else {
-									pc.sendPackets(new S_ServerMessage(280));
-								}
-							} else if (item.getItem().getItemId() == 40321) {
-								pc.getInventory().removeItem(item, 1);
-								if (brave >= chance) {
-									pc.getInventory().storeItem(40322, 1);
-									pc.sendPackets(new S_ServerMessage(403,
-												"$2476"));
-								} else {
-									pc.sendPackets(new S_ServerMessage(280));
-								}
-							} else if (item.getItem().getItemId() == 40322) {
-								pc.getInventory().removeItem(item, 1);
-								if (wise >= chance) {
-									pc.getInventory().storeItem(40323, 1);
-									pc.sendPackets(new S_ServerMessage(403,
-												"$2477"));
-								} else {
-									pc.sendPackets(new S_ServerMessage(280));
-								}
-							} else if (item.getItem().getItemId() == 40323) {
-								pc.getInventory().removeItem(item, 1);
-								if (kayser >= chance) {
-									pc.getInventory().storeItem(40324, 1);
-									pc.sendPackets(new S_ServerMessage(403,
-												"$2478"));
-								} else {
-									pc.sendPackets(new S_ServerMessage(280));
-								}
-							}
-						}
+						turnStone(pc, pc.getInventory().getItem(_itemobjid),
+								1, 1, true);
 					} else if (_skillId == SUMMON_MONSTER) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						int level = pc.getLevel();
@@ -3291,13 +3248,7 @@ public class L1SkillUse {
 			undeadType = monster.getNpcTemplate().get_undead();
 			isManaDrain = true;
 		}
-		
-		/*
-		 * 成功除外条件１：T-Uが成功したが、対象がアンデットではない。 
-		 * 成功除外条件２：T-Uが成功したが、対象にはターンアンデット無効。
-		 * 成功除外条件３：スロー、マススロー、マナドレイン、エンタングル、イレースマジック、ウィンドシャックル無効
-		 * 成功除外条件４：マナドレインが成功したが、モンスター以外の場合
-		 */
+			
 		if ((_skillId == TURN_UNDEAD && (undeadType == 0 || undeadType == 2))
 				|| (_skillId == TURN_UNDEAD && isTU == false)
 				|| ((_skillId == ERASE_MAGIC || _skillId == SLOW
@@ -3322,5 +3273,56 @@ public class L1SkillUse {
 			return true;
 		}
 		return false;
+	}
+	
+	public static void turnStone(final L1PcInstance player,
+			final L1ItemInstance item, double penalty, int count,
+			boolean report) {
+		if (item == null)
+			return;
+		
+		int dark = (int) (penalty * (10 + (player.getLevel() * 0.8) + 
+				(player.getWis() - 6) * 1.2));
+		int brave = (int) (dark / 2.1);
+		int wise = (int) (brave / 2.0);
+		int kaiser = (int) (wise / 1.9);
+
+		switch (item.getItem().getItemId()) {
+		case BringStone: 
+			turnStone(player, item, dark, DarkStone, "$2475", count, report);
+			break;
+		case DarkStone: 
+			turnStone(player, item, brave, BraveStone, "$2475", count, report);
+			break;
+		case BraveStone: 
+			turnStone(player, item, wise, WiseStone, "$2475", count, report);
+			break;
+		case WiseStone: 
+			turnStone(player, item, kaiser, KaiserStone, "$2475", count, report);
+			break;
+		}
+	}
+	
+	private static void turnStone(final L1PcInstance player,
+			final L1ItemInstance item, int chance, int nextStone, String name,
+			int count, boolean report) {
+			// This should never actually happen...
+		if (count > item.getCount()) {
+			_log.log(Level.WARNING, "turnStone count did not match.");
+			return;
+		}
+		
+		RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
+		L1PcInventory inventory = player.getInventory();
+	
+		for (int i = 0; i < count; i++) {
+			inventory.removeItem(item, 1);
+			if (chance > random.nextInt(100) + 1) {
+				inventory.storeItem(nextStone, 1);
+				if (report)
+					player.sendPackets(new S_ServerMessage(403, name));
+			} else if (report)
+				player.sendPackets(SkillFailed);
+		}
 	}
 }
