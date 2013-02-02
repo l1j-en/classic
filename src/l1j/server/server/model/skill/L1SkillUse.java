@@ -1274,7 +1274,6 @@ public class L1SkillUse {
 	private void sendGrfx(boolean isSkillAction) {
 		int actionId = _skill.getActionId();
 		int castgfx = _skill.getCastGfx();
-		int[] data = null;
 		if (castgfx == 0) {
 			return;
 		}

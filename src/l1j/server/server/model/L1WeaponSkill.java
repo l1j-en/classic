@@ -77,29 +77,29 @@ public class L1WeaponSkill {
 	static {
 		if (Config.USE_INT_PROCS) {
 			ProcMap.put(SwordOfDeathKnight,new L1WeaponSkill(SwordOfDeathKnight,
-					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 1.77));
+					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 3.77));
 			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
-					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 1.02));
+					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 3.02));
 			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(
-					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 1.02));
+					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 3.02));
 			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen,
-					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
+					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 4.63));
 			ProcMap.put(ThorsHammer, new L1WeaponSkill(
-					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, .7));
+					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, 2.7));
 			ProcMap.put(PaagriosHatred, new L1WeaponSkill(
 					PaagriosHatred, 12, 0, 0, 0, 0, 0, 245, 0, false, 0));
 			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(
 					MaphrsRetribution, 10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
 			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(
-					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, .65));
+					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, 2.65));
 			ProcMap.put(EvasScorn, new L1WeaponSkill(
-					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, .59));
+					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, 2.59));
 			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
-					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2, 2.9));
+					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2, 4.9));
 			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
 					SwordOfSilence, 7, 0, 0, 0, 64, 16, 2177, 0, false, 0));
 			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
-					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 1.02));
+					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 3.02));
 		}
 	}
 
