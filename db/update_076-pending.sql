@@ -106,5 +106,6 @@ update mobskill set leverage=40 where mobid=45753 and actNo=0 or actNo=1;
 update npc set str=80, lvl=80, mpr=300, mprinterval=5000, hpr=300, exp=6401 where npcid=45676;
 update npc set mr=150 where name in ('Antharas', 'Valakas', 'Lindvior', 'Fafurion');
 update mobskill set leverage=35 where mobid=45676 and (actNo=2 or actNo=3);
-update mobskill set trirnd=12, summonmin=2, summonmax=4 where mobid=45676 and (actNo=0 or actNo=1);
+update mobskill set trirange=-8, trirnd=12, summonmin=2, summonmax=4 where mobid=45676 and (actNo=0 or actNo=1);
 
+update armor set use_illusionist=1 where name="Troll Belt";
