@@ -101,7 +101,7 @@ update spawnlist set near_spawn=0 where near_spawn=1;
 update mobskill set TriRnd=100, TriHp=75 where ActId=1 and mobname in ('Antharas', 'Fafurion', 'Lindvior', 'Valakas');
 update mobskill set TriHp=50 where leverage=1000 and mobname in ('Antharas', 'Fafurion', 'Lindvior', 'Valakas');
 -- Varlok buff.
-update mobskill set leverage=40 where mobid=45753 and actNo=0 or actNo=1;
+update mobskill set leverage=40 where mobid=45753 and (actNo=0 or actNo=1);
 -- Hellvine.
 update npc set str=80, lvl=80, mpr=300, mprinterval=5000, hpr=300, exp=6401 where npcid=45676;
 update npc set mr=150 where name in ('Antharas', 'Valakas', 'Lindvior', 'Fafurion');
