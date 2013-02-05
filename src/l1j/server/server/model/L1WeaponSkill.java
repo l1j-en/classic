@@ -95,7 +95,7 @@ public class L1WeaponSkill {
 			ProcMap.put(EvasScorn, new L1WeaponSkill(
 					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, 2.59));
 			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
-					SwordOfVarlok, 15, 0, 0, 0, 0, 0, 762, 0, false, 2, 4.9));
+					SwordOfVarlok, 15, 0, 0, 2, 0, 0, 762, 0, false, 2, 4.9));
 			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
 					SwordOfSilence, 7, 0, 0, 0, 64, 16, 2177, 0, false, 0));
 			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
