@@ -20,6 +20,7 @@ package l1j.server.server.utils.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Lists {
@@ -29,6 +30,19 @@ public class Lists {
 
 	public static <E> ArrayList<E> newArrayList(Collection<? extends E> c) { 
 		return new ArrayList<E>(c); 
+	}
+	
+	public static <E> List<E> of(E... elements) {
+		List<E> list = new ArrayList<E>(elements.length);
+		for (int i = 0; i < elements.length; i++)
+			list.add(elements[i]);
+		return list;
+	}
+	
+	public static <E> List<E> of(E element) {
+		List<E> list = new ArrayList<E>(2);
+		list.add(element);
+		return list;
 	}
 	
 	public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList() {
