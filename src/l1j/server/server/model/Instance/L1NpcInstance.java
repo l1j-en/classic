@@ -348,7 +348,29 @@ public class L1NpcInstance extends L1Character {
 		setActived(true);
 		_targetItemList.clear();
 		_targetItem = null;
-		L1Character target = _target; 
+		L1Character target = _target;
+		
+		// FIXME: gawdawful hack/debugging logging. _target should never really
+		// be null, but keeping it around leaks memory. If _target was a pet or
+		// summon, though, it will be leaked _and_ throw nasty NPEs if the
+		// monster in question uses skills.
+		if (target == null) {
+			_log.log(Level.WARNING, "L1NpcInstance::onTarget(): null _target.");
+			return;
+		} else if (target instanceof L1PetInstance) {
+			L1PetInstance pet = (L1PetInstance) target;
+			if (pet.getMaster() == null) {
+				_log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing pet master.");
+				return;
+			}
+		} else if (target instanceof L1SummonInstance) {
+			L1SummonInstance summon = (L1SummonInstance) target;
+			if (summon.getMaster() == null) {
+				_log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing summon master.");
+				return;
+			}
+		}
+		
 		if (getAtkspeed() == 0)
 		{
 			if (getPassispeed() > 0)
