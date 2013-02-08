@@ -19,6 +19,7 @@
 package l1j.server.server.utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
@@ -34,26 +35,222 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
+import l1j.server.server.utils.collections.Lists;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class CalcExp {
 	private static Logger _log = Logger.getLogger(CalcExp.class.getName());
 	public static final int MAX_EXP = ExpTable.getExpByLevel(100) - 1;
 
-	private CalcExp() {
+	private CalcExp() { }
+
+	private static final double RoyalPartyBonus = .059;
+	private static final double MemberPartyBonus = .04;
+
+	/**
+	 * Returns a two element array containing the total experience hate and
+	 * total alternate (karma and lawful hate). Warning: prunes the parameter
+	 * lists!
+	 */
+	private static int[] pruneAndSumHate(ArrayList<L1Character> characters,
+			ArrayList<Integer> hateList) {
+		int[] hateTotals = { 0, 0 };
+		for (int i = hateList.size() - 1; i >= 0; i--) {
+			L1Character character = characters.get(i);
+			int hate = hateList.get(i);
+			if (character == null || character.isDead()) {
+				characters.remove(i);
+				hateList.remove(i);
+			} else {
+				hateTotals[0] += hate;
+				if (character instanceof L1PcInstance)
+					hateTotals[1] += hate;
+			}
+		}
+		return hateTotals;
 	}
 
+	/**
+	 * Partitions a list of players, summons, and pets into groups
+	 * divided by party, where pets and summons are in the same group
+	 * as their masters.
+	 * UGLY: Bite the bullet and do the searching instead? Makes for an
+	 * uglier overall procedure but removes most of the extraneous wrapping.
+	 */
+	private static List<List<Pair<L1Character, Integer>>> partitionByParty(
+			List<Pair<L1Character, Integer>> characters) {
+		List<List<Pair<L1Character, Integer>>> groups = 
+				new ArrayList<List<Pair<L1Character, Integer>>>();
+		List<Pair<L1NpcInstance, Integer>> stragglers = 
+				new ArrayList<Pair<L1NpcInstance, Integer>>();
+
+		for (Pair<L1Character, Integer> pair : characters) {
+			L1Character character = pair.getFirst();
+			Integer hate = pair.getSecond();
+			
+			// Pull pets and summons for now.
+			if (!(character instanceof L1PcInstance)) {
+				stragglers.add(new Pair<L1NpcInstance, Integer>(
+					(L1NpcInstance) character, hate));
+				continue;
+			}
+
+			L1PcInstance player = (L1PcInstance) character;
+			if (player.isInParty()) {
+				// TODO: fix dumb quadratic search?
+				boolean found = false;
+				for (List<Pair<L1Character, Integer>> group : groups) {
+					L1PcInstance representative =
+							(L1PcInstance) group.get(0).getFirst();
+					if (representative.isInParty() &&
+							representative.getParty() == player.getParty()) {
+						found = true;
+						group.add(new Pair<L1Character, Integer>(player, hate));
+						break;
+					}
+				}
+				if (!found)
+					groups.add(Lists.of(
+							new Pair<L1Character, Integer>(character, hate)));
+			} else {
+				groups.add(Lists.of(
+						new Pair<L1Character, Integer>(character, hate)));
+			}
+		}		
+
+		// Put pets and summons in the same group as their masters.
+		for (Pair<L1NpcInstance, Integer> pair : stragglers) {
+			L1NpcInstance character = pair.getFirst();
+			for (List<Pair<L1Character, Integer>> group : groups) {
+				if (group.contains(character.getMaster())) {
+					group.add(new Pair<L1Character, Integer>(
+							character, pair.getSecond()));
+					break;
+				}	
+			}
+		}
+
+		return groups;
+	}
+	
+	private static final double ROYAL_BONUS = .06;
+	// TODO: finalize - starting off a little shorter than shout.
+	private static final int EXP_RANGE = 40;
+	
+	private static boolean groupContainsRoyal(List<Pair<L1Character, Integer>> group) {
+		if (group.size() == 0)
+			return false;
+		L1Character first = group.get(0).getFirst();
+		if (first instanceof L1PcInstance) {
+			return partyContainsRoyal((L1PcInstance) first);
+		} else if (first instanceof L1SummonInstance) {
+			L1SummonInstance summon = (L1SummonInstance) first;
+			return partyContainsRoyal((L1PcInstance) summon.getMaster());
+		} else if (first instanceof L1PetInstance) {
+			L1PetInstance pet = (L1PetInstance) first;
+			return partyContainsRoyal((L1PcInstance) pet.getMaster());
+		}
+		// Can't actually get here.
+		return false;
+	}
+	
+	private static boolean partyContainsRoyal(final L1PcInstance player) {
+		for (L1PcInstance member : player.getParty().getMembers())
+			if (member.isCrown())
+				return true;
+		return false;
+	}
+	
+	public static void calcExp(int targetId, ArrayList<L1Character> acquisitors,
+			ArrayList<Integer> hateList, int experience, int lawful, int karma) {
+
+		if (acquisitors.size() != hateList.size())
+			return;
+
+		L1Object object = L1World.getInstance().findObject(targetId);
+		L1NpcInstance npc = (L1NpcInstance) object;
+		
+		if (object == null || npc instanceof L1PetInstance ||
+					npc instanceof L1SummonInstance)
+			return;
+		
+		int[] hateTotals = pruneAndSumHate(acquisitors, hateList);
+		int totalExpHate = hateTotals[0];
+		int totalAltHate = hateTotals[1]; // Shared for lawful/karma.
+
+		List<Pair<L1Character, Integer>> zipped = 
+				Pairs.zip(acquisitors, hateList);
+		
+		if (totalExpHate == 0) {
+			return;
+		}
+
+		// Common case handling...
+		if (acquisitors.size() == 1) {
+			L1Character killer = acquisitors.get(0);
+			if (killer instanceof L1PcInstance) {
+				AddExp((L1PcInstance) killer, experience, lawful);
+			} else if (killer instanceof L1PetInstance) {
+				AddExpPet((L1PetInstance) killer, experience);
+			}
+			return;
+		}
+		
+		// For each group, calculate their proportion of hate, then give
+		// them that amount of the experience/lawful/karma from the monster.
+		for (List<Pair<L1Character, Integer>> group : partitionByParty(zipped)) {
+			int groupExpHate = 0;
+			int groupAltHate = 0;
+			
+			for (Pair<L1Character, Integer> member : group) {
+				int hate = member.getSecond();
+				if (member.getFirst() instanceof L1PcInstance)
+					groupAltHate += hate;
+				groupExpHate += hate;
+			}
+			
+			int groupKarma = karma * (groupAltHate / totalAltHate);
+			int groupLawful = lawful * (groupAltHate / totalAltHate);
+			int groupExp = experience * (groupExpHate / totalExpHate);
+			
+			if (groupContainsRoyal(group))
+				groupExp *= (1.0 + ROYAL_BONUS);
+			
+			for (Pair<L1Character, Integer> member : group) {
+				L1Character character = member.getFirst();
+				
+				// No credit for characters on different maps (though their
+				// party members benefit from contributed hate.)
+				if (character.getMapId() != npc.getMapId() ||
+						character.getLineDistance(npc) >= EXP_RANGE)
+					continue;
+				
+				if (character instanceof L1PcInstance) {
+					AddExp((L1PcInstance) character, groupExp, groupLawful,
+							groupKarma);
+				} else if (character instanceof L1PetInstance) {
+					AddExpPet((L1PetInstance) character, groupExp);
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * Expect this to be called once per monster death.
+	 * @param l1pcinstance The last attacker.
+	 */
 	public static void calcExp(L1PcInstance l1pcinstance, int targetid,
-			ArrayList acquisitorList, ArrayList hateList, int exp) {
+			ArrayList<L1Character> acquisitors, ArrayList<Integer> hateList,
+			int exp) {
 
 		int i = 0;
-		double party_level = 0;
+		double partyLevel = 0;
 		double dist = 0;
 		int member_exp = 0;
 		int member_lawful = 0;
 		L1Object l1object = L1World.getInstance().findObject(targetid);
 		L1NpcInstance npc = (L1NpcInstance) l1object;
-		// The total acquisition Hate
 		L1Character acquisitor;
 		int hate = 0;
 		int acquire_exp = 0;
@@ -66,274 +263,294 @@ public class CalcExp {
 		int partyHateLawful = 0;
 		int ownHateExp = 0;
 
-		if (acquisitorList.size() != hateList.size()) {
+		if (acquisitors.size() != hateList.size()) {
 			return;
 		}
+		
+		if (l1object == null || npc instanceof L1PetInstance ||
+					npc instanceof L1SummonInstance) {
+			return;
+		}
+
 		for (i = hateList.size() - 1; i >= 0; i--) {
-			acquisitor = (L1Character) acquisitorList.get(i);
-			hate = (Integer) hateList.get(i);
+			acquisitor = acquisitors.get(i);
+			hate = hateList.get(i);
 			if (acquisitor != null && !acquisitor.isDead()) {
 				totalHateExp += hate;
 				if (acquisitor instanceof L1PcInstance) {
 					totalHateLawful += hate;
 				}
-			} else { // null dead or eliminated
-				acquisitorList.remove(i);
+			} else {
+				acquisitors.remove(i);
 				hateList.remove(i);
 			}
 		}
-		if (totalHateExp == 0) { // If there are no acquisition
+		
+		if (totalHateExp == 0) {
 			return;
 		}
 
-		if (l1object != null && !(npc instanceof L1PetInstance)
-				&& !(npc instanceof L1SummonInstance)) {
-			// int exp = npc.get_exp();
-			if (!L1World.getInstance().isProcessingContributionTotal()
-					&& l1pcinstance.getHomeTownId() > 0) {
-				int contribution = npc.getLevel() / 10;
-				l1pcinstance.addContribution(contribution);
-			}
-			int lawful = npc.getLawful();
+		if (!L1World.getInstance().isProcessingContributionTotal()
+				&& l1pcinstance.getHomeTownId() > 0) {
+			int contribution = npc.getLevel() / 10;
+			l1pcinstance.addContribution(contribution);
+		}
+		
+		int lawful = npc.getLawful();
 
-			if (l1pcinstance.isInParty()) { // During Party
-				// Sums party hate
-				// This is the allocation of non-Party members
-				partyHateExp = 0;
-				partyHateLawful = 0;
+		if (l1pcinstance.isInParty()) { // During Party
+			// Sums party hate
+			// This is the allocation of non-Party members
+			partyHateExp = 0;
+			partyHateLawful = 0;
+			
+			double royalBonus = getRoyalBonus(l1pcinstance);
+			double partyBonus = getPartyBonus(l1pcinstance);
+			/* double */ partyLevel = getPartyLevel(l1pcinstance);	
+
+			for (i = hateList.size() - 1; i >= 0; i--) {
+				acquisitor = acquisitors.get(i);
+				hate = hateList.get(i);
+				if (acquisitor instanceof L1PcInstance) {
+					L1PcInstance pc = (L1PcInstance) acquisitor;
+					if (pc == l1pcinstance) {
+						partyHateExp += hate;
+						partyHateLawful += hate;
+					} else if (l1pcinstance.getParty().isMember(pc)) {
+						partyHateExp += hate;
+						partyHateLawful += hate;
+					} else {
+						if (totalHateExp > 0) {
+							acquire_exp = (exp * hate / totalHateExp);
+						}
+						if (totalHateLawful > 0) {
+							acquire_lawful = (lawful * hate / totalHateLawful);
+						}
+						AddExp(pc, acquire_exp, acquire_lawful);
+					}
+				} else if (acquisitor instanceof L1PetInstance) {
+					L1PetInstance pet = (L1PetInstance) acquisitor;
+					L1PcInstance master = (L1PcInstance) pet.getMaster();
+					if (master == l1pcinstance) {
+						partyHateExp += hate;
+					} else if (l1pcinstance.getParty().isMember(master)) {
+						partyHateExp += hate;
+					} else {
+						if (totalHateExp > 0) {
+							acquire_exp = (exp * hate / totalHateExp);
+						}
+						AddExpPet(pet, acquire_exp);
+					}
+				} else if (acquisitor instanceof L1SummonInstance) {
+					L1SummonInstance summon = (L1SummonInstance) acquisitor;
+					L1PcInstance master = (L1PcInstance) summon.getMaster();
+					if (master == l1pcinstance) {
+						partyHateExp += hate;
+					} else if (l1pcinstance.getParty().isMember(master)) {
+						partyHateExp += hate;
+					}
+				}
+			}
+			
+			if (totalHateExp > 0) {
+				party_exp = (exp * partyHateExp / totalHateExp);
+			}
+			if (totalHateLawful > 0) {
+				party_lawful = (lawful * partyHateLawful / totalHateLawful);
+			}
+
+			// EXP
+
+			// PT Calculate the value of experience
+			party_exp = (int) (party_exp * Config.PARTYEXP_RATE * (1 + partyBonus + royalBonus));
+
+			// Summon the pet's character and self-hate sums
+			if (partyLevel > 0) {
+				dist = ((l1pcinstance.getLevel() * l1pcinstance.getLevel()) / partyLevel);
+			}
+			member_exp = (int) (party_exp * dist);
+			member_lawful = (int) (party_lawful * dist);
+
+			ownHateExp = 0;
+			for (i = hateList.size() - 1; i >= 0; i--) {
+				acquisitor = acquisitors.get(i);
+				hate = hateList.get(i);
+				if (acquisitor instanceof L1PcInstance) {
+					L1PcInstance pc = (L1PcInstance) acquisitor;
+					if (pc == l1pcinstance) {
+						ownHateExp += hate;
+					}
+				} else if (acquisitor instanceof L1PetInstance) {
+					L1PetInstance pet = (L1PetInstance) acquisitor;
+					L1PcInstance master = (L1PcInstance) pet.getMaster();
+					if (master == l1pcinstance) {
+						ownHateExp += hate;
+					}
+				} else if (acquisitor instanceof L1SummonInstance) {
+					L1SummonInstance summon = (L1SummonInstance) acquisitor;
+					L1PcInstance master = (L1PcInstance) summon.getMaster();
+					if (master == l1pcinstance) {
+						ownHateExp += hate;
+					}
+				}
+			}
+			// Summon the character and self-distribute pets
+			if (ownHateExp != 0) { // Participating in the attack.
 				for (i = hateList.size() - 1; i >= 0; i--) {
-					acquisitor = (L1Character) acquisitorList.get(i);
-					hate = (Integer) hateList.get(i);
+					acquisitor = acquisitors.get(i);
+					hate = hateList.get(i);
 					if (acquisitor instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) acquisitor;
 						if (pc == l1pcinstance) {
-							partyHateExp += hate;
-							partyHateLawful += hate;
-						} else if (l1pcinstance.getParty().isMember(pc)) {
-							partyHateExp += hate;
-							partyHateLawful += hate;
-						} else {
-							if (totalHateExp > 0) {
-								acquire_exp = (exp * hate / totalHateExp);
+							if (ownHateExp > 0) {
+								acquire_exp = (member_exp * hate / ownHateExp);
 							}
-							if (totalHateLawful > 0) {
-								acquire_lawful = (lawful * hate / totalHateLawful);
-							}
-							AddExp(pc, acquire_exp, acquire_lawful);
+							AddExp(pc, acquire_exp, member_lawful);
 						}
 					} else if (acquisitor instanceof L1PetInstance) {
 						L1PetInstance pet = (L1PetInstance) acquisitor;
 						L1PcInstance master = (L1PcInstance) pet.getMaster();
 						if (master == l1pcinstance) {
-							partyHateExp += hate;
-						} else if (l1pcinstance.getParty().isMember(master)) {
-							partyHateExp += hate;
-						} else {
-							if (totalHateExp > 0) {
-								acquire_exp = (exp * hate / totalHateExp);
+							if (ownHateExp > 0) {
+								acquire_exp = (member_exp * hate / ownHateExp);
 							}
 							AddExpPet(pet, acquire_exp);
 						}
 					} else if (acquisitor instanceof L1SummonInstance) {
-						L1SummonInstance summon = (L1SummonInstance) acquisitor;
-						L1PcInstance master = (L1PcInstance) summon.getMaster();
-						if (master == l1pcinstance) {
-							partyHateExp += hate;
-						} else if (l1pcinstance.getParty().isMember(master)) {
-							partyHateExp += hate;
-						} else {
-						}
 					}
 				}
-				if (totalHateExp > 0) {
-					party_exp = (exp * partyHateExp / totalHateExp);
-				}
-				if (totalHateLawful > 0) {
-					party_lawful = (lawful * partyHateLawful / totalHateLawful);
-				}
+			} else { // It did not participate in attack
+				// Character only self-distribution
+				AddExp(l1pcinstance, member_exp, member_lawful);
+			}
 
-				// EXP
+			// Party members and their pet hate sums of Salmon
+			L1PcInstance[] ptMembers = l1pcinstance.getParty().getMembers();
+			for (int cnt = 0; cnt < ptMembers.length; cnt++) {
+				if (l1pcinstance.knownsObject(ptMembers[cnt])) {
+					if (partyLevel > 0) {
+						dist = ((ptMembers[cnt].getLevel() * ptMembers[cnt]
+									.getLevel()) / partyLevel);
+					}
+					member_exp = (int) (party_exp * dist);
+					member_lawful = (int) (party_lawful * dist);
 
-				double pri_bonus = 0;
-				L1PcInstance leader = l1pcinstance.getParty().getLeader();
-				if (leader.isCrown()
-						&& (l1pcinstance.knownsObject(leader)
-								|| l1pcinstance.equals(leader))) {
-					pri_bonus = 0.059;
-				}
-				// PT Calculate the value of experience
-				L1PcInstance[] ptMembers = l1pcinstance.getParty().getMembers();
-				double pt_bonus = 0;
-				for (L1PcInstance each : ptMembers) {
-					if (l1pcinstance.knownsObject(each) || l1pcinstance.equals(each)) {
-						party_level += each.getLevel() * each.getLevel();
-					}
-					if (l1pcinstance.knownsObject(each)) {
-						pt_bonus += 0.04;
-					}
-				}
-				party_exp = (int) (party_exp * Config.PARTYEXP_RATE *(1 + pt_bonus + pri_bonus));
-				
-				// Summon the pet's character and self-hate sums
-				if (party_level > 0) {
-					dist = ((l1pcinstance.getLevel() * l1pcinstance.getLevel()) / party_level);
-				}
-				member_exp = (int) (party_exp * dist);
-				member_lawful = (int) (party_lawful * dist);
-
-				ownHateExp = 0;
-				for (i = hateList.size() - 1; i >= 0; i--) {
-					acquisitor = (L1Character) acquisitorList.get(i);
-					hate = (Integer) hateList.get(i);
-					if (acquisitor instanceof L1PcInstance) {
-						L1PcInstance pc = (L1PcInstance) acquisitor;
-						if (pc == l1pcinstance) {
-							ownHateExp += hate;
-						}
-					} else if (acquisitor instanceof L1PetInstance) {
-						L1PetInstance pet = (L1PetInstance) acquisitor;
-						L1PcInstance master = (L1PcInstance) pet.getMaster();
-						if (master == l1pcinstance) {
-							ownHateExp += hate;
-						}
-					} else if (acquisitor instanceof L1SummonInstance) {
-						L1SummonInstance summon = (L1SummonInstance) acquisitor;
-						L1PcInstance master = (L1PcInstance) summon.getMaster();
-						if (master == l1pcinstance) {
-							ownHateExp += hate;
-						}
-					}
-				}
-				// Summon the character and self-distribute pets
-				if (ownHateExp != 0) { // Participating in the attack.
+					ownHateExp = 0;
 					for (i = hateList.size() - 1; i >= 0; i--) {
-						acquisitor = (L1Character) acquisitorList.get(i);
-						hate = (Integer) hateList.get(i);
+						acquisitor = acquisitors.get(i);
+						hate = hateList.get(i);
 						if (acquisitor instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) acquisitor;
-							if (pc == l1pcinstance) {
-								if (ownHateExp > 0) {
-									acquire_exp = (member_exp * hate / ownHateExp);
-								}
-								AddExp(pc, acquire_exp, member_lawful);
+							if (pc == ptMembers[cnt]) {
+								ownHateExp += hate;
 							}
 						} else if (acquisitor instanceof L1PetInstance) {
 							L1PetInstance pet = (L1PetInstance) acquisitor;
-							L1PcInstance master = (L1PcInstance) pet.getMaster();
-							if (master == l1pcinstance) {
-								if (ownHateExp > 0) {
-									acquire_exp = (member_exp * hate / ownHateExp);
-								}
-								AddExpPet(pet, acquire_exp);
+							L1PcInstance master = (L1PcInstance) pet
+								.getMaster();
+							if (master == ptMembers[cnt]) {
+								ownHateExp += hate;
 							}
 						} else if (acquisitor instanceof L1SummonInstance) {
+							L1SummonInstance summon = (L1SummonInstance) acquisitor;
+							L1PcInstance master = (L1PcInstance) summon
+								.getMaster();
+							if (master == ptMembers[cnt]) {
+								ownHateExp += hate;
+							}
 						}
 					}
-				} else { // It did not participate in attack
-					// Character only self-distribution
-					AddExp(l1pcinstance, member_exp, member_lawful);
-				}
-
-				// Party members and their pet hate sums of Salmon
-				for (int cnt = 0; cnt < ptMembers.length; cnt++) {
-					if (l1pcinstance.knownsObject(ptMembers[cnt])) {
-						if (party_level > 0) {
-							dist = ((ptMembers[cnt].getLevel() * ptMembers[cnt]
-									.getLevel()) / party_level);
-						}
-						member_exp = (int) (party_exp * dist);
-						member_lawful = (int) (party_lawful * dist);
-
-						ownHateExp = 0;
+					// Party members and their pets and distributes Salmon
+					if (ownHateExp != 0) { // Participating in the attack.
 						for (i = hateList.size() - 1; i >= 0; i--) {
-							acquisitor = (L1Character) acquisitorList.get(i);
-							hate = (Integer) hateList.get(i);
+							acquisitor = acquisitors.get(i);
+							hate = hateList.get(i);
 							if (acquisitor instanceof L1PcInstance) {
 								L1PcInstance pc = (L1PcInstance) acquisitor;
 								if (pc == ptMembers[cnt]) {
-									ownHateExp += hate;
+									if (ownHateExp > 0) {
+										acquire_exp = (member_exp * hate / ownHateExp);
+									}
+									AddExp(pc, acquire_exp, member_lawful);
 								}
 							} else if (acquisitor instanceof L1PetInstance) {
 								L1PetInstance pet = (L1PetInstance) acquisitor;
 								L1PcInstance master = (L1PcInstance) pet
-										.getMaster();
+									.getMaster();
 								if (master == ptMembers[cnt]) {
-									ownHateExp += hate;
+									if (ownHateExp > 0) {
+										acquire_exp = (member_exp * hate / ownHateExp);
+									}
+									AddExpPet(pet, acquire_exp);
 								}
 							} else if (acquisitor instanceof L1SummonInstance) {
-								L1SummonInstance summon = (L1SummonInstance) acquisitor;
-								L1PcInstance master = (L1PcInstance) summon
-										.getMaster();
-								if (master == ptMembers[cnt]) {
-									ownHateExp += hate;
-								}
 							}
 						}
-						// Party members and their pets and distributes Salmon
-						if (ownHateExp != 0) { // Participating in the attack.
-							for (i = hateList.size() - 1; i >= 0; i--) {
-								acquisitor = (L1Character) acquisitorList
-										.get(i);
-								hate = (Integer) hateList.get(i);
-								if (acquisitor instanceof L1PcInstance) {
-									L1PcInstance pc = (L1PcInstance) acquisitor;
-									if (pc == ptMembers[cnt]) {
-										if (ownHateExp > 0) {
-											acquire_exp = (member_exp * hate / ownHateExp);
-										}
-										AddExp(pc, acquire_exp, member_lawful);
-									}
-								} else if (acquisitor instanceof L1PetInstance) {
-									L1PetInstance pet = (L1PetInstance) acquisitor;
-									L1PcInstance master = (L1PcInstance) pet
-											.getMaster();
-									if (master == ptMembers[cnt]) {
-										if (ownHateExp > 0) {
-											acquire_exp = (member_exp * hate / ownHateExp);
-										}
-										AddExpPet(pet, acquire_exp);
-									}
-								} else if (acquisitor instanceof L1SummonInstance) {
-								}
-							}
-						} else { //It did not participate in attack
-							// Party members only distribute
-							AddExp(ptMembers[cnt], member_exp, member_lawful);
-						}
+					} else { //It did not participate in attack
+						// Party members only distribute
+						AddExp(ptMembers[cnt], member_exp, member_lawful);
 					}
 				}
-			} else { // Not for a party
-				// EXP
-				for (i = hateList.size() - 1; i >= 0; i--) {
-					acquisitor = (L1Character) acquisitorList.get(i);
-					hate = (Integer) hateList.get(i);
-					acquire_exp = (exp * hate / totalHateExp);
-					if (acquisitor instanceof L1PcInstance) {
-						if (totalHateLawful > 0) {
-							acquire_lawful = (lawful * hate / totalHateLawful);
-						}
-					}
-
-					if (acquisitor instanceof L1PcInstance) {
-						L1PcInstance pc = (L1PcInstance) acquisitor;
-						AddExp(pc, acquire_exp, acquire_lawful);
-					} else if (acquisitor instanceof L1PetInstance) {
-						L1PetInstance pet = (L1PetInstance) acquisitor;
-						AddExpPet(pet, acquire_exp);
-					} else if (acquisitor instanceof L1SummonInstance) {
-					}
+			}
+		} else { // solo
+			for (i = hateList.size() - 1; i >= 0; i--) {
+				acquisitor = acquisitors.get(i);
+				hate = hateList.get(i);
+				acquire_exp = (exp * hate / totalHateExp);
+				if (acquisitor instanceof L1PcInstance) {
+					if (totalHateLawful > 0)
+						acquire_lawful = lawful * hate / totalHateLawful;
+					AddExp((L1PcInstance) acquisitor, acquire_exp, acquire_lawful);
+				} else if (acquisitor instanceof L1PetInstance) {
+					AddExpPet((L1PetInstance) acquisitor, acquire_exp);
 				}
 			}
 		}
 	}
 
-	private static void AddExp(L1PcInstance pc, int exp, int lawful) {
-		// dont remove
-		if(pc.isDead()){
+	private static double getRoyalBonus(final L1PcInstance player) {
+		if (!player.isInParty())
+			return 0.;
+		for (L1PcInstance member : player.getParty().getMembers()) {
+			if (member.isCrown() && (player.knownsObject(member) ||
+						player.equals(member)))
+				return RoyalPartyBonus;
+		}
+		return 0.;
+	}
+
+	private static double getPartyLevel(final L1PcInstance player) {
+		double level = 0.;
+		for (L1PcInstance member : player.getParty().getMembers())
+			if (player.knownsObject(member) || player.equals(member))
+				level += player.getLevel() * player.getLevel();
+		return level;
+	}
+
+	private static double getPartyBonus(final L1PcInstance player) {
+		int known = 0;
+		for (L1PcInstance member : player.getParty().getMembers())
+			if (player.knownsObject(member))
+				known++;
+		return known * MemberPartyBonus;
+	}
+
+	private static void AddExp(L1PcInstance pc, int experience, int lawful) {
+		AddExp(pc, experience, lawful, 0);
+	}
+	
+	private static void AddExp(L1PcInstance pc, int exp, int lawful, int karma) {
+		// Shouldn't really be the case, but just in case... =)
+		if (pc.isDead()) {
 			return;
 		}
+		
 		int add_lawful = (int) (lawful * Config.RATE_LA) * -1;
 		pc.addLawful(add_lawful);
+		
+		boolean aligned = 
+				Integer.signum(karma) == Integer.signum(pc.getKarma());
+		pc.addKarma((int) (karma * Config.RATE_KARMA * (aligned ? 5 : 1)));
 
 		double exppenalty = ExpTable.getPenaltyRate(pc.getLevel());
 		double foodBonus = 1.0;
@@ -357,13 +574,9 @@ public class CalcExp {
 	private static void AddExpPet(L1PetInstance pet, int exp) {
 		L1PcInstance pc = (L1PcInstance) pet.getMaster();
 
-		int petNpcId = pet.getNpcTemplate().get_npcId();
 		int petItemObjId = pet.getItemObjId();
 		int levelBefore = pet.getLevel();
 		int totalExp = (int) (exp * Config.PETEXP_RATE + pet.getExp());
-		if (totalExp >= ExpTable.getExpByLevel(51)) {
-			totalExp = ExpTable.getExpByLevel(51) - 1;
-		}
 		pet.setExp(totalExp);
 		pet.setLevel(ExpTable.getLevelByExp(totalExp));
 
