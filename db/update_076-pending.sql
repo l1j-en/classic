@@ -111,37 +111,37 @@ update mobskill set trirange=-8, trirnd=12, summonmin=1, summonmax=3 where mobid
 update armor set use_illusionist=1 where name="Troll Belt";
 
 -- Update dragon drops to go along with increased toughness.
-insert into droplist (45681, 'Lindvior', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
-insert into droplist (45682, 'Antharas', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
-insert into droplist (45683, 'Fafurion', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
-insert into droplist (45684, 'Valakas', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
+insert into droplist values (45681, 'Lindvior', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
+insert into droplist values (45682, 'Antharas', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
+insert into droplist values (45683, 'Fafurion', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
+insert into droplist values (45684, 'Valakas', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 40000);
 
-insert into droplist (45681, 'Lindvior', 40212, 'Spellbook(Polymorph)', 1, 1, 40000);
-insert into droplist (45682, 'Antharas', 40212, 'Spellbook(Polymorph)', 1, 1, 40000));
-insert into droplist (45683, 'Fafurion', 40212, 'Spellbook(Polymorph)', 1, 1, 40000));
-insert into droplist (45684, 'Valakas', 40212, 'Spellbook(Polymorph)', 1, 1, 40000));
+insert into droplist values (45681, 'Lindvior', 40212, 'Spellbook(Polymorph)', 1, 1, 40000);
+insert into droplist values (45682, 'Antharas', 40212, 'Spellbook(Polymorph)', 1, 1, 40000);
+insert into droplist values (45683, 'Fafurion', 40212, 'Spellbook(Polymorph)', 1, 1, 40000);
+insert into droplist values (45684, 'Valakas', 40212, 'Spellbook(Polymorph)', 1, 1, 40000);
 
-insert into droplist (45681, 'Lindvior', 40441, 'Rough Platinum Piece', 12, 24, 240000);
-insert into droplist (45682, 'Antharas', 40441, 'Rough Platinum Piece', 12, 24, 240000);
-insert into droplist (45683, 'Fafurion', 40441, 'Rough Platinum Piece', 12, 24, 240000);
-insert into droplist (45684, 'Valakas', 40441, 'Rough Platinum Piece', 12, 24, 240000);
+insert into droplist values (45681, 'Lindvior', 40441, 'Rough Platinum Piece', 12, 24, 240000);
+insert into droplist values (45682, 'Antharas', 40441, 'Rough Platinum Piece', 12, 24, 240000);
+insert into droplist values (45683, 'Fafurion', 40441, 'Rough Platinum Piece', 12, 24, 240000);
+insert into droplist values (45684, 'Valakas', 40441, 'Rough Platinum Piece', 12, 24, 240000);
 
-insert into droplist (45681, 'Lindvior', 40468, 'Rough Silver Piece', 12, 24, 240000);
-insert into droplist (45682, 'Antharas', 40468, 'Rough Silver Piece', 12, 24, 240000));
-insert into droplist (45683, 'Fafurion', 40468, 'Rough Silver Piece', 12, 24, 240000));
-insert into droplist (45684, 'Valakas', 40468, 'Rough Silver Piece', 12, 24, 240000));
+insert into droplist values (45681, 'Lindvior', 40468, 'Rough Silver Piece', 12, 24, 240000);
+insert into droplist values (45682, 'Antharas', 40468, 'Rough Silver Piece', 12, 24, 240000);
+insert into droplist values (45683, 'Fafurion', 40468, 'Rough Silver Piece', 12, 24, 240000);
+insert into droplist values (45684, 'Valakas', 40468, 'Rough Silver Piece', 12, 24, 240000);
 
-insert into droplist (45681, 'Lindvior', 40489, 'Rough Gold Piece', 12, 24, 240000);
-insert into droplist (45682, 'Antharas', 40489, 'Rough Gold Piece', 12, 24, 240000);
-insert into droplist (45683, 'Fafurion', 40489, 'Rough Gold Piece', 12, 24, 240000);
-insert into droplist (45684, 'Valakas', 40489, 'Rough Gold Piece', 12, 24, 240000);
+insert into droplist values (45681, 'Lindvior', 40489, 'Rough Gold Piece', 12, 24, 240000);
+insert into droplist values (45682, 'Antharas', 40489, 'Rough Gold Piece', 12, 24, 240000);
+insert into droplist values (45683, 'Fafurion', 40489, 'Rough Gold Piece', 12, 24, 240000);
+insert into droplist values (45684, 'Valakas', 40489, 'Rough Gold Piece', 12, 24, 240000);
 
-insert into droplist (45681, 'Lindvior', 20108, 'Magical Armor of Lindvior', 1, 1, 4000);
-insert into droplist (45682, 'Antharas', 20130, 'Magical Armor of Antharas', 1, 1, 4000);
-insert into droplist (45683, 'Fafurion', 20153, 'Magical Armor of Fafurion', 1, 1, 4000);
-insert into droplist (45684, 'Valakas', 20119, 'Magical Armor of Valakas', 1, 1, 4000);
+insert into droplist values (45681, 'Lindvior', 20108, 'Magical Armor of Lindvior', 1, 1, 4000);
+insert into droplist values (45682, 'Antharas', 20130, 'Magical Armor of Antharas', 1, 1, 4000);
+insert into droplist values (45683, 'Fafurion', 20153, 'Magical Armor of Fafurion', 1, 1, 4000);
+insert into droplist values (45684, 'Valakas', 20119, 'Magical Armor of Valakas', 1, 1, 4000);
 
-insert into droplist (45681, 'Lindvior', 20156, 'White Dragon Armor', 1, 1, 6000);
-insert into droplist (45682, 'Antharas', 21046, 'Green Dragon Armor', 1, 1, 6000);
-insert into droplist (45683, 'Fafurion', 20127, 'Blue Dragon Armor', 1, 1, 6000);
-insert into droplist (45684, 'Valakas', 20159, 'Red Dragon Armor', 1, 1, 6000);
+insert into droplist values (45681, 'Lindvior', 20156, 'White Dragon Armor', 1, 1, 6000);
+insert into droplist values (45682, 'Antharas', 21046, 'Green Dragon Armor', 1, 1, 6000);
+insert into droplist values (45683, 'Fafurion', 20127, 'Blue Dragon Armor', 1, 1, 6000);
+insert into droplist values (45684, 'Valakas', 20159, 'Red Dragon Armor', 1, 1, 6000);
