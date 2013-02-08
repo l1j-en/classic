@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import l1j.server.server.model.L1Attack;
+import l1j.server.server.model.L1Character;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
@@ -24,7 +25,7 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 		L1Attack attack = new L1Attack(player, this);
 		if (attack.calcHit()) {
 			if (player.getLevel() < 5) { //
-				ArrayList<L1PcInstance> targetList = new ArrayList<L1PcInstance>();
+				ArrayList<L1Character> targetList = new ArrayList<L1Character>();
 
 				targetList.add(player);
 				ArrayList<Integer> hateList = new ArrayList<Integer>();
