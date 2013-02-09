@@ -145,3 +145,6 @@ insert into droplist values (45681, 'Lindvior', 20156, 'White Dragon Armor', 1, 
 insert into droplist values (45682, 'Antharas', 21046, 'Green Dragon Armor', 1, 1, 6000);
 insert into droplist values (45683, 'Fafurion', 20127, 'Blue Dragon Armor', 1, 1, 6000);
 insert into droplist values (45684, 'Valakas', 20159, 'Red Dragon Armor', 1, 1, 6000);
+
+-- Stop players from abusing skill range on Turtle attacks.
+update mobskill set trirange=-2 where mobid=45422 and actNo=3;
