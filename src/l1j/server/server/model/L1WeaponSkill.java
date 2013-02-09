@@ -76,7 +76,7 @@ public class L1WeaponSkill {
 	
 	static {
 		if (Config.USE_INT_PROCS) {
-			ProcMap.put(SwordOfDeathKnight,new L1WeaponSkill(SwordOfDeathKnight,
+			ProcMap.put(SwordOfDeathKnight, new L1WeaponSkill(SwordOfDeathKnight,
 					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 3.77));
 			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
 					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 3.02));
@@ -106,7 +106,7 @@ public class L1WeaponSkill {
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
 			int effectId, int effectTarget, boolean isArrowType, int attr) {
-		new L1WeaponSkill(weaponId, probability, fixDamage, randomDamage, area,
+		this(weaponId, probability, fixDamage, randomDamage, area,
 				skillId, skillTime, effectId, effectTarget, isArrowType,
 				attr, 0.);
 	}
@@ -203,11 +203,9 @@ public class L1WeaponSkill {
 		if (weaponSkill == null)
 			return 0;
 
-		int chance = _random.nextInt(100) + 1;
-		if (weaponSkill.getProbability() < chance) {
+		if (weaponSkill.getProbability() < _random.nextInt(100) + 1)
 			return 0;
-		}
-
+			
 		int skillId = weaponSkill.getSkillId();
 		if (skillId != 0) {
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
@@ -223,7 +221,7 @@ public class L1WeaponSkill {
 		// damage and there are better ways to do that.
 		int effectId = weaponSkill.getEffectId();
 		L1Character hub = 
-			weaponSkill.getEffectTarget() == 0 ? target : attacker;
+				weaponSkill.getEffectTarget() == 0 ? target : attacker;
 		int hubId = hub.getId();
 		ServerBasePacket packet = weaponSkill.isArrowType()
 			? new S_UseAttackSkill(attacker, target.getId(), effectId, 
@@ -295,7 +293,7 @@ public class L1WeaponSkill {
 	private static double getFrozenSpearDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return FrozenSpearChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.4),
+			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 2.4),
 					Element.Water,
 					new S_SkillSound(target.getId(), 1804), target, 3)
 			: 0;
@@ -304,7 +302,7 @@ public class L1WeaponSkill {
 	private static double getWindAxeDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return WindAxeChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.5), 
+			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 2.5), 
 					Element.Wind, 
 					new S_SkillSound(attacker.getId(), 758), attacker, 4)
 			: 0;
@@ -385,7 +383,7 @@ public class L1WeaponSkill {
 	private static double getBaphometStaffDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return BaphoStaffChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 1.8),
+			? handleProc(attacker, target, getWeaponDamage(attacker, 2.8),
 					Element.Earth,
 					new S_EffectLocation(target.getX(), target.getY(), 129))
 			: 0;
@@ -394,7 +392,7 @@ public class L1WeaponSkill {
 	private static double getLightningEdgeDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return LightningEdgeChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 2),
+			? handleProc(attacker, target, getWeaponDamage(attacker, 3),
 					Element.Wind, new S_SkillSound(target.getId(), 10))
 			: 0;
 	}
