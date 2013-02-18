@@ -148,3 +148,11 @@ insert into droplist values (45684, 'Valakas', 20159, 'Red Dragon Armor', 1, 1, 
 
 -- Stop players from abusing skill range on Turtle attacks.
 update mobskill set trirange=-2 where mobid=45422 and actNo=3;
+
+update npc set atk_magic_speed=2400 where npcid=46096;
+update npc set sub_magic_speed=2344 where npcid=46096;
+update mobskill set leverage=30 where mobid=46096 and actNo=1;
+
+insert into spawnlist (location, count, npc_templateid, locx, locy, locx1, locy1, locx2, locy2, mapid) values ("Fire Egg", 50, 46068, 32762, 32799, 32704, 32640, 32820, 32959, 778), ("Unchosen One", 30, 46069, 32740, 32842, 32704, 32726, 32777, 32959, 778), ("Unchosen One", 15, 46070, 32888, 32780, 32817, 32740, 32959, 32820, 778), ("Unchosen One", 15, 46072, 32888, 32780, 32817, 32740, 32959, 32820, 778), ("Unchosen One", 10, 46074, 32740, 32842, 32704, 32726, 32777, 32959, 778), ("Unchosen One", 10, 46075, 32888, 32780, 32817, 32740, 32959, 32820, 778), ("Unchosen One", 10, 46076, 32831, 32665, 32704, 32604, 32959, 32726, 778), ("Unchosen One", 15, 46078, 32831, 32665, 32704, 32604, 32959, 32726, 778), ("Unchosen One", 15, 46079, 32831, 32665, 32704, 32604, 32959, 32726, 778);
+
+insert into spawnlist (location, count, npc_templateid, locx, locy, locx1, locy1, locx2, locy2, mapid) values ("Unchosen One", 20, 46077, 32768, 32895, 32832, 32704, 32959, 32831, 779), ("Unchosen One", 20, 46080, 32768, 32895, 32832, 32704, 32959, 32831, 779), ("Unchosen One", 20, 46081, 32768, 32895, 32832, 32704, 32959, 32831, 779);
