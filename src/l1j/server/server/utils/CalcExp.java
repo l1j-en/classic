@@ -46,6 +46,7 @@ public class CalcExp {
 
 	private static final double RoyalPartyBonus = .059;
 	private static final double MemberPartyBonus = .04;
+	private static final double PetPenalty = .12;
 
 	/**
 	 * Returns a two element array containing the total experience hate and
@@ -126,7 +127,7 @@ public class CalcExp {
 					group.add(new Pair<L1Character, Integer>(
 							character, pair.getSecond()));
 					break;
-				}	
+				}
 			}
 		}
 
@@ -189,7 +190,10 @@ public class CalcExp {
 		if (acquisitors.size() == 1) {
 			L1Character killer = acquisitors.get(0);
 			if (killer instanceof L1PcInstance) {
-				AddExp((L1PcInstance) killer, experience, lawful);
+				// TODO: pull this into AddExp call if we end up switching.
+				int penalized = (int) (experience * 
+					(1 - PetPenalty * killer.getPetList().values().size()));	
+				AddExp((L1PcInstance) killer, penalized, lawful, karma);
 			} else if (killer instanceof L1PetInstance) {
 				AddExpPet((L1PetInstance) killer, experience);
 			}
@@ -220,13 +224,18 @@ public class CalcExp {
 				L1Character character = member.getFirst();
 				
 				// No credit for characters on different maps (though their
-				// party members benefit from contributed hate.)
+				// party members benefit from contributed hate) or if you
+				// didn't hit the mob at all.
 				if (character.getMapId() != npc.getMapId() ||
-						character.getLineDistance(npc) >= EXP_RANGE)
+						character.getLineDistance(npc) >= EXP_RANGE ||
+						member.getSecond() <= 0)
 					continue;
 				
 				if (character instanceof L1PcInstance) {
-					AddExp((L1PcInstance) character, groupExp, groupLawful,
+					// TODO: pull this into AddExp call if we end up switching.
+					int penalized = (int) (groupExp * 
+						(1 - PetPenalty * character.getPetList().values().size()));				
+					AddExp((L1PcInstance) character, penalized, groupLawful,
 							groupKarma);
 				} else if (character instanceof L1PetInstance) {
 					AddExpPet((L1PetInstance) character, groupExp);
