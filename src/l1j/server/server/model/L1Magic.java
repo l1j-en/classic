@@ -26,10 +26,10 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 public class L1Magic {
 	private static Logger _log = Logger.getLogger(L1Magic.class.getName());
 	private int _calcType;
-	private final int PC_PC = 1;
-	private final int PC_NPC = 2;
-	private final int NPC_PC = 3;
-	private final int NPC_NPC = 4;
+	private static final int PC_PC = 1;
+	private static final int PC_NPC = 2;
+	private static final int NPC_PC = 3;
+	private static final int NPC_NPC = 4;
 	private L1PcInstance _pc = null;
 	private L1PcInstance _targetPc = null;
 	private L1NpcInstance _npc = null;
@@ -408,34 +408,9 @@ public class L1Magic {
 		if (L1Attack.isImmune(_target)) {
 			dmg = 0;
 		}
-		if (_targetPc.hasSkillEffect(COUNTER_MIRROR)) {
-			if (_calcType == PC_PC) {
-				if (_targetPc.getWis() >= _random.nextInt(100)) {
-					_pc.sendPackets(new S_DoActionGFX(_pc.getId(), ActionCodes.ACTION_Damage));
-					_pc.broadcastPacket(new S_DoActionGFX(_pc.getId(), ActionCodes.ACTION_Damage));
-					_targetPc.sendPackets(new S_SkillSound(_targetPc.getId(), 4395));
-					_targetPc.broadcastPacket(new S_SkillSound(_targetPc.getId(), 4395));
-					_pc.receiveDamage(_targetPc, dmg, false);
-					dmg = 0;
-					_targetPc.killSkillEffectTimer(COUNTER_MIRROR);
-				}
-			} else if (_calcType == NPC_PC) {
-				int npcId = _npc.getNpcTemplate().get_npcId();
-				if (npcId == 45681 || npcId == 45682 || npcId == 45683
-						|| npcId == 45684) {
-				} else if (!_npc.getNpcTemplate().get_IsErase()) {
-				} else {
-					if (_targetPc.getWis() >= _random.nextInt(100)) {
-						_npc.broadcastPacket(new S_DoActionGFX(_npc.getId(), ActionCodes.ACTION_Damage));
-						_targetPc.sendPackets(new S_SkillSound(_targetPc.getId(), 4395));
-						_targetPc.broadcastPacket(new S_SkillSound(_targetPc.getId(), 4395));
-						_npc.receiveDamage(_targetPc, dmg);
-						dmg = 0;
-						_targetPc.killSkillEffectTimer(COUNTER_MIRROR);
-					}
-				}
-			}
-		}
+		
+		dmg = tryCounterMirror(_targetPc, _calcType, _pc, _npc, dmg) ? 0 : dmg;
+		
 		if (dmg < 0) {
 			dmg = 0;
 		}
@@ -453,6 +428,31 @@ public class L1Magic {
 			}			
 		}
 		return dmg;
+	}
+
+	// Returns true when Counter Mirror procs.
+	private static boolean tryCounterMirror(L1PcInstance target, int type,
+			L1PcInstance pcAttacker, L1NpcInstance npcAttacker, int damage) {
+		if (!target.hasSkillEffect(COUNTER_MIRROR) ||
+				target.getWis() <= _random.nextInt(100) ||
+				type == NPC_NPC || type == PC_NPC)
+			return false;
+		if (type == NPC_PC) {
+			int npcId = npcAttacker.getNpcTemplate().get_npcId();
+			if (npcId == 45681 || npcId == 45682 || npcId == 45683 ||
+					npcId == 45684 || !npcAttacker.getNpcTemplate().get_IsErase())
+				return false;
+			npcAttacker.broadcastPacket(new S_DoActionGFX(npcAttacker.getId(),
+						ActionCodes.ACTION_Damage));
+			npcAttacker.receiveDamage(target, damage);
+		} else { // PC_PC
+			pcAttacker.sendAndBroadcast(new S_DoActionGFX(pcAttacker.getId(),
+						ActionCodes.ACTION_Damage));
+			pcAttacker.receiveDamage(target, damage, false);
+		}
+		target.sendAndBroadcast(new S_SkillSound(target.getId(), 4395));
+		target.killSkillEffectTimer(COUNTER_MIRROR);
+		return true;
 	}
 
 	/**
