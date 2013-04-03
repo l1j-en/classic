@@ -70,6 +70,8 @@ public class L1WeaponSkill {
 	// Basically arbitrary, but default to casting procs like a level 48 mage.
 	private static final int DefaultSpellpower = 13;
 	private static final int DefaultIntelligence = 18;
+	// 1.5 means 50% boost for all multipliers
+	private static final double MultiplierBoost = 1.5;
 
 	private static final Map<Integer, L1WeaponSkill> ProcMap =
 		new HashMap<Integer, L1WeaponSkill>();
@@ -77,29 +79,29 @@ public class L1WeaponSkill {
 	static {
 		if (Config.USE_INT_PROCS) {
 			ProcMap.put(SwordOfDeathKnight, new L1WeaponSkill(SwordOfDeathKnight,
-					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 3.77));
+					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 1.77));
 			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
-					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 3.02));
+					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 1.02));
 			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(
-					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 3.02));
+					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 1.02));
 			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen,
-					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 4.63));
+					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
 			ProcMap.put(ThorsHammer, new L1WeaponSkill(
-					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, 2.7));
+					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, 0.7));
 			ProcMap.put(PaagriosHatred, new L1WeaponSkill(
 					PaagriosHatred, 12, 0, 0, 0, 0, 0, 245, 0, false, 0));
 			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(
 					MaphrsRetribution, 10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
 			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(
-					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, 2.65));
+					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, 0.65));
 			ProcMap.put(EvasScorn, new L1WeaponSkill(
-					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, 2.59));
+					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, 0.59));
 			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
-					SwordOfVarlok, 15, 0, 0, 2, 0, 0, 762, 0, false, 2, 4.9));
+					SwordOfVarlok, 15, 0, 0, 2, 0, 0, 762, 0, false, 2, 2.9));
 			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
-					SwordOfSilence, 7, 0, 0, 0, 64, 16, 2177, 0, false, 0));
+					SwordOfSilence, 5, 0, 0, 0, 64, 16, 2177, 0, false, 0));
 			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
-					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 3.02));
+					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 1.02));
 		}
 	}
 
@@ -293,7 +295,7 @@ public class L1WeaponSkill {
 	private static double getFrozenSpearDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return FrozenSpearChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 2.4),
+			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.4),
 					Element.Water,
 					new S_SkillSound(target.getId(), 1804), target, 3)
 			: 0;
@@ -302,7 +304,7 @@ public class L1WeaponSkill {
 	private static double getWindAxeDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return WindAxeChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 2.5), 
+			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.5), 
 					Element.Wind, 
 					new S_SkillSound(attacker.getId(), 758), attacker, 4)
 			: 0;
@@ -368,8 +370,8 @@ public class L1WeaponSkill {
 		int spellpower = Math.max(attacker.getSp(), DefaultSpellpower);
 		int intel = Math.max(attacker.getInt(), DefaultIntelligence);
 		double berserk = attacker.hasSkillEffect(BERSERKERS) ? .2 : 0;	
-		return (intel + spellpower) * (multiplier + berserk) +
-			_random.nextInt(intel + spellpower) * multiplier;
+		return (intel + spellpower) * (multiplier * MultiplierBoost + berserk) +
+			_random.nextInt(intel + spellpower) * multiplier * MultiplierBoost;
 	}
 
 	private static double handleProc(final L1PcInstance attacker,
@@ -383,7 +385,7 @@ public class L1WeaponSkill {
 	private static double getBaphometStaffDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return BaphoStaffChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 2.8),
+			? handleProc(attacker, target, getWeaponDamage(attacker, 1.8),
 					Element.Earth,
 					new S_EffectLocation(target.getX(), target.getY(), 129))
 			: 0;
@@ -392,7 +394,7 @@ public class L1WeaponSkill {
 	private static double getLightningEdgeDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		return LightningEdgeChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 3),
+			? handleProc(attacker, target, getWeaponDamage(attacker, 2),
 					Element.Wind, new S_SkillSound(target.getId(), 10))
 			: 0;
 	}
