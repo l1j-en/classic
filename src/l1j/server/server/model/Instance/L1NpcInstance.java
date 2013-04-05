@@ -355,18 +355,18 @@ public class L1NpcInstance extends L1Character {
 		// summon, though, it will be leaked _and_ throw nasty NPEs if the
 		// monster in question uses skills.
 		if (target == null) {
-			_log.log(Level.WARNING, "L1NpcInstance::onTarget(): null _target.");
+			// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): null _target.");
 			return;
 		} else if (target instanceof L1PetInstance) {
 			L1PetInstance pet = (L1PetInstance) target;
 			if (pet.getMaster() == null) {
-				_log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing pet master.");
+				// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing pet master.");
 				return;
 			}
 		} else if (target instanceof L1SummonInstance) {
 			L1SummonInstance summon = (L1SummonInstance) target;
 			if (summon.getMaster() == null) {
-				_log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing summon master.");
+				// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing summon master.");
 				return;
 			}
 		}
