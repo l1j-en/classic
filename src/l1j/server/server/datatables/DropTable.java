@@ -211,6 +211,11 @@ public class DropTable {
 				itemCount = 2000000000;
 			}
 			item = ItemTable.getInstance().createItem(itemId);
+			if (item == null) {
+				_log.log(Level.WARNING, String.format("DropTable::SetDrop: " +
+							"invalid item id %d for npc %d.", itemId, mobId));
+				continue;
+			}
 			item.setCount(itemCount);
 			inventory.storeItem(item);
 		}
