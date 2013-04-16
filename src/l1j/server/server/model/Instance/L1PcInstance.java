@@ -960,7 +960,7 @@ public class L1PcInstance extends L1Character {
 						attackNpc.receiveDamage(this, 30);
 					}
 				}
-			}
+			} /* expected to be deleted after experimental implementation
 			if (attacker.hasSkillEffect(JOY_OF_PAIN)
 					&& getId() != attacker.getId()) {
 				int nowDamage = getMaxHp() - getCurrentHp();
@@ -978,7 +978,7 @@ public class L1PcInstance extends L1Character {
 						attackNpc.receiveDamage(this, nowDamage / 5);
 					}
 				}
-			}
+			} */
 			if (getInventory().checkEquipped(145)
 					|| getInventory().checkEquipped(149)) {
 				damage *= 1.5;
