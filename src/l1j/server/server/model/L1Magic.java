@@ -422,7 +422,7 @@ public class L1Magic {
 			}
 		} else if (skillId == JOY_OF_PAIN) {
 			int missinghp = _attacker.getMaxHp() - _attacker.getCurrentHp();
-			dmg = missinghp/3;
+			dmg = missinghp/5;
 			if (dmg < 5) {
 				dmg = 5;
 			}			
@@ -494,7 +494,7 @@ public class L1Magic {
 			dmg = _attacker.getCurrentMp();
 		} else if (skillId == JOY_OF_PAIN) {
 			int missinghp = _attacker.getMaxHp() - _attacker.getCurrentHp();
-			dmg = Math.max(missinghp / 3, 5);
+			dmg = Math.max(missinghp / 5, 5);
 		} else {
 			dmg = (calcMagicDiceDamage(skillId) * getLeverage()) / 10;
 		}
