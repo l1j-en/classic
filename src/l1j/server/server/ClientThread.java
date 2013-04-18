@@ -477,17 +477,12 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 			}
 		}
-		Object[] dollList = pc.getDollList().values().toArray();
-		for (Object dollObject : dollList) {
-			L1DollInstance doll = (L1DollInstance) dollObject;
+		for (L1DollInstance doll : pc.getDollList().values())
 			doll.deleteDoll();
-		}
-		Object[] followerList = pc.getFollowerList().values().toArray();
-		for (Object followerObject : followerList) {
-			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
+		for (L1FollowerInstance follower : pc.getFollowerList().values()) {
 			follower.setParalyzed(true);
 			follower.spawn(follower.getNpcTemplate().get_npcId(),
-			follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
+					follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
 			follower.deleteMe();
 		}
 		L1DeathMatch.getInstance().checkLeaveGame(pc);
