@@ -34,8 +34,8 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 
 public class L1PetMatch {
-	private static final Logger _log = Logger.getLogger(L1PetMatch.class
-			.getName());
+	private static final Logger _log =
+		Logger.getLogger(L1PetMatch.class.getName());
 
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY1 = 1;
@@ -43,6 +43,10 @@ public class L1PetMatch {
 	public static final int STATUS_PLAYING = 3;
 
 	public static final int MAX_PET_MATCH = 1;
+
+	private static final int PETMATCH_MEDAL = 41309;
+	private static final int WINNER_MEDALS = 3;
+	private static final int LOSER_MEDALS = 1;
 
 	private static final short[] PET_MATCH_MAPID = { 5125, 5131, 5132, 5133,
 			5134 };
@@ -185,200 +189,179 @@ public class L1PetMatch {
 		timer.begin();
 	}
 
-	public void endPetMatch(int petMatchNo, int winNo) {
-		L1PcInstance pc1 = L1World.getInstance()
+	public void endPetMatch(int petMatchNo, int winner) {
+		try {
+			L1PcInstance pc1 = L1World.getInstance()
 				.getPlayer(_pc1Name[petMatchNo]);
-		L1PcInstance pc2 = L1World.getInstance()
+			L1PcInstance pc2 = L1World.getInstance()
 				.getPlayer(_pc2Name[petMatchNo]);
-		if (winNo == 1) {
-			giveMedal(pc1, petMatchNo, true);
-			giveMedal(pc2, petMatchNo, false);
-		} else if (winNo == 2) {
-			giveMedal(pc1, petMatchNo, false);
-			giveMedal(pc2, petMatchNo, true);
-		} else if (winNo == 3) {
-			giveMedal(pc1, petMatchNo, false);
-			giveMedal(pc2, petMatchNo, false);
+			if (winner == 1) {
+				giveMedal(pc1, petMatchNo, true);
+				giveMedal(pc2, petMatchNo, false);
+			} else if (winner == 2) {
+				giveMedal(pc1, petMatchNo, false);
+				giveMedal(pc2, petMatchNo, true);
+			} else if (winner == 3) {
+				giveMedal(pc1, petMatchNo, false);
+				giveMedal(pc2, petMatchNo, false);
+			}
+		} catch (Exception e) {
+			// See notes in L1PetMatch::clearPetMatchPlayer.
+		} finally {
+			cleanupPetMatch(petMatchNo);
 		}
-		qiutPetMatch(petMatchNo);
 	}
 
-	
 	private void giveMedal(L1PcInstance pc, int petMatchNo, boolean isWin) {
-		if (pc == null) {
+		if (pc.getMapId() != PET_MATCH_MAPID[petMatchNo])
 			return;
-		}
-		if (pc.getMapId() != PET_MATCH_MAPID[petMatchNo]) {
-			return;
-		}
-		if (isWin) {
-			pc.sendPackets(new S_ServerMessage(1166, pc.getName())); //
-			L1ItemInstance item = ItemTable.getInstance().createItem(41309);
-			int count = 3;
-			if (item != null) {
-				if (pc.getInventory().checkAddItem(item, count) == L1Inventory
-						.OK) {
-					item.setCount(count);
-					pc.getInventory().storeItem(item);
-					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); //
-				}
-			}
-		} else {
-			L1ItemInstance item = ItemTable.getInstance().createItem(41309);
-			int count = 1;
-			if (item != null) {
-				if (pc.getInventory().checkAddItem(item, count) == L1Inventory
-						.OK) {
-					item.setCount(count);
-					pc.getInventory().storeItem(item);
-					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); //
-				}
-			}
+		if (isWin)
+			pc.sendPackets(new S_ServerMessage(1166, pc.getName()));
+		L1ItemInstance medals =
+			ItemTable.getInstance().createItem(PETMATCH_MEDAL);
+		int count = isWin ? WINNER_MEDALS : LOSER_MEDALS;
+		if (pc.getInventory().checkAddItem(medals, count) == L1Inventory.OK) {
+			medals.setCount(count);
+			pc.getInventory().storeItem(medals);
+			pc.sendPackets(new S_ServerMessage(403, medals.getLogName()));
 		}
 	}
 
-	private void qiutPetMatch(int petMatchNo) {
-		L1PcInstance pc1 = L1World.getInstance()
-				.getPlayer(_pc1Name[petMatchNo]);
-		if (pc1 != null && pc1.getMapId() == PET_MATCH_MAPID[petMatchNo]) {
-			for (Object object : pc1.getPetList().values().toArray()) {
-				if (object instanceof L1PetInstance) {
+	private void cleanupPetMatch(int petMatchNo) {
+		clearPetMatchPlayer(petMatchNo, _pc1Name[petMatchNo], _pc1Name,
+				_pet1);
+		clearPetMatchPlayer(petMatchNo, _pc2Name[petMatchNo], _pc2Name,
+				_pet2);
+	}
+
+	private void clearPetMatchPlayer(int petMatch, String playerName,
+			String[] names, L1PetInstance[] pets) {
+		// Due to a sync bug somewhere expected names can be reset to null
+		// prematurely; since L1World::getPlayer uses a CHM the cleanup
+		// routines then fail too. Wrapping everything in a lazy t/c/f until
+		// we pinpoint the underlying bug.
+		try {
+			L1PcInstance pc = L1World.getInstance().getPlayer(names[petMatch]);
+			if (pc != null && pc.getMapId() == PET_MATCH_MAPID[petMatch]) {
+				for (Object object : pc.getPetList().values()) {
+					if (!(object instanceof L1PetInstance))
+						continue;
 					L1PetInstance pet = (L1PetInstance) object;
 					pet.dropItem();
-					pc1.getPetList().remove(pet.getId());
+					pc.getPetList().remove(pet.getId());
 					pet.deleteMe();
 				}
 			}
-			L1Teleport.teleport(pc1, 32630, 32744, (short) 4, 4, true);
-		}
-		_pc1Name[petMatchNo] = null;
-		_pet1[petMatchNo] = null;
-
-		L1PcInstance pc2 = L1World.getInstance()
-				.getPlayer(_pc2Name[petMatchNo]);
-		if (pc2 != null && pc2.getMapId() == PET_MATCH_MAPID[petMatchNo]) {
-			for (Object object : pc2.getPetList().values().toArray()) {
-				if (object instanceof L1PetInstance) {
-					L1PetInstance pet = (L1PetInstance) object;
-					pet.dropItem();
-					pc2.getPetList().remove(pet.getId());
-					pet.deleteMe();
-				}
-			}
-			L1Teleport.teleport(pc2, 32630, 32744, (short) 4, 4, true);
-		}
-		_pc2Name[petMatchNo] = null;
-		_pet2[petMatchNo] = null;
-	}
-
-
-
-public class L1PetMatchReadyTimer extends TimerTask {
-	private Logger _log = Logger.getLogger(L1PetMatchReadyTimer.class
-			.getName());
-
-	private final int _petMatchNo;
-	private final L1PcInstance _pc;
-	private final L1PetInstance _pet;
-
-	public L1PetMatchReadyTimer(int petMatchNo, L1PcInstance pc,
-			L1PetInstance pet) {
-		_petMatchNo = petMatchNo;
-		_pc = pc;
-		_pet = pet;
-	}
-
-	public void begin() {
-		Timer timer = new Timer();
-		timer.schedule(this, 3000);
-	}
-
-	@Override
-	public void run() {
-		try {
-			for (;;) {
-				Thread.sleep(1000);
-				if (_pc == null || _pet == null) {
-					this.cancel();
-					return;
-				}
-
-				if (_pc.isTeleport()) {
-					continue;
-				}
-				if (L1PetMatch.getInstance().setPetMatchPc(_petMatchNo, _pc,
-						_pet) == L1PetMatch.STATUS_PLAYING) {
-					L1PetMatch.getInstance().startPetMatch(_petMatchNo);
-				}
-				this.cancel();
-				return;
-			}
-		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			L1Teleport.teleport(pc, 32630, 32744, (short) 4, 4, true);
+		} catch (Exception e) {
+			// See top comment.
+		} finally {
+			names[petMatch] = null;
+			pets[petMatch] = null;
 		}
 	}
 
-}
+	public class L1PetMatchReadyTimer extends TimerTask {
+		private Logger _log = Logger.getLogger(L1PetMatchReadyTimer.class
+				.getName());
 
+		private final int _petMatchNo;
+		private final L1PcInstance _pc;
+		private final L1PetInstance _pet;
 
+		public L1PetMatchReadyTimer(int petMatchNo, L1PcInstance pc,
+				L1PetInstance pet) {
+			_petMatchNo = petMatchNo;
+			_pc = pc;
+			_pet = pet;
+		}
 
-public class L1PetMatchTimer extends TimerTask {
-	private Logger _log = Logger.getLogger(L1PetMatchTimer.class
-			.getName());
+		public void begin() {
+			Timer timer = new Timer();
+			timer.schedule(this, 3000);
+		}
 
-	private final L1PetInstance _pet1;
-	private final L1PetInstance _pet2;
-	private final int _petMatchNo;
-	private int _counter = 0;
-
-	public L1PetMatchTimer(L1PetInstance pet1, L1PetInstance pet2,
-			int petMatchNo) {
-		_pet1 = pet1;
-		_pet2 = pet2;
-		_petMatchNo = petMatchNo;
-	}
-
-	public void begin() {
-		Timer timer = new Timer();
-		timer.schedule(this, 0);
-	}
-
-	@Override
-	public void run() {
-		try {
-			for (;;) {
-				Thread.sleep(3000);
-				_counter++;
-				if (_pet1 == null || _pet2 == null) {
-					this.cancel();
-					return;
-				}
-
-				if (_pet1.isDead() || _pet2.isDead()) {
-					int winner = 0;
-					if (!_pet1.isDead() && _pet2.isDead()) {
-						winner = 1;
-					} else if (_pet1.isDead() && !_pet2.isDead()) {
-						winner = 2;
-					} else {
-						winner = 3;
+		@Override
+		public void run() {
+			try {
+				for (;;) {
+					Thread.sleep(1000);
+					if (_pc == null || _pet == null) {
+						this.cancel();
+						return;
 					}
-					L1PetMatch.getInstance().endPetMatch(_petMatchNo, winner);
-					this.cancel();
-					return;
-				}
 
-				if (_counter == 100) { 
-					L1PetMatch.getInstance().endPetMatch(_petMatchNo, 3);
+					if (_pc.isTeleport()) {
+						continue;
+					}
+					if (L1PetMatch.getInstance().setPetMatchPc(_petMatchNo, _pc,
+								_pet) == L1PetMatch.STATUS_PLAYING) {
+						L1PetMatch.getInstance().startPetMatch(_petMatchNo);
+					}
 					this.cancel();
 					return;
 				}
+			} catch (Throwable e) {
+				_log.log(Level.WARNING, e.getLocalizedMessage(), e);
 			}
-		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
 		}
 	}
 
-}
+	public class L1PetMatchTimer extends TimerTask {
+		private Logger _log = Logger.getLogger(L1PetMatchTimer.class
+				.getName());
 
+		private final L1PetInstance _pet1;
+		private final L1PetInstance _pet2;
+		private final int _petMatchNo;
+		private int _counter = 0;
+
+		public L1PetMatchTimer(L1PetInstance pet1, L1PetInstance pet2,
+				int petMatchNo) {
+			_pet1 = pet1;
+			_pet2 = pet2;
+			_petMatchNo = petMatchNo;
+		}
+
+		public void begin() {
+			Timer timer = new Timer();
+			timer.schedule(this, 0);
+		}
+
+		@Override
+		public void run() {
+			try {
+				for (;;) {
+					Thread.sleep(3000);
+					_counter++;
+					if (_pet1 == null || _pet2 == null) {
+						this.cancel();
+						return;
+					}
+
+					if (_pet1.isDead() || _pet2.isDead()) {
+						this.cancel();
+						int winner = 0;
+						if (!_pet1.isDead() && _pet2.isDead()) {
+							winner = 1;
+						} else if (_pet1.isDead() && !_pet2.isDead()) {
+							winner = 2;
+						} else {
+							winner = 3;
+						}
+						L1PetMatch.getInstance().endPetMatch(_petMatchNo, winner);
+						return;
+					}
+
+					if (_counter == 100) { 
+						this.cancel();
+						L1PetMatch.getInstance().endPetMatch(_petMatchNo, 3);
+						return;
+					}
+				}
+			} catch (Throwable e) {
+				_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			}
+		}
+	}
 }
