@@ -146,7 +146,7 @@ public class PCommands {
 			} else if (cmd2.startsWith("turn")) {
 				turnAllStones(player);
 			}
-			_log.info(player.getName() + " used " + cmd2);
+			_log.log(Level.FINE, player.getName() + " used " + cmd2);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
