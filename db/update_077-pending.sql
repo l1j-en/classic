@@ -5,7 +5,7 @@
 -- be removed.
 
 -- Fix itemid for 'Lump of Steel' in Iron Golem/Horrific Iron Golem drops.
-update droplist set itemid=40779 where itemid=40799 and (mobid=45372 or mobid=45379);
+update droplist set itemid=40779 where itemid=40799 and (mobid=45372 or mobid=45479);
 
 -- TODO: ultimately determine what to do with Phantasm.
 update skills set probability_dice=4 where name="phantasm";
