@@ -999,82 +999,56 @@ public class L1SkillUse {
 			currentMp = _player.getCurrentMp();
 			currentHp = _player.getCurrentHp();
 
-			if (_player.getInt() > 12 && _skillId > HOLY_WEAPON
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 13 && _skillId > STALAC
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 14 && _skillId > WEAK_ELEMENTAL
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 15 && _skillId > MEDITATION
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 16 && _skillId > DARKNESS
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 17 && _skillId > BLESS_WEAPON
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
-			}
-			if (_player.getInt() > 18 && _skillId > DISEASE
-					&& _skillId <= FREEZING_BLIZZARD) {
-				_mpConsume--;
+			int intelligence = _player.getInt();
+			if (_skillId <= FREEZING_BLIZZARD) {
+				if (intelligence > 12 && _skillId > HOLY_WEAPON)
+					_mpConsume--;
+				if (intelligence > 13 && _skillId > STALAC)
+					_mpConsume--;
+				if (intelligence > 14 && _skillId > WEAK_ELEMENTAL)
+					_mpConsume--;
+				if (intelligence > 15 && _skillId > MEDITATION)
+					_mpConsume--;
+				if (intelligence > 16 && _skillId > DARKNESS)
+					_mpConsume--;
+				if (intelligence > 17 && _skillId > BLESS_WEAPON)
+					_mpConsume--;
+				if (intelligence > 18 && _skillId > DISEASE)
+					_mpConsume--;
+				if (intelligence > 22 && _skillId > SILENCE)
+					_mpConsume--;
+				if (intelligence > 26 && _skillId > COUNTER_DETECTION)
+					_mpConsume--;
 			}
 
-			if (_player.getInt() > 12 && _skillId >= SHOCK_STUN
+			if (intelligence > 12 && _skillId >= SHOCK_STUN
 					&& _skillId <= COUNTER_BARRIER) {
-				_mpConsume -= (_player.getInt() - 12);
+				_mpConsume -= (intelligence - 12);
 			}
 
-			if (_skillId == PHYSICAL_ENCHANT_DEX
-					&& _player.getInventory().checkEquipped(20013)) {
+			L1PcInventory inventory = _player.getInventory();
+			if ((_skillId == PHYSICAL_ENCHANT_DEX || _skillId == HASTE) && 
+				inventory.checkEquipped(20013)) {
 				_mpConsume /= 2;
 			}
-			if (_skillId == HASTE
-					&& _player.getInventory().checkEquipped(20013)) {
+			if ((_skillId == HEAL || _skillId == EXTRA_HEAL) && 
+				inventory.checkEquipped(20014)) {
 				_mpConsume /= 2;
 			}
-			if (_skillId == HEAL && _player.getInventory().checkEquipped(20014)) {
+			if ((_skillId == ENCHANT_WEAPON || _skillId == DETECTION ||
+					_skillId == PHYSICAL_ENCHANT_STR) &&
+				inventory.checkEquipped(20015)) {
 				_mpConsume /= 2;
 			}
-			if (_skillId == EXTRA_HEAL
-					&& _player.getInventory().checkEquipped(20014)) {
+			if (_skillId == HASTE && inventory.checkEquipped(20008)) {
 				_mpConsume /= 2;
 			}
-			if (_skillId == ENCHANT_WEAPON
-					&& _player.getInventory().checkEquipped(20015)) {
+			if (_skillId == GREATER_HASTE && inventory.checkEquipped(20023)) {
 				_mpConsume /= 2;
-			}
-			if (_skillId == DETECTION
-					&& _player.getInventory().checkEquipped(20015)) {
-				_mpConsume /= 2;
-			}
-			if (_skillId == PHYSICAL_ENCHANT_STR
-					&& _player.getInventory().checkEquipped(20015)) {
-				_mpConsume /= 2;
-			}
-			if (_skillId == HASTE
-					&& _player.getInventory().checkEquipped(20008)) {
-				_mpConsume /= 2;
-			}
-			if (_skillId == GREATER_HASTE
-					&& _player.getInventory().checkEquipped(20023)) {
-				_mpConsume /= 2;
-			}
-
-			if (0 < _skill.getMpConsume()
-					&& _player.getOriginalMagicConsumeReduction() > 0) {
-				_mpConsume -= _player.getOriginalMagicConsumeReduction();
 			}
 
 			if (0 < _skill.getMpConsume()) {
+				_mpConsume -= _player.getOriginalMagicConsumeReduction();
 				_mpConsume = Math.max(_mpConsume, 1);
 			}
 		}
@@ -3306,7 +3280,7 @@ public class L1SkillUse {
 	private static void turnStone(final L1PcInstance player,
 			final L1ItemInstance item, int chance, int nextStone, String name,
 			int count, boolean report) {
-			// This should never actually happen...
+		// This should never actually happen...
 		if (count > item.getCount()) {
 			_log.log(Level.WARNING, "turnStone count did not match.");
 			return;

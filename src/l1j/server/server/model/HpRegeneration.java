@@ -27,7 +27,7 @@ import l1j.server.Config;
 import l1j.server.server.model.Instance.L1EffectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
-import l1j.server.server.types.Point;
+import l1j.server.server.model.map.Maps;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class HpRegeneration extends TimerTask {
@@ -55,7 +55,7 @@ public class HpRegeneration extends TimerTask {
 	public void run() {
 		try {
 			if (_pc.isDead()) {
-			return;
+				return;
 			}
 			_regenPoint += _curPoint;
 			_curPoint = 4;
@@ -84,7 +84,7 @@ public class HpRegeneration extends TimerTask {
 
 	public void regenHp() {
 		if (_pc.isDead()) {
-		return;
+			return;
 		}
 
 		int maxBonus = 1;
@@ -103,36 +103,6 @@ public class HpRegeneration extends TimerTask {
 		if (_pc.hasSkillEffect(NATURES_TOUCH)) {
 			bonus += 15;
 		}
-		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
-			bonus += Config.RATE_HP_HOUSE;
-		}
-		if (_pc.getMapId() == 16384 || _pc.getMapId() == 16896
-			|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
-			|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
-			|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
-			|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
-			|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
-			|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
-			|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
-			|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
-			bonus += Config.RATE_HP_HOTEL;
-		}
-		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 
-				|| _pc.getMapId() == 64 || _pc.getMapId() == 66 || _pc.getMapId() == 300) {
-	        bonus += Config.RATE_HP_CASTLE;
-	    }
-		if ((_pc.getLocation().isInScreen(new Point(33055,32336)) 
-				&& _pc.getMapId() == 4 && _pc.isElf())) {
-			bonus += Config.RATE_HP_MOTHERTREE;
-		}
-		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
-				&& (_pc.getMapId() == 1000 || _pc.isIllusionist()))) {
-			bonus += Config.RATE_HP_ILLUSIONISTTOWN;
-        }
-		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
-				&& (_pc.getMapId() == 1001 || _pc.isDragonKnight()))) {
-			bonus += Config.RATE_HP_DRAGONKNIGHTTOWN;
-        }
  		if (_pc.hasSkillEffect(COOKING_1_5_N) || _pc.hasSkillEffect(COOKING_1_5_S)) {
 			bonus += 3;
 		}
@@ -140,13 +110,27 @@ public class HpRegeneration extends TimerTask {
  				|| _pc.hasSkillEffect(COOKING_3_6_N) || _pc.hasSkillEffect(COOKING_3_6_S)) {
 			bonus += 2;
 		}
+		// Only one of the location bonuses can apply.
+		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
+			bonus += Config.RATE_HP_HOUSE;
+		} else if (Maps.isInInn(_pc)) {
+			bonus += Config.RATE_HP_HOTEL;
+		} else if (Maps.isInCastle(_pc)) {
+			bonus += Config.RATE_HP_CASTLE;
+		} else if (_pc.isElf() && Maps.atMotherTree(_pc)) {
+			bonus += Config.RATE_HP_MOTHERTREE;
+		} else if (_pc.isIllusionist() && Maps.atSilveriaCenter(_pc)) {
+			bonus += Config.RATE_HP_ILLUSIONISTTOWN;
+        } else if (_pc.isDragonKnight() && Maps.atBehimousCenter(_pc)) {
+			bonus += Config.RATE_HP_DRAGONKNIGHTTOWN;
+        }
+
  		if (_pc.getOriginalHpr() > 0) {
  			bonus += _pc.getOriginalHpr();
  		}
 
-		boolean inLifeStream = false;
-		if (isPlayerInLifeStream(_pc)) {
-			inLifeStream = true;
+		boolean inLifeStream = isPlayerInLifeStream(_pc);
+		if (inLifeStream) {
 			bonus += 3;
 		}
 
@@ -160,8 +144,7 @@ public class HpRegeneration extends TimerTask {
 		// fixes the low con DE negative regen.
 		int conHp = _pc.getCon() - 10;
 		
-		if (conHp < 0) 
-		{
+		if (conHp < 0) {
 			conHp = 1;
 		}
 		int newHp = _pc.getCurrentHp();
@@ -173,33 +156,18 @@ public class HpRegeneration extends TimerTask {
 
 		if (isUnderwater(_pc)) {
 			newHp -= 20;
-			if (newHp < 1) {
-				if (_pc.isGm()) {
-					newHp = 1;
-				} else {
-					_pc.death(null);
-				}
-			}
 		}
-		// Lv50
-		if (isLv50Quest(_pc) && !inLifeStream) {
+		if (Maps.isLvl50Quest(_pc) && !inLifeStream) {
 			newHp -= 10;
-			if (newHp < 1) {
-				if (_pc.isGm()) {
-					newHp = 1;
-				} else {
-					_pc.death(null);
-				}
-			}
 		}
 		if (_pc.getMapId() == 410 && !inLifeStream) {
 			newHp -= 10;
-			if (newHp < 1) {
-				if (_pc.isGm()) {
-					newHp = 1;
-				} else {
-					_pc.death(null);
-				}
+		}
+		if (newHp < 1) {
+			if (_pc.isGm()) {
+				newHp = 1;
+			} else {
+				_pc.death(null);
 			}
 		}
 		
@@ -224,23 +192,19 @@ public class HpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE) || pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
+		if (pc.hasSkillEffect(L1SkillId.EXOTIC_VITALIZE) ||
+				pc.hasSkillEffect(L1SkillId.ADDITIONAL_FIRE)) {
 			return false;
 		}
 		if (pc.getInventory().checkEquipped(20049)) {
 			return false;
 		}
-		return (120 <= pc.getInventory().getWeight240()) ? true : false;
-	}
-
-	private boolean isLv50Quest(L1PcInstance pc) {
-		int mapId = pc.getMapId();
-		return (mapId == 2000 || mapId == 2001) ? true : false;
+		return 120 <= pc.getInventory().getWeight240();
 	}
 
 	private static boolean isPlayerInLifeStream(L1PcInstance pc) {
 		for (L1Object object : pc.getKnownObjects()) {
-			if (object instanceof L1EffectInstance == false) {
+			if (!(object instanceof L1EffectInstance)) {
 				continue;
 			}
 			L1EffectInstance effect = (L1EffectInstance) object;
