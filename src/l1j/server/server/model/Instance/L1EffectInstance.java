@@ -14,8 +14,6 @@ import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.ZoneType;
-import l1j.server.server.model.Instance.L1MonsterInstance;
-import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
 import l1j.server.server.serverpackets.S_RemoveObject;
@@ -30,6 +28,8 @@ public class L1EffectInstance extends L1NpcInstance {
 	private static final int FW_DAMAGE_INTERVAL = 1000;
 	private static final int CUBE_INTERVAL = 500; 
 	private static final int CUBE_TIME = 8000; 
+	private L1PcInstance _pc;
+	private int _skillId;
 
 	public L1EffectInstance(L1Npc template) {
 		super(template);
@@ -46,6 +46,22 @@ public class L1EffectInstance extends L1NpcInstance {
 					new CubeTimer(this), 0);
 		}
 	}
+	
+	public void setUser(L1PcInstance pc) {
+		_pc = pc;
+	}
+
+	public L1PcInstance getUser() {
+		return _pc;
+	}
+
+	public void setSkillId(int i) {
+		_skillId = i;
+	}
+
+	public int getSkillId() {
+		return _skillId;
+	}
 
 	@Override
 	public void onAction(L1PcInstance pc) {
@@ -59,6 +75,7 @@ public class L1EffectInstance extends L1NpcInstance {
 		}
 		allTargetClear();
 		_master = null;
+		_pc = null;
 		L1World.getInstance().removeVisibleObject(this);
 		L1World.getInstance().removeObject(this);
 		for (L1PcInstance pc : L1World.getInstance().getRecognizePlayer(this)) {
@@ -79,49 +96,31 @@ public class L1EffectInstance extends L1NpcInstance {
 		public void run() {
 			while (!_destroyed) {
 				try {
-					for (L1Object objects : L1World.getInstance()
+					for (L1Object object : L1World.getInstance()
 							.getVisibleObjects(_effect, 0)) {
-						if (objects instanceof L1PcInstance) {
-							L1PcInstance pc = (L1PcInstance) objects;
-							if (pc.isDead()) {
+						if (!(object instanceof L1PcInstance) &&
+								!(object instanceof L1MonsterInstance))
+							continue;
+						L1Character target = (L1Character) object;
+						if (target.isDead())
+							continue;
+						L1Magic magic = new L1Magic(_effect, target);
+						int damage = magic.calcFireWallDamage();
+						if (damage == 0)
+							continue;
+						S_DoActionGFX packet = new S_DoActionGFX(target.getId(),
+								ActionCodes.ACTION_Damage);
+						if (object instanceof L1PcInstance) {
+							L1PcInstance pc = (L1PcInstance) object;
+							if (pc.getZoneType() == ZoneType.Safety &&
+									!atSiege(pc))
 								continue;
-							}
-							if (pc.getZoneType() == ZoneType.Safety) {
-								boolean isNowWar = false;
-								int castleId = L1CastleLocation
-										.getCastleIdByArea(pc);
-								if (castleId > 0) {
-									isNowWar = WarTimeController.getInstance()
-											.isNowWar(castleId);
-								}
-								if (!isNowWar) {
-									continue;
-								}
-							}
-							L1Magic magic = new L1Magic(_effect, pc);
-							int damage = magic.calcFireWallDamage();
-							if (damage == 0) {
-								continue;
-							}
-							pc.sendPackets(new S_DoActionGFX(pc.getId(),
-									ActionCodes.ACTION_Damage));
-							pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
-									ActionCodes.ACTION_Damage));
+							pc.sendPackets(packet);
 							pc.receiveDamage(_effect, damage, false);
-						} else if (objects instanceof L1MonsterInstance) {
-							L1MonsterInstance mob = (L1MonsterInstance) objects;
-							if (mob.isDead()) {
-								continue;
-							}
-							L1Magic magic = new L1Magic(_effect, mob);
-							int damage = magic.calcFireWallDamage();
-							if (damage == 0) {
-								continue;
-							}
-							mob.broadcastPacket(new S_DoActionGFX(mob.getId(),
-									ActionCodes.ACTION_Damage));
-							mob.receiveDamage(_effect, damage);
-						}
+						} else
+							((L1MonsterInstance) object).receiveDamage(_effect,
+								damage);
+						target.broadcastPacket(packet);
 					}
 					Thread.sleep(FW_DAMAGE_INTERVAL);
 				} catch (InterruptedException ignore) {
@@ -129,6 +128,19 @@ public class L1EffectInstance extends L1NpcInstance {
 				}
 			}
 		}
+	}
+
+	private static boolean atSiege(L1Character character) {
+		int castle = L1CastleLocation.getCastleIdByArea(character);
+		return castle > 0 && WarTimeController.getInstance().isNowWar(castle);
+	}
+
+	private static boolean friendlyCube(L1PcInstance user, L1PcInstance other) {
+		if (user.getId() == other.getId())
+			return true;
+		if (other.getClanid() != 0 && user.getClanid() == other.getClanid())
+			return true;
+		return other.isInParty() && other.getParty().isMember(user);
 	}
 
 	class CubeTimer implements Runnable {
@@ -142,45 +154,24 @@ public class L1EffectInstance extends L1NpcInstance {
 		public void run() {
 			while (!_destroyed) {
 				try {
-					for (L1Object objects : L1World.getInstance()
+					for (L1Object object : L1World.getInstance()
 							.getVisibleObjects(_effect, 3)) {
-						if (objects instanceof L1PcInstance) {
-							L1PcInstance pc = (L1PcInstance) objects;
+						if (object instanceof L1PcInstance) {
+							L1PcInstance pc = (L1PcInstance) object;
 							if (pc.isDead()) {
 								continue;
 							}
 							L1PcInstance user = getUser(); 
-							if (pc.getId() == user.getId()) {
+							if (friendlyCube(user, pc)) {
 								cubeToAlly(pc, _effect);
 								continue;
 							}
-							if (pc.getClanid() != 0
-									&& user.getClanid() == pc.getClanid()) {
-								cubeToAlly(pc, _effect);
+							if (pc.getZoneType() == ZoneType.Safety &&
+									!atSiege(pc))
 								continue;
-							}
-							if (pc.isInParty()
-									&& pc.getParty().isMember(user)) {
-								cubeToAlly(pc, _effect);
-								continue;
-							}
-							if (pc.getZoneType() == ZoneType.Safety) { 
-								boolean isNowWar = false;
-								int castleId = L1CastleLocation
-										.getCastleIdByArea(pc);
-								if (castleId > 0) {
-									isNowWar = WarTimeController.getInstance()
-											.isNowWar(castleId);
-								}
-								if (!isNowWar) {
-									continue;
-								}
-								cubeToEnemy(pc, _effect);
-							} else {
-								cubeToEnemy(pc, _effect);
-							}
-						} else if (objects instanceof L1MonsterInstance) {
-							L1MonsterInstance mob = (L1MonsterInstance) objects;
+							cubeToEnemy(pc, _effect);
+						} else if (object instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) object;
 							if (mob.isDead()) {
 								continue;
 							}
@@ -197,130 +188,85 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToAlly(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx = SkillTable.getInstance().findBySkillId(getSkillId())
-				.getCastGfx();
-		L1PcInstance pc = null;
-
-		if (npcId == 80149) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ALLY)) {
+		int castGfx = SkillTable.getInstance().findBySkillId(
+				getSkillId()).getCastGfx();
+		int skillEffect;
+		switch (npcId) {
+			case 80149:
+				if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ALLY))
+					return;
 				cha.addFire(30);
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_OwnCharAttrDef(pc));
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx));
-				cha.setSkillEffect(STATUS_CUBE_IGNITION_TO_ALLY, CUBE_TIME);
-			}
-		} else if (npcId == 80150) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ALLY)) {
+				skillEffect = STATUS_CUBE_IGNITION_TO_ALLY;
+				break;
+			case 80150:
+				if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ALLY))
+					return;
 				cha.addEarth(30);
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_OwnCharAttrDef(pc));
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx));
-				cha.setSkillEffect(STATUS_CUBE_QUAKE_TO_ALLY, CUBE_TIME);
-			}
-		} else if (npcId == 80151) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ALLY)) {
+				skillEffect = STATUS_CUBE_QUAKE_TO_ALLY;
+				break;
+			case 80151:
+				if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ALLY))
+					return;
 				cha.addWind(30);
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_OwnCharAttrDef(pc));
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx));
-				cha.setSkillEffect(STATUS_CUBE_SHOCK_TO_ALLY, CUBE_TIME);
-			}
-		} else if (npcId == 80152) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_BALANCE)) {
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx));
-				cha.setSkillEffect(STATUS_CUBE_BALANCE, CUBE_TIME);
-				L1Cube cube = new L1Cube(effect, cha, STATUS_CUBE_BALANCE);
-				cube.begin();
-			}
+				skillEffect = STATUS_CUBE_SHOCK_TO_ALLY;
+				break;
+			case 80152:
+				if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
+					return;
+				skillEffect = STATUS_CUBE_BALANCE;
+				break;
+			default:
+				return;
+		}
+		if (cha instanceof L1PcInstance) {
+			L1PcInstance pc = (L1PcInstance) cha;
+			pc.sendPackets(new S_SkillSound(pc.getId(), castGfx));
+			pc.sendPackets(new S_OwnCharAttrDef(pc));
+		}
+		cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx));
+		cha.setSkillEffect(skillEffect, CUBE_TIME);
+		if (npcId == 80152) {
+			L1Cube cube = new L1Cube(effect, cha, STATUS_CUBE_BALANCE);
+			cube.begin();
 		}
 	}
 
 	private void cubeToEnemy(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx2 = SkillTable.getInstance().findBySkillId(getSkillId())
-				.getCastGfx2();
-		L1PcInstance pc = null;
-		if (npcId == 80149) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ENEMY)) {
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx2));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx2));
-				cha.setSkillEffect(STATUS_CUBE_IGNITION_TO_ENEMY, CUBE_TIME);
-				L1Cube cube = new L1Cube(effect, cha,
-						STATUS_CUBE_IGNITION_TO_ENEMY);
-				cube.begin();
-			}
-		} else if (npcId == 80150) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ENEMY)) {
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx2));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx2));
-				cha.setSkillEffect(STATUS_CUBE_QUAKE_TO_ENEMY, CUBE_TIME);
-				L1Cube cube = new L1Cube(effect, cha,
-						STATUS_CUBE_QUAKE_TO_ENEMY);
-				cube.begin();
-			}
-		} else if (npcId == 80151) {
-			if (!cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ENEMY)) {
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx2));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx2));
-				cha.setSkillEffect(STATUS_CUBE_SHOCK_TO_ENEMY, CUBE_TIME);
-				L1Cube cube = new L1Cube(effect, cha,
-						STATUS_CUBE_SHOCK_TO_ENEMY);
-				cube.begin();
-			}
-		} else if (npcId == 80152) { 
-			if (!cha.hasSkillEffect(STATUS_CUBE_BALANCE)) {
-				if (cha instanceof L1PcInstance) {
-					pc = (L1PcInstance) cha;
-					pc.sendPackets(new S_SkillSound(pc.getId(), castGfx2));
-				}
-				cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx2));
-				cha.setSkillEffect(STATUS_CUBE_BALANCE, CUBE_TIME);
-				L1Cube cube = new L1Cube(effect, cha, STATUS_CUBE_BALANCE);
-				cube.begin();
-			}
+		int castGfx2 = SkillTable.getInstance().findBySkillId(
+				getSkillId()).getCastGfx2();
+		int skillEffect;
+		switch(npcId) {
+			case 80149:
+				if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ENEMY))
+					return;
+				skillEffect = STATUS_CUBE_IGNITION_TO_ENEMY;
+				break;
+			case 80150:
+				if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ENEMY))
+					return;
+				skillEffect = STATUS_CUBE_QUAKE_TO_ENEMY;
+				break;
+			case 80151:
+				if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ENEMY))
+					return;
+				skillEffect = STATUS_CUBE_SHOCK_TO_ENEMY;
+				break;
+			case 80152:
+				if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
+					return;
+				skillEffect = STATUS_CUBE_BALANCE;
+				break;
+			default:
+				return;
 		}
-	}
-
-
-	private L1PcInstance _pc;
-
-	public void setUser(L1PcInstance pc) {
-		_pc = pc;
-	}
-
-	public L1PcInstance getUser() {
-		return _pc;
-	}
-
-	private int _skillId;
-
-	public void setSkillId(int i) {
-		_skillId = i;
-	}
-
-	public int getSkillId() {
-		return _skillId;
+		if (cha instanceof L1PcInstance) {
+			L1PcInstance pc = (L1PcInstance) cha;
+			pc.sendPackets(new S_SkillSound(pc.getId(), castGfx2));
+		}
+		cha.broadcastPacket(new S_SkillSound(cha.getId(), castGfx2));
+		cha.setSkillEffect(skillEffect, CUBE_TIME);
+		L1Cube cube = new L1Cube(effect, cha, skillEffect);
+		cube.begin();
 	}
 }
