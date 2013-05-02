@@ -276,7 +276,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 				return;
 			}
 			if (damage >= 0) {
-				if (!(attacker instanceof L1EffectInstance)) {
+				if (attacker instanceof L1EffectInstance) {
+					setHate(((L1EffectInstance) attacker).getUser(), damage);
+				} else {
 					setHate(attacker, damage);
 				}
 			}
