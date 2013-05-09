@@ -93,22 +93,23 @@ public class L1Search implements L1CommandExecutor {
 		   pc.sendPackets(new S_SystemMessage(" "));
 		   
 		   if (type.equals("misci")) {
-			   statement = con.prepareStatement("select item_id,name,bless from etcitem where name Like '%" + name + "%'");
+			   statement = con.prepareStatement("select item_id,name,bless from etcitem where name Like concat('%',?,'%')");
 		   } else if (type.equals("weapon")) {
-			   statement = con.prepareStatement("select item_id,name,bless from weapon where name Like '%" + name + "%'");
+			   statement = con.prepareStatement("select item_id,name,bless from weapon where name Like concat('%',?,'%')");
 		   } else if (type.equals("armor")) {
-			   statement = con.prepareStatement("select item_id,name,bless from armor where name Like '%" + name + "%'");
+			   statement = con.prepareStatement("select item_id,name,bless from armor where name Like concat('%',?,'%')");
 		   } else if (type.equals("poly")) {
-			   statement = con.prepareStatement("select polyid,name from polymorphs where name Like '%" + name + "%'");
+			   statement = con.prepareStatement("select polyid,name from polymorphs where name Like concat('%',?,'%')");
 		   } else if (type.equals("npc")) {
-			   statement = con.prepareStatement("select npcid,name from npc where name Like '%" + name + "%'");
+			   statement = con.prepareStatement("select npcid,name from npc where name Like concat('%',?,'%')");
 		   } else if (type.equals("map")) {
-			   statement = con.prepareStatement("select mapid,locationname,startx,endx,starty,endy from mapids where locationname Like '%" + name + "%'");
+			   statement = con.prepareStatement("select mapid,locationname,startx,endx,starty,endy from mapids where locationname Like concat('%',?,'%')");
 		   } else {
 			   error = true;
 			   pc.sendPackets(new S_SystemMessage(".find type[armor,misci,weapon,npc] searchText"));
 		   }
 		   if (error  ==  false) {
+			   statement.setString(1, name);
 			   rs = statement.executeQuery();
 			   pc.sendPackets(new S_SystemMessage("Searching " + type + " for '" + name.replace("%"," ") + "'"));
 			   while (rs.next()) {
@@ -144,7 +145,9 @@ public class L1Search implements L1CommandExecutor {
 		   pc.sendPackets(new S_SystemMessage(" "));
 		   pc.sendPackets(new S_SystemMessage("Searching for '" + name.replace("%"," ") + "' in all places:"));
 
-		   statement = con.prepareStatement("select item_id,name,bless from armor where name Like '%" + name + "%'");
+		   statement = con.prepareStatement("select item_id,name,bless from armor where name Like concat('%',?,'%')");
+		   statement.setString(1, name);
+			
 		   int armorCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
@@ -159,7 +162,8 @@ public class L1Search implements L1CommandExecutor {
 		   rs.close();
 		   statement.close();
 
-		   statement = con.prepareStatement("select item_id,name,bless from weapon where name Like '%" + name + "%'");
+		   statement = con.prepareStatement("select item_id,name,bless from weapon where name Like concat('%',?,'%')");
+		   statement.setString(1, name);
 		   int weaponCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
@@ -174,7 +178,8 @@ public class L1Search implements L1CommandExecutor {
 		   rs.close();
 		   statement.close();
 
-		   statement = con.prepareStatement("select item_id,name,bless from etcitem where name Like '%" + name + "%'");
+		   statement = con.prepareStatement("select item_id,name,bless from etcitem where name Like concat('%',?,'%')");
+		   statement.setString(1, name);
 		   int etcCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
@@ -189,7 +194,8 @@ public class L1Search implements L1CommandExecutor {
 		   rs.close();
 		   statement.close();
 
-		   statement = con.prepareStatement("select polyid,name from polymorphs where name Like '%" + name + "%'");
+		   statement = con.prepareStatement("select polyid,name from polymorphs where name Like concat('%',?,'%')");
+		   statement.setString(1, name);
 		   int polyCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
@@ -203,7 +209,8 @@ public class L1Search implements L1CommandExecutor {
 		   rs.close();
 		   statement.close();
 
-		   statement = con.prepareStatement("select npcid,name from npc where name Like '%" + name + "%'");
+		   statement = con.prepareStatement("select npcid,name from npc where name Like concat('%',?,'%')");
+		   statement.setString(1, name);
 		   int npcCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
@@ -217,7 +224,8 @@ public class L1Search implements L1CommandExecutor {
 		   rs.close();
 		   statement.close();
 
-		   statement = con.prepareStatement("select mapid,locationname,startx,endx,starty,endy from mapids where locationname Like '%" + name + "%'");
+		   statement = con.prepareStatement("select mapid,locationname,startx,endx,starty,endy from mapids where locationname Like concat('%',?,'%')");
+		   statement.setString(1, name);
 		   int mapCount = 0;
 		   rs = statement.executeQuery();
 		   while (rs.next()) {
