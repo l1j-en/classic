@@ -205,6 +205,8 @@ public class L1EquipmentSlot {
 
 		_owner.addMaxHp(item.get_addhp() + equipment.getAddHp());
 		_owner.addMaxMp(item.get_addmp() + equipment.getAddMp());
+		_owner.addHpr(item.get_addhpr() + equipment.getAddHpRegen());
+		_owner.addMpr(item.get_addmpr() + equipment.getAddMpRegen());
 		_owner.addStr(item.get_addstr());
 		_owner.addCon(item.get_addcon());
 		_owner.addDex(item.get_adddex());
@@ -262,6 +264,8 @@ public class L1EquipmentSlot {
 		}
 		_owner.addMaxHp(-item.get_addhp() - equipment.getAddHp());
 		_owner.addMaxMp(-item.get_addmp() - equipment.getAddMp());
+		_owner.addHpr(-item.get_addhpr() - equipment.getAddHpRegen());
+		_owner.addMpr(-item.get_addmpr() - equipment.getAddMpRegen());
 		_owner.addStr((byte) -item.get_addstr());
 		_owner.addCon((byte) -item.get_addcon());
 		_owner.addDex((byte) -item.get_adddex());
