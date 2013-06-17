@@ -624,7 +624,7 @@ public class L1PcInventory extends L1Inventory {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
 			if (item.isEquipped()) {
-				hpr += item.getItem().get_addhpr();
+				hpr += item.getItem().get_addhpr() + item.getAddHpRegen();
 			}
 		}
 		return hpr;
@@ -635,7 +635,7 @@ public class L1PcInventory extends L1Inventory {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
 			if (item.isEquipped()) {
-				mpr += item.getItem().get_addmpr();
+				mpr += item.getItem().get_addmpr() + item.getAddMpRegen();
 			}
 		}
 		return mpr;
