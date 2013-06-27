@@ -2935,28 +2935,28 @@ public class L1MerchantInstance extends L1NpcInstance {
 			}
 			 else if (npcid == 80192) { // Jewel Craftsman David
 					if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21088)) { // Ice Queen's Earring¡@Lv7
+							&& player.getInventory().checkItem(21088)) { // Ice Queen's Earring Lv7
 						htmlid = "gemout8";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21087)) { // Ice Queen's Earring¡@Lv6
+							&& player.getInventory().checkItem(21087)) { // Ice Queen's Earring Lv6
 						htmlid = "gemout7";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21086)) { // Ice Queen's Earring¡@Lv5
+							&& player.getInventory().checkItem(21086)) { // Ice Queen's Earring Lv5
 						htmlid = "gemout6";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21085)) { // Ice Queen's Earring¡@Lv4
+							&& player.getInventory().checkItem(21085)) { // Ice Queen's Earring Lv4
 						htmlid = "gemout5";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21084)) { // Ice Queen's Earring¡@Lv3
+							&& player.getInventory().checkItem(21084)) { // Ice Queen's Earring Lv3
 						htmlid = "gemout4";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21083)) { // Ice Queen's Earring¡@Lv2
+							&& player.getInventory().checkItem(21083)) { // Ice Queen's Earring Lv2
 						htmlid = "gemout3";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21082)) { // Ice Queen's Earring¡@Lv1
+							&& player.getInventory().checkItem(21082)) { // Ice Queen's Earring Lv1
 						htmlid = "gemout2";
 					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21081)) { // Ice Queen's Earring¡@Lv0
+							&& player.getInventory().checkItem(21081)) { // Ice Queen's Earring Lv0
 						htmlid = "gemout1";
 					} else if (player.getInventory().checkItem(49031)) { // Ice Crystal
 						htmlid = "gemout17";
