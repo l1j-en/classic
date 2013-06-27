@@ -26,3 +26,8 @@ update droplist set chance=7600 where mobid=45753 and itemid in (40995, 40997, 4
 update droplist set chance=7600 where mobid=45753 and itemid in (40994, 40993, 40998);
 update droplist set chance=3000 where mobid=45753 and itemid in (40996, 40992);
 
+-- Correct the type of Cockatrice spawned in TOI
+update spawnlist set npc_templateid=81173 where npc_templateid=45361 and mapid in (105,107,108,109,110);
+
+-- Remove Assistant of Varlok currently spawned in SOE (should only be spawned in Cave of Desire)
+update spawnlist_npc set count=0 where npc_templateid=80071 and mapid=410;
