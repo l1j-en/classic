@@ -157,3 +157,12 @@ INSERT INTO droplist VALUES ('46142', 'Ice Demon', '49031', 'Ice Crystal',  '1',
 INSERT INTO droplist VALUES ('46142', 'Ice Demon', '49032', 'Ice Demon`s Pouch',  '1', '1', '1000000');
 INSERT INTO droplist VALUES ('46142', 'Ice Demon', '49123', 'Memory Crystal(MindBreak)',  '1', '1', '50000');
 INSERT INTO droplist VALUES ('46142', 'Ice Demon', '140089', 'Scroll of Resurrection', '1', '1', '300000');
+
+-- Add Jewel Craftsman David that crafts Ice Queen's Earring
+INSERT INTO npc VALUES ('80192', 'Jewel Craftsman David', '$6446', 'IQEarring', 'L1Merchant', '2293', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'small', '0', '0', '0', '1440', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '14', '0', '0', '0');
+INSERT INTO spawnlist_npc VALUES ('1310457', 'Jewel Craftsman David', '1', '80192', '34058', '32287', '0', '0', '4', '0', '4', '0');
+INSERT INTO npcaction VALUES ('80192', '8event3', '8event3', '', '');
+
+-- Boost the strength of Ice Queen's skills
+UPDATE mobskill SET Leverage=25 WHERE mobid=46141 AND (Skillid=77 OR Skillid=38);
+UPDATE mobskill SET Leverage=100 WHERE mobid=46141 AND Skillid=59;
