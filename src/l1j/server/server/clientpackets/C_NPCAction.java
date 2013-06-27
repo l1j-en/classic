@@ -3261,6 +3261,121 @@ public class C_NPCAction extends ClientBasePacket {
 					htmlid = "silrein39";
 				}
 			}
+		} // Jewel Craftsman David IQ Earring Quest
+		else if (npcid == 80192) {
+			if (s.equalsIgnoreCase("b")) {// Ice Queen's Earring¡@Lv1
+				if (pc.getInventory().checkEquipped(21081)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21081, 1)) { // Earring Lv0
+					materials = new int[] { 49031, 21081 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21082 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("c")) {// Ice Queen's Earring¡@Lv2
+				if (pc.getInventory().checkEquipped(21082)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21082, 1)) { // Earring Lv1
+					materials = new int[] { 49031, 21082 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21083 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("d")) {// Ice Queen's Earring¡@Lv3
+				if (pc.getInventory().checkEquipped(21083)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21083, 1)) { // Earring Lv2
+					materials = new int[] { 49031, 21083 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21084 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("e")) {// Ice Queen's Earring¡@Lv4
+				if (pc.getInventory().checkEquipped(21084)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21084, 1)) { // Earring Lv3
+					materials = new int[] { 49031, 21084 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21085 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("f")) {// Ice Queen's Earring  Lv5
+				if (pc.getInventory().checkEquipped(21085)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21085, 1)) { // Earring Lv4
+					materials = new int[] { 49031, 21085 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21086 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("g")) {// Ice Queen's Earring¡@Lv6
+				if (pc.getInventory().checkEquipped(21086)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21086, 1)) { // Earring Lv5
+					materials = new int[] { 49031, 21086 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21087 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("h")) {// Ice Queen's Earring¡@Lv 7
+				if (pc.getInventory().checkEquipped(21087)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21087, 1)) { // Earring Lv6
+					materials = new int[] { 49031, 21087 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21088 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("i")) {// Ice Queen's Earring¡@Lv8 +STR
+				if (pc.getInventory().checkEquipped(21088)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21088, 1)) { // Earring Lv7
+					materials = new int[] { 49031, 21088 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21089 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("j")) {// Ice Queen's Earring¡@Lv8 +DEX
+				if (pc.getInventory().checkEquipped(21088)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21088, 1)) { // Earring Lv7
+					materials = new int[] { 49031, 21088 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21090 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else if (s.equalsIgnoreCase("k")) {// Ice Queen's Earring¡@Lv8 +WIS
+				if (pc.getInventory().checkEquipped(21088)) {
+					htmlid = "8event6";
+				} else if (pc.getInventory().checkItem(49031, 1) && // Ice Crystal
+						pc.getInventory().checkItem(21088, 1)) { // Earring Lv7
+					materials = new int[] { 49031, 21088 };
+					counts = new int[] { 1, 1 };
+					createitem = new int[] { 21091 };
+					createcount = new int[] { 1 };
+					htmlid = "8event4";
+				}
+			} else {
+				htmlid = "8event3";
+			}
 		} else if (npcid == 81246) {
 			if (s.equalsIgnoreCase("0")) {
 				materials = new int[] { 40308 };
