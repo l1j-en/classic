@@ -31,3 +31,6 @@ update spawnlist set npc_templateid=81173 where npc_templateid=45361 and mapid i
 
 -- Remove Assistant of Varlok currently spawned in SOE (should only be spawned in Cave of Desire)
 update spawnlist_npc set count=0 where npc_templateid=80071 and mapid=410;
+
+-- Add .ipcheck to GM commands with default access level of 100
+INSERT INTO commands VALUES ('ipcheck', '100', 'CheckIP');
