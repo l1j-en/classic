@@ -166,3 +166,7 @@ INSERT INTO npcaction VALUES ('80192', '8event3', '8event3', '', '');
 -- Boost the strength of Ice Queen's skills
 UPDATE mobskill SET Leverage=25 WHERE mobid=46141 AND (Skillid=77 OR Skillid=38);
 UPDATE mobskill SET Leverage=100 WHERE mobid=46141 AND Skillid=59;
+
+-- Remove the spawn of old Maid of the Ice Queen (quest)
+UPDATE spawnlist SET count=0 WHERE npc_templateid=45102 AND mapid=74;
+
