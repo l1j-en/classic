@@ -34,3 +34,22 @@ update spawnlist_npc set count=0 where npc_templateid=80071 and mapid=410;
 
 -- Add .ipcheck to GM commands with default access level of 100
 INSERT INTO commands VALUES ('ipcheck', '100', 'CheckIP');
+
+-- Correct the wrong itemid of Green Dragon Armor from Antharas
+update droplist set itemId=20146 where mobId=45682 and itemId=21046;
+
+-- Pets adjustments
+-- Increase the mpr of Jindo Dog from 10mpr/5s to 8mpr/2.5s
+update npc set mprinterval=2500, mpr=8 where npcid=45712;
+
+-- Increase the attack speed of High Cat (decrease cooldown from 1000 to 900)
+update npc set atkspeed=900 where npcid=45696;
+
+-- Increase the leverage of Cone of Cold from High Rabbit by 10% (original value is 0)
+update mobskill set leverage=11 where mobid=45695 and actNo=0;
+
+-- Increase the current max mp of High Raccoon by 2 per lvl (for pets already in db)
+update pets set mp=mp+2*(lvl-1) where npcid=45697;
+
+-- Increase the mpincrease of High Raccoon by 2 per lvl (for new pets)
+update pettypes set MpUpMin=5, MpUpMax=7 where BaseNpcId=45697;
