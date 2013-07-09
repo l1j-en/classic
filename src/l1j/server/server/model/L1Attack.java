@@ -789,7 +789,7 @@ public class L1Attack {
 		dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
-			dmg += (lvl / 16); // Each additional pet is hit LV16
+			dmg += (lvl / 10); // Each additional pet is hit LV10
 			dmg += ((L1PetInstance) _npc).getDamageByWeapon();
 		}
 
@@ -891,7 +891,7 @@ public class L1Attack {
 		double damage = _random.nextInt(level) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
-			damage += (level / 16); // Each additional pet is hit LV16
+			damage += (level / 10); // Each additional pet is hit LV10
 			damage += ((L1PetInstance) _npc).getDamageByWeapon();
 		}
 
