@@ -53,3 +53,17 @@ update pets set mp=mp+2*(lvl-1) where npcid=45697;
 
 -- Increase the mpincrease of High Raccoon by 2 per lvl (for new pets)
 update pettypes set MpUpMin=5, MpUpMax=7 where BaseNpcId=45697;
+
+-- TOS 2F/3F soul frag drop adjustments
+-- Set the soul frag drop rate to be 10% at 2f
+update droplist set chance=100000 where itemId=40678 and mobId in (45536, 45542, 45575, 45597, 45598);
+
+-- Set the soul frag drop rate to be 12% at 3f
+update droplist set chance=120000 where itemId=40678 and mobId in (45596, 45623, 45624, 45628, 45629, 45630, 45631, 45632);
+
+-- Increase the amount of soul frags Death drops
+update droplist set min=50, max=131 where itemId=40678 and mobId=45674;
+
+-- Increase both the drop rate (originally 3%) and amount of soul frags Yahee drops
+update droplist set chance=1000000, min=80, max=151 where itemId=40678 and mobId=81082;
+
