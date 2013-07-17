@@ -35,6 +35,7 @@ import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.GetBackRestartTable;
 import l1j.server.server.datatables.SkillTable;
+import l1j.server.server.log.LogIP;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
@@ -107,6 +108,8 @@ public class C_LoginToServer extends ClientBasePacket {
 			}
 		}
 		_log.info("Character login: char=" + charName + " account=" + login + " host=" + client.getHostname());
+		LogIP li = new LogIP();
+		li.storeLogIP(pc, client.getHostname());
 
 		int currentHpAtLoad = pc.getCurrentHp();
 		int currentMpAtLoad = pc.getCurrentMp();

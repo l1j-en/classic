@@ -67,3 +67,15 @@ update droplist set min=50, max=131 where itemId=40678 and mobId=45674;
 -- Increase both the drop rate (originally 3%) and amount of soul frags Yahee drops
 update droplist set chance=1000000, min=80, max=151 where itemId=40678 and mobId=81082;
 
+-- ----------------------------
+-- Table structure for LogIP
+-- ----------------------------
+DROP TABLE IF EXISTS LogIP;
+CREATE TABLE LogIP (
+  LoginTime varchar(255) DEFAULT NULL,
+  Ip varchar(255) DEFAULT NULL,
+  Account varchar(255) DEFAULT NULL,
+  CharName varchar(255) DEFAULT NULL,
+  LogoutTime varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
