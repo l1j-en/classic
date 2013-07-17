@@ -38,6 +38,7 @@ import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.log.LogIP;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
@@ -495,6 +496,9 @@ public class ClientThread implements Runnable, PacketOutput {
 		pc.setOnlineStatus(0);
 		pc.stopHpRegeneration();
 		pc.stopMpRegeneration();
+		
+		LogIP li = new LogIP();
+		li.storeLogout(pc);
 		try {
 			pc.save();
 			pc.saveInventory();
