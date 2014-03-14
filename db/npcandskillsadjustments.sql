@@ -706,7 +706,7 @@ UPDATE npc SET sub_magic_speed = 1760 WHERE npcid = 45095;
 -- Island Crocodile 45096
 
 -- family changed from cockatrice
-UPDATE npc SET family = alligator WHERE npcid = 45096;
+UPDATE npc SET family = "alligator" WHERE npcid = 45096;
 
 --
 
@@ -1535,7 +1535,7 @@ UPDATE mobskill SET Leverage = 0 WHERE mobid = 45273 and actNo = 0;
 UPDATE mobskill SET ActId = 0 WHERE mobid = 45273 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45273 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45273 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -6 WHERE mobid = 45273 and actNo = 0;
@@ -1667,7 +1667,7 @@ UPDATE npc SET atkspeed = 1000 WHERE npcid = 45297;
 UPDATE mobskill SET Leverage = 0 WHERE mobid = 45297 and actNo = 0;
 
 -- Skill:None Range changed from 1 
-UPDATE mobskill SET Range = 2 WHERE mobid = 45297 and actNo = 0;
+UPDATE mobskill SET `Range` = 2 WHERE mobid = 45297 and actNo = 0;
 
 -- Skill:None TriRange changed from -3 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45297 and actNo = 0;
@@ -1868,7 +1868,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45326 and actNo = 0;
 UPDATE mobskill SET SkillId = 10093 WHERE mobid = 45326 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45326 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45326 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 5 WHERE mobid = 45326 and actNo = 0;
@@ -2165,7 +2165,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45363 and actNo = 0;
 UPDATE mobskill SET ActId = 0 WHERE mobid = 45363 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 3 WHERE mobid = 45363 and actNo = 0;
+UPDATE mobskill SET `Range` = 3 WHERE mobid = 45363 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 4 WHERE mobid = 45363 and actNo = 0;
@@ -2177,7 +2177,7 @@ UPDATE mobskill SET SummonId = 45244 WHERE mobid = 45363 and actNo = 1;
 UPDATE mobskill SET TriRnd = 5 WHERE mobid = 45363 and actNo = 1;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 3 WHERE mobid = 45363 and actNo = 1;
+UPDATE mobskill SET `Range` = 3 WHERE mobid = 45363 and actNo = 1;
 
 -- Skill:None SummonMin changed from 2 
 UPDATE mobskill SET SummonMin = 1 WHERE mobid = 45363 and actNo = 1;
@@ -2219,7 +2219,7 @@ UPDATE mobskill SET Leverage = 2 WHERE mobid = 45368 and actNo = 0;
 UPDATE mobskill SET TriRnd = 50 WHERE mobid = 45368 and actNo = 0;
 
 -- Skill:None Range changed from 6 
-UPDATE mobskill SET Range = 2 WHERE mobid = 45368 and actNo = 0;
+UPDATE mobskill SET `Range` = 2 WHERE mobid = 45368 and actNo = 0;
 
 -- Skill:None TriRange changed from 2 
 UPDATE mobskill SET TriRange = -2 WHERE mobid = 45368 and actNo = 0;
@@ -2642,7 +2642,7 @@ UPDATE npc SET sub_magic_speed = 1360 WHERE npcid = 45414;
 -- Fang of Earth 45416
 
 -- family changed from spiritearth
-UPDATE npc SET family = spirit WHERE npcid = 45416;
+UPDATE npc SET family = "spirit" WHERE npcid = 45416;
 
 -- Skill:Stalac TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45416 and actNo = 2;
@@ -2654,7 +2654,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45416 and actNo = 2;
 -- Fang of Wind 45418
 
 -- family changed from spiritwind
-UPDATE npc SET family = spirit WHERE npcid = 45418;
+UPDATE npc SET family = "spirit" WHERE npcid = 45418;
 
 -- Skill:Wind Shuriken TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45418 and actNo = 2;
@@ -2666,7 +2666,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45418 and actNo = 2;
 -- Fang of Glacier 45419
 
 -- family changed from spiritwater
-UPDATE npc SET family = spirit WHERE npcid = 45419;
+UPDATE npc SET family = "spirit" WHERE npcid = 45419;
 
 -- Skill:Cone of Cold TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45419 and actNo = 1;
@@ -2714,7 +2714,7 @@ UPDATE npc SET ranged = 2 WHERE npcid = 45423;
 -- Fang of Flame 45424
 
 -- family changed from spiritfire
-UPDATE npc SET family = spirit WHERE npcid = 45424;
+UPDATE npc SET family = "spirit" WHERE npcid = 45424;
 
 -- Skill:Fire Arrow TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45424 and actNo = 1;
@@ -2999,7 +2999,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45474 and actNo = 0;
 UPDATE mobskill SET SkillId = 10093 WHERE mobid = 45474 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45474 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45474 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 5 WHERE mobid = 45474 and actNo = 0;
@@ -3152,7 +3152,7 @@ UPDATE mobskill SET TriRnd = 40 WHERE mobid = 45487 and actNo = 0;
 UPDATE mobskill SET SkillId = 17 WHERE mobid = 45487 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45487 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45487 and actNo = 0;
 
 -- Skill:None TriRange changed from -2 
 UPDATE mobskill SET TriRange = -6 WHERE mobid = 45487 and actNo = 0;
@@ -3281,7 +3281,7 @@ UPDATE npc SET sub_magic_speed = 2240 WHERE npcid = 45499;
 UPDATE npc SET atk_magic_speed = 1440 WHERE npcid = 45500;
 
 -- family changed from spiritwater
-UPDATE npc SET family = spirit WHERE npcid = 45500;
+UPDATE npc SET family = "spirit" WHERE npcid = 45500;
 
 -- sub_magic_speed changed from 1600
 UPDATE npc SET sub_magic_speed = 1440 WHERE npcid = 45500;
@@ -3293,7 +3293,7 @@ UPDATE npc SET sub_magic_speed = 1440 WHERE npcid = 45500;
 -- Abyss Ghoul 45501
 
 -- family changed from 
-UPDATE npc SET family = spirit WHERE npcid = 45501;
+UPDATE npc SET family = "spirit" WHERE npcid = 45501;
 
 
 
@@ -3302,7 +3302,7 @@ UPDATE npc SET family = spirit WHERE npcid = 45501;
 -- Abyss Archer 45502
 
 -- family changed from 
-UPDATE npc SET family = spirit WHERE npcid = 45502;
+UPDATE npc SET family = "spirit" WHERE npcid = 45502;
 
 
 
@@ -3359,7 +3359,7 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 45507;
 -- Earth Spirit Master 45508
 
 -- family changed from spiritearth
-UPDATE npc SET family = spirit WHERE npcid = 45508;
+UPDATE npc SET family = "spirit" WHERE npcid = 45508;
 
 
 
@@ -3389,7 +3389,7 @@ UPDATE npc SET sub_magic_speed = 853 WHERE npcid = 45509;
 -- Wind Spirit Master 45510
 
 -- family changed from spiritwind
-UPDATE npc SET family = spirit WHERE npcid = 45510;
+UPDATE npc SET family = "spirit" WHERE npcid = 45510;
 
 -- sub_magic_speed changed from 1440
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 45510;
@@ -3404,7 +3404,7 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 45510;
 UPDATE npc SET atk_magic_speed = 1440 WHERE npcid = 45511;
 
 -- family changed from spiritfire
-UPDATE npc SET family = spirit WHERE npcid = 45511;
+UPDATE npc SET family = "spirit" WHERE npcid = 45511;
 
 -- sub_magic_speed changed from 1240
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 45511;
@@ -4409,7 +4409,7 @@ UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 45645;
 UPDATE npc SET atk_magic_speed = 880 WHERE npcid = 45646;
 
 -- family changed from 
-UPDATE npc SET family = spirit WHERE npcid = 45646;
+UPDATE npc SET family = "spirit" WHERE npcid = 45646;
 
 -- sub_magic_speed changed from 720
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 45646;
@@ -4472,7 +4472,7 @@ UPDATE npc SET sub_magic_speed = 1720 WHERE npcid = 45651;
 -- Guard 45655
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45655;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45655;
 
 
 
@@ -4481,7 +4481,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45655;
 -- Guard 45656
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45656;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45656;
 
 
 
@@ -4490,7 +4490,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45656;
 -- Guard 45657
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45657;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45657;
 
 
 
@@ -4499,7 +4499,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45657;
 -- Guard 45658
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45658;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45658;
 
 
 
@@ -4508,7 +4508,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45658;
 -- Guard 45659
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45659;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45659;
 
 
 
@@ -4517,7 +4517,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45659;
 -- Guard 45660
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45660;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45660;
 
 
 
@@ -4526,7 +4526,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45660;
 -- Guard 45661
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45661;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45661;
 
 
 
@@ -4535,7 +4535,7 @@ UPDATE npc SET impl = L1Monster WHERE npcid = 45661;
 -- Guard 45662
 
 -- impl changed from L1Guard
-UPDATE npc SET impl = L1Monster WHERE npcid = 45662;
+UPDATE npc SET impl = "L1Monster" WHERE npcid = 45662;
 
 
 
@@ -5131,7 +5131,7 @@ UPDATE mobskill SET ActId = 18 WHERE mobid = 45732 and actNo = 0;
 UPDATE mobskill SET SkillId = 0 WHERE mobid = 45732 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 2 WHERE mobid = 45732 and actNo = 0;
+UPDATE mobskill SET `Range` = 2 WHERE mobid = 45732 and actNo = 0;
 
 -- Skill:None AreaHeight changed from 0 
 UPDATE mobskill SET AreaHeight = 5 WHERE mobid = 45732 and actNo = 0;
@@ -5452,7 +5452,7 @@ UPDATE mobskill SET Leverage = 0 WHERE mobid = 45775 and actNo = 0;
 UPDATE mobskill SET ActId = 0 WHERE mobid = 45775 and actNo = 0;
 
 -- Skill:Root Attack Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45775 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45775 and actNo = 0;
 
 -- Skill:Root Attack TriRange changed from 2 
 UPDATE mobskill SET TriRange = -6 WHERE mobid = 45775 and actNo = 0;
@@ -5596,7 +5596,7 @@ UPDATE npc SET ranged = 2 WHERE npcid = 45810;
 UPDATE mobskill SET SkillId = 10096 WHERE mobid = 45812 and actNo = 0;
 
 -- Skill:Cone of Cold Range changed from 0 
-UPDATE mobskill SET Range = 10 WHERE mobid = 45812 and actNo = 0;
+UPDATE mobskill SET `Range` = 10 WHERE mobid = 45812 and actNo = 0;
 
 -- Skill:Cone of Cold TriRange changed from -8 
 UPDATE mobskill SET TriRange = -10 WHERE mobid = 45812 and actNo = 0;
@@ -5884,7 +5884,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45850 and actNo = 0;
 UPDATE mobskill SET SkillId = 10093 WHERE mobid = 45850 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45850 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45850 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 5 WHERE mobid = 45850 and actNo = 0;
@@ -5905,7 +5905,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45851 and actNo = 0;
 UPDATE mobskill SET SkillId = 10093 WHERE mobid = 45851 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45851 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45851 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 5 WHERE mobid = 45851 and actNo = 0;
@@ -6139,7 +6139,7 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45907 and actNo = 0;
 UPDATE mobskill SET ActId = 0 WHERE mobid = 45907 and actNo = 0;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 3 WHERE mobid = 45907 and actNo = 0;
+UPDATE mobskill SET `Range` = 3 WHERE mobid = 45907 and actNo = 0;
 
 -- Skill:None TriCount changed from 0 
 UPDATE mobskill SET TriCount = 4 WHERE mobid = 45907 and actNo = 0;
@@ -6148,7 +6148,7 @@ UPDATE mobskill SET TriCount = 4 WHERE mobid = 45907 and actNo = 0;
 UPDATE mobskill SET TriRnd = 5 WHERE mobid = 45907 and actNo = 1;
 
 -- Skill:None Range changed from 0 
-UPDATE mobskill SET Range = 3 WHERE mobid = 45907 and actNo = 1;
+UPDATE mobskill SET `Range` = 3 WHERE mobid = 45907 and actNo = 1;
 
 -- Skill:None SummonMin changed from 2 
 UPDATE mobskill SET SummonMin = 1 WHERE mobid = 45907 and actNo = 1;
@@ -6472,7 +6472,7 @@ UPDATE mobskill SET Leverage = 0 WHERE mobid = 45978 and actNo = 0;
 UPDATE mobskill SET ActId = 0 WHERE mobid = 45978 and actNo = 0;
 
 -- Skill:Root Attack Range changed from 0 
-UPDATE mobskill SET Range = 6 WHERE mobid = 45978 and actNo = 0;
+UPDATE mobskill SET `Range` = 6 WHERE mobid = 45978 and actNo = 0;
 
 -- Skill:Root Attack TriRange changed from 2 
 UPDATE mobskill SET TriRange = -6 WHERE mobid = 45978 and actNo = 0;
@@ -7771,7 +7771,7 @@ UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 46160;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50001;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50001;
+UPDATE npc SET size = "small" WHERE npcid = 50001;
 
 
 
@@ -7783,7 +7783,7 @@ UPDATE npc SET size = small WHERE npcid = 50001;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50002;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50002;
+UPDATE npc SET size = "small" WHERE npcid = 50002;
 
 
 
@@ -7795,7 +7795,7 @@ UPDATE npc SET size = small WHERE npcid = 50002;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50003;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50003;
+UPDATE npc SET size = "small" WHERE npcid = 50003;
 
 
 
@@ -7807,7 +7807,7 @@ UPDATE npc SET size = small WHERE npcid = 50003;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50004;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50004;
+UPDATE npc SET size = "small" WHERE npcid = 50004;
 
 
 
@@ -7819,7 +7819,7 @@ UPDATE npc SET size = small WHERE npcid = 50004;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50005;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50005;
+UPDATE npc SET size = "small" WHERE npcid = 50005;
 
 
 
@@ -7831,7 +7831,7 @@ UPDATE npc SET size = small WHERE npcid = 50005;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50006;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50006;
+UPDATE npc SET size = "small" WHERE npcid = 50006;
 
 
 
@@ -7843,7 +7843,7 @@ UPDATE npc SET size = small WHERE npcid = 50006;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50007;
+UPDATE npc SET size = "small" WHERE npcid = 50007;
 
 
 
@@ -7858,7 +7858,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50008;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50008;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50008;
+UPDATE npc SET size = "small" WHERE npcid = 50008;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50008;
@@ -7873,7 +7873,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50008;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50009;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50009;
+UPDATE npc SET size = "small" WHERE npcid = 50009;
 
 
 
@@ -7885,7 +7885,7 @@ UPDATE npc SET size = small WHERE npcid = 50009;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50010;
+UPDATE npc SET size = "small" WHERE npcid = 50010;
 
 
 
@@ -7897,7 +7897,7 @@ UPDATE npc SET size = small WHERE npcid = 50010;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50011;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50011;
+UPDATE npc SET size = "small" WHERE npcid = 50011;
 
 
 
@@ -7909,7 +7909,7 @@ UPDATE npc SET size = small WHERE npcid = 50011;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50012;
+UPDATE npc SET size = "small" WHERE npcid = 50012;
 
 
 
@@ -7924,7 +7924,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50013;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50013;
+UPDATE npc SET size = "small" WHERE npcid = 50013;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50013;
@@ -7939,7 +7939,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50013;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50014;
+UPDATE npc SET size = "small" WHERE npcid = 50014;
 
 
 
@@ -7948,7 +7948,7 @@ UPDATE npc SET size = small WHERE npcid = 50014;
 -- Lucas 50015
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50015;
+UPDATE npc SET size = "small" WHERE npcid = 50015;
 
 
 
@@ -7960,7 +7960,7 @@ UPDATE npc SET size = small WHERE npcid = 50015;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50016;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50016;
+UPDATE npc SET size = "small" WHERE npcid = 50016;
 
 
 
@@ -7972,7 +7972,7 @@ UPDATE npc SET size = small WHERE npcid = 50016;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50017;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50017;
+UPDATE npc SET size = "small" WHERE npcid = 50017;
 
 
 
@@ -7984,7 +7984,7 @@ UPDATE npc SET size = small WHERE npcid = 50017;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50018;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50018;
+UPDATE npc SET size = "small" WHERE npcid = 50018;
 
 
 
@@ -7996,7 +7996,7 @@ UPDATE npc SET size = small WHERE npcid = 50018;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50019;
+UPDATE npc SET size = "small" WHERE npcid = 50019;
 
 
 
@@ -8005,7 +8005,7 @@ UPDATE npc SET size = small WHERE npcid = 50019;
 -- Stanley 50020
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50020;
+UPDATE npc SET size = "small" WHERE npcid = 50020;
 
 
 
@@ -8017,7 +8017,7 @@ UPDATE npc SET size = small WHERE npcid = 50020;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50021;
+UPDATE npc SET size = "small" WHERE npcid = 50021;
 
 
 
@@ -8029,7 +8029,7 @@ UPDATE npc SET size = small WHERE npcid = 50021;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50022;
+UPDATE npc SET size = "small" WHERE npcid = 50022;
 
 
 
@@ -8041,7 +8041,7 @@ UPDATE npc SET size = small WHERE npcid = 50022;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50023;
+UPDATE npc SET size = "small" WHERE npcid = 50023;
 
 
 
@@ -8050,7 +8050,7 @@ UPDATE npc SET size = small WHERE npcid = 50023;
 -- Stevie 50024
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50024;
+UPDATE npc SET size = "small" WHERE npcid = 50024;
 
 
 
@@ -8065,7 +8065,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50025;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50025;
+UPDATE npc SET size = "small" WHERE npcid = 50025;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50025;
@@ -8080,7 +8080,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50025;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50026;
+UPDATE npc SET size = "small" WHERE npcid = 50026;
 
 
 
@@ -8092,7 +8092,7 @@ UPDATE npc SET size = small WHERE npcid = 50026;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50027;
+UPDATE npc SET size = "small" WHERE npcid = 50027;
 
 
 
@@ -8104,7 +8104,7 @@ UPDATE npc SET size = small WHERE npcid = 50027;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50028;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50028;
+UPDATE npc SET size = "small" WHERE npcid = 50028;
 
 
 
@@ -8116,7 +8116,7 @@ UPDATE npc SET size = small WHERE npcid = 50028;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50029;
+UPDATE npc SET size = "small" WHERE npcid = 50029;
 
 
 
@@ -8128,7 +8128,7 @@ UPDATE npc SET size = small WHERE npcid = 50029;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50030;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50030;
+UPDATE npc SET size = "small" WHERE npcid = 50030;
 
 
 
@@ -8146,7 +8146,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 50031;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 50031;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50031;
+UPDATE npc SET size = "small" WHERE npcid = 50031;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1080 WHERE npcid = 50031;
@@ -8164,7 +8164,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50032;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50032;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50032;
+UPDATE npc SET size = "small" WHERE npcid = 50032;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50032;
@@ -8179,7 +8179,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50032;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50033;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50033;
+UPDATE npc SET size = "small" WHERE npcid = 50033;
 
 
 
@@ -8191,7 +8191,7 @@ UPDATE npc SET size = small WHERE npcid = 50033;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50034;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50034;
+UPDATE npc SET size = "small" WHERE npcid = 50034;
 
 
 
@@ -8203,7 +8203,7 @@ UPDATE npc SET size = small WHERE npcid = 50034;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50035;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50035;
+UPDATE npc SET size = "small" WHERE npcid = 50035;
 
 
 
@@ -8212,7 +8212,7 @@ UPDATE npc SET size = small WHERE npcid = 50035;
 -- Wilma 50036
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50036;
+UPDATE npc SET size = "small" WHERE npcid = 50036;
 
 
 
@@ -8224,7 +8224,7 @@ UPDATE npc SET size = small WHERE npcid = 50036;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50037;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50037;
+UPDATE npc SET size = "small" WHERE npcid = 50037;
 
 
 
@@ -8236,7 +8236,7 @@ UPDATE npc SET size = small WHERE npcid = 50037;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50038;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50038;
+UPDATE npc SET size = "small" WHERE npcid = 50038;
 
 
 
@@ -8245,7 +8245,7 @@ UPDATE npc SET size = small WHERE npcid = 50038;
 -- Leslie 50039
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50039;
+UPDATE npc SET size = "small" WHERE npcid = 50039;
 
 
 
@@ -8257,7 +8257,7 @@ UPDATE npc SET size = small WHERE npcid = 50039;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50040;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50040;
+UPDATE npc SET size = "small" WHERE npcid = 50040;
 
 
 
@@ -8269,7 +8269,7 @@ UPDATE npc SET size = small WHERE npcid = 50040;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50041;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50041;
+UPDATE npc SET size = "small" WHERE npcid = 50041;
 
 
 
@@ -8281,7 +8281,7 @@ UPDATE npc SET size = small WHERE npcid = 50041;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50042;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50042;
+UPDATE npc SET size = "small" WHERE npcid = 50042;
 
 
 
@@ -8296,7 +8296,7 @@ UPDATE npc SET passispeed = 1440 WHERE npcid = 50043;
 UPDATE npc SET atkspeed = 1320 WHERE npcid = 50043;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50043;
+UPDATE npc SET size = "small" WHERE npcid = 50043;
 
 
 
@@ -8305,7 +8305,7 @@ UPDATE npc SET size = small WHERE npcid = 50043;
 -- Sirius 50044
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50044;
+UPDATE npc SET size = "small" WHERE npcid = 50044;
 
 
 
@@ -8314,7 +8314,7 @@ UPDATE npc SET size = small WHERE npcid = 50044;
 -- Eldin 50045
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50045;
+UPDATE npc SET size = "small" WHERE npcid = 50045;
 
 
 
@@ -8323,7 +8323,7 @@ UPDATE npc SET size = small WHERE npcid = 50045;
 -- Elleris 50046
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50046;
+UPDATE npc SET size = "small" WHERE npcid = 50046;
 
 
 
@@ -8335,7 +8335,7 @@ UPDATE npc SET size = small WHERE npcid = 50046;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50047;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50047;
+UPDATE npc SET size = "small" WHERE npcid = 50047;
 
 
 
@@ -8350,7 +8350,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50048;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50048;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50048;
+UPDATE npc SET size = "small" WHERE npcid = 50048;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50048;
@@ -8365,7 +8365,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50048;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50049;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50049;
+UPDATE npc SET size = "small" WHERE npcid = 50049;
 
 
 
@@ -8377,7 +8377,7 @@ UPDATE npc SET size = small WHERE npcid = 50049;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50050;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50050;
+UPDATE npc SET size = "small" WHERE npcid = 50050;
 
 
 
@@ -8386,7 +8386,7 @@ UPDATE npc SET size = small WHERE npcid = 50050;
 -- Kirius 50051
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50051;
+UPDATE npc SET size = "small" WHERE npcid = 50051;
 
 
 
@@ -8398,7 +8398,7 @@ UPDATE npc SET size = small WHERE npcid = 50051;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50052;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50052;
+UPDATE npc SET size = "small" WHERE npcid = 50052;
 
 
 
@@ -8410,7 +8410,7 @@ UPDATE npc SET size = small WHERE npcid = 50052;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50053;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50053;
+UPDATE npc SET size = "small" WHERE npcid = 50053;
 
 
 
@@ -8419,7 +8419,7 @@ UPDATE npc SET size = small WHERE npcid = 50053;
 -- Trey 50054
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50054;
+UPDATE npc SET size = "small" WHERE npcid = 50054;
 
 
 
@@ -8431,7 +8431,7 @@ UPDATE npc SET size = small WHERE npcid = 50054;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50055;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50055;
+UPDATE npc SET size = "small" WHERE npcid = 50055;
 
 
 
@@ -8440,7 +8440,7 @@ UPDATE npc SET size = small WHERE npcid = 50055;
 -- Matt 50056
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50056;
+UPDATE npc SET size = "small" WHERE npcid = 50056;
 
 
 
@@ -8452,7 +8452,7 @@ UPDATE npc SET size = small WHERE npcid = 50056;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50057;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50057;
+UPDATE npc SET size = "small" WHERE npcid = 50057;
 
 
 
@@ -8467,7 +8467,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50058;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50058;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50058;
+UPDATE npc SET size = "small" WHERE npcid = 50058;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50058;
@@ -8482,7 +8482,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50058;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50059;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50059;
+UPDATE npc SET size = "small" WHERE npcid = 50059;
 
 
 
@@ -8494,7 +8494,7 @@ UPDATE npc SET size = small WHERE npcid = 50059;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50060;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50060;
+UPDATE npc SET size = "small" WHERE npcid = 50060;
 
 
 
@@ -8506,7 +8506,7 @@ UPDATE npc SET size = small WHERE npcid = 50060;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50061;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50061;
+UPDATE npc SET size = "small" WHERE npcid = 50061;
 
 
 
@@ -8518,7 +8518,7 @@ UPDATE npc SET size = small WHERE npcid = 50061;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50062;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50062;
+UPDATE npc SET size = "small" WHERE npcid = 50062;
 
 
 
@@ -8536,7 +8536,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 50063;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50063;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50063;
+UPDATE npc SET size = "small" WHERE npcid = 50063;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 50063;
@@ -8551,7 +8551,7 @@ UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 50063;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50064;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50064;
+UPDATE npc SET size = "small" WHERE npcid = 50064;
 
 
 
@@ -8563,7 +8563,7 @@ UPDATE npc SET size = small WHERE npcid = 50064;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50065;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50065;
+UPDATE npc SET size = "small" WHERE npcid = 50065;
 
 
 
@@ -8572,7 +8572,7 @@ UPDATE npc SET size = small WHERE npcid = 50065;
 -- Riol 50066
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50066;
+UPDATE npc SET size = "small" WHERE npcid = 50066;
 
 
 
@@ -8584,7 +8584,7 @@ UPDATE npc SET size = small WHERE npcid = 50066;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50067;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50067;
+UPDATE npc SET size = "small" WHERE npcid = 50067;
 
 
 
@@ -8596,7 +8596,7 @@ UPDATE npc SET size = small WHERE npcid = 50067;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50068;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50068;
+UPDATE npc SET size = "small" WHERE npcid = 50068;
 
 
 
@@ -8608,7 +8608,7 @@ UPDATE npc SET size = small WHERE npcid = 50068;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50069;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50069;
+UPDATE npc SET size = "small" WHERE npcid = 50069;
 
 
 
@@ -8620,7 +8620,7 @@ UPDATE npc SET size = small WHERE npcid = 50069;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50070;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50070;
+UPDATE npc SET size = "small" WHERE npcid = 50070;
 
 
 
@@ -8632,7 +8632,7 @@ UPDATE npc SET size = small WHERE npcid = 50070;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50071;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50071;
+UPDATE npc SET size = "small" WHERE npcid = 50071;
 
 
 
@@ -8647,7 +8647,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 50072;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 50072;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50072;
+UPDATE npc SET size = "small" WHERE npcid = 50072;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 50072;
@@ -8662,7 +8662,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 50072;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50073;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50073;
+UPDATE npc SET size = "small" WHERE npcid = 50073;
 
 
 
@@ -8674,7 +8674,7 @@ UPDATE npc SET size = small WHERE npcid = 50073;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50074;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50074;
+UPDATE npc SET size = "small" WHERE npcid = 50074;
 
 
 
@@ -8686,7 +8686,7 @@ UPDATE npc SET size = small WHERE npcid = 50074;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50075;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50075;
+UPDATE npc SET size = "small" WHERE npcid = 50075;
 
 
 
@@ -8695,7 +8695,7 @@ UPDATE npc SET size = small WHERE npcid = 50075;
 -- Orb of Spirit 50076
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50076;
+UPDATE npc SET size = "small" WHERE npcid = 50076;
 
 
 
@@ -8704,7 +8704,7 @@ UPDATE npc SET size = small WHERE npcid = 50076;
 -- Orb of Spirit 50077
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50077;
+UPDATE npc SET size = "small" WHERE npcid = 50077;
 
 
 
@@ -8713,7 +8713,7 @@ UPDATE npc SET size = small WHERE npcid = 50077;
 -- Orb of Spirit 50078
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50078;
+UPDATE npc SET size = "small" WHERE npcid = 50078;
 
 
 
@@ -8722,7 +8722,7 @@ UPDATE npc SET size = small WHERE npcid = 50078;
 -- Daniel 50079
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50079;
+UPDATE npc SET size = "small" WHERE npcid = 50079;
 
 
 
@@ -8734,7 +8734,7 @@ UPDATE npc SET size = small WHERE npcid = 50079;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50080;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50080;
+UPDATE npc SET size = "small" WHERE npcid = 50080;
 
 
 
@@ -8746,7 +8746,7 @@ UPDATE npc SET size = small WHERE npcid = 50080;
 UPDATE npc SET passispeed = 384 WHERE npcid = 50081;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50081;
+UPDATE npc SET size = "small" WHERE npcid = 50081;
 
 
 
@@ -8758,7 +8758,7 @@ UPDATE npc SET size = small WHERE npcid = 50081;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50082;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50082;
+UPDATE npc SET size = "small" WHERE npcid = 50082;
 
 
 
@@ -8770,7 +8770,7 @@ UPDATE npc SET size = small WHERE npcid = 50082;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50083;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50083;
+UPDATE npc SET size = "small" WHERE npcid = 50083;
 
 
 
@@ -8785,7 +8785,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 50084;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 50084;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50084;
+UPDATE npc SET size = "small" WHERE npcid = 50084;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50084;
@@ -8800,7 +8800,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 50084;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50111;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50111;
+UPDATE npc SET size = "small" WHERE npcid = 50111;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 50111;
@@ -8815,7 +8815,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 50111;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50112;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50112;
+UPDATE npc SET size = "small" WHERE npcid = 50112;
 
 
 
@@ -8827,7 +8827,7 @@ UPDATE npc SET size = small WHERE npcid = 50112;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50113;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50113;
+UPDATE npc SET size = "small" WHERE npcid = 50113;
 
 
 
@@ -8839,7 +8839,7 @@ UPDATE npc SET size = small WHERE npcid = 50113;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50114;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50114;
+UPDATE npc SET size = "small" WHERE npcid = 50114;
 
 
 
@@ -8851,7 +8851,7 @@ UPDATE npc SET size = small WHERE npcid = 50114;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50115;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50115;
+UPDATE npc SET size = "small" WHERE npcid = 50115;
 
 
 
@@ -8863,7 +8863,7 @@ UPDATE npc SET size = small WHERE npcid = 50115;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50116;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50116;
+UPDATE npc SET size = "small" WHERE npcid = 50116;
 
 
 
@@ -8875,7 +8875,7 @@ UPDATE npc SET size = small WHERE npcid = 50116;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50117;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50117;
+UPDATE npc SET size = "small" WHERE npcid = 50117;
 
 
 
@@ -8887,7 +8887,7 @@ UPDATE npc SET size = small WHERE npcid = 50117;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50118;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50118;
+UPDATE npc SET size = "small" WHERE npcid = 50118;
 
 
 
@@ -8899,7 +8899,7 @@ UPDATE npc SET size = small WHERE npcid = 50118;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50119;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50119;
+UPDATE npc SET size = "small" WHERE npcid = 50119;
 
 
 
@@ -8911,7 +8911,7 @@ UPDATE npc SET size = small WHERE npcid = 50119;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50120;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50120;
+UPDATE npc SET size = "small" WHERE npcid = 50120;
 
 
 
@@ -8923,7 +8923,7 @@ UPDATE npc SET size = small WHERE npcid = 50120;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50121;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50121;
+UPDATE npc SET size = "small" WHERE npcid = 50121;
 
 
 
@@ -8935,7 +8935,7 @@ UPDATE npc SET size = small WHERE npcid = 50121;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50122;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50122;
+UPDATE npc SET size = "small" WHERE npcid = 50122;
 
 
 
@@ -8947,7 +8947,7 @@ UPDATE npc SET size = small WHERE npcid = 50122;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50123;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50123;
+UPDATE npc SET size = "small" WHERE npcid = 50123;
 
 
 
@@ -8959,7 +8959,7 @@ UPDATE npc SET size = small WHERE npcid = 50123;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50124;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50124;
+UPDATE npc SET size = "small" WHERE npcid = 50124;
 
 
 
@@ -8971,7 +8971,7 @@ UPDATE npc SET size = small WHERE npcid = 50124;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50125;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50125;
+UPDATE npc SET size = "small" WHERE npcid = 50125;
 
 
 
@@ -8983,7 +8983,7 @@ UPDATE npc SET size = small WHERE npcid = 50125;
 UPDATE npc SET passispeed = 640 WHERE npcid = 50126;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50126;
+UPDATE npc SET size = "small" WHERE npcid = 50126;
 
 
 
@@ -8995,7 +8995,7 @@ UPDATE npc SET size = small WHERE npcid = 50126;
 UPDATE npc SET passispeed = 960 WHERE npcid = 50127;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50127;
+UPDATE npc SET size = "small" WHERE npcid = 50127;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 50127;
@@ -9010,7 +9010,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 50127;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50501;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50501;
+UPDATE npc SET size = "small" WHERE npcid = 50501;
 
 
 
@@ -9022,7 +9022,7 @@ UPDATE npc SET size = small WHERE npcid = 50501;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50502;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50502;
+UPDATE npc SET size = "small" WHERE npcid = 50502;
 
 
 
@@ -9034,7 +9034,7 @@ UPDATE npc SET size = small WHERE npcid = 50502;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50503;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50503;
+UPDATE npc SET size = "small" WHERE npcid = 50503;
 
 
 
@@ -9046,7 +9046,7 @@ UPDATE npc SET size = small WHERE npcid = 50503;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50504;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50504;
+UPDATE npc SET size = "small" WHERE npcid = 50504;
 
 
 
@@ -9058,7 +9058,7 @@ UPDATE npc SET size = small WHERE npcid = 50504;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50505;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50505;
+UPDATE npc SET size = "small" WHERE npcid = 50505;
 
 
 
@@ -9070,7 +9070,7 @@ UPDATE npc SET size = small WHERE npcid = 50505;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50506;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50506;
+UPDATE npc SET size = "small" WHERE npcid = 50506;
 
 
 
@@ -9082,7 +9082,7 @@ UPDATE npc SET size = small WHERE npcid = 50506;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50507;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50507;
+UPDATE npc SET size = "small" WHERE npcid = 50507;
 
 
 
@@ -9094,7 +9094,7 @@ UPDATE npc SET size = small WHERE npcid = 50507;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50508;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50508;
+UPDATE npc SET size = "small" WHERE npcid = 50508;
 
 
 
@@ -9106,7 +9106,7 @@ UPDATE npc SET size = small WHERE npcid = 50508;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50509;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50509;
+UPDATE npc SET size = "small" WHERE npcid = 50509;
 
 
 
@@ -9118,7 +9118,7 @@ UPDATE npc SET size = small WHERE npcid = 50509;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50510;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50510;
+UPDATE npc SET size = "small" WHERE npcid = 50510;
 
 
 
@@ -9130,7 +9130,7 @@ UPDATE npc SET size = small WHERE npcid = 50510;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50511;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50511;
+UPDATE npc SET size = "small" WHERE npcid = 50511;
 
 
 
@@ -9142,7 +9142,7 @@ UPDATE npc SET size = small WHERE npcid = 50511;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50512;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50512;
+UPDATE npc SET size = "small" WHERE npcid = 50512;
 
 
 
@@ -9154,7 +9154,7 @@ UPDATE npc SET size = small WHERE npcid = 50512;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50513;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50513;
+UPDATE npc SET size = "small" WHERE npcid = 50513;
 
 
 
@@ -9166,7 +9166,7 @@ UPDATE npc SET size = small WHERE npcid = 50513;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50514;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50514;
+UPDATE npc SET size = "small" WHERE npcid = 50514;
 
 
 
@@ -9178,7 +9178,7 @@ UPDATE npc SET size = small WHERE npcid = 50514;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50515;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50515;
+UPDATE npc SET size = "small" WHERE npcid = 50515;
 
 
 
@@ -9190,7 +9190,7 @@ UPDATE npc SET size = small WHERE npcid = 50515;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50516;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50516;
+UPDATE npc SET size = "small" WHERE npcid = 50516;
 
 
 
@@ -9202,7 +9202,7 @@ UPDATE npc SET size = small WHERE npcid = 50516;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50517;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50517;
+UPDATE npc SET size = "small" WHERE npcid = 50517;
 
 
 
@@ -9214,7 +9214,7 @@ UPDATE npc SET size = small WHERE npcid = 50517;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50518;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50518;
+UPDATE npc SET size = "small" WHERE npcid = 50518;
 
 
 
@@ -9226,7 +9226,7 @@ UPDATE npc SET size = small WHERE npcid = 50518;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50519;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50519;
+UPDATE npc SET size = "small" WHERE npcid = 50519;
 
 
 
@@ -9238,7 +9238,7 @@ UPDATE npc SET size = small WHERE npcid = 50519;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50520;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50520;
+UPDATE npc SET size = "small" WHERE npcid = 50520;
 
 
 
@@ -9250,7 +9250,7 @@ UPDATE npc SET size = small WHERE npcid = 50520;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50521;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50521;
+UPDATE npc SET size = "small" WHERE npcid = 50521;
 
 
 
@@ -9262,7 +9262,7 @@ UPDATE npc SET size = small WHERE npcid = 50521;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50522;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50522;
+UPDATE npc SET size = "small" WHERE npcid = 50522;
 
 
 
@@ -9274,7 +9274,7 @@ UPDATE npc SET size = small WHERE npcid = 50522;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50523;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50523;
+UPDATE npc SET size = "small" WHERE npcid = 50523;
 
 
 
@@ -9286,7 +9286,7 @@ UPDATE npc SET size = small WHERE npcid = 50523;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50524;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50524;
+UPDATE npc SET size = "small" WHERE npcid = 50524;
 
 
 
@@ -9298,7 +9298,7 @@ UPDATE npc SET size = small WHERE npcid = 50524;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50525;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50525;
+UPDATE npc SET size = "small" WHERE npcid = 50525;
 
 
 
@@ -9310,7 +9310,7 @@ UPDATE npc SET size = small WHERE npcid = 50525;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50526;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50526;
+UPDATE npc SET size = "small" WHERE npcid = 50526;
 
 
 
@@ -9322,7 +9322,7 @@ UPDATE npc SET size = small WHERE npcid = 50526;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50527;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50527;
+UPDATE npc SET size = "small" WHERE npcid = 50527;
 
 
 
@@ -9334,7 +9334,7 @@ UPDATE npc SET size = small WHERE npcid = 50527;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50528;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50528;
+UPDATE npc SET size = "small" WHERE npcid = 50528;
 
 
 
@@ -9346,7 +9346,7 @@ UPDATE npc SET size = small WHERE npcid = 50528;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50529;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50529;
+UPDATE npc SET size = "small" WHERE npcid = 50529;
 
 
 
@@ -9358,7 +9358,7 @@ UPDATE npc SET size = small WHERE npcid = 50529;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50530;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50530;
+UPDATE npc SET size = "small" WHERE npcid = 50530;
 
 
 
@@ -9370,7 +9370,7 @@ UPDATE npc SET size = small WHERE npcid = 50530;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50531;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50531;
+UPDATE npc SET size = "small" WHERE npcid = 50531;
 
 
 
@@ -9382,7 +9382,7 @@ UPDATE npc SET size = small WHERE npcid = 50531;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50532;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50532;
+UPDATE npc SET size = "small" WHERE npcid = 50532;
 
 
 
@@ -9394,7 +9394,7 @@ UPDATE npc SET size = small WHERE npcid = 50532;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50533;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50533;
+UPDATE npc SET size = "small" WHERE npcid = 50533;
 
 
 
@@ -9406,7 +9406,7 @@ UPDATE npc SET size = small WHERE npcid = 50533;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50534;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50534;
+UPDATE npc SET size = "small" WHERE npcid = 50534;
 
 
 
@@ -9418,7 +9418,7 @@ UPDATE npc SET size = small WHERE npcid = 50534;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50535;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50535;
+UPDATE npc SET size = "small" WHERE npcid = 50535;
 
 
 
@@ -9430,7 +9430,7 @@ UPDATE npc SET size = small WHERE npcid = 50535;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50536;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50536;
+UPDATE npc SET size = "small" WHERE npcid = 50536;
 
 
 
@@ -9442,7 +9442,7 @@ UPDATE npc SET size = small WHERE npcid = 50536;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50537;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50537;
+UPDATE npc SET size = "small" WHERE npcid = 50537;
 
 
 
@@ -9454,7 +9454,7 @@ UPDATE npc SET size = small WHERE npcid = 50537;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50538;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50538;
+UPDATE npc SET size = "small" WHERE npcid = 50538;
 
 
 
@@ -9466,7 +9466,7 @@ UPDATE npc SET size = small WHERE npcid = 50538;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50539;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50539;
+UPDATE npc SET size = "small" WHERE npcid = 50539;
 
 
 
@@ -9478,7 +9478,7 @@ UPDATE npc SET size = small WHERE npcid = 50539;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50540;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50540;
+UPDATE npc SET size = "small" WHERE npcid = 50540;
 
 
 
@@ -9490,7 +9490,7 @@ UPDATE npc SET size = small WHERE npcid = 50540;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50541;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50541;
+UPDATE npc SET size = "small" WHERE npcid = 50541;
 
 
 
@@ -9502,7 +9502,7 @@ UPDATE npc SET size = small WHERE npcid = 50541;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50542;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50542;
+UPDATE npc SET size = "small" WHERE npcid = 50542;
 
 
 
@@ -9514,7 +9514,7 @@ UPDATE npc SET size = small WHERE npcid = 50542;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50543;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50543;
+UPDATE npc SET size = "small" WHERE npcid = 50543;
 
 
 
@@ -9526,7 +9526,7 @@ UPDATE npc SET size = small WHERE npcid = 50543;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50544;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50544;
+UPDATE npc SET size = "small" WHERE npcid = 50544;
 
 
 
@@ -9538,7 +9538,7 @@ UPDATE npc SET size = small WHERE npcid = 50544;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50545;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50545;
+UPDATE npc SET size = "small" WHERE npcid = 50545;
 
 
 
@@ -9550,7 +9550,7 @@ UPDATE npc SET size = small WHERE npcid = 50545;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50546;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50546;
+UPDATE npc SET size = "small" WHERE npcid = 50546;
 
 
 
@@ -9562,7 +9562,7 @@ UPDATE npc SET size = small WHERE npcid = 50546;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50547;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50547;
+UPDATE npc SET size = "small" WHERE npcid = 50547;
 
 
 
@@ -9574,7 +9574,7 @@ UPDATE npc SET size = small WHERE npcid = 50547;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50548;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50548;
+UPDATE npc SET size = "small" WHERE npcid = 50548;
 
 
 
@@ -9586,7 +9586,7 @@ UPDATE npc SET size = small WHERE npcid = 50548;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50549;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50549;
+UPDATE npc SET size = "small" WHERE npcid = 50549;
 
 
 
@@ -9598,7 +9598,7 @@ UPDATE npc SET size = small WHERE npcid = 50549;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50550;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50550;
+UPDATE npc SET size = "small" WHERE npcid = 50550;
 
 
 
@@ -9610,7 +9610,7 @@ UPDATE npc SET size = small WHERE npcid = 50550;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50551;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50551;
+UPDATE npc SET size = "small" WHERE npcid = 50551;
 
 
 
@@ -9622,7 +9622,7 @@ UPDATE npc SET size = small WHERE npcid = 50551;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50552;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50552;
+UPDATE npc SET size = "small" WHERE npcid = 50552;
 
 
 
@@ -9634,7 +9634,7 @@ UPDATE npc SET size = small WHERE npcid = 50552;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50553;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50553;
+UPDATE npc SET size = "small" WHERE npcid = 50553;
 
 
 
@@ -9646,7 +9646,7 @@ UPDATE npc SET size = small WHERE npcid = 50553;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50554;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50554;
+UPDATE npc SET size = "small" WHERE npcid = 50554;
 
 
 
@@ -9658,7 +9658,7 @@ UPDATE npc SET size = small WHERE npcid = 50554;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50555;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50555;
+UPDATE npc SET size = "small" WHERE npcid = 50555;
 
 
 
@@ -9670,7 +9670,7 @@ UPDATE npc SET size = small WHERE npcid = 50555;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50556;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50556;
+UPDATE npc SET size = "small" WHERE npcid = 50556;
 
 
 
@@ -9682,7 +9682,7 @@ UPDATE npc SET size = small WHERE npcid = 50556;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50557;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50557;
+UPDATE npc SET size = "small" WHERE npcid = 50557;
 
 
 
@@ -9694,7 +9694,7 @@ UPDATE npc SET size = small WHERE npcid = 50557;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50558;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50558;
+UPDATE npc SET size = "small" WHERE npcid = 50558;
 
 
 
@@ -9706,7 +9706,7 @@ UPDATE npc SET size = small WHERE npcid = 50558;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50559;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50559;
+UPDATE npc SET size = "small" WHERE npcid = 50559;
 
 
 
@@ -9718,7 +9718,7 @@ UPDATE npc SET size = small WHERE npcid = 50559;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50560;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50560;
+UPDATE npc SET size = "small" WHERE npcid = 50560;
 
 
 
@@ -9730,7 +9730,7 @@ UPDATE npc SET size = small WHERE npcid = 50560;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50561;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50561;
+UPDATE npc SET size = "small" WHERE npcid = 50561;
 
 
 
@@ -9742,7 +9742,7 @@ UPDATE npc SET size = small WHERE npcid = 50561;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50562;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50562;
+UPDATE npc SET size = "small" WHERE npcid = 50562;
 
 
 
@@ -9754,7 +9754,7 @@ UPDATE npc SET size = small WHERE npcid = 50562;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50563;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50563;
+UPDATE npc SET size = "small" WHERE npcid = 50563;
 
 
 
@@ -9766,7 +9766,7 @@ UPDATE npc SET size = small WHERE npcid = 50563;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50564;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50564;
+UPDATE npc SET size = "small" WHERE npcid = 50564;
 
 
 
@@ -9778,7 +9778,7 @@ UPDATE npc SET size = small WHERE npcid = 50564;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50565;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50565;
+UPDATE npc SET size = "small" WHERE npcid = 50565;
 
 
 
@@ -9790,7 +9790,7 @@ UPDATE npc SET size = small WHERE npcid = 50565;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50566;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50566;
+UPDATE npc SET size = "small" WHERE npcid = 50566;
 
 
 
@@ -9802,7 +9802,7 @@ UPDATE npc SET size = small WHERE npcid = 50566;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50567;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50567;
+UPDATE npc SET size = "small" WHERE npcid = 50567;
 
 
 
@@ -9814,7 +9814,7 @@ UPDATE npc SET size = small WHERE npcid = 50567;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50568;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50568;
+UPDATE npc SET size = "small" WHERE npcid = 50568;
 
 
 
@@ -9826,7 +9826,7 @@ UPDATE npc SET size = small WHERE npcid = 50568;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50569;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50569;
+UPDATE npc SET size = "small" WHERE npcid = 50569;
 
 
 
@@ -9838,7 +9838,7 @@ UPDATE npc SET size = small WHERE npcid = 50569;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50570;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50570;
+UPDATE npc SET size = "small" WHERE npcid = 50570;
 
 
 
@@ -9850,7 +9850,7 @@ UPDATE npc SET size = small WHERE npcid = 50570;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50571;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50571;
+UPDATE npc SET size = "small" WHERE npcid = 50571;
 
 
 
@@ -9862,7 +9862,7 @@ UPDATE npc SET size = small WHERE npcid = 50571;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50572;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50572;
+UPDATE npc SET size = "small" WHERE npcid = 50572;
 
 
 
@@ -9874,7 +9874,7 @@ UPDATE npc SET size = small WHERE npcid = 50572;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50573;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50573;
+UPDATE npc SET size = "small" WHERE npcid = 50573;
 
 
 
@@ -9886,7 +9886,7 @@ UPDATE npc SET size = small WHERE npcid = 50573;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50574;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50574;
+UPDATE npc SET size = "small" WHERE npcid = 50574;
 
 
 
@@ -9898,7 +9898,7 @@ UPDATE npc SET size = small WHERE npcid = 50574;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50575;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50575;
+UPDATE npc SET size = "small" WHERE npcid = 50575;
 
 
 
@@ -9910,7 +9910,7 @@ UPDATE npc SET size = small WHERE npcid = 50575;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50576;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50576;
+UPDATE npc SET size = "small" WHERE npcid = 50576;
 
 
 
@@ -9922,7 +9922,7 @@ UPDATE npc SET size = small WHERE npcid = 50576;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50577;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50577;
+UPDATE npc SET size = "small" WHERE npcid = 50577;
 
 
 
@@ -9934,7 +9934,7 @@ UPDATE npc SET size = small WHERE npcid = 50577;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50578;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50578;
+UPDATE npc SET size = "small" WHERE npcid = 50578;
 
 
 
@@ -9946,7 +9946,7 @@ UPDATE npc SET size = small WHERE npcid = 50578;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50579;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50579;
+UPDATE npc SET size = "small" WHERE npcid = 50579;
 
 
 
@@ -9958,7 +9958,7 @@ UPDATE npc SET size = small WHERE npcid = 50579;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50580;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50580;
+UPDATE npc SET size = "small" WHERE npcid = 50580;
 
 
 
@@ -9970,7 +9970,7 @@ UPDATE npc SET size = small WHERE npcid = 50580;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50581;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50581;
+UPDATE npc SET size = "small" WHERE npcid = 50581;
 
 
 
@@ -9982,7 +9982,7 @@ UPDATE npc SET size = small WHERE npcid = 50581;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50582;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50582;
+UPDATE npc SET size = "small" WHERE npcid = 50582;
 
 
 
@@ -9994,7 +9994,7 @@ UPDATE npc SET size = small WHERE npcid = 50582;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50583;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50583;
+UPDATE npc SET size = "small" WHERE npcid = 50583;
 
 
 
@@ -10006,7 +10006,7 @@ UPDATE npc SET size = small WHERE npcid = 50583;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50584;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50584;
+UPDATE npc SET size = "small" WHERE npcid = 50584;
 
 
 
@@ -10018,7 +10018,7 @@ UPDATE npc SET size = small WHERE npcid = 50584;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50585;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50585;
+UPDATE npc SET size = "small" WHERE npcid = 50585;
 
 
 
@@ -10030,7 +10030,7 @@ UPDATE npc SET size = small WHERE npcid = 50585;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50586;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50586;
+UPDATE npc SET size = "small" WHERE npcid = 50586;
 
 
 
@@ -10042,7 +10042,7 @@ UPDATE npc SET size = small WHERE npcid = 50586;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50587;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50587;
+UPDATE npc SET size = "small" WHERE npcid = 50587;
 
 
 
@@ -10054,7 +10054,7 @@ UPDATE npc SET size = small WHERE npcid = 50587;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50588;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50588;
+UPDATE npc SET size = "small" WHERE npcid = 50588;
 
 
 
@@ -10066,7 +10066,7 @@ UPDATE npc SET size = small WHERE npcid = 50588;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50589;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50589;
+UPDATE npc SET size = "small" WHERE npcid = 50589;
 
 
 
@@ -10078,7 +10078,7 @@ UPDATE npc SET size = small WHERE npcid = 50589;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50590;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50590;
+UPDATE npc SET size = "small" WHERE npcid = 50590;
 
 
 
@@ -10090,7 +10090,7 @@ UPDATE npc SET size = small WHERE npcid = 50590;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50591;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50591;
+UPDATE npc SET size = "small" WHERE npcid = 50591;
 
 
 
@@ -10102,7 +10102,7 @@ UPDATE npc SET size = small WHERE npcid = 50591;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50592;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50592;
+UPDATE npc SET size = "small" WHERE npcid = 50592;
 
 
 
@@ -10114,7 +10114,7 @@ UPDATE npc SET size = small WHERE npcid = 50592;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50593;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50593;
+UPDATE npc SET size = "small" WHERE npcid = 50593;
 
 
 
@@ -10126,7 +10126,7 @@ UPDATE npc SET size = small WHERE npcid = 50593;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50594;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50594;
+UPDATE npc SET size = "small" WHERE npcid = 50594;
 
 
 
@@ -10138,7 +10138,7 @@ UPDATE npc SET size = small WHERE npcid = 50594;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50595;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50595;
+UPDATE npc SET size = "small" WHERE npcid = 50595;
 
 
 
@@ -10150,7 +10150,7 @@ UPDATE npc SET size = small WHERE npcid = 50595;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50596;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50596;
+UPDATE npc SET size = "small" WHERE npcid = 50596;
 
 
 
@@ -10162,7 +10162,7 @@ UPDATE npc SET size = small WHERE npcid = 50596;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50597;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50597;
+UPDATE npc SET size = "small" WHERE npcid = 50597;
 
 
 
@@ -10174,7 +10174,7 @@ UPDATE npc SET size = small WHERE npcid = 50597;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50598;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50598;
+UPDATE npc SET size = "small" WHERE npcid = 50598;
 
 
 
@@ -10186,7 +10186,7 @@ UPDATE npc SET size = small WHERE npcid = 50598;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50599;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50599;
+UPDATE npc SET size = "small" WHERE npcid = 50599;
 
 
 
@@ -10198,7 +10198,7 @@ UPDATE npc SET size = small WHERE npcid = 50599;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50600;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50600;
+UPDATE npc SET size = "small" WHERE npcid = 50600;
 
 
 
@@ -10210,7 +10210,7 @@ UPDATE npc SET size = small WHERE npcid = 50600;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50601;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50601;
+UPDATE npc SET size = "small" WHERE npcid = 50601;
 
 
 
@@ -10222,7 +10222,7 @@ UPDATE npc SET size = small WHERE npcid = 50601;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50602;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50602;
+UPDATE npc SET size = "small" WHERE npcid = 50602;
 
 
 
@@ -10234,7 +10234,7 @@ UPDATE npc SET size = small WHERE npcid = 50602;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50603;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50603;
+UPDATE npc SET size = "small" WHERE npcid = 50603;
 
 
 
@@ -10246,7 +10246,7 @@ UPDATE npc SET size = small WHERE npcid = 50603;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50604;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50604;
+UPDATE npc SET size = "small" WHERE npcid = 50604;
 
 
 
@@ -10258,7 +10258,7 @@ UPDATE npc SET size = small WHERE npcid = 50604;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50605;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50605;
+UPDATE npc SET size = "small" WHERE npcid = 50605;
 
 
 
@@ -10270,7 +10270,7 @@ UPDATE npc SET size = small WHERE npcid = 50605;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50606;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50606;
+UPDATE npc SET size = "small" WHERE npcid = 50606;
 
 
 
@@ -10282,7 +10282,7 @@ UPDATE npc SET size = small WHERE npcid = 50606;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50607;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50607;
+UPDATE npc SET size = "small" WHERE npcid = 50607;
 
 
 
@@ -10294,7 +10294,7 @@ UPDATE npc SET size = small WHERE npcid = 50607;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50608;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50608;
+UPDATE npc SET size = "small" WHERE npcid = 50608;
 
 
 
@@ -10306,7 +10306,7 @@ UPDATE npc SET size = small WHERE npcid = 50608;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50609;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50609;
+UPDATE npc SET size = "small" WHERE npcid = 50609;
 
 
 
@@ -10318,7 +10318,7 @@ UPDATE npc SET size = small WHERE npcid = 50609;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50610;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50610;
+UPDATE npc SET size = "small" WHERE npcid = 50610;
 
 
 
@@ -10330,7 +10330,7 @@ UPDATE npc SET size = small WHERE npcid = 50610;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50611;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50611;
+UPDATE npc SET size = "small" WHERE npcid = 50611;
 
 
 
@@ -10342,7 +10342,7 @@ UPDATE npc SET size = small WHERE npcid = 50611;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50612;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50612;
+UPDATE npc SET size = "small" WHERE npcid = 50612;
 
 
 
@@ -10354,7 +10354,7 @@ UPDATE npc SET size = small WHERE npcid = 50612;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50613;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50613;
+UPDATE npc SET size = "small" WHERE npcid = 50613;
 
 
 
@@ -10366,7 +10366,7 @@ UPDATE npc SET size = small WHERE npcid = 50613;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50614;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50614;
+UPDATE npc SET size = "small" WHERE npcid = 50614;
 
 
 
@@ -10378,7 +10378,7 @@ UPDATE npc SET size = small WHERE npcid = 50614;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50615;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50615;
+UPDATE npc SET size = "small" WHERE npcid = 50615;
 
 
 
@@ -10390,7 +10390,7 @@ UPDATE npc SET size = small WHERE npcid = 50615;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50616;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50616;
+UPDATE npc SET size = "small" WHERE npcid = 50616;
 
 
 
@@ -10402,7 +10402,7 @@ UPDATE npc SET size = small WHERE npcid = 50616;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50617;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50617;
+UPDATE npc SET size = "small" WHERE npcid = 50617;
 
 
 
@@ -10414,7 +10414,7 @@ UPDATE npc SET size = small WHERE npcid = 50617;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50618;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50618;
+UPDATE npc SET size = "small" WHERE npcid = 50618;
 
 
 
@@ -10426,7 +10426,7 @@ UPDATE npc SET size = small WHERE npcid = 50618;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50619;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50619;
+UPDATE npc SET size = "small" WHERE npcid = 50619;
 
 
 
@@ -10438,7 +10438,7 @@ UPDATE npc SET size = small WHERE npcid = 50619;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50620;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50620;
+UPDATE npc SET size = "small" WHERE npcid = 50620;
 
 
 
@@ -10450,7 +10450,7 @@ UPDATE npc SET size = small WHERE npcid = 50620;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50621;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50621;
+UPDATE npc SET size = "small" WHERE npcid = 50621;
 
 
 
@@ -10462,7 +10462,7 @@ UPDATE npc SET size = small WHERE npcid = 50621;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50622;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50622;
+UPDATE npc SET size = "small" WHERE npcid = 50622;
 
 
 
@@ -10474,7 +10474,7 @@ UPDATE npc SET size = small WHERE npcid = 50622;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50623;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50623;
+UPDATE npc SET size = "small" WHERE npcid = 50623;
 
 
 
@@ -10486,7 +10486,7 @@ UPDATE npc SET size = small WHERE npcid = 50623;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50624;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50624;
+UPDATE npc SET size = "small" WHERE npcid = 50624;
 
 
 
@@ -10501,7 +10501,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 50625;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 50625;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50625;
+UPDATE npc SET size = "small" WHERE npcid = 50625;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 50625;
@@ -10516,7 +10516,7 @@ UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 50625;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50626;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50626;
+UPDATE npc SET size = "small" WHERE npcid = 50626;
 
 
 
@@ -10528,7 +10528,7 @@ UPDATE npc SET size = small WHERE npcid = 50626;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50627;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50627;
+UPDATE npc SET size = "small" WHERE npcid = 50627;
 
 
 
@@ -10540,7 +10540,7 @@ UPDATE npc SET size = small WHERE npcid = 50627;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50628;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50628;
+UPDATE npc SET size = "small" WHERE npcid = 50628;
 
 
 
@@ -10552,7 +10552,7 @@ UPDATE npc SET size = small WHERE npcid = 50628;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50629;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50629;
+UPDATE npc SET size = "small" WHERE npcid = 50629;
 
 
 
@@ -10564,7 +10564,7 @@ UPDATE npc SET size = small WHERE npcid = 50629;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50630;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50630;
+UPDATE npc SET size = "small" WHERE npcid = 50630;
 
 
 
@@ -10576,7 +10576,7 @@ UPDATE npc SET size = small WHERE npcid = 50630;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 50631;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 50631;
+UPDATE npc SET size = "small" WHERE npcid = 50631;
 
 
 
@@ -10591,7 +10591,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60001;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60001;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60001;
+UPDATE npc SET size = "small" WHERE npcid = 60001;
 
 
 
@@ -10606,7 +10606,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60002;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60002;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60002;
+UPDATE npc SET size = "small" WHERE npcid = 60002;
 
 
 
@@ -10621,7 +10621,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60003;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60003;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60003;
+UPDATE npc SET size = "small" WHERE npcid = 60003;
 
 
 
@@ -10636,7 +10636,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60004;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60004;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60004;
+UPDATE npc SET size = "small" WHERE npcid = 60004;
 
 
 
@@ -10651,7 +10651,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60005;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60005;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60005;
+UPDATE npc SET size = "small" WHERE npcid = 60005;
 
 
 
@@ -10666,7 +10666,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60006;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60006;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60006;
+UPDATE npc SET size = "small" WHERE npcid = 60006;
 
 
 
@@ -10681,7 +10681,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60007;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60007;
+UPDATE npc SET size = "small" WHERE npcid = 60007;
 
 
 
@@ -10696,7 +10696,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60008;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60008;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60008;
+UPDATE npc SET size = "small" WHERE npcid = 60008;
 
 
 
@@ -10711,7 +10711,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60009;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60009;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60009;
+UPDATE npc SET size = "small" WHERE npcid = 60009;
 
 
 
@@ -10726,7 +10726,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60010;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60010;
+UPDATE npc SET size = "small" WHERE npcid = 60010;
 
 
 
@@ -10741,7 +10741,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60011;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60011;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60011;
+UPDATE npc SET size = "small" WHERE npcid = 60011;
 
 
 
@@ -10756,7 +10756,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60012;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60012;
+UPDATE npc SET size = "small" WHERE npcid = 60012;
 
 
 
@@ -10771,7 +10771,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60013;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60013;
+UPDATE npc SET size = "small" WHERE npcid = 60013;
 
 
 
@@ -10786,7 +10786,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60014;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60014;
+UPDATE npc SET size = "small" WHERE npcid = 60014;
 
 
 
@@ -10801,7 +10801,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60015;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60015;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60015;
+UPDATE npc SET size = "small" WHERE npcid = 60015;
 
 
 
@@ -10816,7 +10816,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60016;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60016;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60016;
+UPDATE npc SET size = "small" WHERE npcid = 60016;
 
 
 
@@ -10831,7 +10831,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60017;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60017;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60017;
+UPDATE npc SET size = "small" WHERE npcid = 60017;
 
 
 
@@ -10846,7 +10846,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60018;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60018;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60018;
+UPDATE npc SET size = "small" WHERE npcid = 60018;
 
 
 
@@ -10861,7 +10861,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60019;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60019;
+UPDATE npc SET size = "small" WHERE npcid = 60019;
 
 
 
@@ -10876,7 +10876,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60020;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60020;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60020;
+UPDATE npc SET size = "small" WHERE npcid = 60020;
 
 
 
@@ -10891,7 +10891,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60021;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60021;
+UPDATE npc SET size = "small" WHERE npcid = 60021;
 
 
 
@@ -10906,7 +10906,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60022;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60022;
+UPDATE npc SET size = "small" WHERE npcid = 60022;
 
 
 
@@ -10921,7 +10921,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60023;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60023;
+UPDATE npc SET size = "small" WHERE npcid = 60023;
 
 
 
@@ -10936,7 +10936,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60024;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60024;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60024;
+UPDATE npc SET size = "small" WHERE npcid = 60024;
 
 
 
@@ -10951,7 +10951,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60025;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60025;
+UPDATE npc SET size = "small" WHERE npcid = 60025;
 
 
 
@@ -10963,7 +10963,7 @@ UPDATE npc SET size = small WHERE npcid = 60025;
 UPDATE npc SET passispeed = 640 WHERE npcid = 60026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60026;
+UPDATE npc SET size = "small" WHERE npcid = 60026;
 
 
 
@@ -10978,7 +10978,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60027;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60027;
+UPDATE npc SET size = "small" WHERE npcid = 60027;
 
 
 
@@ -10990,7 +10990,7 @@ UPDATE npc SET size = small WHERE npcid = 60027;
 UPDATE npc SET passispeed = 640 WHERE npcid = 60028;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60028;
+UPDATE npc SET size = "small" WHERE npcid = 60028;
 
 
 
@@ -11005,7 +11005,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60029;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60029;
+UPDATE npc SET size = "small" WHERE npcid = 60029;
 
 
 
@@ -11020,7 +11020,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60030;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60030;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60030;
+UPDATE npc SET size = "small" WHERE npcid = 60030;
 
 
 
@@ -11032,7 +11032,7 @@ UPDATE npc SET size = small WHERE npcid = 60030;
 UPDATE npc SET passispeed = 960 WHERE npcid = 60031;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60031;
+UPDATE npc SET size = "small" WHERE npcid = 60031;
 
 
 
@@ -11044,7 +11044,7 @@ UPDATE npc SET size = small WHERE npcid = 60031;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 60032;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60032;
+UPDATE npc SET size = "small" WHERE npcid = 60032;
 
 
 
@@ -11056,7 +11056,7 @@ UPDATE npc SET size = small WHERE npcid = 60032;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 60033;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60033;
+UPDATE npc SET size = "small" WHERE npcid = 60033;
 
 
 
@@ -11071,7 +11071,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60034;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60034;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60034;
+UPDATE npc SET size = "small" WHERE npcid = 60034;
 
 
 
@@ -11083,7 +11083,7 @@ UPDATE npc SET size = small WHERE npcid = 60034;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 60035;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60035;
+UPDATE npc SET size = "small" WHERE npcid = 60035;
 
 
 
@@ -11095,7 +11095,7 @@ UPDATE npc SET size = small WHERE npcid = 60035;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 60036;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60036;
+UPDATE npc SET size = "small" WHERE npcid = 60036;
 
 
 
@@ -11110,7 +11110,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 60037;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 60037;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60037;
+UPDATE npc SET size = "small" WHERE npcid = 60037;
 
 
 
@@ -11797,7 +11797,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 60565;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 60565;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 60565;
+UPDATE npc SET size = "small" WHERE npcid = 60565;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 60565;
@@ -11842,7 +11842,7 @@ UPDATE npc SET alt_atk_speed = 720 WHERE npcid = 60567;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70001;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70001;
+UPDATE npc SET size = "small" WHERE npcid = 70001;
 
 
 
@@ -11854,7 +11854,7 @@ UPDATE npc SET size = small WHERE npcid = 70001;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70002;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70002;
+UPDATE npc SET size = "small" WHERE npcid = 70002;
 
 
 
@@ -11866,7 +11866,7 @@ UPDATE npc SET size = small WHERE npcid = 70002;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70003;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70003;
+UPDATE npc SET size = "small" WHERE npcid = 70003;
 
 
 
@@ -11878,7 +11878,7 @@ UPDATE npc SET size = small WHERE npcid = 70003;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70004;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70004;
+UPDATE npc SET size = "small" WHERE npcid = 70004;
 
 
 
@@ -11890,7 +11890,7 @@ UPDATE npc SET size = small WHERE npcid = 70004;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70005;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70005;
+UPDATE npc SET size = "small" WHERE npcid = 70005;
 
 
 
@@ -11902,7 +11902,7 @@ UPDATE npc SET size = small WHERE npcid = 70005;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70006;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70006;
+UPDATE npc SET size = "small" WHERE npcid = 70006;
 
 
 
@@ -11914,7 +11914,7 @@ UPDATE npc SET size = small WHERE npcid = 70006;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70007;
+UPDATE npc SET size = "small" WHERE npcid = 70007;
 
 
 
@@ -11926,7 +11926,7 @@ UPDATE npc SET size = small WHERE npcid = 70007;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70008;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70008;
+UPDATE npc SET size = "small" WHERE npcid = 70008;
 
 
 
@@ -11941,7 +11941,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70009;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70009;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70009;
+UPDATE npc SET size = "small" WHERE npcid = 70009;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70009;
@@ -11956,7 +11956,7 @@ UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70009;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70010;
+UPDATE npc SET size = "small" WHERE npcid = 70010;
 
 
 
@@ -11971,7 +11971,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70011;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70011;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70011;
+UPDATE npc SET size = "small" WHERE npcid = 70011;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70011;
@@ -11986,7 +11986,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70011;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70012;
+UPDATE npc SET size = "small" WHERE npcid = 70012;
 
 
 
@@ -11998,7 +11998,7 @@ UPDATE npc SET size = small WHERE npcid = 70012;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70013;
+UPDATE npc SET size = "small" WHERE npcid = 70013;
 
 
 
@@ -12013,7 +12013,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70014;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70014;
+UPDATE npc SET size = "small" WHERE npcid = 70014;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 70014;
@@ -12028,7 +12028,7 @@ UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 70014;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70015;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70015;
+UPDATE npc SET size = "small" WHERE npcid = 70015;
 
 
 
@@ -12040,7 +12040,7 @@ UPDATE npc SET size = small WHERE npcid = 70015;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70016;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70016;
+UPDATE npc SET size = "small" WHERE npcid = 70016;
 
 
 
@@ -12055,7 +12055,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70017;
 UPDATE npc SET atkspeed = 1480 WHERE npcid = 70017;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70017;
+UPDATE npc SET size = "small" WHERE npcid = 70017;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70017;
@@ -12070,7 +12070,7 @@ UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70017;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70018;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70018;
+UPDATE npc SET size = "small" WHERE npcid = 70018;
 
 
 
@@ -12082,7 +12082,7 @@ UPDATE npc SET size = small WHERE npcid = 70018;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70019;
+UPDATE npc SET size = "small" WHERE npcid = 70019;
 
 
 
@@ -12091,7 +12091,7 @@ UPDATE npc SET size = small WHERE npcid = 70019;
 -- Rollko 70020
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70020;
+UPDATE npc SET size = "small" WHERE npcid = 70020;
 
 
 
@@ -12103,7 +12103,7 @@ UPDATE npc SET size = small WHERE npcid = 70020;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70021;
+UPDATE npc SET size = "small" WHERE npcid = 70021;
 
 
 
@@ -12118,7 +12118,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70022;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70022;
+UPDATE npc SET size = "small" WHERE npcid = 70022;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70022;
@@ -12133,7 +12133,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70022;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70023;
+UPDATE npc SET size = "small" WHERE npcid = 70023;
 
 
 
@@ -12145,7 +12145,7 @@ UPDATE npc SET size = small WHERE npcid = 70023;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70024;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70024;
+UPDATE npc SET size = "small" WHERE npcid = 70024;
 
 
 
@@ -12157,7 +12157,7 @@ UPDATE npc SET size = small WHERE npcid = 70024;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70025;
+UPDATE npc SET size = "small" WHERE npcid = 70025;
 
 
 
@@ -12169,7 +12169,7 @@ UPDATE npc SET size = small WHERE npcid = 70025;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70026;
+UPDATE npc SET size = "small" WHERE npcid = 70026;
 
 
 
@@ -12181,7 +12181,7 @@ UPDATE npc SET size = small WHERE npcid = 70026;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70027;
+UPDATE npc SET size = "small" WHERE npcid = 70027;
 
 
 
@@ -12190,7 +12190,7 @@ UPDATE npc SET size = small WHERE npcid = 70027;
 -- Randal 70028
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70028;
+UPDATE npc SET size = "small" WHERE npcid = 70028;
 
 
 
@@ -12205,7 +12205,7 @@ UPDATE npc SET atk_magic_speed = 1920 WHERE npcid = 70029;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70029;
+UPDATE npc SET size = "small" WHERE npcid = 70029;
 
 
 
@@ -12217,7 +12217,7 @@ UPDATE npc SET size = small WHERE npcid = 70029;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 70030;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70030;
+UPDATE npc SET size = "small" WHERE npcid = 70030;
 
 
 
@@ -12229,7 +12229,7 @@ UPDATE npc SET size = small WHERE npcid = 70030;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70031;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70031;
+UPDATE npc SET size = "small" WHERE npcid = 70031;
 
 
 
@@ -12241,7 +12241,7 @@ UPDATE npc SET size = small WHERE npcid = 70031;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70032;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70032;
+UPDATE npc SET size = "small" WHERE npcid = 70032;
 
 
 
@@ -12253,7 +12253,7 @@ UPDATE npc SET size = small WHERE npcid = 70032;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70033;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70033;
+UPDATE npc SET size = "small" WHERE npcid = 70033;
 
 
 
@@ -12265,7 +12265,7 @@ UPDATE npc SET size = small WHERE npcid = 70033;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70034;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70034;
+UPDATE npc SET size = "small" WHERE npcid = 70034;
 
 
 
@@ -12277,7 +12277,7 @@ UPDATE npc SET size = small WHERE npcid = 70034;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70035;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70035;
+UPDATE npc SET size = "small" WHERE npcid = 70035;
 
 
 
@@ -12289,7 +12289,7 @@ UPDATE npc SET size = small WHERE npcid = 70035;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70036;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70036;
+UPDATE npc SET size = "small" WHERE npcid = 70036;
 
 
 
@@ -12301,7 +12301,7 @@ UPDATE npc SET size = small WHERE npcid = 70036;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70037;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70037;
+UPDATE npc SET size = "small" WHERE npcid = 70037;
 
 
 
@@ -12313,7 +12313,7 @@ UPDATE npc SET size = small WHERE npcid = 70037;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70038;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70038;
+UPDATE npc SET size = "small" WHERE npcid = 70038;
 
 
 
@@ -12328,7 +12328,7 @@ UPDATE npc SET atk_magic_speed = 5080 WHERE npcid = 70039;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70039;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70039;
+UPDATE npc SET size = "small" WHERE npcid = 70039;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70039;
@@ -12346,7 +12346,7 @@ UPDATE npc SET atk_magic_speed = 6400 WHERE npcid = 70040;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70040;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70040;
+UPDATE npc SET size = "small" WHERE npcid = 70040;
 
 
 
@@ -12358,7 +12358,7 @@ UPDATE npc SET size = small WHERE npcid = 70040;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70041;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70041;
+UPDATE npc SET size = "small" WHERE npcid = 70041;
 
 
 
@@ -12370,7 +12370,7 @@ UPDATE npc SET size = small WHERE npcid = 70041;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70042;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70042;
+UPDATE npc SET size = "small" WHERE npcid = 70042;
 
 
 
@@ -12382,7 +12382,7 @@ UPDATE npc SET size = small WHERE npcid = 70042;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 70043;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70043;
+UPDATE npc SET size = "small" WHERE npcid = 70043;
 
 
 
@@ -12394,7 +12394,7 @@ UPDATE npc SET size = small WHERE npcid = 70043;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70044;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70044;
+UPDATE npc SET size = "small" WHERE npcid = 70044;
 
 
 
@@ -12406,7 +12406,7 @@ UPDATE npc SET size = small WHERE npcid = 70044;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70045;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70045;
+UPDATE npc SET size = "small" WHERE npcid = 70045;
 
 
 
@@ -12418,7 +12418,7 @@ UPDATE npc SET size = small WHERE npcid = 70045;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70046;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70046;
+UPDATE npc SET size = "small" WHERE npcid = 70046;
 
 
 
@@ -12430,7 +12430,7 @@ UPDATE npc SET size = small WHERE npcid = 70046;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70047;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70047;
+UPDATE npc SET size = "small" WHERE npcid = 70047;
 
 
 
@@ -12445,7 +12445,7 @@ UPDATE npc SET atk_magic_speed = 6160 WHERE npcid = 70048;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70048;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70048;
+UPDATE npc SET size = "small" WHERE npcid = 70048;
 
 
 
@@ -12457,7 +12457,7 @@ UPDATE npc SET size = small WHERE npcid = 70048;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70049;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70049;
+UPDATE npc SET size = "small" WHERE npcid = 70049;
 
 
 
@@ -12469,7 +12469,7 @@ UPDATE npc SET size = small WHERE npcid = 70049;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70050;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70050;
+UPDATE npc SET size = "small" WHERE npcid = 70050;
 
 
 
@@ -12481,7 +12481,7 @@ UPDATE npc SET size = small WHERE npcid = 70050;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70051;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70051;
+UPDATE npc SET size = "small" WHERE npcid = 70051;
 
 
 
@@ -12493,7 +12493,7 @@ UPDATE npc SET size = small WHERE npcid = 70051;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 70052;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70052;
+UPDATE npc SET size = "small" WHERE npcid = 70052;
 
 
 
@@ -12508,7 +12508,7 @@ UPDATE npc SET atk_magic_speed = 1920 WHERE npcid = 70053;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70053;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70053;
+UPDATE npc SET size = "small" WHERE npcid = 70053;
 
 
 
@@ -12520,7 +12520,7 @@ UPDATE npc SET size = small WHERE npcid = 70053;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70054;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70054;
+UPDATE npc SET size = "small" WHERE npcid = 70054;
 
 
 
@@ -12532,7 +12532,7 @@ UPDATE npc SET size = small WHERE npcid = 70054;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70055;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70055;
+UPDATE npc SET size = "small" WHERE npcid = 70055;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70055;
@@ -12544,7 +12544,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70055;
 -- Jode 70056
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70056;
+UPDATE npc SET size = "small" WHERE npcid = 70056;
 
 
 
@@ -12556,7 +12556,7 @@ UPDATE npc SET size = small WHERE npcid = 70056;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70057;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70057;
+UPDATE npc SET size = "small" WHERE npcid = 70057;
 
 
 
@@ -12568,7 +12568,7 @@ UPDATE npc SET size = small WHERE npcid = 70057;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70058;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70058;
+UPDATE npc SET size = "small" WHERE npcid = 70058;
 
 
 
@@ -12580,7 +12580,7 @@ UPDATE npc SET size = small WHERE npcid = 70058;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70059;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70059;
+UPDATE npc SET size = "small" WHERE npcid = 70059;
 
 
 
@@ -12592,7 +12592,7 @@ UPDATE npc SET size = small WHERE npcid = 70059;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70060;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70060;
+UPDATE npc SET size = "small" WHERE npcid = 70060;
 
 
 
@@ -12604,7 +12604,7 @@ UPDATE npc SET size = small WHERE npcid = 70060;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70061;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70061;
+UPDATE npc SET size = "small" WHERE npcid = 70061;
 
 
 
@@ -12616,7 +12616,7 @@ UPDATE npc SET size = small WHERE npcid = 70061;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70062;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70062;
+UPDATE npc SET size = "small" WHERE npcid = 70062;
 
 
 
@@ -12631,7 +12631,7 @@ UPDATE npc SET atk_magic_speed = 6160 WHERE npcid = 70063;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70063;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70063;
+UPDATE npc SET size = "small" WHERE npcid = 70063;
 
 
 
@@ -12643,7 +12643,7 @@ UPDATE npc SET size = small WHERE npcid = 70063;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70064;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70064;
+UPDATE npc SET size = "small" WHERE npcid = 70064;
 
 
 
@@ -12655,7 +12655,7 @@ UPDATE npc SET size = small WHERE npcid = 70064;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70065;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70065;
+UPDATE npc SET size = "small" WHERE npcid = 70065;
 
 
 
@@ -12667,7 +12667,7 @@ UPDATE npc SET size = small WHERE npcid = 70065;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70066;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70066;
+UPDATE npc SET size = "small" WHERE npcid = 70066;
 
 
 
@@ -12679,7 +12679,7 @@ UPDATE npc SET size = small WHERE npcid = 70066;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70067;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70067;
+UPDATE npc SET size = "small" WHERE npcid = 70067;
 
 
 
@@ -12691,7 +12691,7 @@ UPDATE npc SET size = small WHERE npcid = 70067;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70068;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70068;
+UPDATE npc SET size = "small" WHERE npcid = 70068;
 
 
 
@@ -12703,7 +12703,7 @@ UPDATE npc SET size = small WHERE npcid = 70068;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70069;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70069;
+UPDATE npc SET size = "small" WHERE npcid = 70069;
 
 
 
@@ -12715,7 +12715,7 @@ UPDATE npc SET size = small WHERE npcid = 70069;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70070;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70070;
+UPDATE npc SET size = "small" WHERE npcid = 70070;
 
 
 
@@ -12727,7 +12727,7 @@ UPDATE npc SET size = small WHERE npcid = 70070;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70071;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70071;
+UPDATE npc SET size = "small" WHERE npcid = 70071;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70071;
@@ -12742,7 +12742,7 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70071;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70072;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70072;
+UPDATE npc SET size = "small" WHERE npcid = 70072;
 
 
 
@@ -12754,7 +12754,7 @@ UPDATE npc SET size = small WHERE npcid = 70072;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70073;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70073;
+UPDATE npc SET size = "small" WHERE npcid = 70073;
 
 
 
@@ -12766,7 +12766,7 @@ UPDATE npc SET size = small WHERE npcid = 70073;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70074;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70074;
+UPDATE npc SET size = "small" WHERE npcid = 70074;
 
 
 
@@ -12778,7 +12778,7 @@ UPDATE npc SET size = small WHERE npcid = 70074;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70075;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70075;
+UPDATE npc SET size = "small" WHERE npcid = 70075;
 
 
 
@@ -12790,7 +12790,7 @@ UPDATE npc SET size = small WHERE npcid = 70075;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70076;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70076;
+UPDATE npc SET size = "small" WHERE npcid = 70076;
 
 
 
@@ -12802,7 +12802,7 @@ UPDATE npc SET size = small WHERE npcid = 70076;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70077;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70077;
+UPDATE npc SET size = "small" WHERE npcid = 70077;
 
 
 
@@ -12814,7 +12814,7 @@ UPDATE npc SET size = small WHERE npcid = 70077;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70078;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70078;
+UPDATE npc SET size = "small" WHERE npcid = 70078;
 
 
 
@@ -12826,7 +12826,7 @@ UPDATE npc SET size = small WHERE npcid = 70078;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70079;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70079;
+UPDATE npc SET size = "small" WHERE npcid = 70079;
 
 
 
@@ -12838,7 +12838,7 @@ UPDATE npc SET size = small WHERE npcid = 70079;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70080;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70080;
+UPDATE npc SET size = "small" WHERE npcid = 70080;
 
 
 
@@ -12850,7 +12850,7 @@ UPDATE npc SET size = small WHERE npcid = 70080;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70081;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70081;
+UPDATE npc SET size = "small" WHERE npcid = 70081;
 
 
 
@@ -12862,7 +12862,7 @@ UPDATE npc SET size = small WHERE npcid = 70081;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70082;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70082;
+UPDATE npc SET size = "small" WHERE npcid = 70082;
 
 
 
@@ -12874,7 +12874,7 @@ UPDATE npc SET size = small WHERE npcid = 70082;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70083;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70083;
+UPDATE npc SET size = "small" WHERE npcid = 70083;
 
 
 
@@ -12886,7 +12886,7 @@ UPDATE npc SET size = small WHERE npcid = 70083;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70084;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70084;
+UPDATE npc SET size = "small" WHERE npcid = 70084;
 
 
 
@@ -12898,7 +12898,7 @@ UPDATE npc SET size = small WHERE npcid = 70084;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70085;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70085;
+UPDATE npc SET size = "small" WHERE npcid = 70085;
 
 
 
@@ -12910,7 +12910,7 @@ UPDATE npc SET size = small WHERE npcid = 70085;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70086;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70086;
+UPDATE npc SET size = "small" WHERE npcid = 70086;
 
 
 
@@ -12925,7 +12925,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70087;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70087;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70087;
+UPDATE npc SET size = "small" WHERE npcid = 70087;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 70087;
@@ -12940,7 +12940,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 70087;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70088;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70088;
+UPDATE npc SET size = "small" WHERE npcid = 70088;
 
 
 
@@ -12952,7 +12952,7 @@ UPDATE npc SET size = small WHERE npcid = 70088;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70089;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70089;
+UPDATE npc SET size = "small" WHERE npcid = 70089;
 
 
 
@@ -12964,7 +12964,7 @@ UPDATE npc SET size = small WHERE npcid = 70089;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70090;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70090;
+UPDATE npc SET size = "small" WHERE npcid = 70090;
 
 
 
@@ -12976,7 +12976,7 @@ UPDATE npc SET size = small WHERE npcid = 70090;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70091;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70091;
+UPDATE npc SET size = "small" WHERE npcid = 70091;
 
 
 
@@ -12988,7 +12988,7 @@ UPDATE npc SET size = small WHERE npcid = 70091;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70092;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70092;
+UPDATE npc SET size = "small" WHERE npcid = 70092;
 
 
 
@@ -13000,7 +13000,7 @@ UPDATE npc SET size = small WHERE npcid = 70092;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70093;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70093;
+UPDATE npc SET size = "small" WHERE npcid = 70093;
 
 
 
@@ -13012,7 +13012,7 @@ UPDATE npc SET size = small WHERE npcid = 70093;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70094;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70094;
+UPDATE npc SET size = "small" WHERE npcid = 70094;
 
 
 
@@ -13024,7 +13024,7 @@ UPDATE npc SET size = small WHERE npcid = 70094;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70095;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70095;
+UPDATE npc SET size = "small" WHERE npcid = 70095;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70095;
@@ -13039,7 +13039,7 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70095;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70096;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70096;
+UPDATE npc SET size = "small" WHERE npcid = 70096;
 
 
 
@@ -13051,7 +13051,7 @@ UPDATE npc SET size = small WHERE npcid = 70096;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70097;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70097;
+UPDATE npc SET size = "small" WHERE npcid = 70097;
 
 
 
@@ -13063,7 +13063,7 @@ UPDATE npc SET size = small WHERE npcid = 70097;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70098;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70098;
+UPDATE npc SET size = "small" WHERE npcid = 70098;
 
 
 
@@ -13075,7 +13075,7 @@ UPDATE npc SET size = small WHERE npcid = 70098;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70099;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70099;
+UPDATE npc SET size = "small" WHERE npcid = 70099;
 
 
 
@@ -13087,7 +13087,7 @@ UPDATE npc SET size = small WHERE npcid = 70099;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70100;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70100;
+UPDATE npc SET size = "small" WHERE npcid = 70100;
 
 
 
@@ -13099,7 +13099,7 @@ UPDATE npc SET size = small WHERE npcid = 70100;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70101;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70101;
+UPDATE npc SET size = "small" WHERE npcid = 70101;
 
 
 
@@ -13111,7 +13111,7 @@ UPDATE npc SET size = small WHERE npcid = 70101;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70102;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70102;
+UPDATE npc SET size = "small" WHERE npcid = 70102;
 
 
 
@@ -13123,7 +13123,7 @@ UPDATE npc SET size = small WHERE npcid = 70102;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70501;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70501;
+UPDATE npc SET size = "small" WHERE npcid = 70501;
 
 
 
@@ -13138,7 +13138,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70502;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70502;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70502;
+UPDATE npc SET size = "small" WHERE npcid = 70502;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70502;
@@ -13153,7 +13153,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70502;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70503;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70503;
+UPDATE npc SET size = "small" WHERE npcid = 70503;
 
 
 
@@ -13165,7 +13165,7 @@ UPDATE npc SET size = small WHERE npcid = 70503;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70504;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70504;
+UPDATE npc SET size = "small" WHERE npcid = 70504;
 
 
 
@@ -13177,7 +13177,7 @@ UPDATE npc SET size = small WHERE npcid = 70504;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70505;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70505;
+UPDATE npc SET size = "small" WHERE npcid = 70505;
 
 
 
@@ -13189,7 +13189,7 @@ UPDATE npc SET size = small WHERE npcid = 70505;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70506;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70506;
+UPDATE npc SET size = "small" WHERE npcid = 70506;
 
 
 
@@ -13201,7 +13201,7 @@ UPDATE npc SET size = small WHERE npcid = 70506;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70507;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70507;
+UPDATE npc SET size = "small" WHERE npcid = 70507;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70507;
@@ -13216,7 +13216,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70507;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70508;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70508;
+UPDATE npc SET size = "small" WHERE npcid = 70508;
 
 
 
@@ -13231,7 +13231,7 @@ UPDATE npc SET atk_magic_speed = 5080 WHERE npcid = 70509;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70509;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70509;
+UPDATE npc SET size = "small" WHERE npcid = 70509;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70509;
@@ -13246,7 +13246,7 @@ UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70509;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70510;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70510;
+UPDATE npc SET size = "small" WHERE npcid = 70510;
 
 
 
@@ -13258,7 +13258,7 @@ UPDATE npc SET size = small WHERE npcid = 70510;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70511;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70511;
+UPDATE npc SET size = "small" WHERE npcid = 70511;
 
 
 
@@ -13270,7 +13270,7 @@ UPDATE npc SET size = small WHERE npcid = 70511;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70512;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70512;
+UPDATE npc SET size = "small" WHERE npcid = 70512;
 
 
 
@@ -13282,7 +13282,7 @@ UPDATE npc SET size = small WHERE npcid = 70512;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70513;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70513;
+UPDATE npc SET size = "small" WHERE npcid = 70513;
 
 
 
@@ -13297,7 +13297,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70514;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70514;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70514;
+UPDATE npc SET size = "small" WHERE npcid = 70514;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70514;
@@ -13312,7 +13312,7 @@ UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70514;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70515;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70515;
+UPDATE npc SET size = "small" WHERE npcid = 70515;
 
 
 
@@ -13324,7 +13324,7 @@ UPDATE npc SET size = small WHERE npcid = 70515;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70516;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70516;
+UPDATE npc SET size = "small" WHERE npcid = 70516;
 
 
 
@@ -13336,7 +13336,7 @@ UPDATE npc SET size = small WHERE npcid = 70516;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70517;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70517;
+UPDATE npc SET size = "small" WHERE npcid = 70517;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70517;
@@ -13351,7 +13351,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70517;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70518;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70518;
+UPDATE npc SET size = "small" WHERE npcid = 70518;
 
 
 
@@ -13363,7 +13363,7 @@ UPDATE npc SET size = small WHERE npcid = 70518;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70519;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70519;
+UPDATE npc SET size = "small" WHERE npcid = 70519;
 
 
 
@@ -13375,7 +13375,7 @@ UPDATE npc SET size = small WHERE npcid = 70519;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70520;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70520;
+UPDATE npc SET size = "small" WHERE npcid = 70520;
 
 
 
@@ -13399,7 +13399,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70522;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70522;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70522;
+UPDATE npc SET size = "small" WHERE npcid = 70522;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70522;
@@ -13414,7 +13414,7 @@ UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70522;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70523;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70523;
+UPDATE npc SET size = "small" WHERE npcid = 70523;
 
 
 
@@ -13426,7 +13426,7 @@ UPDATE npc SET size = small WHERE npcid = 70523;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70524;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70524;
+UPDATE npc SET size = "small" WHERE npcid = 70524;
 
 
 
@@ -13438,7 +13438,7 @@ UPDATE npc SET size = small WHERE npcid = 70524;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70525;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70525;
+UPDATE npc SET size = "small" WHERE npcid = 70525;
 
 
 
@@ -13450,7 +13450,7 @@ UPDATE npc SET size = small WHERE npcid = 70525;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70526;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70526;
+UPDATE npc SET size = "small" WHERE npcid = 70526;
 
 
 
@@ -13462,7 +13462,7 @@ UPDATE npc SET size = small WHERE npcid = 70526;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70527;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70527;
+UPDATE npc SET size = "small" WHERE npcid = 70527;
 
 
 
@@ -13474,7 +13474,7 @@ UPDATE npc SET size = small WHERE npcid = 70527;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70528;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70528;
+UPDATE npc SET size = "small" WHERE npcid = 70528;
 
 
 
@@ -13486,7 +13486,7 @@ UPDATE npc SET size = small WHERE npcid = 70528;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70529;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70529;
+UPDATE npc SET size = "small" WHERE npcid = 70529;
 
 
 
@@ -13498,7 +13498,7 @@ UPDATE npc SET size = small WHERE npcid = 70529;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70530;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70530;
+UPDATE npc SET size = "small" WHERE npcid = 70530;
 
 
 
@@ -13510,7 +13510,7 @@ UPDATE npc SET size = small WHERE npcid = 70530;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70531;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70531;
+UPDATE npc SET size = "small" WHERE npcid = 70531;
 
 
 
@@ -13522,7 +13522,7 @@ UPDATE npc SET size = small WHERE npcid = 70531;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70532;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70532;
+UPDATE npc SET size = "small" WHERE npcid = 70532;
 
 
 
@@ -13534,7 +13534,7 @@ UPDATE npc SET size = small WHERE npcid = 70532;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70533;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70533;
+UPDATE npc SET size = "small" WHERE npcid = 70533;
 
 
 
@@ -13546,7 +13546,7 @@ UPDATE npc SET size = small WHERE npcid = 70533;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70534;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70534;
+UPDATE npc SET size = "small" WHERE npcid = 70534;
 
 
 
@@ -13558,7 +13558,7 @@ UPDATE npc SET size = small WHERE npcid = 70534;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70535;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70535;
+UPDATE npc SET size = "small" WHERE npcid = 70535;
 
 
 
@@ -13570,7 +13570,7 @@ UPDATE npc SET size = small WHERE npcid = 70535;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70536;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70536;
+UPDATE npc SET size = "small" WHERE npcid = 70536;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70536;
@@ -13585,7 +13585,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70536;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70537;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70537;
+UPDATE npc SET size = "small" WHERE npcid = 70537;
 
 
 
@@ -13597,7 +13597,7 @@ UPDATE npc SET size = small WHERE npcid = 70537;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70538;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70538;
+UPDATE npc SET size = "small" WHERE npcid = 70538;
 
 
 
@@ -13609,7 +13609,7 @@ UPDATE npc SET size = small WHERE npcid = 70538;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70539;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70539;
+UPDATE npc SET size = "small" WHERE npcid = 70539;
 
 
 
@@ -13630,7 +13630,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70541;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70542;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70542;
+UPDATE npc SET size = "small" WHERE npcid = 70542;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70542;
@@ -13645,7 +13645,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70542;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70543;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70543;
+UPDATE npc SET size = "small" WHERE npcid = 70543;
 
 
 
@@ -13657,7 +13657,7 @@ UPDATE npc SET size = small WHERE npcid = 70543;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70544;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70544;
+UPDATE npc SET size = "small" WHERE npcid = 70544;
 
 
 
@@ -13672,7 +13672,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70545;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70545;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70545;
+UPDATE npc SET size = "small" WHERE npcid = 70545;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70545;
@@ -13687,7 +13687,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70545;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70546;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70546;
+UPDATE npc SET size = "small" WHERE npcid = 70546;
 
 
 
@@ -13702,7 +13702,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70547;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70547;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70547;
+UPDATE npc SET size = "small" WHERE npcid = 70547;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70547;
@@ -13717,7 +13717,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70547;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70548;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70548;
+UPDATE npc SET size = "small" WHERE npcid = 70548;
 
 
 
@@ -13741,7 +13741,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70550;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70550;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70550;
+UPDATE npc SET size = "small" WHERE npcid = 70550;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70550;
@@ -13753,7 +13753,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70550;
 -- Unknown 70551 70551
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70551;
+UPDATE npc SET size = "small" WHERE npcid = 70551;
 
 
 
@@ -13765,7 +13765,7 @@ UPDATE npc SET size = small WHERE npcid = 70551;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70552;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70552;
+UPDATE npc SET size = "small" WHERE npcid = 70552;
 
 
 
@@ -13777,7 +13777,7 @@ UPDATE npc SET size = small WHERE npcid = 70552;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70553;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70553;
+UPDATE npc SET size = "small" WHERE npcid = 70553;
 
 
 
@@ -13789,7 +13789,7 @@ UPDATE npc SET size = small WHERE npcid = 70553;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70554;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70554;
+UPDATE npc SET size = "small" WHERE npcid = 70554;
 
 
 
@@ -13807,7 +13807,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70555;
 UPDATE npc SET atkspeed = 920 WHERE npcid = 70555;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70555;
+UPDATE npc SET size = "small" WHERE npcid = 70555;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70555;
@@ -13825,7 +13825,7 @@ UPDATE npc SET sub_magic_speed = 1440 WHERE npcid = 70555;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70556;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70556;
+UPDATE npc SET size = "small" WHERE npcid = 70556;
 
 
 
@@ -13837,7 +13837,7 @@ UPDATE npc SET size = small WHERE npcid = 70556;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70557;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70557;
+UPDATE npc SET size = "small" WHERE npcid = 70557;
 
 
 
@@ -13852,7 +13852,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70558;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70558;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70558;
+UPDATE npc SET size = "small" WHERE npcid = 70558;
 
 
 
@@ -13867,7 +13867,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70559;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70559;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70559;
+UPDATE npc SET size = "small" WHERE npcid = 70559;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70559;
@@ -13882,7 +13882,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70559;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70560;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70560;
+UPDATE npc SET size = "small" WHERE npcid = 70560;
 
 
 
@@ -13891,7 +13891,7 @@ UPDATE npc SET size = small WHERE npcid = 70560;
 -- Unknown 70561 70561
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70561;
+UPDATE npc SET size = "small" WHERE npcid = 70561;
 
 
 
@@ -13906,7 +13906,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70562;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70562;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70562;
+UPDATE npc SET size = "small" WHERE npcid = 70562;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70562;
@@ -13930,7 +13930,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70564;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70566;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70566;
+UPDATE npc SET size = "small" WHERE npcid = 70566;
 
 
 
@@ -13942,7 +13942,7 @@ UPDATE npc SET size = small WHERE npcid = 70566;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70567;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70567;
+UPDATE npc SET size = "small" WHERE npcid = 70567;
 
 
 
@@ -13954,7 +13954,7 @@ UPDATE npc SET size = small WHERE npcid = 70567;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70568;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70568;
+UPDATE npc SET size = "small" WHERE npcid = 70568;
 
 
 
@@ -13966,7 +13966,7 @@ UPDATE npc SET size = small WHERE npcid = 70568;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70569;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70569;
+UPDATE npc SET size = "small" WHERE npcid = 70569;
 
 
 
@@ -13978,7 +13978,7 @@ UPDATE npc SET size = small WHERE npcid = 70569;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70570;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70570;
+UPDATE npc SET size = "small" WHERE npcid = 70570;
 
 
 
@@ -13993,7 +13993,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70571;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70571;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70571;
+UPDATE npc SET size = "small" WHERE npcid = 70571;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70571;
@@ -14008,7 +14008,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70571;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70572;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70572;
+UPDATE npc SET size = "small" WHERE npcid = 70572;
 
 
 
@@ -14020,7 +14020,7 @@ UPDATE npc SET size = small WHERE npcid = 70572;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70573;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70573;
+UPDATE npc SET size = "small" WHERE npcid = 70573;
 
 
 
@@ -14041,7 +14041,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70575;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70576;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70576;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70576;
 
 
 
@@ -14053,7 +14053,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70576;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70577;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70577;
+UPDATE npc SET size = "small" WHERE npcid = 70577;
 
 
 
@@ -14068,7 +14068,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70578;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70578;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70578;
+UPDATE npc SET size = "small" WHERE npcid = 70578;
 
 
 
@@ -14083,7 +14083,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70579;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70579;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70579;
+UPDATE npc SET size = "small" WHERE npcid = 70579;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70579;
@@ -14101,7 +14101,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70580;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70580;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70580;
+UPDATE npc SET size = "small" WHERE npcid = 70580;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70580;
@@ -14116,7 +14116,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70580;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70581;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70581;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70581;
 
 
 
@@ -14128,7 +14128,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70581;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70582;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70582;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70582;
 
 
 
@@ -14140,7 +14140,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70582;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70583;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70583;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70583;
 
 
 
@@ -14152,7 +14152,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70583;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70584;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70584;
+UPDATE npc SET size = "small" WHERE npcid = 70584;
 
 
 
@@ -14164,7 +14164,7 @@ UPDATE npc SET size = small WHERE npcid = 70584;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70585;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70585;
+UPDATE npc SET size = "small" WHERE npcid = 70585;
 
 
 
@@ -14176,7 +14176,7 @@ UPDATE npc SET size = small WHERE npcid = 70585;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70586;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70586;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70586;
 
 
 
@@ -14188,7 +14188,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70586;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70587;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70587;
+UPDATE npc SET size = "small" WHERE npcid = 70587;
 
 
 
@@ -14200,7 +14200,7 @@ UPDATE npc SET size = small WHERE npcid = 70587;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70588;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70588;
+UPDATE npc SET size = "small" WHERE npcid = 70588;
 
 
 
@@ -14212,7 +14212,7 @@ UPDATE npc SET size = small WHERE npcid = 70588;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70589;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70589;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70589;
 
 
 
@@ -14224,7 +14224,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70589;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70590;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70590;
+UPDATE npc SET size = "small" WHERE npcid = 70590;
 
 
 
@@ -14236,7 +14236,7 @@ UPDATE npc SET size = small WHERE npcid = 70590;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70591;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70591;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70591;
 
 
 
@@ -14248,7 +14248,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70591;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70592;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70592;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70592;
 
 
 
@@ -14260,7 +14260,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70592;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70593;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70593;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70593;
 
 
 
@@ -14272,7 +14272,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70593;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70594;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70594;
+UPDATE npc SET size = "small" WHERE npcid = 70594;
 
 
 
@@ -14284,7 +14284,7 @@ UPDATE npc SET size = small WHERE npcid = 70594;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70595;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70595;
+UPDATE npc SET size = "small" WHERE npcid = 70595;
 
 
 
@@ -14296,7 +14296,7 @@ UPDATE npc SET size = small WHERE npcid = 70595;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70596;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70596;
+UPDATE npc SET size = "small" WHERE npcid = 70596;
 
 
 
@@ -14308,7 +14308,7 @@ UPDATE npc SET size = small WHERE npcid = 70596;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70597;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70597;
+UPDATE npc SET size = "small" WHERE npcid = 70597;
 
 
 
@@ -14320,7 +14320,7 @@ UPDATE npc SET size = small WHERE npcid = 70597;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70598;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70598;
+UPDATE npc SET size = "small" WHERE npcid = 70598;
 
 
 
@@ -14335,7 +14335,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70599;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70599;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70599;
+UPDATE npc SET size = "small" WHERE npcid = 70599;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70599;
@@ -14353,7 +14353,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70601;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70601;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70601;
+UPDATE npc SET size = "small" WHERE npcid = 70601;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70601;
@@ -14368,7 +14368,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70601;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70602;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70602;
+UPDATE npc SET size = "small" WHERE npcid = 70602;
 
 
 
@@ -14380,7 +14380,7 @@ UPDATE npc SET size = small WHERE npcid = 70602;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70603;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70603;
+UPDATE npc SET size = "small" WHERE npcid = 70603;
 
 
 
@@ -14392,7 +14392,7 @@ UPDATE npc SET size = small WHERE npcid = 70603;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70604;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70604;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70604;
 
 
 
@@ -14404,7 +14404,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70604;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70605;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70605;
+UPDATE npc SET size = "small" WHERE npcid = 70605;
 
 
 
@@ -14416,7 +14416,7 @@ UPDATE npc SET size = small WHERE npcid = 70605;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70606;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70606;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70606;
 
 
 
@@ -14428,7 +14428,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70606;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70607;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70607;
+UPDATE npc SET size = "small" WHERE npcid = 70607;
 
 
 
@@ -14440,7 +14440,7 @@ UPDATE npc SET size = small WHERE npcid = 70607;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70608;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70608;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70608;
 
 
 
@@ -14452,7 +14452,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70608;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70609;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70609;
+UPDATE npc SET size = "small" WHERE npcid = 70609;
 
 
 
@@ -14464,7 +14464,7 @@ UPDATE npc SET size = small WHERE npcid = 70609;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70610;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70610;
+UPDATE npc SET size = "small" WHERE npcid = 70610;
 
 
 
@@ -14476,7 +14476,7 @@ UPDATE npc SET size = small WHERE npcid = 70610;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70611;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70611;
+UPDATE npc SET size = "small" WHERE npcid = 70611;
 
 
 
@@ -14488,7 +14488,7 @@ UPDATE npc SET size = small WHERE npcid = 70611;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70612;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70612;
+UPDATE npc SET size = "small" WHERE npcid = 70612;
 
 
 
@@ -14500,7 +14500,7 @@ UPDATE npc SET size = small WHERE npcid = 70612;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70613;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70613;
+UPDATE npc SET size = "small" WHERE npcid = 70613;
 
 
 
@@ -14515,7 +14515,7 @@ UPDATE npc SET atk_magic_speed = 6160 WHERE npcid = 70614;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70614;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70614;
+UPDATE npc SET size = "small" WHERE npcid = 70614;
 
 
 
@@ -14527,7 +14527,7 @@ UPDATE npc SET size = small WHERE npcid = 70614;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70615;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70615;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70615;
 
 
 
@@ -14539,7 +14539,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70615;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70616;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70616;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70616;
 
 
 
@@ -14551,7 +14551,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70616;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70617;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70617;
+UPDATE npc SET size = "small" WHERE npcid = 70617;
 
 
 
@@ -14563,7 +14563,7 @@ UPDATE npc SET size = small WHERE npcid = 70617;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70618;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70618;
+UPDATE npc SET size = "small" WHERE npcid = 70618;
 
 
 
@@ -14575,7 +14575,7 @@ UPDATE npc SET size = small WHERE npcid = 70618;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70619;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70619;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70619;
 
 
 
@@ -14587,7 +14587,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70619;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70620;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70620;
+UPDATE npc SET size = "small" WHERE npcid = 70620;
 
 
 
@@ -14599,7 +14599,7 @@ UPDATE npc SET size = small WHERE npcid = 70620;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70621;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70621;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70621;
 
 
 
@@ -14611,7 +14611,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70621;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70622;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70622;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70622;
 
 
 
@@ -14623,7 +14623,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70622;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70623;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70623;
+UPDATE npc SET size = "small" WHERE npcid = 70623;
 
 
 
@@ -14635,7 +14635,7 @@ UPDATE npc SET size = small WHERE npcid = 70623;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70624;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70624;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70624;
 
 
 
@@ -14647,7 +14647,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70624;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70625;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70625;
+UPDATE npc SET size = "small" WHERE npcid = 70625;
 
 
 
@@ -14656,7 +14656,7 @@ UPDATE npc SET size = small WHERE npcid = 70625;
 -- Jack 70626
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70626;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70626;
 
 
 
@@ -14668,7 +14668,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70626;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70627;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70627;
+UPDATE npc SET size = "small" WHERE npcid = 70627;
 
 
 
@@ -14680,7 +14680,7 @@ UPDATE npc SET size = small WHERE npcid = 70627;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70628;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70628;
+UPDATE npc SET size = "small" WHERE npcid = 70628;
 
 
 
@@ -14692,7 +14692,7 @@ UPDATE npc SET size = small WHERE npcid = 70628;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70629;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70629;
+UPDATE npc SET size = "small" WHERE npcid = 70629;
 
 
 
@@ -14704,7 +14704,7 @@ UPDATE npc SET size = small WHERE npcid = 70629;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70630;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70630;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70630;
 
 
 
@@ -14716,7 +14716,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70630;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70631;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70631;
+UPDATE npc SET size = "small" WHERE npcid = 70631;
 
 
 
@@ -14728,7 +14728,7 @@ UPDATE npc SET size = small WHERE npcid = 70631;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70632;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70632;
+UPDATE npc SET size = "small" WHERE npcid = 70632;
 
 
 
@@ -14743,7 +14743,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70633;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70633;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70633;
+UPDATE npc SET size = "small" WHERE npcid = 70633;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70633;
@@ -14758,7 +14758,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70633;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70634;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70634;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70634;
 
 
 
@@ -14770,7 +14770,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70634;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70635;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70635;
+UPDATE npc SET size = "small" WHERE npcid = 70635;
 
 
 
@@ -14782,7 +14782,7 @@ UPDATE npc SET size = small WHERE npcid = 70635;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70636;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70636;
+UPDATE npc SET size = "small" WHERE npcid = 70636;
 
 
 
@@ -14794,7 +14794,7 @@ UPDATE npc SET size = small WHERE npcid = 70636;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70637;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70637;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70637;
 
 
 
@@ -14806,7 +14806,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70637;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70638;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70638;
+UPDATE npc SET size = "small" WHERE npcid = 70638;
 
 
 
@@ -14818,7 +14818,7 @@ UPDATE npc SET size = small WHERE npcid = 70638;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70639;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70639;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70639;
 
 
 
@@ -14830,7 +14830,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70639;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70640;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70640;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70640;
 
 
 
@@ -14842,7 +14842,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70640;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70641;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70641;
+UPDATE npc SET size = "small" WHERE npcid = 70641;
 
 
 
@@ -14857,7 +14857,7 @@ UPDATE npc SET atk_magic_speed = 5080 WHERE npcid = 70642;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70642;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70642;
+UPDATE npc SET size = "small" WHERE npcid = 70642;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70642;
@@ -14872,7 +14872,7 @@ UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70642;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70643;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70643;
+UPDATE npc SET size = "small" WHERE npcid = 70643;
 
 
 
@@ -14884,7 +14884,7 @@ UPDATE npc SET size = small WHERE npcid = 70643;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70644;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70644;
+UPDATE npc SET size = "small" WHERE npcid = 70644;
 
 
 
@@ -14905,7 +14905,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70646;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70647;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70647;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70647;
 
 
 
@@ -14917,7 +14917,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70647;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70648;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70648;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70648;
 
 
 
@@ -14929,7 +14929,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70648;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70649;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70649;
+UPDATE npc SET size = "small" WHERE npcid = 70649;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70649;
@@ -14941,7 +14941,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70649;
 -- Horse of Lary 70650
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70650;
+UPDATE npc SET size = "small" WHERE npcid = 70650;
 
 
 
@@ -14956,7 +14956,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70651;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70651;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70651;
+UPDATE npc SET size = "small" WHERE npcid = 70651;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70651;
@@ -14971,7 +14971,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70651;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70652;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70652;
+UPDATE npc SET size = "small" WHERE npcid = 70652;
 
 
 
@@ -14983,7 +14983,7 @@ UPDATE npc SET size = small WHERE npcid = 70652;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70653;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70653;
+UPDATE npc SET size = "small" WHERE npcid = 70653;
 
 
 
@@ -14995,7 +14995,7 @@ UPDATE npc SET size = small WHERE npcid = 70653;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70654;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70654;
+UPDATE npc SET size = "small" WHERE npcid = 70654;
 
 
 
@@ -15010,7 +15010,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70655;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70655;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70655;
+UPDATE npc SET size = "small" WHERE npcid = 70655;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70655;
@@ -15037,7 +15037,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70657;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70657;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70657;
+UPDATE npc SET size = "small" WHERE npcid = 70657;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70657;
@@ -15052,7 +15052,7 @@ UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70657;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70658;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70658;
+UPDATE npc SET size = "small" WHERE npcid = 70658;
 
 
 
@@ -15064,7 +15064,7 @@ UPDATE npc SET size = small WHERE npcid = 70658;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70659;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70659;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70659;
 
 
 
@@ -15079,13 +15079,13 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70660;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70660;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70660;
+UPDATE npc SET size = "small" WHERE npcid = 70660;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70660;
 
 -- impl changed from L1Npc
-UPDATE npc SET impl = L1Merchant WHERE npcid = 70660;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 70660;
 
 
 
@@ -15100,13 +15100,13 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70661;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70661;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70661;
+UPDATE npc SET size = "small" WHERE npcid = 70661;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70661;
 
 -- impl changed from L1Npc
-UPDATE npc SET impl = L1Merchant WHERE npcid = 70661;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 70661;
 
 
 
@@ -15118,7 +15118,7 @@ UPDATE npc SET impl = L1Merchant WHERE npcid = 70661;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70662;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70662;
+UPDATE npc SET size = "small" WHERE npcid = 70662;
 
 
 
@@ -15130,7 +15130,7 @@ UPDATE npc SET size = small WHERE npcid = 70662;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70663;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70663;
+UPDATE npc SET size = "small" WHERE npcid = 70663;
 
 
 
@@ -15142,7 +15142,7 @@ UPDATE npc SET size = small WHERE npcid = 70663;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70664;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70664;
+UPDATE npc SET size = "small" WHERE npcid = 70664;
 
 
 
@@ -15154,7 +15154,7 @@ UPDATE npc SET size = small WHERE npcid = 70664;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70665;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70665;
+UPDATE npc SET size = "small" WHERE npcid = 70665;
 
 
 
@@ -15169,7 +15169,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 70666;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70666;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70666;
+UPDATE npc SET size = "small" WHERE npcid = 70666;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70666;
@@ -15184,7 +15184,7 @@ UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70666;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70667;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70667;
+UPDATE npc SET size = "small" WHERE npcid = 70667;
 
 
 
@@ -15196,7 +15196,7 @@ UPDATE npc SET size = small WHERE npcid = 70667;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70669;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70669;
+UPDATE npc SET size = "small" WHERE npcid = 70669;
 
 
 
@@ -15208,7 +15208,7 @@ UPDATE npc SET size = small WHERE npcid = 70669;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70670;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70670;
+UPDATE npc SET size = "small" WHERE npcid = 70670;
 
 
 
@@ -15223,7 +15223,7 @@ UPDATE npc SET atk_magic_speed = 6160 WHERE npcid = 70671;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70671;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70671;
+UPDATE npc SET size = "small" WHERE npcid = 70671;
 
 
 
@@ -15235,7 +15235,7 @@ UPDATE npc SET size = small WHERE npcid = 70671;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70672;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70672;
+UPDATE npc SET size = "small" WHERE npcid = 70672;
 
 
 
@@ -15247,7 +15247,7 @@ UPDATE npc SET size = small WHERE npcid = 70672;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70673;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70673;
+UPDATE npc SET size = "small" WHERE npcid = 70673;
 
 
 
@@ -15259,7 +15259,7 @@ UPDATE npc SET size = small WHERE npcid = 70673;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70674;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70674;
+UPDATE npc SET size = "small" WHERE npcid = 70674;
 
 
 
@@ -15271,7 +15271,7 @@ UPDATE npc SET size = small WHERE npcid = 70674;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70675;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70675;
+UPDATE npc SET size = "small" WHERE npcid = 70675;
 
 
 
@@ -15283,7 +15283,7 @@ UPDATE npc SET size = small WHERE npcid = 70675;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70676;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70676;
+UPDATE npc SET size = "small" WHERE npcid = 70676;
 
 
 
@@ -15295,7 +15295,7 @@ UPDATE npc SET size = small WHERE npcid = 70676;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70677;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70677;
+UPDATE npc SET size = "small" WHERE npcid = 70677;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70677;
@@ -15310,7 +15310,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70677;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70678;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70678;
+UPDATE npc SET size = "small" WHERE npcid = 70678;
 
 
 
@@ -15322,7 +15322,7 @@ UPDATE npc SET size = small WHERE npcid = 70678;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70679;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70679;
+UPDATE npc SET size = "small" WHERE npcid = 70679;
 
 
 
@@ -15334,7 +15334,7 @@ UPDATE npc SET size = small WHERE npcid = 70679;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70680;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70680;
+UPDATE npc SET size = "small" WHERE npcid = 70680;
 
 
 
@@ -15346,7 +15346,7 @@ UPDATE npc SET size = small WHERE npcid = 70680;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70681;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70681;
+UPDATE npc SET size = "small" WHERE npcid = 70681;
 
 
 
@@ -15358,7 +15358,7 @@ UPDATE npc SET size = small WHERE npcid = 70681;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70682;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70682;
+UPDATE npc SET size = "small" WHERE npcid = 70682;
 
 
 
@@ -15370,7 +15370,7 @@ UPDATE npc SET size = small WHERE npcid = 70682;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70683;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70683;
+UPDATE npc SET size = "small" WHERE npcid = 70683;
 
 
 
@@ -15379,7 +15379,7 @@ UPDATE npc SET size = small WHERE npcid = 70683;
 -- Words of Montes 70684
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70684;
+UPDATE npc SET size = "small" WHERE npcid = 70684;
 
 
 
@@ -15388,7 +15388,7 @@ UPDATE npc SET size = small WHERE npcid = 70684;
 -- Words of Montes 70685
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70685;
+UPDATE npc SET size = "small" WHERE npcid = 70685;
 
 
 
@@ -15403,7 +15403,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70686;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 70686;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70686;
+UPDATE npc SET size = "small" WHERE npcid = 70686;
 
 
 
@@ -15424,7 +15424,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70687;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70688;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70688;
+UPDATE npc SET size = "small" WHERE npcid = 70688;
 
 
 
@@ -15436,7 +15436,7 @@ UPDATE npc SET size = small WHERE npcid = 70688;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70689;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70689;
+UPDATE npc SET size = "small" WHERE npcid = 70689;
 
 
 
@@ -15448,7 +15448,7 @@ UPDATE npc SET size = small WHERE npcid = 70689;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70690;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70690;
+UPDATE npc SET size = "small" WHERE npcid = 70690;
 
 
 
@@ -15460,7 +15460,7 @@ UPDATE npc SET size = small WHERE npcid = 70690;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70691;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70691;
+UPDATE npc SET size = "small" WHERE npcid = 70691;
 
 
 
@@ -15475,7 +15475,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70692;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 70692;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70692;
+UPDATE npc SET size = "small" WHERE npcid = 70692;
 
 
 
@@ -15487,7 +15487,7 @@ UPDATE npc SET size = small WHERE npcid = 70692;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70693;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70693;
+UPDATE npc SET size = "small" WHERE npcid = 70693;
 
 
 
@@ -15499,7 +15499,7 @@ UPDATE npc SET size = small WHERE npcid = 70693;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70694;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70694;
+UPDATE npc SET size = "small" WHERE npcid = 70694;
 
 
 
@@ -15514,7 +15514,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70695;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70695;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70695;
+UPDATE npc SET size = "small" WHERE npcid = 70695;
 
 
 
@@ -15526,7 +15526,7 @@ UPDATE npc SET size = small WHERE npcid = 70695;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70696;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70696;
+UPDATE npc SET size = "small" WHERE npcid = 70696;
 
 
 
@@ -15538,7 +15538,7 @@ UPDATE npc SET size = small WHERE npcid = 70696;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70697;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70697;
+UPDATE npc SET size = "small" WHERE npcid = 70697;
 
 
 
@@ -15550,7 +15550,7 @@ UPDATE npc SET size = small WHERE npcid = 70697;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70698;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70698;
+UPDATE npc SET size = "small" WHERE npcid = 70698;
 
 
 
@@ -15562,7 +15562,7 @@ UPDATE npc SET size = small WHERE npcid = 70698;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70699;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70699;
+UPDATE npc SET size = "small" WHERE npcid = 70699;
 
 
 
@@ -15574,7 +15574,7 @@ UPDATE npc SET size = small WHERE npcid = 70699;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70700;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70700;
+UPDATE npc SET size = "small" WHERE npcid = 70700;
 
 
 
@@ -15586,7 +15586,7 @@ UPDATE npc SET size = small WHERE npcid = 70700;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70701;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70701;
+UPDATE npc SET size = "small" WHERE npcid = 70701;
 
 
 
@@ -15598,7 +15598,7 @@ UPDATE npc SET size = small WHERE npcid = 70701;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70702;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70702;
+UPDATE npc SET size = "small" WHERE npcid = 70702;
 
 
 
@@ -15610,7 +15610,7 @@ UPDATE npc SET size = small WHERE npcid = 70702;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70705;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70705;
+UPDATE npc SET size = "small" WHERE npcid = 70705;
 
 
 
@@ -15622,7 +15622,7 @@ UPDATE npc SET size = small WHERE npcid = 70705;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70706;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70706;
+UPDATE npc SET size = "small" WHERE npcid = 70706;
 
 
 
@@ -15637,7 +15637,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70707;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70707;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70707;
+UPDATE npc SET size = "small" WHERE npcid = 70707;
 
 
 
@@ -15649,7 +15649,7 @@ UPDATE npc SET size = small WHERE npcid = 70707;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70708;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70708;
+UPDATE npc SET size = "small" WHERE npcid = 70708;
 
 
 
@@ -15661,7 +15661,7 @@ UPDATE npc SET size = small WHERE npcid = 70708;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70709;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70709;
+UPDATE npc SET size = "small" WHERE npcid = 70709;
 
 
 
@@ -15673,7 +15673,7 @@ UPDATE npc SET size = small WHERE npcid = 70709;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70710;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70710;
+UPDATE npc SET size = "small" WHERE npcid = 70710;
 
 
 
@@ -15688,7 +15688,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 70711;
 UPDATE npc SET atkspeed = 2000 WHERE npcid = 70711;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70711;
+UPDATE npc SET size = "small" WHERE npcid = 70711;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1880 WHERE npcid = 70711;
@@ -15703,13 +15703,13 @@ UPDATE npc SET alt_atk_speed = 1880 WHERE npcid = 70711;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70712;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70712;
+UPDATE npc SET size = "small" WHERE npcid = 70712;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 70712;
 
 -- impl changed from L1Npc
-UPDATE npc SET impl = L1Merchant WHERE npcid = 70712;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 70712;
 
 
 
@@ -15721,7 +15721,7 @@ UPDATE npc SET impl = L1Merchant WHERE npcid = 70712;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70713;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70713;
+UPDATE npc SET size = "small" WHERE npcid = 70713;
 
 
 
@@ -15733,7 +15733,7 @@ UPDATE npc SET size = small WHERE npcid = 70713;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70714;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70714;
+UPDATE npc SET size = "small" WHERE npcid = 70714;
 
 
 
@@ -15748,7 +15748,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70715;
 UPDATE npc SET atkspeed = 1760 WHERE npcid = 70715;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70715;
+UPDATE npc SET size = "small" WHERE npcid = 70715;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70715;
@@ -15763,7 +15763,7 @@ UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70715;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70716;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70716;
+UPDATE npc SET size = "small" WHERE npcid = 70716;
 
 
 
@@ -15775,7 +15775,7 @@ UPDATE npc SET size = small WHERE npcid = 70716;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70717;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70717;
+UPDATE npc SET size = "small" WHERE npcid = 70717;
 
 
 
@@ -15787,7 +15787,7 @@ UPDATE npc SET size = small WHERE npcid = 70717;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70718;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70718;
+UPDATE npc SET size = "small" WHERE npcid = 70718;
 
 
 
@@ -15799,7 +15799,7 @@ UPDATE npc SET size = small WHERE npcid = 70718;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70719;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70719;
+UPDATE npc SET size = "small" WHERE npcid = 70719;
 
 
 
@@ -15811,7 +15811,7 @@ UPDATE npc SET size = small WHERE npcid = 70719;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70720;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70720;
+UPDATE npc SET size = "small" WHERE npcid = 70720;
 
 
 
@@ -15823,7 +15823,7 @@ UPDATE npc SET size = small WHERE npcid = 70720;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70721;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70721;
+UPDATE npc SET size = "small" WHERE npcid = 70721;
 
 
 
@@ -15835,7 +15835,7 @@ UPDATE npc SET size = small WHERE npcid = 70721;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70722;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70722;
+UPDATE npc SET size = "small" WHERE npcid = 70722;
 
 
 
@@ -15847,7 +15847,7 @@ UPDATE npc SET size = small WHERE npcid = 70722;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70723;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70723;
+UPDATE npc SET size = "small" WHERE npcid = 70723;
 
 
 
@@ -15859,7 +15859,7 @@ UPDATE npc SET size = small WHERE npcid = 70723;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70724;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70724;
+UPDATE npc SET size = "small" WHERE npcid = 70724;
 
 
 
@@ -15871,7 +15871,7 @@ UPDATE npc SET size = small WHERE npcid = 70724;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70725;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70725;
+UPDATE npc SET size = "small" WHERE npcid = 70725;
 
 
 
@@ -15883,7 +15883,7 @@ UPDATE npc SET size = small WHERE npcid = 70725;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70726;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70726;
+UPDATE npc SET size = "small" WHERE npcid = 70726;
 
 
 
@@ -15895,7 +15895,7 @@ UPDATE npc SET size = small WHERE npcid = 70726;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70727;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70727;
+UPDATE npc SET size = "small" WHERE npcid = 70727;
 
 
 
@@ -15907,7 +15907,7 @@ UPDATE npc SET size = small WHERE npcid = 70727;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70728;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70728;
+UPDATE npc SET size = "small" WHERE npcid = 70728;
 
 
 
@@ -15919,7 +15919,7 @@ UPDATE npc SET size = small WHERE npcid = 70728;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70729;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70729;
+UPDATE npc SET size = "small" WHERE npcid = 70729;
 
 
 
@@ -15931,7 +15931,7 @@ UPDATE npc SET size = small WHERE npcid = 70729;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70730;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70730;
+UPDATE npc SET size = "small" WHERE npcid = 70730;
 
 
 
@@ -15943,7 +15943,7 @@ UPDATE npc SET size = small WHERE npcid = 70730;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70731;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70731;
+UPDATE npc SET size = "small" WHERE npcid = 70731;
 
 
 
@@ -15955,7 +15955,7 @@ UPDATE npc SET size = small WHERE npcid = 70731;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70732;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70732;
+UPDATE npc SET size = "small" WHERE npcid = 70732;
 
 
 
@@ -15967,7 +15967,7 @@ UPDATE npc SET size = small WHERE npcid = 70732;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70733;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70733;
+UPDATE npc SET size = "small" WHERE npcid = 70733;
 
 
 
@@ -15979,7 +15979,7 @@ UPDATE npc SET size = small WHERE npcid = 70733;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70735;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70735;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70735;
 
 
 
@@ -15991,7 +15991,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70735;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70736;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70736;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70736;
 
 
 
@@ -16003,7 +16003,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70736;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70737;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70737;
+UPDATE npc SET size = "small" WHERE npcid = 70737;
 
 
 
@@ -16012,7 +16012,7 @@ UPDATE npc SET size = small WHERE npcid = 70737;
 -- Defuri 70738
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70738;
+UPDATE npc SET size = "small" WHERE npcid = 70738;
 
 
 
@@ -16024,7 +16024,7 @@ UPDATE npc SET size = small WHERE npcid = 70738;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70739;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70739;
+UPDATE npc SET size = "small" WHERE npcid = 70739;
 
 
 
@@ -16039,7 +16039,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70740;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70740;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70740;
+UPDATE npc SET size = "small" WHERE npcid = 70740;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70740;
@@ -16054,7 +16054,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70740;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70741;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70741;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70741;
 
 
 
@@ -16069,7 +16069,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70742;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70742;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70742;
+UPDATE npc SET size = "small" WHERE npcid = 70742;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70742;
@@ -16084,7 +16084,7 @@ UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70742;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70743;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70743;
+UPDATE npc SET size = "small" WHERE npcid = 70743;
 
 
 
@@ -16096,7 +16096,7 @@ UPDATE npc SET size = small WHERE npcid = 70743;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70744;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70744;
+UPDATE npc SET size = "small" WHERE npcid = 70744;
 
 
 
@@ -16108,7 +16108,7 @@ UPDATE npc SET size = small WHERE npcid = 70744;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70745;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70745;
+UPDATE npc SET size = "small" WHERE npcid = 70745;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70745;
@@ -16120,7 +16120,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70745;
 -- Rotus 70746
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70746;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70746;
 
 
 
@@ -16132,7 +16132,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70746;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70747;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70747;
+UPDATE npc SET size = "small" WHERE npcid = 70747;
 
 
 
@@ -16144,7 +16144,7 @@ UPDATE npc SET size = small WHERE npcid = 70747;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70748;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70748;
+UPDATE npc SET size = "small" WHERE npcid = 70748;
 
 
 
@@ -16156,7 +16156,7 @@ UPDATE npc SET size = small WHERE npcid = 70748;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70749;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70749;
+UPDATE npc SET size = "small" WHERE npcid = 70749;
 
 
 
@@ -16168,7 +16168,7 @@ UPDATE npc SET size = small WHERE npcid = 70749;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70750;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70750;
+UPDATE npc SET size = "small" WHERE npcid = 70750;
 
 
 
@@ -16180,7 +16180,7 @@ UPDATE npc SET size = small WHERE npcid = 70750;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70751;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70751;
+UPDATE npc SET size = "small" WHERE npcid = 70751;
 
 
 
@@ -16192,7 +16192,7 @@ UPDATE npc SET size = small WHERE npcid = 70751;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70752;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70752;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70752;
 
 
 
@@ -16204,7 +16204,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70752;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70753;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70753;
+UPDATE npc SET size = "small" WHERE npcid = 70753;
 
 
 
@@ -16219,7 +16219,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 70754;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70754;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70754;
+UPDATE npc SET size = "small" WHERE npcid = 70754;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70754;
@@ -16234,7 +16234,7 @@ UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 70754;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70755;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70755;
+UPDATE npc SET size = "small" WHERE npcid = 70755;
 
 
 
@@ -16246,7 +16246,7 @@ UPDATE npc SET size = small WHERE npcid = 70755;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70756;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70756;
+UPDATE npc SET size = "small" WHERE npcid = 70756;
 
 
 
@@ -16258,7 +16258,7 @@ UPDATE npc SET size = small WHERE npcid = 70756;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70757;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70757;
+UPDATE npc SET size = "small" WHERE npcid = 70757;
 
 
 
@@ -16270,7 +16270,7 @@ UPDATE npc SET size = small WHERE npcid = 70757;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70758;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70758;
+UPDATE npc SET size = "small" WHERE npcid = 70758;
 
 
 
@@ -16282,7 +16282,7 @@ UPDATE npc SET size = small WHERE npcid = 70758;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70759;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70759;
+UPDATE npc SET size = "small" WHERE npcid = 70759;
 
 
 
@@ -16294,7 +16294,7 @@ UPDATE npc SET size = small WHERE npcid = 70759;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70760;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70760;
+UPDATE npc SET size = "small" WHERE npcid = 70760;
 
 
 
@@ -16306,7 +16306,7 @@ UPDATE npc SET size = small WHERE npcid = 70760;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70761;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70761;
+UPDATE npc SET size = "small" WHERE npcid = 70761;
 
 
 
@@ -16318,7 +16318,7 @@ UPDATE npc SET size = small WHERE npcid = 70761;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70762;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70762;
+UPDATE npc SET size = "small" WHERE npcid = 70762;
 
 
 
@@ -16330,7 +16330,7 @@ UPDATE npc SET size = small WHERE npcid = 70762;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70763;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70763;
+UPDATE npc SET size = "small" WHERE npcid = 70763;
 
 
 
@@ -16342,7 +16342,7 @@ UPDATE npc SET size = small WHERE npcid = 70763;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70764;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70764;
+UPDATE npc SET size = "small" WHERE npcid = 70764;
 
 
 
@@ -16354,7 +16354,7 @@ UPDATE npc SET size = small WHERE npcid = 70764;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70765;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70765;
+UPDATE npc SET size = "small" WHERE npcid = 70765;
 
 
 
@@ -16369,7 +16369,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70766;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 70766;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70766;
+UPDATE npc SET size = "small" WHERE npcid = 70766;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70766;
@@ -16384,7 +16384,7 @@ UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70766;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70767;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70767;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70767;
 
 
 
@@ -16405,7 +16405,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70769;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70770;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70770;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70770;
 
 
 
@@ -16417,7 +16417,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70770;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70771;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70771;
+UPDATE npc SET size = "small" WHERE npcid = 70771;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70771;
@@ -16438,7 +16438,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 70772;
 UPDATE npc SET atkspeed = 1280 WHERE npcid = 70772;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70772;
+UPDATE npc SET size = "small" WHERE npcid = 70772;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1920 WHERE npcid = 70772;
@@ -16453,7 +16453,7 @@ UPDATE npc SET alt_atk_speed = 1920 WHERE npcid = 70772;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70773;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70773;
+UPDATE npc SET size = "small" WHERE npcid = 70773;
 
 
 
@@ -16465,7 +16465,7 @@ UPDATE npc SET size = small WHERE npcid = 70773;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70774;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70774;
+UPDATE npc SET size = "small" WHERE npcid = 70774;
 
 
 
@@ -16477,7 +16477,7 @@ UPDATE npc SET size = small WHERE npcid = 70774;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70775;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70775;
+UPDATE npc SET size = "small" WHERE npcid = 70775;
 
 
 
@@ -16492,7 +16492,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70776;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70776;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70776;
+UPDATE npc SET size = "small" WHERE npcid = 70776;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70776;
@@ -16510,7 +16510,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70777;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70777;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70777;
+UPDATE npc SET size = "small" WHERE npcid = 70777;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70777;
@@ -16537,7 +16537,7 @@ UPDATE npc SET passispeed = 600 WHERE npcid = 70779;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 70779;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70779;
+UPDATE npc SET size = "small" WHERE npcid = 70779;
 
 
 
@@ -16552,7 +16552,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70780;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70780;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70780;
+UPDATE npc SET size = "small" WHERE npcid = 70780;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70780;
@@ -16567,7 +16567,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70780;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70781;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70781;
+UPDATE npc SET size = "small" WHERE npcid = 70781;
 
 
 
@@ -16582,7 +16582,7 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 70782;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 70782;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70782;
+UPDATE npc SET size = "small" WHERE npcid = 70782;
 
 
 
@@ -16594,7 +16594,7 @@ UPDATE npc SET size = small WHERE npcid = 70782;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70783;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70783;
+UPDATE npc SET size = "small" WHERE npcid = 70783;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70783;
@@ -16609,7 +16609,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70783;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70784;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70784;
+UPDATE npc SET size = "small" WHERE npcid = 70784;
 
 
 
@@ -16624,7 +16624,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70785;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70785;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70785;
+UPDATE npc SET size = "small" WHERE npcid = 70785;
 
 
 
@@ -16639,7 +16639,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70786;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70786;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70786;
+UPDATE npc SET size = "small" WHERE npcid = 70786;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70786;
@@ -16657,7 +16657,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70787;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70787;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70787;
+UPDATE npc SET size = "small" WHERE npcid = 70787;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70787;
@@ -16672,7 +16672,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70787;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70788;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70788;
+UPDATE npc SET size = "small" WHERE npcid = 70788;
 
 
 
@@ -16687,7 +16687,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70789;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70789;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70789;
+UPDATE npc SET size = "small" WHERE npcid = 70789;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70789;
@@ -16702,7 +16702,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70789;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70790;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70790;
+UPDATE npc SET size = "small" WHERE npcid = 70790;
 
 
 
@@ -16717,7 +16717,7 @@ UPDATE npc SET atk_magic_speed = 760 WHERE npcid = 70791;
 UPDATE npc SET passispeed = 480 WHERE npcid = 70791;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70791;
+UPDATE npc SET size = "small" WHERE npcid = 70791;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 760 WHERE npcid = 70791;
@@ -16744,7 +16744,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70793;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70794;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70794;
+UPDATE npc SET size = "small" WHERE npcid = 70794;
 
 
 
@@ -16759,7 +16759,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70795;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70795;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70795;
+UPDATE npc SET size = "small" WHERE npcid = 70795;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70795;
@@ -16774,7 +16774,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70795;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70796;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70796;
+UPDATE npc SET size = "small" WHERE npcid = 70796;
 
 
 
@@ -16789,7 +16789,7 @@ UPDATE npc SET atk_magic_speed = 760 WHERE npcid = 70798;
 UPDATE npc SET passispeed = 480 WHERE npcid = 70798;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70798;
+UPDATE npc SET size = "small" WHERE npcid = 70798;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 760 WHERE npcid = 70798;
@@ -16807,7 +16807,7 @@ UPDATE npc SET sub_magic_speed = 760 WHERE npcid = 70798;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70799;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70799;
+UPDATE npc SET size = "small" WHERE npcid = 70799;
 
 
 
@@ -16828,7 +16828,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 70800;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70801;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70801;
+UPDATE npc SET size = "small" WHERE npcid = 70801;
 
 
 
@@ -16840,7 +16840,7 @@ UPDATE npc SET size = small WHERE npcid = 70801;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70802;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70802;
+UPDATE npc SET size = "small" WHERE npcid = 70802;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70802;
@@ -16855,7 +16855,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 70802;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70803;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70803;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70803;
 
 
 
@@ -16867,7 +16867,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70803;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70804;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70804;
+UPDATE npc SET size = "small" WHERE npcid = 70804;
 
 
 
@@ -16879,7 +16879,7 @@ UPDATE npc SET size = small WHERE npcid = 70804;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70805;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70805;
+UPDATE npc SET size = "small" WHERE npcid = 70805;
 
 
 
@@ -16891,7 +16891,7 @@ UPDATE npc SET size = small WHERE npcid = 70805;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70806;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70806;
+UPDATE npc SET size = "small" WHERE npcid = 70806;
 
 
 
@@ -16903,7 +16903,7 @@ UPDATE npc SET size = small WHERE npcid = 70806;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70807;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70807;
+UPDATE npc SET size = "small" WHERE npcid = 70807;
 
 
 
@@ -16933,7 +16933,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70810;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 70810;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70810;
+UPDATE npc SET size = "small" WHERE npcid = 70810;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70810;
@@ -16948,7 +16948,7 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70810;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70811;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70811;
+UPDATE npc SET size = "small" WHERE npcid = 70811;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70811;
@@ -16963,7 +16963,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70811;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70812;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70812;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70812;
 
 
 
@@ -16981,7 +16981,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70813;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70813;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70813;
+UPDATE npc SET size = "small" WHERE npcid = 70813;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 70813;
@@ -16996,7 +16996,7 @@ UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 70813;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70814;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70814;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70814;
 
 
 
@@ -17008,7 +17008,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70814;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70815;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70815;
+UPDATE npc SET size = "small" WHERE npcid = 70815;
 
 
 
@@ -17020,7 +17020,7 @@ UPDATE npc SET size = small WHERE npcid = 70815;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70816;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70816;
+UPDATE npc SET size = "small" WHERE npcid = 70816;
 
 
 
@@ -17047,7 +17047,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70818;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 70818;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70818;
+UPDATE npc SET size = "small" WHERE npcid = 70818;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70818;
@@ -17062,7 +17062,7 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70818;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70819;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70819;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70819;
 
 
 
@@ -17074,7 +17074,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70819;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70820;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70820;
+UPDATE npc SET size = "small" WHERE npcid = 70820;
 
 
 
@@ -17086,7 +17086,7 @@ UPDATE npc SET size = small WHERE npcid = 70820;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70821;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70821;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70821;
 
 
 
@@ -17104,7 +17104,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70822;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 70822;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70822;
+UPDATE npc SET size = "small" WHERE npcid = 70822;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70822;
@@ -17119,7 +17119,7 @@ UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 70822;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70823;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70823;
+UPDATE npc SET size = "small" WHERE npcid = 70823;
 
 
 
@@ -17131,7 +17131,7 @@ UPDATE npc SET size = small WHERE npcid = 70823;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70824;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70824;
+UPDATE npc SET size = "small" WHERE npcid = 70824;
 
 
 
@@ -17143,7 +17143,7 @@ UPDATE npc SET size = small WHERE npcid = 70824;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70825;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70825;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70825;
 
 
 
@@ -17155,7 +17155,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70825;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70826;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70826;
+UPDATE npc SET size = "small" WHERE npcid = 70826;
 
 
 
@@ -17167,7 +17167,7 @@ UPDATE npc SET size = small WHERE npcid = 70826;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70828;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70828;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70828;
 
 
 
@@ -17179,7 +17179,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70828;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70829;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70829;
+UPDATE npc SET size = "small" WHERE npcid = 70829;
 
 
 
@@ -17191,7 +17191,7 @@ UPDATE npc SET size = small WHERE npcid = 70829;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70830;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70830;
+UPDATE npc SET size = "small" WHERE npcid = 70830;
 
 
 
@@ -17209,7 +17209,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70831;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 70831;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70831;
+UPDATE npc SET size = "small" WHERE npcid = 70831;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 70831;
@@ -17230,7 +17230,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70832;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 70832;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70832;
+UPDATE npc SET size = "small" WHERE npcid = 70832;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70832;
@@ -17245,7 +17245,7 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 70832;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70833;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70833;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70833;
 
 
 
@@ -17257,7 +17257,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70833;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70834;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70834;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70834;
 
 
 
@@ -17269,7 +17269,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70834;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70835;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70835;
+UPDATE npc SET size = "small" WHERE npcid = 70835;
 
 
 
@@ -17281,7 +17281,7 @@ UPDATE npc SET size = small WHERE npcid = 70835;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70836;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70836;
+UPDATE npc SET size = "small" WHERE npcid = 70836;
 
 
 
@@ -17293,7 +17293,7 @@ UPDATE npc SET size = small WHERE npcid = 70836;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70837;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70837;
+UPDATE npc SET size = "small" WHERE npcid = 70837;
 
 
 
@@ -17311,7 +17311,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70838;
 UPDATE npc SET atkspeed = 1280 WHERE npcid = 70838;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70838;
+UPDATE npc SET size = "small" WHERE npcid = 70838;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1400 WHERE npcid = 70838;
@@ -17329,7 +17329,7 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70838;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70839;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70839;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70839;
 
 
 
@@ -17341,7 +17341,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70839;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70840;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70840;
+UPDATE npc SET size = "small" WHERE npcid = 70840;
 
 
 
@@ -17353,7 +17353,7 @@ UPDATE npc SET size = small WHERE npcid = 70840;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70841;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70841;
+UPDATE npc SET size = "small" WHERE npcid = 70841;
 
 
 
@@ -17365,7 +17365,7 @@ UPDATE npc SET size = small WHERE npcid = 70841;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70842;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70842;
+UPDATE npc SET size = "small" WHERE npcid = 70842;
 
 
 
@@ -17377,7 +17377,7 @@ UPDATE npc SET size = small WHERE npcid = 70842;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70843;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70843;
+UPDATE npc SET size = "small" WHERE npcid = 70843;
 
 
 
@@ -17386,7 +17386,7 @@ UPDATE npc SET size = small WHERE npcid = 70843;
 -- Mother of the Forest and Elves 70844
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70844;
+UPDATE npc SET size = "small" WHERE npcid = 70844;
 
 
 
@@ -17398,7 +17398,7 @@ UPDATE npc SET size = small WHERE npcid = 70844;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70845;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70845;
+UPDATE npc SET size = "small" WHERE npcid = 70845;
 
 
 
@@ -17431,7 +17431,7 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70846;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70847;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70847;
+UPDATE npc SET size = "small" WHERE npcid = 70847;
 
 
 
@@ -17461,7 +17461,7 @@ UPDATE npc SET sub_magic_speed = 1320 WHERE npcid = 70848;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70849;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70849;
+UPDATE npc SET size = "small" WHERE npcid = 70849;
 
 
 
@@ -17527,7 +17527,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 70853;
 UPDATE npc SET atkspeed = 1360 WHERE npcid = 70853;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70853;
+UPDATE npc SET size = "small" WHERE npcid = 70853;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1360 WHERE npcid = 70853;
@@ -17542,7 +17542,7 @@ UPDATE npc SET sub_magic_speed = 1360 WHERE npcid = 70853;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70854;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70854;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70854;
 
 
 
@@ -17554,7 +17554,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70854;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70856;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70856;
+UPDATE npc SET size = "small" WHERE npcid = 70856;
 
 
 
@@ -17581,7 +17581,7 @@ UPDATE npc SET lvl = 25 WHERE npcid = 70857;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70858;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70858;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70858;
 
 
 
@@ -17593,7 +17593,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70858;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70859;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70859;
+UPDATE npc SET size = "small" WHERE npcid = 70859;
 
 
 
@@ -17605,7 +17605,7 @@ UPDATE npc SET size = small WHERE npcid = 70859;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70860;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70860;
+UPDATE npc SET size = "small" WHERE npcid = 70860;
 
 
 
@@ -17623,7 +17623,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70861;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70861;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70861;
+UPDATE npc SET size = "small" WHERE npcid = 70861;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70861;
@@ -17686,7 +17686,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70864;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70864;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70864;
+UPDATE npc SET size = "small" WHERE npcid = 70864;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70864;
@@ -17707,7 +17707,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70865;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70865;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70865;
+UPDATE npc SET size = "small" WHERE npcid = 70865;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70865;
@@ -17722,7 +17722,7 @@ UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70865;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70866;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70866;
+UPDATE npc SET size = "small" WHERE npcid = 70866;
 
 
 
@@ -17734,7 +17734,7 @@ UPDATE npc SET size = small WHERE npcid = 70866;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70867;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70867;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70867;
 
 
 
@@ -17746,7 +17746,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70867;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70868;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70868;
+UPDATE npc SET size = "small" WHERE npcid = 70868;
 
 
 
@@ -17758,7 +17758,7 @@ UPDATE npc SET size = small WHERE npcid = 70868;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70869;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70869;
+UPDATE npc SET size = "small" WHERE npcid = 70869;
 
 
 
@@ -17770,10 +17770,10 @@ UPDATE npc SET size = small WHERE npcid = 70869;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70870;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70870;
+UPDATE npc SET size = "small" WHERE npcid = 70870;
 
 -- impl changed from L1Merchant
-UPDATE npc SET impl = L1Npc WHERE npcid = 70870;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70870;
 
 
 
@@ -17785,7 +17785,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70870;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70871;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70871;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70871;
 
 
 
@@ -17797,7 +17797,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70871;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 70872;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70872;
+UPDATE npc SET size = "small" WHERE npcid = 70872;
 
 
 
@@ -17809,7 +17809,7 @@ UPDATE npc SET size = small WHERE npcid = 70872;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70873;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70873;
+UPDATE npc SET size = "small" WHERE npcid = 70873;
 
 
 
@@ -17821,7 +17821,7 @@ UPDATE npc SET size = small WHERE npcid = 70873;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70874;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70874;
+UPDATE npc SET size = "small" WHERE npcid = 70874;
 
 
 
@@ -17833,7 +17833,7 @@ UPDATE npc SET size = small WHERE npcid = 70874;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70875;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70875;
+UPDATE npc SET size = "small" WHERE npcid = 70875;
 
 
 
@@ -17845,7 +17845,7 @@ UPDATE npc SET size = small WHERE npcid = 70875;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70876;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70876;
+UPDATE npc SET size = "small" WHERE npcid = 70876;
 
 
 
@@ -17857,7 +17857,7 @@ UPDATE npc SET size = small WHERE npcid = 70876;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70877;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70877;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70877;
 
 
 
@@ -17869,7 +17869,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70877;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70878;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70878;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70878;
 
 
 
@@ -17881,7 +17881,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70878;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70879;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70879;
+UPDATE npc SET size = "small" WHERE npcid = 70879;
 
 
 
@@ -17893,7 +17893,7 @@ UPDATE npc SET size = small WHERE npcid = 70879;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70880;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70880;
+UPDATE npc SET size = "small" WHERE npcid = 70880;
 
 
 
@@ -17911,13 +17911,13 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70881;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70881;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70881;
+UPDATE npc SET size = "small" WHERE npcid = 70881;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70881;
 
 -- impl changed from L1Npc
-UPDATE npc SET impl = L1Merchant WHERE npcid = 70881;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 70881;
 
 
 
@@ -17935,7 +17935,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70882;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70882;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70882;
+UPDATE npc SET size = "small" WHERE npcid = 70882;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70882;
@@ -17950,7 +17950,7 @@ UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 70882;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70883;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70883;
+UPDATE npc SET size = "small" WHERE npcid = 70883;
 
 
 
@@ -17962,7 +17962,7 @@ UPDATE npc SET size = small WHERE npcid = 70883;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70884;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70884;
+UPDATE npc SET size = "small" WHERE npcid = 70884;
 
 
 
@@ -17974,7 +17974,7 @@ UPDATE npc SET size = small WHERE npcid = 70884;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70885;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70885;
+UPDATE npc SET size = "small" WHERE npcid = 70885;
 
 
 
@@ -17983,7 +17983,7 @@ UPDATE npc SET size = small WHERE npcid = 70885;
 -- Kans Horse 70886
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70886;
+UPDATE npc SET size = "small" WHERE npcid = 70886;
 
 
 
@@ -17995,7 +17995,7 @@ UPDATE npc SET size = small WHERE npcid = 70886;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70887;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70887;
+UPDATE npc SET size = "small" WHERE npcid = 70887;
 
 
 
@@ -18007,7 +18007,7 @@ UPDATE npc SET size = small WHERE npcid = 70887;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70888;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70888;
+UPDATE npc SET size = "small" WHERE npcid = 70888;
 
 
 
@@ -18019,7 +18019,7 @@ UPDATE npc SET size = small WHERE npcid = 70888;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70889;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70889;
+UPDATE npc SET size = "small" WHERE npcid = 70889;
 
 
 
@@ -18028,7 +18028,7 @@ UPDATE npc SET size = small WHERE npcid = 70889;
 -- Rabor 70890
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70890;
+UPDATE npc SET size = "small" WHERE npcid = 70890;
 
 
 
@@ -18043,7 +18043,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70891;
 UPDATE npc SET atkspeed = 1200 WHERE npcid = 70891;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70891;
+UPDATE npc SET size = "small" WHERE npcid = 70891;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 720 WHERE npcid = 70891;
@@ -18058,7 +18058,7 @@ UPDATE npc SET alt_atk_speed = 720 WHERE npcid = 70891;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70892;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70892;
+UPDATE npc SET size = "small" WHERE npcid = 70892;
 
 
 
@@ -18067,7 +18067,7 @@ UPDATE npc SET size = small WHERE npcid = 70892;
 -- Ronde's Horse 70893
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70893;
+UPDATE npc SET size = "small" WHERE npcid = 70893;
 
 
 
@@ -18079,7 +18079,7 @@ UPDATE npc SET size = small WHERE npcid = 70893;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70894;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70894;
+UPDATE npc SET size = "small" WHERE npcid = 70894;
 
 
 
@@ -18091,7 +18091,7 @@ UPDATE npc SET size = small WHERE npcid = 70894;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70895;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70895;
+UPDATE npc SET size = "small" WHERE npcid = 70895;
 
 
 
@@ -18106,7 +18106,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70896;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 70896;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70896;
+UPDATE npc SET size = "small" WHERE npcid = 70896;
 
 
 
@@ -18118,7 +18118,7 @@ UPDATE npc SET size = small WHERE npcid = 70896;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70897;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70897;
+UPDATE npc SET size = "small" WHERE npcid = 70897;
 
 
 
@@ -18130,7 +18130,7 @@ UPDATE npc SET size = small WHERE npcid = 70897;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70898;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70898;
+UPDATE npc SET size = "small" WHERE npcid = 70898;
 
 
 
@@ -18139,7 +18139,7 @@ UPDATE npc SET size = small WHERE npcid = 70898;
 -- Unknown 70899 70899
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70899;
+UPDATE npc SET size = "small" WHERE npcid = 70899;
 
 
 
@@ -18151,7 +18151,7 @@ UPDATE npc SET size = small WHERE npcid = 70899;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70900;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70900;
+UPDATE npc SET size = "small" WHERE npcid = 70900;
 
 
 
@@ -18163,7 +18163,7 @@ UPDATE npc SET size = small WHERE npcid = 70900;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70901;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70901;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70901;
 
 
 
@@ -18175,7 +18175,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70901;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70902;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70902;
+UPDATE npc SET size = "small" WHERE npcid = 70902;
 
 
 
@@ -18190,7 +18190,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70903;
 UPDATE npc SET atkspeed = 1360 WHERE npcid = 70903;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70903;
+UPDATE npc SET size = "small" WHERE npcid = 70903;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 70903;
@@ -18205,7 +18205,7 @@ UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 70903;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70904;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70904;
+UPDATE npc SET size = "small" WHERE npcid = 70904;
 
 
 
@@ -18217,7 +18217,7 @@ UPDATE npc SET size = small WHERE npcid = 70904;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70905;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70905;
+UPDATE npc SET size = "small" WHERE npcid = 70905;
 
 
 
@@ -18232,7 +18232,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70906;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 70906;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70906;
+UPDATE npc SET size = "small" WHERE npcid = 70906;
 
 
 
@@ -18244,7 +18244,7 @@ UPDATE npc SET size = small WHERE npcid = 70906;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70907;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70907;
+UPDATE npc SET size = "small" WHERE npcid = 70907;
 
 
 
@@ -18256,7 +18256,7 @@ UPDATE npc SET size = small WHERE npcid = 70907;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70908;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70908;
+UPDATE npc SET size = "small" WHERE npcid = 70908;
 
 
 
@@ -18268,7 +18268,7 @@ UPDATE npc SET size = small WHERE npcid = 70908;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70909;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70909;
+UPDATE npc SET size = "small" WHERE npcid = 70909;
 
 
 
@@ -18283,7 +18283,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70910;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 70910;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70910;
+UPDATE npc SET size = "small" WHERE npcid = 70910;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 70910;
@@ -18298,7 +18298,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 70910;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70911;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70911;
+UPDATE npc SET size = "small" WHERE npcid = 70911;
 
 
 
@@ -18310,7 +18310,7 @@ UPDATE npc SET size = small WHERE npcid = 70911;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70912;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70912;
+UPDATE npc SET size = "small" WHERE npcid = 70912;
 
 
 
@@ -18322,7 +18322,7 @@ UPDATE npc SET size = small WHERE npcid = 70912;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70913;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70913;
+UPDATE npc SET size = "small" WHERE npcid = 70913;
 
 
 
@@ -18334,7 +18334,7 @@ UPDATE npc SET size = small WHERE npcid = 70913;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70914;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70914;
+UPDATE npc SET size = "small" WHERE npcid = 70914;
 
 
 
@@ -18346,7 +18346,7 @@ UPDATE npc SET size = small WHERE npcid = 70914;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70915;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70915;
+UPDATE npc SET size = "small" WHERE npcid = 70915;
 
 
 
@@ -18358,7 +18358,7 @@ UPDATE npc SET size = small WHERE npcid = 70915;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70916;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70916;
+UPDATE npc SET size = "small" WHERE npcid = 70916;
 
 
 
@@ -18370,7 +18370,7 @@ UPDATE npc SET size = small WHERE npcid = 70916;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70917;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70917;
+UPDATE npc SET size = "small" WHERE npcid = 70917;
 
 
 
@@ -18388,7 +18388,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70918;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 70918;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70918;
+UPDATE npc SET size = "small" WHERE npcid = 70918;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1480 WHERE npcid = 70918;
@@ -18403,7 +18403,7 @@ UPDATE npc SET sub_magic_speed = 1480 WHERE npcid = 70918;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70919;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70919;
+UPDATE npc SET size = "small" WHERE npcid = 70919;
 
 
 
@@ -18418,7 +18418,7 @@ UPDATE npc SET passispeed = 1600 WHERE npcid = 70920;
 UPDATE npc SET atkspeed = 1800 WHERE npcid = 70920;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70920;
+UPDATE npc SET size = "small" WHERE npcid = 70920;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 70920;
@@ -18433,7 +18433,7 @@ UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 70920;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70921;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70921;
+UPDATE npc SET size = "small" WHERE npcid = 70921;
 
 
 
@@ -18448,7 +18448,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 70922;
 UPDATE npc SET atkspeed = 1520 WHERE npcid = 70922;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70922;
+UPDATE npc SET size = "small" WHERE npcid = 70922;
 
 -- gfxid changed from 3787
 UPDATE npc SET gfxid = 3800 WHERE npcid = 70922;
@@ -18466,7 +18466,7 @@ UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 70922;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70923;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70923;
+UPDATE npc SET size = "small" WHERE npcid = 70923;
 
 
 
@@ -18481,7 +18481,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 70924;
 UPDATE npc SET atkspeed = 1520 WHERE npcid = 70924;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70924;
+UPDATE npc SET size = "small" WHERE npcid = 70924;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 70924;
@@ -18496,7 +18496,7 @@ UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 70924;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70925;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70925;
+UPDATE npc SET size = "small" WHERE npcid = 70925;
 
 
 
@@ -18508,7 +18508,7 @@ UPDATE npc SET size = small WHERE npcid = 70925;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70926;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70926;
+UPDATE npc SET size = "small" WHERE npcid = 70926;
 
 
 
@@ -18520,7 +18520,7 @@ UPDATE npc SET size = small WHERE npcid = 70926;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70927;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70927;
+UPDATE npc SET size = "small" WHERE npcid = 70927;
 
 
 
@@ -18532,7 +18532,7 @@ UPDATE npc SET size = small WHERE npcid = 70927;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70928;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70928;
+UPDATE npc SET size = "small" WHERE npcid = 70928;
 
 
 
@@ -18544,7 +18544,7 @@ UPDATE npc SET size = small WHERE npcid = 70928;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70929;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70929;
+UPDATE npc SET size = "small" WHERE npcid = 70929;
 
 
 
@@ -18556,7 +18556,7 @@ UPDATE npc SET size = small WHERE npcid = 70929;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70930;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70930;
+UPDATE npc SET size = "small" WHERE npcid = 70930;
 
 
 
@@ -18565,7 +18565,7 @@ UPDATE npc SET size = small WHERE npcid = 70930;
 -- Unknown 70931 70931
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70931;
+UPDATE npc SET size = "small" WHERE npcid = 70931;
 
 
 
@@ -18577,7 +18577,7 @@ UPDATE npc SET size = small WHERE npcid = 70931;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70932;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70932;
+UPDATE npc SET size = "small" WHERE npcid = 70932;
 
 
 
@@ -18592,7 +18592,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 70933;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 70933;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70933;
+UPDATE npc SET size = "small" WHERE npcid = 70933;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1320 WHERE npcid = 70933;
@@ -18607,7 +18607,7 @@ UPDATE npc SET alt_atk_speed = 1320 WHERE npcid = 70933;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70934;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70934;
+UPDATE npc SET size = "small" WHERE npcid = 70934;
 
 
 
@@ -18619,7 +18619,7 @@ UPDATE npc SET size = small WHERE npcid = 70934;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70935;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70935;
+UPDATE npc SET size = "small" WHERE npcid = 70935;
 
 
 
@@ -18631,7 +18631,7 @@ UPDATE npc SET size = small WHERE npcid = 70935;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70936;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70936;
+UPDATE npc SET size = "small" WHERE npcid = 70936;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70936;
@@ -18646,7 +18646,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70936;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70937;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70937;
+UPDATE npc SET size = "small" WHERE npcid = 70937;
 
 
 
@@ -18655,7 +18655,7 @@ UPDATE npc SET size = small WHERE npcid = 70937;
 -- Lukein 70938
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70938;
+UPDATE npc SET size = "small" WHERE npcid = 70938;
 
 
 
@@ -18667,7 +18667,7 @@ UPDATE npc SET size = small WHERE npcid = 70938;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70939;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70939;
+UPDATE npc SET size = "small" WHERE npcid = 70939;
 
 
 
@@ -18679,7 +18679,7 @@ UPDATE npc SET size = small WHERE npcid = 70939;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70940;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70940;
+UPDATE npc SET size = "small" WHERE npcid = 70940;
 
 
 
@@ -18694,7 +18694,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70941;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 70941;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70941;
+UPDATE npc SET size = "small" WHERE npcid = 70941;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70941;
@@ -18709,7 +18709,7 @@ UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70941;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70942;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70942;
+UPDATE npc SET size = "small" WHERE npcid = 70942;
 
 
 
@@ -18721,7 +18721,7 @@ UPDATE npc SET size = small WHERE npcid = 70942;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70943;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70943;
+UPDATE npc SET size = "small" WHERE npcid = 70943;
 
 
 
@@ -18733,7 +18733,7 @@ UPDATE npc SET size = small WHERE npcid = 70943;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70944;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70944;
+UPDATE npc SET size = "small" WHERE npcid = 70944;
 
 
 
@@ -18745,7 +18745,7 @@ UPDATE npc SET size = small WHERE npcid = 70944;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70945;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70945;
+UPDATE npc SET size = "small" WHERE npcid = 70945;
 
 
 
@@ -18757,7 +18757,7 @@ UPDATE npc SET size = small WHERE npcid = 70945;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70946;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70946;
+UPDATE npc SET size = "small" WHERE npcid = 70946;
 
 
 
@@ -18772,7 +18772,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70947;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 70947;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70947;
+UPDATE npc SET size = "small" WHERE npcid = 70947;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 70947;
@@ -18790,7 +18790,7 @@ UPDATE npc SET atk_magic_speed = 6400 WHERE npcid = 70948;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70948;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70948;
+UPDATE npc SET size = "small" WHERE npcid = 70948;
 
 
 
@@ -18802,7 +18802,7 @@ UPDATE npc SET size = small WHERE npcid = 70948;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70949;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70949;
+UPDATE npc SET size = "small" WHERE npcid = 70949;
 
 
 
@@ -18814,7 +18814,7 @@ UPDATE npc SET size = small WHERE npcid = 70949;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70950;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70950;
+UPDATE npc SET size = "small" WHERE npcid = 70950;
 
 
 
@@ -18826,7 +18826,7 @@ UPDATE npc SET size = small WHERE npcid = 70950;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70951;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70951;
+UPDATE npc SET size = "small" WHERE npcid = 70951;
 
 
 
@@ -18838,7 +18838,7 @@ UPDATE npc SET size = small WHERE npcid = 70951;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70952;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70952;
+UPDATE npc SET size = "small" WHERE npcid = 70952;
 
 
 
@@ -18850,7 +18850,7 @@ UPDATE npc SET size = small WHERE npcid = 70952;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70954;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70954;
+UPDATE npc SET size = "small" WHERE npcid = 70954;
 
 
 
@@ -18862,7 +18862,7 @@ UPDATE npc SET size = small WHERE npcid = 70954;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70955;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70955;
+UPDATE npc SET size = "small" WHERE npcid = 70955;
 
 
 
@@ -18880,7 +18880,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 70956;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 70956;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70956;
+UPDATE npc SET size = "small" WHERE npcid = 70956;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 70956;
@@ -18916,7 +18916,7 @@ UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 70957;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70958;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70958;
+UPDATE npc SET size = "small" WHERE npcid = 70958;
 
 
 
@@ -18928,7 +18928,7 @@ UPDATE npc SET size = small WHERE npcid = 70958;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70959;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70959;
+UPDATE npc SET size = "small" WHERE npcid = 70959;
 
 
 
@@ -18937,7 +18937,7 @@ UPDATE npc SET size = small WHERE npcid = 70959;
 -- Unknown 70960 70960
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70960;
+UPDATE npc SET size = "small" WHERE npcid = 70960;
 
 
 
@@ -18955,7 +18955,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 70961;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 70961;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70961;
+UPDATE npc SET size = "small" WHERE npcid = 70961;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 70961;
@@ -18979,7 +18979,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 70962;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 70962;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70962;
+UPDATE npc SET size = "small" WHERE npcid = 70962;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 70962;
@@ -19003,7 +19003,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 70963;
 UPDATE npc SET atkspeed = 680 WHERE npcid = 70963;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70963;
+UPDATE npc SET size = "small" WHERE npcid = 70963;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1400 WHERE npcid = 70963;
@@ -19027,7 +19027,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70964;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 70964;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70964;
+UPDATE npc SET size = "small" WHERE npcid = 70964;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 70964;
@@ -19036,7 +19036,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 70964;
 UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 70964;
 
 -- impl changed from L1Npc
-UPDATE npc SET impl = L1Merchant WHERE npcid = 70964;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 70964;
 
 
 
@@ -19054,7 +19054,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70965;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 70965;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70965;
+UPDATE npc SET size = "small" WHERE npcid = 70965;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70965;
@@ -19075,7 +19075,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70966;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 70966;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70966;
+UPDATE npc SET size = "small" WHERE npcid = 70966;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 70966;
@@ -19096,7 +19096,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70967;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 70967;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70967;
+UPDATE npc SET size = "small" WHERE npcid = 70967;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1480 WHERE npcid = 70967;
@@ -19117,7 +19117,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 70968;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 70968;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70968;
+UPDATE npc SET size = "small" WHERE npcid = 70968;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 70968;
@@ -19132,7 +19132,7 @@ UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 70968;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70969;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70969;
+UPDATE npc SET size = "small" WHERE npcid = 70969;
 
 
 
@@ -19147,7 +19147,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 70972;
 UPDATE npc SET atkspeed = 1320 WHERE npcid = 70972;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70972;
+UPDATE npc SET size = "small" WHERE npcid = 70972;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 70972;
@@ -19162,7 +19162,7 @@ UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 70972;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70973;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70973;
+UPDATE npc SET size = "small" WHERE npcid = 70973;
 
 
 
@@ -19174,7 +19174,7 @@ UPDATE npc SET size = small WHERE npcid = 70973;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70974;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70974;
+UPDATE npc SET size = "small" WHERE npcid = 70974;
 
 
 
@@ -19186,7 +19186,7 @@ UPDATE npc SET size = small WHERE npcid = 70974;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70975;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70975;
+UPDATE npc SET size = "small" WHERE npcid = 70975;
 
 
 
@@ -19195,7 +19195,7 @@ UPDATE npc SET size = small WHERE npcid = 70975;
 -- Unknown 70976 70976
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70976;
+UPDATE npc SET size = "small" WHERE npcid = 70976;
 
 
 
@@ -19207,7 +19207,7 @@ UPDATE npc SET size = small WHERE npcid = 70976;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 70977;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70977;
+UPDATE npc SET size = "small" WHERE npcid = 70977;
 
 
 
@@ -19219,7 +19219,7 @@ UPDATE npc SET size = small WHERE npcid = 70977;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 70978;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70978;
+UPDATE npc SET size = "small" WHERE npcid = 70978;
 
 
 
@@ -19231,7 +19231,7 @@ UPDATE npc SET size = small WHERE npcid = 70978;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70979;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70979;
+UPDATE npc SET size = "small" WHERE npcid = 70979;
 
 
 
@@ -19243,7 +19243,7 @@ UPDATE npc SET size = small WHERE npcid = 70979;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70980;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70980;
+UPDATE npc SET size = "small" WHERE npcid = 70980;
 
 
 
@@ -19255,7 +19255,7 @@ UPDATE npc SET size = small WHERE npcid = 70980;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70981;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70981;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70981;
 
 
 
@@ -19267,7 +19267,7 @@ UPDATE npc SET impl = L1Npc WHERE npcid = 70981;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70982;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70982;
+UPDATE npc SET size = "small" WHERE npcid = 70982;
 
 
 
@@ -19279,7 +19279,7 @@ UPDATE npc SET size = small WHERE npcid = 70982;
 UPDATE npc SET passispeed = 640 WHERE npcid = 70983;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Npc WHERE npcid = 70983;
+UPDATE npc SET impl = "L1Npc" WHERE npcid = 70983;
 
 
 
@@ -19408,7 +19408,7 @@ UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 70995;
 UPDATE npc SET passispeed = 960 WHERE npcid = 70997;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70997;
+UPDATE npc SET size = "small" WHERE npcid = 70997;
 
 
 
@@ -19420,7 +19420,7 @@ UPDATE npc SET size = small WHERE npcid = 70997;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70998;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70998;
+UPDATE npc SET size = "small" WHERE npcid = 70998;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70998;
@@ -19435,7 +19435,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 70998;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 70999;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 70999;
+UPDATE npc SET size = "small" WHERE npcid = 70999;
 
 
 
@@ -19447,7 +19447,7 @@ UPDATE npc SET size = small WHERE npcid = 70999;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71000;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71000;
+UPDATE npc SET size = "small" WHERE npcid = 71000;
 
 
 
@@ -19459,7 +19459,7 @@ UPDATE npc SET size = small WHERE npcid = 71000;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71001;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71001;
+UPDATE npc SET size = "small" WHERE npcid = 71001;
 
 
 
@@ -19471,7 +19471,7 @@ UPDATE npc SET size = small WHERE npcid = 71001;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 71002;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71002;
+UPDATE npc SET size = "small" WHERE npcid = 71002;
 
 
 
@@ -19483,7 +19483,7 @@ UPDATE npc SET size = small WHERE npcid = 71002;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71003;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71003;
+UPDATE npc SET size = "small" WHERE npcid = 71003;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 71003;
@@ -19498,7 +19498,7 @@ UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 71003;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71004;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71004;
+UPDATE npc SET size = "small" WHERE npcid = 71004;
 
 
 
@@ -19510,7 +19510,7 @@ UPDATE npc SET size = small WHERE npcid = 71004;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71005;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71005;
+UPDATE npc SET size = "small" WHERE npcid = 71005;
 
 
 
@@ -19522,7 +19522,7 @@ UPDATE npc SET size = small WHERE npcid = 71005;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71006;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71006;
+UPDATE npc SET size = "small" WHERE npcid = 71006;
 
 
 
@@ -19534,7 +19534,7 @@ UPDATE npc SET size = small WHERE npcid = 71006;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71007;
+UPDATE npc SET size = "small" WHERE npcid = 71007;
 
 
 
@@ -19546,7 +19546,7 @@ UPDATE npc SET size = small WHERE npcid = 71007;
 UPDATE npc SET passispeed = 576 WHERE npcid = 71009;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71009;
+UPDATE npc SET size = "small" WHERE npcid = 71009;
 
 
 
@@ -19558,7 +19558,7 @@ UPDATE npc SET size = small WHERE npcid = 71009;
 UPDATE npc SET passispeed = 576 WHERE npcid = 71010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71010;
+UPDATE npc SET size = "small" WHERE npcid = 71010;
 
 
 
@@ -19570,7 +19570,7 @@ UPDATE npc SET size = small WHERE npcid = 71010;
 UPDATE npc SET passispeed = 576 WHERE npcid = 71011;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71011;
+UPDATE npc SET size = "small" WHERE npcid = 71011;
 
 
 
@@ -19582,7 +19582,7 @@ UPDATE npc SET size = small WHERE npcid = 71011;
 UPDATE npc SET passispeed = 576 WHERE npcid = 71012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71012;
+UPDATE npc SET size = "small" WHERE npcid = 71012;
 
 
 
@@ -19594,7 +19594,7 @@ UPDATE npc SET size = small WHERE npcid = 71012;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71013;
+UPDATE npc SET size = "small" WHERE npcid = 71013;
 
 
 
@@ -19609,7 +19609,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71014;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71014;
+UPDATE npc SET size = "small" WHERE npcid = 71014;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71014;
@@ -19627,7 +19627,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71015;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71015;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71015;
+UPDATE npc SET size = "small" WHERE npcid = 71015;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71015;
@@ -19645,7 +19645,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71016;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71016;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71016;
+UPDATE npc SET size = "small" WHERE npcid = 71016;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71016;
@@ -19663,7 +19663,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71017;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71017;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71017;
+UPDATE npc SET size = "small" WHERE npcid = 71017;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71017;
@@ -19678,7 +19678,7 @@ UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71017;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71018;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71018;
+UPDATE npc SET size = "small" WHERE npcid = 71018;
 
 
 
@@ -19690,7 +19690,7 @@ UPDATE npc SET size = small WHERE npcid = 71018;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 71019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71019;
+UPDATE npc SET size = "small" WHERE npcid = 71019;
 
 
 
@@ -19702,7 +19702,7 @@ UPDATE npc SET size = small WHERE npcid = 71019;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71020;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71020;
+UPDATE npc SET size = "small" WHERE npcid = 71020;
 
 
 
@@ -19714,7 +19714,7 @@ UPDATE npc SET size = small WHERE npcid = 71020;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 71021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71021;
+UPDATE npc SET size = "small" WHERE npcid = 71021;
 
 
 
@@ -19726,7 +19726,7 @@ UPDATE npc SET size = small WHERE npcid = 71021;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 71022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71022;
+UPDATE npc SET size = "small" WHERE npcid = 71022;
 
 
 
@@ -19738,7 +19738,7 @@ UPDATE npc SET size = small WHERE npcid = 71022;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 71023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71023;
+UPDATE npc SET size = "small" WHERE npcid = 71023;
 
 
 
@@ -19750,7 +19750,7 @@ UPDATE npc SET size = small WHERE npcid = 71023;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71024;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71024;
+UPDATE npc SET size = "small" WHERE npcid = 71024;
 
 
 
@@ -19762,7 +19762,7 @@ UPDATE npc SET size = small WHERE npcid = 71024;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71025;
+UPDATE npc SET size = "small" WHERE npcid = 71025;
 
 
 
@@ -19774,7 +19774,7 @@ UPDATE npc SET size = small WHERE npcid = 71025;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71026;
+UPDATE npc SET size = "small" WHERE npcid = 71026;
 
 
 
@@ -19786,7 +19786,7 @@ UPDATE npc SET size = small WHERE npcid = 71026;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71027;
+UPDATE npc SET size = "small" WHERE npcid = 71027;
 
 
 
@@ -19798,7 +19798,7 @@ UPDATE npc SET size = small WHERE npcid = 71027;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71028;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71028;
+UPDATE npc SET size = "small" WHERE npcid = 71028;
 
 
 
@@ -19810,7 +19810,7 @@ UPDATE npc SET size = small WHERE npcid = 71028;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71029;
+UPDATE npc SET size = "small" WHERE npcid = 71029;
 
 
 
@@ -19825,7 +19825,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71030;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71030;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71030;
+UPDATE npc SET size = "small" WHERE npcid = 71030;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71030;
@@ -19840,7 +19840,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71030;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71031;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71031;
+UPDATE npc SET size = "small" WHERE npcid = 71031;
 
 
 
@@ -19852,7 +19852,7 @@ UPDATE npc SET size = small WHERE npcid = 71031;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71032;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71032;
+UPDATE npc SET size = "small" WHERE npcid = 71032;
 
 
 
@@ -19864,7 +19864,7 @@ UPDATE npc SET size = small WHERE npcid = 71032;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71033;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71033;
+UPDATE npc SET size = "small" WHERE npcid = 71033;
 
 
 
@@ -19876,7 +19876,7 @@ UPDATE npc SET size = small WHERE npcid = 71033;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 71034;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71034;
+UPDATE npc SET size = "small" WHERE npcid = 71034;
 
 
 
@@ -19888,7 +19888,7 @@ UPDATE npc SET size = small WHERE npcid = 71034;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71035;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71035;
+UPDATE npc SET size = "small" WHERE npcid = 71035;
 
 
 
@@ -19900,7 +19900,7 @@ UPDATE npc SET size = small WHERE npcid = 71035;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71036;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71036;
+UPDATE npc SET size = "small" WHERE npcid = 71036;
 
 
 
@@ -19912,7 +19912,7 @@ UPDATE npc SET size = small WHERE npcid = 71036;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71037;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71037;
+UPDATE npc SET size = "small" WHERE npcid = 71037;
 
 
 
@@ -19930,7 +19930,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71038;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71038;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71038;
+UPDATE npc SET size = "small" WHERE npcid = 71038;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 71038;
@@ -19951,7 +19951,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71039;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71039;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71039;
+UPDATE npc SET size = "small" WHERE npcid = 71039;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 71039;
@@ -19972,7 +19972,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71040;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 71040;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71040;
+UPDATE npc SET size = "small" WHERE npcid = 71040;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 71040;
@@ -19993,7 +19993,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71041;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 71041;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71041;
+UPDATE npc SET size = "small" WHERE npcid = 71041;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 71041;
@@ -20014,7 +20014,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71042;
 UPDATE npc SET atkspeed = 1040 WHERE npcid = 71042;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71042;
+UPDATE npc SET size = "small" WHERE npcid = 71042;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 71042;
@@ -20035,7 +20035,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71043;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71043;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71043;
+UPDATE npc SET size = "small" WHERE npcid = 71043;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 71043;
@@ -20056,7 +20056,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71044;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71044;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71044;
+UPDATE npc SET size = "small" WHERE npcid = 71044;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 71044;
@@ -20077,7 +20077,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71045;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71045;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71045;
+UPDATE npc SET size = "small" WHERE npcid = 71045;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 71045;
@@ -20092,7 +20092,7 @@ UPDATE npc SET sub_magic_speed = 1160 WHERE npcid = 71045;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71046;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71046;
+UPDATE npc SET size = "small" WHERE npcid = 71046;
 
 
 
@@ -20104,7 +20104,7 @@ UPDATE npc SET size = small WHERE npcid = 71046;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71047;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71047;
+UPDATE npc SET size = "small" WHERE npcid = 71047;
 
 
 
@@ -20116,7 +20116,7 @@ UPDATE npc SET size = small WHERE npcid = 71047;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71048;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71048;
+UPDATE npc SET size = "small" WHERE npcid = 71048;
 
 
 
@@ -20128,7 +20128,7 @@ UPDATE npc SET size = small WHERE npcid = 71048;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71049;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71049;
+UPDATE npc SET size = "small" WHERE npcid = 71049;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 71049;
@@ -20143,7 +20143,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 71049;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71050;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71050;
+UPDATE npc SET size = "small" WHERE npcid = 71050;
 
 
 
@@ -20155,7 +20155,7 @@ UPDATE npc SET size = small WHERE npcid = 71050;
 UPDATE npc SET passispeed = 384 WHERE npcid = 71051;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71051;
+UPDATE npc SET size = "small" WHERE npcid = 71051;
 
 
 
@@ -20167,7 +20167,7 @@ UPDATE npc SET size = small WHERE npcid = 71051;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71052;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71052;
+UPDATE npc SET size = "small" WHERE npcid = 71052;
 
 
 
@@ -20179,7 +20179,7 @@ UPDATE npc SET size = small WHERE npcid = 71052;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71053;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71053;
+UPDATE npc SET size = "small" WHERE npcid = 71053;
 
 
 
@@ -20191,7 +20191,7 @@ UPDATE npc SET size = small WHERE npcid = 71053;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71054;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71054;
+UPDATE npc SET size = "small" WHERE npcid = 71054;
 
 
 
@@ -20200,7 +20200,7 @@ UPDATE npc SET size = small WHERE npcid = 71054;
 -- Lukein 71055
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71055;
+UPDATE npc SET size = "small" WHERE npcid = 71055;
 
 
 
@@ -20212,7 +20212,7 @@ UPDATE npc SET size = small WHERE npcid = 71055;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71056;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71056;
+UPDATE npc SET size = "small" WHERE npcid = 71056;
 
 
 
@@ -20224,7 +20224,7 @@ UPDATE npc SET size = small WHERE npcid = 71056;
 UPDATE npc SET passispeed = 768 WHERE npcid = 71057;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71057;
+UPDATE npc SET size = "small" WHERE npcid = 71057;
 
 
 
@@ -20239,7 +20239,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 71058;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 71058;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71058;
+UPDATE npc SET size = "small" WHERE npcid = 71058;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1320 WHERE npcid = 71058;
@@ -20254,7 +20254,7 @@ UPDATE npc SET alt_atk_speed = 1320 WHERE npcid = 71058;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71059;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71059;
+UPDATE npc SET size = "small" WHERE npcid = 71059;
 
 
 
@@ -20266,7 +20266,7 @@ UPDATE npc SET size = small WHERE npcid = 71059;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71060;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71060;
+UPDATE npc SET size = "small" WHERE npcid = 71060;
 
 
 
@@ -20281,7 +20281,7 @@ UPDATE npc SET atk_magic_speed = 6400 WHERE npcid = 71061;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71061;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71061;
+UPDATE npc SET size = "small" WHERE npcid = 71061;
 
 
 
@@ -20299,7 +20299,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71062;
 -- Small Box 71063
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71063;
+UPDATE npc SET size = "small" WHERE npcid = 71063;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71063;
@@ -20311,7 +20311,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71063;
 -- Small Box 71064
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71064;
+UPDATE npc SET size = "small" WHERE npcid = 71064;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71064;
@@ -20323,7 +20323,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71064;
 -- Small Box 71065
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71065;
+UPDATE npc SET size = "small" WHERE npcid = 71065;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71065;
@@ -20335,7 +20335,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71065;
 -- Small Box 71066
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71066;
+UPDATE npc SET size = "small" WHERE npcid = 71066;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71066;
@@ -20347,7 +20347,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71066;
 -- Small Box 71067
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71067;
+UPDATE npc SET size = "small" WHERE npcid = 71067;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71067;
@@ -20359,7 +20359,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71067;
 -- Small Box 71068
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71068;
+UPDATE npc SET size = "small" WHERE npcid = 71068;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71068;
@@ -20371,7 +20371,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71068;
 -- Small Box 71069
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71069;
+UPDATE npc SET size = "small" WHERE npcid = 71069;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71069;
@@ -20383,7 +20383,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71069;
 -- Small Box 71070
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71070;
+UPDATE npc SET size = "small" WHERE npcid = 71070;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71070;
@@ -20395,7 +20395,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71070;
 -- Small Box 71071
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71071;
+UPDATE npc SET size = "small" WHERE npcid = 71071;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71071;
@@ -20407,7 +20407,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71071;
 -- Small Box 71072
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71072;
+UPDATE npc SET size = "small" WHERE npcid = 71072;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71072;
@@ -20419,7 +20419,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71072;
 -- Small Box 71073
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71073;
+UPDATE npc SET size = "small" WHERE npcid = 71073;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 71073;
@@ -20434,7 +20434,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 71073;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71074;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71074;
+UPDATE npc SET size = "small" WHERE npcid = 71074;
 
 
 
@@ -20464,7 +20464,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71076;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 71076;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71076;
+UPDATE npc SET size = "small" WHERE npcid = 71076;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 71076;
@@ -20479,7 +20479,7 @@ UPDATE npc SET alt_atk_speed = 800 WHERE npcid = 71076;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71077;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71077;
+UPDATE npc SET size = "small" WHERE npcid = 71077;
 
 
 
@@ -20494,7 +20494,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 71078;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71078;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71078;
+UPDATE npc SET size = "small" WHERE npcid = 71078;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 71078;
@@ -20512,7 +20512,7 @@ UPDATE npc SET passispeed = 800 WHERE npcid = 71079;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71079;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71079;
+UPDATE npc SET size = "small" WHERE npcid = 71079;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 71079;
@@ -20533,7 +20533,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71080;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71080;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71080;
+UPDATE npc SET size = "small" WHERE npcid = 71080;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 71080;
@@ -20617,7 +20617,7 @@ UPDATE npc SET passispeed = 160 WHERE npcid = 71088;
 -- Franco 71089
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71089;
+UPDATE npc SET size = "small" WHERE npcid = 71089;
 
 
 
@@ -20626,7 +20626,7 @@ UPDATE npc SET size = small WHERE npcid = 71089;
 -- Crystal of Ordeal 71090
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71090;
+UPDATE npc SET size = "small" WHERE npcid = 71090;
 
 
 
@@ -20635,7 +20635,7 @@ UPDATE npc SET size = small WHERE npcid = 71090;
 -- Crystal of Ordeal 71091
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71091;
+UPDATE npc SET size = "small" WHERE npcid = 71091;
 
 
 
@@ -20665,7 +20665,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71095;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 71095;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71095;
+UPDATE npc SET size = "small" WHERE npcid = 71095;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1240 WHERE npcid = 71095;
@@ -20677,7 +20677,7 @@ UPDATE npc SET alt_atk_speed = 1240 WHERE npcid = 71095;
 -- unknown 71108
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71108;
+UPDATE npc SET size = "small" WHERE npcid = 71108;
 
 
 
@@ -20686,7 +20686,7 @@ UPDATE npc SET size = small WHERE npcid = 71108;
 -- unknown 71109
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71109;
+UPDATE npc SET size = "small" WHERE npcid = 71109;
 
 
 
@@ -20698,7 +20698,7 @@ UPDATE npc SET size = small WHERE npcid = 71109;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71110;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71110;
+UPDATE npc SET size = "small" WHERE npcid = 71110;
 
 
 
@@ -20710,7 +20710,7 @@ UPDATE npc SET size = small WHERE npcid = 71110;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71111;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71111;
+UPDATE npc SET size = "small" WHERE npcid = 71111;
 
 
 
@@ -20722,7 +20722,7 @@ UPDATE npc SET size = small WHERE npcid = 71111;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71112;
 
 -- impl changed from L1Monster
-UPDATE npc SET impl = L1Merchant WHERE npcid = 71112;
+UPDATE npc SET impl = "L1Merchant" WHERE npcid = 71112;
 
 
 
@@ -20734,7 +20734,7 @@ UPDATE npc SET impl = L1Merchant WHERE npcid = 71112;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 71113;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71113;
+UPDATE npc SET size = "small" WHERE npcid = 71113;
 
 
 
@@ -20746,7 +20746,7 @@ UPDATE npc SET size = small WHERE npcid = 71113;
 UPDATE npc SET passispeed = 1440 WHERE npcid = 71114;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71114;
+UPDATE npc SET size = "small" WHERE npcid = 71114;
 
 
 
@@ -20764,7 +20764,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71115;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 71115;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71115;
+UPDATE npc SET size = "small" WHERE npcid = 71115;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 71115;
@@ -20779,7 +20779,7 @@ UPDATE npc SET sub_magic_speed = 1400 WHERE npcid = 71115;
 UPDATE npc SET atkspeed = 3040 WHERE npcid = 71116;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71116;
+UPDATE npc SET size = "small" WHERE npcid = 71116;
 
 
 
@@ -20791,7 +20791,7 @@ UPDATE npc SET size = small WHERE npcid = 71116;
 UPDATE npc SET atkspeed = 3040 WHERE npcid = 71117;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71117;
+UPDATE npc SET size = "small" WHERE npcid = 71117;
 
 
 
@@ -20803,7 +20803,7 @@ UPDATE npc SET size = small WHERE npcid = 71117;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71118;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71118;
+UPDATE npc SET size = "small" WHERE npcid = 71118;
 
 
 
@@ -20815,7 +20815,7 @@ UPDATE npc SET size = small WHERE npcid = 71118;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71119;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71119;
+UPDATE npc SET size = "small" WHERE npcid = 71119;
 
 
 
@@ -20827,7 +20827,7 @@ UPDATE npc SET size = small WHERE npcid = 71119;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71120;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71120;
+UPDATE npc SET size = "small" WHERE npcid = 71120;
 
 
 
@@ -20839,7 +20839,7 @@ UPDATE npc SET size = small WHERE npcid = 71120;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71121;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71121;
+UPDATE npc SET size = "small" WHERE npcid = 71121;
 
 
 
@@ -20851,7 +20851,7 @@ UPDATE npc SET size = small WHERE npcid = 71121;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71122;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71122;
+UPDATE npc SET size = "small" WHERE npcid = 71122;
 
 
 
@@ -20863,7 +20863,7 @@ UPDATE npc SET size = small WHERE npcid = 71122;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71123;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71123;
+UPDATE npc SET size = "small" WHERE npcid = 71123;
 
 
 
@@ -20875,7 +20875,7 @@ UPDATE npc SET size = small WHERE npcid = 71123;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71124;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71124;
+UPDATE npc SET size = "small" WHERE npcid = 71124;
 
 
 
@@ -20887,7 +20887,7 @@ UPDATE npc SET size = small WHERE npcid = 71124;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71125;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71125;
+UPDATE npc SET size = "small" WHERE npcid = 71125;
 
 
 
@@ -20902,7 +20902,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71126;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71126;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71126;
+UPDATE npc SET size = "small" WHERE npcid = 71126;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71126;
@@ -20917,7 +20917,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71126;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71127;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71127;
+UPDATE npc SET size = "small" WHERE npcid = 71127;
 
 
 
@@ -20929,7 +20929,7 @@ UPDATE npc SET size = small WHERE npcid = 71127;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71128;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71128;
+UPDATE npc SET size = "small" WHERE npcid = 71128;
 
 
 
@@ -20941,7 +20941,7 @@ UPDATE npc SET size = small WHERE npcid = 71128;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71129;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71129;
+UPDATE npc SET size = "small" WHERE npcid = 71129;
 
 
 
@@ -20950,7 +20950,7 @@ UPDATE npc SET size = small WHERE npcid = 71129;
 -- Rabla 71130
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71130;
+UPDATE npc SET size = "small" WHERE npcid = 71130;
 
 
 
@@ -20959,7 +20959,7 @@ UPDATE npc SET size = small WHERE npcid = 71130;
 -- Rabor 71131
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71131;
+UPDATE npc SET size = "small" WHERE npcid = 71131;
 
 
 
@@ -20971,7 +20971,7 @@ UPDATE npc SET size = small WHERE npcid = 71131;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71132;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71132;
+UPDATE npc SET size = "small" WHERE npcid = 71132;
 
 
 
@@ -20983,7 +20983,7 @@ UPDATE npc SET size = small WHERE npcid = 71132;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71133;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71133;
+UPDATE npc SET size = "small" WHERE npcid = 71133;
 
 
 
@@ -20995,7 +20995,7 @@ UPDATE npc SET size = small WHERE npcid = 71133;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71134;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71134;
+UPDATE npc SET size = "small" WHERE npcid = 71134;
 
 
 
@@ -21007,7 +21007,7 @@ UPDATE npc SET size = small WHERE npcid = 71134;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71135;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71135;
+UPDATE npc SET size = "small" WHERE npcid = 71135;
 
 
 
@@ -21019,7 +21019,7 @@ UPDATE npc SET size = small WHERE npcid = 71135;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71136;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71136;
+UPDATE npc SET size = "small" WHERE npcid = 71136;
 
 
 
@@ -21031,7 +21031,7 @@ UPDATE npc SET size = small WHERE npcid = 71136;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71137;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71137;
+UPDATE npc SET size = "small" WHERE npcid = 71137;
 
 
 
@@ -21043,7 +21043,7 @@ UPDATE npc SET size = small WHERE npcid = 71137;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71138;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71138;
+UPDATE npc SET size = "small" WHERE npcid = 71138;
 
 
 
@@ -21055,7 +21055,7 @@ UPDATE npc SET size = small WHERE npcid = 71138;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71139;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71139;
+UPDATE npc SET size = "small" WHERE npcid = 71139;
 
 
 
@@ -21067,7 +21067,7 @@ UPDATE npc SET size = small WHERE npcid = 71139;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71140;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71140;
+UPDATE npc SET size = "small" WHERE npcid = 71140;
 
 
 
@@ -21079,7 +21079,7 @@ UPDATE npc SET size = small WHERE npcid = 71140;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71141;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71141;
+UPDATE npc SET size = "small" WHERE npcid = 71141;
 
 
 
@@ -21091,7 +21091,7 @@ UPDATE npc SET size = small WHERE npcid = 71141;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71142;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71142;
+UPDATE npc SET size = "small" WHERE npcid = 71142;
 
 
 
@@ -21106,7 +21106,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71143;
 UPDATE npc SET atkspeed = 1520 WHERE npcid = 71143;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71143;
+UPDATE npc SET size = "small" WHERE npcid = 71143;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 71143;
@@ -21121,7 +21121,7 @@ UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 71143;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71144;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71144;
+UPDATE npc SET size = "small" WHERE npcid = 71144;
 
 
 
@@ -21133,7 +21133,7 @@ UPDATE npc SET size = small WHERE npcid = 71144;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71145;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71145;
+UPDATE npc SET size = "small" WHERE npcid = 71145;
 
 
 
@@ -21148,7 +21148,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71146;
 UPDATE npc SET atkspeed = 1520 WHERE npcid = 71146;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71146;
+UPDATE npc SET size = "small" WHERE npcid = 71146;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1520 WHERE npcid = 71146;
@@ -21166,7 +21166,7 @@ UPDATE npc SET passispeed = 1600 WHERE npcid = 71147;
 UPDATE npc SET atkspeed = 1800 WHERE npcid = 71147;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71147;
+UPDATE npc SET size = "small" WHERE npcid = 71147;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 71147;
@@ -21181,7 +21181,7 @@ UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 71147;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71148;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71148;
+UPDATE npc SET size = "small" WHERE npcid = 71148;
 
 
 
@@ -21193,7 +21193,7 @@ UPDATE npc SET size = small WHERE npcid = 71148;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71149;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71149;
+UPDATE npc SET size = "small" WHERE npcid = 71149;
 
 
 
@@ -21205,7 +21205,7 @@ UPDATE npc SET size = small WHERE npcid = 71149;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71150;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71150;
+UPDATE npc SET size = "small" WHERE npcid = 71150;
 
 
 
@@ -21217,7 +21217,7 @@ UPDATE npc SET size = small WHERE npcid = 71150;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71151;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71151;
+UPDATE npc SET size = "small" WHERE npcid = 71151;
 
 
 
@@ -21229,7 +21229,7 @@ UPDATE npc SET size = small WHERE npcid = 71151;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71152;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71152;
+UPDATE npc SET size = "small" WHERE npcid = 71152;
 
 
 
@@ -21241,7 +21241,7 @@ UPDATE npc SET size = small WHERE npcid = 71152;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71153;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71153;
+UPDATE npc SET size = "small" WHERE npcid = 71153;
 
 
 
@@ -21253,7 +21253,7 @@ UPDATE npc SET size = small WHERE npcid = 71153;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71154;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71154;
+UPDATE npc SET size = "small" WHERE npcid = 71154;
 
 
 
@@ -21265,7 +21265,7 @@ UPDATE npc SET size = small WHERE npcid = 71154;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 71155;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71155;
+UPDATE npc SET size = "small" WHERE npcid = 71155;
 
 
 
@@ -21274,7 +21274,7 @@ UPDATE npc SET size = small WHERE npcid = 71155;
 -- Prisoner Dark Elf 71156
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71156;
+UPDATE npc SET size = "small" WHERE npcid = 71156;
 
 
 
@@ -21283,7 +21283,7 @@ UPDATE npc SET size = small WHERE npcid = 71156;
 -- Prisoner Dark Elf 71157
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71157;
+UPDATE npc SET size = "small" WHERE npcid = 71157;
 
 
 
@@ -21292,7 +21292,7 @@ UPDATE npc SET size = small WHERE npcid = 71157;
 -- Prisoner Dark Elf 71158
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71158;
+UPDATE npc SET size = "small" WHERE npcid = 71158;
 
 
 
@@ -21301,7 +21301,7 @@ UPDATE npc SET size = small WHERE npcid = 71158;
 -- Prisoner Dark Elf 71159
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71159;
+UPDATE npc SET size = "small" WHERE npcid = 71159;
 
 
 
@@ -21310,7 +21310,7 @@ UPDATE npc SET size = small WHERE npcid = 71159;
 -- Prisoner Dark Elf 71160
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71160;
+UPDATE npc SET size = "small" WHERE npcid = 71160;
 
 
 
@@ -21319,7 +21319,7 @@ UPDATE npc SET size = small WHERE npcid = 71160;
 -- Prisoner Dark Elf 71161
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71161;
+UPDATE npc SET size = "small" WHERE npcid = 71161;
 
 
 
@@ -21328,7 +21328,7 @@ UPDATE npc SET size = small WHERE npcid = 71161;
 -- Prisoner Dark Elf 71162
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71162;
+UPDATE npc SET size = "small" WHERE npcid = 71162;
 
 
 
@@ -21340,7 +21340,7 @@ UPDATE npc SET size = small WHERE npcid = 71162;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71163;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71163;
+UPDATE npc SET size = "small" WHERE npcid = 71163;
 
 
 
@@ -21352,7 +21352,7 @@ UPDATE npc SET size = small WHERE npcid = 71163;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71164;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71164;
+UPDATE npc SET size = "small" WHERE npcid = 71164;
 
 
 
@@ -21367,7 +21367,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71165;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71165;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71165;
+UPDATE npc SET size = "small" WHERE npcid = 71165;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71165;
@@ -21382,7 +21382,7 @@ UPDATE npc SET alt_atk_speed = 1640 WHERE npcid = 71165;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71166;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71166;
+UPDATE npc SET size = "small" WHERE npcid = 71166;
 
 
 
@@ -21394,7 +21394,7 @@ UPDATE npc SET size = small WHERE npcid = 71166;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71167;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71167;
+UPDATE npc SET size = "small" WHERE npcid = 71167;
 
 
 
@@ -21406,7 +21406,7 @@ UPDATE npc SET size = small WHERE npcid = 71167;
 UPDATE npc SET passispeed = 160 WHERE npcid = 71168;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71168;
+UPDATE npc SET size = "small" WHERE npcid = 71168;
 
 
 
@@ -21418,7 +21418,7 @@ UPDATE npc SET size = small WHERE npcid = 71168;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71169;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71169;
+UPDATE npc SET size = "small" WHERE npcid = 71169;
 
 
 
@@ -21433,7 +21433,7 @@ UPDATE npc SET atk_magic_speed = 1280 WHERE npcid = 71170;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71170;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71170;
+UPDATE npc SET size = "small" WHERE npcid = 71170;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1320 WHERE npcid = 71170;
@@ -21451,7 +21451,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71171;
 UPDATE npc SET atkspeed = 1360 WHERE npcid = 71171;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71171;
+UPDATE npc SET size = "small" WHERE npcid = 71171;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 71171;
@@ -21469,7 +21469,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71172;
 UPDATE npc SET atkspeed = 1320 WHERE npcid = 71172;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71172;
+UPDATE npc SET size = "small" WHERE npcid = 71172;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1160 WHERE npcid = 71172;
@@ -21487,7 +21487,7 @@ UPDATE npc SET passispeed = 576 WHERE npcid = 71173;
 UPDATE npc SET atkspeed = 1000 WHERE npcid = 71173;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71173;
+UPDATE npc SET size = "small" WHERE npcid = 71173;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1400 WHERE npcid = 71173;
@@ -21505,7 +21505,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71174;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 71174;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71174;
+UPDATE npc SET size = "small" WHERE npcid = 71174;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 960 WHERE npcid = 71174;
@@ -21523,7 +21523,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71175;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 71175;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71175;
+UPDATE npc SET size = "small" WHERE npcid = 71175;
 
 
 
@@ -21538,7 +21538,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71176;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71176;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71176;
+UPDATE npc SET size = "small" WHERE npcid = 71176;
 
 
 
@@ -21553,7 +21553,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71177;
 UPDATE npc SET atkspeed = 1120 WHERE npcid = 71177;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71177;
+UPDATE npc SET size = "small" WHERE npcid = 71177;
 
 
 
@@ -21562,7 +21562,7 @@ UPDATE npc SET size = small WHERE npcid = 71177;
 -- Lougi 71178
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71178;
+UPDATE npc SET size = "small" WHERE npcid = 71178;
 
 
 
@@ -21574,7 +21574,7 @@ UPDATE npc SET size = small WHERE npcid = 71178;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71179;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71179;
+UPDATE npc SET size = "small" WHERE npcid = 71179;
 
 -- gfxid changed from 2511
 UPDATE npc SET gfxid = 2429 WHERE npcid = 71179;
@@ -21589,7 +21589,7 @@ UPDATE npc SET gfxid = 2429 WHERE npcid = 71179;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71180;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71180;
+UPDATE npc SET size = "small" WHERE npcid = 71180;
 
 
 
@@ -21598,7 +21598,7 @@ UPDATE npc SET size = small WHERE npcid = 71180;
 -- Emai 71181
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71181;
+UPDATE npc SET size = "small" WHERE npcid = 71181;
 
 
 
@@ -21613,7 +21613,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71182;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71182;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71182;
+UPDATE npc SET size = "small" WHERE npcid = 71182;
 
 
 
@@ -21640,7 +21640,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71184;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71184;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71184;
+UPDATE npc SET size = "small" WHERE npcid = 71184;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71184;
@@ -21679,7 +21679,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 71187;
 UPDATE npc SET atkspeed = 840 WHERE npcid = 71187;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71187;
+UPDATE npc SET size = "small" WHERE npcid = 71187;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 520 WHERE npcid = 71187;
@@ -21697,7 +21697,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 71188;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 71188;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71188;
+UPDATE npc SET size = "small" WHERE npcid = 71188;
 
 
 
@@ -21712,7 +21712,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71189;
 UPDATE npc SET atkspeed = 1360 WHERE npcid = 71189;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71189;
+UPDATE npc SET size = "small" WHERE npcid = 71189;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 71189;
@@ -21727,7 +21727,7 @@ UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 71189;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71190;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71190;
+UPDATE npc SET size = "small" WHERE npcid = 71190;
 
 
 
@@ -21739,7 +21739,7 @@ UPDATE npc SET size = small WHERE npcid = 71190;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71191;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71191;
+UPDATE npc SET size = "small" WHERE npcid = 71191;
 
 
 
@@ -21751,7 +21751,7 @@ UPDATE npc SET size = small WHERE npcid = 71191;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71192;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71192;
+UPDATE npc SET size = "small" WHERE npcid = 71192;
 
 
 
@@ -21763,7 +21763,7 @@ UPDATE npc SET size = small WHERE npcid = 71192;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71193;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71193;
+UPDATE npc SET size = "small" WHERE npcid = 71193;
 
 
 
@@ -21775,7 +21775,7 @@ UPDATE npc SET size = small WHERE npcid = 71193;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71194;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71194;
+UPDATE npc SET size = "small" WHERE npcid = 71194;
 
 
 
@@ -21787,7 +21787,7 @@ UPDATE npc SET size = small WHERE npcid = 71194;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71195;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71195;
+UPDATE npc SET size = "small" WHERE npcid = 71195;
 
 
 
@@ -21799,7 +21799,7 @@ UPDATE npc SET size = small WHERE npcid = 71195;
 UPDATE npc SET passispeed = 640 WHERE npcid = 71196;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71196;
+UPDATE npc SET size = "small" WHERE npcid = 71196;
 
 
 
@@ -21826,7 +21826,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71198;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71198;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71198;
+UPDATE npc SET size = "small" WHERE npcid = 71198;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 71198;
@@ -21841,7 +21841,7 @@ UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 71198;
 UPDATE npc SET passispeed = 960 WHERE npcid = 71199;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71199;
+UPDATE npc SET size = "small" WHERE npcid = 71199;
 
 
 
@@ -21853,7 +21853,7 @@ UPDATE npc SET size = small WHERE npcid = 71199;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 71200;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71200;
+UPDATE npc SET size = "small" WHERE npcid = 71200;
 
 
 
@@ -21871,7 +21871,7 @@ UPDATE npc SET passispeed = 160 WHERE npcid = 71246;
 -- Lolo 71251
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71251;
+UPDATE npc SET size = "small" WHERE npcid = 71251;
 
 
 
@@ -21889,7 +21889,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71252;
 UPDATE npc SET atkspeed = 2640 WHERE npcid = 71252;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71252;
+UPDATE npc SET size = "small" WHERE npcid = 71252;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 2640 WHERE npcid = 71252;
@@ -21910,7 +21910,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 71253;
 UPDATE npc SET atkspeed = 2640 WHERE npcid = 71253;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71253;
+UPDATE npc SET size = "small" WHERE npcid = 71253;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 2640 WHERE npcid = 71253;
@@ -21943,7 +21943,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71263;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 71264;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71264;
+UPDATE npc SET size = "small" WHERE npcid = 71264;
 
 
 
@@ -21961,7 +21961,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71265;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71265;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71265;
+UPDATE npc SET size = "small" WHERE npcid = 71265;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 71265;
@@ -21982,7 +21982,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 71266;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 71266;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 71266;
+UPDATE npc SET size = "small" WHERE npcid = 71266;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 71266;
@@ -22003,7 +22003,7 @@ UPDATE npc SET passispeed = 160 WHERE npcid = 71270;
 -- Oasis Stuff 80001
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80001;
+UPDATE npc SET size = "small" WHERE npcid = 80001;
 
 
 
@@ -22015,7 +22015,7 @@ UPDATE npc SET size = small WHERE npcid = 80001;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80007;
+UPDATE npc SET size = "small" WHERE npcid = 80007;
 
 
 
@@ -22024,7 +22024,7 @@ UPDATE npc SET size = small WHERE npcid = 80007;
 -- Ship 80008
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80008;
+UPDATE npc SET size = "small" WHERE npcid = 80008;
 
 
 
@@ -22033,7 +22033,7 @@ UPDATE npc SET size = small WHERE npcid = 80008;
 -- Treasure Chest 80009
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80009;
+UPDATE npc SET size = "small" WHERE npcid = 80009;
 
 
 
@@ -22051,7 +22051,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 80010;
 UPDATE npc SET atkspeed = 800 WHERE npcid = 80010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80010;
+UPDATE npc SET size = "small" WHERE npcid = 80010;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80010;
@@ -22066,7 +22066,7 @@ UPDATE npc SET sub_magic_speed = 1480 WHERE npcid = 80010;
 -- Unknown 80011 80011
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80011;
+UPDATE npc SET size = "small" WHERE npcid = 80011;
 
 
 
@@ -22081,7 +22081,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 80012;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 80012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80012;
+UPDATE npc SET size = "small" WHERE npcid = 80012;
 
 
 
@@ -22099,7 +22099,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 80013;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 80013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80013;
+UPDATE npc SET size = "small" WHERE npcid = 80013;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1680 WHERE npcid = 80013;
@@ -22120,7 +22120,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 80014;
 UPDATE npc SET atkspeed = 760 WHERE npcid = 80014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80014;
+UPDATE npc SET size = "small" WHERE npcid = 80014;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 80014;
@@ -22141,7 +22141,7 @@ UPDATE npc SET passispeed = 640 WHERE npcid = 80015;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 80015;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80015;
+UPDATE npc SET size = "small" WHERE npcid = 80015;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 80015;
@@ -22153,7 +22153,7 @@ UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 80015;
 -- Unknown 80016 80016
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80016;
+UPDATE npc SET size = "small" WHERE npcid = 80016;
 
 
 
@@ -22162,7 +22162,7 @@ UPDATE npc SET size = small WHERE npcid = 80016;
 -- Unknown 80017 80017
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80017;
+UPDATE npc SET size = "small" WHERE npcid = 80017;
 
 
 
@@ -22171,7 +22171,7 @@ UPDATE npc SET size = small WHERE npcid = 80017;
 -- Unknown 80018 80018
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80018;
+UPDATE npc SET size = "small" WHERE npcid = 80018;
 
 
 
@@ -22189,7 +22189,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80019;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80019;
+UPDATE npc SET size = "small" WHERE npcid = 80019;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80019;
@@ -22210,7 +22210,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80020;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80020;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80020;
+UPDATE npc SET size = "small" WHERE npcid = 80020;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80020;
@@ -22231,7 +22231,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80021;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80021;
+UPDATE npc SET size = "small" WHERE npcid = 80021;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80021;
@@ -22252,7 +22252,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80022;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80022;
+UPDATE npc SET size = "small" WHERE npcid = 80022;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80022;
@@ -22273,7 +22273,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80023;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80023;
+UPDATE npc SET size = "small" WHERE npcid = 80023;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80023;
@@ -22294,7 +22294,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80024;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80024;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80024;
+UPDATE npc SET size = "small" WHERE npcid = 80024;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80024;
@@ -22315,7 +22315,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80025;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80025;
+UPDATE npc SET size = "small" WHERE npcid = 80025;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80025;
@@ -22336,7 +22336,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80026;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80026;
+UPDATE npc SET size = "small" WHERE npcid = 80026;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80026;
@@ -22357,7 +22357,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80027;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80027;
+UPDATE npc SET size = "small" WHERE npcid = 80027;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80027;
@@ -22378,7 +22378,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80028;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80028;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80028;
+UPDATE npc SET size = "small" WHERE npcid = 80028;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80028;
@@ -22399,7 +22399,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80029;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80029;
+UPDATE npc SET size = "small" WHERE npcid = 80029;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80029;
@@ -22420,7 +22420,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80030;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80030;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80030;
+UPDATE npc SET size = "small" WHERE npcid = 80030;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80030;
@@ -22441,7 +22441,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80031;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80031;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80031;
+UPDATE npc SET size = "small" WHERE npcid = 80031;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80031;
@@ -22462,7 +22462,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80032;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80032;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80032;
+UPDATE npc SET size = "small" WHERE npcid = 80032;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80032;
@@ -22483,7 +22483,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80033;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80033;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80033;
+UPDATE npc SET size = "small" WHERE npcid = 80033;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80033;
@@ -22504,7 +22504,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80034;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80034;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80034;
+UPDATE npc SET size = "small" WHERE npcid = 80034;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80034;
@@ -22525,7 +22525,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80035;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80035;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80035;
+UPDATE npc SET size = "small" WHERE npcid = 80035;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80035;
@@ -22543,7 +22543,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80036;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80036;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80036;
+UPDATE npc SET size = "small" WHERE npcid = 80036;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 80036;
@@ -22561,7 +22561,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80037;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80037;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80037;
+UPDATE npc SET size = "small" WHERE npcid = 80037;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 80037;
@@ -22579,7 +22579,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80038;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80038;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80038;
+UPDATE npc SET size = "small" WHERE npcid = 80038;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 80038;
@@ -22597,7 +22597,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80039;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80039;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80039;
+UPDATE npc SET size = "small" WHERE npcid = 80039;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 80039;
@@ -22615,7 +22615,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80040;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80040;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80040;
+UPDATE npc SET size = "small" WHERE npcid = 80040;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 80040;
@@ -22633,7 +22633,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 80041;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80041;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80041;
+UPDATE npc SET size = "small" WHERE npcid = 80041;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1080 WHERE npcid = 80041;
@@ -22654,7 +22654,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80042;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80042;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80042;
+UPDATE npc SET size = "small" WHERE npcid = 80042;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80042;
@@ -22675,7 +22675,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80043;
 UPDATE npc SET atkspeed = 1640 WHERE npcid = 80043;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80043;
+UPDATE npc SET size = "small" WHERE npcid = 80043;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80043;
@@ -22690,7 +22690,7 @@ UPDATE npc SET alt_atk_speed = 1280 WHERE npcid = 80043;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80044;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80044;
+UPDATE npc SET size = "small" WHERE npcid = 80044;
 
 
 
@@ -22702,7 +22702,7 @@ UPDATE npc SET size = small WHERE npcid = 80044;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80045;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80045;
+UPDATE npc SET size = "small" WHERE npcid = 80045;
 
 
 
@@ -22717,7 +22717,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80047;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80047;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80047;
+UPDATE npc SET size = "small" WHERE npcid = 80047;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80047;
@@ -22732,7 +22732,7 @@ UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80047;
 UPDATE npc SET passispeed = 1600 WHERE npcid = 80048;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80048;
+UPDATE npc SET size = "small" WHERE npcid = 80048;
 
 
 
@@ -22747,7 +22747,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80049;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80049;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80049;
+UPDATE npc SET size = "small" WHERE npcid = 80049;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80049;
@@ -22765,7 +22765,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80050;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80050;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80050;
+UPDATE npc SET size = "small" WHERE npcid = 80050;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80050;
@@ -22783,7 +22783,7 @@ UPDATE npc SET atk_magic_speed = 1280 WHERE npcid = 80051;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80051;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80051;
+UPDATE npc SET size = "small" WHERE npcid = 80051;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 80051;
@@ -22801,7 +22801,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80052;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80052;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80052;
+UPDATE npc SET size = "small" WHERE npcid = 80052;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80052;
@@ -22819,7 +22819,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80053;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80053;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80053;
+UPDATE npc SET size = "small" WHERE npcid = 80053;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80053;
@@ -22837,7 +22837,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80054;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80054;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80054;
+UPDATE npc SET size = "small" WHERE npcid = 80054;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80054;
@@ -22855,7 +22855,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80055;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80055;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80055;
+UPDATE npc SET size = "small" WHERE npcid = 80055;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80055;
@@ -22873,7 +22873,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80056;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80056;
 
 -- size changed from  
-UPDATE npc SET size = small WHERE npcid = 80056;
+UPDATE npc SET size = "small" WHERE npcid = 80056;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80056;
@@ -22885,7 +22885,7 @@ UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 80056;
 -- Alfons 80057
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80057;
+UPDATE npc SET size = "small" WHERE npcid = 80057;
 
 
 
@@ -22897,7 +22897,7 @@ UPDATE npc SET size = small WHERE npcid = 80057;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80058;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80058;
+UPDATE npc SET size = "small" WHERE npcid = 80058;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80058;
@@ -22912,7 +22912,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 80058;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80059;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80059;
+UPDATE npc SET size = "small" WHERE npcid = 80059;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80059;
@@ -22927,7 +22927,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 80059;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80060;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80060;
+UPDATE npc SET size = "small" WHERE npcid = 80060;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80060;
@@ -22942,7 +22942,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 80060;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80061;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80061;
+UPDATE npc SET size = "small" WHERE npcid = 80061;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80061;
@@ -22957,7 +22957,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 80061;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80062;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80062;
+UPDATE npc SET size = "small" WHERE npcid = 80062;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80062;
@@ -22972,7 +22972,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 80062;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80063;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80063;
+UPDATE npc SET size = "small" WHERE npcid = 80063;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 80063;
@@ -22993,7 +22993,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80064;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80064;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80064;
+UPDATE npc SET size = "small" WHERE npcid = 80064;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80064;
@@ -23017,7 +23017,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80065;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80065;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80065;
+UPDATE npc SET size = "small" WHERE npcid = 80065;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80065;
@@ -23041,7 +23041,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80066;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80066;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80066;
+UPDATE npc SET size = "small" WHERE npcid = 80066;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80066;
@@ -23065,7 +23065,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80067;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80067;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80067;
+UPDATE npc SET size = "small" WHERE npcid = 80067;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80067;
@@ -23089,7 +23089,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 80068;
 UPDATE npc SET atkspeed = 1520 WHERE npcid = 80068;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80068;
+UPDATE npc SET size = "small" WHERE npcid = 80068;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1400 WHERE npcid = 80068;
@@ -23110,7 +23110,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80069;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80069;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80069;
+UPDATE npc SET size = "small" WHERE npcid = 80069;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80069;
@@ -23134,7 +23134,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80070;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80070;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80070;
+UPDATE npc SET size = "small" WHERE npcid = 80070;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80070;
@@ -23158,7 +23158,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80071;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80071;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80071;
+UPDATE npc SET size = "small" WHERE npcid = 80071;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80071;
@@ -23182,7 +23182,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80072;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80072;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80072;
+UPDATE npc SET size = "small" WHERE npcid = 80072;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80072;
@@ -23206,7 +23206,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80073;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80073;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80073;
+UPDATE npc SET size = "small" WHERE npcid = 80073;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80073;
@@ -23230,7 +23230,7 @@ UPDATE npc SET passispeed = 720 WHERE npcid = 80074;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 80074;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80074;
+UPDATE npc SET size = "small" WHERE npcid = 80074;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1040 WHERE npcid = 80074;
@@ -23248,7 +23248,7 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 80074;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 80075;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80075;
+UPDATE npc SET size = "small" WHERE npcid = 80075;
 
 
 
@@ -23260,7 +23260,7 @@ UPDATE npc SET size = small WHERE npcid = 80075;
 UPDATE npc SET passispeed = 960 WHERE npcid = 80076;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80076;
+UPDATE npc SET size = "small" WHERE npcid = 80076;
 
 
 
@@ -23269,7 +23269,7 @@ UPDATE npc SET size = small WHERE npcid = 80076;
 -- Aldran 80077
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80077;
+UPDATE npc SET size = "small" WHERE npcid = 80077;
 
 
 
@@ -23281,7 +23281,7 @@ UPDATE npc SET size = small WHERE npcid = 80077;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 80078;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80078;
+UPDATE npc SET size = "small" WHERE npcid = 80078;
 
 
 
@@ -23290,7 +23290,7 @@ UPDATE npc SET size = small WHERE npcid = 80078;
 -- Keplisha 80079
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80079;
+UPDATE npc SET size = "small" WHERE npcid = 80079;
 
 
 
@@ -23299,7 +23299,7 @@ UPDATE npc SET size = small WHERE npcid = 80079;
 -- Fishing Old Man 80080
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80080;
+UPDATE npc SET size = "small" WHERE npcid = 80080;
 
 
 
@@ -23311,7 +23311,7 @@ UPDATE npc SET size = small WHERE npcid = 80080;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80081;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80081;
+UPDATE npc SET size = "small" WHERE npcid = 80081;
 
 
 
@@ -23320,7 +23320,7 @@ UPDATE npc SET size = small WHERE npcid = 80081;
 -- Fishing Child 80082
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80082;
+UPDATE npc SET size = "small" WHERE npcid = 80082;
 
 
 
@@ -23329,7 +23329,7 @@ UPDATE npc SET size = small WHERE npcid = 80082;
 -- Fishing Child 80083
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80083;
+UPDATE npc SET size = "small" WHERE npcid = 80083;
 
 
 
@@ -23341,7 +23341,7 @@ UPDATE npc SET size = small WHERE npcid = 80083;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80084;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80084;
+UPDATE npc SET size = "small" WHERE npcid = 80084;
 
 
 
@@ -23353,7 +23353,7 @@ UPDATE npc SET size = small WHERE npcid = 80084;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80085;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80085;
+UPDATE npc SET size = "small" WHERE npcid = 80085;
 
 
 
@@ -23365,7 +23365,7 @@ UPDATE npc SET size = small WHERE npcid = 80085;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80086;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80086;
+UPDATE npc SET size = "small" WHERE npcid = 80086;
 
 
 
@@ -23377,7 +23377,7 @@ UPDATE npc SET size = small WHERE npcid = 80086;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80087;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80087;
+UPDATE npc SET size = "small" WHERE npcid = 80087;
 
 
 
@@ -23389,7 +23389,7 @@ UPDATE npc SET size = small WHERE npcid = 80087;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80088;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80088;
+UPDATE npc SET size = "small" WHERE npcid = 80088;
 
 
 
@@ -23401,7 +23401,7 @@ UPDATE npc SET size = small WHERE npcid = 80088;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80089;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80089;
+UPDATE npc SET size = "small" WHERE npcid = 80089;
 
 
 
@@ -23413,7 +23413,7 @@ UPDATE npc SET size = small WHERE npcid = 80089;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80090;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80090;
+UPDATE npc SET size = "small" WHERE npcid = 80090;
 
 
 
@@ -23425,7 +23425,7 @@ UPDATE npc SET size = small WHERE npcid = 80090;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80091;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80091;
+UPDATE npc SET size = "small" WHERE npcid = 80091;
 
 
 
@@ -23437,7 +23437,7 @@ UPDATE npc SET size = small WHERE npcid = 80091;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80092;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80092;
+UPDATE npc SET size = "small" WHERE npcid = 80092;
 
 
 
@@ -23449,7 +23449,7 @@ UPDATE npc SET size = small WHERE npcid = 80092;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80093;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80093;
+UPDATE npc SET size = "small" WHERE npcid = 80093;
 
 
 
@@ -23461,7 +23461,7 @@ UPDATE npc SET size = small WHERE npcid = 80093;
 UPDATE npc SET passispeed = 160 WHERE npcid = 80094;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80094;
+UPDATE npc SET size = "small" WHERE npcid = 80094;
 
 
 
@@ -23473,7 +23473,7 @@ UPDATE npc SET size = small WHERE npcid = 80094;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80095;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80095;
+UPDATE npc SET size = "small" WHERE npcid = 80095;
 
 
 
@@ -23485,7 +23485,7 @@ UPDATE npc SET size = small WHERE npcid = 80095;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80096;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80096;
+UPDATE npc SET size = "small" WHERE npcid = 80096;
 
 
 
@@ -23497,7 +23497,7 @@ UPDATE npc SET size = small WHERE npcid = 80096;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80097;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80097;
+UPDATE npc SET size = "small" WHERE npcid = 80097;
 
 
 
@@ -23509,7 +23509,7 @@ UPDATE npc SET size = small WHERE npcid = 80097;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80098;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80098;
+UPDATE npc SET size = "small" WHERE npcid = 80098;
 
 
 
@@ -23521,7 +23521,7 @@ UPDATE npc SET size = small WHERE npcid = 80098;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80099;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80099;
+UPDATE npc SET size = "small" WHERE npcid = 80099;
 
 
 
@@ -23533,7 +23533,7 @@ UPDATE npc SET size = small WHERE npcid = 80099;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80100;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80100;
+UPDATE npc SET size = "small" WHERE npcid = 80100;
 
 
 
@@ -23548,7 +23548,7 @@ UPDATE npc SET atk_magic_speed = 5080 WHERE npcid = 80101;
 UPDATE npc SET passispeed = 960 WHERE npcid = 80101;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80101;
+UPDATE npc SET size = "small" WHERE npcid = 80101;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 80101;
@@ -23563,7 +23563,7 @@ UPDATE npc SET sub_magic_speed = 960 WHERE npcid = 80101;
 UPDATE npc SET passispeed = 1120 WHERE npcid = 80102;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80102;
+UPDATE npc SET size = "small" WHERE npcid = 80102;
 
 
 
@@ -23575,7 +23575,7 @@ UPDATE npc SET size = small WHERE npcid = 80102;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80103;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80103;
+UPDATE npc SET size = "small" WHERE npcid = 80103;
 
 
 
@@ -23587,7 +23587,7 @@ UPDATE npc SET size = small WHERE npcid = 80103;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80104;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80104;
+UPDATE npc SET size = "small" WHERE npcid = 80104;
 
 
 
@@ -23599,7 +23599,7 @@ UPDATE npc SET size = small WHERE npcid = 80104;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80105;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80105;
+UPDATE npc SET size = "small" WHERE npcid = 80105;
 
 
 
@@ -23647,7 +23647,7 @@ UPDATE npc SET passispeed = 160 WHERE npcid = 80114;
 UPDATE npc SET passispeed = 1280 WHERE npcid = 80127;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80127;
+UPDATE npc SET size = "small" WHERE npcid = 80127;
 
 
 
@@ -23659,7 +23659,7 @@ UPDATE npc SET size = small WHERE npcid = 80127;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80128;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80128;
+UPDATE npc SET size = "small" WHERE npcid = 80128;
 
 
 
@@ -23695,7 +23695,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80131;
 -- Decavia 80132
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80132;
+UPDATE npc SET size = "small" WHERE npcid = 80132;
 
 
 
@@ -23704,7 +23704,7 @@ UPDATE npc SET size = small WHERE npcid = 80132;
 -- Blacksmith Pual 80133
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80133;
+UPDATE npc SET size = "small" WHERE npcid = 80133;
 
 
 
@@ -23722,7 +23722,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80134;
 UPDATE npc SET atkspeed = 920 WHERE npcid = 80134;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80134;
+UPDATE npc SET size = "small" WHERE npcid = 80134;
 
 
 
@@ -23740,7 +23740,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80135;
 UPDATE npc SET atkspeed = 920 WHERE npcid = 80135;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80135;
+UPDATE npc SET size = "small" WHERE npcid = 80135;
 
 
 
@@ -23758,7 +23758,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80136;
 UPDATE npc SET atkspeed = 920 WHERE npcid = 80136;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80136;
+UPDATE npc SET size = "small" WHERE npcid = 80136;
 
 
 
@@ -23767,7 +23767,7 @@ UPDATE npc SET size = small WHERE npcid = 80136;
 -- Gepharu 80137
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80137;
+UPDATE npc SET size = "small" WHERE npcid = 80137;
 
 
 
@@ -23800,7 +23800,7 @@ UPDATE npc SET atkspeed = 920 WHERE npcid = 80139;
 --  80141
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80141;
+UPDATE npc SET size = "small" WHERE npcid = 80141;
 
 
 
@@ -23809,7 +23809,7 @@ UPDATE npc SET size = small WHERE npcid = 80141;
 --  80142
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80142;
+UPDATE npc SET size = "small" WHERE npcid = 80142;
 
 
 
@@ -23827,7 +23827,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80143;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 80143;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80143;
+UPDATE npc SET size = "small" WHERE npcid = 80143;
 
 
 
@@ -23845,7 +23845,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80144;
 UPDATE npc SET atkspeed = 920 WHERE npcid = 80144;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80144;
+UPDATE npc SET size = "small" WHERE npcid = 80144;
 
 
 
@@ -23863,7 +23863,7 @@ UPDATE npc SET passispeed = 480 WHERE npcid = 80145;
 UPDATE npc SET atkspeed = 880 WHERE npcid = 80145;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80145;
+UPDATE npc SET size = "small" WHERE npcid = 80145;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 920 WHERE npcid = 80145;
@@ -23878,7 +23878,7 @@ UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 80145;
 --  80146
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80146;
+UPDATE npc SET size = "small" WHERE npcid = 80146;
 
 
 
@@ -23914,7 +23914,7 @@ UPDATE npc SET atkspeed = 920 WHERE npcid = 80148;
 UPDATE npc SET passispeed = 640 WHERE npcid = 80168;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 80168;
+UPDATE npc SET size = "small" WHERE npcid = 80168;
 
 
 
@@ -23929,7 +23929,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81002;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81002;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81002;
+UPDATE npc SET size = "small" WHERE npcid = 81002;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81002;
@@ -23947,7 +23947,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81003;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81003;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81003;
+UPDATE npc SET size = "small" WHERE npcid = 81003;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81003;
@@ -23965,7 +23965,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81004;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81004;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81004;
+UPDATE npc SET size = "small" WHERE npcid = 81004;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81004;
@@ -23983,7 +23983,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81005;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81005;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81005;
+UPDATE npc SET size = "small" WHERE npcid = 81005;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81005;
@@ -24001,7 +24001,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81006;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81006;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81006;
+UPDATE npc SET size = "small" WHERE npcid = 81006;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81006;
@@ -24019,7 +24019,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81007;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81007;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81007;
+UPDATE npc SET size = "small" WHERE npcid = 81007;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81007;
@@ -24037,7 +24037,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81008;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81008;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81008;
+UPDATE npc SET size = "small" WHERE npcid = 81008;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81008;
@@ -24055,7 +24055,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81009;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81009;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81009;
+UPDATE npc SET size = "small" WHERE npcid = 81009;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81009;
@@ -24073,7 +24073,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81010;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81010;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81010;
+UPDATE npc SET size = "small" WHERE npcid = 81010;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81010;
@@ -24091,7 +24091,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81011;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81011;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81011;
+UPDATE npc SET size = "small" WHERE npcid = 81011;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81011;
@@ -24109,7 +24109,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81012;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81012;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81012;
+UPDATE npc SET size = "small" WHERE npcid = 81012;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81012;
@@ -24127,7 +24127,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81013;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81013;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81013;
+UPDATE npc SET size = "small" WHERE npcid = 81013;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81013;
@@ -24145,7 +24145,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81014;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81014;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81014;
+UPDATE npc SET size = "small" WHERE npcid = 81014;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81014;
@@ -24163,7 +24163,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81015;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81015;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81015;
+UPDATE npc SET size = "small" WHERE npcid = 81015;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81015;
@@ -24181,7 +24181,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81016;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81016;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81016;
+UPDATE npc SET size = "small" WHERE npcid = 81016;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81016;
@@ -24199,7 +24199,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81017;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81017;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81017;
+UPDATE npc SET size = "small" WHERE npcid = 81017;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81017;
@@ -24217,7 +24217,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81018;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81018;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81018;
+UPDATE npc SET size = "small" WHERE npcid = 81018;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81018;
@@ -24235,7 +24235,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81019;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81019;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81019;
+UPDATE npc SET size = "small" WHERE npcid = 81019;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81019;
@@ -24253,7 +24253,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81020;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81020;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81020;
+UPDATE npc SET size = "small" WHERE npcid = 81020;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81020;
@@ -24271,7 +24271,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81021;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81021;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81021;
+UPDATE npc SET size = "small" WHERE npcid = 81021;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81021;
@@ -24289,7 +24289,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81022;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81022;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81022;
+UPDATE npc SET size = "small" WHERE npcid = 81022;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81022;
@@ -24307,7 +24307,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81023;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81023;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81023;
+UPDATE npc SET size = "small" WHERE npcid = 81023;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81023;
@@ -24325,7 +24325,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81024;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81024;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81024;
+UPDATE npc SET size = "small" WHERE npcid = 81024;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81024;
@@ -24343,7 +24343,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81025;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81025;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81025;
+UPDATE npc SET size = "small" WHERE npcid = 81025;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81025;
@@ -24361,7 +24361,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81026;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81026;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81026;
+UPDATE npc SET size = "small" WHERE npcid = 81026;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81026;
@@ -24379,7 +24379,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81027;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81027;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81027;
+UPDATE npc SET size = "small" WHERE npcid = 81027;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81027;
@@ -24397,7 +24397,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81028;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81028;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81028;
+UPDATE npc SET size = "small" WHERE npcid = 81028;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81028;
@@ -24415,7 +24415,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81029;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81029;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81029;
+UPDATE npc SET size = "small" WHERE npcid = 81029;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81029;
@@ -25069,7 +25069,7 @@ UPDATE npc SET hpr = 100 WHERE npcid = 81104;
 -- Mysterious Rock 81105
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81105;
+UPDATE npc SET size = "small" WHERE npcid = 81105;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81105;
@@ -25111,7 +25111,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81110;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81110;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81110;
+UPDATE npc SET size = "small" WHERE npcid = 81110;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81110;
@@ -25135,7 +25135,7 @@ UPDATE npc SET passispeed = 1920 WHERE npcid = 81112;
 UPDATE npc SET atkspeed = 1280 WHERE npcid = 81112;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81112;
+UPDATE npc SET size = "small" WHERE npcid = 81112;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81112;
@@ -25153,7 +25153,7 @@ UPDATE npc SET alt_atk_speed = 1920 WHERE npcid = 81112;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 81113;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81113;
+UPDATE npc SET size = "small" WHERE npcid = 81113;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81113;
@@ -25168,7 +25168,7 @@ UPDATE npc SET change_head = 1 WHERE npcid = 81113;
 UPDATE npc SET lawful = -30000 WHERE npcid = 81114;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81114;
+UPDATE npc SET size = "small" WHERE npcid = 81114;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81114;
@@ -25186,7 +25186,7 @@ UPDATE npc SET atk_magic_speed = 760 WHERE npcid = 81115;
 UPDATE npc SET passispeed = 480 WHERE npcid = 81115;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81115;
+UPDATE npc SET size = "small" WHERE npcid = 81115;
 
 -- change_head changed from 0
 UPDATE npc SET change_head = 1 WHERE npcid = 81115;
@@ -25204,7 +25204,7 @@ UPDATE npc SET sub_magic_speed = 760 WHERE npcid = 81115;
 -- Fettered Soul 81118
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81118;
+UPDATE npc SET size = "small" WHERE npcid = 81118;
 
 
 
@@ -25216,7 +25216,7 @@ UPDATE npc SET size = small WHERE npcid = 81118;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81119;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81119;
+UPDATE npc SET size = "small" WHERE npcid = 81119;
 
 
 
@@ -25234,7 +25234,7 @@ UPDATE npc SET passispeed = 853 WHERE npcid = 81120;
 UPDATE npc SET atkspeed = 1240 WHERE npcid = 81120;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81120;
+UPDATE npc SET size = "small" WHERE npcid = 81120;
 
 
 
@@ -25243,7 +25243,7 @@ UPDATE npc SET size = small WHERE npcid = 81120;
 -- Ancient Spirit 81121
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81121;
+UPDATE npc SET size = "small" WHERE npcid = 81121;
 
 
 
@@ -25258,7 +25258,7 @@ UPDATE npc SET passispeed = 320 WHERE npcid = 81123;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 81123;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81123;
+UPDATE npc SET size = "small" WHERE npcid = 81123;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1720 WHERE npcid = 81123;
@@ -25276,7 +25276,7 @@ UPDATE npc SET passispeed = 320 WHERE npcid = 81124;
 UPDATE npc SET atkspeed = 1160 WHERE npcid = 81124;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81124;
+UPDATE npc SET size = "small" WHERE npcid = 81124;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1720 WHERE npcid = 81124;
@@ -25291,7 +25291,7 @@ UPDATE npc SET alt_atk_speed = 1720 WHERE npcid = 81124;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81155;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81155;
+UPDATE npc SET size = "small" WHERE npcid = 81155;
 
 
 
@@ -25462,7 +25462,7 @@ UPDATE npc SET sub_magic_speed = 1600 WHERE npcid = 81188;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 81200;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81200;
+UPDATE npc SET size = "small" WHERE npcid = 81200;
 
 
 
@@ -25477,7 +25477,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 81202;
 UPDATE npc SET atkspeed = 720 WHERE npcid = 81202;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81202;
+UPDATE npc SET size = "small" WHERE npcid = 81202;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 880 WHERE npcid = 81202;
@@ -25498,7 +25498,7 @@ UPDATE npc SET passispeed = 1440 WHERE npcid = 81203;
 UPDATE npc SET atkspeed = 1120 WHERE npcid = 81203;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81203;
+UPDATE npc SET size = "small" WHERE npcid = 81203;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1200 WHERE npcid = 81203;
@@ -25519,7 +25519,7 @@ UPDATE npc SET passispeed = 1280 WHERE npcid = 81204;
 UPDATE npc SET atkspeed = 960 WHERE npcid = 81204;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81204;
+UPDATE npc SET size = "small" WHERE npcid = 81204;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 1760 WHERE npcid = 81204;
@@ -25540,7 +25540,7 @@ UPDATE npc SET passispeed = 1440 WHERE npcid = 81205;
 UPDATE npc SET atkspeed = 1280 WHERE npcid = 81205;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81205;
+UPDATE npc SET size = "small" WHERE npcid = 81205;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1480 WHERE npcid = 81205;
@@ -25561,7 +25561,7 @@ UPDATE npc SET passispeed = 1440 WHERE npcid = 81206;
 UPDATE npc SET atkspeed = 1080 WHERE npcid = 81206;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81206;
+UPDATE npc SET size = "small" WHERE npcid = 81206;
 
 -- alt_atk_speed changed from 0
 UPDATE npc SET alt_atk_speed = 1120 WHERE npcid = 81206;
@@ -25582,7 +25582,7 @@ UPDATE npc SET passispeed = 960 WHERE npcid = 81207;
 UPDATE npc SET atkspeed = 1120 WHERE npcid = 81207;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81207;
+UPDATE npc SET size = "small" WHERE npcid = 81207;
 
 
 
@@ -25597,7 +25597,7 @@ UPDATE npc SET passispeed = 840 WHERE npcid = 81208;
 UPDATE npc SET atkspeed = 640 WHERE npcid = 81208;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81208;
+UPDATE npc SET size = "small" WHERE npcid = 81208;
 
 
 
@@ -25780,7 +25780,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81241;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81241;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81241;
+UPDATE npc SET size = "small" WHERE npcid = 81241;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81241;
@@ -25798,7 +25798,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81242;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81242;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81242;
+UPDATE npc SET size = "small" WHERE npcid = 81242;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81242;
@@ -25816,7 +25816,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81243;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81243;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81243;
+UPDATE npc SET size = "small" WHERE npcid = 81243;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81243;
@@ -25834,7 +25834,7 @@ UPDATE npc SET atk_magic_speed = 480 WHERE npcid = 81244;
 UPDATE npc SET passispeed = 640 WHERE npcid = 81244;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81244;
+UPDATE npc SET size = "small" WHERE npcid = 81244;
 
 -- sub_magic_speed changed from 0
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 81244;
@@ -25864,7 +25864,7 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 81245;
 UPDATE npc SET passispeed = 1920 WHERE npcid = 81246;
 
 -- size changed from 
-UPDATE npc SET size = small WHERE npcid = 81246;
+UPDATE npc SET size = "small" WHERE npcid = 81246;
 
 
 
