@@ -3,6 +3,10 @@
 # exit codes of GameServer: 
 #  0 normal shutdown 
 #  2 reboot attempt 
+
+if [[ ! -e "log/" ]]; then
+  mkdir log;
+fi
  
 while :; do 
   [ -f log/java0.log.0 ] && mv log/java0.log.0 "log/`date +%Y-%m-%d_%H-%M-%S`_java.log"
@@ -12,4 +16,3 @@ while :; do
 #  /etc/init.d/mysql restart 
   sleep 10 
 done 
-
