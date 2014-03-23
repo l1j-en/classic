@@ -75,7 +75,7 @@ alter table character_items add `defense_earth` int(4) unsigned not null default
 
 update npc set bowActId=66 where name="Greedy Archer";
 update shop set npc_name = 'Lakuki' where npc_id = 80090;
-update npc set npc_name = 'Lakuki' where npc_id = 80090;
+update npc set `name` = 'Lakuki' where npcid = 80090;
 update skills set attr=4 where name= "Ice Eruption"; 
 
 -- Fix for 42f Horrific Iron Golems
