@@ -1911,32 +1911,37 @@
 			<Material Amount="5" ItemId="40308"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request ei2202">
+	<!-- Exchange a large seed for ten small seeds. -->
+	<!-- It looks like the US and JP versions of the event were different. In
+		 the US version, players traded big seeds for little seeds and gold
+		 pumpkins required lots of little seeds. In the JP version, little
+		 seeds could be traded for big seeds and players needed three big seeds
+		 for a gold pumpkin. -->
+	<Action Name="request pumpkin seed">
 		<MakeItem>
-			<Item Amount="1" ItemId="40721"/>
-			<Material Amount="25" ItemId="40726"/>
+			<Item Amount="10" ItemId="40726"/>
+			<Material Amount="1" ItemId="40721"/>
 		</MakeItem>
 	</Action>
-	<!-- -->
-	<Action Name="request ei2205">
+	<!-- Copper Pumpkin -->
+	<Action Name="request copper pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40724"/>
 			<Material Amount="10" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- Silver Pumpkin -->
-	<Action Name="request ei2204">
+	<Action Name="request silver pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40723"/>
 			<Material Amount="25" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- Gold Pumpkin -->
-	<Action Name="request ei2203">
+	<Action Name="request gold pumpkin">
 		<MakeItem>
 			<Item Amount="1" ItemId="40722"/>
-			<Material Amount="3" ItemId="40721"/>
+			<Material Amount="50" ItemId="40726"/>
 		</MakeItem>
 	</Action>
 	<!-- -->
@@ -2943,6 +2948,7 @@
 			<Material Amount="10" ItemId="40054"/>
 			<Material Amount="10" ItemId="40055"/>
 			<Material Amount="30" ItemId="40520"/>
+			<Material Amount="30" ItemId="40969"/>
 			<Material Amount="2" ItemId="49092"/>
 			<Material Amount="1000000" ItemId="40308"/>
 			<Item Amount="1" ItemId="271"/>

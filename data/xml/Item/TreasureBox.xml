@@ -421,10 +421,10 @@
 	</TreasureBox>
 	<!-- Unlimited Quiver -->
 	<TreasureBox Type="RANDOM" ItemId="40330">
-		<Item ItemId="40744" Count="4000" Chance="80" />
-		<Item ItemId="40746" Count="1000" Chance="10" />
-		<Item ItemId="40747" Count="1000" Chance="5" />
-		<Item ItemId="40748" Count="1000" Chance="5" />
+		<Item ItemId="40744" Count="4000" Chance="40" />
+		<Item ItemId="40746" Count="1000" Chance="30" />
+		<Item ItemId="40747" Count="1000" Chance="18" />
+		<Item ItemId="40748" Count="1000" Chance="12" />
 	</TreasureBox>
 	<!-- Cursed Blood -->
 	<TreasureBox Type="RANDOM" ItemId="40416">

@@ -1,33 +1,11 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.templates;
 
 public class L1Armor extends L1Item {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	public L1Armor() {
-	}
+	public L1Armor() { }
 
-	private int _ac = 0; // AC
+	private int _ac = 0;
 
 	@Override
 	public int get_ac() {
@@ -38,7 +16,7 @@ public class L1Armor extends L1Item {
 		this._ac = i;
 	}
 
-	private int _damageReduction = 0; // damage
+	private int _damageReduction = 0;
 
 	@Override
 	public int getDamageReduction() {
@@ -148,70 +126,79 @@ public class L1Armor extends L1Item {
 		return this._defense_earth;
 	}
 
-	private int _regist_stun = 0; 
+	private int _resist_stun = 0; 
 
-	public void set_regist_stun(int i) {
-		_regist_stun = i;
+	public void set_resist_stun(int i) {
+		_resist_stun = i;
 	}
 
 	@Override
-	public int get_regist_stun() {
-		return this._regist_stun;
+	public int get_resist_stun() {
+		return this._resist_stun;
 	}
 
-	private int _regist_stone = 0; 
+	private int _resist_stone = 0; 
 
-	public void set_regist_stone(int i) {
-		_regist_stone = i;
-	}
-
-	@Override
-	public int get_regist_stone() {
-		return this._regist_stone;
-	}
-
-	private int _regist_sleep = 0;
-
-	public void set_regist_sleep(int i) {
-		_regist_sleep = i;
+	public void set_resist_stone(int i) {
+		_resist_stone = i;
 	}
 
 	@Override
-	public int get_regist_sleep() {
-		return this._regist_sleep;
+	public int get_resist_stone() {
+		return this._resist_stone;
 	}
 
-	private int _regist_freeze = 0; 
+	private int _resist_sleep = 0;
 
-	public void set_regist_freeze(int i) {
-		_regist_freeze = i;
-	}
-
-	@Override
-	public int get_regist_freeze() {
-		return this._regist_freeze;
-	}
-
-	private int _regist_sustain = 0; //
-
-	public void set_regist_sustain(int i) {
-		_regist_sustain = i;
+	public void set_resist_sleep(int i) {
+		_resist_sleep = i;
 	}
 
 	@Override
-	public int get_regist_sustain() {
-		return this._regist_sustain;
+	public int get_resist_sleep() {
+		return this._resist_sleep;
 	}
 
-	private int _regist_blind = 0; // 
+	private int _resist_freeze = 0; 
 
-	public void set_regist_blind(int i) {
-		_regist_blind = i;
+	public void set_resist_freeze(int i) {
+		_resist_freeze = i;
 	}
 
 	@Override
-	public int get_regist_blind() {
-		return this._regist_blind;
+	public int get_resist_freeze() {
+		return this._resist_freeze;
 	}
 
+	private int _resist_sustain = 0; //
+
+	public void set_resist_sustain(int i) {
+		_resist_sustain = i;
+	}
+
+	@Override
+	public int get_resist_sustain() {
+		return this._resist_sustain;
+	}
+
+	private int _resist_blind = 0; // 
+
+	public void set_resist_blind(int i) {
+		_resist_blind = i;
+	}
+
+	@Override
+	public int get_resist_blind() {
+		return this._resist_blind;
+	}
+
+	private int _grade;
+	
+	@Override public int getGrade() {
+		return _grade;
+	}
+	
+	public void setGrade(int grade) {
+		_grade = grade;
+	}
 }

@@ -40,14 +40,12 @@ public class LogClanDwarfIn {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO LogClanWareHouseIn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String fm = formatter.format(time.getTime());
-			pstm.setString(2, fm);
+			pstm = con.prepareStatement("INSERT INTO LogClanWareHouseIn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			SimpleDateFormat formatter =
+				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			pstm.setString(1, formatter.format(new Date().getTime()));
 			pstm.setString(2, pc.getNetConnection().getIp());
-			pstm.setString(1, pc.getAccountName());
+			pstm.setString(3, pc.getAccountName());
 			pstm.setInt(4, pc.getId());
 			pstm.setString(5, pc.getName());
 			pstm.setInt(6, pc.getClanid());

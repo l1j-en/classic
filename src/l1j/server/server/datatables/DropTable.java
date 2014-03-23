@@ -211,6 +211,11 @@ public class DropTable {
 				itemCount = 2000000000;
 			}
 			item = ItemTable.getInstance().createItem(itemId);
+			if (item == null) {
+				_log.log(Level.WARNING, String.format("DropTable::SetDrop: " +
+							"invalid item id %d for npc %d.", itemId, mobId));
+				continue;
+			}
 			item.setCount(itemCount);
 			inventory.storeItem(item);
 		}
@@ -304,17 +309,16 @@ public class DropTable {
 									if (player.isInParty()) {
 										partyMember = player.getParty().getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
-											partyMember[p]
-													.sendPackets(new S_ServerMessage(
+											if(partyMember[p].getPartyDropMessages())
+												partyMember[p].sendPackets(
+														new S_ServerMessage(
 															813, npc.getName(),
 															item.getLogName(),
 															player.getName()));
 										}
 									} else {
-										
-										player.sendPackets(new S_ServerMessage(
-												143, npc.getName(), item
-														.getLogName()));
+										if (player.getDropMessages()) 
+											player.sendPackets(new S_ServerMessage(143, npc.getName(), item.getLogName()));
 									}
 								}
 							}
@@ -397,7 +401,7 @@ public class DropTable {
 		npc.turnOnOffLight();
 	}
 
-	public ArrayList<L1Drop> getDrops(int mobID) {//New for GMCommands
+	public List<L1Drop> getDrops(int mobID) {//New for GMCommands
 		return _droplists.get(mobID);
 	}
 }

@@ -105,6 +105,7 @@ public class SprTable {
 				case ACTION_ClawAttack:
 				case ACTION_ThrowingKnifeAttack:
 					spr.attackSpeed.put(actid, speed);
+					break;
 				default:
 					break;
 				}

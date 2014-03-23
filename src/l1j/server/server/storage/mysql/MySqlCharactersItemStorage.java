@@ -71,6 +71,16 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 				item.setBless(rs.getInt("bless"));
 				item.setAttrEnchantKind(rs.getInt("attr_enchant_kind"));
 				item.setAttrEnchantLevel(rs.getInt("attr_enchant_level"));
+				item.setFireResist(rs.getInt("defense_fire"));
+				item.setWaterResist(rs.getInt("defense_water"));
+				item.setEarthResist(rs.getInt("defense_earth"));
+				item.setWindResist(rs.getInt("defense_wind"));
+				item.setAddSpellpower(rs.getInt("add_sp"));
+				item.setAddHp(rs.getInt("add_hp"));
+				item.setAddMp(rs.getInt("add_mp"));
+				item.setAddHpRegen(rs.getInt("add_hpr"));
+				item.setAddMpRegen(rs.getInt("add_mpr"));
+				item.setMagicResist(rs.getInt("m_def"));
 				item.getLastStatus().updateAll();
 				items.add(item);
 			}
@@ -90,7 +100,7 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?");
+			pstm = con.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?,defense_fire = ?, defense_water = ?,defense_earth = ?,defense_wind = ?,add_sp = ?,add_hp = ?,add_mp = ?,add_hpr = ?,add_mpr = ?,m_def = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setInt(2, item.getItem().getItemId());
 			pstm.setInt(3, objId);
@@ -105,6 +115,16 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 			pstm.setInt(12, item.getBless());
 			pstm.setInt(13, item.getAttrEnchantKind());
 			pstm.setInt(14, item.getAttrEnchantLevel());
+			pstm.setInt(15, item.getFireResist());
+			pstm.setInt(16, item.getWaterResist());
+			pstm.setInt(17, item.getEarthResist());
+			pstm.setInt(18, item.getWindResist());
+			pstm.setInt(19, item.getAddSpellpower());
+			pstm.setInt(20, item.getAddHp());
+			pstm.setInt(21, item.getAddMp());
+			pstm.setInt(22, item.getAddHpRegen());
+			pstm.setInt(23, item.getAddMpRegen());
+			pstm.setInt(24, item.getMagicResist());
 			pstm.execute();
 		} catch (SQLException e) {
 			throw e;
@@ -208,6 +228,86 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 				"UPDATE character_items SET attr_enchant_level = ? WHERE id = ?",
 						item.getAttrEnchantLevel());
 		item.getLastStatus().updateAttrEnchantLevel();
+	}
+
+	@Override
+	public void updateFireResist(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET defense_fire = ? WHERE id = ?",
+				item.getFireResist());
+		item.getLastStatus().updateFireResist();
+	}
+
+	@Override
+	public void updateWaterResist(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET defense_water = ? WHERE id = ?",
+				item.getWaterResist());
+		item.getLastStatus().updateWaterResist();
+	}
+
+	@Override
+	public void updateEarthResist(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET defense_earth = ? WHERE id = ?",
+				item.getEarthResist());
+		item.getLastStatus().updateEarthResist();
+	}
+
+	@Override
+	public void updateWindResist(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET defense_wind = ? WHERE id = ?",
+				item.getWindResist());
+		item.getLastStatus().updateWindResist();
+	}
+
+	@Override
+	public void updateSpellpower(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET add_sp = ? WHERE id = ?",
+				item.getAddSpellpower());
+		item.getLastStatus().updateSpellpower();
+	}
+
+	@Override
+	public void updateAddHp(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET add_hp = ? WHERE id = ?",
+				item.getAddHp());
+		item.getLastStatus().updateHp();
+	}
+
+	@Override
+	public void updateAddMp(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET add_mp = ? WHERE id = ?",
+				item.getAddMp());
+		item.getLastStatus().updateMp();
+	}
+
+	@Override
+	public void updateHpRegen(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET add_hpr = ? WHERE id = ?",
+				item.getAddHpRegen());
+		item.getLastStatus().updateHpRegen();
+	}
+
+	@Override
+	public void updateMpRegen(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET add_mpr = ? WHERE id = ?",
+				item.getAddMpRegen());
+		item.getLastStatus().updateMpRegen();
+	}
+
+	@Override
+	public void updateMagicResist(L1ItemInstance item) throws Exception {
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET m_def = ? WHERE id = ?",
+				item.getMagicResist());
+		item.getLastStatus().updateMagicResist();
 	}
 
 	@Override

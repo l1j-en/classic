@@ -51,7 +51,8 @@
                encoding="UTF-8">
             <src path="${src.dir}" />
             <classpath refid="classpath" />
-        </javac>
+			<compilerarg value="-Xlint"/>
+		</javac>
     </target>
 
     <!-- jar Target -->

@@ -152,6 +152,12 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				} else if (player.isWizard() || player.isDarkelf()) {
 					htmlid = "barnia1";
 				}
+		} else if (npcid == 50055) {
+			if (player.getLevel() < 15) {
+				htmlid = "drist2";
+			} else {
+				htmlid = "drist1";
+			}
 		} else if (npcid == 81258) {
 			if (player.isIllusionist()) {
 				htmlid = "asha1";

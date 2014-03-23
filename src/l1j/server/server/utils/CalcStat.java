@@ -208,7 +208,7 @@ public class CalcStat {
 				randommp = Config.PRINCE_MAX_MP - baseMaxMp;
 			}
 		} else if (charType == 1) { // Knight
-			randommp = (int) (randommp * 2 / 3);
+			randommp = randommp * 2 / 3;
 			if (baseMaxMp + randommp > Config.KNIGHT_MAX_MP) {
 				randommp = Config.KNIGHT_MAX_MP - baseMaxMp;
 			}
@@ -231,13 +231,13 @@ public class CalcStat {
 				randommp = Config.DARKELF_MAX_MP - baseMaxMp;
 			}
 		} else if (charType == 5) { // Dragon Knight
-			randommp = (int) (randommp * 2 / 3);
+			randommp = randommp * 2 / 3;
 
 			if (baseMaxMp + randommp > Config.DRAGONKNIGHT_MAX_MP) {
 				randommp = Config.DRAGONKNIGHT_MAX_MP - baseMaxMp;
 			}
 		} else if (charType == 6) { // Illusionist
-			randommp = (int) (randommp * 5 / 3);
+			randommp = randommp * 5 / 3;
 
 			if (baseMaxMp + randommp > Config.ILLUSIONIST_MAX_MP) {
 				randommp = Config.ILLUSIONIST_MAX_MP - baseMaxMp;

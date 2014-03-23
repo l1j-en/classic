@@ -1,22 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
-
 package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
@@ -27,12 +8,15 @@ import java.util.Random;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.ExpTable;
+import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.PetItemTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_HPMeter;
@@ -43,13 +27,15 @@ import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
+import l1j.server.server.templates.L1PetItem;
 import l1j.server.server.templates.L1PetType;
 
 public class L1PetInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
 	private static Random _random = new Random();
-	private static Logger _log = Logger.getLogger(L1PetInstance.class.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1PetInstance.class.getName());
 	private int _currentPetStatus;
 	private L1PcInstance _petMaster;
 	private int _itemObjId;
@@ -139,6 +125,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public L1PetInstance(L1Npc template, L1PcInstance master, L1Pet l1pet) {
 		super(template);
+		// System.out.println("Beginning pet creation.");
 		_petMaster = master;
 		_itemObjId = l1pet.get_itemobjid();
 		_type = PetTypeTable.getInstance().get(template.get_npcId());
@@ -150,10 +137,13 @@ public class L1PetInstance extends L1NpcInstance {
 		setMaxMp(l1pet.get_mp());
 		setCurrentMpDirect(l1pet.get_mp());
 		setExp(l1pet.get_exp());
-		setExpPercent(ExpTable.getExpPercentage(l1pet.get_level(), l1pet
-				.get_exp()));
+		setExpPercent(ExpTable.getExpPercentage(l1pet.get_level(), 
+					l1pet.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
+		ItemTable items = ItemTable.getInstance();
+		setWeapon(items.createItem(l1pet.get_weapon()));
+		setArmor(items.createItem(l1pet.get_armor()));
 		setMaster(master);
 		setX(master.getX() + _random.nextInt(5) - 2);
 		setY(master.getY() + _random.nextInt(5) - 2);
@@ -167,6 +157,7 @@ public class L1PetInstance extends L1NpcInstance {
 			onPerceive(pc);
 		}
 		master.addPet(this);
+		// System.out.println("Pet created successfully.");
 	}
 
 	public L1PetInstance(L1NpcInstance target, L1PcInstance master, int itemid) {
@@ -262,6 +253,12 @@ public class L1PetInstance extends L1NpcInstance {
 		l1pet.set_hp(getMaxHp());
 		l1pet.set_mp(getMaxMp());
 		l1pet.set_exp(getExp());
+		L1ItemInstance armor = getArmor();
+		L1ItemInstance weapon = getWeapon();
+		if (weapon != null)
+			l1pet.set_weapon(weapon.getItemId());
+		if (armor != null)
+			l1pet.set_armor(armor.getItemId());
 		PetTable.getInstance().storeNewPet(this, getId(), new_itemobjid);
 		_itemObjId = new_itemobjid;
 	}
@@ -373,7 +370,7 @@ public class L1PetInstance extends L1NpcInstance {
 		if (master.isTeleport()) { 
 			return;
 		}
-		if (getZoneType() == 1) {
+		if (getZoneType() == ZoneType.Safety) {
 			L1Attack attack_mortion = new L1Attack(player, this); 
 			attack_mortion.action();
 			return;
@@ -561,6 +558,33 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setWeapon(L1ItemInstance weapon) {
 		_weapon = weapon;
+
+		if (weapon == null)
+			return;
+		
+		// FIXME: This is a dreadful experimental hack.	
+		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
+		if (l1pet != null)
+			l1pet.set_weapon(weapon.getItemId());
+
+		// TODO: stat changes
+		int itemId = weapon.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		setHitByWeapon(template.getHitModifier());
+		setDamageByWeapon(template.getDamageModifier());
+		addStr(template.getAddStr());
+		addCon(template.getAddCon());
+		addDex(template.getAddDex());
+		addInt(template.getAddInt());
+		addWis(template.getAddWis());
+		addMaxHp(template.getAddHp());
+		addMaxMp(template.getAddMp());
+		addSp(template.getAddSp());
+		addMr(template.getAddMr());
+		weapon.setEquipped(true);
 	}
 
 	public L1ItemInstance getWeapon() {
@@ -571,6 +595,72 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public void setArmor(L1ItemInstance armor) {
 		_armor = armor;
+
+		if (armor == null)
+			return;
+
+		// FIXME: see note in setWeapon().	
+		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
+		if (l1pet == null)
+			l1pet.set_armor(armor.getItemId());
+
+		int itemId = armor.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		addAc(template.getAddAc());
+		addStr(template.getAddStr());
+		addCon(template.getAddCon());
+		addDex(template.getAddDex());
+		addInt(template.getAddInt());
+		addWis(template.getAddWis());
+		addMaxHp(template.getAddHp());
+		addMaxMp(template.getAddMp());
+		addSp(template.getAddSp());
+		addMr(template.getAddMr());
+		armor.setEquipped(true);
+	}
+
+	public void removeArmor(final L1ItemInstance armor) {
+		int itemId = armor.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		addAc(-template.getAddAc());
+		addStr(-template.getAddStr());
+		addCon(-template.getAddCon());
+		addDex(-template.getAddDex());
+		addInt(-template.getAddInt());
+		addWis(-template.getAddWis());
+		addMaxHp(-template.getAddHp());
+		addMaxMp(-template.getAddMp());
+		addSp(-template.getAddSp());
+		addMr(-template.getAddMr());
+		setArmor(null);
+		armor.setEquipped(false);
+	}
+
+	public void removeWeapon(final L1ItemInstance weapon) {
+		int itemId = weapon.getItem().getItemId();
+		L1PetItem template = PetItemTable.getInstance().getTemplate(itemId);
+		if (template == null) {
+			return;
+		}
+		setHitByWeapon(0);
+		setDamageByWeapon(0);
+		addStr(-template.getAddStr());
+		addCon(-template.getAddCon());
+		addDex(-template.getAddDex());
+		addInt(-template.getAddInt());
+		addWis(-template.getAddWis());
+		addMaxHp(-template.getAddHp());
+		addMaxMp(-template.getAddMp());
+		addSp(-template.getAddSp());
+		addMr(-template.getAddMr());
+		setWeapon(null);
+		weapon.setEquipped(false);
 	}
 
 	public L1ItemInstance getArmor() {

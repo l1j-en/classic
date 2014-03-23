@@ -25,8 +25,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Config;
-import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -35,13 +33,12 @@ import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.gametime.L1GameTime;
-import l1j.server.server.model.gametime.L1GameTimeAdapter;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.types.Point;
 
-public class L1Spawn extends L1GameTimeAdapter {
+public class L1Spawn {
 	private static Logger _log = Logger.getLogger(L1Spawn.class.getName());
 	private final L1Npc _template;
 	private int _id; // just to find this in the spawn table
@@ -68,7 +65,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 	private int _delayInterval;
 	private L1SpawnTime _time;
 	private HashMap<Integer, Point> _homePoint = null; // init spawn of individual objects in the home points
-	private List<L1NpcInstance> _mobs = new ArrayList<L1NpcInstance>();
 	private static Random _random = new Random();
 	private String _name;
 	private int _spawnHome;
@@ -312,9 +308,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 	private boolean _spawnHomePoint;
 
 	public void init() {
-		if (_time != null && _time.isDeleteAtEndTime()) {
-			L1GameTimeClock.getInstance().addListener(this);
-		}
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
 		// Points to give the home or
@@ -338,12 +331,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 	 * If not, spawnNumber not used.
 	 */
 	protected void doSpawn(int spawnNumber) {
-		if (_time != null
-				&& !_time.getTimePeriod().includes(
-						L1GameTimeClock.getInstance().currentTime())) {
-			executeSpawnTask(spawnNumber, 0);
-			return;
-		}
 		doSpawn(spawnNumber, 0);
 	}
 
@@ -355,9 +342,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 			int tryCount = 0;
 
 			mob = NpcTable.getInstance().newNpcInstance(_template);
-			synchronized (_mobs) {
-				_mobs.add(mob);
-			}
 			if (objectId == 0) {
 				mob.setId(IdFactory.getInstance().nextId());
 			} else {
@@ -384,7 +368,7 @@ public class L1Spawn extends L1GameTimeAdapter {
 				switch (getSpawnType()) {
 				case SPAWN_TYPE_PC_AROUND: // Area real PC to type
 					if (!_initSpawn) { // The initial deployment is usually spawn unconditionally
-						ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>();
+						List<L1PcInstance> players = new ArrayList<L1PcInstance>();
 						for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 							if (getMapId() == pc.getMapId()) {
 								players.add(pc);
@@ -403,10 +387,9 @@ public class L1Spawn extends L1GameTimeAdapter {
 					// PC floor if you have no way normal appearance
 				default:
 					if (isAreaSpawn()) { // Coordinates of the range specified in the case
-						Point pt = null;
-						if (_spawnHomePoint
-								&& null != (pt = _homePoint.get(spawnNumber))) { // Home to the original point out that if re-emergence
-							L1Location loc = new L1Location(pt, getMapId())
+						if (!_initSpawn && _spawnHomePoint) { // Home to the original point out that if re-emergence
+							Point point = _homePoint.get(spawnNumber);
+							L1Location loc = new L1Location(point, getMapId())
 									.randomLocation(
 											getSpawnHomeRange(),
 											false);
@@ -423,10 +406,8 @@ public class L1Spawn extends L1GameTimeAdapter {
 							newlocy = getLocY();
 						}
 					} else if (isRandomSpawn()) { // Coordinate random value is if
-						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
-								.random() * getRandomx())));
-						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
-								.random() * getRandomy())));
+						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math.random() * getRandomx())));
+						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math.random() * getRandomy())));
 					} else { // Both did not specify if
 						newlocx = getLocX();
 						newlocy = getLocY();
@@ -537,33 +518,6 @@ public class L1Spawn extends L1GameTimeAdapter {
 
 	private boolean isRandomSpawn() {
 		return getRandomx() != 0 || getRandomy() != 0;
-	}
-
-	public L1SpawnTime getTime() {
-		return _time;
-	}
-
-	public void setTime(L1SpawnTime time) {
-		_time = time;
-	}
-
-	@Override
-	public void onMinuteChanged(L1GameTime time) {
-		if (_time.getTimePeriod().includes(time)) {
-			return;
-		}
-		synchronized (_mobs) {
-			if (_mobs.isEmpty()) {
-				return;
-			}
-			for (L1NpcInstance mob : _mobs) {
-				mob.setCurrentHpDirect(0);
-				mob.setDead(true);
-				mob.setStatus(ActionCodes.ACTION_Die);
-				mob.deleteMe();
-			}
-			_mobs.clear();
-		}
 	}
 
 	public static void doCrystalCave(int npcId) {

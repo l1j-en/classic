@@ -23,7 +23,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,18 +32,13 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.utils.collections.Lists;
 import l1j.server.server.utils.collections.Maps;
 
 public class SkillTable {
 
 	private static Logger _log = Logger.getLogger(SkillTable.class.getName());
-
 	private static SkillTable _instance;
-
 	private final Map<Integer, L1Skill> _skills = Maps.newHashMap();
-
-	//private final List<Integer> _buffSkillIds;
 
 	public static void initialize() {
 		if (_instance != null) {
@@ -60,7 +54,6 @@ public class SkillTable {
 
 	private SkillTable() {
 		loadSkills();
-		//_buffSkillIds = cacheBuffSkillIds();
 	}
 
 	private void loadSkills() {
@@ -84,18 +77,6 @@ public class SkillTable {
 			SQLUtil.close(con);
 		}
 	}
-
-	/*
-	private List<Integer> cacheBuffSkillIds() {
-		List<Integer> result = Lists.newArrayList();
-		for (L1Skill skill : _skills.values()) {
-			if (skill.isBuff()) {
-				result.add(skill.getSkillId());
-			}
-		}
-		return result;
-	}
-    */
 	
 	public void spellMastery(int playerobjid, int skillid, String skillname,
 			int active, int time) {
@@ -195,10 +176,4 @@ public class SkillTable {
 		}
 		return null;
 	}
-
-	/*
-	public List<Integer> findBuffSkillIds() {
-		return Lists.newArrayList(_buffSkillIds);
-	}
-	*/
 }

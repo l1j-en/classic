@@ -18,7 +18,6 @@
  */
 package l1j.server.server.model.Instance;
 
-//
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -85,8 +84,8 @@ public class L1NpcInstance extends L1Character {
 	public static final int CHAT_TIMING_HIDE = 2;
 	public static final int CHAT_TIMING_GAME_TIME = 3;
 
-	private static Logger _log = Logger
-			.getLogger(L1NpcInstance.class.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
@@ -101,10 +100,11 @@ public class L1NpcInstance extends L1Character {
 	private int _drainedMana = 0;
 	private boolean _rest = false;
 
-
 	private int _randomMoveDistance = 0;
-
 	private int _randomMoveDirection = 0;
+
+	private Timer _chatTimer;
+	private L1NpcChatTimer _chatTask;
 
 	interface NpcAI {
 		public void start();
@@ -120,7 +120,8 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	private static final TimerPool _timerPool = new TimerPool(4);
+	// If you've got the threads, kick this up.
+	private static final TimerPool _timerPool = new TimerPool(32);
 
 	class NpcAITimerImpl extends TimerTask implements NpcAI {
 		private class DeathSyncTimer extends TimerTask {
@@ -291,7 +292,7 @@ public class L1NpcInstance extends L1Character {
 				|| (_target.isInvisble() && !getNpcTemplate().is_agrocoi() && !_hateList
 						.containsKey(_target))) {
 			if (_target != null) {
-				tagertClear();
+				targetClear();
 			}
 			if (!_hateList.isEmpty()) {
 				_target = _hateList.getMaxHateCharacter();
@@ -347,7 +348,29 @@ public class L1NpcInstance extends L1Character {
 		setActived(true);
 		_targetItemList.clear();
 		_targetItem = null;
-		L1Character target = _target; 
+		L1Character target = _target;
+		
+		// FIXME: gawdawful hack/debugging logging. _target should never really
+		// be null, but keeping it around leaks memory. If _target was a pet or
+		// summon, though, it will be leaked _and_ throw nasty NPEs if the
+		// monster in question uses skills.
+		if (target == null) {
+			// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): null _target.");
+			return;
+		} else if (target instanceof L1PetInstance) {
+			L1PetInstance pet = (L1PetInstance) target;
+			if (pet.getMaster() == null) {
+				// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing pet master.");
+				return;
+			}
+		} else if (target instanceof L1SummonInstance) {
+			L1SummonInstance summon = (L1SummonInstance) target;
+			if (summon.getMaster() == null) {
+				// _log.log(Level.WARNING, "L1NpcInstance::onTarget(): missing summon master.");
+				return;
+			}
+		}
+		
 		if (getAtkspeed() == 0)
 		{
 			if (getPassispeed() > 0)
@@ -357,7 +380,7 @@ public class L1NpcInstance extends L1Character {
 					escapeDistance = 1;
 				}
 				if (getLocation().getTileLineDistance(target.getLocation()) > escapeDistance) {
-					tagertClear();
+					targetClear();
 				} else {
 					int dir = targetReverseDirection(target.getX(), target
 							.getY());
@@ -367,9 +390,7 @@ public class L1NpcInstance extends L1Character {
 				}
 			}
 		} else { 
-			boolean isSkillUse = false;
-			isSkillUse = mobSkill.skillUse(target);
-			if (isSkillUse == true) {
+			if (mobSkill.skillUse(target)) {
 				setSleepTime(calcSleepTime(mobSkill.getSleepTime(),
 						MAGIC_SPEED));
 				return;
@@ -401,14 +422,14 @@ public class L1NpcInstance extends L1Character {
 					}
 					int dir = moveDirection(target.getX(), target.getY());
 					if (dir == -1) {
-						tagertClear();
+						targetClear();
 					} else {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(),
 								MOVE_SPEED));
 					}
 				} else {
-					tagertClear();
+					targetClear();
 				}
 			}
 		}
@@ -467,30 +488,24 @@ public class L1NpcInstance extends L1Character {
 			}
 		}
 
-		boolean isCounterBarrier = false;
 		L1Attack attack = new L1Attack(this, target);
+
+		if (target.hasSkillEffect(COUNTER_BARRIER)) {
+			L1Magic magic = new L1Magic(target, this);
+			if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
+					attack.isShortDistance()) {
+				attack.actionCounterBarrier();
+				attack.commitCounterBarrier();
+				setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
+				return;
+			}
+		}
 		if (attack.calcHit()) {
-			if (target.hasSkillEffect(COUNTER_BARRIER)) {
-				L1Magic magic = new L1Magic(target, this);
-				boolean isProbability = magic
-						.calcProbabilityMagic(COUNTER_BARRIER);
-				boolean isShortDistance = attack.isShortDistance();
-				if (isProbability && isShortDistance) {
-					isCounterBarrier = true;
-				}
-			}
-			if (!isCounterBarrier) {
-				attack.calcDamage();
-			}
-		}
-		if (isCounterBarrier) {
-			attack.actionCounterBarrier();
-			attack.commitCounterBarrier();
-		} else {
+			attack.calcDamage();
 			attack.addPcPoisonAttack(target, this);
-			attack.action();
-			attack.commit();
 		}
+		attack.action();
+		attack.commit();
 		setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 	}
 
@@ -670,7 +685,7 @@ public class L1NpcInstance extends L1Character {
 	public void onFinalAction(L1PcInstance pc, String s) {
 	}
 
-	public void tagertClear() {
+	public void targetClear() {
 		if (_target == null) {
 			return;
 		}
@@ -678,7 +693,7 @@ public class L1NpcInstance extends L1Character {
 		_target = null;
 	}
 
-	public void targetRemove(L1Character target) {
+	public void removeTarget(L1Character target) {
 		_hateList.remove(target);
 		if (_target != null && _target.equals(target)) {
 			_target = null;
@@ -704,136 +719,62 @@ public class L1NpcInstance extends L1Character {
 	public void onNpcAI() {
 	}
 
-	public void refineItem() {
+	private void consumeAndCreate(int[] ingredients, int[] ingredientCounts,
+			int result, L1Inventory inventory) {
+		if (!inventory.checkItem(ingredients, ingredientCounts))
+			return;
 
-		int[] materials = null;
-		int[] counts = null;
-		int[] createitem = null;
-		int[] createcount = null;
+		for (int i = 0; i < ingredients.length; i++)
+			inventory.consumeItem(ingredients[i], ingredientCounts[i]);
+		inventory.storeItem(result, 1);
+	}
 
-		if (_npcTemplate.get_npcId() == 45032) {
-			if (getExp() != 0 && !_inventory.checkItem(20)) {
-				materials = new int[] { 40508, 40521, 40045 };
-				counts = new int[] { 150, 3, 3 };
-				createitem = new int[] { 20 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+	private void makeIfAbsent(int[] ingredients, int[] ingredientCounts,
+			int result, L1Inventory inventory) {
+		if (inventory.checkItem(result))
+			return;
+		consumeAndCreate(ingredients, ingredientCounts, result, inventory);
+	}
+
+	private void refineItem() {
+		if (getExp() == 0)
+			return;
+
+		if (getNpcId() == 45032) {
+			makeIfAbsent(new int[] { 40508, 40521, 40045 },
+					new int[] { 150, 3, 3 }, 20, _inventory);
+	
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 150, 3 },
+					19, _inventory);
 		
-			if (getExp() != 0 && !_inventory.checkItem(19)) {
-				materials = new int[] { 40494, 40521 };
-				counts = new int[] { 150, 3 };
-				createitem = new int[] { 19 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 50, 1 },
+					3, _inventory);
+			
+			makeIfAbsent(new int[] { 88, 40508, 40045 },
+					new int[] { 4, 80, 3 }, 100, _inventory);
 		
-			if (getExp() != 0 && !_inventory.checkItem(3)) {
-				materials = new int[] { 40494, 40521 };
-				counts = new int[] { 50, 1 };
-				createitem = new int[] { 3 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-			
-			if (getExp() != 0 && !_inventory.checkItem(100)) {
-				materials = new int[] { 88, 40508, 40045 };
-				counts = new int[] { 4, 80, 3 };
-				createitem = new int[] { 100 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-			
-			if (getExp() != 0 && !_inventory.checkItem(89)) {
-				materials = new int[] { 88, 40494 };
-				counts = new int[] { 2, 80 };
-				createitem = new int[] { 89 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						L1ItemInstance item = _inventory.storeItem(
-								createitem[j], createcount[j]);
-						if (getNpcTemplate().get_digestitem() > 0) {
-							setDigestItem(item);
-						}
-					}
-				}
-			}
-		} else if (_npcTemplate.get_npcId() == 81069) { 
-			if (getExp() != 0 && !_inventory.checkItem(40542)) {
-				materials = new int[] { 40032 };
-				counts = new int[] { 1 };
-				createitem = new int[] { 40542 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
-		} else if (_npcTemplate.get_npcId() == 45166 
-				|| _npcTemplate.get_npcId() == 45167) {
-			if (getExp() != 0 && !_inventory.checkItem(40726)) {
-				materials = new int[] { 40725 };
-				counts = new int[] { 1 };
-				createitem = new int[] { 40726 };
-				createcount = new int[] { 1 };
-				if (_inventory.checkItem(materials, counts)) {
-					for (int i = 0; i < materials.length; i++) {
-						_inventory.consumeItem(materials[i], counts[i]);
-					}
-					for (int j = 0; j < createitem.length; j++) {
-						_inventory.storeItem(createitem[j], createcount[j]);
-					}
-				}
-			}
+			makeIfAbsent(new int[] { 88, 40494 }, new int[] { 2, 80 },
+				89, _inventory);
+			L1ItemInstance item = _inventory.findItemId(89);
+			if (item != null && getNpcTemplate().get_digestitem() > 0)
+				setDigestItem(item);
+
+		} else if (getNpcId() == 81069) { 
+			makeIfAbsent(new int[] { 40032 }, new int[] { 1 }, 40542, _inventory);
+		} else if (getNpcId() == 45166 || 
+				getNpcId() == 45167) {
+			makeIfAbsent(new int[] { 40725 }, new int[] { 1 }, 40726, _inventory);
 		}
 	}
 
 	private boolean _aiRunning = false; 
-
 	private boolean _actived = false;
-
 	private boolean _firstAttack = false;
 	private int _sleep_time; 
 	protected L1HateList _hateList = new L1HateList();
 	protected L1HateList _dropHateList = new L1HateList();
 	
-	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(); 
+	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(0); 
 	protected L1Character _target = null; 
 	protected L1ItemInstance _targetItem = null; 
 	protected L1Character _master = null; 
@@ -921,7 +862,6 @@ public class L1NpcInstance extends L1Character {
 		private final int _point;
 	}
 
-
 	private boolean _mprRunning = false;
 
 	private MprTimer _mprTimer;
@@ -951,7 +891,6 @@ public class L1NpcInstance extends L1Character {
 
 		private final int _point;
 	}
-
 
 	private Map<Integer, Integer> _digestItems;
 	public boolean _digestItemRunning = false;
@@ -1215,6 +1154,16 @@ public class L1NpcInstance extends L1Character {
 		}
 		removeAllKnownObjects();
 
+		// TODO: test!
+		if (_chatTask != null) {
+			_chatTask.cancel();
+			_chatTask = null;
+		}
+		if (_chatTimer != null) {
+			_chatTimer.cancel();
+			_chatTimer = null;
+		}
+
 		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 		if (mobGroupInfo == null) {
 			if (isReSpawn()) {
@@ -1409,7 +1358,6 @@ public class L1NpcInstance extends L1Character {
 				new Point(x, y)));
 	}
 
-	
 	public int moveDirection(int x, int y, double d) { 
 		int dir = 0;
 		if (hasSkillEffect(40) == true && d >= 2D) { 
@@ -1499,10 +1447,7 @@ public class L1NpcInstance extends L1Character {
 		return dir;
 	}
 
-
-
 	public static int checkObject(int x, int y, short m, int d) { 
-
 		L1Map map = L1WorldMap.getInstance().getMap(m);
 		if (d == 1) {
 			if (map.isPassable(x, y, 1)) {
@@ -1572,10 +1517,7 @@ public class L1NpcInstance extends L1Character {
 		return -1;
 	}
 
-
-
-	private int _serchCource(int x, int y) 
-	{
+	private int _serchCource(int x, int y) {
 		int i;
 		int locCenter = courceRange + 1;
 		int diff_x = x - locCenter; 
@@ -2126,8 +2068,6 @@ public class L1NpcInstance extends L1Character {
 		}
 		super.resurrect(hp);
 
-		//
-		//
 		L1SkillUse skill = new L1SkillUse();
 		skill.handleCommands(null, CANCELLATION, getId(), getX(),
 				getY(), null, 0, L1SkillUse.TYPE_LOGIN, this);
@@ -2160,11 +2100,25 @@ public class L1NpcInstance extends L1Character {
 			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance()
 					.findObject(_id);
 			if (npc == null || !npc.isDead() || npc._destroyed) {
+				// Leak investigation.
+				if (npc == null)
+					System.out.println("DeleteTimer#run: npc was null.");
+				if (!npc.isDead())
+					System.out.println("DeleteTimer#run: !npc.isDead().");
+				if (npc._destroyed)
+					System.out.println("DeleteTimer#run: npc._destroyed.");
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 				return; 
 			}
 			try {
 				npc.deleteMe();
 			} catch (Exception e) { 
+				// More leak investigation.
+				System.out.println(String.format(
+						"DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+
 				e.printStackTrace();
 			}
 		}
@@ -2220,14 +2174,13 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		Timer timer = new Timer(true);
-		L1NpcChatTimer npcChatTimer = new L1NpcChatTimer(this, npcChat);
+		_chatTimer = new Timer(true);
+		_chatTask = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
-			timer.schedule(npcChatTimer, npcChat.getStartDelayTime());
+			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
 		} else {
-			timer.scheduleAtFixedRate(npcChatTimer, npcChat.getStartDelayTime(),
+			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime(),
 					npcChat.getRepeatInterval());
 		}
 	}
-
 }
