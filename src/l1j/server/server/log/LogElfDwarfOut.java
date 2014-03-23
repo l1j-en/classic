@@ -33,6 +33,8 @@ import l1j.server.server.utils.SQLUtil;
 
 public class LogElfDwarfOut {
 	private static Logger _log = Logger.getLogger(LogElfDwarfOut.class.getName());
+	private static final SimpleDateFormat FORMATTER = 
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public void storeLogElfDwarfOut(L1PcInstance pc, L1ItemInstance item, int item_count_before,
 			int item_count_after, int item_out_count) {
@@ -40,11 +42,9 @@ public class LogElfDwarfOut {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO LogElfWareHouseOut VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			pstm = con.prepareStatement("INSERT INTO LogElfWareHouseOut VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String fm = formatter.format(time.getTime());
+			String fm = FORMATTER.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());
 			pstm.setString(3, pc.getAccountName());

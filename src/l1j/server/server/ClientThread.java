@@ -38,6 +38,7 @@ import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.log.LogIP;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
@@ -385,7 +386,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 	//mp bug fix - dont remove - tricid
 	public void rescue() {
-
 		try {		
 		System.out.println("* * * Closing socket	* * * ");
 		_csocket.close();
@@ -406,8 +406,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		} catch (Exception e) {
 		System.out.println("* * * Failed stopping thread	* * *");
 	}
-
-
 
 	}
 	public void close() throws IOException {
@@ -480,17 +478,12 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 			}
 		}
-		Object[] dollList = pc.getDollList().values().toArray();
-		for (Object dollObject : dollList) {
-			L1DollInstance doll = (L1DollInstance) dollObject;
+		for (L1DollInstance doll : pc.getDollList().values())
 			doll.deleteDoll();
-		}
-		Object[] followerList = pc.getFollowerList().values().toArray();
-		for (Object followerObject : followerList) {
-			L1FollowerInstance follower = (L1FollowerInstance) followerObject;
+		for (L1FollowerInstance follower : pc.getFollowerList().values()) {
 			follower.setParalyzed(true);
 			follower.spawn(follower.getNpcTemplate().get_npcId(),
-			follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
+					follower.getX(), follower.getY(), follower.getHeading(), follower.getMapId());
 			follower.deleteMe();
 		}
 		L1DeathMatch.getInstance().checkLeaveGame(pc);
@@ -503,6 +496,9 @@ public class ClientThread implements Runnable, PacketOutput {
 		pc.setOnlineStatus(0);
 		pc.stopHpRegeneration();
 		pc.stopMpRegeneration();
+		
+		LogIP li = new LogIP();
+		li.storeLogout(pc);
 		try {
 			pc.save();
 			pc.saveInventory();

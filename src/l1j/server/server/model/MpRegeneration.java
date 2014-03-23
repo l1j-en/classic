@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.types.Point;
+import l1j.server.server.model.map.Maps;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class MpRegeneration extends TimerTask {
@@ -49,7 +50,7 @@ public class MpRegeneration extends TimerTask {
 	public void run() {
 		try {
 			if (_pc.isDead()) {
-			return;
+				return;
 			}
 
 			_regenPoint += _curPoint;
@@ -79,7 +80,7 @@ public class MpRegeneration extends TimerTask {
 			}
 			// probably should change this to class based.
 			// doesn't make sense for knight to get 6MP/tick, for example.
-			baseMpr += wis - 10 + 5;
+			baseMpr += wis - 5;
 		}
 		if (_pc.hasSkillEffect(MEDITATION) == true) { 
 			baseMpr += 5;
@@ -87,36 +88,6 @@ public class MpRegeneration extends TimerTask {
 		if (_pc.hasSkillEffect(CONCENTRATION)) {
 			baseMpr += 2;
 		}
-		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
-			baseMpr += Config.RATE_MP_HOUSE;
-		}
-		if (_pc.getMapId() == 16384 || _pc.getMapId() == 16896
-			|| _pc.getMapId() == 17408 || _pc.getMapId() == 17920
-			|| _pc.getMapId() == 18432 || _pc.getMapId() == 18944
-			|| _pc.getMapId() == 19968 || _pc.getMapId() == 19456
-			|| _pc.getMapId() == 20480 || _pc.getMapId() == 20992
-			|| _pc.getMapId() == 21504 || _pc.getMapId() == 22016
-			|| _pc.getMapId() == 22528 || _pc.getMapId() == 23040
-			|| _pc.getMapId() == 23552 || _pc.getMapId() == 24064
-			|| _pc.getMapId() == 24576 || _pc.getMapId() == 25088) { 
-			baseMpr += Config.RATE_MP_HOTEL;
-		}
-		if (_pc.getMapId() == 15 || _pc.getMapId() == 29 || _pc.getMapId() == 52 
-				|| _pc.getMapId() == 64 ||  _pc.getMapId() == 66 || _pc.getMapId() == 300) {
-        	baseMpr += Config.RATE_MP_CASTLE;
-        }
-		if ((_pc.getLocation().isInScreen(new Point(33055,32336))
-				&& _pc.getMapId() == 4 && _pc.isElf())) {
-			baseMpr += Config.RATE_MP_MOTHERTREE;
-		}
-		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
-				&& (_pc.getMapId() == 1000 || _pc.isIllusionist()))) {
-			baseMpr += Config.RATE_MP_ILLUSIONISTTOWN;
-        }
-		if ((_pc.getLocation().isInScreen(new Point(32801,32863))
-				&& (_pc.getMapId() == 1001 || _pc.isDragonKnight()))) {
-			baseMpr += Config.RATE_MP_DRAGONKNIGHTTOWN;
-        }
 		if (_pc.hasSkillEffect(COOKING_1_2_N) || _pc.hasSkillEffect(COOKING_1_2_S)) {
 			baseMpr += 3;
 		}
@@ -124,6 +95,21 @@ public class MpRegeneration extends TimerTask {
  				|| _pc.hasSkillEffect(COOKING_3_5_N) || _pc.hasSkillEffect(COOKING_3_5_S)) {
 			baseMpr += 2;
 		}
+		// You can only be in one place at once...
+		if (L1HouseLocation.isInHouse(_pc.getX(), _pc.getY(), _pc.getMapId())) {
+			baseMpr += Config.RATE_MP_HOUSE;
+		} else if (Maps.isInInn(_pc)) {
+			baseMpr += Config.RATE_MP_HOTEL;
+		} else if (Maps.isInCastle(_pc)) {
+        	baseMpr += Config.RATE_MP_CASTLE;
+		} else if (_pc.isElf() && Maps.atMotherTree(_pc)) {
+			baseMpr += Config.RATE_HP_MOTHERTREE;
+		} else if (_pc.isIllusionist() && Maps.atSilveriaCenter(_pc)) {
+			baseMpr += Config.RATE_HP_ILLUSIONISTTOWN;
+        } else if (_pc.isDragonKnight() && Maps.atBehimousCenter(_pc)) {
+			baseMpr += Config.RATE_HP_DRAGONKNIGHTTOWN;
+        }
+
  		if (_pc.getOriginalMpr() > 0) { 
  			baseMpr += _pc.getOriginalMpr();
  		}
@@ -150,10 +136,10 @@ public class MpRegeneration extends TimerTask {
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {
-
-		if (pc.hasSkillEffect(EXOTIC_VITALIZE) || pc.hasSkillEffect(ADDITIONAL_FIRE)) {
+		if (pc.hasSkillEffect(EXOTIC_VITALIZE) ||
+				pc.hasSkillEffect(ADDITIONAL_FIRE)) {
 			return false;
 		}
-		return (120 <= pc.getInventory().getWeight240()) ? true : false;
+		return 120 <= pc.getInventory().getWeight240();
 	}
 }

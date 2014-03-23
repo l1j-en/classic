@@ -31,6 +31,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Chaser extends TimerTask {
@@ -103,10 +104,14 @@ public class L1Chaser extends TimerTask {
 					.ACTION_Damage));
 			npc.receiveDamage(_pc, (int) damage);
 		}
+		if (_pc.getDmgMessages() && _cha instanceof L1NpcInstance) {
+			_pc.sendPackets(new S_SystemMessage(
+					"Chaser Dealt:" + String.valueOf(damage)));
+		}
 	}
 
 	public double getDamage(L1PcInstance pc, L1Character cha) {
-		double dmg = 0;
+		double damage = 0;
 		int spByItem = pc.getSp() - pc.getTrueSp();
 		int intel = pc.getInt();
 		int charaIntelligence = pc.getInt() + spByItem - 12;
@@ -122,22 +127,18 @@ public class L1Chaser extends TimerTask {
 		} else {
 			coefficientB = intel * 0.065;
 		}
-		double coefficientC = 0;
-		if(intel <= 12) {
-			coefficientC = 12;
-		} else {
-			coefficientC = intel;
-		}
-		dmg = (_random.nextInt(6) + 1 + 7) * coefficientA
+		double coefficientC = Math.max(12, intel);
+		damage = (_random.nextInt(6) + 1 + 7) * coefficientA
 				* coefficientB / 10.5 * coefficientC * 2.0;
 
-		dmg = L1WeaponSkill.calcDamageReduction(pc, cha, dmg, 0);
+		damage = 
+			L1WeaponSkill.calcDamageReduction(pc, cha, damage, Element.Earth);
 
 		if (cha.hasSkillEffect(IMMUNE_TO_HARM)) {
-			dmg /= 2.0;
+			damage /= 2.0;
 		}
 
-		return dmg;
+		return damage;
 	}
 
 }

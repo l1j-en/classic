@@ -23,18 +23,15 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.templates.L1Skill;
 
 public class L1Buff implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Buff.class.getName());
 
-	private L1Buff() {
-	}
+	private L1Buff() {}
 
 	public static L1CommandExecutor getInstance() {
 		return new L1Buff();
@@ -63,23 +60,12 @@ public class L1Buff implements L1CommandExecutor {
 				time = Integer.parseInt(tok.nextToken());
 			}
 
-			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
-
-			if (skill.getTarget().equals("buff")) {
-				for (L1PcInstance tg : players) {
-					new L1SkillUse().handleCommands(pc, skillId, tg.getId(), tg
-							.getX(), tg.getY(), null, time,
-							L1SkillUse.TYPE_SPELLSC);
-				}
-			} else if (skill.getTarget().equals("none")) {
-				for (L1PcInstance tg : players) {
-					new L1SkillUse().handleCommands(tg, skillId, tg.getId(), tg
-							.getX(), tg.getY(), null, time,
-							L1SkillUse.TYPE_GMBUFF);
-				}
-			} else {
-				pc.sendPackets(new S_SystemMessage(""));
+			for (L1PcInstance player : players) {
+				new L1SkillUse().handleCommands(player, skillId, player.getId(),
+						player.getX(), player.getY(), null, time,
+						L1SkillUse.TYPE_GMBUFF);
 			}
+			
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName
 					+ " [all|me] skillId time"));

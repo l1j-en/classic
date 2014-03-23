@@ -1,35 +1,16 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
+/**
+ * GPLv2. See License.
  */
 package l1j.server.server.model;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.types.Point;
 
-// Referenced classes of package l1j.server.server.model:
-// L1HouseLocation
-
 public class L1HouseLocation {
-	private static final Logger _log = Logger.getLogger(L1HouseLocation.class
-			.getName());
 
 	private static final int[] TELEPORT_LOC_MAPID = { 4, 4, 4, 350, };
 
@@ -46,13 +27,86 @@ public class L1HouseLocation {
 			new Point(33553, 32712), new Point(32702, 32842), }; // Atonement envoy, Ilan market
 
 	private static final Point[] TELEPORT_LOC_GLUDIN = {
-			new Point(32628, 32807), new Point(32623, 32729), //
-			new Point(33553, 32712), new Point(32702, 32842), }; //
+			new Point(32628, 32807), new Point(32623, 32729),
+			new Point(33553, 32712), new Point(32702, 32842), };
 
-	//
 	private static final List<Integer> _houseIds = HouseTable.getHouseIdList();
 
-	private L1HouseLocation() {
+	private static final int ADEN = 4;
+	
+	private static final Map<Integer, int[]> houseLocations =
+		new HashMap<Integer, int[]>();
+
+	static {
+		houseLocations.put(262145, new int[] { 33374, 32657 });
+		houseLocations.put(262146, new int[] { 33384, 32655 });
+		houseLocations.put(262147, new int[] { 33395, 32656 });
+		houseLocations.put(262148, new int[] { 33428, 32659 });
+		houseLocations.put(262149, new int[] { 33439, 32666 });
+		houseLocations.put(262150, new int[] { 33457, 32654 });
+		houseLocations.put(262151, new int[] { 33477, 32668 });
+		houseLocations.put(262152, new int[] { 33471, 32679 });
+		houseLocations.put(262153, new int[] { 33459, 32700 });
+		houseLocations.put(262154, new int[] { 33424, 32690 });
+		houseLocations.put(262155, new int[] { 33409, 32675 });
+		houseLocations.put(262156, new int[] { 33420, 32709 });
+		houseLocations.put(262157, new int[] { 33375, 32698 });
+		houseLocations.put(262158, new int[] { 33363, 32684 });
+		houseLocations.put(262159, new int[] { 33360, 32670 });
+		houseLocations.put(262160, new int[] { 33341, 32661 });
+		houseLocations.put(262161, new int[] { 33346, 32675 });
+		houseLocations.put(262162, new int[] { 33341, 32710 });
+		houseLocations.put(262163, new int[] { 33355, 32734 });
+		houseLocations.put(262164, new int[] { 33366, 32714 });
+		houseLocations.put(262165, new int[] { 33381, 32715 });
+		houseLocations.put(262166, new int[] { 33404, 32739 });
+		houseLocations.put(262167, new int[] { 33424, 32718 });
+		houseLocations.put(262168, new int[] { 33449, 32732 });
+		houseLocations.put(262169, new int[] { 33405, 32757 });
+		houseLocations.put(262170, new int[] { 33366, 32761 });
+		houseLocations.put(262171, new int[] { 33351, 32775 });
+		houseLocations.put(262172, new int[] { 33358, 32789 });
+		houseLocations.put(262173, new int[] { 33372, 32792 });
+		houseLocations.put(262174, new int[] { 33384, 32776 });
+		houseLocations.put(262175, new int[] { 33403, 32794 });
+		houseLocations.put(262176, new int[] { 33485, 32794 });
+		houseLocations.put(262177, new int[] { 33499, 32804 });
+		houseLocations.put(262178, new int[] { 33382, 32804 });
+		houseLocations.put(262179, new int[] { 33376, 32828 });
+		houseLocations.put(262180, new int[] { 33399, 32813 });
+		houseLocations.put(262181, new int[] { 33397, 32822 });
+		houseLocations.put(262182, new int[] { 33437, 32844 });
+		houseLocations.put(262183, new int[] { 33459, 32840 });
+		houseLocations.put(262184, new int[] { 33391, 32851 });
+		houseLocations.put(262185, new int[] { 33399, 32860 });
+		houseLocations.put(262186, new int[] { 33415, 32853 });
+		houseLocations.put(262187, new int[] { 33375, 32873 });
+		houseLocations.put(262188, new int[] { 33428, 32871 });
+		houseLocations.put(262189, new int[] { 33443, 32870 });
+		houseLocations.put(327681, new int[] { 33609, 33217 });
+		houseLocations.put(327682, new int[] { 33630, 33209 });
+		houseLocations.put(327683, new int[] { 33628, 33226 });
+		houseLocations.put(327684, new int[] { 33633, 33248 });
+		houseLocations.put(327685, new int[] { 33619, 33265 });
+		houseLocations.put(327686, new int[] { 33575, 33233 });
+		houseLocations.put(327687, new int[] { 33584, 33306 });
+		houseLocations.put(327688, new int[] { 33581, 33338 });
+		houseLocations.put(327689, new int[] { 33620, 33381 });
+		houseLocations.put(327690, new int[] { 33625, 33398 });
+		houseLocations.put(327691, new int[] { 33625, 33445 });
+		houseLocations.put(524289, new int[] { 32564, 32675 });
+		houseLocations.put(524290, new int[] { 32549, 32707 });
+		houseLocations.put(524291, new int[] { 32538, 32782 });
+		houseLocations.put(524292, new int[] { 32558, 32786 });
+		houseLocations.put(524293, new int[] { 32536, 32809 });
+		houseLocations.put(524294, new int[] { 32554, 32819 });
+	}
+	
+	private L1HouseLocation() { }
+
+	private static boolean inBox(int x, int y, int minX, int maxX, int minY,
+			int maxY) {
+		return x >= minX && x <= maxX && y >= minY && y <= maxY;
 	}
 
 	/**
@@ -62,700 +116,239 @@ public class L1HouseLocation {
 	 * @param cha
 	 * @return
 	 */
-	public static boolean isInHouseLoc(int houseId, int locx, int locy,
-			short mapid) {
-		boolean ret = false;
-		if (houseId == 262145) {
-			if (locx >= 33368 && locx <= 33375 && locy >= 32651
-					&& locy <= 32654 && mapid == 4 || locx >= 33373
-					&& locx <= 33375 && locy >= 32655 && locy <= 32657
-					&& mapid == 4
-					|| mapid == 5068) {
-				ret = true;
-			}
-		} else if (houseId == 262146) {
-			if (locx >= 33381 && locx <= 33387 && locy >= 32653
-					&& locy <= 32656 && mapid == 4
-					|| mapid == 5069) {
-				ret = true;
-			}
-		} else if (houseId == 262147) {
-			if (locx >= 33392 && locx <= 33404 && locy >= 32650
-					&& locy <= 32656 && mapid == 4
-					|| mapid == 5070) {
-				ret = true;
-			}
-		} else if (houseId == 262148) { 
-			if (locx >= 33427 && locx <= 33430 && locy >= 32656
-					&& locy <= 32662 && mapid == 4
-					|| mapid == 5071) {
-				ret = true;
-			}
-		} else if (houseId == 262149) {
-			if (locx >= 33439 && locx <= 33445 && locy >= 32665
-					&& locy <= 32667 && mapid == 4 || locx >= 33442
-					&& locx <= 33445 && locy >= 32668 && locy <= 32672
-					&& mapid == 4
-					|| mapid == 5072) {
-				ret = true;
-			}
-		} else if (houseId == 262150) {
-			if (locx >= 33454 && locx <= 33466 && locy >= 32648
-					&& locy <= 32654 && mapid == 4
-					|| mapid == 5073) {
-				ret = true;
-			}
-		} else if (houseId == 262151) { 
-			if (locx >= 33476 && locx <= 33479 && locy >= 32665
-					&& locy <= 32671 && mapid == 4
-					|| mapid == 5074) {
-				ret = true;
-			}
-		} else if (houseId == 262152) {
-			if (locx >= 33471 && locx <= 33477 && locy >= 32678
-					&& locy <= 32680 && mapid == 4 || locx >= 33474
-					&& locx <= 33477 && locy >= 32681 && locy <= 32685
-					&& mapid == 4
-					|| mapid == 5075) {
-				ret = true;
-			}
-		} else if (houseId == 262153) {
-			if (locx >= 33453 && locx <= 33460 && locy >= 32694
-					&& locy <= 32697 && mapid == 4 || locx >= 33458
-					&& locx <= 33460 && locy >= 32698 && locy <= 32700
-					&& mapid == 4
-					|| mapid == 5076) {
-				ret = true;
-			}
-		} else if (houseId == 262154) { 
-			if (locx >= 33421 && locx <= 33433 && locy >= 32685
-					&& locy <= 32691 && mapid == 4
-					|| mapid == 5077) {
-				ret = true;
-			}
-		} else if (houseId == 262155) { // 11
-			if (locx >= 33409 && locx <= 33415 && locy >= 32674
-					&& locy <= 32676 && mapid == 4 || locx >= 33412
-					&& locx <= 33415 && locy >= 32677 && locy <= 32681
-					&& mapid == 4
-					|| mapid == 5078) {
-				ret = true;
-			}
-		} else if (houseId == 262156) { // 12
-			if (locx >= 33414 && locx <= 33421 && locy >= 32703
-					&& locy <= 32706 && mapid == 4 || locx >= 33419
-					&& locx <= 33421 && locy >= 32707 && locy <= 32709
-					&& mapid == 4
-					|| mapid == 5079) {
-				ret = true;
-			}
-		} else if (houseId == 262157) { // 13
-			if (locx >= 33372 && locx <= 33384 && locy >= 32692
-					&& locy <= 32698 && mapid == 4
-					|| mapid == 5080) {
-				ret = true;
-			}
-		} else if (houseId == 262158) { // 14
-			if (locx >= 33362 && locx <= 33365 && locy >= 32681
-					&& locy <= 32687 && mapid == 4
-					|| mapid == 5081) {
-				ret = true;
-			}
-		} else if (houseId == 262159) { // 15
-			if (locx >= 33360 && locx <= 33366 && locy >= 32669
-					&& locy <= 32671 && mapid == 4 || locx >= 33363
-					&& locx <= 33366 && locy >= 32672 && locy <= 32676
-					&& mapid == 4
-					|| mapid == 5082) {
-				ret = true;
-			}
-		} else if (houseId == 262160) { // 16
-			if (locx >= 33341 && locx <= 33347 && locy >= 32660
-					&& locy <= 32662 && mapid == 4 || locx >= 33344
-					&& locx <= 33347 && locy >= 32663 && locy <= 32667
-					&& mapid == 4
-					|| mapid == 5083) {
-				ret = true;
-			}
-		} else if (houseId == 262161) { // 17
-			if (locx >= 33345 && locx <= 33348 && locy >= 32672
-					&& locy <= 32678 && mapid == 4
-					|| mapid == 5084) {
-				ret = true;
-			}
-		} else if (houseId == 262162) { // 18
-			if (locx >= 33338 && locx <= 33350 && locy >= 32704
-					&& locy <= 32711 && mapid == 4
-					|| mapid == 5085) {
-				ret = true;
-			}
-		} else if (houseId == 262163) { // 19
-			if (locx >= 33349 && locx <= 33356 && locy >= 32728
-					&& locy <= 32731 && mapid == 4 || locx >= 33354
-					&& locx <= 33356 && locy >= 32732 && locy <= 32734
-					&& mapid == 4
-					|| mapid == 5086) {
-				ret = true;
-			}
-		} else if (houseId == 262164) { // 20
-			if (locx >= 33366 && locx <= 33372 && locy >= 32713
-					&& locy <= 32715 && mapid == 4 || locx >= 33369
-					&& locx <= 33372 && locy >= 32716 && locy <= 32720
-					&& mapid == 4
-					|| mapid == 5087) {
-				ret = true;
-			}
-		} else if (houseId == 262165) { // 21
-			if (locx >= 33380 && locx <= 33383 && locy >= 32712
-					&& locy <= 32718 && mapid == 4
-					|| mapid == 5088) {
-				ret = true;
-			}
-		} else if (houseId == 262166) { // 22
-			if (locx >= 33401 && locx <= 33413 && locy >= 32733
-					&& locy <= 32739 && mapid == 4
-					|| mapid == 5089) {
-				ret = true;
-			}
-		} else if (houseId == 262167) { // 23
-			if (locx >= 33424 && locx <= 33430 && locy >= 32717
-					&& locy <= 32719 && mapid == 4 || locx >= 33427
-					&& locx <= 33430 && locy >= 32720 && locy <= 32724
-					&& mapid == 4
-					|| mapid == 5090) {
-				ret = true;
-			}
-		} else if (houseId == 262168) { // 24
-			if (locx >= 33448 && locx <= 33451 && locy >= 32729
-					&& locy <= 32735 && mapid == 4
-					|| mapid == 5091) {
-				ret = true;
-			}
-		} else if (houseId == 262169) { // 25
-			if (locx >= 33404 && locx <= 33407 && locy >= 32754
-					&& locy <= 32760 && mapid == 4
-					|| mapid == 5092) {
-				ret = true;
-			}
-		} else if (houseId == 262170) { // 26
-			if (locx >= 33363 && locx <= 33375 && locy >= 32755
-					&& locy <= 32761 && mapid == 4
-					|| mapid == 5093) {
-				ret = true;
-			}
-		} else if (houseId == 262171) { // 27
-			if (locx >= 33351 && locx <= 33357 && locy >= 32774
-					&& locy <= 32776 && mapid == 4 || locx >= 33354
-					&& locx <= 33357 && locy >= 32777 && locy <= 32781
-					&& mapid == 4
-					|| mapid == 5094) {
-				ret = true;
-			}
-		} else if (houseId == 262172) { // 28
-			if (locx >= 33355 && locx <= 33361 && locy >= 32787
-					&& locy <= 32790 && mapid == 4
-					|| mapid == 5095) {
-				ret = true;
-			}
-		} else if (houseId == 262173) { // 29
-			if (locx >= 33366 && locx <= 33373 && locy >= 32786
-					&& locy <= 32789 && mapid == 4 || locx >= 33371
-					&& locx <= 33373 && locy >= 32790 && locy <= 32792
-					&& mapid == 4
-					|| mapid == 5096) {
-				ret = true;
-			}
-		} else if (houseId == 262174) { // 30
-			if (locx >= 33383 && locx <= 33386 && locy >= 32773
-					&& locy <= 32779 && mapid == 4
-					|| mapid == 5097) {
-				ret = true;
-			}
-		} else if (houseId == 262175) { // 31
-			if (locx >= 33397 && locx <= 33404 && locy >= 32788
-					&& locy <= 32791 && mapid == 4 || locx >= 33402
-					&& locx <= 33404 && locy >= 32792 && locy <= 32794
-					&& mapid == 4
-					|| mapid == 5098) {
-				ret = true;
-			}
-		} else if (houseId == 262176) { // 32
-			if (locx >= 33479 && locx <= 33486 && locy >= 32788
-					&& locy <= 32791 && mapid == 4 || locx >= 33484
-					&& locx <= 33486 && locy >= 32792 && locy <= 32794
-					&& mapid == 4
-					|| mapid == 5099) {
-				ret = true;
-			}
-		} else if (houseId == 262177) { // 33
-			if (locx >= 33498 && locx <= 33501 && locy >= 32801
-					&& locy <= 32807 && mapid == 4
-					|| mapid == 5100) {
-				ret = true;
-			}
-		} else if (houseId == 262178) { // 34
-			if (locx >= 33379 && locx <= 33385 && locy >= 32802
-					&& locy <= 32805 && mapid == 4
-					|| mapid == 5101) {
-				ret = true;
-			}
-		} else if (houseId == 262179) { // 35
-			if (locx >= 33373 && locx <= 33385 && locy >= 32822
-					&& locy <= 32829 && mapid == 4
-					|| mapid == 5102) {
-				ret = true;
-			}
-		} else if (houseId == 262180) { // 36
-			if (locx >= 33398 && locx <= 33401 && locy >= 32810
-					&& locy <= 32816 && mapid == 4
-					|| mapid == 5103) {
-				ret = true;
-			}
-		} else if (houseId == 262181) { // 37
-			if (locx >= 33397 && locx <= 33403 && locy >= 32821
-					&& locy <= 32823 && mapid == 4 || locx >= 33400
-					&& locx <= 33403 && locy >= 32824 && locy <= 32828
-					&& mapid == 4
-					|| mapid == 5104) {
-				ret = true;
-			}
-		} else if (houseId == 262182) { // 38
-			if (locx >= 33431 && locx <= 33438 && locy >= 32838
-					&& locy <= 32841 && mapid == 4 || locx >= 33436
-					&& locx <= 33438 && locy >= 32842 && locy <= 32844
-					&& mapid == 4
-					|| mapid == 5105) {
-				ret = true;
-			}
-		} else if (houseId == 262183) { // 39
-			if (locx >= 33456 && locx <= 33462 && locy >= 32838
-					&& locy <= 32841 && mapid == 4
-					|| mapid == 5106) {
-				ret = true;
-			}
-		} else if (houseId == 262184) { // 40
-			if (locx >= 33385 && locx <= 33392 && locy >= 32845
-					&& locy <= 32848 && mapid == 4 || locx >= 33390
-					&& locx <= 33392 && locy >= 32849 && locy <= 32851
-					&& mapid == 4
-					|| mapid == 5107) {
-				ret = true;
-			}
-		} else if (houseId == 262185) { // 41
-			if (locx >= 33399 && locx <= 33405 && locy >= 32859
-					&& locy <= 32861 && mapid == 4 || locx >= 33402
-					&& locx <= 33405 && locy >= 32862 && locy <= 32866
-					&& mapid == 4
-					|| mapid == 5108) {
-				ret = true;
-			}
-		} else if (houseId == 262186) { // 42
-			if (locx >= 33414 && locx <= 33417 && locy >= 32850
-					&& locy <= 32856 && mapid == 4
-					|| mapid == 5109) {
-				ret = true;
-			}
-		} else if (houseId == 262187) { // 43
-			if (locx >= 33372 && locx <= 33384 && locy >= 32867
-					&& locy <= 32873 && mapid == 4
-					|| mapid == 5110) {
-				ret = true;
-			}
-		} else if (houseId == 262188) { // 44
-			if (locx >= 33425 && locx <= 33437 && locy >= 32865
-					&& locy <= 32871 && mapid == 4
-					|| mapid == 5111) {
-				ret = true;
-			}
-		} else if (houseId == 262189) { // 45
-			if (locx >= 33443 && locx <= 33449 && locy >= 32869
-					&& locy <= 32871 && mapid == 4 || locx >= 33446
-					&& locx <= 33449 && locy >= 32872 && locy <= 32876
-					&& mapid == 4
-					|| mapid == 5112) {
-				ret = true;
-			}
-		} else if (houseId == 327681) { // 1
-			if (locx >= 33599 && locx <= 33601 && locy >= 33213
-					&& locy <= 33214 && mapid == 4 || locx >= 33602
-					&& locx <= 33610 && locy >= 33213 && locy <= 33218
-					&& mapid == 4
-					|| mapid == 5113) {
-				ret = true;
-			}
-		} else if (houseId == 327682) { // 2
-			if (locx >= 33627 && locx <= 33632 && locy >= 33206
-					&& locy <= 33209 && mapid == 4
-					|| mapid == 5114) {
-				ret = true;
-			}
-		} else if (houseId == 327683) { // 3
-			if (locx >= 33626 && locx <= 33627 && locy >= 33225
-					&& locy <= 33227 && mapid == 4 || locx >= 33628
-					&& locx <= 33632 && locy >= 33221 && locy <= 33230
-					&& mapid == 4
-					|| mapid == 5115) {
-				ret = true;
-			}
-		} else if (houseId == 327684) { // 4
-			if (locx >= 33628 && locx <= 33636 && locy >= 33241
-					&& locy <= 33244 && mapid == 4 || locx >= 33632
-					&& locx <= 33635 && locy >= 33245 && locy <= 33250
-					&& mapid == 4 || locx >= 33634 && locx <= 33634
-					&& locy >= 33251 && locy <= 33252 && mapid == 4
-					|| mapid == 5116) {
-				ret = true;
-			}
-		} else if (houseId == 327685) { // 5
-			if (locx >= 33616 && locx <= 33621 && locy >= 33262
-					&& locy <= 33265 && mapid == 4
-					|| mapid == 5117) {
-				ret = true;
-			}
-		} else if (houseId == 327686) { // 6
-			if (locx >= 33570 && locx <= 33580 && locy >= 33228
-					&& locy <= 33232 && mapid == 4 || locx >= 33574
-					&& locx <= 33576 && locy >= 33233 && locy <= 33234
-					&& mapid == 4
-					|| mapid == 5118) {
-				ret = true;
-			}
-		} else if (houseId == 327687) { // 7
-			if (locx >= 33583 && locx <= 33588 && locy >= 33305
-					&& locy <= 33314 && mapid == 4 || locx >= 33587
-					&& locx <= 33588 && locy >= 33315 && locy <= 33316
-					&& mapid == 4
-					|| mapid == 5119) {
-				ret = true;
-			}
-		} else if (houseId == 327688) { // 8
-			if (locx >= 33577 && locx <= 33578 && locy >= 33337
-					&& locy <= 33337 && mapid == 4 || locx >= 33579
-					&& locx <= 33588 && locy >= 33335 && locy <= 33339
-					&& mapid == 4 || locx >= 33585 && locx <= 33588
-					&& locy >= 33340 && locy <= 33343 && mapid == 4
-					|| mapid == 5120) {
-				ret = true;
-			}
-		} else if (houseId == 327689) { // 9
-			if (locx >= 33615 && locx <= 33623 && locy >= 33374
-					&& locy <= 33377 && mapid == 4 || locx >= 33619
-					&& locx <= 33622 && locy >= 33378 && locy <= 33383
-					&& mapid == 4 || locx >= 33621 && locx <= 33621
-					&& locy >= 33384 && locy <= 33385 && mapid == 4
-					|| mapid == 5121) {
-				ret = true;
-			}
-		} else if (houseId == 327690) { // 10
-			if (locx >= 33624 && locx <= 33625 && locy >= 33397
-					&& locy <= 33399 && mapid == 4 || locx >= 33626
-					&& locx <= 33630 && locy >= 33393 && locy <= 33403
-					&& mapid == 4
-					|| mapid == 5122) {
-				ret = true;
-			}
-		} else if (houseId == 327691) { // 11
-			if (locx >= 33621 && locx <= 33622 && locy >= 33444
-					&& locy <= 33444 && mapid == 4 || locx >= 33622
-					&& locx <= 33632 && locy >= 33442 && locy <= 33446
-					&& mapid == 4 || locx >= 33629 && locx <= 33632
-					&& locy >= 33447 && locy <= 33450 && mapid == 4
-					|| mapid == 5123) {
-				ret = true;
-			}
-		} else if (houseId == 524289) { //
-			if (locx >= 32559 && locx <= 32566 && locy >= 32669
-					&& locy <= 32676 && mapid == 4) {
-				ret = true;
-			}
-		} else if (houseId == 524290) { //
-			if (locx >= 32548 && locx <= 32556 && locy >= 32705
-					&& locy <= 32716 && mapid == 4 || locx >= 32547
-					&& locx <= 32547 && locy >= 32710 && locy <= 32716
-					&& mapid == 4) {
-				ret = true;
-			}
-		} else if (houseId == 524291) { //
-			if (locx >= 32537 && locx <= 32544 && locy >= 32781
-					&& locy <= 32791 && mapid == 4) {
-				ret = true;
-			}
-		} else if (houseId == 524292) { //
-			if (locx >= 32550 && locx <= 32560 && locy >= 32780
-					&& locy <= 32787 && mapid == 4) {
-				ret = true;
-			}
-		} else if (houseId == 524293) { //
-			if (locx >= 32535 && locx <= 32543 && locy >= 32807
-					&& locy <= 32818 && mapid == 4 || locx >= 32534
-					&& locx <= 32534 && locy >= 32812 && locy <= 32818
-					&& mapid == 4) {
-				ret = true;
-			}
-		} else if (houseId == 524294) { //
-			if (locx >= 32553 && locx <= 32560 && locy >= 32814
-					&& locy <= 32821 && mapid == 4) {
-				ret = true;
-			}
+	public static boolean isInHouseLoc(int houseId, int x, int y, short mapid) {
+		switch (houseId) {
+			case 262145:
+				return mapid == 5068 || mapid == ADEN && 
+					inBox(x, y, 33368, 33375, 32651, 32654) ||
+					inBox(x, y, 33373, 33375, 32566, 32657);
+			case 262146:
+				return mapid == 5069 || mapid == ADEN &&
+					inBox(x, y, 33381, 33387, 32653, 32656);
+			case 262147: 
+				return mapid == 5070 || mapid == ADEN &&
+					inBox(x, y, 33392, 33404, 32650, 32656);
+			case 262148: 
+				return mapid == 5071 || mapid == ADEN &&
+					inBox(x, y, 33427, 33430, 32656, 32662);
+			case 262149: 
+				return mapid == 5072 || mapid == ADEN && 
+					(inBox(x, y, 33439, 33445, 32665, 32667) || 
+					 inBox(x, y, 33442, 33445, 32668, 32672));
+			case 262150: 
+				return mapid == 5073 || mapid == ADEN && 
+					inBox(x, y, 33454, 33466, 32648, 32654);
+			case 262151: 
+				return mapid == 5074 || mapid == ADEN && 
+					inBox(x, y, 33476, 33479, 32665, 32671);
+			case 262152: 
+				return mapid == 5075 || mapid == ADEN && 
+					(inBox(x, y, 33471, 33477, 32678, 32680) || 
+					 inBox(x, y, 33474, 33477, 32681, 32685));
+			case 262153: 
+				return mapid == 5076 || mapid == ADEN && 
+					(inBox(x, y, 33453, 33460, 32694, 32697) || 
+					 inBox(x, y, 33458, 33460, 32698, 32700));
+			case 262154:
+				return mapid == 5077 || mapid == ADEN && 
+					inBox(x, y, 33421, 33433, 32685, 32691);
+			case 262155: 
+				return mapid == 5078 || mapid == ADEN && 
+					(inBox(x, y, 33409, 33415, 32674, 32676) || 
+					 inBox(x, y, 33412, 33415, 32677, 32681));
+			case 262156:
+				return mapid == 5079 || mapid == ADEN && 
+					(inBox(x, y, 33414, 33421, 32703, 32706) || 
+					 inBox(x, y, 33419, 33421, 32707, 32709));
+			case 262157:
+				return mapid == 5080 || mapid == ADEN && 
+					inBox(x, y, 33372, 33384, 32692, 32698);
+			case 262158:
+				return mapid == 5081 || mapid == ADEN && 
+					inBox(x, y, 33362, 33365, 32681, 32687);
+			case 262159:
+				return mapid == 5082 || mapid == ADEN && 
+					(inBox(x, y, 33360, 33366, 32669, 32671) || 
+					 inBox(x, y, 33363, 33366, 32672, 32676));
+			case 262160:
+				return mapid == 5083 || mapid == ADEN && 
+					(inBox(x, y, 33341, 33347, 32660, 32662) || 
+					 inBox(x, y, 33344, 33347, 32663, 32667));
+			case 262161:
+				return mapid == 5084 || mapid == ADEN && 
+					inBox(x, y, 33345, 33348, 32672, 32678);
+			case 262162:
+				return mapid == 5085 || mapid == ADEN && 
+					inBox(x, y, 33338, 33350, 32704, 32711);
+			case 262163:
+				return mapid == 5086 || mapid == ADEN && 
+					(inBox(x, y, 33349, 33356, 32728, 32731) || 
+					 inBox(x, y, 33354, 33356, 32732, 32734));
+			case 262164:
+				return mapid == 5087 || mapid == ADEN && 
+					(inBox(x, y, 33366, 33372, 32713, 32715) || 
+					 inBox(x, y, 33369, 33372, 32716, 32720));
+			case 262165:
+				return mapid == 5088 || mapid == ADEN && 
+					inBox(x, y, 33380, 33383, 32712, 32718);
+			case 262166:
+				return mapid == 5089 || mapid == ADEN && 
+					inBox(x, y, 33401, 33413, 32733, 32739);
+			case 262167:
+				return mapid == 5090 || mapid == ADEN && 
+					(inBox(x, y, 33424, 33430, 32717, 32719) || 
+					 inBox(x, y, 33427, 33430, 32720, 32724));
+			case 262168:
+				return mapid == 5091 || mapid == ADEN && 
+					inBox(x, y, 33448, 33451, 32729, 32735);
+			case 262169:
+				return mapid == 5092 || mapid == ADEN && 
+					inBox(x, y, 33404, 33407, 32754, 32760);
+			case 262170:
+				return mapid == 5093 || mapid == ADEN && 
+					inBox(x, y, 33363, 33375, 32755, 32761);
+			case 262171:
+				return mapid == 5094 || mapid == ADEN && 
+					(inBox(x, y, 33351, 33357, 32774, 32776) || 
+					 inBox(x, y, 33354, 33357, 32777, 32781));
+			case 262172:
+				return mapid == 5095 || mapid == ADEN && 
+					inBox(x, y, 33355, 33361, 32787, 32790);
+			case 262173:
+				return mapid == 5096 || mapid == ADEN && 
+					(inBox(x, y, 33366, 33373, 32786, 32789) || 
+					 inBox(x, y, 33371, 33373, 32790, 32792));
+			case 262174:
+				return mapid == 5097 || mapid == ADEN && 
+					inBox(x, y, 33383, 33386, 32773, 32779);
+			case 262175:
+				return mapid == 5098 || mapid == ADEN && 
+					(inBox(x, y, 33397, 33404, 32788, 32791) || 
+					 inBox(x, y, 33402, 33404, 32792, 32794));
+			case 262176:
+				return mapid == 5099 || mapid == ADEN && 
+					(inBox(x, y, 33479, 33486, 32788, 32791) || 
+					 inBox(x, y, 33484, 33486, 32792, 32794));
+			case 262177:
+				return mapid == 5100 || mapid == ADEN && 
+					inBox(x, y, 33498, 33501, 32801, 32807);
+			case 262178:
+				return mapid == 5101 || mapid == ADEN && 
+					inBox(x, y, 33379, 33385, 32802, 32805);
+			case 262179:
+				return mapid == 5102 || mapid == ADEN && 
+					inBox(x, y, 33373, 33385, 32822, 32829);
+			case 262180:
+				return mapid == 5103 || mapid == ADEN && 
+					inBox(x, y, 33398, 33401, 32810, 32816);
+			case 262181:
+				return mapid == 5104 || mapid == ADEN && 
+					(inBox(x, y, 33397, 33403, 32821, 32823) || 
+					 inBox(x, y, 33400, 33403, 32824, 32828));
+			case 262182:
+				return mapid == 5105 || mapid == ADEN && 
+					(inBox(x, y, 33431, 33438, 32838, 32841) || 
+					 inBox(x, y, 33436, 33438, 32842, 32844));
+			case 262183:
+				return mapid == 5106 || mapid == ADEN && 
+					inBox(x, y, 33456, 33462, 32838, 32841);
+			case 262184:
+				return mapid == 5107 || mapid == ADEN && 
+					(inBox(x, y, 33385, 33392, 32845, 32848) || 
+					 inBox(x, y, 33390, 33392, 32849, 32851));
+			case 262185:
+				return mapid == 5108 || mapid == ADEN && 
+					(inBox(x, y, 33399, 33405, 32859, 32861) || 
+					 inBox(x, y, 33402, 33405, 32862, 32866));
+			case 262186:
+				return mapid == 5109 || mapid == ADEN && 
+					inBox(x, y, 33414, 33417, 32850, 32856);
+			case 262187:
+				return mapid == 5110 || mapid == ADEN && 
+					inBox(x, y, 33372, 33384, 32867, 32873);
+			case 262188:
+				return mapid == 5111 || mapid == ADEN && 
+					inBox(x, y, 33425, 33437, 32865, 32871);
+			case 262189:
+				return mapid == 5112 || mapid == ADEN && 
+					(inBox(x, y, 33443, 33449, 32869, 32871) || 
+					 inBox(x, y, 33446, 33449, 32872, 32876));
+			case 327681:
+				return mapid == 5113 || mapid == ADEN && 
+					(inBox(x, y, 33599, 33601, 33213, 33214) || 
+					 inBox(x, y, 33602, 33610, 33213, 33218));
+			case 327682:
+				return mapid == 5114 || mapid == ADEN && 
+					inBox(x, y, 33627, 33632, 33206, 33209);
+			case 327683:
+				return mapid == 5115 || mapid == ADEN && 
+					(inBox(x, y, 33626, 33627, 33225, 33227) || 
+					 inBox(x, y, 33628, 33632, 33221, 33230));
+			case 327684:
+				return mapid == 5116 || mapid == ADEN && 
+					(inBox(x, y, 33628, 33636, 33241, 33244) || 
+					 inBox(x, y, 33632, 33635, 33245, 33250) ||
+					 inBox(x, y, 33634, 33634, 33251, 33252));
+			case 327685:
+				return mapid == 5117 || mapid == ADEN && 
+					inBox(x, y, 33616, 33621, 33262, 33265);
+			case 327686: 
+				return mapid == 5118 || mapid == ADEN && 
+					(inBox(x, y, 33570, 33580, 33228, 33232) || 
+					 inBox(x, y, 33574, 33576, 33233, 33234));
+			case 327687: 
+				return mapid == 5119 || mapid == ADEN && 
+					(inBox(x, y, 33583, 33588, 33305, 33314) || 
+					 inBox(x, y, 33587, 33588, 33315, 33316));
+			case 327688: 
+				return mapid == 5120 || mapid == ADEN && 
+					(inBox(x, y, 33577, 33578, 33337, 33337) || 
+					 inBox(x, y, 33579, 33588, 33335, 33339) ||
+					 inBox(x, y, 33585, 33588, 33340, 33343));
+			case 327689: 
+				return mapid == 5121 || mapid == ADEN && 
+					(inBox(x, y, 33615, 33623, 33374, 33377) || 
+					 inBox(x, y, 33619, 33622, 33378, 33383) ||
+					 inBox(x, y, 33621, 33621, 33384, 33385));
+			case 327690: 
+				return mapid == 5122 || mapid == ADEN && 
+					(inBox(x, y, 33624, 33625, 33397, 33399) || 
+					 inBox(x, y, 33626, 33630, 33393, 33403));
+			case 327691: 
+				return mapid == 5123 || mapid == ADEN && 
+					(inBox(x, y, 33621, 33622, 33444, 33444) || 
+					 inBox(x, y, 33622, 33632, 33442, 33446) ||
+					 inBox(x, y, 33629, 33632, 33447, 33450));
+			case 524289: 
+				return mapid == ADEN && inBox(x, y, 32559, 32566, 32669, 32676);
+			case 524290: 
+				return mapid == ADEN && 
+					(inBox(x, y, 32548, 32556, 32705, 32716) ||
+					 inBox(x, y, 32547, 32547, 32710, 32716));
+			case 524291: 
+				return mapid == ADEN && inBox(x, y, 32537, 32544, 32781, 32791);
+			case 524292: 
+				return mapid == ADEN && inBox(x, y, 32550, 32560, 32780, 32787);
+			case 524293: 
+				return mapid == ADEN && 
+					(inBox(x, y, 32535, 32543, 32807, 32818) ||
+					 inBox(x, y, 32534, 32534, 32812, 32818));
+			case 524294: 
+				return mapid == ADEN && inBox(x, y, 32553, 32560, 32814, 32821);
+			default:
+				return false;
 		}
-		return ret;
 	}
 
-	public static int[] getHouseLoc(int houseId) { // houseId
-		int[] loc = new int[3];
-		if (houseId == 262145) { // 1
-			loc[0] = 33374;
-			loc[1] = 32657;
-			loc[2] = 4;
-		} else if (houseId == 262146) { // 2
-			loc[0] = 33384;
-			loc[1] = 32655;
-			loc[2] = 4;
-		} else if (houseId == 262147) { // 3
-			loc[0] = 33395;
-			loc[1] = 32656;
-			loc[2] = 4;
-		} else if (houseId == 262148) { // 4
-			loc[0] = 33428;
-			loc[1] = 32659;
-			loc[2] = 4;
-		} else if (houseId == 262149) { // 5
-			loc[0] = 33439;
-			loc[1] = 32666;
-			loc[2] = 4;
-		} else if (houseId == 262150) { // 6
-			loc[0] = 33457;
-			loc[1] = 32654;
-			loc[2] = 4;
-		} else if (houseId == 262151) { // 7
-			loc[0] = 33477;
-			loc[1] = 32668;
-			loc[2] = 4;
-		} else if (houseId == 262152) { // 8
-			loc[0] = 33471;
-			loc[1] = 32679;
-			loc[2] = 4;
-		} else if (houseId == 262153) { // 9
-			loc[0] = 33459;
-			loc[1] = 32700;
-			loc[2] = 4;
-		} else if (houseId == 262154) { // 10
-			loc[0] = 33424;
-			loc[1] = 32691;
-			loc[2] = 4;
-		} else if (houseId == 262155) { // 11
-			loc[0] = 33409;
-			loc[1] = 32675;
-			loc[2] = 4;
-		} else if (houseId == 262156) { // 12
-			loc[0] = 33420;
-			loc[1] = 32709;
-			loc[2] = 4;
-		} else if (houseId == 262157) { // 13
-			loc[0] = 33375;
-			loc[1] = 32698;
-			loc[2] = 4;
-		} else if (houseId == 262158) { // 14
-			loc[0] = 33363;
-			loc[1] = 32684;
-			loc[2] = 4;
-		} else if (houseId == 262159) { // 15
-			loc[0] = 33360;
-			loc[1] = 32670;
-			loc[2] = 4;
-		} else if (houseId == 262160) { // 16
-			loc[0] = 33341;
-			loc[1] = 32661;
-			loc[2] = 4;
-		} else if (houseId == 262161) { // 17
-			loc[0] = 33346;
-			loc[1] = 32675;
-			loc[2] = 4;
-		} else if (houseId == 262162) { // 18
-			loc[0] = 33341;
-			loc[1] = 32710;
-			loc[2] = 4;
-		} else if (houseId == 262163) { // 19
-			loc[0] = 33355;
-			loc[1] = 32734;
-			loc[2] = 4;
-		} else if (houseId == 262164) { // 20
-			loc[0] = 33366;
-			loc[1] = 32714;
-			loc[2] = 4;
-		} else if (houseId == 262165) { // 21
-			loc[0] = 33381;
-			loc[1] = 32715;
-			loc[2] = 4;
-		} else if (houseId == 262166) { // 22
-			loc[0] = 33404;
-			loc[1] = 32739;
-			loc[2] = 4;
-		} else if (houseId == 262167) { // 23
-			loc[0] = 33424;
-			loc[1] = 32718;
-			loc[2] = 4;
-		} else if (houseId == 262168) { // 24
-			loc[0] = 33449;
-			loc[1] = 32732;
-			loc[2] = 4;
-		} else if (houseId == 262169) { // 25
-			loc[0] = 33405;
-			loc[1] = 32757;
-			loc[2] = 4;
-		} else if (houseId == 262170) { // 26
-			loc[0] = 33366;
-			loc[1] = 32761;
-			loc[2] = 4;
-		} else if (houseId == 262171) { // 27
-			loc[0] = 33351;
-			loc[1] = 32775;
-			loc[2] = 4;
-		} else if (houseId == 262172) { // 28
-			loc[0] = 33358;
-			loc[1] = 32789;
-			loc[2] = 4;
-		} else if (houseId == 262173) { // 29
-			loc[0] = 33372;
-			loc[1] = 32792;
-			loc[2] = 4;
-		} else if (houseId == 262174) { // 30
-			loc[0] = 33384;
-			loc[1] = 32776;
-			loc[2] = 4;
-		} else if (houseId == 262175) { // 31
-			loc[0] = 33403;
-			loc[1] = 32794;
-			loc[2] = 4;
-		} else if (houseId == 262176) { // 32
-			loc[0] = 33485;
-			loc[1] = 32794;
-			loc[2] = 4;
-		} else if (houseId == 262177) { // 33
-			loc[0] = 33499;
-			loc[1] = 32804;
-			loc[2] = 4;
-		} else if (houseId == 262178) { // 34
-			loc[0] = 33382;
-			loc[1] = 32804;
-			loc[2] = 4;
-		} else if (houseId == 262179) { // 35
-			loc[0] = 33376;
-			loc[1] = 32828;
-			loc[2] = 4;
-		} else if (houseId == 262180) { // 36
-			loc[0] = 33399;
-			loc[1] = 32813;
-			loc[2] = 4;
-		} else if (houseId == 262181) { // 37
-			loc[0] = 33397;
-			loc[1] = 32822;
-			loc[2] = 4;
-		} else if (houseId == 262182) { // 38
-			loc[0] = 33437;
-			loc[1] = 32844;
-			loc[2] = 4;
-		} else if (houseId == 262183) { // 39
-			loc[0] = 33459;
-			loc[1] = 32840;
-			loc[2] = 4;
-		} else if (houseId == 262184) { // 40
-			loc[0] = 33391;
-			loc[1] = 32851;
-			loc[2] = 4;
-		} else if (houseId == 262185) { // 41
-			loc[0] = 33399;
-			loc[1] = 32860;
-			loc[2] = 4;
-		} else if (houseId == 262186) { // 42
-			loc[0] = 33415;
-			loc[1] = 32853;
-			loc[2] = 4;
-		} else if (houseId == 262187) { // 43
-			loc[0] = 33375;
-			loc[1] = 32873;
-			loc[2] = 4;
-		} else if (houseId == 262188) { // 44
-			loc[0] = 33428;
-			loc[1] = 32871;
-			loc[2] = 4;
-		} else if (houseId == 262189) { // 45
-			loc[0] = 33443;
-			loc[1] = 32870;
-			loc[2] = 4;
-		} else if (houseId == 327681) { // 1
-			loc[0] = 33609;
-			loc[1] = 33217;
-			loc[2] = 4;
-		} else if (houseId == 327682) { // 2
-			loc[0] = 33630;
-			loc[1] = 33209;
-			loc[2] = 4;
-		} else if (houseId == 327683) { // 3
-			loc[0] = 33628;
-			loc[1] = 33226;
-			loc[2] = 4;
-		} else if (houseId == 327684) { // 4
-			loc[0] = 33633;
-			loc[1] = 33248;
-			loc[2] = 4;
-		} else if (houseId == 327685) { // 5
-			loc[0] = 33619;
-			loc[1] = 33265;
-			loc[2] = 4;
-		} else if (houseId == 327686) { // 6
-			loc[0] = 33575;
-			loc[1] = 33233;
-			loc[2] = 4;
-		} else if (houseId == 327687) { // 7
-			loc[0] = 33584;
-			loc[1] = 33306;
-			loc[2] = 4;
-		} else if (houseId == 327688) { // 8
-			loc[0] = 33581;
-			loc[1] = 33338;
-			loc[2] = 4;
-		} else if (houseId == 327689) { // 9
-			loc[0] = 33620;
-			loc[1] = 33381;
-			loc[2] = 4;
-		} else if (houseId == 327690) { // 10
-			loc[0] = 33625;
-			loc[1] = 33398;
-			loc[2] = 4;
-		} else if (houseId == 327691) { // 11
-			loc[0] = 33625;
-			loc[1] = 33445;
-			loc[2] = 4;
-		} else if (houseId == 524289) { //
-			loc[0] = 32564;
-			loc[1] = 32675;
-			loc[2] = 4;
-		} else if (houseId == 524290) { //
-			loc[0] = 32549;
-			loc[1] = 32707;
-			loc[2] = 4;
-		} else if (houseId == 524291) { //
-			loc[0] = 32538;
-			loc[1] = 32782;
-			loc[2] = 4;
-		} else if (houseId == 524292) { //
-			loc[0] = 32558;
-			loc[1] = 32786;
-			loc[2] = 4;
-		} else if (houseId == 524293) { //
-			loc[0] = 32536;
-			loc[1] = 32809;
-			loc[2] = 4;
-		} else if (houseId == 524294) { //
-			loc[0] = 32554;
-			loc[1] = 32819;
-			loc[2] = 4;
-		}
-		return loc;
+	public static int[] getHouseLoc(int houseId) {
+		int[] location = { 0, 0, ADEN };
+		int[] xy = houseLocations.get(houseId);
+		location[0] = xy[0];
+		location[1] = xy[1];
+		return location;
 	}
 
-	public static int[] getBasementLoc(int houseId) { // houseId
+	public static int[] getBasementLoc(int houseId) {
 		int[] loc = new int[3];
 		if (houseId >= 262145 && houseId <= 262189) { 
 			loc[0] = 32780;
@@ -771,24 +364,14 @@ public class L1HouseLocation {
 		return loc;
 	}
 
-	/**
-	 * Hideout in the coordinates specified whether to return
-	 * 
-	 * @param cha
-	 * @return
-	 */
 	public static boolean isInHouse(int locx, int locy, short mapid) {
-		boolean result = false;
-		for (Integer houseId : _houseIds) {
-			if (isInHouseLoc(houseId, locx, locy, mapid)) {
-				result = true;
-				break;
-			}
-		}
-		return result;
+		for (Integer houseId : _houseIds)
+			if (isInHouseLoc(houseId, locx, locy, mapid))
+				return true;
+		return false;
 	}
 
-	public static int[] getHouseTeleportLoc(int houseId, int number) { // houseId
+	public static int[] getHouseTeleportLoc(int houseId, int number) {
 		int[] loc = new int[3];
 		if (houseId >= 262145 && houseId <= 262189) {
 			loc[0] = TELEPORT_LOC_GIRAN[number].getX();
@@ -802,7 +385,7 @@ public class L1HouseLocation {
 			loc[0] = TELEPORT_LOC_ADEN[number].getX();
 			loc[1] = TELEPORT_LOC_ADEN[number].getY();
 			loc[2] = TELEPORT_LOC_MAPID[number];
-		} else if (houseId >= 524289 && houseId <= 524294) { //
+		} else if (houseId >= 524289 && houseId <= 524294) {
 			loc[0] = TELEPORT_LOC_GLUDIN[number].getX();
 			loc[1] = TELEPORT_LOC_GLUDIN[number].getY();
 			loc[2] = TELEPORT_LOC_MAPID[number];

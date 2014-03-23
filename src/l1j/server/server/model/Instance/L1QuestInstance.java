@@ -20,7 +20,6 @@ package l1j.server.server.model.Instance;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
@@ -29,12 +28,8 @@ import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.templates.L1Npc;
 
+@SuppressWarnings("serial")
 public class L1QuestInstance extends L1NpcInstance {
-
-	private static Logger _log = Logger.getLogger(L1QuestInstance.class
-			.getName());
-
-	private L1QuestInstance _npc = this;
 
 	public L1QuestInstance(L1Npc template) {
 		super(template);

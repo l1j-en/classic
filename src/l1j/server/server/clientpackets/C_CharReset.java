@@ -18,18 +18,21 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
+import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
-import l1j.server.server.utils.CalcInitHpMp;
+import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -51,23 +54,61 @@ public class C_CharReset extends ClientBasePacket {
  * //\Z 127.0.0.1 Request Work ID : 120 0000: 78 03 23 0a 0b 17 12 0d
  */	
 
+	/**
+	 * Log any suspicious behavior.
+	 */
+	private void checkProvidedStats(final L1PcInstance pc, int str, int intel, int wis, 
+			int dex, int con, int cha) {
+		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
+		if (str < fixedStats.get(L1Attribute.Str) || 
+				intel < fixedStats.get(L1Attribute.Int) ||
+				wis < fixedStats.get(L1Attribute.Wis) ||
+				dex < fixedStats.get(L1Attribute.Dex) ||
+				con < fixedStats.get(L1Attribute.Con) ||
+				cha < fixedStats.get(L1Attribute.Cha))
+			_log.log(Level.SEVERE, 
+					String.format("Candle: %s had less than starting stats!", 
+						pc.getName()));
+		
+		int bonusStats = pc.getLevel() > 50 ? pc.getLevel() - 50 : 0;
+		if (str + intel + wis + dex + con + cha > 75 + bonusStats + 
+				pc.getElixirStats()) {
+			emergencyCleanup(pc, "Candle: %s has too many stats!",
+					"Candle: issue with stats, contact a GM for help.");
+		}
+	}
+
 	public C_CharReset(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 		int stage = readC();
 
 		if (stage == 0x01) { // 0x01:LN^[
+			// We can't trust these numbers, since they've been provided by the
+			// client--this is the source of one of the candle glitches. On the
+			// other hand, we can't just use the save numbers because that
+			// effectively gives them all those bonus stats again.
 			int str = readC();
 			int intel = readC();
 			int wis = readC();
 			int dex = readC();
 			int con = readC();
 			int cha = readC();
-			int hp = CalcInitHpMp.calcInitHp(pc);
-			int mp = CalcInitHpMp.calcInitMp(pc);
+
+			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
+
+			int hp = pc.getClassFeature().getStartingHp();
+			int mp = pc.getClassFeature().getStartingMp(wis);
 			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
 			CharacterTable.getInstance().saveCharStatus(pc);
+			pc.setOriginalStr(str);
+			pc.setOriginalCon(con);
+			pc.setOriginalDex(dex);
+			pc.setOriginalCha(cha);
+			pc.setOriginalInt(intel);
+			pc.setOriginalWis(wis);
+			pc.refresh();
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
 			int type2 = readC();
 			if (type2 == 0x00) { // 0x00:Lv1UP
@@ -123,17 +164,41 @@ public class C_CharReset extends ClientBasePacket {
 				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
-			pc.addBaseStr((byte) (readC() - pc.getBaseStr()));
-			pc.addBaseInt((byte) (readC() - pc.getBaseInt()));
-			pc.addBaseWis((byte) (readC() - pc.getBaseWis()));
-			pc.addBaseDex((byte) (readC() - pc.getBaseDex()));
-			pc.addBaseCon((byte) (readC() - pc.getBaseCon()));
-			pc.addBaseCha((byte) (readC() - pc.getBaseCha()));
+			// See the note above
+			int str = readC();
+			int intel = readC();
+			int wis = readC();
+			int dex = readC();
+			int con = readC();
+			int cha = readC();
+
+			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
+
+			pc.addBaseStr((byte) (str - pc.getBaseStr()));
+			pc.addBaseInt((byte) (intel - pc.getBaseInt()));
+			pc.addBaseWis((byte) (wis - pc.getBaseWis()));
+			pc.addBaseDex((byte) (dex - pc.getBaseDex()));
+			pc.addBaseCon((byte) (con - pc.getBaseCon()));
+			pc.addBaseCha((byte) (cha - pc.getBaseCha()));
 			saveNewCharStatus(pc);
 		}
 	}
+	
+	private void emergencyCleanup(final L1PcInstance pc, final String logEntry,
+			final String message) {
+		_log.log(Level.SEVERE, logEntry);
+		pc.sendPackets(new S_SystemMessage(message));
+		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
+		// Terrible way to bail, but we're doing it for now.
+		throw new IllegalStateException();
+	}
 
 	private synchronized void saveNewCharStatus(L1PcInstance pc) {
+		if (pc.getTempMaxLevel() != pc.getLevel()) {
+			emergencyCleanup(pc, "Candle: " + pc.getName() + "'s level " +
+				"doesn't match!", "Candle: issue with level, contact a GM!");
+		}
+		
 		pc.setInCharReset(false);
 		if(pc.getOriginalAc() > 0) {
 			pc.addAc(pc.getOriginalAc());
@@ -194,156 +259,6 @@ public class C_CharReset extends ClientBasePacket {
 		pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc,
 		pc.getBaseStr(), pc.getBaseInt(), pc.getBaseWis(),
 		pc.getBaseDex(), pc.getBaseCon(), pc.getBaseCha()));
-	}
-
-	private int getInitialHp (L1PcInstance pc) {
-		int hp = 1;
-		if (pc.isCrown()) {
-			hp = 14;
-		} else if (pc.isKnight()) {
-			hp = 16;
-		} else if (pc.isElf()) {
-			hp = 15;
-		} else if (pc.isWizard()) {
-			hp = 12;
-		} else if (pc.isDarkelf()) {
-			hp = 12;
-		} else if (pc.isDragonKnight()) {
-			hp = 15;
-		} else if (pc.isIllusionist()) {
-			hp = 15;
-		}
-		return hp;
-	}
-
-	private int getInitialMp (L1PcInstance pc) {
-		int mp = 1;
-		if (pc.isCrown()) {
-			switch (pc.getWis()) {
-			case 11:
-			mp = 2;
-			break;
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 3;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 4;
-			break;
-			default:
-			mp = 2;
-			break;
-			}
-		} else if (pc.isKnight()) {
-			switch (pc.getWis()) {
-			case 9:
-			case 10:
-			case 11:
-			mp = 1;
-			break;
-			case 12:
-			case 13:
-			mp = 2;
-			break;
-			default:
-			mp = 1;
-			break;
-			}
-		} else if (pc.isElf()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		} else if (pc.isWizard()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 6;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 8;
-			break;
-			default:
-			mp = 6;
-			break;
-			}
-		} else if (pc.isDarkelf()) {
-			switch (pc.getWis()) {
-			case 10:
-			case 11:
-			mp = 3;
-			break;
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 3;
-			break;
-			}
-		} else if (pc.isDragonKnight()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		} else if (pc.isIllusionist()) {
-			switch (pc.getWis()) {
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			mp = 4;
-			break;
-			case 16:
-			case 17:
-			case 18:
-			mp = 6;
-			break;
-			default:
-			mp = 4;
-			break;
-			}
-		}
-		return mp;
 	}
 
 	@Override

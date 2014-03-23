@@ -28,6 +28,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
@@ -88,10 +89,16 @@ public class L1World {
 	}
 
 	public void storeObject(L1Object object) {
-		if (object == null) {
-			throw new NullPointerException();
-		}
-
+		/* Debugging in progress...
+		if (_allPlayers.size() > 0) {
+			System.out.println(
+			String.format("Adding %s with id %d.", object, object.getId()));
+			if (object instanceof L1ItemInstance) {
+				L1ItemInstance item = (L1ItemInstance) object;
+				System.out.println(String.format("Item %s", item.getName()));
+			}
+		}*/
+			
 		_allObjects.put(object.getId(), object);
 		if (object instanceof L1PcInstance) {
 			_allPlayers.put(((L1PcInstance) object).getName(),
@@ -106,10 +113,12 @@ public class L1World {
 	}
 
 	public void removeObject(L1Object object) {
-		if (object == null) {
-			throw new NullPointerException();
-		}
-
+		/* Debugging in process... =(
+		if (_allPlayers.size() > 0)
+			System.out.println(String.format(
+				"Removing %s with id %d.", object, object.getId()));
+		*/
+		
 		_allObjects.remove(object.getId());
 		if (object instanceof L1PcInstance) {
 			_allPlayers.remove(((L1PcInstance) object).getName());
@@ -487,10 +496,6 @@ public class L1World {
 
 	public final Map<Integer, L1Object> getAllVisibleObjects() {
 		return _allObjects;
-	}
-
-	public final Map<Integer, L1Object>[] getVisibleObjects() {
-		return _visibleObjects;
 	}
 
 	public final Map<Integer, L1Object> getVisibleObjects(int mapId) {

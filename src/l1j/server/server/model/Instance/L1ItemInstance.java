@@ -1,22 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
-
 package l1j.server.server.model.Instance;
 
 import java.sql.Timestamp;
@@ -26,10 +7,12 @@ import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.model.Element;
 import l1j.server.server.model.L1EquipmentTimer;
 import l1j.server.server.model.L1ItemOwnerTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
+import l1j.server.server.model.item.ItemType;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Armor;
@@ -39,12 +22,8 @@ import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.BinaryOutputStream;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
-// Referenced classes of package l1j.server.server.model:
-// L1Object, L1PcInstance
-
 public class L1ItemInstance extends L1Object {
-	private static Logger _log = Logger.getLogger(L1ItemInstance.class
-			.getName());
+	private static Logger _log = Logger.getLogger(L1ItemInstance.class.getName());
 
 	private static final long serialVersionUID = 1L;
 
@@ -145,14 +124,14 @@ public class L1ItemInstance extends L1Object {
 	public boolean isStackable() {
 		return _item.isStackable();
 	}
+	
 	/* For illumination items*/ 
-	public boolean isActive()
-	{ 
+	public boolean isActive() { 
 		return _isActive; 
 	}  
-	public void setActive(boolean isActive)
-	{ 
-		_isActive = isActive; } 
+	public void setActive(boolean isActive) { 
+		_isActive = isActive; 
+	} 
 	
 	@Override
 	public void onAction(L1PcInstance player) {
@@ -240,6 +219,7 @@ public class L1ItemInstance extends L1Object {
 				|| getItemId() == 220056) {
 			mr += getEnchantLevel() * 2;
 		}
+		mr += getMagicResist();
 		return mr;
 	}
 
@@ -288,6 +268,17 @@ public class L1ItemInstance extends L1Object {
 
 		public int attrEnchantLevel;
 
+		public int earthResist;
+		public int fireResist;
+		public int waterResist;
+		public int windResist;
+		public int additionalHp;
+		public int additionalMp;
+		public int hpRegen;
+		public int mpRegen;
+		public int additionalSp;
+		public int magicResist;
+
 		public void updateAll() {
 			count = getCount();
 			itemId = getItemId();
@@ -301,6 +292,16 @@ public class L1ItemInstance extends L1Object {
 			bless = getBless();
 			attrEnchantKind = getAttrEnchantKind();
 			attrEnchantLevel = getAttrEnchantLevel();
+			earthResist = getEarthResist();
+			fireResist = getFireResist();
+			waterResist = getWaterResist();
+			windResist = getWindResist();
+			additionalHp = getAddHp();
+			additionalMp = getAddMp();
+			hpRegen = getAddHpRegen();
+			mpRegen = getAddMpRegen();
+			additionalSp = getAddSpellpower();
+			magicResist = getMagicResist();
 		}
 
 		public void updateCount() {
@@ -350,6 +351,20 @@ public class L1ItemInstance extends L1Object {
 		public void updateAttrEnchantLevel() {
 			attrEnchantLevel = getAttrEnchantLevel();
 		}
+
+		public void updateFireResist() {
+			;
+		}
+
+		public void updateWaterResist() {}
+		public void updateEarthResist() {}
+		public void updateWindResist() {}
+		public void updateSpellpower() {}
+		public void updateHp() {}
+		public void updateMp() {}
+		public void updateHpRegen() {}
+		public void updateMpRegen() {}
+		public void updateMagicResist() {}
 	}
 
 	public LastStatus getLastStatus() {
@@ -399,6 +414,45 @@ public class L1ItemInstance extends L1Object {
 		return column;
 	}
 
+	public int getRecordingColumnsEnchantAccessory() {
+		int column = 0;
+
+		if (getAddHp() != _lastStatus.additionalHp) {
+			column += L1PcInventory.COL_ADDHP;
+		}
+		if (getAddMp() != _lastStatus.additionalMp) {
+			column += L1PcInventory.COL_ADDMP;
+		}
+		if (getAddHpRegen() != _lastStatus.hpRegen) {
+			column += L1PcInventory.COL_HPR;
+		}
+		if (getAddMpRegen() != _lastStatus.mpRegen) {
+			column += L1PcInventory.COL_MPR;
+		}
+		if (getAddSpellpower() != _lastStatus.additionalSp) {
+			column += L1PcInventory.COL_ADDSP;
+		}
+		if (getMagicResist() != _lastStatus.magicResist) {
+			column += L1PcInventory.COL_M_DEF;
+		}
+		if (getEarthResist() != _lastStatus.earthResist) {
+			column += L1PcInventory.COL_EARTHMR;
+		}
+		if (getFireResist() != _lastStatus.fireResist) {
+			column += L1PcInventory.COL_FIREMR;
+		}
+		if (getWaterResist() != _lastStatus.waterResist) {
+			column += L1PcInventory.COL_WATERMR;
+		}
+		if (getWindResist() != _lastStatus.windResist) {
+			column += L1PcInventory.COL_WINDMR;
+		}
+
+		return column;
+	}
+
+
+
 	public String getNumberedViewName(int count) {
 		StringBuilder name = new StringBuilder(getNumberedName(count));
 		int itemType2 = getItem().getType2();
@@ -408,18 +462,18 @@ public class L1ItemInstance extends L1Object {
 			L1Pet pet = PetTable.getInstance().getTemplate(getId());
 			if (pet != null) {
 				L1Npc npc = NpcTable.getInstance().getTemplate(pet.get_npcid());
-// name.append("[Lv." + pet.get_level() + " "
-// + npc.get_nameid() + "]");
+				// name.append("[Lv." + pet.get_level() + " "
+				// + npc.get_nameid() + "]");
 				name.append("[Lv." + pet.get_level() + " " + pet.get_name()
 						+ "]HP" + pet.get_hp() + " " + npc.get_nameid());
 			}
 		}
 
-		if (getItem().getType2() == 0 && getItem().getType() == 2) { // 
+		if (getItem().getType2() == ItemType.Etc && getItem().getType() == 2) {
 			if (isNowLighting()) {
 				name.append(" ($10)");
 			}
-			if (itemId == 40001 || itemId == 40002) { // 
+			if (itemId == 40001 || itemId == 40002) {
 				if (getRemainingTime() <= 0) {
 					name.append(" ($11)");
 				}
@@ -427,11 +481,11 @@ public class L1ItemInstance extends L1Object {
 		}
 
 		if (isEquipped()) {
-			if (itemType2 == 1) {
+			if (itemType2 == ItemType.Weapon) {
 				name.append(" ($9)"); //(Armed)
-			} else if (itemType2 == 2) {
+			} else if (itemType2 == ItemType.Armor) {
 				name.append(" ($117)"); // 
-			} else if (itemType2 == 0 && getItem().getType() == 11) { // petitem
+			} else if (itemType2 == ItemType.Etc && getItem().getType() == 11) { // petitem
 				name.append(" ($117)"); //
 			}
 		}
@@ -449,13 +503,15 @@ public class L1ItemInstance extends L1Object {
 	public String getNumberedName(int count) {
 		StringBuilder name = new StringBuilder();
 
+		int generalType = getItem().getType2();
+
 		if (isIdentified()) {
-			if (getItem().getType2() == 1) { 
+			if (generalType == ItemType.Weapon) { 
 				int attrEnchantLevel = getAttrEnchantLevel();
 				if (attrEnchantLevel > 0) {
 					String attrStr = null;
 					switch (getAttrEnchantKind()) {
-					case 1: 
+					case Element.Earth: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6124";
 						} else if (attrEnchantLevel == 2) {
@@ -464,7 +520,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6126";
 						}
 						break;
-					case 2: 
+					case Element.Fire: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6115";
 						} else if (attrEnchantLevel == 2) {
@@ -473,7 +529,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6117";
 						}
 						break;
-					case 4: 
+					case Element.Water: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6118";
 						} else if (attrEnchantLevel == 2) {
@@ -482,7 +538,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6120";
 						}
 						break;
-					case 8: 
+					case Element.Wind: 
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6121";
 						} else if (attrEnchantLevel == 2) {
@@ -497,7 +553,7 @@ public class L1ItemInstance extends L1Object {
 					name.append(attrStr + " ");
 				}
 			}
-			if (getItem().getType2() == 1 || getItem().getType2() == 2) {
+			if (generalType == ItemType.Weapon || generalType == ItemType.Armor) {
 				if (getEnchantLevel() >= 0) {
 					name.append("+" + getEnchantLevel() + " ");
 				} else if (getEnchantLevel() < 0) {
@@ -517,7 +573,7 @@ public class L1ItemInstance extends L1Object {
 			if (getItem().getItemId() == 20383) {
 				name.append(" (" + getChargeCount() + ")");
 			}
-			if (getItem().getMaxUseTime() > 0 && getItem().getType2() != 0) { //
+			if (getItem().getMaxUseTime() > 0 && generalType != ItemType.Etc) {
 				name.append(" (" + getRemainingTime() + ")");
 			}
 		}
@@ -530,107 +586,117 @@ public class L1ItemInstance extends L1Object {
 	}
 
 	public byte[] getStatusBytes() {
-		int itemType2 = getItem().getType2();
+		L1Item template = getItem();
+		int itemType2 = template.getType2();
 		int itemId = getItemId();
 		BinaryOutputStream os = new BinaryOutputStream();
+
+		final boolean isWeapon = itemType2 == ItemType.Weapon;
+		final boolean isArmor = itemType2 == ItemType.Armor;
 		
-		if (itemType2 == 0) { // etcitem
-			switch (getItem().getType()) {
+		if (itemType2 == ItemType.Etc) {
+			switch (template.getType()) {
 			case 2: // light
 				os.writeC(22); 
-				os.writeH(getItem().getLightRange());
+				os.writeH(template.getLightRange());
 				break;
 			case 7: // food
 				os.writeC(21);
-				os.writeH(getItem().getFoodVolume());
+				os.writeH(template.getFoodVolume());
 				break;
 			case 0: // arrow
 			case 15: // sting
 				os.writeC(1); 
-				os.writeC(getItem().getDmgSmall());
-				os.writeC(getItem().getDmgLarge());
+				os.writeC(template.getDmgSmall());
+				os.writeC(template.getDmgLarge());
 				break;
 			default:
 				os.writeC(23);
 				break;
 			}
-			os.writeC(getItem().getMaterial());
+			os.writeC(template.getMaterial());
 			os.writeD(getWeight());
-			
-		} else if (itemType2 == 1 || itemType2 == 2) { // weapon | armor
-			if (itemType2 == 1) { // weapon
+		} else if (isWeapon || isArmor) { // Statements below rely on this guard.
+			if (isWeapon) {
 				os.writeC(1);
-				os.writeC(getItem().getDmgSmall());
-				os.writeC(getItem().getDmgLarge());
-				os.writeC(getItem().getMaterial());
+				os.writeC(template.getDmgSmall());
+				os.writeC(template.getDmgLarge());
+				os.writeC(template.getMaterial());
 				os.writeD(getWeight());
-			} else if (itemType2 == 2) { // armor
-				// AC
+			} else {
 				os.writeC(19); 
-				int ac = ((L1Armor) getItem()).get_ac();
+				int ac = ((L1Armor) template).get_ac();
 				if (ac < 0) {
 					ac = ac - ac - ac;
 				}
 				os.writeC(ac);
-				os.writeC(getItem().getMaterial());
+				os.writeC(template.getMaterial());
+				// US clients aren't expecting this so it messes up the
+				// displayed weight for armor.
+				// os.writeC(template.getGrade());
 				os.writeD(getWeight());
 			}
 			if (getEnchantLevel() != 0) {
 				os.writeC(2);
-				os.writeC(getEnchantLevel());
+				if (isArmor && template.getType() >= 8 &&
+						template.getType() <= 12) {
+					os.writeC(0);
+				} else {
+					os.writeC(getEnchantLevel());
+				}
 			}
 			if (get_durability() != 0) {
 				os.writeC(3);
 				os.writeC(get_durability());
 			}
-			if (getItem().isTwohandedWeapon()) {
+			if (template.isTwohandedWeapon()) {
 				os.writeC(4);
 			}
 			
-			if (itemType2 == 1) { // weapon
-				if (getItem().getHitModifier() != 0) {
+			if (isWeapon) {
+				if (template.getHitModifier() != 0) {
 					os.writeC(5);
-					os.writeC(getItem().getHitModifier());
+					os.writeC(template.getHitModifier());
 				}
-			} else if (itemType2 == 2) { // armor
-				if (getItem().getHitModifierByArmor() != 0) {
+			} else {
+				if (template.getHitModifierByArmor() != 0) {
 					os.writeC(5);
-					os.writeC(getItem().getHitModifierByArmor());
+					os.writeC(template.getHitModifierByArmor());
 				}
 			}
 
-			if (itemType2 == 1) { // weapon
-				if (getItem().getDmgModifier() != 0) {
+			if (isWeapon) {
+				if (template.getDmgModifier() != 0) {
 					os.writeC(6);
-					os.writeC(getItem().getDmgModifier());
+					os.writeC(template.getDmgModifier());
 				}
-			} else if (itemType2 == 2) { // armor
-				if (getItem().getDmgModifierByArmor() != 0) {
+			} else {
+				if (template.getDmgModifierByArmor() != 0) {
 					os.writeC(6);
-					os.writeC(getItem().getDmgModifierByArmor());
+					os.writeC(template.getDmgModifierByArmor());
 				}
 			}
 
 			int bit = 0;
-			bit |= getItem().isUseRoyal()   ? 1 : 0;
-			bit |= getItem().isUseKnight()  ? 2 : 0;
-			bit |= getItem().isUseElf()     ? 4 : 0;
-			bit |= getItem().isUseMage()    ? 8 : 0;
-			bit |= getItem().isUseDarkelf() ? 16 : 0;
-			bit |= getItem().isUseDragonknight() ? 32 : 0;
-			bit |= getItem().isUseIllusionist() ? 64 : 0;
-			// bit |= getItem().isUseHiPet() ? 64 : 0; 
+			bit |= template.isUseRoyal()   ? 1 : 0;
+			bit |= template.isUseKnight()  ? 2 : 0;
+			bit |= template.isUseElf()     ? 4 : 0;
+			bit |= template.isUseMage()    ? 8 : 0;
+			bit |= template.isUseDarkelf() ? 16 : 0;
+			bit |= template.isUseDragonknight() ? 32 : 0;
+			bit |= template.isUseIllusionist() ? 64 : 0;
+			// bit |= template.isUseHiPet() ? 64 : 0; 
 			os.writeC(7);
 			os.writeC(bit);
 
-			if (getItem().getBowHitModifierByArmor() != 0) {
+			if (template.getBowHitModifierByArmor() != 0) {
 				os.writeC(24);
-				os.writeC(getItem().getBowHitModifierByArmor());
+				os.writeC(template.getBowHitModifierByArmor());
 			}
 
-			if (getItem().getBowDmgModifierByArmor() != 0) {
+			if (template.getBowDmgModifierByArmor() != 0) {
 				os.writeC(35);
-				os.writeC(getItem().getBowDmgModifierByArmor());
+				os.writeC(template.getBowDmgModifierByArmor());
 			}
 
 			if (itemId == 126 || itemId == 127) { 
@@ -641,146 +707,160 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(34);
 			}
 			// STR~CHA
-			if (getItem().get_addstr() != 0) {
+			if (template.get_addstr() != 0) {
 				os.writeC(8);
-				os.writeC(getItem().get_addstr());
+				os.writeC(template.get_addstr());
 			}
-			if (getItem().get_adddex() != 0) {
+			if (template.get_adddex() != 0) {
 				os.writeC(9);
-				os.writeC(getItem().get_adddex());
+				os.writeC(template.get_adddex());
 			}
-			if (getItem().get_addcon() != 0) {
+			if (template.get_addcon() != 0) {
 				os.writeC(10);
-				os.writeC(getItem().get_addcon());
+				os.writeC(template.get_addcon());
 			}
-			if (getItem().get_addwis() != 0) {
+			if (template.get_addwis() != 0) {
 				os.writeC(11);
-				os.writeC(getItem().get_addwis());
+				os.writeC(template.get_addwis());
 			}
-			if (getItem().get_addint() != 0) {
+			if (template.get_addint() != 0) {
 				os.writeC(12);
-				os.writeC(getItem().get_addint());
+				os.writeC(template.get_addint());
 			}
-			if (getItem().get_addcha() != 0) {
+			if (template.get_addcha() != 0) {
 				os.writeC(13);
-				os.writeC(getItem().get_addcha());
+				os.writeC(template.get_addcha());
 			}
 			// HP, MP
-			if (getItem().get_addhp() != 0) {
+			if (template.get_addhp() != 0 || getAddHp() != 0) {
 				os.writeC(14);
-				os.writeH(getItem().get_addhp());
+				os.writeH(template.get_addhp() + getAddHp());
 			}
-			if (getItem().get_addmp() != 0) {
+			if (template.get_addmp() != 0 || getAddMp() != 0) {
 				os.writeC(32);
-				os.writeC(getItem().get_addmp());
+				os.writeC(template.get_addmp() + getAddMp());
 			}
 			if (getMr() != 0) {
 				os.writeC(15);
 				os.writeH(getMr());
 			}
-			if (getItem().get_addsp() != 0) {
+			if (template.get_addsp() != 0 || getAddSpellpower() != 0) {
 				os.writeC(17);
-				os.writeC(getItem().get_addsp());
+				os.writeC(template.get_addsp() + getAddSpellpower());
 			}
-			if (getItem().isHasteItem()) {
+			if (template.isHasteItem()) {
 				os.writeC(18);
 			}
-			if (getItem().get_defense_fire() != 0) {
+			if (template.get_defense_fire() != 0 || getFireResist() != 0) {
 				os.writeC(27);
-				os.writeC(getItem().get_defense_fire());
+				os.writeC(template.get_defense_fire() + getFireResist());
 			}
-			if (getItem().get_defense_water() != 0) {
+			if (template.get_defense_water() != 0 || getWaterResist() != 0) {
 				os.writeC(28);
-				os.writeC(getItem().get_defense_water());
+				os.writeC(template.get_defense_water() + getWaterResist());
 			}
-			if (getItem().get_defense_wind() != 0) {
+			if (template.get_defense_wind() != 0 || getWindResist() != 0) {
 				os.writeC(29);
-				os.writeC(getItem().get_defense_wind());
+				os.writeC(template.get_defense_wind() + getWindResist());
 			}
-			if (getItem().get_defense_earth() != 0) {
+			if (template.get_defense_earth() != 0 || getEarthResist() != 0) {
 				os.writeC(30);
-				os.writeC(getItem().get_defense_earth());
+				os.writeC(template.get_defense_earth() + getEarthResist());
 			}
-			if (getItem().get_regist_freeze() != 0) {
+			if (template.get_resist_freeze() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_freeze());
+				os.writeH(template.get_resist_freeze());
 				os.writeC(33);
 				os.writeC(1);
 			}
-			if (getItem().get_regist_stone() != 0) {
+			if (template.get_resist_stone() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_stone());
+				os.writeH(template.get_resist_stone());
 				os.writeC(33);
 				os.writeC(2);
 			}
-			if (getItem().get_regist_sleep() != 0) {
+			if (template.get_resist_sleep() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_sleep());
+				os.writeH(template.get_resist_sleep());
 				os.writeC(33);
 				os.writeC(3);
 			}
-			if (getItem().get_regist_blind() != 0) {
+			if (template.get_resist_blind() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_blind());
+				os.writeH(template.get_resist_blind());
 				os.writeC(33);
 				os.writeC(4);
 			}
-			if (getItem().get_regist_stun() != 0) {
+			if (template.get_resist_stun() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_stun());
+				os.writeH(template.get_resist_stun());
 				os.writeC(33);
 				os.writeC(5);
 			}
-			if (getItem().get_regist_sustain() != 0) {
+			if (template.get_resist_sustain() != 0) {
 				os.writeC(15);
-				os.writeH(getItem().get_regist_sustain());
+				os.writeH(template.get_resist_sustain());
 				os.writeC(33);
 				os.writeC(6);
 			}
-// if (getItem.getLuck() != 0) {
-// os.writeC(20);
-// os.writeC(val);
-// }
-// if (getItem.getDesc() != 0) {
-// os.writeC(25);
-// os.writeH(val); // desc.tbl ID
-// }
-// if (getItem.getLevel() != 0) {
-// os.writeC(26);
-// os.writeH(val);
-// }
+			/* Taken from l1j-tw accessory enchanting - these might not be the
+			 * right packets for US clients and could be causing the mangled
+			 * item descriptions.
+			if (getMagicResist() != 0) {
+				os.writeC(15);
+				os.writeH(getMagicResist());
+			}
+			if (template.get_addhpr() != 0 || getAddHpRegen() != 0) {
+				os.writeC(37);
+				os.writeC(template.get_addhpr() + getAddHpRegen());
+			}
+			if (template.get_addmpr() != 0 || getAddMpRegen() != 0) {
+				os.writeC(38);
+				os.writeC(template.get_addmpr() + getAddMpRegen());
+			}
+			*/
+
+			// if (getItem.getLuck() != 0) {
+			// os.writeC(20);
+			// os.writeC(val);
+			// }
+			// if (getItem.getDesc() != 0) {
+			// os.writeC(25);
+			// os.writeH(val); // desc.tbl ID
+			// }
+			// if (getItem.getLevel() != 0) {
+			// os.writeC(26);
+			// os.writeH(val);
+			// }
 		}
 		return os.getBytes();
 	}
 
-class EnchantTimer extends TimerTask {
+	class EnchantTimer extends TimerTask {
+		public EnchantTimer() { }
 
-	public EnchantTimer() {
-	}
-
-	@Override
-	public void run() {
-		try {
-			int type = getItem().getType();
-			int type2 = getItem().getType2();
-			int itemId = getItem().getItemId();
-			if (_pc != null && _pc.getInventory().checkItem(itemId)) {
-				if (type == 2 && type2 == 2 && isEquipped()) {
-					_pc.addAc(3);
-					_pc.sendPackets(new S_OwnCharStatus(_pc));
+		@Override public void run() {
+			try {
+				int type = getItem().getType();
+				int type2 = getItem().getType2();
+				int itemId = getItem().getItemId();
+				if (_pc != null && _pc.getInventory().checkItem(itemId)) {
+					if (type == 2 && type2 == 2 && isEquipped()) {
+						_pc.addAc(3);
+						_pc.sendPackets(new S_OwnCharStatus(_pc));
+					}
 				}
+				setAcByMagic(0);
+				setDmgByMagic(0);
+				setHolyDmgByMagic(0);
+				setHitByMagic(0);
+				_pc.sendPackets(new S_ServerMessage(308, getLogName()));
+				_isRunning = false;
+				_timer = null;
+			} catch (Exception e) {
 			}
-			setAcByMagic(0);
-			setDmgByMagic(0);
-			setHolyDmgByMagic(0);
-			setHitByMagic(0);
-			_pc.sendPackets(new S_ServerMessage(308, getLogName()));
-			_isRunning = false;
-			_timer = null;
-		} catch (Exception e) {
 		}
 	}
-}
 
 	private int _acByMagic = 0;
 
@@ -822,7 +902,40 @@ class EnchantTimer extends TimerTask {
 		_hitByMagic = i;
 	}
 
-	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, int skillTime) {
+	private int _fireResist;
+	private int _waterResist;
+	private int _earthResist;
+	private int _windResist;
+	private int _addSpellpower;
+	private int _addHpRegen;
+	private int _addMpRegen;
+	private int _addHp;
+	private int _addMp;
+	private int _addMr;
+
+	public void setFireResist(int resist) { _fireResist = resist; }
+	public int getFireResist() { return _fireResist; }
+	public void setWaterResist(int resist) { _waterResist = resist; }
+	public int getWaterResist() { return _waterResist; }
+	public void setEarthResist(int resist) { _earthResist = resist; }
+	public int getEarthResist() { return _earthResist; }
+	public void setWindResist(int resist) { _windResist = resist; }
+	public int getWindResist() { return _windResist; }
+	public void setAddSpellpower(int spellpower) { _addSpellpower = spellpower; }
+	public int getAddSpellpower() { return _addSpellpower; }
+	public void setAddHpRegen(int regen) { _addHpRegen = regen; }
+	public int getAddHpRegen() { return _addHpRegen; }
+	public void setAddMpRegen(int regen) { _addMpRegen = regen; }
+	public int getAddMpRegen() { return _addMpRegen; }
+	public void setAddHp(int points) { _addHp = points; }
+	public int getAddHp() { return _addHp; }
+	public void setAddMp(int points) { _addMp = points; }
+	public int getAddMp() { return _addMp; }
+	public void setMagicResist(int resist) { _addMr = resist; }
+	public int getMagicResist() { return _addMr; }
+
+	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, 
+			int skillTime) {
 		int type = getItem().getType();
 		int type2 = getItem().getType2();
 		if (_isRunning) {
@@ -896,7 +1009,7 @@ class EnchantTimer extends TimerTask {
 	private int _itemOwnerId = 0;
 
 	public int getItemOwnerId() {
-	return _itemOwnerId;
+		return _itemOwnerId;
 	}
 
 	public void setItemOwnerId(int i) {

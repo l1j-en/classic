@@ -246,6 +246,20 @@ public final class Config {
 
     public static boolean USE_TOI_CHARM_ANYWHERE;
 
+	public static boolean ELEMENTAL_ENCHANTING;
+
+	public static int ELEMENTAL_ENCHANT_LIMIT;
+
+	public static boolean ACCESSORY_ENCHANTING;
+
+	public static int ACCESSORY_ENCHANT_LIMIT;
+
+	public static boolean RANDOMIZE_BOSS_SPAWNS;
+	public static double RANDOMIZED_BOSS_SPAWN_FACTOR;
+	public static boolean ROYAL_LEVEL_DAMAGE;
+	public static boolean USE_INT_PROCS;
+	public static boolean AUTO_STONE;
+	
 	public static int MAX_PT;
 
 	public static int MAX_CHAT_PT;
@@ -324,6 +338,8 @@ public final class Config {
 	public static int DEFAULT_CHARACTER_SLOT;
 	
 	public static int MONSTERPOTIONINTUSE;
+
+	public static int COOKING_TIME;
 
 	/** CharSettings control */
 	public static int PRINCE_MAX_HP;
@@ -461,6 +477,8 @@ public final class Config {
 	
 	public static boolean POWER_BUFF;
 
+	public static boolean DK_BUFF;
+
 	/** Configuration files */
 	public static final String SERVER_CONFIG_FILE = "./config/server.properties";
 
@@ -479,6 +497,9 @@ public final class Config {
 	public static boolean Use_Show_INGAMENEWS_Time; 
 
 	public static int Show_INGAMENEWS_Time;
+	
+	/** Security Settings **/
+	public static int DELAY_DISCONNECT;
 
 	public static void load() {
 		System.out.println("Loading GameServer config.");
@@ -534,6 +555,7 @@ public final class Config {
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty("LevelDownRange", "0"));
 			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings.getProperty("SendPacketBeforeTeleport", "False"));
 			DETECT_DB_RESOURCE_LEAKS = Boolean.parseBoolean(serverSettings.getProperty("EnableDatabaseResourceLeaksDetection", "False"));
+			DELAY_DISCONNECT = Integer.parseInt(serverSettings.getProperty("DelayDisconnect", "0"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
@@ -628,7 +650,13 @@ public final class Config {
 			ALT_WHO_COMMAND = Boolean.parseBoolean(altSettings.getProperty("WhoCommand", "False"));
 			ALT_REVIVAL_POTION = Boolean.parseBoolean(altSettings.getProperty("RevivalPotion", "False"));
 			MONSTERPOTIONINTUSE = Integer.parseInt(altSettings.getProperty("MonsterIntPotions", "13"));
+			COOKING_TIME = Integer.parseInt(altSettings.getProperty("CookingTime", "3"));
 			HAUNTEDHOUSETIME = Integer.parseInt(altSettings.getProperty("HauntedHouseTime", "90000"));
+			RANDOMIZE_BOSS_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("RandomizeBossSpawns", "False"));
+			RANDOMIZED_BOSS_SPAWN_FACTOR = Double.parseDouble(altSettings.getProperty("RandomizedBossSpawnFactor", ".5"));
+			ROYAL_LEVEL_DAMAGE = Boolean.parseBoolean(altSettings.getProperty("RoyalLevelDamage", "False"));
+			USE_INT_PROCS = Boolean.parseBoolean(altSettings.getProperty("UseIntProcs", "False"));
+			AUTO_STONE = Boolean.parseBoolean(altSettings.getProperty("UseAutoStone", "False"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
@@ -677,6 +705,10 @@ public final class Config {
 			PET_RACE_MAX_LAP = Integer.parseInt(altSettings.getProperty("RaceMaxLap", "3"));
 			DEATH_MATCH_MIN_PLAYER = Integer.parseInt(altSettings.getProperty("DeathMatchMinPlayer", "2"));
 			USE_TOI_CHARM_ANYWHERE = Boolean.parseBoolean(altSettings.getProperty("UseToiCharmsAnywhere", "False"));
+			ELEMENTAL_ENCHANTING = Boolean.parseBoolean(altSettings.getProperty("ElementalEnchanting", "False"));
+			ELEMENTAL_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("ElementalEnchantLimit", "3"));
+			ACCESSORY_ENCHANTING = Boolean.parseBoolean(altSettings.getProperty("AccessoryEnchanting", "False"));
+			ACCESSORY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty("AccessoryEnchantLimit", "10"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");
@@ -768,6 +800,7 @@ public final class Config {
 			PLAYER_COMMANDS = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerCommands", "True"));
 			PLAYER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PlayerBuff", "True"));
 			POWER_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("PowerBuff", "False"));
+			DK_BUFF = Boolean.parseBoolean(pcommandSettings.getProperty("DkBuff", "False"));
 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

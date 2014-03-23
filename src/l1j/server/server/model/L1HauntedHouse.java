@@ -19,6 +19,7 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,20 +30,28 @@ import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 
 public class L1HauntedHouse {
-	private static final Logger _log = Logger.getLogger(L1HauntedHouse.class
-			.getName());
+	private static final Logger _log = 
+		Logger.getLogger(L1HauntedHouse.class.getName());
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
 	public static final int STATUS_PLAYING = 2;
 
-	private final ArrayList<L1PcInstance> _members =
+	private static final int HAUNTED_HOUSE_MAP = 5140;
+
+	private final List<L1PcInstance> _members =
 			new ArrayList<L1PcInstance>();
 	private int _hauntedHouseStatus = STATUS_NONE;
 	private int _winnersCount = 0;
 	private int _goalCount = 0;
+	// WARNING: TOTAL HACK!
+	// Original code has an issue stemming from using a single Haunted House
+	// but using new Timers every run. Holding onto the timeout timer doesn't
+	// fix the issue, just band-aids over the worst symptoms. Ultimately needs
+	// to be rewritten.
+	private L1HauntedHouseTimer _hhTimer;
 
 	private static L1HauntedHouse _instance;
 
@@ -69,61 +78,47 @@ public class L1HauntedHouse {
 		} else if (8 >= membersCount && membersCount <= 10) {
 			setWinnersCount(3);
 		}
-		for (L1PcInstance pc : getMembersArray()) {
+		for (L1PcInstance pc : _members) {
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(pc,
-					CANCELLATION, pc.getId(), pc.getX(), pc.getY(),
-					null, 0, L1SkillUse.TYPE_LOGIN);
+			l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(),
+					pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 			L1PolyMorph.doPoly(pc, 6284, 300, L1PolyMorph.MORPH_BY_NPC);
 		}
 
-		for (L1Object object : L1World.getInstance().getObject()) {
-			if (object instanceof L1DoorInstance) {
-				L1DoorInstance door = (L1DoorInstance) object;
-				if (door.getMapId() == 5140) {
-					door.open();
-				}
-			}
-		}
+		changeDoors(true);
 	}
 
 	public void endHauntedHouse() {
+		// See top comments.
+		_hhTimer.cancel();
 		setHauntedHouseStatus(STATUS_NONE);
 		setWinnersCount(0);
 		setGoalCount(0);
-		for (L1PcInstance pc : getMembersArray()) {
-			if (pc.getMapId() == 5140) {
-				L1SkillUse l1skilluse = new L1SkillUse();
-				l1skilluse.handleCommands(pc,
-						CANCELLATION, pc.getId(), pc.getX(),
-						pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
-				L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);
-			}
+		for (L1PcInstance pc : _members) {
+			if (pc.getMapId() != HAUNTED_HOUSE_MAP)
+				continue;
+			L1SkillUse l1skilluse = new L1SkillUse();
+			l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(),
+					pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
+			L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);
 		}
-		clearMembers();
-		
+
+		_members.clear();
+	
+		changeDoors(false);
+	}
+
+	private static void changeDoors(boolean open) {
 		for (L1Object object : L1World.getInstance().getObject()) {
-			if (object instanceof L1DoorInstance) {
-				L1DoorInstance door = (L1DoorInstance) object;
-				if (door.getMapId() == 5140) {
+			if (!(object instanceof L1DoorInstance))
+				continue;
+			L1DoorInstance door = (L1DoorInstance) object;
+			if (door.getMapId() == HAUNTED_HOUSE_MAP) {
+				if (open)
+					door.open();
+				else
 					door.close();
-				}
 			}
-		}
-	}
-
-	public void removeRetiredMembers() {
-		L1PcInstance[] temp = getMembersArray();
-		for (int i = 0; i < temp.length; i++) {
-			if (temp[i].getMapId() != 5140) {
-				removeMember(temp[i]);
-			}
-		}
-	}
-
-	public void sendMessage(int type, String msg) {
-		for (L1PcInstance pc : getMembersArray()) {
-			pc.sendPackets(new S_ServerMessage(type, msg));
 		}
 	}
 
@@ -131,13 +126,13 @@ public class L1HauntedHouse {
 		if (!_members.contains(pc)) {
 			_members.add(pc);
 		}
-		if (getMembersCount() == 1 && getHauntedHouseStatus() == STATUS_NONE) {
+		if (getMembersCount() > 0 && getHauntedHouseStatus() == STATUS_NONE) {
 			readyHauntedHouse();
 		}
 	}
 
 	public void checkLeaveGame(L1PcInstance pc) {
-		if (pc.getMapId() == 5140) {
+		if (pc.getMapId() == HAUNTED_HOUSE_MAP) {
 			removeMember(pc);
 			L1PolyMorph.undoPoly(pc);
 		}
@@ -145,18 +140,6 @@ public class L1HauntedHouse {
 	
 	public void removeMember(L1PcInstance pc) {
 		_members.remove(pc);
-	}
-
-	public void clearMembers() {
-		_members.clear();
-	}
-
-	public boolean isMember(L1PcInstance pc) {
-		return _members.contains(pc);
-	}
-
-	public L1PcInstance[] getMembersArray() {
-		return _members.toArray(new L1PcInstance[_members.size()]);
 	}
 
 	public int getMembersCount() {
@@ -187,38 +170,41 @@ public class L1HauntedHouse {
 		return _goalCount;
 	}
 
-public class L1HauntedHouseReadyTimer extends TimerTask {
+	public class L1HauntedHouseReadyTimer extends TimerTask {
 
-	public L1HauntedHouseReadyTimer() {
+		public L1HauntedHouseReadyTimer() {}
+
+		@Override
+		public void run() {
+			startHauntedHouse();
+			// See top comments for overview.
+			// We need to cancel the existing timeout timer; otherwise it could
+			// go off during this (new) run of the Haunted House.
+			if (_hhTimer != null)
+				_hhTimer.cancel();
+			_hhTimer = new L1HauntedHouseTimer();
+			_hhTimer.begin();
+		}
+
+		public void begin() {
+			Timer timer = new Timer();
+			timer.schedule(this, Config.HAUNTEDHOUSETIME); 
+		}
 	}
 
-	@Override
-	public void run() {
-		startHauntedHouse();
-		L1HauntedHouseTimer hhTimer = new L1HauntedHouseTimer();
-		hhTimer.begin();
-	}
+	public class L1HauntedHouseTimer extends TimerTask {
 
-	public void begin() {
-		Timer timer = new Timer();
-		timer.schedule(this, Config.HAUNTEDHOUSETIME); 
-	}
-}
+		public L1HauntedHouseTimer() {}
 
-public class L1HauntedHouseTimer extends TimerTask {
+		@Override
+		public void run() {
+			endHauntedHouse();
+			this.cancel();
+		}
 
-	public L1HauntedHouseTimer() {
+		public void begin() {
+			Timer timer = new Timer();
+			timer.schedule(this, 300000); 
+		}
 	}
-
-	@Override
-	public void run() {
-		endHauntedHouse();
-		this.cancel();
-	}
-
-	public void begin() {
-		Timer timer = new Timer();
-		timer.schedule(this, 300000); 
-	}
-  }
 }

@@ -45,17 +45,13 @@ public class L1PcInventory extends L1Inventory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger
-			.getLogger(L1PcInventory.class.getName());
+	private static Logger _log = 
+		Logger.getLogger(L1PcInventory.class.getName());
 
 	private static final int MAX_SIZE = 180;
-
 	private final L1PcInstance _owner; 
-
 	private int _arrowId; 
-
 	private int _stingId; 
-
 
 	public L1PcInventory(L1PcInstance owner) {
 		_owner = owner;
@@ -144,10 +140,26 @@ public class L1PcInventory extends L1Inventory {
 		try {
 			CharactersItemStorage storage = CharactersItemStorage.create();
 
+			boolean weaponEquipped = false;
+			
 			for (L1ItemInstance item : storage.loadItems(_owner.getId())) {
 				_items.add(item);
 
 				if (item.isEquipped()) {
+					// Quick patch to deal with equipping multiple weapons. Not
+					// the right thing to do, but should deal with the problem
+					// in the short term.
+					if (item.getItem().getType2() == 1) {
+						if (weaponEquipped) {
+							_log.log(Level.WARNING,
+								"Trying to equip extra weapon during load.");
+							item.setEquipped(false);
+							continue;
+						} else {
+							weaponEquipped = true;
+						}
+					}
+					
 					item.setEquipped(false);
 					setEquipped(item, true, true, false);
 				}
@@ -178,27 +190,16 @@ public class L1PcInventory extends L1Inventory {
 	}
 
 	public static final int COL_ATTR_ENCHANT_LEVEL = 2048;
-
 	public static final int COL_ATTR_ENCHANT_KIND = 1024;
-
 	public static final int COL_BLESS = 512;
-
 	public static final int COL_REMAINING_TIME = 256;
-
 	public static final int COL_CHARGE_COUNT = 128;
-
 	public static final int COL_ITEMID = 64;
-
 	public static final int COL_DELAY_EFFECT = 32;
-
 	public static final int COL_COUNT = 16;
-
 	public static final int COL_EQUIPPED = 8;
-
 	public static final int COL_ENCHANTLVL = 4;
-
 	public static final int COL_IS_ID = 2;
-
 	public static final int COL_DURABILITY = 1;
 
 	@Override
@@ -275,7 +276,69 @@ public class L1PcInventory extends L1Inventory {
 			column -= COL_DURABILITY;
 		}
 	}
-	
+
+	public static final int COL_ADDHP = 1;
+	public static final int COL_ADDMP = 2;
+	public static final int COL_HPR = 4;
+	public static final int COL_MPR = 8;
+	public static final int COL_ADDSP = 16;
+	public static final int COL_M_DEF = 32;
+	public static final int COL_EARTHMR = 64;
+	public static final int COL_FIREMR = 128;
+	public static final int COL_WATERMR = 256;
+	public static final int COL_WINDMR = 512;
+
+	public void saveEnchantAccessory(L1ItemInstance item, int column) {
+		if (column == 0)
+			return;
+
+		try {
+			CharactersItemStorage storage = CharactersItemStorage.create();
+			if (column >= COL_WINDMR) {
+				storage.updateWindResist(item);
+				column -= COL_WINDMR;
+			}
+			if (column >= COL_WATERMR) {
+				storage.updateWaterResist(item);
+				column -= COL_WATERMR;
+			}
+			if (column >= COL_FIREMR) {
+				storage.updateFireResist(item);
+				column -= COL_FIREMR;
+			}
+			if (column >= COL_EARTHMR) {
+				storage.updateEarthResist(item);
+				column -= COL_EARTHMR;
+			}
+			if (column >= COL_M_DEF) {
+				storage.updateMagicResist(item);
+				column -= COL_M_DEF;
+			}
+			if (column >= COL_ADDSP) {
+				storage.updateSpellpower(item);
+				column -= COL_ADDSP;
+			}
+			if (column >= COL_MPR) {
+				storage.updateMpRegen(item);
+				column -= COL_MPR;
+			}
+			if (column >= COL_HPR) {
+				storage.updateHpRegen(item);
+				column -= COL_HPR;
+			}
+			if (column >= COL_ADDMP) {
+				storage.updateAddMp(item);
+				column -= COL_ADDMP;
+			}
+			if (column >= COL_ADDHP) {
+				storage.updateAddHp(item);
+				column -= COL_ADDHP;
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
+
 	public void saveItem(L1ItemInstance item, int column) {
 		if (column == 0) {
 			return;
@@ -561,7 +624,7 @@ public class L1PcInventory extends L1Inventory {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
 			if (item.isEquipped()) {
-				hpr += item.getItem().get_addhpr();
+				hpr += item.getItem().get_addhpr() + item.getAddHpRegen();
 			}
 		}
 		return hpr;
@@ -572,7 +635,7 @@ public class L1PcInventory extends L1Inventory {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
 			if (item.isEquipped()) {
-				mpr += item.getItem().get_addmpr();
+				mpr += item.getItem().get_addmpr() + item.getAddMpRegen();
 			}
 		}
 		return mpr;

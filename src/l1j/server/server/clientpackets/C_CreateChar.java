@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,25 +32,19 @@ import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Beginner;
+import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_NewCharPacket;
 import l1j.server.server.templates.L1Skill;
-import l1j.server.server.utils.CalcInitHpMp;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_CreateChar extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
-	private static final int[] ORIGINAL_STR = new int[] { 13, 16, 11, 8, 12, 13, 11 };
-	private static final int[] ORIGINAL_DEX = new int[] { 10, 12, 12, 7, 15, 11, 10 };
-	private static final int[] ORIGINAL_CON = new int[] { 10, 14, 12, 12, 8, 14, 12 };
-	private static final int[] ORIGINAL_WIS = new int[] { 11, 9, 12, 12, 10, 12, 12 };
-	private static final int[] ORIGINAL_CHA = new int[] { 13, 12, 9, 8, 9, 8, 8 };
-	private static final int[] ORIGINAL_INT = new int[] { 10, 8, 12, 12, 11, 11, 12 };
-	private static final int[] ORIGINAL_AMOUNT = new int[] { 8, 4, 7, 16, 10, 6, 10 };
+	
 	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
 	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
 	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714, 32780, 32714, 32780, 32714 };  
@@ -99,13 +94,21 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.addBaseCha((byte) readC());
 		pc.addBaseInt((byte) readC());
 		boolean isStatusError = false;
-		int originalStr = ORIGINAL_STR[pc.getType()];
-		int originalDex = ORIGINAL_DEX[pc.getType()];
-		int originalCon = ORIGINAL_CON[pc.getType()];
-		int originalWis = ORIGINAL_WIS[pc.getType()];
-		int originalCha = ORIGINAL_CHA[pc.getType()];
-		int originalInt = ORIGINAL_INT[pc.getType()];
-		int originalAmount = ORIGINAL_AMOUNT[pc.getType()];
+
+		if (pc.get_sex() == 0) {
+			pc.setClassId(MALE_LIST[pc.getType()]);
+		} else {
+			pc.setClassId(FEMALE_LIST[pc.getType()]);
+		}
+		
+		Map<L1Attribute, Integer> startingStats = pc.getClassFeature().getFixedStats();
+		int originalStr = startingStats.get(L1Attribute.Str);
+		int originalDex = startingStats.get(L1Attribute.Dex);
+		int originalCon = startingStats.get(L1Attribute.Con);
+		int originalWis = startingStats.get(L1Attribute.Wis);
+		int originalCha = startingStats.get(L1Attribute.Cha);
+		int originalInt = startingStats.get(L1Attribute.Int);
+		int originalAmount = pc.getClassFeature().getFloatingStats();
 
 		if ((pc.getBaseStr() < originalStr
 			|| pc.getBaseDex() < originalDex
@@ -138,18 +141,14 @@ public class C_CreateChar extends ClientBasePacket {
 
 	private static void initNewChar(ClientThread client, L1PcInstance pc) throws IOException, Exception {
 		pc.setId(IdFactory.getInstance().nextId());
-		if (pc.get_sex() == 0) {
-			pc.setClassId(MALE_LIST[pc.getType()]);
-		} else {
-			pc.setClassId(FEMALE_LIST[pc.getType()]);
-		}
+		
 		pc.setX(LOCX_LIST[pc.getType()]);
 		pc.setY(LOCY_LIST[pc.getType()]);
 		pc.setMap(MAPID_LIST[pc.getType()]);
 		pc.setHeading(0);
 		pc.setLawful(0);
-		int initHp = CalcInitHpMp.calcInitHp(pc);
-		int initMp = CalcInitHpMp.calcInitMp(pc);
+		int initHp = pc.getClassFeature().getStartingHp();
+		int initMp = pc.getClassFeature().getStartingMp(pc.getBaseWis());
 		pc.addBaseMaxHp((short) initHp);
 		pc.setCurrentHp((short) initHp);
 		pc.addBaseMaxMp((short) initMp);
@@ -199,20 +198,10 @@ public class C_CreateChar extends ClientBasePacket {
 	}
 
 	private static boolean isAlphaNumeric(String s) {
-		boolean flag = true;
-		char ac[] = s.toCharArray();
-		int i = 0;
-		do {
-			if (i >= ac.length) {
-				break;
-			}
-			if (!Character.isLetterOrDigit(ac[i])) {
-				flag = false;
-				break;
-			}
-			i++;
-		} while (true);
-		return flag;
+		for (char character : s.toCharArray())
+			if (!Character.isLetterOrDigit(character))
+				return false;
+		return true;
 	}
 
 	private static boolean isInvalidName(String name) {

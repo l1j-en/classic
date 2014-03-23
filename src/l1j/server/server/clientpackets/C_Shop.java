@@ -19,6 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import l1j.server.server.Account;
 import l1j.server.server.model.L1World;
@@ -65,8 +66,8 @@ public class C_Shop extends ClientBasePacket {
 			return;
 		}
 
-		ArrayList sellList = pc.getSellList();
-		ArrayList buyList = pc.getBuyList();
+		List sellList = pc.getSellList();
+		List buyList = pc.getBuyList();
 		L1ItemInstance checkItem;
 		boolean tradable = true;
 

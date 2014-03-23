@@ -1,21 +1,3 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
- */
 package l1j.server.server.model;
 
 import java.util.HashMap;
@@ -42,26 +24,27 @@ import l1j.server.server.types.Point;
 import l1j.server.server.utils.IntRange;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
-// Referenced classes of package l1j.server.server.model:
-// L1Object, Die, L1PcInstance, L1MonsterInstance,
-// L1World, ActionFailed
-
 public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger _log = Logger.getLogger(L1Character.class
-			.getName());
+	private static final Logger _log =
+		Logger.getLogger(L1Character.class.getName());
 
 	private L1Poison _poison = null;
 	private boolean _paralyzed;
 	private boolean _sleeped;
 
-	private final Map<Integer, L1NpcInstance> _petlist = new HashMap<Integer, L1NpcInstance>();
-	private final Map<Integer, L1DollInstance> _dolllist = new HashMap<Integer, L1DollInstance>();
-	private final Map<Integer, L1SkillTimer> _skillEffect = new HashMap<Integer, L1SkillTimer>();
-	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
-	private final Map<Integer, L1FollowerInstance> _followerlist = new HashMap<Integer, L1FollowerInstance>();
+	private final Map<Integer, L1SkillTimer> _skillEffect = 
+		new HashMap<Integer, L1SkillTimer>();
+	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = 
+		new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
+	private final Map<Integer, L1NpcInstance> _petlist =
+			new HashMap<Integer, L1NpcInstance>(2);
+	private final Map<Integer, L1DollInstance> _dolllist =
+			new HashMap<Integer, L1DollInstance>(1);
+	private final Map<Integer, L1FollowerInstance> _followerlist =
+			new HashMap<Integer, L1FollowerInstance>(2);
 
 	public L1Character() {
 		_level = 1;
@@ -104,7 +87,6 @@ public class L1Character extends L1Object {
 
 	private int _currentMp;
 
-	
 	public int getCurrentMp() {
 		return _currentMp;
 	}
@@ -120,31 +102,15 @@ public class L1Character extends L1Object {
 		_currentMp = i;
 	}
 
-	public boolean isSleeped() {
-		return _sleeped;
-	}
+	public boolean isSleeped() { return _sleeped; }
+	public void setSleeped(boolean sleeped) { _sleeped = sleeped; }
 
-	public void setSleeped(boolean sleeped) {
-		_sleeped = sleeped;
-	}
-
-	public boolean isParalyzed() {
-		return _paralyzed;
-	}
-
-	public void setParalyzed(boolean paralyzed) {
-		_paralyzed = paralyzed;
-	}
+	public boolean isParalyzed() { return _paralyzed; }
+	public void setParalyzed(boolean paralyzed) { _paralyzed = paralyzed; }
 
 	L1Paralysis _paralysis;
-
-	public L1Paralysis getParalysis() {
-		return _paralysis;
-	}
-
-	public void setParalaysis(L1Paralysis p) {
-		_paralysis = p;
-	}
+	public L1Paralysis getParalysis() { return _paralysis; }
+	public void setParalaysis(L1Paralysis p) { _paralysis = p; }
 
 	public void cureParalaysis() {
 		if (_paralysis != null) {
@@ -163,27 +129,24 @@ public class L1Character extends L1Object {
 		for (L1PcInstance pc : L1World.getInstance()
 				.getVisiblePlayerExceptTargetSight(this, target)) {
 			pc.sendPackets(packet);
-		}
+				}
 	}
 
 	public void broadcastPacketForFindInvis(ServerBasePacket packet,
 			boolean isFindInvis) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (isFindInvis) {
-				if (pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+				if(pc.hasSkillEffect(GMSTATUS_FINDINVIS))
 					pc.sendPackets(packet);
-				}
-			} else {
-				if (!pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
-					pc.sendPackets(packet);
-				}
+			} else if (!pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+				pc.sendPackets(packet);
 			}
 		}
 	}
 
 	public void wideBroadcastPacket(ServerBasePacket packet) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this,
-				50)) {
+					50)) {
 			pc.sendPackets(packet);
 		}
 	}
@@ -295,77 +258,70 @@ public class L1Character extends L1Object {
 				break;
 
 			} else if (chx < tx && chy == ty) {
-// if (!map.isArrowPassable(chx, chy, 2)) {
+				// if (!map.isArrowPassable(chx, chy, 2)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx++;
 			} else if (chx == tx && chy < ty) {
-// if (!map.isArrowPassable(chx, chy, 4)) {
+				// if (!map.isArrowPassable(chx, chy, 4)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chy++;
 			} else if (chx > tx && chy == ty) {
-// if (!map.isArrowPassable(chx, chy, 6)) {
+				// if (!map.isArrowPassable(chx, chy, 6)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx--;
 			} else if (chx == tx && chy > ty) {
-// if (!map.isArrowPassable(chx, chy, 0)) {
+				// if (!map.isArrowPassable(chx, chy, 0)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chy--;
 			} else if (chx < tx && chy > ty) {
-// if (!map.isArrowPassable(chx, chy, 1)) {
+				// if (!map.isArrowPassable(chx, chy, 1)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx++;
 				chy--;
 			} else if (chx < tx && chy < ty) {
-// if (!map.isArrowPassable(chx, chy, 3)) {
+				// if (!map.isArrowPassable(chx, chy, 3)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx++;
 				chy++;
 			} else if (chx > tx && chy < ty) {
-// if (!map.isArrowPassable(chx, chy, 5)) {
+				// if (!map.isArrowPassable(chx, chy, 5)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx--;
 				chy++;
 			} else if (chx > tx && chy > ty) {
-// if (!map.isArrowPassable(chx, chy, 7)) {
+				// if (!map.isArrowPassable(chx, chy, 7)) {
 				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
 					return false;
 				}
 				chx--;
 				chy--;
-			}
+				}
 		}
-		if (arw == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		
+		return arw == 0;
 	}
 
 	public boolean isAttackPosition(int x, int y, int range) {
-		if (range >= 7) 
-		{
+		if (range >= 7) {
 			if (getLocation().getTileDistance(new Point(x, y)) > range) {
 				return false;
 			}
-		} else 
-		{
-			if (getLocation().getTileLineDistance(new Point(x, y)) > range) {
-				return false;
-			}
+		} else if (getLocation().getTileLineDistance(new Point(x, y)) > range) {
+			return false;
 		}
 		return glanceCheck(x, y);
 	}
@@ -391,7 +347,7 @@ public class L1Character extends L1Object {
 					&& (remainingTimeMills < timeMillis || timeMillis == 0)) {
 				killSkillEffectTimer(skillId);
 				addSkillEffect(skillId, timeMillis);
-			}
+					}
 		} else {
 			addSkillEffect(skillId, timeMillis);
 		}
@@ -402,6 +358,13 @@ public class L1Character extends L1Object {
 		if (timer != null) {
 			timer.end();
 		}
+	}
+
+	/**
+	 * @return a copy of the skill effects active on the character.
+	 */
+	public Map<Integer, L1SkillTimer> getBuffs() {
+		return new HashMap<Integer, L1SkillTimer>(_skillEffect);
 	}
 
 	public void killSkillEffectTimer(int skillId) {
@@ -433,14 +396,8 @@ public class L1Character extends L1Object {
 	}
 
 	private boolean _isSkillDelay = false;
-
-	public void setSkillDelay(boolean flag) {
-		_isSkillDelay = flag;
-	}
-
-	public boolean isSkillDelay() {
-		return _isSkillDelay;
-	}
+	public void setSkillDelay(boolean flag) { _isSkillDelay = flag; }
+	public boolean isSkillDelay() { return _isSkillDelay; }
 
 	public void addItemDelay(int delayId, L1ItemDelay.ItemDelayTimer timer) {
 		_itemdelay.put(delayId, timer);
@@ -493,7 +450,7 @@ public class L1Character extends L1Object {
 	public Map<Integer, L1FollowerInstance> getFollowerList() {
 		return _followerlist;
 	}
-
+	
 	public void setPoison(L1Poison poison) {
 		_poison = poison;
 	}
@@ -513,13 +470,13 @@ public class L1Character extends L1Object {
 		broadcastPacket(new S_Poison(getId(), effectId));
 	}
 
-	public int getZoneType() {
+	public ZoneType getZoneType() {
 		if (getMap().isSafetyZone(getLocation())) {
-			return 1;
+			return ZoneType.Safety;
 		} else if (getMap().isCombatZone(getLocation())) {
-			return -1;
+			return ZoneType.Combat;
 		} else { 
-			return 0;
+			return ZoneType.Normal;
 		}
 	}
 
@@ -530,13 +487,15 @@ public class L1Character extends L1Object {
 	}
 
 	public void setExp(int exp) {
-		if(!(isDead() && exp>0)){//TODO Fix for exp while dead in party
+		if(!(isDead() && exp > 0)){ //TODO Fix for exp while dead in party
 			_exp = exp;
 		}
 	}
 
-	private final List<L1Object> _knownObjects = new CopyOnWriteArrayList<L1Object>();
-	private final List<L1PcInstance> _knownPlayer = new CopyOnWriteArrayList<L1PcInstance>();
+	private final List<L1Object> _knownObjects = 
+		new CopyOnWriteArrayList<L1Object>();
+	private final List<L1PcInstance> _knownPlayer =
+		new CopyOnWriteArrayList<L1PcInstance>();
 
 	public boolean knownsObject(L1Object obj) {
 		return _knownObjects.contains(obj);
@@ -572,24 +531,12 @@ public class L1Character extends L1Object {
 	}
 
 	private String _name; 
-
-	public String getName() {
-		return _name;
-	}
-
-	public void setName(String s) {
-		_name = s;
-	}
+	public String getName() { return _name; }
+	public void setName(String s) { _name = s; }
 
 	private int _level; 
-
-	public synchronized int getLevel() {
-		return _level;
-	}
-
-	public synchronized void setLevel(long level) {
-		_level = (int) level;
-	}
+	public synchronized int getLevel() { return _level; }
+	public synchronized void setLevel(long level) { _level = (int) level; }
 
 	private short _maxHp = 0; 
 	private int _trueMaxHp = 0;
@@ -625,8 +572,8 @@ public class L1Character extends L1Object {
 		setMaxMp(_trueMaxMp + i);
 	}
 
-	private int _ac = 0; // 
-	private int _trueAc = 0; // 
+	private int _ac = 0;
+	private int _trueAc = 0;
 
 	public int getAc() {
 		return _ac;
@@ -746,13 +693,7 @@ public class L1Character extends L1Object {
 
 	public void addWind(int i) {
 		_trueWind += i;
-		if (_trueWind >= 127) {
-			_wind = 127;
-		} else if (_trueWind <= -128) {
-			_wind = -128;
-		} else {
-			_wind = _trueWind;
-		}
+		_wind = IntRange.ensure(_trueWind, -128, 127);
 	}
 
 	private int _water = 0; 
@@ -764,13 +705,7 @@ public class L1Character extends L1Object {
 
 	public void addWater(int i) {
 		_trueWater += i;
-		if (_trueWater >= 127) {
-			_water = 127;
-		} else if (_trueWater <= -128) {
-			_water = -128;
-		} else {
-			_water = _trueWater;
-		}
+		_water = IntRange.ensure(_trueWater, -128, 127);
 	}
 
 	private int _fire = 0; 
@@ -782,13 +717,7 @@ public class L1Character extends L1Object {
 
 	public void addFire(int i) {
 		_trueFire += i;
-		if (_trueFire >= 127) {
-			_fire = 127;
-		} else if (_trueFire <= -128) {
-			_fire = -128;
-		} else {
-			_fire = _trueFire;
-		}
+		_fire = IntRange.ensure(_trueFire, -128, 127);
 	}
 
 	private int _earth = 0; 
@@ -800,138 +729,87 @@ public class L1Character extends L1Object {
 
 	public void addEarth(int i) {
 		_trueEarth += i;
-		if (_trueEarth >= 127) {
-			_earth = 127;
-		} else if (_trueEarth <= -128) {
-			_earth = -128;
-		} else {
-			_earth = _trueEarth;
-		}
+		_earth = IntRange.ensure(_trueEarth, -128, 127);
 	}
 
 	private int _addAttrKind; 
+	public int getAddAttrKind() { return _addAttrKind; }
+	public void setAddAttrKind(int i) { _addAttrKind = i; }
 
-	public int getAddAttrKind() {
-		return _addAttrKind;
+	private int _resistStun = 0;
+	private int _trueResistStun = 0;
+
+	public int getResistStun() {
+		return _resistStun;
 	}
 
-	public void setAddAttrKind(int i) {
-		_addAttrKind = i;
+	public void addResistStun(int i) {
+		_trueResistStun += i;
+		_resistStun = IntRange.ensure(_trueResistStun, -128, 127);
 	}
 
-	// 
-	private int _registStun = 0;
-	private int _trueRegistStun = 0;
+	private int _resistStone = 0;
+	private int _trueResistStone = 0;
 
-	public int getRegistStun() {
-		return _registStun;
-	} // 
-
-	public void addRegistStun(int i) {
-		_trueRegistStun += i;
-		if (_trueRegistStun > 127) {
-			_registStun = 127;
-		} else if (_trueRegistStun < -128) {
-			_registStun = -128;
-		} else {
-			_registStun = _trueRegistStun;
-		}
-	}
-
-	private int _registStone = 0;
-	private int _trueRegistStone = 0;
-
-	public int getRegistStone() {
-		return _registStone;
+	public int getResistStone() {
+		return _resistStone;
 	} 
 
-	public void addRegistStone(int i) {
-		_trueRegistStone += i;
-		if (_trueRegistStone > 127) {
-			_registStone = 127;
-		} else if (_trueRegistStone < -128) {
-			_registStone = -128;
-		} else {
-			_registStone = _trueRegistStone;
-		}
+	public void addResistStone(int i) {
+		_trueResistStone += i;
+		_resistStone = IntRange.ensure(_trueResistStun, -128, 127);
 	}
 
-	private int _registSleep = 0;
-	private int _trueRegistSleep = 0;
+	private int _resistSleep = 0;
+	private int _trueResistSleep = 0;
 
-	public int getRegistSleep() {
-		return _registSleep;
+	public int getResistSleep() {
+		return _resistSleep;
 	} 
 
-	public void addRegistSleep(int i) {
-		_trueRegistSleep += i;
-		if (_trueRegistSleep > 127) {
-			_registSleep = 127;
-		} else if (_trueRegistSleep < -128) {
-			_registSleep = -128;
-		} else {
-			_registSleep = _trueRegistSleep;
-		}
+	public void addResistSleep(int i) {
+		_trueResistSleep += i;
+		_resistSleep = IntRange.ensure(_trueResistSleep, -128, 127);
 	}
 
-	private int _registFreeze = 0;
-	private int _trueRegistFreeze = 0;
+	private int _resistFreeze = 0;
+	private int _trueResistFreeze = 0;
 
-	public int getRegistFreeze() {
-		return _registFreeze;
+	public int getResistFreeze() {
+		return _resistFreeze;
 	} 
 
-	public void add_regist_freeze(int i) {
-		_trueRegistFreeze += i;
-		if (_trueRegistFreeze > 127) {
-			_registFreeze = 127;
-		} else if (_trueRegistFreeze < -128) {
-			_registFreeze = -128;
-		} else {
-			_registFreeze = _trueRegistFreeze;
-		}
+	public void addResistFreeze(int i) {
+		_trueResistFreeze += i;
+		_resistFreeze = IntRange.ensure(_trueResistFreeze, -128, 127);
 	}
 
-	// 
-	private int _registSustain = 0;
-	private int _trueRegistSustain = 0;
+	private int _resistSustain = 0;
+	private int _trueResistSustain = 0;
 
-	public int getRegistSustain() {
-		return _registSustain;
-	} //
-
-	public void addRegistSustain(int i) {
-		_trueRegistSustain += i;
-		if (_trueRegistSustain > 127) {
-			_registSustain = 127;
-		} else if (_trueRegistSustain < -128) {
-			_registSustain = -128;
-		} else {
-			_registSustain = _trueRegistSustain;
-		}
+	public int getResistSustain() {
+		return _resistSustain;
 	}
 
-	// 
-	private int _registBlind = 0;
-	private int _trueRegistBlind = 0;
-
-	public int getRegistBlind() {
-		return _registBlind;
-	} //
-
-	public void addRegistBlind(int i) {
-		_trueRegistBlind += i;
-		if (_trueRegistBlind > 127) {
-			_registBlind = 127;
-		} else if (_trueRegistBlind < -128) {
-			_registBlind = -128;
-		} else {
-			_registBlind = _trueRegistBlind;
-		}
+	public void addResistSustain(int i) {
+		_trueResistSustain += i;
+		_resistSustain = IntRange.ensure(_trueResistSustain, -128, 127);
 	}
 
-	private int _dmgup = 0; //
-	private int _trueDmgup = 0; //
+	private int _resistBlind = 0;
+	private int _trueResistBlind = 0;
+
+	public int getResistBlind() {
+		return _resistBlind;
+	}
+
+	public void addResistBlind(int i) {
+		_trueResistBlind += i;
+		_resistBlind = IntRange.ensure(_trueResistBlind, -128, 127);
+	}
+
+	private int _dmgup = 0;
+	private int _trueDmgup = 0;
 
 	public int getDmgup() {
 		return _dmgup;
@@ -939,13 +817,7 @@ public class L1Character extends L1Object {
 
 	public void addDmgup(int i) {
 		_trueDmgup += i;
-		if (_trueDmgup >= 127) {
-			_dmgup = 127;
-		} else if (_trueDmgup <= -128) {
-			_dmgup = -128;
-		} else {
-			_dmgup = _trueDmgup;
-		}
+		_dmgup = IntRange.ensure(_trueDmgup, -128, 127);
 	}
 
 	private int _bowDmgup = 0;
@@ -957,13 +829,7 @@ public class L1Character extends L1Object {
 
 	public void addBowDmgup(int i) {
 		_trueBowDmgup += i;
-		if (_trueBowDmgup >= 127) {
-			_bowDmgup = 127;
-		} else if (_trueBowDmgup <= -128) {
-			_bowDmgup = -128;
-		} else {
-			_bowDmgup = _trueBowDmgup;
-		}
+		_bowDmgup = IntRange.ensure(_trueBowDmgup, -128, 127);
 	}
 
 	private int _hitup = 0; 
@@ -975,13 +841,7 @@ public class L1Character extends L1Object {
 
 	public void addHitup(int i) {
 		_trueHitup += i;
-		if (_trueHitup >= 127) {
-			_hitup = 127;
-		} else if (_trueHitup <= -128) {
-			_hitup = -128;
-		} else {
-			_hitup = _trueHitup;
-		}
+		_hitup = IntRange.ensure(_trueHitup, -128, 127);
 	}
 
 	private int _bowHitup = 0; 
@@ -993,24 +853,14 @@ public class L1Character extends L1Object {
 
 	public void addBowHitup(int i) {
 		_trueBowHitup += i;
-		if (_trueBowHitup >= 127) {
-			_bowHitup = 127;
-		} else if (_trueBowHitup <= -128) {
-			_bowHitup = -128;
-		} else {
-			_bowHitup = _trueBowHitup;
-		}
+		_bowHitup = IntRange.ensure(_trueBowHitup, -128, 127);
 	}
 
 	private int _mr = 0; 
 	private int _trueMr = 0; 
 
 	public int getMr() {
-		if (hasSkillEffect(153) == true) {
-			return _mr / 4;
-		} else {
-			return _mr;
-		}
+		return hasSkillEffect(ERASE_MAGIC) ? _mr / 4 : _mr;
 	} 
 
 	public int getTrueMr() {
@@ -1026,7 +876,7 @@ public class L1Character extends L1Object {
 		}
 	}
 
-	private int _sp = 0; // 
+	private int _sp = 0; 
 
 	public int getSp() {
 		return getTrueSp() + _sp;
@@ -1040,134 +890,60 @@ public class L1Character extends L1Object {
 		_sp += i;
 	}
 
-	private boolean _isDead; //
-
-	public boolean isDead() {
-		return _isDead;
-	}
-
-	public void setDead(boolean flag) {
-		_isDead = flag;
-	}
+	private boolean _isDead;
+	public boolean isDead() { return _isDead; }
+	public void setDead(boolean flag) { _isDead = flag; }
 
 	private int _status; 
-
-	public int getStatus() {
-		return _status;
-	}
-
-	public void setStatus(int i) {
-		_status = i;
-	}
+	public int getStatus() { return _status; }
+	public void setStatus(int i) { _status = i; }
 
 	private String _title;
-
-	public String getTitle() {
-		return _title;
-	}
-
-	public void setTitle(String s) {
-		_title = s;
-	}
+	public String getTitle() { return _title; }
+	public void setTitle(String s) { _title = s; }
 
 	private int _lawful; 
-
-	public int getLawful() {
-		return _lawful;
-	}
-
-	public void setLawful(int i) {
-		_lawful = i;
-	}
+	public int getLawful() { return _lawful; }
+	public void setLawful(int i) { _lawful = i; }
 
 	public synchronized void addLawful(int i) {
 		_lawful += i;
-		if (_lawful > 32767) {
-			_lawful = 32767;
-		} else if (_lawful < -32768) {
-			_lawful = -32768;
-		}
+		_lawful = IntRange.ensure(_lawful, -32768, 32767);
 	}
 
 	private int _heading; 
-
-	public int getHeading() {
-		return _heading;
-	}
-
-	public void setHeading(int i) {
-		_heading = i;
-	}
+	public int getHeading() { return _heading; }
+	public void setHeading(int i) { _heading = i; }
 
 	private int _moveSpeed; 
-
-	public int getMoveSpeed() {
-		return _moveSpeed;
-	}
-
-	public void setMoveSpeed(int i) {
-		_moveSpeed = i;
-	}
+	public int getMoveSpeed() { return _moveSpeed; }
+	public void setMoveSpeed(int i) { _moveSpeed = i; }
 
 	private int _braveSpeed;
-
-	public int getBraveSpeed() {
-		return _braveSpeed;
-	}
-
-	public void setBraveSpeed(int i) {
-		_braveSpeed = i;
-	}
+	public int getBraveSpeed() { return _braveSpeed; }
+	public void setBraveSpeed(int i) { _braveSpeed = i; }
 
 	private int _tempCharGfx; 
-
-	public int getTempCharGfx() {
-		return _tempCharGfx;
-	}
-
-	public void setTempCharGfx(int i) {
-		_tempCharGfx = i;
-	}
+	public int getTempCharGfx() { return _tempCharGfx; }
+	public void setTempCharGfx(int i) { _tempCharGfx = i; }
 
 	private int _gfxid; 
-
-	public int getGfxId() {
-		return _gfxid;
-	}
-
-	public void setGfxId(int i) {
-		_gfxid = i;
-	}
+	public int getGfxId() { return _gfxid; }
+	public void setGfxId(int i) { _gfxid = i; }
 
 	public int getMagicLevel() {
 		return getLevel() / 4;
 	}
 
+	private static final int[] magicBonus =
+		{ -2, -2, -2, -2, -2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 1, // 0-14
+			2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, // 15-30
+			10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, // 31-43
+			12, 12, 12, 12, 12, 12, 13 }; // 44-50
+
 	public int getMagicBonus() {
 		int i = getInt();
-		if (i <= 5) {
-			return -2;
-		} else if (i <= 8) {
-			return -1;
-		} else if (i <= 11) {
-			return 0;
-		} else if (i <= 14) {
-			return 1;
-		} else if (i <= 17) {
-			return 2;
-		} else if (i <= 24) {
-			return i - 15;
-		} else if (i <= 35) {
-			return 10;
-		} else if (i <= 42) {
-			return 11;
-		} else if (i <= 49) {
-			return 12;
-		} else if (i <= 50) {
-			return 13;
-		} else {
-			return i - 25;
-		}
+		return i <= 50 ? magicBonus[i] : i - 25;
 	}
 
 	public boolean isInvisble() {
@@ -1180,20 +956,8 @@ public class L1Character extends L1Object {
 	}
 
 	private int _karma;
-
-	/** 
-	 * @return 
-	 */
-	public int getKarma() {
-		return _karma;
-	}
-
-	/**
-	 * @param karma        
-	 */
-	public void setKarma(int karma) {
-		_karma = karma;
-	}
+	public int getKarma() { return _karma; }
+	public void setKarma(int karma) { _karma = karma; }
 
 	public void setMr(int i) {
 		_trueMr = i;
@@ -1223,7 +987,7 @@ public class L1Character extends L1Object {
 						lightSize = itemlightSize;
 					}
 				}
-			}
+					}
 		}
 
 		if (this instanceof L1PcInstance) {
@@ -1251,14 +1015,7 @@ public class L1Character extends L1Object {
 		_chaLightSize = i;
 	}
 
-	private int _ownLightSize; // 
-
-	public int getOwnLightSize() {
-		return _ownLightSize;
-	}
-
-	public void setOwnLightSize(int i) {
-		_ownLightSize = i;
-	}
-
+	private int _ownLightSize;
+	public int getOwnLightSize() { return _ownLightSize; }
+	public void setOwnLightSize(int i) { _ownLightSize = i; }
 }

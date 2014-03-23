@@ -18,42 +18,104 @@
  */
 package l1j.server.server.model.classes;
 
+import java.util.Map;
+
+import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.Instance.L1PcInstance;
 
+/**
+ * Class related constants.
+ *
+ * A lot of this could really go into Config files, but that's a pain in the
+ * rear and even the super custom servers don't seem to tweak this from classic
+ * Lineage.
+ */
 public abstract class L1ClassFeature {
 	public static L1ClassFeature newClassFeature(int classId) {
-		if (classId == L1PcInstance.CLASSID_PRINCE
-				|| classId == L1PcInstance.CLASSID_PRINCESS) {
-			return new L1RoyalClassFeature();
+		switch(classId) {
+			case L1PcInstance.CLASSID_PRINCE: 
+			case L1PcInstance.CLASSID_PRINCESS:
+				return new L1RoyalClassFeature();
+			case L1PcInstance.CLASSID_ELF_MALE:
+			case L1PcInstance.CLASSID_ELF_FEMALE:
+				return new L1ElfClassFeature();
+			case L1PcInstance.CLASSID_KNIGHT_MALE:
+			case L1PcInstance.CLASSID_KNIGHT_FEMALE:
+				return new L1KnightClassFeature();
+			case L1PcInstance.CLASSID_WIZARD_MALE:
+			case L1PcInstance.CLASSID_WIZARD_FEMALE:
+				return new L1WizardClassFeature();
+			case L1PcInstance.CLASSID_DARK_ELF_MALE:
+			case L1PcInstance.CLASSID_DARK_ELF_FEMALE:
+				return new L1DarkElfClassFeature();
+			case L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE:
+			case L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE:
+				return new L1DragonKnightClassFeature();
+			case L1PcInstance.CLASSID_ILLUSIONIST_MALE:
+			case L1PcInstance.CLASSID_ILLUSIONIST_FEMALE:
+				return new L1IllusionistClassFeature();
+			default:
+				throw new IllegalArgumentException();
 		}
-		if (classId == L1PcInstance.CLASSID_ELF_MALE
-				|| classId == L1PcInstance.CLASSID_ELF_FEMALE) {
-			return new L1ElfClassFeature();
-		}
-		if (classId == L1PcInstance.CLASSID_KNIGHT_MALE
-				|| classId == L1PcInstance.CLASSID_KNIGHT_FEMALE) {
-			return new L1KnightClassFeature();
-		}
-		if (classId == L1PcInstance.CLASSID_WIZARD_MALE
-				|| classId == L1PcInstance.CLASSID_WIZARD_FEMALE) {
-			return new L1WizardClassFeature();
-		}
-		if (classId == L1PcInstance.CLASSID_DARK_ELF_MALE
-				|| classId == L1PcInstance.CLASSID_DARK_ELF_FEMALE) {
-			return new L1DarkElfClassFeature();
-		}
-		if (classId == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE
-				|| classId == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE) {
-			return new L1DragonKnightClassFeature();
-		}
-		if (classId == L1PcInstance.CLASSID_ILLUSIONIST_MALE
-				|| classId == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE) {
-			return new L1IllusionistClassFeature();
-		}
-		throw new IllegalArgumentException();
 	}
+
+	public abstract int getStartingHp();
+
+	public abstract int getStartingMp(int wis);
 
 	public abstract int getAcDefenseMax(int ac);
 
 	public abstract int getMagicLevel(int playerLevel);
+
+	public abstract int getER(int level);
+
+	/**
+	 * The fixed starting stats.
+	 */
+	public abstract Map<L1Attribute, Integer> getFixedStats();
+
+	/**
+	 * The number of player-assigned starting stats.
+	 */
+	public abstract int getFloatingStats();
+
+	public abstract int getBaseMR();
+
+	/**
+	 * All of the getOriginal* methods refer to bonuses from starting stats, so
+	 * it's assuming the original str/dex/con/wis/int/cha will be passed.
+	 */
+	public abstract int getOriginalHpBonus(int con);
+
+	public abstract int getOriginalMpBonus(int wis);
+
+	public abstract int getOriginalStrWeightReduction(int str);
+
+	public abstract int getOriginalConWeightReduction(int con);
+
+	public abstract int getOriginalMeleeDamage(int str);
+
+	public abstract int getOriginalRangedDamage(int dex);
+
+	public abstract int getOriginalMeleeHit(int str);
+
+	public abstract int getOriginalRangedHit(int dex);
+
+	public abstract int getOriginalMR(int wis);
+
+	public abstract int getOriginalER(int dex);
+
+	public abstract int getOriginalMagicHit(int intel);
+
+	public abstract int getOriginalMagicCrit(int intel);
+
+	public abstract int getOriginalMpReduction(int intel);
+
+	public abstract int getOriginalMagicDamage(int intel);
+
+	public abstract int getOriginalAC(int dex);
+
+	public abstract int getOriginalHpRegen(int con);
+
+	public abstract int getOriginalMpRegen(int wis);	
 }

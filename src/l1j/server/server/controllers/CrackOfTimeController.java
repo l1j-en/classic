@@ -45,9 +45,13 @@ public class CrackOfTimeController extends TimerTask {
         private boolean _isOver = false;
         private int _startTime = 0;
 
+        private static final int _delayTime = 5 * 600;
+        private static final int _upTime = 19 * 60 * 60 * 1000 / 2;
+        private static final int _downTime = 13 * 60 * 60 * 1000 / 2;
+        
         private static final int[][] _crack = {
            { 32639, 32876, 780 },
-           { 32794, 32751, 783 }
+           // { 32794, 32751, 783 }
         };
 
         private static final int[][] _cracklocactions = {
@@ -91,7 +95,7 @@ public class CrackOfTimeController extends TimerTask {
                         try {
                                 L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(1468));
                                 clear();
-                                Thread.sleep(4*360000000);
+                                Thread.sleep(_downTime);
                         } catch (InterruptedException e) {
                                 e.printStackTrace();
                         }
@@ -100,19 +104,17 @@ public class CrackOfTimeController extends TimerTask {
                 _startTime ++;
                 _gatetime ++;
 
-                int delaytime = (5 * 600) ;
-                int keeptime =(3 * 360000000);
                 int map784gatetimer = (150 * 600);
-                if (_startTime == delaytime ) {
+                if (_startTime == _delayTime) {
                     spawnCrack();
                 }
-                if (_startTime == keeptime ) {
+                if (_startTime == _upTime) {
                     L1World.getInstance().broadcastPacketToAll(new S_ServerMessage(1467));
                 }
-                if (_startTime >= ( keeptime + delaytime )) {
+                if (_startTime >= (_delayTime + _upTime)) {
                     _isOver = true;
                 }
-                if (_gatetime >= (delaytime + map784gatetimer)) {
+                if (_gatetime >= (_delayTime + map784gatetimer)) {
                     _gateopen = true;
                 }
         }
@@ -129,7 +131,10 @@ public class CrackOfTimeController extends TimerTask {
                 L1Location crack = null;
                 L1Location crack_loc = null;
                 
-                int rnd1 = random.nextInt(2);
+                // For the moment, only open portals to Thebes, since Tikal hasn't been
+                // populated yet.
+                int rnd1 = 0;
+                // int rnd1 = random.nextInt(2);
                 int rnd2 = random.nextInt(9);
                 
                 crack = new L1Location(_crack[rnd1][0], _crack[rnd1][1], _crack[rnd1][2]);
@@ -144,7 +149,7 @@ public class CrackOfTimeController extends TimerTask {
 
         private void createCrack(int x, int y, short mapId, int to_x, int to_y, short to_mapId) {
                 try {
-                        L1Npc l1npc = NpcTable.getInstance().getTemplate(71254);
+                        L1Npc l1npc = NpcTable.getInstance().getTemplate(90011);
 
                         if (l1npc == null) {
                             return;

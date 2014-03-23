@@ -27,18 +27,6 @@ import l1j.server.server.utils.ReflectionUtil;
 import l1j.server.server.utils.StringUtil;
 
 public class L1Skill {
-	public static final int ATTR_NONE = 0;
-
-	public static final int ATTR_EARTH = 1;
-
-	public static final int ATTR_FIRE = 2;
-
-	public static final int ATTR_WATER = 4;
-
-	public static final int ATTR_WIND = 8;
-
-	public static final int ATTR_RAY = 16;
-
 	public static final int TYPE_PROBABILITY = 1;
 
 	public static final int TYPE_CHANGE = 2;
@@ -140,7 +128,8 @@ public class L1Skill {
 		return _target;
 	}
 
-	private int _targetTo; // 対象 0:自分 1:PC 2:NPC 4:血盟 8:パーティ 16:ペット 32:場所
+	// Target 0:self 1:PC 2:NPC 4:clan 8:party 16:pet 32:location
+	private int _targetTo; 
 
 	public int getTargetTo() {
 		return _targetTo;
@@ -292,6 +281,12 @@ public class L1Skill {
 	public String getImpl() {
 		return _impl;
 	}
+
+	private int _stackLimit;
+
+	public int getStackLimit() {
+		return _stackLimit;
+	}
     
 	public static L1Skill fromResultSet(ResultSet rs) throws SQLException {
 		L1Skill skill = new L1Skill();
@@ -331,6 +326,7 @@ public class L1Skill {
 		//skill._ignoresCounterMagic = rs.getBoolean("ignores_counter_magic");
 		//skill._isBuff = rs.getBoolean("is_buff");
 		skill._impl = rs.getString("impl");
+		skill._stackLimit = rs.getInt("stack_limit");
 
 		return skill;
 	}

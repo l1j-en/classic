@@ -83,7 +83,7 @@ public class C_GiveItem extends ClientBasePacket {
 		L1Inventory inv = pc.getInventory();
 		L1ItemInstance item = inv.getItem(itemId);
 		//TRICIDTODO: set configurable auto ban
-		if (itemId != item.getId() || (!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+		if ((!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
@@ -91,8 +91,9 @@ public class C_GiveItem extends ClientBasePacket {
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
-		if (item == null) {
-			return;
+		if (itemId != item.getId()) {
+			_log.warning(pc.getName() + " had item " +
+					Integer.toString(itemId) + " not match.");
 		}
 		if (item.isEquipped()) {
 			pc.sendPackets(new S_ServerMessage(141)); 

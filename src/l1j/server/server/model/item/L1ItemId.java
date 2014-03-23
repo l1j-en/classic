@@ -85,4 +85,32 @@ public class L1ItemId {
 	public static final int IT_SCROLL_OF_POLYMORPH = 40096;
 
 	public static final int ADENA = 40308;
+
+	public static final int ForbiddenFruit = 49158;
+	public static final int ElvenWafer = 40068;
+	public static final int BlessedElvenWafer = 140068;
+	public static final int DevilsBlood = 40031;
+	public static final int SayhasBow = 190;
+	public static final int ScrollOfEnchantArmorIllusion = 40127;
+	public static final int ScrollOfEnchantWeaponIllusion = 40128;
+	public static final int SwordOfSilence = 47;
+	public static final int SwordOfKurtz = 54;
+	public static final int EdoryuOfRonde = 76;
+	public static final int StaffOfIceQueen = 121;
+	public static final int ThorsHammer = 450000;
+	public static final int PaagriosHatred = 450001;
+	public static final int MaphrsRetribution = 450002;
+	public static final int OrcishBumeSmache = 450003;
+	public static final int EvasScorn = 36;
+	public static final int SwordOfVarlok = 203;
+	public static final int LongbowOfMoon = 205;
+	public static final int SwordOfDeathKnight = 58;
+
+	public static final int BringStone = 40320;
+	public static final int DarkStone = 40321;
+	public static final int BraveStone = 40322;
+	public static final int WiseStone = 40323;
+	public static final int KaiserStone = 40324;
+	public static final int[] StoneList =
+		{ BringStone, DarkStone, BraveStone, WiseStone, KaiserStone };
 }

@@ -35,7 +35,11 @@ public class L1HateList {
 	}
 
 	public L1HateList() {
-		_hateMap = new HashMap<L1Character, Integer>();
+		this(4);
+	}
+
+	public L1HateList(int size) {
+		_hateMap = new HashMap<L1Character, Integer>(size);
 	}
 
 	public synchronized void add(L1Character cha, int hate) {
