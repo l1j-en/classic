@@ -31,7 +31,7 @@ insert into armor (item_id, name, unidentified_name_id, identified_name_id, type
 insert into weapon (name, unidentified_name_id, identified_name_id, type, material, weight, invgfx, dmg_small, dmg_large, safenchant, use_knight, use_dragonknight, hitmodifier, dmgmodifier, canbedmg) values ("Spirit Defender", "Spirit Defender", "Spirit Defender", "tohandsword", "iron", 150000, 2082, 22, 22, 6, 1, 1, 1, 2, 0);
 
 update droplist set mob_name="Spirit" where mobId=45795;
-insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45795, 450006, "Spirit Defender", 1, 1, 10000);
+insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45795, "Spirit", 450006, "Spirit Defender", 1, 1, 10000);
 update droplist set mob_name="Grim Reaper" where mobid=45673;
 insert into droplist (mobid, mob_name, itemid, item_name, min, max, chance) values (45673, "Grim Reaper", 30010, "Hand of the Reaper", 1, 1, 2000);
 update droplist set mob_name="Great Spirit of Water" where mobid=45620;
