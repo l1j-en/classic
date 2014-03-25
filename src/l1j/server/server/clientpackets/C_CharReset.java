@@ -29,6 +29,7 @@ import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -66,14 +67,52 @@ public class C_CharReset extends ClientBasePacket {
 				dex < fixedStats.get(L1Attribute.Dex) ||
 				con < fixedStats.get(L1Attribute.Con) ||
 				cha < fixedStats.get(L1Attribute.Cha))
-			_log.log(Level.SEVERE, 
-					String.format("Candle: %s had less than starting stats!", 
-						pc.getName()));
+			emergencyCleanup(pc, String.format("Candle: %s had less than starting stats!", pc.getName()),
+					"Candle: issue with stats, contact a GM for help.");
+		
+		if (str > 35 || intel > 35 || wis > 35 || dex > 35 || con > 35 || cha > 35)
+			emergencyCleanup(pc, String.format("Candle: %s had individual stat above max", pc.getName()),
+					"Candle: issue with stats, contact a GM for help.");
 		
 		int bonusStats = pc.getLevel() > 50 ? pc.getLevel() - 50 : 0;
 		if (str + intel + wis + dex + con + cha > 75 + bonusStats + 
 				pc.getElixirStats()) {
-			emergencyCleanup(pc, "Candle: %s has too many stats!",
+			emergencyCleanup(pc, String.format("Candle: %s has too many stats!", pc.getName()),
+					"Candle: issue with stats, contact a GM for help.");
+		}
+	}
+	
+	private void checkProvidedStartingStats(final L1PcInstance pc, int str, int intel, int wis, 
+			int dex, int con, int cha) {
+		Map<L1Attribute, Integer> startingStats = pc.getClassFeature().getFixedStats();
+		int originalStr = startingStats.get(L1Attribute.Str);
+		int originalDex = startingStats.get(L1Attribute.Dex);
+		int originalCon = startingStats.get(L1Attribute.Con);
+		int originalWis = startingStats.get(L1Attribute.Wis);
+		int originalCha = startingStats.get(L1Attribute.Cha);
+		int originalInt = startingStats.get(L1Attribute.Int);
+		int originalAmount = pc.getClassFeature().getFloatingStats();
+		boolean isStatusError = false;
+
+		if ((str < originalStr
+			|| dex < originalDex
+			|| con < originalCon
+			|| wis < originalWis
+			|| cha < originalCha
+			|| intel < originalInt)
+			|| (str > originalStr + originalAmount
+			|| dex > originalDex + originalAmount
+			|| con > originalCon + originalAmount
+			|| wis > originalWis + originalAmount
+			|| cha > originalCha + originalAmount
+			|| intel > originalInt + originalAmount)) {
+			isStatusError = true;
+		}
+
+		int statusAmount = dex + cha + con + intel + str + wis;
+
+		if (statusAmount != 75 || isStatusError) {
+			emergencyCleanup(pc, String.format("Candle: %s had incorrect starting stats!", pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
 		}
 	}
@@ -84,10 +123,8 @@ public class C_CharReset extends ClientBasePacket {
 		int stage = readC();
 
 		if (stage == 0x01) { // 0x01:LN^[
-			// We can't trust these numbers, since they've been provided by the
-			// client--this is the source of one of the candle glitches. On the
-			// other hand, we can't just use the save numbers because that
-			// effectively gives them all those bonus stats again.
+			// Stage 1: original stats
+			
 			int str = readC();
 			int intel = readC();
 			int wis = readC();
@@ -95,13 +132,14 @@ public class C_CharReset extends ClientBasePacket {
 			int con = readC();
 			int cha = readC();
 
-			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
+			// Rule #1 Never trust the client
+			checkProvidedStartingStats(pc, str, intel, wis, dex, con, cha);
 
 			int hp = pc.getClassFeature().getStartingHp();
 			int mp = pc.getClassFeature().getStartingMp(wis);
 			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
-			CharacterTable.getInstance().saveCharStatus(pc);
+			CharacterTable.saveCharStatus(pc);
 			pc.setOriginalStr(str);
 			pc.setOriginalCon(con);
 			pc.setOriginalDex(dex);
@@ -110,13 +148,15 @@ public class C_CharReset extends ClientBasePacket {
 			pc.setOriginalWis(wis);
 			pc.refresh();
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
+			// Stage 2: Level ups and adding stats 1 by 1
 			int type2 = readC();
 			if (type2 == 0x00) { // 0x00:Lv1UP
+				if (pc.getTempLevel() >= pc.getTempMaxLevel())
+					return;
 				setLevelUp(pc, 1); 
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
-				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10) {
-				return;
-				}
+				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10)
+					return;
 				setLevelUp(pc,10);
 			} else if (type2 == 0x01) {
 				pc.addBaseStr((byte) 1);
@@ -172,6 +212,7 @@ public class C_CharReset extends ClientBasePacket {
 			int con = readC();
 			int cha = readC();
 
+			// Rule #2: Never trust the client
 			checkProvidedStats(pc, str, intel, wis, dex, con, cha);
 
 			pc.addBaseStr((byte) (str - pc.getBaseStr()));
@@ -184,11 +225,32 @@ public class C_CharReset extends ClientBasePacket {
 		}
 	}
 	
-	private void emergencyCleanup(final L1PcInstance pc, final String logEntry,
+	// FIXME: This doesn't actually abort anything?
+	private synchronized void emergencyCleanup(final L1PcInstance pc, final String logEntry,
 			final String message) {
 		_log.log(Level.SEVERE, logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
+		// Set character stats to minimum
+		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
+		int str = fixedStats.get(L1Attribute.Str);
+		int intel = fixedStats.get(L1Attribute.Int);
+		int wis = fixedStats.get(L1Attribute.Wis);
+		int dex = fixedStats.get(L1Attribute.Dex);
+		int con = fixedStats.get(L1Attribute.Con);
+		int cha = fixedStats.get(L1Attribute.Cha);
+		int hp = pc.getClassFeature().getStartingHp();
+		int mp = pc.getClassFeature().getStartingMp(wis);
+		initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
+		CharacterTable.saveCharStatus(pc);
+		pc.setOriginalStr(str);
+		pc.setOriginalInt(intel);
+		pc.setOriginalWis(wis);
+		pc.setOriginalDex(dex);
+		pc.setOriginalCon(con);
+		pc.setOriginalCha(cha);
+		pc.refresh();
+		
 		// Terrible way to bail, but we're doing it for now.
 		throw new IllegalStateException();
 	}

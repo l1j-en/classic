@@ -718,12 +718,13 @@ public class C_NPCAction extends ClientBasePacket {
 					_log.log(Level.WARNING, String.format("Candle: %s's " +
 							"maxLevel: %d was too high compared to " +
 							"pc.getLevel(): %d.",
-							maxLevel, pc.getLevel(), pc.getName()));
+							pc.getName(), maxLevel, pc.getLevel()));
 					pc.sendPackets(new S_SystemMessage(
 							"Your level and stats don't seem to match. " +
 							"Contact a GM for help."));
-					L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
-					return;
+					maxLevel = pc.getLevel();
+					//L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
+					//return;
 				} else if (maxLevel < pc.getLevel()) {
 					// Minority case where the character candling has lost stat
 					// points. Using their current level should be safe.
