@@ -31,6 +31,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_CharReset;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -139,13 +140,6 @@ public class C_CharReset extends ClientBasePacket {
 			int mp = pc.getClassFeature().getStartingMp(wis);
 			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
-			CharacterTable.saveCharStatus(pc);
-			pc.setOriginalStr(str);
-			pc.setOriginalCon(con);
-			pc.setOriginalDex(dex);
-			pc.setOriginalCha(cha);
-			pc.setOriginalInt(intel);
-			pc.setOriginalWis(wis);
 			pc.refresh();
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
 			// Stage 2: Level ups and adding stats 1 by 1
@@ -225,13 +219,13 @@ public class C_CharReset extends ClientBasePacket {
 		}
 	}
 	
-	// FIXME: This doesn't actually abort anything?
 	private synchronized void emergencyCleanup(final L1PcInstance pc, final String logEntry,
 			final String message) {
 		_log.log(Level.SEVERE, logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
-		// Set character stats to minimum
+
+		// Set character stats to minimum, assuming player is trying to cheat
 		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
 		int str = fixedStats.get(L1Attribute.Str);
 		int intel = fixedStats.get(L1Attribute.Int);
@@ -242,14 +236,11 @@ public class C_CharReset extends ClientBasePacket {
 		int hp = pc.getClassFeature().getStartingHp();
 		int mp = pc.getClassFeature().getStartingMp(wis);
 		initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
-		CharacterTable.saveCharStatus(pc);
-		pc.setOriginalStr(str);
-		pc.setOriginalInt(intel);
-		pc.setOriginalWis(wis);
-		pc.setOriginalDex(dex);
-		pc.setOriginalCon(con);
-		pc.setOriginalCha(cha);
 		pc.refresh();
+		saveNewCharStatus(pc);
+
+		ClientThread.quitGame(pc);
+		pc.getNetConnection().kick();
 		
 		// Terrible way to bail, but we're doing it for now.
 		throw new IllegalStateException();
@@ -296,15 +287,22 @@ public class C_CharReset extends ClientBasePacket {
 	private void initCharStatus(L1PcInstance pc, int hp, int mp, int str, int intel, int wis, int dex, int con, int cha) {
 		pc.addBaseMaxHp((short)(hp - pc.getBaseMaxHp()));
 		pc.addBaseMaxMp((short)(mp - pc.getBaseMaxMp()));
-		pc.addBaseStr((byte)(str - pc.getBaseStr()));
-		pc.addBaseInt((byte)(intel - pc.getBaseInt()));
-		pc.addBaseWis((byte)(wis - pc.getBaseWis()));
-		pc.addBaseDex((byte)(dex - pc.getBaseDex()));
-		pc.addBaseCon((byte)(con - pc.getBaseCon()));
-		pc.addBaseCha((byte)(cha - pc.getBaseCha()));
+		pc.setBaseStr((byte)str);
+		pc.setBaseInt((byte)intel);
+		pc.setBaseWis((byte)wis);
+		pc.setBaseDex((byte)dex);
+		pc.setBaseCon((byte)con);
+		pc.setBaseCha((byte)cha);
+		pc.setOriginalStr((byte)str);
+		pc.setOriginalInt((byte)intel);
+		pc.setOriginalWis((byte)wis);
+		pc.setOriginalDex((byte)dex);
+		pc.setOriginalCon((byte)con);
+		pc.setOriginalCha((byte)cha);
 		pc.addMr(0 - pc.getMr());
     	pc.addDmgup(0 - pc.getDmgup());
     	pc.addHitup(0 - pc.getHitup());
+		CharacterTable.saveCharStatus(pc);
 	}
 
 	private synchronized void setLevelUp(L1PcInstance pc ,int addLv) {
