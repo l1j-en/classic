@@ -20,13 +20,11 @@ update etcitem set stackable=1 where item_id in (40031, 40131, 40132, 40133, 401
 -- update armor set use_dragonknight=1, use_illusionist=1, use_darkelf=1, use_mage=1, use_elf=1, use_knight=1, use_royal=1 where name like "%kurtz%" or name like "%death knight%";
 update armor set use_dragonknight=1, use_illusionist=1, use_darkelf=1, use_mage=1, use_elf=1, use_knight=1, use_royal=1 where item_id=20010 or item_id=20041 or item_id=20100 or item_id=20150 or item_id=20166 or item_id=20184 or item_id=20198 or item_id=20214;
 
--- TODO: Giran teleportation scrolls added to Melissa.
-
 -- On live the accessory and elemental enchant scrolls were sold by an NPC in
 -- Aden. Here we're opting to have them dropped by bosses and spirits.
 
 -- Accessory Enchant Scrolls
-insert into droplist values 
+replace into droplist values 
 	(45640, "Unicorn", 49148, "Scroll of Enchant Accessory", 1, 1, 20000),
 	(45456, "Necromancer", 49148, "Scroll of Enchant Accessory", 1, 1, 15000),
 	(45464, "Sema", 49148, "Scroll of Enchant Accessory", 1, 1, 13000),
@@ -83,7 +81,7 @@ insert into droplist values
 	(81163, "Girtas", 49148, "Scroll of Enchant Accessory", 1, 3, 300000);
 
 -- Elemental Enchant Scrolls
-insert into droplist values 
+replace into droplist values 
 	(45619, "Great Spirit of Earth", 41430, "Scroll of Enchant Weapon: Earth", 1, 1, 18000),
 	(45620, "Great Spirit of Water", 41431, "Scroll of Enchant Weapon: Water", 1, 1, 18000),
 	(45621, "Great Spirit of Wind", 41429, "Scroll of Enchant Weapon: Wind", 1, 1, 18000),
@@ -124,3 +122,6 @@ insert into droplist values
 
 -- Make Ivory Tower rings unenchantable.
 update armor set grade=-1 where item_id=20282;
+
+-- TODO: Giran teleportation scrolls added to Melissa.
+
