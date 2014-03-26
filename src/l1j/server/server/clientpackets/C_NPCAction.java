@@ -689,6 +689,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(1290));
 					return;
 				}
+				pc.save();
 				L1SkillUse l1skilluse = new L1SkillUse();
 				l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(), pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 				pc.getInventory().takeoffEquip(945);
@@ -723,8 +724,6 @@ public class C_NPCAction extends ClientBasePacket {
 							"Your level and stats don't seem to match. " +
 							"Contact a GM for help."));
 					maxLevel = pc.getLevel();
-					//L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
-					//return;
 				} else if (maxLevel < pc.getLevel()) {
 					// Minority case where the character candling has lost stat
 					// points. Using their current level should be safe.

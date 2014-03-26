@@ -1662,6 +1662,11 @@ public class L1PcInstance extends L1Character {
 	public byte getBaseStr() {
 		return _baseStr;
 	}
+	
+	public void setBaseStr(byte i) {
+		_baseStr = i;
+		setStr(i);
+	}
 
 	public void addBaseStr(byte i) {
 		i += _baseStr;
@@ -1677,6 +1682,11 @@ public class L1PcInstance extends L1Character {
 	private byte _baseCon = 0;
 	public byte getBaseCon() {
 		return _baseCon;
+	}
+	
+	public void setBaseCon(byte i) {
+		_baseCon = i;
+		setCon(i);
 	}
 
 	public void addBaseCon(byte i) {
@@ -1694,6 +1704,11 @@ public class L1PcInstance extends L1Character {
 	public byte getBaseDex() {
 		return _baseDex;
 	}
+	
+	public void setBaseDex(byte i) {
+		_baseDex = i;
+		setDex(i);
+	}
 
 	public void addBaseDex(byte i) {
 		i += _baseDex;
@@ -1709,6 +1724,11 @@ public class L1PcInstance extends L1Character {
 	private byte _baseCha = 0; 
 	public byte getBaseCha() {
 		return _baseCha;
+	}
+	
+	public void setBaseCha(byte i) {
+		_baseCha = i;
+		setCha(i);
 	}
 
 	public void addBaseCha(byte i) {
@@ -1726,6 +1746,11 @@ public class L1PcInstance extends L1Character {
 	public byte getBaseInt() {
 		return _baseInt;
 	}
+	
+	public void setBaseInt(byte i) {
+		_baseInt = i;
+		setInt(i);
+	}
 
 	public void addBaseInt(byte i) {
 		i += _baseInt;
@@ -1741,6 +1766,11 @@ public class L1PcInstance extends L1Character {
 	private byte _baseWis = 0;
 	public byte getBaseWis() {
 		return _baseWis;
+	}
+	
+	public void setBaseWis(byte i) {
+		_baseWis = i;
+		setWis(i);
 	}
 
 	public void addBaseWis(byte i) {
