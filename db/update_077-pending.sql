@@ -89,8 +89,8 @@ UPDATE `etcitem` SET `name` = 'Teleport - Mirror Forest' where item_id = '40803'
 UPDATE `etcitem` SET `name` = 'Teleport - Valakas' where item_id = '40804';
 UPDATE `etcitem` SET `name` = 'Teleport - Fafurion' where item_id = '40805';
 UPDATE `etcitem` SET `name` = 'Teleport - Lindvior' where item_id = '40806';
-UPDATE `etcitem` SET `name` = 'Teleport - Heine Dungeonn 3F' where item_id = '40807';
-UPDATE `etcitem` SET `name` = 'Teleport - Heine Dungeonn 4F' where item_id = '40808';
+UPDATE `etcitem` SET `name` = 'Teleport - Heine Dungeon 3F' where item_id = '40807';
+UPDATE `etcitem` SET `name` = 'Teleport - Heine Dungeon 4F' where item_id = '40808';
 UPDATE `etcitem` SET `name` = 'Teleport - Fire Valley Bridge' where item_id = '40809';
 UPDATE `etcitem` SET `name` = 'Teleport - Dragon Valley' where item_id = '40810';
 UPDATE `etcitem` SET `name` = 'Teleport - Oasis' where item_id = '40811';
