@@ -20,13 +20,11 @@ update etcitem set stackable=1 where item_id in (40031, 40131, 40132, 40133, 401
 -- update armor set use_dragonknight=1, use_illusionist=1, use_darkelf=1, use_mage=1, use_elf=1, use_knight=1, use_royal=1 where name like "%kurtz%" or name like "%death knight%";
 update armor set use_dragonknight=1, use_illusionist=1, use_darkelf=1, use_mage=1, use_elf=1, use_knight=1, use_royal=1 where item_id=20010 or item_id=20041 or item_id=20100 or item_id=20150 or item_id=20166 or item_id=20184 or item_id=20198 or item_id=20214;
 
--- TODO: Giran teleportation scrolls added to Melissa.
-
 -- On live the accessory and elemental enchant scrolls were sold by an NPC in
 -- Aden. Here we're opting to have them dropped by bosses and spirits.
 
 -- Accessory Enchant Scrolls
-insert into droplist values 
+replace into droplist values 
 	(45640, "Unicorn", 49148, "Scroll of Enchant Accessory", 1, 1, 20000),
 	(45456, "Necromancer", 49148, "Scroll of Enchant Accessory", 1, 1, 15000),
 	(45464, "Sema", 49148, "Scroll of Enchant Accessory", 1, 1, 13000),
@@ -83,7 +81,7 @@ insert into droplist values
 	(81163, "Girtas", 49148, "Scroll of Enchant Accessory", 1, 3, 300000);
 
 -- Elemental Enchant Scrolls
-insert into droplist values 
+replace into droplist values 
 	(45619, "Great Spirit of Earth", 41430, "Scroll of Enchant Weapon: Earth", 1, 1, 18000),
 	(45620, "Great Spirit of Water", 41431, "Scroll of Enchant Weapon: Water", 1, 1, 18000),
 	(45621, "Great Spirit of Wind", 41429, "Scroll of Enchant Weapon: Wind", 1, 1, 18000),
@@ -124,3 +122,114 @@ insert into droplist values
 
 -- Make Ivory Tower rings unenchantable.
 update armor set grade=-1 where item_id=20282;
+
+-- Teleportation scrolls added to Melissa in Aden
+DELETE FROM `shop` where npc_id = 70052 and item_id in (40118, 40120, 40856, 40808, 42017, 42007, 40816, 42039, 42038, 42037, 42036, 42035, 42033, 42032, 42031, 42030, 42011, 42020, 40855, 40819, 42021, 42083, 40084, 40827, 42056);
+REPLACE INTO `shop` VALUES
+	(70052, 'Melissa', 40118, 'Scroll of Return - Recluse Village', 30, 6250, 0, -1),
+	(70052, 'Melissa', 40120, 'Scroll of Return - Resistance Village', 31, 6250, 0, -1),
+	(70052, 'Melissa', 40856, 'Teleport - Pirate Island', 32, 6250, 0, -1),
+	(70052, 'Melissa', 40808, 'Teleport - Heine Dungeon 4F', 33, 12500, 0, -1),
+	(70052, 'Melissa', 42017, 'Teleport - Dream Island', 34, 62500, 0, -1),
+	(70052, 'Melissa', 42007, 'Teleport - Forgotten Island', 35, 125000, 0, -1),
+	(70052, 'Melissa', 40816, 'Teleport - Beleth', 36, 250000, 0, -1),
+	(70052, 'Melissa', 42039, 'Teleport - TOI 10F', 37, 125000, 0, -1),
+	(70052, 'Melissa', 42038, 'Teleport - TOI 20F', 38, 250000, 0, -1),
+	(70052, 'Melissa', 42037, 'Teleport - TOI 30F', 39, 375000, 0, -1),
+	(70052, 'Melissa', 42036, 'Teleport - TOI 40F', 40, 500000, 0, -1),
+	(70052, 'Melissa', 42035, 'Teleport - TOI 50F', 41, 625000, 0, -1),
+	(70052, 'Melissa', 42033, 'Teleport - TOI 60F', 42, 750000, 0, -1),
+	(70052, 'Melissa', 42032, 'Teleport - TOI 70F', 43, 875000, 0, -1),
+	(70052, 'Melissa', 42031, 'Teleport - TOI 80F', 44, 1000000, 0, -1),
+	(70052, 'Melissa', 42030, 'Teleport - TOI 90F', 45, 1125000, 0, -1),
+	(70052, 'Melissa', 42011, 'Teleport - 1F Meeting Area', 46, 250000, 0, -1),
+	(70052, 'Melissa', 42020, 'Teleport - 2F Magic Training', 47, 500000, 0, -1),
+	(70052, 'Melissa', 40855, 'Teleport - Abyss Lake', 48, 250000, 0, -1),
+	(70052, 'Melissa', 40819, 'Teleport - Ant Cave 3F', 49, 750000, 0, -1),
+	(70052, 'Melissa', 42021, 'Teleport - Giant`s Grave', 50, 250000, 0, -1),
+	(70052, 'Melissa', 42083, 'Teleport - Losus Island', 51, 6250, 0, -1),
+	(70052, 'Melissa', 40084, 'Teleport - Diad Fortress', 52, 250000, 0, -1),
+	(70052, 'Melissa', 40827, 'Teleport - Giran Dungeonn 2F', 53, 12500, 0, -1),
+	(70052, 'Melissa', 42056, 'Teleport - Giran Hidden Dungeon', 54, 62500, 0, -1);
+
+-- Candle of Reminiscence and doll quest items added to Luth in Gludio
+DELETE FROM `shop` where npc_id = 70021 and item_id in (49142, 41251, 41252, 41253, 41254);
+REPLACE INTO `shop` VALUES
+	(70021, 'Luth', 49142, 'Candle of Reminiscence', 40, 10000000, 0, -1),
+	(70021, 'Luth', 41251, 'Skeleton Grail', 41, 10000000, 0, -1),
+	(70021, 'Luth', 41252, 'Rare Turtle', 42, 10000000, 0, -1),
+	(70021, 'Luth', 41253, 'Spices of the Castle Chef', 43, 10000000, 0, -1),
+	(70021, 'Luth', 41254, 'Seal of Victory', 44, 10000000, 0, -1);
+
+-- c- and b- zels/dais and wafers / devil's blood added to Verita in Giran
+DELETE FROM `shop` where npc_id = 70033 and item_id in (240074, 140074, 240087, 140087, 40068);
+REPLACE INTO `shop` VALUES
+	(70033, 'Verita', 240074, 'Cursed Scroll of Enchant Armor', 40, 125000, 0, -1),
+	(70033, 'Verita', 140074, 'Blessed Scroll of Enchant Armor', 41, 400000, 0, -1),
+	(70033, 'Verita', 240087, 'Cursed Scroll of Enchant Weapon', 42, 125000, 0, -1),
+	(70033, 'Verita', 140087, 'Blessed Scroll of Enchant Weapon', 43, 400000, 0, -1),
+	(70033, 'Verita', 40068, 'Elven Wafer', 44, 3000, 0, -1);
+--	(70033, 'Verita', , 'Devils Blood', 45, , 0, -1),
+
+-- Stat elixirs added to Britt in Heine
+DELETE FROM `shop` where npc_id = 70082 and item_id in (40033, 40034, 40035, 40036, 40037, 40038);
+REPLACE INTO `shop` VALUES
+	(70082, 'Britt', 40033, 'Elixer (STR)', 40, 60000000, 0, -1),
+	(70082, 'Britt', 40034, 'Elixer (CON)', 41, 60000000, 0, -1),
+	(70082, 'Britt', 40035, 'Elixer (DEX)', 42, 60000000, 0, -1),
+	(70082, 'Britt', 40036, 'Elixer (INT)', 43, 60000000, 0, -1),
+	(70082, 'Britt', 40037, 'Elixer (WIS)', 44, 60000000, 0, -1),
+	(70082, 'Britt', 40038, 'Elixer (CHA)', 45, 60000000, 0, -1);
+
+-- Various materials added to Mellin in SKT
+DELETE FROM `shop` where npc_id = 70074 and item_id in (40408, 40496, 40320, 40321, 40505, 40519, 40503, 40507);
+REPLACE INTO `shop` VALUES
+	(70074, 'Mellin', 40408, 'Lump of Iron', 40, 1250, 0, -1),
+	(70074, 'Mellin', 40496, 'Rough Mithril', 41, 3000, 0, -1),
+	(70074, 'Mellin', 40320, 'Bring Stone', 42, 1250, 0, -1),
+	(70074, 'Mellin', 40321, 'Dark Stone', 43, 5000, 0, -1),
+	(70074, 'Mellin', 40505, 'Bark of Ent', 44, 3000, 0, -1),
+	(70074, 'Mellin', 40519, 'Pans Mane', 45, 1500, 0, -1),
+	(70074, 'Mellin', 40503, 'Web of Arachne', 46, 4000, 0, -1),
+	(70074, 'Mellin', 40507, 'Twig of Ent', 47, 500, 0, -1);
+
+-- Quest items added to Mandra in Oren
+DELETE FROM `shop` where npc_id = 70061 and item_id in (20027, 20230, 20318, 20226, 115, 20055, 20021, 20039, 20084, 20171, 20004, 20164, 20195, 20065, 20051, 20287, 56, 50, 184, 51, 20225, 13, 33, 178, 118, 20234, 127, 20167, 269, 21101, 30011, 270, 275, 21103, 21102, 272);
+REPLACE INTO `shop` VALUES
+	(70061, 'Mandra', 20027, 'Red Knights Hood', 40, 500000, 0, -1),
+	(70061, 'Mandra', 20230, 'Shield of Red Knight', 41, 1500000, 0, -1),
+	(70061, 'Mandra', 20318, 'Belt of Bravery', 42, 5000000, 0, -1),
+	(70061, 'Mandra', 20226, 'Book of Magic Powers', 43, 500000, 0, -1),
+	(70061, 'Mandra', 115, 'Crystal Staff', 44, 1500000, 0, -1),
+	(70061, 'Mandra', 20055, 'Cloak of Mana', 45, 5000000, 0, -1),
+	(70061, 'Mandra', 20021, 'Elven Helm of Dexterity', 46, 500000, 0, -1),
+	(70061, 'Mandra', 20039, 'Elven Helm of Constitution', 47, 500000, 0, -1),
+	(70061, 'Mandra', 20084, 'Elven T-Shirt', 48, 1500000, 0, -1),
+	(70061, 'Mandra', 20171, 'Gloves of Protection', 49, 5000000, 0, -1),
+	(70061, 'Mandra', 20004, 'Shadow Mask', 50, 500000, 0, -1),
+	(70061, 'Mandra', 20164, 'Shadow Gloves', 51, 1500000, 0, -1),
+	(70061, 'Mandra', 20195, 'Shadow Boots', 52, 5000000, 0, -1),
+	(70061, 'Mandra', 20065, 'Red Cloak', 53, 500000, 0, -1),
+	(70061, 'Mandra', 20051, 'Soverigns Majesty', 54, 1500000, 0, -1),
+	(70061, 'Mandra', 20287, 'Ring of Gaurdian', 55, 5000000, 0, -1),
+	(70061, 'Mandra', 56, 'Death Blade', 56, 15000000, 0, -1),
+	(70061, 'Mandra', 50, 'Sword of Flames', 57, 15000000, 0, -1),
+	(70061, 'Mandra', 184, 'Bow of Flames', 58, 15000000, 0, -1),
+	(70061, 'Mandra', 51, 'Gold Scepter', 59, 15000000, 0, -1),
+	(70061, 'Mandra', 20225, 'Mana Crystal Ball', 60, 15000000, 0, -1),
+	(70061, 'Mandra', 13, 'Finger of Death', 61, 15000000, 0, -1),
+	(70061, 'Mandra', 33, 'Sword of Honor', 62, 3500000, 0, -1),
+	(70061, 'Mandra', 178, 'Crossbow of Silence', 63, 3500000, 0, -1),
+	(70061, 'Mandra', 118, 'Jet-Black Crystal Ball', 64, 3500000, 0, -1),
+	(70061, 'Mandra', 20234, 'Shield of Faith', 65, 3500000, 0, -1),
+	(70061, 'Mandra', 127, 'Steel Staff of Mana', 66, 6000000, 0, -1),
+	(70061, 'Mandra', 20167, 'Gloves of Lizardman Hero', 67, 500000, 0, -1),
+	(70061, 'Mandra', 269, 'Wand of Illusionist', 68, 500000, 0, -1),
+	(70061, 'Mandra', 21101, 'Spellbook of Illusionist', 69, 1500000, 0, -1),
+	(70061, 'Mandra', 30011, 'Cloak of Illusionist', 70, 5000000, 0, -1),
+	(70061, 'Mandra', 270, 'Sapphire Kiringku', 71, 15000000, 0, -1),
+	(70061, 'Mandra', 275, 'Two-handed Sword of Dragonknight', 72, 500000, 0, -1),
+	(70061, 'Mandra', 21103, 'Dragon Scale Guarder', 73, 1500000, 0, -1),
+	(70061, 'Mandra', 21102, 'Cloak of Dragon Knight', 74, 5000000, 0, -1),
+	(70061, 'Mandra', 272, 'Destructors Chain Sword', 75, 15000000, 0, -1);
+
