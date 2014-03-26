@@ -81,9 +81,9 @@ CREATE TABLE LogIP (
 
 -- Lance master crashes Tikal client
 delete from polymorphs where id = 7338 or id = 7339 or id = 7340 or id = 7341 or id = 7332;
---insert into polymorphs values
---(7332,'spearm 52',7332,52,1080,4095,1,7),
---(7338,'spearm 55',7338,55,1080,4095,1,7),
---(7339,'spearm 60',7339,60,1080,4095,1,7),
---(7340,'spearm 65',7340,65,1080,4095,1,7),
---(7341,'spearm 70',7341,70,1080,4095,1,7);
+-- insert into polymorphs values
+-- (7332,'spearm 52',7332,52,1080,4095,1,7),
+-- (7338,'spearm 55',7338,55,1080,4095,1,7),
+-- (7339,'spearm 60',7339,60,1080,4095,1,7),
+-- (7340,'spearm 65',7340,65,1080,4095,1,7),
+-- (7341,'spearm 70',7341,70,1080,4095,1,7);
