@@ -223,22 +223,9 @@ public class C_CharReset extends ClientBasePacket {
 			final String message) {
 		_log.log(Level.SEVERE, logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
-		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 
-		// Set character stats to minimum, assuming player is trying to cheat
-		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
-		int str = fixedStats.get(L1Attribute.Str);
-		int intel = fixedStats.get(L1Attribute.Int);
-		int wis = fixedStats.get(L1Attribute.Wis);
-		int dex = fixedStats.get(L1Attribute.Dex);
-		int con = fixedStats.get(L1Attribute.Con);
-		int cha = fixedStats.get(L1Attribute.Cha);
-		int hp = pc.getClassFeature().getStartingHp();
-		int mp = pc.getClassFeature().getStartingMp(wis);
-		initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
-		pc.refresh();
-		saveNewCharStatus(pc);
-
+		// We'll be nice and just kick the player even though they're probably trying to cheat
+		// This reverts to the state at pc.save done at NPCAction
 		ClientThread.quitGame(pc);
 		pc.getNetConnection().kick();
 		
@@ -262,10 +249,6 @@ public class C_CharReset extends ClientBasePacket {
 		pc.refresh();
 		pc.setCurrentHp(pc.getMaxHp());
 		pc.setCurrentMp(pc.getMaxMp());
-		if (pc.getTempMaxLevel() != pc.getLevel()) {
-			pc.setLevel(pc.getTempMaxLevel());
-			pc.setExp(ExpTable.getExpByLevel(pc.getTempMaxLevel()));
-		}
 		if (pc.getLevel() > 50) {
 			pc.setBonusStats(pc.getLevel() - 50);
 		} else {
