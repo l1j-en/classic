@@ -240,11 +240,38 @@ UPDATE `mobskill` SET `leverage` = 0 WHERE mobid in (46094, 46096);
 
 -- Adjust spawn rate in DV
 DELETE FROM `spawnlist` where `npc_templateid` in (45269, 45286, 45270) and `mapid` = 4;
+DELETE FROM `spawnlist` where `mapid` = 4 and `locx` >= 33229 and `locx` <= 33449
+	and `locy` >= 32232 and `locy` <= 32483 and `npc_templateid` in (45161, 45259);
 REPLACE INTO `spawnlist` VALUES
 	(12525, 'Skeleton Guard', 60, 45269, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
 	(13400, 'Skeleton Fighter', 60, 45286, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
 	(12746, 'Skeleton Marksman', 60, 45270, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100);
+	(7799, 'Spartoi', 50, 45161, 0, 0, 0, 0, 0, 33231, 32277, 33443, 32475, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100);
+	(12171, 'Scorpion', 50, 45259, 0, 0, 0, 0, 0, 33231, 32277, 33443, 32475, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100);
 
--- Increase Cougar summon's hp
-UPDATE `npc` SET hp = 2000 WHERE npcid = 81240;
+-- Increase Cougar summon's hp and regen
+UPDATE `npc` SET `hp` = 2000, `hpr` = 100 WHERE `npcid` = 81240;
+
+-- Decrease TI Dungeon spawn rate
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 1 and `npc_templateid` = 45060;
+UPDATE `spawnlist` set `count` = 35 WHERE `mapid` = 1 and `npc_templateid` = 45065;
+UPDATE `spawnlist` set `count` = 30 WHERE `mapid` = 1 and `npc_templateid` = 45157;
+UPDATE `spawnlist` set `count` = 70 WHERE `mapid` = 1 and `npc_templateid` = 45107;
+UPDATE `spawnlist` set `count` = 15 WHERE `mapid` = 1 and `npc_templateid` = 45068;
+UPDATE `spawnlist` set `count` = 4 WHERE `mapid` = 1 and `npc_templateid` = 45100;
+UPDATE `spawnlist` set `count` = 6 WHERE `mapid` = 1 and `npc_templateid` = 45215;
+UPDATE `spawnlist` set `count` = 5 WHERE `mapid` = 2 and `npc_templateid` = 45060;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45065;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45024;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45068;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45107;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45122;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45131;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45130;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45126;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45136;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45161;
+UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 45157;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45173;
+UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45184;
 
