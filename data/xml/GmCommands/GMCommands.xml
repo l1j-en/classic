@@ -41,6 +41,7 @@
 		
 		<!-- Field -->
 		<Room Name="Oasis" LocX="32861" LocY="33255" MapId="4"/>
+		<Room Name="ToS Entrance" LocX="34266" LocY="32189" MapId="4"/>
 		
 		<!-- Dungeon -->
 		<Room Name="CC1" LocX="32746" LocY="32787" MapId="72"/>

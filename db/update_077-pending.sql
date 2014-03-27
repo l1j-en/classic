@@ -234,3 +234,13 @@ UPDATE `etcitem` SET `name` = 'Teleport - Room of Hurricanes' where item_id = '4
 UPDATE `etcitem` SET `name` = 'Teleport - Room of Earthquakes' where item_id = '42087';
 UPDATE `etcitem` SET `name` = 'Teleport - Turtle Island' where item_id = '240102';
 UPDATE `etcitem` SET `name` = 'Teleport - Boss Event' where item_id = '42099';
+
+-- Reduce spell damage in noob TOS
+UPDATE `mobskill` SET `leverage` = 0 WHERE mobid in (46094, 46096);
+
+-- Adjust spawn rate in DV
+DELETE FROM `spawnlist` where `npc_templateid` in (45269, 45286, 45270) and `mapid` = 4;
+REPLACE INTO `spawnlist` VALUES
+	(12525, 'Skeleton Guard', 60, 45269, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
+	(13400, 'Skeleton Fighter', 60, 45286, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
+	(12746, 'Skeleton Marksman', 60, 45270, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100);
