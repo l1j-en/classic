@@ -44,7 +44,7 @@ public class AcceleratorChecker {
 
 	private static final int JUSTICE_COUNT_LIMIT = Config.JUSTICE_COUNT;
 
-	private static final double CHECK_STRICTNESS = (Config.CHECK_STRICTNESS - 5) / 100D;
+	private static final double CHECK_STRICTNESS = Config.CHECK_STRICTNESS / 100D;
 
 	private static final double HASTE_RATE = 0.745;
 
