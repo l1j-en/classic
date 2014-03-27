@@ -27,6 +27,7 @@ import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
+import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1PolyRace;
@@ -65,9 +66,10 @@ public class C_MoveChar extends ClientBasePacket {
 		if (Config.CHECK_MOVE_INTERVAL) {
 			int result;
 			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.MOVE);
-			if (result == AcceleratorChecker.R_DISCONNECTED) {
+			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				LogSpeedHack lsh = new LogSpeedHack();
 				lsh.storeLogSpeedHack(pc);
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5, false);
 				return;
 			}
 		}
