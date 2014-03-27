@@ -275,3 +275,6 @@ UPDATE `spawnlist` set `count` = 20 WHERE `mapid` = 2 and `npc_templateid` = 451
 UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45173;
 UPDATE `spawnlist` set `count` = 10 WHERE `mapid` = 2 and `npc_templateid` = 45184;
 
+-- Fix intervals for some morphs triggering speedhack detection
+UPDATE `spr_action` SET `framecount` = 17 WHERE `spr_id` = 6137;
+

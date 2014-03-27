@@ -89,7 +89,7 @@ public class C_Attack extends ClientBasePacket {
 		if (Config.CHECK_ATTACK_INTERVAL) {
 			int result;
 			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.ATTACK);
-			if (result == AcceleratorChecker.R_DISCONNECTED) {
+			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				LogSpeedHack lsh = new LogSpeedHack();
 				lsh.storeLogSpeedHack(pc);
 				return;
