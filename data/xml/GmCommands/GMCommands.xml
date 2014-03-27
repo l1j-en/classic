@@ -33,6 +33,8 @@
 		<Room Name="Gypsy" LocX="33978" LocY="32927" MapId="4"/>
 		<Room Name="Bludika" LocX="32739" LocY="32801" MapId="305"/>
 		<Room Name="Dicarding" LocX="32766" LocY="32797" MapId="77"/>
+		<Room Name="Silveria" LocX="32841" LocY="32856" MapId="1000"/>
+		<Room Name="Behimous" LocX="32779" LocY="32887" MapId="1001"/>
 
 		<!-- Castle -->
 		<Room Name="AdenGT" LocX="34090" LocY="33261" MapId="4"/>
