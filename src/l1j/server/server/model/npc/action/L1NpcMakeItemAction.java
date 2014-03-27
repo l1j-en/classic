@@ -77,7 +77,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	}
 
 	private boolean makeItems(L1PcInstance pc, String npcName, int amount) {
-		if (amount <= 0) {
+		if (amount <= 0 || amount > 1000) {
 			return false;
 		}
 
