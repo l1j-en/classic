@@ -72,9 +72,9 @@ public class PCommands {
 	private static final S_SystemMessage DropHelp =
 		new S_SystemMessage("-drop [all|mine|party] [on|off] toggles drop messages.");
 	private static final S_SystemMessage CommandsHelp =
-		new S_SystemMessage("-warp 1-7, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
+		new S_SystemMessage("-warp 1-10, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
 	private static final S_SystemMessage CommandsHelpNoBuff =
-		new S_SystemMessage("-warp 1-7, -karma, -bug, -drop, -help");
+		new S_SystemMessage("-warp 1-10, -karma, -bug, -drop, -help");
 	private static final S_SystemMessage NoBuff =
 		new S_SystemMessage("The -buff command is disabled.");
 	private static final S_SystemMessage BuffLevel =
@@ -90,7 +90,7 @@ public class PCommands {
 	private static final S_SystemMessage WarpLimit =
 		new S_SystemMessage("-warp 1-7 only.");
 	private static final S_SystemMessage WarpHelp =
-		new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern");
+		new S_SystemMessage("-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern, 8-Gludio, 9-Silveria, 10-Behimous");
 	private static final S_SystemMessage BugHelp =
 		new S_SystemMessage("-bug bugReport");
 	private static final S_SystemMessage BugThanks =
@@ -251,7 +251,7 @@ public class PCommands {
 			
 		try {
 			int i = Integer.parseInt(cmd2.substring(5));
-			if (i >= 1 && i <= 7 ) {
+			if (i >= 1 && i <= 10 ) {
 				Thread.sleep(3000);
 				switch (i) {
 					case 1: // Pandora
@@ -274,6 +274,15 @@ public class PCommands {
 						break;
 					case 7: // Silent Cave
 						L1Teleport.teleport(player, 32857, 32898, (short) 304, 5, true);
+						break;
+					case 8: // Gludio
+						L1Teleport.teleport(player, 32608, 32734, (short) 4, 5, true);
+						break;
+					case 9: // Silveria
+						L1Teleport.teleport(player, 32841, 32856, (short) 1000, 5, true);
+						break;
+					case 10: // Behimous
+						L1Teleport.teleport(player, 32779, 32887, (short) 1001, 5, true);
 				}
 			} else {
 				player.sendPackets(WarpLimit);
