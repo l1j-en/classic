@@ -112,8 +112,11 @@
 		<!-- Other -->
 		<Room Name="Hell" LocX="32701" LocY="32777" MapId="666"/>
 		<Room Name="GMRoom" LocX="32737" LocY="32796" MapId="99"/>
+
+		<!-- Thebes -->
+		<Room Name="Thebes" LocX="32633" LocY="32877" MapId="780"/>
+		<Room Name="Thebes Temple" LocX="32742" LocY="32803" MapId="781"/>
 		
-<!--
 		<Room Name="SC" LocX="32738" LocY="32800" MapId="304"/>
 		<Room Name="Great Cavern Resistance Area" LocX="32549" LocY="32801" MapId="400"/>
 		<Room Name="Diad Fortress" LocX="32723" LocY="32851" MapId="320"/>
@@ -146,7 +149,7 @@
 		<Room Name="Great Cavern Resistance Area" LocX="32572" LocY="32663" MapId="400"/>
 		<Room Name="Sanctuary of Evil" LocX="32929" LocY="32995" MapId="410"/>
 		<Room Name="Elemental Grave" LocX="32922" LocY="32812" MapId="430"/>
-	<Room Name="Pirate Island" LocX="32422" LocY="33074" MapId="440"/>
+		<Room Name="Pirate Island" LocX="32422" LocY="33074" MapId="440"/>
 		<Room Name="Front Gate of Lastavard" LocX="32658" LocY="32853" MapId="450"/>
 		<Room Name="1F Meeting Area" LocX="32726" LocY="32847" MapId="451"/>
 		<Room Name="1F Shock Squad Training Area" LocX="32726" LocY="32824" MapId="452"/>
@@ -172,6 +175,5 @@
 		<Room Name="Temple of Shadow 1F" LocX="32657" LocY="32896" MapId="522"/>
 		<Room Name="Temple of Shadow 2F" LocX="32700" LocY="32896" MapId="523"/>
 		<Room Name="Temple of Shadow 3F" LocX="32691" LocY="32894" MapId="524"/>
--->
 	</RoomList>
 </GMCommands>
