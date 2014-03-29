@@ -1233,9 +1233,8 @@ public class L1SkillUse {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 				break;
 			case BLOODLUST:
-				pc.sendPackets(new S_SkillBrave(pc.getId(), 1, buffIconDuration));
-				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
-				// pc.setBraveSpeed(i);
+				pc.sendPackets(new S_SkillBrave(pc.getId(), 6, buffIconDuration));
+				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
 				break;
 			case SLOW: case MASS_SLOW: case ENTANGLE:
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 2, buffIconDuration));
@@ -2934,6 +2933,11 @@ public class L1SkillUse {
 						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 					} else if (_skillId == BLOODLUST) {
 						L1PcInstance pc = (L1PcInstance) cha;
+						// Remove Forbidden Fruit (STATUS_RIBRAVE) first
+						pc.sendPackets(new S_SkillBrave(pc.getId(), 4, 0));
+						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
+						pc.removeSkillEffect(STATUS_RIBRAVE);
+						
 						pc.setBraveSpeed(6);
 						pc.sendPackets(new S_SkillBrave(pc.getId(), 6,
 									buffIconDuration));

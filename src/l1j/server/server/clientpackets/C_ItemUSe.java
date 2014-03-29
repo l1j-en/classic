@@ -2763,9 +2763,20 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
 		} else if (item_id == ForbiddenFruit) {
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 0, time));
-			pc.sendPackets(new S_SkillSound(pc.getId(), 7110));
-			pc.broadcastPacket(new S_SkillSound(pc.getId(), 7110));
+			// Remove bloodlust first
+			pc.removeSkillEffect(BLOODLUST);
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
+			
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 4, time));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
+			pc.setBraveSpeed(4);
+			
+			// This S_SkillSound packet actually sends ForbiddenFruit buff to client
+			// not known how to update buff duration / remove buff so moving acceleration
+			// buff is used instead above
+//			pc.sendPackets(new S_SkillSound(pc.getId(), 7110));
+//			pc.broadcastPacket(new S_SkillSound(pc.getId(), 7110));
 			pc.setSkillEffect(STATUS_RIBRAVE, time * 1000);
 		} else {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 1, time));

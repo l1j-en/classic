@@ -35,6 +35,7 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_DollPack;
+import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillIconWindShackle;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
@@ -167,6 +168,10 @@ public class Teleportation {
 		if (pc.hasSkillEffect(WIND_SHACKLE)) {
 			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(),
 					pc.getSkillEffectTimeSec(WIND_SHACKLE)));
+		}
+		if (pc.hasSkillEffect(BLOODLUST)) {
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, pc.getSkillEffectTimeSec(BLOODLUST)));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
 		}
 	}
 
