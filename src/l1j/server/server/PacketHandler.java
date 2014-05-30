@@ -38,9 +38,12 @@ public class PacketHandler {
 
 	public void handlePacket(byte abyte0[], L1PcInstance object) throws Exception {
 		int i = abyte0[0] & 0xff;
-		if(_client.getActiveChar() != null) {
-			if(Config.LOGGING_INCOMING_PACKETS && (_client.getActiveChar().isGm() || _client.getActiveChar().isMonitor())){
-				_client.getActiveChar().sendPackets(new S_SystemMessage("Sent from client: "+i));
+		if(Config.LOGGING_INCOMING_PACKETS) {
+			_log.info("Packet sent from client: " + i);
+			if(_client.getActiveChar() != null) {
+				if(_client.getActiveChar().isGm() || _client.getActiveChar().isMonitor()){
+					_client.getActiveChar().sendPackets(new S_SystemMessage("Sent from client: "+i));
+				}
 			}
 		}
 		switch (i) {
@@ -173,6 +176,7 @@ public class PacketHandler {
 			new C_Attack(abyte0, _client);
 			break;
 		case C_OPCODE_QUITGAME:
+			new C_Disconnect(abyte0, _client);
 			break;
 		case C_OPCODE_BANCLAN:
 			new C_BanClan(abyte0, _client);
