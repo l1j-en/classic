@@ -2139,8 +2139,7 @@ public class L1PcInstance extends L1Character {
 			if (getHighLevel() - getLevel() >= Config.LEVEL_DOWN_RANGE) {
 				sendPackets(new S_ServerMessage(64));
 				sendPackets(new S_Disconnect());
-				//				_log.info(String.format("x_Ee%sfB", 
-				//									getName()));
+				_log.info("levelDown error:" + String.format("x_Ee%sfB", getName()));
 			}
 		}
 

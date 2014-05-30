@@ -34,7 +34,7 @@ public class C_Disconnect extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		
 		if (pc != null) {
-			_log.fine("Disconnect From: " + pc.getName());
+			_log.info("Disconnect From: " + pc.getName());
 			
 			if (Config.DELAY_DISCONNECT > 0) {
 				try {
@@ -48,7 +48,7 @@ public class C_Disconnect extends ClientBasePacket {
 				client.setActiveChar(null);
 			}
 		} else {
-			_log.fine("Disconnect Request From Account : " + client.getAccountName());
+			_log.info("Disconnect Request From Account : " + client.getAccountName());
 		}
 	}
 

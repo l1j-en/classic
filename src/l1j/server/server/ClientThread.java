@@ -268,14 +268,15 @@ public class ClientThread implements Runnable, PacketOutput {
 		_csocket = null;
 		_log.fine("Server thread[C] stopped");
 		if (_kick < 1) {
-			_log.info(getAccountName() + ":" + _hostname);
+			_log.info("Client thread ended: " + getAccountName() + ":" + _hostname);
 			System.out.println(": " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			System.out.println("Waiting for connections...");
+			//System.out.println("Waiting for connections...");
 		}
 		return;
 	}
 
 	public void kick() {
+		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
 		sendPacket(new S_Disconnect());
 		_kick = 1;
 		StreamUtil.close(_out, _in);
