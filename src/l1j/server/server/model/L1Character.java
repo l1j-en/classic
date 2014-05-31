@@ -242,77 +242,88 @@ public class L1Character extends L1Object {
 	}
 
 	public boolean glanceCheck(int tx, int ty) {
-		L1Map map = getMap();
-		int chx = getX();
-		int chy = getY();
-		int arw = 0;
-		for (int i = 0; i < 15; i++) {
-			if ((chx == tx && chy == ty) || (chx + 1 == tx && chy - 1 == ty)
-					|| (chx + 1 == tx && chy == ty)
-					|| (chx + 1 == tx && chy + 1 == ty)
-					|| (chx == tx && chy + 1 == ty)
-					|| (chx - 1 == tx && chy + 1 == ty)
-					|| (chx - 1 == tx && chy == ty)
-					|| (chx - 1 == tx && chy - 1 == ty)
-					|| (chx == tx && chy - 1 == ty)) {
-				break;
+        // A Java implementation of Bresenham's line algorithm (with modifications).
+        int chx = getX();
+        int chy = getY();
+        
+        int dx = Math.abs(chx - tx);
+        int dy = Math.abs(chy - ty);
+        
+        // If standing on top of target, always return true.
+        if (dx == 0 && dy == 0) {
+                return true;
+        }
 
-			} else if (chx < tx && chy == ty) {
-				// if (!map.isArrowPassable(chx, chy, 2)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx++;
-			} else if (chx == tx && chy < ty) {
-				// if (!map.isArrowPassable(chx, chy, 4)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chy++;
-			} else if (chx > tx && chy == ty) {
-				// if (!map.isArrowPassable(chx, chy, 6)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx--;
-			} else if (chx == tx && chy > ty) {
-				// if (!map.isArrowPassable(chx, chy, 0)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chy--;
-			} else if (chx < tx && chy > ty) {
-				// if (!map.isArrowPassable(chx, chy, 1)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx++;
-				chy--;
-			} else if (chx < tx && chy < ty) {
-				// if (!map.isArrowPassable(chx, chy, 3)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx++;
-				chy++;
-			} else if (chx > tx && chy < ty) {
-				// if (!map.isArrowPassable(chx, chy, 5)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx--;
-				chy++;
-			} else if (chx > tx && chy > ty) {
-				// if (!map.isArrowPassable(chx, chy, 7)) {
-				if (!map.isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-					return false;
-				}
-				chx--;
-				chy--;
-				}
-		}
-		
-		return arw == 0;
+        // If standing right next to target, return true, but only if the 
+        // direction test is passed.  Otherwise, do the normal check.  Needed 
+        // for doorways.
+        if (dx <= 1 && dy <= 1) {
+                if (getMap().isArrowPassable(chx, chy, targetDirection(tx, ty))) {
+                        return true;
+                }
+        }
+        
+        
+        int sx = chx < tx ? 1 : -1;
+        int sy = chy < ty ? 1 : -1;
+
+        int err = dx - dy;
+        int e2;
+        int currentX = chx;
+        int currentY = chy;
+
+        while (true) {
+                if (!getMap().isArrowPassable(currentX, currentY)) {
+                        return false;
+                }
+
+                if (currentX == tx && currentY == ty) {
+                        break;
+                }
+
+                e2 = 2 * err;
+                if (e2 > -1 * dy) {
+                        err = err - dy;
+                        currentX = currentX + sx;
+                }
+
+                if (e2 < dx) {
+                        err = err + dx;
+                        currentY = currentY + sy;
+                }
+        }
+        
+        // Check the reverse, ensuring both objects have visibility.  
+        // Without this, we get an off-by one at certain angles.
+        dx = Math.abs(tx - chx);
+        dy = Math.abs(ty - chy);
+        sx = tx < chx ? 1 : -1;
+        sy = ty < chy ? 1 : -1;
+        err = dx - dy;
+        currentX = tx;
+        currentY = ty;
+
+        while (true) {
+                if (!getMap().isArrowPassable(currentX, currentY)) {
+                        return false;
+                }
+
+                if (currentX == chx && currentY == chy) {
+                        break;
+                }
+                e2 = 2 * err;
+                if (e2 > -1 * dy) {
+                        err = err - dy;
+                        currentX = currentX + sx;
+                }
+                if (e2 < dx) {
+                        err = err + dx;
+                        currentY = currentY + sy;
+                }
+        }
+        
+        return true;
+
 	}
 
 	public boolean isAttackPosition(int x, int y, int range) {
