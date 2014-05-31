@@ -62,6 +62,7 @@ public class C_Restart extends ClientBasePacket {
 		pc.setCurrentHp(pc.getLevel());
 		pc.set_food(40);
 		pc.setDead(false);
+		pc.stopPcDeleteTimer();
 		pc.setStatus(0);
 		L1World.getInstance().moveVisibleObject(pc, loc[2]);
 		pc.setX(loc[0]);
