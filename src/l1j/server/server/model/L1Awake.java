@@ -31,7 +31,6 @@ import l1j.server.server.serverpackets.S_SPMR;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
-// L1Cooking
 
 public class L1Awake {
 	private static final Logger _log = Logger.getLogger(L1Awake.class
@@ -41,20 +40,20 @@ public class L1Awake {
 	}
 
 	public static void start(L1PcInstance pc, int skillId) {
-		if (skillId == pc.getAwakeSkillId()) { // r
+		if (skillId == pc.getAwakeSkillId()) {
 			stop(pc);
-		} else if (pc.getAwakeSkillId() != 0) { // oXL^[
+		} else if (pc.getAwakeSkillId() != 0) {
 			return;
 		} else {
-			if (skillId == AWAKEN_ANTHARAS) { // oFA^X
+			if (skillId == AWAKEN_ANTHARAS) {
 				pc.addMaxHp(127);
 				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(),
 						pc.getMaxHp()));
-				if (pc.isInParty()) { // p[eB[
+				if (pc.isInParty()) {
 					pc.getParty().updateMiniHP(pc);
 				}
 				pc.addAc(-12);
-			} else if (skillId == AWAKEN_FAFURION) { // oFpvI
+			} else if (skillId == AWAKEN_FAFURION) {
 				pc.addMr(30);
 				pc.sendPackets(new S_SPMR(pc));
 				pc.addWind(30);
@@ -62,7 +61,7 @@ public class L1Awake {
 				pc.addFire(30);
 				pc.addEarth(30);
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
-			} else if (skillId == AWAKEN_VALAKAS) { // oF@JX
+			} else if (skillId == AWAKEN_VALAKAS) {
 				pc.addStr(5);
 				pc.addCon(5);
 				pc.addDex(5);
@@ -79,15 +78,15 @@ public class L1Awake {
 
 	public static void stop(L1PcInstance pc) {
 		int skillId = pc.getAwakeSkillId();
-		if (skillId == AWAKEN_ANTHARAS) { // oFA^X
+		if (skillId == AWAKEN_ANTHARAS) {
 			pc.addMaxHp(-127);
 			pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(),
 					pc.getMaxHp()));
-			if (pc.isInParty()) { // p[eB[
+			if (pc.isInParty()) {
 				pc.getParty().updateMiniHP(pc);
 			}
 			pc.addAc(12);
-		} else if (skillId == AWAKEN_FAFURION) { // oFpvI
+		} else if (skillId == AWAKEN_FAFURION) {
 			pc.addMr(-30);
 			pc.sendPackets(new S_SPMR(pc));
 			pc.addWind(-30);
@@ -95,7 +94,7 @@ public class L1Awake {
 			pc.addFire(-30);
 			pc.addEarth(-30);
 			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else if (skillId == AWAKEN_VALAKAS) { // oF@JX
+		} else if (skillId == AWAKEN_VALAKAS) {
 			pc.addStr(-5);
 			pc.addCon(-5);
 			pc.addDex(-5);

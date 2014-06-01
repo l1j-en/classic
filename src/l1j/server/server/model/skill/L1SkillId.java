@@ -414,7 +414,7 @@ public class L1SkillId {
 
 	public static final int SKILLS_END = 220;
 
-	public static final int MASS_SHOCK_STUN = 500; // 範囲スタン
+	public static final int MASS_SHOCK_STUN = 500;
 	/*
 	 * Status
 	 */
@@ -604,5 +604,5 @@ public class L1SkillId {
 
 	public static final int STATUS_DESTRUCTION_NOSTRUM = 1029;
 
-	public static final int STATUS_BRAVE2 = 20001; //TODO ペットレース用ステータス
+	public static final int STATUS_BRAVE2 = 20001;
 }

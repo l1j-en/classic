@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
- package l1j.server.server.model.skill;
+package l1j.server.server.model.skill;
 
 import l1j.server.Config;
 import l1j.server.server.model.L1Character;
@@ -30,7 +30,7 @@ public class L1SkillTimerCreator {
 			return new L1SkillTimerThreadImpl(cha, skillId, timeMillis);
 		}
 
-		// 不正な値の場合は、とりあえずTimer
+		//
 		return new L1SkillTimerTimerImpl(cha, skillId, timeMillis);
 	}
 }
