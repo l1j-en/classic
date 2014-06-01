@@ -1821,14 +1821,6 @@ UPDATE npc SET atk_magic_speed = 1720 WHERE npcid = 45315;
 
 
 
---
-
--- Giran Ancient Giant 45316
-
--- hpr changed from 1200
-UPDATE npc SET hpr = 1500 WHERE npcid = 45316;
-
-
 
 --
 
@@ -2640,10 +2632,6 @@ UPDATE npc SET sub_magic_speed = 1360 WHERE npcid = 45414;
 --
 
 -- Fang of Earth 45416
-
--- family changed from spiritearth
-UPDATE npc SET family = 'spirit' WHERE npcid = 45416;
-
 -- Skill:Stalac TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45416 and actNo = 2;
 
@@ -2653,9 +2641,6 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45416 and actNo = 2;
 
 -- Fang of Wind 45418
 
--- family changed from spiritwind
-UPDATE npc SET family = 'spirit' WHERE npcid = 45418;
-
 -- Skill:Wind Shuriken TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45418 and actNo = 2;
 
@@ -2664,9 +2649,6 @@ UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45418 and actNo = 2;
 --
 
 -- Fang of Glacier 45419
-
--- family changed from spiritwater
-UPDATE npc SET family = 'spirit' WHERE npcid = 45419;
 
 -- Skill:Cone of Cold TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45419 and actNo = 1;
@@ -2712,9 +2694,6 @@ UPDATE npc SET ranged = 2 WHERE npcid = 45423;
 --
 
 -- Fang of Flame 45424
-
--- family changed from spiritfire
-UPDATE npc SET family = 'spirit' WHERE npcid = 45424;
 
 -- Skill:Fire Arrow TriRnd changed from 45 
 UPDATE mobskill SET TriRnd = 100 WHERE mobid = 45424 and actNo = 1;
@@ -2854,9 +2833,6 @@ UPDATE npc SET atk_magic_speed = 600 WHERE npcid = 45456;
 -- atkspeed changed from 1480
 UPDATE npc SET atkspeed = 880 WHERE npcid = 45456;
 
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45456;
-
 -- sub_magic_speed changed from 1480
 UPDATE npc SET sub_magic_speed = 800 WHERE npcid = 45456;
 
@@ -2901,12 +2877,6 @@ UPDATE npc SET atk_magic_speed = 600 WHERE npcid = 45464;
 
 -- atkspeed changed from 900
 UPDATE npc SET atkspeed = 880 WHERE npcid = 45464;
-
--- hpr changed from 125
-UPDATE npc SET hpr = 165 WHERE npcid = 45464;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45464;
 
 -- Skill:Lightning Leverage changed from 35 
 UPDATE mobskill SET Leverage = 40 WHERE mobid = 45464 and actNo = 0;
@@ -2976,12 +2946,6 @@ UPDATE mobskill SET TriRange = -2 WHERE mobid = 45471 and actNo = 0;
 --
 
 -- Baltuzar 45473
-
--- hpr changed from 155
-UPDATE npc SET hpr = 180 WHERE npcid = 45473;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45473;
 
 -- sub_magic_speed changed from 800
 UPDATE npc SET sub_magic_speed = 1000 WHERE npcid = 45473;
@@ -3058,9 +3022,6 @@ UPDATE npc SET atk_magic_speed = 600 WHERE npcid = 45478;
 -- atkspeed changed from 900
 UPDATE npc SET atkspeed = 880 WHERE npcid = 45478;
 
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45478;
-
 
 
 --
@@ -3069,9 +3030,6 @@ UPDATE npc SET hard = 1 WHERE npcid = 45478;
 
 -- atk_magic_speed changed from 1480
 UPDATE npc SET atk_magic_speed = 800 WHERE npcid = 45480;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45480;
 
 -- sub_magic_speed changed from 1480
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 45480;
@@ -3099,9 +3057,6 @@ UPDATE npc SET sub_magic_speed = 1200 WHERE npcid = 45481;
 
 -- atk_magic_speed changed from 720
 UPDATE npc SET atk_magic_speed = 1040 WHERE npcid = 45482;
-
--- hpr changed from 8
-UPDATE npc SET hpr = 40 WHERE npcid = 45482;
 
 -- mpr changed from 40
 UPDATE npc SET mpr = 8 WHERE npcid = 45482;
@@ -3162,12 +3117,6 @@ UPDATE mobskill SET TriRange = -6 WHERE mobid = 45487 and actNo = 0;
 --
 
 -- Caspa 45488
-
--- hpr changed from 160
-UPDATE npc SET hpr = 200 WHERE npcid = 45488;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45488;
 
 -- sub_magic_speed changed from 800
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 45488;
@@ -3253,12 +3202,6 @@ UPDATE npc SET atk_magic_speed = 1800 WHERE npcid = 45496;
 
 -- Merkyor 45497
 
--- hpr changed from 180
-UPDATE npc SET hpr = 250 WHERE npcid = 45497;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45497;
-
 -- sub_magic_speed changed from 800
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 45497;
 
@@ -3279,9 +3222,6 @@ UPDATE npc SET sub_magic_speed = 2240 WHERE npcid = 45499;
 
 -- atk_magic_speed changed from 1600
 UPDATE npc SET atk_magic_speed = 1440 WHERE npcid = 45500;
-
--- family changed from spiritwater
-UPDATE npc SET family = 'spirit' WHERE npcid = 45500;
 
 -- sub_magic_speed changed from 1600
 UPDATE npc SET sub_magic_speed = 1440 WHERE npcid = 45500;
@@ -3354,14 +3294,6 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 45507;
 
 
 
---
-
--- Earth Spirit Master 45508
-
--- family changed from spiritearth
-UPDATE npc SET family = 'spirit' WHERE npcid = 45508;
-
-
 
 --
 
@@ -3388,9 +3320,6 @@ UPDATE npc SET sub_magic_speed = 853 WHERE npcid = 45509;
 
 -- Wind Spirit Master 45510
 
--- family changed from spiritwind
-UPDATE npc SET family = 'spirit' WHERE npcid = 45510;
-
 -- sub_magic_speed changed from 1440
 UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 45510;
 
@@ -3402,9 +3331,6 @@ UPDATE npc SET sub_magic_speed = 1280 WHERE npcid = 45510;
 
 -- atk_magic_speed changed from 1600
 UPDATE npc SET atk_magic_speed = 1440 WHERE npcid = 45511;
-
--- family changed from spiritfire
-UPDATE npc SET family = 'spirit' WHERE npcid = 45511;
 
 -- sub_magic_speed changed from 1240
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 45511;
@@ -3438,9 +3364,6 @@ UPDATE npc SET atk_magic_speed = 1200 WHERE npcid = 45515;
 
 -- atk_magic_speed changed from 1640
 UPDATE npc SET atk_magic_speed = 1200 WHERE npcid = 45516;
-
--- hpr changed from 80
-UPDATE npc SET hpr = 100 WHERE npcid = 45516;
 
 
 
@@ -3652,12 +3575,6 @@ UPDATE npc SET atk_magic_speed = 600 WHERE npcid = 45545;
 -- atkspeed changed from 900
 UPDATE npc SET atkspeed = 880 WHERE npcid = 45545;
 
--- hpr changed from 180
-UPDATE npc SET hpr = 200 WHERE npcid = 45545;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45545;
-
 
 
 --
@@ -3726,9 +3643,6 @@ UPDATE npc SET atk_magic_speed = 600 WHERE npcid = 45550;
 
 -- atkspeed changed from 900
 UPDATE npc SET atkspeed = 880 WHERE npcid = 45550;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 45550;
 
 
 
@@ -3904,9 +3818,6 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 45583;
 -- atk_magic_speed changed from 1520
 UPDATE npc SET atk_magic_speed = 1360 WHERE npcid = 45584;
 
--- hpr changed from 100
-UPDATE npc SET hpr = 200 WHERE npcid = 45584;
-
 
 
 --
@@ -4060,9 +3971,6 @@ UPDATE npc SET sub_magic_speed = 1040 WHERE npcid = 45600;
 -- atk_magic_speed changed from 900
 UPDATE npc SET atk_magic_speed = 880 WHERE npcid = 45601;
 
--- hpr changed from 310
-UPDATE npc SET hpr = 416 WHERE npcid = 45601;
-
 -- Skill:Vampiric Touch Leverage changed from 35 
 UPDATE mobskill SET Leverage = 50 WHERE mobid = 45601 and actNo = 0;
 
@@ -4140,9 +4048,6 @@ UPDATE npc SET atk_magic_speed = 2080 WHERE npcid = 45609;
 --
 
 -- Ancient Giant 45610
-
--- hpr changed from 200
-UPDATE npc SET hpr = 225 WHERE npcid = 45610;
 
 -- Skill:None TriRnd changed from 20 
 UPDATE mobskill SET TriRnd = 30 WHERE mobid = 45610 and actNo = 0;
@@ -4441,8 +4346,6 @@ UPDATE npc SET mpr = 40 WHERE npcid = 45647;
 -- atk_magic_speed changed from 900
 UPDATE npc SET atk_magic_speed = 880 WHERE npcid = 45649;
 
--- hpr changed from 285
-UPDATE npc SET hpr = 350 WHERE npcid = 45649;
 
 
 
@@ -4937,12 +4840,6 @@ UPDATE npc SET passispeed = 560 WHERE npcid = 45710;
 
 -- atkspeed changed from 880
 UPDATE npc SET atkspeed = 960 WHERE npcid = 45710;
-
--- mprinterval changed from 2500
-UPDATE npc SET mprinterval = 5000 WHERE npcid = 45710;
-
--- hprinterval changed from 2500
-UPDATE npc SET hprinterval = 5000 WHERE npcid = 45710;
 
 
 
@@ -5761,7 +5658,7 @@ UPDATE npc SET ranged = 2 WHERE npcid = 45827;
 UPDATE npc SET mprinterval = 5000 WHERE npcid = 45828;
 
 -- hpr changed from 0
-UPDATE npc SET hpr = 250 WHERE npcid = 45828;
+UPDATE npc SET hpr = 50 WHERE npcid = 45828;
 
 -- hprinterval changed from 0
 UPDATE npc SET hprinterval = 5000 WHERE npcid = 45828;
@@ -5789,13 +5686,6 @@ UPDATE npc SET sub_magic_speed = 1320 WHERE npcid = 45829;
 
 
 
---
-
--- Cursed Dark Elf Warrior 45835
-
--- hpr changed from 10
-UPDATE npc SET hpr = 20 WHERE npcid = 45835;
-
 
 
 --
@@ -5804,25 +5694,6 @@ UPDATE npc SET hpr = 20 WHERE npcid = 45835;
 
 -- transform_id changed from 45843
 UPDATE npc SET transform_id = 45840 WHERE npcid = 45837;
-
-
-
---
-
--- Cursed Dark Elf Warrior 45840
-
--- hpr changed from 10
-UPDATE npc SET hpr = 20 WHERE npcid = 45840;
-
-
-
---
-
--- Cursed Dark Elf Warrior 45843
-
--- hpr changed from 10
-UPDATE npc SET hpr = 20 WHERE npcid = 45843;
-
 
 
 --
@@ -24788,9 +24659,6 @@ UPDATE npc SET atk_magic_speed = 800 WHERE npcid = 81081;
 
 -- cant_resurrect changed from 0
 UPDATE npc SET cant_resurrect = 1 WHERE npcid = 81081;
-
--- hard changed from 0
-UPDATE npc SET hard = 1 WHERE npcid = 81081;
 
 -- sub_magic_speed changed from 1480
 UPDATE npc SET sub_magic_speed = 1120 WHERE npcid = 81081;

@@ -15,6 +15,7 @@ INSERT INTO `commands` VALUES ('siege', '200', 'L1WarStart');
 
 -- ----------------------------
 
+DROP TABLE IF EXISTS `checkwartime`;
 CREATE TABLE `checkwartime` (
 
   `castle_id` int(12) NOT NULL auto_increment,

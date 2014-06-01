@@ -63,7 +63,7 @@ public class S_Mail extends ServerBasePacket {
 		}
 	}
 
-	public S_Mail(int type) { // M[m
+	public S_Mail(int type) {
 		writeC(Opcodes.S_OPCODE_MAIL);
 		writeC(type);
 	}

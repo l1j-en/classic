@@ -125,7 +125,6 @@ public class L1Shop {
 			return false;
 		}
 		if (!pc.getInventory().checkItem(L1ItemId.ADENA, price)) {
-			System.out.println("Copy this to tricid: " + price);
 			pc.sendPackets(new S_ServerMessage(189));
 			return false;
 		}

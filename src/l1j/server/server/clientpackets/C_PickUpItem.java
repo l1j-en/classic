@@ -119,37 +119,46 @@ public class C_PickUpItem extends ClientBasePacket {
 					return;
 				}
 			}
-			if (pc.getInventory().checkAddItem( // å®¹é‡�é‡�é‡�ç¢ºèª�å�Šã�³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€�ä¿¡
-					item, pickupCount) == L1Inventory.OK) {
-				if (item.getX() != 0 && item.getY() != 0) { // ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒžãƒƒãƒ—ä¸Šã�®ã‚¢ã‚¤ãƒ†ãƒ 
+			if (pc.getInventory().checkAddItem(item, pickupCount) == L1Inventory.OK) {
+				if (item.getX() != 0 && item.getY() != 0) {
 					L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
-			int before_inven = 0;
+					int before_inven = 0;
 					if (item.isStackable()) {
-						before_inven = pc.getInventory().countItems(item.getItem().getItemId());
+						before_inven = pc.getInventory().countItems(
+								item.getItem().getItemId());
 					} else {
 						if (pcitem != null) {
 							before_inven = pcitem.getCount();
 						}
 					}
-			int brfore_ground = groundInventory.getItem(objectId).getCount();
-					groundInventory.tradeItem(item, pickupCount, pc.getInventory());
+					int brfore_ground = groundInventory.getItem(objectId)
+							.getCount();
+					groundInventory.tradeItem(item, pickupCount,
+							pc.getInventory());
 					pc.turnOnOffLight();
 					int after_inven = 0;
 					if (item.isStackable()) {
-						after_inven = pc.getInventory().countItems(item.getItem().getItemId());
+						after_inven = pc.getInventory().countItems(
+								item.getItem().getItemId());
 					} else {
-						after_inven = pc.getInventory().getItem(objectId).getCount();
+						after_inven = pc.getInventory().getItem(objectId)
+								.getCount();
 					}
 					L1ItemInstance gditem = groundInventory.getItem(objectId);
 					int after_ground = 0;
 					if (gditem != null) {
-						after_ground = groundInventory.getItem(objectId).getCount();
+						after_ground = groundInventory.getItem(objectId)
+								.getCount();
 					}
 					LogPickUpItem lpui = new LogPickUpItem();
-					lpui.storeLogPickUpItem(pc, item, before_inven, after_inven, brfore_ground, after_ground, pickupCount);
-					pc.sendPackets(new S_AttackPacket(pc, objectId, ActionCodes.ACTION_Pickup));
+					lpui.storeLogPickUpItem(pc, item, before_inven,
+							after_inven, brfore_ground, after_ground,
+							pickupCount);
+					pc.sendPackets(new S_AttackPacket(pc, objectId,
+							ActionCodes.ACTION_Pickup));
 					if (!pc.isGmInvis()) {
-						pc.broadcastPacket(new S_AttackPacket(pc, objectId, ActionCodes.ACTION_Pickup));
+						pc.broadcastPacket(new S_AttackPacket(pc, objectId,
+								ActionCodes.ACTION_Pickup));
 					}
 				}
 			}

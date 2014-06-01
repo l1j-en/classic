@@ -162,8 +162,8 @@ public class C_Result extends ClientBasePacket {
 					if (pcitem != null) { 
 						item_count_after = pcitem.getCount(); 
 					} 
-					LogDwarfIn ldi = new LogDwarfIn(); 
-					ldi.storeLogDwarfIn(pc, item, item_count_before, item_count_after, count); 
+					//LogDwarfIn ldi = new LogDwarfIn(); 
+					//ldi.storeLogDwarfIn(pc, item, item_count_before, item_count_after, count); 
 				} 
 		    }
 			pc.saveInventory();
@@ -264,8 +264,8 @@ public class C_Result extends ClientBasePacket {
 							 if (pcitem != null) {
 								 item_count_after = pcitem.getCount();
 							}
-							 LogClanDwarfIn lcdi = new LogClanDwarfIn();
-							 lcdi.storeLogClanDwarfIn(pc, item, item_count_before, item_count_after, count);
+							// LogClanDwarfIn lcdi = new LogClanDwarfIn();
+							// lcdi.storeLogClanDwarfIn(pc, item, item_count_before, item_count_after, count);
 						}
 					}
 				}
@@ -299,8 +299,8 @@ public class C_Result extends ClientBasePacket {
 							 if (dwitem != null) { 
 								 item_count_after = dwitem.getCount(); 
 							} 
-							 LogClanDwarfOut lcdo = new LogClanDwarfOut();
-							 lcdo.storeLogClanDwarfOut(pc, item, item_count_before, item_count_after, count);
+							// LogClanDwarfOut lcdo = new LogClanDwarfOut();
+							// lcdo.storeLogClanDwarfOut(pc, item, item_count_before, item_count_after, count);
 						} else {
 							pc.sendPackets(new S_ServerMessage(189)); 
 							break;

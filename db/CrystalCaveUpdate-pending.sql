@@ -86,6 +86,8 @@ INSERT INTO droplist VALUES ('46139', 'Ice Queen Royal Guard', '40068', 'Elven W
 INSERT INTO droplist VALUES ('46139', 'Ice Queen Royal Guard', '40074', 'Scroll of Enchant Armor',  '1', '1', '5000');
 INSERT INTO droplist VALUES ('46139', 'Ice Queen Royal Guard', '40308', 'Adena',  '80', '150', '1000000');
 INSERT INTO droplist VALUES ('46139', 'Ice Queen Royal Guard', '140100', 'Lesser Healing Potion',  '1', '1', '50000');
+
+delete from droplist where mobid = 46140;
 INSERT INTO droplist VALUES ('46140', 'Maid of the Ice Queen', '40015', 'Potion of Mana',  '1', '1', '100000');
 INSERT INTO droplist VALUES ('46140', 'Maid of the Ice Queen', '40016', 'Potion of Wisdom',  '1', '1', '300000');
 INSERT INTO droplist VALUES ('46140', 'Maid of the Ice Queen', '40021', 'Condensed Greater Healing Potion',  '1', '3', '100000');
