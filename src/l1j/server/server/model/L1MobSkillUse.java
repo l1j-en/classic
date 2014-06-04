@@ -55,6 +55,9 @@ public class L1MobSkillUse {
 
 	private L1MobSkill _mobSkillTemplate = null;
 	private L1NpcInstance _attacker = null;
+
+	private L1Character _target = null;
+
 	private Random _rnd = new Random();
 	private int _sleepTime = 0;
 	private int _skillUseCount[];
@@ -66,7 +69,7 @@ public class L1MobSkillUse {
 			return;
 		}
 		_attacker = npc;
-		_skillUseCount = new int[_mobSkillTemplate.getSkillSize()];
+		_skillUseCount = new int[getMobSkillTemplate().getSkillSize()];
 	}
 
 	private int getSkillUseCount(int idx) {
@@ -78,11 +81,11 @@ public class L1MobSkillUse {
 	}
 
 	public void resetAllSkillUseCount() {
-		if (_mobSkillTemplate == null) {
+		if (getMobSkillTemplate() == null) {
 			return;
 		}
 
-		for (int i = 0; i < _mobSkillTemplate.getSkillSize(); i++) {
+		for (int i = 0; i < getMobSkillTemplate().getSkillSize(); i++) {
 			_skillUseCount[i] = 0;
 		}
 	}
@@ -91,40 +94,49 @@ public class L1MobSkillUse {
 		return _sleepTime;
 	}
 
-	public boolean skillUse(L1Character firstTarget) {
+	public void setSleepTime(int i) {
+		_sleepTime = i;
+	}
+
+	public L1MobSkill getMobSkillTemplate() {
+		return _mobSkillTemplate;
+	}
+
+	public boolean skillUse(L1Character tg) {
 		if (_mobSkillTemplate == null) {
 			return false;
 		}
+		_target = tg;
 
-		int type = _mobSkillTemplate.getType(0);
+		int type;
+		type = getMobSkillTemplate().getType(0);
+
 		if (type == L1MobSkill.TYPE_NONE) {
 			return false;
 		}
 
-		L1Character target = firstTarget;
-		for (int i = 0; i < _mobSkillTemplate.getSkillSize()
-				&& _mobSkillTemplate.getType(i) != L1MobSkill.TYPE_NONE; i++) {
+		for (int i = 0; i < getMobSkillTemplate().getSkillSize()
+				&& getMobSkillTemplate().getType(i) != L1MobSkill.TYPE_NONE; i++) {
 
-			int changeType = _mobSkillTemplate.getChangeTarget(i);
+			int changeType = getMobSkillTemplate().getChangeTarget(i);
 			if (changeType > 0) {
-				target = changeTarget(changeType, i, target);
+				_target = changeTarget(changeType, i);
+			} else {
+				_target = tg;
 			}
 
-			// TODO: See comment on isSkillUsable().
-			L1Character newTarget = isSkillUsable(i, target);
-			if (newTarget == null)
+			if (isSkillUsable(i) == false) {
 				continue;
-			else
-				target = newTarget;
-		
-			type = _mobSkillTemplate.getType(i);
+			}
+
+			type = getMobSkillTemplate().getType(i);
 			if (type == L1MobSkill.TYPE_PHYSICAL_ATTACK) {
-				if (physicalAttack(i, target)) {
+				if (physicalAttack(i) == true) {
 					skillUseCountUp(i);
 					return true;
 				}
 			} else if (type == L1MobSkill.TYPE_MAGIC_ATTACK) {
-				if (magicAttack(i, target)) {
+				if (magicAttack(i) == true) {
 					skillUseCountUp(i);
 					return true;
 				}
@@ -145,9 +157,9 @@ public class L1MobSkillUse {
 	}
 
 	private boolean summon(int idx) {
-		int summonId = _mobSkillTemplate.getSummon(idx);
-		int min = _mobSkillTemplate.getSummonMin(idx);
-		int max = _mobSkillTemplate.getSummonMax(idx);
+		int summonId = getMobSkillTemplate().getSummon(idx);
+		int min = getMobSkillTemplate().getSummonMin(idx);
+		int max = getMobSkillTemplate().getSummonMax(idx);
 
 		if (summonId == 0) {
 			return false;
@@ -157,15 +169,17 @@ public class L1MobSkillUse {
 		mobspawn(summonId, count);
 
 		_attacker.broadcastPacket(new S_SkillSound(_attacker.getId(), 761));
-		_attacker.broadcastPacket(new S_DoActionGFX(_attacker.getId(),
-					ActionCodes.ACTION_SkillBuff));
+
+		S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
+				ActionCodes.ACTION_SkillBuff);
+		_attacker.broadcastPacket(gfx);
 
 		_sleepTime = _attacker.getNpcTemplate().getSubMagicSpeed();
 		return true;
 	}
 
 	private boolean poly(int idx) {
-		int polyId = _mobSkillTemplate.getPolyId(idx);
+		int polyId = getMobSkillTemplate().getPolyId(idx);
 		boolean usePoly = false;
 
 		if (polyId == 0) {
@@ -192,9 +206,10 @@ public class L1MobSkillUse {
 			usePoly = true;
 		}
 		if (usePoly) {
-			for (L1PcInstance pc :
-					L1World.getInstance().getVisiblePlayer(_attacker)) {
-				pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 230));
+			for (L1PcInstance pc : L1World.getInstance()
+					.getVisiblePlayer(_attacker)) {
+				pc.sendPackets(new S_SkillSound(pc.getId(), 230));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 230));
 				break;
 			}
 			S_DoActionGFX gfx = new S_DoActionGFX(_attacker.getId(),
@@ -206,24 +221,24 @@ public class L1MobSkillUse {
 		return usePoly;
 	}
 
-	private boolean magicAttack(int idx, L1Character target) {
+	private boolean magicAttack(int idx) {
 		L1SkillUse skillUse = new L1SkillUse();
-		int skillid = _mobSkillTemplate.getSkillId(idx);
+		int skillid = getMobSkillTemplate().getSkillId(idx);
 		boolean canUseSkill = false;
 
 		if (skillid > 0) {
 			canUseSkill = skillUse.checkUseSkill(null, skillid,
-					target.getId(), target.getX(), target.getY(), null, 0,
+					_target.getId(), _target.getX(), _target.getY(), null, 0,
 					L1SkillUse.TYPE_NORMAL, _attacker);
 		}
 
 		if (canUseSkill == true) {
-			if (_mobSkillTemplate.getLeverage(idx) > 0) {
-				skillUse.setLeverage(_mobSkillTemplate.getLeverage(idx));
+			if (getMobSkillTemplate().getLeverage(idx) > 0) {
+				skillUse.setLeverage(getMobSkillTemplate().getLeverage(idx));
 			}
-			skillUse.handleCommands(null, skillid, target.getId(),
-					target.getX(), target.getX(), null, 0,
-					L1SkillUse.TYPE_NORMAL,	_attacker);
+			skillUse.handleCommands(null, skillid, _target.getId(), _target
+					.getX(), _target.getX(), null, 0, L1SkillUse.TYPE_NORMAL,
+					_attacker);
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillid);
 			if (skill.getTarget().equals("attack") && skillid != 18) { 
 				_sleepTime = _attacker.getNpcTemplate().getAtkMagicSpeed();
@@ -236,28 +251,29 @@ public class L1MobSkillUse {
 		return false;
 	}
 
-	private boolean physicalAttack(int idx, L1Character target) {
+	private boolean physicalAttack(int idx) {
 		Map<Integer, Integer> targetList = new ConcurrentHashMap<Integer, Integer>();
-		int areaWidth = _mobSkillTemplate.getAreaWidth(idx);
-		int areaHeight = _mobSkillTemplate.getAreaHeight(idx);
-		int range = _mobSkillTemplate.getRange(idx);
-		int actId = _mobSkillTemplate.getActid(idx);
-		int gfxId = _mobSkillTemplate.getGfxid(idx);
-		if (_attacker.getLocation().getTileLineDistance(target.getLocation()) > range) {
+		int areaWidth = getMobSkillTemplate().getAreaWidth(idx);
+		int areaHeight = getMobSkillTemplate().getAreaHeight(idx);
+		int range = getMobSkillTemplate().getRange(idx);
+		int actId = getMobSkillTemplate().getActid(idx);
+		int gfxId = getMobSkillTemplate().getGfxid(idx);
+
+		if (_attacker.getLocation().getTileLineDistance(_target.getLocation()) > range) {
 			return false;
 		}
 
-		if (!_attacker.glanceCheck(target.getX(), target.getY())) {
+		if (!_attacker.glanceCheck(_target.getX(), _target.getY())) {
 			return false;
 		}
 
-		_attacker.setHeading(_attacker.targetDirection(target.getX(),
-				target.getY())); 
+		_attacker.setHeading(_attacker.targetDirection(_target.getX(), _target
+				.getY())); 
 
 		if (areaHeight > 0) {
-			ArrayList<L1Object> objs =
-					L1World.getInstance().getVisibleBoxObjects(_attacker,
-							_attacker.getHeading(), areaWidth, areaHeight);
+			ArrayList<L1Object> objs = L1World.getInstance()
+					.getVisibleBoxObjects(_attacker, _attacker.getHeading(),
+							areaWidth, areaHeight);
 
 			for (L1Object obj : objs) {
 				if (!(obj instanceof L1Character)) {
@@ -279,9 +295,9 @@ public class L1MobSkillUse {
 					continue;
 				}
 
-				if (target instanceof L1PcInstance
-						|| target instanceof L1SummonInstance
-						|| target instanceof L1PetInstance) {
+				if (_target instanceof L1PcInstance
+						|| _target instanceof L1SummonInstance
+						|| _target instanceof L1PetInstance) {
 					// 
 					if (obj instanceof L1PcInstance
 							&& !((L1PcInstance) obj).isGhost()
@@ -297,7 +313,7 @@ public class L1MobSkillUse {
 				}
 			}
 		} else {
-			targetList.put(target.getId(), 0); 
+			targetList.put(_target.getId(), 0); 
 		}
 
 		if (targetList.size() == 0) {
@@ -309,10 +325,10 @@ public class L1MobSkillUse {
 			int targetId = ite.next();
 			L1Attack attack = new L1Attack(_attacker, (L1Character) L1World
 					.getInstance().findObject(targetId));
-			if (target.hasSkillEffect(COUNTER_BARRIER)) {
-				L1Magic magic = new L1Magic(target, _attacker);
+			if (_target.hasSkillEffect(COUNTER_BARRIER)) {
+				L1Magic magic = new L1Magic(_target, _attacker);
 				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
-						_attacker.getLocation().getTileLineDistance(target.getLocation()) <= 2 &&
+						_attacker.getLocation().getTileLineDistance(_target.getLocation()) <= 2 &&
 						gfxId == 0) {
 					attack.actionCounterBarrier();
 					attack.commitCounterBarrier();
@@ -320,18 +336,18 @@ public class L1MobSkillUse {
 				}
 			}
 			if (attack.calcHit()) {
-				if (_mobSkillTemplate.getLeverage(idx) > 0) {
-					attack.setLeverage(_mobSkillTemplate.getLeverage(idx));
+				if (getMobSkillTemplate().getLeverage(idx) > 0) {
+					attack.setLeverage(getMobSkillTemplate().getLeverage(idx));
 				}
 				attack.calcDamage();
 			}
 			if (actId > 0) {
 				attack.setActId(actId);
 			}
-			if (targetId == target.getId()) {
+			if (targetId == _target.getId()) {
 				if (gfxId > 0) {
-					_attacker.broadcastPacket(new S_SkillSound(
-								_attacker.getId(), gfxId));
+					_attacker.broadcastPacket(new S_SkillSound(_attacker
+							.getId(), gfxId));
 				}
 				attack.action();
 			}
@@ -342,51 +358,65 @@ public class L1MobSkillUse {
 		return true;
 	}
 
-	// FIXME: abuses null/value to replace boolean function that tweaked
-	// (class) global state on the side. If this fixes the memory leak then
-	// it'll be worth refactoring.
-	private L1Character isSkillUsable(int skillIdx, L1Character target) {
-		L1Character newTarget = target;
+	private boolean isSkillUsable(int skillIdx) {
+		boolean usable = false;
 
-		if (_mobSkillTemplate.getTriggerRandom(skillIdx) > 0) {
+		if (getMobSkillTemplate().getTriggerRandom(skillIdx) > 0) {
 			int chance = _rnd.nextInt(100) + 1;
-			if (chance >= _mobSkillTemplate.getTriggerRandom(skillIdx))
-				return null;
+			if (chance < getMobSkillTemplate().getTriggerRandom(skillIdx)) {
+				usable = true;
+			} else {
+				return false;
+			}
 		}
 
-		if (_mobSkillTemplate.getTriggerHp(skillIdx) > 0) {
+		if (getMobSkillTemplate().getTriggerHp(skillIdx) > 0) {
 			int hpRatio = (_attacker.getCurrentHp() * 100)
 					/ _attacker.getMaxHp();
-			if (hpRatio > _mobSkillTemplate.getTriggerHp(skillIdx))
-				return null;
+			if (hpRatio <= getMobSkillTemplate().getTriggerHp(skillIdx)) {
+				usable = true;
+			} else {
+				return false;
+			}
 		}
 
-		if (_mobSkillTemplate.getTriggerCompanionHp(skillIdx) > 0) {
+		if (getMobSkillTemplate().getTriggerCompanionHp(skillIdx) > 0) {
 			L1NpcInstance companionNpc = searchMinCompanionHp();
-			if (companionNpc == null)
-				return null;
+			if (companionNpc == null) {
+				return false;
+			}
 
 			int hpRatio = (companionNpc.getCurrentHp() * 100)
 					/ companionNpc.getMaxHp();
-			if (hpRatio > _mobSkillTemplate.getTriggerCompanionHp(skillIdx))
-				newTarget = companionNpc;
-			else
-				return null;
+			if (hpRatio <= getMobSkillTemplate()
+					.getTriggerCompanionHp(skillIdx)) {
+				usable = true;
+				_target = companionNpc; 
+			} else {
+				return false;
+			}
 		}
 
-		if (_mobSkillTemplate.getTriggerRange(skillIdx) != 0) {
+		if (getMobSkillTemplate().getTriggerRange(skillIdx) != 0) {
 			int distance = _attacker.getLocation().getTileLineDistance(
-					target.getLocation());
+					_target.getLocation());
 
-			if (!_mobSkillTemplate.isTriggerDistance(skillIdx, distance))
-				return null;
+			if (getMobSkillTemplate().isTriggerDistance(skillIdx, distance)) {
+				usable = true;
+			} else {
+				return false;
+			}
 		}
 
-		if (_mobSkillTemplate.getTriggerCount(skillIdx) > 0) {
-			if (getSkillUseCount(skillIdx) >= _mobSkillTemplate.getTriggerCount(skillIdx))
-				return null;
+		if (getMobSkillTemplate().getTriggerCount(skillIdx) > 0) {
+			if (getSkillUseCount(skillIdx) < getMobSkillTemplate()
+					.getTriggerCount(skillIdx)) {
+				usable = true;
+			} else {
+				return false;
+			}
 		}
-		return newTarget;
+		return usable;
 	}
 
 	private L1NpcInstance searchMinCompanionHp() {
@@ -401,7 +431,8 @@ public class L1MobSkillUse {
 			if (object instanceof L1NpcInstance) {
 				npc = (L1NpcInstance) object;
 				if (npc.getNpcTemplate().get_family() == family) {
-					companionHpRatio = (npc.getCurrentHp() * 100) / npc.getMaxHp();
+					companionHpRatio = (npc.getCurrentHp() * 100)
+							/ npc.getMaxHp();
 					if (companionHpRatio < hpRatio) {
 						hpRatio = companionHpRatio;
 						minHpNpc = npc;
@@ -420,63 +451,62 @@ public class L1MobSkillUse {
 	private void mobspawn(int summonId) {
 		try {
 			L1Npc spawnmonster = NpcTable.getInstance().getTemplate(summonId);
-			if (spawnmonster == null)
-				return;
-
-			L1NpcInstance mob = null;
-			try {
-				String implementationName = spawnmonster.getImpl();
-				Constructor _constructor = Class.forName(
-						(new StringBuilder()).append(
-							"l1j.server.server.model.Instance.")
-						.append(implementationName).append(
-							"Instance").toString())
-					.getConstructors()[0];
-				mob = (L1NpcInstance) _constructor
-					.newInstance(new Object[] { spawnmonster });
-				mob.setId(IdFactory.getInstance().nextId());
-				L1Location loc = _attacker.getLocation().randomLocation(8,
-						false);
-				int heading = _rnd.nextInt(8);
-				mob.setX(loc.getX());
-				mob.setY(loc.getY());
-				mob.setHomeX(loc.getX());
-				mob.setHomeY(loc.getY());
-				short mapid = _attacker.getMapId();
-				mob.setMap(mapid);
-				mob.setHeading(heading);
-				L1World.getInstance().storeObject(mob);
-				L1World.getInstance().addVisibleObject(mob);
-				L1Object object = L1World.getInstance().findObject(
-						mob.getId());
-				L1MonsterInstance newnpc = (L1MonsterInstance) object;
-				newnpc.set_storeDroped(true);
-				if (summonId == 45061
-						|| summonId == 45161
-						|| summonId == 45181
-						|| summonId == 45455) {
-					newnpc.broadcastPacket(new S_DoActionGFX(
+			if (spawnmonster != null) {
+				L1NpcInstance mob = null;
+				try {
+					String implementationName = spawnmonster.getImpl();
+					Constructor _constructor = Class.forName(
+							(new StringBuilder()).append(
+									"l1j.server.server.model.Instance.")
+									.append(implementationName).append(
+											"Instance").toString())
+							.getConstructors()[0];
+					mob = (L1NpcInstance) _constructor
+							.newInstance(new Object[] { spawnmonster });
+					mob.setId(IdFactory.getInstance().nextId());
+					L1Location loc = _attacker.getLocation().randomLocation(8,
+							false);
+					int heading = _rnd.nextInt(8);
+					mob.setX(loc.getX());
+					mob.setY(loc.getY());
+					mob.setHomeX(loc.getX());
+					mob.setHomeY(loc.getY());
+					short mapid = _attacker.getMapId();
+					mob.setMap(mapid);
+					mob.setHeading(heading);
+					L1World.getInstance().storeObject(mob);
+					L1World.getInstance().addVisibleObject(mob);
+					L1Object object = L1World.getInstance().findObject(
+							mob.getId());
+					L1MonsterInstance newnpc = (L1MonsterInstance) object;
+					newnpc.set_storeDroped(true);
+					if (summonId == 45061
+							|| summonId == 45161
+							|| summonId == 45181
+							|| summonId == 45455) {
+						newnpc.broadcastPacket(new S_DoActionGFX(
 								newnpc.getId(), ActionCodes.ACTION_Hide));
-					newnpc.setStatus(13);
-					newnpc.broadcastPacket(new S_NPCPack(newnpc));
-					newnpc.broadcastPacket(new S_DoActionGFX(
+						newnpc.setStatus(13);
+						newnpc.broadcastPacket(new S_NPCPack(newnpc));
+						newnpc.broadcastPacket(new S_DoActionGFX(
 								newnpc.getId(), ActionCodes.ACTION_Appear));
-					newnpc.setStatus(0);
-					newnpc.broadcastPacket(new S_NPCPack(newnpc));
-						}
-				newnpc.onNpcAI();
-				newnpc.turnOnOffLight();
-				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
-			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						newnpc.setStatus(0);
+						newnpc.broadcastPacket(new S_NPCPack(newnpc));
+					}
+					newnpc.onNpcAI();
+					newnpc.turnOnOffLight();
+					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
+				} catch (Exception e) {
+					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				}
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 
-	private L1Character changeTarget(int type, int idx, L1Character firstTarget) {
-		L1Character target = firstTarget;
+	private L1Character changeTarget(int type, int idx) {
+		L1Character target;
 
 		switch (type) {
 		case L1MobSkill.CHANGE_TARGET_ME:
@@ -493,7 +523,7 @@ public class L1MobSkillUse {
 					int distance = _attacker.getLocation().getTileLineDistance(
 							cha.getLocation());
 
-					if (!_mobSkillTemplate.isTriggerDistance(idx, distance)) {
+					if (!getMobSkillTemplate().isTriggerDistance(idx, distance)) {
 						continue;
 					}
 
@@ -518,7 +548,9 @@ public class L1MobSkillUse {
 				}
 			}
 
-			if (targetList.size() > 0) {
+			if (targetList.size() == 0) {
+				target = _target;
+			} else {
 				int randomSize = targetList.size() * 100;
 				int targetIndex = _rnd.nextInt(randomSize) / 100;
 				target = targetList.get(targetIndex);
@@ -526,6 +558,7 @@ public class L1MobSkillUse {
 			break;
 
 		default:
+			target = _target;
 			break;
 		}
 		return target;
