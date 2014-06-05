@@ -281,3 +281,8 @@ UPDATE `spr_action` SET `framecount` = 17 WHERE `spr_id` = 6137;
 -- Fix Orc Emissary sometimes spawning inside wall in Heine 3F
 UPDATE `spawnlist_npc` SET `randomx` = 0, `randomy` = 0 WHERE `npc_templateid` = 81245 AND `mapid` = 61;
 
+-- Proactively fix potential shop exploit.
+update shop set selling_price = 1000 where npc_id = 81243 and item_id = 49103;
+update shop set selling_price = 1000 where npc_id = 81243 and item_id = 49104;
+update shop set selling_price = 4500 where npc_id = 81243 and item_id = 49108;
+update shop set selling_price = 4500 where npc_id = 81243 and item_id = 49109;
