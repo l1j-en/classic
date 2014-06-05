@@ -5,7 +5,7 @@ l1j-en is an English-language server emulator for the South Korean MMORPG,
 Lineage 1.
 
 This repo started as a direct copy of the
-[l1j-en project on Google Code](www.googlecode.com/p/l1j-en) as of their
+[l1j-en project on Google Code](http://www.googlecode.com/p/l1j-en) as of their
 revision 726.  See the project documentation there for general project info,
 the client connector, a setup guide, and FAQ.
 
