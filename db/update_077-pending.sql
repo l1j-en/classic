@@ -286,3 +286,223 @@ update shop set selling_price = 1000 where npc_id = 81243 and item_id = 49103;
 update shop set selling_price = 1000 where npc_id = 81243 and item_id = 49104;
 update shop set selling_price = 4500 where npc_id = 81243 and item_id = 49108;
 update shop set selling_price = 4500 where npc_id = 81243 and item_id = 49109;
+
+-- Fix Heine3f Poison Serpent quest boss HPR and MPR, such that it can be
+-- soloed by high level players.
+update npc set hpr = 100, mpr = 100 where npcid = 45942;
+
+-- Fix FI lizardman sprite.
+update npc set gfxid = 1173 where npcid = 45377;
+
+-- Fix Shield of Medusa stats.
+update armor set m_def = 30, regist_stone = 5 where item_id = 20227;
+
+-- Slightly increase dark headband droprate from rare drop mops.
+update droplist set chance = 2000 where itemid = 20032 and chance = 1000;
+
+-- Rebalance TOI 2F spawn.
+update spawnlist set count = 55 where id = 10200001;
+update spawnlist set count = 55 where id = 10200002;
+update spawnlist set count = 35 where id = 10200003;
+update spawnlist set count = 15 where id = 10200004;
+-- Rebalance TOI 3F spawn.
+update spawnlist set count = 75 where id = 10300001;
+update spawnlist set count = 38 where id = 10300002;
+update spawnlist set count = 30 where id = 10300003;
+-- Rebalance TOI 4F spawn.
+update spawnlist set count = 55 where id = 10400001;
+update spawnlist set count = 25 where id = 10400002;
+update spawnlist set count = 40 where id = 10400003;
+
+-- Rebalance skeleton droprates.
+-- Helmet
+update droplist set chance = 30000 where mobid = 45107 and itemid = 20043;
+-- N-COMR
+update droplist set chance = 9000 where mobid = 45107 and itemid = 20056;
+-- Large Shield
+update droplist set chance = 9000 where mobid = 45107 and itemid = 20242;
+-- C-Helmet
+update droplist set chance = 30000 where mobid = 45107 and itemid = 220043;
+-- C-COMR
+update droplist set chance = 40000 where mobid = 45107 and itemid = 220056;
+-- Pine
+update droplist set chance = 5000 where mobid = 45107 and itemid = 40006;
+-- G-haste
+update droplist set chance = 25000 where mobid = 45107 and itemid = 40018;
+-- SB:Dex
+update droplist set chance = 8000 where mobid = 45107 and itemid = 40171;
+-- Skeleton Skull
+update droplist set chance = 25000 where mobid = 45107 and itemid = 40605;
+-- Scimitar
+update droplist set chance = 20000 where mobid = 45107 and itemid = 27;
+-- b-Scimitar
+update droplist set chance = 15000 where mobid = 45107 and itemid = 100027;
+
+-- Rebalance Arachnevil droprates.
+-- Pine
+update droplist set chance = 8000 where mobid = 45136 and itemid = 40006;
+-- Ebony
+update droplist set chance = 20000 where mobid = 45136 and itemid = 40007;
+-- G-haste
+update droplist set chance = 30000 where mobid = 45136 and itemid = 40018;
+-- SB:Slow
+update droplist set chance = 12000 where mobid = 45136 and itemid = 40174;
+-- SB:Erupt
+update droplist set chance = 9000 where mobid = 45136 and itemid = 40190;
+
+-- Rebalance Arachnevil Elder droprates.
+-- Ebony
+update droplist set chance = 30000 where mobid = 45184 and itemid = 40007;
+-- G-haste
+update droplist set chance = 40000 where mobid = 45184 and itemid = 40018;
+-- SB:Dex
+update droplist set chance = 25000 where mobid = 45184 and itemid = 40171;
+-- SB:VT
+update droplist set chance = 25000 where mobid = 45184 and itemid = 40173;
+-- SB:Slow
+update droplist set chance = 30000 where mobid = 45184 and itemid = 40174;
+-- Claw
+update droplist set chance = 35000 where mobid = 45184 and itemid = 40590;
+-- Dragon Tablet(AwakenAntharas)
+update droplist set chance = 8000 where mobid = 45184 and itemid = 49106;
+-- B-tele
+update droplist set chance = 55000 where mobid = 45184 and itemid = 140100;
+
+-- Rebalance MLC 1F spawnrates.
+-- Skeleton 80 -> 75
+update spawnlist set count = 75 where id = 700005;
+-- Skeleton Archer 40 -> 35
+update spawnlist set count = 35 where id = 700006;
+
+-- Rebalance MLC 2F spawnrates.
+-- Ghoul 20 -> 10
+update spawnlist set count = 10 where id = 800003;
+-- Skeleton 40 -> 30
+update spawnlist set count = 30 where id = 800004;
+-- Skeleton Archer 40 -> 25
+update spawnlist set count = 25 where id = 800005;
+-- Arachnevil Elder 20 -> 12
+update spawnlist set count = 12 where id = 800009;
+
+-- Rebalance MLC 3F spawnrates.
+-- Zombie 20 -> 18
+update spawnlist set count = 18 where id = 900002;
+-- Ghoul 15 -> 12
+update spawnlist set count = 12 where id = 900003;
+-- Skeleton 40 -> 35
+update spawnlist set count = 35 where id = 900004;
+-- Skeleton Archer 20 -> 17
+update spawnlist set count = 17 where id = 900005;
+-- Stone Golem 15 -> 10
+update spawnlist set count = 10 where id = 900007;
+-- Arachnevil Elder 30 -> 18
+update spawnlist set count = 18 where id = 900008;
+-- Bugbear 35 -> 25
+update spawnlist set count = 25 where id = 900009;
+
+-- Rebalance MLC 4F spawnrates.
+-- Ghoul 20 -> 18
+update spawnlist set count = 18 where id = 1000003;
+-- Arachnevil Elder 15 -> 13
+update spawnlist set count = 13 where id = 1000009;
+-- Bugbear 35 -> 30
+update spawnlist set count = 30 where id = 1000010;
+-- Cerberus 20 -> 18
+update spawnlist set count = 18 where id = 1000011;
+
+-- Rebalance MLC 5F spawnrates.
+-- Crawling Claw 5 -> 3
+update spawnlist set count = 3 where id = 1200005;
+-- Arachnevil Elder 15 -> 14
+update spawnlist set count = 14 where id = 1200006;
+-- King Bugbear 15 -> 12
+update spawnlist set count = 12 where id = 1200009;
+
+-- Reblanace Fire Egg droprates.
+-- b-zel
+update droplist set chance = 1500 where mobid = 45206 and itemid = 140074;
+-- b-dai
+update droplist set chance = 750 where mobid = 45206 and itemid = 140087;
+
+-- Rebalance Horrific Fire Egg droprates.
+-- SB:Sunburst
+update droplist set chance = 7500 where mobid = 45384 and itemid = 40191;
+-- SB:FW
+update droplist set chance = 3500 where mobid = 45384 and itemid = 40203;
+
+-- Rebalance Dragonfly droprates.
+-- b-zel
+update droplist set chance = 1500 where mobid = 45257 and itemid = 140074;
+-- b-dai
+update droplist set chance = 750 where mobid = 45257 and itemid = 140087;
+
+-- Rebalance Horrific Cerebus droprates.
+-- HQR
+update droplist set chance = 50000 where mobid = 45471 and itemid = 40049;
+-- SC:Additional Fire
+update droplist set chance = 7500 where mobid = 45471 and itemid = 41150;
+
+-- Rebalance Nightmare (TOI) droprates.
+-- SB:Disease
+update droplist set chance = 7500 where mobid = 45440 and itemid = 40201;
+
+-- Rebalance Ifrit (TOI) droprates.
+-- nzel
+update droplist set chance = 65000 where mobid = 45515 and itemid = 40074;
+-- Blank Scroll (Level 5)
+update droplist set chance = 40000 where mobid = 45515 and itemid = 40094;
+-- SB:FireStorm
+update droplist set chance = 7500 where mobid = 45515 and itemid = 40215;
+-- Dragon Tablet(MagmaBreath)
+update droplist set chance = 5000 where mobid = 45515 and itemid = 49105;
+-- b-zel
+update droplist set chance = 3000 where mobid = 45515 and itemid = 140074;
+
+-- Rebalance Lesser Demon droprates.
+-- Blank Scroll (Level 5)
+update droplist set chance = 40000 where mobid = 45481 and itemid = 40094;
+
+-- Rebalance Lesser Dragon droprates.
+-- Dragon Tablet(MagmaBreath)
+update droplist set chance = 7500 where mobid = 45496 and itemid = 49105;
+-- Dragon Tablet(AwakenAntharas)
+update droplist set chance = 5000 where mobid = 45496 and itemid = 49106;
+
+-- Rebalance Horrific Iron Golem droprates.
+-- Memory Crystal(IllusionDiaGolem)
+update droplist set chance = 7500 where mobid = 45479 and itemid = 49130;
+
+-- Rebalance Bone Dragon droprates.
+-- Blank Scroll (Level 5)
+update droplist set chance = 40000 where mobid = 45522 and itemid = 40094;
+-- Spirit Crystal(ElementalFallDown)
+update droplist set chance = 5000 where mobid = 45522 and itemid = 40241;
+-- Dragon Tablet(AwakenValakas)
+update droplist set chance = 5000 where mobid = 45522 and itemid = 49116;
+
+-- Giant Worm rebalance: Should be soloable by 70+ chars, killable by a group
+-- of 2 if lower level.
+-- Reduce Giant Worm regen.
+update npc set hpr = 150, mpr = 150 where npcid = 45944;
+-- Reduce Giant Worm AOE damage.
+update mobskill set leverage = 30 where mobid = 45944 and actno = 1;
+
+-- Rebalance TOI Cockatrice droprates.
+-- Ebony Wand
+update droplist set chance = 25000 where mobid = 81173 and itemid = 40007;
+-- Spellbook(Eruption)
+update droplist set chance = 7500 where mobid = 81173 and itemid = 40190;
+-- Spellbook(GreaterHaste)
+update droplist set chance = 7500 where mobid = 81173 and itemid = 40199;
+-- Spellbook(Earthquake)
+update droplist set chance = 7500 where mobid = 81173 and itemid = 40207;
+-- Spirit Crystal(TripleShot)
+update droplist set chance = 7500 where mobid = 81173 and itemid = 40240;
+-- Spirit Crystal(Entangle)
+update droplist set chance = 7500 where mobid = 81173 and itemid = 40248;
+-- Lump of Rough Iron
+update droplist set chance = 75000 where mobid = 81173 and itemid = 40899;
+
+-- Fix Devil's Blood name.
+update etcitem set name = 'Devil\'s Blood' where item_id = 40031;
+
