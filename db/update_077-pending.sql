@@ -506,3 +506,40 @@ update droplist set chance = 75000 where mobid = 81173 and itemid = 40899;
 -- Fix Devil's Blood name.
 update etcitem set name = 'Devil\'s Blood' where item_id = 40031;
 
+-- Rebalance TOI 20F spawn and fix group_ids.
+-- Dancing Sword 25 -> (6 * 3)
+update spawnlist set count = 6, group_id = 30 where id = 12000001;
+-- Wicked Beholder 50 -> (12 * 3)
+update spawnlist set count = 12, group_id = 29 where id = 12000002;
+-- Dire Wolf 100 -> (12 * 3)
+update spawnlist set count = 15, group_id = 28 where id = 12000003;
+-- Dire Wolf 20 -> 35
+update spawnlist set count = 35 where id = 12000005;
+
+-- Rebalance TOI 19F spawn and fix group_ids.
+-- Dancing Sword 22 -> 15
+update spawnlist set count = 15 where id = 11900001;
+-- Wicked Beholder
+update spawnlist set group_id = 0 where id = 11900002;
+-- Dire Wolf 80 -> 65
+update spawnlist set count = 65 where id = 11900003;
+
+-- Rebalance TOI 18F spawn and fix group_ids.
+-- Dancing Sword 20 -> 12
+update spawnlist set count = 12 where id = 11800001;
+-- Wicked Beholder
+update spawnlist set group_id = 0 where id = 11800002;
+--  Dire Wolf 80 -> 60
+update spawnlist set count = 60 where id = 11800003;
+
+-- Rebalance TOI 17F spawn and fix group_ids.
+-- Dancing Sword 19 -> 10
+update spawnlist set count = 10 where id = 11700001;
+-- Wicked Beholder
+update spawnlist set group_id = 0 where id = 11700002;
+-- Dire Wolf 76 -> 55
+update spawnlist set count = 55 where id = 11700003;
+
+-- Correct Necromancer spawn cycle.
+update spawnlist_boss set cycle_type='Caspa' where id = 10;
+
