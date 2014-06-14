@@ -543,3 +543,26 @@ update spawnlist set count = 55 where id = 11700003;
 -- Correct Necromancer spawn cycle.
 update spawnlist_boss set cycle_type='Caspa' where id = 10;
 
+-- Correct Zenith Queen light_size.
+update npc set light_size = 3 where npcid = 45513;
+
+-- Correct Seer light_size.
+update npc set light_size = 3 where npcid = 45547;
+
+-- Correct TOI Vampire light_size.
+update npc set light_size = 3 where npcid = 45606;
+
+-- Correct Zombie Lord light_size.
+update npc set light_size = 3 where npcid = 45650;
+
+-- Correct Cougar light_size.
+update npc set light_size = 3 where npcid = 45652;
+
+-- Correct Mummy Lord light_size.
+update npc set light_size = 3 where npcid = 45653;
+
+-- Correct Knight Vlad light_size.
+update npc set light_size = 3 where npcid = 45618;
+
+-- Correct Grim Reaper light_size.
+update npc set light_size = 8 where npcid = 45673;
