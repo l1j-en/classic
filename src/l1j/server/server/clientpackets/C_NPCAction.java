@@ -804,6 +804,12 @@ public class C_NPCAction extends ClientBasePacket {
 					else if(pc.isKnight()) { 
 						int[] i = {20082, 20126, 20173, 20212, 20282, 105, 147, 174, 40373}; 
 						int[] j = {1, 1, 1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+					else if (pc.isDragonKnight()) {
+						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+					else if (pc.isIllusionist()) {
+						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
 					else { //elf 
 						int[] i = {20082, 20126, 20173, 20212, 20282, 174, 40373}; 
 						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; }  
