@@ -566,3 +566,15 @@ update npc set light_size = 3 where npcid = 45618;
 
 -- Correct Grim Reaper light_size.
 update npc set light_size = 8 where npcid = 45673;
+
+-- Update beginner equipment.
+delete from beginner where id = 2;
+insert into beginner values (2, 4, 1, 0, 'Dagger', 'P', 0, 0);
+insert into beginner values (11, 4, 1, 0, 'Dagger', 'K', 0, 0);
+insert into beginner values (12, 4, 1, 0, 'Dagger', 'E', 0, 0);
+insert into beginner values (13, 4, 1, 0, 'Dagger', 'W', 0, 0);
+insert into beginner values (14, 4, 1, 0, 'Dagger', 'D', 0, 0);
+insert into beginner values (15, 138, 1, 0, 'Club', 'R', 0, 0);
+insert into beginner values (16, 138, 1, 0, 'Club', 'I', 0, 0);
+insert into beginner values (17, 20322, 1, 0, 'Leather Jacket', 'R', 0, 0);
+insert into beginner values (18, 20322, 1, 0, 'Leather Jacket', 'I', 0, 0);
