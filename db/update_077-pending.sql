@@ -578,3 +578,6 @@ insert into beginner values (15, 138, 1, 0, 'Club', 'R', 0, 0);
 insert into beginner values (16, 138, 1, 0, 'Club', 'I', 0, 0);
 insert into beginner values (17, 20322, 1, 0, 'Leather Jacket', 'R', 0, 0);
 insert into beginner values (18, 20322, 1, 0, 'Leather Jacket', 'I', 0, 0);
+
+-- Fix broken stairs on DVC2F.
+insert into dungeon values (32727, 32809, 31, "Dragon Valley Caves 2F", 32709, 32818, 32, "Dragon Valley Caves 3F", 4);
