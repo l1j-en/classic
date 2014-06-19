@@ -2686,7 +2686,7 @@ public class L1PcInstance extends L1Character {
 		_dmgMessages = dmgMessages;
 	}
 	
-	private boolean _potionMessages = true;
+	private boolean _potionMessages = false;
 	public boolean getPotionMessages() { return _potionMessages; }
 	public void setPotionMessages(final boolean potionMessages) {
 		_potionMessages = potionMessages;
