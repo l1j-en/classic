@@ -598,3 +598,6 @@ update npcchat set repeat_interval = 60000 where npc_id in (45545, 81175);
 -- Spartois are supposed to slowly regen hp while hidden
 update npc set hpr = 1 where npcid in (45161, 45181);
 update npc set hpr = 5 where npcid = 45455;
+
+-- Fix greater minotaur's attack interval for two handed blunt weapons
+update spr_action set framecount = 13 where spr_id = 3102 and act_id = 12;
