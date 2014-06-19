@@ -11,6 +11,10 @@ update skills set target_to=12 where name="Brave Aura" or name="Shining Aura" or
 -- item stacking
 update etcitem set stackable=1 where name like "%dragon tablet%";
 update etcitem set stackable=1 where name like "%memory crystal%"; 
+update etcitem set stackable=1 where name like "%spellbook%"; 
+update etcitem set stackable=1 where name like "%spirit crystal%"; 
+update etcitem set stackable=1 where name like "%dark spirit crystal%"; 
+update etcitem set stackable=1 where name like "%technical document%"; 
 update etcitem set stackable=1 where name="Crystal Ball of Necromancer";
 update etcitem set stackable=1 where item_id=41243 or item_id=41244; -- lasta boxes
 update etcitem set stackable=1 where item_id in (40031, 40131, 40132, 40133, 40134, 40135, 41090, 41091, 41092, 40329, 140329); -- orc totems and native totems
