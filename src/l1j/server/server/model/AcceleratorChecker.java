@@ -89,7 +89,7 @@ public class AcceleratorChecker {
 			_injusticeCount++;
 			_justiceCount = 0;
 			if (_injusticeCount >= INJUSTICE_COUNT_LIMIT) {
-				doFail(interval, rightInterval);
+				doFail(interval, rightInterval, type);
 				return R_LIMITEXCEEDED;
 			}
 			result = R_DETECTED;
@@ -110,9 +110,10 @@ public class AcceleratorChecker {
 		return result;
 	}
 
-	private void doFail(long interval, int rightInterval) {
+	private void doFail(long interval, int rightInterval, ACT_TYPE type) {
 		String dbgInfo = String.format("\nInterval: " + interval + " RightInterval: " + rightInterval
-				+ " Morph: " + _pc.getTempCharGfx() + " Weapon: " + (_pc.getCurrentWeapon() + 1));
+				+ " Morph: " + _pc.getTempCharGfx() + " Weapon: " + (_pc.getCurrentWeapon() + 1)
+				+ " Act type: " + type);
 		if (!_pc.isGm()) {
 			_log.info(String.format("Injustice count limit exceeded for player: " + _pc.getName()
 					+ dbgInfo));
