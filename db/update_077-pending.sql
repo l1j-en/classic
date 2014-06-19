@@ -588,3 +588,5 @@ update droplist set mob_name = 'Ifrit' where mobId = 45516;
 -- Fix wolf range
 update npc set ranged = 2 where npcid = 45043;
 
+-- Gelatinous cube is not supposed to poison
+update npc set poison_atk = 0 where npcid = 45296;
