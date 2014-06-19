@@ -61,5 +61,5 @@ I know that seems like many more steps than our old SVN system, but it starts
 to come naturally very quickly, and the benefits are enormous.  Some of the
 commands have the same name as the old SVN commands, but work a little
 differently.  That can cause some confusion but again you get used to it very
-quickly.
+quickly..
 
