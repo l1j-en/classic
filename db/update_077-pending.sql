@@ -590,3 +590,7 @@ update npc set ranged = 2 where npcid = 45043;
 
 -- Gelatinous cube is not supposed to poison
 update npc set poison_atk = 0 where npcid = 45296;
+
+-- Reduce npcchat spam on mobs that repeatedly chat (caspa group, dark elder, etc)
+update npcchat set repeat_interval = 120000 where npc_id in (45473, 45488, 45497, 45464);
+update npcchat set repeat_interval = 60000 where npc_id in (45545, 81175);
