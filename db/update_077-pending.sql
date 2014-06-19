@@ -582,5 +582,9 @@ replace into beginner values (18, 20322, 1, 0, 'Leather Jacket', 'I', 0, 0);
 -- Fix broken stairs on DVC2F.
 replace into dungeon values (32727, 32809, 31, "Dragon Valley Caves 2F", 32709, 32818, 32, "Dragon Valley Caves 3F", 4);
 
+-- Fix Ifrit naming in droplist, was erroneously labeled Basilisk
+update droplist set mob_name = 'Ifrit' where mobId = 45516;
+
 -- Fix wolf range
 update npc set ranged = 2 where npcid = 45043;
+
