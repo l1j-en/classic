@@ -18,6 +18,8 @@ If you need any help, contact our
 [mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on #l1j
 at freenode and see if anyone's around.
 
+Check out the [official server of l1j-en](https://zelgo.net/linweb/default/index) if you just want to play.
+
 About GitHub
 ------------
 
