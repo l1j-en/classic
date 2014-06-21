@@ -644,6 +644,7 @@ public class C_ItemUSe extends ClientBasePacket {
 								eachItem.getCount());
 					} else {
 						eachItem.setItem(normal);
+						eachItem.setBless(normal.getBless());
 						inventory.updateItem(eachItem,
 								L1PcInventory.COL_ITEMID);
 						inventory.saveItem(eachItem,
