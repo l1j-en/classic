@@ -11,7 +11,6 @@ import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.map.L1Map;
 import l1j.server.server.model.poison.L1Poison;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillTimer;

@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.types.Point;
 import l1j.server.server.model.map.Maps;
 import static l1j.server.server.model.skill.L1SkillId.*;
 

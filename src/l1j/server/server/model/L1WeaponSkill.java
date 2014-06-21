@@ -18,10 +18,26 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.item.L1ItemId.EdoryuOfRonde;
+import static l1j.server.server.model.item.L1ItemId.EvasScorn;
+import static l1j.server.server.model.item.L1ItemId.LongbowOfMoon;
+import static l1j.server.server.model.item.L1ItemId.MaphrsRetribution;
+import static l1j.server.server.model.item.L1ItemId.OrcishBumeSmache;
+import static l1j.server.server.model.item.L1ItemId.PaagriosHatred;
+import static l1j.server.server.model.item.L1ItemId.StaffOfIceQueen;
+import static l1j.server.server.model.item.L1ItemId.SwordOfDeathKnight;
+import static l1j.server.server.model.item.L1ItemId.SwordOfKurtz;
+import static l1j.server.server.model.item.L1ItemId.SwordOfSilence;
+import static l1j.server.server.model.item.L1ItemId.SwordOfVarlok;
+import static l1j.server.server.model.item.L1ItemId.ThorsHammer;
+import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_MAGIC;
+import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_FREEZE;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -42,8 +58,6 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1Skill;
-import static l1j.server.server.model.skill.L1SkillId.*;
-import static l1j.server.server.model.item.L1ItemId.*;
 
 public class L1WeaponSkill {
 

@@ -24,16 +24,12 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
-import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_CharReset;
-import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
-import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
 

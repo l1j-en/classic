@@ -25,8 +25,6 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.datatables.SprTable;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_Disconnect;
-import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class AcceleratorChecker {
