@@ -55,7 +55,6 @@ import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1TownLocation;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
-import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1HousekeeperInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;

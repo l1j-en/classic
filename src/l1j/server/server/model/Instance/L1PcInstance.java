@@ -1,37 +1,64 @@
 package l1j.server.server.model.Instance;
 
-import l1j.server.server.model.L1World;
-import l1j.server.server.utils.SQLUtil;
-import java.sql.Timestamp;
+import static l1j.server.server.model.skill.L1SkillId.BLIND_HIDING;
+import static l1j.server.server.model.skill.L1SkillId.BLOODLUST;
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
+import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
+import static l1j.server.server.model.skill.L1SkillId.DRESS_EVASION;
+import static l1j.server.server.model.skill.L1SkillId.ENTANGLE;
+import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
+import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_FINDINVIS;
+import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_HPBAR;
+import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HOLY_WALK;
+import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
+import static l1j.server.server.model.skill.L1SkillId.INVISIBILITY;
+import static l1j.server.server.model.skill.L1SkillId.MASS_SLOW;
+import static l1j.server.server.model.skill.L1SkillId.MORTAL_BODY;
+import static l1j.server.server.model.skill.L1SkillId.MOVING_ACCELERATION;
+import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
+import static l1j.server.server.model.skill.L1SkillId.SLOW;
+import static l1j.server.server.model.skill.L1SkillId.SOLID_CARRIAGE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_CHAT_PROHIBITED;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_ELFBRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_RIBRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STRIKER_GALE;
+import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
-import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.command.executor.L1HpBar;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
-import l1j.server.server.model.HpRegeneration;
 import l1j.server.server.model.AcceleratorChecker;
+import l1j.server.server.model.HpRegeneration;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1DwarfForElfInventory;
 import l1j.server.server.model.L1DwarfInventory;
 import l1j.server.server.model.L1EquipmentSlot;
@@ -40,7 +67,6 @@ import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Karma;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
-import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1PcDeleteTimer;
 import l1j.server.server.model.L1PcInventory;
@@ -49,6 +75,7 @@ import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1TownLocation;
 import l1j.server.server.model.L1War;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.MpReductionByAwake;
 import l1j.server.server.model.MpRegeneration;
 import l1j.server.server.model.MpRegenerationByDoll;
@@ -63,14 +90,12 @@ import l1j.server.server.model.monitor.L1PcInvisDelay;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_BlueMessage;
-import l1j.server.server.serverpackets.S_Exp;
-import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.serverpackets.S_CastleMaster;
 import l1j.server.server.serverpackets.S_ChangeShape;
 import l1j.server.server.serverpackets.S_Disconnect;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_DoActionShop;
+import l1j.server.server.serverpackets.S_Exp;
 import l1j.server.server.serverpackets.S_HPMeter;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_Invis;
@@ -81,16 +106,18 @@ import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_Poison;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 import l1j.server.server.utils.CalcStat;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import l1j.server.server.utils.SQLUtil;
 
 public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
@@ -634,7 +661,7 @@ public class L1PcInstance extends L1Character {
 	private List<L1PrivateShopSellList> _sellList = 
 		new ArrayList<L1PrivateShopSellList>();
 
-	public List getSellList() {
+	public List<L1PrivateShopSellList> getSellList() {
 		return _sellList;
 	}
 
