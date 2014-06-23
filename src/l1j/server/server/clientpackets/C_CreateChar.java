@@ -47,8 +47,8 @@ public class C_CreateChar extends ClientBasePacket {
 	
 	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786, 6658, 6671 };  
 	private static final int[] FEMALE_LIST = new int[] { 1, 48, 37, 1186, 2796, 6661, 6650 };  
-	private static final int[] LOCX_LIST = new int[] { 32780, 32714, 32714, 32780, 32714, 32780, 32714 };  
-	private static final int[] LOCY_LIST = new int[] { 32781, 32877, 32877, 32781, 32877, 32781, 32877 };  
+	private static final int[] LOCX_LIST = new int[] { 32816, 32714, 32714, 32816, 32714, 32816, 32714 };  
+	private static final int[] LOCY_LIST = new int[] { 32734, 32877, 32877, 32734, 32877, 32734, 32877 };  
 	private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69, 68, 69 };
 	
 	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
