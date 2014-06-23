@@ -28,7 +28,6 @@ import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.log.LogDeleteChar;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DeleteCharOK;
 
