@@ -3157,7 +3157,7 @@ public class L1SkillUse {
 
 				if (cha instanceof L1PcInstance) {
 					L1PcInstance pc = (L1PcInstance) cha;
-					//pc.updateLight();
+					pc.turnOnOffLight();
 					pc.sendPackets(new S_OwnCharAttrDef(pc));
 					pc.sendPackets(new S_OwnCharStatus(pc));
 					sendHappenMessage(pc);
@@ -3167,7 +3167,7 @@ public class L1SkillUse {
 
 				if (cha instanceof L1PcInstance) {
 					L1PcInstance pc = (L1PcInstance) cha;
-					//pc.updateLight();
+					pc.turnOnOffLight();
 				}
 
 				if (_skillId == DETECTION || _skillId == COUNTER_DETECTION) {
