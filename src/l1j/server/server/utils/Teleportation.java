@@ -110,6 +110,10 @@ public class Teleportation {
 					L1Location loc = pc.getLocation().randomLocation(3, false);
 					int nx = loc.getX();
 					int ny = loc.getY();
+					if (!pc.glanceCheck(nx, ny)) {
+						nx = pc.getLocation().getX();
+						ny = pc.getLocation().getY();
+					}
 					if (pc.getMapId() == 5125 || pc.getMapId() == 5131
 							|| pc.getMapId() == 5132 || pc.getMapId() == 5133
 							|| pc.getMapId() == 5134) {
