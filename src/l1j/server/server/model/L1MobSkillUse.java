@@ -18,7 +18,6 @@
  */
 package l1j.server.server.model;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;

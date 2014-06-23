@@ -601,7 +601,7 @@ public class L1PetInstance extends L1NpcInstance {
 
 		// FIXME: see note in setWeapon().	
 		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
-		if (l1pet == null)
+		if (l1pet != null)
 			l1pet.set_armor(armor.getItemId());
 
 		int itemId = armor.getItem().getItemId();

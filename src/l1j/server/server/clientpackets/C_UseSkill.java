@@ -18,7 +18,16 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
+import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
+import static l1j.server.server.model.skill.L1SkillId.CALL_CLAN;
+import static l1j.server.server.model.skill.L1SkillId.FIRE_WALL;
+import static l1j.server.server.model.skill.L1SkillId.LIFE_STREAM;
+import static l1j.server.server.model.skill.L1SkillId.MASS_TELEPORT;
+import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
+import static l1j.server.server.model.skill.L1SkillId.RUN_CLAN;
+import static l1j.server.server.model.skill.L1SkillId.TELEPORT;
+import static l1j.server.server.model.skill.L1SkillId.TRUE_TARGET;
+
 import java.util.logging.Logger;
 
 import l1j.server.Config;
@@ -30,7 +39,6 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
