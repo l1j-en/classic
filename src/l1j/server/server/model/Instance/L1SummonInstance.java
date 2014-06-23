@@ -87,8 +87,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			if (getLocation().getTileLineDistance(_master.getLocation()) > 2) {
 				int dir = moveDirection(_master.getX(), _master.getY());
 				if (dir == -1) {
-					_currentPetStatus = 3;
-					return true;
+					return false;
 				} else {
 					setDirectionMove(dir);
 					setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));

@@ -110,8 +110,7 @@ public class L1PetInstance extends L1NpcInstance {
 			if (getLocation().getTileLineDistance(_petMaster.getLocation()) > 2) {
 				int dir = moveDirection(_petMaster.getX(), _petMaster.getY());
 				if (dir == -1) {
-					_currentPetStatus = 3;
-					return true;
+					return false;
 				}
 				setDirectionMove(dir);
 				setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
