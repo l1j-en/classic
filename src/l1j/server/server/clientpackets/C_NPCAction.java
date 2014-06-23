@@ -792,26 +792,28 @@ public class C_NPCAction extends ClientBasePacket {
 					// it ts, it leather armor, it gloves, it sandal, it ring, it edo, it staff, it spear, it axe, it claw, it bow /*
 					/*final int[] item_ids = { 20082, 20126, 20173, 20212, 20282, 73, 105, 120, 147, 156, 174, 40373}; 
 					final int[] item_amounts = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};*/
-					int[] item_ids = {}; int[] item_amounts = {}; if(pc.isWizard()) { 
-						int[] i = {20082, 20126, 20173, 20212, 20282, 120, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
-					else if(pc.isDarkelf()) { int[] i = {20082, 20126, 20173, 20212, 20282, 73, 156, 174, 40373}; 
-					int[] j = {1, 1, 1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+					int[] item_ids = {}; int[] item_amounts = {};
+					if(pc.isWizard()) { 
+						int[] i = {20082, 20126, 20173, 20212, 20282, 120, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
+					else if(pc.isDarkelf()) {
+						int[] i = {20082, 20126, 20173, 20212, 20282, 73, 156, 174, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
 					else if(pc.isCrown()) { 
-						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
 					else if(pc.isKnight()) { 
-						int[] i = {20082, 20126, 20173, 20212, 20282, 105, 147, 174, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+						int[] i = {20082, 20126, 20173, 20212, 20282, 105, 147, 174, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
 					else if (pc.isDragonKnight()) {
-						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
 					else if (pc.isIllusionist()) {
-						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; } 
+						int[] i = {20082, 20126, 20173, 20212, 20282, 147, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; } 
 					else { //elf 
-						int[] i = {20082, 20126, 20173, 20212, 20282, 174, 40373}; 
-						int[] j = {1, 1, 1, 1, 1, 1, 1}; item_ids = i; item_amounts = j; }  
+						int[] i = {20082, 20126, 20173, 20212, 20282, 174, 40373, 40029, 40085}; 
+						int[] j = {1, 1, 1, 1, 1, 1, 1, 20, 10}; item_ids = i; item_amounts = j; }  
 					for (int i = 0; i < item_ids.length; i++)  {  
 						L1ItemInstance item = pc.getInventory().storeItem(item_ids[i], item_amounts[i]);  
 						pc.sendPackets(new S_ServerMessage(143, npcName, item.getLogName())); 
