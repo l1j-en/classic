@@ -602,3 +602,28 @@ update npc set hprinterval = 5000 where npcid in (45161, 45181, 45455);
 
 -- Fix greater minotaur's attack interval for two handed blunt weapons
 update spr_action set framecount = 13 where spr_id = 3102 and act_id = 12;
+
+-- Add fungus juice to droplist for elven forest fungus
+replace into droplist values ('45030', 'Fungus', '40499', 'Fungus Juice', '1', '1', '150000');
+
+-- Fix Peddler Johan on Singing Island
+update spawnlist_npc set locx = 32827, locy = 32723 where id = 60807;
+update npc set nameid = '$1414' where npcid = 70004;
+replace into shop values ('70004', 'Peddler Johan', '40010', 'Lesser Healing Potion', '0', '37', '0', '19');
+replace into shop values ('70004', 'Peddler Johan', '40013', 'Haste Potion', '0', '200', '0', '100');
+
+-- Move Serian (Talking Scroll NPC) near new starting location and other useful Singing Island NPCs
+update spawnlist_npc set locx = 32817, locy = 32728 where id = 87546;
+
+-- Add Serian (Talking Scroll NPC) spawn to Talking Island
+replace into spawnlist_npc values ('87557', 'Serian', '1', '50112', '32600', '32916', '0', '0', '6', '0', '0', '0');
+
+-- Add goblin spawns near the south exit of Singing Island town
+replace into spawnlist values
+	(801500719, 'Goblin', '10', '45008', '0', '0', '0', '0', '0', '32678', '32753', '32718', '32792', '0', '0', '0', '68', '0', '50', '0', '0', '1', '6', '2', '100');
+
+-- Remove Zombie spawns from Singing Island
+delete from spawnlist where npc_templateid = 45065 and mapid = 68;
+
+-- Move Singing Island's teleport home location
+update getback set getback_x1 = 32818, getback_y1 = 32734, getback_x2 = 32818, getback_y2 = 32734, getback_x3 = 32818, getback_y3 = 32734 where area_mapid = 68;
