@@ -3429,45 +3429,7 @@ public class C_NPCAction extends ClientBasePacket {
 	            SellOfPet(s, pc);
 	            htmlid = "";
 	    }
-		else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81277) {
-			int level = pc.getLevel();
-			char s1 = s.charAt(0);
-			if (s.equalsIgnoreCase("0")) {
-				if (level >= 30 && level <= 51) {
-					L1Teleport.teleport(pc, 32820, 32904, (short) 1002, 5, true);
-					htmlid = "";
-				} else {
-					htmlid = "dsecret3";
-				}
-			} else if (level >= 52) {
-				switch (s1) {
-					case '1':
-						L1Teleport.teleport(pc, 32993, 32716, (short) 1002, 5, true);
-						break;
-					case '2':
-						L1Teleport.teleport(pc, 32785, 32631, (short) 1002, 5, true);
-						break;
-					case '3':
-						L1Teleport.teleport(pc, 32806, 32790, (short) 1002, 5, true);
-						break;
-					case '4':
-						L1Teleport.teleport(pc, 32904, 32627, (short) 1002, 5, true);
-						break;
-					case '5':
-						L1Teleport.teleport(pc, 32685, 32631, (short) 1002, 5, true);
-						break;
-					case '6':
-						L1Teleport.teleport(pc, 32717, 32756, (short) 1002, 5, true);
-						break;
-					case '7':
-						L1Teleport.teleport(pc, 32986, 32630, (short) 1002, 5, true);
-						break;
-				}
-				htmlid = "";
-			} else {
-				htmlid = "dsecret3";
-			}
-		}
+		
 		// else System.out.println("C_NpcAction: " + s);
 		if (htmlid != null && htmlid.equalsIgnoreCase("colos2")) {
 			htmldata = makeUbInfoStrings(npcid);
