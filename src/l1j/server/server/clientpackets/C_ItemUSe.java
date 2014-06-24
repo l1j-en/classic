@@ -4849,35 +4849,35 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private boolean withdrawPet(L1PcInstance pc, int itemObjectId) {
-if (!pc.getMap().isTakePets()) {
-pc.sendPackets(new S_ServerMessage(563));
-return false;
-}
-int divisor = 6;
-int petCost = 0;
-Object[] petList = pc.getPetList().values().toArray();
-for (Object pet : petList) {
-if (pet instanceof L1PetInstance) {
-if (((L1PetInstance) pet).getItemObjId() == itemObjectId) {
-return false;
-}
-}
-petCost += ((L1NpcInstance) pet).getPetcost();
-}
-int charisma = pc.getCha();
-if (pc.isCrown()) {
-charisma += 6;
-} else if (pc.isElf()) {
-charisma += 12;
-} else if (pc.isWizard()) { // WIZ
-charisma += 6;
-} else if (pc.isDarkelf()) { // DE
-charisma += 6;
-} else if (pc.isDragonKnight()) {
-charisma += 6;
-} else if (pc.isIllusionist()) {
-charisma += 6;
-}
+		if (!pc.getMap().isTakePets()) {
+			pc.sendPackets(new S_ServerMessage(563));
+			return false;
+		}
+		int divisor = 6;
+		int petCost = 0;
+		Object[] petList = pc.getPetList().values().toArray();
+		for (Object pet : petList) {
+			if (pet instanceof L1PetInstance) {
+				if (((L1PetInstance) pet).getItemObjId() == itemObjectId) {
+					return false;
+				}
+			}
+			petCost += ((L1NpcInstance) pet).getPetcost();
+		}
+		int charisma = pc.getCha();
+		if (pc.isCrown()) {
+			charisma += 6;
+		} else if (pc.isElf()) {
+			charisma += 12;
+		} else if (pc.isWizard()) { // WIZ
+			charisma += 6;
+		} else if (pc.isDarkelf()) { // DE
+			charisma += 6;
+		} else if (pc.isDragonKnight()) {
+			charisma += 6;
+		} else if (pc.isIllusionist()) {
+			charisma += 6;
+		}
 
 		// This accounts for the difference between the kennels and using
 		// calling flutes. Need to determine if this was here deliberately.
