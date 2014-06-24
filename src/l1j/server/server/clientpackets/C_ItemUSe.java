@@ -4849,30 +4849,53 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private boolean withdrawPet(L1PcInstance pc, int itemObjectId) {
-		if (!pc.getMap().isTakePets()) {
-			pc.sendPackets(new S_ServerMessage(563));
-			return false;
-		}
-		int petCost = 0;
-		Object[] petList = pc.getPetList().values().toArray();
-		for (Object pet : petList) {
-			if (pet instanceof L1PetInstance) {
-				if (((L1PetInstance) pet).getItemObjId() == itemObjectId) {
-					return false;
-				}
-			}
-			petCost += ((L1NpcInstance) pet).getPetcost();
-		}
-		int charisma = pc.getCha() + (pc.isElf() ? 12 : 6);
+if (!pc.getMap().isTakePets()) {
+pc.sendPackets(new S_ServerMessage(563));
+return false;
+}
+int divisor = 6;
+int petCost = 0;
+Object[] petList = pc.getPetList().values().toArray();
+for (Object pet : petList) {
+if (pet instanceof L1PetInstance) {
+if (((L1PetInstance) pet).getItemObjId() == itemObjectId) {
+return false;
+}
+}
+petCost += ((L1NpcInstance) pet).getPetcost();
+}
+int charisma = pc.getCha();
+if (pc.isCrown()) {
+charisma += 6;
+} else if (pc.isElf()) {
+charisma += 12;
+} else if (pc.isWizard()) { // WIZ
+charisma += 6;
+} else if (pc.isDarkelf()) { // DE
+charisma += 6;
+} else if (pc.isDragonKnight()) {
+charisma += 6;
+} else if (pc.isIllusionist()) {
+charisma += 6;
+}
 
-		int divisor = 6;
+		// This accounts for the difference between the kennels and using
+		// calling flutes. Need to determine if this was here deliberately.
+		/*
+		 * charisma -= petCost; int petCount = charisma / 6; if (petCount <= 0)
+		 * { pc.sendPackets(new S_ServerMessage(489)); return false; }
+		 */
+
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
 		if (l1pet != null) {
 			int npcId = l1pet.get_npcid();
 			charisma -= petCost;
-			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || 
-					npcId == 45712 || npcId == 46046)
+			if (npcId == 45313 || npcId == 45710 || npcId == 45711
+					|| npcId == 45712 || npcId == 46046) {
 				divisor = 12;
+			} else {
+				divisor = 6;
+			}
 			int petCount = charisma / divisor;
 			if (petCount <= 0) {
 				pc.sendPackets(new S_ServerMessage(489));
