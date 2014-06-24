@@ -187,5 +187,8 @@ public class L1DeleteItemOnGround {
 			}
 		}
 		_log.fine("Deleted ground items: " + numOfDeleted);
+		//temporary output to test this
+		_log.fine("Checked items size: " + checkeditems.size());
+
 	}
 }
