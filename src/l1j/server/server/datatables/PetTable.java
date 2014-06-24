@@ -226,7 +226,7 @@ public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?," +
-					"npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,food=?");
+					"npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
