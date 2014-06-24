@@ -100,11 +100,6 @@ public class L1DeleteItemOnGround {
 		
 			//see if item is still laying around the world
 			if (L1World.getInstance().getObject().contains(previouslycheckeditem)) {
-				
-				if (!(previouslycheckeditem instanceof L1ItemInstance)) {
-					checkeditems.remove(previouslycheckeditem);
-					continue;
-				}
 
 				L1ItemInstance item = (L1ItemInstance) previouslycheckeditem;
 				
@@ -116,12 +111,7 @@ public class L1DeleteItemOnGround {
 					checkeditems.remove(item);
 					continue;
 				}
-				// Spirit's rock
-				//remove item from checked list
-				if (item.getItem().getItemId() == 40515) { 
-					checkeditems.remove(item);
-					continue;
-				}
+
 				// Hideout in
 				//remove item from checked list
 				if (L1HouseLocation.isInHouse(item.getX(), item.getY(), item
@@ -130,6 +120,13 @@ public class L1DeleteItemOnGround {
 					continue;
 				}
 				
+				//check if item is still even in the world, if not, remove from checkeditems
+				//the first check above might already cover this case, but just in case...
+				if (L1World.getInstance().getInventory(item.getX(),item.getY(),item.getMapId()) == null) {
+					checkeditems.remove(item);
+					continue;
+					
+				}
 				//grab the players and make sure the item isn't visible to anyone
 				List<L1PcInstance> players = L1World.getInstance()
 						.getVisiblePlayer(item, Config.ALT_ITEM_DELETION_RANGE);
