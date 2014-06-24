@@ -52,7 +52,7 @@ public class L1Who implements L1CommandExecutor {
 		}
 	}
 
-	private void who(L1PcInstance gm, String name) {  
+	private void who(L1PcInstance gm, String name) {
 		try {
 			L1PcInstance target = getPcInstance(name.trim());
 			if (target == null) {
@@ -103,10 +103,10 @@ public class L1Who implements L1CommandExecutor {
 						.toString()));
 				i++;
 			}
-		} catch (Exception exception) { 
+		} catch (Exception exception) {
 		}
 	}
-	private void whoOffline(L1PcInstance gm, String name) {  
+	private void whoOffline(L1PcInstance gm, String name) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -134,7 +134,7 @@ public class L1Who implements L1CommandExecutor {
 			SQLUtil.close(con);
 		}
 	}
-	
+
 	private L1PcInstance getPcInstance(String name) {
 		L1PcInstance pc = L1World.getInstance().getPlayer(name);
 		if (pc == null) {
@@ -147,36 +147,111 @@ public class L1Who implements L1CommandExecutor {
 		}
 		return pc;
 	}
-	
-	private String getSex(int classID) {
-		switch(classID) {
-			case 0: case 61: case 138: case 734: case 2786: case 6658: case 6671:
-				return "Male";
-			case 1: case 48: case 37: case 1186: case 2796: case 6661: case 6650:
-				return "Female";
-			default:
-				return "Error: unknown gender!";
+
+	// TODO: The below has a bad smell since most of this
+	// is already defined in the L1PcInstance or L1Character
+	// classes. The main reason for them being here is to support
+	// offline who lookups against the database. 
+	private String getSex(int classID)
+	{
+		if(isMale(classID))
+		{
+			return "Male";
 		}
+		if(isFemale(classID))
+		{
+			return "Female";
+		}
+		return "error";
 	}
-	
-	private String getClass(int classID) {
-		switch(classID) {
-			case 0: case 1:
-				return "Royal";
-			case 48: case 61:
-				return "Knight";
-			case 37: case 138:
-				return "Elf";
-			case 734: case 1186:
-				return "Mage";
-			case 2786: case 2796:
-				return "Dark Elf";
-			case 6658: case 6661:
-				return "Dragon Knight";
-			case 6671: case 6650:
-				return "Illusionist";
-			default:
-				return "Error: Unrecognized class!";
+
+	private boolean isMale(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_PRINCE
+		 || classID == L1PcInstance.CLASSID_KNIGHT_MALE
+		 || classID == L1PcInstance.CLASSID_ELF_MALE
+		 || classID == L1PcInstance.CLASSID_WIZARD_MALE
+		 || classID == L1PcInstance.CLASSID_DARK_ELF_MALE
+		 || classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE
+		 || classID == L1PcInstance.CLASSID_ILLUSIONIST_MALE;
+	}
+
+	private boolean isFemale(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_PRINCESS
+		 || classID == L1PcInstance.CLASSID_KNIGHT_FEMALE
+		 || classID == L1PcInstance.CLASSID_ELF_FEMALE
+		 || classID == L1PcInstance.CLASSID_WIZARD_FEMALE
+		 || classID == L1PcInstance.CLASSID_DARK_ELF_FEMALE
+		 || classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE
+		 || classID == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE;
+	}
+
+	private String getClass(int classID)
+	{
+		if(isRoyal(classID))
+		{
+			return "Royal";
 		}
+		if(isKnight(classID))
+		{
+			return "Knight";
+		}
+		if(isElf(classID))
+		{
+			return "Elf";
+		}
+		if(isMage(classID))
+		{
+			return "Mage";
+		}
+		if(isDarkElf(classID))
+		{
+			return "Dark Elf";
+		}
+		if(isDragonKnight(classID))
+		{
+			return "Dragon Knight";
+		}
+		if(isIllusionist(classID))
+		{
+			return "Illusionist";
+		}
+		return "error";
+	}
+
+	private boolean isRoyal(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_PRINCE || classID == L1PcInstance.CLASSID_PRINCESS;
+	}
+
+	private boolean isKnight(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_KNIGHT_MALE || classID == L1PcInstance.CLASSID_KNIGHT_FEMALE;
+	}
+
+	private boolean isElf(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_ELF_MALE || classID == L1PcInstance.CLASSID_ELF_FEMALE;
+	}
+
+	private boolean isMage(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_WIZARD_MALE || classID == L1PcInstance.CLASSID_WIZARD_FEMALE;
+	}
+
+	private boolean isDarkElf(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_DARK_ELF_MALE || classID == L1PcInstance.CLASSID_DARK_ELF_FEMALE;
+	}
+
+	private boolean isDragonKnight(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE || classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE;
+	}
+
+	private boolean isIllusionist(int classID)
+	{
+		return classID == L1PcInstance.CLASSID_ILLUSIONIST_MALE || classID == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE;
 	}
 }
