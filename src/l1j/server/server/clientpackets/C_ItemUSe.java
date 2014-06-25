@@ -4853,35 +4853,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(563));
 			return false;
 		}
-		int petCost = 0;
-		Object[] petList = pc.getPetList().values().toArray();
-		for (Object pet : petList) {
-			if (pet instanceof L1PetInstance) {
-				if (((L1PetInstance) pet).getItemObjId() == itemObjectId) {
-					return false;
-				}
-			}
-			petCost += ((L1NpcInstance) pet).getPetcost();
-		}
-		int charisma = pc.getCha() + (pc.isElf() ? 12 : 6);
-
-		int divisor = 6;
-		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
-		if (l1pet != null) {
-			int npcId = l1pet.get_npcid();
-			charisma -= petCost;
-			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || 
-					npcId == 45712 || npcId == 46046)
-				divisor = 12;
-			int petCount = charisma / divisor;
-			if (petCount <= 0) {
-				pc.sendPackets(new S_ServerMessage(489));
-				return true;
-			}
-			L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
-			L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
-			pet.setPetcost(divisor);
-		}
+		pc.useDogCollar(itemObjectId);
 		return true;
 	}
 

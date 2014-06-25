@@ -71,46 +71,7 @@ public class C_SelectList extends ClientBasePacket {
 			item.set_durability(0);
 			pcInventory.updateItem(item, L1PcInventory.COL_DURABILITY);
 		} else {
-			int petCost = 0;
-			int petCount = 0;
-			int divisor = 6;
-			Object[] petList = pc.getPetList().values().toArray();
-			for (Object pet : petList) {
-				petCost += ((L1NpcInstance) pet).getPetcost();
-			}
-			int charisma = pc.getCha();
-			if (pc.isCrown()) {
-				charisma += 6;
-			} else if (pc.isElf()) {
-				charisma += 12;
-			} else if (pc.isWizard()) {
-				charisma += 6;
-			} else if (pc.isDarkelf()) {
-				charisma += 6;
-			} else if (pc.isDragonKnight()) {
-				charisma += 6;
-			} else if (pc.isIllusionist()) {
-				charisma += 6;
-			}
-
-			L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
-			if (l1pet != null) {
-				int npcId = l1pet.get_npcid();
-				charisma -= petCost;
-				if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
-					divisor = 12;
-				} else {
-					divisor = 6;
-				}
-				petCount = charisma / divisor;
-				if (petCount <= 0) {
-					pc.sendPackets(new S_ServerMessage(489));
-					return;
-				}
-				L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
-				L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
-				pet.setPetcost(divisor);
-			}
+			pc.useDogCollar(itemObjectId);
 		}
 	}
 
