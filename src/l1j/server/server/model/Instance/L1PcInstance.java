@@ -51,6 +51,8 @@ import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.HpRegeneration;
 import l1j.server.server.model.L1Attack;
@@ -114,6 +116,8 @@ import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Item;
+import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 import l1j.server.server.utils.CalcStat;
@@ -2739,5 +2743,48 @@ public class L1PcInstance extends L1Character {
 
 	public boolean isFoeSlayerSuccess() {
 		return _FoeSlayerSuccess;
+	}
+	
+	public void useDogCollar(int itemObjectId) {
+		int petCost = 0;
+		int petCount = 0;
+		int divisor = 6;
+		Object[] petList = getPetList().values().toArray();
+		for (Object pet : petList) {
+			petCost += ((L1NpcInstance) pet).getPetcost();
+		}
+		int charisma = getCha();
+		if (isCrown()) {
+			charisma += 6;
+		} else if (isElf()) {
+			charisma += 12;
+		} else if (isWizard()) {
+			charisma += 6;
+		} else if (isDarkelf()) {
+			charisma += 6;
+		} else if (isDragonKnight()) {
+			charisma += 6;
+		} else if (isIllusionist()) {
+			charisma += 6;
+		}
+
+		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
+		if (l1pet != null) {
+			int npcId = l1pet.get_npcid();
+			charisma -= petCost;
+			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
+				divisor = 12;
+			} else {
+				divisor = 6;
+			}
+			petCount = charisma / divisor;
+			if (petCount <= 0) {
+				sendPackets(new S_ServerMessage(489));
+				return;
+			}
+			L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
+			L1PetInstance pet = new L1PetInstance(npcTemp, this, l1pet);
+			pet.setPetcost(divisor);
+		}
 	}
 }
