@@ -4605,8 +4605,8 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private boolean createNewItem(L1PcInstance pc, int item_id, int count) {
 		L1ItemInstance item = ItemTable.getInstance().createItem(item_id);
-		item.setCount(count);
 		if (item != null) {
+			item.setCount(count);
 			if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 				pc.getInventory().storeItem(item);
 			} else {
@@ -4678,10 +4678,10 @@ public class C_ItemUSe extends ClientBasePacket {
 			newItemId = 49024;
 		}
 		L1ItemInstance item = ItemTable.getInstance().createItem(newItemId);
-		item.setCount(1);
 		if (item == null) {
 			return false;
 		}
+		item.setCount(1);
 
 		if (sendLetter(pc, letterReceiver, item, true)) {
 			saveLetter(item.getId(), letterCode, pc.getName(), letterReceiver,
@@ -4710,10 +4710,11 @@ public class C_ItemUSe extends ClientBasePacket {
 		String memberName[] = targetClan.getAllMembers();
 		for (int i = 0; i < memberName.length; i++) {
 			L1ItemInstance item = ItemTable.getInstance().createItem(49016);
-			item.setCount(1);
 			if (item == null) {
 				return false;
 			}
+			item.setCount(1);
+
 			if (sendLetter(pc, memberName[i], item, false)) {
 				saveLetter(item.getId(), letterCode, pc.getName(),
 						memberName[i], letterText);
