@@ -1029,8 +1029,9 @@ public class L1Attack {
 	}
 
 	public void calcStaffOfMana() {
-		if (_weaponId == 126 || _weaponId == 127) { // SOM|SSOM
-			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of absorption
+		if (_weaponId == 126 || _weaponId == 127 || _weaponId == 259) { // SOM|SSOM
+			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of
+												// absorption
 			if (som_lvl < 0) {
 				som_lvl = 0;
 			}
@@ -1040,15 +1041,22 @@ public class L1Attack {
 			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
 				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
-		} else if (_weaponId == 259) {
-			if (_calcType == PC_PC) {
-				if (_targetPc.getMr() <= _random.nextInt(100) + 1) {
-					_drainMana = 1;
-				}
-			} else if (_calcType == PC_NPC) {
-				if (_targetNpc.getMr() <= _random.nextInt(100) + 1) {
-					_drainMana = 1;
-				}
+		}
+		/*
+		 * Edited to work the same as SOM above. Left in its own if block so we
+		 * can easily adjust it later if we decide this is OP
+		 */
+		else if (_weaponId == 259) {
+			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of
+												// absorption
+			if (som_lvl < 0) {
+				som_lvl = 0;
+			}
+			// MP sinks to retrieve random
+			_drainMana = _random.nextInt(som_lvl) + 1;
+			// 9 maximum limit on the amount of absorption MP
+			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
+				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
 		}
 	}
