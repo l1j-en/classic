@@ -1029,7 +1029,7 @@ public class L1Attack {
 	}
 
 	public void calcStaffOfMana() {
-		if (_weaponId == 126 || _weaponId == 127 || _weaponId == 259) { // SOM|SSOM
+		if (_weaponId == 126 || _weaponId == 127) { // SOM|SSOM
 			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of
 												// absorption
 			if (som_lvl < 0) {
