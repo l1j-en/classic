@@ -33,7 +33,7 @@ update spawnlist set npc_templateid=81173 where npc_templateid=45361 and mapid i
 update spawnlist_npc set count=0 where npc_templateid=80071 and mapid=410;
 
 -- Add .ipcheck to GM commands with default access level of 100
-REPLACE INTO commands VALUES ('ipcheck', '100', 'CheckIP');
+INSERT INTO commands VALUES ('ipcheck', '100', 'CheckIP');
 
 -- Correct the wrong itemid of Green Dragon Armor from Antharas
 update droplist set itemId=20146 where mobId=45682 and itemId=21046;
@@ -81,7 +81,7 @@ CREATE TABLE LogIP (
 
 -- Lance master crashes Tikal client
 delete from polymorphs where id = 7338 or id = 7339 or id = 7340 or id = 7341 or id = 7332;
--- replace into polymorphs values
+-- insert into polymorphs values
 -- (7332,'spearm 52',7332,52,1080,4095,1,7),
 -- (7338,'spearm 55',7338,55,1080,4095,1,7),
 -- (7339,'spearm 60',7339,60,1080,4095,1,7),
@@ -242,7 +242,7 @@ UPDATE `mobskill` SET `leverage` = 0 WHERE mobid in (46094, 46096);
 DELETE FROM `spawnlist` where `npc_templateid` in (45269, 45286, 45270) and `mapid` = 4;
 DELETE FROM `spawnlist` where `mapid` = 4 and `locx` >= 33229 and `locx` <= 33449
 	and `locy` >= 32232 and `locy` <= 32483 and `npc_templateid` in (45161, 45259);
-REPLACE INTO `spawnlist` VALUES
+INSERT INTO `spawnlist` VALUES
 	(12525, 'Skeleton Guard', 60, 45269, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
 	(13400, 'Skeleton Fighter', 60, 45286, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
 	(12746, 'Skeleton Marksman', 60, 45270, 0, 0, 0, 0, 0, 33229, 32232, 33449, 32483, 0, 60, 120, 4, 0, 100, 0, 0, 1, 8, 2, 100),
@@ -569,18 +569,18 @@ update npc set light_size = 8 where npcid = 45673;
 
 -- Update beginner equipment.
 delete from beginner where id = 2;
-replace into beginner values (2, 4, 1, 0, 'Dagger', 'P', 0, 0);
-replace into beginner values (11, 4, 1, 0, 'Dagger', 'K', 0, 0);
-replace into beginner values (12, 4, 1, 0, 'Dagger', 'E', 0, 0);
-replace into beginner values (13, 4, 1, 0, 'Dagger', 'W', 0, 0);
-replace into beginner values (14, 4, 1, 0, 'Dagger', 'D', 0, 0);
-replace into beginner values (15, 138, 1, 0, 'Club', 'R', 0, 0);
-replace into beginner values (16, 138, 1, 0, 'Club', 'I', 0, 0);
-replace into beginner values (17, 20322, 1, 0, 'Leather Jacket', 'R', 0, 0);
-replace into beginner values (18, 20322, 1, 0, 'Leather Jacket', 'I', 0, 0);
+insert into beginner values (2, 4, 1, 0, 'Dagger', 'P', 0, 0);
+insert into beginner values (11, 4, 1, 0, 'Dagger', 'K', 0, 0);
+insert into beginner values (12, 4, 1, 0, 'Dagger', 'E', 0, 0);
+insert into beginner values (13, 4, 1, 0, 'Dagger', 'W', 0, 0);
+insert into beginner values (14, 4, 1, 0, 'Dagger', 'D', 0, 0);
+insert into beginner values (15, 138, 1, 0, 'Club', 'R', 0, 0);
+insert into beginner values (16, 138, 1, 0, 'Club', 'I', 0, 0);
+insert into beginner values (17, 20322, 1, 0, 'Leather Jacket', 'R', 0, 0);
+insert into beginner values (18, 20322, 1, 0, 'Leather Jacket', 'I', 0, 0);
 
 -- Fix broken stairs on DVC2F.
-replace into dungeon values (32727, 32809, 31, "Dragon Valley Caves 2F", 32709, 32818, 32, "Dragon Valley Caves 3F", 4);
+insert into dungeon values (32727, 32809, 31, "Dragon Valley Caves 2F", 32709, 32818, 32, "Dragon Valley Caves 3F", 4);
 
 -- Fix Ifrit naming in droplist, was erroneously labeled Basilisk
 update droplist set mob_name = 'Ifrit' where mobId = 45516;
@@ -604,22 +604,22 @@ update npc set hprinterval = 5000 where npcid in (45161, 45181, 45455);
 update spr_action set framecount = 13 where spr_id = 3102 and act_id = 12;
 
 -- Add fungus juice to droplist for elven forest fungus
-replace into droplist values ('45030', 'Fungus', '40499', 'Fungus Juice', '1', '1', '150000');
+insert into droplist values ('45030', 'Fungus', '40499', 'Fungus Juice', '1', '1', '150000');
 
 -- Fix Peddler Johan on Singing Island
 update spawnlist_npc set locx = 32827, locy = 32723 where id = 60807;
 update npc set nameid = '$1414' where npcid = 70004;
-replace into shop values ('70004', 'Peddler Johan', '40010', 'Lesser Healing Potion', '0', '37', '0', '19');
-replace into shop values ('70004', 'Peddler Johan', '40013', 'Haste Potion', '0', '200', '0', '100');
+insert into shop values ('70004', 'Peddler Johan', '40010', 'Lesser Healing Potion', '0', '37', '0', '19');
+insert into shop values ('70004', 'Peddler Johan', '40013', 'Haste Potion', '0', '200', '0', '100');
 
 -- Move Serian (Talking Scroll NPC) near new starting location and other useful Singing Island NPCs
 update spawnlist_npc set locx = 32817, locy = 32728 where id = 87546;
 
 -- Add Serian (Talking Scroll NPC) spawn to Talking Island
-replace into spawnlist_npc values ('87557', 'Serian', '1', '50112', '32600', '32916', '0', '0', '6', '0', '0', '0');
+insert into spawnlist_npc values ('87557', 'Serian', '1', '50112', '32600', '32916', '0', '0', '6', '0', '0', '0');
 
 -- Add goblin spawns near the south exit of Singing Island town
-replace into spawnlist values
+insert into spawnlist values
 	(801500719, 'Goblin', '10', '45008', '0', '0', '0', '0', '0', '32678', '32753', '32718', '32792', '0', '0', '0', '68', '0', '50', '0', '0', '1', '6', '2', '100');
 
 -- Remove Zombie spawns from Singing Island
