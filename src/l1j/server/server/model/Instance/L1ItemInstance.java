@@ -1,5 +1,6 @@
 package l1j.server.server.model.Instance;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -845,7 +846,14 @@ public class L1ItemInstance extends L1Object {
 			// os.writeH(val);
 			// }
 		}
-		return os.getBytes();
+		byte[] returnvalue = os.getBytes();
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnvalue;
 	}
 
 	class EnchantTimer extends TimerTask {
