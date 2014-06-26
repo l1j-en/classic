@@ -175,7 +175,6 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1Object object = L1World.getInstance().findObject(getId());
 		L1NpcInstance target = (L1NpcInstance) object;
 		String htmlid = null;
-		String[] htmldata = null;
 
 		if (talking != null) {
 			int pcx = player.getX();
@@ -202,14 +201,29 @@ public class L1GuardianInstance extends L1NpcInstance {
 			}
 			broadcastPacket(new S_ChangeHeading(this));
 
-			//
-			if (htmlid != null) { //
-				if (htmldata != null) { //
-					player.sendPackets(new S_NPCTalkReturn(objid, htmlid,
-							htmldata));
+			switch (getId()) {
+			// ent
+			case 70848:
+				if (player.isElf()) {
+					htmlid = "ente1";
 				} else {
-					player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
+					htmlid = "entm1";
 				}
+				break;
+
+			// pan
+			case 70850:
+				if (player.isElf()) {
+					htmlid = "pane1";
+				} else {
+					htmlid = "panm1";
+				}
+				break;
+			}
+			if (htmlid != null) {
+
+				player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
+
 			} else {
 				if (player.getLawful() < -1000) {
 					player.sendPackets(new S_NPCTalkReturn(talking, objid, 2));
