@@ -49,7 +49,9 @@ public class L1WarStart implements L1CommandExecutor {
 			int castle = Integer.parseInt(st.nextToken());
 
 			L1Castle _l1castle = WarTimeController.getCastle(castle);
-			L1World.getInstance().broadcastPacketToAll(new S_SystemMessage(time + " siege " + _l1castle.getName() + " will start !"));
+			L1World.getInstance().broadcastPacketToAll(
+					new S_SystemMessage(time + " siege " + _l1castle.getName()
+							+ " will start !"));
 			Calendar nowTime = WarTimeController.getRealTime();
 			nowTime.add(Calendar.MINUTE, time);
 			_l1castle.setWarTime(nowTime);
@@ -59,8 +61,10 @@ public class L1WarStart implements L1CommandExecutor {
 			nowTime.add(Config.ALT_WAR_TIME_UNIT, Config.ALT_WAR_TIME);
 			WarTimeController.setWarEndTime(castle, nowTime);
 		} catch (Exception exception) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " .war starttime + id 1 = kent 2 = orcfortress 3 = windawood 4 = giran 5 = heine " +
-					"6 = dwarfcastle 7 = aden 8 = diad "));
+			pc.sendPackets(new S_SystemMessage(
+					cmdName
+							+ " .war starttime + id 1 = kent 2 = orcfortress 3 = windawood 4 = giran 5 = heine "
+							+ "6 = dwarfcastle 7 = aden 8 = diad "));
 			_log.log(Level.SEVERE, exception.getLocalizedMessage(), exception);
 		}
 	}

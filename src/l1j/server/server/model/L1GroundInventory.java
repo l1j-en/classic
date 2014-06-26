@@ -49,7 +49,7 @@ public class L1GroundInventory extends L1Inventory {
 		if (!Config.ALT_ITEM_DELETION_TYPE.equalsIgnoreCase("std")) {
 			return;
 		}
-		if (item.getItemId() == 40515) { // 
+		if (item.getItemId() == 40515) { //
 			return;
 		}
 
@@ -78,7 +78,10 @@ public class L1GroundInventory extends L1Inventory {
 		for (L1ItemInstance item : getItems()) {
 			if (!perceivedFrom.knownsObject(item)) {
 				perceivedFrom.addKnownObject(item);
-				perceivedFrom.sendPackets(new S_DropItem(item)); // Players to information about DROPITEM
+				perceivedFrom.sendPackets(new S_DropItem(item)); // Players to
+																	// information
+																	// about
+																	// DROPITEM
 			}
 		}
 	}
@@ -102,7 +105,8 @@ public class L1GroundInventory extends L1Inventory {
 		}
 	}
 
-	// Inventory check and discard the player's range of vision to remove objects
+	// Inventory check and discard the player's range of vision to remove
+	// objects
 	@Override
 	public void deleteItem(L1ItemInstance item) {
 		cancelTimer(item);

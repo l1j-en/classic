@@ -87,46 +87,45 @@ public class L1WeaponSkill {
 	// 1.5 means 50% boost for all multipliers
 	private static final double MultiplierBoost = 1.5;
 
-	private static final Map<Integer, L1WeaponSkill> ProcMap =
-		new HashMap<Integer, L1WeaponSkill>();
-	
+	private static final Map<Integer, L1WeaponSkill> ProcMap = new HashMap<Integer, L1WeaponSkill>();
+
 	static {
 		if (Config.USE_INT_PROCS) {
-			ProcMap.put(SwordOfDeathKnight, new L1WeaponSkill(SwordOfDeathKnight,
-					7, 0, 0, 0, 0, 0, 1811, 0, false, 2, 1.77));
-			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(
-					SwordOfKurtz, 15, 0, 0, 0, 0, 0, 10, 0, false, 8, 1.02));
-			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(
-					EdoryuOfRonde, 15, 0, 0, 0, 0, 0, 1805, 0, false, 1, 1.02));
-			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen,
-					25, 0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
-			ProcMap.put(ThorsHammer, new L1WeaponSkill(
-					ThorsHammer, 16, 0, 0, 0, 0, 0, 3940, 0, false, 0, 0.7));
-			ProcMap.put(PaagriosHatred, new L1WeaponSkill(
-					PaagriosHatred, 12, 0, 0, 0, 0, 0, 245, 0, false, 0));
-			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(
-					MaphrsRetribution, 10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
-			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(
-					OrcishBumeSmache, 15, 0, 0, 0, 0, 0, 762, 0, false, 0, 0.65));
-			ProcMap.put(EvasScorn, new L1WeaponSkill(
-					EvasScorn, 16, 0, 0, 0, 0, 0, 1714, 0, false, 0, 0.59));
-			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(
-					SwordOfVarlok, 15, 0, 0, 2, 0, 0, 762, 0, false, 2, 2.9));
-			ProcMap.put(SwordOfSilence, new L1WeaponSkill(
-					SwordOfSilence, 5, 0, 0, 0, 64, 16, 2177, 0, false, 0));
-			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(
-					LongbowOfMoon, 10, 0, 0, 0, 0, 0, 6288, 0, true, 0, 1.02));
+			ProcMap.put(SwordOfDeathKnight, new L1WeaponSkill(
+					SwordOfDeathKnight, 7, 0, 0, 0, 0, 0, 1811, 0, false, 2,
+					1.77));
+			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(SwordOfKurtz, 15, 0, 0,
+					0, 0, 0, 10, 0, false, 8, 1.02));
+			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(EdoryuOfRonde, 15, 0,
+					0, 0, 0, 0, 1805, 0, false, 1, 1.02));
+			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen, 25,
+					0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
+			ProcMap.put(ThorsHammer, new L1WeaponSkill(ThorsHammer, 16, 0, 0,
+					0, 0, 0, 3940, 0, false, 0, 0.7));
+			ProcMap.put(PaagriosHatred, new L1WeaponSkill(PaagriosHatred, 12,
+					0, 0, 0, 0, 0, 245, 0, false, 0));
+			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(MaphrsRetribution,
+					10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
+			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(OrcishBumeSmache,
+					15, 0, 0, 0, 0, 0, 762, 0, false, 0, 0.65));
+			ProcMap.put(EvasScorn, new L1WeaponSkill(EvasScorn, 16, 0, 0, 0, 0,
+					0, 1714, 0, false, 0, 0.59));
+			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(SwordOfVarlok, 15, 0,
+					0, 2, 0, 0, 762, 0, false, 2, 2.9));
+			ProcMap.put(SwordOfSilence, new L1WeaponSkill(SwordOfSilence, 5, 0,
+					0, 0, 64, 16, 2177, 0, false, 0));
+			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(LongbowOfMoon, 10, 0,
+					0, 0, 0, 0, 6288, 0, true, 0, 1.02));
 		}
 	}
 
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
 			int effectId, int effectTarget, boolean isArrowType, int attr) {
-		this(weaponId, probability, fixDamage, randomDamage, area,
-				skillId, skillTime, effectId, effectTarget, isArrowType,
-				attr, 0.);
+		this(weaponId, probability, fixDamage, randomDamage, area, skillId,
+				skillTime, effectId, effectTarget, isArrowType, attr, 0.);
 	}
-	
+
 	public L1WeaponSkill(int weaponId, int probability, int fixDamage,
 			int randomDamage, int area, int skillId, int skillTime,
 			int effectId, int effectTarget, boolean isArrowType, int attr,
@@ -144,7 +143,7 @@ public class L1WeaponSkill {
 		_attr = attr;
 		_multiplier = multiplier;
 	}
-	
+
 	public int getWeaponId() {
 		return _weaponId;
 	}
@@ -188,46 +187,47 @@ public class L1WeaponSkill {
 	public int getAttr() {
 		return _attr;
 	}
-	
+
 	public double getMultiplier() {
 		return _multiplier;
 	}
 
-	public static double getWeaponSkillDamage(final L1PcInstance attacker, 
+	public static double getWeaponSkillDamage(final L1PcInstance attacker,
 			final L1Character target, final int weaponId) {
 		if (attacker == null || target == null)
 			return 0;
 
 		switch (weaponId) {
-			case 124:
-				return getBaphometStaffDamage(attacker, target);
-			case 204: case 100204:
-				return giveFettersEffect(attacker, target);
-			case 264:
-				return getLightningEdgeDamage(attacker, target);
-			case 260:
-				return getWindAxeDamage(attacker, target);
-			case 263:
-				return getFrozenSpearDamage(attacker, target);
-			case 261:
-				return giveArkMageDiseaseEffect(attacker, target);
+		case 124:
+			return getBaphometStaffDamage(attacker, target);
+		case 204:
+		case 100204:
+			return giveFettersEffect(attacker, target);
+		case 264:
+			return getLightningEdgeDamage(attacker, target);
+		case 260:
+			return getWindAxeDamage(attacker, target);
+		case 263:
+			return getFrozenSpearDamage(attacker, target);
+		case 261:
+			return giveArkMageDiseaseEffect(attacker, target);
 		}
 
-		L1WeaponSkill weaponSkill = Config.USE_INT_PROCS
-			? ProcMap.get(weaponId)
-			: WeaponSkillTable.getInstance().getTemplate(weaponId);
+		L1WeaponSkill weaponSkill = Config.USE_INT_PROCS ? ProcMap
+				.get(weaponId) : WeaponSkillTable.getInstance().getTemplate(
+				weaponId);
 		if (weaponSkill == null)
 			return 0;
 
 		if (weaponSkill.getProbability() < _random.nextInt(100) + 1)
 			return 0;
-			
+
 		int skillId = weaponSkill.getSkillId();
 		if (skillId != 0) {
 			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 			if (skill != null && skill.getTarget().equals("buff")) {
 				if (!isImmune(target)) {
-					target.setSkillEffect(skillId, 
+					target.setSkillEffect(skillId,
 							weaponSkill.getSkillTime() * 1000);
 				}
 			}
@@ -236,19 +236,17 @@ public class L1WeaponSkill {
 		// effectId should always be nonzero - if it's 0 you're just modifying
 		// damage and there are better ways to do that.
 		int effectId = weaponSkill.getEffectId();
-		L1Character hub = 
-				weaponSkill.getEffectTarget() == 0 ? target : attacker;
+		L1Character hub = weaponSkill.getEffectTarget() == 0 ? target
+				: attacker;
 		int hubId = hub.getId();
-		ServerBasePacket packet = weaponSkill.isArrowType()
-			? new S_UseAttackSkill(attacker, target.getId(), effectId, 
-					target.getX(), target.getY(), 
-					ActionCodes.ACTION_Attack, false)
-			: new S_SkillSound(hubId, effectId);
+		ServerBasePacket packet = weaponSkill.isArrowType() ? new S_UseAttackSkill(
+				attacker, target.getId(), effectId, target.getX(),
+				target.getY(), ActionCodes.ACTION_Attack, false)
+				: new S_SkillSound(hubId, effectId);
 
-		double damage = Config.USE_INT_PROCS
-			? getWeaponDamage(attacker, weaponSkill.getMultiplier())
-			: weaponSkill.getFixDamage() +
-				_random.nextInt(weaponSkill.getRandomDamage()) + 1;
+		double damage = Config.USE_INT_PROCS ? getWeaponDamage(attacker,
+				weaponSkill.getMultiplier()) : weaponSkill.getFixDamage()
+				+ _random.nextInt(weaponSkill.getRandomDamage()) + 1;
 
 		int area = weaponSkill.getArea();
 		int element = weaponSkill.getAttr();
@@ -272,7 +270,7 @@ public class L1WeaponSkill {
 		return damage;
 	}
 
-	public static double getKiringkuDamage(final L1PcInstance attacker, 
+	public static double getKiringkuDamage(final L1PcInstance attacker,
 			final L1Character target) {
 		L1ItemInstance weapon = attacker.getWeapon();
 		int weaponId = weapon.getItem().getItemId();
@@ -284,15 +282,15 @@ public class L1WeaponSkill {
 			damage += (_random.nextInt(dice) + 1);
 		}
 
-		int spByItem = attacker.getSp() - attacker.getTrueSp(); 
+		int spByItem = attacker.getSp() - attacker.getTrueSp();
 		int charaIntelligence = attacker.getInt() + spByItem - 12;
 		if (charaIntelligence < 1) {
 			charaIntelligence = 1;
 		}
 		double kiringkuCoefficientA = (1.0 + charaIntelligence * 3.0 / 32.0);
 
-		damage = (int) (damage * kiringkuCoefficientA) +
-			weapon.getEnchantLevel() + attacker.getOriginalMagicDamage();
+		damage = (int) (damage * kiringkuCoefficientA)
+				+ weapon.getEnchantLevel() + attacker.getOriginalMagicDamage();
 
 		if (attacker.hasSkillEffect(ILLUSION_AVATAR)) {
 			damage += 10;
@@ -308,20 +306,17 @@ public class L1WeaponSkill {
 
 	private static double getFrozenSpearDamage(final L1PcInstance attacker,
 			final L1Character target) {
-		return FrozenSpearChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.4),
-					Element.Water,
-					new S_SkillSound(target.getId(), 1804), target, 3)
-			: 0;
+		return FrozenSpearChance >= _random.nextInt(100) + 1 ? handleAoeProc(
+				attacker, target, getWeaponDamage(attacker, 1.4),
+				Element.Water, new S_SkillSound(target.getId(), 1804), target,
+				3) : 0;
 	}
 
 	private static double getWindAxeDamage(final L1PcInstance attacker,
 			final L1Character target) {
-		return WindAxeChance >= _random.nextInt(100) + 1
-			? handleAoeProc(attacker, target, getWeaponDamage(attacker, 1.5), 
-					Element.Wind, 
-					new S_SkillSound(attacker.getId(), 758), attacker, 4)
-			: 0;
+		return WindAxeChance >= _random.nextInt(100) + 1 ? handleAoeProc(
+				attacker, target, getWeaponDamage(attacker, 1.5), Element.Wind,
+				new S_SkillSound(attacker.getId(), 758), attacker, 4) : 0;
 	}
 
 	private static double handleAoeProc(final L1PcInstance attacker,
@@ -331,32 +326,31 @@ public class L1WeaponSkill {
 
 		boolean playerTarget = target instanceof L1PcInstance;
 		boolean monsterTarget = target instanceof L1MonsterInstance;
-		boolean minionTarget = target instanceof L1PetInstance ||
-								target instanceof L1SummonInstance;
+		boolean minionTarget = target instanceof L1PetInstance
+				|| target instanceof L1SummonInstance;
 
-		for (L1Object object : 
-				L1World.getInstance().getVisibleObjects(hub, radius)) {
-			
-			if (object == null ||
-				!(object instanceof L1Character) ||
-				object.getId() == attacker.getId() ||
-				object.getId() == target.getId())
+		for (L1Object object : L1World.getInstance().getVisibleObjects(hub,
+				radius)) {
+
+			if (object == null || !(object instanceof L1Character)
+					|| object.getId() == attacker.getId()
+					|| object.getId() == target.getId())
 				continue;
 
 			boolean isMonster = object instanceof L1MonsterInstance;
 			boolean isPlayer = object instanceof L1PcInstance;
-			boolean isMinion = object instanceof L1PetInstance ||
-								object instanceof L1SummonInstance;
-			
+			boolean isMinion = object instanceof L1PetInstance
+					|| object instanceof L1SummonInstance;
+
 			if (monsterTarget && !isMonster)
 				continue;
 
-			if ((playerTarget || minionTarget) &&
-				!(isMonster || isPlayer || isMinion))
+			if ((playerTarget || minionTarget)
+					&& !(isMonster || isPlayer || isMinion))
 				continue;
 
 			double damage = calcDamageReduction(attacker, (L1Character) object,
-				baseDamage, element);
+					baseDamage, element);
 
 			if (damage <= 0)
 				continue;
@@ -371,7 +365,7 @@ public class L1WeaponSkill {
 			} else if (isMonster || isMinion) {
 				L1NpcInstance npc = (L1NpcInstance) object;
 				npc.broadcastPacket(new S_DoActionGFX(npc.getId(),
-							ActionCodes.ACTION_Damage));
+						ActionCodes.ACTION_Damage));
 				npc.receiveDamage(attacker, (int) damage);
 			}
 		}
@@ -379,18 +373,19 @@ public class L1WeaponSkill {
 		return handleProc(attacker, target, baseDamage, element, packet);
 	}
 
-	private static double getWeaponDamage(final L1Character attacker, 
+	private static double getWeaponDamage(final L1Character attacker,
 			final double multiplier) {
 		int spellpower = Math.max(attacker.getSp(), DefaultSpellpower);
 		int intel = Math.max(attacker.getInt(), DefaultIntelligence);
-		double berserk = attacker.hasSkillEffect(BERSERKERS) ? .2 : 0;	
-		return (intel + spellpower) * (multiplier * MultiplierBoost + berserk) +
-			_random.nextInt(intel + spellpower) * multiplier * MultiplierBoost;
+		double berserk = attacker.hasSkillEffect(BERSERKERS) ? .2 : 0;
+		return (intel + spellpower) * (multiplier * MultiplierBoost + berserk)
+				+ _random.nextInt(intel + spellpower) * multiplier
+				* MultiplierBoost;
 	}
 
 	private static double handleProc(final L1PcInstance attacker,
-			final L1Character target, final double damage,
-			final int element, final ServerBasePacket packet) {
+			final L1Character target, final double damage, final int element,
+			final ServerBasePacket packet) {
 		attacker.sendPackets(packet);
 		attacker.broadcastPacket(packet);
 		return calcDamageReduction(attacker, target, damage, element);
@@ -398,19 +393,17 @@ public class L1WeaponSkill {
 
 	private static double getBaphometStaffDamage(final L1PcInstance attacker,
 			final L1Character target) {
-		return BaphoStaffChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 1.8),
-					Element.Earth,
-					new S_EffectLocation(target.getX(), target.getY(), 129))
-			: 0;
+		return BaphoStaffChance >= _random.nextInt(100) + 1 ? handleProc(
+				attacker, target, getWeaponDamage(attacker, 1.8),
+				Element.Earth,
+				new S_EffectLocation(target.getX(), target.getY(), 129)) : 0;
 	}
 
 	private static double getLightningEdgeDamage(final L1PcInstance attacker,
 			final L1Character target) {
-		return LightningEdgeChance >= _random.nextInt(100) + 1
-			? handleProc(attacker, target, getWeaponDamage(attacker, 2),
-					Element.Wind, new S_SkillSound(target.getId(), 10))
-			: 0;
+		return LightningEdgeChance >= _random.nextInt(100) + 1 ? handleProc(
+				attacker, target, getWeaponDamage(attacker, 2), Element.Wind,
+				new S_SkillSound(target.getId(), 10)) : 0;
 	}
 
 	// TODO: see if we can pull up info from live - this will basically never
@@ -423,15 +416,15 @@ public class L1WeaponSkill {
 		}
 		if (probability >= _random.nextInt(1000) + 1) {
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(attacker, 56,
-					target.getId(), target.getX(), target.getY(), null, 0,
+			l1skilluse.handleCommands(attacker, 56, target.getId(),
+					target.getX(), target.getY(), null, 0,
 					L1SkillUse.TYPE_GMBUFF);
-	   }
-	   return 0;
+		}
+		return 0;
 	}
 
 	private static double giveFettersEffect(L1PcInstance pc, L1Character target) {
-		if (isImmune(target)) { 
+		if (isImmune(target)) {
 			return 0;
 		}
 		if ((_random.nextInt(100) + 1) <= 2) {
@@ -454,7 +447,7 @@ public class L1WeaponSkill {
 		return 0;
 	}
 
-	public static double calcDamageReduction(final L1PcInstance attacker, 
+	public static double calcDamageReduction(final L1PcInstance attacker,
 			final L1Character target, double damage, int element) {
 		if (isImmune(target)) {
 			return 0;
@@ -494,8 +487,8 @@ public class L1WeaponSkill {
 			return false;
 
 		character.removeSkillEffect(COUNTER_MAGIC);
-		int castgfx = SkillTable.getInstance().findBySkillId(
-				COUNTER_MAGIC).getCastGfx();
+		int castgfx = SkillTable.getInstance().findBySkillId(COUNTER_MAGIC)
+				.getCastGfx();
 		S_SkillSound packet = new S_SkillSound(character.getId(), castgfx);
 		character.broadcastPacket(packet);
 		if (character instanceof L1PcInstance) {
@@ -506,8 +499,8 @@ public class L1WeaponSkill {
 	}
 
 	private static boolean isImmune(L1Character character) {
-		if (L1Attack.isImmune(character) || 
-				character.hasSkillEffect(STATUS_FREEZE)) {
+		if (L1Attack.isImmune(character)
+				|| character.hasSkillEffect(STATUS_FREEZE)) {
 			return true;
 		}
 

@@ -42,10 +42,12 @@ public class C_DeleteChar extends ClientBasePacket {
 		super(decrypt);
 		String name = readS();
 		String hostip = client.getHostname();
-		
+
 		try {
-			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(name);
-			if (pc != null && pc.getLevel() >= 30 && Config.DELETE_CHARACTER_AFTER_7DAYS) {
+			L1PcInstance pc = CharacterTable.getInstance().restoreCharacter(
+					name);
+			if (pc != null && pc.getLevel() >= 30
+					&& Config.DELETE_CHARACTER_AFTER_7DAYS) {
 				if (pc.getType() < 32) {
 					if (pc.isCrown()) {
 						pc.setType(32);
@@ -62,7 +64,8 @@ public class C_DeleteChar extends ClientBasePacket {
 					} else if (pc.isIllusionist()) {
 						pc.setType(38);
 					}
-					Timestamp deleteTime = new Timestamp(System.currentTimeMillis() + 604800000); // 7 Days
+					Timestamp deleteTime = new Timestamp(
+							System.currentTimeMillis() + 604800000); // 7 Days
 					pc.setDeleteTime(deleteTime);
 					pc.save();
 				} else {
@@ -84,7 +87,8 @@ public class C_DeleteChar extends ClientBasePacket {
 					pc.setDeleteTime(null);
 					pc.save();
 				}
-				client.sendPacket(new S_DeleteCharOK(S_DeleteCharOK.DELETE_CHAR_AFTER_7DAYS));
+				client.sendPacket(new S_DeleteCharOK(
+						S_DeleteCharOK.DELETE_CHAR_AFTER_7DAYS));
 				return;
 			}
 
@@ -96,7 +100,8 @@ public class C_DeleteChar extends ClientBasePacket {
 			}
 			LogDeleteChar ldc = new LogDeleteChar();
 			ldc.storeLogDeleteChar(pc, hostip);
-			CharacterTable.getInstance().deleteCharacter(client.getAccountName(), name);
+			CharacterTable.getInstance().deleteCharacter(
+					client.getAccountName(), name);
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			client.close();

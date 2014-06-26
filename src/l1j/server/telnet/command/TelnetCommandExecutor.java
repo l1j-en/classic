@@ -45,8 +45,8 @@ public class TelnetCommandExecutor {
 			}
 			return command.execute(args);
 		} catch (Exception e) {
-			return new TelnetCommandResult(CMD_INTERNAL_ERROR, e
-					.getLocalizedMessage());
+			return new TelnetCommandResult(CMD_INTERNAL_ERROR,
+					e.getLocalizedMessage());
 		}
 	}
 }

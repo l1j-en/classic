@@ -43,25 +43,17 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.L1UltimateBattle;
 import java.util.logging.Logger;
 
-
-
 import l1j.server.server.model.Instance.L1PcInstance;
 
 import l1j.server.server.serverpackets.S_SystemMessage;
-
-
 
 public class L1StartDm implements L1CommandExecutor {
 
 	private static Logger _log = Logger.getLogger(L1StartDm.class.getName());
 
-
-
 	private L1StartDm() {
 
 	}
-
-
 
 	public static L1CommandExecutor getInstance() {
 
@@ -69,34 +61,32 @@ public class L1StartDm implements L1CommandExecutor {
 
 	}
 
-
-
 	@Override
-
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
 			StringTokenizer st = new StringTokenizer(arg);
-         		int startid = Integer.parseInt(st.nextToken().trim());
-			//String startid = st.nextToken().toInt();
-			//System.out.println(name);
+			int startid = Integer.parseInt(st.nextToken().trim());
+			// String startid = st.nextToken().toInt();
+			// System.out.println(name);
 			for (L1UltimateBattle ub : UBTable.getInstance().getAllUb()) {
-			//System.out.println(ub.getUbName());
-			if (!ub.isActive() && ub.getUbId() == startid) {
-				                
-				L1World world = L1World.getInstance();
+				// System.out.println(ub.getUbName());
+				if (!ub.isActive() && ub.getUbId() == startid) {
 
-				ub.start(); // UB Start
-	                        world.broadcastServerMessage("\\fR[******] The " + ub.getUbName() + " Deathmatch will begin in 5");
+					L1World world = L1World.getInstance();
 
-				world.broadcastServerMessage("\\fR         minutes. Please enter the colosseum now.");
+					ub.start(); // UB Start
+					world.broadcastServerMessage("\\fR[******] The "
+							+ ub.getUbName() + " Deathmatch will begin in 5");
+
+					world.broadcastServerMessage("\\fR         minutes. Please enter the colosseum now.");
+
+				}
 
 			}
-
-			}
-			} catch (Exception e) { 			
+		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName + " DM_ID"));
-			}
+		}
 
-	}	
+	}
 
 }

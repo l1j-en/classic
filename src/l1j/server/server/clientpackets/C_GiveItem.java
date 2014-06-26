@@ -56,12 +56,13 @@ public class C_GiveItem extends ClientBasePacket {
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-		//additional dupe checks.  Thanks Mike
+		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
@@ -82,21 +83,23 @@ public class C_GiveItem extends ClientBasePacket {
 
 		L1Inventory inv = pc.getInventory();
 		L1ItemInstance item = inv.getItem(itemId);
-		//TRICIDTODO: set configurable auto ban
-		if ((!item.isStackable() && count != 1) || item.getCount() <= 0 || count <= 0 || count > 2000000000 || count > item.getCount()) {
+		// TRICIDTODO: set configurable auto ban
+		if ((!item.isStackable() && count != 1) || item.getCount() <= 0
+				|| count <= 0 || count > 2000000000 || count > item.getCount()) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 		if (itemId != item.getId()) {
-			_log.warning(pc.getName() + " had item " +
-					Integer.toString(itemId) + " not match.");
+			_log.warning(pc.getName() + " had item " + Integer.toString(itemId)
+					+ " not match.");
 		}
 		if (item.isEquipped()) {
-			pc.sendPackets(new S_ServerMessage(141)); 
+			pc.sendPackets(new S_ServerMessage(141));
 			return;
 		}
 		if (!item.getItem().isTradable()) {
@@ -111,23 +114,25 @@ public class C_GiveItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem()
+							.getName()));
 					return;
 				}
 			}
 		}
 		if (targetInv.checkAddItem(item, count) != L1Inventory.OK) {
-			pc.sendPackets(new S_ServerMessage(942)); 
+			pc.sendPackets(new S_ServerMessage(942));
 			return;
 		}
 		item = inv.tradeItem(item, count, targetInv);
-		
+
 		target.onGetItem(item);
 		target.turnOnOffLight();
-		
+
 		pc.turnOnOffLight();
-		
-		L1PetType petType = PetTypeTable.getInstance().get(target.getNpcTemplate().get_npcId());
+
+		L1PetType petType = PetTypeTable.getInstance().get(
+				target.getNpcTemplate().get_npcId());
 		if (petType == null || target.isDead()) {
 			return;
 		}
@@ -135,57 +140,79 @@ public class C_GiveItem extends ClientBasePacket {
 		if (item.getItemId() == petType.getItemIdForTaming()) {
 			tamePet(pc, target);
 		}
-		
-/*		if (item.getItemId() == 40070 && petType.canEvolve()) {
-			evolvePet(pc, target);
+
+		/*
+		 * if (item.getItemId() == 40070 && petType.canEvolve()) { evolvePet(pc,
+		 * target); } }
+		 */
+
+		if (item.getItemId() == 40070 && petType.canEvolve()) {
+			if (petType.getBaseNpcId() == 45686
+					|| petType.getBaseNpcId() == 45687
+					|| petType.getBaseNpcId() == 45688
+					|| petType.getBaseNpcId() == 45689
+					|| petType.getBaseNpcId() == 45690
+					|| petType.getBaseNpcId() == 45691
+					|| petType.getBaseNpcId() == 45692
+					|| petType.getBaseNpcId() == 45693
+					|| petType.getBaseNpcId() == 45694
+					|| petType.getBaseNpcId() == 45695
+					|| petType.getBaseNpcId() == 45696
+					|| petType.getBaseNpcId() == 45697
+					|| petType.getBaseNpcId() == 45710
+					|| petType.getBaseNpcId() == 45712) {
+
+				return;
+			} else {
+				evolvePet(pc, target);
+			}
 		}
-	}  */
-		
-	if (item.getItemId() == 40070 && petType.canEvolve()) {
-		if (petType.getBaseNpcId()== 45686 || petType.getBaseNpcId() == 45687
-				|| petType.getBaseNpcId() == 45688 || petType.getBaseNpcId() == 45689 || petType.getBaseNpcId() == 45690
-				|| petType.getBaseNpcId() == 45691 || petType.getBaseNpcId() == 45692 || petType.getBaseNpcId() == 45693
-				|| petType.getBaseNpcId() == 45694 || petType.getBaseNpcId() == 45695 || petType.getBaseNpcId() == 45696 
-				|| petType.getBaseNpcId() == 45697 || petType.getBaseNpcId() == 45710 || petType.getBaseNpcId() == 45712){
-			
-		return;
-	}else{
-		evolvePet(pc, target);
-	}
-}
-	if (item.getItemId() == 41310 && petType.canEvolve()) { //added for Golden Dragon
-		if (petType.getBaseNpcId()== 45034 || petType.getBaseNpcId() == 45039
-				|| petType.getBaseNpcId() == 45040 || petType.getBaseNpcId() == 45042 || petType.getBaseNpcId() == 45043
-				|| petType.getBaseNpcId() == 45044 || petType.getBaseNpcId() == 45046 || petType.getBaseNpcId() == 45047
-				|| petType.getBaseNpcId() == 45048 || petType.getBaseNpcId() == 45049 || petType.getBaseNpcId() == 45053 
-				|| petType.getBaseNpcId() == 45054 || petType.getBaseNpcId() == 45313 || petType.getBaseNpcId() == 45712){
-			
-		return;
-	}else{
-		evolvePet(pc, target);
+		if (item.getItemId() == 41310 && petType.canEvolve()) { // added for
+																// Golden Dragon
+			if (petType.getBaseNpcId() == 45034
+					|| petType.getBaseNpcId() == 45039
+					|| petType.getBaseNpcId() == 45040
+					|| petType.getBaseNpcId() == 45042
+					|| petType.getBaseNpcId() == 45043
+					|| petType.getBaseNpcId() == 45044
+					|| petType.getBaseNpcId() == 45046
+					|| petType.getBaseNpcId() == 45047
+					|| petType.getBaseNpcId() == 45048
+					|| petType.getBaseNpcId() == 45049
+					|| petType.getBaseNpcId() == 45053
+					|| petType.getBaseNpcId() == 45054
+					|| petType.getBaseNpcId() == 45313
+					|| petType.getBaseNpcId() == 45712) {
+
+				return;
+			} else {
+				evolvePet(pc, target);
+			}
 		}
 	}
-}
-	private final static String receivableImpls[] = new String[] { "L1Npc", "L1Monster", "L1Guardian", "L1Teleporter", "L1Guard" }; 
+
+	private final static String receivableImpls[] = new String[] { "L1Npc",
+			"L1Monster", "L1Guardian", "L1Teleporter", "L1Guard" };
 
 	private boolean isNpcItemReceivable(L1Npc npc) {
 		for (String impl : receivableImpls) {
 			if (npc.getImpl().equals(impl)) {
-			return true;
+				return true;
 			}
 		}
 		return false;
 	}
 
 	private void tamePet(L1PcInstance pc, L1NpcInstance target) {
-		if (target instanceof L1PetInstance || target instanceof L1SummonInstance) {
+		if (target instanceof L1PetInstance
+				|| target instanceof L1SummonInstance) {
 			return;
 		}
 
 		int petcost = 0;
 		Object[] petlist = pc.getPetList().values().toArray();
 		for (Object pet : petlist) {
-		petcost += ((L1NpcInstance) pet).getPetcost();
+			petcost += ((L1NpcInstance) pet).getPetcost();
 		}
 		int charisma = pc.getCha();
 		if (pc.isCrown()) {
@@ -203,7 +230,7 @@ public class C_GiveItem extends ClientBasePacket {
 		}
 		charisma -= petcost;
 		L1PcInventory inv = pc.getInventory();
-		
+
 		if (charisma >= 6 && inv.getSize() < 180) {
 			if (isTamePet(target)) {
 				L1ItemInstance petamu = inv.storeItem(40314, 1);
@@ -212,14 +239,14 @@ public class C_GiveItem extends ClientBasePacket {
 					pc.sendPackets(new S_ItemName(petamu));
 				}
 			} else {
-				pc.sendPackets(new S_ServerMessage(324)); 
+				pc.sendPackets(new S_ServerMessage(324));
 			}
 		}
 	}
 
 	private void evolvePet(L1PcInstance pc, L1NpcInstance target) {
 		if (!(target instanceof L1PetInstance)) {
-		return;
+			return;
 		}
 		L1PcInventory inv = pc.getInventory();
 		L1PetInstance pet = (L1PetInstance) target;
@@ -237,9 +264,10 @@ public class C_GiveItem extends ClientBasePacket {
 	private boolean isTamePet(L1NpcInstance npc) {
 		boolean isSuccess = false;
 		int npcId = npc.getNpcTemplate().get_npcId();
-		
+
 		if (npcId == 45313) {
-			if (npc.getMaxHp() / 3 > npc.getCurrentHp() && _random.nextInt(16) == 15) {
+			if (npc.getMaxHp() / 3 > npc.getCurrentHp()
+					&& _random.nextInt(16) == 15) {
 				isSuccess = true;
 			}
 		} else {
@@ -249,7 +277,7 @@ public class C_GiveItem extends ClientBasePacket {
 		}
 
 		if (npcId == 45313 || npcId == 45044 || npcId == 45711) {
-			if (npc.isResurrect()) { 
+			if (npc.isResurrect()) {
 				isSuccess = false;
 			}
 		}

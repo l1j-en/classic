@@ -46,19 +46,20 @@ public class C_Emblem extends ClientBasePacket {
 			try {
 				fos = new FileOutputStream("emblem/" + emblem_file);
 				for (short cnt = 0; cnt < 384; cnt++) {
-				fos.write(readC());
+					fos.write(readC());
 				}
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				throw e;
 			} finally {
 				if (null != fos) {
-				fos.close();
+					fos.close();
 				}
 				fos = null;
 			}
 			player.sendPackets(new S_Emblem(player.getClanid()));
-			L1World.getInstance().broadcastPacketToAll(new S_Emblem(player.getClanid()));
+			L1World.getInstance().broadcastPacketToAll(
+					new S_Emblem(player.getClanid()));
 		}
 	}
 

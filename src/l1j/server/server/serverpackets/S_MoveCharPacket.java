@@ -28,7 +28,8 @@ import l1j.server.server.model.L1Character;
 
 public class S_MoveCharPacket extends ServerBasePacket {
 	private static final String _S__1F_MOVECHARPACKET = "[S] S_MoveCharPacket";
-	private static Logger _log = Logger.getLogger(S_MoveCharPacket.class.getName());
+	private static Logger _log = Logger.getLogger(S_MoveCharPacket.class
+			.getName());
 	private byte[] _byte = null;
 
 	public S_MoveCharPacket(L1Character cha) {

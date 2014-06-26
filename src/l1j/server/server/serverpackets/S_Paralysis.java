@@ -31,7 +31,7 @@ public class S_Paralysis extends ServerBasePacket {
 	public static final int TYPE_BIND = 6;
 	public static final int TYPE_TELEPORT_UNLOCK = 7;
 	private static final String _S__2F_PARALYSIS = "[S] S_Paralysis";
-	
+
 	public S_Paralysis(int type, boolean flag) {
 		writeC(Opcodes.S_OPCODE_PARALYSIS);
 		if (type == TYPE_PARALYSIS) // The body is completely paralyzed.
@@ -48,7 +48,8 @@ public class S_Paralysis extends ServerBasePacket {
 			} else {
 				writeC(5);
 			}
-		} else if (type == TYPE_TELEPORT_UNLOCK) // Teleport lifting of state of waiting
+		} else if (type == TYPE_TELEPORT_UNLOCK) // Teleport lifting of state of
+													// waiting
 		{
 			writeC(7);
 		} else if (type == TYPE_SLEEP) // I sleep a powerful wave, sleep
@@ -58,22 +59,19 @@ public class S_Paralysis extends ServerBasePacket {
 			} else {
 				writeC(11);
 			}
-		} else if (type == TYPE_FREEZE)
-		{
+		} else if (type == TYPE_FREEZE) {
 			if (flag == true) {
 				writeC(12);
 			} else {
 				writeC(13);
 			}
-		} else if (type == TYPE_STUN) 
-		{
+		} else if (type == TYPE_STUN) {
 			if (flag == true) {
 				writeC(22);
 			} else {
 				writeC(23);
 			}
-		} else if (type == TYPE_BIND) 
-		{
+		} else if (type == TYPE_BIND) {
 			if (flag == true) {
 				writeC(24);
 			} else {

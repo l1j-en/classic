@@ -28,7 +28,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_NPCPack;
 
 public class L1UbSpawn implements Comparable<L1UbSpawn> {
-	private static final Logger _log = Logger.getLogger(L1UbSpawn.class.getName());
+	private static final Logger _log = Logger.getLogger(L1UbSpawn.class
+			.getName());
 	private int _id;
 	private int _ubId;
 	private int _pattern;

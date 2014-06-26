@@ -50,11 +50,12 @@ public class L1BossCycle {
 	private int _periodDay;
 	private int _periodHour;
 	private int _periodMinute;
-	private int _startTime; 
-	private int _endTime; 
+	private int _startTime;
+	private int _endTime;
 	private static SimpleDateFormat _sdfYmd = new SimpleDateFormat("yyyy/MM/dd");
 	private static SimpleDateFormat _sdfTime = new SimpleDateFormat("HH:mm");
-	private static SimpleDateFormat _sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+	private static SimpleDateFormat _sdf = new SimpleDateFormat(
+			"yyyy/MM/dd HH:mm");
 	private static Date _initDate = new Date();
 	private static String _initTime = "0:00";
 	private static final Calendar START_UP = Calendar.getInstance();
@@ -173,19 +174,20 @@ public class L1BossCycle {
 		if (_period <= 0) {
 			throw new Exception("must be Period > 0");
 		}
-		// start 
-		if (_startTime < 0 || _period < _startTime) { 
+		// start
+		if (_startTime < 0 || _period < _startTime) {
 			_startTime = 0;
 		}
 		// end
-		if (_endTime < 0 || _period < _endTime || end == null) { 
+		if (_endTime < 0 || _period < _endTime || end == null) {
 			_endTime = _period;
 		}
 		if (_startTime > _endTime) {
 			_startTime = _endTime;
 		}
 		// start,end Correction of the correlation (at least 1 out minutes)
-		// start==end Specified by the emergence of the next period of time so that
+		// start==end Specified by the emergence of the next period of time so
+		// that
 		if (_startTime == _endTime) {
 			if (_endTime == _period) {
 				_startTime--;
@@ -193,8 +195,9 @@ public class L1BossCycle {
 				_endTime++;
 			}
 		}
-		// Recent period of correction 
-		// (re-calculated to calculate exactly when, where only close to the appropriate correction)
+		// Recent period of correction
+		// (re-calculated to calculate exactly when, where only close to the
+		// appropriate correction)
 		while (!(baseCal.after(START_UP))) {
 			baseCal.add(Calendar.DAY_OF_MONTH, _periodDay);
 			baseCal.add(Calendar.HOUR_OF_DAY, _periodHour);
@@ -202,19 +205,12 @@ public class L1BossCycle {
 		}
 		_baseDate = baseCal;
 	}
+
 	/*
-	 * Including the specified time period (start time) to return
-	 * Ex. If the period is 2 hours
-	 * Target base Returns
-	 *   4:59  7:00 3:00
-	 *   5:00  7:00 5:00
-	 *   5:01  7:00 5:00
-	 *   6:00  7:00 5:00
-	 *   6:59  7:00 5:00
-	 *   7:00  7:00 7:00
-	 *   7:01  7:00 7:00
-	 *   9:00  7:00 9:00
-	 *   9:01  7:00 9:00
+	 * Including the specified time period (start time) to return Ex. If the
+	 * period is 2 hours Target base Returns 4:59 7:00 3:00 5:00 7:00 5:00 5:01
+	 * 7:00 5:00 6:00 7:00 5:00 6:59 7:00 5:00 7:00 7:00 7:00 7:01 7:00 7:00
+	 * 9:00 7:00 9:00 9:01 7:00 9:00
 	 */
 	private Calendar getBaseCycleOnTarget(Calendar target) {
 		// Date acquisition criteria
@@ -246,6 +242,7 @@ public class L1BossCycle {
 
 	/**
 	 * A specified time period, including the emergence of a calculated timing.
+	 * 
 	 * @Return emergence of time
 	 */
 	public Calendar calcSpawnTime(Calendar now) {
@@ -253,7 +250,8 @@ public class L1BossCycle {
 		Calendar base = getBaseCycleOnTarget(now);
 		// Calculations emergence period
 		base.add(Calendar.MINUTE, _startTime);
-		// Appearance time decision until the start ~ end of the second set at random
+		// Appearance time decision until the start ~ end of the second set at
+		// random
 		int diff = (_endTime - _startTime) * 60;
 		int random = diff > 0 ? _rnd.nextInt(diff) : 0;
 		base.add(Calendar.SECOND, random);
@@ -261,7 +259,9 @@ public class L1BossCycle {
 	}
 
 	/**
-	 * Including the specified time period for calculating the emergence of the time to start.
+	 * Including the specified time period for calculating the emergence of the
+	 * time to start.
+	 * 
 	 * @return The emergence of the start time period
 	 */
 	public Calendar getSpawnStartTime(Calendar now) {
@@ -273,7 +273,9 @@ public class L1BossCycle {
 	}
 
 	/**
-	 * A specified time period, including the emergence of the end time to calculate.
+	 * A specified time period, including the emergence of the end time to
+	 * calculate.
+	 * 
 	 * @return The emergence time period ends
 	 */
 	public Calendar getSpawnEndTime(Calendar now) {
@@ -285,7 +287,9 @@ public class L1BossCycle {
 	}
 
 	/**
-	 * Including the time period specified that the next cycle to calculate the timing of emergence.
+	 * Including the time period specified that the next cycle to calculate the
+	 * timing of emergence.
+	 * 
 	 * @return The emergence of the next period of time
 	 */
 	public Calendar nextSpawnTime(Calendar now) {
@@ -298,7 +302,9 @@ public class L1BossCycle {
 	}
 
 	/**
-	 * Date and time specified for the recent emergence of a return to the start time.
+	 * Date and time specified for the recent emergence of a return to the start
+	 * time.
+	 * 
 	 * @return The recent emergence of the start time
 	 */
 	public Calendar getLatestStartTime(Calendar now) {
@@ -380,8 +386,11 @@ public class L1BossCycle {
 	}
 
 	/**
-	 * Name and appearance period specified period of time, the emergence of time to console output
-	 * @param now The period of time
+	 * Name and appearance period specified period of time, the emergence of
+	 * time to console output
+	 * 
+	 * @param now
+	 *            The period of time
 	 */
 	public void showData(Calendar now) {
 		System.out.println("[Type]" + getName());

@@ -27,7 +27,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket
 public class S_OwnCharPack extends ServerBasePacket {
 	private static final String S_OWN_CHAR_PACK = "[S] S_OwnCharPack";
-	private static Logger _log = Logger.getLogger(S_OwnCharPack.class.getName());
+	private static Logger _log = Logger
+			.getLogger(S_OwnCharPack.class.getName());
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -49,9 +50,9 @@ public class S_OwnCharPack extends ServerBasePacket {
 		}
 		if (pc.isBrave()) {
 			status |= STATUS_BRAVE;
-			}
-		if (pc.isElfBrave()) {	
-		//need to be tested
+		}
+		if (pc.isElfBrave()) {
+			// need to be tested
 			status |= STATUS_BRAVE;
 			status |= STATUS_ELFBRAVE;
 		}
@@ -84,18 +85,17 @@ public class S_OwnCharPack extends ServerBasePacket {
 		writeS(pc.getTitle());
 		writeC(status);
 		writeD(pc.getClanid());
-		writeS(pc.getClanname()); 
-		writeS(null); 
-		writeC(0); 
-		if (pc.isInParty()) 
-		{
+		writeS(pc.getClanname());
+		writeS(null);
+		writeC(0);
+		if (pc.isInParty()) {
 			writeC(100 * pc.getCurrentHp() / pc.getMaxHp());
 		} else {
 			writeC(0xFF);
 		}
 		writeC(0);
-		writeC(0); 
-		writeC(0); 
+		writeC(0);
+		writeC(0);
 		writeC(0xFF);
 		writeC(0xFF);
 	}

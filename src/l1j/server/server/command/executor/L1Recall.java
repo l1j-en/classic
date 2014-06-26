@@ -64,8 +64,7 @@ public class L1Recall implements L1CommandExecutor {
 				target.sendPackets(new S_SystemMessage("Hello."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName
-					+ " all|player_name"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " all|player_name"));
 		}
 	}
 }

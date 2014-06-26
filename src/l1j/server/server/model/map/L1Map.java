@@ -99,7 +99,7 @@ public abstract class L1Map {
 
 	public abstract boolean isUsableSkill();
 
-    public abstract boolean isFishingZone(int x, int y);
+	public abstract boolean isFishingZone(int x, int y);
 
 	public static L1Map newNull() {
 		return _nullMap;

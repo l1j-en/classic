@@ -53,20 +53,22 @@ public class BuddyTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			charIdPS = con.prepareStatement("SELECT distinct(char_id) as char_id FROM character_buddys");
+			charIdPS = con
+					.prepareStatement("SELECT distinct(char_id) as char_id FROM character_buddys");
 			charIdRS = charIdPS.executeQuery();
 			while (charIdRS.next()) {
 				PreparedStatement buddysPS = null;
 				ResultSet buddysRS = null;
 				try {
-					buddysPS = con.prepareStatement("SELECT buddy_id, buddy_name FROM character_buddys WHERE char_id = ?");
+					buddysPS = con
+							.prepareStatement("SELECT buddy_id, buddy_name FROM character_buddys WHERE char_id = ?");
 					int charId = charIdRS.getInt("char_id");
 					buddysPS.setInt(1, charId);
 					L1Buddy buddy = new L1Buddy(charId);
 					buddysRS = buddysPS.executeQuery();
 					while (buddysRS.next()) {
-						buddy.add(buddysRS.getInt("buddy_id"), buddysRS
-								.getString("buddy_name"));
+						buddy.add(buddysRS.getInt("buddy_id"),
+								buddysRS.getString("buddy_name"));
 					}
 					_buddys.put(buddy.getCharId(), buddy);
 				} catch (Exception e) {
@@ -101,7 +103,8 @@ public class BuddyTable {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO character_buddys SET char_id=?, buddy_id=?, buddy_name=?");
+			pstm = con
+					.prepareStatement("INSERT INTO character_buddys SET char_id=?, buddy_id=?, buddy_name=?");
 			pstm.setInt(1, charId);
 			pstm.setInt(2, objId);
 			pstm.setString(3, name);
@@ -123,7 +126,8 @@ public class BuddyTable {
 		}
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM character_buddys WHERE char_id=? AND buddy_name=?");
+			pstm = con
+					.prepareStatement("DELETE FROM character_buddys WHERE char_id=? AND buddy_name=?");
 			pstm.setInt(1, charId);
 			pstm.setString(2, buddyName);
 			pstm.execute();

@@ -99,9 +99,10 @@ public class CalcStat {
 	 * @param baseMaxHp
 	 * @param baseCon
 	 * @param originalHpup
-	 * @return 
+	 * @return
 	 */
-	public static short calcStatHp(int charType, int baseMaxHp, byte baseCon, int originalHpup) {
+	public static short calcStatHp(int charType, int baseMaxHp, byte baseCon,
+			int originalHpup) {
 		short randomhp = 0;
 		if (baseCon > 15) {
 			randomhp = (short) (baseCon - 15);
@@ -166,7 +167,8 @@ public class CalcStat {
 	 * @param originalMpup
 	 * @return MPl
 	 */
-	public static short calcStatMp(int charType, int baseMaxMp, byte baseWis, int originalMpup) {
+	public static short calcStatMp(int charType, int baseMaxMp, byte baseWis,
+			int originalMpup) {
 		int randommp = 0;
 		int seedY = 0;
 		int seedZ = 0;
@@ -175,13 +177,11 @@ public class CalcStat {
 		} else if (baseWis == 9 || baseWis >= 12 && baseWis <= 17) {
 			seedY = 3;
 		} else if (baseWis >= 18 && baseWis <= 23 || baseWis == 25
-					|| baseWis == 26 || baseWis == 29
-					|| baseWis == 30 || baseWis == 33
-					|| baseWis == 34) {
+				|| baseWis == 26 || baseWis == 29 || baseWis == 30
+				|| baseWis == 33 || baseWis == 34) {
 			seedY = 4;
-		} else if (baseWis == 24 ||baseWis == 27
-				 ||baseWis == 28 ||baseWis == 31
-				 ||baseWis == 32 ||baseWis >= 35) {
+		} else if (baseWis == 24 || baseWis == 27 || baseWis == 28
+				|| baseWis == 31 || baseWis == 32 || baseWis >= 35) {
 			seedY = 5;
 		}
 

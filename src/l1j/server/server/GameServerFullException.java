@@ -20,7 +20,7 @@ package l1j.server.server;
 
 public class GameServerFullException extends Exception {
 	/**
-	 *  Throw GameServer Exception
+	 * Throw GameServer Exception
 	 */
 	private static final long serialVersionUID = 1L;
 

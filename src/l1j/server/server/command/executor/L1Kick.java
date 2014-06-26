@@ -46,8 +46,7 @@ public class L1Kick implements L1CommandExecutor {
 						.toString()));
 				target.sendPackets(new S_Disconnect());
 			} else {
-				pc.sendPackets(new S_SystemMessage(
-						"Choose a player."));
+				pc.sendPackets(new S_SystemMessage("Choose a player."));
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));

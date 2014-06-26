@@ -30,7 +30,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket, S_SystemMessage
 
 public class S_FixWeaponList extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_FixWeaponList.class.getName());
+	private static Logger _log = Logger.getLogger(S_FixWeaponList.class
+			.getName());
 	private static final String S_FIX_WEAPON_LIST = "[S] S_FixWeaponList";
 
 	public S_FixWeaponList(L1PcInstance pc) {

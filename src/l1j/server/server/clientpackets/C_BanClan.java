@@ -44,44 +44,49 @@ public class C_BanClan extends ClientBasePacket {
 		if (clan != null) {
 			String clanMemberName[] = clan.getAllMembers();
 			int i;
-			if (pc.isCrown() && pc.getId() == clan.getLeaderId()) { 
+			if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
 				for (i = 0; i < clanMemberName.length; i++) {
-					if (pc.getName().toLowerCase().equals(s.toLowerCase())) { 
-					return;
+					if (pc.getName().toLowerCase().equals(s.toLowerCase())) {
+						return;
 					}
 				}
 				L1PcInstance tempPc = L1World.getInstance().getPlayer(s);
 				if (tempPc != null) {
-					if (tempPc.getClanid() == pc.getClanid()) { 
+					if (tempPc.getClanid() == pc.getClanid()) {
 						tempPc.setClanid(0);
 						tempPc.setClanname("");
 						tempPc.setClanRank(0);
-						tempPc.save(); 
+						tempPc.save();
 						clan.delMemberName(tempPc.getName());
-						tempPc.sendPackets(new S_ServerMessage(238, pc.getClanname())); 
-						pc.sendPackets(new S_ServerMessage(240, tempPc.getName())); 
+						tempPc.sendPackets(new S_ServerMessage(238, pc
+								.getClanname()));
+						pc.sendPackets(new S_ServerMessage(240, tempPc
+								.getName()));
 					} else {
-						pc.sendPackets(new S_ServerMessage(109, s)); 
+						pc.sendPackets(new S_ServerMessage(109, s));
 					}
-				} else { 
+				} else {
 					try {
-						L1PcInstance restorePc = CharacterTable.getInstance().restoreCharacter(s);
-						if (restorePc != null && restorePc.getClanid() == pc.getClanid()) { 
+						L1PcInstance restorePc = CharacterTable.getInstance()
+								.restoreCharacter(s);
+						if (restorePc != null
+								&& restorePc.getClanid() == pc.getClanid()) {
 							restorePc.setClanid(0);
 							restorePc.setClanname("");
 							restorePc.setClanRank(0);
-							restorePc.save(); 
+							restorePc.save();
 							clan.delMemberName(restorePc.getName());
-							pc.sendPackets(new S_ServerMessage(240, restorePc.getName())); 
+							pc.sendPackets(new S_ServerMessage(240, restorePc
+									.getName()));
 						} else {
-							pc.sendPackets(new S_ServerMessage(109, s)); 
+							pc.sendPackets(new S_ServerMessage(109, s));
 						}
 					} catch (Exception e) {
 						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 					}
 				}
 			} else {
-				pc.sendPackets(new S_ServerMessage(518)); 
+				pc.sendPackets(new S_ServerMessage(518));
 			}
 		}
 	}

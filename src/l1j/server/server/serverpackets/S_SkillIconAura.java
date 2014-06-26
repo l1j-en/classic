@@ -30,7 +30,7 @@ public class S_SkillIconAura extends ServerBasePacket {
 		writeC(i);
 		writeH(j);
 	}
-	
+
 	public S_SkillIconAura(int i, int j, int k) {
 		writeC(Opcodes.S_OPCODE_SKILLICONGFX);
 		writeC(0x16);

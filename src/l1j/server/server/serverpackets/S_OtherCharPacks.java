@@ -27,7 +27,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket, S_OtherCharPacks
 public class S_OtherCharPacks extends ServerBasePacket {
 	private static final String S_OTHER_CHAR_PACKS = "[S] S_OtherCharPacks";
-	private static Logger _log = Logger.getLogger(S_OtherCharPacks.class.getName());
+	private static Logger _log = Logger.getLogger(S_OtherCharPacks.class
+			.getName());
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
@@ -59,7 +60,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		}
 		if (pc.isBrave()) {
 			status |= STATUS_BRAVE;
-			}
+		}
 		if (pc.isElfBrave()) {
 			status |= STATUS_BRAVE;
 			status |= STATUS_ELFBRAVE;
@@ -96,7 +97,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeS(null);
 		writeC(0);
 		writeC(0xFF);
-		writeC(0); // 
+		writeC(0); //
 		writeC(0); // PC = 0, Mon = Lv
 		writeC(0); //
 		writeC(0xFF);

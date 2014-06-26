@@ -28,7 +28,8 @@ import l1j.server.server.model.Instance.L1PetInstance;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_PetInventory extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_PetInventory.class.getName());
+	private static Logger _log = Logger.getLogger(S_PetInventory.class
+			.getName());
 	private static final String S_PET_INVENTORY = "[S] S_PetInventory";
 	private byte[] _byte = null;
 

@@ -79,7 +79,8 @@ public class L1ShopBuyOrderList {
 			return;
 		}
 		_totalPrice += price * count;
-		if(_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from taxes
+		if (_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from
+													// taxes
 			_totalPriceTaxIncluded += _taxCalc.layTax(price) * count;
 		} else {
 			_totalPriceTaxIncluded += price * count;

@@ -34,8 +34,8 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 
 public class L1PetMatch {
-	private static final Logger _log =
-		Logger.getLogger(L1PetMatch.class.getName());
+	private static final Logger _log = Logger.getLogger(L1PetMatch.class
+			.getName());
 
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY1 = 1;
@@ -65,8 +65,7 @@ public class L1PetMatch {
 		return _instance;
 	}
 
-	public int setPetMatchPc(int petMatchNo, L1PcInstance pc,
-			L1PetInstance pet) {
+	public int setPetMatchPc(int petMatchNo, L1PcInstance pc, L1PetInstance pet) {
 		int status = getPetMatchStatus(petMatchNo);
 		if (status == STATUS_NONE) {
 			_pc1Name[petMatchNo] = pc.getName();
@@ -191,10 +190,10 @@ public class L1PetMatch {
 
 	public void endPetMatch(int petMatchNo, int winner) {
 		try {
-			L1PcInstance pc1 = L1World.getInstance()
-				.getPlayer(_pc1Name[petMatchNo]);
-			L1PcInstance pc2 = L1World.getInstance()
-				.getPlayer(_pc2Name[petMatchNo]);
+			L1PcInstance pc1 = L1World.getInstance().getPlayer(
+					_pc1Name[petMatchNo]);
+			L1PcInstance pc2 = L1World.getInstance().getPlayer(
+					_pc2Name[petMatchNo]);
 			if (winner == 1) {
 				giveMedal(pc1, petMatchNo, true);
 				giveMedal(pc2, petMatchNo, false);
@@ -217,8 +216,8 @@ public class L1PetMatch {
 			return;
 		if (isWin)
 			pc.sendPackets(new S_ServerMessage(1166, pc.getName()));
-		L1ItemInstance medals =
-			ItemTable.getInstance().createItem(PETMATCH_MEDAL);
+		L1ItemInstance medals = ItemTable.getInstance().createItem(
+				PETMATCH_MEDAL);
 		int count = isWin ? WINNER_MEDALS : LOSER_MEDALS;
 		if (pc.getInventory().checkAddItem(medals, count) == L1Inventory.OK) {
 			medals.setCount(count);
@@ -228,10 +227,8 @@ public class L1PetMatch {
 	}
 
 	private void cleanupPetMatch(int petMatchNo) {
-		clearPetMatchPlayer(petMatchNo, _pc1Name[petMatchNo], _pc1Name,
-				_pet1);
-		clearPetMatchPlayer(petMatchNo, _pc2Name[petMatchNo], _pc2Name,
-				_pet2);
+		clearPetMatchPlayer(petMatchNo, _pc1Name[petMatchNo], _pc1Name, _pet1);
+		clearPetMatchPlayer(petMatchNo, _pc2Name[petMatchNo], _pc2Name, _pet2);
 	}
 
 	private void clearPetMatchPlayer(int petMatch, String playerName,
@@ -294,8 +291,8 @@ public class L1PetMatch {
 					if (_pc.isTeleport()) {
 						continue;
 					}
-					if (L1PetMatch.getInstance().setPetMatchPc(_petMatchNo, _pc,
-								_pet) == L1PetMatch.STATUS_PLAYING) {
+					if (L1PetMatch.getInstance().setPetMatchPc(_petMatchNo,
+							_pc, _pet) == L1PetMatch.STATUS_PLAYING) {
 						L1PetMatch.getInstance().startPetMatch(_petMatchNo);
 					}
 					this.cancel();
@@ -308,8 +305,7 @@ public class L1PetMatch {
 	}
 
 	public class L1PetMatchTimer extends TimerTask {
-		private Logger _log = Logger.getLogger(L1PetMatchTimer.class
-				.getName());
+		private Logger _log = Logger.getLogger(L1PetMatchTimer.class.getName());
 
 		private final L1PetInstance _pet1;
 		private final L1PetInstance _pet2;
@@ -349,11 +345,12 @@ public class L1PetMatch {
 						} else {
 							winner = 3;
 						}
-						L1PetMatch.getInstance().endPetMatch(_petMatchNo, winner);
+						L1PetMatch.getInstance().endPetMatch(_petMatchNo,
+								winner);
 						return;
 					}
 
-					if (_counter == 100) { 
+					if (_counter == 100) {
 						this.cancel();
 						L1PetMatch.getInstance().endPetMatch(_petMatchNo, 3);
 						return;

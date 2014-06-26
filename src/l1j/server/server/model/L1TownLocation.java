@@ -13,8 +13,8 @@ import l1j.server.server.templates.L1Town;
 import l1j.server.server.types.Point;
 
 public class L1TownLocation {
-	private static final Logger _log = 
-		Logger.getLogger(L1TownLocation.class.getName());
+	private static final Logger _log = Logger.getLogger(L1TownLocation.class
+			.getName());
 	private static final Random random = new Random();
 
 	public static final int TOWNID_TALKING_ISLAND = 1;
@@ -124,12 +124,10 @@ public class L1TownLocation {
 			new Point(32599, 32916), new Point(32599, 32923),
 			new Point(32603, 32908), new Point(32595, 32908),
 			new Point(32591, 32918), };
-	
-	private static final Map<Integer, Point[]> townToEscapePoints =
-		new HashMap<Integer, Point[]>();
 
-	private static final Map<Integer, Integer> townToMap =
-		new HashMap<Integer, Integer>();
+	private static final Map<Integer, Point[]> townToEscapePoints = new HashMap<Integer, Point[]>();
+
+	private static final Map<Integer, Integer> townToMap = new HashMap<Integer, Integer>();
 
 	static {
 		townToEscapePoints.put(TOWNID_TALKING_ISLAND,
@@ -146,16 +144,13 @@ public class L1TownLocation {
 		townToEscapePoints.put(TOWNID_OREN, GETBACK_LOC_OREN);
 		townToEscapePoints.put(TOWNID_ELVEN_FOREST, GETBACK_LOC_ELVEN_FOREST);
 		townToEscapePoints.put(TOWNID_ADEN, GETBACK_LOC_ADEN);
-		townToEscapePoints.put(TOWNID_SILENT_CAVERN,
-				GETBACK_LOC_SILENT_CAVERN);
-		townToEscapePoints.put(TOWNID_OUM_DUNGEON,
-				GETBACK_LOC_OUM_DUNGEON);
+		townToEscapePoints.put(TOWNID_SILENT_CAVERN, GETBACK_LOC_SILENT_CAVERN);
+		townToEscapePoints.put(TOWNID_OUM_DUNGEON, GETBACK_LOC_OUM_DUNGEON);
 		townToEscapePoints.put(TOWNID_RESISTANCE, GETBACK_LOC_RESISTANCE);
-		townToEscapePoints.put(TOWNID_PIRATE_ISLAND, 
-				GETBACK_LOC_PIRATE_ISLAND);
+		townToEscapePoints.put(TOWNID_PIRATE_ISLAND, GETBACK_LOC_PIRATE_ISLAND);
 		townToEscapePoints.put(TOWNID_RECLUSE_VILLAGE,
 				GETBACK_LOC_RECLUSE_VILLAGE);
-	
+
 		// TODO: use MapId constants somewhere.
 		townToMap.put(TOWNID_TALKING_ISLAND, 0);
 		townToMap.put(TOWNID_SILVER_KNIGHT_TOWN, 4);
@@ -176,8 +171,8 @@ public class L1TownLocation {
 		townToMap.put(TOWNID_RECLUSE_VILLAGE, 400);
 	}
 
-
-	private L1TownLocation() { }
+	private L1TownLocation() {
+	}
 
 	public static int[] getGetBackLoc(int townId) {
 		Point[] points = townToEscapePoints.get(townId);
@@ -198,7 +193,7 @@ public class L1TownLocation {
 		return taxRate;
 	}
 
-	public static int getTownIdByNpcid(int npcid) { 
+	public static int getTownIdByNpcid(int npcid) {
 		// Aden Castle: Aden throughout the kingdom
 		// Kent Castle: Kent, GURUDIN
 		// UINDAUDDO Castle: UDDOBEKKU oasis, SHIRUBANAITOTAUN
@@ -208,46 +203,115 @@ public class L1TownLocation {
 		// Oak fort: Tue Tamura
 		// DIADO fortress: Some war tax
 		switch (npcid) {
-			case 70528: case 50015: case 70010: case 70011: case 70012: 
-			case 70014: case 70532: case 70536: case 70534:
-				return TOWNID_TALKING_ISLAND;
-			case 70799: case 50056: case 70073: case 70074: case 70075:
-			case 70806:
-				return TOWNID_SILVER_KNIGHT_TOWN;
-			case 70546: case 50020: case 70018: case 70016: case 70544: 
-			case 70556:
-				return TOWNID_KENT;
-			case 70567: case 50024: case 70019: case 70020: case 70021: 
-			case 70022: case 70024: case 70572:
-				return TOWNID_GLUDIO;
-			case 70815: case 70079: case 70836: case 70830:
-				return TOWNID_ORCISH_FOREST;
-			case 70774: case 50054: case 70070: case 70071: case 70072: 
-			case 70773: case 70788:
-				return TOWNID_WINDAWOOD;
-			case 70594: case 50036: case 70026: case 70028: case 70029: 
-			case 70030: case 70031: case 70032: case 70033: case 70038: 
-			case 70039: case 70043: case 70617: case 70632: case 70631:
-				return TOWNID_GIRAN;
-			case 70860: case 50066: case 70082: case 70083: case 70084: 
-			case 70873: case 70876:
-				return TOWNID_HEINE;
-			case 70654: case 50039: case 70045: case 70044: case 70664:
-			case 70663:
-				return TOWNID_WERLDAN;
-			case 70748: case 50051: case 70059: case 70060: case 70061:
-			case 70062: case 70063: case 70065: case 70066: case 70067: 
-			case 70068: case 70749: case 70761:
-				return TOWNID_OREN;
-			case 50044: case 70057: case 70048: case 70052: case 70053: 
-			//case 70049:  // NOTE: Don't put this back in.
-			case 70051: case 70047: case 70058: case 70054: case 70055:
-			case 70056:
-				return TOWNID_ADEN;
-			case 70092: case 70093:
-				return TOWNID_OUM_DUNGEON;
-			default:
-				return 0;
+		case 70528:
+		case 50015:
+		case 70010:
+		case 70011:
+		case 70012:
+		case 70014:
+		case 70532:
+		case 70536:
+		case 70534:
+			return TOWNID_TALKING_ISLAND;
+		case 70799:
+		case 50056:
+		case 70073:
+		case 70074:
+		case 70075:
+		case 70806:
+			return TOWNID_SILVER_KNIGHT_TOWN;
+		case 70546:
+		case 50020:
+		case 70018:
+		case 70016:
+		case 70544:
+		case 70556:
+			return TOWNID_KENT;
+		case 70567:
+		case 50024:
+		case 70019:
+		case 70020:
+		case 70021:
+		case 70022:
+		case 70024:
+		case 70572:
+			return TOWNID_GLUDIO;
+		case 70815:
+		case 70079:
+		case 70836:
+		case 70830:
+			return TOWNID_ORCISH_FOREST;
+		case 70774:
+		case 50054:
+		case 70070:
+		case 70071:
+		case 70072:
+		case 70773:
+		case 70788:
+			return TOWNID_WINDAWOOD;
+		case 70594:
+		case 50036:
+		case 70026:
+		case 70028:
+		case 70029:
+		case 70030:
+		case 70031:
+		case 70032:
+		case 70033:
+		case 70038:
+		case 70039:
+		case 70043:
+		case 70617:
+		case 70632:
+		case 70631:
+			return TOWNID_GIRAN;
+		case 70860:
+		case 50066:
+		case 70082:
+		case 70083:
+		case 70084:
+		case 70873:
+		case 70876:
+			return TOWNID_HEINE;
+		case 70654:
+		case 50039:
+		case 70045:
+		case 70044:
+		case 70664:
+		case 70663:
+			return TOWNID_WERLDAN;
+		case 70748:
+		case 50051:
+		case 70059:
+		case 70060:
+		case 70061:
+		case 70062:
+		case 70063:
+		case 70065:
+		case 70066:
+		case 70067:
+		case 70068:
+		case 70749:
+		case 70761:
+			return TOWNID_OREN;
+		case 50044:
+		case 70057:
+		case 70048:
+		case 70052:
+		case 70053:
+			// case 70049: // NOTE: Don't put this back in.
+		case 70051:
+		case 70047:
+		case 70058:
+		case 70054:
+		case 70055:
+		case 70056:
+			return TOWNID_ADEN;
+		case 70092:
+		case 70093:
+			return TOWNID_OUM_DUNGEON;
+		default:
+			return 0;
 		}
 	}
 }

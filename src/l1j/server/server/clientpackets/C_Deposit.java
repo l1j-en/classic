@@ -44,36 +44,43 @@ public class C_Deposit extends ClientBasePacket {
 		int j = readD();
 
 		L1PcInstance player = clientthread.getActiveChar();
-		//additional dupe checks.  Thanks Mike
-		//not sure if this is even needed here, but why not
+		// additional dupe checks. Thanks Mike
+		// not sure if this is even needed here, but why not
 		if (player.getOnlineStatus() != 1) {
 			Account.ban(player.getAccountName());
 			IpTable.getInstance().banIp(player.getNetConnection().getIp());
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
-			L1World.getInstance().broadcastServerMessage("Player " + player.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance()
+					.broadcastServerMessage(
+							"Player " + player.getName()
+									+ " Attempted A Dupe exploit!");
 			player.sendPackets(new S_Disconnect());
 			return;
 		}
-		//TRICIDTODO: set configurable auto ban
-		if (j < 0)
-		{
+		// TRICIDTODO: set configurable auto ban
+		if (j < 0) {
 			Account.ban(player.getAccountName());
 			IpTable.getInstance().banIp(player.getNetConnection().getIp());
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
-			L1World.getInstance().broadcastServerMessage("Player " + player.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance()
+					.broadcastServerMessage(
+							"Player " + player.getName()
+									+ " Attempted A Dupe exploit!");
 			player.sendPackets(new S_Disconnect());
 			return;
 		}
-		
+
 		if (i == player.getId()) {
 			L1Clan clan = L1World.getInstance().getClan(player.getClanname());
 			if (clan != null) {
 				int castle_id = clan.getCastleId();
-				if (castle_id != 0) { 
-					L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
+				if (castle_id != 0) {
+					L1Castle l1castle = CastleTable.getInstance()
+							.getCastleTable(castle_id);
 					synchronized (l1castle) {
 						int money = l1castle.getPublicMoney();
-						if (player.getInventory().consumeItem(L1ItemId.ADENA, j)) {
+						if (player.getInventory()
+								.consumeItem(L1ItemId.ADENA, j)) {
 							money += j;
 							l1castle.setPublicMoney(money);
 							CastleTable.getInstance().updateCastle(l1castle);

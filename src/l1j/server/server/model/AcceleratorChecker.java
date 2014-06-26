@@ -29,8 +29,8 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class AcceleratorChecker {
 
-	private static final Logger _log =
-			Logger.getLogger(AcceleratorChecker.class.getName());
+	private static final Logger _log = Logger
+			.getLogger(AcceleratorChecker.class.getName());
 
 	private final L1PcInstance _pc;
 
@@ -48,11 +48,11 @@ public class AcceleratorChecker {
 
 	private static final double WAFFLE_RATE = 0.874;
 
-	private final EnumMap<ACT_TYPE, Long> _actTimers =
-			new EnumMap<ACT_TYPE, Long>(ACT_TYPE.class);
+	private final EnumMap<ACT_TYPE, Long> _actTimers = new EnumMap<ACT_TYPE, Long>(
+			ACT_TYPE.class);
 
-	private final EnumMap<ACT_TYPE, Long> _checkTimers =
-			new EnumMap<ACT_TYPE, Long>(ACT_TYPE.class);
+	private final EnumMap<ACT_TYPE, Long> _checkTimers = new EnumMap<ACT_TYPE, Long>(
+			ACT_TYPE.class);
 
 	public static enum ACT_TYPE {
 		MOVE, ATTACK, SPELL_DIR, SPELL_NODIR
@@ -99,22 +99,24 @@ public class AcceleratorChecker {
 			}
 		}
 
-// double rate = (double) interval / rightInterval;
-// System.out.println(String.format("%s: %d / %d = %.2f (o-%d x-%d)",
-// type.toString(), interval, rightInterval, rate,
-// _justiceCount, _injusticeCount));
+		// double rate = (double) interval / rightInterval;
+		// System.out.println(String.format("%s: %d / %d = %.2f (o-%d x-%d)",
+		// type.toString(), interval, rightInterval, rate,
+		// _justiceCount, _injusticeCount));
 
 		_actTimers.put(type, now);
 		return result;
 	}
 
 	private void doFail(long interval, int rightInterval, ACT_TYPE type) {
-		String dbgInfo = String.format("\nInterval: " + interval + " RightInterval: " + rightInterval
-				+ " Morph: " + _pc.getTempCharGfx() + " Weapon: " + (_pc.getCurrentWeapon() + 1)
-				+ " Act type: " + type);
+		String dbgInfo = String.format("\nInterval: " + interval
+				+ " RightInterval: " + rightInterval + " Morph: "
+				+ _pc.getTempCharGfx() + " Weapon: "
+				+ (_pc.getCurrentWeapon() + 1) + " Act type: " + type);
 		if (!_pc.isGm()) {
-			_log.info(String.format("Injustice count limit exceeded for player: " + _pc.getName()
-					+ dbgInfo));
+			_log.info(String
+					.format("Injustice count limit exceeded for player: "
+							+ _pc.getName() + dbgInfo));
 			_pc.sendPackets(new S_SystemMessage(
 					"Lag limit exceeded. If this happens with a specific polymorph file a bug."));
 		} else {
@@ -138,11 +140,11 @@ public class AcceleratorChecker {
 			break;
 		case SPELL_DIR:
 			interval = SprTable.getInstance().getDirSpellSpeed(
-							_pc.getTempCharGfx());
+					_pc.getTempCharGfx());
 			break;
 		case SPELL_NODIR:
 			interval = SprTable.getInstance().getNodirSpellSpeed(
-							_pc.getTempCharGfx());
+					_pc.getTempCharGfx());
 			break;
 		default:
 			return 0;

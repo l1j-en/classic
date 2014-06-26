@@ -51,15 +51,22 @@ public class LetterTable {
 	// 64: contents are missing (white)
 	// 80: not see the contents of (surplus)
 	// 96: not see the contents of (surplus)
-	// 112: Congratulations. %n You are joining in the final auction price %0 Adena bid price.
-	// 128: You are presented with a higher amount than the amount it appeared to offer, but unfortunately failed bid.
-	// 144: You took part in the auction was a success and is now ready to home ownership.
+	// 112: Congratulations. %n You are joining in the final auction price %0
+	// Adena bid price.
+	// 128: You are presented with a higher amount than the amount it appeared
+	// to offer, but unfortunately failed bid.
+	// 144: You took part in the auction was a success and is now ready to home
+	// ownership.
 	// 160: Your house was owned by the Adena 1 percent in the final bid price.
-	// 176: did you apply for your auction, the auction period, more than the amount offered to pay for it is expressed, in the end cancelled.
-	// 192: did you apply for your auction, the auction period, more than the amount offered to pay for it is expressed, in the end cancelled.
-	// 208: Your blood in the house was owned by the manor belonging to the territory for the future if you want to use our taxes must.
+	// 176: did you apply for your auction, the auction period, more than the
+	// amount offered to pay for it is expressed, in the end cancelled.
+	// 192: did you apply for your auction, the auction period, more than the
+	// amount offered to pay for it is expressed, in the end cancelled.
+	// 208: Your blood in the house was owned by the manor belonging to the
+	// territory for the future if you want to use our taxes must.
 	// 224: You have your house 0% tax imposed by the Adena not yet paid.
-	// 240: You will end up in your home to a 0 percent tax imposed on, your house as a warning against deprivation of property rights.
+	// 240: You will end up in your home to a 0 percent tax imposed on, your
+	// house as a warning against deprivation of property rights.
 
 	public void writeLetter(int itemObjectId, int code, String sender,
 			String receiver, String date, int templateId, byte[] subject,
@@ -71,9 +78,11 @@ public class LetterTable {
 		PreparedStatement pstm2 = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con.prepareStatement("SELECT * FROM letter ORDER BY item_object_id");
+			pstm1 = con
+					.prepareStatement("SELECT * FROM letter ORDER BY item_object_id");
 			rs = pstm1.executeQuery();
-			pstm2 = con.prepareStatement("INSERT INTO letter SET item_object_id=?, code=?, sender=?, receiver=?, date=?, template_id=?, subject=?, content=?");
+			pstm2 = con
+					.prepareStatement("INSERT INTO letter SET item_object_id=?, code=?, sender=?, receiver=?, date=?, template_id=?, subject=?, content=?");
 			pstm2.setInt(1, itemObjectId);
 			pstm2.setInt(2, code);
 			pstm2.setString(3, sender);
@@ -98,7 +107,8 @@ public class LetterTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM letter WHERE item_object_id=?");
+			pstm = con
+					.prepareStatement("DELETE FROM letter WHERE item_object_id=?");
 			pstm.setInt(1, itemObjectId);
 			pstm.execute();
 		} catch (SQLException e) {

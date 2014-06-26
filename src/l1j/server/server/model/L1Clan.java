@@ -113,8 +113,7 @@ public class L1Clan {
 		}
 	}
 
-	public L1PcInstance[] getOnlineClanMember()
-	{
+	public L1PcInstance[] getOnlineClanMember() {
 		ArrayList<L1PcInstance> onlineMembers = new ArrayList<L1PcInstance>();
 		for (String name : membersNameList) {
 			L1PcInstance pc = L1World.getInstance().getPlayer(name);
@@ -170,7 +169,6 @@ public class L1Clan {
 		}
 		return result;
 	}
-
 
 	private String getRankString(L1PcInstance pc) {
 		String rank = "";

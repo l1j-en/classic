@@ -48,7 +48,7 @@ public class C_Restart extends ClientBasePacket {
 		L1PcInstance pc = clientthread.getActiveChar();
 
 		int[] loc;
-		
+
 		if (pc.getHellTime() > 0) {
 			loc = new int[3];
 			loc[0] = 32701;
@@ -79,8 +79,9 @@ public class C_Restart extends ClientBasePacket {
 			pc.beginHell(false);
 		}
 		// NOTE: Don't remove. Refills HP/MP in n00b areas.
-		//TRICIDTODO:  Make configurable option
-		if ((pc.getMapId() == 68 || pc.getMapId() == 69) && (pc.getCurrentHp() <= (pc.getMaxHp() / 2))) {
+		// TRICIDTODO: Make configurable option
+		if ((pc.getMapId() == 68 || pc.getMapId() == 69)
+				&& (pc.getCurrentHp() <= (pc.getMaxHp() / 2))) {
 			pc.setCurrentHp(pc.getMaxHp());
 			pc.setCurrentMp(pc.getMaxMp());
 			pc.sendPackets(new S_ServerMessage(77));

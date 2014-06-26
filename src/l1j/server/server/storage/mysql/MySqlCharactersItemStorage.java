@@ -34,9 +34,10 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.SQLUtil;
 
 public class MySqlCharactersItemStorage extends CharactersItemStorage {
-	
-	private static final Logger _log = Logger.getLogger(MySqlCharactersItemStorage.class.getName());
-	
+
+	private static final Logger _log = Logger
+			.getLogger(MySqlCharactersItemStorage.class.getName());
+
 	@Override
 	public ArrayList<L1ItemInstance> loadItems(int objId) throws Exception {
 		ArrayList<L1ItemInstance> items = null;
@@ -46,13 +47,15 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		try {
 			items = new ArrayList<L1ItemInstance>();
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM character_items WHERE char_id = ?");
+			pstm = con
+					.prepareStatement("SELECT * FROM character_items WHERE char_id = ?");
 			pstm.setInt(1, objId);
 			L1ItemInstance item;
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int itemId = rs.getInt("item_id");
-				L1Item itemTemplate = ItemTable.getInstance().getTemplate(itemId);
+				L1Item itemTemplate = ItemTable.getInstance().getTemplate(
+						itemId);
 				if (itemTemplate == null) {
 					_log.warning(String.format("item id:%d not found", itemId));
 					continue;
@@ -100,7 +103,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?,defense_fire = ?, defense_water = ?,defense_earth = ?,defense_wind = ?,add_sp = ?,add_hp = ?,add_mp = ?,add_hpr = ?,add_mpr = ?,m_def = ?");
+			pstm = con
+					.prepareStatement("INSERT INTO character_items SET id = ?, item_id = ?, char_id = ?, item_name = ?, count = ?, is_equipped = 0, enchantlvl = ?, is_id = ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?,defense_fire = ?, defense_water = ?,defense_earth = ?,defense_wind = ?,add_sp = ?,add_hp = ?,add_mp = ?,add_hpr = ?,add_mpr = ?,m_def = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setInt(2, item.getItem().getItemId());
 			pstm.setInt(3, objId);
@@ -141,7 +145,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM character_items WHERE id = ?");
+			pstm = con
+					.prepareStatement("DELETE FROM character_items WHERE id = ?");
 			pstm.setInt(1, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
@@ -154,79 +159,100 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 
 	@Override
 	public void updateItemId(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET item_id = ? WHERE id = ?", item.getItemId());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET item_id = ? WHERE id = ?",
+				item.getItemId());
 		item.getLastStatus().updateItemId();
 	}
 
 	@Override
 	public void updateItemCount(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET count = ? WHERE id = ?", item.getCount());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET count = ? WHERE id = ?",
+				item.getCount());
 		item.getLastStatus().updateCount();
 	}
 
 	@Override
 	public void updateItemDurability(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET durability = ? WHERE id = ?", item.get_durability());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET durability = ? WHERE id = ?",
+				item.get_durability());
 		item.getLastStatus().updateDuraility();
 	}
 
 	@Override
 	public void updateItemChargeCount(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET charge_count = ? WHERE id = ?", item.getChargeCount());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET charge_count = ? WHERE id = ?",
+				item.getChargeCount());
 		item.getLastStatus().updateChargeCount();
 	}
 
 	@Override
 	public void updateItemRemainingTime(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET remaining_time = ? WHERE id = ?", item.getRemainingTime());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET remaining_time = ? WHERE id = ?",
+				item.getRemainingTime());
 		item.getLastStatus().updateRemainingTime();
 	}
 
 	@Override
 	public void updateItemEnchantLevel(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET enchantlvl = ? WHERE id = ?", item.getEnchantLevel());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET enchantlvl = ? WHERE id = ?",
+				item.getEnchantLevel());
 		item.getLastStatus().updateEnchantLevel();
 	}
 
 	@Override
 	public void updateItemEquipped(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET is_equipped = ? WHERE id = ?", (item.isEquipped() ? 1 : 0));
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET is_equipped = ? WHERE id = ?",
+				(item.isEquipped() ? 1 : 0));
 		item.getLastStatus().updateEquipped();
 	}
 
 	@Override
 	public void updateItemIdentified(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET is_id = ? WHERE id = ?", (item.isIdentified() ? 1 : 0));
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET is_id = ? WHERE id = ?",
+				(item.isIdentified() ? 1 : 0));
 		item.getLastStatus().updateIdentified();
 	}
 
 	@Override
 	public void updateItemDelayEffect(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET last_used = ? WHERE id = ?", item.getLastUsed());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET last_used = ? WHERE id = ?",
+				item.getLastUsed());
 		item.getLastStatus().updateLastUsed();
 	}
 
 	@Override
 	public void updateItemBless(L1ItemInstance item) throws Exception {
-		executeUpdate(item.getId(), "UPDATE character_items SET bless = ? WHERE id = ?", item.getBless());
+		executeUpdate(item.getId(),
+				"UPDATE character_items SET bless = ? WHERE id = ?",
+				item.getBless());
 		item.getLastStatus().updateBless();
 	}
 
 	@Override
-	public void updateItemAttrEnchantKind(L1ItemInstance item) throws
-			Exception {
-		executeUpdate(item.getId(),
+	public void updateItemAttrEnchantKind(L1ItemInstance item) throws Exception {
+		executeUpdate(
+				item.getId(),
 				"UPDATE character_items SET attr_enchant_kind = ? WHERE id = ?",
-						item.getAttrEnchantKind());
+				item.getAttrEnchantKind());
 		item.getLastStatus().updateAttrEnchantKind();
 	}
 
 	@Override
-	public void updateItemAttrEnchantLevel(L1ItemInstance item) throws
-			Exception {
-		executeUpdate(item.getId(),
+	public void updateItemAttrEnchantLevel(L1ItemInstance item)
+			throws Exception {
+		executeUpdate(
+				item.getId(),
 				"UPDATE character_items SET attr_enchant_level = ? WHERE id = ?",
-						item.getAttrEnchantLevel());
+				item.getAttrEnchantLevel());
 		item.getLastStatus().updateAttrEnchantLevel();
 	}
 
@@ -318,7 +344,8 @@ public class MySqlCharactersItemStorage extends CharactersItemStorage {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM character_items WHERE char_id = ?");
+			pstm = con
+					.prepareStatement("SELECT * FROM character_items WHERE char_id = ?");
 			pstm.setInt(1, objId);
 			rs = pstm.executeQuery();
 			while (rs.next()) {

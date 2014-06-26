@@ -43,7 +43,7 @@ public class C_BoardWrite extends ClientBasePacket {
 		String date = currentTime();
 		String title = readS();
 		String content = readS();
-		
+
 		L1Object tg = L1World.getInstance().findObject(id);
 
 		if (tg != null) {
@@ -55,7 +55,7 @@ public class C_BoardWrite extends ClientBasePacket {
 		}
 	}
 
-private static String currentTime() {
+	private static String currentTime() {
 		TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
 		Calendar cal = Calendar.getInstance(tz);
 		int year = cal.get(Calendar.YEAR) - 2000;

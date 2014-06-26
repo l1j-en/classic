@@ -26,11 +26,11 @@ public class S_HowManyMake extends ServerBasePacket {
 	public S_HowManyMake(int objId, int max, String htmlId) {
 		writeC(Opcodes.S_OPCODE_INPUTAMOUNT);
 		writeD(objId);
-		writeD(0); 
+		writeD(0);
 		writeD(0); // The initial price of spin control
 		writeD(0); // The lower limit price
 		writeD(max); // Maximum price
-		writeH(0); 
+		writeH(0);
 		writeS("request");
 		writeS(htmlId);
 	}

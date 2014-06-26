@@ -3,7 +3,8 @@ package l1j.server.server.templates;
 public class L1Armor extends L1Item {
 	private static final long serialVersionUID = 1L;
 
-	public L1Armor() { }
+	public L1Armor() {
+	}
 
 	private int _ac = 0;
 
@@ -27,7 +28,7 @@ public class L1Armor extends L1Item {
 		_damageReduction = i;
 	}
 
-	private int _weightReduction = 0; 
+	private int _weightReduction = 0;
 
 	@Override
 	public int getWeightReduction() {
@@ -38,7 +39,7 @@ public class L1Armor extends L1Item {
 		_weightReduction = i;
 	}
 
-	private int _hitModifierByArmor = 0; 
+	private int _hitModifierByArmor = 0;
 
 	@Override
 	public int getHitModifierByArmor() {
@@ -49,7 +50,7 @@ public class L1Armor extends L1Item {
 		_hitModifierByArmor = i;
 	}
 
-	private int _dmgModifierByArmor = 0; 
+	private int _dmgModifierByArmor = 0;
 
 	@Override
 	public int getDmgModifierByArmor() {
@@ -93,7 +94,7 @@ public class L1Armor extends L1Item {
 		return this._defense_water;
 	}
 
-	private int _defense_wind = 0; 
+	private int _defense_wind = 0;
 
 	public void set_defense_wind(int i) {
 		_defense_wind = i;
@@ -104,7 +105,7 @@ public class L1Armor extends L1Item {
 		return this._defense_wind;
 	}
 
-	private int _defense_fire = 0; 
+	private int _defense_fire = 0;
 
 	public void set_defense_fire(int i) {
 		_defense_fire = i;
@@ -115,7 +116,7 @@ public class L1Armor extends L1Item {
 		return this._defense_fire;
 	}
 
-	private int _defense_earth = 0; 
+	private int _defense_earth = 0;
 
 	public void set_defense_earth(int i) {
 		_defense_earth = i;
@@ -126,7 +127,7 @@ public class L1Armor extends L1Item {
 		return this._defense_earth;
 	}
 
-	private int _resist_stun = 0; 
+	private int _resist_stun = 0;
 
 	public void set_resist_stun(int i) {
 		_resist_stun = i;
@@ -137,7 +138,7 @@ public class L1Armor extends L1Item {
 		return this._resist_stun;
 	}
 
-	private int _resist_stone = 0; 
+	private int _resist_stone = 0;
 
 	public void set_resist_stone(int i) {
 		_resist_stone = i;
@@ -159,7 +160,7 @@ public class L1Armor extends L1Item {
 		return this._resist_sleep;
 	}
 
-	private int _resist_freeze = 0; 
+	private int _resist_freeze = 0;
 
 	public void set_resist_freeze(int i) {
 		_resist_freeze = i;
@@ -181,7 +182,7 @@ public class L1Armor extends L1Item {
 		return this._resist_sustain;
 	}
 
-	private int _resist_blind = 0; // 
+	private int _resist_blind = 0; //
 
 	public void set_resist_blind(int i) {
 		_resist_blind = i;
@@ -193,11 +194,12 @@ public class L1Armor extends L1Item {
 	}
 
 	private int _grade;
-	
-	@Override public int getGrade() {
+
+	@Override
+	public int getGrade() {
 		return _grade;
 	}
-	
+
 	public void setGrade(int grade) {
 		_grade = grade;
 	}

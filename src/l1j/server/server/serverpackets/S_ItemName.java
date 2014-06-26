@@ -28,15 +28,18 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_ItemName extends ServerBasePacket {
 	private static final String S_ITEM_NAME = "[S] S_ItemName";
 	private static Logger _log = Logger.getLogger(S_ItemName.class.getName());
+
 	/**
-	 * To change the name of the item. Equipment and strengthening of state when someone has changed.
+	 * To change the name of the item. Equipment and strengthening of state when
+	 * someone has changed.
 	 */
 	public S_ItemName(L1ItemInstance item) {
 		if (item == null) {
 			return;
 		}
-		// jump to all appearances, this is an item Opcode to update one's name 
-		// used solely for the purpose pattern (OE and after the equipment only after?)
+		// jump to all appearances, this is an item Opcode to update one's name
+		// used solely for the purpose pattern (OE and after the equipment only
+		// after?)
 		// Later, some data continues to send all of them ignored
 		writeC(Opcodes.S_OPCODE_ITEMNAME);
 		writeD(item.getId());

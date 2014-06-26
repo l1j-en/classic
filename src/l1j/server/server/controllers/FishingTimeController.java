@@ -28,7 +28,8 @@ import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class FishingTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(FishingTimeController.class.getName());
+	private static Logger _log = Logger.getLogger(FishingTimeController.class
+			.getName());
 
 	private static FishingTimeController _instance;
 	private final List<L1PcInstance> _fishingList = new ArrayList<L1PcInstance>();
@@ -72,7 +73,9 @@ public class FishingTimeController implements Runnable {
 				L1PcInstance pc = _fishingList.get(i);
 				if (pc.isFishing()) {
 					long time = pc.getFishingTime();
-					if (currentTime <= (time + 1000) && currentTime >= (time - 1000) && !pc.isFishingReady()) {
+					if (currentTime <= (time + 1000)
+							&& currentTime >= (time - 1000)
+							&& !pc.isFishingReady()) {
 						pc.setFishingReady(true);
 						pc.sendPackets(new S_PacketBox(S_PacketBox.FISHING));
 					} else if (currentTime > (time + 1000)) {
@@ -81,7 +84,7 @@ public class FishingTimeController implements Runnable {
 						pc.setFishing(false);
 						pc.sendPackets(new S_CharVisualUpdate(pc));
 						pc.broadcastPacket(new S_CharVisualUpdate(pc));
-						pc.sendPackets(new S_ServerMessage(1163, "")); 
+						pc.sendPackets(new S_ServerMessage(1163, ""));
 						removeMember(pc);
 					}
 				}

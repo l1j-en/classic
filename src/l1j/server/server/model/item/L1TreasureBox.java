@@ -46,7 +46,9 @@ import l1j.server.server.utils.PerformanceTimer;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class L1TreasureBox {
 
-	private static Logger _log = Logger.getLogger(L1TreasureBox.class.getName());
+	private static Logger _log = Logger
+			.getLogger(L1TreasureBox.class.getName());
+
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlRootElement(name = "TreasureBoxList")
 	private static class TreasureBoxList implements Iterable<L1TreasureBox> {
@@ -67,7 +69,7 @@ public class L1TreasureBox {
 		private int _count;
 
 		private int _chance;
-		
+
 		@XmlAttribute(name = "Chance")
 		private void setChance(double chance) {
 			_chance = (int) (chance * 10000);
@@ -92,8 +94,7 @@ public class L1TreasureBox {
 
 	private static final String PATH = "./data/xml/Item/TreasureBox.xml";
 
-	private static final HashMap<Integer, L1TreasureBox> _dataMap =
-			new HashMap<Integer, L1TreasureBox>();
+	private static final HashMap<Integer, L1TreasureBox> _dataMap = new HashMap<Integer, L1TreasureBox>();
 
 	public static L1TreasureBox get(int id) {
 		return _dataMap.get(id);
@@ -131,11 +132,13 @@ public class L1TreasureBox {
 			_totalChance += each.getChance();
 			if (ItemTable.getInstance().getTemplate(each.getItemId()) == null) {
 				getItems().remove(each);
-				_log.warning("TreasureBox item ID " + each.getItemId() + " is invalid.");
+				_log.warning("TreasureBox item ID " + each.getItemId()
+						+ " is invalid.");
 			}
 		}
 		if (getTotalChance() != 0 && getTotalChance() != 1000000) {
-			_log.warning("ID " + getBoxId() + " total chance does not equal 0 or 100.");
+			_log.warning("ID " + getBoxId()
+					+ " total chance does not equal 0 or 100.");
 		}
 	}
 
@@ -143,7 +146,8 @@ public class L1TreasureBox {
 		PerformanceTimer timer = new PerformanceTimer();
 		System.out.print("loading TreasureBox...");
 		try {
-			JAXBContext context = JAXBContext.newInstance(L1TreasureBox.TreasureBoxList.class);
+			JAXBContext context = JAXBContext
+					.newInstance(L1TreasureBox.TreasureBoxList.class);
 			Unmarshaller um = context.createUnmarshaller();
 			File file = new File(PATH);
 			TreasureBoxList list = (TreasureBoxList) um.unmarshal(file);
@@ -152,7 +156,8 @@ public class L1TreasureBox {
 				_dataMap.put(each.getBoxId(), each);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, PATH + " is invalid for a TreasureBox load.", e);
+			_log.log(Level.SEVERE,
+					PATH + " is invalid for a TreasureBox load.", e);
 			System.exit(0);
 		}
 		System.out.println("    OK!     " + timer.elapsedTimeMillis() + "ms");
@@ -196,7 +201,7 @@ public class L1TreasureBox {
 
 			if (itemId == 40576 || itemId == 40577 || itemId == 40578
 					|| itemId == 40411 || itemId == 49013) {
-				pc.death(null); 
+				pc.death(null);
 			}
 			return true;
 		}

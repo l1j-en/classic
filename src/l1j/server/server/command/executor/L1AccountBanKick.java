@@ -48,8 +48,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 						+ " has been kicked and banned."));
 				target.sendPackets(new S_Disconnect());
 			} else {
-				pc.sendPackets(new S_SystemMessage(
-						"Please give a playername."));
+				pc.sendPackets(new S_SystemMessage("Please give a playername."));
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));

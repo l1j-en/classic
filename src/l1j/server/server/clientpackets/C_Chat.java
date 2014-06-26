@@ -37,8 +37,8 @@ public class C_Chat extends ClientBasePacket {
 			receiver.sendPackets(packet);
 	}
 
-	private static Iterable<L1PcInstance> filterForIgnored(final L1PcInstance sender,
-			final Iterable<L1PcInstance> receivers) {
+	private static Iterable<L1PcInstance> filterForIgnored(
+			final L1PcInstance sender, final Iterable<L1PcInstance> receivers) {
 		List<L1PcInstance> filtered = new ArrayList<L1PcInstance>();
 		for (L1PcInstance receiver : receivers)
 			if (!receiver.getExcludingList().contains(sender.getName()))
@@ -52,98 +52,98 @@ public class C_Chat extends ClientBasePacket {
 		L1PcInstance pc = clientThread.getActiveChar();
 		int chatType = readC();
 		String chatText = readS();
-		if (pc.hasSkillEffect(SILENCE) || pc.hasSkillEffect(AREA_OF_SILENCE) || 
-				pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
+		if (pc.hasSkillEffect(SILENCE) || pc.hasSkillEffect(AREA_OF_SILENCE)
+				|| pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
 			return;
 		}
-		if (pc.hasSkillEffect(1005)) { 
-			pc.sendPackets(new S_ServerMessage(242)); 
+		if (pc.hasSkillEffect(1005)) {
+			pc.sendPackets(new S_ServerMessage(242));
 			return;
 		}
 
 		// A lambda, a lambda, my kingdom for a (concise!) lambda.
-		switch(chatType) {
-			case 0:
-				if (pc.isGhost() && !(pc.isGm() || pc.isMonitor())) {
-					return;
+		switch (chatType) {
+		case 0:
+			if (pc.isGhost() && !(pc.isGm() || pc.isMonitor())) {
+				return;
+			}
+			if (chatText.startsWith(".")) {
+				String cmd = chatText.substring(1);
+				GMCommands.getInstance().handleCommands(pc, cmd);
+				return;
+			} else if (chatText.startsWith("-")) {
+				String cmd = chatText.substring(1);
+				PCommands.getInstance().handleCommands(pc, cmd);
+				return;
+			}
+			if (chatText.startsWith("$")) {
+				worldChat(pc, chatText.substring(1), 12);
+
+				if (!pc.isGm()) {
+					pc.checkChatInterval();
 				}
-				if (chatText.startsWith(".")) {
-					String cmd = chatText.substring(1);
-					GMCommands.getInstance().handleCommands(pc, cmd);
-					return;
-				} else if (chatText.startsWith("-")) {
-					String cmd = chatText.substring(1);
-					PCommands.getInstance().handleCommands(pc, cmd);
-					return;
-				}
-				if (chatText.startsWith("$")) {
-					worldChat(pc, chatText.substring(1), 12);
+				return;
+			}
 
-					if (!pc.isGm()) {
-						pc.checkChatInterval();
-					}
-					return;
-				}
+			// Cheap hack to fix shouting. The client insists that ! chat is of
+			// chatType 0. This is a (hopefully temporary) workaround that
+			// provides shouting via !!.
+			if (chatText.startsWith("!")) {
+				chatText = chatText.substring(1, chatText.length());
 
-				// Cheap hack to fix shouting. The client insists that ! chat is of 
-				// chatType 0. This is a (hopefully temporary) workaround that 
-				// provides shouting via !!.
-				if (chatText.startsWith("!")) {
-					chatText = chatText.substring(1, chatText.length());
-
-					// TODO: test this! The fix was using S_OPCODE_NPCSHOUT,
-					// but the original code uses S_OPCODE_NORMALCHAT.
-					normalChat(pc, chatText, 2, SHOUT_RANGE,
-							Opcodes.S_OPCODE_NORMALCHAT);
-
-					if (!pc.isGm()) {
-						pc.checkChatInterval();
-					}
-					return;
-				}
-
-				// TODO: maybe there's a nicer way to expose that config setting?
-				normalChat(pc, chatText, chatType, Config.PC_RECOGNIZE_RANGE,
+				// TODO: test this! The fix was using S_OPCODE_NPCSHOUT,
+				// but the original code uses S_OPCODE_NORMALCHAT.
+				normalChat(pc, chatText, 2, SHOUT_RANGE,
 						Opcodes.S_OPCODE_NORMALCHAT);
-				break;
-			case 2:
-				if (pc.isGhost() && (!pc.isGm() || !pc.isMonitor()))
-					return;
 
-				// TODO: investigate. The original code uses the NORMALCHAT opcode,
-				// but the hack above uses NPCSHOUT.
-				normalChat(pc, chatText, chatType, SHOUT_RANGE,
-						Opcodes.S_OPCODE_NORMALCHAT);
-				break;
-			case 3:
-				worldChat(pc, chatText, chatType);
-				break;
-			case 4:
-				clanChat(pc, chatText, chatType, L1Clan.CLAN_RANK_PUBLIC,
-						L1Clan.CLAN_RANK_PROBATION);
-				break;
-			case 11:
-				if (!pc.isInParty())
-					return;
+				if (!pc.isGm()) {
+					pc.checkChatInterval();
+				}
+				return;
+			}
 
-				sendChatPacket(pc, Arrays.asList(pc.getParty().getMembers()), 
-						chatText, chatType, Opcodes.S_OPCODE_GLOBALCHAT);
-				break;
-			case 12:
-				worldChat(pc, chatText, chatType);
-				break;
-			case 13:
-				clanChat(pc, chatText, chatType, L1Clan.CLAN_RANK_GUARDIAN,
-						L1Clan.CLAN_RANK_GUARDIAN);
-				break;
-			case 14:
-				if (!pc.isInChatParty())
-					return;
+			// TODO: maybe there's a nicer way to expose that config setting?
+			normalChat(pc, chatText, chatType, Config.PC_RECOGNIZE_RANGE,
+					Opcodes.S_OPCODE_NORMALCHAT);
+			break;
+		case 2:
+			if (pc.isGhost() && (!pc.isGm() || !pc.isMonitor()))
+				return;
 
-				sendChatPacket(pc, Arrays.asList(pc.getChatParty().getMembers()),
-						chatText, chatType, Opcodes.S_OPCODE_NORMALCHAT);
-				break;
-			default:
+			// TODO: investigate. The original code uses the NORMALCHAT opcode,
+			// but the hack above uses NPCSHOUT.
+			normalChat(pc, chatText, chatType, SHOUT_RANGE,
+					Opcodes.S_OPCODE_NORMALCHAT);
+			break;
+		case 3:
+			worldChat(pc, chatText, chatType);
+			break;
+		case 4:
+			clanChat(pc, chatText, chatType, L1Clan.CLAN_RANK_PUBLIC,
+					L1Clan.CLAN_RANK_PROBATION);
+			break;
+		case 11:
+			if (!pc.isInParty())
+				return;
+
+			sendChatPacket(pc, Arrays.asList(pc.getParty().getMembers()),
+					chatText, chatType, Opcodes.S_OPCODE_GLOBALCHAT);
+			break;
+		case 12:
+			worldChat(pc, chatText, chatType);
+			break;
+		case 13:
+			clanChat(pc, chatText, chatType, L1Clan.CLAN_RANK_GUARDIAN,
+					L1Clan.CLAN_RANK_GUARDIAN);
+			break;
+		case 14:
+			if (!pc.isInChatParty())
+				return;
+
+			sendChatPacket(pc, Arrays.asList(pc.getChatParty().getMembers()),
+					chatText, chatType, Opcodes.S_OPCODE_NORMALCHAT);
+			break;
+		default:
 		}
 
 		if (!pc.isGm()) {
@@ -154,8 +154,8 @@ public class C_Chat extends ClientBasePacket {
 	private void normalChat(final L1PcInstance sender, final String text,
 			final int type, final int range, final int opcode) {
 
-		List<L1PcInstance> receivers = 
-			L1World.getInstance().getVisiblePlayer(sender, range);
+		List<L1PcInstance> receivers = L1World.getInstance().getVisiblePlayer(
+				sender, range);
 		receivers.add(sender);
 
 		sendChatPacket(sender, receivers, text, type,
@@ -172,14 +172,14 @@ public class C_Chat extends ClientBasePacket {
 
 			L1MonsterInstance mob = (L1MonsterInstance) obj;
 			// Added HP check to prevent dead doppels from talking.
-			if (!mob.getNpcTemplate().is_doppel() ||
-					!mob.getName().equals(sender.getName()) ||
-					mob.getCurrentHp() <= 0)
+			if (!mob.getNpcTemplate().is_doppel()
+					|| !mob.getName().equals(sender.getName())
+					|| mob.getCurrentHp() <= 0)
 				continue;
 
 			S_NpcChatPacket packet = new S_NpcChatPacket(mob, text, type);
-			for (L1PcInstance player :
-					L1World.getInstance().getVisiblePlayer(mob, range))
+			for (L1PcInstance player : L1World.getInstance().getVisiblePlayer(
+					mob, range))
 				player.sendPackets(packet);
 		}
 	}
@@ -191,11 +191,12 @@ public class C_Chat extends ClientBasePacket {
 
 		List<L1PcInstance> receivers = new ArrayList<L1PcInstance>();
 		for (L1PcInstance player : L1World.getInstance().getAllPlayers())
-			if ((type == 12 && player.showTradeChat()) ||
-					(type == 3 && player.showWorldChat()))
+			if ((type == 12 && player.showTradeChat())
+					|| (type == 3 && player.showWorldChat()))
 				receivers.add(player);
 
-		sendChatPacket(sender, receivers, text, type, Opcodes.S_OPCODE_GLOBALCHAT);
+		sendChatPacket(sender, receivers, text, type,
+				Opcodes.S_OPCODE_GLOBALCHAT);
 	}
 
 	private void clanChat(final L1PcInstance sender, final String text,
@@ -205,7 +206,7 @@ public class C_Chat extends ClientBasePacket {
 
 		L1Clan clan = L1World.getInstance().getClan(sender.getClanname());
 		int rank = sender.getClanRank();
-		
+
 		if (clan == null || rank < minSenderRank)
 			return;
 
@@ -214,30 +215,28 @@ public class C_Chat extends ClientBasePacket {
 			if (pledgemate.getClanRank() >= minReceiverRank)
 				receivers.add(pledgemate);
 
-		sendChatPacket(sender, receivers, text, type, Opcodes.S_OPCODE_GLOBALCHAT);
+		sendChatPacket(sender, receivers, text, type,
+				Opcodes.S_OPCODE_GLOBALCHAT);
 	}
 
 	private boolean canWorldChat(final L1PcInstance sender) {
 		if (sender.isGm() || sender.isMonitor())
 			return true;
 		if (sender.getLevel() <= Config.GLOBAL_CHAT_LEVEL) {
-			sender.sendPackets(new S_ServerMessage(195,
-						String.valueOf(Config.GLOBAL_CHAT_LEVEL)));
+			sender.sendPackets(new S_ServerMessage(195, String
+					.valueOf(Config.GLOBAL_CHAT_LEVEL)));
 			return false;
 		}
 		if (!L1World.getInstance().isWorldChatElabled()) {
 			sender.sendPackets(new S_ServerMessage(510));
 			return false;
 		}
-		/* TRICIDTODO: Make this a configurable option.
-		if (sender.get_food() <= 2) {
-			pc.sendPackets(new S_ServerMessage(462));
-			return false;
-		} else {
-			pc.set_food(pc.get_food() - 2); // we dont want this on lineagedc
-			pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food()));
-		}
-		*/
+		/*
+		 * TRICIDTODO: Make this a configurable option. if (sender.get_food() <=
+		 * 2) { pc.sendPackets(new S_ServerMessage(462)); return false; } else {
+		 * pc.set_food(pc.get_food() - 2); // we dont want this on lineagedc
+		 * pc.sendPackets(new S_PacketBox(S_PacketBox.FOOD, pc.get_food())); }
+		 */
 		return true;
 	}
 

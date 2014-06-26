@@ -38,7 +38,7 @@ public class Dice {
 
 	public int roll(int count) {
 		int n = 0;
-		for(int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			n += roll();
 		}
 		return n;

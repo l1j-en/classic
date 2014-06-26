@@ -55,7 +55,8 @@ public final class MapsTable {
 	private static MapsTable _instance;
 
 	/**
-	 * Key to map ID, Value teleport to whether the flag is stored in the HashMap
+	 * Key to map ID, Value teleport to whether the flag is stored in the
+	 * HashMap
 	 */
 	private final Map<Integer, MapData> _maps = new HashMap<Integer, MapData>();
 
@@ -67,7 +68,8 @@ public final class MapsTable {
 	}
 
 	/**
-	 * Teleport whether the flag map reading from the database, HashMap _maps stored.
+	 * Teleport whether the flag map reading from the database, HashMap _maps
+	 * stored.
 	 */
 	private void loadMapsFromDatabase() {
 		Connection con = null;
@@ -170,8 +172,8 @@ public final class MapsTable {
 	 * Y coordinates to the end of the map is returned.
 	 * 
 	 * @param mapId
-	 *        	Map examine the map ID
-	 * @return Y 	Coordinate quit
+	 *            Map examine the map ID
+	 * @return Y Coordinate quit
 	 */
 	public int getEndY(int mapId) {
 		MapData map = _maps.get(mapId);

@@ -23,11 +23,12 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1EffectInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1EffectInstance.class.getName());
+	private static Logger _log = Logger.getLogger(L1EffectInstance.class
+			.getName());
 	private ScheduledFuture<?> _effectFuture;
 	private static final int FW_DAMAGE_INTERVAL = 1000;
-	private static final int CUBE_INTERVAL = 500; 
-	private static final int CUBE_TIME = 8000; 
+	private static final int CUBE_INTERVAL = 500;
+	private static final int CUBE_TIME = 8000;
 	private L1PcInstance _pc;
 	private int _skillId;
 
@@ -38,15 +39,13 @@ public class L1EffectInstance extends L1NpcInstance {
 		if (npcId == 81157) {
 			_effectFuture = GeneralThreadPool.getInstance().schedule(
 					new FwDamageTimer(this), 0);
-		} else if (npcId == 80149 
-				|| npcId == 80150 
-				|| npcId == 80151 
-				|| npcId == 80152) { 
+		} else if (npcId == 80149 || npcId == 80150 || npcId == 80151
+				|| npcId == 80152) {
 			_effectFuture = GeneralThreadPool.getInstance().schedule(
 					new CubeTimer(this), 0);
 		}
 	}
-	
+
 	public void setUser(L1PcInstance pc) {
 		_pc = pc;
 	}
@@ -98,8 +97,8 @@ public class L1EffectInstance extends L1NpcInstance {
 				try {
 					for (L1Object object : L1World.getInstance()
 							.getVisibleObjects(_effect, 0)) {
-						if (!(object instanceof L1PcInstance) &&
-								!(object instanceof L1MonsterInstance))
+						if (!(object instanceof L1PcInstance)
+								&& !(object instanceof L1MonsterInstance))
 							continue;
 						L1Character target = (L1Character) object;
 						if (target.isDead())
@@ -108,18 +107,18 @@ public class L1EffectInstance extends L1NpcInstance {
 						int damage = magic.calcFireWallDamage();
 						if (damage == 0)
 							continue;
-						S_DoActionGFX packet = new S_DoActionGFX(target.getId(),
-								ActionCodes.ACTION_Damage);
+						S_DoActionGFX packet = new S_DoActionGFX(
+								target.getId(), ActionCodes.ACTION_Damage);
 						if (object instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) object;
-							if (pc.getZoneType() == ZoneType.Safety &&
-									!atSiege(pc))
+							if (pc.getZoneType() == ZoneType.Safety
+									&& !atSiege(pc))
 								continue;
 							pc.sendPackets(packet);
 							pc.receiveDamage(_effect, damage, false);
 						} else
 							((L1MonsterInstance) object).receiveDamage(_effect,
-								damage);
+									damage);
 						target.broadcastPacket(packet);
 					}
 					Thread.sleep(FW_DAMAGE_INTERVAL);
@@ -161,13 +160,13 @@ public class L1EffectInstance extends L1NpcInstance {
 							if (pc.isDead()) {
 								continue;
 							}
-							L1PcInstance user = getUser(); 
+							L1PcInstance user = getUser();
 							if (friendlyCube(user, pc)) {
 								cubeToAlly(pc, _effect);
 								continue;
 							}
-							if (pc.getZoneType() == ZoneType.Safety &&
-									!atSiege(pc))
+							if (pc.getZoneType() == ZoneType.Safety
+									&& !atSiege(pc))
 								continue;
 							cubeToEnemy(pc, _effect);
 						} else if (object instanceof L1MonsterInstance) {
@@ -188,35 +187,35 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToAlly(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx = SkillTable.getInstance().findBySkillId(
-				getSkillId()).getCastGfx();
+		int castGfx = SkillTable.getInstance().findBySkillId(getSkillId())
+				.getCastGfx();
 		int skillEffect;
 		switch (npcId) {
-			case 80149:
-				if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ALLY))
-					return;
-				cha.addFire(30);
-				skillEffect = STATUS_CUBE_IGNITION_TO_ALLY;
-				break;
-			case 80150:
-				if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ALLY))
-					return;
-				cha.addEarth(30);
-				skillEffect = STATUS_CUBE_QUAKE_TO_ALLY;
-				break;
-			case 80151:
-				if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ALLY))
-					return;
-				cha.addWind(30);
-				skillEffect = STATUS_CUBE_SHOCK_TO_ALLY;
-				break;
-			case 80152:
-				if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
-					return;
-				skillEffect = STATUS_CUBE_BALANCE;
-				break;
-			default:
+		case 80149:
+			if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ALLY))
 				return;
+			cha.addFire(30);
+			skillEffect = STATUS_CUBE_IGNITION_TO_ALLY;
+			break;
+		case 80150:
+			if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ALLY))
+				return;
+			cha.addEarth(30);
+			skillEffect = STATUS_CUBE_QUAKE_TO_ALLY;
+			break;
+		case 80151:
+			if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ALLY))
+				return;
+			cha.addWind(30);
+			skillEffect = STATUS_CUBE_SHOCK_TO_ALLY;
+			break;
+		case 80152:
+			if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
+				return;
+			skillEffect = STATUS_CUBE_BALANCE;
+			break;
+		default:
+			return;
 		}
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;
@@ -233,32 +232,32 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToEnemy(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx2 = SkillTable.getInstance().findBySkillId(
-				getSkillId()).getCastGfx2();
+		int castGfx2 = SkillTable.getInstance().findBySkillId(getSkillId())
+				.getCastGfx2();
 		int skillEffect;
-		switch(npcId) {
-			case 80149:
-				if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ENEMY))
-					return;
-				skillEffect = STATUS_CUBE_IGNITION_TO_ENEMY;
-				break;
-			case 80150:
-				if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ENEMY))
-					return;
-				skillEffect = STATUS_CUBE_QUAKE_TO_ENEMY;
-				break;
-			case 80151:
-				if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ENEMY))
-					return;
-				skillEffect = STATUS_CUBE_SHOCK_TO_ENEMY;
-				break;
-			case 80152:
-				if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
-					return;
-				skillEffect = STATUS_CUBE_BALANCE;
-				break;
-			default:
+		switch (npcId) {
+		case 80149:
+			if (cha.hasSkillEffect(STATUS_CUBE_IGNITION_TO_ENEMY))
 				return;
+			skillEffect = STATUS_CUBE_IGNITION_TO_ENEMY;
+			break;
+		case 80150:
+			if (cha.hasSkillEffect(STATUS_CUBE_QUAKE_TO_ENEMY))
+				return;
+			skillEffect = STATUS_CUBE_QUAKE_TO_ENEMY;
+			break;
+		case 80151:
+			if (cha.hasSkillEffect(STATUS_CUBE_SHOCK_TO_ENEMY))
+				return;
+			skillEffect = STATUS_CUBE_SHOCK_TO_ENEMY;
+			break;
+		case 80152:
+			if (cha.hasSkillEffect(STATUS_CUBE_BALANCE))
+				return;
+			skillEffect = STATUS_CUBE_BALANCE;
+			break;
+		default:
+			return;
 		}
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;

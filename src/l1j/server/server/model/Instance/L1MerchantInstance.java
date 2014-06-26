@@ -58,7 +58,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		attack.calcHit();
 		attack.action();
 	}
-	
+
 	@Override
 	public void onNpcAI() {
 		if (isAiRunning()) {
@@ -83,7 +83,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		int npcX = getX();
 		int npcY = getY();
 
-		if(getNpcTemplate().getChangeHead()) {
+		if (getNpcTemplate().getChangeHead()) {
 			if (pcX == npcX && pcY < npcY) {
 				setHeading(0);
 			} else if (pcX > npcX && pcY < npcY) {
@@ -112,7 +112,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				_restTimer.schedule(_monitor, REST_MILLISEC);
 			}
 		}
-	
+
 		if (talking != null) {
 			if (npcid == 70841) {
 				if (player.isElf()) {
@@ -126,7 +126,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isCrown()) {
 					if (player.getLevel() >= 15) {
 						int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
-						if (lv15_step == 2 || lv15_step == L1Quest.QUEST_END) { 
+						if (lv15_step == 2 || lv15_step == L1Quest.QUEST_END) {
 							htmlid = "gunterp11";
 						} else {
 							htmlid = "gunterp9";
@@ -255,7 +255,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if (lv45_step == 1) {
 						htmlid = "meg1";
-					} else if (lv45_step == 2 && lv45_step <= 3 ) { //
+					} else if (lv45_step == 2 && lv45_step <= 3) { //
 						htmlid = "meg2";
 					} else if (lv45_step >= 4) { //
 						htmlid = "meg3";
@@ -264,44 +264,45 @@ public class L1MerchantInstance extends L1NpcInstance {
 			} else if (npcid == 71200) { //
 				if (player.isCrown()) { //
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step == 2 && player.getInventory().checkItem(41422)) {	
+					if (lv45_step == 2
+							&& player.getInventory().checkItem(41422)) {
 						player.getInventory().consumeItem(41422, 1);
 						final int[] item_ids = { 40568 };
 						final int[] item_amounts = { 1 };
 						for (int i = 0; i < item_ids.length; i++) {
-							player.getInventory().storeItem(
-									item_ids[i], item_amounts[i]);
+							player.getInventory().storeItem(item_ids[i],
+									item_amounts[i]);
 						}
 					}
 				}
-			// } else if (npcid == 71200) { // pt sG^
+				// } else if (npcid == 71200) { // pt sG^
 				// if (player.isCrown()) { // N
-					// int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					// if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END ) {
-					// //ONAorI
-						// htmlid = "pieta9";
-					// } else if (lv45_step == 2) { // NGXgJnOEO
-						// htmlid = "pieta2";
-					// } else if (lv45_step == 2 ||
-								// player.getInventory().checkItem(41422) ) {//
-								// P
-						// htmlid = "pieta4";
-					// } else if (lv45_step == 3) { // P
-						// htmlid = "pieta6";
-					// } else {//lv45orNGXg30
-						// htmlid = "pieta8";
-					// }
-				// } else { // NO
-					// htmlid = "pieta1";
+				// int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+				// if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END ) {
+				// //ONAorI
+				// htmlid = "pieta9";
+				// } else if (lv45_step == 2) { // NGXgJnOEO
+				// htmlid = "pieta2";
+				// } else if (lv45_step == 2 ||
+				// player.getInventory().checkItem(41422) ) {//
+				// P
+				// htmlid = "pieta4";
+				// } else if (lv45_step == 3) { // P
+				// htmlid = "pieta6";
+				// } else {//lv45orNGXg30
+				// htmlid = "pieta8";
 				// }
-			// } else if (npcid == 70751) { // ubh
+				// } else { // NO
+				// htmlid = "pieta1";
+				// }
+				// } else if (npcid == 70751) { // ubh
 				// if (player.isCrown()) { // N
-					// if (player.getLevel() >= 45) {
-						// if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { //
-						// O
-							// htmlid = "brad1";
-						// }
-					// }
+				// if (player.getLevel() >= 45) {
+				// if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { //
+				// O
+				// htmlid = "brad1";
+				// }
+				// }
 				// }
 			} else if (npcid == 70798) { //
 				if (player.isKnight()) { //
@@ -1183,27 +1184,27 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "infamous02";
 				}
-			} else if (npcid == 80104) { 
-				if (!player.isCrown()) { 
+			} else if (npcid == 80104) {
+				if (!player.isCrown()) {
 					htmlid = "horseseller4";
 				}
 			} else if (npcid == 70528) {
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_TALKING_ISLAND);
-			} else if (npcid == 70546) { 
+			} else if (npcid == 70546) {
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_KENT);
 			} else if (npcid == 70567) {
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_GLUDIO);
-			} else if (npcid == 70815) { 
+			} else if (npcid == 70815) {
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_ORCISH_FOREST);
-			} else if (npcid == 70774) { 
+			} else if (npcid == 70774) {
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_WINDAWOOD);
 			} else if (npcid == 70799) {
 				htmlid = talkToTownmaster(player,
 						L1TownLocation.TOWNID_SILVER_KNIGHT_TOWN);
-			} else if (npcid == 70594) { 
+			} else if (npcid == 70594) {
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_GIRAN);
 			} else if (npcid == 70860) {
 				htmlid = talkToTownmaster(player, L1TownLocation.TOWNID_HEINE);
@@ -1365,7 +1366,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
 					if (player.getInventory().checkItem(41233)
 							|| player.getInventory().checkItem(41234)) {
-						htmlid = "jpe0143";	
+						htmlid = "jpe0143";
 					} else if (player.getInventory().checkItem(41238)
 							|| player.getInventory().checkItem(41239)
 							|| player.getInventory().checkItem(41240)) {
@@ -1381,7 +1382,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "jpe0125";
 				} else if (player.getLevel() >= 12 && player.getLevel() < 25) {
 					if (player.getInventory().checkItem(41231)) {
-						htmlid = "jpe0123";	
+						htmlid = "jpe0123";
 					} else if (player.getInventory().checkItem(41232)
 							|| player.getInventory().checkItem(41233)
 							|| player.getInventory().checkItem(41234)
@@ -1535,34 +1536,25 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = "orcfkame5";
 				}
 			} else if (npcid == 71055) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 3) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 3) {
 					htmlid = "lukein13";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						== L1Quest.QUEST_END
-						&& player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 2
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == L1Quest.QUEST_END
+						&& player.getQuest().get_step(L1Quest.QUEST_RESTA) == 2
 						&& player.getInventory().checkItem(40631)) {
 					htmlid = "lukein10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == L1Quest.QUEST_END) {
 					htmlid = "lukein0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 11) {
 					if (player.getInventory().checkItem(40716)) {
 						htmlid = "lukein9";
 					}
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						>= 1
-						&& player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						<= 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) >= 1
+						&& player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) <= 10) {
 					htmlid = "lukein8";
 				}
 			} else if (npcid == 71063) {
-				if (player.getQuest().get_step(L1Quest.QUEST_TBOX1)
-						== L1Quest.QUEST_END) {
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1)
-						== 1) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TBOX1) == L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LUKEIN1) == 1) {
 					htmlid = "maptbox";
 				}
 			} else if (npcid == 71064) {
@@ -1602,192 +1594,155 @@ public class L1MerchantInstance extends L1NpcInstance {
 					htmlid = talkToThirdtbox(player);
 				}
 			} else if (npcid == 71056) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 4) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 4) {
 					if (player.getInventory().checkItem(40631)) {
 						htmlid = "SIMIZZ11";
 					} else {
 						htmlid = "SIMIZZ0";
 					}
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == 2) {
 					htmlid = "SIMIZZ0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == L1Quest.QUEST_END) {
 					htmlid = "SIMIZZ15";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == 1) {
 					htmlid = "SIMIZZ6";
 				}
 			} else if (npcid == 71057) {
-				if (player.getQuest().get_step(L1Quest.QUEST_DOIL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_DOIL) == L1Quest.QUEST_END) {
 					htmlid = "doil4b";
 				}
 			} else if (npcid == 71059) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN) == L1Quest.QUEST_END) {
 					htmlid = "rudian1c";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_RUDIAN) == 1) {
 					htmlid = "rudian7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_DOIL)
-						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_DOIL) == L1Quest.QUEST_END) {
 					htmlid = "rudian1b";
 				} else {
 					htmlid = "rudian1a";
 				}
 			} else if (npcid == 71060) {
-				if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == L1Quest.QUEST_END) {
 					htmlid = "resta1e";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == L1Quest.QUEST_END) {
 					htmlid = "resta14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 4) {
 					htmlid = "resta13";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 3) {
 					htmlid = "resta11";
 					player.getQuest().set_step(L1Quest.QUEST_RESTA, 4);
-				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_RESTA) == 2) {
 					htmlid = "resta16";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== 2 
-							&& player.getQuest().get_step(L1Quest.
-									QUEST_CADMUS) == 1
-							|| player.getInventory().checkItem(40647)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == 2
+						&& player.getQuest().get_step(L1Quest.QUEST_CADMUS) == 1
+						|| player.getInventory().checkItem(40647)) {
 					htmlid = "resta1a";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== 1 
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == 1
 						|| player.getInventory().checkItem(40647)) {
 					htmlid = "resta1c";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SIMIZZ) == 2) {
 					htmlid = "resta1b";
 				}
 			} else if (npcid == 71061) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == L1Quest.QUEST_END) {
 					htmlid = "cadmus1c";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == 3) {
 					htmlid = "cadmus8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == 2) {
 					htmlid = "cadmus1a";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_DOIL)
-						== L1Quest.QUEST_END) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_DOIL) == L1Quest.QUEST_END) {
 					htmlid = "cadmus1b";
 				}
 			} else if (npcid == 71062) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						>= 3) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) >= 3) {
 					htmlid = "kamit2";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == 2) {
 					htmlid = "kamit1b";
 				}
 			} else if (npcid == 71036) {
-				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == L1Quest.QUEST_END) {
 					htmlid = "kamyla26";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 4 && player.getInventory().checkItem(40717)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 4
+						&& player.getInventory().checkItem(40717)) {
 					htmlid = "kamyla15";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 4 ) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 4) {
 					htmlid = "kamyla14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 3 && player.getInventory().checkItem(40630)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 3
+						&& player.getInventory().checkItem(40630)) {
 					htmlid = "kamyla12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 3 ) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 3) {
 					htmlid = "kamyla11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 2 && player.getInventory().checkItem(40644)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 2
+						&& player.getInventory().checkItem(40644)) {
 					htmlid = "kamyla9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 1 ) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 1) {
 					htmlid = "kamyla8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS)
-						==  L1Quest.QUEST_END && player.getInventory()
-							.checkItem(40621)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CADMUS) == L1Quest.QUEST_END
+						&& player.getInventory().checkItem(40621)) {
 					htmlid = "kamyla1";
 				}
 			} else if (npcid == 71089) {
-				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA)
-						== 2 ) {
+				if (player.getQuest().get_step(L1Quest.QUEST_KAMYLA) == 2) {
 					htmlid = "francu12";
 				}
 			} else if (npcid == 71090) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
-						== 1 && player.getInventory().checkItem(40620)) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL) == 1
+						&& player.getInventory().checkItem(40620)) {
 					htmlid = "jcrystal2";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
-						== 1){
+				} else if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL) == 1) {
 					htmlid = "jcrystal3";
 				}
 			} else if (npcid == 71091) {
-				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL)
-						== 2 && player.getInventory().checkItem(40654)) {
+				if (player.getQuest().get_step(L1Quest.QUEST_CRYSTAL) == 2
+						&& player.getInventory().checkItem(40654)) {
 					htmlid = "jcrystall2";
 				}
-			} else if (npcid == 71074) { 
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 71074) {
+				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == L1Quest.QUEST_END) {
 					htmlid = "lelder0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 3  && player.getInventory().checkItem(40634)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 3
+						&& player.getInventory().checkItem(40634)) {
 					htmlid = "lelder12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 3) {
 					htmlid = "lelder11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 2  && player.getInventory().checkItem(40633)) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 2
+						&& player.getInventory().checkItem(40633)) {
 					htmlid = "lelder7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 2) {
 					htmlid = "lelder7b";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 1) {
 					htmlid = "lelder7b";
 				} else if (player.getLevel() >= 40) {
 					htmlid = "lelder1";
 				}
 			} else if (npcid == 71075) {
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== 1) {
+				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == 1) {
 					htmlid = "llizard1b";
 				} else {
 				}
 			} else if (npcid == 71076) {
-				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_LIZARD) == L1Quest.QUEST_END) {
 					htmlid = "ylizardb";
 				} else {
 				}
-			} else if (npcid == 80079) { 
-				if (player.getQuest().get_step(L1Quest.QUEST_KEPLISHA)
-						== L1Quest.QUEST_END
-								&& !player.getInventory().checkItem(41312)) {
+			} else if (npcid == 80079) {
+				if (player.getQuest().get_step(L1Quest.QUEST_KEPLISHA) == L1Quest.QUEST_END
+						&& !player.getInventory().checkItem(41312)) {
 					htmlid = "keplisha6";
 				} else {
-					if (player.getInventory().checkItem(41314)) { 
+					if (player.getInventory().checkItem(41314)) {
 						htmlid = "keplisha3";
-					} else if (player.getInventory().checkItem(41313)) { 
+					} else if (player.getInventory().checkItem(41313)) {
 						htmlid = "keplisha2";
-					} else if (player.getInventory().checkItem(41312)) { 
+					} else if (player.getInventory().checkItem(41312)) {
 						htmlid = "keplisha4";
 					}
 				}
 			} else if (npcid == 80102) {
-				if (player.getInventory().checkItem(41329)) { 
+				if (player.getInventory().checkItem(41329)) {
 					htmlid = "fillis3";
 				}
-			} else if (npcid == 71167) { 
+			} else if (npcid == 71167) {
 				if (player.getTempCharGfx() == 3887) {
 					htmlid = "frim1";
 				}
@@ -1824,28 +1779,28 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getQuest().get_step(71199) == 255) {
 					htmlid = "jeron7";
 				}
-			
-			} else if (npcid == 81200) { // 
-				if (player.getInventory().checkItem(21069) // 
+
+			} else if (npcid == 81200) { //
+				if (player.getInventory().checkItem(21069) //
 						|| player.getInventory().checkItem(21074)) {
 					htmlid = "c_belt";
 				}
-			} else if (npcid == 80076) { // 
-				if (player.getInventory().checkItem(41058)) { // 
+			} else if (npcid == 80076) { //
+				if (player.getInventory().checkItem(41058)) { //
 					htmlid = "voyager8";
-				} else if (player.getInventory().checkItem(49082) // 
+				} else if (player.getInventory().checkItem(49082) //
 						|| player.getInventory().checkItem(49083)) {
-						// 
-					if (player.getInventory().checkItem(41038) 
+					//
+					if (player.getInventory().checkItem(41038)
 							|| player.getInventory().checkItem(41039)
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039) 
 							|| player.getInventory().checkItem(41039)
-							|| player.getInventory().checkItem(41039) 
-							|| player.getInventory().checkItem(41039)){ 
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)
+							|| player.getInventory().checkItem(41039)) {
 						htmlid = "voyager9";
 					} else {
 						htmlid = "voyager7";
@@ -1860,7 +1815,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getInventory().checkItem(49089)
 						|| player.getInventory().checkItem(49090)
 						|| player.getInventory().checkItem(49091)) {
-						//
+					//
 					htmlid = "voyager7";
 				}
 			} else if (npcid == 80048) { //
@@ -1872,869 +1827,652 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "entgate";
 				}
-			} else if (npcid == 71168) { // 
-				if (player.getInventory().checkItem(41028)) { // 
+			} else if (npcid == 71168) { //
+				if (player.getInventory().checkItem(41028)) { //
 					htmlid = "dantes1";
 				}
 			} else if (npcid == 80067) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_DESIRE) == L1Quest.QUEST_END) {
 					htmlid = "minicod10";
-				} else if (player.getKarmaLevel() >= 1) {				
+				} else if (player.getKarmaLevel() >= 1) {
 					htmlid = "minicod07";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== 1 && player.getTempCharGfx() == 6034) { //
+				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE) == 1
+						&& player.getTempCharGfx() == 6034) { //
 					htmlid = "minicod03";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== 1 && player.getTempCharGfx() != 6034) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE) == 1
+						&& player.getTempCharGfx() != 6034) {
 					htmlid = "minicod05";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== L1Quest.QUEST_END // 
-						|| player.getInventory().checkItem(41121) // 
-						|| player.getInventory().checkItem(41122)) { // 
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS) == L1Quest.QUEST_END //
+						|| player.getInventory().checkItem(41121) //
+						|| player.getInventory().checkItem(41122)) { //
 					htmlid = "minicod01";
 				} else if (player.getInventory().checkItem(41130) // w
-						&& player.getInventory().checkItem(41131)) { // 
+						&& player.getInventory().checkItem(41131)) { //
 					htmlid = "minicod06";
-				} else if (player.getInventory().checkItem(41130)) { // 
+				} else if (player.getInventory().checkItem(41130)) { //
 					htmlid = "minicod02";
 				}
 			} else if (npcid == 81202) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS) == L1Quest.QUEST_END) {
 					htmlid = "minitos10";
-				} else if (player.getKarmaLevel() <= -1) {				
+				} else if (player.getKarmaLevel() <= -1) {
 					htmlid = "minitos07";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== 1 && player.getTempCharGfx() == 6035) { // 
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS) == 1
+						&& player.getTempCharGfx() == 6035) { //
 					htmlid = "minitos03";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS)
-						== 1 && player.getTempCharGfx() != 6035) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_SHADOWS) == 1
+						&& player.getTempCharGfx() != 6035) {
 					htmlid = "minitos05";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE)
-						== L1Quest.QUEST_END // 
-						|| player.getInventory().checkItem(41130) // 
-						|| player.getInventory().checkItem(41131)) { // 
+				} else if (player.getQuest().get_step(L1Quest.QUEST_DESIRE) == L1Quest.QUEST_END //
+						|| player.getInventory().checkItem(41130) //
+						|| player.getInventory().checkItem(41131)) { //
 					htmlid = "minitos01";
-				} else if (player.getInventory().checkItem(41121) // 
-						&& player.getInventory().checkItem(41122)) { // 
+				} else if (player.getInventory().checkItem(41121) //
+						&& player.getInventory().checkItem(41122)) { //
 					htmlid = "minitos06";
-				} else if (player.getInventory().checkItem(41121)) { // 
+				} else if (player.getInventory().checkItem(41121)) { //
 					htmlid = "minitos02";
 				}
-			} else if (npcid == 81208) { // 
-				if (player.getInventory().checkItem(41129) // 
-						||	player.getInventory().checkItem(41138)) { // 
+			} else if (npcid == 81208) { //
+				if (player.getInventory().checkItem(41129) //
+						|| player.getInventory().checkItem(41138)) { //
 					htmlid = "minibrob04";
-				} else if (player.getInventory().checkItem(41126) // 
-						&& player.getInventory().checkItem(41127) // 
-						&& player.getInventory().checkItem(41128) // 
-						|| player.getInventory().checkItem(41135) // 
-						&& player.getInventory().checkItem(41136) // 
-						&& player.getInventory().checkItem(41137)) { // 
+				} else if (player.getInventory().checkItem(41126) //
+						&& player.getInventory().checkItem(41127) //
+						&& player.getInventory().checkItem(41128) //
+						|| player.getInventory().checkItem(41135) //
+						&& player.getInventory().checkItem(41136) //
+						&& player.getInventory().checkItem(41137)) { //
 					htmlid = "minibrob02";
 				}
-			} else if (npcid == 50113) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50113) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orena14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orena0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orena2";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orena3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orena4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orena5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orena6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orena7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orena8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orena9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orena10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orena11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orena12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orena13";
 				}
 			} else if (npcid == 50112) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenb14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenb0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenb2";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenb3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenb4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenb5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenb6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenb7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenb8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenb9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenb10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenb11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenb12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenb13";
 				}
-			} else if (npcid == 50111) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50111) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenc14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenc1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenc0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenc3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenc4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenc5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenc6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenc7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenc8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenc9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenc10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenc11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenc12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenc13";
 				}
 			} else if (npcid == 50116) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orend14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orend3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orend1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orend0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orend4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orend5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orend6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orend7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orend8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orend9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orend10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orend11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orend12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orend13";
 				}
 			} else if (npcid == 50117) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orene14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orene3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orene4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orene1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orene0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orene5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orene6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orene7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orene8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orene9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orene10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orene11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orene12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orene13";
 				}
 			} else if (npcid == 50119) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenf14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenf3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenf4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenf5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenf1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenf0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenf6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenf7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenf8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenf9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenf10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenf11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenf12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenf13";
 				}
-			} else if (npcid == 50121) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50121) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "oreng14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "oreng3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "oreng4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "oreng5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "oreng6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "oreng1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "oreng0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "oreng7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "oreng8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "oreng9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "oreng10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "oreng11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "oreng12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "oreng13";
 				}
 			} else if (npcid == 50114) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenh14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenh3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenh4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenh5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenh6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenh7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenh1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenh0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenh8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenh9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenh10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenh11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenh12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenh13";
 				}
 			} else if (npcid == 50120) { //
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "oreni14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "oreni3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "oreni4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "oreni5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "oreni6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "oreni7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "oreni8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "oreni1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "oreni0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "oreni9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "oreni10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "oreni11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "oreni12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "oreni13";
 				}
-			} else if (npcid == 50122) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50122) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenj14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenj3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenj4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenj5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenj6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenj7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenj8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenj9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenj1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenj0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenj10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenj11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenj12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenj13";
 				}
-			} else if (npcid == 50123) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50123) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenk14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenk3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenk4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenk5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenk6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenk7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenk8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenk9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenk10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenk1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenk0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenk11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenk12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenk13";
 				}
-			} else if (npcid == 50125) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50125) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenl14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenl3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenl4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenl5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenl6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenl7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenl8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenl9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenl10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenl11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenl1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenl0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenl12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenl13";
 				}
-			} else if (npcid == 50124) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50124) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenm14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenm3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenm4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenm5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenm6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenm7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenm8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenm9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenm10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenm11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenm12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenm1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenm0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenm13";
 				}
-			} else if (npcid == 50126) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50126) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "orenn14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "orenn3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "orenn4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "orenn5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "orenn6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "orenn7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "orenn8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "orenn9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "orenn10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "orenn11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "orenn12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "orenn13";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "orenn1";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "orenn0";
 				}
-			} else if (npcid == 50115) { // 
-				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== L1Quest.QUEST_END) {
+			} else if (npcid == 50115) { //
+				if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == L1Quest.QUEST_END) {
 					htmlid = "oreno0";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 1) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 1) {
 					htmlid = "oreno3";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 2) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 2) {
 					htmlid = "oreno4";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 3) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 3) {
 					htmlid = "oreno5";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 4) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 4) {
 					htmlid = "oreno6";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 5) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 5) {
 					htmlid = "oreno7";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 6) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 6) {
 					htmlid = "oreno8";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 7) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 7) {
 					htmlid = "oreno9";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 8) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 8) {
 					htmlid = "oreno10";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 9) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 9) {
 					htmlid = "oreno11";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 10) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 10) {
 					htmlid = "oreno12";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 11) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 11) {
 					htmlid = "oreno13";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 12) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 12) {
 					htmlid = "oreno14";
-				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL)
-						== 13) {
+				} else if (player.getQuest().get_step(L1Quest.QUEST_TOSCROLL) == 13) {
 					htmlid = "oreno1";
 				}
-			} else if (npcid == 71256) { // 
+			} else if (npcid == 71256) { //
 				if (!player.isElf()) {
 					htmlid = "robinhood2";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 255) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 255) {
 					htmlid = "robinhood12";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 8) {
-					if (player.getInventory().checkItem(40491,30)
-							&& player.getInventory().checkItem(40495,40)
-							&& player.getInventory().checkItem(100,1)
-							&& player.getInventory().checkItem(40509,12)
-							&& player.getInventory().checkItem(40052,1)
-							&& player.getInventory().checkItem(40053,1)
-							&& player.getInventory().checkItem(40054,1)
-							&& player.getInventory().checkItem(40055,1)
-							&& player.getInventory().checkItem(41347,1)
-							&& player.getInventory().checkItem(41350,1)) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 8) {
+					if (player.getInventory().checkItem(40491, 30)
+							&& player.getInventory().checkItem(40495, 40)
+							&& player.getInventory().checkItem(100, 1)
+							&& player.getInventory().checkItem(40509, 12)
+							&& player.getInventory().checkItem(40052, 1)
+							&& player.getInventory().checkItem(40053, 1)
+							&& player.getInventory().checkItem(40054, 1)
+							&& player.getInventory().checkItem(40055, 1)
+							&& player.getInventory().checkItem(41347, 1)
+							&& player.getInventory().checkItem(41350, 1)) {
 						htmlid = "robinhood11";
-					} else if (player.getInventory().checkItem(40491,30)
-							&& player.getInventory().checkItem(40495,40)
-							&& player.getInventory().checkItem(100,1)
-							&& player.getInventory().checkItem(40509,12)) {
+					} else if (player.getInventory().checkItem(40491, 30)
+							&& player.getInventory().checkItem(40495, 40)
+							&& player.getInventory().checkItem(100, 1)
+							&& player.getInventory().checkItem(40509, 12)) {
 						htmlid = "robinhood16";
-					} else if ((!(player.getInventory().checkItem(40491,30)
-							&& player.getInventory().checkItem(40495,40)
-							&& player.getInventory().checkItem(100,1)
-							&& player.getInventory().checkItem(40509,12)))) {
+					} else if ((!(player.getInventory().checkItem(40491, 30)
+							&& player.getInventory().checkItem(40495, 40)
+							&& player.getInventory().checkItem(100, 1) && player
+							.getInventory().checkItem(40509, 12)))) {
 						htmlid = "robinhood17";
 					}
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 7) {
-					if (player.getInventory().checkItem(41352,4)
-							&& player.getInventory().checkItem(40618,30)
-							&& player.getInventory().checkItem(40643,30)
-							&& player.getInventory().checkItem(40645,30)
-							&& player.getInventory().checkItem(40651,30)
-							&& player.getInventory().checkItem(40676,30)
-							&& player.getInventory().checkItem(40514,20)
-							&& player.getInventory().checkItem(41351,1)
-							&& player.getInventory().checkItem(41346,1)) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 7) {
+					if (player.getInventory().checkItem(41352, 4)
+							&& player.getInventory().checkItem(40618, 30)
+							&& player.getInventory().checkItem(40643, 30)
+							&& player.getInventory().checkItem(40645, 30)
+							&& player.getInventory().checkItem(40651, 30)
+							&& player.getInventory().checkItem(40676, 30)
+							&& player.getInventory().checkItem(40514, 20)
+							&& player.getInventory().checkItem(41351, 1)
+							&& player.getInventory().checkItem(41346, 1)) {
 						htmlid = "robinhood9";
-					} else if (player.getInventory().checkItem(41351,1)
-							&& player.getInventory().checkItem(41352,4)) {
+					} else if (player.getInventory().checkItem(41351, 1)
+							&& player.getInventory().checkItem(41352, 4)) {
 						htmlid = "robinhood14";
-					} else if (player.getInventory().checkItem(41351,1)
-							&& (!(player.getInventory().checkItem(41352,4)))) {
+					} else if (player.getInventory().checkItem(41351, 1)
+							&& (!(player.getInventory().checkItem(41352, 4)))) {
 						htmlid = "robinhood15";
 					} else if (player.getInventory().checkItem(41351)) {
 						htmlid = "robinhood9";
 					} else {
 						htmlid = "robinhood18";
 					}
-				} else if ((player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 2)
-						|| (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 3)
-						|| (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 4)
-						|| (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 5)
-						|| (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 6)) {
+				} else if ((player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 2)
+						|| (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 3)
+						|| (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 4)
+						|| (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 5)
+						|| (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 6)) {
 					htmlid = "robinhood13";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 1) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 1) {
 					htmlid = "robinhood8";
 				} else {
 					htmlid = "robinhood1";
 				}
-			} else if (npcid == 71257) { // 
+			} else if (npcid == 71257) { //
 				if (!player.isElf()) {
 					htmlid = "zybril16";
-				} else if ((player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) >= 7)) {
+				} else if ((player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) >= 7)) {
 					htmlid = "zybril19";
 				} else if (player.getInventory().checkItem(41349)
-						&& (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 7)) {
+						&& (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 7)) {
 					htmlid = "zybril19";
 				} else if (player.getInventory().checkItem(41349)
-						&& (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 6)) {
+						&& (player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 6)) {
 					htmlid = "zybril18";
-				} else if ((player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 6)
+				} else if ((player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 6)
 						&& (!(player.getInventory().checkItem(41354)))) {
 					htmlid = "zybril7";
-				} else if ((player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 6)
+				} else if ((player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 6)
 						&& player.getInventory().checkItem(41354)) {
 					htmlid = "zybril17";
 				} else if (player.getInventory().checkItem(41353)
-						&& player.getInventory().checkItem(40514,10)
-						&& player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 5) {
+						&& player.getInventory().checkItem(40514, 10)
+						&& player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 5) {
 					htmlid = "zybril8";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 5) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 5) {
 					htmlid = "zybril13";
-				} else if (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 4
-						&& player.getInventory().checkItem(40048,10)
-						&& player.getInventory().checkItem(40049,10)
-						&& player.getInventory().checkItem(40050,10)
-						&& player.getInventory().checkItem(40051,10)) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 4
+						&& player.getInventory().checkItem(40048, 10)
+						&& player.getInventory().checkItem(40049, 10)
+						&& player.getInventory().checkItem(40050, 10)
+						&& player.getInventory().checkItem(40051, 10)) {
 					htmlid = "zybril7";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 4) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 4) {
 					htmlid = "zybril12";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_MOONOFLONGBOW) == 3) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_MOONOFLONGBOW) == 3) {
 					htmlid = "zybril3";
 				} else if ((player.isElf())
-						&& ((player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 2)
-						|| (player.getQuest().get_step(L1Quest
-								.QUEST_MOONOFLONGBOW) == 1))){
+						&& ((player.getQuest().get_step(
+								L1Quest.QUEST_MOONOFLONGBOW) == 2) || (player
+								.getQuest().get_step(
+										L1Quest.QUEST_MOONOFLONGBOW) == 1))) {
 					htmlid = "zybril1";
 				} else {
 					htmlid = "zybril1";
 				}
-			} else if (npcid == 71258) { // 
+			} else if (npcid == 71258) { //
 				if (player.getLawful() <= -501) {
 					htmlid = "marba1";
-				} else if (player.isCrown()
-						|| player.isDarkelf()
-						|| player.isKnight()
-						|| player.isWizard()
-						|| player.isDragonKnight()
-						|| player.isIllusionist()) {
+				} else if (player.isCrown() || player.isDarkelf()
+						|| player.isKnight() || player.isWizard()
+						|| player.isDragonKnight() || player.isIllusionist()) {
 					htmlid = "marba2";
 				} else if (player.getInventory().checkItem(40665)
 						&& (player.getInventory().checkItem(40693)
-						|| player.getInventory().checkItem(40694)
-						|| player.getInventory().checkItem(40695)
-						|| player.getInventory().checkItem(40697)
-						|| player.getInventory().checkItem(40698)
-						|| player.getInventory().checkItem(40699))) {
+								|| player.getInventory().checkItem(40694)
+								|| player.getInventory().checkItem(40695)
+								|| player.getInventory().checkItem(40697)
+								|| player.getInventory().checkItem(40698) || player
+								.getInventory().checkItem(40699))) {
 					htmlid = "marba8";
-				} else if(player.getInventory().checkItem(40665)) {
+				} else if (player.getInventory().checkItem(40665)) {
 					htmlid = "marba17";
 				} else if (player.getInventory().checkItem(40664)) {
 					htmlid = "marba19";
@@ -2743,23 +2481,20 @@ public class L1MerchantInstance extends L1NpcInstance {
 				} else {
 					htmlid = "marba3";
 				}
-			} else if (npcid == 71259) { // 
+			} else if (npcid == 71259) { //
 				if (player.getLawful() <= -501) {
 					htmlid = "aras12";
-				} else if (player.isCrown()
-						|| player.isDarkelf()
-						|| player.isKnight()
-						|| player.isWizard()
-						|| player.isDragonKnight()
-						|| player.isIllusionist()) {
+				} else if (player.isCrown() || player.isDarkelf()
+						|| player.isKnight() || player.isWizard()
+						|| player.isDragonKnight() || player.isIllusionist()) {
 					htmlid = "aras11";
 				} else if (player.getInventory().checkItem(40665)
 						&& (player.getInventory().checkItem(40679)
-						|| player.getInventory().checkItem(40680)
-						|| player.getInventory().checkItem(40681)
-						|| player.getInventory().checkItem(40682)
-						|| player.getInventory().checkItem(40683)
-						|| player.getInventory().checkItem(40684))) {
+								|| player.getInventory().checkItem(40680)
+								|| player.getInventory().checkItem(40681)
+								|| player.getInventory().checkItem(40682)
+								|| player.getInventory().checkItem(40683) || player
+								.getInventory().checkItem(40684))) {
 					htmlid = "aras3";
 				} else if (player.getInventory().checkItem(40665)) {
 					htmlid = "aras8";
@@ -2776,55 +2511,51 @@ public class L1MerchantInstance extends L1NpcInstance {
 						|| player.getInventory().checkItem(40698)
 						|| player.getInventory().checkItem(40699)) {
 					htmlid = "aras3";
-				} else if(player.getInventory().checkItem(40664)) {
+				} else if (player.getInventory().checkItem(40664)) {
 					htmlid = "aras6";
-				} else if(player.getInventory().checkItem(40637)) {
+				} else if (player.getInventory().checkItem(40637)) {
 					htmlid = "aras1";
 				} else {
-					htmlid ="aras7";
+					htmlid = "aras7";
 				}
-			} else if (npcid == 70838) { // 
-				if (player.isCrown()
-						|| player.isKnight()
-						|| player.isWizard()
-						|| player.isDragonKnight()
-						|| player.isIllusionist()) {
+			} else if (npcid == 70838) { //
+				if (player.isCrown() || player.isKnight() || player.isWizard()
+						|| player.isDragonKnight() || player.isIllusionist()) {
 					htmlid = "nerupam1";
-				} else if (player.isDarkelf()
-						&& (player.getLawful() <= -1)) {
+				} else if (player.isDarkelf() && (player.getLawful() <= -1)) {
 					htmlid = "nerupaM2";
 				} else if (player.isDarkelf()) {
 					htmlid = "nerupace1";
 				} else if (player.isElf()) {
 					htmlid = "nerupae1";
 				}
-			} else if (npcid == 80094) { // 
+			} else if (npcid == 80094) { //
 				if (player.isIllusionist()) {
 					htmlid = "altar1";
 				} else if (!player.isIllusionist()) {
 					htmlid = "altar2";
 				}
-			} else if (npcid == 80099) { // 
-				if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 1) {
+			} else if (npcid == 80099) { //
+				if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 1) {
 					if (player.getInventory().checkItem(41325, 1)) {
 						htmlid = "rarson8";
 					} else {
 						htmlid = "rarson10";
 					}
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 2) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 2) {
 					if (player.getInventory().checkItem(41317, 1)
 							&& player.getInventory().checkItem(41315, 1)) {
 						htmlid = "rarson13";
 					} else {
 						htmlid = "rarson19";
 					}
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 3) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 3) {
 					htmlid = "rarson14";
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
 					if (!(player.getInventory().checkItem(41326, 1))) {
 						htmlid = "rarson18";
 					} else if (player.getInventory().checkItem(41326, 1)) {
@@ -2832,13 +2563,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 					} else {
 						htmlid = "rarson17";
 					}
-				} else if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) >= 5 ) {
+				} else if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) >= 5) {
 					htmlid = "rarson1";
 				}
-			} else if (npcid == 80101) { // 
-				if (player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
+			} else if (npcid == 80101) { //
+				if (player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 4) {
 					if ((player.getInventory().checkItem(41315, 1))
 							&& player.getInventory().checkItem(40494, 30)
 							&& player.getInventory().checkItem(41317, 1)) {
@@ -2846,73 +2577,72 @@ public class L1MerchantInstance extends L1NpcInstance {
 					} else if (player.getInventory().checkItem(41316, 1)) {
 						htmlid = "kuen1";
 					} else if (!player.getInventory().checkItem(41316)) {
-						player.getQuest().set_step(L1Quest
-								.QUEST_GENERALHAMELOFRESENTMENT, 1);
+						player.getQuest().set_step(
+								L1Quest.QUEST_GENERALHAMELOFRESENTMENT, 1);
 					}
-				} else if ((player.getQuest().get_step(L1Quest
-						.QUEST_GENERALHAMELOFRESENTMENT) == 2)
+				} else if ((player.getQuest().get_step(
+						L1Quest.QUEST_GENERALHAMELOFRESENTMENT) == 2)
 						&& (player.getInventory().checkItem(41317, 1))) {
 					htmlid = "kuen3";
 				} else {
 					htmlid = "kuen1";
 				}
-			} else if (npcid == 80134) { // 
-				if(player.isDragonKnight()) { // 
+			} else if (npcid == 80134) { //
+				if (player.isDragonKnight()) { //
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if(player.getLevel() >= 30 && lv30_step == 2) {
+					if (player.getLevel() >= 30 && lv30_step == 2) {
 						htmlid = "talrion1";
-					} else if(player.getLevel() >= 45 && lv45_step == 5) {
+					} else if (player.getLevel() >= 45 && lv45_step == 5) {
 						htmlid = "talrion9";
 					}
 				}
-			} else if (npcid == 80135) { // 
-				if(player.isDragonKnight()) { // 
+			} else if (npcid == 80135) { //
+				if (player.isDragonKnight()) { //
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					if (lv30_step == L1Quest.QUEST_END) {
 						htmlid = "elas6";
-					} else  if(player.getLevel() >= 30
-							&& lv30_step >= 1) {
+					} else if (player.getLevel() >= 30 && lv30_step >= 1) {
 						htmlid = "elas1";
 					}
 				}
-			} else if (npcid == 80136) { // 
+			} else if (npcid == 80136) { //
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isDragonKnight()) { // 
-					if(player.getLevel() >= 50
+				if (player.isDragonKnight()) { //
+					if (player.getLevel() >= 50
 							&& lv45_step == L1Quest.QUEST_END) {
-						if(lv50_step == 0) {
+						if (lv50_step == 0) {
 							htmlid = "prokel21";
-						} else if(lv50_step == L1Quest.QUEST_END) { // 
+						} else if (lv50_step == L1Quest.QUEST_END) { //
 							htmlid = "prokel32";
 						} else {
 							htmlid = "prokel24";
 						}
-					} else if(player.getLevel() >= 45
+					} else if (player.getLevel() >= 45
 							&& lv30_step == L1Quest.QUEST_END) {
-						if(lv45_step == 0) {
+						if (lv45_step == 0) {
 							htmlid = "prokel15";
-						} else if(lv45_step >= 5) { // 
+						} else if (lv45_step >= 5) { //
 							htmlid = "prokel20";
 						} else {
 							htmlid = "prokel17";
 						}
 					} else if (player.getLevel() >= 30
 							&& lv15_step == L1Quest.QUEST_END) {
-						if(lv30_step == 0) {
+						if (lv30_step == 0) {
 							htmlid = "prokel8";
-						} else if(lv30_step >= 2) { // 
+						} else if (lv30_step >= 2) { //
 							htmlid = "prokel14";
 						} else {
 							htmlid = "prokel10";
 						}
 					} else if (player.getLevel() >= 15) {
-						if (lv15_step == 0 ) {
+						if (lv15_step == 0) {
 							htmlid = "prokel2";
-						} else if (	lv15_step == L1Quest.QUEST_END) { // 
+						} else if (lv15_step == L1Quest.QUEST_END) { //
 							htmlid = "prokel7";
 						} else {
 							htmlid = "prokel4";
@@ -2921,86 +2651,110 @@ public class L1MerchantInstance extends L1NpcInstance {
 						htmlid = "prokel1";
 					}
 				}
-			} 
+			}
 
-			 else if (npcid == 81245) { // 
+			else if (npcid == 81245) { //
 				if (player.isDragonKnight()) {
-					if (player.getTempCharGfx() == 6984) { // 
-						int lv30_step = player.getQuest().get_step(L1Quest.QUEST_LEVEL30);
+					if (player.getTempCharGfx() == 6984) { //
+						int lv30_step = player.getQuest().get_step(
+								L1Quest.QUEST_LEVEL30);
 						if (lv30_step == 1) {
 							htmlid = "spy_orc1";
 						}
 					}
 				}
-			}
-			 else if (npcid == 80192) { // Jewel Craftsman David
-					if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21088)) { // Ice Queen's Earring Lv7
-						htmlid = "gemout8";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21087)) { // Ice Queen's Earring Lv6
-						htmlid = "gemout7";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21086)) { // Ice Queen's Earring Lv5
-						htmlid = "gemout6";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21085)) { // Ice Queen's Earring Lv4
-						htmlid = "gemout5";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21084)) { // Ice Queen's Earring Lv3
-						htmlid = "gemout4";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21083)) { // Ice Queen's Earring Lv2
-						htmlid = "gemout3";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21082)) { // Ice Queen's Earring Lv1
-						htmlid = "gemout2";
-					} else if (player.getInventory().checkItem(49031) // Ice Crystal
-							&& player.getInventory().checkItem(21081)) { // Ice Queen's Earring Lv0
-						htmlid = "gemout1";
-					} else if (player.getInventory().checkItem(49031)) { // Ice Crystal
-						htmlid = "gemout17";
-					} else {
-						htmlid = "8event3";
-					}
+			} else if (npcid == 80192) { // Jewel Craftsman David
+				if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21088)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv7
+					htmlid = "gemout8";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21087)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv6
+					htmlid = "gemout7";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21086)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv5
+					htmlid = "gemout6";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21085)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv4
+					htmlid = "gemout5";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21084)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv3
+					htmlid = "gemout4";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21083)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv2
+					htmlid = "gemout3";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21082)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv1
+					htmlid = "gemout2";
+				} else if (player.getInventory().checkItem(49031) // Ice Crystal
+						&& player.getInventory().checkItem(21081)) { // Ice
+																		// Queen's
+																		// Earring
+																		// Lv0
+					htmlid = "gemout1";
+				} else if (player.getInventory().checkItem(49031)) { // Ice
+																		// Crystal
+					htmlid = "gemout17";
+				} else {
+					htmlid = "8event3";
 				}
-			  else if (npcid == 80145) { // Elder Sleyin
+			} else if (npcid == 80145) { // Elder Sleyin
 				int lv15_step = quest.get_step(L1Quest.QUEST_LEVEL15);
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isIllusionist()) { // 
-					if(player.getLevel() >= 50
+				if (player.isIllusionist()) { //
+					if (player.getLevel() >= 50
 							&& lv45_step == L1Quest.QUEST_END) {
-						if(lv50_step == 0) {
+						if (lv50_step == 0) {
 							htmlid = "silrein27";
-						} else if(lv50_step == L1Quest.QUEST_END) { // 
+						} else if (lv50_step == L1Quest.QUEST_END) { //
 							htmlid = "silrein36";
 						} else {
 							htmlid = "silrein30";
 						}
-					} else if(player.getLevel() >= 45
+					} else if (player.getLevel() >= 45
 							&& lv30_step == L1Quest.QUEST_END) {
-						if(lv45_step == 0) {
+						if (lv45_step == 0) {
 							htmlid = "silrein18";
-						} else if(lv45_step >= 5) { // 
+						} else if (lv45_step >= 5) { //
 							htmlid = "silrein26";
 						} else {
 							htmlid = "silrein23";
 						}
 					} else if (player.getLevel() >= 30
 							&& lv15_step == L1Quest.QUEST_END) {
-						if(lv30_step == 0) {
+						if (lv30_step == 0) {
 							htmlid = "silrein11";
-						} else if(lv30_step >= 2) { // 
+						} else if (lv30_step >= 2) { //
 							htmlid = "silrein15";
 						} else {
 							htmlid = "silrein14";
 						}
 					} else if (player.getLevel() >= 15) {
-						if (lv15_step == 0 ) {
+						if (lv15_step == 0) {
 							htmlid = "silrein2";
-						} else if (	lv15_step == L1Quest.QUEST_END) { // 
+						} else if (lv15_step == L1Quest.QUEST_END) { //
 							htmlid = "silrein7";
 						} else {
 							htmlid = "silrein4";
@@ -3008,9 +2762,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					} else { // Lv15
 						htmlid = "silrein1";
 					}
-}
-				else if (player.isDragonKnight()) { // 
-					if(player.getLevel() >= 45 && lv45_step == 1) {
+				} else if (player.isDragonKnight()) { //
+					if (player.getLevel() >= 45 && lv45_step == 1) {
 						htmlid = "silrein37";
 					} else if (player.getLevel() >= 45 && lv45_step == 2) {
 						htmlid = "silrein38";
@@ -3021,7 +2774,6 @@ public class L1MerchantInstance extends L1NpcInstance {
 					}
 				}
 			}
-
 
 			if (htmlid != null) {
 				if (htmldata != null) {
@@ -3270,7 +3022,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 
 	private String talkToSecondtbox(L1PcInstance pc) {
 		String htmlid = "";
-		if (pc.getQuest().get_step(L1Quest.QUEST_TBOX1) ==  L1Quest.QUEST_END) {
+		if (pc.getQuest().get_step(L1Quest.QUEST_TBOX1) == L1Quest.QUEST_END) {
 			if (pc.getInventory().checkItem(40701)) {
 				htmlid = "maptboxa";
 			} else {
@@ -3284,7 +3036,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 
 	private String talkToThirdtbox(L1PcInstance pc) {
 		String htmlid = "";
-		if (pc.getQuest().get_step(L1Quest.QUEST_TBOX2) ==  L1Quest.QUEST_END) {
+		if (pc.getQuest().get_step(L1Quest.QUEST_TBOX2) == L1Quest.QUEST_END) {
 			if (pc.getInventory().checkItem(40701)) {
 				htmlid = "maptboxd";
 			} else {

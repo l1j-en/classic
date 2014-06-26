@@ -31,15 +31,16 @@ public class S_CommonNews extends ServerBasePacket {
 	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
 	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
 	private ArrayList<String> _announcements;
-	
+
 	public S_CommonNews() {
 		_announcements = new ArrayList<String>();
 		loadAnnouncements();
 		writeC(Opcodes.S_OPCODE_COMMONNEWS);
 		String message = "";
 		for (int i = 0; i < _announcements.size(); i++) {
-			message = (new StringBuilder()).append(message).append(
-					_announcements.get(i).toString()).append("\n").toString();
+			message = (new StringBuilder()).append(message)
+					.append(_announcements.get(i).toString()).append("\n")
+					.toString();
 		}
 		writeS(message);
 	}

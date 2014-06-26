@@ -37,7 +37,8 @@ public class L1FurnitureInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onAction(L1PcInstance player) {}
+	public void onAction(L1PcInstance player) {
+	}
 
 	@Override
 	public void deleteMe() {

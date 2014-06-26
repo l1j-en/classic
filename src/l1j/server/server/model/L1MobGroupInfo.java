@@ -32,8 +32,7 @@ public class L1MobGroupInfo {
 	private static final Logger _log = Logger.getLogger(L1MobGroupInfo.class
 			.getName());
 
-	private final List<L1NpcInstance> _membersList =
-			new ArrayList<L1NpcInstance>();
+	private final List<L1NpcInstance> _membersList = new ArrayList<L1NpcInstance>();
 
 	private L1NpcInstance _leader;
 
@@ -92,7 +91,7 @@ public class L1MobGroupInfo {
 		npc.setMobGroupInfo(null);
 
 		if (isLeader(npc)) {
-			if (isRemoveGroup() && _membersList.size() != 0) { 
+			if (isRemoveGroup() && _membersList.size() != 0) {
 				for (L1NpcInstance minion : _membersList) {
 					minion.setMobGroupInfo(null);
 					minion.setSpawn(null);

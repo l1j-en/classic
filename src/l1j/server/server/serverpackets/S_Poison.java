@@ -24,6 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_Poison extends ServerBasePacket {
 	private static final String S_POISON = "[S] S_Poison";
+
 	/**
 	 * Character venomous look to change the state to send the packet to build
 	 * 
@@ -45,7 +46,8 @@ public class S_Poison extends ServerBasePacket {
 			writeC(0);
 			writeC(1);
 		} else {
-			throw new IllegalArgumentException("Illegal argument. type = " + type);
+			throw new IllegalArgumentException("Illegal argument. type = "
+					+ type);
 		}
 	}
 

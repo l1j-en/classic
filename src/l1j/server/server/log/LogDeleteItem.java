@@ -32,7 +32,8 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogDeleteItem {
-	private static Logger _log = Logger.getLogger(LogDeleteItem.class.getName());
+	private static Logger _log = Logger
+			.getLogger(LogDeleteItem.class.getName());
 
 	public void storeLogDeleteItem(L1PcInstance pc, L1ItemInstance item) {
 		Connection con = null;
@@ -42,7 +43,8 @@ public class LogDeleteItem {
 			pstm = con
 					.prepareStatement("INSERT INTO LogDeleteItem VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());

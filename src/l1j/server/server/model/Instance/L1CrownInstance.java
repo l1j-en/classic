@@ -59,8 +59,7 @@ public class L1CrownInstance extends L1NpcInstance {
 		if (!player.isCrown()) {
 			return;
 		}
-		if (player.getTempCharGfx() != 0 && 
-				player.getTempCharGfx() != 1) {
+		if (player.getTempCharGfx() != 0 && player.getTempCharGfx() != 1) {
 			return;
 		}
 		if (player.getId() != clan.getLeaderId()) {
@@ -118,7 +117,6 @@ public class L1CrownInstance extends L1NpcInstance {
 		player.sendPackets(new S_CastleMaster(castle_id, player.getId()));
 		player.broadcastPacket(new S_CastleMaster(castle_id, player.getId()));
 
-
 		int[] loc = new int[3];
 		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 			if (pc.getClanid() != player.getClanid() && !pc.isGm()) {
@@ -148,9 +146,7 @@ public class L1CrownInstance extends L1NpcInstance {
 			}
 		}
 
-
 		deleteMe();
-
 
 		for (L1Object l1object : L1World.getInstance().getObject()) {
 			if (l1object instanceof L1TowerInstance) {
@@ -162,7 +158,6 @@ public class L1CrownInstance extends L1NpcInstance {
 		}
 		L1WarSpawn warspawn = new L1WarSpawn();
 		warspawn.SpawnTower(castle_id);
-
 
 		for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
 			if (L1CastleLocation.checkInWarArea(castle_id, door)) {

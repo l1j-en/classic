@@ -43,7 +43,7 @@ public class C_ChatParty extends ClientBasePacket {
 		}
 
 		int type = readC();
-		if (type == 0) { //chatban
+		if (type == 0) { // chatban
 			String name = readS();
 
 			if (!pc.isInChatParty()) {
@@ -77,7 +77,8 @@ public class C_ChatParty extends ClientBasePacket {
 		} else if (type == 2) { // /chatparty
 			L1ChatParty chatParty = pc.getChatParty();
 			if (pc.isInChatParty()) {
-				pc.sendPackets(new S_Party("party", pc.getId(), chatParty.getLeader().getName(), chatParty.getMembersNameList()));
+				pc.sendPackets(new S_Party("party", pc.getId(), chatParty
+						.getLeader().getName(), chatParty.getMembersNameList()));
 			} else {
 				pc.sendPackets(new S_ServerMessage(425));
 			}

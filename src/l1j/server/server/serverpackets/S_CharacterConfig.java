@@ -32,7 +32,8 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_CharacterConfig extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_CharacterConfig.class.getName());
+	private static Logger _log = Logger.getLogger(S_CharacterConfig.class
+			.getName());
 	private static final String S_CHARACTER_CONFIG = "[S] S_CharacterConfig";
 	private byte[] _byte = null;
 
@@ -48,7 +49,8 @@ public class S_CharacterConfig extends ServerBasePacket {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM character_config WHERE object_id=?");
+			pstm = con
+					.prepareStatement("SELECT * FROM character_config WHERE object_id=?");
 			pstm.setInt(1, objectId);
 			rs = pstm.executeQuery();
 			while (rs.next()) {

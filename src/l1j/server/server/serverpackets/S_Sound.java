@@ -28,8 +28,10 @@ public class S_Sound extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_Sound.class.getName());
 	private static final String S_SOUND = "[S] S_Sound";
 	private byte[] _byte = null;
+
 	/**
 	 * Play a sound effect (sound wav file folders).
+	 * 
 	 * @param sound
 	 */
 	public S_Sound(int sound) {

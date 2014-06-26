@@ -1,6 +1,5 @@
 package l1j.server.server.templates;
 
-
 public class L1CharacterBuff {
 	private final int _characterId;
 	private final int _skillId;

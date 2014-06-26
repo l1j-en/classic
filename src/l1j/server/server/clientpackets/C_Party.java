@@ -37,11 +37,12 @@ public class C_Party extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-		return;
+			return;
 		}
 		L1Party party = pc.getParty();
 		if (pc.isInParty()) {
-			pc.sendPackets(new S_Party("party", pc.getId(), party.getLeader().getName(), party.getMembersNameList()));
+			pc.sendPackets(new S_Party("party", pc.getId(), party.getLeader()
+					.getName(), party.getMembersNameList()));
 		} else {
 			pc.sendPackets(new S_ServerMessage(425));
 		}

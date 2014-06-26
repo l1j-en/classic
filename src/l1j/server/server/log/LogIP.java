@@ -41,7 +41,8 @@ public class LogIP {
 			pstm = con
 					.prepareStatement("INSERT INTO LogIP VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, ip);
@@ -56,7 +57,7 @@ public class LogIP {
 			SQLUtil.close(con);
 		}
 	}
-	
+
 	public void storeLogout(L1PcInstance pc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -65,7 +66,8 @@ public class LogIP {
 			pstm = con
 					.prepareStatement("UPDATE LogIP set logouttime=? where logouttime='null' and charname=?;");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getName());

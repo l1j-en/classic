@@ -48,7 +48,8 @@ public class BadNamesList {
 
 		try {
 			File mobDataFile = new File("data/badnames.txt");
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(mobDataFile)));
+			lnr = new LineNumberReader(new BufferedReader(new FileReader(
+					mobDataFile)));
 
 			String line = null;
 			while ((line = lnr.readLine()) != null) {

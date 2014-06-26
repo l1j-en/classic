@@ -37,7 +37,8 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // MobTable, IdFactory
 public class NpcSpawnTable {
-	private static Logger _log = Logger.getLogger(NpcSpawnTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(NpcSpawnTable.class.getName());
 	private static NpcSpawnTable _instance;
 	private Map<Integer, L1Spawn> _spawntable = new HashMap<Integer, L1Spawn>();
 	private int _highestId;
@@ -65,13 +66,15 @@ public class NpcSpawnTable {
 			while (rs.next()) {
 				if (Config.ALT_GMSHOP == false) {
 					int npcid = rs.getInt(1);
-					if (npcid >= Config.ALT_GMSHOP_MIN_ID && npcid <= Config.ALT_GMSHOP_MAX_ID) {
+					if (npcid >= Config.ALT_GMSHOP_MIN_ID
+							&& npcid <= Config.ALT_GMSHOP_MAX_ID) {
 						continue;
 					}
 				}
 				if (Config.ALT_HALLOWEENIVENT == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656 && npcid <= 26734) {
+					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656
+							&& npcid <= 26734) {
 						continue;
 					}
 				}
@@ -83,7 +86,8 @@ public class NpcSpawnTable {
 				}
 				if (Config.ALT_TALKINGSCROLLQUEST == false) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 87537 && npcid <= 87551 || npcid >= 1310387 && npcid <= 1310389) {
+					if (npcid >= 87537 && npcid <= 87551 || npcid >= 1310387
+							&& npcid <= 1310389) {
 						continue;
 					}
 				}
@@ -97,7 +101,8 @@ public class NpcSpawnTable {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(npcTemplateid);
 				L1Spawn l1spawn;
 				if (l1npc == null) {
-					_log.warning("mob data for id:" + npcTemplateid + " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateid
+							+ " missing in npc table");
 					l1spawn = null;
 				} else {
 					if (rs.getInt("count") == 0) {
@@ -146,7 +151,8 @@ public class NpcSpawnTable {
 			int count = 1;
 			String note = npc.get_name();
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO spawnlist_npc SET location=?,count=?,npc_templateid=?,locx=?,locy=?,heading=?,mapid=?");
+			pstm = con
+					.prepareStatement("INSERT INTO spawnlist_npc SET location=?,count=?,npc_templateid=?,locx=?,locy=?,heading=?,mapid=?");
 			pstm.setString(1, note);
 			pstm.setInt(2, count);
 			pstm.setInt(3, npc.get_npcId());

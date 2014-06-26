@@ -34,7 +34,8 @@ import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.utils.collections.Lists;
 
 public class MobGroupTable {
-	private static Logger _log = Logger.getLogger(MobGroupTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(MobGroupTable.class.getName());
 	private static MobGroupTable _instance;
 	private final HashMap<Integer, L1MobGroup> _mobGroupIndex = new HashMap<Integer, L1MobGroup>();
 
@@ -59,7 +60,8 @@ public class MobGroupTable {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int mobGroupId = rs.getInt("id");
-				boolean isRemoveGroup = (rs.getBoolean("remove_group_if_leader_die"));
+				boolean isRemoveGroup = (rs
+						.getBoolean("remove_group_if_leader_die"));
 				int leaderId = rs.getInt("leader_id");
 				List<L1NpcCount> minions = Lists.newArrayList();
 				for (int i = 1; i <= 7; i++) {
@@ -67,10 +69,12 @@ public class MobGroupTable {
 					int count = rs.getInt("minion" + i + "_count");
 					minions.add(new L1NpcCount(id, count));
 				}
-				L1MobGroup mobGroup = new L1MobGroup(mobGroupId, leaderId, minions, isRemoveGroup);
+				L1MobGroup mobGroup = new L1MobGroup(mobGroupId, leaderId,
+						minions, isRemoveGroup);
 				_mobGroupIndex.put(mobGroupId, mobGroup);
 			}
-		_log.config("Mob Group Lists: " + _mobGroupIndex.size() + " loaded.");
+			_log.config("Mob Group Lists: " + _mobGroupIndex.size()
+					+ " loaded.");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, "error while creating mobgroup table", e);
 		} finally {

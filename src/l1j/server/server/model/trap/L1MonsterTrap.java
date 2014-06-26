@@ -37,11 +37,12 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.types.Point;
 
 public class L1MonsterTrap extends L1Trap {
-	private static Logger _log = Logger.getLogger(L1MonsterTrap.class.getName());
+	private static Logger _log = Logger
+			.getLogger(L1MonsterTrap.class.getName());
 	private final int _npcId;
 	private final int _count;
-	private L1Npc _npcTemp = null; 
-	private Constructor _constructor = null; 
+	private L1Npc _npcTemp = null;
+	private Constructor _constructor = null;
 
 	public L1MonsterTrap(TrapStorage storage) {
 		super(storage);
@@ -97,14 +98,14 @@ public class L1MonsterTrap extends L1Trap {
 		L1World.getInstance().addVisibleObject(npc);
 		npc.onNpcAI();
 		npc.turnOnOffLight();
-		npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); 
+		npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 	}
 
 	@Override
 	public void onTrod(L1PcInstance trodFrom, L1Object trapObj) {
 		sendEffect(trapObj);
 		List<Point> points = getSpawnablePoints(trapObj.getLocation(), 5);
-		
+
 		if (points.isEmpty()) {
 			return;
 		}

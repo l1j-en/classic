@@ -142,10 +142,13 @@ public class L1PcInstance extends L1Character {
 	private static final int MP_REGEN_INTERVAL = 1000;
 	private static final int HP_REGEN_INTERVAL = 1000;
 	private static Random _random = new Random();
-	
+
 	private short _trueHpr = 0;
 	private short _hpr = 0;
-	public short getHpr() { return _hpr; }
+
+	public short getHpr() {
+		return _hpr;
+	}
 
 	public void addHpr(int i) {
 		_trueHpr += i;
@@ -154,7 +157,10 @@ public class L1PcInstance extends L1Character {
 
 	private short _mpr = 0;
 	private short _trueMpr = 0;
-	public short getMpr() { return _mpr; }
+
+	public short getMpr() {
+		return _mpr;
+	}
 
 	public void addMpr(int i) {
 		_trueMpr += i;
@@ -162,15 +168,21 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private int _originalHpr = 0;
-	public int getOriginalHpr() { return _originalHpr; }
+
+	public int getOriginalHpr() {
+		return _originalHpr;
+	}
 
 	private int _originalMpr = 0;
-	public int getOriginalMpr() { return _originalMpr; }
+
+	public int getOriginalMpr() {
+		return _originalMpr;
+	}
 
 	public void startHpRegeneration() {
 		if (!_hpRegenActive) {
 			_hpRegen = new HpRegeneration(this);
-			_regenTimer.scheduleAtFixedRate(_hpRegen, HP_REGEN_INTERVAL, 
+			_regenTimer.scheduleAtFixedRate(_hpRegen, HP_REGEN_INTERVAL,
 					HP_REGEN_INTERVAL);
 			_hpRegenActive = true;
 		}
@@ -187,7 +199,7 @@ public class L1PcInstance extends L1Character {
 	public void startMpRegeneration() {
 		if (!_mpRegenActive) {
 			_mpRegen = new MpRegeneration(this);
-			_regenTimer.scheduleAtFixedRate(_mpRegen, MP_REGEN_INTERVAL, 
+			_regenTimer.scheduleAtFixedRate(_mpRegen, MP_REGEN_INTERVAL,
 					MP_REGEN_INTERVAL);
 			_mpRegenActive = true;
 		}
@@ -304,14 +316,17 @@ public class L1PcInstance extends L1Character {
 		}
 
 		perceivedFrom.addKnownObject(this);
-		perceivedFrom.sendPackets(new S_OtherCharPacks(this, 
-				perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS))); 
+		perceivedFrom.sendPackets(new S_OtherCharPacks(this, perceivedFrom
+				.hasSkillEffect(GMSTATUS_FINDINVIS)));
 		if (isInParty() && getParty().isMember(perceivedFrom)) {
 			perceivedFrom.sendPackets(new S_HPMeter(this));
 		}
 
-		//TODO Check if these are working, fixes for poison showing up on characters entering your screen
-		if(hasSkillEffect(L1SkillId.STATUS_POISON) || hasSkillEffect(L1SkillId.STATUS_POISON_SILENCE) || hasSkillEffect(L1SkillId.STATUS_POISON_PARALYZING)){
+		// TODO Check if these are working, fixes for poison showing up on
+		// characters entering your screen
+		if (hasSkillEffect(L1SkillId.STATUS_POISON)
+				|| hasSkillEffect(L1SkillId.STATUS_POISON_SILENCE)
+				|| hasSkillEffect(L1SkillId.STATUS_POISON_PARALYZING)) {
 			perceivedFrom.sendPackets(new S_Poison(getId(), 1));
 		}
 		if (hasSkillEffect(L1SkillId.STATUS_POISON_PARALYZED)) {
@@ -323,13 +338,12 @@ public class L1PcInstance extends L1Character {
 					ActionCodes.ACTION_Shop, getShopChat()));
 		}
 
-		if (isCrown()) { 
+		if (isCrown()) {
 			L1Clan clan = L1World.getInstance().getClan(getClanname());
 			if (clan != null) {
-				if (getId() == clan.getLeaderId() 
-						&& clan.getCastleId() != 0) {
-					perceivedFrom.sendPackets(new S_CastleMaster(
-								clan.getCastleId(), getId()));
+				if (getId() == clan.getLeaderId() && clan.getCastleId() != 0) {
+					perceivedFrom.sendPackets(new S_CastleMaster(clan
+							.getCastleId(), getId()));
 				}
 			}
 		}
@@ -353,7 +367,7 @@ public class L1PcInstance extends L1Character {
 				}
 			}
 		}
- 	}
+	}
 
 	public void updateObject() {
 		removeOutOfRangeObjects();
@@ -374,25 +388,25 @@ public class L1PcInstance extends L1Character {
 			if (hasSkillEffect(GMSTATUS_HPBAR)
 					&& L1HpBar.isHpBarTarget(visible)) {
 				sendPackets(new S_HPMeter((L1Character) visible));
-				}
 			}
 		}
+	}
 
 	private void sendVisualEffect() {
 		int poisonId = 0;
-		if (getPoison() != null) { 
+		if (getPoison() != null) {
 			poisonId = getPoison().getEffectId();
 		}
-		if (getParalysis() != null) { 
+		if (getParalysis() != null) {
 			poisonId = getParalysis().getEffectId();
 		}
-		if (poisonId != 0) { 
+		if (poisonId != 0) {
 			sendAndBroadcast(new S_Poison(getId(), poisonId));
 		}
 	}
 
 	public void sendVisualEffectAtLogin() {
-		if (isCrown() && getClanid() != 0) { 
+		if (isCrown() && getClanid() != 0) {
 			L1Clan clan = L1World.getInstance().getClan(getClanname());
 			if (clan != null) {
 				if (getId() == clan.getLeaderId() && clan.getCastleId() != 0) {
@@ -421,8 +435,8 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void removeSkillMastery(int skillid) {
-		if (skillList.contains((Object)skillid)) {
-			skillList.remove((Object)skillid);
+		if (skillList.contains((Object) skillid)) {
+			skillList.remove((Object) skillid);
 		}
 	}
 
@@ -443,7 +457,7 @@ public class L1PcInstance extends L1Character {
 		_tradewindow = new L1Inventory();
 		_bookmarks = new ArrayList<L1BookMark>();
 		_quest = new L1Quest(this);
-		_equipSlot = new L1EquipmentSlot(this); 
+		_equipSlot = new L1EquipmentSlot(this);
 	}
 
 	@Override
@@ -492,8 +506,13 @@ public class L1PcInstance extends L1Character {
 		return _tradewindow;
 	}
 
-	public boolean isGmInvis() { return _gmInvis; }
-	public void setGmInvis(boolean flag) { _gmInvis = flag; }
+	public boolean isGmInvis() {
+		return _gmInvis;
+	}
+
+	public void setGmInvis(boolean flag) {
+		_gmInvis = flag;
+	}
 
 	public int getCurrentWeapon() {
 		return _currentWeapon;
@@ -503,11 +522,21 @@ public class L1PcInstance extends L1Character {
 		_currentWeapon = i;
 	}
 
-	public int getType() { return _type; }
-	public void setType(int i) { _type = i; }
+	public int getType() {
+		return _type;
+	}
 
-	public short getAccessLevel() { return _accessLevel; }
-	public void setAccessLevel(short i) { _accessLevel = i; }
+	public void setType(int i) {
+		_type = i;
+	}
+
+	public short getAccessLevel() {
+		return _accessLevel;
+	}
+
+	public void setAccessLevel(short i) {
+		_accessLevel = i;
+	}
 
 	public int getClassId() {
 		return _classId;
@@ -534,39 +563,85 @@ public class L1PcInstance extends L1Character {
 		_exp = i;
 	}
 
-	private int _PKcount; 
-	public int get_PKcount() { return _PKcount; }
-	public void set_PKcount(int i) { _PKcount = i; }
+	private int _PKcount;
+
+	public int get_PKcount() {
+		return _PKcount;
+	}
+
+	public void set_PKcount(int i) {
+		_PKcount = i;
+	}
 
 	private int _PkCountForElf;
-	public int getPkCountForElf() { return _PkCountForElf; }
-	public void setPkCountForElf(int i) { _PkCountForElf = i; }
+
+	public int getPkCountForElf() {
+		return _PkCountForElf;
+	}
+
+	public void setPkCountForElf(int i) {
+		_PkCountForElf = i;
+	}
 
 	private int _clanid;
-	public int getClanid() { return _clanid; }
-	public void setClanid(int i) { _clanid = i; }
 
-	private String clanname; 
-	public String getClanname() { return clanname; }
-	public void setClanname(String s) { clanname = s; }
+	public int getClanid() {
+		return _clanid;
+	}
+
+	public void setClanid(int i) {
+		_clanid = i;
+	}
+
+	private String clanname;
+
+	public String getClanname() {
+		return clanname;
+	}
+
+	public void setClanname(String s) {
+		clanname = s;
+	}
 
 	public L1Clan getClan() {
 		return L1World.getInstance().getClan(getClanname());
 	}
 
 	private int _clanRank;
-	public int getClanRank() { return _clanRank; }
-	public void setClanRank(int i) { _clanRank = i; }
+
+	public int getClanRank() {
+		return _clanRank;
+	}
+
+	public void setClanRank(int i) {
+		_clanRank = i;
+	}
 
 	private byte _sex;
-	public byte get_sex() { return _sex; }
-	public void set_sex(int i) { _sex = (byte) i; }
 
-	public boolean isGm() { return _gm; }
-	public void setGm(boolean flag) { _gm = flag; }
+	public byte get_sex() {
+		return _sex;
+	}
 
-	public boolean isMonitor() { return _monitor; }
-	public void setMonitor(boolean flag) { _monitor = flag; }
+	public void set_sex(int i) {
+		_sex = (byte) i;
+	}
+
+	public boolean isGm() {
+		return _gm;
+	}
+
+	public void setGm(boolean flag) {
+		_gm = flag;
+	}
+
+	public boolean isMonitor() {
+		return _monitor;
+	}
+
+	public void setMonitor(boolean flag) {
+		_monitor = flag;
+	}
 
 	private L1PcInstance getStat() {
 		return null;
@@ -575,6 +650,7 @@ public class L1PcInstance extends L1Character {
 	public void reduceCurrentHp(double d, L1Character l1character) {
 		getStat().reduceCurrentHp(d, l1character);
 	}
+
 	private void notifyPlayersLogout(List<L1PcInstance> playersArray) {
 		for (L1PcInstance player : playersArray) {
 			if (player.knownsObject(this)) {
@@ -586,13 +662,11 @@ public class L1PcInstance extends L1Character {
 
 	public void logout() {
 		L1World world = L1World.getInstance();
-		if (getClanid() != 0) 
-		{
+		if (getClanid() != 0) {
 			L1Clan clan = world.getClan(getClanname());
 			if (clan != null) {
-				if (clan.getWarehouseUsingChar() == getId()) 
-				{
-					clan.setWarehouseUsingChar(0); 
+				if (clan.getWarehouseUsingChar() == getId()) {
+					clan.setWarehouseUsingChar(0);
 				}
 			}
 		}
@@ -623,8 +697,13 @@ public class L1PcInstance extends L1Character {
 		return getParty() != null;
 	}
 
-	public L1Party getParty() { return _party; }
-	public void setParty(L1Party p) { _party = p; }
+	public L1Party getParty() {
+		return _party;
+	}
+
+	public void setParty(L1Party p) {
+		_party = p;
+	}
 
 	public boolean isInChatParty() {
 		return getChatParty() != null;
@@ -638,62 +717,118 @@ public class L1PcInstance extends L1Character {
 		_chatParty = cp;
 	}
 
-	public int getPartyID() { return _partyID; }
-	public void setPartyID(int partyID) { _partyID = partyID; }
+	public int getPartyID() {
+		return _partyID;
+	}
 
-	public int getTradeID() { return _tradeID; }
-	public void setTradeID(int tradeID) { _tradeID = tradeID; }
+	public void setPartyID(int partyID) {
+		_partyID = partyID;
+	}
 
-	public void setTradeOk(boolean tradeOk) { _tradeOk = tradeOk; }
-	public boolean getTradeOk() { return _tradeOk; }
+	public int getTradeID() {
+		return _tradeID;
+	}
 
-	public int getTempID() { return _tempID; }
-	public void setTempID(int tempID) { _tempID = tempID; }
+	public void setTradeID(int tradeID) {
+		_tradeID = tradeID;
+	}
 
-	public boolean isTeleport() { return _isTeleport; }
-	public void setTeleport(boolean flag) { _isTeleport = flag; }
+	public void setTradeOk(boolean tradeOk) {
+		_tradeOk = tradeOk;
+	}
 
-	public boolean isDrink() { return _isDrink; }
-	public void setDrink(boolean flag) { _isDrink = flag; }
+	public boolean getTradeOk() {
+		return _tradeOk;
+	}
 
-	public boolean isGres() { return _isGres; }
-	public void setGres(boolean flag) { _isGres = flag; }
+	public int getTempID() {
+		return _tempID;
+	}
 
-	public boolean isPinkName() { return _isPinkName; }
-	public void setPinkName(boolean flag) { _isPinkName = flag; }
+	public void setTempID(int tempID) {
+		_tempID = tempID;
+	}
 
-	private List<L1PrivateShopSellList> _sellList = 
-		new ArrayList<L1PrivateShopSellList>();
+	public boolean isTeleport() {
+		return _isTeleport;
+	}
+
+	public void setTeleport(boolean flag) {
+		_isTeleport = flag;
+	}
+
+	public boolean isDrink() {
+		return _isDrink;
+	}
+
+	public void setDrink(boolean flag) {
+		_isDrink = flag;
+	}
+
+	public boolean isGres() {
+		return _isGres;
+	}
+
+	public void setGres(boolean flag) {
+		_isGres = flag;
+	}
+
+	public boolean isPinkName() {
+		return _isPinkName;
+	}
+
+	public void setPinkName(boolean flag) {
+		_isPinkName = flag;
+	}
+
+	private List<L1PrivateShopSellList> _sellList = new ArrayList<L1PrivateShopSellList>();
 
 	public List<L1PrivateShopSellList> getSellList() {
 		return _sellList;
 	}
 
-	private List<L1PrivateShopBuyList> _buyList =
-		new ArrayList<L1PrivateShopBuyList>();
+	private List<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
 	public List getBuyList() {
 		return _buyList;
 	}
 
 	private byte[] _shopChat;
-	public void setShopChat(byte[] chat) { _shopChat = chat; }
-	public byte[] getShopChat() { return _shopChat; }
+
+	public void setShopChat(byte[] chat) {
+		_shopChat = chat;
+	}
+
+	public byte[] getShopChat() {
+		return _shopChat;
+	}
 
 	private boolean _isPrivateShop = false;
-	public boolean isPrivateShop() { return _isPrivateShop; }
-	public void setPrivateShop(boolean flag) { _isPrivateShop = flag; }
+
+	public boolean isPrivateShop() {
+		return _isPrivateShop;
+	}
+
+	public void setPrivateShop(boolean flag) {
+		_isPrivateShop = flag;
+	}
 
 	private boolean _isTradingInPrivateShop = false;
-	public boolean isTradingInPrivateShop() { return _isTradingInPrivateShop; }
+
+	public boolean isTradingInPrivateShop() {
+		return _isTradingInPrivateShop;
+	}
+
 	public void setTradingInPrivateShop(boolean flag) {
 		_isTradingInPrivateShop = flag;
 	}
 
-	private int _partnersPrivateShopItemCount = 0;  
+	private int _partnersPrivateShopItemCount = 0;
+
 	public int getPartnersPrivateShopItemCount() {
 		return _partnersPrivateShopItemCount;
 	}
+
 	public void setPartnersPrivateShopItemCount(int i) {
 		_partnersPrivateShopItemCount = i;
 	}
@@ -728,8 +863,8 @@ public class L1PcInstance extends L1Character {
 		if (isTeleport()) {
 			return;
 		}
-		if (getZoneType() == ZoneType.Safety || 
-				attacker.getZoneType() == ZoneType.Safety) {
+		if (getZoneType() == ZoneType.Safety
+				|| attacker.getZoneType() == ZoneType.Safety) {
 			L1Attack attack_mortion = new L1Attack(attacker, this);
 			attack_mortion.action();
 			return;
@@ -748,8 +883,8 @@ public class L1PcInstance extends L1Character {
 
 			if (hasSkillEffect(COUNTER_BARRIER)) {
 				L1Magic magic = new L1Magic(this, attacker);
-				if (magic.calcProbabilityMagic(COUNTER_BARRIER) &&
-						attack.isShortDistance() && !attacker.isFoeSlayer()) {
+				if (magic.calcProbabilityMagic(COUNTER_BARRIER)
+						&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
 					attack.actionCounterBarrier();
 					attack.commitCounterBarrier();
 					return;
@@ -777,7 +912,7 @@ public class L1PcInstance extends L1Character {
 			targetpc = (L1PcInstance) ((L1SummonInstance) target).getMaster();
 		}
 		if (targetpc == null) {
-			return false; 
+			return false;
 		}
 		if (!Config.ALT_NONPVP) { // Non-PvP
 			if (getMap().isCombatZone(getLocation())) {
@@ -829,12 +964,12 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void delInvis() {
-		if (hasSkillEffect(INVISIBILITY)) { 
+		if (hasSkillEffect(INVISIBILITY)) {
 			killSkillEffectTimer(INVISIBILITY);
 			sendPackets(new S_Invis(getId(), 0));
 			broadcastPacket(new S_OtherCharPacks(this));
 		}
-		if (hasSkillEffect(BLIND_HIDING)) { 
+		if (hasSkillEffect(BLIND_HIDING)) {
 			killSkillEffectTimer(BLIND_HIDING);
 			sendPackets(new S_Invis(getId(), 0));
 			broadcastPacket(new S_OtherCharPacks(this));
@@ -856,7 +991,7 @@ public class L1PcInstance extends L1Character {
 		receiveDamage(attacker, damage, false);
 	}
 
-	public void receiveManaDamage(L1Character attacker, int mpDamage) { 
+	public void receiveManaDamage(L1Character attacker, int mpDamage) {
 		if (mpDamage > 0 && !isDead()) {
 			delInvis();
 			if (attacker instanceof L1PcInstance) {
@@ -864,7 +999,7 @@ public class L1PcInstance extends L1Character {
 			}
 			if (attacker instanceof L1PcInstance
 					&& ((L1PcInstance) attacker).isPinkName()) {
-			
+
 				for (L1Object object : L1World.getInstance().getVisibleObjects(
 						attacker)) {
 					if (object instanceof L1GuardInstance) {
@@ -888,7 +1023,8 @@ public class L1PcInstance extends L1Character {
 
 	public long _oldTime = 0;
 
-	public void receiveDamage(L1Character attacker, double damage, boolean isMagicDamage) { //
+	public void receiveDamage(L1Character attacker, double damage,
+			boolean isMagicDamage) { //
 		if (getCurrentHp() > 0 && !isDead()) {
 			if (attacker != this) {
 				if (!(attacker instanceof L1EffectInstance)
@@ -953,7 +1089,7 @@ public class L1PcInstance extends L1Character {
 						damage = 0;
 					}
 
-					_oldTime = nowTime; // 
+					_oldTime = nowTime; //
 				}
 			}
 			if (damage > 0) {
@@ -974,15 +1110,13 @@ public class L1PcInstance extends L1Character {
 				removeSkillEffect(FOG_OF_SLEEPING);
 			}
 
-			if (hasSkillEffect(MORTAL_BODY)
-					&& getId() != attacker.getId()) {
+			if (hasSkillEffect(MORTAL_BODY) && getId() != attacker.getId()) {
 				int rnd = _random.nextInt(100) + 1;
 				if (damage > 0 && rnd <= 23) {
 					if (attacker instanceof L1PcInstance) {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
-						attackPc.sendAndBroadcast(new S_DoActionGFX(
-									attackPc.getId(),
-									ActionCodes.ACTION_Damage));
+						attackPc.sendAndBroadcast(new S_DoActionGFX(attackPc
+								.getId(), ActionCodes.ACTION_Damage));
 						attackPc.receiveDamage(this, 30, false);
 					} else if (attacker instanceof L1NpcInstance) {
 						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
@@ -991,25 +1125,20 @@ public class L1PcInstance extends L1Character {
 						attackNpc.receiveDamage(this, 30);
 					}
 				}
-			} /* expected to be deleted after experimental implementation
-			if (attacker.hasSkillEffect(JOY_OF_PAIN)
-					&& getId() != attacker.getId()) {
-				int nowDamage = getMaxHp() - getCurrentHp();
-				if (nowDamage > 0) {
-					if (attacker instanceof L1PcInstance) {
-						L1PcInstance attackPc = (L1PcInstance) attacker;
-						attackPc.sendAndBroadcast(new S_DoActionGFX(
-									attackPc.getId(),
-									ActionCodes.ACTION_Damage));
-						attackPc.receiveDamage(this, nowDamage / 5, false);
-					} else if (attacker instanceof L1NpcInstance) {
-						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
-						attackNpc.broadcastPacket(new S_DoActionGFX(attackNpc
-								.getId(), ActionCodes.ACTION_Damage));
-						attackNpc.receiveDamage(this, nowDamage / 5);
-					}
-				}
-			} */
+			} /*
+			 * expected to be deleted after experimental implementation if
+			 * (attacker.hasSkillEffect(JOY_OF_PAIN) && getId() !=
+			 * attacker.getId()) { int nowDamage = getMaxHp() - getCurrentHp();
+			 * if (nowDamage > 0) { if (attacker instanceof L1PcInstance) {
+			 * L1PcInstance attackPc = (L1PcInstance) attacker;
+			 * attackPc.sendAndBroadcast(new S_DoActionGFX( attackPc.getId(),
+			 * ActionCodes.ACTION_Damage)); attackPc.receiveDamage(this,
+			 * nowDamage / 5, false); } else if (attacker instanceof
+			 * L1NpcInstance) { L1NpcInstance attackNpc = (L1NpcInstance)
+			 * attacker; attackNpc.broadcastPacket(new S_DoActionGFX(attackNpc
+			 * .getId(), ActionCodes.ACTION_Damage));
+			 * attackNpc.receiveDamage(this, nowDamage / 5); } } }
+			 */
 			if (getInventory().checkEquipped(145)
 					|| getInventory().checkEquipped(149)) {
 				damage *= 1.5;
@@ -1032,8 +1161,8 @@ public class L1PcInstance extends L1Character {
 				setCurrentHp(newHp);
 			}
 		} else if (!isDead()) {
-		//	System.out
-		//			.println("xFvC[gosBgoO");
+			// System.out
+			// .println("xFvC[gosBgoO");
 			death(attacker);
 		}
 	}
@@ -1063,7 +1192,7 @@ public class L1PcInstance extends L1Character {
 			setCurrentHp(0);
 			setGresValid(false);
 
-			while (isTeleport()) { 
+			while (isTeleport()) {
 				try {
 					Thread.sleep(300);
 				} catch (Exception e) {
@@ -1085,14 +1214,13 @@ public class L1PcInstance extends L1Character {
 			}
 
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(L1PcInstance.this,
-					CANCELLATION, getId(), getX(), getY(), null, 0,
-					L1SkillUse.TYPE_LOGIN);
+			l1skilluse.handleCommands(L1PcInstance.this, CANCELLATION, getId(),
+					getX(), getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 
 			if (tempchargfx == 5727 || tempchargfx == 5730
 					|| tempchargfx == 5733 || tempchargfx == 5736) {
 				tempchargfx = 0;
-					}
+			}
 			if (tempchargfx != 0) {
 				sendAndBroadcast(new S_ChangeShape(getId(), tempchargfx));
 			} else {
@@ -1103,7 +1231,7 @@ public class L1PcInstance extends L1Character {
 			}
 
 			sendAndBroadcast(new S_DoActionGFX(targetobjid,
-						ActionCodes.ACTION_Die));
+					ActionCodes.ACTION_Die));
 
 			if (lastAttacker.getMapId() != 509) {
 				try {
@@ -1111,24 +1239,37 @@ public class L1PcInstance extends L1Character {
 						L1PcInstance player = null;
 						if (lastAttacker instanceof L1PcInstance) {
 							player = (L1PcInstance) lastAttacker;
-							L1World.getInstance().broadcastServerMessage(player.getName() + " just owned " + getName() + " in battle!");
+							L1World.getInstance().broadcastServerMessage(
+									player.getName() + " just owned "
+											+ getName() + " in battle!");
 						} else if (lastAttacker instanceof L1PetInstance) {
-							player = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
-							L1World.getInstance().broadcastServerMessage(player.getName() + " just ate " + getName() + "'s face with uber pets!");
+							player = (L1PcInstance) ((L1PetInstance) lastAttacker)
+									.getMaster();
+							L1World.getInstance().broadcastServerMessage(
+									player.getName() + " just ate " + getName()
+											+ "'s face with uber pets!");
 						} else if (lastAttacker instanceof L1SummonInstance) {
-							player = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
-							L1World.getInstance().broadcastServerMessage(player.getName() + " just tore up " + getName() + " with evil summons!");
+							player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+									.getMaster();
+							L1World.getInstance()
+									.broadcastServerMessage(
+											player.getName() + " just tore up "
+													+ getName()
+													+ " with evil summons!");
 						}
 						if (player != null) {
 							if (player instanceof L1PcInstance) {
 
 								try {
 
-									Timestamp ts = new Timestamp(System.currentTimeMillis());	
+									Timestamp ts = new Timestamp(
+											System.currentTimeMillis());
 									Connection con = null;
-									PreparedStatement pstm = null;		
-									con = L1DatabaseFactory.getInstance().getConnection();
-									pstm = con.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
+									PreparedStatement pstm = null;
+									con = L1DatabaseFactory.getInstance()
+											.getConnection();
+									pstm = con
+											.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
 									pstm.setInt(1, player.getId());
 									pstm.setString(2, player.getName());
 									pstm.setInt(3, player.getLevel());
@@ -1139,42 +1280,73 @@ public class L1PcInstance extends L1Character {
 									pstm.setInt(8, getX());
 									pstm.setInt(9, getY());
 									pstm.setInt(10, getMapId());
-									if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
+									if (isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() != ZoneType.Normal
+											&& getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 1);
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() != ZoneType.Normal
+											&& !getMap()
+													.isEnabledDeathPenalty()) {
 										pstm.setInt(11, 2);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() != ZoneType.Normal
+											&& !getMap()
+													.isEnabledDeathPenalty()) {
 										pstm.setInt(11, 3);
-										//doorway
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() != ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
+										// doorway
+									} else if (!isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() != ZoneType.Normal
+											&& getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 4);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() == ZoneType.Normal
+											&& getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 5);
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
+									} else if (!isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() == ZoneType.Normal
+											&& !getMap()
+													.isEnabledDeathPenalty()) {
 										pstm.setInt(11, 6);
-									} else if (isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && !getMap().isEnabledDeathPenalty()) {
+									} else if (isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() == ZoneType.Normal
+											&& !getMap()
+													.isEnabledDeathPenalty()) {
 										pstm.setInt(11, 7);
-										//normal zone
-									} else if (!isInWarAreaAndWarTime(L1PcInstance.this, player) && getZoneType() == ZoneType.Normal && getMap().isEnabledDeathPenalty()) {
+										// normal zone
+									} else if (!isInWarAreaAndWarTime(
+											L1PcInstance.this, player)
+											&& getZoneType() == ZoneType.Normal
+											&& getMap().isEnabledDeathPenalty()) {
 										pstm.setInt(11, 8);
 									} else {
 										pstm.setInt(11, 9);
 									}
-									pstm.execute();			
+									pstm.execute();
 									SQLUtil.close(pstm);
 									SQLUtil.close(con);
-								} catch (Exception e) { _log.log(Level.SEVERE, e.getLocalizedMessage(), e); } 
-
+								} catch (Exception e) {
+									_log.log(Level.SEVERE,
+											e.getLocalizedMessage(), e);
+								}
 
 							}
-						} 
-					} 
-				} catch (Exception e) { 
-					_log.log(Level.SEVERE, e.getLocalizedMessage(),  e); }
+						}
+					}
+				} catch (Exception e) {
+					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				}
 			}
-            if (getMapId() == 5153) {
-                L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
-             }
+			if (getMapId() == 5153) {
+				L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
+			}
 			if (lastAttacker != L1PcInstance.this) {
 				if (getZoneType() != ZoneType.Normal) {
 					L1PcInstance player = null;
@@ -1220,9 +1392,9 @@ public class L1PcInstance extends L1Character {
 				}
 			}
 
-			deathPenalty(); // 
+			deathPenalty(); //
 
-			setGresValid(true); 
+			setGresValid(true);
 
 			if (getExpRes() == 0) {
 				setExpRes(1);
@@ -1264,7 +1436,7 @@ public class L1PcInstance extends L1Character {
 			}
 
 			boolean castle_ret = castleWarResult();
-			if (castle_ret == true) { 
+			if (castle_ret == true) {
 				return;
 			}
 
@@ -1280,8 +1452,7 @@ public class L1PcInstance extends L1Character {
 						player.set_PKcount(player.get_PKcount() + 1);
 						isChangePkCount = true;
 						if (player.isElf() && isElf()) {
-							player.setPkCountForElf(player
-									.getPkCountForElf() +1);
+							player.setPkCountForElf(player.getPkCountForElf() + 1);
 							isChangePkCountForElf = true;
 						}
 					}
@@ -1309,7 +1480,7 @@ public class L1PcInstance extends L1Character {
 					player.setLawful(lawful);
 
 					sendAndBroadcast(new S_Lawful(player.getId(),
-								player.getLawful()));
+							player.getLawful()));
 
 					if (isChangePkCount && player.get_PKcount() >= 5
 							&& player.get_PKcount() < 10) {
@@ -1344,7 +1515,7 @@ public class L1PcInstance extends L1Character {
 						item.isStackable() ? item.getCount() : 1,
 						L1World.getInstance().getInventory(getX(), getY(),
 								getMapId()));
-				sendPackets(new S_ServerMessage(638,item.getLogName()));
+				sendPackets(new S_ServerMessage(638, item.getLogName()));
 			} else {
 			}
 		}
@@ -1357,8 +1528,8 @@ public class L1PcInstance extends L1Character {
 				int warType = war.GetWarType();
 				boolean isInWar = war.CheckClanInWar(getClanname());
 				boolean isAttackClan = war.CheckAttackClan(getClanname());
-				if (getId() == clan.getLeaderId() &&
-						warType == 1 && isInWar && isAttackClan) {
+				if (getId() == clan.getLeaderId() && warType == 1 && isInWar
+						&& isAttackClan) {
 					String enemyClanName = war.GetEnemyClanName(getClanname());
 					if (enemyClanName != null) {
 						war.CeaseWar(getClanname(), enemyClanName);
@@ -1378,10 +1549,10 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public boolean simWarResult(L1Character lastAttacker) {
-		if (getClanid() == 0) { 
+		if (getClanid() == 0) {
 			return false;
 		}
-		if (Config.SIM_WAR_PENALTY) { 
+		if (Config.SIM_WAR_PENALTY) {
 			return false;
 		}
 		L1PcInstance attacker = null;
@@ -1405,16 +1576,16 @@ public class L1PcInstance extends L1Character {
 
 			int warType = war.GetWarType();
 			boolean isInWar = war.CheckClanInWar(getClanname());
-			if (attacker != null && attacker.getClanid() != 0) { 
-				sameWar = war.CheckClanInSameWar(getClanname(), attacker
-						.getClanname());
+			if (attacker != null && attacker.getClanid() != 0) {
+				sameWar = war.CheckClanInSameWar(getClanname(),
+						attacker.getClanname());
 			}
 
-			if (getId() == clan.getLeaderId() && 
-					warType == 2 && isInWar == true) {
+			if (getId() == clan.getLeaderId() && warType == 2
+					&& isInWar == true) {
 				enemyClanName = war.GetEnemyClanName(getClanname());
 				if (enemyClanName != null) {
-					war.CeaseWar(getClanname(), enemyClanName); // 
+					war.CeaseWar(getClanname(), enemyClanName); //
 				}
 			}
 
@@ -1439,7 +1610,7 @@ public class L1PcInstance extends L1Character {
 			exp = (int) (needExp * 0.035);
 		} else if (oldLevel == 48) {
 			exp = (int) (needExp * 0.03);
-		// Modified to scale down the XP death loss % at higher lvls.
+			// Modified to scale down the XP death loss % at higher lvls.
 		} else if (oldLevel >= 49 && oldLevel < 65) {
 			exp = (int) (needExp * 0.025);
 		} else if (oldLevel >= 65 && oldLevel < 70) {
@@ -1476,7 +1647,7 @@ public class L1PcInstance extends L1Character {
 			exp = (int) (needExp * 0.07);
 		} else if (oldLevel == 48) {
 			exp = (int) (needExp * 0.06);
-		// Modified to scale down the XP death loss % at higher lvls.
+			// Modified to scale down the XP death loss % at higher lvls.
 		} else if (oldLevel >= 49 && oldLevel < 65) {
 			exp = (int) (needExp * 0.05);
 		} else if (oldLevel >= 65 && oldLevel < 70) {
@@ -1498,16 +1669,17 @@ public class L1PcInstance extends L1Character {
 		// Explicitly checking to close an abusable delvling bug. If a
 		// player dies but disconnects before the exp monitor runs again
 		// characters can effectively delevel (because his or here level will
-		// be recalculated based on experience as part of the next login) without
+		// be recalculated based on experience as part of the next login)
+		// without
 		// going through the delevel code, allowing them to repeatedly gain
-		// hitpoints/manapoints from leveling. 
+		// hitpoints/manapoints from leveling.
 		onChangeExp();
 	}
 
 	private int _originalEr = 0; // ER
 
 	public int getOriginalEr() {
-		return _originalEr;	
+		return _originalEr;
 	}
 
 	public int getEr() {
@@ -1516,7 +1688,7 @@ public class L1PcInstance extends L1Character {
 		}
 
 		int er = getClassFeature().getER(getLevel());
-		
+
 		er += (getDex() - 8) / 2;
 
 		er += getOriginalEr();
@@ -1577,37 +1749,31 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public boolean isCrown() {
-		return (getClassId() == CLASSID_PRINCE
-				|| getClassId() == CLASSID_PRINCESS);
+		return (getClassId() == CLASSID_PRINCE || getClassId() == CLASSID_PRINCESS);
 	}
 
 	public boolean isKnight() {
-		return (getClassId() == CLASSID_KNIGHT_MALE
-				|| getClassId() == CLASSID_KNIGHT_FEMALE);
+		return (getClassId() == CLASSID_KNIGHT_MALE || getClassId() == CLASSID_KNIGHT_FEMALE);
 	}
 
 	public boolean isElf() {
-		return (getClassId() == CLASSID_ELF_MALE
-				|| getClassId() == CLASSID_ELF_FEMALE);
+		return (getClassId() == CLASSID_ELF_MALE || getClassId() == CLASSID_ELF_FEMALE);
 	}
 
 	public boolean isWizard() {
-		return (getClassId() == CLASSID_WIZARD_MALE
-				|| getClassId() == CLASSID_WIZARD_FEMALE);
+		return (getClassId() == CLASSID_WIZARD_MALE || getClassId() == CLASSID_WIZARD_FEMALE);
 	}
 
 	public boolean isDarkelf() {
-		return (getClassId() == CLASSID_DARK_ELF_MALE
-				|| getClassId() == CLASSID_DARK_ELF_FEMALE);
+		return (getClassId() == CLASSID_DARK_ELF_MALE || getClassId() == CLASSID_DARK_ELF_FEMALE);
 	}
 
 	public boolean isDragonKnight() {
-		return (getClassId() == CLASSID_DRAGON_KNIGHT_MALE
-				|| getClassId() == CLASSID_DRAGON_KNIGHT_FEMALE);
+		return (getClassId() == CLASSID_DRAGON_KNIGHT_MALE || getClassId() == CLASSID_DRAGON_KNIGHT_FEMALE);
 	}
+
 	public boolean isIllusionist() {
-		return (getClassId() == CLASSID_ILLUSIONIST_MALE
-				|| getClassId() == CLASSID_ILLUSIONIST_FEMALE);
+		return (getClassId() == CLASSID_ILLUSIONIST_MALE || getClassId() == CLASSID_ILLUSIONIST_FEMALE);
 	}
 
 	private static Logger _log = Logger.getLogger(L1PcInstance.class.getName());
@@ -1650,12 +1816,21 @@ public class L1PcInstance extends L1Character {
 	private L1EquipmentSlot _equipSlot;
 	private L1PcDeleteTimer _pcDeleteTimer;
 
-	private String _accountName; 
-	public String getAccountName() { return _accountName; }
-	public void setAccountName(String s) { _accountName = s; }
+	private String _accountName;
 
-	private short _baseMaxHp = 0; 
-	public short getBaseMaxHp() { return _baseMaxHp; }
+	public String getAccountName() {
+		return _accountName;
+	}
+
+	public void setAccountName(String s) {
+		_accountName = s;
+	}
+
+	private short _baseMaxHp = 0;
+
+	public short getBaseMaxHp() {
+		return _baseMaxHp;
+	}
 
 	public void addBaseMaxHp(short i) {
 		i += _baseMaxHp;
@@ -1668,8 +1843,11 @@ public class L1PcInstance extends L1Character {
 		_baseMaxHp = i;
 	}
 
-	private short _baseMaxMp = 0; 
-	public short getBaseMaxMp() { return _baseMaxMp; }
+	private short _baseMaxMp = 0;
+
+	public short getBaseMaxMp() {
+		return _baseMaxMp;
+	}
 
 	public void addBaseMaxMp(short i) {
 		i += _baseMaxMp;
@@ -1682,18 +1860,24 @@ public class L1PcInstance extends L1Character {
 		_baseMaxMp = i;
 	}
 
-	private int _baseAc = 0; 
-	public int getBaseAc() { return _baseAc; }
+	private int _baseAc = 0;
 
-	private int _originalAc = 0; 
-	public int getOriginalAc() { return _originalAc; }
+	public int getBaseAc() {
+		return _baseAc;
+	}
+
+	private int _originalAc = 0;
+
+	public int getOriginalAc() {
+		return _originalAc;
+	}
 
 	private byte _baseStr = 0;
 
 	public byte getBaseStr() {
 		return _baseStr;
 	}
-	
+
 	public void setBaseStr(byte i) {
 		_baseStr = i;
 		setStr(i);
@@ -1711,10 +1895,11 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private byte _baseCon = 0;
+
 	public byte getBaseCon() {
 		return _baseCon;
 	}
-	
+
 	public void setBaseCon(byte i) {
 		_baseCon = i;
 		setCon(i);
@@ -1731,11 +1916,12 @@ public class L1PcInstance extends L1Character {
 		_baseCon = i;
 	}
 
-	private byte _baseDex = 0; 
+	private byte _baseDex = 0;
+
 	public byte getBaseDex() {
 		return _baseDex;
 	}
-	
+
 	public void setBaseDex(byte i) {
 		_baseDex = i;
 		setDex(i);
@@ -1752,11 +1938,12 @@ public class L1PcInstance extends L1Character {
 		_baseDex = i;
 	}
 
-	private byte _baseCha = 0; 
+	private byte _baseCha = 0;
+
 	public byte getBaseCha() {
 		return _baseCha;
 	}
-	
+
 	public void setBaseCha(byte i) {
 		_baseCha = i;
 		setCha(i);
@@ -1773,11 +1960,12 @@ public class L1PcInstance extends L1Character {
 		_baseCha = i;
 	}
 
-	private byte _baseInt = 0; 
+	private byte _baseInt = 0;
+
 	public byte getBaseInt() {
 		return _baseInt;
 	}
-	
+
 	public void setBaseInt(byte i) {
 		_baseInt = i;
 		setInt(i);
@@ -1795,10 +1983,11 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private byte _baseWis = 0;
+
 	public byte getBaseWis() {
 		return _baseWis;
 	}
-	
+
 	public void setBaseWis(byte i) {
 		_baseWis = i;
 		setWis(i);
@@ -1816,134 +2005,300 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private int _originalStr = 0;
-	public int getOriginalStr() { return _originalStr; } 
-	public void setOriginalStr(int i) { _originalStr = i; }
+
+	public int getOriginalStr() {
+		return _originalStr;
+	}
+
+	public void setOriginalStr(int i) {
+		_originalStr = i;
+	}
 
 	private int _originalCon = 0;
-	public int getOriginalCon() { return _originalCon; }
-	public void setOriginalCon(int i) { _originalCon = i; }
+
+	public int getOriginalCon() {
+		return _originalCon;
+	}
+
+	public void setOriginalCon(int i) {
+		_originalCon = i;
+	}
 
 	private int _originalDex = 0;
-	public int getOriginalDex() { return _originalDex; }
-	public void setOriginalDex(int i) { _originalDex = i; }
+
+	public int getOriginalDex() {
+		return _originalDex;
+	}
+
+	public void setOriginalDex(int i) {
+		_originalDex = i;
+	}
 
 	private int _originalCha = 0;
-	public int getOriginalCha() { return _originalCha; }
-	public void setOriginalCha(int i) { _originalCha = i; }
+
+	public int getOriginalCha() {
+		return _originalCha;
+	}
+
+	public void setOriginalCha(int i) {
+		_originalCha = i;
+	}
 
 	private int _originalInt = 0;
-	public int getOriginalInt() { return _originalInt; }
-	public void setOriginalInt(int i) { _originalInt = i; }
+
+	public int getOriginalInt() {
+		return _originalInt;
+	}
+
+	public void setOriginalInt(int i) {
+		_originalInt = i;
+	}
 
 	private int _originalWis = 0;
-	public int getOriginalWis() { return _originalWis; }
-	public void setOriginalWis(int i) { _originalWis = i;		}
+
+	public int getOriginalWis() {
+		return _originalWis;
+	}
+
+	public void setOriginalWis(int i) {
+		_originalWis = i;
+	}
 
 	private int _originalDmgup = 0;
-	public int getOriginalDmgup() { return _originalDmgup; }
+
+	public int getOriginalDmgup() {
+		return _originalDmgup;
+	}
 
 	private int _originalBowDmgup = 0;
-	public int getOriginalBowDmgup() { return _originalBowDmgup; }
+
+	public int getOriginalBowDmgup() {
+		return _originalBowDmgup;
+	}
 
 	private int _originalHitup = 0;
-	public int getOriginalHitup() { return _originalHitup; }
+
+	public int getOriginalHitup() {
+		return _originalHitup;
+	}
 
 	private int _originalBowHitup = 0;
-	public int getOriginalBowHitup() { return _originalHitup; }
+
+	public int getOriginalBowHitup() {
+		return _originalHitup;
+	}
 
 	private int _originalMr = 0;
-	public int getOriginalMr() { return _originalMr; }
+
+	public int getOriginalMr() {
+		return _originalMr;
+	}
 
 	private int _originalMagicHit = 0;
-	public int getOriginalMagicHit() { return _originalMagicHit; }
+
+	public int getOriginalMagicHit() {
+		return _originalMagicHit;
+	}
 
 	private int _originalMagicCritical = 0;
-	public int getOriginalMagicCritical() { return _originalMagicCritical; }
+
+	public int getOriginalMagicCritical() {
+		return _originalMagicCritical;
+	}
 
 	private int _originalMagicConsumeReduction = 0;
+
 	public int getOriginalMagicConsumeReduction() {
 		return _originalMagicConsumeReduction;
 	}
 
 	private int _originalMagicDamage = 0;
-	public int getOriginalMagicDamage() { return _originalMagicDamage; }
+
+	public int getOriginalMagicDamage() {
+		return _originalMagicDamage;
+	}
 
 	private int _originalHpup = 0;
-	public int getOriginalHpup() { return _originalHpup; }
+
+	public int getOriginalHpup() {
+		return _originalHpup;
+	}
 
 	private int _originalMpup = 0;
-	public int getOriginalMpup() { return _originalMpup; }
 
-	private int _baseDmgup = 0; 
-	public int getBaseDmgup() { return _baseDmgup; }
+	public int getOriginalMpup() {
+		return _originalMpup;
+	}
+
+	private int _baseDmgup = 0;
+
+	public int getBaseDmgup() {
+		return _baseDmgup;
+	}
 
 	private int _baseBowDmgup = 0;
-	public int getBaseBowDmgup() { return _baseBowDmgup; }
 
-	private int _baseHitup = 0; 
-	public int getBaseHitup() { return _baseHitup; }
-	
+	public int getBaseBowDmgup() {
+		return _baseBowDmgup;
+	}
+
+	private int _baseHitup = 0;
+
+	public int getBaseHitup() {
+		return _baseHitup;
+	}
+
 	private int _baseBowHitup = 0;
-	public int getBaseBowHitup() { return _baseBowHitup; }
+
+	public int getBaseBowHitup() {
+		return _baseBowHitup;
+	}
 
 	private int _baseMr = 0;
-	public int getBaseMr() { return _baseMr; }
+
+	public int getBaseMr() {
+		return _baseMr;
+	}
 
 	private int _advenHp;
-	public int getAdvenHp() { return _advenHp; }
-	public void setAdvenHp(int i) { _advenHp = i; }
 
-	private int _advenMp; 
-	public int getAdvenMp() { return _advenMp; }
-	public void setAdvenMp(int i) { _advenMp = i; }
+	public int getAdvenHp() {
+		return _advenHp;
+	}
+
+	public void setAdvenHp(int i) {
+		_advenHp = i;
+	}
+
+	private int _advenMp;
+
+	public int getAdvenMp() {
+		return _advenMp;
+	}
+
+	public void setAdvenMp(int i) {
+		_advenMp = i;
+	}
 
 	private int _highLevel;
-	public int getHighLevel() { return _highLevel; }
-	public void setHighLevel(int i) { _highLevel = i; }
+
+	public int getHighLevel() {
+		return _highLevel;
+	}
+
+	public void setHighLevel(int i) {
+		_highLevel = i;
+	}
 
 	private int _bonusStats;
-	public synchronized int getBonusStats() { return _bonusStats; }
-	public synchronized void setBonusStats(int i) { _bonusStats = i; }
 
-	private int _elixirStats; 
-	public int getElixirStats() { return _elixirStats; }
-	public void setElixirStats(int i) { _elixirStats = i; }
+	public synchronized int getBonusStats() {
+		return _bonusStats;
+	}
 
-	private int _elfAttr; 
-	public int getElfAttr() { return _elfAttr; }
-	public void setElfAttr(int i) { _elfAttr = i; }
+	public synchronized void setBonusStats(int i) {
+		_bonusStats = i;
+	}
 
-	private int _expRes; 
-	public int getExpRes() { return _expRes; }
-	public void setExpRes(int i) { _expRes = i; }
+	private int _elixirStats;
 
-	private int _partnerId; 
-	public int getPartnerId() { return _partnerId; }
-	public void setPartnerId(int i) { _partnerId = i; }
+	public int getElixirStats() {
+		return _elixirStats;
+	}
 
-	private int _onlineStatus; 
-	public int getOnlineStatus() { return _onlineStatus; }
-	public void setOnlineStatus(int i) { _onlineStatus = i; }
+	public void setElixirStats(int i) {
+		_elixirStats = i;
+	}
 
-	private int _homeTownId; 
-	public int getHomeTownId() { return _homeTownId; }
-	public void setHomeTownId(int i) { _homeTownId = i; }
+	private int _elfAttr;
 
-	private int _contribution; 
-	public int getContribution() { return _contribution; }
-	public void setContribution(int i) { _contribution = i; }
+	public int getElfAttr() {
+		return _elfAttr;
+	}
+
+	public void setElfAttr(int i) {
+		_elfAttr = i;
+	}
+
+	private int _expRes;
+
+	public int getExpRes() {
+		return _expRes;
+	}
+
+	public void setExpRes(int i) {
+		_expRes = i;
+	}
+
+	private int _partnerId;
+
+	public int getPartnerId() {
+		return _partnerId;
+	}
+
+	public void setPartnerId(int i) {
+		_partnerId = i;
+	}
+
+	private int _onlineStatus;
+
+	public int getOnlineStatus() {
+		return _onlineStatus;
+	}
+
+	public void setOnlineStatus(int i) {
+		_onlineStatus = i;
+	}
+
+	private int _homeTownId;
+
+	public int getHomeTownId() {
+		return _homeTownId;
+	}
+
+	public void setHomeTownId(int i) {
+		_homeTownId = i;
+	}
+
+	private int _contribution;
+
+	public int getContribution() {
+		return _contribution;
+	}
+
+	public void setContribution(int i) {
+		_contribution = i;
+	}
 
 	private int _hellTime;
-	public int getHellTime() { return _hellTime; }
-	public void setHellTime(int i) { _hellTime = i; }
+
+	public int getHellTime() {
+		return _hellTime;
+	}
+
+	public void setHellTime(int i) {
+		_hellTime = i;
+	}
 
 	private boolean _banned;
-	public boolean isBanned() { return _banned; }
-	public void setBanned(boolean flag) { _banned = flag; }
+
+	public boolean isBanned() {
+		return _banned;
+	}
+
+	public void setBanned(boolean flag) {
+		_banned = flag;
+	}
 
 	private int _food;
-	public int get_food() { return _food; }
-	public void set_food(int i) { _food = i; }
+
+	public int get_food() {
+		return _food;
+	}
+
+	public void set_food(int i) {
+		_food = i;
+	}
 
 	public L1EquipmentSlot getEquipSlot() {
 		return _equipSlot;
@@ -1970,7 +2325,8 @@ public class L1PcInstance extends L1Character {
 		CharacterTable.getInstance().storeCharacter(this);
 		// added Pets saving here
 		for (L1PetInstance pet : L1World.getInstance().getAllPets()) {
-			if (getName().toLowerCase().equals(pet.getMaster().getName().toLowerCase())) {
+			if (getName().toLowerCase().equals(
+					pet.getMaster().getName().toLowerCase())) {
 				pet.save();
 			}
 		}
@@ -2009,8 +2365,7 @@ public class L1PcInstance extends L1Character {
 
 		int weightReductionByMagic = hasSkillEffect(DECREASE_WEIGHT) ? 180 : 0;
 
-		double originalWeightReduction = 0.04 * 
-			(getOriginalStrWeightReduction() + getOriginalConWeightReduction());
+		double originalWeightReduction = 0.04 * (getOriginalStrWeightReduction() + getOriginalConWeightReduction());
 
 		double weightReduction = 1 + weightReductionByArmor
 				+ weightReductionByDoll + originalWeightReduction;
@@ -2027,8 +2382,7 @@ public class L1PcInstance extends L1Character {
 	public boolean isFastMovable() {
 		return (hasSkillEffect(HOLY_WALK)
 				|| hasSkillEffect(MOVING_ACCELERATION)
-				|| hasSkillEffect(WIND_WALK)
-				|| hasSkillEffect(STATUS_RIBRAVE));
+				|| hasSkillEffect(WIND_WALK) || hasSkillEffect(STATUS_RIBRAVE));
 	}
 
 	public boolean isFastAttackable() {
@@ -2044,8 +2398,7 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public boolean isHaste() {
-		return (hasSkillEffect(STATUS_HASTE)
-				|| hasSkillEffect(HASTE)
+		return (hasSkillEffect(STATUS_HASTE) || hasSkillEffect(HASTE)
 				|| hasSkillEffect(GREATER_HASTE) || getMoveSpeed() == 1);
 	}
 
@@ -2098,7 +2451,8 @@ public class L1PcInstance extends L1Character {
 					getInventory().storeItem(43000, 1);
 					sendPackets(new S_ServerMessage(403, l1item.getName()));
 				} else {
-					sendPackets(new S_SystemMessage("You use Revival Potion and have returned to level 1."));
+					sendPackets(new S_SystemMessage(
+							"You use Revival Potion and have returned to level 1."));
 				}
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -2140,8 +2494,10 @@ public class L1PcInstance extends L1Character {
 		sendPackets(new S_OwnCharStatus(this));
 
 		if (getLevel() >= Config.NEWBIEMAPLEVELS) {
-			if ((getMapId() == 68 || getMapId() == 69 || getMapId() == 2005 || getMapId() == 85 || getMapId() == 86)) {
-				L1Teleport.teleport(this, 32580, 32931, (short) 0, 3, true); // Talking Island
+			if ((getMapId() == 68 || getMapId() == 69 || getMapId() == 2005
+					|| getMapId() == 85 || getMapId() == 86)) {
+				L1Teleport.teleport(this, 32580, 32931, (short) 0, 3, true); // Talking
+																				// Island
 			}
 			if (getLevel() >= 52) {
 				if (getMapId() == 777) {
@@ -2152,13 +2508,15 @@ public class L1PcInstance extends L1Character {
 			}
 		}
 	}
-	
+
 	private void levelDown(int gap) {
 		resetLevel();
 
 		for (int i = 0; i > gap; i--) {
-			short randomHp = CalcStat.calcStatHp(getType(), 0, getBaseCon(), getOriginalHpup());
-			short randomMp = CalcStat.calcStatMp(getType(), 0, getBaseWis(), getOriginalMpup());
+			short randomHp = CalcStat.calcStatHp(getType(), 0, getBaseCon(),
+					getOriginalHpup());
+			short randomMp = CalcStat.calcStatMp(getType(), 0, getBaseWis(),
+					getOriginalMpup());
 			addBaseMaxHp((short) -randomHp);
 			addBaseMaxMp((short) -randomMp);
 		}
@@ -2170,7 +2528,8 @@ public class L1PcInstance extends L1Character {
 			if (getHighLevel() - getLevel() >= Config.LEVEL_DOWN_RANGE) {
 				sendPackets(new S_ServerMessage(64));
 				sendPackets(new S_Disconnect());
-				_log.info("levelDown error:" + String.format("x_Ee%sfB", getName()));
+				_log.info("levelDown error:"
+						+ String.format("x_Ee%sfB", getName()));
 			}
 		}
 
@@ -2186,7 +2545,7 @@ public class L1PcInstance extends L1Character {
 		new L1GameTimeCarrier(this).start();
 	}
 
-	private boolean _ghost = false; 
+	private boolean _ghost = false;
 
 	public boolean isGhost() {
 		return _ghost;
@@ -2196,7 +2555,7 @@ public class L1PcInstance extends L1Character {
 		_ghost = flag;
 	}
 
-	private boolean _ghostCanTalk = true; 
+	private boolean _ghostCanTalk = true;
 
 	public boolean isGhostCanTalk() {
 		return _ghostCanTalk;
@@ -2309,8 +2668,7 @@ public class L1PcInstance extends L1Character {
 		}
 		if (isGmInvis() || isGhost()) {
 		} else if (isInvisble()) {
-			broadcastPacketForFindInvis(new S_Poison(getId(), effectId),
-				true);
+			broadcastPacketForFindInvis(new S_Poison(getId(), effectId), true);
 		} else {
 			broadcastPacket(new S_Poison(getId(), effectId));
 		}
@@ -2364,8 +2722,7 @@ public class L1PcInstance extends L1Character {
 	public boolean isWanted() {
 		if (_lastPk == null) {
 			return false;
-		} else if (System.currentTimeMillis() - _lastPk.getTime()
-				> 24 * 3600 * 1000) {
+		} else if (System.currentTimeMillis() - _lastPk.getTime() > 24 * 3600 * 1000) {
 			setLastPk(null);
 			return false;
 		}
@@ -2373,8 +2730,15 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private Timestamp _lastPkForElf;
-	public Timestamp getLastPkForElf() { return _lastPkForElf; }
-	public void setLastPkForElf(Timestamp time) { _lastPkForElf = time; }
+
+	public Timestamp getLastPkForElf() {
+		return _lastPkForElf;
+	}
+
+	public void setLastPkForElf(Timestamp time) {
+		_lastPkForElf = time;
+	}
+
 	public void setLastPkForElf() {
 		_lastPkForElf = new Timestamp(System.currentTimeMillis());
 	}
@@ -2382,8 +2746,7 @@ public class L1PcInstance extends L1Character {
 	public boolean isWantedForElf() {
 		if (_lastPkForElf == null) {
 			return false;
-		} else if (System.currentTimeMillis() - _lastPkForElf.getTime()
-				> 24 * 3600 * 1000) {
+		} else if (System.currentTimeMillis() - _lastPkForElf.getTime() > 24 * 3600 * 1000) {
 			setLastPkForElf(null);
 			return false;
 		}
@@ -2391,31 +2754,51 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private Timestamp _deleteTime;
-	public Timestamp getDeleteTime() { return _deleteTime; }
-	public void setDeleteTime(Timestamp time) { _deleteTime = time; }
+
+	public Timestamp getDeleteTime() {
+		return _deleteTime;
+	}
+
+	public void setDeleteTime(Timestamp time) {
+		_deleteTime = time;
+	}
 
 	@Override
 	public int getMagicLevel() {
 		return getClassFeature().getMagicLevel(getLevel());
 	}
 
-	private int _weightReduction = 0; 
-	public int getWeightReduction() { return _weightReduction; }
-	public void addWeightReduction(int i) { _weightReduction += i; }
+	private int _weightReduction = 0;
+
+	public int getWeightReduction() {
+		return _weightReduction;
+	}
+
+	public void addWeightReduction(int i) {
+		_weightReduction += i;
+	}
 
 	private int _originalStrWeightReduction = 0;
+
 	public int getOriginalStrWeightReduction() {
 		return _originalStrWeightReduction;
 	}
 
 	private int _originalConWeightReduction = 0;
+
 	public int getOriginalConWeightReduction() {
 		return _originalConWeightReduction;
 	}
 
 	private int _hasteItemEquipped = 0;
-	public int getHasteItemEquipped() { return _hasteItemEquipped; }
-	public void addHasteItemEquipped(int i) { _hasteItemEquipped += i; }
+
+	public int getHasteItemEquipped() {
+		return _hasteItemEquipped;
+	}
+
+	public void addHasteItemEquipped(int i) {
+		_hasteItemEquipped += i;
+	}
 
 	public void removeHasteSkillEffect() {
 		if (hasSkillEffect(SLOW)) {
@@ -2438,51 +2821,115 @@ public class L1PcInstance extends L1Character {
 		}
 	}
 
-	private int _damageReductionByArmor = 0; 
-	public int getDamageReductionByArmor() { return _damageReductionByArmor; }
+	private int _damageReductionByArmor = 0;
+
+	public int getDamageReductionByArmor() {
+		return _damageReductionByArmor;
+	}
+
 	public void addDamageReductionByArmor(int i) {
 		_damageReductionByArmor += i;
 	}
 
-	private int _hitModifierByArmor = 0; 
-	public int getHitModifierByArmor() { return _hitModifierByArmor; }
-	public void addHitModifierByArmor(int i) { _hitModifierByArmor += i; }
+	private int _hitModifierByArmor = 0;
+
+	public int getHitModifierByArmor() {
+		return _hitModifierByArmor;
+	}
+
+	public void addHitModifierByArmor(int i) {
+		_hitModifierByArmor += i;
+	}
 
 	private int _dmgModifierByArmor = 0;
-	public int getDmgModifierByArmor() { return _dmgModifierByArmor; }
-	public void addDmgModifierByArmor(int i) { _dmgModifierByArmor += i; }
+
+	public int getDmgModifierByArmor() {
+		return _dmgModifierByArmor;
+	}
+
+	public void addDmgModifierByArmor(int i) {
+		_dmgModifierByArmor += i;
+	}
 
 	private int _bowHitModifierByArmor = 0;
-	public int getBowHitModifierByArmor() { return _bowHitModifierByArmor; }
-	public void addBowHitModifierByArmor(int i) { _bowHitModifierByArmor += i; }
+
+	public int getBowHitModifierByArmor() {
+		return _bowHitModifierByArmor;
+	}
+
+	public void addBowHitModifierByArmor(int i) {
+		_bowHitModifierByArmor += i;
+	}
 
 	private int _bowDmgModifierByArmor = 0;
-	public int getBowDmgModifierByArmor() { return _bowDmgModifierByArmor; }
-	public void addBowDmgModifierByArmor(int i) { _bowDmgModifierByArmor += i; }
 
-	private boolean _gresValid; 
-	private void setGresValid(boolean valid) { _gresValid = valid; }
-	public boolean isGresValid() { return _gresValid; }
+	public int getBowDmgModifierByArmor() {
+		return _bowDmgModifierByArmor;
+	}
+
+	public void addBowDmgModifierByArmor(int i) {
+		_bowDmgModifierByArmor += i;
+	}
+
+	private boolean _gresValid;
+
+	private void setGresValid(boolean valid) {
+		_gresValid = valid;
+	}
+
+	public boolean isGresValid() {
+		return _gresValid;
+	}
 
 	private long _fishingTime = 0;
-	public long getFishingTime() { return _fishingTime; }
-	public void setFishingTime(long i) { _fishingTime = i; }
+
+	public long getFishingTime() {
+		return _fishingTime;
+	}
+
+	public void setFishingTime(long i) {
+		_fishingTime = i;
+	}
 
 	private boolean _isFishing = false;
-	public boolean isFishing() { return _isFishing; }
-	public void setFishing(boolean flag) { _isFishing = flag; }
+
+	public boolean isFishing() {
+		return _isFishing;
+	}
+
+	public void setFishing(boolean flag) {
+		_isFishing = flag;
+	}
 
 	private boolean _isFishingReady = false;
-	public boolean isFishingReady() { return _isFishingReady; }
-	public void setFishingReady(boolean flag) { _isFishingReady = flag; }
+
+	public boolean isFishingReady() {
+		return _isFishingReady;
+	}
+
+	public void setFishingReady(boolean flag) {
+		_isFishingReady = flag;
+	}
 
 	private int _cookingId = 0;
-	public int getCookingId() { return _cookingId; }
-	public void setCookingId(int i) { _cookingId = i; }
+
+	public int getCookingId() {
+		return _cookingId;
+	}
+
+	public void setCookingId(int i) {
+		_cookingId = i;
+	}
 
 	private int _dessertId = 0;
-	public int getDessertId() { return _dessertId; }
-	public void setDessertId(int i) { _dessertId = i; }
+
+	public int getDessertId() {
+		return _dessertId;
+	}
+
+	public void setDessertId(int i) {
+		_dessertId = i;
+	}
 
 	public void resetBaseDmgup() {
 		int newBaseDmgup = 0;
@@ -2526,8 +2973,8 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void resetBaseMr() {
-		int newMr = getClassFeature().getBaseMR() +
-			CalcStat.calcStatMr(getWis()) + getLevel() / 2;
+		int newMr = getClassFeature().getBaseMR()
+				+ CalcStat.calcStatMr(getWis()) + getLevel() / 2;
 		addMr(newMr - _baseMr);
 		_baseMr = newMr;
 	}
@@ -2552,15 +2999,17 @@ public class L1PcInstance extends L1Character {
 		_originalBowDmgup = features.getOriginalRangedDamage(getOriginalDex());
 		_originalHpr = features.getOriginalHpRegen(getOriginalCon());
 		_originalMpr = features.getOriginalMpRegen(getOriginalWis());
-		_originalStrWeightReduction = 
-			features.getOriginalStrWeightReduction(getOriginalStr());
-		_originalConWeightReduction = 
-			features.getOriginalConWeightReduction(getOriginalCon());
+		_originalStrWeightReduction = features
+				.getOriginalStrWeightReduction(getOriginalStr());
+		_originalConWeightReduction = features
+				.getOriginalConWeightReduction(getOriginalCon());
 		_originalMagicHit = features.getOriginalMagicHit(getOriginalInt());
-		_originalMagicDamage = features.getOriginalMagicDamage(getOriginalInt());
-		_originalMagicConsumeReduction = 
-			features.getOriginalMpReduction(getOriginalInt());
-		_originalMagicCritical = features.getOriginalMagicCrit(getOriginalInt());
+		_originalMagicDamage = features
+				.getOriginalMagicDamage(getOriginalInt());
+		_originalMagicConsumeReduction = features
+				.getOriginalMpReduction(getOriginalInt());
+		_originalMagicCritical = features
+				.getOriginalMagicCrit(getOriginalInt());
 		_originalEr = features.getOriginalER(getOriginalDex());
 		_originalAc = features.getOriginalAC(getOriginalDex());
 		addAc(0 - _originalAc);
@@ -2573,50 +3022,107 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private final L1ExcludingList _excludingList = new L1ExcludingList();
-	public L1ExcludingList getExcludingList() { return _excludingList; }
 
-	private final AcceleratorChecker _acceleratorChecker = 
-		new AcceleratorChecker(this);
+	public L1ExcludingList getExcludingList() {
+		return _excludingList;
+	}
+
+	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(
+			this);
 
 	public AcceleratorChecker getAcceleratorChecker() {
 		return _acceleratorChecker;
 	}
 
 	private int _teleportX = 0;
-	public int getTeleportX() { return _teleportX; }
-	public void setTeleportX(int i) { _teleportX = i; }
+
+	public int getTeleportX() {
+		return _teleportX;
+	}
+
+	public void setTeleportX(int i) {
+		_teleportX = i;
+	}
 
 	private int _teleportY = 0;
-	public int getTeleportY() { return _teleportY; }
-	public void setTeleportY(int i) { _teleportY = i; }
+
+	public int getTeleportY() {
+		return _teleportY;
+	}
+
+	public void setTeleportY(int i) {
+		_teleportY = i;
+	}
 
 	private short _teleportMapId = 0;
-	public short getTeleportMapId() { return _teleportMapId; }
-	public void setTeleportMapId(short i) { _teleportMapId = i; }
+
+	public short getTeleportMapId() {
+		return _teleportMapId;
+	}
+
+	public void setTeleportMapId(short i) {
+		_teleportMapId = i;
+	}
 
 	private int _teleportHeading = 0;
-	public int getTeleportHeading() { return _teleportHeading; }
-	public void setTeleportHeading(int i) { _teleportHeading = i; }
+
+	public int getTeleportHeading() {
+		return _teleportHeading;
+	}
+
+	public void setTeleportHeading(int i) {
+		_teleportHeading = i;
+	}
 
 	private int _tempCharGfxAtDead;
-	public int getTempCharGfxAtDead() { return _tempCharGfxAtDead; }
-	public void setTempCharGfxAtDead(int i) { _tempCharGfxAtDead = i; }
+
+	public int getTempCharGfxAtDead() {
+		return _tempCharGfxAtDead;
+	}
+
+	public void setTempCharGfxAtDead(int i) {
+		_tempCharGfxAtDead = i;
+	}
 
 	private boolean _isCanWhisper = true;
-	public boolean isCanWhisper() { return _isCanWhisper; }
-	public void setCanWhisper(boolean flag) { _isCanWhisper = flag; }
+
+	public boolean isCanWhisper() {
+		return _isCanWhisper;
+	}
+
+	public void setCanWhisper(boolean flag) {
+		_isCanWhisper = flag;
+	}
 
 	private boolean _showTradeChat = true;
-	public boolean showTradeChat() { return _showTradeChat; }
-	public void setShowTradeChat(boolean flag) { _showTradeChat = flag; }
+
+	public boolean showTradeChat() {
+		return _showTradeChat;
+	}
+
+	public void setShowTradeChat(boolean flag) {
+		_showTradeChat = flag;
+	}
 
 	private boolean _showWorldChat = true;
-	public boolean showWorldChat() { return _showWorldChat; }
-	public void setShowWorldChat(boolean flag) { _showWorldChat = flag; }
+
+	public boolean showWorldChat() {
+		return _showWorldChat;
+	}
+
+	public void setShowWorldChat(boolean flag) {
+		_showWorldChat = flag;
+	}
 
 	private int _fightId;
-	public int getFightId() { return _fightId; }
-	public void setFightId(int i) { _fightId = i; }
+
+	public int getFightId() {
+		return _fightId;
+	}
+
+	public void setFightId(int i) {
+		_fightId = i;
+	}
 
 	private byte _chatCount = 0;
 	private long _oldChatTimeInMillis = 0L;
@@ -2646,83 +3152,169 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private int _callClanId;
-	public int getCallClanId() { return _callClanId; }
-	public void setCallClanId(int i) { _callClanId = i; }
+
+	public int getCallClanId() {
+		return _callClanId;
+	}
+
+	public void setCallClanId(int i) {
+		_callClanId = i;
+	}
 
 	private int _callClanHeading;
-	public int getCallClanHeading() { return _callClanHeading; }
-	public void setCallClanHeading(int i) { _callClanHeading = i; }
+
+	public int getCallClanHeading() {
+		return _callClanHeading;
+	}
+
+	public void setCallClanHeading(int i) {
+		_callClanHeading = i;
+	}
 
 	private boolean _isInCharReset = false;
-	public boolean isInCharReset() { return _isInCharReset; }
-	public void setInCharReset(boolean flag) { _isInCharReset = flag; }
+
+	public boolean isInCharReset() {
+		return _isInCharReset;
+	}
+
+	public void setInCharReset(boolean flag) {
+		_isInCharReset = flag;
+	}
 
 	private int _tempLevel = 1;
-	public int getTempLevel() { return _tempLevel; }
-	public void setTempLevel(int i) { _tempLevel = i; }
+
+	public int getTempLevel() {
+		return _tempLevel;
+	}
+
+	public void setTempLevel(int i) {
+		_tempLevel = i;
+	}
 
 	private int _tempMaxLevel = 1;
-	public int getTempMaxLevel() { return _tempMaxLevel; }
-	public void setTempMaxLevel(int i) { _tempMaxLevel = i; }
+
+	public int getTempMaxLevel() {
+		return _tempMaxLevel;
+	}
+
+	public void setTempMaxLevel(int i) {
+		_tempMaxLevel = i;
+	}
 
 	private int _awakeSkillId = 0;
-	public int getAwakeSkillId() { return _awakeSkillId; }
-	public void setAwakeSkillId(int i) { _awakeSkillId = i; }
+
+	public int getAwakeSkillId() {
+		return _awakeSkillId;
+	}
+
+	public void setAwakeSkillId(int i) {
+		_awakeSkillId = i;
+	}
 
 	private int _lap = 1;
-	public void setLap(int lap) { _lap = lap; }
-	public int getLap() { return _lap; }
+
+	public void setLap(int lap) {
+		_lap = lap;
+	}
+
+	public int getLap() {
+		return _lap;
+	}
 
 	private int _lapCheck = 0;
-	public void setLapCheck(int i) { _lapCheck = i; }
-	public int getLapCheck() { return _lapCheck; }
+
+	public void setLapCheck(int i) {
+		_lapCheck = i;
+	}
+
+	public int getLapCheck() {
+		return _lapCheck;
+	}
 
 	public int getLapScore() {
 		return _lap * 29 + _lapCheck;
 	}
 
 	private boolean _order_list = false;
-	public boolean isInOrderList() { return _order_list; }
-	public void setInOrderList(boolean bool) { _order_list = bool; }
+
+	public boolean isInOrderList() {
+		return _order_list;
+	}
+
+	public void setInOrderList(boolean bool) {
+		_order_list = bool;
+	}
 
 	private int _basepoly = 0;
-	public void setBasePoly(int i) { _basepoly = i; }
-	public int getBasePoly() { return _basepoly; }
+
+	public void setBasePoly(int i) {
+		_basepoly = i;
+	}
+
+	public int getBasePoly() {
+		return _basepoly;
+	}
 
 	private boolean _isSummonMonster = false;
+
 	public void setSummonMonster(boolean summoned) {
 		_isSummonMonster = summoned;
 	}
-	public boolean isSummonMonster() { return _isSummonMonster; }
+
+	public boolean isSummonMonster() {
+		return _isSummonMonster;
+	}
 
 	private boolean _isShapeChange = false;
-	public void setShapeChange(boolean polyed) { _isShapeChange = polyed; }
-	public boolean isShapeChange() { return _isShapeChange; }
+
+	public void setShapeChange(boolean polyed) {
+		_isShapeChange = polyed;
+	}
+
+	public boolean isShapeChange() {
+		return _isShapeChange;
+	}
 
 	private boolean _dropMessages = true;
+
 	public void setDropMessages(final boolean dropMessages) {
 		_dropMessages = dropMessages;
 	}
-	public boolean getDropMessages() { return _dropMessages; }
-	
+
+	public boolean getDropMessages() {
+		return _dropMessages;
+	}
+
 	private boolean _partyDropMessages = true;
+
 	public void setPartyDropMessages(final boolean partyDropMessages) {
 		_partyDropMessages = partyDropMessages;
 	}
-	public boolean getPartyDropMessages() { return _partyDropMessages; }
-	
+
+	public boolean getPartyDropMessages() {
+		return _partyDropMessages;
+	}
+
 	private boolean _dmgMessages = false;
-	public boolean getDmgMessages() { return _dmgMessages; }
+
+	public boolean getDmgMessages() {
+		return _dmgMessages;
+	}
+
 	public void setDmgMessages(final boolean dmgMessages) {
 		_dmgMessages = dmgMessages;
 	}
-	
+
 	private boolean _potionMessages = false;
-	public boolean getPotionMessages() { return _potionMessages; }
+
+	public boolean getPotionMessages() {
+		return _potionMessages;
+	}
+
 	public void setPotionMessages(final boolean potionMessages) {
 		_potionMessages = potionMessages;
 	}
-	
+
 	// check if FoeSlayer is in use
 	private boolean _FoeSlayer = false;
 
@@ -2733,10 +3325,10 @@ public class L1PcInstance extends L1Character {
 	public boolean isFoeSlayer() {
 		return _FoeSlayer;
 	}
-	
+
 	// check if FoeSlayer landed successfully
 	private boolean _FoeSlayerSuccess = false;
-	
+
 	public void setFoeSlayerSuccess(boolean FoeSlayerSuccess) {
 		_FoeSlayerSuccess = FoeSlayerSuccess;
 	}
@@ -2744,7 +3336,7 @@ public class L1PcInstance extends L1Character {
 	public boolean isFoeSlayerSuccess() {
 		return _FoeSlayerSuccess;
 	}
-	
+
 	public void useDogCollar(int itemObjectId) {
 		int petCost = 0;
 		int petCount = 0;
@@ -2772,7 +3364,8 @@ public class L1PcInstance extends L1Character {
 		if (l1pet != null) {
 			int npcId = l1pet.get_npcid();
 			charisma -= petCost;
-			if (npcId == 45313 || npcId == 45710 || npcId == 45711 || npcId == 45712 || npcId == 46046) {
+			if (npcId == 45313 || npcId == 45710 || npcId == 45711
+					|| npcId == 45712 || npcId == 46046) {
 				divisor = 12;
 			} else {
 				divisor = 6;

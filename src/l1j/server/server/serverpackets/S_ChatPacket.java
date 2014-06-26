@@ -65,7 +65,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			writeC(opcode);
 			writeC(type);
 			writeS("{" + pc.getName() + "} " + chat);
-		} else if (type == 9) {// 
+		} else if (type == 9) {//
 			writeC(opcode);
 			writeC(type);
 			writeS("-> (" + pc.getName() + ") " + chat);
@@ -81,7 +81,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			writeC(opcode);
 			writeC(type);
 			writeS("{{" + pc.getName() + "}} " + chat);
-		} else if (type == 14) { // 
+		} else if (type == 14) { //
 			writeC(opcode);
 			writeC(type);
 			if (pc.isInvisble()) {

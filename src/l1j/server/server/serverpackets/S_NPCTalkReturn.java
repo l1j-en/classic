@@ -26,7 +26,8 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 	private static final String _S__25_TalkReturn = "[S] _S__25_TalkReturn";
 	private byte[] _byte = null;
 
-	public S_NPCTalkReturn(L1NpcTalkData npc, int objid, int action, String[] data) {
+	public S_NPCTalkReturn(L1NpcTalkData npc, int objid, int action,
+			String[] data) {
 		String htmlid = "";
 		if (action == 1) {
 			htmlid = npc.getNormalAction();
@@ -54,10 +55,10 @@ public class S_NPCTalkReturn extends ServerBasePacket {
 		buildPacket(objid, html.getName(), html.getArgs());
 	}
 
-    public S_NPCTalkReturn(int objid, L1NpcHtml html, String[] data) { 
-    	buildPacket(objid, html.getName(), data); 
-    }
-    
+	public S_NPCTalkReturn(int objid, L1NpcHtml html, String[] data) {
+		buildPacket(objid, html.getName(), data);
+	}
+
 	private void buildPacket(int objid, String htmlid, String[] data) {
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
 		writeD(objid);

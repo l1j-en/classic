@@ -50,12 +50,13 @@ public class C_Shop extends ClientBasePacket {
 		if (pc.isGhost()) {
 			return;
 		}
-		//additional dupe checks.  Thanks Mike
+		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
@@ -81,19 +82,27 @@ public class C_Shop extends ClientBasePacket {
 				sellPrice = readD();
 				sellCount = readD();
 				checkItem = pc.getInventory().getItem(sellObjectId);
-				//TRICIDTODO: Set configurable autoban
-				if (sellObjectId != checkItem.getId() || (!checkItem.isStackable() && sellCount != 1) || checkItem.getCount() <= 0 || sellCount <= 0 || sellCount > 2000000000 || sellCount > checkItem.getCount()) {
+				// TRICIDTODO: Set configurable autoban
+				if (sellObjectId != checkItem.getId()
+						|| (!checkItem.isStackable() && sellCount != 1)
+						|| checkItem.getCount() <= 0 || sellCount <= 0
+						|| sellCount > 2000000000
+						|| sellCount > checkItem.getCount()) {
 					Account.ban(pc.getAccountName());
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
-					L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+					_log.info(pc.getName()
+							+ " Attempted Dupe Exploit (C_Shop).");
+					L1World.getInstance().broadcastServerMessage(
+							"Player " + pc.getName()
+									+ " Attempted A Dupe exploit!");
 					pc.sendPackets(new S_Disconnect());
 					return;
 				}
 
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
+					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem()
+							.getName(), "Ready"));
 				}
 				Object[] petlist = pc.getPetList().values().toArray();
 				for (Object petObject : petlist) {
@@ -101,7 +110,8 @@ public class C_Shop extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (checkItem.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
+							pc.sendPackets(new S_ServerMessage(166, checkItem
+									.getItem().getName(), "Ready"));
 							break;
 						}
 					}
@@ -121,23 +131,38 @@ public class C_Shop extends ClientBasePacket {
 				buyPrice = readD();
 				buyCount = readD();
 				checkItem = pc.getInventory().getItem(buyObjectId);
-				//removed some checks that don't make sense here
-				//just commented them out to test for now
-				if (buyObjectId != checkItem.getId()  || /*buyCount > checkItem.getCount()|| (!checkItem.isStackable() && buyCount != 1) || checkItem.getCount() <= 0 ||*/ buyCount <= 0 || buyCount > 2000000000) {
+				// removed some checks that don't make sense here
+				// just commented them out to test for now
+				if (buyObjectId != checkItem.getId() || /*
+														 * buyCount >
+														 * checkItem.getCount
+														 * ()||
+														 * (!checkItem.isStackable
+														 * () && buyCount != 1)
+														 * ||
+														 * checkItem.getCount()
+														 * <= 0 ||
+														 */buyCount <= 0
+						|| buyCount > 2000000000) {
 					Account.ban(pc.getAccountName());
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-					_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
-					L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+					_log.info(pc.getName()
+							+ " Attempted Dupe Exploit (C_Shop).");
+					L1World.getInstance().broadcastServerMessage(
+							"Player " + pc.getName()
+									+ " Attempted A Dupe exploit!");
 					pc.sendPackets(new S_Disconnect());
 					return;
 				}
 
 				if (!checkItem.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
+					pc.sendPackets(new S_ServerMessage(166, checkItem.getItem()
+							.getName(), "Ready"));
 				}
 				if (checkItem.getBless() >= 128) {
-					pc.sendPackets(new S_ServerMessage(210, checkItem.getItem().getName()));
+					pc.sendPackets(new S_ServerMessage(210, checkItem.getItem()
+							.getName()));
 					return;
 				}
 				Object[] petlist = pc.getPetList().values().toArray();
@@ -146,7 +171,8 @@ public class C_Shop extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (checkItem.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(166, checkItem.getItem().getName(), "Ready"));
+							pc.sendPackets(new S_ServerMessage(166, checkItem
+									.getItem().getName(), "Ready"));
 							break;
 						}
 					}
@@ -161,21 +187,27 @@ public class C_Shop extends ClientBasePacket {
 				sellList.clear();
 				buyList.clear();
 				pc.setPrivateShop(false);
-				pc.sendPackets(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
-				pc.broadcastPacket(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
+				pc.sendPackets(new S_DoActionGFX(pc.getId(),
+						ActionCodes.ACTION_Idle));
+				pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
+						ActionCodes.ACTION_Idle));
 				return;
 			}
 			byte[] chat = readByte();
 			pc.setShopChat(chat);
 			pc.setPrivateShop(true);
-			pc.sendPackets(new S_DoActionShop(pc.getId(), ActionCodes.ACTION_Shop, chat));
-			pc.broadcastPacket(new S_DoActionShop(pc.getId(), ActionCodes.ACTION_Shop, chat));
-		} else if (type == 1) { 
+			pc.sendPackets(new S_DoActionShop(pc.getId(),
+					ActionCodes.ACTION_Shop, chat));
+			pc.broadcastPacket(new S_DoActionShop(pc.getId(),
+					ActionCodes.ACTION_Shop, chat));
+		} else if (type == 1) {
 			sellList.clear();
 			buyList.clear();
 			pc.setPrivateShop(false);
-			pc.sendPackets(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
-			pc.broadcastPacket(new S_DoActionGFX(pc.getId(), ActionCodes.ACTION_Idle));
+			pc.sendPackets(new S_DoActionGFX(pc.getId(),
+					ActionCodes.ACTION_Idle));
+			pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
+					ActionCodes.ACTION_Idle));
 		}
 	}
 

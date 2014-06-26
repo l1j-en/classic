@@ -27,23 +27,21 @@ public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger _log =
-		Logger.getLogger(L1Character.class.getName());
+	private static final Logger _log = Logger.getLogger(L1Character.class
+			.getName());
 
 	private L1Poison _poison = null;
 	private boolean _paralyzed;
 	private boolean _sleeped;
 
-	private final Map<Integer, L1SkillTimer> _skillEffect = 
-		new HashMap<Integer, L1SkillTimer>();
-	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = 
-		new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
-	private final Map<Integer, L1NpcInstance> _petlist =
-			new HashMap<Integer, L1NpcInstance>(2);
-	private final Map<Integer, L1DollInstance> _dolllist =
-			new HashMap<Integer, L1DollInstance>(1);
-	private final Map<Integer, L1FollowerInstance> _followerlist =
-			new HashMap<Integer, L1FollowerInstance>(2);
+	private final Map<Integer, L1SkillTimer> _skillEffect = new HashMap<Integer, L1SkillTimer>();
+	private final Map<Integer, L1ItemDelay.ItemDelayTimer> _itemdelay = new HashMap<Integer, L1ItemDelay.ItemDelayTimer>();
+	private final Map<Integer, L1NpcInstance> _petlist = new HashMap<Integer, L1NpcInstance>(
+			2);
+	private final Map<Integer, L1DollInstance> _dolllist = new HashMap<Integer, L1DollInstance>(
+			1);
+	private final Map<Integer, L1FollowerInstance> _followerlist = new HashMap<Integer, L1FollowerInstance>(
+			2);
 
 	public L1Character() {
 		_level = 1;
@@ -101,15 +99,31 @@ public class L1Character extends L1Object {
 		_currentMp = i;
 	}
 
-	public boolean isSleeped() { return _sleeped; }
-	public void setSleeped(boolean sleeped) { _sleeped = sleeped; }
+	public boolean isSleeped() {
+		return _sleeped;
+	}
 
-	public boolean isParalyzed() { return _paralyzed; }
-	public void setParalyzed(boolean paralyzed) { _paralyzed = paralyzed; }
+	public void setSleeped(boolean sleeped) {
+		_sleeped = sleeped;
+	}
+
+	public boolean isParalyzed() {
+		return _paralyzed;
+	}
+
+	public void setParalyzed(boolean paralyzed) {
+		_paralyzed = paralyzed;
+	}
 
 	L1Paralysis _paralysis;
-	public L1Paralysis getParalysis() { return _paralysis; }
-	public void setParalaysis(L1Paralysis p) { _paralysis = p; }
+
+	public L1Paralysis getParalysis() {
+		return _paralysis;
+	}
+
+	public void setParalaysis(L1Paralysis p) {
+		_paralysis = p;
+	}
 
 	public void cureParalaysis() {
 		if (_paralysis != null) {
@@ -128,14 +142,14 @@ public class L1Character extends L1Object {
 		for (L1PcInstance pc : L1World.getInstance()
 				.getVisiblePlayerExceptTargetSight(this, target)) {
 			pc.sendPackets(packet);
-				}
+		}
 	}
 
 	public void broadcastPacketForFindInvis(ServerBasePacket packet,
 			boolean isFindInvis) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (isFindInvis) {
-				if(pc.hasSkillEffect(GMSTATUS_FINDINVIS))
+				if (pc.hasSkillEffect(GMSTATUS_FINDINVIS))
 					pc.sendPackets(packet);
 			} else if (!pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
 				pc.sendPackets(packet);
@@ -144,8 +158,7 @@ public class L1Character extends L1Object {
 	}
 
 	public void wideBroadcastPacket(ServerBasePacket packet) {
-		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this,
-					50)) {
+		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this, 50)) {
 			pc.sendPackets(packet);
 		}
 	}
@@ -182,14 +195,14 @@ public class L1Character extends L1Object {
 	}
 
 	public int targetDirection(int tx, int ty) {
-		float dis_x = Math.abs(getX() - tx); 
-		float dis_y = Math.abs(getY() - ty); 
+		float dis_x = Math.abs(getX() - tx);
+		float dis_y = Math.abs(getY() - ty);
 		float dis = Math.max(dis_x, dis_y);
 		if (dis == 0) {
-			return getHeading(); 
+			return getHeading();
 		}
-		int avg_x = (int) Math.floor((dis_x / dis) + 0.59f); 
-		int avg_y = (int) Math.floor((dis_y / dis) + 0.59f); 
+		int avg_x = (int) Math.floor((dis_x / dis) + 0.59f);
+		int avg_y = (int) Math.floor((dis_y / dis) + 0.59f);
 
 		int dir_x = 0;
 		int dir_y = 0;
@@ -214,114 +227,114 @@ public class L1Character extends L1Object {
 		}
 
 		if (dir_x == 1 && dir_y == -1) {
-			return 1; 
+			return 1;
 		}
 		if (dir_x == 1 && dir_y == 0) {
 			return 2;
 		}
 		if (dir_x == 1 && dir_y == 1) {
-			return 3; 
+			return 3;
 		}
 		if (dir_x == 0 && dir_y == 1) {
-			return 4; 
+			return 4;
 		}
 		if (dir_x == -1 && dir_y == 1) {
-			return 5; 
+			return 5;
 		}
 		if (dir_x == -1 && dir_y == 0) {
 			return 6;
 		}
 		if (dir_x == -1 && dir_y == -1) {
-			return 7; 
+			return 7;
 		}
 		if (dir_x == 0 && dir_y == -1) {
-			return 0; 
+			return 0;
 		}
-		return getHeading(); 
+		return getHeading();
 	}
 
 	public boolean glanceCheck(int tx, int ty) {
-        // A Java implementation of Bresenham's line algorithm (with modifications).
-        int chx = getX();
-        int chy = getY();
-        
-        int dx = Math.abs(chx - tx);
-        int dy = Math.abs(chy - ty);
-        
-        // If standing on top of target, always return true.
-        if (dx == 0 && dy == 0) {
-                return true;
-        }
+		// A Java implementation of Bresenham's line algorithm (with
+		// modifications).
+		int chx = getX();
+		int chy = getY();
 
-        // If standing right next to target, return true, but only if the 
-        // direction test is passed.  Otherwise, do the normal check.  Needed 
-        // for doorways.
-        if (dx <= 1 && dy <= 1) {
-                if (getMap().isArrowPassable(chx, chy, targetDirection(tx, ty))) {
-                        return true;
-                }
-        }
-        
-        
-        int sx = chx < tx ? 1 : -1;
-        int sy = chy < ty ? 1 : -1;
+		int dx = Math.abs(chx - tx);
+		int dy = Math.abs(chy - ty);
 
-        int err = dx - dy;
-        int e2;
-        int currentX = chx;
-        int currentY = chy;
+		// If standing on top of target, always return true.
+		if (dx == 0 && dy == 0) {
+			return true;
+		}
 
-        while (true) {
-                if (!getMap().isArrowPassable(currentX, currentY)) {
-                        return false;
-                }
+		// If standing right next to target, return true, but only if the
+		// direction test is passed. Otherwise, do the normal check. Needed
+		// for doorways.
+		if (dx <= 1 && dy <= 1) {
+			if (getMap().isArrowPassable(chx, chy, targetDirection(tx, ty))) {
+				return true;
+			}
+		}
 
-                if (currentX == tx && currentY == ty) {
-                        break;
-                }
+		int sx = chx < tx ? 1 : -1;
+		int sy = chy < ty ? 1 : -1;
 
-                e2 = 2 * err;
-                if (e2 > -1 * dy) {
-                        err = err - dy;
-                        currentX = currentX + sx;
-                }
+		int err = dx - dy;
+		int e2;
+		int currentX = chx;
+		int currentY = chy;
 
-                if (e2 < dx) {
-                        err = err + dx;
-                        currentY = currentY + sy;
-                }
-        }
-        
-        // Check the reverse, ensuring both objects have visibility.  
-        // Without this, we get an off-by one at certain angles.
-        dx = Math.abs(tx - chx);
-        dy = Math.abs(ty - chy);
-        sx = tx < chx ? 1 : -1;
-        sy = ty < chy ? 1 : -1;
-        err = dx - dy;
-        currentX = tx;
-        currentY = ty;
+		while (true) {
+			if (!getMap().isArrowPassable(currentX, currentY)) {
+				return false;
+			}
 
-        while (true) {
-                if (!getMap().isArrowPassable(currentX, currentY)) {
-                        return false;
-                }
+			if (currentX == tx && currentY == ty) {
+				break;
+			}
 
-                if (currentX == chx && currentY == chy) {
-                        break;
-                }
-                e2 = 2 * err;
-                if (e2 > -1 * dy) {
-                        err = err - dy;
-                        currentX = currentX + sx;
-                }
-                if (e2 < dx) {
-                        err = err + dx;
-                        currentY = currentY + sy;
-                }
-        }
-        
-        return true;
+			e2 = 2 * err;
+			if (e2 > -1 * dy) {
+				err = err - dy;
+				currentX = currentX + sx;
+			}
+
+			if (e2 < dx) {
+				err = err + dx;
+				currentY = currentY + sy;
+			}
+		}
+
+		// Check the reverse, ensuring both objects have visibility.
+		// Without this, we get an off-by one at certain angles.
+		dx = Math.abs(tx - chx);
+		dy = Math.abs(ty - chy);
+		sx = tx < chx ? 1 : -1;
+		sy = ty < chy ? 1 : -1;
+		err = dx - dy;
+		currentX = tx;
+		currentY = ty;
+
+		while (true) {
+			if (!getMap().isArrowPassable(currentX, currentY)) {
+				return false;
+			}
+
+			if (currentX == chx && currentY == chy) {
+				break;
+			}
+			e2 = 2 * err;
+			if (e2 > -1 * dy) {
+				err = err - dy;
+				currentX = currentX + sx;
+			}
+			if (e2 < dx) {
+				err = err + dx;
+				currentY = currentY + sy;
+			}
+		}
+
+		return true;
 
 	}
 
@@ -357,7 +370,7 @@ public class L1Character extends L1Object {
 					&& (remainingTimeMills < timeMillis || timeMillis == 0)) {
 				killSkillEffectTimer(skillId);
 				addSkillEffect(skillId, timeMillis);
-					}
+			}
 		} else {
 			addSkillEffect(skillId, timeMillis);
 		}
@@ -406,8 +419,14 @@ public class L1Character extends L1Object {
 	}
 
 	private boolean _isSkillDelay = false;
-	public void setSkillDelay(boolean flag) { _isSkillDelay = flag; }
-	public boolean isSkillDelay() { return _isSkillDelay; }
+
+	public void setSkillDelay(boolean flag) {
+		_isSkillDelay = flag;
+	}
+
+	public boolean isSkillDelay() {
+		return _isSkillDelay;
+	}
 
 	public void addItemDelay(int delayId, L1ItemDelay.ItemDelayTimer timer) {
 		_itemdelay.put(delayId, timer);
@@ -460,7 +479,7 @@ public class L1Character extends L1Object {
 	public Map<Integer, L1FollowerInstance> getFollowerList() {
 		return _followerlist;
 	}
-	
+
 	public void setPoison(L1Poison poison) {
 		_poison = poison;
 	}
@@ -485,7 +504,7 @@ public class L1Character extends L1Object {
 			return ZoneType.Safety;
 		} else if (getMap().isCombatZone(getLocation())) {
 			return ZoneType.Combat;
-		} else { 
+		} else {
 			return ZoneType.Normal;
 		}
 	}
@@ -497,15 +516,13 @@ public class L1Character extends L1Object {
 	}
 
 	public void setExp(int exp) {
-		if(!(isDead() && exp > 0)){ //TODO Fix for exp while dead in party
+		if (!(isDead() && exp > 0)) { // TODO Fix for exp while dead in party
 			_exp = exp;
 		}
 	}
 
-	private final List<L1Object> _knownObjects = 
-		new CopyOnWriteArrayList<L1Object>();
-	private final List<L1PcInstance> _knownPlayer =
-		new CopyOnWriteArrayList<L1PcInstance>();
+	private final List<L1Object> _knownObjects = new CopyOnWriteArrayList<L1Object>();
+	private final List<L1PcInstance> _knownPlayer = new CopyOnWriteArrayList<L1PcInstance>();
 
 	public boolean knownsObject(L1Object obj) {
 		return _knownObjects.contains(obj);
@@ -540,15 +557,27 @@ public class L1Character extends L1Object {
 		_knownPlayer.clear();
 	}
 
-	private String _name; 
-	public String getName() { return _name; }
-	public void setName(String s) { _name = s; }
+	private String _name;
 
-	private int _level; 
-	public synchronized int getLevel() { return _level; }
-	public synchronized void setLevel(long level) { _level = (int) level; }
+	public String getName() {
+		return _name;
+	}
 
-	private short _maxHp = 0; 
+	public void setName(String s) {
+		_name = s;
+	}
+
+	private int _level;
+
+	public synchronized int getLevel() {
+		return _level;
+	}
+
+	public synchronized void setLevel(long level) {
+		_level = (int) level;
+	}
+
+	private short _maxHp = 0;
 	private int _trueMaxHp = 0;
 
 	public short getMaxHp() {
@@ -566,7 +595,7 @@ public class L1Character extends L1Object {
 	}
 
 	private short _maxMp = 0;
-	private int _trueMaxMp = 0; 
+	private int _trueMaxMp = 0;
 
 	public short getMaxMp() {
 		return _maxMp;
@@ -598,8 +627,8 @@ public class L1Character extends L1Object {
 		setAc(_trueAc + i);
 	}
 
-	private byte _str = 0; 
-	private short _trueStr = 0; 
+	private byte _str = 0;
+	private short _trueStr = 0;
 
 	public byte getStr() {
 		return _str;
@@ -614,7 +643,7 @@ public class L1Character extends L1Object {
 		setStr(_trueStr + i);
 	}
 
-	private byte _con = 0; 
+	private byte _con = 0;
 	private short _trueCon = 0;
 
 	public byte getCon() {
@@ -630,7 +659,7 @@ public class L1Character extends L1Object {
 		setCon(_trueCon + i);
 	}
 
-	private byte _dex = 0; 
+	private byte _dex = 0;
 	private short _trueDex = 0;
 
 	public byte getDex() {
@@ -646,8 +675,8 @@ public class L1Character extends L1Object {
 		setDex(_trueDex + i);
 	}
 
-	private byte _cha = 0; 
-	private short _trueCha = 0; 
+	private byte _cha = 0;
+	private short _trueCha = 0;
 
 	public byte getCha() {
 		return _cha;
@@ -662,8 +691,8 @@ public class L1Character extends L1Object {
 		setCha(_trueCha + i);
 	}
 
-	private byte _int = 0; 
-	private short _trueInt = 0; 
+	private byte _int = 0;
+	private short _trueInt = 0;
 
 	public byte getInt() {
 		return _int;
@@ -678,8 +707,8 @@ public class L1Character extends L1Object {
 		setInt(_trueInt + i);
 	}
 
-	private byte _wis = 0; 
-	private short _trueWis = 0; 
+	private byte _wis = 0;
+	private short _trueWis = 0;
 
 	public byte getWis() {
 		return _wis;
@@ -695,56 +724,62 @@ public class L1Character extends L1Object {
 	}
 
 	private int _wind = 0;
-	private int _trueWind = 0; 
+	private int _trueWind = 0;
 
 	public int getWind() {
 		return _wind;
-	} 
+	}
 
 	public void addWind(int i) {
 		_trueWind += i;
 		_wind = IntRange.ensure(_trueWind, -128, 127);
 	}
 
-	private int _water = 0; 
-	private int _trueWater = 0; 
+	private int _water = 0;
+	private int _trueWater = 0;
 
 	public int getWater() {
 		return _water;
-	} 
+	}
 
 	public void addWater(int i) {
 		_trueWater += i;
 		_water = IntRange.ensure(_trueWater, -128, 127);
 	}
 
-	private int _fire = 0; 
+	private int _fire = 0;
 	private int _trueFire = 0;
 
 	public int getFire() {
 		return _fire;
-	} 
+	}
 
 	public void addFire(int i) {
 		_trueFire += i;
 		_fire = IntRange.ensure(_trueFire, -128, 127);
 	}
 
-	private int _earth = 0; 
+	private int _earth = 0;
 	private int _trueEarth = 0;
 
 	public int getEarth() {
 		return _earth;
-	} 
+	}
 
 	public void addEarth(int i) {
 		_trueEarth += i;
 		_earth = IntRange.ensure(_trueEarth, -128, 127);
 	}
 
-	private int _addAttrKind; 
-	public int getAddAttrKind() { return _addAttrKind; }
-	public void setAddAttrKind(int i) { _addAttrKind = i; }
+	private int _addAttrKind;
+
+	public int getAddAttrKind() {
+		return _addAttrKind;
+	}
+
+	public void setAddAttrKind(int i) {
+		_addAttrKind = i;
+	}
 
 	private int _resistStun = 0;
 	private int _trueResistStun = 0;
@@ -763,7 +798,7 @@ public class L1Character extends L1Object {
 
 	public int getResistStone() {
 		return _resistStone;
-	} 
+	}
 
 	public void addResistStone(int i) {
 		_trueResistStone += i;
@@ -775,7 +810,7 @@ public class L1Character extends L1Object {
 
 	public int getResistSleep() {
 		return _resistSleep;
-	} 
+	}
 
 	public void addResistSleep(int i) {
 		_trueResistSleep += i;
@@ -787,7 +822,7 @@ public class L1Character extends L1Object {
 
 	public int getResistFreeze() {
 		return _resistFreeze;
-	} 
+	}
 
 	public void addResistFreeze(int i) {
 		_trueResistFreeze += i;
@@ -831,47 +866,47 @@ public class L1Character extends L1Object {
 	}
 
 	private int _bowDmgup = 0;
-	private int _trueBowDmgup = 0; 
+	private int _trueBowDmgup = 0;
 
 	public int getBowDmgup() {
 		return _bowDmgup;
-	} 
+	}
 
 	public void addBowDmgup(int i) {
 		_trueBowDmgup += i;
 		_bowDmgup = IntRange.ensure(_trueBowDmgup, -128, 127);
 	}
 
-	private int _hitup = 0; 
-	private int _trueHitup = 0; 
+	private int _hitup = 0;
+	private int _trueHitup = 0;
 
 	public int getHitup() {
 		return _hitup;
-	} 
+	}
 
 	public void addHitup(int i) {
 		_trueHitup += i;
 		_hitup = IntRange.ensure(_trueHitup, -128, 127);
 	}
 
-	private int _bowHitup = 0; 
-	private int _trueBowHitup = 0; 
+	private int _bowHitup = 0;
+	private int _trueBowHitup = 0;
 
 	public int getBowHitup() {
 		return _bowHitup;
-	} 
+	}
 
 	public void addBowHitup(int i) {
 		_trueBowHitup += i;
 		_bowHitup = IntRange.ensure(_trueBowHitup, -128, 127);
 	}
 
-	private int _mr = 0; 
-	private int _trueMr = 0; 
+	private int _mr = 0;
+	private int _trueMr = 0;
 
 	public int getMr() {
 		return hasSkillEffect(ERASE_MAGIC) ? _mr / 4 : _mr;
-	} 
+	}
 
 	public int getTrueMr() {
 		return _trueMr;
@@ -886,7 +921,7 @@ public class L1Character extends L1Object {
 		}
 	}
 
-	private int _sp = 0; 
+	private int _sp = 0;
 
 	public int getSp() {
 		return getTrueSp() + _sp;
@@ -901,52 +936,106 @@ public class L1Character extends L1Object {
 	}
 
 	private boolean _isDead;
-	public boolean isDead() { return _isDead; }
-	public void setDead(boolean flag) { _isDead = flag; }
 
-	private int _status; 
-	public int getStatus() { return _status; }
-	public void setStatus(int i) { _status = i; }
+	public boolean isDead() {
+		return _isDead;
+	}
+
+	public void setDead(boolean flag) {
+		_isDead = flag;
+	}
+
+	private int _status;
+
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int i) {
+		_status = i;
+	}
 
 	private String _title;
-	public String getTitle() { return _title; }
-	public void setTitle(String s) { _title = s; }
 
-	private int _lawful; 
-	public int getLawful() { return _lawful; }
-	public void setLawful(int i) { _lawful = i; }
+	public String getTitle() {
+		return _title;
+	}
+
+	public void setTitle(String s) {
+		_title = s;
+	}
+
+	private int _lawful;
+
+	public int getLawful() {
+		return _lawful;
+	}
+
+	public void setLawful(int i) {
+		_lawful = i;
+	}
 
 	public synchronized void addLawful(int i) {
 		_lawful += i;
 		_lawful = IntRange.ensure(_lawful, -32768, 32767);
 	}
 
-	private int _heading; 
-	public int getHeading() { return _heading; }
-	public void setHeading(int i) { _heading = i; }
+	private int _heading;
 
-	private int _moveSpeed; 
-	public int getMoveSpeed() { return _moveSpeed; }
-	public void setMoveSpeed(int i) { _moveSpeed = i; }
+	public int getHeading() {
+		return _heading;
+	}
+
+	public void setHeading(int i) {
+		_heading = i;
+	}
+
+	private int _moveSpeed;
+
+	public int getMoveSpeed() {
+		return _moveSpeed;
+	}
+
+	public void setMoveSpeed(int i) {
+		_moveSpeed = i;
+	}
 
 	private int _braveSpeed;
-	public int getBraveSpeed() { return _braveSpeed; }
-	public void setBraveSpeed(int i) { _braveSpeed = i; }
 
-	private int _tempCharGfx; 
-	public int getTempCharGfx() { return _tempCharGfx; }
-	public void setTempCharGfx(int i) { _tempCharGfx = i; }
+	public int getBraveSpeed() {
+		return _braveSpeed;
+	}
 
-	private int _gfxid; 
-	public int getGfxId() { return _gfxid; }
-	public void setGfxId(int i) { _gfxid = i; }
+	public void setBraveSpeed(int i) {
+		_braveSpeed = i;
+	}
+
+	private int _tempCharGfx;
+
+	public int getTempCharGfx() {
+		return _tempCharGfx;
+	}
+
+	public void setTempCharGfx(int i) {
+		_tempCharGfx = i;
+	}
+
+	private int _gfxid;
+
+	public int getGfxId() {
+		return _gfxid;
+	}
+
+	public void setGfxId(int i) {
+		_gfxid = i;
+	}
 
 	public int getMagicLevel() {
 		return getLevel() / 4;
 	}
 
-	private static final int[] magicBonus =
-		{ -2, -2, -2, -2, -2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 1, // 0-14
+	private static final int[] magicBonus = { -2, -2, -2, -2, -2, -2, -1, -1,
+			-1, 0, 0, 0, 1, 1, 1, // 0-14
 			2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, // 15-30
 			10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, // 31-43
 			12, 12, 12, 12, 12, 12, 13 }; // 44-50
@@ -957,8 +1046,7 @@ public class L1Character extends L1Object {
 	}
 
 	public boolean isInvisble() {
-		return (hasSkillEffect(INVISIBILITY)
-				|| hasSkillEffect(BLIND_HIDING));
+		return (hasSkillEffect(INVISIBILITY) || hasSkillEffect(BLIND_HIDING));
 	}
 
 	public void healHp(int pt) {
@@ -966,8 +1054,14 @@ public class L1Character extends L1Object {
 	}
 
 	private int _karma;
-	public int getKarma() { return _karma; }
-	public void setKarma(int karma) { _karma = karma; }
+
+	public int getKarma() {
+		return _karma;
+	}
+
+	public void setKarma(int karma) {
+		_karma = karma;
+	}
 
 	public void setMr(int i) {
 		_trueMr = i;
@@ -982,22 +1076,21 @@ public class L1Character extends L1Object {
 		int lightSize = 0;
 		if (this instanceof L1NpcInstance) {
 			L1NpcInstance npc = (L1NpcInstance) this;
-			lightSize = npc.getLightSize(); // 
+			lightSize = npc.getLightSize(); //
 		}
 		if (hasSkillEffect(L1SkillId.LIGHT)) {
 			lightSize = 14;
 		}
 
 		for (L1ItemInstance item : getInventory().getItems()) {
-			if (item.getItem().getType2() == 0 && item.getItem()
-					.getType() == 2) { // 
+			if (item.getItem().getType2() == 0 && item.getItem().getType() == 2) { //
 				int itemlightSize = item.getItem().getLightRange();
 				if (itemlightSize != 0 && item.isNowLighting()) {
 					if (itemlightSize > lightSize) {
 						lightSize = itemlightSize;
 					}
 				}
-					}
+			}
 		}
 
 		if (this instanceof L1PcInstance) {
@@ -1008,11 +1101,11 @@ public class L1Character extends L1Object {
 			broadcastPacket(new S_Light(getId(), lightSize));
 		}
 
-		setOwnLightSize(lightSize); // 
-		setChaLightSize(lightSize); // 
+		setOwnLightSize(lightSize); //
+		setChaLightSize(lightSize); //
 	}
 
-	private int _chaLightSize; // 
+	private int _chaLightSize; //
 
 	public int getChaLightSize() {
 		if (isInvisble()) {
@@ -1026,6 +1119,12 @@ public class L1Character extends L1Object {
 	}
 
 	private int _ownLightSize;
-	public int getOwnLightSize() { return _ownLightSize; }
-	public void setOwnLightSize(int i) { _ownLightSize = i; }
+
+	public int getOwnLightSize() {
+		return _ownLightSize;
+	}
+
+	public void setOwnLightSize(int i) {
+		_ownLightSize = i;
+	}
 }

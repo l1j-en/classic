@@ -31,7 +31,8 @@ import l1j.server.server.templates.L1ArmorSets;
 import l1j.server.server.utils.SQLUtil;
 
 public class ArmorSetTable {
-	private static Logger _log = Logger.getLogger(ArmorSetTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(ArmorSetTable.class.getName());
 	private static ArmorSetTable _instance;
 	private final ArrayList<L1ArmorSets> _armorSetList = new ArrayList<L1ArmorSets>();
 

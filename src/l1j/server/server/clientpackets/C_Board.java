@@ -42,7 +42,7 @@ public class C_Board extends ClientBasePacket {
 		int objectId = readD();
 		L1Object obj = L1World.getInstance().findObject(objectId);
 		if (!isBoardInstance(obj)) {
-		return;
+			return;
 		}
 		obj.onAction(client.getActiveChar());
 	}

@@ -48,7 +48,6 @@ public class CastleTable {
 		return _instance;
 	}
 
-
 	public CastleTable() {
 		CastleTable();
 	}
@@ -63,14 +62,15 @@ public class CastleTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM castle");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				L1Castle castle = new L1Castle(rs.getInt(1), rs.getString(2));
-				castle.setWarTime(timestampToCalendar((Timestamp) rs.getObject(3)));
+				castle.setWarTime(timestampToCalendar((Timestamp) rs
+						.getObject(3)));
 				castle.setTaxRate(rs.getInt(4));
 				castle.setPublicMoney(rs.getInt(5));
 				_castles.put(castle.getId(), castle);
@@ -95,13 +95,17 @@ public class CastleTable {
 	public void insertCastle(L1Castle castle) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO castle SET name=?, war_time=?, " +
-					"tax_rate=?, public_money=? WHERE castle_id=?");
+			pstm = con
+					.prepareStatement("INSERT INTO castle SET name=?, war_time=?, "
+							+ "tax_rate=?, public_money=? WHERE castle_id=?");
 			pstm.setString(1, castle.getName());
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //this format saves and updates the time of your system for auctiontable
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss"); // this format saves and updates the
+											// time of your system for
+											// auctiontable
 			String dateString = format.format(castle.getWarTime().getTime());
 			pstm.setString(2, dateString);
 			pstm.setInt(3, castle.getTaxRate());
@@ -116,16 +120,20 @@ public class CastleTable {
 			SQLUtil.close(con);
 		}
 	}
-	
+
 	public void updateCastle(L1Castle castle) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE castle SET name=?, war_time=?, tax_rate=?, public_money=? WHERE castle_id=?");
+			pstm = con
+					.prepareStatement("UPDATE castle SET name=?, war_time=?, tax_rate=?, public_money=? WHERE castle_id=?");
 			pstm.setString(1, castle.getName());
-	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //this format saves and updates the time of your system for castletable
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss"); // this format saves and updates the
+											// time of your system for
+											// castletable
 			String dateString = format.format(castle.getWarTime().getTime());
 			pstm.setString(2, dateString);
 			pstm.setInt(3, castle.getTaxRate());

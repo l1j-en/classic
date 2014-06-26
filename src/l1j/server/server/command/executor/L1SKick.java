@@ -52,10 +52,10 @@ public class L1SKick implements L1CommandExecutor {
 				ClientThread targetClient = target.getNetConnection();
 				targetClient.kick();
 				_log.warning("GM skick of (" + targetClient.getAccountName()
-						+ ":" + targetClient.getHostname() + ") closing connections.");
+						+ ":" + targetClient.getHostname()
+						+ ") closing connections.");
 			} else {
-				pc.sendPackets(new S_SystemMessage(
-						"No such player."));
+				pc.sendPackets(new S_SystemMessage("No such player."));
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));

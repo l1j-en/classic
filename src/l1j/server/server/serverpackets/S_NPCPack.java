@@ -52,7 +52,12 @@ public class S_NPCPack extends ServerBasePacket {
 		} else {
 			writeH(npc.getTempCharGfx());
 		}
-		if (npc.getNpcTemplate().is_doppel() && npc.getGfxId() != 31) { // Slime to see if the Dopper
+		if (npc.getNpcTemplate().is_doppel() && npc.getGfxId() != 31) { // Slime
+																		// to
+																		// see
+																		// if
+																		// the
+																		// Dopper
 			writeC(4);
 		} else {
 			writeC(npc.getStatus());
@@ -64,9 +69,11 @@ public class S_NPCPack extends ServerBasePacket {
 		writeH(npc.getTempLawful());
 		writeS(npc.getNameId());
 		if (npc instanceof L1FieldObjectInstance) {
-			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance().getTemplate(npc.getNpcTemplate().get_npcId());
+			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance()
+					.getTemplate(npc.getNpcTemplate().get_npcId());
 			if (talkdata != null) {
-				writeS(talkdata.getNormalAction()); // HTML title is interpreted as the name
+				writeS(talkdata.getNormalAction()); // HTML title is interpreted
+													// as the name
 			} else {
 				writeS(null);
 			}
@@ -81,7 +88,8 @@ public class S_NPCPack extends ServerBasePacket {
 			}
 		}
 		if (npc.getNpcTemplate().is_doppel()) {
-			// PC's and Eva's blessing to attribute.. Dopper with the exception of the Quest for WIZ
+			// PC's and Eva's blessing to attribute.. Dopper with the exception
+			// of the Quest for WIZ
 			if (npc.getNpcTemplate().get_npcId() != 81069) {
 				status |= STATUS_PC;
 			}

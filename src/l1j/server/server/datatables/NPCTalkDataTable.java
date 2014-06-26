@@ -27,7 +27,8 @@ import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.utils.SQLUtil;
 
 public class NPCTalkDataTable {
-	private static Logger _log = Logger.getLogger(NPCTalkDataTable.class.getName());
+	private static Logger _log = Logger.getLogger(NPCTalkDataTable.class
+			.getName());
 	private static NPCTalkDataTable _instance;
 	private HashMap<Integer, L1NpcTalkData> _datatable = new HashMap<Integer, L1NpcTalkData>();
 
@@ -57,7 +58,8 @@ public class NPCTalkDataTable {
 				l1npctalkdata.setCaoticAction(rs.getString(3));
 				l1npctalkdata.setTeleportURL(rs.getString(4));
 				l1npctalkdata.setTeleportURLA(rs.getString(5));
-				_datatable.put(new Integer(l1npctalkdata.getNpcID()), l1npctalkdata);
+				_datatable.put(new Integer(l1npctalkdata.getNpcID()),
+						l1npctalkdata);
 			}
 			_log.config("NPC Action List: " + _datatable.size() + " Loaded");
 		} catch (SQLException e) {

@@ -69,7 +69,8 @@ public class L1DoorGfx {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM door_gfxs WHERE gfxid = ?");
+			pstm = con
+					.prepareStatement("SELECT * FROM door_gfxs WHERE gfxid = ?");
 			pstm.setInt(1, gfxId);
 			rs = pstm.executeQuery();
 			if (!rs.next()) {

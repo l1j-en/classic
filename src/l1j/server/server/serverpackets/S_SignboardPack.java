@@ -27,7 +27,8 @@ import l1j.server.server.model.Instance.L1SignboardInstance;
 // ServerBasePacket, S_SignboardPack
 
 public class S_SignboardPack extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_SignboardPack.class.getName());
+	private static Logger _log = Logger.getLogger(S_SignboardPack.class
+			.getName());
 	private static final String S_SIGNBOARD_PACK = "[S] S_SignboardPack";
 	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
@@ -54,7 +55,7 @@ public class S_SignboardPack extends ServerBasePacket {
 		writeS(null);
 		writeS(signboard.getName());
 		int status = 0;
-		if (signboard.getPoison() != null) { 
+		if (signboard.getPoison() != null) {
 			if (signboard.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}

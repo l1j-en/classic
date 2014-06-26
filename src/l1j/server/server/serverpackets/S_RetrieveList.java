@@ -45,7 +45,10 @@ public class S_RetrieveList extends ServerBasePacket {
 				}
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(263)); // People have the character could walk up to a maximum of 180 items.
+			pc.sendPackets(new S_ServerMessage(263)); // People have the
+														// character could walk
+														// up to a maximum of
+														// 180 items.
 		}
 	}
 

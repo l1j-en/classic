@@ -5,7 +5,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1CharacterBuff;
 
 public interface L1BuffSkillExecutor {
-	public void addEffect(L1Character user, L1Character target, int durationSeconds);
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds);
 
 	public void restoreEffect(L1PcInstance target, L1CharacterBuff buff);
 

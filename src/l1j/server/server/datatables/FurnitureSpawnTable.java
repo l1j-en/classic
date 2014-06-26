@@ -36,7 +36,8 @@ import l1j.server.server.utils.SQLUtil;
 
 @SuppressWarnings("unused")
 public class FurnitureSpawnTable {
-	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class.getName());
+	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class
+			.getName());
 	private static FurnitureSpawnTable _instance;
 
 	public static FurnitureSpawnTable getInstance() {
@@ -112,7 +113,8 @@ public class FurnitureSpawnTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO spawnlist_furniture SET item_obj_id=?, npcid=?, locx=?, locy=?, mapid=?");
+			pstm = con
+					.prepareStatement("INSERT INTO spawnlist_furniture SET item_obj_id=?, npcid=?, locx=?, locy=?, mapid=?");
 			pstm.setInt(1, furniture.getItemObjId());
 			pstm.setInt(2, furniture.getNpcTemplate().get_npcId());
 			pstm.setInt(3, furniture.getX());
@@ -132,7 +134,8 @@ public class FurnitureSpawnTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM spawnlist_furniture WHERE item_obj_id=?");
+			pstm = con
+					.prepareStatement("DELETE FROM spawnlist_furniture WHERE item_obj_id=?");
 			pstm.setInt(1, furniture.getItemObjId());
 			pstm.execute();
 		} catch (SQLException e) {

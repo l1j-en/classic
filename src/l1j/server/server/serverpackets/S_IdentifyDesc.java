@@ -24,8 +24,10 @@ import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_IdentifyDesc extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_IdentifyDesc.class.getName());
+	private static Logger _log = Logger.getLogger(S_IdentifyDesc.class
+			.getName());
 	private byte[] _byte = null;
+
 	/**
 	 * Scroll confirmation message when you use the
 	 */
@@ -50,8 +52,9 @@ public class S_IdentifyDesc extends ServerBasePacket {
 			writeS(item.getItem().getDmgSmall() + "+" + item.getEnchantLevel());
 			writeS(item.getItem().getDmgLarge() + "+" + item.getEnchantLevel());
 		} else if (item.getItem().getType2() == 2) { // armor
-			if (item.getItem().getItemId() == 20383) { // helmet for horse riding
-				writeH(137); 
+			if (item.getItem().getItemId() == 20383) { // helmet for horse
+														// riding
+				writeH(137);
 				writeC(3);
 				writeS(name.toString());
 				writeS(String.valueOf(item.getChargeCount()));
@@ -59,11 +62,13 @@ public class S_IdentifyDesc extends ServerBasePacket {
 				writeH(135); // 1 percent of defense force protection equipment
 				writeC(2);
 				writeS(name.toString());
-				writeS(Math.abs(item.getItem().get_ac()) + "+" + item.getEnchantLevel());
+				writeS(Math.abs(item.getItem().get_ac()) + "+"
+						+ item.getEnchantLevel());
 			}
 		} else if (item.getItem().getType2() == 0) { // etcitem
 			if (item.getItem().getType() == 1) { // wand
-				writeH(137); // number of available 1 percent of the weight of 2%]
+				writeH(137); // number of available 1 percent of the weight of
+								// 2%]
 				writeC(3);
 				writeS(name.toString());
 				writeS(String.valueOf(item.getChargeCount()));

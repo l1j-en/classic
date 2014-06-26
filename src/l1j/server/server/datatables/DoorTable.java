@@ -37,10 +37,10 @@ public class DoorTable {
 	private static Logger _log = Logger.getLogger(DoorTable.class.getName());
 	private static DoorTable _instance;
 
-	private final Map<L1Location, L1DoorInstance> _doors = 
-		Maps.newConcurrentHashMap();
-	private final Map<L1Location, L1DoorInstance> _doorDirections = 
-		Maps.newConcurrentHashMap();
+	private final Map<L1Location, L1DoorInstance> _doors = Maps
+			.newConcurrentHashMap();
+	private final Map<L1Location, L1DoorInstance> _doorDirections = Maps
+			.newConcurrentHashMap();
 
 	public static void initialize() {
 		_instance = new DoorTable();
@@ -58,12 +58,14 @@ public class DoorTable {
 		for (L1DoorSpawn spawn : L1DoorSpawn.all()) {
 			L1Location loc = spawn.getLocation();
 			if (_doors.containsKey(loc)) {
-				_log.log(Level.WARNING, String.format(
-						"Duplicate door location: id = %d", spawn.getId()));
+				_log.log(
+						Level.WARNING,
+						String.format("Duplicate door location: id = %d",
+								spawn.getId()));
 				continue;
 			}
-			createDoor(spawn.getId(), spawn.getGfx(), loc, spawn.getHp(), spawn
-					.getKeeper());
+			createDoor(spawn.getId(), spawn.getGfx(), loc, spawn.getHp(),
+					spawn.getKeeper());
 		}
 	}
 

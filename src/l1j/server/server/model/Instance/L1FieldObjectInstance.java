@@ -35,16 +35,16 @@ import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 
 public class L1FieldObjectInstance extends L1NpcInstance {
 
-    private static final long serialVersionUID = 1L;
-    private static Logger _log =
-		Logger.getLogger(L1FieldObjectInstance.class.getName());
+	private static final long serialVersionUID = 1L;
+	private static Logger _log = Logger.getLogger(L1FieldObjectInstance.class
+			.getName());
 
-    public L1FieldObjectInstance(L1Npc template) {
-        super(template);
-    }
+	public L1FieldObjectInstance(L1Npc template) {
+		super(template);
+	}
 
-    @Override
-    public void onAction(L1PcInstance pc) {
+	@Override
+	public void onAction(L1PcInstance pc) {
 		if (getNpcTemplate().get_npcId() != 81171)
 			return;
 
@@ -75,23 +75,22 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 			item.setCount(1);
 			checkAddNotify(pc, item);
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(), 
+			l1skilluse.handleCommands(pc, CANCELLATION, pc.getId(), pc.getX(),
 					pc.getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 			L1Teleport.teleport(pc, 32624, 32813, (short) 4, 5, true);
 		}
-    }
+	}
 
 	private static void checkAddNotify(final L1PcInstance player,
 			final L1ItemInstance item) {
-		if (player.getInventory().checkAddItem(item, item.getCount()) !=
-				L1Inventory.OK)
+		if (player.getInventory().checkAddItem(item, item.getCount()) != L1Inventory.OK)
 			return;
 		player.getInventory().storeItem(item);
 		player.sendPackets(new S_ServerMessage(403, item.getLogName()));
 	}
 
-    @Override
-    public void deleteMe() {
+	@Override
+	public void deleteMe() {
 		_destroyed = true;
 		if (getInventory() != null) {
 			getInventory().clearItems();
@@ -104,5 +103,5 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 			pc.sendPackets(removeMe);
 		}
 		removeAllKnownObjects();
-    }
+	}
 }

@@ -49,9 +49,9 @@ public class L1Ress implements L1CommandExecutor {
 					tg.sendPackets(new S_SystemMessage("GM resurrected you."));
 					tg.broadcastPacket(new S_SkillSound(tg.getId(), 3944));
 					tg.sendPackets(new S_SkillSound(tg.getId(), 3944));
-					
+
 					tg.setTempID(objid);
-					tg.sendPackets(new S_Message_YN(322, "")); 
+					tg.sendPackets(new S_Message_YN(322, ""));
 				} else {
 					tg.sendPackets(new S_SystemMessage("GM healed you."));
 					tg.broadcastPacket(new S_SkillSound(tg.getId(), 832));

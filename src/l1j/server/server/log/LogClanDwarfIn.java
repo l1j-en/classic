@@ -32,17 +32,19 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogClanDwarfIn {
-	private static Logger _log = Logger.getLogger(LogClanDwarfIn.class.getName());
+	private static Logger _log = Logger.getLogger(LogClanDwarfIn.class
+			.getName());
 
-	public void storeLogClanDwarfIn(L1PcInstance pc, L1ItemInstance item, int item_count_before,
-			int item_count_after, int item_in_count) {
+	public void storeLogClanDwarfIn(L1PcInstance pc, L1ItemInstance item,
+			int item_count_before, int item_count_after, int item_in_count) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO LogClanWareHouseIn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-			SimpleDateFormat formatter =
-				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			pstm = con
+					.prepareStatement("INSERT INTO LogClanWareHouseIn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			pstm.setString(1, formatter.format(new Date().getTime()));
 			pstm.setString(2, pc.getNetConnection().getIp());
 			pstm.setString(3, pc.getAccountName());

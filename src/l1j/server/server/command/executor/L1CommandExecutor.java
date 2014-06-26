@@ -20,8 +20,7 @@ package l1j.server.server.command.executor;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
-
 public interface L1CommandExecutor {
-	
+
 	public void execute(L1PcInstance pc, String cmdName, String arg);
 }

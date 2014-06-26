@@ -32,7 +32,8 @@ import l1j.server.Config;
 import l1j.server.server.model.monitor.L1PcMonitor;
 
 public class GeneralThreadPool {
-	private static Logger _log = Logger.getLogger(GeneralThreadPool.class.getName());
+	private static Logger _log = Logger.getLogger(GeneralThreadPool.class
+			.getName());
 
 	private static GeneralThreadPool _instance;
 
@@ -53,16 +54,20 @@ public class GeneralThreadPool {
 
 	private GeneralThreadPool() {
 		if (Config.THREAD_P_TYPE_GENERAL == 1) {
-			_executor = Executors.newFixedThreadPool(Config.THREAD_P_SIZE_GENERAL);
+			_executor = Executors
+					.newFixedThreadPool(Config.THREAD_P_SIZE_GENERAL);
 		} else if (Config.THREAD_P_TYPE_GENERAL == 2) {
 			_executor = Executors.newCachedThreadPool();
 		} else {
 			_executor = null;
 		}
-		_scheduler = Executors.newScheduledThreadPool(SCHEDULED_CORE_POOL_SIZE,
-		new PriorityThreadFactory("GerenalSTPool", Thread.NORM_PRIORITY));
+		_scheduler = Executors
+				.newScheduledThreadPool(SCHEDULED_CORE_POOL_SIZE,
+						new PriorityThreadFactory("GerenalSTPool",
+								Thread.NORM_PRIORITY));
 		_pcScheduler = Executors.newScheduledThreadPool(_pcSchedulerPoolSize,
-		new PriorityThreadFactory("PcMonitorSTPool", Thread.NORM_PRIORITY));
+				new PriorityThreadFactory("PcMonitorSTPool",
+						Thread.NORM_PRIORITY));
 	}
 
 	public void execute(Runnable r) {

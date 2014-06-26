@@ -25,7 +25,8 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_NpcChatPacket extends ServerBasePacket {
 	private static final String S_NPC_CHAT_PACKET = "[S] S_NpcChatPacket";
-	private static Logger _log = Logger.getLogger(S_NpcChatPacket.class.getName());
+	private static Logger _log = Logger.getLogger(S_NpcChatPacket.class
+			.getName());
 	private byte[] _byte = null;
 
 	public S_NpcChatPacket(L1NpcInstance npc, String chat, int type) {
@@ -35,20 +36,22 @@ public class S_NpcChatPacket extends ServerBasePacket {
 	private void buildPacket(L1NpcInstance npc, String chat, int type) {
 		switch (type) {
 		case 0: // normal chat
-			writeC(Opcodes.S_OPCODE_NPCSHOUT); // Key is 16 , can use // desc-?.tbl
+			writeC(Opcodes.S_OPCODE_NPCSHOUT); // Key is 16 , can use //
+												// desc-?.tbl
 			writeC(type); // Color
 			writeD(npc.getId());
 			writeS(npc.getName() + ": " + chat);
 			break;
 		case 2: // shout
-			writeC(Opcodes.S_OPCODE_NPCSHOUT); // Key is 16 , can use // desc-?.tbl
+			writeC(Opcodes.S_OPCODE_NPCSHOUT); // Key is 16 , can use //
+												// desc-?.tbl
 			writeC(type); // Color
 			writeD(npc.getId());
 			writeS("<" + npc.getName() + "> " + chat);
 			break;
 		case 3: // world chat
 			writeC(Opcodes.S_OPCODE_NPCSHOUT);
-			writeC(type); 
+			writeC(type);
 			writeD(npc.getId());
 			writeS("[" + npc.getName() + "] " + chat);
 			break;

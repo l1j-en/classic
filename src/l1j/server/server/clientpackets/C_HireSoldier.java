@@ -27,7 +27,8 @@ import l1j.server.server.ClientThread;
 public class C_HireSoldier extends ClientBasePacket {
 
 	private static final String C_HIRE_SOLDIER = "[C] C_HireSoldier";
-	private static Logger _log = Logger.getLogger(C_HireSoldier.class.getName());
+	private static Logger _log = Logger
+			.getLogger(C_HireSoldier.class.getName());
 
 	public C_HireSoldier(byte[] decrypt, ClientThread client) {
 		super(decrypt);

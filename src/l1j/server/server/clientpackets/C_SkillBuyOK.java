@@ -36,7 +36,8 @@ public class C_SkillBuyOK extends ClientBasePacket {
 	private static final String C_SKILL_BUY_OK = "[C] C_SkillBuyOK";
 	private static Logger _log = Logger.getLogger(C_SkillBuyOK.class.getName());
 
-	public C_SkillBuyOK(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_SkillBuyOK(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		int count = readH();
@@ -163,7 +164,7 @@ public class C_SkillBuyOK extends ClientBasePacket {
 
 		if (!pc.isGm()) {
 			switch (pc.getType()) {
-			case 0: // 
+			case 0: //
 				if (pc.getLevel() < 10) {
 					level1 = 0;
 					level1_cost = 0;
@@ -239,147 +240,172 @@ public class C_SkillBuyOK extends ClientBasePacket {
 			S_SkillSound s_skillSound = new S_SkillSound(pc.getId(), 224);
 			pc.sendPackets(s_skillSound);
 			pc.broadcastPacket(s_skillSound);
-			pc.sendPackets(new S_AddSkill(level1, level2, level3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+			pc.sendPackets(new S_AddSkill(level1, level2, level3, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0));
 
 			if ((level1 & 1) == 1) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(1);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 2) == 2) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(2);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 4) == 4) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(3);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 8) == 8) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(4);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 16) == 16) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(5);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 32) == 32) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(6);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 64) == 64) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(7);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level1 & 128) == 128) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(8);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 
 			if ((level2 & 1) == 1) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(9);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 2) == 2) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(10);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 4) == 4) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(11);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 8) == 8) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(12);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 16) == 16) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(13);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 32) == 32) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(14);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 64) == 64) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(15);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level2 & 128) == 128) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(16);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 
 			if ((level3 & 1) == 1) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(17);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 2) == 2) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(18);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 4) == 4) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(19);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 8) == 8) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(20);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 16) == 16) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(21);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 32) == 32) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(22);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 			if ((level3 & 64) == 64) {
 				L1Skill l1skills = SkillTable.getInstance().findBySkillId(23);
 				skill_name = l1skills.getName();
 				skill_id = l1skills.getSkillId();
-				SkillTable.getInstance().spellMastery(pc.getId(), skill_id, skill_name, 0, 0);
+				SkillTable.getInstance().spellMastery(pc.getId(), skill_id,
+						skill_name, 0, 0);
 			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(189));

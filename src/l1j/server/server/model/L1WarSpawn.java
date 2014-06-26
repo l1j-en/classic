@@ -75,7 +75,7 @@ public class L1WarSpawn {
 	}
 
 	public void SpawnFlag(int castleId) {
-		L1Npc l1npc = NpcTable.getInstance().getTemplate(81122); 
+		L1Npc l1npc = NpcTable.getInstance().getTemplate(81122);
 		int[] loc = new int[5];
 		loc = L1CastleLocation.getWarArea(castleId);
 		int x = 0;
@@ -86,30 +86,34 @@ public class L1WarSpawn {
 		int locy2 = loc[3];
 		short mapid = (short) loc[4];
 		try {
-		for (x = locx1, y = locy1; x <= locx2; x += 8) {
+			for (x = locx1, y = locy1; x <= locx2; x += 8) {
 
-			SpawnWarObject(l1npc, x, y, mapid);
-			Thread.sleep(300); 
-		} }catch (Exception e1) {
+				SpawnWarObject(l1npc, x, y, mapid);
+				Thread.sleep(300);
+			}
+		} catch (Exception e1) {
 		}
 		try {
-		for (x = locx2, y = locy1; y <= locy2; y += 8) {
-			SpawnWarObject(l1npc, x, y, mapid);
-			Thread.sleep(300); 
+			for (x = locx2, y = locy1; y <= locy2; y += 8) {
+				SpawnWarObject(l1npc, x, y, mapid);
+				Thread.sleep(300);
 
-		} }catch (Exception e1) {
+			}
+		} catch (Exception e1) {
 		}
 		try {
-		for (x = locx2, y = locy2; x >= locx1; x -= 8) {
-			SpawnWarObject(l1npc, x, y, mapid);
-			Thread.sleep(300); 
-		} }catch (Exception e1) {
+			for (x = locx2, y = locy2; x >= locx1; x -= 8) {
+				SpawnWarObject(l1npc, x, y, mapid);
+				Thread.sleep(300);
+			}
+		} catch (Exception e1) {
 		}
 		try {
-		for (x = locx1, y = locy2; y >= locy1; y -= 8) {
-			SpawnWarObject(l1npc, x, y, mapid);
-			Thread.sleep(300); 
-		} }catch (Exception e1) {
+			for (x = locx1, y = locy2; y >= locy1; y -= 8) {
+				SpawnWarObject(l1npc, x, y, mapid);
+				Thread.sleep(300);
+			}
+		} catch (Exception e1) {
 
 		}
 	}
@@ -117,12 +121,12 @@ public class L1WarSpawn {
 	private void SpawnWarObject(L1Npc l1npc, int locx, int locy, short mapid) {
 		try {
 			if (l1npc != null) {
-				//Object obj = null;
+				// Object obj = null;
 				String s = l1npc.getImpl();
 				_constructor = Class.forName(
-						(new StringBuilder()).append(
-								"l1j.server.server.model.Instance.").append(s)
-								.append("Instance").toString())
+						(new StringBuilder())
+								.append("l1j.server.server.model.Instance.")
+								.append(s).append("Instance").toString())
 						.getConstructors()[0];
 				Object aobj[] = { l1npc };
 				L1NpcInstance npc = (L1NpcInstance) _constructor

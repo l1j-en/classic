@@ -41,8 +41,9 @@ public class ByteArrayUtil {
 				stringbuffer.append((new StringBuilder()).append(fillHex(k, 4))
 						.append(": ").toString());
 			}
-			stringbuffer.append((new StringBuilder()).append(
-					fillHex(_byteArray[k] & 0xff, 2)).append(" ").toString());
+			stringbuffer.append((new StringBuilder())
+					.append(fillHex(_byteArray[k] & 0xff, 2)).append(" ")
+					.toString());
 			if (++j != 16) {
 				continue;
 			}

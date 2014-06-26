@@ -28,7 +28,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_WarTime extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_WarTime.class.getName());
-	private static final String S_WAR_TIME = "[S] S_WarTime";	
+	private static final String S_WAR_TIME = "[S] S_WarTime";
 
 	public S_WarTime(Calendar cal) {
 		// 1997/01/01 17:00 Based on the

@@ -19,7 +19,9 @@
 package l1j.server.server.encryptions;
 
 public class Opcodes {
-	public Opcodes() { }
+	public Opcodes() {
+	}
+
 	// 3.0 ClientPacket
 	public static final int C_OPCODE_BOOKMARK = 0;
 	public static final int C_OPCODE_FIGHT = 3;

@@ -50,7 +50,7 @@ public class S_LoginResult extends ServerBasePacket {
 		}
 		return _byte;
 	}
-	
+
 	@Override
 	public String getType() {
 		return S_LOGIN_RESULT;

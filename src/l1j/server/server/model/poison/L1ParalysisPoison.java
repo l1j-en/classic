@@ -38,10 +38,9 @@ public class L1ParalysisPoison extends L1Poison {
 			_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
 
 			try {
-				Thread.sleep(_delay); 
+				Thread.sleep(_delay);
 			} catch (InterruptedException e) {
-				_target
-						.killSkillEffectTimer(STATUS_POISON_PARALYZING);
+				_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
 				return;
 			}
 
@@ -53,7 +52,7 @@ public class L1ParalysisPoison extends L1Poison {
 				if (player.isDead() == false) {
 					player.sendPackets(new S_Paralysis(1, true));
 					_timer = new ParalysisTimer();
-					GeneralThreadPool.getInstance().execute(_timer); 
+					GeneralThreadPool.getInstance().execute(_timer);
 					if (isInterrupted()) {
 						_timer.interrupt();
 					}

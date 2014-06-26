@@ -43,12 +43,12 @@ import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
-
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_Amount
 public class C_Amount extends ClientBasePacket {
 
-	private static final Logger _log = Logger.getLogger(C_Amount.class.getName());
+	private static final Logger _log = Logger.getLogger(C_Amount.class
+			.getName());
 	private static final String C_AMOUNT = "[C] C_Amount";
 
 	public C_Amount(byte[] decrypt, ClientThread client) throws Exception {
@@ -59,9 +59,10 @@ public class C_Amount extends ClientBasePacket {
 		String s = readS();
 
 		L1PcInstance pc = client.getActiveChar();
-		L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(objectId);
+		L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(
+				objectId);
 		if (npc == null) {
-		return;
+			return;
 		}
 
 		String s1 = "";
@@ -79,7 +80,7 @@ public class C_Amount extends ClientBasePacket {
 			AuctionBoardTable boardTable = new AuctionBoardTable();
 			for (L1AuctionBoard board : boardTable.getAuctionBoardTableList()) {
 				if (pcName.equalsIgnoreCase(board.getBidder())) {
-					pc.sendPackets(new S_ServerMessage(523)); 
+					pc.sendPackets(new S_ServerMessage(523));
 					return;
 				}
 			}
@@ -94,19 +95,24 @@ public class C_Amount extends ClientBasePacket {
 					board.setBidderId(pc.getId());
 					boardTable.updateAuctionBoard(board);
 					if (nowBidderId != 0) {
-						L1PcInstance bidPc = (L1PcInstance) L1World.getInstance().findObject(nowBidderId);
-						if (bidPc != null) { 
-							bidPc.getInventory().storeItem(L1ItemId.ADENA, nowPrice);
-							bidPc.sendPackets(new S_ServerMessage(525, String.valueOf(nowPrice)));
-						} else { 
-							L1ItemInstance item = ItemTable.getInstance().createItem(L1ItemId.ADENA);
+						L1PcInstance bidPc = (L1PcInstance) L1World
+								.getInstance().findObject(nowBidderId);
+						if (bidPc != null) {
+							bidPc.getInventory().storeItem(L1ItemId.ADENA,
+									nowPrice);
+							bidPc.sendPackets(new S_ServerMessage(525, String
+									.valueOf(nowPrice)));
+						} else {
+							L1ItemInstance item = ItemTable.getInstance()
+									.createItem(L1ItemId.ADENA);
 							item.setCount(nowPrice);
-							CharactersItemStorage storage = CharactersItemStorage.create();
+							CharactersItemStorage storage = CharactersItemStorage
+									.create();
 							storage.storeItem(nowBidderId, item);
 						}
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(189)); 
+					pc.sendPackets(new S_ServerMessage(189));
 				}
 			}
 		} else if (s1.equalsIgnoreCase("agsell")) {
@@ -120,8 +126,8 @@ public class C_Amount extends ClientBasePacket {
 				board.setHouseArea(house.getHouseArea());
 				TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
 				Calendar cal = Calendar.getInstance(tz);
-				cal.add(Calendar.DATE, 5); 
-				cal.set(Calendar.MINUTE, 0); 
+				cal.add(Calendar.DATE, 5);
+				cal.set(Calendar.MINUTE, 0);
 				cal.set(Calendar.SECOND, 0);
 				board.setDeadline(cal);
 				board.setPrice(amount);
@@ -131,21 +137,21 @@ public class C_Amount extends ClientBasePacket {
 				board.setBidder("");
 				board.setBidderId(0);
 				boardTable.insertAuctionBoard(board);
-				house.setOnSale(true); 
-				house.setPurchaseBasement(true); 
-				HouseTable.getInstance().updateHouse(house); 
+				house.setOnSale(true);
+				house.setPurchaseBasement(true);
+				HouseTable.getInstance().updateHouse(house);
 			}
 		} else {
 			L1NpcAction action = NpcActionTable.getInstance().get(s, pc, npc);
-				if (action != null) {
+			if (action != null) {
 				L1NpcHtml result = action.executeWithAmount(s, pc, npc, amount);
-					if (result != null) {
-						pc.sendPackets(new S_NPCTalkReturn(npc.getId(), result));
-					}
-					return;
+				if (result != null) {
+					pc.sendPackets(new S_NPCTalkReturn(npc.getId(), result));
 				}
+				return;
 			}
 		}
+	}
 
 	@Override
 	public String getType() {

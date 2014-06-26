@@ -48,19 +48,22 @@ public class Account {
 	private Account() {
 	}
 
-	private static String encodePassword(final String rawPassword) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	private static String encodePassword(final String rawPassword)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		byte[] buf = rawPassword.getBytes("UTF-8");
 		buf = MessageDigest.getInstance("SHA").digest(buf);
 		return Base64.encodeBytes(buf);
 	}
 
-	public static Account create(final String name, final String rawPassword, final String ip, final String host) {
+	public static Account create(final String name, final String rawPassword,
+			final String ip, final String host) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			Account account = new Account();
 			account._name = name;
-			account._password=makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(name)); //Ssargon change
+			account._password = makeSHA256(Config.PASSWORD_SALT + rawPassword
+					+ makeMD5(name)); // Ssargon change
 			account._ip = ip;
 			account._host = host;
 			account._banned = false;
@@ -210,22 +213,24 @@ public class Account {
 
 	/* Convert from Byte[] to String */
 	private static String convertToString(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-        	int halfbyte = (data[i] >>> 4) & 0x0F;
-        	int two_halfs = 0;
-        	do {
-	        	if ((0 <= halfbyte) && (halfbyte <= 9))
-	                buf.append((char) ('0' + halfbyte));
-	            else
-	            	buf.append((char) ('a' + (halfbyte - 10)));
-	        	halfbyte = data[i] & 0x0F;
-        	} while(two_halfs++ < 1);
-        }
-        return buf.toString();
-    }
+		StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < data.length; i++) {
+			int halfbyte = (data[i] >>> 4) & 0x0F;
+			int two_halfs = 0;
+			do {
+				if ((0 <= halfbyte) && (halfbyte <= 9))
+					buf.append((char) ('0' + halfbyte));
+				else
+					buf.append((char) ('a' + (halfbyte - 10)));
+				halfbyte = data[i] & 0x0F;
+			} while (two_halfs++ < 1);
+		}
+		return buf.toString();
+	}
+
 	/* Make SHA256 of input String */
-	public static String makeSHA256(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+	public static String makeSHA256(String text)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		MessageDigest md;
 		md = MessageDigest.getInstance("SHA-256");
 		byte[] sha256hash = new byte[32];
@@ -233,8 +238,10 @@ public class Account {
 		sha256hash = md.digest();
 		return convertToString(sha256hash);
 	}
+
 	/* Make MD5 of input String */
-	public static String makeMD5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+	public static String makeMD5(String text) throws NoSuchAlgorithmException,
+			UnsupportedEncodingException {
 		MessageDigest md;
 		md = MessageDigest.getInstance("MD5");
 		byte[] md5hash = new byte[32];
@@ -242,13 +249,15 @@ public class Account {
 		md5hash = md.digest();
 		return convertToString(md5hash);
 	}
+
 	/* Change password for account to input String password */
-	public void change_password(String pass){
+	public void change_password(String pass) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE accounts SET password=? WHERE login=?");
+			pstm = con
+					.prepareStatement("UPDATE accounts SET password=? WHERE login=?");
 			pstm.setString(1, pass);
 			pstm.setString(2, _name);
 			pstm.execute();
@@ -260,12 +269,13 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
-	/*Ssargon change end*/
+
+	/* Ssargon change end */
 	/**
-	 *
-	 *
+	 * 
+	 * 
 	 * @param rawPassword
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean validatePassword(final String rawPassword) {
@@ -274,13 +284,16 @@ public class Account {
 			return false;
 		}
 		try {
-			_isValid = _password.equals(makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(_name)));//Ssargon change
+			_isValid = _password.equals(makeSHA256(Config.PASSWORD_SALT
+					+ rawPassword + makeMD5(_name)));// Ssargon change
 			if (_isValid) {
 				_password = null;
 			} else { // If password does not match
 				_isValid = _password.equals(encodePassword(rawPassword));
-				if(_isValid){ //If its old scheme password
-					change_password(makeSHA256(Config.PASSWORD_SALT+rawPassword+makeMD5(_name))); //Make new style password
+				if (_isValid) { // If its old scheme password
+					change_password(makeSHA256(Config.PASSWORD_SALT
+							+ rawPassword + makeMD5(_name))); // Make new style
+																// password
 				}
 			}
 			return _isValid;
@@ -297,7 +310,6 @@ public class Account {
 	public boolean isGameMaster() {
 		return 0 < _accessLevel;
 	}
-
 
 	public String getName() {
 		return _name;

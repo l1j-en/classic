@@ -26,8 +26,10 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_ItemColor extends ServerBasePacket {
 	private static final String S_ITEM_COLOR = "[S] S_ItemColor";
 	private static Logger _log = Logger.getLogger(S_ItemColor.class.getName());
+
 	/**
-	 * To change the color of the item. Blessings and curses when to change state to send
+	 * To change the color of the item. Blessings and curses when to change
+	 * state to send
 	 */
 	public S_ItemColor(L1ItemInstance item) {
 		if (item == null) {

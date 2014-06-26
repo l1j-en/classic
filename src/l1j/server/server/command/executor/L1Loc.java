@@ -41,10 +41,10 @@ public class L1Loc implements L1CommandExecutor {
 			int locx = pc.getX();
 			int locy = pc.getY();
 			short mapid = pc.getMapId();
-			int gab = L1WorldMap.getInstance().getMap(mapid).getOriginalTile(
-					locx, locy);
-			String msg = String.format("Loc: (%d, %d, %d) %d", locx, locy, mapid,
-					gab);
+			int gab = L1WorldMap.getInstance().getMap(mapid)
+					.getOriginalTile(locx, locy);
+			String msg = String.format("Loc: (%d, %d, %d) %d", locx, locy,
+					mapid, gab);
 			pc.sendPackets(new S_SystemMessage(msg));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

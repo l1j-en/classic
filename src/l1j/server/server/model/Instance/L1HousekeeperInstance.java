@@ -67,8 +67,8 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 			if (clan != null) {
 				int houseId = clan.getHouseId();
 				if (houseId != 0) {
-					L1House house = HouseTable.getInstance()
-							.getHouseTable(houseId);
+					L1House house = HouseTable.getInstance().getHouseTable(
+							houseId);
 					if (npcid == house.getKeeperId()) {
 						isOwner = true;
 					}
@@ -107,12 +107,9 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 				}
 			}
 
-
 			if (htmlid != null) {
 				if (htmldata != null) {
-					pc
-							.sendPackets(new S_NPCTalkReturn(objid, htmlid,
-									htmldata));
+					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid, htmldata));
 				} else {
 					pc.sendPackets(new S_NPCTalkReturn(objid, htmlid));
 				}

@@ -64,7 +64,9 @@ public class L1Spawn {
 	private int _spawnType;
 	private int _delayInterval;
 	private L1SpawnTime _time;
-	private HashMap<Integer, Point> _homePoint = null; // init spawn of individual objects in the home points
+	private HashMap<Integer, Point> _homePoint = null; // init spawn of
+														// individual objects in
+														// the home points
 	private static Random _random = new Random();
 	private String _name;
 	private int _spawnHome;
@@ -190,12 +192,15 @@ public class L1Spawn {
 	public int getSpawnHome() {
 		return _spawnHome;
 	}
+
 	public int getSpawnHomeRange() {
 		return _spawnHomeRange;
 	}
+
 	public int getSpawnHomeCount() {
 		return _spawnHomeCount;
 	}
+
 	public int getSpawnHomeDelay() {
 		return _spawnHomeDelay;
 	}
@@ -262,7 +267,8 @@ public class L1Spawn {
 
 	public void setMaxRespawnDelay(int i) {
 		_maxRespawnDelay = i;
-	}	
+	}
+
 	public void setSpawnHome(int i) {
 		_spawnHome = i;
 	}
@@ -270,9 +276,11 @@ public class L1Spawn {
 	public void setSpawnHomeRange(int i) {
 		_spawnHomeRange = i;
 	}
+
 	public void setSpawnHomeCount(int i) {
 		_spawnHomeCount = i;
 	}
+
 	public void setSpawnHomeDelay(int i) {
 		_spawnHomeDelay = i;
 	}
@@ -284,7 +292,8 @@ public class L1Spawn {
 		}
 		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
 		if (_time != null && !_time.getTimePeriod().includes(currentTime)) {
-			long diff = (_time.getTimeStart().getTime() - currentTime.toTime().getTime());
+			long diff = (_time.getTimeStart().getTime() - currentTime.toTime()
+					.getTime());
 			if (diff < 0) {
 				diff += 24 * 1000L * 3600L;
 			}
@@ -296,8 +305,10 @@ public class L1Spawn {
 
 	/**
 	 * SpawnTask To start.
-	 * @param spawnNumber L1Spawn Which is administered by the numbers. 
-	 * Home to specify what point does not exist and it's good.
+	 * 
+	 * @param spawnNumber
+	 *            L1Spawn Which is administered by the numbers. Home to specify
+	 *            what point does not exist and it's good.
 	 */
 	public void executeSpawnTask(int spawnNumber, int objectId) {
 		SpawnTask task = new SpawnTask(spawnNumber, objectId);
@@ -311,10 +322,8 @@ public class L1Spawn {
 		_delayInterval = _maxRespawnDelay - _minRespawnDelay;
 		_initSpawn = true;
 		// Points to give the home or
-		if (getSpawnHome() == 1
-				&& getSpawnHomeCount() <= getAmount()
-				&& getSpawnHomeDelay() >= getMinRespawnDelay()
-				&& isAreaSpawn()) {
+		if (getSpawnHome() == 1 && getSpawnHomeCount() <= getAmount()
+				&& getSpawnHomeDelay() >= getMinRespawnDelay() && isAreaSpawn()) {
 			_spawnHomePoint = true;
 			_homePoint = new HashMap<Integer, Point>();
 		}
@@ -327,8 +336,8 @@ public class L1Spawn {
 	}
 
 	/**
-	 * If you have a point home, spawnNumber based spawn.
-	 * If not, spawnNumber not used.
+	 * If you have a point home, spawnNumber based spawn. If not, spawnNumber
+	 * not used.
 	 */
 	protected void doSpawn(int spawnNumber) {
 		doSpawn(spawnNumber, 0);
@@ -367,9 +376,11 @@ public class L1Spawn {
 			while (tryCount <= 50) {
 				switch (getSpawnType()) {
 				case SPAWN_TYPE_PC_AROUND: // Area real PC to type
-					if (!_initSpawn) { // The initial deployment is usually spawn unconditionally
+					if (!_initSpawn) { // The initial deployment is usually
+										// spawn unconditionally
 						List<L1PcInstance> players = new ArrayList<L1PcInstance>();
-						for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+						for (L1PcInstance pc : L1World.getInstance()
+								.getAllPlayers()) {
 							if (getMapId() == pc.getMapId()) {
 								players.add(pc);
 							}
@@ -386,13 +397,16 @@ public class L1Spawn {
 					}
 					// PC floor if you have no way normal appearance
 				default:
-					if (isAreaSpawn()) { // Coordinates of the range specified in the case
-						if (!_initSpawn && _spawnHomePoint) { // Home to the original point out that if re-emergence
+					if (isAreaSpawn()) { // Coordinates of the range specified
+											// in the case
+						if (!_initSpawn && _spawnHomePoint) { // Home to the
+																// original
+																// point out
+																// that if
+																// re-emergence
 							Point point = _homePoint.get(spawnNumber);
 							L1Location loc = new L1Location(point, getMapId())
-									.randomLocation(
-											getSpawnHomeRange(),
-											false);
+									.randomLocation(getSpawnHomeRange(), false);
 							newlocx = loc.getX();
 							newlocy = loc.getY();
 						} else {
@@ -401,13 +415,17 @@ public class L1Spawn {
 							newlocx = _random.nextInt(rangeX) + getLocX1();
 							newlocy = _random.nextInt(rangeY) + getLocY1();
 						}
-						if (tryCount > 49) { // When that happens appearance position locx, locy value
+						if (tryCount > 49) { // When that happens appearance
+												// position locx, locy value
 							newlocx = getLocX();
 							newlocy = getLocY();
 						}
-					} else if (isRandomSpawn()) { // Coordinate random value is if
-						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math.random() * getRandomx())));
-						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math.random() * getRandomy())));
+					} else if (isRandomSpawn()) { // Coordinate random value is
+													// if
+						newlocx = (getLocX() + ((int) (Math.random() * getRandomx()) - (int) (Math
+								.random() * getRandomx())));
+						newlocy = (getLocY() + ((int) (Math.random() * getRandomy()) - (int) (Math
+								.random() * getRandomy())));
 					} else { // Both did not specify if
 						newlocx = getLocX();
 						newlocy = getLocY();
@@ -429,7 +447,8 @@ public class L1Spawn {
 								.size() == 0) {
 							break;
 						}
-						// To make the PC screen can not occur in the three seconds after the re-scheduling 
+						// To make the PC screen can not occur in the three
+						// seconds after the re-scheduling
 						SpawnTask task = new SpawnTask(spawnNumber, mob.getId());
 						GeneralThreadPool.getInstance().schedule(task, 3000L);
 						return;
@@ -443,9 +462,11 @@ public class L1Spawn {
 			mob.setSpawn(this);
 			mob.setreSpawn(true);
 			mob.setSpawnNumber(spawnNumber); // Number of L1Spawn (Home points)
-			if (_initSpawn && _spawnHomePoint) { // Home points to set the initial deployment
+			if (_initSpawn && _spawnHomePoint) { // Home points to set the
+													// initial deployment
 				Point pt = new Point(mob.getX(), mob.getY());
-				_homePoint.put(spawnNumber, pt); // This saved a point when the re-emergence use
+				_homePoint.put(spawnNumber, pt); // This saved a point when the
+													// re-emergence use
 			}
 			if (mob instanceof L1MonsterInstance) {
 				if (mob.getMapId() == 666) {
@@ -461,8 +482,8 @@ public class L1Spawn {
 				}
 			}
 
-			if (npcId == 46142 && mob.getMapId() == 73
-					|| npcId == 46141 && mob.getMapId() == 74) {
+			if (npcId == 46142 && mob.getMapId() == 73 || npcId == 46141
+					&& mob.getMapId() == 74) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
 					if (pc.getMapId() >= 72 && pc.getMapId() <= 74) {
 						L1Teleport.teleport(pc, 32840, 32833, (short) 72,
@@ -521,10 +542,10 @@ public class L1Spawn {
 	}
 
 	public static void doCrystalCave(int npcId) {
-		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147,
-				46148, 46149, 46150, 46151, 46152 };
-		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006,
-				5007, 5008, 5009, 5010};
+		int[] npcId2 = { 46143, 46144, 46145, 46146, 46147, 46148, 46149,
+				46150, 46151, 46152 };
+		int[] doorId = { 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009,
+				5010 };
 
 		for (int i = 0; i < npcId2.length; i++) {
 			if (npcId == npcId2[i]) {

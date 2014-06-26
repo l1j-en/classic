@@ -28,7 +28,8 @@ public class ItemTable {
 	private static final Map<String, Integer> _armorTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponId = Maps.newHashMap();
-	private static final Map<String, Integer> _materialTypes = Maps.newHashMap();
+	private static final Map<String, Integer> _materialTypes = Maps
+			.newHashMap();
 	private static final Map<String, Integer> _etcItemTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _useTypes = Maps.newHashMap();
 	private static ItemTable _instance;
@@ -60,10 +61,12 @@ public class ItemTable {
 		_useTypes.put("normal", Integer.valueOf(0));
 		_useTypes.put("weapon", Integer.valueOf(1));
 		_useTypes.put("armor", Integer.valueOf(2));
-		//_useTypes.put("wand1", Integer.valueOf(3));
-		//_useTypes.put("wand", Integer.valueOf(4));
+		// _useTypes.put("wand1", Integer.valueOf(3));
+		// _useTypes.put("wand", Integer.valueOf(4));
 		// Wand to wave to take action(C_RequestExtraCommand Is sent)
-		_useTypes.put("spell_long", Integer.valueOf(5)); // The ground / object selection (long-distance)
+		_useTypes.put("spell_long", Integer.valueOf(5)); // The ground / object
+															// selection
+															// (long-distance)
 		_useTypes.put("ntele", Integer.valueOf(6));
 		_useTypes.put("identify", Integer.valueOf(7));
 		_useTypes.put("res", Integer.valueOf(8));
@@ -72,7 +75,9 @@ public class ItemTable {
 		_useTypes.put("choice", Integer.valueOf(14));
 		_useTypes.put("instrument", Integer.valueOf(15));
 		_useTypes.put("sosc", Integer.valueOf(16));
-		_useTypes.put("spell_short", Integer.valueOf(17)); // The ground / object selection (short-range)
+		_useTypes.put("spell_short", Integer.valueOf(17)); // The ground /
+															// object selection
+															// (short-range)
 		_useTypes.put("T", Integer.valueOf(18));
 		_useTypes.put("cloak", Integer.valueOf(19));
 		_useTypes.put("glove", Integer.valueOf(20));
@@ -86,7 +91,10 @@ public class ItemTable {
 		_useTypes.put("zel", Integer.valueOf(27));
 		_useTypes.put("blank", Integer.valueOf(28));
 		_useTypes.put("btele", Integer.valueOf(29));
-		_useTypes.put("spell_buff", Integer.valueOf(30)); // Selected object (long-distance) Ctrl and not push packet is dead?
+		_useTypes.put("spell_buff", Integer.valueOf(30)); // Selected object
+															// (long-distance)
+															// Ctrl and not push
+															// packet is dead?
 		_useTypes.put("ccard", Integer.valueOf(31));
 		_useTypes.put("ccard_w", Integer.valueOf(32));
 		_useTypes.put("vcard", Integer.valueOf(33));
@@ -94,7 +102,8 @@ public class ItemTable {
 		_useTypes.put("wcard", Integer.valueOf(35));
 		_useTypes.put("wcard_w", Integer.valueOf(36));
 		_useTypes.put("belt", Integer.valueOf(37));
-		//_useTypes.put("spell_long2", Integer.valueOf(39)); // The ground / object selection (long-distance) and the same?
+		// _useTypes.put("spell_long2", Integer.valueOf(39)); // The ground /
+		// object selection (long-distance) and the same?
 		_useTypes.put("earring", Integer.valueOf(40));
 		_useTypes.put("fishing_rod", Integer.valueOf(42));
 		_useTypes.put("del", Integer.valueOf(46));
@@ -207,10 +216,13 @@ public class ItemTable {
 				item.setName(rs.getString("name"));
 				item.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
 				item.setIdentifiedNameId(rs.getString("identified_name_id"));
-				item.setType((_etcItemTypes.get(rs.getString("item_type"))).intValue());
-				item.setUseType(_useTypes.get(rs.getString("use_type")).intValue());
+				item.setType((_etcItemTypes.get(rs.getString("item_type")))
+						.intValue());
+				item.setUseType(_useTypes.get(rs.getString("use_type"))
+						.intValue());
 				item.setType2(0);
-				item.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
+				item.setMaterial((_materialTypes.get(rs.getString("material")))
+						.intValue());
 				item.setWeight(rs.getInt("weight"));
 				item.setGfxId(rs.getInt("invgfx"));
 				item.setGroundGfxId(rs.getInt("grdgfx"));
@@ -232,14 +244,16 @@ public class ItemTable {
 				item.set_delaytime(rs.getInt("delay_time"));
 				item.set_delayEffect(rs.getInt("delay_effect"));
 				item.setFoodVolume(rs.getInt("food_volume"));
-				item.setToBeSavedAtOnce((rs.getInt("save_at_once") == 1) ? true : false);
+				item.setToBeSavedAtOnce((rs.getInt("save_at_once") == 1) ? true
+						: false);
 				result.put(new Integer(item.getItemId()), item);
 			}
 		} catch (NullPointerException e) {
-			_log.log(Level.SEVERE, new StringBuilder()
-					.append(item.getName())
-					.append("(" + item.getItemId() + ")")
-					.append(" Failed to load.").toString());
+			_log.log(
+					Level.SEVERE,
+					new StringBuilder().append(item.getName())
+							.append("(" + item.getItemId() + ")")
+							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -264,13 +278,17 @@ public class ItemTable {
 				weapon = new L1Weapon();
 				weapon.setItemId(rs.getInt("item_id"));
 				weapon.setName(rs.getString("name"));
-				weapon.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
+				weapon.setUnidentifiedNameId(rs
+						.getString("unidentified_name_id"));
 				weapon.setIdentifiedNameId(rs.getString("identified_name_id"));
-				weapon.setType((_weaponTypes.get(rs.getString("type"))).intValue());
-				weapon.setType1((_weaponId.get(rs.getString("type"))).intValue());
+				weapon.setType((_weaponTypes.get(rs.getString("type")))
+						.intValue());
+				weapon.setType1((_weaponId.get(rs.getString("type")))
+						.intValue());
 				weapon.setType2(1);
 				weapon.setUseType(1);
-				weapon.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
+				weapon.setMaterial((_materialTypes.get(rs.getString("material")))
+						.intValue());
 				weapon.setWeight(rs.getInt("weight"));
 				weapon.setGfxId(rs.getInt("invgfx"));
 				weapon.setGroundGfxId(rs.getInt("grdgfx"));
@@ -283,9 +301,12 @@ public class ItemTable {
 				weapon.setUseKnight(rs.getInt("use_knight") == 0 ? false : true);
 				weapon.setUseElf(rs.getInt("use_elf") == 0 ? false : true);
 				weapon.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
-				weapon.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false : true);
-				weapon.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false : true);
-				weapon.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false : true);
+				weapon.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false
+						: true);
+				weapon.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false
+						: true);
+				weapon.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false
+						: true);
 				weapon.setHitModifier(rs.getInt("hitmodifier"));
 				weapon.setDmgModifier(rs.getInt("dmgmodifier"));
 				weapon.set_addstr(rs.getByte("add_str"));
@@ -307,16 +328,18 @@ public class ItemTable {
 				weapon.setMaxLevel(rs.getInt("max_lvl"));
 				weapon.setBless(rs.getInt("bless"));
 				weapon.setTradable(rs.getInt("trade") == 0 ? true : false);
-				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false);
+				weapon.setCantDelete(rs.getInt("cant_delete") == 1 ? true
+						: false);
 				weapon.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				weapon.setMaxUseTime(rs.getInt("max_use_time"));
 				result.put(new Integer(weapon.getItemId()), weapon);
 			}
 		} catch (NullPointerException e) {
-			_log.log(Level.SEVERE, new StringBuilder()
-					.append(weapon.getName())
-					.append("(" + weapon.getItemId() + ")")
-					.append(" Failed to load.").toString());
+			_log.log(
+					Level.SEVERE,
+					new StringBuilder().append(weapon.getName())
+							.append("(" + weapon.getItemId() + ")")
+							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -342,12 +365,16 @@ public class ItemTable {
 				armor = new L1Armor();
 				armor.setItemId(rs.getInt("item_id"));
 				armor.setName(rs.getString("name"));
-				armor.setUnidentifiedNameId(rs.getString("unidentified_name_id"));
+				armor.setUnidentifiedNameId(rs
+						.getString("unidentified_name_id"));
 				armor.setIdentifiedNameId(rs.getString("identified_name_id"));
-				armor.setType((_armorTypes.get(rs.getString("type"))).intValue());
+				armor.setType((_armorTypes.get(rs.getString("type")))
+						.intValue());
 				armor.setType2(2);
-				armor.setUseType((_useTypes.get(rs.getString("type"))).intValue());
-				armor.setMaterial((_materialTypes.get(rs.getString("material"))).intValue());
+				armor.setUseType((_useTypes.get(rs.getString("type")))
+						.intValue());
+				armor.setMaterial((_materialTypes.get(rs.getString("material")))
+						.intValue());
 				armor.setWeight(rs.getInt("weight"));
 				armor.setGfxId(rs.getInt("invgfx"));
 				armor.setGroundGfxId(rs.getInt("grdgfx"));
@@ -358,9 +385,12 @@ public class ItemTable {
 				armor.setUseKnight(rs.getInt("use_knight") == 0 ? false : true);
 				armor.setUseElf(rs.getInt("use_elf") == 0 ? false : true);
 				armor.setUseMage(rs.getInt("use_mage") == 0 ? false : true);
-				armor.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false : true);
-				armor.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false : true);
-				armor.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false : true);
+				armor.setUseDarkelf(rs.getInt("use_darkelf") == 0 ? false
+						: true);
+				armor.setUseDragonknight(rs.getInt("use_dragonknight") == 0 ? false
+						: true);
+				armor.setUseIllusionist(rs.getInt("use_illusionist") == 0 ? false
+						: true);
 				armor.set_addstr(rs.getByte("add_str"));
 				armor.set_addcon(rs.getByte("add_con"));
 				armor.set_adddex(rs.getByte("add_dex"));
@@ -384,7 +414,8 @@ public class ItemTable {
 				armor.setHasteItem(rs.getInt("haste_item") == 0 ? false : true);
 				armor.setBless(rs.getInt("bless"));
 				armor.setTradable(rs.getInt("trade") == 0 ? true : false);
-				armor.setCantDelete(rs.getInt("cant_delete") == 1 ? true : false);
+				armor.setCantDelete(rs.getInt("cant_delete") == 1 ? true
+						: false);
 				armor.set_defense_earth(rs.getInt("defense_earth"));
 				armor.set_defense_water(rs.getInt("defense_water"));
 				armor.set_defense_wind(rs.getInt("defense_wind"));
@@ -400,10 +431,11 @@ public class ItemTable {
 				result.put(new Integer(armor.getItemId()), armor);
 			}
 		} catch (NullPointerException e) {
-			_log.log(Level.SEVERE, new StringBuilder()
-					.append(armor.getName())
-					.append("(" + armor.getItemId() + ")")
-					.append(" Failed to load.").toString());
+			_log.log(
+					Level.SEVERE,
+					new StringBuilder().append(armor.getName())
+							.append("(" + armor.getItemId() + ")")
+							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
@@ -441,19 +473,22 @@ public class ItemTable {
 
 		_allTemplates = new L1Item[highestId + 1];
 
-		for (Iterator<Integer> iter = _etcitems.keySet().iterator(); iter.hasNext();) {
+		for (Iterator<Integer> iter = _etcitems.keySet().iterator(); iter
+				.hasNext();) {
 			Integer id = iter.next();
 			L1EtcItem item = _etcitems.get(id);
 			_allTemplates[id.intValue()] = item;
 		}
 
-		for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter.hasNext();) {
+		for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter
+				.hasNext();) {
 			Integer id = iter.next();
 			L1Weapon item = _weapons.get(id);
 			_allTemplates[id.intValue()] = item;
 		}
 
-		for (Iterator<Integer> iter = _armors.keySet().iterator(); iter.hasNext();) {
+		for (Iterator<Integer> iter = _armors.keySet().iterator(); iter
+				.hasNext();) {
 			Integer id = iter.next();
 			L1Armor item = _armors.get(id);
 			_allTemplates[id.intValue()] = item;

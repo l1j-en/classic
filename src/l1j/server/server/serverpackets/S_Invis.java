@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_Invis extends ServerBasePacket {
 	private static final String S_INVIS = "[S] S_Invis";
-	
+
 	private byte[] _byte = null;
 
 	public S_Invis(int objid, int type) {

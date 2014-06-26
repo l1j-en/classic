@@ -54,7 +54,8 @@ public class L1GfxId implements L1CommandExecutor {
 							"l1j.server.server.model.Instance." + s
 									+ "Instance").getConstructors()[0];
 					Object aobj[] = { l1npc };
-					L1NpcInstance npc = (L1NpcInstance) constructor.newInstance(aobj);
+					L1NpcInstance npc = (L1NpcInstance) constructor
+							.newInstance(aobj);
 					npc.setId(IdFactory.getInstance().nextId());
 					npc.setGfxId(gfxid + i);
 					npc.setTempCharGfx(0);

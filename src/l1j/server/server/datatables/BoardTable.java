@@ -45,7 +45,8 @@ public class BoardTable {
 		return _instance;
 	}
 
-	public void writeTopic(L1PcInstance pc, String date, String title, String content) {
+	public void writeTopic(L1PcInstance pc, String date, String title,
+			String content) {
 		int count = 0;
 
 		Connection con = null;
@@ -54,12 +55,14 @@ public class BoardTable {
 		PreparedStatement pstm2 = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con.prepareStatement("SELECT * FROM board ORDER BY id DESC");
+			pstm1 = con
+					.prepareStatement("SELECT * FROM board ORDER BY id DESC");
 			rs = pstm1.executeQuery();
 			if (rs.next()) {
 				count = rs.getInt("id");
 			}
-			pstm2 = con.prepareStatement("INSERT INTO board SET id=?, name=?, date=?, title=?, content=?");
+			pstm2 = con
+					.prepareStatement("INSERT INTO board SET id=?, name=?, date=?, title=?, content=?");
 			pstm2.setInt(1, (count + 1));
 			pstm2.setString(2, pc.getName());
 			pstm2.setString(3, date);

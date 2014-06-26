@@ -31,7 +31,8 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 public class L1Buff implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1Buff.class.getName());
 
-	private L1Buff() {}
+	private L1Buff() {
+	}
 
 	public static L1CommandExecutor getInstance() {
 		return new L1Buff();
@@ -61,11 +62,11 @@ public class L1Buff implements L1CommandExecutor {
 			}
 
 			for (L1PcInstance player : players) {
-				new L1SkillUse().handleCommands(player, skillId, player.getId(),
-						player.getX(), player.getY(), null, time,
-						L1SkillUse.TYPE_GMBUFF);
+				new L1SkillUse().handleCommands(player, skillId,
+						player.getId(), player.getX(), player.getY(), null,
+						time, L1SkillUse.TYPE_GMBUFF);
 			}
-			
+
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName
 					+ " [all|me] skillId time"));

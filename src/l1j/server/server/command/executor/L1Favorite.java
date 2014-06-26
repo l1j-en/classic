@@ -47,7 +47,7 @@ public class L1Favorite implements L1CommandExecutor {
 			}
 			String faviCom = _faviCom.get(pc.getId());
 			if (arg.startsWith("set")) {
-				
+
 				StringTokenizer st = new StringTokenizer(arg);
 				st.nextToken();
 				if (!st.hasMoreTokens()) {
@@ -55,11 +55,9 @@ public class L1Favorite implements L1CommandExecutor {
 					return;
 				}
 				StringBuilder cmd = new StringBuilder();
-				String temp = st.nextToken(); 
+				String temp = st.nextToken();
 				if (temp.equalsIgnoreCase(cmdName)) {
-					pc
-							.sendPackets(new S_SystemMessage(cmdName
-									+ " "));
+					pc.sendPackets(new S_SystemMessage(cmdName + " "));
 					return;
 				}
 				cmd.append(temp + " ");

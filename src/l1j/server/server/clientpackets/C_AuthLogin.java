@@ -45,10 +45,13 @@ public class C_AuthLogin extends ClientBasePacket {
 		_log.finest("Request AuthLogin From User : " + accountName);
 
 		if (!Config.ALLOW_2PC) {
-			for (ClientThread tempClient : LoginController.getInstance().getAllAccounts()) {
+			for (ClientThread tempClient : LoginController.getInstance()
+					.getAllAccounts()) {
 				if (ip.equalsIgnoreCase(tempClient.getIp())) {
-					_log.info("2nd PC Login On Account = " + accountName + " Host = " + host);
-					client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
+					_log.info("2nd PC Login On Account = " + accountName
+							+ " Host = " + host);
+					client.sendPacket(new S_LoginResult(
+							S_LoginResult.REASON_USER_OR_PASS_WRONG));
 					return;
 				}
 			}
@@ -62,31 +65,36 @@ public class C_AuthLogin extends ClientBasePacket {
 				_log.warning("Account Missing For User " + accountName);
 			}
 		}
-		
+
 		if (account == null || !account.validatePassword(password)) {
-			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			client.sendPacket(new S_LoginResult(
+					S_LoginResult.REASON_USER_OR_PASS_WRONG));
 			return;
 		}
-		
+
 		if (account.isBanned()) { // BAN
-			_log.info("Banned Account Attempted Login: Account = " + accountName + " Host = " + host);
-			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			_log.info("Banned Account Attempted Login: Account = "
+					+ accountName + " Host = " + host);
+			client.sendPacket(new S_LoginResult(
+					S_LoginResult.REASON_USER_OR_PASS_WRONG));
 			return;
 		}
 
 		try {
 			LoginController.getInstance().login(client, account);
-			Account.updateLastActive(account); 
+			Account.updateLastActive(account);
 			client.setAccount(account);
 			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_LOGIN_OK));
 			client.sendPacket(new S_CommonNews());
 		} catch (GameServerFullException e) {
 			client.kick();
-			_log.info("Connection Terminated (" + client.getHostname() + ") Server Is Full.");
+			_log.info("Connection Terminated (" + client.getHostname()
+					+ ") Server Is Full.");
 			return;
 		} catch (AccountAlreadyLoginException e) {
 			client.kick();
-			_log.info("Account Allready Loggedin (" + client.getHostname() + ") Connection Refused.");
+			_log.info("Account Allready Loggedin (" + client.getHostname()
+					+ ") Connection Refused.");
 			return;
 		}
 	}

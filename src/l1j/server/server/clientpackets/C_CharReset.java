@@ -41,47 +41,55 @@ public class C_CharReset extends ClientBasePacket {
 	private static final String C_CHAR_RESET = "[C] C_CharReset";
 	private static Logger _log = Logger.getLogger(C_CharReset.class.getName());
 
-/**
- * //zuy m 127.0.0.1 Request Work ID : 120 0000: 78 01 0d 0a 0b 0a 12 0d
- * 
- * //10y 127.0.0.1 Request Work ID : 120 0000: 78 02 07 00 //1y 127.0.0.1
- * Request Work ID : 120 0000: 78 02 00 04
- * 
- * // 127.0.0.1 Request Work ID : 120 0000: 78 02 08 00 x...
- * 
- * //\Z 127.0.0.1 Request Work ID : 120 0000: 78 03 23 0a 0b 17 12 0d
- */	
+	/**
+	 * //zuy m 127.0.0.1 Request Work ID : 120 0000: 78 01 0d 0a 0b 0a 12 0d
+	 * 
+	 * //10y 127.0.0.1 Request Work ID : 120 0000: 78 02 07 00 //1y 127.0.0.1
+	 * Request Work ID : 120 0000: 78 02 00 04
+	 * 
+	 * // 127.0.0.1 Request Work ID : 120 0000: 78 02 08 00 x...
+	 * 
+	 * //\Z 127.0.0.1 Request Work ID : 120 0000: 78 03 23 0a 0b 17 12 0d
+	 */
 
 	/**
 	 * Log any suspicious behavior.
 	 */
-	private void checkProvidedStats(final L1PcInstance pc, int str, int intel, int wis, 
-			int dex, int con, int cha) {
-		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature().getFixedStats();
-		if (str < fixedStats.get(L1Attribute.Str) || 
-				intel < fixedStats.get(L1Attribute.Int) ||
-				wis < fixedStats.get(L1Attribute.Wis) ||
-				dex < fixedStats.get(L1Attribute.Dex) ||
-				con < fixedStats.get(L1Attribute.Con) ||
-				cha < fixedStats.get(L1Attribute.Cha))
-			emergencyCleanup(pc, String.format("Candle: %s had less than starting stats!", pc.getName()),
+	private void checkProvidedStats(final L1PcInstance pc, int str, int intel,
+			int wis, int dex, int con, int cha) {
+		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature()
+				.getFixedStats();
+		if (str < fixedStats.get(L1Attribute.Str)
+				|| intel < fixedStats.get(L1Attribute.Int)
+				|| wis < fixedStats.get(L1Attribute.Wis)
+				|| dex < fixedStats.get(L1Attribute.Dex)
+				|| con < fixedStats.get(L1Attribute.Con)
+				|| cha < fixedStats.get(L1Attribute.Cha))
+			emergencyCleanup(pc, String.format(
+					"Candle: %s had less than starting stats!", pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
-		
-		if (str > 35 || intel > 35 || wis > 35 || dex > 35 || con > 35 || cha > 35)
-			emergencyCleanup(pc, String.format("Candle: %s had individual stat above max", pc.getName()),
+
+		if (str > 35 || intel > 35 || wis > 35 || dex > 35 || con > 35
+				|| cha > 35)
+			emergencyCleanup(pc, String.format(
+					"Candle: %s had individual stat above max", pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
-		
+
 		int bonusStats = pc.getLevel() > 50 ? pc.getLevel() - 50 : 0;
-		if (str + intel + wis + dex + con + cha > 75 + bonusStats + 
-				pc.getElixirStats()) {
-			emergencyCleanup(pc, String.format("Candle: %s has too many stats!", pc.getName()),
+		if (str + intel + wis + dex + con + cha > 75 + bonusStats
+				+ pc.getElixirStats()) {
+			emergencyCleanup(
+					pc,
+					String.format("Candle: %s has too many stats!",
+							pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
 		}
 	}
-	
-	private void checkProvidedStartingStats(final L1PcInstance pc, int str, int intel, int wis, 
-			int dex, int con, int cha) {
-		Map<L1Attribute, Integer> startingStats = pc.getClassFeature().getFixedStats();
+
+	private void checkProvidedStartingStats(final L1PcInstance pc, int str,
+			int intel, int wis, int dex, int con, int cha) {
+		Map<L1Attribute, Integer> startingStats = pc.getClassFeature()
+				.getFixedStats();
 		int originalStr = startingStats.get(L1Attribute.Str);
 		int originalDex = startingStats.get(L1Attribute.Dex);
 		int originalCon = startingStats.get(L1Attribute.Con);
@@ -91,25 +99,22 @@ public class C_CharReset extends ClientBasePacket {
 		int originalAmount = pc.getClassFeature().getFloatingStats();
 		boolean isStatusError = false;
 
-		if ((str < originalStr
-			|| dex < originalDex
-			|| con < originalCon
-			|| wis < originalWis
-			|| cha < originalCha
-			|| intel < originalInt)
-			|| (str > originalStr + originalAmount
-			|| dex > originalDex + originalAmount
-			|| con > originalCon + originalAmount
-			|| wis > originalWis + originalAmount
-			|| cha > originalCha + originalAmount
-			|| intel > originalInt + originalAmount)) {
+		if ((str < originalStr || dex < originalDex || con < originalCon
+				|| wis < originalWis || cha < originalCha || intel < originalInt)
+				|| (str > originalStr + originalAmount
+						|| dex > originalDex + originalAmount
+						|| con > originalCon + originalAmount
+						|| wis > originalWis + originalAmount
+						|| cha > originalCha + originalAmount || intel > originalInt
+						+ originalAmount)) {
 			isStatusError = true;
 		}
 
 		int statusAmount = dex + cha + con + intel + str + wis;
 
 		if (statusAmount != 75 || isStatusError) {
-			emergencyCleanup(pc, String.format("Candle: %s had incorrect starting stats!", pc.getName()),
+			emergencyCleanup(pc, String.format(
+					"Candle: %s had incorrect starting stats!", pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
 		}
 	}
@@ -121,7 +126,7 @@ public class C_CharReset extends ClientBasePacket {
 
 		if (stage == 0x01) { // 0x01:LN^[
 			// Stage 1: original stats
-			
+
 			int str = readC();
 			int intel = readC();
 			int wis = readC();
@@ -134,7 +139,8 @@ public class C_CharReset extends ClientBasePacket {
 
 			int hp = pc.getClassFeature().getStartingHp();
 			int mp = pc.getClassFeature().getStartingMp(wis);
-			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis, dex, con, cha));
+			pc.sendPackets(new S_CharReset(pc, 1, hp, mp, 10, str, intel, wis,
+					dex, con, cha));
 			initCharStatus(pc, hp, mp, str, intel, wis, dex, con, cha);
 			pc.refresh();
 		} else if (stage == 0x02) { // 0x02:Xe[^Xz
@@ -143,17 +149,17 @@ public class C_CharReset extends ClientBasePacket {
 			if (type2 == 0x00) { // 0x00:Lv1UP
 				if (pc.getTempLevel() >= pc.getTempMaxLevel())
 					return;
-				setLevelUp(pc, 1); 
+				setLevelUp(pc, 1);
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
 				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10)
 					return;
-				setLevelUp(pc,10);
+				setLevelUp(pc, 10);
 			} else if (type2 == 0x01) {
 				pc.addBaseStr((byte) 1);
 				setLevelUp(pc, 1);
 			} else if (type2 == 0x02) {
 				pc.addBaseInt((byte) 1);
-				setLevelUp(pc,1);
+				setLevelUp(pc, 1);
 			} else if (type2 == 0x03) {
 				pc.addBaseWis((byte) 1);
 				setLevelUp(pc, 1);
@@ -167,7 +173,7 @@ public class C_CharReset extends ClientBasePacket {
 				pc.addBaseCha((byte) 1);
 				setLevelUp(pc, 1);
 			} else if (type2 == 0x08) {
-				switch(readC()){
+				switch (readC()) {
 				case 1:
 					pc.addBaseStr((byte) 1);
 					break;
@@ -214,32 +220,34 @@ public class C_CharReset extends ClientBasePacket {
 			saveNewCharStatus(pc);
 		}
 	}
-	
-	private synchronized void emergencyCleanup(final L1PcInstance pc, final String logEntry,
-			final String message) {
+
+	private synchronized void emergencyCleanup(final L1PcInstance pc,
+			final String logEntry, final String message) {
 		_log.log(Level.SEVERE, logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
 
-		// We'll be nice and just kick the player even though they're probably trying to cheat
+		// We'll be nice and just kick the player even though they're probably
+		// trying to cheat
 		// This reverts to the state at pc.save done at NPCAction
 		ClientThread.quitGame(pc);
 		pc.getNetConnection().kick();
-		
+
 		// Terrible way to bail, but we're doing it for now.
 		throw new IllegalStateException();
 	}
 
 	private synchronized void saveNewCharStatus(L1PcInstance pc) {
 		if (pc.getTempMaxLevel() != pc.getLevel()) {
-			emergencyCleanup(pc, "Candle: " + pc.getName() + "'s level " +
-				"doesn't match!", "Candle: issue with level, contact a GM!");
+			emergencyCleanup(pc, "Candle: " + pc.getName() + "'s level "
+					+ "doesn't match!",
+					"Candle: issue with level, contact a GM!");
 		}
-		
+
 		pc.setInCharReset(false);
-		if(pc.getOriginalAc() > 0) {
+		if (pc.getOriginalAc() > 0) {
 			pc.addAc(pc.getOriginalAc());
 		}
-		if(pc.getOriginalMr() > 0) {
+		if (pc.getOriginalMr() > 0) {
 			pc.addMr(0 - pc.getOriginalMr());
 		}
 		pc.refresh();
@@ -263,41 +271,44 @@ public class C_CharReset extends ClientBasePacket {
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 	}
 
-	private void initCharStatus(L1PcInstance pc, int hp, int mp, int str, int intel, int wis, int dex, int con, int cha) {
-		pc.addBaseMaxHp((short)(hp - pc.getBaseMaxHp()));
-		pc.addBaseMaxMp((short)(mp - pc.getBaseMaxMp()));
-		pc.setBaseStr((byte)str);
-		pc.setBaseInt((byte)intel);
-		pc.setBaseWis((byte)wis);
-		pc.setBaseDex((byte)dex);
-		pc.setBaseCon((byte)con);
-		pc.setBaseCha((byte)cha);
-		pc.setOriginalStr((byte)str);
-		pc.setOriginalInt((byte)intel);
-		pc.setOriginalWis((byte)wis);
-		pc.setOriginalDex((byte)dex);
-		pc.setOriginalCon((byte)con);
-		pc.setOriginalCha((byte)cha);
+	private void initCharStatus(L1PcInstance pc, int hp, int mp, int str,
+			int intel, int wis, int dex, int con, int cha) {
+		pc.addBaseMaxHp((short) (hp - pc.getBaseMaxHp()));
+		pc.addBaseMaxMp((short) (mp - pc.getBaseMaxMp()));
+		pc.setBaseStr((byte) str);
+		pc.setBaseInt((byte) intel);
+		pc.setBaseWis((byte) wis);
+		pc.setBaseDex((byte) dex);
+		pc.setBaseCon((byte) con);
+		pc.setBaseCha((byte) cha);
+		pc.setOriginalStr((byte) str);
+		pc.setOriginalInt((byte) intel);
+		pc.setOriginalWis((byte) wis);
+		pc.setOriginalDex((byte) dex);
+		pc.setOriginalCon((byte) con);
+		pc.setOriginalCha((byte) cha);
 		pc.addMr(0 - pc.getMr());
-    	pc.addDmgup(0 - pc.getDmgup());
-    	pc.addHitup(0 - pc.getHitup());
+		pc.addDmgup(0 - pc.getDmgup());
+		pc.addHitup(0 - pc.getHitup());
 		CharacterTable.saveCharStatus(pc);
 	}
 
-	private synchronized void setLevelUp(L1PcInstance pc ,int addLv) {
-		pc.setTempLevel(pc.getTempLevel()+ addLv);
+	private synchronized void setLevelUp(L1PcInstance pc, int addLv) {
+		pc.setTempLevel(pc.getTempLevel() + addLv);
 		for (int i = 0; i < addLv; i++) {
-			short randomHp = CalcStat.calcStatHp(pc.getType(), pc.getBaseMaxHp(), pc.getBaseCon(), pc.getOriginalHpup());
-			short randomMp = CalcStat.calcStatMp(pc.getType(), pc.getBaseMaxMp(), pc.getBaseWis(), pc.getOriginalMpup());
+			short randomHp = CalcStat.calcStatHp(pc.getType(),
+					pc.getBaseMaxHp(), pc.getBaseCon(), pc.getOriginalHpup());
+			short randomMp = CalcStat.calcStatMp(pc.getType(),
+					pc.getBaseMaxMp(), pc.getBaseWis(), pc.getOriginalMpup());
 			pc.addBaseMaxHp(randomHp);
 			pc.addBaseMaxMp(randomMp);
 		}
 		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex());
-		
-		pc.sendPackets(new S_CharReset(pc,pc.getTempLevel(),
-		pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc,
-		pc.getBaseStr(), pc.getBaseInt(), pc.getBaseWis(),
-		pc.getBaseDex(), pc.getBaseCon(), pc.getBaseCha()));
+
+		pc.sendPackets(new S_CharReset(pc, pc.getTempLevel(),
+				pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc, pc.getBaseStr(),
+				pc.getBaseInt(), pc.getBaseWis(), pc.getBaseDex(), pc
+						.getBaseCon(), pc.getBaseCha()));
 	}
 
 	@Override

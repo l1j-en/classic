@@ -19,8 +19,8 @@
 package l1j.server.server.types;
 
 /**
- * Coordinate upper left point (left, top), and under the right point 
- * (right, bottom) coordinates of the area surrounded by a specified class.
+ * Coordinate upper left point (left, top), and under the right point (right,
+ * bottom) coordinates of the area surrounded by a specified class.
  */
 public class Rectangle {
 	private int _left;

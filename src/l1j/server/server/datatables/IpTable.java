@@ -34,7 +34,7 @@ public class IpTable {
 	private static ArrayList<String> _banip;
 	public static boolean isInitialized;
 	private static IpTable _instance;
-	
+
 	public static IpTable getInstance() {
 		if (_instance == null) {
 			_instance = new IpTable();

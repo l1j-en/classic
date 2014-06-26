@@ -37,8 +37,8 @@ public class S_CharAmount extends ServerBasePacket {
 		int maxAmount = Config.DEFAULT_CHARACTER_SLOT + characterSlot;
 		writeC(Opcodes.S_OPCODE_CHARAMOUNT);
 		writeC(value);
-// writeD(0x00000000);
-// writeD(0x0000);
+		// writeD(0x00000000);
+		// writeD(0x0000);
 		writeC(maxAmount); // max amount
 	}
 

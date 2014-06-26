@@ -29,9 +29,11 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_TradeCancel extends ClientBasePacket {
 
 	private static final String C_TRADE_CANCEL = "[C] C_TradeCancel";
-	private static Logger _log = Logger.getLogger(C_TradeCancel.class.getName());
+	private static Logger _log = Logger
+			.getLogger(C_TradeCancel.class.getName());
 
-	public C_TradeCancel(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_TradeCancel(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();

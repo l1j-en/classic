@@ -47,7 +47,7 @@ public class L1DeleteGroundItem implements L1CommandExecutor {
 		for (L1Object l1object : L1World.getInstance().getObject()) {
 			if (l1object instanceof L1ItemInstance) {
 				L1ItemInstance l1iteminstance = (L1ItemInstance) l1object;
-				if (l1iteminstance.getX() == 0 && l1iteminstance.getY() == 0) { 
+				if (l1iteminstance.getX() == 0 && l1iteminstance.getY() == 0) {
 					continue;
 				}
 
@@ -59,17 +59,17 @@ public class L1DeleteGroundItem implements L1CommandExecutor {
 									l1iteminstance.getY(),
 									l1iteminstance.getMapId());
 					int itemId = l1iteminstance.getItem().getItemId();
-					if (itemId == 40314 || itemId == 40316) { 
+					if (itemId == 40314 || itemId == 40316) {
 						PetTable.getInstance()
 								.deletePet(l1iteminstance.getId());
-					} else if (itemId >= 49016 && itemId <= 49025) {  
+					} else if (itemId >= 49016 && itemId <= 49025) {
 						LetterTable lettertable = new LetterTable();
 						lettertable.deleteLetter(l1iteminstance.getId());
-					} else if (itemId >= 41383 && itemId <= 41400) {  
+					} else if (itemId >= 41383 && itemId <= 41400) {
 						if (l1object instanceof L1FurnitureInstance) {
 							L1FurnitureInstance furniture = (L1FurnitureInstance) l1object;
 							if (furniture.getItemObjId() == l1iteminstance
-									.getId()) { 
+									.getId()) {
 								FurnitureSpawnTable.getInstance()
 										.deleteFurniture(furniture);
 							}
@@ -81,7 +81,6 @@ public class L1DeleteGroundItem implements L1CommandExecutor {
 				}
 			}
 		}
-		L1World.getInstance().broadcastServerMessage(
-				"Ground items deleted.");
+		L1World.getInstance().broadcastServerMessage("Ground items deleted.");
 	}
 }

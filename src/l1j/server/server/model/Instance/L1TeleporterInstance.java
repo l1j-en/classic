@@ -130,8 +130,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				} else {
 					htmlid = "ramuda3";
 				}
-			}
-			else if (npcid == 50082) {
+			} else if (npcid == 50082) {
 				if (player.getLevel() < 13) {
 					htmlid = "en0221";
 				} else {
@@ -143,8 +142,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 						htmlid = "en0222";
 					}
 				}
-			}
-			else if (npcid == 50001) {
+			} else if (npcid == 50001) {
 				if (player.isElf()) {
 					htmlid = "barnia3";
 				} else if (player.isKnight() || player.isCrown()) {
@@ -152,34 +150,34 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				} else if (player.isWizard() || player.isDarkelf()) {
 					htmlid = "barnia1";
 				}
-		} else if (npcid == 50055) {
-			if (player.getLevel() < 15) {
-				htmlid = "drist2";
-			} else {
-				htmlid = "drist1";
-			}
-		} else if (npcid == 81258) {
-			if (player.isIllusionist()) {
-				htmlid = "asha1";
-			} else {
-				htmlid = "asha2";
-			}
-		} else if (npcid == 81259) {
-			if (player.isDragonKnight()) {
-				htmlid = "feaena1";
-			} else {
-				htmlid = "feaena2";
-			}
-		} else if (npcid == 71013) {
-			if (player.isDarkelf()) {
-				if (player.getLevel() < 14) {
-					htmlid = "karen1";
+			} else if (npcid == 50055) {
+				if (player.getLevel() < 15) {
+					htmlid = "drist2";
 				} else {
-					htmlid = "karen4";
+					htmlid = "drist1";
 				}
-			} else {
-				htmlid = "karen2";
-			    }
+			} else if (npcid == 81258) {
+				if (player.isIllusionist()) {
+					htmlid = "asha1";
+				} else {
+					htmlid = "asha2";
+				}
+			} else if (npcid == 81259) {
+				if (player.isDragonKnight()) {
+					htmlid = "feaena1";
+				} else {
+					htmlid = "feaena2";
+				}
+			} else if (npcid == 71013) {
+				if (player.isDarkelf()) {
+					if (player.getLevel() < 14) {
+						htmlid = "karen1";
+					} else {
+						htmlid = "karen4";
+					}
+				} else {
+					htmlid = "karen2";
+				}
 			}
 			if (htmlid != null) {
 				player.sendPackets(new S_NPCTalkReturn(objid, htmlid));
@@ -207,178 +205,212 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			L1NpcHtml html = new L1NpcHtml(talking.getTeleportURL());
 			int npcid = getNpcTemplate().get_npcId();
 			switch (npcid) {
-				case 50015: {
-					price = new String[] { "1500" };
-				}
+			case 50015: {
+				price = new String[] { "1500" };
+			}
 				break;
-				case 50020: {
-					price = new String[] { "55", "55", "55", "180", "180", "180", "180", "270", "270", "300", "300", "900", "10650" };
-				}
+			case 50020: {
+				price = new String[] { "55", "55", "55", "180", "180", "180",
+						"180", "270", "270", "300", "300", "900", "10650" };
+			}
 				break;
-				case 50024: {
-					price = new String[] { "55", "55", "55", "55", "198", "55", "132", "264", "55", "198", "264", "220", "220", "550", "7480" };
-				}
+			case 50024: {
+				price = new String[] { "55", "55", "55", "55", "198", "55",
+						"132", "264", "55", "198", "264", "220", "220", "550",
+						"7480" };
+			}
 				break;
-				case 50036: {
-					price = new String[] { "55", "55", "55", "180", "180", "180", "180", "270", "270", "450", "450", "1050", "11100" };
-				}
+			case 50036: {
+				price = new String[] { "55", "55", "55", "180", "180", "180",
+						"180", "270", "270", "450", "450", "1050", "11100" };
+			}
 				break;
-				case 50039: {
-					price = new String[] { "55", "55", "180", "180", "270", "270", "270", "360", "360", "600", "600", "1200", "11550" };
-				}
+			case 50039: {
+				price = new String[] { "55", "55", "180", "180", "270", "270",
+						"270", "360", "360", "600", "600", "1200", "11550" };
+			}
 				break;
-				case 50044: {
-					price = new String[] { "50", "120", "120", "180", "180", "180", "240", "240", "300", "500", "500", "900", "7400" };
-				}
+			case 50044: {
+				price = new String[] { "50", "120", "120", "180", "180", "180",
+						"240", "240", "300", "500", "500", "900", "7400" };
+			}
 				break;
-				case 50046: {
-					price = new String[] { "50", "120", "120", "120", "180", "180", "180", "240", "300", "500", "500", "900", "7400" };
-				}
+			case 50046: {
+				price = new String[] { "50", "120", "120", "120", "180", "180",
+						"180", "240", "300", "500", "500", "900", "7400" };
+			}
 				break;
-				case 50051: {
-					price = new String[] { "55", "180", "270", "270", "360", "360", "360", "450", "450", "750", "750", "1350", "12000" };
-				}
+			case 50051: {
+				price = new String[] { "55", "180", "270", "270", "360", "360",
+						"360", "450", "450", "750", "750", "1350", "12000" };
+			}
 				break;
-				case 50054: {
-					price = new String[] { "55", "55", "55", "180", "180", "270", "270", "360", "450", "300", "300", "750", "9750" };
-				}
+			case 50054: {
+				price = new String[] { "55", "55", "55", "180", "180", "270",
+						"270", "360", "450", "300", "300", "750", "9750" };
+			}
 				break;
-				case 50056: {
-					price = new String[] { "55", "55", "55", "132", "132", "132", "198", "198", "880", "880", "264", "330", "330", "880", "7480" };
-				}
+			case 50056: {
+				price = new String[] { "55", "55", "55", "132", "132", "132",
+						"198", "198", "880", "880", "264", "330", "330", "880",
+						"7480" };
+			}
 				break;
-				case 50066: {
-					price = new String[] { "55", "55", "55", "132", "132", "132", "198", "198", "264", "440", "440", "880", "7810" };
-				}
+			case 50066: {
+				price = new String[] { "55", "55", "55", "132", "132", "132",
+						"198", "198", "264", "440", "440", "880", "7810" };
+			}
 				break;
-				case 50068: {
-					price = new String[] { "1500", "800", "600", "1800", "1800", "1000" };
-				}
+			case 50068: {
+				price = new String[] { "1500", "800", "600", "1800", "1800",
+						"1000" };
+			}
 				break;
-				case 50026: {
-					price = new String[] { "550", "700", "810" };
-				}
+			case 50026: {
+				price = new String[] { "550", "700", "810" };
+			}
 				break;
-				case 50033: {
-					price = new String[] { "560", "720", "560" };
-				}
+			case 50033: {
+				price = new String[] { "560", "720", "560" };
+			}
 				break;
-				case 50049: {
-					price = new String[] { "1150", "980", "590" };
-				}
+			case 50049: {
+				price = new String[] { "1150", "980", "590" };
+			}
 				break;
-				case 50059: {
-					price = new String[] { "580", "680", "680" };
-				}
+			case 50059: {
+				price = new String[] { "580", "680", "680" };
+			}
 				break;
-				case 50072: {
-					price = new String[] { "2200", "1800", "1000", "1600", "2200", "1200", "1300", "2000", "2000", "500", "500", "700", "650", "700", "800", "800", "1000" };
-				}
+			case 50072: {
+				price = new String[] { "2200", "1800", "1000", "1600", "2200",
+						"1200", "1300", "2000", "2000", "500", "500", "700",
+						"650", "700", "800", "800", "1000" };
+			}
 				break;
-				case 50073: {
-					price = new String[] { "2200", "1800", "1000", "1600", "2200", "1200", "1300", "0", "2000", "2000" };
-				}
+			case 50073: {
+				price = new String[] { "2200", "1800", "1000", "1600", "2200",
+						"1200", "1300", "0", "2000", "2000" };
+			}
 				break;
-				case 50079: {
-					price = new String[] { "550", "550", "600", "550", "700", "600", "600", "750", "750", "500", "500", "700", "650", "700", "800", "800", "1000" };
-				}
+			case 50079: {
+				price = new String[] { "550", "550", "600", "550", "700",
+						"600", "600", "750", "750", "500", "500", "700", "650",
+						"700", "800", "800", "1000" };
+			}
 				break;
-				case 50080: {
-					price = new String[] { "15" };
-				}
+			case 50080: {
+				price = new String[] { "15" };
+			}
 				break;
-				case 71039: {
-					price = new String[] { "10000" };
-				}
+			case 71039: {
+				price = new String[] { "10000" };
+			}
 				break;
-				case 71078: {
-					price = new String[] { "10000" };
-				}
+			case 71078: {
+				price = new String[] { "10000" };
+			}
 				break;
-				case 71080: {
-					price = new String[] { "10000" };
-				}
+			case 71080: {
+				price = new String[] { "10000" };
+			}
 				break;
-				case 80132: {
-					price = new String[] { "132", "55", "55", "55", "132", "132", "132", "132", "198", "198", "246", "330", "330", "770", "7480" };
-				}
+			case 80132: {
+				price = new String[] { "132", "55", "55", "55", "132", "132",
+						"132", "132", "198", "198", "246", "330", "330", "770",
+						"7480" };
+			}
 				break;
-				case 80146: {
-					price = new String[] { "132", "55", "55", "55", "132", "132", "132", "198", "198", "300", "246", "330", "330", "770", "7480" };
-				}
+			case 80146: {
+				price = new String[] { "132", "55", "55", "55", "132", "132",
+						"132", "198", "198", "300", "246", "330", "330", "770",
+						"7480" };
+			}
 				break;
-				default: {
-					price = new String[] { "" };
-				}
+			default: {
+				price = new String[] { "" };
+			}
 			}
 			player.sendPackets(new S_NPCTalkReturn(objid, html, price));
 		} else if (action.equalsIgnoreCase("teleportURLA")) {
 			String html = "";
 			int npcid = getNpcTemplate().get_npcId();
 			switch (npcid) {
-				case 50020: {
-					html = "telekent3";
-					price = new String[] { "150", "330", "330", "330", "330", "330", "495", "495", "495", "660", "660" };
-				}
+			case 50020: {
+				html = "telekent3";
+				price = new String[] { "150", "330", "330", "330", "330",
+						"330", "495", "495", "495", "660", "660" };
+			}
 				break;
-				case 50024: {
-					html = "telegludin3";
-					price = new String[] { "140", "308", "308", "308", "462", "462", "462", "462", "616", "770", "770" };
-				}
+			case 50024: {
+				html = "telegludin3";
+				price = new String[] { "140", "308", "308", "308", "462",
+						"462", "462", "462", "616", "770", "770" };
+			}
 				break;
-				case 50036: {
-					html = "telegiran3";
-					price = new String[] { "150", "150", "150", "330", "330", "330", "330", "495", "495", "495", "660" };
-				}
+			case 50036: {
+				html = "telegiran3";
+				price = new String[] { "150", "150", "150", "330", "330",
+						"330", "330", "495", "495", "495", "660" };
+			}
 				break;
-				case 50039: {
-					html = "televala3";
-					price = new String[] { "150", "330", "330", "330", "495", "495", "495", "495", "495", "660", "660" };
-				}
+			case 50039: {
+				html = "televala3";
+				price = new String[] { "150", "330", "330", "330", "495",
+						"495", "495", "495", "495", "660", "660" };
+			}
 				break;
-				case 50044: {
-					html = "sirius3";
-					price = new String[] { "100", "220", "220", "220", "330", "330", "440", "440", "550", "550", "550" };
-				}
+			case 50044: {
+				html = "sirius3";
+				price = new String[] { "100", "220", "220", "220", "330",
+						"330", "440", "440", "550", "550", "550" };
+			}
 				break;
-				case 50051: {
-					html = "kirius3";
-					price = new String[] { "150", "330", "495", "495", "495", "660", "660", "825", "825", "825", "825" };
-				}
+			case 50051: {
+				html = "kirius3";
+				price = new String[] { "150", "330", "495", "495", "495",
+						"660", "660", "825", "825", "825", "825" };
+			}
 				break;
-				case 50046: {
-					html = "elleris3";
-					price = new String[] { "100", "220", "220", "220", "330", "330", "440", "440", "550", "550", "550" };
-				}
+			case 50046: {
+				html = "elleris3";
+				price = new String[] { "100", "220", "220", "220", "330",
+						"330", "440", "440", "550", "550", "550" };
+			}
 				break;
-				case 50054: {
-					html = "telewoods3";
-					price = new String[] { "150", "150", "330", "330", "495", "495", "495", "495", "660", "825", "825" };
-				}
+			case 50054: {
+				html = "telewoods3";
+				price = new String[] { "150", "150", "330", "330", "495",
+						"495", "495", "495", "660", "825", "825" };
+			}
 				break;
-				case 50056: {
-					html = "telesilver3";
-					price = new String[] { "150", "150", "330", "330", "330", "330", "495", "495", "495", "495", "495" };
-				}
+			case 50056: {
+				html = "telesilver3";
+				price = new String[] { "150", "150", "330", "330", "330",
+						"330", "495", "495", "495", "495", "495" };
+			}
 				break;
-				case 50066: {
-					html = "teleheine3";
-					price = new String[] { "110", "110", "242", "242", "242", "242", "363", "363", "484", "484", "605" };
-				}
+			case 50066: {
+				html = "teleheine3";
+				price = new String[] { "110", "110", "242", "242", "242",
+						"242", "363", "363", "484", "484", "605" };
+			}
 				break;
-				case 80132: {
-					html = "dekabia3";
-					price = new String[] { "100", "220", "220", "220", "330", "330", "330", "330", "440", "440" };
-				}
+			case 80132: {
+				html = "dekabia3";
+				price = new String[] { "100", "220", "220", "220", "330",
+						"330", "330", "330", "440", "440" };
+			}
 				break;
-				case 80146: {
-					html = "sharial3";
-					price = new String[] { "220", "330", "330", "330", "440", "440", "550", "550", "550", "550" };
-				}
+			case 80146: {
+				html = "sharial3";
+				price = new String[] { "220", "330", "330", "330", "440",
+						"440", "550", "550", "550", "550" };
+			}
 				break;
-				default: {
-					price = new String[] { "" };
-				}
+			default: {
+				price = new String[] { "" };
+			}
 			}
 			player.sendPackets(new S_NPCTalkReturn(objid, html, price));
 		} else if (action.equalsIgnoreCase("teleportURLA")) {
@@ -394,7 +426,8 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLD")) {
 			String htmlid = "guide_1_3";
-			price = new String[] { "480", "480", "480", "480", "630", "1080", "630" };
+			price = new String[] { "480", "480", "480", "480", "630", "1080",
+					"630" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLF")) {
 			String htmlid = "guide_2_2";
@@ -410,7 +443,8 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLI")) {
 			String htmlid = "guide_3_2";
-			price = new String[] { "663", "663", "663", "663", "1313", "1053", "793" };
+			price = new String[] { "663", "663", "663", "663", "1313", "1053",
+					"793" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLH")) {
 			String htmlid = "guide_3_1";
@@ -418,23 +452,28 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLJ")) {
 			String htmlid = "guide_3_3";
-			price = new String[] { "780", "780", "780", "780", "780", "1230", "1080" };
+			price = new String[] { "780", "780", "780", "780", "780", "1230",
+					"1080" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLK")) {
 			String htmlid = "guide_4";
-			price = new String[] { "676", "676", "676", "676", "676", "1066", "936" };
+			price = new String[] { "676", "676", "676", "676", "676", "1066",
+					"936" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLA")) {
 			String htmlid = "dekabia3";
-			price = new String[] { "100", "220", "220", "220", "330", "330", "330", "330", "440", "440" };
+			price = new String[] { "100", "220", "220", "220", "330", "330",
+					"330", "330", "440", "440" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		} else if (action.equalsIgnoreCase("teleportURLA")) {
 			String htmlid = "sharial3";
-			price = new String[] { "220", "330", "330", "330", "440", "440", "550", "550", "550", "550" };
+			price = new String[] { "220", "330", "330", "330", "440", "440",
+					"550", "550", "550", "550" };
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		}
 		if (action.startsWith("teleport ")) {
-			_log.finest((new StringBuilder()).append("Setting action to : ").append(action).toString());
+			_log.finest((new StringBuilder()).append("Setting action to : ")
+					.append(action).toString());
 			doFinalAction(player, action);
 		}
 	}
@@ -469,14 +508,14 @@ public class L1TeleporterInstance extends L1NpcInstance {
 							.getVisiblePlayer(player, 3)) {
 						if (otherPc.getClanid() == player.getClanid()
 								&& otherPc.getId() != player.getId()) {
-							L1Teleport.teleport(otherPc, 32740, 32800, (short) 217, 5,
-									true);
+							L1Teleport.teleport(otherPc, 32740, 32800,
+									(short) 217, 5, true);
 						}
 					}
 					L1Teleport.teleport(player, 32740, 32800, (short) 217, 5,
 							true);
-				}
-				else if (action.equalsIgnoreCase("teleport mage-quest-dungen")) {
+				} else if (action
+						.equalsIgnoreCase("teleport mage-quest-dungen")) {
 					L1Teleport.teleport(player, 32791, 32788, (short) 201, 5,
 							true);
 				} else if (action.equalsIgnoreCase("teleport 29")) { //
@@ -486,17 +525,17 @@ public class L1TeleporterInstance extends L1NpcInstance {
 					for (L1PcInstance otherPc : L1World.getInstance()
 							.getVisiblePlayer(player, 3)) {
 						L1Quest quest = otherPc.getQuest();
-						if (otherPc.isKnight() 
+						if (otherPc.isKnight()
 								&& quest.get_step(L1Quest.QUEST_LEVEL50) == 1) {
 							if (kni == null) {
 								kni = otherPc;
 							}
-						} else if (otherPc.isElf() 
+						} else if (otherPc.isElf()
 								&& quest.get_step(L1Quest.QUEST_LEVEL50) == 1) {
 							if (elf == null) {
 								elf = otherPc;
 							}
-						} else if (otherPc.isWizard() 
+						} else if (otherPc.isWizard()
 								&& quest.get_step(L1Quest.QUEST_LEVEL50) == 1) {
 							if (wiz == null) {
 								wiz = otherPc;

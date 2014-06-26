@@ -60,7 +60,7 @@ public class L1Quest {
 	public static final int QUEST_TOSCROLL = 39;
 	public static final int QUEST_MOONOFLONGBOW = 40;
 	public static final int QUEST_GENERALHAMELOFRESENTMENT = 41;
-	public static final int QUEST_END = 255; 
+	public static final int QUEST_END = 255;
 	private L1PcInstance _owner = null;
 	private HashMap<Integer, Integer> _quest = null;
 
@@ -77,15 +77,17 @@ public class L1Quest {
 			Connection con = null;
 			PreparedStatement pstm = null;
 			ResultSet rs = null;
-			
+
 			try {
 				_quest = new HashMap<Integer, Integer>();
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con.prepareStatement("SELECT * FROM character_quests WHERE char_id=?");
+				pstm = con
+						.prepareStatement("SELECT * FROM character_quests WHERE char_id=?");
 				pstm.setInt(1, _owner.getId());
 				rs = pstm.executeQuery();
 				while (rs.next()) {
-					_quest.put(new Integer(rs.getInt(2)), new Integer(rs.getInt(3)));
+					_quest.put(new Integer(rs.getInt(2)),
+							new Integer(rs.getInt(3)));
 				}
 			} catch (SQLException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -106,17 +108,20 @@ public class L1Quest {
 	public void set_step(int quest_id, int step) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			if (_quest.get(new Integer(quest_id)) == null) {
-				pstm = con.prepareStatement("INSERT INTO character_quests " + "SET char_id = ?, quest_id = ?, quest_step = ?");
+				pstm = con.prepareStatement("INSERT INTO character_quests "
+						+ "SET char_id = ?, quest_id = ?, quest_step = ?");
 				pstm.setInt(1, _owner.getId());
 				pstm.setInt(2, quest_id);
 				pstm.setInt(3, step);
 				pstm.execute();
 			} else {
-				pstm = con.prepareStatement("UPDATE character_quests " + "SET quest_step = ? WHERE char_id = ? AND quest_id = ?");
+				pstm = con
+						.prepareStatement("UPDATE character_quests "
+								+ "SET quest_step = ? WHERE char_id = ? AND quest_id = ?");
 				pstm.setInt(1, step);
 				pstm.setInt(2, _owner.getId());
 				pstm.setInt(3, quest_id);

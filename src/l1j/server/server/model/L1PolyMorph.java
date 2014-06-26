@@ -57,11 +57,11 @@ public class L1PolyMorph {
 
 	private static final int CLAW_EQUIP = 128;
 
-	private static final int BOW_EQUIP = 256; 
+	private static final int BOW_EQUIP = 256;
 
 	private static final int KIRINGKU_EQUIP = 512;
 
-	private static final int CHAINSWORD_EQUIP= 1024;
+	private static final int CHAINSWORD_EQUIP = 1024;
 
 	// armor equip bit
 	private static final int HELM_EQUIP = 1;
@@ -92,7 +92,7 @@ public class L1PolyMorph {
 
 	public static final int MORPH_BY_GM = 2;
 
-	public static final int MORPH_BY_NPC = 4; // 
+	public static final int MORPH_BY_NPC = 4; //
 
 	public static final int MORPH_BY_KEPLISHA = 8;
 
@@ -196,20 +196,18 @@ public class L1PolyMorph {
 		L1PolyMorph poly = PolyTable.getInstance().getTemplate(s);
 		if (poly != null || s.equals("none")) {
 			if (s.equals("none")) {
-				if (pc.getTempCharGfx() == 6034
-						|| pc.getTempCharGfx() == 6035) {
+				if (pc.getTempCharGfx() == 6034 || pc.getTempCharGfx() == 6035) {
 				} else {
 					pc.removeSkillEffect(SHAPE_CHANGE);
 					pc.sendPackets(new S_CloseList(pc.getId()));
 				}
 			} else if (pc.getLevel() >= poly.getMinLevel() || pc.isGm()) {
-				if (pc.getTempCharGfx() == 6034
-						|| pc.getTempCharGfx() == 6035) {
+				if (pc.getTempCharGfx() == 6034 || pc.getTempCharGfx() == 6035) {
 					pc.sendPackets(new S_ServerMessage(181));
-					//				
+					//
 				} else {
-				doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
-				pc.sendPackets(new S_CloseList(pc.getId()));
+					doPoly(pc, poly.getPolyId(), 7200, MORPH_BY_ITEMMAGIC);
+					pc.sendPackets(new S_CloseList(pc.getId()));
 				}
 			} else {
 				pc.sendPackets(new S_ServerMessage(181));
@@ -218,29 +216,28 @@ public class L1PolyMorph {
 	}
 
 	public static void doPoly(L1Character cha, int polyId, int timeSecs,
-				int cause) {
+			int cause) {
 		if (cha == null || cha.isDead()) {
 			return;
 		}
 		if (cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) cha;
-			if (pc.getMapId() == 5124) { 
-				pc.sendPackets(new S_ServerMessage(1170)); 
+			if (pc.getMapId() == 5124) {
+				pc.sendPackets(new S_ServerMessage(1170));
 				return;
 			}
-			if (pc.getTempCharGfx() == 6034
-					|| pc.getTempCharGfx() == 6035) {
-				pc.sendPackets(new S_ServerMessage(181)); // 
-				return;	
+			if (pc.getTempCharGfx() == 6034 || pc.getTempCharGfx() == 6035) {
+				pc.sendPackets(new S_ServerMessage(181)); //
+				return;
 			}
 			if (!isMatchCause(polyId, cause)) {
-				pc.sendPackets(new S_ServerMessage(181)); // 
+				pc.sendPackets(new S_ServerMessage(181)); //
 				return;
 			}
 
- 			pc.killSkillEffectTimer(L1SkillId.SHAPE_CHANGE);
+			pc.killSkillEffectTimer(L1SkillId.SHAPE_CHANGE);
 			pc.setSkillEffect(L1SkillId.SHAPE_CHANGE, timeSecs * 1000);
-			if (pc.getTempCharGfx() != polyId) { 
+			if (pc.getTempCharGfx() != polyId) {
 				L1ItemInstance weapon = pc.getWeapon();
 				boolean weaponTakeoff = (weapon != null && !isEquipableWeapon(
 						polyId, weapon.getItem().getType()));
@@ -252,8 +249,8 @@ public class L1PolyMorph {
 				}
 				if (pc.isGmInvis()) {
 				} else if (pc.isInvisble()) {
-					pc.broadcastPacketForFindInvis(new S_ChangeShape(pc
-							.getId(), polyId), true);
+					pc.broadcastPacketForFindInvis(new S_ChangeShape(
+							pc.getId(), polyId), true);
 				} else {
 					pc.broadcastPacket(new S_ChangeShape(pc.getId(), polyId));
 				}
@@ -270,7 +267,7 @@ public class L1PolyMorph {
 			L1MonsterInstance mob = (L1MonsterInstance) cha;
 			mob.killSkillEffectTimer(SHAPE_CHANGE);
 			mob.setSkillEffect(SHAPE_CHANGE, timeSecs * 1000);
-			if (mob.getTempCharGfx() != polyId) { 
+			if (mob.getTempCharGfx() != polyId) {
 				mob.setTempCharGfx(polyId);
 				mob.broadcastPacket(new S_ChangeShape(mob.getId(), polyId));
 			}
@@ -322,6 +319,7 @@ public class L1PolyMorph {
 		}
 		return true;
 	}
+
 	public static boolean isMatchCause(int polyId, int cause) {
 		L1PolyMorph poly = PolyTable.getInstance().getTemplate(polyId);
 		if (poly == null) {

@@ -27,6 +27,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_AddItem extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_AddItem.class.getName());
 	private static final String S_ADD_ITEM = "[S] S_AddItem";
+
 	/**
 	 * One item to add to the inventory.
 	 */

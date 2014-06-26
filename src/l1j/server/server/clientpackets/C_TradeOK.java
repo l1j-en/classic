@@ -37,19 +37,18 @@ public class C_TradeOK extends ClientBasePacket {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
-		L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance().findObject(player.getTradeID());
+		L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance()
+				.findObject(player.getTradeID());
 		if (trading_partner != null) {
 			player.setTradeOk(true);
 
-			if (player.getTradeOk() && trading_partner.getTradeOk()) 
-			{
-				if (player.getInventory().getSize() < (180 - 16) && trading_partner.getInventory().getSize() < (180 - 16)) 
-				{
+			if (player.getTradeOk() && trading_partner.getTradeOk()) {
+				if (player.getInventory().getSize() < (180 - 16)
+						&& trading_partner.getInventory().getSize() < (180 - 16)) {
 					L1Trade trade = new L1Trade();
 					trade.TradeOK(player);
-				} else
-				{
-					player.sendPackets(new S_ServerMessage(263)); 
+				} else {
+					player.sendPackets(new S_ServerMessage(263));
 					trading_partner.sendPackets(new S_ServerMessage(263));
 					L1Trade trade = new L1Trade();
 					trade.TradeCancel(player);

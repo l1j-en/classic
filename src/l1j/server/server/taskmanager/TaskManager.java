@@ -17,6 +17,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package l1j.server.server.taskmanager;
+
 import static l1j.server.server.taskmanager.TaskTypes.TYPE_GLOBAL_TASK;
 
 import java.sql.PreparedStatement;
@@ -35,12 +36,14 @@ import l1j.server.server.ThreadPoolManager;
 import l1j.server.server.taskmanager.tasks.TaskRestart;
 import l1j.server.server.taskmanager.tasks.TaskShutdown;
 import l1j.server.server.utils.SQLUtil;
+
 /**
  * @author Layane
  * 
  */
 public final class TaskManager {
-	protected static final Logger _log = Logger.getLogger(TaskManager.class.getName());
+	protected static final Logger _log = Logger.getLogger(TaskManager.class
+			.getName());
 	private static TaskManager _instance;
 
 	protected static final String[] SQL_STATEMENTS = {
@@ -82,7 +85,8 @@ public final class TaskManager {
 				pstm.setInt(2, _id);
 				pstm.executeUpdate();
 			} catch (SQLException e) {
-				_log.warning("cannot updated the Global Task " + _id + ": " + e.getMessage());
+				_log.warning("cannot updated the Global Task " + _id + ": "
+						+ e.getMessage());
 			} finally {
 				SQLUtil.close(pstm);
 				SQLUtil.close(con);
@@ -157,14 +161,15 @@ public final class TaskManager {
 			pstm = con.prepareStatement(SQL_STATEMENTS[0]);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				Task task = _tasks.get(rs.getString("task").trim().toLowerCase().hashCode());
+				Task task = _tasks.get(rs.getString("task").trim()
+						.toLowerCase().hashCode());
 
 				if (task == null) {
 					continue;
 				}
-				//TODO Not used
+				// TODO Not used
 				TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
-				//TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
+				// TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "error while loading Global Task table", e);
@@ -205,7 +210,8 @@ public final class TaskManager {
 			String[] hour = task.getParams()[1].split(":");
 
 			if (hour.length != 3) {
-				_log.warning("Task " + task.getId() + " has incorrect parameters");
+				_log.warning("Task " + task.getId()
+						+ " has incorrect parameters");
 				return false;
 			}
 			Calendar check = Calendar.getInstance();
@@ -216,7 +222,8 @@ public final class TaskManager {
 				min.set(Calendar.MINUTE, Integer.valueOf(hour[1]));
 				min.set(Calendar.SECOND, Integer.valueOf(hour[2]));
 			} catch (Exception e) {
-				_log.warning("Bad parameter on task " + task.getId() + ": " + e.getMessage());
+				_log.warning("Bad parameter on task " + task.getId() + ": "
+						+ e.getMessage());
 				return false;
 			}
 			long delay = min.getTimeInMillis() - System.currentTimeMillis();
@@ -224,7 +231,8 @@ public final class TaskManager {
 			if (check.after(min) || delay < 0) {
 				delay += interval;
 			}
-			task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
+			task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay,
+					interval);
 			return true;
 		}
 		return false;

@@ -25,10 +25,10 @@ public class S_CantMove extends ServerBasePacket {
 	private byte[] _byte = null;
 
 	public S_CantMove() {
-/*
-		writeC(Opcodes.S_OPCODE_CANTMOVEBEFORETELE);
-//		writeC(Opcodes.S_OPCODE_CANTMOVE);
-*/
+		/*
+		 * writeC(Opcodes.S_OPCODE_CANTMOVEBEFORETELE); //
+		 * writeC(Opcodes.S_OPCODE_CANTMOVE);
+		 */
 	}
 
 	@Override

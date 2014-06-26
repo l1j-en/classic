@@ -97,7 +97,8 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * 0 -> type of skills do nothing, 1 -> physical attacks, 2 -> magic attack, 3 -> Salmon
+	 * 0 -> type of skills do nothing, 1 -> physical attacks, 2 -> magic attack,
+	 * 3 -> Salmon
 	 */
 	private int type[];
 
@@ -116,7 +117,8 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * Imposition of conditions skills: random probability (0% to 100%) imposition of skills
+	 * Imposition of conditions skills: random probability (0% to 100%)
+	 * imposition of skills
 	 */
 	private int triRnd[];
 
@@ -173,9 +175,9 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * Imposition of conditions skills: triRange <0 if the target is too 
-	 * abs (triRange) following the imposition of TriRange> 0, the 
-	 * distance covered over when the engine is triRange
+	 * Imposition of conditions skills: triRange <0 if the target is too abs
+	 * (triRange) following the imposition of TriRange> 0, the distance covered
+	 * over when the engine is triRange
 	 */
 	int triRange[];
 
@@ -207,7 +209,8 @@ public class L1MobSkill implements Cloneable {
 	int triCount[];
 
 	/*
-	 * Imposition of conditions skills: Skills triCount following the imposition of a number of fires
+	 * Imposition of conditions skills: Skills triCount following the imposition
+	 * of a number of fires
 	 */
 	public int getTriggerCount(int idx) {
 		if (idx < 0 || idx >= getSkillSize()) {
@@ -243,8 +246,8 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * If the distance range attacks, physical attacks if the attacks, 
-	 * even if the proximity to more than 1 set
+	 * If the distance range attacks, physical attacks if the attacks, even if
+	 * the proximity to more than 1 set
 	 */
 	int range[];
 
@@ -263,9 +266,10 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * Wide range of attacks, stand-alone if it attacks 0 you, if you attack a range of zero to set
-	 * Width and Height setting is an attacker from the width of Width, Height and depth.
-	 * Width + - so, do you specify the target, mainly as a left-right up until the target.
+	 * Wide range of attacks, stand-alone if it attacks 0 you, if you attack a
+	 * range of zero to set Width and Height setting is an attacker from the
+	 * width of Width, Height and depth. Width + - so, do you specify the
+	 * target, mainly as a left-right up until the target.
 	 */
 	int areaWidth[];
 
@@ -284,7 +288,8 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * High-range attack in a single attack if 0 you, if you attack a range of more than 1 set
+	 * High-range attack in a single attack if 0 you, if you attack a range of
+	 * more than 1 set
 	 */
 	int areaHeight[];
 
@@ -303,7 +308,8 @@ public class L1MobSkill implements Cloneable {
 	}
 
 	/*
-	 * Damage magnification, 1 / 10, respectively. Physical attacks, magic attacks both effective
+	 * Damage magnification, 1 / 10, respectively. Physical attacks, magic
+	 * attacks both effective
 	 */
 	int leverage[];
 

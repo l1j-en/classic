@@ -59,13 +59,13 @@ public class L1World {
 
 	@SuppressWarnings("unchecked")
 	private L1World() {
-		_allPlayers = new ConcurrentHashMap<String, L1PcInstance>(); 
+		_allPlayers = new ConcurrentHashMap<String, L1PcInstance>();
 		_allPets = new ConcurrentHashMap<Integer, L1PetInstance>();
 		_allSummons = new ConcurrentHashMap<Integer, L1SummonInstance>();
-		_allObjects = new ConcurrentHashMap<Integer, L1Object>(); 
-		_visibleObjects = new ConcurrentHashMap[MAX_MAP_ID + 1]; 
-		_allWars = new CopyOnWriteArrayList<L1War>(); 
-		_allClans = new ConcurrentHashMap<String, L1Clan>(); 
+		_allObjects = new ConcurrentHashMap<Integer, L1Object>();
+		_visibleObjects = new ConcurrentHashMap[MAX_MAP_ID + 1];
+		_allWars = new CopyOnWriteArrayList<L1War>();
+		_allClans = new ConcurrentHashMap<String, L1Clan>();
 
 		for (int i = 0; i <= MAX_MAP_ID; i++) {
 			_visibleObjects[i] = new ConcurrentHashMap<Integer, L1Object>();
@@ -88,16 +88,14 @@ public class L1World {
 	}
 
 	public void storeObject(L1Object object) {
-		/* Debugging in progress...
-		if (_allPlayers.size() > 0) {
-			System.out.println(
-			String.format("Adding %s with id %d.", object, object.getId()));
-			if (object instanceof L1ItemInstance) {
-				L1ItemInstance item = (L1ItemInstance) object;
-				System.out.println(String.format("Item %s", item.getName()));
-			}
-		}*/
-			
+		/*
+		 * Debugging in progress... if (_allPlayers.size() > 0) {
+		 * System.out.println( String.format("Adding %s with id %d.", object,
+		 * object.getId())); if (object instanceof L1ItemInstance) {
+		 * L1ItemInstance item = (L1ItemInstance) object;
+		 * System.out.println(String.format("Item %s", item.getName())); } }
+		 */
+
 		_allObjects.put(object.getId(), object);
 		if (object instanceof L1PcInstance) {
 			_allPlayers.put(((L1PcInstance) object).getName(),
@@ -112,12 +110,12 @@ public class L1World {
 	}
 
 	public void removeObject(L1Object object) {
-		/* Debugging in process... =(
-		if (_allPlayers.size() > 0)
-			System.out.println(String.format(
-				"Removing %s with id %d.", object, object.getId()));
-		*/
-		
+		/*
+		 * Debugging in process... =( if (_allPlayers.size() > 0)
+		 * System.out.println(String.format( "Removing %s with id %d.", object,
+		 * object.getId()));
+		 */
+
 		_allObjects.remove(object.getId());
 		if (object instanceof L1PcInstance) {
 			_allPlayers.remove(((L1PcInstance) object).getName());
@@ -143,7 +141,7 @@ public class L1World {
 	}
 
 	public L1GroundInventory getInventory(int x, int y, short map) {
-		int inventoryKey = ((x - 30000) * 10000 + (y - 30000)) * -1; 
+		int inventoryKey = ((x - 30000) * 10000 + (y - 30000)) * -1;
 
 		Object object = _visibleObjects[map].get(inventoryKey);
 		if (object == null) {
@@ -170,8 +168,7 @@ public class L1World {
 		}
 	}
 
-	public void moveVisibleObject(L1Object object, int newMap) 
-	{
+	public void moveVisibleObject(L1Object object, int newMap) {
 		if (object.getMapId() != newMap) {
 			if (object.getMapId() <= MAX_MAP_ID) {
 				_visibleObjects[object.getMapId()].remove(object.getId());
@@ -238,8 +235,8 @@ public class L1World {
 
 	public ArrayList<L1Object> getVisibleLineObjects(L1Object src,
 			L1Object target) {
-		ConcurrentHashMap<Integer, Integer> lineMap = createLineMap(src
-				.getLocation(), target.getLocation());
+		ConcurrentHashMap<Integer, Integer> lineMap = createLineMap(
+				src.getLocation(), target.getLocation());
 
 		int map = target.getMapId();
 		ArrayList<L1Object> result = new ArrayList<L1Object>();
@@ -287,12 +284,14 @@ public class L1World {
 
 				int distance = location.getTileLineDistance(element
 						.getLocation());
-				// Straight-line distance of height, width greater than either, so the calculation of range
+				// Straight-line distance of height, width greater than either,
+				// so the calculation of range
 				if (distance > height && distance > width) {
 					continue;
 				}
 
-				// and the origin of the object position to coordinate correction
+				// and the origin of the object position to coordinate
+				// correction
 				int x1 = element.getX() - x;
 				int y1 = element.getY() - y;
 
@@ -305,8 +304,10 @@ public class L1World {
 				int ymin = -width;
 				int ymax = width;
 
-				// Differ with range and depth to determine the crow flies, so be sure to change.
-				// if (rotX > xmin && rotX <= xmax && rotY >= ymin && rotY <= ymax) {
+				// Differ with range and depth to determine the crow flies, so
+				// be sure to change.
+				// if (rotX > xmin && rotX <= xmax && rotY >= ymin && rotY <=
+				// ymax) {
 				if (rotX > xmin && distance <= xmax && rotY >= ymin
 						&& rotY <= ymax) {
 					result.add(element);
@@ -442,6 +443,7 @@ public class L1World {
 
 	/**
 	 * object Players are able to get the range
+	 * 
 	 * @param object
 	 * @return
 	 */
@@ -460,8 +462,10 @@ public class L1World {
 
 	/**
 	 * World in the given name to get the players.
+	 * 
 	 * @Param name players (capital letters are ignored lowercase)
-	 * @Return given name L1PcInstance. If there is no appropriate players to return null.
+	 * @Return given name L1PcInstance. If there is no appropriate players to
+	 *         return null.
 	 */
 	public L1PcInstance getPlayer(String name) {
 		if (_allPlayers.contains(name)) {

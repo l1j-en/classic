@@ -103,7 +103,7 @@ class L1SkillStop {
 				pc.sendPackets(new S_SPMR(pc));
 				pc.sendPackets(new S_SkillIconAura(113, 0));
 			}
-		} else if (skillId == SHINING_AURA) { 
+		} else if (skillId == SHINING_AURA) {
 			cha.addAc(8);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -126,7 +126,7 @@ class L1SkillStop {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.delBlindHiding();
 			}
-		} else if (skillId == SHADOW_ARMOR) { 
+		} else if (skillId == SHADOW_ARMOR) {
 			cha.addAc(3);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -146,23 +146,23 @@ class L1SkillStop {
 			}
 		} else if (skillId == SHADOW_FANG) {
 			cha.addDmgup(-5);
-		} else if (skillId == ENCHANT_WEAPON) { 
+		} else if (skillId == ENCHANT_WEAPON) {
 			cha.addDmgup(-2);
-		} else if (skillId == BLESSED_ARMOR) { 
+		} else if (skillId == BLESSED_ARMOR) {
 			cha.addAc(3);
-		} else if (skillId == EARTH_BLESS) { 
+		} else if (skillId == EARTH_BLESS) {
 			cha.addAc(7);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconShield(7, 0));
 			}
-		} else if (skillId == RESIST_MAGIC) { 
+		} else if (skillId == RESIST_MAGIC) {
 			cha.addMr(-10);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SPMR(pc));
 			}
-		} else if (skillId == CLEAR_MIND) { 
+		} else if (skillId == CLEAR_MIND) {
 			cha.addWis((byte) -3);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -177,7 +177,7 @@ class L1SkillStop {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
 			}
-		} else if (skillId == ELEMENTAL_PROTECTION) { 
+		} else if (skillId == ELEMENTAL_PROTECTION) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				int attr = pc.getElfAttr();
@@ -237,60 +237,60 @@ class L1SkillStop {
 				}
 				npc.setAddAttrKind(0);
 			}
-		} else if (skillId == IRON_SKIN) { 
+		} else if (skillId == IRON_SKIN) {
 			cha.addAc(10);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconShield(10, 0));
 			}
-		} else if (skillId == EARTH_SKIN) { 
+		} else if (skillId == EARTH_SKIN) {
 			cha.addAc(6);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconShield(6, 0));
 			}
-		} else if (skillId == PHYSICAL_ENCHANT_STR) { 
+		} else if (skillId == PHYSICAL_ENCHANT_STR) {
 			cha.addStr((byte) -5);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Strup(pc, 5, 0));
 			}
-		} else if (skillId == PHYSICAL_ENCHANT_DEX) { 
+		} else if (skillId == PHYSICAL_ENCHANT_DEX) {
 			cha.addDex((byte) -5);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Dexup(pc, 5, 0));
 			}
-		} else if (skillId == FIRE_WEAPON) { 
+		} else if (skillId == FIRE_WEAPON) {
 			cha.addDmgup(-4);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconAura(147, 0));
 			}
-		} else if (skillId == FIRE_BLESS) { 
+		} else if (skillId == FIRE_BLESS) {
 			cha.addDmgup(-4);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconAura(154, 0));
 			}
-		} else if (skillId == BURNING_WEAPON) { 
+		} else if (skillId == BURNING_WEAPON) {
 			cha.addDmgup(-6);
 			cha.addHitup(-3);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconAura(162, 0));
 			}
-		} else if (skillId == BLESS_WEAPON) { 
+		} else if (skillId == BLESS_WEAPON) {
 			cha.addDmgup(-2);
 			cha.addHitup(-2);
 			cha.addBowHitup(-2);
-		} else if (skillId == WIND_SHOT) { 
+		} else if (skillId == WIND_SHOT) {
 			cha.addBowHitup(-6);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconAura(148, 0));
 			}
-		} else if (skillId == STORM_EYE) { 
+		} else if (skillId == STORM_EYE) {
 			cha.addBowHitup(-2);
 			cha.addBowDmgup(-3);
 			if (cha instanceof L1PcInstance) {
@@ -308,26 +308,22 @@ class L1SkillStop {
 			cha.addAc(-10);
 			cha.addDmgup(-5);
 			cha.addHitup(-2);
-		} else if (skillId == SHAPE_CHANGE) { 
+		} else if (skillId == SHAPE_CHANGE) {
 			L1PolyMorph.undoPoly(cha);
-		} else if (skillId == ADVANCE_SPIRIT) { 
+		} else if (skillId == ADVANCE_SPIRIT) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addMaxHp(-pc.getAdvenHp());
 				pc.addMaxMp(-pc.getAdvenMp());
 				pc.setAdvenHp(0);
 				pc.setAdvenMp(0);
-				pc
-						.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc
-								.getMaxHp()));
-				if (pc.isInParty()) { 
+				pc.sendPackets(new S_HPUpdate(pc.getCurrentHp(), pc.getMaxHp()));
+				if (pc.isInParty()) {
 					pc.getParty().updateMiniHP(pc);
 				}
-				pc
-						.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc
-								.getMaxMp()));
+				pc.sendPackets(new S_MPUpdate(pc.getCurrentMp(), pc.getMaxMp()));
 			}
-		} else if (skillId == HASTE || skillId == GREATER_HASTE) { 
+		} else if (skillId == HASTE || skillId == GREATER_HASTE) {
 			cha.setMoveSpeed(0);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -348,18 +344,18 @@ class L1SkillStop {
 				pc.addSp(-2);
 				pc.sendPackets(new S_SPMR(pc));
 			}
-		} else if (skillId == ILLUSION_DIA_GOLEM) { 
+		} else if (skillId == ILLUSION_DIA_GOLEM) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addAc(20);
 			}
-		} else if (skillId == ILLUSION_AVATAR) { 
+		} else if (skillId == ILLUSION_AVATAR) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addDmgup(-10);
 				pc.addBowDmgup(-10);
 			}
-		} else if (skillId == INSIGHT) { 
+		} else if (skillId == INSIGHT) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addStr((byte) -1);
@@ -370,13 +366,12 @@ class L1SkillStop {
 			}
 		}
 
-
 		else if (skillId == CURSE_BLIND || skillId == DARKNESS) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_CurseBlind(0));
 			}
-		} else if (skillId == CURSE_PARALYZE) { 
+		} else if (skillId == CURSE_PARALYZE) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Poison(pc.getId(), 0));
@@ -384,21 +379,20 @@ class L1SkillStop {
 				pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_PARALYSIS,
 						false));
 			}
-		} else if (skillId == WEAKNESS) { 
+		} else if (skillId == WEAKNESS) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addDmgup(5);
 				pc.addHitup(1);
 			}
-		} else if (skillId == DISEASE) { 
+		} else if (skillId == DISEASE) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.addDmgup(6);
 				pc.addAc(-12);
 			}
-		} else if (skillId == ICE_LANCE 
-				|| skillId == FREEZING_BLIZZARD 
-				|| skillId == FREEZING_BREATH) { 
+		} else if (skillId == ICE_LANCE || skillId == FREEZING_BLIZZARD
+				|| skillId == FREEZING_BREATH) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Poison(pc.getId(), 0));
@@ -411,7 +405,7 @@ class L1SkillStop {
 				npc.broadcastPacket(new S_Poison(npc.getId(), 0));
 				npc.setParalyzed(false);
 			}
-		} else if (skillId == EARTH_BIND) { 
+		} else if (skillId == EARTH_BIND) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Poison(pc.getId(), 0));
@@ -434,7 +428,7 @@ class L1SkillStop {
 				L1NpcInstance npc = (L1NpcInstance) cha;
 				npc.setParalyzed(false);
 			}
-		} else if (skillId == FOG_OF_SLEEPING) { 
+		} else if (skillId == FOG_OF_SLEEPING) {
 			cha.setSleeped(false);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -442,7 +436,7 @@ class L1SkillStop {
 				pc.sendPackets(new S_OwnCharStatus(pc));
 			}
 		} else if (skillId == SLOW || skillId == ENTANGLE
-				|| skillId == MASS_SLOW) { 
+				|| skillId == MASS_SLOW) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
@@ -459,13 +453,13 @@ class L1SkillStop {
 				L1NpcInstance npc = (L1NpcInstance) cha;
 				npc.setParalyzed(false);
 			}
-		} else if (skillId == STATUS_CUBE_IGNITION_TO_ALLY) { 
+		} else if (skillId == STATUS_CUBE_IGNITION_TO_ALLY) {
 			cha.addFire(-30);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
 			}
-		} else if (skillId == STATUS_CUBE_QUAKE_TO_ALLY) { 
+		} else if (skillId == STATUS_CUBE_QUAKE_TO_ALLY) {
 			cha.addEarth(-30);
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -477,17 +471,17 @@ class L1SkillStop {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_OwnCharAttrDef(pc));
 			}
-		} else if (skillId == STATUS_CUBE_IGNITION_TO_ENEMY) { 
-		} else if (skillId == STATUS_CUBE_QUAKE_TO_ENEMY) { 
-		} else if (skillId == STATUS_CUBE_SHOCK_TO_ENEMY) { 
-		} else if (skillId == STATUS_MR_REDUCTION_BY_CUBE_SHOCK) { 
+		} else if (skillId == STATUS_CUBE_IGNITION_TO_ENEMY) {
+		} else if (skillId == STATUS_CUBE_QUAKE_TO_ENEMY) {
+		} else if (skillId == STATUS_CUBE_SHOCK_TO_ENEMY) {
+		} else if (skillId == STATUS_MR_REDUCTION_BY_CUBE_SHOCK) {
 			// cha.addMr(10);
 			// if (cha instanceof L1PcInstance) {
 			// L1PcInstance pc = (L1PcInstance) cha;
 			// pc.sendPackets(new S_SPMR(pc));
 			// }
-		} else if (skillId == STATUS_CUBE_BALANCE) { 
-		} else if (skillId == BONE_BREAK) { // 
+		} else if (skillId == STATUS_CUBE_BALANCE) {
+		} else if (skillId == BONE_BREAK) { //
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN, false));
@@ -499,8 +493,7 @@ class L1SkillStop {
 			}
 		} else if (skillId == ARM_BREAKER) {
 			cha.addHitup(5);
-		}
-		else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE
+		} else if (skillId == STATUS_BRAVE || skillId == STATUS_ELFBRAVE
 				|| skillId == STATUS_BRAVE2) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -508,46 +501,44 @@ class L1SkillStop {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 			}
 			cha.setBraveSpeed(0);
-		} else if (skillId == STATUS_RIBRAVE) { 
+		} else if (skillId == STATUS_RIBRAVE) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 
 			}
 			cha.setBraveSpeed(0);
-		} else if (skillId == STATUS_HASTE) { 
+		} else if (skillId == STATUS_HASTE) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillHaste(pc.getId(), 0, 0));
 				pc.broadcastPacket(new S_SkillHaste(pc.getId(), 0, 0));
 			}
 			cha.setMoveSpeed(0);
-		} else if (skillId == STATUS_BLUE_POTION) { 
-		} else if (skillId == STATUS_UNDERWATER_BREATH) { 
+		} else if (skillId == STATUS_BLUE_POTION) {
+		} else if (skillId == STATUS_UNDERWATER_BREATH) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_SkillIconBlessOfEva(pc.getId(), 0));
 			}
-		} else if (skillId == STATUS_WISDOM_POTION) { 
+		} else if (skillId == STATUS_WISDOM_POTION) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				cha.addSp(-2);
 				pc.sendPackets(new S_SkillIconWisdomPotion(0));
 			}
-		} else if (skillId == STATUS_CHAT_PROHIBITED) { 
+		} else if (skillId == STATUS_CHAT_PROHIBITED) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
-				pc.sendPackets(new S_ServerMessage(288)); 
+				pc.sendPackets(new S_ServerMessage(288));
 			}
 		}
 
-
-		else if (skillId == STATUS_POISON) { 
+		else if (skillId == STATUS_POISON) {
 			cha.curePoison();
 		}
 
 		sendPacket(cha, skillId);
 	}
-
 
 	private static void sendStopMessage(L1PcInstance charaPc, int skillid) {
 		L1Skill l1skills = SkillTable.getInstance().findBySkillId(skillid);
@@ -597,7 +588,7 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 
 	public void kill() {
 		if (Thread.currentThread().getId() == super.getId()) {
-			return; 
+			return;
 		}
 		super.stop();
 	}

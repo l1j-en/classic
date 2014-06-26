@@ -58,13 +58,13 @@ public class C_Title extends ClientBasePacket {
 		}
 
 		if (isClanLeader(pc)) {
-			if (pc.getId() == target.getId()) { 
+			if (pc.getId() == target.getId()) {
 				if (pc.getLevel() < 10) {
 					pc.sendPackets(new S_ServerMessage(197));
 					return;
 				}
 				changeTitle(pc, title);
-			} else { 
+			} else {
 				if (pc.getClanid() != target.getClanid()) {
 					pc.sendPackets(new S_ServerMessage(199));
 					return;
@@ -77,12 +77,13 @@ public class C_Title extends ClientBasePacket {
 				L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 				if (clan != null) {
 					for (L1PcInstance clanPc : clan.getOnlineClanMember()) {
-						clanPc.sendPackets(new S_ServerMessage(203, pc.getName(), charName, title));
+						clanPc.sendPackets(new S_ServerMessage(203, pc
+								.getName(), charName, title));
 					}
 				}
 			}
 		} else {
-			if (pc.getId() == target.getId()) { 
+			if (pc.getId() == target.getId()) {
 				if (pc.getClanid() != 0 && !Config.CHANGE_TITLE_BY_ONESELF) {
 					pc.sendPackets(new S_ServerMessage(198));
 					return;
@@ -92,10 +93,11 @@ public class C_Title extends ClientBasePacket {
 					return;
 				}
 				changeTitle(pc, title);
-			} else { 
-				if (pc.isCrown()) { 
+			} else {
+				if (pc.isCrown()) {
 					if (pc.getClanid() == target.getClanid()) {
-						pc.sendPackets(new S_ServerMessage(201, pc.getClanname()));
+						pc.sendPackets(new S_ServerMessage(201, pc
+								.getClanname()));
 						return;
 					}
 				}
@@ -109,7 +111,7 @@ public class C_Title extends ClientBasePacket {
 		pc.sendPackets(new S_CharTitle(objectId, title));
 		pc.broadcastPacket(new S_CharTitle(objectId, title));
 		try {
-			pc.save(); 
+			pc.save();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -117,10 +119,10 @@ public class C_Title extends ClientBasePacket {
 
 	private boolean isClanLeader(L1PcInstance pc) {
 		boolean isClanLeader = false;
-		if (pc.getClanid() != 0) { 
+		if (pc.getClanid() != 0) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
-				if (pc.isCrown() && pc.getId() == clan.getLeaderId()) { 
+				if (pc.isCrown() && pc.getId() == clan.getLeaderId()) {
 					isClanLeader = true;
 				}
 			}

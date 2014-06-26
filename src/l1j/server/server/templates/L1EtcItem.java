@@ -125,5 +125,4 @@ public class L1EtcItem extends L1Item {
 		_isCanSeal = flag;
 	}
 
-
 }

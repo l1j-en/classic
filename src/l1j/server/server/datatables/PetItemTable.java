@@ -56,7 +56,8 @@ public class PetItemTable {
 			rs = pstm.executeQuery();
 			fillPetItemTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating etcitem_petitem table", e);
+			_log.log(Level.SEVERE,
+					"error while creating etcitem_petitem table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

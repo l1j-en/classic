@@ -33,17 +33,13 @@ import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.utils.SQLUtil;
 
 public class NpcChatTable {
-	private final static Logger _log = 
-		Logger.getLogger(NpcChatTable.class.getName());
+	private final static Logger _log = Logger.getLogger(NpcChatTable.class
+			.getName());
 	private static NpcChatTable _instance;
-	private final Map<Integer, L1NpcChat> _npcChatAppearance = 
-		new HashMap<Integer, L1NpcChat>();
-	private final Map<Integer, L1NpcChat> _npcChatDead = 
-		new HashMap<Integer, L1NpcChat>();
-	private final Map<Integer, L1NpcChat> _npcChatHide = 
-		new HashMap<Integer, L1NpcChat>();
-	private final Map<Integer, L1NpcChat> _npcChatGameTime = 
-		new HashMap<Integer, L1NpcChat>();
+	private final Map<Integer, L1NpcChat> _npcChatAppearance = new HashMap<Integer, L1NpcChat>();
+	private final Map<Integer, L1NpcChat> _npcChatDead = new HashMap<Integer, L1NpcChat>();
+	private final Map<Integer, L1NpcChat> _npcChatHide = new HashMap<Integer, L1NpcChat>();
+	private final Map<Integer, L1NpcChat> _npcChatGameTime = new HashMap<Integer, L1NpcChat>();
 
 	public static NpcChatTable getInstance() {
 		if (_instance == null) {
@@ -81,20 +77,20 @@ public class NpcChatTable {
 				npcChat.setRepeatInterval(rs.getInt("repeat_interval"));
 				npcChat.setGameTime(rs.getInt("game_time"));
 				Integer npcId = Integer.valueOf(npcChat.getNpcId());
-				switch(npcChat.getChatTiming()) {
-					case L1NpcInstance.CHAT_TIMING_APPEARANCE:
-						_npcChatAppearance.put(npcId, npcChat);
-						break;
-					case L1NpcInstance.CHAT_TIMING_DEAD:
-						_npcChatDead.put(npcId, npcChat);
-						break;
-					case L1NpcInstance.CHAT_TIMING_HIDE:
-						_npcChatHide.put(npcId, npcChat);
-						break;
-					case L1NpcInstance.CHAT_TIMING_GAME_TIME:
-						_npcChatGameTime.put(npcId, npcChat);
-						break;
-					default:
+				switch (npcChat.getChatTiming()) {
+				case L1NpcInstance.CHAT_TIMING_APPEARANCE:
+					_npcChatAppearance.put(npcId, npcChat);
+					break;
+				case L1NpcInstance.CHAT_TIMING_DEAD:
+					_npcChatDead.put(npcId, npcChat);
+					break;
+				case L1NpcInstance.CHAT_TIMING_HIDE:
+					_npcChatHide.put(npcId, npcChat);
+					break;
+				case L1NpcInstance.CHAT_TIMING_GAME_TIME:
+					_npcChatGameTime.put(npcId, npcChat);
+					break;
+				default:
 				}
 			}
 		} catch (SQLException e) {
@@ -123,6 +119,7 @@ public class NpcChatTable {
 	}
 
 	public L1NpcChat[] getAllGameTime() {
-		return _npcChatGameTime.values().toArray(new L1NpcChat[_npcChatGameTime.size()]);
+		return _npcChatGameTime.values().toArray(
+				new L1NpcChat[_npcChatGameTime.size()]);
 	}
 }

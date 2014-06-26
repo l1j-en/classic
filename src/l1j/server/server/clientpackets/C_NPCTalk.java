@@ -52,12 +52,10 @@ public class C_NPCTalk extends ClientBasePacket {
 			}
 			obj.onTalkAction(pc);
 		} else {
-			if (obj == null && pc != null)
-			{
-				_log.severe(pc.getName() + " sent an invalid objectid, objid=" + objid);
-			}
-			else
-			{
+			if (obj == null && pc != null) {
+				_log.severe(pc.getName() + " sent an invalid objectid, objid="
+						+ objid);
+			} else {
 				_log.severe("Null L1PcInstance in C_RequestNPCTalk.");
 			}
 		}

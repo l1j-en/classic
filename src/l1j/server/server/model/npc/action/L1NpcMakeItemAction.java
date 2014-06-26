@@ -87,9 +87,10 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 					material.getAmount() * amount)) {
 				L1Item temp = ItemTable.getInstance().getTemplate(
 						material.getObject());
-				pc.sendPackets(new S_ServerMessage(337, temp.getName() + "("
+				pc.sendPackets(new S_ServerMessage(337, temp.getName()
+						+ "("
 						+ ((material.getAmount() * amount) - pc.getInventory()
-						.countItems(temp.getItemId())) + ")"));
+								.countItems(temp.getItemId())) + ")"));
 				isEnoughMaterials = false;
 			}
 		}
@@ -97,7 +98,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 			return false;
 		}
 
-		int countToCreate = 0; 
+		int countToCreate = 0;
 		int weight = 0;
 
 		for (L1ObjectAmount<Integer> makingItem : _items) {
@@ -114,7 +115,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 					/ 1000;
 		}
 		if (pc.getInventory().getSize() + countToCreate > 180) {
-			pc.sendPackets(new S_ServerMessage(263)); 
+			pc.sendPackets(new S_ServerMessage(263));
 			return false;
 		}
 		if (pc.getMaxWeight() < pc.getInventory().getWeight() + weight) {
@@ -131,8 +132,8 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 			L1ItemInstance item = pc.getInventory().storeItem(
 					makingItem.getObject(), makingItem.getAmount() * amount);
 			if (item != null) {
-				String itemName = ItemTable.getInstance().getTemplate(
-						makingItem.getObject()).getName();
+				String itemName = ItemTable.getInstance()
+						.getTemplate(makingItem.getObject()).getName();
 				if (makingItem.getAmount() * amount > 1) {
 					itemName = itemName + " (" + makingItem.getAmount()
 							* amount + ")";

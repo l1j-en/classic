@@ -31,7 +31,8 @@ import l1j.server.server.templates.L1MobSkill;
 import l1j.server.server.utils.SQLUtil;
 
 public class MobSkillTable {
-	private static Logger _log = Logger.getLogger(MobSkillTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(MobSkillTable.class.getName());
 	private final boolean _initialized;
 	private static MobSkillTable _instance;
 	private final HashMap<Integer, L1MobSkill> _mobskills;
@@ -60,13 +61,15 @@ public class MobSkillTable {
 		ResultSet rs1 = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con.prepareStatement("SELECT mobid,count(*) as cnt FROM mobskill group by mobid");
+			pstm1 = con
+					.prepareStatement("SELECT mobid,count(*) as cnt FROM mobskill group by mobid");
 
 			int count = 0;
 			int mobid = 0;
 			int actNo = 0;
-			
-			pstm2 = con.prepareStatement("SELECT * FROM mobskill where mobid = ? order by mobid,actNo");
+
+			pstm2 = con
+					.prepareStatement("SELECT * FROM mobskill where mobid = ? order by mobid,actNo");
 			for (rs1 = pstm1.executeQuery(); rs1.next();) {
 				mobid = rs1.getInt("mobid");
 				count = rs1.getInt("cnt");
@@ -82,10 +85,12 @@ public class MobSkillTable {
 						mobskill.setType(actNo, rs2.getInt("type"));
 						mobskill.setTriggerRandom(actNo, rs2.getInt("TriRnd"));
 						mobskill.setTriggerHp(actNo, rs2.getInt("TriHp"));
-						mobskill.setTriggerCompanionHp(actNo, rs2.getInt("TriCompanionHp"));
+						mobskill.setTriggerCompanionHp(actNo,
+								rs2.getInt("TriCompanionHp"));
 						mobskill.setTriggerRange(actNo, rs2.getInt("TriRange"));
 						mobskill.setTriggerCount(actNo, rs2.getInt("TriCount"));
-						mobskill.setChangeTarget(actNo, rs2.getInt("ChangeTarget"));
+						mobskill.setChangeTarget(actNo,
+								rs2.getInt("ChangeTarget"));
 						mobskill.setRange(actNo, rs2.getInt("Range"));
 						mobskill.setAreaWidth(actNo, rs2.getInt("AreaWidth"));
 						mobskill.setAreaHeight(actNo, rs2.getInt("AreaHeight"));
@@ -97,10 +102,11 @@ public class MobSkillTable {
 						mobskill.setSummonMin(actNo, rs2.getInt("SummonMin"));
 						mobskill.setSummonMax(actNo, rs2.getInt("SummonMax"));
 						mobskill.setPolyId(actNo, rs2.getInt("PolyId"));
-					   _mobskills.put(new Integer(mobid), mobskill); }
+						_mobskills.put(new Integer(mobid), mobskill);
+					}
 				} catch (SQLException e1) {
 					_log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
-				
+
 				} finally {
 					SQLUtil.close(rs2);
 				}

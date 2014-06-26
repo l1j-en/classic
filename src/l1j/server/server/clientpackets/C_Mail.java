@@ -53,7 +53,7 @@ public class C_Mail extends ClientBasePacket {
 		} else if (type == 0x10 || type == 0x11 || type == 0x12) {
 			int mailId = readD();
 			L1Mail mail = MailTable.getInstance().getMail(mailId);
-			
+
 			if (mail.getReadStatus() == 0) {
 				MailTable.getInstance().setReadStatus(mailId);
 			}
@@ -62,29 +62,35 @@ public class C_Mail extends ClientBasePacket {
 			int unknow = readH();
 			String receiverName = readS();
 			byte[] text = readByte();
-			L1PcInstance receiver = L1World.getInstance().getPlayer(receiverName);
-			
+			L1PcInstance receiver = L1World.getInstance().getPlayer(
+					receiverName);
+
 			if (receiver != null) {
 				if (getMailSizeByReceiver(receiverName, TYPE_NORMAL_MAIL) >= 20) {
 					pc.sendPackets(new S_Mail(type));
 					return;
 				}
-				
-				MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL, receiverName, pc, text);
-				
+
+				MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL,
+						receiverName, pc, text);
+
 				if (receiver.getOnlineStatus() == 1) {
-					receiver.sendPackets(new S_Mail(receiverName, TYPE_NORMAL_MAIL));
+					receiver.sendPackets(new S_Mail(receiverName,
+							TYPE_NORMAL_MAIL));
 				}
 			} else {
 				try {
-					L1PcInstance restorePc = CharacterTable.getInstance().restoreCharacter(receiverName);
-					
+					L1PcInstance restorePc = CharacterTable.getInstance()
+							.restoreCharacter(receiverName);
+
 					if (restorePc != null) {
-						if (getMailSizeByReceiver(receiverName, TYPE_NORMAL_MAIL) >= 20) {
+						if (getMailSizeByReceiver(receiverName,
+								TYPE_NORMAL_MAIL) >= 20) {
 							pc.sendPackets(new S_Mail(type));
 							return;
 						}
-						MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL, receiverName, pc, text);
+						MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL,
+								receiverName, pc, text);
 					} else {
 						pc.sendPackets(new S_ServerMessage(109, receiverName));
 					}
@@ -103,7 +109,8 @@ public class C_Mail extends ClientBasePacket {
 					if (size >= 50) {
 						continue;
 					}
-					MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name, pc, text);
+					MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name, pc,
+							text);
 					L1PcInstance clanPc = L1World.getInstance().getPlayer(name);
 					if (clanPc != null) {
 						clanPc.sendPackets(new S_Mail(name, TYPE_CLAN_MAIL));
@@ -114,7 +121,7 @@ public class C_Mail extends ClientBasePacket {
 			int mailId = readD();
 			MailTable.getInstance().deleteMail(mailId);
 			pc.sendPackets(new S_Mail(mailId, type));
-		} else if(type == 0x40) {
+		} else if (type == 0x40) {
 			int mailId = readD();
 			MailTable.getInstance().setMailType(mailId, TYPE_MAIL_BOX);
 			pc.sendPackets(new S_Mail(mailId, type));

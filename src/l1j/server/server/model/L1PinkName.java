@@ -10,7 +10,8 @@ import l1j.server.server.serverpackets.S_PinkName;
 // Referenced classes of package l1j.server.server.model:
 // L1PinkName
 public class L1PinkName {
-	private static final Logger _log = Logger.getLogger(L1PinkName.class.getName());
+	private static final Logger _log = Logger.getLogger(L1PinkName.class
+			.getName());
 
 	private L1PinkName() {
 	}
@@ -44,7 +45,8 @@ public class L1PinkName {
 		private void stopPinkName(L1PcInstance attacker) {
 			attacker.sendPackets(new S_PinkName(attacker.getId(), 0));
 			attacker.broadcastPacket(new S_PinkName(attacker.getId(), 0));
-			// BCM: added this, as pinkname flag wasn't getting reset properly on timeout, affecting -warp usage.
+			// BCM: added this, as pinkname flag wasn't getting reset properly
+			// on timeout, affecting -warp usage.
 			_attacker.setPinkName(false);
 		}
 	}
@@ -75,8 +77,10 @@ public class L1PinkName {
 				&& //
 				!pc.isPinkName() && attacker.getLawful() >= 0
 				&& !attacker.isPinkName()) {
-			if (pc.getZoneType() == ZoneType.Normal && // 
-					attacker.getZoneType() == ZoneType.Normal && isNowWar == false) {
+			if (pc.getZoneType() == ZoneType.Normal
+					&& //
+					attacker.getZoneType() == ZoneType.Normal
+					&& isNowWar == false) {
 				attacker.setPinkName(true);
 				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
 				if (!attacker.isGmInvis()) {

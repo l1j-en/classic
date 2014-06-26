@@ -51,15 +51,17 @@ public class L1WorldMap {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			System.exit(0);
 		}
-		System.out.println("            OK!     " + timer.elapsedTimeMillis() + "ms");
+		System.out.println("            OK!     " + timer.elapsedTimeMillis()
+				+ "ms");
 	}
+
 	/**
 	 * The map information to hold L1Map returns.
 	 */
 	public L1Map getMap(short mapId) {
 		L1Map map = _maps.get((int) mapId);
 		if (map == null) {
-			map = L1Map.newNull(); 
+			map = L1Map.newNull();
 		}
 		return map;
 	}

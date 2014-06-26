@@ -189,7 +189,7 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	private void sendPacket(L1PcInstance pc, int x, int y) {
 		S_Door packet = new S_Door(x, y, getDirection(), isPassable());
-		if (pc != null) {	
+		if (pc != null) {
 			if (getOpenStatus() == ActionCodes.ACTION_Close) {
 				pc.sendPackets(packet);
 			}

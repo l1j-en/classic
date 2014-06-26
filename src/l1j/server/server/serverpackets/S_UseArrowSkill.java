@@ -29,12 +29,13 @@ import l1j.server.server.model.L1Character;
 
 public class S_UseArrowSkill extends ServerBasePacket {
 	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
-	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class.getName());
+	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class
+			.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
 
-	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx,
-			int x, int y, boolean isHit) {
+	public S_UseArrowSkill(L1Character cha, int targetobj, int spellgfx, int x,
+			int y, boolean isHit) {
 
 		int aid = 1;
 		if (cha.getTempCharGfx() == 3860) {

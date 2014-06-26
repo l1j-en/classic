@@ -100,22 +100,28 @@ public class S_OpCode_Test extends ServerBasePacket {
 	private int _testlevel;
 	private L1PcInstance _gm;
 
-	// xxx report is like a version for 
+	// xxx report is like a version for
 	private final String _version = "S_HPMeter1.0";
 
-	//just before you take action
+	// just before you take action
 	private final String _action = "Summon the only one to put out";
 
 	// correct operation code is sent when it is expected that the state
 	private final String _status = "Summon the HP meter fluctuate by 25%";
 
 	// Clarification of the operation code is already set to Lower Level
-	// Upper stage (Level0) mackerel in the current 137 number not completely used. Opc. Opcid for
-	// Mid (Level1) is currently defined 137 mackerel that it is really code for the code and make sure you do not
-	// "Etc / opcode Resources. Txt" writes the sort of thing only and do not know
-	// 130 to 139 (between 0 to 129 is high possibility, so I think) regions. Opc2. Opcid2 for
-	// Lower Level (Level2) currently used in 137 mackerel and working of the things (in order to prepare just in case). Opc3. Opcid3 for
-	// If you were not at middle and upper level of the mid even if it was not in it in the bottom tier
+	// Upper stage (Level0) mackerel in the current 137 number not completely
+	// used. Opc. Opcid for
+	// Mid (Level1) is currently defined 137 mackerel that it is really code for
+	// the code and make sure you do not
+	// "Etc / opcode Resources. Txt" writes the sort of thing only and do not
+	// know
+	// 130 to 139 (between 0 to 129 is high possibility, so I think) regions.
+	// Opc2. Opcid2 for
+	// Lower Level (Level2) currently used in 137 mackerel and working of the
+	// things (in order to prepare just in case). Opc3. Opcid3 for
+	// If you were not at middle and upper level of the mid even if it was not
+	// in it in the bottom tier
 	int[][] _opcode = {
 			{ 2, 3, 4, 6, 8, 16, 17, 18, 19, 22, 24, 27, 31, 33, 34, 35, 37,
 					38, 40, 43, 47, 48, 49, 52, 54, 62, 65, 70, 72, 73, 74, 75,

@@ -30,8 +30,7 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 				targetList.add(player);
 				ArrayList<Integer> hateList = new ArrayList<Integer>();
 				hateList.add(1);
-				CalcExp.calcExp(player, getId(),
-						targetList, hateList, getExp());
+				CalcExp.calcExp(player, getId(), targetList, hateList, getExp());
 			}
 			if (getHeading() < 7) {
 				setHeading(getHeading() + 1);
@@ -53,5 +52,6 @@ public class L1ScarecrowInstance extends L1NpcInstance {
 
 	}
 
-	public void doFinalAction() {}
+	public void doFinalAction() {
+	}
 }

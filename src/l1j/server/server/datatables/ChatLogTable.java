@@ -32,8 +32,9 @@ import l1j.server.server.utils.SQLUtil;
 public class ChatLogTable {
 	private static Logger _log = Logger.getLogger(ChatLogTable.class.getName());
 	/*
-	 * HashMap in the code should be used, but the performance problems might have used an array compromise.
-	 * HashMap to consider changes to the performance or the lack of sufficient attention to the problem.
+	 * HashMap in the code should be used, but the performance problems might
+	 * have used an array compromise. HashMap to consider changes to the
+	 * performance or the lack of sufficient attention to the problem.
 	 */
 	private final boolean[] loggingConfig = new boolean[15];
 
@@ -85,7 +86,8 @@ public class ChatLogTable {
 
 			con = L1DatabaseFactory.getInstance().getConnection();
 			if (target != null) {
-				pstm = con.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, target_account_name, target_id, target_name, target_clan_id, target_clan_name, target_locx, target_locy, target_mapid, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
+				pstm = con
+						.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, target_account_name, target_id, target_name, target_clan_id, target_clan_name, target_locx, target_locy, target_mapid, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
 				pstm.setString(1, pc.getAccountName());
 				pstm.setInt(2, pc.getId());
 				pstm.setString(3, pc.isGm() ? "******" : pc.getName());
@@ -105,7 +107,8 @@ public class ChatLogTable {
 				pstm.setInt(17, target.getMapId());
 				pstm.setString(18, text);
 			} else {
-				pstm = con.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
+				pstm = con
+						.prepareStatement("INSERT INTO log_chat (account_name, char_id, name, clan_id, clan_name, locx, locy, mapid, type, content, datetime) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE())");
 				pstm.setString(1, pc.getAccountName());
 				pstm.setInt(2, pc.getId());
 				pstm.setString(3, pc.isGm() ? "******" : pc.getName());

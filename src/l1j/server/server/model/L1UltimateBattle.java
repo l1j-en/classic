@@ -49,7 +49,7 @@ import l1j.server.server.utils.IntRange;
 public class L1UltimateBattle {
 	private int _locX;
 	private int _locY;
-	private L1Location _location; 
+	private L1Location _location;
 	private short _mapId;
 	private String _UbName;
 	private int _locX1;
@@ -60,7 +60,7 @@ public class L1UltimateBattle {
 	private int _ubId;
 	private int _pattern;
 	private boolean _isNowUb;
-	private boolean _active; 
+	private boolean _active;
 
 	private int _minLevel;
 	private int _maxLevel;
@@ -79,7 +79,7 @@ public class L1UltimateBattle {
 	private int _hpr;
 	private int _mpr;
 
-	private static int BEFORE_MINUTE = 5; 
+	private static int BEFORE_MINUTE = 5;
 
 	private Set<Integer> _managers = new HashSet<Integer>();
 	private SortedSet<Integer> _ubTimes = new TreeSet<Integer>();
@@ -108,14 +108,14 @@ public class L1UltimateBattle {
 			spawnGroundItem(L1ItemId.POTION_OF_CURE_POISON, 5, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_EXTRA_HEALING, 10, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_GREATER_HEALING, 5, 20);
-			spawnGroundItem(40317, 1, 7); 
-			spawnGroundItem(40093, 1, 10); 
+			spawnGroundItem(40317, 1, 7);
+			spawnGroundItem(40093, 1, 10);
 		} else if (curRound == 3) {
 			spawnGroundItem(L1ItemId.ADENA, 10000, 30);
 			spawnGroundItem(L1ItemId.POTION_OF_CURE_POISON, 7, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_EXTRA_HEALING, 20, 20);
 			spawnGroundItem(L1ItemId.POTION_OF_GREATER_HEALING, 10, 20);
-			spawnGroundItem(40317, 1, 10); 
+			spawnGroundItem(40317, 1, 10);
 			spawnGroundItem(40094, 1, 10);
 		}
 	}
@@ -172,8 +172,7 @@ public class L1UltimateBattle {
 	private void clearColosseum() {
 		for (Object obj : L1World.getInstance().getVisibleObjects(_mapId)
 				.values()) {
-			if (obj instanceof L1MonsterInstance)
-			{
+			if (obj instanceof L1MonsterInstance) {
 				L1MonsterInstance mob = (L1MonsterInstance) obj;
 				if (!mob.isDead()) {
 					mob.setDead(true);
@@ -182,8 +181,7 @@ public class L1UltimateBattle {
 					mob.deleteMe();
 
 				}
-			} else if (obj instanceof L1Inventory) 
-			{
+			} else if (obj instanceof L1Inventory) {
 				L1Inventory inventory = (L1Inventory) obj;
 				inventory.clearItems();
 			}
@@ -198,31 +196,31 @@ public class L1UltimateBattle {
 			final int MSGID_COUNT = 637;
 			final int MSGID_START = 632;
 
-			for (int loop = 0; loop < BEFORE_MINUTE * 60 - 10; loop++) { 
+			for (int loop = 0; loop < BEFORE_MINUTE * 60 - 10; loop++) {
 				Thread.sleep(1000);
-// removeRetiredMembers();
+				// removeRetiredMembers();
 			}
 			removeRetiredMembers();
 
-			sendMessage(MSGID_COUNT, "10"); 
+			sendMessage(MSGID_COUNT, "10");
 
 			Thread.sleep(5000);
-			sendMessage(MSGID_COUNT, "5"); 
+			sendMessage(MSGID_COUNT, "5");
 
 			Thread.sleep(1000);
-			sendMessage(MSGID_COUNT, "4"); 
+			sendMessage(MSGID_COUNT, "4");
 
 			Thread.sleep(1000);
-			sendMessage(MSGID_COUNT, "3"); 
+			sendMessage(MSGID_COUNT, "3");
 
 			Thread.sleep(1000);
-			sendMessage(MSGID_COUNT, "2"); 
+			sendMessage(MSGID_COUNT, "2");
 
 			Thread.sleep(1000);
-			sendMessage(MSGID_COUNT, "1"); 
+			sendMessage(MSGID_COUNT, "1");
 
 			Thread.sleep(1000);
-			sendMessage(MSGID_START, "Deathmatch"); 
+			sendMessage(MSGID_START, "Deathmatch");
 			removeRetiredMembers();
 		}
 
@@ -232,7 +230,7 @@ public class L1UltimateBattle {
 			int wait = WAIT_TIME_TABLE[curRound - 1];
 			for (int i = 0; i < wait; i++) {
 				Thread.sleep(10000);
-// removeRetiredMembers();
+				// removeRetiredMembers();
 			}
 			removeRetiredMembers();
 		}
@@ -268,8 +266,7 @@ public class L1UltimateBattle {
 					waitForNextRound(round);
 				}
 
-				for (L1PcInstance pc : getMembersArray()) 
-				{
+				for (L1PcInstance pc : getMembersArray()) {
 					Random random = new Random();
 					int rndx = random.nextInt(4);
 					int rndy = random.nextInt(4);
@@ -291,7 +288,7 @@ public class L1UltimateBattle {
 	public void start() {
 		int patternsMax = UBSpawnTable.getInstance().getMaxPattern(_ubId);
 		Random random = new Random();
-		_pattern = random.nextInt(patternsMax) + 1; 
+		_pattern = random.nextInt(patternsMax) + 1;
 
 		UbThread ub = new UbThread();
 		GeneralThreadPool.getInstance().execute(ub);
@@ -338,12 +335,15 @@ public class L1UltimateBattle {
 	public void setUbId(int id) {
 		_ubId = id;
 	}
+
 	public String getUbName() {
 		return _UbName;
 	}
+
 	public void setUbName(String UbName) {
 		_UbName = UbName;
 	}
+
 	public short getMapId() {
 		return _mapId;
 	}
@@ -540,8 +540,8 @@ public class L1UltimateBattle {
 		if (!((pc.isCrown() && _enterRoyal) || (pc.isKnight() && _enterKnight)
 				|| (pc.isWizard() && _enterMage) || (pc.isElf() && _enterElf)
 				|| (pc.isDarkelf() && _enterDarkelf)
-				|| (pc.isDragonKnight() && _enterDragonKnight)
-				|| (pc.isIllusionist() && _enterIllusionist))) {
+				|| (pc.isDragonKnight() && _enterDragonKnight) || (pc
+				.isIllusionist() && _enterIllusionist))) {
 			return false;
 		}
 

@@ -38,21 +38,21 @@ public class C_Fight extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
-		return;
+			return;
 		}
 		L1PcInstance target = FaceToFace.faceToFace(pc);
 		if (target != null) {
 			if (!target.isParalyzed()) {
 				if (pc.getFightId() != 0) {
-					pc.sendPackets(new S_ServerMessage(633)); 
+					pc.sendPackets(new S_ServerMessage(633));
 					return;
 				} else if (target.getFightId() != 0) {
-					target.sendPackets(new S_ServerMessage(634)); 
+					target.sendPackets(new S_ServerMessage(634));
 					return;
 				}
 				pc.setFightId(target.getId());
 				target.setFightId(pc.getId());
-				target.sendPackets(new S_Message_YN(630, pc.getName())); 
+				target.sendPackets(new S_Message_YN(630, pc.getName()));
 			}
 		}
 	}

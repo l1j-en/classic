@@ -31,7 +31,8 @@ public class L1ElementalFallDown extends L1BuffSkillExecutorImpl {
 	}
 
 	@Override
-	public void addEffect(L1Character user, L1Character target, int durationSeconds) {
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds) {
 		if (!(user instanceof L1PcInstance)) {
 			return;
 		}
@@ -39,9 +40,7 @@ public class L1ElementalFallDown extends L1BuffSkillExecutorImpl {
 		L1PcInstance player = (L1PcInstance) user;
 		int attr = player.getElfAttr();
 		if (!addElemental(target, attr, ELEMENTAL)) {
-			player
-					.sendPackets(new S_ServerMessage(
-							L1MessageId.NOTHING_HAPPENED));
+			player.sendPackets(new S_ServerMessage(L1MessageId.NOTHING_HAPPENED));
 			return;
 		}
 		target.setAddAttrKind(attr);
@@ -69,7 +68,7 @@ public class L1ElementalFallDown extends L1BuffSkillExecutorImpl {
 	public L1CharacterBuff getCharacterBuff(L1PcInstance pc) {
 		int skillId = _skill.getSkillId();
 		int remainingTime = pc.getSkillEffectTimeSec(skillId);
-		return new L1CharacterBuff(pc.getId(), skillId, remainingTime, 0, pc
-				.getAddAttrKind());
+		return new L1CharacterBuff(pc.getId(), skillId, remainingTime, 0,
+				pc.getAddAttrKind());
 	}
 }

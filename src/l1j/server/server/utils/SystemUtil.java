@@ -21,7 +21,7 @@ package l1j.server.server.utils;
 public class SystemUtil {
 	/**
 	 * The system will use a heap of megabytes in size returned. <br>
-     * This value is not included in the stack size.
+	 * This value is not included in the stack size.
 	 * 
 	 * @return Use the size of the heap
 	 */

@@ -28,16 +28,18 @@ import l1j.server.server.utils.LeakCheckedConnection;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class L1DatabaseFactory {
-	
+
 	private static L1DatabaseFactory _instance;
 	private ComboPooledDataSource _source;
-	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class.getName());
+	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class
+			.getName());
 	private static String _driver;
 	private static String _url;
 	private static String _user;
 	private static String _password;
 
-	public static void setDatabaseSettings(final String driver, final String url, final String user, final String password) {
+	public static void setDatabaseSettings(final String driver,
+			final String url, final String user, final String password) {
 		_driver = driver;
 		_url = url;
 		_user = user;
@@ -84,16 +86,17 @@ public class L1DatabaseFactory {
 		return _instance;
 	}
 
-
 	public Connection getConnection() {
 		Connection con = null;
 		while (con == null) {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log.warning("L1DatabaseFactory: getConnection() failed, trying again " + e);
+				_log.warning("L1DatabaseFactory: getConnection() failed, trying again "
+						+ e);
 			}
 		}
-		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection.create(con) : con;
+		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection
+				.create(con) : con;
 	}
 }

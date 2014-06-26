@@ -35,7 +35,8 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class LightSpawnTable {
-	private static Logger _log = Logger.getLogger(LightSpawnTable.class.getName());
+	private static Logger _log = Logger.getLogger(LightSpawnTable.class
+			.getName());
 	private static LightSpawnTable _instance;
 
 	public static LightSpawnTable getInstance() {
@@ -68,8 +69,10 @@ public class LightSpawnTable {
 							"l1j.server.server.model.Instance." + s
 									+ "Instance").getConstructors()[0];
 					Object parameters[] = { l1npc };
-					L1FieldObjectInstance field = (L1FieldObjectInstance) constructor.newInstance(parameters);
-					field = (L1FieldObjectInstance) constructor.newInstance(parameters);
+					L1FieldObjectInstance field = (L1FieldObjectInstance) constructor
+							.newInstance(parameters);
+					field = (L1FieldObjectInstance) constructor
+							.newInstance(parameters);
 					field.setId(IdFactory.getInstance().nextId());
 					field.setX(rs.getInt("locx"));
 					field.setY(rs.getInt("locy"));

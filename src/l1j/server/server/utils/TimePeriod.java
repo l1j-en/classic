@@ -45,8 +45,7 @@ public class TimePeriod {
 	public boolean includes(L1GameTime time) {
 		/*
 		 * WbNEEE timeStart after timeEnd(:18:00~06:00)
-		 * timeEnd~timeStart(06:00~18:00)A
-		 * timeStart~timeEnd(18:00~06:00)
+		 * timeEnd~timeStart(06:00~18:00)A timeStart~timeEnd(18:00~06:00)
 		 */
 		return _timeStart.after(_timeEnd) ? !includes(time, _timeEnd,
 				_timeStart) : includes(time, _timeStart, _timeEnd);

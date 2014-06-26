@@ -34,8 +34,9 @@ import l1j.server.server.utils.SQLUtil;
 public class LogDropItem {
 	private static Logger _log = Logger.getLogger(LogDropItem.class.getName());
 
-	public void storeLogDropItem(L1PcInstance pc, L1ItemInstance item, int before_inven,
-			int after_inven, int before_ground, int after_ground, int count) {
+	public void storeLogDropItem(L1PcInstance pc, L1ItemInstance item,
+			int before_inven, int after_inven, int before_ground,
+			int after_ground, int count) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -43,7 +44,8 @@ public class LogDropItem {
 			pstm = con
 					.prepareStatement("INSERT INTO LogDropItem VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());

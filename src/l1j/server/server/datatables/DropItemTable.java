@@ -36,7 +36,8 @@ public final class DropItemTable {
 		public double dropAmount = 1;
 	}
 
-	private static Logger _log = Logger.getLogger(DropItemTable.class.getName());
+	private static Logger _log = Logger
+			.getLogger(DropItemTable.class.getName());
 	private static DropItemTable _instance;
 	private final Map<Integer, dropItemData> _dropItem = new HashMap<Integer, dropItemData>();
 

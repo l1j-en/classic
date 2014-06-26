@@ -51,7 +51,7 @@ public class L1DwarfInstance extends L1NpcInstance {
 	@Override
 	public void onAction(L1PcInstance pc) {
 		L1Attack attack = new L1Attack(pc, this);
-	    attack.calcHit();
+		attack.calcHit();
 		attack.addPcPoisonAttack(pc, this);
 		attack.action();
 	}

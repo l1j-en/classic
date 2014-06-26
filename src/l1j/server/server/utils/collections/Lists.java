@@ -28,23 +28,23 @@ public class Lists {
 		return new ArrayList<E>();
 	}
 
-	public static <E> ArrayList<E> newArrayList(Collection<? extends E> c) { 
-		return new ArrayList<E>(c); 
+	public static <E> ArrayList<E> newArrayList(Collection<? extends E> c) {
+		return new ArrayList<E>(c);
 	}
-	
+
 	public static <E> List<E> of(E... elements) {
 		List<E> list = new ArrayList<E>(elements.length);
 		for (int i = 0; i < elements.length; i++)
 			list.add(elements[i]);
 		return list;
 	}
-	
+
 	public static <E> List<E> of(E element) {
 		List<E> list = new ArrayList<E>(2);
 		list.add(element);
 		return list;
 	}
-	
+
 	public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList() {
 		return new CopyOnWriteArrayList<E>();
 	}

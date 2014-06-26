@@ -48,7 +48,7 @@ public class C_War extends ClientBasePacket {
 		int clanId = player.getClanid();
 
 		if (!player.isCrown()) {
-			player.sendPackets(new S_ServerMessage(478)); 
+			player.sendPackets(new S_ServerMessage(478));
 			return;
 		}
 		if (clanId == 0) {
@@ -56,7 +56,7 @@ public class C_War extends ClientBasePacket {
 			return;
 		}
 		L1Clan clan = L1World.getInstance().getClan(clanName);
-		if (clan == null) { 
+		if (clan == null) {
 			return;
 		}
 		if (player.getId() != clan.getLeaderId()) {
@@ -115,7 +115,8 @@ public class C_War extends ClientBasePacket {
 			if (WarTimeController.getInstance().isNowWar(castle_id)) {
 				L1PcInstance clanMember[] = clan.getOnlineClanMember();
 				for (int k = 0; k < clanMember.length; k++) {
-					if (L1CastleLocation.checkInWarArea(castle_id, clanMember[k])) {
+					if (L1CastleLocation.checkInWarArea(castle_id,
+							clanMember[k])) {
 						player.sendPackets(new S_ServerMessage(477));
 						return;
 					}
@@ -154,7 +155,8 @@ public class C_War extends ClientBasePacket {
 			for (L1War war : warList) {
 				if (war.CheckClanInWar(enemyClanName)) {
 					if (type == 0) {
-						player.sendPackets(new S_ServerMessage(236, enemyClanName));
+						player.sendPackets(new S_ServerMessage(236,
+								enemyClanName));
 						return;
 					} else if (type == 2 || type == 3) {
 						if (!war.CheckClanInSameWar(clanName, enemyClanName)) {
@@ -169,7 +171,8 @@ public class C_War extends ClientBasePacket {
 				return;
 			}
 
-			L1PcInstance enemyLeader = L1World.getInstance().getPlayer(enemyClan.getLeaderName());
+			L1PcInstance enemyLeader = L1World.getInstance().getPlayer(
+					enemyClan.getLeaderName());
 
 			if (enemyLeader == null) {
 				player.sendPackets(new S_ServerMessage(218, enemyClanName));
@@ -177,7 +180,8 @@ public class C_War extends ClientBasePacket {
 			}
 			if (type == 0) {
 				enemyLeader.setTempID(player.getId());
-				enemyLeader.sendPackets(new S_Message_YN(217, clanName, playerName));
+				enemyLeader.sendPackets(new S_Message_YN(217, clanName,
+						playerName));
 			} else if (type == 2) {
 				enemyLeader.setTempID(player.getId());
 				enemyLeader.sendPackets(new S_Message_YN(221, clanName));

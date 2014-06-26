@@ -31,7 +31,8 @@ import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class ResolventTable {
-	private static Logger _log = Logger.getLogger(ResolventTable.class.getName());
+	private static Logger _log = Logger.getLogger(ResolventTable.class
+			.getName());
 	private static ResolventTable _instance;
 	private final Map<Integer, Integer> _resolvent = new HashMap<Integer, Integer>();
 
