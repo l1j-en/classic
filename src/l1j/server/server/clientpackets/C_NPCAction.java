@@ -1092,7 +1092,9 @@ public class C_NPCAction extends ClientBasePacket {
 
 				if (aliceMaterialId == 0) {
 					htmlid = "alice_no";
-				} else if (aliceMaterialId == aliceMaterialId) {
+				} else if (aliceMaterialId == 203) {
+					htmlid = "alice_8";
+				} else {
 					if (pc.getKarmaLevel() <= karmaLevel) {
 						materials = material;
 						counts = count;
@@ -1103,8 +1105,6 @@ public class C_NPCAction extends ClientBasePacket {
 					} else {
 						htmlid = htmlId;
 					}
-				} else if (aliceMaterialId == 203) {
-					htmlid = "alice_8";
 				}
 			}
 		} else if (npcid == 80055) {
