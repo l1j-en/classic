@@ -222,8 +222,8 @@ public class L1FollowerInstance extends L1NpcInstance {
 
 	private void createNewItem(L1PcInstance pc, int item_id, int count) {
 		L1ItemInstance item = ItemTable.getInstance().createItem(item_id);
-		item.setCount(count);
 		if (item != null) {
+			item.setCount(count);
 			if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 				pc.getInventory().storeItem(item);
 			} else {
@@ -241,7 +241,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 			L1NpcInstance mob = null;
 			try {
 				String implementationName = l1npc.getImpl();
-				Constructor _constructor = Class.forName(
+				Constructor<?> _constructor = Class.forName(
 						(new StringBuilder())
 								.append("l1j.server.server.model.Instance.")
 								.append(implementationName).append("Instance")
