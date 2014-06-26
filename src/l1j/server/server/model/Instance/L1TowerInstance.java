@@ -72,16 +72,8 @@ public class L1TowerInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (_castle_id == 0) {
-			// this makes absolutely no sense to me, surely this isn't proper?
 			if (isSubTower()) {
 				_castle_id = L1CastleLocation.ADEN_CASTLE_ID;
-				_castle_id = L1CastleLocation.OT_CASTLE_ID;
-				_castle_id = L1CastleLocation.WW_CASTLE_ID;
-				_castle_id = L1CastleLocation.GIRAN_CASTLE_ID;
-				_castle_id = L1CastleLocation.HEINE_CASTLE_ID;
-				_castle_id = L1CastleLocation.DOWA_CASTLE_ID;
-				_castle_id = L1CastleLocation.DIAD_CASTLE_ID;
-				_castle_id = L1CastleLocation.KENT_CASTLE_ID;
 			} else {
 				_castle_id = L1CastleLocation.getCastleId(getX(), getY(),
 						getMapId());
