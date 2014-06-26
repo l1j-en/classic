@@ -23,7 +23,6 @@ import java.util.Comparator;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.Config;
@@ -38,7 +37,6 @@ import l1j.server.server.templates.L1Item;
 
 public class L1Inventory extends L1Object {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1Inventory.class.getName());
 	protected List<L1ItemInstance> _items = new CopyOnWriteArrayList<L1ItemInstance>();
 	public static final int MAX_AMOUNT = 2000000000; // 2G
 	public static final int MAX_WEIGHT = 1500;
@@ -229,7 +227,6 @@ public class L1Inventory extends L1Object {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	private class EnchantComparator implements Comparator<L1ItemInstance> {
 		public int compare(L1ItemInstance first, L1ItemInstance second) {
 			return first.getEnchantLevel() - second.getEnchantLevel();
@@ -337,12 +334,13 @@ public class L1Inventory extends L1Object {
 	}
 
 	public L1ItemInstance receiveDamage(L1ItemInstance item, int count) {
-		int itemType = item.getItem().getType2();
-		int currentDurability = item.get_durability();
 
 		if (item == null) {
 			return null;
 		}
+
+		int itemType = item.getItem().getType2();
+		int currentDurability = item.get_durability();
 
 		if ((currentDurability == 0 && itemType == 0) || currentDurability < 0) {
 			item.set_durability(0);
@@ -373,12 +371,15 @@ public class L1Inventory extends L1Object {
 	}
 
 	public L1ItemInstance recoveryDamage(L1ItemInstance item) {
-		int itemType = item.getItem().getType2();
-		int durability = item.get_durability();
 
 		if (item == null) {
 			return null;
 		}
+		
+		int itemType = item.getItem().getType2();
+		int durability = item.get_durability();
+
+
 
 		if ((durability == 0 && itemType != 0) || durability < 0) {
 			item.set_durability(0);
