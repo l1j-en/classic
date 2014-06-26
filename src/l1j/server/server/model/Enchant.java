@@ -107,10 +107,14 @@ public class Enchant {
 			return;
 		}
 
+		if (accessory == null) {
+			player.sendPackets(CantEnchant);
+			return;
+		}
 		L1Item accessoryBase = accessory.getItem();
-		if (accessory == null || accessory.getBless() >= 128
-				|| accessoryBase.getType2() != 2 || accessoryBase.getType() < 8
-				|| accessoryBase.getType() > 12
+
+		if (accessory.getBless() >= 128 || accessoryBase.getType2() != 2
+				|| accessoryBase.getType() < 8 || accessoryBase.getType() > 12
 				|| accessoryBase.getGrade() == -1) {
 			player.sendPackets(CantEnchant);
 			return;
@@ -332,8 +336,13 @@ public class Enchant {
 
 	public static void enchantIvoryTowerArmor(final L1PcInstance player,
 			final L1ItemInstance scroll, final L1ItemInstance armor) {
+		
+		if (armor == null) {
+			player.sendPackets(CantEnchant);
+			return;
+		}
 		int armorId = armor.getItem().getItemId();
-		if (armor == null || armor.getItem().getType2() != 2
+		if (armor.getItem().getType2() != 2
 				|| armor.getBless() >= 128) {
 			player.sendPackets(CantEnchant);
 			return;
@@ -390,11 +399,16 @@ public class Enchant {
 
 	public static void enchantWeapon(final L1PcInstance player,
 			final L1ItemInstance scroll, final L1ItemInstance weapon) {
+		
+		if (weapon == null) {
+			player.sendPackets(CantEnchant);
+			return;
+		}
 		int scrollId = scroll.getItem().getItemId();
 		int safeEnchant = weapon.getItem().get_safeenchant();
 		int weaponId = weapon.getItem().getItemId();
 
-		if (weapon == null || weapon.getItem().getType2() != 1
+		if (weapon.getItem().getType2() != 1
 				|| safeEnchant < 0 || weapon.getBless() >= 128) {
 			player.sendPackets(CantEnchant);
 			return;
@@ -442,9 +456,13 @@ public class Enchant {
 	public static void enchantArmor(final L1PcInstance player,
 			final L1ItemInstance scroll, final L1ItemInstance armor) {
 		int scrollId = scroll.getItem().getItemId();
+		if (armor == null) {
+			player.sendPackets(CantEnchant);
+			return;
+		}
 		int safeEnchant = armor.getItem().get_safeenchant();
 		int armorId = armor.getItem().getItemId();
-		if (armor == null || armor.getItem().getType2() != 2 || safeEnchant < 0
+		if (armor.getItem().getType2() != 2 || safeEnchant < 0
 				|| armor.getBless() >= 128) {
 			player.sendPackets(CantEnchant);
 			return;
