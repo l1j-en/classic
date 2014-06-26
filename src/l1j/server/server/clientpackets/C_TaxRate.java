@@ -45,7 +45,8 @@ public class C_TaxRate extends ClientBasePacket {
 			if (clan != null) {
 				int castle_id = clan.getCastleId();
 				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance().getCastleTable(castle_id);
+					L1Castle l1castle = CastleTable.getInstance()
+							.getCastleTable(castle_id);
 					if (j >= 10 && j <= 50) {
 						l1castle.setTaxRate(j);
 						CastleTable.getInstance().updateCastle(l1castle);

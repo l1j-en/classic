@@ -58,7 +58,7 @@ public class L1AllBuff implements L1CommandExecutor {
 			String name = st.nextToken();
 			L1PcInstance target = L1World.getInstance().getPlayer(name);
 			if (target == null) {
-				pc.sendPackets(new S_ServerMessage(73, name)); 
+				pc.sendPackets(new S_ServerMessage(73, name));
 				return;
 			}
 
@@ -68,9 +68,9 @@ public class L1AllBuff implements L1CommandExecutor {
 			for (int i = 0; i < allBuffSkill.length; i++) {
 				L1Skill skill = SkillTable.getInstance().findBySkillId(
 						allBuffSkill[i]);
-				new L1SkillUse().handleCommands(target, allBuffSkill[i], target
-						.getId(), target.getX(), target.getY(), null, skill
-						.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF);
+				new L1SkillUse().handleCommands(target, allBuffSkill[i],
+						target.getId(), target.getX(), target.getY(), null,
+						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF);
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(".allBuff player_name"));

@@ -34,15 +34,17 @@ public class C_UsePetItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_UsePetItem.class.getName());
 
 	private static final S_ServerMessage CantMessage = new S_ServerMessage(79);
-	
-	public C_UsePetItem(byte abyte0[], ClientThread clientthread) throws Exception {
+
+	public C_UsePetItem(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
-		int data = readC(); 
+		int data = readC();
 		int petId = readD();
 		int listNo = readC();
 
-		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(petId);
+		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(
+				petId);
 		L1PcInstance pc = clientthread.getActiveChar();
 
 		if (pet == null || pc == null) {
@@ -56,7 +58,8 @@ public class C_UsePetItem extends ClientBasePacket {
 		L1Item template = item.getItem();
 		if (template.getType2() == 0 && template.getType() == 11) { // petitem
 			int itemId = template.getItemId();
-			if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756 && itemId <= 40758) {
+			if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
+					&& itemId <= 40758) {
 				usePetWeapon(pc, pet, item);
 			} else if (itemId >= 40761 && itemId <= 40766) {
 				usePetArmor(pc, pet, item);
@@ -71,7 +74,7 @@ public class C_UsePetItem extends ClientBasePacket {
 	private void usePetWeapon(L1PcInstance pc, L1PetInstance pet,
 			L1ItemInstance weapon) {
 		if (pet.getWeapon() == null) {
-			
+
 			setPetWeapon(pc, pet, weapon);
 		} else {
 			if (pet.getWeapon().equals(weapon)) {
@@ -97,12 +100,14 @@ public class C_UsePetItem extends ClientBasePacket {
 		}
 	}
 
-	private void setPetWeapon(L1PcInstance pc, L1PetInstance pet, L1ItemInstance weapon) {
+	private void setPetWeapon(L1PcInstance pc, L1PetInstance pet,
+			L1ItemInstance weapon) {
 		pet.setWeapon(weapon);
 
 	}
 
-	private void setPetArmor(L1PcInstance pc, L1PetInstance pet, L1ItemInstance armor) {
+	private void setPetArmor(L1PcInstance pc, L1PetInstance pet,
+			L1ItemInstance armor) {
 		pet.setArmor(armor);
 
 	}

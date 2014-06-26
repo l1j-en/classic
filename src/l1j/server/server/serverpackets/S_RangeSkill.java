@@ -57,12 +57,12 @@ public class S_RangeSkill extends ServerBasePacket {
 		}
 		writeD(_sequentialNumber.incrementAndGet());
 		writeH(spellgfx);
-		writeC(type); 
+		writeC(type);
 		writeH(0);
 		writeH(target.length);
 		for (int i = 0; i < target.length; i++) {
 			writeD(target[i].getId());
-			writeC(0x20); 
+			writeC(0x20);
 		}
 	}
 

@@ -30,7 +30,8 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 public class C_BoardDelete extends ClientBasePacket {
 
 	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
-	private static Logger _log = Logger.getLogger(C_BoardDelete.class.getName());
+	private static Logger _log = Logger
+			.getLogger(C_BoardDelete.class.getName());
 
 	public C_BoardDelete(byte decrypt[], ClientThread client) {
 		super(decrypt);

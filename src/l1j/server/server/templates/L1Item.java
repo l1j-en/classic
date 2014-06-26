@@ -6,7 +6,8 @@ public abstract class L1Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public L1Item() { }
+	public L1Item() {
+	}
 
 	private int _type2; // 0=L1EtcItem, 1=L1Weapon, 2=L1Armor
 
@@ -66,18 +67,23 @@ public abstract class L1Item implements Serializable {
 	/**
 	 * getType<br>
 	 * 
-	 * @return
-	 * <p>[etcitem]<br>
-	 * 0:arrow, 1:wand, 2:light, 3:gem, 4:totem, 5:firecracker, 6:potion, 
-	 * 7:food, 8:scroll, 9:questitem, 10:spellbook, 11:petitem, 12:other, 
-	 * 13:material, 14:event, 15:sting</p>
-	 * <p>[weapon]<br>
-	 * 1:sword, 2:dagger, 3:tohandsword, 4:bow, 5:spear, 6:blunt, 7:staff, 
-	 * 8:throwingknife, 9:arrow, 10:gauntlet, 11:claw, 12:edoryu, 13:singlebow, 
-	 * 14:singlespear, 15:tohandblunt, 16:tohandstaff</p>
-	 * <p>[armor]<br>
-	 * 1:helm, 2:armor, 3:T, 4:cloak, 5:glove, 6:boots, 
-	 * 7:shield, 8:amulet, 9:ring, 10:belt, 11:ring2, 12:earring
+	 * @return <p>
+	 *         [etcitem]<br>
+	 *         0:arrow, 1:wand, 2:light, 3:gem, 4:totem, 5:firecracker,
+	 *         6:potion, 7:food, 8:scroll, 9:questitem, 10:spellbook,
+	 *         11:petitem, 12:other, 13:material, 14:event, 15:sting
+	 *         </p>
+	 *         <p>
+	 *         [weapon]<br>
+	 *         1:sword, 2:dagger, 3:tohandsword, 4:bow, 5:spear, 6:blunt,
+	 *         7:staff, 8:throwingknife, 9:arrow, 10:gauntlet, 11:claw,
+	 *         12:edoryu, 13:singlebow, 14:singlespear, 15:tohandblunt,
+	 *         16:tohandstaff
+	 *         </p>
+	 *         <p>
+	 *         [armor]<br>
+	 *         1:helm, 2:armor, 3:T, 4:cloak, 5:glove, 6:boots, 7:shield,
+	 *         8:amulet, 9:ring, 10:belt, 11:ring2, 12:earring
 	 */
 	public int getType() {
 		return _type;
@@ -92,12 +98,13 @@ public abstract class L1Item implements Serializable {
 	/**
 	 * getType1<br>
 	 * 
-	 * @return
-	 * <p>[weapon]<br>
-	 * sword:4, dagger:46, tohandsword:50, bow:20, blunt:11, spear:24, 
-	 * staff:40, throwingknife:2922, arrow:66, gauntlet:62, claw:58, 
-	 * edoryu:54, singlebow:20, singlespear:24, tohandblunt:11, 
-	 * tohandstaff:40</p>
+	 * @return <p>
+	 *         [weapon]<br>
+	 *         sword:4, dagger:46, tohandsword:50, bow:20, blunt:11, spear:24,
+	 *         staff:40, throwingknife:2922, arrow:66, gauntlet:62, claw:58,
+	 *         edoryu:54, singlebow:20, singlespear:24, tohandblunt:11,
+	 *         tohandstaff:40
+	 *         </p>
 	 */
 	public int getType1() {
 		return _type1;
@@ -241,7 +248,7 @@ public abstract class L1Item implements Serializable {
 
 	// L1Weapon,L1Armor
 
-	private int _safeEnchant = 0; 
+	private int _safeEnchant = 0;
 
 	public int get_safeenchant() {
 		return _safeEnchant;
@@ -451,7 +458,7 @@ public abstract class L1Item implements Serializable {
 		_isHasteItem = flag;
 	}
 
-	private int _maxUseTime = 0; // 
+	private int _maxUseTime = 0; //
 
 	public int getMaxUseTime() {
 		return _maxUseTime;
@@ -482,13 +489,13 @@ public abstract class L1Item implements Serializable {
 	}
 
 	public int getLightRange() {
-		if (_itemId == 40001) { //lamp
+		if (_itemId == 40001) { // lamp
 			return 11;
-		} else if (_itemId == 40002) { //lantern
+		} else if (_itemId == 40002) { // lantern
 			return 14;
-		} else if (_itemId == 40004) { // 
+		} else if (_itemId == 40004) { //
 			return 14;
-		} else if (_itemId == 40005) { //candle
+		} else if (_itemId == 40005) { // candle
 			return 8;
 		} else {
 			return 0;
@@ -499,15 +506,15 @@ public abstract class L1Item implements Serializable {
 	 * 
 	 */
 	public int getLightFuel() {
-		if (_itemId == 40001) { // 
+		if (_itemId == 40001) { //
 			return 6000;
-		} else if (_itemId == 40002) { // 
+		} else if (_itemId == 40002) { //
 			return 12000;
-		} else if (_itemId == 40003) { // 
+		} else if (_itemId == 40003) { //
 			return 12000;
-		} else if (_itemId == 40004) { // 
+		} else if (_itemId == 40004) { //
 			return 0;
-		} else if (_itemId == 40005) { // 
+		} else if (_itemId == 40005) { //
 			return 600;
 		} else {
 			return 0;
@@ -646,5 +653,5 @@ public abstract class L1Item implements Serializable {
 
 	public int getGrade() {
 		return 0;
-	}	
+	}
 }

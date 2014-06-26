@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket
 public class S_Resurrection extends ServerBasePacket {
 	private static final String _S__FF_RESURRECTION = "[S] S_Resurrection";
-	
+
 	public S_Resurrection(L1PcInstance target, L1PcInstance use, int type) {
 		writeC(Opcodes.S_OPCODE_RESURRECTION);
 		writeD(target.getId());

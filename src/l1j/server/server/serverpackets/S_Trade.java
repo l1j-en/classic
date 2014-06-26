@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_Trade extends ServerBasePacket {
 	private static final String _S__77_TRADE = "[S] S_Trade";
-	
+
 	public S_Trade(String name) {
 		writeC(Opcodes.S_OPCODE_TRADE);
 		writeS(name);

@@ -40,7 +40,7 @@ public class L1TeleportTrap extends L1Trap {
 	public void onTrod(L1PcInstance trodFrom, L1Object trapObj) {
 		sendEffect(trapObj);
 
-		L1Teleport.teleport(trodFrom, _loc.getX(), _loc.getY(), (short) _loc
-				.getMapId(), 5, true);
+		L1Teleport.teleport(trodFrom, _loc.getX(), _loc.getY(),
+				(short) _loc.getMapId(), 5, true);
 	}
 }

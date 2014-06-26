@@ -61,14 +61,11 @@ public class L1ToSpawn implements L1CommandExecutor {
 				spawn = SpawnTable.getInstance().getTemplate(id);
 			}
 			if (spawn != null) {
-				L1Teleport.teleport(pc, spawn.getLocX(), spawn.getLocY(), spawn
-						.getMapId(), 5, false);
-				pc
-						.sendPackets(new S_SystemMessage("spawnid(" + id
-								+ ")"));
+				L1Teleport.teleport(pc, spawn.getLocX(), spawn.getLocY(),
+						spawn.getMapId(), 5, false);
+				pc.sendPackets(new S_SystemMessage("spawnid(" + id + ")"));
 			} else {
-				pc.sendPackets(new S_SystemMessage("spawnid(" + id
-						+ ")"));
+				pc.sendPackets(new S_SystemMessage("spawnid(" + id + ")"));
 			}
 			_spawnId.put(pc.getId(), id);
 		} catch (Exception exception) {

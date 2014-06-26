@@ -44,11 +44,13 @@ public class S_SummonPack extends ServerBasePacket {
 		buildPacket(pet, pc, true);
 	}
 
-	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc, boolean isCheckMaster) {
+	public S_SummonPack(L1SummonInstance pet, L1PcInstance pc,
+			boolean isCheckMaster) {
 		buildPacket(pet, pc, isCheckMaster);
 	}
 
-	private void buildPacket(L1SummonInstance pet, L1PcInstance pc, boolean isCheckMaster) {
+	private void buildPacket(L1SummonInstance pet, L1PcInstance pc,
+			boolean isCheckMaster) {
 		writeC(Opcodes.S_OPCODE_CHARPACK);
 		writeH(pet.getX());
 		writeH(pet.getY());
@@ -64,7 +66,7 @@ public class S_SummonPack extends ServerBasePacket {
 		writeS(pet.getNameId());
 		writeS(pet.getTitle());
 		int status = 0;
-		if (pet.getPoison() != null) { // 
+		if (pet.getPoison() != null) { //
 			if (pet.getPoison().getEffectId() == 1) {
 				status |= STATUS_POISON;
 			}
@@ -77,10 +79,11 @@ public class S_SummonPack extends ServerBasePacket {
 		} else {
 			writeS("");
 		}
-		writeC(0); 
+		writeC(0);
 		// HP Percent
 		if (pet.getMaster() != null && pet.getMaster().getId() == pc.getId()) {
-			int percent = pet.getMaxHp() != 0 ? 100 * pet.getCurrentHp() / pet.getMaxHp() : 100;
+			int percent = pet.getMaxHp() != 0 ? 100 * pet.getCurrentHp()
+					/ pet.getMaxHp() : 100;
 			writeC(percent);
 		} else {
 			writeC(0xFF);

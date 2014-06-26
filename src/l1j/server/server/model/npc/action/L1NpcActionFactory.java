@@ -30,7 +30,7 @@ public class L1NpcActionFactory {
 	private static Logger _log = Logger.getLogger(L1NpcActionFactory.class
 			.getName());
 	private static Map<String, Constructor<L1NpcAction>> _actions = new HashMap<String, Constructor<L1NpcAction>>();
-	
+
 	@SuppressWarnings("unchecked")
 	private static Constructor<L1NpcAction> loadConstructor(Class c)
 			throws NoSuchMethodException {
@@ -40,16 +40,13 @@ public class L1NpcActionFactory {
 	static {
 		try {
 			_actions.put("Action", loadConstructor(L1NpcListedAction.class));
-			_actions
-					.put("MakeItem", loadConstructor(L1NpcMakeItemAction.class));
-			_actions
-					.put("ShowHtml", loadConstructor(L1NpcShowHtmlAction.class));
-			_actions
-					.put("SetQuest", loadConstructor(L1NpcSetQuestAction.class));
-			_actions
-					.put("Teleport", loadConstructor(L1NpcTeleportAction.class));
+			_actions.put("MakeItem", loadConstructor(L1NpcMakeItemAction.class));
+			_actions.put("ShowHtml", loadConstructor(L1NpcShowHtmlAction.class));
+			_actions.put("SetQuest", loadConstructor(L1NpcSetQuestAction.class));
+			_actions.put("Teleport", loadConstructor(L1NpcTeleportAction.class));
 		} catch (NoSuchMethodException e) {
-			_log.log(Level.SEVERE, "L1NpcActionFactory Error when loading Constructors.", e);
+			_log.log(Level.SEVERE,
+					"L1NpcActionFactory Error when loading Constructors.", e);
 		}
 	}
 
@@ -58,9 +55,11 @@ public class L1NpcActionFactory {
 			Constructor<L1NpcAction> con = _actions.get(element.getNodeName());
 			return con.newInstance(element);
 		} catch (NullPointerException e) {
-			_log.warning("Invalid NpcAction reference for " + element.getNodeName());
+			_log.warning("Invalid NpcAction reference for "
+					+ element.getNodeName());
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "L1NpcActionFactory Error when loading actions.", e);
+			_log.log(Level.SEVERE,
+					"L1NpcActionFactory Error when loading actions.", e);
 		}
 		return null;
 	}

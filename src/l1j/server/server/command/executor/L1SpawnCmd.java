@@ -77,8 +77,9 @@ public class L1SpawnCmd implements L1CommandExecutor {
 			for (int i = 0; i < count; i++) {
 				L1SpawnUtil.spawn(pc, npcid, randomrange, 0);
 			}
-			String msg = String.format("%s(%d) (%d) has been summoned. (range: %d)", npc
-					.get_name(), npcid, count, randomrange);
+			String msg = String.format(
+					"%s(%d) (%d) has been summoned. (range: %d)",
+					npc.get_name(), npcid, count, randomrange);
 			pc.sendPackets(new S_SystemMessage(msg));
 		} catch (NoSuchElementException e) {
 			sendErrorMessage(pc, cmdName);

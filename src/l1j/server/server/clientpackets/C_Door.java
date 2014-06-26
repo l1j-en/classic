@@ -45,7 +45,8 @@ public class C_Door extends ClientBasePacket {
 		int objectId = readD();
 
 		L1PcInstance pc = client.getActiveChar();
-		L1DoorInstance door = (L1DoorInstance)L1World.getInstance().findObject(objectId);
+		L1DoorInstance door = (L1DoorInstance) L1World.getInstance()
+				.findObject(objectId);
 		if (door == null) {
 			return;
 		}
@@ -57,8 +58,8 @@ public class C_Door extends ClientBasePacket {
 			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
 				return;
 			}
-			
-			if (pc.getInventory().consumeItem(40163,1)) {
+
+			if (pc.getInventory().consumeItem(40163, 1)) {
 				door.open();
 				CloseTimer closetimer = new CloseTimer(door);
 				closetimer.begin();
@@ -67,7 +68,7 @@ public class C_Door extends ClientBasePacket {
 			if (door.getOpenStatus() == ActionCodes.ACTION_Open) {
 				return;
 			}
-			if (pc.getInventory().consumeItem(40313,1)) {
+			if (pc.getInventory().consumeItem(40313, 1)) {
 				door.open();
 				CloseTimer closetimer = new CloseTimer(door);
 				closetimer.begin();
@@ -92,13 +93,12 @@ public class C_Door extends ClientBasePacket {
 			if (houseId != 0) {
 				L1House house = HouseTable.getInstance().getHouseTable(houseId);
 				if (keeperId == house.getKeeperId()) {
-				return false;
+					return false;
 				}
 			}
 		}
 		return true;
 	}
-
 
 	public class CloseTimer extends TimerTask {
 

@@ -25,10 +25,14 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_DeleteInventoryItem extends ServerBasePacket {
 	private static final String S_DELETE_INVENTORY_ITEM = "[S] S_DeleteInventoryItem";
-	private static Logger _log = Logger.getLogger(S_DeleteInventoryItem.class.getName());
+	private static Logger _log = Logger.getLogger(S_DeleteInventoryItem.class
+			.getName());
+
 	/**
 	 * To remove the item from inventory.
-	 * @param item - Remove items
+	 * 
+	 * @param item
+	 *            - Remove items
 	 */
 	public S_DeleteInventoryItem(L1ItemInstance item) {
 		if (item != null) {

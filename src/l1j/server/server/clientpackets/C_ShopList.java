@@ -39,7 +39,7 @@ public class C_ShopList extends ClientBasePacket {
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-		return;
+			return;
 		}
 
 		pc.sendPackets(new S_PrivateShop(pc, objectId, type));

@@ -54,10 +54,11 @@ public class WarTimeController implements Runnable {
 			oldTime.setTime(_l1castle[i].getWarTime().getTime());
 			_war_start_time[i] = _l1castle[i].getWarTime();
 			oldTime.add(Config.ALT_WAR_TIME_UNIT, Config.ALT_WAR_TIME);
-			
-			if(CheckWarTime.getInstance().isActive(_l1castle[i].getId()) 
-					&& nowTime.after(oldTime)){
-				nowTime.add(Config.ALT_WAR_INTERVAL_UNIT, Config.ALT_WAR_INTERVAL);
+
+			if (CheckWarTime.getInstance().isActive(_l1castle[i].getId())
+					&& nowTime.after(oldTime)) {
+				nowTime.add(Config.ALT_WAR_INTERVAL_UNIT,
+						Config.ALT_WAR_INTERVAL);
 				_l1castle[i].setWarTime(nowTime);
 				CastleTable.getInstance().updateCastle(_l1castle[i]);
 			}
@@ -85,27 +86,27 @@ public class WarTimeController implements Runnable {
 		}
 	}
 
-	public static L1Castle  getCastle(int id){
+	public static L1Castle getCastle(int id) {
 		return _l1castle[id];
 	}
-	
-	public static void  setCastle(int id,L1Castle castle){
+
+	public static void setCastle(int id, L1Castle castle) {
 		_l1castle[id] = castle;
 	}
-	
-	public static Calendar  getWarStartTime(int id){
+
+	public static Calendar getWarStartTime(int id) {
 		return _war_start_time[id];
 	}
-	
-	public static void  setWarStartTime(int id,Calendar time){
+
+	public static void setWarStartTime(int id, Calendar time) {
 		_war_start_time[id] = time;
 	}
 
-	public static Calendar  getWarEndTime(int id){
+	public static Calendar getWarEndTime(int id) {
 		return _war_end_time[id];
 	}
-	
-	public static void  setWarEndTime(int id,Calendar time){
+
+	public static void setWarEndTime(int id, Calendar time) {
 		_war_end_time[id] = time;
 	}
 
@@ -122,46 +123,57 @@ public class WarTimeController implements Runnable {
 	public void checkCastleWar(L1PcInstance player) {
 		for (int i = 0; i < 8; i++) {
 			if (_is_now_war[i]) {
-				player.sendPackets(new S_PacketBox(S_PacketBox.MSG_WAR_GOING, i + 1));
+				player.sendPackets(new S_PacketBox(S_PacketBox.MSG_WAR_GOING,
+						i + 1));
 			}
 		}
 	}
 
 	private void checkWarTime() {
 		for (int i = 0; i < 8; i++) {
-			if (_war_start_time[i].before(getRealTime()) && _war_end_time[i].after(getRealTime())) {
+			if (_war_start_time[i].before(getRealTime())
+					&& _war_end_time[i].after(getRealTime())) {
 				if (_is_now_war[i] == false) {
 					_is_now_war[i] = true;
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnFlag(i + 1);
-					for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
+					for (L1DoorInstance door : DoorTable.getInstance()
+							.getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(i + 1, door)) {
-						door.repairGate();
+							door.repairGate();
 						}
 					}
 
-					L1World.getInstance().broadcastPacketToAll(new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1));
+					L1World.getInstance().broadcastPacketToAll(
+							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1));
 					int[] loc = new int[3];
-					for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
+					for (L1PcInstance pc : L1World.getInstance()
+							.getAllPlayers()) {
 						int castleId = i + 1;
-						if (L1CastleLocation.checkInWarArea(castleId, pc) && !pc.isGm()) {
-							L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+						if (L1CastleLocation.checkInWarArea(castleId, pc)
+								&& !pc.isGm()) {
+							L1Clan clan = L1World.getInstance().getClan(
+									pc.getClanname());
 							if (clan != null) {
 								if (clan.getCastleId() == castleId) {
-								continue;
+									continue;
 								}
 							}
 							loc = L1CastleLocation.getGetBackLoc(castleId);
-							L1Teleport.teleport(pc, loc[0], loc[1], (short) loc[2], 5, true);
+							L1Teleport.teleport(pc, loc[0], loc[1],
+									(short) loc[2], 5, true);
 						}
-		            }
+					}
 				}
 			} else if (_war_end_time[i].before(getRealTime())) {
 				if (_is_now_war[i] == true) {
 					_is_now_war[i] = false;
-					L1World.getInstance().broadcastPacketToAll(new S_PacketBox(S_PacketBox.MSG_WAR_END, i + 1));
-					_war_start_time[i].add(Config.ALT_WAR_INTERVAL_UNIT, Config.ALT_WAR_INTERVAL);
-					_war_end_time[i].add(Config.ALT_WAR_INTERVAL_UNIT, Config.ALT_WAR_INTERVAL);
+					L1World.getInstance().broadcastPacketToAll(
+							new S_PacketBox(S_PacketBox.MSG_WAR_END, i + 1));
+					_war_start_time[i].add(Config.ALT_WAR_INTERVAL_UNIT,
+							Config.ALT_WAR_INTERVAL);
+					_war_end_time[i].add(Config.ALT_WAR_INTERVAL_UNIT,
+							Config.ALT_WAR_INTERVAL);
 					_l1castle[i].setTaxRate(10);
 					_l1castle[i].setPublicMoney(0);
 					CastleTable.getInstance().updateCastle(_l1castle[i]);
@@ -169,26 +181,30 @@ public class WarTimeController implements Runnable {
 					for (L1Object l1object : L1World.getInstance().getObject()) {
 						if (l1object instanceof L1FieldObjectInstance) {
 							L1FieldObjectInstance flag = (L1FieldObjectInstance) l1object;
-							if (L1CastleLocation.checkInWarArea(castle_id, flag)) {
+							if (L1CastleLocation
+									.checkInWarArea(castle_id, flag)) {
 								flag.deleteMe();
 							}
 						}
 						if (l1object instanceof L1CrownInstance) {
 							L1CrownInstance crown = (L1CrownInstance) l1object;
-							if (L1CastleLocation.checkInWarArea(castle_id, crown)) {
+							if (L1CastleLocation.checkInWarArea(castle_id,
+									crown)) {
 								crown.deleteMe();
 							}
 						}
 						if (l1object instanceof L1TowerInstance) {
 							L1TowerInstance tower = (L1TowerInstance) l1object;
-							if (L1CastleLocation.checkInWarArea(castle_id, tower)) {
+							if (L1CastleLocation.checkInWarArea(castle_id,
+									tower)) {
 								tower.deleteMe();
 							}
 						}
 					}
 					L1WarSpawn warspawn = new L1WarSpawn();
 					warspawn.SpawnTower(castle_id);
-					for (L1DoorInstance door : DoorTable.getInstance().getDoorList()) {
+					for (L1DoorInstance door : DoorTable.getInstance()
+							.getDoorList()) {
 						if (L1CastleLocation.checkInWarArea(castle_id, door)) {
 							door.repairGate();
 						}

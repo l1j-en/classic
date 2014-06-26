@@ -32,12 +32,13 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 public class S_PrivateShop extends ServerBasePacket {
 
 	public S_PrivateShop(L1PcInstance pc, int objectId, int type) {
-		L1PcInstance shopPc = (L1PcInstance) L1World.getInstance().findObject(objectId);
+		L1PcInstance shopPc = (L1PcInstance) L1World.getInstance().findObject(
+				objectId);
 
 		if (shopPc == null) {
 			return;
 		}
-		//need to be tested
+		// need to be tested
 		writeC(Opcodes.S_OPCODE_PRIVATESHOPLIST);
 		writeC(type);
 		writeD(objectId);
@@ -47,11 +48,13 @@ public class S_PrivateShop extends ServerBasePacket {
 			pc.setPartnersPrivateShopItemCount(size);
 			writeH(size);
 			for (int i = 0; i < size; i++) {
-				L1PrivateShopSellList pssl= (L1PrivateShopSellList) list.get(i);
+				L1PrivateShopSellList pssl = (L1PrivateShopSellList) list
+						.get(i);
 				int itemObjectId = pssl.getItemObjectId();
 				int count = pssl.getSellTotalCount() - pssl.getSellCount();
 				int price = pssl.getSellPrice();
-				L1ItemInstance item = shopPc.getInventory().getItem(itemObjectId);
+				L1ItemInstance item = shopPc.getInventory().getItem(
+						itemObjectId);
 				if (item != null) {
 					writeC(i);
 					writeC(item.getBless());
@@ -71,10 +74,12 @@ public class S_PrivateShop extends ServerBasePacket {
 				int itemObjectId = psbl.getItemObjectId();
 				int count = psbl.getBuyTotalCount();
 				int price = psbl.getBuyPrice();
-				L1ItemInstance item = shopPc.getInventory().getItem(itemObjectId);
+				L1ItemInstance item = shopPc.getInventory().getItem(
+						itemObjectId);
 				for (L1ItemInstance pcItem : pc.getInventory().getItems()) {
-					if (item.getItemId() == pcItem.getItemId() && item.getEnchantLevel() == pcItem.getEnchantLevel()
-					) {
+					if (item.getItemId() == pcItem.getItemId()
+							&& item.getEnchantLevel() == pcItem
+									.getEnchantLevel()) {
 						writeC(i);
 						writeD(pcItem.getId());
 						writeD(count);

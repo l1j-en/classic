@@ -41,7 +41,8 @@ public final class TaskRestart extends Task {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see l1j.server.server.tasks.Task#onTimeElapsed(l1j.server.server.tasks.TaskManager.ExecutedTask)
+	 * @see l1j.server.server.tasks.Task#onTimeElapsed(l1j.server.server.tasks.
+	 * TaskManager.ExecutedTask)
 	 */
 	@Override
 	public void onTimeElapsed(ExecutedTask task) {

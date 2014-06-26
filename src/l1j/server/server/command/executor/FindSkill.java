@@ -26,7 +26,8 @@ import java.util.List;
 
 public class FindSkill implements L1CommandExecutor {
 
-	private FindSkill() {}
+	private FindSkill() {
+	}
 
 	public static L1CommandExecutor getInstance() {
 		return new FindSkill();
@@ -41,7 +42,7 @@ public class FindSkill implements L1CommandExecutor {
 			user.sendPackets(new S_SystemMessage(".findSkill <name|number>."));
 		}
 	}
-	
+
 	private void findSkill(L1PcInstance gm, String query) {
 		if (query.isEmpty()) {
 			gm.sendPackets(new S_SystemMessage(".findskill <name|number>."));
@@ -49,13 +50,13 @@ public class FindSkill implements L1CommandExecutor {
 		}
 		try {
 			Integer id = Integer.valueOf(query);
-			gm.sendPackets(new S_SystemMessage(String.valueOf(id) + " is " + 
-					L1NamedSkill.getName(id) + "."));
+			gm.sendPackets(new S_SystemMessage(String.valueOf(id) + " is "
+					+ L1NamedSkill.getName(id) + "."));
 		} catch (NumberFormatException e) {
 			List<L1NamedSkill> skills = L1NamedSkill.searchNames(query);
 			String message = "Found: ";
 			for (L1NamedSkill skill : skills) {
-				message += " |" + " " + skill.name() + " " + skill.getId(); 
+				message += " |" + " " + skill.name() + " " + skill.getId();
 			}
 			message += ".";
 			gm.sendPackets(new S_SystemMessage(message));

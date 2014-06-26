@@ -24,7 +24,8 @@ import l1j.server.server.encryptions.Opcodes;
 
 public class S_ServerMessage extends ServerBasePacket {
 	private static final String S_SERVER_MESSAGE = "[S] S_ServerMessage";
-	private static Logger _log = Logger.getLogger(S_ServerMessage.class.getName());
+	private static Logger _log = Logger.getLogger(S_ServerMessage.class
+			.getName());
 	public static final int NO_PLEDGE = 208;
 	public static final int CANNOT_GLOBAL = 195;
 	public static final int CANNOT_BOOKMARK_LOCATION = 214;

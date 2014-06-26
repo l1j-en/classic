@@ -47,7 +47,7 @@ public class C_BanParty extends ClientBasePacket {
 				return;
 			}
 		}
-		player.sendPackets(new S_ServerMessage(426, s)); 
+		player.sendPackets(new S_ServerMessage(426, s));
 	}
 
 	@Override

@@ -33,8 +33,7 @@ public class L1ChatParty {
 	private static final Logger _log = Logger.getLogger(L1ChatParty.class
 			.getName());
 
-	private final List<L1PcInstance> _membersList =
-			new ArrayList<L1PcInstance>();
+	private final List<L1PcInstance> _membersList = new ArrayList<L1PcInstance>();
 
 	private L1PcInstance _leader = null;
 
@@ -101,7 +100,7 @@ public class L1ChatParty {
 
 		for (L1PcInstance member : members) {
 			removeMember(member);
-			member.sendPackets(new S_ServerMessage(418)); 
+			member.sendPackets(new S_ServerMessage(418));
 		}
 	}
 
@@ -135,7 +134,7 @@ public class L1ChatParty {
 		} else {
 			removeMember(pc);
 		}
-		pc.sendPackets(new S_ServerMessage(419)); 
+		pc.sendPackets(new S_ServerMessage(419));
 	}
 
 	public L1PcInstance[] getMembers() {

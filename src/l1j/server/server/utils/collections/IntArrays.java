@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 /**
  * Utility methods for arrays.
- *
+ * 
  * If we're going to stick with the L1 habit of using raw ints for speed and
  * memory reasons, we can at least have some nicer wrappers.
  */
 public class IntArrays {
 	/**
 	 * Imitation of List.contains() for int arrays.
-	 */	
+	 */
 	public static final boolean contains(int[] array, int target) {
 		for (int i = 0; i < array.length; i++)
 			if (target == array[i])

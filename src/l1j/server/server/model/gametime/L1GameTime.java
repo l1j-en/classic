@@ -64,7 +64,7 @@ public class L1GameTime {
 	}
 
 	public Time toTime() {
-		int t = _time % (24 * 3600); // 
+		int t = _time % (24 * 3600); //
 		return new Time(t * 1000L - TimeZone.getDefault().getRawOffset());
 	}
 

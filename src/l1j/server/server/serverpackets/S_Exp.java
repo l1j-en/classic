@@ -26,9 +26,12 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class S_Exp extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_Exp.class.getName());
 	private static final String S_EXP = "[S] S_Exp";
+
 	/**
 	 * Experience level and send the data value.
-	 * @param pc - PC
+	 * 
+	 * @param pc
+	 *            - PC
 	 */
 	public S_Exp(L1PcInstance pc) {
 		writeC(Opcodes.S_OPCODE_EXP);

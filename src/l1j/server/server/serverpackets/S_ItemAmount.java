@@ -42,7 +42,7 @@ public class S_ItemAmount extends ServerBasePacket {
 		writeD(item.getId());
 		writeS(item.getViewName());
 		writeD(item.getCount());
-		if (!item.isIdentified()) { 
+		if (!item.isIdentified()) {
 			writeC(0);
 		} else {
 			byte[] status = item.getStatusBytes();

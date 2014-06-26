@@ -23,7 +23,8 @@ import l1j.server.server.utils.BinaryOutputStream;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ItemInstance extends L1Object {
-	private static Logger _log = Logger.getLogger(L1ItemInstance.class.getName());
+	private static Logger _log = Logger.getLogger(L1ItemInstance.class
+			.getName());
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +35,7 @@ public class L1ItemInstance extends L1Object {
 	private L1Item _item;
 
 	private boolean _isActive = false;
-	
+
 	private boolean _isEquipped = false;
 
 	private int _enchantLevel;
@@ -124,15 +125,16 @@ public class L1ItemInstance extends L1Object {
 	public boolean isStackable() {
 		return _item.isStackable();
 	}
-	
-	/* For illumination items*/ 
-	public boolean isActive() { 
-		return _isActive; 
-	}  
-	public void setActive(boolean isActive) { 
-		_isActive = isActive; 
-	} 
-	
+
+	/* For illumination items */
+	public boolean isActive() {
+		return _isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		_isActive = isActive;
+	}
+
 	@Override
 	public void onAction(L1PcInstance player) {
 	}
@@ -241,7 +243,6 @@ public class L1ItemInstance extends L1Object {
 			return Math.max(getCount() * getItem().getWeight() / 1000, 1);
 		}
 	}
-
 
 	public class LastStatus {
 		public int count;
@@ -356,15 +357,32 @@ public class L1ItemInstance extends L1Object {
 			;
 		}
 
-		public void updateWaterResist() {}
-		public void updateEarthResist() {}
-		public void updateWindResist() {}
-		public void updateSpellpower() {}
-		public void updateHp() {}
-		public void updateMp() {}
-		public void updateHpRegen() {}
-		public void updateMpRegen() {}
-		public void updateMagicResist() {}
+		public void updateWaterResist() {
+		}
+
+		public void updateEarthResist() {
+		}
+
+		public void updateWindResist() {
+		}
+
+		public void updateSpellpower() {
+		}
+
+		public void updateHp() {
+		}
+
+		public void updateMp() {
+		}
+
+		public void updateHpRegen() {
+		}
+
+		public void updateMpRegen() {
+		}
+
+		public void updateMagicResist() {
+		}
 	}
 
 	public LastStatus getLastStatus() {
@@ -451,8 +469,6 @@ public class L1ItemInstance extends L1Object {
 		return column;
 	}
 
-
-
 	public String getNumberedViewName(int count) {
 		StringBuilder name = new StringBuilder(getNumberedName(count));
 		int itemType2 = getItem().getType2();
@@ -482,9 +498,9 @@ public class L1ItemInstance extends L1Object {
 
 		if (isEquipped()) {
 			if (itemType2 == ItemType.Weapon) {
-				name.append(" ($9)"); //(Armed)
+				name.append(" ($9)"); // (Armed)
 			} else if (itemType2 == ItemType.Armor) {
-				name.append(" ($117)"); // 
+				name.append(" ($117)"); //
 			} else if (itemType2 == ItemType.Etc && getItem().getType() == 11) { // petitem
 				name.append(" ($117)"); //
 			}
@@ -506,12 +522,12 @@ public class L1ItemInstance extends L1Object {
 		int generalType = getItem().getType2();
 
 		if (isIdentified()) {
-			if (generalType == ItemType.Weapon) { 
+			if (generalType == ItemType.Weapon) {
 				int attrEnchantLevel = getAttrEnchantLevel();
 				if (attrEnchantLevel > 0) {
 					String attrStr = null;
 					switch (getAttrEnchantKind()) {
-					case Element.Earth: 
+					case Element.Earth:
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6124";
 						} else if (attrEnchantLevel == 2) {
@@ -520,7 +536,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6126";
 						}
 						break;
-					case Element.Fire: 
+					case Element.Fire:
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6115";
 						} else if (attrEnchantLevel == 2) {
@@ -529,7 +545,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6117";
 						}
 						break;
-					case Element.Water: 
+					case Element.Water:
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6118";
 						} else if (attrEnchantLevel == 2) {
@@ -538,7 +554,7 @@ public class L1ItemInstance extends L1Object {
 							attrStr = "$6120";
 						}
 						break;
-					case Element.Wind: 
+					case Element.Wind:
 						if (attrEnchantLevel == 1) {
 							attrStr = "$6121";
 						} else if (attrEnchantLevel == 2) {
@@ -593,11 +609,11 @@ public class L1ItemInstance extends L1Object {
 
 		final boolean isWeapon = itemType2 == ItemType.Weapon;
 		final boolean isArmor = itemType2 == ItemType.Armor;
-		
+
 		if (itemType2 == ItemType.Etc) {
 			switch (template.getType()) {
 			case 2: // light
-				os.writeC(22); 
+				os.writeC(22);
 				os.writeH(template.getLightRange());
 				break;
 			case 7: // food
@@ -606,7 +622,7 @@ public class L1ItemInstance extends L1Object {
 				break;
 			case 0: // arrow
 			case 15: // sting
-				os.writeC(1); 
+				os.writeC(1);
 				os.writeC(template.getDmgSmall());
 				os.writeC(template.getDmgLarge());
 				break;
@@ -616,7 +632,8 @@ public class L1ItemInstance extends L1Object {
 			}
 			os.writeC(template.getMaterial());
 			os.writeD(getWeight());
-		} else if (isWeapon || isArmor) { // Statements below rely on this guard.
+		} else if (isWeapon || isArmor) { // Statements below rely on this
+											// guard.
 			if (isWeapon) {
 				os.writeC(1);
 				os.writeC(template.getDmgSmall());
@@ -624,7 +641,7 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(template.getMaterial());
 				os.writeD(getWeight());
 			} else {
-				os.writeC(19); 
+				os.writeC(19);
 				int ac = ((L1Armor) template).get_ac();
 				if (ac < 0) {
 					ac = ac - ac - ac;
@@ -638,8 +655,8 @@ public class L1ItemInstance extends L1Object {
 			}
 			if (getEnchantLevel() != 0) {
 				os.writeC(2);
-				if (isArmor && template.getType() >= 8 &&
-						template.getType() <= 12) {
+				if (isArmor && template.getType() >= 8
+						&& template.getType() <= 12) {
 					os.writeC(0);
 				} else {
 					os.writeC(getEnchantLevel());
@@ -652,7 +669,7 @@ public class L1ItemInstance extends L1Object {
 			if (template.isTwohandedWeapon()) {
 				os.writeC(4);
 			}
-			
+
 			if (isWeapon) {
 				if (template.getHitModifier() != 0) {
 					os.writeC(5);
@@ -678,14 +695,14 @@ public class L1ItemInstance extends L1Object {
 			}
 
 			int bit = 0;
-			bit |= template.isUseRoyal()   ? 1 : 0;
-			bit |= template.isUseKnight()  ? 2 : 0;
-			bit |= template.isUseElf()     ? 4 : 0;
-			bit |= template.isUseMage()    ? 8 : 0;
+			bit |= template.isUseRoyal() ? 1 : 0;
+			bit |= template.isUseKnight() ? 2 : 0;
+			bit |= template.isUseElf() ? 4 : 0;
+			bit |= template.isUseMage() ? 8 : 0;
 			bit |= template.isUseDarkelf() ? 16 : 0;
 			bit |= template.isUseDragonknight() ? 32 : 0;
 			bit |= template.isUseIllusionist() ? 64 : 0;
-			// bit |= template.isUseHiPet() ? 64 : 0; 
+			// bit |= template.isUseHiPet() ? 64 : 0;
 			os.writeC(7);
 			os.writeC(bit);
 
@@ -699,11 +716,11 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(template.getBowDmgModifierByArmor());
 			}
 
-			if (itemId == 126 || itemId == 127) { 
+			if (itemId == 126 || itemId == 127) {
 				os.writeC(16);
 			}
-		
-			if (itemId == 262) { 
+
+			if (itemId == 262) {
 				os.writeC(34);
 			}
 			// STR~CHA
@@ -803,22 +820,17 @@ public class L1ItemInstance extends L1Object {
 				os.writeC(33);
 				os.writeC(6);
 			}
-			/* Taken from l1j-tw accessory enchanting - these might not be the
+			/*
+			 * Taken from l1j-tw accessory enchanting - these might not be the
 			 * right packets for US clients and could be causing the mangled
-			 * item descriptions.
-			if (getMagicResist() != 0) {
-				os.writeC(15);
-				os.writeH(getMagicResist());
-			}
-			if (template.get_addhpr() != 0 || getAddHpRegen() != 0) {
-				os.writeC(37);
-				os.writeC(template.get_addhpr() + getAddHpRegen());
-			}
-			if (template.get_addmpr() != 0 || getAddMpRegen() != 0) {
-				os.writeC(38);
-				os.writeC(template.get_addmpr() + getAddMpRegen());
-			}
-			*/
+			 * item descriptions. if (getMagicResist() != 0) { os.writeC(15);
+			 * os.writeH(getMagicResist()); } if (template.get_addhpr() != 0 ||
+			 * getAddHpRegen() != 0) { os.writeC(37);
+			 * os.writeC(template.get_addhpr() + getAddHpRegen()); } if
+			 * (template.get_addmpr() != 0 || getAddMpRegen() != 0) {
+			 * os.writeC(38); os.writeC(template.get_addmpr() +
+			 * getAddMpRegen()); }
+			 */
 
 			// if (getItem.getLuck() != 0) {
 			// os.writeC(20);
@@ -837,9 +849,11 @@ public class L1ItemInstance extends L1Object {
 	}
 
 	class EnchantTimer extends TimerTask {
-		public EnchantTimer() { }
+		public EnchantTimer() {
+		}
 
-		@Override public void run() {
+		@Override
+		public void run() {
 			try {
 				int type = getItem().getType();
 				int type2 = getItem().getType2();
@@ -913,29 +927,87 @@ public class L1ItemInstance extends L1Object {
 	private int _addMp;
 	private int _addMr;
 
-	public void setFireResist(int resist) { _fireResist = resist; }
-	public int getFireResist() { return _fireResist; }
-	public void setWaterResist(int resist) { _waterResist = resist; }
-	public int getWaterResist() { return _waterResist; }
-	public void setEarthResist(int resist) { _earthResist = resist; }
-	public int getEarthResist() { return _earthResist; }
-	public void setWindResist(int resist) { _windResist = resist; }
-	public int getWindResist() { return _windResist; }
-	public void setAddSpellpower(int spellpower) { _addSpellpower = spellpower; }
-	public int getAddSpellpower() { return _addSpellpower; }
-	public void setAddHpRegen(int regen) { _addHpRegen = regen; }
-	public int getAddHpRegen() { return _addHpRegen; }
-	public void setAddMpRegen(int regen) { _addMpRegen = regen; }
-	public int getAddMpRegen() { return _addMpRegen; }
-	public void setAddHp(int points) { _addHp = points; }
-	public int getAddHp() { return _addHp; }
-	public void setAddMp(int points) { _addMp = points; }
-	public int getAddMp() { return _addMp; }
-	public void setMagicResist(int resist) { _addMr = resist; }
-	public int getMagicResist() { return _addMr; }
+	public void setFireResist(int resist) {
+		_fireResist = resist;
+	}
 
-	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, 
-			int skillTime) {
+	public int getFireResist() {
+		return _fireResist;
+	}
+
+	public void setWaterResist(int resist) {
+		_waterResist = resist;
+	}
+
+	public int getWaterResist() {
+		return _waterResist;
+	}
+
+	public void setEarthResist(int resist) {
+		_earthResist = resist;
+	}
+
+	public int getEarthResist() {
+		return _earthResist;
+	}
+
+	public void setWindResist(int resist) {
+		_windResist = resist;
+	}
+
+	public int getWindResist() {
+		return _windResist;
+	}
+
+	public void setAddSpellpower(int spellpower) {
+		_addSpellpower = spellpower;
+	}
+
+	public int getAddSpellpower() {
+		return _addSpellpower;
+	}
+
+	public void setAddHpRegen(int regen) {
+		_addHpRegen = regen;
+	}
+
+	public int getAddHpRegen() {
+		return _addHpRegen;
+	}
+
+	public void setAddMpRegen(int regen) {
+		_addMpRegen = regen;
+	}
+
+	public int getAddMpRegen() {
+		return _addMpRegen;
+	}
+
+	public void setAddHp(int points) {
+		_addHp = points;
+	}
+
+	public int getAddHp() {
+		return _addHp;
+	}
+
+	public void setAddMp(int points) {
+		_addMp = points;
+	}
+
+	public int getAddMp() {
+		return _addMp;
+	}
+
+	public void setMagicResist(int resist) {
+		_addMr = resist;
+	}
+
+	public int getMagicResist() {
+		return _addMr;
+	}
+
+	public void setSkillArmorEnchant(L1PcInstance pc, int skillId, int skillTime) {
 		int type = getItem().getType();
 		int type2 = getItem().getType2();
 		if (_isRunning) {
@@ -977,27 +1049,27 @@ public class L1ItemInstance extends L1Object {
 			_timer = null;
 		}
 
-		switch(skillId) {
-			case HOLY_WEAPON:
-				setHolyDmgByMagic(1);
-				setHitByMagic(1);
-				break;
+		switch (skillId) {
+		case HOLY_WEAPON:
+			setHolyDmgByMagic(1);
+			setHitByMagic(1);
+			break;
 
-			case ENCHANT_WEAPON:
-				setDmgByMagic(2);
-				break;
+		case ENCHANT_WEAPON:
+			setDmgByMagic(2);
+			break;
 
-			case BLESS_WEAPON:
-				setDmgByMagic(2);
-				setHitByMagic(2);
-				break;
+		case BLESS_WEAPON:
+			setDmgByMagic(2);
+			setHitByMagic(2);
+			break;
 
-			case SHADOW_FANG:
-				setDmgByMagic(5);
-				break;
+		case SHADOW_FANG:
+			setDmgByMagic(5);
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 
 		_pc = pc;
@@ -1042,7 +1114,7 @@ public class L1ItemInstance extends L1Object {
 	private boolean _isNowLighting = false;
 
 	public boolean isNowLighting() {
-	return _isNowLighting;
+		return _isNowLighting;
 	}
 
 	public void setNowLighting(boolean flag) {

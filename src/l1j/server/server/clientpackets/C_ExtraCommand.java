@@ -29,29 +29,30 @@ import static l1j.server.server.model.skill.L1SkillId.*;
 // ClientBasePacket
 public class C_ExtraCommand extends ClientBasePacket {
 	private static final String C_EXTRA_COMMAND = "[C] C_ExtraCommand";
-	private static Logger _log = Logger.getLogger(C_ExtraCommand.class.getName());
+	private static Logger _log = Logger.getLogger(C_ExtraCommand.class
+			.getName());
 
 	public C_ExtraCommand(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int actionId = readC();
 		L1PcInstance pc = client.getActiveChar();
-		
+
 		if (pc.isGhost()) {
 			return;
 		}
-		
+
 		if (pc.isInvisble()) {
 			return;
 		}
-		
+
 		if (pc.isTeleport()) {
 			return;
 		}
-		
+
 		if (pc.hasSkillEffect(SHAPE_CHANGE)) {
 			int gfxId = pc.getTempCharGfx();
 			if (gfxId != 6080 && gfxId != 6094) {
-			return;
+				return;
 			}
 		}
 		S_DoActionGFX gfx = new S_DoActionGFX(pc.getId(), actionId);

@@ -77,7 +77,7 @@ public class SkillTable {
 			SQLUtil.close(con);
 		}
 	}
-	
+
 	public void spellMastery(int playerobjid, int skillid, String skillname,
 			int active, int time) {
 		if (spellCheck(playerobjid, skillid)) {

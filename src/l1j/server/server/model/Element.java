@@ -1,8 +1,8 @@
 package l1j.server.server.model;
 
 /**
- * Shared constants representing the possible elements.
- * TODO: long term this should be turned into an enum.
+ * Shared constants representing the possible elements. TODO: long term this
+ * should be turned into an enum.
  */
 public class Element {
 	public static final int None = 0;

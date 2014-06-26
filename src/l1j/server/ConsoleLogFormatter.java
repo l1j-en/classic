@@ -26,7 +26,9 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 public class ConsoleLogFormatter extends Formatter {
-	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
+	private SimpleDateFormat dateFmt = new SimpleDateFormat(
+			"yyyy.MM.dd HH:mm:ss,SSS");
+
 	/*
 	 * (non-Javadoc)
 	 * 

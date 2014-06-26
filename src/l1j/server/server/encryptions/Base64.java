@@ -222,7 +222,7 @@ public class Base64 {
 				gzos = new java.util.zip.GZIPOutputStream(b64os);
 				oos = new java.io.ObjectOutputStream(gzos);
 			} // end if: gzip
- else {
+			else {
 				oos = new java.io.ObjectOutputStream(b64os);
 			}
 
@@ -341,8 +341,8 @@ public class Base64 {
 	/* ******** D E C O D I N G M E T H O D S ******** */
 
 	/**
-	 * Decodes the first four bytes of array <var>fourBytes</var> and returns
-	 * an array up to three bytes long with the decoded values.
+	 * Decodes the first four bytes of array <var>fourBytes</var> and returns an
+	 * array up to three bytes long with the decoded values.
 	 * 
 	 * @param fourBytes
 	 *            the array with Base64 content
@@ -524,7 +524,7 @@ public class Base64 {
 		catch (java.io.UnsupportedEncodingException uee) {
 			bytes = s.getBytes();
 		} // end catch
-		// </change>
+			// </change>
 
 		// Decode
 		bytes = decode(bytes, 0, bytes.length);
@@ -838,8 +838,8 @@ public class Base64 {
 
 	/**
 	 * A {@link Base64#OutputStream} will write data to another
-	 * {@link java.io.OutputStream}, given in the constructor, and
-	 * encode/decode to/from Base64 notation on the fly.
+	 * {@link java.io.OutputStream}, given in the constructor, and encode/decode
+	 * to/from Base64 notation on the fly.
 	 * 
 	 * @see Base64
 	 * @see java.io.FilterOutputStream

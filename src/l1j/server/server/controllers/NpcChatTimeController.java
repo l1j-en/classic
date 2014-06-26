@@ -31,7 +31,8 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1NpcChat;
 
 public class NpcChatTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(NpcChatTimeController.class.getName());
+	private static Logger _log = Logger.getLogger(NpcChatTimeController.class
+			.getName());
 	private static NpcChatTimeController _instance;
 
 	public static NpcChatTimeController getInstance() {
@@ -59,7 +60,7 @@ public class NpcChatTimeController implements Runnable {
 				int npcId = npcChat.getNpcId();
 				for (L1Object obj : L1World.getInstance().getObject()) {
 					if (!(obj instanceof L1NpcInstance)) {
-					continue;
+						continue;
 					}
 					L1NpcInstance npc = (L1NpcInstance) obj;
 					if (npc.getNpcTemplate().get_npcId() == npcId) {

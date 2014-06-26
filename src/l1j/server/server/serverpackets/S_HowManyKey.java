@@ -25,12 +25,12 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_HowManyKey extends ServerBasePacket {
 	/*
-	 *  Server  id:14 size:40 time:1300606757968
-	 *  0000	0e cc 1e 00 00 2c 01 00 00 01 00 00 00 01 00 00    .....,..........
-	 *  0010	00 08 00 00 00 00 00 69 6e 6e 32 00 00 02 00 24    .......inn2....$
-	 *  0020	39 35 35 00 33 30 30 00                            955.300.
+	 * Server id:14 size:40 time:1300606757968 0000 0e cc 1e 00 00 2c 01 00 00
+	 * 01 00 00 00 01 00 00 .....,.......... 0010 00 08 00 00 00 00 00 69 6e 6e
+	 * 32 00 00 02 00 24 .......inn2....$ 0020 39 35 35 00 33 30 30 00 955.300.
 	 */
-	public S_HowManyKey(L1NpcInstance npc, int price, int min, int max, String htmlId) {
+	public S_HowManyKey(L1NpcInstance npc, int price, int min, int max,
+			String htmlId) {
 		writeC(Opcodes.S_OPCODE_INPUTAMOUNT);
 		writeD(npc.getId());
 		writeD(price);

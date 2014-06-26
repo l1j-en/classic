@@ -174,16 +174,14 @@ public class L1Location extends Point {
 			locY2 = mapY2;
 		}
 
-		int diffX = locX2 - locX1; 
-		int diffY = locY2 - locY1; 
-		
+		int diffX = locX2 - locX1;
+		int diffY = locY2 - locY1;
+
 		// fix rare exception with negative diffs
-		if (diffX < 0)
-		{
+		if (diffX < 0) {
 			diffX = 0;
 		}
-		if (diffY < 0)
-		{
+		if (diffY < 0) {
 			diffY = 0;
 		}
 
@@ -208,8 +206,8 @@ public class L1Location extends Point {
 				continue;
 
 			}
-			if (isRandomTeleport) { 
-				if (L1CastleLocation.checkInAllWarArea(newX, newY, mapId)) { 
+			if (isRandomTeleport) {
+				if (L1CastleLocation.checkInAllWarArea(newX, newY, mapId)) {
 					continue;
 				}
 

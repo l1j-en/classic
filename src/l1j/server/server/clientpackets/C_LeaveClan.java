@@ -39,7 +39,8 @@ public class C_LeaveClan extends ClientBasePacket {
 	private static final String C_LEAVE_CLAN = "[C] C_LeaveClan";
 	private static Logger _log = Logger.getLogger(C_LeaveClan.class.getName());
 
-	public C_LeaveClan(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_LeaveClan(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		L1PcInstance player = clientthread.getActiveChar();
@@ -47,7 +48,7 @@ public class C_LeaveClan extends ClientBasePacket {
 		String clan_name = player.getClanname();
 		int clan_id = player.getClanid();
 		if (clan_id == 0) {
-		return;
+			return;
 		}
 		L1Clan clan = L1World.getInstance().getClan(clan_name);
 		if (clan != null) {
@@ -67,19 +68,25 @@ public class C_LeaveClan extends ClientBasePacket {
 					}
 				}
 				for (i = 0; i < clan_member_name.length; i++) {
-					L1PcInstance online_pc = L1World.getInstance().getPlayer(clan_member_name[i]);
+					L1PcInstance online_pc = L1World.getInstance().getPlayer(
+							clan_member_name[i]);
 					if (online_pc != null) {
 						online_pc.setClanid(0);
 						online_pc.setClanname("");
 						online_pc.setClanRank(0);
 						online_pc.setTitle("");
-						online_pc.sendPackets(new S_CharTitle(online_pc.getId(), ""));
-						online_pc.broadcastPacket(new S_CharTitle(online_pc.getId(), ""));
-						online_pc.save(); 
-						online_pc.sendPackets(new S_ServerMessage(269, player_name, clan_name)); 
-					} else { 
+						online_pc.sendPackets(new S_CharTitle(
+								online_pc.getId(), ""));
+						online_pc.broadcastPacket(new S_CharTitle(online_pc
+								.getId(), ""));
+						online_pc.save();
+						online_pc.sendPackets(new S_ServerMessage(269,
+								player_name, clan_name));
+					} else {
 						try {
-							L1PcInstance offline_pc = CharacterTable.getInstance().restoreCharacter(clan_member_name[i]);
+							L1PcInstance offline_pc = CharacterTable
+									.getInstance().restoreCharacter(
+											clan_member_name[i]);
 							offline_pc.setClanid(0);
 							offline_pc.setClanname("");
 							offline_pc.setClanRank(0);
@@ -94,10 +101,11 @@ public class C_LeaveClan extends ClientBasePacket {
 				File file = new File("emblem/" + emblem_file);
 				file.delete();
 				ClanTable.getInstance().deleteClan(clan_name);
-			} else { 
+			} else {
 				L1PcInstance clanMember[] = clan.getOnlineClanMember();
 				for (i = 0; i < clanMember.length; i++) {
-					clanMember[i].sendPackets(new S_ServerMessage(178, player_name, clan_name)); 
+					clanMember[i].sendPackets(new S_ServerMessage(178,
+							player_name, clan_name));
 				}
 				if (clan.getWarehouseUsingChar() == player.getId()) {
 					clan.setWarehouseUsingChar(0);
@@ -119,7 +127,7 @@ public class C_LeaveClan extends ClientBasePacket {
 			player.sendPackets(new S_CharTitle(player.getId(), ""));
 			player.broadcastPacket(new S_CharTitle(player.getId(), ""));
 			player.save();
-			player.sendPackets(new S_ServerMessage(178, player_name, clan_name)); 
+			player.sendPackets(new S_ServerMessage(178, player_name, clan_name));
 		}
 	}
 

@@ -48,15 +48,13 @@ public class L1ChatNG implements L1CommandExecutor {
 			L1PcInstance tg = L1World.getInstance().getPlayer(name);
 
 			if (tg != null) {
-				tg.setSkillEffect(STATUS_CHAT_PROHIBITED,
-						time * 60 * 1000);
+				tg.setSkillEffect(STATUS_CHAT_PROHIBITED, time * 60 * 1000);
 				tg.sendPackets(new S_SkillIconGFX(36, time * 60));
-				tg.sendPackets(new S_ServerMessage(286, String.valueOf(time))); 
-				pc.sendPackets(new S_ServerMessage(287, name)); 
+				tg.sendPackets(new S_ServerMessage(286, String.valueOf(time)));
+				pc.sendPackets(new S_ServerMessage(287, name));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName
-					+ " player_name time"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " player_name time"));
 		}
 	}
 }

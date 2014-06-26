@@ -37,8 +37,8 @@ public class L1EquipmentTimer extends TimerTask {
 	public void run() {
 		if ((_item.getRemainingTime() - 1) > 0) {
 			_item.setRemainingTime(_item.getRemainingTime() - 1);
-			_pc.getInventory().updateItem(_item, L1PcInventory
-					.COL_REMAINING_TIME);
+			_pc.getInventory().updateItem(_item,
+					L1PcInventory.COL_REMAINING_TIME);
 		} else {
 			_pc.getInventory().removeItem(_item, 1);
 			this.cancel();

@@ -206,7 +206,7 @@ public class L1Npc extends L1Object implements Cloneable {
 	}
 
 	public void set_weakAttr(int i) {
-		_weakAttr= i;
+		_weakAttr = i;
 	}
 
 	private int _ranged;
@@ -280,7 +280,7 @@ public class L1Npc extends L1Object implements Cloneable {
 	}
 
 	private boolean _agrochao;
-	
+
 	public boolean is_agrochao() {
 		return _agrochao;
 	}
@@ -288,7 +288,7 @@ public class L1Npc extends L1Object implements Cloneable {
 	public void set_agrochao(boolean flag) {
 		_agrochao = flag;
 	}
-	
+
 	private int _gfxid;
 
 	public int get_gfxid() {
@@ -658,6 +658,7 @@ public class L1Npc extends L1Object implements Cloneable {
 	public void setAmountFixed(boolean fixed) {
 		_amountFixed = fixed;
 	}
+
 	private boolean _changeHead;
 
 	public boolean getChangeHead() {
@@ -667,7 +668,7 @@ public class L1Npc extends L1Object implements Cloneable {
 	public void setChangeHead(boolean changeHead) {
 		_changeHead = changeHead;
 	}
-	
+
 	private boolean _isCantResurrect;
 
 	public boolean isCantResurrect() {
@@ -676,5 +677,5 @@ public class L1Npc extends L1Object implements Cloneable {
 
 	public void setCantResurrect(boolean isCantResurrect) {
 		_isCantResurrect = isCantResurrect;
-	}	
+	}
 }

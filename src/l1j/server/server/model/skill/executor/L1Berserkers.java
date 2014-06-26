@@ -8,7 +8,8 @@ public class L1Berserkers extends L1BuffSkillExecutorImpl {
 	private static final int HITUP = 2;
 
 	@Override
-	public void addEffect(L1Character user, L1Character target, int durationSeconds) {
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds) {
 		target.addAc(AC);
 		target.addDmgup(DMGUP);
 		target.addHitup(HITUP);

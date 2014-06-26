@@ -59,35 +59,37 @@ public class C_Attack extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 
-		if (pc.isGhost() || pc.isDead() || pc.isTeleport() ||
-				pc.isInvisble() || pc.isInvisDelay()) {
+		if (pc.isGhost() || pc.isDead() || pc.isTeleport() || pc.isInvisble()
+				|| pc.isInvisDelay()) {
 			return;
 		}
-		
-		if (pc.getInventory().getWeight240() >= 197) { 
-			pc.sendPackets(new S_ServerMessage(110)); 
+
+		if (pc.getInventory().getWeight240() >= 197) {
+			pc.sendPackets(new S_ServerMessage(110));
 			return;
 		}
 
 		L1Object target = L1World.getInstance().findObject(targetId);
 
-
 		if (target instanceof L1Character) {
-			if (target.getMapId() != pc.getMapId() || pc.getLocation().getLineDistance(target.getLocation()) > 20D) { 
+			if (target.getMapId() != pc.getMapId()
+					|| pc.getLocation().getLineDistance(target.getLocation()) > 20D) {
 				return;
 			}
 		}
 
 		if (target instanceof L1NpcInstance) {
 			int hiddenStatus = ((L1NpcInstance) target).getHiddenStatus();
-			if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK || hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) { 
+			if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK
+					|| hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) {
 				return;
 			}
 		}
 
 		if (Config.CHECK_ATTACK_INTERVAL) {
 			int result;
-			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.ATTACK);
+			result = pc.getAcceleratorChecker().checkInterval(
+					AcceleratorChecker.ACT_TYPE.ATTACK);
 			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				LogSpeedHack lsh = new LogSpeedHack();
 				lsh.storeLogSpeedHack(pc);
@@ -95,7 +97,7 @@ public class C_Attack extends ClientBasePacket {
 			}
 		}
 
-		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) { 
+		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
 			pc.startHpRegeneration();
 			pc.startMpRegeneration();
@@ -103,13 +105,13 @@ public class C_Attack extends ClientBasePacket {
 		}
 		pc.killSkillEffectTimer(MEDITATION);
 
-		pc.delInvis(); 
+		pc.delInvis();
 
 		pc.setRegenState(REGENSTATE_ATTACK);
 
 		if (target != null && !((L1Character) target).isDead()) {
 			target.onAction(pc);
-		} else { 
+		} else {
 			L1ItemInstance weapon = pc.getWeapon();
 			int weaponId = 0;
 			int weaponType = 0;
@@ -124,25 +126,25 @@ public class C_Attack extends ClientBasePacket {
 				}
 			}
 			pc.setHeading(pc.targetDirection(x, y));
-			if (weaponType == WeaponType.Bow &&
-					(weaponId == L1ItemId.SayhasBow || ammo != null)) {
-				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
-				if (ammo != null) { 
+			if (weaponType == WeaponType.Bow
+					&& (weaponId == L1ItemId.SayhasBow || ammo != null)) {
+				calcOrbit(pc.getX(), pc.getY(), pc.getHeading());
+				if (ammo != null) {
 					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 66,
-								_targetX, _targetY, true));
+							_targetX, _targetY, true));
 					pc.getInventory().removeItem(ammo, 1);
-				} else if (weaponId == L1ItemId.SayhasBow) { 
+				} else if (weaponId == L1ItemId.SayhasBow) {
 					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 2349,
-								_targetX, _targetY, true));
+							_targetX, _targetY, true));
 				}
 			} else if (weaponType == WeaponType.Gauntlet && ammo != null) {
-				calcOrbit(pc.getX(), pc.getY(), pc.getHeading()); 
+				calcOrbit(pc.getX(), pc.getY(), pc.getHeading());
 				pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 2989, _targetX,
-							_targetY, true));
+						_targetY, true));
 				pc.getInventory().removeItem(ammo, 1);
 			} else {
 				pc.sendAndBroadcast(new S_AttackPacket(pc, 0,
-							ActionCodes.ACTION_Attack));
+						ActionCodes.ACTION_Attack));
 			}
 		}
 	}

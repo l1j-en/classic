@@ -28,7 +28,8 @@ import java.util.Map;
 
 public class BuffCheck implements L1CommandExecutor {
 
-	private BuffCheck() {}
+	private BuffCheck() {
+	}
 
 	public static L1CommandExecutor getInstance() {
 		return new BuffCheck();
@@ -43,10 +44,10 @@ public class BuffCheck implements L1CommandExecutor {
 			user.sendPackets(new S_SystemMessage(".buffCheck <name>"));
 		}
 	}
-	
+
 	private void buffCheck(L1PcInstance gm, String name) {
 		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
-		if(target == null) {
+		if (target == null) {
 			gm.sendPackets(new S_SystemMessage(
 					".buffCheck doesn't work on offline players yet."));
 			return;
@@ -54,14 +55,13 @@ public class BuffCheck implements L1CommandExecutor {
 			Map<Integer, L1SkillTimer> buffs = target.getBuffs();
 			StringBuilder buffList = new StringBuilder();
 			for (Map.Entry<Integer, L1SkillTimer> buff : buffs.entrySet()) {
-				String time = buff.getValue() != null 
-					? ((Integer) buff.getValue().getRemainingTime()).toString()
-					: "forever";
-				buffList.append("| " + L1NamedSkill.getName(buff.getKey()) + " " + time);	
+				String time = buff.getValue() != null ? ((Integer) buff
+						.getValue().getRemainingTime()).toString() : "forever";
+				buffList.append("| " + L1NamedSkill.getName(buff.getKey())
+						+ " " + time);
 			}
-			gm.sendPackets(new S_SystemMessage(
-					name + " currently has: " + buffList.toString()));
+			gm.sendPackets(new S_SystemMessage(name + " currently has: "
+					+ buffList.toString()));
 		}
 	}
 }
-

@@ -32,11 +32,11 @@ import l1j.server.server.utils.SQLUtil;
 
 public final class CheckWarTime {
 	public int _castle_id = 0;
-	public String _name ="";
+	public String _name = "";
 	private static Logger _log = Logger.getLogger(CheckWarTime.class.getName());
 	private static CheckWarTime _instance;
 	private final Map<Integer, Data> _check = new HashMap<Integer, Data>();
-	
+
 	private class Data {
 		public boolean _isActive = true;
 	}
@@ -53,10 +53,10 @@ public final class CheckWarTime {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement("SELECT * FROM checkwartime");
 			rs = pstm.executeQuery();
-			while ( rs.next()) {
+			while (rs.next()) {
 				Data data = new Data();
 				int id = rs.getInt("castle_id");
-				_castle_id=id;
+				_castle_id = id;
 				_name = rs.getString("name");
 				data._isActive = rs.getBoolean("isActive");
 				_check.put(new Integer(id), data);

@@ -24,8 +24,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class ServerBasePacket {
-	
-	private static Logger _log = Logger.getLogger(ServerBasePacket.class.getName());
+
+	private static Logger _log = Logger.getLogger(ServerBasePacket.class
+			.getName());
 
 	ByteArrayOutputStream _bao = new ByteArrayOutputStream();
 
@@ -107,7 +108,7 @@ public abstract class ServerBasePacket {
 	}
 
 	public abstract byte[] getContent() throws IOException;
-	
+
 	public String getType() {
 		return "[S] " + this.getClass().getSimpleName();
 	}

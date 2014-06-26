@@ -26,7 +26,8 @@ import java.util.logging.LogRecord;
 public class FileLogFormatter extends Formatter {
 	private static final String CRLF = "\r\n";
 	private static final String _ = "\t";
-	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
+	private SimpleDateFormat dateFmt = new SimpleDateFormat(
+			"yyyy.MM.dd HH:mm:ss,SSS");
 
 	@Override
 	public String format(LogRecord record) {

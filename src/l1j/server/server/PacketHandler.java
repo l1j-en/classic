@@ -29,20 +29,24 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 // Referenced classes of package l1j.server.server:
 // Opcodes, LoginController, ClientThread, Logins
 public class PacketHandler {
-	private static Logger _log = Logger.getLogger(PacketHandler.class.getName());
+	private static Logger _log = Logger
+			.getLogger(PacketHandler.class.getName());
 	private final ClientThread _client;
-	
+
 	public PacketHandler(ClientThread clientthread) {
 		_client = clientthread;
 	}
 
-	public void handlePacket(byte abyte0[], L1PcInstance object) throws Exception {
+	public void handlePacket(byte abyte0[], L1PcInstance object)
+			throws Exception {
 		int i = abyte0[0] & 0xff;
-		if(Config.LOGGING_INCOMING_PACKETS) {
+		if (Config.LOGGING_INCOMING_PACKETS) {
 			_log.info("Packet sent from client: " + i);
-			if(_client.getActiveChar() != null) {
-				if(_client.getActiveChar().isGm() || _client.getActiveChar().isMonitor()){
-					_client.getActiveChar().sendPackets(new S_SystemMessage("Sent from client: "+i));
+			if (_client.getActiveChar() != null) {
+				if (_client.getActiveChar().isGm()
+						|| _client.getActiveChar().isMonitor()) {
+					_client.getActiveChar().sendPackets(
+							new S_SystemMessage("Sent from client: " + i));
 				}
 			}
 		}
@@ -303,7 +307,7 @@ public class PacketHandler {
 			break;
 		case C_OPCODE_SHIP:
 			new C_Ship(abyte0, _client);
- 			break;
+			break;
 		case C_OPCODE_MAIL:
 			new C_Mail(abyte0, _client);
 			break;

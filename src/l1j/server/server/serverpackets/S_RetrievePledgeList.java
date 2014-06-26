@@ -34,9 +34,13 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 		}
 
 		if (clan.getWarehouseUsingChar() != 0
-				&& clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan is a non-self-storage use
+				&& clan.getWarehouseUsingChar() != pc.getId()) // Klan caravan
+																// is a
+																// non-self-storage
+																// use
 		{
-			// warehouse other clan members are in use. From use at a later time, please.
+			// warehouse other clan members are in use. From use at a later
+			// time, please.
 			pc.sendPackets(new S_ServerMessage(209));
 			return;
 		}
@@ -48,7 +52,8 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 				writeD(objid);
 				writeH(size);
 				writeC(5); // Clan warehouse
-				for (Object itemObject : clan.getDwarfForClanInventory().getItems()) {
+				for (Object itemObject : clan.getDwarfForClanInventory()
+						.getItems()) {
 					L1ItemInstance item = (L1ItemInstance) itemObject;
 					writeD(item.getId());
 					writeC(0);
@@ -60,7 +65,10 @@ public class S_RetrievePledgeList extends ServerBasePacket {
 				}
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(263)); // People have the character could walk up to a maximum of 180 items.
+			pc.sendPackets(new S_ServerMessage(263)); // People have the
+														// character could walk
+														// up to a maximum of
+														// 180 items.
 		}
 	}
 

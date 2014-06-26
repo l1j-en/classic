@@ -32,23 +32,25 @@ public class C_Disconnect extends ClientBasePacket {
 		super(decrypt);
 		client.CharReStart(true);
 		L1PcInstance pc = client.getActiveChar();
-		
+
 		if (pc != null) {
 			_log.info("Disconnect From: " + pc.getName());
-			
+
 			if (Config.DELAY_DISCONNECT > 0) {
 				try {
 					Thread.sleep(Config.DELAY_DISCONNECT * 1000);
-				} catch (InterruptedException e) { /* Sad panda. */ }
+				} catch (InterruptedException e) { /* Sad panda. */
+				}
 			}
-			
+
 			ClientThread.quitGame(pc);
 			synchronized (pc) {
 				pc.logout();
 				client.setActiveChar(null);
 			}
 		} else {
-			_log.info("Disconnect Request From Account : " + client.getAccountName());
+			_log.info("Disconnect Request From Account : "
+					+ client.getAccountName());
 		}
 	}
 

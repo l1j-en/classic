@@ -69,8 +69,8 @@ public class L1Chaser extends TimerTask {
 	public void begin() {
 		// 8bA4bXLl1
 		// Jn0.9b
-		_future = GeneralThreadPool.getInstance().scheduleAtFixedRate(this,
-				0, 1000);
+		_future = GeneralThreadPool.getInstance().scheduleAtFixedRate(this, 0,
+				1000);
 	}
 
 	public void stop() {
@@ -81,32 +81,31 @@ public class L1Chaser extends TimerTask {
 
 	public void attack() {
 		double damage = getDamage(_pc, _cha);
-		if (_cha.getCurrentHp() - (int) damage <= 0
-				&& _cha.getCurrentHp() != 1) {
+		if (_cha.getCurrentHp() - (int) damage <= 0 && _cha.getCurrentHp() != 1) {
 			damage = _cha.getCurrentHp() - 1;
 		} else if (_cha.getCurrentHp() == 1) {
 			damage = 0;
 		}
-		S_EffectLocation packet = new S_EffectLocation(_cha.getX(), _cha.getY(),
-				7025);
+		S_EffectLocation packet = new S_EffectLocation(_cha.getX(),
+				_cha.getY(), 7025);
 		_pc.sendPackets(packet);
 		_pc.broadcastPacket(packet);
 		if (_cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) _cha;
-			pc.sendPackets(new S_DoActionGFX(pc.getId(), ActionCodes
-					.ACTION_Damage));
-			pc.broadcastPacket(new S_DoActionGFX(pc.getId(), ActionCodes
-					.ACTION_Damage));
+			pc.sendPackets(new S_DoActionGFX(pc.getId(),
+					ActionCodes.ACTION_Damage));
+			pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
+					ActionCodes.ACTION_Damage));
 			pc.receiveDamage(_pc, damage, false);
-		} else if(_cha instanceof L1NpcInstance) {
+		} else if (_cha instanceof L1NpcInstance) {
 			L1NpcInstance npc = (L1NpcInstance) _cha;
-			npc.broadcastPacket(new S_DoActionGFX(npc.getId(), ActionCodes
-					.ACTION_Damage));
+			npc.broadcastPacket(new S_DoActionGFX(npc.getId(),
+					ActionCodes.ACTION_Damage));
 			npc.receiveDamage(_pc, (int) damage);
 		}
 		if (_pc.getDmgMessages() && _cha instanceof L1NpcInstance) {
-			_pc.sendPackets(new S_SystemMessage(
-					"Chaser Dealt:" + String.valueOf(damage)));
+			_pc.sendPackets(new S_SystemMessage("Chaser Dealt:"
+					+ String.valueOf(damage)));
 		}
 	}
 
@@ -122,17 +121,17 @@ public class L1Chaser extends TimerTask {
 		double coefficientB = 0;
 		if (intel > 18) {
 			coefficientB = (intel + 2.0) / intel;
-		} else if(intel <= 12) {
+		} else if (intel <= 12) {
 			coefficientB = 12.0 * 0.065;
 		} else {
 			coefficientB = intel * 0.065;
 		}
 		double coefficientC = Math.max(12, intel);
-		damage = (_random.nextInt(6) + 1 + 7) * coefficientA
-				* coefficientB / 10.5 * coefficientC * 2.0;
+		damage = (_random.nextInt(6) + 1 + 7) * coefficientA * coefficientB
+				/ 10.5 * coefficientC * 2.0;
 
-		damage = 
-			L1WeaponSkill.calcDamageReduction(pc, cha, damage, Element.Earth);
+		damage = L1WeaponSkill.calcDamageReduction(pc, cha, damage,
+				Element.Earth);
 
 		if (cha.hasSkillEffect(IMMUNE_TO_HARM)) {
 			damage /= 2.0;

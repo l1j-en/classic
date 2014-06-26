@@ -7,7 +7,8 @@ public class L1Disease extends L1BuffSkillExecutorImpl {
 	private static final int DMGUP = -6;
 
 	@Override
-	public void addEffect(L1Character user, L1Character target, int durationSeconds) {
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds) {
 		target.addDmgup(DMGUP);
 		target.addAc(AC);
 	}

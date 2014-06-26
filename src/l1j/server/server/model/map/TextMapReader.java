@@ -32,13 +32,15 @@ import java.util.logging.Logger;
 import l1j.server.server.datatables.MapsTable;
 import l1j.server.server.model.map.L1Map;
 import l1j.server.server.model.map.L1V1Map;
+
 /**
  * Text map (maps/*.txt) to read.
  */
 public class TextMapReader extends MapReader {
 
 	/** For the message log. */
-	private static Logger _log = Logger.getLogger(TextMapReader.class.getName());
+	private static Logger _log = Logger
+			.getLogger(TextMapReader.class.getName());
 
 	/** Map holder. */
 	private static final String MAP_DIR = "./maps/";
@@ -57,11 +59,12 @@ public class TextMapReader extends MapReader {
 
 	/** MAP_INFO Y coordinates for the starting position. */
 	public static final int MAPINFO_END_Y = 4;
+
 	/**
 	 * Map specified number of text to read the map.
-	 *
+	 * 
 	 * @param mapId
-	 *           Map No.
+	 *            Map No.
 	 * @param xSize
 	 *            X Coordinate size
 	 * @param ySize
@@ -69,9 +72,11 @@ public class TextMapReader extends MapReader {
 	 * @return byte[][]
 	 * @throws IOException
 	 */
-	public byte[][] read(final int mapId, final int xSize, final int ySize) throws IOException {
+	public byte[][] read(final int mapId, final int xSize, final int ySize)
+			throws IOException {
 		byte[][] map = new byte[xSize][ySize];
-		LineNumberReader in = new LineNumberReader(new BufferedReader(new FileReader(MAP_DIR + mapId + ".txt")));
+		LineNumberReader in = new LineNumberReader(new BufferedReader(
+				new FileReader(MAP_DIR + mapId + ".txt")));
 		int y = 0;
 		String line;
 		while ((line = in.readLine()) != null) {
@@ -90,9 +95,10 @@ public class TextMapReader extends MapReader {
 		in.close();
 		return map;
 	}
+
 	/**
 	 * Map specified number of text to read the map.
-	 *
+	 * 
 	 * @param id
 	 *            Map No.
 	 * @return L1Map
@@ -105,18 +111,20 @@ public class TextMapReader extends MapReader {
 			int xSize = info[MAPINFO_END_X] - info[MAPINFO_START_X] + 1;
 			int ySize = info[MAPINFO_END_Y] - info[MAPINFO_START_Y] + 1;
 			if (mapId == id) {
-				L1V1Map map = new L1V1Map((short) mapId, this.read(mapId, xSize, ySize), info[MAPINFO_START_X], info[MAPINFO_START_Y],
-				MapsTable.getInstance().isUnderwater(mapId),
-				MapsTable.getInstance().isMarkable(mapId),
-				MapsTable.getInstance().isTeleportable(mapId),
-				MapsTable.getInstance().isEscapable(mapId),
-				MapsTable.getInstance().isUseResurrection(mapId),
-				MapsTable.getInstance().isUsePainwand(mapId),
-				MapsTable.getInstance().isEnabledDeathPenalty(mapId),
-				MapsTable.getInstance().isTakePets(mapId),
-				MapsTable.getInstance().isRecallPets(mapId),
-				MapsTable.getInstance().isUsableItem(mapId),
-				MapsTable.getInstance().isUsableSkill(mapId));
+				L1V1Map map = new L1V1Map((short) mapId, this.read(mapId,
+						xSize, ySize), info[MAPINFO_START_X],
+						info[MAPINFO_START_Y], MapsTable.getInstance()
+								.isUnderwater(mapId), MapsTable.getInstance()
+								.isMarkable(mapId), MapsTable.getInstance()
+								.isTeleportable(mapId), MapsTable.getInstance()
+								.isEscapable(mapId), MapsTable.getInstance()
+								.isUseResurrection(mapId), MapsTable
+								.getInstance().isUsePainwand(mapId), MapsTable
+								.getInstance().isEnabledDeathPenalty(mapId),
+						MapsTable.getInstance().isTakePets(mapId), MapsTable
+								.getInstance().isRecallPets(mapId), MapsTable
+								.getInstance().isUsableItem(mapId), MapsTable
+								.getInstance().isUsableSkill(mapId));
 				return map;
 			}
 		}
@@ -124,7 +132,7 @@ public class TextMapReader extends MapReader {
 	}
 
 	/**
-	 * 	All text to read the map.
+	 * All text to read the map.
 	 * 
 	 * @return Map
 	 * @throws IOException
@@ -137,18 +145,20 @@ public class TextMapReader extends MapReader {
 			int xSize = info[MAPINFO_END_X] - info[MAPINFO_START_X] + 1;
 			int ySize = info[MAPINFO_END_Y] - info[MAPINFO_START_Y] + 1;
 			try {
-				L1V1Map map = new L1V1Map((short) mapId, this.read(mapId, xSize, ySize), info[MAPINFO_START_X], info[MAPINFO_START_Y],
-				MapsTable.getInstance().isUnderwater(mapId),
-				MapsTable.getInstance().isMarkable(mapId),
-				MapsTable.getInstance().isTeleportable(mapId),
-				MapsTable.getInstance().isEscapable(mapId),
-				MapsTable.getInstance().isUseResurrection(mapId),
-				MapsTable.getInstance().isUsePainwand(mapId),
-				MapsTable.getInstance().isEnabledDeathPenalty(mapId),
-				MapsTable.getInstance().isTakePets(mapId),
-				MapsTable.getInstance().isRecallPets(mapId),
-				MapsTable.getInstance().isUsableItem(mapId),
-				MapsTable.getInstance().isUsableSkill(mapId));
+				L1V1Map map = new L1V1Map((short) mapId, this.read(mapId,
+						xSize, ySize), info[MAPINFO_START_X],
+						info[MAPINFO_START_Y], MapsTable.getInstance()
+								.isUnderwater(mapId), MapsTable.getInstance()
+								.isMarkable(mapId), MapsTable.getInstance()
+								.isTeleportable(mapId), MapsTable.getInstance()
+								.isEscapable(mapId), MapsTable.getInstance()
+								.isUseResurrection(mapId), MapsTable
+								.getInstance().isUsePainwand(mapId), MapsTable
+								.getInstance().isEnabledDeathPenalty(mapId),
+						MapsTable.getInstance().isTakePets(mapId), MapsTable
+								.getInstance().isRecallPets(mapId), MapsTable
+								.getInstance().isUsableItem(mapId), MapsTable
+								.getInstance().isUsableSkill(mapId));
 				maps.put(mapId, map);
 			} catch (IOException e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -156,11 +166,12 @@ public class TextMapReader extends MapReader {
 		}
 		return maps;
 	}
+
 	/**
-	 * mapInfo Map No, that holds the map size.
-	 * 1 Records {mapNo,StartX,EndX,StartY,EndY} Composed by
+	 * mapInfo Map No, that holds the map size. 1 Records
+	 * {mapNo,StartX,EndX,StartY,EndY} Composed by
 	 */
-	private static final int[][] MAP_INFO = { 
+	private static final int[][] MAP_INFO = {
 			{ 0, 32256, 32767, 32768, 33279 },
 			{ 1, 32640, 32767, 32768, 32895 },
 			{ 2, 32640, 32831, 32768, 32895 },
@@ -707,6 +718,5 @@ public class TextMapReader extends MapReader {
 			{ 23552, 32704, 32767, 32768, 32831 },
 			{ 24064, 32704, 32767, 32768, 32831 },
 			{ 24576, 32704, 32767, 32768, 32831 },
-			{ 25088, 32704, 32767, 32768, 32831 } 
-			};
+			{ 25088, 32704, 32767, 32768, 32831 } };
 }

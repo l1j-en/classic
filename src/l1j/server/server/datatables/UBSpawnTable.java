@@ -56,7 +56,8 @@ public class UBSpawnTable {
 			pstm = con.prepareStatement("SELECT * FROM spawnlist_ub");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				L1Npc npcTemp = NpcTable.getInstance().getTemplate(rs.getInt(6));
+				L1Npc npcTemp = NpcTable.getInstance()
+						.getTemplate(rs.getInt(6));
 				if (npcTemp == null) {
 					continue;
 				}
@@ -100,7 +101,8 @@ public class UBSpawnTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
+			pstm = con
+					.prepareStatement("SELECT MAX(pattern) FROM spawnlist_ub WHERE ub_id=?");
 			pstm.setInt(1, ubId);
 			rs = pstm.executeQuery();
 			if (rs.next()) {

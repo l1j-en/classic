@@ -51,8 +51,7 @@ public class L1Move implements L1CommandExecutor {
 			pc.sendPackets(new S_SystemMessage("Moved: " + locx + ", " + locy
 					+ ", " + mapid + ""));
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName
-					+ " X Y MAPID"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " X Y MAPID"));
 		}
 	}
 }

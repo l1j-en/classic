@@ -16,12 +16,12 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
- package l1j.server.server.serverpackets;
- 
+package l1j.server.server.serverpackets;
+
 import l1j.server.server.encryptions.Opcodes;
 
 public class S_DeathMatch extends ServerBasePacket {
-	private static final String S_DEATHMACTH= "[S] S_DeathMatch";
+	private static final String S_DEATHMACTH = "[S] S_DeathMatch";
 	private byte[] _byte = null;
 	public static final int CountDown = 0x47;
 	public static final int CountDownOff = 0x48;
@@ -29,10 +29,11 @@ public class S_DeathMatch extends ServerBasePacket {
 	public S_DeathMatch(int type) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(type);
-		if(type==CountDown){
+		if (type == CountDown) {
 			writeH(600);
 		}
 	}
+
 	@Override
 	public byte[] getContent() {
 		if (_byte == null) {

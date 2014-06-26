@@ -32,7 +32,8 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_AuctionBoard extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_AuctionBoard.class.getName());
+	private static Logger _log = Logger.getLogger(S_AuctionBoard.class
+			.getName());
 	private static final String S_AUCTIONBOARD = "[S] S_AuctionBoard";
 	private byte[] _byte = null;
 
@@ -59,22 +60,31 @@ public class S_AuctionBoard extends ServerBasePacket {
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				houseId = rs.getInt(1);
-				if (board.getX() == 33421 && board.getY() == 32823) { // The auction BBS (Ilan)
+				if (board.getX() == 33421 && board.getY() == 32823) { // The
+																		// auction
+																		// BBS
+																		// (Ilan)
 					if (houseId >= 262145 && houseId <= 262189) {
 						houseList.add(houseId);
 						count++;
 					}
-				} else if (board.getX() == 33585 && board.getY() == 33235) { // The auction BBS (Heyne)
+				} else if (board.getX() == 33585 && board.getY() == 33235) { // The
+																				// auction
+																				// BBS
+																				// (Heyne)
 					if (houseId >= 327681 && houseId <= 327691) {
 						houseList.add(houseId);
 						count++;
 					}
-				} else if (board.getX() == 33959 && board.getY() == 33253) { // The auction BBS (Aden)
+				} else if (board.getX() == 33959 && board.getY() == 33253) { // The
+																				// auction
+																				// BBS
+																				// (Aden)
 					if (houseId >= 458753 && houseId <= 458819) {
 						houseList.add(houseId);
 						count++;
 					}
-				} else if (board.getX() == 32611 && board.getY() == 32775) { 
+				} else if (board.getX() == 32611 && board.getY() == 32775) {
 					if (houseId >= 524289 && houseId <= 524294) {
 						houseList.add(houseId);
 						count++;
@@ -89,7 +99,8 @@ public class S_AuctionBoard extends ServerBasePacket {
 			price = new int[count];
 
 			for (int i = 0; i < count; ++i) {
-				pstm = con.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
+				pstm = con
+						.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
 				houseId = houseList.get(i);
 				pstm.setInt(1, houseId);
 				rs = pstm.executeQuery();
@@ -97,7 +108,8 @@ public class S_AuctionBoard extends ServerBasePacket {
 					id[i] = rs.getInt(1);
 					name[i] = rs.getString(2);
 					area[i] = rs.getInt(3);
-					Calendar cal = timestampToCalendar((Timestamp) rs.getObject(4));
+					Calendar cal = timestampToCalendar((Timestamp) rs
+							.getObject(4));
 					month[i] = cal.get(Calendar.MONTH) + 1;
 					day[i] = cal.get(Calendar.DATE);
 					price[i] = rs.getInt(5);

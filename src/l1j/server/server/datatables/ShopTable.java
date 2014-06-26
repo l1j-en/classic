@@ -81,11 +81,13 @@ public class ShopTable {
 			int packCount = rs.getInt("pack_count");
 			packCount = packCount == 0 ? 1 : packCount;
 			if (0 <= sellingPrice) {
-				L1ShopItem item = new L1ShopItem(itemId, sellingPrice, packCount);
+				L1ShopItem item = new L1ShopItem(itemId, sellingPrice,
+						packCount);
 				sellingList.add(item);
 			}
 			if (0 <= purchasingPrice) {
-				L1ShopItem item = new L1ShopItem(itemId, purchasingPrice, packCount);
+				L1ShopItem item = new L1ShopItem(itemId, purchasingPrice,
+						packCount);
 				purchasingList.add(item);
 			}
 		}
@@ -98,7 +100,8 @@ public class ShopTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM shop WHERE npc_id=? ORDER BY order_id");
+			pstm = con
+					.prepareStatement("SELECT * FROM shop WHERE npc_id=? ORDER BY order_id");
 			for (int npcId : enumNpcIds()) {
 				pstm.setInt(1, npcId);
 				rs = pstm.executeQuery();

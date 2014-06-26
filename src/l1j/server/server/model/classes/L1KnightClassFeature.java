@@ -33,14 +33,15 @@ class L1KnightClassFeature extends L1ClassFeature {
 	public int getMagicLevel(int playerLevel) {
 		return playerLevel / 50;
 	}
-	
-	@Override public int getER(int level) {
+
+	@Override
+	public int getER(int level) {
 		return level / 4;
 	}
 
-	@Override public Map<L1Attribute, Integer> getFixedStats() {
-		Map<L1Attribute, Integer> fixedStats =
-			new HashMap<L1Attribute, Integer>();
+	@Override
+	public Map<L1Attribute, Integer> getFixedStats() {
+		Map<L1Attribute, Integer> fixedStats = new HashMap<L1Attribute, Integer>();
 		fixedStats.put(L1Attribute.Str, 16);
 		fixedStats.put(L1Attribute.Dex, 12);
 		fixedStats.put(L1Attribute.Con, 14);
@@ -50,87 +51,108 @@ class L1KnightClassFeature extends L1ClassFeature {
 		return fixedStats;
 	}
 
-	@Override public int getFloatingStats() {
+	@Override
+	public int getFloatingStats() {
 		return 4;
 	}
 
-	@Override public int getBaseMR() {
+	@Override
+	public int getBaseMR() {
 		return 10;
 	}
 
-	@Override public int getStartingHp() {
+	@Override
+	public int getStartingHp() {
 		return 16;
 	}
 
-	@Override public int getStartingMp(int wis) {
+	@Override
+	public int getStartingMp(int wis) {
 		return wis >= 12 ? 2 : 1;
 	}
-	
-	@Override public int getOriginalHpBonus(int con) {
+
+	@Override
+	public int getOriginalHpBonus(int con) {
 		return con >= 17 ? 3 : con >= 15 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMpBonus(int wis) {
+	@Override
+	public int getOriginalMpBonus(int wis) {
 		return 0;
 	}
 
-	@Override public int getOriginalStrWeightReduction(int str) {
+	@Override
+	public int getOriginalStrWeightReduction(int str) {
 		return 0;
 	}
 
-	@Override public int getOriginalConWeightReduction(int con) {
+	@Override
+	public int getOriginalConWeightReduction(int con) {
 		return con >= 15 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMeleeDamage(int str) {
+	@Override
+	public int getOriginalMeleeDamage(int str) {
 		return str == 20 ? 4 : str >= 18 ? 2 : 0;
 	}
 
-	@Override public int getOriginalRangedDamage(int dex) {
+	@Override
+	public int getOriginalRangedDamage(int dex) {
 		return 0;
 	}
 
-	@Override public int getOriginalMeleeHit(int str) {
+	@Override
+	public int getOriginalMeleeHit(int str) {
 		return str >= 19 ? 4 : str >= 16 ? 2 : 0;
 	}
 
-	@Override public int getOriginalRangedHit(int dex) {
+	@Override
+	public int getOriginalRangedHit(int dex) {
 		return 0;
 	}
 
-	@Override public int getOriginalMR(int wis) {
+	@Override
+	public int getOriginalMR(int wis) {
 		return wis >= 12 ? 2 : wis >= 10 ? 1 : 0;
 	}
 
-	@Override public int getOriginalER(int dex) {
+	@Override
+	public int getOriginalER(int dex) {
 		return dex == 18 ? 3 : dex >= 16 ? 2 : dex >= 14 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicHit(int intel) {
+	@Override
+	public int getOriginalMagicHit(int intel) {
 		return intel >= 12 ? 2 : intel >= 10 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicCrit(int intel) {
+	@Override
+	public int getOriginalMagicCrit(int intel) {
 		return 0;
 	}
 
-	@Override public int getOriginalMpReduction(int intel) {
+	@Override
+	public int getOriginalMpReduction(int intel) {
 		return intel >= 11 ? 2 : intel >= 9 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicDamage(int intel) {
+	@Override
+	public int getOriginalMagicDamage(int intel) {
 		return 0;
 	}
 
-	@Override public int getOriginalAC(int dex) {
+	@Override
+	public int getOriginalAC(int dex) {
 		return dex >= 17 ? 3 : dex >= 15 ? 2 : dex >= 12 ? 1 : 0;
 	}
 
-	@Override public int getOriginalHpRegen(int con) {
+	@Override
+	public int getOriginalHpRegen(int con) {
 		return con == 18 ? 4 : con >= 16 ? 2 : 0;
 	}
 
-	@Override public int getOriginalMpRegen(int wis) {
+	@Override
+	public int getOriginalMpRegen(int wis) {
 		return wis >= 13 ? 2 : wis >= 11 ? 1 : 0;
 	}
 }

@@ -21,15 +21,14 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.types.Point;
 
 public class L1GuardInstance extends L1NpcInstance {
-	
-	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1GuardInstance.class.getName());
-	
-	private static final Map<Integer, Integer> guardsToCastles =
-		new HashMap<Integer, Integer>();
 
-	private static final Map<Integer, String> guardsToText =
-		new HashMap<Integer, String>();
+	private static final long serialVersionUID = 1L;
+	private static Logger _log = Logger.getLogger(L1GuardInstance.class
+			.getName());
+
+	private static final Map<Integer, Integer> guardsToCastles = new HashMap<Integer, Integer>();
+
+	private static final Map<Integer, String> guardsToText = new HashMap<Integer, String>();
 
 	static {
 		guardsToCastles.put(70549, L1CastleLocation.KENT_CASTLE_ID);
@@ -85,15 +84,15 @@ public class L1GuardInstance extends L1NpcInstance {
 	public void searchTarget() {
 		int npcid = getNpcTemplate().get_npcId();
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm() || 
-					pc.isGhost()) {
+			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
+					|| pc.isGhost()) {
 				continue;
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
-				//target pk'ers if not casle owners
-				//custom, do not remove in merges
-				if (pc.isWanted() && 
-						!checkHasCastle(pc, guardsToCastles.get(npcid))) {
+				// target pk'ers if not casle owners
+				// custom, do not remove in merges
+				if (pc.isWanted()
+						&& !checkHasCastle(pc, guardsToCastles.get(npcid))) {
 					_hateList.add(pc, 0);
 					_target = pc;
 					return;
@@ -110,8 +109,8 @@ public class L1GuardInstance extends L1NpcInstance {
 	}
 
 	public boolean noTarget(int depth) {
-		if (getLocation().getTileLineDistance(
-					new Point(getHomeX(), getHomeY())) > 0) {
+		if (getLocation()
+				.getTileLineDistance(new Point(getHomeX(), getHomeY())) > 0) {
 			int dir = moveDirection(getHomeX(), getHomeY());
 			if (dir != -1) {
 				setDirectionMove(dir);
@@ -120,7 +119,7 @@ public class L1GuardInstance extends L1NpcInstance {
 				teleport(getHomeX(), getHomeY(), 1);
 			}
 		} else if (L1World.getInstance().getRecognizePlayer(this).size() == 0) {
-			return true; 
+			return true;
 		}
 		return false;
 	}
@@ -136,14 +135,14 @@ public class L1GuardInstance extends L1NpcInstance {
 		}
 		setActived(false);
 		startAI();
-		startChat(CHAT_TIMING_APPEARANCE); 
+		startChat(CHAT_TIMING_APPEARANCE);
 	}
 
 	@Override
 	public void onAction(L1PcInstance pc) {
 		if (isDead())
 			return;
-			
+
 		if (getCurrentHp() > 0) {
 			L1Attack attack = new L1Attack(pc, this);
 			if (attack.calcHit()) {
@@ -174,45 +173,69 @@ public class L1GuardInstance extends L1NpcInstance {
 		if (talking == null)
 			return;
 
-		switch(npcid) {
-			case 70993: case 70994: case 70862: case 70992: case 70800: 
-			case 70988: case 70989: case 70990: case 70991: case 70687: 
-			case 70987: case 70549: case 70985: 
-				if (checkHasCastle(player, guardsToCastles.get(npcid))) {
-					htmlid = "gateokeeper";
-					htmldata = new String[] { player.getName() };
-				} else
-					htmlid = "gatekeeperop";
-				break;
-			case 70995: case 70996: case 70778: case 70817: case 70656:
-			case 70863:
-				if (checkHasCastle(player, guardsToCastles.get(npcid))) {
-					htmlid = "gatekeeper";
-					htmldata = new String[] { player.getName() };
-				} else
-					htmlid = "gatekeeperop";
-				break;
-			case 70600: case 70986:
-				htmlid = checkHasCastle(player, guardsToCastles.get(npcid))
-					? "orckeeper" : "orckeeperop";
-				break;
-			case 60514: case 60560: case 60552: case 60524: case 60525:
-			case 60529: case 70857: case 60530: case 60531: case 60533:
-			case 60534: case 81156:
-				String[] owner = getCastleOwner(guardsToCastles.get(npcid));
-				htmlid = guardsToText.get(npcid);
-				htmldata = new String[] { getName(), owner[0], owner[1] };
-				break;
-			default:
-				// Can't actually get here.
+		switch (npcid) {
+		case 70993:
+		case 70994:
+		case 70862:
+		case 70992:
+		case 70800:
+		case 70988:
+		case 70989:
+		case 70990:
+		case 70991:
+		case 70687:
+		case 70987:
+		case 70549:
+		case 70985:
+			if (checkHasCastle(player, guardsToCastles.get(npcid))) {
+				htmlid = "gateokeeper";
+				htmldata = new String[] { player.getName() };
+			} else
+				htmlid = "gatekeeperop";
+			break;
+		case 70995:
+		case 70996:
+		case 70778:
+		case 70817:
+		case 70656:
+		case 70863:
+			if (checkHasCastle(player, guardsToCastles.get(npcid))) {
+				htmlid = "gatekeeper";
+				htmldata = new String[] { player.getName() };
+			} else
+				htmlid = "gatekeeperop";
+			break;
+		case 70600:
+		case 70986:
+			htmlid = checkHasCastle(player, guardsToCastles.get(npcid)) ? "orckeeper"
+					: "orckeeperop";
+			break;
+		case 60514:
+		case 60560:
+		case 60552:
+		case 60524:
+		case 60525:
+		case 60529:
+		case 70857:
+		case 60530:
+		case 60531:
+		case 60533:
+		case 60534:
+		case 81156:
+			String[] owner = getCastleOwner(guardsToCastles.get(npcid));
+			htmlid = guardsToText.get(npcid);
+			htmldata = new String[] { getName(), owner[0], owner[1] };
+			break;
+		default:
+			// Can't actually get here.
 		}
 
 		// html
 		if (htmlid != null)
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, htmldata));
 		else
-			player.sendPackets(new S_NPCTalkReturn(talking, objid,
-						player.getLawful() < -1000 ? 2 : 1));
+			player.sendPackets(new S_NPCTalkReturn(talking, objid, player
+					.getLawful() < -1000 ? 2 : 1));
 	}
 
 	private static String[] getCastleOwner(final int castleId) {
@@ -261,7 +284,7 @@ public class L1GuardInstance extends L1NpcInstance {
 				setCurrentHp(newHp);
 			}
 		} else if (getCurrentHp() == 0 && !isDead()) {
-		} else if (!isDead()) { 
+		} else if (!isDead()) {
 			setDead(true);
 			setStatus(ActionCodes.ACTION_Die);
 			Death death = new Death(attacker);
@@ -323,7 +346,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		if (!isCastleOwned(castleId))
 			return true;
 
-		if (pc.getClanid() != 0) { 
+		if (pc.getClanid() != 0) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null)
 				return clan.getCastleId() == castleId;

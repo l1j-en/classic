@@ -77,11 +77,11 @@ public class L1ItemId {
 	public static final int C_SCROLL_OF_ENCHANT_WEAPON = 240087;
 
 	public static final int SCROLL_OF_ENCHANT_QUEST_WEAPON = 40660;
-	
+
 	public static final int SCROLL_OF_POLYMORPH = 40088;
-	
+
 	public static final int B_SCROLL_OF_POLYMORPH = 140088;
-	
+
 	public static final int IT_SCROLL_OF_POLYMORPH = 40096;
 
 	public static final int ADENA = 40308;
@@ -111,6 +111,6 @@ public class L1ItemId {
 	public static final int BraveStone = 40322;
 	public static final int WiseStone = 40323;
 	public static final int KaiserStone = 40324;
-	public static final int[] StoneList =
-		{ BringStone, DarkStone, BraveStone, WiseStone, KaiserStone };
+	public static final int[] StoneList = { BringStone, DarkStone, BraveStone,
+			WiseStone, KaiserStone };
 }

@@ -31,16 +31,19 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogDeleteChar {
-	private static Logger _log = Logger.getLogger(LogDeleteChar.class.getName());
+	private static Logger _log = Logger
+			.getLogger(LogDeleteChar.class.getName());
 
 	public void storeLogDeleteChar(L1PcInstance pc, String hostip) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO LogDeleteChar VALUES (?, ?, ?, ?, ?);");
+			pstm = con
+					.prepareStatement("INSERT INTO LogDeleteChar VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, hostip);

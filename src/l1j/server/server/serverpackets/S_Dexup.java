@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket
 public class S_Dexup extends ServerBasePacket {
 	private static final String _S__25_S_Dexup = "[S] S_Dexup";
-	
+
 	public S_Dexup(L1PcInstance pc, int type, int time) {
 		writeC(Opcodes.S_OPCODE_DEXUP);
 		writeH(time);

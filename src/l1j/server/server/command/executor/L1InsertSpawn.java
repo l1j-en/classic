@@ -65,8 +65,8 @@ public class L1InsertSpawn implements L1CommandExecutor {
 				NpcSpawnTable.getInstance().storeSpawn(pc, template);
 			}
 			L1SpawnUtil.spawn(pc, npcId, 0, 0);
-			msg = new StringBuilder().append(template.get_name()).append(
-					" (" + npcId + ") ").append("B").toString();
+			msg = new StringBuilder().append(template.get_name())
+					.append(" (" + npcId + ") ").append("B").toString();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "", e);
 			msg = cmdName + " mob|npc NPCID";

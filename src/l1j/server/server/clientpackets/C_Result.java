@@ -60,7 +60,7 @@ public class C_Result extends ClientBasePacket {
 		IpTable.getInstance().banIp(player.getNetConnection().getIp());
 		player.sendPackets(new S_Disconnect());
 	}
-	
+
 	public C_Result(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);
 		int npcObjectId = readD();
@@ -91,21 +91,24 @@ public class C_Result extends ClientBasePacket {
 			}
 		}
 
-		if (resultType == 0 && size != 0 && npcImpl.equalsIgnoreCase("L1Merchant")) {
+		if (resultType == 0 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopBuyOrderList orderList = shop.newBuyOrderList();
 			for (int i = 0; i < size; i++) {
 				orderList.add(readD(), readD());
 			}
 			shop.sellItems(pc, orderList);
-		} else if (resultType == 1 && size != 0 && npcImpl.equalsIgnoreCase("L1Merchant")) { 
+		} else if (resultType == 1 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopSellOrderList orderList = shop.newSellOrderList(pc);
 			for (int i = 0; i < size; i++) {
 				orderList.add(readD(), readD());
 			}
 			shop.buyItems(orderList);
-		} else if (resultType == 2 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) { 
+		} else if (resultType == 2 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) {
 			int objectId, count;
 			for (int i = 0; i < size; i++) {
 				tradable = true;
@@ -113,11 +116,12 @@ public class C_Result extends ClientBasePacket {
 				count = readD();
 				L1Object object = pc.getInventory().getItem(objectId);
 				L1ItemInstance item = (L1ItemInstance) object;
-				int item_count_before = item.getCount(); 
-				int item_count_after = 0;  
+				int item_count_before = item.getCount();
+				int item_count_after = 0;
 				if (!item.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName())); 
+					pc.sendPackets(new S_ServerMessage(210, item.getItem()
+							.getName()));
 				}
 				Object[] petlist = pc.getPetList().values().toArray();
 				for (Object petObject : petlist) {
@@ -125,7 +129,8 @@ public class C_Result extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (item.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+							pc.sendPackets(new S_ServerMessage(210, item
+									.getItem().getName()));
 							break;
 						}
 					}
@@ -141,61 +146,67 @@ public class C_Result extends ClientBasePacket {
 						}
 					}
 				}
-				if (pc.getDwarfInventory().checkAddItemToWarehouse(item, count, L1Inventory.WAREHOUSE_TYPE_PERSONAL) == L1Inventory.SIZE_OVER) {
+				if (pc.getDwarfInventory().checkAddItemToWarehouse(item, count,
+						L1Inventory.WAREHOUSE_TYPE_PERSONAL) == L1Inventory.SIZE_OVER) {
 					pc.sendPackets(new S_ServerMessage(75));
 					break;
 				}
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to store " +
-							count + " of " + objectId + " but server has " +
-							item.getCount() + ".");
+					_log.log(Level.SEVERE, pc.getName() + " tried to store "
+							+ count + " of " + objectId + " but server has "
+							+ item.getCount() + ".");
 					ban(pc);
 					return;
 				}
 				if (tradable) {
-					pc.getInventory().tradeItem(objectId, count, pc.getDwarfInventory());
+					pc.getInventory().tradeItem(objectId, count,
+							pc.getDwarfInventory());
 					pc.turnOnOffLight();
-					L1ItemInstance pcitem = pc.getInventory().getItem(objectId); 
-					if (pcitem != null) { 
-						item_count_after = pcitem.getCount(); 
-					} 
-					//LogDwarfIn ldi = new LogDwarfIn(); 
-					//ldi.storeLogDwarfIn(pc, item, item_count_before, item_count_after, count); 
-				} 
-		    }
+					L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
+					if (pcitem != null) {
+						item_count_after = pcitem.getCount();
+					}
+					// LogDwarfIn ldi = new LogDwarfIn();
+					// ldi.storeLogDwarfIn(pc, item, item_count_before,
+					// item_count_after, count);
+				}
+			}
 			pc.saveInventory();
-		} else if (resultType == 3 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) {
+		} else if (resultType == 3 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) {
 			int objectId, count;
 			L1ItemInstance item;
 			for (int i = 0; i < size; i++) {
 				objectId = readD();
 				count = readD();
 				item = pc.getDwarfInventory().getItem(objectId);
-				int item_count_before = item.getCount(); 
+				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to retrieve " +
-							count + " of " + objectId + " but server has " +
-							item.getCount() + ".");
+					_log.log(Level.SEVERE, pc.getName() + " tried to retrieve "
+							+ count + " of " + objectId + " but server has "
+							+ item.getCount() + ".");
 					ban(pc);
 					return;
 				}
-				if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) 
-				{
+				if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 					if (pc.getInventory().consumeItem(L1ItemId.ADENA, 30)) {
-						pc.getDwarfInventory().tradeItem(item, count, pc.getInventory());
-						L1ItemInstance dwitem = pc.getDwarfInventory().getItem(objectId); 
-						if (dwitem != null) { 
-							item_count_after = dwitem.getCount(); 
-						} 
-						LogDwarfOut ldo = new LogDwarfOut(); 
-						ldo.storeLogDwarfOut(pc, item, item_count_before, item_count_after, count);
+						pc.getDwarfInventory().tradeItem(item, count,
+								pc.getInventory());
+						L1ItemInstance dwitem = pc.getDwarfInventory().getItem(
+								objectId);
+						if (dwitem != null) {
+							item_count_after = dwitem.getCount();
+						}
+						LogDwarfOut ldo = new LogDwarfOut();
+						ldo.storeLogDwarfOut(pc, item, item_count_before,
+								item_count_after, count);
 					} else {
 						pc.sendPackets(new S_ServerMessage(189));
 						break;
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(270)); 
+					pc.sendPackets(new S_ServerMessage(270));
 					break;
 				}
 			}
@@ -207,26 +218,31 @@ public class C_Result extends ClientBasePacket {
 					tradable = true;
 					objectId = readD();
 					count = readD();
-					L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
+					L1Clan clan = L1World.getInstance().getClan(
+							pc.getClanname());
 					L1Object object = pc.getInventory().getItem(objectId);
 					L1ItemInstance item = (L1ItemInstance) object;
-					int item_count_before = item.getCount(); 
+					int item_count_before = item.getCount();
 					int item_count_after = 0;
 					if (count > item.getCount()) {
-						_log.log(Level.SEVERE, pc.getName() + " tried to (clan) store " +
-								count + " of " + objectId + " but server has " +
-								item.getCount() + ".");
+						_log.log(Level.SEVERE,
+								pc.getName() + " tried to (clan) store "
+										+ count + " of " + objectId
+										+ " but server has " + item.getCount()
+										+ ".");
 						ban(pc);
 						return;
 					}
 					if (clan != null) {
 						if (!item.getItem().isTradable()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+							pc.sendPackets(new S_ServerMessage(210, item
+									.getItem().getName()));
 						}
 						if (item.getBless() >= 128) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+							pc.sendPackets(new S_ServerMessage(210, item
+									.getItem().getName()));
 						}
 						Object[] petlist = pc.getPetList().values().toArray();
 						for (Object petObject : petlist) {
@@ -234,7 +250,8 @@ public class C_Result extends ClientBasePacket {
 								L1PetInstance pet = (L1PetInstance) petObject;
 								if (item.getId() == pet.getItemObjId()) {
 									tradable = false;
-									pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+									pc.sendPackets(new S_ServerMessage(210,
+											item.getItem().getName()));
 									break;
 								}
 							}
@@ -250,27 +267,33 @@ public class C_Result extends ClientBasePacket {
 								}
 							}
 						}
-						if (clan.getDwarfForClanInventory().checkAddItemToWarehouse(item, count, L1Inventory.WAREHOUSE_TYPE_CLAN) == L1Inventory.SIZE_OVER) {
+						if (clan.getDwarfForClanInventory()
+								.checkAddItemToWarehouse(item, count,
+										L1Inventory.WAREHOUSE_TYPE_CLAN) == L1Inventory.SIZE_OVER) {
 							pc.sendPackets(new S_ServerMessage(75));
 							break;
 						}
 						if (tradable) {
-							pc.getInventory().tradeItem(objectId, count, clan.getDwarfForClanInventory());
+							pc.getInventory().tradeItem(objectId, count,
+									clan.getDwarfForClanInventory());
 							pc.turnOnOffLight();
-							 L1ItemInstance pcitem = pc.getInventory().getItem(objectId); 
-							 if (pcitem != null) {
-								 item_count_after = pcitem.getCount();
+							L1ItemInstance pcitem = pc.getInventory().getItem(
+									objectId);
+							if (pcitem != null) {
+								item_count_after = pcitem.getCount();
 							}
 							// LogClanDwarfIn lcdi = new LogClanDwarfIn();
-							// lcdi.storeLogClanDwarfIn(pc, item, item_count_before, item_count_after, count);
+							// lcdi.storeLogClanDwarfIn(pc, item,
+							// item_count_before, item_count_after, count);
 						}
 					}
 				}
 				pc.saveInventory();
 			} else {
-				pc.sendPackets(new S_ServerMessage(208)); 
+				pc.sendPackets(new S_ServerMessage(208));
 			}
-		} else if (resultType == 5 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) { 
+		} else if (resultType == 5 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5) {
 			int objectId, count;
 			L1ItemInstance item;
 
@@ -280,42 +303,50 @@ public class C_Result extends ClientBasePacket {
 					objectId = readD();
 					count = readD();
 					item = clan.getDwarfForClanInventory().getItem(objectId);
-					int item_count_before = item.getCount(); 
+					int item_count_before = item.getCount();
 					int item_count_after = 0;
 					if (count > item.getCount()) {
-						_log.log(Level.SEVERE, pc.getName() + " tried to (clan) retrieve " +
-								count + " of " + objectId + " but server has " +
-								item.getCount() + ".");
+						_log.log(Level.SEVERE,
+								pc.getName() + " tried to (clan) retrieve "
+										+ count + " of " + objectId
+										+ " but server has " + item.getCount()
+										+ ".");
 						ban(pc);
 						return;
 					}
-					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) { 
+					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 						if (pc.getInventory().consumeItem(L1ItemId.ADENA, 30)) {
-							clan.getDwarfForClanInventory().tradeItem(item, count, pc.getInventory());
-							 L1ItemInstance dwitem = clan.getDwarfForClanInventory().getItem(objectId); 
-							 if (dwitem != null) { 
-								 item_count_after = dwitem.getCount(); 
-							} 
+							clan.getDwarfForClanInventory().tradeItem(item,
+									count, pc.getInventory());
+							L1ItemInstance dwitem = clan
+									.getDwarfForClanInventory().getItem(
+											objectId);
+							if (dwitem != null) {
+								item_count_after = dwitem.getCount();
+							}
 							// LogClanDwarfOut lcdo = new LogClanDwarfOut();
-							// lcdo.storeLogClanDwarfOut(pc, item, item_count_before, item_count_after, count);
+							// lcdo.storeLogClanDwarfOut(pc, item,
+							// item_count_before, item_count_after, count);
 						} else {
-							pc.sendPackets(new S_ServerMessage(189)); 
+							pc.sendPackets(new S_ServerMessage(189));
 							break;
 						}
 					} else {
-						pc.sendPackets(new S_ServerMessage(270)); 
+						pc.sendPackets(new S_ServerMessage(270));
 						break;
 					}
 				}
-				clan.setWarehouseUsingChar(0); 
+				clan.setWarehouseUsingChar(0);
 			}
 		} else if (resultType == 5 && size == 0
-				&& npcImpl.equalsIgnoreCase("L1Dwarf")) { 
+				&& npcImpl.equalsIgnoreCase("L1Dwarf")) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
 				clan.setWarehouseUsingChar(0);
 			}
-		} else if (resultType == 8 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5 && pc.isElf()) {
+		} else if (resultType == 8 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5
+				&& pc.isElf()) {
 			int objectId, count;
 			for (int i = 0; i < size; i++) {
 				tradable = true;
@@ -323,18 +354,20 @@ public class C_Result extends ClientBasePacket {
 				count = readD();
 				L1Object object = pc.getInventory().getItem(objectId);
 				L1ItemInstance item = (L1ItemInstance) object;
-				int item_count_before = item.getCount(); 
+				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to (elf) store " +
-							count + " of " + objectId + " but server has " +
-							item.getCount() + ".");
+					_log.log(Level.SEVERE, pc.getName()
+							+ " tried to (elf) store " + count + " of "
+							+ objectId + " but server has " + item.getCount()
+							+ ".");
 					ban(pc);
 					return;
 				}
 				if (!item.getItem().isTradable()) {
 					tradable = false;
-					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem()
+							.getName()));
 				}
 				Object[] petlist = pc.getPetList().values().toArray();
 				for (Object petObject : petlist) {
@@ -342,7 +375,8 @@ public class C_Result extends ClientBasePacket {
 						L1PetInstance pet = (L1PetInstance) petObject;
 						if (item.getId() == pet.getItemObjId()) {
 							tradable = false;
-							pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+							pc.sendPackets(new S_ServerMessage(210, item
+									.getItem().getName()));
 							break;
 						}
 					}
@@ -358,23 +392,28 @@ public class C_Result extends ClientBasePacket {
 						}
 					}
 				}
-				if (pc.getDwarfForElfInventory().checkAddItemToWarehouse(item, count, L1Inventory.WAREHOUSE_TYPE_PERSONAL) == L1Inventory.SIZE_OVER) {
+				if (pc.getDwarfForElfInventory().checkAddItemToWarehouse(item,
+						count, L1Inventory.WAREHOUSE_TYPE_PERSONAL) == L1Inventory.SIZE_OVER) {
 					pc.sendPackets(new S_ServerMessage(75));
 					break;
 				}
 				if (tradable) {
-					pc.getInventory().tradeItem(objectId, count, pc.getDwarfForElfInventory());
+					pc.getInventory().tradeItem(objectId, count,
+							pc.getDwarfForElfInventory());
 					pc.turnOnOffLight();
-					L1ItemInstance pcitem = pc.getInventory().getItem(objectId); 
-					if (pcitem != null) { 
-						item_count_after = pcitem.getCount(); 
-					} 
-					LogElfDwarfIn ledi = new LogElfDwarfIn(); 
-					ledi.storeLogElfDwarfIn(pc, item, item_count_before, item_count_after, count); 
+					L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
+					if (pcitem != null) {
+						item_count_after = pcitem.getCount();
+					}
+					LogElfDwarfIn ledi = new LogElfDwarfIn();
+					ledi.storeLogElfDwarfIn(pc, item, item_count_before,
+							item_count_after, count);
 				}
 				pc.saveInventory();
 			}
-		} else if (resultType == 9 && size != 0 && npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5 && pc.isElf()) {
+		} else if (resultType == 9 && size != 0
+				&& npcImpl.equalsIgnoreCase("L1Dwarf") && level >= 5
+				&& pc.isElf()) {
 			int objectId, count;
 			L1ItemInstance item;
 			for (int i = 0; i < size; i++) {
@@ -384,23 +423,27 @@ public class C_Result extends ClientBasePacket {
 				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to (elf) retrieve " +
-							count + " of " + objectId + " but server has " +
-							item.getCount() + ".");
+					_log.log(Level.SEVERE, pc.getName()
+							+ " tried to (elf) retrieve " + count + " of "
+							+ objectId + " but server has " + item.getCount()
+							+ ".");
 					ban(pc);
 					return;
 				}
 				if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 					if (pc.getInventory().consumeItem(40494, 2)) {
-						pc.getDwarfForElfInventory().tradeItem(item, count, pc.getInventory());
-						L1ItemInstance pcitem = pc.getDwarfForElfInventory().getItem(objectId); 
-						if (pcitem != null) { 
-							item_count_after = pcitem.getCount(); 
-						} 
-						LogElfDwarfOut ledo = new LogElfDwarfOut(); 
-						ledo.storeLogElfDwarfOut(pc, item, item_count_before, item_count_after, count);
+						pc.getDwarfForElfInventory().tradeItem(item, count,
+								pc.getInventory());
+						L1ItemInstance pcitem = pc.getDwarfForElfInventory()
+								.getItem(objectId);
+						if (pcitem != null) {
+							item_count_after = pcitem.getCount();
+						}
+						LogElfDwarfOut ledo = new LogElfDwarfOut();
+						ledo.storeLogElfDwarfOut(pc, item, item_count_before,
+								item_count_after, count);
 					} else {
-						pc.sendPackets(new S_ServerMessage(337,"$767"));
+						pc.sendPackets(new S_ServerMessage(337, "$767"));
 						break;
 					}
 				} else {
@@ -438,16 +481,16 @@ public class C_Result extends ClientBasePacket {
 				}
 				targetPc.setTradingInPrivateShop(true);
 
-				for (int i = 0; i < size; i++) { 
+				for (int i = 0; i < size; i++) {
 					order = readD();
 					count = readD();
 					pssl = (L1PrivateShopSellList) sellList.get(order);
 					itemObjectId = pssl.getItemObjectId();
 					sellPrice = pssl.getSellPrice();
-					sellTotalCount = pssl.getSellTotalCount(); 
-					sellCount = pssl.getSellCount(); 
+					sellTotalCount = pssl.getSellTotalCount();
+					sellCount = pssl.getSellCount();
 					item = targetPc.getInventory().getItem(itemObjectId);
-					int item_count_before = item.getCount(); 
+					int item_count_before = item.getCount();
 					int item_count_after = 0;
 					if (item == null) {
 						continue;
@@ -461,42 +504,52 @@ public class C_Result extends ClientBasePacket {
 					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 						for (int j = 0; j < count; j++) {
 							if (sellPrice * j > 2000000000) {
-								pc.sendPackets(new S_ServerMessage(904, "2000000000"));
+								pc.sendPackets(new S_ServerMessage(904,
+										"2000000000"));
 								targetPc.setTradingInPrivateShop(false);
 								return;
 							}
 						}
 						price = count * sellPrice;
 						if (pc.getInventory().checkItem(L1ItemId.ADENA, price)) {
-							L1ItemInstance adena = pc.getInventory().findItemId(L1ItemId.ADENA);
+							L1ItemInstance adena = pc.getInventory()
+									.findItemId(L1ItemId.ADENA);
 							if (targetPc != null && adena != null) {
-								if (targetPc.getInventory().tradeItem(item, count, pc.getInventory()) == null) {
+								if (targetPc.getInventory().tradeItem(item,
+										count, pc.getInventory()) == null) {
 									targetPc.setTradingInPrivateShop(false);
 									return;
 								}
-								L1ItemInstance tpitem = targetPc.getInventory().getItem(itemObjectId); 
-								if (tpitem != null) { 
-									item_count_after = tpitem.getCount(); 
-								} 
-								if (pc != null && targetPc != null) { 
-									LogPrivateShopBuy lpsb = new LogPrivateShopBuy(); 
-									lpsb.storeLogPrivateShopBuy(pc, targetPc, item, item_count_before, item_count_after, count); 
+								L1ItemInstance tpitem = targetPc.getInventory()
+										.getItem(itemObjectId);
+								if (tpitem != null) {
+									item_count_after = tpitem.getCount();
 								}
-								pc.getInventory().tradeItem(adena, price, targetPc.getInventory());
-								String message = item.getItem().getName() + " (" + String.valueOf(count) + ")";
-								targetPc.sendPackets(new S_ServerMessage(877, pc.getName(), message));
+								if (pc != null && targetPc != null) {
+									LogPrivateShopBuy lpsb = new LogPrivateShopBuy();
+									lpsb.storeLogPrivateShopBuy(pc, targetPc,
+											item, item_count_before,
+											item_count_after, count);
+								}
+								pc.getInventory().tradeItem(adena, price,
+										targetPc.getInventory());
+								String message = item.getItem().getName()
+										+ " (" + String.valueOf(count) + ")";
+								targetPc.sendPackets(new S_ServerMessage(877,
+										pc.getName(), message));
 								pssl.setSellCount(count + sellCount);
 								sellList.set(order, pssl);
-								if (pssl.getSellCount() == pssl.getSellTotalCount()) { 
+								if (pssl.getSellCount() == pssl
+										.getSellTotalCount()) {
 									isRemoveFromList[order] = true;
 								}
 							}
 						} else {
-							pc.sendPackets(new S_ServerMessage(189)); 
+							pc.sendPackets(new S_ServerMessage(189));
 							break;
 						}
 					} else {
-						pc.sendPackets(new S_ServerMessage(270)); 
+						pc.sendPackets(new S_ServerMessage(270));
 						break;
 					}
 				}
@@ -543,51 +596,58 @@ public class C_Result extends ClientBasePacket {
 				}
 				psbl = (L1PrivateShopBuyList) buyList.get(order);
 				buyPrice = psbl.getBuyPrice();
-				buyTotalCount = psbl.getBuyTotalCount(); 
+				buyTotalCount = psbl.getBuyTotalCount();
 				buyCount = psbl.getBuyCount();
 				if (count > buyTotalCount - buyCount) {
 					count = buyTotalCount - buyCount;
 				}
 				if (item.isEquipped()) {
-					pc.sendPackets(new S_ServerMessage(905)); 
+					pc.sendPackets(new S_ServerMessage(905));
 					continue;
 				}
 
-				if (targetPc.getInventory().checkAddItem(item, count) == L1Inventory.OK) { 
-					for (int j = 0; j < count; j++) { 
+				if (targetPc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
+					for (int j = 0; j < count; j++) {
 						if (buyPrice * j > 2000000000) {
-							targetPc.sendPackets(new S_ServerMessage(904, "2000000000"));
+							targetPc.sendPackets(new S_ServerMessage(904,
+									"2000000000"));
 							return;
 						}
 					}
 					if (targetPc.getInventory().checkItem(L1ItemId.ADENA,
 							count * buyPrice)) {
-						L1ItemInstance adena = targetPc.getInventory().findItemId(L1ItemId.ADENA);
+						L1ItemInstance adena = targetPc.getInventory()
+								.findItemId(L1ItemId.ADENA);
 						if (adena != null) {
-							int item_count_before = item.getCount(); 
+							int item_count_before = item.getCount();
 							int item_count_after = 0;
-							targetPc.getInventory().tradeItem(adena, count * buyPrice, pc.getInventory());
-							pc.getInventory().tradeItem(item, count, targetPc.getInventory());
-							L1ItemInstance pcitem = pc.getInventory().getItem(itemObjectId); 
-							if (pcitem != null) { 
-								item_count_after = pcitem.getCount(); 
-							} 
-							if (pc != null && targetPc != null) { 
-								LogPrivateShopSell lpss = new LogPrivateShopSell(); 
-								lpss.storeLogPrivateShopSell(pc, targetPc, item, item_count_before, item_count_after, count); 
+							targetPc.getInventory().tradeItem(adena,
+									count * buyPrice, pc.getInventory());
+							pc.getInventory().tradeItem(item, count,
+									targetPc.getInventory());
+							L1ItemInstance pcitem = pc.getInventory().getItem(
+									itemObjectId);
+							if (pcitem != null) {
+								item_count_after = pcitem.getCount();
+							}
+							if (pc != null && targetPc != null) {
+								LogPrivateShopSell lpss = new LogPrivateShopSell();
+								lpss.storeLogPrivateShopSell(pc, targetPc,
+										item, item_count_before,
+										item_count_after, count);
 							}
 							psbl.setBuyCount(count + buyCount);
 							buyList.set(order, psbl);
-							if (psbl.getBuyCount() == psbl.getBuyTotalCount()) { 
+							if (psbl.getBuyCount() == psbl.getBuyTotalCount()) {
 								isRemoveFromList[order] = true;
 							}
 						}
 					} else {
-						targetPc.sendPackets(new S_ServerMessage(189)); 
+						targetPc.sendPackets(new S_ServerMessage(189));
 						break;
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(271)); 
+					pc.sendPackets(new S_ServerMessage(271));
 					break;
 				}
 			}

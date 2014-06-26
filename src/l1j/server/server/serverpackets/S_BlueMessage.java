@@ -36,7 +36,8 @@ public class S_BlueMessage extends ServerBasePacket {
 		buildPacket(type, msg1, msg2, msg3, 3);
 	}
 
-	private void buildPacket(int type, String msg1, String msg2, String msg3, int check) {
+	private void buildPacket(int type, String msg1, String msg2, String msg3,
+			int check) {
 		writeC(Opcodes.S_OPCODE_BLUEMESSAGE);
 		writeH(type);
 		if (check == 1) {

@@ -81,7 +81,7 @@ public class Point {
 
 	/**
 	 * wtWiB
-	 *            
+	 * 
 	 * @param heading
 	 *            (0~7)
 	 */
@@ -106,18 +106,20 @@ public class Point {
 	/**
 	 * The number of tiles to coordinate the return straight.
 	 * 
-	 * @param pt Point object to hold coordinate            
+	 * @param pt
+	 *            Point object to hold coordinate
 	 * @return The straight line up to coordinate the number of tiles.
 	 */
 	public int getTileLineDistance(Point pt) {
-		return Math.max(Math.abs(pt.getX() - getX()), Math.abs(pt.getY()
-				- getY()));
+		return Math.max(Math.abs(pt.getX() - getX()),
+				Math.abs(pt.getY() - getY()));
 	}
 
 	/**
 	 * The number of tiles to coordinate returned.
 	 * 
-	 * @param pt Point object to hold coordinate
+	 * @param pt
+	 *            Point object to hold coordinate
 	 * @return The number of tiles to coordinate.
 	 */
 	public int getTileDistance(Point pt) {
@@ -127,10 +129,12 @@ public class Point {
 	/**
 	 * The object is to see a return to the screen
 	 * 
-	 * Players to coordinate (0,0) assuming that coordinates of the sight of
-	 * The upper left (2, 15) on the right (15, -2) lower left (-15,2) lower-right (-2,15).
-	 *  
-	 * @param pt Point object to hold coordinate
+	 * Players to coordinate (0,0) assuming that coordinates of the sight of The
+	 * upper left (2, 15) on the right (15, -2) lower left (-15,2) lower-right
+	 * (-2,15).
+	 * 
+	 * @param pt
+	 *            Point object to hold coordinate
 	 * @return The object is to see whether the screen.
 	 */
 	public boolean isInScreen(Point pt) {
@@ -141,14 +145,14 @@ public class Point {
 		} else if (dist <= 13) {
 			return true;
 		} else {
-//			Point pointZero = new Point(this.getX() - 15, this.getY() - 15);
-//			int dist2 = pointZero.getTileDistance(pt);
+			// Point pointZero = new Point(this.getX() - 15, this.getY() - 15);
+			// int dist2 = pointZero.getTileDistance(pt);
 			int dist2 = Math.abs(pt.getX() - (this.getX() - 15))
 					+ Math.abs(pt.getY() - (this.getY() - 15));
 			if (17 <= dist2 && dist2 <= 43) {
 				return true;
 			}
-				return false;
+			return false;
 		}
 	}
 
@@ -169,6 +173,7 @@ public class Point {
 		Point pt = (Point) obj;
 		return (this.getX() == pt.getX()) && (this.getY() == pt.getY());
 	}
+
 	@Override
 	public String toString() {
 		return String.format("(%d, %d)", _x, _y);

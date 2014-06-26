@@ -69,13 +69,13 @@ public class L1Shop {
 		if (item == null) {
 			return false;
 		}
-		if (item.isEquipped()) { 
+		if (item.isEquipped()) {
 			return false;
 		}
-		if (item.getEnchantLevel() != 0) { 
+		if (item.getEnchantLevel() != 0) {
 			return false;
 		}
-		if (item.getBless() >= 128) { 
+		if (item.getBless() >= 128) {
 			return false;
 		}
 		return true;
@@ -231,22 +231,21 @@ public class L1Shop {
 		payDiadTax(orderList);
 	}
 
-	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList, L1PcInstance pc) {
+	private void sellItems(L1PcInventory inv, L1ShopBuyOrderList orderList,
+			L1PcInstance pc) {
 		int adenabefore = 0;
 		int adenaafter = 0;
-		
+
 		L1ItemInstance pcitem = pc.getInventory().findItemId(40308);
 		if (pcitem != null) {
 			adenabefore = pcitem.getCount();
 		}
-		
 
-
-		if (!inv.consumeItem(L1ItemId.ADENA, orderList
-				.getTotalPriceTaxIncluded())) {
+		if (!inv.consumeItem(L1ItemId.ADENA,
+				orderList.getTotalPriceTaxIncluded())) {
 			throw new IllegalStateException("Unable to consume required adena.");
 		}
-		
+
 		if (pcitem != null) {
 			adenaafter = pcitem.getCount();
 		}
@@ -279,7 +278,8 @@ public class L1Shop {
 			}
 			LogShopBuy lsb = new LogShopBuy();
 			try {
-			lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,orderList.getTotalPriceTaxIncluded() );
+				lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,
+						orderList.getTotalPriceTaxIncluded());
 			} catch (Exception e) {
 				System.out.println("Problem with storeLogShopBuy");
 				System.out.println(e);
@@ -306,13 +306,16 @@ public class L1Shop {
 		int adenaafter = 0;
 		for (L1ShopSellOrder order : orderList.getList()) {
 			L1ItemInstance sellme = inv.getItem(order.getItem().getTargetId());
-			int count = inv.removeItem(order.getItem().getTargetId(), order
-					.getCount());
+			int count = inv.removeItem(order.getItem().getTargetId(),
+					order.getCount());
 			totalPrice += order.getItem().getAssessedPrice() * count;
-			adenaafter = adenabefore + (order.getItem().getAssessedPrice()*count);
-			//lsb.storeLogShopSell(pc, item, adenabefore, adenaafter, itemprice)
+			adenaafter = adenabefore
+					+ (order.getItem().getAssessedPrice() * count);
+			// lsb.storeLogShopSell(pc, item, adenabefore, adenaafter,
+			// itemprice)
 			try {
-			lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter,order.getItem().getAssessedPrice()*count);
+				lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter, order
+						.getItem().getAssessedPrice() * count);
 			} catch (Exception e) {
 				System.out.println("Problem with storeLogShopSell");
 				System.out.println(e);

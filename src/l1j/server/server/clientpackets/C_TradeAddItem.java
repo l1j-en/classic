@@ -39,7 +39,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 public class C_TradeAddItem extends ClientBasePacket {
 	private static final String C_TRADE_ADD_ITEM = "[C] C_TradeAddItem";
-	private static Logger _log = Logger.getLogger(C_TradeAddItem.class.getName());
+	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
+			.getName());
 
 	public C_TradeAddItem(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
@@ -49,28 +50,34 @@ public class C_TradeAddItem extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		L1PcInstance target = (L1PcInstance) L1World.getInstance().findObject(
 				pc.getTradeID());
-		//additional dupe checks.  Thanks Mike
+		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-			_log.info(pc.getName() + " Attempted Dupe Exploit (C_TradeAddItem).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			_log.info(pc.getName()
+					+ " Attempted Dupe Exploit (C_TradeAddItem).");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 		L1ItemInstance item = pc.getInventory().getItem(itemid);
-		//TRICIDTODO: set configurable autoban
-		if ((!item.isStackable() && itemcount != 1) || item.getCount() <= 0 || itemcount <= 0 || itemcount > 2000000000 || itemcount > item.getCount()) {
+		// TRICIDTODO: set configurable autoban
+		if ((!item.isStackable() && itemcount != 1) || item.getCount() <= 0
+				|| itemcount <= 0 || itemcount > 2000000000
+				|| itemcount > item.getCount()) {
 			Account.ban(pc.getAccountName());
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
-			_log.info(pc.getName() + " Attempted Dupe Exploit (C_TradeAddItem).");
-			L1World.getInstance().broadcastServerMessage("Player " + pc.getName() + " Attempted A Dupe exploit!");
+			_log.info(pc.getName()
+					+ " Attempted Dupe Exploit (C_TradeAddItem).");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 		if (itemid != item.getId()) {
-			_log.warning(pc.getName() + " had item " +
-					Integer.toString(itemid) + " not match.");
+			_log.warning(pc.getName() + " had item " + Integer.toString(itemid)
+					+ " not match.");
 		}
 		L1Trade trade = new L1Trade();
 		L1CheckPcItem checkPcItem = new L1CheckPcItem();
@@ -80,7 +87,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 			ltbi.storeLogTradeBugItem(pc, target, item);
 			return;
 		}
-		
+
 		if (!item.getItem().isTradable()) {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
@@ -95,21 +102,23 @@ public class C_TradeAddItem extends ClientBasePacket {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				if (item.getId() == pet.getItemObjId()) {
-					pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
+					pc.sendPackets(new S_ServerMessage(210, item.getItem()
+							.getName()));
 					return;
 				}
 			}
 		}
-		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance().findObject(pc.getTradeID());
-		
+		L1PcInstance tradingPartner = (L1PcInstance) L1World.getInstance()
+				.findObject(pc.getTradeID());
+
 		if (tradingPartner == null) {
 			return;
 		}
-		
+
 		if (pc.getTradeOk()) {
 			return;
 		}
-		
+
 		if (tradingPartner.getInventory().checkAddItem(item, itemcount) != L1Inventory.OK) {
 			tradingPartner.sendPackets(new S_ServerMessage(270));
 			pc.sendPackets(new S_ServerMessage(271));

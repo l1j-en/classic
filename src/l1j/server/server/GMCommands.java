@@ -67,11 +67,13 @@ public class GMCommands {
 				return false;
 			}
 			if (pc.getAccessLevel() < command.getLevel()) {
-				pc.sendPackets(new S_ServerMessage(74, "" + name)); 
+				pc.sendPackets(new S_ServerMessage(74, "" + name));
 				return true;
 			}
-			Class<?> cls = Class.forName(complementClassName(command.getExecutorClassName()));
-			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod("getInstance").invoke(null);
+			Class<?> cls = Class.forName(complementClassName(command
+					.getExecutorClassName()));
+			L1CommandExecutor exe = (L1CommandExecutor) cls.getMethod(
+					"getInstance").invoke(null);
 			exe.execute(pc, name, arg);
 			_log.info(pc.getName() + " ran " + name + " " + arg + "");
 			return true;
@@ -87,10 +89,10 @@ public class GMCommands {
 		String cmd = token.nextToken();
 		String param = "";
 		while (token.hasMoreTokens()) {
-			param = new StringBuilder(param).append(token.nextToken()).append(' ').toString();
+			param = new StringBuilder(param).append(token.nextToken())
+					.append(' ').toString();
 		}
 		param = param.trim();
-
 
 		if (executeDatabaseCommand(gm, cmd, param)) {
 			if (!cmd.equalsIgnoreCase("r")) {
@@ -100,13 +102,14 @@ public class GMCommands {
 		}
 		if (cmd.equalsIgnoreCase("r")) {
 			if (!_lastCommands.containsKey(gm.getId())) {
-				gm.sendPackets(new S_ServerMessage(74, "" + cmd)); 
+				gm.sendPackets(new S_ServerMessage(74, "" + cmd));
 				return;
 			}
 			redo(gm, param);
 			return;
 		}
-		gm.sendPackets(new S_SystemMessage("The command " + cmd + " doesn't exist."));
+		gm.sendPackets(new S_SystemMessage("The command " + cmd
+				+ " doesn't exist."));
 	}
 
 	private static Map<Integer, String> _lastCommands = new HashMap<Integer, String>();

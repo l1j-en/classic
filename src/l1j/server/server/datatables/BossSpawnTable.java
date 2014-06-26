@@ -30,7 +30,8 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class BossSpawnTable {
-	private static Logger _log = Logger.getLogger(BossSpawnTable.class.getName());
+	private static Logger _log = Logger.getLogger(BossSpawnTable.class
+			.getName());
 
 	private BossSpawnTable() {
 	}
@@ -50,7 +51,8 @@ public class BossSpawnTable {
 				int npcTemplateId = rs.getInt("npc_id");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId + " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateId
+							+ " missing in npc table");
 					spawnDat = null;
 				} else {
 					spawnDat = new L1BossSpawn(template1);
@@ -88,6 +90,7 @@ public class BossSpawnTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.log(Level.FINE, "The total number of boss npcs: " + spawnCount + " mobs");
+		_log.log(Level.FINE, "The total number of boss npcs: " + spawnCount
+				+ " mobs");
 	}
 }

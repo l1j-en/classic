@@ -7,7 +7,8 @@ public class L1HorrorOfDeath extends L1BuffSkillExecutorImpl {
 	private static final int INT = -3;
 
 	@Override
-	public void addEffect(L1Character user, L1Character target, int durationSeconds) {
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds) {
 		target.addStr(STR);
 		target.addInt(INT);
 	}

@@ -18,14 +18,19 @@ public class ElementalStoneGenerator implements Runnable {
 			.getName());
 
 	private static final int ELVEN_FOREST_MAPID = 4;
-	private static final int MAX_COUNT = Config.ELEMENTAL_STONE_AMOUNT; // The number of installed
+	private static final int MAX_COUNT = Config.ELEMENTAL_STONE_AMOUNT; // The
+																		// number
+																		// of
+																		// installed
 	private static final int INTERVAL = 3; // The separation between the second
-	private static final int SLEEP_TIME = 300; // After installation, re-established until the second hour of sleep
+	private static final int SLEEP_TIME = 300; // After installation,
+												// re-established until the
+												// second hour of sleep
 	private static final int FIRST_X = 32911;
 	private static final int FIRST_Y = 32210;
 	private static final int LAST_X = 33141;
 	private static final int LAST_Y = 32500;
-	private static final int ELEMENTAL_STONE_ID = 40515; 
+	private static final int ELEMENTAL_STONE_ID = 40515;
 
 	private ArrayList<L1GroundInventory> _itemList = new ArrayList<L1GroundInventory>(
 			MAX_COUNT);
@@ -109,15 +114,16 @@ public class ElementalStoneGenerator implements Runnable {
 					L1Location loc = new L1Location(nextPoint(), map);
 
 					if (!canPut(loc)) {
-						// XXX All ranges set up in an endless loop if the PC is to be
+						// XXX All ranges set up in an endless loop if the PC is
+						// to be
 						continue;
 					}
 
 					putElementalStone(loc);
 
-					Thread.sleep(INTERVAL * 1000); 
+					Thread.sleep(INTERVAL * 1000);
 				}
-				Thread.sleep(SLEEP_TIME * 1000); 
+				Thread.sleep(SLEEP_TIME * 1000);
 			}
 		} catch (Throwable e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

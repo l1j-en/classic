@@ -67,10 +67,11 @@ public class L1Commands {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		List<L1Command> result = new ArrayList<L1Command>();
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM commands WHERE access_level <= ?");
+			pstm = con
+					.prepareStatement("SELECT * FROM commands WHERE access_level <= ?");
 			pstm.setInt(1, accessLevel);
 			rs = pstm.executeQuery();
 			while (rs.next()) {

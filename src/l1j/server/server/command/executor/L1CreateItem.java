@@ -64,7 +64,8 @@ public class L1CreateItem implements L1CommandExecutor {
 				itemid = ItemTable.getInstance().findItemIdByNameWithoutSpace(
 						nameid);
 				if (itemid == 0) {
-					pc.sendPackets(new S_SystemMessage("Give an itemid, stupid."));
+					pc.sendPackets(new S_SystemMessage(
+							"Give an itemid, stupid."));
 					return;
 				}
 			}
@@ -80,8 +81,8 @@ public class L1CreateItem implements L1CommandExecutor {
 					}
 					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 						pc.getInventory().storeItem(item);
-						pc.sendPackets(new S_ServerMessage(403, 
-								item.getLogName() + " ID: " + itemid + " "));
+						pc.sendPackets(new S_ServerMessage(403, item
+								.getLogName() + " ID: " + itemid + " "));
 					}
 				} else {
 					L1ItemInstance item = null;
@@ -99,8 +100,8 @@ public class L1CreateItem implements L1CommandExecutor {
 						}
 					}
 					if (createCount > 0) {
-						pc.sendPackets(new S_ServerMessage(403, 
-								item.getLogName() + " ID: " + itemid + " "));
+						pc.sendPackets(new S_ServerMessage(403, item
+								.getLogName() + " ID: " + itemid + " "));
 					}
 				}
 			} else {

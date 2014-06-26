@@ -53,8 +53,10 @@ public class C_CallPlayer extends ClientBasePacket {
 			return;
 		}
 
-		L1Location loc = L1Location.randomLocation(target.getLocation(), 1, 2, false);
-		L1Teleport.teleport(pc, loc.getX(), loc.getY(), target.getMapId(), pc.getHeading(), false);
+		L1Location loc = L1Location.randomLocation(target.getLocation(), 1, 2,
+				false);
+		L1Teleport.teleport(pc, loc.getX(), loc.getY(), target.getMapId(),
+				pc.getHeading(), false);
 	}
 
 	@Override

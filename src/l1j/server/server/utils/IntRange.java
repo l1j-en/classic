@@ -19,13 +19,16 @@
 package l1j.server.server.utils;
 
 import java.util.Random;
+
 /**
  * <p>
- * The maximum value from high and low values surrounded by a numerical range of classes.
+ * The maximum value from high and low values surrounded by a numerical range of
+ * classes.
  * </p>
  * <p>
- * <b>This class is not synchronized. </ b> multiple threads simultaneously access the instance of this class,
- * More than one thread is to change the scope of the external synchronization is necessary.
+ * <b>This class is not synchronized. </ b> multiple threads simultaneously
+ * access the instance of this class, More than one thread is to change the
+ * scope of the external synchronization is necessary.
  * </p>
  */
 public class IntRange {

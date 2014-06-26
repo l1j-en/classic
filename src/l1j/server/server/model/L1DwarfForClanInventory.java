@@ -34,7 +34,8 @@ import l1j.server.server.utils.SQLUtil;
 public class L1DwarfForClanInventory extends L1Inventory {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1DwarfForClanInventory.class.getName());
+	private static Logger _log = Logger.getLogger(L1DwarfForClanInventory.class
+			.getName());
 	private final L1Clan _clan;
 
 	public L1DwarfForClanInventory(L1Clan clan) {
@@ -46,10 +47,11 @@ public class L1DwarfForClanInventory extends L1Inventory {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM clan_warehouse WHERE clan_name = ?");
+			pstm = con
+					.prepareStatement("SELECT * FROM clan_warehouse WHERE clan_name = ?");
 			pstm.setString(1, _clan.getClanName());
 			rs = pstm.executeQuery();
 			while (rs.next()) {
@@ -57,9 +59,11 @@ public class L1DwarfForClanInventory extends L1Inventory {
 				int objectId = rs.getInt("id");
 				item.setId(objectId);
 				int itemId = rs.getInt("item_id");
-				L1Item itemTemplate = ItemTable.getInstance().getTemplate(itemId);
+				L1Item itemTemplate = ItemTable.getInstance().getTemplate(
+						itemId);
 				if (itemTemplate == null) {
-					throw new NullPointerException("item_id=" + itemId + " not found");
+					throw new NullPointerException("item_id=" + itemId
+							+ " not found");
 				}
 				item.setItem(itemTemplate);
 				item.setCount(rs.getInt("count"));
@@ -78,11 +82,11 @@ public class L1DwarfForClanInventory extends L1Inventory {
 				item.setAddMp(rs.getInt("add_mp"));
 				item.setAddHpRegen(rs.getInt("add_hpr"));
 				item.setAddMpRegen(rs.getInt("add_mpr"));
-			 	item.setAddSpellpower(rs.getInt("add_sp"));
-			 	item.setWaterResist(rs.getInt("defense_water"));
-			 	item.setWindResist(rs.getInt("defense_wind"));
-			 	item.setFireResist(rs.getInt("defense_fire"));
-			 	item.setEarthResist(rs.getInt("defense_earth"));
+				item.setAddSpellpower(rs.getInt("add_sp"));
+				item.setWaterResist(rs.getInt("defense_water"));
+				item.setWindResist(rs.getInt("defense_wind"));
+				item.setFireResist(rs.getInt("defense_fire"));
+				item.setEarthResist(rs.getInt("defense_earth"));
 				_items.add(item);
 				L1World.getInstance().storeObject(item);
 			}
@@ -99,10 +103,11 @@ public class L1DwarfForClanInventory extends L1Inventory {
 	public synchronized void insertItem(L1ItemInstance item) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO clan_warehouse SET id = ?, clan_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id= ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?, m_def = ?, add_hp = ?, add_mp = ?, add_hpr = ?, add_mpr = ?, add_sp = ?, defense_water = ?, defense_wind = ?, defense_fire = ?, defense_earth = ?");
+			pstm = con
+					.prepareStatement("INSERT INTO clan_warehouse SET id = ?, clan_name = ?, item_id = ?, item_name = ?, count = ?, is_equipped=0, enchantlvl = ?, is_id= ?, durability = ?, charge_count = ?, remaining_time = ?, last_used = ?, bless = ?, attr_enchant_kind = ?, attr_enchant_level = ?, m_def = ?, add_hp = ?, add_mp = ?, add_hpr = ?, add_mpr = ?, add_sp = ?, defense_water = ?, defense_wind = ?, defense_fire = ?, defense_earth = ?");
 			pstm.setInt(1, item.getId());
 			pstm.setString(2, _clan.getClanName());
 			pstm.setInt(3, item.getItemId());
@@ -143,7 +148,8 @@ public class L1DwarfForClanInventory extends L1Inventory {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE clan_warehouse SET count = ? WHERE id = ?");
+			pstm = con
+					.prepareStatement("UPDATE clan_warehouse SET count = ? WHERE id = ?");
 			pstm.setInt(1, item.getCount());
 			pstm.setInt(2, item.getId());
 			pstm.execute();
@@ -159,10 +165,11 @@ public class L1DwarfForClanInventory extends L1Inventory {
 	public synchronized void deleteItem(L1ItemInstance item) {
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM clan_warehouse WHERE id = ?");
+			pstm = con
+					.prepareStatement("DELETE FROM clan_warehouse WHERE id = ?");
 			pstm.setInt(1, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
@@ -180,7 +187,8 @@ public class L1DwarfForClanInventory extends L1Inventory {
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM clan_warehouse WHERE clan_name = ?");
+			pstm = con
+					.prepareStatement("DELETE FROM clan_warehouse WHERE clan_name = ?");
 			pstm.setString(1, _clan.getClanName());
 			pstm.execute();
 		} catch (SQLException e) {

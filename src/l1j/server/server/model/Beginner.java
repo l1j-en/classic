@@ -52,7 +52,8 @@ public class Beginner {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm1 = con.prepareStatement("SELECT * FROM beginner WHERE activate IN(?,?)");
+			pstm1 = con
+					.prepareStatement("SELECT * FROM beginner WHERE activate IN(?,?)");
 			pstm1.setString(1, "A");
 			if (pc.isCrown()) {
 				pstm1.setString(2, "P");
@@ -64,9 +65,9 @@ public class Beginner {
 				pstm1.setString(2, "W");
 			} else if (pc.isDarkelf()) {
 				pstm1.setString(2, "D");
-			} else if (pc.isDragonKnight()) { 
+			} else if (pc.isDragonKnight()) {
 				pstm1.setString(2, "R");
-			} else if (pc.isIllusionist()) { 
+			} else if (pc.isIllusionist()) {
 				pstm1.setString(2, "I");
 			} else {
 				pstm1.setString(2, "A");
@@ -75,7 +76,8 @@ public class Beginner {
 			while (rs.next()) {
 				PreparedStatement pstm2 = null;
 				try {
-					pstm2 = con.prepareStatement("INSERT INTO character_items SET id=?, item_id=?, char_id=?, item_name=?, count=?, is_equipped=?, enchantlvl=?, is_id=?, durability=?, charge_count=?, remaining_time=?, last_used=?, bless=?");
+					pstm2 = con
+							.prepareStatement("INSERT INTO character_items SET id=?, item_id=?, char_id=?, item_name=?, count=?, is_equipped=?, enchantlvl=?, is_id=?, durability=?, charge_count=?, remaining_time=?, last_used=?, bless=?");
 					pstm2.setInt(1, IdFactory.getInstance().nextId());
 					pstm2.setInt(2, rs.getInt("item_id"));
 					pstm2.setInt(3, pc.getId());

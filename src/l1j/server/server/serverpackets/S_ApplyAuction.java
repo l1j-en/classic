@@ -30,7 +30,8 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_ApplyAuction extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_ApplyAuction.class.getName());
+	private static Logger _log = Logger.getLogger(S_ApplyAuction.class
+			.getName());
 	private static final String S_APPLYAUCTION = "[S] S_ApplyAuction";
 	private byte[] _byte = null;
 
@@ -44,7 +45,8 @@ public class S_ApplyAuction extends ServerBasePacket {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
+			pstm = con
+					.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
 			int number = Integer.valueOf(houseNumber);
 			pstm.setInt(1, number);
 			rs = pstm.executeQuery();

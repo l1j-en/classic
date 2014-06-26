@@ -37,7 +37,7 @@ public class L1BossSpawn extends L1Spawn {
 	private static Random _rnd = new Random();
 	private int _spawnNumber;
 	private int _objectId;
-	
+
 	private class SpawnTask implements Runnable {
 
 		private SpawnTask(int spawnNumber, int objectId) {
@@ -57,7 +57,10 @@ public class L1BossSpawn extends L1Spawn {
 
 	/**
 	 * SpawnTask To start.
-	 * @param spawnNumber L1Spawn Which is administered by the numbers. Home to specify what point does not exist and it's good.
+	 * 
+	 * @param spawnNumber
+	 *            L1Spawn Which is administered by the numbers. Home to specify
+	 *            what point does not exist and it's good.
 	 */
 	@Override
 	public void executeSpawnTask(int spawnNumber, int objectId) {
@@ -67,16 +70,18 @@ public class L1BossSpawn extends L1Spawn {
 		}
 		// Last appearance time that the next time to calculate the emergence
 		Calendar spawnTime;
-		Calendar now = Calendar.getInstance(); 
-		Calendar latestStart = _cycle.getLatestStartTime(now); 
-		Calendar activeStart = _cycle.getSpawnStartTime(_activeSpawnTime); 
-		// Period of time and was active in the recent period started started the same time, the emergence of
+		Calendar now = Calendar.getInstance();
+		Calendar latestStart = _cycle.getLatestStartTime(now);
+		Calendar activeStart = _cycle.getSpawnStartTime(_activeSpawnTime);
+		// Period of time and was active in the recent period started started
+		// the same time, the emergence of
 		if (!activeStart.before(latestStart)) {
 			spawnTime = calcNextSpawnTime(activeStart);
 		} else {
 			// If different from the one before the emergence of a period of
 			latestStart.add(Calendar.SECOND, -1);
-			spawnTime = calcNextSpawnTime(_cycle.getLatestStartTime(latestStart));
+			spawnTime = calcNextSpawnTime(_cycle
+					.getLatestStartTime(latestStart));
 		}
 		spawnBoss(spawnTime, objectId);
 	}
@@ -134,20 +139,22 @@ public class L1BossSpawn extends L1Spawn {
 				adjustment = 2.5;
 			else if (adjustment < -2.5)
 				adjustment = -2.5;
-			delay = delay + (long) (delay * adjustment *
-				Config.RANDOMIZED_BOSS_SPAWN_FACTOR);
+			delay = delay
+					+ (long) (delay * adjustment * Config.RANDOMIZED_BOSS_SPAWN_FACTOR);
 		}
 		int cnt = _spawnCount;
 		_spawnCount = getAmount();
 		while (cnt < getAmount()) {
 			cnt++;
-			GeneralThreadPool.getInstance().schedule(new SpawnTask(0, objectId), delay);
+			GeneralThreadPool.getInstance().schedule(
+					new SpawnTask(0, objectId), delay);
 		}
 		_log.log(Level.FINE, toString());
 	}
 
 	/**
-	 * The boss of the current active period of time and appearance, respectively.
+	 * The boss of the current active period of time and appearance,
+	 * respectively.
 	 */
 	@Override
 	public String toString() {

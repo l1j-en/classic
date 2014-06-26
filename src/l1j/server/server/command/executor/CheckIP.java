@@ -22,10 +22,10 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
-
 public class CheckIP implements L1CommandExecutor {
 
-	private CheckIP() {}
+	private CheckIP() {
+	}
 
 	public static L1CommandExecutor getInstance() {
 		return new CheckIP();
@@ -40,10 +40,10 @@ public class CheckIP implements L1CommandExecutor {
 			user.sendPackets(new S_SystemMessage(".ipCheck <name>"));
 		}
 	}
-	
+
 	private void ipCheck(L1PcInstance gm, String name) {
 		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
-		if(target == null) {
+		if (target == null) {
 			gm.sendPackets(new S_SystemMessage(
 					".ipCheck doesn't work on offline players."));
 			return;
@@ -55,4 +55,3 @@ public class CheckIP implements L1CommandExecutor {
 		}
 	}
 }
-

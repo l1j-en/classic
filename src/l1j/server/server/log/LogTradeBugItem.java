@@ -32,9 +32,11 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogTradeBugItem {
-	private static Logger _log = Logger.getLogger(LogTradeBugItem.class.getName());
+	private static Logger _log = Logger.getLogger(LogTradeBugItem.class
+			.getName());
 
-	public void storeLogTradeBugItem(L1PcInstance pc, L1PcInstance target, L1ItemInstance item) {
+	public void storeLogTradeBugItem(L1PcInstance pc, L1PcInstance target,
+			L1ItemInstance item) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -42,7 +44,8 @@ public class LogTradeBugItem {
 			pstm = con
 					.prepareStatement("INSERT INTO LogTradeBugItem VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());

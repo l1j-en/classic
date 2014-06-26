@@ -32,10 +32,11 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogEnchantSuccess {
-	private static Logger _log = Logger.getLogger(LogEnchantSuccess.class.getName());
+	private static Logger _log = Logger.getLogger(LogEnchantSuccess.class
+			.getName());
 
-	public void storeLogEnchantSuccess(L1PcInstance pc, L1ItemInstance item, int oldEnchantLvl,
-			int newEnchantLvl, int enchantnum) {
+	public void storeLogEnchantSuccess(L1PcInstance pc, L1ItemInstance item,
+			int oldEnchantLvl, int newEnchantLvl, int enchantnum) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -43,7 +44,8 @@ public class LogEnchantSuccess {
 			pstm = con
 					.prepareStatement("INSERT INTO LogEnchantSuccess VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());
@@ -55,8 +57,8 @@ public class LogEnchantSuccess {
 			pstm.setInt(8, item.getCount());
 			pstm.setInt(9, oldEnchantLvl);
 			pstm.setInt(10, newEnchantLvl);
-			int enchantdiff = newEnchantLvl > oldEnchantLvl ? newEnchantLvl - oldEnchantLvl
-					: oldEnchantLvl - newEnchantLvl;
+			int enchantdiff = newEnchantLvl > oldEnchantLvl ? newEnchantLvl
+					- oldEnchantLvl : oldEnchantLvl - newEnchantLvl;
 			pstm.setInt(11, enchantdiff);
 			pstm.setInt(12, enchantnum);
 			pstm.execute();

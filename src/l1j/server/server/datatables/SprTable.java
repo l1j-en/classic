@@ -34,7 +34,7 @@ public class SprTable {
 	private static Logger _log = Logger.getLogger(SprTable.class.getName());
 	private static final HashMap<Integer, Spr> _dataMap = new HashMap<Integer, Spr>();
 	private static final SprTable _instance = new SprTable();
-	
+
 	private static class Spr {
 		private final HashMap<Integer, Integer> moveSpeed = new HashMap<Integer, Integer>();
 		private final HashMap<Integer, Integer> attackSpeed = new HashMap<Integer, Integer>();
@@ -119,7 +119,7 @@ public class SprTable {
 		}
 		_log.config("SPR entries " + _dataMap.size() + " loaded.");
 	}
-	
+
 	private int calcActionSpeed(int frameCount, int frameRate) {
 		return (int) (frameCount * 40 * (24D / frameRate));
 	}

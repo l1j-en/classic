@@ -232,8 +232,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (attacker instanceof L1PcInstance && damage > 0) {
 			L1PcInstance pc = (L1PcInstance) attacker;
-			if (pc.getType() == 2 && 
-					pc.getCurrentWeapon() == 0) {
+			if (pc.getType() == 2 && pc.getCurrentWeapon() == 0) {
 			} else {
 				if (getCurrentHp() > 0 && !isDead()) {
 					if (damage >= 0) {
@@ -334,8 +333,8 @@ public class L1GuardianInstance extends L1NpcInstance {
 				ArrayList<Integer> dropHateList = _dropHateList
 						.toHateArrayList();
 				try {
-					DropTable.getInstance().dropShare(_npc,
-							dropTargetList, dropHateList);
+					DropTable.getInstance().dropShare(_npc, dropTargetList,
+							dropHateList);
 				} catch (Exception e) {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}

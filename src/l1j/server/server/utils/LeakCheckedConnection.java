@@ -32,7 +32,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LeakCheckedConnection {
-	private static final Logger _log = Logger.getLogger(LeakCheckedConnection.class.getName());
+	private static final Logger _log = Logger
+			.getLogger(LeakCheckedConnection.class.getName());
 	private Connection _con;
 	private Throwable _stackTrace;
 	private Map<Statement, Throwable> _openedStatements = new HashMap<Statement, Throwable>();
@@ -124,6 +125,7 @@ public class LeakCheckedConnection {
 	private class Delegate implements InvocationHandler {
 		private Object _delegateProxy;
 		private Object _original;
+
 		Delegate(Object o, Class c) {
 			_original = o;
 			_delegateProxy = Proxy.newProxyInstance(c.getClassLoader(),

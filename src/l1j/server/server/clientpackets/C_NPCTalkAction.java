@@ -32,9 +32,11 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_NPCTalkAction extends ClientBasePacket {
 
 	private static final String C_NPC_TALK_ACTION = "[C] C_NPCTalkAction";
-	private static Logger _log = Logger.getLogger(C_NPCTalkAction.class.getName());
+	private static Logger _log = Logger.getLogger(C_NPCTalkAction.class
+			.getName());
 
-	public C_NPCTalkAction(byte decrypt[], ClientThread client) throws FileNotFoundException, Exception {
+	public C_NPCTalkAction(byte decrypt[], ClientThread client)
+			throws FileNotFoundException, Exception {
 		super(decrypt);
 		int objectId = readD();
 		String action = readS();

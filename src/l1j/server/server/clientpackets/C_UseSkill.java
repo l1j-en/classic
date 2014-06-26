@@ -61,12 +61,12 @@ public class C_UseSkill extends ClientBasePacket {
 		if (pc.isTeleport() || pc.isDead()) {
 			return;
 		}
-		
+
 		if (!pc.getMap().isUsableSkill()) {
 			pc.sendPackets(new S_ServerMessage(563));
 			return;
 		}
-		
+
 		if (!pc.isSkillMastery(skillId)) {
 			return;
 		}
@@ -75,9 +75,11 @@ public class C_UseSkill extends ClientBasePacket {
 			int result;
 			// FIXME dir/no dir
 			if (SkillTable.getInstance().findBySkillId(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
-				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_DIR);
+				result = pc.getAcceleratorChecker().checkInterval(
+						AcceleratorChecker.ACT_TYPE.SPELL_DIR);
 			} else {
-				result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
+				result = pc.getAcceleratorChecker().checkInterval(
+						AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
 			}
 			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				return;
@@ -88,12 +90,12 @@ public class C_UseSkill extends ClientBasePacket {
 			try {
 				if (skillId == CALL_CLAN || skillId == RUN_CLAN) {
 					charName = readS();
-				} else if (skillId == TRUE_TARGET) { 
+				} else if (skillId == TRUE_TARGET) {
 					targetId = readD();
 					targetX = readH();
 					targetY = readH();
 					message = readS();
-				} else if (skillId == TELEPORT || skillId == MASS_TELEPORT) { 
+				} else if (skillId == TELEPORT || skillId == MASS_TELEPORT) {
 					readH(); // MapID
 					targetId = readD(); // Bookmark ID
 				} else if (skillId == FIRE_WALL || skillId == LIFE_STREAM) {
@@ -105,20 +107,21 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 				}
 			} catch (Exception e) {
-				//_log.log(Level.SEVERE, "", e);
-				System.out.println("SKILL ERROR: skillid " + skillId + " has some sort of issue");
+				// _log.log(Level.SEVERE, "", e);
+				System.out.println("SKILL ERROR: skillid " + skillId
+						+ " has some sort of issue");
 			}
 		}
 
 		if (pc.isTeleport()) {
 			return;
 		}
-		
+
 		if (pc.isDead()) {
 			return;
 		}
 
-		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) { 
+		if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
 			pc.killSkillEffectTimer(ABSOLUTE_BARRIER);
 			pc.startHpRegeneration();
 			pc.startMpRegeneration();
@@ -127,18 +130,18 @@ public class C_UseSkill extends ClientBasePacket {
 		pc.killSkillEffectTimer(MEDITATION);
 
 		try {
-			if (skillId == CALL_CLAN || skillId == RUN_CLAN) { 
+			if (skillId == CALL_CLAN || skillId == RUN_CLAN) {
 				if (charName.isEmpty()) {
-				return;
+					return;
 				}
 
 				L1PcInstance target = L1World.getInstance().getPlayer(charName);
 
 				if (target == null) {
-					pc.sendPackets(new S_ServerMessage(73, charName)); 
+					pc.sendPackets(new S_ServerMessage(73, charName));
 					return;
 				}
-				
+
 				if (pc.getClanid() != target.getClanid()) {
 					pc.sendPackets(new S_ServerMessage(414));
 					return;
@@ -153,7 +156,8 @@ public class C_UseSkill extends ClientBasePacket {
 				}
 			}
 			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY, message, 0, L1SkillUse.TYPE_NORMAL);
+			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY,
+					message, 0, L1SkillUse.TYPE_NORMAL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

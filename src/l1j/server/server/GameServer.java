@@ -45,12 +45,12 @@ public class GameServer extends Thread {
 	private static final int CONNECTION_LIMIT = 6;
 	private static final int CACHE_REFRESH = 1000 * 60 * 4;
 	// Might be overkill, but hard to test. =\
-	private static final ConcurrentMap<String, Integer> connectionCache =
-		new ConcurrentHashMap<String, Integer>();
+	private static final ConcurrentMap<String, Integer> connectionCache = new ConcurrentHashMap<String, Integer>();
 
 	static {
 		GeneralThreadPool.getInstance().scheduleAtFixedRate(new Runnable() {
-			@Override public void run() {
+			@Override
+			public void run() {
 				connectionCache.clear();
 			}
 		}, CACHE_REFRESH, CACHE_REFRESH);
@@ -58,26 +58,29 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Server started. Memory used: " + SystemUtil.getUsedMemoryMB() + "MB");
+		System.out.println("Server started. Memory used: "
+				+ SystemUtil.getUsedMemoryMB() + "MB");
 		System.out.println("Waiting for connections!");
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
-				System.out.println("Accepted connection from IP: "+ socket.getInetAddress());
+				System.out.println("Accepted connection from IP: "
+						+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 
 				connectionCache.putIfAbsent(host, 1);
 				if (connectionCache.get(host) > CONNECTION_LIMIT) {
 					// Don't log in production, since that effectively
 					// recreates the DOS.
-					// _log.log(Level.WARNING, 
+					// _log.log(Level.WARNING,
 					// "GameServer::run: " + host + " hit connection limit.");
 				} else if (IpTable.getInstance().isBannedIp(host)) {
 					_log.info("Banned IP(" + host + ")");
 				} else {
 					ClientThread client = new ClientThread(socket);
 					GeneralThreadPool.getInstance().execute(client);
-					connectionCache.replace(host, connectionCache.get(host) + 1);
+					connectionCache
+							.replace(host, connectionCache.get(host) + 1);
 				}
 			} catch (IOException ioexception) {
 			}
@@ -109,7 +112,9 @@ public class GameServer extends Thread {
 			InetAddress inetaddress = InetAddress.getByName(s);
 			inetaddress.getHostAddress();
 			_serverSocket = new ServerSocket(_port, 50, inetaddress);
-			System.out.println("Login Server ready on "+(inetaddress == null ? "Port" : inetaddress.getHostAddress())+":"+_port); 
+			System.out.println("Login Server ready on "
+					+ (inetaddress == null ? "Port" : inetaddress
+							.getHostAddress()) + ":" + _port);
 		} else {
 			_serverSocket = new ServerSocket(_port);
 			System.out.println("Port " + _port + " opened");
@@ -117,7 +122,7 @@ public class GameServer extends Thread {
 		MpBugTest mpbug = new MpBugTest();
 		mpbug.initialize();
 		SkillTable.initialize();
-        GameServerThread.getInstance();
+		GameServerThread.getInstance();
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		this.start();
 	}
@@ -126,7 +131,8 @@ public class GameServer extends Thread {
 	 * All players online to kick, character and preservation of information.
 	 */
 	public void disconnectAllCharacters() {
-		Collection<L1PcInstance> players = L1World.getInstance().getAllPlayers();
+		Collection<L1PcInstance> players = L1World.getInstance()
+				.getAllPlayers();
 		for (L1PcInstance pc : players) {
 			pc.getNetConnection().setActiveChar(null);
 			pc.getNetConnection().kick();
@@ -154,11 +160,13 @@ public class GameServer extends Thread {
 				world.broadcastServerMessage("Repeat, the server is going down for maintenance soon!");
 				while (0 < secondsCount) {
 					if (secondsCount <= 10) {
-						world.broadcastServerMessage("Server will shutdown in " + secondsCount
-						+ " seconds.  Please get to a safe area and logout.");
+						world.broadcastServerMessage("Server will shutdown in "
+								+ secondsCount
+								+ " seconds.  Please get to a safe area and logout.");
 					} else {
 						if (secondsCount % 60 == 0) {
-							world.broadcastServerMessage("Server will shutdown in " + secondsCount / 60 + " minutes.");
+							world.broadcastServerMessage("Server will shutdown in "
+									+ secondsCount / 60 + " minutes.");
 						}
 					}
 					Thread.sleep(1000);

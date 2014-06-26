@@ -38,7 +38,7 @@ public class C_Exclude extends ClientBasePacket {
 		super(decrypt);
 		String name = readS();
 		if (name.isEmpty()) {
-		return;
+			return;
 		}
 		L1PcInstance pc = client.getActiveChar();
 		try {

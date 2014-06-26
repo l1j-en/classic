@@ -58,13 +58,13 @@ public class C_Rank extends ClientBasePacket {
 			return;
 		}
 
-		if (pc.isCrown()) { 
-			if (pc.getId() != clan.getLeaderId()) { 
-				pc.sendPackets(new S_ServerMessage(785)); 
+		if (pc.isCrown()) {
+			if (pc.getId() != clan.getLeaderId()) {
+				pc.sendPackets(new S_ServerMessage(785));
 				return;
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(518)); 
+			pc.sendPackets(new S_ServerMessage(518));
 			return;
 		}
 
@@ -86,11 +86,12 @@ public class C_Rank extends ClientBasePacket {
 					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 			} else {
-				pc.sendPackets(new S_ServerMessage(414)); 
+				pc.sendPackets(new S_ServerMessage(414));
 				return;
 			}
 		} else {
-			L1PcInstance restorePc = CharacterTable.getInstance().restoreCharacter(name);
+			L1PcInstance restorePc = CharacterTable.getInstance()
+					.restoreCharacter(name);
 			if (restorePc != null && restorePc.getClanid() == pc.getClanid()) {
 				try {
 					restorePc.setClanRank(rank);

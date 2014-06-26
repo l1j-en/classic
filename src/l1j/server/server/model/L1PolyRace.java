@@ -92,7 +92,8 @@ public class L1PolyRace {
 			return;
 		}
 		if (playerList.size() + orderList.size() >= maxPlayer) {
-			pc.sendPackets(new S_SystemMessage("Max amount of players reached for the polyrace"));
+			pc.sendPackets(new S_SystemMessage(
+					"Max amount of players reached for the polyrace"));
 			return;
 		}
 		if (getGameStatus() == STATUS_PLAYING || getGameStatus() == STATUS_END) {
@@ -149,7 +150,7 @@ public class L1PolyRace {
 
 		for (L1PcInstance pc : playerList) {
 			L1PolyMorph.doPoly(pc, basepoly, 3600, L1PolyMorph.MORPH_BY_NPC);
-			pc.setBasePoly(basepoly); //poly id
+			pc.setBasePoly(basepoly); // poly id
 			pc.sendPackets(new S_ServerMessage(1257));
 			pc.sendPackets(new S_Race(S_Race.GameStart));// 5.4.3.2.1.GO!
 			pc.sendPackets(new S_Race(maxLap, pc.getLap()));
@@ -255,7 +256,7 @@ public class L1PolyRace {
 				winner3.sendPackets(new S_ServerMessage(403, item3.getLogName()));
 			}
 		}
-		
+
 		int rnd1 = _random.nextInt(100) + 1;
 		int rnd2 = _random.nextInt(100) + 1;
 		int rnd3 = _random.nextInt(100) + 1;
@@ -290,7 +291,8 @@ public class L1PolyRace {
 		}
 		if (rnd3 >= 1 && rnd3 <= 40) {
 			int i = _random.nextInt(fragment.length);
-			L1ItemInstance item5 = ItemTable.getInstance().createItem(fragment[i]);
+			L1ItemInstance item5 = ItemTable.getInstance().createItem(
+					fragment[i]);
 			if (winner1.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
 				item4.setCount(1);
 				winner1.getInventory().storeItem(item5);
@@ -307,11 +309,13 @@ public class L1PolyRace {
 			}
 			if (rnd3 >= 1 && rnd3 <= 40) {
 				int i = _random.nextInt(fragment.length);
-				L1ItemInstance item5 = ItemTable.getInstance().createItem(fragment[i]);
+				L1ItemInstance item5 = ItemTable.getInstance().createItem(
+						fragment[i]);
 				if (winner2.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
 					item4.setCount(1);
 					winner2.getInventory().storeItem(item5);
-					winner2.sendPackets(new S_ServerMessage(403, item5.getLogName()));
+					winner2.sendPackets(new S_ServerMessage(403, item5
+							.getLogName()));
 				}
 			}
 		}
@@ -325,11 +329,13 @@ public class L1PolyRace {
 			}
 			if (rnd3 >= 1 && rnd3 <= 40) {
 				int i = _random.nextInt(fragment.length);
-				L1ItemInstance item5 = ItemTable.getInstance().createItem(fragment[i]);
+				L1ItemInstance item5 = ItemTable.getInstance().createItem(
+						fragment[i]);
 				if (winner3.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
 					item4.setCount(1);
 					winner3.getInventory().storeItem(item5);
-					winner3.sendPackets(new S_ServerMessage(403, item5.getLogName()));
+					winner3.sendPackets(new S_ServerMessage(403, item5
+							.getLogName()));
 				}
 			}
 		}
@@ -365,7 +371,7 @@ public class L1PolyRace {
 		goalList.clear();
 		clearTime();
 	}
-	
+
 	public void checkLeaveGame(L1PcInstance pc) {
 		if (pc.getMapId() == 5143) {
 			removePlayerList(pc);
@@ -604,6 +610,7 @@ public class L1PolyRace {
 	}
 
 	private int _status = 0;
+
 	public void setGameStatus(int i) {
 		_status = i;
 	}
@@ -613,6 +620,7 @@ public class L1PolyRace {
 	}
 
 	private int _time = 0;
+
 	private void clearTime() {
 		_time = 0;
 	}
@@ -622,6 +630,7 @@ public class L1PolyRace {
 	}
 
 	private L1PcInstance _winner = null;
+
 	public void setWinner(L1PcInstance pc) {
 		_winner = pc;
 	}
@@ -631,6 +640,7 @@ public class L1PolyRace {
 	}
 
 	private L1PcInstance _1stwinner = null;
+
 	public void set1stWinner(L1PcInstance pc) {
 		_1stwinner = pc;
 	}
@@ -640,6 +650,7 @@ public class L1PolyRace {
 	}
 
 	private L1PcInstance _2ndwinner = null;
+
 	public void set2ndWinner(L1PcInstance pc) {
 		_2ndwinner = pc;
 	}
@@ -649,6 +660,7 @@ public class L1PolyRace {
 	}
 
 	private L1PcInstance _3rdwinner = null;
+
 	public void set3rdWinner(L1PcInstance pc) {
 		_3rdwinner = pc;
 	}
@@ -670,6 +682,7 @@ public class L1PolyRace {
 	}
 
 	private GameTimeLimitTimer limitTimer;
+
 	private void startGameTimeLimitTimer() {
 		Timer timer = new Timer();
 		limitTimer = new GameTimeLimitTimer();
@@ -689,6 +702,7 @@ public class L1PolyRace {
 	}
 
 	private CompareTimer compareTimer;
+
 	private void startCompareTimer() {
 		Timer timer = new Timer();
 		compareTimer = new CompareTimer();

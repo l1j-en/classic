@@ -19,6 +19,7 @@
 package l1j.server.server.serverpackets;
 
 import l1j.server.server.encryptions.Opcodes;
+
 public class S_Door extends ServerBasePacket {
 	private static final String S_DOOR = "[S] S_Door";
 	private byte[] _byte = null;

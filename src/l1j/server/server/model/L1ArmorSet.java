@@ -36,24 +36,24 @@ public abstract class L1ArmorSet {
 
 		for (L1ArmorSets armorSets : ArmorSetTable.getInstance().getAllList()) {
 			try {
-				
+
 				impl = new L1ArmorSetImpl(getArray(armorSets.getSets(), ","));
 				if (armorSets.getPolyId() != -1) {
 					impl.addEffect(new PolymorphEffect(armorSets.getPolyId()));
 				}
 				impl.addEffect(new AcHpMpBonusEffect(armorSets.getAc(),
-						armorSets.getHp(), armorSets.getMp(),
-						armorSets.getHpr(), armorSets.getMpr(),
-						armorSets.getMr()));
+						armorSets.getHp(), armorSets.getMp(), armorSets
+								.getHpr(), armorSets.getMpr(), armorSets
+								.getMr()));
 				impl.addEffect(new StatBonusEffect(armorSets.getStr(),
-						armorSets.getDex(), armorSets.getCon(),
-						armorSets.getWis(), armorSets.getCha(),
-						armorSets.getIntl()));
+						armorSets.getDex(), armorSets.getCon(), armorSets
+								.getWis(), armorSets.getCha(), armorSets
+								.getIntl()));
 				impl.addEffect(new DefenseBonusEffect(armorSets
 						.getDefenseWater(), armorSets.getDefenseWind(),
-						armorSets.getDefenseFire(),armorSets.getDefenseWind()));
+						armorSets.getDefenseFire(), armorSets.getDefenseWind()));
 				_allSet.add(impl);
-			} catch(Exception ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -132,7 +132,6 @@ class L1ArmorSetImpl extends L1ArmorSet {
 		L1ItemInstance armor = null;
 		boolean isSetContainRing = false;
 
-
 		for (int id : _ids) {
 			armor = pcInventory.findItemId(id);
 			if (armor.getItem().getType2() == 2
@@ -141,7 +140,6 @@ class L1ArmorSetImpl extends L1ArmorSet {
 				break;
 			}
 		}
-
 
 		if (armor != null && isSetContainRing) {
 			int itemId = armor.getItem().getItemId();
@@ -277,8 +275,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 	@Override
 	public void giveEffect(L1PcInstance pc) {
 		int awakeSkillId = pc.getAwakeSkillId();
-		if (awakeSkillId == AWAKEN_ANTHARAS
-				|| awakeSkillId == AWAKEN_FAFURION
+		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
 			pc.sendPackets(new S_ServerMessage(1384));
 			return;
@@ -289,7 +286,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 			} else {
 				_gfxId = 6080;
 			}
-			if (!isRemainderOfCharge(pc)) { 
+			if (!isRemainderOfCharge(pc)) {
 				return;
 			}
 		}
@@ -299,10 +296,9 @@ class PolymorphEffect implements L1ArmorSetEffect {
 	@Override
 	public void cancelEffect(L1PcInstance pc) {
 		int awakeSkillId = pc.getAwakeSkillId();
-		if (awakeSkillId == AWAKEN_ANTHARAS
-				|| awakeSkillId == AWAKEN_FAFURION
+		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
-			pc.sendPackets(new S_ServerMessage(1384)); 
+			pc.sendPackets(new S_ServerMessage(1384));
 			return;
 		}
 		if (_gfxId == 6080) {
@@ -322,7 +318,7 @@ class PolymorphEffect implements L1ArmorSetEffect {
 			L1ItemInstance item = pc.getInventory().findItemId(20383);
 			if (item != null) {
 				if (item.getChargeCount() != 0) {
-					isRemainderOfCharge =true;
+					isRemainderOfCharge = true;
 				}
 			}
 		}

@@ -11,7 +11,8 @@ public class L1Panic extends L1BuffSkillExecutorImpl {
 	private static final int INT = 1;
 
 	@Override
-	public void addEffect(L1Character user, L1Character target, int durationSeconds) {
+	public void addEffect(L1Character user, L1Character target,
+			int durationSeconds) {
 		if (target instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) target;
 			pc.addStr(-STR);

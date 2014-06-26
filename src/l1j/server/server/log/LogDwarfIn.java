@@ -34,8 +34,8 @@ import l1j.server.server.utils.SQLUtil;
 public class LogDwarfIn {
 	private static Logger _log = Logger.getLogger(LogDwarfIn.class.getName());
 
-	public void storeLogDwarfIn(L1PcInstance pc, L1ItemInstance item, int item_count_before,
-			int item_count_after, int item_in_count) {
+	public void storeLogDwarfIn(L1PcInstance pc, L1ItemInstance item,
+			int item_count_before, int item_count_after, int item_in_count) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -43,7 +43,8 @@ public class LogDwarfIn {
 			pstm = con
 					.prepareStatement("INSERT INTO LogWareHouseIn VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(3, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());

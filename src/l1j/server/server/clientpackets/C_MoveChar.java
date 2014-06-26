@@ -47,7 +47,8 @@ public class C_MoveChar extends ClientBasePacket {
 	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
 
 	private void sendMapTileLog(L1PcInstance pc) {
-		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(pc.getLocation())));
+		pc.sendPackets(new S_SystemMessage(pc.getMap().toString(
+				pc.getLocation())));
 	}
 
 	public C_MoveChar(byte decrypt[], ClientThread client) throws Exception {
@@ -58,17 +59,19 @@ public class C_MoveChar extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 
-		if (pc.isTeleport()) { 
+		if (pc.isTeleport()) {
 			return;
 		}
 
 		if (Config.CHECK_MOVE_INTERVAL) {
 			int result;
-			result = pc.getAcceleratorChecker().checkInterval(AcceleratorChecker.ACT_TYPE.MOVE);
+			result = pc.getAcceleratorChecker().checkInterval(
+					AcceleratorChecker.ACT_TYPE.MOVE);
 			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				LogSpeedHack lsh = new LogSpeedHack();
 				lsh.storeLogSpeedHack(pc);
-				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5, false);
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
+						false);
 				return;
 			}
 		}
@@ -93,19 +96,19 @@ public class C_MoveChar extends ClientBasePacket {
 		if (Dungeon.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) {
 			return;
 		}
-		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) { 
+		if (DungeonRandom.getInstance().dg(locx, locy, pc.getMap().getId(), pc)) {
 			return;
 		}
 
 		// Esc bug fix. Don't remove.
 		L1Location oldLoc = pc.getLocation();
-		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx) || (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx))
-		{
+		if ((oldLoc.getX() + 10 < locx) || (oldLoc.getX() - 10 > locx)
+				|| (oldLoc.getY() + 10 < locy) || (oldLoc.getX() - 10 > locx)) {
 			return;
 		}
 		pc.getLocation().set(locx, locy);
 		pc.setHeading(heading);
-		
+
 		if (pc.isGmInvis() || pc.isGhost()) {
 		} else if (pc.isInvisble()) {
 			pc.broadcastPacketForFindInvis(new S_MoveCharPacket(pc), true);
@@ -113,12 +116,12 @@ public class C_MoveChar extends ClientBasePacket {
 			pc.broadcastPacket(new S_MoveCharPacket(pc));
 		}
 
-		// sendMapTileLog(pc); 
+		// sendMapTileLog(pc);
 		l1j.server.server.model.L1PolyRace.getInstance().checkLapFinish(pc);
 		L1WorldTraps.getInstance().onPlayerMoved(pc);
 
 		L1WorldTraps.getInstance().onPlayerMoved(pc);
 		pc.getMap().setPassable(pc.getLocation(), false);
-		// user.UpdateObject(); 
+		// user.UpdateObject();
 	}
 }

@@ -101,15 +101,15 @@ public class DropTable {
 
 	private String classCode(L1PcInstance pc) {
 		int i = pc.getClassId();
-		if(i == CLASSID_KNIGHT_MALE || i == CLASSID_KNIGHT_FEMALE) {
+		if (i == CLASSID_KNIGHT_MALE || i == CLASSID_KNIGHT_FEMALE) {
 			return "K";
-		} else if(i == CLASSID_ELF_MALE || i == CLASSID_ELF_FEMALE) {
+		} else if (i == CLASSID_ELF_MALE || i == CLASSID_ELF_FEMALE) {
 			return "E";
-		} else if(i == CLASSID_WIZARD_MALE || i == CLASSID_WIZARD_FEMALE) {
+		} else if (i == CLASSID_WIZARD_MALE || i == CLASSID_WIZARD_FEMALE) {
 			return "W";
-		} else if(i == CLASSID_DARK_ELF_MALE || i == CLASSID_DARK_ELF_FEMALE) {
+		} else if (i == CLASSID_DARK_ELF_MALE || i == CLASSID_DARK_ELF_FEMALE) {
 			return "D";
-		} else if(i == CLASSID_PRINCE || i == CLASSID_PRINCESS) {
+		} else if (i == CLASSID_PRINCE || i == CLASSID_PRINCESS) {
 			return "P";
 		} else {
 			return null;
@@ -182,22 +182,25 @@ public class DropTable {
 			}
 
 			randomChance = random.nextInt(0xf4240) + 1;
-			double rateOfMapId = MapsTable.getInstance().getDropRate(npc.getMapId());
+			double rateOfMapId = MapsTable.getInstance().getDropRate(
+					npc.getMapId());
 			double rateOfItem = DropItemTable.getInstance().getDropRate(itemId);
-			if (droprate == 0 || drop.getChance() * droprate * rateOfMapId * rateOfItem < randomChance) {
+			if (droprate == 0
+					|| drop.getChance() * droprate * rateOfMapId * rateOfItem < randomChance) {
 				continue;
 			}
-		
-			// Changed to prevent adena rates of >1 to always result in even numbers
+
+			// Changed to prevent adena rates of >1 to always result in even
+			// numbers
 			double amount = DropItemTable.getInstance().getDropAmount(itemId);
 			int min;
 			int max;
-			if(itemId == L1ItemId.ADENA) {
-				min = (int)(drop.getMin() * amount * adenarate);
-				max = (int)(drop.getMax() * amount * adenarate);
+			if (itemId == L1ItemId.ADENA) {
+				min = (int) (drop.getMin() * amount * adenarate);
+				max = (int) (drop.getMax() * amount * adenarate);
 			} else {
-				min = (int)(drop.getMin() * amount);
-				max = (int)(drop.getMax() * amount);
+				min = (int) (drop.getMin() * amount);
+				max = (int) (drop.getMax() * amount);
 			}
 			itemCount = min;
 			addCount = max - min + 1;
@@ -212,8 +215,8 @@ public class DropTable {
 			}
 			item = ItemTable.getInstance().createItem(itemId);
 			if (item == null) {
-				_log.log(Level.WARNING, String.format("DropTable::SetDrop: " +
-							"invalid item id %d for npc %d.", itemId, mobId));
+				_log.log(Level.WARNING, String.format("DropTable::SetDrop: "
+						+ "invalid item id %d for npc %d.", itemId, mobId));
 				continue;
 			}
 			item.setCount(itemCount);
@@ -221,7 +224,8 @@ public class DropTable {
 		}
 	}
 
-	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList, ArrayList hateList) {
+	public void dropShare(L1NpcInstance npc, ArrayList acquisitorList,
+			ArrayList hateList) {
 		L1Inventory inventory = npc.getInventory();
 		if (inventory.getSize() == 0) {
 			return;
@@ -233,7 +237,7 @@ public class DropTable {
 		L1Character acquisitor;
 		for (int i = hateList.size() - 1; i >= 0; i--) {
 			acquisitor = (L1Character) acquisitorList.get(i);
-			if ((Config.AUTO_LOOT == 2) 
+			if ((Config.AUTO_LOOT == 2)
 					&& (acquisitor instanceof L1SummonInstance || acquisitor instanceof L1PetInstance)) {
 				acquisitorList.remove(i);
 				hateList.remove(i);
@@ -264,7 +268,8 @@ public class DropTable {
 				item.setNowLighting(false);
 			}
 			item.setIdentified(false); // changed
-			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA) && totalHate > 0) {
+			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA)
+					&& totalHate > 0) {
 				randomInt = random.nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
@@ -272,7 +277,8 @@ public class DropTable {
 					if (chanceHate > randomInt) {
 						acquisitor = (L1Character) acquisitorList.get(j);
 						if (itemId >= 40131 && itemId <= 40135) {
-							if (!(acquisitor instanceof L1PcInstance) || hateList.size() > 1) {
+							if (!(acquisitor instanceof L1PcInstance)
+									|| hateList.size() > 1) {
 								targetInventory = null;
 								break;
 							}
@@ -282,13 +288,16 @@ public class DropTable {
 								break;
 							}
 						}
-						if (acquisitor.getInventory().checkAddItem(item, item.getCount()) == L1Inventory.OK) {
+						if (acquisitor.getInventory().checkAddItem(item,
+								item.getCount()) == L1Inventory.OK) {
 							targetInventory = acquisitor.getInventory();
 							if (acquisitor instanceof L1PcInstance) {
 								player = (L1PcInstance) acquisitor;
-								// added to exclude quest drops from invalid classes
-								if(_questDrops.containsKey(item.getItemId())) {
-									if(!classCode(player).equals(_questDrops.get(item.getItemId()))) {
+								// added to exclude quest drops from invalid
+								// classes
+								if (_questDrops.containsKey(item.getItemId())) {
+									if (!classCode(player).equals(
+											_questDrops.get(item.getItemId()))) {
 										inventory.deleteItem(item);
 										break;
 									}
@@ -307,18 +316,23 @@ public class DropTable {
 											"The limit of the itemcount is 2000000000"));
 								} else {
 									if (player.isInParty()) {
-										partyMember = player.getParty().getMembers();
+										partyMember = player.getParty()
+												.getMembers();
 										for (int p = 0; p < partyMember.length; p++) {
-											if(partyMember[p].getPartyDropMessages())
-												partyMember[p].sendPackets(
-														new S_ServerMessage(
-															813, npc.getName(),
-															item.getLogName(),
-															player.getName()));
+											if (partyMember[p]
+													.getPartyDropMessages())
+												partyMember[p]
+														.sendPackets(new S_ServerMessage(
+																813,
+																npc.getName(),
+																item.getLogName(),
+																player.getName()));
 										}
 									} else {
-										if (player.getDropMessages()) 
-											player.sendPackets(new S_ServerMessage(143, npc.getName(), item.getLogName()));
+										if (player.getDropMessages())
+											player.sendPackets(new S_ServerMessage(
+													143, npc.getName(), item
+															.getLogName()));
 									}
 								}
 							}
@@ -394,14 +408,14 @@ public class DropTable {
 					continue;
 				}
 			}
-			if(item != null) {
+			if (item != null) {
 				inventory.tradeItem(item, item.getCount(), targetInventory);
 			}
 		}
 		npc.turnOnOffLight();
 	}
 
-	public List<L1Drop> getDrops(int mobID) {//New for GMCommands
+	public List<L1Drop> getDrops(int mobID) {// New for GMCommands
 		return _droplists.get(mobID);
 	}
 }

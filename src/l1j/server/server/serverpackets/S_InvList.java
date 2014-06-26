@@ -28,6 +28,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 public class S_InvList extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_InvList.class.getName());
 	private static final String S_INV_LIST = "[S] S_InvList";
+
 	/**
 	 * Inventory items to add several at once.
 	 */

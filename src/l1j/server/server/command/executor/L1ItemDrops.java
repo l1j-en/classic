@@ -44,16 +44,14 @@ public class L1ItemDrops implements L1CommandExecutor {
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 
 		int dropID = 0;
-		try
-		{
-			dropID=Integer.parseInt(arg);
-		}
-		catch (NumberFormatException e)
-		{
+		try {
+			dropID = Integer.parseInt(arg);
+		} catch (NumberFormatException e) {
 			pc.sendPackets(new S_SystemMessage(".item itemID"));
 		}
-		if(dropID==40308) {
-			pc.sendPackets(new S_SystemMessage("Adena(40308) drops from almost everything"));
+		if (dropID == 40308) {
+			pc.sendPackets(new S_SystemMessage(
+					"Adena(40308) drops from almost everything"));
 		} else {
 			Connection con = null;
 			PreparedStatement pstm = null;
@@ -66,48 +64,51 @@ public class L1ItemDrops implements L1CommandExecutor {
 			try {
 				L1Item item = ItemTable.getInstance().getTemplate(dropID);
 				String blessed;
-				if(item.getBless() == 1){
+				if (item.getBless() == 1) {
 					blessed = "";
-				}
-				else if(item.getBless() == 0){
+				} else if (item.getBless() == 0) {
 					blessed = "\\fR";
-				}
-				else{
+				} else {
 					blessed = "\\fY";
 				}
 				con = L1DatabaseFactory.getInstance().getConnection();
-				pstm = con.prepareStatement("SELECT mobId,min,max,chance FROM droplist WHERE itemId=?");
+				pstm = con
+						.prepareStatement("SELECT mobId,min,max,chance FROM droplist WHERE itemId=?");
 				pstm.setInt(1, dropID);
 				rs = pstm.executeQuery();
 				rs.last();
-				int rows=rs.getRow();
+				int rows = rs.getRow();
 				mobID = new int[rows];
 				min = new int[rows];
 				max = new int[rows];
 				chance = new double[rows];
 				name = new String[rows];
 				rs.beforeFirst();
-				int i=0;
-				while(rs.next()) {
-					mobID[i]=rs.getInt("mobId");
-					min[i]=rs.getInt("min");
-					max[i]=rs.getInt("max");
-					chance[i]=rs.getInt("chance")/(double)10000;
+				int i = 0;
+				while (rs.next()) {
+					mobID[i] = rs.getInt("mobId");
+					min[i] = rs.getInt("min");
+					max[i] = rs.getInt("max");
+					chance[i] = rs.getInt("chance") / (double) 10000;
 					i++;
 				}
 				rs.close();
 				pstm.close();
-				pc.sendPackets(new S_SystemMessage(blessed+item.getName()+"("+dropID+") drops from:"));
-				for(int j=0; j<mobID.length; j++) {
-					pstm = con.prepareStatement("SELECT name FROM npc WHERE npcid=?");
+				pc.sendPackets(new S_SystemMessage(blessed + item.getName()
+						+ "(" + dropID + ") drops from:"));
+				for (int j = 0; j < mobID.length; j++) {
+					pstm = con
+							.prepareStatement("SELECT name FROM npc WHERE npcid=?");
 					pstm.setInt(1, mobID[j]);
 					rs = pstm.executeQuery();
-					while(rs.next()) {
-						name[j]=rs.getString("name");
+					while (rs.next()) {
+						name[j] = rs.getString("name");
 					}
 					rs.close();
 					pstm.close();
-					pc.sendPackets(new S_SystemMessage(min[j] + "-"+max[j] + " "+mobID[j] + " "+name[j] + " "+chance[j] + "%"));
+					pc.sendPackets(new S_SystemMessage(min[j] + "-" + max[j]
+							+ " " + mobID[j] + " " + name[j] + " " + chance[j]
+							+ "%"));
 				}
 			} catch (Exception e) {
 				pc.sendPackets(new S_SystemMessage(".item itemID"));

@@ -41,10 +41,11 @@ public class L1ToPC implements L1CommandExecutor {
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
 
 			if (target != null) {
-				L1Teleport.teleport(pc, target.getX(), target.getY(), target
-						.getMapId(), 5, false);
+				L1Teleport.teleport(pc, target.getX(), target.getY(),
+						target.getMapId(), 5, false);
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append("You appear next to ").append(arg).toString() + "."));
+						.append("You appear next to ").append(arg).toString()
+						+ "."));
 			} else {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
 						.append(arg).append(" is not online.").toString()));

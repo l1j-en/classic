@@ -27,12 +27,14 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket
 
 public class S_TradeAddItem extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_TradeAddItem.class.getName());
+	private static Logger _log = Logger.getLogger(S_TradeAddItem.class
+			.getName());
 	private static final String S_TRADE_ADD_ITEM = "[S] S_TradeAddItem";
 
 	public S_TradeAddItem(L1ItemInstance item, int count, int type) {
 		writeC(Opcodes.S_OPCODE_TRADEADDITEM);
-		writeC(type); // 0: The upper level of a window Trade: Trade window Lower Level
+		writeC(type); // 0: The upper level of a window Trade: Trade window
+						// Lower Level
 		writeH(item.getItem().getGfxId());
 		writeS(item.getNumberedViewName(count));
 		writeC(item.getBless());

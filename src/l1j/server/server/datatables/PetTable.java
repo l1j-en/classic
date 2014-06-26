@@ -40,7 +40,7 @@ public class PetTable {
 	private static PetTable _instance;
 	private final HashMap<Integer, L1Pet> _pets = new HashMap<Integer, L1Pet>();
 	private static Random _random = new Random();
-	
+
 	public static PetTable getInstance() {
 		if (_instance == null) {
 			_instance = new PetTable();
@@ -101,7 +101,8 @@ public class PetTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
+			pstm = con
+					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
@@ -126,7 +127,8 @@ public class PetTable {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,weapon=?,armor=? WHERE item_obj_id=?");
+			pstm = con
+					.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,weapon=?,armor=? WHERE item_obj_id=?");
 			pstm.setInt(1, pet.get_objid());
 			pstm.setInt(2, pet.get_npcid());
 			pstm.setString(3, pet.get_name());
@@ -178,13 +180,21 @@ public class PetTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT item_obj_id FROM pets WHERE LOWER(name)=?");
+			pstm = con
+					.prepareStatement("SELECT item_obj_id FROM pets WHERE LOWER(name)=?");
 			pstm.setString(1, nameLower);
 			rs = pstm.executeQuery();
 			if (!rs.next()) { // Do not have the same name
 				return false;
 			}
-			if (PetTypeTable.getInstance().isNameDefault(nameLower)) { // The default name is not regarded as duplicate
+			if (PetTypeTable.getInstance().isNameDefault(nameLower)) { // The
+																		// default
+																		// name
+																		// is
+																		// not
+																		// regarded
+																		// as
+																		// duplicate
 				return false;
 			}
 		} catch (SQLException e) {
@@ -196,7 +206,8 @@ public class PetTable {
 		}
 		return true;
 	}
-public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
+
+	public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
 			int lvExp) {
 		L1PetType petType = PetTypeTable.getInstance().get(petNpcId);
 		L1Pet l1pet = new L1Pet();
@@ -219,14 +230,15 @@ public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
 		l1pet.set_mp(randommp);
 		l1pet.set_exp(lvExp); // upLv EXP
 		l1pet.set_lawful(0);
-		//l1pet.set_food(50);
+		// l1pet.set_food(50);
 		_pets.put(new Integer(itemobjid), l1pet);
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?," +
-					"npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
+			pstm = con
+					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,"
+							+ "npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
@@ -236,7 +248,7 @@ public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
 			pstm.setInt(7, l1pet.get_mp());
 			pstm.setInt(8, l1pet.get_exp());
 			pstm.setInt(9, l1pet.get_lawful());
-			//pstm.setInt(10, l1pet.get_food());
+			// pstm.setInt(10, l1pet.get_food());
 			pstm.execute();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -246,6 +258,7 @@ public void buyNewPet(int petNpcId, int objid, int itemobjid, int upLv,
 
 		}
 	}
+
 	public L1Pet getTemplate(int itemobjid) {
 		return _pets.get(new Integer(itemobjid));
 	}

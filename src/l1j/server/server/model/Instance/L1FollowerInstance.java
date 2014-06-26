@@ -38,7 +38,8 @@ import l1j.server.server.templates.L1Npc;
 
 public class L1FollowerInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1FollowerInstance.class.getName());
+	private static Logger _log = Logger.getLogger(L1FollowerInstance.class
+			.getName());
 
 	@Override
 	public boolean noTarget(int depth) {
@@ -46,8 +47,8 @@ public class L1FollowerInstance extends L1NpcInstance {
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
 			if (object instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) object;
-				if (npc.getNpcTemplate().get_npcId() == 70740 
-						&& getNpcTemplate().get_npcId() == 71093) { 
+				if (npc.getNpcTemplate().get_npcId() == 70740
+						&& getNpcTemplate().get_npcId() == 71093) {
 					setParalyzed(true);
 					L1PcInstance pc = (L1PcInstance) _master;
 					if (!pc.getInventory().checkItem(40593)) {
@@ -55,8 +56,8 @@ public class L1FollowerInstance extends L1NpcInstance {
 					}
 					deleteMe();
 					return true;
-				} else if (npc.getNpcTemplate().get_npcId() == 70811 
-						&& getNpcTemplate().get_npcId() == 71094) { 
+				} else if (npc.getNpcTemplate().get_npcId() == 70811
+						&& getNpcTemplate().get_npcId() == 71094) {
 					setParalyzed(true);
 					L1PcInstance pc = (L1PcInstance) _master;
 					if (!pc.getInventory().checkItem(40582)) {
@@ -66,11 +67,12 @@ public class L1FollowerInstance extends L1NpcInstance {
 					return true;
 				} else if (npc.getNpcTemplate().get_npcId() == 71061
 						&& getNpcTemplate().get_npcId() == 71062) {
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32448 && pc.getX() <= 32452)
+					if (getLocation()
+							.getTileLineDistance(_master.getLocation()) < 3) {
+						L1PcInstance pc = (L1PcInstance) _master;
+						if ((pc.getX() >= 32448 && pc.getX() <= 32452)
 								&& (pc.getY() >= 33048 && pc.getY() <= 33052)
-								&& (pc.getMapId() == 440)) {						
+								&& (pc.getMapId() == 440)) {
 							setParalyzed(true);
 							if (!pc.getInventory().checkItem(40711)) {
 								createNewItem(pc, 40711, 1);
@@ -82,9 +84,10 @@ public class L1FollowerInstance extends L1NpcInstance {
 					}
 				} else if (npc.getNpcTemplate().get_npcId() == 71074
 						&& getNpcTemplate().get_npcId() == 71075) {
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3) {
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32731 && pc.getX() <= 32735) // 
+					if (getLocation()
+							.getTileLineDistance(_master.getLocation()) < 3) {
+						L1PcInstance pc = (L1PcInstance) _master;
+						if ((pc.getX() >= 32731 && pc.getX() <= 32735) //
 								&& (pc.getY() >= 32854 && pc.getY() <= 32858)
 								&& (pc.getMapId() == 480)) {
 							setParalyzed(true);
@@ -96,16 +99,17 @@ public class L1FollowerInstance extends L1NpcInstance {
 							return true;
 						}
 					}
-				} else if (npc.getNpcTemplate().get_npcId() == 70964 // 
-						&& getNpcTemplate().get_npcId() == 70957) { // 
-					if (getLocation().getTileLineDistance(_master.getLocation()) < 3){
-						L1PcInstance pc = (L1PcInstance) _master;	
-						if((pc.getX() >= 32917 && pc.getX() <= 32921) // 
+				} else if (npc.getNpcTemplate().get_npcId() == 70964 //
+						&& getNpcTemplate().get_npcId() == 70957) { //
+					if (getLocation()
+							.getTileLineDistance(_master.getLocation()) < 3) {
+						L1PcInstance pc = (L1PcInstance) _master;
+						if ((pc.getX() >= 32917 && pc.getX() <= 32921) //
 								&& (pc.getY() >= 32974 && pc.getY() <= 32978)
 								&& (pc.getMapId() == 410)) {
 							setParalyzed(true);
 							createNewItem(pc, 41003, 1);
-							pc.getQuest().set_step(L1Quest.QUEST_ROI, 0);					
+							pc.getQuest().set_step(L1Quest.QUEST_ROI, 0);
 							deleteMe();
 							return true;
 						}
@@ -114,8 +118,8 @@ public class L1FollowerInstance extends L1NpcInstance {
 			}
 		}
 
-		if (_master.isDead() || getLocation().getTileLineDistance(_master
-				.getLocation()) > 10) {
+		if (_master.isDead()
+				|| getLocation().getTileLineDistance(_master.getLocation()) > 10) {
 			setParalyzed(true);
 			spawn(getNpcTemplate().get_npcId(), getX(), getY(), getHeading(),
 					getMapId());
@@ -223,8 +227,9 @@ public class L1FollowerInstance extends L1NpcInstance {
 			if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 				pc.getInventory().storeItem(item);
 			} else {
-				L1World.getInstance().getInventory(pc.getX(), pc.getY(),
-						pc.getMapId()).storeItem(item);
+				L1World.getInstance()
+						.getInventory(pc.getX(), pc.getY(), pc.getMapId())
+						.storeItem(item);
 			}
 			pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
 		}
@@ -236,11 +241,13 @@ public class L1FollowerInstance extends L1NpcInstance {
 			L1NpcInstance mob = null;
 			try {
 				String implementationName = l1npc.getImpl();
-				Constructor _constructor = Class.forName((new StringBuilder())
-						.append("l1j.server.server.model.Instance.")
-						.append(implementationName).append("Instance")
-						.toString()).getConstructors()[0];
-				mob = (L1NpcInstance) _constructor.newInstance(new Object[] { l1npc });
+				Constructor _constructor = Class.forName(
+						(new StringBuilder())
+								.append("l1j.server.server.model.Instance.")
+								.append(implementationName).append("Instance")
+								.toString()).getConstructors()[0];
+				mob = (L1NpcInstance) _constructor
+						.newInstance(new Object[] { l1npc });
 				mob.setId(IdFactory.getInstance().nextId());
 				mob.setX(X);
 				mob.setY(Y);
@@ -254,7 +261,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 				L1QuestInstance newnpc = (L1QuestInstance) object;
 				newnpc.onNpcAI();
 				newnpc.turnOnOffLight();
-				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE); 
+				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

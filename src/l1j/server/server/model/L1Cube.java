@@ -148,14 +148,14 @@ public class L1Cube extends TimerTask {
 				mob.setParalyzed(true);
 			}
 		} else if (_skillId == STATUS_CUBE_SHOCK_TO_ENEMY) {
-// if (_timeCounter % 5 != 0) {
-// return;
-// }
-// _cha.addMr(-10);
-// if (_cha instanceof L1PcInstance) {
-// L1PcInstance pc = (L1PcInstance) _cha;
-// pc.sendPackets(new S_SPMR(pc));
-// }
+			// if (_timeCounter % 5 != 0) {
+			// return;
+			// }
+			// _cha.addMr(-10);
+			// if (_cha instanceof L1PcInstance) {
+			// L1PcInstance pc = (L1PcInstance) _cha;
+			// pc.sendPackets(new S_SPMR(pc));
+			// }
 			_cha.setSkillEffect(STATUS_MR_REDUCTION_BY_CUBE_SHOCK, 4000);
 		} else if (_skillId == STATUS_CUBE_BALANCE) {
 			if (_timeCounter % 4 == 0) {

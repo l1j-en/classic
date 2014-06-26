@@ -32,7 +32,7 @@ public class S_PetMenuPacket extends ServerBasePacket {
 
 	private void buildpacket(L1NpcInstance npc, int exppercet) {
 		writeC(Opcodes.S_OPCODE_SHOWHTML);
-		if (npc instanceof L1PetInstance) { 
+		if (npc instanceof L1PetInstance) {
 			L1PetInstance pet = (L1PetInstance) npc;
 			writeD(pet.getId());
 			writeS("anicom");
@@ -56,11 +56,12 @@ public class S_PetMenuPacket extends ServerBasePacket {
 				break;
 			}
 			writeS(Integer.toString(pet.getCurrentHp())); // Current HP
-			writeS(Integer.toString(pet.getMaxHp())); 
-			writeS(Integer.toString(pet.getCurrentMp())); 
-			writeS(Integer.toString(pet.getMaxMp())); 
-			writeS(Integer.toString(pet.getLevel())); 
-			writeS(""); // Pet's name to appear and become unstable, you want to hide
+			writeS(Integer.toString(pet.getMaxHp()));
+			writeS(Integer.toString(pet.getCurrentMp()));
+			writeS(Integer.toString(pet.getMaxMp()));
+			writeS(Integer.toString(pet.getLevel()));
+			writeS(""); // Pet's name to appear and become unstable, you want to
+						// hide
 			writeS("$611"); // Too much
 			writeS(Integer.toString(exppercet)); // exp
 			writeS(Integer.toString(pet.getLawful())); // Alignment
@@ -87,8 +88,8 @@ public class S_PetMenuPacket extends ServerBasePacket {
 				writeS("$471"); // break
 				break;
 			}
-			writeS(Integer.toString(summon.getCurrentHp())); 
-			writeS(Integer.toString(summon.getMaxHp())); 
+			writeS(Integer.toString(summon.getCurrentHp()));
+			writeS(Integer.toString(summon.getMaxHp()));
 			writeS(Integer.toString(summon.getCurrentMp()));
 			writeS(Integer.toString(summon.getMaxMp()));
 			writeS(Integer.toString(summon.getLevel()));

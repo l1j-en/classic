@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_CharTitle extends ServerBasePacket {
 	private static final String _S__0B_CHARTITLE = "[S] S_CharTitle";
-	
+
 	public S_CharTitle(int objid, String title) {
 		writeC(Opcodes.S_OPCODE_CHARTITLE);
 		writeD(objid);

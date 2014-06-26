@@ -27,27 +27,26 @@ import l1j.server.server.model.L1Attribute;
 class L1RoyalClassFeature extends L1ClassFeature {
 	@Override
 	public int getAcDefenseMax(int ac) {
-		if (Config.SOFT_AC)
-		{
+		if (Config.SOFT_AC) {
 			return ac / 3;
-		}
-		else
-		{
-			return ac / 2; 
+		} else {
+			return ac / 2;
 		}
 	}
 
-	@Override public int getMagicLevel(int playerLevel) {
+	@Override
+	public int getMagicLevel(int playerLevel) {
 		return Math.min(2, playerLevel / 10);
 	}
 
-	@Override public int getER(int level) {
+	@Override
+	public int getER(int level) {
 		return level / 8;
 	}
-	
-	@Override public Map<L1Attribute, Integer> getFixedStats() {
-		Map<L1Attribute, Integer> fixedStats =
-			new HashMap<L1Attribute, Integer>();
+
+	@Override
+	public Map<L1Attribute, Integer> getFixedStats() {
+		Map<L1Attribute, Integer> fixedStats = new HashMap<L1Attribute, Integer>();
 		fixedStats.put(L1Attribute.Str, 13);
 		fixedStats.put(L1Attribute.Dex, 10);
 		fixedStats.put(L1Attribute.Con, 10);
@@ -57,89 +56,109 @@ class L1RoyalClassFeature extends L1ClassFeature {
 		return fixedStats;
 	}
 
-	@Override public int getFloatingStats() {
+	@Override
+	public int getFloatingStats() {
 		return 8;
 	}
 
-	@Override public int getBaseMR() {
+	@Override
+	public int getBaseMR() {
 		return 10;
 	}
 
-	@Override public int getStartingHp() {
+	@Override
+	public int getStartingHp() {
 		return 14;
 	}
 
-	@Override public int getStartingMp(int wis) {
+	@Override
+	public int getStartingMp(int wis) {
 		return wis >= 16 ? 4 : wis >= 12 ? 3 : 2;
 	}
-	
-	@Override public int getOriginalHpBonus(int con) {
+
+	@Override
+	public int getOriginalHpBonus(int con) {
 		return con >= 16 ? 3 : con >= 14 ? 2 : con >= 12 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMpBonus(int wis) {
+	@Override
+	public int getOriginalMpBonus(int wis) {
 		return wis >= 17 ? 2 : wis >= 13 ? 1 : 0;
 	}
 
-	@Override public int getOriginalStrWeightReduction(int str) {
-		return str == 20 ? 
-			3 : str >= 17 ? 2 : str >= 14 ? 1 : 0; 
+	@Override
+	public int getOriginalStrWeightReduction(int str) {
+		return str == 20 ? 3 : str >= 17 ? 2 : str >= 14 ? 1 : 0;
 	}
 
-	@Override public int getOriginalConWeightReduction(int con) {
+	@Override
+	public int getOriginalConWeightReduction(int con) {
 		return con >= 11 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMeleeDamage(int str) {
+	@Override
+	public int getOriginalMeleeDamage(int str) {
 		return str >= 18 ? 2 : str >= 15 ? 1 : 0;
 	}
 
-	@Override public int getOriginalRangedDamage(int dex) {
+	@Override
+	public int getOriginalRangedDamage(int dex) {
 		return dex >= 13 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMeleeHit(int str) {
+	@Override
+	public int getOriginalMeleeHit(int str) {
 		return str >= 19 ? 2 : str >= 16 ? 1 : 0;
 	}
 
-	@Override public int getOriginalRangedHit(int dex) {
+	@Override
+	public int getOriginalRangedHit(int dex) {
 		return 0;
 	}
 
-	@Override public int getOriginalMR(int wis) {
+	@Override
+	public int getOriginalMR(int wis) {
 		return wis >= 14 ? 2 : wis >= 12 ? 1 : 0;
 	}
 
-	@Override public int getOriginalER(int dex) {
+	@Override
+	public int getOriginalER(int dex) {
 		return dex == 18 ? 3 : dex >= 16 ? 2 : dex >= 14 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicHit(int intel) {
+	@Override
+	public int getOriginalMagicHit(int intel) {
 		return intel >= 14 ? 2 : intel >= 12 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicCrit(int intel) {
+	@Override
+	public int getOriginalMagicCrit(int intel) {
 		return 0;
 	}
 
-	@Override public int getOriginalMpReduction(int intel) {
+	@Override
+	public int getOriginalMpReduction(int intel) {
 		return intel >= 13 ? 2 : intel >= 11 ? 1 : 0;
 	}
 
-	@Override public int getOriginalMagicDamage(int intel) {
+	@Override
+	public int getOriginalMagicDamage(int intel) {
 		return 0;
 	}
 
-	@Override public int getOriginalAC(int dex) {
+	@Override
+	public int getOriginalAC(int dex) {
 		return dex >= 17 ? 3 : dex >= 15 ? 2 : dex >= 12 ? 1 : 0;
 	}
 
-	@Override public int getOriginalHpRegen(int con) {
-		return con == 18 ? 4 : con == 17 ? 3 : con >= 15 ? 2 
-			: con >= 13 ? 1 : 0;
+	@Override
+	public int getOriginalHpRegen(int con) {
+		return con == 18 ? 4 : con == 17 ? 3 : con >= 15 ? 2 : con >= 13 ? 1
+				: 0;
 	}
 
-	@Override public int getOriginalMpRegen(int wis) {
+	@Override
+	public int getOriginalMpRegen(int wis) {
 		return wis >= 15 ? 2 : wis >= 13 ? 1 : 0;
 	}
 }

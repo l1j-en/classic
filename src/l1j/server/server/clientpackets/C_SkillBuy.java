@@ -31,14 +31,15 @@ public class C_SkillBuy extends ClientBasePacket {
 	private static final String C_SKILL_BUY = "[C] C_SkillBuy";
 	private static Logger _log = Logger.getLogger(C_SkillBuy.class.getName());
 
-	public C_SkillBuy(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_SkillBuy(byte abyte0[], ClientThread clientthread)
+			throws Exception {
 		super(abyte0);
 
 		int i = readD();
 
 		L1PcInstance pc = clientthread.getActiveChar();
 		if (pc.isGhost()) {
-		return;
+			return;
 		}
 		pc.sendPackets(new S_SkillBuy(i, pc));
 	}

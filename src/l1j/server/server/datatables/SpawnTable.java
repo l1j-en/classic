@@ -55,7 +55,8 @@ public class SpawnTable {
 		System.out.print("Spawning Mob...");
 		fillSpawnTable();
 		_log.config("Monster placement list: " + _spawntable.size() + " Loaded");
-		System.out.println("           OK!     " + timer.elapsedTimeMillis() + "ms");
+		System.out.println("           OK!     " + timer.elapsedTimeMillis()
+				+ "ms");
 	}
 
 	private void fillSpawnTable() {
@@ -79,16 +80,19 @@ public class SpawnTable {
 				int npcTemplateId = rs.getInt("npc_templateid");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				int count;
-				
+
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId + " missing in npc table");
+					_log.warning("mob data for id:" + npcTemplateId
+							+ " missing in npc table");
 					spawnDat = null;
 				} else {
 					if (rs.getInt("count") == 0) {
 						continue;
 					}
-					double amount_rate = MapsTable.getInstance().getMonsterAmount(rs.getShort("mapid"));
-					count = calcCount(template1, rs.getInt("count"), amount_rate);
+					double amount_rate = MapsTable.getInstance()
+							.getMonsterAmount(rs.getShort("mapid"));
+					count = calcCount(template1, rs.getInt("count"),
+							amount_rate);
 					if (count == 0) {
 						continue;
 					}
@@ -117,10 +121,10 @@ public class SpawnTable {
 					spawnDat.setSpawnHomeCount(rs.getInt("spawn_home_count"));
 					spawnDat.setSpawnHomeDelay(rs.getInt("spawn_home_delay"));
 
-
 					spawnDat.setName(template1.get_name());
 					if (count > 1 && spawnDat.getLocX1() == 0) {
-						// And multiple fixed spawn, the population range from 6 to spawn change.
+						// And multiple fixed spawn, the population range from 6
+						// to spawn change.
 						// But not exceed the range of 30 to
 						int range = Math.min(count * 6, 30);
 						spawnDat.setLocX1(spawnDat.getLocX() - range);
@@ -138,7 +142,7 @@ public class SpawnTable {
 			}
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			} finally {
+		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -166,7 +170,8 @@ public class SpawnTable {
 			int maxRespawnDelay = 120;
 			String note = npc.get_name();
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO spawnlist SET location=?,count=?,npc_templateid=?,group_id=?,locx=?,locy=?,randomx=?,randomy=?,heading=?,min_respawn_delay=?,max_respawn_delay=?,mapid=?");
+			pstm = con
+					.prepareStatement("INSERT INTO spawnlist SET location=?,count=?,npc_templateid=?,group_id=?,locx=?,locy=?,randomx=?,randomy=?,heading=?,min_respawn_delay=?,max_respawn_delay=?,mapid=?");
 			pstm.setString(1, note);
 			pstm.setInt(2, count);
 			pstm.setInt(3, npc.get_npcId());

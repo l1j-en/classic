@@ -52,9 +52,9 @@ public class S_Mail extends ServerBasePacket {
 			L1Mail mail = mails.get(i);
 			writeD(mail.getId());
 			writeC(mail.getReadStatus());
-			StringTokenizer st = new StringTokenizer(mail.getDate(),"/"); // yy/mm/dd
+			StringTokenizer st = new StringTokenizer(mail.getDate(), "/"); // yy/mm/dd
 			int size = st.countTokens();
-			for (int j = 0;j < size; j++) {
+			for (int j = 0; j < size; j++) {
 				// XXX writeC(Year) writeC(Month) writeC(Day)
 				writeC(Integer.parseInt(st.nextToken()));
 			}
@@ -68,7 +68,7 @@ public class S_Mail extends ServerBasePacket {
 		writeC(type);
 	}
 
-	public S_Mail(int mailId,int type) {
+	public S_Mail(int mailId, int type) {
 		if (type == 0x30 || type == 0x31 || type == 0x32 || type == 0x40) {
 			writeC(Opcodes.S_OPCODE_MAIL);
 			writeC(type);

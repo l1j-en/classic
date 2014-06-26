@@ -24,9 +24,10 @@ import l1j.server.server.types.Point;
 
 public class S_EffectLocation extends ServerBasePacket {
 	private byte[] _byte = null;
+
 	/**
 	 * The effects to show the position to build a packet.
-	 *
+	 * 
 	 * @Param pt effect to show the position
 	 * @Param gfxId show the effects of ID
 	 */

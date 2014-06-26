@@ -60,7 +60,7 @@ public class L1BanIp implements L1CommandExecutor {
 			}
 
 			if ("add".equals(s2) && !isBanned) {
-				iptable.banIp(s1); 
+				iptable.banIp(s1);
 				String msg = new StringBuilder().append(" IP: ").append(s1)
 						.append(" has been banned.").toString();
 				pc.sendPackets(new S_SystemMessage(msg));
@@ -71,7 +71,7 @@ public class L1BanIp implements L1CommandExecutor {
 					pc.sendPackets(new S_SystemMessage(msg));
 				}
 			} else {
-				
+
 				if (isBanned) {
 					String msg = new StringBuilder().append(" IP: ").append(s1)
 							.append(" BAN ").toString();
@@ -83,8 +83,7 @@ public class L1BanIp implements L1CommandExecutor {
 				}
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName
-					+ " IP [ add | del ]"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " IP [ add | del ]"));
 		}
 	}
 }

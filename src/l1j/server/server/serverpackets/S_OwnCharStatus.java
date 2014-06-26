@@ -27,7 +27,8 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_OwnCharStatus extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class.getName());
+	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class
+			.getName());
 	private static final String S_OWB_CHAR_STATUS = "[S] S_OwnCharStatus";
 	private byte[] _byte = null;
 

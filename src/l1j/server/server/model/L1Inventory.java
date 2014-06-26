@@ -48,7 +48,7 @@ public class L1Inventory extends L1Object {
 	public static final int AMOUNT_OVER = 3;
 	public static final int WAREHOUSE_TYPE_PERSONAL = 0;
 	public static final int WAREHOUSE_TYPE_CLAN = 1;
-	
+
 	public L1Inventory() {
 	}
 
@@ -77,14 +77,15 @@ public class L1Inventory extends L1Object {
 		}
 		if (getSize() > Config.MAX_NPC_ITEM
 				|| (getSize() == Config.MAX_NPC_ITEM && (!item.isStackable() || !checkItem(item
-						.getItem().getItemId())))) { 
+						.getItem().getItemId())))) {
 			return SIZE_OVER;
 		}
-		int weight = getWeight() + item.getItem().getWeight() * count / 1000 + 1;
+		int weight = getWeight() + item.getItem().getWeight() * count / 1000
+				+ 1;
 		if (weight < 0 || (item.getItem().getWeight() * count / 1000) < 0) {
 			return WEIGHT_OVER;
 		}
-		if (weight > (MAX_WEIGHT * Config.RATE_WEIGHT_LIMIT_PET)) { 
+		if (weight > (MAX_WEIGHT * Config.RATE_WEIGHT_LIMIT_PET)) {
 			return WEIGHT_OVER;
 		}
 		L1ItemInstance itemExist = findItemId(item.getItemId());
@@ -194,7 +195,7 @@ public class L1Inventory extends L1Object {
 		item.setX(getX());
 		item.setY(getY());
 		item.setMap(getMapId());
-		
+
 		_items.add(item);
 		insertItem(item);
 		return item;
@@ -256,16 +257,16 @@ public class L1Inventory extends L1Object {
 		}
 		if (item.getCount() == count) {
 			int itemId = item.getItem().getItemId();
-			if (itemId == 40314 || itemId == 40316) { 
+			if (itemId == 40314 || itemId == 40316) {
 				PetTable.getInstance().deletePet(item.getId());
-			} else if (itemId >= 49016 && itemId <= 49025) { 
+			} else if (itemId >= 49016 && itemId <= 49025) {
 				LetterTable lettertable = new LetterTable();
 				lettertable.deleteLetter(item.getId());
-			} else if (itemId >= 41383 && itemId <= 41400) { 
+			} else if (itemId >= 41383 && itemId <= 41400) {
 				for (L1Object l1object : L1World.getInstance().getObject()) {
 					if (l1object instanceof L1FurnitureInstance) {
 						L1FurnitureInstance furniture = (L1FurnitureInstance) l1object;
-						if (furniture.getItemObjId() == item.getId()) { 
+						if (furniture.getItemObjId() == item.getId()) {
 							FurnitureSpawnTable.getInstance().deleteFurniture(
 									furniture);
 						}
@@ -342,7 +343,7 @@ public class L1Inventory extends L1Object {
 		if (item == null) {
 			return null;
 		}
-		
+
 		if ((currentDurability == 0 && itemType == 0) || currentDurability < 0) {
 			item.set_durability(0);
 			return null;
@@ -456,11 +457,11 @@ public class L1Inventory extends L1Object {
 	public boolean checkEnchantItem(int id, int enchant, int count) {
 		int num = 0;
 		for (L1ItemInstance item : _items) {
-			if (item.isEquipped()) { 
+			if (item.isEquipped()) {
 				continue;
 			}
 			if (item.getItemId() == id && item.getEnchantLevel() == enchant) {
-				num ++;
+				num++;
 				if (num == count) {
 					return true;
 				}
@@ -468,10 +469,10 @@ public class L1Inventory extends L1Object {
 		}
 		return false;
 	}
-	
+
 	public boolean consumeEnchantItem(int id, int enchant, int count) {
 		for (L1ItemInstance item : _items) {
-			if (item.isEquipped()) { 
+			if (item.isEquipped()) {
 				continue;
 			}
 			if (item.getItemId() == id && item.getEnchantLevel() == enchant) {

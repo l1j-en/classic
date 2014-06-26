@@ -34,8 +34,8 @@ import l1j.server.server.utils.SQLUtil;
 public class LogShopBuy {
 	private static Logger _log = Logger.getLogger(LogShopBuy.class.getName());
 
-	public void storeLogShopBuy(L1PcInstance pc, L1ItemInstance item, int cnt, int adenabefore,
-			int adenaafter, int itemprice) {
+	public void storeLogShopBuy(L1PcInstance pc, L1ItemInstance item, int cnt,
+			int adenabefore, int adenaafter, int itemprice) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
@@ -43,7 +43,8 @@ public class LogShopBuy {
 			pstm = con
 					.prepareStatement("INSERT INTO LogShopBuy VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			String fm = formatter.format(time.getTime());
 			pstm.setString(1, fm);
 			pstm.setString(2, pc.getNetConnection().getIp());

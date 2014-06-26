@@ -44,8 +44,8 @@ public class L1FindInvis implements L1CommandExecutor {
 			pc.updateObject();
 		} else if (arg.equalsIgnoreCase("off")) {
 			pc.removeSkillEffect(GMSTATUS_FINDINVIS);
-			for (L1PcInstance visible : L1World.getInstance()
-					.getVisiblePlayer(pc)) {
+			for (L1PcInstance visible : L1World.getInstance().getVisiblePlayer(
+					pc)) {
 				if (visible.isInvisble()) {
 					pc.sendPackets(new S_RemoveObject(visible));
 				}

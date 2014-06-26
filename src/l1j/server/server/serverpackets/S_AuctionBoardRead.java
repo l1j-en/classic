@@ -35,7 +35,8 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_AuctionBoardRead extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_AuctionBoardRead.class.getName());
+	private static Logger _log = Logger.getLogger(S_AuctionBoardRead.class
+			.getName());
 	private static final String S_AUCTIONBOARDREAD = "[S] S_AuctionBoardRead";
 	private byte[] _byte = null;
 
@@ -50,27 +51,28 @@ public class S_AuctionBoardRead extends ServerBasePacket {
 		try {
 			int number = Integer.valueOf(house_number);
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
+			pstm = con
+					.prepareStatement("SELECT * FROM board_auction WHERE house_id=?");
 			pstm.setInt(1, number);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				writeC(Opcodes.S_OPCODE_SHOWHTML);
 				writeD(objectId);
 				writeS("agsel");
-				writeS(house_number); 
-				writeH(9); 
-				writeS(rs.getString(2)); 
-				writeS(rs.getString(6)); 
-				writeS(String.valueOf(rs.getString(3))); 
-				writeS(rs.getString(7)); 
-				writeS(rs.getString(9)); 
-				writeS(String.valueOf(rs.getInt(5))); 
+				writeS(house_number);
+				writeH(9);
+				writeS(rs.getString(2));
+				writeS(rs.getString(6));
+				writeS(String.valueOf(rs.getString(3)));
+				writeS(rs.getString(7));
+				writeS(rs.getString(9));
+				writeS(String.valueOf(rs.getInt(5)));
 				Calendar cal = timestampToCalendar((Timestamp) rs.getObject(4));
 				int month = cal.get(Calendar.MONTH) + 1;
 				int day = cal.get(Calendar.DATE);
 				int hour = cal.get(Calendar.HOUR_OF_DAY);
 				writeS(String.valueOf(month));
-				writeS(String.valueOf(day)); 
+				writeS(String.valueOf(day));
 				writeS(String.valueOf(hour));
 			}
 		} catch (SQLException e) {

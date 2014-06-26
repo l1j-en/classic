@@ -32,10 +32,10 @@ import l1j.server.server.model.skill.L1SkillId;
 // ServerBasePacket
 public class S_UseAttackSkill extends ServerBasePacket {
 	private static final String S_USE_ATTACK_SKILL = "[S] S_UseAttackSkill";
-	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class.getName());
+	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class
+			.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
-
 
 	public S_UseAttackSkill(L1Character cha, int targetobj, int spellgfx,
 			int x, int y, int actionId) {
@@ -55,7 +55,7 @@ public class S_UseAttackSkill extends ServerBasePacket {
 	private void buildPacket(L1Character cha, int targetobj, int spellgfx,
 			int x, int y, int actionId, int isHit, boolean withCastMotion) {
 		if (cha instanceof L1PcInstance) {
-			// Shadow system transforms into a magic during the attack and 
+			// Shadow system transforms into a magic during the attack and
 			// the client to use a provisional to fall into the corresponding
 			if (cha.hasSkillEffect(L1SkillId.SHAPE_CHANGE)
 					&& actionId == ActionCodes.ACTION_SkillAttack) {
@@ -63,14 +63,16 @@ public class S_UseAttackSkill extends ServerBasePacket {
 				if (tempchargfx == 5727 || tempchargfx == 5730) {
 					actionId = ActionCodes.ACTION_SkillBuff;
 				} else if (tempchargfx == 5733 || tempchargfx == 5736) {
-					// Auxiliary and the magic of motion graphics and magic attacks
+					// Auxiliary and the magic of motion graphics and magic
+					// attacks
 					// Damage to the motion is occurring because
 					// Attack as a substitute motion
 					actionId = ActionCodes.ACTION_Attack;
 				}
 			}
 		}
-		// Salamander's main attack is the default graphics magic is not forced to replace
+		// Salamander's main attack is the default graphics magic is not forced
+		// to replace
 		// Elsewhere it is better managed?
 		if (cha.getTempCharGfx() == 4013) {
 			actionId = ActionCodes.ACTION_Attack;

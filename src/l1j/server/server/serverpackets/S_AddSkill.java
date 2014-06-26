@@ -56,10 +56,10 @@ public class S_AddSkill extends ServerBasePacket {
 	}
 
 	public S_AddSkill(int level1, int level2, int level3, int level4,
-		int level5, int level6, int level7, int level8, int level9,
-		int level10, int knight, int l2, int de1, int de2, int royal,
-		int l3, int elf1, int elf2, int elf3, int elf4, int elf5, int elf6,
-		int k5, int l5, int m5, int n5, int o5, int p5) {
+			int level5, int level6, int level7, int level8, int level9,
+			int level10, int knight, int l2, int de1, int de2, int royal,
+			int l3, int elf1, int elf2, int elf3, int elf4, int elf5, int elf6,
+			int k5, int l5, int m5, int n5, int o5, int p5) {
 		int i6 = level5 + level6 + level7 + level8;
 		int j6 = level9 + level10;
 		writeC(Opcodes.S_OPCODE_ADDSKILL);

@@ -23,8 +23,9 @@ public class L1Jail implements L1CommandExecutor {
 			L1PcInstance convict = L1World.getInstance().getPlayer(arg);
 
 			if (convict != null) {
-				L1Teleport.teleport(convict , 32737, 32796, (short) 99, 5, true);
-				convict.sendPackets(new S_SystemMessage(pc.getName()+" jailed you for bad behavior."));
+				L1Teleport.teleport(convict, 32737, 32796, (short) 99, 5, true);
+				convict.sendPackets(new S_SystemMessage(pc.getName()
+						+ " jailed you for bad behavior."));
 				pc.sendPackets(new S_SystemMessage(arg + " has been jailed."));
 			} else {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())

@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.GameServer;
 import l1j.server.telnet.TelnetServer;
+
 /**
  * l1j-En
  */
@@ -42,7 +43,8 @@ public class Server {
 		logFolder.mkdir();
 
 		try {
-			InputStream is = new BufferedInputStream(new FileInputStream(LOG_PROP));
+			InputStream is = new BufferedInputStream(new FileInputStream(
+					LOG_PROP));
 			LogManager.getLogManager().readConfiguration(is);
 			is.close();
 		} catch (IOException e) {
@@ -58,21 +60,18 @@ public class Server {
 
 		// L1DatabaseFactory
 		L1DatabaseFactory.setDatabaseSettings(Config.DB_DRIVER, Config.DB_URL,
-		Config.DB_LOGIN, Config.DB_PASSWORD);
+				Config.DB_LOGIN, Config.DB_PASSWORD);
 		L1DatabaseFactory.getInstance();
 
 		// Intialize GameServer
 		GameServer.getInstance().initialize();
-		
+
 		// Telent Server
-		if ( Config.TELNET_SERVER )
-		{
+		if (Config.TELNET_SERVER) {
 			TelnetServer.getInstance().start();
 			System.out.println("Telnet server initialized.");
-		}
-		else
-		{
-		    _log.info("Telnet server is currently disabled.");
+		} else {
+			_log.info("Telnet server is currently disabled.");
 		}
 	}
 }

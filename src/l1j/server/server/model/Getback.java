@@ -50,7 +50,7 @@ public class Getback {
 	private int _getbackTownId;
 	private int _getbackTownIdForElf;
 	private int _getbackTownIdForDarkelf;
-	private boolean _escapable; 
+	private boolean _escapable;
 
 	private Getback() {
 	}
@@ -138,9 +138,11 @@ public class Getback {
 
 			// town_id
 			if (pc.isElf() && getback._getbackTownIdForElf > 0) {
-				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForElf);
+				loc = L1TownLocation
+						.getGetBackLoc(getback._getbackTownIdForElf);
 			} else if (pc.isDarkelf() && getback._getbackTownIdForDarkelf > 0) {
-				loc = L1TownLocation.getGetBackLoc(getback._getbackTownIdForDarkelf);
+				loc = L1TownLocation
+						.getGetBackLoc(getback._getbackTownIdForDarkelf);
 			} else if (getback._getbackTownId > 0) {
 				loc = L1TownLocation.getGetBackLoc(getback._getbackTownId);
 			}

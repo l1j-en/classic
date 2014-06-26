@@ -66,8 +66,7 @@ public class L1Summon implements L1CommandExecutor {
 			pc.sendPackets(new S_SystemMessage(nameid + "(ID:" + npcid + ") ("
 					+ count + ") B"));
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName
-					+ " npcid|name [] B"));
+			pc.sendPackets(new S_SystemMessage(cmdName + " npcid|name [] B"));
 		}
 	}
 }

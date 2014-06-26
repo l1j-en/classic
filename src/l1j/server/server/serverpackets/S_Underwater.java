@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_Underwater extends ServerBasePacket {
 	private static final String _S__19_UNDERWATER = "[S] S_Underwater";
-	
+
 	public S_Underwater(int playerobjecId, int type) {
 		writeC(Opcodes.S_OPCODE_UNDERWATER);
 		writeD(playerobjecId);

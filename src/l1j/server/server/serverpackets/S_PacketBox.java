@@ -36,7 +36,8 @@ public class S_PacketBox extends ServerBasePacket {
 
 	// *** S_107 sub code list ***
 
-	// 1:Kent 2:Orc 3:WW 4:Giran 5:Heine 6:Dwarf 7:Aden 8:Diad 9:Castle name 9 ...
+	// 1:Kent 2:Orc 3:WW 4:Giran 5:Heine 6:Dwarf 7:Aden 8:Diad 9:Castle name 9
+	// ...
 	// C(id): %s The siege warfare began.
 	public static final int MSG_WAR_BEGIN = 0;
 
@@ -58,7 +59,8 @@ public class S_PacketBox extends ServerBasePacket {
 	// C(count): SMSSend failed. /% D total of 649 cases have been sent.
 	public static final int MSG_SMS_SENT = 6;
 
-	// -: During the blessing, the two joined together as husband and wife. (Music changes)
+	// -: During the blessing, the two joined together as husband and wife.
+	// (Music changes)
 	public static final int MSG_MARRIED = 9;
 
 	// C(weight): Weight (30 stages)
@@ -67,13 +69,15 @@ public class S_PacketBox extends ServerBasePacket {
 	// C(food): Satiety (30 stages)
 	public static final int FOOD = 11;
 
-	// C(0) C(level): This item is below the level of% d only. (0 to 49 not only display)
+	// C(0) C(level): This item is below the level of% d only. (0 to 49 not only
+	// display)
 	public static final int MSG_LEVEL_OVER = 12;
 
 	// UB Information HTML
 	public static final int HTML_UB = 14;
 
-	// C(id): One had to feel for the spirit of power / fire throughout the body --
+	// C(id): One had to feel for the spirit of power / fire throughout the body
+	// --
 	public static final int MSG_ELF = 15;
 
 	// C(count) S(name)...: Multiple blocking list
@@ -145,7 +149,7 @@ public class S_PacketBox extends ServerBasePacket {
 	// C type, H time
 	public static final int ICON_COOKING = 53;
 
-	//Fishing
+	// Fishing
 	public static final int FISHING = 55;
 
 	public S_PacketBox(int subCode) {
@@ -298,7 +302,8 @@ public class S_PacketBox extends ServerBasePacket {
 	}
 
 	private void callSomething() {
-		Iterator<L1PcInstance> itr = L1World.getInstance().getAllPlayers().iterator();
+		Iterator<L1PcInstance> itr = L1World.getInstance().getAllPlayers()
+				.iterator();
 		writeC(L1World.getInstance().getAllPlayers().size());
 		while (itr.hasNext()) {
 			L1PcInstance pc = itr.next();
@@ -306,15 +311,16 @@ public class S_PacketBox extends ServerBasePacket {
 			if (acc == null) {
 				writeD(0);
 			} else {
-				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(Config.TIME_ZONE));
+				Calendar cal = Calendar.getInstance(TimeZone
+						.getTimeZone(Config.TIME_ZONE));
 				long lastactive = acc.getLastActive().getTime();
 				cal.setTimeInMillis(lastactive);
 				cal.set(Calendar.YEAR, 1970);
 				int time = (int) (cal.getTimeInMillis() / 1000);
 				writeD(time); // JST 1970 1/1 09:00
 			}
-			writeS(pc.getName()); 
-			writeS(pc.getClanname()); 
+			writeS(pc.getName());
+			writeS(pc.getClanname());
 		}
 	}
 

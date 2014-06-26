@@ -23,29 +23,32 @@ import java.util.Map;
 
 import l1j.server.Config;
 import l1j.server.server.model.map.L1Map;
+
 /**
  * Abstract map for the class to read.
  */
 public abstract class MapReader {
 	/**
 	 * All map to read the text (abstract class).
-	 *
+	 * 
 	 * @return Map
 	 * @throws IOException
 	 */
 	public abstract Map<Integer, L1Map> read() throws IOException;
+
 	/**
 	 * Map specified number of text to read the map.
-	 *
+	 * 
 	 * @param id
 	 *            Map ID
 	 * @return L1Map
 	 * @throws IOException
 	 */
 	public abstract L1Map read(int id) throws IOException;
+
 	/**
 	 * The judge read the map files (text or map cache map map text or V2).
-	 *
+	 * 
 	 * @return MapReader
 	 */
 	public static MapReader getDefaultReader() {

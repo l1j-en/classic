@@ -24,14 +24,17 @@ import l1j.server.server.encryptions.Opcodes;
 
 public class S_SystemMessage extends ServerBasePacket {
 	private static final String S_SYSTEM_MESSAGE = "[S] S_SystemMessage";
-	private static Logger _log = Logger.getLogger(S_SystemMessage.class.getName());
+	private static Logger _log = Logger.getLogger(S_SystemMessage.class
+			.getName());
 	private byte[] _byte = null;
 	private final String _msg;
+
 	/**
-	 * Client data exist to show the original message.
-	 * Message nameid ($ xxx) are included if you are overloaded to use the other.
+	 * Client data exist to show the original message. Message nameid ($ xxx)
+	 * are included if you are overloaded to use the other.
 	 * 
-	 * @param msg - Visible strings
+	 * @param msg
+	 *            - Visible strings
 	 */
 	public S_SystemMessage(String msg) {
 		_msg = msg;
@@ -39,11 +42,14 @@ public class S_SystemMessage extends ServerBasePacket {
 		writeC(0x09);
 		writeS(msg);
 	}
+
 	/**
 	 * Client data exist to show the original message.
 	 * 
-	 * @param msg - Visible strings
-	 * @param nameid - String nameid ($ xxx) is true, if included.
+	 * @param msg
+	 *            - Visible strings
+	 * @param nameid
+	 *            - String nameid ($ xxx) is true, if included.
 	 */
 	public S_SystemMessage(String msg, boolean nameid) {
 		_msg = msg;

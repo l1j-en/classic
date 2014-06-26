@@ -52,12 +52,12 @@ public class L1NpcTeleportAction extends L1NpcXmlAction {
 	public L1NpcHtml execute(String actionName, L1PcInstance pc, L1Object obj,
 			byte[] args) {
 		if (!pc.getInventory().checkItem(L1ItemId.ADENA, _price)) {
-			pc.sendPackets(new S_ServerMessage(337, "$4")); 
+			pc.sendPackets(new S_ServerMessage(337, "$4"));
 			return L1NpcHtml.HTML_CLOSE;
 		}
 		pc.getInventory().consumeItem(L1ItemId.ADENA, _price);
-		L1Teleport.teleport(pc, _loc.getX(), _loc.getY(), (short) _loc
-				.getMapId(), _heading, _effect);
+		L1Teleport.teleport(pc, _loc.getX(), _loc.getY(),
+				(short) _loc.getMapId(), _heading, _effect);
 		return null;
 	}
 }

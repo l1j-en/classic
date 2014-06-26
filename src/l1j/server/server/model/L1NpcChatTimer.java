@@ -28,8 +28,8 @@ import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.templates.L1NpcChat;
 
 public class L1NpcChatTimer extends TimerTask {
-	private static final Logger _log = 
-		Logger.getLogger(L1NpcChatTimer.class.getName());
+	private static final Logger _log = Logger.getLogger(L1NpcChatTimer.class
+			.getName());
 	private final L1NpcInstance _npc;
 	private final int chatTiming;
 	private final int chatInterval;
@@ -43,23 +43,22 @@ public class L1NpcChatTimer extends TimerTask {
 		chatInterval = chat.getChatInterval();
 		isShout = chat.isShout();
 		isWorldChat = chat.isWorldChat();
-		chatIds = new String[] {
-			chat.getChatId1(), chat.getChatId2(), chat.getChatId3(),
-				chat.getChatId4(), chat.getChatId5(),
-		};
+		chatIds = new String[] { chat.getChatId1(), chat.getChatId2(),
+				chat.getChatId3(), chat.getChatId4(), chat.getChatId5(), };
 	}
 
 	@Override
 	public void run() {
 		try {
-			if (_npc == null || _npc._destroyed ||
-				_npc.getHiddenStatus() != L1NpcInstance.HIDDEN_STATUS_NONE) {
+			if (_npc == null
+					|| _npc._destroyed
+					|| _npc.getHiddenStatus() != L1NpcInstance.HIDDEN_STATUS_NONE) {
 				return;
 			}
 
-			for(int i = 0; i < chatIds.length; i++) {
-				if(!chatIds[i].equals("")) {
-					if(i != 0) 
+			for (int i = 0; i < chatIds.length; i++) {
+				if (!chatIds[i].equals("")) {
+					if (i != 0)
 						Thread.sleep(chatInterval);
 					chat(_npc, chatTiming, chatIds[i], isShout, isWorldChat);
 				}
@@ -71,7 +70,8 @@ public class L1NpcChatTimer extends TimerTask {
 
 	private void chat(L1NpcInstance npc, int chatTiming, String chatId,
 			boolean isShout, boolean isWorldChat) {
-		if (npc.isDead() && (chatTiming == L1NpcInstance.CHAT_TIMING_APPEARANCE || chatTiming == L1NpcInstance.CHAT_TIMING_HIDE)) {
+		if (npc.isDead()
+				&& (chatTiming == L1NpcInstance.CHAT_TIMING_APPEARANCE || chatTiming == L1NpcInstance.CHAT_TIMING_HIDE)) {
 			return;
 		}
 		if (chatTiming == L1NpcInstance.CHAT_TIMING_DEAD && !npc.isDead()) {

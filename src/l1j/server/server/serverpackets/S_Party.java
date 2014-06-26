@@ -28,7 +28,8 @@ public class S_Party extends ServerBasePacket {
 		buildPacket(htmlid, objid, "", "", 0);
 	}
 
-	public S_Party(String htmlid, int objid, String partyname, String partymembers) {
+	public S_Party(String htmlid, int objid, String partyname,
+			String partymembers) {
 		buildPacket(htmlid, objid, partyname, partymembers, 1);
 	}
 

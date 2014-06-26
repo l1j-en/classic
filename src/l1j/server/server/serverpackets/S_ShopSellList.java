@@ -57,8 +57,10 @@ public class S_ShopSellList extends ServerBasePacket {
 			L1ShopItem shopItem = shopItems.get(i);
 			L1Item item = shopItem.getItem();
 			int price;
-			if(npcId != 70017 && npcId != 70049) {// Exclude Orim and Rozen from taxes
-				price = calc.layTax((int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE));
+			if (npcId != 70017 && npcId != 70049) {// Exclude Orim and Rozen
+													// from taxes
+				price = calc
+						.layTax((int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE));
 			} else {
 				price = (int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE);
 			}
@@ -70,7 +72,8 @@ public class S_ShopSellList extends ServerBasePacket {
 			} else {
 				writeS(item.getName());
 			}
-			L1Item template = ItemTable.getInstance().getTemplate(item.getItemId());
+			L1Item template = ItemTable.getInstance().getTemplate(
+					item.getItemId());
 			if (template == null) {
 				writeC(0);
 			} else {
