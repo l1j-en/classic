@@ -13,16 +13,16 @@ import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_MANA;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_POLYMORPH;
-import static l1j.server.server.model.item.L1ItemId.BlessedElvenWafer;
+import static l1j.server.server.model.item.L1ItemId.B_ELVEN_WAFER;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_EXTRA_HEALING;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_GREATER_HEALING;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_HEALING;
 import static l1j.server.server.model.item.L1ItemId.C_POTION_OF_HEALING;
 import static l1j.server.server.model.item.L1ItemId.C_SCROLL_OF_ENCHANT_ARMOR;
 import static l1j.server.server.model.item.L1ItemId.C_SCROLL_OF_ENCHANT_WEAPON;
-import static l1j.server.server.model.item.L1ItemId.DevilsBlood;
-import static l1j.server.server.model.item.L1ItemId.ElvenWafer;
-import static l1j.server.server.model.item.L1ItemId.ForbiddenFruit;
+import static l1j.server.server.model.item.L1ItemId.DEVILS_BLOOD;
+import static l1j.server.server.model.item.L1ItemId.ELVEN_WAFER;
+import static l1j.server.server.model.item.L1ItemId.FORBIDDEN_FRUIT;
 import static l1j.server.server.model.item.L1ItemId.IT_SCROLL_OF_POLYMORPH;
 import static l1j.server.server.model.item.L1ItemId.POTION_OF_BLINDNESS;
 import static l1j.server.server.model.item.L1ItemId.POTION_OF_CURE_POISON;
@@ -512,21 +512,21 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 				inventory.removeItem(l1iteminstance, 1);
-			} else if (itemId == ForbiddenFruit) {
+			} else if (itemId == FORBIDDEN_FRUIT) {
 				if (pc.isDragonKnight() || pc.isIllusionist()) {
 					useBravePotion(pc, itemId);
 				} else {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 				inventory.removeItem(l1iteminstance, 1);
-			} else if (itemId == ElvenWafer || itemId == BlessedElvenWafer) {
+			} else if (itemId == ELVEN_WAFER || itemId == B_ELVEN_WAFER) {
 				if (pc.isElf()) {
 					useBravePotion(pc, itemId);
 				} else {
 					pc.sendPackets(new S_ServerMessage(79));
 				}
 				inventory.removeItem(l1iteminstance, 1);
-			} else if (itemId == DevilsBlood) {
+			} else if (itemId == DEVILS_BLOOD) {
 				if (pc.isCrown()) {
 					useBravePotion(pc, itemId);
 				} else {
@@ -2690,7 +2690,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			addtime = 300;
 		} else if (item_id == B_POTION_OF_EMOTION_BRAVERY) {
 			addtime = 350;
-		} else if (item_id == ForbiddenFruit) {
+		} else if (item_id == FORBIDDEN_FRUIT) {
 			addtime = 480;
 			if (pc.hasSkillEffect(STATUS_BRAVE)) {
 				pc.killSkillEffectTimer(STATUS_BRAVE);
@@ -2700,7 +2700,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		} else if (item_id == 41415) {
 			addtime = 1800;
-		} else if (item_id == ElvenWafer) {
+		} else if (item_id == ELVEN_WAFER) {
 			addtime = 600;
 			if (pc.hasSkillEffect(STATUS_BRAVE)) {
 				pc.killSkillEffectTimer(STATUS_BRAVE);
@@ -2714,7 +2714,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
-		} else if (item_id == BlessedElvenWafer) {
+		} else if (item_id == B_ELVEN_WAFER) {
 			addtime = 700;
 			if (pc.hasSkillEffect(STATUS_BRAVE)) {
 				pc.killSkillEffectTimer(STATUS_BRAVE);
@@ -2728,7 +2728,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
 				pc.setBraveSpeed(0);
 			}
-		} else if (item_id == DevilsBlood) {
+		} else if (item_id == DEVILS_BLOOD) {
 			addtime = 600;
 		} else if (item_id == 40733) {
 			addtime = 600;
@@ -2770,13 +2770,13 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		time = Config.STACKING ? Math.min(time + addtime, 1800) : addtime;
 
-		if (item_id == ElvenWafer || item_id == BlessedElvenWafer) {
+		if (item_id == ELVEN_WAFER || item_id == B_ELVEN_WAFER) {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 3, time));
 			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 3, 0));
 			pc.sendPackets(new S_SkillSound(pc.getId(), 751));
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 751));
 			pc.setSkillEffect(STATUS_ELFBRAVE, time * 1000);
-		} else if (item_id == ForbiddenFruit) {
+		} else if (item_id == FORBIDDEN_FRUIT) {
 			// Remove bloodlust first
 			pc.removeSkillEffect(BLOODLUST);
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, 0));

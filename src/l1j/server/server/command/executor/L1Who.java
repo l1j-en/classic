@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
@@ -64,9 +65,9 @@ public class L1Who implements L1CommandExecutor {
 						.append("): L")
 						.append(target.getLevel())
 						.append(" ")
-						.append(getSex(target.getClassId()))
+						.append(L1ClassId.getSex(target.getClassId()))
 						.append(" ")
-						.append(getClass(target.getClassId()))
+						.append(L1ClassId.getClass(target.getClassId()))
 						.append(" ")
 						.append(target.getMaxHp())
 						.append("/")
@@ -102,8 +103,8 @@ public class L1Who implements L1CommandExecutor {
 			String charS = "";
 			int i = 1;
 			for (L1PcInstance player : L1World.getInstance().getAllPlayers()) {
-				charC = getClass(player.getClassId());
-				charS = getSex(player.getClassId());
+				charC = L1ClassId.getClass(player.getClassId());
+				charS = L1ClassId.getSex(player.getClassId());
 				gm.sendPackets(new S_SystemMessage((new StringBuilder())
 						.append(i).append(". ").append(player.getName())
 						.append("(").append(player.getAccountName())
@@ -133,8 +134,8 @@ public class L1Who implements L1CommandExecutor {
 					.append(rs.getString("char_name")).append("(")
 					.append(rs.getString("account_name")).append("): L")
 					.append(rs.getInt("level")).append(" ")
-					.append(getSex(rs.getInt("Class"))).append(" ")
-					.append(getClass(rs.getInt("Class"))).append(" ")
+					.append(L1ClassId.getSex(rs.getInt("Class"))).append(" ")
+					.append(L1ClassId.getClass(rs.getInt("Class"))).append(" ")
 					.append(rs.getInt("MaxHp")).append("/")
 					.append(rs.getInt("MaxMp")).append(" (Offline)").toString()));
 		} catch (Exception exception) {
@@ -160,97 +161,4 @@ public class L1Who implements L1CommandExecutor {
 		return pc;
 	}
 
-	// TODO: The below has a bad smell since most of this
-	// is already defined in the L1PcInstance or L1Character
-	// classes. The main reason for them being here is to support
-	// offline who lookups against the database.
-	private String getSex(int classID) {
-		if (isMale(classID)) {
-			return "Male";
-		}
-		if (isFemale(classID)) {
-			return "Female";
-		}
-		return "error";
-	}
-
-	private boolean isMale(int classID) {
-		return classID == L1PcInstance.CLASSID_PRINCE
-				|| classID == L1PcInstance.CLASSID_KNIGHT_MALE
-				|| classID == L1PcInstance.CLASSID_ELF_MALE
-				|| classID == L1PcInstance.CLASSID_WIZARD_MALE
-				|| classID == L1PcInstance.CLASSID_DARK_ELF_MALE
-				|| classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE
-				|| classID == L1PcInstance.CLASSID_ILLUSIONIST_MALE;
-	}
-
-	private boolean isFemale(int classID) {
-		return classID == L1PcInstance.CLASSID_PRINCESS
-				|| classID == L1PcInstance.CLASSID_KNIGHT_FEMALE
-				|| classID == L1PcInstance.CLASSID_ELF_FEMALE
-				|| classID == L1PcInstance.CLASSID_WIZARD_FEMALE
-				|| classID == L1PcInstance.CLASSID_DARK_ELF_FEMALE
-				|| classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE
-				|| classID == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE;
-	}
-
-	private String getClass(int classID) {
-		if (isRoyal(classID)) {
-			return "Royal";
-		}
-		if (isKnight(classID)) {
-			return "Knight";
-		}
-		if (isElf(classID)) {
-			return "Elf";
-		}
-		if (isMage(classID)) {
-			return "Mage";
-		}
-		if (isDarkElf(classID)) {
-			return "Dark Elf";
-		}
-		if (isDragonKnight(classID)) {
-			return "Dragon Knight";
-		}
-		if (isIllusionist(classID)) {
-			return "Illusionist";
-		}
-		return "error";
-	}
-
-	private boolean isRoyal(int classID) {
-		return classID == L1PcInstance.CLASSID_PRINCE
-				|| classID == L1PcInstance.CLASSID_PRINCESS;
-	}
-
-	private boolean isKnight(int classID) {
-		return classID == L1PcInstance.CLASSID_KNIGHT_MALE
-				|| classID == L1PcInstance.CLASSID_KNIGHT_FEMALE;
-	}
-
-	private boolean isElf(int classID) {
-		return classID == L1PcInstance.CLASSID_ELF_MALE
-				|| classID == L1PcInstance.CLASSID_ELF_FEMALE;
-	}
-
-	private boolean isMage(int classID) {
-		return classID == L1PcInstance.CLASSID_WIZARD_MALE
-				|| classID == L1PcInstance.CLASSID_WIZARD_FEMALE;
-	}
-
-	private boolean isDarkElf(int classID) {
-		return classID == L1PcInstance.CLASSID_DARK_ELF_MALE
-				|| classID == L1PcInstance.CLASSID_DARK_ELF_FEMALE;
-	}
-
-	private boolean isDragonKnight(int classID) {
-		return classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_MALE
-				|| classID == L1PcInstance.CLASSID_DRAGON_KNIGHT_FEMALE;
-	}
-
-	private boolean isIllusionist(int classID) {
-		return classID == L1PcInstance.CLASSID_ILLUSIONIST_MALE
-				|| classID == L1PcInstance.CLASSID_ILLUSIONIST_FEMALE;
-	}
 }
