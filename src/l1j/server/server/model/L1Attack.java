@@ -3,7 +3,23 @@
  */
 package l1j.server.server.model;
 
-import static l1j.server.server.model.item.L1ItemId.SayhasBow;
+import static l1j.server.server.model.item.L1ItemId.C_DICE_DAGGER;
+import static l1j.server.server.model.item.L1ItemId.DAGGER_OF_MAGIC_POWER;
+import static l1j.server.server.model.item.L1ItemId.DICE_DAGGER;
+import static l1j.server.server.model.item.L1ItemId.FINGER_OF_DEATH;
+import static l1j.server.server.model.item.L1ItemId.GREAT_SWORD_OF_DESTRUCTION;
+import static l1j.server.server.model.item.L1ItemId.SAYHAS_BOW;
+import static l1j.server.server.model.item.L1ItemId.STAFF_OF_MANA;
+import static l1j.server.server.model.item.L1ItemId.STEEL_STAFF_OF_MANA;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_ANCIENT_ELF;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_ORDEAL;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_ORDEAL_B;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_ORDEAL_C;
+import static l1j.server.server.model.item.L1ItemId.THEBES_BOW;
+import static l1j.server.server.model.item.L1ItemId.THEBES_EDORYU;
+import static l1j.server.server.model.item.L1ItemId.THEBES_STAFF;
+import static l1j.server.server.model.item.L1ItemId.THEBES_SWORD;
+import static l1j.server.server.model.item.L1ItemId.UNARMED;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BOUNCE_ATTACK;
@@ -334,14 +350,15 @@ public class L1Attack {
 					return _isHit;
 				}
 			}
-			if (isBow && _weaponId != SayhasBow && _arrow == null) {
+			if (isBow && _weaponId != SAYHAS_BOW && _arrow == null) {
 				_isHit = false;
 			} else if (isGauntlet && _sting == null) {
 				_isHit = false;
 			} else if (!_pc.glanceCheck(_targetX, _targetY)) {
 				_isHit = false; // If the attacker is the player's decision is
 								// an obstacle
-			} else if (_weaponId == 247 || _weaponId == 248 || _weaponId == 249) {
+			} else if (_weaponId == SWORD_OF_ORDEAL || _weaponId == SWORD_OF_ORDEAL_B || 
+					_weaponId == SWORD_OF_ORDEAL_C) {
 				_isHit = false; // B ~ C sword attack ordeal disabled
 			} else if (_calcType == PC_PC) {
 				_isHit = calcPcPcHit();
@@ -663,7 +680,7 @@ public class L1Attack {
 			}
 		}
 
-		if (_weaponId == 262 && _random.nextInt(100) + 1 <= 75) {
+		if (_weaponId == GREAT_SWORD_OF_DESTRUCTION && _random.nextInt(100) + 1 <= 75) {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 
@@ -681,7 +698,7 @@ public class L1Attack {
 				if (hardSkinned)
 					arrowDamage /= 2;
 				damage = damage + _random.nextInt(arrowDamage) + 1;
-			} else if (_weaponId == SayhasBow) {
+			} else if (_weaponId == SAYHAS_BOW) {
 				damage = damage + _random.nextInt(15) + 1;
 			}
 		} else if (isGauntlet) {
@@ -694,7 +711,7 @@ public class L1Attack {
 
 		damage = calcBuffDamage(damage);
 
-		if ((_weaponId == 2 || _weaponId == 200002) && diceDagger) {
+		if ((_weaponId == DICE_DAGGER || _weaponId == C_DICE_DAGGER) && diceDagger) {
 			damage = L1WeaponSkill.getDiceDaggerDamage(_pc, _target, weapon);
 		} else {
 			damage += L1WeaponSkill.getWeaponSkillDamage(_pc, _target,
@@ -1117,15 +1134,14 @@ public class L1Attack {
 	}
 
 	public void calcStaffOfMana() {
-		if (_weaponId == 126 || _weaponId == 127) { // SOM|SSOM
-			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of
-												// absorption
+		if (_weaponId == STAFF_OF_MANA || _weaponId == STEEL_STAFF_OF_MANA) {
+			// Limit the maximum absorption.
+			int som_lvl = _weaponEnchant + 3;
 			if (som_lvl < 0) {
 				som_lvl = 0;
 			}
 			// MP sinks to retrieve random
 			_drainMana = _random.nextInt(som_lvl) + 1;
-			// 9 maximum limit on the amount of absorption MP
 			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
 				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
@@ -1134,15 +1150,14 @@ public class L1Attack {
 		 * Edited to work the same as SOM above. Left in its own if block so we
 		 * can easily adjust it later if we decide this is OP
 		 */
-		else if (_weaponId == 259) {
-			int som_lvl = _weaponEnchant + 3; // MP to set the maximum amount of
-												// absorption
+		else if (_weaponId == DAGGER_OF_MAGIC_POWER) {
+			// Limit the maximum absorption.
+			int som_lvl = _weaponEnchant + 3;
 			if (som_lvl < 0) {
 				som_lvl = 0;
 			}
 			// MP sinks to retrieve random
 			_drainMana = _random.nextInt(som_lvl) + 1;
-			// 9 maximum limit on the amount of absorption MP
 			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
 				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
@@ -1157,16 +1172,16 @@ public class L1Attack {
 	// PC poison attacks added
 	public void addPcPoisonAttack(L1Character attacker, L1Character target) {
 		int chance = _random.nextInt(100) + 1;
-		if ((_weaponId == 13 || _weaponId == 44 || (_weaponId != 0 && _pc
-				.hasSkillEffect(ENCHANT_VENOM))) && chance <= 10) {
+		if ((_weaponId == FINGER_OF_DEATH || _weaponId == SWORD_OF_ANCIENT_ELF || 
+				(_weaponId != UNARMED && _pc.hasSkillEffect(ENCHANT_VENOM))) && chance <= 10) {
 			// Usually poison, 3 second period, HP-5 Damage
 			L1DamagePoison.doInfection(attacker, target, 3000, 5);
 		}
 	}
 
 	public void addChaserAttack() {
-		if (_weaponId != 265 && _weaponId != 266 && _weaponId != 267
-				&& _weaponId != 268)
+		if (_weaponId != THEBES_BOW && _weaponId != THEBES_STAFF && 
+				_weaponId != THEBES_SWORD && _weaponId != THEBES_EDORYU)
 			return;
 
 		int mr = 0;
@@ -1202,7 +1217,7 @@ public class L1Attack {
 				_pc.sendAndBroadcast(new S_UseArrowSkill(_pc, _targetId, 66,
 						_targetX, _targetY, _isHit));
 				_pc.getInventory().removeItem(_arrow, 1);
-			} else if (_weaponId == SayhasBow) {
+			} else if (_weaponId == SAYHAS_BOW) {
 				_pc.sendAndBroadcast(new S_UseArrowSkill(_pc, _targetId, 2349,
 						_targetX, _targetY, _isHit));
 			}

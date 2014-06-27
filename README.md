@@ -65,3 +65,10 @@ commands have the same name as the old SVN commands, but work a little
 differently.  That can cause some confusion but again you get used to it very
 quickly..
 
+
+Environment
+-----------
+Contributors use a variety of setups for working on l1j; the lovely
+[l1j-vagrant](https://github.com/phuedx/l1j-vagrant) provides one option for
+easy environment setup.
+

@@ -3,11 +3,11 @@
  */
 package l1j.server.server.model.skill;
 
-import static l1j.server.server.model.item.L1ItemId.BraveStone;
-import static l1j.server.server.model.item.L1ItemId.BringStone;
-import static l1j.server.server.model.item.L1ItemId.DarkStone;
-import static l1j.server.server.model.item.L1ItemId.KaiserStone;
-import static l1j.server.server.model.item.L1ItemId.WiseStone;
+import static l1j.server.server.model.item.L1ItemId.BRAVE_STONE;
+import static l1j.server.server.model.item.L1ItemId.BRING_STONE;
+import static l1j.server.server.model.item.L1ItemId.DARK_STONE;
+import static l1j.server.server.model.item.L1ItemId.KAISER_STONE;
+import static l1j.server.server.model.item.L1ItemId.WISE_STONE;
 import static l1j.server.server.model.skill.L1SkillId.*;
 
 import java.util.ArrayList;
@@ -3346,17 +3346,17 @@ public class L1SkillUse {
 		int kaiser = (int) (wise / 1.9);
 
 		switch (item.getItem().getItemId()) {
-		case BringStone:
-			turnStone(player, item, dark, DarkStone, "$2475", count, report);
+		case BRING_STONE:
+			turnStone(player, item, dark, DARK_STONE, "$2475", count, report);
 			break;
-		case DarkStone:
-			turnStone(player, item, brave, BraveStone, "$2475", count, report);
+		case DARK_STONE:
+			turnStone(player, item, brave, BRAVE_STONE, "$2475", count, report);
 			break;
-		case BraveStone:
-			turnStone(player, item, wise, WiseStone, "$2475", count, report);
+		case BRAVE_STONE:
+			turnStone(player, item, wise, WISE_STONE, "$2475", count, report);
 			break;
-		case WiseStone:
-			turnStone(player, item, kaiser, KaiserStone, "$2475", count, report);
+		case WISE_STONE:
+			turnStone(player, item, kaiser, KAISER_STONE, "$2475", count, report);
 			break;
 		}
 	}

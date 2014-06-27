@@ -83,6 +83,7 @@ import l1j.server.server.model.MpRegeneration;
 import l1j.server.server.model.MpRegenerationByDoll;
 import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.classes.L1ClassFeature;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.gametime.L1GameTimeCarrier;
 import l1j.server.server.model.monitor.L1PcAutoUpdate;
 import l1j.server.server.model.monitor.L1PcExpMonitor;
@@ -125,20 +126,6 @@ import l1j.server.server.utils.SQLUtil;
 
 public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
-	public static final int CLASSID_KNIGHT_MALE = 61;
-	public static final int CLASSID_KNIGHT_FEMALE = 48;
-	public static final int CLASSID_ELF_MALE = 138;
-	public static final int CLASSID_ELF_FEMALE = 37;
-	public static final int CLASSID_WIZARD_MALE = 734;
-	public static final int CLASSID_WIZARD_FEMALE = 1186;
-	public static final int CLASSID_DARK_ELF_MALE = 2786;
-	public static final int CLASSID_DARK_ELF_FEMALE = 2796;
-	public static final int CLASSID_PRINCE = 0;
-	public static final int CLASSID_PRINCESS = 1;
-	public static final int CLASSID_DRAGON_KNIGHT_MALE = 6658;
-	public static final int CLASSID_DRAGON_KNIGHT_FEMALE = 6661;
-	public static final int CLASSID_ILLUSIONIST_MALE = 6671;
-	public static final int CLASSID_ILLUSIONIST_FEMALE = 6650;
 	private static final int MP_REGEN_INTERVAL = 1000;
 	private static final int HP_REGEN_INTERVAL = 1000;
 	private static Random _random = new Random();
@@ -1747,31 +1734,31 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public boolean isCrown() {
-		return (getClassId() == CLASSID_PRINCE || getClassId() == CLASSID_PRINCESS);
+		return L1ClassId.isRoyal(getClassId());
 	}
 
 	public boolean isKnight() {
-		return (getClassId() == CLASSID_KNIGHT_MALE || getClassId() == CLASSID_KNIGHT_FEMALE);
+		return L1ClassId.isKnight(getClassId());
 	}
 
 	public boolean isElf() {
-		return (getClassId() == CLASSID_ELF_MALE || getClassId() == CLASSID_ELF_FEMALE);
+		return L1ClassId.isElf(getClassId());
 	}
 
 	public boolean isWizard() {
-		return (getClassId() == CLASSID_WIZARD_MALE || getClassId() == CLASSID_WIZARD_FEMALE);
+		return L1ClassId.isMage(getClassId());
 	}
 
 	public boolean isDarkelf() {
-		return (getClassId() == CLASSID_DARK_ELF_MALE || getClassId() == CLASSID_DARK_ELF_FEMALE);
+		return L1ClassId.isDarkElf(getClassId());
 	}
 
 	public boolean isDragonKnight() {
-		return (getClassId() == CLASSID_DRAGON_KNIGHT_MALE || getClassId() == CLASSID_DRAGON_KNIGHT_FEMALE);
+		return L1ClassId.isDragonKnight(getClassId());
 	}
 
 	public boolean isIllusionist() {
-		return (getClassId() == CLASSID_ILLUSIONIST_MALE || getClassId() == CLASSID_ILLUSIONIST_FEMALE);
+		return L1ClassId.isIllusionist(getClassId());
 	}
 
 	private static Logger _log = Logger.getLogger(L1PcInstance.class.getName());
