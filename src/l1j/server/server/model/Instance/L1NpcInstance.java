@@ -2098,8 +2098,10 @@ public class L1NpcInstance extends L1Character {
 					.findObject(_id);
 			if (npc == null || !npc.isDead() || npc._destroyed) {
 				// Leak investigation.
-				if (npc == null)
+				if (npc == null) {
 					System.out.println("DeleteTimer#run: npc was null.");
+					return;
+				}
 				if (!npc.isDead())
 					System.out.println("DeleteTimer#run: !npc.isDead().");
 				if (npc._destroyed)
