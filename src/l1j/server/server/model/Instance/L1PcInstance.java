@@ -776,7 +776,7 @@ public class L1PcInstance extends L1Character {
 
 	private List<L1PrivateShopBuyList> _buyList = new ArrayList<L1PrivateShopBuyList>();
 
-	public List getBuyList() {
+	public List<L1PrivateShopBuyList> getBuyList() {
 		return _buyList;
 	}
 
@@ -1432,13 +1432,11 @@ public class L1PcInstance extends L1Character {
 			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
 					boolean isChangePkCount = false;
-					boolean isChangePkCountForElf = false;
 					if (player.getLawful() < 30000) {
 						player.set_PKcount(player.get_PKcount() + 1);
 						isChangePkCount = true;
 						if (player.isElf() && isElf()) {
 							player.setPkCountForElf(player.getPkCountForElf() + 1);
-							isChangePkCountForElf = true;
 						}
 					}
 					player.setLastPk();
@@ -2070,7 +2068,7 @@ public class L1PcInstance extends L1Character {
 	private int _originalBowHitup = 0;
 
 	public int getOriginalBowHitup() {
-		return _originalHitup;
+		return _originalBowHitup;
 	}
 
 	private int _originalMr = 0;
