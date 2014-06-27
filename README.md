@@ -4,21 +4,43 @@ l1j-en
 l1j-en is an English-language server emulator for the South Korean MMORPG,
 Lineage 1.
 
-This repo started as a direct copy of the
-[l1j-en project on Google Code](http://code.google.com/p/l1j-en) as of their
-revision 726.  See the project documentation there for general project info,
-the client connector, a setup guide, and FAQ.
+See the project documentation on the
+[l1j-en project on Google Code](http://code.google.com/p/l1j-en) for general
+project info, the client connector, FAQ, and the
+[Setup Guide](https://code.google.com/p/l1j-en/wiki/SetupGuide).  There is also
+a currently in-progress [Project Wiki](https://github.com/l1j/en/wiki) hosted
+here.
+
+If you need any help, contact our
+[mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on #l1j
+at Freenode IRC.
+
+Check out the the official l1j-en server,
+[Lineage Resurrection](https://zelgo.net/linweb/default/index), if you just
+want to play.
+
+Recent History
+--------------
+
+This repo started as a direct copy of the l1j-en project on Google Code as of
+their revision 726.
 
 We pulled upstream updates from l1j-jp2 but have diverged significantly. As of
 March 2014, everial's downstream fork was merged back into master.  As of June
 2014, this and the Google Code repo are synced, with this GitHub version
 typically getting fixes first.
 
-If you need any help, contact our
-[mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on #l1j
-at freenode and see if anyone's around.
+Supporting Projects
+-------------------
 
-Check out the [official server of l1j-en](https://zelgo.net/linweb/default/index) if you just want to play.
+[l1j-en project on Google Code](http://code.google.com/p/l1j-en): The original
+upstream for this repo.  Since then, the roles have been reversed.
+
+[l1j-vagrant](https://github.com/phuedx/l1j-vagrant): Provides one option for
+an easy, standardized environment setup.
+
+Let us know if you start an English l1j-related project and we'll add it here.
+Interest currently exists for starting an open-source connector project.
 
 About GitHub
 ------------
@@ -66,9 +88,4 @@ differently.  That can cause some confusion but again you get used to it very
 quickly..
 
 
-Environment
------------
-Contributors use a variety of setups for working on l1j; the lovely
-[l1j-vagrant](https://github.com/phuedx/l1j-vagrant) provides one option for
-easy environment setup.
 
