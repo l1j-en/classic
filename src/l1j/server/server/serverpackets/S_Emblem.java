@@ -23,14 +23,12 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Emblem extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_Emblem.class.getName());
 	private static final String S_EMBLEM = "[S] S_Emblem";
 
 	public S_Emblem(int clanid) {
