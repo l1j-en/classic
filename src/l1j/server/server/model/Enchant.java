@@ -374,9 +374,9 @@ public class Enchant {
 			return weaponId >= 246 && weaponId <= 249;
 
 		if (weaponId == 183 || (weaponId >= 250 && weaponId <= 255))
-			return scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion;
+			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON_ILLUSION;
 
-		if (scrollId == L1ItemId.ScrollOfEnchantWeaponIllusion)
+		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON_ILLUSION)
 			return weaponId == 183 || (weaponId >= 150 && weaponId <= 255);
 
 		return true;
@@ -388,9 +388,9 @@ public class Enchant {
 			return false;
 
 		if (armorId == 20161 || (armorId >= 21035 && armorId <= 21038)) {
-			return scrollId == L1ItemId.ScrollOfEnchantArmorIllusion;
+			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_ARMOR_ILLUSION;
 		}
-		if (scrollId == L1ItemId.ScrollOfEnchantArmorIllusion) {
+		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_ARMOR_ILLUSION) {
 			return armorId == 20161 || (armorId >= 21035 && armorId <= 21038);
 		}
 

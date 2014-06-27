@@ -18,18 +18,18 @@
  */
 package l1j.server.server.model;
 
-import static l1j.server.server.model.item.L1ItemId.EdoryuOfRonde;
-import static l1j.server.server.model.item.L1ItemId.EvasScorn;
-import static l1j.server.server.model.item.L1ItemId.LongbowOfMoon;
-import static l1j.server.server.model.item.L1ItemId.MaphrsRetribution;
-import static l1j.server.server.model.item.L1ItemId.OrcishBumeSmache;
-import static l1j.server.server.model.item.L1ItemId.PaagriosHatred;
-import static l1j.server.server.model.item.L1ItemId.StaffOfIceQueen;
-import static l1j.server.server.model.item.L1ItemId.SwordOfDeathKnight;
-import static l1j.server.server.model.item.L1ItemId.SwordOfKurtz;
-import static l1j.server.server.model.item.L1ItemId.SwordOfSilence;
-import static l1j.server.server.model.item.L1ItemId.SwordOfVarlok;
-import static l1j.server.server.model.item.L1ItemId.ThorsHammer;
+import static l1j.server.server.model.item.L1ItemId.EDORYU_OF_RONDE;
+import static l1j.server.server.model.item.L1ItemId.EVAS_SCORN;
+import static l1j.server.server.model.item.L1ItemId.LONGBOW_OF_MOON;
+import static l1j.server.server.model.item.L1ItemId.MAPHRS_RETRIBUTION;
+import static l1j.server.server.model.item.L1ItemId.ORCISH_BUME_SMACHE;
+import static l1j.server.server.model.item.L1ItemId.PAAGRIOS_HATRED;
+import static l1j.server.server.model.item.L1ItemId.STAFF_OF_ICE_QUEEN;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_DEATH_KNIGHT;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_KURTZ;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_SILENCE;
+import static l1j.server.server.model.item.L1ItemId.SWORD_OF_VARLOK;
+import static l1j.server.server.model.item.L1ItemId.THORS_HAMMER;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.COUNTER_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
@@ -91,30 +91,30 @@ public class L1WeaponSkill {
 
 	static {
 		if (Config.USE_INT_PROCS) {
-			ProcMap.put(SwordOfDeathKnight, new L1WeaponSkill(
-					SwordOfDeathKnight, 7, 0, 0, 0, 0, 0, 1811, 0, false, 2,
+			ProcMap.put(SWORD_OF_DEATH_KNIGHT, new L1WeaponSkill(
+					SWORD_OF_DEATH_KNIGHT, 7, 0, 0, 0, 0, 0, 1811, 0, false, 2,
 					1.77));
-			ProcMap.put(SwordOfKurtz, new L1WeaponSkill(SwordOfKurtz, 15, 0, 0,
+			ProcMap.put(SWORD_OF_KURTZ, new L1WeaponSkill(SWORD_OF_KURTZ, 15, 0, 0,
 					0, 0, 0, 10, 0, false, 8, 1.02));
-			ProcMap.put(EdoryuOfRonde, new L1WeaponSkill(EdoryuOfRonde, 15, 0,
+			ProcMap.put(EDORYU_OF_RONDE, new L1WeaponSkill(EDORYU_OF_RONDE, 15, 0,
 					0, 0, 0, 0, 1805, 0, false, 1, 1.02));
-			ProcMap.put(StaffOfIceQueen, new L1WeaponSkill(StaffOfIceQueen, 25,
+			ProcMap.put(STAFF_OF_ICE_QUEEN, new L1WeaponSkill(STAFF_OF_ICE_QUEEN, 25,
 					0, 0, 0, 0, 0, 1810, 0, false, 4, 2.63));
-			ProcMap.put(ThorsHammer, new L1WeaponSkill(ThorsHammer, 16, 0, 0,
+			ProcMap.put(THORS_HAMMER, new L1WeaponSkill(THORS_HAMMER, 16, 0, 0,
 					0, 0, 0, 3940, 0, false, 0, 0.7));
-			ProcMap.put(PaagriosHatred, new L1WeaponSkill(PaagriosHatred, 12,
+			ProcMap.put(PAAGRIOS_HATRED, new L1WeaponSkill(PAAGRIOS_HATRED, 12,
 					0, 0, 0, 0, 0, 245, 0, false, 0));
-			ProcMap.put(MaphrsRetribution, new L1WeaponSkill(MaphrsRetribution,
+			ProcMap.put(MAPHRS_RETRIBUTION, new L1WeaponSkill(MAPHRS_RETRIBUTION,
 					10, 0, 0, 0, 0, 0, 1812, 0, false, 0));
-			ProcMap.put(OrcishBumeSmache, new L1WeaponSkill(OrcishBumeSmache,
+			ProcMap.put(ORCISH_BUME_SMACHE, new L1WeaponSkill(ORCISH_BUME_SMACHE,
 					15, 0, 0, 0, 0, 0, 762, 0, false, 0, 0.65));
-			ProcMap.put(EvasScorn, new L1WeaponSkill(EvasScorn, 16, 0, 0, 0, 0,
+			ProcMap.put(EVAS_SCORN, new L1WeaponSkill(EVAS_SCORN, 16, 0, 0, 0, 0,
 					0, 1714, 0, false, 0, 0.59));
-			ProcMap.put(SwordOfVarlok, new L1WeaponSkill(SwordOfVarlok, 15, 0,
+			ProcMap.put(SWORD_OF_VARLOK, new L1WeaponSkill(SWORD_OF_VARLOK, 15, 0,
 					0, 2, 0, 0, 762, 0, false, 2, 2.9));
-			ProcMap.put(SwordOfSilence, new L1WeaponSkill(SwordOfSilence, 5, 0,
+			ProcMap.put(SWORD_OF_SILENCE, new L1WeaponSkill(SWORD_OF_SILENCE, 5, 0,
 					0, 0, 64, 16, 2177, 0, false, 0));
-			ProcMap.put(LongbowOfMoon, new L1WeaponSkill(LongbowOfMoon, 10, 0,
+			ProcMap.put(LONGBOW_OF_MOON, new L1WeaponSkill(LONGBOW_OF_MOON, 10, 0,
 					0, 0, 0, 0, 6288, 0, true, 0, 1.02));
 		}
 	}
