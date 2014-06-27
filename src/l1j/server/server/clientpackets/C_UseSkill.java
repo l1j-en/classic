@@ -27,9 +27,6 @@ import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 import static l1j.server.server.model.skill.L1SkillId.RUN_CLAN;
 import static l1j.server.server.model.skill.L1SkillId.TELEPORT;
 import static l1j.server.server.model.skill.L1SkillId.TRUE_TARGET;
-
-import java.util.logging.Logger;
-
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -43,8 +40,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_UseSkill extends ClientBasePacket {
-
-	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
 
 	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);

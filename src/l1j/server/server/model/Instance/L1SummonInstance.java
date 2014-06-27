@@ -1,16 +1,17 @@
 package l1j.server.server.model.Instance;
 
+import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
 import java.util.Random;
+import java.util.concurrent.ScheduledFuture;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
@@ -24,13 +25,10 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.templates.L1Npc;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1SummonInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1SummonInstance.class
-			.getName());
 	private ScheduledFuture<?> _summonFuture;
 	private static final long SUMMON_TIME = 3600000L;
 	private int _currentPetStatus;

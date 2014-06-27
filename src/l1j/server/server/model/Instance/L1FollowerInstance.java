@@ -18,19 +18,17 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
-
 import java.lang.reflect.Constructor;
-import l1j.server.server.encryptions.IdFactory;
+
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.serverpackets.S_FollowerPack;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -38,8 +36,6 @@ import l1j.server.server.templates.L1Npc;
 
 public class L1FollowerInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1FollowerInstance.class
-			.getName());
 
 	@Override
 	public boolean noTarget(int depth) {

@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,8 +28,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_EnterPortal extends ClientBasePacket {
 
 	private static final String C_ENTER_PORTAL = "[C] C_EnterPortal";
-	private static Logger _log = Logger
-			.getLogger(C_EnterPortal.class.getName());
 
 	public C_EnterPortal(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);

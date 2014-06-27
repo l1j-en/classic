@@ -20,12 +20,10 @@ package l1j.server.server.templates;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.logging.Logger;
 
 import l1j.server.server.utils.TimePeriod;
 
 public class L1SpawnTime {
-	private static Logger _log = Logger.getLogger(L1SpawnTime.class.getName());
 
 	private final int _spawnId;
 	private final Time _timeStart;

@@ -21,10 +21,11 @@ package l1j.server.server.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import l1j.server.server.model.item.L1ItemId;
+
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1CheckPcItem {

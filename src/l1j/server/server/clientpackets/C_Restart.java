@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1World;
@@ -27,10 +25,10 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_MPUpdate;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharPack;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Weather;
@@ -40,7 +38,6 @@ import l1j.server.server.serverpackets.S_Weather;
 
 public class C_Restart extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_Restart.class.getName());
 	private static final String C_RESTART = "[C] C_Restart";
 
 	public C_Restart(byte abyte0[], ClientThread clientthread) throws Exception {

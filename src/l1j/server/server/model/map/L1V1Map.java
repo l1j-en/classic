@@ -18,15 +18,12 @@
  */
 package l1j.server.server.model.map;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.types.Point;
 
 public class L1V1Map extends L1Map {
-	private static Logger _log = Logger.getLogger(L1Map.class.getName());
 
 	private int _mapId;
 

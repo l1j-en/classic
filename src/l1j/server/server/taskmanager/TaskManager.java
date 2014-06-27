@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ThreadPoolManager;
 import l1j.server.server.taskmanager.tasks.TaskRestart;

@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.log.LogDeleteItem;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -32,8 +30,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_DeleteInventoryItem extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_DeleteInventoryItem.class
-			.getName());
 	private static final String C_DELETE_INVENTORY_ITEM = "[C] C_DeleteInventoryItem";
 
 	public C_DeleteInventoryItem(byte[] decrypt, ClientThread client) {

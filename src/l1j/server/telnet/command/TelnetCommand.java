@@ -18,11 +18,14 @@
  */
 package l1j.server.telnet.command;
 
+import static l1j.server.telnet.command.TelnetCommandResult.CMD_INTERNAL_ERROR;
+import static l1j.server.telnet.command.TelnetCommandResult.CMD_OK;
+
 import java.util.StringTokenizer;
 
 import l1j.server.server.GameServer;
-import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ChatLogTable;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
@@ -30,7 +33,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.storage.mysql.MySqlCharacterStorage;
 import l1j.server.server.utils.IntRange;
-import static l1j.server.telnet.command.TelnetCommandResult.*;
 
 public interface TelnetCommand {
 	TelnetCommandResult execute(String args);

@@ -18,16 +18,20 @@
  */
 package l1j.server.server.model.skill;
 
-import java.util.logging.Logger;
-
+import static l1j.server.server.model.skill.L1SkillId.BLOODLUST;
+import static l1j.server.server.model.skill.L1SkillId.HOLY_WALK;
+import static l1j.server.server.model.skill.L1SkillId.MOVING_ACCELERATION;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_ELFBRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_RIBRAVE;
+import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillSound;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1BuffUtil {
-	private static Logger _log = Logger.getLogger(L1BuffUtil.class.getName());
 
 	public static void haste(L1PcInstance pc, int timeMillis) {
 		pc.setSkillEffect(STATUS_HASTE, timeMillis);

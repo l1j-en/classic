@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -28,7 +26,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_LeaveParty extends ClientBasePacket {
 
 	private static final String C_LEAVE_PARTY = "[C] C_LeaveParty";
-	private static Logger _log = Logger.getLogger(C_LeaveParty.class.getName());
 
 	public C_LeaveParty(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);

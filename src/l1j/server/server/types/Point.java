@@ -17,11 +17,8 @@
  */
 package l1j.server.server.types;
 
-import java.util.logging.Logger;
 
 public class Point {
-
-	private static Logger _log = Logger.getLogger(Point.class.getName());
 
 	protected int _x = 0;
 	protected int _y = 0;

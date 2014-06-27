@@ -19,8 +19,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,7 +28,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_DelBuddy extends ClientBasePacket {
 
 	private static final String C_DEL_BUDDY = "[C] C_DelBuddy";
-	private static Logger _log = Logger.getLogger(C_DelBuddy.class.getName());
 
 	public C_DelBuddy(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

@@ -18,18 +18,14 @@
  */
 package l1j.server.server.model.poison;
 
-import java.util.logging.Logger;
-
+import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1DamagePoison extends L1Poison {
-	private static Logger _log = Logger.getLogger(L1DamagePoison.class
-			.getName());
 
 	private Thread _timer;
 	private final L1Character _attacker;

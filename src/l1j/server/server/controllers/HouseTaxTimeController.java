@@ -19,7 +19,6 @@
 package l1j.server.server.controllers;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
 import java.util.TimeZone;
 
 import l1j.server.Config;
@@ -32,8 +31,6 @@ import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
 public class HouseTaxTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(HouseTaxTimeController.class
-			.getName());
 	private static HouseTaxTimeController _instance;
 
 	public static HouseTaxTimeController getInstance() {

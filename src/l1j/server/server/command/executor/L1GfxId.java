@@ -20,10 +20,9 @@ package l1j.server.server.command.executor;
 
 import java.lang.reflect.Constructor;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
-import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,7 +30,6 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Npc;
 
 public class L1GfxId implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1GfxId.class.getName());
 
 	private L1GfxId() {
 	}

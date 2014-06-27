@@ -18,15 +18,12 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
 import java.util.TimerTask;
 
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1EquipmentTimer extends TimerTask {
-	private static final Logger _log = Logger.getLogger(L1EquipmentTimer.class
-			.getName());
 
 	public L1EquipmentTimer(L1PcInstance pc, L1ItemInstance item) {
 		_pc = pc;

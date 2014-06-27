@@ -19,7 +19,6 @@
 package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -35,8 +34,6 @@ import l1j.server.server.templates.L1Castle;
 public class C_ChangeWarTime extends ClientBasePacket {
 
 	private static final String C_CHANGE_WAR_TIME = "[C] C_ChangeWarTime";
-	private static Logger _log = Logger.getLogger(C_ChangeWarTime.class
-			.getName());
 
 	public C_ChangeWarTime(byte abyte0[], ClientThread clientthread)
 			throws Exception {

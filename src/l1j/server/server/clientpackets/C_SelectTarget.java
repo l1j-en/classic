@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
@@ -31,8 +29,6 @@ import l1j.server.server.model.Instance.L1PetInstance;
 public class C_SelectTarget extends ClientBasePacket {
 
 	private static final String C_SELECT_TARGET = "[C] C_SelectTarget";
-	private static Logger _log = Logger.getLogger(C_SelectTarget.class
-			.getName());
 
 	public C_SelectTarget(byte abyte0[], ClientThread clientthread)
 			throws Exception {

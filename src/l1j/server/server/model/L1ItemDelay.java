@@ -18,8 +18,6 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -30,9 +28,6 @@ import l1j.server.server.templates.L1EtcItem;
 // L1ItemDelay
 
 public class L1ItemDelay {
-
-	private static final Logger _log = Logger.getLogger(L1ItemDelay.class
-			.getName());
 
 	private L1ItemDelay() {
 	}

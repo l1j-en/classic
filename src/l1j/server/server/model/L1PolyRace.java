@@ -19,9 +19,9 @@
 package l1j.server.server.model;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Random;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.DoorTable;
@@ -29,7 +29,6 @@ import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_EffectLocation;

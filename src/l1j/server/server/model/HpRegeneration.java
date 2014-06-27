@@ -18,17 +18,25 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_5_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_5_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
+import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
+
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Random;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1EffectInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.map.Maps;
-import static l1j.server.server.model.skill.L1SkillId.*;
+import l1j.server.server.model.skill.L1SkillId;
 
 public class HpRegeneration extends TimerTask {
 

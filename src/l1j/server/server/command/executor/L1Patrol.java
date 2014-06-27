@@ -24,7 +24,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 
 public class L1Patrol implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Patrol.class.getName());
 
 	private L1Patrol() {
 	}

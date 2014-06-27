@@ -18,8 +18,6 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
-
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,8 +28,6 @@ import l1j.server.server.serverpackets.S_Teleport;
 import l1j.server.server.utils.Teleportation;
 
 public class L1Teleport {
-
-	private static Logger _log = Logger.getLogger(L1Teleport.class.getName());
 
 	public static final int TELEPORT = 0;
 

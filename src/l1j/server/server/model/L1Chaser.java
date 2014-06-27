@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
+
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
@@ -26,13 +28,11 @@ import java.util.logging.Logger;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Chaser extends TimerTask {
 	private static Logger _log = Logger.getLogger(L1Chaser.class.getName());

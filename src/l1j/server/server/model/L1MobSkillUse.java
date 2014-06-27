@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,10 +35,9 @@ import l1j.server.server.datatables.MobSkillTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.encryptions.IdFactory;
-import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.Instance.L1MonsterInstance;
-import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.skill.L1SkillUse;
@@ -46,7 +47,6 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1MobSkill;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
-import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
 
 public class L1MobSkillUse {
 	private static Logger _log = Logger

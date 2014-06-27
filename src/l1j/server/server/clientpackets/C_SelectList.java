@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
@@ -35,7 +33,6 @@ import l1j.server.server.model.item.L1ItemId;
 public class C_SelectList extends ClientBasePacket {
 
 	private static final String C_SELECT_LIST = "[C] C_SelectList";
-	private static Logger _log = Logger.getLogger(C_SelectList.class.getName());
 
 	public C_SelectList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

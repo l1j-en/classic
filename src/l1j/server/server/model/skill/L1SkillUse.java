@@ -3,8 +3,12 @@
  */
 package l1j.server.server.model.skill;
 
+import static l1j.server.server.model.item.L1ItemId.BraveStone;
+import static l1j.server.server.model.item.L1ItemId.BringStone;
+import static l1j.server.server.model.item.L1ItemId.DarkStone;
+import static l1j.server.server.model.item.L1ItemId.KaiserStone;
+import static l1j.server.server.model.item.L1ItemId.WiseStone;
 import static l1j.server.server.model.skill.L1SkillId.*;
-import static l1j.server.server.model.item.L1ItemId.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

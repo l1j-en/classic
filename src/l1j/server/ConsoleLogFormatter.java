@@ -18,10 +18,10 @@
  */
 package l1j.server;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 

@@ -18,11 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
+import static l1j.server.server.model.skill.L1SkillId.STATUS_WISDOM_POTION;
+
 import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class S_SPMR extends ServerBasePacket {
 	private static Logger _log = Logger.getLogger(S_SPMR.class.getName());

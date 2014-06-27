@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.model.L1Clan;
@@ -32,7 +30,6 @@ import l1j.server.server.serverpackets.S_Emblem;
 public class C_Clan extends ClientBasePacket {
 
 	private static final String C_CLAN = "[C] C_Clan";
-	private static Logger _log = Logger.getLogger(C_Clan.class.getName());
 
 	public C_Clan(byte abyte0[], ClientThread client) {
 		super(abyte0);

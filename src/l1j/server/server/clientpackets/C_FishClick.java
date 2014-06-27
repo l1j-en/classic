@@ -21,15 +21,14 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.L1World;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -38,7 +37,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_FishClick extends ClientBasePacket {
 	private static final String C_FISHCLICK = "[C] C_FishClick";
-	private static Logger _log = Logger.getLogger(C_FishClick.class.getName());
 	private static Random _random = new Random();
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };

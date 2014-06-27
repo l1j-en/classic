@@ -18,15 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_ChatPacket extends ServerBasePacket {
 
-	private static Logger _log = Logger.getLogger(S_ChatPacket.class.getName());
 	private static final String _S__1F_NORMALCHATPACK = "[S] S_ChatPacket";
 	private byte[] _byte = null;
 

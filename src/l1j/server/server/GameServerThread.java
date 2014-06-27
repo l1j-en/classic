@@ -19,7 +19,6 @@
 package l1j.server.server;
 
 import l1j.server.Config;
-import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.AuctionTimeController;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.FishingTimeController;

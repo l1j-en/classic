@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
@@ -30,7 +28,6 @@ import l1j.server.server.utils.FaceToFace;
 public class C_Trade extends ClientBasePacket {
 
 	private static final String C_TRADE = "[C] C_Trade";
-	private static Logger _log = Logger.getLogger(C_Trade.class.getName());
 
 	public C_Trade(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);

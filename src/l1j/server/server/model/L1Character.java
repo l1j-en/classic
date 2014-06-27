@@ -1,10 +1,14 @@
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.BLIND_HIDING;
+import static l1j.server.server.model.skill.L1SkillId.ERASE_MAGIC;
+import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_FINDINVIS;
+import static l1j.server.server.model.skill.L1SkillId.INVISIBILITY;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
@@ -16,19 +20,15 @@ import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillTimer;
 import l1j.server.server.model.skill.L1SkillTimerCreator;
 import l1j.server.server.serverpackets.S_Light;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Poison;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.IntRange;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final Logger _log = Logger.getLogger(L1Character.class
-			.getName());
 
 	private L1Poison _poison = null;
 	private boolean _paralyzed;

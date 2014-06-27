@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -29,7 +27,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_BanParty extends ClientBasePacket {
 
 	private static final String C_BAN_PARTY = "[C] C_BanParty";
-	private static Logger _log = Logger.getLogger(C_BanParty.class.getName());
 
 	public C_BanParty(byte decrypt[], ClientThread client) throws Exception {
 		super(decrypt);

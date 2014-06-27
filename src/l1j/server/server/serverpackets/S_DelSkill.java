@@ -26,7 +26,6 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_DelSkill extends ServerBasePacket {
 	private static final String _S__OB_DelSKILL = "[S] S_DelSkill";
-	private static Logger _log = Logger.getLogger(S_DelSkill.class.getName());
 
 	public S_DelSkill(int i, int j, int k, int l, int i1, int j1, int k1,
 			int l1, int i2, int j2, int k2, int l2, int i3, int j3, int k3,

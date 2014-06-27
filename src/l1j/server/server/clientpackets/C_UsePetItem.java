@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -31,7 +29,6 @@ import l1j.server.server.templates.L1Item;
 public class C_UsePetItem extends ClientBasePacket {
 
 	private static final String C_USE_PET_ITEM = "[C] C_UsePetItem";
-	private static Logger _log = Logger.getLogger(C_UsePetItem.class.getName());
 
 	private static final S_ServerMessage CantMessage = new S_ServerMessage(79);
 

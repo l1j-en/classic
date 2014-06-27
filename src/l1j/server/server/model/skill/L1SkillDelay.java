@@ -18,8 +18,6 @@
  */
 package l1j.server.server.model.skill;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 
@@ -28,8 +26,6 @@ import l1j.server.server.model.L1Character;
 
 public class L1SkillDelay {
 
-	private static final Logger _log = Logger.getLogger(L1SkillDelay.class
-			.getName());
 
 	private L1SkillDelay() {
 	}

@@ -2,16 +2,15 @@ package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.Random;
 
 import l1j.server.server.ActionCodes;
-import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.PetItemTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.PetTypeTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
@@ -34,8 +33,6 @@ public class L1PetInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
 	private static Random _random = new Random();
-	private static Logger _log = Logger
-			.getLogger(L1PetInstance.class.getName());
 	private int _currentPetStatus;
 	private L1PcInstance _petMaster;
 	private int _itemObjId;

@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterConfigTable;
@@ -29,8 +27,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ClientBasePacket, C_RequestDoors
 public class C_CharcterConfig extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_CharcterConfig.class
-			.getName());
 	private static final String C_CHARCTER_CONFIG = "[C] C_CharcterConfig";
 
 	public C_CharcterConfig(byte abyte0[], ClientThread client)

@@ -18,6 +18,25 @@
  */
 package l1j.server.server;
 
+import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
+import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
+import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
+import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.BRING_STONE;
+import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
+import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
+import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
+import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HOLY_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
+import static l1j.server.server.model.skill.L1SkillId.LIGHT;
+import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
+import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
+import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
+import static l1j.server.server.model.skill.L1SkillId.SHIELD;
+import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
@@ -33,25 +52,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
-
-import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
-import static l1j.server.server.model.skill.L1SkillId.LIGHT;
-import static l1j.server.server.model.skill.L1SkillId.SHIELD;
-import static l1j.server.server.model.skill.L1SkillId.HOLY_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
-import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
-import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
-import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.HASTE;
-import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
-import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
-import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
-import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
-import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
-import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
-import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
-import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
-import static l1j.server.server.model.skill.L1SkillId.BRING_STONE;
 
 public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());

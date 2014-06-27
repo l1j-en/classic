@@ -18,15 +18,12 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class L1NpcDeleteTimer extends TimerTask {
-	private static final Logger _log = Logger.getLogger(L1NpcDeleteTimer.class
-			.getName());
 
 	public L1NpcDeleteTimer(L1NpcInstance npc, int timeMillis) {
 		_npc = npc;

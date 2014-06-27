@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
@@ -30,7 +28,6 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 public class C_BoardBack extends ClientBasePacket {
 
 	private static final String C_BOARD_BACK = "[C] C_BoardBack";
-	private static Logger _log = Logger.getLogger(C_BoardBack.class.getName());
 
 	public C_BoardBack(byte abyte0[], ClientThread client) {
 		super(abyte0);

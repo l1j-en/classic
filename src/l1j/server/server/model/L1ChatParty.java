@@ -20,7 +20,6 @@ package l1j.server.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,8 +29,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // L1ChatParty
 
 public class L1ChatParty {
-	private static final Logger _log = Logger.getLogger(L1ChatParty.class
-			.getName());
 
 	private final List<L1PcInstance> _membersList = new ArrayList<L1PcInstance>();
 

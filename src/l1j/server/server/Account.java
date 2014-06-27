@@ -28,6 +28,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Base64;

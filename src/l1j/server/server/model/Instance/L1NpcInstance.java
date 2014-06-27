@@ -18,6 +18,18 @@
  */
 package l1j.server.server.model.Instance;
 
+import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_GREATER_HASTE_SELF;
+import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_HASTE_SELF;
+import static l1j.server.server.model.item.L1ItemId.POTION_OF_EXTRA_HEALING;
+import static l1j.server.server.model.item.L1ItemId.POTION_OF_GREATER_HASTE_SELF;
+import static l1j.server.server.model.item.L1ItemId.POTION_OF_GREATER_HEALING;
+import static l1j.server.server.model.item.L1ItemId.POTION_OF_HASTE_SELF;
+import static l1j.server.server.model.item.L1ItemId.POTION_OF_HEALING;
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
+import static l1j.server.server.model.skill.L1SkillId.POLLUTE_WATER;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,8 +55,8 @@ import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.L1MobSkillUse;
-import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1NpcChatTimer;
+import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.L1World;
@@ -53,19 +65,17 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ChangeShape;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
 import l1j.server.server.serverpackets.S_NPCPack;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.types.Point;
 import l1j.server.server.utils.TimerPool;
-import static l1j.server.server.model.item.L1ItemId.*;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1NpcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
