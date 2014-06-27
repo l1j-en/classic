@@ -224,8 +224,6 @@ public class L1SkillUse {
 
 	private static class TargetStatus {
 		private L1Character _target = null;
-		private boolean _isAction = false;
-		private boolean _isSendStatus = false;
 		private boolean _isCalc = true;
 
 		public TargetStatus(L1Character _cha) {
@@ -244,21 +242,6 @@ public class L1SkillUse {
 			return _isCalc;
 		}
 
-		public void isAction(boolean _flg) {
-			_isAction = _flg;
-		}
-
-		public boolean isAction() {
-			return _isAction;
-		}
-
-		public void isSendStatus(boolean _flg) {
-			_isSendStatus = _flg;
-		}
-
-		public boolean isSendStatus() {
-			return _isSendStatus;
-		}
 	}
 
 	public void setLeverage(int i) {
