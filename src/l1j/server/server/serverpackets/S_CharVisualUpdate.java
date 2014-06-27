@@ -18,15 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_CharVisualUpdate extends ServerBasePacket {
 	private static final String _S__0B_S_CharVisualUpdate = "[C] S_CharVisualUpdate";
-	private static Logger _log = Logger.getLogger(S_CharVisualUpdate.class
-			.getName());
 	private final L1PcInstance _cha;
 
 	public S_CharVisualUpdate(L1PcInstance cha) {

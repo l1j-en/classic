@@ -18,12 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
-import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.ChatLogTable;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChatPacket;
@@ -34,8 +32,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_ChatWhisper extends ClientBasePacket {
 
 	private static final String C_CHAT_WHISPER = "[C] C_ChatWhisper";
-	private static Logger _log = Logger
-			.getLogger(C_ChatWhisper.class.getName());
 
 	public C_ChatWhisper(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);

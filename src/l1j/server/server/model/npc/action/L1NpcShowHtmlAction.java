@@ -20,13 +20,13 @@ package l1j.server.server.model.npc.action;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.utils.IterableElementList;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class L1NpcShowHtmlAction extends L1NpcXmlAction {
 	private final String _htmlId;

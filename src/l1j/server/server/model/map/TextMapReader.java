@@ -30,8 +30,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.datatables.MapsTable;
-import l1j.server.server.model.map.L1Map;
-import l1j.server.server.model.map.L1V1Map;
 
 /**
  * Text map (maps/*.txt) to read.

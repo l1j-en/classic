@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.datatables.MailTable;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.templates.L1Mail;
 
 // Referenced classes of package l1j.server.server.serverpackets:

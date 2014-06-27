@@ -1,5 +1,18 @@
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.BLIND_HIDING;
+import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
+import static l1j.server.server.model.skill.L1SkillId.DETECTION;
+import static l1j.server.server.model.skill.L1SkillId.ENCHANT_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.EXTRA_HEAL;
+import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HASTE;
+import static l1j.server.server.model.skill.L1SkillId.HEAL;
+import static l1j.server.server.model.skill.L1SkillId.INVISIBILITY;
+import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
+import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,13 +23,12 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Ability;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_DelSkill;
-import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_Invis;
+import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.templates.L1Item;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1EquipmentSlot {
 	private static Logger _log = Logger.getLogger(L1EquipmentSlot.class

@@ -20,7 +20,6 @@ package l1j.server.server.model.Instance;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.TownTable;
@@ -32,18 +31,16 @@ import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1TownLocation;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.gametime.L1GameTimeClock;
+import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
-import l1j.server.server.serverpackets.S_ChangeHeading;
 
 public class L1MerchantInstance extends L1NpcInstance {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1MerchantInstance.class
-			.getName());
 
 	/**
 	 * @param template

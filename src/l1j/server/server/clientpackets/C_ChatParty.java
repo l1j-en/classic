@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1World;
@@ -32,7 +30,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_ChatParty extends ClientBasePacket {
 
 	private static final String C_CHAT_PARTY = "[C] C_ChatParty";
-	private static Logger _log = Logger.getLogger(C_ChatParty.class.getName());
 
 	public C_ChatParty(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);

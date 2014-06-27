@@ -21,9 +21,6 @@ package l1j.server.server.model.npc.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1ObjectAmount;
@@ -36,6 +33,9 @@ import l1j.server.server.serverpackets.S_HowManyMake;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.IterableElementList;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	private final List<L1ObjectAmount<Integer>> _materials = new ArrayList<L1ObjectAmount<Integer>>();

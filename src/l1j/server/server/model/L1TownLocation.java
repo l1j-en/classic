@@ -6,15 +6,12 @@ package l1j.server.server.model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.TownTable;
 import l1j.server.server.templates.L1Town;
 import l1j.server.server.types.Point;
 
 public class L1TownLocation {
-	private static final Logger _log = Logger.getLogger(L1TownLocation.class
-			.getName());
 	private static final Random random = new Random();
 
 	public static final int TOWNID_TALKING_ISLAND = 1;

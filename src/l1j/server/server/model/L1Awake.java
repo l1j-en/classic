@@ -18,8 +18,10 @@
  */
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
-
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_ANTHARAS;
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_FAFURION;
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_VALAKAS;
+import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChangeShape;
@@ -28,13 +30,10 @@ import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_SPMR;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.model:
 
 public class L1Awake {
-	private static final Logger _log = Logger
-			.getLogger(L1Awake.class.getName());
 
 	private L1Awake() {
 	}

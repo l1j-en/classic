@@ -18,7 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BoardTable;
 import l1j.server.server.model.L1Object;
@@ -30,8 +29,6 @@ import l1j.server.server.model.Instance.L1BoardInstance;
 public class C_BoardDelete extends ClientBasePacket {
 
 	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
-	private static Logger _log = Logger
-			.getLogger(C_BoardDelete.class.getName());
 
 	public C_BoardDelete(byte decrypt[], ClientThread client) {
 		super(decrypt);

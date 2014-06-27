@@ -18,6 +18,18 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.ADDITIONAL_FIRE;
+import static l1j.server.server.model.skill.L1SkillId.CONCENTRATION;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_2_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_2_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_5_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_5_S;
+import static l1j.server.server.model.skill.L1SkillId.EXOTIC_VITALIZE;
+import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_BLUE_POTION;
+
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +37,6 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.Maps;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class MpRegeneration extends TimerTask {
 

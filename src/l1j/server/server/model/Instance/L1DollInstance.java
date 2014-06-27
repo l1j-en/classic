@@ -19,21 +19,17 @@
 package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
-import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
 import java.util.Random;
+import java.util.concurrent.ScheduledFuture;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DollPack;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 
 public class L1DollInstance extends L1NpcInstance {
-	private static Logger _log = Logger.getLogger(L1DollInstance.class
-			.getName());
 	private static final long serialVersionUID = 1L;
 	public static final int DOLLTYPE_BUGBEAR = 0;
 	public static final int DOLLTYPE_SUCCUBUS = 1;

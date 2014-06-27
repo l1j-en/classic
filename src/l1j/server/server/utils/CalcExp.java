@@ -18,6 +18,13 @@
  */
 package l1j.server.server.utils;
 
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_7_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_7_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_7_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_7_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_S;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -36,7 +43,6 @@ import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.collections.Lists;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class CalcExp {
 	private static Logger _log = Logger.getLogger(CalcExp.class.getName());

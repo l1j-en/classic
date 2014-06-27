@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -33,7 +31,6 @@ import l1j.server.server.utils.FaceToFace;
 public class C_JoinClan extends ClientBasePacket {
 
 	private static final String C_JOIN_CLAN = "[C] C_JoinClan";
-	private static Logger _log = Logger.getLogger(C_JoinClan.class.getName());
 
 	public C_JoinClan(byte abyte0[], ClientThread clientthread)
 			throws Exception {

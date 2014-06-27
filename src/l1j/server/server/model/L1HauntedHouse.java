@@ -18,22 +18,19 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import l1j.server.Config;
-import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
-import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 
 public class L1HauntedHouse {
-	private static final Logger _log = Logger.getLogger(L1HauntedHouse.class
-			.getName());
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
 	public static final int STATUS_PLAYING = 2;

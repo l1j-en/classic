@@ -1,10 +1,14 @@
 package l1j.server.server.model.Instance;
 
+import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.ENCHANT_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.HOLY_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.SHADOW_FANG;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
@@ -21,11 +25,8 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.BinaryOutputStream;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ItemInstance extends L1Object {
-	private static Logger _log = Logger.getLogger(L1ItemInstance.class
-			.getName());
 
 	private static final long serialVersionUID = 1L;
 

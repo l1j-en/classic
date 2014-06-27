@@ -18,9 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.*;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Opcodes;

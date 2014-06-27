@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -27,7 +25,6 @@ import l1j.server.server.encryptions.Opcodes;
 
 public class S_AddSkill extends ServerBasePacket {
 	private static final String S_ADD_SKILL = "[S] S_AddSkill";
-	private static Logger _log = Logger.getLogger(S_AddSkill.class.getName());
 	private byte[] _byte = null;
 
 	public S_AddSkill(int level, int id) {

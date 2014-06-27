@@ -18,6 +18,51 @@
  */
 package l1j.server.server.datatables;
 
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_0_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_0_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_1_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_1_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_2_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_2_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_3_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_3_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_4_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_4_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_5_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_5_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_6_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_1_6_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_0_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_0_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_1_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_1_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_2_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_2_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_3_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_3_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_4_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_5_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_5_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_6_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_2_6_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_0_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_0_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_1_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_1_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_2_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_2_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_3_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_3_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_4_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_4_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_5_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_5_S;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_N;
+import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
+import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_ELFBRAVE;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,7 +71,6 @@ import java.util.logging.Logger;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class CharBuffTable {
 

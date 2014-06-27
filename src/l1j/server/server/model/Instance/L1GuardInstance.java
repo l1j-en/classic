@@ -3,8 +3,6 @@ package l1j.server.server.model.Instance;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NPCTalkDataTable;
@@ -23,8 +21,6 @@ import l1j.server.server.types.Point;
 public class L1GuardInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1GuardInstance.class
-			.getName());
 
 	private static final Map<Integer, Integer> guardsToCastles = new HashMap<Integer, Integer>();
 

@@ -18,9 +18,12 @@
  */
 package l1j.server.server.utils;
 
+import static l1j.server.server.model.skill.L1SkillId.BLOODLUST;
+import static l1j.server.server.model.skill.L1SkillId.WIND_SHACKLE;
+
 import java.util.HashSet;
-import java.util.logging.Logger;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Location;
@@ -35,14 +38,13 @@ import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_DollPack;
-import l1j.server.server.serverpackets.S_SkillBrave;
-import l1j.server.server.serverpackets.S_SkillIconWindShackle;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharPack;
 import l1j.server.server.serverpackets.S_PetPack;
+import l1j.server.server.serverpackets.S_SkillBrave;
+import l1j.server.server.serverpackets.S_SkillIconWindShackle;
 import l1j.server.server.serverpackets.S_SummonPack;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 // Referenced classes of package l1j.server.server.utils:
 // FaceToFace

@@ -1,15 +1,17 @@
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_ANTHARAS;
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_FAFURION;
+import static l1j.server.server.model.skill.L1SkillId.AWAKEN_VALAKAS;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.ArmorSetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1ArmorSets;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public abstract class L1ArmorSet {
 	public abstract void giveEffect(L1PcInstance pc);
@@ -81,8 +83,6 @@ interface L1ArmorSetEffect {
 class L1ArmorSetImpl extends L1ArmorSet {
 	private final int _ids[];
 	private final ArrayList<L1ArmorSetEffect> _effects;
-	private static Logger _log = Logger.getLogger(L1ArmorSetImpl.class
-			.getName());
 
 	protected L1ArmorSetImpl(int ids[]) {
 		_ids = ids;

@@ -20,7 +20,6 @@ package l1j.server.server.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
@@ -43,7 +42,6 @@ public class L1War {
 	private L1Castle _castle = null;
 	private Calendar _warEndTime;
 	private boolean _isWarTimerDelete = false;
-	private static final Logger _log = Logger.getLogger(L1War.class.getName());
 
 	public L1War() {
 	}

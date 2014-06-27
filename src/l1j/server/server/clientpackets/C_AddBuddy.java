@@ -19,8 +19,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
 import l1j.server.server.datatables.CharacterTable;
@@ -35,7 +33,6 @@ import l1j.server.server.templates.L1CharName;
 public class C_AddBuddy extends ClientBasePacket {
 
 	private static final String C_ADD_BUDDY = "[C] C_AddBuddy";
-	private static Logger _log = Logger.getLogger(C_AddBuddy.class.getName());
 
 	public C_AddBuddy(byte[] decrypt, ClientThread client) {
 		super(decrypt);

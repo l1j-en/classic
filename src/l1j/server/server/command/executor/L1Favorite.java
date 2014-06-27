@@ -18,8 +18,8 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;

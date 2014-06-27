@@ -18,8 +18,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -29,8 +27,6 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_TradeCancel extends ClientBasePacket {
 
 	private static final String C_TRADE_CANCEL = "[C] C_TradeCancel";
-	private static Logger _log = Logger
-			.getLogger(C_TradeCancel.class.getName());
 
 	public C_TradeCancel(byte abyte0[], ClientThread clientthread)
 			throws Exception {

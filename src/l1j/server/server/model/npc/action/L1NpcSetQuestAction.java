@@ -1,10 +1,10 @@
 package l1j.server.server.model.npc.action;
 
-import org.w3c.dom.Element;
-
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.npc.L1NpcHtml;
+
+import org.w3c.dom.Element;
 
 public class L1NpcSetQuestAction extends L1NpcXmlAction {
 	private final int _id;

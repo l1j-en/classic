@@ -23,8 +23,8 @@ import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
-import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.CheckWarTime;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;

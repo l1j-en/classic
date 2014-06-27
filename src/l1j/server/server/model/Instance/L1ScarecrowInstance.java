@@ -1,7 +1,6 @@
 package l1j.server.server.model.Instance;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
@@ -12,9 +11,6 @@ import l1j.server.server.utils.CalcExp;
 public class L1ScarecrowInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-
-	private static Logger _log = Logger.getLogger(L1ScarecrowInstance.class
-			.getName());
 
 	public L1ScarecrowInstance(L1Npc template) {
 		super(template);

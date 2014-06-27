@@ -18,10 +18,11 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
 
@@ -29,7 +30,6 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 public class S_CommonNews extends ServerBasePacket {
 	private static final String _S__0B_COMMONNEWS = "[S] S_CommonNews";
-	private static Logger _log = Logger.getLogger(S_CommonNews.class.getName());
 	private ArrayList<String> _announcements;
 
 	public S_CommonNews() {

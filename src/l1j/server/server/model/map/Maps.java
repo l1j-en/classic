@@ -3,8 +3,8 @@ package l1j.server.server.model.map;
 import java.util.Arrays;
 
 import l1j.server.server.model.L1Character;
-import l1j.server.server.utils.collections.IntArrays;
 import l1j.server.server.types.Point;
+import l1j.server.server.utils.collections.IntArrays;
 
 public class Maps {
 	public static final int ADEN = 4;

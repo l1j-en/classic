@@ -11,10 +11,10 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ItemStatus;
+import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.serverpackets.S_SPMR;
-import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.collections.IntArrays;
 

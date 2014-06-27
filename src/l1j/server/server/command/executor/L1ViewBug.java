@@ -21,15 +21,13 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.utils.SQLUtil;
 
 public class L1ViewBug implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1ViewBug.class.getName());
 
 	private L1ViewBug() {
 	}

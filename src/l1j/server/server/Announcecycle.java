@@ -22,14 +22,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Collection;
-import javolution.util.FastList;
 
+import javolution.util.FastList;
 import l1j.server.Config;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;

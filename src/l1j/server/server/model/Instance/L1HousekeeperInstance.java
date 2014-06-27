@@ -18,8 +18,6 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
@@ -35,8 +33,6 @@ public class L1HousekeeperInstance extends L1NpcInstance {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1HousekeeperInstance.class
-			.getName());
 
 	/**
 	 * @param template

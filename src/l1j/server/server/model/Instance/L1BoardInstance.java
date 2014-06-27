@@ -19,9 +19,6 @@
 
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
-
-import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Board;
 import l1j.server.server.serverpackets.S_BoardRead;
 import l1j.server.server.templates.L1Npc;
@@ -29,8 +26,6 @@ import l1j.server.server.templates.L1Npc;
 public class L1BoardInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1BoardInstance.class
-			.getName());
 
 	public L1BoardInstance(L1Npc template) {
 		super(template);

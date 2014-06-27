@@ -18,11 +18,12 @@
  */
 package l1j.server.server.model.poison;
 
+import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZED;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZING;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Paralysis;
-import static l1j.server.server.model.skill.L1SkillId.*;
 
 public class L1ParalysisPoison extends L1Poison {
 

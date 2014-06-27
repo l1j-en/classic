@@ -19,7 +19,6 @@
 package l1j.server.server.model.Instance;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.datatables.DoorTable;
@@ -38,8 +37,6 @@ import l1j.server.server.templates.L1Npc;
 public class L1CrownInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1CrownInstance.class
-			.getName());
 
 	public L1CrownInstance(L1Npc template) {
 		super(template);

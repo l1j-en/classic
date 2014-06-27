@@ -19,7 +19,6 @@
 package l1j.server.server.clientpackets;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
@@ -35,7 +34,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 public class C_War extends ClientBasePacket {
 	private static final String C_WAR = "[C] C_War";
-	private static Logger _log = Logger.getLogger(C_War.class.getName());
 
 	public C_War(byte abyte0[], ClientThread clientthread) throws Exception {
 		super(abyte0);

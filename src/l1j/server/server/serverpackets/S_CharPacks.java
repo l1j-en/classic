@@ -18,16 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_CharPacks extends ServerBasePacket {
 	private static final String S_CHAR_PACKS = "[S] S_CharPacks";
-
-	private static Logger _log = Logger.getLogger(S_CharPacks.class.getName());
 
 	public S_CharPacks(String name, String clanName, int type, int sex,
 			int lawful, int hp, int mp, int ac, int lv, int str, int dex,

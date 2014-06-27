@@ -18,26 +18,21 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
-
+import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1HauntedHouse;
+import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.skill.L1SkillUse;
-import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1Npc;
-
-import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 
 public class L1FieldObjectInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1FieldObjectInstance.class
-			.getName());
 
 	public L1FieldObjectInstance(L1Npc template) {
 		super(template);

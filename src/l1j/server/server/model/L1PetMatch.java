@@ -34,8 +34,6 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 
 public class L1PetMatch {
-	private static final Logger _log = Logger.getLogger(L1PetMatch.class
-			.getName());
 
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY1 = 1;

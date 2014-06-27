@@ -20,17 +20,13 @@ package l1j.server.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.Instance.L1NpcInstance;
 
 // Referenced classes of package l1j.server.server.model:
 // L1MobGroupInfo
 
 public class L1MobGroupInfo {
-	private static final Logger _log = Logger.getLogger(L1MobGroupInfo.class
-			.getName());
 
 	private final List<L1NpcInstance> _membersList = new ArrayList<L1NpcInstance>();
 
