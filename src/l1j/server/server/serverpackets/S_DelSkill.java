@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
