@@ -125,13 +125,13 @@ public class C_Attack extends ClientBasePacket {
 			}
 			pc.setHeading(pc.targetDirection(x, y));
 			if (weaponType == WeaponType.Bow
-					&& (weaponId == L1ItemId.SayhasBow || ammo != null)) {
+					&& (weaponId == L1ItemId.SAYHAS_BOW || ammo != null)) {
 				calcOrbit(pc.getX(), pc.getY(), pc.getHeading());
 				if (ammo != null) {
 					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 66,
 							_targetX, _targetY, true));
 					pc.getInventory().removeItem(ammo, 1);
-				} else if (weaponId == L1ItemId.SayhasBow) {
+				} else if (weaponId == L1ItemId.SAYHAS_BOW) {
 					pc.sendAndBroadcast(new S_UseArrowSkill(pc, 0, 2349,
 							_targetX, _targetY, true));
 				}
