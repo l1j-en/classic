@@ -468,7 +468,7 @@ public class L1World {
 	 *         return null.
 	 */
 	public L1PcInstance getPlayer(String name) {
-		if (_allPlayers.contains(name)) {
+		if (_allPlayers.containsKey(name)) {
 			return _allPlayers.get(name);
 		}
 		for (L1PcInstance each : getAllPlayers()) {
