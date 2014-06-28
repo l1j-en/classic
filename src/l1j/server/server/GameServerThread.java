@@ -141,25 +141,24 @@ public class GameServerThread {
 				+ (Config.WHISPER_CHAT_LEVEL));
 
 		if (Config.ALT_NONPVP) { // Non-PvP Setting
-			System.out.println("PvP  = On");
+			System.out.println("PvP                        = On");
 		} else {
-			System.out.println("PvP  = Off");
+			System.out.println("PvP                        = Off");
 		}
-		System.out.println("Database tables loaded successfully!");
 
 		// Announce Chat Cycle
 		Announcecycle.getInstance();
 
 		if (Config.Use_Show_INGAMENEWS_Time) {
-			System.out.println("IngameNews = On");
+			System.out.println("IngameNews                 = On");
 		} else {
-			System.out.println("InGameNews = Off");
+			System.out.println("InGameNews                 = Off");
 		}
 
 		System.gc();
 
 		int maxOnlineUsers = Config.MAX_ONLINE_USERS;
-		System.out.println("Max online users : " + (maxOnlineUsers));
+		System.out.println("Max online users           = " + (maxOnlineUsers));
 
 		IdFactory.getInstance();
 
@@ -274,5 +273,6 @@ public class GameServerThread {
 		NpcChatTable.getInstance();
 		LightSpawnTable.getInstance();
 		MailTable.getInstance();
+		System.out.println("Database tables loaded successfully!");
 	}
 }
