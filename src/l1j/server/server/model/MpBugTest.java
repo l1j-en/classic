@@ -51,6 +51,7 @@ public class MpBugTest {
 
 	private MpBugTestTimer _MpBugTestTimer;
 	private MpBugCheckTimer _MpBugCheckTimer;
+	private int _time = 0;
 
 	public MpBugTest() {
 	}
