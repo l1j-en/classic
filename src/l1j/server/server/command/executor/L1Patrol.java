@@ -18,6 +18,8 @@
  */
 package l1j.server.server.command.executor;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 
