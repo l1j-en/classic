@@ -3,7 +3,6 @@
  */
 package l1j.server.server.clientpackets;
 
-import static l1j.server.server.model.item.L1ItemId.B_ELVEN_WAFER;
 import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_EMOTION_BRAVERY;
 import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_EMOTION_WISDOM;
 import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_EXTRA_HEALING;
@@ -14,6 +13,7 @@ import static l1j.server.server.model.item.L1ItemId.B_POTION_OF_MANA;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_ENCHANT_ARMOR;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON;
 import static l1j.server.server.model.item.L1ItemId.B_SCROLL_OF_POLYMORPH;
+import static l1j.server.server.model.item.L1ItemId.B_ELVEN_WAFER;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_EXTRA_HEALING;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_GREATER_HEALING;
 import static l1j.server.server.model.item.L1ItemId.CONDENSED_POTION_OF_HEALING;
