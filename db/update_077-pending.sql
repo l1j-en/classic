@@ -627,3 +627,6 @@ delete from spawnlist where npc_templateid = 45065 and mapid = 68;
 
 -- Move Singing Island's teleport home location
 update getback set getback_x1 = 32818, getback_y1 = 32734, getback_x2 = 32818, getback_y2 = 32734, getback_x3 = 32818, getback_y3 = 32734 where area_mapid = 68;
+
+-- Fix Shield of Medusa stats.
+update armor set m_def = 5, regist_stone = 30 where item_id = 20227;
