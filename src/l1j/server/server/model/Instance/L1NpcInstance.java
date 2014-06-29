@@ -45,7 +45,6 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.NpcChatTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
