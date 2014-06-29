@@ -53,3 +53,78 @@ INSERT INTO `droplist` VALUES (45422, 'Subterranean Great King Turtle', 49042, '
 INSERT INTO `droplist` VALUES (45822, 'Turtle Dragon',49042, 'Turtle Dragon Egg',1, 1, 30000);
 INSERT INTO `droplist` VALUES (45937, 'Eva Turtle Dragon', 49042, 'Turtle Dragon Egg', 1, 1, 30000);
 
+-- add Kiwi Parrot Meat
+INSERT INTO `droplist` VALUES (45249, 'Kiwi Parrot',49043, 'Kiwi Parrot Meat',1, 1, 30000);
+
+-- add Scorpion Meat
+INSERT INTO `droplist` VALUES (45259, 'Scorpion',49044, 'Scorpion Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45260, 'Scorpaitan',49044, 'Scorpion Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45277, 'Scormystic',49044, 'Scorpion Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45382, 'Subterranean Scormystic',49044, 'Scorpion Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45383, 'Subterranean Scorpaitan',49044, 'Scorpion Meat',1, 1, 30000);
+
+-- add Elakkadom Meat
+INSERT INTO `droplist` VALUES (45487, 'Subterranean Elakkadom',49045, 'Elakkadom Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45819, 'Elakkadom',49045, 'Elakkadom Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45938, 'Eva Elekkadom',49045, 'Elakkadom Meat',1, 1, 30000);
+
+-- add spider leg meat
+INSERT INTO `droplist` VALUES (45038, 'Valley Arachnevil',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45059, 'Giant Spider',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45070, 'Giant Tarantula',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45136, 'Arachnevil',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45184, 'Arachnevil Elder',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45289, 'Muryan',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45308, 'Muryan Large',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45312, 'Giant Arachnevil Elder',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45348, 'Mutant Arachnevil Elder',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45358, 'Arachnevil',49046, 'Spider Leg Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45401, 'Arachnevil Elder',49046, 'Spider Leg Meat',1, 1, 30000);
+
+-- add crab meat
+INSERT INTO `droplist` VALUES (45075, 'Underground Crabman',49047, 'Crab Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45169, 'Giran Crabman',49047, 'Crab Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45297, 'Subterranean Crabman',49047, 'Crab Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45806, 'Crabman',49047, 'Crab Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45811, 'Mutant Crabman',49047, 'Crab Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45927, 'Eva Crabman',49047, 'Crab Meat',1, 1, 30000);
+
+-- add claw of crustacean
+
+INSERT INTO `droplist` VALUES (45733, 'Grave Crustacean',49260, 'Claw of Crustacean',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45823, 'Crustacean',49260, 'Claw of Crustacean',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45939, 'Eva Crustacean',49260, 'Claw of Crustacean',1, 1, 30000);
+
+-- add griffon meat
+INSERT INTO `droplist` VALUES (45090, 'Valley Griffon',49261,'Griffon Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45321, 'Griffon',49261,'Griffon Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45445, 'Griffon',49261,'Griffon Meat',1, 1, 30000);
+
+-- add cockatrice tail
+INSERT INTO `droplist` VALUES (45095, 'Island Cockatrice',49262, 'Cockatrice Tail',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45361, 'Cockatrice',49262, 'Cockatrice Tail',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45362, 'Cockatrice',49262, 'Cockatrice Tail',1, 1, 30000);
+INSERT INTO `droplist` VALUES (81173, 'Cockatrice',49262, 'Cockatrice Tail',1, 1, 30000);
+
+-- add great king turtle meat
+INSERT INTO `droplist` VALUES (45422, 'Subterranean Great King Turtle',49263, 'Great King Turtle Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45822, 'Turtle Dragon',49263, 'Great King Turtle Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45937, 'Eva Turtle Dragon',49263, 'Great King Turtle Meat',1, 1, 30000);
+
+-- add lesser dragon wing
+INSERT INTO `droplist` VALUES (45496, 'Lesser Dragon',49264, 'Lesser Dragon Wing',1, 1, 30000);
+
+-- add drake meat
+INSERT INTO `droplist` VALUES (45111, 'Island Drake',49265, 'Drake Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45529, 'Drake',49265, 'Drake Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45578, 'Drake',49265, 'Drake Meat',1, 1, 30000);
+
+-- add deep sea fish meat
+INSERT INTO `droplist` VALUES (45728, 'Deep Sea Fish',49266, 'Deep Sea Fish Meat',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45729, 'Hidden Deep Sea Fish',49266, 'Deep Sea Fish Meat',1, 1, 30000);
+
+-- add basilisk egg
+INSERT INTO `droplist` VALUES (45091, 'Valley Basilisk',49267, 'Basilisk Egg',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45381, 'Basilisk',49267, 'Basilisk Egg',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45531, 'Basilisk',49267, 'Basilisk Egg',1, 1, 30000);
+
