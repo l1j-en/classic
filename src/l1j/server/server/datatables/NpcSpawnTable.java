@@ -93,7 +93,7 @@ public class NpcSpawnTable {
 				}
 				if (Config.ALT_TALKINGSCROLLQUEST == true) {
 					int npcid = rs.getInt("id");
-					if (npcid >= 90067 && npcid <= 90069) {
+					if (npcid >= 90066 && npcid <= 90069) {
 						continue;
 					}
 				}
