@@ -20,3 +20,9 @@ update spawnlist_npc set count=1 where id = 50031;
 
 -- give killglance ring some stats
 UPDATE armor SET add_hp = 20, add_mp = 10, add_hpr = 5, add_mpr = 2, hit_modifier = 1 WHERE item_id = 30009;
+
+-- remove extra Caspa spawn
+DELETE FROM spawnlist_boss WHERE npc_id = 45488 AND mapid = 10;
+
+-- remove extra DK spawn
+DELETE FROM spawnlist_boss WHERE npc_id = 45601 AND mapid = 12;
