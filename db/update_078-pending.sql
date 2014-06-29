@@ -26,3 +26,16 @@ DELETE FROM spawnlist_boss WHERE npc_id = 45488 AND mapid = 10;
 
 -- remove extra DK spawn
 DELETE FROM spawnlist_boss WHERE npc_id = 45601 AND mapid = 12;
+
+-- add shark eggs to shark in deep sea
+INSERT INTO droplist VALUES(55800001,'Shark',49040,'Shark Eggs',1,1,50000);
+
+-- add shark eggs to Eva Shark - note: These are not currently spawning
+INSERT INTO droplist VALUES(45933,'Shark',49040,'Shark Eggs',1,1,50000);
+
+-- add shark eggs to sharks in kingdom of eva mapid 63
+INSERT INTO droplist VALUES(45160,'Shark',49040,'Shark Eggs',1,1,50000);
+ 
+-- add shark eggs to sharks in kingdrom of eva mapid 253
+INSERT INTO droplist VALUES(45816,'Shark',49040,'Shark Eggs',1,1,50000);
+
