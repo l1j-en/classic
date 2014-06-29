@@ -583,7 +583,12 @@ public class CalcExp {
 				|| pc.hasSkillEffect(COOKING_3_7_S)) {
 			foodBonus = 1.03;
 		}
-		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus);
+		// Cut XP in half for DI kills.
+		double diPenalty = 1.0;
+		if (pc.getLocation().getMapId() == 303) {
+			diPenalty = 0.5;
+		}
+		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus * diPenalty);
 
 		pc.addExp(add_exp);
 	}
