@@ -47,3 +47,9 @@ INSERT INTO `droplist` VALUES (45338, 'Crocodile',49041, 'Alligator Meat',1, 1, 
 INSERT INTO `droplist` VALUES (45469, 'Crocodile',49041, 'Alligator Meat',1, 1, 30000);
 INSERT INTO `droplist` VALUES (45814, 'Mutated Alligator',49041, 'Alligator Meat',1, 1, 30000);
 
+-- add turtle dragon egg drops
+INSERT INTO `droplist` VALUES (45240, 'Turtle Dragon',49042, 'Turtle Dragon Egg',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45422, 'Subterranean Great King Turtle', 49042, 'Turtle Dragon Egg',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45822, 'Turtle Dragon',49042, 'Turtle Dragon Egg',1, 1, 30000);
+INSERT INTO `droplist` VALUES (45937, 'Eva Turtle Dragon', 49042, 'Turtle Dragon Egg', 1, 1, 30000);
+
