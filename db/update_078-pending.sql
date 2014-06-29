@@ -11,3 +11,9 @@ update droplist set chance = 200 where mobid in (45640, 45642, 45643, 45644, 456
 
 -- Remove all freely acquired elven mats from shops.
 delete from shop where item_id in (40519, 40502, 40503, 40504, 40505, 40506, 40507, 40515, 40520, 40521) and purchasing_price = 1;
+
+-- This might not be the right template id, but it was using ribians and that was def not right
+update spawnlist_npc set npc_templateid = 71035 where id = 90066;
+
+-- Make the right ribian spawn
+update spawnlist_npc set count=1 where id = 50031;
