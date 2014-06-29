@@ -46,7 +46,8 @@ public class C_SelectTarget extends ClientBasePacket {
 		if (pet != null && target != null) {
 			if (target instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) target;
-				if (pc.checkNonPvP(pc, pet)) {
+				// checkNonPvP checks the altsetting, but we also always want pets not to attack PCs in safety zones.
+				if (pc.checkNonPvP(pc, pet) || pc.getLocation().getMap().isSafetyZone(pc.getLocation())) {
 					return;
 				}
 			}
