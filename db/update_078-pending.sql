@@ -28,14 +28,24 @@ DELETE FROM spawnlist_boss WHERE npc_id = 45488 AND mapid = 10;
 DELETE FROM spawnlist_boss WHERE npc_id = 45601 AND mapid = 12;
 
 -- add shark eggs to shark in deep sea
-INSERT INTO droplist VALUES(55800001,'Shark',49040,'Shark Eggs',1,1,50000);
+INSERT INTO droplist VALUES(55800001,'Shark',49040,'Shark Eggs',1,1,30000);
 
 -- add shark eggs to Eva Shark - note: These are not currently spawning
-INSERT INTO droplist VALUES(45933,'Shark',49040,'Shark Eggs',1,1,50000);
+INSERT INTO droplist VALUES(45933,'Shark',49040,'Shark Eggs',1,1,30000);
 
 -- add shark eggs to sharks in kingdom of eva mapid 63
-INSERT INTO droplist VALUES(45160,'Shark',49040,'Shark Eggs',1,1,50000);
+INSERT INTO droplist VALUES(45160,'Shark',49040,'Shark Eggs',1,1,30000);
  
 -- add shark eggs to sharks in kingdrom of eva mapid 253
-INSERT INTO droplist VALUES(45816,'Shark',49040,'Shark Eggs',1,1,50000);
+INSERT INTO droplist VALUES(45816,'Shark',49040,'Shark Eggs',1,1,30000);
+
+-- add alligator meat drops
+INSERT INTO `droplist` VALUES ('45026', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45096', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45101', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45196', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45338', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45469', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45719', '49041', '1', '1', '30000');
+INSERT INTO `droplist` VALUES ('45814', '49041', '1', '1', '30000');
 
