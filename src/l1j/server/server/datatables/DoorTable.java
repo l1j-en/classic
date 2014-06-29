@@ -111,6 +111,7 @@ public class DoorTable {
 
 		_doors.put(door.getLocation(), door);
 		putDirections(door);
+		loc.getMap().setPassable(door.getLocation(),false);
 		return door;
 	}
 
@@ -139,6 +140,15 @@ public class DoorTable {
 		return null;
 	}
 
+	public L1DoorInstance findByDoorLoc(int x, int y, int map) {
+		for (L1DoorInstance door: _doors.values()) {
+			if (door.getLocation().getX() == x && door.getLocation().getY() == y && door.getLocation().getMapId() == map) {
+				return door;
+			}
+		}
+		return null;
+	}
+	
 	public L1DoorInstance[] getDoorList() {
 		return _doors.values().toArray(new L1DoorInstance[_doors.size()]);
 	}
