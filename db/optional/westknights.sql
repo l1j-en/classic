@@ -28,7 +28,7 @@ update armor set use_dragonknight=1, use_illusionist=1, use_darkelf=1, use_mage=
 -- Aden. Here we're opting to have them dropped by bosses and spirits.
 
 -- Accessory Enchant Scrolls
-replace into droplist values 
+insert into droplist values 
 	(45640, "Unicorn", 49148, "Scroll of Enchant Accessory", 1, 1, 20000),
 	(45456, "Necromancer", 49148, "Scroll of Enchant Accessory", 1, 1, 15000),
 	(45464, "Sema", 49148, "Scroll of Enchant Accessory", 1, 1, 13000),
@@ -85,7 +85,7 @@ replace into droplist values
 	(81163, "Girtas", 49148, "Scroll of Enchant Accessory", 1, 3, 300000);
 
 -- Elemental Enchant Scrolls
-replace into droplist values 
+insert into droplist values 
 	(45619, "Great Spirit of Earth", 41430, "Scroll of Enchant Weapon: Earth", 1, 1, 18000),
 	(45620, "Great Spirit of Water", 41431, "Scroll of Enchant Weapon: Water", 1, 1, 18000),
 	(45621, "Great Spirit of Wind", 41429, "Scroll of Enchant Weapon: Wind", 1, 1, 18000),
@@ -129,7 +129,7 @@ update armor set grade=-1 where item_id=20282;
 
 -- Teleportation scrolls added to Melissa in Aden
 DELETE FROM `shop` where npc_id = 70052 and item_id in (40118, 40120, 40856, 40808, 42017, 42007, 40816, 42039, 42038, 42037, 42036, 42035, 42033, 42032, 42031, 42030, 42011, 42020, 40855, 40819, 42021, 42083, 40084, 40827, 42056);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70052, 'Melissa', 40118, 'Scroll of Return - Recluse Village', 30, 6250, 0, -1),
 	(70052, 'Melissa', 40120, 'Scroll of Return - Resistance Village', 31, 6250, 0, -1),
 	(70052, 'Melissa', 40856, 'Teleport - Pirate Island', 32, 6250, 0, -1),
@@ -158,7 +158,7 @@ REPLACE INTO `shop` VALUES
 
 -- Candle of Reminiscence and doll quest items added to Luth in Gludio
 DELETE FROM `shop` where npc_id = 70021 and item_id in (49142, 41251, 41252, 41253, 41254);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70021, 'Luth', 49142, 'Candle of Reminiscence', 40, 10000000, 0, -1),
 	(70021, 'Luth', 41251, 'Skeleton Grail', 41, 10000000, 0, -1),
 	(70021, 'Luth', 41252, 'Rare Turtle', 42, 10000000, 0, -1),
@@ -167,17 +167,17 @@ REPLACE INTO `shop` VALUES
 
 -- c- and b- zels/dais and wafers / devil's blood added to Verita in Giran
 DELETE FROM `shop` where npc_id = 70033 and item_id in (240074, 140074, 240087, 140087, 40068);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70033, 'Verita', 240074, 'Cursed Scroll of Enchant Armor', 40, 125000, 0, -1),
 	(70033, 'Verita', 140074, 'Blessed Scroll of Enchant Armor', 41, 400000, 0, -1),
 	(70033, 'Verita', 240087, 'Cursed Scroll of Enchant Weapon', 42, 125000, 0, -1),
 	(70033, 'Verita', 140087, 'Blessed Scroll of Enchant Weapon', 43, 400000, 0, -1),
 	(70033, 'Verita', 40068, 'Elven Wafer', 44, 3000, 0, -1);
---	(70033, 'Verita', , 'Devils Blood', 45, , 0, -1),
+	(70033, 'Verita', 40031, 'Devils Blood', 45, 3000, 0, -1),
 
 -- Stat elixirs added to Britt in Heine
 DELETE FROM `shop` where npc_id = 70082 and item_id in (40033, 40034, 40035, 40036, 40037, 40038);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70082, 'Britt', 40033, 'Elixer (STR)', 40, 60000000, 0, -1),
 	(70082, 'Britt', 40034, 'Elixer (CON)', 41, 60000000, 0, -1),
 	(70082, 'Britt', 40035, 'Elixer (DEX)', 42, 60000000, 0, -1),
@@ -187,7 +187,7 @@ REPLACE INTO `shop` VALUES
 
 -- Various materials added to Mellin in SKT
 DELETE FROM `shop` where npc_id = 70074 and item_id in (40408, 40496, 40320, 40321, 40505, 40519, 40503, 40507);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70074, 'Mellin', 40408, 'Lump of Iron', 40, 1250, 0, -1),
 	(70074, 'Mellin', 40496, 'Rough Mithril', 41, 3000, 0, -1),
 	(70074, 'Mellin', 40320, 'Bring Stone', 42, 1250, 0, -1),
@@ -199,7 +199,7 @@ REPLACE INTO `shop` VALUES
 
 -- Quest items added to Mandra in Oren
 DELETE FROM `shop` where npc_id = 70061 and item_id in (20027, 20230, 20318, 20226, 115, 20055, 20021, 20039, 20084, 20171, 20004, 20164, 20195, 20065, 20051, 20287, 56, 50, 184, 51, 20225, 13, 33, 178, 118, 20234, 127, 20167, 269, 21101, 30011, 270, 275, 21103, 21102, 272);
-REPLACE INTO `shop` VALUES
+INSERT INTO `shop` VALUES
 	(70061, 'Mandra', 20027, 'Red Knights Hood', 40, 500000, 0, -1),
 	(70061, 'Mandra', 20230, 'Shield of Red Knight', 41, 1500000, 0, -1),
 	(70061, 'Mandra', 20318, 'Belt of Bravery', 42, 5000000, 0, -1),
