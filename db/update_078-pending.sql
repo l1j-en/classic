@@ -19,7 +19,7 @@ update spawnlist_npc set npc_templateid = 71035 where id = 90066;
 update spawnlist_npc set count=1 where id = 50031;
 
 -- give killglance ring some stats
-UPDATE armor SET add_hp = 20, add_mp = 10, add_hpr = 5, add_mpr = 2, hit_modifier = 1 WHERE item_id = 30009;
+UPDATE armor SET add_hp = 20, add_mp = 10, add_hpr = 5, add_mpr = 2, hit_modifier = 1, grade = 1 WHERE item_id = 30009;
 
 -- remove extra Caspa spawn
 DELETE FROM spawnlist_boss WHERE npc_id = 45488 AND mapid = 10;
