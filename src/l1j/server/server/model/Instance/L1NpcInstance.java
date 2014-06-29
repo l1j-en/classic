@@ -45,6 +45,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.NpcChatTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
@@ -1320,6 +1321,37 @@ public class L1NpcInstance extends L1Character {
 				break;
 
 			}
+
+			/*
+			 * This code section would prevent mobs from walking through doors,
+			 * however, it's iterating through a for loop of every spawned door
+			 * in game for every tile based movement of every mob in game.
+			 * That's no good.
+			 * 
+			 * However, something like this might be necessary if we want mobs
+			 * to be able to open doors in the future. So I'm leaving this code
+			 * in place but commented out. -Tricid
+			 * 
+			 * PS. It's surrounded by try because its possible (and likely)
+			 * it'll find no door, throwing a null pointer exception.
+			 * 
+			 * PPS. If this is ever used, the additions in L1DoorInstance.java and
+			 * L1DoorTable.java that set the doors location impassible need to be
+			 * removed.
+			 */
+
+			/*
+			try {
+				if (DoorTable
+						.getInstance()
+						.findByDoorLoc(getX() + nx, getY() + ny,
+								getMap().getId()).getOpenStatus() == 29) {
+					return;
+				}
+			} catch (Exception e) {
+
+			}
+			*/
 
 			getMap().setPassable(getLocation(), true);
 

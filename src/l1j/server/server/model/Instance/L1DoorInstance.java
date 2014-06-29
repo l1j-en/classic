@@ -206,6 +206,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		setOpenStatus(ActionCodes.ACTION_Open);
 		broadcastPacket(new S_DoorPack(this));
 		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Open));
+		getMap().setPassable(getLocation(),true);
 		sendDoorPacket(null);
 	}
 
@@ -217,6 +218,7 @@ public class L1DoorInstance extends L1NpcInstance {
 		setOpenStatus(ActionCodes.ACTION_Close);
 		broadcastPacket(new S_DoorPack(this));
 		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Close));
+		getMap().setPassable(getLocation(),false);
 		sendDoorPacket(null);
 	}
 
