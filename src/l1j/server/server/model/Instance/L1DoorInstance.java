@@ -36,6 +36,8 @@ public class L1DoorInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
 	private static final int DOOR_NPC_ID = 81158;
 
+	private L1DoorGfx gfx;
+	
 	public L1DoorInstance(L1Npc template) {
 		super(template);
 	}
@@ -43,6 +45,7 @@ public class L1DoorInstance extends L1NpcInstance {
 	public L1DoorInstance(int doorId, L1DoorGfx gfx, L1Location loc, int hp,
 			int keeper) {
 		super(NpcTable.getInstance().getTemplate(DOOR_NPC_ID));
+		setGfx(gfx);
 		setDoorId(doorId);
 		setMaxHp(hp);
 		setCurrentHp(hp);
@@ -55,6 +58,13 @@ public class L1DoorInstance extends L1NpcInstance {
 		setLeftEdgeLocation(baseLoc + gfx.getLeftEdgeOffset());
 		setRightEdgeLocation(baseLoc + gfx.getRightEdgeOffset());
 		setKeeperId(keeper);
+		if (getGfx().getDirection() == 0) {
+			getMap().setPassable(getX()-1, getY(), false);
+			getMap().setPassable(getX()+1, getY(), false);
+		} else if (getGfx().getDirection() == 1) {
+			getMap().setPassable(getX(), getY()-1, false);
+			getMap().setPassable(getX(), getY()+1, false);
+		}
 	}
 
 	@Override
@@ -207,6 +217,13 @@ public class L1DoorInstance extends L1NpcInstance {
 		broadcastPacket(new S_DoorPack(this));
 		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Open));
 		getMap().setPassable(getLocation(),true);
+		if (getGfx().getDirection() == 0) {
+			getMap().setPassable(getX()-1, getY(), true);
+			getMap().setPassable(getX()+1, getY(), true);
+		} else if (getGfx().getDirection() == 1) {
+			getMap().setPassable(getX(), getY()-1, true);
+			getMap().setPassable(getX(), getY()+1, true);
+		}
 		sendDoorPacket(null);
 	}
 
@@ -219,6 +236,13 @@ public class L1DoorInstance extends L1NpcInstance {
 		broadcastPacket(new S_DoorPack(this));
 		broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Close));
 		getMap().setPassable(getLocation(),false);
+		if (getGfx().getDirection() == 0) {
+			getMap().setPassable(getX()-1, getY(), false);
+			getMap().setPassable(getX()+1, getY(), false);
+		} else if (getGfx().getDirection() == 1) {
+			getMap().setPassable(getX(), getY()-1, false);
+			getMap().setPassable(getX(), getY()+1, false);
+		}
 		sendDoorPacket(null);
 	}
 
@@ -319,5 +343,13 @@ public class L1DoorInstance extends L1NpcInstance {
 
 	public void setKeeperId(int i) {
 		_keeperId = i;
+	}
+
+	public L1DoorGfx getGfx() {
+		return gfx;
+	}
+
+	public void setGfx(L1DoorGfx gfx) {
+		this.gfx = gfx;
 	}
 }
