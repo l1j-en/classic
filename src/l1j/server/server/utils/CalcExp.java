@@ -245,6 +245,11 @@ public class CalcExp {
 							groupKarma);
 				} else if (character instanceof L1PetInstance) {
 					AddExpPet((L1PetInstance) character, groupExp);
+				} else if (character instanceof L1SummonInstance) {
+					L1PcInstance pc = (L1PcInstance) ((L1SummonInstance) character).getMaster();
+					int acquire_exp = (int) (groupExp * (1 - Config.SUMMON_STEAL_RATE));
+					int acquire_lawful = (int) (groupLawful * (1 - Config.SUMMON_STEAL_RATE));
+					AddExp(pc, acquire_exp, acquire_lawful);
 				}
 			}
 		}
@@ -364,6 +369,12 @@ public class CalcExp {
 						partyHateExp += hate;
 					} else if (l1pcinstance.getParty().isMember(master)) {
 						partyHateExp += hate;
+					} else {
+						if (totalHateExp > 0)
+							acquire_exp = (int) ((exp * hate / totalHateExp) * (1 - Config.SUMMON_STEAL_RATE));
+						if (totalHateLawful > 0)
+							acquire_lawful = (int) ((lawful * hate / totalHateLawful) * (1 - Config.SUMMON_STEAL_RATE));
+						AddExp(master, acquire_exp, acquire_lawful);
 					}
 				}
 			}
@@ -433,6 +444,14 @@ public class CalcExp {
 							AddExpPet(pet, acquire_exp);
 						}
 					} else if (acquisitor instanceof L1SummonInstance) {
+						L1SummonInstance summon = (L1SummonInstance) acquisitor;
+						L1PcInstance master = (L1PcInstance) summon.getMaster();
+						if (master == l1pcinstance) {
+							if (ownHateExp > 0)
+								acquire_exp = (int) ((member_exp * hate / ownHateExp) * (1 - Config.SUMMON_STEAL_RATE));
+							acquire_lawful = (int) (member_lawful * (1 - Config.SUMMON_STEAL_RATE));
+							AddExp(master, acquire_exp, acquire_lawful);
+						}
 					}
 				}
 			} else { // It did not participate in attack
@@ -500,6 +519,16 @@ public class CalcExp {
 									AddExpPet(pet, acquire_exp);
 								}
 							} else if (acquisitor instanceof L1SummonInstance) {
+								L1SummonInstance summon = (L1SummonInstance) acquisitor;
+								L1PcInstance master = (L1PcInstance) summon
+										.getMaster();
+								if (master == ptMembers[cnt]) {
+									if (ownHateExp > 0) {
+										acquire_exp = (int) ((member_exp * hate / ownHateExp) * (1 - Config.SUMMON_STEAL_RATE));
+									}
+									acquire_lawful = (int) (member_lawful * (1 - Config.SUMMON_STEAL_RATE));
+									AddExp(master, acquire_exp, member_lawful);
+								}
 							}
 						}
 					} else { // It did not participate in attack
@@ -512,7 +541,8 @@ public class CalcExp {
 			for (i = hateList.size() - 1; i >= 0; i--) {
 				acquisitor = acquisitors.get(i);
 				hate = hateList.get(i);
-				acquire_exp = (exp * hate / totalHateExp);
+				if (totalHateExp > 0) 
+					acquire_exp = (exp * hate / totalHateExp);
 				if (acquisitor instanceof L1PcInstance) {
 					if (totalHateLawful > 0)
 						acquire_lawful = lawful * hate / totalHateLawful;
@@ -520,6 +550,12 @@ public class CalcExp {
 							acquire_lawful);
 				} else if (acquisitor instanceof L1PetInstance) {
 					AddExpPet((L1PetInstance) acquisitor, acquire_exp);
+				} else if (acquisitor instanceof L1SummonInstance) {
+					if (totalHateLawful > 0)
+						acquire_lawful = (int) ((lawful * hate / totalHateLawful) * (1 - Config.SUMMON_STEAL_RATE));
+					L1PcInstance pc = (L1PcInstance) ((L1SummonInstance) acquisitor).getMaster();
+					acquire_exp = (int) (acquire_exp * (1 - Config.SUMMON_STEAL_RATE));
+					AddExp(pc, acquire_exp, acquire_lawful);
 				}
 			}
 		}
