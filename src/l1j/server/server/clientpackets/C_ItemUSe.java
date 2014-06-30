@@ -177,6 +177,9 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 		L1ItemInstance l1iteminstance = pc.getInventory().getItem(itemObjid);
 
+		if (l1iteminstance == null && pc.isDead()) {
+			return;
+		}
 		if (l1iteminstance.getItem().getUseType() == -1) { // none
 			pc.sendPackets(new S_ServerMessage(74, l1iteminstance.getLogName()));
 			return;
@@ -185,9 +188,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (pc.isTeleport()) {
 			return;
 		}
-		if (l1iteminstance == null && pc.isDead()) {
-			return;
-		}
+
 		if (!pc.getMap().isUsableItem()) {
 			pc.sendPackets(new S_ServerMessage(563));
 			return;
@@ -201,7 +202,8 @@ public class C_ItemUSe extends ClientBasePacket {
 		int l = 0;
 
 		String s = "";
-		int bmapid = 0;
+		//unused
+		//int bmapid = 0;
 		int btele = 0;
 		int blanksc_skillid = 0;
 		int spellsc_objid = 0;
@@ -253,7 +255,12 @@ public class C_ItemUSe extends ClientBasePacket {
 			l = readD();
 		} else if (itemId == 140100 || itemId == 40100 || itemId == 40099
 				|| itemId == 40086 || itemId == 40863) {
-			bmapid = readH();
+			/*
+			 * Unused, but leaving the readH() because I think this needs to be
+			 * ran to process the packet.  I could be wrong.
+			 */
+			//bmapid = readH();
+			readH();
 			btele = readD();
 			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK,
 					false));
@@ -2218,7 +2225,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 41426) {
 				L1ItemInstance lockItem = inventory.getItem(l);
-				int lockItemId = lockItem.getItem().getItemId();
+				//unused
+				//int lockItemId = lockItem.getItem().getItemId();
 				if (lockItem != null && lockItem.getItem().getType2() == 1
 						|| lockItem.getItem().getType2() == 2
 						|| lockItem.getItem().getType2() == 0
@@ -2253,7 +2261,8 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 41427) {
 				L1ItemInstance lockItem = inventory.getItem(l);
-				int lockItemId = lockItem.getItem().getItemId();
+				//unused
+				//int lockItemId = lockItem.getItem().getItemId();
 				if (lockItem != null && lockItem.getItem().getType2() == 1
 						|| lockItem.getItem().getType2() == 2
 						|| lockItem.getItem().getType2() == 0
@@ -4585,7 +4594,8 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1MonsterInstance mob = (L1MonsterInstance) target;
 			mob.receiveDamage(user, dmg);
 		} else if (target instanceof L1NpcInstance) {
-			L1NpcInstance npc = (L1NpcInstance) target;
+			//this isn't used best I can tell
+			//L1NpcInstance npc = (L1NpcInstance) target;
 		}
 	}
 
@@ -5187,7 +5197,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					// Object obj = null;
 					try {
 						String s = l1npc.getImpl();
-						Constructor constructor = Class.forName(
+						Constructor<?> constructor = Class.forName(
 								"l1j.server.server.model.Instance." + s
 										+ "Instance").getConstructors()[0];
 						Object aobj[] = { l1npc };
