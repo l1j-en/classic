@@ -128,3 +128,5 @@ INSERT INTO `droplist` VALUES (45091, 'Valley Basilisk',49267, 'Basilisk Egg',1,
 INSERT INTO `droplist` VALUES (45381, 'Basilisk',49267, 'Basilisk Egg',1, 1, 30000);
 INSERT INTO `droplist` VALUES (45531, 'Basilisk',49267, 'Basilisk Egg',1, 1, 30000);
 
+-- slow down rabbit walk speed
+update npc set passispeed = 2000 where npcid in (45010, 45011, 45012, 45013);
