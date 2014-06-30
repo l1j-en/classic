@@ -3329,16 +3329,14 @@ public class L1PcInstance extends L1Character {
 		int charisma = getCha();
 		if (isCrown()) {
 			charisma += 6;
+		} else if (isKnight()) {
 		} else if (isElf()) {
 			charisma += 12;
 		} else if (isWizard()) {
 			charisma += 6;
 		} else if (isDarkelf()) {
-			charisma += 6;
 		} else if (isDragonKnight()) {
-			charisma += 6;
 		} else if (isIllusionist()) {
-			charisma += 6;
 		}
 
 		L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
