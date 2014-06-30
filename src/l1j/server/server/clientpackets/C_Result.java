@@ -66,8 +66,9 @@ public class C_Result extends ClientBasePacket {
 		int npcObjectId = readD();
 		int resultType = readC();
 		int size = readC();
-		int unknown = readC();
-
+		//unused
+		//int unknown = readC();
+		readC();
 		L1PcInstance pc = clientthread.getActiveChar();
 		int level = pc.getLevel();
 
@@ -116,8 +117,9 @@ public class C_Result extends ClientBasePacket {
 				count = readD();
 				L1Object object = pc.getInventory().getItem(objectId);
 				L1ItemInstance item = (L1ItemInstance) object;
-				int item_count_before = item.getCount();
-				int item_count_after = 0;
+				//unused
+				//int item_count_before = item.getCount();
+				//int item_count_after = 0;
 				if (!item.getItem().isTradable()) {
 					tradable = false;
 					pc.sendPackets(new S_ServerMessage(210, item.getItem()
@@ -164,7 +166,8 @@ public class C_Result extends ClientBasePacket {
 					pc.turnOnOffLight();
 					L1ItemInstance pcitem = pc.getInventory().getItem(objectId);
 					if (pcitem != null) {
-						item_count_after = pcitem.getCount();
+						//unused
+						//item_count_after = pcitem.getCount();
 					}
 					// LogDwarfIn ldi = new LogDwarfIn();
 					// ldi.storeLogDwarfIn(pc, item, item_count_before,
@@ -222,8 +225,9 @@ public class C_Result extends ClientBasePacket {
 							pc.getClanname());
 					L1Object object = pc.getInventory().getItem(objectId);
 					L1ItemInstance item = (L1ItemInstance) object;
-					int item_count_before = item.getCount();
-					int item_count_after = 0;
+					//unused
+					//int item_count_before = item.getCount();
+					//int item_count_after = 0;
 					if (count > item.getCount()) {
 						_log.log(Level.SEVERE,
 								pc.getName() + " tried to (clan) store "
@@ -280,7 +284,8 @@ public class C_Result extends ClientBasePacket {
 							L1ItemInstance pcitem = pc.getInventory().getItem(
 									objectId);
 							if (pcitem != null) {
-								item_count_after = pcitem.getCount();
+								//unused
+								//item_count_after = pcitem.getCount();
 							}
 							// LogClanDwarfIn lcdi = new LogClanDwarfIn();
 							// lcdi.storeLogClanDwarfIn(pc, item,
@@ -303,8 +308,9 @@ public class C_Result extends ClientBasePacket {
 					objectId = readD();
 					count = readD();
 					item = clan.getDwarfForClanInventory().getItem(objectId);
-					int item_count_before = item.getCount();
-					int item_count_after = 0;
+					//unused
+					//int item_count_before = item.getCount();
+					//int item_count_after = 0;
 					if (count > item.getCount()) {
 						_log.log(Level.SEVERE,
 								pc.getName() + " tried to (clan) retrieve "
@@ -322,7 +328,8 @@ public class C_Result extends ClientBasePacket {
 									.getDwarfForClanInventory().getItem(
 											objectId);
 							if (dwitem != null) {
-								item_count_after = dwitem.getCount();
+								//unused
+								//item_count_after = dwitem.getCount();
 							}
 							// LogClanDwarfOut lcdo = new LogClanDwarfOut();
 							// lcdo.storeLogClanDwarfOut(pc, item,
@@ -455,7 +462,7 @@ public class C_Result extends ClientBasePacket {
 			int order;
 			int count;
 			int price;
-			List sellList;
+			List<L1PrivateShopSellList> sellList;
 			L1PrivateShopSellList pssl;
 			int itemObjectId;
 			int sellPrice;
@@ -467,9 +474,7 @@ public class C_Result extends ClientBasePacket {
 			L1PcInstance targetPc = null;
 			if (findObject instanceof L1PcInstance) {
 				targetPc = (L1PcInstance) findObject;
-				if (targetPc == null) {
-					return;
-				}
+
 			}
 			if (targetPc.isTradingInPrivateShop()) {
 				return;
@@ -490,11 +495,12 @@ public class C_Result extends ClientBasePacket {
 					sellTotalCount = pssl.getSellTotalCount();
 					sellCount = pssl.getSellCount();
 					item = targetPc.getInventory().getItem(itemObjectId);
-					int item_count_before = item.getCount();
-					int item_count_after = 0;
 					if (item == null) {
 						continue;
 					}
+					int item_count_before = item.getCount();
+					int item_count_after = 0;
+
 					if (count > sellTotalCount - sellCount) {
 						count = sellTotalCount - sellCount;
 					}
@@ -563,22 +569,20 @@ public class C_Result extends ClientBasePacket {
 		} else if (resultType == 1 && size != 0 && isPrivateShop) {
 			int count;
 			int order;
-			List buyList;
+			List<L1PrivateShopBuyList> buyList;
 			L1PrivateShopBuyList psbl;
 			int itemObjectId;
 			L1ItemInstance item;
 			int buyPrice;
 			int buyTotalCount;
 			int buyCount;
-			L1ItemInstance targetItem;
+			//unused
+			//L1ItemInstance targetItem;
 			boolean[] isRemoveFromList = new boolean[8];
 
 			L1PcInstance targetPc = null;
 			if (findObject instanceof L1PcInstance) {
 				targetPc = (L1PcInstance) findObject;
-				if (targetPc == null) {
-					return;
-				}
 			}
 			if (targetPc.isTradingInPrivateShop()) {
 				return;
