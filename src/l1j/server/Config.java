@@ -162,6 +162,8 @@ public final class Config {
 	public static int RATE_MP_ILLUSIONISTTOWN;
 
 	public static double PETEXP_RATE;
+	
+	public static double SUMMON_STEAL_RATE;
 
 	public static double PARTYEXP_RATE;
 
@@ -647,6 +649,8 @@ public final class Config {
 					.getProperty("RateMpDragonknighttown", "3"));
 
 			PETEXP_RATE = Double.parseDouble(rateSettings.getProperty("PetExp",
+					"1.0"));
+			SUMMON_STEAL_RATE = Double.parseDouble(rateSettings.getProperty("SummonSteal",
 					"1.0"));
 			PARTYEXP_RATE = Double.parseDouble(rateSettings.getProperty(
 					"PartyExp", "1.0"));
