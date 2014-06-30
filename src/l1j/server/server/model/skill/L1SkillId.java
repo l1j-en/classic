@@ -207,7 +207,7 @@ public class L1SkillId {
 
 	public static final int SHADOW_ARMOR = 99;
 
-	public static final int BRING_STONE = 100;
+	public static final int PURIFY_STONE = 100;
 
 	public static final int MOVING_ACCELERATION = 101; // E: PURIFY_STONE
 
