@@ -19,6 +19,7 @@
 package l1j.server.server.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -97,9 +98,10 @@ public class L1DeleteItemOnGround {
 	private void deleteItem() {
 		int numOfDeleted = 0;
 
-		// compare stored items to world items
-		for (L1Object previouslycheckeditem : checkeditems) {
-
+		// compare stored items to world itemss
+		for (Iterator<L1Object> iterator = checkeditems.iterator(); iterator.hasNext(); ) {
+		//for (L1Object previouslycheckeditem : checkeditems) {
+			L1Object previouslycheckeditem = iterator.next();
 			// see if item is still laying around the world
 			if (L1World.getInstance().getObject()
 					.contains(previouslycheckeditem)) {
@@ -111,7 +113,8 @@ public class L1DeleteItemOnGround {
 				// Items on the ground, rather than someone else's property
 				// remove item from checked list
 				if (item.getX() == 0 && item.getY() == 0) {
-					checkeditems.remove(item);
+					//checkeditems.remove(item);
+					iterator.remove();
 					continue;
 				}
 
@@ -119,7 +122,8 @@ public class L1DeleteItemOnGround {
 				// remove item from checked list
 				if (L1HouseLocation.isInHouse(item.getX(), item.getY(),
 						item.getMapId())) {
-					checkeditems.remove(item);
+					//checkeditems.remove(item);
+					iterator.remove();
 					continue;
 				}
 
@@ -129,7 +133,8 @@ public class L1DeleteItemOnGround {
 				// in case...
 				if (L1World.getInstance().getInventory(item.getX(),
 						item.getY(), item.getMapId()) == null) {
-					checkeditems.remove(item);
+					//checkeditems.remove(item);
+					iterator.remove();
 					continue;
 
 				}
@@ -144,7 +149,8 @@ public class L1DeleteItemOnGround {
 									item.getMapId());
 					try {
 					groundInventory.removeItem(item);
-					checkeditems.remove(item);
+					//checkeditems.remove(item);
+					iterator.remove();
 					numOfDeleted++;
 					} catch (Exception e) {
 						_log.info("Ground delete prob :" + e);
