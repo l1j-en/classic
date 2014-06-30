@@ -352,7 +352,7 @@ public class L1SkillUse {
 		if (_skillId == TELEPORT || _skillId == MASS_TELEPORT) {
 			_bookmarkId = target_id;
 		}
-		if (_skillId == CREATE_MAGICAL_WEAPON || _skillId == BRING_STONE
+		if (_skillId == CREATE_MAGICAL_WEAPON || _skillId == PURIFY_STONE
 				|| _skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON
 				|| _skillId == SHADOW_FANG) {
 			_itemobjid = target_id;
@@ -2649,7 +2649,7 @@ public class L1SkillUse {
 						} else {
 							pc.sendPackets(new S_ServerMessage(79));
 						}
-					} else if (_skillId == BRING_STONE) {
+					} else if (_skillId == PURIFY_STONE) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						turnStone(pc, pc.getInventory().getItem(_itemobjid), 1,
 								1, true);
@@ -3344,7 +3344,7 @@ public class L1SkillUse {
 		int brave = (int) (dark / 2.1);
 		int wise = (int) (brave / 2.0);
 		int kaiser = (int) (wise / 1.9);
-
+		
 		switch (item.getItem().getItemId()) {
 		case BRING_STONE:
 			turnStone(player, item, dark, DARK_STONE, "$2475", count, report);
