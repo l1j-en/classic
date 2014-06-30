@@ -849,17 +849,6 @@ public class L1Attack {
 		if (castleId > 0) {
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
-		if (!isNowWar) {
-			if (_targetNpc instanceof L1PetInstance) {
-				dmg /= 8;
-			}
-			if (_targetNpc instanceof L1SummonInstance) {
-				L1SummonInstance summon = (L1SummonInstance) _targetNpc;
-				if (summon.isExsistMaster()) {
-					dmg /= 8;
-				}
-			}
-		}
 		if (isImmune(_targetNpc))
 			dmg = 0;
 
@@ -957,13 +946,7 @@ public class L1Attack {
 		}
 		if (!isNowWar) {
 			if (_npc instanceof L1PetInstance) {
-				dmg /= 8;
-			}
-			if (_npc instanceof L1SummonInstance) {
-				L1SummonInstance summon = (L1SummonInstance) _npc;
-				if (summon.isExsistMaster()) {
-					dmg /= 8;
-				}
+				dmg /= 2;
 			}
 		}
 		if (dmg <= 0) {
