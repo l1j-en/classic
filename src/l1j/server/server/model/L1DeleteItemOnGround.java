@@ -26,6 +26,7 @@ import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.utils.CalcExp;
 
 // Referenced classes of package l1j.server.server.model:
 // L1DeleteItemOnGround
@@ -43,6 +44,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
  * Fix for issue: https://github.com/l1j/en/issues/119
  */
 public class L1DeleteItemOnGround {
+	
 	private DeleteTimer _deleteTimer;
 	private HashSet<L1Object> checkeditems = new HashSet<L1Object>();
 	private static final Logger _log = Logger
@@ -141,9 +143,14 @@ public class L1DeleteItemOnGround {
 					L1Inventory groundInventory = L1World.getInstance()
 							.getInventory(item.getX(), item.getY(),
 									item.getMapId());
+					try {
 					groundInventory.removeItem(item);
 					checkeditems.remove(item);
 					numOfDeleted++;
+					} catch (Exception e) {
+						_log.info("Ground delete prob :" + e);
+					}
+
 				}
 			}
 			// sleep a tiny amount each iteration just to make sure this thread
