@@ -10,7 +10,7 @@
     <property name="acquireIncrement">5</property>
     <property name="automaticTestTable">connection_test_table</property>
     <property name="testConnectionOnCheckin">false</property>
-    <property name="testConnectionOnCheckout">true</property>
+    <property name="testConnectionOnCheckout">false</property>
     <property name="idleConnectionTestPeriod">1000</property>
     <property name="maxIdleTime">1800</property>
     <property name="maxStatementsPerConnection">100</property>
