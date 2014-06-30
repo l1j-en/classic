@@ -22,7 +22,7 @@ import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.BRING_STONE;
+import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
@@ -389,14 +389,14 @@ public class PCommands {
 			return;
 		}
 
-		if (!player.isDarkelf() || !player.isSkillMastery(BRING_STONE)) {
+		if (!player.isDarkelf() || !player.isSkillMastery(PURIFY_STONE)) {
 			player.sendPackets(OnlyDarkElvesTurn);
 			return;
 		}
 
 		// TODO: Ugly hack. Should go through the normal skill mechanisms.
 		l1j.server.server.templates.L1Skill skill = l1j.server.server.datatables.SkillTable
-				.getInstance().findBySkillId(BRING_STONE);
+				.getInstance().findBySkillId(PURIFY_STONE);
 		int currentMana = player.getCurrentMp();
 		int castingCost = skill.getMpConsume();
 		for (int stone : l1j.server.server.model.item.L1ItemId.StoneList) {
