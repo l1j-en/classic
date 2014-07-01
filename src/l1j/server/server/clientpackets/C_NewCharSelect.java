@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
+import l1j.server.server.utils.SystemUtil;
 
 public class C_NewCharSelect extends ClientBasePacket {
 
@@ -37,7 +38,9 @@ public class C_NewCharSelect extends ClientBasePacket {
 
 		if (client.getActiveChar() != null) {
 			L1PcInstance pc = client.getActiveChar();
-			_log.info("Disconnect from: " + pc.getName());
+			_log.info("Logout from: char=" + pc.getName() + " account="
+			+ pc.getAccountName() + " host=" + client.getHostname()
+			+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 			ClientThread.quitGame(pc);
 			synchronized (pc) {
 				pc.logout();

@@ -135,7 +135,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			}
 		}
 		_log.info("Character login: char=" + charName + " account=" + login
-				+ " host=" + client.getHostname() + "\nCurrent Memory: "
+				+ " host=" + client.getHostname() + " Current Memory: "
 				+ SystemUtil.getUsedMemoryMB() + "MB RAM");
 		LogIP li = new LogIP();
 		li.storeLogIP(pc, client.getHostname());

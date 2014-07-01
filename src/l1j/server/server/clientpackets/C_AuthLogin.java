@@ -87,8 +87,8 @@ public class C_AuthLogin extends ClientBasePacket {
 			client.setAccount(account);
 			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_LOGIN_OK));
 			client.sendPacket(new S_CommonNews());
-			_log.info("Character login: account=" + account
-					+ " host=" + client.getHostname() + "\nCurrent Memory: "
+			_log.info("Account login: account=" + account.getName()
+					+ " host=" + client.getHostname() + " Current Memory: "
 					+ SystemUtil.getUsedMemoryMB() + "MB RAM");
 		} catch (GameServerFullException e) {
 			client.kick();

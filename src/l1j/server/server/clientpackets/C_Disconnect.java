@@ -37,7 +37,7 @@ public class C_Disconnect extends ClientBasePacket {
 		if (pc != null) {
 			_log.info("Disconnect From: char=" + pc.getName() + " account="
 					+ pc.getAccountName() + " host=" + client.getHostname()
-					+ "\nCurrent Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
+					+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 
 			if (Config.DELAY_DISCONNECT > 0) {
 				try {
@@ -52,8 +52,9 @@ public class C_Disconnect extends ClientBasePacket {
 				client.setActiveChar(null);
 			}
 		} else {
-			_log.info("Disconnect Request From Account : "
-					+ client.getAccountName());
+			_log.info("Disconnect From: account=" + client.getAccountName()
+					+ " host=" + client.getHostname()
+					+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 		}
 	}
 
