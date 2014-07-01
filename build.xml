@@ -48,7 +48,8 @@
         <mkdir dir="${build.dir}" />
         <javac destdir="${build.dir}"
                optimize="on"
-               encoding="UTF-8">
+               encoding="UTF-8"
+               debug="true">
             <src path="${src.dir}" />
             <classpath refid="classpath" />
 			<compilerarg value="-Xlint"/>
