@@ -20,6 +20,7 @@ package l1j.server.server;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -78,6 +79,10 @@ public class GeneralThreadPool {
 
 	public void execute(Thread t) {
 		t.start();
+	}
+	
+	public int getCurrentThreadCount() {
+		return ((ThreadPoolExecutor) _executor).getPoolSize();
 	}
 
 	public ScheduledFuture<?> schedule(Runnable r, long delay) {
