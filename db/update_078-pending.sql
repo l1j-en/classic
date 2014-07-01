@@ -148,3 +148,7 @@ update droplist set chance = 3600 where itemid = 20040 and mobid = 45601;
 update droplist set chance = 1200 where itemid = 20025 and mobid = 45601;
 update droplist set chance = 1200 where itemid = 20018 and mobid = 45601;
 update droplist set chance = 1200 where itemid = 20029 and mobid = 45601;
+
+-- Move Jewel Craftsman David a few cells so as not to block the direct path
+-- between Oren dwarf and pot shop.
+update spawnlist_npc set locx = 34059, locy = 32288, heading = 6 where npc_templateid = 80192;
