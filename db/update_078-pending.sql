@@ -130,3 +130,21 @@ INSERT INTO `droplist` VALUES (45531, 'Basilisk',49267, 'Basilisk Egg',1, 1, 300
 
 -- slow down rabbit walk speed
 update npc set passispeed = 2000 where npcid in (45010, 45011, 45012, 45013);
+
+-- With Capsa group and DK spawns fixed, we can up their rare droprates.
+update droplist set chance = 15000 where itemid = 20010 and mobid = 45601;
+update droplist set chance = 5000 where itemid = 20077 and mobid = 45601;
+update droplist set chance = 15000 where itemid = 20100 and mobid = 45601;
+update droplist set chance = 3500 where itemid = 20266 and mobid = 45601;
+update droplist set chance = 6500 where itemid = 20281 and mobid = 45601;
+update droplist set chance = 4500 where itemid = 20284 and mobid = 45601;
+update droplist set chance = 2500 where itemid = 20288 and mobid = 45601;
+update droplist set chance = 15000 where itemid = 20302 and mobid = 45601;
+update droplist set chance = 10000 where itemid = 40166 and mobid = 45601;
+update droplist set chance = 100000 where itemid = 40052 and mobid = 45601;
+update droplist set chance = 3500 where itemid = 58 and mobid = 45601;
+update droplist set chance = 3500 where itemid = 76 and mobid = 45601;
+update droplist set chance = 3600 where itemid = 20040 and mobid = 45601;
+update droplist set chance = 1200 where itemid = 20025 and mobid = 45601;
+update droplist set chance = 1200 where itemid = 20018 and mobid = 45601;
+update droplist set chance = 1200 where itemid = 20029 and mobid = 45601;
