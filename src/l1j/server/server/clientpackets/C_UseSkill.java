@@ -37,10 +37,16 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_UseSkill extends ClientBasePacket {
 
+	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
+	
 	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
 		super(abyte0);
 		int row = readC();
@@ -102,9 +108,8 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 				}
 			} catch (Exception e) {
-				// _log.log(Level.SEVERE, "", e);
-				System.out.println("SKILL ERROR: skillid " + skillId
-						+ " has some sort of issue");
+				if (Config.LOGGING_INCOMING_PACKETS) 
+					_log.warning("SKILL ERROR: skillid " + skillId + " has some sort of issue:\n" + e);
 			}
 		}
 
