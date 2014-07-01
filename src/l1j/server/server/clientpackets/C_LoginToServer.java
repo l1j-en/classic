@@ -91,6 +91,7 @@ import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1GetBackRestart;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
+import l1j.server.server.utils.SystemUtil;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -134,7 +135,8 @@ public class C_LoginToServer extends ClientBasePacket {
 			}
 		}
 		_log.info("Character login: char=" + charName + " account=" + login
-				+ " host=" + client.getHostname());
+				+ " host=" + client.getHostname() + "\nCurrent Memory: "
+				+ SystemUtil.getUsedMemoryMB() + "MB RAM");
 		LogIP li = new LogIP();
 		li.storeLogIP(pc, client.getHostname());
 

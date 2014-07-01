@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
@@ -63,7 +64,7 @@ public class GameServer extends Thread {
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
-				System.out.println("Accepted connection from IP: "
+				_log.log(Level.FINE, "Accepted connection from IP: "
 						+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 
