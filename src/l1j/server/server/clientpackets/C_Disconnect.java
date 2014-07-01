@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.utils.SystemUtil;
 
 public class C_Disconnect extends ClientBasePacket {
 	private static final String C_DISCONNECT = "[C] C_Disconnect";
@@ -34,7 +35,9 @@ public class C_Disconnect extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 
 		if (pc != null) {
-			_log.info("Disconnect From: " + pc.getName());
+			_log.info("Disconnect From: char=" + pc.getName() + " account="
+					+ pc.getAccountName() + " host=" + client.getHostname()
+					+ "\nCurrent Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 
 			if (Config.DELAY_DISCONNECT > 0) {
 				try {

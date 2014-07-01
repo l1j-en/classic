@@ -28,6 +28,7 @@ import l1j.server.server.GameServerFullException;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.serverpackets.S_CommonNews;
 import l1j.server.server.serverpackets.S_LoginResult;
+import l1j.server.server.utils.SystemUtil;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -62,7 +63,7 @@ public class C_AuthLogin extends ClientBasePacket {
 			if (Config.AUTO_CREATE_ACCOUNTS) {
 				account = Account.create(accountName, password, ip, host);
 			} else {
-				_log.warning("Account Missing For User " + accountName);
+				_log.info("Account Missing For User " + accountName);
 			}
 		}
 
@@ -86,6 +87,9 @@ public class C_AuthLogin extends ClientBasePacket {
 			client.setAccount(account);
 			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_LOGIN_OK));
 			client.sendPacket(new S_CommonNews());
+			_log.info("Character login: account=" + account
+					+ " host=" + client.getHostname() + "\nCurrent Memory: "
+					+ SystemUtil.getUsedMemoryMB() + "MB RAM");
 		} catch (GameServerFullException e) {
 			client.kick();
 			_log.info("Connection Terminated (" + client.getHostname()
