@@ -31,12 +31,16 @@
 package l1j.server.server.model;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
+import l1j.server.server.ClientThread;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_GameTime;
 
 public class MpBugTest {
+
+	private static Logger _log = Logger.getLogger(MpBugTest.class.getName());
 
 	// Last player we attempted to communicate with
 	private L1PcInstance _lastpc;
@@ -104,7 +108,7 @@ public class MpBugTest {
 		GeneralThreadPool.getInstance().execute(_MpBugCheckTimer);
 		_MpBugTestTimer = new MpBugTestTimer();
 		GeneralThreadPool.getInstance().execute(_MpBugTestTimer);
-		System.out.println("* * * MP Bug Check Is Active * * *");
+		_log.info("* * * MP Bug Check Is Active * * *");
 
 	}
 
@@ -136,13 +140,13 @@ public class MpBugTest {
 			_checkedpc = _lastpc;
 		} else if (L1World.getInstance().getAllPlayers().size() > 1
 				&& _checkedrand == _lastrand && _checkedpc == _lastpc) {
-			System.out.println("* * * MP BUG DETECTED	* * *");
+			_log.severe("* * * MP BUG DETECTED	* * *");
 			try {
-				System.out.println("* * * Rescuing thread pool	* * *");
+				_log.severe("* * * Rescuing thread pool	* * *");
 				_checkedpc.getNetConnection().rescue();
 			} catch (Exception e) {
-				System.out.println("* * * Rescue failed	* * *");
-				System.out.println(e);
+				_log.severe("* * * Rescue failed	* * *");
+				_log.severe(e.toString());
 			}
 			// try {
 			// System.out.println("* * * Interrupting client thread * * *");
@@ -151,7 +155,7 @@ public class MpBugTest {
 			// System.out.println("* * * Failed to interrupt thread * * *");
 			// System.out.println(e);
 			// }
-			System.out.println("* * * Killed player " + _checkedpc.getName()
+			_log.severe("* * * Killed player " + _checkedpc.getName()
 					+ "	* * *");
 		}
 	}
