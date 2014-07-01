@@ -152,3 +152,6 @@ update droplist set chance = 1200 where itemid = 20029 and mobid = 45601;
 -- Move Jewel Craftsman David a few cells so as not to block the direct path
 -- between Oren dwarf and pot shop.
 update spawnlist_npc set locx = 34059, locy = 32288, heading = 6 where npc_templateid = 80192;
+
+-- High Wolf should have attack range of 2
+update npc set ranged = 2 where npcid = 45686;
