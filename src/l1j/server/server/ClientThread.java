@@ -177,7 +177,8 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	@Override
 	public void run() {
-		_log.fine("(" + _hostname + ") Login detected");
+		_log.info("(" + _hostname + ") Login detected. CurrentThreads="
+				+ GeneralThreadPool.getInstance().getCurrentThreadCount());
 		_log.fine("Current memory: " + SystemUtil.getUsedMemoryMB() + "MB");
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
