@@ -91,7 +91,7 @@ public class ThreadPoolManager {
 						Thread.NORM_PRIORITY));
 	}
 
-	public ScheduledFuture scheduleEffect(Runnable r, long delay) {
+	public ScheduledFuture<?> scheduleEffect(Runnable r, long delay) {
 		try {
 			if (delay < 0) {
 				delay = 0;
@@ -103,7 +103,7 @@ public class ThreadPoolManager {
 		}
 	}
 
-	public ScheduledFuture scheduleEffectAtFixedRate(Runnable r, long initial,
+	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long initial,
 			long delay) {
 		try {
 			if (delay < 0) {
@@ -119,7 +119,7 @@ public class ThreadPoolManager {
 		}
 	}
 
-	public ScheduledFuture scheduleGeneral(Runnable r, long delay) {
+	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay) {
 		try {
 			if (delay < 0) {
 				delay = 0;
@@ -131,7 +131,7 @@ public class ThreadPoolManager {
 		}
 	}
 
-	public ScheduledFuture scheduleGeneralAtFixedRate(Runnable r, long initial,
+	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long initial,
 			long delay) {
 		try {
 			if (delay < 0) {
@@ -147,7 +147,7 @@ public class ThreadPoolManager {
 		}
 	}
 
-	public ScheduledFuture scheduleAi(Runnable r, long delay) {
+	public ScheduledFuture<?> scheduleAi(Runnable r, long delay) {
 		try {
 			if (delay < 0) {
 				delay = 0;
@@ -159,7 +159,7 @@ public class ThreadPoolManager {
 		}
 	}
 
-	public ScheduledFuture scheduleAiAtFixedRate(Runnable r, long initial,
+	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long initial,
 			long delay) {
 		try {
 			if (delay < 0) {

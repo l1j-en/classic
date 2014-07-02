@@ -45,7 +45,7 @@ public class TrapTable {
 	private L1Trap createTrapInstance(String name, TrapStorage storage)
 			throws Exception {
 		final String packageName = "l1j.server.server.model.trap.";
-		Constructor con = Class.forName(packageName + name).getConstructor(
+		Constructor<?> con = Class.forName(packageName + name).getConstructor(
 				new Class[] { TrapStorage.class });
 		return (L1Trap) con.newInstance(storage);
 	}
