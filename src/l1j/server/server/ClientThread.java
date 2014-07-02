@@ -130,6 +130,9 @@ public class ClientThread implements Runnable, PacketOutput {
 		_charRestart = flag;
 	}
 
+	public void nameThread(String tname) {
+		Thread.currentThread().setName(tname);
+	}
 	private byte[] readPacket() throws Exception {
 		try {
 			int hiByte = _in.read();
@@ -177,6 +180,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	@Override
 	public void run() {
+		nameThread("ClientThread");
 		_log.info("(" + _hostname + ") Login detected. CurrentThreads="
 				+ GeneralThreadPool.getInstance().getCurrentThreadCount());
 		_log.fine("Current memory: " + SystemUtil.getUsedMemoryMB() + "MB");
