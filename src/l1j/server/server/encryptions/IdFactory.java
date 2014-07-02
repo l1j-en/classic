@@ -68,7 +68,7 @@ public class IdFactory {
 				id = FIRST_ID;
 			}
 			_curId = id;
-			_log.info("IDFactory current max ID: " + _curId);
+			_log.config("IDFactory current max ID   = " + _curId);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {

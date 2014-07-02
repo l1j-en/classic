@@ -105,25 +105,25 @@ public class L1BossCycle {
 			return _period;
 		}
 
-		public void setPeriod(String period) {
-			this._period = period;
-		}
+		//public void setPeriod(String period) {
+		//	this._period = period;
+		//}
 
 		public String getStart() {
 			return _start;
 		}
 
-		public void setStart(String start) {
-			_start = start;
-		}
+		//public void setStart(String start) {
+		//	_start = start;
+		//}
 
 		public String getEnd() {
 			return _end;
 		}
 
-		public void setEnd(String end) {
-			_end = end;
-		}
+		//public void setEnd(String end) {
+		//	_end = end;
+		//}
 	}
 
 	public void init() throws Exception {
@@ -351,7 +351,7 @@ public class L1BossCycle {
 
 	public static void load() {
 		PerformanceTimer timer = new PerformanceTimer();
-		System.out.print("Loading Boss Cycle...");
+		_log.config("Loading Boss Cycle...");
 		try {
 			// BookOrder To generate the context of a binding class
 			JAXBContext context = JAXBContext
@@ -382,7 +382,7 @@ public class L1BossCycle {
 			_log.log(Level.SEVERE, "BossCycle Could not load", e);
 			System.exit(0);
 		}
-		System.out.println("     OK!     " + timer.elapsedTimeMillis() + "ms");
+		_log.config("     OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	/**
@@ -393,10 +393,10 @@ public class L1BossCycle {
 	 *            The period of time
 	 */
 	public void showData(Calendar now) {
-		System.out.println("[Type]" + getName());
-		System.out.print("  [Emergence period]");
-		System.out.print(_sdf.format(getSpawnStartTime(now).getTime()) + " - ");
-		System.out.println(_sdf.format(getSpawnEndTime(now).getTime()));
+		_log.info("[Type]" + getName());
+		_log.info("  [Emergence period]");
+		_log.info(_sdf.format(getSpawnStartTime(now).getTime()) + " - ");
+		_log.info(_sdf.format(getSpawnEndTime(now).getTime()));
 	}
 
 	private static HashMap<String, L1BossCycle> _cycleMap = new HashMap<String, L1BossCycle>();

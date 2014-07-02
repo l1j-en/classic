@@ -144,7 +144,7 @@ public class L1TreasureBox {
 
 	public static void load() {
 		PerformanceTimer timer = new PerformanceTimer();
-		System.out.print("loading TreasureBox...");
+		_log.config("loading TreasureBox...");
 		try {
 			JAXBContext context = JAXBContext
 					.newInstance(L1TreasureBox.TreasureBoxList.class);
@@ -160,7 +160,7 @@ public class L1TreasureBox {
 					PATH + " is invalid for a TreasureBox load.", e);
 			System.exit(0);
 		}
-		System.out.println("    OK!     " + timer.elapsedTimeMillis() + "ms");
+		_log.config("    OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	public boolean open(L1PcInstance pc) {

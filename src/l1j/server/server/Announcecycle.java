@@ -62,7 +62,7 @@ public class Announcecycle {
 			readFromDiskmulti(file);
 			doAnnouncecycle();
 		} else {
-			System.out.println("data/ingamenews.txt loaded.");
+			_log.config("data/ingamenews.txt loaded.");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class Announcecycle {
 					i++;
 				}
 			}
-			System.out.println("IngameNews: Loaded " + i + " ingamenews.");
+			_log.config("IngameNews Messages        = " + i);
 		} catch (IOException e1) {
 			_log.log(Level.SEVERE, "Error reading ingamenews", e1);
 		} finally {

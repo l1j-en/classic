@@ -90,7 +90,6 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
-import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.WeaponType;
 import l1j.server.server.model.poison.L1DamagePoison;

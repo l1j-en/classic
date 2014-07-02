@@ -506,7 +506,8 @@ public final class Config {
 	public static int DELAY_DISCONNECT;
 
 	public static void load() {
-		System.out.println("Loading GameServer config.");
+		_log.config("Loading GameServer config.");
+
 		// server.properties
 		try {
 			Properties serverSettings = new Properties();
@@ -614,7 +615,7 @@ public final class Config {
 		}
 
 		// rates.properties
-		System.out.println("Loading Rates config.");
+		_log.config("Loading Rates config.");
 		try {
 			Properties rateSettings = new Properties();
 			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
@@ -710,7 +711,7 @@ public final class Config {
 		}
 
 		// altsettings.properties
-		System.out.println("Loading AltSettings config.");
+		_log.config("Loading AltSettings config.");
 		try {
 			Properties altSettings = new Properties();
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
@@ -866,7 +867,7 @@ public final class Config {
 		}
 
 		// charsettings.properties
-		System.out.println("Loading CharSettings config.");
+		_log.config("Loading CharSettings config.");
 		try {
 			Properties charSettings = new Properties();
 			InputStream is = new FileInputStream(new File(
@@ -1007,7 +1008,7 @@ public final class Config {
 			throw new Error("Failed to load " + CHAR_SETTINGS_CONFIG_FILE
 					+ " file.");
 		}
-		System.out.println("Loading PcCommandSettings config.");
+		_log.config("Loading PcCommandSettings config.");
 		try {
 			Properties pcommandSettings = new Properties();
 			InputStream is = new FileInputStream(new File(

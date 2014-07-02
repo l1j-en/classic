@@ -405,25 +405,26 @@ public class ClientThread implements Runnable, PacketOutput {
 	// mp bug fix - dont remove - tricid
 	public void rescue() {
 		try {
-			System.out.println("* * * Closing socket	* * * ");
+			_log.info("* * * Closing socket	* * * ");
 			_csocket.close();
 		} catch (Exception e) {
-			System.out.println("* * * Failed closing socket	* * *");
-			System.out.println(e);
+			_log.severe("* * * Failed closing socket	* * *");
+			_log.severe(e.toString());
 		}
 		try {
-			System.out.println("* * * Closing streams	* * *");
+			_log.info("* * * Closing streams	* * *");
 			StreamUtil.close(_out, _in);
 		} catch (Exception e) {
-			System.out.println("* * * Failed to close streams	* * *");
-			System.out.println(e);
+			_log.severe("* * * Failed to close streams	* * *");
+			_log.severe(e.toString());
 		}
 
 		try {
-			System.out.println("* * * Stopping client thread	* * *");
+			_log.info("* * * Stopping client thread	* * *");
 			stop = true;
 		} catch (Exception e) {
-			System.out.println("* * * Failed stopping thread	* * *");
+			_log.severe("* * * Failed stopping thread	* * *");
+			_log.severe(e.toString());
 		}
 
 	}

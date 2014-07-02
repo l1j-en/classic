@@ -52,10 +52,10 @@ public class SpawnTable {
 
 	private SpawnTable() {
 		PerformanceTimer timer = new PerformanceTimer();
-		System.out.print("Spawning Mob...");
+		_log.config("Spawning Mob...");
 		fillSpawnTable();
 		_log.config("Monster placement list: " + _spawntable.size() + " Loaded");
-		System.out.println("           OK!     " + timer.elapsedTimeMillis()
+		_log.config("           OK!     " + timer.elapsedTimeMillis()
 				+ "ms");
 	}
 

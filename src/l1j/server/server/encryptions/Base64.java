@@ -18,9 +18,13 @@
  */
 package l1j.server.server.encryptions;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.utils.StreamUtil;
 
 public class Base64 {
+
+	private static Logger _log = Logger.getLogger(Base64.class.getName());
 
 	/* ******** P U B L I C F I E L D S ******** */
 
@@ -118,7 +122,7 @@ public class Base64 {
 	 */
 	};
 
-	private final static byte BAD_ENCODING = -9; // Indicates error in
+	//private final static byte BAD_ENCODING = -9; // Indicates error in
 
 	// encoding
 
@@ -135,15 +139,15 @@ public class Base64 {
 
 	/* ******** E N C O D I N G M E T H O D S ******** */
 
-	private static byte[] encode3to4(byte[] threeBytes) {
-		return encode3to4(threeBytes, 3);
-	} // end encodeToBytes
+	//private static byte[] encode3to4(byte[] threeBytes) {
+	//	return encode3to4(threeBytes, 3);
+	//} // end encodeToBytes
 
-	private static byte[] encode3to4(byte[] threeBytes, int numSigBytes) {
-		byte[] dest = new byte[4];
-		encode3to4(threeBytes, 0, numSigBytes, dest, 0);
-		return dest;
-	}
+	//private static byte[] encode3to4(byte[] threeBytes, int numSigBytes) {
+	//	byte[] dest = new byte[4];
+	//	encode3to4(threeBytes, 0, numSigBytes, dest, 0);
+	//	return dest;
+	//}
 
 	private static byte[] encode3to4(byte[] b4, byte[] threeBytes,
 			int numSigBytes) {
@@ -349,17 +353,17 @@ public class Base64 {
 	 * @return array with decoded values
 	 * @since 1.3
 	 */
-	private static byte[] decode4to3(byte[] fourBytes) {
-		byte[] outBuff1 = new byte[3];
-		int count = decode4to3(fourBytes, 0, outBuff1, 0);
-		byte[] outBuff2 = new byte[count];
+	//private static byte[] decode4to3(byte[] fourBytes) {
+	//	byte[] outBuff1 = new byte[3];
+	//	int count = decode4to3(fourBytes, 0, outBuff1, 0);
+	//	byte[] outBuff2 = new byte[count];
 
-		for (int i = 0; i < count; i++) {
-			outBuff2[i] = outBuff1[i];
-		}
+	//	for (int i = 0; i < count; i++) {
+	//		outBuff2[i] = outBuff1[i];
+	//	}
 
-		return outBuff2;
-	}
+	//	return outBuff2;
+	//}
 
 	/**
 	 * Decodes four bytes from array <var>source</var> and writes the resulting
@@ -436,13 +440,13 @@ public class Base64 {
 
 				return 3;
 			} catch (Exception e) {
-				System.out.println("" + source[srcOffset] + ": "
+				_log.severe("" + source[srcOffset] + ": "
 						+ (DECODABET[source[srcOffset]]));
-				System.out.println("" + source[srcOffset + 1] + ": "
+				_log.severe("" + source[srcOffset + 1] + ": "
 						+ (DECODABET[source[srcOffset + 1]]));
-				System.out.println("" + source[srcOffset + 2] + ": "
+				_log.severe("" + source[srcOffset + 2] + ": "
 						+ (DECODABET[source[srcOffset + 2]]));
-				System.out.println("" + source[srcOffset + 3] + ": "
+				_log.severe("" + source[srcOffset + 3] + ": "
 						+ (DECODABET[source[srcOffset + 3]]));
 				return -1;
 			} // e nd catch
@@ -618,7 +622,7 @@ public class Base64 {
 	 * @since 1.3
 	 */
 	public static class InputStream extends java.io.FilterInputStream {
-		private int options; // Options specified
+		//private int options; // Options specified
 
 		private boolean encode; // Encoding or decoding
 
@@ -673,7 +677,7 @@ public class Base64 {
 		 */
 		public InputStream(java.io.InputStream in, int options) {
 			super(in);
-			this.options = options;
+			//this.options = options;
 			this.breakLines = (options & DONT_BREAK_LINES) != DONT_BREAK_LINES;
 			this.encode = (options & ENCODE) == ENCODE;
 			this.bufferLength = encode ? 4 : 3;
@@ -846,7 +850,7 @@ public class Base64 {
 	 * @since 1.3
 	 */
 	public static class OutputStream extends java.io.FilterOutputStream {
-		private int options;
+		//private int options;
 
 		private boolean encode;
 
@@ -904,7 +908,7 @@ public class Base64 {
 		 */
 		public OutputStream(java.io.OutputStream out, int options) {
 			super(out);
-			this.options = options;
+			//this.options = options;
 			this.breakLines = (options & DONT_BREAK_LINES) != DONT_BREAK_LINES;
 			this.encode = (options & ENCODE) == ENCODE;
 			this.bufferLength = encode ? 3 : 4;
