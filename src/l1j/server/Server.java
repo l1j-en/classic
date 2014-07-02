@@ -68,9 +68,9 @@ public class Server {
 		// Telent Server
 		if (Config.TELNET_SERVER) {
 			TelnetServer.getInstance().start();
-			System.out.println("Telnet server initialized.");
+			_log.config("Telnet server initialized.");
 		} else {
-			_log.info("Telnet server is currently disabled.");
+			_log.config("Telnet server is currently disabled.");
 		}
 	}
 }

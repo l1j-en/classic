@@ -25,14 +25,13 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.MpBugTest;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SystemUtil;
 
@@ -58,9 +57,9 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Server started. Memory used: "
+		_log.config("Server started. Memory used: "
 				+ SystemUtil.getUsedMemoryMB() + "MB");
-		System.out.println("Waiting for connections!");
+		_log.config("Waiting for connections!");
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
@@ -103,24 +102,26 @@ public class GameServer extends Thread {
 	public void initialize() throws Exception {
 		String s = Config.GAME_SERVER_HOST_NAME;
 
-		System.out.println("=================================================");
-		System.out.println("               L1J-En Server Starting");
-		System.out.println("=================================================");
+		_log.config("=================================================");
+		_log.config("               L1J-En Server Starting");
+		_log.config("=================================================");
 
 		_port = Config.GAME_SERVER_PORT;
 		if (!"*".equals(s)) {
 			InetAddress inetaddress = InetAddress.getByName(s);
 			inetaddress.getHostAddress();
 			_serverSocket = new ServerSocket(_port, 50, inetaddress);
-			System.out.println("Login Server ready on "
+			_log.config("Login Server ready on "
 					+ (inetaddress == null ? "Port" : inetaddress
 							.getHostAddress()) + ":" + _port);
 		} else {
 			_serverSocket = new ServerSocket(_port);
-			System.out.println("Port " + _port + " opened");
+			_log.config("Port " + _port + " opened");
 		}
-		MpBugTest mpbug = new MpBugTest();
+		ThreadLockTest mpbug = new ThreadLockTest();
+		_log.config("Starting Thread Lock Detection");
 		mpbug.initialize();
+		_log.config("Thread Lock Detection running");
 		SkillTable.initialize();
 		GameServerThread.getInstance();
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());

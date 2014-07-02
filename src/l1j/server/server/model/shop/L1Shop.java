@@ -21,6 +21,7 @@ package l1j.server.server.model.shop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
@@ -43,6 +44,9 @@ import l1j.server.server.templates.L1ShopItem;
 import l1j.server.server.utils.IntRange;
 
 public class L1Shop {
+	
+	private static Logger _log = Logger.getLogger(L1Shop.class.getName());
+
 	private final int _npcId;
 	private final List<L1ShopItem> _sellingItems;
 	private final List<L1ShopItem> _purchasingItems;
@@ -281,8 +285,8 @@ public class L1Shop {
 				lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,
 						orderList.getTotalPriceTaxIncluded());
 			} catch (Exception e) {
-				System.out.println("Problem with storeLogShopBuy");
-				System.out.println(e);
+				_log.warning("Problem with storeLogShopBuy");
+				_log.warning(e.toString());
 			}
 		}
 	}
@@ -317,8 +321,8 @@ public class L1Shop {
 				lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter, order
 						.getItem().getAssessedPrice() * count);
 			} catch (Exception e) {
-				System.out.println("Problem with storeLogShopSell");
-				System.out.println(e);
+				_log.warning("Problem with storeLogShopSell");
+				_log.warning(e.toString());
 			}
 			adenabefore = adenaafter;
 		}

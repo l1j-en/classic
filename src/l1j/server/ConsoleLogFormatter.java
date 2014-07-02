@@ -23,11 +23,12 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Formatter;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 public class ConsoleLogFormatter extends Formatter {
 	private SimpleDateFormat dateFmt = new SimpleDateFormat(
-			"yyyy.MM.dd HH:mm:ss,SSS");
+			"yyyy.MM.dd HH:mm:ss");
 
 	/*
 	 * (non-Javadoc)
@@ -40,21 +41,29 @@ public class ConsoleLogFormatter extends Formatter {
 	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
-		output.append(dateFmt.format(new Date(record.getMillis())));
-		output.append(" ");
-		output.append(record.getMessage());
-		output.append("\r\n");
-		if (record.getThrown() != null) {
-			try {
-				StringWriter sw = new StringWriter();
-				PrintWriter pw = new PrintWriter(sw);
-				record.getThrown().printStackTrace(pw);
-				pw.close();
-				output.append(dateFmt.format(new Date(record.getMillis())));
-				output.append(" ");
-				output.append(sw.toString());
-				output.append("\r\n");
-			} catch (Exception ex) {
+
+		//output.append(record.getLevel().intValue());
+		//output.append(Level.CONFIG.intValue());
+		if (record.getLevel().intValue() == Level.CONFIG.intValue()) {
+			output.append(record.getMessage());
+			output.append("\r\n");
+		} else {
+			output.append(dateFmt.format(new Date(record.getMillis())));
+			output.append(" ");
+			output.append(record.getMessage());
+			output.append("\r\n");
+			if (record.getThrown() != null) {
+				try {
+					StringWriter sw = new StringWriter();
+					PrintWriter pw = new PrintWriter(sw);
+					record.getThrown().printStackTrace(pw);
+					pw.close();
+					output.append(dateFmt.format(new Date(record.getMillis())));
+					output.append(" ");
+					output.append(sw.toString());
+					output.append("\r\n");
+				} catch (Exception ex) {
+				}
 			}
 		}
 		return output.toString();

@@ -21,6 +21,7 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -28,6 +29,8 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Account implements L1CommandExecutor {
+	private static Logger _log = Logger.getLogger(L1Account.class.getName());
+
 	private L1Account() {
 	}
 
@@ -109,7 +112,7 @@ public class L1Account implements L1CommandExecutor {
 			rs3.close();
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(".account account_name"));
-			System.out.println(e);
+			_log.severe(e.toString());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

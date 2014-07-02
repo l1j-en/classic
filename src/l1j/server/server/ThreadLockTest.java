@@ -28,19 +28,18 @@
  *	- Tricid
  */
 
-package l1j.server.server.model;
+package l1j.server.server;
 
 import java.util.Random;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
-import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_GameTime;
 
-public class MpBugTest {
+public class ThreadLockTest {
 
-	private static Logger _log = Logger.getLogger(MpBugTest.class.getName());
+	private static Logger _log = Logger.getLogger(ThreadLockTest.class.getName());
 
 	// Last player we attempted to communicate with
 	private L1PcInstance _lastpc;
@@ -53,17 +52,17 @@ public class MpBugTest {
 
 	private Random _random = new Random();
 
-	private MpBugTestTimer _MpBugTestTimer;
-	private MpBugCheckTimer _MpBugCheckTimer;
-	private int _time = 0;
+	private ThreadTestTimer _ThreadTestTimer;
+	private ThreadCheckTimer _ThreadCheckTimer;
+	//private int _time = 0;
 
-	public MpBugTest() {
+	public ThreadLockTest() {
 	}
 
 	// This is the thread that sends the test packets, waiting to lock up.
-	private class MpBugTestTimer implements Runnable {
+	private class ThreadTestTimer implements Runnable {
 
-		public MpBugTestTimer() {
+		public ThreadTestTimer() {
 		}
 
 		@Override
@@ -82,9 +81,9 @@ public class MpBugTest {
 	}
 
 	// This is the thread that checks for a lockup
-	private class MpBugCheckTimer implements Runnable {
+	private class ThreadCheckTimer implements Runnable {
 
-		public MpBugCheckTimer() {
+		public ThreadCheckTimer() {
 		}
 
 		@Override
@@ -104,11 +103,11 @@ public class MpBugTest {
 
 	// Called from GameServer to activate the threads
 	public void initialize() {
-		_MpBugCheckTimer = new MpBugCheckTimer();
-		GeneralThreadPool.getInstance().execute(_MpBugCheckTimer);
-		_MpBugTestTimer = new MpBugTestTimer();
-		GeneralThreadPool.getInstance().execute(_MpBugTestTimer);
-		_log.info("* * * MP Bug Check Is Active * * *");
+		_ThreadCheckTimer = new ThreadCheckTimer();
+		GeneralThreadPool.getInstance().execute(_ThreadCheckTimer);
+		_ThreadTestTimer = new ThreadTestTimer();
+		GeneralThreadPool.getInstance().execute(_ThreadTestTimer);
+		//_log.info("* * * MP Bug Check Is Active * * *");
 
 	}
 
@@ -140,7 +139,7 @@ public class MpBugTest {
 			_checkedpc = _lastpc;
 		} else if (L1World.getInstance().getAllPlayers().size() > 1
 				&& _checkedrand == _lastrand && _checkedpc == _lastpc) {
-			_log.severe("* * * MP BUG DETECTED	* * *");
+			_log.severe("* * * THREAD LOCK DETECTED	* * *");
 			try {
 				_log.severe("* * * Rescuing thread pool	* * *");
 				_checkedpc.getNetConnection().rescue();

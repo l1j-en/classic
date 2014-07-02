@@ -88,9 +88,9 @@ public class NpcActionTable {
 	public static void load() {
 		try {
 			PerformanceTimer timer = new PerformanceTimer();
-			System.out.print("Loading NPCAction...");
+			_log.config("Loading NPCAction...");
 			_instance = new NpcActionTable();
-			System.out.println("      OK!     " + timer.elapsedTimeMillis()
+			_log.config("      OK!     " + timer.elapsedTimeMillis()
 					+ "ms");
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, "NpcAction Could not load", e);

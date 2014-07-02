@@ -22,7 +22,6 @@ import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
-import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
@@ -34,6 +33,7 @@ import static l1j.server.server.model.skill.L1SkillId.LIGHT;
 import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
 import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
 import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
+import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.SHIELD;
 import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 

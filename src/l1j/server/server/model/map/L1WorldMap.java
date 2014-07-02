@@ -39,7 +39,7 @@ public class L1WorldMap {
 
 	private L1WorldMap() {
 		PerformanceTimer timer = new PerformanceTimer();
-		System.out.print("Loading Map...");
+		_log.config("Loading Map...");
 		MapReader in = MapReader.getDefaultReader();
 		try {
 			_maps = in.read();
@@ -51,8 +51,7 @@ public class L1WorldMap {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			System.exit(0);
 		}
-		System.out.println("            OK!     " + timer.elapsedTimeMillis()
-				+ "ms");
+		_log.config("            OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	/**

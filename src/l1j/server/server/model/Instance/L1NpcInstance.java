@@ -1334,23 +1334,18 @@ public class L1NpcInstance extends L1Character {
 			 * PS. It's surrounded by try because its possible (and likely)
 			 * it'll find no door, throwing a null pointer exception.
 			 * 
-			 * PPS. If this is ever used, the additions in L1DoorInstance.java and
-			 * L1DoorTable.java that set the doors location impassible need to be
-			 * removed.
+			 * PPS. If this is ever used, the additions in L1DoorInstance.java
+			 * and L1DoorTable.java that set the doors location impassible need
+			 * to be removed.
 			 */
 
 			/*
-			try {
-				if (DoorTable
-						.getInstance()
-						.findByDoorLoc(getX() + nx, getY() + ny,
-								getMap().getId()).getOpenStatus() == 29) {
-					return;
-				}
-			} catch (Exception e) {
-
-			}
-			*/
+			 * try { if (DoorTable .getInstance() .findByDoorLoc(getX() + nx,
+			 * getY() + ny, getMap().getId()).getOpenStatus() == 29) { return; }
+			 * } catch (Exception e) {
+			 * 
+			 * }
+			 */
 
 			getMap().setPassable(getLocation(), true);
 
@@ -2130,14 +2125,14 @@ public class L1NpcInstance extends L1Character {
 			if (npc == null || !npc.isDead() || npc._destroyed) {
 				// Leak investigation.
 				if (npc == null) {
-					System.out.println("DeleteTimer#run: npc was null.");
+					_log.warning("DeleteTimer#run: npc was null.");
 					return;
 				}
 				if (!npc.isDead())
-					System.out.println("DeleteTimer#run: !npc.isDead().");
+					_log.warning("DeleteTimer#run: !npc.isDead().");
 				if (npc._destroyed)
-					System.out.println("DeleteTimer#run: npc._destroyed.");
-				System.out.println(String.format(
+					_log.warning("DeleteTimer#run: npc._destroyed.");
+				_log.warning(String.format(
 						"DeleteTimer#run: trouble with npc_templateid %d.",
 						npc.getNpcId()));
 				return;
@@ -2146,7 +2141,7 @@ public class L1NpcInstance extends L1Character {
 				npc.deleteMe();
 			} catch (Exception e) {
 				// More leak investigation.
-				System.out.println(String.format(
+				_log.warning(String.format(
 						"DeleteTimer#run: trouble with npc_templateid %d.",
 						npc.getNpcId()));
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
