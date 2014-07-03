@@ -193,8 +193,8 @@ public class L1UltimateBattle {
 
 	class UbThread implements Runnable {
 		private void countDown() throws InterruptedException {
-			final int MSGID_COUNT = 637;
-			final int MSGID_START = 632;
+			final int MSGID_COUNT = 1257; // was 637
+			final int MSGID_START = 644; // was 632
 
 			for (int loop = 0; loop < BEFORE_MINUTE * 60 - 10; loop++) {
 				Thread.sleep(1000);
