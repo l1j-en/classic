@@ -43,7 +43,7 @@ import l1j.server.server.templates.L1Npc;
 public class CrackOfTimeController extends TimerTask {
 	private final static Logger _log = Logger
 			.getLogger(CrackOfTimeController.class.getName());
-	private Timer _timeHandler = new Timer(true);
+	private Timer _timeHandler = new Timer("CrackOfTimer",true);
 	private boolean _isOver = false;
 	private int _startTime = 0;
 
