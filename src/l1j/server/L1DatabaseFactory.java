@@ -24,8 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.jolbox.bonecp.BoneCPDataSource;
-import com.jolbox.bonecp.BoneCPConfig;
-import l1j.server.server.utils.LeakCheckedConnection;
 
 //import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -57,6 +55,7 @@ public class L1DatabaseFactory {
 			_source.setJdbcUrl(_url);
 			_source.setUser(_user);
 			_source.setPassword(_password);
+			_source.setPartitionCount(3);
 			/* Test the connection */
 			_source.getConnection().close();
 		} catch (SQLException x) {
@@ -99,7 +98,6 @@ public class L1DatabaseFactory {
 						+ e);
 			}
 		}
-		return Config.DETECT_DB_RESOURCE_LEAKS ? LeakCheckedConnection
-				.create(con) : con;
+		return con;
 	}
 }
