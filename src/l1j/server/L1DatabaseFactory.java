@@ -54,12 +54,11 @@ public class L1DatabaseFactory {
 			_source.setUser(_user);
 			_source.setPassword(_password);
 			_source.setPartitionCount(3);
+			_source.setCloseConnectionWatch(true);
+			_source.setLogStatementsEnabled(true);
+			_source.setIdleConnectionTestPeriodInSeconds(10);
 			/* Test the connection */
-			_source.getConnection().close();
-		} catch (SQLException x) {
-			_log.fine("Database Connection FAILED");
-			// rethrow the exception
-			throw x;
+			//_source.getConnection().close();
 		} catch (Exception e) {
 			_log.fine("Database Connection FAILED");
 			throw new SQLException("could not init DB connection:" + e);
