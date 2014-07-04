@@ -181,7 +181,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			return;
 		}
 		if (l1iteminstance.getItem().getUseType() == -1) { // none
-			pc.sendPackets(new S_ServerMessage(74, l1iteminstance.getLogName()));
+			pc.sendPackets(new S_ServerMessage(74, l1iteminstance.getLogName())); // You cannot use 'item'.
 			return;
 		}
 		int pcObjid = pc.getId();
@@ -190,7 +190,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		if (!pc.getMap().isUsableItem()) {
-			pc.sendPackets(new S_ServerMessage(563));
+			pc.sendPackets(new S_ServerMessage(563)); // You can't use it here.
 			return;
 		}
 		int itemId;
@@ -314,7 +314,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (lastUsed != null) {
 					Calendar cal = Calendar.getInstance();
 					if ((cal.getTimeInMillis() - lastUsed.getTime()) / 1000 <= delayEffect) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 				}
@@ -349,28 +349,28 @@ public class C_ItemUSe extends ClientBasePacket {
 			int minLvl = template.getMinLevel();
 			int maxLvl = template.getMaxLevel();
 			if (minLvl != 0 && minLvl > pc.getLevel() && !pc.isGm()) {
-				pc.sendPackets(new S_ServerMessage(318, String.valueOf(minLvl)));
+				pc.sendPackets(new S_ServerMessage(318, String.valueOf(minLvl))); // You have to be at least level 'x' to use this item.
 				return;
 			} else if (maxLvl != 0 && maxLvl < pc.getLevel() && !pc.isGm()) {
-				pc.sendPackets(new S_ServerMessage(673, String.valueOf(maxLvl)));
+				pc.sendPackets(new S_ServerMessage(673, String.valueOf(maxLvl))); // You have to be level 'x' or less to use this item.
 				return;
 			}
 
 			if ((itemId == 40576 && !pc.isElf())
 					|| (itemId == 40577 && !pc.isWizard())
 					|| (itemId == 40578 && !pc.isKnight())) {
-				pc.sendPackets(new S_ServerMessage(264));
+				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 				return;
 			}
 
 			if (template.getType() == 0) {
 				inventory.setArrow(template.getItemId());
 				pc.sendPackets(new S_ServerMessage(452, l1iteminstance
-						.getLogName()));
+						.getLogName())); // 'item' was selected.
 			} else if (template.getType() == 15) {
 				inventory.setSting(template.getItemId());
 				pc.sendPackets(new S_ServerMessage(452, l1iteminstance
-						.getLogName()));
+						.getLogName())); // 'item' was selected.
 			} else if (template.getType() == 16) { // treasure_box
 				L1TreasureBox box = L1TreasureBox.get(itemId);
 
@@ -402,7 +402,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						lightItem.setRemainingTime(l1iteminstance.getItem()
 								.getLightFuel());
 						pc.sendPackets(new S_ItemName(lightItem));
-						pc.sendPackets(new S_ServerMessage(230)); //
+						pc.sendPackets(new S_ServerMessage(230)); // You refilled your lantern with the oil.
 						break;
 					}
 				}
@@ -415,7 +415,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillSound(pcObjid, 191));
 				pc.sendPackets(new S_OwnCharStatus(pc));
 				inventory.removeItem(l1iteminstance, 1);
-				pc.sendPackets(new S_ServerMessage(822));
+				pc.sendPackets(new S_ServerMessage(822)); // You feel an unknown energy appear from a deep place in your body.
 				pc.save();
 			} else if (itemId == 40033 || itemId == 40034 || itemId == 40035
 					|| itemId == 40036 || itemId == 40037 || itemId == 40038) {
@@ -489,7 +489,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == POTION_OF_CURE_POISON || itemId == 40507) {
 				if (pc.hasSkillEffect(DECAY_POTION) == true) {
-					pc.sendPackets(new S_ServerMessage(698));
+					pc.sendPackets(new S_ServerMessage(698)); // Are you sure you want to delete 'item'?  (Y/N)
 				} else {
 					cancelAbsoluteBarrier(pc);
 					pc.sendPackets(new S_SkillSound(pc.getId(), 192));
@@ -516,55 +516,55 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (pc.isKnight()) {
 					useBravePotion(pc, itemId);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == FORBIDDEN_FRUIT) {
 				if (pc.isDragonKnight() || pc.isIllusionist()) {
 					useBravePotion(pc, itemId);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == ELVEN_WAFER || itemId == B_ELVEN_WAFER) {
 				if (pc.isElf()) {
 					useBravePotion(pc, itemId);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == DEVILS_BLOOD) {
 				if (pc.isCrown()) {
 					useBravePotion(pc, itemId);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40733) {
 				useBravePotion(pc, itemId);
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40066 || itemId == 41413) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + (7 + _random.nextInt(6))); // 7~12
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40067 || itemId == 41414) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + (15 + _random.nextInt(16))); // 15~30
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40735) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + 60);
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40042) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + 50);
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41404) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + (80 + _random.nextInt(21))); // 80~100
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41412) {
-				pc.sendPackets(new S_ServerMessage(338, "$1084"));
+				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
 				pc.setCurrentMp(pc.getCurrentMp() + (5 + _random.nextInt(16))); // 5~20
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40032 || itemId == 40041 || itemId == 41344) {
@@ -579,7 +579,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (pc.isWizard()) {
 					useWisdomPotion(pc, itemId);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happaned.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == POTION_OF_BLINDNESS) {
@@ -591,7 +591,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (usePolyScroll(pc, itemId, s)) {
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(181));
+					pc.sendPackets(new S_ServerMessage(181)); // You cannot polymorph into that monster.
 				}
 			} else if (itemId == 41154 || itemId == 41155 || itemId == 41156
 					|| itemId == 41157 || itemId == 49220) {
@@ -613,12 +613,12 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.recoveryDamage(l1iteminstance1);
 					msg0 = l1iteminstance1.getLogName();
 					if (l1iteminstance1.get_durability() == 0) {
-						pc.sendPackets(new S_ServerMessage(464, msg0));
+						pc.sendPackets(new S_ServerMessage(464, msg0)); // 'item' is as good as new now.
 					} else {
-						pc.sendPackets(new S_ServerMessage(463, msg0));
+						pc.sendPackets(new S_ServerMessage(463, msg0)); //'item`s' condition got better.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40097 || itemId == 40119 || itemId == 140119
@@ -650,7 +650,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 				}
 				inventory.removeItem(l1iteminstance, 1);
-				pc.sendPackets(new S_ServerMessage(155));
+				pc.sendPackets(new S_ServerMessage(155)); // You feel like someone is helping you.
 			} else if (itemId == 40126 || itemId == 40098) {
 				if (!l1iteminstance1.isIdentified()) {
 					l1iteminstance1.setIdentified(true);
@@ -666,12 +666,12 @@ public class C_ItemUSe extends ClientBasePacket {
 						createNewItem(pc, diaryId + 10, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
-								.getName()));
+								.getName())); // Your 'item' evaporates.
 					}
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 41048 && 41055 >= itemId) {
 				int logbookId = l1iteminstance1.getItem().getItemId();
@@ -680,7 +680,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41056 || itemId == 41057) {
 				int logbookId = l1iteminstance1.getItem().getItemId();
@@ -689,7 +689,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40925) {
 				int earingId = l1iteminstance1.getItem().getItemId();
@@ -699,12 +699,12 @@ public class C_ItemUSe extends ClientBasePacket {
 						createNewItem(pc, earingId + 186, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
-								.getName()));
+								.getName())); // Your 'item' evaporates.
 					}
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 40926 && 40929 >= itemId) {
 				int earing2Id = l1iteminstance1.getItem().getItemId();
@@ -732,15 +732,15 @@ public class C_ItemUSe extends ClientBasePacket {
 							inventory.removeItem(l1iteminstance1, 1);
 							inventory.removeItem(l1iteminstance, 1);
 						} else {
-							pc.sendPackets(new S_ServerMessage(160,
+							pc.sendPackets(new S_ServerMessage(160, // Your 'item' violently glows %1 for %2 and nothing happens.
 									l1iteminstance1.getName()));
 							inventory.removeItem(l1iteminstance, 1);
 						}
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 40931 && 40942 >= itemId) {
 				int earing3Id = l1iteminstance1.getItem().getItemId();
@@ -777,15 +777,15 @@ public class C_ItemUSe extends ClientBasePacket {
 							createNewItem(pc, earinglevel, 1);
 						} else {
 							pc.sendPackets(new S_ServerMessage(158,
-									l1iteminstance1.getName()));
+									l1iteminstance1.getName())); // Your 'item' evaporates.
 						}
 						inventory.removeItem(l1iteminstance1, 1);
 						inventory.removeItem(l1iteminstance, 1);
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 40943 && 40958 >= itemId) {
 				int ringId = l1iteminstance1.getItem().getItemId();
@@ -856,10 +856,10 @@ public class C_ItemUSe extends ClientBasePacket {
 							inventory.removeItem(l1iteminstance, 1);
 						}
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41029) {
 				int dantesId = l1iteminstance1.getItem().getItemId();
@@ -868,12 +868,12 @@ public class C_ItemUSe extends ClientBasePacket {
 						createNewItem(pc, dantesId + 1, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
-								.getName()));
+								.getName())); // Your 'item' evaporates.
 					}
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40964) {
 				int historybookId = l1iteminstance1.getItem().getItemId();
@@ -887,19 +887,19 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.removeItem(l1iteminstance1, 1);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40090 || itemId == 40091 || itemId == 40092
 					|| itemId == 40093 || itemId == 40094) {
 				if (pc.isWizard()) {
 					writeScroll(pc, itemId, blanksc_skillid);
 				} else {
-					pc.sendPackets(new S_ServerMessage(264));
+					pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 				}
 			} else if ((itemId >= 40859 && itemId <= 40898) && itemId != 40863
 					|| itemId >= 49281 && itemId <= 49286) { // 40863
 				if (spellsc_objid == pc.getId() && template.getUseType() != 30) { // spell_buff
-					pc.sendPackets(new S_ServerMessage(281));
+					pc.sendPackets(new S_ServerMessage(281)); // The spell failed.
 					return;
 				}
 				inventory.removeItem(l1iteminstance, 1);
@@ -959,7 +959,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						inventory.consumeItem(41160, 1);
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40315) {
 				pc.sendPackets(new S_Sound(437));
@@ -991,7 +991,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40326) {
 				if (inventory.checkItem(40318, 1)) {
@@ -1000,7 +1000,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40327) {
 				if (inventory.checkItem(40318, 1)) {
@@ -1009,7 +1009,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40328) {
 				if (inventory.checkItem(40318, 1)) {
@@ -1018,7 +1018,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40089 || itemId == 140089) {
 				L1Character resobject = (L1Character) L1World.getInstance()
@@ -1034,7 +1034,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							for (L1PcInstance visiblePc : L1World.getInstance()
 									.getVisiblePlayer(target, 0)) {
 								if (!visiblePc.isDead()) {
-									pc.sendPackets(new S_ServerMessage(592));
+									pc.sendPackets(new S_ServerMessage(592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 									return;
 								}
 							}
@@ -1066,7 +1066,7 @@ public class C_ItemUSe extends ClientBasePacket {
 								for (L1PcInstance visiblePc : L1World
 										.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
-										pc.sendPackets(new S_ServerMessage(592));
+										pc.sendPackets(new S_ServerMessage(592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 										return;
 									}
 								}
@@ -1098,10 +1098,10 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else if (itemId == 40229 && pc.getLevel() >= 55) {
 						SpellBook4(pc, l1iteminstance, client);
 					} else {
-						pc.sendPackets(new S_ServerMessage(312));
+						pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 40232 && itemId <= 40264 //
 					|| itemId >= 41149 && itemId <= 41153 || itemId == 50001) { // Added
@@ -1124,10 +1124,10 @@ public class C_ItemUSe extends ClientBasePacket {
 							&& pc.getLevel() >= 45) {
 						SpellBook1(pc, l1iteminstance, client);
 					} else {
-						pc.sendPackets(new S_ServerMessage(312));
+						pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 40164 && itemId <= 40166 || itemId >= 41147
 					&& itemId <= 41148) {
@@ -1141,10 +1141,10 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else if (itemId == 40166 && pc.getLevel() >= 60) {
 						SpellBook3(pc, l1iteminstance, client);
 					} else {
-						pc.sendPackets(new S_ServerMessage(312));
+						pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 49102 && itemId <= 49116) {
 				if (pc.isDragonKnight() || pc.isGm()) {
@@ -1158,10 +1158,10 @@ public class C_ItemUSe extends ClientBasePacket {
 							&& pc.getLevel() >= 45) {
 						SpellBook5(pc, l1iteminstance, client);
 					} else {
-						pc.sendPackets(new S_ServerMessage(312));
+						pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId >= 49117 && itemId <= 49136) {
 				if (pc.isIllusionist() || pc.isGm()) {
@@ -1178,10 +1178,10 @@ public class C_ItemUSe extends ClientBasePacket {
 							&& pc.getLevel() >= 40) {
 						SpellBook6(pc, l1iteminstance, client);
 					} else {
-						pc.sendPackets(new S_ServerMessage(312));
+						pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40079 || itemId == 40095) {
 				if (pc.getMap().isEscapable() || pc.isGm()) {
@@ -1190,7 +1190,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							true);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(647));
+					pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 					// pc.sendPackets(new
 					// S_CharVisualUpdate(pc));
 				}
@@ -1217,7 +1217,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							L1Teleport.teleport(pc, locx, locy, mapid, 5, true);
 							inventory.removeItem(l1iteminstance, 1);
 						} else {
-							pc.sendPackets(new S_ServerMessage(647));
+							pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 						}
 					} else if (house_id != 0) {
 						if (pc.getMap().isEscapable() || pc.isGm()) {
@@ -1229,7 +1229,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							L1Teleport.teleport(pc, locx, locy, mapid, 5, true);
 							inventory.removeItem(l1iteminstance, 1);
 						} else {
-							pc.sendPackets(new S_ServerMessage(647));
+							pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 						}
 					} else {
 						if (pc.getHomeTownId() > 0) {
@@ -1248,7 +1248,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(647));
+					pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 				}
 				cancelAbsoluteBarrier(pc);
 			} else if (itemId == 140100 || itemId == 40100 // btele, ntele
@@ -1281,7 +1281,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 								pc.getMapId(), pc.getHeading(), false);
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
 					if (pc.getMap().isTeleportable() || pc.isGm()) {
@@ -1309,7 +1309,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					} else {
 						L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 								pc.getMapId(), pc.getHeading(), false);
-						pc.sendPackets(new S_ServerMessage(276));
+						pc.sendPackets(new S_ServerMessage(276)); // You can't randomly teleport here.
 					}
 					cancelAbsoluteBarrier(pc);
 				}
@@ -1330,7 +1330,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							((L1EtcItem) template).get_mapid(), 5, true);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(647));
+					pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 				}
 				cancelAbsoluteBarrier(pc);
 			} else if (itemId >= 40901 && itemId <= 40908) { // silver ring,
@@ -1346,7 +1346,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						partner_stat = true;
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(662));
+					pc.sendPackets(new S_ServerMessage(662)); // You are not married.
 					return;
 				}
 
@@ -1362,10 +1362,10 @@ public class C_ItemUSe extends ClientBasePacket {
 						L1Teleport.teleport(pc, partner.getX(), partner.getY(),
 								partner.getMapId(), 5, true);
 					} else {
-						pc.sendPackets(new S_ServerMessage(547));
+						pc.sendPackets(new S_ServerMessage(547)); // Your partner is playing in an area that you can't go.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(546));
+					pc.sendPackets(new S_ServerMessage(546)); // Your partner is not playing the game now.
 				}
 			} else if (itemId == 40555) { // Secret Room Key
 				if (pc.isKnight() && (pc.getX() >= 32806 && pc.getX() <= 32814)
@@ -1374,7 +1374,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					short mapid = 13;
 					L1Teleport.teleport(pc, 32815, 32810, mapid, 5, false);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40417) { // pi crystal
 				if ((pc.getX() >= 32665 && pc.getX() <= 32674)
@@ -1383,7 +1383,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					short mapid = 430;
 					L1Teleport.teleport(pc, 32922, 32812, mapid, 5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40566) {
 				if (pc.isElf() && (pc.getX() >= 33971 && pc.getX() <= 33975)
@@ -1402,12 +1402,12 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 					}
 					if (found) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					} else {
 						L1SpawnUtil.spawn(pc, 45300, 0, 0);
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40557) {
 				if (pc.getX() == 32620 && pc.getY() == 32641
@@ -1416,14 +1416,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45883) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45883, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79)); //
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40563) { //
 				if (pc.getX() == 32730 && pc.getY() == 32426
@@ -1432,14 +1432,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45884) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45884, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40561) { //
 				if (pc.getX() == 33046 && pc.getY() == 32806
@@ -1448,14 +1448,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45885) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45885, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79)); //
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40560) { //
 				if (pc.getX() == 32580 && pc.getY() == 33260
@@ -1464,14 +1464,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45886) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45886, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79)); //
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40562) { //
 				if (pc.getX() == 33447 && pc.getY() == 33476
@@ -1480,14 +1480,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45887) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45887, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79)); //
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40559) { //
 				if (pc.getX() == 34215 && pc.getY() == 33195
@@ -1496,14 +1496,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45888) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45888, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40558) {
 				if (pc.getX() == 33513 && pc.getY() == 32890
@@ -1512,14 +1512,14 @@ public class C_ItemUSe extends ClientBasePacket {
 						if (object instanceof L1NpcInstance) {
 							L1NpcInstance npc = (L1NpcInstance) object;
 							if (npc.getNpcTemplate().get_npcId() == 45889) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 								return;
 							}
 						}
 					}
 					L1SpawnUtil.spawn(pc, 45889, 0, 300000);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40572) { //
 				if (pc.getX() == 32778 && pc.getY() == 32738
@@ -1529,7 +1529,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						&& pc.getMapId() == 21) {
 					L1Teleport.teleport(pc, 32778, 32738, (short) 21, 5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40006 || itemId == 40412 || itemId == 140006) {
 				if (pc.getMap().isUsePainwand()) {
@@ -1539,7 +1539,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.broadcastPacket(s_attackPacket);
 					int chargeCount = l1iteminstance.getChargeCount();
 					if (chargeCount <= 0 && itemId != 40412) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 					int[] mobArray = { 45008, 45140, 45016, 45021, 45025,
@@ -1557,13 +1557,13 @@ public class C_ItemUSe extends ClientBasePacket {
 						inventory.removeItem(l1iteminstance, 1);
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40007) {
 				cancelAbsoluteBarrier(pc);
 				int chargeCount = l1iteminstance.getChargeCount();
 				if (chargeCount <= 0) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
 				L1Object target = L1World.getInstance().findObject(
@@ -1583,7 +1583,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (pc.getMapId() == 63 || pc.getMapId() == 552
 						|| pc.getMapId() == 555 || pc.getMapId() == 557
 						|| pc.getMapId() == 558 || pc.getMapId() == 779) {
-					pc.sendPackets(new S_ServerMessage(563));
+					pc.sendPackets(new S_ServerMessage(563)); // You can't use it here.
 				} else {
 					pc.sendPackets(new S_AttackPacket(pc, 0,
 							ActionCodes.ACTION_Wand));
@@ -1593,7 +1593,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (chargeCount <= 0 && itemId != 40410
 							|| pc.getTempCharGfx() == 6034
 							|| pc.getTempCharGfx() == 6035) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 					L1Object target = L1World.getInstance().findObject(
@@ -1611,7 +1611,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							inventory.removeItem(l1iteminstance, 1);
 						}
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				}
 			} else if (itemId >= 40289 && itemId <= 40297) { // toi charms
@@ -1621,7 +1621,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 				L1ItemInstance item = inventory.storeItem(itemId + 9, 1);
 				if (item != null) {
-					pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
+					pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // obtained 'item'.
 				}
 			} else if (itemId == 40056 || itemId == 40057 || itemId == 40059
 					|| itemId == 40060 || itemId == 40061 || itemId == 40062
@@ -1660,14 +1660,14 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.setSkillEffect(STATUS_FLOATING_EYE, 0);
 				}
 				pc.sendPackets(new S_ServerMessage(76, l1iteminstance.getItem()
-						.getIdentifiedNameId()));
+						.getIdentifiedNameId())); // You ate 'item'.
 			} else if (itemId == 40070) {
 				pc.sendPackets(new S_ServerMessage(76, l1iteminstance
-						.getLogName()));
+						.getLogName())); // You ate 'item'.
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41310) { // added for gold dragon
 				pc.sendPackets(new S_ServerMessage(76, l1iteminstance
-						.getLogName()));
+						.getLogName())); // You ate 'item'.
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41298) {
 				UseHealingPotion(pc, 4, 189);
@@ -1825,7 +1825,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							((L1EtcItem) l1iteminstance.getItem()).get_mapid(),
 							5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40616 || itemId == 40782 || itemId == 40783) { // Key
 																				// of
@@ -1841,11 +1841,11 @@ public class C_ItemUSe extends ClientBasePacket {
 							((L1EtcItem) l1iteminstance.getItem()).get_mapid(),
 							5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40692) { // item 436?
 				if (inventory.checkItem(40621)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				} else if ((pc.getX() >= 32856 && pc.getX() <= 32858)
 						&& (pc.getY() >= 32857 && pc.getY() <= 32858)
 						&& pc.getMapId() == 443) {
@@ -1855,7 +1855,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							((L1EtcItem) l1iteminstance.getItem()).get_mapid(),
 							5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41146) {
 				pc.sendPackets(new S_NPCTalkReturn(pc.getId(), "ei001"));
@@ -2053,7 +2053,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							((L1EtcItem) l1iteminstance.getItem()).get_mapid(),
 							5, true);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40700) { // Magic Flute
 				pc.sendPackets(new S_Sound(10));
@@ -2081,20 +2081,20 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 41121) {
 				if (pc.getQuest().get_step(L1Quest.QUEST_SHADOWS) == L1Quest.QUEST_END
 						|| inventory.checkItem(41122, 1)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				} else {
 					createNewItem(pc, 41122, 1);
 				}
 			} else if (itemId == 41130) {
 				if (pc.getQuest().get_step(L1Quest.QUEST_DESIRE) == L1Quest.QUEST_END
 						|| inventory.checkItem(41131, 1)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				} else {
 					createNewItem(pc, 41131, 1);
 				}
 			} else if (itemId == 42501) {
 				if (pc.getCurrentMp() < 10) {
-					pc.sendPackets(new S_ServerMessage(278));
+					pc.sendPackets(new S_ServerMessage(278)); // You don't have enough MP to use the spell.
 					return;
 				}
 				pc.setCurrentMp(pc.getCurrentMp() - 10);
@@ -2121,7 +2121,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (object instanceof L1EffectInstance) {
 						if (((L1NpcInstance) object).getNpcTemplate()
 								.get_npcId() == 81170) {
-							pc.sendPackets(new S_ServerMessage(1162));
+							pc.sendPackets(new S_ServerMessage(1162)); // There is a bonfire nearby already.
 							return;
 						}
 					}
@@ -2146,7 +2146,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41315) {
 				if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
 				if (pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
@@ -2155,11 +2155,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.setSkillEffect(STATUS_HOLY_WATER, 900 * 1000);
 				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
 				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-				pc.sendPackets(new S_ServerMessage(1141));
+				pc.sendPackets(new S_ServerMessage(1141)); // We have been given the strength to attack the ghost full of resentment.
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41316) {
 				if (pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
 				if (pc.hasSkillEffect(STATUS_HOLY_WATER)) {
@@ -2168,18 +2168,18 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.setSkillEffect(STATUS_HOLY_MITHRIL_POWDER, 900 * 1000);
 				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
 				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-				pc.sendPackets(new S_ServerMessage(1142));
+				pc.sendPackets(new S_ServerMessage(1142)); // We have been given the strength to attack General Hamel full of resentment.
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41354) {
 				if (pc.hasSkillEffect(STATUS_HOLY_WATER)
 						|| pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER)) {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
 				pc.setSkillEffect(STATUS_HOLY_WATER_OF_EVA, 900 * 1000);
 				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
 				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
-				pc.sendPackets(new S_ServerMessage(1140));
+				pc.sendPackets(new S_ServerMessage(1140)); // We have been given the strength to attack the cursed Exorcist Saell.
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 49092) {
 				int targetItemId = l1iteminstance1.getItem().getItemId();
@@ -2188,7 +2188,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.consumeItem(targetItemId, 1);
 					inventory.consumeItem(49092, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
 			} else if (itemId == 49093) {
@@ -2197,7 +2197,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.consumeItem(49094, 1);
 					createNewItem(pc, 49095, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 49094) {
 				if (inventory.checkItem(49093, 1)) {
@@ -2205,7 +2205,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.consumeItem(49094, 1);
 					createNewItem(pc, 49095, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 49097) {
 				if (inventory.checkItem(49098, 1)) {
@@ -2213,7 +2213,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.consumeItem(49098, 1);
 					createNewItem(pc, 49099, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 49098) {
 				if (inventory.checkItem(49097, 1)) {
@@ -2221,7 +2221,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					inventory.consumeItem(49098, 1);
 					createNewItem(pc, 49099, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41426) {
 				L1ItemInstance lockItem = inventory.getItem(l);
@@ -2254,10 +2254,10 @@ public class C_ItemUSe extends ClientBasePacket {
 						inventory.saveItem(lockItem, L1PcInventory.COL_BLESS);
 						inventory.removeItem(l1iteminstance, 1);
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41427) {
 				L1ItemInstance lockItem = inventory.getItem(l);
@@ -2291,23 +2291,23 @@ public class C_ItemUSe extends ClientBasePacket {
 						inventory.saveItem(lockItem, L1PcInventory.COL_BLESS);
 						inventory.removeItem(l1iteminstance, 1);
 					} else {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					}
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 41428) {
 				if (pc != null && l1iteminstance != null) {
 					Account account = Account.load(pc.getAccountName());
 					if (account == null) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 					int characterSlot = account.getCharacterSlot();
 					int maxAmount = Config.DEFAULT_CHARACTER_SLOT
 							+ characterSlot;
 					if (maxAmount >= 8) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 					if (characterSlot < 0) {
@@ -2319,7 +2319,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					Account.updateCharacterSlot(account);
 					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40075) {
 				if (l1iteminstance1.getItem().getType2() == 2) {
@@ -2353,7 +2353,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(msg));
 					inventory.removeItem(l1iteminstance1, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(154));
+					pc.sendPackets(new S_ServerMessage(154)); // The scroll disintegrates.
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 49210) {
@@ -2391,7 +2391,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 					}
 					if (found) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					} else {
 						L1SpawnUtil.spawn(pc, 46161, 0, 0);
 					}
@@ -2412,7 +2412,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						}
 					}
 					if (found) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					} else {
 						L1SpawnUtil.spawn(pc, 46163, 0, 0);
 					}
@@ -2429,29 +2429,29 @@ public class C_ItemUSe extends ClientBasePacket {
 								pc.getHeading(), true);
 						inventory.removeItem(l1iteminstance, 1);
 					} else {
-						pc.sendPackets(new S_ServerMessage(647));
+						pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 					}
 					cancelAbsoluteBarrier(pc);
 				} else {
 					if (l1iteminstance.getCount() < 1) {
 						pc.sendPackets(new S_ServerMessage(329, l1iteminstance
-								.getLogName()));
+								.getLogName())); // You do not have 'item'.
 					} else {
 						pc.sendPackets(new S_ServerMessage(74, l1iteminstance
-								.getLogName()));
+								.getLogName())); // You cannot use 'item'.
 					}
 				}
 			}
 		} else if (l1iteminstance.getItem().getType2() == 1) {
 			L1Item template = l1iteminstance.getItem();
 			if (!validClass(pc, template))
-				pc.sendPackets(new S_ServerMessage(264));
+				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 			else if (validLevel(pc, template))
 				useWeapon(pc, l1iteminstance);
 		} else if (l1iteminstance.getItem().getType2() == 2) {
 			L1Item template = l1iteminstance.getItem();
 			if (!validClass(pc, template))
-				pc.sendPackets(new S_ServerMessage(264));
+				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 			else if (validLevel(pc, template))
 				useArmor(pc, l1iteminstance);
 		}
@@ -2523,7 +2523,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			final L1ItemInstance elixir) throws Exception {
 		L1Attribute attribute = elixirs[itemId - FirstElixirId];
 		if (pc.getElixirStats() >= 5 || getBaseStat(pc, attribute) >= 35) {
-			pc.sendPackets(new S_ServerMessage(481));
+			pc.sendPackets(new S_ServerMessage(481)); // The maximum value you can get for one attribute is 35. Please choose another attribute.
 			return;
 		}
 
@@ -2549,7 +2549,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int min = item.getMinLevel();
 		int max = item.getMaxLevel();
 		if (min != 0 && min > pc.getLevel()) {
-			pc.sendPackets(new S_ServerMessage(318, String.valueOf(min)));
+			pc.sendPackets(new S_ServerMessage(318, String.valueOf(min))); // You have to be at least level 'x' to use this item.
 			return false;
 		}
 		if (max != 0 && max < pc.getLevel()) {
@@ -2565,7 +2565,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	// Kludgy - needs a better name.
 	private static boolean potionCheck(final L1PcInstance player) {
 		if (player.hasSkillEffect(DECAY_POTION)) {
-			player.sendPackets(new S_ServerMessage(698));
+			player.sendPackets(new S_ServerMessage(698)); // Your throat is blocked and you can't drink anything.
 			return false;
 		}
 		cancelAbsoluteBarrier(player);
@@ -2578,7 +2578,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), gfxid));
 		if (pc.getPotionMessages())
-			pc.sendPackets(new S_ServerMessage(77));
+			pc.sendPackets(new S_ServerMessage(77)); // You feel better.
 		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
 		if (pc.hasSkillEffect(POLLUTE_WATER))
 			healHp /= 2;
@@ -2838,7 +2838,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		pc.setSkillEffect(STATUS_BLUE_POTION, time * 1000);
 
-		pc.sendPackets(new S_ServerMessage(1007));
+		pc.sendPackets(new S_ServerMessage(1007)); // You feel the speed of magic recovery getting faster.
 	}
 
 	private void useWisdomPotion(L1PcInstance pc, int item_id) {
@@ -2910,7 +2910,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int awakeSkillId = pc.getAwakeSkillId();
 		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
-			pc.sendPackets(new S_ServerMessage(1384));
+			pc.sendPackets(new S_ServerMessage(1384)); // You cannot transform in the current condition.
 			return false;
 		}
 
@@ -2946,7 +2946,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int awakeSkillId = pc.getAwakeSkillId();
 		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
-			pc.sendPackets(new S_ServerMessage(1384));
+			pc.sendPackets(new S_ServerMessage(1384)); // You cannot transform in the current condition.
 			return;
 		}
 
@@ -2976,7 +2976,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		int awakeSkillId = pc.getAwakeSkillId();
 		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
-			pc.sendPackets(new S_ServerMessage(1384));
+			pc.sendPackets(new S_ServerMessage(1384)); // You cannot transform in the current condition.
 			return;
 		}
 
@@ -3208,27 +3208,27 @@ public class C_ItemUSe extends ClientBasePacket {
 
 			if (type == 13 && pcInventory.getTypeEquipped(2, 7) >= 1
 					|| type == 7 && pcInventory.getTypeEquipped(2, 13) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(124));
+				activeChar.sendPackets(new S_ServerMessage(124)); // You are already wearing some armor.
 				return;
 			}
 			if (type == 7 && activeChar.getWeapon() != null) {
 				if (activeChar.getWeapon().getItem().isTwohandedWeapon()) {
-					activeChar.sendPackets(new S_ServerMessage(129));
+					activeChar.sendPackets(new S_ServerMessage(129)); // You cannot wear a shield while wielding a two-handed weapon.
 					return;
 				}
 			}
 
 			if (type == 3 && pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$224", "$225"));
+						.sendPackets(new S_ServerMessage(126, "$224", "$225")); // You cannot wear Shirt over Cloak.
 				return;
 			} else if ((type == 3) && pcInventory.getTypeEquipped(2, 2) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$224", "$226"));
+						.sendPackets(new S_ServerMessage(126, "$224", "$226")); // You cannot wear Shirt over Armor.
 				return;
 			} else if ((type == 2) && pcInventory.getTypeEquipped(2, 4) >= 1) {
 				activeChar
-						.sendPackets(new S_ServerMessage(126, "$226", "$225"));
+						.sendPackets(new S_ServerMessage(126, "$226", "$225")); // You cannot wear Armor over Cloak.
 				return;
 			}
 
@@ -3237,15 +3237,15 @@ public class C_ItemUSe extends ClientBasePacket {
 			pcInventory.setEquipped(armor, true);
 		} else if (armor.isEquipped()) {
 			if (armor.getItem().getBless() == 2) {
-				activeChar.sendPackets(new S_ServerMessage(150));
+				activeChar.sendPackets(new S_ServerMessage(150)); // You can't do that. It seems to be cursed.
 				return;
 			}
 			if (type == 3 && pcInventory.getTypeEquipped(2, 2) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(127));
+				activeChar.sendPackets(new S_ServerMessage(127)); // You cannot take that off.
 				return;
 			} else if ((type == 2 || type == 3)
 					&& pcInventory.getTypeEquipped(2, 4) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(127));
+				activeChar.sendPackets(new S_ServerMessage(127)); // You cannot take that off.
 				return;
 			}
 			if (type == 7) {
@@ -3255,7 +3255,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 			pcInventory.setEquipped(armor, false);
 		} else {
-			activeChar.sendPackets(new S_ServerMessage(124));
+			activeChar.sendPackets(new S_ServerMessage(124)); // You are already wearing some armor.
 		}
 		activeChar.setCurrentHp(activeChar.getCurrentHp());
 		activeChar.setCurrentMp(activeChar.getCurrentMp());
@@ -3276,7 +3276,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 			if (weapon.getItem().isTwohandedWeapon()
 					&& pcInventory.getTypeEquipped(2, 7) >= 1) {
-				activeChar.sendPackets(new S_ServerMessage(128));
+				activeChar.sendPackets(new S_ServerMessage(128)); // You cannot wield a two-handed weapon while holding a shield.
 				return;
 			}
 		}
@@ -3285,7 +3285,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (activeChar.getWeapon() != null) {
 			if (activeChar.getWeapon().getItem().getBless() == 2) {
-				activeChar.sendPackets(new S_ServerMessage(150));
+				activeChar.sendPackets(new S_ServerMessage(150)); // You can't do that. It seems to be cursed.
 				return;
 			}
 			if (activeChar.getWeapon().equals(weapon)) {
@@ -3300,7 +3300,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (weapon.getItemId() == 200002) {
 			activeChar
-					.sendPackets(new S_ServerMessage(149, weapon.getLogName()));
+					.sendPackets(new S_ServerMessage(149, weapon.getLogName())); // The 'item' is stuck to your hand!
 		}
 		pcInventory.setEquipped(weapon, true, false, false);
 	}
@@ -3347,9 +3347,9 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (itemId >= 45000 && itemId <= 45007 && level >= 50) {
 					SpellBook(pc, item, isLawful);
 				} else if (itemId >= 45000 && itemId <= 45007) {
-					pc.sendPackets(new S_ServerMessage(312));
+					pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (pc.isCrown() || pc.isDarkelf()) {
 				if (itemId >= 45000 && itemId <= 45007 && level >= 10) {
@@ -3358,9 +3358,9 @@ public class C_ItemUSe extends ClientBasePacket {
 					SpellBook(pc, item, isLawful);
 				} else if (itemId >= 45008 && itemId <= 45015
 						|| itemId >= 45000 && itemId <= 45007) {
-					pc.sendPackets(new S_ServerMessage(312));
+					pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (pc.isElf()) {
 				if (itemId >= 45000 && itemId <= 45007 && level >= 8) {
@@ -3377,9 +3377,9 @@ public class C_ItemUSe extends ClientBasePacket {
 					SpellBook(pc, item, isLawful);
 				} else if (itemId >= 45000 && itemId <= 45022
 						|| itemId >= 40170 && itemId <= 40193) {
-					pc.sendPackets(new S_ServerMessage(312));
+					pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 				} else {
-					pc.sendPackets(new S_ServerMessage(79));
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (pc.isWizard()) {
 				if (itemId >= 45000 && itemId <= 45007 && level >= 4) {
@@ -3403,11 +3403,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else if (itemId >= 40218 && itemId <= 40225 && level >= 40) {
 					SpellBook(pc, item, isLawful);
 				} else {
-					pc.sendPackets(new S_ServerMessage(312));
+					pc.sendPackets(new S_ServerMessage(312)); // You can't learn that spell yet because your magic level is too low.
 				}
 			}
 		} else if (itemAttr != locAttr && itemAttr != 0 && locAttr != 0) {
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 			S_SkillSound effect = new S_SkillSound(pc.getId(), 10);
 			pc.sendPackets(effect);
 			pc.broadcastPacket(effect);
@@ -3417,7 +3417,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 			pc.getInventory().removeItem(item, 1);
 		} else {
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 		}
 	}
 
@@ -3473,7 +3473,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				SpellBook2(pc, item);
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 		}
 	}
 
@@ -3817,7 +3817,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					if (pc.getElfAttr() == 0 || pc.getElfAttr() == 1
 							|| pc.getElfAttr() == 2 || pc.getElfAttr() == 4
 							|| pc.getElfAttr() == 8) {
-						pc.sendPackets(new S_ServerMessage(79));
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						return;
 					}
 				}
@@ -4630,7 +4630,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (awakeSkillId == AWAKEN_ANTHARAS
 					|| awakeSkillId == AWAKEN_FAFURION
 					|| awakeSkillId == AWAKEN_VALAKAS) {
-				pc.sendPackets(new S_ServerMessage(1384));
+				pc.sendPackets(new S_ServerMessage(1384)); // You cannot transform in the current condition.
 				return;
 			}
 
@@ -4639,7 +4639,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (!pc.isShapeChange()) {
 					pc.setShapeChange(true);
 				}
-				pc.sendPackets(new S_ServerMessage(966));
+				pc.sendPackets(new S_ServerMessage(966)); // Are protected by magical power.
 			} else {
 				L1Skill skillTemp = SkillTable.getInstance().findBySkillId(
 						SHAPE_CHANGE);
@@ -4647,7 +4647,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				L1PolyMorph.doPoly(pc, polyId, skillTemp.getBuffDuration(),
 						L1PolyMorph.MORPH_BY_ITEMMAGIC);
 				if (attacker.getId() != pc.getId()) {
-					pc.sendPackets(new S_ServerMessage(241, attacker.getName()));
+					pc.sendPackets(new S_ServerMessage(241, attacker.getName())); // 'player' polymorphed you.
 				}
 			}
 		} else if (cha instanceof L1MonsterInstance) {
@@ -4688,7 +4688,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						.getInventory(pc.getX(), pc.getY(), pc.getMapId())
 						.storeItem(item);
 			}
-			pc.sendPackets(new S_ServerMessage(403, item.getLogName()));
+			pc.sendPackets(new S_ServerMessage(403, item.getLogName())); // obtained 'item'.
 			return true;
 		} else {
 			return false;
@@ -4735,7 +4735,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1Teleport.teleport(pc, template.get_locx(), template.get_locy(),
 					template.get_mapid(), 5, true);
 		} else
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 	}
 
 	private boolean writeLetter(int itemId, L1PcInstance pc, int letterCode,
@@ -4777,7 +4777,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 		if (targetClan == null) {
-			pc.sendPackets(new S_ServerMessage(434));
+			pc.sendPackets(new S_ServerMessage(434)); // There are no recipients.
 			return false;
 		}
 
@@ -4804,10 +4804,10 @@ public class C_ItemUSe extends ClientBasePacket {
 			if (target.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 				target.getInventory().storeItem(item);
 				target.sendPackets(new S_SkillSound(target.getId(), 1091));
-				target.sendPackets(new S_ServerMessage(428));
+				target.sendPackets(new S_ServerMessage(428)); // You have a new letter.
 			} else {
 				if (isFailureMessage) {
-					pc.sendPackets(new S_ServerMessage(942));
+					pc.sendPackets(new S_ServerMessage(942)); // The other party's belongings are too heavy for you to give anymore.
 				}
 				return false;
 			}
@@ -4822,7 +4822,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						storage.storeItem(targetId, item);
 					} else {
 						if (isFailureMessage) {
-							pc.sendPackets(new S_ServerMessage(942));
+							pc.sendPackets(new S_ServerMessage(942)); // The other party's belongings are too heavy for you to give anymore.
 						}
 						return false;
 					}
@@ -4831,7 +4831,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else {
 				if (isFailureMessage) {
-					pc.sendPackets(new S_ServerMessage(109, name));
+					pc.sendPackets(new S_ServerMessage(109, name)); // There is no player named 'player'.
 				}
 				return false;
 			}
@@ -4873,7 +4873,7 @@ public class C_ItemUSe extends ClientBasePacket {
 
 	private boolean withdrawPet(L1PcInstance pc, int itemObjectId) {
 		if (!pc.getMap().isTakePets()) {
-			pc.sendPackets(new S_ServerMessage(563));
+			pc.sendPackets(new S_ServerMessage(563)); // You can't use it here.
 			return false;
 		}
 		pc.useDogCollar(itemObjectId);
@@ -4883,7 +4883,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	private void startFishing(L1PcInstance pc, int itemId, int fishX, int fishY) {
 		if (pc.getMapId() != 5124 || fishX <= 32789 || fishX >= 32813
 				|| fishY <= 32786 || fishY >= 32812) {
-			pc.sendPackets(new S_ServerMessage(1138));
+			pc.sendPackets(new S_ServerMessage(1138)); // You can't throw the fishing pole here.
 			return;
 		}
 
@@ -4900,10 +4900,10 @@ public class C_ItemUSe extends ClientBasePacket {
 					&& pc.getMap().isFishingZone(fishX, fishY - 1)) {
 				if (fishX > pc.getX() + rodLength
 						|| fishX < pc.getX() - rodLength) {
-					pc.sendPackets(new S_ServerMessage(1138));
+					pc.sendPackets(new S_ServerMessage(1138)); // You can't throw the fishing pole here.
 				} else if (fishY > pc.getY() + rodLength
 						|| fishY < pc.getY() - rodLength) {
-					pc.sendPackets(new S_ServerMessage(1138));
+					pc.sendPackets(new S_ServerMessage(1138)); // You can't throw the fishing pole here.
 				} else if (pc.getInventory().consumeItem(41295, 1)) { //
 					pc.sendPackets(new S_Fishing(pc.getId(),
 							ActionCodes.ACTION_Fishing, fishX, fishY));
@@ -4915,20 +4915,20 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.setFishingTime(time);
 					FishingTimeController.getInstance().addMember(pc);
 				} else {
-					pc.sendPackets(new S_ServerMessage(1137));
+					pc.sendPackets(new S_ServerMessage(1137)); // You need a bait in order to fish.
 				}
 			} else {
-				pc.sendPackets(new S_ServerMessage(1138));
+				pc.sendPackets(new S_ServerMessage(1138)); // You can't throw the fishing pole here.
 			}
 		} else {
-			pc.sendPackets(new S_ServerMessage(1138));
+			pc.sendPackets(new S_ServerMessage(1138)); // You can't throw the fishing pole here.
 		}
 	}
 
 	private void useResolvent(L1PcInstance pc, L1ItemInstance item,
 			L1ItemInstance resolvent) {
 		if (item == null || resolvent == null) {
-			pc.sendPackets(new S_ServerMessage(79));
+			pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 			return;
 		}
 
@@ -4938,14 +4938,14 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (crystalCount == 0
 				|| (template.getType2() == 1 || template.getType2() == 2)
 				&& (item.getEnchantLevel() != 0 || item.isEquipped())) {
-			pc.sendPackets(new S_ServerMessage(1161));
+			pc.sendPackets(new S_ServerMessage(1161)); // It can't be dissolved.
 			return;
 		}
 
 		int chance = _random.nextInt(100) + 1;
 		if (chance >= 1 && chance <= 50) {
 			crystalCount = 0;
-			pc.sendPackets(new S_ServerMessage(158, item.getName()));
+			pc.sendPackets(new S_ServerMessage(158, item.getName())); // Your 'item' evaporates.
 		} else if (chance >= 91 && chance <= 100) {
 			crystalCount *= 1.5;
 		}
@@ -4956,7 +4956,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			crystal.setCount(crystalCount);
 			if (inventory.checkAddItem(crystal, 1) == L1Inventory.OK) {
 				inventory.storeItem(crystal);
-				pc.sendPackets(new S_ServerMessage(403, crystal.getLogName()));
+				pc.sendPackets(new S_ServerMessage(403, crystal.getLogName())); // obtained 'item'.
 			} else {
 				L1World.getInstance()
 						.getInventory(pc.getX(), pc.getY(), pc.getMapId())
@@ -4981,11 +4981,11 @@ public class C_ItemUSe extends ClientBasePacket {
 
 		if (isAppear) {
 			if (!pc.getInventory().checkItem(41246, 50)) {
-				pc.sendPackets(new S_ServerMessage(337, "$5240"));
+				pc.sendPackets(new S_ServerMessage(337, "$5240")); // Not enough 'Crystal'.
 				return;
 			}
 			if (dollList.length >= Config.MAX_DOLL_COUNT) {
-				pc.sendPackets(new S_ServerMessage(319));
+				pc.sendPackets(new S_ServerMessage(319)); // You can't control more monsters.
 				return;
 			}
 			int npcId = 0;
@@ -5076,11 +5076,11 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		}
 		if (!isNearFire) {
-			pc.sendPackets(new S_ServerMessage(1160));
+			pc.sendPackets(new S_ServerMessage(1160)); // You need a bonfire in order to cook.
 			return;
 		}
 		if (pc.getMaxWeight() <= pc.getInventory().getWeight()) {
-			pc.sendPackets(new S_ServerMessage(1103));
+			pc.sendPackets(new S_ServerMessage(1103)); // Your personal belongings are too heavy to make the dish.
 			return;
 		}
 		if (pc.hasSkillEffect(COOKING_NOW)) {
@@ -5092,7 +5092,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		L1PcInventory inventory = pc.getInventory();
 		for (int ingredient : recipe.ingredients)
 			if (!inventory.checkItem(ingredient, 1)) {
-				pc.sendPackets(new S_ServerMessage(1102));
+				pc.sendPackets(new S_ServerMessage(1102)); // You don't have enough ingredients to make the dish.
 				return;
 			}
 		for (int ingredient : recipe.ingredients)
@@ -5105,14 +5105,14 @@ public class C_ItemUSe extends ClientBasePacket {
 			createNewItem(pc, recipe.special, 1);
 			pc.sendAndBroadcast(new S_SkillSound(pc.getId(), 6390));
 		} else {
-			pc.sendPackets(new S_ServerMessage(1101));
+			pc.sendPackets(new S_ServerMessage(1101)); // You failed at cooking the dish.
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 6394));
 		}
 	}
 
 	private void useFurnitureItem(L1PcInstance pc, int itemId, int itemObjectId) {
 		if (!L1HouseLocation.isInHouse(pc.getX(), pc.getY(), pc.getMapId())) {
-			pc.sendPackets(new S_ServerMessage(563));
+			pc.sendPackets(new S_ServerMessage(563)); // You can't use it here.
 			return;
 		}
 
@@ -5260,7 +5260,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	private void writeScroll(final L1PcInstance pc, int scrollId, int spellId) {
 		if (!IntArrays.contains(scrollIds, scrollId)
 				|| spellId > scrollLimits[scrollId - scrollIds[0]]) {
-			pc.sendPackets(new S_ServerMessage(591));
+			pc.sendPackets(new S_ServerMessage(591)); // The scroll is too weak to record that strong of a spell.
 			return;
 		}
 
@@ -5272,17 +5272,17 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (inventory.checkAddItem(scroll, 1) == L1Inventory.OK) {
 			L1Skill skill = SkillTable.getInstance().findBySkillId(spellId + 1);
 			if (pc.getCurrentHp() + 1 < skill.getHpConsume() + 1) {
-				pc.sendPackets(new S_ServerMessage(279));
+				pc.sendPackets(new S_ServerMessage(279)); // You don't have enough HP to use the spell.
 				return;
 			}
 			if (pc.getCurrentMp() < skill.getMpConsume()) {
-				pc.sendPackets(new S_ServerMessage(278));
+				pc.sendPackets(new S_ServerMessage(278)); // You don't have enough MP to use the spell.
 				return;
 			}
 			if (skill.getItemConsumeId() != 0) {
 				if (!pc.getInventory().checkItem(skill.getItemConsumeId(),
 						skill.getItemConsumeCount())) {
-					pc.sendPackets(new S_ServerMessage(299));
+					pc.sendPackets(new S_ServerMessage(299)); // There are not enough ingredients to use the spell.
 					return;
 				}
 			}
