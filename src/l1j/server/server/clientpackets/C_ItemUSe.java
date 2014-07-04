@@ -732,8 +732,8 @@ public class C_ItemUSe extends ClientBasePacket {
 							inventory.removeItem(l1iteminstance1, 1);
 							inventory.removeItem(l1iteminstance, 1);
 						} else {
-							pc.sendPackets(new S_ServerMessage(160, // Your 'item' violently glows %1 for %2 and nothing happens.
-									l1iteminstance1.getName()));
+							pc.sendPackets(new S_ServerMessage(1310, 
+									l1iteminstance1.getName())); // It violently glowed, but did not evaporate. was 160
 							inventory.removeItem(l1iteminstance, 1);
 						}
 					} else {
