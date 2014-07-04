@@ -23,14 +23,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jolbox.bonecp.BoneCPDataSource;
+import com.jolbox.bonecp.BoneCPConfig;
 import l1j.server.server.utils.LeakCheckedConnection;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+//import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class L1DatabaseFactory {
+	BoneCPDataSource _source;
 
 	private static L1DatabaseFactory _instance;
-	private ComboPooledDataSource _source;
+	//private ComboPooledDataSource _source;
 	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class
 			.getName());
 	private static String _driver;
@@ -49,7 +52,7 @@ public class L1DatabaseFactory {
 	public L1DatabaseFactory() throws SQLException {
 		try {
 			// DatabaseFactory
-			_source = new ComboPooledDataSource();
+			_source = new BoneCPDataSource();
 			_source.setDriverClass(_driver);
 			_source.setJdbcUrl(_url);
 			_source.setUser(_user);
