@@ -217,7 +217,7 @@ public class L1SkillUse {
 		Arrays.sort(CAST_WITH_SILENCE);
 	}
 
-	private static final S_ServerMessage SkillFailed = new S_ServerMessage(280);
+	private static final S_ServerMessage SkillFailed = new S_ServerMessage(280); // The spell failed.
 
 	public L1SkillUse() {
 	}
@@ -388,13 +388,13 @@ public class L1SkillUse {
 				return false;
 			}
 			if (pc.getInventory().getWeight240() >= 197) {
-				pc.sendPackets(new S_ServerMessage(316));
+				pc.sendPackets(new S_ServerMessage(316)); // You cannot use the spell while so heavily loaded with baggage.
 				return false;
 			}
 			int polyId = pc.getTempCharGfx();
 			L1PolyMorph poly = PolyTable.getInstance().getTemplate(polyId);
 			if (poly != null && !poly.canUseSkill()) {
-				pc.sendPackets(new S_ServerMessage(285));
+				pc.sendPackets(new S_ServerMessage(285)); // You can't cast a spell in that state.
 				return false;
 			}
 
@@ -420,12 +420,12 @@ public class L1SkillUse {
 					|| pc.hasSkillEffect(AREA_OF_SILENCE) || pc
 						.hasSkillEffect(STATUS_POISON_SILENCE))
 					&& !IntArrays.sContains(CAST_WITH_SILENCE, _skillId)) {
-				pc.sendPackets(new S_ServerMessage(285));
+				pc.sendPackets(new S_ServerMessage(285)); // You can't cast a spell in that state.
 				return false;
 			}
 
 			if (_skillId == DISINTEGRATE && pc.getLawful() < 500) {
-				pc.sendPackets(new S_ServerMessage(352, "$967"));
+				pc.sendPackets(new S_ServerMessage(352, "$967")); // Your alignment must be 'Lawful' to cast this spell. 
 				return false;
 			}
 
@@ -448,7 +448,7 @@ public class L1SkillUse {
 					}
 				}
 				if (isNearSameCube) {
-					pc.sendPackets(new S_ServerMessage(1412));
+					pc.sendPackets(new S_ServerMessage(1412)); // The cube is already summoned on the ground.
 					return false;
 				}
 			}
@@ -462,19 +462,19 @@ public class L1SkillUse {
 					|| pc.getAwakeSkillId() == AWAKEN_VALAKAS
 					&& _skillId != AWAKEN_VALAKAS && _skillId != MAGMA_BREATH
 					&& _skillId != SHOCK_SKIN && _skillId != FREEZING_BREATH) {
-				pc.sendPackets(new S_ServerMessage(1385));
+				pc.sendPackets(new S_ServerMessage(1385)); // You cannot use awakening magic in the current condition.
 				return false;
 			}
 
 			if (_skillId == SOLID_CARRIAGE
 					&& pcInventory.getTypeEquipped(2, 7) == 0
 					&& pcInventory.getTypeEquipped(2, 13) == 0) {
-				pc.sendPackets(new S_ServerMessage(1008));
+				pc.sendPackets(new S_ServerMessage(1008)); // You cannot cast magic in that condition.
 				return false;
 			}
 
 			if (isItemConsume() == false && !_player.isGm()) {
-				_player.sendPackets(new S_ServerMessage(299));
+				_player.sendPackets(new S_ServerMessage(299)); // There are not enough ingredients to use the spell.
 				return false;
 			}
 		} else if (_user instanceof L1NpcInstance) {
@@ -1093,12 +1093,12 @@ public class L1SkillUse {
 
 		if (currentHp < _hpConsume + 1) {
 			if (_user instanceof L1PcInstance) {
-				_player.sendPackets(new S_ServerMessage(279));
+				_player.sendPackets(new S_ServerMessage(279)); // You don't have enough HP to use the spell.
 			}
 			return false;
 		} else if (currentMp < _mpConsume) {
 			if (_user instanceof L1PcInstance) {
-				_player.sendPackets(new S_ServerMessage(278));
+				_player.sendPackets(new S_ServerMessage(278)); // You don't have enough MP to use the spell.
 			}
 			return false;
 		}
@@ -1722,7 +1722,7 @@ public class L1SkillUse {
 						if (_skillId == FOG_OF_SLEEPING
 								&& cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
-							pc.sendPackets(new S_ServerMessage(297));
+							pc.sendPackets(new S_ServerMessage(297)); // You feel slightly dizzy.
 						}
 						iter.remove();
 						continue;
@@ -1794,7 +1794,7 @@ public class L1SkillUse {
 										.getInstance().getVisiblePlayer(pc, 0)) {
 									if (!visiblePc.isDead()) {
 										_player.sendPackets(new S_ServerMessage(
-												592));
+												592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 										return;
 									}
 								}
@@ -1826,7 +1826,7 @@ public class L1SkillUse {
 										.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
 										_player.sendPackets(new S_ServerMessage(
-												592));
+												592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 										return;
 									}
 								}
@@ -1847,7 +1847,7 @@ public class L1SkillUse {
 										.getInstance().getVisiblePlayer(pc, 0)) {
 									if (!visiblePc.isDead()) {
 										_player.sendPackets(new S_ServerMessage(
-												592));
+												592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 										return;
 									}
 								}
@@ -1872,7 +1872,7 @@ public class L1SkillUse {
 										.getInstance().getVisiblePlayer(npc, 0)) {
 									if (!visiblePc.isDead()) {
 										_player.sendPackets(new S_ServerMessage(
-												592));
+												592)); // Your attempt at resurrection has failed because the location is occupied by someone else.
 										return;
 									}
 								}
@@ -2318,7 +2318,7 @@ public class L1SkillUse {
 								int weaponDamage = random.nextInt(_user
 										.getInt() / 3) + 1;
 								pc.sendPackets(new S_ServerMessage(268, weapon
-										.getLogName()));
+										.getLogName())); // Your 'weapon' was damaged.
 								pc.getInventory().receiveDamage(weapon,
 										weaponDamage);
 							}
@@ -2446,7 +2446,7 @@ public class L1SkillUse {
 					if (chance <= probability) {
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance pc = (L1PcInstance) cha;
-							pc.sendPackets(new S_ServerMessage(697));
+							pc.sendPackets(new S_ServerMessage(697)); // You feel your magical powers being cut off.
 							pc.setSkillEffect(SILENCE, _confusionDuration);
 						} else if (cha instanceof L1MonsterInstance
 								|| cha instanceof L1SummonInstance
@@ -2540,7 +2540,7 @@ public class L1SkillUse {
 							} else {
 								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 										pc.getMapId(), pc.getHeading(), false);
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							}
 						} else {
 							if (pc.getMap().isTeleportable() || pc.isGm()) {
@@ -2569,7 +2569,7 @@ public class L1SkillUse {
 								L1Teleport.teleport(pc, newX, newY, mapId, 5,
 										true);
 							} else {
-								pc.sendPackets(new S_ServerMessage(276));
+								pc.sendPackets(new S_ServerMessage(276)); // You can't randomly teleport here.
 								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 										pc.getMapId(), pc.getHeading(), false);
 							}
@@ -2580,7 +2580,7 @@ public class L1SkillUse {
 							L1Teleport.teleport(pc, 33051, 32337, (short) 4, 5,
 									true);
 						} else {
-							pc.sendPackets(new S_ServerMessage(647));
+							pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 							L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 									pc.getMapId(), pc.getHeading(), false);
 						}
@@ -2610,10 +2610,10 @@ public class L1SkillUse {
 											clanPc.getY(), clanPc.getMapId(),
 											5, true);
 								} else {
-									pc.sendPackets(new S_ServerMessage(547));
+									pc.sendPackets(new S_ServerMessage(547)); // Your partner is playing in an area that you can't go.
 								}
 							} else {
-								pc.sendPackets(new S_ServerMessage(647));
+								pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
 								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
 										pc.getMapId(), pc.getHeading(), false);
 							}
@@ -2628,26 +2628,26 @@ public class L1SkillUse {
 							int enchant_level = item.getEnchantLevel();
 							String item_name = item.getName();
 							if (safe_enchant < 0) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							} else if (safe_enchant == 0) {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							} else if (item_type == 1 && enchant_level == 0) {
 								if (!item.isIdentified()) {
 									pc.sendPackets(new S_ServerMessage(161,
-											item_name, "$245", "$247"));
+											item_name, "$245", "$247")); // Your 'item' glows 'blue' for a 'moment'.
 								} else {
 									item_name = "+0 " + item_name;
 									pc.sendPackets(new S_ServerMessage(161,
-											"+0 " + item_name, "$245", "$247"));
+											"+0 " + item_name, "$245", "$247")); // Your 'item' glows 'blue' for a 'moment'.
 								}
 								item.setEnchantLevel(1);
 								pc.getInventory().updateItem(item,
 										L1PcInventory.COL_ENCHANTLVL);
 							} else {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							}
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						}
 					} else if (_skillId == PURIFY_STONE) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -2706,7 +2706,7 @@ public class L1SkillUse {
 								}
 							}
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						}
 					} else if (_skillId == LESSER_ELEMENTAL
 							|| _skillId == GREATER_ELEMENTAL) {
@@ -2754,7 +2754,7 @@ public class L1SkillUse {
 									summon.setPetcost(pc.getCha() + 7);
 								}
 							} else {
-								pc.sendPackets(new S_ServerMessage(79));
+								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							}
 						}
 					} else if (_skillId == ABSOLUTE_BARRIER) {
@@ -2805,7 +2805,7 @@ public class L1SkillUse {
 							item.setSkillWeaponEnchant(pc, _skillId,
 									_skill.getBuffDuration() * 1000);
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						}
 					} else if (_skillId == ENCHANT_WEAPON) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -2813,11 +2813,11 @@ public class L1SkillUse {
 								_itemobjid);
 						if (item != null && item.getItem().getType2() == 1) {
 							pc.sendPackets(new S_ServerMessage(161, item
-									.getLogName(), "$245", "$247"));
+									.getLogName(), "$245", "$247")); // your 'item' glows 'blue' for a 'moment'.
 							item.setSkillWeaponEnchant(pc, _skillId,
 									_skill.getBuffDuration() * 1000);
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						}
 					} else if (_skillId == HOLY_WEAPON
 							|| _skillId == BLESS_WEAPON) {
@@ -2826,13 +2826,13 @@ public class L1SkillUse {
 						}
 						L1PcInstance pc = (L1PcInstance) cha;
 						if (pc.getWeapon() == null) {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							return;
 						}
 						for (L1ItemInstance item : pc.getInventory().getItems()) {
 							if (pc.getWeapon().equals(item)) {
 								pc.sendPackets(new S_ServerMessage(161, item
-										.getLogName(), "$245", "$247"));
+										.getLogName(), "$245", "$247")); // your 'item' glows 'blue' for a 'moment'.
 								item.setSkillWeaponEnchant(pc, _skillId,
 										_skill.getBuffDuration() * 1000);
 								return;
@@ -2845,11 +2845,11 @@ public class L1SkillUse {
 						if (item != null && item.getItem().getType2() == 2
 								&& item.getItem().getType() == 2) {
 							pc.sendPackets(new S_ServerMessage(161, item
-									.getLogName(), "$245", "$247"));
+									.getLogName(), "$245", "$247")); // your 'item' glows 'blue' for a 'moment'.
 							item.setSkillArmorEnchant(pc, _skillId,
 									_skill.getBuffDuration() * 1000);
 						} else {
-							pc.sendPackets(new S_ServerMessage(79));
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 						}
 					} else if (_skillId == EARTH_BLESS) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -3080,7 +3080,7 @@ public class L1SkillUse {
 									_targetNpc, _user, false);
 							_target = summon;
 						} else {
-							_player.sendPackets(new S_ServerMessage(319));
+							_player.sendPackets(new S_ServerMessage(319)); // You can't control more monsters.
 						}
 					} else if (_skillId == CREATE_ZOMBIE) {
 						int petcost = 0;
@@ -3107,7 +3107,7 @@ public class L1SkillUse {
 									_targetNpc, _user, true);
 							_target = summon;
 						} else {
-							_player.sendPackets(new S_ServerMessage(319));
+							_player.sendPackets(new S_ServerMessage(319)); // You can't control more monsters.
 						}
 					} else if (_skillId == WEAK_ELEMENTAL) {
 						if (cha instanceof L1MonsterInstance) {
@@ -3140,7 +3140,7 @@ public class L1SkillUse {
 							summon.returnToNature();
 						} else {
 							if (_user instanceof L1PcInstance) {
-								_player.sendPackets(new S_ServerMessage(79));
+								_player.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 							}
 						}
 					}
@@ -3378,7 +3378,7 @@ public class L1SkillUse {
 			if (chance > random.nextInt(100) + 1) {
 				inventory.storeItem(nextStone, 1);
 				if (report)
-					player.sendPackets(new S_ServerMessage(403, name));
+					player.sendPackets(new S_ServerMessage(403, name)); // obtained 'item'.
 			} else if (report)
 				player.sendPackets(SkillFailed);
 		}
