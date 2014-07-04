@@ -25,8 +25,6 @@ import java.util.logging.Logger;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
-//import com.mchange.v2.c3p0.ComboPooledDataSource;
-
 public class L1DatabaseFactory {
 	BoneCPDataSource _source;
 
