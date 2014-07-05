@@ -321,6 +321,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("HcPacket");
 			byte[] data;
 			while (_csocket != null) {
 				data = _queue.poll();

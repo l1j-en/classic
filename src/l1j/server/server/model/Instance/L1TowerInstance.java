@@ -189,6 +189,7 @@ public class L1TowerInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1TowerInstance-Death");
 			setCurrentHpDirect(0);
 			setDead(true);
 			setStatus(ActionCodes.ACTION_TowerDie);

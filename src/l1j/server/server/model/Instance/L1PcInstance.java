@@ -1170,6 +1170,7 @@ public class L1PcInstance extends L1Character {
 		}
 
 		public void run() {
+			Thread.currentThread().setName("L1PcInstance-Death");
 			L1Character lastAttacker = _lastAttacker;
 			_lastAttacker = null;
 			setCurrentHp(0);

@@ -45,6 +45,7 @@ public class L1ItemDelay {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1ItemDelay-Timer");
 			stopDelayTimer(_delayId);
 		}
 
