@@ -336,7 +336,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 	}
 
-	private static Timer _observerTimer = new Timer();
+	private static Timer _observerTimer = new Timer("ClientThread-observer");
 
 	class ClientThreadObserver extends TimerTask {
 		private int _checkct = 1;
@@ -348,6 +348,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 
 		public void start() {
+			
 			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0,
 					_disconnectTimeMillis);
 		}
