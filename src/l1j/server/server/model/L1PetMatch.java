@@ -272,7 +272,7 @@ public class L1PetMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PetMatch-ReadyTimer");
 			timer.schedule(this, 3000);
 		}
 
@@ -318,7 +318,7 @@ public class L1PetMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PetMatchTimer");
 			timer.schedule(this, 0);
 		}
 

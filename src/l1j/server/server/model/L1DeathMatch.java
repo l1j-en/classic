@@ -567,7 +567,7 @@ public class L1DeathMatch {
 	private GameTimeLimitTimer limitTimer;
 
 	private void startGameTimeLimitTimer() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("L1DeathMatch-GameLimitTimer");
 		limitTimer = new GameTimeLimitTimer();
 		timer.schedule(limitTimer, limitTime);
 	}
@@ -651,7 +651,7 @@ public class L1DeathMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1DeathMatch-CheckTimer");
 			timer.schedule(this, 50 * 1000); // 50s
 		}
 	}
@@ -695,7 +695,7 @@ public class L1DeathMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1DeathMatch-PenaltyTimer");
 			timer.schedule(this, limitPenaltyTime, 10 * 1000);
 		}
 	}
@@ -722,7 +722,7 @@ public class L1DeathMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1DeathMatch-IssueItemTimer");
 			timer.schedule(this, 60 * 3 * 1000);
 		}
 	}
@@ -755,7 +755,7 @@ public class L1DeathMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1DeathMatch-EndTimer");
 			timer.schedule(this, 10000);
 		}
 	}
@@ -942,7 +942,7 @@ public class L1DeathMatch {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1DeathMatch-CloseTimer");
 			timer.schedule(this, 4 * 1000);
 		}
 	}

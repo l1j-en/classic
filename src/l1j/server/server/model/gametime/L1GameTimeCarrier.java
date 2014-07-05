@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_GameTime;
 
 public class L1GameTimeCarrier extends TimerTask {
-	private static final Timer _timer = new Timer();
+	private static final Timer _timer = new Timer("L1GameTimeCarrier");
 	private L1PcInstance _pc;
 
 	public L1GameTimeCarrier(L1PcInstance pc) {
