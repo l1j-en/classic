@@ -114,7 +114,7 @@ public class C_Door extends ClientBasePacket {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("DoorTimer-"+_door.getDoorId());
 			timer.schedule(this, 5 * 1000);
 		}
 	}
