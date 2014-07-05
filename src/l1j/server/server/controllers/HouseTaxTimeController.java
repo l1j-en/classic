@@ -42,6 +42,7 @@ public class HouseTaxTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("HouseTimeTaxController");
 		try {
 			while (true) {
 				checkTaxDeadline();
