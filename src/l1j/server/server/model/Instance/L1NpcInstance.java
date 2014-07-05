@@ -209,7 +209,7 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-NpcAIThreadImpl");
+			Thread.currentThread().setName("NpcAIThreadImpl-"+getNpcId());
 			try {
 				setAiRunning(true);
 				while (!_destroyed && !isDead() && getCurrentHp() > 0
