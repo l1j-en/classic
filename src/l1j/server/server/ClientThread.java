@@ -102,6 +102,8 @@ public class ClientThread implements Runnable, PacketOutput {
 			(byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD, (byte) 0xCC,
 			(byte) 0xC0 };
 
+	private static Timer _observerTimer = null;
+
 	protected ClientThread() {
 	}
 
@@ -190,9 +192,11 @@ public class ClientThread implements Runnable, PacketOutput {
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
-		ClientThreadObserver observer = new ClientThreadObserver(
-				Config.AUTOMATIC_KICK * 60 * 1000);
+        ClientThreadObserver observer = null;
 		if (Config.AUTOMATIC_KICK > 0) {
+			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
+			observer = new ClientThreadObserver(
+					Config.AUTOMATIC_KICK * 60 * 1000);
 			observer.start();
 		}
 		try {
@@ -336,7 +340,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		}
 	}
 
-	private static Timer _observerTimer = new Timer("ClientThread-observer");
 
 	class ClientThreadObserver extends TimerTask {
 		private int _checkct = 1;
