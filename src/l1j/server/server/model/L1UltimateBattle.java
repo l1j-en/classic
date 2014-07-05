@@ -237,6 +237,7 @@ public class L1UltimateBattle {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("UBThread-"+_ubId);
 			try {
 				setActive(true);
 				countDown();
