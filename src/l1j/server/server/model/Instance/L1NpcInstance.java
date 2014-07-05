@@ -2201,7 +2201,7 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		_chatTimer = new Timer(true);
+		_chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
 		_chatTask = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
 			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
