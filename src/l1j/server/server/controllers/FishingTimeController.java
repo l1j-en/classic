@@ -40,6 +40,7 @@ public class FishingTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("FishingTimeController");
 		try {
 			while (true) {
 				Thread.sleep(300);

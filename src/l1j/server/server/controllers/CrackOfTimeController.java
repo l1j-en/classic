@@ -91,6 +91,7 @@ public class CrackOfTimeController extends TimerTask {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("CrackOfTimeController");
 		if (_isOver) {
 			try {
 				L1World.getInstance().broadcastPacketToAll(

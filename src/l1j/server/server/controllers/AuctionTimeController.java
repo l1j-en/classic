@@ -53,6 +53,7 @@ public class AuctionTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("AuctionTimeController");
 		try {
 			while (true) {
 				checkAuctionDeadline();
