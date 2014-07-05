@@ -37,7 +37,7 @@ public class L1NpcDeleteTimer extends TimerTask {
 	}
 
 	public void begin() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("L1NpcDeleteTimer"+_npc.getNpcId());
 		timer.schedule(this, _timeMillis);
 	}
 

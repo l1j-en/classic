@@ -1040,7 +1040,7 @@ public class L1ItemInstance extends L1Object {
 		setAcByMagic(3);
 		_pc = pc;
 		_timer = new EnchantTimer();
-		(new Timer()).schedule(_timer, skillTime);
+		(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
@@ -1083,7 +1083,7 @@ public class L1ItemInstance extends L1Object {
 
 		_pc = pc;
 		_timer = new EnchantTimer();
-		(new Timer()).schedule(_timer, skillTime);
+		(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
@@ -1108,7 +1108,7 @@ public class L1ItemInstance extends L1Object {
 	public void startEquipmentTimer(L1PcInstance pc) {
 		if (getRemainingTime() > 0) {
 			_equipmentTimer = new L1EquipmentTimer(pc, this);
-			Timer timer = new Timer(true);
+			Timer timer = new Timer("EquipmentTimer-"+_pc.getName(),true);
 			timer.scheduleAtFixedRate(_equipmentTimer, 1000, 1000);
 		}
 	}

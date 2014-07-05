@@ -3047,7 +3047,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 
 	private static final long REST_MILLISEC = 10000;
 
-	private static final Timer _restTimer = new Timer(true);
+	private static final Timer _restTimer = new Timer("L1MerchantInstance",true);
 
 	private RestMonitor _monitor;
 
