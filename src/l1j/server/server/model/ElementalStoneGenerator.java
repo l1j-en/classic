@@ -104,6 +104,7 @@ public class ElementalStoneGenerator implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("ElementalStoneGenerator");
 		try {
 			L1Map map = L1WorldMap.getInstance().getMap(
 					(short) ELVEN_FOREST_MAPID);

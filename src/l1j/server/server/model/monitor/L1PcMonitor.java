@@ -31,6 +31,7 @@ public abstract class L1PcMonitor implements Runnable {
 
 	@Override
 	public final void run() {
+		Thread.currentThread().setName("L1PcMonitor");
 		L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_id);
 		if (pc == null || pc.getNetConnection() == null) {
 			return;

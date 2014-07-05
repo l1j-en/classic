@@ -101,6 +101,7 @@ public class Announcecycle {
 	/** The task launching the function doIngamenewsCycle() */
 	class AnnouncTask implements Runnable {
 		public void run() {
+			Thread.currentThread().setName("Announcecycle");
 			try {
 				ShowAnnounceToAll(_ingamenews.get(_ingamenewssize));
 				_ingamenewssize++;

@@ -21,6 +21,7 @@ public class L1PinkName {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1PinkName");
 			for (int i = 0; i < 180; i++) {
 				try {
 					Thread.sleep(1000);

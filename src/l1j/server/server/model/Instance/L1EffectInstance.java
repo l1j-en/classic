@@ -97,6 +97,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1EffectInstance-FwDmgTmer");
 			while (!_destroyed) {
 				try {
 					for (L1Object object : L1World.getInstance()
@@ -155,6 +156,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1EffectInstance-CubeTimer");
 			while (!_destroyed) {
 				try {
 					for (L1Object object : L1World.getInstance()
