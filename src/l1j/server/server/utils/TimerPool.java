@@ -28,7 +28,7 @@ public class TimerPool {
 	public TimerPool(int numOfTimers) {
 		_timers = new Timer[numOfTimers];
 		for (int i = 0; i < numOfTimers; i++) {
-			_timers[i] = new Timer();
+			_timers[i] = new Timer("NpcAiTimer-"+i);
 		}
 		_numOfTimers = numOfTimers;
 	}
