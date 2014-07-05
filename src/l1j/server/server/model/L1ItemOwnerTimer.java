@@ -37,7 +37,7 @@ public class L1ItemOwnerTimer extends TimerTask {
 	}
 
 	public void begin() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("L1ItemOwner-"+_item.getItemId());
 		timer.schedule(this, _timeMillis);
 	}
 
