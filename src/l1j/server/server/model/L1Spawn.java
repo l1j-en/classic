@@ -85,6 +85,7 @@ public class L1Spawn {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1Spawn");
 			doSpawn(_spawnNumber, _objectId);
 		}
 	}

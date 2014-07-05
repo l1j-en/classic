@@ -406,6 +406,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1MonsterInstance-Death");
 			setDeathProcessing(true);
 			setCurrentHpDirect(0);
 			setDead(true);

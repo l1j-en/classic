@@ -59,6 +59,7 @@ public class L1DeleteItemOnGround {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1DeleteItemOnGround");
 			int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
 			for (;;) {
 				try {

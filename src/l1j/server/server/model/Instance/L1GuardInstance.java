@@ -310,6 +310,7 @@ public class L1GuardInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1GuardInstance-Death");
 			setDeathProcessing(true);
 			setCurrentHpDirect(0);
 			setDead(true);

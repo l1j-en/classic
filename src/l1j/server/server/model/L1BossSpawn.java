@@ -47,6 +47,7 @@ public class L1BossSpawn extends L1Spawn {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1BossSpawn");
 			doSpawn(_spawnNumber, _objectId);
 		}
 	}

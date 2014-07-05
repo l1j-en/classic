@@ -317,6 +317,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1Character lastAttacker = _lastattacker;
 
 		public void run() {
+			Thread.currentThread().setName("L1GuardianInstance-Death");
 			setDeathProcessing(true);
 			setCurrentHpDirect(0);
 			setDead(true);
@@ -381,6 +382,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 	public class RestMonitor extends TimerTask {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1GuardianInstance-RestMonitor");
 			setRest(false);
 		}
 	}

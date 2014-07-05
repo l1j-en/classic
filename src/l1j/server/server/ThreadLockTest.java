@@ -67,6 +67,7 @@ public class ThreadLockTest {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("ThreadTestTimer");
 			int time = 2000;
 			for (;;) {
 				try {
@@ -88,6 +89,7 @@ public class ThreadLockTest {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("ThreadCheckTimer");
 			int time = 5000;
 			for (;;) {
 				try {

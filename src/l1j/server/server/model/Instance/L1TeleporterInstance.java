@@ -574,6 +574,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 		}
 
 		public void run() {
+			Thread.currentThread().setName("L1TeleporterInstance-DelyTimer");
 			try {
 				_isNowDely = true;
 				Thread.sleep(900000);

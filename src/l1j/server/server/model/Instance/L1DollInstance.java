@@ -70,6 +70,7 @@ public class L1DollInstance extends L1NpcInstance {
 	class DollTimer implements Runnable {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1DollInstance-DollTimer");
 			if (_destroyed) {
 				return;
 			}
