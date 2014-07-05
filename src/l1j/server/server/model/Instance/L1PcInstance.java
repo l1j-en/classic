@@ -1789,7 +1789,7 @@ public class L1PcInstance extends L1Character {
 	private MpRegenerationByDoll _mpRegenByDoll;
 	private MpReductionByAwake _mpReductionByAwake;
 	private HpRegeneration _hpRegen;
-	private static Timer _regenTimer = new Timer(true);
+	private static Timer _regenTimer = new Timer("PcRegenTimer",true);
 	private boolean _mpRegenActive;
 	private boolean _mpRegenActiveByDoll;
 	private boolean _mpReductionActiveByAwake;

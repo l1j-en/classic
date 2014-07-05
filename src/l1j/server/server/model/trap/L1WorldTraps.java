@@ -43,7 +43,7 @@ public class L1WorldTraps {
 	private static Logger _log = Logger.getLogger(L1WorldTraps.class.getName());
 	private List<L1TrapInstance> _allTraps = new ArrayList<L1TrapInstance>();
 	private List<L1TrapInstance> _allBases = new ArrayList<L1TrapInstance>();
-	private Timer _timer = new Timer();
+	private Timer _timer = new Timer("WorldTrapTimer");
 	private static L1WorldTraps _instance;
 
 	private L1WorldTraps() {
@@ -116,7 +116,7 @@ public class L1WorldTraps {
 	private void resetTimer() {
 		synchronized (this) {
 			_timer.cancel();
-			_timer = new Timer();
+			_timer = new Timer("WorldTrapTimer");
 		}
 	}
 

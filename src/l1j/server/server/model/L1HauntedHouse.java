@@ -183,7 +183,7 @@ public class L1HauntedHouse {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1HauntedHouse-ReadyTimer");
 			timer.schedule(this, Config.HAUNTEDHOUSETIME);
 		}
 	}
@@ -200,7 +200,7 @@ public class L1HauntedHouse {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1HauntedHouseTimer");
 			timer.schedule(this, 300000);
 		}
 	}
