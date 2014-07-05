@@ -683,7 +683,7 @@ public class L1PolyRace {
 	private GameTimeLimitTimer limitTimer;
 
 	private void startGameTimeLimitTimer() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("L1PolyRace-GameLimit");
 		limitTimer = new GameTimeLimitTimer();
 		timer.schedule(limitTimer, limitTime);
 	}
@@ -703,7 +703,7 @@ public class L1PolyRace {
 	private CompareTimer compareTimer;
 
 	private void startCompareTimer() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("L1PolyRace-CompareTimer");
 		compareTimer = new CompareTimer();
 		timer.schedule(compareTimer, 2000, 2000);
 	}
@@ -724,7 +724,7 @@ public class L1PolyRace {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PolyRace-ReadyTimer");
 			timer.schedule(this, readyTime);
 		}
 	}
@@ -741,7 +741,7 @@ public class L1PolyRace {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PolyRace-CheckTimer");
 			timer.schedule(this, 30 * 1000); // 60s
 		}
 	}
@@ -758,7 +758,7 @@ public class L1PolyRace {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PolyRace-ClockTimer");
 			timer.schedule(this, 5000); // 5s
 		}
 	}
@@ -783,7 +783,7 @@ public class L1PolyRace {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PolyRace-WaitTimer");
 			timer.schedule(this, 10000); // 10s- 10000
 		}
 	}
@@ -797,7 +797,7 @@ public class L1PolyRace {
 		}
 
 		public void begin() {
-			Timer timer = new Timer();
+			Timer timer = new Timer("L1PolyRace-EndTimer");
 			timer.schedule(this, 5000); // 5s- 5000
 		}
 	}
