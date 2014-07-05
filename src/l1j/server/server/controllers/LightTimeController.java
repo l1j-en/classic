@@ -37,6 +37,7 @@ public class LightTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("LightTimeController");
 		try {
 			while (true) {
 				checkLightTime();

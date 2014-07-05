@@ -38,6 +38,7 @@ public class UbTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("UbTimeController");
 		try {
 			while (true) {
 				checkUbTime(); // UB Check the time to start

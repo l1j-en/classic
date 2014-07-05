@@ -44,6 +44,7 @@ public class NpcChatTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("NpcChatTimeController");
 		try {
 			while (true) {
 				checkNpcChatTime();

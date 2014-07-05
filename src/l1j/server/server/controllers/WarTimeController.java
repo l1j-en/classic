@@ -77,6 +77,7 @@ public class WarTimeController implements Runnable {
 
 	@Override
 	public void run() {
+		Thread.currentThread().setName("WarTimeController");
 		try {
 			while (true) {
 				checkWarTime();
