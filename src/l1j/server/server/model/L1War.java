@@ -52,6 +52,7 @@ public class L1War {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1War-CastleWarTimer");
 			for (;;) {
 				try {
 					Thread.sleep(1000);
@@ -77,6 +78,7 @@ public class L1War {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1War-SimWarTimer");
 			for (int loop = 0; loop < 240; loop++) {
 				try {
 					Thread.sleep(60000);

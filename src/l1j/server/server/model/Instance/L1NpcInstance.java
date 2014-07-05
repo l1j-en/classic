@@ -141,6 +141,7 @@ public class L1NpcInstance extends L1Character {
 
 			@Override
 			public void run() {
+				Thread.currentThread().setName("L1NpcInstance-DeathSyncTimer");
 				if (isDeathProcessing()) {
 					schedule(getSleepTime());
 					return;
@@ -167,6 +168,7 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-AiImpleTimer");
 			try {
 				if (notContinued()) {
 					stop();
@@ -207,6 +209,7 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-NpcAIThreadImpl");
 			try {
 				setAiRunning(true);
 				while (!_destroyed && !isDead() && getCurrentHp() > 0
@@ -842,6 +845,7 @@ public class L1NpcInstance extends L1Character {
 	class HprTimer extends TimerTask {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-HprTimer");
 			try {
 				if ((!_destroyed && !isDead())
 						&& (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
@@ -872,6 +876,7 @@ public class L1NpcInstance extends L1Character {
 	class MprTimer extends TimerTask {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-MprTimer");
 			try {
 				if ((!_destroyed && !isDead())
 						&& (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
@@ -901,6 +906,7 @@ public class L1NpcInstance extends L1Character {
 	class DigestItemTimer implements Runnable {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-DigestTimer");
 			_digestItemRunning = true;
 			while (!_destroyed && _digestItems.size() > 0) {
 				try {
@@ -2120,6 +2126,7 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
 			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance()
 					.findObject(_id);
 			if (npc == null || !npc.isDead() || npc._destroyed) {

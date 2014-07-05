@@ -40,6 +40,7 @@ public class L1GameTimeClock {
 	private class TimeUpdater implements Runnable {
 		@Override
 		public void run() {
+			Thread.currentThread().setName("L1GameTimeClock");
 			while (true) {
 				_previousTime = _currentTime;
 				_currentTime = L1GameTime.fromSystemCurrentTime();

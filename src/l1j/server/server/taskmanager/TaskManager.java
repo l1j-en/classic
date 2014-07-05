@@ -73,6 +73,7 @@ public final class TaskManager {
 		}
 
 		public void run() {
+			Thread.currentThread().setName("TaskManager");
 			_task.onTimeElapsed(this);
 			_lastActivation = System.currentTimeMillis();
 			java.sql.Connection con = null;
