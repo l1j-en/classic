@@ -41,7 +41,7 @@ public class L1PcDeleteTimer extends TimerTask {
 	}
 
 	public void begin() {
-		Timer timer = new Timer();
+		Timer timer = new Timer("PcDeleteTimer-"+_pc.getName());
 		timer.schedule(this, 10 * 60 * 1000);
 	}
 
