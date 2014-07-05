@@ -19,7 +19,7 @@ public class L1GroundInventory extends L1Inventory {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final Timer _timer = new Timer();
+	private static final Timer _timer = new Timer("L1GroundInventory");
 
 	private Map<Integer, DeletionTimer> _reservedTimers = new HashMap<Integer, DeletionTimer>();
 
