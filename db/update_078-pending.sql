@@ -155,3 +155,7 @@ update spawnlist_npc set locx = 34059, locy = 32288, heading = 6 where npc_templ
 
 -- High Wolf should have attack range of 2
 update npc set ranged = 2 where npcid = 45686;
+
+-- Fix ori dagger and fist swing speed in DK polymorph
+update spr_action set framecount = 16 where spr_id = 6137 and act_id = 47;
+update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
