@@ -54,9 +54,9 @@ public class L1TaxCalculator {
 		int taxCastle = price * _taxRatesCastle;
 		int taxTown = price * _taxRatesTown;
 		int taxWar = 0;
-		List<L1War> warList = L1World.getInstance().getWarList();
-		if(!warList.isEmpty()) { // only apply if a war is active
-			taxWar = price * WAR_TAX_RATES;
+		for (L1War war : L1World.getInstance().getWarList()) {
+			if(war.GetWarType() == 1)
+				taxWar = price * WAR_TAX_RATES;
 		}
 		return (taxCastle + taxTown + taxWar) / 100;
 	}
