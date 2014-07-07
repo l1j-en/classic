@@ -159,7 +159,7 @@ public class TownTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE town SET tax_rate = ? WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET tax_rate_reserved = ? WHERE town_id = ?");
 			pstm.setInt(1, tax_rate);
 			pstm.setInt(2, town_id);
 			pstm.execute();

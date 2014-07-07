@@ -131,6 +131,9 @@ public class C_NPCAction extends ClientBasePacket {
 
 		String s = readS();
 		String s2 = null;
+		
+		if(Config.LOGGING_INCOMING_PACKETS)
+			_log.info("C_NPCAction: s=" + s);
 
 		if (s.equalsIgnoreCase("select") || s.equalsIgnoreCase("map")
 				|| s.equalsIgnoreCase("apply")) {
@@ -299,6 +302,7 @@ public class C_NPCAction extends ClientBasePacket {
 					|| npcid == 70774 || npcid == 70799 || npcid == 70815
 					|| npcid == 70860) {
 				if (pc.getHomeTownId() > 0) {
+					// TODO: give citizen home town compensation
 				} else {
 				}
 			}
@@ -400,7 +404,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			htmlid = "";
 		} else if (s.equalsIgnoreCase("tax")) {
-			pc.sendPackets(new S_TaxRate(pc.getId()));
+			pc.sendPackets(new S_TaxRate(pc.getId(), 10, 50));
 		} else if (s.equalsIgnoreCase("withdrawal")) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
@@ -1475,8 +1479,9 @@ public class C_NPCAction extends ClientBasePacket {
 				} else if (s.equalsIgnoreCase("t")) {// TODO Town mayor change
 														// tax rates
 					if (obj instanceof L1NpcInstance) {
-						if (TownTable.getInstance().isLeader(
-								client.getActiveChar(), town_id)) {
+						L1PcInstance player = client.getActiveChar();
+						if (TownTable.getInstance().isLeader(player, town_id)) {
+							pc.sendPackets(new S_TaxRate(pc.getId(), 2, 5));
 						}
 					}
 				} else if (s.equalsIgnoreCase("c")) {// TODO Town mayor recieve
