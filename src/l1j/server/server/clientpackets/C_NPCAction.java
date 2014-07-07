@@ -39,6 +39,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.CrackOfTimeController;
+import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.DoorTable;
@@ -301,8 +302,20 @@ public class C_NPCAction extends ClientBasePacket {
 					|| npcid == 70594 || npcid == 70654 || npcid == 70748
 					|| npcid == 70774 || npcid == 70799 || npcid == 70815
 					|| npcid == 70860) {
-				if (pc.getHomeTownId() > 0) {
-					// TODO: give citizen home town compensation
+				int town_id = L1TownLocation.getTownIdByNpcid(npcid);
+				if (pc.getHomeTownId() == town_id && town_id > 0) {
+				L1PcInstance player = client.getActiveChar();
+					int taxMoney = HomeTownTimeController.getPay(player.getId());
+					L1ItemInstance item = ItemTable.getInstance()
+							.createItem(40308);
+					item.setCount(taxMoney);
+					if (player.getInventory().checkAddItem(item,
+							taxMoney) == L1Inventory.OK) {
+						player.getInventory().storeItem(item);
+						player.sendPackets(new S_SystemMessage(
+								"You recieved " + taxMoney
+										+ " adena in taxes."));
+					}
 				} else {
 				}
 			}
@@ -1490,7 +1503,7 @@ public class C_NPCAction extends ClientBasePacket {
 						L1PcInstance player = client.getActiveChar();
 						if (TownTable.getInstance().isLeader(player, town_id)) {
 							int taxMoney = TownTable.getInstance()
-									.recieveInfoAboutTaxes(town_id);
+									.recieveTax(town_id);
 							L1ItemInstance item = ItemTable.getInstance()
 									.createItem(40308);
 							item.setCount(taxMoney);
