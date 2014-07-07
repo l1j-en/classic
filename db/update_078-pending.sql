@@ -164,9 +164,3 @@ update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 update shop set purchasing_price = 2000 where item_id = 20182;
 -- Cloak of Protection purchasing_price 1 adena -> 10k
 update shop set purchasing_price = 10000 where item_id = 20063;
--- Maple Wand purchasing_price 3 adena -> 5k
-update shop set purchasing_price = 5000 where item_id = 40008;
--- Pine Wand purchasing_price 3 adena -> 2k
-update shop set purchasing_price = 2000 where item_id = 40006;
--- Ebony Wand purchasing_price 3 adena -> 500
-update shop set purchasing_price = 500 where item_id = 40007;
