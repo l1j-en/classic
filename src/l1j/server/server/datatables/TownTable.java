@@ -155,7 +155,7 @@ public class TownTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		L1Town town = TownTable.getInstance().getTownTable(town_id);
-		town.set_tax_rate(tax_rate);
+		town.set_tax_rate_reserved(tax_rate);
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
