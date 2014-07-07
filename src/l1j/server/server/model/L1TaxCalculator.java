@@ -18,6 +18,8 @@
  */
 package l1j.server.server.model;
 
+import java.util.List;
+
 public class L1TaxCalculator {
 	/**
 	 * 15 percent war tax is fixed
@@ -51,7 +53,11 @@ public class L1TaxCalculator {
 	public int calcTotalTaxPrice(int price) {
 		int taxCastle = price * _taxRatesCastle;
 		int taxTown = price * _taxRatesTown;
-		int taxWar = price * WAR_TAX_RATES;
+		int taxWar = 0;
+		List<L1War> warList = L1World.getInstance().getWarList();
+		if(!warList.isEmpty()) { // only apply if a war is active
+			taxWar = price * WAR_TAX_RATES;
+		}
 		return (taxCastle + taxTown + taxWar) / 100;
 	}
 
