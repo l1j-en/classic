@@ -237,3 +237,7 @@ INSERT INTO `shop` VALUES
 	(70061, 'Mandra', 21102, 'Cloak of Dragon Knight', 74, 5000000, 0, -1),
 	(70061, 'Mandra', 272, 'Destructors Chain Sword', 75, 15000000, 0, -1);
 
+-- Gloves purchasing_price 1 adena -> 2k
+update shop set purchasing_price = 2000 where item_id = 20182;
+-- Cloak of Protection purchasing_price 1 adena -> 10k
+update shop set purchasing_price = 10000 where item_id = 20063;

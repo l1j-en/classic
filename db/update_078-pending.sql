@@ -160,7 +160,3 @@ update npc set ranged = 2 where npcid = 45686;
 update spr_action set framecount = 16 where spr_id = 6137 and act_id = 47;
 update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 
--- Gloves purchasing_price 1 adena -> 2k
-update shop set purchasing_price = 2000 where item_id = 20182;
--- Cloak of Protection purchasing_price 1 adena -> 10k
-update shop set purchasing_price = 10000 where item_id = 20063;
