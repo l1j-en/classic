@@ -175,7 +175,7 @@ public class HomeTownTimeController {
 						* 100) / 100;
 			}
 			pstm4 = con
-					.prepareStatement("UPDATE characters SET Contribution = 0, Pay = Contribution * ? WHERE HomeTownID = ?");
+					.prepareStatement("UPDATE characters SET Pay = Contribution * ?, Contribution = 0 WHERE HomeTownID = ?");
 			pstm4.setDouble(1, contributionUnit);
 			pstm4.setInt(2, townId);
 			pstm4.execute();
