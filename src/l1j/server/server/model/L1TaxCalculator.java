@@ -18,21 +18,19 @@
  */
 package l1j.server.server.model;
 
-import java.util.List;
-
 public class L1TaxCalculator {
 	/**
-	 * 15 percent war tax is fixed
+	 * 15 percent war tax - (when Lastabad army controls diad fortress)
 	 */
 	private static final int WAR_TAX_RATES = 15;
 
 	/**
-	 * 10 percent fixed tax (local tax rate)
+	 * 10 percent of local taxes given to Aden
 	 */
 	private static final int NATIONAL_TAX_RATES = 10;
 
 	/**
-	 * DIADO fixed 10 percent tax (the tax rate war)
+	 * 10 percent of local taxes given to Diad
 	 */
 	private static final int DIAD_TAX_RATES = 10;
 
@@ -51,22 +49,19 @@ public class L1TaxCalculator {
 	}
 
 	public int calcTotalTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle;
-		int taxTown = price * _taxRatesTown;
-		int taxWar = calcWarTaxPrice(price);
-		return (taxCastle + taxTown + taxWar) / 100;
+		int taxCastle = price * _taxRatesCastle / 100;
+		int taxTown = price * _taxRatesTown / 100;
+		return taxCastle + taxTown;
 	}
 
 	public int calcCastleTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle;
-		int taxWar = calcWarTaxPrice(price);
-		return (taxCastle + taxWar) / 100 - calcNationalTaxPrice(price);
+		int taxCastle = price * _taxRatesCastle / 100;
+		return taxCastle - calcNationalTaxPrice(price) - calcDiadTaxPrice(price);
 	}
 
 	public int calcNationalTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle;
-		int taxWar = calcWarTaxPrice(price);
-		return (taxCastle + taxWar) / 100 / (100 / NATIONAL_TAX_RATES);
+		int taxCastle = price * _taxRatesCastle / 100;
+		return taxCastle / (100 / NATIONAL_TAX_RATES);
 	}
 
 	public int calcTownTaxPrice(int price) {
@@ -74,16 +69,12 @@ public class L1TaxCalculator {
 	}
 
 	public int calcWarTaxPrice(int price) {
-		int taxWar = 0;
-		for (L1War war : L1World.getInstance().getWarList()) {
-			if(war.GetWarType() == 1)
-				taxWar = price * _taxRatesWar;
-		}
-		return taxWar / 100;
+		return price * _taxRatesWar / 100;
 	}
 
 	public int calcDiadTaxPrice(int price) {
-		return (price * _taxRatesWar) / 100 / (100 / DIAD_TAX_RATES);
+		int taxCastle = price * _taxRatesCastle / 100;
+		return taxCastle / (100 / DIAD_TAX_RATES);
 	}
 
 	public int layTax(int price) {
