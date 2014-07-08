@@ -53,20 +53,20 @@ public class L1TaxCalculator {
 	public int calcTotalTaxPrice(int price) {
 		int taxCastle = price * _taxRatesCastle;
 		int taxTown = price * _taxRatesTown;
-		int taxWar = 0;
-		for (L1War war : L1World.getInstance().getWarList()) {
-			if(war.GetWarType() == 1)
-				taxWar = price * WAR_TAX_RATES;
-		}
+		int taxWar = calcWarTaxPrice(price);
 		return (taxCastle + taxTown + taxWar) / 100;
 	}
 
 	public int calcCastleTaxPrice(int price) {
-		return (price * _taxRatesCastle) / 100 - calcNationalTaxPrice(price);
+		int taxCastle = price * _taxRatesCastle;
+		int taxWar = calcWarTaxPrice(price);
+		return (taxCastle + taxWar) / 100 - calcNationalTaxPrice(price);
 	}
 
 	public int calcNationalTaxPrice(int price) {
-		return (price * _taxRatesCastle) / 100 / (100 / NATIONAL_TAX_RATES);
+		int taxCastle = price * _taxRatesCastle;
+		int taxWar = calcWarTaxPrice(price);
+		return (taxCastle + taxWar) / 100 / (100 / NATIONAL_TAX_RATES);
 	}
 
 	public int calcTownTaxPrice(int price) {
@@ -74,7 +74,12 @@ public class L1TaxCalculator {
 	}
 
 	public int calcWarTaxPrice(int price) {
-		return (price * _taxRatesWar) / 100;
+		int taxWar = 0;
+		for (L1War war : L1World.getInstance().getWarList()) {
+			if(war.GetWarType() == 1)
+				taxWar = price * _taxRatesWar;
+		}
+		return taxWar / 100;
 	}
 
 	public int calcDiadTaxPrice(int price) {
