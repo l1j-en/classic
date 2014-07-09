@@ -160,3 +160,5 @@ update npc set ranged = 2 where npcid = 45686;
 update spr_action set framecount = 16 where spr_id = 6137 and act_id = 47;
 update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 
+-- update Sword of Heaven to be deletable
+update weapon set cant_delete = 0 where item_id = 65;
