@@ -20,6 +20,8 @@ package l1j.server.server.clientpackets;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
+import l1j.server.server.datatables.TownTable;
+import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -38,21 +40,46 @@ public class C_TaxRate extends ClientBasePacket {
 
 		L1PcInstance player = clientthread.getActiveChar();
 		if (i == player.getId()) {
-			L1Clan clan = L1World.getInstance().getClan(player.getClanname());
-			if (clan != null) {
-				int castle_id = clan.getCastleId();
-				if (castle_id != 0) {
-					L1Castle l1castle = CastleTable.getInstance()
-							.getCastleTable(castle_id);
-					if (j >= 10 && j <= 50) {
-						l1castle.setTaxRate(j);
-						CastleTable.getInstance().updateCastle(l1castle);
-					}
-				}
+			if (!setCastleTax(player, j)) {
+				setTownTax(player, j);
 			}
 		}
 	}
 
+	private boolean setCastleTax(L1PcInstance player, int rate) {
+		L1Clan clan = L1World.getInstance().getClan(player.getClanname());
+		if (clan != null) {
+			int castle_id = clan.getCastleId();
+			if (castle_id != 0) {
+				if (L1CastleLocation.checkInWarArea(castle_id, player)) {
+					L1Castle l1castle = CastleTable.getInstance()
+							.getCastleTable(castle_id);
+					if (rate >= 10 && rate <= 50) {
+						l1castle.setTaxRate(rate);
+						CastleTable.getInstance().updateCastle(l1castle);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void setTownTax(L1PcInstance player, int rate) {
+		int town_id = player.getHomeTownId();
+		if (town_id == 0)
+			return;
+
+		TownTable town = TownTable.getInstance();
+		if (town == null)
+			return;
+		
+		if (town.isLeader(player, town_id)
+				&& rate >= 2 && rate <= 5) {
+			town.changeTaxRate(town_id, rate - 2); // 2% fixed town tax rate
+		}
+	}
+	
 	@Override
 	public String getType() {
 		return C_TAX_RATE;

@@ -64,7 +64,7 @@ public class C_UseSkill extends ClientBasePacket {
 		}
 
 		if (!pc.getMap().isUsableSkill()) {
-			pc.sendPackets(new S_ServerMessage(563));
+			pc.sendPackets(new S_ServerMessage(563)); // You can't use it here.
 			return;
 		}
 
@@ -138,12 +138,12 @@ public class C_UseSkill extends ClientBasePacket {
 				L1PcInstance target = L1World.getInstance().getPlayer(charName);
 
 				if (target == null) {
-					pc.sendPackets(new S_ServerMessage(73, charName));
+					pc.sendPackets(new S_ServerMessage(73, charName)); // 'player' is not playing now.
 					return;
 				}
 
 				if (pc.getClanid() != target.getClanid()) {
-					pc.sendPackets(new S_ServerMessage(414));
+					pc.sendPackets(new S_ServerMessage(414)); // That person is not a member of the same Blood Pledge.
 					return;
 				}
 				targetId = target.getId();

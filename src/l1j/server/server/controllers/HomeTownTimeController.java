@@ -90,6 +90,10 @@ public class HomeTownTimeController {
 
 	public void monthlyProc() {
 		_log.info("Running monthly update for tax and sales money.");
+		TownTable.getInstance().updateTaxRate();
+		TownTable.getInstance().updateSalesMoneyYesterday();
+		TownTable.getInstance().load();
+
 		L1World.getInstance().setProcessingContributionTotal(true);
 		Collection<L1PcInstance> players = L1World.getInstance()
 				.getAllPlayers();
@@ -175,12 +179,12 @@ public class HomeTownTimeController {
 						* 100) / 100;
 			}
 			pstm4 = con
-					.prepareStatement("UPDATE characters SET Contribution = 0, Pay = Contribution * ? WHERE HomeTownID = ?");
+					.prepareStatement("UPDATE characters SET Pay = Contribution * ?, Contribution = 0 WHERE HomeTownID = ?");
 			pstm4.setDouble(1, contributionUnit);
 			pstm4.setInt(2, townId);
 			pstm4.execute();
 			pstm5 = con
-					.prepareStatement("UPDATE town SET leader_id = ?, leader_name = ?, tax_rate = 0, tax_rate_reserved = 0, sales_money = 0, sales_money_yesterday = sales_money, town_tax = 0, town_fix_tax = 0 WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET leader_id = ?, leader_name = ?, town_fix_tax = 0 WHERE town_id = ?");
 			pstm5.setInt(1, leaderId);
 			pstm5.setString(2, leaderName);
 			pstm5.setInt(3, townId);

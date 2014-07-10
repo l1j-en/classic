@@ -1078,11 +1078,11 @@
 		<Item ItemId="40087" Count="1" Chance="4" />	<!--DAI-->
 		<Item ItemId="40088" Count="8" Chance="5" />	<!--SOSC-->
 		<Item ItemId="40318" Count="15" Chance="10" />
-		<Item ItemId="40319" Count="30" Chance="12" />
+		<Item ItemId="40319" Count="30" Chance="9.6" />
 		<Item ItemId="49143" Count="1" Chance="4" />
 		<Item ItemId="49143" Count="2" Chance="5" />
 		<Item ItemId="49143" Count="3" Chance="6" />
-		<Item ItemId="41251" Count="1" Chance="2" />
+		<Item ItemId="41251" Count="1" Chance="4.4" />
 	</TreasureBox>
 	<!-- Bronze Pumpkin of a Brave Man (Silver) -->
 	<TreasureBox Type="RANDOM" ItemId="49279">
@@ -1095,10 +1095,10 @@
 		<Item ItemId="40087" Count="1" Chance="2.5" />	<!--DAI-->
 		<Item ItemId="40088" Count="4" Chance="5" />	<!--SOSC-->
 		<Item ItemId="40318" Count="10" Chance="10" />
-		<Item ItemId="40319" Count="20" Chance="15" />
+		<Item ItemId="40319" Count="20" Chance="12.6" />
 		<Item ItemId="49143" Count="1" Chance="4" />
 		<Item ItemId="49143" Count="2" Chance="5" />
-		<Item ItemId="41251" Count="1" Chance="1.2" />
+		<Item ItemId="41251" Count="1" Chance="3.6" />
 	</TreasureBox>
 	<!-- Bronze Pumpkin of a Brave Man (Copper) -->
 	<TreasureBox Type="RANDOM" ItemId="49280">
@@ -1110,10 +1110,10 @@
 		<Item ItemId="40074" Count="1" Chance="2" />	<!--ZEL-->
 		<Item ItemId="40088" Count="2" Chance="5.3" />	<!--SOSC-->
 		<Item ItemId="40318" Count="5" Chance="8" />	<!-- -->
-		<Item ItemId="40319" Count="10" Chance="16.3" />	<!-- -->
+		<Item ItemId="40319" Count="10" Chance="13.9" />	<!-- -->
 		<Item ItemId="49143" Count="1" Chance="6" />	<!-- -->
 		<Item ItemId="49143" Count="2" Chance="3.3" />	<!-- -->
-		<Item ItemId="41251" Count="1" Chance="0.6" />	<!-- -->
+		<Item ItemId="41251" Count="1" Chance="3.0" />	<!-- -->
 	</TreasureBox>
 	<!-- Surprise Box -->
 	<TreasureBox Type="RANDOM" ItemId="41311">
