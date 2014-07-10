@@ -136,11 +136,11 @@ public class TownTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		L1Town town = TownTable.getInstance().getTownTable(town_id);
-		town.set_town_fix_tax(0);
+		town.set_town_tax(0);
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE town SET town_fix_tax = 0 WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET town_tax = 0 WHERE town_id = ?");
 			pstm.setInt(1, town_id);
 			pstm.execute();
 		} catch (SQLException e) {
@@ -155,11 +155,11 @@ public class TownTable {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		L1Town town = TownTable.getInstance().getTownTable(town_id);
-		town.set_tax_rate(tax_rate);
+		town.set_tax_rate_reserved(tax_rate);
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE town SET tax_rate = ? WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET tax_rate_reserved = ? WHERE town_id = ?");
 			pstm.setInt(1, tax_rate);
 			pstm.setInt(2, town_id);
 			pstm.execute();
@@ -171,8 +171,12 @@ public class TownTable {
 		}
 	}
 
-	public int recieveInfoAboutTaxes(int town_id) {
+	public int recieveFixTax(int town_id) {
 		return TownTable.getInstance().getTownTable(town_id).get_town_fix_tax();
+	}
+
+	public int recieveTax(int town_id) {
+		return TownTable.getInstance().getTownTable(town_id).get_town_tax();
 	}
 
 	public int getTodaySales(int town_id) {
