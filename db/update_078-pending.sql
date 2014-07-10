@@ -164,9 +164,9 @@ update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 update weapon set cant_delete = 0 where item_id = 65;
 
 -- update NPC name data
-update npc set name = "Elder Magic Doll" where npc_id = 80129;
-update npc set name = "Crustacean Magic Doll" where npc_id = 80130;
-update npc set name = "Stone Golem Magic Doll" where npc_id = 80131;
+update npc set name = "Elder Magic Doll" where npcid = 80129;
+update npc set name = "Crustacean Magic Doll" where npcid = 80130;
+update npc set name = "Stone Golem Magic Doll" where npcid = 80131;
 update npc set name = 'Great Grave Guardian' where npcid = 45603;
 update npc set name = 'Arcane King Hellvine' where npcid = 45676;
 update npc set name = 'Arcane Troup Leader Crepus' where npcid = 45615;
@@ -216,7 +216,6 @@ insert into droplist values
 (45602,'Evil Magic Squad Leader Carmiel',20129,'Robe of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20030,'Helm of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20067,'Cloak of New King',1,1,5000),
-(45602,'Evil Magic Squad Leader Carmiel',20176,'Gloves of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20208,'Boots of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20233,'Scroll of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',40013,'Haste Potion',1,1,50000),
@@ -233,10 +232,18 @@ insert into droplist values
 (45863,'Dread Queen Laia',20067,'Cloak of New King',1,1,5000),
 (45863,'Dread Queen Laia',20233,'Scroll of New King',1,1,5000),
 (45863,'Dread Queen Laia',40224,'Spellbook(AdvanceSpirit)',1,1,2000),
-(45676,'Arcane King Hellvine',20176,'Gloves of New King',1,1,10000),
 (45676,'Arcane King Hellvine',20129,'Robe of New King',1,1,5000),
 (45676,'Arcane King Hellvine',20067,'Cloak of New King',1,1,5000),
 (45676,'Arcane King Hellvine',20208,'Boots of New King',1,1,5000);
 
  -- remove incorrect item drop entry from Oum Warrior
-remove from droplist where mobId = 45466 and itemId = 20176;
+delete from droplist where mobId = 45466 and itemId = 20030;
+delete from droplist where mobId = 45466 and itemId = 20067;
+delete from droplist where mobId = 45466 and itemId = 20176;
+delete from droplist where mobId = 45466 and itemId = 20208;
+
+update droplist set mob_name = 'Great Grave Guardian' where mobid = 45603;
+update npc set name = 'Great Grave Guardian' where npcid = 45603;
+update armor set name = 'Gauntlet of the Pretender King' where item_id = 21070;
+update armor set unidentified_name_id = '$2191' where item_id = 21070;
+update armor set identified_name_id = '$2191' where item_id = 21070;
