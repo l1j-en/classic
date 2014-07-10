@@ -162,3 +162,81 @@ update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 
 -- update Sword of Heaven to be deletable
 update weapon set cant_delete = 0 where item_id = 65;
+
+-- update NPC name data
+update npc set name = "Elder Magic Doll" where npc_id = 80129;
+update npc set name = "Crustacean Magic Doll" where npc_id = 80130;
+update npc set name = "Stone Golem Magic Doll" where npc_id = 80131;
+update npc set name = 'Great Grave Guardian' where npcid = 45603;
+update npc set name = 'Arcane King Hellvine' where npcid = 45676;
+update npc set name = 'Arcane Troup Leader Crepus' where npcid = 45615;
+
+-- update missing armor name data for cloak of new king
+update armor set unidentified_name_id = '$3850' where item_id = 20067;
+update armor set identified_name_id = '$3850' where item_id = 20067;
+
+-- update droplist name data
+update droplist set chance = 10000 where mobId = 45677 and itemId = 20176;
+
+-- update Spawnlist names
+update spawnlist set location = 'Great Grave Guardian' where npc_templateid = 45603;
+
+-- update Spawnlist_Boss names
+update spawnlist_boss set location = 'Arcane King Hellvine' where npc_id = 45676;
+update spawnlist_boss set location = 'Arcane Troup Leader Crepus' where npc_id = 45615;
+update spawnlist_boss set location = 'Priest Adjutant Cassandra' where npc_id = 45963;
+
+insert into droplist values
+-- update drops for Gloves of New King (Gloves of the Priest) (item id: 20176)
+(45986,'Guardian of Wind Spirit',20176,'Gloves of New King',1,1,5000),
+(45856,'Guardian of Wind Spirit',20176,'Gloves of New King',1,1,5000),
+(45461,'Guardian of Wind Spirit',20176,'Gloves of New King',1,1,5000),
+(45517,'Spiritologist of Blood',20176,'Gloves of New King',1,1,5000),
+(46000,'Spiritologist of Blood',20176,'Gloves of New King',1,1,5000),
+(45523,'Lord of Darkness',20176,'Gloves of New King',1,1,5000),
+(45994,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(45995,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(45998,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(45999,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(46002,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(46003,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(46004,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(46007,'Elder Attendant',20176,'Gloves of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20176,'Gloves of New King',1,1,5000),
+(45615,'Arcane Troup Leader Crepus',20176,'Gloves of New King',1,1,10000),
+(45955,'Supreme Court Justice Keyna',20176,'Gloves of New King',1,1,10000),
+(45676,'Arcane King Hellvine',20176,'Gloves of New King',1,1,10000),
+(45962,'Supreme Court Justice Barode',20176,'Gloves of New King',1,1,10000),
+(45969,'Cursed Dark Elf Wizard',20176,'Gloves of New King',1,1,5000),
+(45971,'Cursed Dark Elf Wizard',20176,'Gloves of New King',1,1,5000);
+
+-- update missing drops - Source: linlib
+insert into droplist values 
+(45602,'Evil Magic Squad Leader Carmiel',20313,'Belt of Darkness',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20129,'Robe of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20030,'Helm of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20067,'Cloak of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20176,'Gloves of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20208,'Boots of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',20233,'Scroll of New King',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',40013,'Haste Potion',1,1,50000),
+(45602,'Evil Magic Squad Leader Carmiel',41147,'TechnicalDocument(SolidCarriage)',1,1,5000),
+(45602,'Evil Magic Squad Leader Carmiel',40675,'Mineral of Darkness',1,1,10000),
+(45602,'Evil Magic Squad Leader Carmiel',40636,'Evidence Box of Dark Spirit Army',1,1,10000),
+(45602,'Evil Magic Squad Leader Carmiel',40635,'Evidence of Dark Spirit Army',1,1,10000),
+(45602,'Evil Magic Squad Leader Carmiel',132,'Staff of New King',1,1,5000),
+(45677,'Dread Queen Laia',20067,'Cloak of New King',1,1,5000),
+(45677,'Dread Queen Laia',49115,'Dragon Tablet(FreezingBreath)',1,1,5000),
+(45677,'Dread Queen Laia',20129,'Robe of New King',1,1,5000),
+(45677,'Dread Queen Laia',40636,'Evidence Box of Dark Spirit Army',1,1,10000),
+(45677,'Dread Queen Laia',40960,'Seal of Dread Queen',1,1,5000),
+(45863,'Dread Queen Laia',20067,'Cloak of New King',1,1,5000),
+(45863,'Dread Queen Laia',20233,'Scroll of New King',1,1,5000),
+(45863,'Dread Queen Laia',40224,'Spellbook(AdvanceSpirit)',1,1,2000),
+(45676,'Arcane King Hellvine',20176,'Gloves of New King',1,1,10000),
+(45676,'Arcane King Hellvine',20129,'Robe of New King',1,1,5000),
+(45676,'Arcane King Hellvine',20067,'Cloak of New King',1,1,5000),
+(45676,'Arcane King Hellvine',20208,'Boots of New King',1,1,5000);
+
+ -- remove incorrect item drop entry from Oum Warrior
+remove from droplist where mobId = 45466 and itemId = 20176;
