@@ -164,9 +164,9 @@ update spr_action set framecount = 16 where spr_id = 6137 and act_id = 1;
 update weapon set cant_delete = 0 where item_id = 65;
 
 -- update NPC name data
-update npc set name = "Elder Magic Doll" where npc_id = 80129;
-update npc set name = "Crustacean Magic Doll" where npc_id = 80130;
-update npc set name = "Stone Golem Magic Doll" where npc_id = 80131;
+update npc set name = "Elder Magic Doll" where npcid = 80129;
+update npc set name = "Crustacean Magic Doll" where npcid = 80130;
+update npc set name = "Stone Golem Magic Doll" where npcid = 80131;
 update npc set name = 'Great Grave Guardian' where npcid = 45603;
 update npc set name = 'Arcane King Hellvine' where npcid = 45676;
 update npc set name = 'Arcane Troup Leader Crepus' where npcid = 45615;
@@ -216,7 +216,6 @@ insert into droplist values
 (45602,'Evil Magic Squad Leader Carmiel',20129,'Robe of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20030,'Helm of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20067,'Cloak of New King',1,1,5000),
-(45602,'Evil Magic Squad Leader Carmiel',20176,'Gloves of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20208,'Boots of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',20233,'Scroll of New King',1,1,5000),
 (45602,'Evil Magic Squad Leader Carmiel',40013,'Haste Potion',1,1,50000),
@@ -233,10 +232,76 @@ insert into droplist values
 (45863,'Dread Queen Laia',20067,'Cloak of New King',1,1,5000),
 (45863,'Dread Queen Laia',20233,'Scroll of New King',1,1,5000),
 (45863,'Dread Queen Laia',40224,'Spellbook(AdvanceSpirit)',1,1,2000),
-(45676,'Arcane King Hellvine',20176,'Gloves of New King',1,1,10000),
 (45676,'Arcane King Hellvine',20129,'Robe of New King',1,1,5000),
 (45676,'Arcane King Hellvine',20067,'Cloak of New King',1,1,5000),
 (45676,'Arcane King Hellvine',20208,'Boots of New King',1,1,5000);
 
  -- remove incorrect item drop entry from Oum Warrior
-remove from droplist where mobId = 45466 and itemId = 20176;
+delete from droplist where mobId = 45466 and itemId = 20030;
+delete from droplist where mobId = 45466 and itemId = 20067;
+delete from droplist where mobId = 45466 and itemId = 20176;
+delete from droplist where mobId = 45466 and itemId = 20208;
+
+update droplist set mob_name = 'Great Grave Guardian' where mobid = 45603;
+update npc set name = 'Great Grave Guardian' where npcid = 45603;
+update armor set name = 'Gauntlet of the Pretender King' where item_id = 21070;
+update armor set unidentified_name_id = '$2191' where item_id = 21070;
+update armor set identified_name_id = '$2191' where item_id = 21070;
+
+update etcitem set name = 'Arcane Book of Magic Vol 1' where item_id = 40420;
+update etcitem set name = 'Arcane Book of Magic Vol 2' where item_id = 40421;
+update etcitem set name = 'Arcane Book of Magic Vol 3' where item_id = 40422;
+update etcitem set name = 'Arcane Book of Magic Vol 4' where item_id = 40423;
+update droplist set item_name = 'Arcane Book of Magic Vol 1' where itemid = 40420;
+update droplist set item_name = 'Arcane Book of Magic Vol 2' where itemid = 40421;
+update droplist set item_name = 'Arcane Book of Magic Vol 3' where itemid = 40422;
+update droplist set item_name = 'Arcane Book of Magic Vol 4' where itemid = 40423;
+
+-- update name $ values
+update armor set unidentified_name_id = '$3857' where item_id = 20178; -- Gloves of Assassin King
+update armor set identified_name_id = '$3857' where item_id = 20178; -- Gloves of Assassin King
+update armor set unidentified_name_id = '$3859' where item_id = 20253; -- Amulet of Dread Queen
+update armor set identified_name_id = '$3859' where item_id = 20253; -- Amulet of Dread Queen
+update armor set unidentified_name_id = '$1560' where item_id = 20270; -- Silver Serpent Amulet
+update armor set identified_name_id = '$1560' where item_id = 20270; -- Silver Serpent Amulet
+update armor set unidentified_name_id = '$3724' where item_id = 20345; -- High Collie Collar
+update armor set identified_name_id = '$3724' where item_id = 20345; -- High Collie Collar
+update armor set unidentified_name_id = '$3725' where item_id = 20346; -- High Raccoon Collar
+update armor set identified_name_id = '$3725' where item_id = 20346; -- High Raccoon Collar
+update armor set unidentified_name_id = '$4945' where item_id = 20419; -- High Bear Collar
+update armor set identified_name_id = '$4945' where item_id = 20419; -- High Bear Collar
+update armor set name = 'High Bear Collar' where item_id = 20419; -- High Bear Collar
+update armor set unidentified_name_id = '$798' where item_id = 29001; -- Wooden Jacket
+update armor set identified_name_id = '$798' where item_id = 29001; -- Wooden Jacket
+update armor set unidentified_name_id = '$13787' where item_id = 30000; -- Reinforced T-Shirt
+update armor set identified_name_id = '$13787' where item_id = 30000; -- Reinforced T-Shirt
+update armor set unidentified_name_id = '$13788' where item_id = 30001; -- Fortified T-Shirt
+update armor set identified_name_id = '$13788' where item_id = 30001; -- Fortified T-Shirt
+update armor set unidentified_name_id = '$13683' where item_id = 30009; -- KillGlance's Ring
+update armor set identified_name_id = '$13683' where item_id = 30009; -- KillGlance's Ring
+update armor set unidentified_name_id = '$13648' where item_id = 30008; -- Mermaid's Necklace
+update armor set identified_name_id = '$13648' where item_id = 30008; -- Mermaid's Necklace
+update armor set unidentified_name_id = '$13582' where item_id = 30002; -- Ruby Ring
+update armor set identified_name_id = '$13582' where item_id = 30002; -- Ruby Ring
+update armor set unidentified_name_id = '$13583' where item_id = 30003; -- Sapphire Ring
+update armor set identified_name_id = '$13583' where item_id = 30003; -- Sapphire Ring
+update armor set unidentified_name_id = '$13584' where item_id = 30004; -- Moonstone Ring
+update armor set identified_name_id = '$13584' where item_id = 30004; -- Moonstone Ring
+update armor set unidentified_name_id = '$13585' where item_id = 30005; -- Carnelian Ring
+update armor set identified_name_id = '$13585' where item_id = 30005; -- Carnelian Ring
+update armor set unidentified_name_id = '$13575' where item_id = 30006; -- Mermaid's Ring
+update armor set identified_name_id = '$13575' where item_id = 30006; -- Mermaid's Ring
+update armor set unidentified_name_id = '$13686' where item_id = 30007; -- Amulet
+update armor set identified_name_id = '$13686' where item_id = 30007; -- Amulet
+update armor set unidentified_name_id = '$13735' where item_id = 30012; -- Dark Elf Tunic
+update armor set identified_name_id = '$13735' where item_id = 30012; -- Dark Elf Tunic
+update armor set unidentified_name_id = '$13736' where item_id = 30013; -- Dark Elf Sandals
+update armor set identified_name_id = '$13736' where item_id = 30013; -- Dark Elf Sandals
+update armor set unidentified_name_id = '$13737' where item_id = 30014; -- Dark Elf Circlet
+update armor set identified_name_id = '$13737' where item_id = 30014; -- Dark Elf Circlet
+
+-- update incorrect data for duplicate Silver Serpent Amulet
+update armor set name = 'Necklace of Dupelgenon' where item_id = 20251;
+update armor set unidentified_name_id = '$797' where item_id = 20251;
+update armor set identified_name_id = '$797' where item_id = 20251;
+update armor set trade = 1 where item_id = 20251;
