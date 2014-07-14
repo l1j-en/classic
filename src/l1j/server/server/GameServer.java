@@ -41,7 +41,7 @@ public class GameServer extends Thread {
 	private int _port;
 
 	// Naive denial of service defense.
-	private static final int CONNECTION_LIMIT = 6;
+	private static final int CONNECTION_LIMIT = 20;
 	private static final int CACHE_REFRESH = 1000 * 60 * 4;
 	// Might be overkill, but hard to test. =\
 	private static final ConcurrentMap<String, Integer> connectionCache = new ConcurrentHashMap<String, Integer>();
@@ -63,19 +63,20 @@ public class GameServer extends Thread {
 		while (true) {
 			try {
 				Socket socket = _serverSocket.accept();
-				_log.log(Level.FINE, "Accepted connection from IP: "
-						+ socket.getInetAddress());
 				String host = socket.getInetAddress().getHostAddress();
 
 				connectionCache.putIfAbsent(host, 1);
-				if (connectionCache.get(host) > CONNECTION_LIMIT) {
-					// Don't log in production, since that effectively
-					// recreates the DOS.
-					// _log.log(Level.WARNING,
-					// "GameServer::run: " + host + " hit connection limit.");
+				if (connectionCache.get(host) == CONNECTION_LIMIT) {
+					// Log DOS detection once, but not more than once
+					_log.log(Level.WARNING,
+					"GameServer::run: " + host + " hit connection limit.");
+				} else if (connectionCache.get(host) > CONNECTION_LIMIT) {
+					socket.close();
 				} else if (IpTable.getInstance().isBannedIp(host)) {
 					_log.info("Banned IP(" + host + ")");
 				} else {
+					_log.log(Level.FINE, "Accepted connection from IP: "
+							+ socket.getInetAddress());
 					ClientThread client = new ClientThread(socket);
 					GeneralThreadPool.getInstance().execute(client);
 					connectionCache
