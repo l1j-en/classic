@@ -621,10 +621,12 @@ public class L1NpcInstance extends L1Character {
 				targetItem.getX(), targetItem.getY(), targetItem.getMapId());
 		L1ItemInstance item = groundInventory.tradeItem(targetItem,
 				targetItem.getCount(), getInventory());
-		turnOnOffLight();
-		onGetItem(item);
 		_targetItemList.remove(_targetItem);
 		_targetItem = null;
+		if (item == null)
+			return;
+		turnOnOffLight();
+		onGetItem(item);
 		setSleepTime(1000);
 	}
 
