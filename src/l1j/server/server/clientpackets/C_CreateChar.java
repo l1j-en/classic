@@ -81,7 +81,7 @@ public class C_CreateChar extends ClientBasePacket {
 		}
 		if (CharacterTable.doesCharNameExist(name)) {
 			_log.fine("Character Name: " + pc.getName()
-					+ " Already Exists. Creation Failed.");
+					+ " already exists. Creation failed.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_ALREADY_EXSISTS);
 			client.sendPacket(s_charcreatestatus1);
@@ -89,7 +89,7 @@ public class C_CreateChar extends ClientBasePacket {
 		}
 		if (client.getAccount().countCharacters() >= maxAmount) {
 			_log.fine("Account: " + client.getAccountName()
-					+ " Attempted To Create More Than" + maxAmount + " Characters.");
+					+ " attempted to create more than " + maxAmount + " characters.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus1);
