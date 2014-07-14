@@ -45,6 +45,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Drop;
 import l1j.server.server.utils.SQLUtil;
+import l1j.server.server.model.classes.L1ClassId;
 
 // Referenced classes of package l1j.server.server.templates:
 // L1Npc, L1Item, ItemTable
@@ -61,16 +62,6 @@ public class DropTable {
 	}
 
 	private static Map<Integer, String> _questDrops;
-	public static final int CLASSID_KNIGHT_MALE = 61;
-	public static final int CLASSID_KNIGHT_FEMALE = 48;
-	public static final int CLASSID_ELF_MALE = 138;
-	public static final int CLASSID_ELF_FEMALE = 37;
-	public static final int CLASSID_WIZARD_MALE = 734;
-	public static final int CLASSID_WIZARD_FEMALE = 1186;
-	public static final int CLASSID_DARK_ELF_MALE = 2786;
-	public static final int CLASSID_DARK_ELF_FEMALE = 2796;
-	public static final int CLASSID_PRINCE = 0;
-	public static final int CLASSID_PRINCESS = 1;
 
 	private DropTable() {
 		_droplists = allDropList();
@@ -97,23 +88,6 @@ public class DropTable {
 			SQLUtil.close(con);
 		}
 		return questDropsMap;
-	}
-
-	private String classCode(L1PcInstance pc) {
-		int i = pc.getClassId();
-		if (i == CLASSID_KNIGHT_MALE || i == CLASSID_KNIGHT_FEMALE) {
-			return "K";
-		} else if (i == CLASSID_ELF_MALE || i == CLASSID_ELF_FEMALE) {
-			return "E";
-		} else if (i == CLASSID_WIZARD_MALE || i == CLASSID_WIZARD_FEMALE) {
-			return "W";
-		} else if (i == CLASSID_DARK_ELF_MALE || i == CLASSID_DARK_ELF_FEMALE) {
-			return "D";
-		} else if (i == CLASSID_PRINCE || i == CLASSID_PRINCESS) {
-			return "P";
-		} else {
-			return null;
-		}
 	}
 
 	private HashMap<Integer, ArrayList<L1Drop>> allDropList() {
@@ -296,7 +270,7 @@ public class DropTable {
 								// added to exclude quest drops from invalid
 								// classes
 								if (_questDrops.containsKey(item.getItemId())) {
-									if (!classCode(player).equals(
+									if (!L1ClassId.classCode(player).equals(
 											_questDrops.get(item.getItemId()))) {
 										inventory.deleteItem(item);
 										break;

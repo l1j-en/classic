@@ -21,6 +21,8 @@ package l1j.server.server.model.classes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.server.model.Instance.L1PcInstance;
+
 public class L1ClassId {
 	public static final int ROYAL = 0;
 	public static final int KNIGHT = 1;
@@ -112,6 +114,27 @@ public class L1ClassId {
 		_log.log(Level.SEVERE, 
 				"Unrecognized classId in #L1ClassId.getClass(). Check db.");
 		throw new IllegalStateException("Unrecognized character class id.");
+	}
+	
+	public static String classCode(L1PcInstance pc) {
+		int i = pc.getClassId();
+		if (i == CLASSID_KNIGHT_MALE || i == CLASSID_KNIGHT_FEMALE) {
+			return "K";
+		} else if (i == CLASSID_ELF_MALE || i == CLASSID_ELF_FEMALE) {
+			return "E";
+		} else if (i == CLASSID_WIZARD_MALE || i == CLASSID_WIZARD_FEMALE) {
+			return "W";
+		} else if (i == CLASSID_DARK_ELF_MALE || i == CLASSID_DARK_ELF_FEMALE) {
+			return "D";
+		} else if (i == CLASSID_PRINCE || i == CLASSID_PRINCESS) {
+			return "P";
+		} else if (i == CLASSID_DRAGON_KNIGHT_MALE || i == CLASSID_DRAGON_KNIGHT_FEMALE) {
+			return "R";
+		} else if (i == CLASSID_ILLUSIONIST_MALE || i == CLASSID_ILLUSIONIST_FEMALE) {
+			return "I";
+		} else {
+			return null;
+		}
 	}
 
 	public static boolean isRoyal(int classId) {
