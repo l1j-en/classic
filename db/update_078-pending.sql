@@ -306,5 +306,6 @@ update armor set unidentified_name_id = '$797' where item_id = 20251;
 update armor set identified_name_id = '$797' where item_id = 20251;
 update armor set trade = 1 where item_id = 20251;
 
--- Ogre Belt's weight reduction was incorrect
-update armor set weight_reduction = 25 where item_id in (20317, 120317);
+-- Ogre Belt and Troll Belt weight reduction was incorrect
+update armor set weight_reduction = 10 where item_id in (20321, 120321);
+update armor set weight_reduction = 20 where item_id in (20317, 120317);
