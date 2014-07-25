@@ -39,6 +39,10 @@ upstream for this repo.  Since then, the roles have been reversed.
 [l1j-vagrant](https://github.com/phuedx/l1j-vagrant): Provides one option for
 an easy, standardized environment setup.
 
+[l1j-client](https://github.com/uglyoldbob/l1j-client): An attempt to create an
+open source client for L1J.  Note that this is in-progress and the official
+client is still currently recommended.
+
 Let us know if you start an English l1j-related project and we'll add it here.
 Interest currently exists for starting an open-source connector project.
 
