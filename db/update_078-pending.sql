@@ -308,3 +308,6 @@ update armor set trade = 1 where item_id = 20251;
 -- Ogre Belt and Troll Belt weight reduction was incorrect.
 update armor set weight_reduction = 10 where item_id in (20321, 120321);
 update armor set weight_reduction = 20 where item_id in (20317, 120317);
+
+-- Fix fungus spawn in SKT and TI DM.
+update spawnlist_ub set npc_templateid = 45030 where npc_templateid = 45551;
