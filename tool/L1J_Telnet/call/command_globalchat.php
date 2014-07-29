@@ -6,9 +6,9 @@ if (!(isset($_SESSION['l1j_telnet_sid']) and $_SESSION['l1j_telnet_sid'] == sess
 }
 
 $txt = get_magic_quotes_gpc() ? stripslashes($_POST['txt']) : $_POST['txt'];
-$txt = mb_convert_encoding($txt,"SJIS","UTF-8");
+//$txt = mb_convert_encoding($txt,"SJIS","UTF-8");
 $name = get_magic_quotes_gpc() ? stripslashes($_POST['name']) : $_POST['name'];
-$name = mb_convert_encoding($name,"SJIS","UTF-8");
+//$name = mb_convert_encoding($name,"SJIS","UTF-8");
 
 $fp = fsockopen($hostname_l1jdb, $telnet_port);
 if (!$fp) {
