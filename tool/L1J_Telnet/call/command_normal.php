@@ -5,12 +5,12 @@ if (!(isset($_SESSION['l1j_telnet_sid']) and $_SESSION['l1j_telnet_sid'] == sess
 	exit;
 }
 if (isset($_POST['txt']) and ereg("globalchat ",$_POST['txt'])) {
-	echo "直接入力でglobalchatコマンドは使えません。";
+	echo "You cannot use the globalchat command via direct input";
 	exit;
 }
 
 $txt = get_magic_quotes_gpc() ? stripslashes($_POST['txt']) : $_POST['txt'];
-$txt = mb_convert_encoding($txt,"SJIS","UTF-8");
+//$txt = mb_convert_encoding($txt,"SJIS","UTF-8");
 
 $fp = fsockopen($hostname_l1jdb, $telnet_port);
 if (!$fp) {
