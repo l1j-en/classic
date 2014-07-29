@@ -304,7 +304,7 @@ public class L1Magic {
 			probability = 100;
 		} else if (skillId == THUNDER_GRAB) {
 			// success rate is probability_value(50%) * (attackerlvl/
-			// defenselvl) + random(0〜-20)
+			// defenselvl) + random(0-20)
 			probability = skill.getProbabilityValue()
 					* (_attacker.getLevel() / Math.max(1, defenseLevel))
 					- _random.nextInt(21);

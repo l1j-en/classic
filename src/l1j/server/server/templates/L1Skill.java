@@ -110,13 +110,13 @@ public class L1Skill {
 		return _itmeConsumeCount;
 	}
 
-	private int _reuseDelay; // 単位：ミリ秒
+	private int _reuseDelay;
 
 	public int getReuseDelay() {
 		return _reuseDelay;
 	}
 
-	private int _buffDuration; // 単位：秒
+	private int _buffDuration;
 
 	public int getBuffDuration() {
 		return _buffDuration;
@@ -167,20 +167,12 @@ public class L1Skill {
 
 	private int _attr;
 
-	/**
-	 * スキルの属性を返す。<br>
-	 * 0.無属性魔法,1.地魔法,2.火魔法,4.水魔法,8.風魔法,16.光魔法
-	 */
 	public int getAttr() {
 		return _attr;
 	}
 
-	private int _type; // タイプ
+	private int _type;
 
-	/**
-	 * スキルの作用の種類を返す。<br>
-	 * 1.確率系,2.エンチャント,4.呪い,8.死,16.治療,32.復活,64.攻撃,128.その他特殊
-	 */
 	public int getType() {
 		return _type;
 	}

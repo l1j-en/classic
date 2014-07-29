@@ -130,7 +130,7 @@ public enum L1NamedSkill {
 	 * GMSTATUS_INVISIBLE = 2000; public static final int GMSTATUS_HPBAR = 2001;
 	 * public static final int GMSTATUS_SHOWTRAPS = 2002; public static final
 	 * int GMSTATUS_FINDINVIS = 2003; public static final int GMSTATUS_END =
-	 * 2003; SKILLS_END = 220; MASS_SHOCK_STUN = 500; // 範囲スタン
+	 * 2003; SKILLS_END = 220; MASS_SHOCK_STUN = 500;
 	 * 
 	 * public static final int COOKING_NOW = 2999; public static final int
 	 * COOKING_BEGIN = 3000; public static final int COOKING_1_0_N = 3000;
