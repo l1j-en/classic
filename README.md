@@ -1,8 +1,8 @@
-l1j-en
-======
+# l1j-en
 
 l1j-en is an English-language server emulator for the South Korean MMORPG,
-Lineage 1.
+Lineage 1.  It targets feature-complete support for the final US release of the
+client (S3ep1, also called Tikal/Antharas).
 
 See the project documentation on the
 [l1j-en project on Google Code](http://code.google.com/p/l1j-en) for general
@@ -19,19 +19,17 @@ Check out the the official l1j-en server,
 [Lineage Resurrection](https://zelgo.net/linweb/default/index), if you just
 want to play.
 
-Recent History
---------------
+### Recent History
 
 This repo started as a direct copy of the l1j-en project on Google Code as of
-their revision 726.
+their revision 726.  We pulled upstream updates from l1j-jp2 but since have
+diverged significantly.
 
-We pulled upstream updates from l1j-jp2 but have diverged significantly. As of
-March 2014, everial's downstream fork was merged back into master.  As of June
-2014, this and the Google Code repo are synced, with this GitHub version
+As of March 2014, everial's downstream fork was merged back into master.  As of
+June 2014, this and the Google Code repo are synced, with this GitHub version
 typically getting fixes first.
 
-Supporting Projects
--------------------
+### Supporting Projects
 
 [l1j-en project on Google Code](http://code.google.com/p/l1j-en): The original
 upstream for this repo.  Since then, the roles have been reversed.
@@ -46,50 +44,20 @@ client is still currently recommended.
 Let us know if you start an English l1j-related project and we'll add it here.
 Interest currently exists for starting an open-source connector project.
 
-About GitHub
-------------
+### Contributing
 
-To actually reap the benefits of git, there are some small changes that have to
-be made in the development cycle that any of our old team members won't be used
-to. I'll try to write a small "Getting started/switching from SVN" guide soon.
+Report issues and suggest features and improvements on the
+[GitHub issue tracker](https://github.com/l1j/en/issues).  Discussions and
+questions should go to the mailing list and IRC channel.
 
-For an extremely condensed version:
+GitHub pull requests are always welcome!  For those migrating to Git from SVN,
+see the [DEVGUIDE](https://github.com/l1j/en/blob/master/DEVGUIDE.md).
 
-1. Checkout with: `git clone https://username@github.com/l1j/en.git`
+Those interested in joining the development effort as a team member should feel
+free to let us know, preferably on the IRC channel.  We always need additional
+help with programming, Lineage 1 domain knowledge (particularly with newer
+game content), and documentation.
 
-2. Make a change, then commit (commit isn't like an SVN commit.  It only
-commits it to your own local "branch".  `git commit -a`
+### License
 
-3. Push the change upstream (this is where it acts like an SVN commit and
-pushes it to the main repo)  `git push`
-
-One slight change in a dev's normal "process", that I believe will help a ton,
-are the branches.  For example, if you're working on a branch named "thebes":
-
-1. `checkout`
-
-2. `git checkout master`
-
-3. `git branch thebes` (create your own local branch to work on a specific
-   feature)
-
-4. do your work, when you feel your finished, move to next step
-
-5. `git commit -a` (commit changes to your local "thebes" branch)
-
-6. `git checkout` (switch to the global development branch)
-
-7. `git merge thebes` (merge in any changes from your thebes branch)
-
-8. `git commit -a`
-
-9. `git push`
-
-I know that seems like many more steps than our old SVN system, but it starts
-to come naturally very quickly, and the benefits are enormous.  Some of the
-commands have the same name as the old SVN commands, but work a little
-differently.  That can cause some confusion but again you get used to it very
-quickly..
-
-
-
+Distributed under the GNU General Public License, version 2.
