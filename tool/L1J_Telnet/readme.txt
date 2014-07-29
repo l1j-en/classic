@@ -1,33 +1,35 @@
-####################
- L1J-JP Telnet Tool
-####################
+l1j-en Telnet tool
+==================
 
-■動作環境
-PHPとMySQLが動作するWebサーバー
-php.iniのdefault_charsetはShift_JISでなければいけません。（default_charset = "Shift_JIS"）
-※外部からのポート23が閉じている事。
+# Operating Environment
+- A web server with PHP and MySQL.
+- A default_charset setting in php.ini set to Shift_JIS (Note: may not be
+  necessary).
+- Port 23 closed from the outside.
 
-■インストールと設定
-1.server.propertiesの変更
-  TelnetServer = True
-2.ダウンロードしたファイルを解凍しWebサーバーのフォルダにコピーします。
-3.setup.phpを環境に合わせて変更します。
-4.ブラウザでindex.phpにアクセスしてログインします。
+# Installing and configuring
+- Set TelnetServer = True in server.properties.
+- Copy it to the folder of the Web server and unzip the file.  
+- Change setup.php to suit your environment.
+- Log into index.php to access.
 
-■コマンドの入力
-ゲーム内と同じように先頭に付加する文字列で動作が変わります。
-先頭の文字列が一致しない場合は何も行いません。
+# Commands
+The first character in the string has the same affects as in game.
 
-【.】
-acountsテーブルのaccess_levelが200の場合にTelnetコマンドを実行出来ます。
-結果は「Result > 」に表示されます。
-ただしglobalchatコマンドは実行出来ません。
-例：
-.playerid [キャラクター名]
+[.]
+
+If access is 200 (defined in access_level), you can run a telnet command.  The
+results are displayed after "Result> ".  However, the global chat command
+cannot be executed.
+
+Example:
+.playerid [Character]
 .charstatus [objid]
 
-【&】
-全体チャットで発言出来ます。
-charactersテーブルのIsGMが200だと名前が[******]となります。
-例：
-&こんにちは
+[&]
+
+Global chat.  The name is [******] if access_level is 200 and isGM is set in
+the characters table.
+
+Example:
+&Hello
