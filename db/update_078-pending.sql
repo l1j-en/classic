@@ -317,3 +317,35 @@ update npc set note = '' where npcid = 45299;
 
 -- Correct Amulet of Blue Curse item name.
 update armor set name = 'Amulet of Blue Curse' where item_id = 20424;
+update droplist set item_name = 'Amulet of Blue Curse' where item_id = 20424;
+
+-- Update Captain Drake droplist.
+insert into droplist values
+   (45458, 'Captain Drake', 220294, 'Cursed Ruby Ring', 1, 1, 7500),
+   (45458, 'Captain Drake', 220295, 'Cursed Sapphire Ring', 1, 1, 7500),
+   (45458, 'Captain Drake', 220296, 'Cursed Emerald Ring', 1, 1, 7500),
+   (45458, 'Captain Drake', 220293, 'Cursed Diamond Ring', 1, 1, 7500),
+   (45458, 'Captain Drake', 40018, 'Greater Haste Potion', 1, 1, 20000),
+   (45458, 'Captain Drake', 40241, 'Spirit Crystal(ElementalFallDown)', 1, 1, 5000),
+   (45458, 'Captain Drake', 40259, 'Spirit Crystal(ElementalFire)', 1, 1, 5000),
+   (45458, 'Captain Drake', 40213, 'Spellbook(ImmuneToHarm)', 1, 1, 500),
+   (45458, 'Captain Drake', 40176, 'Spellbook(CounterMagic)', 1, 1, 1000),
+   (45458, 'Captain Drake', 40224, 'Spellbook(AdvanceSpirit)', 1, 1, 250),
+   (45458, 'Captain Drake', 40471, 'Fragment of Spirit', 1, 1, 20000),
+   (45458, 'Captain Drake', 40330, 'Unlimited Quiver', 1, 1, 4500),
+   (45458, 'Captain Drake', 40044, 'Diamond', 1, 1, 9000),
+   (45458, 'Captain Drake', 40048, 'High Quality Diamond', 1, 1, 6000),
+   (45458, 'Captain Drake', 40052, 'Highest Quality Diamond', 1, 1, 3000),
+   (45458, 'Captain Drake', 40045, 'Ruby', 1, 1, 9000),
+   (45458, 'Captain Drake', 40046, 'Sapphire', 1, 1, 9000),
+   (45458, 'Captain Drake', 40050, 'High Quality Sapphire', 1, 1, 6000),
+   (45458, 'Captain Drake', 40054, 'Highest Quality Sapphire', 1, 1, 3000),
+   (45458, 'Captain Drake', 40047, 'Emerald', 1, 1, 9000),
+   (45458, 'Captain Drake', 40051, 'High Quality Emerald', 1, 1, 6000),
+   (45458, 'Captain Drake', 40055, 'Highest Quality Emerald', 1, 1, 3000),
+   (45458, 'Captain Drake', 40306, 'Relic of Eva', 1, 1, 6000),
+   (45458, 'Captain Drake', 40307, 'Relic of Sayha', 1, 1, 6000),
+   (45458, 'Captain Drake', 40093, 'Blank Scroll (Level 4)', 1, 1, 4000),
+   (45458, 'Captain Drake', 39, 'Cutlass', 1, 1, 7500),
+   (45458, 'Captain Drake', 43, 'Shamshir', 1, 1, 10000);
+
