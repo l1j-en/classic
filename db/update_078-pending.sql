@@ -143,10 +143,6 @@ update droplist set chance = 10000 where itemid = 40166 and mobid = 45601;
 update droplist set chance = 100000 where itemid = 40052 and mobid = 45601;
 update droplist set chance = 3500 where itemid = 58 and mobid = 45601;
 update droplist set chance = 3500 where itemid = 76 and mobid = 45601;
-update droplist set chance = 3600 where itemid = 20040 and mobid = 45601;
-update droplist set chance = 1200 where itemid = 20025 and mobid = 45601;
-update droplist set chance = 1200 where itemid = 20018 and mobid = 45601;
-update droplist set chance = 1200 where itemid = 20029 and mobid = 45601;
 
 -- Move Jewel Craftsman David a few cells so as not to block the direct path
 -- between Oren dwarf and pot shop.
@@ -317,7 +313,7 @@ update npc set note = '' where npcid = 45299;
 
 -- Correct Amulet of Blue Curse item name.
 update armor set name = 'Amulet of Blue Curse' where item_id = 20424;
-update droplist set item_name = 'Amulet of Blue Curse' where item_id = 20424;
+update droplist set item_name = 'Amulet of Blue Curse' where itemid = 20424;
 
 -- Update Captain Drake droplist.
 insert into droplist values
@@ -349,3 +345,8 @@ insert into droplist values
    (45458, 'Captain Drake', 39, 'Cutlass', 1, 1, 7500),
    (45458, 'Captain Drake', 43, 'Shamshir', 1, 1, 10000);
 
+-- Redo Caspa group cap droprate updates (npcids were wrong previously).
+update droplist set chance = 3600 where itemid = 20040 and mobid = 45488;
+update droplist set chance = 1200 where itemid = 20025 and mobid = 45473;
+update droplist set chance = 1200 where itemid = 20018 and mobid = 45497;
+update droplist set chance = 1200 where itemid = 20029 and mobid = 45464;
