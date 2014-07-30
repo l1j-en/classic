@@ -311,3 +311,6 @@ update armor set weight_reduction = 20 where item_id in (20317, 120317);
 
 -- Fix fungus spawn in SKT and TI DM.
 update spawnlist_ub set npc_templateid = 45030 where npc_templateid = 45551;
+
+-- Remove non-ASCII chars from Plate Worm npc entry note field.
+update npc set note = '' where npcid = 45299;
