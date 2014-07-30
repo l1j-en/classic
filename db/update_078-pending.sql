@@ -314,3 +314,6 @@ update spawnlist_ub set npc_templateid = 45030 where npc_templateid = 45551;
 
 -- Remove non-ASCII chars from Plate Worm npc entry note field.
 update npc set note = '' where npcid = 45299;
+
+-- Correct Amulet of Blue Curse item name.
+update armor set name = 'Amulet of Blue Curse' where item_id = 20424;
