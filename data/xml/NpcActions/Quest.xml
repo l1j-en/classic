@@ -1014,7 +1014,7 @@
 	<!-- Pirate Island Quest / Kamyla -->
 	<MakeItem Name="g" Class="PWEKDRI" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
 		<Item Amount="1" ItemId="33"/> <!-- Sword of Honor -->
-		<Material Amount="1" ItemId="40717"/> <!-- -->
+		<Material Amount="1" ItemId="40717"/> <!-- Crumpled Up Breaking-Up Letter -->
 		<Succeed>
 			<ShowHtml HtmlId="kamyla25"/>
 			<SetQuest Id="kamyla" Step="End"/>
