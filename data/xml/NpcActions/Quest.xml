@@ -11,7 +11,7 @@
 			<SetQuest Id="Level15" Step="End" QuestId="Level15" QuestStep="2"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv15 Royal Quest / Gunter -->
 	<MakeItem Name="request spellbook112" Class="P" AmountInputable="false" QuestId="Level15" QuestStep="1">
 		<Item Amount="1" ItemId="40226"/> <!-- Spellbook(TrueTarget) -->
@@ -109,7 +109,7 @@
 			<SetQuest Id="Level50" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv15 Knight Quest / Ricky -->
 	<MakeItem Name="request hood of knight" Class="K" AmountInputable="false">
 		<Item Amount="1" ItemId="20005"/> <!-- Red Knight`s Hood -->
@@ -119,7 +119,7 @@
 			<ShowHtml HtmlId="riky5"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv15 Knight Quest / Aanon -->
 	<MakeItem Name="request hood of red knight" Class="K" AmountInputable="false" QuestId="Level15" QuestStep="1">
 		<Item Amount="1" ItemId="20027"/> <!-- Red Knight`s Hood -->
@@ -131,7 +131,7 @@
 			<ShowHtml HtmlId="aanon7"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv30 Knight Quest / Mark -->
 	<Action Name="quest 13 mark2" Class="K">
 		<SetQuest Id="Level30" Step="1"/>
@@ -183,7 +183,7 @@
 			<ShowHtml HtmlId="gerardkE5"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv45 Knight Quest / Masha -->
 	<Action Name="quest 20 Mashak2" Class="K">
 		<SetQuest Id="Level45" Step="1"/>
@@ -218,7 +218,7 @@
 			<ShowHtml HtmlId="giantk3"/>
 		</Succeed>
 	</MakeItem>
-		
+
 	<!-- Lv50 Knight Quest / Dicarding-->
 	<Action Name="g" Class="K" NpcId="70739">
 		<SetQuest Id="Level50" Step="1"/>
@@ -241,7 +241,7 @@
 	<Action Name="ent" Class="K" NpcId="91299">
 		<Teleport X="32804" Y="32861" Map="2001" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
-	</Action>	
+	</Action>
 	<!-- Lv50 Knight Quest / Rotting Corpse - Sanctuary of Evil -->
 	<Action Name="a" Class="K" NpcId="91307">
 		<Teleport X="32926" Y="32830" Map="410" Heading="5" Price="0"/>
@@ -260,7 +260,7 @@
 			<SetQuest Id="Level50" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv15 Elf Quest / Oth -->
 	<MakeItem Name="request dex helmet of elven" Class="E" AmountInputable="false" QuestId="Level15" QuestStep="0">
 		<Item Amount="1" ItemId="20021"/> <!-- Elven Helm of Dexterity -->
@@ -282,7 +282,7 @@
 			<SetQuest Id="Level15" Step="End"/>
 		</Succeed>
 	</MakeItem>
- 	
+
 	<!-- Lv30 Elf Quest / Mother Tree -->
 	<Action Name="quest 12 motherEE2" Class="E">
 		<SetQuest Id="Level30" Step="1"/>
@@ -295,7 +295,7 @@
 			<SetQuest Id="Level30" Step="End"/>
 		</Succeed>
 	</MakeItem>
-  	
+
 	<!-- Lv45 Elf Quest / Masha -->
 	<Action Name="quest 14 Mashae2" Class="E">
 		<SetQuest Id="Level45" Step="1"/>
@@ -326,7 +326,7 @@
 		<SetQuest Id="Level45" Step="4"/>
 		<ShowHtml HtmlId="heit5"/>
 	</Action>
- 
+
 	<!-- Lv50 Elf / Dicarding -->
 	<Action Name="m" Class="E" NpcId="70739">
 		<SetQuest Id="Level50" Step="1"/>
@@ -387,7 +387,7 @@
 			<SetQuest Id="Level50" Step="End"/>
 		</Succeed>
 	</MakeItem>
-		
+
 	<!-- WizLv15 Quest / Jem -->
 	<MakeItem Name="request cursed spellbook" Class="W" AmountInputable="false">
 		<Item Amount="1" ItemId="40591"/> <!-- Cursed Spellbook -->
@@ -402,7 +402,7 @@
 			<SetQuest Id="Level15" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- WizLv30 Quest / Gereng -->
 	<Action Name="quest 12 gerengT2" Class="W">
 		<SetQuest Id="Level30" Step="1"/>
@@ -440,7 +440,7 @@
 			<SetQuest Id="Level30" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- WizLv45 Quest / Mystic Rock -->
 	<Action Name="quest 19 stoenm2" Class="W">
 		<SetQuest Id="Level45" Step="2"/>
@@ -467,7 +467,7 @@
 			<SetQuest Id="Level45" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!--Lv 50 Wizard Quest / Dicarding -->
 	<Action Name="t" Class="W" NpcId="70739">
 		<SetQuest Id="Level50" Step="1"/>
@@ -485,7 +485,7 @@
 			<SetQuest Id="Level50" Step="End"/>
 			<ShowHtml HtmlId="dicardingw14"/>
 		</Succeed>
-	</MakeItem>	
+	</MakeItem>
 	<!-- Lv50 Wizard Quest / Spy of Dicarding -->
 	<Action Name="quest 27 dspym2" Class="W" NpcId="91311">
 		<SetQuest Id="Level50" Step="2"/>
@@ -528,7 +528,7 @@
 			<ShowHtml HtmlId="kanguard3"/>
 		</Succeed>
 	</MakeItem>
-		
+
 	<!-- Lv30 Dark Elf Quest / Ronde -->
 	<Action Name="quest 13 ronde2" Class="D">
 		<SetQuest Id="Level30" Step="1"/>
@@ -554,7 +554,7 @@
 			<ShowHtml HtmlId="ronde5"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv 45 Dark Elf Quest / Bludika -->
 	<Action Name="quest 17 bluedikaq2" Class="D">
 		<SetQuest Id="Level45" Step="1"/>
@@ -591,7 +591,7 @@
 		<SetQuest Id="Level45" Step="5"/>
 		<ShowHtml HtmlId="roje14"/>
 	</Action>
-		
+
 	<!-- Lv50 Dark Elf Quest / Bludika -->
 	<Action Name="quest 24 bluedikaq7" Class="D">
 		<SetQuest Id="Level50" Step="1"/>
@@ -622,7 +622,7 @@
 			<ShowHtml HtmlId="bluedikaq8"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Lv15 Dragon Knight / Elder Prochel -->
 	<MakeItem Name="b" Class="R" NpcId="80136" AmountInputable="false" QuestId="Level15" QuestStep="1">
 		<Item Amount="1" ItemId="275"/> <!-- Two-handed Sword of Dragonknight -->
@@ -638,7 +638,7 @@
 			<ShowHtml HtmlId="prokel6"/>
 		</Fail>
 	</MakeItem>
-	
+
 	<!-- Lv30 Dragon Knight / Elder Prochel -->
 	<MakeItem Name="d" Class="R" NpcId="80136" AmountInputable="false" QuestId="Level30" QuestStep="1">
 		<Item Amount="1" ItemId="49107"/> <!-- Dragon Tablet(BloodLust) -->
@@ -664,7 +664,7 @@
 			<ShowHtml HtmlId="talrion3"/>
 		</Fail>
 	</MakeItem>
-	
+
 	<!-- Lv45 Dragon Knight / Elder Sleyin -->
 	<MakeItem Name="n" Class="R" NpcId="80145" AmountInputable="false" QuestId="Level45" QuestStep="3">
 		<Item Amount="1" ItemId="49224"/> <!-- Sign of Alliance -->
@@ -700,7 +700,7 @@
 			<ShowHtml HtmlId="talrion8"/>
 		</Fail>
 	</MakeItem>
-		
+
 	<!--Lv50 Dragon Knight / Elder Prochel -->
 	<MakeItem Name="i" Class="R" NpcId="80136" AmountInputable="false" QuestId="Level50" QuestStep="1">
 		<Item Amount="1" ItemId="49202"/> <!-- Thought Piece of Time -->
@@ -760,8 +760,8 @@
 		<Succeed>
 			<SetQuest Id="Level50" Step="End"/>
 		</Succeed>
-	</MakeItem>	
-	
+	</MakeItem>
+
 	<!-- Lv15 Illusionist / Elder Sleyin -->
 	<MakeItem Name="b" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level15" QuestStep="1">
 		<Item Amount="1" ItemId="269"/> <!-- Wand of Illusionist -->
@@ -790,7 +790,7 @@
 			<ShowHtml HtmlId="silrein13"/>
 		</Succeed>
 	</MakeItem>
-</NpcActionList>
+
 
 	<!--Lv45 Illusionist / Dead White Ant Remains (1st floor) -->
 	<MakeItem Name="a" Class="I" NpcId="81247" AmountInputable="false" QuestId="Level45" QuestStep="1">
@@ -804,6 +804,7 @@
 			<ShowHtml HtmlId="wcorpse1"/>
 		</Fail>
 	</MakeItem>
+
 	<!--Lv45 Illusionist / Dead White Ant Remains (2nd floor)-->
 	<MakeItem Name="a" Class="I" NpcId="81248" AmountInputable="false" QuestId="Level45" QuestStep="2">
 		<Item Amount="1" ItemId="49195"/> <!-- Second Memory Fragment -->
@@ -816,6 +817,7 @@
 			<ShowHtml HtmlId="wcorpse4"/>
 		</Fail>
 	</MakeItem>
+
 	<!--Lv45 Illusionist / Dead White Ant Remains (3rd floor)-->
 	<MakeItem Name="a" Class="I" NpcId="81249" AmountInputable="false" QuestId="Level45" QuestStep="3">
 		<Item Amount="1" ItemId="49196"/> <!-- Third Memory Fragment -->
@@ -828,6 +830,7 @@
 			<ShowHtml HtmlId="wcorpse7"/>
 		</Fail>
 	</MakeItem>
+
 	<!--Lv45 Illusionist / Elder Sleyin -->
 	<MakeItem Name="f" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level45" QuestStep="4">
 		<Item Amount="1" ItemId="49175"/> <!-- Sleyin`s Fourth Letter -->
@@ -844,6 +847,7 @@
 			<ShowHtml HtmlId="silrein21"/>
 		</Fail>
 	</MakeItem>
+
 	<!--Lv45 Illusionist / Soil of White Ant -->
 	<MakeItem Name="a" Class="I" NpcId="81250" AmountInputable="false" QuestId="Level45" QuestStep="5">
 		<Item Amount="1" ItemId="49197"/> <!-- First Thought Fragment -->
@@ -856,6 +860,7 @@
 			<ShowHtml HtmlId="wa_earth1"/>
 		</Fail>
 	</MakeItem>
+	
 	<!--Lv45 Illusionist / Acidic Liquid of White Ant -->
 	<MakeItem Name="a" Class="I" NpcId="81251" AmountInputable="false" QuestId="Level45" QuestStep="6">
 		<Item Amount="1" ItemId="49198"/> <!-- Second Thought Fragment -->
@@ -868,6 +873,7 @@
 			<ShowHtml HtmlId="wa_acidw1"/>
 		</Fail>
 	</MakeItem>
+
 	<!--Lv45 Illusionist / Shell of White Ant -->
 	<MakeItem Name="a" Class="I" NpcId="81252" AmountInputable="false" QuestId="Level45" QuestStep="7">
 		<Item Amount="1" ItemId="49199"/> <!-- Third Thought Fragment -->
@@ -893,7 +899,7 @@
 		<Fail>
 			<ShowHtml HtmlId="silrein24"/>
 		</Fail>
-	</MakeItem>	
+	</MakeItem>
 
 	<!-- Lv50 Illusionist / Elder Sleyin -->
 	<MakeItem Name="i" Class="I" NpcId="80145" AmountInputable="false" QuestId="Level50" QuestStep="1">
@@ -969,7 +975,7 @@
 			<!-- Received a Request for Doromond -->
 			<SetQuest Id="DOROMOND" Step="End"/>
 		</Succeed>
-	</MakeItem>	
+	</MakeItem>
 
 	<!-- Pirate Island Quest - Skeleton Amulet / Small Box -->
 	<MakeItem Name="0" Class="PWEKDRI" NpcId="71067,71068,71069,71070,71071,71072" AmountInputable="false">
@@ -990,7 +996,7 @@
 			<SetQuest Id="lukein" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Pirate Island Quest - Resta`s Ring / Resta -->
 	<MakeItem Name="D" Class="PWEKDRI" NpcId="71060" AmountInputable="false">
 		<Item Amount="1" ItemId="40647"/> <!-- Piece of Treasure Map -->
@@ -1000,7 +1006,7 @@
 			<SetQuest Id="resta" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Pirate Island "treasure map 4" Quest / Cadmus -->
 	<MakeItem Name="B" Class="PWEKDRI" NpcId="71061" AmountInputable="false">
 		<Item Amount="1" ItemId="40692"/> <!-- Completed Treasure Map -->
@@ -1010,7 +1016,7 @@
 			<SetQuest Id="cadmus" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Pirate Island Quest / Kamyla -->
 	<MakeItem Name="g" Class="PWEKDRI" NpcId="71036" AmountInputable="false" QuestId="kamyla" QuestStep="4">
 		<Item Amount="1" ItemId="33"/> <!-- Sword of Honor -->
@@ -1065,7 +1071,7 @@
 			<SetQuest Id="lizard" Step="End"/>
 		</Succeed>
 	</MakeItem>
-	
+
 	<!-- Essence of Kahel / Contaminated Blob -->
 	<MakeItem Name="k" Class="PWEKDRI" NpcId="81208" AmountInputable="false" QuestId="desire" QuestStep="1">
 		<Item Amount="1" ItemId="41138"/> <!-- Essence of Kahel -->
@@ -1086,7 +1092,7 @@
 			<ShowHtml HtmlId="minibrob03"/>
 		</Succeed>
 	</MakeItem>
- 
+
 	<!-- Exchange Karma - Corrupted Essence of Bloodstain / Unchosen One (Sand Tomb) -->
  	<MakeItem Name="request mtosr1" Class="PWEKDRI" NpcId="46069" AmountInputable="false" QuestId="shadows" QuestStep="1">
 		<Item Amount="1" ItemId="41126"/> <!-- Corrupted Essence of Bloodstain -->
@@ -1175,7 +1181,7 @@
 			<ShowHtml HtmlId=""/>
 		</Succeed>
 	</MakeItem>
-	
+
  	<!-- Exchange Karma - Egoistic Essence of Kahel / Unchosen One (Lesser Demon) -->
 	<MakeItem Name="request mcodr3" Class="PWEKDRI" NpcId="46092" AmountInputable="false" QuestId="desire" QuestStep="1">
 		<Item Amount="1" ItemId="41137"/> <!-- Egoistic Essence of Kahel -->
