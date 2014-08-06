@@ -193,10 +193,10 @@ public class ClientThread implements Runnable, PacketOutput {
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
         ClientThreadObserver observer = null;
-		_observerTimer = new Timer("ClientThread-observer-"+_hostname);
 		observer = new ClientThreadObserver(
 				Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
+			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
 			observer.start();
 		}
 		try {
