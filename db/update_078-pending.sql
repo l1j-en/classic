@@ -35,7 +35,7 @@ insert into droplist values (45933,'Shark',49040,'Shark Eggs',1,1,30000);
 
 -- Add shark eggs to sharks in Kingdom of Eva, mapid 63.
 insert into droplist values (45160,'Shark',49040,'Shark Eggs',1,1,30000);
- 
+
 -- Add shark eggs to sharks in Kingdom of Eva, mapid 253.
 insert INTO droplist values (45816,'Shark',49040,'Shark Eggs',1,1,30000);
 
@@ -206,7 +206,7 @@ insert into droplist values
    (45971,'Cursed Dark Elf Wizard',20176,'Gloves of New King',1,1,5000);
 
 -- Update missing drops - Source: linlib.
-insert into droplist values 
+insert into droplist values
    (45602,'Evil Magic Squad Leader Carmiel',20313,'Belt of Darkness',1,1,5000),
    (45602,'Evil Magic Squad Leader Carmiel',20129,'Robe of New King',1,1,5000),
    (45602,'Evil Magic Squad Leader Carmiel',20030,'Helm of New King',1,1,5000),
@@ -392,34 +392,62 @@ update npc set note = 'Judigo' where npcid = 46080;
 update npc set note = 'Dego' where npcid = 46081;
 
  -- add missing npc's for missing quest data
- Insert into NPC values
-(81247,'Dead White Ant Remains','$5652','Lv45 Illusionist NPC (1st Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
-(81248,'Dead White Ant Remains','$5652','Lv45 Illusionist NPC (2nd Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
-(81249,'Dead White Ant Remains','$5652','Lv45 Illusionist NPC (3rd Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
+insert into npc values
+(81247,'Dead White Ant Remains','$5652','Lv45 Illusionist Quest NPC (1st Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
+(81248,'Dead White Ant Remains','$5652','Lv45 Illusionist Quest NPC (2nd Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
+(81249,'Dead White Ant Remains','$5652','Lv45 Illusionist Quest NPC (3rd Floor)','L1Merchant',6901,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
 (81250,'Soil of White Ant','$5653','Lv45 Illusionist Element','L1Merchant',6918,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
 (81251,'Acidic Liquid of White Ant','$5654','Lv45 Illusionist Element','L1Merchant',6909,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
 (81252,'Shell of White Ant','$5655','Lv45 Illusionist Element','L1Merchant',6910,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,2,0,2,2,0,0,0,0,0,0,'ant',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0),
 (91203,'Savius','$5658','Outsider','L1Monster',6788,46,1100,300,-40,20,24,24,22,28,40,2117,-55,'large',4,1,0,960,1640,0,1200,1640,2,0,0,1,1,1,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91298,'Official Kiholl','$5790','Lv50 Quest NPC','L1Merchant',6773,22,750,300,-65,25,25,25,25,25,100,485,-5,'small',0,6,0,960,1120,960,1172,1172,3,0,0,0,0,0,'chaos',1,-1,-1,0,0,0,5000,8,5000,50,0,0,0,0,0,0,0,4,0,0,0,0,4552,2,-1,0,0,0,0,0),
 (91299,'Entrance to Shrine','$5777','Lv50 Quest NPC','L1Merchant',155,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
-(91300,'Guignol`s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+(91300,'Guignol\'s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
 (91301,'Warrior of Noble Will','$5753','Lv50 Quest NPC','L1Monster',4664,41,1080,278,-43,19,15,16,16,16,50,1682,-25,'small',2,2,0,640,1160,1400,1160,1160,0,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,5000,25,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91302,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,52,1800,318,-55,20,18,16,12,15,65,2705,-25,'small',2,1,0,960,1200,1120,1200,1200,1,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,-1,0,0,0,0,0),
-(91303,'Guignol`s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(91303,'Guignol\'s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91304,'Fighter of Noble Will','$5754','Lv50 Quest NPC','L1Monster',4034,60,4000,100,-60,20,20,20,18,20,60,3601,-100,'small',0,3,0,640,720,1760,880,960,2,0,0,0,0,0,'spirit',1,-1,-1,0,0,0,5000,40,5000,100,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,1,0,1),
-(91305,'Guignol`s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(91305,'Guignol\'s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91306,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,16,110,15,-18,14,8,16,12,14,30,257,-14,'small',2,1,1,640,1920,1760,1920,1920,1,0,0,1,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
 (91307,'Rotting Corpse','$5752','Lv50 Quest NPC','L1Merchant',5676,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0),
 (91308,'Rotting Corpse','$5752','Lv50 Quest NPC','L1Merchant',5676,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0),
 (91309,'Priest Guignol','$5746','Lv50 Quest NPC','L1Monster',2495,66,20000,1250,-75,50,20,66,22,23,99,4357,-250,'large',0,2,0,1920,1440,1280,1440,1240,3,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,250,5000,350,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,14,1,0,1),
 (91310,'Altar of Reviving','$5755','Lv50 Quest NPC','L1Monster',6892,40,5000,50,-20,0,0,0,0,0,60,0,-5000,'small',0,0,0,0,960,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,1),
-(91311,'Dicarding`s Spy','$6068','Lvl 50 Wizard Quest NPC','L1Merchant',148,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,480,840,520,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
+(91311,'Dicarding\'s Spy','$6068','Lvl 50 Wizard Quest NPC','L1Merchant',148,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,480,840,520,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (91312,'Female Spy of Dicarding','$5800','Lv50 Elf Quest NPC','L1Quest',3097,1,1000,0,-15,0,0,0,0,0,0,1,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (91313,'Assassination Squad of Sorcerers','$5801','Lv50 Elf Quest NPC','L1Monster',3989,53,1800,300,-63,55,21,11,21,18,70,2810,-5,'small',0,2,0,720,1040,1080,2400,1040,3,0,0,1,1,1,'chaos',1,-1,-1,0,0,0,5000,150,5000,50,0,0,0,0,0,0,0,4,0,0,0,0,0,30,-1,0,14,0,0,0),
 (91314,'Flame of Blue Soul','$5657','Lv50 Illusionist Quest NPC','L1Merchant',7009,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
-(91315,'Red Soul`s Flame','$5919','Lv50 Dragon Knight Quest NPC','L1Merchant',6786,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0);
+(91315,'Red Soul\'s Flame','$5919','Lv50 Dragon Knight Quest NPC','L1Merchant',6786,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0);
+
+-- Updates for Lv 45 Illusionist Quest
+insert into npcaction values (81247, 'wcorpse1', 'wcorpse1', '', '');
+insert into npcaction values (81248, 'wcorpse4', 'wcorpse4', '', '');
+insert into npcaction values (81249, 'wcorpse7', 'wcorpse7', '', '');
+insert into npcaction values (81250, 'wa_earth1', 'wa_earth1', '', '');
+insert into npcaction values (81251, 'wa_acidw1', 'wa_acidw1', '', '');
+insert into npcaction values (81252, 'wa_egg1', 'wa_egg1', '', '');
+
+insert into npc values (81254, 'Cracked Time', '$5656', 'Lv45 Illusionist Quest NPC', 'L1Monster', 6920, 1, 1, 0, 10, 0, 0, 0, 0, 0, 0, 2, 0, 'small', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0);
+
+-- Updates for Lv 45 Illusionist Quest
+insert into spawnlist_npc values (90455, 'Dead Ant Remains', 1, 81247, 32739, 32794, 0, 0, 0, 0, 44, 0);
+insert into spawnlist_npc values (90456, 'Dead Ant Remains', 1, 81248, 32785, 32751, 0, 0, 4, 0, 46, 0);
+insert into spawnlist_npc values (90457, 'Dead Ant Remains', 1, 81249, 32741, 32806, 0, 0, 1, 0, 50, 0);
+insert into spawnlist_npc values (90458, 'Soil of White Ant', 1, 81250, 33712, 32348, 0, 0, 6, 0, 4, 0);
+insert into spawnlist_npc values (90459, 'Acidic Liquid of White Ant', 1, 81251, 33677, 32383, 0, 0, 5, 0, 4, 0);
+insert into spawnlist_npc values (90460, 'Shell of White Ant', 1, 81252, 33655, 32396, 0, 0, 2, 0, 4, 0);
+
+-- Updates for Lv 45 Illusionist Quest
+update etcitem set use_type = 'normal' where item_id = 49200;
+update etcitem set use_type = 'normal' where item_id = 49201;
+
+-- Updates for Lv 45 Illusionist Quest
+insert into droplist values  (81254, 'Cracked Time', 49202, 'Thought Piece of Time', 1, 1, 1000000);
+
+-- Update description for Illusionist Cloak
+update armor set name = 'Cloak of Illusionist' where item_id = 21100;
 
 -- re-add Knight's Visor to shoplists in Giran and Oren
 insert into shop values
-(70032,'Virgil',20006,'Knight`s Visor',21,5000,0,2500),
-(70061,'Mandra',20006,'Knight`s Visor',38,5000,0,2500);
+(70032,'Virgil',20006,'Knight\'s Visor',21,5000,0,2500),
+(70061,'Mandra',20006,'Knight\'s Visor',38,5000,0,2500);
