@@ -732,7 +732,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							inventory.removeItem(l1iteminstance1, 1);
 							inventory.removeItem(l1iteminstance, 1);
 						} else {
-							pc.sendPackets(new S_ServerMessage(1310, 
+							pc.sendPackets(new S_ServerMessage(1310,
 									l1iteminstance1.getName())); // It violently glowed, but did not evaporate. was 160
 							inventory.removeItem(l1iteminstance, 1);
 						}
@@ -2418,6 +2418,45 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 					inventory.consumeItem(49189, 1);
 				}
+			// Illusionist Lv 45 Quest part 7.5
+			} else if (itemId == 49197) {
+				if (inventory.checkItem(49198, 1)) {
+					inventory.consumeItem(49197, 1);
+					inventory.consumeItem(49198, 1);
+					createNewItem(pc, 49200, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			} else if (itemId == 49200) {
+				if (inventory.checkItem(49199, 1)) {
+					inventory.consumeItem(49200, 1);
+					inventory.consumeItem(49199, 1);
+					createNewItem(pc, 49201, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			} else if (itemId == 49201) {
+				if (inventory.checkItem(49202, 1)) {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				} else {
+					boolean found = false;
+					for (L1Object obj : L1World.getInstance().getObject()) {
+						if (obj instanceof L1MonsterInstance) {
+							L1MonsterInstance mob = (L1MonsterInstance) obj;
+							if (mob != null) {
+								if (mob.getNpcTemplate().get_npcId() == 81254) {
+									found = true;
+									break;
+								}
+							}
+						}
+					}
+					if (found) {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					} else {
+						L1SpawnUtil.spawn(pc, 81254, 0, 300000);
+					}
+				}
 			} else {
 				int locX = ((L1EtcItem) l1iteminstance.getItem()).get_locx();
 				int locY = ((L1EtcItem) l1iteminstance.getItem()).get_locy();
@@ -2454,7 +2493,10 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 			else if (validLevel(pc, template))
 				useArmor(pc, l1iteminstance);
+
 		}
+
+
 
 		if (isDelayEffect) {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
