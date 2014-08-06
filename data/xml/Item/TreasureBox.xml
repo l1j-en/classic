@@ -605,7 +605,7 @@
 		<Item ItemId="40308" Count="300" Chance="30" />
 		<Item ItemId="40308" Count="1000" Chance="10" />
 		<Item ItemId="40308" Count="10000" Chance="1" />
-		<Item ItemId="40006" Count="1" Chance="1" />	
+		<Item ItemId="40006" Count="1" Chance="1" />
 		<Item ItemId="40008" Count="1" Chance="1" />
 		<Item ItemId="40044" Count="1" Chance="5" />
 		<Item ItemId="40045" Count="1" Chance="5" />
@@ -699,19 +699,19 @@
 		<Item ItemId="40306" Count="1" Chance="1.32" />
 		<Item ItemId="40307" Count="1" Chance="1.57" />
 	</TreasureBox>
-	<!-- Compensation --> 
+	<!-- Compensation -->
 	<TreasureBox Type="SPECIFIC" ItemId="41001">
 		<Item ItemId="40308" Count="200"></Item>
 	</TreasureBox>
-	<!-- Compensation --> 
+	<!-- Compensation -->
 	<TreasureBox Type="SPECIFIC" ItemId="41405">
 		<Item ItemId="40308" Count="1000"></Item>
 	</TreasureBox>
-	<!-- Mineral Pouch --> 
+	<!-- Mineral Pouch -->
 	<TreasureBox Type="SPECIFIC" ItemId="41002">
 		<Item ItemId="40444" Count="1"></Item>
 	</TreasureBox>
-	<!-- Pouch of Oum --> 
+	<!-- Pouch of Oum -->
 	<TreasureBox Type="RANDOM" ItemId="40687">
 		<Item ItemId="40691" Count="1" Chance="40" />
 		<Item ItemId="40689" Count="1" Chance="30" />
@@ -720,35 +720,35 @@
 		<Item ItemId="40688" Count="1" Chance="5" />
 		<Item ItemId="40686" Count="1" Chance="3" />
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="40632">
 		<Item ItemId="40308" Count="300"></Item>
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="41406">
 		<Item ItemId="40308" Count="500"></Item>
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="41407">
 		<Item ItemId="40308" Count="1000"></Item>
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="41408">
 		<Item ItemId="40308" Count="1700"></Item>
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="41409">
 		<Item ItemId="40308" Count="2600"></Item>
 	</TreasureBox>
-	<!-- Money Pouch of Reona --> 
+	<!-- Money Pouch of Reona -->
 	<TreasureBox Type="SPECIFIC" ItemId="41410">
 		<Item ItemId="40308" Count="4000"></Item>
 	</TreasureBox>
-	<!-- Bag of Endia --> 
+	<!-- Bag of Endia -->
 	<TreasureBox Type="SPECIFIC" ItemId="40582">
 		<Item ItemId="40583" Count="1"></Item>
 	</TreasureBox>
-	<!-- Hit List Bag --> 
+	<!-- Hit List Bag -->
 	<TreasureBox Type="SPECIFIC" ItemId="40556">
 		<Item ItemId="40557" Count="1" />
 		<Item ItemId="40558" Count="1" />
@@ -758,7 +758,7 @@
 		<Item ItemId="40562" Count="1" />
 		<Item ItemId="40563" Count="1" />
 	</TreasureBox>
-	<!-- Pet Match Gift Chest --> 
+	<!-- Pet Match Gift Chest -->
 	<TreasureBox Type="RANDOM" ItemId="41416">
 		<Item ItemId="41254" Count="1" Chance="100" />
 	</TreasureBox>
@@ -1136,41 +1136,46 @@
 		<Item ItemId="41253" Count="1" Chance="3" />
 		<Item ItemId="41254" Count="1" Chance="3" />
 	</TreasureBox>
-	<!-- Bag of Greater Mana Potions --> 
+	<!-- Bag of Greater Mana Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90000">
 		<Item ItemId="90008" Count="4"></Item>
 	</TreasureBox>
-	<!-- Bag of Greater Haste Potions --> 
+	<!-- Bag of Greater Haste Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90001">
 		<Item ItemId="40018" Count="4"></Item>
 	</TreasureBox>
-	<!-- Bag of Haste Potions --> 
+	<!-- Bag of Haste Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90007">
 		<Item ItemId="40013" Count="6"></Item>
 	</TreasureBox>
-	<!-- Bag of Brave Potions --> 
+	<!-- Bag of Brave Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90003">
 		<Item ItemId="40014" Count="6"></Item>
 	</TreasureBox>
-	<!-- Bag of Wafers --> 
+	<!-- Bag of Wafers -->
 	<TreasureBox Type="SPECIFIC" ItemId="90002">
 		<Item ItemId="40068" Count="6"></Item>
 	</TreasureBox>
-	<!-- Bag of Devils Blood --> 
+	<!-- Bag of Devils Blood -->
 	<TreasureBox Type="SPECIFIC" ItemId="90004">
 		<Item ItemId="40031" Count="6"></Item>
 	</TreasureBox>
-	<!-- Bag of Mana Potions --> 
+	<!-- Bag of Mana Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90006">
 		<Item ItemId="40015" Count="6"></Item>
 	</TreasureBox>
-	<!-- Bag of Wisdom Potions --> 
+	<!-- Bag of Wisdom Potions -->
 	<TreasureBox Type="SPECIFIC" ItemId="90005">
 		<Item ItemId="40016" Count="6"></Item>
 	</TreasureBox>
-	<!-- Sleyin`s Pouch --> 
+	<!-- Sleyin`s Pouch pt. 1 -->
 	<TreasureBox Type="SPECIFIC" ItemId="49179">
 		<Item ItemId="49186" Count="1"></Item>
 		<Item ItemId="49183" Count="1"></Item>
+	</TreasureBox>
+	<!-- Sleyin`s Pouch pt. 2 -->
+	<TreasureBox Type="SPECIFIC" ItemId="49180">
+	    <Item ItemId="49184" Count="1"></Item>
+	    <Item ItemId="49192" Count="3"></Item>
 	</TreasureBox>
 </TreasureBoxList>

@@ -132,7 +132,7 @@ public class C_NPCAction extends ClientBasePacket {
 
 		String s = readS();
 		String s2 = null;
-		
+
 		if(Config.LOGGING_INCOMING_PACKETS)
 			_log.info("C_NPCAction: s=" + s);
 
@@ -3383,7 +3383,20 @@ public class C_NPCAction extends ClientBasePacket {
 					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 1);
 					htmlid = "silrein19";
-
+				} else if (s.equalsIgnoreCase("h") && (lv50_step == 0)) {
+					pc.getQuest().set_step(L1Quest.QUEST_LEVEL50, 1);
+					createitem = new int[] { 49176 };
+					createcount = new int[] { 1 };
+					htmlid = "silrein28";
+				} else if (s.equalsIgnoreCase("k") && (lv50_step >= 2)) {
+					if (pc.getInventory().checkItem(49202, 1)
+							|| pc.getInventory().checkItem(49178, 1)) {
+						htmlid = "silrein32";
+					} else {
+						createitem = new int[] { 49202, 49178 };
+						createcount = new int[] { 1, 1 };
+						htmlid = "silrein32";
+					}
 				}
 			}
 			if (pc.isDragonKnight()) {
