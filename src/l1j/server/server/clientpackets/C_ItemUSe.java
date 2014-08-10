@@ -2457,6 +2457,53 @@ public class C_ItemUSe extends ClientBasePacket {
 						L1SpawnUtil.spawn(pc, 81254, 0, 300000);
 					}
 				}
+			// Lv 50 Illusionist quest
+			} else if (itemId == 49178) {
+					// Sleyin's Amulet
+					// I *think* this is supposed to be a reusable escape scroll
+					// We'll make it teleport the user to Elder Sleyin
+					if ( pc.getMapId() == 2004 ) {
+						L1Teleport.teleport(pc, 32773, 32811, (short) 1000, 5, true);
+					} else {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					}
+			} else if (itemId == 49202) {
+					// Thought piece of time
+					L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+					// May want to leave this item around in case of disconnects
+					// We'll see if it can be respawned; yeah, let's do that
+					// We can update quest.xml to consume this upon turnin
+					// inventory.consumeItem(49202, 1);
+			} else if (itemId == 49208) {
+					// Sparks of Blue Flame
+
+					// Only spawn NPC if pc does not have
+					// Thought Piece of Savius in inventory
+					if (inventory.checkItem(49229, 1)) {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					} else {
+						boolean found = false;
+						if ( pc.getMapId() == 2004 ) {
+							for (L1Object obj : L1World.getInstance().getObject()) {
+								if (obj instanceof L1MonsterInstance) {
+									L1MonsterInstance mob = (L1MonsterInstance) obj;
+									if (mob != null) {
+										if (mob.getNpcTemplate().get_npcId() == 91203) {
+											found = true;
+											break;
+										}
+									}
+								}
+							}
+						} else {
+							found = true;
+						}
+						if (found) {
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+						} else {
+							L1SpawnUtil.spawn(pc, 91203, 0, 300000);
+						}
+					}
 			} else {
 				int locX = ((L1EtcItem) l1iteminstance.getItem()).get_locx();
 				int locY = ((L1EtcItem) l1iteminstance.getItem()).get_locy();

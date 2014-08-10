@@ -451,3 +451,36 @@ update armor set name = 'Cloak of Illusionist' where item_id = 21100;
 insert into shop values
 (70032,'Virgil',20006,'Knight\'s Visor',21,5000,0,2500),
 (70061,'Mandra',20006,'Knight\'s Visor',38,5000,0,2500);
+
+-- Updates for Lv 50 Illusionist Quest
+update mapids set locationname = 'Goras - Level 50 Illusionist Quest' where mapid = 2004;
+
+-- Updates for Lv 50 Illusionist Quest
+insert into npc values ( 91205, 'Cracked Time', '$5656', 'Level 50 Illusionist Quest NPC', 'L1Monster', 6920, 45, 100, 200, -1, 0, 0, 0, 0, 0, 0, 0, 0, 'small', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0);
+insert into npc values ( 91206, 'Wyvern (Q)', '$4307', 'Level 50 Illusionist Quest NPC', 'L1Monster', 5282, 44, 500, 200, -55, 17, 18, 20, 15, 17, 70, 2917, -25, 'large', 0, 1, 0, 800, 1200, 1280, 1360, 1360, 0, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 5000, 25, 5000, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0);
+insert into npc values ( 91207, 'Otyu', '$4306', 'Level 50 Illusionist Quest NPC', 'L1Monster', 5442, 40, 400, 250, -40, 15, 18, 20, 14, 16, 50, 2501, -25, 'small', 0, 3, 0, 960, 1120, 920, 1120, 1120, 2, 0, 0, 1, 1, 1, '', 0, -1, -1, 0, 0, 0, 5000, 25, 500, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0);
+
+-- Monsters
+-- location coords seem to be slightly off ( l1j.org base )..
+-- going to try to offset X by +75 and Y by -15
+insert into spawnlist_npc values ( 90461, 'Cracked Time', 30, 91205, 32854, 32753, 100, 50, 4, 15, 2004, 50 );
+insert into spawnlist_npc values ( 90462,'Wyvern',30,91206,32801,32841,25,50,4,15,2004,50 );
+insert into spawnlist_npc values ( 90463,'Otyu',30,91207,32843,32860,25,50,4,15,2004,50 );
+
+-- NPC
+insert into spawnlist_npc values ( 90464,'Flame of Blue Soul',1,91314,32857,32817,0,0,6,0,2004,0 );
+insert into spawnlist_npc values ( 90465,'Flame of Red Soul',1,91315,32857,32812,0,0,6,0,2004,0 );
+
+-- Text for Flame of Red/Blue soul
+insert into npcaction values (91314,'bluesoul_f4','bluesoul_f4','','');
+insert into npcaction values (91315,'redsoul_f4','redsoul_f4','','');
+
+-- Items
+--insert into droplist values (91203,'Savius',49229,'Thought Piece of Savius',1,1,1000000);
+insert into droplist values (91203,'Savius',49206,'Thought Piece of Savius',1,1,1000000);
+insert into droplist values (91206,'Wyvern (Q)', 49204,'Tears of Wyvern',1,1,500000);
+insert into droplist values (91207,'Otyu', 49203,'Tears of Otyu',1,1,500000);
+
+update etcitem set name = 'Tears of Wyvern' where item_id = 49204;
+update etcitem set name = 'Tears of Otyu' where item_id = 49203;
+update etcitem set use_type = 'normal' where item_id = 49202;
