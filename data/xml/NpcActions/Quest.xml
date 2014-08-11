@@ -860,7 +860,7 @@
 			<ShowHtml HtmlId="wa_earth1"/>
 		</Fail>
 	</MakeItem>
-	
+
 	<!--Lv45 Illusionist / Acidic Liquid of White Ant -->
 	<MakeItem Name="a" Class="I" NpcId="81251" AmountInputable="false" QuestId="Level45" QuestStep="6">
 		<Item Amount="1" ItemId="49198"/> <!-- Second Thought Fragment -->
@@ -939,6 +939,9 @@
 		<Item Amount="1" ItemId="49205"/> <!-- Special Ore -->
 		<Material Amount="1" ItemId="49206"/> <!-- Thought Piece of Savius -->
 		<Material Amount="1" ItemId="49207"/> <!-- Fire Ash of Soul -->
+    <Material Amount="1" ItemId="49202"/> <!-- Thought Piece of Time -->
+		<Material Amount="1" ItemId="49178"/> <!-- Sleyin's Amulet -->
+		<Material Amount="1" ItemId="49208"/> <!-- Sparks of Blue Flame -->
 		<Succeed>
 			<SetQuest Id="Level50" Step="5"/>
 		</Succeed>
