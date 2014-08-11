@@ -3384,17 +3384,21 @@ public class C_NPCAction extends ClientBasePacket {
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL45, 1);
 					htmlid = "silrein19";
 				} else if (s.equalsIgnoreCase("h") && (lv50_step == 0)) {
+					final int[] item_ids = { 49176 };
+					final int[] item_amounts = { 1 };
+					for (int i = 0; i < item_ids.length; i++) {
+						L1ItemInstance item = pc.getInventory().storeItem(
+								item_ids[i], item_amounts[i]);
+						pc.sendPackets(new S_ServerMessage(143, npcName, item
+								.getItem().getName()));
+					}
 					pc.getQuest().set_step(L1Quest.QUEST_LEVEL50, 1);
-					createitem = new int[] { 49176 };
-					createcount = new int[] { 1 };
 					htmlid = "silrein28";
 				} else if (s.equalsIgnoreCase("k") && (lv50_step >= 2)) {
 					if (pc.getInventory().checkItem(49202, 1)
 							|| pc.getInventory().checkItem(49178, 1)) {
 						htmlid = "silrein32";
 					} else {
-						createitem = new int[] { 49202, 49178 };
-						createcount = new int[] { 1, 1 };
 						htmlid = "silrein32";
 					}
 				}
