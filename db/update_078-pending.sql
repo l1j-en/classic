@@ -484,3 +484,8 @@ insert into droplist values (91207,'Otyu', 49203,'Tears of Otyu',1,1,500000);
 update etcitem set name = 'Tears of Wyvern' where item_id = 49204;
 update etcitem set name = 'Tears of Otyu' where item_id = 49203;
 update etcitem set use_type = 'normal' where item_id = 49202;
+
+-- Fix text
+update etcitem set name = 'Head of Chaos' where item_id = 40719;
+update droplist set item_name = 'Head of Chaos' where itemId = 40719;
+
