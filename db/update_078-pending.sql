@@ -489,3 +489,5 @@ update etcitem set use_type = 'normal' where item_id = 49202;
 update etcitem set name = 'Head of Chaos' where item_id = 40719;
 update droplist set item_name = 'Head of Chaos' where itemId = 40719;
 
+-- Add Spellbook: Polymorph to doppleganger boss
+insert into droplist values (45546,'Doppleganger (Boss)', 40212, 'Spellbook (Polymorph)',1,1,4500);
