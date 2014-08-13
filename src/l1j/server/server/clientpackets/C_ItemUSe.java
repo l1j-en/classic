@@ -1531,7 +1531,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
+			//pine wand
 			} else if (itemId == 40006 || itemId == 40412 || itemId == 140006) {
+				//if we're in a safety zone and we dont want to allow pines there
+				if (Config.USE_PINE_IN_SAFETY == false && pc.getMap().isSafetyZone(pc.getLocation())) {
+					pc.sendPackets(new S_ServerMessage(563));
+					return;
+				}
 				if (pc.getMap().isUsePainwand()) {
 					S_AttackPacket s_attackPacket = new S_AttackPacket(pc, 0,
 							ActionCodes.ACTION_Wand);
@@ -1560,14 +1566,21 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40007) {
+				L1Object target = L1World.getInstance().findObject(
+						spellsc_objid);
+				//if the target is a player, and either the target or attacker are in a safety zone, deny.
+				if (target instanceof L1PcInstance && (target.getMap().isSafetyZone(target.getLocation()) || pc.getMap().isSafetyZone(pc.getLocation()))) {
+					//not entirely sure I should send this, but it seems appropriate
+					pc.sendPackets(new S_ServerMessage(563));
+					return;					
+				}
 				cancelAbsoluteBarrier(pc);
 				int chargeCount = l1iteminstance.getChargeCount();
 				if (chargeCount <= 0) {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
-				L1Object target = L1World.getInstance().findObject(
-						spellsc_objid);
+
 				pc.sendPackets(new S_UseAttackSkill(pc, spellsc_objid, 10,
 						spellsc_x, spellsc_y, ActionCodes.ACTION_Wand));
 				pc.broadcastPacket(new S_UseAttackSkill(pc, spellsc_objid, 10,
@@ -1579,6 +1592,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						.setChargeCount(l1iteminstance.getChargeCount() - 1);
 				inventory.updateItem(l1iteminstance,
 						L1PcInventory.COL_CHARGE_COUNT);
+		    //maple
 			} else if (itemId == 40008 || itemId == 40410 || itemId == 140008) {
 				if (pc.getMapId() == 63 || pc.getMapId() == 552
 						|| pc.getMapId() == 555 || pc.getMapId() == 557
@@ -1600,6 +1614,18 @@ public class C_ItemUSe extends ClientBasePacket {
 							spellsc_objid);
 					if (target != null) {
 						L1Character cha = (L1Character) target;
+						
+						//if the target is a player and either are in a safety zone
+						if (cha instanceof L1PcInstance && (cha.getMap().isSafetyZone(cha.getLocation()) || pc.getMap().isSafetyZone(pc.getLocation()))) {
+							L1PcInstance pctarget = (L1PcInstance) cha;
+							//and they are not in the same clan
+							if (pctarget.getClanid() != pc.getClanid()) {
+								//deny
+								pc.sendPackets(new S_ServerMessage(563));
+								return;
+							}
+						}
+					
 						polyAction(pc, cha);
 						cancelAbsoluteBarrier(pc);
 						if (itemId == 40008 || itemId == 140008) {

@@ -501,6 +501,8 @@ public final class Config {
 	public static boolean Use_Show_INGAMENEWS_Time;
 
 	public static int Show_INGAMENEWS_Time;
+	
+	public static boolean USE_PINE_IN_SAFETY;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -782,6 +784,7 @@ public final class Config {
 					"UseIntProcs", "False"));
 			AUTO_STONE = Boolean.parseBoolean(altSettings.getProperty(
 					"UseAutoStone", "False"));
+			USE_PINE_IN_SAFETY = Boolean.parseBoolean(altSettings.getProperty("UsePineInSafety", "True"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
