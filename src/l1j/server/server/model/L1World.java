@@ -126,6 +126,8 @@ public class L1World {
 		if (object instanceof L1SummonInstance) {
 			_allSummons.remove(object.getId());
 		}
+		
+		removeVisibleObject(object);
 	}
 
 	public L1Object findObject(int oID) {
@@ -243,6 +245,12 @@ public class L1World {
 
 		if (map <= MAX_MAP_ID) {
 			for (L1Object element : _visibleObjects[map].values()) {
+				if (findObject(element.getId()) == null) {
+					_log.warning("L1World:getVisibleLineObjects: _visibleObject element missing from _allObjects!\n"
+							+ element.toString() + " Id: " + element.getId()
+							+ " Map: " + element.getMapId());
+				}
+
 				if (element.equals(src)) {
 					continue;
 				}
@@ -270,6 +278,12 @@ public class L1World {
 
 		if (map <= MAX_MAP_ID) {
 			for (L1Object element : _visibleObjects[map].values()) {
+				if (findObject(element.getId()) == null) {
+					_log.warning("L1World:getVisibleBoxObjects: _visibleObject element missing from _allObjects!\n"
+							+ element.toString() + " Id: " + element.getId()
+							+ " Map: " + element.getMapId());
+				}
+				
 				if (element.equals(object)) {
 					continue;
 				}
@@ -328,6 +342,12 @@ public class L1World {
 		ArrayList<L1Object> result = new ArrayList<L1Object>();
 		if (map.getId() <= MAX_MAP_ID) {
 			for (L1Object element : _visibleObjects[map.getId()].values()) {
+				if (findObject(element.getId()) == null) {
+					_log.warning("L1World:getVisibleObjects: _visibleObject element missing from _allObjects!\n"
+							+ element.toString() + " Id: " + element.getId()
+							+ " Map: " + element.getMapId());
+				}
+
 				if (element.equals(object)) {
 					continue;
 				}
