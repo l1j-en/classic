@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class L1DwarfInventory extends L1Inventory {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT * FROM character_warehouse WHERE account_name = ?");
+					.prepareStatement("SELECT * FROM character_warehouse WHERE account_name = ? ORDER BY item_name");
 			pstm.setString(1, _owner.getAccountName());
 
 			rs = pstm.executeQuery();

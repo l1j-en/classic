@@ -174,7 +174,8 @@ public class L1Inventory extends L1Object {
 			item.setRemainingTime(item.getItem().getMaxUseTime());
 		}
 		item.setBless(item.getItem().getBless());
-		_items.add(item);
+
+		addSorted(item);
 		insertItem(item);
 		return item;
 	}
@@ -194,9 +195,20 @@ public class L1Inventory extends L1Object {
 		item.setY(getY());
 		item.setMap(getMapId());
 
-		_items.add(item);
+		addSorted(item);
 		insertItem(item);
 		return item;
+	}
+	
+	private void addSorted(L1ItemInstance item) {
+		final int insertAt;
+	    final int index = Collections.binarySearch(_items, item);
+	    if (index < 0) {
+	      insertAt = -(index + 1);
+	    } else {
+	      insertAt = index + 1;
+	    }
+	    _items.add(insertAt, item);
 	}
 
 	public boolean consumeItem(int itemid, int count) {
