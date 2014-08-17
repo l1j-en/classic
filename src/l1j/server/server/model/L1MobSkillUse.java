@@ -276,6 +276,16 @@ public class L1MobSkillUse {
 							areaWidth, areaHeight);
 
 			for (L1Object obj : objs) {
+				if (L1World.getInstance().findObject(obj.getId()) == null) {
+					_log.severe("L1MobSkillUse:physicalAttack: visibleBoxObject obj missing from L1World._allObjects!\n"
+							+ obj.toString() + " Id: " + obj.getId()
+							+ " Map: " + obj.getMapId());
+					
+					// TODO: remove this stop-gap fix once a root cause has been found
+					L1World.getInstance().removeVisibleObject(obj);
+					continue;
+				}
+				
 				if (!(obj instanceof L1Character)) {
 					continue;
 				}
