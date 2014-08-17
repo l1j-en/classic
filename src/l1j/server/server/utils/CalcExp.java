@@ -138,7 +138,6 @@ public class CalcExp {
 		return groups;
 	}
 
-	private static final double ROYAL_BONUS = .06;
 	// TODO: finalize - starting off a little shorter than shout.
 	private static final int EXP_RANGE = 40;
 
@@ -305,7 +304,7 @@ public class CalcExp {
 			// EXP
 
 			// PT Calculate the value of experience
-			party_exp = (int) (party_exp * Config.PARTYEXP_RATE * (1 + partyBonus + royalBonus));
+			party_exp = (int) (party_exp * (1 + Config.PARTYEXP_RATE * (partyBonus + royalBonus)));
 
 			// Summon the pet's character and self-hate sums
 			if (partyLevel > 0) {
