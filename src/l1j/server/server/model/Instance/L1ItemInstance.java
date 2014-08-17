@@ -26,7 +26,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.BinaryOutputStream;
 
-public class L1ItemInstance extends L1Object {
+public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstance> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -1128,6 +1128,11 @@ public class L1ItemInstance extends L1Object {
 
 	public void setNowLighting(boolean flag) {
 		_isNowLighting = flag;
+	}
+	
+	@Override
+	public int compareTo(L1ItemInstance other) {
+		return _item.getName().compareTo(other.getItem().getName());
 	}
 
 }
