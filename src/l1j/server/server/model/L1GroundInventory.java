@@ -71,7 +71,6 @@ public class L1GroundInventory extends L1Inventory {
 		setY(y);
 		setMap(map);
 		L1World.getInstance().addVisibleObject(this);
-		L1World.getInstance().storeObject(this);
 	}
 
 	@Override
@@ -119,7 +118,6 @@ public class L1GroundInventory extends L1Inventory {
 		_items.remove(item);
 		if (_items.size() == 0) {
 			L1World.getInstance().removeVisibleObject(this);
-			L1World.getInstance().removeObject(this);
 		}
 	}
 
