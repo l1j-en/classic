@@ -425,7 +425,7 @@ public class L1SkillUse {
 			}
 
 			if (_skillId == DISINTEGRATE && pc.getLawful() < 500) {
-				pc.sendPackets(new S_ServerMessage(352, "$967")); // Your alignment must be 'Lawful' to cast this spell. 
+				pc.sendPackets(new S_ServerMessage(352, "$967")); // Your alignment must be 'Lawful' to cast this spell.
 				return false;
 			}
 
@@ -1832,7 +1832,13 @@ public class L1SkillUse {
 								}
 							}
 							if (npc.getCurrentHp() == 0 && npc.isDead()) {
-								npc.resurrect(npc.getMaxHp() / 4);
+								if (_skillId == GREATER_RESURRECTION) {
+									npc.resurrect(npc.getMaxHp());
+								} else {
+									npc.resurrect(npc.getMaxHp() / 4);
+								}
+								npc.startHpRegeneration();
+								npc.startMpRegeneration();
 								npc.setResurrect(true);
 							}
 						}
@@ -3344,7 +3350,7 @@ public class L1SkillUse {
 		int brave = (int) (dark / 2.1);
 		int wise = (int) (brave / 2.0);
 		int kaiser = (int) (wise / 1.9);
-		
+
 		switch (item.getItem().getItemId()) {
 		case BRING_STONE:
 			turnStone(player, item, dark, DARK_STONE, "$2475", count, report);
