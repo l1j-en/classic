@@ -491,3 +491,6 @@ update droplist set item_name = 'Head of Chaos' where itemId = 40719;
 
 -- Add Spellbook: Polymorph to doppleganger boss
 insert into droplist values (45546,'Doppleganger (Boss)', 40212, 'Spellbook (Polymorph)',1,1,4500);
+
+-- Update level 45 elf quest to only spawn a single boss instead of 2
+update spawnlist set count = 1 where npc_templateid = 45301;
