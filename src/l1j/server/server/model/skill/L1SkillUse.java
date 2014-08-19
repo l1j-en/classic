@@ -1906,6 +1906,7 @@ public class L1SkillUse {
 						int hiddenStatus = npc.getHiddenStatus();
 						if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK) {
 							npc.appearOnGround(_player);
+							dmg = _magic.calcMagicDamage(_skillId);
 						} else {
 							dmg = 0;
 						}
