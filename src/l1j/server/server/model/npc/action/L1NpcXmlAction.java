@@ -121,7 +121,7 @@ public abstract class L1NpcXmlAction implements L1NpcAction {
 		if (_name == null) {
 			return true;
 		}
-		return name.equalsIgnoreCase(_name);
+		return name.equals(_name);
 	}
 
 	private boolean acceptsQuest(L1PcInstance pc) {

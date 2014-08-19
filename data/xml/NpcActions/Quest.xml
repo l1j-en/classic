@@ -55,7 +55,7 @@
 		</Succeed>
 	</MakeItem>
 	<!-- Lv45 Royal Quest / Masha -->
-	<Action Name="quest 15 Masha2" Class="P">
+	<Action Name="quest 15 masha2" Class="P">
 		<SetQuest Id="Level45" Step="1"/>
 		<ShowHtml HtmlId="Masha3"/>
 	</Action>
@@ -185,7 +185,7 @@
 	</MakeItem>
 
 	<!-- Lv45 Knight Quest / Masha -->
-	<Action Name="quest 20 Mashak2" Class="K">
+	<Action Name="quest 20 mashak2" Class="K">
 		<SetQuest Id="Level45" Step="1"/>
 		<ShowHtml HtmlId="Mashak2"/>
 	</Action>
@@ -297,13 +297,14 @@
 	</MakeItem>
 
 	<!-- Lv45 Elf Quest / Masha -->
-	<Action Name="quest 14 Mashae2" Class="E">
+	<Action Name="quest 14 mashae2" Class="E">
 		<SetQuest Id="Level45" Step="1"/>
 		<ShowHtml HtmlId="Mashae2"/>
 	</Action>
-	<MakeItem Name="request bag of Masha" Class="E" AmountInputable="false" QuestId="Level45" QuestStep="4">
+	<MakeItem Name="request bag of masha" Class="E" AmountInputable="false" QuestId="Level45" QuestStep="4">
 		<Item Amount="1" ItemId="40546"/> <!-- Marshall`s Reward -->
 		<Material Amount="1" ItemId="192"/> <!-- Bow of Ancients -->
+		<Material Amount="1" ItemId="40566"/> <!-- Mysterious Shell -->
 		<Succeed>
 			<SetQuest Id="Level45" Step="End"/>
 			<ShowHtml HtmlId="Mashae3"/>
