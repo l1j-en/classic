@@ -495,6 +495,7 @@ insert into droplist values (45546,'Doppleganger (Boss)', 40212, 'Spellbook (Pol
 -- Update level 45 elf quest to only spawn a single boss instead of 2
 update spawnlist set count = 1 where npc_templateid = 45301;
 
+
 -- Reduce spawn count on ToS 2f from 20 to 10
 update spawnlist set count = 10 where mapid = 523;
 
@@ -506,3 +507,8 @@ insert into spawnlist_npc values (null,'Aden',1,71181,33493,32683,0,0,6,0,4,0);
 
 -- Correct Sharna name
 update npc set nameid = '$5885' where npcid = 81246;
+
+-- Update DM to replace Kurtz with a slightly stronger BK.
+-- If we need to tweak we can later
+update spawnlist_ub set npc_templateid = 81067 where id = 279;
+
