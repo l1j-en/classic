@@ -51,7 +51,7 @@ public class L1DwarfForClanInventory extends L1Inventory {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT * FROM clan_warehouse WHERE clan_name = ?");
+					.prepareStatement("SELECT * FROM clan_warehouse WHERE clan_name = ? ORDER BY item_name");
 			pstm.setString(1, _clan.getClanName());
 			rs = pstm.executeQuery();
 			while (rs.next()) {
