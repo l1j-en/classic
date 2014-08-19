@@ -244,9 +244,12 @@ public class L1WeaponSkill {
 				target.getY(), ActionCodes.ACTION_Attack, false)
 				: new S_SkillSound(hubId, effectId);
 
-		double damage = Config.USE_INT_PROCS ? getWeaponDamage(attacker,
-				weaponSkill.getMultiplier()) : weaponSkill.getFixDamage()
-				+ _random.nextInt(weaponSkill.getRandomDamage()) + 1;
+        double damage = 0;
+        if ( weaponSkill.getRandomDamage() > 0 ) {
+		    damage = Config.USE_INT_PROCS ? getWeaponDamage(attacker,
+		    		weaponSkill.getMultiplier()) : weaponSkill.getFixDamage()
+		    		+ _random.nextInt(weaponSkill.getRandomDamage()) + 1;
+        }
 
 		int area = weaponSkill.getArea();
 		int element = weaponSkill.getAttr();
