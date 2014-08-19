@@ -1072,7 +1072,13 @@ public class C_ItemUSe extends ClientBasePacket {
 								}
 							}
 							if (npc.getCurrentHp() == 0 && npc.isDead()) {
-								npc.resurrect(npc.getMaxHp() / 4);
+								if (itemId == 140089) {
+									npc.resurrect(npc.getMaxHp());
+								} else {
+									npc.resurrect(npc.getMaxHp() / 4);
+								}
+								npc.startHpRegeneration();
+								npc.startMpRegeneration();
 								npc.setResurrect(true);
 							}
 						}
@@ -1572,7 +1578,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				if (target instanceof L1PcInstance && (target.getMap().isSafetyZone(target.getLocation()) || pc.getMap().isSafetyZone(pc.getLocation()))) {
 					//not entirely sure I should send this, but it seems appropriate
 					pc.sendPackets(new S_ServerMessage(563));
-					return;					
+					return;
 				}
 				cancelAbsoluteBarrier(pc);
 				int chargeCount = l1iteminstance.getChargeCount();
@@ -1614,7 +1620,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							spellsc_objid);
 					if (target != null) {
 						L1Character cha = (L1Character) target;
-						
+
 						//if the target is a player and either are in a safety zone
 						if (cha instanceof L1PcInstance && (cha.getMap().isSafetyZone(cha.getLocation()) || pc.getMap().isSafetyZone(pc.getLocation()))) {
 							L1PcInstance pctarget = (L1PcInstance) cha;
@@ -1625,7 +1631,7 @@ public class C_ItemUSe extends ClientBasePacket {
 								return;
 							}
 						}
-					
+
 						polyAction(pc, cha);
 						cancelAbsoluteBarrier(pc);
 						if (itemId == 40008 || itemId == 140008) {
