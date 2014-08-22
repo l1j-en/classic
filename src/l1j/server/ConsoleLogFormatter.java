@@ -41,6 +41,10 @@ public class ConsoleLogFormatter extends Formatter {
 	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
+		String[] split = record.getSourceClassName().split("\\.");
+		String className = record.getSourceClassName();
+		if (split.length > 0)
+			className = split[split.length-1];
 
 		//output.append(record.getLevel().intValue());
 		//output.append(Level.CONFIG.intValue());
@@ -50,7 +54,7 @@ public class ConsoleLogFormatter extends Formatter {
 		} else {
 			output.append(dateFmt.format(new Date(record.getMillis())));
 			output.append(" ");
-			output.append(record.getSourceClassName());
+			output.append(className);
 			output.append(".");
 			output.append(record.getSourceMethodName());
 			output.append(" ");

@@ -137,7 +137,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		_log.info("Character login: char=" + charName + " account=" + login
 				+ " host=" + client.getHostname() + " Current Memory: "
 				+ SystemUtil.getUsedMemoryMB() + "MB RAM"
-				+ " CharactersOnline=" + L1World.getInstance().getAllPlayers().size());
+				+ " CharactersOnline=" + (L1World.getInstance().getAllPlayers().size() + 1));
 		LogIP li = new LogIP();
 		li.storeLogIP(pc, client.getHostname());
 

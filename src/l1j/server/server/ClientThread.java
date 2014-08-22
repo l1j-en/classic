@@ -285,9 +285,13 @@ public class ClientThread implements Runnable, PacketOutput {
 		_csocket = null;
 		_log.fine("Server thread[C] stopped");
 		if (_kick < 1) {
-			_log.fine("Client thread ended: " + getAccountName() + ":"
+			Level ll = Level.FINE;
+			if (_hostname != null)
+				ll = Level.INFO;
+			_log.log(ll, "Client thread ended: " + getAccountName() + ":"
 					+ _hostname + " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM"
-					+ " CurrentThreads=" + GeneralThreadPool.getInstance().getCurrentThreadCount());
+					+ " CurrentThreads=" + GeneralThreadPool.getInstance().getCurrentThreadCount()
+					+ " CharactersOnline=" + (L1World.getInstance().getAllPlayers().size()));
 		}
 		return;
 	}
