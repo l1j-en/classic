@@ -183,9 +183,9 @@ public class ClientThread implements Runnable, PacketOutput {
 	@Override
 	public void run() {
 		nameThread("ClientThread");
-		_log.info("(" + _hostname + ") Login detected. CurrentThreads="
+		_log.info("(" + _hostname + ") Login detected. "
+				+ " Current memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM CurrentThreads="
 				+ GeneralThreadPool.getInstance().getCurrentThreadCount());
-		_log.fine("Current memory: " + SystemUtil.getUsedMemoryMB() + "MB");
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
 		HcPacket movePacket = new HcPacket(M_CAPACITY);
@@ -286,9 +286,8 @@ public class ClientThread implements Runnable, PacketOutput {
 		_log.fine("Server thread[C] stopped");
 		if (_kick < 1) {
 			_log.fine("Client thread ended: " + getAccountName() + ":"
-					+ _hostname);
-			_log.fine(": " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			// _log.fine("Waiting for connections...");
+					+ _hostname + " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM"
+					+ " CurrentThreads=" + GeneralThreadPool.getInstance().getCurrentThreadCount());
 		}
 		return;
 	}
