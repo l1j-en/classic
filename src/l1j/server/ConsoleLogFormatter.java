@@ -50,6 +50,12 @@ public class ConsoleLogFormatter extends Formatter {
 		} else {
 			output.append(dateFmt.format(new Date(record.getMillis())));
 			output.append(" ");
+			output.append(record.getSourceClassName());
+			output.append(".");
+			output.append(record.getSourceMethodName());
+			output.append(" ");
+			output.append(record.getLevel());
+			output.append(": ");
 			output.append(record.getMessage());
 			output.append("\r\n");
 			if (record.getThrown() != null) {
