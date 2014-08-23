@@ -172,8 +172,8 @@ INSERT INTO `shop` VALUES
 	(70033, 'Verita', 140074, 'Blessed Scroll of Enchant Armor', 41, 400000, 0, -1),
 	(70033, 'Verita', 240087, 'Cursed Scroll of Enchant Weapon', 42, 125000, 0, -1),
 	(70033, 'Verita', 140087, 'Blessed Scroll of Enchant Weapon', 43, 400000, 0, -1),
-	(70033, 'Verita', 40068, 'Elven Wafer', 44, 3000, 0, -1);
-	(70033, 'Verita', 40031, 'Devils Blood', 45, 3000, 0, -1),
+	(70033, 'Verita', 40068, 'Elven Wafer', 44, 3000, 0, -1),
+	(70033, 'Verita', 40031, 'Devils Blood', 45, 3000, 0, -1);
 
 -- Stat elixirs added to Britt in Heine
 DELETE FROM `shop` where npc_id = 70082 and item_id in (40033, 40034, 40035, 40036, 40037, 40038);
