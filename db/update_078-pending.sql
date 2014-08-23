@@ -494,3 +494,6 @@ insert into droplist values (45546,'Doppleganger (Boss)', 40212, 'Spellbook (Pol
 
 -- Update level 45 elf quest to only spawn a single boss instead of 2
 update spawnlist set count = 1 where npc_templateid = 45301;
+
+-- Reduce spawn count on ToS 2f from 20 to 10
+update spawnlist set count = 10 where mapid = 523;
