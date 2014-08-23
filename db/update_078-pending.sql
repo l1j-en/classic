@@ -497,3 +497,9 @@ update spawnlist set count = 1 where npc_templateid = 45301;
 
 -- Reduce spawn count on ToS 2f from 20 to 10
 update spawnlist set count = 10 where mapid = 523;
+
+-- Make Jeif spawn
+insert into spawnlist_npc values (null,'Aden',1,71180,33454,32824,0,0,5,0,4,0);
+
+-- Make Emai spawn
+insert into spawnlist_npc values (null,'Aden',1,71181,33493,32683,0,0,6,0,4,0);
