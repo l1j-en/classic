@@ -503,3 +503,6 @@ insert into spawnlist_npc values (null,'Aden',1,71180,33454,32824,0,0,5,0,4,0);
 
 -- Make Emai spawn
 insert into spawnlist_npc values (null,'Aden',1,71181,33493,32683,0,0,6,0,4,0);
+
+-- Correct Sharna name
+update npc set nameid = '$5885' where npcid = 81246;
