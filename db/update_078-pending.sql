@@ -554,3 +554,9 @@ UPDATE spawnlist SET count = 48 WHERE id = 18000002;
 UPDATE spawnlist SET count = 16 WHERE id = 18000003;
 UPDATE spawnlist SET count = 8 WHERE id = 18000004;
 
+
+-- Increase TOI 42f spawn by 33%
+UPDATE spawnlist SET count = 114 WHERE id = 14200001;
+UPDATE spawnlist SET count = 24 WHERE id = 14200002;
+UPDATE spawnlist SET count = 21 WHERE id = 14200003;
+
