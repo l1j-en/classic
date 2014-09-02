@@ -512,3 +512,17 @@ update npc set nameid = '$5885' where npcid = 81246;
 -- If we need to tweak we can later
 update spawnlist_ub set npc_templateid = 81067 where id = 279;
 
+
+-- Fix some item/mob names
+UPDATE weapon SET name = 'Execution Sword of Fidelity' WHERE item_id = 61;
+UPDATE etcitem SET name = 'Assorted Spice Sauce' WHERE item_id = 49048;
+UPDATE etcitem SET unidentified_name_id = '$5430 $4928', identified_name_id = '$5430 $4928' WHERE item_id = 49057;
+UPDATE etcitem SET unidentified_name_id = '$5431 $4928', identified_name_id = '$5431 $4928' WHERE item_id = 49058;
+UPDATE etcitem SET unidentified_name_id = '$5432 $4928', identified_name_id = '$5432 $4928' WHERE item_id = 49059;
+UPDATE etcitem SET unidentified_name_id = '$5433 $4928', identified_name_id = '$5433 $4928' WHERE item_id = 49060;
+UPDATE etcitem SET unidentified_name_id = '$5434 $4928', identified_name_id = '$5434 $4928' WHERE item_id = 49061;
+UPDATE etcitem SET unidentified_name_id = '$5435 $4928', identified_name_id = '$5435 $4928' WHERE item_id = 49062;
+UPDATE etcitem SET unidentified_name_id = '$5436 $4928', identified_name_id = '$5436 $4928' WHERE item_id = 49063;
+UPDATE etcitem SET unidentified_name_id = '$5437 $4928', identified_name_id = '$5437 $4928' WHERE item_id = 49064;
+UPDATE npc SET name = 'Doppelganger Boss' WHERE npcid = 45828;
+
