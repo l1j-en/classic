@@ -526,3 +526,31 @@ UPDATE etcitem SET unidentified_name_id = '$5436 $4928', identified_name_id = '$
 UPDATE etcitem SET unidentified_name_id = '$5437 $4928', identified_name_id = '$5437 $4928' WHERE item_id = 49064;
 UPDATE npc SET name = 'Doppelganger Boss' WHERE npcid = 45828;
 
+
+-- Lower TOI 74+ spawn amount by 1/3 and set respawn delay to 2-3 minutes
+UPDATE spawnlist SET min_respawn_delay = 120, max_respawn_delay = 180 WHERE mapid >= 174 AND mapid <= 180;
+UPDATE spawnlist SET count = 15 WHERE id = 17400001;
+UPDATE spawnlist SET count = 45 WHERE id = 17400002;
+UPDATE spawnlist SET count = 17 WHERE id = 17400003;
+UPDATE spawnlist SET count = 7 WHERE id = 17400004;
+UPDATE spawnlist SET count = 17 WHERE id = 17500001;
+UPDATE spawnlist SET count = 59 WHERE id = 17500002;
+UPDATE spawnlist SET count = 7 WHERE id = 17500003;
+UPDATE spawnlist SET count = 19 WHERE id = 17700001;
+UPDATE spawnlist SET count = 47 WHERE id = 17700002;
+UPDATE spawnlist SET count = 15 WHERE id = 17700003;
+UPDATE spawnlist SET count = 7 WHERE id = 17700004;
+UPDATE spawnlist SET count = 15 WHERE id = 17800001;
+UPDATE spawnlist SET count = 19 WHERE id = 17800002;
+UPDATE spawnlist SET count = 45 WHERE id = 17800003;
+UPDATE spawnlist SET count = 15 WHERE id = 17800004;
+UPDATE spawnlist SET count = 7 WHERE id = 17800005;
+UPDATE spawnlist SET count = 19 WHERE id = 17900001;
+UPDATE spawnlist SET count = 47 WHERE id = 17900002;
+UPDATE spawnlist SET count = 15 WHERE id = 17900003;
+UPDATE spawnlist SET count = 7 WHERE id = 17900004;
+UPDATE spawnlist SET count = 25 WHERE id = 18000001;
+UPDATE spawnlist SET count = 48 WHERE id = 18000002;
+UPDATE spawnlist SET count = 16 WHERE id = 18000003;
+UPDATE spawnlist SET count = 8 WHERE id = 18000004;
+
