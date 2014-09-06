@@ -54,7 +54,9 @@ public class L1DatabaseFactory {
 			_source.setUser(_user);
 			_source.setPassword(_password);
 			_source.setPartitionCount(3);
-			_source.setCloseConnectionWatch(true);
+            // The following is useful for debugging only
+            // this seems to cause a thread leak otherwise
+			//_source.setCloseConnectionWatch(true);
 			//_source.setLogStatementsEnabled(true);
 			_source.setIdleConnectionTestPeriodInSeconds(10);
 			_source.setTransactionRecoveryEnabled(true);
