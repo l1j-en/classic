@@ -1172,6 +1172,7 @@ public class L1NpcInstance extends L1Character {
 		}
 		if (_chatTimer != null) {
 			_chatTimer.cancel();
+			_chatTimer.purge();
 			_chatTimer = null;
 		}
 
