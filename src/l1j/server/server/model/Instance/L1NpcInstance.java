@@ -2211,6 +2211,17 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
+		// Fix timer thread leak
+		if (_chatTask != null) {
+			_chatTask.cancel();
+			_chatTask = null;
+		}
+		if (_chatTimer != null) {
+			_chatTimer.cancel();
+			_chatTimer.purge();
+			_chatTimer = null;
+		}
+		
 		_chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
 		_chatTask = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
