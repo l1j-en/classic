@@ -559,4 +559,3 @@ UPDATE spawnlist SET count = 8 WHERE id = 18000004;
 UPDATE spawnlist SET count = 114 WHERE id = 14200001;
 UPDATE spawnlist SET count = 24 WHERE id = 14200002;
 UPDATE spawnlist SET count = 21 WHERE id = 14200003;
-
