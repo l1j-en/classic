@@ -577,3 +577,24 @@ update npc set passispeed = 1120 where npcid = 45829;
 
 -- Update mountain fortress ant to not pick up off ground
 update npc set picupitem = 0 where npcid = 81232;
+
+-- Add adena drops to thebes
+insert into droplist values ( 46107, 'Mandragora - Light', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46108, 'Mandragora - Dark', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46109, 'Scarab - Yellow', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46110, 'Scarab - Blue', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46111, 'Kalbis - Dark', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46112, 'Kalbis - Red', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46113, 'Obelisk - Light', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46114, 'Obelisk - Dark', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46115, 'Sphinx - Light', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46116, 'Sphinx - Dark', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46117, 'Horus Falcon - Yellow', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46118, 'Horus Falcon - Blue', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46119, 'Thebes Guardian - Dark', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46120, 'Thebes Guardian - Red', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46121, 'Thebes Elder - Yellow', 40308, 'Adena', 350, 500, 1000000 );
+insert into droplist values ( 46122, 'Thebes Elder - Purple', 40308, 'Adena', 350, 500, 1000000 );
+
+-- Update treasure box piece drop rates to be the same
+update droplist set chance = 50000 where itemid in ( 49094, 49093, 49098 );
