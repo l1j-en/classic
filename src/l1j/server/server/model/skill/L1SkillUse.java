@@ -3357,13 +3357,13 @@ public class L1SkillUse {
 			turnStone(player, item, dark, DARK_STONE, "$2475", count, report);
 			break;
 		case DARK_STONE:
-			turnStone(player, item, brave, BRAVE_STONE, "$2475", count, report);
+			turnStone(player, item, brave, BRAVE_STONE, "$2476", count, report);
 			break;
 		case BRAVE_STONE:
-			turnStone(player, item, wise, WISE_STONE, "$2475", count, report);
+			turnStone(player, item, wise, WISE_STONE, "$2477", count, report);
 			break;
 		case WISE_STONE:
-			turnStone(player, item, kaiser, KAISER_STONE, "$2475", count, report);
+			turnStone(player, item, kaiser, KAISER_STONE, "$2478", count, report);
 			break;
 		}
 	}
