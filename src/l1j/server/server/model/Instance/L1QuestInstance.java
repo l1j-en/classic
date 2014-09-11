@@ -119,6 +119,13 @@ public class L1QuestInstance extends L1NpcInstance {
 			} else {
 				pc.sendPackets(new S_NPCTalkReturn(getId(), "roi2"));
 			}
+		} else if (npcId == 91312) {
+			if (pc.isElf() && (pc.getQuest().get_step(L1Quest.QUEST_LEVEL50) == 3)) {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "dspy2"));
+			}
+			else {
+				pc.sendPackets(new S_NPCTalkReturn(getId(), "dspy1"));
+			}
 		}
 
 		synchronized (this) {
@@ -164,6 +171,10 @@ public class L1QuestInstance extends L1NpcInstance {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(70957);
 				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
 						pc);
+				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
+			} else if ((npcId == 91312) && (pc.getQuest().get_step(L1Quest.QUEST_LEVEL50) == 3)) {
+				L1Npc l1npc = NpcTable.getInstance().getTemplate(91312);
+				new L1FollowerInstance(l1npc, this, pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			}
 		}

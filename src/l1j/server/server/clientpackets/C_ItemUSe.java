@@ -58,6 +58,7 @@ import static l1j.server.server.model.skill.L1SkillId.SLOW;
 import static l1j.server.server.model.skill.L1SkillId.SOLID_CARRIAGE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BLUE_POTION;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_DESTRUCTION_NOSTRUM;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_ELFBRAVE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_FLOATING_EYE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
@@ -2536,6 +2537,72 @@ public class C_ItemUSe extends ClientBasePacket {
 							L1SpawnUtil.spawn(pc, 91203, 0, 300000);
 						}
 					}
+			} else if ( itemId == 49165 ) {
+				// Level 50 quest
+				// if ( pc.isKnight() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isRoyal() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isElf() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isWizard() ) {
+					L1Teleport.teleport(pc, 32856, 32740, (short) 2000, 5, true);
+				// }
+				inventory.consumeItem(49165, 1);
+			} else if ( itemId == 49166 ) {
+				// Level 50 quest
+				// if ( pc.isKnight() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isRoyal() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isElf() ) {
+				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
+				// } else if ( pc.isWizard() ) {
+				//	// L1Teleport.teleport(pc, 32738, 32773, (short) 2000, 5, true);
+				// }
+				L1Teleport.teleport(pc, 32738, 32773, (short) 2000, 5, true);
+				inventory.consumeItem(49166, 1);
+			} else if (itemId == 49239) {
+				// Will of Destruction
+				L1Teleport.teleport(pc, 32788, 32773, (short) 2000, 1, true);
+				inventory.consumeItem(49239, 1);
+			} else if (itemId == 49167) {
+					// Ma's Flute
+
+					// Only spawn NPC if pc does not have
+					// Medicine in inventory
+					if (inventory.checkItem(49168, 1)) {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					} else {
+						boolean found = false;
+						if ( pc.getMapId() == 2000 ) {
+							for (L1Object obj : L1World.getInstance().getObject()) {
+								if (obj instanceof L1MonsterInstance) {
+									L1MonsterInstance mob = (L1MonsterInstance) obj;
+									if (mob != null) {
+										if (mob.getNpcTemplate().get_npcId() == 91309) {
+											found = true;
+											break;
+										}
+									}
+								}
+							}
+						} else {
+							found = true;
+						}
+						if (found) {
+							pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+						} else {
+							L1SpawnUtil.spawn(pc, 91309, 0, 300000);
+						}
+					}
+			} else if (itemId == 49168) {
+				pc.setSkillEffect(STATUS_DESTRUCTION_NOSTRUM, 600 * 1000);
+				pc.sendPackets(new S_SkillIconGFX(221,600));
+				pc.sendPackets(new S_SkillSound(pc.getId(), 190));
+				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
+				pc.sendPackets(new S_ServerMessage(1382));
+				inventory.consumeItem(49168, 1);
 			} else {
 				int locX = ((L1EtcItem) l1iteminstance.getItem()).get_locx();
 				int locY = ((L1EtcItem) l1iteminstance.getItem()).get_locy();
