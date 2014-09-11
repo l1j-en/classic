@@ -559,3 +559,11 @@ UPDATE spawnlist SET count = 8 WHERE id = 18000004;
 UPDATE spawnlist SET count = 114 WHERE id = 14200001;
 UPDATE spawnlist SET count = 24 WHERE id = 14200002;
 UPDATE spawnlist SET count = 21 WHERE id = 14200003;
+
+-- Update maps in database to match what was hardcoded
+update mapids set startX = 32704, endX = 32895, startY = 32768, endY = 32895 where mapid = 72;
+update mapids set startX = 32704, endX = 32895, startY = 32704, endY = 32895 where mapid = 73;
+update mapids set startX = 32704, endX = 32895, startY = 32768, endY = 32959 where mapid = 74;
+-- Remove some old(?)/new(?) maps
+delete from mapids where mapid = 17492;
+delete from mapids where mapid = 17820;
