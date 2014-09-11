@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +114,7 @@ public final class MapsTable {
 
 	/**
 	 * MapsTable Instances of return.
-	 * 
+	 *
 	 * @return MapsTable Instances
 	 */
 	public static MapsTable getInstance() {
@@ -124,8 +125,17 @@ public final class MapsTable {
 	}
 
 	/**
+	 * List of map id's
+	 *
+	 * @return integer array of MapIDs
+	 */
+	public Set<Integer> getMapIds() {
+		return _maps.keySet();
+	}
+
+	/**
 	 * getStartX
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return X Coordinate start
@@ -140,7 +150,7 @@ public final class MapsTable {
 
 	/**
 	 * X ends of the map coordinates are returned.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return X Coordinate quit
@@ -155,7 +165,7 @@ public final class MapsTable {
 
 	/**
 	 * Y coordinates of the map is starting to return.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return Y Coordinate start
@@ -170,7 +180,7 @@ public final class MapsTable {
 
 	/**
 	 * Y coordinates to the end of the map is returned.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return Y Coordinate quit
@@ -185,7 +195,7 @@ public final class MapsTable {
 
 	/**
 	 * Map of monsters to return the amount of magnification
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return Monster amount of magnification
@@ -200,7 +210,7 @@ public final class MapsTable {
 
 	/**
 	 * Map ratio drop to return
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return Drop-magnification
@@ -215,10 +225,10 @@ public final class MapsTable {
 
 	/**
 	 * Map of the water is going to be returned.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return if is underwater true
 	 */
 	public boolean isUnderwater(int mapId) {
@@ -231,7 +241,7 @@ public final class MapsTable {
 
 	/**
 	 * is map bookmarkable
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return if bookmarkable true
@@ -246,7 +256,7 @@ public final class MapsTable {
 
 	/**
 	 * returns if tele true
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return if tele true
@@ -261,7 +271,7 @@ public final class MapsTable {
 
 	/**
 	 * returns if escable
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
 	 * @return if esc true
@@ -276,10 +286,10 @@ public final class MapsTable {
 
 	/**
 	 * Map, or returns can be revived.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return If possible res true
 	 */
 	public boolean isUseResurrection(int mapId) {
@@ -292,10 +302,10 @@ public final class MapsTable {
 
 	/**
 	 * Maps, available pine wand is going to be returned.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return If possible, use pine wand true
 	 */
 	public boolean isUsePainwand(int mapId) {
@@ -308,10 +318,10 @@ public final class MapsTable {
 
 	/**
 	 * Map, but if you have a death penalty returned.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return if death penalty true
 	 */
 	public boolean isEnabledDeathPenalty(int mapId) {
@@ -324,10 +334,10 @@ public final class MapsTable {
 
 	/**
 	 * Map of the Summon with a pet can go to return.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return Summon with a pet can go if true
 	 */
 	public boolean isTakePets(int mapId) {
@@ -340,10 +350,10 @@ public final class MapsTable {
 
 	/**
 	 * Map is a pet or to call summon returns.
-	 * 
+	 *
 	 * @param mapId
 	 *            Map examine the map ID
-	 * 
+	 *
 	 * @return If the pet to call summon true
 	 */
 	public boolean isRecallPets(int mapId) {
