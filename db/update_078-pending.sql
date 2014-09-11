@@ -567,3 +567,13 @@ update mapids set startX = 32704, endX = 32895, startY = 32768, endY = 32959 whe
 -- Remove some old(?)/new(?) maps
 delete from mapids where mapid = 17492;
 delete from mapids where mapid = 17820;
+
+-- update walking/attack speeds
+update npc set passispeed = 1280 where npcid = 45359;
+update npc set passispeed = 1280 where npcid = 45206 or npcid = 45555 or npcid = 46068;
+update npc set passispeed = 480 where npcid = 81231;
+update npc set passispeed = 640 where npcid = 45824 or npcid = 45820;
+update npc set passispeed = 1120 where npcid = 45829;
+
+-- Update mountain fortress ant to not pick up off ground
+update npc set picupitem = 0 where npcid = 81232;
