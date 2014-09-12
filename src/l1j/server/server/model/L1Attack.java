@@ -71,6 +71,7 @@ import static l1j.server.server.model.skill.L1SkillId.RESIST_FEAR;
 import static l1j.server.server.model.skill.L1SkillId.SOUL_OF_FLAME;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_BARLOG;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_YAHEE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_DESTRUCTION_NOSTRUM;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_MITHRIL_POWDER;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_WATER;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_WATER_OF_EVA;
@@ -356,7 +357,7 @@ public class L1Attack {
 			} else if (!_pc.glanceCheck(_targetX, _targetY)) {
 				_isHit = false; // If the attacker is the player's decision is
 								// an obstacle
-			} else if (_weaponId == SWORD_OF_ORDEAL || _weaponId == SWORD_OF_ORDEAL_B || 
+			} else if (_weaponId == SWORD_OF_ORDEAL || _weaponId == SWORD_OF_ORDEAL_B ||
 					_weaponId == SWORD_OF_ORDEAL_C) {
 				_isHit = false; // B ~ C sword attack ordeal disabled
 			} else if (_calcType == PC_PC) {
@@ -522,6 +523,9 @@ public class L1Attack {
 			case 45674:
 			case 45685:
 				return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+			case 91310:
+				// Altar of Reviving
+				return !_pc.hasSkillEffect(STATUS_DESTRUCTION_NOSTRUM);
 			}
 			if (npcId >= 46068 && npcId <= 46091) {
 				return _pc.getTempCharGfx() == 6035;
@@ -1154,7 +1158,7 @@ public class L1Attack {
 	// PC poison attacks added
 	public void addPcPoisonAttack(L1Character attacker, L1Character target) {
 		int chance = _random.nextInt(100) + 1;
-		if ((_weaponId == FINGER_OF_DEATH || _weaponId == SWORD_OF_ANCIENT_ELF || 
+		if ((_weaponId == FINGER_OF_DEATH || _weaponId == SWORD_OF_ANCIENT_ELF ||
 				(_weaponId != UNARMED && _pc.hasSkillEffect(ENCHANT_VENOM))) && chance <= 10) {
 			// Usually poison, 3 second period, HP-5 Damage
 			L1DamagePoison.doInfection(attacker, target, 3000, 5);
@@ -1162,7 +1166,7 @@ public class L1Attack {
 	}
 
 	public void addChaserAttack() {
-		if (_weaponId != THEBES_BOW && _weaponId != THEBES_STAFF && 
+		if (_weaponId != THEBES_BOW && _weaponId != THEBES_STAFF &&
 				_weaponId != THEBES_SWORD && _weaponId != THEBES_EDORYU)
 			return;
 
