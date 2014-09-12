@@ -726,7 +726,7 @@ update mapids set startX = 32640, endX = 32959, startY = 32704, endY = 33023 whe
 
 -- Elf Lv 50 Quest
 -- Add droplist 49162 to giant ant cave drops..
-update etcitem set name = 'Ancient Dark Elf\'s Secret Text' where item_id = 41962
+update etcitem set name = 'Ancient Dark Elf\'s Secret Text' where item_id = 41962;
 insert into droplist values (45115,'Giant Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
 insert into droplist values (45190,'Giant Soldier Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
 
@@ -763,8 +763,8 @@ insert into droplist values (45415, 'Dark Elf General', 49160, 'Dantes\' Royal L
 insert into spawnlist values ( null, 'Dark Elf General (Lv 50 Knight Quest )', 10, 45415, 0, 32961, 32714, 20, 20, 0, 0, 0, 0, 0, 45, 90, 400, 0,0,0,0,0,0,0,0 );
 
 -- Unrelated update
-update etcitem set name = 'Teleport - Elemental Grave' where itemid = 40855;
-update etcitem set name = 'Spirit\'s Whisper', stackable = 1 where itemid = 49161;
+update etcitem set name = 'Teleport - Elemental Grave' where item_id = 40855;
+update etcitem set name = 'Spirit\'s Whisper', stackable = 1 where item_id = 49161;
 insert into droplist values ( 45416,"Fang of Earth", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
 insert into droplist values ( 45418,"Fang of Wind", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
 insert into droplist values ( 45419,"Fang of Glacier", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
