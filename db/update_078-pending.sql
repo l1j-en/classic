@@ -785,3 +785,6 @@ insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit\'s Whisp
 -- 32809, 32771 2000
 -- 32809, 32775 2000
 -- 32805, 32775 2000
+
+-- Remove Scroll of Teleportation - GM Room from GM Shop
+DELETE FROM shop WHERE item_id = 42023;
