@@ -722,4 +722,25 @@ insert into spawnlist_npc values ( 90566,'Rotting Corpse',1,91307,32808,32749,0,
 insert into spawnlist_npc values ( 90571,'Dicarding\'s Spy',1,91311,32923,32980,0,0,5,0,410,0 );
 
 -- Update map to be better
-update mapids set startX = 32640, endX = 32959, startY = 32704, endY = 33023;
+update mapids set startX = 32640, endX = 32959, startY = 32704, endY = 33023 where mapid = 2000;
+
+-- Elf Lv 50 Quest
+-- Add droplist 49162 to giant ant cave drops..
+update etcitem set name = 'Ancient Dark Elf\'s Secret Text' where item_id = 41962
+insert into droplist values (45115,'Giant Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
+insert into droplist values (45190,'Giant Soldier Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
+
+-- Unrelated update, but noticed ant queen is named deathknight in spawnlist table
+update spawnlist_boss set location = 'Ant Queen' where npc_id = 45614;
+
+-- find proper spawn location for 91312 ( female dicarding spy )
+-- past diad fortress.. near 32839, 32805, 400
+insert into spawnlist_npc values ( null, 'Female Spy of Dicarding', 1, 91312, 32840,32804, 5, 5, 5, 0, 400, 50 );
+
+-- Find out how to make priest of chaos(?) with the arms that go underground spawn along the way
+-- nice to have
+
+-- Find out how to make npc(91312) arrival to resistance village reward with 49163 ( secret intelligence report )
+-- complete
+
+-- altar of reviving did not drop fragment... why?? <----- need to be close to it and drop worked.. ?
