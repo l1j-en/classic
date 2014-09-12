@@ -94,7 +94,7 @@
 	</Action>
 	<!-- Lv50 Royal Quest / Rotting Corpse - Sanctuary of Evil -->
 	<Action Name="a" Class="P" NpcId="91307">
-		<Teleport X="32926" Y="32830" Map="410" Heading="5" Price="0"/>
+		<Teleport X="32922" Y="32995" Map="410" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<Action Name="quest 29 dicardingp2" Class="P">
@@ -155,7 +155,7 @@
 		<SetQuest Id="Level30" Step="4"/>
 		<ShowHtml HtmlId="gerardkE2"/>
 	</Action>
-	<MakeItem Name="request potion of rebirth" Class="K">
+	<MakeItem Name="request potion of rebirth" Class="K" AmountInputable="false">
 		<Item Amount="1" ItemId="40607"/> <!-- Potion of Revival -->
 		<Material Amount="1" ItemId="40544"/> <!-- Ramia`s Scale -->
 		<Succeed>
@@ -239,12 +239,12 @@
 	</MakeItem>
 	<!-- Lv50 Knight Quest / Entrance to Shrine - Ancient Space-->
 	<Action Name="ent" Class="K" NpcId="91299">
-		<Teleport X="32804" Y="32861" Map="2001" Heading="5" Price="0"/>
+		<Teleport X="32804" Y="32861" Map="2000" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Knight Quest / Rotting Corpse - Sanctuary of Evil -->
 	<Action Name="a" Class="K" NpcId="91307">
-		<Teleport X="32926" Y="32830" Map="410" Heading="5" Price="0"/>
+		<Teleport X="32922" Y="32995" Map="410" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Knight Quest / Dicarding -->
@@ -359,12 +359,12 @@
 	</MakeItem>
 	<!-- Lv50 Elf / Entrance to Shrine - Ancient Space -->
 	<Action Name="ent" Class="E" NpcId="91299">
-		<Teleport X="32804" Y="32861" Map="2002" Heading="5" Price="0"/>
+		<Teleport X="32804" Y="32861" Map="2000" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Elf / Dekan - Sanctuary of Evil -->
 	<Action Name="a" Class="E" NpcId="91307">
-		<Teleport X="32926" Y="32830" Map="410" Heading="5" Price="0"/>
+		<Teleport X="32922" Y="32995" Map="410" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Elf Quest / Dicarding-->
@@ -494,12 +494,12 @@
 	</Action>
 	<!-- Lv50 Wizard Quest / Entrance to Shrine - Ancient Space-->
 	<Action Name="ent" Class="W" NpcId="91299">
-		<Teleport X="32804" Y="32861" Map="2003" Heading="5" Price="0"/>
+		<Teleport X="32804" Y="32861" Map="2000" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Wizard Quest / Rotting Corpse - Sanctuary of Evil -->
 	<Action Name="a" Class="W" NpcId="91307">
-		<Teleport X="32926" Y="32830" Map="410" Heading="5" Price="0"/>
+		<Teleport X="32922" Y="32995" Map="410" Heading="5" Price="0"/>
 		<SetQuest Id="Level50" Step="5"/>
 	</Action>
 	<!-- Lv50 Wizard Quest / Dicarding -->

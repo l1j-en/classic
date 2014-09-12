@@ -598,3 +598,190 @@ insert into droplist values ( 46122, 'Thebes Elder - Purple', 40308, 'Adena', 35
 
 -- Update treasure box piece drop rates to be the same
 update droplist set chance = 50000 where itemid in ( 49094, 49093, 49098 );
+
+-- Lv 50 NPCs
+-- -- Living Armor
+-- (91300,'Guignol\'s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+-- -- Phantom Knight
+-- (91301,'Warrior of Noble Will','$5753','Lv50 Quest NPC','L1Monster',4664,41,1080,278,-43,19,15,16,16,16,50,1682,-25,'small',2,2,0,640,1160,1400,1160,1160,0,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,5000,25,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+-- -- Silhouette | Guardian Armor
+-- (91302,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,52,1800,318,-55,20,18,16,12,15,65,2705,-25,'small',2,1,0,960,1200,1120,1200,1200,1,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,-1,0,0,0,0,0),
+-- -- Gargoyle
+-- (91303,'Guignol\'s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+-- -- Blue Demon
+-- (91304,'Fighter of Noble Will','$5754','Lv50 Quest NPC','L1Monster',4034,60,4000,100,-60,20,20,20,18,20,60,3601,-100,'small',0,3,0,640,720,1760,880,960,2,0,0,0,0,0,'spirit',1,-1,-1,0,0,0,5000,40,5000,100,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,1,0,1),
+-- -- Beholder
+-- (91305,'Guignol\'s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+-- -- Silhouette
+-- (91306,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,16,110,15,-18,14,8,16,12,14,30,257,-14,'small',2,1,1,640,1920,1760,1920,1920,1,0,0,1,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
+
+-- -- 2771 gfxid = guardian armor
+update npc set gfxid = 2771 where npcid = 91302;
+
+-- Droplists for secret intelligence report from SoE Oum's
+insert into droplist values (45331,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45391,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45450,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45453,'',49164,'Secret Intelligence Report',1,1,100000);
+insert into droplist values (45482,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45569,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45570,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45571,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45579,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45582,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45587,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45605,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45615,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (45647,'',49164,'Secret Intelligence Report',1,1,250000);
+insert into droplist values (46016,'',49164,'Secret Intelligence Report',1,1,100000);
+
+-- Droplists for various parts of lv 50 dungeon
+-- 1f Drops
+insert into droplist values (91300,'',49165,'Sanctum 2nd Floor Key',1,1,200000);
+insert into droplist values (91301,'',49165,'Sanctum 2nd Floor Key',1,1,1000000);
+-- 2f Drops
+insert into droplist values (91304,'',49166,'Sanctum 3rd Floor Key',1,1,1000000);
+-- 3f Drops
+insert into droplist values (91306,'',49167,'Ma\'s Horn Flute',1,1,1000000);
+-- Altar Room
+insert into droplist values (91309,'',49168,'Secret Medicine of Destruction',1,1,1000000);
+insert into droplist values (91310,'',49241,'Fragment of Altar',1,1,1000000);
+
+-- Level 50 Quest entry
+insert into spawnlist_npc values ( null,'Entrance to the Sanctuary',1,91299,32918,32994,0,0,0,0,410,0);
+
+-- NPC Spawn
+--| id | location | count | npc_templateid | group_id | locx  | locy  | randomx | randomy | locx1 | locy1 | locx2 | locy2 | heading | min_respawn_delay | max_respawn_delay | mapid | respawn_screen | movement_distance | rest | near_spawn | spawn_home | spawn_home_range | spawn_home_count | spawn_home_delay |
+--| id | npc_id | note | group_id | count | loc_x | loc_y | random_x | random_y | loc_x1 | loc_y1 | loc_x2 | loc_y2 | heading | min_respawn_delay | max_respawn_delay | map_id | respawn_screen | movement_distance | rest | near_spawn
+
+-- Pseudo maps
+-- 1f: 32704 - 32895, 32832 - 33023
+-- West:         32720, 32857 2000
+-- North: Start: 32809, 32857   2000
+-- East:         32809, 32941
+-- South:        32720, 32941 2000
+
+-- 2f:
+-- Start: 32856, 32740   2000
+-- End: 32882, 32906 2000  ( +20 x/y for demon + gargoyle spawn )
+
+-- 3f:
+-- Start: 32738, 32773
+-- Mid: 32758, 32771
+
+-- Altar:
+-- Start: 32788, 32773 2000
+
+-- OLD 50 quest
+-- 32729 32989 2000
+
+-- 1f
+-- npc_templateid 91300 | group_id 0 | locx 32768  | locy 32895  | randomx 42 | randomy 42 | locx1 0 | locy1 0 | locx2 0 | locy2 0 | heading 0 | min_respawn_delay 15 | max_respawn_delay 30 | mapid 2000 | respawn_screen | movement_distance | rest | near_spawn | spawn_home | spawn_home_range | spawn_home_count | spawn_home_delay |
+insert into spawnlist values (null,'Sanctum of Restoration', 30, 91300, 0, 32768, 32895, 42, 42, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+insert into spawnlist values (null,'Sanctum of Restoration', 5, 91301, 0, 32768, 32895, 42, 42, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- 2f
+-- first hallway
+insert into spawnlist values (null,'Sanctum of Restoration', 20, 91305, 0, 32910, 32740, 20, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+-- second hallway
+insert into spawnlist values (null,'Sanctum of Restoration', 20, 91305, 0, 32930, 32820, 10, 80, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+-- third hallway
+insert into spawnlist values (null,'Sanctum of Restoration', 20, 91305, 0, 32890, 32820, 100, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+insert into spawnlist values (null,'Sanctum of Restoration', 1, 91304, 0, 32882, 32906, 20, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+insert into spawnlist values (null,'Sanctum of Restoration', 6, 91303, 0, 32882, 32906, 20, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- 3f
+insert into spawnlist values (null,'Sanctum of Restoration', 20, 91306, 0, 32758, 32771, 20, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+insert into spawnlist values (null,'Sanctum of Restoration', 20, 91302, 0, 32758, 32771, 20, 20, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Altar Room
+insert into spawnlist values (null,'Sanctum of Restoration', 1, 91310, 0, 32816, 32773, 0, 0, 0, 0, 0, 0, 0, 15, 30, 2000, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Create text stuff for rotting corpse
+insert into npcaction values ( 91307, '','','','' );
+insert into npcaction values ( 91308, '','','','' );
+-- Create text stuff for entrance to sanctuary
+insert into npcaction values ( 91299, '','','','' );
+-- Create text stuff for Dicarding spy
+insert into npcaction values (91311,'','','','');
+
+-- 2f key needs to be usable
+update etcitem set use_type = 'normal' where item_id = 49165;
+-- 3f key needs to be usable
+update etcitem set use_type = 'normal' where item_id = 49166;
+-- Ma's Horn Flute needs to be usable
+update etcitem set use_type = 'normal' where item_id = 49167;
+-- Will of Destruction to be usable
+update etcitem set use_type = 'normal' where item_id = 49239;
+
+-- Update Priest Guignol hp to 2000 from 20000
+update npc set hp = 2000 where npcid = 91309;
+
+insert into spawnlist_npc values ( 90562,'Rotting Corpse',1,91308,32774,32772,0,0,6,0,2000,0 );
+insert into spawnlist_npc values ( 90566,'Rotting Corpse',1,91307,32808,32749,0,0,3,0,2000,0 );
+insert into spawnlist_npc values ( 90571,'Dicarding\'s Spy',1,91311,32923,32980,0,0,5,0,410,0 );
+
+-- Update map to be better
+update mapids set startX = 32640, endX = 32959, startY = 32704, endY = 33023 where mapid = 2000;
+
+-- Elf Lv 50 Quest
+-- Add droplist 49162 to giant ant cave drops..
+update etcitem set name = 'Ancient Dark Elf\'s Secret Text' where item_id = 41962
+insert into droplist values (45115,'Giant Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
+insert into droplist values (45190,'Giant Soldier Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
+
+-- Unrelated update, but noticed ant queen is named deathknight in spawnlist table
+update spawnlist_boss set location = 'Ant Queen' where npc_id = 45614;
+
+-- find proper spawn location for 91312 ( female dicarding spy )
+-- past diad fortress.. near 32839, 32805, 400
+insert into spawnlist_npc values ( null, 'Female Spy of Dicarding', 1, 91312, 32840,32804, 0, 0, 5, 0, 400, 10 );
+
+-- Find out how to make priest of chaos(?) with the arms that go underground spawn along the way
+-- nice to have
+
+-- Find out how to make npc(91312) arrival to resistance village reward with 49163 ( secret intelligence report )
+-- complete
+
+-- altar of reviving did not drop fragment... why?? <----- need to be close to it and drop worked.. ?
+
+-- Royal Lv 50 Quest
+update etcitem set name = 'Dantes\' Royal Letter' where item_id = 49160;
+insert into droplist values (45481,'Lesser Demon',49159,'Movement Order',1,1,50000 );
+
+-- Create text stuff for Official Kihal
+insert into npcaction values (91298,'','','','');
+insert into spawnlist_npc values ( null, 'Official Kihal', 1, 49198, 32927,32830, 0, 0, 5, 0, 410, 50 );
+update npc set name = 'Official Kihal' where npcid = 49198;
+
+-- Additional nerf for priest of guignol
+update npc set ac = -50, mpr = 100, hpr = 100 where npcid = 91309;
+
+-- Knight Lv 50 Quest
+-- We'll hijack 45415 as it doesn't currently spawn
+insert into droplist values (45415, 'Dark Elf General', 49160, 'Dantes\' Royal Letter', 1, 1, 50000 );
+insert into spawnlist values ( null, 'Dark Elf General (Lv 50 Knight Quest )', 10, 45415, 0, 32961, 32714, 20, 20, 0, 0, 0, 0, 0, 45, 90, 400, 0,0,0,0,0,0,0,0 );
+
+-- Unrelated update
+update etcitem set name = 'Teleport - Elemental Grave' where itemid = 40855;
+update etcitem set name = 'Spirit\'s Whisper', stackable = 1 where itemid = 49161;
+insert into droplist values ( 45416,"Fang of Earth", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45418,"Fang of Wind", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45419,"Fang of Glacier", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45424,"Fang of Flame", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45500,"Water Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45508,"Earth Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45510,"Wind Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45511,"Fire Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45591,"Abyss Water Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45592,"Abyss Earth Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45593,"Abyss Wind Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+
+-- Additional nerf
+-- Note for later
+-- May want to restrict use of ma's horn to
+-- 32805, 32771 2000
+-- 32809, 32771 2000
+-- 32809, 32775 2000
+-- 32805, 32775 2000

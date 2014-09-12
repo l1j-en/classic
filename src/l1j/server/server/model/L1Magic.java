@@ -63,6 +63,7 @@ import static l1j.server.server.model.skill.L1SkillId.SILENCE;
 import static l1j.server.server.model.skill.L1SkillId.SLOW;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_BARLOG;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_YAHEE;
+import static l1j.server.server.model.skill.L1SkillId.STATUS_DESTRUCTION_NOSTRUM;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_MITHRIL_POWDER;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_WATER;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HOLY_WATER_OF_EVA;
@@ -557,6 +558,9 @@ public class L1Magic {
 			case 45674:
 			case 45685:
 				return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+			case 91310:
+				// Altar of Reviving
+				return !_pc.hasSkillEffect(STATUS_DESTRUCTION_NOSTRUM);
 			}
 			if (npcId >= 46068 && npcId <= 46091) {
 				return _pc.getTempCharGfx() == 6035;
