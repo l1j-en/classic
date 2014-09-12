@@ -735,7 +735,7 @@ update spawnlist_boss set location = 'Ant Queen' where npc_id = 45614;
 
 -- find proper spawn location for 91312 ( female dicarding spy )
 -- past diad fortress.. near 32839, 32805, 400
-insert into spawnlist_npc values ( null, 'Female Spy of Dicarding', 1, 91312, 32840,32804, 5, 5, 5, 0, 400, 50 );
+insert into spawnlist_npc values ( null, 'Female Spy of Dicarding', 1, 91312, 32840,32804, 0, 0, 5, 0, 400, 10 );
 
 -- Find out how to make priest of chaos(?) with the arms that go underground spawn along the way
 -- nice to have
@@ -744,3 +744,44 @@ insert into spawnlist_npc values ( null, 'Female Spy of Dicarding', 1, 91312, 32
 -- complete
 
 -- altar of reviving did not drop fragment... why?? <----- need to be close to it and drop worked.. ?
+
+-- Royal Lv 50 Quest
+update etcitem set name = 'Dantes\' Royal Letter' where item_id = 49160;
+insert into droplist values (45481,'Lesser Demon',49159,'Movement Order',1,1,50000 );
+
+-- Create text stuff for Official Kihal
+insert into npcaction values (91298,'','','','');
+insert into spawnlist_npc values ( null, 'Official Kihal', 1, 49198, 32927,32830, 0, 0, 5, 0, 410, 50 );
+update npc set name = 'Official Kihal' where npcid = 49198;
+
+-- Additional nerf for priest of guignol
+update npc set ac = -50, mpr = 100, hpr = 100 where npcid = 91309;
+
+-- Knight Lv 50 Quest
+-- We'll hijack 45415 as it doesn't currently spawn
+insert into droplist values (45415, 'Dark Elf General', 49160, 'Dantes\' Royal Letter', 1, 1, 50000 );
+insert into spawnlist values ( null, 'Dark Elf General (Lv 50 Knight Quest )', 10, 45415, 0, 32961, 32714, 20, 20, 0, 0, 0, 0, 0, 45, 90, 400, 0,0,0,0,0,0,0,0 );
+
+-- Unrelated update
+update etcitem set name = 'Teleport - Elemental Grave' where itemid = 40855;
+update etcitem set name = 'Spirit\'s Whisper', stackable = 1 where itemid = 49161;
+insert into droplist values ( 45416,"Fang of Earth", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45418,"Fang of Wind", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45419,"Fang of Glacier", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45424,"Fang of Flame", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45500,"Water Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45508,"Earth Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45510,"Wind Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45511,"Fire Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45591,"Abyss Water Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45592,"Abyss Earth Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45593,"Abyss Wind Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+
+-- Additional nerf
+-- Note for later
+-- May want to restrict use of ma's horn to
+-- 32805, 32771 2000
+-- 32809, 32771 2000
+-- 32809, 32775 2000
+-- 32805, 32775 2000
