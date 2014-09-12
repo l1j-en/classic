@@ -14,7 +14,7 @@ update etcitem set stackable=1 where name like "%memory crystal%";
 update etcitem set stackable=1 where name like "%spellbook%"; 
 update etcitem set stackable=1 where name like "%spirit crystal%"; 
 update etcitem set stackable=1 where name like "%dark spirit crystal%"; 
-update etcitem set stackable=1 where name like "%technical document%"; 
+update etcitem set stackable=1 where name like "%technicaldocument%"; 
 update etcitem set stackable=1 where name="Crystal Ball of Necromancer";
 update etcitem set stackable=1 where item_id=41243 or item_id=41244; -- lasta boxes
 update etcitem set stackable=1 where item_id in (40031, 40131, 40132, 40133, 40134, 40135, 41090, 41091, 41092, 40329, 140329); -- orc totems and native totems
@@ -241,3 +241,6 @@ INSERT INTO `shop` VALUES
 update shop set purchasing_price = 2000 where item_id = 20182;
 -- Cloak of Protection purchasing_price 1 adena -> 10k
 update shop set purchasing_price = 10000 where item_id = 20063;
+
+-- Make Candle of Reminiscence tradeable
+UPDATE etcitem SET trade = 0 WHERE item_id = 49142;
