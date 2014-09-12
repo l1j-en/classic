@@ -651,8 +651,8 @@ insert into droplist values (91310,'',49241,'Fragment of Altar',1,1,1000000);
 insert into spawnlist_npc values ( null,'Entrance to the Sanctuary',1,91299,32918,32994,0,0,0,0,410,0);
 
 -- NPC Spawn
---| id | location | count | npc_templateid | group_id | locx  | locy  | randomx | randomy | locx1 | locy1 | locx2 | locy2 | heading | min_respawn_delay | max_respawn_delay | mapid | respawn_screen | movement_distance | rest | near_spawn | spawn_home | spawn_home_range | spawn_home_count | spawn_home_delay |
---| id | npc_id | note | group_id | count | loc_x | loc_y | random_x | random_y | loc_x1 | loc_y1 | loc_x2 | loc_y2 | heading | min_respawn_delay | max_respawn_delay | map_id | respawn_screen | movement_distance | rest | near_spawn
+-- | id | location | count | npc_templateid | group_id | locx  | locy  | randomx | randomy | locx1 | locy1 | locx2 | locy2 | heading | min_respawn_delay | max_respawn_delay | mapid | respawn_screen | movement_distance | rest | near_spawn | spawn_home | spawn_home_range | spawn_home_count | spawn_home_delay |
+-- | id | npc_id | note | group_id | count | loc_x | loc_y | random_x | random_y | loc_x1 | loc_y1 | loc_x2 | loc_y2 | heading | min_respawn_delay | max_respawn_delay | map_id | respawn_screen | movement_distance | rest | near_spawn
 
 -- Pseudo maps
 -- 1f: 32704 - 32895, 32832 - 33023
