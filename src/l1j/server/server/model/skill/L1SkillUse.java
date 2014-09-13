@@ -2300,7 +2300,7 @@ public class L1SkillUse {
 									ActionCodes.ACTION_Shop, pc.getShopChat()));
 						}
 						if (_user instanceof L1PcInstance) {
-							L1PinkName.onAction(pc, _user);
+							((L1PcInstance) _user)._pinkName.onAction(pc);
 						}
 					}
 				} else if (_skillId == TURN_UNDEAD

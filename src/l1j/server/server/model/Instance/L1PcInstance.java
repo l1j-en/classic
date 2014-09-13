@@ -108,6 +108,7 @@ import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PacketBox;
+import l1j.server.server.serverpackets.S_PinkName;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -133,6 +134,8 @@ public class L1PcInstance extends L1Character {
 	private short _trueHpr = 0;
 	private short _hpr = 0;
 
+	public L1PinkName _pinkName = null;
+	
 	public short getHpr() {
 		return _hpr;
 	}
@@ -308,6 +311,10 @@ public class L1PcInstance extends L1Character {
 		if (isInParty() && getParty().isMember(perceivedFrom)) {
 			perceivedFrom.sendPackets(new S_HPMeter(this));
 		}
+		
+		if (isPinkName()) {
+			perceivedFrom.sendPackets(new S_PinkName(getId(), _pinkName.getSecondsLeft()));
+		}
 
 		// TODO Check if these are working, fixes for poison showing up on
 		// characters entering your screen
@@ -445,6 +452,7 @@ public class L1PcInstance extends L1Character {
 		_bookmarks = new ArrayList<L1BookMark>();
 		_quest = new L1Quest(this);
 		_equipSlot = new L1EquipmentSlot(this);
+		_pinkName = new L1PinkName(this);
 	}
 
 	@Override
@@ -982,7 +990,7 @@ public class L1PcInstance extends L1Character {
 		if (mpDamage > 0 && !isDead()) {
 			delInvis();
 			if (attacker instanceof L1PcInstance) {
-				L1PinkName.onAction(this, attacker);
+				((L1PcInstance) attacker)._pinkName.onAction(this);
 			}
 			if (attacker instanceof L1PcInstance
 					&& ((L1PcInstance) attacker).isPinkName()) {
@@ -1078,7 +1086,7 @@ public class L1PcInstance extends L1Character {
 			if (damage > 0) {
 				delInvis();
 				if (attacker instanceof L1PcInstance) {
-					L1PinkName.onAction(this, attacker);
+					((L1PcInstance) attacker)._pinkName.onAction(this);
 				}
 				if (attacker instanceof L1PcInstance
 						&& ((L1PcInstance) attacker).isPinkName()) {
