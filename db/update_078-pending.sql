@@ -788,3 +788,6 @@ insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit\'s Whisp
 
 -- Remove Scroll of Teleportation - GM Room from GM Shop
 DELETE FROM shop WHERE item_id = 42023;
+
+-- Fix incorrect item id for Spirit Defender
+UPDATE droplist SET itemId = 450005 WHERE item_name = 'Spirit Defender';
