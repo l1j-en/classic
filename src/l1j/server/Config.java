@@ -131,6 +131,8 @@ public final class Config {
 	public static boolean SEND_PACKET_BEFORE_TELEPORT;
 
 	public static boolean DETECT_DB_RESOURCE_LEAKS;
+	
+	public static boolean DUAL_PINK;
 
 	/** Rate control */
 	public static int RATE_HP_REGEN;
@@ -611,6 +613,7 @@ public final class Config {
 							"False"));
 			DELAY_DISCONNECT = Integer.parseInt(serverSettings.getProperty(
 					"DelayDisconnect", "0"));
+			DUAL_PINK = Boolean.parseBoolean(serverSettings.getProperty("DualPink", "False"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
