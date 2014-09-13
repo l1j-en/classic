@@ -2697,11 +2697,16 @@ public class L1MerchantInstance extends L1NpcInstance {
 				if (player.isDragonKnight()) { //
 					int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (player.getLevel() >= 30 && lv30_step == 2) {
-						htmlid = "talrion1";
-					} else if (player.getLevel() >= 45 && lv45_step == 5) {
-						htmlid = "talrion9";
-					}
+					int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
+          if (player.getLevel() >= 30 && lv30_step == 2) {
+              htmlid = "talrion1";
+          } else if (player.getLevel() >= 45 && lv45_step == 5) {
+              htmlid = "talrion9";
+          } else if ((player.getLevel() >= 50) && (lv50_step == 4)) {
+              htmlid = "talrion10";
+          } else {
+              htmlid = "talrion4";
+          }
 				}
 			} else if (npcid == 80135) { //
 				if (player.isDragonKnight()) { //
@@ -2717,21 +2722,23 @@ public class L1MerchantInstance extends L1NpcInstance {
 				int lv30_step = quest.get_step(L1Quest.QUEST_LEVEL30);
 				int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 				int lv50_step = quest.get_step(L1Quest.QUEST_LEVEL50);
-				if (player.isDragonKnight()) { //
+				if (player.isDragonKnight()) {
 					if (player.getLevel() >= 50
 							&& lv45_step == L1Quest.QUEST_END) {
-						if (lv50_step == 0) {
-							htmlid = "prokel21";
-						} else if (lv50_step == L1Quest.QUEST_END) { //
-							htmlid = "prokel32";
-						} else {
-							htmlid = "prokel24";
-						}
+              if (lv50_step == 0) {
+                  htmlid = "prokel21";
+              } else if (lv50_step > 3) {
+                  htmlid = "prokel32";
+              } else if (lv50_step > 1) {
+                  htmlid = "prokel25";
+              } else {
+                  htmlid = "prokel24";
+              }
 					} else if (player.getLevel() >= 45
 							&& lv30_step == L1Quest.QUEST_END) {
 						if (lv45_step == 0) {
 							htmlid = "prokel15";
-						} else if (lv45_step >= 5) { //
+						} else if (lv45_step >= 5) {
 							htmlid = "prokel20";
 						} else {
 							htmlid = "prokel17";
