@@ -2603,6 +2603,46 @@ public class C_ItemUSe extends ClientBasePacket {
 				pc.broadcastPacket(new S_SkillSound(pc.getId(), 190));
 				pc.sendPackets(new S_ServerMessage(1382));
 				inventory.consumeItem(49168, 1);
+			} else if (itemId == 49227) {
+				// Sparks of Red Flame
+
+				// Only spawn NPC if pc does not have
+				// Thought Piece of Savius in inventory
+				if (inventory.checkItem(49231, 1)) {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				} else {
+					boolean found = false;
+					if ( pc.getMapId() == 2004 ) {
+						for (L1Object obj : L1World.getInstance().getObject()) {
+							if (obj instanceof L1MonsterInstance) {
+								L1MonsterInstance mob = (L1MonsterInstance) obj;
+								if (mob != null) {
+									if (mob.getNpcTemplate().get_npcId() == 91204) {
+										found = true;
+										break;
+									}
+								}
+							}
+						}
+					} else {
+						found = true;
+					}
+					if (found) {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					} else {
+						L1SpawnUtil.spawn(pc, 91204, 0, 300000);
+					}
+				}
+			// Lv 50 Dragon Knight quest
+			} else if (itemId == 49216) {
+					// Prochel's Amulet
+					// I *think* this is supposed to be a reusable escape scroll
+					// We'll make it teleport the user to Elder Prochel
+					if ( pc.getMapId() == 2004 ) {
+						L1Teleport.teleport(pc, 32818, 32832, (short) 1001, 5, true);
+					} else {
+						pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					}
 			} else {
 				int locX = ((L1EtcItem) l1iteminstance.getItem()).get_locx();
 				int locY = ((L1EtcItem) l1iteminstance.getItem()).get_locy();
