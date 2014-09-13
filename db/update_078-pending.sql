@@ -791,3 +791,6 @@ DELETE FROM shop WHERE item_id = 42023;
 
 -- Fix incorrect item id for Spirit Defender
 UPDATE droplist SET itemId = 450005 WHERE item_name = 'Spirit Defender';
+
+-- Helms of Magic should not be usable by DKs
+UPDATE armor SET use_dragonknight = 0 WHERE item_id in (20013,20014,20015);
