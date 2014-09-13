@@ -794,3 +794,16 @@ UPDATE droplist SET itemId = 450005 WHERE item_name = 'Spirit Defender';
 
 -- Helms of Magic should not be usable by DKs
 UPDATE armor SET use_dragonknight = 0 WHERE item_id in (20013,20014,20015);
+
+-- Dragon Knight Lv 50 Quest
+insert into droplist values ( 91205, 'Cracked Time', 49229, 'Otherworldly Thought Powder', 1, 1, 150000 );
+insert into npc values ( 91204,'Lucius','$1279','Outsider','L1Monster',1773,46,1500,300,-40,20,24,24,22,28,30,2117,-55,'large',4,1,0,960,1640,0,1200,1640,2,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,100,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0);
+insert into droplist values ( 91204,'Lucius',49231,'Thought Piece of Lucius',1,1,1000000);
+
+-- Updating incorrectly placed monsters
+delete from spawnlist_npc where id in ( 90461, 90462, 90463 );
+
+insert into spawnlist values ( null, 'Cracked Time', 30, 91205, 0, 32825, 32842, 60, 60, 0, 0, 0, 0, 0, 30, 45, 2004, 0,0,0,0,0,0,0,0 );
+insert into spawnlist values ( null, 'Wyvern', 12, 91206, 0, 32825, 32842, 60, 60, 0, 0, 0, 0, 0, 30, 45, 2004, 0,0,0,0,0,0,0,0 );
+insert into spawnlist values ( null, 'Otyu', 12, 91207, 0, 32825, 32842, 60, 60, 0, 0, 0, 0, 0, 30, 45, 2004, 0,0,0,0,0,0,0,0 );
+
