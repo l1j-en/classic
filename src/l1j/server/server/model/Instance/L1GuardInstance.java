@@ -52,6 +52,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		guardsToCastles.put(70992, L1CastleLocation.HEINE_CASTLE_ID);
 		guardsToCastles.put(70863, L1CastleLocation.HEINE_CASTLE_ID);
 		guardsToCastles.put(70857, L1CastleLocation.HEINE_CASTLE_ID);
+		guardsToCastles.put(71273, L1CastleLocation.HEINE_CASTLE_ID);
 		guardsToCastles.put(70993, L1CastleLocation.DOWA_CASTLE_ID);
 		guardsToCastles.put(70994, L1CastleLocation.DOWA_CASTLE_ID);
 		guardsToCastles.put(70995, L1CastleLocation.DOWA_CASTLE_ID);
@@ -194,6 +195,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		case 70778:
 		case 70817:
 		case 70656:
+		case 71273:
 		case 70863:
 			if (checkHasCastle(player, guardsToCastles.get(npcid))) {
 				htmlid = "gatekeeper";
