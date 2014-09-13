@@ -1,5 +1,6 @@
 package l1j.server.server.model;
 
+import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -8,21 +9,28 @@ import l1j.server.server.serverpackets.S_PinkName;
 // Referenced classes of package l1j.server.server.model:
 // L1PinkName
 public class L1PinkName {
+	private L1PcInstance _pc = null;
+	protected PinkNameTimer _timer = null;
 
-	private L1PinkName() {
+	public L1PinkName(L1PcInstance pc) {
+		_pc = pc;
 	}
 
-	static class PinkNameTimer implements Runnable {
+	protected static class PinkNameTimer implements Runnable {
 		private L1PcInstance _attacker = null;
+		private int _secondsLeft = 180;
+		private L1PinkName _parent = null;
 
-		public PinkNameTimer(L1PcInstance attacker) {
+		public PinkNameTimer(L1PinkName parent, L1PcInstance attacker) {
+			_parent = parent;
 			_attacker = attacker;
 		}
 
 		@Override
 		public void run() {
 			Thread.currentThread().setName("L1PinkName");
-			for (int i = 0; i < 180; i++) {
+			while ( _secondsLeft > 0) {
+				_secondsLeft--;
 				try {
 					Thread.sleep(1000);
 				} catch (Exception exception) {
@@ -45,48 +53,69 @@ public class L1PinkName {
 			// BCM: added this, as pinkname flag wasn't getting reset properly
 			// on timeout, affecting -warp usage.
 			_attacker.setPinkName(false);
+			_parent._timer = null;
+		}
+		
+		protected void reset() {
+			_secondsLeft = 180;
+		}
+		
+		public int getSecondsLeft() {
+			return _secondsLeft;
 		}
 	}
 
-	public static void onAction(L1PcInstance pc, L1Character cha) {
-		if (pc == null || cha == null) {
+	public void onAction(L1PcInstance victim) {
+		L1PcInstance attacker = _pc;
+		if (attacker == null || victim == null) {
 			return;
 		}
 
-		if (!(cha instanceof L1PcInstance)) {
+		if (!(attacker instanceof L1PcInstance)) {
 			return;
 		}
-		L1PcInstance attacker = (L1PcInstance) cha;
-		if (pc.getId() == attacker.getId()) {
+		if (victim.getId() == attacker.getId()) {
 			return;
 		}
-		if (attacker.getFightId() == pc.getId()) {
+		if (attacker.getFightId() == victim.getId()) {
 			return;
 		}
 
 		boolean isNowWar = false;
-		int castleId = L1CastleLocation.getCastleIdByArea(pc);
+		int castleId = L1CastleLocation.getCastleIdByArea(victim);
 		if (castleId != 0) {
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
 
-		if (pc.getLawful() >= 0
-				&& //
-				!pc.isPinkName() && attacker.getLawful() >= 0
-				&& !attacker.isPinkName()) {
-			if (pc.getZoneType() == ZoneType.Normal
-					&& //
-					attacker.getZoneType() == ZoneType.Normal
+		if (victim.getLawful() >= 0
+				&& (!victim.isPinkName() || Config.DUAL_PINK)
+				&& attacker.getLawful() >= 0
+				&& victim.getZoneType() == ZoneType.Normal
+					&& attacker.getZoneType() == ZoneType.Normal
 					&& isNowWar == false) {
-				attacker.setPinkName(true);
-				attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
-				if (!attacker.isGmInvis()) {
-					attacker.broadcastPacket(new S_PinkName(attacker.getId(),
-							180));
-				}
-				PinkNameTimer pink = new PinkNameTimer(attacker);
-				GeneralThreadPool.getInstance().execute(pink);
+			if (_timer == null) {
+				broadcastPink();
+				_timer = new PinkNameTimer(this, attacker);
+				GeneralThreadPool.getInstance().execute(_timer);					
+			}
+			if (_timer.getSecondsLeft() <= 90) {
+				broadcastPink();
+				_timer.reset();
 			}
 		}
+	}
+	
+	private void broadcastPink() {
+		L1PcInstance attacker = _pc;
+		attacker.setPinkName(true);
+		attacker.sendPackets(new S_PinkName(attacker.getId(), 180));
+		if (!attacker.isGmInvis()) {
+			attacker.broadcastPacket(new S_PinkName(attacker.getId(),
+					180));
+		}
+	}
+	
+	public int getSecondsLeft() {
+		return _timer.getSecondsLeft();
 	}
 }
