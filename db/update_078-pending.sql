@@ -807,3 +807,6 @@ insert into spawnlist values ( null, 'Cracked Time', 30, 91205, 0, 32825, 32842,
 insert into spawnlist values ( null, 'Wyvern', 12, 91206, 0, 32825, 32842, 60, 60, 0, 0, 0, 0, 0, 30, 45, 2004, 0,0,0,0,0,0,0,0 );
 insert into spawnlist values ( null, 'Otyu', 12, 91207, 0, 32825, 32842, 60, 60, 0, 0, 0, 0, 0, 30, 45, 2004, 0,0,0,0,0,0,0,0 );
 
+-- Add Heine Castle door to Sanctuary of Eva entrance
+INSERT INTO npc VALUES (71273, 'Gatekeeper', '$474', '', 'L1Guard', 148, 10, 3000, 300, 0, 126, 126, 126, 126, 126, 0, 0, 1800, 'large', 0, 2, 0, 480, 840, 0, 840, 840, 0, 0, 0, 0, 0, 0, 'guard', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 0, 0);
+INSERT INTO spawnlist_door VALUES ('Heine Castle', 1336, 32734, 32790, 62, 0, 71273);
