@@ -58,7 +58,9 @@ public class L1DatabaseFactory {
             // this seems to cause a thread leak otherwise
 			//_source.setCloseConnectionWatch(true);
 			//_source.setLogStatementsEnabled(true);
-			_source.setIdleConnectionTestPeriodInSeconds(10);
+			_source.setIdleConnectionTestPeriodInSeconds(60);
+			// This should keep idle connections from timing out
+			_source.setConnectionTestStatement("/* ping */ SELECT 1");
 			_source.setTransactionRecoveryEnabled(true);
 			/* Test the connection */
 			//_source.getConnection().close();
