@@ -56,9 +56,12 @@ public class C_Result extends ClientBasePacket {
 
 	// TODO: somewhere more accessible, since we use this other places.
 	public void ban(final L1PcInstance player) {
-		Account.ban(player.getAccountName());
-		IpTable.getInstance().banIp(player.getNetConnection().getIp());
-		player.sendPackets(new S_Disconnect());
+		// This ban had false positives, such as a player using a potion
+		// while their storage window is open, so disable it for now
+
+		//Account.ban(player.getAccountName());
+		//IpTable.getInstance().banIp(player.getNetConnection().getIp());
+		//player.sendPackets(new S_Disconnect());
 	}
 
 	public C_Result(byte abyte0[], ClientThread clientthread) throws Exception {
