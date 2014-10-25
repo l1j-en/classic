@@ -244,3 +244,8 @@ update shop set purchasing_price = 10000 where item_id = 20063;
 
 -- Make Candle of Reminiscence tradeable
 UPDATE etcitem SET trade = 0 WHERE item_id = 49142;
+
+-- Missing Knight Weapons
+insert into droplist values 
+	(45652, "Cougar", 450001, "Paagrio's Hatred", 1, 1, 10000),
+	(45653, "Mummy Lord", 450002, "Maphr's Retribution", 1, 1, 10000);
