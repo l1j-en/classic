@@ -812,3 +812,6 @@ INSERT INTO npc VALUES (71273, 'Gatekeeper', '$474', '', 'L1Guard', 148, 10, 300
 INSERT INTO spawnlist_door VALUES (2043, 'Heine Castle', 1336, 32734, 32790, 62, 0, 71273);
 UPDATE dungeon SET src_x = 32734, src_y = 32790 WHERE src_x = 32733 and src_y = 32791 and src_mapid = 62;
 INSERT INTO spawnlist_npc VALUES (88229, 'Gatekeeper', 1, 71273, 32734, 32793, 0, 0, 4, 0, 62, 100);
+
+-- Remove aggro from Lindvior.
+update npc set agro = 0, agrososc = 0, agrocoi = 0 where npcid = 45681;
