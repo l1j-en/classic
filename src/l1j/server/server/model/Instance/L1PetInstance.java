@@ -196,13 +196,13 @@ public class L1PetInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (getCurrentHp() > 0) {
-			if (damage > 0) {
+			if (damage > 0 && (L1PcInstance) attacker != (L1PcInstance) getMaster()) {
 				setHate(attacker, 0);
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
-			}
-			if (attacker instanceof L1PcInstance && damage > 0) {
-				L1PcInstance player = (L1PcInstance) attacker;
-				player.setPetTarget(this);
+				if (attacker instanceof L1PcInstance) {
+					L1PcInstance player = (L1PcInstance) attacker;
+					player.setPetTarget(this);
+				}
 			}
 			int newHp = getCurrentHp() - damage;
 			if (newHp <= 0) {
