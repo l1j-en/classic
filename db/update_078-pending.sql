@@ -476,7 +476,7 @@ insert into npcaction values (91314,'bluesoul_f4','bluesoul_f4','','');
 insert into npcaction values (91315,'redsoul_f4','redsoul_f4','','');
 
 -- Items
---insert into droplist values (91203,'Savius',49229,'Thought Piece of Savius',1,1,1000000);
+-- insert into droplist values (91203,'Savius',49229,'Thought Piece of Savius',1,1,1000000);
 insert into droplist values (91203,'Savius',49206,'Thought Piece of Savius',1,1,1000000);
 insert into droplist values (91206,'Wyvern (Q)', 49204,'Tears of Wyvern',1,1,500000);
 insert into droplist values (91207,'Otyu', 49203,'Tears of Otyu',1,1,500000);
