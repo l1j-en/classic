@@ -815,3 +815,7 @@ INSERT INTO spawnlist_npc VALUES (88229, 'Gatekeeper', 1, 71273, 32734, 32793, 0
 
 -- Remove aggro from Lindvior.
 update npc set agro = 0, agrososc = 0, agrocoi = 0 where npcid = 45681;
+
+-- Set stackable some of the new high droprate quest items.
+update etcitem set stackable = 1 where item_id = 49164;
+update etcitem set stackable = 1 where item_id = 49162;
