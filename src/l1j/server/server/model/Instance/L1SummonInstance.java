@@ -220,8 +220,7 @@ public class L1SummonInstance extends L1NpcInstance {
 					setTarget(attacker);
 				}
 			}
-			if (attacker instanceof L1PcInstance && damage > 0  &&
-					(L1PcInstance) attacker != (L1PcInstance) getMaster()) {
+			if (attacker instanceof L1PcInstance && damage > 0) {
 				L1PcInstance player = (L1PcInstance) attacker;
 				player.setPetTarget(this);
 			}
