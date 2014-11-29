@@ -212,19 +212,19 @@ public class L1SummonInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (getCurrentHp() > 0) {
-			if (damage > 0 && (L1PcInstance) attacker != (L1PcInstance) getMaster()) {
+			if (damage > 0) {
 				setHate(attacker, 0);
 				removeSkillEffect(FOG_OF_SLEEPING);
 				if (!isExsistMaster()) {
 					_currentPetStatus = 1;
 					setTarget(attacker);
 				}
-				if (attacker instanceof L1PcInstance) {
-					L1PcInstance player = (L1PcInstance) attacker;
-					player.setPetTarget(this);
-				}
 			}
-
+			if (attacker instanceof L1PcInstance && damage > 0  &&
+					(L1PcInstance) attacker != (L1PcInstance) getMaster()) {
+				L1PcInstance player = (L1PcInstance) attacker;
+				player.setPetTarget(this);
+			}
 			int newHp = getCurrentHp() - damage;
 			if (newHp <= 0) {
 				Death(attacker);
@@ -235,7 +235,7 @@ public class L1SummonInstance extends L1NpcInstance {
 			Death(attacker);
 		}
 	}
-
+	
 	public synchronized void Death(L1Character lastAttacker) {
 		if (!isDead()) {
 			setDead(true);
