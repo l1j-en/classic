@@ -200,8 +200,7 @@ public class L1PetInstance extends L1NpcInstance {
 				setHate(attacker, 0);
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
 			}
-			if (attacker instanceof L1PcInstance && damage > 0 &&
-					(L1PcInstance) attacker != (L1PcInstance) getMaster()) {
+			if (attacker instanceof L1PcInstance && damage > 0) {
 				L1PcInstance player = (L1PcInstance) attacker;
 				player.setPetTarget(this);
 			}
