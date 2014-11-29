@@ -819,3 +819,6 @@ update npc set agro = 0, agrososc = 0, agrocoi = 0 where npcid = 45681;
 -- Set stackable some of the new high droprate quest items.
 update etcitem set stackable = 1 where item_id = 49164;
 update etcitem set stackable = 1 where item_id = 49162;
+
+-- Fix ettin polymorph's swing speed with axes
+update spr_action set framecount = 20 where spr_id = 3633 and act_id = 12;

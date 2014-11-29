@@ -62,6 +62,8 @@ public class L1DatabaseFactory {
 			// This should keep idle connections from timing out
 			_source.setConnectionTestStatement("/* ping */ SELECT 1");
 			_source.setTransactionRecoveryEnabled(true);
+			// Disable bugged BoneCP 0.8.0 unclosed connection tracking
+			_source.setDisableConnectionTracking(true);
 			/* Test the connection */
 			//_source.getConnection().close();
 		} catch (Exception e) {
