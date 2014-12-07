@@ -822,3 +822,6 @@ update etcitem set stackable = 1 where item_id = 49162;
 
 -- Fix ettin polymorph's swing speed with axes
 update spr_action set framecount = 20 where spr_id = 3633 and act_id = 12;
+
+-- Fix name for Rock of Mental Control
+update etcitem set name = 'Rock of Mental Control' where item_id = 40703;
