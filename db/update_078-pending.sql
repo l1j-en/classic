@@ -825,3 +825,11 @@ update spr_action set framecount = 20 where spr_id = 3633 and act_id = 12;
 
 -- Fix name for Rock of Mental Control
 update etcitem set name = 'Rock of Mental Control' where item_id = 40703;
+
+-- Disable (temporarily?) the AOE on Gold Dragon.
+-- Change skill area from 2 to 1.
+update skills set area = 1 where skill_id = 20005;
+-- Change mobskill AreaHeight from 2 to 1.
+update mobskill set AreaHeight = 1 where mobid = 46046 and actno = 1;
+-- Compensate for nerf with a higher mpr, from 4 to 10 (matching high cat).
+update npc set mpr = 10 where npcid = 46046;
