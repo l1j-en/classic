@@ -67,7 +67,28 @@ public class IpTable {
 	}
 
 	public boolean isBannedIp(String s) {
-		return _banip.contains(s);
+		boolean isBanned = false;
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("SELECT * FROM ban_ip WHERE ip=?");
+			pstm.setString(1, s);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				isBanned = true;
+			}
+			isInitialized = true;
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		return isBanned;
 	}
 
 	public void getIpTable() {
