@@ -833,3 +833,7 @@ update skills set area = 1 where skill_id = 20005;
 update mobskill set AreaHeight = 1 where mobid = 46046 and actno = 1;
 -- Compensate for nerf with a higher mpr, from 4 to 10 (matching high cat).
 update npc set mpr = 10 where npcid = 46046;
+
+-- Fix settings for Official Kiholl.  Was incorrectly named and had wrong npcid.
+update spawnlist_npc set location = 'Official Kiholl' where npc_templateid = 49198;
+update spawnlist_npc set npc_templateid = 91298 where npc_templateid = 49198;
