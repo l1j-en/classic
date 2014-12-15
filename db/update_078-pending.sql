@@ -837,3 +837,6 @@ update npc set mpr = 10 where npcid = 46046;
 -- Fix settings for Official Kiholl.  Was incorrectly named and had wrong npcid.
 update spawnlist_npc set location = 'Official Kiholl' where npc_templateid = 49198;
 update spawnlist_npc set npc_templateid = 91298 where npc_templateid = 49198;
+
+-- Set stackable Movement Order drop from TOI lesser demons.
+update etcitem set stackable = 1 where item_id = 49159;
