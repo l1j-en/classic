@@ -840,3 +840,7 @@ update spawnlist_npc set npc_templateid = 91298 where npc_templateid = 49198;
 
 -- Set stackable Movement Order drop from TOI lesser demons.
 update etcitem set stackable = 1 where item_id = 49159;
+
+-- Set area to 0 for Gold Dragon Fire Breath.
+update mobskill set AreaWidth = 0, AreaHeight = 0 where mobid = 46046 and actno = 1;
+update skills set area = 0 where skill_id = 20005;
