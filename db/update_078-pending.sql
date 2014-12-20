@@ -844,3 +844,7 @@ update etcitem set stackable = 1 where item_id = 49159;
 -- Set area to 0 for Gold Dragon Fire Breath.
 update mobskill set AreaWidth = 0, AreaHeight = 0 where mobid = 46046 and actno = 1;
 update skills set area = 0 where skill_id = 20005;
+
+-- Reduce TOS 2F spawn by 20%.
+update spawnlist set count = 8
+       where id in (52300001, 52300002, 52300003, 52300004, 52300005, 52300006);
