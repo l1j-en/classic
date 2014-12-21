@@ -848,3 +848,6 @@ update skills set area = 0 where skill_id = 20005;
 -- Reduce TOS 2F spawn by 20%.
 update spawnlist set count = 8
        where id in (52300001, 52300002, 52300003, 52300004, 52300005, 52300006);
+
+-- Fix insane regen on Cloak of Training Knight quest mob.
+update npc set hpr = 50, mpr = 50 where npcid = 45931;
