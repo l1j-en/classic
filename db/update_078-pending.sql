@@ -402,22 +402,22 @@ insert into npc values
 (91203,'Savius','$5658','Outsider','L1Monster',6788,46,1100,300,-40,20,24,24,22,28,40,2117,-55,'large',4,1,0,960,1640,0,1200,1640,2,0,0,1,1,1,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91298,'Official Kiholl','$5790','Lv50 Quest NPC','L1Merchant',6773,22,750,300,-65,25,25,25,25,25,100,485,-5,'small',0,6,0,960,1120,960,1172,1172,3,0,0,0,0,0,'chaos',1,-1,-1,0,0,0,5000,8,5000,50,0,0,0,0,0,0,0,4,0,0,0,0,4552,2,-1,0,0,0,0,0),
 (91299,'Entrance to Shrine','$5777','Lv50 Quest NPC','L1Merchant',155,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
-(91300,'Guignol\'s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+(91300,'Guignol`s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
 (91301,'Warrior of Noble Will','$5753','Lv50 Quest NPC','L1Monster',4664,41,1080,278,-43,19,15,16,16,16,50,1682,-25,'small',2,2,0,640,1160,1400,1160,1160,0,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,5000,25,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91302,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,52,1800,318,-55,20,18,16,12,15,65,2705,-25,'small',2,1,0,960,1200,1120,1200,1200,1,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,-1,0,0,0,0,0),
-(91303,'Guignol\'s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(91303,'Guignol`s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91304,'Fighter of Noble Will','$5754','Lv50 Quest NPC','L1Monster',4034,60,4000,100,-60,20,20,20,18,20,60,3601,-100,'small',0,3,0,640,720,1760,880,960,2,0,0,0,0,0,'spirit',1,-1,-1,0,0,0,5000,40,5000,100,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,1,0,1),
-(91305,'Guignol\'s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+(91305,'Guignol`s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 (91306,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,16,110,15,-18,14,8,16,12,14,30,257,-14,'small',2,1,1,640,1920,1760,1920,1920,1,0,0,1,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
 (91307,'Rotting Corpse','$5752','Lv50 Quest NPC','L1Merchant',5676,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0),
 (91308,'Rotting Corpse','$5752','Lv50 Quest NPC','L1Merchant',5676,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0),
 (91309,'Priest Guignol','$5746','Lv50 Quest NPC','L1Monster',2495,66,20000,1250,-75,50,20,66,22,23,99,4357,-250,'large',0,2,0,1920,1440,1280,1440,1240,3,0,0,1,1,1,'',0,-1,-1,0,0,0,5000,250,5000,350,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,14,1,0,1),
 (91310,'Altar of Reviving','$5755','Lv50 Quest NPC','L1Monster',6892,40,5000,50,-20,0,0,0,0,0,60,0,-5000,'small',0,0,0,0,960,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,1),
-(91311,'Dicarding\'s Spy','$6068','Lvl 50 Wizard Quest NPC','L1Merchant',148,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,480,840,520,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
+(91311,'Dicarding`s Spy','$6068','Lvl 50 Wizard Quest NPC','L1Merchant',148,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,480,840,520,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (91312,'Female Spy of Dicarding','$5800','Lv50 Elf Quest NPC','L1Quest',3097,1,1000,0,-15,0,0,0,0,0,0,1,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (91313,'Assassination Squad of Sorcerers','$5801','Lv50 Elf Quest NPC','L1Monster',3989,53,1800,300,-63,55,21,11,21,18,70,2810,-5,'small',0,2,0,720,1040,1080,2400,1040,3,0,0,1,1,1,'chaos',1,-1,-1,0,0,0,5000,150,5000,50,0,0,0,0,0,0,0,4,0,0,0,0,0,30,-1,0,14,0,0,0),
 (91314,'Flame of Blue Soul','$5657','Lv50 Illusionist Quest NPC','L1Merchant',7009,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
-(91315,'Red Soul\'s Flame','$5919','Lv50 Dragon Knight Quest NPC','L1Merchant',6786,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0);
+(91315,'Red Soul`s Flame','$5919','Lv50 Dragon Knight Quest NPC','L1Merchant',6786,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,640,800,0,1320,1480,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0);
 
 -- Updates for Lv 45 Illusionist Quest
 insert into npcaction values (81247, 'wcorpse1', 'wcorpse1', '', '');
@@ -449,8 +449,8 @@ update armor set name = 'Cloak of Illusionist' where item_id = 21100;
 
 -- re-add Knight's Visor to shoplists in Giran and Oren
 insert into shop values
-(70032,'Virgil',20006,'Knight\'s Visor',21,5000,0,2500),
-(70061,'Mandra',20006,'Knight\'s Visor',38,5000,0,2500);
+(70032,'Virgil',20006,'Knight`s Visor',21,5000,0,2500),
+(70061,'Mandra',20006,'Knight`s Visor',38,5000,0,2500);
 
 -- Updates for Lv 50 Illusionist Quest
 update mapids set locationname = 'Goras - Level 50 Illusionist Quest' where mapid = 2004;
@@ -495,7 +495,6 @@ insert into droplist values (45546,'Doppleganger (Boss)', 40212, 'Spellbook (Pol
 -- Update level 45 elf quest to only spawn a single boss instead of 2
 update spawnlist set count = 1 where npc_templateid = 45301;
 
-
 -- Reduce spawn count on ToS 2f from 20 to 10
 update spawnlist set count = 10 where mapid = 523;
 
@@ -512,7 +511,6 @@ update npc set nameid = '$5885' where npcid = 81246;
 -- If we need to tweak we can later
 update spawnlist_ub set npc_templateid = 81067 where id = 279;
 
-
 -- Fix some item/mob names
 UPDATE weapon SET name = 'Execution Sword of Fidelity' WHERE item_id = 61;
 UPDATE etcitem SET name = 'Assorted Spice Sauce' WHERE item_id = 49048;
@@ -525,7 +523,6 @@ UPDATE etcitem SET unidentified_name_id = '$5435 $4928', identified_name_id = '$
 UPDATE etcitem SET unidentified_name_id = '$5436 $4928', identified_name_id = '$5436 $4928' WHERE item_id = 49063;
 UPDATE etcitem SET unidentified_name_id = '$5437 $4928', identified_name_id = '$5437 $4928' WHERE item_id = 49064;
 UPDATE npc SET name = 'Doppelganger Boss' WHERE npcid = 45828;
-
 
 -- Lower TOI 74+ spawn amount by 1/3 and set respawn delay to 2-3 minutes
 UPDATE spawnlist SET min_respawn_delay = 120, max_respawn_delay = 180 WHERE mapid >= 174 AND mapid <= 180;
@@ -553,7 +550,6 @@ UPDATE spawnlist SET count = 25 WHERE id = 18000001;
 UPDATE spawnlist SET count = 48 WHERE id = 18000002;
 UPDATE spawnlist SET count = 16 WHERE id = 18000003;
 UPDATE spawnlist SET count = 8 WHERE id = 18000004;
-
 
 -- Increase TOI 42f spawn by 33%
 UPDATE spawnlist SET count = 114 WHERE id = 14200001;
@@ -601,17 +597,17 @@ update droplist set chance = 50000 where itemid in ( 49094, 49093, 49098 );
 
 -- Lv 50 NPCs
 -- -- Living Armor
--- (91300,'Guignol\'s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
+-- (91300,'Guignol`s Warrior','$5747','Lv50 Quest NPC','L1Monster',1578,31,300,50,-25,18,15,12,12,10,40,962,-35,'small',2,1,1,1440,1920,0,1920,1920,2,0,0,1,1,0,'livingarmour',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,-1,0,0,0,0,0),
 -- -- Phantom Knight
 -- (91301,'Warrior of Noble Will','$5753','Lv50 Quest NPC','L1Monster',4664,41,1080,278,-43,19,15,16,16,16,50,1682,-25,'small',2,2,0,640,1160,1400,1160,1160,0,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,5000,25,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 -- -- Silhouette | Guardian Armor
 -- (91302,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,52,1800,318,-55,20,18,16,12,15,65,2705,-25,'small',2,1,0,960,1200,1120,1200,1200,1,0,0,1,1,1,'lastabad',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,-1,0,0,0,0,0),
 -- -- Gargoyle
--- (91303,'Guignol\'s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+-- (91303,'Guignol`s Fighter','$5748','Lv50 Quest NPC','L1Monster',2308,35,550,0,-30,0,0,0,0,99,0,1226,-30,'large',0,1,0,960,1240,1240,1240,1240,0,0,0,1,1,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 -- -- Blue Demon
 -- (91304,'Fighter of Noble Will','$5754','Lv50 Quest NPC','L1Monster',4034,60,4000,100,-60,20,20,20,18,20,60,3601,-100,'small',0,3,0,640,720,1760,880,960,2,0,0,0,0,0,'spirit',1,-1,-1,0,0,0,5000,40,5000,100,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,1,0,1),
 -- -- Beholder
--- (91305,'Guignol\'s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
+-- (91305,'Guignol`s Watcher','$5751','Lv50 Quest NPC','L1Monster',1123,33,450,500,-10,10,13,12,18,18,50,1090,-30,'large',1,1,1,960,1120,0,1480,1120,0,0,1,1,1,1,'gazer',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0),
 -- -- Silhouette
 -- (91306,'Guardian of Noble Will','$5770','Lv50 Quest NPC','L1Monster',1571,16,110,15,-18,14,8,16,12,14,30,257,-14,'small',2,1,1,640,1920,1760,1920,1920,1,0,0,1,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
 
@@ -642,7 +638,7 @@ insert into droplist values (91301,'',49165,'Sanctum 2nd Floor Key',1,1,1000000)
 -- 2f Drops
 insert into droplist values (91304,'',49166,'Sanctum 3rd Floor Key',1,1,1000000);
 -- 3f Drops
-insert into droplist values (91306,'',49167,'Ma\'s Horn Flute',1,1,1000000);
+insert into droplist values (91306,'',49167,'Ma`s Horn Flute',1,1,1000000);
 -- Altar Room
 insert into droplist values (91309,'',49168,'Secret Medicine of Destruction',1,1,1000000);
 insert into droplist values (91310,'',49241,'Fragment of Altar',1,1,1000000);
@@ -719,16 +715,16 @@ update npc set hp = 2000 where npcid = 91309;
 
 insert into spawnlist_npc values ( 90562,'Rotting Corpse',1,91308,32774,32772,0,0,6,0,2000,0 );
 insert into spawnlist_npc values ( 90566,'Rotting Corpse',1,91307,32808,32749,0,0,3,0,2000,0 );
-insert into spawnlist_npc values ( 90571,'Dicarding\'s Spy',1,91311,32923,32980,0,0,5,0,410,0 );
+insert into spawnlist_npc values ( 90571,'Dicarding`s Spy',1,91311,32923,32980,0,0,5,0,410,0 );
 
 -- Update map to be better
 update mapids set startX = 32640, endX = 32959, startY = 32704, endY = 33023 where mapid = 2000;
 
 -- Elf Lv 50 Quest
 -- Add droplist 49162 to giant ant cave drops..
-update etcitem set name = 'Ancient Dark Elf\'s Secret Text' where item_id = 41962;
-insert into droplist values (45115,'Giant Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
-insert into droplist values (45190,'Giant Soldier Ant',49162,'Ancient Dark Elf\'s Text',1,1,50000 );
+update etcitem set name = 'Ancient Dark Elf`s Secret Text' where item_id = 41962;
+insert into droplist values (45115,'Giant Ant',49162,'Ancient Dark Elf`s Text',1,1,50000 );
+insert into droplist values (45190,'Giant Soldier Ant',49162,'Ancient Dark Elf`s Text',1,1,50000 );
 
 -- Unrelated update, but noticed ant queen is named deathknight in spawnlist table
 update spawnlist_boss set location = 'Ant Queen' where npc_id = 45614;
@@ -764,19 +760,19 @@ insert into spawnlist values ( null, 'Dark Elf General (Lv 50 Knight Quest )', 1
 
 -- Unrelated update
 update etcitem set name = 'Teleport - Elemental Grave' where item_id = 40855;
-update etcitem set name = 'Spirit\'s Whisper', stackable = 1 where item_id = 49161;
-insert into droplist values ( 45416,"Fang of Earth", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45418,"Fang of Wind", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45419,"Fang of Glacier", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45424,"Fang of Flame", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45500,"Water Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45508,"Earth Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45510,"Wind Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45511,"Fire Spirit Master", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45591,"Abyss Water Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45592,"Abyss Earth Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45593,"Abyss Wind Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
-insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit\'s Whisper', 1, 1, 50000 );
+update etcitem set name = 'Spirit`s Whisper', stackable = 1 where item_id = 49161;
+insert into droplist values ( 45416,"Fang of Earth", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45418,"Fang of Wind", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45419,"Fang of Glacier", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45424,"Fang of Flame", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45500,"Water Spirit Master", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45508,"Earth Spirit Master", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45510,"Wind Spirit Master", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45511,"Fire Spirit Master", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45591,"Abyss Water Spirit", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45592,"Abyss Earth Spirit", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45593,"Abyss Wind Spirit", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
+insert into droplist values ( 45594,"Abyss Fire Spirit", 49161, 'Spirit`s Whisper', 1, 1, 50000 );
 
 -- Additional nerf
 -- Note for later
@@ -851,3 +847,6 @@ update spawnlist set count = 8
 
 -- Fix insane regen on Cloak of Training Knight quest mob.
 update npc set hpr = 50, mpr = 50 where npcid = 45931;
+
+-- Fix incorrect itemdesc_id
+update etcitem set itemdesc_id = 22 where item_id = 40126;
