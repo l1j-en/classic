@@ -853,3 +853,7 @@ update etcitem set itemdesc_id = 22 where item_id = 40126;
 
 -- Update dragon hpr to be closer to live.
 update npc set hpr = 1000 where npcid in (45681, 45684, 45683, 45682);
+
+-- Fix incorrect Name ID for Scroll of Teleportation: 2F Magic Training
+Update etcitem set unidentified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
+Update etcitem set identified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
