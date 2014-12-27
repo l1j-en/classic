@@ -850,3 +850,6 @@ update npc set hpr = 50, mpr = 50 where npcid = 45931;
 
 -- Fix incorrect itemdesc_id
 update etcitem set itemdesc_id = 22 where item_id = 40126;
+
+-- Update dragon hpr to be closer to live.
+update npc set hpr = 1000 where npcid in (45681, 45684, 45683, 45682);
