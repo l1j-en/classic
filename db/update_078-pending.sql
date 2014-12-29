@@ -858,7 +858,7 @@ update npc set hpr = 1000 where npcid in (45681, 45684, 45683, 45682);
 update etcitem set unidentified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
 update etcitem set identified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
 
--- Reduce number of Kurtz spawns to 5 in Giram DM (was 20).
+-- Reduce number of Kurtz spawns to 5 in Giran DM (was 20).
 update spawnlist_ub set count = 5 where id = 279 and npc_templateid = 45600;
 
 -- Fix Black-Light Wing name (was Giant Pumpkin Seed).
