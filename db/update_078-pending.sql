@@ -848,12 +848,15 @@ update spawnlist set count = 8
 -- Fix insane regen on Cloak of Training Knight quest mob.
 update npc set hpr = 50, mpr = 50 where npcid = 45931;
 
--- Fix incorrect itemdesc_id
+-- Fix incorrect itemdesc_id for scroll of identify.
 update etcitem set itemdesc_id = 22 where item_id = 40126;
 
 -- Update dragon hpr to be closer to live.
 update npc set hpr = 1000 where npcid in (45681, 45684, 45683, 45682);
 
 -- Fix incorrect Name ID for Scroll of Teleportation: 2F Magic Training
-Update etcitem set unidentified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
-Update etcitem set identified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
+update etcitem set unidentified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
+update etcitem set identified_name_id = '$230 - 2F Magic Training' where item_id = 42020;
+
+-- Reduce number of Kurtz spawns to 5 in Giram DM (was 20).
+update spawnlist_ub set count = 5 where id = 279 and npc_templateid = 45600;
