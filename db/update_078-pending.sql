@@ -860,3 +860,7 @@ update etcitem set identified_name_id = '$230 - 2F Magic Training' where item_id
 
 -- Reduce number of Kurtz spawns to 5 in Giram DM (was 20).
 update spawnlist_ub set count = 5 where id = 279 and npc_templateid = 45600;
+
+-- Fix Black-Light Wing name (was Giant Pumpkin Seed).
+update droplist set item_name = 'Black-Light Wing' where mobid = 45526 and itemid = 40720;
+update etcitem set name = 'Black-Light Wing' where item_id = 40720;
