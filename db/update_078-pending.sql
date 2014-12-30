@@ -869,3 +869,100 @@ update etcitem set name = 'Black-Light Wing' where item_id = 40720;
 -- gear.
 insert into beginner values (19, 40005, 1, 0, 'Candle', 'A', 0, 0);
 insert into beginner values (20, 40005, 1, 0, 'Candle', 'A', 0, 0);
+
+-- Reduce spawnrate on TOI 81F.
+-- Insolent Zenith Queen, 68->51.
+update spawnlist set count = 51
+    where npc_templateid = 45581 and mapid = 181 and count = 68;
+-- Lesser Seer, 24->18.
+update spawnlist set count = 18
+    where npc_templateid = 45586 and mapid = 181 and count = 24;
+-- Marquise Vampire, 24->18.
+update spawnlist set count = 18
+    where npc_templateid = 45604 and mapid = 181 and count = 24;
+-- Reduce spawnrate on TOI 82F.
+-- Insolent Zenith Queen, 62->46.
+update spawnlist set count = 46
+    where npc_templateid = 45581 and mapid = 182 and count = 62;
+-- Lesser Seer, 24->18.
+update spawnlist set count = 18
+    where npc_templateid = 45586 and mapid = 182 and count = 24;
+-- Marquise Vampire, 26->19.
+update spawnlist set count = 19
+    where npc_templateid = 45604 and mapid = 182 and count = 26;
+-- Reduce spawnrate on TOI 83F.
+-- Insolent Zenith Queen, 96->72.
+update spawnlist set count = 72
+    where npc_templateid = 45581 and mapid = 183 and count = 96;
+-- Lesser Seer, 22->16.
+update spawnlist set count = 16
+    where npc_templateid = 45586 and mapid = 183 and count = 22;
+-- Zombie Lord of Fear, 14->8.
+update spawnlist set count = 8
+    where npc_templateid = 45589 and mapid = 183 and count = 14;
+-- Reduce spawnrate on TOI 84F.
+-- Insolent Zenith Queen, 88->66.
+update spawnlist set count = 66
+    where npc_templateid = 45581 and mapid = 184 and count = 88;
+-- Lesser Seer, 28->21.
+update spawnlist set count = 21
+    where npc_templateid = 45586 and mapid = 184 and count = 28;
+-- Zombie Lord of Fear, 24->18.
+update spawnlist set count = 18
+    where npc_templateid = 45589 and mapid = 184 and count = 24;
+-- Marquise Vampire, 10->8.
+update spawnlist set count = 8
+    where npc_templateid = 45604 and mapid = 184 and count = 10;
+-- Reduce spawnrate on TOI 85F.
+-- Lesser Seer, 84->63.
+update spawnlist set count = 63
+    where npc_templateid = 45586 and mapid = 185  and count = 84;
+-- Zombie Lord of Fear, 22->16.
+update spawnlist set count = 16
+    where npc_templateid = 45589 and mapid = 185 and count = 22;
+-- Marquise Vampire, 32->24
+update spawnlist set count = 24
+    where npc_templateid = 45604 and mapid = 185 and count = 32;
+-- Reduce spawnrate on TOI 87F.
+-- Insolent Zenith Queen, 70->52
+update spawnlist set count = 52
+    where npc_templateid = 45581 and mapid = 187 and count = 70;
+-- Zombie Lord of Fear, 22->16.
+update spawnlist set count = 16
+    where npc_templateid = 45589 and mapid = 187 and count = 22;
+-- Marquise Vampire, 50->37.
+update spawnlist set count = 37
+    where npc_templateid = 45604 and mapid = 187 and count = 50;
+-- Reduce spawnrate on TOI 88F.
+-- Insolent Zenith Queen, 70->52.
+update spawnlist set count = 52
+    where npc_templateid = 45581 and mapid = 188 and count = 70;
+-- Zombie Lord of Fear, 22->16.
+update spawnlist set count = 16
+    where npc_templateid = 45589 and mapid = 188 and count = 22;
+-- Marquise Vampire, 28->21.
+update spawnlist set count = 21
+    where npc_templateid = 45604 and mapid = 188 and count = 28;
+-- Lesser Seer, 28->21.
+update spawnlist set count = 21
+    where npc_templateid = 45586 and mapid = 188 and count = 28;
+-- Reduce spawnrate on TOI 89F.
+-- Lesser Seer, 52->38.
+update spawnlist set count = 38
+    where npc_templateid = 45586 and mapid = 189 and count = 52;
+-- Zombie Lord of Fear, 40->39.
+update spawnlist set count = 30
+    where npc_templateid = 45589 and mapid = 189 and count = 40;
+-- Marquise Vampire, 46->34.
+update spawnlist set count = 34
+    where npc_templateid = 45604 and mapid = 189 and count = 46;
+-- Reduce spawnrate on TOI 90F.
+-- Lesser Seer, 52->39.
+update spawnlist set count = 39
+    where npc_templateid = 45586 and mapid = 190 and count = 52;
+-- Zombie Lord of Fear, 48->36.
+update spawnlist set count = 36
+    where npc_templateid = 45589 and mapid = 190 and count = 48;
+-- Marquise Vampire, 46->34.
+update spawnlist set count = 34
+    where npc_templateid = 45604 and mapid = 190 and count = 46;
