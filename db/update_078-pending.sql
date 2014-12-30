@@ -864,3 +864,8 @@ update spawnlist_ub set count = 5 where id = 279 and npc_templateid = 45600;
 -- Fix Black-Light Wing name (was Giant Pumpkin Seed).
 update droplist set item_name = 'Black-Light Wing' where mobid = 45526 and itemid = 40720;
 update etcitem set name = 'Black-Light Wing' where item_id = 40720;
+
+-- Add 2 candles to starting equipment for all classes, matching live starting
+-- gear.
+insert into beginner values (19, 40005, 1, 0, 'Candle', 'A', 0, 0);
+insert into beginner values (20, 40005, 1, 0, 'Candle', 'A', 0, 0);
