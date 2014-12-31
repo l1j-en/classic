@@ -974,3 +974,12 @@ delete from character_items where item_id = 29002;
 delete from character_warehouse where item_id = 29002;
 delete from character_elf_warehouse where item_id = 29002;
 delete from clan_warehouse where item_id = 29002;
+
+-- Add new doll etcitem and npc entries.  Still need code support and some very
+-- low Arka bag rates.  Research by Zylaxyma.
+insert into etcitem values (49289,'Magic Doll: Yeti','$7512','$7512','other','normal','wood',12000,3218,6174,2772,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (49292,'Magic Doll: Scarecrow','$9590','$9590','other','normal','wood',1000,3338,6174,2772,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into etcitem values (49293,'Magic Doll: Cockatrice','$7511','$7511','other','normal','wood',12000,3337,6174,2772,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1);
+insert into npc values (80153,'Yeti Magic Doll','$6416','','L1Doll',6480,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
+insert into npc values (80156,'Scarecrow Magic Doll','$9591','','L1Doll',7050,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
+insert into npc values (80157,'Cockatrice Magic Doll','$7510','','L1Doll',7047,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
