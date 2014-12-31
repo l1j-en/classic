@@ -966,3 +966,11 @@ update spawnlist set count = 36
 -- Marquise Vampire, 46->34.
 update spawnlist set count = 34
     where npc_templateid = 45604 and mapid = 190 and count = 46;
+
+-- Remove old event item (Pink Unisex Earrings).
+delete from armor where item_id = 29002;
+-- Just in case anyone had one of these.
+delete from character_items where item_id = 29002;
+delete from character_warehouse where item_id = 29002;
+delete from character_elf_warehouse where item_id = 29002;
+delete from clan_warehouse where item_id = 29002;
