@@ -983,3 +983,7 @@ insert into etcitem values (49293,'Magic Doll: Cockatrice','$7511','$7511','othe
 insert into npc values (80153,'Yeti Magic Doll','$6416','','L1Doll',6480,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
 insert into npc values (80156,'Scarecrow Magic Doll','$9591','','L1Doll',7050,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
 insert into npc values (80157,'Cockatrice Magic Doll','$7510','','L1Doll',7047,1,1,1,1,1,1,1,1,1,1,0,0,'small',0,0,0,320,0,0,1000,1000,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
+
+-- Make stackable cursed black earrings (all 3 base types), ring of dark
+-- forester, ring of beast summoner, and ring of black wizard.
+update etcitem set stackable = 1 where item_id in (40987, 40988, 40989, 40426, 40446, 40452);
