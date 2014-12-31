@@ -987,3 +987,6 @@ insert into npc values (80157,'Cockatrice Magic Doll','$7510','','L1Doll',7047,1
 -- Make stackable cursed black earrings (all 3 base types), ring of dark
 -- forester, ring of beast summoner, and ring of black wizard.
 update etcitem set stackable = 1 where item_id in (40987, 40988, 40989, 40426, 40446, 40452);
+
+-- Increase respawn delay for all normal spawn on 81-90F.
+update spawnlist set min_respawn_delay = 120, max_respawn_delay = 180 where mapid >= 181 and mapid <= 190;
