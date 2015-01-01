@@ -990,3 +990,14 @@ update etcitem set stackable = 1 where item_id in (40987, 40988, 40989, 40426, 4
 
 -- Increase respawn delay for all normal spawn on 81-90F.
 update spawnlist set min_respawn_delay = 120, max_respawn_delay = 180 where mapid >= 181 and mapid <= 190;
+
+-- Add character_excludes table to prep for /exclude persistence
+-- schema the same as character_buddys
+CREATE TABLE `character_excludes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `char_id` int(10) NOT NULL DEFAULT '0',
+  `exclude_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `exclude_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`char_id`,`exclude_id`),
+  KEY `key_id` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=868 DEFAULT CHARSET=utf8 COMMENT='MyISAM free: 10240 kB; MyISAM free: 10240 kB';
