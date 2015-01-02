@@ -1001,3 +1001,6 @@ CREATE TABLE `character_excludes` (
   PRIMARY KEY (`char_id`,`exclude_id`),
   KEY `key_id` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=868 DEFAULT CHARSET=utf8 COMMENT='MyISAM free: 10240 kB; MyISAM free: 10240 kB';
+
+-- Remove TOS keys from shop.
+delete from shop where item_id in (40615, 40616, 40782, 40783);
