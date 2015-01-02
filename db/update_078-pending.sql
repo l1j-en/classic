@@ -1004,3 +1004,6 @@ CREATE TABLE `character_excludes` (
 
 -- Remove TOS keys from shop.
 delete from shop where item_id in (40615, 40616, 40782, 40783);
+
+-- Set Secret Room Key to stackable
+update etcitem set stackable = 1 where item_id = 40555;
