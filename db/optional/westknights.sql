@@ -249,3 +249,7 @@ UPDATE etcitem SET trade = 0 WHERE item_id = 49142;
 insert into droplist values 
 	(45652, "Cougar", 450001, "Paagrio's Hatred", 1, 1, 10000),
 	(45653, "Mummy Lord", 450002, "Maphr's Retribution", 1, 1, 10000);
+
+-- Change Paagrio's Hatred proc animation to Lesser Demon's spell
+-- to avoid screen shaking
+update weapon_skill set effect_id = 2527 where weapon_id = 450001;
