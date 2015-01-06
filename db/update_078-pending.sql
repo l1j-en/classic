@@ -1007,3 +1007,7 @@ delete from shop where item_id in (40615, 40616, 40782, 40783);
 
 -- Set Secret Room Key to stackable
 update etcitem set stackable = 1 where item_id = 40555;
+
+-- Fix name of Robe of Dread Queen (was Robe of Evil Spirit King).
+update armor set name = 'Robe of Dread Queen' where item_id = 20109;
+update droplist set item_name = 'Robe of Dread Queen' where itemid = 20109;
