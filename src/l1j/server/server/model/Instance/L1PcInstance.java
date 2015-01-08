@@ -64,7 +64,6 @@ import l1j.server.server.model.L1DeathMatch;
 import l1j.server.server.model.L1DwarfForElfInventory;
 import l1j.server.server.model.L1DwarfInventory;
 import l1j.server.server.model.L1EquipmentSlot;
-import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Karma;
 import l1j.server.server.model.L1Magic;
@@ -3001,12 +3000,6 @@ public class L1PcInstance extends L1Character {
 		_originalDmgup = features.getOriginalMeleeDamage(getOriginalStr());
 		_originalHpup = features.getOriginalHpBonus(getOriginalCon());
 		_originalMpup = features.getOriginalMpBonus(getOriginalWis());
-	}
-
-	private final L1ExcludingList _excludingList = new L1ExcludingList();
-
-	public L1ExcludingList getExcludingList() {
-		return _excludingList;
 	}
 
 	private final AcceleratorChecker _acceleratorChecker = new AcceleratorChecker(

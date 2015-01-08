@@ -18,14 +18,31 @@
  */
 package l1j.server.server.model;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_PacketBox;
 
 public class L1ExcludingList {
+	private final int _charId;
 
-	private ArrayList<String> _nameList = new ArrayList<String>();
+	private final LinkedHashMap<Integer, String> _excludes = new LinkedHashMap<Integer, String>();
 
-	public void add(String name) {
-		_nameList.add(name);
+	public L1ExcludingList(int charId) {
+		_charId = charId;
+	}
+
+	public int getCharId() {
+		return _charId;
+	}
+
+	public boolean add(int objId, String name) {
+		if (_excludes.containsKey(objId)) {
+			return false;
+		}
+		_excludes.put(objId, name);
+		return true;
 	}
 
 	/**
@@ -35,22 +52,48 @@ public class L1ExcludingList {
 	 *            LN^[
 	 * @return ANCAgfXgLN^[B wOXgnullB
 	 */
-	public String remove(String name) {
-		for (String each : _nameList) {
-			if (each.equalsIgnoreCase(name)) {
-				_nameList.remove(each);
-				return each;
+	public boolean remove(int objId) {
+		String result = _excludes.remove(objId);
+		return (result != null ? true : false);
+	}
+
+	public boolean remove(String name) {
+		int id = 0;
+		for (Map.Entry<Integer, String> exclude : _excludes.entrySet()) {
+			if (name.equalsIgnoreCase(exclude.getValue())) {
+				id = exclude.getKey();
+				break;
 			}
 		}
-		return null;
+		if (id == 0) {
+			return false;
+		}
+		_excludes.remove(id);
+		return true;
 	}
+
 
 	/**
 	 * wOLN^[ftrue
 	 */
-	public boolean contains(String name) {
-		for (String each : _nameList) {
-			if (each.equalsIgnoreCase(name)) {
+
+	public void sendExcludeList() {
+		L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_charId);
+		if(pc == null) {
+			return;
+		}
+		for (String name : _excludes.values()) {
+			pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
+		}
+	}
+
+	public boolean containsId(int objId) {
+		return _excludes.containsKey(objId);
+	}
+
+	public boolean containsName(String name) {
+		for (String excludeName : _excludes.values()) {
+			if (name.equalsIgnoreCase(excludeName)) {
 				return true;
 			}
 		}
@@ -61,6 +104,6 @@ public class L1ExcludingList {
 	 * fXg16B
 	 */
 	public boolean isFull() {
-		return (_nameList.size() >= 16) ? true : false;
+		return (_excludes.size() >= 16) ? true : false;
 	}
 }

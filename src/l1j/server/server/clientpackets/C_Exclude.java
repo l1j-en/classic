@@ -22,10 +22,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.CharacterTable;
+import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1CharName;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -42,16 +45,25 @@ public class C_Exclude extends ClientBasePacket {
 		}
 		L1PcInstance pc = client.getActiveChar();
 		try {
-			L1ExcludingList exList = pc.getExcludingList();
+			ExcludeTable excludeTable = ExcludeTable.getInstance();
+			L1ExcludingList exList = excludeTable.getExcludeList(pc.getId());
 			if (exList.isFull()) {
 				pc.sendPackets(new S_ServerMessage(472));
 				return;
 			}
-			if (exList.contains(name)) {
-				String temp = exList.remove(name);
-				pc.sendPackets(new S_PacketBox(S_PacketBox.REM_EXCLUDE, temp));
+			if (exList.containsName(name)) {
+				excludeTable.removeExclude(pc.getId(), name);
+				pc.sendPackets(new S_PacketBox(S_PacketBox.REM_EXCLUDE, name));
 			} else {
-				exList.add(name);
+				for (L1CharName cn : CharacterTable.getInstance().getCharNameList()) {
+					if (name.equalsIgnoreCase(cn.getName())) {
+						int objId = cn.getId();
+						String n = cn.getName();
+						exList.add(objId, n);
+						excludeTable.addExclude(pc.getId(), objId, n);
+						break;
+					}
+				}
 				pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
 			}
 		} catch (Exception e) {

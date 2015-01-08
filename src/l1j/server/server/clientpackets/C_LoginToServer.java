@@ -52,6 +52,7 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
+import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.datatables.GetBackRestartTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.log.LogIP;
@@ -59,6 +60,7 @@ import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Cooking;
+import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
@@ -315,6 +317,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 		checkUnreadMail(pc);
 		updateIcons(pc);
+		
+		ExcludeTable exTable = ExcludeTable.getInstance();
+		L1ExcludingList exList = exTable.getExcludeList(pc.getId());
+		exList.sendExcludeList();
 	}
 
 	private void checkUnreadMail(final L1PcInstance character) {

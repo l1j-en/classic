@@ -21,6 +21,7 @@ package l1j.server.server.clientpackets;
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ChatLogTable;
+import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -58,7 +59,8 @@ public class C_ChatWhisper extends ClientBasePacket {
 			return;
 		}
 		// TRICIDTODO: Make this configurable
-		if (whisperTo.getExcludingList().contains(whisperFrom.getName())
+		ExcludeTable excludeTable = ExcludeTable.getInstance();
+		if (excludeTable.getExcludeList(whisperTo.getId()).containsId(whisperFrom.getId())
 				&& !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not
 																		// remove
 																		// gm/mon
