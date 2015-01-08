@@ -54,7 +54,7 @@ public class C_AddBuddy extends ClientBasePacket {
 				String name = cn.getName();
 				buddyList.add(objId, name);
 				buddyTable.addBuddy(pc.getId(), objId, name);
-				return;
+				break;
 			}
 		}
 		pc.sendPackets(new S_ServerMessage(109, charName));

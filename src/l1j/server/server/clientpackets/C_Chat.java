@@ -13,6 +13,7 @@ import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
 import l1j.server.server.PCommands;
 import l1j.server.server.datatables.ChatLogTable;
+import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
@@ -38,9 +39,10 @@ public class C_Chat extends ClientBasePacket {
 
 	private static Iterable<L1PcInstance> filterForIgnored(
 			final L1PcInstance sender, final Iterable<L1PcInstance> receivers) {
+		ExcludeTable excludeTable =  ExcludeTable.getInstance();
 		List<L1PcInstance> filtered = new ArrayList<L1PcInstance>();
 		for (L1PcInstance receiver : receivers)
-			if (!receiver.getExcludingList().contains(sender.getName()))
+			if (!excludeTable.getExcludeList(receiver.getId()).containsId(sender.getId()))
 				filtered.add(receiver);
 		return filtered;
 	}
