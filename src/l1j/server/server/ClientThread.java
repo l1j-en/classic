@@ -470,7 +470,12 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	public static void quitGame(L1PcInstance pc) {
 		if (pc.isDead()) {
-			int[] loc = Getback.GetBack_Location(pc, true);
+			int[] loc = {33090, 33392}; // Default to SKT, in case there was an error.
+			try {
+				loc = Getback.GetBack_Location(pc, true);
+			} catch (Exception e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
 			pc.setX(loc[0]);
 			pc.setY(loc[1]);
 			pc.setMap((short) loc[2]);
@@ -537,8 +542,8 @@ public class ClientThread implements Runnable, PacketOutput {
 		LogIP li = new LogIP();
 		li.storeLogout(pc);
 		try {
-			pc.save();
 			pc.saveInventory();
+			pc.save();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
