@@ -470,7 +470,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	public static void quitGame(L1PcInstance pc) {
 		if (pc.isDead()) {
-			int[] loc = {33090, 33392}; // Default to SKT, in case there was an error.
+			int[] loc = {33090, 33392, 4}; // Default to SKT, in case there was an error.
 			try {
 				loc = Getback.GetBack_Location(pc, true);
 			} catch (Exception e) {
