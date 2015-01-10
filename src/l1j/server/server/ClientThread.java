@@ -469,6 +469,21 @@ public class ClientThread implements Runnable, PacketOutput {
 	}
 
 	public static void quitGame(L1PcInstance pc) {
+		// First cancel trade & save inventory to help avoid duping
+		try {
+			if (pc.getTradeID() != 0) {
+				L1Trade trade = new L1Trade();
+				trade.TradeCancel(pc);
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+		try {
+			pc.saveInventory();			
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+
 		if (pc.isDead()) {
 			int[] loc = {33090, 33392, 4}; // Default to SKT, in case there was an error.
 			try {
@@ -481,10 +496,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setMap((short) loc[2]);
 			pc.setCurrentHp(pc.getLevel());
 			pc.set_food(40);
-		}
-		if (pc.getTradeID() != 0) {
-			L1Trade trade = new L1Trade();
-			trade.TradeCancel(pc);
 		}
 		if (pc.getFightId() != 0) {
 			pc.setFightId(0);
@@ -542,7 +553,6 @@ public class ClientThread implements Runnable, PacketOutput {
 		LogIP li = new LogIP();
 		li.storeLogout(pc);
 		try {
-			pc.saveInventory();
 			pc.save();
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
