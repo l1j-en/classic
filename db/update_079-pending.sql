@@ -87,3 +87,6 @@ update etcitem set stackable = 1 where item_id = 40465;
 
 -- Make stackable Old Trading Document.
 update etcitem set stackable = 1 where item_id = 40540;
+
+-- Set fishing poles to be undeleteable.
+update etcitem set cant_delete = 1 where item_id in (41293, 41294);
