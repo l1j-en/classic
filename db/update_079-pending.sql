@@ -78,3 +78,12 @@ ALTER TABLE ub_settings ENGINE='InnoDB';
 ALTER TABLE ub_times ENGINE='InnoDB';
 ALTER TABLE weapon ENGINE='InnoDB';
 ALTER TABLE weapon_skill ENGINE='InnoDB';
+
+-- Make stackable Beast Tamer Ring.
+update etcitem set stackable = 1 where item_id = 40454;
+
+-- Make stackable Elementalist Ring.
+update etcitem set stackable = 1 where item_id = 40465;
+
+-- Make stackable Old Trading Document.
+update etcitem set stackable = 1 where item_id = 40540;
