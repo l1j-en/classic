@@ -51,6 +51,7 @@ public class Opcodes {
 	public static final int C_OPCODE_DELEXCLUDE = 32;
 	public static final int C_OPCODE_SHIP = 33;
 	public static final int C_OPCODE_CLIENTVERSION = 34;
+	public static final int C_OPCODE_KEEPALIVE2 = 35;
 	public static final int C_OPCODE_EXTCOMMAND = 38;
 	public static final int C_OPCODE_TRADEADDCANCEL = 41;
 	public static final int C_OPCODE_DRAWAL = 42;

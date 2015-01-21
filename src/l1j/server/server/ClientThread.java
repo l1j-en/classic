@@ -246,7 +246,8 @@ public class ClientThread implements Runnable, PacketOutput {
 					_loginStatus = 0;
 				}
 
-				if (opcode != Opcodes.C_OPCODE_KEEPALIVE) {
+				if (opcode != Opcodes.C_OPCODE_KEEPALIVE &&
+						opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
 					observer.packetReceived();
 				}
 				if (_activeChar == null) {
