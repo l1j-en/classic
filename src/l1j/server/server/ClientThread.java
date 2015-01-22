@@ -102,7 +102,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			(byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD, (byte) 0xCC,
 			(byte) 0xC0 };
 
-	private static Timer _observerTimer = null;
+	protected static Timer _observerTimer = null;
 
 	protected ClientThread() {
 	}
