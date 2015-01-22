@@ -94,9 +94,7 @@ update etcitem set cant_delete = 1 where item_id in (41293, 41294);
 -- Fix missing mobskills Beleth
 Insert into mobskill values
 (45573,1,'Baphomet','Summon Skeleton',3,7,0,0,-3,3,0,0,0,0,0,0,0,18,45107,2,6,0),
-(45583,1,'Beleth','Summon Cerberus',3,7,0,0,-3,3,0,0,0,0,0,0,0,18,45241,2,4,0),
-(45569,2,'Baphomet of Varlok','Summon Skeleton',3,5,0,0,-3,3,0,0,0,0,0,0,0,18,45107,2,6,0),
-(45583,2,'Beleth of Varlok','Summon Cerberus',3,5,0,0,-3,3,0,0,0,0,0,0,0,18,45241,2,4,0);
+(45583,1,'Beleth','Summon Cerberus',3,7,0,0,-3,3,0,0,0,0,0,0,0,18,45241,2,4,0);
 
 -- Remove incorrect drops from droplist
 delete from droplist where mobid = 45570 and itemid = 40013;
