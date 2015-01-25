@@ -300,3 +300,7 @@ insert into weapon values
 (450003,'Orcish Bume Smache','Orcish Bume Smache','Orcish Bume Smache','blunt','iron',50000,67,60,0,8,9,1,6,1,1,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
 (450004,'Diamond Sword','Diamond Sword','Diamond Sword','sword','steel',90000,1350,26,0,14,12,1,6,1,0,0,0,0,0,0,2,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0,0,50,0,1,0,0,0),
 (450005,'Spirit Defender','Spirit Defender','Spirit Defender','tohandsword','iron',150000,2082,59,0,22,22,1,6,0,1,0,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0);
+
+-- add Griffon Feather drop to FI Griffons
+insert into droplist values (45445,'Griffon',40491,'Griffon Feather',1,1,10000);
+update npc set note = 'Forgotten Island' where npcid = 45445;
