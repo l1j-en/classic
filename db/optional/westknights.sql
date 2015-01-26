@@ -253,3 +253,7 @@ insert into droplist values
 -- Change Paagrio's Hatred proc animation to Lesser Demon's spell
 -- to avoid screen shaking
 update weapon_skill set effect_id = 2527 where weapon_id = 450001;
+
+-- add Griffon Feather drop to FI Griffons
+insert into droplist values (45445,'Griffon',40491,'Griffon Feather',1,1,10000);
+update npc set note = 'Forgotten Island' where npcid = 45445;
