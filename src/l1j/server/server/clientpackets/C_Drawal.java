@@ -72,27 +72,29 @@ public class C_Drawal extends ClientBasePacket {
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 
 		if (clan != null) {
-			int castle_id = clan.getCastleId();
-			if (castle_id != 0) {
-				L1Castle l1castle = CastleTable.getInstance().getCastleTable(
-						castle_id);
-				int money = l1castle.getPublicMoney();
-				money -= j;
-				L1ItemInstance item = ItemTable.getInstance().createItem(
-						L1ItemId.ADENA);
-				if (item != null) {
-					l1castle.setPublicMoney(money);
-					CastleTable.getInstance().updateCastle(l1castle);
-					if (pc.getInventory().checkAddItem(item, j) == L1Inventory.OK) {
-						pc.getInventory().storeItem(L1ItemId.ADENA, j);
-					} else {
-						L1World.getInstance()
-								.getInventory(pc.getX(), pc.getY(),
-										pc.getMapId())
-								.storeItem(L1ItemId.ADENA, j);
+			if (clan.getLeaderId() == pc.getId()) {
+				int castle_id = clan.getCastleId();
+				if (castle_id != 0) {
+					L1Castle l1castle = CastleTable.getInstance().getCastleTable(
+							castle_id);
+					int money = l1castle.getPublicMoney();
+					money -= j;
+					L1ItemInstance item = ItemTable.getInstance().createItem(
+							L1ItemId.ADENA);
+					if (item != null) {
+						l1castle.setPublicMoney(money);
+						CastleTable.getInstance().updateCastle(l1castle);
+						if (pc.getInventory().checkAddItem(item, j) == L1Inventory.OK) {
+							pc.getInventory().storeItem(L1ItemId.ADENA, j);
+						} else {
+							L1World.getInstance()
+									.getInventory(pc.getX(), pc.getY(),
+											pc.getMapId())
+									.storeItem(L1ItemId.ADENA, j);
+						}
+						pc.sendPackets(new S_ServerMessage(143, "$457", "$4" + " ("
+								+ j + ")"));
 					}
-					pc.sendPackets(new S_ServerMessage(143, "$457", "$4" + " ("
-							+ j + ")"));
 				}
 			}
 		}
