@@ -22,10 +22,12 @@ import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
+import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -57,6 +59,15 @@ public class C_MoveChar extends ClientBasePacket {
 
 		if (pc.isTeleport()) {
 			return;
+		}
+		
+		int castle = L1CastleLocation.getCastleIdByArea(pc);
+		if(castle > 0 && WarTimeController.getInstance().isNowWar(castle)) {
+			if(!pc.getMap().isPassable(locx, locy, heading)) {
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
+						false);
+				return;
+			}
 		}
 
 		if (Config.CHECK_MOVE_INTERVAL) {
