@@ -292,12 +292,5 @@ update spawnlist set count = 18 where id = 60000001; -- reduce Lesser Demon at C
 update spawnlist set count = 35 where id = 60100001; -- reduce Lesser Demon at Cave of Desire Lobby
 
 -- update incorrect hit range for specific weapons, values incorrectly set to 0
-delete from weapon where item_id > 449999 and item_id < 450006; 
-insert into weapon values
-(450000,'Thor\'s Hammer','Thor\'s Hammer','Thor\'s Hammer','sword','platinum',40000,119,5,0,7,12,1,6,1,1,1,1,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
-(450001,'Paagrio\'s Hatred','Paagrio\'s Hatred','Paagrio\'s Hatred','sword','iron',40000,984,3,0,13,9,1,6,0,1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
-(450002,'Maphr\'s Retribution','Maphr\'s Retribution','Maphr\'s Retribution','tohandblunt','platinum',50000,974,58,0,4,5,1,6,0,1,0,1,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
-(450003,'Orcish Bume Smache','Orcish Bume Smache','Orcish Bume Smache','blunt','iron',50000,67,60,0,8,9,1,6,1,1,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0),
-(450004,'Diamond Sword','Diamond Sword','Diamond Sword','sword','steel',90000,1350,26,0,14,12,1,6,1,0,0,0,0,0,0,2,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0,0,50,0,1,0,0,0),
-(450005,'Spirit Defender','Spirit Defender','Spirit Defender','tohandsword','iron',150000,2082,59,0,22,22,1,6,0,1,0,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0);
+update weapon set `range` = 1 where item_id in (450000, 450001, 450002, 450003, 450004, 450005);
 
