@@ -294,3 +294,12 @@ update spawnlist set count = 35 where id = 60100001; -- reduce Lesser Demon at C
 -- update incorrect hit range for specific weapons, values incorrectly set to 0
 update weapon set `range` = 1 where item_id in (450000, 450001, 450002, 450003, 450004, 450005);
 
+-- add Griffon Feather drop to FI Griffons
+insert into droplist values (45445,'Griffon',40491,'Griffon Feather',1,1,10000);
+update npc set note = 'Forgotten Island' where npcid = 45445;
+
+-- GMino should not drop a spear item (unknown spear), remove from droplist and add to shop buyback so players can offload
+delete from droplist where itemid = 87;
+insert into shopvalues
+(70039,'Werner',87,'Unknown Spear',0,0,0,10000), -- Giran Shop
+(70061,'Mandra',87,'Unknown Spear',0,0,0,10000); -- Oren Shop
