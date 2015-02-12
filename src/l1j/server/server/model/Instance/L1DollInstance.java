@@ -37,6 +37,9 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_ELDER = 3;
 	public static final int DOLLTYPE_CRUSTANCEAN = 4;
 	public static final int DOLLTYPE_GOLEM = 5;
+	public static final int DOLLTYPE_YETI = 6;
+	public static final int DOLLTYPE_SCARECROW = 7;
+	public static final int DOLLTYPE_COCKATRICE = 8;
 	public static final int DOLL_TIME = 1800000;
 	private ScheduledFuture<?> _dollFuture;
 	private static Random _random = new Random();
@@ -204,5 +207,70 @@ public class L1DollInstance extends L1NpcInstance {
 			}
 		}
 		return damageReduction;
+	}
+		public int getArmorClassByDoll() {
+		int armorClass = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_YETI) {
+			armorClass = -3;
+		}
+		return armorClass;
+	}
+	
+	public int getResistWaterByDoll() {
+		int resistWater = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_YETI) {
+			resistWater = 7;
+		}
+		return resistWater;
+	}
+	
+	public int getRangedDamageByDoll() {
+		int rangedDamage = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_COCKATRICE) {
+			rangedDamage = 1;
+		}
+		return rangedDamage;
+	}
+	
+	public int getRangedHitByDoll() {
+		int rangedHit = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_COCKATRICE) {
+			rangedHit = 1;
+		}
+		if (dollType == DOLLTYPE_SCARECROW) {
+			rangedHit = 2;
+		}
+		return rangedHit;
+	}
+
+	public int getMeleeHitByDoll() {
+		int meleeHit = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_SCARECROW) {
+			meleeHit = 2;
+		}
+		return meleeHit;
+	}
+
+	public int getHPBonusByDoll() {
+		int hpBonus = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_SCARECROW) {
+			hpBonus = 50;
+		}
+		return hpBonus;
+	}
+
+	public int getMpBonusByDoll() {
+		int mpBonus = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_SCARECROW) {
+			mpBonus = 30;
+		}
+		return mpBonus;
 	}
 }
