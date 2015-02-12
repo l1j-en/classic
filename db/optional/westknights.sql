@@ -263,12 +263,10 @@ update npc set note = 'Forgotten Island' where npcid = 45445;
 UPDATE `weapon` SET use_royal = '1' where item_id in (47,54,450001);
 	
 /* Add Royal to Reinforced T-Shirt, Titan Belt */
-UPDATE `armor` SET user_royal = 1 where item_id in (30000,20320);
+UPDATE `armor` SET use_royal = 1 where item_id in (30000,20320);
 
 --Item Alterations
 /* 2Cha > 2Wis on SoF, 3 SResist on RoG 1DR 1AC */
-DELETE FROM `armor` WHERE item_id in (20287,20234);
-INSERT INTO `armor` VALUES ('20287', 'Ring of Gaurdian', '$2225', '$2225', 'ring', 'gold', '3000', '905', '21', '0', '-1', '-1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '30', '20', '0', '0', '0', '45', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '3', '0', '0', '0', '0', '0');
-INSERT INTO `armor` VALUES ('20234', 'Shield of Faith', '$3794', '$3794', 'shield', 'iron', '50000', '1874', '23', '1811', '-3', '6', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '0', '0', '0', '3', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-
+update armor set add_wis = 2, add_cha = 0 where item_id = 20287;
+update armor set regist_stone = 3, damage_reduction = 1, ac = 1 where item_id = 20234;
 
