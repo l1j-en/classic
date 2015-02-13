@@ -87,7 +87,7 @@ public class L1ItemDrops implements L1CommandExecutor {
 					mobID[i] = rs.getInt("mobId");
 					min[i] = rs.getInt("min");
 					max[i] = rs.getInt("max");
-					chance[i] = rs.getInt("chance") / (double) 10000;
+					chance[i]=rs.getInt("chance")/(double)10000 * Config.RATE_DROP_ITEMS;
 					i++;
 				}
 				rs.close();
