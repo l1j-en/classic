@@ -262,13 +262,16 @@ update npc set note = 'Forgotten Island' where npcid = 45445;
 /* Add Royal to SoS, Kurtz, PH */
 UPDATE `weapon` SET use_royal = '1' where item_id in (47,54,450001);
 	
-/* Add Royal to Reinforced T-Shirt, Titan Belt */
-UPDATE `armor` SET use_royal = 1 where item_id in (30000,20320);
+/* Add Royal, (X)DragonKnight to Reinforced T-Shirt, Titan Belt */
+UPDATE `armor` SET use_royal = 1, SET use_dragonknight = 1 where item_id in (30000,20320);
 
 -- Item Alterations
-/* 2Cha > 2Wis on SoF, 3 SResist on RoG 1DR 1AC */
+/* 2Cha > 2Wis on SoF, (X)3 StunResist on RoG 1DR 1AC */
 update armor set add_wis = 2, add_cha = 0 where item_id = 20287;
-update armor set regist_stone = 3, damage_reduction = 1, ac = 1 where item_id = 20234;
+update armor set regist_stun = 3, damage_reduction = 1, ac = 1 where item_id = 20234;
+
+/* Logbook quest fails at step to combine pages- I believe this may fix them (Glued Logbook Pages 1-10 Use_Type: normal -> choice */
+UPDATE `etcitem` SET `use_type` = 'choice' WHERE item_id IN (41048,41049,41050,41051,41052,41053,41054,41055,41056,41057);
 
 -- Increase Longbow of Moon proc damage
 update weapon_skill set fix_damage = 15, random_damage = 30 where weapon_id = 205;
