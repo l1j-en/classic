@@ -270,5 +270,8 @@ UPDATE `armor` SET use_royal = 1, SET use_dragonknight = 1 where item_id in (300
 update armor set add_wis = 2, add_cha = 0 where item_id = 20287;
 update armor set regist_stun = 3, damage_reduction = 1, ac = 1 where item_id = 20234;
 
+/* Logbook quest fails at step to combine pages- I believe this may fix them (Glued Logbook Pages 1-10 Use_Type: normal -> choice */
+UPDATE `etcitem` SET `use_type` = 'choice' WHERE item_id IN (41048,41049,41050,41051,41052,41053,41054,41055,41056,41057);
+
 -- Increase Longbow of Moon proc damage
 update weapon_skill set fix_damage = 15, random_damage = 30 where weapon_id = 205;
