@@ -215,6 +215,8 @@ public class L1Inventory extends L1Object {
 		if (count <= 0) {
 			return false;
 		}
+		
+		//If stackable- they are not enchantable
 		if (ItemTable.getInstance().getTemplate(itemid).isStackable()) {
 			L1ItemInstance item = findItemId(itemid);
 			if (item != null && item.getCount() >= count) {
@@ -222,20 +224,26 @@ public class L1Inventory extends L1Object {
 				return true;
 			}
 		} else {
+			//First count the items that are unenchanted to see if there are enough
 			List<L1ItemInstance> itemList = findItemsId(itemid);
-			if (itemList.size() == count) {
-				for (int i = 0; i < count; i++) {
-					removeItem(itemList.get(i), 1);
+			int listSize = itemList.size();
+			int totalUnenchantedItems = 0;
+			for (int i = 0; i < listSize; i++) {
+				if (itemList.get(i).getEnchantLevel() == 0) {
+					totalUnenchantedItems++;
 				}
-				return true;
-			} else if (itemList.size() > count) {
-				Collections.sort(itemList, new EnchantComparator());
-				for (int i = 0; i < count; i++) {
-					removeItem(itemList.get(i), 1);
+			}
+			//If there are enough, walk through the list and remove them.
+			if (totalUnenchantedItems >= count) {
+				for (int i = 0; i < listSize; i++) {
+					if (itemList.get(i).getEnchantLevel() == 0) {
+						removeItem(itemList.get(i), 1);
+					}
 				}
-				return true;
+			return true;
 			}
 		}
+		//Catchall false
 		return false;
 	}
 
