@@ -109,6 +109,7 @@ public class L1NpcInstance extends L1Character {
 	public static int courceRange = 15;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
+	private boolean _truedead = false;
 
 	private int _randomMoveDistance = 0;
 	private int _randomMoveDirection = 0;
@@ -1143,6 +1144,10 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void deleteMe() {
+		if (getNpcId() == 45477 && _truedead == false) {
+			resurrect(getMaxHp() / 2);
+			_truedead = true;	
+		} else {
 		_destroyed = true;
 		if (getInventory() != null) {
 			getInventory().clearItems();
@@ -1188,6 +1193,7 @@ public class L1NpcInstance extends L1Character {
 					onDecay(false);
 				}
 			}
+		}
 		}
 	}
 
