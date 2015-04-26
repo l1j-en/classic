@@ -1604,7 +1604,7 @@ public class L1PcInstance extends L1Character {
 			exp = (int) (needExp * 0.025);
 		} else if (oldLevel >= 65 && oldLevel < 70) {
 			exp = (int) (needExp * 0.0125);
-		} else if (oldLevel >= 65 && oldLevel < 75) {
+		} else if (oldLevel >= 70 && oldLevel < 75) {
 			exp = (int) (needExp * 0.00625);
 		} else if (oldLevel >= 75 && oldLevel < 79) {
 			exp = (int) (needExp * 0.003125);
