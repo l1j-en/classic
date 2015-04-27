@@ -92,6 +92,7 @@ import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillIconAura;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SkillIconShield;
+import l1j.server.server.serverpackets.S_SkillIconWaterLife;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Sound;
 import l1j.server.server.serverpackets.S_Strup;
@@ -1934,6 +1935,11 @@ public class L1SkillUse {
 						|| _skillId == HEAL_ALL || _skillId == NATURES_BLESSING)
 						&& (_user instanceof L1PcInstance)) {
 					cha.removeSkillEffect(WATER_LIFE);
+					if (cha instanceof L1PcInstance) {
+						L1PcInstance pc = (L1PcInstance) cha;
+						pc.sendPackets(new S_SkillIconWaterLife());
+					}
+
 				} else if (_skillId == NATURES_TOUCH) {
 					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 				} else if (_skillId == CHILL_TOUCH

@@ -497,7 +497,6 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				}
 			}
 		}
-
 		if (isEquipped()) {
 			if (itemType2 == ItemType.Weapon) {
 				name.append(" ($9)"); // (Armed)
