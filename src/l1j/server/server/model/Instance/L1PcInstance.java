@@ -1600,18 +1600,10 @@ public class L1PcInstance extends L1Character {
 		} else if (oldLevel == 48) {
 			exp = (int) (needExp * 0.03);
 			// Modified to scale down the XP death loss % at higher lvls.
-		} else if (oldLevel >= 49 && oldLevel < 65) {
+		} else if (oldLevel == 49) {
 			exp = (int) (needExp * 0.025);
-		} else if (oldLevel >= 65 && oldLevel < 70) {
-			exp = (int) (needExp * 0.0125);
-		} else if (oldLevel >= 70 && oldLevel < 75) {
-			exp = (int) (needExp * 0.00625);
-		} else if (oldLevel >= 75 && oldLevel < 79) {
-			exp = (int) (needExp * 0.003125);
-		} else if (oldLevel >= 79 && oldLevel < 80) {
-			exp = (int) (needExp * 0.0015625);
-		} else if (oldLevel >= 80) {
-			exp = (int) (needExp * 0.00078125);
+		} else if (oldLevel >= 50) {
+			exp = (int) (needExp * 0.025 * ExpTable.getPenaltyRate(oldLevel));
 		}
 
 		if (exp == 0) {
