@@ -121,6 +121,12 @@ public class L1ItemId {
 	public static final int SWORD_OF_ORDEAL = 247;
 	public static final int SWORD_OF_ORDEAL_B = 248;
 	public static final int SWORD_OF_ORDEAL_C = 249;
+	public static final int EXECUTION_SWORD_OF_FIDELITY = 61;
+	public static final int WIND_BLADE_DAGGER = 12;
+	public static final int EDORYU_OF_RED_SHADOW = 86;
+	public static final int CLAW_OF_SAVAGE_KING = 160;
+	public static final int CRYSTALIZED_STAFF = 134;
+	public static final int BOW_OF_COLD_MASTRY = 191;
 
 	public static final int BRING_STONE = 40320;
 	public static final int DARK_STONE = 40321;
