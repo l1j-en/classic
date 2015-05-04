@@ -212,7 +212,8 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	public int getAttrEnchantLevel() {
 		return _attrEnchantLevel;
 	}
-
+	
+	//Add mr to gold and silver wings of ant queen (20049,20050)
 	public int getMr() {
 		int mr = _item.get_mdef();
 		if (getItemId() == 20011 || getItemId() == 20110
@@ -220,7 +221,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 			mr += getEnchantLevel();
 		}
 		if (getItemId() == 20056 || getItemId() == 120056
-				|| getItemId() == 220056) {
+				|| getItemId() == 220056 || getItemId() == 20049 || getItemId() == 20050) {
 			mr += getEnchantLevel() * 2;
 		}
 		mr += getMagicResist();
@@ -972,6 +973,12 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	}
 
 	public int getAddSpellpower() {
+		/* add sp to lich robe each + over 3 = 1 sp */
+		if (getItemId() == 20107) {
+			if (getEnchantLevel() > 3) {
+				return _addSpellpower + getEnchantLevel() - 3;
+			}
+		}
 		return _addSpellpower;
 	}
 
