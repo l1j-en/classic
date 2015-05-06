@@ -868,6 +868,12 @@ public class L1SkillUse {
 
 	private void makeTargetList() {
 		try {
+      // Steve_: push target to return to nature
+      if (_skillId == RETURN_TO_NATURE){
+        _targetList.add(new TargetStatus(_target));
+        return;
+      }
+
 			if (_type == TYPE_LOGIN) {
 				_targetList.add(new TargetStatus(_user));
 				return;
@@ -3240,6 +3246,11 @@ public class L1SkillUse {
 				}
 			}
 		}
+
+    // Steve_: return to nature doesn't work if target is in safety zone
+    if (_skillId == RETURN_TO_NATURE && cha.getZoneType() == ZoneType.Safety){
+      return false;
+    }
 
 		if (_skillId == FOG_OF_SLEEPING && _user.getId() == cha.getId()) {
 			return false;
