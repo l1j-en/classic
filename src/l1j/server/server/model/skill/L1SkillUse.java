@@ -835,7 +835,8 @@ public class L1SkillUse {
 			if (cha instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) cha;
 				if (summon.getMaster() != null) {
-					if (_player.getId() == summon.getMaster().getId()) {
+          // Steve_: added another clause so RTN can get a greenlight on L893
+					if (_player.getId() == summon.getMaster().getId() || _skillId == RETURN_TO_NATURE) {
 						flg = true;
 					}
 				}
@@ -868,12 +869,6 @@ public class L1SkillUse {
 
 	private void makeTargetList() {
 		try {
-      // Steve_: push target to return to nature
-      if (_skillId == RETURN_TO_NATURE){
-        _targetList.add(new TargetStatus(_target));
-        return;
-      }
-
 			if (_type == TYPE_LOGIN) {
 				_targetList.add(new TargetStatus(_user));
 				return;
