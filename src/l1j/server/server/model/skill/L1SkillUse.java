@@ -835,7 +835,8 @@ public class L1SkillUse {
 			if (cha instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) cha;
 				if (summon.getMaster() != null) {
-					if (_player.getId() == summon.getMaster().getId()) {
+          // Steve_: added another clause so RTN can get a greenlight on L893
+					if (_player.getId() == summon.getMaster().getId() || _skillId == RETURN_TO_NATURE) {
 						flg = true;
 					}
 				}
@@ -3240,6 +3241,11 @@ public class L1SkillUse {
 				}
 			}
 		}
+
+    // Steve_: return to nature doesn't work if target is in safety zone
+    if (_skillId == RETURN_TO_NATURE && cha.getZoneType() == ZoneType.Safety){
+      return false;
+    }
 
 		if (_skillId == FOG_OF_SLEEPING && _user.getId() == cha.getId()) {
 			return false;
