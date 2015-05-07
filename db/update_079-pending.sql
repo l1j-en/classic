@@ -301,3 +301,6 @@ delete from droplist where itemid = 87;
 insert into shopvalues
 (70039,'Werner',87,'Unknown Spear',0,0,0,10000), -- Giran Shop
 (70061,'Mandra',87,'Unknown Spear',0,0,0,10000); -- Oren Shop
+
+-- Update Bapho Armor, add 2 DR per live
+UPDATE armor SET damage_reduction = 2 where item_id = 20117;
