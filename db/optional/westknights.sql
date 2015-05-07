@@ -263,7 +263,7 @@ update npc set note = 'Forgotten Island' where npcid = 45445;
 UPDATE `weapon` SET use_royal = '1' where item_id in (47,54,450001);
 	
 /* Add Royal, (X)DragonKnight to Reinforced T-Shirt, Titan Belt */
-UPDATE `armor` SET use_royal = 1, SET use_dragonknight = 1 where item_id in (30000,20320);
+UPDATE `armor` SET use_royal = 1, use_dragonknight = 1 where item_id in (30000,20320);
 
 -- Item Alterations
 /* 2Cha > 2Wis on SoF, (X)3 StunResist on RoG 1DR 1AC */
