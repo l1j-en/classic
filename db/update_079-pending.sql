@@ -294,9 +294,12 @@ update weapon set `range` = 1 where item_id in (450000, 450001, 450002, 450003, 
 
 -- GMino should not drop a spear item (unknown spear), remove from droplist and add to shop buyback so players can offload
 delete from droplist where itemid = 87;
-insert into shopvalues
+insert into shop values
 (70039,'Werner',87,'Unknown Spear',0,0,0,10000), -- Giran Shop
 (70061,'Mandra',87,'Unknown Spear',0,0,0,10000); -- Oren Shop
 
 -- Update Bapho Armor, add 2 DR per live
 UPDATE armor SET damage_reduction = 2 where item_id = 20117;
+
+-- Add fiery coal to Lava Golem's droplist
+insert into droplist values (45365, 'Lava Golem', 90090, 'Fiery Coal', 1, 1, 900);
