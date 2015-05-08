@@ -300,6 +300,3 @@ insert into shop values
 
 -- Update Bapho Armor, add 2 DR per live
 UPDATE armor SET damage_reduction = 2 where item_id = 20117;
-
--- Add fiery coal to Lava Golem's droplist
-insert into droplist values (45365, 'Lava Golem', 90090, 'Fiery Coal', 1, 1, 900);
