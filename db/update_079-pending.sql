@@ -300,3 +300,9 @@ insert into shop values
 
 -- Update Bapho Armor, add 2 DR per live
 UPDATE armor SET damage_reduction = 2 where item_id = 20117;
+
+-- Fix Eva Elekkadom droplist.
+update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40179;
+update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40196;
+update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40210;
+update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40225;
