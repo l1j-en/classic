@@ -306,3 +306,6 @@ update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40179;
 update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40196;
 update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40210;
 update droplist set min = 1, max = 1 where mobid = 45938 and itemid = 40225;
+
+-- Reduce Eva Elekkadom summon droprate to match other elekkadoms.
+update droplist set chance = 5000 where mobid = 45938 and itemid = 40196;
