@@ -1224,8 +1224,7 @@ public class L1PcInstance extends L1Character {
 			sendAndBroadcast(new S_DoActionGFX(targetobjid,
 					ActionCodes.ACTION_Die));
 
-			//Combat zone deaths should not broadcast.
-			if (getZoneType() == ZoneType.Normal || (getZoneType() != ZoneType.Normal && isInWarAreaAndWarTime(L1PcInstance.this, player)) {
+			if (lastAttacker.getMapId() != 509) {
 				try {
 					if (lastAttacker != L1PcInstance.this) {
 						L1PcInstance player = null;
