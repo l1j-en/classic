@@ -2131,35 +2131,8 @@ public class L1SkillUse {
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
 
-					int basechance = random.nextInt(99) + 1;
-
-					int chance = basechance + (diffLevel * 5);
-
-					if (chance > 90) {
-						stunTime = 6000;
-					} else if (chance > 85) {
-						stunTime = 5500;
-					} else if (chance > 80) {
-						stunTime = 5000;
-					} else if (chance > 75) {
-						stunTime = 4500;
-					} else if (chance > 70) {
-						stunTime = 4000;
-					} else if (chance > 65) {
-						stunTime = 3500;
-					} else if (chance > 60) {
-						stunTime = 3000;
-					} else if (chance > 55) {
-						stunTime = 2500;
-					} else if (chance > 50) {
-						stunTime = 2000;
-					} else if (chance > 45) {
-						stunTime = 1500;
-					} else {
-						stunTime = 1000;
-					}
-
-					_shockStunDuration = stunTime;
+					_shockStunDuration = random.nextInt(3000) + 1000;
+					
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
 							cha.getMapId());
