@@ -672,14 +672,14 @@
 	</TreasureBox>
 	<!-- Magic Bag of Arka -->
 	<TreasureBox Type="RANDOM" ItemId="41247">
-		<Item ItemId="41248" Count="1" Chance="12.5" /> <!-- Magic Doll: Bugbear -->
-		<Item ItemId="41249" Count="1" Chance="12.5" /> <!-- Magic Doll: Succubus -->
-		<Item ItemId="41250" Count="1" Chance="12.5" /> <!-- Magic Doll: Werewolf -->
-		<Item ItemId="49037" Count="1" Chance="12.5" /> <!-- Magic Doll: Elder -->
-		<Item ItemId="49038" Count="1" Chance="12.5" /> <!-- Magic Doll: Crustacean -->
-		<Item ItemId="49039" Count="1" Chance="12.5" /> <!-- Magic Doll: Stone Golem -->
-		<Item ItemId="49289" Count="1" Chance="12.5" /> <!-- Magic Doll: Yeti -->
-		<Item ItemId="49293" Count="1" Chance="12.5" /> <!-- Magic Doll: Cockatrice -->
+		<Item ItemId="41248" Count="1" Chance="15.5" /> <!-- Magic Doll: Bugbear -->
+		<Item ItemId="41249" Count="1" Chance="15.5" /> <!-- Magic Doll: Succubus -->
+		<Item ItemId="41250" Count="1" Chance="15.5" /> <!-- Magic Doll: Werewolf -->
+		<Item ItemId="49037" Count="1" Chance="15.5" /> <!-- Magic Doll: Elder -->
+		<Item ItemId="49038" Count="1" Chance="15.5" /> <!-- Magic Doll: Crustacean -->
+		<Item ItemId="49039" Count="1" Chance="15.5" /> <!-- Magic Doll: Stone Golem -->
+		<Item ItemId="49289" Count="1" Chance="3.5" /> <!-- Magic Doll: Yeti -->
+		<Item ItemId="49293" Count="1" Chance="3.5" /> <!-- Magic Doll: Cockatrice -->
 	</TreasureBox>
 	<!--Parum's Crop Pouch -->
 	<TreasureBox Type="RANDOM" ItemId="41355">
