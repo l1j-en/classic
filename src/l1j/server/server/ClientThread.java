@@ -519,7 +519,6 @@ public class ClientThread implements Runnable, PacketOutput {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
 				pet.dropItem();
-				pet.save();
 				pc.getPetList().remove(pet.getId());
 				pet.deleteMe();
 			}

@@ -71,11 +71,13 @@ public class C_UsePetItem extends ClientBasePacket {
 	private void usePetWeapon(L1PcInstance pc, L1PetInstance pet,
 			L1ItemInstance weapon) {
 		if (pet.getWeapon() == null) {
+
 			setPetWeapon(pc, pet, weapon);
 		} else {
 			if (pet.getWeapon().equals(weapon)) {
 				pet.removeWeapon(weapon);
 			} else {
+				pet.removeWeapon(weapon);
 				setPetWeapon(pc, pet, weapon);
 			}
 		}
@@ -89,6 +91,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			if (pet.getArmor().equals(armor)) {
 				pet.removeArmor(armor);
 			} else {
+				pet.removeArmor(armor);
 				setPetArmor(pc, pet, armor);
 			}
 		}

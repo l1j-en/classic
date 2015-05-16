@@ -3310,12 +3310,6 @@ public class L1PcInstance extends L1Character {
 		int divisor = 6;
 		Object[] petList = getPetList().values().toArray();
 		for (Object pet : petList) {
-			if (pet instanceof L1PetInstance) {
-				L1PetInstance petCheck = (L1PetInstance) pet;
-				if (itemObjectId == petCheck.getItemObjId()) {
-					return; // Pet already out
-				}
-			}
 			petCost += ((L1NpcInstance) pet).getPetcost();
 		}
 		int charisma = getCha();
