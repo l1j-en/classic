@@ -219,7 +219,9 @@ public class L1PetInstance extends L1NpcInstance {
 		if (!isDead()) {
 			setStatus(ActionCodes.ACTION_Die);
 			setCurrentHp(0);
-			deathPenalty();
+      // Temporarily disabling xp loss for pets until 
+      // death is implemented properly
+			//deathPenalty();
 			setDead(true);
 			getMap().setPassable(getLocation(), true);
 			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
