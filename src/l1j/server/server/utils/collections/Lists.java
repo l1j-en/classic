@@ -32,6 +32,7 @@ public class Lists {
 		return new ArrayList<E>(c);
 	}
 
+  @SafeVarargs
 	public static <E> List<E> of(E... elements) {
 		List<E> list = new ArrayList<E>(elements.length);
 		for (int i = 0; i < elements.length; i++)

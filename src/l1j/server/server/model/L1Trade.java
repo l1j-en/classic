@@ -89,8 +89,7 @@ public class L1Trade {
 					.getTradeWindowInventory().getSize();
 
 			for (cnt = 0; cnt < player_tradecount; cnt++) {
-				L1ItemInstance l1iteminstance1 = (L1ItemInstance) player_tradelist
-						.get(0);
+				L1ItemInstance l1iteminstance1 = player_tradelist.get(0);
 				int itembeforeinven = player.getInventory().countItems(
 						l1iteminstance1.getItem().getItemId());
 				player.getTradeWindowInventory().tradeItem(l1iteminstance1,
@@ -104,8 +103,7 @@ public class L1Trade {
 						itemafter, player_tradecount);
 			}
 			for (cnt = 0; cnt < trading_partner_tradecount; cnt++) {
-				L1ItemInstance l1iteminstance2 = (L1ItemInstance) trading_partner_tradelist
-						.get(0);
+				L1ItemInstance l1iteminstance2 = trading_partner_tradelist.get(0);
 				int itembeforeinven = player.getInventory().countItems(
 						l1iteminstance2.getItem().getItemId());
 				trading_partner.getTradeWindowInventory().tradeItem(
@@ -144,14 +142,12 @@ public class L1Trade {
 					.getTradeWindowInventory().getSize();
 
 			for (cnt = 0; cnt < player_tradecount; cnt++) {
-				L1ItemInstance l1iteminstance1 = (L1ItemInstance) player_tradelist
-						.get(0);
+				L1ItemInstance l1iteminstance1 = player_tradelist.get(0);
 				player.getTradeWindowInventory().tradeItem(l1iteminstance1,
 						l1iteminstance1.getCount(), player.getInventory());
 			}
 			for (cnt = 0; cnt < trading_partner_tradecount; cnt++) {
-				L1ItemInstance l1iteminstance2 = (L1ItemInstance) trading_partner_tradelist
-						.get(0);
+				L1ItemInstance l1iteminstance2 = trading_partner_tradelist.get(0);
 				trading_partner.getTradeWindowInventory().tradeItem(
 						l1iteminstance2, l1iteminstance2.getCount(),
 						trading_partner.getInventory());
