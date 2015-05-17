@@ -666,7 +666,7 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 		if (Thread.currentThread().getId() == super.getId()) {
 			return;
 		}
-		super.stop();
+		super.interrupt();
 	}
 
 	private final L1Character _cha;

@@ -52,7 +52,7 @@ public class C_Mail extends ClientBasePacket {
 			pc.sendPackets(new S_Mail(pc.getName(), type));
 		} else if (type == 0x10 || type == 0x11 || type == 0x12) {
 			int mailId = readD();
-			L1Mail mail = MailTable.getInstance().getMail(mailId);
+			L1Mail mail = MailTable.getMail(mailId);
 
 			if (mail.getReadStatus() == 0) {
 				MailTable.getInstance().setReadStatus(mailId);
@@ -130,7 +130,7 @@ public class C_Mail extends ClientBasePacket {
 
 	private int getMailSizeByReceiver(String receiverName, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<L1Mail>();
-		for (L1Mail mail : MailTable.getInstance().getAllMail()) {
+		for (L1Mail mail : MailTable.getAllMail()) {
 			if (mail.getReceiverName().equalsIgnoreCase(receiverName)) {
 				if (mail.getType() == type) {
 					mails.add(mail);
