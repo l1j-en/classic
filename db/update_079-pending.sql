@@ -314,3 +314,12 @@ update droplist set chance = 5000 where mobid = 45938 and itemid = 40196;
 -- -- Let's them do some actual monitoring
 update commands set access_level = 100 where name = 'recall';
 
+-- Make Guardian ring non-enchantable 
+UPDATE armor SET safenchant = -1 WHERE item_id = 20287;
+
+-- Reset any innapropriately enchanted guardian rings to +0
+-- Only relevant to a live server
+UPDATE character_items SET enchantlvl = 0 WHERE item_id = 20287;
+UPDATE character_elf_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
+UPDATE character_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
+UPDATE clan_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
