@@ -264,7 +264,7 @@ public class CharacterTable {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			
 			//not sure if MapId = '15' can be hard-coded for mainland aden map?
-			pstm = con.prepareStatement("SELECT * FROM characters where OnlineStatus = '0' "
+			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
 					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
 			pstm.setInt(1, tmp[4]);
 			pstm.setInt(2, tmp[0]);
