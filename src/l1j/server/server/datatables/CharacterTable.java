@@ -253,7 +253,7 @@ public class CharacterTable {
 				new L1CharName[_charNameList.size()]);
 	}
 	
-	public Collection<L1PcInstance> getOfflineInZone(int castleId){
+	public Collection<L1PcInstance> getOfflineInZone(int castleId) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -263,7 +263,7 @@ public class CharacterTable {
 			int[] tmp = L1CastleLocation.getWarArea(castleId);
 			con = L1DatabaseFactory.getInstance().getConnection();
 			
-			//not sure if MapId = '15' can be hard-coded for mainland aden map?
+			// not sure if MapId = '15' can be hard-coded for mainland aden map?
 			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
 					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
 			pstm.setInt(1, tmp[4]);
@@ -293,7 +293,7 @@ public class CharacterTable {
 		return offlineInZone;
 	}
 	
-	public void moveCharacter(L1PcInstance pc, int x, int y, short mapId){
+	public void moveCharacter(L1PcInstance pc, int x, int y, short mapId) {
 		pc.setLocation(x, y, mapId);
 		
 		try {
