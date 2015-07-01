@@ -262,15 +262,17 @@ public class CharacterTable {
 		try {
 			int[] warArea = L1CastleLocation.getWarArea(castleId);
 			con = L1DatabaseFactory.getInstance().getConnection();
+			int innerCastleId = L1CastleLocation.getCastleLoc(castleId)[2];
 			
-			// not sure if MapId = '15' can be hard-coded for mainland aden map?
 			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
-					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
-			pstm.setInt(1, warArea[4]);
-			pstm.setInt(2, warArea[0]);
-			pstm.setInt(3, warArea[1]);
-			pstm.setInt(4, warArea[2]);
-			pstm.setInt(5, warArea[3]);
+					+ "AND (MapId = ? OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
+			
+			pstm.setInt(1, innerCastleId);
+			pstm.setInt(2, warArea[4]);
+			pstm.setInt(3, warArea[0]);
+			pstm.setInt(4, warArea[1]);
+			pstm.setInt(5, warArea[2]);
+			pstm.setInt(6, warArea[3]);
 			
 			rs = pstm.executeQuery();
 			while (rs.next()) {
