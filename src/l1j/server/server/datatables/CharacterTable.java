@@ -22,12 +22,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
 import l1j.server.server.model.map.L1WorldMap;
@@ -91,7 +94,7 @@ public class CharacterTable {
 		return pc;
 	}
 
-	public L1PcInstance loadCharacter(String charName) throws Exception {
+	public L1PcInstance loadCharacter(String charName) {
 		L1PcInstance pc = null;
 		try {
 			pc = restoreCharacter(charName);
@@ -249,4 +252,54 @@ public class CharacterTable {
 		return _charNameList.values().toArray(
 				new L1CharName[_charNameList.size()]);
 	}
+	
+	public Collection<L1PcInstance> getOfflineInZone(int castleId){
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Collection<L1PcInstance> offlineInZone = new ArrayList<L1PcInstance>();
+		
+		try {
+			int[] tmp = L1CastleLocation.getWarArea(castleId);
+			con = L1DatabaseFactory.getInstance().getConnection();
+			
+			//not sure if MapId = '15' can be hard-coded for mainland aden map?
+			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
+					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
+			pstm.setInt(1, tmp[4]);
+			pstm.setInt(2, tmp[0]);
+			pstm.setInt(3, tmp[1]);
+			pstm.setInt(4, tmp[2]);
+			pstm.setInt(5, tmp[3]);
+			
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				try {
+					offlineInZone.add(loadCharacter(rs.getString("char_name")));
+				} catch (SQLException e) {
+					_log.log(Level.WARNING, 
+							"Unable to get offline characters name: " + 
+					e.getLocalizedMessage(), e);
+				}
+			}
+		} catch (SQLException e) {
+			_log.log(Level.INFO, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		
+		return offlineInZone;
+	}
+	
+	public void moveCharacter(L1PcInstance pc, int x, int y, short mapId){
+		pc.setLocation(x, y, mapId);
+		
+		try {
+			_charStorage.storeCharacter(pc);
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	} 
 }
