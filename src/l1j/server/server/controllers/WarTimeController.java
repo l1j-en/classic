@@ -18,11 +18,14 @@
  */
 package l1j.server.server.controllers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.TimeZone;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
+import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.CheckWarTime;
 import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.L1CastleLocation;
@@ -129,48 +132,66 @@ public class WarTimeController implements Runnable {
 			}
 		}
 	}
+	
+	private void clearCastle(int castleId){
+		int[] loc = new int[3];
+		
+		Collection<L1PcInstance> onlineAndOfflinePlayers = new ArrayList<L1PcInstance>();
+		onlineAndOfflinePlayers.addAll(L1World.getInstance().getAllPlayers());
+		onlineAndOfflinePlayers.addAll(CharacterTable.getInstance().getOfflineInZone(castleId));
+		
+		for (L1PcInstance pc
+				: onlineAndOfflinePlayers) {
+			if (L1CastleLocation.checkInWarArea(castleId, pc)
+					&& !pc.isGm() && !pc.isMonitor()) {
+				L1Clan clan = L1World.getInstance().getClan(
+						pc.getClanname());
+				if (clan != null) {
+					if (clan.getCastleId() == castleId) {
+						continue;
+					}
+				}
+				loc = L1CastleLocation.getGetBackLoc(castleId);
+				
+				//if the character is online, teleport them
+				//otherwise update their location in the DB
+				if(pc.getOnlineStatus() == 1)
+					L1Teleport.teleport(pc, loc[0], loc[1],
+							(short) loc[2], 5, true);
+				else
+					CharacterTable.getInstance().moveCharacter(pc, loc[0], loc[1], (short)loc[2]);
+			}
+		}
+	}
 
 	private void checkWarTime() {
 		for (int i = 0; i < 8; i++) {
+			int castleId = i + 1;
 			if (_war_start_time[i].before(getRealTime())
 					&& _war_end_time[i].after(getRealTime())) {
 				if (_is_now_war[i] == false) {
 					_is_now_war[i] = true;
 					L1WarSpawn warspawn = new L1WarSpawn();
-					warspawn.SpawnFlag(i + 1);
+					warspawn.SpawnFlag(castleId);
 					for (L1DoorInstance door : DoorTable.getInstance()
 							.getDoorList()) {
-						if (L1CastleLocation.checkInWarArea(i + 1, door)) {
+						if (L1CastleLocation.checkInWarArea(castleId, door)) {
 							door.repairGate();
 						}
 					}
 
 					L1World.getInstance().broadcastPacketToAll(
-							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, i + 1));
-					int[] loc = new int[3];
-					for (L1PcInstance pc : L1World.getInstance()
-							.getAllPlayers()) {
-						int castleId = i + 1;
-						if (L1CastleLocation.checkInWarArea(castleId, pc)
-								&& !pc.isGm()) {
-							L1Clan clan = L1World.getInstance().getClan(
-									pc.getClanname());
-							if (clan != null) {
-								if (clan.getCastleId() == castleId) {
-									continue;
-								}
-							}
-							loc = L1CastleLocation.getGetBackLoc(castleId);
-							L1Teleport.teleport(pc, loc[0], loc[1],
-									(short) loc[2], 5, true);
-						}
-					}
+							new S_PacketBox(S_PacketBox.MSG_WAR_BEGIN, castleId));
+					
+					clearCastle(castleId);
 				}
 			} else if (_war_end_time[i].before(getRealTime())) {
 				if (_is_now_war[i] == true) {
+					//clear the players in the castle before the war ends
+					clearCastle(castleId);
 					_is_now_war[i] = false;
 					L1World.getInstance().broadcastPacketToAll(
-							new S_PacketBox(S_PacketBox.MSG_WAR_END, i + 1));
+							new S_PacketBox(S_PacketBox.MSG_WAR_END, castleId));
 					_war_start_time[i].add(Config.ALT_WAR_INTERVAL_UNIT,
 							Config.ALT_WAR_INTERVAL);
 					_war_end_time[i].add(Config.ALT_WAR_INTERVAL_UNIT,
@@ -178,35 +199,36 @@ public class WarTimeController implements Runnable {
 					_l1castle[i].setTaxRate(10);
 					_l1castle[i].setPublicMoney(0);
 					CastleTable.getInstance().updateCastle(_l1castle[i]);
-					int castle_id = i + 1;
+					
 					for (L1Object l1object : L1World.getInstance().getObject()) {
 						if (l1object instanceof L1FieldObjectInstance) {
 							L1FieldObjectInstance flag = (L1FieldObjectInstance) l1object;
 							if (L1CastleLocation
-									.checkInWarArea(castle_id, flag)) {
+									.checkInWarArea(castleId, flag)) {
 								flag.deleteMe();
 							}
 						}
 						if (l1object instanceof L1CrownInstance) {
 							L1CrownInstance crown = (L1CrownInstance) l1object;
-							if (L1CastleLocation.checkInWarArea(castle_id,
+							if (L1CastleLocation.checkInWarArea(castleId,
 									crown)) {
 								crown.deleteMe();
 							}
 						}
 						if (l1object instanceof L1TowerInstance) {
 							L1TowerInstance tower = (L1TowerInstance) l1object;
-							if (L1CastleLocation.checkInWarArea(castle_id,
+							if (L1CastleLocation.checkInWarArea(castleId,
 									tower)) {
 								tower.deleteMe();
 							}
 						}
 					}
+					
 					L1WarSpawn warspawn = new L1WarSpawn();
-					warspawn.SpawnTower(castle_id);
+					warspawn.SpawnTower(castleId);
 					for (L1DoorInstance door : DoorTable.getInstance()
 							.getDoorList()) {
-						if (L1CastleLocation.checkInWarArea(castle_id, door)) {
+						if (L1CastleLocation.checkInWarArea(castleId, door)) {
 							door.repairGate();
 						}
 					}
