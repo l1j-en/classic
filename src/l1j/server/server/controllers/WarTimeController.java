@@ -133,7 +133,7 @@ public class WarTimeController implements Runnable {
 		}
 	}
 	
-	private void clearCastle(int castleId){
+	private void clearCastle(int castleId) {
 		int[] loc = new int[3];
 		
 		Collection<L1PcInstance> onlineAndOfflinePlayers = new ArrayList<L1PcInstance>();
@@ -153,8 +153,8 @@ public class WarTimeController implements Runnable {
 				}
 				loc = L1CastleLocation.getGetBackLoc(castleId);
 				
-				//if the character is online, teleport them
-				//otherwise update their location in the DB
+				// if the character is online, teleport them
+				// otherwise update their location in the DB
 				if(pc.getOnlineStatus() == 1)
 					L1Teleport.teleport(pc, loc[0], loc[1],
 							(short) loc[2], 5, true);
