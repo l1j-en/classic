@@ -253,24 +253,26 @@ public class CharacterTable {
 				new L1CharName[_charNameList.size()]);
 	}
 	
-	public Collection<L1PcInstance> getOfflineInZone(int castleId){
+	public Collection<L1PcInstance> getOfflineInZone(int castleId) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		Collection<L1PcInstance> offlineInZone = new ArrayList<L1PcInstance>();
 		
 		try {
-			int[] tmp = L1CastleLocation.getWarArea(castleId);
+			int[] warArea = L1CastleLocation.getWarArea(castleId);
 			con = L1DatabaseFactory.getInstance().getConnection();
+			int innerCastleId = L1CastleLocation.getCastleLoc(castleId)[2];
 			
-			//not sure if MapId = '15' can be hard-coded for mainland aden map?
 			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
-					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
-			pstm.setInt(1, tmp[4]);
-			pstm.setInt(2, tmp[0]);
-			pstm.setInt(3, tmp[1]);
-			pstm.setInt(4, tmp[2]);
-			pstm.setInt(5, tmp[3]);
+					+ "AND (MapId = ? OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
+			
+			pstm.setInt(1, innerCastleId);
+			pstm.setInt(2, warArea[4]);
+			pstm.setInt(3, warArea[0]);
+			pstm.setInt(4, warArea[1]);
+			pstm.setInt(5, warArea[2]);
+			pstm.setInt(6, warArea[3]);
 			
 			rs = pstm.executeQuery();
 			while (rs.next()) {
@@ -283,7 +285,7 @@ public class CharacterTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.INFO, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -293,7 +295,7 @@ public class CharacterTable {
 		return offlineInZone;
 	}
 	
-	public void moveCharacter(L1PcInstance pc, int x, int y, short mapId){
+	public void moveCharacter(L1PcInstance pc, int x, int y, short mapId) {
 		pc.setLocation(x, y, mapId);
 		
 		try {
