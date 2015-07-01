@@ -283,7 +283,7 @@ public class CharacterTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.INFO, e.getLocalizedMessage(), e);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
