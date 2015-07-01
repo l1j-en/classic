@@ -260,17 +260,17 @@ public class CharacterTable {
 		Collection<L1PcInstance> offlineInZone = new ArrayList<L1PcInstance>();
 		
 		try {
-			int[] tmp = L1CastleLocation.getWarArea(castleId);
+			int[] warArea = L1CastleLocation.getWarArea(castleId);
 			con = L1DatabaseFactory.getInstance().getConnection();
 			
 			// not sure if MapId = '15' can be hard-coded for mainland aden map?
 			pstm = con.prepareStatement("SELECT char_name FROM characters where OnlineStatus = '0' "
 					+ "AND (MapId = '15' OR (MapId = ? AND LocX >= ? AND LocX <= ? AND LocY >= ? AND LocY <= ?))");
-			pstm.setInt(1, tmp[4]);
-			pstm.setInt(2, tmp[0]);
-			pstm.setInt(3, tmp[1]);
-			pstm.setInt(4, tmp[2]);
-			pstm.setInt(5, tmp[3]);
+			pstm.setInt(1, warArea[4]);
+			pstm.setInt(2, warArea[0]);
+			pstm.setInt(3, warArea[1]);
+			pstm.setInt(4, warArea[2]);
+			pstm.setInt(5, warArea[3]);
 			
 			rs = pstm.executeQuery();
 			while (rs.next()) {
