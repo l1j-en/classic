@@ -327,11 +327,6 @@ UPDATE clan_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 --CMOMR at NPC Rollko is now 30k each.
 UPDATE shop SET selling_price = 30000 WHERE item_id = 20110;
 
--- Griffon now drops Griffon Feathers and Wind Tears
-insert into droplist values
-(45445,'Griffon',40491,'Griffon Feather',1,1,3000),
-(45445,'Griffon',40498,'Wind Tear',1,1,3000);
-
 -- Yahee Drops fixed
 delete from droplist where mobid = 45675;
 delete from droplist where mobid = 81082 and itemid between 40669 AND 40674;
