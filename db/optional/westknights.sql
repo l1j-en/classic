@@ -254,8 +254,11 @@ insert into droplist values
 -- to avoid screen shaking
 update weapon_skill set effect_id = 2527 where weapon_id = 450001;
 
--- add Griffon Feather drop to FI Griffons
-insert into droplist values (45445,'Griffon',40491,'Griffon Feather',1,1,10000);
+-- add Griffon Feather and Wind tear drop to FI Griffons
+insert into droplist values
+(45445,'Griffon',40491,'Griffon Feather',1,1,3000),
+(45445,'Griffon',40498,'Wind Tear',1,1,3000);
+
 update npc set note = 'Forgotten Island' where npcid = 45445;
 
 -- Royal Useable
