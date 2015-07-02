@@ -323,3 +323,25 @@ UPDATE character_items SET enchantlvl = 0 WHERE item_id = 20287;
 UPDATE character_elf_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 UPDATE character_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 UPDATE clan_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
+
+--CMOMR at NPC Rollko is now 30k each.
+UPDATE shop SET selling_price = 30000 WHERE item_id = 20110;
+
+-- Yahee Drops fixed
+delete from droplist where mobid = 45675;
+delete from droplist where mobid = 81082 and itemid between 40669 AND 40674;
+insert into droplist values
+(81082,'Yahee',20031,'Helm of Yahee',1,1,20000),
+(81082,'Yahee',20069,'Cloak of Yahee',1,1,20000),
+(81082,'Yahee',20131,'Armor of Yahee',1,1,20000),
+(81082,'Yahee',20179,'Gloves of Yahee',1,1,20000),
+(81082,'Yahee',20209,'Boots of Yahee',1,1,20000),
+(81082,'Yahee',20261,'Amulet of Yahee',1,1,20000),
+(81082,'Yahee',20290,'Ring of Yahee',1,1,20000);
+
+update droplist set min = 2, max = 6, chance = 300000 where mobid = 81082 and itemid = 40014;
+update droplist set min = 2, max = 6, chance = 300000 where mobid = 81082 and itemid = 40015;
+update droplist set min = 1, max = 5 ,chance = 300000 where mobid = 81082 and itemid = 40443;
+update droplist set min = 1, max = 5 ,chance = 300000 where mobid = 81082 and itemid = 40444;
+update droplist set min = 1, max = 5 ,chance = 500000 where mobid = 81082 and itemid = 40524;
+update droplist set min = 7490, max = 17850 where mobid = 81082 and itemid = 40308;
