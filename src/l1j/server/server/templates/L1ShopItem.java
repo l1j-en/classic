@@ -30,12 +30,23 @@ public class L1ShopItem {
 	private final int _price;
 
 	private final int _packCount;
+	
+	private final int _enchantLevel;
+	
+	public L1ShopItem(int itemId, int price, int packCount, int enchantLevel) {
+		_itemId = itemId;
+		_item = ItemTable.getInstance().getTemplate(itemId);
+		_price = price;
+		_packCount = packCount;
+		_enchantLevel = enchantLevel;
+	}
 
 	public L1ShopItem(int itemId, int price, int packCount) {
 		_itemId = itemId;
 		_item = ItemTable.getInstance().getTemplate(itemId);
 		_price = price;
 		_packCount = packCount;
+		_enchantLevel = 0;
 	}
 
 	public int getItemId() {
@@ -52,5 +63,9 @@ public class L1ShopItem {
 
 	public int getPackCount() {
 		return _packCount;
+	}
+	
+	public int getEnchantLevel() {
+		return _enchantLevel;
 	}
 }

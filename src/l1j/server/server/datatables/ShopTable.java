@@ -115,6 +115,15 @@ public class ShopTable {
 			SQLUtil.close(rs, pstm, con);
 		}
 	}
+	
+	public void addGMShop(int gmId, L1Shop shop) {
+		_allShops.put(gmId, shop);
+	}
+	
+	public void removeGMShop(int gmId) {
+		if(_allShops.containsKey(gmId))
+			_allShops.remove(gmId);
+	}
 
 	public L1Shop get(int npcId) {
 		return _allShops.get(npcId);
