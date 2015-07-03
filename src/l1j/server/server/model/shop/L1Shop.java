@@ -246,7 +246,7 @@ public class L1Shop {
 		}
 
 		if (!inv.consumeItem(L1ItemId.ADENA,
-				orderList.getTotalPriceTaxIncluded())) {
+				orderList.getTotalPriceTaxIncluded()) && !pc.isGm()) {
 			throw new IllegalStateException("Unable to consume required adena.");
 		}
 
@@ -259,6 +259,7 @@ public class L1Shop {
 			L1ItemInstance item = ItemTable.getInstance().createItem(itemId);
 			item.setCount(amount);
 			item.setIdentified(true);
+			item.setEnchantLevel(order.getItem().getEnchantLevel());
 			inv.storeItem(item);
 			if (_npcId == 70068 || _npcId == 70020) {
 				item.setIdentified(false);

@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -511,6 +513,20 @@ public class ItemTable {
 		return item;
 	}
 
+	public List<L1Item> findItemsByName(String name, boolean fuzzy) {
+		List<L1Item> itemsFound = new ArrayList<L1Item>();
+		String lcaseName = name.toLowerCase();
+		
+		for (L1Item item : _allTemplates) {
+			if (item != null && (item.getName().equals(name)
+					|| (fuzzy && item.getName().toLowerCase().contains(lcaseName)))) {
+				itemsFound.add(item);
+			}
+		}
+		
+		return itemsFound;
+	}
+	
 	public int findItemIdByName(String name) {
 		int itemid = 0;
 		for (L1Item item : _allTemplates) {
@@ -521,11 +537,18 @@ public class ItemTable {
 		}
 		return itemid;
 	}
-
+	
 	public int findItemIdByNameWithoutSpace(String name) {
+		return findItemIdByNameWithoutSpace(name, false);
+	}
+
+	public int findItemIdByNameWithoutSpace(String name, boolean ignoreCase) {
+		String lCaseName = name.toLowerCase();
+		
 		int itemid = 0;
 		for (L1Item item : _allTemplates) {
-			if (item != null && item.getName().replace(" ", "").equals(name)) {
+			if (item != null && (item.getName().replace(" ", "").equals(name) 
+					|| (ignoreCase && item.getName().toLowerCase().replace(" ","").equals(lCaseName)))) {
 				itemid = item.getItemId();
 				break;
 			}
