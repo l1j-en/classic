@@ -84,6 +84,10 @@ public class PolyTable {
 		}
 		_log.config("Polymorphs List: " + _polymorphs.size() + " Loaded");
 	}
+	
+	public HashMap<String, L1PolyMorph> getAllPolymorphs() {
+		return _polymorphs;
+	}
 
 	public L1PolyMorph getTemplate(String name) {
 		return _polymorphs.get(name);

@@ -83,8 +83,14 @@ public class L1AllBuff implements L1CommandExecutor {
 				WATER_LIFE, ELEMENTAL_FIRE, SOUL_OF_FLAME, ADDITIONAL_FIRE };
 		try {
 			StringTokenizer st = new StringTokenizer(arg);
-			String name = st.nextToken();
-			L1PcInstance target = L1World.getInstance().getPlayer(name);
+			L1PcInstance target = pc;
+			String name = target.getName();
+			
+			if(st.countTokens() == 1){
+				name = st.nextToken();
+				target = L1World.getInstance().getPlayer(name);
+			}
+				
 			if (target == null) {
 				pc.sendPackets(new S_ServerMessage(73, name));
 				return;
@@ -101,7 +107,7 @@ public class L1AllBuff implements L1CommandExecutor {
 						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF);
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(".allBuff player_name"));
+			pc.sendPackets(new S_SystemMessage(String.format(".%1$s <player_name> or .%1$s", cmdName)));
 		}
 	}
 }

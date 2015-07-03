@@ -24,6 +24,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Lawful;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_RawStringDialog;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -39,18 +40,18 @@ public class L1Status implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			StringTokenizer st = new StringTokenizer(arg);
-			String char_name = st.nextToken();
-			String param = st.nextToken();
-			int value = Integer.parseInt(st.nextToken());
-
-			L1PcInstance target = null;
-			if (char_name.equalsIgnoreCase("me")) {
-				target = pc;
-			} else {
+			StringTokenizer tok = new StringTokenizer(arg);
+			L1PcInstance target = pc;
+			String char_name = pc.getName();
+			
+			//if they passed all 4 values, get the user they passed
+			if (tok.countTokens() == 3){
+				char_name = tok.nextToken();
 				target = L1World.getInstance().getPlayer(char_name);
 			}
-
+			String param = tok.nextToken();
+			int value = Integer.parseInt(tok.nextToken());
+			
 			if (target == null) {
 				pc.sendPackets(new S_ServerMessage(73, char_name));
 				return;
@@ -109,11 +110,13 @@ public class L1Status implements L1CommandExecutor {
 			}
 			target.sendPackets(new S_OwnCharStatus(target));
 			pc.sendPackets(new S_SystemMessage("Changed " + target.getName()
-					+ "'s " + param + "to " + value));
+					+ "'s " + param + " to " + value));
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(
-					cmdName
-							+ " player AC/MR/HIT/DMG/HP/MP/LAWFUL/KARMA/GM/STR/CON/DEX/INT/WIS/CHA"));
+					String.format(".%1$s <player> <setting> <value> or .%1$s <setting> <value>",
+							cmdName)));
+			pc.sendPackets(new S_RawStringDialog(pc.getId(), 
+					"Available settings:", "AC, MR, HIT, DMG, HP, MP, LAWFUL, KARMA, GM, STR, CON, DEX, INT, WIS, CHA"));
 		}
 	}
 }
