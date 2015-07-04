@@ -89,8 +89,7 @@ public class L1GuardInstance extends L1NpcInstance {
 				// target pk'ers if not casle owners
 				// custom, do not remove in merges
 				if (pc.isWanted()
-						|| (guardsToCastles.containsKey(npcid)
-						&& !checkHasCastle(pc, guardsToCastles.get(npcid)))) {
+						&& !checkHasCastle(pc, guardsToCastles.get(npcid))) {
 					_hateList.add(pc, 0);
 					_target = pc;
 					return;
