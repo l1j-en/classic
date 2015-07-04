@@ -21,10 +21,13 @@ package l1j.server.server.command.executor;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.google.common.base.Joiner;
+
 import l1j.server.server.GMCommandsConfig;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_RawStringDialog;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1ItemSetItem;
@@ -44,7 +47,9 @@ public class L1CreateItemSet implements L1CommandExecutor {
 			String name = new StringTokenizer(arg).nextToken();
 			List<L1ItemSetItem> list = GMCommandsConfig.ITEM_SETS.get(name);
 			if (list == null) {
-				pc.sendPackets(new S_SystemMessage(name + " set_name"));
+				pc.sendPackets(new S_RawStringDialog(pc.getId(), 
+						"Available Set Lists", Joiner.on(", ").join(GMCommandsConfig.ITEM_SETS.keySet())));
+				pc.sendPackets(new S_SystemMessage(String.format(".%1$s set_name", cmdName)));
 				return;
 			}
 			for (L1ItemSetItem item : list) {
@@ -54,6 +59,7 @@ public class L1CreateItemSet implements L1CommandExecutor {
 						L1ItemInstance inst = ItemTable.getInstance()
 								.createItem(item.getId());
 						inst.setEnchantLevel(item.getEnchant());
+						inst.setIdentified(true);
 						pc.getInventory().storeItem(inst);
 					}
 				} else {
@@ -61,7 +67,9 @@ public class L1CreateItemSet implements L1CommandExecutor {
 				}
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(".itemset set_name"));
+			pc.sendPackets(new S_RawStringDialog(pc.getId(), 
+					"Available Set Lists", Joiner.on(", ").join(GMCommandsConfig.ITEM_SETS.keySet())));
+			pc.sendPackets(new S_SystemMessage(String.format(".%1$s set_name", cmdName)));
 		}
 	}
 }
