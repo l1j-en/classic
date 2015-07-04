@@ -324,7 +324,7 @@ UPDATE character_elf_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 UPDATE character_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 UPDATE clan_warehouse SET enchantlvl = 0 WHERE item_id = 20287;
 
---CMOMR at NPC Rollko is now 30k each.
+-- CMOMR at NPC Rollko is now 30k each.
 UPDATE shop SET selling_price = 30000 WHERE item_id = 20110;
 
 -- Yahee Drops fixed
