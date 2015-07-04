@@ -36,6 +36,7 @@ public class L1LevelPresent implements L1CommandExecutor {
 	}
 
 	@Override
+	//gives a present to everyone within the level range specified
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 
 		try {

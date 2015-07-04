@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
-import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
 import l1j.server.server.log.LogElfDwarfIn;
@@ -44,7 +42,6 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.model.shop.L1ShopBuyOrderList;
 import l1j.server.server.model.shop.L1ShopSellOrderList;
-import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
@@ -69,32 +66,44 @@ public class C_Result extends ClientBasePacket {
 		int npcObjectId = readD();
 		int resultType = readC();
 		int size = readC();
+		
+		boolean deleteAfterAction = false;
+		
 		//unused
 		//int unknown = readC();
 		readC();
 		L1PcInstance pc = clientthread.getActiveChar();
 		int level = pc.getLevel();
-
+		
 		int npcId = 0;
 		String npcImpl = "";
 		boolean isPrivateShop = false;
 		boolean tradable = true;
 		L1Object findObject = L1World.getInstance().findObject(npcObjectId);
 		if (findObject != null) {
-			int diffLocX = Math.abs(pc.getX() - findObject.getX());
-			int diffLocY = Math.abs(pc.getY() - findObject.getY());
-			if (diffLocX > 3 || diffLocY > 3) {
-				return;
-			}
-			if (findObject instanceof L1NpcInstance) {
-				L1NpcInstance targetNpc = (L1NpcInstance) findObject;
-				npcId = targetNpc.getNpcTemplate().get_npcId();
-				npcImpl = targetNpc.getNpcTemplate().getImpl();
-			} else if (findObject instanceof L1PcInstance) {
-				isPrivateShop = true;
+			if(npcObjectId != pc.getId() || !pc.isGm()){
+				int diffLocX = Math.abs(pc.getX() - findObject.getX());
+				int diffLocY = Math.abs(pc.getY() - findObject.getY());
+				if (diffLocX > 3 || diffLocY > 3) {
+					return;
+				}
+				if (findObject instanceof L1NpcInstance) {
+					L1NpcInstance targetNpc = (L1NpcInstance) findObject;
+					npcId = targetNpc.getNpcTemplate().get_npcId();
+					npcImpl = targetNpc.getNpcTemplate().getImpl();
+				} else if (findObject instanceof L1PcInstance) {
+					isPrivateShop = true;
+				}
 			}
 		}
-
+		
+		if(resultType == 0 && size != 0 
+				&& npcImpl.equals("") && npcObjectId == pc.getId() 
+				&& pc.isGm()) {
+			npcImpl = "L1Merchant";
+			npcId = pc.getId();
+		} 
+		
 		if (resultType == 0 && size != 0
 				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
 			L1Shop shop = ShopTable.getInstance().get(npcId);
@@ -103,6 +112,9 @@ public class C_Result extends ClientBasePacket {
 				orderList.add(readD(), readD());
 			}
 			shop.sellItems(pc, orderList);
+			// if the shop is one created by the GM action, then remove it now that we've used it
+			if(deleteAfterAction)
+				ShopTable.getInstance().removeGMShop(pc.getId());
 		} else if (resultType == 1 && size != 0
 				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
 			L1Shop shop = ShopTable.getInstance().get(npcId);

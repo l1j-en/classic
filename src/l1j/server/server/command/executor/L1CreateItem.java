@@ -18,17 +18,24 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_ShopSellList;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Item;
+import l1j.server.server.templates.L1ShopItem;
 
 public class L1CreateItem implements L1CommandExecutor {
 	private static Logger _log = Logger.getLogger(L1CreateItem.class.getName());
@@ -43,37 +50,46 @@ public class L1CreateItem implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			StringTokenizer st = new StringTokenizer(arg);
-			String nameid = st.nextToken();
-			int count = 1;
-			if (st.hasMoreTokens()) {
-				count = Integer.parseInt(st.nextToken());
-			}
-			int enchant = 0;
-			if (st.hasMoreTokens()) {
-				enchant = Integer.parseInt(st.nextToken());
-			}
-			int isId = 0;
-			if (st.hasMoreTokens()) {
-				isId = Integer.parseInt(st.nextToken());
-			}
-			int itemid = 0;
-			try {
-				itemid = Integer.parseInt(nameid);
-			} catch (NumberFormatException e) {
-				itemid = ItemTable.getInstance().findItemIdByNameWithoutSpace(
-						nameid);
-				if (itemid == 0) {
-					pc.sendPackets(new S_SystemMessage(
-							"Give an itemid, stupid."));
-					return;
+			List<String> args = new ArrayList<String>();
+			Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(arg);
+			
+			while (m.find())
+				args.add(m.group(1).replace("\"", ""));
+			
+			// initialize this to blank if it is empty just so we don't have to add more
+			// logic to display the help message
+			if(args.size() == 0)
+				args.add("");
+			
+			String nameOrId = args.get(0);
+			
+			L1Item itemToCreate = null;
+			
+			// they've chosen to enter all parameters, so don't display the shop window
+			if(args.size() == 4){
+				try {
+					itemToCreate = ItemTable.getInstance().getTemplate(Integer.parseInt(nameOrId));
+				} catch(NumberFormatException nfe) {
+					int itemId = ItemTable.getInstance().findItemIdByNameWithoutSpace(
+							nameOrId, true);
+					
+					if(itemId > 0)
+						itemToCreate = ItemTable.getInstance().getTemplate(itemId);
 				}
 			}
-			L1Item temp = ItemTable.getInstance().getTemplate(itemid);
-			if (temp != null) {
-				if (temp.isStackable()) {
+				
+			// if the user entered the long version and we were able to find the
+			// item based on the name or id, just pop it into their inventory without
+			// bringing up the shop window
+			if (itemToCreate != null) {
+				int count = Integer.parseInt(args.get(1));
+				int enchant = Integer.parseInt(args.get(2));
+				int isId = Integer.parseInt(args.get(3));
+				int itemId = itemToCreate.getItemId();
+				
+				if (itemToCreate.isStackable()) {
 					L1ItemInstance item = ItemTable.getInstance().createItem(
-							itemid);
+							itemId);
 					item.setEnchantLevel(0);
 					item.setCount(count);
 					if (isId == 1) {
@@ -82,13 +98,13 @@ public class L1CreateItem implements L1CommandExecutor {
 					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 						pc.getInventory().storeItem(item);
 						pc.sendPackets(new S_ServerMessage(403, item
-								.getLogName() + " ID: " + itemid + " "));
+								.getLogName() + " ID: " + itemId + " "));
 					}
 				} else {
 					L1ItemInstance item = null;
 					int createCount;
 					for (createCount = 0; createCount < count; createCount++) {
-						item = ItemTable.getInstance().createItem(itemid);
+						item = ItemTable.getInstance().createItem(itemId);
 						item.setEnchantLevel(enchant);
 						if (isId == 1) {
 							item.setIdentified(true);
@@ -101,16 +117,42 @@ public class L1CreateItem implements L1CommandExecutor {
 					}
 					if (createCount > 0) {
 						pc.sendPackets(new S_ServerMessage(403, item
-								.getLogName() + " ID: " + itemid + " "));
+								.getLogName() + " ID: " + itemId + " "));
 					}
 				}
+			} else if(args.size() == 2) {
+				// if they chose to use the shorted format then lets bring up a,
+				// window containing similar matches for them to select
+				int enchantLevel = Integer.parseInt(args.get(1));
+				List<L1ShopItem> shopItems = new ArrayList<L1ShopItem>();
+				List<L1Item> items = ItemTable.getInstance().findItemsByName(nameOrId, true);
+				
+				for(L1Item item : items) {
+					L1ShopItem itemToAdd = new L1ShopItem(item.getItemId(), 0, 1, enchantLevel);
+					shopItems.add(itemToAdd);
+				}
+				
+				if(shopItems.size() <= 50) {
+					L1Shop gmShop = new L1Shop(pc.getId(), shopItems, new ArrayList<L1ShopItem>());
+					ShopTable.getInstance().addGMShop(pc.getId(), gmShop);
+					
+					pc.sendPackets(new S_ShopSellList(pc));
+					pc.sendPackets(
+							new S_SystemMessage(String.format("All items in the shop window have been set to +%d "
+									+ "and will be identified after purchase.", enchantLevel)));
+				} else {
+					pc.sendPackets(new S_SystemMessage("Too many items returned. Please refine your search."));
+				}
 			} else {
-				pc.sendPackets(new S_SystemMessage(" something."));
+				pc.sendPackets(new S_SystemMessage(
+						String.format(".%1$s <itemid or name> <amount> <enchant> <isID> or .%1$s <name> <enchant>",
+								cmdName)));
 			}
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(
-					".item itemid amount enchant isID"));
+					String.format(".%1$s <itemid or name> <amount> <enchant> <isID> or .%1$s <name> <enchant>",
+							cmdName)));
 		}
 	}
 }
