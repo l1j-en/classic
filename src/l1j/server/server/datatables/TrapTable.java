@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -45,8 +46,7 @@ public class TrapTable {
 	private L1Trap createTrapInstance(String name, TrapStorage storage)
 			throws Exception {
 		final String packageName = "l1j.server.server.model.trap.";
-		Constructor<?> con = Class.forName(packageName + name).getConstructor(
-				new Class[] { TrapStorage.class });
+		Constructor<?> con = Class.forName(packageName + name).getConstructor( new Class[] { TrapStorage.class });
 		return (L1Trap) con.newInstance(storage);
 	}
 

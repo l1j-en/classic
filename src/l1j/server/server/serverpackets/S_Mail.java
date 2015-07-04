@@ -35,7 +35,7 @@ public class S_Mail extends ServerBasePacket {
 
 	public S_Mail(String receiverName, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<L1Mail>();
-		for (L1Mail mail : MailTable.getInstance().getAllMail()) {
+		for (L1Mail mail : MailTable.getAllMail()) {
 			if (mail.getReceiverName().equalsIgnoreCase(receiverName)) {
 				if (mail.getType() == type) {
 					mails.add(mail);
@@ -76,7 +76,7 @@ public class S_Mail extends ServerBasePacket {
 			writeC(1);
 			return;
 		}
-		L1Mail mail = MailTable.getInstance().getMail(mailId);
+		L1Mail mail = MailTable.getMail(mailId);
 		if (mail != null) {
 			writeC(Opcodes.S_OPCODE_MAIL);
 			writeC(type);

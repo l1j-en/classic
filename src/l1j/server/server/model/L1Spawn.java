@@ -396,6 +396,7 @@ public class L1Spawn {
 							break;
 						}
 					}
+          break;
 					// PC floor if you have no way normal appearance
 				default:
 					if (isAreaSpawn()) { // Coordinates of the range specified

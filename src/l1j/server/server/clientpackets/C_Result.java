@@ -504,7 +504,7 @@ public class C_Result extends ClientBasePacket {
 				for (int i = 0; i < size; i++) {
 					order = readD();
 					count = readD();
-					pssl = (L1PrivateShopSellList) sellList.get(order);
+					pssl = sellList.get(order);
 					itemObjectId = pssl.getItemObjectId();
 					sellPrice = pssl.getSellPrice();
 					sellTotalCount = pssl.getSellTotalCount();
@@ -613,7 +613,7 @@ public class C_Result extends ClientBasePacket {
 				if (item == null) {
 					continue;
 				}
-				psbl = (L1PrivateShopBuyList) buyList.get(order);
+				psbl = buyList.get(order);
 				buyPrice = psbl.getBuyPrice();
 				buyTotalCount = psbl.getBuyTotalCount();
 				buyCount = psbl.getBuyCount();
