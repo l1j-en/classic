@@ -48,8 +48,7 @@ public class S_PrivateShop extends ServerBasePacket {
 			pc.setPartnersPrivateShopItemCount(size);
 			writeH(size);
 			for (int i = 0; i < size; i++) {
-				L1PrivateShopSellList pssl = (L1PrivateShopSellList) list
-						.get(i);
+				L1PrivateShopSellList pssl = list.get(i);
 				int itemObjectId = pssl.getItemObjectId();
 				int count = pssl.getSellTotalCount() - pssl.getSellCount();
 				int price = pssl.getSellPrice();

@@ -56,8 +56,7 @@ public class L1War {
 			for (;;) {
 				try {
 					Thread.sleep(1000);
-					if (_warEndTime.before(WarTimeController.getInstance()
-							.getRealTime())) {
+					if (_warEndTime.before(WarTimeController.getRealTime())) {
 						break;
 					}
 				} catch (Exception exception) {
