@@ -35,10 +35,11 @@ public class L1Invisible implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			pc.setGmInvis(true);
-			pc.sendPackets(new S_Invis(pc.getId(), 1));
+			pc.setGmInvis(!pc.isGmInvis());
+			pc.sendPackets(new S_Invis(pc.getId(), pc.isGmInvis() ? 1 : 0));
 			pc.broadcastPacket(new S_RemoveObject(pc));
-			pc.sendPackets(new S_SystemMessage("You are now invisible."));
+			pc.sendPackets(new S_SystemMessage(
+					String.format("You are now %svisible.", pc.isGmInvis() ? "in" : "")));
 
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(cmdName + " "));

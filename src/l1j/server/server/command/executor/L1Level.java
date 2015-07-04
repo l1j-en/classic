@@ -21,7 +21,9 @@ package l1j.server.server.command.executor;
 import java.util.StringTokenizer;
 
 import l1j.server.server.datatables.ExpTable;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.IntRange;
 
@@ -38,17 +40,32 @@ public class L1Level implements L1CommandExecutor {
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
 			StringTokenizer tok = new StringTokenizer(arg);
+			L1PcInstance target = pc;
+			String char_name = pc.getName();
+			
+			//if they passed all 3 values, get the user they passed
+			if (tok.countTokens() == 2){
+				char_name = tok.nextToken();
+				target = L1World.getInstance().getPlayer(char_name);
+			}
+			
 			int level = Integer.parseInt(tok.nextToken());
-			if (level == pc.getLevel()) {
+			
+			if (target == null) {
+				pc.sendPackets(new S_ServerMessage(73, char_name));
+				return;
+			}
+			
+			if (level == target.getLevel()) {
 				return;
 			}
 			if (!IntRange.includes(level, 1, 99)) {
-				pc.sendPackets(new S_SystemMessage(".level 1-99"));
+				pc.sendPackets(new S_SystemMessage(".level <1-99> or .level <player> <1-99>"));
 				return;
 			}
-			pc.setExp(ExpTable.getExpByLevel(level));
+			target.setExp(ExpTable.getExpByLevel(level));
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + ".level 1-99"));
+			pc.sendPackets(new S_SystemMessage(cmdName + ".level <1-99> or .level <player> <1-99>"));
 		}
 	}
 }

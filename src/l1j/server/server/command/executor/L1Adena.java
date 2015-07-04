@@ -20,6 +20,7 @@ package l1j.server.server.command.executor;
 
 import java.util.StringTokenizer;
 
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
@@ -37,18 +38,27 @@ public class L1Adena implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			StringTokenizer stringtokenizer = new StringTokenizer(arg);
-			int count = Integer.parseInt(stringtokenizer.nextToken());
+			StringTokenizer tok = new StringTokenizer(arg);
+			L1PcInstance target = pc;
+			String char_name = pc.getName();
+			
+			//if they passed all 3 values, get the user they passed
+			if (tok.countTokens() == 2){
+				char_name = tok.nextToken();
+				target = L1World.getInstance().getPlayer(char_name);
+			}
+			
+			int count = Integer.parseInt(tok.nextToken());
 
-			L1ItemInstance adena = pc.getInventory().storeItem(L1ItemId.ADENA,
+			L1ItemInstance adena = target.getInventory().storeItem(L1ItemId.ADENA,
 					count);
 			if (adena != null) {
-				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(count).append(" adena created.").toString()));
+				pc.sendPackets(new S_SystemMessage(
+						String.format("%d adena given to %s.", count, char_name)));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage((new StringBuilder()).append(
-					" amount").toString()));
+			pc.sendPackets(new S_SystemMessage(
+					String.format(".%1$s <amount> or .%1$s <player> <amount>", cmdName)));
 		}
 	}
 }

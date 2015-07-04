@@ -30,6 +30,7 @@ import l1j.server.server.model.L1TaxCalculator;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1ShopItem;
@@ -38,6 +39,49 @@ public class S_ShopSellList extends ServerBasePacket {
 	/**
 	 * A list of goods store. BUY character and send button.
 	 */
+	public S_ShopSellList(L1PcInstance pc) {
+		writeC(Opcodes.S_OPCODE_SHOWSHOPBUYLIST);
+		writeD(pc.getId());
+		
+		L1Shop shop = ShopTable.getInstance().get(pc.getId());
+		List<L1ShopItem> shopItems = shop.getSellingItems();
+		writeH(shopItems.size());
+		
+		L1ItemInstance dummy = new L1ItemInstance();
+		for (int i = 0; i < shopItems.size(); i++) {
+			L1ShopItem shopItem = shopItems.get(i);
+			L1Item item = shopItem.getItem();
+			
+			writeD(i);
+			writeH(shopItem.getItem().getGfxId());
+			writeD(0);
+			
+			if (shopItem.getPackCount() > 1) {
+				writeS(item.getName() + " (" + shopItem.getPackCount() + ")");
+			} else {
+				writeS(item.getName());
+			}
+			
+			L1Item template = ItemTable.getInstance().getTemplate(
+					item.getItemId());
+			
+			if (template == null) {
+				writeC(0);
+			} else {
+				dummy.setItem(template);
+				dummy.setEnchantLevel(shopItem.getEnchantLevel());
+				dummy.setIdentified(true);
+				byte[] status = dummy.getStatusBytes();
+				writeC(status.length);
+				for (byte b : status) {
+					writeC(b);
+				}
+			}
+		}
+		
+		writeH(0x07);
+	}
+	
 	public S_ShopSellList(int objId) {
 		writeC(Opcodes.S_OPCODE_SHOWSHOPBUYLIST);
 		writeD(objId);

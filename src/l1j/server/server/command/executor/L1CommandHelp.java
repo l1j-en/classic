@@ -22,7 +22,7 @@ import java.util.List;
 
 import l1j.server.server.command.L1Commands;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.serverpackets.S_RawStringDialog;
 import l1j.server.server.templates.L1Command;
 
 public class L1CommandHelp implements L1CommandExecutor {
@@ -49,6 +49,6 @@ public class L1CommandHelp implements L1CommandExecutor {
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		List<L1Command> list = L1Commands.availableCommandList(pc
 				.getAccessLevel());
-		pc.sendPackets(new S_SystemMessage(join(list, ", ")));
+		pc.sendPackets(new S_RawStringDialog(pc.getId(), "Available GM Commands", join(list, ",")));
 	}
 }
