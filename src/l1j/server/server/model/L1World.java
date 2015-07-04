@@ -43,7 +43,7 @@ public class L1World {
 	private final ConcurrentHashMap<Integer, L1PetInstance> _allPets;
 	private final ConcurrentHashMap<Integer, L1SummonInstance> _allSummons;
 	private final ConcurrentHashMap<Integer, L1Object> _allObjects;
-	private final ConcurrentHashMap<Integer, L1Object>[] _visibleObjects;
+	private final ArrayList<ConcurrentHashMap<Integer, L1Object>> _visibleObjects;
 	private final CopyOnWriteArrayList<L1War> _allWars;
 	private final ConcurrentHashMap<String, L1Clan> _allClans;
 
@@ -63,12 +63,12 @@ public class L1World {
 		_allPets = new ConcurrentHashMap<Integer, L1PetInstance>();
 		_allSummons = new ConcurrentHashMap<Integer, L1SummonInstance>();
 		_allObjects = new ConcurrentHashMap<Integer, L1Object>();
-		_visibleObjects = new ConcurrentHashMap[MAX_MAP_ID + 1];
+		_visibleObjects = new ArrayList<ConcurrentHashMap<Integer, L1Object>>(MAX_MAP_ID + 1);
 		_allWars = new CopyOnWriteArrayList<L1War>();
 		_allClans = new ConcurrentHashMap<String, L1Clan>();
 
 		for (int i = 0; i <= MAX_MAP_ID; i++) {
-			_visibleObjects[i] = new ConcurrentHashMap<Integer, L1Object>();
+			_visibleObjects.add(new ConcurrentHashMap<Integer, L1Object>());
 		}
 	}
 
@@ -143,7 +143,7 @@ public class L1World {
 	public L1GroundInventory getInventory(int x, int y, short map) {
 		int inventoryKey = ((x - 30000) * 10000 + (y - 30000)) * -1;
 
-		Object object = _visibleObjects[map].get(inventoryKey);
+		Object object = _visibleObjects.get(map).get(inventoryKey);
 		if (object == null) {
 			return new L1GroundInventory(inventoryKey, x, y, map);
 		} else {
@@ -158,23 +158,23 @@ public class L1World {
 
 	public void addVisibleObject(L1Object object) {
 		if (object.getMapId() <= MAX_MAP_ID) {
-			_visibleObjects[object.getMapId()].put(object.getId(), object);
+			_visibleObjects.get(object.getMapId()).put(object.getId(), object);
 		}
 	}
 
 	public void removeVisibleObject(L1Object object) {
 		if (object.getMapId() <= MAX_MAP_ID) {
-			_visibleObjects[object.getMapId()].remove(object.getId());
+			_visibleObjects.get(object.getMapId()).remove(object.getId());
 		}
 	}
 
 	public void moveVisibleObject(L1Object object, int newMap) {
 		if (object.getMapId() != newMap) {
 			if (object.getMapId() <= MAX_MAP_ID) {
-				_visibleObjects[object.getMapId()].remove(object.getId());
+				_visibleObjects.get(object.getMapId()).remove(object.getId());
 			}
 			if (newMap <= MAX_MAP_ID) {
-				_visibleObjects[newMap].put(object.getId(), object);
+				_visibleObjects.get(newMap).put(object.getId(), object);
 			}
 		}
 	}
@@ -242,7 +242,7 @@ public class L1World {
 		ArrayList<L1Object> result = new ArrayList<L1Object>();
 
 		if (map <= MAX_MAP_ID) {
-			for (L1Object element : _visibleObjects[map].values()) {
+			for (L1Object element : _visibleObjects.get(map).values()) {
 				if (element.equals(src)) {
 					continue;
 				}
@@ -269,7 +269,7 @@ public class L1World {
 		double sinSita = Math.sin(headingRotate[heading] * Math.PI / 4);
 
 		if (map <= MAX_MAP_ID) {
-			for (L1Object element : _visibleObjects[map].values()) {
+			for (L1Object element : _visibleObjects.get(map).values()) {
 				if (element.equals(object)) {
 					continue;
 				}
@@ -327,7 +327,7 @@ public class L1World {
 		Point pt = object.getLocation();
 		ArrayList<L1Object> result = new ArrayList<L1Object>();
 		if (map.getId() <= MAX_MAP_ID) {
-			for (L1Object element : _visibleObjects[map.getId()].values()) {
+			for (L1Object element : _visibleObjects.get(map.getId()).values()) {
 				if (element.equals(object)) {
 					continue;
 				}
@@ -359,7 +359,7 @@ public class L1World {
 		int mapId = loc.getMapId(); // And called for a serious loop
 
 		if (mapId <= MAX_MAP_ID) {
-			for (L1Object element : _visibleObjects[mapId].values()) {
+			for (L1Object element : _visibleObjects.get(mapId).values()) {
 				if (mapId != element.getMapId()) {
 					continue;
 				}
@@ -502,7 +502,7 @@ public class L1World {
 	}
 
 	public final Map<Integer, L1Object> getVisibleObjects(int mapId) {
-		return _visibleObjects[mapId];
+		return _visibleObjects.get(mapId);
 	}
 
 	public Object getRegion(Object object) {

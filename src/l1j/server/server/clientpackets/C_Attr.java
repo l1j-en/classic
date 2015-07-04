@@ -311,8 +311,7 @@ public class C_Attr extends ClientBasePacket {
 					target653.save();
 					target653.sendPackets(new S_ServerMessage(662));
 				} else {
-					CharacterTable.getInstance().updatePartnerId(
-							pc.getPartnerId());
+					CharacterTable.updatePartnerId(pc.getPartnerId());
 				}
 			}
 			pc.setPartnerId(0);
