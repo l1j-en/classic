@@ -1444,8 +1444,10 @@ public class L1PcInstance extends L1Character {
 						if (player.isElf() && isElf()) {
 							player.setPkCountForElf(player.getPkCountForElf() + 1);
 						}
+						
+						player.setLastPk();
 					}
-					player.setLastPk();
+					
 					if (player.isElf() && isElf()) {
 						player.setLastPkForElf();
 					}

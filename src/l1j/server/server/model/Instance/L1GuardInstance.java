@@ -86,10 +86,15 @@ public class L1GuardInstance extends L1NpcInstance {
 				continue;
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
-				// target pk'ers if not casle owners
+				// target pk'ers if not castle owners
 				// custom, do not remove in merges
+				// if the pc is wanted and it isn't a castle guard -- then attack
+				// if the pc is wanted and it is a castle guard and they don't
+				// own the castle -- attack
 				if (pc.isWanted()
-						&& !checkHasCastle(pc, guardsToCastles.get(npcid))) {
+						&& (!guardsToCastles.containsKey(npcid)
+								|| (guardsToCastles.containsKey(npcid) 
+								&& !checkHasCastle(pc, guardsToCastles.get(npcid))))) {
 					_hateList.add(pc, 0);
 					_target = pc;
 					return;
@@ -165,7 +170,6 @@ public class L1GuardInstance extends L1NpcInstance {
 		int npcid = getNpcTemplate().get_npcId();
 		String htmlid = null;
 		String[] htmldata = null;
-		boolean hascastle = false;
 
 		if (talking == null)
 			return;
