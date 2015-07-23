@@ -77,23 +77,50 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	}
 
 	private boolean makeItems(L1PcInstance pc, String npcName, int amount) {
+        System.out.println("MakeItens");
 		if (amount <= 0 || amount > 1000) {
 			return false;
 		}
 
 		boolean isEnoughMaterials = true;
-		for (L1ObjectAmount<Integer> material : _materials) {
-			if (!pc.getInventory().checkItemNotEquipped(material.getObject(),
-					material.getAmount() * amount)) {
-				L1Item temp = ItemTable.getInstance().getTemplate(
-						material.getObject());
-				pc.sendPackets(new S_ServerMessage(337, temp.getName()
-						+ "("
-						+ ((material.getAmount() * amount) - pc.getInventory()
-								.countItems(temp.getItemId())) + ")"));
-				isEnoughMaterials = false;
-			}
-		}
+        for (L1ObjectAmount<Integer> material : _materials) {
+
+            List<L1ItemInstance> itemList = pc.getInventory().findItemsId(material.getObject());
+
+            int count = 0;
+            for (L1ItemInstance x : itemList) {
+                if(x.isStackable()) {
+                    count = x.getCount();
+                    continue;
+                }
+
+                if(x.getEnchantLevel() == 0)
+                    count++;
+            }
+
+            if (count < material.getAmount() * amount){
+                L1Item temp = ItemTable.getInstance().getTemplate(material.getObject());
+
+                pc.sendPackets(new S_ServerMessage(337, temp.getName()
+                        + "("
+                        + ((material.getAmount() * amount) - pc.getInventory()
+                        .countNonEnchantedItems(temp.getItemId())) + ")"));
+                isEnoughMaterials = false;
+            }
+
+
+            else if (!pc.getInventory().checkItemNotEquipped(material.getObject(),
+                    material.getAmount() * amount)) {
+
+                L1Item temp = ItemTable.getInstance().getTemplate(material.getObject());
+
+                pc.sendPackets(new S_ServerMessage(337, temp.getName()
+                        + "("
+                        + ((material.getAmount() * amount) - pc.getInventory()
+                        .countItems(temp.getItemId())) + ")"));
+                isEnoughMaterials = false;
+            }
+        }
 		if (!isEnoughMaterials) {
 			return false;
 		}
@@ -124,6 +151,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 		}
 
 		for (L1ObjectAmount<Integer> material : _materials) {
+
 			pc.getInventory().consumeItem(material.getObject(),
 					material.getAmount() * amount);
 		}
@@ -139,6 +167,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 							* amount + ")";
 				}
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+
 			}
 		}
 		return true;
@@ -169,6 +198,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	@Override
 	public L1NpcHtml executeWithAmount(String actionName, L1PcInstance pc,
 			L1Object obj, int amount) {
+        System.out.println("ExecuteWithAmount");
 		L1NpcInstance npc = (L1NpcInstance) obj;
 		L1NpcHtml result = null;
 		if (makeItems(pc, npc.getNpcTemplate().get_name(), amount)) {
