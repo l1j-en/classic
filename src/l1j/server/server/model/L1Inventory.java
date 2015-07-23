@@ -434,6 +434,16 @@ public class L1Inventory extends L1Object {
 		return itemList;
 	}
 
+    private List<L1ItemInstance> findItemsNotEquippedAndEnchanted(int id) {
+        List<L1ItemInstance> itemList = new ArrayList<L1ItemInstance>();
+        for (L1ItemInstance item : _items) {
+            if (item.getItemId() == id && !item.isEquipped() && (item.getEnchantLevel() == 0)) {
+                itemList.add(item);
+            }
+        }
+        return itemList;
+    }
+
 	public L1ItemInstance getItem(int objectId) {
 		for (Object itemObject : _items) {
 			L1ItemInstance item = (L1ItemInstance) itemObject;
@@ -519,17 +529,29 @@ public class L1Inventory extends L1Object {
 		return true;
 	}
 
-	public int countItems(int id) {
-		if (ItemTable.getInstance().getTemplate(id).isStackable()) {
-			L1ItemInstance item = findItemId(id);
-			if (item != null) {
-				return item.getCount();
-			}
-		} else {
-			return findItemsIdNotEquipped(id).size();
-		}
-		return 0;
-	}
+    public int countItems(int id) {
+        if (ItemTable.getInstance().getTemplate(id).isStackable()) {
+            L1ItemInstance item = findItemId(id);
+            if (item != null) {
+                return item.getCount();
+            }
+        } else {
+            return findItemsIdNotEquipped(id).size();
+        }
+        return 0;
+    }
+
+    public int countNonEnchantedItems(int id) {
+        if (ItemTable.getInstance().getTemplate(id).isStackable()) {
+            L1ItemInstance item = findItemId(id);
+            if (item != null) {
+                return item.getCount();
+            }
+        } else {
+            return findItemsNotEquippedAndEnchanted(id).size();
+        }
+        return 0;
+    }
 
 	public void shuffle() {
 		Collections.shuffle(_items);
