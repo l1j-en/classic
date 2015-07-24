@@ -77,7 +77,6 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	}
 
 	private boolean makeItems(L1PcInstance pc, String npcName, int amount) {
-        System.out.println("MakeItens");
 		if (amount <= 0 || amount > 1000) {
 			return false;
 		}
@@ -94,7 +93,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
                     continue;
                 }
 
-                if(x.getEnchantLevel() == 0)
+                if(x.getEnchantLevel() == 0 && !pc.getInventory().checkEquipped(material.getObject()))
                     count++;
             }
 
@@ -108,18 +107,6 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
                 isEnoughMaterials = false;
             }
 
-
-            else if (!pc.getInventory().checkItemNotEquipped(material.getObject(),
-                    material.getAmount() * amount)) {
-
-                L1Item temp = ItemTable.getInstance().getTemplate(material.getObject());
-
-                pc.sendPackets(new S_ServerMessage(337, temp.getName()
-                        + "("
-                        + ((material.getAmount() * amount) - pc.getInventory()
-                        .countItems(temp.getItemId())) + ")"));
-                isEnoughMaterials = false;
-            }
         }
 		if (!isEnoughMaterials) {
 			return false;
@@ -198,7 +185,6 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 	@Override
 	public L1NpcHtml executeWithAmount(String actionName, L1PcInstance pc,
 			L1Object obj, int amount) {
-        System.out.println("ExecuteWithAmount");
 		L1NpcInstance npc = (L1NpcInstance) obj;
 		L1NpcHtml result = null;
 		if (makeItems(pc, npc.getNpcTemplate().get_name(), amount)) {
