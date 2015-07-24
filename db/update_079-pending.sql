@@ -345,3 +345,22 @@ update droplist set min = 1, max = 5 ,chance = 300000 where mobid = 81082 and it
 update droplist set min = 1, max = 5 ,chance = 300000 where mobid = 81082 and itemid = 40444;
 update droplist set min = 1, max = 5 ,chance = 500000 where mobid = 81082 and itemid = 40524;
 update droplist set min = 7490, max = 17850 where mobid = 81082 and itemid = 40308;
+
+-- Tarak's drops updated
+UPDATE droplist SET chance=12000 WHERE mobId=45685 AND itemId=20076;
+UPDATE droplist SET chance=5000 WHERE  mobId=45685 AND itemId=20152;
+UPDATE droplist SET chance=10000 WHERE mobId=45685 AND itemId=20186;
+UPDATE droplist SET chance=11000 WHERE mobId=45685 AND itemId=20216;
+UPDATE droplist SET chance=12000 WHERE mobId=45685 AND itemId=40473;
+UPDATE droplist SET chance=7000 WHERE  mobId=45685 AND itemId=40475;
+UPDATE droplist SET chance=35000 WHERE mobId=45685 AND itemId=140129;
+UPDATE droplist SET chance=25000 WHERE mobId=45685 AND itemId=140130;
+
+-- Updating 10% ring drop rate
+UPDATE droplist SET chance=700 WHERE mobId=45364 AND itemId=20280;
+UPDATE droplist SET chance=800 WHERE mobId=45392 AND itemId=20280;
+UPDATE droplist SET chance=1000 WHERE mobId=45445 AND itemId=20280;
+UPDATE droplist SET chance=800 WHERE mobId=45452 AND itemId=20280;
+UPDATE droplist SET chance=1000 WHERE mobId=45505 AND itemId=20280;
+UPDATE droplist SET chance=1000 WHERE mobId=45509 AND itemId=20280;
+UPDATE droplist SET chance=2000 WHERE mobId=45578 AND itemId=20280;
