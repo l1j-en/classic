@@ -82,18 +82,32 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 		}
 
 		boolean isEnoughMaterials = true;
-		for (L1ObjectAmount<Integer> material : _materials) {
-			if (!pc.getInventory().checkItemNotEquipped(material.getObject(),
-					material.getAmount() * amount)) {
-				L1Item temp = ItemTable.getInstance().getTemplate(
-						material.getObject());
-				pc.sendPackets(new S_ServerMessage(337, temp.getName()
-						+ "("
-						+ ((material.getAmount() * amount) - pc.getInventory()
-								.countItems(temp.getItemId())) + ")"));
-				isEnoughMaterials = false;
-			}
-		}
+        for (L1ObjectAmount<Integer> material : _materials) {
+
+            List<L1ItemInstance> itemList = pc.getInventory().findItemsId(material.getObject());
+
+            int count = 0;
+            for (L1ItemInstance x : itemList) {
+                if(x.isStackable()) {
+                    count = x.getCount();
+                    continue;
+                }
+
+                if(x.getEnchantLevel() == 0 && !pc.getInventory().checkEquipped(material.getObject()))
+                    count++;
+            }
+
+            if (count < material.getAmount() * amount){
+                L1Item temp = ItemTable.getInstance().getTemplate(material.getObject());
+
+                pc.sendPackets(new S_ServerMessage(337, temp.getName()
+                        + "("
+                        + ((material.getAmount() * amount) - pc.getInventory()
+                        .countNonEnchantedItems(temp.getItemId())) + ")"));
+                isEnoughMaterials = false;
+            }
+
+        }
 		if (!isEnoughMaterials) {
 			return false;
 		}
@@ -124,6 +138,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 		}
 
 		for (L1ObjectAmount<Integer> material : _materials) {
+
 			pc.getInventory().consumeItem(material.getObject(),
 					material.getAmount() * amount);
 		}
@@ -139,6 +154,7 @@ public class L1NpcMakeItemAction extends L1NpcXmlAction {
 							* amount + ")";
 				}
 				pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+
 			}
 		}
 		return true;
