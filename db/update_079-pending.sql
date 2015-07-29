@@ -365,7 +365,7 @@ UPDATE droplist SET chance=1000 WHERE mobId=45505 AND itemId=20280;
 UPDATE droplist SET chance=1000 WHERE mobId=45509 AND itemId=20280;
 UPDATE droplist SET chance=2000 WHERE mobId=45578 AND itemId=20280;
 
--- Adding Bring Stone drops to all SC moves
+-- Adding Bring Stone drops to all SC mobs
 INSERT INTO droplist VALUES
 ('45050', 'Orc Archer', '40320', 'Bring Stone', '1', '1', '80000'),
 ('45119', 'Orc Elder', '40320', 'Bring Stone', '1', '1', '80000'),
