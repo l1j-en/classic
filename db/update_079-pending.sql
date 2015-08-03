@@ -364,3 +364,21 @@ UPDATE droplist SET chance=800 WHERE mobId=45452 AND itemId=20280;
 UPDATE droplist SET chance=1000 WHERE mobId=45505 AND itemId=20280;
 UPDATE droplist SET chance=1000 WHERE mobId=45509 AND itemId=20280;
 UPDATE droplist SET chance=2000 WHERE mobId=45578 AND itemId=20280;
+
+-- Adding Bring Stone drops to all SC mobs
+INSERT INTO droplist VALUES
+('45050', 'Orc Archer', '40320', 'Bring Stone', '1', '1', '80000'),
+('45119', 'Orc Elder', '40320', 'Bring Stone', '1', '1', '80000'),
+('45018', 'Orc', '40320', 'Bring Stone', '1', '1', '80000'),
+('45030', 'Fungus', '40320', 'Bring Stone', '1', '1', '80000'),
+('26510', 'Zombie', '40320', 'Bring Stone', '1', '1', '80000'),
+('26511', 'Crawling Craw', '40320', 'Bring Stone', '1', '1', '80000'),
+('45094', 'Werewolf', '40320', 'Bring Stone', '1', '1', '80000'),
+('45109', 'Orc Zombie', '40320', 'Bring Stone', '1', '1', '80000'),
+('45114', 'Skeleton', '40320', 'Bring Stone', '1', '1', '80000'),
+('45120', 'Orc Fighter', '40320', 'Bring Stone', '1', '1', '80000'),
+('45129', 'Skeleton Archer', '40320', 'Bring Stone', '1', '1', '80000'),
+('45134', 'Stone Golem', '40320', 'Bring Stone', '1', '1', '80000'),
+('45145', 'Lizardman', '40320', 'Bring Stone', '1', '1', '80000'),
+('45148', 'Owlbear', '40320', 'Bring Stone', '1', '1', '80000'),
+('45181', 'Spartoi', '40320', 'Bring Stone', '1', '1', '80000');
