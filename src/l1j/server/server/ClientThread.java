@@ -273,8 +273,10 @@ public class ClientThread implements Runnable, PacketOutput {
 					// milliseconds since the last aggressive act was done to them/taken
 					// by the player to stop people from being able to force-quit
 					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
+					
 					while(lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER 
-							> System.currentTimeMillis())
+							> System.currentTimeMillis()
+							&& !_activeChar.getMap().isSafetyZone(_activeChar.getLocation()))
 					
 					quitGame(_activeChar);
 					synchronized (_activeChar) {
