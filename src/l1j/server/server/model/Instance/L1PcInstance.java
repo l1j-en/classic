@@ -990,24 +990,21 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void receiveDamage(L1Character attacker, int damage, int attr) {
-		this.setLastAggressiveAct();
-		
-		if(attacker instanceof L1PcInstance)
-			((L1PcInstance)attacker).setLastAggressiveAct();
-		
 		int player_mr = getMr();
 		int rnd = _random.nextInt(100) + 1;
 		if (player_mr >= rnd) {
 			damage /= 2;
 		}
+		
 		receiveDamage(attacker, damage, false);
 	}
 
 	public void receiveManaDamage(L1Character attacker, int mpDamage) {
 		this.setLastAggressiveAct();
 		
-		if(attacker instanceof L1PcInstance)
+		if(attacker instanceof L1PcInstance) {
 			((L1PcInstance)attacker).setLastAggressiveAct();
+		}
 		
 		if (mpDamage > 0 && !isDead()) {
 			delInvis();
@@ -1044,9 +1041,10 @@ public class L1PcInstance extends L1Character {
 			boolean isMagicDamage) { //
 		this.setLastAggressiveAct();
 		
-		if(attacker instanceof L1PcInstance)
+		if(attacker instanceof L1PcInstance) {
 			((L1PcInstance)attacker).setLastAggressiveAct();
-		
+		}
+			
 		if (getCurrentHp() > 0 && !isDead()) {
 			if (attacker != this) {
 				if (!(attacker instanceof L1EffectInstance)
