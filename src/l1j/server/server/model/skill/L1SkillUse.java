@@ -1696,6 +1696,10 @@ public class L1SkillUse {
 
 				if (_skill.getType() == L1Skill.TYPE_ATTACK
 						&& _user.getId() != cha.getId()) {
+					
+					if (_user instanceof L1PcInstance)
+						((L1PcInstance)_user).setLastAggressiveAct();
+					
 					if (isUseCounterMagic(cha)) {
 						iter.remove();
 						continue;
@@ -1705,6 +1709,10 @@ public class L1SkillUse {
 					cha.removeSkillEffect(ERASE_MAGIC);
 				} else if (_skill.getType() == L1Skill.TYPE_CURSE
 						|| _skill.getType() == L1Skill.TYPE_PROBABILITY) {
+					
+					if (_user instanceof L1PcInstance)
+						((L1PcInstance)_user).setLastAggressiveAct();
+					
 					isSuccess = _magic.calcProbabilityMagic(_skillId);
 					if (_skillId != ERASE_MAGIC) {
 						cha.removeSkillEffect(ERASE_MAGIC);
@@ -1716,6 +1724,9 @@ public class L1SkillUse {
 						cha.removeSkillEffect(PHANTASM);
 					}
 					if (isSuccess) {
+						if(cha instanceof L1PcInstance)
+							((L1PcInstance)cha).setLastAggressiveAct();
+						
 						if (isUseCounterMagic(cha)) {
 							iter.remove();
 							continue;

@@ -132,8 +132,21 @@ public class L1PcInstance extends L1Character {
 
 	private short _trueHpr = 0;
 	private short _hpr = 0;
+	private long _lastAggressiveAct = 0;
 
 	public L1PinkName _pinkName = null;
+	
+	public void setLastAggressiveAct() {
+		setLastAggressiveAct(System.currentTimeMillis());
+	}
+	
+	public void setLastAggressiveAct(long millis) {
+		_lastAggressiveAct = millis;
+	}
+	
+	public long getLastAggressiveAct() {
+		return _lastAggressiveAct;
+	}
 	
 	public short getHpr() {
 		return _hpr;
@@ -977,6 +990,11 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void receiveDamage(L1Character attacker, int damage, int attr) {
+		this.setLastAggressiveAct();
+		
+		if(attacker instanceof L1PcInstance)
+			((L1PcInstance)attacker).setLastAggressiveAct();
+		
 		int player_mr = getMr();
 		int rnd = _random.nextInt(100) + 1;
 		if (player_mr >= rnd) {
@@ -986,6 +1004,11 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void receiveManaDamage(L1Character attacker, int mpDamage) {
+		this.setLastAggressiveAct();
+		
+		if(attacker instanceof L1PcInstance)
+			((L1PcInstance)attacker).setLastAggressiveAct();
+		
 		if (mpDamage > 0 && !isDead()) {
 			delInvis();
 			if (attacker instanceof L1PcInstance) {
@@ -1019,6 +1042,11 @@ public class L1PcInstance extends L1Character {
 
 	public void receiveDamage(L1Character attacker, double damage,
 			boolean isMagicDamage) { //
+		this.setLastAggressiveAct();
+		
+		if(attacker instanceof L1PcInstance)
+			((L1PcInstance)attacker).setLastAggressiveAct();
+		
 		if (getCurrentHp() > 0 && !isDead()) {
 			if (attacker != this) {
 				if (!(attacker instanceof L1EffectInstance)
@@ -1163,6 +1191,7 @@ public class L1PcInstance extends L1Character {
 				return;
 			}
 			setDead(true);
+			this.setLastAggressiveAct(0);
 			setStatus(ActionCodes.ACTION_Die);
 		}
 		GeneralThreadPool.getInstance().execute(new Death(lastAttacker));
