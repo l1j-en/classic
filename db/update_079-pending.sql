@@ -365,5 +365,5 @@ UPDATE droplist SET chance=1000 WHERE mobId=45505 AND itemId=20280;
 UPDATE droplist SET chance=1000 WHERE mobId=45509 AND itemId=20280;
 UPDATE droplist SET chance=2000 WHERE mobId=45578 AND itemId=20280;
 
--- Fiery coal should drop from Lava Golems
-INSERT INTO droplist VALUES('45365', 'Lava Golem', '90009', 'Fiery Coal', '1', '1', '1000');
+-- Stronger Minotaur should drop 10% rings as well.
+INSERT INTO droplist VALUES('45449', 'Minotaur', '20280', 'Ring of Immunity to Magic', '1', '1', '700');
