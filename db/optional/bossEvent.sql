@@ -1,13 +1,3 @@
-	-- Deleting old records, if any
-	DELETE from npc where npcid > 91315 AND npcid < 91336;
-	DELETE from mobskill where mobid > 91315 AND mobid < 91336;
-	DELETE from spawnlist where npc_templateid > 91315 AND npc_templateid < 91336;
-	DELETE from etcitem where name = 'Sakura Forest Teleport';
-	DELETE from etcitem where name = 'Fruity Forest Teleport';
-	DELETE from droplist where mobid > 91315 AND mobid < 91336;
-	# Killing Tricid
-	DELETE from shop where npc_id = 666666;
-
 	-- Removing TI normal mobs spawn
 	UPDATE spawnlist SET count = 0 WHERE mapid = 0;
 
