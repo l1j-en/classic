@@ -382,3 +382,6 @@ INSERT INTO droplist VALUES
 ('45145', 'Lizardman', '40320', 'Bring Stone', '1', '1', '80000'),
 ('45148', 'Owlbear', '40320', 'Bring Stone', '1', '1', '80000'),
 ('45181', 'Spartoi', '40320', 'Bring Stone', '1', '1', '80000');
+
+-- Fiery coal should drop from Lava Golems
+INSERT INTO droplist VALUES('45365', 'Lava Golem', '90009', 'Fiery Coal', '1', '1', '1000');
