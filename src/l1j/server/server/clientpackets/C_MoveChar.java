@@ -28,6 +28,7 @@ import l1j.server.server.model.Dungeon;
 import l1j.server.server.model.DungeonRandom;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Teleport;
+import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
@@ -54,7 +55,11 @@ public class C_MoveChar extends ClientBasePacket {
 		int heading = readC();
 
 		L1PcInstance pc = client.getActiveChar();
-
+		
+		if(pc.getZoneType() == ZoneType.Safety) {
+			pc.setLastAggressiveAct(0);
+		}
+		
 		if (pc.isTeleport()) {
 			return;
 		}

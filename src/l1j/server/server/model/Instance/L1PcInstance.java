@@ -141,7 +141,12 @@ public class L1PcInstance extends L1Character {
 	}
 	
 	public void setLastAggressiveAct(long millis) {
-		_lastAggressiveAct = millis;
+		// if they're not in a safety zone or we're attempting
+		// to reset the counter
+		if(this.getZoneType() != ZoneType.Safety
+				|| millis == 0) {
+			_lastAggressiveAct = millis;
+		} 
 	}
 	
 	public long getLastAggressiveAct() {
