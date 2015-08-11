@@ -269,7 +269,16 @@ public class ClientThread implements Runnable, PacketOutput {
 		} finally {
 			try {
 				if (_activeChar != null) {
+					// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
+					// milliseconds since the last aggressive act was done to them/taken
+					// by the player to stop people from being able to force-quit
+					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
+					
+					while(lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER 
+							> System.currentTimeMillis()) {}
+					
 					quitGame(_activeChar);
+						
 					synchronized (_activeChar) {
 						_activeChar.logout();
 						setActiveChar(null);
