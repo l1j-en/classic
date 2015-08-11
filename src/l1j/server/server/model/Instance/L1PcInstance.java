@@ -141,9 +141,7 @@ public class L1PcInstance extends L1Character {
 	}
 	
 	public void setLastAggressiveAct(long millis) {
-		if(!this.getMap().isSafetyZone(this.getLocation())) {
-			_lastAggressiveAct = millis;
-		}
+		_lastAggressiveAct = millis;
 	}
 	
 	public long getLastAggressiveAct() {
