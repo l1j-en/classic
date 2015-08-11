@@ -275,10 +275,10 @@ public class ClientThread implements Runnable, PacketOutput {
 					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
 					
 					while(lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER 
-							> System.currentTimeMillis()
-							&& !_activeChar.getMap().isSafetyZone(_activeChar.getLocation()))
+							> System.currentTimeMillis()) {}
 					
 					quitGame(_activeChar);
+						
 					synchronized (_activeChar) {
 						_activeChar.logout();
 						setActiveChar(null);
