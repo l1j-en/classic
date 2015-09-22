@@ -195,7 +195,7 @@ public class ClientThread implements Runnable, PacketOutput {
         ClientThreadObserver observer = null;
 		observer = new ClientThreadObserver(
 				Config.AUTOMATIC_KICK * 60 * 1000);
-		if (Config.AUTOMATIC_KICK > 0) {
+		if (Config.AUTOMATIC_KICK > 0 && ) {
 			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
 			observer.start();
 		}
@@ -383,8 +383,8 @@ public class ClientThread implements Runnable, PacketOutput {
 					return;
 				}
 
-				if (_activeChar == null || _activeChar != null
-						&& !_activeChar.isPrivateShop()) {
+				if (_activeChar == null || (_activeChar != null
+				   && (!_activeChar.isPrivateShop() || !_activeChar.isGm()))) {
 					kick();
 					_log.warning("Kicking character from (" + _hostname + ").");
 					cancel();
