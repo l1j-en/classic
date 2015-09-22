@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -50,8 +51,10 @@ public class C_Drawal extends ClientBasePacket {
 		L1PcInstance pc = clientthread.getActiveChar();
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -60,8 +63,10 @@ public class C_Drawal extends ClientBasePacket {
 		}
 		// TRICIDTODO: set configurable auto ban
 		if (j < 0) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");

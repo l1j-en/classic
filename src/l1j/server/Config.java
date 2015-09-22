@@ -134,6 +134,8 @@ public final class Config {
 	
 	public static boolean DUAL_PINK;
 
+	public static boolean AUTO_BAN;
+
 	/** Rate control */
 	public static int RATE_HP_REGEN;
 
@@ -614,6 +616,7 @@ public final class Config {
 			DELAY_DISCONNECT = Integer.parseInt(serverSettings.getProperty(
 					"DelayDisconnect", "0"));
 			DUAL_PINK = Boolean.parseBoolean(serverSettings.getProperty("DualPink", "False"));
+			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
