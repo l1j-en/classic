@@ -195,7 +195,7 @@ public class ClientThread implements Runnable, PacketOutput {
         ClientThreadObserver observer = null;
 		observer = new ClientThreadObserver(
 				Config.AUTOMATIC_KICK * 60 * 1000);
-		if (Config.AUTOMATIC_KICK > 0 && ) {
+		if (Config.AUTOMATIC_KICK > 0) {
 			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
 			observer.start();
 		}
