@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
@@ -51,8 +52,10 @@ public class C_TradeAddItem extends ClientBasePacket {
 				pc.getTradeID());
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName()
 					+ " Attempted Dupe Exploit (C_TradeAddItem).");
 			L1World.getInstance().broadcastServerMessage(
@@ -65,8 +68,10 @@ public class C_TradeAddItem extends ClientBasePacket {
 		if ((!item.isStackable() && itemcount != 1) || item.getCount() <= 0
 				|| itemcount <= 0 || itemcount > 2000000000
 				|| itemcount > item.getCount()) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName()
 					+ " Attempted Dupe Exploit (C_TradeAddItem).");
 			L1World.getInstance().broadcastServerMessage(

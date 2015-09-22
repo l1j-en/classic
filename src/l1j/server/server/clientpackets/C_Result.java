@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
@@ -56,9 +57,11 @@ public class C_Result extends ClientBasePacket {
 		// This ban had false positives, such as a player using a potion
 		// while their storage window is open, so disable it for now
 
-		//Account.ban(player.getAccountName());
-		//IpTable.getInstance().banIp(player.getNetConnection().getIp());
-		//player.sendPackets(new S_Disconnect());
+		//if (Config.AUTO_BAN) {
+			//Account.ban(player.getAccountName());
+			//IpTable.getInstance().banIp(player.getNetConnection().getIp());
+			//player.sendPackets(new S_Disconnect());
+		//}
 	}
 
 	public C_Result(byte abyte0[], ClientThread clientthread) throws Exception {

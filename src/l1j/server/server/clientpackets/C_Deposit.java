@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
@@ -47,8 +48,10 @@ public class C_Deposit extends ClientBasePacket {
 		// additional dupe checks. Thanks Mike
 		// not sure if this is even needed here, but why not
 		if (player.getOnlineStatus() != 1) {
-			Account.ban(player.getAccountName());
-			IpTable.getInstance().banIp(player.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(player.getAccountName());
+				IpTable.getInstance().banIp(player.getNetConnection().getIp());
+			}
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
 			L1World.getInstance()
 					.broadcastServerMessage(
@@ -59,8 +62,10 @@ public class C_Deposit extends ClientBasePacket {
 		}
 		// TRICIDTODO: set configurable auto ban
 		if (j < 0) {
-			Account.ban(player.getAccountName());
-			IpTable.getInstance().banIp(player.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(player.getAccountName());
+				IpTable.getInstance().banIp(player.getNetConnection().getIp());
+			}
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
 			L1World.getInstance()
 					.broadcastServerMessage(
