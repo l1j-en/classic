@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -50,8 +51,10 @@ public class C_PickUpItem extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -60,8 +63,10 @@ public class C_PickUpItem extends ClientBasePacket {
 		}
 		// TRICIDTODO: Set configurable auto ban
 		if (pickupCount < 0) {
-			Account.ban(pc.getAccountName());
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName());
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -91,8 +96,10 @@ public class C_PickUpItem extends ClientBasePacket {
 					|| item.getCount() <= 0 || pickupCount <= 0
 					|| pickupCount > 2000000000
 					|| pickupCount > item.getCount()) {
-				Account.ban(pc.getAccountName());
-				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+				if (Config.AUTO_BAN) {
+					Account.ban(pc.getAccountName());
+					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+				}
 				_log.info(pc.getName()
 						+ " Attempted Dupe Exploit (C_PickUpItem).");
 				L1World.getInstance()
