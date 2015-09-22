@@ -510,6 +510,7 @@ public final class Config {
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
+	public static int NON_AGGRO_LOGOUT_TIMER;
 
 	public static void load() {
 		_log.config("Loading GameServer config.");
@@ -615,6 +616,8 @@ public final class Config {
 							"False"));
 			DELAY_DISCONNECT = Integer.parseInt(serverSettings.getProperty(
 					"DelayDisconnect", "0"));
+			NON_AGGRO_LOGOUT_TIMER = Integer.parseInt(serverSettings.getProperty(
+					"NonAggroLogoutTimer", "10000"));
 			DUAL_PINK = Boolean.parseBoolean(serverSettings.getProperty("DualPink", "False"));
 			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
 		} catch (Exception e) {
