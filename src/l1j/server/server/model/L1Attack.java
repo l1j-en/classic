@@ -683,7 +683,7 @@ public class L1Attack {
 			}
 		}
 
-		if (_weaponId == GREAT_SWORD_OF_DESTRUCTION && _random.nextInt(100) + 1 <= 75) {
+		if ( (_weaponId == GREAT_SWORD_OF_DESTRUCTION || _weaponId == WIND_BLADE_DAGGER) && _random.nextInt(100) + 1 <= 75) {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 
@@ -1151,7 +1151,7 @@ public class L1Attack {
 	}
 
 	private int calcDestruction(int dmg) {
-		_drainHp = Math.max(1, (dmg / 8) + 1);
+		_drainHp = _random.nextInt(dmg) + 1);
 		return _drainHp;
 	}
 
