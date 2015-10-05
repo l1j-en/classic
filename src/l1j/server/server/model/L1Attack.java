@@ -1151,7 +1151,7 @@ public class L1Attack {
 	}
 
 	private int calcDestruction(int dmg) {
-		_drainHp = _random.nextInt(dmg) + 1);
+		_drainHp = dmg/4;
 		return _drainHp;
 	}
 
