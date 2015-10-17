@@ -39,6 +39,15 @@
 		</Succeed>
 	</MakeItem>
 
+	<!-- Lv45 Royal Quest / Pieta -->
+	<MakeItem Name="a" Class="P" AmountInputable="false" NpcId="71200">
+		<Item Amount="1" ItemId="40568"/> <!-- Mysterious Bag -->
+		<Material Amount="1" ItemId="41422"/> <!-- Lightless Soul -->
+		<Succeed>
+			<ShowHtml HtmlId="pieta5"/>
+		</Succeed>
+	</MakeItem>
+
 	<!-- Lv45 Royal Quest / Meg -->
 	<Action Name="quest 17 meg2" Class="P">
 		<SetQuest Id="Level45" Step="2"/>
