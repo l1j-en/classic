@@ -1,3 +1,4 @@
+
 	-- Removing TI normal mobs spawn
 	UPDATE spawnlist SET count = 0 WHERE mapid = 0;
 
@@ -297,7 +298,7 @@
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40444', 'Black Lump of Rough Mithril', '1', '1', '30000');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40524', 'Black Blood Stone', '10', '40', '500000');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40718', 'Fragment of Blood Stone', '32', '112', '100000');
-	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '41148', 'TechnicalDocument(CounterBarrier)', '1', '1', '500');
+	/*INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '41148', 'TechnicalDocument(CounterBarrier)', '1', '1', '500');  commented out, per soren  */
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '190', 'Sayha Bow', '1', '1', '500');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '164', 'Kaiser Claw', '1', '1', '500');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '21028', 'Str T-shirt', '1', '1', '500');
@@ -355,3 +356,28 @@
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '40094', 'Blank Scroll (Level 5)', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '59', 'Sword of Knight Vald', '1', '1', '250');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '20018', 'Merkyor Cap', '1', '1', '250');
+
+	# Add metals to the harder bosses at ~9% 1-3.
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	
+
+    /* Suggest making stat tshirts tradeable or simply removing them TODO add spawn and drops for Girtas and Dragon.. or leave them out */
