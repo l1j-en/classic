@@ -1,3 +1,4 @@
+
 	-- Removing TI normal mobs spawn
 	UPDATE spawnlist SET count = 0 WHERE mapid = 0;
 
@@ -26,7 +27,7 @@
 
 	-- HARDER BOSSES
 	INSERT INTO `npc` VALUES ('91322', 'Fruity Phoenix', 'Fruity Phoenix', '', 'L1Monster', '1791', '75', '10000', '800', '-63', '70', '18', '38', '32', '30', '100', '3482', '-130', 'large', '4', '2', '0', '960', '800', '0', '800', '800', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '350', '5000', '500', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '0', '1', '0', '1');
-	INSERT INTO `npc` (`npcid`, `name`, `nameid`, `note`, `impl`, `gfxid`, `lvl`, `hp`, `mp`, `ac`, `str`, `con`, `dex`, `wis`, `intel`, `mr`, `exp`, `lawful`, `size`, `weakAttr`, `ranged`, `tamable`, `passispeed`, `atkspeed`, `alt_atk_speed`, `atk_magic_speed`, `sub_magic_speed`, `undead`, `poison_atk`, `paralysis_atk`, `agro`, `agrososc`, `agrocoi`, `family`, `agrofamily`, `agrogfxid1`, `agrogfxid2`, `picupitem`, `digestitem`, `bravespeed`, `hprinterval`, `hpr`, `mprinterval`, `mpr`, `teleport`, `randomlevel`, `randomhp`, `randommp`, `randomac`, `randomexp`, `randomlawful`, `damage_reduction`, `hard`, `doppel`, `IsTU`, `IsErase`, `bowActId`, `karma`, `transform_id`, `transform_gfxid`, `light_size`, `amount_fixed`, `change_head`, `cant_resurrect`) VALUES ('91323', 'Fruity Iris', 'Fruity Iris', '', 'L1Monster', '3180', '75', '10000', '1200', '-75', '70', '13', '64', '13', '40', '100', '4097', '-80', 'large', '0', '1', '0', '1040', '850', '1920', '800', '800', '3', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '275', '5000', '275', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '14', '1', '0', '1');
+	-- INSERT INTO `npc` (`npcid`, `name`, `nameid`, `note`, `impl`, `gfxid`, `lvl`, `hp`, `mp`, `ac`, `str`, `con`, `dex`, `wis`, `intel`, `mr`, `exp`, `lawful`, `size`, `weakAttr`, `ranged`, `tamable`, `passispeed`, `atkspeed`, `alt_atk_speed`, `atk_magic_speed`, `sub_magic_speed`, `undead`, `poison_atk`, `paralysis_atk`, `agro`, `agrososc`, `agrocoi`, `family`, `agrofamily`, `agrogfxid1`, `agrogfxid2`, `picupitem`, `digestitem`, `bravespeed`, `hprinterval`, `hpr`, `mprinterval`, `mpr`, `teleport`, `randomlevel`, `randomhp`, `randommp`, `randomac`, `randomexp`, `randomlawful`, `damage_reduction`, `hard`, `doppel`, `IsTU`, `IsErase`, `bowActId`, `karma`, `transform_id`, `transform_gfxid`, `light_size`, `amount_fixed`, `change_head`, `cant_resurrect`) VALUES ('91323', 'Fruity Iris', 'Fruity Iris', '', 'L1Monster', '3180', '75', '10000', '1200', '-75', '70', '13', '64', '13', '40', '100', '4097', '-80', 'large', '0', '1', '0', '1040', '850', '1920', '800', '800', '3', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '275', '5000', '275', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '14', '1', '0', '1');
 	INSERT INTO `npc` VALUES ('91324', 'Fruity Death', 'Fruity Death', '', 'L1Monster', '4587', '75', '12000', '500', '-65', '85', '21', '21', '21', '40', '100', '4901', '-5', 'large', '0', '2', '0', '1000', '600', '1040', '900', '900', '3', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '250', '5000', '250', '0', '0', '0', '0', '0', '0', '0', '4', '1', '0', '0', '0', '4592', '100', '-1', '0', '0', '1', '0', '1');
 	INSERT INTO `npc` VALUES ('91326', 'Fruity Squid', 'Fruity Squid', '', 'L1Monster', '5547', '75', '8000', '700', '-55', '85', '18', '16', '10', '40', '100', '3365', '-200', 'large', '8', '2', '0', '960', '500', '1000', '800', '800', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '50', '5000', '16', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1', '0', '1');
 	INSERT INTO `npc` VALUES ('91327', 'Fruity Varlok', 'Fruity Varlok', '', 'L1Monster', '2538', '75', '6000', '700', '-70', '90', '27', '25', '25', '35', '100', '3250', '-180', 'large', '0', '1', '0', '960', '500', '1400', '800', '800', '2', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '5000', '100', '5000', '300', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1', '0', '1');
@@ -133,7 +134,8 @@
 	INSERT INTO `spawnlist` VALUES ('801500739', 'Fruity Phoenix', '10', '91322', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
 	INSERT INTO `spawnlist` VALUES ('801500740', 'Fruity Iris', '10', '91323', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
 	INSERT INTO `spawnlist` VALUES ('801500741', 'Fruity Death', '10', '91324', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
-	INSERT INTO `spawnlist` VALUES ('801500742', 'Fruity Squid', '10', '91326', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
+	-- Remove squid for now, no drops, easier to comment out.
+	-- INSERT INTO `spawnlist` VALUES ('801500742', 'Fruity Squid', '10', '91326', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
 	INSERT INTO `spawnlist` VALUES ('801500743', 'Fruity Varlok', '10', '91327', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
 	INSERT INTO `spawnlist` VALUES ('801500744', 'Fruity Queen', '10', '91328', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
 	INSERT INTO `spawnlist` VALUES ('801500745', 'Fruity Death Knight', '10', '91329', '0', '0', '0', '0', '0', '32315', '32852', '32734', '33236', '0', '60', '120', '0', '0', '100', '0', '0', '1', '8', '2', '100');
@@ -141,7 +143,7 @@
 
 	
 	-- DROPSSSSSSSSSS
-	# Baphomet
+	-- # Baphomet
 	INSERT INTO `droplist` VALUES ('91316', 'Sakura Baphomet', '109', 'Staff of Baphomet', '1', '1', '950');
 	INSERT INTO `droplist` VALUES ('91316', 'Sakura Baphomet', '20117', 'Armor of Baphomet', '1', '1', '1000');
 	INSERT INTO `droplist` VALUES ('91316', 'Sakura Baphomet', '20284', 'Ring of Summon Control', '1', '1', '500');
@@ -162,7 +164,7 @@
 	INSERT INTO `droplist` VALUES ('91316', 'Sakura Baphomet', '40094', 'Blank Scroll (Level 5)', '1', '2', '150000');
 	INSERT INTO `droplist` VALUES ('91316', 'Sakura Baphomet', '81', 'Blessed Bravery Edoryu', '1', '2', '5000');
 
-	# Beleth
+	-- # Beleth
 	INSERT INTO `droplist` VALUES ('91318', 'Sakura Beleth', '110', 'Staff of Beleth', '1', '1', '1400');
 	INSERT INTO `droplist` VALUES ('91318', 'Sakura Beleth', '20204', 'Boots of Beleth', '1', '1', '1500');
 	INSERT INTO `droplist` VALUES ('91318', 'Sakura Beleth', '20267', 'Amulet of Wisdom', '1', '1', '10000');
@@ -185,7 +187,7 @@
 	INSERT INTO `droplist` VALUES ('91318', 'Sakura Beleth', '220154', 'Plate Mail', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91318', 'Sakura Beleth', '162', 'Blessed Bravery Claw', '1', '1', '5000');
 	
-	# Mambo Rabbit
+	-- # Mambo Rabbit
 	INSERT INTO `droplist` VALUES ('91317', 'Sakura Mambo Rabbit', '20172', 'Glove of Ice Spirit', '1', '1', '5000');
 	INSERT INTO `droplist` VALUES ('91317', 'Sakura Mambo Rabbit', '20177', 'Glove of Dark Spirit', '1', '1', '5000');
 	INSERT INTO `droplist` VALUES ('91317', 'Sakura Mambo Rabbit', '20181', 'Glove of Fire Spirit', '1', '1', '5000');
@@ -200,7 +202,7 @@
 	INSERT INTO `droplist` VALUES ('91317', 'Sakura Mambo Rabbit', '20059', 'Water Cloak', '1', '1', '1200');
 	INSERT INTO `droplist` VALUES ('91317', 'Sakura Mambo Rabbit', '120280', 'Ring of immunity To Magic', '1', '1', '1200');
 
-	# Zenith Queen
+	-- # Zenith Queen
 	INSERT INTO `droplist` VALUES ('91319', 'Sakura Zenith Queen', '57', 'Tsurugi', '1', '1', '9000');
 	INSERT INTO `droplist` VALUES ('91319', 'Sakura Zenith Queen', '20110', 'Chain Mail of Magic Resistance', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91319', 'Sakura Zenith Queen', '20187', 'Power Gloves', '1', '1', '30000');
@@ -214,7 +216,7 @@
 	INSERT INTO `droplist` VALUES ('91319', 'Sakura Zenith Queen', '100181', 'Blessed Yumi', '1', '1', '5000');
 	INSERT INTO `droplist` VALUES ('91319', 'Sakura Zenith Queen', '20017', 'Crown of Mummy Lord', '1', '1', '5000');
 
-	# Spirit
+	-- # Spirit
 	INSERT INTO `droplist` VALUES ('91320', 'Sakura Spirit', '40006', 'Pine Wand', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91320', 'Sakura Spirit', '40008', 'Maple Wand', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91320', 'Sakura Spirit', '20187', 'Power Gloves', '1', '1', '300000');
@@ -229,9 +231,9 @@
 	INSERT INTO `droplist` VALUES ('91320', 'Sakura Spirit', '20227', 'Shield of Medusa', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91320', 'Sakura Spirit', '20175', 'Crystal Gloves', '1', '1', '300000');
 
-	# HARDER STUFF
+	-- # HARDER STUFF
 
-	# Phoenix
+	-- # Phoenix
 	INSERT INTO `droplist` VALUES ('91322', 'Fruity Phoenix', '20281', 'Ring of Polymorph Control', '1', '1', '15000');
 	INSERT INTO `droplist` VALUES ('91322', 'Fruity Phoenix', '20304', 'Ring of Fire Resistance', '1', '1', '25000');
 	INSERT INTO `droplist` VALUES ('91322', 'Fruity Phoenix', '40013', 'Haste Potion', '2', '5', '300000');
@@ -252,7 +254,7 @@
 	INSERT INTO `droplist` VALUES ('91322', 'Fruity Phoenix', '189', 'Kaiser Crossbow', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91322', 'Fruity Phoenix', '20071', 'Fire Cloak', '1', '1', '300000');
 
-	# Iris
+	-- # Iris
 	INSERT INTO `droplist` VALUES ('91323', 'Fruity Iris', '20187', 'Power Gloves', '1', '1', '5000');
 	INSERT INTO `droplist` VALUES ('91323', 'Fruity Iris', '20264', 'Amulet of Strength', '1', '1', '1000');
 	INSERT INTO `droplist` VALUES ('91323', 'Fruity Iris', '20260', 'Amulet of Iris', '1', '1', '2400');
@@ -279,7 +281,7 @@
 	INSERT INTO `droplist` VALUES ('91323', 'Fruity Iris', '21031', 'Int T-shirt', '1', '1', '10000');
 	INSERT INTO `droplist` VALUES ('91323', 'Fruity Iris', '20074', 'Silver Cloak', '1', '1', '10000');
 
-	# Death
+	-- # Death
 	INSERT INTO `droplist` VALUES ('91324', 'Fruity Death', '40015', 'Potion of Mana', '1', '1', '50000');
 	INSERT INTO `droplist` VALUES ('91324', 'Fruity Death', '40213', 'Spellbook(ImmuneToHarm)', '1', '1', '100');
 	INSERT INTO `droplist` VALUES ('91324', 'Fruity Death', '40524', 'Black Blood Stone', '1', '1', '10000');
@@ -292,18 +294,18 @@
 	INSERT INTO `droplist` VALUES ('91324', 'Fruity Death', '40678', 'Fragment of Soul Stone', '5', '10', '1000000');
 	INSERT INTO `droplist` VALUES ('91324', 'Fruity Death', '20025', 'Baltuzar Cap', '1', '1', '500');
 
-	# Varlok
+	-- # Varlok
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40443', 'Black Lump of Pure Mithril', '1', '1', '30000');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40444', 'Black Lump of Rough Mithril', '1', '1', '30000');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40524', 'Black Blood Stone', '10', '40', '500000');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '40718', 'Fragment of Blood Stone', '32', '112', '100000');
-	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '41148', 'TechnicalDocument(CounterBarrier)', '1', '1', '500');
+	/*INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '41148', 'TechnicalDocument(CounterBarrier)', '1', '1', '500');  commented out, per soren  */
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '190', 'Sayha Bow', '1', '1', '500');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '164', 'Kaiser Claw', '1', '1', '500');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '21028', 'Str T-shirt', '1', '1', '500');
 	INSERT INTO `droplist` VALUES ('91327', 'Fruity Varlok', '21032', 'Con T-shirt', '1', '1', '500');
 
-	# Ant Queen
+	-- # Ant Queen
 	INSERT INTO `droplist` VALUES ('91328', 'Fruity Queen', '20049', 'Golden Wing of Giant Ant Queen', '1', '1', '850');
 	INSERT INTO `droplist` VALUES ('91328', 'Fruity Queen', '20050', 'Silver Wing of Giant Ant Queen', '1', '1', '850');
 	INSERT INTO `droplist` VALUES ('91328', 'Fruity Queen', '20300', 'Ring of Earth Resistance', '1', '1', '10000');
@@ -322,7 +324,7 @@
 	INSERT INTO `droplist` VALUES ('91328', 'Fruity Queen', '40304', 'Relic of Maphr', '1', '1', '10500');
 	INSERT INTO `droplist` VALUES ('91328', 'Fruity Queen', '450002', 'Maph Retribution', '1', '1', '10500');
 
-	# Death Knight
+	-- # Death Knight
 	INSERT INTO `droplist` VALUES ('91329', 'Fruity Death Knight', '58', 'Fire Sword of Death Knight', '1', '1', '3500');
 	INSERT INTO `droplist` VALUES ('91329', 'Fruity Death Knight', '189', 'kaiser Edoryu', '1', '1', '3500');
 	INSERT INTO `droplist` VALUES ('91329', 'Fruity Death Knight', '20010', 'Death Knight Helmet', '1', '1', '15000');
@@ -335,7 +337,7 @@
 	INSERT INTO `droplist` VALUES ('91329', 'Fruity Death Knight', '20302', 'Ring of Wind Resistance', '1', '1', '15000');
 	INSERT INTO `droplist` VALUES ('91329', 'Fruity Death Knight', '21029', 'Dex T-shirt', '1', '1', '15000');
 
-	# Grim Reaper
+	-- # Grim Reaper
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '20074', 'Silver Cloak', '1', '1', '50000');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '20128', 'Crystal Plate Mail', '1', '1', '35000');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '20187', 'Power Gloves', '1', '1', '35000');
@@ -355,3 +357,30 @@
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '40094', 'Blank Scroll (Level 5)', '1', '1', '300000');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '59', 'Sword of Knight Vald', '1', '1', '250');
 	INSERT INTO `droplist` VALUES ('91334', 'Fruity Grim Reaper', '20018', 'Merkyor Cap', '1', '1', '250');
+
+	-- # Add metals to the harder bosses at ~9% 1-3.
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91334', 'Fruity Grim Reaper', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91327', 'Fruity Varlok', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91323', 'Fruity Iris', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91324', 'Fruity Death', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40468', 'Rough Silver Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40441', 'Rough Platinum Piece', '1', '3', '30000');
+	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40489', 'Rough Gold Piece', '1','3', '30000');
+	
+	 /* Suggest making stat tshirts tradeable or simply removing them TODO add spawn and drops for Girtas and Dragon.. or leave them out */
+	UPDATE armor SET 'trade' = '1' where item_id in ('21028', '21029', '21030', '21031');
+	-- To change stat t-shirts back to untradeable
+	-- UPDATE armor SET 'trade' = '0' where item_id in ('21028', '21029', '21030', '21031');
+   
