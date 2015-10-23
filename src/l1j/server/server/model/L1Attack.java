@@ -1151,7 +1151,7 @@ public class L1Attack {
 	}
 
 	private int calcDestruction(int dmg) {
-		_drainHp = _drainHp = Math.max(1, (dmg / 4) + 1);;
+		_drainHp = Math.max(1, (dmg / 4) + 1);
 		return _drainHp;
 	}
 
