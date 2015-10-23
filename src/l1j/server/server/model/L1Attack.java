@@ -20,6 +20,7 @@ import static l1j.server.server.model.item.L1ItemId.THEBES_EDORYU;
 import static l1j.server.server.model.item.L1ItemId.THEBES_STAFF;
 import static l1j.server.server.model.item.L1ItemId.THEBES_SWORD;
 import static l1j.server.server.model.item.L1ItemId.UNARMED;
+import static l1j.server.server.model.item.L1ItemId.WIND_BLADE_DAGGER;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BOUNCE_ATTACK;
