@@ -252,55 +252,51 @@ public class L1MerchantInstance extends L1NpcInstance {
 					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
 					if (lv45_step == 1) {
 						htmlid = "meg1";
-					} else if (lv45_step == 2 && lv45_step <= 3) { //
+					} else if (lv45_step == 2) { //
 						htmlid = "meg2";
 					} else if (lv45_step >= 4) { //
 						htmlid = "meg3";
 					}
 				}
-			} else if (npcid == 71200) { //
-				if (player.isCrown()) { //
-					int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-					if (lv45_step == 2
-							&& player.getInventory().checkItem(41422)) {
-						player.getInventory().consumeItem(41422, 1);
-						final int[] item_ids = { 40568 };
-						final int[] item_amounts = { 1 };
-						for (int i = 0; i < item_ids.length; i++) {
-							player.getInventory().storeItem(item_ids[i],
-									item_amounts[i]);
-						}
-					}
-				}
-				// } else if (npcid == 71200) { // pt sG^
-				// if (player.isCrown()) { // N
-				// int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
-				// if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END ) {
-				// //ONAorI
-				// htmlid = "pieta9";
-				// } else if (lv45_step == 2) { // NGXgJnOEO
-				// htmlid = "pieta2";
-				// } else if (lv45_step == 2 ||
-				// player.getInventory().checkItem(41422) ) {//
-				// P
-				// htmlid = "pieta4";
-				// } else if (lv45_step == 3) { // P
-				// htmlid = "pieta6";
-				// } else {//lv45orNGXg30
-				// htmlid = "pieta8";
-				// }
-				// } else { // NO
-				// htmlid = "pieta1";
-				// }
-				// } else if (npcid == 70751) { // ubh
-				// if (player.isCrown()) { // N
-				// if (player.getLevel() >= 45) {
-				// if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) { //
-				// O
-				// htmlid = "brad1";
-				// }
-				// }
-				// }
+		//	} else if (npcid == 71200) { // Pieta nodialog variant
+		//		if (player.isCrown()) { //
+		//			int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+		//			if (lv45_step == 2
+		//					&& player.getInventory().checkItem(41422)) {
+		//				player.getInventory().consumeItem(41422, 1);
+		//				final int[] item_ids = { 40568 };
+		//				final int[] item_amounts = { 1 };
+		//				for (int i = 0; i < item_ids.length; i++) {
+		//					player.getInventory().storeItem(item_ids[i],
+		//							item_amounts[i]);
+		//				}
+		//			}
+		//		}
+			 } else if (npcid == 71200) { // Pieta
+				 if (player.isCrown()) {
+					 int lv45_step = quest.get_step(L1Quest.QUEST_LEVEL45);
+					 if (lv45_step >= 6 && lv45_step == L1Quest.QUEST_END ) {
+						 htmlid = "pieta9";
+					 } else if (lv45_step == 2) { // talked to Mack
+						 if (player.getInventory().checkItem(41422) ) { // Lifeless Soul
+							 htmlid = "pieta4";
+						 } else {
+							 htmlid = "pieta2";
+						 }
+					 } else if (lv45_step == 3) {
+						 htmlid = "pieta6";
+					 } else {
+					 htmlid = "pieta8";
+					 }
+				 } else { // royal
+					 htmlid = "pieta1";
+				 }
+		//	 } else if (npcid == 70751) { // Brad; old version of 45 royal q
+		//		 if (player.isCrown()) {
+		//			 if (quest.get_step(L1Quest.QUEST_LEVEL45) == 2) {
+		//				 htmlid = "brad1";
+		//			 }
+		//		 }
 			} else if (npcid == 70798) { //
 				if (player.isKnight()) { //
 					if (player.getLevel() >= 15) {
