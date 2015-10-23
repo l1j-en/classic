@@ -380,7 +380,7 @@
 	INSERT INTO droplist VALUES('91328', 'Fruity Queen', '40489', 'Rough Gold Piece', '1','3', '30000');
 	
 	 /* Suggest making stat tshirts tradeable or simply removing them TODO add spawn and drops for Girtas and Dragon.. or leave them out */
-	UPDATE armor SET 'trade' = '1' where item_id in ('21028', '21029', '21030', '21031');
+	UPDATE armor SET `trade` = '1' where item_id in ('21028', '21029', '21030', '21031');
 	-- To change stat t-shirts back to untradeable
 	-- UPDATE armor SET 'trade' = '0' where item_id in ('21028', '21029', '21030', '21031');
    
