@@ -251,7 +251,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			pc.sendPackets(new S_CharacterConfig(pc.getId()));
 		}
 
-		serchSummon(pc);
+		searchSummon(pc);
 
 		WarTimeController.getInstance().checkCastleWar(pc);
 
@@ -553,7 +553,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 	}
 
-	private void serchSummon(L1PcInstance pc) {
+	private void searchSummon(L1PcInstance pc) {
 		for (L1SummonInstance summon : L1World.getInstance().getAllSummons()) {
 			if (summon.getMaster().getId() == pc.getId()) {
 				summon.setMaster(pc);
