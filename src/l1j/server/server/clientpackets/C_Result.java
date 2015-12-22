@@ -109,10 +109,17 @@ public class C_Result extends ClientBasePacket {
 		
 		if (resultType == 0 && size != 0
 				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
+			int orderNumber = 0;
+			int count = 0;
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopBuyOrderList orderList = shop.newBuyOrderList();
 			for (int i = 0; i < size; i++) {
-				orderList.add(readD(), readD());
+				orderNumber = readD();
+				count = readD();
+				if (count > 1000 || count < 1) {
+					continue;
+				}
+				orderList.add(orderNumber, count);
 			}
 			shop.sellItems(pc, orderList);
 			// if the shop is one created by the GM action, then remove it now that we've used it
@@ -120,10 +127,17 @@ public class C_Result extends ClientBasePacket {
 				ShopTable.getInstance().removeGMShop(pc.getId());
 		} else if (resultType == 1 && size != 0
 				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
+			int itemObjId = 0;
+			int count = 0;
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopSellOrderList orderList = shop.newSellOrderList(pc);
 			for (int i = 0; i < size; i++) {
-				orderList.add(readD(), readD());
+				itemObjId = readD();
+				count = readD();
+				if (count > 1000 || count < 1) {
+					continue;
+				}
+				orderList.add(itemObjId, count);
 			}
 			shop.buyItems(orderList);
 		} else if (resultType == 2 && size != 0
@@ -512,6 +526,12 @@ public class C_Result extends ClientBasePacket {
 					sellPrice = pssl.getSellPrice();
 					sellTotalCount = pssl.getSellTotalCount();
 					sellCount = pssl.getSellCount();
+					if (count > sellTotalCount - sellCount) {
+						count = sellTotalCount - sellCount;
+					}
+					if (count > 1000 || count < 1) {
+						continue;
+					}
 					item = targetPc.getInventory().getItem(itemObjectId);
 					if (item == null) {
 						continue;
@@ -519,12 +539,6 @@ public class C_Result extends ClientBasePacket {
 					int item_count_before = item.getCount();
 					int item_count_after = 0;
 
-					if (count > sellTotalCount - sellCount) {
-						count = sellTotalCount - sellCount;
-					}
-					if (count == 0) {
-						continue;
-					}
 					if (pc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 						for (int j = 0; j < count; j++) {
 							if (sellPrice * j > 2000000000) {
@@ -623,6 +637,10 @@ public class C_Result extends ClientBasePacket {
 				if (count > buyTotalCount - buyCount) {
 					count = buyTotalCount - buyCount;
 				}
+				if (count > 1000 || count < 1) {
+					continue;
+				}
+
 				if (item.isEquipped()) {
 					pc.sendPackets(new S_ServerMessage(905));
 					continue;
