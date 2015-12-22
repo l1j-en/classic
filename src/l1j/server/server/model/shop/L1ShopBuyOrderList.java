@@ -67,7 +67,7 @@ public class L1ShopBuyOrderList {
 		L1ShopItem shopItem = _shop.getSellingItems().get(orderNumber);
 
 		int price = (int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE);
-		for (int j = 0; j < count; j++) {
+		for (int j = 0; j <= count; j++) {
 			if (price * j < 0) {
 				return;
 			}
@@ -75,12 +75,24 @@ public class L1ShopBuyOrderList {
 		if (_totalPrice < 0) {
 			return;
 		}
-		_totalPrice += price * count;
+		int newTotal = _totalPrice + (price * count);
+		if (newTotal < 0) {
+			return;
+		}
+		_totalPrice = newTotal;
 		if (_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from
 													// taxes
-			_totalPriceTaxIncluded += _taxCalc.layTax(price) * count;
+			newTotal = _taxCalc.layTax(price) * count;
+			if (newTotal < 0) {
+				return;
+			}
+			_totalPriceTaxIncluded = newTotal;
 		} else {
-			_totalPriceTaxIncluded += price * count;
+			newTotal = price * count;
+			if (newTotal < 0) {
+				return;
+			}
+			_totalPriceTaxIncluded = newTotal;
 		}
 		_totalWeight += shopItem.getItem().getWeight() * count
 				* shopItem.getPackCount();
