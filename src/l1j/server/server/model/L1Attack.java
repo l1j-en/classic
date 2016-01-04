@@ -207,7 +207,7 @@ public class L1Attack {
 			strDmg[str] = dmg;
 		}
 		for (int str = 35; str <= 127; str++) { // 35`1274+1
-			if (str % 4 == 1) {
+			if ((str + 1) % 4 == 0) {
 				dmg++;
 			}
 			strDmg[str] = dmg;
@@ -235,13 +235,13 @@ public class L1Attack {
 		dexDmg[23] = 5;
 		int dmg = 5;
 		for (int dex = 24; dex <= 35; dex++) { // 24`353+1
-			if (dex % 3 == 1) {
+			if (dex % 3 == 0) {
 				dmg++;
 			}
 			dexDmg[dex] = dmg;
 		}
 		for (int dex = 36; dex <= 127; dex++) { // 36`12741
-			if (dex % 4 == 1) {
+			if (dex % 4 == 0) {
 				dmg++;
 			}
 			dexDmg[dex] = dmg;
@@ -843,8 +843,9 @@ public class L1Attack {
 	private int calcPcNpcDamage() {
 		boolean small = _targetNpc.getNpcTemplate().get_size()
 				.equalsIgnoreCase("small");
-
-		double dmg = calcPcBaseDamage(small, true, true, false);
+		boolean hardSkin = _targetNpc.getNpcTemplate().is_hard();
+		
+		double dmg = calcPcBaseDamage(small, true, hardSkin, false);
 
 		dmg -= calcNpcDamageReduction();
 
