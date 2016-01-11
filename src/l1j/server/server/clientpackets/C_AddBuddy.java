@@ -47,8 +47,8 @@ public class C_AddBuddy extends ClientBasePacket {
 		} else if (buddyList.containsName(charName)) {
 			pc.sendPackets(new S_ServerMessage(1052, charName));
 			return;
-		//69 is where it seems to crash out, so limit to to fewer than 69 buddies
-		} else if(buddyList.size() < 68) {
+		//69 is where it seems to crash out, so limit to to fewer than 67 buddies just to be safe
+		} else if(buddyList.size() >= 67) {
 			pc.sendPackets(new S_SystemMessage("You cannot add any more players to your buddy list."));
 			return;
 		}
