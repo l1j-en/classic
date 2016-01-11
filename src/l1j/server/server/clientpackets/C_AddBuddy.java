@@ -25,6 +25,7 @@ import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1CharName;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -46,6 +47,10 @@ public class C_AddBuddy extends ClientBasePacket {
 		} else if (buddyList.containsName(charName)) {
 			pc.sendPackets(new S_ServerMessage(1052, charName));
 			return;
+		//69 is where it seems to crash out, so limit to to fewer than 67 buddies just to be safe
+		} else if(buddyList.size() >= 67) {
+			pc.sendPackets(new S_SystemMessage("You cannot add any more players to your buddy list."));
+			return;
 		}
 
 		for (L1CharName cn : CharacterTable.getInstance().getCharNameList()) {
@@ -54,7 +59,7 @@ public class C_AddBuddy extends ClientBasePacket {
 				String name = cn.getName();
 				buddyList.add(objId, name);
 				buddyTable.addBuddy(pc.getId(), objId, name);
-				break;
+				return;
 			}
 		}
 		pc.sendPackets(new S_ServerMessage(109, charName));
