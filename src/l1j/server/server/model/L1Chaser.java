@@ -85,11 +85,18 @@ public class L1Chaser extends TimerTask {
 			damage = _cha.getCurrentHp() - 1;
 		} else if (_cha.getCurrentHp() == 1) {
 			damage = 0;
+			// only allow the fatal blow if it is not an actual character
+			if(_cha instanceof L1NpcInstance){
+				damage = 1;
+				stop();
+			}
 		}
+		
 		S_EffectLocation packet = new S_EffectLocation(_cha.getX(),
 				_cha.getY(), 7025);
 		_pc.sendPackets(packet);
 		_pc.broadcastPacket(packet);
+		
 		if (_cha instanceof L1PcInstance) {
 			L1PcInstance pc = (L1PcInstance) _cha;
 			pc.sendPackets(new S_DoActionGFX(pc.getId(),
