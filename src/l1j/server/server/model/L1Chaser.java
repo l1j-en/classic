@@ -103,7 +103,7 @@ public class L1Chaser extends TimerTask {
 					ActionCodes.ACTION_Damage));
 			pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
 					ActionCodes.ACTION_Damage));
-			pc.receiveDamage(_pc, damage, false);
+			pc.receiveDamage(_pc, (int) damage, false);
 		} else if (_cha instanceof L1NpcInstance) {
 			L1NpcInstance npc = (L1NpcInstance) _cha;
 			npc.broadcastPacket(new S_DoActionGFX(npc.getId(),
@@ -112,7 +112,7 @@ public class L1Chaser extends TimerTask {
 		}
 		if (_pc.getDmgMessages() && _cha instanceof L1NpcInstance) {
 			_pc.sendPackets(new S_SystemMessage("Chaser Dealt:"
-					+ String.valueOf(damage)));
+					+ String.valueOf((int) damage)));
 		}
 	}
 
