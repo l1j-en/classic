@@ -3905,35 +3905,26 @@ public class C_NPCAction extends ClientBasePacket {
 		int summonid = 0;
 		int levelrange = 0;
 		int summoncost = 0;
-		/*
-		 * summonstr_list = new String[] { "7", "263", "8", "264", "9", "265",
-		 * "10", "266", "11", "267", "12", "268", "13", "269", "14", "270",
-		 * "526", "15", "271", "527", "17", "18" }; summonid_list = new int[] {
-		 * 81083, 81090, 81084, 81091, 81085, 81092, 81086, 81093, 81087, 81094,
-		 * 81088, 81095, 81089, 81096, 81097, 81098, 81099, 81100, 81101, 81102,
-		 * 81103, 81104 }; summonlvl_list = new int[] { 28, 28, 32, 32, 36, 36,
-		 * 40, 40, 44, 44, 48, 48, 52, 52, 56, 56, 56, 60, 60, 60, 68, 72 };
-		 * summoncha_list = new int[] { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
-		 * 8, 8, 8, 8, 10, 10, 10, 36, 40 };
-		 */
+
 		summonstr_list = new String[] { "7", "263", "519", "8", "264", "520",
 				"9", "265", "521", "10", "266", "522", "11", "267", "523",
 				"12", "268", "524", "13", "269", "525", "14", "270", "526",
 				"15", "271", "527", "16", "17", "18", "274" };
+		
 		summonid_list = new int[] { 81210, 81211, 81212, 81213, 81214, 81215,
 				81216, 81217, 81218, 81219, 81220, 81221, 81222, 81223, 81224,
 				81225, 81226, 81227, 81228, 81229, 81230, 81231, 81232, 81233,
 				81234, 81235, 81236, 81237, 81238, 81239, 81240 };
+		
 		summonlvl_list = new int[] { 28, 28, 28, 32, 32, 32, 36, 36, 36, 40,
 				40, 40, 44, 44, 44, 48, 48, 48, 52, 52, 52, 56, 56, 56, 60, 60,
 				60, 64, 68, 72, 72 };
-		// summoncha_list = new int[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-		// 8,
-		// 8, 8, 8, 8, 8, 8, 8, 10, 10, 10, 12, 12, 12, 20, 42, 42, 50 };
+
 		summoncha_list = new int[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
 				8, // 28 ~ 44
 				8, 8, 8, 8, 8, 8, 10, 10, 10, 12, 12, 12, // 48 ~ 60
 				20, 36, 36, 44 }; // 64,68,72,72
+		
 		for (int loop = 0; loop < summonstr_list.length; loop++) {
 			if (s.equalsIgnoreCase(summonstr_list[loop])) {
 				summonid = summonid_list[loop];
@@ -3954,11 +3945,6 @@ public class C_NPCAction extends ClientBasePacket {
 			petcost += ((L1NpcInstance) pet).getPetcost();
 		}
 
-		/*
-		 * if ((summonid == 81103 || summonid == 81104) && petcost != 0) {
-		 * pc.sendPackets(new S_CloseList(pc.getId())); return; } int charisma =
-		 * pc.getCha() + 6 - petcost; int summoncount = charisma / summoncost;
-		 */
 		int pcCha = pc.getCha();
 		int charisma = 0;
 		int summoncount = 0;
@@ -3976,17 +3962,17 @@ public class C_NPCAction extends ClientBasePacket {
 				pcCha = 44;
 			}
 		}
-		charisma = pcCha + 6 - petcost;
+		
+		//if they're summoning something level 68 or over, they don't get the bonus CHA
+		int hiddenCha = levelrange < 68 ? 6 : 0;
+		
+		charisma = pcCha + hiddenCha - petcost;
 		summoncount = charisma / summoncost;
 
 		L1Npc npcTemp = NpcTable.getInstance().getTemplate(summonid);
 		for (int cnt = 0; cnt < summoncount; cnt++) {
 			L1SummonInstance summon = new L1SummonInstance(npcTemp, pc);
-			// if (summonid == 81103 || summonid == 81104) {
-			// summon.setPetcost(pc.getCha() + 7);
-			// } else {
 			summon.setPetcost(summoncost);
-			// }
 		}
 		pc.sendPackets(new S_CloseList(pc.getId()));
 	}
