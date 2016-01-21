@@ -308,7 +308,7 @@ public class L1Magic {
 			// defenselvl) + random(0-20)
 			probability = skill.getProbabilityValue()
 					* (_attacker.getLevel() / Math.max(1, defenseLevel))
-					- _random.nextInt(21);
+					+ _random.nextInt(21);
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
