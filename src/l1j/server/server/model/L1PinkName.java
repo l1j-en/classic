@@ -36,7 +36,10 @@ public class L1PinkName {
 				} catch (Exception exception) {
 					break;
 				}
-				if (_attacker.isDead()) {
+				// if they're dead and not pink anymore
+				// the not pink check is added to ensure that the
+				// death method has run before un-pinking
+				if (_attacker.isDead() && !_attacker.isPinkName()) {
 					break;
 				}
 				if (_attacker.getLawful() < 0) {
