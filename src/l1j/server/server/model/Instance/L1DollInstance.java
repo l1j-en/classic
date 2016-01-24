@@ -136,7 +136,7 @@ public class L1DollInstance extends L1NpcInstance {
 		if (getNpcTemplate().get_digestitem() > 0) {
 			setDigestItem(item);
 		}
-		if (Arrays.binarySearch(haestPotions, item.getItem().getItemId()) >= 0) {
+		if (Arrays.binarySearch(hastePotions, item.getItem().getItemId()) >= 0) {
 			useItem(USEITEM_HASTE, 100);
 		}
 	}
