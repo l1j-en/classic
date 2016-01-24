@@ -1756,7 +1756,7 @@ public class L1NpcInstance extends L1Character {
 	public static final int USEITEM_HASTE = 1;
 	public static int[] healPotions = { POTION_OF_GREATER_HEALING,
 			POTION_OF_EXTRA_HEALING, POTION_OF_HEALING };
-	public static int[] haestPotions = { B_POTION_OF_GREATER_HASTE_SELF,
+	public static int[] hastePotions = { B_POTION_OF_GREATER_HASTE_SELF,
 			POTION_OF_GREATER_HASTE_SELF, B_POTION_OF_HASTE_SELF,
 			POTION_OF_HASTE_SELF };
 
