@@ -439,13 +439,13 @@ public class L1SummonInstance extends L1NpcInstance {
 			setDigestItem(item);
 		}
 		Arrays.sort(healPotions);
-		Arrays.sort(haestPotions);
+		Arrays.sort(hastePotions);
 		if (Arrays.binarySearch(healPotions, item.getItem().getItemId()) >= 0) {
 			if (getCurrentHp() != getMaxHp()) {
 				useItem(USEITEM_HEAL, 100);
 			}
 		} else if (Arrays
-				.binarySearch(haestPotions, item.getItem().getItemId()) >= 0) {
+				.binarySearch(hastePotions, item.getItem().getItemId()) >= 0) {
 			useItem(USEITEM_HASTE, 100);
 		}
 	}
