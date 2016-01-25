@@ -977,7 +977,9 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		/* add sp to lich robe each + over 3 = 1 sp */
 		if (getItemId() == 20107) {
 			if (getEnchantLevel() > 3) {
-				return _addSpellpower + getEnchantLevel() - 3;
+				// for lich robe, don't add the _addSpellpower since we
+				// want to calculate this every time based on enchant
+				return getEnchantLevel() - 3;
 			}
 		}
 		return _addSpellpower;
