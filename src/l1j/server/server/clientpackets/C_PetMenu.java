@@ -19,6 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.server.ClientThread;
+import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -34,11 +35,17 @@ public class C_PetMenu extends ClientBasePacket {
 		super(abyte0);
 
 		int petId = readD();
-
-		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(
-				petId);
+		
+		L1PetInstance pet = null;
+		
+		L1Object petOrSummon = L1World.getInstance().findObject(petId);
+		
+		if(petOrSummon instanceof L1PetInstance) {
+			pet = (L1PetInstance) L1World.getInstance().findObject(petId);
+		}
+		
 		L1PcInstance pc = clientthread.getActiveChar();
-
+		
 		if (pet != null && pc != null) {
 			pc.sendPackets(new S_PetInventory(pet));
 		}
