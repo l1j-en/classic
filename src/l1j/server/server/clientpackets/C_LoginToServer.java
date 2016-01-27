@@ -321,6 +321,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		ExcludeTable exTable = ExcludeTable.getInstance();
 		L1ExcludingList exList = exTable.getExcludeList(pc.getId());
 		exList.sendExcludeList();
+		
+		if(Config.ALT_POLYEVENT) {
+			pc.sendPackets(new S_SystemMessage("\\fRPolymorph Event Is Currently Running. Enjoy!"));
+		}
 	}
 
 	private void checkUnreadMail(final L1PcInstance character) {

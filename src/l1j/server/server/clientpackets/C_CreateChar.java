@@ -180,7 +180,6 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setExp(0);
 		pc.setHighLevel(0);
 		pc.setStatus(0);
-		pc.setAccessLevel((short) 0);
 		pc.setClanname("");
 		pc.setBonusStats(0);
 		pc.setElixirStats(0);
@@ -195,6 +194,13 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setContribution(0);
 		pc.setBanned(false);
 		pc.setKarma(0);
+		pc.setOriginalStr((byte) pc.getStr());
+		pc.setOriginalInt((byte) pc.getInt());
+		pc.setOriginalWis((byte) pc.getWis());
+		pc.setOriginalDex((byte) pc.getDex());
+		pc.setOriginalCon((byte) pc.getCon());
+		pc.setOriginalCha((byte) pc.getCha());
+		
 		if (pc.isWizard()) { // WIZ
 			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 					0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
@@ -211,6 +217,8 @@ public class C_CreateChar extends ClientBasePacket {
 		S_NewCharPacket s_newcharpacket = new S_NewCharPacket(pc);
 		client.sendPacket(s_newcharpacket);
 		CharacterTable.saveCharStatus(pc);
+		
+		
 		pc.refresh();
 	}
 

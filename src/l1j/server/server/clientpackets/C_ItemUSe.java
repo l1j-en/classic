@@ -3159,7 +3159,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.removeSkillEffect(SHAPE_CHANGE);
 					return true;
 				}
-			} else if (poly.getMinLevel() <= pc.getLevel() || pc.isGm()) {
+			} else if (poly.getMinLevel() <= pc.getLevel() || pc.isGm() || Config.ALT_POLYEVENT) {
 				L1PolyMorph.doPoly(pc, poly.getPolyId(), time,
 						L1PolyMorph.MORPH_BY_ITEMMAGIC);
 				return true;

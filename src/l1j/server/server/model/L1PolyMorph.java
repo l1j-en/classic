@@ -23,6 +23,7 @@ import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
 import java.util.HashMap;
 import java.util.Map;
 
+import l1j.server.Config;
 import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1MonsterInstance;
@@ -200,7 +201,7 @@ public class L1PolyMorph {
 					pc.removeSkillEffect(SHAPE_CHANGE);
 					pc.sendPackets(new S_CloseList(pc.getId()));
 				}
-			} else if (pc.getLevel() >= poly.getMinLevel() || pc.isGm()) {
+			} else if (pc.getLevel() >= poly.getMinLevel() || pc.isGm() || Config.ALT_POLYEVENT) {
 				if (pc.getTempCharGfx() == 6034 || pc.getTempCharGfx() == 6035) {
 					pc.sendPackets(new S_ServerMessage(181));
 					//

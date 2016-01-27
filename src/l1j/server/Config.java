@@ -291,6 +291,9 @@ public final class Config {
 	public static int ALT_GMSHOP_MAX_ID;
 
 	public static boolean ALT_HALLOWEENIVENT;
+	
+	public static boolean ALT_POLYEVENT;
+	
 	public static boolean ALT_JPPRIVILEGED;
 
 	public static boolean ALT_TALKINGSCROLLQUEST;
@@ -769,6 +772,8 @@ public final class Config {
 					"GMshopMaxID", "0xffffffff"));
 			ALT_HALLOWEENIVENT = Boolean.parseBoolean(altSettings.getProperty(
 					"HalloweenIvent", "False"));
+			ALT_POLYEVENT = Boolean.parseBoolean(altSettings.getProperty(
+					"PolyEvent", "False"));
 			ALT_JPPRIVILEGED = Boolean.parseBoolean(altSettings.getProperty(
 					"JpPrivileged", "False"));
 			ALT_TALKINGSCROLLQUEST = Boolean.parseBoolean(altSettings
@@ -1175,6 +1180,8 @@ public final class Config {
 			ALT_GMSHOP_MAX_ID = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("HalloweenIvent")) {
 			ALT_HALLOWEENIVENT = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("PolyEvent")) {
+			ALT_POLYEVENT = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("JpPrivileged")) {
 			ALT_JPPRIVILEGED = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("TalkingScrollQuest")) {
