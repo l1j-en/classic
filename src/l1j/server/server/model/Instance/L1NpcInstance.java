@@ -130,6 +130,10 @@ public class L1NpcInstance extends L1Character {
 			new NpcAITimerImpl().start();
 		}
 	}
+	
+	protected L1NpcInstance getCallingClass() {
+		return this;
+	}
 
 	// If you've got the threads, kick this up.
 	private static final TimerPool _timerPool = new TimerPool(32);
@@ -209,9 +213,14 @@ public class L1NpcInstance extends L1Character {
 			// sleep the thread for half a second to ensure the previous thread stopped
 			// otherwise we can end up with multiple threads associated with the Npc 
 			// causing double speed actions
-			try{
-				Thread.sleep(500); 
-			} catch(Exception ex) { }
+			L1NpcInstance callingType = getCallingClass();
+			
+			// only sleep if it is a summon or pet.
+			if(callingType instanceof L1SummonInstance || callingType instanceof L1PetInstance) {
+				try{
+					Thread.sleep(500); 
+				} catch(Exception ex) { }
+			}
 			
 			GeneralThreadPool.getInstance().execute(NpcAIThreadImpl.this);
 		}
