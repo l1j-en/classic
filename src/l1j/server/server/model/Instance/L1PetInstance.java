@@ -196,7 +196,9 @@ public class L1PetInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (getCurrentHp() > 0) {
-			if (damage > 0) {
+			boolean isMaster = attacker == _master;
+			
+			if (damage > 0 && !isMaster) {
 				setHate(attacker, 0);
 				removeSkillEffect(L1SkillId.FOG_OF_SLEEPING);
 			}
