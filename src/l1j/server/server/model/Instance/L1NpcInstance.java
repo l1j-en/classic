@@ -205,6 +205,14 @@ public class L1NpcInstance extends L1Character {
 	class NpcAIThreadImpl implements Runnable, NpcAI {
 		@Override
 		public void start() {
+			// FIXME: Should really find the underlying cause of the double thread
+			// sleep the thread for half a second to ensure the previous thread stopped
+			// otherwise we can end up with multiple threads associated with the Npc 
+			// causing double speed actions
+			try{
+				Thread.sleep(500); 
+			} catch(Exception ex) { }
+			
 			GeneralThreadPool.getInstance().execute(NpcAIThreadImpl.this);
 		}
 
