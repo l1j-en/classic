@@ -212,7 +212,9 @@ public class L1SummonInstance extends L1NpcInstance {
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
 		if (getCurrentHp() > 0) {
-			if (damage > 0) {
+			boolean isMaster = attacker == _master;
+			
+			if (damage > 0 && !isMaster) {
 				setHate(attacker, 0);
 				removeSkillEffect(FOG_OF_SLEEPING);
 				if (!isExsistMaster()) {
