@@ -33,7 +33,6 @@ import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
-import l1j.server.server.model.L1PinkName;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1War;
@@ -1710,8 +1709,14 @@ public class L1SkillUse {
 					cha.removeSkillEffect(ERASE_MAGIC);
 				} else if (_skill.getType() == L1Skill.TYPE_CURSE
 						|| _skill.getType() == L1Skill.TYPE_PROBABILITY) {
+					
 					if (_user instanceof L1PcInstance) {
 						((L1PcInstance)_user).setLastAggressiveAct();
+						
+						if(cha instanceof L1PcInstance) {
+							L1PcInstance target = (L1PcInstance) cha;
+							((L1PcInstance) _user)._pinkName.onAction(target);
+						}
 					}
 						
 					isSuccess = _magic.calcProbabilityMagic(_skillId);
