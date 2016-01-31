@@ -31,6 +31,7 @@ import static l1j.server.server.model.skill.L1SkillId.POLLUTE_WATER;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,16 +117,22 @@ public class L1NpcInstance extends L1Character {
 
 	private Timer _chatTimer;
 	private L1NpcChatTimer _chatTask;
+	
+	private NpcAIThreadImpl _aiThread = null;
+	private Map<Integer, List<Long>> _aiThreads = new HashMap<Integer, List<Long>>();
 
 	interface NpcAI {
 		public void start();
 	}
 
 	protected void startAI() {
+		if(_aiThread == null)
+			_aiThread = new NpcAIThreadImpl();
+		
 		if (Config.NPCAI_IMPLTYPE == 1) {
 			new NpcAITimerImpl().start();
 		} else if (Config.NPCAI_IMPLTYPE == 2) {
-			new NpcAIThreadImpl().start();
+			_aiThread.start();
 		} else {
 			new NpcAITimerImpl().start();
 		}
@@ -209,20 +216,7 @@ public class L1NpcInstance extends L1Character {
 	class NpcAIThreadImpl implements Runnable, NpcAI {
 		@Override
 		public void start() {
-			// FIXME: Should really find the underlying cause of the double thread
-			// sleep the thread for half a second to ensure the previous thread stopped
-			// otherwise we can end up with multiple threads associated with the Npc 
-			// causing double speed actions
-			L1NpcInstance callingType = getCallingClass();
-			
-			// only sleep if it is a summon or pet.
-			if(callingType instanceof L1SummonInstance || callingType instanceof L1PetInstance) {
-				try{
-					Thread.sleep(500); 
-				} catch(Exception ex) { }
-			}
-			
-			GeneralThreadPool.getInstance().execute(NpcAIThreadImpl.this);
+				GeneralThreadPool.getInstance().execute(NpcAIThreadImpl.this);
 		}
 
 		@Override
@@ -231,7 +225,26 @@ public class L1NpcInstance extends L1Character {
 			try {
 				setAiRunning(true);
 				while (!_destroyed && !isDead() && getCurrentHp() > 0
-						&& getHiddenStatus() == HIDDEN_STATUS_NONE) {
+						&& getHiddenStatus() == HIDDEN_STATUS_NONE && isAiRunning()) {
+					// still need to find the underlying issue for this
+					// but this checks to see if multiple AI instances are running
+					// for a pet/summon, and if so, it exits run to keep it at 1
+					L1NpcInstance callingClass = getCallingClass();
+					if(callingClass instanceof L1SummonInstance || callingClass instanceof L1PetInstance) {
+						List<Long> currentAiThreads = callingClass.getAiThreads(callingClass.getId());
+						
+						boolean threadAlreadyAdded = currentAiThreads.contains(Thread.currentThread().getId());
+						if(currentAiThreads.size() >= 1 && !threadAlreadyAdded) {
+							_log.info("Character \"" + callingClass.getMaster().getName() + "\" triggered pet speed bug" +
+									" with " + callingClass.getName() + ". NpcAIThreadImpl Successfully Cancelled.");
+
+							return;
+						}
+						
+						if(!threadAlreadyAdded)
+							callingClass.addAiThread(callingClass.getId(), Thread.currentThread().getId());
+					} //end pet/summon check
+					
 					while (isParalyzed() || isSleeped()) {
 						try {
 							Thread.sleep(200);
@@ -517,6 +530,22 @@ public class L1NpcInstance extends L1Character {
 				return;
 			}
 		}
+		
+		if(this instanceof L1SummonInstance || this instanceof L1PetInstance) {
+			List<Long> currentAiThreads = this.getAiThreads(this.getId());
+			
+			if(!currentAiThreads.contains(Thread.currentThread().getId()))
+				this.addAiThread(this.getId(), Thread.currentThread().getId());
+			
+			if(currentAiThreads.size() > 1) {
+				_log.warning("Character \"" + getMaster().getName() + 
+						"\" got past the summon/pet glitch catch using " + getCallingClass().getName()
+						+ ". Cancelling attack.");
+				
+				setAiRunning(false);
+				return;
+			}
+		}
 
 		L1Attack attack = new L1Attack(this, target);
 
@@ -530,12 +559,15 @@ public class L1NpcInstance extends L1Character {
 				return;
 			}
 		}
+		
 		if (attack.calcHit()) {
 			attack.calcDamage();
 			attack.addPcPoisonAttack(target, this);
 		}
+		
 		attack.action();
 		attack.commit();
+			
 		setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 	}
 
@@ -2022,6 +2054,29 @@ public class L1NpcInstance extends L1Character {
 
 	protected void setAiRunning(boolean aiRunning) {
 		_aiRunning = aiRunning;
+		
+		if(!aiRunning && _aiThreads.containsKey(this.getId()))
+			_aiThreads.put(this.getId(), new ArrayList<Long>());
+	}
+	
+	protected void addAiThread(Integer npcId, Long threadId) {
+		if(_aiThreads.containsKey(npcId))
+			_aiThreads.get(npcId).add(threadId);
+		else
+			_aiThreads.put(npcId, new ArrayList<Long>(Arrays.asList(threadId)));
+	}
+	
+	protected List<Long> getAiThreads(Integer npcObjId) {
+		List<Long> returnValue = _aiThreads.get(npcObjId);
+		
+		if(returnValue == null)
+			_aiThreads.put(npcObjId, new ArrayList<Long>());
+		
+		return _aiThreads.get(npcObjId);
+	}
+	
+	protected Map<Integer, List<Long>> getAllAiThreads() {
+		return _aiThreads;
 	}
 
 	protected boolean isAiRunning() {
