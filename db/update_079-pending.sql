@@ -393,8 +393,16 @@ INSERT INTO droplist VALUES('45449', 'Minotaur', '20280', 'Ring of Immunity to M
 insert into spawnlist_npc values (87527,'White Wizard Pieta', 1, 71200, 32738, 32849, 0,0, 2, 0, 77, 0);
 update npc set name = 'Devourer of Souls' where npcid = 46041;
 insert into quest_drops values (41422, 'P');
-delete from droplist where item_id = 41422;
+delete from droplist where itemid = 41422;
 insert into droplist values (46041,'Devourer of Souls',41422,'Lifeless Soul',1,1,1000000);
 update etcitem set name = 'Lightless Soul', cant_delete = 0 where item_id = 41422;
 insert into spawnlist values (8200005,'Devourer of Souls', 1, 46041,0,32698,32823,0,0,32640,32768,32767,32895,5,60,120,82,0,0,0,0,1,8,2,100);
 
+-- update shop tables to remove sales of the below listed items to correct an exploit
+update shop set purchasing_price = -1 where item_id = 214; -- Heavy Throwing Knife
+update shop set purchasing_price = -1 where item_id = 40738; -- Silver Throwing Knife
+update shop set purchasing_price = -1 where item_id = 40739; -- Throwing Knife
+update shop set purchasing_price = -1 where item_id = 40740; -- Heavy Throwing Knife
+update shop set purchasing_price = -1 where item_id = 40743; -- Arrow
+update shop set purchasing_price = -1 where item_id = 40744; -- Silver Arrow
+update shop set purchasing_price = -1 where item_id = 40746; -- Mithril Arrow
