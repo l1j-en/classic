@@ -151,7 +151,7 @@ public class L1Character extends L1Object {
 			// only broadcast the packet if they are a GM and have findinvis on
 			if (isFindInvis && pc.isGm() && pc.hasSkillEffect(GMSTATUS_FINDINVIS))
 				pc.sendPackets(packet);
-			else
+			else if(!isFindInvis)
 				pc.sendPackets(packet);
 		}
 	}
