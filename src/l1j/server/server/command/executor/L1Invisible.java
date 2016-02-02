@@ -18,8 +18,10 @@
  */
 package l1j.server.server.command.executor;
 
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Invis;
+import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -38,6 +40,13 @@ public class L1Invisible implements L1CommandExecutor {
 			pc.setGmInvis(!pc.isGmInvis());
 			pc.sendPackets(new S_Invis(pc.getId(), pc.isGmInvis() ? 1 : 0));
 			pc.broadcastPacket(new S_RemoveObject(pc));
+			
+			// update all surrounding players and let them know we're here!
+			if(!pc.isGmInvis())
+				for (L1PcInstance otherPlayer : L1World.getInstance().getVisiblePlayer(pc))
+					otherPlayer.sendPackets(new S_OtherCharPacks(pc, false));
+					
+				
 			pc.sendPackets(new S_SystemMessage(
 					String.format("You are now %svisible.", pc.isGmInvis() ? "in" : "")));
 
