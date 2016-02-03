@@ -86,13 +86,13 @@ public class L1ShopBuyOrderList {
 			if (newTotal < 0) {
 				return;
 			}
-			_totalPriceTaxIncluded = newTotal;
+			_totalPriceTaxIncluded += newTotal;
 		} else {
 			newTotal = price * count;
 			if (newTotal < 0) {
 				return;
 			}
-			_totalPriceTaxIncluded = newTotal;
+			_totalPriceTaxIncluded += newTotal;
 		}
 		_totalWeight += shopItem.getItem().getWeight() * count
 				* shopItem.getPackCount();
