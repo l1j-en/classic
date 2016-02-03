@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
@@ -44,6 +43,7 @@ import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.model.shop.L1ShopBuyOrderList;
 import l1j.server.server.model.shop.L1ShopSellOrderList;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 
@@ -113,10 +113,11 @@ public class C_Result extends ClientBasePacket {
 			int count = 0;
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopBuyOrderList orderList = shop.newBuyOrderList();
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i < size; i++) {
 				orderNumber = readD();
 				count = readD();
 				if (count > 1000 || count < 1) {
+					pc.sendPackets(new S_SystemMessage("Temporary 1000 item limit."));
 					continue;
 				}
 				orderList.add(orderNumber, count);
@@ -135,6 +136,7 @@ public class C_Result extends ClientBasePacket {
 				itemObjId = readD();
 				count = readD();
 				if (count > 1000 || count < 1) {
+					pc.sendPackets(new S_SystemMessage("Temporary 1000 item limit."));
 					continue;
 				}
 				orderList.add(itemObjId, count);
@@ -530,6 +532,7 @@ public class C_Result extends ClientBasePacket {
 						count = sellTotalCount - sellCount;
 					}
 					if (count > 1000 || count < 1) {
+						pc.sendPackets(new S_SystemMessage("Temporary 1000 item limit."));
 						continue;
 					}
 					item = targetPc.getInventory().getItem(itemObjectId);
@@ -638,6 +641,7 @@ public class C_Result extends ClientBasePacket {
 					count = buyTotalCount - buyCount;
 				}
 				if (count > 1000 || count < 1) {
+					pc.sendPackets(new S_SystemMessage("Temporary 1000 item limit."));
 					continue;
 				}
 
