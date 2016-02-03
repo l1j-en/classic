@@ -113,7 +113,7 @@ public class C_Result extends ClientBasePacket {
 			int count = 0;
 			L1Shop shop = ShopTable.getInstance().get(npcId);
 			L1ShopBuyOrderList orderList = shop.newBuyOrderList();
-			for (int i = 0; i < size; i++) {
+			for (int i = 0; i < 1; i++) {
 				orderNumber = readD();
 				count = readD();
 				if (count > 1000 || count < 1) {
