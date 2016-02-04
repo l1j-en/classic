@@ -38,6 +38,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.command.executor.L1ToggleShop;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.WarTimeController;
@@ -224,11 +225,29 @@ public class C_NPCAction extends ClientBasePacket {
 		String npcName = npc.getNpcTemplate().get_name();
 
 		if (s.equalsIgnoreCase("buy")) {
+			L1Object buyShop = L1World.getInstance().findObject(objid);
+			
+			if(buyShop instanceof L1NpcInstance && 
+					L1ToggleShop.IsBuyDisabled(((L1NpcInstance) buyShop).getNpcTemplate().get_npcId())
+					&& !pc.isGm()) {
+				pc.sendPackets(new S_SystemMessage("Buy temporarily disabled for this shop."));
+				return;
+			}
+			
 			if (isNpcSellOnly(npc)) {
 				return;
 			}
 			pc.sendPackets(new S_ShopSellList(objid));
 		} else if (s.equalsIgnoreCase("sell")) {
+			L1Object sellShop = L1World.getInstance().findObject(objid);
+			
+			if(sellShop instanceof L1NpcInstance && 
+					L1ToggleShop.IsSellDisabled(((L1NpcInstance) sellShop).getNpcTemplate().get_npcId())
+					&& !pc.isGm()) {
+				pc.sendPackets(new S_SystemMessage("Sell temporarily disabled for this shop."));
+				return;
+			}
+			
 			if (npcid == 70523 || npcid == 70805) {
 				htmlid = "ladar2";
 			} else if (npcid == 70537 || npcid == 70807) {

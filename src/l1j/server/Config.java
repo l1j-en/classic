@@ -480,6 +480,8 @@ public final class Config {
 	public static int LV98_EXP;
 
 	public static int LV99_EXP;
+	
+	public static boolean STOP_DROP;
 
 	/** Player Command Settings */
 	public static boolean PLAYER_COMMANDS;
@@ -623,6 +625,7 @@ public final class Config {
 					"NonAggroLogoutTimer", "10000"));
 			DUAL_PINK = Boolean.parseBoolean(serverSettings.getProperty("DualPink", "False"));
 			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
+			STOP_DROP = Boolean.parseBoolean(serverSettings.getProperty("StopDrop", "False"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
@@ -1096,6 +1099,8 @@ public final class Config {
 			LEVEL_DOWN_RANGE = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("SendPacketBeforeTeleport")) {
 			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(pValue);
+		} else if(pName.equalsIgnoreCase("DropItems")) {
+			STOP_DROP = Boolean.parseBoolean(pValue);
 		}
 		// rates.properties
 		else if (pName.equalsIgnoreCase("RateHpRegen")) {
