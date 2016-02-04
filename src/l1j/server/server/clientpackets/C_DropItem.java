@@ -33,6 +33,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
@@ -82,6 +83,11 @@ public class C_DropItem extends ClientBasePacket {
 		}
 
 		L1ItemInstance item = pc.getInventory().getItem(objectId);
+		
+		if(!pc.isGm() && Config.STOP_DROP) {
+			pc.sendPackets(new S_SystemMessage("Dropping items has been temporarily disabled."));
+			return;
+		} //end if
 
 		if (item != null) {
 			if (!item.getItem().isTradable()) {
