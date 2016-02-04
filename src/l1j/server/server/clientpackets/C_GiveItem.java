@@ -21,6 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
@@ -37,6 +38,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ItemName;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1PetType;
 
@@ -94,6 +96,12 @@ public class C_GiveItem extends ClientBasePacket {
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
+		
+		if(!pc.isGm() && Config.STOP_DROP) {
+			pc.sendPackets(new S_SystemMessage("Dropping items has been temporarily disabled."));
+			return;
+		} //end if
+		
 		if (itemId != item.getId()) {
 			_log.warning(pc.getName() + " had item " + Integer.toString(itemId)
 					+ " not match.");
@@ -140,7 +148,7 @@ public class C_GiveItem extends ClientBasePacket {
 		if (item.getItemId() == petType.getItemIdForTaming()) {
 			tamePet(pc, target);
 		}
-
+		
 		/*
 		 * if (item.getItemId() == 40070 && petType.canEvolve()) { evolvePet(pc,
 		 * target); } }
