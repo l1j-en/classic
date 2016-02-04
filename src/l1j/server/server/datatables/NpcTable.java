@@ -238,4 +238,13 @@ public class NpcTable {
 		}
 		return 0;
 	}
+	
+	public int findNpcIdByNameCaseInsensitiveWithoutSpace(String name) {
+		for (L1Npc npc : _npcs.values()) {
+			if (npc.get_name().replace(" ", "").toLowerCase().equals(name.toLowerCase())) {
+				return npc.get_npcId();
+			}
+		}
+		return 0;
+	}
 }
