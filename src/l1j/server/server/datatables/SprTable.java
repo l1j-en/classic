@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
@@ -152,39 +153,49 @@ public class SprTable {
 		if (_dataMap.containsKey(sprid)) {
 			if (_dataMap.get(sprid).attackSpeed.containsKey(actid)) {
 				return _dataMap.get(sprid).attackSpeed.get(actid);
-			} else if (actid == ACTION_Attack) {
-				return 0;
 			} else {
-				return _dataMap.get(sprid).attackSpeed.get(ACTION_Attack);
+				Spr sprite = _dataMap.get(sprid);
+				
+				if(!sprite.attackSpeed.containsKey(ACTION_Attack))
+					return Config.ANIMATION_SPEED;
+				
+				return sprite.attackSpeed.get(ACTION_Attack);
 			}
 		}
-		return 0;
+		
+		return Config.ANIMATION_SPEED;
 	}
 
 	public int getMoveSpeed(int sprid, int actid) {
 		if (_dataMap.containsKey(sprid)) {
 			if (_dataMap.get(sprid).moveSpeed.containsKey(actid)) {
 				return _dataMap.get(sprid).moveSpeed.get(actid);
-			} else if (actid == ACTION_Walk) {
-				return 0;
 			} else {
-				return _dataMap.get(sprid).moveSpeed.get(ACTION_Walk);
+				Spr sprite = _dataMap.get(sprid);
+				
+				if(!sprite.moveSpeed.containsKey(ACTION_Walk))
+					return Config.ANIMATION_SPEED;
+				
+				return sprite.moveSpeed.get(ACTION_Walk);
 			}
 		}
-		return 0;
+		
+		return Config.ANIMATION_SPEED;
 	}
 
 	public int getDirSpellSpeed(int sprid) {
 		if (_dataMap.containsKey(sprid)) {
 			return _dataMap.get(sprid).dirSpellSpeed;
 		}
-		return 0;
+		
+		return Config.ANIMATION_SPEED;
 	}
 
 	public int getNodirSpellSpeed(int sprid) {
 		if (_dataMap.containsKey(sprid)) {
 			return _dataMap.get(sprid).nodirSpellSpeed;
 		}
-		return 0;
+		
+		return Config.ANIMATION_SPEED;
 	}
 }
