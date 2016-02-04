@@ -80,7 +80,6 @@ public class L1ToggleShop implements L1CommandExecutor {
 					pc.sendPackets(new S_SystemMessage("\\fYAll sell shops currently disabled."));
 				
 				if(!allBuyDisabled && !allSellDisabled) {
-					
 					if(disabledNpcs.isEmpty()) {
 						pc.sendPackets(new S_SystemMessage("\\fTAll shops are actively buying and selling."));
 					} else {
@@ -89,7 +88,7 @@ public class L1ToggleShop implements L1CommandExecutor {
 					        Entry<Integer, ShopStatus> shop = shops.next();
 					        
 					        L1Npc npc = NpcTable.getInstance().getTemplate(shop.getKey());
-					        pc.sendPackets(new S_SystemMessage(String.format("'%s': %s. %s.",
+					        pc.sendPackets(new S_SystemMessage(String.format("%s: %s. %s.",
 					        		npc.get_name(), 
 					        		shop.getValue().DisableBuy ? "\\fYB: Disabled" : "\\fTB: Enabled",
 					        				shop.getValue().DisableSell ? "\\fYS: Disabled" : "\\fTS: Enabled")));
@@ -152,9 +151,9 @@ public class L1ToggleShop implements L1CommandExecutor {
 			        	shops.remove();
 			    } //end while
 				
-				pc.sendPackets(new S_SystemMessage(String.format("All %s shops have been %s",
+				pc.sendPackets(new S_SystemMessage(String.format("All %s shops have been %s.",
 						buySell,
-						disabled ? "disabled." : "enabled.")));
+						disabled ? "disabled" : "enabled")));
 			} //end if
 		} catch (Exception e) {
 			for(int i = 0; i < commandMessage.length; i++)
