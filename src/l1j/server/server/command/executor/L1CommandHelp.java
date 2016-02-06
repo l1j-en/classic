@@ -32,10 +32,6 @@ public class L1CommandHelp implements L1CommandExecutor {
 	
 	private L1CommandHelp() {
 	}
-	
-	public String getHelpText() {
-		return "";
-	}
 
 	public static L1CommandExecutor getInstance() {
 		return new L1CommandHelp();
