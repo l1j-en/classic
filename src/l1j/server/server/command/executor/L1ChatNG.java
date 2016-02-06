@@ -34,10 +34,6 @@ public class L1ChatNG implements L1CommandExecutor {
 	public static L1CommandExecutor getInstance() {
 		return new L1ChatNG();
 	}
-	
-	public String getHelpText() {
-		return "";
-	}
 
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
