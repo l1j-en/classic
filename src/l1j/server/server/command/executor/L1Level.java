@@ -65,7 +65,7 @@ public class L1Level implements L1CommandExecutor {
 			}
 			target.setExp(ExpTable.getExpByLevel(level));
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + ".level <1-99> or .level <player> <1-99>"));
+			pc.sendPackets(new S_SystemMessage(".level <1-99> or .level <player> <1-99>"));
 		}
 	}
 }
