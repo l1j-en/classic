@@ -38,23 +38,28 @@ public class L1Recall implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			Collection<L1PcInstance> targets = null;
 			if (arg.equalsIgnoreCase("all")) {
 				targets = L1World.getInstance().getAllPlayers();
 			} else {
 				targets = new ArrayList<L1PcInstance>();
 				L1PcInstance tg = L1World.getInstance().getPlayer(arg);
+				
 				if (tg == null) {
-					pc.sendPackets(new S_SystemMessage("Player not on."));
+					pc.sendPackets(new S_SystemMessage(arg + "is not online."));
 					return;
 				}
+				
 				targets.add(tg);
 			}
 
 			for (L1PcInstance target : targets) {
-				if (target.isGm()) {
+				if (target.isGm())
 					continue;
-				}
+
 				L1Teleport.teleportToTargetFront(target, pc, 2);
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
 						.append(target.getName()).append(", what up!")
@@ -62,7 +67,7 @@ public class L1Recall implements L1CommandExecutor {
 				target.sendPackets(new S_SystemMessage("Hello."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " all|player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " [all|player_name]"));
 		}
 	}
 }

@@ -17,6 +17,9 @@ public class L1Jail implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			L1PcInstance convict = L1World.getInstance().getPlayer(arg);
 
 			if (convict != null) {
@@ -29,7 +32,7 @@ public class L1Jail implements L1CommandExecutor {
 						.append(arg).append(" is not online.").toString()));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " char_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
 		}
 	}
 }

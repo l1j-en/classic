@@ -36,29 +36,47 @@ public class L1Ress implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			int objid = pc.getId();
-			pc.sendPackets(new S_SkillSound(objid, 759));
-			pc.broadcastPacket(new S_SkillSound(objid, 759));
-			pc.setCurrentHp(pc.getMaxHp());
-			pc.setCurrentMp(pc.getMaxMp());
+			
+			boolean allPlayers = arg.toLowerCase().trim().equals("all");
+			
+			boolean playerFound = false;
 			for (L1PcInstance tg : L1World.getInstance().getVisiblePlayer(pc)) {
-				if (tg.getCurrentHp() == 0 && tg.isDead()) {
-					tg.sendPackets(new S_SystemMessage("GM resurrected you."));
-					tg.broadcastPacket(new S_SkillSound(tg.getId(), 3944));
-					tg.sendPackets(new S_SkillSound(tg.getId(), 3944));
+				if(tg.getName().toLowerCase() == arg.toLowerCase() || allPlayers) {
+					playerFound = true;
+					if (tg.getCurrentHp() == 0 && tg.isDead()) {
+						tg.sendPackets(new S_SystemMessage("GM resurrected you."));
+						tg.broadcastPacket(new S_SkillSound(tg.getId(), 3944));
+						tg.sendPackets(new S_SkillSound(tg.getId(), 3944));
 
-					tg.setTempID(objid);
-					tg.sendPackets(new S_Message_YN(322, ""));
-				} else {
-					tg.sendPackets(new S_SystemMessage("GM healed you."));
-					tg.broadcastPacket(new S_SkillSound(tg.getId(), 832));
-					tg.sendPackets(new S_SkillSound(tg.getId(), 832));
-					tg.setCurrentHp(tg.getMaxHp());
-					tg.setCurrentMp(tg.getMaxMp());
+						tg.setTempID(objid);
+						tg.sendPackets(new S_Message_YN(322, ""));
+					} else {
+						tg.sendPackets(new S_SystemMessage("GM healed you."));
+						tg.broadcastPacket(new S_SkillSound(tg.getId(), 832));
+						tg.sendPackets(new S_SkillSound(tg.getId(), 832));
+						tg.setCurrentHp(tg.getMaxHp());
+						tg.setCurrentMp(tg.getMaxMp());
+					}
 				}
 			}
+			
+			if(!playerFound) {
+				if(!allPlayers)
+					pc.sendPackets(new S_SystemMessage(arg + " was not in range."));
+				else
+					pc.sendPackets(new S_SystemMessage("No players were in range."));
+				
+				return;
+			}
+				
+			pc.sendPackets(new S_SkillSound(objid, 759));
+			pc.broadcastPacket(new S_SkillSound(objid, 759));
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " [all|player_name]"));
 		}
 	}
 }
