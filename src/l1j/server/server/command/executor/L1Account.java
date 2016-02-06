@@ -21,7 +21,6 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -29,8 +28,6 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Account implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Account.class.getName());
-
 	private L1Account() {
 	}
 
@@ -55,7 +52,9 @@ public class L1Account implements L1CommandExecutor {
 			int storedadena = 0;
 			int totalheldadena = 0;
 			con = L1DatabaseFactory.getInstance().getConnection();
-			// String accountName=String.valueOf(arg).toString().trim();
+			
+			if(arg.trim().equals(""))
+				throw new Exception();
 
 			pstm = con
 					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid FROM characters WHERE account_name=?");
@@ -80,7 +79,10 @@ public class L1Account implements L1CommandExecutor {
 			}
 
 			pc.sendPackets(new S_SystemMessage("Account (" + arg + "):"));
+			boolean accountFound = false;
+			
 			while (rs.next()) {
+				accountFound = true;
 				int heldadena = 0;
 				pstm4 = con
 						.prepareStatement("SELECT count FROM character_items WHERE char_id=? AND item_id = 40308");
@@ -101,18 +103,22 @@ public class L1Account implements L1CommandExecutor {
 						.append(rs.getInt("MaxMp") + " ")
 						.append(" Gold: " + heldadena).toString()));
 			}
-			pc.sendPackets(new S_SystemMessage("Stored Gold: " + storedadena));
-			pc.sendPackets(new S_SystemMessage("Total Held Gold: "
-					+ totalheldadena));
-			pc.sendPackets(new S_SystemMessage("Total Gold: "
-					+ (totalheldadena + storedadena)));
-
+			
+			if(accountFound) {
+				pc.sendPackets(new S_SystemMessage("Stored Gold: " + storedadena));
+				pc.sendPackets(new S_SystemMessage("Total Held Gold: "
+						+ totalheldadena));
+				pc.sendPackets(new S_SystemMessage("Total Gold: "
+						+ (totalheldadena + storedadena)));
+			} else {
+				pc.sendPackets(new S_SystemMessage("Account Not Found."));
+			}
+			
 			rs.close();
 			rs2.close();
 			rs3.close();
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(".account account_name"));
-			_log.severe(e.toString());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

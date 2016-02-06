@@ -20,8 +20,6 @@ package l1j.server.server.command.executor;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CHAT_PROHIBITED;
 
-import java.util.StringTokenizer;
-
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -40,20 +38,37 @@ public class L1ChatNG implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			StringTokenizer st = new StringTokenizer(arg);
-			String name = st.nextToken();
-			int time = Integer.parseInt(st.nextToken());
+			String args[] = arg.split(" ");
+			
+			String name = args[0];
+			int time = Integer.parseInt(args[1]);
+			
+			if(time > 250)
+				time = 250;
 
 			L1PcInstance tg = L1World.getInstance().getPlayer(name);
 
 			if (tg != null) {
-				tg.setSkillEffect(STATUS_CHAT_PROHIBITED, time * 60 * 1000);
-				tg.sendPackets(new S_SkillIconGFX(36, time * 60));
-				tg.sendPackets(new S_ServerMessage(286, String.valueOf(time)));
-				pc.sendPackets(new S_ServerMessage(287, name));
+				if(time == 0) {
+					tg.removeSkillEffect(STATUS_CHAT_PROHIBITED);
+					tg.sendPackets(new S_SkillIconGFX(36, 0));
+					
+					pc.sendPackets(
+							new S_SystemMessage(
+									String.format("You have given %s back their voice.",
+											name)));
+				} else {
+					tg.setSkillEffect(STATUS_CHAT_PROHIBITED, time * 60 * 1000);
+					tg.sendPackets(new S_ServerMessage(286, String.valueOf(time)));
+					
+					pc.sendPackets(
+							new S_SystemMessage(
+									String.format("You have prohibited %s from chatting for %d minutes.",
+											name, time)));
+				}
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name time"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> <minutes> (max value 250)"));
 		}
 	}
 }
