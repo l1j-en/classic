@@ -36,6 +36,10 @@ public class C_Who extends ClientBasePacket {
 		super(decrypt);
 		String s = readS();
 		L1PcInstance find = L1World.getInstance().getPlayer(s);
+		
+		if(find != null && (find.getAccessLevel() > 0) && find.isGmInvis())
+			find = null;
+		
 		L1PcInstance pc = client.getActiveChar();
 
 		if (find != null) {
