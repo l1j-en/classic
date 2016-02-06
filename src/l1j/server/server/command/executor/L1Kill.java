@@ -34,14 +34,19 @@ public class L1Kill implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
 
 			if (target != null) {
 				target.setCurrentHp(0);
 				target.death(null);
+			} else {
+				pc.sendPackets(new S_SystemMessage(arg + " is not online."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
 		}
 	}
 }

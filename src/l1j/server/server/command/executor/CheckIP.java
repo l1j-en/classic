@@ -37,15 +37,18 @@ public class CheckIP implements L1CommandExecutor {
 			ipCheck(user, target);
 		} catch (Exception e) {
 			e.printStackTrace();
-			user.sendPackets(new S_SystemMessage(".ipCheck <name>"));
+			user.sendPackets(new S_SystemMessage(".ipcheck <player_name>"));
 		}
 	}
 
-	private void ipCheck(L1PcInstance gm, String name) {
+	private void ipCheck(L1PcInstance gm, String name) throws Exception {
+		if(name.trim().equals(""))
+			throw new Exception();
+		
 		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
 		if (target == null) {
 			gm.sendPackets(new S_SystemMessage(
-					".ipCheck doesn't work on offline players."));
+					".ipcheck doesn't work on offline players."));
 			return;
 		} else {
 			gm.sendPackets(new S_SystemMessage((new StringBuilder())
