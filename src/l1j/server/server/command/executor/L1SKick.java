@@ -39,6 +39,9 @@ public class L1SKick implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
 			if (target != null) {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
@@ -55,10 +58,10 @@ public class L1SKick implements L1CommandExecutor {
 						+ ":" + targetClient.getHostname()
 						+ ") closing connections.");
 			} else {
-				pc.sendPackets(new S_SystemMessage("No such player."));
+				pc.sendPackets(new S_SystemMessage(arg + " is not online."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
 		}
 	}
 }

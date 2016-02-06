@@ -71,7 +71,7 @@ public class L1Commands {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT * FROM commands WHERE access_level <= ?");
+					.prepareStatement("SELECT * FROM commands WHERE access_level <= ? ORDER BY name");
 			pstm.setInt(1, accessLevel);
 			rs = pstm.executeQuery();
 			while (rs.next()) {

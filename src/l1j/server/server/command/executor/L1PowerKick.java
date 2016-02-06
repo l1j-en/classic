@@ -36,6 +36,9 @@ public class L1PowerKick implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
 
 			IpTable iptable = IpTable.getInstance();
@@ -46,10 +49,10 @@ public class L1PowerKick implements L1CommandExecutor {
 						.append(" has been kicked and banned.").toString()));
 				target.sendPackets(new S_Disconnect());
 			} else {
-				pc.sendPackets(new S_SystemMessage("Who dat?"));
+				pc.sendPackets(new S_SystemMessage(arg + " is not online."));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
 		}
 	}
 }
