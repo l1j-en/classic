@@ -24,6 +24,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Lawful;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_PinkName;
 import l1j.server.server.serverpackets.S_RawStringDialog;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -101,6 +102,12 @@ public class L1Status implements L1CommandExecutor {
 					target.addBaseWis((byte) (value - target.getBaseWis()));
 				} else if (param.equalsIgnoreCase("CHA")) {
 					target.addBaseCha((byte) (value - target.getBaseCha()));
+				} else if(param.equalsIgnoreCase("PINK")) {
+					target.setPinkName(value == 1);
+					
+					target.sendPackets(new S_PinkName(target.getId(), 180 * value));
+					target.broadcastPacket(new S_PinkName(target.getId(), 180 * value));
+					
 				} else {
 					pc.sendPackets(new S_SystemMessage(param
 							+ " is an unknown setting"));
@@ -116,7 +123,7 @@ public class L1Status implements L1CommandExecutor {
 					String.format(".%1$s <player> <setting> <value> or .%1$s <setting> <value>",
 							cmdName)));
 			pc.sendPackets(new S_RawStringDialog(pc.getId(), 
-					"Available settings:", "AC, MR, HIT, DMG, HP, MP, LAWFUL, KARMA, GM, STR, CON, DEX, INT, WIS, CHA"));
+					"Available settings:", "AC, MR, HIT, DMG, HP, MP, LAWFUL, KARMA, GM, STR, CON, DEX, INT, WIS, CHA, PINK"));
 		}
 	}
 }

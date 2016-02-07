@@ -22,11 +22,15 @@ public class L1Command {
 	private final String _name;
 	private final int _level;
 	private final String _executorClassName;
+	private String _helpText = "No Help Text Defined.";
 
-	public L1Command(String name, int level, String executorClassName) {
+	public L1Command(String name, int level, String executorClassName, String helpText) {
 		_name = name;
 		_level = level;
 		_executorClassName = executorClassName;
+		
+		if(!helpText.trim().equals(""))
+			_helpText = helpText;
 	}
 
 	public String getName() {
@@ -39,5 +43,9 @@ public class L1Command {
 
 	public String getExecutorClassName() {
 		return _executorClassName;
+	}
+	
+	public String getHelpText() {
+		return _helpText;
 	}
 }
