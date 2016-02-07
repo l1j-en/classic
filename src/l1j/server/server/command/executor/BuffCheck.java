@@ -41,12 +41,15 @@ public class BuffCheck implements L1CommandExecutor {
 			buffCheck(user, target);
 		} catch (Exception e) {
 			e.printStackTrace();
-			user.sendPackets(new S_SystemMessage(".buffCheck <name>"));
+			user.sendPackets(new S_SystemMessage(".buffCheck <player_name>"));
 		}
 	}
 
-	private void buffCheck(L1PcInstance gm, String name) {
+	private void buffCheck(L1PcInstance gm, String name) throws Exception {
 		L1PcInstance target = L1World.getInstance().getPlayer(name.trim());
+		if(name.trim().equals(""))
+			throw new Exception();
+		
 		if (target == null) {
 			gm.sendPackets(new S_SystemMessage(
 					".buffCheck doesn't work on offline players yet."));
