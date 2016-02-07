@@ -55,23 +55,45 @@ public class L1CommandHelp implements L1CommandExecutor {
 		
 		int pages = (int)Math.ceil((double)list.size() / commandsPerPage);
 		
-		try {
-			if(arg.trim().equals("") || Integer.parseInt(arg) > pages)
+		try {			
+			if(arg.trim().equals(""))
 				throw new Exception();
 			
-			int page = Integer.parseInt(arg);
-			int end = page * commandsPerPage;
+			int page = -1;
+			try {
+				page = Integer.parseInt(arg);
+			} catch(Exception ex) { }
 			
-			if(end > list.size())
-				end = list.size();
+			if(page > pages)
+				throw new Exception();
 			
-			List<L1Command> pageList = list.subList((page - 1) * commandsPerPage , end);
-			
-			pc.sendPackets(new S_RawStringDialog(pc.getId(), 
-					String.format("Available GM Commands (Page %d)", page), join(pageList, ", ")));
+			// if we found a number, try to load the page
+			if(page > -1) {
+				int end = page * commandsPerPage;
+				
+				if(end > list.size())
+					end = list.size();
+				
+				List<L1Command> pageList = list.subList((page - 1) * commandsPerPage , end);
+				
+				pc.sendPackets(new S_RawStringDialog(pc.getId(), 
+						String.format("Available GM Commands (Page %d)", page), join(pageList, ", ")));
+			} else  {
+				// otherwise they were looking for help text for a command
+				String commandName = arg.replace(".", "");
+				L1Command command = L1Commands.get(commandName);
+				
+				if(command == null) {
+					pc.sendPackets(new S_SystemMessage(commandName + " command not found."));
+					return;
+				}
+				
+				pc.sendPackets(new S_SystemMessage("." + command.getName() + ":"));
+				pc.sendPackets(new S_SystemMessage(command.getHelpText()));
+			}
 		} catch(Exception ex) {
 			pc.sendPackets(new S_SystemMessage(String.format(
-					".help [page #] -- Currently %d pages.", pages)));
+					".help <page #> or <command_name> -- Currently %d pages.", pages)));
 		}
 	}
 }
