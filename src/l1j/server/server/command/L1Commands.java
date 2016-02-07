@@ -21,6 +21,7 @@ package l1j.server.server.command;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,13 @@ public class L1Commands {
 	private static Logger _log = Logger.getLogger(L1Commands.class.getName());
 
 	private static L1Command fromResultSet(ResultSet rs) throws SQLException {
+		String helpText = "";
+		
+		if(hasColumn(rs, "help_text"))
+			helpText = rs.getString("help_text");
+		
 		return new L1Command(rs.getString("name"), rs.getInt("access_level"),
-				rs.getString("class_name"));
+				rs.getString("class_name"), helpText);
 	}
 
 	public static L1Command get(String name) {
@@ -85,5 +91,20 @@ public class L1Commands {
 			SQLUtil.close(con);
 		}
 		return result;
+	}
+	
+	public static boolean hasColumn(ResultSet rs, String columnName) {
+		try {
+			ResultSetMetaData rsmd = rs.getMetaData();
+		    int columns = rsmd.getColumnCount();
+		    for (int x = 1; x <= columns; x++) {
+		        if (columnName.equals(rsmd.getColumnName(x)) && rs.getString(x) != null) {
+		            return true;
+		        }
+		    }
+		    return false;
+		} catch(Exception ex) {
+			return false;
+		}
 	}
 }

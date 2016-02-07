@@ -525,6 +525,14 @@ public class L1PcInstance extends L1Character {
 	public void setGmInvis(boolean flag) {
 		_gmInvis = flag;
 	}
+	
+	public boolean isGmAppearOffline() {
+		return _gmAppearOffline;
+	}
+	
+	public void setGmAppearOffline(boolean flag) {
+		_gmAppearOffline = flag;
+	}
 
 	public int getCurrentWeapon() {
 		return _currentWeapon;
@@ -1792,6 +1800,7 @@ public class L1PcInstance extends L1Character {
 	private boolean _gm;
 	private boolean _monitor;
 	private boolean _gmInvis;
+	private boolean _gmAppearOffline;
 	private short _accessLevel;
 	private int _currentWeapon;
 	private final L1PcInventory _inventory;
