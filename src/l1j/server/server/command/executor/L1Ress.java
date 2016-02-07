@@ -45,7 +45,7 @@ public class L1Ress implements L1CommandExecutor {
 			
 			boolean playerFound = false;
 			for (L1PcInstance tg : L1World.getInstance().getVisiblePlayer(pc)) {
-				if(tg.getName().toLowerCase() == arg.toLowerCase() || allPlayers) {
+				if(tg.getName().toLowerCase().equals(arg.toLowerCase()) || allPlayers) {
 					playerFound = true;
 					if (tg.getCurrentHp() == 0 && tg.isDead()) {
 						tg.sendPackets(new S_SystemMessage("GM resurrected you."));
