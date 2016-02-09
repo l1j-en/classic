@@ -69,3 +69,5 @@ REPLACE INTO commands VALUES('snoop', '100', 'L1Snoop', 'View a users inventory,
 REPLACE INTO commands VALUES('follow', '100', 'L1Follow', 'Makes your character auto-follow the specified player.');
 REPLACE INTO commands VALUES('lazygm', '100', 'L1LazyGm', 'Loops through online players, teleporting you to each of them for x seconds and auto-following them.');
 REPLACE INTO commands VALUES('pledge', '100', 'L1Pledge', 'Displays all members in a pledge.');
+REPLACE INTO commands VALUES('accountips', '100', 'L1AccountIps', 'Display all IP addresses that have accessed an account and their last login date.');
+REPLACE INTO commands VALUES('trace', '100', 'L1Trace', 'Displays all accounts that IP has accessed and when.');
