@@ -18,13 +18,18 @@
  */
 package l1j.server.server.command.executor;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1ToPC implements L1CommandExecutor {
-
+	
+	private static Random _random = new Random();
+	
 	private L1ToPC() {
 	}
 
@@ -36,19 +41,37 @@ public class L1ToPC implements L1CommandExecutor {
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
+			
+			if(arg.trim().equals(""))
+				throw new Exception();
+			
+			if(target == null && arg.toLowerCase().equals("-rand")) {
+				ArrayList<L1PcInstance> players
+					= new ArrayList<L1PcInstance>(L1World.getInstance().getAllPlayers());
+				
+				if(players.size() < 2) {
+					pc.sendPackets(new S_SystemMessage("-rand only works with more than 1 player."));
+					return;
+				} 
+				
+				for(int i = 0; i < 10 && (target == null || target.getId() == pc.getId()); i++) {
+					int findPlayer = _random.nextInt(players.size());
+					target = players.get(findPlayer);
+				}
+			}
 
 			if (target != null) {
 				L1Teleport.teleport(pc, target.getX(), target.getY(),
 						target.getMapId(), 5, false);
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append("You appear next to ").append(arg).toString()
+						.append("You appear next to ").append(target.getName()).toString()
 						+ "."));
 			} else {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
 						.append(arg).append(" is not online.").toString()));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " char_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> or -rand"));
 		}
 	}
 }
