@@ -135,6 +135,32 @@ public class L1PcInstance extends L1Character {
 	private long _lastAggressiveAct = 0;
 
 	public L1PinkName _pinkName = null;
+	private String followingGm = null;
+	
+	public L1PcInstance getFollowingGm() {
+		if(followingGm == null)
+			return null;
+		
+		L1PcInstance player = L1World.getInstance().getPlayer(followingGm);
+		
+		// if the gm has gone offline, they're obviously not following anymore
+		if(player == null)
+			followingGm = null;
+		
+		return player;
+	}
+	
+	public void setFollowingGm(L1PcInstance pc) {
+		if(pc != null) {
+			// ensure this PcInstance isn't tied to anyone else
+			for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+				if(player.getFollowingGm() == pc)
+					player.setFollowingGm(null);
+			}
+		}
+		
+		followingGm = pc == null ? null : pc.getName();
+	}
 	
 	public void setLastAggressiveAct() {
 		setLastAggressiveAct(System.currentTimeMillis());
