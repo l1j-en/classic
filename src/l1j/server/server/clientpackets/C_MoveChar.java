@@ -20,8 +20,12 @@ package l1j.server.server.clientpackets;
 import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
+
+import java.util.logging.Logger;
+
 import l1j.server.Config;
 import l1j.server.server.ClientThread;
+import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.Dungeon;
@@ -38,6 +42,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 // ClientBasePacket
 public class C_MoveChar extends ClientBasePacket {
 
+	private static Logger _log = Logger.getLogger(C_MoveChar.class.getName());
 	private static final byte HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final byte HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
@@ -109,14 +114,24 @@ public class C_MoveChar extends ClientBasePacket {
 		}
 		pc.getLocation().set(locx, locy);
 		pc.setHeading(heading);
-
+		
 		if (pc.isGmInvis() || pc.isGhost()) {
 		} else if (pc.isInvisble()) {
 			pc.broadcastPacketForFindInvis(new S_MoveCharPacket(pc), true);
 		} else {
 			pc.broadcastPacket(new S_MoveCharPacket(pc));
 		}
-
+		
+		// wrapped in a try/catch just to make sure the GM command can't
+		// crap out the client packet
+		try{
+			L1PcInstance followingGm = pc.getFollowingGm();
+			if(followingGm != null)
+				L1Follow.moveChar(pc,  followingGm);
+		} catch(Exception ex) { 
+			_log.warning("L1Follow: " + ex.getMessage());
+		}
+		
 		// sendMapTileLog(pc);
 		l1j.server.server.model.L1PolyRace.getInstance().checkLapFinish(pc);
 		L1WorldTraps.getInstance().onPlayerMoved(pc);
