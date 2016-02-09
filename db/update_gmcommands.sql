@@ -1,3 +1,4 @@
+DELETE FROM commands WHERE name = 'show';
 ALTER table commands ADD COLUMN `help_text` TEXT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
 REPLACE INTO commands VALUES('appearoffline', '100', 'L1AppearOffline', 'Hides you from the /who command.');
 UPDATE commands SET `help_text` = 'Ban a user from chatting for x minutes.' WHERE name = 'chatng';
@@ -64,3 +65,7 @@ UPDATE commands SET `help_text` = 'Refresh your screen.' WHERE name = 'reload';
 UPDATE commands SET `help_text` = 'See the description of a reported bug.' WHERE name = 'viewbug';
 UPDATE commands SET `help_text` = 'Teleports you to a specified spawn ID.' WHERE name = 'tospawn';
 UPDATE commands SET `help_text` = 'Summons a monster or npc at your location.' WHERE name = 'summon';
+REPLACE INTO commands VALUES('snoop', '100', 'L1Snoop', 'View a users inventory, storage, elf storage, or pledge storage.');
+REPLACE INTO commands VALUES('follow', '100', 'L1Follow', 'Makes your character auto-follow the specified player.');
+REPLACE INTO commands VALUES('lazygm', '100', 'L1LazyGm', 'Loops through online players, teleporting you to each of them for x seconds and auto-following them.');
+REPLACE INTO commands VALUES('pledge', '100', 'L1Pledge', 'Displays all members in a pledge.');
