@@ -59,45 +59,40 @@ public class L1Snoop implements L1CommandExecutor {
 				if(!_types.contains(type))
 					throw new Exception();
 				
-				switch(type) {
-					case "inv":
-						// remove my own items from the inventory window
-						List<L1ItemInstance> myItems = pc.getInventory().getItems();
-						
-						for(L1ItemInstance item : myItems)
+				if(type.equals("inv")) {
+					// remove my own items from the inventory window
+					List<L1ItemInstance> myItems = pc.getInventory().getItems();
+					
+					for(L1ItemInstance item : myItems)
+						pc.sendPackets(new S_DeleteInventoryItem(item));
+					
+					pc.sendPackets(new S_InvList(playerInstance.getInventory().getItems()));
+					
+					// if they already snooped an inventory, clear that out before loading the new one
+					if(_currentInventoryItems.containsKey(pc)) {
+						for(L1ItemInstance item : _currentInventoryItems.get(pc))
 							pc.sendPackets(new S_DeleteInventoryItem(item));
-						
-						pc.sendPackets(new S_InvList(playerInstance.getInventory().getItems()));
-						
-						// if they already snooped an inventory, clear that out before loading the new one
-						if(_currentInventoryItems.containsKey(pc)) {
-							for(L1ItemInstance item : _currentInventoryItems.get(pc))
-								pc.sendPackets(new S_DeleteInventoryItem(item));
-						}
-						
-						pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's inventory.",
-								playerInstance.getName())));
-						
-						// initialize/re-initialize the inventory list
-						_currentInventoryItems.put(pc, new ArrayList<L1ItemInstance>());
-						_currentInventoryItems.get(pc).addAll(playerInstance.getInventory().getItems());
-						break;
-					case "storage":
-						pc.sendPackets(new S_RetrieveList(pc.getId(), playerInstance));
-						pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's storage.",
-								playerInstance.getName())));
-						break;
-					case "estorage":
-						pc.sendPackets(new S_RetrieveElfList(pc.getId(), playerInstance));
-						pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's elven storage.",
-								playerInstance.getName())));
-						break;
-					case "pstorage":
-						pc.sendPackets(new S_RetrievePledgeList(pc.getId(), playerInstance));
-						pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's pledge storage.",
-								playerInstance.getName())));
-						break;
-				}
+					}
+					
+					pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's inventory.",
+							playerInstance.getName())));
+					
+					// initialize/re-initialize the inventory list
+					_currentInventoryItems.put(pc, new ArrayList<L1ItemInstance>());
+					_currentInventoryItems.get(pc).addAll(playerInstance.getInventory().getItems());
+				} else if (type.equals("storage")) {
+					pc.sendPackets(new S_RetrieveList(pc.getId(), playerInstance));
+					pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's storage.",
+							playerInstance.getName())));
+				}  else if (type.equals("estorage")) {
+					pc.sendPackets(new S_RetrieveElfList(pc.getId(), playerInstance));
+					pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's elven storage.",
+							playerInstance.getName())));
+				} else if (type.equals("pstorage")) {
+					pc.sendPackets(new S_RetrievePledgeList(pc.getId(), playerInstance));
+					pc.sendPackets(new S_SystemMessage(String.format("Snooping %s's pledge storage.",
+							playerInstance.getName())));
+				}	
 				
 				return;
 			}
