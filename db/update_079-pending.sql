@@ -407,5 +407,5 @@ update shop set purchasing_price = -1 where item_id = 40743; -- Arrow
 update shop set purchasing_price = -1 where item_id = 40744; -- Silver Arrow
 update shop set purchasing_price = -1 where item_id = 40746; -- Mithril Arrow
 
-insert into commands VALUES('toggleshop', '100', 'L1ToggleShop');
-insert into commands VALUES('dropitems', '100', 'L1DropItems');
+REPLACE INTO commands (name, access_level, class_name) VALUES('toggleshop', '100', 'L1ToggleShop');
+REPLACE INTO commands (name, access_level, class_name) VALUES('dropitems', '100', 'L1DropItems');
