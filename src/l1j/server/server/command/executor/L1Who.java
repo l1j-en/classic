@@ -21,16 +21,24 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
+import java.util.List;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.datatables.PolyTable;
+import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.classes.L1ClassId;
+import l1j.server.server.serverpackets.S_CustomBoardRead;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Who implements L1CommandExecutor {
-
+	private static NumberFormat _currencyFormatter = NumberFormat.getCurrencyInstance();
+	
 	private L1Who() {
 	}
 
@@ -55,42 +63,60 @@ public class L1Who implements L1CommandExecutor {
 		try {
 			L1PcInstance target = getPcInstance(name.trim());
 			if (target == null) {
-				gm.sendPackets(new S_SystemMessage("-" + name.trim() + "-"));
 				whoOffline(gm, name);
 			} else {
-				gm.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(target.getName())
-						.append("(")
-						.append(target.getAccountName())
-						.append("): L")
-						.append(target.getLevel())
-						.append(" ")
-						.append(L1ClassId.getSex(target.getClassId()))
-						.append(" ")
-						.append(L1ClassId.getClass(target.getClassId()))
-						.append(" ")
-						.append(target.getMaxHp())
-						.append("/")
-						.append(target.getMaxMp() + " | ")
-						.append("Dmg: +" + target.getDmgup() + " | ")
-						.append("Hit: +" + target.getHitup() + " | ")
-						.append("MR: " + target.getMr() + " | ")
-						.append("HPR: "
-								+ (target.getHpr() + target.getInventory()
-										.hpRegenPerTick()) + " | ")
-						.append("MPR: "
-								+ (target.getMpr() + target.getInventory()
-										.mpRegenPerTick()) + " | ")
-						.append("Karma: " + target.getKarma() + " | ")
-						.append("AC: " + target.getAc() + " | ")
-						.append("MR: ")
-						.append(target.getMr())
-						.append(" | ")
-						.append("Items: " + target.getInventory().getSize()
-								+ " | ")
-						.append("Gold: "
-								+ target.getInventory().countItems(40308))
-						.toString()));
+				int polyId = target.getTempCharGfx();
+				
+				boolean isPolymorphed = false;
+				
+				try {
+					L1ClassId.getClass(polyId);
+				} catch(IllegalStateException ise) { 
+					isPolymorphed = true;
+				}
+				
+				L1PolyMorph poly = PolyTable.getInstance().getTemplate(polyId);
+				String polyName = "";
+				
+				if(poly == null) {
+					List<L1Npc> npcPoly = NpcTable.getInstance().getTemplateByGfxId(polyId);
+					
+					if(npcPoly.size() > 0)
+						polyName = npcPoly.get(0).get_name();
+				} else
+					polyName = poly.getName();
+					
+				String message = String.format(
+								"Account: %s\n" + 
+								"Level %d %s %s\n" + 
+								"Hp: %d, Mp: %d, Ac: %d\n" + 
+								"Mr: %d%%, Dmg: +%d, Hit: +%d\n" + 
+								"Hp Regen: %d, Mp Regen: %d\n" +
+								"Karma: %d\n" + 
+								"Gold: %s\n" +
+								"Current Poly: %s\n\n" + 
+								"To view %s's items, use:\n" + 
+								"\".snoop %s inv\"",
+								target.getAccountName(),
+								target.getLevel(), 
+								L1ClassId.getSex(target.getClassId()),
+								L1ClassId.getClass(target.getClassId()),
+								target.getMaxHp(),
+								target.getMaxMp(),
+								target.getAc(),
+								target.getMr(),
+								target.getDmgup(),
+								target.getHitup(),
+								target.getHpr() + target.getInventory().hpRegenPerTick(),
+								target.getMpr() + target.getInventory().mpRegenPerTick(),
+								target.getKarma(),
+								_currencyFormatter.format(target.getInventory().countItems(40308)),
+								!isPolymorphed ? "None" : (polyName.equals("") ? "Unknown" : polyName)  + " (#" + polyId + ")",
+								target.getName(),
+								target.getName().toLowerCase());
+				
+				gm.sendPackets(new S_CustomBoardRead(target.getName(), 
+						gm.getName(), message));
 			}
 		} catch (Exception exception) {
 			whoOffline(gm, name);
@@ -130,14 +156,19 @@ public class L1Who implements L1CommandExecutor {
 			pstm.setString(1, name);
 			rs = pstm.executeQuery();
 			rs.next();
-			gm.sendPackets(new S_SystemMessage((new StringBuilder())
-					.append(rs.getString("char_name")).append("(")
-					.append(rs.getString("account_name")).append("): L")
-					.append(rs.getInt("level")).append(" ")
+			
+			String message = new StringBuilder()
+					.append("Account: ")
+					.append(rs.getString("account_name")).append("\n")
+					.append("Level ").append(rs.getInt("level")).append(" ")
 					.append(L1ClassId.getSex(rs.getInt("Class"))).append(" ")
-					.append(L1ClassId.getClass(rs.getInt("Class"))).append(" ")
-					.append(rs.getInt("MaxHp")).append("/")
-					.append(rs.getInt("MaxMp")).append(" (Offline)").toString()));
+					.append(L1ClassId.getClass(rs.getInt("Class"))).append("\n")
+					.append("Max Hp: ").append(rs.getInt("MaxHp")).append(" ")
+					.append("Max Mp: ").append(rs.getInt("MaxMp")).append("\n\n")
+					.append("** Currently offline **").toString();
+					
+			gm.sendPackets(new S_CustomBoardRead(rs.getString("char_name"), 
+					gm.getName(), message));
 		} catch (Exception exception) {
 			gm.sendPackets(new S_SystemMessage("'" + name
 					+ "' is not an existing character."));

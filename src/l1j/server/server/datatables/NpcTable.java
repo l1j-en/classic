@@ -23,7 +23,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -175,6 +177,18 @@ public class NpcTable {
 
 	public L1Npc getTemplate(int id) {
 		return _npcs.get(id);
+	}
+	
+	public List<L1Npc> getTemplateByGfxId(int gfxId) {
+		List<L1Npc> matchingNpcs = new ArrayList<L1Npc>();
+		
+		for(int npcId : _npcs.keySet()) {
+			L1Npc currentNpc = _npcs.get(npcId);
+			if(currentNpc.get_gfxid() == gfxId)
+				matchingNpcs.add(currentNpc);
+		}
+		
+		return matchingNpcs;
 	}
 
 	public L1NpcInstance newNpcInstance(int id) {
