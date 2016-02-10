@@ -71,3 +71,4 @@ REPLACE INTO commands VALUES('lazygm', '100', 'L1LazyGm', 'Loops through online 
 REPLACE INTO commands VALUES('pledge', '100', 'L1Pledge', 'Displays all members in a pledge.');
 REPLACE INTO commands VALUES('accountips', '100', 'L1AccountIps', 'Display all IP addresses that have accessed an account and their last login date.');
 REPLACE INTO commands VALUES('trace', '100', 'L1Trace', 'Displays all accounts that IP has accessed and when.');
+REPLACE INTO commands VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable to skills and attacks.');

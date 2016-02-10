@@ -552,6 +552,14 @@ public class L1PcInstance extends L1Character {
 		_gmInvis = flag;
 	}
 	
+	public boolean isGmInvul() { 
+		return _gmInvul;
+	}
+	
+	public void setGmInvul(boolean flag) {
+		_gmInvul = flag;
+	}
+	
 	public boolean isGmAppearOffline() {
 		return _gmAppearOffline;
 	}
@@ -1826,6 +1834,7 @@ public class L1PcInstance extends L1Character {
 	private boolean _gm;
 	private boolean _monitor;
 	private boolean _gmInvis;
+	private boolean _gmInvul;
 	private boolean _gmAppearOffline;
 	private short _accessLevel;
 	private int _currentWeapon;
