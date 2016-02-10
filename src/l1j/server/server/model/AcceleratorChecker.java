@@ -26,6 +26,7 @@ import l1j.server.Config;
 import l1j.server.server.datatables.SprTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.templates.L1Skill;
 
 public class AcceleratorChecker {
 
@@ -74,12 +75,16 @@ public class AcceleratorChecker {
 			_checkTimers.put(each, now);
 		}
 	}
-
+	
 	public int checkInterval(ACT_TYPE type) {
+		return checkInterval(type, null);
+	}
+
+	public int checkInterval(ACT_TYPE type, L1Skill skill) {
 		int result = R_OK;
 		long now = System.currentTimeMillis();
 		long interval = now - _actTimers.get(type);
-		int rightInterval = getRightInterval(type);
+		int rightInterval = getRightInterval(type, skill);
 
 		interval *= CHECK_STRICTNESS;
 
@@ -126,7 +131,7 @@ public class AcceleratorChecker {
 		}
 	}
 
-	private int getRightInterval(ACT_TYPE type) {
+	private int getRightInterval(ACT_TYPE type, L1Skill skill) {
 		int interval;
 
 		switch (type) {
@@ -140,14 +145,21 @@ public class AcceleratorChecker {
 			break;
 		case SPELL_DIR:
 			interval = SprTable.getInstance().getDirSpellSpeed(
-					_pc.getTempCharGfx());
+				_pc.getTempCharGfx());
 			break;
 		case SPELL_NODIR:
 			interval = SprTable.getInstance().getNodirSpellSpeed(
-					_pc.getTempCharGfx());
+				_pc.getTempCharGfx());
 			break;
 		default:
-			return 0;
+			return Config.ANIMATION_SPEED;
+		}
+		
+		if(skill != null) {
+			int skillInterval = skill.getReuseDelay();
+			// if the skill has a delay longer than the animation, let's use that
+			if(skillInterval > interval)
+				interval = skillInterval;
 		}
 
 		if (_pc.isHaste()) {
