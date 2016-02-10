@@ -21,13 +21,17 @@ package l1j.server.server.command.executor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_CustomBoardRead;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Account implements L1CommandExecutor {
+	private static NumberFormat _currencyFormatter = NumberFormat.getCurrencyInstance();
+	
 	private L1Account() {
 	}
 
@@ -57,7 +61,7 @@ public class L1Account implements L1CommandExecutor {
 				throw new Exception();
 
 			pstm = con
-					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid FROM characters WHERE account_name=?");
+					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid,account_name FROM characters WHERE account_name=?");
 			pstm.setString(1, arg.trim());
 			rs = pstm.executeQuery();
 
@@ -78,11 +82,11 @@ public class L1Account implements L1CommandExecutor {
 				storedadena = storedadena + rs3.getInt("count");
 			}
 
-			pc.sendPackets(new S_SystemMessage("Account (" + arg + "):"));
-			boolean accountFound = false;
+			String actualAccountName = "";
+			StringBuilder message = new StringBuilder();
 			
 			while (rs.next()) {
-				accountFound = true;
+				actualAccountName = rs.getString("account_name");
 				int heldadena = 0;
 				pstm4 = con
 						.prepareStatement("SELECT count FROM character_items WHERE char_id=? AND item_id = 40308");
@@ -94,22 +98,23 @@ public class L1Account implements L1CommandExecutor {
 				}
 				pstm4.close();
 				rs4.close();
-				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(rs.getString("char_name")).append(": L")
-						.append(rs.getInt("level")).append(" ")
+				
+				message.append(rs.getString("char_name"))
+					.append(": L").append(rs.getInt("level")).append(" ")
 						.append(getSex(rs.getInt("Class"))).append(" ")
-						.append(getClass(rs.getInt("Class"))).append(" ")
-						.append(rs.getInt("MaxHp")).append("/")
-						.append(rs.getInt("MaxMp") + " ")
-						.append(" Gold: " + heldadena).toString()));
+						.append(getClass(rs.getInt("Class"))).append("\n")
+						.append("Hp: ").append(rs.getInt("MaxHp")).append(" Mp: ")
+						.append(rs.getInt("MaxMp") + "\n")
+						.append("Gold: " + _currencyFormatter.format(heldadena)).append("\n\n");
 			}
 			
-			if(accountFound) {
-				pc.sendPackets(new S_SystemMessage("Stored Gold: " + storedadena));
-				pc.sendPackets(new S_SystemMessage("Total Held Gold: "
-						+ totalheldadena));
-				pc.sendPackets(new S_SystemMessage("Total Gold: "
-						+ (totalheldadena + storedadena)));
+			if(!actualAccountName.equals("")) {
+				message.append("Stored Gold: " + _currencyFormatter.format(storedadena) + "\n");
+				message.append("Held Gold: " + _currencyFormatter.format(totalheldadena) + "\n");
+				message.append("Total Gold: " + _currencyFormatter.format(totalheldadena + storedadena) + "\n");
+				
+				pc.sendPackets(new S_CustomBoardRead("Account: " + actualAccountName, 
+						pc.getName(), message.toString()));
 			} else {
 				pc.sendPackets(new S_SystemMessage("Account Not Found."));
 			}
