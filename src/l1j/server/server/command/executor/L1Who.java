@@ -119,7 +119,6 @@ public class L1Who implements L1CommandExecutor {
 						gm.getName(), message));
 			}
 		} catch (Exception exception) {
-			exception.printStackTrace();
 			whoOffline(gm, name);
 		}
 	}
