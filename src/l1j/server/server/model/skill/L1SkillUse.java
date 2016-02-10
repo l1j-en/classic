@@ -531,6 +531,22 @@ public class L1SkillUse {
 			L1Character attacker) {
 
 		try {
+			// wrap in try/catch to make sure the command doesn't
+			// accidentally crap out the action
+			try {
+				if(targetId > 0) {
+					L1Object object = L1World.getInstance().findObject(targetId);
+					
+					// no skills can be used on an invul gm!
+					if(object != null && object instanceof L1PcInstance &&
+							((L1PcInstance)object).isGmInvul()) {
+						
+						player.sendPackets(new S_ServerMessage(281));
+						return;
+					}
+				}
+			} catch(Exception ex) { }
+			
 			if (!isCheckedUseSkill()) {
 				boolean isUseSkill = checkUseSkill(player, skillId, targetId,
 						x, y, message, timeSecs, type, attacker);
@@ -909,6 +925,11 @@ public class L1SkillUse {
 					if (isTarget(cha) == false) {
 						continue;
 					}
+					
+					// invul gms are not valid targets!
+					if(tgobj instanceof L1PcInstance && (((L1PcInstance)tgobj).isGmInvul()))
+						continue;
+					
 					_targetList.add(new TargetStatus(cha));
 				}
 				return;
@@ -920,11 +941,18 @@ public class L1SkillUse {
 							&& _skillId != 10026
 							&& _skillId != 10027
 							&& _skillId != 10028 && _skillId != 10029) {
-						_targetList.add(new TargetStatus(_target, false));
+						
+						// don't allow hitting a GM in invul!
+						if(!(_target instanceof L1PcInstance && (((L1PcInstance)_target).isGmInvul())))
+							_targetList.add(new TargetStatus(_target, false));
+						
 						return;
 					}
 				}
-				_targetList.add(new TargetStatus(_target));
+				
+				// don't allow hitting a GM in invul!
+				if(!(_target instanceof L1PcInstance && (((L1PcInstance)_target).isGmInvul())))
+					_targetList.add(new TargetStatus(_target));
 			} else {
 				if (!_skill.getTarget().equals("none")) {
 					_targetList.add(new TargetStatus(_target));
@@ -933,7 +961,10 @@ public class L1SkillUse {
 				if (_skillId != 49
 						&& !(_skill.getTarget().equals("attack") || _skill
 								.getType() == L1Skill.TYPE_ATTACK)) {
-					_targetList.add(new TargetStatus(_user));
+					
+					// don't allow hitting a GM in invul!
+					if(!(_user instanceof L1PcInstance && (((L1PcInstance)_user).isGmInvul())))
+						_targetList.add(new TargetStatus(_user));
 				}
 
 				List<L1Object> objects;
@@ -954,6 +985,10 @@ public class L1SkillUse {
 					if (!isTarget(cha)) {
 						continue;
 					}
+					
+					// don't allow hitting a GM in invul!
+					if(tgobj instanceof L1PcInstance && (((L1PcInstance)tgobj).isGmInvul()))
+						continue;
 
 					_targetList.add(new TargetStatus(cha));
 				}
