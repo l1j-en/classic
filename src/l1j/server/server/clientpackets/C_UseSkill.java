@@ -39,6 +39,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1Skill;
 
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -75,12 +76,13 @@ public class C_UseSkill extends ClientBasePacket {
 		if (Config.CHECK_SPELL_INTERVAL) {
 			int result;
 			// FIXME dir/no dir
+			L1Skill skill = SkillTable.getInstance().findBySkillId(skillId);
 			if (SkillTable.getInstance().findBySkillId(skillId).getActionId() == ActionCodes.ACTION_SkillAttack) {
 				result = pc.getAcceleratorChecker().checkInterval(
-						AcceleratorChecker.ACT_TYPE.SPELL_DIR);
+						AcceleratorChecker.ACT_TYPE.SPELL_DIR, skill);
 			} else {
 				result = pc.getAcceleratorChecker().checkInterval(
-						AcceleratorChecker.ACT_TYPE.SPELL_NODIR);
+						AcceleratorChecker.ACT_TYPE.SPELL_NODIR, skill);
 			}
 			if (result == AcceleratorChecker.R_LIMITEXCEEDED) {
 				return;
