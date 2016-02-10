@@ -449,6 +449,16 @@ public class L1Attack {
 	 * rate of up to 95%
 	 */
 	private boolean calcPcPcHit() {
+		// wrap in try/catch to make sure the command doesn't
+		// accidentally crap out the action
+		try {
+			if(_targetPc instanceof L1PcInstance &&
+					((L1PcInstance)_targetPc).isGmInvul()) {
+				
+				return false;
+			}
+		} catch(Exception ex) { }
+		
 		_hitRate = getBasePcHit();
 
 		int attackerDice = _random.nextInt(20) + 1 + _hitRate - 10;
@@ -600,6 +610,16 @@ public class L1Attack {
 	}
 
 	private boolean calcNpcPcHit() {
+		// wrap in try/catch to make sure the command doesn't
+		// accidentally crap out the action
+		try {
+			if(_targetPc instanceof L1PcInstance &&
+					((L1PcInstance)_targetPc).isGmInvul()) {
+				
+				return false;
+			}
+		} catch(Exception ex) { }
+		
 		_hitRate = getNpcHitRate(_npc, _targetPc);
 
 		if (isImmune(_targetPc))
