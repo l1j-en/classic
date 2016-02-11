@@ -36,14 +36,11 @@ public class L1Trace implements L1CommandExecutor {
 			
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT a.Account, a.LoginTime, c.Banned FROM LogIP as a " +
-							" JOIN accounts as c on a.account = c.login " +
-							"WHERE a.LoginTime > DATE(NOW()-INTERVAL 1 YEAR) AND " + 
-							"CONCAT(a.Ip, a.Account, a.LoginTime) = " + 
-							"(SELECT CONCAT(b.Ip, b.Account, b.LoginTime) FROM LogIP as b " +
-							"WHERE b.Account = a.Account and b.Ip = a.Ip " + 
-							"ORDER BY LoginTime DESC LIMIT 1) AND a.Ip = ? " + 
-							"ORDER BY a.LoginTime DESC;");
+					.prepareStatement("SELECT a.LoginTime, A.Ip, A.Account, " + 
+					"(SELECT Count(*) FROM ban_ip WHERE ip = a.Ip) > 0 As Banned FROM `LogIP` a " + 
+					"LEFT JOIN `LogIP` b ON a.Ip = b.Ip AND a.Account = b.Account AND " + 
+					"a.LoginTime < b.LoginTime WHERE b.LoginTime is NULL AND a.Ip = ? " + 
+					"ORDER BY a.LoginTime DESC;");
 			
 			pstm.setString(1, ipAddress);
 			rs = pstm.executeQuery();
