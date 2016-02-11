@@ -1583,7 +1583,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				cancelAbsoluteBarrier(pc);
 				int chargeCount = l1iteminstance.getChargeCount();
-				if (chargeCount <= 0) {
+				if (chargeCount <= 0 || (target instanceof L1PcInstance && ((L1PcInstance)target).isGmInvul())) {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
