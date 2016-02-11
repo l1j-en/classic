@@ -73,7 +73,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					|| pc.isGhost() || pc.isMonitor()) {
 				continue;
 			}
-			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
+			if (!pc.isGmInvis() && (!pc.isInvisble() || getNpcTemplate().is_agrocoi())) {
 				if (!pc.isElf()) {
 					targetPlayer = pc;
 					wideBroadcastPacket(new S_NpcChatPacket(this, "$804", 2));
