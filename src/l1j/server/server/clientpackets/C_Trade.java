@@ -37,7 +37,7 @@ public class C_Trade extends ClientBasePacket {
 			return;
 		}
 		L1PcInstance target = FaceToFace.faceToFace(player);
-		if (target != null) { // fix for trade bug
+		if (target != null && target.getTradeID() == 0) { // fix for trade bug
 			if (!target.isParalyzed()) {
 				player.setTradeID(target.getId());
 				target.setTradeID(player.getId());
