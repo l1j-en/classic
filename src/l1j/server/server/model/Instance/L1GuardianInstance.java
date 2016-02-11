@@ -70,7 +70,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isGhost()) {
+					|| pc.isGhost() || pc.isMonitor()) {
 				continue;
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {
