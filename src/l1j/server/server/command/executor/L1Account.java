@@ -102,14 +102,11 @@ public class L1Account implements L1CommandExecutor {
 				message.append(rs.getString("char_name"))
 					.append(": L").append(rs.getInt("level")).append(" ")
 						.append(getSex(rs.getInt("Class"))).append(" ")
-						.append(getClass(rs.getInt("Class"))).append("\n")
-						.append("Hp: ").append(rs.getInt("MaxHp")).append(" Mp: ")
-						.append(rs.getInt("MaxMp") + "\n")
-						.append("Gold: " + _currencyFormatter.format(heldadena)).append("\n\n");
+						.append(getClass(rs.getInt("Class"))).append("\n");
 			}
 			
 			if(!actualAccountName.equals("")) {
-				message.append("Stored Gold: " + _currencyFormatter.format(storedadena) + "\n");
+				message.append("\n").append("Stored Gold: " + _currencyFormatter.format(storedadena) + "\n");
 				message.append("Held Gold: " + _currencyFormatter.format(totalheldadena) + "\n");
 				message.append("Total Gold: " + _currencyFormatter.format(totalheldadena + storedadena) + "\n");
 				
@@ -137,10 +134,10 @@ public class L1Account implements L1CommandExecutor {
 
 	private String getSex(int classID) {
 		if (classID == 0 || classID == 61 || classID == 138 || classID == 734
-				|| classID == 2786) {
+				|| classID == 2786 || classID == 6658 || classID == 6671) {
 			return "Male";
 		} else if (classID == 1 || classID == 48 || classID == 37
-				|| classID == 1186 || classID == 2796) {
+				|| classID == 1186 || classID == 2796 || classID == 6661|| classID == 6650) {
 			return "Female";
 		} else {
 			return "error";
@@ -159,7 +156,7 @@ public class L1Account implements L1CommandExecutor {
 		} else if (classID == 2786 || classID == 2796) {
 			return "Dark Elf";
 		} else if (classID == 6658 || classID == 6661) {
-			return "Dragon Knight";
+			return "DK";
 		} else if (classID == 6671 || classID == 6650) {
 			return "Illusionist";
 		} else {
