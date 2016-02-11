@@ -46,7 +46,7 @@ public class L1Trace implements L1CommandExecutor {
 			rs = pstm.executeQuery();
 			
 			String message = "";
-			for(int i = 0; i < 8 && rs.next(); i++) {
+			while(rs.next()) {
 				boolean banned = rs.getInt("Banned") == 1;
 				
 				message += rs.getString("Account") + (banned ? " [Banned]" : "") +
@@ -58,7 +58,7 @@ public class L1Trace implements L1CommandExecutor {
 				return;
 			}
 			
-			message = "* Only 8 accts can be shown *\n\n" + message;
+			message = "  * You may have to scroll *\n\n" + message;
 			pc.sendPackets(new S_CustomBoardRead(ipAddress, pc.getName(), message));
 			
 		} catch (Exception ex) {
