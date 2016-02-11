@@ -48,7 +48,7 @@ public class FaceToFace {
 		}
 		for (L1PcInstance target : players) {
 			if(target.isGmInvis())
-				return null;
+				continue;
 			
 			int targetX = target.getX();
 			int targetY = target.getY();
