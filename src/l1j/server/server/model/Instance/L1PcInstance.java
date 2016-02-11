@@ -1214,7 +1214,7 @@ public class L1PcInstance extends L1Character {
 				newHp = getMaxHp();
 			}
 			if (newHp <= 0) {
-				if (isGm()) {
+				if (isGm() || isMonitor()) {
 					setCurrentHp(getMaxHp());
 				} else {
 					death(attacker);
