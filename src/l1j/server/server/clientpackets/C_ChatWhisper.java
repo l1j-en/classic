@@ -51,7 +51,7 @@ public class C_ChatWhisper extends ClientBasePacket {
 		}
 		L1PcInstance whisperTo = L1World.getInstance().getPlayer(targetName);
 
-		if (whisperTo == null) {
+		if (whisperTo == null || whisperTo.isGmAppearOffline()) {
 			whisperFrom.sendPackets(new S_ServerMessage(73, targetName));
 			return;
 		}
