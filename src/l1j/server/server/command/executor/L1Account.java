@@ -83,7 +83,7 @@ public class L1Account implements L1CommandExecutor {
 			}
 
 			String actualAccountName = "";
-			StringBuilder message = new StringBuilder();
+			StringBuilder message = new StringBuilder("  * You may have to scroll *\n\n");
 			
 			while (rs.next()) {
 				actualAccountName = rs.getString("account_name");
@@ -100,9 +100,11 @@ public class L1Account implements L1CommandExecutor {
 				rs4.close();
 				
 				message.append(rs.getString("char_name"))
-					.append(": L").append(rs.getInt("level")).append(" ")
+					.append(": Level ").append(rs.getInt("level")).append("\n")
 						.append(getSex(rs.getInt("Class"))).append(" ")
-						.append(getClass(rs.getInt("Class"))).append("\n");
+						.append(getClass(rs.getInt("Class"))).append("\n")
+						.append("Hp: ").append(rs.getInt("MaxHp")).append(" Mp: ")
+						.append(rs.getInt("MaxMp") + "\n\n");
 			}
 			
 			if(!actualAccountName.equals("")) {
@@ -156,7 +158,7 @@ public class L1Account implements L1CommandExecutor {
 		} else if (classID == 2786 || classID == 2796) {
 			return "Dark Elf";
 		} else if (classID == 6658 || classID == 6661) {
-			return "DK";
+			return "Dragon Knight";
 		} else if (classID == 6671 || classID == 6650) {
 			return "Illusionist";
 		} else {
