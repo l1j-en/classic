@@ -30,13 +30,10 @@ public class L1AccountIps implements L1CommandExecutor {
 			
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT a.Ip, a.Account, a.LoginTime, " 
-							+ "(SELECT Count(*) FROM ban_ip WHERE ip = a.Ip) > 0 As Banned FROM LogIP as a " + 
-							"WHERE a.LoginTime > DATE(NOW()-INTERVAL 1 YEAR) AND " + 
-							"CONCAT(a.Ip, a.Account, a.LoginTime) = " + 
-							"(SELECT CONCAT(b.Ip, b.Account, b.LoginTime) FROM LogIP as b " +
-							"WHERE b.Account = a.Account and b.Ip = a.Ip " + 
-							"ORDER BY LoginTime DESC LIMIT 1) AND Account = ? " + 
+					.prepareStatement("SELECT a.LoginTime, A.Ip, A.Account, " + 
+							"(SELECT Count(*) FROM ban_ip WHERE ip = a.Ip) > 0 As Banned FROM `LogIP` a " + 
+							"LEFT JOIN `LogIP` b ON a.Ip = b.Ip AND a.Account = b.Account AND " + 
+							"a.LoginTime < b.LoginTime WHERE b.LoginTime is NULL AND a.Account = ? " + 
 							"ORDER BY a.LoginTime DESC;");
 			
 			pstm.setString(1, accountName);
