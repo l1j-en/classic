@@ -46,7 +46,8 @@ public class L1LazyGm implements L1CommandExecutor {
 					// limit of 10 just in case something funky goes wrong and it can never find someone
 					// who wasn't the last person we visited
 					for(int x = 0; x < 10 && 
-							(personToWatch == null || personToWatch.getId() == lastVisitedId); x++) {
+							(personToWatch == null || personToWatch.getId() == lastVisitedId
+							|| personToWatch.isPrivateShop()); x++) {
 						int numberToWatch = _random.nextInt(onlinePlayers.size());
 						
 						for(int i = 0; i < onlinePlayers.size(); i++) {
