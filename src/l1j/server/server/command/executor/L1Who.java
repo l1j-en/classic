@@ -89,6 +89,8 @@ public class L1Who implements L1CommandExecutor {
 				String message = String.format(
 								"Account: %s\n" + 
 								"Level %d %s %s\n" + 
+								"Pledge: %s\n" + 
+								"Alignment: %s (%d)\n" + 
 								"Hp: %d, Mp: %d, Ac: %d\n" + 
 								"Mr: %d%%, Dmg: +%d, Hit: +%d\n" + 
 								"Hp Regen: %d, Mp Regen: %d\n" +
@@ -101,6 +103,9 @@ public class L1Who implements L1CommandExecutor {
 								target.getLevel(), 
 								L1ClassId.getSex(target.getClassId()),
 								L1ClassId.getClass(target.getClassId()),
+								target.getClanname(),
+								target.getLawful() == 0 ? "Neutral" : target.getLawful() < 0 ? "Chaotic" : "Lawful",
+								target.getLawful(),
 								target.getMaxHp(),
 								target.getMaxMp(),
 								target.getAc(),
