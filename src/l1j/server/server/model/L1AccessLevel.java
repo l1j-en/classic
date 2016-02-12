@@ -16,42 +16,34 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server.templates;
+package l1j.server.server.model;
 
-public class L1Command {
-	private final String _name;
-	private final int _level;
-	private final String _executorClassName;
-	private final boolean _runOnLogin;
-	private String _helpText = "No Help Text Defined.";
-
-	public L1Command(String name, int level, String executorClassName, String helpText, boolean runOnLogin) {
+public class L1AccessLevel {
+	private short _id;
+	private String _name;
+	private short _accessLevel;
+	private String _chatPrefix;
+	
+	public L1AccessLevel(short id, String name, short accessLevel, String chatPrefix) {
+		_id = id;
 		_name = name;
-		_level = level;
-		_executorClassName = executorClassName;
-		_runOnLogin = runOnLogin;
-		
-		if(!helpText.trim().equals(""))
-			_helpText = helpText;
+		_accessLevel = accessLevel;
+		_chatPrefix = chatPrefix;
 	}
-
-	public String getName() {
+	
+	public short getId() {
+		return _id;
+	}
+	
+	public String getName() { 
 		return _name;
 	}
-
-	public int getLevel() {
-		return _level;
-	}
-
-	public String getExecutorClassName() {
-		return _executorClassName;
+	
+	public short getLevel() {
+		return _accessLevel;
 	}
 	
-	public String getHelpText() {
-		return _helpText;
-	}
-	
-	public boolean isRunOnLogin() {
-		return _runOnLogin;
+	public String getChatPrefix() {
+		return _chatPrefix;
 	}
 }

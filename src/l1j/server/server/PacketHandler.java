@@ -218,8 +218,7 @@ public class PacketHandler {
 		if (Config.LOGGING_INCOMING_PACKETS) {
 			_log.info("Packet sent from client: " + i);
 			if (_client.getActiveChar() != null) {
-				if (_client.getActiveChar().isGm()
-						|| _client.getActiveChar().isMonitor()) {
+				if (_client.getActiveChar().isGm()) {
 					_client.getActiveChar().sendPackets(
 							new S_SystemMessage("Sent from client: " + i));
 				}

@@ -115,7 +115,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 			// NOTE: Don't remove non-aggro to shopmode
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isMonitor() || pc.isGhost() || pc.isPrivateShop()) {
+					|| pc.isGmInvis() || pc.isGhost() || pc.isPrivateShop()) {
 				continue;
 			}
 
