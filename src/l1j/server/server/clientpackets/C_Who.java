@@ -37,7 +37,7 @@ public class C_Who extends ClientBasePacket {
 		String s = readS();
 		L1PcInstance find = L1World.getInstance().getPlayer(s);
 		
-		if(find != null && (find.getAccessLevel() > 0) && find.isGmAppearOffline())
+		if(find != null && (find.getAccessLevel().getLevel() > 0 && find.isGmAppearOffline()))
 			find = null;
 		
 		L1PcInstance pc = client.getActiveChar();

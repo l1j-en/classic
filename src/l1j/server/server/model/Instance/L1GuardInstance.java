@@ -82,7 +82,7 @@ public class L1GuardInstance extends L1NpcInstance {
 		int npcid = getNpcTemplate().get_npcId();
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isGhost()) {
+					|| pc.isGhost() || pc.isGmInvis()) {
 				continue;
 			}
 			if (!pc.isInvisble() || getNpcTemplate().is_agrocoi()) {

@@ -52,7 +52,7 @@ public class L1Kill implements L1CommandExecutor {
 				for(L1PcInstance player : players) {
 					// notify everyone with the kill command that
 					// broadcast has been enabled/disabled
-					if(player.getAccessLevel() >= killAccessLevel)
+					if(player.getAccessLevel().getLevel() >= killAccessLevel)
 						player.sendPackets(
 								new S_SystemMessage("GM .kill broadcast "
 										+ (broadcast ? "enabled" : "disabled") + "."));
@@ -61,10 +61,12 @@ public class L1Kill implements L1CommandExecutor {
 				return;
 			}
 				
-			
 			L1PcInstance target = L1World.getInstance().getPlayer(arg);
-
-			if (target != null) {
+			
+			// don't allow people with the .kill command to use it on people with
+			// a higher access level
+			if (target != null
+					&& target.getAccessLevel().getLevel() < pc.getAccessLevel().getLevel()) {
 				target.setCurrentHp(0);
 				target.death(null);
 				

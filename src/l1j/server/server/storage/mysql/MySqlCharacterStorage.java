@@ -25,9 +25,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.GMCommands;
+import l1j.server.server.command.L1Commands;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.storage.CharacterStorage;
+import l1j.server.server.templates.L1Command;
 import l1j.server.server.utils.SQLUtil;
 
 public class MySqlCharacterStorage implements CharacterStorage {
@@ -101,17 +106,17 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pc.setPkCountForElf(rs.getInt("PkCountForElf"));
 			pc.setExpRes(rs.getInt("ExpRes"));
 			pc.setPartnerId(rs.getInt("PartnerID"));
-			pc.setAccessLevel(rs.getShort("AccessLevel"));
-			if (pc.getAccessLevel() == 200) {
+			pc.setGmInvis(false);
+			pc.setAccessLevel(AccessLevelTable.getInstance().getAccessLevel((short)rs.getInt("AccessLevel")));
+			
+			if (pc.getAccessLevel().getLevel() >= Config.MIN_GM_ACCESS_LEVEL)
 				pc.setGm(true);
-				pc.setMonitor(false);
-			} else if (pc.getAccessLevel() == 100) {
-				pc.setGm(false);
-				pc.setMonitor(true);
-			} else {
-				pc.setGm(false);
-				pc.setMonitor(false);
+			
+			for(L1Command command : L1Commands.availableCommandList(pc.getAccessLevel().getLevel())) {
+				if(command.isRunOnLogin())
+					GMCommands.getInstance().handleCommands(pc, command.getName());
 			}
+			
 			pc.setOnlineStatus(rs.getInt("OnlineStatus"));
 			pc.setHomeTownId(rs.getInt("HomeTownID"));
 			pc.setContribution(rs.getInt("Contribution"));
@@ -130,7 +135,6 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pc.refresh();
 			pc.setMoveSpeed(0);
 			pc.setBraveSpeed(0);
-			pc.setGmInvis(false);
 			_log.finest("restored char data: ");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -194,7 +198,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setInt(++i, pc.getPkCountForElf());
 			pstm.setInt(++i, pc.getExpRes());
 			pstm.setInt(++i, pc.getPartnerId());
-			pstm.setShort(++i, pc.getAccessLevel());
+			pstm.setShort(++i, pc.getAccessLevel().getLevel());
 			pstm.setInt(++i, pc.getOnlineStatus());
 			pstm.setInt(++i, pc.getHomeTownId());
 			pstm.setInt(++i, pc.getContribution());
@@ -322,7 +326,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setInt(++i, pc.getPkCountForElf());
 			pstm.setInt(++i, pc.getExpRes());
 			pstm.setInt(++i, pc.getPartnerId());
-			pstm.setShort(++i, pc.getAccessLevel());
+			pstm.setShort(++i, pc.getAccessLevel().getId());
 			pstm.setInt(++i, pc.getOnlineStatus());
 			pstm.setInt(++i, pc.getHomeTownId());
 			pstm.setInt(++i, pc.getContribution());

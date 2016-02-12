@@ -28,6 +28,7 @@ import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.BadNamesList;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -173,9 +174,8 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setClanid(0);
 		pc.setClanRank(0);
 		pc.set_food(40);
-		pc.setAccessLevel((short) client.getAccount().getAccessLevel());
+		pc.setAccessLevel(AccessLevelTable.getInstance().getAccessLevel((short) client.getAccount().getAccessLevel()));
 		pc.setGm(false);
-		pc.setMonitor(false);
 		pc.setGmInvis(false);
 		pc.setExp(0);
 		pc.setHighLevel(0);

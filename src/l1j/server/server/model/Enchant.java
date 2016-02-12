@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.LogEnchantTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -22,7 +23,7 @@ public class Enchant {
 	private static final Random _random = new Random();
 	private static Logger _log = Logger.getLogger(Enchant.class.getName());
 	private static final S_ServerMessage CantEnchant = new S_ServerMessage(79);
-	private static final int FULL_GM = 200;
+	private static final int FULL_GM = AccessLevelTable.getInstance().getMaxAccessLevel();
 
 	private static final int[] IvoryTowerWeapons = new int[] { 7, 35, 48, 73,
 			105, 120, 147, 156, 174, 175, 224 };
@@ -82,7 +83,7 @@ public class Enchant {
 		}
 
 		final L1PcInventory inventory = player.getInventory();
-		if (player.getAccessLevel() >= FULL_GM
+		if (player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM
 				|| Config.ATTR_ENCHANT_CHANCE >= _random.nextInt(100) + 1) {
 			player.sendPackets(new S_ServerMessage(161, weapon.getLogName(),
 					"$245", "$247"));
@@ -130,7 +131,7 @@ public class Enchant {
 		// Roughly +0-85% ~ +9-40%
 		int chance = (50 + level) / (level + 1) + 35;
 
-		if (!(player.getAccessLevel() >= FULL_GM)
+		if (!(player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM)
 				&& _random.nextInt(100) + 1 > chance) {
 			failureEnchant(player, accessory);
 			player.getInventory().removeItem(scroll, 1);
@@ -421,7 +422,8 @@ public class Enchant {
 
 		int enchantLevel = weapon.getEnchantLevel();
 
-		Result result = player.getAccessLevel() >= FULL_GM ? Result.Success
+		Result result = player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM
+				? Result.Success
 				: enchantWeapon(scrollId, enchantLevel, safeEnchant);
 		player.getInventory().removeItem(scroll, 1);
 		switch (result) {
@@ -474,7 +476,8 @@ public class Enchant {
 		}
 
 		int enchantLevel = armor.getEnchantLevel();
-		Result result = player.getAccessLevel() >= FULL_GM ? Result.Success
+		Result result = player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM
+				? Result.Success
 				: enchantArmor(scrollId, enchantLevel, safeEnchant);
 		player.getInventory().removeItem(scroll, 1);
 		switch (result) {

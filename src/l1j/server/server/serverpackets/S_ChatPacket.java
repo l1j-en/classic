@@ -51,10 +51,10 @@ public class S_ChatPacket extends ServerBasePacket {
 		} else if (type == 3) {// global chat
 			writeC(opcode);
 			writeC(type);
-			if (pc.isGm() == true) {
-				writeS("[GM:" + pc.getName() + "] " + chat);
-			} else if (pc.isMonitor()) {
-				writeS("[MON:" + pc.getName() + "] " + chat);
+			if (pc.getAccessLevel().getChatPrefix() != null && 
+					!pc.getAccessLevel().getChatPrefix().equals("")) {
+				writeS("[" + pc.getAccessLevel().getChatPrefix()
+						+ ":" + pc.getName() + "] " + chat);
 			} else {
 				writeS("[" + pc.getName() + "] " + chat);
 			}
