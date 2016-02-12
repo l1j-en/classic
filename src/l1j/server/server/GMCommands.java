@@ -66,7 +66,7 @@ public class GMCommands {
 			if (command == null) {
 				return false;
 			}
-			if (pc.getAccessLevel() < command.getLevel()) {
+			if (pc.getAccessLevel().getLevel() < command.getLevel()) {
 				pc.sendPackets(new S_ServerMessage(74, "" + name));
 				return true;
 			}
