@@ -2569,7 +2569,8 @@ public class L1SkillUse {
 												&& member.getClanid() == pc
 														.getClanid()
 												&& pc.getClanid() != 0
-												&& member.getId() != pc.getId()) {
+												&& member.getId() != pc.getId()
+												&& !member.isPrivateShop()) {
 											L1Teleport.teleport(member, newX,
 													newY, mapId, 5, true);
 										}
