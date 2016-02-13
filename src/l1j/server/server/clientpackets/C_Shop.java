@@ -61,8 +61,14 @@ public class C_Shop extends ClientBasePacket {
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
+		
 		int mapId = pc.getMapId();
 		if (mapId != 340 && mapId != 350 && mapId != 360 && mapId != 370) {
+			// if somehow they got out of the zone, 
+			// disable private shop
+			if(pc.isPrivateShop())
+				pc.setPrivateShop(false); 
+			
 			pc.sendPackets(new S_ServerMessage(876));
 			return;
 		}
