@@ -62,12 +62,15 @@ public class C_Shop extends ClientBasePacket {
 			return;
 		}
 		
+		List<L1PrivateShopSellList> sellList = pc.getSellList();
+		List<L1PrivateShopBuyList> buyList = pc.getBuyList();
+		
 		int mapId = pc.getMapId();
 		if (mapId != 340 && mapId != 350 && mapId != 360 && mapId != 370) {
 			// if somehow they got out of the zone, 
 			// disable private shop
 			if(pc.isPrivateShop()) {
-				pc.setPrivateShop(false); 
+				stopShop(pc, sellList, buyList);
 				return;
 			}
 				
@@ -76,8 +79,6 @@ public class C_Shop extends ClientBasePacket {
 			return;
 		}
 
-		List<L1PrivateShopSellList> sellList = pc.getSellList();
-		List<L1PrivateShopBuyList> buyList = pc.getBuyList();
 		L1ItemInstance checkItem;
 		boolean tradable = true;
 
@@ -194,13 +195,7 @@ public class C_Shop extends ClientBasePacket {
 				buyList.add(psbl);
 			}
 			if (!tradable) {
-				sellList.clear();
-				buyList.clear();
-				pc.setPrivateShop(false);
-				pc.sendPackets(new S_DoActionGFX(pc.getId(),
-						ActionCodes.ACTION_Idle));
-				pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
-						ActionCodes.ACTION_Idle));
+				stopShop(pc, sellList, buyList);
 				return;
 			}
 			byte[] chat = readByte();
@@ -211,14 +206,19 @@ public class C_Shop extends ClientBasePacket {
 			pc.broadcastPacket(new S_DoActionShop(pc.getId(),
 					ActionCodes.ACTION_Shop, chat));
 		} else if (type == 1) {
-			sellList.clear();
-			buyList.clear();
-			pc.setPrivateShop(false);
-			pc.sendPackets(new S_DoActionGFX(pc.getId(),
-					ActionCodes.ACTION_Idle));
-			pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
-					ActionCodes.ACTION_Idle));
+			stopShop(pc, sellList, buyList);
 		}
+	}
+	
+	private void stopShop(L1PcInstance pc, List<L1PrivateShopSellList> sellList, 
+			List<L1PrivateShopBuyList> buyList) {
+		sellList.clear();
+		buyList.clear();
+		pc.setPrivateShop(false);
+		pc.sendPackets(new S_DoActionGFX(pc.getId(),
+				ActionCodes.ACTION_Idle));
+		pc.broadcastPacket(new S_DoActionGFX(pc.getId(),
+				ActionCodes.ACTION_Idle));
 	}
 
 	@Override
