@@ -2579,9 +2579,8 @@ public class L1SkillUse {
 								L1Teleport.teleport(pc, newX, newY, mapId, 5,
 										true);
 							} else {
-								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
-										pc.getMapId(), pc.getHeading(), false);
 								pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+								pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 							}
 						} else {
 							if (pc.getMap().isTeleportable() || pc.isGm()) {
@@ -2611,8 +2610,7 @@ public class L1SkillUse {
 										true);
 							} else {
 								pc.sendPackets(new S_ServerMessage(276)); // You can't randomly teleport here.
-								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
-										pc.getMapId(), pc.getHeading(), false);
+								pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 							}
 						}
 					} else if (_skillId == TELEPORT_TO_MATHER) {
@@ -2622,8 +2620,7 @@ public class L1SkillUse {
 									true);
 						} else {
 							pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
-							L1Teleport.teleport(pc, pc.getX(), pc.getY(),
-									pc.getMapId(), pc.getHeading(), false);
+							pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 						}
 					} else if (_skillId == CALL_CLAN) {
 						L1PcInstance pc = (L1PcInstance) cha;
@@ -2655,8 +2652,7 @@ public class L1SkillUse {
 								}
 							} else {
 								pc.sendPackets(new S_ServerMessage(647)); // You cannot teleport in this location.
-								L1Teleport.teleport(pc, pc.getX(), pc.getY(),
-										pc.getMapId(), pc.getHeading(), false);
+								pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 							}
 						}
 					} else if (_skillId == CREATE_MAGICAL_WEAPON) {
