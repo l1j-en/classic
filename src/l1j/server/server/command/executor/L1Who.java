@@ -88,6 +88,7 @@ public class L1Who implements L1CommandExecutor {
 					
 				String message = String.format(
 								"Account: %s\n" + 
+								"Access Lvl: %s (%d)\n" + 
 								"Level %d %s %s\n" + 
 								"Pledge: %s\n" + 
 								"Alignment: %s (%d)\n" + 
@@ -100,6 +101,8 @@ public class L1Who implements L1CommandExecutor {
 								"To view %s's items, use:\n" + 
 								"\".snoop %s inv\"",
 								target.getAccountName(),
+								target.getAccessLevel().getName(),
+								target.getAccessLevel().getLevel(),
 								target.getLevel(), 
 								L1ClassId.getSex(target.getClassId()),
 								L1ClassId.getClass(target.getClassId()),
@@ -157,7 +160,7 @@ public class L1Who implements L1CommandExecutor {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT account_name,char_name,level,MaxHp,MaxMp,Class FROM characters WHERE char_name=?");
+					.prepareStatement("SELECT a.account_name, a.char_name, a.level ,a.MaxHp, a.MaxMp, a.Class, b.name as AccessLevelName, b.access_level FROM characters AS a JOIN access_levels b ON a.accesslevel = b.id WHERE char_name = ?;");
 			pstm.setString(1, name);
 			rs = pstm.executeQuery();
 			rs.next();
@@ -165,6 +168,9 @@ public class L1Who implements L1CommandExecutor {
 			String message = new StringBuilder()
 					.append("Account: ")
 					.append(rs.getString("account_name")).append("\n")
+					.append("Access Lvl: ")
+					.append(rs.getString("AccessLevelName"))
+					.append(" (").append(rs.getShort("access_level")).append(")\n")
 					.append("Level ").append(rs.getInt("level")).append(" ")
 					.append(L1ClassId.getSex(rs.getInt("Class"))).append(" ")
 					.append(L1ClassId.getClass(rs.getInt("Class"))).append("\n")

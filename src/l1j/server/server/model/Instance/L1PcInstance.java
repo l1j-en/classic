@@ -48,6 +48,7 @@ import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.command.executor.L1HpBar;
 import l1j.server.server.controllers.WarTimeController;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
@@ -55,6 +56,7 @@ import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.HpRegeneration;
+import l1j.server.server.model.L1AccessLevel;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -486,7 +488,7 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public L1PcInstance() {
-		_accessLevel = 0;
+		_accessLevel = AccessLevelTable.getInstance().getAccessLevel((short)-1);
 		_currentWeapon = 0;
 		_inventory = new L1PcInventory(this);
 		_dwarf = new L1DwarfInventory(this);
@@ -584,12 +586,12 @@ public class L1PcInstance extends L1Character {
 		_type = i;
 	}
 
-	public short getAccessLevel() {
+	public L1AccessLevel getAccessLevel() {
 		return _accessLevel;
 	}
 
-	public void setAccessLevel(short i) {
-		_accessLevel = i;
+	public void setAccessLevel(L1AccessLevel accessLevel) {
+		_accessLevel = accessLevel;
 	}
 
 	public int getClassId() {
@@ -687,14 +689,6 @@ public class L1PcInstance extends L1Character {
 
 	public void setGm(boolean flag) {
 		_gm = flag;
-	}
-
-	public boolean isMonitor() {
-		return _monitor;
-	}
-
-	public void setMonitor(boolean flag) {
-		_monitor = flag;
 	}
 
 	private L1PcInstance getStat() {
@@ -1214,7 +1208,7 @@ public class L1PcInstance extends L1Character {
 				newHp = getMaxHp();
 			}
 			if (newHp <= 0) {
-				if (isGm() || isMonitor()) {
+				if (isGm()) {
 					setCurrentHp(getMaxHp());
 				} else {
 					death(attacker);
@@ -1832,11 +1826,10 @@ public class L1PcInstance extends L1Character {
 	private int _exp;
 	private final L1Karma _karma = new L1Karma();
 	private boolean _gm;
-	private boolean _monitor;
 	private boolean _gmInvis;
 	private boolean _gmInvul;
 	private boolean _gmAppearOffline;
-	private short _accessLevel;
+	private L1AccessLevel _accessLevel;
 	private int _currentWeapon;
 	private final L1PcInventory _inventory;
 	private final L1DwarfInventory _dwarf;

@@ -51,7 +51,7 @@ public class L1CommandHelp implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		List<L1Command> list = L1Commands.availableCommandList(pc
-				.getAccessLevel());
+				.getAccessLevel().getLevel());
 		
 		int pages = (int)Math.ceil((double)list.size() / commandsPerPage);
 		

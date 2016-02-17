@@ -143,7 +143,7 @@ public class WarTimeController implements Runnable {
 		for (L1PcInstance pc
 				: onlineAndOfflinePlayers) {
 			if (L1CastleLocation.checkInWarArea(castleId, pc)
-					&& !pc.isGm() && !pc.isMonitor()) {
+					&& !pc.isGm()) {
 				L1Clan clan = L1World.getInstance().getClan(
 						pc.getClanname());
 				if (clan != null) {

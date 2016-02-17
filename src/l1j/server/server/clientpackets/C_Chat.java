@@ -65,7 +65,7 @@ public class C_Chat extends ClientBasePacket {
 		// A lambda, a lambda, my kingdom for a (concise!) lambda.
 		switch (chatType) {
 		case 0:
-			if (pc.isGhost() && !(pc.isGm() || pc.isMonitor())) {
+			if (pc.isGhost() && !pc.isGm()) {
 				return;
 			}
 			if (chatText.startsWith(".")) {
@@ -108,7 +108,7 @@ public class C_Chat extends ClientBasePacket {
 					Opcodes.S_OPCODE_NORMALCHAT);
 			break;
 		case 2:
-			if (pc.isGhost() && (!pc.isGm() || !pc.isMonitor()))
+			if (pc.isGhost() && !pc.isGm())
 				return;
 
 			// TODO: investigate. The original code uses the NORMALCHAT opcode,
@@ -221,7 +221,7 @@ public class C_Chat extends ClientBasePacket {
 	}
 
 	private boolean canWorldChat(final L1PcInstance sender) {
-		if (sender.isGm() || sender.isMonitor())
+		if (sender.isGm())
 			return true;
 		if (sender.getLevel() <= Config.GLOBAL_CHAT_LEVEL) {
 			sender.sendPackets(new S_ServerMessage(195, String
