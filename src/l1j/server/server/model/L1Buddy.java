@@ -68,7 +68,8 @@ public class L1Buddy {
 	public String getOnlineBuddyListString() {
 		String result = new String("");
 		for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
-			if (_buddys.containsKey(pc.getId())) {
+			if (_buddys.containsKey(pc.getId())
+					&& !pc.isGmAppearOffline()) {
 				result += pc.getName() + " ";
 			}
 		}
