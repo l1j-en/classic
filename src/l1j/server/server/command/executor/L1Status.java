@@ -83,13 +83,6 @@ public class L1Status implements L1CommandExecutor {
 					target.broadcastPacket(s_lawful);
 				} else if (param.equalsIgnoreCase("KARMA")) {
 					target.setKarma(value);
-				} else if (param.equalsIgnoreCase("GM")) {
-					if (value > 200) {
-						value = 200;
-					}
-					target.setAccessLevel((short) value);
-					target.sendPackets(new S_SystemMessage("Your " + param
-							+ " was changed to " + value));
 				} else if (param.equalsIgnoreCase("STR")) {
 					target.addBaseStr((byte) (value - target.getBaseStr()));
 				} else if (param.equalsIgnoreCase("CON")) {
@@ -123,7 +116,7 @@ public class L1Status implements L1CommandExecutor {
 					String.format(".%1$s <player> <setting> <value> or .%1$s <setting> <value>",
 							cmdName)));
 			pc.sendPackets(new S_RawStringDialog(pc.getId(), 
-					"Available settings:", "AC, MR, HIT, DMG, HP, MP, LAWFUL, KARMA, GM, STR, CON, DEX, INT, WIS, CHA, PINK"));
+					"Available settings:", "AC, MR, HIT, DMG, HP, MP, LAWFUL, KARMA, STR, CON, DEX, INT, WIS, CHA, PINK"));
 		}
 	}
 }

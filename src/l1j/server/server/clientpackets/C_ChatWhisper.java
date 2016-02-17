@@ -61,7 +61,7 @@ public class C_ChatWhisper extends ClientBasePacket {
 		// TRICIDTODO: Make this configurable
 		ExcludeTable excludeTable = ExcludeTable.getInstance();
 		if (excludeTable.getExcludeList(whisperTo.getId()).containsId(whisperFrom.getId())
-				&& !whisperFrom.isGm() && !whisperFrom.isMonitor()) { // do not
+				&& !whisperFrom.isGm()) { // do not
 																		// remove
 																		// gm/mon
 																		// whisper
@@ -70,8 +70,7 @@ public class C_ChatWhisper extends ClientBasePacket {
 					.getName()));
 			return;
 		}
-		if (!whisperTo.isCanWhisper() && !whisperFrom.isGm()
-				&& !whisperFrom.isMonitor()) { // do not remove gm/mon whisper
+		if (!whisperTo.isCanWhisper() && !whisperFrom.isGm()) { // do not remove gm/mon whisper
 												// ability
 			whisperFrom.sendPackets(new S_ServerMessage(205, whisperTo
 					.getName()));

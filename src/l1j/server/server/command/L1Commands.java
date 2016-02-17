@@ -37,12 +37,16 @@ public class L1Commands {
 
 	private static L1Command fromResultSet(ResultSet rs) throws SQLException {
 		String helpText = "";
+		boolean runOnLogin = false;
 		
 		if(hasColumn(rs, "help_text"))
 			helpText = rs.getString("help_text");
 		
+		if(hasColumn(rs, "run_on_login"))
+			runOnLogin = rs.getBoolean("run_on_login");
+		
 		return new L1Command(rs.getString("name"), rs.getInt("access_level"),
-				rs.getString("class_name"), helpText);
+				rs.getString("class_name"), helpText, runOnLogin);
 	}
 
 	public static L1Command get(String name) {

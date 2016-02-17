@@ -230,6 +230,8 @@ public final class Config {
 	public static int CREATE_CHANCE_HISTORY_BOOK;
 
 	/** AltSettings control */
+	public static short MIN_GM_ACCESS_LEVEL;
+	
 	public static short GLOBAL_CHAT_LEVEL;
 
 	public static short WHISPER_CHAT_LEVEL;
@@ -737,6 +739,8 @@ public final class Config {
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 			altSettings.load(is);
 			is.close();
+			MIN_GM_ACCESS_LEVEL = Short.parseShort(altSettings.getProperty(
+					"GmAccessLevel", "100"));
 			GLOBAL_CHAT_LEVEL = Short.parseShort(altSettings.getProperty(
 					"GlobalChatLevel", "30"));
 			WHISPER_CHAT_LEVEL = Short.parseShort(altSettings.getProperty(

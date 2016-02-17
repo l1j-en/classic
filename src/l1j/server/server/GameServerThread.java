@@ -31,6 +31,7 @@ import l1j.server.server.controllers.LoginController;
 import l1j.server.server.controllers.NpcChatTimeController;
 import l1j.server.server.controllers.UbTimeController;
 import l1j.server.server.controllers.WarTimeController;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ChatLogTable;
@@ -171,6 +172,9 @@ public class GameServerThread {
 
 		_loginController = LoginController.getInstance();
 		_loginController.setMaxAllowedOnlinePlayers(maxOnlineUsers);
+		
+		//Access Levels
+		AccessLevelTable.getInstance();
 
 		// CharacterTable
 		CharacterTable.getInstance().loadAllCharName();
