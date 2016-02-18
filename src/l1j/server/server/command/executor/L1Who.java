@@ -70,7 +70,7 @@ public class L1Who implements L1CommandExecutor {
 				boolean isPolymorphed = false;
 				
 				try {
-					L1ClassId.getClass(polyId);
+					L1ClassId.getClass(polyId, true);
 				} catch(IllegalStateException ise) { 
 					isPolymorphed = true;
 				}
