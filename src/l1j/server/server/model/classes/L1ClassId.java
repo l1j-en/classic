@@ -88,8 +88,12 @@ public class L1ClassId {
 				|| classId == CLASSID_DRAGON_KNIGHT_FEMALE
 				|| classId == CLASSID_ILLUSIONIST_FEMALE;
 	}
-
+	
 	public static String getClass(int classId) {
+		return getClass(classId, false);
+	}
+
+	public static String getClass(int classId, boolean ignoreErrors) {
 		if (isRoyal(classId)) {
 			return "Royal";
 		}
@@ -111,7 +115,9 @@ public class L1ClassId {
 		if (isIllusionist(classId)) {
 			return "Illusionist";
 		}
-		_log.log(Level.SEVERE, 
+		
+		if(!ignoreErrors)
+			_log.log(Level.SEVERE, 
 				"Unrecognized classId in #L1ClassId.getClass(). Check db.");
 		throw new IllegalStateException("Unrecognized character class id.");
 	}
