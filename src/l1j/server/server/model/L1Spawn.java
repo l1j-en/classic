@@ -477,7 +477,7 @@ public class L1Spawn {
 			}
 			if (npcId == 45573 && mob.getMapId() == 2) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
-					if (pc.getMapId() == 2) {
+					if (pc.getMapId() == 2 && !pc.isGm()) {
 						L1Teleport.teleport(pc, 32664, 32797, (short) 2, 0,
 								true);
 					}
@@ -487,7 +487,7 @@ public class L1Spawn {
 			if (npcId == 46142 && mob.getMapId() == 73 || npcId == 46141
 					&& mob.getMapId() == 74) {
 				for (L1PcInstance pc : L1World.getInstance().getAllPlayers()) {
-					if (pc.getMapId() >= 72 && pc.getMapId() <= 74) {
+					if (pc.getMapId() >= 72 && pc.getMapId() <= 74 && !pc.isGm()) {
 						L1Teleport.teleport(pc, 32840, 32833, (short) 72,
 								pc.getHeading(), true);
 					}
