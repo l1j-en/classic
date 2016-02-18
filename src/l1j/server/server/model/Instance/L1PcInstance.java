@@ -592,6 +592,9 @@ public class L1PcInstance extends L1Character {
 
 	public void setAccessLevel(L1AccessLevel accessLevel) {
 		_accessLevel = accessLevel;
+		
+		if(accessLevel.getLevel() < Config.MIN_GM_ACCESS_LEVEL)
+			setGm(false);
 	}
 
 	public int getClassId() {
@@ -1408,16 +1411,8 @@ public class L1PcInstance extends L1Character {
 			}
 			if (lastAttacker != L1PcInstance.this) {
 				if (getZoneType() != ZoneType.Normal) {
-					L1PcInstance player = null;
-					if (lastAttacker instanceof L1PcInstance) {
-						player = (L1PcInstance) lastAttacker;
-					} else if (lastAttacker instanceof L1PetInstance) {
-						player = (L1PcInstance) ((L1PetInstance) lastAttacker)
-								.getMaster();
-					} else if (lastAttacker instanceof L1SummonInstance) {
-						player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
-								.getMaster();
-					}
+					L1PcInstance player = getAttackingPlayer(lastAttacker);
+
 					if (player != null) {
 						if (!isInWarAreaAndWarTime(L1PcInstance.this, player)) {
 							return;
@@ -1499,10 +1494,8 @@ public class L1PcInstance extends L1Character {
 				return;
 			}
 
-			L1PcInstance player = null;
-			if (lastAttacker instanceof L1PcInstance) {
-				player = (L1PcInstance) lastAttacker;
-			}
+			L1PcInstance player = getAttackingPlayer(lastAttacker);
+			
 			if (player != null) {
 				if (getLawful() >= 0 && isPinkName() == false) {
 					boolean isChangePkCount = false;
@@ -1555,6 +1548,22 @@ public class L1PcInstance extends L1Character {
 			_pcDeleteTimer = new L1PcDeleteTimer(L1PcInstance.this);
 			_pcDeleteTimer.begin();
 		}
+	}
+	
+	private L1PcInstance getAttackingPlayer(L1Character lastAttacker) {
+		L1PcInstance attackingPlayer = null;
+		
+		if (lastAttacker instanceof L1PcInstance) {
+			attackingPlayer = (L1PcInstance) lastAttacker;
+		} else if (lastAttacker instanceof L1PetInstance) {
+			attackingPlayer = (L1PcInstance) ((L1PetInstance) lastAttacker)
+					.getMaster();
+		} else if (lastAttacker instanceof L1SummonInstance) {
+			attackingPlayer = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+					.getMaster();
+		}
+		
+		return attackingPlayer;
 	}
 
 	public void stopPcDeleteTimer() {
