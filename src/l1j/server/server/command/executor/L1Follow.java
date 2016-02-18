@@ -19,6 +19,18 @@ public class L1Follow implements L1CommandExecutor {
 			if(charName.equals(""))
 				throw new Exception();
 			
+			if(charName.toLowerCase().equals("-stop")) {
+				// find all people the Gm is following and ensure we remove ourselves
+				for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+					L1PcInstance followingGm = player.getFollowingGm();
+					if(followingGm != null && followingGm == pc)
+						player.setFollowingGm(null);
+				}
+				
+				pc.sendPackets(new S_SystemMessage("Follow has been stopped."));
+				return;
+			}
+			
 			L1PcInstance target = L1World.getInstance().getPlayer(charName);
 			if(target == null) {
 				pc.sendPackets(new S_SystemMessage(charName + " is not online."));
@@ -46,8 +58,7 @@ public class L1Follow implements L1CommandExecutor {
 			moveChar(target, pc);
 			pc.sendPackets(new S_SystemMessage("You are now following " + target.getName() + "."));
 		} catch(Exception ex) {
-			ex.printStackTrace();
-			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> or -stop"));
 		}
 	}
 	
