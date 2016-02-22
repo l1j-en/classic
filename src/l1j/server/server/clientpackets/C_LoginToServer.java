@@ -50,6 +50,8 @@ import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
+import l1j.server.server.GMCommands;
+import l1j.server.server.command.L1Commands;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExcludeTable;
@@ -90,6 +92,7 @@ import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.templates.L1BookMark;
+import l1j.server.server.templates.L1Command;
 import l1j.server.server.templates.L1GetBackRestart;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.utils.SQLUtil;
@@ -124,6 +127,13 @@ public class C_LoginToServer extends ClientBasePacket {
 			client.close();
 			return;
 		}
+		
+		// auto-run any auto-run commands the user has access to
+		for(L1Command command : L1Commands.availableCommandList(pc.getAccessLevel().getLevel())) {
+			if(command.isRunOnLogin())
+				GMCommands.getInstance().handleCommands(pc, command.getName());
+		}
+		
 		if (Config.LEVEL_DOWN_RANGE != 0) {
 			if (pc.getHighLevel() - pc.getLevel() >= Config.LEVEL_DOWN_RANGE) {
 				_log.info("Login request of the character which exceeded: char="
