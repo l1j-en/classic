@@ -1741,7 +1741,11 @@ public class L1SkillUse {
 					}
 					dmg = _magic.calcMagicDamage(_skillId);
 					_dmg = dmg;
-					cha.removeSkillEffect(ERASE_MAGIC);
+					
+					// TODO -- skills should probably have a field identifying
+					// whether they're physical or magic
+					if(_skillId != TRIPLE_ARROW)
+						cha.removeSkillEffect(ERASE_MAGIC);
 				} else if (_skill.getType() == L1Skill.TYPE_CURSE
 						|| _skill.getType() == L1Skill.TYPE_PROBABILITY) {
 					
