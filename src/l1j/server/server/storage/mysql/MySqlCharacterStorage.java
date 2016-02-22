@@ -112,11 +112,6 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			if (pc.getAccessLevel().getLevel() >= Config.MIN_GM_ACCESS_LEVEL)
 				pc.setGm(true);
 			
-			for(L1Command command : L1Commands.availableCommandList(pc.getAccessLevel().getLevel())) {
-				if(command.isRunOnLogin())
-					GMCommands.getInstance().handleCommands(pc, command.getName());
-			}
-			
 			pc.setOnlineStatus(rs.getInt("OnlineStatus"));
 			pc.setHomeTownId(rs.getInt("HomeTownID"));
 			pc.setContribution(rs.getInt("Contribution"));
