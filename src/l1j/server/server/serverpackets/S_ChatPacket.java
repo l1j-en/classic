@@ -76,7 +76,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			writeS("[" + pc.getName() + "] " + chat);
 		} else if (type == 13) { // Party chat
 			writeC(opcode);
-			writeC(type);
+			writeC(0x04);
 			writeS("{{" + pc.getName() + "}} " + chat);
 		} else if (type == 14) { //
 			writeC(opcode);
