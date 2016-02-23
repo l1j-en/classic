@@ -760,10 +760,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				os.writeC(32);
 				os.writeC(template.get_addmp() + getAddMp());
 			}
-			if (getMr() != 0) {
-				os.writeC(15);
-				os.writeH(getMr());
-			}
+			
 			if (template.get_addsp() != 0 || getAddSpellpower() != 0) {
 				os.writeC(17);
 				os.writeC(template.get_addsp() + getAddSpellpower());
@@ -822,6 +819,11 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				os.writeH(template.get_resist_sustain());
 				os.writeC(33);
 				os.writeC(6);
+			}
+			
+			if (getMr() != 0) {
+				os.writeC(15);
+				os.writeH(getMr());
 			}
 			/*
 			 * Taken from l1j-tw accessory enchanting - these might not be the
