@@ -42,6 +42,7 @@ import static l1j.server.server.model.skill.L1SkillId.ELEMENTAL_FALL_DOWN;
 import static l1j.server.server.model.skill.L1SkillId.ELEMENTAL_PROTECTION;
 import static l1j.server.server.model.skill.L1SkillId.ENCHANT_WEAPON;
 import static l1j.server.server.model.skill.L1SkillId.ENTANGLE;
+import static l1j.server.server.model.skill.L1SkillId.ERASE_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.FIRE_BLESS;
 import static l1j.server.server.model.skill.L1SkillId.FIRE_WEAPON;
 import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
@@ -611,6 +612,11 @@ class L1SkillStop {
 
 		else if (skillId == STATUS_POISON) {
 			cha.curePoison();
+		} else if (skillId == ERASE_MAGIC) {
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				pc.sendPackets(new S_SkillIconAura(152, 0));
+			}
 		}
 
 		sendPacket(cha, skillId);
