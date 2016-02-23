@@ -300,7 +300,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (rank != L1Clan.CLAN_RANK_PUBLIC
 						&& rank != L1Clan.CLAN_RANK_GUARDIAN
 						&& rank != L1Clan.CLAN_RANK_PRINCE) {
-					pc.sendPackets(new S_ServerMessage(728));
+					pc.sendPackets(new S_SystemMessage("Apprentices cannot use the Blood Pledge storehouse."));
 					return;
 				}
 				if (rank != L1Clan.CLAN_RANK_PRINCE
