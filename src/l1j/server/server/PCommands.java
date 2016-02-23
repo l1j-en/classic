@@ -46,6 +46,8 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.clientpackets.C_Rank;
+import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -71,9 +73,9 @@ public class PCommands {
 	private static final S_SystemMessage DropHelp = new S_SystemMessage(
 			"-drop [all|mine|party] [on|off] toggles drop messages.");
 	private static final S_SystemMessage CommandsHelp = new S_SystemMessage(
-			"-warp 1-10, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
+			"-rank, -warp 1-10, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
 	private static final S_SystemMessage CommandsHelpNoBuff = new S_SystemMessage(
-			"-warp 1-10, -karma, -bug, -drop, -help");
+			"-rank, -warp 1-10, -karma, -bug, -drop, -help");
 	private static final S_SystemMessage NoBuff = new S_SystemMessage(
 			"The -buff command is disabled.");
 	private static final S_SystemMessage BuffLevel = new S_SystemMessage(
@@ -110,6 +112,8 @@ public class PCommands {
 			"The -turn command is disabled.");
 	private static final S_SystemMessage OnlyDarkElvesTurn = new S_SystemMessage(
 			"Only Dark Elves can use -turn.");
+	private static final S_SystemMessage RankHelp = new S_SystemMessage(
+			"-rank <player> <Apprentice/Ordinary/Guardian Knight>");
 
 	private PCommands() {
 	}
@@ -145,6 +149,20 @@ public class PCommands {
 				setPotionOptions(player, cmd2);
 			} else if (cmd2.startsWith("turn")) {
 				turnAllStones(player);
+			} else if(cmd2.startsWith("rank")) {
+				try {
+					String args[] = cmd2.split(" ");
+					
+					String playerName = args[1];
+					String rank = "";
+					
+					for(int i = 2; i < args.length; i++)
+						rank += args[i] + " ";
+					
+					rank(player, rank.trim(), playerName);
+				} catch(Exception rankEx) {
+					player.sendPackets(RankHelp);
+				}
 			}
 			_log.log(Level.FINE, player.getName() + " used " + cmd2);
 		} catch (Exception e) {
@@ -224,6 +242,24 @@ public class PCommands {
 						L1SkillUse.TYPE_SPELLSC);
 		} else if (Config.PLAYER_COMMANDS && !Config.POWER_BUFF)
 			player.sendPackets(NoPowerBuff);
+	}
+	
+	public void rank(L1PcInstance player, String rank, String playerName) throws Exception {
+		rank = rank.toLowerCase();
+		
+		int rankNumber = -1;
+		
+		if(rank.equals("apprenticeship"))
+			rankNumber = L1Clan.CLAN_RANK_PROBATION;
+		else if(rank.equals("ordinary"))
+			rankNumber = L1Clan.CLAN_RANK_PUBLIC;
+		else if(rank.equals("guardian knight"))
+			rankNumber = L1Clan.CLAN_RANK_GUARDIAN;
+		
+		if(rankNumber == -1)
+			throw new Exception();
+		
+		C_Rank.setRank(player, rankNumber, playerName);
 	}
 
 	public void warp(L1PcInstance player, String cmd2) {
