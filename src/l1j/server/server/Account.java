@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.encryptions.Base64;
 import l1j.server.server.utils.SQLUtil;
 
@@ -75,7 +76,7 @@ public class Account {
 			pstm.setString(1, account._name);
 			pstm.setString(2, account._password);
 			pstm.setTimestamp(3, account._lastActive);
-			pstm.setInt(4, 0);
+			pstm.setInt(4, AccessLevelTable.minAccessLevel.getId());
 			pstm.setString(5, account._ip);
 			pstm.setString(6, account._host);
 			pstm.setInt(7, account._banned ? 1 : 0);
