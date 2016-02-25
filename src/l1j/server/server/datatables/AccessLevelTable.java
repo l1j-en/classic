@@ -31,14 +31,21 @@ public class AccessLevelTable {
 	private AccessLevelTable() {
 		loadAccessLevels();
 		
-		int lowestAccessLevel = Integer.MAX_VALUE;
+		L1AccessLevel lowestAccessLevel = null;
 		
 		// find the lowest access level available
 		for(Short accessId : _accessLevels.keySet()) {
 			L1AccessLevel currentLevel = _accessLevels.get(accessId);
-			if(currentLevel.getLevel() < lowestAccessLevel)
-				minAccessLevel = currentLevel;
+			if(lowestAccessLevel == null || 
+					currentLevel.getLevel() < lowestAccessLevel.getLevel())
+				lowestAccessLevel = currentLevel;
 		}
+		
+		// should never hit this... but I'm paranoid
+		if(lowestAccessLevel == null)
+			minAccessLevel = new L1AccessLevel((short)-1, "Player", (short)0, null);
+		else
+			minAccessLevel = lowestAccessLevel;
 	}
 	
 	public Collection<L1AccessLevel> getAllAccessLevels() {
