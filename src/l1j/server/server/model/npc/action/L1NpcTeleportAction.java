@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model.npc.action;
 
+import l1j.server.Config;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
@@ -55,6 +56,15 @@ public class L1NpcTeleportAction extends L1NpcXmlAction {
 			pc.sendPackets(new S_ServerMessage(337, "$4"));
 			return L1NpcHtml.HTML_CLOSE;
 		}
+		
+		if (pc.getLevel() >= Config.NEWBIEMAPLEVELS) {
+			if ((_loc.getMapId() == 68 || _loc.getMapId() == 69 || _loc.getMapId() == 2005
+					|| _loc.getMapId() == 85 || _loc.getMapId() == 86)) {
+				pc.sendPackets(new S_ServerMessage(1287));
+				return null;
+			}
+		}
+		
 		pc.getInventory().consumeItem(L1ItemId.ADENA, _price);
 		L1Teleport.teleport(pc, _loc.getX(), _loc.getY(),
 				(short) _loc.getMapId(), _heading, _effect);
