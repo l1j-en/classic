@@ -193,7 +193,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setInt(++i, pc.getPkCountForElf());
 			pstm.setInt(++i, pc.getExpRes());
 			pstm.setInt(++i, pc.getPartnerId());
-			pstm.setShort(++i, pc.getAccessLevel().getLevel());
+			pstm.setShort(++i, pc.getAccessLevel().getId());
 			pstm.setInt(++i, pc.getOnlineStatus());
 			pstm.setInt(++i, pc.getHomeTownId());
 			pstm.setInt(++i, pc.getContribution());

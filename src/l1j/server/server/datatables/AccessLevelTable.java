@@ -19,6 +19,7 @@ public class AccessLevelTable {
 	private static AccessLevelTable _instance;
 	private final LinkedHashMap<Short, L1AccessLevel> _accessLevels
 			= new LinkedHashMap<Short, L1AccessLevel>();
+	public static L1AccessLevel minAccessLevel = null;
 	
 	public static AccessLevelTable getInstance() {
 		if (_instance == null) {
@@ -29,6 +30,24 @@ public class AccessLevelTable {
 	
 	private AccessLevelTable() {
 		loadAccessLevels();
+		
+		L1AccessLevel lowestAccessLevel = null;
+		
+		// find the lowest access level available
+		for(Short accessId : _accessLevels.keySet()) {
+			L1AccessLevel currentLevel = _accessLevels.get(accessId);
+			if(lowestAccessLevel == null || 
+					currentLevel.getLevel() < lowestAccessLevel.getLevel())
+				lowestAccessLevel = currentLevel;
+		}
+		
+		// should never hit this... but I'm paranoid
+		if(lowestAccessLevel == null) {
+			_log.log(Level.SEVERE, "Unable to set the lowest access level. Setting the id to -1 and level to 0!");
+			lowestAccessLevel = new L1AccessLevel((short)-1, "Player", (short)0, null);
+		}
+
+		minAccessLevel = lowestAccessLevel;
 	}
 	
 	public Collection<L1AccessLevel> getAllAccessLevels() {
@@ -38,6 +57,10 @@ public class AccessLevelTable {
 	public L1AccessLevel getAccessLevel(short id) {
 		L1AccessLevel returnValue = _accessLevels.get(id);
 		
+		if(returnValue == null)
+			returnValue = minAccessLevel;
+		
+		// should never hit this, but just to be safe and make them not a GM
 		if(returnValue == null)
 			returnValue = new L1AccessLevel((short)-1, "Player", (short)0, null);
 		
