@@ -43,11 +43,11 @@ public class AccessLevelTable {
 		
 		// should never hit this... but I'm paranoid
 		if(lowestAccessLevel == null) {
-			_log.warning("Unable to set the lowest access level. Setting the id to -1 and level to 0!");
-			minAccessLevel = new L1AccessLevel((short)-1, "Player", (short)0, null);
+			_log.log(Level.SEVERE, "Unable to set the lowest access level. Setting the id to -1 and level to 0!");
+			lowestAccessLevel = new L1AccessLevel((short)-1, "Player", (short)0, null);
 		}
-		else
-			minAccessLevel = lowestAccessLevel;
+
+		minAccessLevel = lowestAccessLevel;
 	}
 	
 	public Collection<L1AccessLevel> getAllAccessLevels() {
