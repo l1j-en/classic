@@ -118,10 +118,7 @@ public class L1UbSpawn implements Comparable<L1UbSpawn> {
 				(ub.getLocX2() - ub.getLocX1()) / 2, false);
 		L1MonsterInstance mob = new L1MonsterInstance(NpcTable.getInstance()
 				.getTemplate(getNpcTemplateId()));
-		if (mob == null) {
-			_log.warning("mob == null");
-			return;
-		}
+
 		mob.setId(IdFactory.getInstance().nextId());
 		mob.setHeading(5);
 		mob.setX(loc.getX());
