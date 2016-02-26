@@ -42,13 +42,6 @@ public class AuctionBoardTable {
 	private static AuctionBoardTable _instance;
 	private final Map<Integer, L1AuctionBoard> _boards = new ConcurrentHashMap<Integer, L1AuctionBoard>();
 
-	private static AuctionBoardTable getInstance() {
-		if (_instance == null) {
-			_instance = new AuctionBoardTable();
-		}
-		return _instance;
-	}
-
 	private Calendar timestampToCalendar(Timestamp ts) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(ts.getTime());
