@@ -27,12 +27,9 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.GMCommands;
-import l1j.server.server.command.L1Commands;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.storage.CharacterStorage;
-import l1j.server.server.templates.L1Command;
 import l1j.server.server.utils.SQLUtil;
 
 public class MySqlCharacterStorage implements CharacterStorage {
