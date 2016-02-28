@@ -19,6 +19,7 @@
 
 package l1j.server.server.model.Instance;
 
+import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.serverpackets.S_Board;
 import l1j.server.server.serverpackets.S_BoardRead;
 import l1j.server.server.templates.L1Npc;
@@ -33,14 +34,17 @@ public class L1BoardInstance extends L1NpcInstance {
 
 	@Override
 	public void onAction(L1PcInstance player) {
-		player.sendPackets(new S_Board(this));
+		player.sendPackets(new S_Board(this, player));
 	}
 
-	public void onAction(L1PcInstance player, int number) {
-		player.sendPackets(new S_Board(this, number));
+	public void onAction(L1PcInstance player, int number) {	
+		player.sendPackets(new S_Board(this, number, player));
 	}
 
 	public void onActionRead(L1PcInstance player, int number) {
-		player.sendPackets(new S_BoardRead(number));
+		if(this.getSpawn() != NpcSpawnTable.bugBoard)
+			player.sendPackets(new S_BoardRead(number));
+		else
+			player.sendPackets(new S_BoardRead(player, number));
 	}
 }
