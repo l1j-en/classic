@@ -436,7 +436,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 			htmlid = "";
 		} else if (s.equalsIgnoreCase("tax")) {
-			pc.sendPackets(new S_TaxRate(pc.getId(), 10, 50));
+			pc.sendPackets(new S_TaxRate(pc.getId(), 10, 50, 0));
 		} else if (s.equalsIgnoreCase("withdrawal")) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 			if (clan != null) {
@@ -1513,7 +1513,8 @@ public class C_NPCAction extends ClientBasePacket {
 					if (obj instanceof L1NpcInstance) {
 						L1PcInstance player = client.getActiveChar();
 						if (TownTable.getInstance().isLeader(player, town_id)) {
-							pc.sendPackets(new S_TaxRate(pc.getId(), 2, 5));
+							pc.sendPackets(new S_TaxRate(pc.getId(), 2, 5, 
+									TownTable.getInstance().getTownTable(town_id).get_tax_rate_reserved() + 2));
 						}
 					}
 				} else if (s.equalsIgnoreCase("c")) {// TODO Town mayor recieve
