@@ -37,23 +37,25 @@ import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.SHIELD;
 import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
 import l1j.server.server.clientpackets.C_Rank;
+import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
+import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
+import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.utils.SQLUtil;
 
 public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());
@@ -92,10 +94,6 @@ public class PCommands {
 			"-warp 1-7 only.");
 	private static final S_SystemMessage WarpHelp = new S_SystemMessage(
 			"-warp 1-Pandora, 2-SKT, 3-Giran, 4-Werldern, 5-Oren, 6-Orc Town, 7-Silent Cavern, 8-Gludio, 9-Silveria, 10-Behimous");
-	private static final S_SystemMessage BugHelp = new S_SystemMessage(
-			"-bug bugReport");
-	private static final S_SystemMessage BugThanks = new S_SystemMessage(
-			"Bug reported. Thank you for your help!");
 	private static final S_SystemMessage NotDK = new S_SystemMessage(
 			"Only Dragon Knights can use -dkbuff.");
 	private static final S_SystemMessage DKHelp = new S_SystemMessage(
@@ -335,34 +333,20 @@ public class PCommands {
 	}
 
 	private void reportBug(L1PcInstance pc, String bug) {
-		Connection con = null;
-		PreparedStatement pstm = null;
-
-		try {
-			bug = bug.substring(3).trim();
-			if (bug.equals("")) {
-				pc.sendPackets(BugHelp);
-				return;
+		Collection<L1Object> objects = L1World.getInstance().getObject();
+		L1Object bugBoard = null;
+		
+		for(L1Object object : objects) {
+			if(object instanceof L1NpcInstance) {
+				L1NpcInstance npcObject = (L1NpcInstance)object;
+				if(npcObject.getSpawn() != null && 
+						npcObject.getSpawn() == NpcSpawnTable.bugBoard)
+					bugBoard = npcObject;
 			}
-			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("INSERT INTO bugs (bugtext, charname, mapID, mapX, mapY, resolved) VALUES (?, ?, ?, ?, ?, 0);");
-			pstm.setString(1, bug);
-			pstm.setString(2, pc.getName());
-			pstm.setInt(3, pc.getMapId());
-			pstm.setInt(4, pc.getX());
-			pstm.setInt(5, pc.getY());
-			pstm.execute();
-			pc.sendPackets(BugThanks);
-		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage("Could not report bug: ('" + bug
-					+ "', '" + pc.getName() + "', " + pc.getMapId() + ", "
-					+ pc.getX() + ", " + pc.getY() + ");"));
-			e.printStackTrace();
-		} finally {
-			SQLUtil.close(pstm);
-			SQLUtil.close(con);
 		}
+		
+		L1BoardInstance board = (L1BoardInstance) bugBoard;
+		board.onAction(pc, 0);
 	}
 
 	private void checkKarma(L1PcInstance pc) {
