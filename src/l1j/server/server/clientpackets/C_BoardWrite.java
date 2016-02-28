@@ -18,17 +18,25 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BoardTable;
+import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -48,8 +56,41 @@ public class C_BoardWrite extends ClientBasePacket {
 
 		if (tg != null) {
 			L1PcInstance pc = client.getActiveChar();
-			pc.getInventory().consumeItem(L1ItemId.ADENA, 300);
-			BoardTable.getInstance().writeTopic(pc, date, title, content);
+			
+			if(tg instanceof L1NpcInstance
+					&& ((L1NpcInstance)tg).getSpawn() == NpcSpawnTable.bugBoard) {
+				Connection con = null;
+				PreparedStatement pstm = null;
+
+				try {
+					con = L1DatabaseFactory.getInstance().getConnection();
+					pstm = con
+							.prepareStatement("INSERT INTO bugs (bugtext, charname, mapID, mapX, mapY, resolved, title, submitted) VALUES (?, ?, ?, ?, ?, 0, ?, NOW());");
+					pstm.setString(1, content);
+					pstm.setString(2, pc.getName());
+					pstm.setInt(3, pc.getMapId());
+					pstm.setInt(4, pc.getX());
+					pstm.setInt(5, pc.getY());
+					pstm.setString(6, title);
+					pstm.execute();
+					pc.sendPackets(new S_SystemMessage("Thank you for the bug report!"));
+					
+					for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+						if(player.isGm())
+							player.sendPackets(new S_SystemMessage(pc.getName() + " has submitted a bug!"));
+					}
+				} catch (Exception e) {
+					_log.log(Level.WARNING, 
+							String.format("%s submitted a bug report, but an error occurred! Bug Text: %s",
+									pc.getName(), content));
+				} finally {
+					SQLUtil.close(pstm);
+					SQLUtil.close(con);
+				}
+			} else {
+				pc.getInventory().consumeItem(L1ItemId.ADENA, 300);
+				BoardTable.getInstance().writeTopic(pc, date, title, content);
+			}
 		} else {
 			_log.warning("C_BoardWrite: Illegal NPCID : " + id);
 		}
