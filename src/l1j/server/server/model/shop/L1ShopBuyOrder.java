@@ -16,30 +16,24 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server.serverpackets;
+package l1j.server.server.model.shop;
 
-import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.templates.L1ShopItem;
 
-// Referenced classes of package l1j.server.server.serverpackets:
-// ServerBasePacket
-public class S_TaxRate extends ServerBasePacket {
-	private static final String _S__66_TAXRATE = "[S] S_TaxRate";
+public class L1ShopBuyOrder {
+	private final L1ShopItem _item;
+	private final int _count;
 
-	public S_TaxRate(int objectId, int min, int max, int current) {
-		writeC(Opcodes.S_OPCODE_TAXRATE);
-		writeD(objectId);
-		writeC(min);
-		writeC(max);
-		writeC(current);
+	public L1ShopBuyOrder(L1ShopItem item, int count) {
+		_item = item;
+		_count = count;
 	}
 
-	@Override
-	public byte[] getContent() {
-		return getBytes();
+	public L1ShopItem getItem() {
+		return _item;
 	}
 
-	@Override
-	public String getType() {
-		return "[S] S_TaxRate";
+	public int getCount() {
+		return _count;
 	}
 }
