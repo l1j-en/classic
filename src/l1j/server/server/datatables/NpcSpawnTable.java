@@ -42,7 +42,8 @@ public class NpcSpawnTable {
 	private static NpcSpawnTable _instance;
 	private Map<Integer, L1Spawn> _spawntable = new HashMap<Integer, L1Spawn>();
 	private int _highestId;
-
+	public static L1Spawn bugBoard = null;
+	
 	public static NpcSpawnTable getInstance() {
 		if (_instance == null) {
 			_instance = new NpcSpawnTable();
@@ -130,6 +131,9 @@ public class NpcSpawnTable {
 					if (l1spawn.getId() > _highestId) {
 						_highestId = l1spawn.getId();
 					}
+					
+					if(rs.getString("location").toLowerCase().trim().equals("bug board"))
+						bugBoard = l1spawn;
 				}
 			}
 		} catch (SQLException e) {
