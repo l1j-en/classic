@@ -104,7 +104,7 @@ public class L1AllBuff implements L1CommandExecutor {
 						allBuffSkill[i]);
 				new L1SkillUse().handleCommands(target, allBuffSkill[i],
 						target.getId(), target.getX(), target.getY(), null,
-						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF);
+						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF, null, true);
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(String.format(".%1$s <player_name> or .%1$s", cmdName)));

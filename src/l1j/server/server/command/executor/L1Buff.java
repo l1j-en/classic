@@ -62,7 +62,7 @@ public class L1Buff implements L1CommandExecutor {
 			for (L1PcInstance player : players) {
 				new L1SkillUse().handleCommands(player, skillId,
 						player.getId(), player.getX(), player.getY(), null,
-						time, L1SkillUse.TYPE_GMBUFF);
+						time, L1SkillUse.TYPE_GMBUFF, null, true);
 			}
 
 		} catch (Exception e) {
