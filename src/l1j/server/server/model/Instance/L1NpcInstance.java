@@ -47,6 +47,7 @@ import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcChatTable;
+import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
@@ -1186,6 +1187,10 @@ public class L1NpcInstance extends L1Character {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
+		//Cheap fix because GMRoom is also the jail.. this hides the bugboard
+		if(this.getSpawn() == NpcSpawnTable.bugBoard && !perceivedFrom.isGm())
+			return;
+		
 		perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_NPCPack(this));
