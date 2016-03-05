@@ -57,7 +57,9 @@ public class C_Chat extends ClientBasePacket {
 				|| pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
 			return;
 		}
-		if (pc.hasSkillEffect(1005)) {
+		
+		if (pc.hasSkillEffect(1005)
+				|| (pc.getMapId() == 99 && !pc.isGm() && chatType != 0)) { // jailed users can't chat!
 			pc.sendPackets(new S_ServerMessage(242));
 			return;
 		}
