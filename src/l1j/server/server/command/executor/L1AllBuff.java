@@ -77,9 +77,8 @@ public class L1AllBuff implements L1CommandExecutor {
 				MEDITATION, PHYSICAL_ENCHANT_STR, BLESS_WEAPON, BERSERKERS,
 				IMMUNE_TO_HARM, ADVANCE_SPIRIT, REDUCTION_ARMOR, BOUNCE_ATTACK,
 				SOLID_CARRIAGE, ENCHANT_VENOM, BURNING_SPIRIT, VENOM_RESIST,
-				DOUBLE_BRAKE, UNCANNY_DODGE, DRESS_EVASION, GLOWING_AURA,
-				BRAVE_AURA, RESIST_MAGIC, CLEAR_MIND, ELEMENTAL_PROTECTION,
-				AQUA_PROTECTER, BURNING_WEAPON, IRON_SKIN, EXOTIC_VITALIZE,
+				DOUBLE_BRAKE, UNCANNY_DODGE, DRESS_EVASION, RESIST_MAGIC, CLEAR_MIND, 
+				ELEMENTAL_PROTECTION, AQUA_PROTECTER, BURNING_WEAPON, IRON_SKIN, EXOTIC_VITALIZE,
 				WATER_LIFE, ELEMENTAL_FIRE, SOUL_OF_FLAME, ADDITIONAL_FIRE };
 		try {
 			StringTokenizer st = new StringTokenizer(arg);
@@ -104,7 +103,7 @@ public class L1AllBuff implements L1CommandExecutor {
 						allBuffSkill[i]);
 				new L1SkillUse().handleCommands(target, allBuffSkill[i],
 						target.getId(), target.getX(), target.getY(), null,
-						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF);
+						skill.getBuffDuration() * 1000, L1SkillUse.TYPE_GMBUFF, null, true);
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage(String.format(".%1$s <player_name> or .%1$s", cmdName)));

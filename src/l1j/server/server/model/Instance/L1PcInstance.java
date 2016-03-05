@@ -1302,22 +1302,29 @@ public class L1PcInstance extends L1Character {
 						if (lastAttacker instanceof L1PcInstance) {
 							player = (L1PcInstance) lastAttacker;
 							L1World.getInstance().broadcastServerMessage(
-									player.getName() + " just owned "
-											+ getName() + " in battle!");
+									String.format("%s%s just owned %s%s in battle!",
+											player.getName(), 
+											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+											getName(),
+											getClan() == null ? "" : " [" + getClanname() + "]"));
 						} else if (lastAttacker instanceof L1PetInstance) {
 							player = (L1PcInstance) ((L1PetInstance) lastAttacker)
 									.getMaster();
 							L1World.getInstance().broadcastServerMessage(
-									player.getName() + " just ate " + getName()
-											+ "'s face with uber pets!");
+									String.format("%s%s just ate %s's%s face with uber pets!",
+											player.getName(), 
+											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+											getName(),
+											getClan() == null ? "" : " [" + getClanname() + "]"));
 						} else if (lastAttacker instanceof L1SummonInstance) {
 							player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
 									.getMaster();
-							L1World.getInstance()
-									.broadcastServerMessage(
-											player.getName() + " just tore up "
-													+ getName()
-													+ " with evil summons!");
+							L1World.getInstance().broadcastServerMessage(
+									String.format("%s%s just tore up %s%s with evil summons!",
+											player.getName(), 
+											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+											getName(),
+											getClan() == null ? "" : " [" + getClanname() + "]"));
 						}
 						if (player != null) {
 							if (player instanceof L1PcInstance) {
