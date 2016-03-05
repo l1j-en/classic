@@ -1,0 +1,3 @@
+ALTER TABLE bugs ADD title VARCHAR(20) NOT NULL;
+ALTER TABLE bugs ADD submitted DATETIME NOT NULL;
+INSERT INTO spawnlist_npc VALUES(1900020, 'Bug board', 1, 81126, 32736, 32793, 0, 0, 0, 0, 99, 9);

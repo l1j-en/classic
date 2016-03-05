@@ -409,3 +409,4 @@ update shop set purchasing_price = -1 where item_id = 40746; -- Mithril Arrow
 
 REPLACE INTO commands (name, access_level, class_name) VALUES('toggleshop', '100', 'L1ToggleShop');
 REPLACE INTO commands (name, access_level, class_name) VALUES('dropitems', '100', 'L1DropItems');
+UPDATE commands SET name = 'chatban' where name = 'chatng';

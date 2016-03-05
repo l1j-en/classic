@@ -20,9 +20,12 @@ package l1j.server.server.clientpackets;
 
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BoardTable;
+import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1BoardInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -37,6 +40,14 @@ public class C_BoardDelete extends ClientBasePacket {
 		L1Object obj = L1World.getInstance().findObject(objId);
 		L1BoardInstance board = (L1BoardInstance) obj;
 		if (board != null) {
+			boolean isBugBoard = board.getSpawn() == NpcSpawnTable.bugBoard;
+			
+			L1PcInstance pc = client.getActiveChar();
+			if(isBugBoard) {
+				pc.sendPackets(new S_SystemMessage("Bug reports cannot be deleted."));
+				return;
+			}
+			
 			BoardTable.getInstance().deleteTopic(topicId);
 		}
 	}

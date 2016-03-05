@@ -529,6 +529,13 @@ public class L1SkillUse {
 	public void handleCommands(L1PcInstance player, int skillId, int targetId,
 			int x, int y, String message, int timeSecs, int type,
 			L1Character attacker) {
+		handleCommands(player, skillId, targetId, x, y, message, timeSecs, type,
+				attacker, false);
+	}
+
+	public void handleCommands(L1PcInstance player, int skillId, int targetId,
+			int x, int y, String message, int timeSecs, int type,
+			L1Character attacker, boolean isCommand) {
 
 		try {
 			// wrap in try/catch to make sure the command doesn't
@@ -537,9 +544,9 @@ public class L1SkillUse {
 				if(targetId > 0) {
 					L1Object object = L1World.getInstance().findObject(targetId);
 					
-					// no skills can be used on an invul gm!
-					if(object != null && object instanceof L1PcInstance &&
-							((L1PcInstance)object).isGmInvul()) {
+					// no skills can be used on an invul gm... unless it is a command!
+					if(!isCommand && object != null && object instanceof L1PcInstance
+							&& ((L1PcInstance)object).isGmInvul()) {
 						
 						player.sendPackets(new S_ServerMessage(281));
 						return;
