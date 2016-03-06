@@ -43,7 +43,7 @@ public class C_BoardRead extends ClientBasePacket {
 		L1Object l1object = L1World.getInstance().findObject(i);
 		L1BoardInstance board = (L1BoardInstance) l1object;
 		L1PcInstance l1pcinstance = client.getActiveChar();
-		if (board.getNpcTemplate().get_npcId() == 81130) {
+		if (board.getNpcTemplate().get_npcId() == 81150) {
 			board.onRankingRead(l1pcinstance, readD());
 
 		} else {
