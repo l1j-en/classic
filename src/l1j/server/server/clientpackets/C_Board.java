@@ -43,7 +43,7 @@ public class C_Board extends ClientBasePacket {
 		if (obj instanceof L1BoardInstance) {
 			L1BoardInstance board = (L1BoardInstance) obj;
 			board.onAction(pc);
-			if (board.getNpcTemplate().get_npcId() == 81129) {
+			if (board.getNpcTemplate().get_npcId() == 81130) {
 				board.onRanking(pc);
 			}
 		} else if (obj instanceof L1AuctionBoardInstance) {
