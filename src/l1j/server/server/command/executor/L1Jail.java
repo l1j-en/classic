@@ -1,5 +1,6 @@
 package l1j.server.server.command.executor;
 
+import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -28,8 +29,16 @@ public class L1Jail implements L1CommandExecutor {
 						+ " jailed you for bad behavior."));
 				pc.sendPackets(new S_SystemMessage(arg + " has been jailed."));
 			} else {
-				pc.sendPackets(new S_SystemMessage((new StringBuilder())
-						.append(arg).append(" is not online.").toString()));
+				convict = CharacterTable.getInstance().restoreCharacter(arg);
+				
+				if(convict == null) {
+					pc.sendPackets(new S_SystemMessage("A character with the name '" + arg + "' does not exist."));
+					return;
+				}
+				
+				CharacterTable.getInstance().moveCharacter(convict, 32737, 32796, (short) 99);
+				
+				pc.sendPackets(new S_SystemMessage(convict.getName() + " has been jailed."));
 			}
 		} catch (Exception e) {
 			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name>"));
