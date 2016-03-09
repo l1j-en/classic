@@ -332,9 +332,14 @@ public class C_LoginToServer extends ClientBasePacket {
 		L1ExcludingList exList = exTable.getExcludeList(pc.getId());
 		exList.sendExcludeList();
 		
-		if(Config.ALT_POLYEVENT) {
+		if(Config.ALT_POLYEVENT)
 			pc.sendPackets(new S_SystemMessage("\\fRPolymorph Event Is Currently Running. Enjoy!"));
+		
+		if(pc.getMapId() == 99 && !pc.isGm()) {
+			pc.sendPackets(new S_SystemMessage("\\fRYou've logged in while jailed. For more info, "));
+			pc.sendPackets(new S_SystemMessage("\\fR    contact a GameMaster."));
 		}
+			
 	}
 
 	private void checkUnreadMail(final L1PcInstance character) {
