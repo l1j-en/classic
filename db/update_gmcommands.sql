@@ -72,3 +72,4 @@ REPLACE INTO commands VALUES('pledge', '100', 'L1Pledge', 'Displays all members 
 REPLACE INTO commands VALUES('accountips', '100', 'L1AccountIps', 'Display all IP addresses that have accessed an account and their last login date.');
 REPLACE INTO commands VALUES('trace', '100', 'L1Trace', 'Displays all accounts that IP has accessed and when.');
 REPLACE INTO commands VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable to skills and attacks.');
+REPLACE INTO commands VALUES('movechar', '100', 'L1MoveChar', 'Allows you to move a character (online or offline) to a specific location.', 0);
