@@ -516,6 +516,8 @@ public final class Config {
 	public static int Show_INGAMENEWS_Time;
 	
 	public static boolean USE_PINE_IN_SAFETY;
+	
+	public static boolean MOVE_MACROABLE_NPCS;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -809,6 +811,7 @@ public final class Config {
 			AUTO_STONE = Boolean.parseBoolean(altSettings.getProperty(
 					"UseAutoStone", "False"));
 			USE_PINE_IN_SAFETY = Boolean.parseBoolean(altSettings.getProperty("UsePineInSafety", "True"));
+			MOVE_MACROABLE_NPCS = Boolean.parseBoolean(altSettings.getProperty("MoveMacroableNpcs", "False"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

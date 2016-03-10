@@ -38,6 +38,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.utils.NpcMover;
 import l1j.server.server.utils.collections.Lists;
 
 public class L1PolyRace {
@@ -59,6 +60,15 @@ public class L1PolyRace {
 	private final int[] fragment = { 50515, 50516, 50518, 50519 };
 	private static Random _random = new Random();
 	private static L1PolyRace instance;
+	
+	private static final int[][] MANAGER_SPAWN_LOCATIONS = { 
+			 { 32616, 32778, 4 },
+			 { 32614, 32779, 4 },
+			 { 32618, 32779, 4 },
+			 { 32622, 32785, 4 },
+			 { 32610, 32785, 4 },
+			 { 32616, 32719, 4 }
+	 };
 
 	public static L1PolyRace getInstance() {
 		if (instance == null) {
@@ -157,6 +167,8 @@ public class L1PolyRace {
 		}
 		startCompareTimer();
 		startClockTimer();
+		
+		NpcMover.Move(1310454, MANAGER_SPAWN_LOCATIONS);
 	}
 
 	private void setGameWinner(L1PcInstance pc) {
