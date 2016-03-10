@@ -32,6 +32,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
+import l1j.server.server.utils.NpcMover;
 
 public class L1PetMatch {
 
@@ -48,6 +49,12 @@ public class L1PetMatch {
 
 	private static final short[] PET_MATCH_MAPID = { 5125, 5131, 5132, 5133,
 			5134 };
+	
+	private static final int[][] MANAGER_SPAWN_LOCATIONS = { 
+				 { 32634, 32738, 4 },
+				 { 32627, 32739, 4 },
+				 { 32630, 32738, 4 }
+		 };
 
 	private String[] _pc1Name = new String[MAX_PET_MATCH];
 	private String[] _pc2Name = new String[MAX_PET_MATCH];
@@ -184,6 +191,8 @@ public class L1PetMatch {
 		L1PetMatchTimer timer = new L1PetMatchTimer(_pet1[petMatchNo],
 				_pet2[petMatchNo], petMatchNo);
 		timer.begin();
+		
+		NpcMover.Move(89603, MANAGER_SPAWN_LOCATIONS);
 	}
 
 	public void endPetMatch(int petMatchNo, int winner) {
