@@ -3065,7 +3065,7 @@ public class L1SkillUse {
 									buffIconDuration));
 							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
 						} else {
-							pc.sendPackets(new S_SystemMessage("Not enough Forbidden Fruit!"));
+							pc.sendPackets(new S_ServerMessage(337, "$6073"));
 						}
 					} else if (_skillId == AWAKEN_ANTHARAS) {
 						L1PcInstance pc = (L1PcInstance) cha;
