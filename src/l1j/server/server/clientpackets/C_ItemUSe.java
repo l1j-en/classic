@@ -521,12 +521,12 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == FORBIDDEN_FRUIT) {
-				if (pc.isDragonKnight() || pc.isIllusionist()) {
+				if (pc.isIllusionist()) {
 					useBravePotion(pc, itemId);
+					inventory.removeItem(l1iteminstance, 1);
 				} else {
-					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					pc.sendPackets(new S_ServerMessage(264)); // Class can't use this item
 				}
-				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == ELVEN_WAFER || itemId == B_ELVEN_WAFER) {
 				if (pc.isElf()) {
 					useBravePotion(pc, itemId);
@@ -2928,12 +2928,6 @@ public class C_ItemUSe extends ClientBasePacket {
 			addtime = 350;
 		} else if (item_id == FORBIDDEN_FRUIT) {
 			addtime = 480;
-			if (pc.hasSkillEffect(STATUS_BRAVE)) {
-				pc.killSkillEffectTimer(STATUS_BRAVE);
-				pc.sendPackets(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.broadcastPacket(new S_SkillBrave(pc.getId(), 0, 0));
-				pc.setBraveSpeed(0);
-			}
 		} else if (item_id == 41415) {
 			addtime = 1800;
 		} else if (item_id == ELVEN_WAFER) {

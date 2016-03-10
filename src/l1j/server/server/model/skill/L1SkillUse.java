@@ -58,6 +58,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.Instance.L1TeleporterInstance;
 import l1j.server.server.model.Instance.L1TowerInstance;
+import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.random.RandomGenerator;
@@ -95,6 +96,7 @@ import l1j.server.server.serverpackets.S_SkillIconWaterLife;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Sound;
 import l1j.server.server.serverpackets.S_Strup;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_TrueTarget;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
@@ -190,7 +192,7 @@ public class L1SkillUse {
 					STORM_SHOT },
 			{ SHIELD, SHADOW_ARMOR, EARTH_SKIN, EARTH_BLESS, IRON_SKIN },
 			{ HOLY_WALK, MOVING_ACCELERATION, WIND_WALK, STATUS_BRAVE,
-					STATUS_ELFBRAVE, BLOODLUST },
+					STATUS_ELFBRAVE },
 			{ HASTE, GREATER_HASTE, STATUS_HASTE },
 			{ PHYSICAL_ENCHANT_DEX, DRESS_DEXTERITY },
 			{ PHYSICAL_ENCHANT_STR, DRESS_MIGHTY },
@@ -1331,10 +1333,6 @@ public class L1SkillUse {
 			pc.sendPackets(new S_SkillBrave(pc.getId(), 4, buffIconDuration));
 			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 			break;
-		case BLOODLUST:
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, buffIconDuration));
-			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
-			break;
 		case SLOW:
 		case MASS_SLOW:
 		case ENTANGLE:
@@ -1798,7 +1796,7 @@ public class L1SkillUse {
 
 				if (cha.hasSkillEffect(_skillId) && _skillId != SHOCK_STUN
 						&& _skillId != BONE_BREAK && _skillId != ARM_BREAKER
-						&& _skillId != MASS_SHOCK_STUN) {
+						&& _skillId != MASS_SHOCK_STUN && _skillId != BLOODLUST) {
 					addMagicList(cha, true);
 					if (_skillId != SHAPE_CHANGE) {
 						continue;
@@ -3055,15 +3053,20 @@ public class L1SkillUse {
 						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 					} else if (_skillId == BLOODLUST) {
 						L1PcInstance pc = (L1PcInstance) cha;
-						// Remove Forbidden Fruit (STATUS_RIBRAVE) first
-						pc.sendPackets(new S_SkillBrave(pc.getId(), 4, 0));
-						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
-						pc.removeSkillEffect(STATUS_RIBRAVE);
-
-						pc.setBraveSpeed(6);
-						pc.sendPackets(new S_SkillBrave(pc.getId(), 6,
-								buffIconDuration));
-						pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
+						if(pc.getInventory().consumeItem(L1ItemId.FORBIDDEN_FRUIT, 1)) {
+							// remove the forbidden fruit effect since we are now
+							// combining the two
+							pc.sendPackets(new S_SkillBrave(pc.getId(), 4, 0));
+							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
+							pc.removeSkillEffect(STATUS_RIBRAVE);
+							
+							pc.setBraveSpeed(1);
+							pc.sendPackets(new S_SkillBrave(pc.getId(), 1,
+									buffIconDuration));
+							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
+						} else {
+							pc.sendPackets(new S_SystemMessage("Not enough Forbidden Fruit!"));
+						}
 					} else if (_skillId == AWAKEN_ANTHARAS) {
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1Awake.start(pc, _skillId);

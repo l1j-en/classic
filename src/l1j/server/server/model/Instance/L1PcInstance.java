@@ -2435,7 +2435,8 @@ public class L1PcInstance extends L1Character {
 	public boolean isFastMovable() {
 		return (hasSkillEffect(HOLY_WALK)
 				|| hasSkillEffect(MOVING_ACCELERATION)
-				|| hasSkillEffect(WIND_WALK) || hasSkillEffect(STATUS_RIBRAVE));
+				|| hasSkillEffect(WIND_WALK) || hasSkillEffect(STATUS_RIBRAVE)
+				|| hasSkillEffect(BLOODLUST));
 	}
 
 	public boolean isFastAttackable() {
