@@ -1,0 +1,60 @@
+# 52 lancemaster
+INSERT INTO spr_action VALUES ('7332', '0', '16', '24');
+INSERT INTO spr_action VALUES ('7332', '1', '16', '24');
+INSERT INTO spr_action VALUES ('7332', '2', '14', '24');
+INSERT INTO spr_action VALUES ('7332', '3', '40', '24');
+INSERT INTO spr_action VALUES ('7332', '8', '56', '24');
+INSERT INTO spr_action VALUES ('7332', '18', '19', '24');
+INSERT INTO spr_action VALUES ('7332', '19', '22', '24');
+INSERT INTO spr_action VALUES ('7332', '24', '16', '24');
+INSERT INTO spr_action VALUES ('7332', '25', '16', '24');
+INSERT INTO spr_action VALUES ('7332', '26', '14', '24');
+INSERT INTO spr_action VALUES ('7332', '27', '40', '24');
+# 55 lancemaster
+INSERT INTO spr_action VALUES ('7338', '0', '16', '24');
+INSERT INTO spr_action VALUES ('7338', '1', '15', '24');
+INSERT INTO spr_action VALUES ('7338', '2', '14', '24');
+INSERT INTO spr_action VALUES ('7338', '3', '40', '24');
+INSERT INTO spr_action VALUES ('7338', '8', '56', '24');
+INSERT INTO spr_action VALUES ('7338', '18', '17', '24');
+INSERT INTO spr_action VALUES ('7338', '19', '21', '24');
+INSERT INTO spr_action VALUES ('7338', '24', '16', '24');
+INSERT INTO spr_action VALUES ('7338', '25', '15', '24');
+INSERT INTO spr_action VALUES ('7338', '26', '14', '24');
+INSERT INTO spr_action VALUES ('7338', '27', '40', '24');
+# 60 lancemaster
+INSERT INTO spr_action VALUES ('7339', '0', '16', '24');
+INSERT INTO spr_action VALUES ('7339', '1', '15', '24');
+INSERT INTO spr_action VALUES ('7339', '2', '14', '24');
+INSERT INTO spr_action VALUES ('7339', '3', '40', '24');
+INSERT INTO spr_action VALUES ('7339', '8', '56', '24');
+INSERT INTO spr_action VALUES ('7339', '18', '17', '24');
+INSERT INTO spr_action VALUES ('7339', '19', '20', '24');
+INSERT INTO spr_action VALUES ('7339', '24', '16', '24');
+INSERT INTO spr_action VALUES ('7339', '25', '15', '24');
+INSERT INTO spr_action VALUES ('7339', '26', '14', '24');
+INSERT INTO spr_action VALUES ('7339', '27', '40', '24');
+# 65 lancemaster
+INSERT INTO spr_action VALUES ('7340', '0', '16', '24');
+INSERT INTO spr_action VALUES ('7340', '1', '15', '24');
+INSERT INTO spr_action VALUES ('7340', '2', '14', '24');
+INSERT INTO spr_action VALUES ('7340', '3', '40', '24');
+INSERT INTO spr_action VALUES ('7340', '8', '56', '24');
+INSERT INTO spr_action VALUES ('7340', '18', '16', '24');
+INSERT INTO spr_action VALUES ('7340', '19', '20', '24');
+INSERT INTO spr_action VALUES ('7340', '24', '16', '24');
+INSERT INTO spr_action VALUES ('7340', '25', '15', '24');
+INSERT INTO spr_action VALUES ('7340', '26', '14', '24');
+INSERT INTO spr_action VALUES ('7340', '27', '40', '24');
+# level 70 lancemaster speeds 
+INSERT INTO spr_action VALUES ('7341', '0', '16', '24');
+INSERT INTO spr_action VALUES ('7341', '1', '15', '24');
+INSERT INTO spr_action VALUES ('7341', '2', '14', '24');
+INSERT INTO spr_action VALUES ('7341', '3', '40', '24');
+INSERT INTO spr_action VALUES ('7341', '8', '56', '24');
+INSERT INTO spr_action VALUES ('7341', '18', '16', '24');
+INSERT INTO spr_action VALUES ('7341', '19', '18', '24');
+INSERT INTO spr_action VALUES ('7341', '24', '16', '24');
+INSERT INTO spr_action VALUES ('7341', '25', '15', '24');
+INSERT INTO spr_action VALUES ('7341', '26', '14', '24');
+INSERT INTO spr_action VALUES ('7341', '27', '40', '24');
