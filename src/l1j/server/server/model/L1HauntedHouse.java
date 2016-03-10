@@ -29,6 +29,7 @@ import l1j.server.Config;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
+import l1j.server.server.utils.NpcMover;
 
 public class L1HauntedHouse {
 	public static final int STATUS_NONE = 0;
@@ -36,6 +37,13 @@ public class L1HauntedHouse {
 	public static final int STATUS_PLAYING = 2;
 
 	private static final int HAUNTED_HOUSE_MAP = 5140;
+	
+	private static final int[][] MANAGER_SPAWN_LOCATIONS = { 
+			 { 32620, 32769, 4 },
+			 { 32628, 32767, 4 },
+			 { 32620, 32766, 4 },
+			 { 32623, 32768, 4 }
+	 };
 
 	private final List<L1PcInstance> _members = new ArrayList<L1PcInstance>();
 	private int _hauntedHouseStatus = STATUS_NONE;
@@ -81,6 +89,8 @@ public class L1HauntedHouse {
 		}
 
 		changeDoors(true);
+		
+		NpcMover.Move(89600, MANAGER_SPAWN_LOCATIONS);
 	}
 
 	public void endHauntedHouse() {
