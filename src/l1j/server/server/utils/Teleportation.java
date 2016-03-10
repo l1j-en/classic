@@ -182,9 +182,9 @@ public class Teleportation {
 					.getSkillEffectTimeSec(WIND_SHACKLE)));
 		}
 		if (pc.hasSkillEffect(BLOODLUST)) {
-			pc.sendPackets(new S_SkillBrave(pc.getId(), 6, pc
+			pc.sendPackets(new S_SkillBrave(pc.getId(), 1, pc
 					.getSkillEffectTimeSec(BLOODLUST)));
-			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 6, 0));
+			pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
 		}
 	}
 
