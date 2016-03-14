@@ -36,7 +36,7 @@ public class L1Trace implements L1CommandExecutor {
 			
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT a.LoginTime, A.Ip, A.Account, " + 
+					.prepareStatement("SELECT a.LoginTime, a.Ip, a.Account, " + 
 					"(SELECT Count(*) FROM ban_ip WHERE ip = a.Ip) > 0 As Banned FROM `LogIP` a " + 
 					"LEFT JOIN `LogIP` b ON a.Ip = b.Ip AND a.Account = b.Account AND " + 
 					"a.LoginTime < b.LoginTime WHERE b.LoginTime is NULL AND a.Ip = ? " + 
