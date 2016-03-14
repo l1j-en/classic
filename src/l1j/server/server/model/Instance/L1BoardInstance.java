@@ -22,6 +22,7 @@ package l1j.server.server.model.Instance;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.serverpackets.S_Board;
 import l1j.server.server.serverpackets.S_BoardRead;
+import l1j.server.server.serverpackets.S_Ranking;
 import l1j.server.server.templates.L1Npc;
 
 public class L1BoardInstance extends L1NpcInstance {
@@ -37,14 +38,23 @@ public class L1BoardInstance extends L1NpcInstance {
 		player.sendPackets(new S_Board(this, player));
 	}
 
-	public void onAction(L1PcInstance player, int number) {	
+	public void onAction(L1PcInstance player, int number) {
 		player.sendPackets(new S_Board(this, number, player));
 	}
 
 	public void onActionRead(L1PcInstance player, int number) {
-		if(this.getSpawn() != NpcSpawnTable.bugBoard)
+		if (this.getSpawn() != NpcSpawnTable.bugBoard)
 			player.sendPackets(new S_BoardRead(number));
 		else
 			player.sendPackets(new S_BoardRead(player, number));
 	}
+
+	public void onRanking(L1PcInstance player) {
+		player.sendPackets(new S_Ranking(this));
+	}
+
+	public void onRankingRead(L1PcInstance player, int number) {
+		player.sendPackets(new S_Ranking(player, number));
+	}
+
 }
