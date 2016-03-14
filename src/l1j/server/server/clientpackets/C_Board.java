@@ -23,6 +23,7 @@ import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1AuctionBoardInstance;
 import l1j.server.server.model.Instance.L1BoardInstance;
+import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_Board
@@ -34,14 +35,21 @@ public class C_Board extends ClientBasePacket {
 		return (obj instanceof L1BoardInstance || obj instanceof L1AuctionBoardInstance);
 	}
 
-	public C_Board(byte abyte0[], ClientThread client) {
+	public C_Board(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		int objectId = readD();
 		L1Object obj = L1World.getInstance().findObject(objectId);
-		if (!isBoardInstance(obj)) {
-			return;
+		L1PcInstance pc = clientthread.getActiveChar();
+		if (obj instanceof L1BoardInstance) {
+			L1BoardInstance board = (L1BoardInstance) obj;
+			board.onAction(pc);
+			if (board.getNpcTemplate().get_npcId() == 81150) {
+				board.onRanking(pc);
+			}
+		} else if (obj instanceof L1AuctionBoardInstance) {
+			L1AuctionBoardInstance auctionboard = (L1AuctionBoardInstance) obj;
+			auctionboard.onAction(pc);
 		}
-		obj.onAction(client.getActiveChar());
 	}
 
 	@Override
