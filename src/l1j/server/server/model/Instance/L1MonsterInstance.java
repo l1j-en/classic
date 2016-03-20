@@ -2,18 +2,23 @@ package l1j.server.server.model.Instance;
 
 import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1Attack;
+import l1j.server.server.model.L1BossSpawn;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1NpcTalkData;
@@ -31,6 +36,7 @@ import l1j.server.server.serverpackets.S_SkillBrave;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.CalcExp;
+import l1j.server.server.utils.SQLUtil;
 
 public class L1MonsterInstance extends L1NpcInstance {
 
@@ -428,6 +434,38 @@ public class L1MonsterInstance extends L1NpcInstance {
 			allTargetClear();
 
 			startDeleteTimer();
+			
+			// Note: this will not count bosses spawned by GMs.
+			if(_lastAttacker instanceof L1PcInstance &&
+					getSpawn() instanceof L1BossSpawn) {
+				try {
+					L1PcInstance killer = (L1PcInstance)_lastAttacker;
+					
+					Timestamp ts = new Timestamp(
+							System.currentTimeMillis());
+					Connection con = null;
+					PreparedStatement pstm = null;
+					con = L1DatabaseFactory.getInstance()
+							.getConnection();
+					pstm = con
+							.prepareStatement("INSERT INTO boss_kills (npcid, boss_name, locx, locy, mapid, killer_name, clan_name, kill_date) VALUES(?,?,?,?,?,?,?,?)");
+					pstm.setInt(1,  getNpcTemplate().get_npcId());
+					pstm.setString(2, getName());
+					pstm.setInt(3, getX());
+					pstm.setInt(4, getY());
+					pstm.setInt(5, getMapId());
+					pstm.setString(6, killer.getName());
+					pstm.setString(7, killer.getClanname());
+					pstm.setTimestamp(8, ts);
+					
+					pstm.execute();
+					SQLUtil.close(pstm);
+					SQLUtil.close(con);
+				} catch (Exception e) {
+					_log.log(Level.SEVERE,
+							"Error occurred logging boss kill!: " + e.getLocalizedMessage(), e);
+				}
+			}
 		}
 	}
 
