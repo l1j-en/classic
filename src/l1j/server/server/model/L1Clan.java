@@ -62,11 +62,11 @@ public class L1Clan {
 	}
 
 	public String getClanName() {
-		return _clanName;
+		return _clanName.replace(" ", "");
 	}
 
 	public void setClanName(String clan_name) {
-		_clanName = clan_name;
+		_clanName = clan_name.replace(" ", "");
 	}
 
 	public int getLeaderId() {
