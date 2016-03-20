@@ -632,260 +632,272 @@ public class L1SkillUse {
 
 	private boolean isTarget(L1Character cha) {
 		boolean flg = false;
-
-		if (cha instanceof L1PcInstance) {
-			L1PcInstance pc = (L1PcInstance) cha;
-			if (pc.isGhost() || pc.isGmInvis()) {
-				return false;
-			}
-		}
-		if (_calcType == NPC_PC
-				&& (cha instanceof L1PcInstance || cha instanceof L1PetInstance || cha instanceof L1SummonInstance)) {
-			flg = true;
-		}
-
-		if (cha instanceof L1DoorInstance) {
-			if (cha.getMaxHp() == 0 || cha.getMaxHp() == 1) {
-				return false;
-			}
-		}
-
-		if (cha instanceof L1DollInstance && _skillId != HASTE) {
-			return false;
-		}
-
-		if (_calcType == PC_NPC
-				&& _target instanceof L1NpcInstance
-				&& !(_target instanceof L1PetInstance)
-				&& !(_target instanceof L1SummonInstance)
-				&& (cha instanceof L1PetInstance
-						|| cha instanceof L1SummonInstance || cha instanceof L1PcInstance)) {
-			return false;
-		}
-
-		if (_calcType == PC_NPC && _target instanceof L1NpcInstance
-				&& !(_target instanceof L1GuardInstance)
-				&& cha instanceof L1GuardInstance) {
-			return false;
-		}
-
-		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
-				&& _calcType == NPC_PC
-				&& !(cha instanceof L1PetInstance)
-				&& !(cha instanceof L1SummonInstance)
-				&& !(cha instanceof L1PcInstance)) {
-			return false;
-		}
-
-		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
-				&& _calcType == NPC_NPC
-				&& _user instanceof L1MonsterInstance
-				&& cha instanceof L1MonsterInstance) {
-			return false;
-		}
-
-		if (_skill.getTarget().equals("none")
-				&& _skill.getType() == L1Skill.TYPE_ATTACK
-				&& (cha instanceof L1AuctionBoardInstance
-						|| cha instanceof L1BoardInstance
-						|| cha instanceof L1CrownInstance
-						|| cha instanceof L1DwarfInstance
-						|| cha instanceof L1EffectInstance
-						|| cha instanceof L1FieldObjectInstance
-						|| cha instanceof L1FurnitureInstance
-						|| cha instanceof L1HousekeeperInstance
-						|| cha instanceof L1MerchantInstance || cha instanceof L1TeleporterInstance)) {
-			return false;
-		}
-
-		if (_skill.getType() == L1Skill.TYPE_ATTACK
-				&& cha.getId() == _user.getId()) {
-			return false;
-		}
-
-		if (cha.getId() == _user.getId() && _skillId == HEAL_ALL) {
-			return false;
-		}
-
-		int targetTo = _skill.getTargetTo();
-		if (((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC
-				|| (targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || (targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY)
-				&& cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
-			return true;
-		}
-
-		if (_user instanceof L1PcInstance
-				&& (_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
-				&& _isPK == false) {
-			if (cha instanceof L1SummonInstance) {
-				L1SummonInstance summon = (L1SummonInstance) cha;
-				if (_player.getId() == summon.getMaster().getId()) {
-					return false;
-				}
-			} else if (cha instanceof L1PetInstance) {
-				L1PetInstance pet = (L1PetInstance) cha;
-				if (_player.getId() == pet.getMaster().getId()) {
+		
+		try {
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				if (pc.isGhost() || pc.isGmInvis()) {
 					return false;
 				}
 			}
-		}
+			if (_calcType == NPC_PC
+					&& (cha instanceof L1PcInstance || cha instanceof L1PetInstance || cha instanceof L1SummonInstance)) {
+				flg = true;
+			}
 
-		if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
-				&& !(cha instanceof L1MonsterInstance)
-				&& _isPK == false
-				&& _target instanceof L1PcInstance) {
-			L1PcInstance enemy = (L1PcInstance) cha;
-			if (_skillId == COUNTER_DETECTION
-					&& enemy.getZoneType() != ZoneType.Safety
-					&& (cha.hasSkillEffect(INVISIBILITY) || cha
-							.hasSkillEffect(BLIND_HIDING))) {
+			if (cha instanceof L1DoorInstance) {
+				if (cha.getMaxHp() == 0 || cha.getMaxHp() == 1) {
+					return false;
+				}
+			}
+
+			if (cha instanceof L1DollInstance && _skillId != HASTE) {
+				return false;
+			}
+
+			if (_calcType == PC_NPC
+					&& _target instanceof L1NpcInstance
+					&& !(_target instanceof L1PetInstance)
+					&& !(_target instanceof L1SummonInstance)
+					&& (cha instanceof L1PetInstance
+							|| cha instanceof L1SummonInstance || cha instanceof L1PcInstance)) {
+				return false;
+			}
+
+			if (_calcType == PC_NPC && _target instanceof L1NpcInstance
+					&& !(_target instanceof L1GuardInstance)
+					&& cha instanceof L1GuardInstance) {
+				return false;
+			}
+
+			if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
+					&& _calcType == NPC_PC
+					&& !(cha instanceof L1PetInstance)
+					&& !(cha instanceof L1SummonInstance)
+					&& !(cha instanceof L1PcInstance)) {
+				return false;
+			}
+
+			if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
+					&& _calcType == NPC_NPC
+					&& _user instanceof L1MonsterInstance
+					&& cha instanceof L1MonsterInstance) {
+				return false;
+			}
+			
+			// TODO -- added L1GuardInstance to this to allow using AOE around
+			// guards without it crapping out. This means AOE will not work on 
+			// castle guards either, but it will at least now allow hitting stuff
+			// when they're around guards.
+			if (_skill.getTarget().equals("none")
+					&& _skill.getType() == L1Skill.TYPE_ATTACK
+					&& (cha instanceof L1AuctionBoardInstance
+							|| cha instanceof L1BoardInstance
+							|| cha instanceof L1CrownInstance
+							|| cha instanceof L1DwarfInstance
+							|| cha instanceof L1EffectInstance
+							|| cha instanceof L1FieldObjectInstance
+							|| cha instanceof L1FurnitureInstance
+							|| cha instanceof L1HousekeeperInstance
+							|| cha instanceof L1MerchantInstance
+							|| cha instanceof L1TeleporterInstance
+							|| cha instanceof L1GuardInstance)) {
+				return false;
+			}
+
+			if (_skill.getType() == L1Skill.TYPE_ATTACK
+					&& cha.getId() == _user.getId()) {
+				return false;
+			}
+
+			if (cha.getId() == _user.getId() && _skillId == HEAL_ALL) {
+				return false;
+			}
+
+			int targetTo = _skill.getTargetTo();
+			if (((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC
+					|| (targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN || (targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY)
+					&& cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
 				return true;
 			}
-			if (_player.getClanid() != 0 && enemy.getClanid() != 0) {
-				for (L1War war : L1World.getInstance().getWarList()) {
-					if (war.CheckClanInWar(_player.getClanname())) {
-						if (war.CheckClanInSameWar(_player.getClanname(),
-								enemy.getClanname())) {
-							if (L1CastleLocation.checkInAllWarArea(
-									enemy.getX(), enemy.getY(),
-									enemy.getMapId())) {
-								return true;
+
+			if (_user instanceof L1PcInstance
+					&& (_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
+					&& _isPK == false) {
+				if (cha instanceof L1SummonInstance) {
+					L1SummonInstance summon = (L1SummonInstance) cha;
+					if (_player.getId() == summon.getMaster().getId()) {
+						return false;
+					}
+				} else if (cha instanceof L1PetInstance) {
+					L1PetInstance pet = (L1PetInstance) cha;
+					if (_player.getId() == pet.getMaster().getId()) {
+						return false;
+					}
+				}
+			}
+
+			if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
+					&& !(cha instanceof L1MonsterInstance)
+					&& _isPK == false
+					&& _target instanceof L1PcInstance) {
+				L1PcInstance enemy = (L1PcInstance) cha;
+				if (_skillId == COUNTER_DETECTION
+						&& enemy.getZoneType() != ZoneType.Safety
+						&& (cha.hasSkillEffect(INVISIBILITY) || cha
+								.hasSkillEffect(BLIND_HIDING))) {
+					return true;
+				}
+				if (_player.getClanid() != 0 && enemy.getClanid() != 0) {
+					for (L1War war : L1World.getInstance().getWarList()) {
+						if (war.CheckClanInWar(_player.getClanname())) {
+							if (war.CheckClanInSameWar(_player.getClanname(),
+									enemy.getClanname())) {
+								if (L1CastleLocation.checkInAllWarArea(
+										enemy.getX(), enemy.getY(),
+										enemy.getMapId())) {
+									return true;
+								}
 							}
 						}
 					}
 				}
-			}
-			return false;
-		}
-
-		if (_user.glanceCheck(cha.getX(), cha.getY()) == false
-				&& _skill.isThrough() == false) {
-			if (!(_skill.getType() == L1Skill.TYPE_CHANGE || _skill.getType() == L1Skill.TYPE_RESTORE)) {
-				_isGlanceCheckFail = true;
 				return false;
 			}
-		}
 
-		if (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD
-				|| _skillId == FREEZING_BREATH)
-			if (cha.hasSkillEffect(ICE_LANCE)
-					|| cha.hasSkillEffect(FREEZING_BREATH)
-					|| cha.hasSkillEffect(FREEZING_BLIZZARD))
-				return false;
-
-		if ((_skillId == EARTH_BIND || _skillId == BONE_BREAK
-				|| _skillId == CONFUSION || _skillId == ARM_BREAKER)
-				&& cha.hasSkillEffect(EARTH_BIND))
-			return false;
-
-		if (cha.hasSkillEffect(FOG_OF_SLEEPING) && _skillId == PHANTASM) {
-			return false;
-		}
-
-		if (cha.hasSkillEffect(PHANTASM) && _skillId == FOG_OF_SLEEPING) {
-			return false;
-		}
-
-		if (!(cha instanceof L1MonsterInstance)
-				&& (_skillId == TAMING_MONSTER || _skillId == CREATE_ZOMBIE)) {
-			return false;
-		}
-		if (cha.isDead()
-				&& (_skillId != CREATE_ZOMBIE && _skillId != RESURRECTION
-						&& _skillId != GREATER_RESURRECTION && _skillId != CALL_OF_NATURE)) {
-			return false;
-		}
-
-		if (cha.isDead() == false
-				&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
-						|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
-			return false;
-		}
-
-		if ((cha instanceof L1TowerInstance || cha instanceof L1DoorInstance)
-				&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
-						|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
-			return false;
-		}
-
-		if (cha instanceof L1PcInstance) {
-			L1PcInstance pc = (L1PcInstance) cha;
-			if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
-				if (_skillId == CURSE_BLIND || _skillId == WEAPON_BREAK
-						|| _skillId == DARKNESS || _skillId == WEAKNESS
-						|| _skillId == DISEASE || _skillId == FOG_OF_SLEEPING
-						|| _skillId == MASS_SLOW || _skillId == SLOW
-						|| _skillId == CANCELLATION || _skillId == SILENCE
-						|| _skillId == DECAY_POTION
-						|| _skillId == MASS_TELEPORT || _skillId == DETECTION
-						|| _skillId == DARK_BLIND
-						|| _skillId == COUNTER_DETECTION
-						|| _skillId == ERASE_MAGIC || _skillId == ENTANGLE
-						|| _skillId == PHYSICAL_ENCHANT_DEX
-						|| _skillId == PHYSICAL_ENCHANT_STR
-						|| _skillId == BLESS_WEAPON || _skillId == EARTH_SKIN
-						|| _skillId == IMMUNE_TO_HARM
-						|| _skillId == REMOVE_CURSE) {
-					return true;
-				} else {
+			if (_user.glanceCheck(cha.getX(), cha.getY()) == false
+					&& _skill.isThrough() == false) {
+				if (!(_skill.getType() == L1Skill.TYPE_CHANGE || _skill.getType() == L1Skill.TYPE_RESTORE)) {
+					_isGlanceCheckFail = true;
 					return false;
 				}
 			}
-		}
 
-		if (cha instanceof L1NpcInstance) {
-			int hiddenStatus = ((L1NpcInstance) cha).getHiddenStatus();
-			if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK) {
-				if (_skillId == DETECTION || _skillId == COUNTER_DETECTION) {
-					return true;
-				} else {
+			if (_skillId == ICE_LANCE || _skillId == FREEZING_BLIZZARD
+					|| _skillId == FREEZING_BREATH)
+				if (cha.hasSkillEffect(ICE_LANCE)
+						|| cha.hasSkillEffect(FREEZING_BREATH)
+						|| cha.hasSkillEffect(FREEZING_BLIZZARD))
 					return false;
-				}
-			} else if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) {
+
+			if ((_skillId == EARTH_BIND || _skillId == BONE_BREAK
+					|| _skillId == CONFUSION || _skillId == ARM_BREAKER)
+					&& cha.hasSkillEffect(EARTH_BIND))
+				return false;
+
+			if (cha.hasSkillEffect(FOG_OF_SLEEPING) && _skillId == PHANTASM) {
 				return false;
 			}
-		}
 
-		if ((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC
-				&& cha instanceof L1PcInstance) {
-			flg = true;
-		} else if ((targetTo & L1Skill.TARGET_TO_NPC) == L1Skill.TARGET_TO_NPC
-				&& (cha instanceof L1MonsterInstance
-						|| cha instanceof L1NpcInstance
-						|| cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
-			flg = true;
-		} else if ((targetTo & L1Skill.TARGET_TO_PET) == L1Skill.TARGET_TO_PET
-				&& _user instanceof L1PcInstance) {
-			if (cha instanceof L1SummonInstance) {
-				L1SummonInstance summon = (L1SummonInstance) cha;
-				if (summon.getMaster() != null) {
-          // Steve_: added another clause so RTN can get a greenlight on L893
-					if (_player.getId() == summon.getMaster().getId() || _skillId == RETURN_TO_NATURE) {
-						flg = true;
+			if (cha.hasSkillEffect(PHANTASM) && _skillId == FOG_OF_SLEEPING) {
+				return false;
+			}
+
+			if (!(cha instanceof L1MonsterInstance)
+					&& (_skillId == TAMING_MONSTER || _skillId == CREATE_ZOMBIE)) {
+				return false;
+			}
+			if (cha.isDead()
+					&& (_skillId != CREATE_ZOMBIE && _skillId != RESURRECTION
+							&& _skillId != GREATER_RESURRECTION && _skillId != CALL_OF_NATURE)) {
+				return false;
+			}
+
+			if (cha.isDead() == false
+					&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
+							|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
+				return false;
+			}
+
+			if ((cha instanceof L1TowerInstance || cha instanceof L1DoorInstance)
+					&& (_skillId == CREATE_ZOMBIE || _skillId == RESURRECTION
+							|| _skillId == GREATER_RESURRECTION || _skillId == CALL_OF_NATURE)) {
+				return false;
+			}
+
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				if (pc.hasSkillEffect(ABSOLUTE_BARRIER)) {
+					if (_skillId == CURSE_BLIND || _skillId == WEAPON_BREAK
+							|| _skillId == DARKNESS || _skillId == WEAKNESS
+							|| _skillId == DISEASE || _skillId == FOG_OF_SLEEPING
+							|| _skillId == MASS_SLOW || _skillId == SLOW
+							|| _skillId == CANCELLATION || _skillId == SILENCE
+							|| _skillId == DECAY_POTION
+							|| _skillId == MASS_TELEPORT || _skillId == DETECTION
+							|| _skillId == DARK_BLIND
+							|| _skillId == COUNTER_DETECTION
+							|| _skillId == ERASE_MAGIC || _skillId == ENTANGLE
+							|| _skillId == PHYSICAL_ENCHANT_DEX
+							|| _skillId == PHYSICAL_ENCHANT_STR
+							|| _skillId == BLESS_WEAPON || _skillId == EARTH_SKIN
+							|| _skillId == IMMUNE_TO_HARM
+							|| _skillId == REMOVE_CURSE) {
+						return true;
+					} else {
+						return false;
 					}
 				}
 			}
-			if (cha instanceof L1PetInstance) {
-				L1PetInstance pet = (L1PetInstance) cha;
-				if (pet.getMaster() != null) {
-					if (_player.getId() == pet.getMaster().getId()) {
-						flg = true;
+
+			if (cha instanceof L1NpcInstance) {
+				int hiddenStatus = ((L1NpcInstance) cha).getHiddenStatus();
+				if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_SINK) {
+					if (_skillId == DETECTION || _skillId == COUNTER_DETECTION) {
+						return true;
+					} else {
+						return false;
+					}
+				} else if (hiddenStatus == L1NpcInstance.HIDDEN_STATUS_FLY) {
+					return false;
+				}
+			}
+
+			if ((targetTo & L1Skill.TARGET_TO_PC) == L1Skill.TARGET_TO_PC
+					&& cha instanceof L1PcInstance) {
+				flg = true;
+			} else if ((targetTo & L1Skill.TARGET_TO_NPC) == L1Skill.TARGET_TO_NPC
+					&& (cha instanceof L1MonsterInstance
+							|| cha instanceof L1NpcInstance
+							|| cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
+				flg = true;
+			} else if ((targetTo & L1Skill.TARGET_TO_PET) == L1Skill.TARGET_TO_PET
+					&& _user instanceof L1PcInstance) {
+				if (cha instanceof L1SummonInstance) {
+					L1SummonInstance summon = (L1SummonInstance) cha;
+					if (summon.getMaster() != null) {
+	          // Steve_: added another clause so RTN can get a greenlight on L893
+						if (_player.getId() == summon.getMaster().getId() || _skillId == RETURN_TO_NATURE) {
+							flg = true;
+						}
+					}
+				}
+				if (cha instanceof L1PetInstance) {
+					L1PetInstance pet = (L1PetInstance) cha;
+					if (pet.getMaster() != null) {
+						if (_player.getId() == pet.getMaster().getId()) {
+							flg = true;
+						}
 					}
 				}
 			}
-		}
 
-		if (_calcType == PC_PC && cha instanceof L1PcInstance) {
-			if ((targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN
-					&& ((_player.getClanid() != 0 && _player.getClanid() == ((L1PcInstance) cha)
-							.getClanid()) || _player.isGm())) {
-				return true;
+			if (_calcType == PC_PC && cha instanceof L1PcInstance) {
+				if ((targetTo & L1Skill.TARGET_TO_CLAN) == L1Skill.TARGET_TO_CLAN
+						&& ((_player.getClanid() != 0 && _player.getClanid() == ((L1PcInstance) cha)
+								.getClanid()) || _player.isGm())) {
+					return true;
+				}
+				if ((targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY
+						&& (_player.getParty().isMember((L1PcInstance) cha) || _player
+								.isGm())) {
+					return true;
+				}
 			}
-			if ((targetTo & L1Skill.TARGET_TO_PARTY) == L1Skill.TARGET_TO_PARTY
-					&& (_player.getParty().isMember((L1PcInstance) cha) || _player
-							.isGm())) {
-				return true;
-			}
+		} catch(Exception ex) {
+			_log.warning("Failed while checking target. Defaulting to false. Exception: "
+					+ ex.getMessage());
+			return false;
 		}
 
 		return flg;
