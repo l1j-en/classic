@@ -655,11 +655,11 @@ public class L1PcInstance extends L1Character {
 	private String clanname;
 
 	public String getClanname() {
-		return clanname;
+		return clanname.replace(" ", "");
 	}
 
 	public void setClanname(String s) {
-		clanname = s;
+		clanname = s.replace(" ", "");
 	}
 
 	public L1Clan getClan() {

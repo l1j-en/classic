@@ -35,7 +35,7 @@ public class C_CreateClan extends ClientBasePacket {
 	public C_CreateClan(byte abyte0[], ClientThread clientthread)
 			throws Exception {
 		super(abyte0);
-		String s = readS();
+		String s = readS().replace(" ","");
 		// TODO Never used
 		// int i = s.length();
 
