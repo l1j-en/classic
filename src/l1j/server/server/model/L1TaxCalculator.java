@@ -95,7 +95,7 @@ public class L1TaxCalculator {
 	}
 
 	public int calcNationalTaxPrice(L1ShopItem item, int count) {
-		int taxCastle = calcCastleTaxPrice(item, count);
+		int taxCastle = calcCastleTaxPrice(item, count, true);
 		
 		return taxCastle / (100 / NATIONAL_TAX_RATES);
 	}
