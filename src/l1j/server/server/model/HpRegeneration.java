@@ -171,10 +171,10 @@ public class HpRegeneration extends TimerTask {
 		if (isUnderwater(_pc)) {
 			newHp -= 20;
 		}
-		if (Maps.isLvl50Quest(_pc) && !inLifeStream) {
+		if (Maps.isLvl50Quest(_pc) && !inLifeStream && !_pc.isGm()) {
 			newHp -= 10;
 		}
-		if (_pc.getMapId() == 410 && !inLifeStream) {
+		if (_pc.getMapId() == 410 && !inLifeStream && !_pc.isGm()) {
 			newHp -= 10;
 		}
 		if (newHp < 1) {
