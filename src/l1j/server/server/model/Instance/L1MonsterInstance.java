@@ -448,15 +448,16 @@ public class L1MonsterInstance extends L1NpcInstance {
 					con = L1DatabaseFactory.getInstance()
 							.getConnection();
 					pstm = con
-							.prepareStatement("INSERT INTO boss_kills (npcid, boss_name, locx, locy, mapid, killer_name, clan_name, kill_date) VALUES(?,?,?,?,?,?,?,?)");
+							.prepareStatement("INSERT INTO boss_kills (npcid, boss_name, locx, locy, mapid, killer_name, killer_objid, clan_name, kill_date) VALUES(?,?,?,?,?,?,?,?,?)");
 					pstm.setInt(1,  getNpcTemplate().get_npcId());
 					pstm.setString(2, getName());
 					pstm.setInt(3, getX());
 					pstm.setInt(4, getY());
 					pstm.setInt(5, getMapId());
 					pstm.setString(6, killer.getName());
-					pstm.setString(7, killer.getClanname());
-					pstm.setTimestamp(8, ts);
+					pstm.setInt(7, killer.getId());
+					pstm.setString(8, killer.getClanname());
+					pstm.setTimestamp(9, ts);
 					
 					pstm.execute();
 					SQLUtil.close(pstm);
