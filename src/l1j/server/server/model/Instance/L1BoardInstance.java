@@ -43,14 +43,10 @@ public class L1BoardInstance extends L1NpcInstance {
 	}
 
 	public void onActionRead(L1PcInstance player, int number) {
-		if (this.getSpawn() != NpcSpawnTable.bugBoard)
+		if (this.getSpawn() != NpcSpawnTable.getBugBoard())
 			player.sendPackets(new S_BoardRead(number));
 		else
 			player.sendPackets(new S_BoardRead(player, number));
-	}
-
-	public void onRanking(L1PcInstance player) {
-		player.sendPackets(new S_Ranking(this));
 	}
 
 	public void onRankingRead(L1PcInstance player, int number) {
