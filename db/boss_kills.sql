@@ -5,6 +5,7 @@ CREATE TABLE boss_kills (
 	locx INT (10) NOT NULL,
 	locy INT (10) NOT NULL,
 	mapid INT (10) NOT NULL,
+	killer_objid INT(11) NOT NULL,
 	killer_name VARCHAR (45) NOT NULL,
 	clan_name VARCHAR (45),
 	kill_date DATETIME

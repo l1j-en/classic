@@ -340,7 +340,7 @@ public class PCommands {
 			if(object instanceof L1NpcInstance) {
 				L1NpcInstance npcObject = (L1NpcInstance)object;
 				if(npcObject.getSpawn() != null && 
-						npcObject.getSpawn() == NpcSpawnTable.bugBoard)
+						npcObject.getSpawn() == NpcSpawnTable.getBugBoard())
 					bugBoard = npcObject;
 			}
 		}
