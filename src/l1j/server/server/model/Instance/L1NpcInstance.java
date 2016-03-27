@@ -1008,6 +1008,7 @@ public class L1NpcInstance extends L1Character {
 		double diff = 0;
 		setName(template.get_name());
 		setNameId(template.get_nameid());
+		
 		if (template.get_randomlevel() == 0) {
 			setLevel(template.get_level());
 		} else {
@@ -1188,7 +1189,7 @@ public class L1NpcInstance extends L1Character {
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
 		//Cheap fix because GMRoom is also the jail.. this hides the bugboard
-		if(this.getSpawn() == NpcSpawnTable.bugBoard && !perceivedFrom.isGm())
+		if(this.getSpawn() == NpcSpawnTable.getBugBoard() && !perceivedFrom.isGm())
 			return;
 		
 		perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));

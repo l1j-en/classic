@@ -40,11 +40,12 @@ public class C_BoardDelete extends ClientBasePacket {
 		L1Object obj = L1World.getInstance().findObject(objId);
 		L1BoardInstance board = (L1BoardInstance) obj;
 		if (board != null) {
-			boolean isBugBoard = board.getSpawn() == NpcSpawnTable.bugBoard;
+			boolean isBugBoard = board.getSpawn() == NpcSpawnTable.getBugBoard();
+			boolean isRankingBoard = board.getSpawn() == NpcSpawnTable.getRankingBoard();
 			
 			L1PcInstance pc = client.getActiveChar();
-			if(isBugBoard) {
-				pc.sendPackets(new S_SystemMessage("Bug reports cannot be deleted."));
+			if(isBugBoard || isRankingBoard) {
+				pc.sendPackets(new S_SystemMessage("You cannot delete from this board."));
 				return;
 			}
 			

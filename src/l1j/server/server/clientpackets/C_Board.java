@@ -30,11 +30,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 public class C_Board extends ClientBasePacket {
 
 	private static final String C_BOARD = "[C] C_Board";
-
-	private boolean isBoardInstance(L1Object obj) {
-		return (obj instanceof L1BoardInstance || obj instanceof L1AuctionBoardInstance);
-	}
-
+	
 	public C_Board(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		int objectId = readD();
@@ -43,9 +39,6 @@ public class C_Board extends ClientBasePacket {
 		if (obj instanceof L1BoardInstance) {
 			L1BoardInstance board = (L1BoardInstance) obj;
 			board.onAction(pc);
-			if (board.getNpcTemplate().get_npcId() == 81150) {
-				board.onRanking(pc);
-			}
 		} else if (obj instanceof L1AuctionBoardInstance) {
 			L1AuctionBoardInstance auctionboard = (L1AuctionBoardInstance) obj;
 			auctionboard.onAction(pc);

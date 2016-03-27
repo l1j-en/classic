@@ -18,227 +18,137 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import l1j.server.Config;
-import l1j.server.L1DatabaseFactory;
+import l1j.server.server.controllers.RankingsController;
+import l1j.server.server.controllers.RankingsController.RankType;
 import l1j.server.server.encryptions.Opcodes;
-import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.utils.SQLUtil;
+import l1j.server.server.model.classes.L1ClassId;
 
 public class S_Ranking extends ServerBasePacket {
 
 	private static final String S_Ranking = "[C] S_Ranking";
-
-	private static Logger _log = Logger.getLogger(S_Ranking.class.getName());
+	private static List<Integer> _emptyPages = Arrays.asList(new Integer[] { 25, 30, 31, 32, 34, 40, 41, 42, 48, 49, 50 });
 
 	private byte[] _byte = null;
-	private int j = 0;
-	static String[] name;
 
 	public S_Ranking(L1PcInstance pc, int number) {
-		name = new String[10];
 		buildPacket(pc, number);
-	}
-
-	public S_Ranking(L1NpcInstance board) {
-		buildPacket(board);
-	}
-
-	private void buildPacket(L1NpcInstance board) {
-		int count = 0;
-		String[][] db = null;
-		int[] id = null;
-		db = new String[7][3];
-		id = new int[7];
-		while (count < 7) {
-			id[count] = count + 1;
-			db[count][0] = "Ranking";
-			db[count][1] = "";
-			count++;
-		}
-		db[0][2] = "1. Highest Level (Overall)";
-		db[1][2] = "2. Highest Level Royals";
-		db[2][2] = "3. Highest Level Knights";
-		db[3][2] = "4. Highest Level Elves";
-		db[4][2] = "5. Highest Level Mages";
-		db[5][2] = "6. Highest Level DE";
-		db[6][2] = "7. Your Ranking";
-
-		writeC(Opcodes.S_OPCODE_BOARD);
-		writeD(board.getId());
-		writeC(0xFF); // ?
-		writeC(0xFF); // ?
-		writeC(0xFF); // ?
-		writeC(0x7F); // ?
-		writeH(7);
-		writeH(300);
-		for (int i = 0; i < 7; ++i) {
-			writeD(id[i]);
-			writeS(db[i][0]);
-			writeS(db[i][1]);
-			writeS(db[i][2]);
-		}
 	}
 
 	private void buildPacket(L1PcInstance pc, int number) {
 		String date = time();
-		String type = null;
-		String title = null;
 		writeC(Opcodes.S_OPCODE_BOARDREAD);
 		writeD(number);
 		writeS("");
-		switch (number) {
-		case 1:
-			title = "Overall";
-			break;
-		case 2:
-			title = "Royals";
-			break;
-		case 3:
-			title = "Knights";
-			break;
-		case 4:
-			title = "Elves";
-			break;
-		case 5:
-			title = "Mages";
-			break;
-		case 6:
-			title = "Dark Elf";
-			break;
-		case 7:
-			title = "Your Rank";
-			break;
-		}
-		writeS(title);
+		
+		String playerClassName = L1ClassId.getClass(pc.getClassId());
+		
+		// Shorten DK and Illu.
+		if(playerClassName.equals("Dragon Knight"))
+			playerClassName = "DK";
+		else if(playerClassName.equals("Illusionist"))
+			playerClassName = "Illu.";
+		
+		// titles that display when reading a ranking post
+		String[] titles = { 
+				// Level Ranking Titles
+				"Overall Lvl Ranking", "Royal Lvl Ranking", "Knight Lvl Ranking", "Elf Lvl Ranking", 
+				"Mage Lvl Ranking", "Dark Elf Lvl Ranking", "DK Lvl Ranking", "Illu. Lvl Ranking",
+				
+				// Pvp Ranking Titles
+				"Overall PvP Ranking", "Royal PvP Ranking", "Knight PvP Ranking", "Elf PvP Ranking",
+				"Mage PvP Ranking", "Dark Elf PvP Ranking", "DK PvP Ranking", "Illu. PvP Ranking",
+				
+				// Pledge Ranking Titles
+				"Pledge Level Rank", "Pledge PvP Rank", "Pledge Daily Boss", "Pledge Weekly Boss", 
+				"Pledge Monthly Boss", "Pledge Yearly Boss", "Your Pledge Ranks",
+				
+				// Blanks for spacing
+				"", "",
+				
+				// Boss Ranking Titles
+				"Daily Boss Ranking", "Weekly Boss Ranking", "Monthly Boss Ranking", "Yearly Boss Ranking",
+				
+				// Blanks for spacing
+				"", "", "", "", "",
+				
+				// Player-specific Ranking Titles
+				"Overall Level Rank", playerClassName + " Level Rank", "Overall PvP Rank", 
+				playerClassName + " PvP Rank", "Boss Kills Rank",
+				
+				// Blanks for spacing
+				"", "", ""
+				};
+		
+		RankingsController.RankType[] rankEnumAssoc = {
+				RankType.LEVEL, RankType.LEVELCLASS, RankType.LEVELCLASS, RankType.LEVELCLASS, 
+				RankType.LEVELCLASS, RankType.LEVELCLASS, RankType.LEVELCLASS, RankType.LEVELCLASS,
+				RankType.PVP, RankType.PVPCLASS, RankType.PVPCLASS, RankType.PVPCLASS, 
+				RankType.PVPCLASS, RankType.PVPCLASS, RankType.PVPCLASS, RankType.PVPCLASS,
+				
+				/* pledge rankings */
+				RankType.LEVELPLEDGE, RankType.PVPPLEDGE, RankType.PLEDGEBOSSDAILY, RankType.PLEDGEBOSSWEEKLY, 
+				RankType.PLEDGEBOSSMONTHLY,RankType.PLEDGEBOSSYEARLY, RankType.PLEDGE,
+				
+				/*FILLERS FOR EMPTY PAGES*/
+				RankType.LEVEL, RankType.LEVEL,
+				/*END FILLERS*/
+				
+				RankType.BOSSDAILY, RankType.BOSSWEEKLY, RankType.BOSSMONTHLY, RankType.BOSSYEARLY,
+				/* FILLERS FOR THE EMPTY PAGES*/
+				RankType.LEVEL, RankType.LEVEL, RankType.LEVEL, RankType.LEVEL, RankType.LEVEL,
+				/*END FILLERS*/
+				RankType.LEVEL, RankType.LEVELCLASS, RankType.PVP, RankType.PVPCLASS, RankType.BOSSDAILY
+		};
+		
+		writeS(number < 1 ? "" :  titles[number - 1]);
 		writeS(date);
-		switch (pc.getType()) {
-		case 0:
-			type = "Royal";
-			break;
-		case 1:
-			type = "Knight";
-			break;
-		case 2:
-			type = "Elf";
-			break;
-		case 3:
-			type = "Mage";
-			break;
-		case 4:
-			type = "Dark Elf";
-			break;
+		
+		// just a stub to display on my blank pages
+		if(number == 0 || _emptyPages.contains(number)) {
+			writeS("Nothing to see here...");
+			return;
 		}
-		int p = Rank(pc, number);
-		if (number == 7) {
-			writeS("\n\r\n\r\n\r  Your Rank: " + p + "" + "\n\r\n\r\n\r  Your "
-					+ type + " rank: " + j + "" + "\n\r\n\r\n\r" + "        ");
+		
+		RankType rankType = rankEnumAssoc[number-1];
+		
+		// > 34 = personal ranking
+		if(number > 34) {
+			if(rankType == RankType.BOSSDAILY) {// for boss rankings, just list them all on one page
+				String dailyRank = RankingsController.getRank(pc, rankType).replace(".", " (Today).");
+				String weeklyRank = RankingsController.getRank(pc, RankType.BOSSWEEKLY).replace(".", " (Week).");
+				String monthlyRank = RankingsController.getRank(pc, RankType.BOSSMONTHLY).replace(".", " (Month).");
+				String yearlyRank = RankingsController.getRank(pc, RankType.BOSSYEARLY).replace(".", " (Year).");
+				
+				writeS(String.format("\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s", 
+						dailyRank, weeklyRank, monthlyRank, yearlyRank));
+				
+			} else 
+				writeS("\r\n\r\n\r\n     " + RankingsController.getRank(pc, rankType));
+		} else if(rankType == RankType.PLEDGE) { // all pledge rankings
+			String levelRank = RankingsController.getRank(pc, RankType.LEVELPLEDGE).replace(".", " (Level).");
+			String pvpRank = RankingsController.getRank(pc, RankType.PVPPLEDGE).replaceFirst("\\.", " (PvP).");
+			
+			String dailyRank = RankingsController.getRank(pc, RankType.PLEDGEBOSSDAILY).replace(".", " (Boss Daily).");
+			String weeklyRank = RankingsController.getRank(pc, RankType.PLEDGEBOSSWEEKLY).replace(".", " (Boss Weekly).");
+			String monthlyRank = RankingsController.getRank(pc, RankType.PLEDGEBOSSMONTHLY).replace(".", " (Boss Monthly).");
+			String yearlyRank = RankingsController.getRank(pc, RankType.PLEDGEBOSSYEARLY).replace(".", " (Boss Yearly).");
+			
+			writeS(String.format("%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s", 
+					levelRank, pvpRank, dailyRank, weeklyRank, monthlyRank, yearlyRank));
 		} else {
-			writeS("\n\r" + "  1 " + name[0] + "\n\r" + "  2 " + name[1]
-					+ "\n\r" + "  3 " + name[2] + "\n\r" + "  4 " + name[3]
-					+ "\n\r" + "  5 " + name[4] + "\n\r" + "  6 " + name[5]
-					+ "\n\r" + "  7 " + name[6] + "\n\r" + "  8 " + name[7]
-					+ "\n\r" + "  9 " + name[8] + "\n\r" + " 10 " + name[9]
-					+ "\n\r" + "             ");
-
+			if(rankType == RankType.LEVELCLASS || rankType == RankType.PVPCLASS)
+				writeS(RankingsController.getRanks(rankType, number));
+			else 
+				writeS(RankingsController.getRanks(rankType));
 		}
 	}
-
-	private int Rank(L1PcInstance pc, int number) {
-		Connection con = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		int objid = pc.getId();
-		int i = 0;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
-			switch (number) {
-			case 1:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 2:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE Type = 0 And AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 3:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE Type = 1 And AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 4:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE Type = 2 And AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 5:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE Type = 3 And AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 6:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE Type = 4 And AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			case 7:
-				pstm = con
-						.prepareStatement("SELECT objid FROM characters WHERE AccessLevel = 3 order by Exp desc");
-				break;
-
-			default:
-				pstm = con
-						.prepareStatement("SELECT char_name FROM characters WHERE AccessLevel = 3 order by Exp desc limit 10");
-				break;
-			}
-
-			rs = pstm.executeQuery();
-			if (number == 7) {
-				while (rs.next()) {
-					i++;
-					if (objid == rs.getInt(1))
-						break;
-				}
-				String sql = "SELECT objid FROM characters WHERE Type = ";
-				sql = (new StringBuilder(String.valueOf(sql))).append(
-						pc.getType()).toString();
-				sql = (new StringBuilder(String.valueOf(sql))).append(
-						" And AccessLevel = 3 order by Exp desc").toString();
-				pstm = con.prepareStatement(sql);
-				rs = pstm.executeQuery();
-				j = 0;
-				while (rs.next()) {
-					j++;
-					if (objid == rs.getInt(1))
-						break;
-				}
-			} else {
-				while (rs.next()) {
-					name[i] = rs.getString(1);
-					i++;
-				}
-
-				while (i < 10) {
-					name[i] = "";
-					i++;
-				}
-			}
-		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} finally {
-			SQLUtil.close(rs);
-			SQLUtil.close(pstm);
-			SQLUtil.close(con);
-		}
-
-		return i;
-	}
-
+	
 	private static String time() {
 		TimeZone tz = TimeZone.getTimeZone(Config.TIME_ZONE);
 		Calendar cal = Calendar.getInstance(tz);
