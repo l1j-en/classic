@@ -1338,7 +1338,7 @@ public class L1PcInstance extends L1Character {
 									con = L1DatabaseFactory.getInstance()
 											.getConnection();
 									pstm = con
-											.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
+											.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty, killer_pledge, victim_pledge) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
 									pstm.setInt(1, player.getId());
 									pstm.setString(2, player.getName());
 									pstm.setInt(3, player.getLevel());
@@ -1398,6 +1398,8 @@ public class L1PcInstance extends L1Character {
 									} else {
 										pstm.setInt(11, 9);
 									}
+									pstm.setString(12, player.getClanname());
+									pstm.setString(13, getClanname());
 									pstm.execute();
 									SQLUtil.close(pstm);
 									SQLUtil.close(con);

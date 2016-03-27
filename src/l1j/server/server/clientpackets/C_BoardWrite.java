@@ -58,7 +58,7 @@ public class C_BoardWrite extends ClientBasePacket {
 			L1PcInstance pc = client.getActiveChar();
 			
 			if(tg instanceof L1NpcInstance
-					&& ((L1NpcInstance)tg).getSpawn() == NpcSpawnTable.bugBoard) {
+					&& ((L1NpcInstance)tg).getSpawn() == NpcSpawnTable.getBugBoard()) {
 				Connection con = null;
 				PreparedStatement pstm = null;
 
@@ -87,6 +87,8 @@ public class C_BoardWrite extends ClientBasePacket {
 					SQLUtil.close(pstm);
 					SQLUtil.close(con);
 				}
+			} else if(((L1NpcInstance)tg).getSpawn() == NpcSpawnTable.getRankingBoard()) {
+				pc.sendPackets(new S_SystemMessage("Cannot write to this board."));
 			} else {
 				pc.getInventory().consumeItem(L1ItemId.ADENA, 300);
 				BoardTable.getInstance().writeTopic(pc, date, title, content);
