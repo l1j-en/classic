@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.text.NumberFormat;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CustomBoardRead;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -99,8 +100,12 @@ public class L1Account implements L1CommandExecutor {
 				pstm4.close();
 				rs4.close();
 				
+				String charName = rs.getString("char_name");
+				boolean online = L1World.getInstance().getPlayer(charName) != null;
+				
 				message.append(rs.getString("char_name"))
-					.append(": Level ").append(rs.getInt("level")).append("\n")
+					.append(": Level ").append(rs.getInt("level") + (online ? " (Online)" : ""))
+					.append("\n")
 						.append(getSex(rs.getInt("Class"))).append(" ")
 						.append(getClass(rs.getInt("Class"))).append("\n")
 						.append("Hp: ").append(rs.getInt("MaxHp")).append(" Mp: ")
