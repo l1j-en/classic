@@ -62,7 +62,8 @@ public class L1Account implements L1CommandExecutor {
 				throw new Exception();
 
 			pstm = con
-					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid,account_name FROM characters WHERE account_name=?");
+					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid,account_name,accounts.banned FROM characters"
+							+ " JOIN accounts ON characters.account_name = accounts.login WHERE account_name=?");
 			pstm.setString(1, arg.trim());
 			rs = pstm.executeQuery();
 
@@ -84,9 +85,16 @@ public class L1Account implements L1CommandExecutor {
 			}
 
 			String actualAccountName = "";
-			StringBuilder message = new StringBuilder("  * You may have to scroll *\n\n");
+			StringBuilder message = new StringBuilder("  * You may have to scroll *\n");
 			
 			while (rs.next()) {
+				boolean banned = rs.getInt("banned") > 0;
+				
+				if(banned)
+					message.append("      * ACCOUNT BANNED *\n\n");
+				else
+					message.append("\n");
+				
 				actualAccountName = rs.getString("account_name");
 				int heldadena = 0;
 				pstm4 = con
