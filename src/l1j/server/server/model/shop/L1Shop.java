@@ -158,10 +158,10 @@ public class L1Shop {
 	private void payCastleTax(L1ShopBuyOrderList orderList) {
 		L1TaxCalculator calc = orderList.getTaxCalculator();
 
+		int price = orderList.getTotalPrice();
 		int castleId = L1CastleLocation.getCastleIdByNpcid(_npcId);
-		int castleTax = calc.calcCastleTaxPrice(orderList);
-		int nationalTax = calc.calcNationalTaxPrice(orderList);
-		
+		int castleTax = calc.calcCastleTaxPrice(price);
+		int nationalTax = calc.calcNationalTaxPrice(price);
 		if (castleId == L1CastleLocation.ADEN_CASTLE_ID
 				|| castleId == L1CastleLocation.DIAD_CASTLE_ID) {
 			castleTax += nationalTax;
@@ -198,8 +198,10 @@ public class L1Shop {
 
 	private void payDiadTax(L1ShopBuyOrderList orderList) {
 		L1TaxCalculator calc = orderList.getTaxCalculator();
-		
-		int diadTax = calc.calcDiadTaxPrice(orderList);
+
+		int price = orderList.getTotalPrice();
+
+		int diadTax = calc.calcDiadTaxPrice(price);
 		if (diadTax <= 0) {
 			return;
 		}
@@ -217,10 +219,12 @@ public class L1Shop {
 	}
 
 	private void payTownTax(L1ShopBuyOrderList orderList) {
+		int price = orderList.getTotalPrice();
+
 		if (!L1World.getInstance().isProcessingContributionTotal()) {
 			int town_id = L1TownLocation.getTownIdByNpcid(_npcId);
 			if (town_id >= 1 && town_id <= 10) {
-				TownTable.getInstance().addSalesMoney(town_id, orderList);
+				TownTable.getInstance().addSalesMoney(town_id, price);
 			}
 		}
 	}
