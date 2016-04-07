@@ -97,7 +97,8 @@ public class L1Who implements L1CommandExecutor {
 								"Hp Regen: %d, Mp Regen: %d\n" +
 								"Karma: %d\n" + 
 								"Gold: %s\n" +
-								"Current Poly: %s\n\n" + 
+								"Current Poly: %s\n" + 
+								"Location: %d %d %d\n\n" + 
 								"To view %s's items, use:\n" + 
 								"\".snoop %s inv\"",
 								target.getAccountName(),
@@ -120,6 +121,7 @@ public class L1Who implements L1CommandExecutor {
 								target.getKarma(),
 								_currencyFormatter.format(target.getInventory().countItems(40308)),
 								!isPolymorphed ? "None" : (polyName.equals("") ? "Unknown" : polyName)  + " (#" + polyId + ")",
+								target.getX(), target.getY(), target.getMapId(),
 								target.getName(),
 								target.getName().toLowerCase());
 				
@@ -160,7 +162,7 @@ public class L1Who implements L1CommandExecutor {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT a.account_name, a.char_name, a.level ,a.MaxHp, a.MaxMp, a.Class, b.name as AccessLevelName, b.access_level FROM characters AS a JOIN access_levels b ON a.accesslevel = b.id WHERE char_name = ?;");
+					.prepareStatement("SELECT a.account_name, a.char_name, a.level ,a.MaxHp, a.MaxMp, a.Class, b.name as AccessLevelName, b.access_level, a.LocX, a.LocY, a.MapID FROM characters AS a JOIN access_levels b ON a.accesslevel = b.id WHERE char_name = ?;");
 			pstm.setString(1, name);
 			rs = pstm.executeQuery();
 			rs.next();
@@ -175,7 +177,9 @@ public class L1Who implements L1CommandExecutor {
 					.append(L1ClassId.getSex(rs.getInt("Class"))).append(" ")
 					.append(L1ClassId.getClass(rs.getInt("Class"))).append("\n")
 					.append("Max Hp: ").append(rs.getInt("MaxHp")).append(" ")
-					.append("Max Mp: ").append(rs.getInt("MaxMp")).append("\n\n")
+					.append("Max Mp: ").append(rs.getInt("MaxMp")).append("\n")
+					.append(String.format("Location: %d %d %d", 
+							rs.getInt("LocX"), rs.getInt("LocY") ,rs.getInt("MapID"))).append("\n\n")
 					.append("** Currently offline **").toString();
 					
 			gm.sendPackets(new S_CustomBoardRead(rs.getString("char_name"), 
