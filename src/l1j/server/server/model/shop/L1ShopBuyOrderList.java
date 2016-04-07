@@ -25,6 +25,23 @@ import l1j.server.Config;
 import l1j.server.server.model.L1TaxCalculator;
 import l1j.server.server.templates.L1ShopItem;
 
+class L1ShopBuyOrder {
+	private final L1ShopItem _item;
+	private final int _count;
+
+	public L1ShopBuyOrder(L1ShopItem item, int count) {
+		_item = item;
+		_count = count;
+	}
+
+	public L1ShopItem getItem() {
+		return _item;
+	}
+
+	public int getCount() {
+		return _count;
+	}
+}
 
 public class L1ShopBuyOrderList {
 
@@ -41,10 +58,6 @@ public class L1ShopBuyOrderList {
 		_shop = shop;
 		_taxCalc = new L1TaxCalculator(shop.getNpcId());
 		_npcid = shop.getNpcId();
-	}
-	
-	public List<L1ShopBuyOrder> getBoughtItems() {
-		return _list;
 	}
 
 	public void add(int orderNumber, int count) {
@@ -69,7 +82,7 @@ public class L1ShopBuyOrderList {
 		_totalPrice = newTotal;
 		if (_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from
 													// taxes
-			newTotal = price + _taxCalc.layTax(shopItem, count);
+			newTotal = _taxCalc.layTax(price) * count;
 			if (newTotal < 0) {
 				return;
 			}
