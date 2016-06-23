@@ -1571,6 +1571,10 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
 			} else if (itemId == 40007) {
+				if (pc.isInvisble()) {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+					return;
+				}
 				L1Object target = L1World.getInstance().findObject(
 						spellsc_objid);
 				//if the target is a player, and either the target or attacker are in a safety zone, deny.
