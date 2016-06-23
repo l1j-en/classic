@@ -25,12 +25,11 @@ import l1j.server.server.encryptions.Opcodes;
 public class S_TaxRate extends ServerBasePacket {
 	private static final String _S__66_TAXRATE = "[S] S_TaxRate";
 
-	public S_TaxRate(int objectId, int min, int max, int current) {
+	public S_TaxRate(int objectId, int min, int max) {
 		writeC(Opcodes.S_OPCODE_TAXRATE);
 		writeD(objectId);
 		writeC(min);
 		writeC(max);
-		writeC(current);
 	}
 
 	@Override
