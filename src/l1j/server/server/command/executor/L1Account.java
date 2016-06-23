@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.text.NumberFormat;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CustomBoardRead;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -61,7 +62,8 @@ public class L1Account implements L1CommandExecutor {
 				throw new Exception();
 
 			pstm = con
-					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid,account_name FROM characters WHERE account_name=?");
+					.prepareStatement("SELECT char_name,level,MaxHp,MaxMp,Class,objid,account_name,accounts.banned FROM characters"
+							+ " JOIN accounts ON characters.account_name = accounts.login WHERE account_name=?");
 			pstm.setString(1, arg.trim());
 			rs = pstm.executeQuery();
 
@@ -83,9 +85,16 @@ public class L1Account implements L1CommandExecutor {
 			}
 
 			String actualAccountName = "";
-			StringBuilder message = new StringBuilder("  * You may have to scroll *\n\n");
+			StringBuilder message = new StringBuilder("  * You may have to scroll *\n");
 			
 			while (rs.next()) {
+				boolean banned = rs.getInt("banned") > 0;
+				
+				if(banned)
+					message.append("      * ACCOUNT BANNED *\n\n");
+				else
+					message.append("\n");
+				
 				actualAccountName = rs.getString("account_name");
 				int heldadena = 0;
 				pstm4 = con
@@ -99,8 +108,12 @@ public class L1Account implements L1CommandExecutor {
 				pstm4.close();
 				rs4.close();
 				
+				String charName = rs.getString("char_name");
+				boolean online = L1World.getInstance().getPlayer(charName) != null;
+				
 				message.append(rs.getString("char_name"))
-					.append(": Level ").append(rs.getInt("level")).append("\n")
+					.append(": Level ").append(rs.getInt("level") + (online ? " (Online)" : ""))
+					.append("\n")
 						.append(getSex(rs.getInt("Class"))).append(" ")
 						.append(getClass(rs.getInt("Class"))).append("\n")
 						.append("Hp: ").append(rs.getInt("MaxHp")).append(" Mp: ")
