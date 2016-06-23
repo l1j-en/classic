@@ -351,6 +351,8 @@ public class L1PetInstance extends L1NpcInstance {
 				continue;
 			}
 			else if(unequip) {
+				// Not the best way to check, but the same way it's dones
+				//  in C_UsePetItem.java
 				int itemId = item.getItemId();
 				if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
 						&& itemId <= 40758) {
