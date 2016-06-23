@@ -489,7 +489,7 @@ public class C_NPCAction extends ClientBasePacket {
 				if (petObject instanceof L1PetInstance) {
 					L1PetInstance pet = (L1PetInstance) petObject;
 					pet.save(); // fix for pet xp. do not remove
-					pet.collect();
+					pet.collect(true);
 					pc.getPetList().remove(pet.getId());
 					pet.deleteMe();
 				}
