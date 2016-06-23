@@ -336,13 +336,28 @@ public class L1PetInstance extends L1NpcInstance {
 	}
 
 	public void collect() {
+		collect(false);
+	}
+
+	public void collect(boolean unequip) {
 		L1Inventory targetInventory = _petMaster.getInventory();
 		List<L1ItemInstance> items = _inventory.getItems();
 		int size = _inventory.getSize();
 		for (int i = 0; i < size; i++) {
 			L1ItemInstance item = items.get(0);
-			if (item.isEquipped()) {
+			if (!unequip && item.isEquipped()) {
+				// Put it on the back of the list
+				items.add(items.remove(0));
 				continue;
+			}
+			else if(unequip) {
+				int itemId = item.getItemId();
+				if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
+						&& itemId <= 40758) {
+					removeWeapon(item);
+				} else if (itemId >= 40761 && itemId <= 40766) {
+					removeArmor(item);
+				}
 			}
 			if (_petMaster.getInventory().checkAddItem( //
 					item, item.getCount()) == L1Inventory.OK) {
