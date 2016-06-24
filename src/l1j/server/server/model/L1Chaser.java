@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import static l1j.server.server.model.skill.L1SkillId.ERASE_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 
 import java.util.Random;
@@ -80,6 +81,9 @@ public class L1Chaser extends TimerTask {
 	}
 
 	public void attack() {
+		if(_cha instanceof L1PcInstance && _cha.hasSkillEffect(ERASE_MAGIC))
+			_cha.removeSkillEffect(ERASE_MAGIC);
+			
 		double damage = getDamage(_pc, _cha);
 		if (_cha.getCurrentHp() - (int) damage <= 0 && _cha.getCurrentHp() != 1) {
 			damage = _cha.getCurrentHp() - 1;
