@@ -203,35 +203,43 @@ public class RankingsController implements Runnable {
 			switch (number) {
 			case 1: // All Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio FROM characters WHERE AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+						.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+								"WHERE AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 2: // Royal Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 0 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 0 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 3: // Knight Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 1 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 1 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 4: // Elf Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 2 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 2 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 5: // Mage Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 3 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 3 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 6: // Dark Elf Levels
 				pstm = con
-						.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 4 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 4 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 7: // DragonKnight Levels
 				pstm = con
-				.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 5 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 5 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 8: // Illusionist Levels
 				pstm = con
-				.prepareStatement("SELECT char_name, Exp As Ratio  FROM characters WHERE Type = 6 And AccessLevel IN (" + _inFields + ") ORDER BY Exp DESC LIMIT 1000");
+				.prepareStatement("SELECT char_name, Exp As Ratio FROM characters JOIN accounts on characters.account_name = accounts.login " +
+						"WHERE Type = 6 AND AccessLevel IN (" + _inFields + ") AND accounts.banned = '0' ORDER BY Exp DESC LIMIT 1000");
 				break;
 			case 9: // Overall PvP Ranking
 				pstm = con
@@ -239,84 +247,93 @@ public class RankingsController implements Runnable {
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 10: // Royals PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 0 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 0 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 11: // Knights PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 1 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 1 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 12: // Elves PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 2 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 2 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 13: // Mages PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 3 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 3 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 14: // Dark Elves PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 4 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 4 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 15: // DragonKnight PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 5 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 5 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 16: // Illusionist PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT a.killer_char_name AS char_name," + 
+				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
 					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
+					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
-					" AND b.accesslevel IN (" + _inFields + ") AND b.Type = 6 GROUP BY a.killer_char_name" + 
+					" AND b.accesslevel IN (" + _inFields + ") AND c.banned = '0' AND b.Type = 6 GROUP BY a.killer_char_name" + 
 					" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
 			case 17: // Pledge Level Ranking
 				pstm = con
 				.prepareStatement("SELECT clanname as char_name, SUM(Exp) As Ratio FROM characters" + 
-						" WHERE AccessLevel IN (" + _inFields + ") AND clanname IS NOT NULL AND clanname != ''" + 
+						" JOIN accounts on characters.account_name = accounts.login" + 
+						" WHERE AccessLevel IN (" + _inFields + ") AND clanname IS NOT NULL AND clanname != '' AND accounts.banned = '0'" + 
 						" GROUP BY clanname" + 
 						" ORDER BY Ratio DESC LIMIT 1000");
 				break;
@@ -326,7 +343,8 @@ public class RankingsController implements Runnable {
 						" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" + 
 						" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 						" JOIN characters AS b ON a.killer_char_name = b.char_name AND b.clanname IS NOT NULL AND b.clanname != ''" + 
-						" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
+						" JOIN accounts AS c on b.account_name = c.login" +
+						" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')  AND c.banned = 0" + 
 						" AND b.accesslevel IN (" + _inFields + ") GROUP BY b.clanname" + 
 						" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
 				break;
