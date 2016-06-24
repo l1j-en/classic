@@ -350,7 +350,7 @@ public class L1PetInstance extends L1NpcInstance {
 				items.add(items.remove(0));
 				continue;
 			}
-			else if(unequip) {
+			else if(unequip && item.isEquipped()) {
 				// Not the best way to check, but the same way it's dones
 				//  in C_UsePetItem.java
 				int itemId = item.getItemId();
