@@ -336,14 +336,30 @@ public class L1PetInstance extends L1NpcInstance {
 	}
 
 	public void collect() {
+		collect(false);
+	}
+
+	public void collect(boolean unequip) {
 		L1Inventory targetInventory = _petMaster.getInventory();
 		List<L1ItemInstance> items = _inventory.getItems();
-		int size = _inventory.getSize();
-		for (int i = 0; i < size; i++) {
-			L1ItemInstance item = items.get(0);
-			if (item.isEquipped()) {
+		int last = _inventory.getSize() - 1;
+		for (int i = last; i >= 0; i--) {
+			L1ItemInstance item = items.get(i);
+			
+			if (!unequip && item.isEquipped()) {
 				continue;
+			} else if(unequip && item.isEquipped()) {
+				// Not the best way to check, but the same way it's done
+				//  in C_UsePetItem.java
+				int itemId = item.getItemId();
+				if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
+						&& itemId <= 40758) {
+					removeWeapon(item);
+				} else if (itemId >= 40761 && itemId <= 40766) {
+					removeArmor(item);
+				}
 			}
+			
 			if (_petMaster.getInventory().checkAddItem( //
 					item, item.getCount()) == L1Inventory.OK) {
 				_inventory.tradeItem(item, item.getCount(), targetInventory);

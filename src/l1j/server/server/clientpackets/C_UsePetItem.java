@@ -23,6 +23,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.serverpackets.S_PetEquipment;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Item;
 
@@ -58,8 +59,10 @@ public class C_UsePetItem extends ClientBasePacket {
 			if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
 					&& itemId <= 40758) {
 				usePetWeapon(pc, pet, item);
+				pc.sendPackets(new S_PetEquipment(data, pet, listNo));
 			} else if (itemId >= 40761 && itemId <= 40766) {
 				usePetArmor(pc, pet, item);
+				pc.sendPackets(new S_PetEquipment(data, pet, listNo));
 			} else {
 				pc.sendPackets(CantMessage);
 			}
