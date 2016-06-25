@@ -344,7 +344,7 @@ public class L1PetInstance extends L1NpcInstance {
 		List<L1ItemInstance> items = _inventory.getItems();
 		int last = _inventory.getSize() - 1;
 		for (int i = last; i >= 0; i--) {
-				L1ItemInstance item = items.get(i);
+			L1ItemInstance item = items.get(i);
 			if (!unequip && item.isEquipped()) {
 				continue;
 			}
