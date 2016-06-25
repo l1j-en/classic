@@ -49,9 +49,10 @@ public class S_PetInventory extends ServerBasePacket {
 				writeD(item.getCount());
 				writeC(item.isIdentified() ? 1 : 0);
 				writeS(item.getViewName());
+				
 			}
 		}
-		writeC(0x0a);
+		writeC(pet.getAc());
 	}
 
 	@Override
