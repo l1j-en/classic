@@ -345,11 +345,11 @@ public class L1PetInstance extends L1NpcInstance {
 		int last = _inventory.getSize() - 1;
 		for (int i = last; i >= 0; i--) {
 			L1ItemInstance item = items.get(i);
+			
 			if (!unequip && item.isEquipped()) {
 				continue;
-			}
-			else if(unequip && item.isEquipped()) {
-				// Not the best way to check, but the same way it's dones
+			} else if(unequip && item.isEquipped()) {
+				// Not the best way to check, but the same way it's done
 				//  in C_UsePetItem.java
 				int itemId = item.getItemId();
 				if (itemId >= 40749 && itemId <= 40752 || itemId >= 40756
@@ -359,6 +359,7 @@ public class L1PetInstance extends L1NpcInstance {
 					removeArmor(item);
 				}
 			}
+			
 			if (_petMaster.getInventory().checkAddItem( //
 					item, item.getCount()) == L1Inventory.OK) {
 				_inventory.tradeItem(item, item.getCount(), targetInventory);
