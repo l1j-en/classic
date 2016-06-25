@@ -342,12 +342,10 @@ public class L1PetInstance extends L1NpcInstance {
 	public void collect(boolean unequip) {
 		L1Inventory targetInventory = _petMaster.getInventory();
 		List<L1ItemInstance> items = _inventory.getItems();
-		int size = _inventory.getSize();
-		for (int i = 0; i < size; i++) {
-			L1ItemInstance item = items.get(0);
+		int last = _inventory.getSize() - 1;
+		for (int i = last; i >= 0; i--) {
+			L1ItemInstance item = items.get(last);
 			if (!unequip && item.isEquipped()) {
-				// Put it on the back of the list
-				items.add(items.remove(0));
 				continue;
 			}
 			else if(unequip && item.isEquipped()) {
