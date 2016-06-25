@@ -78,6 +78,7 @@ import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
+import l1j.server.server.serverpackets.S_OwnCharPack;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_Poison;
@@ -3056,6 +3057,7 @@ public class L1SkillUse {
 							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
 						} else {
 							pc.sendPackets(new S_ServerMessage(337, "$6073"));
+							return;
 						}
 					} else if (_skillId == AWAKEN_ANTHARAS) {
 						L1PcInstance pc = (L1PcInstance) cha;
