@@ -96,7 +96,6 @@ import l1j.server.server.serverpackets.S_SkillIconWaterLife;
 import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.serverpackets.S_Sound;
 import l1j.server.server.serverpackets.S_Strup;
-import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_TrueTarget;
 import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
@@ -3056,6 +3055,7 @@ public class L1SkillUse {
 							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 1, 0));
 						} else {
 							pc.sendPackets(new S_ServerMessage(337, "$6073"));
+							return;
 						}
 					} else if (_skillId == AWAKEN_ANTHARAS) {
 						L1PcInstance pc = (L1PcInstance) cha;
