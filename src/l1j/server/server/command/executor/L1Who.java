@@ -162,7 +162,7 @@ public class L1Who implements L1CommandExecutor {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT a.account_name, a.char_name, a.level ,a.MaxHp, a.MaxMp, a.Class, b.name as AccessLevelName, b.access_level, a.LocX, a.LocY, a.MapID FROM characters AS a JOIN access_levels b ON a.accesslevel = b.id WHERE char_name = ?;");
+					.prepareStatement("SELECT a.account_name, a.char_name, a.level ,a.MaxHp, a.MaxMp, a.Class, b.name as AccessLevelName, b.access_level, a.LocX, a.LocY, a.MapID, a.Clanname FROM characters AS a JOIN access_levels b ON a.accesslevel = b.id WHERE char_name = ?;");
 			pstm.setString(1, name);
 			rs = pstm.executeQuery();
 			rs.next();
@@ -176,6 +176,7 @@ public class L1Who implements L1CommandExecutor {
 					.append("Level ").append(rs.getInt("level")).append(" ")
 					.append(L1ClassId.getSex(rs.getInt("Class"))).append(" ")
 					.append(L1ClassId.getClass(rs.getInt("Class"))).append("\n")
+					.append("Pledge: ").append(rs.getString("Clanname")).append("\n")
 					.append("Max Hp: ").append(rs.getInt("MaxHp")).append(" ")
 					.append("Max Mp: ").append(rs.getInt("MaxMp")).append("\n")
 					.append(String.format("Location: %d %d %d", 
