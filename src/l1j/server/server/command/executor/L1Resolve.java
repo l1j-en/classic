@@ -46,16 +46,34 @@ public class L1Resolve implements L1CommandExecutor {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
-			int bugNumber = Integer.valueOf(arg).intValue();
+			String[] args = arg.split(" ");
+			int bugNumber = -1;
+			boolean notify = false;
+			
+			if(args.length == 2) {
+				if(!args[0].toLowerCase().equals("-n")){
+					throw new Exception();
+				}
+				
+				notify = true;
+				bugNumber = Integer.valueOf(args[1]).intValue();
+			} else {
+				bugNumber = Integer.valueOf(arg).intValue();
+			}
 			
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
 					.prepareStatement("UPDATE bugs SET resolved=1 WHERE id=?");
 			pstm.setInt(1, bugNumber);
 			pstm.execute();
-			pc.sendPackets(new S_SystemMessage("Bug #" + arg
+			pc.sendPackets(new S_SystemMessage("Bug #" + bugNumber
 					+ " has been resolved!"));
 			pstm.close();
+			
+			// unless they specified the -n flag, don't notify the player
+			if(!notify) {
+				return;
+			}	
 			
 			// find the player and send them a mail letting them know
 			// the bug has been resolved
@@ -109,7 +127,7 @@ public class L1Resolve implements L1CommandExecutor {
 			}
 			
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(".resolve <bugId>"));
+			pc.sendPackets(new S_SystemMessage(".resolve [-n] <bugId>"));
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
