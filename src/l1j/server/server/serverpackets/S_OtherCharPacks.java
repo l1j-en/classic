@@ -89,7 +89,13 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeD(0x0000); // exp
 		// writeC(0x00);
 		writeH(pc.getLawful());
-		writeS(pc.getName() + (isFindInvis && pc.isInvisble() ? "[*]" : ""));
+		
+		if(pc.isGm() && pc.getSpoofName() != null) {
+			writeS(pc.getSpoofName());
+		} else {
+			writeS(pc.getName() + (isFindInvis && pc.isInvisble() ? "[*]" : ""));
+		}
+		
 		writeS(pc.getTitle());
 		writeC(status);
 		writeD(pc.getClanid());
