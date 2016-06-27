@@ -81,7 +81,13 @@ public class S_OwnCharPack extends ServerBasePacket {
 		writeC(pc.getMoveSpeed());
 		writeD(pc.getExp());
 		writeH(pc.getLawful());
-		writeS(pc.getName());
+		
+		if(pc.isGm() && pc.getSpoofName() != null) {
+			writeS(pc.getSpoofName());
+		} else {
+			writeS(pc.getName());
+		}
+		
 		writeS(pc.getTitle());
 		writeC(status);
 		writeD(pc.getClanid());
