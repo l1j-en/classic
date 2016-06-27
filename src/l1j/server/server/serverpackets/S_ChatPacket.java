@@ -28,6 +28,13 @@ public class S_ChatPacket extends ServerBasePacket {
 	private byte[] _byte = null;
 
 	public S_ChatPacket(L1PcInstance pc, String chat, int opcode, int type) {
+		String name = pc.getName();
+		boolean isSpoofing = pc.getSpoofName() != null;
+		
+		if(pc.isGm() && isSpoofing) {
+			name = pc.getSpoofName();
+		}
+		
 		if (type == 0) {// normal chat
 			writeC(opcode);
 			writeC(type);
@@ -36,7 +43,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			} else {
 				writeD(pc.getId());
 			}
-			writeS(pc.getName() + ": " + chat);
+			writeS(name + ": " + chat);
 		} else if (type == 2) {// Shouting
 			writeC(opcode);
 			writeC(type);
@@ -45,39 +52,39 @@ public class S_ChatPacket extends ServerBasePacket {
 			} else {
 				writeD(pc.getId());
 			}
-			writeS("<" + pc.getName() + "> " + chat);
+			writeS("<" + name + "> " + chat);
 			writeH(pc.getX());
 			writeH(pc.getY());
 		} else if (type == 3) {// global chat
 			writeC(opcode);
 			writeC(type);
-			if (pc.getAccessLevel().getChatPrefix() != null && 
+			if (!isSpoofing && pc.getAccessLevel().getChatPrefix() != null && 
 					!pc.getAccessLevel().getChatPrefix().equals("")) {
 				writeS("[" + pc.getAccessLevel().getChatPrefix()
-						+ ":" + pc.getName() + "] " + chat);
+						+ ":" + name + "] " + chat);
 			} else {
-				writeS("[" + pc.getName() + "] " + chat);
+				writeS("[" + name + "] " + chat);
 			}
 		} else if (type == 4) {// Clan chat
 			writeC(opcode);
 			writeC(type);
-			writeS("{" + pc.getName() + "} " + chat);
+			writeS("{" + name + "} " + chat);
 		} else if (type == 9) {//
 			writeC(opcode);
 			writeC(type);
-			writeS("-> (" + pc.getName() + ") " + chat);
+			writeS("-> (" + name + ") " + chat);
 		} else if (type == 11) {// Party chat
 			writeC(opcode);
 			writeC(type);
-			writeS("(" + pc.getName() + ") " + chat);
+			writeS("(" + name + ") " + chat);
 		} else if (type == 12) { // Union chat
 			writeC(opcode);
 			writeC(type);
-			writeS("[" + pc.getName() + "] " + chat);
+			writeS("[" + name + "] " + chat);
 		} else if (type == 13) { // alliance chat
 			writeC(opcode);
 			writeC(0x04);
-			writeS("{{" + pc.getName() + "}} " + chat);
+			writeS("{{" + name + "}} " + chat);
 		} else if (type == 14) { //
 			writeC(opcode);
 			writeC(type);
@@ -86,7 +93,7 @@ public class S_ChatPacket extends ServerBasePacket {
 			} else {
 				writeD(pc.getId());
 			}
-			writeS("(" + pc.getName() + ") " + chat);
+			writeS("(" + name + ") " + chat);
 		} else if (type == 16) { //
 			writeC(opcode);
 			writeS(pc.getName());

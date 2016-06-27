@@ -138,6 +138,19 @@ public class L1PcInstance extends L1Character {
 
 	public L1PinkName _pinkName = null;
 	private String followingGm = null;
+	private String spoofName = null;
+	
+	public String getSpoofName() {
+		return spoofName;
+	}
+	
+	public void setSpoofName(String name) {
+		if(name != null && name.trim().equals("")) {
+			throw new IllegalArgumentException("Spoof name cannot be blank.");
+		}
+		
+		spoofName = name;
+	}
 	
 	public L1PcInstance getFollowingGm() {
 		if(followingGm == null)
