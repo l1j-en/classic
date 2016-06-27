@@ -75,3 +75,4 @@ REPLACE INTO commands VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable 
 REPLACE INTO commands VALUES('movechar', '100', 'L1MoveChar', 'Allows you to move a character (online or offline) to a specific location.', 0);
 UPDATE commands SET access_level = '100' WHERE name = 'resolve';
 UPDATE commands SET `help_text` = 'Resolve a specific bug. Use .resolve -n # to nofity the reporter.' WHERE name = 'resolve';
+INSERT INTO `commands` VALUES('spoof', 100, 'L1SpoofName', 0, 'Allows you to appear as a different name.');
