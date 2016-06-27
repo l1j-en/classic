@@ -493,14 +493,17 @@ public class CalcExp {
 
 	private static double getPartyLevel(final L1PcInstance player) {
 		double level = 0.;
+		
 		for (L1PcInstance member : player.getParty().getMembers())
 			if (player.knownsObject(member) || player.equals(member))
-				level += player.getLevel() * player.getLevel();
+				level += member.getLevel() * member.getLevel();
+		
 		return level;
 	}
 
 	private static double getPartyBonus(final L1PcInstance player) {
 		int known = 0;
+		
 		for (L1PcInstance member : player.getParty().getMembers())
 			if (player.knownsObject(member))
 				known++;
