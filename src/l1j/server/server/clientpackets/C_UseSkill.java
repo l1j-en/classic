@@ -98,7 +98,7 @@ public class C_UseSkill extends ClientBasePacket {
 					// call clan
 					int bracketIndex = charName.indexOf("[");
 					if(bracketIndex > -1) {
-						charName = charName.substring(0,  charName.indexOf("["));
+						charName = charName.substring(0,  bracketIndex);
 					}
 				} else if (skillId == TRUE_TARGET) {
 					targetId = readD();
