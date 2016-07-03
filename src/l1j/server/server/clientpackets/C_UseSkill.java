@@ -93,6 +93,13 @@ public class C_UseSkill extends ClientBasePacket {
 			try {
 				if (skillId == CALL_CLAN || skillId == RUN_CLAN) {
 					charName = readS();
+					
+					// fix for being able to double click names when using
+					// call clan
+					int bracketIndex = charName.indexOf("[");
+					if(bracketIndex > -1) {
+						charName = charName.substring(0,  charName.indexOf("["));
+					}
 				} else if (skillId == TRUE_TARGET) {
 					targetId = readD();
 					targetX = readH();
