@@ -639,7 +639,7 @@ public class C_Attr extends ClientBasePacket {
 		int castleId = L1CastleLocation.getCastleIdByArea(callClanPc);
 		if (castleId != 0) {
 			isInWarArea = true;
-			if (WarTimeController.getInstance().isNowWar(castleId)) {
+			if (!WarTimeController.getInstance().isNowWar(castleId)) {
 				isInWarArea = false;
 			}
 		}
