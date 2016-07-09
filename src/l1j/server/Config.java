@@ -178,6 +178,8 @@ public final class Config {
 	public static double RATE_XP;
 
 	public static double RATE_LA;
+	
+	public static double RATE_CHAO_LA;
 
 	public static double RATE_KARMA;
 
@@ -686,6 +688,8 @@ public final class Config {
 			RATE_XP = Double.parseDouble(rateSettings.getProperty("RateXp",
 					"1.0"));
 			RATE_LA = Double.parseDouble(rateSettings.getProperty("RateLawful",
+					"1.0"));
+			RATE_CHAO_LA = Double.parseDouble(rateSettings.getProperty("RateChaoLawful",
 					"1.0"));
 			RATE_KARMA = Double.parseDouble(rateSettings.getProperty(
 					"RateKarma", "1.0"));
