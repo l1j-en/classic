@@ -521,6 +521,11 @@ public class CalcExp {
 		}
 
 		int add_lawful = (int) (lawful * Config.RATE_LA) * -1;
+		
+		if(pc.getLawful() < 0) {
+			add_lawful = (int)(add_lawful * Config.RATE_CHAO_LA);
+		}
+		
 		pc.addLawful(add_lawful);
 
 		boolean aligned = Integer.signum(karma) == Integer
