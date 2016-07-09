@@ -108,6 +108,10 @@ public class C_Attack extends ClientBasePacket {
 		pc.setRegenState(REGENSTATE_ATTACK);
 
 		if (target != null && !((L1Character) target).isDead()) {
+			if(target instanceof L1PcInstance) {
+				pc._pinkName.onAction((L1PcInstance)target);
+			}
+			
 			target.onAction(pc);
 		} else {
 			L1ItemInstance weapon = pc.getWeapon();
