@@ -1775,7 +1775,10 @@ public class L1SkillUse {
 					}
 						
 					isSuccess = _magic.calcProbabilityMagic(_skillId);
-					if (_skillId != ERASE_MAGIC) {
+					//TODO -- need to fix this so we can track it in the DB better.
+					// Maybe specify that a skill is magic or not?
+					if (_skillId != ERASE_MAGIC && _skillId != SHOCK_STUN && 
+							_skillId != MASS_SHOCK_STUN) {
 						cha.removeSkillEffect(ERASE_MAGIC);
 					}
 					if (_skillId != FOG_OF_SLEEPING) {
