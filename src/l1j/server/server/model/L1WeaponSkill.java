@@ -229,6 +229,9 @@ public class L1WeaponSkill {
 				if (!isImmune(target)) {
 					target.setSkillEffect(skillId,
 							weaponSkill.getSkillTime() * 1000);
+				} else {
+					// if they're immune to the proc, then don't bother running
+					return 0;
 				}
 			}
 		}
