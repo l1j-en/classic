@@ -374,14 +374,29 @@ public class L1PetInstance extends L1NpcInstance {
 	}
 
 	public void dropItem() {
+		dropItem(false);
+	}
+	
+	public void dropItem(boolean collectEquipment) {
 		L1Inventory targetInventory = L1World.getInstance().getInventory(
 				getX(), getY(), getMapId());
+		
+		L1Inventory masterInventory = _petMaster.getInventory();
+		
 		List<L1ItemInstance> items = _inventory.getItems();
 		int size = _inventory.getSize();
 		for (int i = 0; i < size; i++) {
 			L1ItemInstance item = items.get(0);
-			item.setEquipped(false);
-			_inventory.tradeItem(item, item.getCount(), targetInventory);
+			
+			if (collectEquipment && item.isEquipped() && _petMaster.getInventory().checkAddItem( //
+					item, item.getCount()) == L1Inventory.OK) {
+				
+				item.setEquipped(false);
+				_inventory.tradeItem(item, item.getCount(), masterInventory);
+			} else {
+				item.setEquipped(false);
+				_inventory.tradeItem(item, item.getCount(), targetInventory);
+			}
 		}
 	}
 
