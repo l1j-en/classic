@@ -488,11 +488,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
-		try {
-			pc.saveInventory();			
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
+
 
 		if (pc.isDead()) {
 			int[] loc = {33090, 33392, 4}; // Default to SKT, in case there was an error.
@@ -507,6 +503,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			pc.setCurrentHp(pc.getLevel());
 			pc.set_food(40);
 		}
+		
 		if (pc.getFightId() != 0) {
 			pc.setFightId(0);
 			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
@@ -523,14 +520,16 @@ public class ClientThread implements Runnable, PacketOutput {
 		if (pc.isInChatParty()) {
 			pc.getChatParty().leaveMember(pc);
 		}
+		
 		Object[] petList = pc.getPetList().values().toArray();
 		for (Object petObject : petList) {
 			if (petObject instanceof L1PetInstance) {
 				L1PetInstance pet = (L1PetInstance) petObject;
-				pet.dropItem();
+				pet.dropItem(true);
 				pc.getPetList().remove(pet.getId());
 				pet.deleteMe();
 			}
+			
 			if (petObject instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) petObject;
 				for (L1PcInstance visiblePc : L1World.getInstance()
@@ -540,6 +539,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 			}
 		}
+		
 		for (L1DollInstance doll : pc.getDollList().values())
 			doll.deleteDoll();
 		for (L1FollowerInstance follower : pc.getFollowerList().values()) {
@@ -549,6 +549,13 @@ public class ClientThread implements Runnable, PacketOutput {
 					follower.getMapId());
 			follower.deleteMe();
 		}
+		
+		try {
+			pc.saveInventory();			
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+		
 		L1DeathMatch.getInstance().checkLeaveGame(pc);
 		L1PolyRace.getInstance().checkLeaveGame(pc);
 		L1HauntedHouse.getInstance().checkLeaveGame(pc);
