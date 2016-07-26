@@ -18,9 +18,15 @@
  */
 package l1j.server.server.command.executor;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import l1j.server.server.Account;
+import l1j.server.server.datatables.AccessLevelTable;
+import l1j.server.server.model.BanInfo;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_CustomBoardRead;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -36,18 +42,89 @@ public class L1AccountBanKick implements L1CommandExecutor {
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
 		try {
-			L1PcInstance target = L1World.getInstance().getPlayer(arg);
+			String[] args = arg.split(" ");
+			
+			String accountName = args[0];
+			String action = args[1].toLowerCase();
+			
+			StringBuilder message = new StringBuilder();
+			
+			for(int i = 2; i < args.length; i++) {
+				message.append(args[i] + " ");
+			}
+			
+			if(message.toString().trim().length() == 0 && !action.equals("history")) {
+				pc.sendPackets(new S_SystemMessage("A ban/unban reason is required!"));
+				return;
+			}
 
-			if (target != null) {
-				Account.ban(target.getAccountName());
-				pc.sendPackets(new S_SystemMessage(target.getName()
-						+ " has been kicked and banned."));
-				target.sendPackets(new S_Disconnect());
+			Account playerAccount = Account.load(accountName);
+
+			if (playerAccount != null) {
+				if(pc.getAccessLevel().getLevel() != AccessLevelTable.getInstance().getMaxAccessLevel()
+						&& playerAccount.getAccessLevel() >= pc.getAccessLevel().getLevel()) {
+					pc.sendPackets(
+							new S_SystemMessage("You can only ban/unban accounts with less privileges than you!"));
+					return;
+				}
+				
+				if(action.equals("ban")) {
+					if(playerAccount.isBanned()) {
+						pc.sendPackets(
+								new S_SystemMessage(String.format("Account '%s' is already banned!", accountName)));
+						return;
+					}
+					
+					for(String char_name : playerAccount.getCharacters()) {
+						L1PcInstance character = L1World.getInstance().getPlayer(char_name);
+						
+						if(character != null) {
+							character.sendPackets(new S_Disconnect());
+							pc.sendPackets(new S_SystemMessage(
+									String.format("Character '%s' in account '%s' has been kicked!",
+											character.getName(), playerAccount.getName())));
+						}
+					}
+					
+					Account.ban(playerAccount.getName(), pc.getAccountName(), message.toString());
+					pc.sendPackets(new S_SystemMessage(String.format("The account '%s' has been banned.",
+							playerAccount.getName())));
+				} else if(action.equals("unban")) {
+					if(!playerAccount.isBanned()) {
+						pc.sendPackets(
+								new S_SystemMessage(String.format("Account '%s' is not banned!", accountName)));
+						return;
+					}
+					
+					Account.unban(playerAccount.getName(), pc.getAccountName(), message.toString());
+					pc.sendPackets(new S_SystemMessage(String.format("The account '%s' has been unbanned.",
+							playerAccount.getName())));
+				} else if(action.equals("history")) {
+					ArrayList<BanInfo> banHistory = playerAccount.getBanHistory();
+					
+					StringBuilder banHistoryString = new StringBuilder();
+					SimpleDateFormat formatter =
+		                      new SimpleDateFormat("MMM dd yyyy HH:mm");
+					
+					for(BanInfo historyItem : banHistory) {
+						String accountInfoMessage = String.format("%s: \n\n%s by %s\nReason:\n%s\n\n",
+								formatter.format(historyItem.getActionDate()),
+								historyItem.getAction(),
+								historyItem.getActionerAccountName(),
+								historyItem.getMessage());
+						banHistoryString.append(accountInfoMessage);
+					}
+					
+					pc.sendPackets(new S_CustomBoardRead(playerAccount.getName() + " Ban History", 
+							pc.getName(), banHistoryString.toString()));
+				} else {
+					throw new Exception();
+				}
 			} else {
-				pc.sendPackets(new S_SystemMessage("Please give a playername."));
+				pc.sendPackets(new S_SystemMessage("No Account Found with the name: " + accountName));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage(cmdName + " player_name"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <account_name> [ban|unban|history] <reason>"));
 		}
 	}
 }
