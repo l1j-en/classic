@@ -19,7 +19,6 @@
 package l1j.server.server.command.executor;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import l1j.server.server.Account;
@@ -69,7 +68,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 					return;
 				}
 				
-				if(action.equals("add")) {
+				if(action.equals("ban")) {
 					if(playerAccount.isBanned()) {
 						pc.sendPackets(
 								new S_SystemMessage(String.format("Account '%s' is already banned!", accountName)));
@@ -82,7 +81,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 						if(character != null) {
 							character.sendPackets(new S_Disconnect());
 							pc.sendPackets(new S_SystemMessage(
-									String.format("Character '%s' in account '%s' has been kicked and banned.",
+									String.format("Character '%s' in account '%s' has been kicked!",
 											character.getName(), playerAccount.getName())));
 						}
 					}
@@ -90,7 +89,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 					Account.ban(playerAccount.getName(), pc.getAccountName(), message.toString());
 					pc.sendPackets(new S_SystemMessage(String.format("The account '%s' has been banned.",
 							playerAccount.getName())));
-				} else if(action.equals("del")) {
+				} else if(action.equals("unban")) {
 					if(!playerAccount.isBanned()) {
 						pc.sendPackets(
 								new S_SystemMessage(String.format("Account '%s' is not banned!", accountName)));
@@ -125,7 +124,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 				pc.sendPackets(new S_SystemMessage("No Account Found with the name: " + accountName));
 			}
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage("." + cmdName + " <account_name> [add|del|history] <reason>"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <account_name> [ban|unban|history] <reason>"));
 		}
 	}
 }
