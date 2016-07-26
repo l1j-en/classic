@@ -52,7 +52,7 @@ public class C_Drawal extends ClientBasePacket {
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "Withdrawal Dupe Check Player Offline");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");
@@ -64,7 +64,7 @@ public class C_Drawal extends ClientBasePacket {
 		// TRICIDTODO: set configurable auto ban
 		if (j < 0) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "Withdrawal Dupe Check Overflow Attempt");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Drawal).");

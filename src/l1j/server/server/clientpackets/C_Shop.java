@@ -53,7 +53,7 @@ public class C_Shop extends ClientBasePacket {
 		}
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName());
+			Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Player Offline");
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
 			L1World.getInstance().broadcastServerMessage(
@@ -99,7 +99,7 @@ public class C_Shop extends ClientBasePacket {
 						|| checkItem.getCount() <= 0 || sellCount <= 0
 						|| sellCount > 2000000000
 						|| sellCount > checkItem.getCount()) {
-					Account.ban(pc.getAccountName());
+					Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup SellList");
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName()
 							+ " Attempted Dupe Exploit (C_Shop).");
@@ -155,7 +155,7 @@ public class C_Shop extends ClientBasePacket {
 														 * <= 0 ||
 														 */buyCount <= 0
 						|| buyCount > 2000000000) {
-					Account.ban(pc.getAccountName());
+					Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup BuyList");
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					_log.info(pc.getName()
 							+ " Attempted Dupe Exploit (C_Shop).");

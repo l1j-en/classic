@@ -26,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +34,8 @@ import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.encryptions.Base64;
+import l1j.server.server.log.LogBan;
+import l1j.server.server.model.BanInfo;
 import l1j.server.server.utils.SQLUtil;
 
 public class Account {
@@ -195,15 +198,84 @@ public class Account {
 		}
 		return result;
 	}
+	
+	public ArrayList<BanInfo> getBanHistory() {
+		ArrayList<BanInfo> banHistory = new ArrayList<BanInfo>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			String sqlstr = "SELECT * FROM log_ban WHERE target_account=? ORDER BY timestamp DESC";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setString(1, _name);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				banHistory.add(new BanInfo(
+						rs.getString("action"), 
+						rs.getString("target_account"), 
+						rs.getString("actioner_account"), 
+						rs.getString("message"), 
+						rs.getTimestamp("timestamp")
+						));
+			}
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		
+		return banHistory;
+	}
+	
+	public ArrayList<String> getCharacters() {
+		ArrayList<String> characters = new ArrayList<String>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			String sqlstr = "SELECT char_name FROM characters WHERE account_name=?";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setString(1, _name);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				characters.add(rs.getString("char_name"));
+			}
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		
+		return characters;
+	}
+	
+	public static void ban(final String login, final String bannerAccount, final String banMessage) {
+		setBanStatus(login, true);
+		LogBan.logBan("ban", login, bannerAccount, banMessage);
+	}
+	
+	public static void unban(final String login, final String unbannerAccount, final String unbanMessage) {
+		setBanStatus(login, false);
+		LogBan.logBan("unban", login, unbannerAccount, unbanMessage);
+	}
 
-	public static void ban(final String login) {
+	private static void setBanStatus(final String login, boolean isBanned) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			String sqlstr = "UPDATE accounts SET banned=1 WHERE login=?";
+			String sqlstr = "UPDATE accounts SET banned=? WHERE login=?";
 			pstm = con.prepareStatement(sqlstr);
-			pstm.setString(1, login);
+			pstm.setBoolean(1, isBanned);
+			pstm.setString(2, login);
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
