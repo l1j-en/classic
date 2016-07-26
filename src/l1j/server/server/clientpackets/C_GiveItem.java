@@ -60,7 +60,7 @@ public class C_GiveItem extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName());
+			Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Player Offline");
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
 			L1World.getInstance().broadcastServerMessage(
@@ -88,7 +88,7 @@ public class C_GiveItem extends ClientBasePacket {
 		// TRICIDTODO: set configurable auto ban
 		if ((!item.isStackable() && count != 1) || item.getCount() <= 0
 				|| count <= 0 || count > 2000000000 || count > item.getCount()) {
-			Account.ban(pc.getAccountName());
+			Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Count Mixup");
 			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
 			L1World.getInstance().broadcastServerMessage(

@@ -53,7 +53,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "TradeAddItem Dupe Check Player Offline");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName()
@@ -69,7 +69,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 				|| itemcount <= 0 || itemcount > 2000000000
 				|| itemcount > item.getCount()) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "TradeAddItem Dupe Check Count Mixup");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName()
