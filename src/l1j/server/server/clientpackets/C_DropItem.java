@@ -51,7 +51,7 @@ public class C_DropItem extends ClientBasePacket {
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "DropItem Dupe Check Player Offline");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName()
@@ -64,7 +64,7 @@ public class C_DropItem extends ClientBasePacket {
 		// TRICIDTODO: set configurable auto ban
 		if (count < 0) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "DropItem Dupe Check Overflow Attempt");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName()
@@ -100,7 +100,7 @@ public class C_DropItem extends ClientBasePacket {
 					|| count <= 0 || count > 2000000000
 					|| count > item.getCount()) {
 				if (Config.AUTO_BAN) {
-					Account.ban(pc.getAccountName());
+					Account.ban(pc.getAccountName(), "AutoBan", "DropItem Dupe Check Count Mixup");
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 				}
 				_log.info(pc.getName()

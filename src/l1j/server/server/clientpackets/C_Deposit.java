@@ -49,7 +49,7 @@ public class C_Deposit extends ClientBasePacket {
 		// not sure if this is even needed here, but why not
 		if (player.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {
-				Account.ban(player.getAccountName());
+				Account.ban(player.getAccountName(), "AutoBan", "Deposit Dupe Check Player Offline");
 				IpTable.getInstance().banIp(player.getNetConnection().getIp());
 			}
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");
@@ -63,7 +63,7 @@ public class C_Deposit extends ClientBasePacket {
 		// TRICIDTODO: set configurable auto ban
 		if (j < 0) {
 			if (Config.AUTO_BAN) {
-				Account.ban(player.getAccountName());
+				Account.ban(player.getAccountName(), "AutoBan", "Deposit Dupe Check Overflow Attempt");
 				IpTable.getInstance().banIp(player.getNetConnection().getIp());
 			}
 			_log.info(player.getName() + " Attempted Dupe Exploit (C_Deposit).");

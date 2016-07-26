@@ -52,7 +52,7 @@ public class C_PickUpItem extends ClientBasePacket {
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "PickUpItem Dupe Check Player Offline");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
@@ -64,7 +64,7 @@ public class C_PickUpItem extends ClientBasePacket {
 		// TRICIDTODO: Set configurable auto ban
 		if (pickupCount < 0) {
 			if (Config.AUTO_BAN) {
-				Account.ban(pc.getAccountName());
+				Account.ban(pc.getAccountName(), "AutoBan", "PickUpItem Dupe Check Overflow Attempt");
 				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_PickUpItem).");
@@ -97,7 +97,7 @@ public class C_PickUpItem extends ClientBasePacket {
 					|| pickupCount > 2000000000
 					|| pickupCount > item.getCount()) {
 				if (Config.AUTO_BAN) {
-					Account.ban(pc.getAccountName());
+					Account.ban(pc.getAccountName(), "AutoBan", "PickUpItem Dupe Check Count Mixup");
 					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 				}
 				_log.info(pc.getName()
