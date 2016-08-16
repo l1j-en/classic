@@ -41,44 +41,51 @@ public class S_NPCPack extends ServerBasePacket {
 	private static final int STATUS_FASTMOVABLE = 64;
 	private static final int STATUS_GHOST = 128;
 	private byte[] _byte = null;
-
-	public S_NPCPack(L1NpcInstance npc) {
-		writeC(Opcodes.S_OPCODE_CHARPACK);
-		writeH(npc.getX());
-		writeH(npc.getY());
-		writeD(npc.getId());
-		if (npc.getTempCharGfx() == 0) {
-			writeH(npc.getGfxId());
-		} else {
-			writeH(npc.getTempCharGfx());
+	
+	public S_NPCPack(L1NpcInstance npc, ServerBasePacket basePacket) {
+		if(basePacket == null) {
+			basePacket = this;
 		}
+		
+		basePacket.writeC(Opcodes.S_OPCODE_CHARPACK);
+		basePacket.writeH(npc.getX());
+		basePacket.writeH(npc.getY());
+		basePacket.writeD(npc.getId());
+		
+		if (npc.getTempCharGfx() == 0) {
+			basePacket.writeH(npc.getGfxId());
+		} else {
+			basePacket.writeH(npc.getTempCharGfx());
+		}
+		
 		if (npc.getNpcTemplate().is_doppel() && npc.getGfxId() != 31) { // Slime
 																		// to
 																		// see
 																		// if
 																		// the
 																		// Dopper
-			writeC(4);
+			basePacket.writeC(4);
 		} else {
-			writeC(npc.getStatus());
+			basePacket.writeC(npc.getStatus());
 		}
-		writeC(npc.getHeading());
-		writeC(npc.getChaLightSize());
-		writeC(npc.getMoveSpeed());
-		writeD(npc.getExp());
-		writeH(npc.getTempLawful());
-		writeS(npc.getNameId());
+		
+		basePacket.writeC(npc.getHeading());
+		basePacket.writeC(npc.getChaLightSize());
+		basePacket.writeC(npc.getMoveSpeed());
+		basePacket.writeD(npc.getExp());
+		basePacket.writeH(npc.getTempLawful());
+		basePacket.writeS(npc.getNameId());
 		if (npc instanceof L1FieldObjectInstance) {
 			L1NpcTalkData talkdata = NPCTalkDataTable.getInstance()
 					.getTemplate(npc.getNpcTemplate().get_npcId());
 			if (talkdata != null) {
-				writeS(talkdata.getNormalAction()); // HTML title is interpreted
+				basePacket.writeS(talkdata.getNormalAction()); // HTML title is interpreted
 													// as the name
 			} else {
-				writeS(null);
+				basePacket.writeS(null);
 			}
 		} else {
-			writeS(npc.getTitle());
+			basePacket.writeS(npc.getTitle());
 		}
 
 		int status = 0;
@@ -87,6 +94,7 @@ public class S_NPCPack extends ServerBasePacket {
 				status |= STATUS_POISON;
 			}
 		}
+		
 		if (npc.getNpcTemplate().is_doppel()) {
 			// PC's and Eva's blessing to attribute.. Dopper with the exception
 			// of the Quest for WIZ
@@ -94,17 +102,22 @@ public class S_NPCPack extends ServerBasePacket {
 				status |= STATUS_PC;
 			}
 		}
-		writeC(status);
-		writeD(0); // 0 In addition to the flying C_27
-		writeS(null);
-		writeS(null); // Master name?
-		writeC(0);
-		writeC(0xFF); // HP
-		writeC(0);
-		writeC(npc.getLevel());
-		writeC(0);
-		writeC(0xFF);
-		writeC(0xFF);
+		
+		basePacket.writeC(status);
+		basePacket.writeD(0); // 0 In addition to the flying C_27
+		basePacket.writeS(null);
+		basePacket.writeS(null); // Master name?
+		basePacket.writeC(0);
+		basePacket.writeC(0xFF); // HP
+		basePacket.writeC(0);
+		basePacket.writeC(npc.getLevel());
+		basePacket.writeC(0);
+		basePacket.writeC(0xFF);
+		basePacket.writeC(0xFF);
+	}
+
+	public S_NPCPack(L1NpcInstance npc) {
+		this(npc, null);
 	}
 
 	@Override

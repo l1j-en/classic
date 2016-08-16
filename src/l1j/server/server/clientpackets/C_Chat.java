@@ -53,7 +53,7 @@ public class C_Chat extends ClientBasePacket {
 		L1PcInstance pc = clientThread.getActiveChar();
 		int chatType = readC();
 		String chatText = readS();
-		if (pc.hasSkillEffect(SILENCE) || pc.hasSkillEffect(AREA_OF_SILENCE)
+		if (!pc.isGm() && pc.hasSkillEffect(SILENCE) || pc.hasSkillEffect(AREA_OF_SILENCE)
 				|| pc.hasSkillEffect(STATUS_POISON_SILENCE)) {
 			return;
 		}
