@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1World;
@@ -176,6 +177,16 @@ public class Teleportation {
 		}
 		
 		pc.setTeleport(false);
+		
+		// wrapped in a try/catch just to make sure the GM command can't
+		// crap out the client packet
+		try{
+			L1PcInstance followingGm = pc.getFollowingGm();
+			if(followingGm != null)
+				L1Follow.moveChar(pc,  followingGm);
+		} catch(Exception ex) { 
+			_log.warning("L1Follow Teleport: " + ex.getMessage());
+		}
 
 		if (pc.hasSkillEffect(WIND_SHACKLE)) {
 			pc.sendPackets(new S_SkillIconWindShackle(pc.getId(), pc
