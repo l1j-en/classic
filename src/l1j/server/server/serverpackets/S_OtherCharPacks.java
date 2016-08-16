@@ -20,7 +20,11 @@ package l1j.server.server.serverpackets;
 
 import java.util.logging.Logger;
 
+import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.model.L1NpcTalkData;
+import l1j.server.server.model.Instance.L1FieldObjectInstance;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
@@ -48,6 +52,17 @@ public class S_OtherCharPacks extends ServerBasePacket {
 	}
 
 	private void buildPacket(L1PcInstance pc, boolean isFindInvis) {
+		if(pc.getSpoofMob() != null && pc.isGm()) {
+			L1NpcInstance npcTemplate = pc.getSpoofMob();
+			npcTemplate.setStatus(0);
+			npcTemplate.setLocation(pc.getLocation());
+			npcTemplate.setHeading(pc.getHeading());
+			npcTemplate.setId(pc.getId());
+			
+			new S_NPCPack(npcTemplate, this);
+			return;
+		}
+		
 		int status = STATUS_PC;
 
 		if (pc.getPoison() != null) {
