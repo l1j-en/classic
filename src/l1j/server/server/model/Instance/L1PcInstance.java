@@ -139,6 +139,7 @@ public class L1PcInstance extends L1Character {
 	public L1PinkName _pinkName = null;
 	private String followingGm = null;
 	private String spoofName = null;
+	private L1NpcInstance spoofMob = null;
 	
 	public String getSpoofName() {
 		return spoofName;
@@ -150,6 +151,14 @@ public class L1PcInstance extends L1Character {
 		}
 		
 		spoofName = name;
+	}
+	
+	public L1NpcInstance getSpoofMob(){
+		return spoofMob;
+	}
+	
+	public void setSpoofMob(L1MonsterInstance mobToSpoof){
+		spoofMob = mobToSpoof;
 	}
 	
 	public L1PcInstance getFollowingGm() {
@@ -362,7 +371,7 @@ public class L1PcInstance extends L1Character {
 		if (isInvisble() && !perceivedFrom.hasSkillEffect(GMSTATUS_FINDINVIS)) {
 			return;
 		}
-
+		
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_OtherCharPacks(this, perceivedFrom
 				.hasSkillEffect(GMSTATUS_FINDINVIS)));

@@ -75,4 +75,6 @@ REPLACE INTO commands VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable 
 REPLACE INTO commands VALUES('movechar', '100', 'L1MoveChar', 'Allows you to move a character (online or offline) to a specific location.', 0);
 UPDATE commands SET access_level = '100' WHERE name = 'resolve';
 UPDATE commands SET `help_text` = 'Resolve a specific bug. Use .resolve -n # to notify the reporter.' WHERE name = 'resolve';
-INSERT INTO `commands` VALUES('spoof', 100, 'L1SpoofName', 0, 'Allows you to appear as a different name.');
+INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('spoof', 100, 'L1SpoofName', 0, 'Allows you to appear as a different name.');
+INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('cancel', 100, 'L1Cancel', 0, 'Cancels all skills on a user.');
+INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('scan', 100, 'L1ScanArea', 0, 'Scans the area and returns details about the subject of the scan.');
