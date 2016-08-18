@@ -388,7 +388,8 @@ public class L1Attack {
 				+ _pc.getOriginalHitup() + _pc.getHitModifierByArmor();
 
 		hitRate += getWeightHitModifier(_pc);
-		hitRate += getCookingModifier(_pc, isRanged);
+		hitRate += getCookingHitModifier(_pc, isRanged);
+		hitRate += getDollHitModifier(_pc, isRanged);
 
 		if (!isRanged) {
 			Object[] dollList = _pc.getDollList().values().toArray();
@@ -408,8 +409,30 @@ public class L1Attack {
 		return hitRate;
 	}
 
+	private static int getDollHitModifier(final L1PcInstance pc,
+			final boolean ranged) {
+		int hitRate = 0;
+		Object[] dollList = pc.getDollList().values().toArray();
+		for (Object dollObject : dollList) {
+			L1DollInstance doll = (L1DollInstance) dollObject;
+			hitRate += ranged ? doll.getRangedHitByDoll() : doll.getMeleeHitByDoll();
+		}
+		return hitRate;
+	}
+
+	private static int getDollDmgModifier(final L1PcInstance pc,
+			final boolean ranged) {
+		int damage = 0;
+		Object[] dollList = pc.getDollList().values().toArray();
+		for (Object dollObject : dollList) {
+			L1DollInstance doll = (L1DollInstance) dollObject;
+			damage += ranged ? doll.getRangedDmgByDoll() : doll.getMeleeDmgByDoll();
+		}
+		return damage;
+	}
+
 	// TODO: skill implementation should make this unnecessary.
-	private static int getCookingModifier(final L1PcInstance pc,
+	private static int getCookingHitModifier(final L1PcInstance pc,
 			final boolean ranged) {
 		int cookingModifier = 0;
 		if (!ranged
@@ -430,6 +453,26 @@ public class L1Attack {
 			cookingModifier += 1;
 		}
 		return cookingModifier;
+	}
+	
+	private static int getCookingDmgModifier(final L1PcInstance pc,
+			final boolean ranged) {
+		int damage = 0;
+		if (!ranged
+				&& (pc.hasSkillEffect(COOKING_2_0_N)
+						|| pc.hasSkillEffect(COOKING_2_0_S)
+						|| pc.hasSkillEffect(COOKING_3_2_N) || pc
+							.hasSkillEffect(COOKING_3_2_S))) {
+			damage += 1;
+		}
+		if (ranged
+				&& (pc.hasSkillEffect(COOKING_2_3_N)
+						|| pc.hasSkillEffect(COOKING_2_3_S)
+						|| pc.hasSkillEffect(COOKING_3_0_N) || pc
+							.hasSkillEffect(COOKING_3_0_S))) {
+			damage += 1;
+		}
+		return damage;
 	}
 
 	private int getWeightHitModifier(final L1PcInstance pc) {
@@ -781,35 +824,8 @@ public class L1Attack {
 		damage += isRanged ? _pc.getBowDmgModifierByArmor() : _pc
 				.getDmgModifierByArmor();
 
-		if (!isRanged) {
-			Object[] dollList = _pc.getDollList().values().toArray();
-			for (Object dollObject : dollList) {
-				L1DollInstance doll = (L1DollInstance) dollObject;
-				damage += doll.getDamageByDoll();
-			}
-		}
-		if (isRanged) {
-			Object[] dollList = _pc.getDollList().values().toArray();
-			for (Object dollObject : dollList) {
-				L1DollInstance doll = (L1DollInstance) dollObject;
-				damage += doll.getRangedDamageByDoll();
-			}
-		}
-
-		if (!isRanged
-				&& (_pc.hasSkillEffect(COOKING_2_0_N)
-						|| _pc.hasSkillEffect(COOKING_2_0_S)
-						|| _pc.hasSkillEffect(COOKING_3_2_N) || _pc
-							.hasSkillEffect(COOKING_3_2_S))) {
-			damage += 1;
-		}
-		if (isRanged
-				&& (_pc.hasSkillEffect(COOKING_2_3_N)
-						|| _pc.hasSkillEffect(COOKING_2_3_S)
-						|| _pc.hasSkillEffect(COOKING_3_0_N) || _pc
-							.hasSkillEffect(COOKING_3_0_S))) {
-			damage += 1;
-		}
+		damage += getCookingDmgModifier(_pc, isRanged);
+		damage += getDollDmgModifier(_pc, isRanged);
 
 		return damage;
 	}
