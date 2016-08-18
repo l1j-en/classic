@@ -390,6 +390,21 @@ public class L1Attack {
 		hitRate += getWeightHitModifier(_pc);
 		hitRate += getCookingModifier(_pc, isRanged);
 
+		if (!isRanged) {
+			Object[] dollList = _pc.getDollList().values().toArray();
+			for (Object dollObject : dollList) {
+				L1DollInstance doll = (L1DollInstance) dollObject;
+				hitRate += doll.getMeleeHitByDoll();
+			}
+		}
+		if (isRanged) {
+			Object[] dollList = _pc.getDollList().values().toArray();
+			for (Object dollObject : dollList) {
+				L1DollInstance doll = (L1DollInstance) dollObject;
+				hitRate += doll.getRangedHitByDoll();
+			}
+		}
+
 		return hitRate;
 	}
 
@@ -771,6 +786,13 @@ public class L1Attack {
 			for (Object dollObject : dollList) {
 				L1DollInstance doll = (L1DollInstance) dollObject;
 				damage += doll.getDamageByDoll();
+			}
+		}
+		if (isRanged) {
+			Object[] dollList = _pc.getDollList().values().toArray();
+			for (Object dollObject : dollList) {
+				L1DollInstance doll = (L1DollInstance) dollObject;
+				damage += doll.getRangedDamageByDoll();
 			}
 		}
 
