@@ -1,6 +1,12 @@
-DELETE FROM commands WHERE name = 'show';
+-- set certain commands to run automatically on login
+ALTER TABLE commands ADD COLUMN run_on_login bool NOT NULL default false;
 ALTER table commands ADD COLUMN `help_text` TEXT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
-REPLACE INTO commands VALUES('appearoffline', '100', 'L1AppearOffline', 'Hides you from the /who command.');
+
+UPDATE commands SET run_on_login = '1' WHERE name = 'invul';
+UPDATE commands SET run_on_login = '1' WHERE name = 'appearoffline';
+UPDATE commands SET run_on_login = '1' WHERE name = 'invis';
+
+DELETE FROM commands WHERE name = 'show';
 UPDATE commands SET `help_text` = 'Ban a user from chatting for x minutes.' WHERE name = 'chatng';
 UPDATE commands SET `help_text` = 'Move a user to a safe place before kicking.' WHERE name = 'skick';
 UPDATE commands SET `help_text` = 'Resurrects or heals a specified player or all players on screen.' WHERE name = 'ress';
@@ -65,16 +71,20 @@ UPDATE commands SET `help_text` = 'Refresh your screen.' WHERE name = 'reload';
 UPDATE commands SET `help_text` = 'See the description of a reported bug.' WHERE name = 'viewbug';
 UPDATE commands SET `help_text` = 'Teleports you to a specified spawn ID.' WHERE name = 'tospawn';
 UPDATE commands SET `help_text` = 'Summons a monster or npc at your location.' WHERE name = 'summon';
-REPLACE INTO commands VALUES('snoop', '100', 'L1Snoop', 'View a users inventory, storage, elf storage, or pledge storage.');
-REPLACE INTO commands VALUES('follow', '100', 'L1Follow', 'Makes your character auto-follow the specified player.');
-REPLACE INTO commands VALUES('lazygm', '100', 'L1LazyGm', 'Loops through online players, teleporting you to each of them for x seconds and auto-following them.');
-REPLACE INTO commands VALUES('pledge', '100', 'L1Pledge', 'Displays all members in a pledge.');
-REPLACE INTO commands VALUES('accountips', '100', 'L1AccountIps', 'Display all IP addresses that have accessed an account and their last login date.');
-REPLACE INTO commands VALUES('trace', '100', 'L1Trace', 'Displays all accounts that IP has accessed and when.');
-REPLACE INTO commands VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable to skills and attacks.');
-REPLACE INTO commands VALUES('movechar', '100', 'L1MoveChar', 'Allows you to move a character (online or offline) to a specific location.', 0);
+
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('appearoffline', '100', 'L1AppearOffline', '0', 'Hides you from the /who command.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('snoop', '100', 'L1Snoop', '0', 'View a users inventory, storage, elf storage, or pledge storage.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('follow', '100', 'L1Follow', '0', 'Makes your character auto-follow the specified player.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('lazygm', '100', 'L1LazyGm', '0', 'Loops through online players, teleporting you to each of them for x seconds and auto-following them.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('pledge', '100', 'L1Pledge', '0', 'Displays all members in a pledge.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('accountips', '100', 'L1AccountIps', '0', 'Display all IP addresses that have accessed an account and their last login date.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('trace', '100', 'L1Trace', '0', 'Displays all accounts that IP has accessed and when.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('invul', '100', 'L1Invul', '0', 'Makes you invulnerable to skills and attacks.');
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('movechar', '100', 'L1MoveChar', '0', 'Allows you to move a character (online or offline) to a specific location.');
+
 UPDATE commands SET access_level = '100' WHERE name = 'resolve';
 UPDATE commands SET `help_text` = 'Resolve a specific bug. Use .resolve -n # to notify the reporter.' WHERE name = 'resolve';
 INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('spoof', 100, 'L1SpoofName', 0, 'Allows you to appear as a different name.');
 INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('cancel', 100, 'L1Cancel', 0, 'Cancels all skills on a user.');
 INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('scan', 100, 'L1ScanArea', 0, 'Scans the area and returns details about the subject of the scan.');
+INSERT INTO `commands` (`name`, `access_level`, `class_name`, `run_on_login`, `help_text`) VALUES('promote', '200', 'L1Promote', 0, 'Modifies a players access level.');

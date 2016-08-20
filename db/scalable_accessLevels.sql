@@ -1,9 +1,3 @@
--- set certain commands to run automatically on login
-ALTER TABLE commands ADD COLUMN run_on_login bool NOT NULL default false;
-UPDATE commands SET run_on_login = '1' WHERE name = 'invul';
-UPDATE commands SET run_on_login = '1' WHERE name = 'appearoffline';
-UPDATE commands SET run_on_login = '1' WHERE name = 'invis';
-
 -- modify the access levels to the new system
 CREATE TABLE `access_levels` (id SMALLINT PRIMARY KEY NOT NULL, name VARCHAR(50) NOT NULL, chat_prefix VARCHAR(3), access_level SMALLINT NOT NULL default 0);
 INSERT INTO `access_levels` VALUES (0, 'Player', NULL, 0);
@@ -25,6 +19,3 @@ ALTER TABLE `accounts` ADD CONSTRAINT fk_access_level FOREIGN KEY (access_level)
 
 -- since the system is scalable, lets let everyone use help as long as they are not a regular player
 UPDATE `commands` set access_level = '1' WHERE name = 'help';
-
--- command to promote/demote players
-INSERT INTO `commands` VALUES('promote', '200', 'L1Promote', 'Modifies a players access level.', '0');
