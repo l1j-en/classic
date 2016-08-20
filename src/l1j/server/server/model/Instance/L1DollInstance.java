@@ -157,23 +157,6 @@ public class L1DollInstance extends L1NpcInstance {
 		_itemObjId = i;
 	}
 
-	public int getDamageByDoll() {
-		int damage = 0;
-		int dollType = getDollType();
-		if (dollType == DOLLTYPE_WAREWOLF || dollType == DOLLTYPE_CRUSTANCEAN) {
-			int chance = _random.nextInt(100) + 1;
-			if (chance <= 3) {
-				damage = 15;
-				if (_master instanceof L1PcInstance) {
-					L1PcInstance pc = (L1PcInstance) _master;
-					pc.sendPackets(new S_SkillSound(_master.getId(), 6319));
-				}
-				_master.broadcastPacket(new S_SkillSound(_master.getId(), 6319));
-			}
-		}
-		return damage;
-	}
-
 	public boolean isMpRegeneration() {
 		boolean isMpRegeneration = false;
 		int dollType = getDollType();
@@ -226,7 +209,7 @@ public class L1DollInstance extends L1NpcInstance {
 		return resistWater;
 	}
 	
-	public int getRangedDamageByDoll() {
+	public int getRangedDmgByDoll() {
 		int rangedDamage = 0;
 		int dollType = getDollType();
 		if (dollType == DOLLTYPE_COCKATRICE) {
@@ -235,6 +218,23 @@ public class L1DollInstance extends L1NpcInstance {
 		return rangedDamage;
 	}
 	
+	public int getMeleeDmgByDoll() {
+		int damage = 0;
+		int dollType = getDollType();
+		if (dollType == DOLLTYPE_WAREWOLF || dollType == DOLLTYPE_CRUSTANCEAN) {
+			int chance = _random.nextInt(100) + 1;
+			if (chance <= 3) {
+				damage = 15;
+				if (_master instanceof L1PcInstance) {
+					L1PcInstance pc = (L1PcInstance) _master;
+					pc.sendPackets(new S_SkillSound(_master.getId(), 6319));
+				}
+				_master.broadcastPacket(new S_SkillSound(_master.getId(), 6319));
+			}
+		}
+		return damage;
+	}
+
 	public int getRangedHitByDoll() {
 		int rangedHit = 0;
 		int dollType = getDollType();
