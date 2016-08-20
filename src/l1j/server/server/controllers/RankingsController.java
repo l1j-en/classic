@@ -27,14 +27,14 @@ public class RankingsController implements Runnable {
 	// it simply adds ?,?,? for the # of access levels needed
 	private static String _inFields = ""; 
 	
-	private static HashMap<RankType, LinkedHashMap<String, Integer>> _rankings
-			= new HashMap<RankType, LinkedHashMap<String, Integer>>();
+	private static HashMap<RankType, LinkedHashMap<String, Long>> _rankings
+			= new HashMap<RankType, LinkedHashMap<String, Long>>();
 	
-	private static HashMap<RankType, LinkedHashMap<String, Integer>> _pledgeRankings
-	= new HashMap<RankType, LinkedHashMap<String, Integer>>();
+	private static HashMap<RankType, LinkedHashMap<String, Long>> _pledgeRankings
+	= new HashMap<RankType, LinkedHashMap<String, Long>>();
 	
-	private static HashMap<RankType, HashMap<Integer, LinkedHashMap<String, Integer>>> _classRankings
-		= new HashMap<RankType, HashMap<Integer, LinkedHashMap<String, Integer>>>();
+	private static HashMap<RankType, HashMap<Integer, LinkedHashMap<String, Long>>> _classRankings
+		= new HashMap<RankType, HashMap<Integer, LinkedHashMap<String, Long>>>();
 	
 	public enum RankType {
 	    PLEDGE, LEVEL, LEVELCLASS, LEVELPLEDGE, PVP, PVPCLASS, PVPPLEDGE, BOSSDAILY, PLEDGEBOSSDAILY,
@@ -146,11 +146,12 @@ public class RankingsController implements Runnable {
 		Thread.currentThread().setName("RankingsController");
 		try {
 			while (true) {
-				_rankings = new LinkedHashMap<RankType, LinkedHashMap<String, Integer>>();
+				long startTime = System.nanoTime();
+				_rankings = new LinkedHashMap<RankType, LinkedHashMap<String, Long>>();
 				_classRankings.put(RankType.LEVELCLASS,
-						new HashMap<Integer, LinkedHashMap<String, Integer>>());
+						new HashMap<Integer, LinkedHashMap<String, Long>>());
 				_classRankings.put(RankType.PVPCLASS,
-						new HashMap<Integer, LinkedHashMap<String, Integer>>());
+						new HashMap<Integer, LinkedHashMap<String, Long>>());
 				
 				for(int i = 1; i <= 29; i++) {
 					if(i == 1) // overall level rankings
@@ -182,8 +183,9 @@ public class RankingsController implements Runnable {
 					else if(i == 29) // Player Boss Yearly Ranking
 						_rankings.put(RankType.BOSSYEARLY, generateGenericRanks(i));
 				}
-				
-				_log.info("Rankings Updated.");
+				long endTime = System.nanoTime();
+				long duration = (endTime - startTime) /  1000000;
+				_log.info("Rankings Updated. Runtime: " + duration + "ms");
 				Thread.sleep(3600000); // 1 hour
 			}
 		} catch (Exception ex) {
@@ -191,12 +193,12 @@ public class RankingsController implements Runnable {
 		}
 	}
 	
-	private LinkedHashMap<String, Integer> generateGenericRanks(int number) {		
+	private LinkedHashMap<String, Long> generateGenericRanks(int number) {		
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		
-		LinkedHashMap<String, Integer> returnValue = new LinkedHashMap<String, Integer>();
+		LinkedHashMap<String, Long> returnValue = new LinkedHashMap<String, Long>();
 
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
@@ -245,7 +247,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -256,7 +258,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -267,7 +269,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -278,7 +280,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -289,7 +291,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -300,7 +302,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -311,7 +313,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -322,7 +324,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty NOT IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -339,81 +341,75 @@ public class RankingsController implements Runnable {
 				break;
 			case 18: // Pledge PvP Ranking
 				pstm = con
-				.prepareStatement("SELECT b.clanname AS char_name," + 
-						" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" + 
-						" WHERE victim_char_name = a.killer_char_name GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
-						" JOIN characters AS b ON a.killer_char_name = b.char_name AND b.clanname IS NOT NULL AND b.clanname != ''" + 
-						" JOIN accounts AS c on b.account_name = c.login" +
-						" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')  AND c.banned = 0" + 
-						" AND b.accesslevel IN (" + _inFields + ") GROUP BY b.clanname" + 
-						" ORDER BY Ratio DESC, min(`date`) LIMIT 1000");
+				.prepareStatement("SELECT a.killer_pledge AS char_name, " + 
+				"(count(a.killer_pledge) - IFNULL((SELECT count(z.victim_pledge) FROM character_pvp z " + 
+				"JOIN characters y ON z.victim_char_name = y.char_name " + 
+				"WHERE z.victim_pledge = a.killer_pledge AND z.penalty IN ('5','8','9') AND z.victim_lvl >= 60), 0)) AS Ratio FROM " + 
+				"character_pvp a JOIN characters as b on a.killer_char_name = b.char_name " + 
+				"JOIN accounts AS c on b.account_name = c.login AND c.banned = 0 " + 
+				"WHERE a.killer_pledge != '' AND a.victim_lvl >= 60 AND a.penalty IN ('5','8','9') " + 
+				"AND b.accesslevel IN (" + _inFields + ") GROUP BY a.killer_pledge ORDER BY Ratio DESC LIMIT 1000;");
 				break;
 			case 19: // Pledge Daily Boss Kills
 				pstm = con
 				.prepareStatement("SELECT clan_name AS char_name, count(clan_name) AS Ratio FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
-						+ " WHERE DATE(kill_date) = DATE(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clanname != '' AND NOT clanname IS NULL GROUP BY clan_name"
+						+ " WHERE DATE(kill_date) = DATE(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clan_name != '' AND NOT clan_name IS NULL GROUP BY clan_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 20: // Pledge Weekly Boss Kills -- resets Sunday morning
 				pstm = con
 				.prepareStatement("SELECT clan_name AS char_name, count(clan_name) AS Ratio FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
-						+ " WHERE YEARWEEK(kill_date) = YEARWEEK(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clanname != '' AND NOT clanname IS NULL GROUP BY clan_name"
+						+ " WHERE YEARWEEK(kill_date) = YEARWEEK(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clan_name != '' AND NOT clan_name IS NULL GROUP BY clan_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 21: // Pledge Monthly Boss Kills
 				pstm = con
 				.prepareStatement("SELECT clan_name AS char_name, count(clan_name) AS Ratio FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
-						+ " WHERE MONTH(kill_date) = MONTH(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clanname != '' AND NOT clanname IS NULL GROUP BY clan_name"
+						+ " WHERE MONTH(kill_date) = MONTH(NOW()) AND YEAR(kill_date) = YEAR(NOW()) AND clan_name != '' AND NOT clan_name IS NULL GROUP BY clan_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 22: // Pledge Yearly Boss Kills
 				pstm = con
 				.prepareStatement("SELECT clan_name AS char_name, count(clan_name) AS Ratio FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
-						+ " WHERE YEAR(kill_date) = YEAR(NOW()) AND clanname != '' AND NOT clanname IS NULL GROUP BY clan_name"
+						+ " WHERE YEAR(kill_date) = YEAR(NOW()) AND clan_name != '' AND NOT clan_name IS NULL GROUP BY clan_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 26: // Daily Boss Kills
 				pstm = con
 				.prepareStatement("SELECT killer_name AS char_name, count(killer_name) AS Ratio FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
 						+ " WHERE DATE(kill_date) = DATE(NOW()) AND YEAR(kill_date) = YEAR(NOW()) GROUP BY killer_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 27: // Weekly Boss Kills -- resets Sunday morning
 				pstm = con
 				.prepareStatement("SELECT killer_name AS char_name, count(killer_name) AS Ratio  FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
 						+ " WHERE YEARWEEK(kill_date) = YEARWEEK(NOW()) AND YEAR(kill_date) = YEAR(NOW()) GROUP BY killer_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 28: // Monthly Boss Kills
 				pstm = con
 				.prepareStatement("SELECT killer_name AS char_name, count(killer_name) AS Ratio  FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
 						+ " WHERE MONTH(kill_date) = MONTH(NOW()) AND YEAR(kill_date) = YEAR(NOW()) GROUP BY killer_name"
 						+ " ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			case 29: // Yearly Boss Kills
 				pstm = con
 				.prepareStatement("SELECT killer_name AS char_name, count(killer_name) AS Ratio  FROM boss_kills"
-						+ " JOIN characters ON boss_kills.killer_name = characters.char_name AND characters.accesslevel IN (" + _inFields + ")"
 						+ " WHERE YEAR(kill_date) = YEAR(NOW()) GROUP BY killer_name"
 						+" ORDER BY Ratio DESC, min(kill_date) LIMIT 1000");
 				break;
 			}
-		
-			for(int i = 1; i <= _includedAccessLevels.size(); i++) {
-				pstm.setShort(i, _includedAccessLevels.get(i-1));
+			
+			if(number < 19) {
+				for(int i = 1; i <= _includedAccessLevels.size(); i++) {
+					pstm.setShort(i, _includedAccessLevels.get(i-1));
+				}
 			}
 			
 			rs = pstm.executeQuery();
 			
 			while (rs.next())
-				returnValue.put(rs.getString("char_name"), rs.getInt("ratio"));
+				returnValue.put(rs.getString("char_name"), rs.getLong("ratio"));
 		
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -426,7 +422,7 @@ public class RankingsController implements Runnable {
 		return returnValue;
 	}
 	
-	private static String formatNumber(int number) {
+	private static String formatNumber(long number) {
 		if (number > 0)
 			return "+" + number;
 		
