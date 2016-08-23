@@ -18,6 +18,11 @@
  */
 package l1j.server.server.model;
 
+import l1j.server.Config;
+import l1j.server.server.model.shop.L1ShopBuyOrder;
+import l1j.server.server.model.shop.L1ShopBuyOrderList;
+import l1j.server.server.templates.L1ShopItem;
+
 public class L1TaxCalculator {
 	/**
 	 * 15 percent war tax - (when Lastabad army controls diad fortress)
@@ -43,41 +48,115 @@ public class L1TaxCalculator {
 	 *            target stores calculation NPCID
 	 */
 	public L1TaxCalculator(int merchantNpcId) {
-		_taxRatesCastle = L1CastleLocation
-				.getCastleTaxRateByNpcId(merchantNpcId);
-		_taxRatesTown = L1TownLocation.getTownTaxRateByNpcid(merchantNpcId);
+		_taxRatesCastle = 50;
+		_taxRatesTown = 10;
 	}
 
-	public int calcTotalTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle / 100;
-		int taxTown = price * _taxRatesTown / 100;
+	public int calcTotalTaxPrice(L1ShopItem item, int count) {
+		int taxCastle = calcCastleTaxPrice(item, count, false);
+		int taxTown = calcTownTaxPrice(item, count);
+
 		return taxCastle + taxTown;
+	}	
+	
+	public int calcCastleTaxPrice(L1ShopBuyOrderList orderList) {
+		return calcCastleTaxPrice(orderList, true);
 	}
+	
+	public int calcCastleTaxPrice(L1ShopBuyOrderList orderList, boolean subtractOtherTaxes) {
+		int castleTaxPrice = 0;
 
-	public int calcCastleTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle / 100;
-		return taxCastle - calcNationalTaxPrice(price) - calcDiadTaxPrice(price);
+		for(L1ShopBuyOrder item : orderList.getBoughtItems())
+			castleTaxPrice += calcCastleTaxPrice(item.getItem(), item.getCount(), subtractOtherTaxes);
+		
+		return castleTaxPrice;
 	}
-
-	public int calcNationalTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle / 100;
+	
+	public int calcCastleTaxPrice(L1ShopItem item, int count) {
+		return calcCastleTaxPrice(item, count, true);
+	}
+	
+	public int calcCastleTaxPrice(L1ShopItem item, int count, boolean subtractOtherTaxes) {
+		int castleTaxPrice = 0;
+		
+		for(int i = 0; i < count; i++) {
+			castleTaxPrice += (int)((item.getPrice() * Config.RATE_SHOP_SELLING_PRICE) * 
+					_taxRatesCastle / 100);
+		}
+		
+		if(!subtractOtherTaxes) {
+			return castleTaxPrice;
+		}
+		
+		return castleTaxPrice - calcNationalTaxPrice(item, count)
+			- calcDiadTaxPrice(item, count);
+	}
+	
+	
+	public int calcNationalTaxPrice(L1ShopBuyOrderList orderList) {
+		int taxCastle = 0;
+		
+		for(L1ShopBuyOrder item : orderList.getBoughtItems())
+			taxCastle += calcNationalTaxPrice(item.getItem(), item.getCount());
+		
+		return taxCastle;
+	}
+	
+	public int calcNationalTaxPrice(L1ShopItem item, int count) {
+		int taxCastle = 0;
+			
+		for(int i = 0; i < count; i++) {
+			taxCastle +=  (int)((item.getPrice() * Config.RATE_SHOP_SELLING_PRICE) * 
+					_taxRatesCastle / 100);
+		}
+		
 		return taxCastle / (100 / NATIONAL_TAX_RATES);
 	}
 
-	public int calcTownTaxPrice(int price) {
-		return (price * _taxRatesTown) / 100;
+	public int calcTownTaxPrice(L1ShopItem item, int count) {
+		
+		int townTaxPrice = 0;
+		
+		for(int i = 0; i < count; i++) {
+			townTaxPrice +=  (int)((item.getPrice() * Config.RATE_SHOP_SELLING_PRICE) * 
+					_taxRatesTown / 100);
+		}
+		
+		return townTaxPrice;
 	}
 
-	public int calcWarTaxPrice(int price) {
-		return price * _taxRatesWar / 100;
+	public int calcWarTaxPrice(L1ShopItem item, int count) {
+		int warTaxPrice = 0;
+		
+		for(int i = 0; i < count; i++) {
+			warTaxPrice +=  (int)((item.getPrice() * Config.RATE_SHOP_SELLING_PRICE) * 
+					_taxRatesWar / 100);
+		}
+		
+		return warTaxPrice;
+	}
+	
+	public int calcDiadTaxPrice(L1ShopBuyOrderList orderList) {
+		int diadCastleTaxPrice = 0;
+		
+		for(L1ShopBuyOrder item : orderList.getBoughtItems())
+			diadCastleTaxPrice += calcDiadTaxPrice(item.getItem(), item.getCount());
+		
+		return diadCastleTaxPrice;
 	}
 
-	public int calcDiadTaxPrice(int price) {
-		int taxCastle = price * _taxRatesCastle / 100;
-		return taxCastle / (100 / DIAD_TAX_RATES);
+	public int calcDiadTaxPrice(L1ShopItem item, int count) {
+		int diadCastleTaxPrice = 0;
+		
+		for(int i = 0; i < count; i++) {
+			diadCastleTaxPrice +=  (int)((item.getPrice() * Config.RATE_SHOP_SELLING_PRICE) * 
+					_taxRatesCastle / 100);
+		}
+		
+		return diadCastleTaxPrice / (100 / DIAD_TAX_RATES);
 	}
 
-	public int layTax(int price) {
-		return price + calcTotalTaxPrice(price);
+	public int layTax(L1ShopItem item, int count) {
+		return calcTotalTaxPrice(item, count);
 	}
 }
