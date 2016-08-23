@@ -48,8 +48,9 @@ public class L1TaxCalculator {
 	 *            target stores calculation NPCID
 	 */
 	public L1TaxCalculator(int merchantNpcId) {
-		_taxRatesCastle = 50;
-		_taxRatesTown = 10;
+		_taxRatesCastle = L1CastleLocation
+ 				.getCastleTaxRateByNpcId(merchantNpcId);
+ 		_taxRatesTown = L1TownLocation.getTownTaxRateByNpcid(merchantNpcId);
 	}
 
 	public int calcTotalTaxPrice(L1ShopItem item, int count) {
