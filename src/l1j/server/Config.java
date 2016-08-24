@@ -520,6 +520,14 @@ public final class Config {
 	public static boolean USE_PINE_IN_SAFETY;
 	
 	public static boolean MOVE_MACROABLE_NPCS;
+	
+	public static int MIN_ATONEMENT;
+	
+	public static int ATONEMENT_COST;
+	
+	public static int NUM_PKS_HELL;
+	
+	public static int NUM_PKS_HELL_WARNING;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -816,6 +824,10 @@ public final class Config {
 					"UseAutoStone", "False"));
 			USE_PINE_IN_SAFETY = Boolean.parseBoolean(altSettings.getProperty("UsePineInSafety", "True"));
 			MOVE_MACROABLE_NPCS = Boolean.parseBoolean(altSettings.getProperty("MoveMacroableNpcs", "False"));
+			NUM_PKS_HELL = Integer.parseInt(altSettings.getProperty("PKsForHell", "10"));
+			NUM_PKS_HELL_WARNING = Integer.parseInt(altSettings.getProperty("PKsForHellWarning", "5"));
+			MIN_ATONEMENT = Integer.parseInt(altSettings.getProperty("MinPksForAtonement", "5"));
+			ATONEMENT_COST = Integer.parseInt(altSettings.getProperty("CostOfAtonement", "700000"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

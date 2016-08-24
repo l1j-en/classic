@@ -728,11 +728,11 @@ public class C_NPCAction extends ClientBasePacket {
 		} else if (s.equalsIgnoreCase("pk")) {
 			if (pc.getLawful() < 30000) {
 				pc.sendPackets(new S_ServerMessage(559));
-			} else if (pc.get_PKcount() < 5) {
+			} else if (pc.get_PKcount() < Config.MIN_ATONEMENT) {
 				pc.sendPackets(new S_ServerMessage(560));
 			} else {
-				if (pc.getInventory().consumeItem(L1ItemId.ADENA, 700000)) {
-					pc.set_PKcount(pc.get_PKcount() - 5);
+				if (pc.getInventory().consumeItem(L1ItemId.ADENA, Config.ATONEMENT_COST)) {
+					pc.set_PKcount(pc.get_PKcount() - Config.MIN_ATONEMENT);
 					pc.sendPackets(new S_ServerMessage(561, String.valueOf(pc
 							.get_PKcount())));
 				} else {
