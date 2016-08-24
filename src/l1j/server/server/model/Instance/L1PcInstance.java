@@ -1565,11 +1565,11 @@ public class L1PcInstance extends L1Character {
 					sendAndBroadcast(new S_Lawful(player.getId(),
 							player.getLawful()));
 
-					if (isChangePkCount && player.get_PKcount() >= 5
-							&& player.get_PKcount() < 10) {
+					if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL_WARNING
+							&& player.get_PKcount() < Config.NUM_PKS_HELL) {
 						player.sendPackets(new S_BlueMessage(551, String
-								.valueOf(player.get_PKcount()), "10"));
-					} else if (isChangePkCount && player.get_PKcount() >= 10) {
+								.valueOf(player.get_PKcount()), Config.NUM_PKS_HELL + ""));
+					} else if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL) {
 						player.beginHell(true);
 					}
 				} else {
@@ -2712,10 +2712,10 @@ public class L1PcInstance extends L1Character {
 		}
 
 		if (isFirst) {
-			if (get_PKcount() <= 10) {
+			if (get_PKcount() <= Config.NUM_PKS_HELL) {
 				setHellTime(300);
 			} else {
-				setHellTime(300 * (get_PKcount() - 10) + 300);
+				setHellTime(300 * (get_PKcount() - Config.NUM_PKS_HELL) + 300);
 			}
 			sendPackets(new S_BlueMessage(552, String.valueOf(get_PKcount()),
 					String.valueOf(getHellTime() / 60)));
