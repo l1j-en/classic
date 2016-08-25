@@ -79,7 +79,7 @@ REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_o
 REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('pledge', '100', 'L1Pledge', 'Displays all members in a pledge.', 0);
 REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('accountips', '100', 'L1AccountIps', 'Display all IP addresses that have accessed an account and their last login date.', 0);
 REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('trace', '100', 'L1Trace', 'Displays all accounts that IP has accessed and when.', 0);
-REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable to skills and attacks.', 0);
+REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('invul', '100', 'L1Invul', 'Makes you invulnerable to skills and attacks.', 1);
 REPLACE INTO commands (`name`, `access_level`, `class_name`, `help_text`, `run_on_login`) VALUES('movechar', '100', 'L1MoveChar', 'Allows you to move a character (online or offline) to a specific location.', 0);
 
 UPDATE commands SET access_level = '100' WHERE name = 'resolve';
