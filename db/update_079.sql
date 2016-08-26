@@ -1,9 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
-
--- Queries that are pending an update should be placed here. This allows them
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 -- Migrate old tables still using MyISAM
 ALTER TABLE accounts ENGINE='InnoDB';
 ALTER TABLE area ENGINE='InnoDB';
@@ -314,7 +308,7 @@ update droplist set chance = 5000 where mobid = 45938 and itemid = 40196;
 -- -- Let's them do some actual monitoring
 update commands set access_level = 100 where name = 'recall';
 
--- Make Guardian ring non-enchantable 
+-- Make Guardian ring non-enchantable
 UPDATE armor SET safenchant = -1 WHERE item_id = 20287;
 
 -- Reset any innapropriately enchanted guardian rings to +0
