@@ -108,12 +108,16 @@ public class L1DollInstance extends L1NpcInstance {
 		if (isMpRegeneration()) {
 			master.startMpRegenerationByDoll();
 		}
+		master.addAc(getArmorClassByDoll());
+		master.addWater(getResistWaterByDoll());
 	}
 
 	public void deleteDoll() {
 		if (isMpRegeneration()) {
 			((L1PcInstance) _master).stopMpRegenerationByDoll();
 		}
+		((L1PcInstance) _master).addAc(-getArmorClassByDoll());
+		((L1PcInstance) _master).addWater(-getResistWaterByDoll());
 		_master.getDollList().remove(getId());
 		deleteMe();
 	}
@@ -191,7 +195,8 @@ public class L1DollInstance extends L1NpcInstance {
 		}
 		return damageReduction;
 	}
-		public int getArmorClassByDoll() {
+
+	public int getArmorClassByDoll() {
 		int armorClass = 0;
 		int dollType = getDollType();
 		if (dollType == DOLLTYPE_YETI) {
