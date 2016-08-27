@@ -108,7 +108,10 @@ public class L1NpcInstance extends L1Character {
 	private L1MobSkillUse mobSkill;
 	private static Random _random = new Random();
 	private boolean firstFound = true;
-	public static int courceRange = 15;
+	// Distance from a target that NPCs will look for pathing solutions.
+	// Resurrection server had been using 15. (Just the target's screen basically.)
+	// Use a higher value so that mobs will behave more intelligently.
+	public static int pathingRange = 40;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
 	private boolean _truedead = false;
@@ -692,7 +695,10 @@ public class L1NpcInstance extends L1Character {
 				return true;
 			}
 		} else {
-			if (L1World.getInstance().getRecognizePlayer(this).size() == 0) {
+			//if (L1World.getInstance().getRecognizePlayer(this).size() == 0) {
+			// Keep mobs active if there is a player within 40 cells instead
+			// of just on the screen as the above check did.
+			if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
 				return true;
 			}
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
@@ -1458,9 +1464,12 @@ public class L1NpcInstance extends L1Character {
 		int dir = 0;
 		if (hasSkillEffect(40) == true && d >= 2D) {
 			return -1;
-		} else if (d > 30D) {
+		//} else if (d > 30D) {
+		// The distance at which mobs will give up the chase.
+		// This should be relative to the pathing range.
+		} else if (d > 15.0 + pathingRange) {
 			return -1;
-		} else if (d > courceRange) {
+		} else if (d > pathingRange) {
 			dir = targetDirection(x, y);
 			dir = checkObject(getX(), getY(), getMapId(), dir);
 		} else {
@@ -1614,7 +1623,7 @@ public class L1NpcInstance extends L1Character {
 
 	private int _serchCource(int x, int y) {
 		int i;
-		int locCenter = courceRange + 1;
+		int locCenter = pathingRange + 1;
 		int diff_x = x - locCenter;
 		int diff_y = y - locCenter;
 		int[] locBace = { getX() - diff_x, getY() - diff_y, 0, 0 };
@@ -1624,8 +1633,8 @@ public class L1NpcInstance extends L1Character {
 		boolean serchMap[][] = new boolean[locCenter * 2 + 1][locCenter * 2 + 1];
 		LinkedList<int[]> queueSerch = new LinkedList<int[]>();
 
-		for (int j = courceRange * 2 + 1; j > 0; j--) {
-			for (i = courceRange - Math.abs(locCenter - j); i >= 0; i--) {
+		for (int j = pathingRange * 2 + 1; j > 0; j--) {
+			for (i = pathingRange - Math.abs(locCenter - j); i >= 0; i--) {
 				serchMap[j][locCenter + i] = true;
 				serchMap[j][locCenter - i] = true;
 			}
