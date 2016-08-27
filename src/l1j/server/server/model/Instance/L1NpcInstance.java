@@ -112,6 +112,7 @@ public class L1NpcInstance extends L1Character {
 	// Resurrection server had been using 15. (Just the target's screen basically.)
 	// Use a higher value so that mobs will behave more intelligently.
 	public static int pathingRange = 40;
+	private boolean _awoken = false;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
 	private boolean _truedead = false;
@@ -695,10 +696,15 @@ public class L1NpcInstance extends L1Character {
 				return true;
 			}
 		} else {
-			//if (L1World.getInstance().getRecognizePlayer(this).size() == 0) {
-			// Keep mobs active if there is a player within 40 cells instead
-			// of just on the screen as the above check did.
-			if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
+			// Once a player enters its screen make it start using a wider check to stay active.
+			// If they wider check fails to locate any players revert to the screen check.
+			// It's more realistic when non-agro mobs can walk back on your screen a well as off.
+			if (!_awoken) {
+				if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
+					return true;
+				_awoken = true;
+			} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {	//AS-Pathing
+				_awoken = false;
 				return true;
 			}
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
