@@ -703,7 +703,7 @@ public class L1NpcInstance extends L1Character {
 				if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
 					return true;
 				_awoken = true;
-			} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {	//AS-Pathing
+			} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
 				_awoken = false;
 				return true;
 			}
