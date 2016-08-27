@@ -18,6 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,9 @@ public class C_Emblem extends ClientBasePacket {
 		if (player.getClanid() != 0) {
 			String emblem_file = String.valueOf(player.getClanid());
 
+			File emblemFolder = new File("emblem");
+			if (!emblemFolder.exists())
+				emblemFolder.mkdir();
 			FileOutputStream fos = null;
 			try {
 				fos = new FileOutputStream("emblem/" + emblem_file);
