@@ -124,7 +124,7 @@ public final class Config {
 
 	public static int NPC_PATHING_RANGE;
 
-	public static boolean NPC_IMPROVED_ACTIVE_STATE;
+	public static int NPC_ACTIVE_RANGE;
 
 	public static boolean CHARACTER_CONFIG_IN_SERVER_SIDE;
 
@@ -621,8 +621,8 @@ public final class Config {
 					"PcRecognizeRange", "20"));
 			NPC_PATHING_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"NpcPathingRange", "15"));
-			NPC_IMPROVED_ACTIVE_STATE = Boolean.parseBoolean(serverSettings.getProperty(
-					"NpcImprovedActiveState", "False"));
+			NPC_ACTIVE_RANGE = Integer.parseInt(serverSettings.getProperty(
+					"NpcActiveRange", "-1"));
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean
 					.parseBoolean(serverSettings.getProperty(
 							"CharacterConfigInServerSide", "True"));
