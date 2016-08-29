@@ -692,7 +692,7 @@ public class L1NpcInstance extends L1Character {
 				return true;
 			}
 		} else {
-			if (!Config.NPC_IMPROVED_ACTIVE_STATE) {
+			if (Config.NPC_ACTIVE_RANGE == -1) {
 				if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
 					return true;
 			} else {
@@ -701,11 +701,11 @@ public class L1NpcInstance extends L1Character {
 				// It's more realistic when non-agro mobs can walk back on your screen a well as off.
 				if (!_awoken) {
 					if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
+						return true;
+					_awoken = true;
+				} else if (L1World.getInstance().getVisiblePlayer(this, Config.NPC_ACTIVE_RANGE).size() == 0) {
+					_awoken = false;
 					return true;
-				_awoken = true;
-				} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
-				_awoken = false;
-				return true;
 				}
 			}
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
