@@ -108,10 +108,6 @@ public class L1NpcInstance extends L1Character {
 	private L1MobSkillUse mobSkill;
 	private static Random _random = new Random();
 	private boolean firstFound = true;
-	// Distance from a target that NPCs will look for pathing solutions.
-	// Resurrection server had been using 15. (Just the target's screen basically.)
-	// Use a higher value so that mobs will behave more intelligently.
-	public static int pathingRange = 40;
 	private boolean _awoken = false;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
@@ -696,16 +692,21 @@ public class L1NpcInstance extends L1Character {
 				return true;
 			}
 		} else {
-			// Once a player enters its screen make it start using a wider check to stay active.
-			// If they wider check fails to locate any players revert to the screen check.
-			// It's more realistic when non-agro mobs can walk back on your screen a well as off.
-			if (!_awoken) {
+			if (!Config.NPC_IMPROVED_ACTIVE_STATE) {
 				if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
 					return true;
+			} else {
+				// Once a player enters its screen make it start using a wider check to stay active.
+				// If they wider check fails to locate any players revert to the screen check.
+				// It's more realistic when non-agro mobs can walk back on your screen a well as off.
+				if (!_awoken) {
+					if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
+					return true;
 				_awoken = true;
-			} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
+				} else if (L1World.getInstance().getVisiblePlayer(this, 40).size() == 0) {
 				_awoken = false;
 				return true;
+				}
 			}
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
 				//
@@ -1473,9 +1474,9 @@ public class L1NpcInstance extends L1Character {
 		//} else if (d > 30D) {
 		// The distance at which mobs will give up the chase.
 		// This should be relative to the pathing range.
-		} else if (d > 15.0 + pathingRange) {
+		} else if (d > 15.0 + Config.NPC_PATHING_RANGE) {
 			return -1;
-		} else if (d > pathingRange) {
+		} else if (d > Config.NPC_PATHING_RANGE) {
 			dir = targetDirection(x, y);
 			dir = checkObject(getX(), getY(), getMapId(), dir);
 		} else {
@@ -1629,7 +1630,7 @@ public class L1NpcInstance extends L1Character {
 
 	private int _serchCource(int x, int y) {
 		int i;
-		int locCenter = pathingRange + 1;
+		int locCenter = Config.NPC_PATHING_RANGE + 1;
 		int diff_x = x - locCenter;
 		int diff_y = y - locCenter;
 		int[] locBace = { getX() - diff_x, getY() - diff_y, 0, 0 };
@@ -1639,8 +1640,8 @@ public class L1NpcInstance extends L1Character {
 		boolean serchMap[][] = new boolean[locCenter * 2 + 1][locCenter * 2 + 1];
 		LinkedList<int[]> queueSerch = new LinkedList<int[]>();
 
-		for (int j = pathingRange * 2 + 1; j > 0; j--) {
-			for (i = pathingRange - Math.abs(locCenter - j); i >= 0; i--) {
+		for (int j = Config.NPC_PATHING_RANGE * 2 + 1; j > 0; j--) {
+			for (i = Config.NPC_PATHING_RANGE - Math.abs(locCenter - j); i >= 0; i--) {
 				serchMap[j][locCenter + i] = true;
 				serchMap[j][locCenter - i] = true;
 			}
