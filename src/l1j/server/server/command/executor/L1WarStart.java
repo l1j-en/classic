@@ -46,7 +46,7 @@ public class L1WarStart implements L1CommandExecutor {
 		try {
 			StringTokenizer st = new StringTokenizer(arg);
 			int time = Integer.parseInt(st.nextToken());
-			int castle = Integer.parseInt(st.nextToken());
+			int castle = Integer.parseInt(st.nextToken()) - 1;
 
 			L1Castle _l1castle = WarTimeController.getCastle(castle);
 			L1World.getInstance().broadcastPacketToAll(
