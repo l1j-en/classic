@@ -144,7 +144,7 @@ class L1IllusionistClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalMagicDamage(int intel) {
-		return intel == 17 ? 2 : intel == 16 ? 1 : 0;
+		return intel >= 17 ? 2 : intel == 16 ? 1 : 0;
 	}
 
 	@Override
