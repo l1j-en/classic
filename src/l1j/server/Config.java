@@ -122,6 +122,10 @@ public final class Config {
 
 	public static int PC_RECOGNIZE_RANGE;
 
+	public static int NPC_PATHING_RANGE;
+
+	public static int NPC_ACTIVE_RANGE;
+
 	public static boolean CHARACTER_CONFIG_IN_SERVER_SIDE;
 
 	public static boolean ALLOW_2PC;
@@ -623,6 +627,10 @@ public final class Config {
 					"TelnetServerPort", "23"));
 			PC_RECOGNIZE_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"PcRecognizeRange", "20"));
+			NPC_PATHING_RANGE = Integer.parseInt(serverSettings.getProperty(
+					"NpcPathingRange", "15"));
+			NPC_ACTIVE_RANGE = Integer.parseInt(serverSettings.getProperty(
+					"NpcActiveRange", "-1"));
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean
 					.parseBoolean(serverSettings.getProperty(
 							"CharacterConfigInServerSide", "True"));
