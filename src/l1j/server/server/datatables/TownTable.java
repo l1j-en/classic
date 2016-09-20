@@ -37,6 +37,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class TownTable {
+	private static final int _minTaxRate = 2;
 	private static Logger _log = Logger.getLogger(TownTable.class.getName());
 	private static TownTable _instance;
 	private final Map<Integer, L1Town> _towns = new ConcurrentHashMap<Integer, L1Town>();
@@ -116,7 +117,7 @@ public class TownTable {
 					
 			for(int i = 0; i < item.getCount(); i++) {
 				townTaxEarned += (int)item.getItem().getPrice() * townTaxRate / 100;
-				townFixTaxEarned += (int)item.getItem().getPrice() * 2 / 100;
+				townFixTaxEarned += (int)item.getItem().getPrice() * _minTaxRate / 100;
 			}	
 		}
 		
@@ -131,7 +132,8 @@ public class TownTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE town SET sales_money = sales_money + ?, town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET sales_money = sales_money + ?, " +
+							"town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
 			pstm.setInt(1, salesMoney);
 			pstm.setInt(2, townTaxEarned);
 			pstm.setInt(3, townFixTaxEarned);

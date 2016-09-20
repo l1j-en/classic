@@ -93,7 +93,6 @@ public class L1TaxCalculator {
 			- calcDiadTaxPrice(item, count);
 	}
 	
-	
 	public int calcNationalTaxPrice(L1ShopBuyOrderList orderList) {
 		int taxCastle = 0;
 		
