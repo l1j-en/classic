@@ -1514,6 +1514,7 @@ public class C_NPCAction extends ClientBasePacket {
 					if (obj instanceof L1NpcInstance) {
 						L1PcInstance player = client.getActiveChar();
 						if (TownTable.getInstance().isLeader(player, town_id)) {
+							// + 2 because town tax starts at 2%
 							pc.sendPackets(new S_TaxRate(pc.getId(), 2, 5, 
 									TownTable.getInstance().getTownTable(town_id).get_tax_rate_reserved() + 2));
 						}
