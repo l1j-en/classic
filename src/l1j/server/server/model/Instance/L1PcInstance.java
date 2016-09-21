@@ -136,6 +136,7 @@ public class L1PcInstance extends L1Character {
 	private short _hpr = 0;
 	private long _lastAggressiveAct = 0;
 
+	public long _dotReloadTime = 0;
 	public L1PinkName _pinkName = null;
 	private String followingGm = null;
 	private String spoofName = null;
