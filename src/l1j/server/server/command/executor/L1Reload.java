@@ -21,6 +21,7 @@ package l1j.server.server.command.executor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -37,12 +38,20 @@ public class L1Reload implements L1CommandExecutor {
 
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
-		try {
-			L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
-					false);
-			pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		long wait = (pc._dotReloadTime == 0) ? 0 : pc._dotReloadTime - System.currentTimeMillis();
+		if (!pc.isGm() && wait > 0) {
+			pc.sendPackets(new S_SystemMessage("You cannot .reload for another "
+					+ (double)Math.round((double)wait / 100.0) / 10.0 + " seconds"));
+		} else {
+			try {
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
+						false);
+				pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
+				pc._dotReloadTime = System.currentTimeMillis() +
+						(pc.isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
+			} catch (Exception e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
 		}
 	}
 }
