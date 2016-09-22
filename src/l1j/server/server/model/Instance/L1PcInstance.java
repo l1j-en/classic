@@ -713,7 +713,7 @@ public class L1PcInstance extends L1Character {
 		return _dotReloadTime;
 	}
 
-	public void setReloadTime() {
+	public void resetReloadTime() {
 		_dotReloadTime = System.currentTimeMillis() + (isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
 	}
 	
