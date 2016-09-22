@@ -525,6 +525,9 @@ public final class Config {
 	
 	public static boolean MOVE_MACROABLE_NPCS;
 
+	public static int DOT_RELOAD_WAIT_TIME;
+	public static int DOT_RELOAD_PINK_WAIT_TIME;
+
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
 	public static int NON_AGGRO_LOGOUT_TIMER;
@@ -824,6 +827,10 @@ public final class Config {
 					"UseAutoStone", "False"));
 			USE_PINE_IN_SAFETY = Boolean.parseBoolean(altSettings.getProperty("UsePineInSafety", "True"));
 			MOVE_MACROABLE_NPCS = Boolean.parseBoolean(altSettings.getProperty("MoveMacroableNpcs", "False"));
+			DOT_RELOAD_WAIT_TIME = Integer.parseInt(altSettings.getProperty(
+					"DotReloadWaitTime", "0"));
+			DOT_RELOAD_PINK_WAIT_TIME = Integer.parseInt(altSettings.getProperty(
+					"DotReloadPinkWaitTime", "0"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

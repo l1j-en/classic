@@ -37,12 +37,21 @@ public class L1Reload implements L1CommandExecutor {
 
 	@Override
 	public void execute(L1PcInstance pc, String cmdName, String arg) {
-		try {
-			L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
-					false);
-			pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		long wait = pc.getReloadTime();
+		if (wait != 0)
+			wait -= System.currentTimeMillis();
+		if (!pc.isGm() && wait > 0) {
+			pc.sendPackets(new S_SystemMessage("You cannot .reload for another "
+					+ (double)Math.round((double)wait / 100.0) / 10.0 + " seconds"));
+		} else {
+			try {
+				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
+						false);
+				pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
+				pc.resetReloadTime();
+			} catch (Exception e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
 		}
 	}
 }
