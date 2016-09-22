@@ -47,8 +47,7 @@ public class L1Reload implements L1CommandExecutor {
 				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
 						false);
 				pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
-				pc._dotReloadTime = System.currentTimeMillis() +
-						(pc.isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
+				pc._dotReloadTime = System.currentTimeMillis() + pc.getReloadTime();
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
