@@ -709,6 +709,10 @@ public class L1PcInstance extends L1Character {
 		_sex = (byte) i;
 	}
 
+	public int getReloadTime() {
+		return ((isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000);
+	}
+
 	public boolean isGm() {
 		return _gm;
 	}
