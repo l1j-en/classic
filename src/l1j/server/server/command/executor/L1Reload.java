@@ -49,7 +49,7 @@ public class L1Reload implements L1CommandExecutor {
 				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
 						false);
 				pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
-				pc.setReloadTime();
+				pc.resetReloadTime();
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
