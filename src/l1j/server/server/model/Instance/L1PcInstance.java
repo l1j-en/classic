@@ -136,7 +136,7 @@ public class L1PcInstance extends L1Character {
 	private short _hpr = 0;
 	private long _lastAggressiveAct = 0;
 
-	public long _dotReloadTime = 0;
+	private long _dotReloadTime = 0;
 	public L1PinkName _pinkName = null;
 	private String followingGm = null;
 	private String spoofName = null;
@@ -709,10 +709,14 @@ public class L1PcInstance extends L1Character {
 		_sex = (byte) i;
 	}
 
-	public int getReloadTime() {
-		return ((isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000);
+	public long getReloadTime() {
+		return _dotReloadTime;
 	}
 
+	public void setReloadTime() {
+		_dotReloadTime = System.currentTimeMillis() + (isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
+	}
+	
 	public boolean isGm() {
 		return _gm;
 	}
