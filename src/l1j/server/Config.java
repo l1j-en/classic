@@ -533,6 +533,9 @@ public final class Config {
 	
 	public static int NUM_PKS_HELL_WARNING;
 
+	public static int DOT_RELOAD_WAIT_TIME;
+	public static int DOT_RELOAD_PINK_WAIT_TIME;
+
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
 	public static int NON_AGGRO_LOGOUT_TIMER;
@@ -836,6 +839,10 @@ public final class Config {
 			NUM_PKS_HELL_WARNING = Integer.parseInt(altSettings.getProperty("PKsForHellWarning", "5"));
 			MIN_ATONEMENT = Integer.parseInt(altSettings.getProperty("MinPksForAtonement", "5"));
 			ATONEMENT_COST = Integer.parseInt(altSettings.getProperty("CostOfAtonement", "700000"));
+			DOT_RELOAD_WAIT_TIME = Integer.parseInt(altSettings.getProperty(
+					"DotReloadWaitTime", "0"));
+			DOT_RELOAD_PINK_WAIT_TIME = Integer.parseInt(altSettings.getProperty(
+					"DotReloadPinkWaitTime", "0"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
