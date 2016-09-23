@@ -431,6 +431,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 			setExp(0);
 			setKarma(0);
+			setLawful(0);
 			allTargetClear();
 
 			startDeleteTimer();
