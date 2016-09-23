@@ -29,12 +29,15 @@ import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.shop.L1ShopBuyOrder;
+import l1j.server.server.model.shop.L1ShopBuyOrderList;
 import l1j.server.server.templates.L1Town;
 import l1j.server.server.utils.SQLUtil;
 
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class TownTable {
+	private static final int _minTaxRate = 2;
 	private static Logger _log = Logger.getLogger(TownTable.class.getName());
 	private static TownTable _instance;
 	private final Map<Integer, L1Town> _towns = new ConcurrentHashMap<Integer, L1Town>();
@@ -98,32 +101,47 @@ public class TownTable {
 		return (town.get_leader_id() == pc.getId());
 	}
 
-	public synchronized void addSalesMoney(int town_id, int salesMoney) {
+	public synchronized void addSalesMoney(int town_id, L1ShopBuyOrderList orderList) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 
 		L1Town town = TownTable.getInstance().getTownTable(town_id);
 		int townTaxRate = town.get_tax_rate();
-		int townTax = salesMoney / 100 * townTaxRate;
-		int townFixTax = salesMoney / 100 * 2;
-		if (townTax <= 0 && townTaxRate > 0) {
-			townTax = 1;
+		
+		int salesMoney = 0;
+		int townTaxEarned = 0; // all tax income above the 2%
+		int townFixTaxEarned = 0; // the min 2% towns always earn
+			
+		for(L1ShopBuyOrder item : orderList.getBoughtItems()) {
+			salesMoney += item.getItem().getPrice() * item.getCount();
+					
+			for(int i = 0; i < item.getCount(); i++) {
+				townTaxEarned += (int)item.getItem().getPrice() * townTaxRate / 100;
+				townFixTaxEarned += (int)item.getItem().getPrice() * _minTaxRate / 100;
+			}	
 		}
-		if (townFixTax <= 0 && townTaxRate > 0) {
-			townFixTax = 1;
+		
+		if (townTaxEarned <= 0 && townTaxRate > 0) {
+			townTaxEarned = 1;
 		}
+		
+		if (townFixTaxEarned <= 0 && townTaxRate > 0) {
+			townFixTaxEarned = 1;
+		}
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE town SET sales_money = sales_money + ?, town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
+					.prepareStatement("UPDATE town SET sales_money = sales_money + ?, " +
+							"town_tax = town_tax + ?, town_fix_tax = town_fix_tax + ? WHERE town_id = ?");
 			pstm.setInt(1, salesMoney);
-			pstm.setInt(2, townTax);
-			pstm.setInt(3, townFixTax);
+			pstm.setInt(2, townTaxEarned);
+			pstm.setInt(3, townFixTaxEarned);
 			pstm.setInt(4, town_id);
 			pstm.execute();
 			town.set_sales_money(town.get_sales_money() + salesMoney);
-			town.set_town_tax(town.get_town_tax() + townTax);
-			town.set_town_fix_tax(town.get_town_fix_tax() + townFixTax);
+			town.set_town_tax(town.get_town_tax() + townTaxEarned);
+			town.set_town_fix_tax(town.get_town_fix_tax() + townFixTaxEarned);
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
