@@ -32,6 +32,8 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.item.WeaponType;
 import l1j.server.server.serverpackets.S_AttackPacket;
@@ -110,6 +112,12 @@ public class C_Attack extends ClientBasePacket {
 		if (target != null && !((L1Character) target).isDead()) {
 			if(target instanceof L1PcInstance) {
 				pc._pinkName.onAction((L1PcInstance)target);
+			} else if(target instanceof L1PetInstance || target instanceof L1SummonInstance) {
+				L1Character master = ((L1NpcInstance)target).getMaster();
+				
+				if(master != null && master instanceof L1PcInstance) {
+					pc._pinkName.onAction(((L1PcInstance)master));
+				}
 			}
 			
 			target.onAction(pc);
