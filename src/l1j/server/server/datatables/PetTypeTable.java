@@ -22,8 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -37,7 +37,7 @@ import l1j.server.server.utils.SQLUtil;
 public class PetTypeTable {
 	private static PetTypeTable _instance;
 	private static Logger _log = Logger.getLogger(PetTypeTable.class.getName());
-	private Map<Integer, L1PetType> _types = new HashMap<Integer, L1PetType>();
+	private Map<Integer, L1PetType> _types = new LinkedHashMap<Integer, L1PetType>();
 	private Set<String> _defaultNames = new HashSet<String>();
 
 	public static void load() {
@@ -58,7 +58,7 @@ public class PetTypeTable {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM pettypes");
+			pstm = con.prepareStatement("SELECT * FROM pettypes ORDER BY `Name`");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				int baseNpcId = rs.getInt("BaseNpcId");
@@ -88,6 +88,10 @@ public class PetTypeTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
+	}
+	
+	public Map<Integer, L1PetType> GetPetTypes() {
+		return _types;
 	}
 
 	public L1PetType get(int baseNpcId) {
