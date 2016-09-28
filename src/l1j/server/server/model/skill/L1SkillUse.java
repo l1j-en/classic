@@ -468,8 +468,7 @@ public class L1SkillUse {
 			}
 
 			if (_skillId == SOLID_CARRIAGE
-					&& pcInventory.getTypeEquipped(2, 7) == 0
-					&& pcInventory.getTypeEquipped(2, 13) == 0) {
+					&& pcInventory.getTypeEquipped(2, 7) == 0) {
 				pc.sendPackets(new S_ServerMessage(1008)); // You cannot cast magic in that condition.
 				return false;
 			}
