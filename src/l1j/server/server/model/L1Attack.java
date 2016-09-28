@@ -556,38 +556,63 @@ public class L1Attack {
 	 * L1Magic.
 	 */
 	private boolean isMissingSkillEffect() {
-		if (_calcType == PC_NPC && _targetNpc != null) {
+		return isMissingSkillEffect(null);
+	}
+	
+	// if it is a pc hitting a mob, or a pet hitting a mob
+	private boolean isMissingSkillEffect(L1PetInstance pet) {
+			boolean isPet = _calcType == NPC_NPC && pet != null;
+		
+		if ((_calcType == PC_NPC || isPet)
+				&& _targetNpc != null) {
+			
+			L1PcInstance player = _pc;
+			
+			// if it is a pet or summon, lets get their master
+			if(isPet) {
+				L1Character master = pet.getMaster();
+				
+				// looks like it isn't owned by a player, so assume
+				// that they aren't missing the skill
+				if(master == null ||  !(master instanceof L1PcInstance)) {
+					return false;
+				}
+				
+				player = (L1PcInstance)master;
+			}
+			
 			int npcId = _targetNpc.getNpcTemplate().get_npcId();
 			switch (npcId) {
 			case 45912:
 			case 45913:
 			case 45914:
 			case 45915:
-				return !_pc.hasSkillEffect(STATUS_HOLY_WATER);
+				return !player.hasSkillEffect(STATUS_HOLY_WATER);
 			case 45916:
-				return !_pc.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
+				return !player.hasSkillEffect(STATUS_HOLY_MITHRIL_POWDER);
 			case 45941:
-				return !_pc.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA);
+				return !player.hasSkillEffect(STATUS_HOLY_WATER_OF_EVA);
 			case 45752:
 			case 45753:
-				return !_pc.hasSkillEffect(STATUS_CURSE_BARLOG);
+				return !player.hasSkillEffect(STATUS_CURSE_BARLOG);
 			case 45675:
 			case 81082:
 			case 45625:
 			case 45674:
 			case 45685:
-				return !_pc.hasSkillEffect(STATUS_CURSE_YAHEE);
+				return !player.hasSkillEffect(STATUS_CURSE_YAHEE);
 			case 91310:
 				// Altar of Reviving
-				return !_pc.hasSkillEffect(STATUS_DESTRUCTION_NOSTRUM);
+				return !player.hasSkillEffect(STATUS_DESTRUCTION_NOSTRUM);
 			}
 			if (npcId >= 46068 && npcId <= 46091) {
-				return _pc.getTempCharGfx() == 6035;
+				return player.getTempCharGfx() == 6035;
 			}
 			if (npcId >= 46092 && npcId <= 46106) {
-				return _pc.getTempCharGfx() == 6034;
+				return player.getTempCharGfx() == 6034;
 			}
 		}
+		
 		return false;
 	}
 
@@ -683,6 +708,17 @@ public class L1Attack {
 
 	private boolean calcNpcNpcHit() {
 		_hitRate = getNpcHitRate(_npc, _targetNpc);
+		
+		if(_npc instanceof L1PetInstance) {
+			L1Character master = ((L1PetInstance)_npc).getMaster();
+			
+			if(master != null && master instanceof L1PcInstance) {
+				if (isMissingSkillEffect((L1PetInstance)_npc)) {
+					_hitRate = 0;
+				}
+			}
+		}
+		
 		return _hitRate >= _random.nextInt(100) + 1;
 	}
 
