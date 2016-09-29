@@ -569,7 +569,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 					default:
 						break;
 					}
-					name.append(attrStr + " ");
+					name.append(attrStr);
 				}
 			}
 			if (generalType == ItemType.Weapon || generalType == ItemType.Armor) {
