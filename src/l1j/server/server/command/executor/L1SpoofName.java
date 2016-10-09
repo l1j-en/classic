@@ -30,7 +30,10 @@ public class L1SpoofName implements L1CommandExecutor {
 				pc.setSpoofName(null);
 				
 				if(pc.getSpoofMob() != null) {
-					pc.broadcastPacket(new S_RemoveObject(pc.getSpoofMob()));
+					if(!pc.isGmInvis()) {
+						pc.broadcastPacket(new S_RemoveObject(pc.getSpoofMob()));
+					}
+					
 					pc.setSpoofMob(null);
 					L1PolyMorph.doPoly(pc, pc.getGfxId(), 0, L1PolyMorph.MORPH_BY_GM);
 				}
@@ -39,7 +42,10 @@ public class L1SpoofName implements L1CommandExecutor {
 				L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5,
 						false);
 				
-				pc.broadcastPacket(new S_OtherCharPacks(pc, pc.hasSkillEffect(GMSTATUS_FINDINVIS)));
+				if(!pc.isGmInvis()) {
+					pc.broadcastPacket(new S_OtherCharPacks(pc, pc.hasSkillEffect(GMSTATUS_FINDINVIS)));
+				}
+				
 				return;
 			} else if(arg.toLowerCase().equals("-status")) {
 				L1NpcInstance spoofedMob = pc.getSpoofMob();
@@ -85,8 +91,12 @@ public class L1SpoofName implements L1CommandExecutor {
 				pc.setSpoofMob(spoofMob);
 				
 				L1PolyMorph.doPoly(pc, spoofMob.getGfxId(), 7200, L1PolyMorph.MORPH_BY_GM);
-				pc.broadcastPacket(new S_RemoveObject(pc));
-				pc.broadcastPacket(new S_OtherCharPacks(pc, pc.hasSkillEffect(GMSTATUS_FINDINVIS)));
+				
+				if(!pc.isGmInvis()) {
+					pc.broadcastPacket(new S_RemoveObject(pc));
+					pc.broadcastPacket(new S_OtherCharPacks(pc, pc.hasSkillEffect(GMSTATUS_FINDINVIS)));
+				}
+				
 				pc.sendPackets(new S_SystemMessage(String.format("Now spoofing %s (LvL %d)!",
 						spoofMob.getName(),
 						spoofMob.getLevel())));
