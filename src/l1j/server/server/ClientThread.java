@@ -384,7 +384,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				}
 
 				if (_activeChar == null || (_activeChar != null
-				   && (!_activeChar.isPrivateShop() || !_activeChar.isGm()))) {
+				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
 					kick();
 					_log.warning("Kicking character from (" + _hostname + ").");
 					cancel();
