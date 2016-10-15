@@ -714,7 +714,11 @@ public class L1PcInstance extends L1Character {
 	}
 
 	public void resetReloadTime() {
-		_dotReloadTime = System.currentTimeMillis() + (isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
+		if (!Config.CHAO_PINK && getLawful() < 0) {
+			_dotReloadTime = System.currentTimeMillis() + Config.DOT_RELOAD_PINK_WAIT_TIME * 1000;
+		} else {
+			_dotReloadTime = System.currentTimeMillis() + (isPinkName() ? Config.DOT_RELOAD_PINK_WAIT_TIME : Config.DOT_RELOAD_WAIT_TIME) * 1000;
+		}
 	}
 	
 	public boolean isGm() {
