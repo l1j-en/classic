@@ -52,6 +52,8 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
 import l1j.server.server.command.L1Commands;
+import l1j.server.server.controllers.JailController;
+import l1j.server.server.controllers.JailController.JailInfo;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExcludeTable;
@@ -336,10 +338,17 @@ public class C_LoginToServer extends ClientBasePacket {
 			pc.sendPackets(new S_SystemMessage("\\fRPolymorph Event Is Currently Running. Enjoy!"));
 		
 		if(pc.getMapId() == 99 && !pc.isGm()) {
-			pc.sendPackets(new S_SystemMessage("\\fRYou've logged in while jailed. For more info, "));
-			pc.sendPackets(new S_SystemMessage("\\fR    contact a GameMaster."));
-		}
+			pc.sendPackets(new S_SystemMessage("\\fRYou've logged in while jailed!"));
 			
+			JailInfo jailInfo = JailController.getInstance().getJailInfo(pc.getName());
+			
+			if(jailInfo == null) {
+				pc.sendPackets(new S_SystemMessage("\\fRFor more info, contact a GameMaster."));
+			} else {
+				pc.sendPackets(new S_SystemMessage("\\fRReason: " + jailInfo.getMessage()));
+				pc.sendPackets(new S_SystemMessage("\\fRWill be unjailed in: " + jailInfo.getReleaseTimeFormatted()));
+			}
+		}	
 	}
 
 	private void checkUnreadMail(final L1PcInstance character) {
