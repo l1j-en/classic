@@ -82,7 +82,6 @@ public class L1Jail implements L1CommandExecutor {
 					convict.getName(), duration, durationType)));			
 			logJail(convict.getName(), pc.getName(), message, cal.getTimeInMillis());
 		} catch (Exception e) {
-			e.printStackTrace();
 			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> [hours|days] <number> <reason>"));
 		}
 	}
