@@ -63,10 +63,11 @@ public class L1Jail implements L1CommandExecutor {
 			if (convict != null) {
 				L1Teleport.teleport(convict, 32737, 32796, (short) 99, 5, true);
 				convict.sendPackets(new S_SystemMessage(
-						String.format("%s jailed you for bad behavior for %d %s.",
+						String.format("%s jailed you for %d %s.",
 								pc.getName(),
 								duration,
 								durationType)));
+				convict.sendPackets(new S_SystemMessage("Reason: " + message));
 			} else {
 				convict = CharacterTable.getInstance().restoreCharacter(player);
 				
