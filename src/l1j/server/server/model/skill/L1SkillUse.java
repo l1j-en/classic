@@ -2547,7 +2547,7 @@ public class L1SkillUse {
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1BookMark bookm = pc.getBookMark(_bookmarkId);
 						if (bookm != null) {
-							if (pc.getMap().isEscapable() || pc.isGm()) {
+							if ((!pc.getMap().isTradeZone() && pc.getMap().isEscapable()) || pc.isGm()) {
 								int newX = bookm.getLocX();
 								int newY = bookm.getLocY();
 								short mapId = bookm.getMapId();
