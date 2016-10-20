@@ -65,8 +65,7 @@ public class C_Shop extends ClientBasePacket {
 		List<L1PrivateShopSellList> sellList = pc.getSellList();
 		List<L1PrivateShopBuyList> buyList = pc.getBuyList();
 		
-		int mapId = pc.getMapId();
-		if (mapId != 340 && mapId != 350 && mapId != 360 && mapId != 370) {
+		if (!pc.getMap().isTradeZone()) {
 			// if somehow they got out of the zone, 
 			// disable private shop
 			if(pc.isPrivateShop()) {
