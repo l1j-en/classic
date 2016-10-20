@@ -22,3 +22,7 @@ CREATE TABLE `log_jail` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- make noob TOS return you to oren, instead of outside ivory tower
+UPDATE getback SET getback_x1 = 34057, getback_y1 = 32269, getback_x2 = 34047, getback_y2 = 32242, getback_x3 = 34080, getback_y3 = 32251 WHERE area_mapid = 521;
