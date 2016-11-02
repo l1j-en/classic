@@ -26,3 +26,22 @@ CREATE TABLE `log_jail` (
 
 -- make noob TOS return you to oren, instead of outside ivory tower
 UPDATE getback SET getback_x1 = 34057, getback_y1 = 32269, getback_x2 = 34047, getback_y2 = 32242, getback_x3 = 34080, getback_y3 = 32251 WHERE area_mapid = 521;
+
+-- Add the giveitem log table
+CREATE TABLE `LogGiveItem` (
+  `Time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Ip` varchar(255) DEFAULT NULL,
+  `Account` varchar(255) DEFAULT NULL,
+  `CharId` int(11) DEFAULT NULL,
+  `CharName` varchar(255) DEFAULT NULL,
+  `NpcId` int(11) DEFAULT NULL,
+  `NpcName` varchar(255) DEFAULT NULL,
+  `ObjectId` int(11) DEFAULT NULL,
+  `ItemName` varchar(255) DEFAULT NULL,
+  `EnchantLevel` int(11) DEFAULT NULL,
+  `PlayerBeforeInv` int(11) DEFAULT NULL,
+  `PlayerAfterInv` int(11) DEFAULT NULL,
+  `TargetBeforeInv` int(11) DEFAULT NULL,
+  `TargetAfterInv` int(11) DEFAULT NULL,
+  `Count` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
