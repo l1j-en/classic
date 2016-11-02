@@ -21,6 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.List;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.ClientThread;
@@ -53,8 +54,10 @@ public class C_Shop extends ClientBasePacket {
 		}
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Player Offline");
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if(Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Player Offline");
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Shop).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -98,8 +101,10 @@ public class C_Shop extends ClientBasePacket {
 						|| checkItem.getCount() <= 0 || sellCount <= 0
 						|| sellCount > 2000000000
 						|| sellCount > checkItem.getCount()) {
-					Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup SellList");
-					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					if(Config.AUTO_BAN) {
+						Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup SellList");
+						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					}
 					_log.info(pc.getName()
 							+ " Attempted Dupe Exploit (C_Shop).");
 					L1World.getInstance().broadcastServerMessage(
@@ -154,8 +159,11 @@ public class C_Shop extends ClientBasePacket {
 														 * <= 0 ||
 														 */buyCount <= 0
 						|| buyCount > 2000000000) {
-					Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup BuyList");
-					IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					if(Config.AUTO_BAN) {
+						Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup BuyList");
+						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					}
+					
 					_log.info(pc.getName()
 							+ " Attempted Dupe Exploit (C_Shop).");
 					L1World.getInstance().broadcastServerMessage(
