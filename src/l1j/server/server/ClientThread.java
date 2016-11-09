@@ -532,6 +532,7 @@ public class ClientThread implements Runnable, PacketOutput {
 			
 			if (petObject instanceof L1SummonInstance) {
 				L1SummonInstance summon = (L1SummonInstance) petObject;
+				summon.set_currentPetStatus(3); // set it into rest mode
 				summon.allTargetClear();
 				for (L1PcInstance visiblePc : L1World.getInstance()
 						.getVisiblePlayer(summon)) {
