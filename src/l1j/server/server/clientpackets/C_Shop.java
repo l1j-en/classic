@@ -19,6 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
@@ -205,6 +206,21 @@ public class C_Shop extends ClientBasePacket {
 				stopShop(pc, sellList, buyList);
 				return;
 			}
+			
+			// some players have been able to list more than 8 items, 
+			// so this check will kick them if they are able to
+			if(buyList.size() > 8 || sellList.size() > 8) {
+				int buyCountLog = buyList.size();
+				int sellCountLog = sellList.size();
+				
+				stopShop(pc, sellList, buyList);
+				_log.log(Level.WARNING, 
+						String.format("Character '%s' attempted to add more than 8 items to sell/buy shop. " + 
+								"Disconnecting user. Sell Count: %d, Buy Count: %d",
+								pc.getName(), sellCountLog, buyCountLog));
+				pc.sendPackets(new S_Disconnect());
+			}
+			
 			byte[] chat = readByte();
 			pc.setShopChat(chat);
 			pc.setPrivateShop(true);
