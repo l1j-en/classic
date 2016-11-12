@@ -79,7 +79,7 @@ public class L1AccountBanKick implements L1CommandExecutor {
 						L1PcInstance character = L1World.getInstance().getPlayer(char_name);
 						
 						if(character != null) {
-							character.sendPackets(new S_Disconnect());
+							character.getNetConnection().kick();
 							pc.sendPackets(new S_SystemMessage(
 									String.format("Character '%s' in account '%s' has been kicked!",
 											character.getName(), playerAccount.getName())));
