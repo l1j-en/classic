@@ -44,7 +44,7 @@ public class L1Kick implements L1CommandExecutor {
 				pc.sendPackets(new S_SystemMessage((new StringBuilder())
 						.append(target.getName()).append(" has been kicked.")
 						.toString()));
-				target.sendPackets(new S_Disconnect());
+				target.getNetConnection().kick();
 			} else {
 				pc.sendPackets(new S_SystemMessage(arg + " is not online."));
 			}
