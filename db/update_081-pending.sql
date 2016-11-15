@@ -45,3 +45,6 @@ CREATE TABLE `LogGiveItem` (
   `TargetAfterInv` int(11) DEFAULT NULL,
   `Count` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- DK Skill fixes
+UPDATE `skills` SET `buffDuration` = 60 WHERE name in ('GuardBreak', 'HorrorOfDeath');
