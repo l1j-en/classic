@@ -64,13 +64,13 @@ public class RankingsController implements Runnable {
 		_inFields = builder.deleteCharAt( builder.length() -1 ).toString();
 	}
 	
-	public static String getRanks(RankType rankType) {
-		return getRanks(rankType, 0);
+	public static String getRanks(RankType rankType, int topCount) {
+		return getRanks(rankType, 0, topCount);
 	}
 	
 	// gets the 1-10 rankings
-	public static String getRanks(RankType rankType, int number) {
-		String names [] = new String[10];
+	public static String getRanks(RankType rankType, int number, int topCount) {
+		String names [] = new String[topCount];
 		Arrays.fill(names, "");
 		
 		ArrayList<String> rankings = null;
@@ -84,15 +84,15 @@ public class RankingsController implements Runnable {
 		} else
 			rankings = new ArrayList<String>(_rankings.get(rankType).keySet());
 		
-		for(int i = 0; i < rankings.size() && i < 10; i++)
+		for(int i = 0; i < rankings.size() && i < names.length; i++)
 			names[i] = rankings.get(i);
 		
-		return "\n\r" + "  1. " + names[0] + "\n\r" + "  2. " + names[1]
-				+ "\n\r" + "  3. " + names[2] + "\n\r" + "  4. " + names[3]
-				+ "\n\r" + "  5. " + names[4] + "\n\r" + "  6. " + names[5]
-				+ "\n\r" + "  7. " + names[6] + "\n\r" + "  8. " + names[7]
-				+ "\n\r" + "  9. " + names[8] + "\n\r" + " 10. " + names[9]
-				+ "\n\r" + "             ";
+		StringBuilder rankingString = new StringBuilder();
+		for(int i = 0; i < names.length; i++) {
+			rankingString.append(String.format("\r\n%d. %s", i + 1, names[i]));
+		}
+		
+		return rankingString.toString();
 	}
 	
 	// gets an individual rank
