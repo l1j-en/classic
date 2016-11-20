@@ -535,6 +535,10 @@ public final class Config {
 
 	public static int DOT_RELOAD_WAIT_TIME;
 	public static int DOT_RELOAD_PINK_WAIT_TIME;
+	
+	public static int CASTLE_WAR_MIN_PRINCE_LEVEL;
+	public static int CASTLE_WAR_MIN_MEMBERS_ONLINE;
+	public static int CASTLE_WAR_MIN_MEMBERS_LEVEL;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -843,6 +847,12 @@ public final class Config {
 					"DotReloadWaitTime", "0"));
 			DOT_RELOAD_PINK_WAIT_TIME = Integer.parseInt(altSettings.getProperty(
 					"DotReloadPinkWaitTime", "0"));
+			CASTLE_WAR_MIN_PRINCE_LEVEL = Integer.parseInt(altSettings.getProperty(
+					"CastleWarMinPrinceLevel", "1"));
+			CASTLE_WAR_MIN_MEMBERS_ONLINE = Integer.parseInt(altSettings.getProperty(
+					"CastleWarMinMembersOnlinee", "0"));
+			CASTLE_WAR_MIN_MEMBERS_LEVEL = Integer.parseInt(altSettings.getProperty(
+					"CastleWarMinMembersLevel", "1"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
