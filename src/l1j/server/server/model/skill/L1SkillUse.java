@@ -2280,6 +2280,7 @@ public class L1SkillUse {
 					}
 					if (_player != null && _player.isInvisble()) {
 						_player.delInvis();
+						_player.beginInvisTimer();
 					}
 					if (!(cha instanceof L1PcInstance)) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
