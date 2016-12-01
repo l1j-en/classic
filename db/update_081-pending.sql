@@ -48,3 +48,5 @@ CREATE TABLE `LogGiveItem` (
 
 -- DK Skill fixes
 UPDATE `skills` SET `buffDuration` = 60 WHERE name in ('GuardBreak', 'HorrorOfDeath');
+
+INSERT INTO `commands` (`name`,`access_level`,`class_name`,`help_text`,`run_on_login`) VALUES('castleowner', 200, 'L1CastleOwner', 'Sets or displays the owner of a specific castle.', 0);
