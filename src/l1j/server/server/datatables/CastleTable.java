@@ -91,6 +91,18 @@ public class CastleTable {
 	public L1Castle getCastleTable(int id) {
 		return _castles.get(id);
 	}
+	
+	public L1Castle getCastle(String name) {
+		name = name.toLowerCase();
+		
+		for(L1Castle castle : _castles.values()) {
+			if(castle.getName().toLowerCase().equals(name)) {
+				return castle;
+			}
+		}
+		
+		return null;
+	}
 
 	public void insertCastle(L1Castle castle) {
 		Connection con = null;
