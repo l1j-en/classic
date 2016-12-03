@@ -54,6 +54,7 @@ import static l1j.server.server.model.skill.L1SkillId.JOY_OF_PAIN;
 import static l1j.server.server.model.skill.L1SkillId.MANA_DRAIN;
 import static l1j.server.server.model.skill.L1SkillId.MASS_SLOW;
 import static l1j.server.server.model.skill.L1SkillId.PATIENCE;
+import static l1j.server.server.model.skill.L1SkillId.PHANTASM;
 import static l1j.server.server.model.skill.L1SkillId.POLLUTE_WATER;
 import static l1j.server.server.model.skill.L1SkillId.REDUCTION_ARMOR;
 import static l1j.server.server.model.skill.L1SkillId.RESIST_FEAR;
@@ -211,12 +212,13 @@ public class L1Magic {
 			}
 		}
 		probability = calcProbability(skillId);
+		
 		int rnd = _random.nextInt(100) + 1;
 		if (probability > MAX_PROBABILITY) {
 			probability = MAX_PROBABILITY;
 		}
+		
 		isSuccess = probability >= rnd;
-
 		if (!Config.ALT_ATKMSG) {
 			return isSuccess;
 		}
@@ -314,6 +316,8 @@ public class L1Magic {
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
+		} else if (skillId == PHANTASM) {
+			probability = 30; // hard-coded to 30% land rate
 		} else {
 			int dice = skill.getProbabilityDice();
 			int diceCount = _attacker.getMagicBonus()

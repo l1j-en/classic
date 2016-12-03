@@ -41,6 +41,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.PerformanceTimer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -165,7 +166,12 @@ public class L1TreasureBox {
 
 	public boolean open(L1PcInstance pc) {
 		L1ItemInstance item = null;
-
+		
+		if(pc.getInventory().getWeight240() > 200) {
+			pc.sendPackets(new S_SystemMessage("You are too heavy to open this item."));
+			return false;
+		}
+		
 		if (getType().equals(TYPE.SPECIFIC)) {
 			for (Item each : getItems()) {
 				item = ItemTable.getInstance().createItem(each.getItemId());
