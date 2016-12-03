@@ -50,3 +50,7 @@ CREATE TABLE `LogGiveItem` (
 UPDATE `skills` SET `buffDuration` = 60 WHERE name in ('GuardBreak', 'HorrorOfDeath');
 
 INSERT INTO `commands` (`name`,`access_level`,`class_name`,`help_text`,`run_on_login`) VALUES('castleowner', 200, 'L1CastleOwner', 'Sets or displays the owner of a specific castle.', 0);
+
+-- Update range on fantasm and set probability value and dice to 0 since the probability is now hard-coded to 30%
+-- http://lineage.power.plaync.com/wiki/%ED%8C%90%ED%83%80%EC%A6%98
+UPDATE `skills` SET `ranged` = 4, `probability_value` = 0, `probability_dice` = 0 WHERE `name` = 'Phantasm'; 
