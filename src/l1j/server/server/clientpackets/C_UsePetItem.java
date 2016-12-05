@@ -80,7 +80,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			if (pet.getWeapon().equals(weapon)) {
 				pet.removeWeapon(weapon);
 			} else {
-				pet.removeWeapon(weapon);
+				pet.removeWeapon(pet.getWeapon());
 				setPetWeapon(pc, pet, weapon);
 			}
 		}
@@ -94,7 +94,7 @@ public class C_UsePetItem extends ClientBasePacket {
 			if (pet.getArmor().equals(armor)) {
 				pet.removeArmor(armor);
 			} else {
-				pet.removeArmor(armor);
+				pet.removeArmor(pet.getArmor());
 				setPetArmor(pc, pet, armor);
 			}
 		}
