@@ -78,7 +78,8 @@ public class L1BookMark {
 			return;
 		}
 		int size = pc.getBookMarkSize();
-		if (size > 49) {
+		if (size > 99) {
+			pc.sendPackets(new S_ServerMessage(676)); // too many bookmarks
 			return;
 		}
 		if (pc.getBookMark(s) == null) {
