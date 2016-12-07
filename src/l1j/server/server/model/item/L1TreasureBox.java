@@ -172,6 +172,11 @@ public class L1TreasureBox {
 			return false;
 		}
 		
+		if(pc.getInventory().getItems().size() > 179) {
+			pc.sendPackets(new S_ServerMessage(263));
+			return false;
+		}
+		
 		if (getType().equals(TYPE.SPECIFIC)) {
 			for (Item each : getItems()) {
 				item = ItemTable.getInstance().createItem(each.getItemId());
