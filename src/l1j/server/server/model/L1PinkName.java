@@ -89,8 +89,10 @@ public class L1PinkName {
 		if (castleId != 0) {
 			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
 		}
+		
+		boolean isGmSpoofing = victim.isGm() && victim.getSpoofMob() != null;
 
-		if (victim.getLawful() >= 0
+		if (!isGmSpoofing && victim.getLawful() >= 0
 				&& (!victim.isPinkName() || Config.DUAL_PINK)
 				&& (attacker.getLawful() >= 0 || Config.CHAO_PINK)
 				&& victim.getZoneType() == ZoneType.Normal
