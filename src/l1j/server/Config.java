@@ -539,6 +539,9 @@ public final class Config {
 	public static int CASTLE_WAR_MIN_PRINCE_LEVEL;
 	public static int CASTLE_WAR_MIN_MEMBERS_ONLINE;
 	public static int CASTLE_WAR_MIN_MEMBERS_LEVEL;
+	
+	public static int RANKING_OVERALL_TOP;
+	public static int RANKING_CLASS_TOP;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -853,6 +856,10 @@ public final class Config {
 					"CastleWarMinMembersOnlinee", "0"));
 			CASTLE_WAR_MIN_MEMBERS_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"CastleWarMinMembersLevel", "1"));
+			RANKING_OVERALL_TOP = Integer.parseInt(altSettings.getProperty(
+					"RankingOverallTop", "25"));
+			RANKING_CLASS_TOP = Integer.parseInt(altSettings.getProperty(
+					"RankingClassTop", "10"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {
