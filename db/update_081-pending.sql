@@ -55,5 +55,5 @@ INSERT INTO `commands` (`name`,`access_level`,`class_name`,`help_text`,`run_on_l
 -- http://lineage.power.plaync.com/wiki/%ED%8C%90%ED%83%80%EC%A6%98
 UPDATE `skills` SET `ranged` = 4, `probability_value` = 0, `probability_dice` = 0 WHERE `name` = 'Phantasm'; 
 
--- halved the leverage of high raccoon and raccoon so slow won't land all the time. The leverage was 3x that of a mage.
-UPDATE `mobskill` SET `Leverage` = 15 WHERE `Skill_Description` LIKE '%Slow%' AND `mobname` IN('Raccoon', 'High Raccoon');
+-- lowered the leverage of high raccoon and raccoon so slow won't land all the time. The leverage was 3x that of a mage.
+UPDATE `mobskill` SET `Leverage` = 5 WHERE `Skill_Description` LIKE '%Slow%' AND `mobname` IN('Raccoon', 'High Raccoon');
