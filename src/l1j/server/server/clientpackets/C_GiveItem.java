@@ -26,6 +26,7 @@ import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.PetTypeTable;
+import l1j.server.server.log.LogGiveItem;
 import l1j.server.server.model.L1Inventory;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
@@ -53,15 +54,17 @@ public class C_GiveItem extends ClientBasePacket {
 		int targetId = readD();
 		@SuppressWarnings("unused")
 		int x = readH();
-		int y = readH();
+		readH(); // y
 		int itemId = readD();
 		int count = readD();
 
 		L1PcInstance pc = client.getActiveChar();
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
-			Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Player Offline");
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Player Offline");
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -88,8 +91,11 @@ public class C_GiveItem extends ClientBasePacket {
 		// TRICIDTODO: set configurable auto ban
 		if ((!item.isStackable() && count != 1) || item.getCount() <= 0
 				|| count <= 0 || count > 2000000000 || count > item.getCount()) {
-			Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Count Mixup");
-			IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName(), "AutoBan", "GiveItem Dupe Check Count Mixup");
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
+			
 			_log.info(pc.getName() + " Attempted Dupe Exploit (C_GiveItem).");
 			L1World.getInstance().broadcastServerMessage(
 					"Player " + pc.getName() + " Attempted A Dupe exploit!");
@@ -132,8 +138,37 @@ public class C_GiveItem extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(942));
 			return;
 		}
+		// wrap in try/catch because we don't want it to crap out the 
+		// actual trade
+		int before_target_inv = 0;
+		int before_inv = pc.getInventory().getItem(item.getId()).getCount();
+		
+		try {
+			before_target_inv = targetInv.countItems(item.getItemId());
+		} catch(Exception ex) {
+			_log.warning(String.format("%s Dropped item %s. But it failed to get the count from the target inventory!",
+					pc.getName(), item.getName(), item.getCount()));
+		}
+		
 		item = inv.tradeItem(item, count, targetInv);
-
+		
+		try {
+			L1ItemInstance pcitem = pc.getInventory().getItem(itemId);
+			int after_inv = 0;
+			if (pcitem != null) {
+				after_inv = pcitem.getCount();
+			}
+			
+			int after_target_inv = item.getCount();
+			
+			LogGiveItem giveItemLog = new LogGiveItem();
+			giveItemLog.storeLogGiveItem(pc, target, item,
+					before_inv, after_inv, before_target_inv, after_target_inv, count);
+		} catch(Exception ex) {
+			_log.warning(String.format("%s Dropped item %s (%d). But it failed to log!",
+					pc.getName(), item.getName(), item.getCount()));
+		}
+		
 		target.onGetItem(item);
 		target.turnOnOffLight();
 

@@ -26,6 +26,7 @@ import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.HouseTaxTimeController;
+import l1j.server.server.controllers.JailController;
 import l1j.server.server.controllers.LightTimeController;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.controllers.NpcChatTimeController;
@@ -232,6 +233,10 @@ public class GameServerThread {
 		// Rankings Board Controller
 		RankingsController rankingsController = RankingsController.getInstance();
 		GeneralThreadPool.getInstance().execute(rankingsController);
+		
+		// Unjail controller
+		JailController jailController = JailController.getInstance();
+		GeneralThreadPool.getInstance().execute(jailController);
 
 		CrackOfTimeController.getStart();
 

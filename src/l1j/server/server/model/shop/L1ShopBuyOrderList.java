@@ -33,7 +33,6 @@ public class L1ShopBuyOrderList {
 	private final L1TaxCalculator _taxCalc;
 
 	private int _totalWeight = 0;
-	private int _totalPrice = 0;
 	private int _totalPriceTaxIncluded = 0;
 	private int _npcid = 0;
 
@@ -51,36 +50,44 @@ public class L1ShopBuyOrderList {
 		if (_shop.getSellingItems().size() < orderNumber) {
 			return;
 		}
+		
 		L1ShopItem shopItem = _shop.getSellingItems().get(orderNumber);
-
 		int price = (int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE);
+		
 		for (int j = 0; j <= count; j++) {
 			if (price * j < 0) {
 				return;
 			}
 		}
-		if (_totalPrice < 0) {
+		
+		if (_totalPriceTaxIncluded < 0) {
 			return;
 		}
-		int newTotal = _totalPrice + (price * count);
-		if (newTotal < 0) {
+		int addTotal = price * count;
+		
+		if (addTotal < 0) {
 			return;
 		}
-		_totalPrice = newTotal;
+
 		if (_npcid != 70017 && _npcid != 70049) { // Exclude Orim and Rozen from
 													// taxes
 			int taxGenerated = _taxCalc.layTax(shopItem, count);
-			if (newTotal + taxGenerated < 0) {
+			
+			if (addTotal + taxGenerated < 0) {
 				return;
 			}
-			_totalPriceTaxIncluded += newTotal + taxGenerated;
+			
+			_totalPriceTaxIncluded += addTotal + taxGenerated;
 		} else {
-			newTotal = price * count;
-			if (newTotal < 0) {
+			addTotal = price * count;
+			
+			if (addTotal < 0) {
 				return;
 			}
-			_totalPriceTaxIncluded += newTotal;
+			
+			_totalPriceTaxIncluded += addTotal;
 		}
+		
 		_totalWeight += shopItem.getItem().getWeight() * count
 				* shopItem.getPackCount();
 
@@ -101,10 +108,6 @@ public class L1ShopBuyOrderList {
 
 	public int getTotalWeight() {
 		return _totalWeight;
-	}
-
-	public int getTotalPrice() {
-		return _totalPrice;
 	}
 
 	public int getTotalPriceTaxIncluded() {

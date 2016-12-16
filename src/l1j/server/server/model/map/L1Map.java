@@ -27,6 +27,18 @@ public abstract class L1Map {
 	protected L1Map() {
 	}
 
+	public boolean isTradeZone() {
+		int[] tradeZones = new int[] { 340, 350, 360, 370 };
+
+		for(int zoneId : tradeZones) {
+			if(zoneId == this.getId()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 	public abstract int getId();
 
 	public abstract int getX();
