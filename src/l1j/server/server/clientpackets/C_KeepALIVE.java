@@ -31,7 +31,10 @@ public class C_KeepALIVE extends ClientBasePacket {
 		// XXX:GameTime Send (3 bytes of data to send it to come because you do
 		// not have to use something maybe)
 		L1PcInstance pc = client.getActiveChar();
-		pc.sendPackets(new S_GameTime());
+		
+		// to prevent errors if the keepalive is sent after the user has logged out
+		if(pc != null)
+			pc.sendPackets(new S_GameTime());
 	}
 
 	@Override

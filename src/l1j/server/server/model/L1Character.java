@@ -20,6 +20,7 @@ import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillTimer;
 import l1j.server.server.model.skill.L1SkillTimerCreator;
 import l1j.server.server.serverpackets.S_Light;
+import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.ServerBasePacket;
@@ -149,8 +150,15 @@ public class L1Character extends L1Object {
 			boolean isFindInvis) {
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
 			// only broadcast the packet if they are a GM and have findinvis on
-			if (isFindInvis && pc.isGm() && pc.hasSkillEffect(GMSTATUS_FINDINVIS))
-				pc.sendPackets(packet);
+			if (pc.isGm() && pc.hasSkillEffect(GMSTATUS_FINDINVIS)) {
+				// if GMFindInvis is on and this is a removeobject call (IE they turned invis)
+				// then don't remove the user from display
+				if(!(packet instanceof S_RemoveObject)) {
+					pc.sendPackets(packet);
+				} else {
+					pc.sendPackets(new S_OtherCharPacks((L1PcInstance)this, true));
+				}
+			}	
 			else if(!isFindInvis)
 				pc.sendPackets(packet);
 		}

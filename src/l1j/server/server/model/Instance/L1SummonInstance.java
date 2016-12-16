@@ -218,8 +218,15 @@ public class L1SummonInstance extends L1NpcInstance {
 				setHate(attacker, 0);
 				removeSkillEffect(FOG_OF_SLEEPING);
 				if (!isExsistMaster()) {
-					_currentPetStatus = 1;
-					setTarget(attacker);
+					// if the master is offline and anything but a player is
+					// attacking it, then set it to rest mode and clear the targets
+					if(!(attacker instanceof L1PcInstance)) {
+						_currentPetStatus = 3;
+						this.allTargetClear();
+					} else {
+						_currentPetStatus = 1;
+						setTarget(attacker);
+					}
 				}
 			}
 			if (attacker instanceof L1PcInstance && damage > 0) {
@@ -364,6 +371,7 @@ public class L1SummonInstance extends L1NpcInstance {
 		if (master.isTeleport()) {
 			return;
 		}
+		
 		if ((getZoneType() == ZoneType.Safety || attacker.getZoneType() == ZoneType.Safety)
 				&& isExsistMaster()) {
 			L1Attack attack_mortion = new L1Attack(attacker, this);

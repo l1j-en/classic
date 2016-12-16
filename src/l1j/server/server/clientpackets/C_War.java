@@ -20,6 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.List;
 
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.L1CastleLocation;
@@ -29,6 +30,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -108,6 +110,39 @@ public class C_War extends ClientBasePacket {
 			player.sendPackets(new S_ServerMessage(475));
 			return;
 		}
+		
+		if(enemyClan.getCastleId() != 0) {
+			L1PcInstance[] clanMembersOnline = player.getClan().getOnlineClanMember();
+			
+			int onlineMeetingLevelReq = 0;
+			
+			for(L1PcInstance member : clanMembersOnline) {
+				if(member.getLevel() >= Config.CASTLE_WAR_MIN_PRINCE_LEVEL
+						&& member.getId() != player.getId()) {
+					onlineMeetingLevelReq++;
+				}
+			}
+			
+			if(player.getLevel() < Config.CASTLE_WAR_MIN_PRINCE_LEVEL ||
+					onlineMeetingLevelReq < Config.CASTLE_WAR_MIN_MEMBERS_ONLINE) {
+				player.sendPackets(new S_SystemMessage("\\fYCannot declare war on a castle pledge because: "));
+				
+				if(player.getLevel() < Config.CASTLE_WAR_MIN_PRINCE_LEVEL) {
+					player.sendPackets(new S_SystemMessage(String.format("\\fY  You are not above level %d.",
+							Config.CASTLE_WAR_MIN_PRINCE_LEVEL)));
+				}
+				
+				if(onlineMeetingLevelReq < Config.CASTLE_WAR_MIN_MEMBERS_ONLINE) {
+					player.sendPackets(new S_SystemMessage(String.format("\\fY  You must have %d " +
+							"members online above level %d.", 
+							Config.CASTLE_WAR_MIN_MEMBERS_ONLINE,
+							Config.CASTLE_WAR_MIN_MEMBERS_LEVEL)));
+				}
+				
+				return;
+			}
+		}
+		
 		if (enemyClan.getCastleId() != 0) {
 			int castle_id = enemyClan.getCastleId();
 			if (WarTimeController.getInstance().isNowWar(castle_id)) {

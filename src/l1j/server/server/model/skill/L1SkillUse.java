@@ -2280,6 +2280,7 @@ public class L1SkillUse {
 					}
 					if (_player != null && _player.isInvisble()) {
 						_player.delInvis();
+						_player.beginInvisTimer();
 					}
 					if (!(cha instanceof L1PcInstance)) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
@@ -2547,7 +2548,7 @@ public class L1SkillUse {
 						L1PcInstance pc = (L1PcInstance) cha;
 						L1BookMark bookm = pc.getBookMark(_bookmarkId);
 						if (bookm != null) {
-							if (pc.getMap().isEscapable() || pc.isGm()) {
+							if ((!pc.getMap().isTradeZone() && pc.getMap().isEscapable()) || pc.isGm()) {
 								int newX = bookm.getLocX();
 								int newY = bookm.getLocY();
 								short mapId = bookm.getMapId();
