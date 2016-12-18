@@ -23,6 +23,7 @@ import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -48,6 +49,10 @@ public class C_SelectTarget extends ClientBasePacket {
 				L1PcInstance pc = (L1PcInstance) target;
 				// checkNonPvP checks the altsetting, but we also always want pets not to attack PCs in safety zones.
 				if (pc.checkNonPvP(pc, pet) || pc.getLocation().getMap().isSafetyZone(pc.getLocation())) {
+					return;
+				}
+			} else if(target instanceof L1PetInstance || target instanceof L1SummonInstance) {
+				if(target.getMap().isSafetyZone(target.getLocation())) {
 					return;
 				}
 			}
