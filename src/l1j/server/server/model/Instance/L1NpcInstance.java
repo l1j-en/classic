@@ -464,6 +464,16 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void attackTarget(L1Character target) {
+		// if the pet/summon/pc is being attacked by another pet in a safety zone, then
+		// kill the attack
+		if(this instanceof L1PetInstance && 
+				(target instanceof L1PetInstance || target instanceof L1PcInstance 
+						|| target instanceof L1SummonInstance)) {
+			if(target.getMap().isSafetyZone(this.getLocation())) {
+				return;
+			}
+		}
+		
 		if (target instanceof L1PcInstance) {
 			L1PcInstance player = (L1PcInstance) target;
 			if (player.isTeleport()) {
