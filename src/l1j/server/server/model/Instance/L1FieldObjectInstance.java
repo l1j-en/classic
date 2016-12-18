@@ -56,7 +56,10 @@ public class L1FieldObjectInstance extends L1NpcInstance {
 			house.endHauntedHouse();
 		} else if (winnersCount > goalCount + 1) {
 			house.setGoalCount(goalCount + 1);
-			house.removeMember(pc);
+			// TODO something is happening that is not teleporting winners out of the
+			// HH when they win when there can be multiple winners.
+			// Commented out this line to ensure they get removed at least when the game ends
+			//house.removeMember(pc);
 			L1ItemInstance item = null;
 			if (winnersCount == 3) {
 				if (goalCount == 1) {
