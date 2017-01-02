@@ -1326,6 +1326,15 @@ public class L1PcInstance extends L1Character {
 			sendAndBroadcast(new S_DoActionGFX(targetobjid,
 					ActionCodes.ACTION_Die));
 
+			// right now if lastAttacker is null, it crashes on the next line after this if statement 
+			// it should only happen with the .kill/.wipeout commands.
+			// It has the unintended consequence of not applying death penalties
+			// IE person killed loses Exp, items, etc. 
+			// Leaving it as-is for now
+			if(lastAttacker == null) {
+				return;
+			}
+			
 			if (lastAttacker.getMapId() != 509) {
 				try {
 					if (lastAttacker != L1PcInstance.this) {
