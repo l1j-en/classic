@@ -57,3 +57,6 @@ UPDATE `skills` SET `ranged` = 4, `probability_value` = 0, `probability_dice` = 
 
 -- lowered the leverage of high raccoon and raccoon so slow won't land all the time. The leverage was 3x that of a mage.
 UPDATE `mobskill` SET `Leverage` = 5 WHERE `Skill_Description` LIKE '%Slow%' AND `mobname` IN('Raccoon', 'High Raccoon');
+
+-- add .wipeout GM Command
+INSERT INTO commands (name, access_level, class_name, help_text, run_on_login) VALUES('wipeout', 200, 'L1WipeOut', 'Kills all mobs (or players if specified) on the current screen.', 0);
