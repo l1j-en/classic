@@ -126,6 +126,11 @@ public class L1LazyGm implements L1CommandExecutor {
 				return;
 			}
 			
+			if(!pc.isGmInvis()) {
+				pc.sendPackets(new S_SystemMessage("You must be invisible to run this command!"));
+				return;
+			}
+			
 			int seconds = Integer.parseInt(arg);
 			LazyGmTimer timer = new LazyGmTimer(pc, seconds);
 			GeneralThreadPool.getInstance().execute(timer);
