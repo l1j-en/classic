@@ -74,6 +74,11 @@ public abstract class L1ClassFeature {
 	public abstract Map<L1Attribute, Integer> getFixedStats();
 
 	/**
+	 * The maximum starting stats.
+	 */
+	public abstract Map<L1Attribute, Integer> getMaxFixedStats();
+
+	/**
 	 * The number of player-assigned starting stats.
 	 */
 	public abstract int getFloatingStats();

@@ -55,6 +55,18 @@ class L1ElfClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 9);
 		return fixedStats;
 	}
+	
+	@Override
+	public Map<L1Attribute, Integer> getMaxFixedStats() {
+		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
+		maxFixedStats.put(L1Attribute.Str, 18);
+		maxFixedStats.put(L1Attribute.Dex, 18);
+		maxFixedStats.put(L1Attribute.Con, 18);
+		maxFixedStats.put(L1Attribute.Wis, 18);
+		maxFixedStats.put(L1Attribute.Int, 18);
+		maxFixedStats.put(L1Attribute.Cha, 16);
+		return maxFixedStats;
+	}
 
 	@Override
 	public int getFloatingStats() {
