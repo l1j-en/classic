@@ -84,6 +84,13 @@ public class C_CharReset extends ClientBasePacket {
 							pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
 		}
+		
+		if (str < pc.getBaseStr() || intel < pc.getBaseInt() || wis < pc.getBaseWis()
+				|| dex < pc.getBaseDex() || con < pc.getBaseCon() || cha < pc.getBaseCha()) {
+			emergencyCleanup(pc, String.format(
+					"Candle: %s tried to redistribute stats after level ups!", pc.getName()),
+					"Candle: issue with stats, contact a GM for help.");
+		}
 	}
 
 	private void checkProvidedStartingStats(final L1PcInstance pc, int str,
@@ -107,6 +114,20 @@ public class C_CharReset extends ClientBasePacket {
 						|| wis > originalWis + originalAmount
 						|| cha > originalCha + originalAmount || intel > originalInt
 						+ originalAmount)) {
+			isStatusError = true;
+		}
+		
+		Map<L1Attribute, Integer> startingMaxStats = pc.getClassFeature()
+				.getMaxFixedStats();
+		int startingMaxSTR = startingMaxStats.get(L1Attribute.Str);
+		int startingMaxDex = startingMaxStats.get(L1Attribute.Dex);
+		int startingMaxCon = startingMaxStats.get(L1Attribute.Con);
+		int startingMaxWis = startingMaxStats.get(L1Attribute.Wis);
+		int startingMaxCha = startingMaxStats.get(L1Attribute.Cha);
+		int startingMaxInt = startingMaxStats.get(L1Attribute.Int);
+
+		if (str > startingMaxSTR || dex > startingMaxDex || con > startingMaxCon
+				|| wis > startingMaxWis || cha > startingMaxCha || intel > startingMaxInt){
 			isStatusError = true;
 		}
 
