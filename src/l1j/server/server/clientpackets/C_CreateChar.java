@@ -135,6 +135,20 @@ public class C_CreateChar extends ClientBasePacket {
 						.getBaseInt() > originalInt + originalAmount)) {
 			isStatusError = true;
 		}
+		
+		Map<L1Attribute, Integer> startingMaxStats = pc.getClassFeature()
+				.getMaxFixedStats();
+		int startingMaxSTR = startingMaxStats.get(L1Attribute.Str);
+		int startingMaxDex = startingMaxStats.get(L1Attribute.Dex);
+		int startingMaxCon = startingMaxStats.get(L1Attribute.Con);
+		int startingMaxWis = startingMaxStats.get(L1Attribute.Wis);
+		int startingMaxCha = startingMaxStats.get(L1Attribute.Cha);
+		int startingMaxInt = startingMaxStats.get(L1Attribute.Int);
+
+		if (pc.getBaseStr() > startingMaxSTR || pc.getBaseDex() > startingMaxDex || pc.getBaseCon() > startingMaxCon
+				|| pc.getBaseWis() > startingMaxWis || pc.getBaseCha() > startingMaxCha || pc.getBaseInt() > startingMaxInt){
+			isStatusError = true;
+		}
 
 		int statusAmount = pc.getDex() + pc.getCha() + pc.getCon()
 				+ pc.getInt() + pc.getStr() + pc.getWis();

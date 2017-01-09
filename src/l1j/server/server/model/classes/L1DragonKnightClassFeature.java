@@ -55,6 +55,18 @@ class L1DragonKnightClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 8);
 		return fixedStats;
 	}
+	
+	@Override
+	public Map<L1Attribute, Integer> getMaxFixedStats() {
+		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
+		maxFixedStats.put(L1Attribute.Str, 19);
+		maxFixedStats.put(L1Attribute.Dex, 16);
+		maxFixedStats.put(L1Attribute.Con, 18);
+		maxFixedStats.put(L1Attribute.Wis, 17);
+		maxFixedStats.put(L1Attribute.Int, 17);
+		maxFixedStats.put(L1Attribute.Cha, 14);
+		return maxFixedStats;
+	}
 
 	@Override
 	public int getFloatingStats() {
