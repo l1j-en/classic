@@ -30,6 +30,8 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_OwnCharAttrDef;
+import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
 
@@ -168,7 +170,7 @@ public class C_CharReset extends ClientBasePacket {
 			// Stage 2: Level ups and adding stats 1 by 1
 			int type2 = readC();
 			if (type2 == 0x00) { // 0x00:Lv1UP
-				if (pc.getTempLevel() >= pc.getTempMaxLevel())
+				if ((pc.getTempLevel() >= pc.getTempMaxLevel()) || pc.getTempLevel() > 50)
 					return;
 				setLevelUp(pc, 1);
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
@@ -265,15 +267,23 @@ public class C_CharReset extends ClientBasePacket {
 		}
 
 		pc.setInCharReset(false);
-		if (pc.getOriginalAc() > 0) {
-			pc.addAc(pc.getOriginalAc());
-		}
-		if (pc.getOriginalMr() > 0) {
-			pc.addMr(0 - pc.getOriginalMr());
-		}
 		pc.refresh();
 		pc.setCurrentHp(pc.getMaxHp());
 		pc.setCurrentMp(pc.getMaxMp());
+		pc.setMr(pc.getBaseMr());
+		pc.setAc(pc.getBaseAc());
+		if (pc.getOriginalMr() > 0) {
+			pc.addMr(pc.getOriginalMr());
+			pc.sendPackets(new S_SPMR(pc));
+		} else {
+			pc.sendPackets(new S_SPMR(pc));
+		}
+		if (pc.getOriginalAc() > 0) {
+			pc.addAc(0 - pc.getOriginalAc());
+			pc.sendPackets(new S_OwnCharAttrDef(pc));
+		} else {
+			pc.sendPackets(new S_OwnCharAttrDef(pc));
+		}
 		if (pc.getLevel() > 50) {
 			pc.setBonusStats(pc.getLevel() - 50);
 		} else {
@@ -308,7 +318,6 @@ public class C_CharReset extends ClientBasePacket {
 		pc.setOriginalDex((byte) dex);
 		pc.setOriginalCon((byte) con);
 		pc.setOriginalCha((byte) cha);
-		pc.addMr(0 - pc.getMr());
 		pc.addDmgup(0 - pc.getDmgup());
 		pc.addHitup(0 - pc.getHitup());
 		CharacterTable.saveCharStatus(pc);
@@ -324,7 +333,7 @@ public class C_CharReset extends ClientBasePacket {
 			pc.addBaseMaxHp(randomHp);
 			pc.addBaseMaxMp(randomMp);
 		}
-		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex());
+		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex()) - pc.getOriginalAc();
 
 		pc.sendPackets(new S_CharReset(pc, pc.getTempLevel(),
 				pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc, pc.getBaseStr(),
