@@ -272,18 +272,12 @@ public class C_CharReset extends ClientBasePacket {
 		pc.setCurrentMp(pc.getMaxMp());
 		pc.setMr(pc.getBaseMr());
 		pc.setAc(pc.getBaseAc());
-		if (pc.getOriginalMr() > 0) {
-			pc.addMr(pc.getOriginalMr());
-			pc.sendPackets(new S_SPMR(pc));
-		} else {
-			pc.sendPackets(new S_SPMR(pc));
-		}
-		if (pc.getOriginalAc() > 0) {
-			pc.addAc(0 - pc.getOriginalAc());
-			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		} else {
-			pc.sendPackets(new S_OwnCharAttrDef(pc));
-		}
+		
+		if (pc.getOriginalMr() > 0) {pc.addMr(pc.getOriginalMr());}
+		pc.sendPackets(new S_SPMR(pc));
+		if (pc.getOriginalAc() > 0) {pc.addAc(0 - pc.getOriginalAc());}
+		pc.sendPackets(new S_OwnCharAttrDef(pc));
+		
 		if (pc.getLevel() > 50) {
 			pc.setBonusStats(pc.getLevel() - 50);
 		} else {
