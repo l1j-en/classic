@@ -138,6 +138,8 @@ public final class Config {
 	
 	public static boolean DUAL_PINK;
 
+	public static boolean CHAO_PINK;
+
 	public static boolean AUTO_BAN;
 	
 	public static int ANIMATION_SPEED;
@@ -658,6 +660,7 @@ public final class Config {
 			NON_AGGRO_LOGOUT_TIMER = Integer.parseInt(serverSettings.getProperty(
 					"NonAggroLogoutTimer", "10000"));
 			DUAL_PINK = Boolean.parseBoolean(serverSettings.getProperty("DualPink", "False"));
+			CHAO_PINK = Boolean.parseBoolean(serverSettings.getProperty("ChaoPink", "False"));
 			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
 			STOP_DROP = Boolean.parseBoolean(serverSettings.getProperty("StopDrop", "False"));
 			ANIMATION_SPEED = Integer.parseInt(serverSettings.getProperty("DefaultAnimationSpeed", "720"));
