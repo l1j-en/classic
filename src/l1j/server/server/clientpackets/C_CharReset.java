@@ -172,6 +172,7 @@ public class C_CharReset extends ClientBasePacket {
 			if (type2 == 0x00) { // 0x00:Lv1UP
 				if ((pc.getTempLevel() >= pc.getTempMaxLevel()) || pc.getTempLevel() > 50)
 					return;
+				
 				setLevelUp(pc, 1);
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
 				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10)
@@ -216,10 +217,12 @@ public class C_CharReset extends ClientBasePacket {
 					pc.addBaseCha((byte) 1);
 					break;
 				}
+				
 				if (pc.getElixirStats() > 0) {
 					pc.sendPackets(new S_CharReset(pc.getElixirStats()));
 					return;
 				}
+				
 				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
@@ -273,9 +276,16 @@ public class C_CharReset extends ClientBasePacket {
 		pc.setMr(pc.getBaseMr());
 		pc.setAc(pc.getBaseAc());
 		
-		if (pc.getOriginalMr() > 0) {pc.addMr(pc.getOriginalMr());}
+		if (pc.getOriginalMr() > 0) {
+			pc.addMr(pc.getOriginalMr());
+		}
+		
 		pc.sendPackets(new S_SPMR(pc));
-		if (pc.getOriginalAc() > 0) {pc.addAc(0 - pc.getOriginalAc());}
+		
+		if (pc.getOriginalAc() > 0) {
+			pc.addAc(0 - pc.getOriginalAc());
+		}
+		
 		pc.sendPackets(new S_OwnCharAttrDef(pc));
 		
 		if (pc.getLevel() > 50) {
@@ -283,8 +293,10 @@ public class C_CharReset extends ClientBasePacket {
 		} else {
 			pc.setBonusStats(0);
 		}
+		
 		pc.sendPackets(new S_OwnCharStatus(pc));
 		L1ItemInstance item = pc.getInventory().findItemId(49142);
+		
 		if (item != null) {
 			try {
 				pc.getInventory().removeItem(item, 1);
@@ -293,6 +305,7 @@ public class C_CharReset extends ClientBasePacket {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		}
+		
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 	}
 
@@ -327,6 +340,7 @@ public class C_CharReset extends ClientBasePacket {
 			pc.addBaseMaxHp(randomHp);
 			pc.addBaseMaxMp(randomMp);
 		}
+		
 		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex()) - pc.getOriginalAc();
 
 		pc.sendPackets(new S_CharReset(pc, pc.getTempLevel(),
