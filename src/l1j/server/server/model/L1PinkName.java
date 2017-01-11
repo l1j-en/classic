@@ -42,7 +42,7 @@ public class L1PinkName {
 				if (_attacker.isDead() && !_attacker.isPinkName()) {
 					break;
 				}
-				if (_attacker.getLawful() < 0) {
+				if (_attacker.getLawful() < 0 && !Config.CHAO_PINK) {
 					_attacker.setPinkName(false);
 					break;
 				}
@@ -94,7 +94,7 @@ public class L1PinkName {
 
 		if (!isGmSpoofing && victim.getLawful() >= 0
 				&& (!victim.isPinkName() || Config.DUAL_PINK)
-				&& attacker.getLawful() >= 0
+				&& (attacker.getLawful() >= 0 || Config.CHAO_PINK)
 				&& victim.getZoneType() == ZoneType.Normal
 					&& attacker.getZoneType() == ZoneType.Normal
 					&& isNowWar == false) {
