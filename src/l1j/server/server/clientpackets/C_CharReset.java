@@ -30,6 +30,8 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_OwnCharAttrDef;
+import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
 
@@ -84,6 +86,13 @@ public class C_CharReset extends ClientBasePacket {
 							pc.getName()),
 					"Candle: issue with stats, contact a GM for help.");
 		}
+		
+		if (str < pc.getBaseStr() || intel < pc.getBaseInt() || wis < pc.getBaseWis()
+				|| dex < pc.getBaseDex() || con < pc.getBaseCon() || cha < pc.getBaseCha()) {
+			emergencyCleanup(pc, String.format(
+					"Candle: %s tried to redistribute stats after level ups!", pc.getName()),
+					"Candle: issue with stats, contact a GM for help.");
+		}
 	}
 
 	private void checkProvidedStartingStats(final L1PcInstance pc, int str,
@@ -107,6 +116,20 @@ public class C_CharReset extends ClientBasePacket {
 						|| wis > originalWis + originalAmount
 						|| cha > originalCha + originalAmount || intel > originalInt
 						+ originalAmount)) {
+			isStatusError = true;
+		}
+		
+		Map<L1Attribute, Integer> startingMaxStats = pc.getClassFeature()
+				.getMaxFixedStats();
+		int startingMaxSTR = startingMaxStats.get(L1Attribute.Str);
+		int startingMaxDex = startingMaxStats.get(L1Attribute.Dex);
+		int startingMaxCon = startingMaxStats.get(L1Attribute.Con);
+		int startingMaxWis = startingMaxStats.get(L1Attribute.Wis);
+		int startingMaxCha = startingMaxStats.get(L1Attribute.Cha);
+		int startingMaxInt = startingMaxStats.get(L1Attribute.Int);
+
+		if (str > startingMaxSTR || dex > startingMaxDex || con > startingMaxCon
+				|| wis > startingMaxWis || cha > startingMaxCha || intel > startingMaxInt){
 			isStatusError = true;
 		}
 
@@ -147,8 +170,9 @@ public class C_CharReset extends ClientBasePacket {
 			// Stage 2: Level ups and adding stats 1 by 1
 			int type2 = readC();
 			if (type2 == 0x00) { // 0x00:Lv1UP
-				if (pc.getTempLevel() >= pc.getTempMaxLevel())
+				if ((pc.getTempLevel() >= pc.getTempMaxLevel()) || pc.getTempLevel() > 50)
 					return;
+				
 				setLevelUp(pc, 1);
 			} else if (type2 == 0x07) { // 0x07:Lv10UP
 				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10)
@@ -193,10 +217,12 @@ public class C_CharReset extends ClientBasePacket {
 					pc.addBaseCha((byte) 1);
 					break;
 				}
+				
 				if (pc.getElixirStats() > 0) {
 					pc.sendPackets(new S_CharReset(pc.getElixirStats()));
 					return;
 				}
+				
 				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
@@ -244,22 +270,33 @@ public class C_CharReset extends ClientBasePacket {
 		}
 
 		pc.setInCharReset(false);
-		if (pc.getOriginalAc() > 0) {
-			pc.addAc(pc.getOriginalAc());
-		}
-		if (pc.getOriginalMr() > 0) {
-			pc.addMr(0 - pc.getOriginalMr());
-		}
 		pc.refresh();
 		pc.setCurrentHp(pc.getMaxHp());
 		pc.setCurrentMp(pc.getMaxMp());
+		pc.setMr(pc.getBaseMr());
+		pc.setAc(pc.getBaseAc());
+		
+		if (pc.getOriginalMr() > 0) {
+			pc.addMr(pc.getOriginalMr());
+		}
+		
+		pc.sendPackets(new S_SPMR(pc));
+		
+		if (pc.getOriginalAc() > 0) {
+			pc.addAc(0 - pc.getOriginalAc());
+		}
+		
+		pc.sendPackets(new S_OwnCharAttrDef(pc));
+		
 		if (pc.getLevel() > 50) {
 			pc.setBonusStats(pc.getLevel() - 50);
 		} else {
 			pc.setBonusStats(0);
 		}
+		
 		pc.sendPackets(new S_OwnCharStatus(pc));
 		L1ItemInstance item = pc.getInventory().findItemId(49142);
+		
 		if (item != null) {
 			try {
 				pc.getInventory().removeItem(item, 1);
@@ -268,6 +305,7 @@ public class C_CharReset extends ClientBasePacket {
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		}
+		
 		L1Teleport.teleport(pc, 32628, 32772, (short) 4, 4, false);
 	}
 
@@ -287,7 +325,6 @@ public class C_CharReset extends ClientBasePacket {
 		pc.setOriginalDex((byte) dex);
 		pc.setOriginalCon((byte) con);
 		pc.setOriginalCha((byte) cha);
-		pc.addMr(0 - pc.getMr());
 		pc.addDmgup(0 - pc.getDmgup());
 		pc.addHitup(0 - pc.getHitup());
 		CharacterTable.saveCharStatus(pc);
@@ -303,7 +340,8 @@ public class C_CharReset extends ClientBasePacket {
 			pc.addBaseMaxHp(randomHp);
 			pc.addBaseMaxMp(randomMp);
 		}
-		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex());
+		
+		int newAc = CalcStat.calcAc(pc.getTempLevel(), pc.getBaseDex()) - pc.getOriginalAc();
 
 		pc.sendPackets(new S_CharReset(pc, pc.getTempLevel(),
 				pc.getBaseMaxHp(), pc.getBaseMaxMp(), newAc, pc.getBaseStr(),
