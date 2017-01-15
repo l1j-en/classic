@@ -671,17 +671,17 @@ public class L1NpcInstance extends L1Character {
 			}
 		} else {
 			if (Config.NPC_ACTIVE_RANGE == -1) {
-				if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
+				if (L1World.getInstance().getRecognizePlayer(this, true).size() == 0)
 					return true;
 			} else {
 				// Once a player enters its screen make it start using a wider check to stay active.
 				// If they wider check fails to locate any players revert to the screen check.
 				// It's more realistic when non-agro mobs can walk back on your screen a well as off.
 				if (!_awoken) {
-					if (L1World.getInstance().getRecognizePlayer(this).size() == 0)
+					if (L1World.getInstance().getRecognizePlayer(this, true).size() == 0)
 						return true;
 					_awoken = true;
-				} else if (L1World.getInstance().getVisiblePlayer(this, Config.NPC_ACTIVE_RANGE).size() == 0) {
+				} else if (L1World.getInstance().getVisiblePlayer(this, Config.NPC_ACTIVE_RANGE, true).size() == 0) {
 					_awoken = false;
 					return true;
 				}

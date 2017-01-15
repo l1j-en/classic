@@ -376,13 +376,21 @@ public class L1World {
 	public ArrayList<L1PcInstance> getVisiblePlayer(L1Object object) {
 		return getVisiblePlayer(object, -1);
 	}
-
+	
 	public ArrayList<L1PcInstance> getVisiblePlayer(L1Object object, int radius) {
+		return getVisiblePlayer(object, radius, false);
+	}
+
+	public ArrayList<L1PcInstance> getVisiblePlayer(L1Object object, int radius, boolean ignoreInvisGm) {
 		int map = object.getMapId();
 		Point pt = object.getLocation();
 		ArrayList<L1PcInstance> result = new ArrayList<L1PcInstance>();
 
 		for (L1PcInstance element : _allPlayers.values()) {
+			if(ignoreInvisGm && element.isGmInvis()) {
+				continue;
+			}
+			
 			if (element.equals(object)) {
 				continue;
 			}
@@ -440,6 +448,10 @@ public class L1World {
 		}
 		return result;
 	}
+	
+	public ArrayList<L1PcInstance> getRecognizePlayer(L1Object object, boolean ignoreInvisGm) {
+		return getVisiblePlayer(object, Config.PC_RECOGNIZE_RANGE, ignoreInvisGm);
+	}
 
 	/**
 	 * object Players are able to get the range
@@ -448,7 +460,7 @@ public class L1World {
 	 * @return
 	 */
 	public ArrayList<L1PcInstance> getRecognizePlayer(L1Object object) {
-		return getVisiblePlayer(object, Config.PC_RECOGNIZE_RANGE);
+		return getRecognizePlayer(object, false);
 	}
 
 	// _allPlayers
