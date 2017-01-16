@@ -60,3 +60,6 @@ UPDATE `mobskill` SET `Leverage` = 5 WHERE `Skill_Description` LIKE '%Slow%' AND
 
 -- add .wipeout GM Command
 INSERT INTO commands (name, access_level, class_name, help_text, run_on_login) VALUES('wipeout', 200, 'L1WipeOut', 'Kills all mobs (or players if specified) on the current screen.', 0);
+
+-- make bapho staff untradeable.  this is how the client prefers it.  Comment out if zelgo doesn't want it
+UPDATE weapon SET trade = 1 WHERE item_id = 124;
