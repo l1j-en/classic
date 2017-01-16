@@ -28,6 +28,7 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_RIBRAVE;
 import static l1j.server.server.model.skill.L1SkillId.STRIKER_GALE;
 import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
+import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -967,7 +968,7 @@ public class L1PcInstance extends L1Character {
 
 			L1Attack attack = new L1Attack(attacker, this);
 
-			if (hasSkillEffect(COUNTER_BARRIER)) {
+			if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
 				L1Magic magic = new L1Magic(this, attacker);
 				if (magic.calcProbabilityMagic(COUNTER_BARRIER)
 						&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
