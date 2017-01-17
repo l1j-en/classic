@@ -63,3 +63,9 @@ INSERT INTO commands (name, access_level, class_name, help_text, run_on_login) V
 
 -- make bapho staff untradeable.  this is how the client prefers it.  Comment out if zelgo doesn't want it
 UPDATE weapon SET trade = 1 WHERE item_id = 124;
+
+--give area of silence and wind shackle level based modifiers and lower aos base chance
+--aos
+UPDATE skills SET probability_value = 50, probability_dice = 10 WHERE skill_id = 161;
+--shackle
+UPDATE skills SET probability_dice = 20 WHERE skill_id = 167; 
