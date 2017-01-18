@@ -167,7 +167,8 @@ public class L1TreasureBox {
 	public boolean open(L1PcInstance pc) {
 		L1ItemInstance item = null;
 		
-		if(pc.getInventory().getWeight240() > 200) {
+		// don't limit the weight if they're opening an unlimited quiver
+		if(this._boxId != 40330 && pc.getInventory().getWeight240() > 200) {
 			pc.sendPackets(new S_SystemMessage("You are too heavy to open this item."));
 			return false;
 		}
