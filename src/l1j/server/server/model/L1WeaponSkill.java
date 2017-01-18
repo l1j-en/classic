@@ -267,6 +267,9 @@ public class L1WeaponSkill {
 		double damage = 0;
 		if (DiceDaggerChance >= _random.nextInt(100) + 1) {
 			damage = target.getCurrentHp() * 2 / 3;
+            if (target.hasSkillEffect(ILLUSION_AVATAR)) {
+                damage /= 1.2; // Dirty fix. This will counter the 20% extra dmg added later
+            }
 			if (target.getCurrentHp() - damage < 0) {
 				damage = 0;
 			}
