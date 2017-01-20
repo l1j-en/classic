@@ -275,7 +275,9 @@ public class ClientThread implements Runnable, PacketOutput {
 					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
 					
 					while(lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER 
-							> System.currentTimeMillis()) {}
+							> System.currentTimeMillis()) {
+						Thread.sleep(50); // to stop 100% cpu spike
+					}
 					
 					quitGame(_activeChar);
 						
