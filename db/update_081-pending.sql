@@ -69,5 +69,8 @@ UPDATE weapon SET trade = 1 WHERE item_id = 124;
 UPDATE skills SET probability_value = 50, probability_dice = 10 WHERE skill_id = 161;
 --shackle
 UPDATE skills SET probability_dice = 20 WHERE skill_id = 167; 
+
 -- remove adena drops from TOI, as discussed in gm room
 delete from droplist where mobId in (select npc_templateid from spawnlist where mapid in (select mapid from mapids where locationname like "%insolence%f%")) and itemId = 40308;
+-- lower drop rate of n-scrolls on bugbears, as discussed in gm room
+update droplist set chance = chance * .5  where mobId in (select npc_templateid from spawnlist where mapid = 28) AND itemid in (40074,40087);
