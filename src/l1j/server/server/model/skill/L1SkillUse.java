@@ -3247,7 +3247,7 @@ public class L1SkillUse {
 	}
 
 	private static final boolean isNotCancelable(int skillId) {
-		return IntArrays.sContains(UNCANCELABLE, skillId);	
+		return IntArrays.sContains(UNCANCELABLE, skillId);
 	}
 
 	private void detection(L1PcInstance pc) {
