@@ -3247,7 +3247,7 @@ public class L1SkillUse {
 	}
 
 	private static final boolean isNotCancelable(int skillId) {
-		return IntArrays.sContains(UNCANCELABLE, skillId);
+		return IntArrays.sContains(UNCANCELABLE, skillId);	
 	}
 
 	private void detection(L1PcInstance pc) {
@@ -3257,7 +3257,7 @@ public class L1SkillUse {
 		}
 
 		for (L1PcInstance target : L1World.getInstance().getVisiblePlayer(pc)) {
-			if (!target.isGmInvis() && target.isInvisble()) {
+			if (!target.isGmInvis() && !target.isGhost() && target.isInvisble()) {
 				target.delInvis();
 			}
 		}
