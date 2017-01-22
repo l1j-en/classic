@@ -22,7 +22,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
+import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
 import l1j.server.server.log.LogElfDwarfIn;
@@ -42,6 +45,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.shop.L1Shop;
 import l1j.server.server.model.shop.L1ShopBuyOrderList;
 import l1j.server.server.model.shop.L1ShopSellOrderList;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1PrivateShopBuyList;
@@ -69,12 +73,9 @@ public class C_Result extends ClientBasePacket {
 		int npcObjectId = readD();
 		int resultType = readC();
 		int size = readC();
+		readC();
 		
 		boolean deleteAfterAction = false;
-		
-		//unused
-		//int unknown = readC();
-		readC();
 		L1PcInstance pc = clientthread.getActiveChar();
 		int level = pc.getLevel();
 		
@@ -649,6 +650,22 @@ public class C_Result extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(905));
 					continue;
 				}
+				
+				if (!item.isStackable() && count != 1){
+					if (Config.AUTO_BAN) {
+						Account.ban(pc.getAccountName(), "AutoBan", "Result Shop Check Exploit Attempt");
+						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					}
+					_log.info(pc.getName() + " Attempted Private Shop Exploit (C_Result).");
+					L1World.getInstance().broadcastServerMessage(
+							"Player " + pc.getName() + " Attempted A Private Shop exploit!");
+					pc.sendPackets(new S_Disconnect());
+					targetPc.setTradingInPrivateShop(false);
+					return;
+				}
+				
+				int item_count_before = item.getCount();
+				int item_count_after = 0;
 
 				if (targetPc.getInventory().checkAddItem(item, count) == L1Inventory.OK) {
 					for (int j = 0; j < count; j++) {
@@ -662,13 +679,15 @@ public class C_Result extends ClientBasePacket {
 							count * buyPrice)) {
 						L1ItemInstance adena = targetPc.getInventory()
 								.findItemId(L1ItemId.ADENA);
-						if (adena != null) {
-							int item_count_before = item.getCount();
-							int item_count_after = 0;
+						if (targetPc != null && adena != null) {
+							if (pc.getInventory().tradeItem(item, count,
+									targetPc.getInventory()) == null) {
+								targetPc.setTradingInPrivateShop(false);
+								return;
+							}
 							targetPc.getInventory().tradeItem(adena,
 									count * buyPrice, pc.getInventory());
-							pc.getInventory().tradeItem(item, count,
-									targetPc.getInventory());
+							
 							L1ItemInstance pcitem = pc.getInventory().getItem(
 									itemObjectId);
 							if (pcitem != null) {
