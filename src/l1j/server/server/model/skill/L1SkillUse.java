@@ -3257,7 +3257,7 @@ public class L1SkillUse {
 		}
 
 		for (L1PcInstance target : L1World.getInstance().getVisiblePlayer(pc)) {
-			if (!target.isGmInvis() && target.isInvisble()) {
+			if (!target.isGmInvis() && !target.isGhost() && target.isInvisble()) {
 				target.delInvis();
 			}
 		}
