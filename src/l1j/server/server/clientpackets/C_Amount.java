@@ -22,11 +22,14 @@ import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
+import l1j.server.server.Account;
 import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.AuctionBoardTable;
 import l1j.server.server.datatables.HouseTable;
+import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcActionTable;
 import l1j.server.server.model.L1World;
@@ -36,8 +39,10 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.model.npc.action.L1NpcAction;
+import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
@@ -47,6 +52,7 @@ import l1j.server.server.templates.L1House;
 public class C_Amount extends ClientBasePacket {
 
 	private static final String C_AMOUNT = "[C] C_Amount";
+	private static Logger _log = Logger.getLogger(C_PickUpItem.class.getName());
 
 	public C_Amount(byte[] decrypt, ClientThread client) throws Exception {
 		super(decrypt);
@@ -59,6 +65,18 @@ public class C_Amount extends ClientBasePacket {
 		L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(
 				objectId);
 		if (npc == null) {
+			return;
+		}
+		
+		if (amount <= 0 || amount > 2000000000 ){
+			if (Config.AUTO_BAN) {
+				Account.ban(pc.getAccountName(), "AutoBan", "Amount Dupe Check Overflow Attempt");
+				IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+			}
+			_log.info(pc.getName() + " Attempted Dupe Exploit (C_Amount).");
+			L1World.getInstance().broadcastServerMessage(
+					"Player " + pc.getName() + " Attempted A Dupe exploit!");
+			pc.sendPackets(new S_Disconnect());
 			return;
 		}
 
@@ -86,6 +104,10 @@ public class C_Amount extends ClientBasePacket {
 			if (board != null) {
 				int nowPrice = board.getPrice();
 				int nowBidderId = board.getBidderId();
+				if (nowPrice >= amount) {
+					pc.sendPackets(new S_SystemMessage("Your bid must be higher than current bid."));
+					return;
+				}
 				if (pc.getInventory().consumeItem(L1ItemId.ADENA, amount)) {
 					board.setPrice(amount);
 					board.setBidder(pcName);

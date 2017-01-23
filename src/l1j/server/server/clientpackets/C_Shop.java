@@ -96,7 +96,7 @@ public class C_Shop extends ClientBasePacket {
 				sellPrice = readD();
 				sellCount = readD();
 				checkItem = pc.getInventory().getItem(sellObjectId);
-				// TRICIDTODO: Set configurable autoban
+				
 				if (sellObjectId != checkItem.getId()
 						|| (!checkItem.isStackable() && sellCount != 1)
 						|| checkItem.getCount() <= 0 || sellCount <= 0
@@ -147,19 +147,10 @@ public class C_Shop extends ClientBasePacket {
 				buyPrice = readD();
 				buyCount = readD();
 				checkItem = pc.getInventory().getItem(buyObjectId);
-				// removed some checks that don't make sense here
-				// just commented them out to test for now
-				if (buyObjectId != checkItem.getId() || /*
-														 * buyCount >
-														 * checkItem.getCount
-														 * ()||
-														 * (!checkItem.isStackable
-														 * () && buyCount != 1)
-														 * ||
-														 * checkItem.getCount()
-														 * <= 0 ||
-														 */buyCount <= 0
-						|| buyCount > 2000000000) {
+				
+				if (buyObjectId != checkItem.getId() || buyCount <= 0
+						|| buyCount > 2000000000 || buyPrice <= 0
+						|| buyPrice > 2000000000) {
 					if(Config.AUTO_BAN) {
 						Account.ban(pc.getAccountName(), "AutoBan", "Shop Dupe Check Count Mixup BuyList");
 						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
