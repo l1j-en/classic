@@ -247,7 +247,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60 GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -258,7 +258,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -269,7 +269,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -280,7 +280,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60 GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -291,7 +291,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -302,7 +302,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -313,7 +313,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
@@ -324,7 +324,7 @@ public class RankingsController implements Runnable {
 				pstm = con
 				.prepareStatement("SELECT a.killer_char_name AS char_name," +
 					" (count(killer_char_name) - IFNULL((SELECT count(victim_char_name) FROM character_pvp" +
-					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
+					" WHERE victim_char_name = a.killer_char_name AND penalty IN ('5','8','9') AND a.victim_lvl >= 60  GROUP BY victim_char_name), 0)) AS Ratio FROM character_pvp AS a" + 
 					" JOIN characters AS b ON a.killer_char_name = b.char_name" + 
 					" JOIN accounts AS c on b.account_name = c.login" + 
 					" WHERE a.victim_lvl >= 60 AND a.penalty IN ('5','8','9')" + 
