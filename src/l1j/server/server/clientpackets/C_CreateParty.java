@@ -47,6 +47,11 @@ public class C_CreateParty extends ClientBasePacket {
 				if (pc.getId() == targetPc.getId()) {
 					return;
 				}
+				
+				if (pc.getLocation()
+						.getTileLineDistance(targetPc.getLocation()) > 5) {
+					return;
+				}
 
 				if (targetPc.isInParty()) {
 					pc.sendPackets(new S_ServerMessage(415));
