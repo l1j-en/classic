@@ -18,6 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1PcInventory;
@@ -25,6 +27,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.item.L1ItemId;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -33,6 +36,7 @@ import l1j.server.server.model.item.L1ItemId;
 public class C_SelectList extends ClientBasePacket {
 
 	private static final String C_SELECT_LIST = "[C] C_SelectList";
+	private static Logger _log = Logger.getLogger(C_SelectList.class.getName());
 
 	public C_SelectList(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
@@ -62,6 +66,24 @@ public class C_SelectList extends ClientBasePacket {
 			item.set_durability(0);
 			pcInventory.updateItem(item, L1PcInventory.COL_DURABILITY);
 		} else {
+			L1ItemInstance item = pc.getInventory().getItem(itemObjectId);
+
+			if (item == null) {
+				_log.info(pc.getName() + " Attempted a Pet Withdrawl Exploit - No Collar (C_SelectList).");
+				return;
+			}
+			
+			Object[] petlist = pc.getPetList().values().toArray();
+			for (Object petObject : petlist) {
+				if (petObject instanceof L1PetInstance) {
+					L1PetInstance pet = (L1PetInstance) petObject;
+					if (item.getId() == pet.getItemObjId()) {
+						_log.info(pc.getName() + " Attempted a Pet Withdrawl Exploit - Pet Already Out (C_SelectList).");
+						return;
+					}
+				}
+			}
+			
 			pc.useDogCollar(itemObjectId);
 		}
 	}
