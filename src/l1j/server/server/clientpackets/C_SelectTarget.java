@@ -18,6 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
@@ -30,6 +32,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 public class C_SelectTarget extends ClientBasePacket {
 
 	private static final String C_SELECT_TARGET = "[C] C_SelectTarget";
+	private static Logger _log = Logger.getLogger(C_SelectTarget.class.getName());
 
 	public C_SelectTarget(byte abyte0[], ClientThread clientthread)
 			throws Exception {
@@ -43,7 +46,13 @@ public class C_SelectTarget extends ClientBasePacket {
 				petId);
 		L1Character target = (L1Character) L1World.getInstance().findObject(
 				targetId);
-
+		L1PcInstance player = clientthread.getActiveChar();
+		
+		if (player != pet.getMaster()){
+			_log.info(player.getName() + " Attempted a Pet Select Target Exploit - Not Master (C_SelectTarget).");
+			return;
+		}			
+		
 		if (pet != null && target != null) {
 			if (target instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) target;
