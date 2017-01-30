@@ -36,6 +36,10 @@ import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
 import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.SHIELD;
 import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
+import static l1j.server.server.model.skill.L1SkillId.SHOCK_STUN;
+import static l1j.server.server.model.skill.L1SkillId.MASS_SHOCK_STUN;
+import static l1j.server.server.model.skill.L1SkillId.BONE_BREAK;
+import static l1j.server.server.model.skill.L1SkillId.CONFUSION;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -61,7 +65,7 @@ public class PCommands {
 	private static Logger _log = Logger.getLogger(PCommands.class.getName());
 	private static PCommands _instance;
 
-	private static int[] PowerBuffSkills = { LIGHT, DECREASE_WEIGHT,
+	private static int[] PowerBuffSkills = { DECREASE_WEIGHT,
 			PHYSICAL_ENCHANT_DEX, PHYSICAL_ENCHANT_STR, BLESS_WEAPON,
 			GREATER_HASTE, BERSERKERS, IMMUNE_TO_HARM, ABSOLUTE_BARRIER,
 			ADVANCE_SPIRIT, STORM_SHOT, EARTH_SKIN, NATURES_TOUCH };
@@ -232,6 +236,12 @@ public class PCommands {
 	}
 
 	public void powerBuff(L1PcInstance player) {
+		if (player.isDead() || player.isGhost() || player.isParalyzed() 
+				|| player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN) 
+				|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
+				|| player.hasSkillEffect(CONFUSION)  ){
+			return;
+		}
 		if (Config.POWER_BUFF && Config.PLAYER_COMMANDS) {
 			L1SkillUse skillUse = new L1SkillUse();
 			for (int i = 0; i < PowerBuffSkills.length; i++)

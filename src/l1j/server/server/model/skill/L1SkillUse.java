@@ -1235,6 +1235,10 @@ public class L1SkillUse {
 		if (_skillId == SHOCK_STUN || _skillId == MASS_SHOCK_STUN) {
 			buffDuration = _shockStunDuration;
 		}
+		
+		if (_skillId == BONE_BREAK) {
+			buffDuration = _boneBreakDuration;
+		}
 
 		if (_skillId == CURSE_POISON) { //
 			return;
