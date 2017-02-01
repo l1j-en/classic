@@ -1756,6 +1756,10 @@ public class L1SkillUse {
 						
 					if (isUseCounterMagic(cha)) {
 						iter.remove();
+						if(cha instanceof L1PcInstance) {
+							L1PcInstance target = (L1PcInstance) cha;
+							((L1PcInstance) _user)._pinkName.onAction(target);
+						}
 						continue;
 					}
 					dmg = _magic.calcMagicDamage(_skillId);
@@ -2014,8 +2018,10 @@ public class L1SkillUse {
 						if (clan != null) {
 							L1PcInstance players[] = clan.getOnlineClanMember();
 							for (L1PcInstance pc : players) {
-								pc.sendPackets(new S_TrueTarget(_targetID, pc
-										.getId(), _message));
+								if (pc.getLocation().isInScreen(_target.getLocation())) {
+									pc.sendPackets(new S_TrueTarget(_targetID, pc
+											.getId(), _message));
+								}
 							}
 						}
 					}
