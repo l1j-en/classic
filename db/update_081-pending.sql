@@ -69,3 +69,9 @@ UPDATE weapon SET trade = 1 WHERE item_id = 124;
 UPDATE skills SET probability_value = 50, probability_dice = 10 WHERE skill_id = 161;
 --shackle
 UPDATE skills SET probability_dice = 20 WHERE skill_id = 167; 
+
+--make polluted human drops stackable
+UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41074;
+UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41073;
+UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41072;
+UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41071;
