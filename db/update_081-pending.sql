@@ -64,11 +64,16 @@ INSERT INTO commands (name, access_level, class_name, help_text, run_on_login) V
 -- make bapho staff untradeable.  this is how the client prefers it.  Comment out if zelgo doesn't want it
 UPDATE weapon SET trade = 1 WHERE item_id = 124;
 
---give area of silence and wind shackle level based modifiers and lower aos base chance
---aos
+-- give area of silence and wind shackle level based modifiers and lower aos base chance
+-- aos
 UPDATE skills SET probability_value = 50, probability_dice = 10 WHERE skill_id = 161;
---shackle
+-- shackle
 UPDATE skills SET probability_dice = 20 WHERE skill_id = 167; 
+
+-- remove adena drops from TOI, as discussed in gm room
+delete from droplist where mobId in (select npc_templateid from spawnlist where mapid in (select mapid from mapids where locationname like "%insolence%f%")) and itemId = 40308;
+-- lower drop rate of n-scrolls on bugbears, as discussed in gm room
+update droplist set chance = chance * .5  where mobId in (select npc_templateid from spawnlist where mapid = 28) AND itemid in (40074,40087);
 
 --make polluted human drops stackable
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41074;
