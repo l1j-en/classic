@@ -34,6 +34,16 @@ public class L1PrivateShopBuyList {
 	public int getItemObjectId() {
 		return _itemObjectId;
 	}
+	
+	private int _itemId;
+	
+	public void setItemId(int i) {
+		_itemId = i;
+	}
+	
+	public int getItemId() {
+		return _itemId;
+	}
 
 	private int _buyTotalCount; // Buy a number of plans
 
