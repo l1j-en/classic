@@ -75,7 +75,7 @@ delete from droplist where mobId in (select npc_templateid from spawnlist where 
 -- lower drop rate of n-scrolls on bugbears, as discussed in gm room
 update droplist set chance = chance * .5  where mobId in (select npc_templateid from spawnlist where mapid = 28) AND itemid in (40074,40087);
 
---make polluted human drops stackable
+-- make polluted human drops stackable
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41074;
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41073;
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41072;
