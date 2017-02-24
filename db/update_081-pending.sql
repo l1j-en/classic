@@ -80,3 +80,6 @@ UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41074;
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41073;
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41072;
 UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41071;
+
+-- GMino should not drop a spear item (unknown spear), remove from droplist and add to shop buyback so players can offload
+delete from droplist where itemid = 87;
