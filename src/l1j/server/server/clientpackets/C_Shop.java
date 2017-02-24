@@ -192,6 +192,7 @@ public class C_Shop extends ClientBasePacket {
 				psbl.setBuyPrice(buyPrice);
 				psbl.setBuyTotalCount(buyCount);
 				psbl.setItemId(checkItem.getItemId());
+				psbl.setItemEnchantLevel(checkItem.getEnchantLevel());
 				buyList.add(psbl);
 			}
 			if (!tradable) {
