@@ -610,6 +610,8 @@ public class C_Result extends ClientBasePacket {
 			int itemObjectId;
 			L1ItemInstance item;
 			int buyPrice;
+			int buyItemId;
+			int buyEnchantLevel;
 			int buyTotalCount;
 			int buyCount;
 			//unused
@@ -638,6 +640,22 @@ public class C_Result extends ClientBasePacket {
 				buyPrice = psbl.getBuyPrice();
 				buyTotalCount = psbl.getBuyTotalCount();
 				buyCount = psbl.getBuyCount();
+				buyItemId = psbl.getItemId();
+				buyEnchantLevel = psbl.getItemEnchantLevel();
+				
+				if (item.getItemId() != buyItemId && item.getEnchantLevel() == buyEnchantLevel){
+					if (Config.AUTO_BAN) {
+						Account.ban(pc.getAccountName(), "AutoBan", "Result Shop Check Exploit Attempt");
+						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
+					}
+					_log.info(pc.getName() + " Attempted Private Shop Exploit (C_Result ObjectId).");
+					L1World.getInstance().broadcastServerMessage(
+							"Player " + pc.getName() + " Attempted A Private Shop exploit!");
+					pc.sendPackets(new S_Disconnect());
+					targetPc.setTradingInPrivateShop(false);
+					return;
+				}
+								
 				if (count > buyTotalCount - buyCount) {
 					count = buyTotalCount - buyCount;
 				}
@@ -656,7 +674,7 @@ public class C_Result extends ClientBasePacket {
 						Account.ban(pc.getAccountName(), "AutoBan", "Result Shop Check Exploit Attempt");
 						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
 					}
-					_log.info(pc.getName() + " Attempted Private Shop Exploit (C_Result).");
+					_log.info(pc.getName() + " Attempted Private Shop Exploit (C_Result Stackable).");
 					L1World.getInstance().broadcastServerMessage(
 							"Player " + pc.getName() + " Attempted A Private Shop exploit!");
 					pc.sendPackets(new S_Disconnect());
