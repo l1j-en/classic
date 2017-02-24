@@ -611,6 +611,7 @@ public class C_Result extends ClientBasePacket {
 			L1ItemInstance item;
 			int buyPrice;
 			int buyItemId;
+			int buyEnchantLevel;
 			int buyTotalCount;
 			int buyCount;
 			//unused
@@ -640,8 +641,9 @@ public class C_Result extends ClientBasePacket {
 				buyTotalCount = psbl.getBuyTotalCount();
 				buyCount = psbl.getBuyCount();
 				buyItemId = psbl.getItemId();
+				buyEnchantLevel = psbl.getItemEnchantLevel();
 				
-				if (item.getItemId() != buyItemId){
+				if (item.getItemId() != buyItemId && item.getEnchantLevel() == buyEnchantLevel){
 					if (Config.AUTO_BAN) {
 						Account.ban(pc.getAccountName(), "AutoBan", "Result Shop Check Exploit Attempt");
 						IpTable.getInstance().banIp(pc.getNetConnection().getIp());
