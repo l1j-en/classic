@@ -34,6 +34,26 @@ public class L1PrivateShopBuyList {
 	public int getItemObjectId() {
 		return _itemObjectId;
 	}
+	
+	private int _itemId;
+	
+	public void setItemId(int i) {
+		_itemId = i;
+	}
+	
+	public int getItemId() {
+		return _itemId;
+	}
+	
+	private int _itemEnchantLevel;
+	
+	public void setItemEnchantLevel(int i) {
+		_itemEnchantLevel = i;
+	}
+	
+	public int getItemEnchantLevel() {
+		return _itemEnchantLevel;
+	}
 
 	private int _buyTotalCount; // Buy a number of plans
 
