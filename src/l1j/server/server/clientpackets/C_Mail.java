@@ -54,12 +54,14 @@ public class C_Mail extends ClientBasePacket {
 			int mailId = readD();
 			L1Mail mail = MailTable.getMail(mailId);
 
-			if (mail.getReadStatus() == 0) {
-				MailTable.getInstance().setReadStatus(mailId);
+			if (pc.getName().equalsIgnoreCase(mail.getReceiverName())){
+				if (mail.getReadStatus() == 0) {
+					MailTable.getInstance().setReadStatus(mailId);
+				}
+				pc.sendPackets(new S_Mail(mailId, type));
 			}
-			pc.sendPackets(new S_Mail(mailId, type));
 		} else if (type == 0x20) {
-			int unknow = readH();
+			readH();
 			String receiverName = readS();
 			byte[] text = readByte();
 			L1PcInstance receiver = L1World.getInstance().getPlayer(
@@ -99,21 +101,24 @@ public class C_Mail extends ClientBasePacket {
 				}
 			}
 		} else if (type == 0x21) {
-			int unknow = readH();
+			readH();
 			String clanName = readS();
 			byte[] text = readByte();
-			L1Clan clan = L1World.getInstance().getClan(clanName);
-			if (clan != null) {
-				for (String name : clan.getAllMembers()) {
-					int size = getMailSizeByReceiver(name, TYPE_CLAN_MAIL);
-					if (size >= 50) {
-						continue;
-					}
-					MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name, pc,
-							text);
-					L1PcInstance clanPc = L1World.getInstance().getPlayer(name);
-					if (clanPc != null) {
-						clanPc.sendPackets(new S_Mail(name, TYPE_CLAN_MAIL));
+			
+			if (clanName.equalsIgnoreCase(pc.getClanname())) {
+				L1Clan clan = L1World.getInstance().getClan(clanName);
+				if (clan != null) {
+					for (String name : clan.getAllMembers()) {
+						int size = getMailSizeByReceiver(name, TYPE_CLAN_MAIL);
+						if (size >= 50) {
+							continue;
+						}
+						MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name, pc,
+								text);
+						L1PcInstance clanPc = L1World.getInstance().getPlayer(name);
+						if (clanPc != null) {
+							clanPc.sendPackets(new S_Mail(name, TYPE_CLAN_MAIL));
+						}
 					}
 				}
 			}
