@@ -1813,7 +1813,7 @@ public class L1SkillUse {
 						// If it is a curse, or attack, or, if it is a probability type with 0 buff duration (IE cancel, RTN)
 						// then take them out of invis
 						//TODO -- this code currently matches the DB, but may need to be tweaked if they change in the future
-						if(_player.isInvisble() &&
+						if(_player != null && _player.isInvisble() &&
 								(_skill.getType() == L1Skill.TYPE_CURSE || _skill.getType() == L1Skill.TYPE_ATTACK || 
 								(_skill.getType() == L1Skill.TYPE_PROBABILITY && _skill.getBuffDuration() == 0))) {
 							_player.delInvis();
