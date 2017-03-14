@@ -1756,7 +1756,7 @@ public class L1SkillUse {
 						
 					if (isUseCounterMagic(cha)) {
 						iter.remove();
-						if(cha instanceof L1PcInstance) {
+						if(cha instanceof L1PcInstance && _user instanceof L1PcInstance) {
 							L1PcInstance target = (L1PcInstance) cha;
 							((L1PcInstance) _user)._pinkName.onAction(target);
 						}
@@ -1812,22 +1812,11 @@ public class L1SkillUse {
 						
 						// If it is a curse, or attack, or, if it is a probability type with 0 buff duration (IE cancel, RTN)
 						// then take them out of invis
-						//TODO -- this code currently matches the DB, but may need to be tweaked if they change in the future
-						try {
-							if(_player != null && _player.isInvisble() &&
-									(_skill.getType() == L1Skill.TYPE_CURSE || _skill.getType() == L1Skill.TYPE_ATTACK || 
-									(_skill.getType() == L1Skill.TYPE_PROBABILITY && _skill.getBuffDuration() == 0))) {
-								_player.delInvis();
-								_player.beginInvisTimer();
-							}
-						} catch (Exception ex){
-							boolean nullPlayer = _player == null;
-							boolean nullSkill = _skill == null;
-							
-							//TODO -- remove this when I figure out wtf is causing it
-							// For now, this should prevent the crash
-							_log.log(Level.SEVERE, "Player Null? " + nullPlayer + ", Skill Null?: " + nullSkill +
-									"\n" + ex.getLocalizedMessage(), ex);
+						if(_player != null && _player.isInvisble() &&
+								(_skill.getType() == L1Skill.TYPE_CURSE || _skill.getType() == L1Skill.TYPE_ATTACK || 
+								(_skill.getType() == L1Skill.TYPE_PROBABILITY && _skill.getBuffDuration() == 0))) {
+							_player.delInvis();
+							_player.beginInvisTimer();
 						}
 						
 						iter.remove();
