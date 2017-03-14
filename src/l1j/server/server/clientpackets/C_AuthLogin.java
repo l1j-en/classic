@@ -70,6 +70,7 @@ public class C_AuthLogin extends ClientBasePacket {
 		if (account == null || !account.validatePassword(password)) {
 			client.sendPacket(new S_LoginResult(
 					S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			_log.info("Wrong password - account: " + account.getName() + ", IP: " + account.getIp());
 			return;
 		}
 
