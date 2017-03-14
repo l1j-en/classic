@@ -141,11 +141,10 @@ public class Dungeon {
 	}
 
 	public boolean dg(int locX, int locY, int mapId, L1PcInstance pc) {
-		int servertime = L1GameTimeClock.getInstance().currentTime()
-				.getSeconds();
-		int nowtime = servertime % 86400;
+		int nowtime = L1GameTimeClock.getInstance().currentTime().getSeconds();
 		String key = new StringBuilder().append(mapId).append(locX)
 				.append(locY).toString();
+		
 		if (_dungeonMap.containsKey(key)) {
 			NewDungeon newDungeon = _dungeonMap.get(key);
 			short newMap = newDungeon._newMapId;
