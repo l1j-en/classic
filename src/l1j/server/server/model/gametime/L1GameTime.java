@@ -28,18 +28,24 @@ import l1j.server.server.utils.IntRange;
 public class L1GameTime {
 	private static final long BASE_TIME_IN_MILLIS_REAL = 1057233600000L;
 
-	private final int _time;
+	private final long _time;
 
 	private final Calendar _calendar;
 
-	private Calendar makeCalendar(int time) {
+	private Calendar makeCalendar(long time) {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 		cal.setTimeInMillis(0);
-		cal.add(Calendar.SECOND, time);
+		
+		if (time > Integer.MAX_VALUE) {
+			cal.add(Calendar.SECOND, Integer.MAX_VALUE);
+			time -= Integer.MAX_VALUE;
+		}
+		
+		cal.add(Calendar.SECOND, (int)time);
 		return cal;
 	}
 
-	private L1GameTime(int time) {
+	private L1GameTime(long time) {
 		_time = time;
 		_calendar = makeCalendar(time);
 	}
@@ -49,8 +55,8 @@ public class L1GameTime {
 		if (t1 < 0) {
 			throw new IllegalArgumentException();
 		}
-		int t2 = (int) ((t1 * 6) / 1000L);
-		int t3 = t2 % 3;
+		long t2 = (t1 * 6) / 1000L;
+		int t3 = (int)(t2 % 3);
 		return new L1GameTime(t2 - t3);
 	}
 
@@ -64,7 +70,7 @@ public class L1GameTime {
 	}
 
 	public Time toTime() {
-		int t = _time % (24 * 3600); //
+		long t = _time % (24 * 3600);
 		return new Time(t * 1000L - TimeZone.getDefault().getRawOffset());
 	}
 
@@ -73,6 +79,10 @@ public class L1GameTime {
 	}
 
 	public int getSeconds() {
+		return (int)(_time % 86400);
+	}
+	
+	public long getRawSeconds() {
 		return _time;
 	}
 
