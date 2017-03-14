@@ -83,3 +83,7 @@ UPDATE `etcitem` SET `stackable` = '1' WHERE `etcitem`.`item_id` = 41071;
 
 -- GMino should not drop a spear item (unknown spear), remove from droplist and add to shop buyback so players can offload
 delete from droplist where itemid = 87;
+
+-- Update the ban_ip table to have a reason and timestamp -- so we can clear out ips banned after x amount of time
+ALTER TABLE `ban_ip` ADD COLUMN `reason` varchar(255) NOT NULL DEFAULT '';
+ALTER TABLE `ban_ip` ADD COLUMN `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;

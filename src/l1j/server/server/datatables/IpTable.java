@@ -48,14 +48,19 @@ public class IpTable {
 			getIpTable();
 		}
 	}
-
+	
 	public void banIp(String ip) {
+		banIp(ip, "");
+	}
+
+	public void banIp(String ip, String reason) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("INSERT INTO ban_ip SET ip=?");
+			pstm = con.prepareStatement("INSERT INTO ban_ip (`ip`, `reason`) VALUES(?, ?)");
 			pstm.setString(1, ip);
+			pstm.setString(2, reason);
 			pstm.execute();
 			_banip.add(ip);
 		} catch (SQLException e) {
