@@ -37,12 +37,11 @@ public class TelnetServer {
 		public void run() {
 			try {
 				
-				if(!Config.TELNET_LOCALHOST_ONLY) {
+				if(Config.TELNET_LOCALHOST_ONLY) {
+					_sock = new ServerSocket(Config.TELNET_SERVER_PORT, 0, InetAddress.getByName("127.0.0.1"));
+				} else {
 					_sock = new ServerSocket(Config.TELNET_SERVER_PORT);
 					_log.config("*** Telnet server is open to the world! Be sure you restrict it with firewall rules! ***");
-				} else {
-					_sock = new ServerSocket(Config.TELNET_SERVER_PORT, 0, InetAddress.getByName("127.0.0.1"));
-					
 				}
 					
 
