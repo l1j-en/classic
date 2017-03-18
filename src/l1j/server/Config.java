@@ -640,7 +640,7 @@ public final class Config {
 			TELNET_SERVER_PORT = Integer.parseInt(serverSettings.getProperty(
 					"TelnetServerPort", "23"));
 			TELNET_LOCALHOST_ONLY = Boolean.parseBoolean(serverSettings.getProperty(
-					"TelnetLocalhostOnly", "true"));
+					"TelnetLocalhostOnly", "True"));
 			PC_RECOGNIZE_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"PcRecognizeRange", "20"));
 			NPC_PATHING_RANGE = Integer.parseInt(serverSettings.getProperty(
