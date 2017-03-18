@@ -19,13 +19,16 @@
 package l1j.server.telnet;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 
 public class TelnetServer {
 	private static TelnetServer _instance;
+	private static Logger _log = Logger.getLogger(TelnetServer.class.getName());
 
 	private class ServerThread extends Thread {
 		ServerSocket _sock;
@@ -33,7 +36,14 @@ public class TelnetServer {
 		@Override
 		public void run() {
 			try {
-				_sock = new ServerSocket(Config.TELNET_SERVER_PORT);
+				
+				if(Config.TELNET_LOCALHOST_ONLY) {
+					_sock = new ServerSocket(Config.TELNET_SERVER_PORT, 0, InetAddress.getByName("127.0.0.1"));
+				} else {
+					_sock = new ServerSocket(Config.TELNET_SERVER_PORT);
+					_log.config("*** Telnet server is open to the world! Be sure you restrict it with firewall rules! ***");
+				}
+					
 
 				while (true) {
 					Socket sock = _sock.accept();
