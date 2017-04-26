@@ -1746,6 +1746,14 @@ public class L1SkillUse {
 				}
 
 				deleteRepeatedSkills(cha);
+				
+				if(cha instanceof L1PcInstance && _user instanceof L1PcInstance) {
+					L1PcInstance target = (L1PcInstance) cha;
+					
+					if(target.isPinkName()) {
+						((L1PcInstance) _user)._pinkName.onAction(target);
+					}
+				}
 
 				if (_skill.getType() == L1Skill.TYPE_ATTACK
 						&& _user.getId() != cha.getId()) {
