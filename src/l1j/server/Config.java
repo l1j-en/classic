@@ -21,6 +21,7 @@ package l1j.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -121,6 +122,16 @@ public final class Config {
 	public static int TELNET_SERVER_PORT;
 	
 	public static boolean TELNET_LOCALHOST_ONLY;
+	
+	public static boolean SSH_SERVER;
+	
+	public static int SSH_PORT;
+	
+	public static String SSH_KEY_FILES_DIRECTORY;
+	
+	public static String SSH_HOST_KEY;
+	
+	public static String[] SSH_ALLOWED_USERNAMES;
 
 	public static int PC_RECOGNIZE_RANGE;
 
@@ -641,6 +652,18 @@ public final class Config {
 					"TelnetServerPort", "23"));
 			TELNET_LOCALHOST_ONLY = Boolean.parseBoolean(serverSettings.getProperty(
 					"TelnetLocalhostOnly", "True"));
+			
+			SSH_SERVER = Boolean.parseBoolean(serverSettings.getProperty(
+					"SSHServer", "True"));
+			
+			SSH_PORT = Integer.parseInt(serverSettings.getProperty("SSHPort", "16483"));
+			
+			SSH_KEY_FILES_DIRECTORY = serverSettings.getProperty("KeyFilesDirectory","/l1j/keys/");
+			
+			SSH_HOST_KEY = serverSettings.getProperty("HostKey", "/l1j/keys/l1j_host_key");
+			
+			SSH_ALLOWED_USERNAMES = serverSettings.getProperty("AllowedUsernames", "").replace(" ","").split(",");
+			
 			PC_RECOGNIZE_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"PcRecognizeRange", "20"));
 			NPC_PATHING_RANGE = Integer.parseInt(serverSettings.getProperty(

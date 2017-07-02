@@ -28,6 +28,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import l1j.server.server.GameServer;
+import l1j.server.ssh.SSHServer;
 import l1j.server.telnet.TelnetServer;
 
 /**
@@ -64,13 +65,19 @@ public class Server {
 
 		// Intialize GameServer
 		GameServer.getInstance().initialize();
-
+		
 		// Telent Server
 		if (Config.TELNET_SERVER) {
 			TelnetServer.getInstance().start();
 			_log.config("Telnet server initialized.");
 		} else {
 			_log.config("Telnet server is currently disabled.");
+		}
+		
+		if(Config.SSH_SERVER) {
+			SSHServer.getInstance().start();
+			_log.config("SSH server initialized on port " + Config.SSH_PORT +
+					" with " + Config.SSH_ALLOWED_USERNAMES.length + " users.");
 		}
 	}
 }
