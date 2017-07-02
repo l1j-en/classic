@@ -23,7 +23,7 @@ public class UserKeySetPublickeyAuthenticator implements PublickeyAuthenticator 
     	boolean keyFound = KeyUtils.findMatchingKey(key, userToKeySet.get(username)) != null;
     	
     	if(keyFound) {
-    		_log.log(Level.INFO, username + " successfully authenticated to telnet.");
+    		_log.log(Level.INFO, username + " successfully authenticated to SSH.");
     	}
     	
         return keyFound;
