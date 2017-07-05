@@ -70,8 +70,7 @@ public class SSHCommand implements Command, Runnable {
 	  public void run() {
 		try {
 			String user = this.environment.getEnv().get(Environment.ENV_USER);
-			_log.log(Level.INFO, user + " ran command " + this.command.getClass().getName() + 
-					", with args: " + this.args);
+			_log.log(Level.INFO, user + " ran command " + this.command.formatMessage(this.args));
 			
 			final PrintWriter writer = new PrintWriter(this.outputStream, true);
 			writer.println(this.command.execute(this.args));
