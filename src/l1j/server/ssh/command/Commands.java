@@ -17,12 +17,18 @@ import l1j.server.server.utils.IntRange;
 
 public interface Commands {
 	String execute(String args);
+        String formatMessage(String args);
 }
 
 class Fail implements Commands {
 	@Override
 	public String execute(String args) {
 		return args + "command doesn't exist.";
+	}
+
+	@Override
+	public String formatMessage(String args) {
+		return "Unknown";
 	}
 }
 
@@ -31,6 +37,11 @@ class Echo implements Commands {
 	public String execute(String args) {
 		return args;
 	}
+
+	@Override
+        public String formatMessage(String args) {
+                return "Echo with argument: " + args;
+        }
 }
 
 class PlayerId implements Commands {
@@ -40,6 +51,11 @@ class PlayerId implements Commands {
 		String result = pc == null ? "0" : String.valueOf(pc.getId());
 		return result;
 	}
+
+	@Override
+        public String formatMessage(String args) {
+                return "PlayerId with objectid: " + args;
+        }
 }
 
 class CharStatus implements Commands {
@@ -63,6 +79,11 @@ class CharStatus implements Commands {
 		result.append("CurrentMp: " + cha.getCurrentMp() + "\r\n");
 		return result.toString();
 	}
+
+	@Override
+        public String formatMessage(String args) {
+                return "CharStatus with objectid: " + args;
+        }
 }
 
 class GlobalChat implements Commands {
@@ -81,6 +102,15 @@ class GlobalChat implements Commands {
 				new S_ChatPacket(pc, text, Opcodes.S_OPCODE_GLOBALCHAT, 3));
 		return "";
 	}
+
+	@Override
+        public String formatMessage(String args) {
+		StringTokenizer tok = new StringTokenizer(args, " ");
+                String name = tok.nextToken();
+                String text = args.substring(name.length() + 1);
+
+                return "GlobalChat as the character: " + name + " with the message: " + text;
+        }
 }
 
 class ShutDown implements Commands {
@@ -91,6 +121,11 @@ class ShutDown implements Commands {
 		GameServer.getInstance().shutdownWithCountdown(sec);
 		return "";
 	}
+
+	@Override
+        public String formatMessage(String args) {
+                return "ShutDown with a countdown of: " + args;
+        }
 }
 
 class CreateAccount implements Commands {
@@ -123,6 +158,14 @@ class CreateAccount implements Commands {
 			return "create <account> <password> <ip>";
 		}
 	}
+
+	@Override
+        public String formatMessage(String args) {
+		StringTokenizer tok = new StringTokenizer(args, " ");
+                String account = tok.nextToken();
+
+                return "CreateAccount for the account: " + account;
+        }
 }
 
 class ChangePassword implements Commands {
@@ -151,4 +194,11 @@ class ChangePassword implements Commands {
 			return "changepassword <account> <password>";
 		}
 	}
+
+	public String formatMessage(String args) {
+                StringTokenizer tok = new StringTokenizer(args, " ");
+                String account = tok.nextToken();
+
+                return "ChangePassword for the account: " + account;
+        }
 }
