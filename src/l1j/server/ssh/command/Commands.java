@@ -1,18 +1,31 @@
 package l1j.server.ssh.command;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.GameServer;
+import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.storage.mysql.MySqlCharacterStorage;
+import l1j.server.server.templates.L1Castle;
 import l1j.server.server.utils.IntRange;
 
 public interface Commands {
@@ -200,5 +213,98 @@ class ChangePassword implements Commands {
                 String account = tok.nextToken();
 
                 return "ChangePassword for the account: " + account;
+        }
+}
+
+class GetOnlinePlayers implements Commands {
+	@Override
+	public String execute(String args) {
+		try{
+			boolean separateShops = Boolean.parseBoolean(args);
+			
+			HashMap<String, Integer> chars = new HashMap<String, Integer>();
+			HashMap<String, Integer> shopChars = new HashMap<String, Integer>();
+			
+			for (L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+				String playerClass = L1ClassId.getClass(player.getClassId());
+				
+				if (player.isPrivateShop() && separateShops) {
+					int currentCount = shopChars.get(playerClass) == null ? 0 : shopChars.get(playerClass);
+					shopChars.put(playerClass, currentCount + 1);
+				} else {
+					int currentCount = chars.get(playerClass) == null ? 0 : chars.get(playerClass);
+					chars.put(playerClass, currentCount + 1);
+				}
+			}
+			
+			// convert it to JSON and return it
+			StringBuilder json = new StringBuilder("{\n\"Players\": {\n");
+			
+			Iterator<Entry<String, Integer>> it = chars.entrySet().iterator();
+			String separator = "";
+		    while (it.hasNext()) {
+		        Map.Entry<String, Integer> gameClass = (Map.Entry<String, Integer>)it.next();
+		        json.append(separator + "\"" + gameClass.getKey() + "\":" + gameClass.getValue());
+		        it.remove();
+		        separator = ",\n";
+		    }
+		    
+		    json.append("\n},\n\"Shops\": {\n");
+		    
+		    it = shopChars.entrySet().iterator();
+		    separator = "";
+		    while (it.hasNext()) {
+		        Map.Entry<String, Integer> gameClass = (Map.Entry<String, Integer>)it.next();
+		        json.append(separator + "\"" + gameClass.getKey() + "\":" + gameClass.getValue());
+		        it.remove();
+		        separator = ",\n";
+		    }
+			
+			json.append("\n}\n}");
+			
+			return json.toString();
+		} catch(Exception ex) {
+			return "getonlineplayers <optional separateShops>";
+		}
+	}
+
+	public String formatMessage(String args) {
+                return "GetOnlinePlayers with separateShops = " + args;
+        }
+}
+
+class GetSiegeTimes implements Commands {
+	@Override
+	public String execute(String args) {
+		try{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+			List<L1Castle> castles = Arrays.asList(CastleTable.getInstance().getCastleTableList());
+			// order the castles alphabetically
+			Collections.sort(castles, new Comparator<L1Castle>() {
+				@Override public int compare(L1Castle c1, L1Castle c2) {
+		            return c1.getName().compareTo(c2.getName()) ;
+		        }
+			});
+			
+			StringBuilder json = new StringBuilder("[\n");
+			
+			String separator = "";
+			for(L1Castle castle: castles) {
+				//TODO -- There is probably a better way to check if the castle is active
+				if(castle.getWarTime().get(Calendar.YEAR) > 2008) {
+					json.append(separator + "{\"name\":\"" + castle.getName() + "\", \"war_time\": \"" + 
+							format.format(castle.getWarTime().getTime()) + "\"}");
+					separator = ",\n";
+				}
+			}
+
+			return json.toString() + "\n]";
+		} catch(Exception ex) {
+			return "getsiegetimes";
+		}
+	}
+
+	public String formatMessage(String args) {
+                return "GetSiegeTimes";
         }
 }
