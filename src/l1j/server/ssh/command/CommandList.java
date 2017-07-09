@@ -14,6 +14,8 @@ public class CommandList {
 		_cmds.put("shutdown", new ShutDown());
 		_cmds.put("createaccount", new CreateAccount());
 		_cmds.put("changepassword", new ChangePassword());
+		_cmds.put("getonlineplayers", new GetOnlinePlayers());
+		_cmds.put("getsiegetimes", new GetSiegeTimes());
 	}
 	
 	public static Commands get(String name) {
