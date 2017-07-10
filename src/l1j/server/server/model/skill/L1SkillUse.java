@@ -3018,6 +3018,11 @@ public class L1SkillUse {
 						_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 					} else if (_skillId == SHAPE_CHANGE) {
 						L1PcInstance pc = (L1PcInstance) cha;
+						
+						if(pc.isPrivateShop() && pc.getMap().isTradeZone()) {
+							return;
+						}
+						
 						pc.sendPackets(new S_ShowPolyList(pc.getId()));
 						if (!pc.isShapeChange()) {
 							pc.setShapeChange(true);
