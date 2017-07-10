@@ -4832,6 +4832,15 @@ public class C_ItemUSe extends ClientBasePacket {
 				isSameClan = true;
 			}
 		}
+		
+		if(cha instanceof L1PcInstance) {
+			L1PcInstance target = (L1PcInstance)cha;
+			
+			if(target.isPrivateShop() && target.getMap().isTradeZone()) {
+				return;
+			}
+		}
+		
 		if (attacker.getId() != cha.getId() && !isSameClan) {
 			int probability = 3 * (attacker.getLevel() - cha.getLevel()) + 100
 					- cha.getMr();
