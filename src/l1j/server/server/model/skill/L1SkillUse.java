@@ -206,6 +206,10 @@ public class L1SkillUse {
 
 	private static final int[] CAST_WITH_SILENCE = { SHOCK_STUN,
 			REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER };
+	
+	private static final int[] NON_PINK_SKILLS = {
+		DETECTION
+	};
 
 	private static final S_SkillIconGFX EndRevealWeakness = new S_SkillIconGFX(
 			75, 0);
@@ -1750,7 +1754,7 @@ public class L1SkillUse {
 				if(cha instanceof L1PcInstance && _user instanceof L1PcInstance) {
 					L1PcInstance target = (L1PcInstance) cha;
 					
-					if(target.isPinkName()) {
+					if(target.isPinkName() && !IntArrays.contains(NON_PINK_SKILLS,_skill.getSkillId())) {
 						((L1PcInstance) _user)._pinkName.onAction(target);
 					}
 				}
