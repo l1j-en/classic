@@ -1,0 +1,297 @@
+-- areas and getbacks
+UPDATE `area` SET `areaname` = 'Tikal Temple Entrance' WHERE `mapid` = 783;
+UPDATE `area` SET `areaname` = 'Kukulcan\'s Altar' WHERE `mapid` = 784;
+UPDATE `mapids` SET `locationname` = 'Kulkulcan\'s Altar' WHERE `mapid` = 784;
+UPDATE `getback` SET `note` = 'Tikal Temple Entrance' WHERE `area_mapid` = 783;
+UPDATE `getback` SET `note` = 'Kulkulcan\'s Altar' WHERE `area_mapid` = 784;
+UPDATE `getback_restart` SET `note` = 'Tikal Temple Entrance' WHERE `area` = 783;
+UPDATE `getback_restart` SET `note` = 'Kulkulcan\'s Altar' WHERE `area` = 784;
+
+-- insert NPC's
+INSERT INTO `npc` VALUES ('95000', 'Monkey', '$7373', 'Tikal Temple Picks up drops', 'L1Monster', '7220', '6', '60', '10', '-10', '1', '1', '1', '1', '1', '10', '37', '0', 'small', '0', '0', '0', '320', '0', '0', '0', '480', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95001', 'Snake', '$7372', 'Tikal Temple', 'L1Monster', '7197', '6', '60', '10', '-10', '1', '1', '1', '1', '1', '10', '37', '0', 'small', '0', '0', '0', '1600', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95002', 'Ecu Azte (Purple)', '$6436', '', 'L1Monster', '7081', '23', '252', '50', '-13', '16', '10', '4', '11', '6', '50', '530', '-16', 'small', '0', '1', '0', '640', '840', '0', '720', '720', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95003', 'Ecu Azte (Purple)', '$6436', '', 'L1Monster', '7078', '26', '288', '50', '-20', '16', '10', '4', '11', '6', '40', '677', '-18', 'small', '0', '1', '0', '640', '840', '0', '720', '720', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95004', 'Ecu Yuka (Blue)', '$6437', '', 'L1Monster', '7097', '29', '360', '80', '-33', '14', '12', '15', '11', '8', '10', '842', '-20', 'small', '0', '6', '0', '480', '1120', '0', '1120', '1120', '0', '1', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '7093', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95005', 'Ecu Yuka (Blue)', '$6437', '', 'L1Monster', '7091', '32', '432', '80', '-36', '14', '12', '15', '11', '8', '10', '1025', '-22', 'small', '0', '6', '0', '480', '1120', '0', '1120', '1120', '0', '1', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '7093', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95006', 'Ecu Juraka (Green)', '$6438', '', 'L1Monster', '7098', '35', '528', '0', '-18', '19', '17', '14', '9', '12', '15', '1226', '-22', 'small', '0', '1', '0', '960', '1200', '0', '1200', '1200', '0', '1', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95007', 'Ecu Juraka (Green)', '$6438', '', 'L1Monster', '7099', '39', '660', '0', '-23', '19', '17', '14', '9', '12', '15', '1522', '-25', 'small', '1', '1', '0', '960', '1200', '0', '1200', '1200', '0', '1', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95008', 'Ecu Bla (Green)', '$6439', '', 'L1Monster', '7111', '41', '840', '80', '-23', '18', '15', '18', '16', '15', '20', '1682', '-25', 'large', '0', '2', '0', '840', '1240', '0', '1160', '2240', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95009', 'Ecu Bla (Green)', '$6439', '', 'L1Monster', '7113', '44', '960', '100', '-24', '18', '15', '18', '16', '15', '20', '1937', '-28', 'large', '0', '2', '0', '840', '1240', '0', '1160', '2240', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95010', 'Ecu Ette (Branches)', '$6440', '', 'L1Monster', '7170', '47', '1056', '115', '-26', '25', '25', '13', '20', '18', '80', '2210', '-26', 'large', '0', '2', '0', '960', '1400', '0', '1360', '1360', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95011', 'Ecu Ette (Branches)', '$6440', '', 'L1Monster', '7167', '50', '1344', '140', '-29', '25', '25', '13', '20', '18', '10', '2501', '-32', 'large', '0', '2', '0', '960', '1400', '0', '1360', '1360', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95012', 'Jad Tow (Red)', '$6441', '', 'L1Monster', '7173', '50', '810', '250', '-26', '19', '24', '19', '17', '16', '30', '2501', '-32', 'small', '0', '1', '0', '480', '840', '0', '840', '840', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95013', 'Jad Tow (Red)', '$6441', '', 'L1Monster', '7176', '52', '1008', '200', '-39', '19', '24', '19', '17', '16', '10', '2705', '-32', 'small', '0', '1', '0', '480', '840', '0', '840', '840', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95014', 'Jad Ske (Purple)', '$6442', '', 'L1Monster', '7186', '54', '1440', '160', '-36', '30', '30', '14', '25', '30', '5', '2917', '-32', 'small', '0', '2', '0', '1280', '2080', '0', '2080', '1400', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95015', 'Jad Ske (Purple)', '$6442', '', 'L1Monster', '7184', '56', '1560', '160', '-36', '30', '30', '14', '25', '30', '5', '3137', '-34', 'small', '0', '2', '0', '1280', '2080', '0', '2080', '1400', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95016', 'Jad Teo (Blue)', '$6443', '', 'L1Monster', '7196', '58', '1680', '190', '-27', '38', '40', '12', '29', '25', '50', '3365', '-37', 'large', '0', '2', '0', '640', '1280', '0', '1520', '1520', '0', '0', '0', '0', '0', '0', 'tikal', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95017', 'Jad Teo (Blue)', '$6443', '', 'L1Monster', '7193', '60', '1800', '100', '-36', '38', '40', '12', '29', '25', '35', '3601', '-37', 'large', '0', '2', '0', '640', '1280', '0', '1520', '1520', '0', '0', '0', '1', '1', '1', 'tikalargo', '1', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95018', 'Jeb Requie', '$6444', 'Right Side', 'L1Monster', '7234', '70', '25000', '100', '-128', '125', '50', '24', '35', '40', '80', '4901', '-315', 'large', '1', '2', '0', '0', '1960', '0', '2000', '2400', '0', '0', '0', '1', '1', '1', 'tikal', '0', '-1', '-1', '0', '0', '0', '5000', '5000', '5000', '50', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95019', 'Jeb Requie', '$6444', 'Left Side', 'L1Monster', '7236', '70', '20000', '100', '-128', '125', '50', '24', '35', '40', '80', '4901', '-315', 'large', '0', '2', '0', '0', '2080', '0', '3000', '2920', '0', '0', '0', '1', '1', '1', 'tikal', '0', '-1', '-1', '0', '0', '0', '5000', '5000', '5000', '50', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0');
+INSERT INTO `npc` VALUES ('95020','Joe\'s Stone Golem','$5526','Joe\'s Stone Golem','L1Merchant',6685,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,1280,2640,0,2640,2640,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
+
+-- npc spawn and action
+INSERT INTO `spawnlist_npc` VALUES ('90572', 'Joe\'s Stone Golem', '1', '71253', '32858', '32721', '0', '0', '4', '0', '783', '0');
+INSERT INTO `npcaction` VALUES ('95020', 'joegolem17', 'joegolem17', '', '');
+
+-- insert spawns
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500734', 'Ecu Bla(B)', '15', '95009', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500735', 'Ecu Bla(A)', '10', '95010', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500736', 'Ecu Ette(B)', '15', '95011', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500737', 'Ecu Ette(A)', '10', '95004', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500738', 'Ecu Yuka(B)', '15', '95005', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500739', 'Ecu Juraka(A)', '10', '95006', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500740', 'Ecu Juraka(B)', '15', '95007', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500741', 'Ecu Bla(A)', '10', '95008', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500742', 'Ecu Bla(B)', '15', '95009', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500743', 'Ecu Ette(A)', '10', '95010', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500744', 'Ecu Ette(B)', '15', '95011', '0', '33031', '32767', '0', '0', '32983', '32640', '33079', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500745', 'Ecu Yuka(A)', '10', '95004', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500746', 'Ecu Yuka(B)', '15', '95005', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500747', 'Jad Tow(A)', '20', '95012', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500748', 'Jad Tow(B)', '30', '95013', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500749', 'Jad Ske(A)', '20', '95014', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500750', 'Jad Ske(B)', '30', '95015', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500751', 'Jad Teo(A)', '20', '95016', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500752', 'Jad Teo(B)', '30', '95017', '0', '33179', '32767', '0', '0', '33080', '32640', '33279', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500753', 'Ecu Azte(A)', '10', '95002', '0', '32837', '32767', '0', '0', '32768', '32640', '32907', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500754', 'Ecu Azte(B)', '15', '95003', '0', '32837', '32767', '0', '0', '32768', '32640', '32907', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500755', 'Ecu Yuka(A)', '10', '95004', '0', '32837', '32837', '0', '0', '32768', '32640', '32907', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500756', 'Ecu Yuka(B)', '15', '95005', '0', '32837', '32837', '0', '0', '32768', '32640', '32907', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500757', 'Ecu Juraka(A)', '10', '95006', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500758', 'Ecu Juraka(B)', '15', '95007', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES ('801500759', 'Ecu Bla(A)', '10', '95008', '0', '32945', '32767', '0', '0', '32908', '32640', '32982', '32895', '0', '20', '60', '783', '0', '0', '0', '0');
+
+-- insert items
+INSERT INTO `etcitem` VALUES ('49316', 'Piece of Lesser Kulkulcan Treasure (Upper)', '$6420', '$6420', 'material', 'none', 'gold', '0', '3322', '7206', '3260', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49317', 'Piece of Lesser Kulkulcan Treasure (Lower)', '$6421', '$6421', 'material', 'choice', 'gold', '0', '3310', '7200', '3261', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49318', 'Locked Low-grade Treasure Chest of Kukulcan', '$6422', '$6422', 'material', 'none', 'gold', '0', '3314', '7202', '3547', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49319', 'Opened Low-grade Treasure Chest of Kukulcan', '$6423', '$6423', 'treasure_box', 'normal', 'gold', '0', '3318', '7204', '3548', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '1000', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49320', 'Piece of High-grade Treasure Chest of Kukulcan (Upper)', '$6424', '$6424', 'material', 'none', 'gold', '0', '3320', '7205', '3581', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49321', 'Piece of High-grade Treasure Chest of Kukulcan (Lower)', '$6425', '$6425', 'material', 'choice', 'gold', '0', '3308', '7199', '3582', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49322', 'Locked High-grade Treasure Chest of Kukulcan', '$6426', '$6426', 'material', 'none', 'gold', '0', '3312', '7201', '3583', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49323', 'Opened High-grade Treasure Chest of Kukulcan', '$6427', '$6427', 'treasure_box', 'normal', 'gold', '0', '3316', '7203', '3584', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '1000', '0', '0', '1');
+INSERT INTO `etcitem` VALUES ('49324', 'Kukulcan\'s Altar Key', '$6435', '$6435', 'questitem', 'none', 'iron', '0', '59', '151', '3780', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
+
+-- armour
+INSERT INTO `armor` VALUES ('21131', 'Kukulcan\'s Shield', '$6430', '$6430', 'shield', 'wood', '30000', '3328', '7209', '3776', '-3', '6', '1', '1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '5', '0', '-1');
+INSERT INTO `armor` VALUES ('21132', 'Kukulcan\'s Mask', '$6431', '$6431', 'helm', 'wood', '5000', '3326', '7208', '3777', '-3', '4', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0', '0', '0', '5', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1');
+INSERT INTO `armor` VALUES ('21133', 'Fang of Jeb Requie', '$6432', '$6432', 'amulet', 'bone', '1000', '3332', '7211', '3778', '0', '-1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '0', '0', '0', '30', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1');
+INSERT INTO `armor` VALUES ('21134', 'Eye of Jeb Requie', '$6433', '$6433', 'amulet', 'gemstone', '1000', '3334', '7212', '3779', '0', '-1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '0', '1', '0', '0', '0', '10', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1');
+
+-- weapons
+INSERT INTO `weapon` VALUES ('276', 'Kulkulcan\'s Spear', '$6428', '$6428', 'spear', 'copper', '100000', '3330', '7210', '3774', '24', '20', '2', '6', '1', '1', '0', '0', '0', '0', '0', '5', '0', '0', '0', '2', '0', '0', '0', '0', '0', '0', '0', '0', '5', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0');
+INSERT INTO `weapon` VALUES ('277', 'Kulkulcan\'s Gauntlet', '$6429', '$6429', 'gauntlet', 'wood', '20000', '3324', '7207', '3775', '3', '3', '-1', '6', '0', '0', '0', '0', '1', '1', '0', '0', '4', '0', '0', '1', '0', '0', '0', '30', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0');
+
+-- insert droplists
+
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95002', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95002', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95002', '49111', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95002', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95002', '49316', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95003', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95003', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95003', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95003', '49317', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95004', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95004', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95004', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95004', '49316', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95005', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95005', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95005', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95005', '49317', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95006', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95006', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95006', '49106', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95006', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95006', '49316', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95007', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95007', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95007', '49106', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95007', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95007', '49317', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95008', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95008', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95008', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95008', '49316', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95009', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95009', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95009', '49126', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95009', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95009', '49317', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95010', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95010', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95010', '49110', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95010', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95010', '49316', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95011', '40020', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95011', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95011', '49110', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95011', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95011', '49317', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95012', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95012', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95012', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95012', '49320', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95012', '49324', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95013', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95013', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95013', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95013', '49321', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95013', '49324', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95014', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95014', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95014', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95014', '49320', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95014', '49324', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95015', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95015', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95015', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95015', '49321', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95015', '49324', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '49113', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '49320', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95016', '49324', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '40021', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '40306', '1', '1', '10000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '49113', '1', '1', '5000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '49101', '1', '1', '15000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '49321', '1', '1', '20000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95017', '49324', '1', '1', '5000');
+
+-- boss stuff
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES (801500760,'Jeb Requie',1,95018,0,32751,32871,0,0,0,0,0,0,0,21600,28800,784,0,0,0,0);
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `min_respawn_delay`, `max_respawn_delay`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `near_spawn`) VALUES (801500761,'Jeb Requie',1,95019,0,32750,32859,0,0,0,0,0,0,0,21600,28800,784,0,0,0,0);
+
+-- boss droplist
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '40024', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '140100', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '40087', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '140087', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '40074', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '140074', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '49092', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120264', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120256', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120268', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120254', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120266', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120267', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '120280', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '20303', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '20281', '1', '1', '700000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '20288', '1', '1', '700000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '21133', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '21134', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '49322', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95018', '20284', '1', '1', '700000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '40024', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '140100', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '40087', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '140087', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '40074', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '140074', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '49092', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120264', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120256', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120268', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120254', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120266', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120267', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '120280', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '20303', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '20281', '1', '1', '700000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '20288', '1', '1', '700000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '21133', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '21134', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '49322', '1', '1', '1000000');
+INSERT INTO `droplist` (`mobId`, `itemId`, `min`, `max`, `chance`) VALUES ('95019', '20284', '1', '1', '700000');
+
+-- mob actions
+INSERT INTO `spr_action` VALUES ('7078', '0', '16', '24');
+INSERT INTO `spr_action` VALUES ('7078', '1', '21', '24');
+INSERT INTO `spr_action` VALUES ('7078', '18', '36', '24');
+INSERT INTO `spr_action` VALUES ('7081', '0', '16', '24');
+INSERT INTO `spr_action` VALUES ('7081', '1', '21', '24');
+INSERT INTO `spr_action` VALUES ('7081', '18', '36', '24');
+INSERT INTO `spr_action` VALUES ('7097', '0', '12', '24');
+INSERT INTO `spr_action` VALUES ('7097', '1', '28', '24');
+INSERT INTO `spr_action` VALUES ('7091', '0', '12', '24');
+INSERT INTO `spr_action` VALUES ('7091', '1', '28', '24');
+INSERT INTO `spr_action` VALUES ('7098', '0', '24', '24');
+INSERT INTO `spr_action` VALUES ('7098', '1', '30', '24');
+INSERT INTO `spr_action` VALUES ('7098', '30', '23', '24');
+INSERT INTO `spr_action` VALUES ('7099', '0', '24', '24');
+INSERT INTO `spr_action` VALUES ('7099', '1', '30', '24');
+INSERT INTO `spr_action` VALUES ('7099', '30', '23', '24');
+INSERT INTO `spr_action` VALUES ('7111', '0', '21', '24');
+INSERT INTO `spr_action` VALUES ('7111', '1', '31', '24');
+INSERT INTO `spr_action` VALUES ('7111', '18', '29', '24');
+INSERT INTO `spr_action` VALUES ('7111', '30', '56', '24');
+INSERT INTO `spr_action` VALUES ('7113', '0', '21', '24');
+INSERT INTO `spr_action` VALUES ('7113', '1', '31', '24');
+INSERT INTO `spr_action` VALUES ('7113', '18', '29', '24');
+INSERT INTO `spr_action` VALUES ('7113', '30', '56', '24');
+INSERT INTO `spr_action` VALUES ('7167', '0', '24', '24');
+INSERT INTO `spr_action` VALUES ('7167', '1', '35', '24');
+INSERT INTO `spr_action` VALUES ('7167', '18', '34', '24');
+INSERT INTO `spr_action` VALUES ('7170', '0', '24', '24');
+INSERT INTO `spr_action` VALUES ('7170', '1', '35', '24');
+INSERT INTO `spr_action` VALUES ('7170', '18', '34', '24');
+INSERT INTO `spr_action` VALUES ('7170', '30', '45', '24');
+INSERT INTO `spr_action` VALUES ('7173', '0', '12', '24');
+INSERT INTO `spr_action` VALUES ('7173', '1', '21', '24');
+INSERT INTO `spr_action` VALUES ('7173', '30', '32', '24');
+INSERT INTO `spr_action` VALUES ('7176', '0', '12', '24');
+INSERT INTO `spr_action` VALUES ('7176', '1', '21', '24');
+INSERT INTO `spr_action` VALUES ('7176', '30', '32', '24');
+INSERT INTO `spr_action` VALUES ('7184', '0', '32', '24');
+INSERT INTO `spr_action` VALUES ('7184', '1', '52', '24');
+INSERT INTO `spr_action` VALUES ('7184', '30', '35', '24');
+INSERT INTO `spr_action` VALUES ('7186', '0', '32', '24');
+INSERT INTO `spr_action` VALUES ('7186', '1', '52', '24');
+INSERT INTO `spr_action` VALUES ('7186', '30', '35', '24');
+INSERT INTO `spr_action` VALUES ('7193', '0', '16', '24');
+INSERT INTO `spr_action` VALUES ('7193', '1', '32', '24');
+INSERT INTO `spr_action` VALUES ('7193', '18', '38', '24');
+INSERT INTO `spr_action` VALUES ('7196', '0', '16', '24');
+INSERT INTO `spr_action` VALUES ('7196', '1', '32', '24');
+INSERT INTO `spr_action` VALUES ('7196', '18', '38', '24');
+
+-- boss actions
+INSERT INTO `spr_action` VALUES ('7234', '1', '49', '24');
+INSERT INTO `spr_action` VALUES ('7234', '30', '50', '24');
+INSERT INTO `spr_action` VALUES ('7234', '11', '95', '24');
+INSERT INTO `spr_action` VALUES ('7234', '19', '60', '24');
+INSERT INTO `spr_action` VALUES ('7236', '1', '52', '24');
+INSERT INTO `spr_action` VALUES ('7236', '18', '48', '24');
+INSERT INTO `spr_action` VALUES ('7236', '30', '66', '24');
+INSERT INTO `spr_action` VALUES ('7236', '11', '115', '24');
+INSERT INTO `spr_action` VALUES ('7236', '19', '73', '24');
+
+-- mob skills
+INSERT INTO `mobskill` VALUES ('95018', '0', 'Jeb Requie (Right)', 'Jeb Requie (Right) - Physical Attack', '1', '10', '0', '0', '-2', '0', '0', '2', '0', '0', '30', '0', '0', '1', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95018', '1', 'Jeb Requie (Right)', 'Jeb Requie (Right) - Sandstorm', '2', '10', '0', '0', '-15', '0', '0', '0', '0', '0', '30', '14012', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95018', '2', 'Jeb Requie (Right)', 'Jeb Requie (Right) - Pole Mine', '2', '30', '0', '0', '-15', '0', '0', '0', '0', '0', '30', '14013', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95018', '3', 'Jeb Requie (Right)', 'Jeb Requie (Right)- Ice Spit', '2', '20', '0', '0', '-3', '0', '0', '0', '0', '0', '30', '14014', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95018', '4', 'Jeb Requie (Right)', 'Jeb Requie (Right) - Poison Spray', '2', '20', '0', '0', '-3', '0', '0', '0', '0', '0', '30', '15005', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95019', '0', 'Jeb Requie (Left)', 'Jeb Requie (Left) - Physical Attack', '1', '40', '0', '0', '-3', '0', '0', '0', '0', '0', '30', '0', '0', '1', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95019', '1', 'Jeb Requie (Left)', 'Jeb Requie (Left) - Posion Spray', '2', '20', '0', '0', '-6', '0', '0', '6', '3', '3', '30', '15000', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95019', '2', 'Jeb Requie (Left)', 'Jeb Requie (Left) - Shock Blow', '2', '10', '0', '0', '-15', '0', '0', '0', '0', '0', '30', '14015', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95019', '3', 'Jeb Requie (Left)', 'Jeb Requie (Left) - Corrosion Spit', '2', '5', '0', '0', '-10', '0', '0', '0', '0', '0', '30', '14016', '0', '0', '0', '0', '0', '0');
+INSERT INTO `mobskill` VALUES ('95019', '4', 'Jeb Requie (Left)', 'Jeb Requie (Left) - Poison Spray', '2', '5', '0', '0', '-6', '0', '0', '6', '3', '3', '30', '15001', '0', '0', '0', '0', '0', '0');
+
+-- skills
+INSERT INTO `skills` VALUES ('14012', 'Jeb Requie (Right) Sandstorm', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '120', '5', '3', '0', '0', '0', '64', '0', '15', '17', '0', '0', '', '19', '7293', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('14013', 'eb Requie (Right) - Pole Mine', '0', '0', '5', '0', '0', '0', '0', '0', 'attack', '3', '90', '5', '3', '0', '0', '0', '64', '0', '15', '17', '0', '0', '', '30', '10', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('14014', 'Jeb Requie (Right)- Ice Spit', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '75', '5', '3', '0', '0', '0', '64', '0', '6', '3', '0', '0', '', '18', '7290', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('14015', 'Jeb Requie (Left) - Shock Blow', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '130', '5', '3', '0', '0', '4', '64', '0', '15', '17', '0', '0', '', '19', '7282', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('14016', 'Jeb Requie (Left) - Corrosion Spit', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '11', '7272', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('15000', 'eb Requie (Left) - Posion Spray', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '11', '7272', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('15001', 'Jeb Requie (Left) - Poison Spray', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '30', '7283', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `skills` VALUES ('15005', 'Jeb Requie (Right) - Poison Spray', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '11', '7272', '0', '0', '0', '0', NULL, '1');
