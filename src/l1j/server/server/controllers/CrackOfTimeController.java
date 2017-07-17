@@ -52,7 +52,7 @@ public class CrackOfTimeController extends TimerTask {
 	private static final int _downTime = 13 * 60 * 60 * 1000 / 2;
 
 	private static final int[][] _crack = { { 32639, 32876, 780 },
-	// { 32794, 32751, 783 }
+	 { 32794, 32751, 783 }
 	};
 
 	private static final int[][] _cracklocactions = { { 32722, 32688, 4 },
@@ -134,10 +134,7 @@ public class CrackOfTimeController extends TimerTask {
 		L1Location crack = null;
 		L1Location crack_loc = null;
 
-		// For the moment, only open portals to Thebes, since Tikal hasn't been
-		// populated yet.
-		int rnd1 = 0;
-		// int rnd1 = random.nextInt(2);
+		int rnd1 = random.nextInt(2);
 		int rnd2 = random.nextInt(9);
 
 		crack = new L1Location(_crack[rnd1][0], _crack[rnd1][1],

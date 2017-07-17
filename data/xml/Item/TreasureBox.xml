@@ -905,6 +905,45 @@
 		<Item ItemId="   267" Count="1" Chance=" 3" />
 		<Item ItemId="   268" Count="1" Chance=" 3" />
 	</TreasureBox>
+	<!-- Opened Low-grade Treasure Chest of Kukulcan -->
+	<TreasureBox Type="RANDOM" ItemId="49319">
+		<Item ItemId="40044" Count="3" Chance="13" />
+		<Item ItemId="40045" Count="3" Chance="13" />
+		<Item ItemId="40046" Count="3" Chance="13" />
+		<Item ItemId="40047" Count="3" Chance="13" />
+		<Item ItemId="40048" Count="2" Chance="8" />
+		<Item ItemId="40049" Count="2" Chance="8" />
+		<Item ItemId="40050" Count="2" Chance="8" />
+		<Item ItemId="40051" Count="2" Chance="8" />
+		<Item ItemId="40074" Count="1" Chance="5" />
+		<Item ItemId="40087" Count="1" Chance="5" />
+		<Item ItemId="276" Count="1" Chance="2" />
+		<Item ItemId="277" Count="1" Chance="2" />
+		<Item ItemId="21131" Count="1" Chance="2" />
+	</TreasureBox>
+
+	<!-- Opened High-grade Treasure Chest of Kukulcan -->
+	<TreasureBox Type="RANDOM" ItemId="49323">
+		<Item ItemId="40044" Count="3" Chance="7" />
+		<Item ItemId="40045" Count="3" Chance="7" />
+		<Item ItemId="40046" Count="3" Chance="7" />
+		<Item ItemId="40047" Count="3" Chance="7" />
+		<Item ItemId="40048" Count="2" Chance="6" />
+		<Item ItemId="40049" Count="2" Chance="6" />
+		<Item ItemId="40050" Count="2" Chance="6" />
+		<Item ItemId="40051" Count="2" Chance="6" />
+		<Item ItemId="40052" Count="1" Chance="5" />
+		<Item ItemId="40053" Count="1" Chance="5" />
+		<Item ItemId="40054" Count="1" Chance="5" />
+		<Item ItemId="40055" Count="1" Chance="5" />
+		<Item ItemId="276" Count="1" Chance="4" />
+		<Item ItemId="277" Count="1" Chance="4" />
+		<Item ItemId="21131" Count="1" Chance="4" />
+		<Item ItemId="40074" Count="1" Chance="4" />
+		<Item ItemId="40087" Count="1" Chance="4" />
+		<Item ItemId="140074" Count="1" Chance="4" />
+		<Item ItemId="140087" Count="1" Chance="4" />
+	</TreasureBox>
 	<!-- Relic of Expedition Member -->
 	<TreasureBox Type="RANDOM" ItemId="40696">
 		<Item ItemId="40679" Count="1" Chance="20" />
