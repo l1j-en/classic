@@ -24,6 +24,7 @@ import l1j.server.Config;
 import l1j.server.server.controllers.AuctionTimeController;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.FishingTimeController;
+import l1j.server.server.controllers.GiranPrisonController;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.HouseTaxTimeController;
 import l1j.server.server.controllers.JailController;
@@ -239,6 +240,8 @@ public class GameServerThread {
 		GeneralThreadPool.getInstance().execute(jailController);
 
 		CrackOfTimeController.getStart();
+		
+		GiranPrisonController.getInstance();
 
 		// AnnounceMents
 		Announcements.getInstance();
