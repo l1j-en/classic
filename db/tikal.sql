@@ -32,6 +32,7 @@ INSERT INTO `npc` VALUES ('95020','Joe\'s Stone Golem','$5526','Joe\'s Stone Gol
 
 -- npc spawn and action
 INSERT INTO `spawnlist_npc` VALUES ('90572', 'Joe\'s Stone Golem', '1', '71253', '32858', '32721', '0', '0', '4', '0', '783', '0');
+INSERT INTO `spawnlist_npc` VALUES ('90521', 'Kukulcan\'s Altar Gatekeeper', '1', '90521', '33260', '32743', '0', '0', '6', '0', '783', '0');
 INSERT INTO `npcaction` VALUES ('95020', 'joegolem17', 'joegolem17', '', '');
 
 -- insert spawns
