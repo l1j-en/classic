@@ -755,8 +755,8 @@ public class C_NPCAction extends ClientBasePacket {
 				if (CrackOfTimeController.getStart().map784gateopen() == false) {
 					htmlid = "tikalgate2";
 				} else {
-					if (pc.getInventory().checkItem(49308, 1)) {
-						pc.getInventory().consumeItem(49308, 1);
+					if (pc.getInventory().checkItem(49324, 1)) {
+						pc.getInventory().consumeItem(49324, 1);
 						L1Teleport.teleport(pc, 32730, 32866, (short) 784, 2,
 								true);
 						htmlid = "";
