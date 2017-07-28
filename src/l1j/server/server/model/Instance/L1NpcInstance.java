@@ -137,6 +137,11 @@ public class L1NpcInstance extends L1Character {
 	
 	public void removeServantSummon() {
 		this._summons--;
+		
+		// just in case
+		if(this._summons < 0) {
+			this._summons = 0;
+		}	
 	}
 
 	interface NpcAI {
