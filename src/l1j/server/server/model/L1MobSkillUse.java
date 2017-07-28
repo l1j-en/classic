@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.MobSkillTable;
 import l1j.server.server.datatables.NpcTable;
@@ -138,8 +139,14 @@ public class L1MobSkillUse {
 				if (magicAttack(i) == true) {
 					skillUseCountUp(i);
 					return true;
+
 				}
 			} else if (type == L1MobSkill.TYPE_SUMMON) {
+				if (Config.MAX_SERVANT_SUMMONS > -1 
+						&& this._attacker.getServantSummonCount() > Config.MAX_SERVANT_SUMMONS) {
+					return false;
+				}
+
 				if (summon(i)) {
 					skillUseCountUp(i);
 					return true;
@@ -165,6 +172,7 @@ public class L1MobSkillUse {
 		}
 
 		int count = _rnd.nextInt(max) + min;
+		this._attacker.addServantSummon(count);
 		mobspawn(summonId, count);
 
 		_attacker.broadcastPacket(new S_SkillSound(_attacker.getId(), 761));
@@ -278,14 +286,18 @@ public class L1MobSkillUse {
 			for (L1Object obj : objs) {
 				if (L1World.getInstance().findObject(obj.getId()) == null) {
 					_log.severe("L1MobSkillUse:physicalAttack: visibleBoxObject obj missing from L1World._allObjects!\n"
-							+ obj.toString() + " Id: " + obj.getId()
-							+ " Map: " + obj.getMapId());
-					
-					// TODO: remove this stop-gap fix once a root cause has been found
+							+ obj.toString()
+							+ " Id: "
+							+ obj.getId()
+							+ " Map: "
+							+ obj.getMapId());
+
+					// TODO: remove this stop-gap fix once a root cause has been
+					// found
 					L1World.getInstance().removeVisibleObject(obj);
 					continue;
 				}
-				
+
 				if (!(obj instanceof L1Character)) {
 					continue;
 				}
@@ -482,6 +494,7 @@ public class L1MobSkillUse {
 					mob.setY(loc.getY());
 					mob.setHomeX(loc.getX());
 					mob.setHomeY(loc.getY());
+					
 					short mapid = _attacker.getMapId();
 					mob.setMap(mapid);
 					mob.setHeading(heading);
@@ -490,6 +503,7 @@ public class L1MobSkillUse {
 					L1Object object = L1World.getInstance().findObject(
 							mob.getId());
 					L1MonsterInstance newnpc = (L1MonsterInstance) object;
+					newnpc.setMaster(_attacker);
 					newnpc.set_storeDroped(true);
 					if (summonId == 45061 || summonId == 45161
 							|| summonId == 45181 || summonId == 45455) {

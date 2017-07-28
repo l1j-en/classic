@@ -119,6 +119,25 @@ public class L1NpcInstance extends L1Character {
 	private L1NpcChatTimer _chatTask;
 	
 	private NpcAIThreadImpl _aiThread = null;
+	
+	// keeps track of the # of summons the mob has spawned
+	private int _summons = 0;
+	
+	public int getServantSummonCount() {
+		return this._summons;
+	}
+	
+	public void addServantSummon() {
+		this._summons++;
+	}
+	
+	public void addServantSummon(int amount) {
+		this._summons += amount;
+	}
+	
+	public void removeServantSummon() {
+		this._summons--;
+	}
 
 	interface NpcAI {
 		public void start();
