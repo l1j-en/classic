@@ -63,9 +63,6 @@ public class SSHServer {
 
 		    try {
 				sshd.start();
-				while (true) {
-			    	Thread.sleep(50);
-			    }
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, e.getLocalizedMessage());
 			}
