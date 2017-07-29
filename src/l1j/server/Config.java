@@ -557,6 +557,8 @@ public final class Config {
 	
 	public static int RANKING_OVERALL_TOP;
 	public static int RANKING_CLASS_TOP;
+	
+	public static int MAX_SERVANT_SUMMONS;
 
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
@@ -691,6 +693,7 @@ public final class Config {
 			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
 			STOP_DROP = Boolean.parseBoolean(serverSettings.getProperty("StopDrop", "False"));
 			ANIMATION_SPEED = Integer.parseInt(serverSettings.getProperty("DefaultAnimationSpeed", "720"));
+			MAX_SERVANT_SUMMONS = Integer.parseInt(serverSettings.getProperty("MaxServantSummons", "100"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");

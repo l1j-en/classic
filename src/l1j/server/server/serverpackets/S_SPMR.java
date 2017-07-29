@@ -41,7 +41,8 @@ public class S_SPMR extends ServerBasePacket {
 		} else {
 			writeC(pc.getSp() - pc.getTrueSp()); // SP increase in equipment
 		}
-		writeC(pc.getTrueMr() - pc.getBaseMr()); // MR equipment and an increase
+
+		writeH(pc.getTrueMr() - pc.getBaseMr()); // MR equipment and an increase
 													// of magic
 	}
 
