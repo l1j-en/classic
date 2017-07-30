@@ -418,8 +418,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setDead(true);
 			setStatus(ActionCodes.ACTION_Die);
 			
-			if(getMaster() instanceof L1NpcInstance) {
-				((L1NpcInstance)getMaster()).removeServantSummon();
+			if(getServantMaster() instanceof L1NpcInstance) {
+				((L1NpcInstance)getServantMaster()).removeServantSummon();
 			}
 
 			getMap().setPassable(getLocation(), true);
