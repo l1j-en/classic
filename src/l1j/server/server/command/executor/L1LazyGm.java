@@ -33,7 +33,13 @@ public class L1LazyGm implements L1CommandExecutor {
 			while (!_stop && _lazyGmTimers.size() > 0) {
 				try {
 					ArrayList<L1PcInstance> onlinePlayers
-							= new ArrayList<L1PcInstance>(L1World.getInstance().getAllPlayers());
+							= new ArrayList<L1PcInstance>();
+					
+					for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+						if(!player.getMap().isTradeZone() && player.getId() != _gm.getId()) {
+							onlinePlayers.add(player);
+						}
+					}
 					
 					if(onlinePlayers.size() < 3) {
 						_gm.sendPackets(new S_SystemMessage("Not enough players online to continue. Stopping lazygm."));
@@ -46,8 +52,7 @@ public class L1LazyGm implements L1CommandExecutor {
 					// limit of 10 just in case something funky goes wrong and it can never find someone
 					// who wasn't the last person we visited
 					for(int x = 0; x < 10 && 
-							(personToWatch == null || personToWatch.getId() == lastVisitedId
-							|| personToWatch.isPrivateShop()); x++) {
+							(personToWatch == null || personToWatch.getId() == lastVisitedId); x++) {
 						int numberToWatch = _random.nextInt(onlinePlayers.size());
 						
 						for(int i = 0; i < onlinePlayers.size(); i++) {
