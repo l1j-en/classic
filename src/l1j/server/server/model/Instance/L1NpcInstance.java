@@ -120,8 +120,18 @@ public class L1NpcInstance extends L1Character {
 	
 	private NpcAIThreadImpl _aiThread = null;
 	
+	private L1NpcInstance _servantMaster = null;
+	
 	// keeps track of the # of summons the mob has spawned
 	private int _summons = 0;
+	
+	public void setServantMaster(L1NpcInstance npcInstance) {
+		this._servantMaster = npcInstance;	
+	}
+	
+	public L1NpcInstance getServantMaster() {
+		return this._servantMaster;
+	}
 	
 	public int getServantSummonCount() {
 		return this._summons;
