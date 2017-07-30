@@ -140,11 +140,12 @@ public class L1MobSkillUse {
 					skillUseCountUp(i);
 					return true;
 
-				}
+				}	
 			} else if (type == L1MobSkill.TYPE_SUMMON) {
 				if (Config.MAX_SERVANT_SUMMONS > -1 
 						&& this._attacker.getServantSummonCount() > Config.MAX_SERVANT_SUMMONS) {
-					return false;
+					skillUseCountUp(i);
+					return true;
 				}
 
 				if (summon(i)) {
@@ -503,7 +504,7 @@ public class L1MobSkillUse {
 					L1Object object = L1World.getInstance().findObject(
 							mob.getId());
 					L1MonsterInstance newnpc = (L1MonsterInstance) object;
-					newnpc.setMaster(_attacker);
+					newnpc.setServantMaster(_attacker);
 					newnpc.set_storeDroped(true);
 					if (summonId == 45061 || summonId == 45161
 							|| summonId == 45181 || summonId == 45455) {
