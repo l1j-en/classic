@@ -72,7 +72,7 @@ public class L1BookMark {
 		// pc.sendPackets(new S_ServerMessage(204));
 		// return;
 		// }
-		if (!pc.getMap().isMarkable()) {
+		if (!pc.getMap().isMarkable() && !pc.isGm()) {
 			pc.sendPackets(new S_ServerMessage(214)); // Remember, you can not
 														// here.
 			return;
