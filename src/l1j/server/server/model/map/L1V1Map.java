@@ -18,6 +18,9 @@
  */
 package l1j.server.server.model.map;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.model.Instance.L1DoorInstance;
@@ -76,6 +79,7 @@ public class L1V1Map extends L1Map {
 			boolean recallPets, boolean usableItem, boolean usableSkill) {
 		_mapId = mapId;
 		_map = map;
+
 		_worldTopLeftX = worldTopLeftX;
 		_worldTopLeftY = worldTopLeftY;
 
@@ -126,6 +130,7 @@ public class L1V1Map extends L1Map {
 		if (!isInMap(x, y)) {
 			return;
 		}
+		
 		_map[x - _worldTopLeftX][y - _worldTopLeftY] = (byte) tile;
 	}
 
@@ -170,6 +175,11 @@ public class L1V1Map extends L1Map {
 	@Override
 	public int getOriginalTile(int x, int y) {
 		return accessOriginalTile(x, y);
+	}
+	
+	@Override
+	public void setOriginalTile(int x, int y, short value) {
+		setTile(x, y, value);
 	}
 
 	@Override
@@ -451,6 +461,38 @@ public class L1V1Map extends L1Map {
 	@Override
 	public boolean isFishingZone(int x, int y) {
 		return accessOriginalTile(x, y) == 16;
+	}
+	
+	@Override
+	public String toCsv() throws IOException {
+		byte[][] originalMap = ((L1V1Map)MapReader.getDefaultReader().read(_mapId)).getRawTiles();
+		
+		ArrayList<StringBuilder> mappings = new ArrayList<StringBuilder>();
+		
+		for(int y = 0; y < _map.length; y++) {
+			for(int x = 0; x < _map[y].length; x++) {
+				if(mappings.size() - 1 < x) {
+					mappings.add(new StringBuilder());
+				}
+				
+				if(_map[y][x] < 0) {
+					mappings.get(x).append(originalMap[y][x] + ",");
+				} else {
+					mappings.get(x).append(_map[y][x] + ",");
+				}
+			}
+		}
+		
+		StringBuilder returnValue = new StringBuilder();
+		
+		for(StringBuilder mapping : mappings) {
+			String mappingValue = mapping.toString();
+			mappingValue = mappingValue.substring(0, mappingValue.length() - 1);
+			
+			returnValue.append(mappingValue + "\n");
+		}
+		
+		return returnValue.toString();
 	}
 
 	public boolean isExistDoor(int x, int y) {
