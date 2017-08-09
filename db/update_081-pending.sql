@@ -87,3 +87,5 @@ delete from droplist where itemid = 87;
 -- Update the ban_ip table to have a reason and timestamp -- so we can clear out ips banned after x amount of time
 ALTER TABLE `ban_ip` ADD COLUMN `reason` varchar(255) NOT NULL DEFAULT '';
 ALTER TABLE `ban_ip` ADD COLUMN `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+INSERT INTO `commands` (name, access_level, class_name, help_text, run_on_login) VALUES('map', 200, 'L1MapInfo', 'Display or update the current tile.', 0);
