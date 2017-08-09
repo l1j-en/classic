@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.model.map.L1V1Map;
-import l1j.server.server.model.map.MapReader;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.FileUtil;
 
