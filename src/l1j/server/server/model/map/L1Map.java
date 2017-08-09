@@ -19,6 +19,8 @@
 
 package l1j.server.server.model.map;
 
+import java.io.IOException;
+
 import l1j.server.server.types.Point;
 
 public abstract class L1Map {
@@ -52,6 +54,8 @@ public abstract class L1Map {
 	public abstract int getTile(int x, int y);
 
 	public abstract int getOriginalTile(int x, int y);
+	
+	public abstract void setOriginalTile(int x, int y, short value);
 
 	public abstract boolean isInMap(Point pt);
 
@@ -112,6 +116,10 @@ public abstract class L1Map {
 	public abstract boolean isUsableSkill();
 
 	public abstract boolean isFishingZone(int x, int y);
+	
+	public abstract String toCsv() throws IOException;
+	
+	public abstract void updateEntireMap(byte [][] newMap);
 
 	public static L1Map newNull() {
 		return _nullMap;
@@ -161,6 +169,11 @@ class L1NullMap extends L1Map {
 	@Override
 	public int getOriginalTile(int x, int y) {
 		return 0;
+	}
+	
+	@Override
+	public void setOriginalTile(int x, int y, short value) {
+		
 	}
 
 	@Override
@@ -313,6 +326,16 @@ class L1NullMap extends L1Map {
 
 	public boolean isExistDoor(int x, int y) {
 		return false;
+	}
+	
+	@Override
+	public String toCsv() throws IOException {
+		return "";
+	}
+	
+	@Override
+	public void updateEntireMap(byte [][] newMap) {
+		
 	}
 
 	@Override
