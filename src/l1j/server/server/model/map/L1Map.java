@@ -118,8 +118,6 @@ public abstract class L1Map {
 	public abstract boolean isFishingZone(int x, int y);
 	
 	public abstract String toCsv() throws IOException;
-	
-	public abstract void updateEntireMap(byte [][] newMap);
 
 	public static L1Map newNull() {
 		return _nullMap;
@@ -331,11 +329,6 @@ class L1NullMap extends L1Map {
 	@Override
 	public String toCsv() throws IOException {
 		return "";
-	}
-	
-	@Override
-	public void updateEntireMap(byte [][] newMap) {
-		
 	}
 
 	@Override

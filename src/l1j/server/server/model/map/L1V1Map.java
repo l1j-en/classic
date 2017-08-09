@@ -464,11 +464,6 @@ public class L1V1Map extends L1Map {
 	}
 	
 	@Override
-	public void updateEntireMap(byte [][] newMap) {
-	
-	}
-	
-	@Override
 	public String toCsv() throws IOException {
 		byte[][] originalMap = ((L1V1Map)MapReader.getDefaultReader().read(_mapId)).getRawTiles();
 		
