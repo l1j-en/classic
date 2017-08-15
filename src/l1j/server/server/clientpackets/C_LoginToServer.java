@@ -58,6 +58,7 @@ import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.datatables.GetBackRestartTable;
+import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.log.LogIP;
 import l1j.server.server.model.Getback;
@@ -348,7 +349,13 @@ public class C_LoginToServer extends ClientBasePacket {
 				pc.sendPackets(new S_SystemMessage("\\fRReason: " + jailInfo.getMessage()));
 				pc.sendPackets(new S_SystemMessage("\\fRWill be unjailed in: " + jailInfo.getReleaseTimeFormatted()));
 			}
-		}	
+		}
+		
+		long lastReport = LogReporterTable.getLastSuspicion(pc.getId());
+		
+		if(lastReport > 0 && lastReport > System.currentTimeMillis()) {
+			pc.enableLogPackets(lastReport);
+		}
 	}
 
 	private void checkUnreadMail(final L1PcInstance character) {
