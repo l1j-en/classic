@@ -85,6 +85,9 @@ public class L1MonsterInstance extends L1NpcInstance {
 		// perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		if (0 < getCurrentHp()) {
+			perceivedFrom.sendPackets(new S_NPCPack(this));
+			onNpcAI();
+			
 			if (getHiddenStatus() == HIDDEN_STATUS_SINK
 					|| getHiddenStatus() == HIDDEN_STATUS_ICE) {
 				perceivedFrom.sendPackets(new S_DoActionGFX(getId(),
@@ -93,8 +96,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				perceivedFrom.sendPackets(new S_DoActionGFX(getId(),
 						ActionCodes.ACTION_Moveup));
 			}
-			perceivedFrom.sendPackets(new S_NPCPack(this));
-			onNpcAI();
+			
 			if (getBraveSpeed() == 1) {
 				perceivedFrom.sendPackets(new S_SkillBrave(getId(), 1, 600000));
 			}

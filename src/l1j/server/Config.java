@@ -21,7 +21,6 @@ package l1j.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -156,6 +155,10 @@ public final class Config {
 	public static boolean AUTO_BAN;
 	
 	public static int ANIMATION_SPEED;
+	
+	public static int REPORT_HOURS_RESET;
+	
+	public static int REPORT_TIME_MINUTES;
 
 	/** Rate control */
 	public static int RATE_HP_REGEN;
@@ -693,7 +696,11 @@ public final class Config {
 			AUTO_BAN = Boolean.parseBoolean(serverSettings.getProperty("AutoBan", "False"));
 			STOP_DROP = Boolean.parseBoolean(serverSettings.getProperty("StopDrop", "False"));
 			ANIMATION_SPEED = Integer.parseInt(serverSettings.getProperty("DefaultAnimationSpeed", "720"));
+
 			MAX_SERVANT_SUMMONS = Integer.parseInt(serverSettings.getProperty("MaxServantSummons", "100"));
+
+			REPORT_HOURS_RESET = Integer.parseInt(serverSettings.getProperty("ReportHoursReset", "24"));
+			REPORT_TIME_MINUTES = Integer.parseInt(serverSettings.getProperty("ReportTimeMinutes", "10"));
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");

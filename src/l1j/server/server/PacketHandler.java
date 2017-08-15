@@ -198,8 +198,11 @@ import l1j.server.server.clientpackets.C_UsePetItem;
 import l1j.server.server.clientpackets.C_UseSkill;
 import l1j.server.server.clientpackets.C_War;
 import l1j.server.server.clientpackets.C_Who;
+import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.utils.ByteArrayUtil;
+import l1j.server.server.utils.IntArrayUtil;
 
 // Referenced classes of package l1j.server.server:
 // Opcodes, LoginController, ClientThread, Logins
@@ -224,6 +227,12 @@ public class PacketHandler {
 				}
 			}
 		}
+		
+		if(object != null && object.isLoggingPackets()) {
+			String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
+			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet);
+		}
+		
 		switch (i) {
 		case C_OPCODE_EXCLUDE:
 			new C_Exclude(abyte0, _client);
