@@ -142,6 +142,27 @@ public class L1PcInstance extends L1Character {
 	private String followingGm = null;
 	private String spoofName = null;
 	private L1NpcInstance spoofMob = null;
+	private long _logPackets = -1;
+	
+	public void enableLogPackets() {
+		this._logPackets = System.currentTimeMillis() + (Config.REPORT_TIME_MINUTES * 60000);
+	}
+	
+	public void enableLogPackets(long time) {
+		this._logPackets = time;
+	}
+	
+	public void disableLogPackets() {
+		this._logPackets = -1;
+	}
+	
+	public boolean isLoggingPackets() {
+		if(this._logPackets > 0 && this._logPackets < System.currentTimeMillis()) {
+			this.disableLogPackets();
+		}
+		
+		return this._logPackets > 0;
+	}
 	
 	public String getSpoofName() {
 		return spoofName;
