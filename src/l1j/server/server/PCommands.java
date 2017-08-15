@@ -49,6 +49,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
+import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
@@ -79,7 +80,7 @@ public class PCommands {
 	private static final S_SystemMessage DropHelp = new S_SystemMessage(
 			"-drop [all|mine|party] [on|off] toggles drop messages.");
 	private static final S_SystemMessage CommandsHelp = new S_SystemMessage(
-			"-rank, -warp 1-10, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions");
+			"-rank, -warp 1-10, -karma, -buff, -bug, -drop, -help, -dkbuff, -dmg, -potions, -report");
 	private static final S_SystemMessage CommandsHelpNoBuff = new S_SystemMessage(
 			"-rank, -warp 1-10, -karma, -bug, -drop, -help");
 	private static final S_SystemMessage NoBuff = new S_SystemMessage(
@@ -116,6 +117,7 @@ public class PCommands {
 			"Only Dark Elves can use -turn.");
 	private static final S_SystemMessage RankHelp = new S_SystemMessage(
 			"-rank <player> <Apprentice/Ordinary/Guardian Knight>");
+	private static final S_SystemMessage ReportHelp = new S_SystemMessage("-report <charname>");
 
 	private PCommands() {
 	}
@@ -164,6 +166,39 @@ public class PCommands {
 					rank(player, rank.trim(), playerName);
 				} catch(Exception rankEx) {
 					player.sendPackets(RankHelp);
+				}
+			} else if(cmd2.startsWith("report")) {
+				try {
+					String args[] = cmd2.split(" ");
+					String targetName = args[1];
+					
+					L1PcInstance target = L1World.getInstance().getPlayer(targetName);
+					
+					long lastReport = LogReporterTable.getLastSuspicion(player.getId());
+					
+					// if they've reported someone in the last x hours
+					long resetMillis = Config.REPORT_HOURS_RESET * 3600000;
+					if(lastReport > System.currentTimeMillis() - resetMillis) {
+						player.sendPackets(new S_SystemMessage("You can only report someone every "
+								+ Config.REPORT_HOURS_RESET + " hours!"));
+						return;
+					}
+					
+					if(target == null || target.isGm()) {
+						player.sendPackets(new S_SystemMessage("Cannot report " + targetName + " because they're offline!"));
+						return;
+					}
+					
+					if(target.getId() == player.getId()) {
+						player.sendPackets(new S_SystemMessage("You cannot report yourself!"));
+						return;
+					}
+					
+					target.enableLogPackets();
+					LogReporterTable.storeLogReport(player.getId(), player.getName(), target.getId(), target.getName());
+					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
+				} catch (Exception ex) {
+					player.sendPackets(ReportHelp);
 				}
 			}
 			_log.log(Level.FINE, player.getName() + " used " + cmd2);

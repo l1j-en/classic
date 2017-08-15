@@ -89,3 +89,23 @@ ALTER TABLE `ban_ip` ADD COLUMN `reason` varchar(255) NOT NULL DEFAULT '';
 ALTER TABLE `ban_ip` ADD COLUMN `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 INSERT INTO `commands` (name, access_level, class_name, help_text, run_on_login) VALUES('map', 200, 'L1MapInfo', 'Display or update the current tile.', 0);
+
+-- Add the log_report and log_packets tables
+CREATE TABLE `log_report` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `reporter_id` int(11) NOT NULL,
+  `reporter_name` varchar(255) NOT NULL,
+  `target_id` int(11) NOT NULL,
+  `target_name` varchar(255) NOT NULL,
+  `timestamp` BIGINT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `log_packets` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `target_id` int(11) NOT NULL,
+  `target_name` varchar(255) NOT NULL,
+  `target_poly` int(11) NOT NULL,
+  `opcode` int(5) NOT NULL,
+  `packet` varchar(255) NOT NULL,
+  `timestamp` BIGINT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
