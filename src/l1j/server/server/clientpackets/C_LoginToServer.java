@@ -352,9 +352,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 		
 		long lastReport = LogReporterTable.getLastSuspicion(pc.getId());
+		long lastReportEndTime = lastReport + (Config.REPORT_TIME_MINUTES * 60000);
 		
-		if(lastReport > 0 && lastReport > System.currentTimeMillis()) {
-			pc.enableLogPackets(lastReport);
+		if(lastReport > 0 && lastReportEndTime > System.currentTimeMillis()) {
+			pc.enableLogPackets(lastReportEndTime);
 		}
 	}
 
