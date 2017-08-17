@@ -94,7 +94,8 @@ INSERT INTO `commands` (name, access_level, class_name, help_text, run_on_login)
 CREATE TABLE `log_report` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `reporter_id` int(11) NOT NULL,
-  `reporter_name` varchar(255) NOT NULL,
+  `reporter_account` varchar(50) NOT NULL,
+  `reporter_ip` varchar(15) NOT NULL,
   `target_id` int(11) NOT NULL,
   `target_name` varchar(255) NOT NULL,
   `timestamp` BIGINT NOT NULL
@@ -106,6 +107,6 @@ CREATE TABLE `log_packets` (
   `target_name` varchar(255) NOT NULL,
   `target_poly` int(11) NOT NULL,
   `opcode` int(5) NOT NULL,
-  `packet` varchar(255) NOT NULL,
+  `packet` varchar(500) NOT NULL,
   `timestamp` BIGINT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

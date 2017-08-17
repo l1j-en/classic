@@ -174,7 +174,7 @@ public class PCommands {
 					
 					L1PcInstance target = L1World.getInstance().getPlayer(targetName);
 					
-					long lastReport = LogReporterTable.getLastSuspicion(player.getId());
+					long lastReport = LogReporterTable.getLastReport(player);
 					
 					// if they've reported someone in the last x hours
 					long resetMillis = Config.REPORT_HOURS_RESET * 3600000;
@@ -195,7 +195,8 @@ public class PCommands {
 					}
 					
 					target.enableLogPackets();
-					LogReporterTable.storeLogReport(player.getId(), player.getName(), target.getId(), target.getName());
+					LogReporterTable.storeLogReport(player.getId(), player.getAccountName(), 
+							player.getNetConnection().getIp(), target.getId(), target.getName());
 					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
 				} catch (Exception ex) {
 					player.sendPackets(ReportHelp);
