@@ -2226,7 +2226,7 @@ public class L1SkillUse {
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
 
-					_shockStunDuration = random.nextInt(3000) + 1000;
+					_shockStunDuration = 1000 + (random.nextInt(4) * 1000);
 					
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
