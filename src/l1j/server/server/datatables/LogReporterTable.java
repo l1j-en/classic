@@ -24,24 +24,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogReporterTable {
 	private static Logger _log = Logger.getLogger(LogReporterTable.class.getName());
 
-	public static void storeLogReport(int reporter_id, String reporter_name, int target_id, String target_name) {
+	public static void storeLogReport(int reporter_id, String reporter_account, String reporter_ip, 
+			int target_id, String target_name) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO log_report SET reporter_id=?, reporter_name=?, target_id=?, target_name=?, timestamp=?");
+					.prepareStatement("INSERT INTO log_report SET reporter_id=?, reporter_account=?, reporter_ip=?, target_id=?, target_name=?, timestamp=?");
 			pstm.setInt(1, reporter_id);
-			pstm.setString(2, reporter_name);
-			pstm.setInt(3, target_id);
-			pstm.setString(4, target_name);
-			pstm.setLong(5, System.currentTimeMillis());
+			pstm.setString(2, reporter_account);
+			pstm.setString(3, reporter_ip);
+			pstm.setInt(4, target_id);
+			pstm.setString(5, target_name);
+			pstm.setLong(6, System.currentTimeMillis());
 			pstm.execute();
 
 		} catch (Exception e) {
@@ -80,7 +83,7 @@ public class LogReporterTable {
 		}
 	}
 	
-	public static long getLastReport(int objid) {
+	public static long getLastReport(L1PcInstance player) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -88,8 +91,9 @@ public class LogReporterTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("SELECT * FROM log_report WHERE reporter_id=? ORDER BY id DESC");
-			pstm.setInt(1, objid);
+					.prepareStatement("SELECT * FROM log_report WHERE reporter_account=? OR reporter_ip = ? ORDER BY id DESC");
+			pstm.setString(1, player.getAccountName());
+			pstm.setString(2, player.getNetConnection().getIp());
 			
 			rs = pstm.executeQuery();
 			if (!rs.next()) {
