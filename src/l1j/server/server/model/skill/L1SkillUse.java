@@ -2225,8 +2225,18 @@ public class L1SkillUse {
 
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
-
-					_shockStunDuration = 1000 + (random.nextInt(4) * 1000);
+					
+					int durationCalculator = random.nextInt(400);
+					
+					if(durationCalculator >= 335) {
+						_shockStunDuration = 4000; // 16% chance for 4 second
+					} else if(durationCalculator >= 210) {
+						_shockStunDuration = 3000; // 32% chance for 3 second
+					} else if(durationCalculator >= 80) {
+						_shockStunDuration = 2000; // 31% chance for 2 second
+					} else {
+						_shockStunDuration = 1000; // 20% chance for 1 second
+					}
 					
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
