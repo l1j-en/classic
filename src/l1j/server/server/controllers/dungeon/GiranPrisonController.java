@@ -17,6 +17,7 @@ public class GiranPrisonController implements TimedDungeonInstance {
 	private static ConcurrentHashMap<String, Long> _users = new ConcurrentHashMap<String, Long>();
 	private static long _3Hours = 10800 * 1000;
 	private static ArrayList<Short> _prisonMaps = new ArrayList<Short>(Arrays.asList(new Short[] { 53, 54, 55, 56 }));
+	private long _lastRun = 0;
 	
 	public static GiranPrisonController getInstance() {
 		if (_instance == null) {
@@ -33,14 +34,18 @@ public class GiranPrisonController implements TimedDungeonInstance {
 	@Override
 	public void run() {		
 		for (Map.Entry<String, Long> entry : _users.entrySet()) {
+			Long timeDiff = System.currentTimeMillis() - this._lastRun;
+			
 	        String user = entry.getKey();
-	        Long expiration = entry.getValue();
-	        
 	        L1PcInstance player = L1World.getInstance().getPlayer(user);
 
-	        if(player != null && _prisonMaps.contains(player.getMapId())
-	        		&& expiration <= System.currentTimeMillis()) {
-	        	L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
+	        if(player != null && _prisonMaps.contains(player.getMapId())) {
+	        	Long expiration = entry.getValue() - timeDiff;
+		        _users.put(user, expiration);
+		        
+	        	if(expiration <= 0) {
+	        		L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
+	        	}
 	        }
 	    }
 		
@@ -56,6 +61,8 @@ public class GiranPrisonController implements TimedDungeonInstance {
         		L1Teleport.teleport(playerCheck, 33426, 32823, (short) 4, 5, true);
         	}
         }
+        
+        this._lastRun = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -70,7 +77,7 @@ public class GiranPrisonController implements TimedDungeonInstance {
         	}
         	
         	if(_prisonMaps.contains(playerCheck.getMapId())) {
-        		_users.put(playerCheck.getName(), System.currentTimeMillis() + _3Hours);
+        		_users.put(playerCheck.getName(), _3Hours);
         	}
         }
 	}
@@ -80,10 +87,10 @@ public class GiranPrisonController implements TimedDungeonInstance {
 		String player = playerInstance.getName();
 		
 		if(!_users.keySet().contains(player)) {
-			_users.put(player, System.currentTimeMillis() + _3Hours);
+			_users.put(player, _3Hours);
 		}
 
-		Long timeLeft = _users.get(player) - System.currentTimeMillis();
+		Long timeLeft = _users.get(player);
 		
 		if(timeLeft <= 0) {
 			playerInstance.sendPackets(new S_ServerMessage(1522, "3"));
