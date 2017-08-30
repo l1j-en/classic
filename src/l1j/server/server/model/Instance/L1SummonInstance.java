@@ -281,6 +281,10 @@ public class L1SummonInstance extends L1NpcInstance {
 	public synchronized void returnToNature() {
 		_isReturnToNature = true;
 		if (!_tamed) {
+			setDead(true);
+			setCurrentHp(0);
+			setStatus(ActionCodes.ACTION_Die);
+			
 			getMap().setPassable(getLocation(), true);
 			L1Inventory targetInventory = _master.getInventory();
 			List<L1ItemInstance> items = _inventory.getItems();
