@@ -183,9 +183,20 @@ public class ClientThread implements Runnable, PacketOutput {
 	@Override
 	public void run() {
 		nameThread("ClientThread");
-		_log.info("(" + _hostname + ") Login detected. "
-				+ " Current memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM CurrentThreads="
-				+ GeneralThreadPool.getInstance().getCurrentThreadCount());
+		
+		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, " + 
+				"Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, " + 
+				"WarList Array Size: %d, Clans Array Size: %d",
+				_hostname,
+				SystemUtil.getUsedMemoryMB(),
+				GeneralThreadPool.getInstance().getCurrentThreadCount(),
+				L1World.getInstance().getAllPlayers().size(),
+				L1World.getInstance().getAllPets().size(),
+				L1World.getInstance().getAllSummons().size(),
+				L1World.getInstance().getAllVisibleObjects().size(), //poorly named.. it actually gets all the _allobjects object
+				L1World.getInstance().getWarList().size(),
+				L1World.getInstance().getAllClans().size()));
+		
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
 		HcPacket movePacket = new HcPacket(M_CAPACITY);
