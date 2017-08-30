@@ -23,6 +23,7 @@ import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1NpcTalkData;
 import l1j.server.server.model.L1Object;
+import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1UltimateBattle;
 import l1j.server.server.model.L1World;
@@ -421,9 +422,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setStatus(ActionCodes.ACTION_Die);
 			
 			if(getServantMaster() instanceof L1NpcInstance) {
-				((L1NpcInstance)getServantMaster()).removeServantSummon();
+				L1Spawn masterSpawn = ((L1NpcInstance)getServantMaster()).getSpawn();
+				
+				// if it is something a GM has spawned or a boss, then allow respawning of servants	
+				if(masterSpawn == null || masterSpawn instanceof L1BossSpawn) {
+					((L1NpcInstance)getServantMaster()).removeServantSummon();
+				}
 			}
-
+			
 			getMap().setPassable(getLocation(), true);
 
 			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
