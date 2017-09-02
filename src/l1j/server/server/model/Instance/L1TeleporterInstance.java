@@ -23,6 +23,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.controllers.dungeon.GiranPrisonController;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1NpcTalkData;
@@ -559,6 +560,8 @@ public class L1TeleporterInstance extends L1NpcInstance {
 							true);
 					TeleportDelyTimer timer = new TeleportDelyTimer();
 					GeneralThreadPool.getInstance().execute(timer);
+				} else if(action.equalsIgnoreCase("teleport giranD")) {
+					GiranPrisonController.getInstance().enter(player);
 				}
 			} catch (Exception e) {
 			}
