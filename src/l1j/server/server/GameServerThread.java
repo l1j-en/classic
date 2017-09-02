@@ -24,6 +24,7 @@ import l1j.server.Config;
 import l1j.server.server.controllers.AuctionTimeController;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.FishingTimeController;
+import l1j.server.server.controllers.dungeon.GiranPrisonController;
 import l1j.server.server.controllers.HomeTownTimeController;
 import l1j.server.server.controllers.HouseTaxTimeController;
 import l1j.server.server.controllers.JailController;
@@ -31,6 +32,7 @@ import l1j.server.server.controllers.LightTimeController;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.controllers.NpcChatTimeController;
 import l1j.server.server.controllers.RankingsController;
+import l1j.server.server.controllers.TimedDungeonController;
 import l1j.server.server.controllers.UbTimeController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.AccessLevelTable;
@@ -239,6 +241,10 @@ public class GameServerThread {
 		GeneralThreadPool.getInstance().execute(jailController);
 
 		CrackOfTimeController.getStart();
+		
+		// register all dungeons with a time limit
+		TimedDungeonController dungeonController = TimedDungeonController.getInstance();
+		dungeonController.registerDungeon(GiranPrisonController.getInstance());
 
 		// AnnounceMents
 		Announcements.getInstance();
