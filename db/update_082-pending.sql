@@ -7,6 +7,9 @@ DELETE FROM `npc` WHERE `npcid` >= 91401 AND `npcid` <= 91429;
 -- remove the scroll from melissa if it exists
 DELETE FROM `shop` WHERE `item_id` = 40827 AND `npc_id` = 70052;
 
+-- delete the dungeon exit points
+DELETE FROM `dungeon` WHERE `src_mapid` = 53 AND `new_mapid` = 4;
+
 -- add skills
 INSERT INTO `skills` (`id`,`name`,`skill_level`,`skill_number`,`mpConsume`,`hpConsume`,`itemConsumeId`,`itemConsumeCount`,`reuseDelay`,`buffDuration`,`target`,`target_to`,`damage_value`,`damage_dice`,`damage_dice_count`,`probability_value`,`probability_dice`,`attr`,`type`,`lawful`,`ranged`,`area`,`through`,`skill_id`,`nameid`,`action_id`,`castgfx`,`castgfx2`,`sysmsgID_happen`,`sysmsgID_stop`,`sysmsgID_fail`,`impl`)
 VALUES ('91420','Faust (Ranged)','0','0','50','0','0','0','5000','0','attack','3','50','5','5','0','0','1','64','0','4','4','0','0','','18','5010','0','0','0','0',NULL);
