@@ -560,7 +560,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 							true);
 					TeleportDelyTimer timer = new TeleportDelyTimer();
 					GeneralThreadPool.getInstance().execute(timer);
-				} else if(action.equalsIgnoreCase("teleport giranD")) {
+				} else if(action.equalsIgnoreCase("teleport giranD") || action.equalsIgnoreCase("teleport giranc-girandun")) {
 					GiranPrisonController.getInstance().enter(player);
 				}
 			} catch (Exception e) {
