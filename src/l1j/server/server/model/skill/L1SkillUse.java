@@ -2069,7 +2069,11 @@ public class L1SkillUse {
 							break;
 						}
 					}
-					if (!gfxcheck) {
+					
+					// check the animation and ensure the weapon is a bow or crossbow
+					int weaponType = _player.getWeapon().getItem().getType();
+					if (!gfxcheck || (weaponType != 4 && weaponType != 13)) {
+
 						return;
 					}
 
