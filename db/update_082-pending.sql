@@ -124,3 +124,7 @@ INSERT INTO `droplist` VALUES (91422,'Starved Inmate',40308,'adena',80,200,60000
 INSERT INTO `droplist` VALUES (91423,'Starved Warden',40308,'adena',80,200,600000);
 INSERT INTO `droplist` VALUES (91424,'Starved Warden',40308,'adena',80,200,600000);
 
+
+-- fix Great Spirit of Wind spawns on DI to match other elements (3 of each on CASPA timer)
+INSERT INTO `spawnlist_boss` (`id`, `location`, `cycle_type`, `count`, `npc_id`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `spawn_type`, `percentage`) VALUES (NULL, 'Great Spirit of Wind', 'Caspa', '1', '45644', '0', '32624', '32807', '0', '0', '32588', '32739', '32660', '32876', '4', '303', '1', '0', '0', '0', '100');
+INSERT INTO `spawnlist_boss` (`id`, `location`, `cycle_type`, `count`, `npc_id`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `spawn_type`, `percentage`) VALUES (NULL, 'Great Spirit of Wind', 'Caspa', '1', '45644', '0', '32624', '32807', '0', '0', '32588', '32739', '32660', '32876', '4', '303', '1', '0', '0', '0', '100');
