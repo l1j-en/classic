@@ -292,9 +292,10 @@
 		<Item ItemId="20210" Count="1" Chance="3" />
 	</TreasureBox>
 	<!-- Golden Pumpkin -->
+	<!-- Update 40043 to count 1 from 10 -->
 	<TreasureBox Type="RANDOM" ItemId="40722">
 		<Item ItemId="40524" Count="10" Chance="13" />
-		<Item ItemId="40043" Count="10" Chance="15" />
+		<Item ItemId="40043" Count="1" Chance="15" />
 		<Item ItemId="40068" Count="30" Chance="15" />
 		<Item ItemId="40039" Count="10" Chance="5" />
 		<Item ItemId="40040" Count="10" Chance="5" />
