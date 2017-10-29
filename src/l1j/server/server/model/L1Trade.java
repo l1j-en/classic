@@ -19,6 +19,8 @@
 package l1j.server.server.model;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.log.LogTradeAddItem;
 import l1j.server.server.log.LogTradeComplete;
@@ -32,6 +34,7 @@ import l1j.server.server.serverpackets.S_TradeStatus;
 
 public class L1Trade {
 	private static L1Trade _instance;
+	private static Logger _log = Logger.getLogger(L1Trade.class.getName());
 
 	public L1Trade() {
 	}
@@ -79,7 +82,8 @@ public class L1Trade {
 		int cnt;
 		L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance()
 				.findObject(player.getTradeID());
-		if (trading_partner != null) {
+
+		if (trading_partner != null && player != null) {
 			List<L1ItemInstance> player_tradelist = player.getTradeWindowInventory().getItems();
 			int player_tradecount = player.getTradeWindowInventory().getSize();
 
@@ -92,29 +96,49 @@ public class L1Trade {
 				L1ItemInstance l1iteminstance1 = player_tradelist.get(0);
 				int itembeforeinven = player.getInventory().countItems(
 						l1iteminstance1.getItem().getItemId());
-				player.getTradeWindowInventory().tradeItem(l1iteminstance1,
+				L1ItemInstance transfer_item = player.getTradeWindowInventory().tradeItem(l1iteminstance1,
 						l1iteminstance1.getCount(),
 						trading_partner.getInventory());
-				int itemafter = player.getInventory().countItems(
-						l1iteminstance1.getItem().getItemId());
-				LogTradeComplete ltc = new LogTradeComplete();
-				ltc.storeLogTradeComplete(player, trading_partner,
-						l1iteminstance1, player_tradecount, itembeforeinven,
-						itemafter, player_tradecount);
+				
+				if(transfer_item == null) {
+					_log.log(Level.WARNING, String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
+							player.getName(),
+							trading_partner.getName(),
+							l1iteminstance1.getName(), 
+							l1iteminstance1.getCount()));
+				} else {
+					int itemafter = player.getInventory().countItems(
+							l1iteminstance1.getItem().getItemId());
+					LogTradeComplete ltc = new LogTradeComplete();
+					ltc.storeLogTradeComplete(player, trading_partner,
+							l1iteminstance1, player_tradecount, itembeforeinven,
+							itemafter, player_tradecount);
+				}
 			}
+			
 			for (cnt = 0; cnt < trading_partner_tradecount; cnt++) {
 				L1ItemInstance l1iteminstance2 = trading_partner_tradelist.get(0);
 				int itembeforeinven = player.getInventory().countItems(
 						l1iteminstance2.getItem().getItemId());
-				trading_partner.getTradeWindowInventory().tradeItem(
+				L1ItemInstance transfer_item = trading_partner.getTradeWindowInventory().tradeItem(
 						l1iteminstance2, l1iteminstance2.getCount(),
 						player.getInventory());
-				int itemafter = player.getInventory().countItems(
-						l1iteminstance2.getItem().getItemId());
-				LogTradeComplete ltc = new LogTradeComplete();
-				ltc.storeLogTradeComplete(trading_partner, player,
-						l1iteminstance2, trading_partner_tradecount,
-						itembeforeinven, itemafter, trading_partner_tradecount);
+				
+				
+				if(transfer_item == null) {
+					_log.log(Level.WARNING, String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
+							trading_partner.getName(),
+							player.getName(),
+							l1iteminstance2.getName(), 
+							l1iteminstance2.getCount()));
+				} else {
+					int itemafter = player.getInventory().countItems(
+							l1iteminstance2.getItem().getItemId());
+					LogTradeComplete ltc = new LogTradeComplete();
+					ltc.storeLogTradeComplete(trading_partner, player,
+							l1iteminstance2, trading_partner_tradecount,
+							itembeforeinven, itemafter, trading_partner_tradecount);
+				}
 			}
 
 			player.sendPackets(new S_TradeStatus(0));
