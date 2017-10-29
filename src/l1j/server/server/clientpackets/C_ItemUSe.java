@@ -2674,15 +2674,19 @@ public class C_ItemUSe extends ClientBasePacket {
 			L1Item template = l1iteminstance.getItem();
 			if (!validClass(pc, template))
 				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
-			else if (l1iteminstance.isEquipped() || validLevel(pc, template))
-				useWeapon(pc, l1iteminstance);
+			else if (l1iteminstance.isEquipped() || validLevel(pc, template)) {
+				if(pc.canSwitchWeapon()) {
+					useWeapon(pc, l1iteminstance);
+				} else {
+					pc.sendPackets(new S_SystemMessage("You cannot switch weapons again. Try again in a few seconds"));
+				}
+			}
 		} else if (l1iteminstance.getItem().getType2() == 2) {
 			L1Item template = l1iteminstance.getItem();
 			if (!validClass(pc, template))
 				pc.sendPackets(new S_ServerMessage(264)); // Your class can't use this item.
 			else if (l1iteminstance.isEquipped() || validLevel(pc, template))
 				useArmor(pc, l1iteminstance);
-
 		}
 
 
