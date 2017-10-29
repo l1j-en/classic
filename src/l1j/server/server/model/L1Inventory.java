@@ -24,6 +24,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.FurnitureSpawnTable;
@@ -46,6 +48,8 @@ public class L1Inventory extends L1Object {
 	public static final int AMOUNT_OVER = 3;
 	public static final int WAREHOUSE_TYPE_PERSONAL = 0;
 	public static final int WAREHOUSE_TYPE_CLAN = 1;
+	
+	private static Logger _log = Logger.getLogger(L1Inventory.class.getName());
 
 	public L1Inventory() {
 	}
@@ -316,7 +320,9 @@ public class L1Inventory extends L1Object {
 			return null;
 		}
 		L1ItemInstance carryItem;
-		if (item.getCount() <= count) {
+		int beforeCount = item.getCount();
+		
+		if (item.getCount() <= count) {			
 			deleteItem(item);
 			carryItem = item;
 		} else {
@@ -333,6 +339,14 @@ public class L1Inventory extends L1Object {
 			carryItem.setLastUsed(item.getLastUsed());
 			carryItem.setBless(item.getBless());
 		}
+		
+		int itemIndex = _items.indexOf(item);
+		if(itemIndex > -1 && _items.get(itemIndex).getCount() == beforeCount) {
+			_log.log(Level.WARNING, String.format("A player tried to transfer %s (%d) before it was removed from their inventory!",
+					item.getName(), count));
+			return null;
+		}
+		
 		return inventory.storeTradeItem(carryItem);
 	}
 
