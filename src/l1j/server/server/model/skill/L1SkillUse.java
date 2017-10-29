@@ -2441,12 +2441,28 @@ public class L1SkillUse {
 				} else if (_skillId == HORROR_OF_DEATH) {
 					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 				} else if (_skillId == THUNDER_GRAB) {
-
+					
+					boolean hitsTarget = _magic.calcProbabilityMagic(_skillId);
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
 
-					int time = random.nextInt(3000) + 1000;
-
+					if(hitsTarget) {
+						int durationCalculator = random.nextInt(400);
+						int time = 0;
+						
+						if(durationCalculator >= 335) {
+							time = 4000; // 16% chance for 4 second
+						} else if(durationCalculator >= 210) {
+							time = 3000; // 32% chance for 3 second
+						} else if(durationCalculator >= 80) {
+							time = 2000; // 31% chance for 2 second
+						} else {
+							time = 1000; // 20% chance for 1 second
+						}
+						
+						L1EffectSpawn.getInstance().spawnEffect(81182, time,
+								cha.getX(), cha.getY(), cha.getMapId());
+						
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance targetPc = (L1PcInstance) cha;
 							targetPc.setSkillEffect(STATUS_FREEZE, time);
@@ -2465,6 +2481,7 @@ public class L1SkillUse {
 									4184));
 							npc.setParalyzed(true);
 						}
+					}
 					
 				} else if (_skillId == BONE_BREAK) {
 					RandomGenerator random = RandomGeneratorFactory
