@@ -561,6 +561,8 @@ public final class Config {
 	public static int RANKING_OVERALL_TOP;
 	public static int RANKING_CLASS_TOP;
 	
+	public static boolean LIMIT_WEAPON_SWITCHING;
+	
 	public static int MAX_SERVANT_SUMMONS;
 
 	/** Security Settings **/
@@ -900,6 +902,8 @@ public final class Config {
 					"RankingOverallTop", "25"));
 			RANKING_CLASS_TOP = Integer.parseInt(altSettings.getProperty(
 					"RankingClassTop", "10"));
+			
+			LIMIT_WEAPON_SWITCHING = Boolean.parseBoolean(altSettings.getProperty("LimitWeaponSwitching", "False"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
 			if (strWar.indexOf("d") >= 0) {

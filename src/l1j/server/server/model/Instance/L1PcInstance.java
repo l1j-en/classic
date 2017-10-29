@@ -143,6 +143,27 @@ public class L1PcInstance extends L1Character {
 	private String spoofName = null;
 	private L1NpcInstance spoofMob = null;
 	private long _logPackets = -1;
+	private long _lastWeaponSwitch = -1;
+	private int _weaponSwitchCount = 0;
+	
+	public boolean canSwitchWeapon() {
+		if(!Config.LIMIT_WEAPON_SWITCHING) {
+			return true;
+		}
+		
+		if(System.currentTimeMillis() - this._lastWeaponSwitch >= 3000) {
+			this._weaponSwitchCount = 0;
+		} 
+		
+		this._weaponSwitchCount++;
+
+		if(this._weaponSwitchCount > 4) {
+			return false;
+		}
+		
+		this._lastWeaponSwitch = System.currentTimeMillis();
+		return true;
+	}
 	
 	public void enableLogPackets() {
 		this._logPackets = System.currentTimeMillis() + (Config.REPORT_TIME_MINUTES * 60000);
