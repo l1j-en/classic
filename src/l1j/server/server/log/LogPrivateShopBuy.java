@@ -20,29 +20,38 @@ package l1j.server.server.log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.mysql.jdbc.Statement;
+
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogPrivateShopBuy {
 	private static Logger _log = Logger.getLogger(LogPrivateShopBuy.class
 			.getName());
 
-	public void storeLogPrivateShopBuy(L1PcInstance pc, L1PcInstance target,
-			L1ItemInstance item, int itembefore, int itemafter, int buycount) {
+	public long storeLogPrivateShopBuy(String transactionId, L1PcInstance pc, L1PcInstance target,
+			L1ItemInstance item, int itembefore, int buycount) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+		long generatedKey = -1;
+		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogPrivateShopBuy VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+					.prepareStatement("INSERT INTO LogPrivateShopBuy (Time, Ip, Account, CharId, CharName, TargetIp, TargetAccount, TargetCharId, " + 
+							"TargetCharName, ObjectId, ItemName, EnchantLevel, ItemCount, ItemBefore, BuyCount, Transaction_Id) " + 
+							"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", 
+							Statement.RETURN_GENERATED_KEYS);
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");
@@ -59,15 +68,50 @@ public class LogPrivateShopBuy {
 			pstm.setInt(10, item.getId());
 			pstm.setString(11, item.getItem().getName());
 			pstm.setInt(12, item.getEnchantLevel());
-			pstm.setInt(13, item.getCount());
+			pstm.setInt(13, item.getItemId() == L1ItemId.ADENA ? -1 : item.getCount()); // if we are logging the adena, just put -1
 			pstm.setInt(14, itembefore);
-			pstm.setInt(15, itemafter);
-			int itemdiff = itembefore - itemafter;
+			pstm.setInt(15, buycount);
+			pstm.setString(16, transactionId);
+			pstm.execute();
+			
+			ResultSet generatedKeys = pstm.getGeneratedKeys();
+			generatedKeys.next();
+			
+			generatedKey = generatedKeys.getLong(1);
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		
+		if(generatedKey == -1) {
+			_log.warning(String.format("Failed to insert log for private shop buy! TransactionId: %s Buyer: %s, Shop: %s, " + 
+					"Item: %s, ItemId: %d, EnchantLevel: %d, Count: %d",
+					transactionId, pc.getName(), target.getName(), item.getName(), item.getId(), item.getEnchantLevel(), buycount));
+		}
+		
+		return generatedKey;
+	}
+	
+	public void completeTransaction(long id, int item_before_count, int item_after_count) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con
+					.prepareStatement("UPDATE LogPrivateShopBuy SET `Completed` = '1', `ItemAfter` = ?, `ItemDiff` = ? WHERE Id = ?");	
+			
+			pstm.setInt(1, item_after_count);
+			int itemdiff = item_before_count - item_after_count;
 			if (itemdiff < 0) {
 				itemdiff = -itemdiff;
 			}
-			pstm.setInt(16, itemdiff);
-			pstm.setInt(17, buycount);
+			
+			pstm.setInt(2, itemdiff);
+			pstm.setLong(3, id);
+			
 			pstm.execute();
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
