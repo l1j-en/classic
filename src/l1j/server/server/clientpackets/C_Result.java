@@ -19,6 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -493,7 +494,7 @@ public class C_Result extends ClientBasePacket {
 					break;
 				}
 			}
-		} else if (resultType == 0 && size != 0 && isPrivateShop) {
+		} else if (resultType == 0 && size != 0 && isPrivateShop) { //private shop is selling an item
 			int order;
 			int count;
 			int price;
@@ -520,6 +521,7 @@ public class C_Result extends ClientBasePacket {
 					return;
 				}
 				targetPc.setTradingInPrivateShop(true);
+				String transactionId = UUID.randomUUID().toString();
 
 				for (int i = 0; i < size; i++) {
 					order = readD();
@@ -556,25 +558,45 @@ public class C_Result extends ClientBasePacket {
 						if (pc.getInventory().checkItem(L1ItemId.ADENA, price)) {
 							L1ItemInstance adena = pc.getInventory()
 									.findItemId(L1ItemId.ADENA);
-							if (targetPc != null && adena != null) {
+							if (pc != null && targetPc != null && adena != null) {
+								// log that trade has started
+								LogPrivateShopBuy lpsb = new LogPrivateShopBuy();
+								long itemTransactionId = lpsb.storeLogPrivateShopBuy(transactionId, pc, targetPc,
+										item, item_count_before, count);
+								
 								if (targetPc.getInventory().tradeItem(item,
 										count, pc.getInventory()) == null) {
 									targetPc.setTradingInPrivateShop(false);
 									return;
 								}
+								
 								L1ItemInstance tpitem = targetPc.getInventory()
 										.getItem(itemObjectId);
 								if (tpitem != null) {
 									item_count_after = tpitem.getCount();
 								}
-								if (pc != null && targetPc != null) {
-									LogPrivateShopBuy lpsb = new LogPrivateShopBuy();
-									lpsb.storeLogPrivateShopBuy(pc, targetPc,
-											item, item_count_before,
-											item_count_after, count);
-								}
+								
+								// update trade to say it was completed
+								lpsb.completeTransaction(itemTransactionId, item_count_before, item_count_after);
+								
+								int adena_before = adena.getCount();
+								// log the start of the trade of the adena
+								long adenaTransactionId = lpsb.storeLogPrivateShopBuy(transactionId, targetPc, pc,
+										adena, adena_before, price);
+								
 								pc.getInventory().tradeItem(adena, price,
 										targetPc.getInventory());
+								
+								int adena_after = 0;
+								
+								L1ItemInstance adenaItem = pc.getInventory().findItemId(L1ItemId.ADENA);
+								if(adenaItem != null) {
+									adena_after = adenaItem.getCount();
+								}
+								
+								// update trade to say it was completed
+								lpsb.completeTransaction(adenaTransactionId, adena_before, adena_after);
+								
 								String message = item.getItem().getName()
 										+ " (" + String.valueOf(count) + ")";
 								targetPc.sendPackets(new S_ServerMessage(877,
@@ -602,7 +624,7 @@ public class C_Result extends ClientBasePacket {
 				}
 				targetPc.setTradingInPrivateShop(false);
 			}
-		} else if (resultType == 1 && size != 0 && isPrivateShop) {
+		} else if (resultType == 1 && size != 0 && isPrivateShop) { // private shop buying an item
 			int count;
 			int order;
 			List<L1PrivateShopBuyList> buyList;
@@ -627,7 +649,8 @@ public class C_Result extends ClientBasePacket {
 			}
 			targetPc.setTradingInPrivateShop(true);
 			buyList = targetPc.getBuyList();
-
+			String transactionId = UUID.randomUUID().toString();
+			
 			for (int i = 0; i < size; i++) {
 				itemObjectId = readD();
 				count = readCH();
@@ -697,26 +720,47 @@ public class C_Result extends ClientBasePacket {
 							count * buyPrice)) {
 						L1ItemInstance adena = targetPc.getInventory()
 								.findItemId(L1ItemId.ADENA);
-						if (targetPc != null && adena != null) {
+						if (pc != null && targetPc != null && adena != null) {
+							
+							// log that trade has started
+							LogPrivateShopSell lpss = new LogPrivateShopSell();
+							long itemTransactionId = lpss.storeLogPrivateShopSell(transactionId, pc, targetPc,
+									item, item_count_before, count);
+							
 							if (pc.getInventory().tradeItem(item, count,
 									targetPc.getInventory()) == null) {
 								targetPc.setTradingInPrivateShop(false);
 								return;
 							}
-							targetPc.getInventory().tradeItem(adena,
-									count * buyPrice, pc.getInventory());
 							
 							L1ItemInstance pcitem = pc.getInventory().getItem(
 									itemObjectId);
 							if (pcitem != null) {
 								item_count_after = pcitem.getCount();
 							}
-							if (pc != null && targetPc != null) {
-								LogPrivateShopSell lpss = new LogPrivateShopSell();
-								lpss.storeLogPrivateShopSell(pc, targetPc,
-										item, item_count_before,
-										item_count_after, count);
+
+							// update trade to say it was completed
+							lpss.completeTransaction(itemTransactionId, item_count_before, item_count_after);
+							
+							int adena_before = adena.getCount();
+							// log the start of the trade of the adena
+							long adenaTransactionId = lpss.storeLogPrivateShopSell(transactionId, targetPc, pc,
+									adena, adena_before, count);
+							
+							// log that the adena trade has started
+							targetPc.getInventory().tradeItem(adena,
+									count * buyPrice, pc.getInventory());
+							
+							int adena_after = 0;
+							
+							L1ItemInstance adenaItem = targetPc.getInventory().findItemId(L1ItemId.ADENA);
+							if(adenaItem != null) {
+								adena_after = adenaItem.getCount();
 							}
+							
+							// update trade to say it was completed
+							lpss.completeTransaction(adenaTransactionId, adena_before, adena_after);
+							
 							psbl.setBuyCount(count + buyCount);
 							buyList.set(order, psbl);
 							if (psbl.getBuyCount() == psbl.getBuyTotalCount()) {
