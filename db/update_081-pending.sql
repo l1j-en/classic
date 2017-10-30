@@ -110,3 +110,10 @@ CREATE TABLE `log_packets` (
   `packet` varchar(500) NOT NULL,
   `timestamp` BIGINT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `LogPrivateShopSell` ADD COLUMN `Id` INT(10) AUTO_INCREMENT PRIMARY KEY FIRST;
+ALTER TABLE `LogPrivateShopSell` ADD COLUMN `Transaction_Id` varchar(40) NOT NULL AFTER `Id`;
+ALTER TABLE `LogPrivateShopSell` ADD COLUMN `Completed` bool default 0;
+ALTER TABLE `LogPrivateShopBuy` ADD COLUMN `Id` INT(10) AUTO_INCREMENT PRIMARY KEY FIRST;
+ALTER TABLE `LogPrivateShopBuy` ADD COLUMN `Transaction_Id` varchar(40) NOT NULL AFTER `Id`;
+ALTER TABLE `LogPrivateShopBuy` ADD COLUMN `Completed` bool default 0;
