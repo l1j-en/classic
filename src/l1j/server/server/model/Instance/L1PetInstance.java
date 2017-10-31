@@ -289,6 +289,7 @@ public class L1PetInstance extends L1NpcInstance {
 		setCurrentMpDirect(getMaxMp());
 		setExp(0);
 		setExpPercent(0);
+		collect(true);
 		getInventory().clearItems();
 		PetTable.getInstance().deletePet(_itemObjId);
 		l1pet.set_itemobjid(new_itemobjid);

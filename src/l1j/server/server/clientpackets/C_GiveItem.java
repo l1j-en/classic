@@ -207,7 +207,7 @@ public class C_GiveItem extends ClientBasePacket {
 
 				return;
 			} else {
-				evolvePet(pc, target);
+				evolvePet(pc, target, 40070);
 			}
 		}
 		if (item.getItemId() == 41310 && petType.canEvolve()) { // added for
@@ -229,7 +229,7 @@ public class C_GiveItem extends ClientBasePacket {
 
 				return;
 			} else {
-				evolvePet(pc, target);
+				evolvePet(pc, target, 41310);
 			}
 		}
 	}
@@ -287,7 +287,7 @@ public class C_GiveItem extends ClientBasePacket {
 		}
 	}
 
-	private void evolvePet(L1PcInstance pc, L1NpcInstance target) {
+	private void evolvePet(L1PcInstance pc, L1NpcInstance target, int evolveItemId) {
 		if (!(target instanceof L1PetInstance)) {
 			return;
 		}
@@ -297,6 +297,14 @@ public class C_GiveItem extends ClientBasePacket {
 		if (pet.getLevel() >= 30 && pc == pet.getMaster() && petamu != null) {
 			L1ItemInstance highpetamu = inv.storeItem(40316, 1);
 			if (highpetamu != null) {
+				
+				L1ItemInstance evolveItem = pet.getInventory().findItemId(evolveItemId);
+				if(evolveItem == null) {
+					return;
+				}
+				
+				pet.getInventory().removeItem(evolveItem);
+				
 				pet.evolvePet(highpetamu.getId());
 				pc.sendPackets(new S_ItemName(highpetamu));
 				inv.removeItem(petamu, 1);
