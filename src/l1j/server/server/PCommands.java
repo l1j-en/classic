@@ -85,6 +85,8 @@ public class PCommands {
 			"-rank, -warp 1-10, -karma, -bug, -drop, -help");
 	private static final S_SystemMessage NoBuff = new S_SystemMessage(
 			"The -buff command is disabled.");
+	private static final S_SystemMessage CannotBuff = new S_SystemMessage(
+			"You cannot use -buff in your current state.");
 	private static final S_SystemMessage BuffLevel = new S_SystemMessage(
 			"You must be level 45 to use -buff.");
 	private static final S_SystemMessage NoWarpArea = new S_SystemMessage(
@@ -218,6 +220,16 @@ public class PCommands {
 			player.sendPackets(NoBuff);
 			return;
 		}
+		
+		if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN)
+				|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
+				|| player.hasSkillEffect(CONFUSION) 
+				|| player.isParalyzed() || player.isPinkName()
+				|| player.isSleeped() || player.isDead()
+				|| player.getMapId() == 99) {
+			player.sendPackets(CannotBuff);
+			return;
+		}
 
 		int level = player.getLevel();
 		if (level < 45) {
@@ -317,7 +329,9 @@ public class PCommands {
 			return;
 		}
 
-		if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND)
+		if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN)
+				|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
+				|| player.hasSkillEffect(CONFUSION) 
 				|| player.isParalyzed() || player.isPinkName()
 				|| player.isSleeped() || player.isDead()
 				|| player.getMapId() == 99) {
@@ -329,6 +343,17 @@ public class PCommands {
 			int i = Integer.parseInt(cmd2.substring(5));
 			if (i >= 1 && i <= 10) {
 				Thread.sleep(3000);
+				
+				if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN)
+						|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
+						|| player.hasSkillEffect(CONFUSION) 
+						|| player.isParalyzed() || player.isPinkName()
+						|| player.isSleeped() || player.isDead()
+						|| player.getMapId() == 99) {
+					player.sendPackets(NoWarpState);
+					return;
+				}
+				
 				switch (i) {
 				case 1: // Pandora
 					L1Teleport.teleport(player, 32644, 32955, (short) 0, 5,
