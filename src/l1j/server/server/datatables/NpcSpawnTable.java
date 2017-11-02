@@ -81,7 +81,7 @@ public class NpcSpawnTable {
 						continue;
 					}
 				}
-				if (Config.ALT_HALLOWEENIVENT == false) {
+				if (Config.ALT_HALLOWEENEVENTNPC == false) {
 					int npcid = rs.getInt("id");
 					if (npcid >= 130852 && npcid <= 130862 || npcid >= 26656
 							&& npcid <= 26734) {

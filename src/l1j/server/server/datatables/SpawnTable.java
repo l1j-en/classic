@@ -71,7 +71,7 @@ public class SpawnTable {
 			L1Spawn spawnDat;
 			L1Npc template1;
 			while (rs.next()) {
-				if (Config.ALT_HALLOWEENIVENT == false) {
+				if (Config.ALT_HALLOWEENEVENT == false) {
 					int npcid = rs.getInt("id");
 					if (npcid >= 26656 && npcid <= 26734) {
 						continue;
