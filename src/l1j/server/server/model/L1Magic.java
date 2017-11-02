@@ -294,7 +294,7 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == COUNTER_BARRIER) {
-			int bonus = Math.max(0, (_attacker.getLevel() - 60) / 4);
+			int bonus = Math.max(0, (_attacker.getLevel() - Math.max(60, _target.getLevel())) / 4);
 
 			probability = skill.getProbabilityValue() + bonus;
 
