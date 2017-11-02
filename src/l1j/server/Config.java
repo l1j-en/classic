@@ -318,7 +318,9 @@ public final class Config {
 
 	public static int ALT_GMSHOP_MAX_ID;
 
-	public static boolean ALT_HALLOWEENIVENT;
+	public static boolean ALT_HALLOWEENEVENT;
+	
+	public static boolean ALT_HALLOWEENEVENTNPC;
 	
 	public static boolean ALT_POLYEVENT;
 	
@@ -854,8 +856,10 @@ public final class Config {
 					"GMshopMinID", "0xffffffff"));
 			ALT_GMSHOP_MAX_ID = Integer.parseInt(altSettings.getProperty(
 					"GMshopMaxID", "0xffffffff"));
-			ALT_HALLOWEENIVENT = Boolean.parseBoolean(altSettings.getProperty(
-					"HalloweenIvent", "False"));
+			ALT_HALLOWEENEVENT = Boolean.parseBoolean(altSettings.getProperty(
+					"HalloweenEvent", "False"));
+			ALT_HALLOWEENEVENTNPC = Boolean.parseBoolean(altSettings.getProperty(
+					"HalloweenEventNpc", "False"));
 			ALT_POLYEVENT = Boolean.parseBoolean(altSettings.getProperty(
 					"PolyEvent", "False"));
 			ALT_JPPRIVILEGED = Boolean.parseBoolean(altSettings.getProperty(
@@ -1285,8 +1289,10 @@ public final class Config {
 			ALT_GMSHOP_MIN_ID = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("GMshopMaxID")) {
 			ALT_GMSHOP_MAX_ID = Integer.parseInt(pValue);
-		} else if (pName.equalsIgnoreCase("HalloweenIvent")) {
-			ALT_HALLOWEENIVENT = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("HalloweenEvent")) {
+			ALT_HALLOWEENEVENT = Boolean.valueOf(pValue);
+		} else if (pName.equalsIgnoreCase("HalloweenEventNpc")) {
+			ALT_HALLOWEENEVENTNPC = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("PolyEvent")) {
 			ALT_POLYEVENT = Boolean.valueOf(pValue);
 		} else if (pName.equalsIgnoreCase("JpPrivileged")) {
