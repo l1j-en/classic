@@ -55,7 +55,7 @@ class L1DragonKnightClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 8);
 		return fixedStats;
 	}
-	
+
 	@Override
 	public Map<L1Attribute, Integer> getMaxFixedStats() {
 		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
@@ -110,7 +110,7 @@ class L1DragonKnightClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalMeleeDamage(int str) {
-		return str >= 15 ? 2 : str >= 13 ? 1 : 0;
+		return str >= 18 ? 3 : str >= 15 ? 1 : 0;
 	}
 
 	@Override
