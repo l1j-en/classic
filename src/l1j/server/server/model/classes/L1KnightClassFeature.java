@@ -50,7 +50,7 @@ class L1KnightClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 12);
 		return fixedStats;
 	}
-	
+
 	@Override
 	public Map<L1Attribute, Integer> getMaxFixedStats() {
 		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
@@ -130,7 +130,7 @@ class L1KnightClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalER(int dex) {
-		return dex == 18 ? 3 : dex >= 16 ? 2 : dex >= 14 ? 1 : 0;
+		return dex >= 16 ? 3 : dex >= 14 ? 1 : 0;
 	}
 
 	@Override
@@ -155,7 +155,7 @@ class L1KnightClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalAC(int dex) {
-		return dex >= 17 ? 3 : dex >= 15 ? 2 : dex >= 12 ? 1 : 0;
+		return dex >= 15 ? 3 : dex >= 13 ? 1 : 0;
 	}
 
 	@Override
