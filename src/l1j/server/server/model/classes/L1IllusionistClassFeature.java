@@ -55,7 +55,7 @@ class L1IllusionistClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 8);
 		return fixedStats;
 	}
-	
+
 	@Override
 	public Map<L1Attribute, Integer> getMaxFixedStats() {
 		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
@@ -136,7 +136,7 @@ class L1IllusionistClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalER(int dex) {
-		return dex >= 14 ? 2 : dex >= 13 ? 1 : 0;
+		return dex >= 14 ? 2 : dex >= 12 ? 1 : 0;
 	}
 
 	@Override
