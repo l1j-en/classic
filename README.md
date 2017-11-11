@@ -15,9 +15,6 @@ If you need any help, contact our
 [mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on the
 channels #l1j or #l1j-dev on Freenode IRC.
 
-Check out the the official l1j-en server,
-[Lineage Resurrection](https://zelgo.net/linweb/default/index), if you just
-want to play.
 
 ### Recent History
 
