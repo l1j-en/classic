@@ -155,8 +155,8 @@ public class L1SkillUse {
 			60, 61, 63, 67, 68, 69, 72, 73, 75, 78, 79, REDUCTION_ARMOR,
 			BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER, 97, 98, 99, 100,
 			101, 102, 104, 105, 106, 107, 109, 110, 111, 113, 114, 115, 116,
-			117, 118, 129, 130, 131, 133, 134, 137, 138, 146, 147, 148, 149,
-			150, 151, 155, 156, 158, 159, 163, 164, 165, 166, 168, 169, 170,
+			117, 118, 129, 130, 131, 134, 137, 138, 146, 147, 148, 149, 150
+			151, 155, 156, 158, 159, 160, 163, 164, 165, 166, 168, 169, 170,
 			171, SOUL_OF_FLAME, ADDITIONAL_FIRE, DRAGON_SKIN, AWAKEN_ANTHARAS,
 			AWAKEN_FAFURION, AWAKEN_VALAKAS, MIRROR_IMAGE, ILLUSION_OGRE,
 			ILLUSION_LICH, PATIENCE, ILLUSION_DIA_GOLEM, INSIGHT,
@@ -206,7 +206,7 @@ public class L1SkillUse {
 
 	private static final int[] CAST_WITH_SILENCE = { SHOCK_STUN,
 			REDUCTION_ARMOR, BOUNCE_ATTACK, SOLID_CARRIAGE, COUNTER_BARRIER };
-	
+
 	private static final int[] NON_PINK_SKILLS = {
 		DETECTION
 	};
@@ -547,17 +547,17 @@ public class L1SkillUse {
 			try {
 				if(targetId > 0) {
 					L1Object object = L1World.getInstance().findObject(targetId);
-					
+
 					// no skills can be used on an invul gm... unless it is a command!
 					if(!isCommand && object != null && object instanceof L1PcInstance
 							&& ((L1PcInstance)object).isGmInvul()) {
-						
+
 						player.sendPackets(new S_ServerMessage(281));
 						return;
 					}
 				}
 			} catch(Exception ex) { }
-			
+
 			if (!isCheckedUseSkill()) {
 				boolean isUseSkill = checkUseSkill(player, skillId, targetId,
 						x, y, message, timeSecs, type, attacker);
@@ -634,7 +634,7 @@ public class L1SkillUse {
 
 	private boolean isTarget(L1Character cha) {
 		boolean flg = false;
-		
+
 		try {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
@@ -686,9 +686,9 @@ public class L1SkillUse {
 					&& cha instanceof L1MonsterInstance) {
 				return false;
 			}
-			
+
 			// TODO -- added L1GuardInstance to this to allow using AOE around
-			// guards without it crapping out. This means AOE will not work on 
+			// guards without it crapping out. This means AOE will not work on
 			// castle guards either, but it will at least now allow hitting stuff
 			// when they're around guards.
 			if (_skill.getTarget().equals("none")
@@ -948,11 +948,11 @@ public class L1SkillUse {
 					if (isTarget(cha) == false) {
 						continue;
 					}
-					
+
 					// invul gms are not valid targets!
 					if(tgobj instanceof L1PcInstance && (((L1PcInstance)tgobj).isGmInvul()))
 						continue;
-					
+
 					_targetList.add(new TargetStatus(cha));
 				}
 				return;
@@ -964,15 +964,15 @@ public class L1SkillUse {
 							&& _skillId != 10026
 							&& _skillId != 10027
 							&& _skillId != 10028 && _skillId != 10029) {
-						
+
 						// don't allow hitting a GM in invul!
 						if(!(_target instanceof L1PcInstance && (((L1PcInstance)_target).isGmInvul())))
 							_targetList.add(new TargetStatus(_target, false));
-						
+
 						return;
 					}
 				}
-				
+
 				// don't allow hitting a GM in invul!
 				if(!(_target instanceof L1PcInstance && (((L1PcInstance)_target).isGmInvul())))
 					_targetList.add(new TargetStatus(_target));
@@ -984,7 +984,7 @@ public class L1SkillUse {
 				if (_skillId != 49
 						&& !(_skill.getTarget().equals("attack") || _skill
 								.getType() == L1Skill.TYPE_ATTACK)) {
-					
+
 					// don't allow hitting a GM in invul!
 					if(!(_user instanceof L1PcInstance && (((L1PcInstance)_user).isGmInvul())))
 						_targetList.add(new TargetStatus(_user));
@@ -1008,7 +1008,7 @@ public class L1SkillUse {
 					if (!isTarget(cha)) {
 						continue;
 					}
-					
+
 					// don't allow hitting a GM in invul!
 					if(tgobj instanceof L1PcInstance && (((L1PcInstance)tgobj).isGmInvul()))
 						continue;
@@ -1239,7 +1239,7 @@ public class L1SkillUse {
 		if (_skillId == SHOCK_STUN || _skillId == MASS_SHOCK_STUN) {
 			buffDuration = _shockStunDuration;
 		}
-		
+
 		if (_skillId == BONE_BREAK) {
 			buffDuration = _boneBreakDuration;
 		}
@@ -1750,10 +1750,10 @@ public class L1SkillUse {
 				}
 
 				deleteRepeatedSkills(cha);
-				
+
 				if(cha instanceof L1PcInstance && _user instanceof L1PcInstance) {
 					L1PcInstance target = (L1PcInstance) cha;
-					
+
 					if(target.isPinkName() && !IntArrays.contains(NON_PINK_SKILLS,_skill.getSkillId())) {
 						((L1PcInstance) _user)._pinkName.onAction(target);
 					}
@@ -1761,11 +1761,11 @@ public class L1SkillUse {
 
 				if (_skill.getType() == L1Skill.TYPE_ATTACK
 						&& _user.getId() != cha.getId()) {
-					
+
 					if (_user instanceof L1PcInstance) {
 						((L1PcInstance)_user).setLastAggressiveAct();
 					}
-						
+
 					if (isUseCounterMagic(cha)) {
 						iter.remove();
 						if(cha instanceof L1PcInstance && _user instanceof L1PcInstance) {
@@ -1776,27 +1776,27 @@ public class L1SkillUse {
 					}
 					dmg = _magic.calcMagicDamage(_skillId);
 					_dmg = dmg;
-					
+
 					// TODO -- skills should probably have a field identifying
 					// whether they're physical or magic
 					if(_skillId != TRIPLE_ARROW)
 						cha.removeSkillEffect(ERASE_MAGIC);
 				} else if (_skill.getType() == L1Skill.TYPE_CURSE
 						|| _skill.getType() == L1Skill.TYPE_PROBABILITY) {
-					
+
 					if (_user instanceof L1PcInstance) {
 						((L1PcInstance)_user).setLastAggressiveAct();
-						
+
 						if(cha instanceof L1PcInstance) {
 							L1PcInstance target = (L1PcInstance) cha;
 							((L1PcInstance) _user)._pinkName.onAction(target);
 						}
 					}
-						
+
 					isSuccess = _magic.calcProbabilityMagic(_skillId);
 					//TODO -- need to fix this so we can track it in the DB better.
 					// Maybe specify that a skill is magic or not?
-					if (_skillId != ERASE_MAGIC && _skillId != SHOCK_STUN && 
+					if (_skillId != ERASE_MAGIC && _skillId != SHOCK_STUN &&
 							_skillId != MASS_SHOCK_STUN) {
 						cha.removeSkillEffect(ERASE_MAGIC);
 					}
@@ -1809,8 +1809,8 @@ public class L1SkillUse {
 					if (isSuccess) {
 						if(cha instanceof L1PcInstance) {
 							((L1PcInstance)cha).setLastAggressiveAct();
-						}	
-						
+						}
+
 						if (isUseCounterMagic(cha)) {
 							iter.remove();
 							continue;
@@ -1821,16 +1821,16 @@ public class L1SkillUse {
 							L1PcInstance pc = (L1PcInstance) cha;
 							pc.sendPackets(new S_ServerMessage(297)); // You feel slightly dizzy.
 						}
-						
+
 						// If it is a curse, or attack, or, if it is a probability type with 0 buff duration (IE cancel, RTN)
 						// then take them out of invis
 						if(_player != null && _player.isInvisble() &&
-								(_skill.getType() == L1Skill.TYPE_CURSE || _skill.getType() == L1Skill.TYPE_ATTACK || 
+								(_skill.getType() == L1Skill.TYPE_CURSE || _skill.getType() == L1Skill.TYPE_ATTACK ||
 								(_skill.getType() == L1Skill.TYPE_PROBABILITY && _skill.getBuffDuration() == 0))) {
 							_player.delInvis();
 							_player.beginInvisTimer();
 						}
-						
+
 						iter.remove();
 						continue;
 					}
@@ -2069,7 +2069,7 @@ public class L1SkillUse {
 							break;
 						}
 					}
-					
+
 					// check the animation and ensure the weapon is a bow or crossbow
 					int weaponType = _player.getWeapon().getItem().getType();
 					if (!gfxcheck || (weaponType != 4 && weaponType != 13)) {
@@ -2229,9 +2229,9 @@ public class L1SkillUse {
 
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
-					
+
 					int durationCalculator = random.nextInt(400);
-					
+
 					if(durationCalculator >= 335) {
 						_shockStunDuration = 4000; // 16% chance for 4 second
 					} else if(durationCalculator >= 210) {
@@ -2241,7 +2241,7 @@ public class L1SkillUse {
 					} else {
 						_shockStunDuration = 1000; // 20% chance for 1 second
 					}
-					
+
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
 							cha.getMapId());
@@ -2441,7 +2441,7 @@ public class L1SkillUse {
 				} else if (_skillId == HORROR_OF_DEATH) {
 					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 				} else if (_skillId == THUNDER_GRAB) {
-					
+
 					boolean hitsTarget = _magic.calcProbabilityMagic(_skillId);
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
@@ -2449,7 +2449,7 @@ public class L1SkillUse {
 					if(hitsTarget) {
 						int durationCalculator = random.nextInt(400);
 						int time = 0;
-						
+
 						if(durationCalculator >= 335) {
 							time = 4000; // 16% chance for 4 second
 						} else if(durationCalculator >= 210) {
@@ -2459,10 +2459,10 @@ public class L1SkillUse {
 						} else {
 							time = 1000; // 20% chance for 1 second
 						}
-						
+
 						L1EffectSpawn.getInstance().spawnEffect(81182, time,
 								cha.getX(), cha.getY(), cha.getMapId());
-						
+
 						if (cha instanceof L1PcInstance) {
 							L1PcInstance targetPc = (L1PcInstance) cha;
 							targetPc.setSkillEffect(STATUS_FREEZE, time);
@@ -2482,7 +2482,7 @@ public class L1SkillUse {
 							npc.setParalyzed(true);
 						}
 					}
-					
+
 				} else if (_skillId == BONE_BREAK) {
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
@@ -3053,11 +3053,11 @@ public class L1SkillUse {
 						_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
 					} else if (_skillId == SHAPE_CHANGE) {
 						L1PcInstance pc = (L1PcInstance) cha;
-						
+
 						if(pc.isPrivateShop() && pc.getMap().isTradeZone()) {
 							return;
 						}
-						
+
 						pc.sendPackets(new S_ShowPolyList(pc.getId()));
 						if (!pc.isShapeChange()) {
 							pc.setShapeChange(true);
@@ -3119,7 +3119,7 @@ public class L1SkillUse {
 							pc.sendPackets(new S_SkillBrave(pc.getId(), 4, 0));
 							pc.broadcastPacket(new S_SkillBrave(pc.getId(), 4, 0));
 							pc.removeSkillEffect(STATUS_RIBRAVE);
-							
+
 							pc.setBraveSpeed(1);
 							pc.sendPackets(new S_SkillBrave(pc.getId(), 1,
 									buffIconDuration));
