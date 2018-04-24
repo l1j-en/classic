@@ -39,7 +39,8 @@ public class LogIP {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogIP VALUES (?, ?, ?, ?, ?);");
+					.prepareStatement("INSERT INTO LogIP (LoginTime, Ip, Account, CharName, LogoutTime)"
+							+ " VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");
