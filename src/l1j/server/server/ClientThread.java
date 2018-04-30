@@ -199,9 +199,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
-		HcPacket movePacket = new HcPacket(M_CAPACITY);
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
-		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
         ClientThreadObserver observer = null;
 		observer = new ClientThreadObserver(
@@ -265,15 +263,8 @@ public class ClientThread implements Runnable, PacketOutput {
 					_handler.handlePacket(data, _activeChar);
 					continue;
 				}
-				if (opcode == Opcodes.C_OPCODE_CHANGECHAR
-						|| opcode == Opcodes.C_OPCODE_DROPITEM
-						|| opcode == Opcodes.C_OPCODE_DELETEINVENTORYITEM) {
-					_handler.handlePacket(data, _activeChar);
-				} else if (opcode == Opcodes.C_OPCODE_MOVECHAR) {
-					movePacket.requestWork(data);
-				} else {
-					hcPacket.requestWork(data);
-				}
+				hcPacket.requestWork(data);
+				
 			}
 		} catch (Throwable e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
