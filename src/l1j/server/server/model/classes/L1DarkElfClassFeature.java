@@ -55,7 +55,7 @@ class L1DarkElfClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 9);
 		return fixedStats;
 	}
-	
+
 	@Override
 	public Map<L1Attribute, Integer> getMaxFixedStats() {
 		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
@@ -130,20 +130,7 @@ class L1DarkElfClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalMR(int wis) {
-		switch (wis) {
-		case 11:
-		case 12:
-		case 13:
-			return 1;
-		case 14:
-			return 2;
-		case 15:
-			return 3;
-		case 16:
-			return 4;
-		default:
-			return 0;
-		}
+	    return wis >= 16 ? 4 : wis == 15 ? 3 : wis == 14 ? 2 : wis == 13 ? 1 : 0;
 	}
 
 	@Override

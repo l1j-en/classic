@@ -55,7 +55,7 @@ class L1WizardClassFeature extends L1ClassFeature {
 		fixedStats.put(L1Attribute.Cha, 8);
 		return fixedStats;
 	}
-	
+
 	@Override
 	public Map<L1Attribute, Integer> getMaxFixedStats() {
 		Map<L1Attribute, Integer> maxFixedStats = new HashMap<L1Attribute, Integer>();
@@ -95,7 +95,7 @@ class L1WizardClassFeature extends L1ClassFeature {
 
 	@Override
 	public int getOriginalMpBonus(int wis) {
-		return wis >= 16 ? 2 : wis >= 13 ? 1 : 0;
+		return wis >= 17 ? 2 : wis >= 13 ? 1 : 0;
 	}
 
 	@Override
