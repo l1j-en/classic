@@ -128,3 +128,12 @@ INSERT INTO `droplist` VALUES (91424,'Starved Warden',40308,'adena',80,200,60000
 -- fix Great Spirit of Wind spawns on DI to match other elements (3 of each on CASPA timer)
 INSERT INTO `spawnlist_boss` (`id`, `location`, `cycle_type`, `count`, `npc_id`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `spawn_type`, `percentage`) VALUES (NULL, 'Great Spirit of Wind', 'Caspa', '1', '45644', '0', '32624', '32807', '0', '0', '32588', '32739', '32660', '32876', '4', '303', '1', '0', '0', '0', '100');
 INSERT INTO `spawnlist_boss` (`id`, `location`, `cycle_type`, `count`, `npc_id`, `group_id`, `locx`, `locy`, `randomx`, `randomy`, `locx1`, `locy1`, `locx2`, `locy2`, `heading`, `mapid`, `respawn_screen`, `movement_distance`, `rest`, `spawn_type`, `percentage`) VALUES (NULL, 'Great Spirit of Wind', 'Caspa', '1', '45644', '0', '32624', '32807', '0', '0', '32588', '32739', '32660', '32876', '4', '303', '1', '0', '0', '0', '100');
+
+-- fix boarding boat to FI
+UPDATE `dungeon` SET `new_x` = 32736, `new_y` = 32795 WHERE `src_mapid` = 4 AND `new_mapid` = 83;
+
+-- fix the getback locations for the boats
+UPDATE `getback` SET `getback_x1` = 32565, `getback_y1` = 32726, `getback_x2` = 32565, `getback_y2` = 32726, `getback_x3` = 32565, `getback_y3` = 32726, `getback_mapid` = 4 WHERE `area_mapid` = 5;
+UPDATE `getback` SET `getback_x1` = 32632, `getback_y1` = 32973, `getback_x2` = 32632, `getback_y2` = 32973, `getback_x3` = 32632, `getback_y3` = 32973, `getback_mapid` = 0 WHERE `area_mapid` = 6;
+UPDATE `getback` SET `getback_x1` = 32936, `getback_y1` = 33052, `getback_x2` = 32936, `getback_y2` = 33052, `getback_x3` = 32936, `getback_y3` = 33052, `getback_mapid` = 70 WHERE `area_mapid` = 83;
+UPDATE `getback` SET `getback_x1` = 33426, `getback_y1` = 33499, `getback_x2` = 33426, `getback_y2` = 33499, `getback_x3` = 33426, `getback_y3` = 33499, `getback_mapid` = 4 WHERE `area_mapid` = 84; 

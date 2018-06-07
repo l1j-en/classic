@@ -45,6 +45,7 @@ import l1j.server.server.datatables.DropItemTable;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.FurnitureSpawnTable;
 import l1j.server.server.datatables.GetBackRestartTable;
+import l1j.server.server.datatables.GetBackTable;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.LightSpawnTable;
@@ -281,6 +282,7 @@ public class GameServerThread {
 		L1CastleLocation.setCastleTaxRate(); // This must be after the initial
 												// CastleTable
 		GetBackRestartTable.getInstance();
+		GetBackTable.getInstance();
 		DoorTable.initialize();
 		GeneralThreadPool.getInstance();
 		L1NpcRegenerationTimer.getInstance();
