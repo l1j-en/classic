@@ -18,26 +18,42 @@
  */
 package l1j.server.server.clientpackets;
 
+import java.util.logging.Logger;
+
 import l1j.server.server.ClientThread;
+import l1j.server.server.datatables.GetBackTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_OwnCharPack;
+import l1j.server.server.templates.L1GetBack;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_Ship extends ClientBasePacket {
 
 	private static final String C_SHIP = "[C] C_Ship";
+	private static final int MAX_DISTANCE = 20;
+	private static Logger _log = Logger.getLogger(C_Ship.class.getName());
 
 	public C_Ship(byte abyte0[], ClientThread client) {
 		super(abyte0);
 
-		int shipMapId = readH();
-		int locX = readH();
-		int locY = readH();
-
+		// ignore these and look up the information from the DB instead
+		int shipMapId = readH(); //shipMapId
+		int locX = readH(); //locX
+		int locY = readH(); //locY
+		
 		L1PcInstance pc = client.getActiveChar();
 		int mapId = pc.getMapId();
+		L1GetBack getBack = GetBackTable.getInstance().getBackByMapId(mapId);
+		
+		// if it is null, they're not on a boat, and if the coord is not in the acceptable range, crap out
+		// since the coord seems to be a few places around the dock, and I didn't want to bother finding them all
+		// I am just doing a generic check for them being within <MAX_DISTANCE> cells of the place the client is trying to send
+		if(getBack == null || !validXCoord(getBack, locX) || !validYCoord(getBack, locY)) {
+			_log.info(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
+			return;
+		}
 
 		if (mapId == 5) { // Talking Island Ship to Aden Mainland
 			pc.getInventory().consumeItem(40299, 1);
@@ -52,12 +68,33 @@ public class C_Ship extends ClientBasePacket {
 		} else if (mapId == 447) { // Ship Pirate island to Hidden dock
 			pc.getInventory().consumeItem(40302, 1);
 		}
+		
 		pc.sendPackets(new S_OwnCharPack(pc));
-		L1Teleport.teleport(pc, locX, locY, (short) shipMapId, 0, false);
+		L1Teleport.teleport(pc, locX, locY, (short) getBack.getGetback_mapid(), 0, false);
 	}
 
 	@Override
 	public String getType() {
 		return C_SHIP;
+	}
+	
+	// the getback loc is just a rough idea, so we check to see if they are within 20 cells of this
+	private boolean validXCoord(L1GetBack getBack, int x) {
+		int minX = x - MAX_DISTANCE;
+		int maxX = x + MAX_DISTANCE;
+		
+		return (getBack.getGetback_x1() >= minX && getBack.getGetback_x1() <= maxX) 
+				|| (getBack.getGetback_x2() >= minX && getBack.getGetback_x2() <= maxX)
+				|| (getBack.getGetback_x3() >= minX && getBack.getGetback_x3() <= maxX);
+	}
+	
+	// the getback loc is just a rough idea, so we check to see if they are within 20 cells of this
+	private boolean validYCoord(L1GetBack getBack, int y) {
+		int minY = y - MAX_DISTANCE;
+		int maxY = y + MAX_DISTANCE;
+		
+		return (getBack.getGetback_y1() >= minY && getBack.getGetback_y1() <= maxY)
+				|| (getBack.getGetback_y2() >= minY && getBack.getGetback_y2() <= maxY)
+				|| (getBack.getGetback_y3() >= minY && getBack.getGetback_y3() <= maxY);
 	}
 }
