@@ -145,6 +145,16 @@ public class C_CharReset extends ClientBasePacket {
 	public C_CharReset(byte abyte0[], ClientThread clientthread) {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
+		
+		// quick check to see if they're on the map they get teleported to when candling
+		//TODO -- add this in once we caught some people exploiting
+		if(pc.getMapId() != 997) {
+			/*emergencyCleanup(pc, 
+					String.format("%s attempted to candle on an incorrect map (may have sent the packet manually)! Mapid: %d", pc.getName(), pc.getMapId()),
+					"Error candling. Contact a GM.");*/
+			_log.info(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
+		}
+		
 		int stage = readC();
 
 		if (stage == 0x01) { // 0x01:LN^[
@@ -178,52 +188,72 @@ public class C_CharReset extends ClientBasePacket {
 				if (pc.getTempMaxLevel() - pc.getTempLevel() < 10)
 					return;
 				setLevelUp(pc, 10);
-			} else if (type2 == 0x01) {
-				pc.addBaseStr((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x02) {
-				pc.addBaseInt((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x03) {
-				pc.addBaseWis((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x04) {
-				pc.addBaseDex((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x05) {
-				pc.addBaseCon((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x06) {
-				pc.addBaseCha((byte) 1);
-				setLevelUp(pc, 1);
-			} else if (type2 == 0x08) {
-				switch (readC()) {
-				case 1:
+			}   else {
+				int fullStats = pc.getBaseStr() + pc.getBaseInt() + pc.getBaseWis() + pc.getBaseDex() + pc.getBaseCon() + pc.getBaseCha();
+				int originalStats = pc.getOriginalStr() + pc.getOriginalInt() + pc.getOriginalWis() + pc.getOriginalDex() + pc.getOriginalCon() + pc.getOriginalCha();
+				int increasedStats = fullStats - originalStats;
+				int possiblePoints = pc.getLevel() - 50 + pc.getElixirStats();
+				
+				// increase possible stats by 1 since that is what will happen below
+				if(increasedStats + 1 > possiblePoints) {
+					_log.info(String.format("%s has attemped to exploit their stats! Increased Stats: %d, Possible Stats: %d",
+							pc.getName(),
+							increasedStats,
+							possiblePoints));
+					//TODO -- add this back in once we catch a few people exploiting.
+					/*emergencyCleanup(pc, 
+							String.format("%s attempted to add stats via packet manipulation!", pc.getName()),
+							"Error candling. Contact a GM.");*/
+				}
+				
+				if (type2 == 0x01) {
 					pc.addBaseStr((byte) 1);
-					break;
-				case 2:
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x02) {
 					pc.addBaseInt((byte) 1);
-					break;
-				case 3:
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x03) {
 					pc.addBaseWis((byte) 1);
-					break;
-				case 4:
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x04) {
 					pc.addBaseDex((byte) 1);
-					break;
-				case 5:
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x05) {
 					pc.addBaseCon((byte) 1);
-					break;
-				case 6:
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x06) {
 					pc.addBaseCha((byte) 1);
-					break;
+					setLevelUp(pc, 1);
+				} else if (type2 == 0x08) {
+					int hmm = readC();
+					switch (hmm) {
+					case 1:
+						pc.addBaseStr((byte) 1);
+						break;
+					case 2:
+						pc.addBaseInt((byte) 1);
+						break;
+					case 3:
+						pc.addBaseWis((byte) 1);
+						break;
+					case 4:
+						pc.addBaseDex((byte) 1);
+						break;
+					case 5:
+						pc.addBaseCon((byte) 1);
+						break;
+					case 6:
+						pc.addBaseCha((byte) 1);
+						break;
+					}
+					
+					if (pc.getElixirStats() > 0) {	
+						pc.sendPackets(new S_CharReset(pc.getElixirStats()));
+						return;
+					}
+					
+					saveNewCharStatus(pc);
 				}
-				
-				if (pc.getElixirStats() > 0) {
-					pc.sendPackets(new S_CharReset(pc.getElixirStats()));
-					return;
-				}
-				
-				saveNewCharStatus(pc);
 			}
 		} else if (stage == 0x03) {
 			// See the note above
