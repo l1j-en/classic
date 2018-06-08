@@ -52,7 +52,8 @@ public class C_Ship extends ClientBasePacket {
 		// I am just doing a generic check for them being within <MAX_DISTANCE> cells of the place the client is trying to send
 		if(getBack == null || !validXCoord(getBack, locX) || !validYCoord(getBack, locY)) {
 			_log.info(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
-			return;
+			//TODO -- add this in once we want to actually stop the exploit.. first catch people.
+			//return;
 		}
 
 		if (mapId == 5) { // Talking Island Ship to Aden Mainland
