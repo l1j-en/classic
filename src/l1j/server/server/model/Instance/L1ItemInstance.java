@@ -78,6 +78,10 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		setItem(item);
 		setCount(count);
 	}
+	
+	public void setOwner(L1PcInstance owner) {
+		_pc = owner;
+	}
 
 	public boolean isIdentified() {
 		return _isIdentified;
@@ -870,17 +874,18 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				int type = getItem().getType();
 				int type2 = getItem().getType2();
 				int itemId = getItem().getItemId();
+				
 				if (_pc != null && _pc.getInventory().checkItem(itemId)) {
 					if (type == 2 && type2 == 2 && isEquipped()) {
 						_pc.addAc(3);
 						_pc.sendPackets(new S_OwnCharStatus(_pc));
+						_pc.sendPackets(new S_ServerMessage(308, getLogName()));
 					}
 				}
 				setAcByMagic(0);
 				setDmgByMagic(0);
 				setHolyDmgByMagic(0);
 				setHitByMagic(0);
-				_pc.sendPackets(new S_ServerMessage(308, getLogName()));
 				_isRunning = false;
 				_timer = null;
 			} catch (Exception e) {
