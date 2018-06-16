@@ -3464,6 +3464,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			cancelAbsoluteBarrier(activeChar);
 
 			pcInventory.setEquipped(armor, true);
+			armor.setOwner(activeChar);
 		} else if (armor.isEquipped()) {
 			if (armor.getItem().getBless() == 2) {
 				activeChar.sendPackets(new S_ServerMessage(150)); // You can't do that. It seems to be cursed.
@@ -3531,6 +3532,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			activeChar
 					.sendPackets(new S_ServerMessage(149, weapon.getLogName())); // The 'item' is stuck to your hand!
 		}
+		weapon.setOwner(activeChar);
 		pcInventory.setEquipped(weapon, true, false, false);
 	}
 
