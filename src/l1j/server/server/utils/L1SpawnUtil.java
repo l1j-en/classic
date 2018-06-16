@@ -27,6 +27,7 @@ import l1j.server.server.model.L1NpcDeleteTimer;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_UseAttackSkill;
 
 public class L1SpawnUtil {
 	private static Logger _log = Logger.getLogger(L1SpawnUtil.class.getName());
@@ -64,6 +65,11 @@ public class L1SpawnUtil {
 			npc.setHomeY(npc.getY());
 			npc.setHeading(pc.getHeading());
 			L1World.getInstance().storeObject(npc);
+			
+			for(L1PcInstance player : L1World.getInstance().getVisiblePlayer(npc)) {
+				player.sendPackets(new S_UseAttackSkill(npc, npc.getId(), 10, npc.getX(), npc.getY(), 18));
+			}
+			
 			L1World.getInstance().addVisibleObject(npc);
 			npc.turnOnOffLight();
 			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
