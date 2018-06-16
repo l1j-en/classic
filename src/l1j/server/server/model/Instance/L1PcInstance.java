@@ -1004,13 +1004,15 @@ public class L1PcInstance extends L1Character {
 			attack_mortion.action();
 			return;
 		}
-
+		
 		if (getCurrentHp() > 0 && !isDead()) {
 			attacker.delInvis();
 
 			L1Attack attack = new L1Attack(attacker, this);
+			
+			boolean calcHit = attack.calcHit();
 
-			if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
+			if (calcHit && hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
 				L1Magic magic = new L1Magic(this, attacker);
 				if (magic.calcProbabilityMagic(COUNTER_BARRIER)
 						&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
@@ -1019,7 +1021,7 @@ public class L1PcInstance extends L1Character {
 					return;
 				}
 			}
-			if (attack.calcHit()) {
+			if (calcHit) {
 				attacker.setPetTarget(this);
 				attack.calcDamage();
 				attack.calcStaffOfMana();
