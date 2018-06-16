@@ -70,7 +70,7 @@ public class L1ItemDelay {
 			if (item.getItem().getItemId() == 20077
 					|| item.getItem().getItemId() == 20062
 					|| item.getItem().getItemId() == 120077) {
-				if (item.isEquipped() && !pc.isInvisble()) {
+				if (item.isEquipped() && !pc.isInvisble() && !pc.isInvisDelay()) {
 					pc.beginInvisTimer();
 				}
 			} else {
