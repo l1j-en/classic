@@ -147,12 +147,11 @@ public class C_CharReset extends ClientBasePacket {
 		L1PcInstance pc = clientthread.getActiveChar();
 		
 		// quick check to see if they're on the map they get teleported to when candling
-		//TODO -- add this in once we caught some people exploiting
 		if(pc.getMapId() != 997) {
-			/*emergencyCleanup(pc, 
+			emergencyCleanup(pc, 
 					String.format("%s attempted to candle on an incorrect map (may have sent the packet manually)! Mapid: %d", pc.getName(), pc.getMapId()),
-					"Error candling. Contact a GM.");*/
-			_log.info(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
+					"Error candling. Contact a GM.");
+			_log.warning(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
 		}
 		
 		int stage = readC();
@@ -196,14 +195,12 @@ public class C_CharReset extends ClientBasePacket {
 				
 				// increase possible stats by 1 since that is what will happen below
 				if(increasedStats + 1 > possiblePoints) {
-					_log.info(String.format("%s has attemped to exploit their stats! Increased Stats: %d, Possible Stats: %d",
-							pc.getName(),
-							increasedStats,
-							possiblePoints));
-					//TODO -- add this back in once we catch a few people exploiting.
-					/*emergencyCleanup(pc, 
-							String.format("%s attempted to add stats via packet manipulation!", pc.getName()),
-							"Error candling. Contact a GM.");*/
+					emergencyCleanup(pc, 
+							String.format("%s has attemped to exploit their stats! Increased Stats: %d, Possible Stats: %d",
+									pc.getName(),
+									increasedStats,
+									possiblePoints),
+							"Error candling. Contact a GM.");
 				}
 				
 				if (type2 == 0x01) {
