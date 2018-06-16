@@ -435,7 +435,7 @@ public class L1PcInventory extends L1Inventory {
 
 					if (temp.getItemId() == 20077 || temp.getItemId() == 20062
 							|| temp.getItemId() == 120077) {
-						if (_owner.isInvisble()) {
+						if (_owner.isInvisDelay() || _owner.isInvisble()) {
 							_owner.delInvis();
 							return;
 						}
