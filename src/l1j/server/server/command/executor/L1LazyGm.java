@@ -36,7 +36,7 @@ public class L1LazyGm implements L1CommandExecutor {
 							= new ArrayList<L1PcInstance>();
 					
 					for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
-						if(!player.getMap().isTradeZone() && player.getId() != _gm.getId()) {
+						if(!player.getMap().isTradeZone()) {
 							onlinePlayers.add(player);
 						}
 					}
