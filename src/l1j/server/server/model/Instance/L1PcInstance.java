@@ -1010,26 +1010,24 @@ public class L1PcInstance extends L1Character {
 
 			L1Attack attack = new L1Attack(attacker, this);
 			
-			boolean calcHit = attack.calcHit();
-
-			if (calcHit && hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
-				L1Magic magic = new L1Magic(this, attacker);
-				if (magic.calcProbabilityMagic(COUNTER_BARRIER)
-						&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
-					attack.actionCounterBarrier();
-					attack.commitCounterBarrier();
-					return;
+			if(attack.calcHit()) {
+				if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
+					L1Magic magic = new L1Magic(this, attacker);
+					if (magic.calcProbabilityMagic(COUNTER_BARRIER)
+							&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
+						attack.actionCounterBarrier();
+						attack.commitCounterBarrier();
+					}
 				}
-			}
-			if (calcHit) {
+				
 				attacker.setPetTarget(this);
 				attack.calcDamage();
 				attack.calcStaffOfMana();
 				attack.addPcPoisonAttack(attacker, this);
 				attack.addChaserAttack();
+				attack.action();
+				attack.commit();
 			}
-			attack.action();
-			attack.commit();
 		}
 	}
 
