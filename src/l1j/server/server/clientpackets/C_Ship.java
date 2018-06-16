@@ -51,9 +51,8 @@ public class C_Ship extends ClientBasePacket {
 		// since the coord seems to be a few places around the dock, and I didn't want to bother finding them all
 		// I am just doing a generic check for them being within <MAX_DISTANCE> cells of the place the client is trying to send
 		if(getBack == null || !validXCoord(getBack, locX) || !validYCoord(getBack, locY)) {
-			_log.info(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
-			//TODO -- add this in once we want to actually stop the exploit.. first catch people.
-			//return;
+			_log.warning(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
+			return;
 		}
 
 		if (mapId == 5) { // Talking Island Ship to Aden Mainland
@@ -68,6 +67,8 @@ public class C_Ship extends ClientBasePacket {
 			pc.getInventory().consumeItem(40303, 1);
 		} else if (mapId == 447) { // Ship Pirate island to Hidden dock
 			pc.getInventory().consumeItem(40302, 1);
+		} else {
+			return; // since this should only work with ships, return if they're not on a ship!
 		}
 		
 		pc.sendPackets(new S_OwnCharPack(pc));
