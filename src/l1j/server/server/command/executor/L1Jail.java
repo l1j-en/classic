@@ -39,9 +39,18 @@ public class L1Jail implements L1CommandExecutor {
 			String player = args[0];
 			String durationType = args[1].toLowerCase();
 			int duration = Integer.parseInt(args[2]);
+			
+			int messageIndex = 3;
+			boolean broadcast = false;
+			
+			if(args[3].trim().equals("-n")) {
+				broadcast = true;
+				messageIndex = 4;
+			}
+			
 			String message = "";
 			
-			for(int i = 3; i < args.length; i++) {
+			for(int i = messageIndex; i < args.length; i++) {
 				message += args[i] + " ";
 			}
 			
@@ -79,11 +88,17 @@ public class L1Jail implements L1CommandExecutor {
 				CharacterTable.getInstance().moveCharacter(convict, 32737, 32796, (short) 99);
 			}
 			
+			if(broadcast) {
+				L1World world = L1World.getInstance();
+				world.broadcastServerMessage(
+						String.format("%s has been jailed for %d %s for bad behaviour!", convict.getName(), duration, durationType));
+			}
+			
 			pc.sendPackets(new S_SystemMessage(String.format("%s has been jailed for %d %s.",
 					convict.getName(), duration, durationType)));			
 			logJail(convict.getName(), pc.getName(), message, cal.getTimeInMillis());
 		} catch (Exception e) {
-			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> [hours|days] <number> <reason>"));
+			pc.sendPackets(new S_SystemMessage("." + cmdName + " <player_name> [hours|days] <number> [-n] <reason>"));
 		}
 	}
 	
