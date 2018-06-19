@@ -19,16 +19,31 @@
 package l1j.server.server.model.poison;
 
 import l1j.server.server.model.L1Character;
+import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public abstract class L1Poison {
 	protected static boolean isValidTarget(L1Character cha) {
+		return isValidTarget(null, cha);
+	}
+	
+	protected static boolean isValidTarget(L1Character attacker, L1Character cha) {
 		if (cha == null) {
 			return false;
 		}
 		if (cha.getPoison() != null) {
 			return false;
+		}
+		
+		if(attacker != null && attacker instanceof L1MonsterInstance && cha instanceof L1MonsterInstance) {
+			L1MonsterInstance attackMonster = (L1MonsterInstance) attacker;
+			L1MonsterInstance chaMonster = (L1MonsterInstance)cha;
+			
+			// don't allow mobs to poison their family!
+			if(attackMonster.getNpcTemplate().get_family() == chaMonster.getNpcTemplate().get_family()){
+				return false;
+			}
 		}
 
 		if (!(cha instanceof L1PcInstance)) {

@@ -32,13 +32,26 @@ public class L1DamagePoison extends L1Poison {
 	private final L1Character _target;
 	private final int _damageSpan;
 	private final int _damage;
-
+	private final int _delay;
+	
 	private L1DamagePoison(L1Character attacker, L1Character cha,
 			int damageSpan, int damage) {
 		_attacker = attacker;
 		_target = cha;
 		_damageSpan = damageSpan;
 		_damage = damage;
+		_delay = 0;
+
+		doInfection();
+	}
+
+	private L1DamagePoison(L1Character attacker, L1Character cha,
+			int damageSpan, int damage, int delay) {
+		_attacker = attacker;
+		_target = cha;
+		_damageSpan = damageSpan;
+		_damage = damage;
+		_delay = delay;
 
 		doInfection();
 	}
@@ -46,6 +59,21 @@ public class L1DamagePoison extends L1Poison {
 	private class NormalPoisonTimer extends Thread {
 		@Override
 		public void run() {
+			
+			if(_delay > 0) {
+				try {
+					Thread.sleep(_delay);
+				} catch (InterruptedException e) { }
+			}
+			
+			// Modified to allow lengthy NPC poison times, like live has.
+			if (_target instanceof L1NpcInstance) {
+				_target.setSkillEffect(STATUS_POISON, 7200000);
+			} else {
+				_target.setSkillEffect(STATUS_POISON, 30000);
+			}
+			_target.setPoisonEffect(1);
+			
 			while (true) {
 				try {
 					Thread.sleep(_damageSpan);
@@ -80,14 +108,6 @@ public class L1DamagePoison extends L1Poison {
 	}
 
 	private void doInfection() {
-		// Modified to allow lengthy NPC poison times, like live has.
-		if (_target instanceof L1NpcInstance) {
-			_target.setSkillEffect(STATUS_POISON, 7200000);
-		} else {
-			_target.setSkillEffect(STATUS_POISON, 30000);
-		}
-		_target.setPoisonEffect(1);
-
 		if (isDamageTarget(_target)) {
 			_timer = new NormalPoisonTimer();
 			GeneralThreadPool.getInstance().execute(_timer);
@@ -101,6 +121,16 @@ public class L1DamagePoison extends L1Poison {
 		}
 
 		cha.setPoison(new L1DamagePoison(attacker, cha, damageSpan, damage));
+		return true;
+	}
+	
+	public static boolean doInfection(L1Character attacker, L1Character cha,
+			int damageSpan, int damage, int delay) {
+		if (!isValidTarget(attacker, cha)) {
+			return false;
+		}
+
+		cha.setPoison(new L1DamagePoison(attacker, cha, damageSpan, damage, delay));
 		return true;
 	}
 
