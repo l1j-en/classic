@@ -2166,6 +2166,8 @@ public class L1SkillUse {
 					}
 				} else if (_skillId == CURSE_POISON) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 5);
+				} else if(_skillId == 14016) {
+					L1DamagePoison.doInfection(_user, cha, 3000, 50, 3000);
 				} else if (_skillId == CURSE_PARALYZE
 						|| _skillId == CURSE_PARALYZE2) {
 					if (!cha.hasSkillEffect(EARTH_BIND)
