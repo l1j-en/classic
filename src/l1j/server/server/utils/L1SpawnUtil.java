@@ -27,7 +27,6 @@ import l1j.server.server.model.L1NpcDeleteTimer;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.serverpackets.S_UseAttackSkill;
 
 public class L1SpawnUtil {
 	private static Logger _log = Logger.getLogger(L1SpawnUtil.class.getName());
@@ -66,9 +65,32 @@ public class L1SpawnUtil {
 			npc.setHeading(pc.getHeading());
 			L1World.getInstance().storeObject(npc);
 			
-			for(L1PcInstance player : L1World.getInstance().getVisiblePlayer(npc)) {
-				player.sendPackets(new S_UseAttackSkill(npc, npc.getId(), 10, npc.getX(), npc.getY(), 18));
+			L1World.getInstance().addVisibleObject(npc);
+			npc.turnOnOffLight();
+			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
+			if (0 < timeMillisToDelete) {
+				L1NpcDeleteTimer timer = new L1NpcDeleteTimer(npc,
+						timeMillisToDelete);
+				timer.begin();
 			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
+	
+	public static void spawn(L1PcInstance pc, int npcId, int x, int y,
+			int timeMillisToDelete) {
+		try {
+			L1NpcInstance npc = NpcTable.getInstance().newNpcInstance(npcId);
+			npc.setId(IdFactory.getInstance().nextId());
+			npc.setMap(pc.getMapId());
+			npc.setX(x);
+			npc.setY(y);
+			
+			npc.setHomeX(npc.getX());
+			npc.setHomeY(npc.getY());
+			npc.setHeading(pc.getHeading());
+			L1World.getInstance().storeObject(npc);
 			
 			L1World.getInstance().addVisibleObject(npc);
 			npc.turnOnOffLight();
