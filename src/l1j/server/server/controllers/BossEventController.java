@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.L1SpawnUtil;
@@ -19,6 +21,7 @@ public class BossEventController implements Runnable {
 	SecureRandom rand;
 	ArrayList<Integer> bossIds = new ArrayList<Integer>();
 	HashMap<String, Integer> ipsHit = new HashMap<String, Integer>();
+	private static final int randomRange = 10;
 	
 	private static BossEventController _instance;
 	
@@ -59,10 +62,10 @@ public class BossEventController implements Runnable {
 				if(lastHourRun != hour && !spawnBoss) {
 					int minute = 57 - rightNow.get(Calendar.MINUTE); // don't spawn within the last 3 minutes of the hour
 					
-					if(minute < 0) {
+					if(minute <= 0) {
 						minute = 1; // set to 1 because rand.nextInt will crap out with a 0 value
 					}
-					
+
 					sleepTime = rand.nextInt(minute * 60000);
 					
 					_log.info(String.format("The next boss will spawn in %d minutes!", sleepTime / 60000));
@@ -89,7 +92,7 @@ public class BossEventController implements Runnable {
 						int spawnedBosses = 0;
 						
 						while(spawnedBosses < numBossesToSpawn) {
-							Thread.sleep(3000); // just so if it doesn't find someone, it isn't spamming
+							Thread.sleep(1000); // just so if it doesn't find someone, it isn't spamming
 							
 							int playerToGet = rand.nextInt(players.size());
 							L1PcInstance player = players.get(playerToGet);
@@ -108,8 +111,43 @@ public class BossEventController implements Runnable {
 							
 							int bossToGet = bossIds.get(rand.nextInt(bossIds.size()));
 							L1Npc boss = NpcTable.getInstance().getTemplate(bossToGet);
+							L1NpcInstance crack = NpcTable.getInstance().newNpcInstance(90011);
+							crack.setMap(player.getMap());
+							
+							// find out where the boss can spawn and get the X and Y coords
+							int tryCount = 0;
+							do {
+								tryCount++;
+								crack.setX(player.getX() + (int) (Math.random() * randomRange)
+										- (int) (Math.random() * randomRange));
+								crack.setY(player.getY() + (int) (Math.random() * randomRange)
+										- (int) (Math.random() * randomRange));
+								
+								if (crack.getMap().isInMap(crack.getLocation())
+										&& crack.getMap().isPassable(crack.getLocation())) {
+									break;
+								}
+								Thread.sleep(1);
+							} while (tryCount < 50);
+							
+							if (tryCount >= 50) {
+								crack.getLocation().set(player.getLocation());
+								crack.getLocation().forward(player.getHeading());
+							}
+							
+							crack.setId(IdFactory.getInstance().nextId());
+							crack.setMap(player.getMapId());
+							crack.setHeading(0);
+
+							L1World.getInstance().storeObject(crack);
+							L1World.getInstance().addVisibleObject(crack);
+							
+							Thread.sleep(3000);
+							
+							crack.deleteMe();
+							
 							// spawn the boss but have it auto despawn after 15 minutes
-							L1SpawnUtil.spawn(player, boss.get_npcId(), 10, 900000);
+							L1SpawnUtil.spawn(player, boss.get_npcId(), crack.getX(), crack.getY(), 900000);
 							world.broadcastServerMessage(String.format("\\fR[******] %s has appeared!", boss.get_name()));
 							
 							int currentIpConnections = 0;
