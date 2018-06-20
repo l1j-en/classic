@@ -2,8 +2,8 @@ package l1j.server.server.controllers;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +18,7 @@ public class BossEventController implements Runnable {
 	private static Logger _log = Logger.getLogger(BossEventController.class.getName());
 	SecureRandom rand;
 	ArrayList<Integer> bossIds = new ArrayList<Integer>();
+	HashMap<String, Integer> ipsHit = new HashMap<String, Integer>();
 	
 	private static BossEventController _instance;
 	
@@ -39,7 +40,7 @@ public class BossEventController implements Runnable {
 	}
 	
 	private int lastHourRun = -1;
-	private boolean spawnBoss = true;
+	private boolean spawnBoss = false;
 		
 	@Override
 	public void run() {
@@ -48,58 +49,77 @@ public class BossEventController implements Runnable {
 		try {		
 			while(true) {
 				// by default sleep 5 minutes - 300000
-				int sleepTime = 60000;
+				int sleepTime = 300000;
 				
 				Calendar rightNow = Calendar.getInstance();
 				int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 				
 				// if we haven't spawned a boss this hour, set the sleep time to some random interval 
 				// that will cause them to spawn within this hour
-				/*if(lastHourRun != hour && !spawnBoss) {
-					int minute = 63 - rightNow.get(Calendar.MINUTE); // don't spawn within the last 3 minutes of the hour
+				if(lastHourRun != hour && !spawnBoss) {
+					int minute = 57 - rightNow.get(Calendar.MINUTE); // don't spawn within the last 3 minutes of the hour
 					
 					if(minute < 0) {
-						minute = 0;
+						minute = 1; // set to 1 because rand.nextInt will crap out with a 0 value
 					}
 					
 					sleepTime = rand.nextInt(minute * 60000);
+					
+					_log.info(String.format("The next boss will spawn in %d minutes!", sleepTime / 60000));
 					spawnBoss = true;
-				}*/
-				spawnBoss = true;
-				ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>(L1World.getInstance().getAllPlayers());
-				if(spawnBoss && players.size() > 0) {
-					spawnBoss = false;
-					
-					L1World world = L1World.getInstance();
-					world.broadcastServerMessage("\\fR[******] A boss is about to spawn! [******]");
-					Thread.sleep(rand.nextInt(300000)); // wait ~ 5 minutes for players to get to the correct map
-					
-					// 30% chance 2 bosses will spawn
-					int spawnRate = rand.nextInt(10000);
-					
-					int numBossesToSpawn = 3;
-					
-					if(spawnRate < 3000) {
-						numBossesToSpawn = 3;
-					}
-					
-					int spawnedBosses = 0;
-					
-					while(spawnedBosses < numBossesToSpawn) {
-						int playerToGet = rand.nextInt(players.size());
-						L1PcInstance player = players.get(playerToGet);
+				} else if(spawnBoss) {
+					ArrayList<L1PcInstance> players = new ArrayList<L1PcInstance>(L1World.getInstance().getAllPlayers());
+					if(players.size() > 0) { // really only needed for testing, but good to have
+						lastHourRun = hour;
+						spawnBoss = false;
 						
-						// non GMs on the aden map, on a normal (non safety/combat) zone
-						if(player == null || player.getMapId() != 4 || !player.getMap().isNormalZone(player.getLocation())
-								|| player.getLevel() < 65 || player.isGm() || player.isDead()) {
-							continue;
+						L1World world = L1World.getInstance();
+						world.broadcastServerMessage("\\fR[******] A strange aura is appearing on mainland!");
+						Thread.sleep(rand.nextInt(300000)); // wait ~ 5 minutes for players to get to the correct map
+						
+						// 30% chance 2 bosses will spawn
+						int spawnRate = rand.nextInt(10000);
+						
+						int numBossesToSpawn = 1;
+						
+						if(spawnRate < 3000) {
+							numBossesToSpawn = 2;
 						}
 						
-						int bossToGet = bossIds.get(rand.nextInt(bossIds.size()));
-						L1Npc boss = NpcTable.getInstance().getTemplate(bossToGet);
-						// spawn the boss but have it auto despawn after 15 minutes
-						L1SpawnUtil.spawn(player, boss.get_npcId(), 15, 900000);
-						spawnedBosses++;
+						int spawnedBosses = 0;
+						
+						while(spawnedBosses < numBossesToSpawn) {
+							Thread.sleep(3000); // just so if it doesn't find someone, it isn't spamming
+							
+							int playerToGet = rand.nextInt(players.size());
+							L1PcInstance player = players.get(playerToGet);
+							
+							// non GMs on the aden map, on a normal (non safety/combat) zone
+							if(player == null || player.getMapId() != 4 || !player.getMap().isNormalZone(player.getLocation())
+									|| player.getLevel() < 65 || player.isGm() || player.isDead()) {
+								continue;
+							}
+							
+							// only allow the IP address to be hit twice in a day
+							if(ipsHit.containsKey(player.getNetConnection().getIp())
+									&& ipsHit.get(player.getNetConnection().getIp()) >= 2) {
+								continue;
+							}
+							
+							int bossToGet = bossIds.get(rand.nextInt(bossIds.size()));
+							L1Npc boss = NpcTable.getInstance().getTemplate(bossToGet);
+							// spawn the boss but have it auto despawn after 15 minutes
+							L1SpawnUtil.spawn(player, boss.get_npcId(), 10, 900000);
+							world.broadcastServerMessage(String.format("\\fR[******] %s has appeared!", boss.get_name()));
+							
+							int currentIpConnections = 0;
+							if(ipsHit.containsKey(player.getNetConnection().getIp())) {
+								currentIpConnections = ipsHit.get(player.getNetConnection().getIp());
+							}
+							
+							ipsHit.put(player.getNetConnection().getIp(), currentIpConnections + 1);
+							spawnedBosses++;
+						}
 					}
 				}
 
@@ -107,6 +127,7 @@ public class BossEventController implements Runnable {
 				Thread.sleep(sleepTime);
 			}
 		} catch(Exception ex) {
+			_log.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
 			_log.log(Level.WARNING, "Boss Event Controller Crashed! No bosses for event will spawn!");
 		}
 	}
