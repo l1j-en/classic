@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.LogEnchantTable;
+import l1j.server.server.log.LogEnchantFail;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
@@ -215,6 +216,8 @@ public class Enchant {
 		String sa = itemType == 1 ? "$245" : itemType == 2 ? " $252" : "";
 		player.sendPackets(new S_ServerMessage(164, s, sa));
 		player.getInventory().removeItem(item, item.getCount());
+		LogEnchantFail failLog = new LogEnchantFail();
+		failLog.storeLogEnchantFail(player, item);
 	}
 
 	private static void successEnchant(final L1PcInstance player,
