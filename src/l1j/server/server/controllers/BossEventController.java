@@ -77,7 +77,7 @@ public class BossEventController implements Runnable {
 						spawnBoss = false;
 						
 						L1World world = L1World.getInstance();
-						world.broadcastServerMessage("\\fR[******] A strange aura is appearing on mainland!");
+						world.broadcastServerMessage("\\fR[******] A strange aura has appeared on mainland!");
 						Thread.sleep(rand.nextInt(300000)); // wait ~ 5 minutes for players to get to the correct map
 						
 						// 30% chance 2 bosses will spawn
