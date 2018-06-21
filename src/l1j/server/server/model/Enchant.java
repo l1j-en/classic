@@ -216,8 +216,12 @@ public class Enchant {
 		String sa = itemType == 1 ? "$245" : itemType == 2 ? " $252" : "";
 		player.sendPackets(new S_ServerMessage(164, s, sa));
 		player.getInventory().removeItem(item, item.getCount());
-		LogEnchantFail failLog = new LogEnchantFail();
-		failLog.storeLogEnchantFail(player, item);
+		
+		if(Config.LOGGING_ENCHANT_FAIL != 0 && Config.LOGGING_ENCHANT_FAIL <=
+				(item.getEnchantLevel() - item.getItem().get_safeenchant())) {
+			LogEnchantFail failLog = new LogEnchantFail();
+			failLog.storeLogEnchantFail(player, item);
+		}
 	}
 
 	private static void successEnchant(final L1PcInstance player,
