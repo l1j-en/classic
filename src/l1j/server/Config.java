@@ -87,6 +87,8 @@ public final class Config {
 	public static int CHECK_STRICTNESS;
 
 	public static byte LOGGING_WEAPON_ENCHANT;
+	
+	public static byte LOGGING_ENCHANT_FAIL;
 
 	public static byte LOGGING_ARMOR_ENCHANT;
 
@@ -633,6 +635,8 @@ public final class Config {
 					"LoggingWeaponEnchant", "0"));
 			LOGGING_ARMOR_ENCHANT = Byte.parseByte(serverSettings.getProperty(
 					"LoggingArmorEnchant", "0"));
+			LOGGING_ENCHANT_FAIL = Byte.parseByte(serverSettings.getProperty(
+					"LoggingEnchantFails", "0"));
 			LOGGING_CHAT_NORMAL = Boolean.parseBoolean(serverSettings
 					.getProperty("LoggingChatNormal", "False"));
 			LOGGING_CHAT_WHISPER = Boolean.parseBoolean(serverSettings
