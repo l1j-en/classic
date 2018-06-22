@@ -139,4 +139,10 @@ UPDATE `getback` SET `getback_x1` = 32936, `getback_y1` = 33052, `getback_x2` = 
 UPDATE `getback` SET `getback_x1` = 33426, `getback_y1` = 33499, `getback_x2` = 33426, `getback_y2` = 33499, `getback_x3` = 33426, `getback_y3` = 33499, `getback_mapid` = 4 WHERE `area_mapid` = 84;
 
 -- Update Counter Barrier to have a 20% success rate instead of 25% 
-UPDATE `skills` SET probability_value = 20 WHERE skill_id = 91;
+UPDATE `skills` SET `probability_value` = 20 WHERE `skill_id` = 91;
+
+-- Lower Earth Bind from 50% probability to 40%
+UPDATE `skills` SET `probability_value` = 40 WHERE `skill_id` = 157;
+
+-- Lower Wind Shackle from 65% probability to 50%
+UPDATE `skills` SET `probability_value` = 50 WHERE `skill_id` = 167;
