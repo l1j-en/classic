@@ -95,6 +95,7 @@ import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Enchant;
 import l1j.server.server.model.Getback;
+import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
@@ -1575,6 +1576,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
+				
 				L1Object target = L1World.getInstance().findObject(
 						spellsc_objid);
 				//if the target is a player, and either the target or attacker are in a safety zone, deny.
@@ -1583,6 +1585,17 @@ public class C_ItemUSe extends ClientBasePacket {
 					pc.sendPackets(new S_ServerMessage(563));
 					return;
 				}
+				
+				// make sure the ebony wand doesn't allow hitting mobs that require buffs
+				if(target instanceof L1Character) {
+					L1Attack attack = new L1Attack(pc, (L1Character)target);
+					if(attack.isMissingSkillEffect()) {
+						pc.sendPackets(new S_ServerMessage(79));
+						return;
+					}
+				}
+				
+				
 				cancelAbsoluteBarrier(pc);
 				int chargeCount = l1iteminstance.getChargeCount();
 				if (chargeCount <= 0 || (target instanceof L1PcInstance && ((L1PcInstance)target).isGmInvul())) {
