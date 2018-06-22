@@ -1018,6 +1018,7 @@ public class L1PcInstance extends L1Character {
 							&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
 						attack.actionCounterBarrier();
 						attack.commitCounterBarrier();
+						return;
 					}
 				}
 				
