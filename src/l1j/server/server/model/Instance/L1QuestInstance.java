@@ -190,6 +190,7 @@ public class L1QuestInstance extends L1NpcInstance {
 		@Override
 		public void run() {
 			setRest(false);
+			cancel();
 		}
 	}
 

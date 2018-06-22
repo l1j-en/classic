@@ -888,6 +888,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				setHitByMagic(0);
 				_isRunning = false;
 				_timer = null;
+				cancel();
 			} catch (Exception e) {
 			}
 		}
