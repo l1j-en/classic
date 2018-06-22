@@ -136,4 +136,7 @@ UPDATE `dungeon` SET `new_x` = 32736, `new_y` = 32795 WHERE `src_mapid` = 4 AND 
 UPDATE `getback` SET `getback_x1` = 32565, `getback_y1` = 32726, `getback_x2` = 32565, `getback_y2` = 32726, `getback_x3` = 32565, `getback_y3` = 32726, `getback_mapid` = 4 WHERE `area_mapid` = 5;
 UPDATE `getback` SET `getback_x1` = 32632, `getback_y1` = 32973, `getback_x2` = 32632, `getback_y2` = 32973, `getback_x3` = 32632, `getback_y3` = 32973, `getback_mapid` = 0 WHERE `area_mapid` = 6;
 UPDATE `getback` SET `getback_x1` = 32936, `getback_y1` = 33052, `getback_x2` = 32936, `getback_y2` = 33052, `getback_x3` = 32936, `getback_y3` = 33052, `getback_mapid` = 70 WHERE `area_mapid` = 83;
-UPDATE `getback` SET `getback_x1` = 33426, `getback_y1` = 33499, `getback_x2` = 33426, `getback_y2` = 33499, `getback_x3` = 33426, `getback_y3` = 33499, `getback_mapid` = 4 WHERE `area_mapid` = 84; 
+UPDATE `getback` SET `getback_x1` = 33426, `getback_y1` = 33499, `getback_x2` = 33426, `getback_y2` = 33499, `getback_x3` = 33426, `getback_y3` = 33499, `getback_mapid` = 4 WHERE `area_mapid` = 84;
+
+-- Update Counter Barrier to have a 20% success rate instead of 25% 
+UPDATE `skills` SET probability_value = 20 WHERE skill_id = 91;
