@@ -1540,6 +1540,11 @@ public class L1Attack {
 						.getDmgModifier()) * 2;
 			}
 		}
+		
+		if(target.hasSkillEffect(IMMUNE_TO_HARM)) {
+			damage = damage / 2;
+		}
+		
 		return damage;
 	}
 
