@@ -384,6 +384,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 		public void run() {
 			Thread.currentThread().setName("L1GuardianInstance-RestMonitor");
 			setRest(false);
+			cancel();
 		}
 	}
 }
