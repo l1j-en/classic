@@ -167,6 +167,7 @@ public class L1WorldTraps {
 		public void run() {
 			_targetTrap.resetLocation();
 			_targetTrap.enableTrap();
+			cancel();
 		}
 	}
 }
