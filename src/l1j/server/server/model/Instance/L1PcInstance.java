@@ -1012,8 +1012,7 @@ public class L1PcInstance extends L1Character {
 			L1Attack attack = new L1Attack(attacker, this);
 			
 			if(attack.calcHit()) {
-				if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)
-						&& !attacker.hasSkillEffect(IMMUNE_TO_HARM)) {
+				if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
 					L1Magic magic = new L1Magic(this, attacker);
 					if (magic.calcProbabilityMagic(COUNTER_BARRIER)
 							&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
