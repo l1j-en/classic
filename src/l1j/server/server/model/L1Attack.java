@@ -557,7 +557,7 @@ public class L1Attack {
 	 * Only arises in pve situations, e.g. attacking Chaos. See notes in
 	 * L1Magic.
 	 */
-	private boolean isMissingSkillEffect() {
+	public boolean isMissingSkillEffect() {
 		return isMissingSkillEffect(null);
 	}
 	
