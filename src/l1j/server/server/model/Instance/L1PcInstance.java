@@ -14,6 +14,7 @@ import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
 import static l1j.server.server.model.skill.L1SkillId.HASTE;
 import static l1j.server.server.model.skill.L1SkillId.HOLY_WALK;
 import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
+import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 import static l1j.server.server.model.skill.L1SkillId.INVISIBILITY;
 import static l1j.server.server.model.skill.L1SkillId.MASS_SLOW;
 import static l1j.server.server.model.skill.L1SkillId.MORTAL_BODY;
@@ -1011,7 +1012,8 @@ public class L1PcInstance extends L1Character {
 			L1Attack attack = new L1Attack(attacker, this);
 			
 			if(attack.calcHit()) {
-				if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)) {
+				if (hasSkillEffect(COUNTER_BARRIER) && !hasSkillEffect(EARTH_BIND)
+						&& !attacker.hasSkillEffect(IMMUNE_TO_HARM)) {
 					L1Magic magic = new L1Magic(this, attacker);
 					if (magic.calcProbabilityMagic(COUNTER_BARRIER)
 							&& attack.isShortDistance() && !attacker.isFoeSlayer()) {
@@ -1025,9 +1027,10 @@ public class L1PcInstance extends L1Character {
 				attack.calcStaffOfMana();
 				attack.addPcPoisonAttack(attacker, this);
 				attack.addChaserAttack();
-				attack.action();
-				attack.commit();
 			}
+			
+			attack.action();
+			attack.commit();
 		}
 	}
 
@@ -1284,6 +1287,7 @@ public class L1PcInstance extends L1Character {
 			if (hasSkillEffect(ILLUSION_AVATAR)) {
 				damage *= 1.2;
 			}
+			
 			int newHp = getCurrentHp() - (int) (damage);
 			if (newHp > getMaxHp()) {
 				newHp = getMaxHp();
