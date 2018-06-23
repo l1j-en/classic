@@ -3298,6 +3298,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 		@Override
 		public void run() {
 			setRest(false);
+			cancel();
 		}
 	}
 
