@@ -2234,10 +2234,12 @@ public class L1NpcInstance extends L1Character {
 				_log.warning(String.format(
 						"DeleteTimer#run: trouble with npc_templateid %d.",
 						npc.getNpcId()));
+				cancel();
 				return;
 			}
 			try {
 				npc.deleteMe();
+				cancel();
 			} catch (Exception e) {
 				// More leak investigation.
 				_log.warning(String.format(
