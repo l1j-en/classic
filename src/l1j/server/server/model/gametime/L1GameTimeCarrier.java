@@ -41,7 +41,7 @@ public class L1GameTimeCarrier extends TimerTask {
 			}
 
 			long serverTime = L1GameTimeClock.getInstance().currentTime()
-					.getRawSeconds();
+					.getSeconds();
 			if (serverTime % 300 == 0) {
 				_pc.sendPackets(new S_GameTime(L1GameTimeClock.getInstance().currentTime().getSeconds())); 
 			}
