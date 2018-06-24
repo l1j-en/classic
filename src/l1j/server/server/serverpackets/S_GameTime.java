@@ -22,18 +22,18 @@ import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class S_GameTime extends ServerBasePacket {
-	public S_GameTime(int time) {
+	public S_GameTime(long time) {
 		buildPacket(time);
 	}
 
 	public S_GameTime() {
-		int time = L1GameTimeClock.getInstance().currentTime().getSeconds();
+		long time = L1GameTimeClock.getInstance().currentTime().getSeconds();
 		buildPacket(time);
 	}
 
-	private void buildPacket(int time) {
+	private void buildPacket(long time) {
 		writeC(Opcodes.S_OPCODE_GAMETIME);
-		writeD(time);
+		writeD((int)time);
 	}
 
 	@Override

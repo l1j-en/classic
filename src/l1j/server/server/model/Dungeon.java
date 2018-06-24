@@ -141,7 +141,7 @@ public class Dungeon {
 	}
 
 	public boolean dg(int locX, int locY, int mapId, L1PcInstance pc) {
-		int nowtime = L1GameTimeClock.getInstance().currentTime().getSeconds();
+		long nowtime = L1GameTimeClock.getInstance().currentTime().getSeconds() % 86400;
 		String key = new StringBuilder().append(mapId).append(locX)
 				.append(locY).toString();
 		
