@@ -54,6 +54,8 @@ public class L1Skill {
 	public static final int TARGET_TO_PARTY = 8;
 
 	public static final int TARGET_TO_PET = 16;
+	
+	public static final int TARGET_PC_AND_PET = 17;
 
 	public static final int TARGET_TO_PLACE = 32;
 

@@ -2164,7 +2164,7 @@ public class L1SkillUse {
 							pc.sendPackets(new S_CurseBlind(1));
 						}
 					}
-				} else if (_skillId == CURSE_POISON) {
+				} else if (_skillId == CURSE_POISON || _skillId == 20084) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 5);
 				} else if(_skillId == 14016) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 50, 3000);
