@@ -34,14 +34,7 @@ public class L1GameTime {
 
 	private Calendar makeCalendar(long time) {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-		cal.setTimeInMillis(0);
-		
-		if (time > Integer.MAX_VALUE) {
-			cal.add(Calendar.SECOND, Integer.MAX_VALUE);
-			time -= Integer.MAX_VALUE;
-		}
-		
-		cal.add(Calendar.SECOND, (int)time);
+		cal.setTimeInMillis(time * 1000);
 		return cal;
 	}
 
@@ -55,7 +48,7 @@ public class L1GameTime {
 		if (t1 < 0) {
 			throw new IllegalArgumentException();
 		}
-		long t2 = (t1 * 6) / 1000L;
+		long t2 = ((t1 * 6) / 1000L);
 		int t3 = (int)(t2 % 3);
 		return new L1GameTime(t2 - t3);
 	}
@@ -70,7 +63,7 @@ public class L1GameTime {
 	}
 
 	public Time toTime() {
-		long t = _time % (24 * 3600);
+		int t = (int)(_time % (24 * 3600)); //
 		return new Time(t * 1000L - TimeZone.getDefault().getRawOffset());
 	}
 
@@ -78,11 +71,7 @@ public class L1GameTime {
 		return _calendar.get(field);
 	}
 
-	public int getSeconds() {
-		return (int)(_time % 86400);
-	}
-	
-	public long getRawSeconds() {
+	public long getSeconds() {
 		return _time;
 	}
 
