@@ -792,8 +792,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 					}
 				}
 			} else if (npcid == 70011) {
-				int time = L1GameTimeClock.getInstance().currentTime()
-						.getSeconds();
+				long time = L1GameTimeClock.getInstance().currentTime()
+						.getSeconds() % 86400;
 				if (time < 60 * 60 * 6 || time > 60 * 60 * 20) { // 20:00 6:00
 					htmlid = "shipEvI6";
 				}
