@@ -1,6 +1,7 @@
 package l1j.server.server.controllers;
 
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -42,12 +43,14 @@ public class BossEventController implements Runnable {
 		return _instance;
 	}
 	
+	private int lastDayRun = -1;
 	private int lastHourRun = -1;
 	private boolean spawnBoss = false;
 		
 	@Override
 	public void run() {
 		Thread.currentThread().setName("BossEventController");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		
 		try {		
 			while(true) {
@@ -56,6 +59,14 @@ public class BossEventController implements Runnable {
 				
 				Calendar rightNow = Calendar.getInstance();
 				int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+				int day = rightNow.get(Calendar.DAY_OF_MONTH);
+				
+				if(day != lastDayRun && Config.ALT_BOSS_EVENT_DAILY_RESET 
+						&& dateFormat.parse(dateFormat.format(rightNow)).after(dateFormat.parse(Config.ALT_BOSS_EVENT_RESET_TIME + ":00")))
+				{
+					lastDayRun = day;
+					ipsHit.clear();
+				}
 				
 				// if we haven't spawned a boss this hour, set the sleep time to some random interval 
 				// that will cause them to spawn within this hour
