@@ -76,7 +76,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 
 	public S_OwnCharStatus(L1PcInstance pc, int hp, int mp) {
 
-		int time = L1GameTimeClock.getInstance().currentTime().getSeconds();
+		long time = L1GameTimeClock.getInstance().currentTime().getSeconds();
 
 		time = time - (time % 300);
 
@@ -150,7 +150,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 
 		writeC(pc.getAc());
 
-		writeD(time);
+		writeD((int)time);
 
 		writeC(pc.get_food());
 
