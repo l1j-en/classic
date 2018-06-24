@@ -62,7 +62,7 @@ public class BossEventController implements Runnable {
 				int day = rightNow.get(Calendar.DAY_OF_MONTH);
 				
 				if(day != lastDayRun && Config.ALT_BOSS_EVENT_DAILY_RESET 
-						&& dateFormat.parse(dateFormat.format(rightNow)).after(dateFormat.parse(Config.ALT_BOSS_EVENT_RESET_TIME + ":00")))
+						&& dateFormat.parse(dateFormat.format(rightNow.getTime())).after(dateFormat.parse(Config.ALT_BOSS_EVENT_RESET_TIME + ":00")))
 				{
 					lastDayRun = day;
 					ipsHit.clear();
