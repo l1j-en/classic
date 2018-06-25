@@ -66,7 +66,7 @@ public class C_AuthLogin extends ClientBasePacket {
 				_log.info("Account Missing For User " + accountName);
 			}
 		}
-
+		
 		if (account == null || !account.validatePassword(password)) {
 			client.sendPacket(new S_LoginResult(
 					S_LoginResult.REASON_USER_OR_PASS_WRONG));
@@ -77,8 +77,15 @@ public class C_AuthLogin extends ClientBasePacket {
 		if (account.isBanned()) { // BAN
 			_log.info("Banned Account Attempted Login: Account = "
 					+ accountName + " Host = " + host);
-			client.sendPacket(new S_LoginResult(
-					S_LoginResult.REASON_USER_OR_PASS_WRONG));
+			client.sendPacket(new S_CommonNews("Your account has been banned."));
+			client.setDisconnectNextClick(true);
+			return;
+		}
+		
+		if(Config.RESTRICT_ACCOUNT_IPS && !account.validateIp(ip)) {
+			client.sendPacket(new S_CommonNews(Config.RESTRICT_ACCOUNT_IPS_MESSAGE));
+			_log.info("Invalid IP to login - account: " + account.getName() + ", IP: " + client.getIp());
+			client.setDisconnectNextClick(true);
 			return;
 		}
 
@@ -86,6 +93,7 @@ public class C_AuthLogin extends ClientBasePacket {
 			LoginController.getInstance().login(client, account);
 			Account.updateLastActive(account);
 			client.setAccount(account);
+			client.setDisconnectNextClick(false); // ensure the disconnect flag isn't set when they login
 			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_LOGIN_OK));
 			client.sendPacket(new S_CommonNews());
 			client.nameThread("ClientThread_"+account.getName());
