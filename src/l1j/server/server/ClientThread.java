@@ -80,6 +80,7 @@ public class ClientThread implements Runnable, PacketOutput {
 	private static final int M_CAPACITY = 3;
 	private static final int H_CAPACITY = 2;
 	private int _kick = 0;
+	private boolean _disconnectNextClick;
 	private LineageKeys _clkey;
 	// MP Bug fix - dont remove - tricid
 	private boolean stop = false;
@@ -126,6 +127,14 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	public String getHostname() {
 		return _hostname;
+	}
+	
+	public boolean getDisconnectNextClick() {
+		return _disconnectNextClick;
+	}
+	
+	public void setDisconnectNextClick(boolean disconnect) {
+		_disconnectNextClick = disconnect;
 	}
 
 	public void CharReStart(boolean flag) {
@@ -240,6 +249,11 @@ public class ClientThread implements Runnable, PacketOutput {
 				// _log.finest("[C]\n" + new
 				// ByteArrayUtil(data).dumpToString());
 				int opcode = data[0] & 0xFF;
+				
+				// if they're clicking "OK" on the common news sent for a ban or ip restriction, then kick them
+				if(opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
+					sendPacket(new S_Disconnect());
+				}
 
 				if (opcode == Opcodes.C_OPCODE_COMMONCLICK
 						|| opcode == Opcodes.C_OPCODE_CHANGECHAR) {
@@ -254,6 +268,7 @@ public class ClientThread implements Runnable, PacketOutput {
 						|| opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
 					_loginStatus = 0;
 				}
+				
 
 				if (opcode != Opcodes.C_OPCODE_KEEPALIVE &&
 						opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
