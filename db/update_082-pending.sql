@@ -146,3 +146,14 @@ UPDATE `skills` SET `probability_value` = 40 WHERE `skill_id` = 157;
 
 -- Lower Wind Shackle from 65% probability to 50%
 UPDATE `skills` SET `probability_value` = 50 WHERE `skill_id` = 167;
+
+-- the IP restriction code so only specific ip addresses can login to an account
+ALTER TABLE `accounts` ADD COLUMN `restrict_ip` bool default 0;
+
+CREATE TABLE `ip_restrictions` (
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `account` varchar(50) NOT NULL,
+  `ip` varchar(15) NOT NULL,
+  PRIMARY KEY (`account`, `ip`),
+  FOREIGN KEY (`account`) REFERENCES accounts(`login`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
