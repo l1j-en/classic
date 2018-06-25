@@ -16,6 +16,7 @@ public class CommandList {
 		_cmds.put("changepassword", new ChangePassword());
 		_cmds.put("getonlineplayers", new GetOnlinePlayers());
 		_cmds.put("getsiegetimes", new GetSiegeTimes());
+		_cmds.put("iprestriction", new ManageIpRestrictions());
 	}
 	
 	public static Commands get(String name) {
