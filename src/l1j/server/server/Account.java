@@ -48,6 +48,7 @@ public class Account {
 	private boolean _banned;
 	private int _characterSlot;
 	private boolean _isValid = false;
+	private boolean _restrictIps = false;
 	private static Logger _log = Logger.getLogger(Account.class.getName());
 
 	private Account() {
@@ -123,6 +124,7 @@ public class Account {
 			account._host = rs.getString("host");
 			account._banned = rs.getInt("banned") == 0 ? false : true;
 			account._characterSlot = rs.getInt("character_slot");
+			account._restrictIps = rs.getBoolean("restrict_ip");
 			_log.fine("Account already exists.");
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -168,6 +170,63 @@ public class Account {
 			account._characterSlot = account.getCharacterSlot();
 			_log.fine("Update CharacterSlot for: " + account.getName());
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	
+	public static void setIpRestrictionOnAccount(final Account account, final boolean enabled) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			String sqlstr = "UPDATE accounts SET restrict_ip=? WHERE login = ?";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setBoolean(1, enabled);
+			pstm.setString(2, account.getName());
+			pstm.execute();
+			account._restrictIps = enabled;
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	
+	public static void addIpRestriction(final String account, final String ip) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			String sqlstr = "INSERT INTO ip_restrictions (account, ip) VALUES(?,?)";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setString(1, account);
+			pstm.setString(2, ip);
+			pstm.execute();
+			_log.info("New IP restriction created for: " + account + ", with IP: " + ip);
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	
+	public static void deleteIpRestriction(final String account, final String ip) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("DELETE FROM ip_restrictions WHERE account=? AND ip=?");
+			pstm.setString(1, account);
+			pstm.setString(2, ip);
+			pstm.execute();
+			_log.info("IP restriction deleted for: " + account + ", with IP: " + ip);
+			
+		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
@@ -403,6 +462,10 @@ public class Account {
 
 	public boolean isValid() {
 		return _isValid;
+	}
+	
+	public boolean isIpRestricted() {
+		return _restrictIps;
 	}
 
 	public boolean isGameMaster() {
