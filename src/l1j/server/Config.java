@@ -165,6 +165,10 @@ public final class Config {
 	public static boolean RESET_DUNGEONS_DAILY;
 	
 	public static String DUNGEON_RESET_TIME;
+	
+	public static boolean RESTRICT_ACCOUNT_IPS;
+	
+	public static String RESTRICT_ACCOUNT_IPS_MESSAGE;
 
 	/** Rate control */
 	public static int RATE_HP_REGEN;
@@ -715,6 +719,8 @@ public final class Config {
 
 			RESET_DUNGEONS_DAILY = Boolean.parseBoolean(serverSettings.getProperty("ResetDungeonsDaily", "True"));
 			DUNGEON_RESET_TIME = serverSettings.getProperty("DungeonResetTime", "00:00");
+			RESTRICT_ACCOUNT_IPS = Boolean.parseBoolean(serverSettings.getProperty("RestrictAccountIps", "False"));
+			RESTRICT_ACCOUNT_IPS_MESSAGE = serverSettings.getProperty("RestrictAccountIpsMessage");
 
 		} catch (Exception e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);

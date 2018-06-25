@@ -376,6 +376,30 @@ public class Account {
 		}
 		return false;
 	}
+	
+	public boolean validateIp(final String ip) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			String sqlstr = "SELECT * FROM ip_restrictions WHERE account=? AND ip=?";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setString(1, _name);
+			pstm.setString(2,  ip);
+			rs = pstm.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(rs);
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+		
+		return false;
+	}
 
 	public boolean isValid() {
 		return _isValid;
