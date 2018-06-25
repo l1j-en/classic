@@ -81,8 +81,8 @@ public class C_AuthLogin extends ClientBasePacket {
 			client.setDisconnectNextClick(true);
 			return;
 		}
-		
-		if(Config.RESTRICT_ACCOUNT_IPS && !account.validateIp(ip)) {
+
+		if(Config.RESTRICT_ACCOUNT_IPS && account.isIpRestricted() && !account.validateIp(ip)) {
 			client.sendPacket(new S_CommonNews(Config.RESTRICT_ACCOUNT_IPS_MESSAGE));
 			_log.info("Invalid IP to login - account: " + account.getName() + ", IP: " + client.getIp());
 			client.setDisconnectNextClick(true);
