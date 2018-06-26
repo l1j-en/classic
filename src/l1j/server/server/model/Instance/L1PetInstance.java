@@ -452,7 +452,7 @@ public class L1PetInstance extends L1NpcInstance {
 			attack_mortion.action();
 			return;
 		}
-		if (player.checkNonPvP(player, this)) {
+		if (player == null || player.checkNonPvP(player, this)) {
 			return;
 		}
 		L1Attack attack = new L1Attack(player, this);
