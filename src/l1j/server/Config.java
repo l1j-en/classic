@@ -916,7 +916,7 @@ public final class Config {
 			CASTLE_WAR_MIN_PRINCE_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"CastleWarMinPrinceLevel", "1"));
 			CASTLE_WAR_MIN_MEMBERS_ONLINE = Integer.parseInt(altSettings.getProperty(
-					"CastleWarMinMembersOnlinee", "0"));
+					"CastleWarMinMembersOnline", "0"));
 			CASTLE_WAR_MIN_MEMBERS_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"CastleWarMinMembersLevel", "1"));
 			RANKING_OVERALL_TOP = Integer.parseInt(altSettings.getProperty(
