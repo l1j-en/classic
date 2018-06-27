@@ -233,6 +233,25 @@ public class Account {
 			SQLUtil.close(con);
 		}
 	}
+	
+	public static void enableIpRestriction(final String account, final boolean enable) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("UPDATE `accounts` SET `restrict_ip` = ? WHERE login=?");
+			pstm.setBoolean(1, enable);
+			pstm.setString(2, account);
+			pstm.execute();
+			_log.info("IP restriction set to: " + enable + " for: " + account);
+			
+		} catch (SQLException e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
 
 	public int countCharacters() {
 		int result = 0;
