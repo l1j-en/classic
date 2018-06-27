@@ -17,6 +17,7 @@ public class CommandList {
 		_cmds.put("getonlineplayers", new GetOnlinePlayers());
 		_cmds.put("getsiegetimes", new GetSiegeTimes());
 		_cmds.put("iprestriction", new ManageIpRestrictions());
+		_cmds.put("enable-ip-restriction", new ToggleIpRestriction());
 	}
 	
 	public static Commands get(String name) {
