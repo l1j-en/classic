@@ -332,7 +332,9 @@ class ManageIpRestrictions implements Commands {
 			}
 			
 			if(action.toLowerCase().equals("add")) {
-				Account.addIpRestriction(existingAccount.getName(), ip);
+				if(!Account.addIpRestriction(existingAccount.getName(), ip)) {
+					return "ERROR";
+				}
 			} else {
 				Account.deleteIpRestriction(existingAccount.getName(), ip);
 			}
