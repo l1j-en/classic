@@ -151,9 +151,13 @@ UPDATE `skills` SET `probability_value` = 50 WHERE `skill_id` = 167;
 ALTER TABLE `accounts` ADD COLUMN `restrict_ip` bool default 0;
 
 CREATE TABLE `ip_restrictions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `account` varchar(50) NOT NULL,
   `ip` varchar(15) NOT NULL,
-  PRIMARY KEY (`account`, `ip`),
+  `deleted` DATETIME NULL,
+  INDEX(`account`),
+  INDEX(`ip`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`account`) REFERENCES accounts(`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
