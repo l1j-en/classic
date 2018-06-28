@@ -196,20 +196,35 @@ public class Account {
 		}
 	}
 	
-	public static void addIpRestriction(final String account, final String ip) {
+	public static boolean addIpRestriction(final String account, final String ip) {
 		Connection con = null;
 		PreparedStatement pstm = null;
+		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			String sqlstr = "INSERT INTO ip_restrictions (account, ip) VALUES(?,?)";
+			
+			String sqlstr = "SELECT * FROM ip_restrictions WHERE account=? and ip=? AND deleted is NULL LIMIT 1";
+			pstm = con.prepareStatement(sqlstr);
+			pstm.setString(1, account);
+			pstm.setString(2, ip);
+			
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				return false;
+			}
+			
+			sqlstr = "INSERT INTO ip_restrictions (account, ip) VALUES(?,?)";
 			pstm = con.prepareStatement(sqlstr);
 			pstm.setString(1, account);
 			pstm.setString(2, ip);
 			pstm.execute();
 			_log.info("New IP restriction created for: " + account + ", with IP: " + ip);
+			return true;
 		} catch (SQLException e) {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			return false;
 		} finally {
+			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
@@ -220,7 +235,7 @@ public class Account {
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("DELETE FROM ip_restrictions WHERE account=? AND ip=?");
+			pstm = con.prepareStatement("UPDATE `ip_restrictions` SET `deleted` = NOW() WHERE `account`=? AND `ip`=?");
 			pstm.setString(1, account);
 			pstm.setString(2, ip);
 			pstm.execute();
