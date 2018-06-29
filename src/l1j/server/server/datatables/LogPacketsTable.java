@@ -28,19 +28,20 @@ import l1j.server.server.utils.SQLUtil;
 public class LogPacketsTable {
 	private static Logger _log = Logger.getLogger(LogPacketsTable.class.getName());
 
-	public static void storeLogPacket(int target_id, String target_name, int target_poly, int opCode, String packet) {
+	public static void storeLogPacket(int target_id, String target_name, int target_poly, int opCode, String packet, String type) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO log_packets SET target_id=?, target_name=?, target_poly=?, opcode=?, packet=?, timestamp=?");
+					.prepareStatement("INSERT INTO log_packets SET target_id=?, target_name=?, target_poly=?, opcode=?, packet=?, timestamp=?, type=?");
 			pstm.setInt(1, target_id);
 			pstm.setString(2, target_name);
 			pstm.setInt(3, target_poly);
 			pstm.setInt(4, opCode);
 			pstm.setString(5, packet);
 			pstm.setLong(6, System.currentTimeMillis());
+			pstm.setString(7, type);
 			pstm.execute();
 
 		} catch (Exception e) {
