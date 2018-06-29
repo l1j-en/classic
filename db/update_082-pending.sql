@@ -161,3 +161,6 @@ CREATE TABLE `ip_restrictions` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`account`) REFERENCES accounts(`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- to log packets on client crash
+ALTER TABLE `log_packets` ADD COLUMN `type` varchar(20) NOT NULL;

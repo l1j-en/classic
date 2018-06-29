@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,6 +35,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
+import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
@@ -82,6 +84,11 @@ public class ClientThread implements Runnable, PacketOutput {
 	private int _kick = 0;
 	private boolean _disconnectNextClick;
 	private LineageKeys _clkey;
+	
+	// stores the last 20 packets, and if the client crashes, it logs those to the DB
+	private ArrayList<String> _packetsLog = new ArrayList<String>();
+	private int _lastOpCodeReceviedFromClient = -1;
+	
 	// MP Bug fix - dont remove - tricid
 	private boolean stop = false;
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
@@ -119,6 +126,22 @@ public class ClientThread implements Runnable, PacketOutput {
 		_in = socket.getInputStream();
 		_out = new BufferedOutputStream(socket.getOutputStream());
 		_handler = new PacketHandler(this);
+	}
+	
+	public ArrayList<String> getLastPackets() {
+		return this._packetsLog;
+	}
+	
+	public void addToPacketLog(String packet) {
+		this._packetsLog.add(packet);
+		
+		while(this._packetsLog.size() >= 20) {
+			this._packetsLog.remove(0);
+		}
+	}
+	
+	public void setLastClientPacket(int opCode) {
+		_lastOpCodeReceviedFromClient = opCode;
 	}
 
 	public String getIp() {
@@ -285,6 +308,13 @@ public class ClientThread implements Runnable, PacketOutput {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			try {
+				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME) {
+					for(String packet : _packetsLog) {
+						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, -1, packet, "client crash");
+					}
+					_packetsLog.clear();
+				}
+				
 				if (_activeChar != null) {
 					// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
 					// milliseconds since the last aggressive act was done to them/taken
