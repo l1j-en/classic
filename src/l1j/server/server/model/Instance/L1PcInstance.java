@@ -14,7 +14,6 @@ import static l1j.server.server.model.skill.L1SkillId.GREATER_HASTE;
 import static l1j.server.server.model.skill.L1SkillId.HASTE;
 import static l1j.server.server.model.skill.L1SkillId.HOLY_WALK;
 import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
-import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 import static l1j.server.server.model.skill.L1SkillId.INVISIBILITY;
 import static l1j.server.server.model.skill.L1SkillId.MASS_SLOW;
 import static l1j.server.server.model.skill.L1SkillId.MORTAL_BODY;
@@ -56,6 +55,7 @@ import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
+import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.HpRegeneration;
 import l1j.server.server.model.L1AccessLevel;
@@ -125,7 +125,9 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
+import l1j.server.server.utils.ByteArrayUtil;
 import l1j.server.server.utils.CalcStat;
+import l1j.server.server.utils.IntArrayUtil;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1PcInstance extends L1Character {
@@ -975,6 +977,16 @@ public class L1PcInstance extends L1Character {
 		}
 
 		try {
+			byte[] logPacket = serverbasepacket.getContent();
+			int packetOpCode = (int)logPacket[0];
+					
+			if(packetOpCode != Opcodes.S_OPCODE_GAMETIME &&
+					packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
+					packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
+					packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
+				this.getNetConnection().addToPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
+			}
+			
 			_out.sendPacket(serverbasepacket);
 		} catch (Exception e) {
 		}
