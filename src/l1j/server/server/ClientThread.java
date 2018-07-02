@@ -308,7 +308,8 @@ public class ClientThread implements Runnable, PacketOutput {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			try {
-				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME) {
+				// don't log if getAccountName is null because we will assume it was a crash before login
+				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null) {
 					for(String packet : _packetsLog) {
 						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, -1, packet, "client crash");
 					}
