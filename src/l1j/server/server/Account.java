@@ -477,7 +477,7 @@ public class Account {
 		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			String sqlstr = "SELECT * FROM ip_restrictions WHERE account=? AND ip=?";
+			String sqlstr = "SELECT * FROM ip_restrictions WHERE account=? AND ip=? AND deleted is NULL";
 			pstm = con.prepareStatement(sqlstr);
 			pstm.setString(1, _name);
 			pstm.setString(2,  ip);
