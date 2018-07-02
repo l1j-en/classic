@@ -164,3 +164,4 @@ CREATE TABLE `ip_restrictions` (
 
 -- to log packets on client crash
 ALTER TABLE `log_packets` ADD COLUMN `type` varchar(20) NOT NULL;
+ALTER TABLE `log_packets` MODIFY `packet` VARCHAR(1000);
