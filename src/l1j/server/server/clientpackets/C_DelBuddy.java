@@ -33,7 +33,10 @@ public class C_DelBuddy extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = clientthread.getActiveChar();
 		String charName = readS();
-		BuddyTable.getInstance().removeBuddy(pc.getId(), charName);
+		
+		if(pc != null) {
+			BuddyTable.getInstance().removeBuddy(pc.getId(), charName);
+		}
 	}
 
 	@Override

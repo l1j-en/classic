@@ -897,8 +897,8 @@ public class L1SkillUse {
 				}
 			}
 		} catch(Exception ex) {
-			_log.warning("Failed while checking target. Defaulting to false. Exception: "
-					+ ex.getMessage());
+			_log.info("Failed while checking target. Defaulting to false. Exception below");
+			_log.log(Level.INFO, ex.getLocalizedMessage(), ex);
 			return false;
 		}
 
