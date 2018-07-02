@@ -264,6 +264,13 @@ public class DropTable {
 						}
 						if (itemId == 41422 || itemId == 40586) { // royal 45q items that shouldn't drop when partied or with pets
 							//there should probably be more itemIDs here. TODO: find out which quests have this req and whether summons are/aren't allowed
+							
+							// since pets/summons can't pick up items, check to see if the person getting the item is a pc or not
+							if(!(acquisitor instanceof L1PcInstance)) {
+								inventory.deleteItem(item);
+								break;
+							}
+							
 							player = (L1PcInstance) acquisitor;
 							if (player.isInParty() || !player.getPetList().isEmpty()) { // no summon check for royal, ignoring dolls for now. thx tricid
 								inventory.deleteItem(item);
