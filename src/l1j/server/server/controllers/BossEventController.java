@@ -110,7 +110,7 @@ public class BossEventController implements Runnable {
 							
 							// non GMs on the aden map, on a normal (non safety/combat) zone
 							if(player == null || player.getMapId() != 4 || !player.getMap().isNormalZone(player.getLocation())
-									|| player.getLevel() < 65 || player.isGm() || player.isDead()) {
+									|| player.getLevel() < 55 || player.isGm() || player.isDead()) {
 								continue;
 							}
 							
