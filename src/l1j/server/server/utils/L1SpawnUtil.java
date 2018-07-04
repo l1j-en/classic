@@ -64,6 +64,34 @@ public class L1SpawnUtil {
 			npc.setHomeY(npc.getY());
 			npc.setHeading(pc.getHeading());
 			L1World.getInstance().storeObject(npc);
+			
+			L1World.getInstance().addVisibleObject(npc);
+			npc.turnOnOffLight();
+			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
+			if (0 < timeMillisToDelete) {
+				L1NpcDeleteTimer timer = new L1NpcDeleteTimer(npc,
+						timeMillisToDelete);
+				timer.begin();
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
+	
+	public static void spawn(L1PcInstance pc, int npcId, int x, int y,
+			int timeMillisToDelete) {
+		try {
+			L1NpcInstance npc = NpcTable.getInstance().newNpcInstance(npcId);
+			npc.setId(IdFactory.getInstance().nextId());
+			npc.setMap(pc.getMapId());
+			npc.setX(x);
+			npc.setY(y);
+			
+			npc.setHomeX(npc.getX());
+			npc.setHomeY(npc.getY());
+			npc.setHeading(pc.getHeading());
+			L1World.getInstance().storeObject(npc);
+			
 			L1World.getInstance().addVisibleObject(npc);
 			npc.turnOnOffLight();
 			npc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
