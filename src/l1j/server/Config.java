@@ -351,6 +351,14 @@ public final class Config {
 	public static int ALT_WAR_INTERVAL_UNIT;
 
 	public static int ALT_RATE_OF_DUTY;
+	
+	public static boolean ALT_BOSS_EVENT;
+	
+	public static String ALT_BOSS_EVENT_BOSSES;
+	
+	public static boolean ALT_BOSS_EVENT_DAILY_RESET;
+	
+	public static String ALT_BOSS_EVENT_RESET_TIME;
 
 	public static boolean INIT_BOSS_SPAWN;
 
@@ -879,6 +887,13 @@ public final class Config {
 					"HalloweenEventNpc", "False"));
 			ALT_POLYEVENT = Boolean.parseBoolean(altSettings.getProperty(
 					"PolyEvent", "False"));
+			ALT_BOSS_EVENT = Boolean.parseBoolean(altSettings.getProperty(
+					"BossEvent", "False"));
+			ALT_BOSS_EVENT_BOSSES = altSettings.getProperty(
+					"BossEventBosses", "");
+			ALT_BOSS_EVENT_DAILY_RESET = Boolean.parseBoolean(altSettings.getProperty(
+					"BossEventDailyReset", "False"));
+			ALT_BOSS_EVENT_RESET_TIME = altSettings.getProperty("BossEventDailyResetTime", "00:00");
 			ALT_JPPRIVILEGED = Boolean.parseBoolean(altSettings.getProperty(
 					"JpPrivileged", "False"));
 			ALT_TALKINGSCROLLQUEST = Boolean.parseBoolean(altSettings
