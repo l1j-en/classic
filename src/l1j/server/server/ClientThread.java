@@ -24,10 +24,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,7 +88,7 @@ public class ClientThread implements Runnable, PacketOutput {
 	private LineageKeys _clkey;
 	
 	// stores the last 20 packets, and if the client crashes, it logs those to the DB
-	private ArrayList<String> _packetsLog = new ArrayList<String>();
+	private CopyOnWriteArrayList<String> _packetsLog = new CopyOnWriteArrayList<String>();
 	private int _lastOpCodeReceviedFromClient = -1;
 	
 	// MP Bug fix - dont remove - tricid
@@ -128,15 +130,17 @@ public class ClientThread implements Runnable, PacketOutput {
 		_handler = new PacketHandler(this);
 	}
 	
-	public ArrayList<String> getLastPackets() {
+	public CopyOnWriteArrayList<String> getLastPackets() {
 		return this._packetsLog;
 	}
 	
 	public void addToPacketLog(String packet) {
 		this._packetsLog.add(packet);
 		
-		while(this._packetsLog.size() >= 20) {
-			this._packetsLog.remove(0);
+		for (String s : this._packetsLog) {
+		    if (this._packetsLog.size() >= 20) {
+		    	this._packetsLog.remove(s);
+		    }
 		}
 	}
 	
