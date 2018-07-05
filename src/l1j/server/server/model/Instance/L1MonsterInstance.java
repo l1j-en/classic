@@ -14,6 +14,7 @@ import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.controllers.BossEventController;
 import l1j.server.server.datatables.DropTable;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.datatables.UBTable;
@@ -445,6 +446,12 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setKarma(0);
 			setLawful(0);
 			allTargetClear();
+			
+			if(Config.ALT_BOSS_EVENT && BossEventController.getInstance().getBossIds().contains(getNpcId())) {
+				L1World world = L1World.getInstance();
+				world.broadcastServerMessage(String.format("\\fR[******] %s has protected Aden by slaying %s!",
+						_lastAttacker.getName(), getName()));
+			}
 
 			startDeleteTimer();
 			
