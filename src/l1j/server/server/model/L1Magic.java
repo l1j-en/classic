@@ -80,6 +80,7 @@ import java.util.Random;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
+import l1j.server.server.controllers.BossEventController;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1DollInstance;
@@ -568,6 +569,11 @@ public class L1Magic {
 			}
 			
 			int npcId = _targetNpc.getNpcTemplate().get_npcId();
+			
+			if(BossEventController.getInstance().getBossIds().contains(_targetNpc.getId())) {
+				return false;
+			}
+			
 			switch (npcId) {
 			case 45912:
 			case 45913:
