@@ -449,8 +449,16 @@ public class L1MonsterInstance extends L1NpcInstance {
 			
 			if(Config.ALT_BOSS_EVENT && BossEventController.getInstance().getBossIds().contains(getNpcId())) {
 				L1World world = L1World.getInstance();
+				
+				String name = _lastAttacker.getName();
+				if(_lastAttacker instanceof L1PetInstance) {
+					name = ((L1PetInstance)_lastAttacker).getMaster().getName();
+				} else if(_lastAttacker instanceof L1SummonInstance) {
+					name = ((L1SummonInstance)_lastAttacker).getMaster().getName();
+				}
+				
 				world.broadcastServerMessage(String.format("\\fR[******] %s has protected Aden by slaying %s!",
-						_lastAttacker.getName(), getName()));
+						name, getName()));
 			}
 
 			startDeleteTimer();
