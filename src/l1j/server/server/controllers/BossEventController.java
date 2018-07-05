@@ -46,6 +46,10 @@ public class BossEventController implements Runnable {
 	private int lastDayRun = -1;
 	private int lastHourRun = -1;
 	private boolean spawnBoss = false;
+	
+	public ArrayList<Integer> getBossIds() {
+		return bossIds;
+	}
 		
 	@Override
 	public void run() {
@@ -91,12 +95,14 @@ public class BossEventController implements Runnable {
 						world.broadcastServerMessage("\\fR[******] A strange aura has appeared on mainland!");
 						Thread.sleep(rand.nextInt(300000)); // wait ~ 5 minutes for players to get to the correct map
 						
-						// 30% chance 2 bosses will spawn
+						// 80% chance 2 bosses will spawn, 20% chance 3 bosses will spawn
 						int spawnRate = rand.nextInt(10000);
 						
 						int numBossesToSpawn = 1;
 						
-						if(spawnRate < 3000) {
+						if(spawnRate < 2000) {
+							numBossesToSpawn = 3;
+						} else if(spawnRate < 8000) {
 							numBossesToSpawn = 2;
 						}
 						
@@ -157,9 +163,10 @@ public class BossEventController implements Runnable {
 							
 							crack.deleteMe();
 							
-							// spawn the boss but have it auto despawn after 15 minutes
-							L1SpawnUtil.spawn(player, boss.get_npcId(), crack.getX(), crack.getY(), 900000);
+							// spawn the boss but have it auto despawn after 25 minutes
+							L1SpawnUtil.spawn(player, boss.get_npcId(), crack.getX(), crack.getY(), 1500000);
 							world.broadcastServerMessage(String.format("\\fR[******] %s has appeared!", boss.get_name()));
+							_log.info(String.format("The Boss Event has spawned %s on player %s!", boss.get_name(), player.getName()));
 							
 							int currentIpConnections = 0;
 							if(ipsHit.containsKey(player.getNetConnection().getIp())) {
