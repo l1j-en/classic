@@ -740,7 +740,7 @@ public class L1SkillUse {
 			}
 
 			if ((_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
-					&& !(cha instanceof L1MonsterInstance)
+					&& cha instanceof L1PcInstance
 					&& _isPK == false
 					&& _target instanceof L1PcInstance) {
 				L1PcInstance enemy = (L1PcInstance) cha;
