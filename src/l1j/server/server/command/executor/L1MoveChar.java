@@ -137,7 +137,7 @@ public class L1MoveChar implements L1CommandExecutor {
 			}
 			
 			if(target != null) {
-				L1Teleport.teleport(target, locx, locy, (short)mapid, 1, false);
+				L1Teleport.teleport(target, locx, locy, mapid, 1, false);
 				pc.sendPackets(new S_SystemMessage(String.format("Character '%s' Moved To: %s, %d, %d.",
 						target.getName(), locx, locy, mapid)));
 				target.sendPackets(new S_SystemMessage("A GM Has Teleported you."));

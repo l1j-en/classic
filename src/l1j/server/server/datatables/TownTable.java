@@ -116,8 +116,8 @@ public class TownTable {
 			salesMoney += item.getItem().getPrice() * item.getCount();
 					
 			for(int i = 0; i < item.getCount(); i++) {
-				townTaxEarned += (int)item.getItem().getPrice() * townTaxRate / 100;
-				townFixTaxEarned += (int)item.getItem().getPrice() * _minTaxRate / 100;
+				townTaxEarned += item.getItem().getPrice() * townTaxRate / 100;
+				townFixTaxEarned += item.getItem().getPrice() * _minTaxRate / 100;
 			}	
 		}
 		
