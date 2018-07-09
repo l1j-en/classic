@@ -41,7 +41,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 			_log.info("Logout from: char=" + pc.getName() + " account="
 			+ pc.getAccountName() + " host=" + client.getHostname()
 			+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			ClientThread.quitGame(pc);
+			ClientThread.quitGame(pc, client.getLastActiveCharName());
 			synchronized (pc) {
 				pc.logout();
 				client.setActiveChar(null);

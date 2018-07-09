@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,11 +79,13 @@ public class ClientThread implements Runnable, PacketOutput {
 	private boolean _charRestart = true;
 	private long _lastSavedTime = System.currentTimeMillis();
 	private long _lastSavedTime_inventory = System.currentTimeMillis();
-	private static final int M_CAPACITY = 3;
 	private static final int H_CAPACITY = 2;
 	private int _kick = 0;
 	private boolean _disconnectNextClick;
 	private LineageKeys _clkey;
+	
+	// used only for logging purposes
+	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
 	
 	// stores the last 20 packets, and if the client crashes, it logs those to the DB
 	private CopyOnWriteArrayList<String> _packetsLog = new CopyOnWriteArrayList<String>();
@@ -146,6 +146,14 @@ public class ClientThread implements Runnable, PacketOutput {
 	
 	public void setLastClientPacket(int opCode) {
 		_lastOpCodeReceviedFromClient = opCode;
+	}
+	
+	public void setLastActiveCharName(String charName) {
+		this._lastActiveCharName = charName;
+	}
+	
+	public String getLastActiveCharName() {
+		return this._lastActiveCharName;
 	}
 
 	public String getIp() {
@@ -210,7 +218,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				_lastSavedTime_inventory = System.currentTimeMillis();
 			}
 		} catch (Exception e) {
-			_log.warning("Client autosave failure.");
+			_log.warning("Client autosave failure. Last active char: " + getLastActiveCharName());
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw e;
 		}
@@ -309,6 +317,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				
 			}
 		} catch (Throwable e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			try {
@@ -331,7 +340,7 @@ public class ClientThread implements Runnable, PacketOutput {
 						Thread.sleep(50); // to stop 100% cpu spike
 					}
 					
-					quitGame(_activeChar);
+					quitGame(_activeChar, this.getLastActiveCharName());
 						
 					synchronized (_activeChar) {
 						_activeChar.logout();
@@ -341,6 +350,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				sendPacket(new S_Disconnect());
 				StreamUtil.close(_out, _in);
 			} catch (Exception e) {
+				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
 				LoginController.getInstance().logout(this);
@@ -532,7 +542,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		return _account.getName();
 	}
 
-	public static void quitGame(L1PcInstance pc) {
+	public static void quitGame(L1PcInstance pc, String lastActiveChar) {
 		// First cancel trade & save inventory to help avoid duping
 		try {
 			if (pc.getTradeID() != 0) {
@@ -540,6 +550,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				trade.TradeCancel(pc);
 			}
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 
@@ -609,6 +620,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		try {
 			pc.saveInventory();			
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		
@@ -628,6 +640,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		try {
 			pc.save();
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
