@@ -141,7 +141,7 @@ public class GameServer extends Thread {
 		}
 		// Kick save after all, make
 		for (L1PcInstance pc : players) {
-			ClientThread.quitGame(pc);
+			ClientThread.quitGame(pc, "--SENT FROM DISCONNECTALL--");
 			L1World.getInstance().removeObject(pc);
 		}
 	}
