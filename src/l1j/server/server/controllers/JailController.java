@@ -55,7 +55,7 @@ public class JailController implements Runnable {
 				hours = 0;
 			}
 			
-			int minutes = ((Long)diffMinutes).intValue();
+			int minutes = diffMinutes.intValue();
 			
 			String dayString = days == 1 ? "day" : "days";
 			String hourString = hours == 1 ? "hour" : "hours";

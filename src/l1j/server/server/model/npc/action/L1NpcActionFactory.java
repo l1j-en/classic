@@ -34,7 +34,7 @@ public class L1NpcActionFactory {
 	@SuppressWarnings("unchecked")
 	private static Constructor<L1NpcAction> loadConstructor(Class<?> c)
 			throws NoSuchMethodException {
-		return (Constructor<L1NpcAction>) c.getConstructor(new Class[] { Element.class });
+		return (Constructor<L1NpcAction>) c.getConstructor(new Class<?>[] { Element.class });
 	}
 
 	static {

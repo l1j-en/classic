@@ -208,12 +208,12 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setContribution(0);
 		pc.setBanned(false);
 		pc.setKarma(0);
-		pc.setOriginalStr((byte) pc.getStr());
-		pc.setOriginalInt((byte) pc.getInt());
-		pc.setOriginalWis((byte) pc.getWis());
-		pc.setOriginalDex((byte) pc.getDex());
-		pc.setOriginalCon((byte) pc.getCon());
-		pc.setOriginalCha((byte) pc.getCha());
+		pc.setOriginalStr(pc.getStr());
+		pc.setOriginalInt(pc.getInt());
+		pc.setOriginalWis(pc.getWis());
+		pc.setOriginalDex(pc.getDex());
+		pc.setOriginalCon(pc.getCon());
+		pc.setOriginalCha(pc.getCha());
 		
 		if (pc.isWizard()) { // WIZ
 			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

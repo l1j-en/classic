@@ -498,8 +498,7 @@ public class L1Attack {
 		// wrap in try/catch to make sure the command doesn't
 		// accidentally crap out the action
 		try {
-			if(_targetPc instanceof L1PcInstance &&
-					((L1PcInstance)_targetPc).isGmInvul()) {
+			if(_targetPc instanceof L1PcInstance && _targetPc.isGmInvul()) {
 				
 				return false;
 			}
@@ -689,9 +688,7 @@ public class L1Attack {
 		// wrap in try/catch to make sure the command doesn't
 		// accidentally crap out the action
 		try {
-			if(_targetPc instanceof L1PcInstance &&
-					((L1PcInstance)_targetPc).isGmInvul()) {
-				
+			if(_targetPc instanceof L1PcInstance && _targetPc.isGmInvul()) {
 				return false;
 			}
 		} catch(Exception ex) { }
