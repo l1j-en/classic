@@ -423,11 +423,11 @@ public class L1MonsterInstance extends L1NpcInstance {
 			setStatus(ActionCodes.ACTION_Die);
 			
 			if(getServantMaster() instanceof L1NpcInstance) {
-				L1Spawn masterSpawn = ((L1NpcInstance)getServantMaster()).getSpawn();
+				L1Spawn masterSpawn = getServantMaster().getSpawn();
 				
 				// if it is something a GM has spawned or a boss, then allow respawning of servants	
 				if(masterSpawn == null || masterSpawn instanceof L1BossSpawn) {
-					((L1NpcInstance)getServantMaster()).removeServantSummon();
+					getServantMaster().removeServantSummon();
 				}
 			}
 			
