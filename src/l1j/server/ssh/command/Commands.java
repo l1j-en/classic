@@ -244,7 +244,7 @@ class GetOnlinePlayers implements Commands {
 			Iterator<Entry<String, Integer>> it = chars.entrySet().iterator();
 			String separator = "";
 		    while (it.hasNext()) {
-		        Map.Entry<String, Integer> gameClass = (Map.Entry<String, Integer>)it.next();
+		        Map.Entry<String, Integer> gameClass = it.next();
 		        json.append(separator + "\"" + gameClass.getKey() + "\":" + gameClass.getValue());
 		        it.remove();
 		        separator = ",\n";
@@ -255,7 +255,7 @@ class GetOnlinePlayers implements Commands {
 		    it = shopChars.entrySet().iterator();
 		    separator = "";
 		    while (it.hasNext()) {
-		        Map.Entry<String, Integer> gameClass = (Map.Entry<String, Integer>)it.next();
+		        Map.Entry<String, Integer> gameClass = it.next();
 		        json.append(separator + "\"" + gameClass.getKey() + "\":" + gameClass.getValue());
 		        it.remove();
 		        separator = ",\n";
