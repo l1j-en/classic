@@ -46,7 +46,7 @@ public class C_Disconnect extends ClientBasePacket {
 				}
 			}
 
-			ClientThread.quitGame(pc);
+			ClientThread.quitGame(pc, client.getLastActiveCharName());
 			synchronized (pc) {
 				pc.logout();
 				client.setActiveChar(null);
