@@ -218,7 +218,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				_lastSavedTime_inventory = System.currentTimeMillis();
 			}
 		} catch (Exception e) {
-			_log.warning("Client autosave failure.");
+			_log.warning("Client autosave failure. Last active char: " + getLastActiveCharName());
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw e;
 		}
@@ -317,6 +317,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				
 			}
 		} catch (Throwable e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
 			try {
@@ -349,6 +350,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				sendPacket(new S_Disconnect());
 				StreamUtil.close(_out, _in);
 			} catch (Exception e) {
+				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			} finally {
 				LoginController.getInstance().logout(this);
@@ -548,9 +550,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				trade.TradeCancel(pc);
 			}
 		} catch (Exception e) {
-			if(lastActiveChar != null) {
-				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			}
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 
@@ -620,6 +620,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		try {
 			pc.saveInventory();			
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		
@@ -639,6 +640,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		try {
 			pc.save();
 		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
