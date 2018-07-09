@@ -3,6 +3,8 @@ package l1j.server.server.command.executor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -17,6 +19,7 @@ public class L1MapInfo implements L1CommandExecutor {
 	 * 47 = combat zone
 	 * 
 	 */
+	private static Logger _log = Logger.getLogger(L1MapInfo.class.getName());
 	
 	public static L1CommandExecutor getInstance() {
 		return new L1MapInfo();
@@ -66,6 +69,7 @@ public class L1MapInfo implements L1CommandExecutor {
 			}
 			
 		} catch(Exception ex) {
+			_log.log(Level.WARNING, ex.getLocalizedMessage(), ex);
 			pc.sendPackets(new S_SystemMessage(".map [info|update|save] [newTileValue]"));
 		}
 	}
