@@ -722,6 +722,11 @@ public class L1SkillUse {
 					&& cha.getId() == _user.getId() && _skillId != HEAL_ALL) {
 				return true;
 			}
+			
+			if (_user instanceof L1PcInstance && _skill.getType() == L1Skill.TYPE_HEAL
+					&& _target.hasSkillEffect(EARTH_BIND)) {
+				return false;
+			}
 
 			if (_user instanceof L1PcInstance
 					&& (_skill.getTarget().equals("attack") || _skill.getType() == L1Skill.TYPE_ATTACK)
