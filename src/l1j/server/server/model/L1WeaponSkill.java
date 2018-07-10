@@ -430,10 +430,11 @@ public class L1WeaponSkill {
 	}
 
 	private static double giveFettersEffect(L1PcInstance pc, L1Character target) {
-		if (isImmune(target)) {
-			return 0;
-		}
 		if ((_random.nextInt(100) + 1) <= 2) {
+			if (isImmune(target)) {
+				return 0;
+			}
+			
 			L1EffectSpawn.getInstance().spawnEffect(81182, FettersTime,
 					target.getX(), target.getY(), target.getMapId());
 			target.setSkillEffect(STATUS_FREEZE, FettersTime);
@@ -450,6 +451,7 @@ public class L1WeaponSkill {
 				npc.setParalyzed(true);
 			}
 		}
+		
 		return 0;
 	}
 
