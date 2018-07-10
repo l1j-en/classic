@@ -60,6 +60,7 @@ import l1j.server.server.serverpackets.S_Trade;
 import l1j.server.server.templates.L1House;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
+import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -193,7 +194,19 @@ public class C_Attr extends ClientBasePacket {
 			c = readC();
 			L1PcInstance trading_partner = (L1PcInstance) L1World.getInstance()
 					.findObject(pc.getTradeID());
+				
+			
 			if (trading_partner != null) {
+				L1PcInstance facingPlayer = FaceToFace.faceToFace(pc);
+				
+				if(facingPlayer == null || trading_partner.getId() != facingPlayer.getId()) {
+					trading_partner.sendPackets(new S_ServerMessage(253, pc
+							.getName()));
+					pc.setTradeID(0);
+					trading_partner.setTradeID(0);
+					break;
+				}
+				
 				if (c == 0) // No
 				{
 					trading_partner.sendPackets(new S_ServerMessage(253, pc
