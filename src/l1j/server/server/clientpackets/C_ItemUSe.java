@@ -2562,9 +2562,14 @@ public class C_ItemUSe extends ClientBasePacket {
 				// } else if ( pc.isElf() ) {
 				// 	// L1Teleport.teleport(pc, 32850, 32800, (short) 2004, 5, true);
 				// } else if ( pc.isWizard() ) {
+				if(pc.getMap().isEscapable() || pc.isGm()) {
 					L1Teleport.teleport(pc, 32856, 32740, (short) 2000, 5, true);
+					inventory.consumeItem(49165, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(647));
+				}
 				// }
-				inventory.consumeItem(49165, 1);
+				
 			} else if ( itemId == 49166 ) {
 				// Level 50 quest
 				// if ( pc.isKnight() ) {
@@ -2576,8 +2581,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				// } else if ( pc.isWizard() ) {
 				//	// L1Teleport.teleport(pc, 32738, 32773, (short) 2000, 5, true);
 				// }
-				L1Teleport.teleport(pc, 32738, 32773, (short) 2000, 5, true);
-				inventory.consumeItem(49166, 1);
+				if(pc.getMap().isEscapable() || pc.isGm()) {
+					L1Teleport.teleport(pc, 32738, 32773, (short) 2000, 5, true);
+					inventory.consumeItem(49166, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(647));
+				}
+				
 			} else if (itemId == 49239) {
 				// Will of Destruction
 				L1Teleport.teleport(pc, 32788, 32773, (short) 2000, 1, true);
