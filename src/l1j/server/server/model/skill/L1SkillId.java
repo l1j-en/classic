@@ -605,4 +605,6 @@ public class L1SkillId {
 	public static final int STATUS_DESTRUCTION_NOSTRUM = 1029;
 
 	public static final int STATUS_BRAVE2 = 20001;
+	
+	public static final int BLEEDING = 20002;
 }
