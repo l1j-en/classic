@@ -24,8 +24,10 @@ import l1j.server.server.datatables.PolyTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Element;
 import l1j.server.server.model.L1Awake;
+import l1j.server.server.model.L1Bleed;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
+import l1j.server.server.model.L1Chaser;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1CurseParalysis;
 import l1j.server.server.model.L1EffectSpawn;
@@ -2165,7 +2167,7 @@ public class L1SkillUse {
 						}
 					}
 				} else if (_skillId == CURSE_POISON || _skillId == 20084) {
-					L1DamagePoison.doInfection(_user, cha, 3000, 5);
+					L1DamagePoison.doInfection(_user, cha, 3000, 5);					
 				} else if(_skillId == 14016) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 50, 3000);
 				} else if (_skillId == CURSE_PARALYZE
@@ -2223,8 +2225,6 @@ public class L1SkillUse {
 						npc.setParalysisTime(_skill.getBuffDuration() * 1000);
 					}
 				} else if (_skillId == SHOCK_STUN) {
-
-
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
 					
@@ -2254,12 +2254,34 @@ public class L1SkillUse {
 						npc.setParalyzed(true);
 						npc.setParalysisTime(_shockStunDuration);
 					}
+				} else if(_skillId == 20085 || _skillId == 20088) { // jad ske earthquake with a chance to stun, or ecu ette smash
+					L1SkillUse skillUse = new L1SkillUse();
+					skillUse.handleCommands(null, SHOCK_STUN, cha.getId(),
+										_target.getX(), _target.getX(), null, 0,
+										L1SkillUse.TYPE_NORMAL, _npc);
+				} else if(_skillId == 20086) { // ecu azte disease
+					_skill.newBuffSkillExecutor().addEffect(_user, cha, 0);
+				} else if(_skillId == 20087 || _skillId == 20089) {
+					L1DamagePoison.doInfection(_user, cha, 15000, 200);
+				} else if(_skillId == 20090) { // bleed
+					L1Bleed bleed = new L1Bleed((L1PcInstance)cha, _target);
+					bleed.begin();
 				} else if (_skillId == MASS_SHOCK_STUN) {
 					RandomGenerator random = RandomGeneratorFactory
 							.getSharedRandom();
-					int stunTime = (random.nextInt(21) + 30) * 100;
+					
+					int durationCalculator = random.nextInt(400);
+					
+					if(durationCalculator >= 335) {
+						_shockStunDuration = 4000; // 16% chance for 4 second
+					} else if(durationCalculator >= 210) {
+						_shockStunDuration = 3000; // 32% chance for 3 second
+					} else if(durationCalculator >= 80) {
+						_shockStunDuration = 2000; // 31% chance for 2 second
+					} else {
+						_shockStunDuration = 1000; // 20% chance for 1 second
+					}
 
-					_shockStunDuration = stunTime;
 					L1EffectSpawn.getInstance().spawnEffect(81162,
 							_shockStunDuration, cha.getX(), cha.getY(),
 							cha.getMapId());
