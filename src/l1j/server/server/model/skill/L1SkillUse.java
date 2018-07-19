@@ -2178,6 +2178,8 @@ public class L1SkillUse {
 						} else {
 							pc.sendPackets(new S_CurseBlind(1));
 						}
+						
+						pc.setSkillEffect(_skillId, _skillTime * 1000);
 					}
 				} else if (_skillId == CURSE_POISON) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 5);
