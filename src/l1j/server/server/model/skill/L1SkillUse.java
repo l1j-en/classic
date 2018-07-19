@@ -704,7 +704,9 @@ public class L1SkillUse {
 							|| cha instanceof L1HousekeeperInstance
 							|| cha instanceof L1MerchantInstance
 							|| cha instanceof L1TeleporterInstance
-							|| cha instanceof L1GuardInstance)) {
+							|| cha instanceof L1GuardInstance
+							|| cha instanceof L1SummonInstance
+							|| cha instanceof L1PetInstance)) {
 				return false;
 			}
 
