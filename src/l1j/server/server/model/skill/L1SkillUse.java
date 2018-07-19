@@ -79,6 +79,7 @@ import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_RangeSkill;
@@ -1539,6 +1540,11 @@ public class L1SkillUse {
 						}
 					} else {
 						_player.sendPackets(new S_SkillSound(targetid, castgfx));
+						
+						if (_skillId == UNCANNY_DODGE) {
+							_player.sendPackets(new S_PacketBox(21, _skillTime / 16));
+						}
+						
 						_player.broadcastPacket(new S_SkillSound(targetid,
 								castgfx));
 					}
@@ -2172,6 +2178,8 @@ public class L1SkillUse {
 						} else {
 							pc.sendPackets(new S_CurseBlind(1));
 						}
+						
+						pc.setSkillEffect(_skillId, _skillTime * 1000);
 					}
 				} else if (_skillId == CURSE_POISON) {
 					L1DamagePoison.doInfection(_user, cha, 3000, 5);

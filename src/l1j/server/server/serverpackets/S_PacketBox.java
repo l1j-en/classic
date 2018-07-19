@@ -210,6 +210,12 @@ public class S_PacketBox extends ServerBasePacket {
 			writeC(0x01);
 			writeC(value); // 0-49 Not only display
 			break;
+		case ICONS2:
+			writeC(0x00);
+			writeC(0x00);
+			writeC(0x00);
+			writeC(value); // Uncanny Dodge, Mirror Image
+			break;
 		default:
 			break;
 		}

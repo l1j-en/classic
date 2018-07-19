@@ -32,6 +32,7 @@ import static l1j.server.server.model.skill.L1SkillId.CLEAR_MIND;
 import static l1j.server.server.model.skill.L1SkillId.CURSE_BLIND;
 import static l1j.server.server.model.skill.L1SkillId.CURSE_PARALYZE;
 import static l1j.server.server.model.skill.L1SkillId.DARKNESS;
+import static l1j.server.server.model.skill.L1SkillId.DARK_BLIND;
 import static l1j.server.server.model.skill.L1SkillId.DISEASE;
 import static l1j.server.server.model.skill.L1SkillId.DRESS_DEXTERITY;
 import static l1j.server.server.model.skill.L1SkillId.DRESS_MIGHTY;
@@ -443,7 +444,7 @@ class L1SkillStop {
 			}
 		}
 
-		else if (skillId == CURSE_BLIND || skillId == DARKNESS) {
+		else if (skillId == CURSE_BLIND || skillId == DARKNESS || skillId == DARK_BLIND) {
 			if (cha instanceof L1PcInstance) {
 				L1PcInstance pc = (L1PcInstance) cha;
 				pc.sendPackets(new S_CurseBlind(0));
