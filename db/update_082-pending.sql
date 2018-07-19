@@ -165,3 +165,6 @@ CREATE TABLE `ip_restrictions` (
 -- to log packets on client crash
 ALTER TABLE `log_packets` ADD COLUMN `type` varchar(20) NOT NULL;
 ALTER TABLE `log_packets` MODIFY `packet` VARCHAR(1000);
+
+-- update dark_blind to work again but only for pvp
+UPDATE `skills` SET `ranged` = 1, `target_to` = 1 WHERE `skill_id` = 103;
