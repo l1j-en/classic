@@ -143,11 +143,11 @@ public class S_Ranking extends ServerBasePacket {
 					levelRank, pvpRank, dailyRank, weeklyRank, monthlyRank, yearlyRank));
 		} else {
 			if(rankType == RankType.LEVELCLASS || rankType == RankType.PVPCLASS)
-				writeS(RankingsController.getRanks(rankType, number, Config.RANKING_CLASS_TOP));
+				writeS(RankingsController.getRanks(rankType, number, Config.ALT_RANKING_CLASS_TOP));
 			else if(rankType == RankType.LEVEL || rankType == RankType.PVP)
-				writeS(RankingsController.getRanks(rankType, Config.RANKING_OVERALL_TOP)); 
+				writeS(RankingsController.getRanks(rankType, Config.ALT_RANKING_OVERALL_TOP)); 
 			else
-				writeS(RankingsController.getRanks(rankType, Config.RANKING_CLASS_TOP));
+				writeS(RankingsController.getRanks(rankType, Config.ALT_RANKING_CLASS_TOP));
 		}
 	}
 	
