@@ -578,8 +578,11 @@ public final class Config {
 	public static int CASTLE_WAR_MIN_MEMBERS_ONLINE;
 	public static int CASTLE_WAR_MIN_MEMBERS_LEVEL;
 	
-	public static int RANKING_OVERALL_TOP;
-	public static int RANKING_CLASS_TOP;
+	public static int ALT_RANKING_OVERALL_TOP;
+	public static int ALT_RANKING_CLASS_TOP;
+	public static int ALT_RANKING_MIN_LEVEL;
+	public static int ALT_RANKING_MAX_LEVEL_DIFFERENCE;
+	public static String ALT_RANKING_PENALTY_TYPES;
 	
 	public static boolean LIMIT_WEAPON_SWITCHING;
 	
@@ -934,10 +937,17 @@ public final class Config {
 					"CastleWarMinMembersOnline", "0"));
 			CASTLE_WAR_MIN_MEMBERS_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"CastleWarMinMembersLevel", "1"));
-			RANKING_OVERALL_TOP = Integer.parseInt(altSettings.getProperty(
+			ALT_RANKING_OVERALL_TOP = Integer.parseInt(altSettings.getProperty(
 					"RankingOverallTop", "25"));
-			RANKING_CLASS_TOP = Integer.parseInt(altSettings.getProperty(
+			ALT_RANKING_CLASS_TOP = Integer.parseInt(altSettings.getProperty(
 					"RankingClassTop", "10"));
+			
+			ALT_RANKING_MIN_LEVEL = Integer.parseInt(altSettings.getProperty(
+					"RankingMinLevel", "70"));
+			ALT_RANKING_MAX_LEVEL_DIFFERENCE = Integer.parseInt(altSettings.getProperty(
+					"RankingMaxLevelDifference", "3"));
+			ALT_RANKING_PENALTY_TYPES = altSettings.getProperty("RankingPenaltyTypes", "5,8,9");
+			
 			
 			LIMIT_WEAPON_SWITCHING = Boolean.parseBoolean(altSettings.getProperty("LimitWeaponSwitching", "False"));
 			String strWar;
