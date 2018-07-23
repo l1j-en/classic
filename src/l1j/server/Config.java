@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -359,6 +360,8 @@ public final class Config {
 	public static boolean ALT_BOSS_EVENT_DAILY_RESET;
 	
 	public static String ALT_BOSS_EVENT_RESET_TIME;
+	
+	public static long ALT_DAYS_LIMIT_PLEDGE_JOIN;
 
 	public static boolean INIT_BOSS_SPAWN;
 
@@ -897,6 +900,9 @@ public final class Config {
 			ALT_BOSS_EVENT_DAILY_RESET = Boolean.parseBoolean(altSettings.getProperty(
 					"BossEventDailyReset", "False"));
 			ALT_BOSS_EVENT_RESET_TIME = altSettings.getProperty("BossEventDailyResetTime", "00:00");
+			
+			ALT_DAYS_LIMIT_PLEDGE_JOIN = TimeUnit.DAYS.toMillis(Integer.parseInt(altSettings.getProperty("DaysLimitPledgeJoin", "0")));
+			
 			ALT_JPPRIVILEGED = Boolean.parseBoolean(altSettings.getProperty(
 					"JpPrivileged", "False"));
 			ALT_TALKINGSCROLLQUEST = Boolean.parseBoolean(altSettings
