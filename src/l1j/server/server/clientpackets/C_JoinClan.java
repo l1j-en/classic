@@ -18,12 +18,14 @@
  */
 package l1j.server.server.clientpackets;
 
+import l1j.server.Config;
 import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.FaceToFace;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -68,6 +70,17 @@ public class C_JoinClan extends ClientBasePacket {
 		if (target.getId() != clan.getLeaderId()) {
 			player.sendPackets(new S_ServerMessage(92, target.getName()));
 			return;
+		}
+		
+		if(player.getLastLeftPledge() != -1) {
+			long timeSince = System.currentTimeMillis() - player.getLastLeftPledge();
+			
+			if(timeSince < Config.ALT_DAYS_LIMIT_PLEDGE_JOIN) {
+				double timeLeft = Config.ALT_DAYS_LIMIT_PLEDGE_JOIN - timeSince;
+				int days = (int) (Math.ceil(timeLeft / (1000*60*60*24)));
+				player.sendPackets(new S_SystemMessage(String.format("You must wait %d day(s) before joining another pledge.", days)));
+				return;
+			}
 		}
 
 		if (player.getClanid() != 0) {
