@@ -168,3 +168,6 @@ ALTER TABLE `log_packets` MODIFY `packet` VARCHAR(1000);
 
 -- update dark_blind to work again but only for pvp
 UPDATE `skills` SET `ranged` = 1, `target_to` = 1 WHERE `skill_id` = 103;
+
+-- Add last join/last leave pledge data
+ALTER TABLE `characters` ADD COLUMN `date_left_pledge` datetime DEFAULT NULL;

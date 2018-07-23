@@ -56,6 +56,7 @@ public class C_BanClan extends ClientBasePacket {
 						tempPc.setClanid(0);
 						tempPc.setClanname("");
 						tempPc.setClanRank(0);
+						tempPc.setLastLeftPledge();
 						tempPc.save();
 						clan.delMemberName(tempPc.getName());
 						tempPc.sendPackets(new S_ServerMessage(238, pc
@@ -74,6 +75,7 @@ public class C_BanClan extends ClientBasePacket {
 							restorePc.setClanid(0);
 							restorePc.setClanname("");
 							restorePc.setClanRank(0);
+							restorePc.setLastLeftPledge();
 							restorePc.save();
 							clan.delMemberName(restorePc.getName());
 							pc.sendPackets(new S_ServerMessage(240, restorePc
