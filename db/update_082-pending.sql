@@ -171,3 +171,47 @@ UPDATE `skills` SET `ranged` = 1, `target_to` = 1 WHERE `skill_id` = 103;
 
 -- Add last join/last leave pledge data
 ALTER TABLE `characters` ADD COLUMN `date_left_pledge` datetime DEFAULT NULL;
+
+-- Add adena back to TOI except 90F+ and boss floors
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45332,'Mutant Ramia - Green',40308,'Adena',173,285,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45348,'Mutant Arachnevil Elder',40308,'Adena',184,302,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45380,'Medusa',40308,'Adena',217,353,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45407,'Cimaera',40308,'Adena',253,410,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45394,'Succubus',40308,'Adena',229,372,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45409,'Dire Wolf',40308,'Adena',265,429,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45399,'Wicked Mimic',40308,'Adena',241,390,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45406,'Wicked Beholder',40308,'Adena',253,410,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45386,'Dancing Sword',40308,'Adena',229,372,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45384,'Horrific Fire Egg',40308,'Adena',229,372,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45440,'Nightmare',40308,'Adena',265,429,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45471,'Horrific Cerberus',40308,'Adena',305,492,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45481,'Lesser Demon',40308,'Adena',319,513,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45515,'Ifrit',40308,'Adena',348,558,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45402,'Raging Skeleton Axeman',40308,'Adena',253,410,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45454,'Raging Ghoul',40308,'Adena',292,470,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45403,'Raging Skeleton Pike',40308,'Adena',253,410,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45455,'Raging Spartoi',40308,'Adena',292,470,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45494,'Raging Skeleton Marksman',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45493,'Raging Skeleton Fighter',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45496,'Lesser Dragon',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45514,'Fire Ghost',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45519,'Fire Ghost',40308,'Adena',348,558,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45479,'Horrific Iron Golem',40308,'Adena',319,513,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45480,'Fire Necromancer',40308,'Adena',319,513,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45522,'Bone Dragon',40308,'Adena',363,582,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45468,'Cursed Orc Zombie',40308,'Adena',292,470,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45524,'Cursed Elmore Soldier',40308,'Adena',363,582,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45506,'Cursed Elmore Wizard',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45541,'Cursed Elmore General',40308,'Adena',409,654,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45485,'Dark Lycanthrope',40308,'Adena',319,513,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45528,'Cruel Snow Tiger',40308,'Adena',378,605,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45520,'Spirit Taurverus of Fire',40308,'Adena',348,558,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45572,'Astagio of Fire',40308,'Adena',426,680,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45503,'Black Knight of Darkness',40308,'Adena',333,536,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45540,'Fire Warrior of Darkness',40308,'Adena',409,654,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45532,'Fire Archer of Darkness',40308,'Adena',378,605,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45580,'Succubus Queen of Darkness',40308,'Adena',459,732,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45581,'Insolent Zenith Queen',40308,'Adena',459,732,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45586,'Lesser Seer',40308,'Adena',476,758,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45604,'Marquise Vampire',40308,'Adena',511,813,1000000);
+INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45589,'Zombie Lord of Fear',40308,'Adena',493,786,1000000);
