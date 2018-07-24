@@ -584,7 +584,6 @@ public final class Config {
 	public static int ALT_RANKING_OVERALL_TOP;
 	public static int ALT_RANKING_CLASS_TOP;
 	public static int ALT_RANKING_MIN_LEVEL;
-	public static int ALT_RANKING_MAX_LEVEL_DIFFERENCE;
 	public static String ALT_RANKING_PENALTY_TYPES;
 	
 	public static boolean LIMIT_WEAPON_SWITCHING;
@@ -950,8 +949,6 @@ public final class Config {
 			
 			ALT_RANKING_MIN_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"RankingMinLevel", "70"));
-			ALT_RANKING_MAX_LEVEL_DIFFERENCE = Integer.parseInt(altSettings.getProperty(
-					"RankingMaxLevelDifference", "3"));
 			ALT_RANKING_PENALTY_TYPES = altSettings.getProperty("RankingPenaltyTypes", "5,8,9");
 			
 			
