@@ -456,7 +456,7 @@ public class L1Magic {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 3;
+			dmg -= L1Attack.getDragonSkinReduction(_targetPc.getLevel());;
 		}
 
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
