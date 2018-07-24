@@ -1283,7 +1283,13 @@ public class L1PcInstance extends L1Character {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
 						attackPc.sendAndBroadcast(new S_DoActionGFX(attackPc
 								.getId(), ActionCodes.ACTION_Damage));
-						attackPc.receiveDamage(this, 30, false);
+						
+						int mbDamage = this.getAc() / 2;
+						if(mbDamage < 35) {
+							mbDamage = 35;
+						}
+						
+						attackPc.receiveDamage(this, mbDamage, false);
 					} else if (attacker instanceof L1NpcInstance) {
 						L1NpcInstance attackNpc = (L1NpcInstance) attacker;
 						attackNpc.broadcastPacket(new S_DoActionGFX(attackNpc
