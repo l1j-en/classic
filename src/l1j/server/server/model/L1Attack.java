@@ -905,7 +905,7 @@ public class L1Attack {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 3;
+			dmg -= getDragonSkinReduction(_targetPc.getLevel());
 		}
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
 			dmg -= 2;
@@ -933,11 +933,6 @@ public class L1Attack {
 
 		dmg -= calcNpcDamageReduction();
 
-		boolean isNowWar = false;
-		int castleId = L1CastleLocation.getCastleIdByArea(_targetNpc);
-		if (castleId > 0) {
-			isNowWar = WarTimeController.getInstance().isNowWar(castleId);
-		}
 		if (isImmune(_targetNpc))
 			dmg = 0;
 
@@ -1016,7 +1011,7 @@ public class L1Attack {
 			dmg -= (targetPcLvl - 50) / 5 + 1;
 		}
 		if (_targetPc.hasSkillEffect(DRAGON_SKIN)) {
-			dmg -= 3;
+			dmg -= getDragonSkinReduction(_targetPc.getLevel());;
 		}
 		if (_targetPc.hasSkillEffect(PATIENCE)) {
 			dmg -= 2;
@@ -1625,5 +1620,23 @@ public class L1Attack {
 				_pc.sendPackets(Weakness1);
 			}
 		}
+	}
+	
+	public static int getDragonSkinReduction(int level) {
+		int reduction = 3;
+		
+		if(level >= 80) {
+			reduction = 8;
+		} else if(level >= 78) {
+			reduction = 7;
+		} else if(level >= 76) {
+			reduction = 6;
+		} else if(level >= 74) {
+			reduction = 5;
+		} else if(reduction >= 72) {
+			reduction = 4;
+		}
+		
+		return reduction;
 	}
 }
