@@ -704,12 +704,19 @@ public class L1SkillUse {
 							|| cha instanceof L1HousekeeperInstance
 							|| cha instanceof L1MerchantInstance
 							|| cha instanceof L1TeleporterInstance
-							|| cha instanceof L1GuardInstance
-							|| cha instanceof L1SummonInstance
-							|| cha instanceof L1PetInstance)) {
+							|| cha instanceof L1GuardInstance)) {
 				return false;
 			}
-
+			
+			// make AoEs fail on PC pets/summons
+			if (_skill.getTarget().equals("none")
+					&& _skill.getType() == L1Skill.TYPE_ATTACK
+					&& _calcType == PC_PC
+					&& (cha instanceof L1SummonInstance || cha instanceof L1PetInstance)) {
+				
+				return false;
+			}
+			
 			if (_skill.getType() == L1Skill.TYPE_ATTACK
 					&& cha.getId() == _user.getId()) {
 				return false;
