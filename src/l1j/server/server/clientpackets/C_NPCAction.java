@@ -3588,36 +3588,56 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "8event3";
 			}
 		} else if (npcid == 81246) {
-			if (s.equalsIgnoreCase("0")) {
-				materials = new int[] { 40308 };
-				counts = new int[] { 2500 };
-				if (pc.getLevel() < 30) {
-					htmlid = "sharna4";
-				} else if (pc.getLevel() >= 30 && pc.getLevel() <= 39) {
-					createitem = new int[] { 49149 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 40 && pc.getLevel() <= 51) {
-					createitem = new int[] { 49150 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 52 && pc.getLevel() <= 54) {
-					createitem = new int[] { 49151 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 55 && pc.getLevel() <= 59) {
-					createitem = new int[] { 49152 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 60 && pc.getLevel() <= 64) {
-					createitem = new int[] { 49153 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 65 && pc.getLevel() <= 69) {
-					createitem = new int[] { 49154 };
-					createcount = new int[] { 1 };
-				} else if (pc.getLevel() >= 70) {
-					createitem = new int[] { 49155 };
-					createcount = new int[] { 1 };
-				}
-				success_htmlid = "sharna3";
-				failure_htmlid = "sharna5";
+			int multiplier = Integer.parseInt(s);
+			
+			switch(multiplier) {
+			case 0:
+				multiplier = 1;
+				break;
+			case 1:
+				multiplier = 10;
+				break;
+			case 2:
+				multiplier = 50;
+				break;
+			case 3:
+				multiplier = 100;
+				break;
+				default: 
+					return;
 			}
+			
+			materials = new int[] { 40308 };
+			counts = new int[] { 2500 * multiplier };
+			int[] amount = new int[] { 1 * multiplier };
+			
+			if (pc.getLevel() < 30) {
+				htmlid = "sharna4";
+			} else if (pc.getLevel() >= 30 && pc.getLevel() <= 39) {
+				createitem = new int[] { 49149 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 40 && pc.getLevel() <= 51) {
+				createitem = new int[] { 49150 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 52 && pc.getLevel() <= 54) {
+				createitem = new int[] { 49151 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 55 && pc.getLevel() <= 59) {
+				createitem = new int[] { 49152 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 60 && pc.getLevel() <= 64) {
+				createitem = new int[] { 49153 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 65 && pc.getLevel() <= 69) {
+				createitem = new int[] { 49154 };
+				createcount = amount;
+			} else if (pc.getLevel() >= 70) {
+				createitem = new int[] { 49155 };
+				createcount = amount;
+			}
+			
+			success_htmlid = "sharna3";
+			failure_htmlid = "sharna5";
 		} else if (((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 70077
 				|| ((L1NpcInstance) obj).getNpcTemplate().get_npcId() == 81200) {
 			SellOfPet(s, pc);
