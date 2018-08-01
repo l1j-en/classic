@@ -102,6 +102,7 @@ import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
+import l1j.server.server.utils.Teleportation;
 import l1j.server.server.utils.collections.IntArrays;
 
 public class L1SkillUse {
@@ -2289,8 +2290,9 @@ public class L1SkillUse {
 							cha.getMapId());
 					if (cha instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) cha;
-						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN,
-								true));
+						// refresh the player to the place the server thinks they are, before stunning
+						L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), 5, false, L1Teleport.TELEPORT, true);
+						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN, true));
 					} else if (cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
 						L1NpcInstance npc = (L1NpcInstance) cha;
