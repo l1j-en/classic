@@ -1284,7 +1284,7 @@ public class L1PcInstance extends L1Character {
 						attackPc.sendAndBroadcast(new S_DoActionGFX(attackPc
 								.getId(), ActionCodes.ACTION_Damage));
 						
-						int mbDamage = this.getAc() / 2;
+						int mbDamage = (this.getAc() * -1) / 2;
 						if(mbDamage < 35) {
 							mbDamage = 35;
 						}
