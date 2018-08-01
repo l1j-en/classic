@@ -905,44 +905,43 @@
 		<Item ItemId="   267" Count="1" Chance=" 3" />
 		<Item ItemId="   268" Count="1" Chance=" 3" />
 	</TreasureBox>
-	<!-- Opened Low-grade Treasure Chest of Kukulcan -->
-	<TreasureBox Type="RANDOM" ItemId="49319">
-		<Item ItemId="40044" Count="3" Chance="13" />
-		<Item ItemId="40045" Count="3" Chance="13" />
-		<Item ItemId="40046" Count="3" Chance="13" />
-		<Item ItemId="40047" Count="3" Chance="13" />
-		<Item ItemId="40048" Count="2" Chance="8" />
-		<Item ItemId="40049" Count="2" Chance="8" />
-		<Item ItemId="40050" Count="2" Chance="8" />
-		<Item ItemId="40051" Count="2" Chance="8" />
-		<Item ItemId="40074" Count="1" Chance="5" />
-		<Item ItemId="40087" Count="1" Chance="5" />
-		<Item ItemId="276" Count="1" Chance="2" />
-		<Item ItemId="277" Count="1" Chance="2" />
-		<Item ItemId="21131" Count="1" Chance="2" />
+	<TreasureBox Type="RANDOM" ItemId="433100">				<!--Opened Lesser Kulkulcan Treasure-->
+		<Item ItemId="283" Count="1" Chance="1"/>   		<!--Kulkulcan's Gauntlet-->
+		<Item ItemId="282" Count="1" Chance="1"/>	    	<!--Kulkulcan's Spear-->
+		<Item ItemId="21109" Count="1" Chance="1"/>			<!--Kukulcan's Mask-->
+		<Item ItemId="21110" Count="1" Chance="1"/>			<!--Kukulcan's Shield-->
+		<Item ItemId="40074" Count="1" Chance="6"/>			<!--Scroll of Enchant Armor-->
+		<Item ItemId="40087" Count="1" Chance="6"/>			<!--Scroll of Enchant Armor-->
+		<Item ItemId="40050" Count="3" Chance="9"/>			<!--High Quality Sapphire-->
+		<Item ItemId="40051" Count="3" Chance="9"/>			<!--High Quality Emerald-->
+		<Item ItemId="40049" Count="3" Chance="9"/>			<!--High Quality Ruby-->
+		<Item ItemId="40048" Count="3" Chance="9"/>			<!--High Quality Diamond-->
+		<Item ItemId="40044" Count="5" Chance="12"/>		<!--Diamond-->
+		<Item ItemId="40045" Count="5" Chance="12"/>		<!--Ruby-->
+		<Item ItemId="40046" Count="5" Chance="12"/>		<!--Sapphire-->
+		<Item ItemId="40047" Count="5" Chance="12"/>		<!--Emerald-->
 	</TreasureBox>
-
-	<!-- Opened High-grade Treasure Chest of Kukulcan -->
-	<TreasureBox Type="RANDOM" ItemId="49323">
-		<Item ItemId="40044" Count="3" Chance="7" />
-		<Item ItemId="40045" Count="3" Chance="7" />
-		<Item ItemId="40046" Count="3" Chance="7" />
-		<Item ItemId="40047" Count="3" Chance="7" />
-		<Item ItemId="40048" Count="2" Chance="6" />
-		<Item ItemId="40049" Count="2" Chance="6" />
-		<Item ItemId="40050" Count="2" Chance="6" />
-		<Item ItemId="40051" Count="2" Chance="6" />
-		<Item ItemId="40052" Count="1" Chance="5" />
-		<Item ItemId="40053" Count="1" Chance="5" />
-		<Item ItemId="40054" Count="1" Chance="5" />
-		<Item ItemId="40055" Count="1" Chance="5" />
-		<Item ItemId="276" Count="1" Chance="4" />
-		<Item ItemId="277" Count="1" Chance="4" />
-		<Item ItemId="21131" Count="1" Chance="4" />
-		<Item ItemId="40074" Count="1" Chance="4" />
-		<Item ItemId="40087" Count="1" Chance="4" />
-		<Item ItemId="140074" Count="1" Chance="4" />
-		<Item ItemId="140087" Count="1" Chance="4" />
+	<TreasureBox Type="RANDOM" ItemId="433101">				<!--Opened Greater Kulkulcan Treasure-->
+		<Item ItemId="283" Count="1" Chance="1"/>	    	<!--Kulkulcan's Gauntlet-->
+		<Item ItemId="282" Count="1" Chance="1"/>	    	<!--Kulkulcan's Spear-->
+		<Item ItemId="21109" Count="1" Chance="1"/>			<!--Kukulcan's Mask-->
+		<Item ItemId="21110" Count="1" Chance="1"/>			<!--Kukulcan's Shield-->
+		<Item ItemId="140074" Count="1" Chance="4"/>		<!--Blessed Scroll of Enchant Armor-->
+		<Item ItemId="140087" Count="1" Chance="4"/>		<!--Blessed Scroll of Enchant Weapon-->
+		<Item ItemId="40074" Count="1" Chance="4"/>			<!--Scroll of Enchant Armor-->
+		<Item ItemId="40087" Count="1" Chance="4"/>			<!--Scroll of Enchant Weapon-->
+		<Item ItemId="40052" Count="1" Chance="4"/>			<!--Highest Quality Diamond-->
+		<Item ItemId="40053" Count="1" Chance="4"/>			<!--Highest Quality Ruby-->
+		<Item ItemId="40054" Count="1" Chance="4"/>			<!--Highest Quality Sapphire-->
+		<Item ItemId="40055" Count="1" Chance="4"/>			<!--Highest Quality Emerald-->
+		<Item ItemId="40048" Count="3" Chance="9"/>			<!--High Quality Diamond-->
+		<Item ItemId="40049" Count="3" Chance="9"/>			<!--High Quality Ruby-->
+		<Item ItemId="40050" Count="3" Chance="9"/>			<!--High Quality Sapphire-->
+		<Item ItemId="40051" Count="3" Chance="9"/>			<!--High Quality Emerald-->
+		<Item ItemId="40044" Count="5" Chance="7"/>			<!--Diamond-->
+		<Item ItemId="40045" Count="5" Chance="7"/>			<!--Ruby-->
+		<Item ItemId="40046" Count="5" Chance="7"/>			<!--Sapphire-->
+		<Item ItemId="40047" Count="5" Chance="7"/>			<!--Emerald-->
 	</TreasureBox>
 	<!-- Relic of Expedition Member -->
 	<TreasureBox Type="RANDOM" ItemId="40696">
