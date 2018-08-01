@@ -60,9 +60,14 @@ public class L1Teleport {
 			int head, boolean effectable) {
 		teleport(pc, x, y, mapid, head, effectable, TELEPORT);
 	}
-
+	
 	public static void teleport(L1PcInstance pc, int x, int y, short mapId,
 			int head, boolean effectable, int skillType) {
+		teleport(pc, x, y, mapId, head, effectable, skillType, false);
+	}
+
+	public static void teleport(L1PcInstance pc, int x, int y, short mapId,
+			int head, boolean effectable, int skillType, boolean ignorePets) {
 
 		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 
@@ -84,7 +89,7 @@ public class L1Teleport {
 		if (Config.SEND_PACKET_BEFORE_TELEPORT) {
 			pc.sendPackets(new S_Teleport(pc));
 		} else {
-			Teleportation.Teleportation(pc);
+			Teleportation.Teleportation(pc, ignorePets);
 		}
 	}
 
