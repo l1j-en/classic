@@ -836,3 +836,29 @@ INSERT INTO `mobskill` VALUES
 (90514,0,'Jad Ske (purple)','',2,30,0,0,0,0,0,4,0,0,20,20085,0,30,0,0,0,0),
 (90516,0,'Jad Teo (blue)','',2,30,0,0,0,0,0,2,0,0,5,20083,0,18,0,0,0,0),
 (90517,0,'Jad Teo (yellow)','',2,30,0,0,0,0,0,2,0,0,5,20083,0,18,0,0,0,0);
+
+-- fids
+-- dagger
+UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10 WHERE `item_id` = 12;
+
+-- Edo
+UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 5, `dmgmodifier` = 10, `add_dex` = 1, WHERE `item_id` = 86;
+
+-- Claw
+UPDATE `weapon` SET `hitmodifier` = 8, `add_dex` = 2 WHERE `item_id` = 160;
+
+-- Staff
+UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 2, `add_mp` = 50, `add_mpr` = 10 WHERE `item_id` = 134;
+INSERT INTO `weapon_skill` VALUES(134, 'Crystalized Staff', 10, 30, 15, 0, 65, 0, 3924, 0, 0, 8);
+
+-- Bow
+INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, -1, 0, 0, 0, 0, 1, 0, 0, 0, 8, 8, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon_skill` VALUES(284, 'Demon King Bow', 10, 30, 15, 0, 0, 0, 1809, 0, 1, 4);
+
+-- Chainsword
+3301?, 3022?, (1689, 6962, 6940, 
+INSERT INTO `weapon` VALUES(285, 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'chainsword', 'blackmithril', 110000, 3022, 6962, 0, 23, 18, 2, 0, 0, 0, 0, 0, 0, 1, 0, 4, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon_skill` VALUES(285, 'Fidelity Chain Sword', 10, 30, 15, 0, 50, 0, 756, 0, 0, 4);
+
+-- Kiringku
+INSERT INTO `weapon` VALUES(286, 'Fidelity Kiringku', 'Fidelity Kiringku', 'Fidelity Kiringku', 'kiringku', 'blackmithril', 10000, 3020, 6967, 0, 28, 26, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
