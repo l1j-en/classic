@@ -203,11 +203,7 @@ INSERT INTO `spawnlist` VALUES
 (801501157,'Jad Tow',2,90512,0,33157,32841,12,12,0,0,0,0,0,60,120,783,0,0,0,0,1,35,2,100),
 (801501158,'Ecu Azte',3,90503,0,33157,32841,12,12,0,0,0,0,3,60,120,783,0,0,0,0,1,35,2,100),
 (801501159,'Ecu Yuka',2,90505,0,33157,32841,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,35,2,100),
-(801501160,'Ecu Juraka',3,90506,0,33157,32841,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,35,2,100),
-(801501161,'Jad Tow',1,90512,0,32874,32755,12,12,0,0,0,0,0,60,120,783,0,0,0,0,1,20,2,100),
-(801501162,'Ecu Azte',1,90503,0,32874,32755,12,12,0,0,0,0,3,60,120,783,0,0,0,0,1,20,2,100),
-(801501163,'Ecu Yuka',1,90505,0,32874,32755,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,20,2,100),
-(801501164,'Ecu Juraka',2,90506,0,32875,32733,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,20,2,100);
+(801501160,'Ecu Juraka',3,90506,0,33157,32841,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,35,2,100);
 
 INSERT INTO `armor` VALUES
 (21109,'Kukulcan\'s Mask','$6431','$6431','helm','wood',5000,3326,18,0,-3,4,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,2,0,0,0,5,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0),
@@ -839,26 +835,25 @@ INSERT INTO `mobskill` VALUES
 
 -- fids
 -- dagger
-UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10 WHERE `item_id` = 12;
+UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10, `canbedmg` = 0 WHERE `item_id` = 12;
 
 -- Edo
-UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 5, `dmgmodifier` = 10, `add_dex` = 1, WHERE `item_id` = 86;
+UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 10, `dmgmodifier` = 18, `add_dex` = 2 WHERE `item_id` = 86;
 
 -- Claw
 UPDATE `weapon` SET `hitmodifier` = 8, `add_dex` = 2 WHERE `item_id` = 160;
 
 -- Staff
-UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 2, `add_mp` = 50, `add_mpr` = 10 WHERE `item_id` = 134;
+UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 7, `add_mp` = 50, `add_mpr` = 10 WHERE `item_id` = 134;
 INSERT INTO `weapon_skill` VALUES(134, 'Crystalized Staff', 10, 30, 15, 0, 65, 0, 3924, 0, 0, 8);
 
 -- Bow
-INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, -1, 0, 0, 0, 0, 1, 0, 0, 0, 8, 8, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
-INSERT INTO `weapon_skill` VALUES(284, 'Demon King Bow', 10, 30, 15, 0, 0, 0, 1809, 0, 1, 4);
+INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, -1, 0, 0, 0, 0, 1, 0, 0, 0, 10, 14, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon_skill` VALUES(284, 'Demon King Bow', 10, 40, 40, 0, 0, 0, 1809, 0, 1, 4);
 
 -- Chainsword
-3301?, 3022?, (1689, 6962, 6940, 
-INSERT INTO `weapon` VALUES(285, 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'chainsword', 'blackmithril', 110000, 3022, 6962, 0, 23, 18, 2, 0, 0, 0, 0, 0, 0, 1, 0, 4, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
-INSERT INTO `weapon_skill` VALUES(285, 'Fidelity Chain Sword', 10, 30, 15, 0, 50, 0, 756, 0, 0, 4);
+INSERT INTO `weapon` VALUES(285, 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'chainsword', 'blackmithril', 110000, 3022, 6962, 0, 23, 18, 2, 0, 0, 0, 0, 0, 0, 1, 0, 10, 15, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon_skill` VALUES(285, 'Fidelity Chain Sword', 10, 40, 40, 0, 50, 0, 756, 0, 0, 4);
 
 -- Kiringku
 INSERT INTO `weapon` VALUES(286, 'Fidelity Kiringku', 'Fidelity Kiringku', 'Fidelity Kiringku', 'kiringku', 'blackmithril', 10000, 3020, 6967, 0, 28, 26, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
