@@ -91,10 +91,13 @@ public class AcceleratorChecker {
 		if (0 < interval && interval < rightInterval) {
 			_injusticeCount++;
 			_justiceCount = 0;
+			
 			if (_injusticeCount >= INJUSTICE_COUNT_LIMIT) {
-				doFail(interval, rightInterval, type);
+				doFail(interval, rightInterval, type, true);
 				return R_LIMITEXCEEDED;
 			}
+			
+			doFail(interval, rightInterval, type, false);
 			result = R_DETECTED;
 		} else if (interval >= rightInterval) {
 			_justiceCount++;
@@ -104,16 +107,11 @@ public class AcceleratorChecker {
 			}
 		}
 
-		// double rate = (double) interval / rightInterval;
-		// System.out.println(String.format("%s: %d / %d = %.2f (o-%d x-%d)",
-		// type.toString(), interval, rightInterval, rate,
-		// _justiceCount, _injusticeCount));
-
 		_actTimers.put(type, now);
 		return result;
 	}
 
-	private void doFail(long interval, int rightInterval, ACT_TYPE type) {
+	private void doFail(long interval, int rightInterval, ACT_TYPE type, boolean sendMessage) {
 		String dbgInfo = String.format("\nInterval: " + interval
 				+ " RightInterval: " + rightInterval + " Morph: "
 				+ _pc.getTempCharGfx() + " Weapon: "
@@ -122,11 +120,16 @@ public class AcceleratorChecker {
 			_log.info(String
 					.format("Injustice count limit exceeded for player: "
 							+ _pc.getName() + dbgInfo));
-			_pc.sendPackets(new S_SystemMessage(
-					"Lag limit exceeded. If this happens with a specific polymorph file a bug."));
+			
+			if(sendMessage) {
+				_pc.sendPackets(new S_SystemMessage(
+						"Lag limit exceeded. If this happens with a specific polymorph file a bug."));
+			}
 		} else {
-			_pc.sendPackets(new S_SystemMessage(
-					"Injustice count limit exceeded." + dbgInfo));
+			if(sendMessage) {
+				_pc.sendPackets(new S_SystemMessage("Injustice count limit exceeded." + dbgInfo));
+			}
+			
 			_injusticeCount = 0;
 		}
 	}
