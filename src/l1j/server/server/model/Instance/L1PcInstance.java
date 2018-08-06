@@ -53,6 +53,7 @@ import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -997,7 +998,13 @@ public class L1PcInstance extends L1Character {
 					packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
 					packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
 					packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
-				this.getNetConnection().addToPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
+				LogPacketsTable.storeLogPacket(
+						this.getId(), 
+						this.getName(), 
+						this.getTempCharGfx(), 
+						-1, 
+						IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)), 
+						"standard logging");
 			}
 			
 			_out.sendPacket(serverbasepacket);
