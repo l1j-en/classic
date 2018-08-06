@@ -2273,8 +2273,6 @@ public class L1SkillUse {
 						// refresh the player to the place the server thinks they are, before stunning
 						L1Teleport.teleport(pc, pc.getX(), pc.getY(), pc.getMapId(), pc.getHeading(), false, L1Teleport.TELEPORT, true);
 						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN, true));
-						pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_STUN,
-								true));
 					} else if (cha instanceof L1MonsterInstance
 							|| cha instanceof L1SummonInstance
 							|| cha instanceof L1PetInstance) {
