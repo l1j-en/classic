@@ -87,6 +87,10 @@ public class ClientThread implements Runnable, PacketOutput {
 	// used only for logging purposes
 	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
 	
+	// stores the last 20 packets, and if the client crashes, it logs those to the DB
+	private CopyOnWriteArrayList<String> _packetsLog = new CopyOnWriteArrayList<String>();
+	private int _lastOpCodeReceviedFromClient = -1;
+	
 	// MP Bug fix - dont remove - tricid
 	private boolean stop = false;
 	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
@@ -124,6 +128,24 @@ public class ClientThread implements Runnable, PacketOutput {
 		_in = socket.getInputStream();
 		_out = new BufferedOutputStream(socket.getOutputStream());
 		_handler = new PacketHandler(this);
+	}
+	
+	public CopyOnWriteArrayList<String> getLastPackets() {
+		return this._packetsLog;
+	}
+	
+	public void addToPacketLog(String packet) {
+		this._packetsLog.add(packet);
+		
+		for (String s : this._packetsLog) {
+		    if (this._packetsLog.size() >= 20) {
+		    	this._packetsLog.remove(s);
+		    }
+		}
+	}
+	
+	public void setLastClientPacket(int opCode) {
+		_lastOpCodeReceviedFromClient = opCode;
 	}
 	
 	public void setLastActiveCharName(String charName) {
@@ -298,7 +320,15 @@ public class ClientThread implements Runnable, PacketOutput {
 			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} finally {
-			try {				
+			try {
+				// don't log if getAccountName is null because we will assume it was a crash before login
+				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null) {
+					for(String packet : _packetsLog) {
+						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, -1, packet, "client crash");
+					}
+					_packetsLog.clear();
+				}
+				
 				if (_activeChar != null) {
 					// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
 					// milliseconds since the last aggressive act was done to them/taken
