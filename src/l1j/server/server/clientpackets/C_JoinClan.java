@@ -72,8 +72,8 @@ public class C_JoinClan extends ClientBasePacket {
 			return;
 		}
 		
-		if(player.getLastLeftPledge() != -1) {
-			long timeSince = System.currentTimeMillis() - player.getLastLeftPledge();
+		if(player.getLastJoinedPledge() != -1) {
+			long timeSince = System.currentTimeMillis() - player.getLastJoinedPledge();
 			
 			if(timeSince < Config.ALT_DAYS_LIMIT_PLEDGE_JOIN) {
 				double timeLeft = Config.ALT_DAYS_LIMIT_PLEDGE_JOIN - timeSince;
