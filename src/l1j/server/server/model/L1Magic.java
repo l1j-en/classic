@@ -280,9 +280,9 @@ public class L1Magic {
 				|| skillId == ENTANGLE || skillId == ERASE_MAGIC
 				|| skillId == AREA_OF_SILENCE || skillId == WIND_SHACKLE
 				|| skillId == STRIKER_GALE || skillId == POLLUTE_WATER
-				|| skillId == EARTH_BIND) {
+				|| skillId == EARTH_BIND || skillId == DARK_BLIND) {
 			probability = skill.getProbabilityValue()
-					+ (int) (((skill.getProbabilityDice()) / 10D) * levelDifference);
+					+ (int) (((skill.getProbabilityDice()) / 10D) * (levelDifference / 3));
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
