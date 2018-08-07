@@ -139,6 +139,7 @@ public class C_Attr extends ClientBasePacket {
 									""));
 							joinPc.broadcastPacket(new S_CharTitle(joinPc
 									.getId(), ""));
+							joinPc.setLastJoinedPledge();
 							joinPc.save();
 							clan.addMemberName(joinPc.getName());
 							joinPc.sendPackets(new S_ServerMessage(95, clanName));
