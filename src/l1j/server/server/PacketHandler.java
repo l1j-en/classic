@@ -230,9 +230,9 @@ public class PacketHandler {
 		
 		_client.setLastClientPacket(i);
 		
-		if(object != null && object.isLoggingPackets()) {
+		if(object != null) {
 			String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
-			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report");
+			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "client logging");
 		}
 		
 		switch (i) {
