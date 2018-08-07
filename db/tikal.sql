@@ -32,8 +32,8 @@ INSERT INTO `npc` VALUES
 (90515,'Jad Ske (Red)','$6442','(Temple Entrance/Interior)','L1Monster',7184,56,1560,160,-36,30,30,14,25,30,5,3137,-34,'small',0,2,0,1280,2080,1400,2080,1400,0,0,0,1,1,1,'tikalagro',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (90516,'Jad Teo (Blue)','$6443','(Temple Entrance/Interior)','L1Monster',7196,58,1680,190,-27,38,40,12,29,25,50,3365,-37,'large',0,2,0,640,1280,0,1520,1520,0,0,0,0,0,0,'tikal',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
 (90517,'Jad Teo (Yellow)','$6443','(Temple Entrance/Interior)','L1Monster',7193,60,1800,100,-36,38,40,12,29,25,35,3601,-37,'large',0,2,0,640,1280,0,1520,1520,0,0,0,1,1,1,'tikalagro',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0),
-(90518,'Jeb Requie (Male)','$6444','Right','L1Monster',7234,70,25000,100,-140,125,50,24,35,40,80,4901,-315,'large',1,4,0,0,1960,2000,2000,2400,0,0,0,1,1,1,'tikal',0,-1,-1,0,0,0,5000,5000,5000,50,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,0,0,1),
-(90519,'Jeb Requie (Female)','$6444','Left','L1Monster',7236,70,20000,100,-140,125,50,24,35,40,80,4901,-315,'large',0,4,0,0,2080,2640,1920,2920,0,0,0,1,1,1,'tikal',0,-1,-1,0,0,0,5000,5000,5000,50,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,0,0,1),
+(90518,'Jeb Requie (Male)','$6444','Right','L1Monster',7234,70,25000,100,-120,125,50,24,35,40,80,4901,-315,'large',1,4,0,0,1960,2000,2000,2400,0,0,0,1,1,1,'tikal',0,-1,-1,0,0,0,5000,5000,5000,50,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,0,0,1),
+(90519,'Jeb Requie (Female)','$6444','Left','L1Monster',7236,70,20000,100,-120,125,50,24,35,40,80,4901,-315,'large',0,4,0,0,2080,2640,1920,2920,0,0,0,1,1,1,'tikal',0,-1,-1,0,0,0,5000,5000,5000,50,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-1,0,0,0,0,1),
 (90520,'Joe\'s Stone Golem','$5526','Joe\'s Stone Golem','L1Merchant',6685,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,1280,2640,0,2640,2640,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
 
 INSERT INTO `spawnlist_npc` VALUES
@@ -831,7 +831,17 @@ INSERT INTO `mobskill` VALUES
 (90513,0,'Jad Tow (red)','',1,30,0,0,0,0,0,1,0,0,20,20090,0,30,0,0,0,0),
 (90514,0,'Jad Ske (purple)','',2,30,0,0,0,0,0,4,0,0,20,20085,0,30,0,0,0,0),
 (90516,0,'Jad Teo (blue)','',2,30,0,0,0,0,0,2,0,0,5,20083,0,18,0,0,0,0),
-(90517,0,'Jad Teo (yellow)','',2,30,0,0,0,0,0,2,0,0,5,20083,0,18,0,0,0,0);
+(90517,0,'Jad Teo (yellow)','',2,30,0,0,0,0,0,2,0,0,5,20083,0,18,0,0,0,0),
+(90518,0,'Jeb Requie (Right)','Jeb Requie (Right) - Physical Attack',1,10,0,0,-2,0,0,2,0,0,90,0,0,1,0,0,0,0),
+(90518,1,'Jeb Requie (Right)','Jeb Requie (Right) - Sandstorm',2,10,0,0,-15,0,0,0,0,0,30,14012,0,0,0,0,0,0),
+(90518,2,'Jeb Requie (Right)','Jeb Requie (Right) - Pole Mine',2,30,0,0,-15,0,0,0,0,0,30,14013,0,0,0,0,0,0),
+(90518,3,'Jeb Requie (Right)','Jeb Requie (Right)- Ice Spit',2,20,0,0,-3,0,0,0,0,0,30,14014,0,0,0,0,0,0),
+(90518,4,'Jeb Requie (Right)','Jeb Requie (Right) - Poison Spray',2,20,0,0,-3,0,0,0,0,0,30,15005,0,0,0,0,0,0),
+(90519,0,'Jeb Requie (Left)','Jeb Requie (Left) - Physical Attack',1,40,0,0,-3,0,0,0,0,0,90,0,0,1,0,0,0,0),
+(90519,1,'Jeb Requie (Left)','Jeb Requie (Left) - Posion Spray',2,20,0,0,-6,0,0,6,3,3,30,15000,0,0,0,0,0,0),
+(90519,2,'Jeb Requie (Left)','Jeb Requie (Left) - Shock Blow',2,10,0,0,-15,0,0,0,0,0,30,14015,0,0,0,0,0,0),
+(90519,3,'Jeb Requie (Left)','Jeb Requie (Left) - Corrosion Spit',2,5,0,0,-10,0,0,0,0,0,30,14016,0,0,0,0,0,0);
+
 
 -- fids
 -- dagger
@@ -844,16 +854,16 @@ UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 10, `dmg
 UPDATE `weapon` SET `hitmodifier` = 8, `add_dex` = 2 WHERE `item_id` = 160;
 
 -- Staff
-UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 7, `add_mp` = 50, `add_mpr` = 10 WHERE `item_id` = 134;
+UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 8, `add_mp` = 50, `add_mpr` = 10, `type` = 'staff' WHERE `item_id` = 134;
 INSERT INTO `weapon_skill` VALUES(134, 'Crystalized Staff', 10, 30, 15, 0, 65, 0, 3924, 0, 0, 8);
 
 -- Bow
-INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, -1, 0, 0, 0, 0, 1, 0, 0, 0, 10, 14, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, 6, 0, 0, 0, 0, 1, 0, 0, 0, 10, 15, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 INSERT INTO `weapon_skill` VALUES(284, 'Demon King Bow', 10, 40, 40, 0, 0, 0, 1809, 0, 1, 4);
 
 -- Chainsword
-INSERT INTO `weapon` VALUES(285, 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'chainsword', 'blackmithril', 110000, 3022, 6962, 0, 23, 18, 2, 0, 0, 0, 0, 0, 0, 1, 0, 10, 15, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon` VALUES(285, 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'Fidelity Chain Sword', 'chainsword', 'blackmithril', 110000, 3022, 6962, 0, 25, 20, 2, 0, 0, 0, 0, 0, 0, 1, 0, 10, 15, 2, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 INSERT INTO `weapon_skill` VALUES(285, 'Fidelity Chain Sword', 10, 40, 40, 0, 50, 0, 756, 0, 0, 4);
 
 -- Kiringku
-INSERT INTO `weapon` VALUES(286, 'Fidelity Kiringku', 'Fidelity Kiringku', 'Fidelity Kiringku', 'kiringku', 'blackmithril', 10000, 3020, 6967, 0, 28, 26, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon` VALUES(286, 'Fidelity Kiringku', 'Fidelity Kiringku', 'Fidelity Kiringku', 'kiringku', 'blackmithril', 10000, 3020, 6967, 0, 33, 33, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
