@@ -183,6 +183,10 @@ public class GameServer extends Thread {
 	}
 
 	private ServerShutdownThread _shutdownThread = null;
+	
+	public synchronized boolean isShuttingDown() {
+		return _shutdownThread != null;
+	}
 
 	public synchronized void shutdownWithCountdown(int secondsCount) {
 		if (_shutdownThread != null) {
