@@ -148,7 +148,7 @@ public class L1PcInstance extends L1Character {
 	private long _logPackets = -1;
 	private long _lastWeaponSwitch = -1;
 	private int _weaponSwitchCount = 0;
-	private long _lastLeftPledge = -1;
+	private long _lastJoinedPledge = -1;
 	
 	public boolean canSwitchWeapon() {
 		if(!Config.LIMIT_WEAPON_SWITCHING) {
@@ -251,16 +251,16 @@ public class L1PcInstance extends L1Character {
 		return _lastAggressiveAct;
 	}
 	
-	public void setLastLeftPledge(long lastLeft) {
-		_lastLeftPledge = lastLeft;
+	public void setLastJoinedPledge(long lastJoined) {
+		_lastJoinedPledge = lastJoined;
 	}
 	
-	public void setLastLeftPledge() {
-		_lastLeftPledge = System.currentTimeMillis();
+	public void setLastJoinedPledge() {
+		_lastJoinedPledge = System.currentTimeMillis();
 	}
 	
-	public long getLastLeftPledge() {
-		return _lastLeftPledge;
+	public long getLastJoinedPledge() {
+		return _lastJoinedPledge;
 	}
 	
 	public short getHpr() {

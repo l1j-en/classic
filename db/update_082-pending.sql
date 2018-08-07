@@ -215,3 +215,6 @@ INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`cha
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45586,'Lesser Seer',40308,'Adena',476,758,1000000);
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45604,'Marquise Vampire',40308,'Adena',511,813,1000000);
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45589,'Zombie Lord of Fear',40308,'Adena',493,786,1000000);
+
+ALTER TABLE `characters` DROP COLUMN `date_left_pledge`;
+ALTER TABLE `characters` ADD COLUMN `date_joined_pledge` datetime DEFAULT NULL;
