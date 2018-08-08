@@ -110,8 +110,6 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WHO;
 
 import java.util.logging.Logger;
 
-import com.google.common.primitives.Ints;
-
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_AddBookmark;
 import l1j.server.server.clientpackets.C_AddBuddy;
