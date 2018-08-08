@@ -110,6 +110,8 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WHO;
 
 import java.util.logging.Logger;
 
+import com.google.common.primitives.Ints;
+
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_AddBookmark;
 import l1j.server.server.clientpackets.C_AddBuddy;
@@ -230,9 +232,9 @@ public class PacketHandler {
 		
 		_client.setLastClientPacket(i);
 		
-		if(object != null) {
+		if(object != null && object.isLoggingPackets()) {
 			String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
-			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "client logging");
+			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report");
 		}
 		
 		switch (i) {
