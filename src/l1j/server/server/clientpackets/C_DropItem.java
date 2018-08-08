@@ -34,6 +34,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.types.Point;
 
 public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
@@ -61,6 +62,11 @@ public class C_DropItem extends ClientBasePacket {
 			pc.sendPackets(new S_Disconnect());
 			return;
 		}
+		
+		if(pc.getLocation().getTileLineDistance(new Point(x, y)) > 4) {
+			return; // user tried to drop an item too far away
+		}
+		
 		// TRICIDTODO: set configurable auto ban
 		if (count < 0) {
 			if (Config.AUTO_BAN) {

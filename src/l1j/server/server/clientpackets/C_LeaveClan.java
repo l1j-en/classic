@@ -75,7 +75,6 @@ public class C_LeaveClan extends ClientBasePacket {
 						online_pc.setClanname("");
 						online_pc.setClanRank(0);
 						online_pc.setTitle("");
-						online_pc.setLastLeftPledge();
 						online_pc.sendPackets(new S_CharTitle(
 								online_pc.getId(), ""));
 						online_pc.broadcastPacket(new S_CharTitle(online_pc
@@ -92,7 +91,6 @@ public class C_LeaveClan extends ClientBasePacket {
 							offline_pc.setClanname("");
 							offline_pc.setClanRank(0);
 							offline_pc.setTitle("");
-							offline_pc.setLastLeftPledge();
 							offline_pc.save();
 						} catch (Exception e) {
 							_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -116,7 +114,6 @@ public class C_LeaveClan extends ClientBasePacket {
 				player.setClanname("");
 				player.setClanRank(0);
 				player.setTitle("");
-				player.setLastLeftPledge();
 				player.sendPackets(new S_CharTitle(player.getId(), ""));
 				player.broadcastPacket(new S_CharTitle(player.getId(), ""));
 				player.save();
@@ -127,7 +124,6 @@ public class C_LeaveClan extends ClientBasePacket {
 			player.setClanname("");
 			player.setClanRank(0);
 			player.setTitle("");
-			player.setLastLeftPledge();
 			player.sendPackets(new S_CharTitle(player.getId(), ""));
 			player.broadcastPacket(new S_CharTitle(player.getId(), ""));
 			player.save();

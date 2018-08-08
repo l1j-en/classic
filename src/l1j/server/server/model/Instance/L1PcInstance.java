@@ -53,7 +53,6 @@ import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -149,7 +148,7 @@ public class L1PcInstance extends L1Character {
 	private long _logPackets = -1;
 	private long _lastWeaponSwitch = -1;
 	private int _weaponSwitchCount = 0;
-	private long _lastLeftPledge = -1;
+	private long _lastJoinedPledge = -1;
 	
 	public boolean canSwitchWeapon() {
 		if(!Config.LIMIT_WEAPON_SWITCHING) {
@@ -252,16 +251,16 @@ public class L1PcInstance extends L1Character {
 		return _lastAggressiveAct;
 	}
 	
-	public void setLastLeftPledge(long lastLeft) {
-		_lastLeftPledge = lastLeft;
+	public void setLastJoinedPledge(long lastJoined) {
+		_lastJoinedPledge = lastJoined;
 	}
 	
-	public void setLastLeftPledge() {
-		_lastLeftPledge = System.currentTimeMillis();
+	public void setLastJoinedPledge() {
+		_lastJoinedPledge = System.currentTimeMillis();
 	}
 	
-	public long getLastLeftPledge() {
-		return _lastLeftPledge;
+	public long getLastJoinedPledge() {
+		return _lastJoinedPledge;
 	}
 	
 	public short getHpr() {
@@ -998,13 +997,7 @@ public class L1PcInstance extends L1Character {
 					packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
 					packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
 					packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
-				LogPacketsTable.storeLogPacket(
-						this.getId(), 
-						this.getName(), 
-						this.getTempCharGfx(), 
-						-1, 
-						IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)), 
-						"standard logging");
+				this.getNetConnection().addToPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
 			}
 			
 			_out.sendPacket(serverbasepacket);
