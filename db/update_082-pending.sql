@@ -167,7 +167,7 @@ ALTER TABLE `log_packets` ADD COLUMN `type` varchar(20) NOT NULL;
 ALTER TABLE `log_packets` MODIFY `packet` VARCHAR(1000);
 
 -- update dark_blind to work again but only for pvp
-UPDATE `skills` SET `ranged` = 1, `target_to` = 1, `probability_dice` = 20 WHERE `skill_id` = 103;
+UPDATE `skills` SET `ranged` = 1, `target_to` = 1, `probability_dice` = 30, `probability_value` = 15 WHERE `skill_id` = 103;
 
 -- Add last join/last leave pledge data
 ALTER TABLE `characters` ADD COLUMN `date_left_pledge` datetime DEFAULT NULL;
@@ -215,3 +215,6 @@ INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`cha
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45586,'Lesser Seer',40308,'Adena',476,758,1000000);
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45604,'Marquise Vampire',40308,'Adena',511,813,1000000);
 INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`chance`) VALUES (45589,'Zombie Lord of Fear',40308,'Adena',493,786,1000000);
+
+ALTER TABLE `characters` DROP COLUMN `date_left_pledge`;
+ALTER TABLE `characters` ADD COLUMN `date_joined_pledge` datetime DEFAULT NULL;
