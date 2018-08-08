@@ -126,8 +126,8 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pc.setOriginalInt(rs.getInt("OriginalInt"));
 			pc.setOriginalWis(rs.getInt("OriginalWis"));
 			
-			Timestamp lastLeftPledge = rs.getTimestamp("date_left_pledge");
-			pc.setLastLeftPledge(lastLeftPledge == null ? 0 : lastLeftPledge.getTime());
+			Timestamp lastJoinedPledge = rs.getTimestamp("date_joined_pledge");
+			pc.setLastJoinedPledge(lastJoinedPledge == null ? 0 : lastJoinedPledge.getTime());
 			
 			pc.refresh();
 			pc.setMoveSpeed(0);
@@ -283,8 +283,8 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			int i = 0;
 			String statement = "UPDATE characters SET level=?,HighLevel=?,Exp=?,MaxHp=?,CurHp=?,MaxMp=?,CurMp=?,Ac=?,Str=?,Con=?,Dex=?,Cha=?,Intel=?,Wis=?,Status=?,Class=?,Sex=?,Type=?,Heading=?,LocX=?,LocY=?,MapID=?,Food=?,Lawful=?,Title=?,ClanID=?,Clanname=?,ClanRank=?,BonusStatus=?,ElixirStatus=?,ElfAttr=?,PKcount=?,PkCountForElf=?,ExpRes=?,PartnerID=?,AccessLevel=?,OnlineStatus=?,HomeTownID=?,Contribution=?,HellTime=?,Banned=?,Karma=?,LastPk=?,LastPkForElf=?,DeleteTime=? WHERE objid=?";
 			
-			if(pc.getLastLeftPledge() > 0) {
-				statement = statement.replace(" WHERE objid=?", ",date_left_pledge=?  WHERE objid=?");
+			if(pc.getLastJoinedPledge() > 0) {
+				statement = statement.replace(" WHERE objid=?", ",date_joined_pledge=?  WHERE objid=?");
 			}
 			
 			con = L1DatabaseFactory.getInstance().getConnection();
@@ -340,8 +340,8 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setTimestamp(++i, pc.getLastPkForElf());
 			pstm.setTimestamp(++i, pc.getDeleteTime());
 			
-			if(pc.getLastLeftPledge() > 0) {
-				pstm.setTimestamp(++i, new Timestamp(pc.getLastLeftPledge()));
+			if(pc.getLastJoinedPledge() > 0) {
+				pstm.setTimestamp(++i, new Timestamp(pc.getLastJoinedPledge()));
 			}
 			
 			pstm.setInt(++i, pc.getId());
