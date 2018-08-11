@@ -77,10 +77,12 @@ public class ClientThread implements Runnable, PacketOutput {
 	private String _ip;
 	private String _hostname;
 	private Socket _csocket;
+	HcPacket movePacket = new HcPacket(M_CAPACITY);
 	private int _loginStatus = 0;
 	private boolean _charRestart = true;
 	private long _lastSavedTime = System.currentTimeMillis();
 	private long _lastSavedTime_inventory = System.currentTimeMillis();
+	private static final int M_CAPACITY = 3;
 	private static final int H_CAPACITY = 2;
 	private int _kick = 0;
 	private boolean _disconnectNextClick;
@@ -270,6 +272,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
+		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
         ClientThreadObserver observer = null;
 		observer = new ClientThreadObserver(
@@ -339,8 +342,15 @@ public class ClientThread implements Runnable, PacketOutput {
 					_handler.handlePacket(data, _activeChar);
 					continue;
 				}
-				hcPacket.requestWork(data);
 				
+				// be wary of making other opcodes run on another thread!
+				// we initially removed everything because people were sending 2 packets
+				// at the same time to duplicate items!!
+				if(opcode == Opcodes.C_OPCODE_MOVECHAR) {
+					movePacket.requestWork(data);
+				} else {
+					hcPacket.requestWork(data);
+				}				
 			}
 		} catch (Throwable e) {
 			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
