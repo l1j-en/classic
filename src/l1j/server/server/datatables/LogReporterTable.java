@@ -31,20 +31,21 @@ public class LogReporterTable {
 	private static Logger _log = Logger.getLogger(LogReporterTable.class.getName());
 
 	public static void storeLogReport(int reporter_id, String reporter_account, String reporter_ip, 
-			int target_id, String target_name) {
+			int target_id, String target_name, String reason) {
 		java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO log_report SET reporter_id=?, reporter_account=?, reporter_ip=?, target_id=?, target_name=?, timestamp=?");
+					.prepareStatement("INSERT INTO log_report SET reporter_id=?, reporter_account=?, reporter_ip=?, target_id=?, target_name=?, timestamp=?, reason=?");
 			pstm.setInt(1, reporter_id);
 			pstm.setString(2, reporter_account);
 			pstm.setString(3, reporter_ip);
 			pstm.setInt(4, target_id);
 			pstm.setString(5, target_name);
 			pstm.setLong(6, System.currentTimeMillis());
+			pstm.setString(7, reason);
 			pstm.execute();
 
 		} catch (Exception e) {

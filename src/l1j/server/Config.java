@@ -116,6 +116,8 @@ public final class Config {
 	public static int AUTOSAVE_INTERVAL_INVENTORY;
 
 	public static int SKILLTIMER_IMPLTYPE;
+	
+	public static int CLIENT_HISTORICAL_PACKETS;
 
 	public static int NPCAI_IMPLTYPE;
 
@@ -678,6 +680,10 @@ public final class Config {
 					.getProperty("AutosaveIntervalOfInventory", "300"), 10);
 			SKILLTIMER_IMPLTYPE = Integer.parseInt(serverSettings.getProperty(
 					"SkillTimerImplType", "1"));
+			
+			CLIENT_HISTORICAL_PACKETS = Integer.parseInt(serverSettings.getProperty(
+					"ClientHistoricalPacketCount", "500"));
+			
 			NPCAI_IMPLTYPE = Integer.parseInt(serverSettings.getProperty(
 					"NpcAIImplType", "1"));
 			TELNET_SERVER = Boolean.parseBoolean(serverSettings.getProperty(
