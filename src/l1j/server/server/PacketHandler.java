@@ -230,9 +230,11 @@ public class PacketHandler {
 		
 		_client.setLastClientPacket(i);
 		
+		String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
 		if(object != null && object.isLoggingPackets()) {
-			String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
-			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report");
+			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report", System.currentTimeMillis());
+		} else {
+			_client.addToClientPacketLog(i, packet); // only add to the historical log if we aren't logging to the database
 		}
 		
 		switch (i) {

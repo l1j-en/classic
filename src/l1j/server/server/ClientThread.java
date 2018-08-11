@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,6 +48,7 @@ import l1j.server.server.model.L1HauntedHouse;
 import l1j.server.server.model.L1PolyRace;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -88,8 +90,12 @@ public class ClientThread implements Runnable, PacketOutput {
 	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
 	
 	// stores the last 20 packets, and if the client crashes, it logs those to the DB
-	private CopyOnWriteArrayList<String> _packetsLog = new CopyOnWriteArrayList<String>();
+	private CopyOnWriteArrayList<Packet> _serverPacketsLog = new CopyOnWriteArrayList<Packet>();
 	private int _lastOpCodeReceviedFromClient = -1;
+	
+	// last x # of packets (configurable in server.properties) the client sent to the server
+	// used in the -report function to give a bit of historical info
+	private CopyOnWriteArrayList<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
 	
 	// MP Bug fix - dont remove - tricid
 	private boolean stop = false;
@@ -130,16 +136,36 @@ public class ClientThread implements Runnable, PacketOutput {
 		_handler = new PacketHandler(this);
 	}
 	
-	public CopyOnWriteArrayList<String> getLastPackets() {
-		return this._packetsLog;
+	public CopyOnWriteArrayList<Packet> getLastServerPackets() {
+		return this._serverPacketsLog;
 	}
 	
-	public void addToPacketLog(String packet) {
-		this._packetsLog.add(packet);
+	public void addToServerPacketLog(String packet) {
+		this._serverPacketsLog.add(new Packet(packet));
 		
-		for (String s : this._packetsLog) {
-		    if (this._packetsLog.size() >= 20) {
-		    	this._packetsLog.remove(s);
+		for (Packet p : this._serverPacketsLog) {
+		    if (this._serverPacketsLog.size() >= 20) {
+		    	this._serverPacketsLog.remove(p);
+		    }
+		}
+	}
+	
+	public ArrayList<Packet> getLastClientPackets(boolean clear) {
+		ArrayList<Packet> returnList = new ArrayList<Packet> (this._clientPacketsLog);
+		
+		if(clear) {
+			this._clientPacketsLog.clear();
+		}
+		
+		return returnList;
+	}
+	
+	public void addToClientPacketLog(int opCode, String packet) {
+		this._clientPacketsLog.add(new Packet(opCode, packet));
+		
+		for (Packet p : this._clientPacketsLog) {
+		    if (this._clientPacketsLog.size() >= Config.CLIENT_HISTORICAL_PACKETS) {
+		    	this._clientPacketsLog.remove(p);
 		    }
 		}
 	}
@@ -324,10 +350,11 @@ public class ClientThread implements Runnable, PacketOutput {
 				// don't log if getAccountName is null because we will assume it was a crash before login
 				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null &&
 						!GameServer.getInstance().isShuttingDown()) {
-					for(String packet : _packetsLog) {
-						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, -1, packet, "client crash");
+					for(Packet packet : _serverPacketsLog) {
+						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, packet.getOpCode(), packet.getPacket(), "client crash", packet.getTimestamp());
 					}
-					_packetsLog.clear();
+					
+					_serverPacketsLog.clear();
 				}
 				
 				if (_activeChar != null) {

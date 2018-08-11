@@ -49,12 +49,14 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
+import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -119,7 +121,7 @@ public class PCommands {
 			"Only Dark Elves can use -turn.");
 	private static final S_SystemMessage RankHelp = new S_SystemMessage(
 			"-rank <player> <Apprentice/Ordinary/Guardian Knight>");
-	private static final S_SystemMessage ReportHelp = new S_SystemMessage("-report <charname>");
+	private static final S_SystemMessage ReportHelp = new S_SystemMessage("-report <charname> <reason>");
 
 	private PCommands() {
 	}
@@ -172,7 +174,17 @@ public class PCommands {
 			} else if(cmd2.startsWith("report")) {
 				try {
 					String args[] = cmd2.split(" ");
+					
+					if(args.length != 2) {
+						player.sendPackets(new S_SystemMessage("You must enter a reason!"));
+					}
+					
 					String targetName = args[1];
+					StringBuilder reason = new StringBuilder();
+					
+					for(int i = 2; i < args.length; i++) {
+						reason.append(args[i] + " ");
+					}
 					
 					L1PcInstance target = L1World.getInstance().getPlayer(targetName);
 					
@@ -198,7 +210,18 @@ public class PCommands {
 					
 					target.enableLogPackets();
 					LogReporterTable.storeLogReport(player.getId(), player.getAccountName(), 
-							player.getNetConnection().getIp(), target.getId(), target.getName());
+							player.getNetConnection().getIp(), target.getId(), target.getName(), reason.toString());
+					
+					for(Packet packet : player.getNetConnection().getLastClientPackets(true)) {
+						LogPacketsTable.storeLogPacket(target.getId(), 
+								target.getName(), 
+								target.getTempCharGfx(), 
+								packet.getOpCode(), 
+								packet.getPacket(), 
+								"report", 
+								packet.getTimestamp());
+					}
+					
 					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
 				} catch (Exception ex) {
 					player.sendPackets(ReportHelp);
