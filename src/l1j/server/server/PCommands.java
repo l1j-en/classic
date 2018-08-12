@@ -43,18 +43,21 @@ import static l1j.server.server.model.skill.L1SkillId.CONFUSION;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
+import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -119,7 +122,7 @@ public class PCommands {
 			"Only Dark Elves can use -turn.");
 	private static final S_SystemMessage RankHelp = new S_SystemMessage(
 			"-rank <player> <Apprentice/Ordinary/Guardian Knight>");
-	private static final S_SystemMessage ReportHelp = new S_SystemMessage("-report <charname>");
+	private static final S_SystemMessage ReportHelp = new S_SystemMessage("-report <charname> <reason>");
 
 	private PCommands() {
 	}
@@ -172,7 +175,18 @@ public class PCommands {
 			} else if(cmd2.startsWith("report")) {
 				try {
 					String args[] = cmd2.split(" ");
+					
+					if(args.length != 3) {
+						player.sendPackets(new S_SystemMessage("You must enter a reason!"));
+						return;
+					}
+					
 					String targetName = args[1];
+					StringBuilder reason = new StringBuilder();
+					
+					for(int i = 2; i < args.length; i++) {
+						reason.append(args[i] + " ");
+					}
 					
 					L1PcInstance target = L1World.getInstance().getPlayer(targetName);
 					
@@ -197,9 +211,37 @@ public class PCommands {
 					}
 					
 					target.enableLogPackets();
-					LogReporterTable.storeLogReport(player.getId(), player.getAccountName(), 
-							player.getNetConnection().getIp(), target.getId(), target.getName());
+					int insertedId = LogReporterTable.storeLogReport(player.getId(), player.getAccountName(), 
+							player.getNetConnection().getIp(), target.getId(), target.getName(), reason.toString());
+					
+					if(insertedId == -1) {
+						player.sendPackets(new S_SystemMessage("There was an error reporting the target. Try again!"));
+						return;
+					}
+					
 					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
+					
+					Iterator<Packet> packetIterator = target.getNetConnection().getLastClientPackets().iterator();
+					long firstPacketOfLog = -1;
+					
+					while (packetIterator.hasNext()) {
+						Packet packet = packetIterator.next();
+						
+						if(firstPacketOfLog == -1) {
+							firstPacketOfLog = packet.getTimestamp();
+						}
+						
+						LogPacketsTable.storeLogPacket(target.getId(), 
+								target.getName(), 
+								target.getTempCharGfx(), 
+								packet.getOpCode(), 
+								packet.getPacket(), 
+								"report", 
+								packet.getTimestamp());
+					}
+					
+					target.getNetConnection().clearClientPacketLog();
+					LogReporterTable.updatePacketStartTimestamp(insertedId, firstPacketOfLog);
 				} catch (Exception ex) {
 					player.sendPackets(ReportHelp);
 				}
