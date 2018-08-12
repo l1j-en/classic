@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,6 +49,7 @@ import l1j.server.server.model.L1HauntedHouse;
 import l1j.server.server.model.L1PolyRace;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
+import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -75,10 +78,12 @@ public class ClientThread implements Runnable, PacketOutput {
 	private String _ip;
 	private String _hostname;
 	private Socket _csocket;
+	HcPacket movePacket = new HcPacket(M_CAPACITY);
 	private int _loginStatus = 0;
 	private boolean _charRestart = true;
 	private long _lastSavedTime = System.currentTimeMillis();
 	private long _lastSavedTime_inventory = System.currentTimeMillis();
+	private static final int M_CAPACITY = 3;
 	private static final int H_CAPACITY = 2;
 	private int _kick = 0;
 	private boolean _disconnectNextClick;
@@ -88,25 +93,15 @@ public class ClientThread implements Runnable, PacketOutput {
 	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
 	
 	// stores the last 20 packets, and if the client crashes, it logs those to the DB
-	private CopyOnWriteArrayList<String> _packetsLog = new CopyOnWriteArrayList<String>();
+	private List<Packet> _serverPacketsLog = new CopyOnWriteArrayList<Packet>();
 	private int _lastOpCodeReceviedFromClient = -1;
+	
+	// last x # of packets (configurable in server.properties) the client sent to the server
+	// used in the -report function to give a bit of historical info
+	private List<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
 	
 	// MP Bug fix - dont remove - tricid
 	private boolean stop = false;
-	// private static final byte[] FIRST_PACKET = { 10, 0, 38, 58, -37, 112, 46,
-	// 90, 120, 0 }; // for Episode5
-	// private static final byte[] FIRST_PACKET =
-	// { (byte) 0x12, (byte) 0x00, (byte) 0x14, (byte) 0x1D,
-	// (byte) 0x82,
-	// (byte) 0xF1,
-	// (byte) 0x0C, // = 0x0cf1821d
-	// (byte) 0x87, (byte) 0x7D, (byte) 0x75, (byte) 0x7D,
-	// (byte) 0xA1, (byte) 0x3B, (byte) 0x62, (byte) 0x2C,
-	// (byte) 0x5E, (byte) 0x3E, (byte) 0x9F }; // for Episode 6
-	// private static final byte[] FIRST_PACKET = { 2.70C
-	// (byte) 0xb1, (byte) 0x3c, (byte) 0x2c, (byte) 0x28,
-	// (byte) 0xf6, (byte) 0x65, (byte) 0x1d, (byte) 0xdd,
-	// (byte) 0x56, (byte) 0xe3, (byte) 0xef };
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
 	(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6,
 			(byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD, (byte) 0xCC,
@@ -130,16 +125,41 @@ public class ClientThread implements Runnable, PacketOutput {
 		_handler = new PacketHandler(this);
 	}
 	
-	public CopyOnWriteArrayList<String> getLastPackets() {
-		return this._packetsLog;
+	public List<Packet> getLastServerPackets() {
+		return this._serverPacketsLog;
 	}
 	
-	public void addToPacketLog(String packet) {
-		this._packetsLog.add(packet);
+	public void addToServerPacketLog(String packet) {
+		this._serverPacketsLog.add(new Packet(packet));
 		
-		for (String s : this._packetsLog) {
-		    if (this._packetsLog.size() >= 20) {
-		    	this._packetsLog.remove(s);
+		Iterator<Packet> packetIterator = this._serverPacketsLog.iterator();
+		
+		while (packetIterator.hasNext()) {
+			Packet p = packetIterator.next();
+			
+		    if (this._serverPacketsLog.size() > 20) {
+		    	this._serverPacketsLog.remove(p);
+		    }
+		}
+	}
+	
+	public List<Packet> getLastClientPackets() {
+		return this._clientPacketsLog;
+	}
+	
+	public void clearClientPacketLog() {
+		this._clientPacketsLog.clear();
+	}
+	
+	public void addToClientPacketLog(int opCode, String packet) {
+		this._clientPacketsLog.add(new Packet(opCode, packet));
+		
+		Iterator<Packet> packetIterator = this._clientPacketsLog.iterator();
+		while (packetIterator.hasNext()) {
+			Packet p = packetIterator.next();
+			
+		    if (this._clientPacketsLog.size() > Config.CLIENT_HISTORICAL_PACKETS) {
+		    	this._clientPacketsLog.remove(p);
 		    }
 		}
 	}
@@ -244,6 +264,7 @@ public class ClientThread implements Runnable, PacketOutput {
 		_log.fine("Starting client thread...");
 		Socket socket = _csocket;
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
+		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
         ClientThreadObserver observer = null;
 		observer = new ClientThreadObserver(
@@ -253,12 +274,11 @@ public class ClientThread implements Runnable, PacketOutput {
 			observer.start();
 		}
 		try {
-			// long seed = 0x5cc690ecL; // 2.70C
 			long seed = 0x7C98BDFA; // 3.0 English Packet Seed
 			byte Bogus = (byte) (FIRST_PACKET.length + 7);
 			_out.write(Bogus & 0xFF);
 			_out.write(Bogus >> 8 & 0xFF);
-			// _out.write(0x20); // 2.70C
+
 			_out.write(0x7D); // 3.0 English Version Check.
 			_out.write((byte) (seed & 0xFF));
 			_out.write((byte) (seed >> 8 & 0xFF));
@@ -266,9 +286,8 @@ public class ClientThread implements Runnable, PacketOutput {
 			_out.write((byte) (seed >> 24 & 0xFF));
 			_out.write(FIRST_PACKET);
 			_out.flush();
+			
 			try {
-				// long seed = 0x2e70db3aL; // for Episode5
-				// long seed = 0x0cf1821dL; // for Episode6
 				_clkey = LineageEncryption.initKeys(socket, seed);
 			} catch (ClientIdExistsException e) {
 			}
@@ -281,8 +300,7 @@ public class ClientThread implements Runnable, PacketOutput {
 				} catch (Exception e) {
 					break;
 				}
-				// _log.finest("[C]\n" + new
-				// ByteArrayUtil(data).dumpToString());
+
 				int opcode = data[0] & 0xFF;
 				
 				// if they're clicking "OK" on the common news sent for a ban or ip restriction, then kick them
@@ -313,8 +331,15 @@ public class ClientThread implements Runnable, PacketOutput {
 					_handler.handlePacket(data, _activeChar);
 					continue;
 				}
-				hcPacket.requestWork(data);
 				
+				// be wary of making other opcodes run on another thread!
+				// we initially removed everything because people were sending 2 packets
+				// at the same time to duplicate items!!
+				if(opcode == Opcodes.C_OPCODE_MOVECHAR) {
+					movePacket.requestWork(data);
+				} else {
+					hcPacket.requestWork(data);
+				}				
 			}
 		} catch (Throwable e) {
 			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
@@ -324,10 +349,11 @@ public class ClientThread implements Runnable, PacketOutput {
 				// don't log if getAccountName is null because we will assume it was a crash before login
 				if(_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null &&
 						!GameServer.getInstance().isShuttingDown()) {
-					for(String packet : _packetsLog) {
-						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, -1, packet, "client crash");
+					for(Packet packet : _serverPacketsLog) {
+						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, packet.getOpCode(), packet.getPacket(), "client crash", packet.getTimestamp());
 					}
-					_packetsLog.clear();
+					
+					_serverPacketsLog.clear();
 				}
 				
 				if (_activeChar != null) {

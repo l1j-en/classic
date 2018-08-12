@@ -218,3 +218,6 @@ INSERT INTO `droplist` (`mobId`,`mob_name`,`itemId`,`item_name`,`min`,`max`,`cha
 
 ALTER TABLE `characters` DROP COLUMN `date_left_pledge`;
 ALTER TABLE `characters` ADD COLUMN `date_joined_pledge` datetime DEFAULT NULL;
+
+ALTER TABLE `log_report` ADD COLUMN `reason` VARCHAR(200);
+ALTER TABLE `log_report` ADD COLUMN `first_packet_of_log` BIGINT UNSIGNED DEFAULT NULL;
