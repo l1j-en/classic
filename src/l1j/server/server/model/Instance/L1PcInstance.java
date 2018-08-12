@@ -991,13 +991,16 @@ public class L1PcInstance extends L1Character {
 
 		try {
 			byte[] logPacket = serverbasepacket.getContent();
-			int packetOpCode = (int)logPacket[0];
-					
-			if(packetOpCode != Opcodes.S_OPCODE_GAMETIME &&
-					packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
-					packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
-					packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
-				this.getNetConnection().addToPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
+			
+			if(logPacket.length > 0) {
+				int packetOpCode = (int)logPacket[0];
+				
+				if(packetOpCode != Opcodes.S_OPCODE_GAMETIME &&
+						packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
+						packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
+						packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
+					this.getNetConnection().addToServerPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
+				}
 			}
 			
 			_out.sendPacket(serverbasepacket);
