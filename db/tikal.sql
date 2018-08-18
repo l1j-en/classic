@@ -845,7 +845,7 @@ INSERT INTO `mobskill` VALUES
 
 -- fids
 -- dagger
-UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10, `canbedmg` = 0 WHERE `item_id` = 12;
+UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10, `canbedmg` = 0, `add_hp` = 100, `use_knight` = 0, `use_mage` = 0, `use_darkelf` = 0 WHERE `item_id` = 12;
 
 -- Edo
 UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 10, `dmgmodifier` = 18, `add_dex` = 2 WHERE `item_id` = 86;
@@ -867,3 +867,45 @@ INSERT INTO `weapon_skill` VALUES(285, 'Fidelity Chain Sword', 10, 40, 40, 0, 50
 
 -- Kiringku
 INSERT INTO `weapon` VALUES(286, 'Fidelity Kiringku', 'Fidelity Kiringku', 'Fidelity Kiringku', 'kiringku', 'blackmithril', 10000, 3020, 6967, 0, 33, 33, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+
+-- fid items for crafting
+
+-- bow of pretender king
+INSERT INTO `weapon` VALUES(440000, 'Bow of Pretender King', 'Bow of Pretender King', 'Bow of Pretender King', 'bow', 'wood', 30000, 1652, 4254, 0, 3, 3, -1, 6, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0);
+INSERT INTO `droplist` VALUES(45467, 'Wolf Rider', 440000, 'Bow of Pretender King', 1, 1, 1000),
+(45526, 'Crimson Drake', 440000, 'Bow of Pretender King', 1, 1, 1000),
+(45533, 'Phantom Knight', 440000, 'Bow of Pretender King', 1, 1, 1000),
+(45577, 'Brigade Commander Dark Fencer', 440000, 'Bow of Pretender King', 1, 1, 5000),
+(45588, 'Division Commander Sinclair', 440000, 'Bow of Pretender King', 1, 1, 5000),
+(45607, 'Evil Power Squad Leader Kybar', 440000, 'Bow of Pretender King', 1, 1, 5000),
+(45841, 'Wolf Beast Tamer', 440000, 'Bow of Pretender King', 1, 1, 1000),
+(45961, 'Supreme Court Justice Ramias', 440000, 'Bow of Pretender King', 1, 1, 5000),
+(46006, 'Phantom Knight', 440000, 'Bow of Pretender King', 1, 1, 5000),
+(95448, 'Boss Event Supreme Court Justice Ramias', 440000, 'Bow of Pretender King', 1, 1, 3500);
+
+
+-- chain sword of pretender king
+INSERT INTO `weapon` VALUES(440001, 'Chain Sword of Pretender King', 'Chain Sword of Pretender King', 'Chain Sword of Pretender King', 'chainsword', 'iron', 110000, 3033, 6940, 0, 20, 15, 2, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0);
+INSERT INTO `droplist` VALUES(45467, 'Wolf Rider', 440001, 'Chain Sword of Pretender King', 1, 1, 1000),
+(45526, 'Crimson Drake', 440001, 'Chain Sword of Pretender King', 1, 1, 1000),
+(45533, 'Phantom Knight', 440001, 'Chain Sword of Pretender King', 1, 1, 1000),
+(45577, 'Brigade Commander Dark Fencer', 440001, 'Chain Sword of Pretender King', 1, 1, 5000),
+(45588, 'Division Commander Sinclair', 440001, 'Chain Sword of Pretender King', 1, 1, 5000),
+(45607, 'Evil Power Squad Leader Kybar', 440001, 'Chain Sword of Pretender King', 1, 1, 5000),
+(45841, 'Wolf Beast Tamer', 440001, 'Chain Sword of Pretender King', 1, 1, 1000),
+(45961, 'Supreme Court Justice Ramias', 440001, 'Chain Sword of Pretender King', 1, 1, 5000),
+(46006, 'Phantom Knight', 440001, 'Chain Sword of Pretender King', 1, 1, 5000),
+(95448, 'Boss Event Supreme Court Justice Ramias', 440001, 'Chain Sword of Pretender King', 1, 1, 3500);
+
+-- kiringku of pretender king
+INSERT INTO `weapon` VALUES(440002, 'Kiringku of Pretender King', 'Kiringku of Pretender King', 'Kiringku of Pretender King', 'kiringku', 'gemstone', 10000, 3018, 6939, 0, 20, 20, 1, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0);
+INSERT INTO `droplist` VALUES(45467, 'Wolf Rider', 440002, 'Kiringku of Pretender King', 1, 1, 1000),
+(45526, 'Crimson Drake', 440002, 'Kiringku of Pretender King', 1, 1, 1000),
+(45533, 'Phantom Knight', 440002, 'Kiringku of Pretender King', 1, 1, 1000),
+(45577, 'Brigade Commander Dark Fencer', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
+(45588, 'Division Commander Sinclair', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
+(45607, 'Evil Power Squad Leader Kybar', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
+(45841, 'Wolf Beast Tamer', 440002, 'Kiringku of Pretender King', 1, 1, 1000),
+(45961, 'Supreme Court Justice Ramias', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
+(46006, 'Phantom Knight', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
+(95448, 'Boss Event Supreme Court Justice Ramias', 440002, 'Kiringku of Pretender King', 1, 1, 3500);
