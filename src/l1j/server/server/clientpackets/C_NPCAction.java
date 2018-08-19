@@ -2952,7 +2952,7 @@ public class C_NPCAction extends ClientBasePacket {
 							+ "(" + itemCount + ")"));
 				}
 			}
-		} else if (npcid == 71253) {
+		} else if (npcid == 71253 || npcid == 90520) {
 			if (s.equalsIgnoreCase("A")) {
 				if (pc.getInventory().checkItem(49101, 100)) {
 					materials = new int[] { 49101 };

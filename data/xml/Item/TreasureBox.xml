@@ -905,7 +905,7 @@
 		<Item ItemId="   267" Count="1" Chance=" 3" />
 		<Item ItemId="   268" Count="1" Chance=" 3" />
 	</TreasureBox>
-	<TreasureBox Type="RANDOM" ItemId="433100">				<!--Opened Lesser Kulkulcan Treasure-->
+	<TreasureBox Type="RANDOM" ItemId="49310">				<!--Opened Lesser Kulkulcan Treasure-->
 		<Item ItemId="283" Count="1" Chance="1"/>   		<!--Kulkulcan's Gauntlet-->
 		<Item ItemId="282" Count="1" Chance="1"/>	    	<!--Kulkulcan's Spear-->
 		<Item ItemId="21109" Count="1" Chance="1"/>			<!--Kukulcan's Mask-->
@@ -921,7 +921,7 @@
 		<Item ItemId="40046" Count="5" Chance="12"/>		<!--Sapphire-->
 		<Item ItemId="40047" Count="5" Chance="12"/>		<!--Emerald-->
 	</TreasureBox>
-	<TreasureBox Type="RANDOM" ItemId="433101">				<!--Opened Greater Kulkulcan Treasure-->
+	<TreasureBox Type="RANDOM" ItemId="49309">				<!--Opened Greater Kulkulcan Treasure-->
 		<Item ItemId="283" Count="1" Chance="1"/>	    	<!--Kulkulcan's Gauntlet-->
 		<Item ItemId="282" Count="1" Chance="1"/>	    	<!--Kulkulcan's Spear-->
 		<Item ItemId="21109" Count="1" Chance="1"/>			<!--Kukulcan's Mask-->

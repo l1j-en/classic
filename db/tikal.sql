@@ -3,15 +3,15 @@
 UPDATE `area` SET `areaname` = 'Tikal Temple Entrance' WHERE `mapid` = 783;
 UPDATE `area` SET `areaname` = 'Kukulcan\'s Altar' WHERE `mapid` = 784;
 
-UPDATE `mapids` SET `locationname` = 'Kulkulcan\'s Altar' WHERE `mapid` = 784;
+UPDATE `mapids` SET `locationname` = 'Kukulcan\'s Altar' WHERE `mapid` = 784;
 
 UPDATE `getback` SET `note` = 'Tikal Temple Entrance' WHERE `area_mapid` = 783;
-UPDATE `getback` SET `note` = 'Kulkulcan\'s Altar' WHERE `area_mapid` = 784;
+UPDATE `getback` SET `note` = 'Kukulcan\'s Altar' WHERE `area_mapid` = 784;
 
 UPDATE `getback_restart` SET `note` = 'Tikal Temple Entrance' WHERE area = 783;
-UPDATE `getback_restart` SET `note` = 'Kulkulcan\'s Altar' WHERE area = 784;
+UPDATE `getback_restart` SET `note` = 'Kukulcan\'s Altar' WHERE area = 784;
 
-INSERT INTO `npcaction` VALUES (95020, 'joegolem17', 'joegolem17', '', '');
+INSERT INTO `npcaction` VALUES (90520, 'joegolem21', 'joegolem21', '', '');
 
 INSERT INTO `npc` VALUES
 (90500, 'Monkey', '$7373', 'Tikal Temple Picks up drops', 'L1Monster', 7220, 6, 60, 10, -10, 1, 1, 1, 1, 1, 10, 37, 0, 'small', 0, 0, 0, 320, 0, 0, 0, 480, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0),
@@ -37,7 +37,8 @@ INSERT INTO `npc` VALUES
 (90520,'Joe\'s Stone Golem','$5526','Joe\'s Stone Golem','L1Merchant',6685,0,0,0,0,0,0,0,0,0,0,0,0,'small',0,0,0,1280,2640,0,2640,2640,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,0,0);
 
 INSERT INTO `spawnlist_npc` VALUES
-(1310453,'Kulukulcan\'s Altar GateKeeper',1,90521,33260,32743,0,0,6,0,783,0);
+(1310453,'Kulukulcan\'s Altar GateKeeper',1,90521,33260,32743,0,0,6,0,783,0),
+(90572, 'Joe\'s Stone Golem', 1, 90520, 32858, 32721, 0, 0, 4, 0, 783, 0);
 
 INSERT INTO `spawnlist` VALUES
 (801500992,'Monkey',0,90500,50,33237,32765,12,12,0,0,0,0,0,60,120,783,0,0,0,0,1,8,2,100),
@@ -206,27 +207,27 @@ INSERT INTO `spawnlist` VALUES
 (801501160,'Ecu Juraka',3,90506,0,33157,32841,12,12,0,0,0,0,2,60,120,783,0,0,0,0,1,35,2,100);
 
 INSERT INTO `armor` VALUES
-(21109,'Kukulcan\'s Mask','$6431','$6431','helm','wood',5000,3326,18,0,-3,4,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,2,0,0,0,5,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0),
-(21110,'Kukulcan\'s Shield','$6430','$6430','shield','wood',30000,3328,23,0,-3,6,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,5,0,0),
-(21111,'Fang of Jeb Requie','$6432','$6432','amulet','bone',1000,3332,8,0,0,0,1,1,1,1,1,1,1,1,0,1,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0),
-(21112,'Eye of Jeb Requie','$6433','$6433','amulet','gemstone',1000,3334,8,0,0,0,1,1,1,1,1,1,1,0,1,0,1,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0);
+(21109,'Kukulcan\'s Mask','$6431','$6431','helm','wood',5000,3326,18,0,-3,4,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,2,0,0,0,5,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(21110,'Kukulcan\'s Shield','$6430','$6430','shield','wood',30000,3328,23,0,-3,6,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5,0,0),
+(21111,'Fang of Jeb Requie','$6432','$6432','amulet','bone',1000,3332,8,0,0,0,1,1,1,1,1,1,1,1,0,1,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+(21112,'Eye of Jeb Requie','$6433','$6433','amulet','gemstone',1000,3334,8,0,0,0,1,1,1,1,1,1,1,0,1,0,1,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
 INSERT INTO `weapon` VALUES
-(282,'Kulkulcan\'s Spear','$6428','$6428','spear','iron',100000,3330,5607,0,24,20,2,6,1,1,0,0,0,0,0,5,0,0,0,2,0,0,0,0,0,0,0,0,5,0,0,0,1,0,0,0,1,1,0),
-(283,'Kulkulcan\'s Gauntlet','$6429','$6429','gauntlet','wood',20000,3324,2921,0,3,3,-1,6,0,0,0,0,1,1,0,0,4,0,0,1,0,0,0,30,0,0,0,0,2,0,0,0,1,0,0,0,1,1,0);
+(282,'Kukulcan\'s Spear','$6428','$6428','spear','iron',100000,3330,5607,0,24,20,2,6,1,1,0,0,0,0,0,5,0,0,0,2,0,0,0,0,0,0,0,0,5,0,0,0,1,0,0,1,0,0,0),
+(283,'Kukulcan\'s Gauntlet','$6429','$6429','gauntlet','wood',20000,3324,2921,0,3,3,-1,6,0,0,0,0,1,1,0,0,4,0,0,1,0,0,0,30,0,0,0,0,2,0,0,0,1,0,0,1,0,0,0);
 
 INSERT INTO `etcitem` VALUES
-(49310,'Opened Lesser Kulkulcan Treasure','$6423','$6423','treasure_box','normal','copper',0,3318,7028,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49311,'Opened Greater Kulkulcan Treasure','$6427','$6427','treasure_box','normal','copper',0,3316,7028,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49312,'Locked Greater Kulkulcan Treasure','$6426','$6426','material','normal','gold',0,3312,7027,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49313,'Locked Lesser Kulkulcan Treasure','$6422','$6422','material','normal','gold',0,3314,7027,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49314,'Piece of Greater Kulkulcan Treasure (Upper)','$6424: (Upper)','$6424: (Upper)','material','normal','gold',0,3320,6952,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49315,'Piece of Greater Kulkulcan Treasure (Lower)','$6424: (Lower)','$6424: (Lower)','material','normal','gold',0,3308,6953,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49316,'Piece of Lesser Kulkulcan Treasure (Upper)','$6420: (Upper)','$6420: (Upper)','material','normal','gold',0,3322,6952,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(49317,'Piece of Lesser Kulkulcan Treasure (Lower)','$6420: (Lower)','$6420: (Lower)','material','normal','gold',0,3310,6953,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1),
-(50004,'Teleport Scroll: Tikal Temple','$230: Tikal Temple','$230: Tikal Temple','scroll','normal','paper',630,551,22,0,1,0,0,0,0,0,32793,32753,783,0,1,1,1,4,1500,0,0,1),
-(50005,'Teleport Scroll: Kulkulcan\'s Altar','$230: Kulkulcan\'s Altar','$230: Kulkulcan\'s Altar','scroll','normal','paper',630,551,22,0,1,0,0,0,0,0,32730,32862,784,0,1,1,1,4,1500,0,0,1),
-(50006,'Kulkulcan\'s Altar Key','$6435','$6435','questitem','none','iron',0,59,151,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1);
+(49309,'Opened Greater Kukulcan Treasure','$6427','$6427','treasure_box','normal','copper',0,3316,7028,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49310,'Opened Lesser Kukulcan Treasure','$6423','$6423','treasure_box','normal','copper',0,3318,7028,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49325,'Locked Greater Kukulcan Treasure','$6426','$6426','material','normal','gold',0,3312,7027,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49313,'Locked Lesser Kukulcan Treasure','$6422','$6422','material','normal','gold',0,3314,7027,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49314,'Piece of Greater Kukulcan Treasure (Upper)','$6424: (Upper)','$6424: (Upper)','material','normal','gold',0,3320,6952,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49315,'Piece of Greater Kukulcan Treasure (Lower)','$6424: (Lower)','$6424: (Lower)','material','normal','gold',0,3308,6953,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49316,'Piece of Lesser Kukulcan Treasure (Upper)','$6420: (Upper)','$6420: (Upper)','material','normal','gold',0,3322,6952,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(49317,'Piece of Lesser Kukulcan Treasure (Lower)','$6420: (Lower)','$6420: (Lower)','material','normal','gold',0,3310,6953,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1),
+(50004,'Teleport Scroll: Tikal Temple','$230: Tikal Temple','$230: Tikal Temple','scroll','normal','paper',630,551,22,0,1,0,0,0,0,0,32793,32753,783,1,0,0,1,4,1500,0,0,1),
+(50005,'Teleport Scroll: Kukulcan\'s Altar','$230: Kukulcan\'s Altar','$230: Kukulcan\'s Altar','scroll','normal','paper',630,551,22,0,1,0,0,0,0,0,32730,32862,784,1,0,0,1,4,1500,0,0,1),
+(49324,'Kukulcan\'s Altar Key','$6435','$6435','questitem','none','iron',0,59,151,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1);
 
 INSERT INTO `droplist` VALUES
 (90500,'Monkey',40056,'Meat',1,1,100000),
@@ -234,80 +235,80 @@ INSERT INTO `droplist` VALUES
 (90502,'Ecu Azte (Purple)',40020,'Condensed Healing Potion',1,1,100000),
 (90502,'Ecu Azte (Purple)',49101,'Fragment of Time',3,3,150000),
 (90502,'Ecu Azte (Purple)',49111,'Dragon Tablet(AwakenFafurion)',1,1,10000),
-(90502,'Ecu Azte (Purple)',49316,'Piece of Lesser Kulkulcan Treasure (Upper)',1,1,50000),
+(90502,'Ecu Azte (Purple)',49316,'Piece of Lesser Kukulcan Treasure (Upper)',1,1,50000),
 (90503,'Ecu Azte (Red)',40020,'Condensed Healing Potion',1,1,100000),
 (90503,'Ecu Azte (Red)',40306,'Relic of Eva',1,1,60000),
 (90503,'Ecu Azte (Red)',49101,'Fragment of Time',3,3,50000),
-(90503,'Ecu Azte (Red)',49317,'Piece of Lesser Kulkulcan Treasure (Lower)',1,1,20000),
+(90503,'Ecu Azte (Red)',49317,'Piece of Lesser Kukulcan Treasure (Lower)',1,1,20000),
 (90504,'Ecu Yuka (Blue)',40020,'Condensed Healing Potion',1,2,100000),
 (90504,'Ecu Yuka (Blue)',40306,'Relic of Eva',1,1,60000),
 (90504,'Ecu Yuka (Blue)',49101,'Fragment of Time',3,3,150000),
-(90504,'Ecu Yuka (Blue)',49316,'Piece of Lesser Kulkulcan Treasure (Upper)',1,1,50000),
+(90504,'Ecu Yuka (Blue)',49316,'Piece of Lesser Kukulcan Treasure (Upper)',1,1,50000),
 (90505,'Ecu Yuka (White)',40020,'Condensed Healing Potion',1,2,100000),
 (90505,'Ecu Yuka (White)',40306,'Relic of Eva',1,1,60000),
 (90505,'Ecu Yuka (White)',49101,'Fragment of Time',3,3,50000),
-(90505,'Ecu Yuka (White)',49317,'Piece of Lesser Kulkulcan Treasure (Lower)',1,1,20000),
+(90505,'Ecu Yuka (White)',49317,'Piece of Lesser Kukulcan Treasure (Lower)',1,1,20000),
 (90506,'Ecu Juraka (Blue)',40020,'Condensed Healing Potion',1,2,100000),
 (90506,'Ecu Juraka (Blue)',40306,'Relic of Eva',1,1,40000),
 (90506,'Ecu Juraka (Blue)',49101,'Fragment of Time',3,3,150000),
 (90506,'Ecu Juraka (Blue)',49106,'Dragon Tablet(AwakenAntharas)',1,1,10000),
-(90506,'Ecu Juraka (Blue)',49316,'Piece of Lesser Kulkulcan Treasure (Upper)',1,1,50000),
+(90506,'Ecu Juraka (Blue)',49316,'Piece of Lesser Kukulcan Treasure (Upper)',1,1,50000),
 (90507,'Ecu Juraka (Green)',40020,'Condensed Healing Potion',1,2,100000),
 (90507,'Ecu Juraka (Green)',40306,'Relic of Eva',1,1,40000),
 (90507,'Ecu Juraka (Green)',49101,'Fragment of Time',3,3,50000),
 (90507,'Ecu Juraka (Green)',49106,'Dragon Tablet(AwakenAntharas)',1,1,5000),
-(90507,'Ecu Juraka (Green)',49317,'Piece of Lesser Kulkulcan Treasure (Lower)',1,1,20000),
+(90507,'Ecu Juraka (Green)',49317,'Piece of Lesser Kukulcan Treasure (Lower)',1,1,20000),
 (90508,'Ecu Bla (Green)',40020,'Condensed Healing Potion',1,3,150000),
 (90508,'Ecu Bla (Green)',40306,'Relic of Eva',1,2,50000),
 (90508,'Ecu Bla (Green)',49101,'Fragment of Time',3,3,150000),
-(90508,'Ecu Bla (Green)',49316,'Piece of Lesser Kulkulcan Treasure (Upper)',1,1,50000),
+(90508,'Ecu Bla (Green)',49316,'Piece of Lesser Kukulcan Treasure (Upper)',1,1,50000),
 (90509,'Ecu Bla (Yellow)',40020,'Condensed Healing Potion',1,3,150000),
 (90509,'Ecu Bla (Yellow)',40306,'Relic of Eva',1,2,50000),
 (90509,'Ecu Bla (Yellow)',49101,'Fragment of Time',3,3,50000),
-(90509,'Ecu Bla (Yellow)',49317,'Piece of Lesser Kulkulcan Treasure (Lower)',1,1,20000),
+(90509,'Ecu Bla (Yellow)',49317,'Piece of Lesser Kukulcan Treasure (Lower)',1,1,20000),
 (90510,'Ecu Ette (Branches)',40020,'Condensed Healing Potion',1,3,180000),
 (90510,'Ecu Ette (Branches)',40306,'Relic of Eva',1,2,60000),
 (90510,'Ecu Ette (Branches)',49101,'Fragment of Time',3,3,150000),
 (90510,'Ecu Ette (Branches)',49110,'Dragon Tablet(ShockSkin)',1,1,10000),
-(90510,'Ecu Ette (Branches)',49316,'Piece of Lesser Kulkulcan Treasure (Upper)',1,1,50000),
+(90510,'Ecu Ette (Branches)',49316,'Piece of Lesser Kukulcan Treasure (Upper)',1,1,50000),
 (90511,'Ecu Ette (Leaves)',40020,'Condensed Healing Potion',1,3,180000),
 (90511,'Ecu Ette (Leaves)',40306,'Relic of Eva',1,2,600000),
 (90511,'Ecu Ette (Leaves)',49101,'Fragment of Time',3,3,50000),
 (90511,'Ecu Ette (Leaves)',49110,'Dragon Tablet(ShockSkin)',1,1,5000),
-(90511,'Ecu Ette (Leaves)',49317,'Piece of Lesser Kulkulcan Treasure (Lower)',1,1,20000),
+(90511,'Ecu Ette (Leaves)',49317,'Piece of Lesser Kukulcan Treasure (Lower)',1,1,20000),
 (90512,'Jad Tow (Blue)',40021,'Condensed Greater Healing Potion',1,3,100000),
 (90512,'Jad Tow (Blue)',40306,'Relic of Eva',1,2,80000),
 (90512,'Jad Tow (Blue)',49101,'Fragment of Time',3,3,150000),
-(90512,'Jad Tow (Blue)',49314,'Piece of Greater Kulkulcan Treasure (Upper)',1,1,50000),
-(90512,'Jad Tow (Blue)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
+(90512,'Jad Tow (Blue)',49314,'Piece of Greater Kukulcan Treasure (Upper)',1,1,50000),
+(90512,'Jad Tow (Blue)',50006,'Kukulcan\'s Altar Key',1,1,20000),
 (90513,'Jad Tow (Red)',40021,'Condensed Greater Healing Potion',1,3,100000),
 (90513,'Jad Tow (Red)',40306,'Relic of Eva',1,2,80000),
 (90513,'Jad Tow (Red)',49101,'Fragment of Time',3,3,50000),
-(90513,'Jad Tow (Red)',49315,'Piece of Greater Kulkulcan Treasure (Lower)',1,1,10000),
-(90513,'Jad Tow (Red)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
+(90513,'Jad Tow (Red)',49315,'Piece of Greater Kukulcan Treasure (Lower)',1,1,10000),
+(90513,'Jad Tow (Red)',50006,'Kukulcan\'s Altar Key',1,1,20000),
 (90514,'Jad Ske (Purple)',40021,'Condensed Greater Healing Potion',1,1,120000),
 (90514,'Jad Ske (Purple)',40306,'Relic of Eva',1,2,80000),
 (90514,'Jad Ske (Purple)',49101,'Fragment of Time',3,3,150000),
-(90514,'Jad Ske (Purple)',49314,'Piece of Greater Kulkulcan Treasure (Upper)',1,1,50000),
-(90514,'Jad Ske (Purple)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
+(90514,'Jad Ske (Purple)',49314,'Piece of Greater Kukulcan Treasure (Upper)',1,1,50000),
+(90514,'Jad Ske (Purple)',50006,'Kukulcan\'s Altar Key',1,1,20000),
 (90515,'Jad Ske (Red)',40021,'Condensed Greater Healing Potion',1,3,120000),
 (90515,'Jad Ske (Red)',40306,'Relic of Eva',1,2,80000),
 (90515,'Jad Ske (Red)',49101,'Fragment of Time',3,3,50000),
-(90515,'Jad Ske (Red)',49315,'Piece of Greater Kulkulcan Treasure (Lower)',1,1,10000),
-(90515,'Jad Ske (Red)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
+(90515,'Jad Ske (Red)',49315,'Piece of Greater Kukulcan Treasure (Lower)',1,1,10000),
+(90515,'Jad Ske (Red)',50006,'Kukulcan\'s Altar Key',1,1,20000),
 (90516,'Jad Teo (Blue)',40021,'Condensed Greater Healing Potion',1,1,120000),
 (90516,'Jad Teo (Blue)',40306,'Relic of Eva',1,2,80000),
 (90516,'Jad Teo (Blue)',49101,'Fragment of Time',3,3,150000),
 (90516,'Jad Teo (Blue)',49113,'Dragon Tablet(ThunderGrab)',1,1,10000),
-(90516,'Jad Teo (Blue)',49314,'Piece of Greater Kulkulcan Treasure (Upper)',1,1,50000),
-(90516,'Jad Teo (Blue)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
+(90516,'Jad Teo (Blue)',49314,'Piece of Greater Kukulcan Treasure (Upper)',1,1,50000),
+(90516,'Jad Teo (Blue)',50006,'Kukulcan\'s Altar Key',1,1,20000),
 (90517,'Jad Teo (Yellow)',40021,'Condensed Greater Healing Potion',1,3,120000),
 (90517,'Jad Teo (Yellow)',40306,'Relic of Eva',1,2,80000),
 (90517,'Jad Teo (Yellow)',49101,'Fragment of Time',3,3,50000),
 (90517,'Jad Teo (Yellow)',49113,'Dragon Tablet(ThunderGrab)',1,1,5000),
-(90517,'Jad Teo (Yellow)',49315,'Piece of Greater Kulkulcan Treasure (Lower)',1,1,10000),
-(90517,'Jad Teo (Yellow)',50006,'Kulkulcan\'s Altar Key',1,1,20000),
-(90518,'Jeb Requie (Male)',282,'Kulkulcan\'s Spear',1,1,10000),
+(90517,'Jad Teo (Yellow)',49315,'Piece of Greater Kukulcan Treasure (Lower)',1,1,10000),
+(90517,'Jad Teo (Yellow)',50006,'Kukulcan\'s Altar Key',1,1,20000),
+(90518,'Jeb Requie (Male)',282,'Kukulcan\'s Spear',1,1,10000),
 (90518,'Jeb Requie (Male)',20254,'Amulet of Charisma',1,1,80000),
 (90518,'Jeb Requie (Male)',20256,'Amulet of Dexterity',1,1,80000),
 (90518,'Jeb Requie (Male)',20264,'Amulet of Strength',1,1,80000),
@@ -325,11 +326,11 @@ INSERT INTO `droplist` VALUES
 (90518,'Jeb Requie (Male)',40074,'Scroll of Enchant Armor',1,1,200000),
 (90518,'Jeb Requie (Male)',40087,'Scroll of Enchant Weapon',1,5,200000),
 (90518,'Jeb Requie (Male)',49092,'Cracked Nucleus',1,1,100000),
-(90518,'Jeb Requie (Male)',49312,'Locked Greater Kulkulcan Treasure',1,1,100000),
+(90518,'Jeb Requie (Male)',49325,'Locked Greater Kukulcan Treasure',1,1,100000),
 (90518,'Jeb Requie (Male)',140074,'Scroll of Enchant Armor',1,1,80000),
 (90518,'Jeb Requie (Male)',140087,'Scroll of Enchant Weapon',1,3,80000),
 (90518,'Jeb Requie (Male)',140100,'Scroll of Teleportation',1,3,250000),
-(90519,'Jeb Requie (Female)',283,'Kulkulcan\'s Gauntlet',1,1,10000),
+(90519,'Jeb Requie (Female)',283,'Kukulcan\'s Gauntlet',1,1,10000),
 (90519,'Jeb Requie (Female)',20254,'Amulet of Charisma',1,1,80000),
 (90519,'Jeb Requie (Female)',20256,'Amulet of Dexterity',1,1,80000),
 (90519,'Jeb Requie (Female)',20264,'Amulet of Strength',1,1,80000),
@@ -347,7 +348,7 @@ INSERT INTO `droplist` VALUES
 (90519,'Jeb Requie (Female)',40074,'Scroll of Enchant Armor',1,1,200000),
 (90519,'Jeb Requie (Female)',40087,'Scroll of Enchant Weapon',1,5,20000),
 (90519,'Jeb Requie (Female)',49092,'Cracked Nucleus',1,1,100000),
-(90519,'Jeb Requie (Female)',49312,'Locked Greater Kulkulcan Treasure',1,1,100000),
+(90519,'Jeb Requie (Female)',49325,'Locked Greater Kukulcan Treasure',1,1,100000),
 (90519,'Jeb Requie (Female)',140074,'Scroll of Enchant Armor',1,1,80000),
 (90519,'Jeb Requie (Female)',140087,'Scroll of Enchant Weapon',1,3,80000),
 (90519,'Jeb Requie (Female)',140100,'Scroll of Teleportation',1,3,25000);
@@ -793,7 +794,7 @@ INSERT INTO `spr_action` VALUES
 (7260,0,12,24,'',''),
 (7260,1,28,24,'Monkey',''),
 (7260,30,28,24,'Monkey',''),
-(7263,0,0,24,'Kulkulcan\'s Altar Gakekeeper','');
+(7263,0,0,24,'Kukulcan\'s Altar Gakekeeper','');
 
 INSERT INTO `skills` VALUES
 (20080,'Ecu Yuka Needle',0,0,0,0,0,0,0,0,'attack',3,30,15,3,20,15,2,64,0,7,1,0,0,'',1,7093,0,0,0,0,'',1),
