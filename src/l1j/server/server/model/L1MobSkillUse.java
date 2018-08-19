@@ -267,6 +267,9 @@ public class L1MobSkillUse {
 		int range = getMobSkillTemplate().getRange(idx);
 		int actId = getMobSkillTemplate().getActid(idx);
 		int gfxId = getMobSkillTemplate().getGfxid(idx);
+		
+		int skillid = getMobSkillTemplate().getSkillId(idx);
+		boolean canUseSkill = false;
 
 		if (_attacker.getLocation().getTileLineDistance(_target.getLocation()) > range) {
 			return false;
@@ -374,7 +377,26 @@ public class L1MobSkillUse {
 				}
 				attack.action();
 			}
+			
 			attack.commit();
+			
+			if (skillid > 0) {
+				L1SkillUse skillUse = new L1SkillUse();
+				canUseSkill = skillUse.checkUseSkill(null, skillid,
+						_target.getId(), _target.getX(), _target.getY(), null, 0,
+						L1SkillUse.TYPE_NORMAL, _attacker);
+				
+				
+				if (canUseSkill == true) {
+					if (getMobSkillTemplate().getLeverage(idx) > 0) {
+						skillUse.setLeverage(getMobSkillTemplate().getLeverage(idx));
+					}
+					
+					skillUse.handleCommands(null, skillid, _target.getId(),
+							_target.getX(), _target.getX(), null, 0,
+							L1SkillUse.TYPE_NORMAL, _attacker);
+				}
+			}
 		}
 
 		_sleepTime = _attacker.getAtkspeed();
