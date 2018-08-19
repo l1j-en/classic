@@ -30,6 +30,7 @@ import static l1j.server.server.model.item.L1ItemId.SWORD_OF_KURTZ;
 import static l1j.server.server.model.item.L1ItemId.SWORD_OF_SILENCE;
 import static l1j.server.server.model.item.L1ItemId.SWORD_OF_VARLOK;
 import static l1j.server.server.model.item.L1ItemId.THORS_HAMMER;
+import static l1j.server.server.model.item.L1ItemId.WIND_BLADE_DAGGER;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.COUNTER_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.ILLUSION_AVATAR;
@@ -80,6 +81,7 @@ public class L1WeaponSkill {
 	private static final int LightningEdgeChance = 4;
 	private static final int FrozenSpearChance = 5;
 	private static final int WindAxeChance = 4;
+	
 	private static final int FettersTime = 8000;
 	// Basically arbitrary, but default to casting procs like a level 48 mage.
 	private static final int DefaultSpellpower = 13;
@@ -211,6 +213,22 @@ public class L1WeaponSkill {
 			return getFrozenSpearDamage(attacker, target);
 		case 261:
 			return giveArkMageDiseaseEffect(attacker, target);
+		case WIND_BLADE_DAGGER: // fid dagger
+			int drainHp = _random.nextInt(8) + 5; // 5-12 damage
+			
+			short newHp = (short) (attacker.getCurrentHp() + drainHp);
+			attacker.setCurrentHp(newHp);
+			
+			return drainHp;
+		case 286: // fid kiringku
+			int drainMp = _random.nextInt(8) + 5; // 5-12 mp taken
+			
+			short newMp = (short) (attacker.getCurrentMp() + drainMp);
+			attacker.setCurrentMp(newMp);
+			
+			target.setCurrentMp(target.getCurrentMp() - drainMp);
+			
+			return 0;
 		}
 
 		L1WeaponSkill weaponSkill = Config.USE_INT_PROCS ? ProcMap

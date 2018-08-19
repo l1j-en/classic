@@ -2236,11 +2236,19 @@ public class C_ItemUSe extends ClientBasePacket {
 					createNewItem(pc, targetItemId + 1, 1);
 					inventory.consumeItem(targetItemId, 1);
 					inventory.consumeItem(49092, 1);
+				} else if(targetItemId == 49313) {
+					createNewItem(pc, 49310, 1);
+					inventory.consumeItem(targetItemId, 1);
+					inventory.consumeItem(49092, 1);
+				} else if(targetItemId == 49325) {
+					createNewItem(pc, 49309, 1);
+					inventory.consumeItem(targetItemId, 1);
+					inventory.consumeItem(49092, 1);
 				} else {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 					return;
 				}
-			} else if (itemId == 49093) {
+			} else if (itemId == 49093) { // Start of thebes pieces
 				if (inventory.checkItem(49094, 1)) {
 					inventory.consumeItem(49093, 1);
 					inventory.consumeItem(49094, 1);
@@ -2264,11 +2272,44 @@ public class C_ItemUSe extends ClientBasePacket {
 				} else {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
-			} else if (itemId == 49098) {
+			} else if (itemId == 49098) { // End of thebes pieces
 				if (inventory.checkItem(49097, 1)) {
 					inventory.consumeItem(49097, 1);
 					inventory.consumeItem(49098, 1);
 					createNewItem(pc, 49099, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			}
+			else if (itemId == 49316) { // Start of kukul pieces -- upper lesser
+				if (inventory.checkItem(49317, 1)) {
+					inventory.consumeItem(49316, 1);
+					inventory.consumeItem(49317, 1);
+					createNewItem(pc, 49313, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			} else if (itemId == 49317) { // lower lesser
+				if (inventory.checkItem(49316, 1)) {
+					inventory.consumeItem(49316, 1);
+					inventory.consumeItem(49317, 1);
+					createNewItem(pc, 49313, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			} else if (itemId == 49314) { // upper greater
+				if (inventory.checkItem(49315, 1)) {
+					inventory.consumeItem(49314, 1);
+					inventory.consumeItem(49315, 1);
+					createNewItem(pc, 49325, 1);
+				} else {
+					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
+				}
+			} else if (itemId == 49315) { // End of kukul pieces -- lower greater
+				if (inventory.checkItem(49314, 1)) {
+					inventory.consumeItem(49314, 1);
+					inventory.consumeItem(49315, 1);
+					createNewItem(pc, 49325, 1);
 				} else {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happened.
 				}
