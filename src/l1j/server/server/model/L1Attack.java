@@ -788,7 +788,7 @@ public class L1Attack {
 			}
 		}
 
-		if ( (_weaponId == GREAT_SWORD_OF_DESTRUCTION || _weaponId == WIND_BLADE_DAGGER) && _random.nextInt(100) + 1 <= 75) {
+		if (_weaponId == GREAT_SWORD_OF_DESTRUCTION && _random.nextInt(100) + 1 <= 75) {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 
