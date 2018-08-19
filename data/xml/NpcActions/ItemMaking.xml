@@ -2730,7 +2730,7 @@
 			<Material Amount="300" ItemId="40308"/>
 			<Item Amount="1" ItemId="41315"/>
 		</MakeItem>
-	</Action>
+	</Action> <!-- fids start -->
 	<Action Name="request enforce sword of emperor">
 		<MakeItem>
 			<Material Amount="1" ItemId="40965"/>
@@ -2796,6 +2796,45 @@
 			<Item Amount="1" ItemId="134"/>
 		</MakeItem>
 	</Action>
+	<Action Name="request chain of fid">
+		<MakeItem>
+			<Material Amount="1" ItemId="40965"/>
+			<Material Amount="1" ItemId="440001"/>
+			<Material Amount="10" ItemId="40445"/>
+			<Material Amount="50" ItemId="40964"/>
+			<Material Amount="100" ItemId="40967"/>
+			<Material Amount="10" ItemId="40525"/>
+			<Material Amount="50" ItemId="40677"/>
+			<Material Amount="300" ItemId="40969"/>
+			<Item Amount="1" ItemId="285"/>
+		</MakeItem>
+	</Action>
+	<Action Name="request bow of fid">
+		<MakeItem>
+			<Material Amount="1" ItemId="40965"/>
+			<Material Amount="1" ItemId="440000"/>
+			<Material Amount="10" ItemId="40445"/>
+			<Material Amount="50" ItemId="40964"/>
+			<Material Amount="100" ItemId="40967"/>
+			<Material Amount="10" ItemId="40525"/>
+			<Material Amount="50" ItemId="40677"/>
+			<Material Amount="300" ItemId="40969"/>
+			<Item Amount="1" ItemId="284"/>
+		</MakeItem>
+	</Action>
+	<Action Name="request kiringku of fid">
+		<MakeItem>
+			<Material Amount="1" ItemId="40965"/>
+			<Material Amount="1" ItemId="440002"/>
+			<Material Amount="10" ItemId="40445"/>
+			<Material Amount="50" ItemId="40964"/>
+			<Material Amount="100" ItemId="40967"/>
+			<Material Amount="10" ItemId="40525"/>
+			<Material Amount="50" ItemId="40677"/>
+			<Material Amount="300" ItemId="40969"/>
+			<Item Amount="1" ItemId="286"/>
+		</MakeItem>
+	</Action><!-- fids end -->
 	<Action Name="request helm of dantes">
 		<MakeItem>
 			<Material Amount="1" ItemId="40966"/>
