@@ -176,7 +176,7 @@ public class PCommands {
 				try {
 					String args[] = cmd2.split(" ");
 					
-					if(args.length != 3) {
+					if(args.length < 3) {
 						player.sendPackets(new S_SystemMessage("You must enter a reason!"));
 						return;
 					}
