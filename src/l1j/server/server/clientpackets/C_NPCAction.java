@@ -3770,15 +3770,72 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 		} else if (npcid == 91308) {
-	    if (s.equalsIgnoreCase("a")) {
-	        if (pc.getInventory().checkItem(49239, 1)) {
-	            htmlid = "rtf06";
-	        } else {
-							L1ItemInstance item = pc.getInventory().storeItem(49239, 1);
-							String itemName = item.getItem().getName();
-							pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
-	        }
-	    }
+		    if (s.equalsIgnoreCase("a")) {
+		        if (pc.getInventory().checkItem(49239, 1)) {
+		            htmlid = "rtf06";
+		        } else {
+								L1ItemInstance item = pc.getInventory().storeItem(49239, 1);
+								String itemName = item.getItem().getName();
+								pc.sendPackets(new S_ServerMessage(143, npcName, itemName));
+		        }
+		    } 
+		} else if(npcid == 99000) {
+			int itemId;
+			
+			int[] shadowItems = new int[] { 550061, 550012, 550086, 550160, 550134, 550284, 550285, 550286 };
+			
+			switch(s) {
+			case "request shadow 2hs":
+				itemId = 550061;
+				break;
+			case "request shadow dagger":
+				itemId = 550012;
+				break;
+			case "request shadow edo":
+				itemId = 550086;
+				break;
+			case "request shadow claw":
+				itemId = 550160;
+				break;
+			case "request shadow staff":
+				itemId = 550134;
+				break;
+			case "request shadow bow":
+				itemId = 550284;
+				break;
+			case "request shadow chain":
+				itemId = 550285;
+				break;
+			case "request shadow kiringku":
+				itemId = 550286;
+				break;
+			default:
+				return;
+			}
+			
+			if(!pc.getInventory().checkItem(L1ItemId.ADENA, 100000)) {
+				pc.sendPackets(new S_ServerMessage(189));
+				return;
+			}
+			
+			for(int shadowId : shadowItems) {
+				if(pc.getInventory().checkItem(shadowId)) {
+					pc.sendPackets(new S_SystemMessage("You can only carry one shadow weapon at a time!"));
+					return;
+				}
+			}
+			
+			if(!pc.getInventory().consumeItem(L1ItemId.ADENA, 100000)) {
+				pc.sendPackets(new S_ServerMessage(189));
+				return;
+			}
+			
+			L1ItemInstance shadowWeapon = ItemTable.getInstance().createItem(itemId);
+			shadowWeapon.setIdentified(true);
+			
+			pc.getInventory().storeItem(shadowWeapon);
+			pc.sendPackets(new S_ServerMessage(143, ((L1NpcInstance) obj).getNpcTemplate().get_name(), shadowWeapon.getName()));
+			htmlid = "shadowevent2";
 		}
 
 		// else System.out.println("C_NpcAction: " + s);
