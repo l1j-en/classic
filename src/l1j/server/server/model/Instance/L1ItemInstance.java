@@ -1125,7 +1125,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	public void startEquipmentTimer(L1PcInstance pc) {
 		if (getRemainingTime() > 0) {
 			_equipmentTimer = new L1EquipmentTimer(pc, this);
-			Timer timer = new Timer("EquipmentTimer-"+_pc.getName(),true);
+			Timer timer = new Timer("EquipmentTimer-" + pc.getName(),true);
 			timer.scheduleAtFixedRate(_equipmentTimer, 1000, 1000);
 		}
 	}
