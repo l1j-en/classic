@@ -849,7 +849,7 @@ INSERT INTO `mobskill` VALUES
 UPDATE `weapon` SET `dmgmodifier` = 10, `hitmodifier` = 10, `canbedmg` = 0, `add_hp` = 100, `use_knight` = 0, `use_mage` = 0, `use_darkelf` = 0 WHERE `item_id` = 12;
 
 -- Edo
-UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 10, `dmgmodifier` = 18, `add_dex` = 2 WHERE `item_id` = 86;
+UPDATE `weapon` SET `dmg_small` = 27, `dmg_large` = 18, `hitmodifier` = 10, `dmgmodifier` = 18, `add_dex` = 2, `add_wis` = 2 WHERE `item_id` = 86;
 
 -- Claw
 UPDATE `weapon` SET `hitmodifier` = 8, `add_dex` = 2 WHERE `item_id` = 160;
@@ -859,7 +859,7 @@ UPDATE `weapon` SET `hitmodifier` = 8, `add_int` = 2, `add_wis` = 0, `add_sp` = 
 INSERT INTO `weapon_skill` VALUES(134, 'Crystalized Staff', 10, 30, 15, 0, 65, 0, 3924, 0, 0, 8);
 
 -- Bow
-INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, 6, 0, 0, 0, 0, 1, 0, 0, 0, 10, 15, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+INSERT INTO `weapon` VALUES(284, 'Demon King Bow', 'Demon King Bow', 'Demon King Bow', 'bow', 'blackmithril', 30000, 3146, 7023, 0, 5, 5, -1, 6, 0, 0, 0, 1, 0, 0, 0, 10, 15, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 INSERT INTO `weapon_skill` VALUES(284, 'Demon King Bow', 10, 40, 40, 0, 0, 0, 1809, 0, 1, 4);
 
 -- Chainsword
