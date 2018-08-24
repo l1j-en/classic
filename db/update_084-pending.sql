@@ -9,6 +9,9 @@ INSERT INTO `weapon` VALUES(550012,'Wind Blade Dagger','$3835','$3835','dagger',
 (550286,'Fidelity Kiringku','Fidelity Kiringku','Fidelity Kiringku','kiringku','blackmithril',10000,3020,6967,0,33,33,1,0,0,0,0,0,0,0,1,0,5,0,0,0,2,0,0,0,0,0,0,5,0,0,0,0,0,0,0,1,1,0,18000);
 
 -- shadow weapon skills
+INSERT INTO `weapon_skill` VALUES(550284, 'Shadow Demon King Bow', 10, 40, 40, 0, 0, 0, 1809, 0, 1, 4);
+INSERT INTO `weapon_skill` VALUES(550134, 'Shadow Crystalized Staff', 10, 30, 15, 0, 65, 0, 3924, 0, 0, 8);
+INSERT INTO `weapon_skill` VALUES(550285, 'Shadow Fidelity Chain Sword', 10, 40, 40, 0, 50, 0, 756, 0, 0, 4);
 
 -- npc
 INSERT INTO `npc` VALUES(99000,'Shadow Merchant','Shadow Merchant','Shadow Fid event','L1Merchant',266,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);

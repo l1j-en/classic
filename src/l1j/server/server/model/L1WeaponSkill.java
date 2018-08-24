@@ -213,6 +213,7 @@ public class L1WeaponSkill {
 			return getFrozenSpearDamage(attacker, target);
 		case 261:
 			return giveArkMageDiseaseEffect(attacker, target);
+		case 550012: // shadow wind blade dagger
 		case WIND_BLADE_DAGGER: // fid dagger
 			int drainHp = _random.nextInt(8) + 5; // 5-12 damage
 			
@@ -220,6 +221,7 @@ public class L1WeaponSkill {
 			attacker.setCurrentHp(newHp);
 			
 			return drainHp;
+		case 550296: // shadow fid kiringku
 		case 286: // fid kiringku
 			int drainMp = _random.nextInt(8) + 5; // 5-12 mp taken
 			
