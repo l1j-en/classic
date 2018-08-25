@@ -910,3 +910,27 @@ INSERT INTO `droplist` VALUES(45467, 'Wolf Rider', 440002, 'Kiringku of Pretende
 (45961, 'Supreme Court Justice Ramias', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
 (46006, 'Phantom Knight', 440002, 'Kiringku of Pretender King', 1, 1, 5000),
 (95448, 'Boss Event Supreme Court Justice Ramias', 440002, 'Kiringku of Pretender King', 1, 1, 3500);
+
+-- fix altar key ids
+UPDATE `droplist` SET itemId = 49324 WHERE `itemId` = 50006;
+
+-- set all upper/lower pieces to match thebes drop rates
+UPDATE `droplist` SET `chance` = '50000' WHERE `itemId` IN(49314, 49315, 49316, 49317);
+
+-- add adena to mobs in tikal
+INSERT INTO `droplist` VALUES(90503,'Ecu Azte',40308,'Adena',350,500,100000),
+(90502,'Ecu Azte',40308,'Adena',350,500,100000),
+(90504,'Ecu Yuka',40308,'Adena',350,500,100000),
+(90505,'Ecu Yuka',40308,'Adena',350,500,100000),
+(90506,'Ecu Juraka',40308,'Adena',350,500,100000),
+(90507,'Ecu Juraka',40308,'Adena',350,500,100000),
+(90508,'Ecu Bla',40308,'Adena',350,500,100000),
+(90509,'Ecu Bla',40308,'Adena',350,500,100000),
+(90510,'Ecu Ette',40308,'Adena',350,500,100000),
+(90511,'Ecu Ette',40308,'Adena',350,500,100000),
+(90512,'Jad Tow',40308,'Adena',350,500,100000),
+(90513,'Jad Tow',40308,'Adena',350,500,100000),
+(90514,'Jad Ske',40308,'Adena',350,500,100000),
+(90515,'Jad Ske',40308,'Adena',350,500,100000),
+(90516,'Jad Teo',40308,'Adena',350,500,100000),
+(90517,'Jad Tow',40308,'Adena',350,500,100000);
