@@ -934,3 +934,6 @@ INSERT INTO `droplist` VALUES(90503,'Ecu Azte',40308,'Adena',350,500,100000),
 (90515,'Jad Ske',40308,'Adena',350,500,100000),
 (90516,'Jad Teo',40308,'Adena',350,500,100000),
 (90517,'Jad Tow',40308,'Adena',350,500,100000);
+
+-- update thebes ring 
+UPDATE `armor` SET `regist_sleep` = 0, `regist_stun` = 5 WHERE `item_id` = 21094;
