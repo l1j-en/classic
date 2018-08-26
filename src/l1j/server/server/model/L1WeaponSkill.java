@@ -298,9 +298,9 @@ public class L1WeaponSkill {
 			final L1Character target) {
 		L1ItemInstance weapon = attacker.getWeapon();
 		int weaponId = weapon.getItem().getItemId();
-		int damage = weaponId == 270 ? 16 : 14;
+		int damage = weapon.getItem().getDmgSmall() - 10;
 		int dice = 5;
-		int diceCount = 2;
+		int diceCount = 3;
 
 		for (int i = 0; i < diceCount; i++) {
 			damage += (_random.nextInt(dice) + 1);
@@ -325,7 +325,7 @@ public class L1WeaponSkill {
 		attacker.sendPackets(packet);
 		attacker.broadcastPacket(packet);
 
-		return calcDamageReduction(attacker, target, damage, 0);
+		return calcDamageReduction(attacker, target, damage, 0, true);
 	}
 
 	private static double getFrozenSpearDamage(final L1PcInstance attacker,
@@ -472,9 +472,13 @@ public class L1WeaponSkill {
 		
 		return 0;
 	}
-
+	
 	public static double calcDamageReduction(final L1PcInstance attacker,
 			final L1Character target, double damage, int element) {
+		return calcDamageReduction(attacker, target, damage, element, false);
+	}
+	public static double calcDamageReduction(final L1PcInstance attacker,
+			final L1Character target, double damage, int element, boolean isKiringku) {
 		if (isImmune(target)) {
 			return 0;
 		}
@@ -486,12 +490,18 @@ public class L1WeaponSkill {
 		} else if (mr >= 100) {
 			mrFloor = Math.floor((mr - attacker.getOriginalMagicHit()) / 10);
 		}
+		
+		if(isKiringku) {
+			mrFloor /= 2;
+		}
+		
 		double mrCoefficient = 0;
 		if (mr <= 100) {
 			mrCoefficient = 1 - 0.01 * mrFloor;
 		} else if (mr >= 100) {
-			mrCoefficient = 0.6 - 0.01 * mrFloor;
+			mrCoefficient = (isKiringku ? 0.7 : 0.6) - 0.01 * mrFloor;
 		}
+		
 		damage *= mrCoefficient;
 
 		int resist = 0;
