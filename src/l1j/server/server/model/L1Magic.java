@@ -282,7 +282,7 @@ public class L1Magic {
 				|| skillId == STRIKER_GALE || skillId == POLLUTE_WATER
 				|| skillId == EARTH_BIND || skillId == DARK_BLIND) {
 			probability = skill.getProbabilityValue()
-					+ (int) (((skill.getProbabilityDice()) / 10D) * (levelDifference / 3));
+					+ (int) (((skill.getProbabilityDice()) / 10D) * (levelDifference / 2));
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
@@ -318,7 +318,12 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == PHANTASM) {
-			probability = 30; // hard-coded to 30% land rate
+			if(_calcType != PC_PC) {
+				probability = 30; // hard-coded to 30% land rate
+			} else {
+				probability = skill.getProbabilityValue() + levelDifference * 2;
+				probability += 2 * _pc.getOriginalMagicHit();
+			}			
 		} else {
 			int dice = skill.getProbabilityDice();
 			int diceCount = _attacker.getMagicBonus()

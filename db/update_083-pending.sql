@@ -937,3 +937,6 @@ INSERT INTO `droplist` VALUES(90503,'Ecu Azte',40308,'Adena',350,500,100000),
 
 -- update thebes ring 
 UPDATE `armor` SET `regist_sleep` = 0, `regist_stun` = 5 WHERE `item_id` = 21094;
+
+-- update phantasm probability to match stun
+UPDATE `skills` SET `probability_value` = 50 WHERE `skill_id` = 212;
