@@ -578,7 +578,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == POTION_OF_EMOTION_WISDOM
 					|| itemId == B_POTION_OF_EMOTION_WISDOM) {
-				if (pc.isWizard()) {
+				if (pc.isWizard() || pc.isIllusionist()) {
 					useWisdomPotion(pc, itemId);
 				} else {
 					pc.sendPackets(new S_ServerMessage(79)); // Nothing happaned.
