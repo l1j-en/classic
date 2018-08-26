@@ -318,7 +318,12 @@ public class L1Magic {
 				probability += 2 * _pc.getOriginalMagicHit();
 			}
 		} else if (skillId == PHANTASM) {
-			probability = 30; // hard-coded to 30% land rate
+			if(_calcType != PC_PC) {
+				probability = 30; // hard-coded to 30% land rate
+			} else {
+				probability = skill.getProbabilityValue() + levelDifference * 2;
+				probability += 2 * _pc.getOriginalMagicHit();
+			}			
 		} else {
 			int dice = skill.getProbabilityDice();
 			int diceCount = _attacker.getMagicBonus()
