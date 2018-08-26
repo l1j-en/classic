@@ -81,6 +81,12 @@ public class Teleportation {
 		}
 
 		pc.setTeleport(true);
+		
+		//TODO -- remove this soon.. just being used to test if someone is actually able to teleport where they choose
+		_log.info(String.format("%s just teleported from mapid %d, x: %d, y: %d, to mapid: %d, x: %d, y: %d",
+				pc.getName(), 
+				pc.getMapId(), pc.getX(), pc.getY(),
+				mapId, x, y));
 
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 		if (clan != null) {
