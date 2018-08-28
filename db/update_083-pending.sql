@@ -918,22 +918,22 @@ UPDATE `droplist` SET itemId = 49324 WHERE `itemId` = 50006;
 UPDATE `droplist` SET `chance` = '50000' WHERE `itemId` IN(49314, 49315, 49316, 49317);
 
 -- add adena to mobs in tikal
-INSERT INTO `droplist` VALUES(90503,'Ecu Azte',40308,'Adena',350,500,100000),
-(90502,'Ecu Azte',40308,'Adena',350,500,100000),
-(90504,'Ecu Yuka',40308,'Adena',350,500,100000),
-(90505,'Ecu Yuka',40308,'Adena',350,500,100000),
-(90506,'Ecu Juraka',40308,'Adena',350,500,100000),
-(90507,'Ecu Juraka',40308,'Adena',350,500,100000),
-(90508,'Ecu Bla',40308,'Adena',350,500,100000),
-(90509,'Ecu Bla',40308,'Adena',350,500,100000),
-(90510,'Ecu Ette',40308,'Adena',350,500,100000),
-(90511,'Ecu Ette',40308,'Adena',350,500,100000),
-(90512,'Jad Tow',40308,'Adena',350,500,100000),
-(90513,'Jad Tow',40308,'Adena',350,500,100000),
-(90514,'Jad Ske',40308,'Adena',350,500,100000),
-(90515,'Jad Ske',40308,'Adena',350,500,100000),
-(90516,'Jad Teo',40308,'Adena',350,500,100000),
-(90517,'Jad Tow',40308,'Adena',350,500,100000);
+INSERT INTO `droplist` VALUES(90503,'Ecu Azte',40308,'Adena',350,500,1000000),
+(90502,'Ecu Azte',40308,'Adena',350,500,1000000),
+(90504,'Ecu Yuka',40308,'Adena',350,500,1000000),
+(90505,'Ecu Yuka',40308,'Adena',350,500,1000000),
+(90506,'Ecu Juraka',40308,'Adena',350,500,1000000),
+(90507,'Ecu Juraka',40308,'Adena',350,500,1000000),
+(90508,'Ecu Bla',40308,'Adena',350,500,1000000),
+(90509,'Ecu Bla',40308,'Adena',350,500,1000000),
+(90510,'Ecu Ette',40308,'Adena',350,500,1000000),
+(90511,'Ecu Ette',40308,'Adena',350,500,1000000),
+(90512,'Jad Tow',40308,'Adena',350,500,1000000),
+(90513,'Jad Tow',40308,'Adena',350,500,1000000),
+(90514,'Jad Ske',40308,'Adena',350,500,1000000),
+(90515,'Jad Ske',40308,'Adena',350,500,1000000),
+(90516,'Jad Teo',40308,'Adena',350,500,1000000),
+(90517,'Jad Tow',40308,'Adena',350,500,1000000);
 
 -- update thebes ring 
 UPDATE `armor` SET `regist_sleep` = 0, `regist_stun` = 5 WHERE `item_id` = 21094;
