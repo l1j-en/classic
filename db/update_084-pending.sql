@@ -14,10 +14,10 @@ INSERT INTO `weapon_skill` VALUES(550134, 'Shadow Fid Staff', 10, 30, 15, 0, 65,
 INSERT INTO `weapon_skill` VALUES(550285, 'Shadow Fid Chain Sword', 10, 40, 40, 0, 50, 0, 756, 0, 0, 4);
 
 -- npc
-INSERT INTO `npc` VALUES(99000,'Shadow Merchant','Shadow Merchant','Shadow Fid event','L1Merchant',266,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+INSERT INTO `npc` VALUES(99000,'Lastavard Blacksmith','Lastavard Blacksmith','Shadow Fid event','L1Merchant',266,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
 INSERT INTO `npcaction` VALUES(99000,'shadowevent1','shadowevent1','','');
 INSERT INTO `spawnlist_npc` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `heading`, `mapid`) 
-VALUES('Shadow Merchant',1,99000,33436,32802,6,4),
+VALUES('Lastavard Blacksmith',1,99000,33436,32802,6,4),
 ('Shadow Merchant',1,99000,34059,32279,6,4),
 ('Shadow Merchant',1,99000,33087,33390,6,4);
 
