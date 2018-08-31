@@ -3813,11 +3813,6 @@ public class C_NPCAction extends ClientBasePacket {
 				return;
 			}
 			
-			if(!pc.getInventory().checkItem(L1ItemId.ADENA, 100000)) {
-				pc.sendPackets(new S_ServerMessage(189));
-				return;
-			}
-			
 			for(int shadowId : shadowItems) {
 				if(pc.getInventory().checkItem(shadowId)) {
 					pc.sendPackets(new S_SystemMessage("You can only carry one shadow weapon at a time!"));
@@ -3825,10 +3820,6 @@ public class C_NPCAction extends ClientBasePacket {
 				}
 			}
 			
-			if(!pc.getInventory().consumeItem(L1ItemId.ADENA, 100000)) {
-				pc.sendPackets(new S_ServerMessage(189));
-				return;
-			}
 			
 			L1ItemInstance shadowWeapon = ItemTable.getInstance().createItem(itemId);
 			shadowWeapon.setIdentified(true);
