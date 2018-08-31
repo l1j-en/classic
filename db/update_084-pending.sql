@@ -14,27 +14,29 @@ INSERT INTO `weapon_skill` VALUES(550134, 'Shadow Fid Staff', 10, 30, 15, 0, 65,
 INSERT INTO `weapon_skill` VALUES(550285, 'Shadow Fid Chain Sword', 10, 40, 40, 0, 50, 0, 756, 0, 0, 4);
 
 -- npc
-INSERT INTO `npc` VALUES(99000,'Lastavard Blacksmith','Lastavard Blacksmith','Shadow Fid event','L1Merchant',266,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
+INSERT INTO `npc` VALUES(99000,'Lastavard Blacksmith','Lastavard Blacksmith','Shadow Fid event','L1Merchant',1768,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,14,0,1,0);
 INSERT INTO `npcaction` VALUES(99000,'shadowevent1','shadowevent1','','');
 INSERT INTO `spawnlist_npc` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `heading`, `mapid`) 
 VALUES('Lastavard Blacksmith',1,99000,33436,32802,6,4),
-('Shadow Merchant',1,99000,34059,32279,6,4),
-('Shadow Merchant',1,99000,33087,33390,6,4);
+('Lastavard Blacksmith',1,99000,34059,32279,6,4),
+('Lastavard Blacksmith',1,99000,33087,33390,6,4);
 
 -- add illusion enchant weapon scrolls to the shops that sell normal enchant weapon scrolls
-INSERT INTO `shop` (`npc_id`, `item_id`, `selling_price`) VALUES
-(70033, 40128, 10000),
-(70048, 40128, 10000),
-(70057, 40128, 10000),
-(70067, 40128, 10000),
-(70082, 40128, 10000),
-(70092, 40128, 10000),
-(70093, 40128, 10000),
-(81028, 40128, 10000);
+INSERT INTO `shop` (`npc_id`, `item_id`, `selling_price`, `order_id`) VALUES
+(70033, 40128, 10000, 999),
+(70048, 40128, 10000, 999),
+(70057, 40128, 10000, 999),
+(70063, 40128, 10000, 999),
+(70067, 40128, 10000, 999),
+(70082, 40128, 10000, 999),
+(70092, 40128, 10000, 999),
+(70093, 40128, 10000, 999),
+(81028, 40128, 10000, 999);
 
 -- update those who already buy it to also sell it
 UPDATE `shop` SET `selling_price` = 10000 WHERE item_id = 40128 AND `npc_id` = 70063;
 
+-- event end scripts
 -- Remove the scrolls from shops after event ends
 DELETE FROM `shop` WHERE `npc_id` IN(70033,70048,70057,70067,70082,70092,70093,81028) AND `item_id` = 40128 AND `selling_price` = 10000;
 
@@ -46,3 +48,6 @@ DELETE FROM `character_items` WHERE `item_id` IN(40128,550012,550061,550086,5501
 DELETE FROM `character_warehouse` WHERE `item_id` IN(40128,550012,550061,550086,550134,550160,550284,550285,550286);
 DELETE FROM `character_elf_warehouse` WHERE `item_id` IN(40128,550012,550061,550086,550134,550160,550284,550285,550286);
 DELETE FROM `clan_warehouse` WHERE `item_id` IN(40128,550012,550061,550086,550134,550160,550284,550285,550286);
+
+-- remove the NPCs from the spawnlist
+DELETE FROM `spawnlist_npc` WHERE `npc_templateid` = 99000;
