@@ -221,7 +221,7 @@ public class L1WeaponSkill {
 			attacker.setCurrentHp(newHp);
 			
 			return drainHp;
-		case 550296: // shadow fid kiringku
+		case 550286: // shadow fid kiringku
 		case 286: // fid kiringku
 			int drainMp = _random.nextInt(8) + 5; // 5-12 mp taken
 			
