@@ -22,6 +22,7 @@ import java.util.TimerTask;
 
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1EquipmentTimer extends TimerTask {
 
@@ -39,6 +40,8 @@ public class L1EquipmentTimer extends TimerTask {
 		} else {
 			_pc.getInventory().removeItem(_item, 1);
 			this.cancel();
+			
+			_pc.sendPackets(new S_SystemMessage("Your " + _item.getItem().getName() + " has disappeared!"));
 		}
 	}
 

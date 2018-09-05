@@ -31,6 +31,9 @@ public class Enchant {
 
 	private static final int[] IvoryTowerArmor = new int[] { 20028, 20082,
 			20126, 20173, 20206, 20232, 21138, 21140, 21141 };
+	
+	private static final int[] ShadowFidWeaponIds = new int[] { 550012, 550061,
+			550086, 550134, 550160, 550284, 550285, 550286 };
 
 	static {
 		Arrays.sort(IvoryTowerWeapons);
@@ -385,7 +388,8 @@ public class Enchant {
 			return scrollId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON_ILLUSION;
 
 		if (scrollId == L1ItemId.SCROLL_OF_ENCHANT_WEAPON_ILLUSION)
-			return weaponId == 183 || (weaponId >= 150 && weaponId <= 255);
+			return weaponId == 183 || (weaponId >= 150 && weaponId <= 255)
+				|| IntArrays.contains(ShadowFidWeaponIds, weaponId);
 
 		return true;
 	}
