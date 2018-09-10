@@ -66,23 +66,36 @@ public class GameServer extends Thread {
 				String host = socket.getInetAddress().getHostAddress();
 
 				connectionCache.putIfAbsent(host, 1);
-				if (connectionCache.get(host) == CONNECTION_LIMIT) {
-					// Log DOS detection once, but not more than once
-					_log.log(Level.WARNING,
-					"GameServer::run: " + host + " hit connection limit.");
-				} else if (connectionCache.get(host) > CONNECTION_LIMIT) {
+				
+				try {
+					if (connectionCache.get(host) == CONNECTION_LIMIT) {
+						// Log DOS detection once, but not more than once
+						_log.log(Level.WARNING,
+						"GameServer::run: " + host + " hit connection limit.");
+					} else if (connectionCache.get(host) > CONNECTION_LIMIT) {
+						socket.close();
+					} else if (IpTable.getInstance().isBannedIp(host)) {
+						_log.info("Banned IP(" + host + ")");
+					} else {
+						_log.log(Level.FINE, "Accepted connection from IP: "
+								+ socket.getInetAddress());
+						ClientThread client = new ClientThread(socket);
+						GeneralThreadPool.getInstance().execute(client);
+					}
+				
+					connectionCache.replace(host, connectionCache.get(host) + 1);
+				} catch(NullPointerException ex) { 
+					// Typically happens if the cache was cleared between the putIfAbsent and the get call
+					// So just close the socket and let them connect again
 					socket.close();
-				} else if (IpTable.getInstance().isBannedIp(host)) {
-					_log.info("Banned IP(" + host + ")");
-				} else {
-					_log.log(Level.FINE, "Accepted connection from IP: "
-							+ socket.getInetAddress());
-					ClientThread client = new ClientThread(socket);
-					GeneralThreadPool.getInstance().execute(client);
-					connectionCache
-							.replace(host, connectionCache.get(host) + 1);
 				}
 			} catch (IOException ioexception) {
+				_log.log(Level.SEVERE, "Error creating a client thread connection! IO Exception!");
+				_log.log(Level.SEVERE, ioexception.getLocalizedMessage(), ioexception);
+			} catch(Exception ex) {
+				_log.log(Level.SEVERE, "Error creating a client thread connection! General Exception!");
+				_log.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
+				throw ex;
 			}
 		}
 	}
