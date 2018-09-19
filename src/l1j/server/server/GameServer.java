@@ -34,6 +34,7 @@ import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
+import l1j.server.server.network.NetworkServer;
 import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
@@ -137,7 +138,9 @@ public class GameServer extends Thread {
 		SkillTable.initialize();
 		GameServerThread.getInstance();
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
-		this.start();
+	    Thread thread = new Thread(NetworkServer.getInstance());
+	    thread.start();
+		//this.start();
 	}
 
 	/**
