@@ -15,7 +15,10 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 public class NetworkServer implements Runnable {
 
     private static final NetworkServer instance = new NetworkServer();
-    private NetworkServer(){}
+    private NetworkServer(){
+			this.port = 2000;
+		
+    }
     public static NetworkServer getInstance(){
         return instance;
     }
