@@ -2,22 +2,6 @@ package l1j.server.server.network;
 
 import java.io.IOException;
 
-/*
- * Copyright 2012 The Netty Project
- *
- * The Netty Project licenses this file to you under the Apache License,
- * version 2.0 (the "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at:
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
- */
-
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
@@ -27,13 +11,50 @@ import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 
 public class PacketDecoder extends ByteToMessageDecoder {
+	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
+			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
+			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
 
+	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void channelActive(final ChannelHandlerContext ctx) {
+		final ByteBuf first = ctx.alloc().buffer(FIRST_PACKET.length + 7);
+		System.out.println("New Connection1!");
+		Client client = null;
+		try {
+			client = new Client(ctx.channel());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
 
+		long seed = 0x7C98BDFA; // 3.0 English Packet Seed
+		byte Bogus = (byte) (FIRST_PACKET.length + 7);
+
+		first.writeByte(Bogus & 0xFF);
+		first.writeByte(Bogus >> 8 & 0xFF);
+		first.writeByte(0x7D);
+		first.writeByte((byte) (seed & 0xFF));
+		first.writeByte((byte) (seed >> 8 & 0xFF));
+		first.writeByte((byte) (seed >> 16 & 0xFF));
+		first.writeByte((byte) (seed >> 24 & 0xFF));
+		first.writeBytes(FIRST_PACKET);
+		ctx.writeAndFlush(first);
+
+		try {
+			client.set_clkey(LineageEncryption.initKeys(ctx.channel().id(), seed));
+		} catch (ClientIdExistsException e) {
+			e.printStackTrace();
+		}
+		System.out.println("done opening");
 	}
-	
+
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 		System.out.println("readable " + in.readableBytes());
 		int dataLength = 0;

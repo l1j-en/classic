@@ -123,17 +123,17 @@ public class GameServer extends Thread {
 		_log.config("=================================================");
 
 		_port = Config.GAME_SERVER_PORT;
-		if (!"*".equals(s)) {
-			InetAddress inetaddress = InetAddress.getByName(s);
-			inetaddress.getHostAddress();
-			_serverSocket = new ServerSocket(_port, 50, inetaddress);
-			_log.config("Login Server ready on "
-					+ (inetaddress == null ? "Port" : inetaddress
-							.getHostAddress()) + ":" + _port);
-		} else {
-			_serverSocket = new ServerSocket(_port);
-			_log.config("Port " + _port + " opened");
-		}
+//		if (!"*".equals(s)) {
+//			InetAddress inetaddress = InetAddress.getByName(s);
+//			inetaddress.getHostAddress();
+//			_serverSocket = new ServerSocket(_port, 50, inetaddress);
+//			_log.config("Login Server ready on "
+//					+ (inetaddress == null ? "Port" : inetaddress
+//							.getHostAddress()) + ":" + _port);
+//		} else {
+//			_serverSocket = new ServerSocket(_port);
+//			_log.config("Port " + _port + " opened");
+//		}
 		_log.config("Thread Lock Detection running");
 		SkillTable.initialize();
 		GameServerThread.getInstance();

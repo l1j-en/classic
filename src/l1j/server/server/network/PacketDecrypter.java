@@ -1,27 +1,13 @@
 package l1j.server.server.network;
-import java.io.IOException;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.NoEncryptionKeysSelectedException;
 import l1j.server.server.utils.ByteArrayUtil;
 
 public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 	static int i = 0;
-	
-	
-	@Override
-	public void channelActive(final ChannelHandlerContext ctx) {
-
-	}
-//	@Override
-//	public void channelActive(final ChannelHandlerContext ctx) {
-//		Client client = new Client();
-//		client.channel = ctx.channel();
-//		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
-//	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -51,28 +37,14 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 		System.out.println("First readable: " + data.length);
 		System.out.println("og packet: " + new ByteArrayUtil(data).dumpToString());
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		// System.out.println("returning");
-		// System.out.println(LineageClient._clkey);
-		// buf.discardReadBytes();
-		if (i == 0) {
-			i++;
-			// System.out.println(data);
-			client.getQueue().offer(data);
-			//Client.process(data);
 
-		} else {
-			try {
-				// System.out.println("encrypted packet: " + new
-				// ByteArrayUtil(LineageEncryption.decrypt(data, dataLength,
-				// LineageClient._clkey)).dumpToString());
-				//Client.process(LineageEncryption.decrypt(data, data.length, Client._clkey));
-				client.getQueue().offer(LineageEncryption.decrypt(data, data.length, client.get_clkey()));
-			} catch (NoEncryptionKeysSelectedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			// return LineageEncryption.decrypt(data, dataLength, _clkey);
+		try {
+			byte[] decrypted = LineageEncryption.decrypt(data, data.length, client.get_clkey());
+			System.out.println("encrypted packet: " + new ByteArrayUtil(decrypted).dumpToString());
+			client.getQueue().offer(decrypted);
+		} catch (NoEncryptionKeysSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
