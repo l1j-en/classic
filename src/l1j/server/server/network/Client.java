@@ -123,20 +123,16 @@ public class Client implements Runnable, PacketOutput {
 	class HcPacket implements Runnable {
 		private PacketHandler _handler;
 
-		private final Queue<byte[]> _queue;
-
 		public HcPacket() {
-			_queue = new ConcurrentLinkedQueue<byte[]>();
 			_handler = new PacketHandler(Client.this);
 		}
 
 		public HcPacket(int capacity) {
-			_queue = new LinkedBlockingQueue<byte[]>(capacity);
 			_handler = new PacketHandler(Client.this);
 		}
 
 		public void requestWork(byte data[]) {
-			_queue.offer(data);
+			queue.offer(data);
 		}
 
 		@Override
@@ -144,7 +140,7 @@ public class Client implements Runnable, PacketOutput {
 			Thread.currentThread().setName("HcPacket");
 			byte[] data;
 			while (_csocket != null) {
-				data = _queue.poll();
+				data = queue.poll();
 				if (data != null) {
 					try {
 						_handler.handlePacket(data, _activeChar);
@@ -456,33 +452,6 @@ public class Client implements Runnable, PacketOutput {
 		} catch (IOException e) {
 			throw e;
 		}
-	}
-
-	// mp bug fix - dont remove - tricid
-	public void rescue() {
-		try {
-			_log.info("* * * Closing socket	* * * ");
-			_csocket.close();
-		} catch (Exception e) {
-			_log.severe("* * * Failed closing socket	* * *");
-			_log.severe(e.toString());
-		}
-		try {
-			_log.info("* * * Closing streams	* * *");
-			StreamUtil.close(_out, _in);
-		} catch (Exception e) {
-			_log.severe("* * * Failed to close streams	* * *");
-			_log.severe(e.toString());
-		}
-
-		try {
-			_log.info("* * * Stopping client thread	* * *");
-			stop = true;
-		} catch (Exception e) {
-			_log.severe("* * * Failed stopping thread	* * *");
-			_log.severe(e.toString());
-		}
-
 	}
 
 	@Override

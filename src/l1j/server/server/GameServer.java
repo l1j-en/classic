@@ -33,6 +33,7 @@ import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
@@ -132,9 +133,6 @@ public class GameServer extends Thread {
 			_serverSocket = new ServerSocket(_port);
 			_log.config("Port " + _port + " opened");
 		}
-		ThreadLockTest mpbug = new ThreadLockTest();
-		_log.config("Starting Thread Lock Detection");
-		mpbug.initialize();
 		_log.config("Thread Lock Detection running");
 		SkillTable.initialize();
 		GameServerThread.getInstance();
