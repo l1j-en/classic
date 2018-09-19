@@ -160,6 +160,8 @@ public class Client implements Runnable, PacketOutput {
 			return;
 		}
 	}
+	
+	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
 	private static Logger _log = Logger.getLogger(Client.class.getName());
 	protected static Timer _observerTimer = null;
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
@@ -450,7 +452,7 @@ public class Client implements Runnable, PacketOutput {
 				_log.warning("Incomplete packet is sent to the server, closing connection.");
 				throw new RuntimeException();
 			}
-			return LineageEncryption.decrypt(data, dataLength, _clkey);
+			return LineageEncryption.decrypt(data, dataLength, get_clkey());
 		} catch (IOException e) {
 			throw e;
 		}
@@ -527,7 +529,7 @@ public class Client implements Runnable, PacketOutput {
 			_out.flush();
 			
 			try {
-				_clkey = LineageEncryption.initKeys(socket, seed);
+				set_clkey(LineageEncryption.initKeys(socket, seed));
 			} catch (ClientIdExistsException e) {
 			}
 
@@ -643,7 +645,7 @@ public class Client implements Runnable, PacketOutput {
 				byte abyte0[] = packet.getContent();
 				char ac[] = new char[abyte0.length];
 				ac = UChar8.fromArray(abyte0);
-				ac = LineageEncryption.encrypt(ac, _clkey);
+				ac = LineageEncryption.encrypt(ac, get_clkey());
 				abyte0 = UByte8.fromArray(ac);
 				int j = abyte0.length + 2;
 				_out.write(j & 0xff);
@@ -677,5 +679,21 @@ public class Client implements Runnable, PacketOutput {
 
 	public void setLastClientPacket(int opCode) {
 		_lastOpCodeReceviedFromClient = opCode;
+	}
+
+	public ConcurrentLinkedQueue<byte[]> getQueue() {
+		return queue;
+	}
+
+	public void setQueue(ConcurrentLinkedQueue<byte[]> queue) {
+		this.queue = queue;
+	}
+
+	public LineageKeys get_clkey() {
+		return _clkey;
+	}
+
+	public void set_clkey(LineageKeys _clkey) {
+		this._clkey = _clkey;
 	}
 }

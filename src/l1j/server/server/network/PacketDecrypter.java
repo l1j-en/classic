@@ -19,7 +19,7 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		// System.out.println(msg);
 		System.out.println("Start read");
-		readPacket((byte[]) msg);
+		readPacket((byte[]) msg, ctx);
 		// m.release();
 
 	}
@@ -39,23 +39,26 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 
 	}
 
-	public void readPacket(byte[] data) {
+	public void readPacket(byte[] data, ChannelHandlerContext ctx) {
 		System.out.println("First readable: " + data.length);
 		System.out.println("og packet: " + new ByteArrayUtil(data).dumpToString());
+		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		// System.out.println("returning");
 		// System.out.println(LineageClient._clkey);
 		// buf.discardReadBytes();
 		if (i == 0) {
 			i++;
 			// System.out.println(data);
-			Client.process(data);
+			client.getQueue().offer(data);
+			//Client.process(data);
 
 		} else {
 			try {
 				// System.out.println("encrypted packet: " + new
 				// ByteArrayUtil(LineageEncryption.decrypt(data, dataLength,
 				// LineageClient._clkey)).dumpToString());
-				Client.process(LineageEncryption.decrypt(data, data.length, Client._clkey));
+				//Client.process(LineageEncryption.decrypt(data, data.length, Client._clkey));
+				client.getQueue().offer(LineageEncryption.decrypt(data, data.length, client.get_clkey()));
 			} catch (NoEncryptionKeysSelectedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
