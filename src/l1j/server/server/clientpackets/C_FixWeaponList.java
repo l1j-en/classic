@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_FixWeaponList;
 
@@ -29,9 +29,9 @@ public class C_FixWeaponList extends ClientBasePacket {
 
 	private static final String C_FIX_WEAPON_LIST = "[C] C_FixWeaponList";
 
-	public C_FixWeaponList(byte abyte0[], ClientThread clientthread) {
+	public C_FixWeaponList(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		pc.sendPackets(new S_FixWeaponList(pc));
 	}
 

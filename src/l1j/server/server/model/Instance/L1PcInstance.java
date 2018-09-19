@@ -6,6 +6,7 @@ import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
 import static l1j.server.server.model.skill.L1SkillId.COUNTER_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
 import static l1j.server.server.model.skill.L1SkillId.DRESS_EVASION;
+import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 import static l1j.server.server.model.skill.L1SkillId.ENTANGLE;
 import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
 import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_FINDINVIS;
@@ -28,7 +29,6 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_RIBRAVE;
 import static l1j.server.server.model.skill.L1SkillId.STRIKER_GALE;
 import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
-import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +44,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.command.executor.L1HpBar;
@@ -830,12 +830,12 @@ public class L1PcInstance extends L1Character {
 		setPacketOutput(null);
 	}
 
-	public ClientThread getNetConnection() {
+	public Client getNetConnection() {
 		return _netConnection;
 	}
 
-	public void setNetConnection(ClientThread clientthread) {
-		_netConnection = clientthread;
+	public void setNetConnection(Client client) {
+		_netConnection = client;
 	}
 
 	public boolean isInParty() {
@@ -1963,7 +1963,7 @@ public class L1PcInstance extends L1Character {
 	}
 
 	private static Logger _log = Logger.getLogger(L1PcInstance.class.getName());
-	private ClientThread _netConnection;
+	private Client _netConnection;
 	private int _classId;
 	private int _type;
 	private int _exp;

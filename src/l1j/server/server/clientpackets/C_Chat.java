@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.GMCommands;
 import l1j.server.server.PCommands;
 import l1j.server.server.datatables.ChatLogTable;
@@ -47,7 +47,7 @@ public class C_Chat extends ClientBasePacket {
 		return filtered;
 	}
 
-	public C_Chat(byte abyte0[], ClientThread clientThread) {
+	public C_Chat(byte abyte0[], Client clientThread) {
 		super(abyte0);
 
 		L1PcInstance pc = clientThread.getActiveChar();

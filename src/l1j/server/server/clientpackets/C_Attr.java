@@ -23,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
@@ -70,13 +70,13 @@ public class C_Attr extends ClientBasePacket {
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
-	public C_Attr(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Attr(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int i = readH();
 		int c;
 		String name;
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 
 		switch (i) {
 		case 97:
@@ -145,7 +145,7 @@ public class C_Attr extends ClientBasePacket {
 							joinPc.sendPackets(new S_ServerMessage(95, clanName));
 						} else {
 							if (Config.CLAN_ALLIANCE) {
-								changeClan(clientthread, pc, joinPc, maxMember);
+								changeClan(client, pc, joinPc, maxMember);
 							} else {
 								joinPc.sendPackets(new S_ServerMessage(89));
 							}
@@ -526,7 +526,7 @@ public class C_Attr extends ClientBasePacket {
 		}
 	}
 
-	private void changeClan(ClientThread clientthread, L1PcInstance pc,
+	private void changeClan(Client client, L1PcInstance pc,
 			L1PcInstance joinPc, int maxMember) {
 		int clanId = pc.getClanid();
 		String clanName = pc.getClanname();

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.TownTable;
 import l1j.server.server.model.L1CastleLocation;
@@ -33,12 +33,12 @@ public class C_TaxRate extends ClientBasePacket {
 
 	private static final String C_TAX_RATE = "[C] C_TaxRate";
 
-	public C_TaxRate(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_TaxRate(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int i = readD();
 		int j = readC();
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		if (i == player.getId()) {
 			if (!setCastleTax(player, j)) {
 				setTownTax(player, j);

@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 
@@ -29,7 +29,7 @@ public class C_ChangeHeading extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_ChangeHeading.class
 			.getName());
 
-	public C_ChangeHeading(byte[] decrypt, ClientThread client) {
+	public C_ChangeHeading(byte[] decrypt, Client client) {
 		super(decrypt);
 
 		int heading = readC();

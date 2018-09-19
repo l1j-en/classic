@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 
 public abstract class ClientBasePacket {
 
@@ -37,7 +37,7 @@ public abstract class ClientBasePacket {
 		_off = 1;
 	}
 
-	public ClientBasePacket(ByteBuffer bytebuffer, ClientThread clientthread) {
+	public ClientBasePacket(ByteBuffer bytebuffer, Client client) {
 	}
 
 	public int readD() {

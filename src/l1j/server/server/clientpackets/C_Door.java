@@ -22,7 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -36,7 +36,7 @@ public class C_Door extends ClientBasePacket {
 
 	private static final String C_DOOR = "[C] C_Door";
 
-	public C_Door(byte abyte0[], ClientThread client) throws Exception {
+	public C_Door(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int locX = readH();
 		int locY = readH();

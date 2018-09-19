@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
@@ -30,7 +30,7 @@ public class C_CallPlayer extends ClientBasePacket {
 
 	private static final String C_CALL = "[C] C_Call";
 
-	public C_CallPlayer(byte[] decrypt, ClientThread client) {
+	public C_CallPlayer(byte[] decrypt, Client client) {
 		super(decrypt);
 		L1PcInstance pc = client.getActiveChar();
 

@@ -21,7 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Quest;
@@ -37,13 +37,13 @@ public class C_Rank extends ClientBasePacket {
 	private static final String C_RANK = "[C] C_Rank";
 	private static Logger _log = Logger.getLogger(C_Rank.class.getName());
 
-	public C_Rank(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Rank(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int rank = readC();
 		String name = readS();
 
-		setRank(clientthread.getActiveChar(), rank, name);
+		setRank(client.getActiveChar(), rank, name);
 	}
 	
 	public static void setRank(L1PcInstance royal, int rank, String player) throws Exception  {

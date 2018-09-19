@@ -21,7 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.List;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
@@ -37,12 +37,12 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 public class C_War extends ClientBasePacket {
 	private static final String C_WAR = "[C] C_War";
 
-	public C_War(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_War(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int type = readC();
 		String s = readS();
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		String playerName = player.getName();
 		String clanName = player.getClanname();
 		int clanId = player.getClanid();

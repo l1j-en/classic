@@ -21,7 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.model.L1ExcludingList;
@@ -37,7 +37,7 @@ public class C_Exclude extends ClientBasePacket {
 	private static final String C_EXCLUDE = "[C] C_Exclude";
 	private static Logger _log = Logger.getLogger(C_Exclude.class.getName());
 
-	public C_Exclude(byte[] decrypt, ClientThread client) {
+	public C_Exclude(byte[] decrypt, Client client) {
 		super(decrypt);
 		String name = readS();
 		if (name.isEmpty()) {

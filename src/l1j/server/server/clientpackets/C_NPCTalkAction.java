@@ -21,7 +21,7 @@ package l1j.server.server.clientpackets;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -35,7 +35,7 @@ public class C_NPCTalkAction extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_NPCTalkAction.class
 			.getName());
 
-	public C_NPCTalkAction(byte decrypt[], ClientThread client)
+	public C_NPCTalkAction(byte decrypt[], Client client)
 			throws FileNotFoundException, Exception {
 		super(decrypt);
 		int objectId = readD();

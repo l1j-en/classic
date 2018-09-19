@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.controllers.LoginController;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -30,7 +30,7 @@ public class C_ReturnToLogin extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
 			.getName());
 
-	public C_ReturnToLogin(byte decrypt[], ClientThread client)
+	public C_ReturnToLogin(byte decrypt[], Client client)
 			throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();

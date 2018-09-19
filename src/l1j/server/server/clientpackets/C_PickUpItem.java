@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogPickUpItem;
 import l1j.server.server.model.L1Inventory;
@@ -41,7 +41,7 @@ public class C_PickUpItem extends ClientBasePacket {
 	private static final String C_PICK_UP_ITEM = "[C] C_PickUpItem";
 	private static Logger _log = Logger.getLogger(C_PickUpItem.class.getName());
 
-	public C_PickUpItem(byte decrypt[], ClientThread client) throws Exception {
+	public C_PickUpItem(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
 		int x = readH();
 		int y = readH();

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogTradeBugItem;
 import l1j.server.server.model.L1CheckPcItem;
@@ -42,7 +42,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
 			.getName());
 
-	public C_TradeAddItem(byte abyte0[], ClientThread client) throws Exception {
+	public C_TradeAddItem(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int itemid = readD();

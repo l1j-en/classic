@@ -23,7 +23,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.Random;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1World;
@@ -41,10 +41,10 @@ public class C_FishClick extends ClientBasePacket {
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
-	public C_FishClick(byte abyte0[], ClientThread clientthread)
+	public C_FishClick(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		long currentTime = System.currentTimeMillis();
 		long time = pc.getFishingTime();
 

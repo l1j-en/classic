@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.log.LogGiveItem;
@@ -49,7 +49,7 @@ public class C_GiveItem extends ClientBasePacket {
 	private static final String C_GIVE_ITEM = "[C] C_GiveItem";
 	private static Random _random = new Random();
 
-	public C_GiveItem(byte decrypt[], ClientThread client) {
+	public C_GiveItem(byte decrypt[], Client client) {
 		super(decrypt);
 		int targetId = readD();
 		@SuppressWarnings("unused")

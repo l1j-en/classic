@@ -33,7 +33,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Command;
 
 // Referenced classes of package l1j.server.server:
-// ClientThread, Shutdown, IpTable, MobTable,
+// Client, Shutdown, IpTable, MobTable,
 // PolyTable, IdFactory
 //
 public class GMCommands {

@@ -25,7 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
@@ -48,7 +48,7 @@ public class C_MoveChar extends ClientBasePacket {
 
 	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
 
-	public C_MoveChar(byte decrypt[], ClientThread client) throws Exception {
+	public C_MoveChar(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
 		int locx = readH();
 		int locy = readH();

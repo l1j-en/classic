@@ -21,7 +21,7 @@ package l1j.server.server.clientpackets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -35,11 +35,11 @@ public class C_BanClan extends ClientBasePacket {
 	private static final String C_BAN_CLAN = "[C] C_BanClan";
 	private static Logger _log = Logger.getLogger(C_BanClan.class.getName());
 
-	public C_BanClan(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_BanClan(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		String s = readS();
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		L1Clan clan = L1World.getInstance().getClan(pc.getClanname());
 		if (clan != null) {
 			String clanMemberName[] = clan.getAllMembers();

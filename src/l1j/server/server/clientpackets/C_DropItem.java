@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogDropItem;
 import l1j.server.server.model.L1Inventory;
@@ -40,7 +40,7 @@ public class C_DropItem extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
-	public C_DropItem(byte[] decrypt, ClientThread client) throws Exception {
+	public C_DropItem(byte[] decrypt, Client client) throws Exception {
 		super(decrypt);
 		int x = readH();
 		int y = readH();

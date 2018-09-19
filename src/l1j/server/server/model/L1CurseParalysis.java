@@ -20,6 +20,7 @@ package l1j.server.server.model;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_PARALYZED;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_PARALYZING;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1PcInstance;

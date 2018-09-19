@@ -49,7 +49,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.GMCommands;
 import l1j.server.server.command.L1Commands;
 import l1j.server.server.controllers.JailController;
@@ -110,7 +110,7 @@ public class C_LoginToServer extends ClientBasePacket {
 	// See note on updateIcons()
 	private static List<String> accountsWithIcons = new ArrayList<String>();
 
-	public C_LoginToServer(byte abyte0[], ClientThread client)
+	public C_LoginToServer(byte abyte0[], Client client)
 			throws FileNotFoundException, Exception {
 		super(abyte0);
 
@@ -603,7 +603,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 	}
 
-	private void buff(ClientThread clientthread, L1PcInstance pc) {
+	private void buff(Client client, L1PcInstance pc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -654,7 +654,7 @@ public class C_LoginToServer extends ClientBasePacket {
 					L1Cooking.eatCooking(pc, skillid, remaining_time);
 				} else {
 					L1SkillUse l1skilluse = new L1SkillUse();
-					l1skilluse.handleCommands(clientthread.getActiveChar(),
+					l1skilluse.handleCommands(client.getActiveChar(),
 							skillid, pc.getId(), pc.getX(), pc.getY(), null,
 							remaining_time, L1SkillUse.TYPE_LOGIN);
 				}

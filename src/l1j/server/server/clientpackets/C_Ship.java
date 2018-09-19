@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.GetBackTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -35,7 +35,7 @@ public class C_Ship extends ClientBasePacket {
 	private static final int MAX_DISTANCE = 20;
 	private static Logger _log = Logger.getLogger(C_Ship.class.getName());
 
-	public C_Ship(byte abyte0[], ClientThread client) {
+	public C_Ship(byte abyte0[], Client client) {
 		super(abyte0);
 
 		// ignore these and look up the information from the DB instead

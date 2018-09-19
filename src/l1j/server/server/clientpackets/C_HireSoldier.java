@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -26,7 +26,7 @@ public class C_HireSoldier extends ClientBasePacket {
 
 	private static final String C_HIRE_SOLDIER = "[C] C_HireSoldier";
 
-	public C_HireSoldier(byte[] decrypt, ClientThread client) {
+	public C_HireSoldier(byte[] decrypt, Client client) {
 		super(decrypt);
 		int something1 = readH();
 		int something2 = readH();

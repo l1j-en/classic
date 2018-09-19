@@ -19,7 +19,8 @@
 package l1j.server.server.clientpackets;
 
 import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
-import l1j.server.server.ClientThread;
+
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 
@@ -28,7 +29,7 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 public class C_ExtraCommand extends ClientBasePacket {
 	private static final String C_EXTRA_COMMAND = "[C] C_ExtraCommand";
 
-	public C_ExtraCommand(byte abyte0[], ClientThread client) throws Exception {
+	public C_ExtraCommand(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int actionId = readC();
 		L1PcInstance pc = client.getActiveChar();

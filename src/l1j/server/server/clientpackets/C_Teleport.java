@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.Teleportation;
 
@@ -28,11 +28,11 @@ public class C_Teleport extends ClientBasePacket {
 
 	private static final String C_TELEPORT = "[C] C_Teleport";
 
-	public C_Teleport(byte abyte0[], ClientThread clientthread)
+	public C_Teleport(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		Teleportation.Teleportation(pc);
 	}
 

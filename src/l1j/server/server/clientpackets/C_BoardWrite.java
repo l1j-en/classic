@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.BoardTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
@@ -45,7 +45,7 @@ public class C_BoardWrite extends ClientBasePacket {
 	private static final String C_BOARD_WRITE = "[C] C_BoardWrite";
 	private static Logger _log = Logger.getLogger(C_BoardWrite.class.getName());
 
-	public C_BoardWrite(byte decrypt[], ClientThread client) {
+	public C_BoardWrite(byte decrypt[], Client client) {
 		super(decrypt);
 		int id = readD();
 		String date = currentTime();

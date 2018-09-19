@@ -200,19 +200,20 @@ import l1j.server.server.clientpackets.C_War;
 import l1j.server.server.clientpackets.C_Who;
 import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.ByteArrayUtil;
 import l1j.server.server.utils.IntArrayUtil;
 
 // Referenced classes of package l1j.server.server:
-// Opcodes, LoginController, ClientThread, Logins
+// Opcodes, LoginController, Client, Logins
 public class PacketHandler {
 	private static Logger _log = Logger
 			.getLogger(PacketHandler.class.getName());
-	private final ClientThread _client;
+	private final Client _client;
 
-	public PacketHandler(ClientThread clientthread) {
-		_client = clientthread;
+	public PacketHandler(Client client) {
+		_client = client;
 	}
 
 	public void handlePacket(byte abyte0[], L1PcInstance object)

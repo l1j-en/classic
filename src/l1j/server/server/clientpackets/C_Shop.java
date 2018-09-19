@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -46,10 +46,10 @@ public class C_Shop extends ClientBasePacket {
 	private static final String C_SHOP = "[C] C_Shop";
 	private static Logger _log = Logger.getLogger(C_Shop.class.getName());
 
-	public C_Shop(byte abyte0[], ClientThread clientthread) {
+	public C_Shop(byte abyte0[], Client client) {
 		super(abyte0);
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

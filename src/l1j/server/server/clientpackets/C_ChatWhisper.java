@@ -19,7 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -34,7 +34,7 @@ public class C_ChatWhisper extends ClientBasePacket {
 
 	private static final String C_CHAT_WHISPER = "[C] C_ChatWhisper";
 
-	public C_ChatWhisper(byte abyte0[], ClientThread client) throws Exception {
+	public C_ChatWhisper(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		String targetName = readS();
 		String text = readS();

@@ -19,6 +19,7 @@
 package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1MonsterInstance;

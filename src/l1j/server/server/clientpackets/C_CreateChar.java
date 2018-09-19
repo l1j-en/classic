@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.BadNamesList;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillTable;
@@ -57,7 +57,7 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69,
 			68, 69 };
 
-	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
+	public C_CreateChar(byte[] abyte0, Client client) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
 		String name = readS();
@@ -168,7 +168,7 @@ public class C_CreateChar extends ClientBasePacket {
 		initNewChar(client, pc);
 	}
 
-	private static void initNewChar(ClientThread client, L1PcInstance pc)
+	private static void initNewChar(Client client, L1PcInstance pc)
 			throws IOException, Exception {
 		pc.setId(IdFactory.getInstance().nextId());
 

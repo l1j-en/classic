@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.MailTable;
 import l1j.server.server.model.L1Clan;
@@ -43,7 +43,7 @@ public class C_Mail extends ClientBasePacket {
 	private static int TYPE_CLAN_MAIL = 1;
 	private static int TYPE_MAIL_BOX = 2;
 
-	public C_Mail(byte abyte0[], ClientThread client) {
+	public C_Mail(byte abyte0[], Client client) {
 		super(abyte0);
 		int type = readC();
 		L1PcInstance pc = client.getActiveChar();

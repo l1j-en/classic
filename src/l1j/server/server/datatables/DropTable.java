@@ -41,11 +41,11 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Drop;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.model.classes.L1ClassId;
 
 // Referenced classes of package l1j.server.server.templates:
 // L1Npc, L1Item, ItemTable

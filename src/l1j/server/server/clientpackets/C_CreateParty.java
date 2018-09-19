@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -32,7 +32,7 @@ public class C_CreateParty extends ClientBasePacket {
 
 	private static final String C_CREATE_PARTY = "[C] C_CreateParty";
 
-	public C_CreateParty(byte decrypt[], ClientThread client) throws Exception {
+	public C_CreateParty(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
 
 		L1PcInstance pc = client.getActiveChar();

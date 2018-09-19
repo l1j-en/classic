@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -37,9 +37,9 @@ public class C_Title extends ClientBasePacket {
 	private static final String C_TITLE = "[C] C_Title";
 	private static Logger _log = Logger.getLogger(C_Title.class.getName());
 
-	public C_Title(byte abyte0[], ClientThread clientthread) {
+	public C_Title(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		String charName = readS();
 		String title = readS();
 

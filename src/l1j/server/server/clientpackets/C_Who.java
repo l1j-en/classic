@@ -19,7 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_WhoAmount;
@@ -32,7 +32,7 @@ public class C_Who extends ClientBasePacket {
 
 	private static final String C_WHO = "[C] C_Who";
 
-	public C_Who(byte[] decrypt, ClientThread client) {
+	public C_Who(byte[] decrypt, Client client) {
 		super(decrypt);
 		String s = readS();
 		L1PcInstance find = L1World.getInstance().getPlayer(s);

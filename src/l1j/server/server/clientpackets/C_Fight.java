@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -30,7 +30,7 @@ public class C_Fight extends ClientBasePacket {
 
 	private static final String C_FIGHT = "[C] C_Fight";
 
-	public C_Fight(byte abyte0[], ClientThread client) throws Exception {
+	public C_Fight(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		L1PcInstance pc = client.getActiveChar();

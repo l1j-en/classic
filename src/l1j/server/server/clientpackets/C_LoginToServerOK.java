@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -27,7 +27,7 @@ public class C_LoginToServerOK extends ClientBasePacket {
 
 	private static final String C_LOGIN_TO_SERVER_OK = "[C] C_LoginToServerOK";
 
-	public C_LoginToServerOK(byte[] decrypt, ClientThread client) {
+	public C_LoginToServerOK(byte[] decrypt, Client client) {
 		super(decrypt);
 
 		int type = readC();

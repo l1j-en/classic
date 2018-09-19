@@ -34,7 +34,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import io.netty.channel.Channel;
 import l1j.server.Config;
+import l1j.server.server.Account;
+import l1j.server.server.GameServer;
+import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.PacketHandler;
+import l1j.server.server.PacketOutput;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
 import l1j.server.server.datatables.LogPacketsTable;
@@ -69,49 +75,137 @@ import l1j.server.server.utils.SystemUtil;
 // ClanTable, IdFactory
 //
 public class Client implements Runnable, PacketOutput {
+	class ClientObserver extends TimerTask {
+		private int _checkct = 1;
+
+		private final int _disconnectTimeMillis;
+
+		public ClientObserver(int disconnectTimeMillis) {
+			_disconnectTimeMillis = disconnectTimeMillis;
+		}
+
+		public void packetReceived() {
+			_checkct++;
+		}
+
+		@Override
+		public void run() {
+			try {
+				if (_csocket == null) {
+					cancel();
+					return;
+				}
+
+				if (_checkct > 0) {
+					_checkct = 0;
+					return;
+				}
+
+				if (_activeChar == null || (_activeChar != null
+				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
+					kick();
+					_log.warning("Kicking character from (" + _hostname + ").");
+					cancel();
+					return;
+				}
+			} catch (Exception e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				cancel();
+			}
+		}
+
+		public void start() {
+			
+			_observerTimer.scheduleAtFixedRate(ClientObserver.this, 0,
+					_disconnectTimeMillis);
+		}
+	}
+	class HcPacket implements Runnable {
+		private PacketHandler _handler;
+
+		private final Queue<byte[]> _queue;
+
+		public HcPacket() {
+			_queue = new ConcurrentLinkedQueue<byte[]>();
+			_handler = new PacketHandler(Client.this);
+		}
+
+		public HcPacket(int capacity) {
+			_queue = new LinkedBlockingQueue<byte[]>(capacity);
+			_handler = new PacketHandler(Client.this);
+		}
+
+		public void requestWork(byte data[]) {
+			_queue.offer(data);
+		}
+
+		@Override
+		public void run() {
+			Thread.currentThread().setName("HcPacket");
+			byte[] data;
+			while (_csocket != null) {
+				data = _queue.poll();
+				if (data != null) {
+					try {
+						_handler.handlePacket(data, _activeChar);
+					} catch (Exception e) {
+					}
+				} else {
+					try {
+						Thread.sleep(10);
+					} catch (Exception e) {
+					}
+				}
+			}
+			return;
+		}
+	}
 	private static Logger _log = Logger.getLogger(Client.class.getName());
-	private InputStream _in;
-	private OutputStream _out;
-	private PacketHandler _handler;
-	private Account _account;
-	private L1PcInstance _activeChar;
-	private String _ip;
-	private String _hostname;
-	private Socket _csocket;
-	HcPacket movePacket = new HcPacket(M_CAPACITY);
-	private int _loginStatus = 0;
-	private boolean _charRestart = true;
-	private long _lastSavedTime = System.currentTimeMillis();
-	private long _lastSavedTime_inventory = System.currentTimeMillis();
-	private static final int M_CAPACITY = 3;
-	private static final int H_CAPACITY = 2;
-	private int _kick = 0;
-	private boolean _disconnectNextClick;
-	private LineageKeys _clkey;
-	
-	// used only for logging purposes
-	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
-	
-	// stores the last 20 packets, and if the client crashes, it logs those to the DB
-	private List<Packet> _serverPacketsLog = new CopyOnWriteArrayList<Packet>();
-	private int _lastOpCodeReceviedFromClient = -1;
-	
-	// last x # of packets (configurable in server.properties) the client sent to the server
-	// used in the -report function to give a bit of historical info
-	private List<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
-	
-	// MP Bug fix - dont remove - tricid
-	private boolean stop = false;
+	protected static Timer _observerTimer = null;
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
 	(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6,
 			(byte) 0x81, (byte) 0x01, (byte) 0x09, (byte) 0xBD, (byte) 0xCC,
 			(byte) 0xC0 };
+	private static final int H_CAPACITY = 2;
+	private static final int M_CAPACITY = 3;
+	private Account _account;
+	private L1PcInstance _activeChar;
+	private boolean _charRestart = true;
+	// last x # of packets (configurable in server.properties) the client sent to the server
+	// used in the -report function to give a bit of historical info
+	private List<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
+	private LineageKeys _clkey;
+	private Socket _csocket;
+	private boolean _disconnectNextClick;
+	private PacketHandler _handler;
+	private String _hostname;
+	private InputStream _in;
+	private String _ip;
+	private int _kick = 0;
+	
+	// used only for logging purposes
+	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
+	
+	private int _lastOpCodeReceviedFromClient = -1;
+	private long _lastSavedTime = System.currentTimeMillis();
+	
+	private long _lastSavedTime_inventory = System.currentTimeMillis();
+	
+	private int _loginStatus = 0;
+	private OutputStream _out;
+	// stores the last 20 packets, and if the client crashes, it logs those to the DB
+	private List<Packet> _serverPacketsLog = new CopyOnWriteArrayList<Packet>();
 
-	protected static Timer _observerTimer = null;
+	public Channel channel;
 
+	HcPacket movePacket = new HcPacket(M_CAPACITY);
+
+	// MP Bug fix - dont remove - tricid
+	private boolean stop = false;
+	
 	protected Client() {
 	}
-
+	
 	public Client(Socket socket) throws IOException {
 		_csocket = socket;
 		_ip = socket.getInetAddress().getHostAddress();
@@ -125,8 +219,120 @@ public class Client implements Runnable, PacketOutput {
 		_handler = new PacketHandler(this);
 	}
 	
-	public List<Packet> getLastServerPackets() {
-		return this._serverPacketsLog;
+	public static void quitGame(L1PcInstance pc, String lastActiveChar) {
+		// First cancel trade & save inventory to help avoid duping
+		try {
+			if (pc.getTradeID() != 0) {
+				L1Trade trade = new L1Trade();
+				trade.TradeCancel(pc);
+			}
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+
+
+		if (pc.isDead()) {
+			int[] loc = {33090, 33392, 4}; // Default to SKT, in case there was an error.
+			try {
+				loc = Getback.GetBack_Location(pc, true);
+			} catch (Exception e) {
+				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
+			pc.setX(loc[0]);
+			pc.setY(loc[1]);
+			pc.setMap((short) loc[2]);
+			pc.setCurrentHp(pc.getLevel());
+			pc.set_food(40);
+		}
+		
+		if (pc.getFightId() != 0) {
+			pc.setFightId(0);
+			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
+					.findObject(pc.getFightId());
+			if (fightPc != null) {
+				fightPc.setFightId(0);
+				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
+			}
+		}
+		if (pc.isInParty()) {
+			pc.getParty().leaveMember(pc);
+		}
+
+		if (pc.isInChatParty()) {
+			pc.getChatParty().leaveMember(pc);
+		}
+		
+		Object[] petList = pc.getPetList().values().toArray();
+		for (Object petObject : petList) {
+			if (petObject instanceof L1PetInstance) {
+				L1PetInstance pet = (L1PetInstance) petObject;
+				pet.dropItem(true);
+				pc.getPetList().remove(pet.getId());
+				pet.deleteMe();
+			}
+			
+			if (petObject instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) petObject;
+				summon.set_currentPetStatus(3); // set it into rest mode
+				summon.allTargetClear();
+				for (L1PcInstance visiblePc : L1World.getInstance()
+						.getVisiblePlayer(summon)) {
+					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc,
+							false));
+				}
+			}
+		}
+		
+		for (L1DollInstance doll : pc.getDollList().values())
+			doll.deleteDoll();
+		for (L1FollowerInstance follower : pc.getFollowerList().values()) {
+			follower.setParalyzed(true);
+			follower.spawn(follower.getNpcTemplate().get_npcId(),
+					follower.getX(), follower.getY(), follower.getHeading(),
+					follower.getMapId());
+			follower.deleteMe();
+		}
+		
+		try {
+			pc.saveInventory();			
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+		
+		L1DeathMatch.getInstance().checkLeaveGame(pc);
+		L1PolyRace.getInstance().checkLeaveGame(pc);
+		L1HauntedHouse.getInstance().checkLeaveGame(pc);
+		CharBuffTable.DeleteBuff(pc);
+		CharBuffTable.SaveBuff(pc);
+		pc.clearSkillEffectTimer();
+		pc.stopEtcMonitor();
+		pc.setOnlineStatus(0);
+		pc.stopHpRegeneration();
+		pc.stopMpRegeneration();
+
+		LogIP li = new LogIP();
+		li.storeLogout(pc);
+		try {
+			pc.save();
+		} catch (Exception e) {
+			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
+	
+	public void addToClientPacketLog(int opCode, String packet) {
+		this._clientPacketsLog.add(new Packet(opCode, packet));
+		
+		Iterator<Packet> packetIterator = this._clientPacketsLog.iterator();
+		while (packetIterator.hasNext()) {
+			Packet p = packetIterator.next();
+			
+		    if (this._clientPacketsLog.size() > Config.CLIENT_HISTORICAL_PACKETS) {
+		    	this._clientPacketsLog.remove(p);
+		    }
+		}
 	}
 	
 	public void addToServerPacketLog(String packet) {
@@ -143,83 +349,16 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 	
-	public List<Packet> getLastClientPackets() {
-		return this._clientPacketsLog;
+	public void CharReStart(boolean flag) {
+		_charRestart = flag;
 	}
 	
 	public void clearClientPacketLog() {
 		this._clientPacketsLog.clear();
 	}
 	
-	public void addToClientPacketLog(int opCode, String packet) {
-		this._clientPacketsLog.add(new Packet(opCode, packet));
-		
-		Iterator<Packet> packetIterator = this._clientPacketsLog.iterator();
-		while (packetIterator.hasNext()) {
-			Packet p = packetIterator.next();
-			
-		    if (this._clientPacketsLog.size() > Config.CLIENT_HISTORICAL_PACKETS) {
-		    	this._clientPacketsLog.remove(p);
-		    }
-		}
-	}
-	
-	public void setLastClientPacket(int opCode) {
-		_lastOpCodeReceviedFromClient = opCode;
-	}
-	
-	public void setLastActiveCharName(String charName) {
-		this._lastActiveCharName = charName;
-	}
-	
-	public String getLastActiveCharName() {
-		return this._lastActiveCharName;
-	}
-
-	public String getIp() {
-		return _ip;
-	}
-
-	public String getHostname() {
-		return _hostname;
-	}
-	
-	public boolean getDisconnectNextClick() {
-		return _disconnectNextClick;
-	}
-	
-	public void setDisconnectNextClick(boolean disconnect) {
-		_disconnectNextClick = disconnect;
-	}
-
-	public void CharReStart(boolean flag) {
-		_charRestart = flag;
-	}
-
-	public void nameThread(String tname) {
-		Thread.currentThread().setName(tname);
-	}
-	private byte[] readPacket() throws Exception {
-		try {
-			int hiByte = _in.read();
-			int loByte = _in.read();
-			if (loByte < 0) {
-				throw new RuntimeException();
-			}
-			int dataLength = (loByte * 256 + hiByte) - 2;
-			byte data[] = new byte[dataLength];
-			int readSize = 0;
-			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
-				i = _in.read(data, readSize, dataLength - readSize);
-			}
-			if (readSize != dataLength) {
-				_log.warning("Incomplete packet is sent to the server, closing connection.");
-				throw new RuntimeException();
-			}
-			return LineageEncryption.decrypt(data, dataLength, _clkey);
-		} catch (IOException e) {
-			throw e;
-		}
+	public void close() throws IOException {
+		_csocket.close();
 	}
 
 	private void doAutoSave() throws Exception {
@@ -244,9 +383,109 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
+	public Account getAccount() {
+		return _account;
+	}
+	
+	public String getAccountName() {
+		if (_account == null) {
+			return null;
+		}
+		return _account.getName();
+	}
+	
+	public L1PcInstance getActiveChar() {
+		return _activeChar;
+	}
+
+	public boolean getDisconnectNextClick() {
+		return _disconnectNextClick;
+	}
+
+	public String getHostname() {
+		return _hostname;
+	}
+	public String getIp() {
+		return _ip;
+	}
+
+	public String getLastActiveCharName() {
+		return this._lastActiveCharName;
+	}
+
+	public List<Packet> getLastClientPackets() {
+		return this._clientPacketsLog;
+	}
+
+	public List<Packet> getLastServerPackets() {
+		return this._serverPacketsLog;
+	}
+
+	public void kick() {
+		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
+		sendPacket(new S_Disconnect());
+		_kick = 1;
+		StreamUtil.close(_out, _in);
+	}
+
+
+	public void nameThread(String tname) {
+		Thread.currentThread().setName(tname);
+	}
+
+	private byte[] readPacket() throws Exception {
+		try {
+			int hiByte = _in.read();
+			int loByte = _in.read();
+			if (loByte < 0) {
+				throw new RuntimeException();
+			}
+			int dataLength = (loByte * 256 + hiByte) - 2;
+			byte data[] = new byte[dataLength];
+			int readSize = 0;
+			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
+				i = _in.read(data, readSize, dataLength - readSize);
+			}
+			if (readSize != dataLength) {
+				_log.warning("Incomplete packet is sent to the server, closing connection.");
+				throw new RuntimeException();
+			}
+			return LineageEncryption.decrypt(data, dataLength, _clkey);
+		} catch (IOException e) {
+			throw e;
+		}
+	}
+
+	// mp bug fix - dont remove - tricid
+	public void rescue() {
+		try {
+			_log.info("* * * Closing socket	* * * ");
+			_csocket.close();
+		} catch (Exception e) {
+			_log.severe("* * * Failed closing socket	* * *");
+			_log.severe(e.toString());
+		}
+		try {
+			_log.info("* * * Closing streams	* * *");
+			StreamUtil.close(_out, _in);
+		} catch (Exception e) {
+			_log.severe("* * * Failed to close streams	* * *");
+			_log.severe(e.toString());
+		}
+
+		try {
+			_log.info("* * * Stopping client thread	* * *");
+			stop = true;
+		} catch (Exception e) {
+			_log.severe("* * * Failed stopping thread	* * *");
+			_log.severe(e.toString());
+		}
+
+	}
+
 	@Override
 	public void run() {
-		nameThread("ClientThread");
+		nameThread("Client");
 		
 		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, " + 
 				"Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, " + 
@@ -266,11 +505,11 @@ public class Client implements Runnable, PacketOutput {
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
-        ClientThreadObserver observer = null;
-		observer = new ClientThreadObserver(
+        ClientObserver observer = null;
+		observer = new ClientObserver(
 				Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
-			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
+			_observerTimer = new Timer("Client-observer-"+_hostname);
 			observer.start();
 		}
 		try {
@@ -397,101 +636,6 @@ public class Client implements Runnable, PacketOutput {
 		return;
 	}
 
-	public void kick() {
-		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
-		sendPacket(new S_Disconnect());
-		_kick = 1;
-		StreamUtil.close(_out, _in);
-	}
-
-	class HcPacket implements Runnable {
-		private final Queue<byte[]> _queue;
-
-		private PacketHandler _handler;
-
-		public HcPacket() {
-			_queue = new ConcurrentLinkedQueue<byte[]>();
-			_handler = new PacketHandler(Client.this);
-		}
-
-		public HcPacket(int capacity) {
-			_queue = new LinkedBlockingQueue<byte[]>(capacity);
-			_handler = new PacketHandler(Client.this);
-		}
-
-		public void requestWork(byte data[]) {
-			_queue.offer(data);
-		}
-
-		@Override
-		public void run() {
-			Thread.currentThread().setName("HcPacket");
-			byte[] data;
-			while (_csocket != null) {
-				data = _queue.poll();
-				if (data != null) {
-					try {
-						_handler.handlePacket(data, _activeChar);
-					} catch (Exception e) {
-					}
-				} else {
-					try {
-						Thread.sleep(10);
-					} catch (Exception e) {
-					}
-				}
-			}
-			return;
-		}
-	}
-
-
-	class ClientThreadObserver extends TimerTask {
-		private int _checkct = 1;
-
-		private final int _disconnectTimeMillis;
-
-		public ClientThreadObserver(int disconnectTimeMillis) {
-			_disconnectTimeMillis = disconnectTimeMillis;
-		}
-
-		public void start() {
-			
-			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0,
-					_disconnectTimeMillis);
-		}
-
-		@Override
-		public void run() {
-			try {
-				if (_csocket == null) {
-					cancel();
-					return;
-				}
-
-				if (_checkct > 0) {
-					_checkct = 0;
-					return;
-				}
-
-				if (_activeChar == null || (_activeChar != null
-				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
-					kick();
-					_log.warning("Kicking character from (" + _hostname + ").");
-					cancel();
-					return;
-				}
-			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-				cancel();
-			}
-		}
-
-		public void packetReceived() {
-			_checkct++;
-		}
-	}
-
 	@Override
 	public void sendPacket(ServerBasePacket packet) {
 		synchronized (this) {
@@ -515,160 +659,23 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
-	// mp bug fix - dont remove - tricid
-	public void rescue() {
-		try {
-			_log.info("* * * Closing socket	* * * ");
-			_csocket.close();
-		} catch (Exception e) {
-			_log.severe("* * * Failed closing socket	* * *");
-			_log.severe(e.toString());
-		}
-		try {
-			_log.info("* * * Closing streams	* * *");
-			StreamUtil.close(_out, _in);
-		} catch (Exception e) {
-			_log.severe("* * * Failed to close streams	* * *");
-			_log.severe(e.toString());
-		}
-
-		try {
-			_log.info("* * * Stopping client thread	* * *");
-			stop = true;
-		} catch (Exception e) {
-			_log.severe("* * * Failed stopping thread	* * *");
-			_log.severe(e.toString());
-		}
-
-	}
-
-	public void close() throws IOException {
-		_csocket.close();
+	public void setAccount(Account account) {
+		_account = account;
 	}
 
 	public void setActiveChar(L1PcInstance pc) {
 		_activeChar = pc;
 	}
 
-	public L1PcInstance getActiveChar() {
-		return _activeChar;
+	public void setDisconnectNextClick(boolean disconnect) {
+		_disconnectNextClick = disconnect;
 	}
 
-	public void setAccount(Account account) {
-		_account = account;
+	public void setLastActiveCharName(String charName) {
+		this._lastActiveCharName = charName;
 	}
 
-	public Account getAccount() {
-		return _account;
-	}
-
-	public String getAccountName() {
-		if (_account == null) {
-			return null;
-		}
-		return _account.getName();
-	}
-
-	public static void quitGame(L1PcInstance pc, String lastActiveChar) {
-		// First cancel trade & save inventory to help avoid duping
-		try {
-			if (pc.getTradeID() != 0) {
-				L1Trade trade = new L1Trade();
-				trade.TradeCancel(pc);
-			}
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
-
-
-		if (pc.isDead()) {
-			int[] loc = {33090, 33392, 4}; // Default to SKT, in case there was an error.
-			try {
-				loc = Getback.GetBack_Location(pc, true);
-			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			}
-			pc.setX(loc[0]);
-			pc.setY(loc[1]);
-			pc.setMap((short) loc[2]);
-			pc.setCurrentHp(pc.getLevel());
-			pc.set_food(40);
-		}
-		
-		if (pc.getFightId() != 0) {
-			pc.setFightId(0);
-			L1PcInstance fightPc = (L1PcInstance) L1World.getInstance()
-					.findObject(pc.getFightId());
-			if (fightPc != null) {
-				fightPc.setFightId(0);
-				fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
-			}
-		}
-		if (pc.isInParty()) {
-			pc.getParty().leaveMember(pc);
-		}
-
-		if (pc.isInChatParty()) {
-			pc.getChatParty().leaveMember(pc);
-		}
-		
-		Object[] petList = pc.getPetList().values().toArray();
-		for (Object petObject : petList) {
-			if (petObject instanceof L1PetInstance) {
-				L1PetInstance pet = (L1PetInstance) petObject;
-				pet.dropItem(true);
-				pc.getPetList().remove(pet.getId());
-				pet.deleteMe();
-			}
-			
-			if (petObject instanceof L1SummonInstance) {
-				L1SummonInstance summon = (L1SummonInstance) petObject;
-				summon.set_currentPetStatus(3); // set it into rest mode
-				summon.allTargetClear();
-				for (L1PcInstance visiblePc : L1World.getInstance()
-						.getVisiblePlayer(summon)) {
-					visiblePc.sendPackets(new S_SummonPack(summon, visiblePc,
-							false));
-				}
-			}
-		}
-		
-		for (L1DollInstance doll : pc.getDollList().values())
-			doll.deleteDoll();
-		for (L1FollowerInstance follower : pc.getFollowerList().values()) {
-			follower.setParalyzed(true);
-			follower.spawn(follower.getNpcTemplate().get_npcId(),
-					follower.getX(), follower.getY(), follower.getHeading(),
-					follower.getMapId());
-			follower.deleteMe();
-		}
-		
-		try {
-			pc.saveInventory();			
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
-		
-		L1DeathMatch.getInstance().checkLeaveGame(pc);
-		L1PolyRace.getInstance().checkLeaveGame(pc);
-		L1HauntedHouse.getInstance().checkLeaveGame(pc);
-		CharBuffTable.DeleteBuff(pc);
-		CharBuffTable.SaveBuff(pc);
-		pc.clearSkillEffectTimer();
-		pc.stopEtcMonitor();
-		pc.setOnlineStatus(0);
-		pc.stopHpRegeneration();
-		pc.stopMpRegeneration();
-
-		LogIP li = new LogIP();
-		li.storeLogout(pc);
-		try {
-			pc.save();
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
+	public void setLastClientPacket(int opCode) {
+		_lastOpCodeReceviedFromClient = opCode;
 	}
 }

@@ -20,6 +20,7 @@ package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZED;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZING;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;

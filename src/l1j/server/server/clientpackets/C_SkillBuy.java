@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SkillBuy;
 
@@ -28,13 +28,13 @@ public class C_SkillBuy extends ClientBasePacket {
 
 	private static final String C_SKILL_BUY = "[C] C_SkillBuy";
 
-	public C_SkillBuy(byte abyte0[], ClientThread clientthread)
+	public C_SkillBuy(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
 		int i = readD();
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

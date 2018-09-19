@@ -19,7 +19,7 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterConfigTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -29,7 +29,7 @@ public class C_CharcterConfig extends ClientBasePacket {
 
 	private static final String C_CHARCTER_CONFIG = "[C] C_CharcterConfig";
 
-	public C_CharcterConfig(byte abyte0[], ClientThread client)
+	public C_CharcterConfig(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 		if (Config.CHARACTER_CONFIG_IN_SERVER_SIDE) {

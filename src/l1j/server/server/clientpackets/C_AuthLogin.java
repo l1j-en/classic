@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.AccountAlreadyLoginException;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.GameServerFullException;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.serverpackets.S_CommonNews;
@@ -36,7 +36,7 @@ public class C_AuthLogin extends ClientBasePacket {
 	private static final String C_AUTH_LOGIN = "[C] C_AuthLogin";
 	private static Logger _log = Logger.getLogger(C_AuthLogin.class.getName());
 
-	public C_AuthLogin(byte[] decrypt, ClientThread client) {
+	public C_AuthLogin(byte[] decrypt, Client client) {
 		super(decrypt);
 		String accountName = readS().toLowerCase();
 		String password = readS();
@@ -46,7 +46,7 @@ public class C_AuthLogin extends ClientBasePacket {
 		_log.finest("Request AuthLogin From User : " + accountName);
 
 		if (!Config.ALLOW_2PC) {
-			for (ClientThread tempClient : LoginController.getInstance()
+			for (Client tempClient : LoginController.getInstance()
 					.getAllAccounts()) {
 				if (ip.equalsIgnoreCase(tempClient.getIp())) {
 					_log.info("2nd PC Login On Account = " + accountName
@@ -103,7 +103,7 @@ public class C_AuthLogin extends ClientBasePacket {
 			client.setDisconnectNextClick(false); // ensure the disconnect flag isn't set when they login
 			client.sendPacket(new S_LoginResult(S_LoginResult.REASON_LOGIN_OK));
 			client.sendPacket(new S_CommonNews());
-			client.nameThread("ClientThread_"+account.getName());
+			client.nameThread("Client_"+account.getName());
 			_log.info("Account login: account=" + account.getName()
 					+ " host=" + client.getHostname() + " Current Memory: "
 					+ SystemUtil.getUsedMemoryMB() + "MB RAM");

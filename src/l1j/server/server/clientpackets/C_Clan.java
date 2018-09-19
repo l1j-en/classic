@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,7 +31,7 @@ public class C_Clan extends ClientBasePacket {
 
 	private static final String C_CLAN = "[C] C_Clan";
 
-	public C_Clan(byte abyte0[], ClientThread client) {
+	public C_Clan(byte abyte0[], Client client) {
 		super(abyte0);
 		int clanId = readD();
 

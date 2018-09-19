@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
@@ -69,7 +69,7 @@ public class C_Result extends ClientBasePacket {
 		//}
 	}
 
-	public C_Result(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Result(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int npcObjectId = readD();
 		int resultType = readC();
@@ -77,7 +77,7 @@ public class C_Result extends ClientBasePacket {
 		readC();
 		
 		boolean deleteAfterAction = false;
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		int level = pc.getLevel();
 		
 		int npcId = 0;

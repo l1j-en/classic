@@ -48,6 +48,7 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_S;
+
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_HPUpdate;

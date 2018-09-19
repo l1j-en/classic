@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1AuctionBoardInstance;
@@ -31,11 +31,11 @@ public class C_Board extends ClientBasePacket {
 
 	private static final String C_BOARD = "[C] C_Board";
 	
-	public C_Board(byte abyte0[], ClientThread clientthread) {
+	public C_Board(byte abyte0[], Client client) {
 		super(abyte0);
 		int objectId = readD();
 		L1Object obj = L1World.getInstance().findObject(objectId);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (obj instanceof L1BoardInstance) {
 			L1BoardInstance board = (L1BoardInstance) obj;
 			board.onAction(pc);

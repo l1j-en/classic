@@ -23,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.log.LogDeleteChar;
 import l1j.server.server.model.L1Clan;
@@ -38,7 +38,7 @@ public class C_DeleteChar extends ClientBasePacket {
 	private static final String C_DELETE_CHAR = "[C] RequestDeleteChar";
 	private static Logger _log = Logger.getLogger(C_DeleteChar.class.getName());
 
-	public C_DeleteChar(byte decrypt[], ClientThread client) throws Exception {
+	public C_DeleteChar(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
 		String name = readS();
 		String hostip = client.getHostname();

@@ -82,7 +82,7 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.FurnitureSpawnTable;
@@ -169,7 +169,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
 	private static Random _random = new Random();
 
-	public C_ItemUSe(byte abyte0[], ClientThread client) throws Exception {
+	public C_ItemUSe(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int itemObjid = readD();
 
@@ -3931,7 +3931,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void SpellBook1(L1PcInstance pc, L1ItemInstance l1iteminstance,
-			ClientThread clientthread) {
+			Client client) {
 		String s = "";
 		int i = 0;
 		int j = 0;
@@ -4231,7 +4231,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void SpellBook3(L1PcInstance pc, L1ItemInstance l1iteminstance,
-			ClientThread clientthread) {
+			Client client) {
 		String s = "";
 		int i = 0;
 		int j = 0;
@@ -4378,7 +4378,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void SpellBook4(L1PcInstance pc, L1ItemInstance l1iteminstance,
-			ClientThread clientthread) {
+			Client client) {
 		String s = "";
 		int i = 0;
 		int j = 0;
@@ -4524,7 +4524,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void SpellBook5(L1PcInstance pc, L1ItemInstance l1iteminstance,
-			ClientThread clientthread) {
+			Client client) {
 		String s = "";
 		int i = 0;
 		int j = 0;
@@ -4690,7 +4690,7 @@ public class C_ItemUSe extends ClientBasePacket {
 	}
 
 	private void SpellBook6(L1PcInstance pc, L1ItemInstance l1iteminstance,
-			ClientThread clientthread) {
+			Client client) {
 		String s = "";
 		int i = 0;
 		int j = 0;

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
@@ -33,7 +33,7 @@ public class C_SkillBuyOK extends ClientBasePacket {
 
 	private static final String C_SKILL_BUY_OK = "[C] C_SkillBuyOK";
 
-	public C_SkillBuyOK(byte abyte0[], ClientThread clientthread)
+	public C_SkillBuyOK(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
@@ -49,7 +49,7 @@ public class C_SkillBuyOK extends ClientBasePacket {
 		String skill_name = null;
 		int skill_id = 0;
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

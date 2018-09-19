@@ -79,7 +79,7 @@ public class GameServer extends Thread {
 					} else {
 						_log.log(Level.FINE, "Accepted connection from IP: "
 								+ socket.getInetAddress());
-						ClientThread client = new ClientThread(socket);
+						Client client = new Client(socket);
 						GeneralThreadPool.getInstance().execute(client);
 					}
 				
@@ -154,7 +154,7 @@ public class GameServer extends Thread {
 		}
 		// Kick save after all, make
 		for (L1PcInstance pc : players) {
-			ClientThread.quitGame(pc, "--SENT FROM DISCONNECTALL--");
+			Client.quitGame(pc, "--SENT FROM DISCONNECTALL--");
 			L1World.getInstance().removeObject(pc);
 		}
 	}

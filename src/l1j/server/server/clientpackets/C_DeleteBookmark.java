@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.templates.L1BookMark;
 
@@ -26,7 +26,7 @@ public class C_DeleteBookmark extends ClientBasePacket {
 
 	private static final String C_DETELE_BOOKMARK = "[C] C_DeleteBookmark";
 
-	public C_DeleteBookmark(byte[] decrypt, ClientThread client) {
+	public C_DeleteBookmark(byte[] decrypt, Client client) {
 		super(decrypt);
 		String bookmarkname = readS();
 		L1PcInstance pc = client.getActiveChar();

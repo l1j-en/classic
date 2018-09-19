@@ -68,8 +68,8 @@ import l1j.server.server.utils.SystemUtil;
 // PacketHandler, Logins, IpTable, LoginController,
 // ClanTable, IdFactory
 //
-public class ClientThread implements Runnable, PacketOutput {
-	private static Logger _log = Logger.getLogger(ClientThread.class.getName());
+public class Client implements Runnable, PacketOutput {
+	private static Logger _log = Logger.getLogger(Client.class.getName());
 	private InputStream _in;
 	private OutputStream _out;
 	private PacketHandler _handler;
@@ -109,10 +109,10 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	protected static Timer _observerTimer = null;
 
-	protected ClientThread() {
+	protected Client() {
 	}
 
-	public ClientThread(Socket socket) throws IOException {
+	public Client(Socket socket) throws IOException {
 		_csocket = socket;
 		_ip = socket.getInetAddress().getHostAddress();
 		if (Config.HOSTNAME_LOOKUPS) {
@@ -246,7 +246,7 @@ public class ClientThread implements Runnable, PacketOutput {
 
 	@Override
 	public void run() {
-		nameThread("ClientThread");
+		nameThread("Client");
 		
 		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, " + 
 				"Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, " + 
@@ -266,11 +266,11 @@ public class ClientThread implements Runnable, PacketOutput {
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
-        ClientThreadObserver observer = null;
-		observer = new ClientThreadObserver(
+        ClientObserver observer = null;
+		observer = new ClientObserver(
 				Config.AUTOMATIC_KICK * 60 * 1000);
 		if (Config.AUTOMATIC_KICK > 0) {
-			_observerTimer = new Timer("ClientThread-observer-"+_hostname);
+			_observerTimer = new Timer("Client-observer-"+_hostname);
 			observer.start();
 		}
 		try {
@@ -411,12 +411,12 @@ public class ClientThread implements Runnable, PacketOutput {
 
 		public HcPacket() {
 			_queue = new ConcurrentLinkedQueue<byte[]>();
-			_handler = new PacketHandler(ClientThread.this);
+			_handler = new PacketHandler(Client.this);
 		}
 
 		public HcPacket(int capacity) {
 			_queue = new LinkedBlockingQueue<byte[]>(capacity);
-			_handler = new PacketHandler(ClientThread.this);
+			_handler = new PacketHandler(Client.this);
 		}
 
 		public void requestWork(byte data[]) {
@@ -446,18 +446,18 @@ public class ClientThread implements Runnable, PacketOutput {
 	}
 
 
-	class ClientThreadObserver extends TimerTask {
+	class ClientObserver extends TimerTask {
 		private int _checkct = 1;
 
 		private final int _disconnectTimeMillis;
 
-		public ClientThreadObserver(int disconnectTimeMillis) {
+		public ClientObserver(int disconnectTimeMillis) {
 			_disconnectTimeMillis = disconnectTimeMillis;
 		}
 
 		public void start() {
 			
-			_observerTimer.scheduleAtFixedRate(ClientThreadObserver.this, 0,
+			_observerTimer.scheduleAtFixedRate(ClientObserver.this, 0,
 					_disconnectTimeMillis);
 		}
 

@@ -18,7 +18,7 @@
  */
 package l1j.server.server.model;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -54,7 +54,7 @@ public class L1ItemDelay {
 		}
 	}
 
-	public static void onItemUse(ClientThread client, L1ItemInstance item) {
+	public static void onItemUse(Client client, L1ItemInstance item) {
 		int delayId = 0;
 		int delayTime = 0;
 

@@ -21,9 +21,10 @@ package l1j.server.server.clientpackets;
 import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_ATTACK;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
+
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Character;
@@ -49,7 +50,7 @@ public class C_Attack extends ClientBasePacket {
 
 	private int _targetY = 0;
 
-	public C_Attack(byte[] decrypt, ClientThread client) {
+	public C_Attack(byte[] decrypt, Client client) {
 		super(decrypt);
 		int targetId = readD();
 		int x = readH();

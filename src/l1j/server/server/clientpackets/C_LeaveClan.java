@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.model.L1Clan;
@@ -39,11 +39,11 @@ public class C_LeaveClan extends ClientBasePacket {
 	private static final String C_LEAVE_CLAN = "[C] C_LeaveClan";
 	private static Logger _log = Logger.getLogger(C_LeaveClan.class.getName());
 
-	public C_LeaveClan(byte abyte0[], ClientThread clientthread)
+	public C_LeaveClan(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		String player_name = player.getName();
 		String clan_name = player.getClanname();
 		int clan_id = player.getClanid();

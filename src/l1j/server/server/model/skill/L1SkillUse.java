@@ -27,7 +27,6 @@ import l1j.server.server.model.L1Awake;
 import l1j.server.server.model.L1Bleed;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Character;
-import l1j.server.server.model.L1Chaser;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1CurseParalysis;
 import l1j.server.server.model.L1EffectSpawn;
@@ -104,7 +103,6 @@ import l1j.server.server.serverpackets.S_UseAttackSkill;
 import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
-import l1j.server.server.utils.Teleportation;
 import l1j.server.server.utils.collections.IntArrays;
 
 public class L1SkillUse {

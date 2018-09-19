@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1World;
@@ -48,7 +48,7 @@ public class C_UseSkill extends ClientBasePacket {
 
 	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
 	
-	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
+	public C_UseSkill(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int row = readC();
 		int column = readC();

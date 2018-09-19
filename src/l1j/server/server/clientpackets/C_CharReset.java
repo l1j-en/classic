@@ -22,15 +22,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_CharReset;
-import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_OwnCharAttrDef;
+import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.CalcStat;
@@ -58,7 +58,7 @@ public class C_CharReset extends ClientBasePacket {
 	 * Log any suspicious behavior.
 	 */
 	private void checkProvidedStats(final L1PcInstance pc, int str, int intel,
-			int wis, int dex, int con, int cha, ClientThread clientthread) {
+			int wis, int dex, int con, int cha, Client client) {
 		Map<L1Attribute, Integer> fixedStats = pc.getClassFeature()
 				.getFixedStats();
 		if (str < fixedStats.get(L1Attribute.Str)
@@ -69,13 +69,13 @@ public class C_CharReset extends ClientBasePacket {
 				|| cha < fixedStats.get(L1Attribute.Cha))
 			emergencyCleanup(pc, String.format(
 					"Candle: %s had less than starting stats!", pc.getName()),
-					"Candle: issue with stats, contact a GM for help.", clientthread);
+					"Candle: issue with stats, contact a GM for help.", client);
 
 		if (str > 35 || intel > 35 || wis > 35 || dex > 35 || con > 35
 				|| cha > 35)
 			emergencyCleanup(pc, String.format(
 					"Candle: %s had individual stat above max", pc.getName()),
-					"Candle: issue with stats, contact a GM for help.", clientthread);
+					"Candle: issue with stats, contact a GM for help.", client);
 
 		int bonusStats = pc.getLevel() > 50 ? pc.getLevel() - 50 : 0;
 		if (str + intel + wis + dex + con + cha > 75 + bonusStats
@@ -84,19 +84,19 @@ public class C_CharReset extends ClientBasePacket {
 					pc,
 					String.format("Candle: %s has too many stats!",
 							pc.getName()),
-					"Candle: issue with stats, contact a GM for help.", clientthread);
+					"Candle: issue with stats, contact a GM for help.", client);
 		}
 		
 		if (str < pc.getBaseStr() || intel < pc.getBaseInt() || wis < pc.getBaseWis()
 				|| dex < pc.getBaseDex() || con < pc.getBaseCon() || cha < pc.getBaseCha()) {
 			emergencyCleanup(pc, String.format(
 					"Candle: %s tried to redistribute stats after level ups!", pc.getName()),
-					"Candle: issue with stats, contact a GM for help.", clientthread);
+					"Candle: issue with stats, contact a GM for help.", client);
 		}
 	}
 
 	private void checkProvidedStartingStats(final L1PcInstance pc, int str,
-			int intel, int wis, int dex, int con, int cha, ClientThread clientthread) {
+			int intel, int wis, int dex, int con, int cha, Client client) {
 		Map<L1Attribute, Integer> startingStats = pc.getClassFeature()
 				.getFixedStats();
 		int originalStr = startingStats.get(L1Attribute.Str);
@@ -138,19 +138,19 @@ public class C_CharReset extends ClientBasePacket {
 		if (statusAmount != 75 || isStatusError) {
 			emergencyCleanup(pc, String.format(
 					"Candle: %s had incorrect starting stats!", pc.getName()),
-					"Candle: issue with stats, contact a GM for help.", clientthread);
+					"Candle: issue with stats, contact a GM for help.", client);
 		}
 	}
 
-	public C_CharReset(byte abyte0[], ClientThread clientthread) {
+	public C_CharReset(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		
 		// quick check to see if they're on the map they get teleported to when candling
 		if(pc.getMapId() != 997) {
 			emergencyCleanup(pc, 
 					String.format("%s attempted to candle on an incorrect map (may have sent the packet manually)! Mapid: %d", pc.getName(), pc.getMapId()),
-					"Error candling. Contact a GM.", clientthread);
+					"Error candling. Contact a GM.", client);
 			_log.warning(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
 		}
 		
@@ -167,7 +167,7 @@ public class C_CharReset extends ClientBasePacket {
 			int cha = readC();
 
 			// Rule #1 Never trust the client
-			checkProvidedStartingStats(pc, str, intel, wis, dex, con, cha, clientthread);
+			checkProvidedStartingStats(pc, str, intel, wis, dex, con, cha, client);
 
 			int hp = pc.getClassFeature().getStartingHp();
 			int mp = pc.getClassFeature().getStartingMp(wis);
@@ -200,7 +200,7 @@ public class C_CharReset extends ClientBasePacket {
 									pc.getName(),
 									increasedStats,
 									possiblePoints),
-							"Error candling. Contact a GM.", clientthread);
+							"Error candling. Contact a GM.", client);
 				}
 				
 				if (type2 == 0x01) {
@@ -249,7 +249,7 @@ public class C_CharReset extends ClientBasePacket {
 						return;
 					}
 					
-					saveNewCharStatus(pc, clientthread);
+					saveNewCharStatus(pc, client);
 				}
 			}
 		} else if (stage == 0x03) {
@@ -262,7 +262,7 @@ public class C_CharReset extends ClientBasePacket {
 			int cha = readC();
 
 			// Rule #2: Never trust the client
-			checkProvidedStats(pc, str, intel, wis, dex, con, cha, clientthread);
+			checkProvidedStats(pc, str, intel, wis, dex, con, cha, client);
 
 			pc.addBaseStr((byte) (str - pc.getBaseStr()));
 			pc.addBaseInt((byte) (intel - pc.getBaseInt()));
@@ -270,30 +270,30 @@ public class C_CharReset extends ClientBasePacket {
 			pc.addBaseDex((byte) (dex - pc.getBaseDex()));
 			pc.addBaseCon((byte) (con - pc.getBaseCon()));
 			pc.addBaseCha((byte) (cha - pc.getBaseCha()));
-			saveNewCharStatus(pc, clientthread);
+			saveNewCharStatus(pc, client);
 		}
 	}
 
 	private synchronized void emergencyCleanup(final L1PcInstance pc,
-			final String logEntry, final String message, ClientThread clientthread) {
+			final String logEntry, final String message, Client client) {
 		_log.log(Level.SEVERE, logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
 
 		// We'll be nice and just kick the player even though they're probably
 		// trying to cheat
 		// This reverts to the state at pc.save done at NPCAction
-		ClientThread.quitGame(pc, clientthread.getLastActiveCharName());
+		Client.quitGame(pc, client.getLastActiveCharName());
 		pc.getNetConnection().kick();
 
 		// Terrible way to bail, but we're doing it for now.
 		throw new IllegalStateException();
 	}
 
-	private synchronized void saveNewCharStatus(L1PcInstance pc, ClientThread clientthread) {
+	private synchronized void saveNewCharStatus(L1PcInstance pc, Client client) {
 		if (pc.getTempMaxLevel() != pc.getLevel()) {
 			emergencyCleanup(pc, "Candle: " + pc.getName() + "'s level "
 					+ "doesn't match!",
-					"Candle: issue with level, contact a GM!", clientthread);
+					"Candle: issue with level, contact a GM!", client);
 		}
 
 		pc.setInCharReset(false);

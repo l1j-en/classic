@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1BoardInstance;
@@ -31,13 +31,13 @@ public class C_BoardRead extends ClientBasePacket {
 	private static final String C_BOARD_READ = "[C] C_BoardRead";
 
 	/*
-	 * public C_BoardRead(byte decrypt[], ClientThread client) { super(decrypt);
+	 * public C_BoardRead(byte decrypt[], Client client) { super(decrypt);
 	 * int objId = readD(); int topicNumber = readD(); L1Object obj =
 	 * L1World.getInstance().findObject(objId); L1BoardInstance board =
 	 * (L1BoardInstance) obj; board.onActionRead(client.getActiveChar(),
 	 * topicNumber); }
 	 */
-	public C_BoardRead(byte decrypt[], ClientThread client) {
+	public C_BoardRead(byte decrypt[], Client client) {
 		super(decrypt);
 		int i = readD();
 		L1Object l1object = L1World.getInstance().findObject(i);

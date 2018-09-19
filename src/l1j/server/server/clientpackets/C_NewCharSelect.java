@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.utils.SystemUtil;
@@ -31,7 +31,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_NewCharSelect.class
 			.getName());
 
-	public C_NewCharSelect(byte[] decrypt, ClientThread client) {
+	public C_NewCharSelect(byte[] decrypt, Client client) {
 		super(decrypt);
 		client.sendPacket(new S_PacketBox(S_PacketBox.LOGOUT)); // 2.70C->3.0
 		client.CharReStart(true);
@@ -41,7 +41,7 @@ public class C_NewCharSelect extends ClientBasePacket {
 			_log.info("Logout from: char=" + pc.getName() + " account="
 			+ pc.getAccountName() + " host=" + client.getHostname()
 			+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
-			ClientThread.quitGame(pc, client.getLastActiveCharName());
+			Client.quitGame(pc, client.getLastActiveCharName());
 			synchronized (pc) {
 				pc.logout();
 				client.setActiveChar(null);

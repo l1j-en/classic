@@ -29,15 +29,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.npc.action.L1NpcAction;
 import l1j.server.server.model.npc.action.L1NpcXmlParser;
 import l1j.server.server.utils.FileUtil;
 import l1j.server.server.utils.PerformanceTimer;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 public class NpcActionTable {
 	private static Logger _log = Logger.getLogger(NpcActionTable.class

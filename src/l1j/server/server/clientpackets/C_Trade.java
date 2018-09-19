@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.utils.FaceToFace;
@@ -29,10 +29,10 @@ public class C_Trade extends ClientBasePacket {
 
 	private static final String C_TRADE = "[C] C_Trade";
 
-	public C_Trade(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Trade(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		if (player.isGhost()) {
 			return;
 		}

@@ -20,10 +20,10 @@ import static l1j.server.server.model.item.L1ItemId.THEBES_EDORYU;
 import static l1j.server.server.model.item.L1ItemId.THEBES_STAFF;
 import static l1j.server.server.model.item.L1ItemId.THEBES_SWORD;
 import static l1j.server.server.model.item.L1ItemId.UNARMED;
-import static l1j.server.server.model.item.L1ItemId.WIND_BLADE_DAGGER;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BOUNCE_ATTACK;
+import static l1j.server.server.model.skill.L1SkillId.BURNING_SLASH;
 import static l1j.server.server.model.skill.L1SkillId.BURNING_SPIRIT;
 import static l1j.server.server.model.skill.L1SkillId.BURNING_WEAPON;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_1_0_S;
@@ -80,7 +80,6 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_WEAKNESS_EXPOSURE_L
 import static l1j.server.server.model.skill.L1SkillId.STATUS_WEAKNESS_EXPOSURE_LV2;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_WEAKNESS_EXPOSURE_LV3;
 import static l1j.server.server.model.skill.L1SkillId.UNCANNY_DODGE;
-import static l1j.server.server.model.skill.L1SkillId.BURNING_SLASH;
 
 import java.util.Arrays;
 import java.util.Random;

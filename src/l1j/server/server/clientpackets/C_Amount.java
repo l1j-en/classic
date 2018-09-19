@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.AuctionBoardTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.IpTable;
@@ -54,7 +54,7 @@ public class C_Amount extends ClientBasePacket {
 	private static final String C_AMOUNT = "[C] C_Amount";
 	private static Logger _log = Logger.getLogger(C_PickUpItem.class.getName());
 
-	public C_Amount(byte[] decrypt, ClientThread client) throws Exception {
+	public C_Amount(byte[] decrypt, Client client) throws Exception {
 		super(decrypt);
 		int objectId = readD();
 		int amount = readD();

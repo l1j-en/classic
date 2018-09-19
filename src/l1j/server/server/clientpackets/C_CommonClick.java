@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -42,7 +42,7 @@ public class C_CommonClick {
 	private static Logger _log = Logger
 			.getLogger(C_CommonClick.class.getName());
 
-	public C_CommonClick(ClientThread client) {
+	public C_CommonClick(Client client) {
 		if(!client.getDisconnectNextClick()) {
 			deleteCharacter(client);
 			int amountOfChars = client.getAccount().countCharacters();
@@ -53,7 +53,7 @@ public class C_CommonClick {
 		}
 	}
 
-	private void deleteCharacter(ClientThread client) {
+	private void deleteCharacter(Client client) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -91,7 +91,7 @@ public class C_CommonClick {
 		}
 	}
 
-	private void sendCharPacks(ClientThread client) {
+	private void sendCharPacks(Client client) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;

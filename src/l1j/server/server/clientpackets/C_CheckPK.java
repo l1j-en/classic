@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -28,10 +28,10 @@ public class C_CheckPK extends ClientBasePacket {
 
 	private static final String C_CHECK_PK = "[C] C_CheckPK";
 
-	public C_CheckPK(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_CheckPK(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		player.sendPackets(new S_ServerMessage(562, String.valueOf(player
 				.get_PKcount())));
 	}

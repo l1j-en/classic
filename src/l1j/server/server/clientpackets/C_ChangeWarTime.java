@@ -20,7 +20,7 @@ package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
 
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
@@ -35,11 +35,11 @@ public class C_ChangeWarTime extends ClientBasePacket {
 
 	private static final String C_CHANGE_WAR_TIME = "[C] C_ChangeWarTime";
 
-	public C_ChangeWarTime(byte abyte0[], ClientThread clientthread)
+	public C_ChangeWarTime(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		L1Clan clan = L1World.getInstance().getClan(player.getClanname());
 
 		if (clan != null) {

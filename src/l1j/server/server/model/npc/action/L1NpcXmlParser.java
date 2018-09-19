@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import l1j.server.server.model.L1Quest;
-import l1j.server.server.utils.IterableElementList;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import l1j.server.server.model.L1Quest;
+import l1j.server.server.utils.IterableElementList;
 
 public class L1NpcXmlParser {
 	public static List<L1NpcAction> listActions(Element element) {

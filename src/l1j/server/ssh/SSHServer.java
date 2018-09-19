@@ -7,17 +7,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.logging.Level;
-
-import l1j.server.Config;
-import l1j.server.ssh.command.SSHCommandFactory;
+import java.util.logging.Logger;
 
 import org.apache.sshd.common.config.keys.AuthorizedKeyEntry;
 import org.apache.sshd.common.config.keys.KeyUtils;
 import org.apache.sshd.common.config.keys.PublicKeyEntryResolver;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
+
+import l1j.server.Config;
+import l1j.server.ssh.command.SSHCommandFactory;
 
 
 public class SSHServer {

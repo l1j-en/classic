@@ -37,7 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
+import l1j.server.server.network.Client;
 import l1j.server.server.command.executor.L1ToggleShop;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.HomeTownTimeController;
@@ -126,7 +126,7 @@ public class C_NPCAction extends ClientBasePacket {
 	private static Logger _log = Logger.getLogger(C_NPCAction.class.getName());
 	private static Random _random = new Random();
 
-	public C_NPCAction(byte abyte0[], ClientThread client) throws Exception {
+	public C_NPCAction(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int objid = readD();
@@ -4067,8 +4067,8 @@ public class C_NPCAction extends ClientBasePacket {
 		pc.sendPackets(new S_CloseList(pc.getId()));
 	}
 
-	private void poly(ClientThread clientthread, int polyId) {
-		L1PcInstance pc = clientthread.getActiveChar();
+	private void poly(Client client, int polyId) {
+		L1PcInstance pc = client.getActiveChar();
 		int awakeSkillId = pc.getAwakeSkillId();
 		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
@@ -4085,8 +4085,8 @@ public class C_NPCAction extends ClientBasePacket {
 		}
 	}
 
-	private void polyByKeplisha(ClientThread clientthread, int polyId) {
-		L1PcInstance pc = clientthread.getActiveChar();
+	private void polyByKeplisha(Client client, int polyId) {
+		L1PcInstance pc = client.getActiveChar();
 		int awakeSkillId = pc.getAwakeSkillId();
 		if (awakeSkillId == AWAKEN_ANTHARAS || awakeSkillId == AWAKEN_FAFURION
 				|| awakeSkillId == AWAKEN_VALAKAS) {
