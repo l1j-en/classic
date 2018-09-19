@@ -14,16 +14,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class NetworkServer implements Runnable {
 
+	int port = 2000;
     private static final NetworkServer instance = new NetworkServer();
     private NetworkServer(){
-			this.port = 2000;
 		
     }
     public static NetworkServer getInstance(){
         return instance;
     }
     
-	private int port;
 	private ConcurrentHashMap<ChannelId,Client> clients = new ConcurrentHashMap<ChannelId, Client>();
 	public NetworkServer(int port) {
 		this.port = port;
@@ -60,15 +59,6 @@ public class NetworkServer implements Runnable {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		int port;
-		if (args.length > 0) {
-			port = Integer.parseInt(args[0]);
-		} else {
-			port = 8080;
-		}
-		new NetworkServer(port).run();
-	}
 
 	public ConcurrentHashMap<ChannelId,Client> getClients() {
 		return clients;
