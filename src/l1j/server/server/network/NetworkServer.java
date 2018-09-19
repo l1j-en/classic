@@ -41,8 +41,8 @@ public class NetworkServer implements Runnable {
 							//Takes input data and once a complete packet is formed
 							//passes it along
 							//takes complete packets from above and decrypts them
-							ch.pipeline().addLast(new PacketDecrypter());
-							ch.pipeline().addLast("decoder", new PacketDecoder());
+							ch.pipeline().addLast(new ChannelInit());
+						
 
 						}
 					}).option(ChannelOption.SO_BACKLOG, 128) 
