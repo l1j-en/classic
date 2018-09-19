@@ -1,5 +1,7 @@
 package l1j.server.server.network;
 
+import java.io.IOException;
+
 /*
  * Copyright 2012 The Netty Project
  *
@@ -24,6 +26,19 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 public class PacketDecoder extends ByteToMessageDecoder {
 
+	@Override
+	public void channelActive(final ChannelHandlerContext ctx) {
+		Client client = null;
+		try {
+			client = new Client(ctx.channel());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//client.channel = ctx.channel();
+		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
+	}
+	
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 		System.out.println("readable " + in.readableBytes());
 		int dataLength = 0;

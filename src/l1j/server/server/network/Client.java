@@ -69,7 +69,7 @@ import l1j.server.server.types.UByte8;
 import l1j.server.server.types.UChar8;
 import l1j.server.server.utils.StreamUtil;
 import l1j.server.server.utils.SystemUtil;
-
+import java.net.InetSocketAddress;
 // Referenced classes of package l1j.server.server:
 // PacketHandler, Logins, IpTable, LoginController,
 // ClanTable, IdFactory
@@ -90,29 +90,33 @@ public class Client implements Runnable, PacketOutput {
 
 		@Override
 		public void run() {
-			try {
-				if (_csocket == null) {
-					cancel();
-					return;
-				}
-
-				if (_checkct > 0) {
-					_checkct = 0;
-					return;
-				}
-
-				if (_activeChar == null || (_activeChar != null
-				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
-					kick();
-					_log.warning("Kicking character from (" + _hostname + ").");
-					cancel();
-					return;
-				}
-			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-				cancel();
-			}
+			
 		}
+//		@Override
+//		public void run() {
+//			try {
+//				if (_csocket == null) {
+//					cancel();
+//					return;
+//				}
+//
+//				if (_checkct > 0) {
+//					_checkct = 0;
+//					return;
+//				}
+//
+//				if (_activeChar == null || (_activeChar != null
+//				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
+//					kick();
+//					_log.warning("Kicking character from (" + _hostname + ").");
+//					cancel();
+//					return;
+//				}
+//			} catch (Exception e) {
+//				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+//				cancel();
+//			}
+//		}
 
 		public void start() {
 			
@@ -139,7 +143,7 @@ public class Client implements Runnable, PacketOutput {
 		public void run() {
 			Thread.currentThread().setName("HcPacket");
 			byte[] data;
-			while (_csocket != null) {
+			while (channel != null) {
 				data = queue.poll();
 				if (data != null) {
 					try {
@@ -173,11 +177,9 @@ public class Client implements Runnable, PacketOutput {
 	// used in the -report function to give a bit of historical info
 	private List<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
 	private LineageKeys _clkey;
-	private Socket _csocket;
 	private boolean _disconnectNextClick;
 	private PacketHandler _handler;
 	private String _hostname;
-	private InputStream _in;
 	private String _ip;
 	private int _kick = 0;
 	
@@ -204,16 +206,15 @@ public class Client implements Runnable, PacketOutput {
 	protected Client() {
 	}
 	
-	public Client(Socket socket) throws IOException {
-		_csocket = socket;
-		_ip = socket.getInetAddress().getHostAddress();
+	public Client(Channel channel) throws IOException {
+		this.channel = channel;
+		_ip = ( (InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
+		//_ip = channel.getInetAddress().getHostAddress();
 		if (Config.HOSTNAME_LOOKUPS) {
-			_hostname = socket.getInetAddress().getHostName();
+			_hostname = ( (InetSocketAddress) channel.remoteAddress()).getAddress().getCanonicalHostName();
 		} else {
 			_hostname = _ip;
 		}
-		_in = socket.getInputStream();
-		_out = new BufferedOutputStream(socket.getOutputStream());
 		_handler = new PacketHandler(this);
 	}
 	
@@ -356,7 +357,7 @@ public class Client implements Runnable, PacketOutput {
 	}
 	
 	public void close() throws IOException {
-		_csocket.close();
+		//_csocket.close();
 	}
 
 	private void doAutoSave() throws Exception {
@@ -423,7 +424,7 @@ public class Client implements Runnable, PacketOutput {
 		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
 		sendPacket(new S_Disconnect());
 		_kick = 1;
-		StreamUtil.close(_out, _in);
+		//StreamUtil.close(_out, _in);
 	}
 
 
@@ -431,32 +432,32 @@ public class Client implements Runnable, PacketOutput {
 		Thread.currentThread().setName(tname);
 	}
 
-	private byte[] readPacket() throws Exception {
-		try {
-			int hiByte = _in.read();
-			int loByte = _in.read();
-			if (loByte < 0) {
-				throw new RuntimeException();
-			}
-			int dataLength = (loByte * 256 + hiByte) - 2;
-			byte data[] = new byte[dataLength];
-			int readSize = 0;
-			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
-				i = _in.read(data, readSize, dataLength - readSize);
-			}
-			if (readSize != dataLength) {
-				_log.warning("Incomplete packet is sent to the server, closing connection.");
-				throw new RuntimeException();
-			}
-			return LineageEncryption.decrypt(data, dataLength, get_clkey());
-		} catch (IOException e) {
-			throw e;
-		}
-	}
+//	private byte[] readPacket() throws Exception {
+//		try {
+//			int hiByte = _in.read();
+//			int loByte = _in.read();
+//			if (loByte < 0) {
+//				throw new RuntimeException();
+//			}
+//			int dataLength = (loByte * 256 + hiByte) - 2;
+//			byte data[] = new byte[dataLength];
+//			int readSize = 0;
+//			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
+//				i = _in.read(data, readSize, dataLength - readSize);
+//			}
+//			if (readSize != dataLength) {
+//				_log.warning("Incomplete packet is sent to the server, closing connection.");
+//				throw new RuntimeException();
+//			}
+//			return LineageEncryption.decrypt(data, dataLength, get_clkey());
+//		} catch (IOException e) {
+//			throw e;
+//		}
+//	}
 
 	@Override
 	public void run() {
-		nameThread("Client");
+		//nameThread("Client");
 		
 		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, " + 
 				"Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, " + 
@@ -472,7 +473,7 @@ public class Client implements Runnable, PacketOutput {
 				L1World.getInstance().getAllClans().size()));
 		
 		_log.fine("Starting client thread...");
-		Socket socket = _csocket;
+		//Socket socket = _csocket;
 		HcPacket hcPacket = new HcPacket(H_CAPACITY);
 		GeneralThreadPool.getInstance().execute(movePacket);
 		GeneralThreadPool.getInstance().execute(hcPacket);
@@ -498,7 +499,7 @@ public class Client implements Runnable, PacketOutput {
 			_out.flush();
 			
 			try {
-				set_clkey(LineageEncryption.initKeys(socket, seed));
+				set_clkey(LineageEncryption.initKeys(channel.id(), seed));
 			} catch (ClientIdExistsException e) {
 			}
 
@@ -506,7 +507,7 @@ public class Client implements Runnable, PacketOutput {
 				doAutoSave();
 				byte data[] = null;
 				try {
-					data = readPacket();
+					//data = readPacket();
 				} catch (Exception e) {
 					break;
 				}
@@ -585,7 +586,7 @@ public class Client implements Runnable, PacketOutput {
 					}
 				}
 				sendPacket(new S_Disconnect());
-				StreamUtil.close(_out, _in);
+				//StreamUtil.close(_out, _in);
 			} catch (Exception e) {
 				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
 				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
@@ -593,7 +594,7 @@ public class Client implements Runnable, PacketOutput {
 				LoginController.getInstance().logout(this);
 			}
 		}
-		_csocket = null;
+		channel = null;
 		_log.fine("Server thread[C] stopped");
 		if (_kick < 1) {
 			Level ll = Level.FINE;

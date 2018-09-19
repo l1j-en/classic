@@ -8,12 +8,12 @@ import l1j.server.server.utils.ByteArrayUtil;
 public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 	static int i = 0;
 
-	@Override
-	public void channelActive(final ChannelHandlerContext ctx) {
-		Client client = new Client();
-		client.channel = ctx.channel();
-		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
-	}
+//	@Override
+//	public void channelActive(final ChannelHandlerContext ctx) {
+//		Client client = new Client();
+//		client.channel = ctx.channel();
+//		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
+//	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
