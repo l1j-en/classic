@@ -29,6 +29,7 @@ public class NetworkServer implements Runnable {
 	}
 
 	public void run() {
+		System.out.println("Starting new network connection");
 		EventLoopGroup bossGroup = new NioEventLoopGroup(); 
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
