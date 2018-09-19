@@ -87,6 +87,7 @@ public class Client implements Runnable, PacketOutput {
 		public void run() {
 
 		}
+		
 //		@Override
 //		public void run() {
 //			try {
