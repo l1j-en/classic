@@ -40,9 +40,10 @@ public class NetworkServer implements Runnable {
 						public void initChannel(SocketChannel ch) throws Exception {
 							//Takes input data and once a complete packet is formed
 							//passes it along
-							ch.pipeline().addLast("decoder", new PacketDecoder());
 							//takes complete packets from above and decrypts them
 							ch.pipeline().addLast(new PacketDecrypter());
+							ch.pipeline().addLast("decoder", new PacketDecoder());
+
 						}
 					}).option(ChannelOption.SO_BACKLOG, 128) 
 					.childOption(ChannelOption.SO_KEEPALIVE, true); 
