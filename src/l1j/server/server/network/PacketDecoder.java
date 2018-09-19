@@ -36,6 +36,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	
 	@Override
 	public void channelActive(final ChannelHandlerContext ctx) {
+		System.out.println("New Connection!");
 		Client client = null;
 		try {
 			client = new Client(ctx.channel());
