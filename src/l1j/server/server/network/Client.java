@@ -89,6 +89,25 @@ public class Client implements Runnable, PacketOutput {
 
 	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
 
+	private class LogoutDelay implements Runnable {
+		private Client client;
+		
+		LogoutDelay(Client client) {
+			this.client = client;
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			quitGame(_activeChar, client.getLastActiveCharName());
+
+			synchronized (_activeChar) {
+				_activeChar.logout();
+				setActiveChar(null);
+			}
+			
+		}
+	}
 	protected Client() {
 	}
 
@@ -290,16 +309,12 @@ public class Client implements Runnable, PacketOutput {
 				// by the player to stop people from being able to force-quit
 				long lastAggressiveAct = _activeChar.getLastAggressiveAct();
 
-				while (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
-					Thread.sleep(50); // to stop 100% cpu spike
+				if (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
+					 LogoutDelay delay = new LogoutDelay(this);
+					 GeneralThreadPool.getInstance().schedule(delay, System.currentTimeMillis() - (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER));
 				}
 
-				quitGame(_activeChar, this.getLastActiveCharName());
 
-				synchronized (_activeChar) {
-					_activeChar.logout();
-					setActiveChar(null);
-				}
 			}
 			sendPacket(new S_Disconnect());
 			// StreamUtil.close(_out, _in);
