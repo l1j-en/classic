@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.model.Element;
@@ -1056,8 +1057,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 		setAcByMagic(3);
 		_pc = pc;
-		_timer = new EnchantTimer();
-		(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
+		GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
@@ -1099,8 +1099,9 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 
 		_pc = pc;
-		_timer = new EnchantTimer();
-		(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
+		//_timer = new EnchantTimer();
+		//(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
+		GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
