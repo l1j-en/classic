@@ -20,7 +20,7 @@
 /*
  * Rewritten by tricid to use netty (java nio).  This should make the server more performant 
  * and handle more client connections before it craps out.  We will no longer have x threads per client. 
- * Instead there will be a static about of threads in a producer/consumer model.
+ * Instead there will be a static amount of threads in a producer/consumer model.
  * 
  * Example:  old way with 100 players, you'd have:  client thread, two hcpacket threads, 1+ observers (because I think this is broken)
  * so 100 players = 400+ threads.  New way:  10 consumer threads, 2ish network threads (producers) (netty will run more per server core count I think), 
