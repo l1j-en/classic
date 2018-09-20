@@ -42,6 +42,7 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 			byte[] decrypted = LineageEncryption.decrypt(data, data.length, client.get_clkey());
 			System.out.println("encrypted packet: " + new ByteArrayUtil(decrypted).dumpToString());
 			client.getQueue().offer(decrypted);
+			NetworkServer.getInstance().getClientQueue().offer(client);
 		} catch (NoEncryptionKeysSelectedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

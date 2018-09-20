@@ -30,6 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -87,32 +88,6 @@ public class Client implements Runnable, PacketOutput {
 		public void run() {
 
 		}
-		
-//		@Override
-//		public void run() {
-//			try {
-//				if (_csocket == null) {
-//					cancel();
-//					return;
-//				}
-//
-//				if (_checkct > 0) {
-//					_checkct = 0;
-//					return;
-//				}
-//
-//				if (_activeChar == null || (_activeChar != null
-//				   && !_activeChar.isPrivateShop() && !_activeChar.isGm())) {
-//					kick();
-//					_log.warning("Kicking character from (" + _hostname + ").");
-//					cancel();
-//					return;
-//				}
-//			} catch (Exception e) {
-//				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-//				cancel();
-//			}
-//		}
 
 		public void start() {
 
@@ -120,51 +95,11 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
-	class HcPacket implements Runnable {
-		private PacketHandler _handler;
-
-		public HcPacket() {
-			_handler = new PacketHandler(Client.this);
-		}
-
-		public HcPacket(int capacity) {
-			_handler = new PacketHandler(Client.this);
-		}
-
-		public void requestWork(byte data[]) {
-			queue.offer(data);
-		}
-
-		@Override
-		public void run() {
-			Thread.currentThread().setName("HcPacket");
-			byte[] data;
-			while (channel != null) {
-				data = queue.poll();
-				if (data != null) {
-					try {
-						_handler.handlePacket(data, _activeChar);
-					} catch (Exception e) {
-					}
-				} else {
-					try {
-						Thread.sleep(10);
-					} catch (Exception e) {
-					}
-				}
-			}
-			return;
-		}
-	}
+	
 
 	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
 	private static Logger _log = Logger.getLogger(Client.class.getName());
 	protected static Timer _observerTimer = null;
-	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
-			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
-			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
-	private static final int H_CAPACITY = 2;
-	private static final int M_CAPACITY = 3;
 	private Account _account;
 	private L1PcInstance _activeChar;
 	private boolean _charRestart = true;
@@ -195,11 +130,6 @@ public class Client implements Runnable, PacketOutput {
 
 	public Channel channel;
 
-	HcPacket movePacket = new HcPacket(M_CAPACITY);
-
-	// MP Bug fix - dont remove - tricid
-	private boolean stop = false;
-
 	protected Client() {
 	}
 
@@ -212,7 +142,7 @@ public class Client implements Runnable, PacketOutput {
 		} else {
 			_hostname = _ip;
 		}
-		_handler = new PacketHandler(this);
+		_handler = new PacketHandler(Client.this);
 	}
 
 	public static void quitGame(L1PcInstance pc, String lastActiveChar) {
@@ -418,179 +348,199 @@ public class Client implements Runnable, PacketOutput {
 		// StreamUtil.close(_out, _in);
 	}
 
-	public void nameThread(String tname) {
-		Thread.currentThread().setName(tname);
-	}
-
-//	private byte[] readPacket() throws Exception {
-//		try {
-//			int hiByte = _in.read();
-//			int loByte = _in.read();
-//			if (loByte < 0) {
-//				throw new RuntimeException();
-//			}
-//			int dataLength = (loByte * 256 + hiByte) - 2;
-//			byte data[] = new byte[dataLength];
-//			int readSize = 0;
-//			for (int i = 0; i != -1 && readSize < dataLength; readSize += i) {
-//				i = _in.read(data, readSize, dataLength - readSize);
-//			}
-//			if (readSize != dataLength) {
-//				_log.warning("Incomplete packet is sent to the server, closing connection.");
-//				throw new RuntimeException();
-//			}
-//			return LineageEncryption.decrypt(data, dataLength, get_clkey());
-//		} catch (IOException e) {
-//			throw e;
-//		}
-//	}
-
 	@Override
-	public void run() {
-		// nameThread("Client");
+	public synchronized void run() {
+		byte[] data;
+		data = queue.poll();
+		if (data != null) {
+			int opcode = data[0] & 0xFF;
 
-		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, "
-				+ "Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, "
-				+ "WarList Array Size: %d, Clans Array Size: %d", _hostname, SystemUtil.getUsedMemoryMB(),
-				GeneralThreadPool.getInstance().getCurrentThreadCount(), L1World.getInstance().getAllPlayers().size(),
-				L1World.getInstance().getAllPets().size(), L1World.getInstance().getAllSummons().size(),
-				L1World.getInstance().getAllVisibleObjects().size(), // poorly named.. it actually gets all the
-																		// _allobjects object
-				L1World.getInstance().getWarList().size(), L1World.getInstance().getAllClans().size()));
-
-		_log.fine("Starting client thread...");
-		// Socket socket = _csocket;
-		HcPacket hcPacket = new HcPacket(H_CAPACITY);
-		GeneralThreadPool.getInstance().execute(movePacket);
-		GeneralThreadPool.getInstance().execute(hcPacket);
-		ClientObserver observer = null;
-		observer = new ClientObserver(Config.AUTOMATIC_KICK * 60 * 1000);
-		if (Config.AUTOMATIC_KICK > 0) {
-			_observerTimer = new Timer("Client-observer-" + _hostname);
-			observer.start();
-		}
-		try {
-			long seed = 0x7C98BDFA; // 3.0 English Packet Seed
-			byte Bogus = (byte) (FIRST_PACKET.length + 7);
-			_out.write(Bogus & 0xFF);
-			_out.write(Bogus >> 8 & 0xFF);
-
-			_out.write(0x7D); // 3.0 English Version Check.
-			_out.write((byte) (seed & 0xFF));
-			_out.write((byte) (seed >> 8 & 0xFF));
-			_out.write((byte) (seed >> 16 & 0xFF));
-			_out.write((byte) (seed >> 24 & 0xFF));
-			_out.write(FIRST_PACKET);
-			_out.flush();
-
-			try {
-				set_clkey(LineageEncryption.initKeys(channel.id(), seed));
-			} catch (ClientIdExistsException e) {
-			}
-
-			while (!stop) {
-				doAutoSave();
-				byte data[] = null;
-				try {
-					// data = readPacket();
-				} catch (Exception e) {
-					break;
-				}
-
-				int opcode = data[0] & 0xFF;
-
-				// if they're clicking "OK" on the common news sent for a ban or ip restriction,
-				// then kick them
-				if (opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
-					sendPacket(new S_Disconnect());
-				}
-
-				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
-					_loginStatus = 1;
-				}
-				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
-					if (_loginStatus != 1) {
-						continue;
-					}
-				}
-				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
-					_loginStatus = 0;
-				}
-
-				if (opcode != Opcodes.C_OPCODE_KEEPALIVE && opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
-					observer.packetReceived();
-				}
-				if (_activeChar == null) {
-					_handler.handlePacket(data, _activeChar);
-					continue;
-				}
-
-				// be wary of making other opcodes run on another thread!
-				// we initially removed everything because people were sending 2 packets
-				// at the same time to duplicate items!!
-				if (opcode == Opcodes.C_OPCODE_MOVECHAR) {
-					movePacket.requestWork(data);
-				} else {
-					hcPacket.requestWork(data);
-				}
-			}
-		} catch (Throwable e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		} finally {
-			try {
-				// don't log if getAccountName is null because we will assume it was a crash
-				// before login
-				if (_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null
-						&& !GameServer.getInstance().isShuttingDown()) {
-					for (Packet packet : _serverPacketsLog) {
-						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, packet.getOpCode(), packet.getPacket(),
-								"client crash", packet.getTimestamp());
-					}
-
-					_serverPacketsLog.clear();
-				}
-
-				if (_activeChar != null) {
-					// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
-					// milliseconds since the last aggressive act was done to them/taken
-					// by the player to stop people from being able to force-quit
-					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
-
-					while (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
-						Thread.sleep(50); // to stop 100% cpu spike
-					}
-
-					quitGame(_activeChar, this.getLastActiveCharName());
-
-					synchronized (_activeChar) {
-						_activeChar.logout();
-						setActiveChar(null);
-					}
-				}
+			// if they're clicking "OK" on the common news sent for a ban or ip restriction,
+			// then kick them
+			if (opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
 				sendPacket(new S_Disconnect());
-				// StreamUtil.close(_out, _in);
-			} catch (Exception e) {
-				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			} finally {
-				LoginController.getInstance().logout(this);
 			}
+
+			if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
+				_loginStatus = 1;
+			}
+			if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
+				if (_loginStatus != 1) {
+					return;
+				}
+			}
+			if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+				_loginStatus = 0;
+			}
+
+//				if (opcode != Opcodes.C_OPCODE_KEEPALIVE && opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
+//					observer.packetReceived();
+//				}
+
+
+			// be wary of making other opcodes run on another thread!
+			// we initially removed everything because people were sending 2 packets
+			// at the same time to duplicate items!!
+
+			try {
+				System.out.println("Giving to handler");
+				_handler.handlePacket(data, _activeChar);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+
 		}
-		channel = null;
-		_log.fine("Server thread[C] stopped");
-		if (_kick < 1) {
-			Level ll = Level.FINE;
-			if (_hostname != null)
-				ll = Level.INFO;
-			_log.log(ll,
-					"Client thread ended: " + getAccountName() + ":" + _hostname + " Current Memory: "
-							+ SystemUtil.getUsedMemoryMB() + "MB RAM" + " CurrentThreads="
-							+ GeneralThreadPool.getInstance().getCurrentThreadCount() + " CharactersOnline="
-							+ (L1World.getInstance().getAllPlayers().size()));
-		}
+
 		return;
 	}
+
+//	@Override
+//	public void run() {
+//		// nameThread("Client");
+//
+//		_log.info(String.format("(%s) Login detected. Current memory:%d MB RAM, CurrentThreads=%d, "
+//				+ "Players Array Size: %d, Pets Array Size: %d, Summons Array Size: %d, All Objects Array Size: %d, "
+//				+ "WarList Array Size: %d, Clans Array Size: %d", _hostname, SystemUtil.getUsedMemoryMB(),
+//				GeneralThreadPool.getInstance().getCurrentThreadCount(), L1World.getInstance().getAllPlayers().size(),
+//				L1World.getInstance().getAllPets().size(), L1World.getInstance().getAllSummons().size(),
+//				L1World.getInstance().getAllVisibleObjects().size(), // poorly named.. it actually gets all the
+//																		// _allobjects object
+//				L1World.getInstance().getWarList().size(), L1World.getInstance().getAllClans().size()));
+//
+//		_log.fine("Starting client thread...");
+//		// Socket socket = _csocket;
+//		HcPacket hcPacket = new HcPacket(H_CAPACITY);
+//		GeneralThreadPool.getInstance().execute(movePacket);
+//		GeneralThreadPool.getInstance().execute(hcPacket);
+//		ClientObserver observer = null;
+//		observer = new ClientObserver(Config.AUTOMATIC_KICK * 60 * 1000);
+//		if (Config.AUTOMATIC_KICK > 0) {
+//			_observerTimer = new Timer("Client-observer-" + _hostname);
+//			observer.start();
+//		}
+//		try {
+//			long seed = 0x7C98BDFA; // 3.0 English Packet Seed
+//			byte Bogus = (byte) (FIRST_PACKET.length + 7);
+//			_out.write(Bogus & 0xFF);
+//			_out.write(Bogus >> 8 & 0xFF);
+//
+//			_out.write(0x7D); // 3.0 English Version Check.
+//			_out.write((byte) (seed & 0xFF));
+//			_out.write((byte) (seed >> 8 & 0xFF));
+//			_out.write((byte) (seed >> 16 & 0xFF));
+//			_out.write((byte) (seed >> 24 & 0xFF));
+//			_out.write(FIRST_PACKET);
+//			_out.flush();
+//
+//			try {
+//				set_clkey(LineageEncryption.initKeys(channel.id(), seed));
+//			} catch (ClientIdExistsException e) {
+//			}
+//
+//			while (!stop) {
+//				doAutoSave();
+//				byte data[] = null;
+//				try {
+//					// data = readPacket();
+//				} catch (Exception e) {
+//					break;
+//				}
+//
+//				int opcode = data[0] & 0xFF;
+//
+//				// if they're clicking "OK" on the common news sent for a ban or ip restriction,
+//				// then kick them
+//				if (opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
+//					sendPacket(new S_Disconnect());
+//				}
+//
+//				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
+//					_loginStatus = 1;
+//				}
+//				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
+//					if (_loginStatus != 1) {
+//						continue;
+//					}
+//				}
+//				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+//					_loginStatus = 0;
+//				}
+//
+//				if (opcode != Opcodes.C_OPCODE_KEEPALIVE && opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
+//					observer.packetReceived();
+//				}
+//				if (_activeChar == null) {
+//					_handler.handlePacket(data, _activeChar);
+//					continue;
+//				}
+//
+//				// be wary of making other opcodes run on another thread!
+//				// we initially removed everything because people were sending 2 packets
+//				// at the same time to duplicate items!!
+//				if (opcode == Opcodes.C_OPCODE_MOVECHAR) {
+//					movePacket.requestWork(data);
+//				} else {
+//					hcPacket.requestWork(data);
+//				}
+//			}
+//		} catch (Throwable e) {
+//			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
+//			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+//		} finally {
+//			try {
+//				// don't log if getAccountName is null because we will assume it was a crash
+//				// before login
+//				if (_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null
+//						&& !GameServer.getInstance().isShuttingDown()) {
+//					for (Packet packet : _serverPacketsLog) {
+//						LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, packet.getOpCode(), packet.getPacket(),
+//								"client crash", packet.getTimestamp());
+//					}
+//
+//					_serverPacketsLog.clear();
+//				}
+//
+//				if (_activeChar != null) {
+//					// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
+//					// milliseconds since the last aggressive act was done to them/taken
+//					// by the player to stop people from being able to force-quit
+//					long lastAggressiveAct = _activeChar.getLastAggressiveAct();
+//
+//					while (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
+//						Thread.sleep(50); // to stop 100% cpu spike
+//					}
+//
+//					quitGame(_activeChar, this.getLastActiveCharName());
+//
+//					synchronized (_activeChar) {
+//						_activeChar.logout();
+//						setActiveChar(null);
+//					}
+//				}
+//				sendPacket(new S_Disconnect());
+//				// StreamUtil.close(_out, _in);
+//			} catch (Exception e) {
+//				_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
+//				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+//			} finally {
+//				LoginController.getInstance().logout(this);
+//			}
+//		}
+//		channel = null;
+//		_log.fine("Server thread[C] stopped");
+//		if (_kick < 1) {
+//			Level ll = Level.FINE;
+//			if (_hostname != null)
+//				ll = Level.INFO;
+//			_log.log(ll,
+//					"Client thread ended: " + getAccountName() + ":" + _hostname + " Current Memory: "
+//							+ SystemUtil.getUsedMemoryMB() + "MB RAM" + " CurrentThreads="
+//							+ GeneralThreadPool.getInstance().getCurrentThreadCount() + " CharactersOnline="
+//							+ (L1World.getInstance().getAllPlayers().size()));
+//		}
+//		return;
+//	}
 
 	@Override
 	public void sendPacket(ServerBasePacket packet) {
@@ -602,9 +552,11 @@ public class Client implements Runnable, PacketOutput {
 				ac = LineageEncryption.encrypt(ac, get_clkey());
 				abyte0 = UByte8.fromArray(ac);
 				int j = abyte0.length + 2;
-				_out.write(j & 0xff);
-				_out.write(j >> 8 & 0xff);
-				_out.write(abyte0);
+				ByteBuf buffer = channel.alloc().buffer(j);
+				buffer.writeByte(j & 0xff);
+				buffer.writeByte(j >> 8 & 0xff);
+				buffer.writeBytes(abyte0);
+				channel.writeAndFlush(buffer);
 				// _out.flush();
 			} catch (Exception e) {
 			}
