@@ -16,16 +16,21 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
+/*
+ * Rewritten by tricid to use netty (java nio).  This should make the server more performant 
+ * and handle more client connections before it craps out.  We will no longer have x threads per client. 
+ * Instead there will be a static about of threads in a producer/consumer model.
+ * 
+ * Example:  old way with 100 players, you'd have:  client thread, two hcpacket threads, 1+ observers (because I think this is broken)
+ * so 100 players = 400+ threads.  New way:  10 consumer threads, 2ish network threads (producers) (netty will run more per server core count I think), 
+ * and that's it.  
+ */
 package l1j.server.server.network;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +44,6 @@ import l1j.server.server.PacketHandler;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.encryptions.LineageEncryption;
 import l1j.server.server.encryptions.LineageKeys;
 import l1j.server.server.encryptions.Opcodes;
@@ -50,7 +54,6 @@ import l1j.server.server.model.L1HauntedHouse;
 import l1j.server.server.model.L1PolyRace;
 import l1j.server.server.model.L1Trade;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -64,10 +67,6 @@ import l1j.server.server.types.UByte8;
 import l1j.server.server.types.UChar8;
 import l1j.server.server.utils.SystemUtil;
 
-// Referenced classes of package l1j.server.server:
-// PacketHandler, Logins, IpTable, LoginController,
-// ClanTable, IdFactory
-//
 public class Client implements Runnable, PacketOutput {
 
 	private static Logger _log = Logger.getLogger(Client.class.getName());
