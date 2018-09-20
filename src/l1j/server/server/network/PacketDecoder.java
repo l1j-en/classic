@@ -22,6 +22,11 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	}
 
 	@Override
+	public void channelInactive(final ChannelHandlerContext ctx) {
+		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
+		client.handleDisconnect();
+	}
+	@Override
 	public void channelActive(final ChannelHandlerContext ctx) {
 		final ByteBuf first = ctx.alloc().buffer(FIRST_PACKET.length + 7);
 		System.out.println("New Connection1!");
