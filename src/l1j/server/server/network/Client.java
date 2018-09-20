@@ -362,7 +362,6 @@ public class Client implements Runnable, PacketOutput {
 			}
 
 			try {
-				System.out.println("Giving to handler");
 				_handler.handlePacket(data, _activeChar);
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -63,10 +63,7 @@ public class PacketConsumer implements Runnable {
 
 			try {
 				client = NetworkServer.getInstance().getClientQueue().take();
-				System.out.println("Consuming");
 				client.run();
-				System.out.println("Consumed");
-
 			} catch (Exception e) {
 				// logger.error("", e);
 			}

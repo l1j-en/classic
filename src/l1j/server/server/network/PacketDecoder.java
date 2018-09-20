@@ -50,7 +50,6 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	}
 
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
-		System.out.println("readable " + in.readableBytes());
 		int dataLength = 0;
 		if (in.readableBytes() >= 2) {
 			int hiByte = in.getByte(in.readerIndex()) & 0xff;
