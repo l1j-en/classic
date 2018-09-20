@@ -25,7 +25,7 @@ package l1j.server.server.network;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import l1j.server.server.encryptions.LineageEncryption;
+import l1j.server.server.encryptions.L1JEncryption;
 import l1j.server.server.encryptions.NoEncryptionKeysSelectedException;
 
 public class PacketDecrypter extends ChannelInboundHandlerAdapter {
@@ -54,7 +54,7 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 
 		try {
-			byte[] decrypted = LineageEncryption.decrypt(data, data.length, client.get_clkey());
+			byte[] decrypted = L1JEncryption.decrypt(data, data.length, client.get_clkey());
 			client.getQueue().offer(decrypted);
 			NetworkServer.getInstance().getClientQueue().offer(client);
 		} catch (NoEncryptionKeysSelectedException e) {

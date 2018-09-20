@@ -44,8 +44,8 @@ import l1j.server.server.PacketHandler;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
-import l1j.server.server.encryptions.LineageEncryption;
-import l1j.server.server.encryptions.LineageKeys;
+import l1j.server.server.encryptions.L1JEncryption;
+import l1j.server.server.encryptions.L1JKeys;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.log.LogIP;
 import l1j.server.server.model.Getback;
@@ -73,7 +73,7 @@ public class Client implements Runnable, PacketOutput {
 	private Account _account;
 	private L1PcInstance _activeChar;
 	private boolean _charRestart = true;
-	private LineageKeys _clkey;
+	private L1JKeys _clkey;
 	private boolean _disconnectNextClick;
 	private PacketHandler _handler;
 	private String _hostname;
@@ -237,7 +237,7 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
-	public LineageKeys get_clkey() {
+	public L1JKeys get_clkey() {
 		return _clkey;
 	}
 
@@ -381,7 +381,7 @@ public class Client implements Runnable, PacketOutput {
 				byte abyte0[] = packet.getContent();
 				char ac[] = new char[abyte0.length];
 				ac = UChar8.fromArray(abyte0);
-				ac = LineageEncryption.encrypt(ac, get_clkey());
+				ac = L1JEncryption.encrypt(ac, get_clkey());
 				abyte0 = UByte8.fromArray(ac);
 				int j = abyte0.length + 2;
 				ByteBuf buffer = channel.alloc().buffer(j);
@@ -394,7 +394,7 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
-	public void set_clkey(LineageKeys _clkey) {
+	public void set_clkey(L1JKeys _clkey) {
 		this._clkey = _clkey;
 	}
 

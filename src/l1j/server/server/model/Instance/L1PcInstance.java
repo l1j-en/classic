@@ -999,7 +999,7 @@ public class L1PcInstance extends L1Character {
 						packetOpCode != Opcodes.S_OPCODE_GLOBALCHAT &&
 						packetOpCode != Opcodes.S_OPCODE_NORMALCHAT &&
 						packetOpCode != Opcodes.S_OPCODE_WHISPERCHAT) {
-					this.getNetConnection().addToServerPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
+					//this.getNetConnection().addToServerPacketLog(IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(logPacket)));
 				}
 			}
 			

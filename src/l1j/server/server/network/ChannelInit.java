@@ -30,7 +30,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import l1j.server.server.encryptions.ClientIdExistsException;
-import l1j.server.server.encryptions.LineageEncryption;
+import l1j.server.server.encryptions.L1JEncryption;
 
 public class ChannelInit extends ChannelInitializer<Channel> {
 
@@ -64,7 +64,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		channel.writeAndFlush(first);
 
 		try {
-			client.set_clkey(LineageEncryption.initKeys(channel.id(), seed));
+			client.set_clkey(L1JEncryption.initKeys(channel.id(), seed));
 		} catch (ClientIdExistsException e) {
 			e.printStackTrace();
 		}

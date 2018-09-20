@@ -221,27 +221,27 @@ public class PCommands {
 					
 					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
 					
-					Iterator<Packet> packetIterator = target.getNetConnection().getLastClientPackets().iterator();
-					long firstPacketOfLog = -1;
+					//Iterator<Packet> packetIterator = target.getNetConnection().getLastClientPackets().iterator();
+//					long firstPacketOfLog = -1;
+//					
+//					while (packetIterator.hasNext()) {
+//						Packet packet = packetIterator.next();
+//						
+//						if(firstPacketOfLog == -1) {
+//							firstPacketOfLog = packet.getTimestamp();
+//						}
+//						
+//						LogPacketsTable.storeLogPacket(target.getId(), 
+//								target.getName(), 
+//								target.getTempCharGfx(), 
+//								packet.getOpCode(), 
+//								packet.getPacket(), 
+//								"report", 
+//								packet.getTimestamp());
+//					}
 					
-					while (packetIterator.hasNext()) {
-						Packet packet = packetIterator.next();
-						
-						if(firstPacketOfLog == -1) {
-							firstPacketOfLog = packet.getTimestamp();
-						}
-						
-						LogPacketsTable.storeLogPacket(target.getId(), 
-								target.getName(), 
-								target.getTempCharGfx(), 
-								packet.getOpCode(), 
-								packet.getPacket(), 
-								"report", 
-								packet.getTimestamp());
-					}
-					
-					target.getNetConnection().clearClientPacketLog();
-					LogReporterTable.updatePacketStartTimestamp(insertedId, firstPacketOfLog);
+					//target.getNetConnection().clearClientPacketLog();
+					//LogReporterTable.updatePacketStartTimestamp(insertedId, firstPacketOfLog);
 				} catch (Exception ex) {
 					player.sendPackets(ReportHelp);
 				}
