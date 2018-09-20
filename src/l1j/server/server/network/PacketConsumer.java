@@ -1,8 +1,5 @@
 package l1j.server.server.network;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 /*
  * This thread just processes any received packets that it pulls from the queue.
