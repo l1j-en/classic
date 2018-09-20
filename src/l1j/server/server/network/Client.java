@@ -70,38 +70,25 @@ import l1j.server.server.utils.SystemUtil;
 //
 public class Client implements Runnable, PacketOutput {
 
-	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
 	private static Logger _log = Logger.getLogger(Client.class.getName());
-	protected static Timer _observerTimer = null;
 	private Account _account;
 	private L1PcInstance _activeChar;
 	private boolean _charRestart = true;
-	// last x # of packets (configurable in server.properties) the client sent to
-	// the server
-	// used in the -report function to give a bit of historical info
-	private List<Packet> _clientPacketsLog = new CopyOnWriteArrayList<Packet>();
 	private LineageKeys _clkey;
 	private boolean _disconnectNextClick;
 	private PacketHandler _handler;
 	private String _hostname;
 	private String _ip;
 	private int _kick = 0;
-
 	// used only for logging purposes
 	private String _lastActiveCharName = "--NO CHARACTERS LOGGED IN--";
-
 	private int _lastOpCodeReceviedFromClient = -1;
 	private long _lastSavedTime = System.currentTimeMillis();
-
 	private long _lastSavedTime_inventory = System.currentTimeMillis();
-
 	private int _loginStatus = 0;
-	private OutputStream _out;
-	// stores the last 20 packets, and if the client crashes, it logs those to the
-	// DB
-	private List<Packet> _serverPacketsLog = new CopyOnWriteArrayList<Packet>();
-
 	public Channel channel;
+
+	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
 
 	protected Client() {
 	}
@@ -109,7 +96,6 @@ public class Client implements Runnable, PacketOutput {
 	public Client(Channel channel) throws IOException {
 		this.channel = channel;
 		_ip = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
-		// _ip = channel.getInetAddress().getHostAddress();
 		if (Config.HOSTNAME_LOOKUPS) {
 			_hostname = ((InetSocketAddress) channel.remoteAddress()).getAddress().getCanonicalHostName();
 		} else {
@@ -224,43 +210,12 @@ public class Client implements Runnable, PacketOutput {
 		}
 	}
 
-	public void addToClientPacketLog(int opCode, String packet) {
-		this._clientPacketsLog.add(new Packet(opCode, packet));
-
-		Iterator<Packet> packetIterator = this._clientPacketsLog.iterator();
-		while (packetIterator.hasNext()) {
-			Packet p = packetIterator.next();
-
-			if (this._clientPacketsLog.size() > Config.CLIENT_HISTORICAL_PACKETS) {
-				this._clientPacketsLog.remove(p);
-			}
-		}
-	}
-
-	public void addToServerPacketLog(String packet) {
-		this._serverPacketsLog.add(new Packet(packet));
-
-		Iterator<Packet> packetIterator = this._serverPacketsLog.iterator();
-
-		while (packetIterator.hasNext()) {
-			Packet p = packetIterator.next();
-
-			if (this._serverPacketsLog.size() > 20) {
-				this._serverPacketsLog.remove(p);
-			}
-		}
-	}
-
 	public void CharReStart(boolean flag) {
 		_charRestart = flag;
 	}
 
-	public void clearClientPacketLog() {
-		this._clientPacketsLog.clear();
-	}
-
 	public void close() throws IOException {
-		// _csocket.close();
+		channel.close();
 	}
 
 	private void doAutoSave() throws Exception {
@@ -281,6 +236,10 @@ public class Client implements Runnable, PacketOutput {
 			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			throw e;
 		}
+	}
+
+	public LineageKeys get_clkey() {
+		return _clkey;
 	}
 
 	public Account getAccount() {
@@ -314,19 +273,8 @@ public class Client implements Runnable, PacketOutput {
 		return this._lastActiveCharName;
 	}
 
-	public List<Packet> getLastClientPackets() {
-		return this._clientPacketsLog;
-	}
-
-	public List<Packet> getLastServerPackets() {
-		return this._serverPacketsLog;
-	}
-
-	public void kick() {
-		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
-		sendPacket(new S_Disconnect());
-		_kick = 1;
-		// StreamUtil.close(_out, _in);
+	public ConcurrentLinkedQueue<byte[]> getQueue() {
+		return queue;
 	}
 
 	public void handleDisconnect() {
@@ -335,12 +283,6 @@ public class Client implements Runnable, PacketOutput {
 			// before login
 			if (_lastOpCodeReceviedFromClient != Opcodes.C_OPCODE_QUITGAME && getAccountName() != null
 					&& !GameServer.getInstance().isShuttingDown()) {
-				for (Packet packet : _serverPacketsLog) {
-					LogPacketsTable.storeLogPacket(-1, getAccountName(), -1, packet.getOpCode(), packet.getPacket(),
-							"client crash", packet.getTimestamp());
-				}
-
-				_serverPacketsLog.clear();
 			}
 
 			if (_activeChar != null) {
@@ -383,6 +325,12 @@ public class Client implements Runnable, PacketOutput {
 
 	}
 
+	public void kick() {
+		_log.info("Kicked account: " + getAccountName() + ":" + _hostname);
+		sendPacket(new S_Disconnect());
+		_kick = 1;
+	}
+
 	@Override
 	public synchronized void run() {
 		try {
@@ -414,14 +362,6 @@ public class Client implements Runnable, PacketOutput {
 				_loginStatus = 0;
 			}
 
-//				if (opcode != Opcodes.C_OPCODE_KEEPALIVE && opcode != Opcodes.C_OPCODE_KEEPALIVE2) {
-//					observer.packetReceived();
-//				}
-
-			// be wary of making other opcodes run on another thread!
-			// we initially removed everything because people were sending 2 packets
-			// at the same time to duplicate items!!
-
 			try {
 				System.out.println("Giving to handler");
 				_handler.handlePacket(data, _activeChar);
@@ -450,14 +390,13 @@ public class Client implements Runnable, PacketOutput {
 				buffer.writeByte(j >> 8 & 0xff);
 				buffer.writeBytes(abyte0);
 				channel.writeAndFlush(buffer);
-				// _out.flush();
 			} catch (Exception e) {
 			}
 		}
-		try {
-			_out.flush();
-		} catch (Exception e) {
-		}
+	}
+
+	public void set_clkey(LineageKeys _clkey) {
+		this._clkey = _clkey;
 	}
 
 	public void setAccount(Account account) {
@@ -480,19 +419,7 @@ public class Client implements Runnable, PacketOutput {
 		_lastOpCodeReceviedFromClient = opCode;
 	}
 
-	public ConcurrentLinkedQueue<byte[]> getQueue() {
-		return queue;
-	}
-
 	public void setQueue(ConcurrentLinkedQueue<byte[]> queue) {
 		this.queue = queue;
-	}
-
-	public LineageKeys get_clkey() {
-		return _clkey;
-	}
-
-	public void set_clkey(LineageKeys _clkey) {
-		this._clkey = _clkey;
 	}
 }
