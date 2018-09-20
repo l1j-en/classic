@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PacketConsumer implements Runnable {
 
-	static Logger logger = LoggerFactory.getLogger(PacketConsumer.class);
 	String name;
 
 	public PacketConsumer(String name) {
@@ -44,7 +43,7 @@ public class PacketConsumer implements Runnable {
 				System.out.println("Consumed");
 
 			} catch (Exception e) {
-				logger.error("", e);
+				//logger.error("", e);
 			}
 		}
 
