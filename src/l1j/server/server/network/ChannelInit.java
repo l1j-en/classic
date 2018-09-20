@@ -2,6 +2,7 @@ package l1j.server.server.network;
 
 import java.io.IOException;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -16,38 +17,40 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
+		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
+		Client client = null;
+		try {
+			client = new Client(channel);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		NetworkServer.getInstance().getClients().put(channel.id(), client);
+
+		long seed = 0x7C98BDFA; // 3.0 English Packet Seed
+		byte Bogus = (byte) (FIRST_PACKET.length + 7);
+
+		first.writeByte(Bogus & 0xFF);
+		first.writeByte(Bogus >> 8 & 0xFF);
+		first.writeByte(0x7D);
+		first.writeByte((byte) (seed & 0xFF));
+		first.writeByte((byte) (seed >> 8 & 0xFF));
+		first.writeByte((byte) (seed >> 16 & 0xFF));
+		first.writeByte((byte) (seed >> 24 & 0xFF));
+		first.writeBytes(FIRST_PACKET);
+		channel.writeAndFlush(first);
+
+		try {
+			client.set_clkey(LineageEncryption.initKeys(channel.id(), seed));
+		} catch (ClientIdExistsException e) {
+			e.printStackTrace();
+		}
 		channel.pipeline().addLast(new PacketDecrypter(), new PacketDecoder());
 
 	}
 
 	@Override
-	public void channelActive(final ChannelHandlerContext ctx) {
-		System.out.println("New Connection2!");
-		Client client = null;
-		try {
-			client = new Client(ctx.channel());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		NetworkServer.getInstance().getClients().put(ctx.channel().id(), client);
+	public void channelActive(final ChannelHandlerContext channel) {
 
-		long seed = 0x7C98BDFA; // 3.0 English Packet Seed
-		byte Bogus = (byte) (FIRST_PACKET.length + 7);
-		ctx.write(Bogus & 0xFF);
-		ctx.write(Bogus >> 8 & 0xFF);
-
-		ctx.write(0x7D); // 3.0 English Version Check.
-		ctx.write((byte) (seed & 0xFF));
-		ctx.write((byte) (seed >> 8 & 0xFF));
-		ctx.write((byte) (seed >> 16 & 0xFF));
-		ctx.write((byte) (seed >> 24 & 0xFF));
-		ctx.write(FIRST_PACKET);
-		ctx.flush();
-
-		try {
-			client.set_clkey(LineageEncryption.initKeys(ctx.channel().id(), seed));
-		} catch (ClientIdExistsException e) {
-		}
 	}
 }

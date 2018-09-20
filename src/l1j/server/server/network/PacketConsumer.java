@@ -1,6 +1,5 @@
 package l1j.server.server.network;
 
-
 /*
  * This thread just processes any received packets that it pulls from the queue.
  * I separated it to make sure none of this processing could hang the actual sending
@@ -40,11 +39,10 @@ public class PacketConsumer implements Runnable {
 				System.out.println("Consumed");
 
 			} catch (Exception e) {
-				//logger.error("", e);
+				// logger.error("", e);
 			}
 		}
 
 	}
-
 
 }

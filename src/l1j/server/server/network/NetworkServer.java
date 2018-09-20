@@ -4,10 +4,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,16 +14,15 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import l1j.server.server.PacketHandler;
 
 public class NetworkServer implements Runnable {
 
 	int port = 2000;
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
+
 	private NetworkServer() {
 
-        
 	}
 
 	public static NetworkServer getInstance() {
@@ -36,6 +31,7 @@ public class NetworkServer implements Runnable {
 
 	private ConcurrentHashMap<ChannelId, Client> clients = new ConcurrentHashMap<ChannelId, Client>();
 
+	@Override
 	public void run() {
 		System.out.println("Starting new network connection");
 		setClientQueue(new ArrayBlockingQueue<Client>(1024));
