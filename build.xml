@@ -33,7 +33,7 @@
             <include name="javolution.jar" />
             <include name="mysql-connector-java-5.1.31-bin.jar" />
 	    <include name="guava-17.0.jar" />
-            <include name="slf4j-api.1.7.5.jar" />
+            <include name="slf4j-api-1.7.5.jar" />
         	<include name="slf4j-jdk14-1.7.5.jar" />
 	    	<include name="bonecp-0.8.0.RELEASE.jar" />
         	<include name="sshd-core-1.2.0.jar" />
