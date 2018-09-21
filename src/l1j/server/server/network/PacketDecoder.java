@@ -50,7 +50,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 			ctx.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	    System.out.println("Exception happened");
 		_log.error("Exception happened");
@@ -59,7 +59,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 			client.handleDisconnect();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
@@ -73,7 +73,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 			client.handleDisconnect();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
