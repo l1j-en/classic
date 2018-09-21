@@ -105,7 +105,7 @@ public class L1NpcInstance extends L1Character {
 	private int _petcost;
 	public L1Inventory _inventory = new L1Inventory();
 	private L1MobSkillUse mobSkill;
- 	private boolean firstFound = true;
+	private boolean firstFound = true;
 	private boolean _awoken = false;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
@@ -467,8 +467,8 @@ public class L1NpcInstance extends L1Character {
 						}
 					}
 
-					if (getNpcTemplate().is_teleport() && 20 > ThreadLocalRandom.current().nextInt(100) && getCurrentMp() >= 10
-							&& distance > 6 && distance < 15) {
+					if (getNpcTemplate().is_teleport() && 20 > ThreadLocalRandom.current().nextInt(100)
+							&& getCurrentMp() >= 10 && distance > 6 && distance < 15) {
 						if (nearTeleport(target.getX(), target.getY()) == true) {
 							return;
 						}
@@ -717,7 +717,8 @@ public class L1NpcInstance extends L1Character {
 						_randomMoveDistance = ThreadLocalRandom.current().nextInt(5) + 1;
 						_randomMoveDirection = ThreadLocalRandom.current().nextInt(20);
 						//
-						if (getHomeX() != 0 && getHomeY() != 0 && _randomMoveDirection < 8 && ThreadLocalRandom.current().nextInt(3) == 0) {
+						if (getHomeX() != 0 && getHomeY() != 0 && _randomMoveDirection < 8
+								&& ThreadLocalRandom.current().nextInt(3) == 0) {
 							_randomMoveDirection = moveDirection(getHomeX(), getHomeY());
 						}
 					} else {
@@ -1211,9 +1212,11 @@ public class L1NpcInstance extends L1Character {
 			removeAllKnownObjects();
 
 			// TODO: test!
-			if (!_chatTaskFuture.isDone()) {
-				_chatTaskFuture.cancel(true);
-				_chatTask = null;
+			if (_chatTaskFuture != null) {
+				if (!_chatTaskFuture.isDone()) {
+					_chatTaskFuture.cancel(true);
+					_chatTask = null;
+				}
 			}
 //		if (_chatTask != null) {
 //			_chatTask.cancel();
