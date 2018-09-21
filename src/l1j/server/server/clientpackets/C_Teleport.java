@@ -33,7 +33,7 @@ public class C_Teleport extends ClientBasePacket {
 		super(abyte0);
 
 		L1PcInstance pc = client.getActiveChar();
-		Teleportation.Teleportation(pc);
+		Teleportation.teleport(pc);
 	}
 
 	@Override

@@ -58,11 +58,11 @@ public class Teleportation {
 	private Teleportation() {
 	}
 	
-	public static void Teleportation(L1PcInstance pc) {
-		Teleportation(pc, false);
+	public static void teleport(L1PcInstance pc) {
+		teleport(pc, false);
 	}
 
-	public static void Teleportation(L1PcInstance pc, boolean ignorePets) {
+	public static void teleport(L1PcInstance pc, boolean ignorePets) {
 		if (pc.isDead() || pc.isTeleport()) {
 			return;
 		}

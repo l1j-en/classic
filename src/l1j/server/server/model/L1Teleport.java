@@ -89,7 +89,7 @@ public class L1Teleport {
 		if (Config.SEND_PACKET_BEFORE_TELEPORT) {
 			pc.sendPackets(new S_Teleport(pc));
 		} else {
-			Teleportation.Teleportation(pc, ignorePets);
+			Teleportation.teleport(pc, ignorePets);
 		}
 	}
 

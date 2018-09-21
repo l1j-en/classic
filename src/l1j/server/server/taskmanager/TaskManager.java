@@ -165,7 +165,7 @@ public final class TaskManager {
 					continue;
 				}
 				// TODO Not used
-				TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
+				//TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 				// TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 			}
 		} catch (Exception e) {

@@ -48,17 +48,13 @@ public class CastleTable {
 		return _instance;
 	}
 
-	public CastleTable() {
-		CastleTable();
-	}
-
 	private Calendar timestampToCalendar(Timestamp ts) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(ts.getTime());
 		return cal;
 	}
 
-	private void CastleTable() {
+	public CastleTable() {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
