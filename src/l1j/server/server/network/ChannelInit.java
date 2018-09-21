@@ -68,7 +68,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		} catch (ClientIdExistsException e) {
 			e.printStackTrace();
 		}
-		channel.pipeline().addLast(new PacketDecrypter(), new PacketDecoder());
+		channel.pipeline().addLast(new PacketDecoder(),new PacketDecrypter());
 
 	}
 
