@@ -50,7 +50,17 @@ public final class TaskManager {
 
 	private final FastMap<Integer, Task> _tasks = new FastMap<Integer, Task>();
 	protected final FastList<ExecutedTask> _currentTasks = new FastList<ExecutedTask>();
+	
+	@Override
+	public boolean equals(Object o) { 
+		  if (this == o)
+		     return true;
+		  if (o instanceof TaskManager) { 
+		     
+		  }
 
+		  return false;
+		}
 	public class ExecutedTask implements Runnable {
 		int _id;
 		long _lastActivation;
