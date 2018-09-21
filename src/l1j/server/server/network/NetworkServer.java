@@ -46,7 +46,6 @@ import l1j.server.Config;
 public class NetworkServer implements Runnable {
 
 	Logger _log = LoggerFactory.getLogger(NetworkServer.class);
-	int port = 2000;
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
 
