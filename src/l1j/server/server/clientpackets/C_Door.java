@@ -34,10 +34,11 @@ public class C_Door extends ClientBasePacket {
 
 	private static final String C_DOOR = "[C] C_Door";
 
+	@SuppressWarnings("unused")
 	public C_Door(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
-//		int locX = readH();
-//		int locY = readH();
+		int locX = readH();
+		int locY = readH();
 		int objectId = readD();
 
 		L1PcInstance pc = client.getActiveChar();
