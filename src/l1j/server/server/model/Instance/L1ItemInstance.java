@@ -1056,6 +1056,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 		setAcByMagic(3);
 		_pc = pc;
+		_timer = new EnchantTimer();
 		_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
 	}
@@ -1098,7 +1099,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 
 		_pc = pc;
-		//_timer = new EnchantTimer();
+		_timer = new EnchantTimer();
 		//(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
 		_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
