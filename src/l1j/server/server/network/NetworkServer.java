@@ -44,7 +44,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class NetworkServer implements Runnable {
 
-	Logger logger = LoggerFactory.getLogger(NetworkServer.class);
+	Logger _log = LoggerFactory.getLogger(NetworkServer.class);
 	int port = 2000;
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
@@ -61,7 +61,7 @@ public class NetworkServer implements Runnable {
 
 	@Override
 	public void run() {
-		logger.info("Starting networking");
+		_log.info("Starting networking");
 		setClientQueue(new ArrayBlockingQueue<Client>(1024));
 		ExecutorService packetexecutor = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {

@@ -26,11 +26,16 @@ package l1j.server.server.network;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
 public class PacketDecoder extends ByteToMessageDecoder {
+
+	Logger _log = LoggerFactory.getLogger(PacketDecoder.class);
 
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) {
@@ -40,6 +45,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
 	@Override
 	public void channelInactive(final ChannelHandlerContext ctx) {
+		_log.info("Disconnect happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		client.handleDisconnect();
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
