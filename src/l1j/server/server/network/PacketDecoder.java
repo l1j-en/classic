@@ -62,7 +62,12 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	public void channelInactive(final ChannelHandlerContext ctx) {
 		_log.error("Disconnect happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		client.handleDisconnect();
+		try {
+			client.handleDisconnect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
 
