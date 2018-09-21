@@ -52,6 +52,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    System.out.println("Exception happened");
 		_log.error("Exception happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		client.handleDisconnect();
@@ -61,6 +62,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	@Override
 	public void channelInactive(final ChannelHandlerContext ctx) {
 		_log.error("Disconnect happened");
+		System.out.println("Disconnect happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		try {
 			client.handleDisconnect();
