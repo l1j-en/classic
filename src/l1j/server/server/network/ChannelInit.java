@@ -44,15 +44,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
 			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
 			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
-	@Override
-	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
-	    cause.printStackTrace();
-	    ctx.close();
-		_log.error("Exception happened");
-		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		client.handleDisconnect();
-		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
-	}
+
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
 		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
