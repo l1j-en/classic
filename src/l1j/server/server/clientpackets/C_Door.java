@@ -18,10 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import l1j.server.server.ActionCodes;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.network.Client;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.model.L1Clan;
@@ -98,7 +96,7 @@ public class C_Door extends ClientBasePacket {
 		return true;
 	}
 
-	public class CloseTimer extends TimerTask {
+	public class CloseTimer implements Runnable {
 
 		private L1DoorInstance _door;
 
@@ -114,8 +112,9 @@ public class C_Door extends ClientBasePacket {
 		}
 
 		public void begin() {
-			Timer timer = new Timer("DoorTimer-"+_door.getDoorId());
-			timer.schedule(this, 5 * 1000);
+			//Timer timer = new Timer("DoorTimer-"+_door.getDoorId());
+			//timer.schedule(this, 5 * 1000);
+			GeneralThreadPool.getInstance().schedule(this, 5 * 1000);
 		}
 	}
 
