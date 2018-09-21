@@ -41,7 +41,6 @@ public class Server {
 	private static final String LOG_PROP = "./config/log.properties";
 
 	public static void main(final String[] args) throws Exception {
-		InternalLoggerFactory.setDefaultFactory(Slf4JLoggerFactory.INSTANCE);
 
 		File logFolder = new File("log");
 		logFolder.mkdir();
@@ -55,6 +54,8 @@ public class Server {
 			_log.log(Level.SEVERE, "Failed to load " + LOG_PROP + " file.", e);
 			System.exit(0);
 		}
+		InternalLoggerFactory.setDefaultFactory(Slf4JLoggerFactory.INSTANCE);
+
 		try {
 			Config.load();
 		} catch (Exception e) {
