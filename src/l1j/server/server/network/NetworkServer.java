@@ -29,6 +29,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelId;
@@ -41,6 +44,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class NetworkServer implements Runnable {
 
+	Logger logger = LoggerFactory.getLogger(NetworkServer.class);
 	int port = 2000;
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
@@ -57,7 +61,7 @@ public class NetworkServer implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Starting new network connection");
+		logger.info("Starting new network connection");
 		setClientQueue(new ArrayBlockingQueue<Client>(1024));
 		ExecutorService packetexecutor = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {

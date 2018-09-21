@@ -20,7 +20,9 @@
 package l1j.server.server.model;
 
 import java.util.EnumMap;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.SprTable;
@@ -30,8 +32,7 @@ import l1j.server.server.templates.L1Skill;
 
 public class AcceleratorChecker {
 
-	private static final Logger _log = Logger
-			.getLogger(AcceleratorChecker.class.getName());
+	private static final Logger _log = LoggerFactory.getLogger(AcceleratorChecker.class);
 
 	private final L1PcInstance _pc;
 
