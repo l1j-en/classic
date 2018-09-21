@@ -31,8 +31,9 @@ package l1j.server.server.network;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -69,7 +70,7 @@ import l1j.server.server.utils.SystemUtil;
 
 public class Client implements Runnable, PacketOutput {
 
-	private static Logger _log = Logger.getLogger(Client.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Client.class);
 	private Account _account;
 	private L1PcInstance _activeChar;
 	private boolean _charRestart = true;
@@ -143,8 +144,8 @@ public class Client implements Runnable, PacketOutput {
 				trade.TradeCancel(pc);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error("Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 
 		if (pc.isDead()) {
@@ -152,7 +153,7 @@ public class Client implements Runnable, PacketOutput {
 			try {
 				loc = Getback.GetBack_Location(pc, true);
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 			pc.setX(loc[0]);
 			pc.setY(loc[1]);
@@ -208,8 +209,8 @@ public class Client implements Runnable, PacketOutput {
 		try {
 			pc.saveInventory();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error("Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 
 		L1DeathMatch.getInstance().checkLeaveGame(pc);
@@ -228,8 +229,8 @@ public class Client implements Runnable, PacketOutput {
 		try {
 			pc.save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + lastActiveChar);
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error("Last active char for SEVERE exception below: " + lastActiveChar);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -255,8 +256,8 @@ public class Client implements Runnable, PacketOutput {
 				_lastSavedTime_inventory = System.currentTimeMillis();
 			}
 		} catch (Exception e) {
-			_log.warning("Client autosave failure. Last active char: " + getLastActiveCharName());
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error("Client autosave failure. Last active char: " + getLastActiveCharName());
+			_log.error(e.getLocalizedMessage(), e);
 			throw e;
 		}
 	}
@@ -322,21 +323,17 @@ public class Client implements Runnable, PacketOutput {
 
 			}
 			sendPacket(new S_Disconnect());
-			// StreamUtil.close(_out, _in);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "Last active char for SEVERE exception below: " + getLastActiveCharName());
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error("Last active char for SEVERE exception below: " + getLastActiveCharName());
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			LoginController.getInstance().logout(this);
 		}
 
-		_log.fine("Server thread[C] stopped");
+		_log.trace("Server thread[C] stopped");
 		if (_kick < 1) {
-			Level ll = Level.FINE;
-			if (_hostname != null)
-				ll = Level.INFO;
-			_log.log(ll,
-					"Client thread ended: " + getAccountName() + ":" + _hostname + " Current Memory: "
+
+			_log.info("Client thread ended: " + getAccountName() + ":" + _hostname + " Current Memory: "
 							+ SystemUtil.getUsedMemoryMB() + "MB RAM" + " CurrentThreads="
 							+ GeneralThreadPool.getInstance().getCurrentThreadCount() + " CharactersOnline="
 							+ (L1World.getInstance().getAllPlayers().size()));

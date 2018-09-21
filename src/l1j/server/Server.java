@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Slf4JLoggerFactory;
 import l1j.server.server.GameServer;
 import l1j.server.ssh.SSHServer;
 import l1j.server.telnet.TelnetServer;
@@ -39,6 +41,8 @@ public class Server {
 	private static final String LOG_PROP = "./config/log.properties";
 
 	public static void main(final String[] args) throws Exception {
+		InternalLoggerFactory.setDefaultFactory(Slf4JLoggerFactory.INSTANCE);
+
 		File logFolder = new File("log");
 		logFolder.mkdir();
 

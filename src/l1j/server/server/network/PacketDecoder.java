@@ -55,7 +55,12 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	    System.out.println("Exception happened");
 		_log.error("Exception happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		client.handleDisconnect();
+		try {
+			client.handleDisconnect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
 	
