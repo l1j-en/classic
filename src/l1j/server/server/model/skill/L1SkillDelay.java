@@ -41,8 +41,12 @@ public class L1SkillDelay {
 
 		@Override
 		public void run() {
+			try {
 			Thread.currentThread().setName("L1SkillDelay-DelayTimer");
 			stopDelayTimer();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		public void stopDelayTimer() {
