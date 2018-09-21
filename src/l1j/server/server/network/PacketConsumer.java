@@ -25,16 +25,13 @@
  *  I didn't do a direct packet queue because:  I didn't want two+ consumers working on any one client at the same time;
  *  I also didn't want one client filling up the queue.  I have no idea if that was even necessary.  During further testing
  *  I might tweak how that works.  
+ *  
+ *  Additionally, if I ever get motivated in the future to implement my speed hack fix I've done on other servers, this is
+ *  the model it relies on.
  */
 
 package l1j.server.server.network;
 
-/*
- * This thread just processes any received packets that it pulls from the queue.
- * I separated it to make sure none of this processing could hang the actual sending
- * and receiving of packets.  I might later on decide that this would be better served
- * by a thread pool even, instead of just one thread.
- */
 public class PacketConsumer implements Runnable {
 
 	String name;

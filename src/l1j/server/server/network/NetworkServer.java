@@ -61,7 +61,7 @@ public class NetworkServer implements Runnable {
 
 	@Override
 	public void run() {
-		logger.info("Starting new network connection");
+		logger.info("Starting networking");
 		setClientQueue(new ArrayBlockingQueue<Client>(1024));
 		ExecutorService packetexecutor = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {
@@ -79,8 +79,6 @@ public class NetworkServer implements Runnable {
 							// Takes input data and once a complete packet is formed
 							// passes it along
 							// takes complete packets from above and decrypts them
-							ch.pipeline().addLast("decoder", new PacketDecoder());
-							ch.pipeline().addLast(new PacketDecrypter());
 							ch.pipeline().addLast(new ChannelInit());
 
 						}
