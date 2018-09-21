@@ -25,19 +25,34 @@ package l1j.server.server.network;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
 
 public class ChannelInit extends ChannelInitializer<Channel> {
 
+	Logger _log = LoggerFactory.getLogger(ChannelInit.class);
+
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
 			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
 			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
-
+	@Override
+	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
+	    cause.printStackTrace();
+	    ctx.close();
+		_log.info("Exception happened");
+		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
+		client.handleDisconnect();
+		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
+	}
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
 		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
