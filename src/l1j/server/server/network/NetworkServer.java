@@ -41,6 +41,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import l1j.server.Config;
 
 public class NetworkServer implements Runnable {
 
@@ -85,7 +86,7 @@ public class NetworkServer implements Runnable {
 					}).option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
 
 			// Listen for connections
-			ChannelFuture f = b.bind(port).sync();
+			ChannelFuture f = b.bind(Config.GAME_SERVER_PORT).sync();
 
 			// Halts here until server is closed
 			f.channel().closeFuture().sync();
