@@ -32,8 +32,13 @@ public class L1NpcDeleteTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		_npc.deleteMe();
-		this.cancel();
+		try {
+			_npc.deleteMe();
+			this.cancel();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void begin() {

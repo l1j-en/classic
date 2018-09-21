@@ -31,13 +31,18 @@ public class L1EquipmentTimer implements Runnable {
 
 	@Override
 	public void run() {
-		if ((_item.getRemainingTime() - 1) > 0) {
-			_item.setRemainingTime(_item.getRemainingTime() - 1);
-			_pc.getInventory().updateItem(_item,
-					L1PcInventory.COL_REMAINING_TIME);
-		} else {
-			_pc.getInventory().removeItem(_item, 1);
-			_pc.sendPackets(new S_SystemMessage("Your " + _item.getItem().getName() + " has disappeared!"));
+		try {
+			if ((_item.getRemainingTime() - 1) > 0) {
+				_item.setRemainingTime(_item.getRemainingTime() - 1);
+				_pc.getInventory().updateItem(_item,
+						L1PcInventory.COL_REMAINING_TIME);
+			} else {
+				_pc.getInventory().removeItem(_item, 1);
+				_pc.sendPackets(new S_SystemMessage("Your " + _item.getItem().getName() + " has disappeared!"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

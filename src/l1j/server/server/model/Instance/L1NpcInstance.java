@@ -183,13 +183,18 @@ public class L1NpcInstance extends L1Character {
 
 			@Override
 			public void run() {
-				Thread.currentThread().setName("L1NpcInstance-DeathSyncTimer");
-				if (isDeathProcessing()) {
-					schedule(getSleepTime());
-					return;
+				try {
+					Thread.currentThread().setName("L1NpcInstance-DeathSyncTimer");
+					if (isDeathProcessing()) {
+						schedule(getSleepTime());
+						return;
+					}
+					allTargetClear();
+					setAiRunning(false);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				allTargetClear();
-				setAiRunning(false);
 			}
 		}
 

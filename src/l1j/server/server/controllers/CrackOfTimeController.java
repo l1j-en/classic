@@ -91,34 +91,39 @@ public class CrackOfTimeController extends TimerTask {
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName("CrackOfTimeController");
-		if (_isOver) {
-			try {
-				L1World.getInstance().broadcastPacketToAll(
-						new S_ServerMessage(1468));
-				clear();
-				Thread.sleep(_downTime);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		try {
+			Thread.currentThread().setName("CrackOfTimeController");
+			if (_isOver) {
+				try {
+					L1World.getInstance().broadcastPacketToAll(
+							new S_ServerMessage(1468));
+					clear();
+					Thread.sleep(_downTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}
 
-		_startTime++;
-		_gatetime++;
+			_startTime++;
+			_gatetime++;
 
-		int map784gatetimer = (150 * 600);
-		if (_startTime == _delayTime) {
-			spawnCrack();
-		}
-		if (_startTime == _upTime) {
-			L1World.getInstance().broadcastPacketToAll(
-					new S_ServerMessage(1467));
-		}
-		if (_startTime >= (_delayTime + _upTime)) {
-			_isOver = true;
-		}
-		if (_gatetime >= (_delayTime + map784gatetimer)) {
-			_gateopen = true;
+			int map784gatetimer = (150 * 600);
+			if (_startTime == _delayTime) {
+				spawnCrack();
+			}
+			if (_startTime == _upTime) {
+				L1World.getInstance().broadcastPacketToAll(
+						new S_ServerMessage(1467));
+			}
+			if (_startTime >= (_delayTime + _upTime)) {
+				_isOver = true;
+			}
+			if (_gatetime >= (_delayTime + map784gatetimer)) {
+				_gateopen = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

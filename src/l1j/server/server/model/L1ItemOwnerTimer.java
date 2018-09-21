@@ -32,8 +32,13 @@ public class L1ItemOwnerTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		_item.setItemOwnerId(0);
-		this.cancel();
+		try {
+			_item.setItemOwnerId(0);
+			this.cancel();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void begin() {

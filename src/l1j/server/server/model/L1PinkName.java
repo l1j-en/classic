@@ -28,26 +28,31 @@ public class L1PinkName {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1PinkName");
-			while ( _secondsLeft > 0) {
-				_secondsLeft--;
-				try {
-					Thread.sleep(1000);
-				} catch (Exception exception) {
-					break;
+			try {
+				Thread.currentThread().setName("L1PinkName");
+				while ( _secondsLeft > 0) {
+					_secondsLeft--;
+					try {
+						Thread.sleep(1000);
+					} catch (Exception exception) {
+						break;
+					}
+					// if they're dead and not pink anymore
+					// the not pink check is added to ensure that the
+					// death method has run before un-pinking
+					if (_attacker.isDead() && !_attacker.isPinkName()) {
+						break;
+					}
+					if (_attacker.getLawful() < 0 && !Config.CHAO_PINK) {
+						_attacker.setPinkName(false);
+						break;
+					}
 				}
-				// if they're dead and not pink anymore
-				// the not pink check is added to ensure that the
-				// death method has run before un-pinking
-				if (_attacker.isDead() && !_attacker.isPinkName()) {
-					break;
-				}
-				if (_attacker.getLawful() < 0 && !Config.CHAO_PINK) {
-					_attacker.setPinkName(false);
-					break;
-				}
+				stopPinkName(_attacker);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			stopPinkName(_attacker);
 		}
 
 		private void stopPinkName(L1PcInstance attacker) {

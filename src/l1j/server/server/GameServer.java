@@ -44,7 +44,12 @@ public class GameServer extends Thread {
 		GeneralThreadPool.getInstance().scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
-				connectionCache.clear();
+				try {
+					connectionCache.clear();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}, CACHE_REFRESH, CACHE_REFRESH);
 	}

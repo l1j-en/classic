@@ -27,63 +27,68 @@ public class L1LazyGm implements L1CommandExecutor {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1LazyGm");
-			int lastVisitedId = 0;
-			
-			while (!_stop && _lazyGmTimers.size() > 0) {
-				try {
-					ArrayList<L1PcInstance> onlinePlayers
-							= new ArrayList<L1PcInstance>();
-					
-					for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
-						if(!player.getMap().isTradeZone()) {
-							onlinePlayers.add(player);
+			try {
+				Thread.currentThread().setName("L1LazyGm");
+				int lastVisitedId = 0;
+				
+				while (!_stop && _lazyGmTimers.size() > 0) {
+					try {
+						ArrayList<L1PcInstance> onlinePlayers
+								= new ArrayList<L1PcInstance>();
+						
+						for(L1PcInstance player : L1World.getInstance().getAllPlayers()) {
+							if(!player.getMap().isTradeZone()) {
+								onlinePlayers.add(player);
+							}
 						}
-					}
-					
-					if(onlinePlayers.size() < 3) {
-						_gm.sendPackets(new S_SystemMessage("Not enough players online to continue. Stopping lazygm."));
+						
+						if(onlinePlayers.size() < 3) {
+							_gm.sendPackets(new S_SystemMessage("Not enough players online to continue. Stopping lazygm."));
+							break;
+						}
+						
+						L1PcInstance personToWatch = null;
+						boolean timerInitiaterStillOnline = false;
+						
+						// limit of 10 just in case something funky goes wrong and it can never find someone
+						// who wasn't the last person we visited
+						for(int x = 0; x < 10 && 
+								(personToWatch == null || personToWatch.getId() == lastVisitedId); x++) {
+							int numberToWatch = _random.nextInt(onlinePlayers.size());
+							
+							for(int i = 0; i < onlinePlayers.size(); i++) {
+								if(onlinePlayers.get(i).getId() == _gm.getId())
+									timerInitiaterStillOnline = true;
+								else if(i == numberToWatch)
+									personToWatch = onlinePlayers.get(i);
+							}
+						}
+						
+						// something happened that didn't clean up the thread properly
+						// so lets kill it
+						if(!timerInitiaterStillOnline)
+							break;
+						
+						if(personToWatch != null) {
+							lastVisitedId = personToWatch.getId();
+							L1Teleport.teleport(_gm, personToWatch.getX(), personToWatch.getY(),
+									personToWatch.getMapId(), 5, false);
+							
+							personToWatch.setFollowingGm(_gm);
+							_gm.sendPackets(new S_SystemMessage("Moved on to " + personToWatch.getName()));
+							
+							Thread.sleep(_interval * 1000);
+						}
+					} catch (Exception exception) {
 						break;
 					}
-					
-					L1PcInstance personToWatch = null;
-					boolean timerInitiaterStillOnline = false;
-					
-					// limit of 10 just in case something funky goes wrong and it can never find someone
-					// who wasn't the last person we visited
-					for(int x = 0; x < 10 && 
-							(personToWatch == null || personToWatch.getId() == lastVisitedId); x++) {
-						int numberToWatch = _random.nextInt(onlinePlayers.size());
-						
-						for(int i = 0; i < onlinePlayers.size(); i++) {
-							if(onlinePlayers.get(i).getId() == _gm.getId())
-								timerInitiaterStillOnline = true;
-							else if(i == numberToWatch)
-								personToWatch = onlinePlayers.get(i);
-						}
-					}
-					
-					// something happened that didn't clean up the thread properly
-					// so lets kill it
-					if(!timerInitiaterStillOnline)
-						break;
-					
-					if(personToWatch != null) {
-						lastVisitedId = personToWatch.getId();
-						L1Teleport.teleport(_gm, personToWatch.getX(), personToWatch.getY(),
-								personToWatch.getMapId(), 5, false);
-						
-						personToWatch.setFollowingGm(_gm);
-						_gm.sendPackets(new S_SystemMessage("Moved on to " + personToWatch.getName()));
-						
-						Thread.sleep(_interval * 1000);
-					}
-				} catch (Exception exception) {
-					break;
-				}
-			} //end while
-			
-			stopTeleport(_gm);
+				} //end while
+				
+				stopTeleport(_gm);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		private void stopTeleport(L1PcInstance gm) {

@@ -98,12 +98,17 @@ public class Client implements Runnable, PacketOutput {
 
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
-			quitGame(_activeChar, client.getLastActiveCharName());
+			try {
+				// TODO Auto-generated method stub
+				quitGame(_activeChar, client.getLastActiveCharName());
 
-			synchronized (_activeChar) {
-				_activeChar.logout();
-				setActiveChar(null);
+				synchronized (_activeChar) {
+					_activeChar.logout();
+					setActiveChar(null);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 		}

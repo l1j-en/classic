@@ -316,23 +316,28 @@ public class L1GuardInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1GuardInstance-Death");
-			setDeathProcessing(true);
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_Die);
+			try {
+				Thread.currentThread().setName("L1GuardInstance-Death");
+				setDeathProcessing(true);
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_Die);
 
-			getMap().setPassable(getLocation(), true);
+				getMap().setPassable(getLocation(), true);
 
-			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
+				broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
 
-			startChat(CHAT_TIMING_DEAD);
+				startChat(CHAT_TIMING_DEAD);
 
-			setDeathProcessing(false);
+				setDeathProcessing(false);
 
-			allTargetClear();
+				allTargetClear();
 
-			startDeleteTimer();
+				startDeleteTimer();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

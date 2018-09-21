@@ -35,9 +35,14 @@ public class L1PcDeleteTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		_log.info("L1PcDeleteTimer: sending disconnect packet");
-		_pc.sendPackets(new S_Disconnect());
-		this.cancel();
+		try {
+			_log.info("L1PcDeleteTimer: sending disconnect packet");
+			_pc.sendPackets(new S_Disconnect());
+			this.cancel();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void begin() {

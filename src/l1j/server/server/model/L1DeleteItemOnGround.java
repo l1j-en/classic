@@ -59,30 +59,35 @@ public class L1DeleteItemOnGround {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1DeleteItemOnGround");
-			int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
-			for (;;) {
-				try {
-					Thread.sleep(time);
-				} catch (Exception exception) {
-					_log.warning("L1DeleteItemOnGround error: " + exception);
-					break;
-				}
-				// L1World.getInstance().broadcastPacketToAll(
-				// new S_ServerMessage(166, "Item on the world map ",
-				// " will be removed in 10 seconds."));
+			try {
+				Thread.currentThread().setName("L1DeleteItemOnGround");
+				int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
+				for (;;) {
+					try {
+						Thread.sleep(time);
+					} catch (Exception exception) {
+						_log.warning("L1DeleteItemOnGround error: " + exception);
+						break;
+					}
+					// L1World.getInstance().broadcastPacketToAll(
+					// new S_ServerMessage(166, "Item on the world map ",
+					// " will be removed in 10 seconds."));
 
-				try {
-					Thread.sleep(10000);
-				} catch (Exception exception) {
-					_log.warning("L1DeleteItemOnGround error: " + exception);
-					break;
+					try {
+						Thread.sleep(10000);
+					} catch (Exception exception) {
+						_log.warning("L1DeleteItemOnGround error: " + exception);
+						break;
+					}
+					deleteItem();
+					// L1World.getInstance().broadcastPacketToAll(
+					// new S_ServerMessage(166, "Item on the world map ",
+					// " will be removed in 10 seconds."));
+					//
 				}
-				deleteItem();
-				// L1World.getInstance().broadcastPacketToAll(
-				// new S_ServerMessage(166, "Item on the world map ",
-				// " will be removed in 10 seconds."));
-				//
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

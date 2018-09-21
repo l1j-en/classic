@@ -31,12 +31,17 @@ public abstract class L1PcMonitor implements Runnable {
 
 	@Override
 	public final void run() {
-		Thread.currentThread().setName("L1PcMonitor");
-		L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_id);
-		if (pc == null || pc.getNetConnection() == null) {
-			return;
+		try {
+			Thread.currentThread().setName("L1PcMonitor");
+			L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_id);
+			if (pc == null || pc.getNetConnection() == null) {
+				return;
+			}
+			execTask(pc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		execTask(pc);
 	}
 
 	public abstract void execTask(L1PcInstance pc);

@@ -61,45 +61,50 @@ public class L1DamagePoison extends L1Poison {
 		@Override
 		public void run() {
 			
-			if(_delay > 0) {
-				try {
-					Thread.sleep(_delay);
-				} catch (InterruptedException e) { }
-			}
-			
-			// Modified to allow lengthy NPC poison times, like live has.
-			if (_target instanceof L1NpcInstance) {
-				_target.setSkillEffect(STATUS_POISON, 7200000);
-			} else {
-				_target.setSkillEffect(STATUS_POISON, 30000);
-			}
-			_target.setPoisonEffect(1);
-			
-			while (true) {
-				try {
-					Thread.sleep(_damageSpan);
-				} catch (InterruptedException e) {
-					break;
+			try {
+				if(_delay > 0) {
+					try {
+						Thread.sleep(_delay);
+					} catch (InterruptedException e) { }
 				}
-
-				if (!_target.hasSkillEffect(STATUS_POISON)) {
-					break;
+				
+				// Modified to allow lengthy NPC poison times, like live has.
+				if (_target instanceof L1NpcInstance) {
+					_target.setSkillEffect(STATUS_POISON, 7200000);
+				} else {
+					_target.setSkillEffect(STATUS_POISON, 30000);
 				}
-				if (_target instanceof L1PcInstance) {
-					L1PcInstance player = (L1PcInstance) _target;
-					player.receiveDamage(_attacker, _damage, false);
-					if (player.isDead()) {
+				_target.setPoisonEffect(1);
+				
+				while (true) {
+					try {
+						Thread.sleep(_damageSpan);
+					} catch (InterruptedException e) {
 						break;
 					}
-				} else if (_target instanceof L1MonsterInstance) {
-					L1MonsterInstance mob = (L1MonsterInstance) _target;
-					mob.receiveDamage(_attacker, _damage);
-					if (mob.isDead()) {
-						return;
+
+					if (!_target.hasSkillEffect(STATUS_POISON)) {
+						break;
+					}
+					if (_target instanceof L1PcInstance) {
+						L1PcInstance player = (L1PcInstance) _target;
+						player.receiveDamage(_attacker, _damage, false);
+						if (player.isDead()) {
+							break;
+						}
+					} else if (_target instanceof L1MonsterInstance) {
+						L1MonsterInstance mob = (L1MonsterInstance) _target;
+						mob.receiveDamage(_attacker, _damage);
+						if (mob.isDead()) {
+							return;
+						}
 					}
 				}
+				cure();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			cure();
 		}
 	}
 

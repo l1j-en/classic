@@ -1362,323 +1362,328 @@ public class L1PcInstance extends L1Character {
 		}
 
 		public void run() {
-			Thread.currentThread().setName("L1PcInstance-Death");
-			L1Character lastAttacker = _lastAttacker;
-			_lastAttacker = null;
-			setCurrentHp(0);
-			setGresValid(false);
+			try {
+				Thread.currentThread().setName("L1PcInstance-Death");
+				L1Character lastAttacker = _lastAttacker;
+				_lastAttacker = null;
+				setCurrentHp(0);
+				setGresValid(false);
 
-			while (isTeleport()) {
-				try {
-					Thread.sleep(300);
-				} catch (Exception e) {
+				while (isTeleport()) {
+					try {
+						Thread.sleep(300);
+					} catch (Exception e) {
+					}
 				}
-			}
 
-			stopHpRegeneration();
-			stopMpRegeneration();
+				stopHpRegeneration();
+				stopMpRegeneration();
 
-			int targetobjid = getId();
-			getMap().setPassable(getLocation(), true);
+				int targetobjid = getId();
+				getMap().setPassable(getLocation(), true);
 
-			int tempchargfx = 0;
-			if (hasSkillEffect(SHAPE_CHANGE)) {
-				tempchargfx = getTempCharGfx();
-				setTempCharGfxAtDead(tempchargfx);
-			} else {
-				setTempCharGfxAtDead(getClassId());
-			}
-
-			L1SkillUse l1skilluse = new L1SkillUse();
-			l1skilluse.handleCommands(L1PcInstance.this, CANCELLATION, getId(),
-					getX(), getY(), null, 0, L1SkillUse.TYPE_LOGIN);
-
-			if (tempchargfx == 5727 || tempchargfx == 5730
-					|| tempchargfx == 5733 || tempchargfx == 5736) {
-				tempchargfx = 0;
-			}
-			if (tempchargfx != 0) {
-				sendAndBroadcast(new S_ChangeShape(getId(), tempchargfx));
-			} else {
-				try {
-					Thread.sleep(1000);
-				} catch (Exception e) {
+				int tempchargfx = 0;
+				if (hasSkillEffect(SHAPE_CHANGE)) {
+					tempchargfx = getTempCharGfx();
+					setTempCharGfxAtDead(tempchargfx);
+				} else {
+					setTempCharGfxAtDead(getClassId());
 				}
-			}
 
-			sendAndBroadcast(new S_DoActionGFX(targetobjid,
-					ActionCodes.ACTION_Die));
+				L1SkillUse l1skilluse = new L1SkillUse();
+				l1skilluse.handleCommands(L1PcInstance.this, CANCELLATION, getId(),
+						getX(), getY(), null, 0, L1SkillUse.TYPE_LOGIN);
 
-			// right now if lastAttacker is null, it crashes on the next line after this if statement 
-			// it should only happen with the .kill/.wipeout commands.
-			// It has the unintended consequence of not applying death penalties
-			// IE person killed loses Exp, items, etc. 
-			// Leaving it as-is for now
-			if(lastAttacker == null) {
-				return;
-			}
-			
-			if (lastAttacker.getMapId() != 509) {
-				try {
-					if (lastAttacker != L1PcInstance.this) {
-						L1PcInstance player = null;
-						if (lastAttacker instanceof L1PcInstance) {
-							player = (L1PcInstance) lastAttacker;
-							L1World.getInstance().broadcastServerMessage(
-									String.format("%s%s just owned %s%s in battle!",
-											player.getName(), 
-											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
-											getName(),
-											getClan() == null ? "" : " [" + getClanname() + "]"));
-						} else if (lastAttacker instanceof L1PetInstance) {
-							player = (L1PcInstance) ((L1PetInstance) lastAttacker)
-									.getMaster();
-							L1World.getInstance().broadcastServerMessage(
-									String.format("%s%s just ate %s's%s face with uber pets!",
-											player.getName(), 
-											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
-											getName(),
-											getClan() == null ? "" : " [" + getClanname() + "]"));
-						} else if (lastAttacker instanceof L1SummonInstance) {
-							player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
-									.getMaster();
-							L1World.getInstance().broadcastServerMessage(
-									String.format("%s%s just tore up %s%s with evil summons!",
-											player.getName(), 
-											(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
-											getName(),
-											getClan() == null ? "" : " [" + getClanname() + "]"));
-						}
-						if (player != null) {
-							if (player instanceof L1PcInstance) {
+				if (tempchargfx == 5727 || tempchargfx == 5730
+						|| tempchargfx == 5733 || tempchargfx == 5736) {
+					tempchargfx = 0;
+				}
+				if (tempchargfx != 0) {
+					sendAndBroadcast(new S_ChangeShape(getId(), tempchargfx));
+				} else {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+					}
+				}
 
-								try {
+				sendAndBroadcast(new S_DoActionGFX(targetobjid,
+						ActionCodes.ACTION_Die));
 
-									Timestamp ts = new Timestamp(
-											System.currentTimeMillis());
-									Connection con = null;
-									PreparedStatement pstm = null;
-									con = L1DatabaseFactory.getInstance()
-											.getConnection();
-									pstm = con
-											.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty, killer_pledge, victim_pledge) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
-									pstm.setInt(1, player.getId());
-									pstm.setString(2, player.getName());
-									pstm.setInt(3, player.getLevel());
-									pstm.setInt(4, getId());
-									pstm.setString(5, getName());
-									pstm.setInt(6, getLevel());
-									pstm.setTimestamp(7, ts);
-									pstm.setInt(8, getX());
-									pstm.setInt(9, getY());
-									pstm.setInt(10, getMapId());
-									if (isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() != ZoneType.Normal
-											&& getMap().isEnabledDeathPenalty()) {
-										pstm.setInt(11, 1);
-									} else if (!isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() != ZoneType.Normal
-											&& !getMap()
-													.isEnabledDeathPenalty()) {
-										pstm.setInt(11, 2);
-									} else if (isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() != ZoneType.Normal
-											&& !getMap()
-													.isEnabledDeathPenalty()) {
-										pstm.setInt(11, 3);
-										// doorway
-									} else if (!isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() != ZoneType.Normal
-											&& getMap().isEnabledDeathPenalty()) {
-										pstm.setInt(11, 4);
-									} else if (isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() == ZoneType.Normal
-											&& getMap().isEnabledDeathPenalty()) {
-										pstm.setInt(11, 5);
-									} else if (!isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() == ZoneType.Normal
-											&& !getMap()
-													.isEnabledDeathPenalty()) {
-										pstm.setInt(11, 6);
-									} else if (isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() == ZoneType.Normal
-											&& !getMap()
-													.isEnabledDeathPenalty()) {
-										pstm.setInt(11, 7);
-										// normal zone
-									} else if (!isInWarAreaAndWarTime(
-											L1PcInstance.this, player)
-											&& getZoneType() == ZoneType.Normal
-											&& getMap().isEnabledDeathPenalty()) {
-										pstm.setInt(11, 8);
-									} else {
-										pstm.setInt(11, 9);
+				// right now if lastAttacker is null, it crashes on the next line after this if statement 
+				// it should only happen with the .kill/.wipeout commands.
+				// It has the unintended consequence of not applying death penalties
+				// IE person killed loses Exp, items, etc. 
+				// Leaving it as-is for now
+				if(lastAttacker == null) {
+					return;
+				}
+				
+				if (lastAttacker.getMapId() != 509) {
+					try {
+						if (lastAttacker != L1PcInstance.this) {
+							L1PcInstance player = null;
+							if (lastAttacker instanceof L1PcInstance) {
+								player = (L1PcInstance) lastAttacker;
+								L1World.getInstance().broadcastServerMessage(
+										String.format("%s%s just owned %s%s in battle!",
+												player.getName(), 
+												(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+												getName(),
+												getClan() == null ? "" : " [" + getClanname() + "]"));
+							} else if (lastAttacker instanceof L1PetInstance) {
+								player = (L1PcInstance) ((L1PetInstance) lastAttacker)
+										.getMaster();
+								L1World.getInstance().broadcastServerMessage(
+										String.format("%s%s just ate %s's%s face with uber pets!",
+												player.getName(), 
+												(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+												getName(),
+												getClan() == null ? "" : " [" + getClanname() + "]"));
+							} else if (lastAttacker instanceof L1SummonInstance) {
+								player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+										.getMaster();
+								L1World.getInstance().broadcastServerMessage(
+										String.format("%s%s just tore up %s%s with evil summons!",
+												player.getName(), 
+												(player.getClan() == null ? "" : " [" + player.getClanname() + "]"),
+												getName(),
+												getClan() == null ? "" : " [" + getClanname() + "]"));
+							}
+							if (player != null) {
+								if (player instanceof L1PcInstance) {
+
+									try {
+
+										Timestamp ts = new Timestamp(
+												System.currentTimeMillis());
+										Connection con = null;
+										PreparedStatement pstm = null;
+										con = L1DatabaseFactory.getInstance()
+												.getConnection();
+										pstm = con
+												.prepareStatement("INSERT INTO character_pvp (killer_char_obj_id, killer_char_name, killer_lvl, victim_char_obj_id, victim_char_name, victim_lvl, date, locx, locy, mapid, penalty, killer_pledge, victim_pledge) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
+										pstm.setInt(1, player.getId());
+										pstm.setString(2, player.getName());
+										pstm.setInt(3, player.getLevel());
+										pstm.setInt(4, getId());
+										pstm.setString(5, getName());
+										pstm.setInt(6, getLevel());
+										pstm.setTimestamp(7, ts);
+										pstm.setInt(8, getX());
+										pstm.setInt(9, getY());
+										pstm.setInt(10, getMapId());
+										if (isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() != ZoneType.Normal
+												&& getMap().isEnabledDeathPenalty()) {
+											pstm.setInt(11, 1);
+										} else if (!isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() != ZoneType.Normal
+												&& !getMap()
+														.isEnabledDeathPenalty()) {
+											pstm.setInt(11, 2);
+										} else if (isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() != ZoneType.Normal
+												&& !getMap()
+														.isEnabledDeathPenalty()) {
+											pstm.setInt(11, 3);
+											// doorway
+										} else if (!isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() != ZoneType.Normal
+												&& getMap().isEnabledDeathPenalty()) {
+											pstm.setInt(11, 4);
+										} else if (isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() == ZoneType.Normal
+												&& getMap().isEnabledDeathPenalty()) {
+											pstm.setInt(11, 5);
+										} else if (!isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() == ZoneType.Normal
+												&& !getMap()
+														.isEnabledDeathPenalty()) {
+											pstm.setInt(11, 6);
+										} else if (isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() == ZoneType.Normal
+												&& !getMap()
+														.isEnabledDeathPenalty()) {
+											pstm.setInt(11, 7);
+											// normal zone
+										} else if (!isInWarAreaAndWarTime(
+												L1PcInstance.this, player)
+												&& getZoneType() == ZoneType.Normal
+												&& getMap().isEnabledDeathPenalty()) {
+											pstm.setInt(11, 8);
+										} else {
+											pstm.setInt(11, 9);
+										}
+										pstm.setString(12, player.getClanname());
+										pstm.setString(13, getClanname());
+										pstm.execute();
+										SQLUtil.close(pstm);
+										SQLUtil.close(con);
+									} catch (Exception e) {
+										_log.log(Level.SEVERE,
+												e.getLocalizedMessage(), e);
 									}
-									pstm.setString(12, player.getClanname());
-									pstm.setString(13, getClanname());
-									pstm.execute();
-									SQLUtil.close(pstm);
-									SQLUtil.close(con);
-								} catch (Exception e) {
-									_log.log(Level.SEVERE,
-											e.getLocalizedMessage(), e);
-								}
 
+								}
+							}
+						}
+					} catch (Exception e) {
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
+				}
+				if (getMapId() == 5153) {
+					L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
+				}
+				if (lastAttacker != L1PcInstance.this) {
+					if (getZoneType() != ZoneType.Normal) {
+						L1PcInstance player = getAttackingPlayer(lastAttacker);
+
+						if (player != null) {
+							if (!isInWarAreaAndWarTime(L1PcInstance.this, player)) {
+								return;
 							}
 						}
 					}
-				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-				}
-			}
-			if (getMapId() == 5153) {
-				L1DeathMatch.getInstance().sendRemainder(L1PcInstance.this);
-			}
-			if (lastAttacker != L1PcInstance.this) {
-				if (getZoneType() != ZoneType.Normal) {
-					L1PcInstance player = getAttackingPlayer(lastAttacker);
 
-					if (player != null) {
-						if (!isInWarAreaAndWarTime(L1PcInstance.this, player)) {
-							return;
+					boolean sim_ret = simWarResult(lastAttacker);
+					if (sim_ret == true) {
+						return;
+					}
+				}
+
+				if (!getMap().isEnabledDeathPenalty()) {
+					return;
+				}
+
+				L1PcInstance fightPc = null;
+				if (lastAttacker instanceof L1PcInstance) {
+					fightPc = (L1PcInstance) lastAttacker;
+				}
+				if (fightPc != null) {
+					if (getFightId() == fightPc.getId()
+							&& fightPc.getFightId() == getId()) { //
+						setFightId(0);
+						sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
+						fightPc.setFightId(0);
+						fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
+								0, 0));
+						return;
+					}
+				}
+
+				deathPenalty(); //
+
+				setGresValid(true);
+
+				if (getExpRes() == 0) {
+					setExpRes(1);
+				}
+
+				if (lastAttacker instanceof L1GuardInstance) {
+					if (get_PKcount() > 0) {
+						set_PKcount(get_PKcount() - 1);
+					}
+					setLastPk(null);
+				}
+				if (lastAttacker instanceof L1GuardianInstance) {
+					if (getPkCountForElf() > 0) {
+						setPkCountForElf(getPkCountForElf() - 1);
+					}
+					setLastPkForElf(null);
+				}
+
+				int lostRate = (int) (((getLawful() + 32768D) / 1000D - 65D) * 4D);
+				if (lostRate < 0) {
+					lostRate *= -1;
+					if (getLawful() < 0) {
+						lostRate *= 2;
+					}
+					int rnd = _random.nextInt(1000) + 1;
+					if (rnd <= lostRate) {
+						int count = 1;
+						if (getLawful() <= -30000) {
+							count = _random.nextInt(4) + 1;
+						} else if (getLawful() <= -20000) {
+							count = _random.nextInt(3) + 1;
+						} else if (getLawful() <= -10000) {
+							count = _random.nextInt(2) + 1;
+						} else if (getLawful() < 0) {
+							count = _random.nextInt(1) + 1;
 						}
+						caoPenaltyResult(count);
 					}
 				}
 
-				boolean sim_ret = simWarResult(lastAttacker);
-				if (sim_ret == true) {
+				boolean castle_ret = castleWarResult();
+				if (castle_ret == true) {
 					return;
 				}
-			}
 
-			if (!getMap().isEnabledDeathPenalty()) {
-				return;
-			}
-
-			L1PcInstance fightPc = null;
-			if (lastAttacker instanceof L1PcInstance) {
-				fightPc = (L1PcInstance) lastAttacker;
-			}
-			if (fightPc != null) {
-				if (getFightId() == fightPc.getId()
-						&& fightPc.getFightId() == getId()) { //
-					setFightId(0);
-					sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL, 0, 0));
-					fightPc.setFightId(0);
-					fightPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_DUEL,
-							0, 0));
-					return;
-				}
-			}
-
-			deathPenalty(); //
-
-			setGresValid(true);
-
-			if (getExpRes() == 0) {
-				setExpRes(1);
-			}
-
-			if (lastAttacker instanceof L1GuardInstance) {
-				if (get_PKcount() > 0) {
-					set_PKcount(get_PKcount() - 1);
-				}
-				setLastPk(null);
-			}
-			if (lastAttacker instanceof L1GuardianInstance) {
-				if (getPkCountForElf() > 0) {
-					setPkCountForElf(getPkCountForElf() - 1);
-				}
-				setLastPkForElf(null);
-			}
-
-			int lostRate = (int) (((getLawful() + 32768D) / 1000D - 65D) * 4D);
-			if (lostRate < 0) {
-				lostRate *= -1;
-				if (getLawful() < 0) {
-					lostRate *= 2;
-				}
-				int rnd = _random.nextInt(1000) + 1;
-				if (rnd <= lostRate) {
-					int count = 1;
-					if (getLawful() <= -30000) {
-						count = _random.nextInt(4) + 1;
-					} else if (getLawful() <= -20000) {
-						count = _random.nextInt(3) + 1;
-					} else if (getLawful() <= -10000) {
-						count = _random.nextInt(2) + 1;
-					} else if (getLawful() < 0) {
-						count = _random.nextInt(1) + 1;
-					}
-					caoPenaltyResult(count);
-				}
-			}
-
-			boolean castle_ret = castleWarResult();
-			if (castle_ret == true) {
-				return;
-			}
-
-			L1PcInstance player = getAttackingPlayer(lastAttacker);
-			
-			if (player != null) {
-				if (getLawful() >= 0 && isPinkName() == false) {
-					boolean isChangePkCount = false;
-					if (player.getLawful() < 30000) {
-						player.set_PKcount(player.get_PKcount() + 1);
-						isChangePkCount = true;
-						if (player.isElf() && isElf()) {
-							player.setPkCountForElf(player.getPkCountForElf() + 1);
+				L1PcInstance player = getAttackingPlayer(lastAttacker);
+				
+				if (player != null) {
+					if (getLawful() >= 0 && isPinkName() == false) {
+						boolean isChangePkCount = false;
+						if (player.getLawful() < 30000) {
+							player.set_PKcount(player.get_PKcount() + 1);
+							isChangePkCount = true;
+							if (player.isElf() && isElf()) {
+								player.setPkCountForElf(player.getPkCountForElf() + 1);
+							}
+							
+							player.setLastPk();
 						}
 						
-						player.setLastPk();
-					}
-					
-					if (player.isElf() && isElf()) {
-						player.setLastPkForElf();
-					}
+						if (player.isElf() && isElf()) {
+							player.setLastPkForElf();
+						}
 
-					int lawful;
+						int lawful;
 
-					if (player.getLevel() < 50) {
-						lawful = -1
-								* (int) ((Math.pow(player.getLevel(), 2) * 4));
+						if (player.getLevel() < 50) {
+							lawful = -1
+									* (int) ((Math.pow(player.getLevel(), 2) * 4));
+						} else {
+							lawful = -1
+									* (int) ((Math.pow(player.getLevel(), 3) * 0.08));
+						}
+						if ((player.getLawful() - 1000) < lawful) {
+							lawful = player.getLawful() - 1000;
+						}
+
+						if (lawful <= -32768) {
+							lawful = -32768;
+						}
+						player.setLawful(lawful);
+
+						sendAndBroadcast(new S_Lawful(player.getId(),
+								player.getLawful()));
+
+						if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL_WARNING
+								&& player.get_PKcount() < Config.NUM_PKS_HELL) {
+							player.sendPackets(new S_BlueMessage(551, String
+									.valueOf(player.get_PKcount()), Config.NUM_PKS_HELL + ""));
+						} else if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL) {
+							player.beginHell(true);
+						}
 					} else {
-						lawful = -1
-								* (int) ((Math.pow(player.getLevel(), 3) * 0.08));
+						setPinkName(false);
 					}
-					if ((player.getLawful() - 1000) < lawful) {
-						lawful = player.getLawful() - 1000;
-					}
-
-					if (lawful <= -32768) {
-						lawful = -32768;
-					}
-					player.setLawful(lawful);
-
-					sendAndBroadcast(new S_Lawful(player.getId(),
-							player.getLawful()));
-
-					if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL_WARNING
-							&& player.get_PKcount() < Config.NUM_PKS_HELL) {
-						player.sendPackets(new S_BlueMessage(551, String
-								.valueOf(player.get_PKcount()), Config.NUM_PKS_HELL + ""));
-					} else if (isChangePkCount && player.get_PKcount() >= Config.NUM_PKS_HELL) {
-						player.beginHell(true);
-					}
-				} else {
-					setPinkName(false);
 				}
+				_pcDeleteTimer = new L1PcDeleteTimer(L1PcInstance.this);
+				_pcDeleteTimer.begin();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			_pcDeleteTimer = new L1PcDeleteTimer(L1PcInstance.this);
-			_pcDeleteTimer.begin();
 		}
 	}
 	

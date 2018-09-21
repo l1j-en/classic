@@ -189,20 +189,25 @@ public class L1TowerInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1TowerInstance-Death");
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_TowerDie);
-			int targetobjid = npc.getId();
+			try {
+				Thread.currentThread().setName("L1TowerInstance-Death");
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_TowerDie);
+				int targetobjid = npc.getId();
 
-			npc.getMap().setPassable(npc.getLocation(), true);
+				npc.getMap().setPassable(npc.getLocation(), true);
 
-			npc.broadcastPacket(new S_DoActionGFX(targetobjid,
-					ActionCodes.ACTION_TowerDie));
+				npc.broadcastPacket(new S_DoActionGFX(targetobjid,
+						ActionCodes.ACTION_TowerDie));
 
-			if (!isSubTower()) {
-				L1WarSpawn warspawn = new L1WarSpawn();
-				warspawn.SpawnCrown(_castle_id);
+				if (!isSubTower()) {
+					L1WarSpawn warspawn = new L1WarSpawn();
+					warspawn.SpawnCrown(_castle_id);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

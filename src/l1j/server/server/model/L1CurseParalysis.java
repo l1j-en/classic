@@ -40,26 +40,31 @@ public class L1CurseParalysis extends L1Paralysis {
 	private class ParalysisDelayTimer extends Thread {
 		@Override
 		public void run() {
-			_target.setSkillEffect(STATUS_CURSE_PARALYZING, 0);
-
 			try {
-				Thread.sleep(_delay);
-			} catch (InterruptedException e) {
-				_target.killSkillEffectTimer(STATUS_CURSE_PARALYZING);
-				return;
-			}
+				_target.setSkillEffect(STATUS_CURSE_PARALYZING, 0);
 
-			if (_target instanceof L1PcInstance) {
-				L1PcInstance player = (L1PcInstance) _target;
-				if (!player.isDead()) {
-					player.sendPackets(new S_Paralysis(1, true));
+				try {
+					Thread.sleep(_delay);
+				} catch (InterruptedException e) {
+					_target.killSkillEffectTimer(STATUS_CURSE_PARALYZING);
+					return;
 				}
-			}
-			_target.setParalyzed(true);
-			_timer = new ParalysisTimer();
-			GeneralThreadPool.getInstance().execute(_timer);
-			if (isInterrupted()) {
-				_timer.interrupt();
+
+				if (_target instanceof L1PcInstance) {
+					L1PcInstance player = (L1PcInstance) _target;
+					if (!player.isDead()) {
+						player.sendPackets(new S_Paralysis(1, true));
+					}
+				}
+				_target.setParalyzed(true);
+				_timer = new ParalysisTimer();
+				GeneralThreadPool.getInstance().execute(_timer);
+				if (isInterrupted()) {
+					_timer.interrupt();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

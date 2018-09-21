@@ -653,7 +653,12 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 				return;
 			}
 		}
-		_cha.removeSkillEffect(_skillId);
+		try {
+			_cha.removeSkillEffect(_skillId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getRemainingTime() {

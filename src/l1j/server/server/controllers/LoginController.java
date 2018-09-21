@@ -67,11 +67,14 @@ public class LoginController {
 		GeneralThreadPool.getInstance().execute(new Runnable() {
 			@Override
 			public void run() {
-				if (client.getActiveChar() != null) {
-					client.getActiveChar()
-							.sendPackets(new S_ServerMessage(357));
-				}
 
+				try {
+					if (client.getActiveChar() != null) {
+						client.getActiveChar().sendPackets(new S_ServerMessage(357));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				try {
 					Thread.sleep(1000);
 				} catch (Exception e) {
@@ -84,11 +87,9 @@ public class LoginController {
 	public synchronized void login(Client client, Account account)
 			throws GameServerFullException, AccountAlreadyLoginException {
 		if (!account.isValid()) {
-			throw new IllegalArgumentException(
-					"Invalid account encountered in LoginController.login.");
+			throw new IllegalArgumentException("Invalid account encountered in LoginController.login.");
 		}
-		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount())
-				&& !account.isGameMaster()) {
+		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount()) && !account.isGameMaster()) {
 			throw new GameServerFullException();
 		}
 		if (_accounts.containsKey(account.getName())) {

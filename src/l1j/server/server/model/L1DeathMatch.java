@@ -589,65 +589,70 @@ public class L1DeathMatch {
 	private class CheckTimer extends TimerTask {
 		@Override
 		public void run() {
-			for (L1PcInstance pc : playerList) {
-				pc.sendPackets(new S_ServerMessage(1269));
-			}
-
 			try {
-				Thread.sleep(6 * 1000);
-				_doorLeft.open();
-				CloseTimer temp = new CloseTimer(_doorLeft);
-				temp.begin();
-				Thread.sleep(4 * 1000);// 50+10=60s
-			} catch (InterruptedException e) {
+				for (L1PcInstance pc : playerList) {
+					pc.sendPackets(new S_ServerMessage(1269));
+				}
+
+				try {
+					Thread.sleep(6 * 1000);
+					_doorLeft.open();
+					CloseTimer temp = new CloseTimer(_doorLeft);
+					temp.begin();
+					Thread.sleep(4 * 1000);// 50+10=60s
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (checkPlayersOK()) {
+					setGameStatus(STATUS_PLAYING);
+					for (L1PcInstance pc : playerList) {
+						pc.sendPackets(new S_DeathMatch(S_DeathMatch.CountDown));
+					}
+					startGameTimeLimitTimer();
+					_issue = new IssueItem();
+					_issue.begin();
+					_penalty = new LimitPenaltyTimer();
+					_penalty.begin();
+					_startPlayerNum = playerList.size();
+					setRemainder(_startPlayerNum);
+
+					for (L1Object obj : L1World.getInstance().getVisiblePoint(
+							new L1Location(32638, 32880, getMapId()), 3)) {
+						if (obj instanceof L1PcInstance) {
+							L1Location loc = new L1Location(
+									32625 + _random.nextInt(28),
+									32885 + _random.nextInt(28), getMapId());
+							while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
+								loc.set(32625 + _random.nextInt(28),
+										32885 + _random.nextInt(28), getMapId());
+							}
+							L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
+									loc.getY(), (short) loc.getMapId(), 5, false);
+						}
+					}
+					for (L1Object obj : L1World.getInstance().getVisiblePoint(
+							new L1Location(32658, 32899, getMapId()), 3)) {
+						if (obj instanceof L1PcInstance) {
+							L1Location loc = new L1Location(
+									32625 + _random.nextInt(28),
+									32885 + _random.nextInt(28), getMapId());
+							while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
+								loc.set(32625 + _random.nextInt(28),
+										32885 + _random.nextInt(28), getMapId());
+							}
+							L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
+									loc.getY(), (short) loc.getMapId(), 5, false);
+						}
+					}
+
+				} else {
+					setGameEnd(END_STATUS_NOPLAYER);
+				}
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (checkPlayersOK()) {
-				setGameStatus(STATUS_PLAYING);
-				for (L1PcInstance pc : playerList) {
-					pc.sendPackets(new S_DeathMatch(S_DeathMatch.CountDown));
-				}
-				startGameTimeLimitTimer();
-				_issue = new IssueItem();
-				_issue.begin();
-				_penalty = new LimitPenaltyTimer();
-				_penalty.begin();
-				_startPlayerNum = playerList.size();
-				setRemainder(_startPlayerNum);
-
-				for (L1Object obj : L1World.getInstance().getVisiblePoint(
-						new L1Location(32638, 32880, getMapId()), 3)) {
-					if (obj instanceof L1PcInstance) {
-						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
-						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
-						}
-						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
-								loc.getY(), (short) loc.getMapId(), 5, false);
-					}
-				}
-				for (L1Object obj : L1World.getInstance().getVisiblePoint(
-						new L1Location(32658, 32899, getMapId()), 3)) {
-					if (obj instanceof L1PcInstance) {
-						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
-						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
-						}
-						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
-								loc.getY(), (short) loc.getMapId(), 5, false);
-					}
-				}
-
-			} else {
-				setGameEnd(END_STATUS_NOPLAYER);
-			}
-			this.cancel();
 		}
 
 		public void begin() {

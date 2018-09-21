@@ -3297,8 +3297,13 @@ public class L1MerchantInstance extends L1NpcInstance {
 	public class RestMonitor extends TimerTask {
 		@Override
 		public void run() {
-			setRest(false);
-			cancel();
+			try {
+				setRest(false);
+				cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

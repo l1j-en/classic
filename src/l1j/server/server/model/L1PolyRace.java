@@ -727,12 +727,17 @@ public class L1PolyRace {
 	private class ReadyTimer extends TimerTask {
 		@Override
 		public void run() {
-			for (L1PcInstance pc : playerList) {
-				pc.sendPackets(new S_SystemMessage(Config.PET_RACE_MIN_PLAYER
-						+ " players " + "get ready for the petrace"));
+			try {
+				for (L1PcInstance pc : playerList) {
+					pc.sendPackets(new S_SystemMessage(Config.PET_RACE_MIN_PLAYER
+							+ " players " + "get ready for the petrace"));
+				}
+				startCheckTimer();
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			startCheckTimer();
-			this.cancel();
 		}
 
 		public void begin() {
@@ -744,12 +749,17 @@ public class L1PolyRace {
 	private class CheckTimer extends TimerTask {
 		@Override
 		public void run() {
-			if (checkPlayersOK()) {
-				setGameStart();
-			} else {
-				setGameEnd(END_STATUS_NOPLAYER);
+			try {
+				if (checkPlayersOK()) {
+					setGameStart();
+				} else {
+					setGameEnd(END_STATUS_NOPLAYER);
+				}
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			this.cancel();
 		}
 
 		public void begin() {
@@ -761,12 +771,17 @@ public class L1PolyRace {
 	private class ClockTimer extends TimerTask {
 		@Override
 		public void run() {
-			for (L1PcInstance pc : playerList) {
-				pc.sendPackets(new S_Race(S_Race.CountDown));
+			try {
+				for (L1PcInstance pc : playerList) {
+					pc.sendPackets(new S_Race(S_Race.CountDown));
+				}
+				setDoorClose(false);
+				startGameTimeLimitTimer();
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			setDoorClose(false);
-			startGameTimeLimitTimer();
-			this.cancel();
 		}
 
 		public void begin() {
@@ -778,8 +793,13 @@ public class L1PolyRace {
 	private class GameTimeLimitTimer extends TimerTask {
 		@Override
 		public void run() {
-			setGameEnd(END_STATUS_NOWINNER);
-			this.cancel();
+			try {
+				setGameEnd(END_STATUS_NOWINNER);
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void stopTimer() {
@@ -790,8 +810,13 @@ public class L1PolyRace {
 	private class WaitTimer extends TimerTask {
 		@Override
 		public void run() {
-			setGameEnd(END_STATUS_WINNER);
-			this.cancel();
+			try {
+				setGameEnd(END_STATUS_WINNER);
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void begin() {
@@ -803,9 +828,14 @@ public class L1PolyRace {
 	private class EndTimer extends TimerTask {
 		@Override
 		public void run() {
-			giftWinner();
-			setGameInit();
-			this.cancel();
+			try {
+				giftWinner();
+				setGameInit();
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void begin() {
@@ -817,8 +847,13 @@ public class L1PolyRace {
 	private class CompareTimer extends TimerTask {
 		@Override
 		public void run() {
-			comparePosition();
-			addTime();
+			try {
+				comparePosition();
+				addTime();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void stopTimer() {

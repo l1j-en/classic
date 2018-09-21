@@ -45,8 +45,13 @@ public class L1ItemDelay {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1ItemDelay-Timer");
-			stopDelayTimer(_delayId);
+			try {
+				Thread.currentThread().setName("L1ItemDelay-Timer");
+				stopDelayTimer(_delayId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void stopDelayTimer(int delayId) {

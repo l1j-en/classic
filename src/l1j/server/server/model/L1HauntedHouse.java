@@ -182,14 +182,19 @@ public class L1HauntedHouse {
 
 		@Override
 		public void run() {
-			startHauntedHouse();
-			// See top comments for overview.
-			// We need to cancel the existing timeout timer; otherwise it could
-			// go off during this (new) run of the Haunted House.
-			if (_hhTimer != null)
-				_hhTimer.cancel();
-			_hhTimer = new L1HauntedHouseTimer();
-			_hhTimer.begin();
+			try {
+				startHauntedHouse();
+				// See top comments for overview.
+				// We need to cancel the existing timeout timer; otherwise it could
+				// go off during this (new) run of the Haunted House.
+				if (_hhTimer != null)
+					_hhTimer.cancel();
+				_hhTimer = new L1HauntedHouseTimer();
+				_hhTimer.begin();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public void begin() {

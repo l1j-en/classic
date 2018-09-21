@@ -317,52 +317,57 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1Character lastAttacker = _lastattacker;
 
 		public void run() {
-			Thread.currentThread().setName("L1GuardianInstance-Death");
-			setDeathProcessing(true);
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_Die);
-			int targetobjid = getId();
-			getMap().setPassable(getLocation(), true);
-			broadcastPacket(new S_DoActionGFX(targetobjid,
-					ActionCodes.ACTION_Die));
+			try {
+				Thread.currentThread().setName("L1GuardianInstance-Death");
+				setDeathProcessing(true);
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_Die);
+				int targetobjid = getId();
+				getMap().setPassable(getLocation(), true);
+				broadcastPacket(new S_DoActionGFX(targetobjid,
+						ActionCodes.ACTION_Die));
 
-			L1PcInstance player = null;
-			if (lastAttacker instanceof L1PcInstance) {
-				player = (L1PcInstance) lastAttacker;
-			} else if (lastAttacker instanceof L1PetInstance) {
-				player = (L1PcInstance) ((L1PetInstance) lastAttacker)
-						.getMaster();
-			} else if (lastAttacker instanceof L1SummonInstance) {
-				player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
-						.getMaster();
-			}
-			if (player != null) {
-				ArrayList<L1Character> targetList = _hateList
-						.toTargetArrayList();
-				ArrayList<Integer> hateList = _hateList.toHateArrayList();
-				int exp = getExp();
-				CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);
-
-				ArrayList<L1Character> dropTargetList = _dropHateList
-						.toTargetArrayList();
-				ArrayList<Integer> dropHateList = _dropHateList
-						.toHateArrayList();
-				try {
-					DropTable.getInstance().dropShare(_npc, dropTargetList,
-							dropHateList);
-				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				L1PcInstance player = null;
+				if (lastAttacker instanceof L1PcInstance) {
+					player = (L1PcInstance) lastAttacker;
+				} else if (lastAttacker instanceof L1PetInstance) {
+					player = (L1PcInstance) ((L1PetInstance) lastAttacker)
+							.getMaster();
+				} else if (lastAttacker instanceof L1SummonInstance) {
+					player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
+							.getMaster();
 				}
-				player.addKarma((int) (getKarma() * Config.RATE_KARMA));
+				if (player != null) {
+					ArrayList<L1Character> targetList = _hateList
+							.toTargetArrayList();
+					ArrayList<Integer> hateList = _hateList.toHateArrayList();
+					int exp = getExp();
+					CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);
+
+					ArrayList<L1Character> dropTargetList = _dropHateList
+							.toTargetArrayList();
+					ArrayList<Integer> dropHateList = _dropHateList
+							.toHateArrayList();
+					try {
+						DropTable.getInstance().dropShare(_npc, dropTargetList,
+								dropHateList);
+					} catch (Exception e) {
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
+					player.addKarma((int) (getKarma() * Config.RATE_KARMA));
+				}
+				setDeathProcessing(false);
+
+				setKarma(0);
+				setExp(0);
+				allTargetClear();
+
+				startDeleteTimer();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			setDeathProcessing(false);
-
-			setKarma(0);
-			setExp(0);
-			allTargetClear();
-
-			startDeleteTimer();
 		}
 	}
 

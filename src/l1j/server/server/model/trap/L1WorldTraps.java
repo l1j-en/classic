@@ -165,9 +165,15 @@ public class L1WorldTraps {
 
 		@Override
 		public void run() {
-			_targetTrap.resetLocation();
-			_targetTrap.enableTrap();
-			cancel();
+			
+			try {
+				_targetTrap.resetLocation();
+				_targetTrap.enableTrap();
+				cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

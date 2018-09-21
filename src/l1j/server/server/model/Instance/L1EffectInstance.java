@@ -95,39 +95,44 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1EffectInstance-FwDmgTmer");
-			while (!_destroyed) {
-				try {
-					for (L1Object object : L1World.getInstance()
-							.getVisibleObjects(_effect, 0)) {
-						if (!(object instanceof L1PcInstance)
-								&& !(object instanceof L1MonsterInstance))
-							continue;
-						L1Character target = (L1Character) object;
-						if (target.isDead())
-							continue;
-						L1Magic magic = new L1Magic(_effect, target);
-						int damage = magic.calcFireWallDamage();
-						if (damage == 0)
-							continue;
-						S_DoActionGFX packet = new S_DoActionGFX(
-								target.getId(), ActionCodes.ACTION_Damage);
-						if (object instanceof L1PcInstance) {
-							L1PcInstance pc = (L1PcInstance) object;
-							if (pc.getZoneType() == ZoneType.Safety
-									&& !atSiege(pc))
+			try {
+				Thread.currentThread().setName("L1EffectInstance-FwDmgTmer");
+				while (!_destroyed) {
+					try {
+						for (L1Object object : L1World.getInstance()
+								.getVisibleObjects(_effect, 0)) {
+							if (!(object instanceof L1PcInstance)
+									&& !(object instanceof L1MonsterInstance))
 								continue;
-							pc.sendPackets(packet);
-							pc.receiveDamage(_effect, damage, false);
-						} else
-							((L1MonsterInstance) object).receiveDamage(_effect,
-									damage);
-						target.broadcastPacket(packet);
+							L1Character target = (L1Character) object;
+							if (target.isDead())
+								continue;
+							L1Magic magic = new L1Magic(_effect, target);
+							int damage = magic.calcFireWallDamage();
+							if (damage == 0)
+								continue;
+							S_DoActionGFX packet = new S_DoActionGFX(
+									target.getId(), ActionCodes.ACTION_Damage);
+							if (object instanceof L1PcInstance) {
+								L1PcInstance pc = (L1PcInstance) object;
+								if (pc.getZoneType() == ZoneType.Safety
+										&& !atSiege(pc))
+									continue;
+								pc.sendPackets(packet);
+								pc.receiveDamage(_effect, damage, false);
+							} else
+								((L1MonsterInstance) object).receiveDamage(_effect,
+										damage);
+							target.broadcastPacket(packet);
+						}
+						Thread.sleep(FW_DAMAGE_INTERVAL);
+					} catch (InterruptedException ignore) {
+						// ignore
 					}
-					Thread.sleep(FW_DAMAGE_INTERVAL);
-				} catch (InterruptedException ignore) {
-					// ignore
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

@@ -40,17 +40,22 @@ public class L1GameTimeClock {
 	private class TimeUpdater implements Runnable {
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1GameTimeClock");
-			while (true) {
-				_previousTime = _currentTime;
-				_currentTime = L1GameTime.fromSystemCurrentTime();
-				notifyChanged();
+			try {
+				Thread.currentThread().setName("L1GameTimeClock");
+				while (true) {
+					_previousTime = _currentTime;
+					_currentTime = L1GameTime.fromSystemCurrentTime();
+					notifyChanged();
 
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

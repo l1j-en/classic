@@ -107,8 +107,13 @@ public class C_Door extends ClientBasePacket {
 
 		@Override
 		public void run() {
-			if (_door.getOpenStatus() == ActionCodes.ACTION_Open) {
-				_door.close();
+			try {
+				if (_door.getOpenStatus() == ActionCodes.ACTION_Open) {
+					_door.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

@@ -33,36 +33,41 @@ public class GiranPrisonController implements TimedDungeonInstance {
 	
 	@Override
 	public void run() {		
-		for (Map.Entry<String, Long> entry : _users.entrySet()) {
-			Long timeDiff = System.currentTimeMillis() - this._lastRun;
-			
-	        String user = entry.getKey();
-	        L1PcInstance player = L1World.getInstance().getPlayer(user);
+		try {
+			for (Map.Entry<String, Long> entry : _users.entrySet()) {
+				Long timeDiff = System.currentTimeMillis() - this._lastRun;
+				
+			    String user = entry.getKey();
+			    L1PcInstance player = L1World.getInstance().getPlayer(user);
 
-	        if(player != null && _prisonMaps.contains(player.getMapId())) {
-	        	Long expiration = entry.getValue() - timeDiff;
-		        _users.put(user, expiration);
-		        
-	        	if(expiration <= 0) {
-	        		L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
-	        	}
-	        }
-	    }
-		
-		// probably just being paranoid, but also loop through all players in the game
-        // if they are not in the _users list but are on a Giran Prison map, then kick them
-        for(L1PcInstance playerCheck : L1World.getInstance().getAllPlayers()) {
-        	if(playerCheck.isGm()) {
-        		continue;
-        	}
-        	
-        	if(_prisonMaps.contains(playerCheck.getMapId()) && !_users.keySet().contains(playerCheck.getName())) {
-        		playerCheck.sendPackets(new S_SystemMessage("You accessed Giran Prison through invalid means. Use the NPC in Giran!"));
-        		L1Teleport.teleport(playerCheck, 33426, 32823, (short) 4, 5, true);
-        	}
-        }
-        
-        this._lastRun = System.currentTimeMillis();
+			    if(player != null && _prisonMaps.contains(player.getMapId())) {
+			    	Long expiration = entry.getValue() - timeDiff;
+			        _users.put(user, expiration);
+			        
+			    	if(expiration <= 0) {
+			    		L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
+			    	}
+			    }
+			}
+			
+			// probably just being paranoid, but also loop through all players in the game
+			// if they are not in the _users list but are on a Giran Prison map, then kick them
+			for(L1PcInstance playerCheck : L1World.getInstance().getAllPlayers()) {
+				if(playerCheck.isGm()) {
+					continue;
+				}
+				
+				if(_prisonMaps.contains(playerCheck.getMapId()) && !_users.keySet().contains(playerCheck.getName())) {
+					playerCheck.sendPackets(new S_SystemMessage("You accessed Giran Prison through invalid means. Use the NPC in Giran!"));
+					L1Teleport.teleport(playerCheck, 33426, 32823, (short) 4, 5, true);
+				}
+			}
+			
+			this._lastRun = System.currentTimeMillis();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

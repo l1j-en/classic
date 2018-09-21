@@ -37,28 +37,33 @@ public class L1ParalysisPoison extends L1Poison {
 	private class ParalysisPoisonTimer extends Thread {
 		@Override
 		public void run() {
-			_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
-
 			try {
-				Thread.sleep(_delay);
-			} catch (InterruptedException e) {
-				_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
-				return;
-			}
+				_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
 
-			_effectId = 2;
-			_target.setPoisonEffect(2);
+				try {
+					Thread.sleep(_delay);
+				} catch (InterruptedException e) {
+					_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
+					return;
+				}
 
-			if (_target instanceof L1PcInstance) {
-				L1PcInstance player = (L1PcInstance) _target;
-				if (player.isDead() == false) {
-					player.sendPackets(new S_Paralysis(1, true));
-					_timer = new ParalysisTimer();
-					GeneralThreadPool.getInstance().execute(_timer);
-					if (isInterrupted()) {
-						_timer.interrupt();
+				_effectId = 2;
+				_target.setPoisonEffect(2);
+
+				if (_target instanceof L1PcInstance) {
+					L1PcInstance player = (L1PcInstance) _target;
+					if (player.isDead() == false) {
+						player.sendPackets(new S_Paralysis(1, true));
+						_timer = new ParalysisTimer();
+						GeneralThreadPool.getInstance().execute(_timer);
+						if (isInterrupted()) {
+							_timer.interrupt();
+						}
 					}
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
