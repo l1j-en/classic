@@ -18,14 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Letter extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_Letter.class.getName());
+//	private static Logger _log = Logger.getLogger(S_Letter.class.getName());
 	private static final String S_LETTER = "[S] S_Letter";
 	private byte[] _byte = null;
 

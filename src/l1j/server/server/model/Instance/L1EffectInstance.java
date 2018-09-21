@@ -8,8 +8,6 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_CUBE_QUAKE_TO_ENEMY
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CUBE_SHOCK_TO_ALLY;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CUBE_SHOCK_TO_ENEMY;
 
-import java.util.concurrent.ScheduledFuture;
-
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.WarTimeController;
@@ -29,7 +27,7 @@ import l1j.server.server.templates.L1Npc;
 
 public class L1EffectInstance extends L1NpcInstance {
 	private static final long serialVersionUID = 1L;
-	private ScheduledFuture<?> _effectFuture;
+//	private ScheduledFuture<?> _effectFuture;
 	private static final int FW_DAMAGE_INTERVAL = 1000;
 	private static final int CUBE_INTERVAL = 500;
 	private static final int CUBE_TIME = 8000;
@@ -41,11 +39,11 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		int npcId = getNpcTemplate().get_npcId();
 		if (npcId == 81157) {
-			_effectFuture = GeneralThreadPool.getInstance().schedule(
+			GeneralThreadPool.getInstance().schedule(
 					new FwDamageTimer(this), 0);
 		} else if (npcId == 80149 || npcId == 80150 || npcId == 80151
 				|| npcId == 80152) {
-			_effectFuture = GeneralThreadPool.getInstance().schedule(
+			GeneralThreadPool.getInstance().schedule(
 					new CubeTimer(this), 0);
 		}
 	}

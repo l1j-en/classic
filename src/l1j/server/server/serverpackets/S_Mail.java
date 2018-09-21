@@ -20,7 +20,6 @@ package l1j.server.server.serverpackets;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import l1j.server.server.datatables.MailTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -29,7 +28,7 @@ import l1j.server.server.templates.L1Mail;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Mail extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_WhoAmount.class.getName());
+//	private static Logger _log = Logger.getLogger(S_WhoAmount.class.getName());
 	private static final String S_MAIL = "[S] S_Mail";
 	private byte[] _byte = null;
 

@@ -18,14 +18,12 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_Sound extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_Sound.class.getName());
+//	private static Logger _log = Logger.getLogger(S_Sound.class.getName());
 	private static final String S_SOUND = "[S] S_Sound";
 	private byte[] _byte = null;
 

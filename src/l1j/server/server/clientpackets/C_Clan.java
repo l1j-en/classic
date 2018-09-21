@@ -37,7 +37,7 @@ public class C_Clan extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		L1Clan clan = ClanTable.getInstance().getTemplate(clanId);
-		String name = clan.getClanName();
+//		String name = clan.getClanName();
 		pc.sendPackets(new S_Emblem(clan.getClanId()));
 	}
 

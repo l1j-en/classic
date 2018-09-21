@@ -20,7 +20,6 @@ package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.ScheduledFuture;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.encryptions.IdFactory;
@@ -41,7 +40,7 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_SCARECROW = 7;
 	public static final int DOLLTYPE_COCKATRICE = 8;
 	public static final int DOLL_TIME = 1800000;
-	private ScheduledFuture<?> _dollFuture;
+//	private ScheduledFuture<?> _dollFuture;
 	private static Random _random = new Random();
 	private int _dollType;
 	private int _itemObjId;
@@ -87,7 +86,7 @@ public class L1DollInstance extends L1NpcInstance {
 		setId(IdFactory.getInstance().nextId());
 		setDollType(dollType);
 		setItemObjId(itemObjId);
-		_dollFuture = GeneralThreadPool.getInstance().schedule(new DollTimer(),
+		GeneralThreadPool.getInstance().schedule(new DollTimer(),
 				DOLL_TIME);
 
 		setMaster(master);

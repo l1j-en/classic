@@ -45,7 +45,7 @@ public class C_Drawal extends ClientBasePacket {
 
 	public C_Drawal(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
-		int i = readD();
+//		int i = readD();
 		int j = readD();
 
 		L1PcInstance pc = client.getActiveChar();
