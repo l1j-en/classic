@@ -18,7 +18,6 @@
  */
 package l1j.server.server.model;
 
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +26,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.templates.L1NpcChat;
 
-public class L1NpcChatTimer extends TimerTask {
+public class L1NpcChatTimer implements Runnable {
 	private static final Logger _log = Logger.getLogger(L1NpcChatTimer.class
 			.getName());
 	private final L1NpcInstance _npc;

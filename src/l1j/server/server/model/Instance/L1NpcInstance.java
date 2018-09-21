@@ -115,9 +115,8 @@ public class L1NpcInstance extends L1Character {
 	private int _randomMoveDistance = 0;
 	private int _randomMoveDirection = 0;
 
-	private Timer _chatTimer;
 	private L1NpcChatTimer _chatTask;
-	
+	private ScheduledFuture _chatTaskFuture;
 	private NpcAIThreadImpl _aiThread = null;
 	
 	private L1NpcInstance _servantMaster = null;
@@ -1251,15 +1250,19 @@ public class L1NpcInstance extends L1Character {
 		removeAllKnownObjects();
 
 		// TODO: test!
-		if (_chatTask != null) {
-			_chatTask.cancel();
+		if (!_chatTaskFuture.isDone()) {
+			_chatTaskFuture.cancel(true);
 			_chatTask = null;
 		}
-		if (_chatTimer != null) {
-			_chatTimer.cancel();
-			_chatTimer.purge();
-			_chatTimer = null;
-		}
+//		if (_chatTask != null) {
+//			_chatTask.cancel();
+//			_chatTask = null;
+//		}
+//		if (_chatTimer != null) {
+//			_chatTimer.cancel();
+//			_chatTimer.purge();
+//			_chatTimer = null;
+//		}
 
 		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 		if (mobGroupInfo == null) {
@@ -2302,24 +2305,30 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		// Fix timer thread leak
-		if (_chatTask != null) {
-			_chatTask.cancel();
+		if (!_chatTaskFuture.isDone()) {
+			_chatTaskFuture.cancel(true);
 			_chatTask = null;
 		}
-		if (_chatTimer != null) {
-			_chatTimer.cancel();
-			_chatTimer.purge();
-			_chatTimer = null;
-		}
+//		// Fix timer thread leak
+//		if (_chatTask != null) {
+//			_chatTask.cancel();
+//			_chatTask = null;
+//		}
+//		if (_chatTimer != null) {
+//			_chatTimer.cancel();
+//			_chatTimer.purge();
+//			_chatTimer = null;
+//		}
 		
-		_chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
+		//_chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
 		_chatTask = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
-			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
+			//_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
+			_chatTaskFuture = GeneralThreadPool.getInstance().schedule(_chatTask, npcChat.getStartDelayTime());
 		} else {
-			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime(),
-					npcChat.getRepeatInterval());
+			//_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime(),
+					//npcChat.getRepeatInterval());
+			_chatTaskFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_chatTask, npcChat.getStartDelayTime(), npcChat.getRepeatInterval());
 		}
 	}
 }
