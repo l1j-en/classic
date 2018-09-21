@@ -45,35 +45,41 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
 	@Override
 	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
-	    cause.printStackTrace();
-	    try {
+		// its likely already closed at this point
+		// but lets make sure
+		try {
 			ctx.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			_log.error("",e);
 		}
-	    System.out.println("Exception happened");
-		_log.error("Exception happened");
+		
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		try {
-			client.handleDisconnect();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			_log.error("",e);
+
+		if (client != null) {
+			try {
+				client.handleDisconnect();
+			} catch (Exception e) {
+				_log.error("", e);
+			}
 		}
-		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
+
+		try {
+			NetworkServer.getInstance().getClients().remove(ctx.channel().id());
+		} catch (Exception e) {
+		}
+		_log.error("", cause);
+
 	}
-	
+
 	@Override
 	public void channelInactive(final ChannelHandlerContext ctx) {
-		_log.error("Disconnect happened");
-		System.out.println("Disconnect happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-		try {
-			client.handleDisconnect();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			_log.error("",e);
+
+		if (client != null) {
+			try {
+				client.handleDisconnect();
+			} catch (Exception e) {
+				_log.error("", e);
+			}
 		}
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
