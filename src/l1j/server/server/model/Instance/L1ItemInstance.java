@@ -7,8 +7,6 @@ import static l1j.server.server.model.skill.L1SkillId.SHADOW_FANG;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
 
 import l1j.server.server.GeneralThreadPool;
@@ -1124,17 +1122,18 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 
 	private L1EquipmentTimer _equipmentTimer;
 
+	private ScheduledFuture<?> _equipmentTimerFuture;
+
 	public void startEquipmentTimer(L1PcInstance pc) {
 		if (getRemainingTime() > 0) {
 			_equipmentTimer = new L1EquipmentTimer(pc, this);
-			Timer timer = new Timer("EquipmentTimer-" + pc.getName(),true);
-			timer.scheduleAtFixedRate(_equipmentTimer, 1000, 1000);
+			_equipmentTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_equipmentTimer, 1000, 1000);
 		}
 	}
 
 	public void stopEquipmentTimer(L1PcInstance pc) {
 		if (getRemainingTime() > 0) {
-			_equipmentTimer.cancel();
+			_equipmentTimerFuture.cancel(true);
 			_equipmentTimer = null;
 		}
 	}
