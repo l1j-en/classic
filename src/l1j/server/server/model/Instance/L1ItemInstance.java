@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
@@ -62,6 +63,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	private boolean _isRunning = false;
 
 	private EnchantTimer _timer;
+	private ScheduledFuture<?> _timerFuture;
 
 	private int _bless;
 
@@ -865,7 +867,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		return returnvalue;
 	}
 
-	class EnchantTimer extends TimerTask {
+	class EnchantTimer implements Runnable {
 		public EnchantTimer() {
 		}
 
@@ -889,7 +891,6 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				setHitByMagic(0);
 				_isRunning = false;
 				_timer = null;
-				cancel();
 			} catch (Exception e) {
 			}
 		}
@@ -1038,7 +1039,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		int type = getItem().getType();
 		int type2 = getItem().getType2();
 		if (_isRunning) {
-			_timer.cancel();
+			_timerFuture.cancel(true);
 			int itemId = getItem().getItemId();
 			if (pc != null && pc.getInventory().checkItem(itemId)) {
 				if (type == 2 && type2 == 2 && isEquipped()) {
@@ -1057,7 +1058,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 		setAcByMagic(3);
 		_pc = pc;
-		GeneralThreadPool.getInstance().schedule(_timer, skillTime);
+		_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
@@ -1067,7 +1068,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 			return;
 		}
 		if (_isRunning) {
-			_timer.cancel();
+			_timerFuture.cancel(true);
 			setDmgByMagic(0);
 			setHolyDmgByMagic(0);
 			setHitByMagic(0);
@@ -1101,7 +1102,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		_pc = pc;
 		//_timer = new EnchantTimer();
 		//(new Timer("EnchantTimer-"+_pc.getName())).schedule(_timer, skillTime);
-		GeneralThreadPool.getInstance().schedule(_timer, skillTime);
+		_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, skillTime);
 		_isRunning = true;
 	}
 
