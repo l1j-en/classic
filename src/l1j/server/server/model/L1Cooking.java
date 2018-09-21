@@ -67,8 +67,8 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_S;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -78,7 +78,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Skill;
 
 public class L1Cooking {
-	private static final Logger _log = Logger.getLogger(L1Cooking.class
+	private static final Logger _log = LoggerFactory.getLogger(L1Cooking.class
 			.getName());
 
 	private L1Cooking() {
@@ -263,7 +263,7 @@ public class L1Cooking {
 			cookingId = COOKING_3_7_S;
 			break;
 		default:
-			_log.log(Level.WARNING, "Attempted to eat non-food item.");
+			_log.warn("Attempted to eat non-food item.");
 			return;
 		}
 

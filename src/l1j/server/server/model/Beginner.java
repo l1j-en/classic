@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
@@ -33,7 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.model:
 // L1PcInstance
 public class Beginner {
-	private static Logger _log = Logger.getLogger(Beginner.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Beginner.class.getName());
 	private static Beginner _instance;
 
 	public static Beginner getInstance() {
@@ -93,13 +94,13 @@ public class Beginner {
 					pstm2.setInt(13, 1);
 					pstm2.execute();
 				} catch (SQLException e2) {
-					_log.log(Level.SEVERE, e2.getLocalizedMessage(), e2);
+					_log.error(e2.getLocalizedMessage(), e2);
 				} finally {
 					SQLUtil.close(pstm2);
 				}
 			}
 		} catch (SQLException e1) {
-			_log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
+			_log.error(e1.getLocalizedMessage(), e1);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm1);

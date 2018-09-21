@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -34,7 +35,7 @@ import l1j.server.server.utils.SystemUtil;
 // ClientBasePacket
 public class C_AuthLogin extends ClientBasePacket {
 	private static final String C_AUTH_LOGIN = "[C] C_AuthLogin";
-	private static Logger _log = Logger.getLogger(C_AuthLogin.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_AuthLogin.class.getName());
 
 	public C_AuthLogin(byte[] decrypt, Client client) {
 		super(decrypt);
@@ -43,7 +44,7 @@ public class C_AuthLogin extends ClientBasePacket {
 		String ip = client.getIp();
 		String host = client.getHostname();
 
-		_log.finest("Request AuthLogin From User : " + accountName);
+		_log.trace("Request AuthLogin From User : " + accountName);
 
 		if (!Config.ALLOW_2PC) {
 			for (Client tempClient : LoginController.getInstance()

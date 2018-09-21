@@ -22,7 +22,9 @@ import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -52,7 +54,7 @@ import l1j.server.server.templates.L1House;
 public class C_Amount extends ClientBasePacket {
 
 	private static final String C_AMOUNT = "[C] C_Amount";
-	private static Logger _log = Logger.getLogger(C_PickUpItem.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_PickUpItem.class.getName());
 
 	public C_Amount(byte[] decrypt, Client client) throws Exception {
 		super(decrypt);

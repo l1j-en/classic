@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.utils.IntRange;
 
 public final class Config {

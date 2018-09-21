@@ -18,13 +18,14 @@
  */
 package l1j.server.server.encryptions;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.utils.StreamUtil;
 
 public class Base64 {
 
-	private static Logger _log = Logger.getLogger(Base64.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Base64.class.getName());
 
 	/* ******** P U B L I C F I E L D S ******** */
 
@@ -440,13 +441,13 @@ public class Base64 {
 
 				return 3;
 			} catch (Exception e) {
-				_log.severe("" + source[srcOffset] + ": "
+				_log.error("" + source[srcOffset] + ": "
 						+ (DECODABET[source[srcOffset]]));
-				_log.severe("" + source[srcOffset + 1] + ": "
+				_log.error("" + source[srcOffset + 1] + ": "
 						+ (DECODABET[source[srcOffset + 1]]));
-				_log.severe("" + source[srcOffset + 2] + ": "
+				_log.error("" + source[srcOffset + 2] + ": "
 						+ (DECODABET[source[srcOffset + 2]]));
-				_log.severe("" + source[srcOffset + 3] + ": "
+				_log.error("" + source[srcOffset + 3] + ": "
 						+ (DECODABET[source[srcOffset + 3]]));
 				return -1;
 			} // e nd catch

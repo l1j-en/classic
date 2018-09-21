@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1SignboardInstance;
 // ServerBasePacket, S_SignboardPack
 
 public class S_SignboardPack extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_SignboardPack.class
+//	private static Logger _log = LoggerFactory.getLogger(S_SignboardPack.class
 //			.getName());
 	private static final String S_SIGNBOARD_PACK = "[S] S_SignboardPack";
 	private static final int STATUS_POISON = 1;

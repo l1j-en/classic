@@ -21,13 +21,14 @@ package l1j.server.server.model.gametime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 
 public class L1GameTimeClock {
-	private static Logger _log = Logger.getLogger(L1GameTimeClock.class
+	private static Logger _log = LoggerFactory.getLogger(L1GameTimeClock.class
 			.getName());
 
 	private static L1GameTimeClock _instance;
@@ -50,7 +51,7 @@ public class L1GameTimeClock {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						_log.error(e.getLocalizedMessage(), e);
 					}
 				}
 			} catch (Exception e) {

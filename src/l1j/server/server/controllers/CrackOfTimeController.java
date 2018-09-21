@@ -22,8 +22,9 @@ import java.lang.reflect.Constructor;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
@@ -41,8 +42,7 @@ import l1j.server.server.templates.L1Npc;
  * Crack of time Controller
  */
 public class CrackOfTimeController extends TimerTask {
-	private final static Logger _log = Logger
-			.getLogger(CrackOfTimeController.class.getName());
+	private final static Logger _log = LoggerFactory			.getLogger(CrackOfTimeController.class.getName());
 	private Timer _timeHandler = new Timer("CrackOfTimer",true);
 	private boolean _isOver = false;
 	private int _startTime = 0;
@@ -185,7 +185,7 @@ public class CrackOfTimeController extends TimerTask {
 			Teleport teleport = new Teleport(npc, to_x, to_y, to_mapId);
 			GeneralThreadPool.getInstance().execute(teleport);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class CrackOfTimeController extends TimerTask {
 					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}

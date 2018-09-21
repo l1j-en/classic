@@ -27,8 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1AuctionBoard;
@@ -37,7 +38,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class AuctionBoardTable {
-	private static Logger _log = Logger.getLogger(AuctionBoardTable.class
+	private static Logger _log = LoggerFactory.getLogger(AuctionBoardTable.class
 			.getName());
 //	private static AuctionBoardTable _instance;
 	private final Map<Integer, L1AuctionBoard> _boards = new ConcurrentHashMap<Integer, L1AuctionBoard>();
@@ -74,7 +75,7 @@ public class AuctionBoardTable {
 				_boards.put(board.getHouseId(), board);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -116,7 +117,7 @@ public class AuctionBoardTable {
 			pstm.execute();
 			_boards.put(board.getHouseId(), board);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -148,7 +149,7 @@ public class AuctionBoardTable {
 			pstm.setInt(10, board.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -167,7 +168,7 @@ public class AuctionBoardTable {
 			pstm.execute();
 			_boards.remove(houseId);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

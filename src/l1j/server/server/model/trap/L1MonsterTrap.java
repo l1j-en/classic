@@ -21,8 +21,9 @@ package l1j.server.server.model.trap;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -37,8 +38,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.types.Point;
 
 public class L1MonsterTrap extends L1Trap {
-	private static Logger _log = Logger
-			.getLogger(L1MonsterTrap.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1MonsterTrap.class.getName());
 	private final int _npcId;
 	private final int _count;
 	private L1Npc _npcTemp = null;
@@ -121,7 +121,7 @@ public class L1MonsterTrap extends L1Trap {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 }

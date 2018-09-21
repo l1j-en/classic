@@ -21,8 +21,9 @@ package l1j.server.server.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1BossSpawn;
@@ -30,7 +31,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class BossSpawnTable {
-	private static Logger _log = Logger.getLogger(BossSpawnTable.class
+	private static Logger _log = LoggerFactory.getLogger(BossSpawnTable.class
 			.getName());
 
 	private BossSpawnTable() {
@@ -51,7 +52,7 @@ public class BossSpawnTable {
 				int npcTemplateId = rs.getInt("npc_id");
 				template1 = NpcTable.getInstance().getTemplate(npcTemplateId);
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId
+					_log.warn("mob data for id:" + npcTemplateId
 							+ " missing in npc table");
 					spawnDat = null;
 				} else {
@@ -84,13 +85,13 @@ public class BossSpawnTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.log(Level.FINE, "The total number of boss npcs: " + spawnCount
+		_log.trace("The total number of boss npcs: " + spawnCount
 				+ " mobs");
 	}
 }

@@ -20,14 +20,15 @@ package l1j.server.server.serverpackets;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.encryptions.Opcodes;
 
 public class S_CustomBoardRead extends ServerBasePacket {
 	private static final String S_CustomBoardRead = "[C] S_CustomBoardRead";
-	private static Logger _log = Logger.getLogger(S_BoardRead.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(S_BoardRead.class.getName());
 	private byte[] _byte = null;
 	
 	public S_CustomBoardRead(String title, String name, String content) {
@@ -44,7 +45,7 @@ public class S_CustomBoardRead extends ServerBasePacket {
 				writeS(getCurrentTimeStamp());
 				writeS(content);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} 
 	}
 

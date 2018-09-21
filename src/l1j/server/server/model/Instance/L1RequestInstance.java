@@ -18,7 +18,8 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1NpcTalkData;
@@ -30,7 +31,7 @@ public class L1RequestInstance extends L1NpcInstance {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(L1RequestInstance.class
+	private static Logger _log = LoggerFactory.getLogger(L1RequestInstance.class
 			.getName());
 
 	public L1RequestInstance(L1Npc template) {
@@ -51,7 +52,7 @@ public class L1RequestInstance extends L1NpcInstance {
 				player.sendPackets(new S_NPCTalkReturn(talking, objid, 1));
 			}
 		} else {
-			_log.finest("No actions for npc id : " + objid);
+			_log.trace("No actions for npc id : " + objid);
 		}
 	}
 

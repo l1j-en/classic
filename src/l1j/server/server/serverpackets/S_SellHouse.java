@@ -23,7 +23,7 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_SellHouse extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_SellHouse.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_SellHouse.class.getName());
 	private static final String S_SELLHOUSE = "[S] S_SellHouse";
 	private byte[] _byte = null;
 

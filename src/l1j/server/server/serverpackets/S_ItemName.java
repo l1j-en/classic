@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket, S_SendInvOnLogin
 public class S_ItemName extends ServerBasePacket {
 	private static final String S_ITEM_NAME = "[S] S_ItemName";
-//	private static Logger _log = Logger.getLogger(S_ItemName.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_ItemName.class.getName());
 
 	/**
 	 * To change the name of the item. Equipment and strengthening of state when

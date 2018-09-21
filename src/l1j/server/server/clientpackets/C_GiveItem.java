@@ -19,7 +19,9 @@
 package l1j.server.server.clientpackets;
 
 import java.util.Random;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -45,7 +47,7 @@ import l1j.server.server.templates.L1PetType;
 
 public class C_GiveItem extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_GiveItem.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_GiveItem.class.getName());
 	private static final String C_GIVE_ITEM = "[C] C_GiveItem";
 	private static Random _random = new Random();
 
@@ -109,7 +111,7 @@ public class C_GiveItem extends ClientBasePacket {
 		} //end if
 		
 		if (itemId != item.getId()) {
-			_log.warning(pc.getName() + " had item " + Integer.toString(itemId)
+			_log.warn(pc.getName() + " had item " + Integer.toString(itemId)
 					+ " not match.");
 		}
 		if (item.isEquipped()) {
@@ -146,7 +148,7 @@ public class C_GiveItem extends ClientBasePacket {
 		try {
 			before_target_inv = targetInv.countItems(item.getItemId());
 		} catch(Exception ex) {
-			_log.warning(String.format("%s Dropped item %s. But it failed to get the count from the target inventory!",
+			_log.warn(String.format("%s Dropped item %s. But it failed to get the count from the target inventory!",
 					pc.getName(), item.getName(), item.getCount()));
 		}
 		
@@ -165,7 +167,7 @@ public class C_GiveItem extends ClientBasePacket {
 			giveItemLog.storeLogGiveItem(pc, target, item,
 					before_inv, after_inv, before_target_inv, after_target_inv, count);
 		} catch(Exception ex) {
-			_log.warning(String.format("%s Dropped item %s (%d). But it failed to log!",
+			_log.warn(String.format("%s Dropped item %s (%d). But it failed to log!",
 					pc.getName(), item.getName(), item.getCount()));
 		}
 		

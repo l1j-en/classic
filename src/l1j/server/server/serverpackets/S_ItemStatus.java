@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket
 
 public class S_ItemStatus extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_ItemStatus.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_ItemStatus.class.getName());
 	private static final String S_ITEM_STATUS = "[S] S_ItemStatus";
 
 	public S_ItemStatus(L1ItemInstance item) {

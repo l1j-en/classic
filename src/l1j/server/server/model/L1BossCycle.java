@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,12 +36,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.datatables.BossSpawnTable;
 import l1j.server.server.utils.PerformanceTimer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class L1BossCycle {
-	private static Logger _log = Logger.getLogger(L1BossCycle.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1BossCycle.class.getName());
 	private static final Random _rnd = new Random();
 	private Calendar _baseDate;
 	private int _period; // Portion Exchange
@@ -351,7 +352,7 @@ public class L1BossCycle {
 
 	public static void load() {
 		PerformanceTimer timer = new PerformanceTimer();
-		_log.config("Loading Boss Cycle...");
+		_log.info("Loading Boss Cycle...");
 		try {
 			// BookOrder To generate the context of a binding class
 			JAXBContext context = JAXBContext
@@ -379,10 +380,10 @@ public class L1BossCycle {
 			// spawnlist_boss From the loading place
 			BossSpawnTable.fillSpawnTable();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "BossCycle Could not load", e);
+			_log.error("BossCycle Could not load", e);
 			System.exit(0);
 		}
-		_log.config("     OK!     " + timer.elapsedTimeMillis() + "ms");
+		_log.info("     OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	/**

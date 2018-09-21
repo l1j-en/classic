@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -51,7 +52,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1GuardianInstance.class
+	private static Logger _log = LoggerFactory.getLogger(L1GuardianInstance.class
 			.getName());
 
 	private Random _random = new Random();
@@ -353,7 +354,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 						DropTable.getInstance().dropShare(_npc, dropTargetList,
 								dropHateList);
 					} catch (Exception e) {
-						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						_log.error(e.getLocalizedMessage(), e);
 					}
 					player.addKarma((int) (getKarma() * Config.RATE_KARMA));
 				}

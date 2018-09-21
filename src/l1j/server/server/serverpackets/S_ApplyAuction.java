@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Opcodes;
@@ -33,7 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_ApplyAuction extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_ApplyAuction.class
+	private static Logger _log = LoggerFactory.getLogger(S_ApplyAuction.class
 			.getName());
 	private static final String S_APPLYAUCTION = "[S] S_ApplyAuction";
 	private byte[] _byte = null;
@@ -72,7 +73,7 @@ public class S_ApplyAuction extends ServerBasePacket {
 				writeS("agapply " + houseNumber);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

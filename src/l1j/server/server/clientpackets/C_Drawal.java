@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -41,7 +42,7 @@ import l1j.server.server.templates.L1Castle;
 public class C_Drawal extends ClientBasePacket {
 
 	private static final String C_DRAWAL = "[C] C_Drawal";
-	private static Logger _log = Logger.getLogger(C_Drawal.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Drawal.class.getName());
 
 	public C_Drawal(byte abyte0[], Client client) throws Exception {
 		super(abyte0);

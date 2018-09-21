@@ -27,8 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Castle;
@@ -37,7 +38,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class CastleTable {
-	private static Logger _log = Logger.getLogger(CastleTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(CastleTable.class.getName());
 	private static CastleTable _instance;
 	private final Map<Integer, L1Castle> _castles = new ConcurrentHashMap<Integer, L1Castle>();
 
@@ -72,7 +73,7 @@ public class CastleTable {
 				_castles.put(castle.getId(), castle);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -122,7 +123,7 @@ public class CastleTable {
 			pstm.execute();
 			_castles.put(castle.getId(), castle);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -150,7 +151,7 @@ public class CastleTable {
 			pstm.execute();
 			_castles.put(castle.getId(), castle);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

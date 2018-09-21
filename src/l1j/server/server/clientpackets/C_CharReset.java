@@ -19,8 +19,9 @@
 package l1j.server.server.clientpackets;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Attribute;
@@ -41,7 +42,7 @@ import l1j.server.server.utils.CalcStat;
 public class C_CharReset extends ClientBasePacket {
 
 	private static final String C_CHAR_RESET = "[C] C_CharReset";
-	private static Logger _log = Logger.getLogger(C_CharReset.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_CharReset.class.getName());
 
 	/**
 	 * //zuy m 127.0.0.1 Request Work ID : 120 0000: 78 01 0d 0a 0b 0a 12 0d
@@ -151,7 +152,7 @@ public class C_CharReset extends ClientBasePacket {
 			emergencyCleanup(pc, 
 					String.format("%s attempted to candle on an incorrect map (may have sent the packet manually)! Mapid: %d", pc.getName(), pc.getMapId()),
 					"Error candling. Contact a GM.", client);
-			_log.warning(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
+			_log.warn(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
 		}
 		
 		int stage = readC();
@@ -276,7 +277,7 @@ public class C_CharReset extends ClientBasePacket {
 
 	private synchronized void emergencyCleanup(final L1PcInstance pc,
 			final String logEntry, final String message, Client client) {
-		_log.log(Level.SEVERE, logEntry);
+		_log.error(logEntry);
 		pc.sendPackets(new S_SystemMessage(message));
 
 		// We'll be nice and just kick the player even though they're probably
@@ -329,7 +330,7 @@ public class C_CharReset extends ClientBasePacket {
 				pc.getInventory().removeItem(item, 1);
 				pc.save();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 		

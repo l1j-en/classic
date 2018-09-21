@@ -21,7 +21,9 @@ package l1j.server.server;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
@@ -31,7 +33,7 @@ import l1j.server.server.network.NetworkServer;
 
 public class GameServer extends Thread {
 	//private ServerSocket _serverSocket;
-	private static Logger _log = Logger.getLogger(GameServer.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(GameServer.class.getName());
 	//private int _port;
 
 	// Naive denial of service defense.
@@ -56,9 +58,9 @@ public class GameServer extends Thread {
 
 //	@Override
 //	public void run() {
-//		_log.config("Server started. Memory used: "
+//		_log.info("Server started. Memory used: "
 //				+ SystemUtil.getUsedMemoryMB() + "MB");
-//		_log.config("Waiting for connections!");
+//		_log.info("Waiting for connections!");
 //		while (true) {
 //			try {
 //				Socket socket = _serverSocket.accept();
@@ -69,14 +71,14 @@ public class GameServer extends Thread {
 //				try {
 //					if (connectionCache.get(host) == CONNECTION_LIMIT) {
 //						// Log DOS detection once, but not more than once
-//						_log.log(Level.WARNING,
+//						_log.warn(
 //						"GameServer::run: " + host + " hit connection limit.");
 //					} else if (connectionCache.get(host) > CONNECTION_LIMIT) {
 //						socket.close();
 //					} else if (IpTable.getInstance().isBannedIp(host)) {
 //						_log.info("Banned IP(" + host + ")");
 //					} else {
-//						_log.log(Level.FINE, "Accepted connection from IP: "
+//						_log.trace("Accepted connection from IP: "
 //								+ socket.getInetAddress());
 //						Client client = new Client(socket);
 //						GeneralThreadPool.getInstance().execute(client);
@@ -89,11 +91,11 @@ public class GameServer extends Thread {
 //					socket.close();
 //				}
 //			} catch (IOException ioexception) {
-//				_log.log(Level.SEVERE, "Error creating a client thread connection! IO Exception!");
-//				_log.log(Level.SEVERE, ioexception.getLocalizedMessage(), ioexception);
+//				_log.error("Error creating a client thread connection! IO Exception!");
+//				_log.error(ioexception.getLocalizedMessage(), ioexception);
 //			} catch(Exception ex) {
-//				_log.log(Level.SEVERE, "Error creating a client thread connection! General Exception!");
-//				_log.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
+//				_log.error("Error creating a client thread connection! General Exception!");
+//				_log.error(ex.getLocalizedMessage(), ex);
 //				throw ex;
 //			}
 //		}
@@ -115,23 +117,23 @@ public class GameServer extends Thread {
 	public void initialize() throws Exception {
 //		String s = Config.GAME_SERVER_HOST_NAME;
 
-		_log.config("=================================================");
-		_log.config("               L1J-En Server Starting");
-		_log.config("=================================================");
+		_log.info("=================================================");
+		_log.info("               L1J-En Server Starting");
+		_log.info("=================================================");
 
 		//_port = Config.GAME_SERVER_PORT;
 //		if (!"*".equals(s)) {
 //			InetAddress inetaddress = InetAddress.getByName(s);
 //			inetaddress.getHostAddress();
 //			_serverSocket = new ServerSocket(_port, 50, inetaddress);
-//			_log.config("Login Server ready on "
+//			_log.info("Login Server ready on "
 //					+ (inetaddress == null ? "Port" : inetaddress
 //							.getHostAddress()) + ":" + _port);
 //		} else {
 //			_serverSocket = new ServerSocket(_port);
-//			_log.config("Port " + _port + " opened");
+//			_log.info("Port " + _port + " opened");
 //		}
-		_log.config("Thread Lock Detection running");
+		_log.info("Thread Lock Detection running");
 		SkillTable.initialize();
 		GameServerThread.getInstance();
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SSHCommand implements Command, Runnable {
 	  private OutputStream outputStream;
@@ -19,7 +19,7 @@ public class SSHCommand implements Command, Runnable {
 	  private Thread thread;
 	  private Commands command;
 	  private String args;
-	  private static Logger _log = Logger.getLogger(SSHCommand.class.getName());
+	  private static Logger _log = LoggerFactory.getLogger(SSHCommand.class.getName());
 
 	  public SSHCommand(Commands command, String args)
 	  {
@@ -70,7 +70,7 @@ public class SSHCommand implements Command, Runnable {
 	  public void run() {
 		try {
 			String user = this.environment.getEnv().get(Environment.ENV_USER);
-			_log.log(Level.INFO, user + " ran command " + this.command.formatMessage(this.args));
+			_log.info(user + " ran command " + this.command.formatMessage(this.args));
 			
 			final PrintWriter writer = new PrintWriter(this.outputStream, true);
 			writer.println(this.command.execute(this.args));

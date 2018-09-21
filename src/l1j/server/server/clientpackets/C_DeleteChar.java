@@ -19,8 +19,9 @@
 package l1j.server.server.clientpackets;
 
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CharacterTable;
@@ -36,7 +37,7 @@ import l1j.server.server.serverpackets.S_DeleteCharOK;
 public class C_DeleteChar extends ClientBasePacket {
 
 	private static final String C_DELETE_CHAR = "[C] RequestDeleteChar";
-	private static Logger _log = Logger.getLogger(C_DeleteChar.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_DeleteChar.class.getName());
 
 	public C_DeleteChar(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
@@ -103,7 +104,7 @@ public class C_DeleteChar extends ClientBasePacket {
 			CharacterTable.getInstance().deleteCharacter(
 					client.getAccountName(), name);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			client.close();
 			return;
 		}

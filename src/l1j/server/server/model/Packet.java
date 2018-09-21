@@ -1,9 +1,10 @@
 package l1j.server.server.model;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Packet {
-	private static Logger _log = Logger.getLogger(Packet.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Packet.class.getName());
 	
 	private int _opCode;
 	private String _packet;
@@ -34,7 +35,7 @@ public class Packet {
 		try {
 			opCode = Integer.parseInt(packetInfo[0]);
 		} catch(NumberFormatException ex) { 
-			_log.warning("Error parsing opcode for packet log: " + packet);
+			_log.warn("Error parsing opcode for packet log: " + packet);
 		}
 		
 		_opCode = opCode;

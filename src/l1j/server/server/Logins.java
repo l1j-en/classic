@@ -25,8 +25,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -34,7 +35,7 @@ import l1j.server.server.encryptions.Base64;
 import l1j.server.server.utils.SQLUtil;
 
 public class Logins {
-	private static Logger _log = Logger.getLogger(Logins.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Logins.class.getName());
 
 	public static boolean loginValid(String account, String password,
 			String ip, String host) {
@@ -58,7 +59,7 @@ public class Logins {
 			rs = pstm.executeQuery();
 			if (rs.next()) {
 				abyte2 = Base64.decode(rs.getString(1));
-				_log.fine("Account exists");
+				_log.trace("Account exists");
 			}
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -79,7 +80,7 @@ public class Logins {
 					_log.info("Created new account for " + account);
 					return true;
 				} else {
-					_log.warning("Account missing for user " + account);
+					_log.warn("Account missing for user " + account);
 					return false;
 				}
 			}
@@ -97,15 +98,15 @@ public class Logins {
 					i++;
 				} while (true);
 			} catch (Exception e) {
-				_log.warning("Could not check password: " + e);
+				_log.warn("Could not check password: " + e);
 				flag1 = false;
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (UnsupportedEncodingException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

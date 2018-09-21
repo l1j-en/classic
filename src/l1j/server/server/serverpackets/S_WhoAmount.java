@@ -22,7 +22,7 @@ import l1j.server.server.encryptions.Opcodes;
 
 public class S_WhoAmount extends ServerBasePacket {
 	private static final String S_WHO_AMOUNT = "[S] S_WhoAmount";
-//	private static Logger _log = Logger.getLogger(S_WhoAmount.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_WhoAmount.class.getName());
 
 	public S_WhoAmount(String amount) {
 		writeC(Opcodes.S_OPCODE_SERVERMSG);

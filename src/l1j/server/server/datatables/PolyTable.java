@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.utils.SQLUtil;
 
 public class PolyTable {
-	private static Logger _log = Logger.getLogger(PolyTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PolyTable.class.getName());
 	private static PolyTable _instance;
 	private final HashMap<String, L1PolyMorph> _polymorphs = new HashMap<String, L1PolyMorph>();
 	private final HashMap<Integer, L1PolyMorph> _polyIdIndex = new HashMap<Integer, L1PolyMorph>();
@@ -57,7 +58,7 @@ public class PolyTable {
 			rs = pstm.executeQuery();
 			fillPolyTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating polymorph table", e);
+			_log.error("error while creating polymorph table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -82,7 +83,7 @@ public class PolyTable {
 			_polymorphs.put(name, poly);
 			_polyIdIndex.put(polyId, poly);
 		}
-		_log.config("Polymorphs List: " + _polymorphs.size() + " Loaded");
+		_log.info("Polymorphs List: " + _polymorphs.size() + " Loaded");
 	}
 	
 	public HashMap<String, L1PolyMorph> getAllPolymorphs() {

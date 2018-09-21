@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -40,7 +41,7 @@ public class L1GroundInventory extends L1Inventory {
 					removeItem(_item);
 				}
 			} catch (Throwable t) {
-				_log.log(Level.SEVERE, t.getLocalizedMessage(), t);
+				_log.error(t.getLocalizedMessage(), t);
 			}
 		}
 	}
@@ -121,6 +122,5 @@ public class L1GroundInventory extends L1Inventory {
 		}
 	}
 
-	private static Logger _log = Logger
-			.getLogger(L1PcInventory.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1PcInventory.class.getName());
 }

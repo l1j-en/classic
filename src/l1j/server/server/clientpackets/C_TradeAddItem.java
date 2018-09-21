@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -39,7 +40,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 public class C_TradeAddItem extends ClientBasePacket {
 	private static final String C_TRADE_ADD_ITEM = "[C] C_TradeAddItem";
-	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
+	private static Logger _log = LoggerFactory.getLogger(C_TradeAddItem.class
 			.getName());
 
 	public C_TradeAddItem(byte abyte0[], Client client) throws Exception {
@@ -80,7 +81,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 			return;
 		}
 		if (itemid != item.getId()) {
-			_log.warning(pc.getName() + " had item " + Integer.toString(itemid)
+			_log.warn(pc.getName() + " had item " + Integer.toString(itemid)
 					+ " not match.");
 		}
 		L1Trade trade = new L1Trade();

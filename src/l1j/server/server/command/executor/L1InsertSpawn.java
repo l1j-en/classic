@@ -19,8 +19,9 @@
 package l1j.server.server.command.executor;
 
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.datatables.NpcTable;
@@ -31,8 +32,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.L1SpawnUtil;
 
 public class L1InsertSpawn implements L1CommandExecutor {
-	private static Logger _log = Logger
-			.getLogger(L1InsertSpawn.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1InsertSpawn.class.getName());
 
 	private L1InsertSpawn() {
 	}
@@ -68,7 +68,7 @@ public class L1InsertSpawn implements L1CommandExecutor {
 			msg = new StringBuilder().append(template.get_name())
 					.append(" (" + npcId + ") ").append("B").toString();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "", e);
+			_log.error("", e);
 			msg = cmdName + " mob|npc NPCID";
 		} finally {
 			if (msg != null) {

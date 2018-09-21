@@ -22,8 +22,9 @@ package l1j.server.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.command.L1Commands;
 import l1j.server.server.command.executor.L1CommandExecutor;
@@ -37,7 +38,7 @@ import l1j.server.server.templates.L1Command;
 // PolyTable, IdFactory
 //
 public class GMCommands {
-	private static Logger _log = Logger.getLogger(GMCommands.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(GMCommands.class.getName());
 
 	private static GMCommands _instance;
 
@@ -78,7 +79,7 @@ public class GMCommands {
 			_log.info(pc.getName() + " ran " + name + " " + arg + "");
 			return true;
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "error gm command", e);
+			_log.error("error gm command", e);
 		}
 		return false;
 	}
@@ -127,7 +128,7 @@ public class GMCommands {
 				handleCommands(pc, cmd);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(""));
 		}
 	}

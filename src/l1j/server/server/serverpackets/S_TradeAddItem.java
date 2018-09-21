@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket
 
 public class S_TradeAddItem extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_TradeAddItem.class
+//	private static Logger _log = LoggerFactory.getLogger(S_TradeAddItem.class
 //			.getName());
 	private static final String S_TRADE_ADD_ITEM = "[S] S_TradeAddItem";
 

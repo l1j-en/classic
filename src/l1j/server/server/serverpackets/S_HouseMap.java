@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 // ServerBasePacket
 
 public class S_HouseMap extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_HouseMap.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_HouseMap.class.getName());
 	private static final String S_HOUSEMAP = "[S] S_HouseMap";
 	private byte[] _byte = null;
 

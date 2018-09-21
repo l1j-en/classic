@@ -27,7 +27,7 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 
 public class S_SummonPack extends ServerBasePacket {
 	private static final String _S__1F_SUMMONPACK = "[S] S_SummonPack";
-//	private static Logger _log = Logger.getLogger(S_SummonPack.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_SummonPack.class.getName());
 	private static final int STATUS_POISON = 1;
 //	private static final int STATUS_INVISIBLE = 2;
 //	private static final int STATUS_PC = 4;

@@ -29,7 +29,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_NPCPack extends ServerBasePacket {
 	private static final String S_NPC_PACK = "[S] S_NPCPack";
-//	private static Logger _log = Logger.getLogger(S_NPCPack.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_NPCPack.class.getName());
 	private static final int STATUS_POISON = 1;
 //	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;

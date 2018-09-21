@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,7 +32,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Search implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Search.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Search.class.getName());
 
 	private L1Search() {
 	}
@@ -299,7 +300,7 @@ public class L1Search implements L1CommandExecutor {
 		case 2:
 			return "\\fY";
 		default:
-			_log.log(Level.WARNING, "L1Search: unrecognized bless status.");
+			_log.warn("L1Search: unrecognized bless status.");
 			return "";
 		}
 	}

@@ -1,13 +1,14 @@
 package l1j.server.server.model;
 
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class MpRegenerationByDoll extends TimerTask {
-	private static Logger _log = Logger.getLogger(MpRegenerationByDoll.class
+	private static Logger _log = LoggerFactory.getLogger(MpRegenerationByDoll.class
 			.getName());
 
 	private final L1PcInstance _pc;
@@ -24,7 +25,7 @@ public class MpRegenerationByDoll extends TimerTask {
 			}
 			regenMp();
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

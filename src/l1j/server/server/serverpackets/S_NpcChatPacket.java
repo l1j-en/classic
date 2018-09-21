@@ -23,7 +23,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_NpcChatPacket extends ServerBasePacket {
 	private static final String S_NPC_CHAT_PACKET = "[S] S_NpcChatPacket";
-//	private static Logger _log = Logger.getLogger(S_NpcChatPacket.class
+//	private static Logger _log = LoggerFactory.getLogger(S_NpcChatPacket.class
 //			.getName());
 	private byte[] _byte = null;
 

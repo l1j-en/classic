@@ -21,13 +21,13 @@ package l1j.server.server.model.npc.action;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 public class L1NpcActionFactory {
-	private static Logger _log = Logger.getLogger(L1NpcActionFactory.class
+	private static Logger _log = LoggerFactory.getLogger(L1NpcActionFactory.class
 			.getName());
 	private static Map<String, Constructor<L1NpcAction>> _actions = new HashMap<String, Constructor<L1NpcAction>>();
 
@@ -45,7 +45,7 @@ public class L1NpcActionFactory {
 			_actions.put("SetQuest", loadConstructor(L1NpcSetQuestAction.class));
 			_actions.put("Teleport", loadConstructor(L1NpcTeleportAction.class));
 		} catch (NoSuchMethodException e) {
-			_log.log(Level.SEVERE,
+			_log.error(
 					"L1NpcActionFactory Error when loading Constructors.", e);
 		}
 	}
@@ -55,10 +55,10 @@ public class L1NpcActionFactory {
 			Constructor<L1NpcAction> con = _actions.get(element.getNodeName());
 			return con.newInstance(element);
 		} catch (NullPointerException e) {
-			_log.warning("Invalid NpcAction reference for "
+			_log.warn("Invalid NpcAction reference for "
 					+ element.getNodeName());
 		} catch (Exception e) {
-			_log.log(Level.SEVERE,
+			_log.error(
 					"L1NpcActionFactory Error when loading actions.", e);
 		}
 		return null;

@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
@@ -26,7 +27,7 @@ import l1j.server.server.serverpackets.S_ChangeHeading;
 
 public class C_ChangeHeading extends ClientBasePacket {
 	private static final String C_CHANGE_HEADING = "[C] C_ChangeHeading";
-	private static Logger _log = Logger.getLogger(C_ChangeHeading.class
+	private static Logger _log = LoggerFactory.getLogger(C_ChangeHeading.class
 			.getName());
 
 	public C_ChangeHeading(byte[] decrypt, Client client) {
@@ -36,7 +37,7 @@ public class C_ChangeHeading extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		pc.setHeading(heading);
-		_log.finest("Character Changes Heading : " + pc.getHeading());
+		_log.trace("Character Changes Heading : " + pc.getHeading());
 
 		if (pc.isGmInvis() || pc.isGhost()) {
 		} else if (pc.isInvisble()) {

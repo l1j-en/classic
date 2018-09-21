@@ -21,7 +21,9 @@ package l1j.server.server.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.NpcChatTable;
@@ -31,7 +33,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.templates.L1NpcChat;
 
 public class NpcChatTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(NpcChatTimeController.class
+	private static Logger _log = LoggerFactory.getLogger(NpcChatTimeController.class
 			.getName());
 	private static NpcChatTimeController _instance;
 
@@ -51,7 +53,7 @@ public class NpcChatTimeController implements Runnable {
 				Thread.sleep(60000);
 			}
 		} catch (Exception e1) {
-			_log.warning(e1.getMessage());
+			_log.warn(e1.getMessage());
 		}
 	}
 

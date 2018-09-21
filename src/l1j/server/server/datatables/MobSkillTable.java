@@ -23,16 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1MobSkill;
 import l1j.server.server.utils.SQLUtil;
 
 public class MobSkillTable {
-	private static Logger _log = Logger
-			.getLogger(MobSkillTable.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(MobSkillTable.class.getName());
 	private final boolean _initialized;
 	private static MobSkillTable _instance;
 	private final HashMap<Integer, L1MobSkill> _mobskills;
@@ -105,14 +105,14 @@ public class MobSkillTable {
 						_mobskills.put(new Integer(mobid), mobskill);
 					}
 				} catch (SQLException e1) {
-					_log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
+					_log.error(e1.getLocalizedMessage(), e1);
 
 				} finally {
 					SQLUtil.close(rs2);
 				}
 			}
 		} catch (SQLException e2) {
-			_log.log(Level.SEVERE, "Error while creating mobskill table.", e2);
+			_log.error("Error while creating mobskill table.", e2);
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(pstm1);

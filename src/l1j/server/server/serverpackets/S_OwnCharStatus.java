@@ -50,7 +50,7 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class S_OwnCharStatus extends ServerBasePacket {
 
-//	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class
+//	private static Logger _log = LoggerFactory.getLogger(S_OwnCharStatus.class
 
 //			.getName());
 
@@ -74,7 +74,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 
 		time = time - (time % 300);
 
-		// _log.warning((new
+		// _log.warn((new
 
 		// StringBuilder()).append("Transmission time:").append(i).toString());
 

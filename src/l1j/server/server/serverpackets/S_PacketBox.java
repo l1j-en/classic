@@ -30,7 +30,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_PacketBox extends ServerBasePacket {
 	private static final String S_PACKETBOX = "[S] S_PacketBox";
-//	private static Logger _log = Logger.getLogger(S_PacketBox.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_PacketBox.class.getName());
 	private byte[] _byte = null;
 
 	// *** S_107 sub code list ***

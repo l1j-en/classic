@@ -26,7 +26,9 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_S;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.ExpTable;
@@ -43,7 +45,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
 
 public class CalcExp {
-	private static Logger _log = Logger.getLogger(CalcExp.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(CalcExp.class.getName());
 	public static final int MAX_EXP = ExpTable.getExpByLevel(100) - 1;
 
 	private CalcExp() {
@@ -580,7 +582,7 @@ public class CalcExp {
 			L1Pet petTemplate = PetTable.getInstance()
 					.getTemplate(petItemObjId);
 			if (petTemplate == null) { // PetTable no
-				_log.warning("L1Pet == null");
+				_log.warn("L1Pet == null");
 				return;
 			}
 			petTemplate.set_exp(pet.getExp());

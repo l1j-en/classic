@@ -5,8 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.NpcTable;
@@ -18,7 +19,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.L1SpawnUtil;
 
 public class BossEventController implements Runnable {
-	private static Logger _log = Logger.getLogger(BossEventController.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(BossEventController.class.getName());
 	SecureRandom rand;
 	ArrayList<Integer> bossIds = new ArrayList<Integer>();
 	HashMap<String, Integer> ipsHit = new HashMap<String, Integer>();
@@ -179,12 +180,12 @@ public class BossEventController implements Runnable {
 					}
 				}
 
-				_log.log(Level.FINE, "Boss Event Controller Finished run, sleeping.");
+				_log.trace("Boss Event Controller Finished run, sleeping.");
 				Thread.sleep(sleepTime);
 			}
 		} catch(Exception ex) {
-			_log.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
-			_log.log(Level.WARNING, "Boss Event Controller Crashed! No bosses for event will spawn!");
+			_log.error(ex.getLocalizedMessage(), ex);
+			_log.warn("Boss Event Controller Crashed! No bosses for event will spawn!");
 		}
 	}
 }

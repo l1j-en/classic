@@ -2,8 +2,9 @@ package l1j.server.server.model;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.ItemTable;
@@ -14,7 +15,7 @@ import l1j.server.server.types.Point;
 
 public class ElementalStoneGenerator implements Runnable {
 
-	private static Logger _log = Logger.getLogger(ElementalStoneGenerator.class
+	private static Logger _log = LoggerFactory.getLogger(ElementalStoneGenerator.class
 			.getName());
 
 	private static final int ELVEN_FOREST_MAPID = 4;
@@ -127,7 +128,7 @@ public class ElementalStoneGenerator implements Runnable {
 				Thread.sleep(SLEEP_TIME * 1000);
 			}
 		} catch (Throwable e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 }

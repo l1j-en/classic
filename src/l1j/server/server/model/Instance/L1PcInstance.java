@@ -38,8 +38,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -1528,7 +1529,7 @@ public class L1PcInstance extends L1Character {
 										SQLUtil.close(pstm);
 										SQLUtil.close(con);
 									} catch (Exception e) {
-										_log.log(Level.SEVERE,
+										_log.error(
 												e.getLocalizedMessage(), e);
 									}
 
@@ -1536,7 +1537,7 @@ public class L1PcInstance extends L1Character {
 							}
 						}
 					} catch (Exception e) {
-						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						_log.error(e.getLocalizedMessage(), e);
 					}
 				}
 				if (getMapId() == 5153) {
@@ -1965,7 +1966,7 @@ public class L1PcInstance extends L1Character {
 		return L1ClassId.isIllusionist(getClassId());
 	}
 
-	private static Logger _log = Logger.getLogger(L1PcInstance.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1PcInstance.class.getName());
 	private Client _netConnection;
 	private int _classId;
 	private int _type;
@@ -2499,7 +2500,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			result = CharacterTable.getInstance().loadCharacter(charName);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return result;
 	}
@@ -2646,7 +2647,7 @@ public class L1PcInstance extends L1Character {
 							"You use Revival Potion and have returned to level 1."));
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 				sendPackets(new S_SystemMessage("Use of Revival Potion failed!"));
 			}
 		}
@@ -2670,7 +2671,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		if (getLevel() >= 51 && getLevel() - 50 > getBonusStats()) {
 			if ((getBaseStr() + getBaseDex() + getBaseCon() + getBaseInt()
@@ -2727,7 +2728,7 @@ public class L1PcInstance extends L1Character {
 		try {
 			save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		sendPackets(new S_OwnCharStatus(this));
 	}

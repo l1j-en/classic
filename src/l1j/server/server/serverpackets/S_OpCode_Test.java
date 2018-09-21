@@ -1,6 +1,7 @@
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
@@ -94,8 +95,7 @@ public class S_OpCode_Test extends ServerBasePacket {
 
 	private static final String S_OpCode_Test = "[S] S_OpCode_Test";
 	@SuppressWarnings("unused")
-	private static Logger _log = Logger
-			.getLogger(S_OpCode_Test.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(S_OpCode_Test.class.getName());
 	private int _opcodeid;
 	private int _testlevel;
 	private L1PcInstance _gm;

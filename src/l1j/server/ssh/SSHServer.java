@@ -7,14 +7,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.sshd.common.config.keys.AuthorizedKeyEntry;
 import org.apache.sshd.common.config.keys.KeyUtils;
 import org.apache.sshd.common.config.keys.PublicKeyEntryResolver;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.ssh.command.SSHCommandFactory;
@@ -22,7 +22,7 @@ import l1j.server.ssh.command.SSHCommandFactory;
 
 public class SSHServer {
 	private static SSHServer _instance;
-	private static Logger _log = Logger.getLogger(SSHServer.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(SSHServer.class.getName());
 	
 	private class ServerThread extends Thread {
 		@Override
@@ -52,7 +52,7 @@ public class SSHServer {
 					    }
 					}
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage());
+					_log.error(e.getLocalizedMessage());
 				} 
 		        
 		        userKeysMap.put(user, usersKeys);
@@ -64,7 +64,7 @@ public class SSHServer {
 		    try {
 				sshd.start();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage());
+				_log.error(e.getLocalizedMessage());
 			}
 		}
 	}

@@ -7,8 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -44,7 +45,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1MonsterInstance.class
+	private static Logger _log = LoggerFactory.getLogger(L1MonsterInstance.class
 			.getName());
 
 	private static Random _random = new Random();
@@ -492,7 +493,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 						SQLUtil.close(pstm);
 						SQLUtil.close(con);
 					} catch (Exception e) {
-						_log.log(Level.SEVERE,
+						_log.error(
 								"Error occurred logging boss kill!: " + e.getLocalizedMessage(), e);
 					}
 				}
@@ -569,7 +570,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 						dropTargetList, dropHateList);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

@@ -2,15 +2,16 @@ package l1j.server.server.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReflectionUtil {
-	private static Logger _log = Logger.getLogger(ReflectionUtil.class
+	private static Logger _log = LoggerFactory.getLogger(ReflectionUtil.class
 			.getName());
 
 	private static void logException(Exception e) {
-		_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		_log.error(e.getLocalizedMessage(), e);
 	}
 
 	public static Class<?> classForName(String className) {

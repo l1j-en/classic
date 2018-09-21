@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mysql.jdbc.Statement;
 
@@ -36,7 +37,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogPrivateShopBuy {
-	private static Logger _log = Logger.getLogger(LogPrivateShopBuy.class
+	private static Logger _log = LoggerFactory.getLogger(LogPrivateShopBuy.class
 			.getName());
 
 	public long storeLogPrivateShopBuy(String transactionId, L1PcInstance pc, L1PcInstance target,
@@ -79,14 +80,14 @@ public class LogPrivateShopBuy {
 			
 			generatedKey = generatedKeys.getLong(1);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
 		
 		if(generatedKey == -1) {
-			_log.warning(String.format("Failed to insert log for private shop buy! TransactionId: %s Buyer: %s, Shop: %s, " + 
+			_log.warn(String.format("Failed to insert log for private shop buy! TransactionId: %s Buyer: %s, Shop: %s, " + 
 					"Item: %s, ItemId: %d, EnchantLevel: %d, Count: %d",
 					transactionId, pc.getName(), target.getName(), item.getName(), item.getId(), item.getEnchantLevel(), buycount));
 		}
@@ -114,7 +115,7 @@ public class LogPrivateShopBuy {
 			
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

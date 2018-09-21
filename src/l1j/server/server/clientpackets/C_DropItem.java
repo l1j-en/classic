@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -37,7 +38,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.types.Point;
 
 public class C_DropItem extends ClientBasePacket {
-	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_DropItem.class.getName());
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
 	public C_DropItem(byte[] decrypt, Client client) throws Exception {
@@ -119,7 +120,7 @@ public class C_DropItem extends ClientBasePacket {
 				return;
 			}
 			if (objectId != item.getId()) {
-				_log.warning(pc.getName() + " had item "
+				_log.warn(pc.getName() + " had item "
 						+ Integer.toString(objectId) + " not match.");
 			}
 

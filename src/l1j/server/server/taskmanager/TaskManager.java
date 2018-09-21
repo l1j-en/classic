@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -38,7 +39,7 @@ import l1j.server.server.utils.SQLUtil;
  * 
  */
 public final class TaskManager {
-	protected static final Logger _log = Logger.getLogger(TaskManager.class
+	protected static final Logger _log = LoggerFactory.getLogger(TaskManager.class
 			.getName());
 	private static TaskManager _instance;
 
@@ -82,7 +83,7 @@ public final class TaskManager {
 				pstm.setInt(2, _id);
 				pstm.executeUpdate();
 			} catch (SQLException e) {
-				_log.warning("cannot updated the Global Task " + _id + ": "
+				_log.warn("cannot updated the Global Task " + _id + ": "
 						+ e.getMessage());
 			} finally {
 				SQLUtil.close(pstm);
@@ -169,7 +170,7 @@ public final class TaskManager {
 				// TaskTypes type = TaskTypes.valueOf(rs.getString("type"));
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "error while loading Global Task table", e);
+			_log.error("error while loading Global Task table", e);
 		} finally {
 			if (null != rs) {
 				try {
@@ -207,7 +208,7 @@ public final class TaskManager {
 //			String[] hour = task.getParams()[1].split(":");
 //
 //			if (hour.length != 3) {
-//				_log.warning("Task " + task.getId()
+//				_log.warn("Task " + task.getId()
 //						+ " has incorrect parameters");
 //				return false;
 //			}
@@ -219,7 +220,7 @@ public final class TaskManager {
 //				min.set(Calendar.MINUTE, Integer.valueOf(hour[1]));
 //				min.set(Calendar.SECOND, Integer.valueOf(hour[2]));
 //			} catch (Exception e) {
-//				_log.warning("Bad parameter on task " + task.getId() + ": "
+//				_log.warn("Bad parameter on task " + task.getId() + ": "
 //						+ e.getMessage());
 //				return false;
 //			}
@@ -263,7 +264,7 @@ public final class TaskManager {
 			}
 			return true;
 		} catch (SQLException e) {
-			_log.warning("cannot add the unique task: " + e.getMessage());
+			_log.warn("cannot add the unique task: " + e.getMessage());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -293,7 +294,7 @@ public final class TaskManager {
 			pstm.execute();
 			return true;
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "cannot add the task", e);
+			_log.error("cannot add the task", e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
@@ -28,7 +29,7 @@ import l1j.server.server.utils.SystemUtil;
 public class C_NewCharSelect extends ClientBasePacket {
 
 	private static final String C_NEW_CHAR_SELECT = "[C] C_NewCharSelect";
-	private static Logger _log = Logger.getLogger(C_NewCharSelect.class
+	private static Logger _log = LoggerFactory.getLogger(C_NewCharSelect.class
 			.getName());
 
 	public C_NewCharSelect(byte[] decrypt, Client client) {

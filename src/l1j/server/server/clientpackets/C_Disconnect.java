@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -27,7 +28,7 @@ import l1j.server.server.utils.SystemUtil;
 
 public class C_Disconnect extends ClientBasePacket {
 	private static final String C_DISCONNECT = "[C] C_Disconnect";
-	private static Logger _log = Logger.getLogger(C_Disconnect.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Disconnect.class.getName());
 
 	public C_Disconnect(byte[] decrypt, Client client) {
 		super(decrypt);

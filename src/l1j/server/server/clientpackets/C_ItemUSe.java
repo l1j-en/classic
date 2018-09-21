@@ -76,8 +76,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -166,7 +167,7 @@ import l1j.server.server.utils.collections.IntArrays;
 
 public class C_ItemUSe extends ClientBasePacket {
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
-	private static Logger _log = Logger.getLogger(C_ItemUSe.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_ItemUSe.class.getName());
 	private static Random _random = new Random();
 
 	public C_ItemUSe(byte abyte0[], Client client) throws Exception {
@@ -324,7 +325,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		}
 
 		L1ItemInstance l1iteminstance1 = inventory.getItem(l);
-		_log.finest("request item use (obj) = " + itemObjid + " action = " + l
+		_log.trace("request item use (obj) = " + itemObjid + " action = " + l
 				+ " value = " + s);
 		if (itemId == 40077 || itemId == SCROLL_OF_ENCHANT_WEAPON
 				|| itemId == SCROLL_OF_ENCHANT_QUEST_WEAPON || itemId == 40130
@@ -5131,7 +5132,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						return false;
 					}
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			} else {
 				if (isFailureMessage) {
@@ -5535,7 +5536,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						FurnitureSpawnTable.getInstance().insertFurniture(
 								furniture);
 					} catch (Exception e) {
-						_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						_log.error(e.getLocalizedMessage(), e);
 					}
 				}
 			} catch (Exception exception) {

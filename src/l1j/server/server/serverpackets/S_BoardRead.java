@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Opcodes;
@@ -33,7 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class S_BoardRead extends ServerBasePacket {
 	private static final String S_BoardRead = "[C] S_BoardRead";
-	private static Logger _log = Logger.getLogger(S_BoardRead.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(S_BoardRead.class.getName());
 	private byte[] _byte = null;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
 	private static SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a z");
@@ -66,7 +67,7 @@ public class S_BoardRead extends ServerBasePacket {
 				writeS(body);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -92,7 +93,7 @@ public class S_BoardRead extends ServerBasePacket {
 				writeS(rs.getString(5));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_NPCPack
 public class S_FollowerPack extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_FollowerPack.class
+//	private static Logger _log = LoggerFactory.getLogger(S_FollowerPack.class
 //			.getName());
 	private static final String S_FOLLOWER_PACK = "[S] S_FollowerPack";
 	private static final int STATUS_POISON = 1;

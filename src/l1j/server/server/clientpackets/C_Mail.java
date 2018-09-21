@@ -19,8 +19,9 @@
 package l1j.server.server.clientpackets;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.MailTable;
@@ -38,7 +39,7 @@ import l1j.server.server.templates.L1Mail;
 public class C_Mail extends ClientBasePacket {
 
 	private static final String C_MAIL = "[C] C_Mail";
-	private static Logger _log = Logger.getLogger(C_Mail.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Mail.class.getName());
 	private static int TYPE_NORMAL_MAIL = 0;
 	private static int TYPE_CLAN_MAIL = 1;
 	private static int TYPE_MAIL_BOX = 2;
@@ -97,7 +98,7 @@ public class C_Mail extends ClientBasePacket {
 						pc.sendPackets(new S_ServerMessage(109, receiverName));
 					}
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			}
 		} else if (type == 0x21) {

@@ -24,7 +24,7 @@ import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_SPMR extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_SPMR.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_SPMR.class.getName());
 	private static final String S_SPMR = "[S] S_S_SPMR";
 	private byte[] _byte = null;
 

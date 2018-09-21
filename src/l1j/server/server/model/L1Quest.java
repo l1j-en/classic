@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Quest {
-	private static Logger _log = Logger.getLogger(L1Quest.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Quest.class.getName());
 	public static final int QUEST_LEVEL15 = 1;
 	public static final int QUEST_LEVEL30 = 2;
 	public static final int QUEST_LEVEL45 = 3;
@@ -90,7 +91,7 @@ public class L1Quest {
 							new Integer(rs.getInt(3)));
 				}
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			} finally {
 				SQLUtil.close(rs);
 				SQLUtil.close(pstm);
@@ -128,7 +129,7 @@ public class L1Quest {
 				pstm.execute();
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);

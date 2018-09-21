@@ -21,8 +21,9 @@ package l1j.server.server.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -30,7 +31,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class ChatLogTable {
-	private static Logger _log = Logger.getLogger(ChatLogTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(ChatLogTable.class.getName());
 	/*
 	 * HashMap in the code should be used, but the performance problems might
 	 * have used an array compromise. HashMap to consider changes to the
@@ -122,7 +123,7 @@ public class ChatLogTable {
 			}
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

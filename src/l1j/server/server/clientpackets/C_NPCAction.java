@@ -33,8 +33,9 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.command.executor.L1ToggleShop;
@@ -123,7 +124,7 @@ import l1j.server.server.templates.L1Town;
 public class C_NPCAction extends ClientBasePacket {
 
 	private static final String C_NPC_ACTION = "[C] C_NPCAction";
-	private static Logger _log = Logger.getLogger(C_NPCAction.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_NPCAction.class.getName());
 	private static Random _random = new Random();
 
 	public C_NPCAction(byte abyte0[], Client client) throws Exception {
@@ -208,7 +209,7 @@ public class C_NPCAction extends ClientBasePacket {
 				return;
 			}
 		} else {
-			// _log.warning("object not found, oid " + i);
+			// _log.warn("object not found, oid " + i);
 		}
 		L1NpcAction action = NpcActionTable.getInstance().get(s, pc, obj);
 		if (action != null) {
@@ -807,11 +808,11 @@ public class C_NPCAction extends ClientBasePacket {
 					maxLevel = pc.getLevel();
 				}
 
-				_log.log(Level.INFO, String.format("Candle: %s started "
+				_log.info(String.format("Candle: %s started "
 						+ "candling with maxLevel = %d and pc.getLevel()"
 						+ " = %d.", pc.getName(), maxLevel, pc.getLevel()));
 				if (maxLevel > pc.getLevel()) {
-					_log.log(Level.WARNING, String.format("Candle: %s's "
+					_log.warn(String.format("Candle: %s's "
 							+ "maxLevel: %d was too high compared to "
 							+ "pc.getLevel(): %d.", pc.getName(), maxLevel,
 							pc.getLevel()));
@@ -822,8 +823,7 @@ public class C_NPCAction extends ClientBasePacket {
 				} else if (maxLevel < pc.getLevel()) {
 					// Minority case where the character candling has lost stat
 					// points. Using their current level should be safe.
-					_log.log(
-							Level.WARNING,
+					_log.warn(
 							String.format(
 									"Candle: %s's "
 											+ "maxLevel: %d was less than pc.getLevel(): %d."
@@ -3934,7 +3934,7 @@ public class C_NPCAction extends ClientBasePacket {
 				pc.isInvisble();
 				pc.isGhost();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(189));

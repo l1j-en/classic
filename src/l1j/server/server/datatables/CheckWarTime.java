@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
@@ -33,7 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 public final class CheckWarTime {
 	public int _castle_id = 0;
 	public String _name = "";
-	private static Logger _log = Logger.getLogger(CheckWarTime.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(CheckWarTime.class.getName());
 	private static CheckWarTime _instance;
 	private final Map<Integer, Data> _check = new HashMap<Integer, Data>();
 
@@ -61,10 +62,10 @@ public final class CheckWarTime {
 				data._isActive = rs.getBoolean("isActive");
 				_check.put(new Integer(id), data);
 			}
-			_log.config("CheckWarTime " + _check.size());
+			_log.info("CheckWarTime " + _check.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

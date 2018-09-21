@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -34,7 +35,7 @@ import l1j.server.server.storage.CharacterStorage;
 import l1j.server.server.utils.SQLUtil;
 
 public class MySqlCharacterStorage implements CharacterStorage {
-	private static Logger _log = Logger.getLogger(MySqlCharacterStorage.class
+	private static Logger _log = LoggerFactory.getLogger(MySqlCharacterStorage.class
 			.getName());
 
 	@Override
@@ -132,9 +133,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pc.refresh();
 			pc.setMoveSpeed(0);
 			pc.setBraveSpeed(0);
-			_log.finest("restored char data: ");
+			_log.trace("restored char data: ");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			return null;
 		} finally {
 			SQLUtil.close(rs);
@@ -207,9 +208,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setTimestamp(++i, pc.getLastPkForElf());
 			pstm.setTimestamp(++i, pc.getDeleteTime());
 			pstm.execute();
-			_log.finest("stored char data: " + pc.getName());
+			_log.trace("stored char data: " + pc.getName());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -230,7 +231,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setString(2, charName);
 			rs = pstm.executeQuery();
 			if (!rs.next()) {
-				_log.warning("invalid delete char request: account="
+				_log.warn("invalid delete char request: account="
 						+ accountName + " char=" + charName);
 				throw new RuntimeException("could not delete character");
 			}
@@ -348,9 +349,9 @@ public class MySqlCharacterStorage implements CharacterStorage {
 			pstm.setInt(++i, pc.getId());
 			
 			pstm.execute();
-			_log.finest("stored char data:" + pc.getName());
+			_log.trace("stored char data:" + pc.getName());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

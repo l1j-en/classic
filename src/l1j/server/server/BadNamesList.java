@@ -25,12 +25,14 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.utils.StreamUtil;
 
 public class BadNamesList {
-	private static Logger _log = Logger.getLogger(BadNamesList.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(BadNamesList.class.getName());
 
 	private static BadNamesList _instance;
 
@@ -60,11 +62,11 @@ public class BadNamesList {
 				_nameList.add(st.nextToken());
 			}
 
-			_log.config("Loaded " + _nameList.size() + " bad names.");
+			_log.info("Loaded " + _nameList.size() + " bad names.");
 		} catch (FileNotFoundException e) {
-			_log.warning("badnames.txt is missing in data folder.");
+			_log.warn("badnames.txt is missing in data folder.");
 		} catch (Exception e) {
-			_log.warning("Error while loading bad names list: " + e);
+			_log.warn("Error while loading bad names list: " + e);
 		} finally {
 			StreamUtil.close(lnr);
 		}

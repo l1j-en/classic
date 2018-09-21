@@ -23,16 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1ArmorSets;
 import l1j.server.server.utils.SQLUtil;
 
 public class ArmorSetTable {
-	private static Logger _log = Logger
-			.getLogger(ArmorSetTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(ArmorSetTable.class.getName());
 	private static ArmorSetTable _instance;
 	private final ArrayList<L1ArmorSets> _armorSetList = new ArrayList<L1ArmorSets>();
 
@@ -58,7 +58,7 @@ public class ArmorSetTable {
 			rs = pstm.executeQuery();
 			fillTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating armor_set table", e);
+			_log.error("error while creating armor_set table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

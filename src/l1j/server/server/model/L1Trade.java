@@ -19,8 +19,9 @@
 package l1j.server.server.model;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.log.LogTradeAddItem;
 import l1j.server.server.log.LogTradeComplete;
@@ -34,7 +35,7 @@ import l1j.server.server.serverpackets.S_TradeStatus;
 
 public class L1Trade {
 	private static L1Trade _instance;
-	private static Logger _log = Logger.getLogger(L1Trade.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Trade.class.getName());
 
 	public L1Trade() {
 	}
@@ -101,7 +102,7 @@ public class L1Trade {
 						trading_partner.getInventory());
 				
 				if(transfer_item == null) {
-					_log.log(Level.WARNING, String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
+					_log.warn(String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
 							player.getName(),
 							trading_partner.getName(),
 							l1iteminstance1.getName(), 
@@ -126,7 +127,7 @@ public class L1Trade {
 				
 				
 				if(transfer_item == null) {
-					_log.log(Level.WARNING, String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
+					_log.warn(String.format("Player %s tried to trade with player %s for item %s (%d) but it failed!",
 							trading_partner.getName(),
 							player.getName(),
 							l1iteminstance2.getName(), 

@@ -18,15 +18,16 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1Loc implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Loc.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Loc.class.getName());
 
 	private L1Loc() {
 	}
@@ -47,7 +48,7 @@ public class L1Loc implements L1CommandExecutor {
 					mapid, gab);
 			pc.sendPackets(new S_SystemMessage(msg));
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 }

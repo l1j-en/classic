@@ -19,14 +19,15 @@
 package l1j.server.server.datatables;
 
 import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogPacketsTable {
-	private static Logger _log = Logger.getLogger(LogPacketsTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(LogPacketsTable.class.getName());
 
 	public static void storeLogPacket(int target_id, String target_name, int target_poly, int opCode, String packet, String type, long timestamp) {
 		java.sql.Connection con = null;
@@ -45,7 +46,7 @@ public class LogPacketsTable {
 			pstm.execute();
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

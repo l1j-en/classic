@@ -24,15 +24,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class Getback {
-	private static Logger _log = Logger.getLogger(Getback.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Getback.class.getName());
 	private static Random _random = new Random();
 	private static HashMap<Integer, ArrayList<Getback>> _getback = new HashMap<Integer, ArrayList<Getback>>();
 	private int _areaX1;
@@ -97,7 +98,7 @@ public class Getback {
 				getbackList.add(getback);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "could not Get Getback data", e);
+			_log.error("could not Get Getback data", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -2,8 +2,9 @@ package l1j.server.server.model;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -15,7 +16,7 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1Bleed  extends TimerTask {
-	private static Logger _log = Logger.getLogger(L1Bleed.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Bleed.class.getName());
 
 	private int _duration = 1;
 	private ScheduledFuture<?> _future = null;
@@ -44,7 +45,7 @@ public class L1Bleed  extends TimerTask {
 				return;
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

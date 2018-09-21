@@ -23,9 +23,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
@@ -37,7 +38,7 @@ import l1j.server.telnet.TelnetServer;
  * l1j-En
  */
 public class Server {
-	private static Logger _log = Logger.getLogger(Server.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Server.class.getName());
 	private static final String LOG_PROP = "./config/log.properties";
 
 	public static void main(final String[] args) throws Exception {
@@ -51,7 +52,7 @@ public class Server {
 			LogManager.getLogManager().readConfiguration(is);
 			is.close();
 		} catch (IOException e) {
-			_log.log(Level.SEVERE, "Failed to load " + LOG_PROP + " file.", e);
+			_log.error("Failed to load " + LOG_PROP + " file.", e);
 			System.exit(0);
 		}
 		InternalLoggerFactory.setDefaultFactory(Slf4JLoggerFactory.INSTANCE);
@@ -59,7 +60,7 @@ public class Server {
 		try {
 			Config.load();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			System.exit(0);
 		}
 
@@ -74,14 +75,14 @@ public class Server {
 		// Telent Server
 		if (Config.TELNET_SERVER) {
 			TelnetServer.getInstance().start();
-			_log.config("Telnet server initialized.");
+			_log.info("Telnet server initialized.");
 		} else {
-			_log.config("Telnet server is currently disabled.");
+			_log.info("Telnet server is currently disabled.");
 		}
 		
 		if(Config.SSH_SERVER) {
 			SSHServer.getInstance().start();
-			_log.config("SSH server initialized on port " + Config.SSH_PORT +
+			_log.info("SSH server initialized on port " + Config.SSH_PORT +
 					" with " + Config.SSH_ALLOWED_USERNAMES.length + " users.");
 		}
 	}

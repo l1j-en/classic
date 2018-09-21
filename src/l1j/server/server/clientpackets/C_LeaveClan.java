@@ -19,8 +19,9 @@
 package l1j.server.server.clientpackets;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ClanTable;
@@ -37,7 +38,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_LeaveClan extends ClientBasePacket {
 
 	private static final String C_LEAVE_CLAN = "[C] C_LeaveClan";
-	private static Logger _log = Logger.getLogger(C_LeaveClan.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_LeaveClan.class.getName());
 
 	public C_LeaveClan(byte abyte0[], Client client)
 			throws Exception {
@@ -93,7 +94,7 @@ public class C_LeaveClan extends ClientBasePacket {
 							offline_pc.setTitle("");
 							offline_pc.save();
 						} catch (Exception e) {
-							_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+							_log.error(e.getLocalizedMessage(), e);
 						}
 					}
 				}

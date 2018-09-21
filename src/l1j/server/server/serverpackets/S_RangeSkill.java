@@ -28,7 +28,7 @@ import l1j.server.server.model.L1Character;
 
 public class S_RangeSkill extends ServerBasePacket {
 	private static final String S_RANGE_SKILL = "[S] S_RangeSkill";
-//	private static Logger _log = Logger.getLogger(S_RangeSkill.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_RangeSkill.class.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;
 	public static final int TYPE_NODIR = 0;

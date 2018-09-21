@@ -26,8 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -39,7 +40,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class MailTable {
-	private static Logger _log = Logger.getLogger(MailTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(MailTable.class.getName());
 	private static MailTable _instance;
 	private static ArrayList<L1Mail> _allMail = new ArrayList<L1Mail>();
 
@@ -75,7 +76,7 @@ public class MailTable {
 				_allMail.add(mail);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating mail table", e);
+			_log.error("error while creating mail table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -100,7 +101,7 @@ public class MailTable {
 				changeMailStatus(mailId);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -124,7 +125,7 @@ public class MailTable {
 				changeMailType(mailId, type);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -142,7 +143,7 @@ public class MailTable {
 			pstm.execute();
 			delMail(mailId);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -206,7 +207,7 @@ public class MailTable {
 			mail.setReadStatus(readStatus);
 			_allMail.add(mail);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm2);
 			SQLUtil.close(con);

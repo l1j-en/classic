@@ -25,8 +25,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1Buddy;
@@ -35,7 +36,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class BuddyTable {
-	private static Logger _log = Logger.getLogger(BuddyTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(BuddyTable.class.getName());
 	private static BuddyTable _instance;
 	private final Map<Integer, L1Buddy> _buddys = new HashMap<Integer, L1Buddy>();
 
@@ -72,15 +73,15 @@ public class BuddyTable {
 					}
 					_buddys.put(buddy.getCharId(), buddy);
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				} finally {
 					SQLUtil.close(buddysRS);
 					SQLUtil.close(buddysPS);
 				}
 			}
-			_log.config("loaded " + _buddys.size() + " character's buddylists");
+			_log.info("loaded " + _buddys.size() + " character's buddylists");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(charIdRS);
 			SQLUtil.close(charIdPS);
@@ -110,7 +111,7 @@ public class BuddyTable {
 			pstm.setString(3, name);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -133,7 +134,7 @@ public class BuddyTable {
 			pstm.execute();
 			buddy.remove(buddyName);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

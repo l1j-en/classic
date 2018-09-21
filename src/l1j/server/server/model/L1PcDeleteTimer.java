@@ -20,13 +20,15 @@ package l1j.server.server.model;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
 
 public class L1PcDeleteTimer extends TimerTask {
-	private static final Logger _log = Logger.getLogger(L1PcDeleteTimer.class
+	private static final Logger _log = LoggerFactory.getLogger(L1PcDeleteTimer.class
 			.getName());
 
 	public L1PcDeleteTimer(L1PcInstance pc) {

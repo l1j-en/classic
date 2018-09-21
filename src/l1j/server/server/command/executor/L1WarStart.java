@@ -20,8 +20,9 @@ package l1j.server.server.command.executor;
 
 import java.util.Calendar;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.controllers.WarTimeController;
@@ -32,7 +33,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Castle;
 
 public class L1WarStart implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1WarStart.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1WarStart.class.getName());
 
 	private L1WarStart() {
 	}
@@ -65,7 +66,7 @@ public class L1WarStart implements L1CommandExecutor {
 					cmdName
 							+ " .war starttime + id 1 = kent 2 = orcfortress 3 = windawood 4 = giran 5 = heine "
 							+ "6 = dwarfcastle 7 = aden 8 = diad "));
-			_log.log(Level.SEVERE, exception.getLocalizedMessage(), exception);
+			_log.error(exception.getLocalizedMessage(), exception);
 		}
 	}
 }

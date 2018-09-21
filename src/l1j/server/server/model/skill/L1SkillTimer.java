@@ -99,8 +99,9 @@ import static l1j.server.server.model.skill.L1SkillId.WIND_SHOT;
 import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
 
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.SkillTable;
@@ -688,7 +689,7 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 }
 
 class L1SkillTimerTimerImpl implements L1SkillTimer, Runnable {
-	private static Logger _log = Logger.getLogger(L1SkillTimerTimerImpl.class
+	private static Logger _log = LoggerFactory.getLogger(L1SkillTimerTimerImpl.class
 			.getName());
 	private ScheduledFuture<?> _future = null;
 
@@ -720,7 +721,7 @@ class L1SkillTimerTimerImpl implements L1SkillTimer, Runnable {
 		try {
 			L1SkillStop.stopSkill(_cha, _skillId);
 		} catch (Throwable e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

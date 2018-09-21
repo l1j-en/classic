@@ -18,15 +18,16 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1Reload implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1Reload.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Reload.class.getName());
 
 	private L1Reload() {
 	}
@@ -50,7 +51,7 @@ public class L1Reload implements L1CommandExecutor {
 				pc.sendPackets(new S_SystemMessage("Your screen has been refreshed"));
 				pc.resetReloadTime();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}

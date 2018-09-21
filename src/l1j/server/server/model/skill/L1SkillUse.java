@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -150,7 +151,7 @@ public class L1SkillUse {
 
 	private ArrayList<TargetStatus> _targetList;
 
-	private static Logger _log = Logger.getLogger(L1SkillUse.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1SkillUse.class.getName());
 
 	private static final int[] CAST_WITH_INVIS = { 1, 2, 3, 5, 8, 9, 12, 13,
 			14, 19, 21, 26, 31, 32, 35, 37, 42, 43, 44, 48, 49, 52, 54, 55, 57,
@@ -334,7 +335,7 @@ public class L1SkillUse {
 
 		L1Object l1object = L1World.getInstance().findObject(_targetID);
 		if (l1object instanceof L1ItemInstance) {
-			_log.fine("skill target item name: "
+			_log.trace("skill target item name: "
 					+ ((L1ItemInstance) l1object).getViewName());
 			return false;
 		}
@@ -617,11 +618,11 @@ public class L1SkillUse {
 				sendGrfx(true);
 				break;
 			default:
-				_log.log(Level.SEVERE, "Skill didn't have a handled type!");
+				_log.error("Skill didn't have a handled type!");
 			}
 			setCheckedUseSkill(false);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "", e);
+			_log.error("", e);
 		}
 	}
 
@@ -914,7 +915,7 @@ public class L1SkillUse {
 			}
 		} catch(Exception ex) {
 			_log.info("Failed while checking target. Defaulting to false. Exception below");
-			_log.log(Level.INFO, ex.getLocalizedMessage(), ex);
+			_log.info(ex.getLocalizedMessage(), ex);
 			return false;
 		}
 
@@ -1035,7 +1036,7 @@ public class L1SkillUse {
 			}
 
 		} catch (Exception e) {
-			_log.finest("exception in L1Skilluse makeTargetList" + e);
+			_log.trace("exception in L1Skilluse makeTargetList" + e);
 		}
 	}
 
@@ -3342,7 +3343,7 @@ public class L1SkillUse {
 			}
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -3519,7 +3520,7 @@ public class L1SkillUse {
 			int count, boolean report) {
 		// This should never actually happen...
 		if (count > item.getCount()) {
-			_log.log(Level.WARNING, "turnStone count did not match.");
+			_log.warn("turnStone count did not match.");
 			return;
 		}
 

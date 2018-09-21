@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_InvList extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_InvList.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_InvList.class.getName());
 	private static final String S_INV_LIST = "[S] S_InvList";
 
 	/**

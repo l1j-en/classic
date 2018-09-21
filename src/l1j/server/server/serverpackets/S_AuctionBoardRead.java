@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Opcodes;
@@ -35,7 +36,7 @@ import l1j.server.server.utils.SQLUtil;
 // ServerBasePacket
 
 public class S_AuctionBoardRead extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_AuctionBoardRead.class
+	private static Logger _log = LoggerFactory.getLogger(S_AuctionBoardRead.class
 			.getName());
 	private static final String S_AUCTIONBOARDREAD = "[S] S_AuctionBoardRead";
 	private byte[] _byte = null;
@@ -76,7 +77,7 @@ public class S_AuctionBoardRead extends ServerBasePacket {
 				writeS(String.valueOf(hour));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

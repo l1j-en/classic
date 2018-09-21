@@ -26,7 +26,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 // ServerBasePacket, S_NPCPack
 
 public class S_PetPack extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_PetPack.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_PetPack.class.getName());
 	private static final String S_PET_PACK = "[S] S_PetPack";
 	private static final int STATUS_POISON = 1;
 //	private static final int STATUS_INVISIBLE = 2;

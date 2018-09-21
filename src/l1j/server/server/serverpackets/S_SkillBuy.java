@@ -18,8 +18,9 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -28,7 +29,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket
 
 public class S_SkillBuy extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_SkillBuy.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(S_SkillBuy.class.getName());
 	private static final String _S_SKILL_BUY = "[S] S_SkillBuy";
 	private byte[] _byte = null;
 
@@ -50,7 +51,7 @@ public class S_SkillBuy extends ServerBasePacket {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

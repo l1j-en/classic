@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogIP {
-	private static Logger _log = Logger.getLogger(LogIP.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(LogIP.class.getName());
 
 	public void storeLogIP(L1PcInstance pc, String ip) {
 		Connection con = null;
@@ -52,7 +53,7 @@ public class LogIP {
 			pstm.setString(5, "null");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -74,7 +75,7 @@ public class LogIP {
 			pstm.setString(2, pc.getName());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

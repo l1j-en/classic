@@ -108,7 +108,8 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_USESKILL;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WAR;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WHO;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_AddBookmark;
@@ -205,8 +206,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 // Referenced classes of package l1j.server.server:
 // Opcodes, LoginController, Client, Logins
 public class PacketHandler {
-	private static Logger _log = Logger
-			.getLogger(PacketHandler.class.getName());
+	private static Logger _log =LoggerFactory			.getLogger(PacketHandler.class.getName());
 	private final Client _client;
 
 	public PacketHandler(Client client) {
@@ -504,10 +504,10 @@ public class PacketHandler {
 			break;
 		default:
 			// String s = Integer.toHexString(abyte0[0] & 0xff);
-			// _log.warning("");
-			// _log.warning((new StringBuilder()).append("").append(s)
+			// _log.warn("");
+			// _log.warn((new StringBuilder()).append("").append(s)
 			// .toString());
-			// _log.warning(new ByteArrayUtil(abyte0).dumpToString());
+			// _log.warn(new ByteArrayUtil(abyte0).dumpToString());
 			break;
 		}
 	}

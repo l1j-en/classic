@@ -25,8 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket
 public class S_OwnCharPack extends ServerBasePacket {
 	private static final String S_OWN_CHAR_PACK = "[S] S_OwnCharPack";
-//	private static Logger _log = Logger
-////			.getLogger(S_OwnCharPack.class.getName());
+//	private static Logger _log =LoggerFactory////			.getLogger(S_OwnCharPack.class.getName());
 //	private static final int STATUS_POISON = 1;
 	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;

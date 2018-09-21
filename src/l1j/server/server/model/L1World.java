@@ -25,7 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -37,7 +39,7 @@ import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.types.Point;
 
 public class L1World {
-	private static Logger _log = Logger.getLogger(L1World.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1World.class.getName());
 
 	private final ConcurrentHashMap<String, L1PcInstance> _allPlayers;
 	private final ConcurrentHashMap<Integer, L1PetInstance> _allPets;
@@ -593,7 +595,7 @@ public class L1World {
 	}
 
 	public void broadcastPacketToAll(ServerBasePacket packet) {
-		_log.finest("players to notify : " + getAllPlayers().size());
+		_log.trace("players to notify : " + getAllPlayers().size());
 		for (L1PcInstance pc : getAllPlayers()) {
 			pc.sendPackets(packet);
 		}

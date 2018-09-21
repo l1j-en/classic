@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
@@ -39,7 +40,7 @@ import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.types.Point;
 
 public class L1Spawn {
-	private static Logger _log = Logger.getLogger(L1Spawn.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Spawn.class.getName());
 	private final L1Npc _template;
 	private int _id; // just to find this in the spawn table
 	private String _location;
@@ -515,7 +516,7 @@ public class L1Spawn {
 			mob.turnOnOffLight();
 			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

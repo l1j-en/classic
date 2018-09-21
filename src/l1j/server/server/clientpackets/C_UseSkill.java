@@ -28,7 +28,8 @@ import static l1j.server.server.model.skill.L1SkillId.RUN_CLAN;
 import static l1j.server.server.model.skill.L1SkillId.TELEPORT;
 import static l1j.server.server.model.skill.L1SkillId.TRUE_TARGET;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -46,7 +47,7 @@ import l1j.server.server.templates.L1Skill;
 // ClientBasePacket
 public class C_UseSkill extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_UseSkill.class.getName());
 	
 	public C_UseSkill(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
@@ -118,7 +119,7 @@ public class C_UseSkill extends ClientBasePacket {
 				}
 			} catch (Exception e) {
 				if (Config.LOGGING_INCOMING_PACKETS) 
-					_log.warning("SKILL ERROR: skillid " + skillId + " has some sort of issue:\n" + e);
+					_log.warn("SKILL ERROR: skillid " + skillId + " has some sort of issue:\n" + e);
 			}
 		}
 

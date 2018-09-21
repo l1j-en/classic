@@ -38,8 +38,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -94,7 +95,7 @@ public class L1NpcInstance extends L1Character {
 	public static final int CHAT_TIMING_HIDE = 2;
 	public static final int CHAT_TIMING_GAME_TIME = 3;
 
-	private static Logger _log = Logger.getLogger(L1NpcInstance.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
@@ -238,7 +239,7 @@ public class L1NpcInstance extends L1Character {
 				}
 				stop();
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.warn("NpcAI", e);
 			}
 		}
 
@@ -291,7 +292,7 @@ public class L1NpcInstance extends L1Character {
 				} while (isDeathProcessing());
 				allTargetClear();
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.warn("NpcAI", e);
 			} finally {
 				setAiRunning(false);
 			}
@@ -413,20 +414,20 @@ public class L1NpcInstance extends L1Character {
 		// summon, though, it will be leaked _and_ throw nasty NPEs if the
 		// monster in question uses skills.
 		if (target == null) {
-			// _log.log(Level.WARNING,
+			// _log.warn(
 			// "L1NpcInstance::onTarget(): null _target.");
 			return;
 		} else if (target instanceof L1PetInstance) {
 			L1PetInstance pet = (L1PetInstance) target;
 			if (pet.getMaster() == null) {
-				// _log.log(Level.WARNING,
+				// _log.warn(
 				// "L1NpcInstance::onTarget(): missing pet master.");
 				return;
 			}
 		} else if (target instanceof L1SummonInstance) {
 			L1SummonInstance summon = (L1SummonInstance) target;
 			if (summon.getMaster() == null) {
-				// _log.log(Level.WARNING,
+				// _log.warn(
 				// "L1NpcInstance::onTarget(): missing summon master.");
 				return;
 			}
@@ -900,7 +901,7 @@ public class L1NpcInstance extends L1Character {
 					_hprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 
@@ -930,7 +931,7 @@ public class L1NpcInstance extends L1Character {
 					_mprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 
@@ -2168,14 +2169,14 @@ public class L1NpcInstance extends L1Character {
 			if (npc == null || !npc.isDead() || npc._destroyed) {
 				// Leak investigation.
 				if (npc == null) {
-					_log.warning("DeleteTimer#run: npc was null.");
+					_log.warn("DeleteTimer#run: npc was null.");
 					return;
 				}
 				if (!npc.isDead())
-					_log.warning("DeleteTimer#run: !npc.isDead().");
+					_log.warn("DeleteTimer#run: !npc.isDead().");
 				if (npc._destroyed)
-					_log.warning("DeleteTimer#run: npc._destroyed.");
-				_log.warning(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+					_log.warn("DeleteTimer#run: npc._destroyed.");
+				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 				cancel();
 				return;
 			}
@@ -2184,8 +2185,8 @@ public class L1NpcInstance extends L1Character {
 				cancel();
 			} catch (Exception e) {
 				// More leak investigation.
-				_log.warning(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+				_log.error(e.getLocalizedMessage(), e);
 
 				e.printStackTrace();
 			}

@@ -29,8 +29,9 @@ import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
 
 import java.util.Random;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1EffectInstance;
@@ -40,7 +41,7 @@ import l1j.server.server.model.skill.L1SkillId;
 
 public class HpRegeneration extends TimerTask {
 
-	private static Logger _log = Logger.getLogger(HpRegeneration.class
+	private static Logger _log = LoggerFactory.getLogger(HpRegeneration.class
 			.getName());
 	private final L1PcInstance _pc;
 	private int _regenMax = 0;
@@ -75,7 +76,7 @@ public class HpRegeneration extends TimerTask {
 				}
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

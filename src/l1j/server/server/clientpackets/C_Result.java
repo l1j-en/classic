@@ -20,8 +20,9 @@ package l1j.server.server.clientpackets;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -54,7 +55,7 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 
 public class C_Result extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_Result.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Result.class.getName());
 	private static final String C_RESULT = "[C] C_Result";
 
 	// TODO: somewhere more accessible, since we use this other places.
@@ -190,7 +191,7 @@ public class C_Result extends ClientBasePacket {
 					break;
 				}
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to store "
+					_log.error(pc.getName() + " tried to store "
 							+ count + " of " + objectId + " but server has "
 							+ item.getCount() + ".");
 					ban(pc);
@@ -222,7 +223,7 @@ public class C_Result extends ClientBasePacket {
 				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName() + " tried to retrieve "
+					_log.error(pc.getName() + " tried to retrieve "
 							+ count + " of " + objectId + " but server has "
 							+ item.getCount() + ".");
 					ban(pc);
@@ -265,7 +266,7 @@ public class C_Result extends ClientBasePacket {
 					//int item_count_before = item.getCount();
 					//int item_count_after = 0;
 					if (count > item.getCount()) {
-						_log.log(Level.SEVERE,
+						_log.error(
 								pc.getName() + " tried to (clan) store "
 										+ count + " of " + objectId
 										+ " but server has " + item.getCount()
@@ -348,7 +349,7 @@ public class C_Result extends ClientBasePacket {
 					//int item_count_before = item.getCount();
 					//int item_count_after = 0;
 					if (count > item.getCount()) {
-						_log.log(Level.SEVERE,
+						_log.error(
 								pc.getName() + " tried to (clan) retrieve "
 										+ count + " of " + objectId
 										+ " but server has " + item.getCount()
@@ -400,7 +401,7 @@ public class C_Result extends ClientBasePacket {
 				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName()
+					_log.error(pc.getName()
 							+ " tried to (elf) store " + count + " of "
 							+ objectId + " but server has " + item.getCount()
 							+ ".");
@@ -466,7 +467,7 @@ public class C_Result extends ClientBasePacket {
 				int item_count_before = item.getCount();
 				int item_count_after = 0;
 				if (count > item.getCount()) {
-					_log.log(Level.SEVERE, pc.getName()
+					_log.error(pc.getName()
 							+ " tried to (elf) retrieve " + count + " of "
 							+ objectId + " but server has " + item.getCount()
 							+ ".");

@@ -29,8 +29,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1House;
@@ -39,7 +40,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class HouseTable {
-	private static Logger _log = Logger.getLogger(HouseTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(HouseTable.class.getName());
 	private static HouseTable _instance;
 	private final Map<Integer, L1House> _house = new ConcurrentHashMap<Integer, L1House>();
 
@@ -79,7 +80,7 @@ public class HouseTable {
 				_house.put(house.getHouseId(), house);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -126,7 +127,7 @@ public class HouseTable {
 			pstm.setInt(8, house.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -148,7 +149,7 @@ public class HouseTable {
 				houseIdList.add(Integer.valueOf(houseId));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

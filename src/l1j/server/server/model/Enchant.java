@@ -2,8 +2,9 @@ package l1j.server.server.model;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.AccessLevelTable;
@@ -22,7 +23,7 @@ import l1j.server.server.utils.collections.IntArrays;
 
 public class Enchant {
 	private static final Random _random = new Random();
-	private static Logger _log = Logger.getLogger(Enchant.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Enchant.class.getName());
 	private static final S_ServerMessage CantEnchant = new S_ServerMessage(79);
 	private static final int FULL_GM = AccessLevelTable.getInstance().getMaxAccessLevel();
 
@@ -74,7 +75,7 @@ public class Enchant {
 			newElement = Element.Fire;
 			break;
 		default:
-			_log.log(Level.WARNING, "Enchant: bad elemental scroll id.");
+			_log.warn("Enchant: bad elemental scroll id.");
 			return;
 		}
 
@@ -234,7 +235,7 @@ public class Enchant {
 		boolean isArmor = baseItem.getType2() == 2;
 
 		if (!isArmor && !isWeapon) {
-			_log.log(Level.WARNING, "Enchant: trying to enchant something"
+			_log.warn("Enchant: trying to enchant something"
 					+ " besides a weapon or piece of armor.");
 			return;
 		}

@@ -18,8 +18,9 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
@@ -35,7 +36,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 public class C_Rank extends ClientBasePacket {
 
 	private static final String C_RANK = "[C] C_Rank";
-	private static Logger _log = Logger.getLogger(C_Rank.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Rank.class.getName());
 
 	public C_Rank(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
@@ -104,7 +105,7 @@ public class C_Rank extends ClientBasePacket {
 					royal.sendPackets(
 							new S_ServerMessage(Integer.parseInt(rankString.replace("$", ""))));
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			} else {
 				royal.sendPackets(new S_ServerMessage(414));
@@ -118,7 +119,7 @@ public class C_Rank extends ClientBasePacket {
 					restorePc.setClanRank(rank);
 					restorePc.save();
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			} else {
 				royal.sendPackets(new S_ServerMessage(109, player));

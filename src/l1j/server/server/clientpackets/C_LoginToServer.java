@@ -43,8 +43,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -105,7 +106,7 @@ import l1j.server.server.utils.SystemUtil;
 // ClientBasePacket
 public class C_LoginToServer extends ClientBasePacket {
 	private static final String C_LOGIN_TO_SERVER = "[C] C_LoginToServer";
-	private static Logger _log = Logger.getLogger(C_LoginToServer.class
+	private static Logger _log = LoggerFactory.getLogger(C_LoginToServer.class
 			.getName());
 	// See note on updateIcons()
 	private static List<String> accountsWithIcons = new ArrayList<String>();
@@ -381,7 +382,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				character.sendPackets(new S_SystemMessage(message));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(statement);
 			SQLUtil.close(connection);
@@ -433,7 +434,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				pc.sendPackets(s_bookmarks);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -582,7 +583,7 @@ public class C_LoginToServer extends ClientBasePacket {
 						lv25, lv26, lv27, lv28));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -660,7 +661,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

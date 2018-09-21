@@ -28,7 +28,7 @@ import l1j.server.server.model.L1Character;
 
 public class S_UseArrowSkill extends ServerBasePacket {
 	private static final String S_USE_ARROW_SKILL = "[S] S_UseArrowSkill";
-//	private static Logger _log = Logger.getLogger(S_UseArrowSkill.class
+//	private static Logger _log = LoggerFactory.getLogger(S_UseArrowSkill.class
 //			.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;

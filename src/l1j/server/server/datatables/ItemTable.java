@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
@@ -26,7 +27,7 @@ import l1j.server.server.utils.collections.Maps;
 
 public class ItemTable {
 	//private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(ItemTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(ItemTable.class.getName());
 	private static final Map<String, Integer> _armorTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponId = Maps.newHashMap();
@@ -251,13 +252,12 @@ public class ItemTable {
 				result.put(new Integer(item.getItemId()), item);
 			}
 		} catch (NullPointerException e) {
-			_log.log(
-					Level.SEVERE,
+			_log.error(
 					new StringBuilder().append(item.getName())
 							.append("(" + item.getItemId() + ")")
 							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -337,13 +337,13 @@ public class ItemTable {
 				result.put(new Integer(weapon.getItemId()), weapon);
 			}
 		} catch (NullPointerException e) {
-			_log.log(
-					Level.SEVERE,
+			_log.error(
+					
 					new StringBuilder().append(weapon.getName())
 							.append("(" + weapon.getItemId() + ")")
 							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -433,13 +433,13 @@ public class ItemTable {
 				result.put(new Integer(armor.getItemId()), armor);
 			}
 		} catch (NullPointerException e) {
-			_log.log(
-					Level.SEVERE,
+			_log.error(
+					
 					new StringBuilder().append(armor.getName())
 							.append("(" + armor.getItemId() + ")")
 							.append(" Failed to load.").toString());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

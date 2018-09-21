@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
@@ -34,7 +35,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class L1DwarfForElfInventory extends L1Inventory {
 
-	private static Logger _log = Logger.getLogger(L1DwarfForElfInventory.class
+	private static Logger _log = LoggerFactory.getLogger(L1DwarfForElfInventory.class
 			.getName());
 	private final L1PcInstance _owner;
 	private static final long serialVersionUID = 1L;
@@ -88,7 +89,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 				L1World.getInstance().storeObject(item);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -132,7 +133,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 			pstm.setInt(24, item.getEarthResist());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -152,7 +153,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 			pstm.setInt(2, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -170,7 +171,7 @@ public class L1DwarfForElfInventory extends L1Inventory {
 			pstm.setInt(1, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

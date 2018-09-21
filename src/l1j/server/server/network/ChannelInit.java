@@ -32,8 +32,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
 

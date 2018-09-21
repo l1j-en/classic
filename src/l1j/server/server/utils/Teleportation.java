@@ -23,7 +23,9 @@ import static l1j.server.server.model.skill.L1SkillId.WIND_SHACKLE;
 
 import java.util.HashSet;
 import java.util.Random;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.model.L1Clan;
@@ -51,8 +53,7 @@ import l1j.server.server.serverpackets.S_SummonPack;
 // Referenced classes of package l1j.server.server.utils:
 // FaceToFace
 public class Teleportation {
-	private static Logger _log = Logger
-			.getLogger(Teleportation.class.getName());
+	private static Logger _log =LoggerFactory			.getLogger(Teleportation.class.getName());
 	private static Random _random = new Random();
 
 	private Teleportation() {
@@ -199,7 +200,7 @@ public class Teleportation {
 			if(followingGm != null)
 				L1Follow.moveChar(pc,  followingGm);
 		} catch(Exception ex) { 
-			_log.warning("L1Follow Teleport: " + ex.getMessage());
+			_log.warn("L1Follow Teleport: " + ex.getMessage());
 		}
 
 		if (pc.hasSkillEffect(WIND_SHACKLE)) {

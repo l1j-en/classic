@@ -14,8 +14,9 @@ import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BRAVE;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -31,7 +32,7 @@ import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.templates.L1Item;
 
 public class L1EquipmentSlot {
-	private static Logger _log = Logger.getLogger(L1EquipmentSlot.class
+	private static Logger _log = LoggerFactory.getLogger(L1EquipmentSlot.class
 			.getName());
 
 	private L1PcInstance _owner;
@@ -76,11 +77,11 @@ public class L1EquipmentSlot {
 			if (equippedItem.getType() == 9) {
 				ringCount++;
 				if (ringCount >= 2 && type == 9) {
-					_log.log(Level.WARNING, "Tried to equip too many rings.");
+					_log.warn("Tried to equip too many rings.");
 					return;
 				}
 			} else if (equippedItem.getType() == type) {
-				_log.log(Level.WARNING,
+				_log.warn(
 						"Tried to equip multiple items in same slot.");
 				return;
 			}

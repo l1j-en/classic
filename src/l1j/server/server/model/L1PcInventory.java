@@ -20,8 +20,9 @@ package l1j.server.server.model;
 
 import java.text.DecimalFormat;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -45,8 +46,7 @@ public class L1PcInventory extends L1Inventory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger
-			.getLogger(L1PcInventory.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1PcInventory.class.getName());
 
 	private static final int MAX_SIZE = 180;
 	private final L1PcInstance _owner;
@@ -151,7 +151,7 @@ public class L1PcInventory extends L1Inventory {
 					// in the short term.
 					if (item.getItem().getType2() == 1) {
 						if (weaponEquipped) {
-							_log.log(Level.WARNING,
+							_log.warn(
 									"Trying to equip extra weapon during load.");
 							item.setEquipped(false);
 							continue;
@@ -170,7 +170,7 @@ public class L1PcInventory extends L1Inventory {
 				L1World.getInstance().storeObject(item);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -185,7 +185,7 @@ public class L1PcInventory extends L1Inventory {
 			CharactersItemStorage storage = CharactersItemStorage.create();
 			storage.storeItem(_owner.getId(), item);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -335,7 +335,7 @@ public class L1PcInventory extends L1Inventory {
 				column -= COL_ADDHP;
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -395,7 +395,7 @@ public class L1PcInventory extends L1Inventory {
 				column -= COL_DURABILITY;
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -406,7 +406,7 @@ public class L1PcInventory extends L1Inventory {
 
 			storage.deleteItem(item);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		if (item.isEquipped()) {
 			setEquipped(item, false);

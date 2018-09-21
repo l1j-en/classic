@@ -18,7 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.network.Client;
@@ -27,14 +28,14 @@ import l1j.server.server.network.Client;
 // ClientBasePacket
 public class C_ReturnToLogin extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_ReturnToLogin.class
+	private static Logger _log = LoggerFactory.getLogger(C_ReturnToLogin.class
 			.getName());
 
 	public C_ReturnToLogin(byte decrypt[], Client client)
 			throws Exception {
 		super(decrypt);
 		String account = client.getAccountName();
-		_log.finest((new StringBuilder()).append("Account: ").append(account)
+		_log.trace((new StringBuilder()).append("Account: ").append(account)
 				.toString());
 		LoginController.getInstance().logout(client);
 		client.setAccount(null);

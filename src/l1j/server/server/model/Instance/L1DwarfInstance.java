@@ -18,7 +18,8 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
@@ -33,7 +34,7 @@ public class L1DwarfInstance extends L1NpcInstance {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1DwarfInstance.class
+	private static Logger _log = LoggerFactory.getLogger(L1DwarfInstance.class
 			.getName());
 
 	/**
@@ -81,17 +82,17 @@ public class L1DwarfInstance extends L1NpcInstance {
 	@Override
 	public void onFinalAction(L1PcInstance pc, String Action) {
 		if (Action.equalsIgnoreCase("retrieve")) {
-			_log.finest("Retrive items in storage");
+			_log.trace("Retrive items in storage");
 		} else if (Action.equalsIgnoreCase("retrieve-pledge")) {
-			_log.finest("Retrive items in pledge storage");
+			_log.trace("Retrive items in pledge storage");
 
 			if (pc.getClanname().equalsIgnoreCase(" ")) {
-				_log.finest("pc isnt in a pledge");
+				_log.trace("pc isnt in a pledge");
 				S_ServerMessage talk = new S_ServerMessage(
 						(S_ServerMessage.NO_PLEDGE), Action);
 				pc.sendPackets(talk);
 			} else {
-				_log.finest("pc is in a pledge");
+				_log.trace("pc is in a pledge");
 			}
 		}
 	}

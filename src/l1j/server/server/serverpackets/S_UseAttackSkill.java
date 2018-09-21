@@ -31,7 +31,7 @@ import l1j.server.server.model.skill.L1SkillId;
 // ServerBasePacket
 public class S_UseAttackSkill extends ServerBasePacket {
 	private static final String S_USE_ATTACK_SKILL = "[S] S_UseAttackSkill";
-//	private static Logger _log = Logger.getLogger(S_UseAttackSkill.class
+//	private static Logger _log = LoggerFactory.getLogger(S_UseAttackSkill.class
 //			.getName());
 	private static AtomicInteger _sequentialNumber = new AtomicInteger(0);
 	private byte[] _byte = null;

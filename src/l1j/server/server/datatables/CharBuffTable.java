@@ -65,8 +65,9 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_ELFBRAVE;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -77,8 +78,7 @@ public class CharBuffTable {
 	private CharBuffTable() {
 	}
 
-	private static Logger _log = Logger
-			.getLogger(CharBuffTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(CharBuffTable.class.getName());
 
 	private static final int[] buffSkill = { 2, 67, 3, 99, 151, 159, 168, 43,
 			54, 1000, 1001, STATUS_ELFBRAVE, 52, 101, 150, 26, 42, 109, 110,
@@ -109,7 +109,7 @@ public class CharBuffTable {
 			pstm.setInt(4, polyId);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -127,7 +127,7 @@ public class CharBuffTable {
 			pstm.setInt(1, pc.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

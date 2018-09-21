@@ -32,8 +32,7 @@ import l1j.server.server.model.shop.L1Shop;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket, S_SystemMessage
 public class S_ShopBuyList extends ServerBasePacket {
-//	private static Logger _log = Logger
-//			.getLogger(S_ShopBuyList.class.getName());
+//	private static Logger _log =LoggerFactory//			.getLogger(S_ShopBuyList.class.getName());
 	private static final String S_SHOP_BUY_LIST = "[S] S_ShopBuyList";
 
 	public S_ShopBuyList(int objid, L1PcInstance pc) {

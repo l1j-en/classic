@@ -22,13 +22,15 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 
 public class TelnetServer {
 	private static TelnetServer _instance;
-	private static Logger _log = Logger.getLogger(TelnetServer.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(TelnetServer.class.getName());
 
 	private class ServerThread extends Thread {
 		ServerSocket _sock;
@@ -41,7 +43,7 @@ public class TelnetServer {
 					_sock = new ServerSocket(Config.TELNET_SERVER_PORT, 0, InetAddress.getByName("127.0.0.1"));
 				} else {
 					_sock = new ServerSocket(Config.TELNET_SERVER_PORT);
-					_log.config("*** Telnet server is open to the world! Be sure you restrict it with firewall rules! ***");
+					_log.info("*** Telnet server is open to the world! Be sure you restrict it with firewall rules! ***");
 				}
 					
 

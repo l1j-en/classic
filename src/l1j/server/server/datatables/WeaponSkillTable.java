@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1WeaponSkill;
 import l1j.server.server.utils.SQLUtil;
 
 public class WeaponSkillTable {
-	private static Logger _log = Logger.getLogger(WeaponSkillTable.class
+	private static Logger _log = LoggerFactory.getLogger(WeaponSkillTable.class
 			.getName());
 	private static WeaponSkillTable _instance;
 	private final HashMap<Integer, L1WeaponSkill> _weaponIdIndex = new HashMap<Integer, L1WeaponSkill>();
@@ -57,7 +58,7 @@ public class WeaponSkillTable {
 			rs = pstm.executeQuery();
 			fillWeaponSkillTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating weapon_skill table", e);
+			_log.error("error while creating weapon_skill table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -83,7 +84,7 @@ public class WeaponSkillTable {
 					skillTime, effectId, effectTarget, isArrowType, attr);
 			_weaponIdIndex.put(weaponId, weaponSkill);
 		}
-		_log.config("List of weapons skills: " + _weaponIdIndex.size()
+		_log.info("List of weapons skills: " + _weaponIdIndex.size()
 				+ " Loaded");
 	}
 

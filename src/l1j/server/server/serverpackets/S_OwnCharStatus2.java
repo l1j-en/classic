@@ -25,7 +25,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket, S_SendInvOnLogin
 public class S_OwnCharStatus2 extends ServerBasePacket {
 //	private static final String _S__4F_S_OwnChraStatus2 = "[C] S_OwnCharStatus2";
-//	private static Logger _log = Logger.getLogger(S_OwnCharStatus2.class
+//	private static Logger _log = LoggerFactory.getLogger(S_OwnCharStatus2.class
 //			.getName());
 	private L1PcInstance cha = null;
 

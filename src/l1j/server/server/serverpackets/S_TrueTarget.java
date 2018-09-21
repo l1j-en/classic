@@ -23,7 +23,7 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_TrueTarget extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_TrueTarget.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_TrueTarget.class.getName());
 	private static final String S_TRUETARGET = "[S] S_TrueTarget";
 	private byte[] _byte = null;
 

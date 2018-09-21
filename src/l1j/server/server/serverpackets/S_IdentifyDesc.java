@@ -22,7 +22,7 @@ import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class S_IdentifyDesc extends ServerBasePacket {
-//	private static Logger _log = Logger.getLogger(S_IdentifyDesc.class
+//	private static Logger _log = LoggerFactory.getLogger(S_IdentifyDesc.class
 //			.getName());
 	private byte[] _byte = null;
 

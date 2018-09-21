@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -36,7 +37,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.model:
 // L1Teleport, L1PcInstance
 public class Dungeon {
-	private static Logger _log = Logger.getLogger(Dungeon.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Dungeon.class.getName());
 	private static Dungeon _instance = null;
 	private static Map<String, NewDungeon> _dungeonMap = new HashMap<String, NewDungeon>();
 
@@ -109,13 +110,13 @@ public class Dungeon {
 				NewDungeon newDungeon = new NewDungeon(newX, newY,
 						(short) newMapId, heading, dungeonType);
 				if (_dungeonMap.containsKey(key)) {
-					_log.log(Level.WARNING,
+					_log.warn(
 							"Dungeon exists for the same key data. key=" + key);
 				}
 				_dungeonMap.put(key, newDungeon);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

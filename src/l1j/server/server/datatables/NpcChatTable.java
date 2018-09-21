@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -33,7 +34,7 @@ import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.utils.SQLUtil;
 
 public class NpcChatTable {
-	private final static Logger _log = Logger.getLogger(NpcChatTable.class
+	private final static Logger _log = LoggerFactory.getLogger(NpcChatTable.class
 			.getName());
 	private static NpcChatTable _instance;
 	private final Map<Integer, L1NpcChat> _npcChatAppearance = new HashMap<Integer, L1NpcChat>();
@@ -94,7 +95,7 @@ public class NpcChatTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -31,8 +31,9 @@ import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BLUE_POTION;
 
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -40,7 +41,7 @@ import l1j.server.server.model.map.Maps;
 
 public class MpRegeneration extends TimerTask {
 
-	private static Logger _log = Logger.getLogger(MpRegeneration.class
+	private static Logger _log = LoggerFactory.getLogger(MpRegeneration.class
 			.getName());
 	private final L1PcInstance _pc;
 	private int _regenPoint = 0;
@@ -72,7 +73,7 @@ public class MpRegeneration extends TimerTask {
 				regenMp();
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

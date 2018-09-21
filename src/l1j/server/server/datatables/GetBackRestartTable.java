@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1GetBackRestart;
@@ -33,7 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class GetBackRestartTable {
-	private static Logger _log = Logger.getLogger(GetBackRestartTable.class
+	private static Logger _log = LoggerFactory.getLogger(GetBackRestartTable.class
 			.getName());
 	private static GetBackRestartTable _instance;
 	private final HashMap<Integer, L1GetBackRestart> _getbackrestart = new HashMap<Integer, L1GetBackRestart>();
@@ -63,7 +64,7 @@ public class GetBackRestartTable {
 				_getbackrestart.put(new Integer(area), gbr);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

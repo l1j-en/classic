@@ -18,7 +18,8 @@
  */
 package l1j.server.server;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.controllers.AuctionTimeController;
@@ -84,7 +85,7 @@ import l1j.server.server.model.trap.L1WorldTraps;
 
 public class GameServerThread {
 	
-	private static Logger _log = Logger.getLogger(GameServerThread.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(GameServerThread.class.getName());
 
 	private static GameServerThread _instance;
 	private LoginController _loginController;
@@ -119,58 +120,58 @@ public class GameServerThread {
 		double mpdrgn = Config.RATE_MP_DRAGONKNIGHTTOWN;
 		chatlvl = Config.GLOBAL_CHAT_LEVEL;
 
-		_log.config("HP-REGEN RATE              = " + hpregen);
-		_log.config("MP-REGEN RATE              = " + mpregen);
-		_log.config("HP-CASTLE RATE             = " + castlehp);
-		_log.config("MP-CASTLE RATE             = " + mpcastle);
-		_log.config("HP-HOUSE RATE              = " + househp);
-		_log.config("MP-HOUSE RATE              = " + mphouse);
-		_log.config("HP-HOTEL RATE              = " + hotelhp);
-		_log.config("MP-HOTEL RATE              = " + mphotel);
-		_log.config("HP-MOTHERTREE RATE         = " + motherhp);
-		_log.config("MP-MOTHERTREE RATE         = " + mpmother);
-		_log.config("HP-ILLUSIONISTTOWN RATE    = " + hpill);
-		_log.config("MP-ILLUSIONISTTOWN RATE    = " + mpill);
-		_log.config("HP-DRAGONKNIGHTTOWN RATE   = " + hpdrgn);
-		_log.config("MP-DRAGONKNIGHTTOWN RATE   = " + mpdrgn);
-		_log.config("PartyExp RATE              = "
+		_log.info("HP-REGEN RATE              = " + hpregen);
+		_log.info("MP-REGEN RATE              = " + mpregen);
+		_log.info("HP-CASTLE RATE             = " + castlehp);
+		_log.info("MP-CASTLE RATE             = " + mpcastle);
+		_log.info("HP-HOUSE RATE              = " + househp);
+		_log.info("MP-HOUSE RATE              = " + mphouse);
+		_log.info("HP-HOTEL RATE              = " + hotelhp);
+		_log.info("MP-HOTEL RATE              = " + mphotel);
+		_log.info("HP-MOTHERTREE RATE         = " + motherhp);
+		_log.info("MP-MOTHERTREE RATE         = " + mpmother);
+		_log.info("HP-ILLUSIONISTTOWN RATE    = " + hpill);
+		_log.info("MP-ILLUSIONISTTOWN RATE    = " + mpill);
+		_log.info("HP-DRAGONKNIGHTTOWN RATE   = " + hpdrgn);
+		_log.info("MP-DRAGONKNIGHTTOWN RATE   = " + mpdrgn);
+		_log.info("PartyExp RATE              = "
 				+ (Config.PARTYEXP_RATE));
-		_log.config("PetExp RATE                = "
+		_log.info("PetExp RATE                = "
 				+ (Config.PETEXP_RATE));
-		_log.config("XP RATE                    = " + rateXp);
-		_log.config("Lawful RATE                = " + LA);
-		_log.config("Karma RATE                 = " + rateKarma);
-		_log.config("Drop RATE                  = " + rateDropItems);
-		_log.config("Adena RATE                 = " + rateDropAdena);
-		_log.config("EnchantWeapon Change       = "
+		_log.info("XP RATE                    = " + rateXp);
+		_log.info("Lawful RATE                = " + LA);
+		_log.info("Karma RATE                 = " + rateKarma);
+		_log.info("Drop RATE                  = " + rateDropItems);
+		_log.info("Adena RATE                 = " + rateDropAdena);
+		_log.info("EnchantWeapon Change       = "
 				+ (Config.ENCHANT_CHANCE_WEAPON) + "%");
-		_log.config("EnchantArmor Change        = "
+		_log.info("EnchantArmor Change        = "
 				+ (Config.ENCHANT_CHANCE_ARMOR) + "%");
-		_log.config("AttrEnchant Change         = "
+		_log.info("AttrEnchant Change         = "
 				+ (Config.ATTR_ENCHANT_CHANCE) + "%");
-		_log.config("Global Chat LvL            = " + (chatlvl));
-		_log.config("Whisper Chat LvL           = "
+		_log.info("Global Chat LvL            = " + (chatlvl));
+		_log.info("Whisper Chat LvL           = "
 				+ (Config.WHISPER_CHAT_LEVEL));
 
 		if (Config.ALT_NONPVP) { // Non-PvP Setting
-			_log.config("PvP                        = On");
+			_log.info("PvP                        = On");
 		} else {
-			_log.config("PvP                        = Off");
+			_log.info("PvP                        = Off");
 		}
 
 		// Announce Chat Cycle
 		Announcecycle.getInstance();
 
 		if (Config.Use_Show_INGAMENEWS_Time) {
-			_log.config("IngameNews                 = On");
+			_log.info("IngameNews                 = On");
 		} else {
-			_log.config("InGameNews                 = Off");
+			_log.info("InGameNews                 = Off");
 		}
 
 		System.gc();
 
 		int maxOnlineUsers = Config.MAX_ONLINE_USERS;
-		_log.config("Max online users           = " + (maxOnlineUsers));
+		_log.info("Max online users           = " + (maxOnlineUsers));
 
 		IdFactory.getInstance();
 
@@ -306,6 +307,6 @@ public class GameServerThread {
 		NpcChatTable.getInstance();
 		LightSpawnTable.getInstance();
 		MailTable.getInstance();
-		_log.config("Database tables loaded successfully!");
+		_log.info("Database tables loaded successfully!");
 	}
 }

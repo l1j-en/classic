@@ -44,8 +44,9 @@ import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
@@ -63,7 +64,7 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class PCommands {
-	private static Logger _log = Logger.getLogger(PCommands.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PCommands.class.getName());
 	private static PCommands _instance;
 
 	private static int[] PowerBuffSkills = { DECREASE_WEIGHT,
@@ -243,9 +244,9 @@ public class PCommands {
 					player.sendPackets(ReportHelp);
 				}
 			}
-			_log.log(Level.FINE, player.getName() + " used " + cmd2);
+			_log.trace(player.getName() + " used " + cmd2);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

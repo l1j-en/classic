@@ -25,8 +25,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1ExcludingList;
@@ -35,7 +36,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class ExcludeTable {
-	private static Logger _log = Logger.getLogger(ExcludeTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(ExcludeTable.class.getName());
 	private static ExcludeTable _instance;
 	private final Map<Integer, L1ExcludingList> _excludes = new HashMap<Integer, L1ExcludingList>();
 
@@ -72,15 +73,15 @@ public class ExcludeTable {
 					}
 					_excludes.put(exclude.getCharId(), exclude);
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				} finally {
 					SQLUtil.close(excludesRS);
 					SQLUtil.close(excludesPS);
 				}
 			}
-			_log.config("loaded " + _excludes.size() + " character's excludelists");
+			_log.info("loaded " + _excludes.size() + " character's excludelists");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(charIdRS);
 			SQLUtil.close(charIdPS);
@@ -110,7 +111,7 @@ public class ExcludeTable {
 			pstm.setString(3, name);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -133,7 +134,7 @@ public class ExcludeTable {
 			pstm.execute();
 			exclude.remove(excludeName);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

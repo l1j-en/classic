@@ -21,8 +21,8 @@ import static l1j.server.server.model.Instance.L1PcInstance.REGENSTATE_MOVE;
 import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.command.executor.L1Follow;
@@ -42,7 +42,7 @@ import l1j.server.server.serverpackets.S_MoveCharPacket;
 // ClientBasePacket
 public class C_MoveChar extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_MoveChar.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_MoveChar.class.getName());
 	private static final byte HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final byte HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
@@ -63,7 +63,7 @@ public class C_MoveChar extends ClientBasePacket {
 		} catch(Exception ex) {		
 			// TODO -- remove this in the future when I find out what is causing this exception to be thrown
 			// but for now, I wan't to make sure it doesn't crap out the client thread -- Smitty
-			_log.log(Level.WARNING, "Check of zone type and resetting aggressive act failed.", ex);
+			_log.warn("Check of zone type and resetting aggressive act failed.", ex);
 		}
 		
 		if (pc.isTeleport()) {
@@ -130,7 +130,7 @@ public class C_MoveChar extends ClientBasePacket {
 			if(followingGm != null)
 				L1Follow.moveChar(pc,  followingGm);
 		} catch(Exception ex) { 
-			_log.warning("L1Follow: " + ex.getMessage());
+			_log.warn("L1Follow: " + ex.getMessage());
 		}
 		
 		// sendMapTileLog(pc);

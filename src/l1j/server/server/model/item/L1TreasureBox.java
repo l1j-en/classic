@@ -24,8 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -34,6 +32,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1Inventory;
@@ -47,8 +48,7 @@ import l1j.server.server.utils.PerformanceTimer;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class L1TreasureBox {
 
-	private static Logger _log = Logger
-			.getLogger(L1TreasureBox.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1TreasureBox.class.getName());
 
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlRootElement(name = "TreasureBoxList")
@@ -133,19 +133,19 @@ public class L1TreasureBox {
 			_totalChance += each.getChance();
 			if (ItemTable.getInstance().getTemplate(each.getItemId()) == null) {
 				getItems().remove(each);
-				_log.warning("TreasureBox item ID " + each.getItemId()
+				_log.warn("TreasureBox item ID " + each.getItemId()
 						+ " is invalid.");
 			}
 		}
 		if (getTotalChance() != 0 && getTotalChance() != 1000000) {
-			_log.warning("ID " + getBoxId()
+			_log.warn("ID " + getBoxId()
 					+ " total chance does not equal 0 or 100.");
 		}
 	}
 
 	public static void load() {
 		PerformanceTimer timer = new PerformanceTimer();
-		_log.config("loading TreasureBox...");
+		_log.info("loading TreasureBox...");
 		try {
 			JAXBContext context = JAXBContext
 					.newInstance(L1TreasureBox.TreasureBoxList.class);
@@ -157,11 +157,11 @@ public class L1TreasureBox {
 				_dataMap.put(each.getBoxId(), each);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE,
+			_log.error(
 					PATH + " is invalid for a TreasureBox load.", e);
 			System.exit(0);
 		}
-		_log.config("    OK!     " + timer.elapsedTimeMillis() + "ms");
+		_log.info("    OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	public boolean open(L1PcInstance pc) {
