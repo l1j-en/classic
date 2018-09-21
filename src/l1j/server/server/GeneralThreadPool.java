@@ -148,8 +148,8 @@ public class GeneralThreadPool {
 			return t;
 		}
 
-		public ThreadGroup getGroup() {
-			return _group;
-		}
+//		public ThreadGroup getGroup() {
+//			return _group;
+//		}
 	}
 }

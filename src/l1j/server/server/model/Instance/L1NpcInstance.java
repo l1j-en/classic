@@ -114,7 +114,7 @@ public class L1NpcInstance extends L1Character {
 	private int _randomMoveDirection = 0;
 
 	private L1NpcChatTimer _chatTask;
-	private ScheduledFuture _chatTaskFuture;
+	private ScheduledFuture<?> _chatTaskFuture;
 	private NpcAIThreadImpl _aiThread = null;
 
 	private L1NpcInstance _servantMaster = null;

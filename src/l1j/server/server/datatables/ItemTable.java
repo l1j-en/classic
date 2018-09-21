@@ -25,7 +25,7 @@ import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.utils.collections.Maps;
 
 public class ItemTable {
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private static Logger _log = Logger.getLogger(ItemTable.class.getName());
 	private static final Map<String, Integer> _armorTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponTypes = Maps.newHashMap();

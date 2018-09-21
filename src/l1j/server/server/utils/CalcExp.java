@@ -26,7 +26,6 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_7_S;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
@@ -42,7 +41,6 @@ import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Pet;
-import l1j.server.server.utils.collections.Lists;
 
 public class CalcExp {
 	private static Logger _log = Logger.getLogger(CalcExp.class.getName());
@@ -53,30 +51,30 @@ public class CalcExp {
 
 	private static final double RoyalPartyBonus = .059;
 	private static final double MemberPartyBonus = .04;
-	private static final double PetPenalty = .12;
+//	private static final double PetPenalty = .12;
 
 	/**
 	 * Returns a two element array containing the total experience hate and
 	 * total alternate (karma and lawful hate). Warning: prunes the parameter
 	 * lists!
 	 */
-	private static int[] pruneAndSumHate(ArrayList<L1Character> characters,
-			ArrayList<Integer> hateList) {
-		int[] hateTotals = { 0, 0 };
-		for (int i = hateList.size() - 1; i >= 0; i--) {
-			L1Character character = characters.get(i);
-			int hate = hateList.get(i);
-			if (character == null || character.isDead()) {
-				characters.remove(i);
-				hateList.remove(i);
-			} else {
-				hateTotals[0] += hate;
-				if (character instanceof L1PcInstance)
-					hateTotals[1] += hate;
-			}
-		}
-		return hateTotals;
-	}
+//	private static int[] pruneAndSumHate(ArrayList<L1Character> characters,
+//			ArrayList<Integer> hateList) {
+//		int[] hateTotals = { 0, 0 };
+//		for (int i = hateList.size() - 1; i >= 0; i--) {
+//			L1Character character = characters.get(i);
+//			int hate = hateList.get(i);
+//			if (character == null || character.isDead()) {
+//				characters.remove(i);
+//				hateList.remove(i);
+//			} else {
+//				hateTotals[0] += hate;
+//				if (character instanceof L1PcInstance)
+//					hateTotals[1] += hate;
+//			}
+//		}
+//		return hateTotals;
+//	}
 
 	/**
 	 * Partitions a list of players, summons, and pets into groups divided by
@@ -84,87 +82,87 @@ public class CalcExp {
 	 * UGLY: Bite the bullet and do the searching instead? Makes for an uglier
 	 * overall procedure but removes most of the extraneous wrapping.
 	 */
-	private static List<List<Pair<L1Character, Integer>>> partitionByParty(
-			List<Pair<L1Character, Integer>> characters) {
-		List<List<Pair<L1Character, Integer>>> groups = new ArrayList<List<Pair<L1Character, Integer>>>();
-		List<Pair<L1NpcInstance, Integer>> stragglers = new ArrayList<Pair<L1NpcInstance, Integer>>();
-
-		for (Pair<L1Character, Integer> pair : characters) {
-			L1Character character = pair.getFirst();
-			Integer hate = pair.getSecond();
-
-			// Pull pets and summons for now.
-			if (!(character instanceof L1PcInstance)) {
-				stragglers.add(new Pair<L1NpcInstance, Integer>(
-						(L1NpcInstance) character, hate));
-				continue;
-			}
-
-			L1PcInstance player = (L1PcInstance) character;
-			if (player.isInParty()) {
-				// TODO: fix dumb quadratic search?
-				boolean found = false;
-				for (List<Pair<L1Character, Integer>> group : groups) {
-					L1PcInstance representative = (L1PcInstance) group.get(0)
-							.getFirst();
-					if (representative.isInParty()
-							&& representative.getParty() == player.getParty()) {
-						found = true;
-						group.add(new Pair<L1Character, Integer>(player, hate));
-						break;
-					}
-				}
-				if (!found)
-					groups.add(Lists.of(new Pair<L1Character, Integer>(
-							character, hate)));
-			} else {
-				groups.add(Lists.of(new Pair<L1Character, Integer>(character,
-						hate)));
-			}
-		}
-
-		// Put pets and summons in the same group as their masters.
-		for (Pair<L1NpcInstance, Integer> pair : stragglers) {
-			L1NpcInstance character = pair.getFirst();
-			for (List<Pair<L1Character, Integer>> group : groups) {
-				if (group.contains(character.getMaster())) {
-					group.add(new Pair<L1Character, Integer>(character, pair
-							.getSecond()));
-					break;
-				}
-			}
-		}
-
-		return groups;
-	}
+//	private static List<List<Pair<L1Character, Integer>>> partitionByParty(
+//			List<Pair<L1Character, Integer>> characters) {
+//		List<List<Pair<L1Character, Integer>>> groups = new ArrayList<List<Pair<L1Character, Integer>>>();
+//		List<Pair<L1NpcInstance, Integer>> stragglers = new ArrayList<Pair<L1NpcInstance, Integer>>();
+//
+//		for (Pair<L1Character, Integer> pair : characters) {
+//			L1Character character = pair.getFirst();
+//			Integer hate = pair.getSecond();
+//
+//			// Pull pets and summons for now.
+//			if (!(character instanceof L1PcInstance)) {
+//				stragglers.add(new Pair<L1NpcInstance, Integer>(
+//						(L1NpcInstance) character, hate));
+//				continue;
+//			}
+//
+//			L1PcInstance player = (L1PcInstance) character;
+//			if (player.isInParty()) {
+//				// TODO: fix dumb quadratic search?
+//				boolean found = false;
+//				for (List<Pair<L1Character, Integer>> group : groups) {
+//					L1PcInstance representative = (L1PcInstance) group.get(0)
+//							.getFirst();
+//					if (representative.isInParty()
+//							&& representative.getParty() == player.getParty()) {
+//						found = true;
+//						group.add(new Pair<L1Character, Integer>(player, hate));
+//						break;
+//					}
+//				}
+//				if (!found)
+//					groups.add(Lists.of(new Pair<L1Character, Integer>(
+//							character, hate)));
+//			} else {
+//				groups.add(Lists.of(new Pair<L1Character, Integer>(character,
+//						hate)));
+//			}
+//		}
+//
+//		// Put pets and summons in the same group as their masters.
+//		for (Pair<L1NpcInstance, Integer> pair : stragglers) {
+//			L1NpcInstance character = pair.getFirst();
+//			for (List<Pair<L1Character, Integer>> group : groups) {
+//				if (group.contains(character.getMaster())) {
+//					group.add(new Pair<L1Character, Integer>(character, pair
+//							.getSecond()));
+//					break;
+//				}
+//			}
+//		}
+//
+//		return groups;
+//	}
 
 	// TODO: finalize - starting off a little shorter than shout.
-	private static final int EXP_RANGE = 40;
+//	private static final int EXP_RANGE = 40;
 
-	private static boolean groupContainsRoyal(
-			List<Pair<L1Character, Integer>> group) {
-		if (group.size() == 0)
-			return false;
-		L1Character first = group.get(0).getFirst();
-		if (first instanceof L1PcInstance) {
-			return partyContainsRoyal((L1PcInstance) first);
-		} else if (first instanceof L1SummonInstance) {
-			L1SummonInstance summon = (L1SummonInstance) first;
-			return partyContainsRoyal((L1PcInstance) summon.getMaster());
-		} else if (first instanceof L1PetInstance) {
-			L1PetInstance pet = (L1PetInstance) first;
-			return partyContainsRoyal((L1PcInstance) pet.getMaster());
-		}
-		// Can't actually get here.
-		return false;
-	}
+//	private static boolean groupContainsRoyal(
+//			List<Pair<L1Character, Integer>> group) {
+//		if (group.size() == 0)
+//			return false;
+//		L1Character first = group.get(0).getFirst();
+//		if (first instanceof L1PcInstance) {
+//			return partyContainsRoyal((L1PcInstance) first);
+//		} else if (first instanceof L1SummonInstance) {
+//			L1SummonInstance summon = (L1SummonInstance) first;
+//			return partyContainsRoyal((L1PcInstance) summon.getMaster());
+//		} else if (first instanceof L1PetInstance) {
+//			L1PetInstance pet = (L1PetInstance) first;
+//			return partyContainsRoyal((L1PcInstance) pet.getMaster());
+//		}
+//		// Can't actually get here.
+//		return false;
+//	}
 
-	private static boolean partyContainsRoyal(final L1PcInstance player) {
-		for (L1PcInstance member : player.getParty().getMembers())
-			if (member.isCrown())
-				return true;
-		return false;
-	}
+//	private static boolean partyContainsRoyal(final L1PcInstance player) {
+//		for (L1PcInstance member : player.getParty().getMembers())
+//			if (member.isCrown())
+//				return true;
+//		return false;
+//	}
 
 	/**
 	 * Expect this to be called once per monster death.

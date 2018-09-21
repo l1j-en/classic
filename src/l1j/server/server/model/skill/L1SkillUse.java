@@ -251,21 +251,21 @@ public class L1SkillUse {
 			return _isCalc;
 		}
 
-		public void isAction(boolean _flg) {
-			_isAction = _flg;
-		}
-
-		public boolean isAction() {
-			return _isAction;
-		}
-
-		public void isSendStatus(boolean _flg) {
-			_isSendStatus = _flg;
-		}
-
-		public boolean isSendStatus() {
-			return _isSendStatus;
-		}
+//		public void isAction(boolean _flg) {
+//			_isAction = _flg;
+//		}
+//
+//		public boolean isAction() {
+//			return _isAction;
+//		}
+//
+//		public void isSendStatus(boolean _flg) {
+//			_isSendStatus = _flg;
+//		}
+//
+//		public boolean isSendStatus() {
+//			return _isSendStatus;
+//		}
 	}
 
 	public void setLeverage(int i) {

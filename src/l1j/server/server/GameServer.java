@@ -18,7 +18,6 @@
  */
 package l1j.server.server;
 
-import java.net.ServerSocket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -32,7 +31,7 @@ import l1j.server.server.network.Client;
 import l1j.server.server.network.NetworkServer;
 
 public class GameServer extends Thread {
-	private ServerSocket _serverSocket;
+	//private ServerSocket _serverSocket;
 	private static Logger _log = Logger.getLogger(GameServer.class.getName());
 	private int _port;
 

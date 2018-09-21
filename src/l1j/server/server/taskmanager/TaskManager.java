@@ -18,12 +18,10 @@
  */
 package l1j.server.server.taskmanager;
 
-import static l1j.server.server.taskmanager.TaskTypes.TYPE_GLOBAL_TASK;
-
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +29,6 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.ThreadPoolManager;
 import l1j.server.server.taskmanager.tasks.TaskRestart;
 import l1j.server.server.taskmanager.tasks.TaskShutdown;
 import l1j.server.server.utils.SQLUtil;
@@ -201,42 +198,42 @@ public final class TaskManager {
 		}
 	}
 
-	private boolean launchTask(ExecutedTask task) {
-		final ThreadPoolManager scheduler = ThreadPoolManager.getInstance();
-		final TaskTypes type = task.getType();
-
-		if (type == TYPE_GLOBAL_TASK) {
-			long interval = Long.valueOf(task.getParams()[0]) * 86400000L;
-			String[] hour = task.getParams()[1].split(":");
-
-			if (hour.length != 3) {
-				_log.warning("Task " + task.getId()
-						+ " has incorrect parameters");
-				return false;
-			}
-			Calendar check = Calendar.getInstance();
-			check.setTimeInMillis(task.getLastActivation() + interval);
-			Calendar min = Calendar.getInstance();
-			try {
-				min.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour[0]));
-				min.set(Calendar.MINUTE, Integer.valueOf(hour[1]));
-				min.set(Calendar.SECOND, Integer.valueOf(hour[2]));
-			} catch (Exception e) {
-				_log.warning("Bad parameter on task " + task.getId() + ": "
-						+ e.getMessage());
-				return false;
-			}
-			long delay = min.getTimeInMillis() - System.currentTimeMillis();
-
-			if (check.after(min) || delay < 0) {
-				delay += interval;
-			}
-			task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay,
-					interval);
-			return true;
-		}
-		return false;
-	}
+//	private boolean launchTask(ExecutedTask task) {
+//		final ThreadPoolManager scheduler = ThreadPoolManager.getInstance();
+//		final TaskTypes type = task.getType();
+//
+//		if (type == TYPE_GLOBAL_TASK) {
+//			long interval = Long.valueOf(task.getParams()[0]) * 86400000L;
+//			String[] hour = task.getParams()[1].split(":");
+//
+//			if (hour.length != 3) {
+//				_log.warning("Task " + task.getId()
+//						+ " has incorrect parameters");
+//				return false;
+//			}
+//			Calendar check = Calendar.getInstance();
+//			check.setTimeInMillis(task.getLastActivation() + interval);
+//			Calendar min = Calendar.getInstance();
+//			try {
+//				min.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour[0]));
+//				min.set(Calendar.MINUTE, Integer.valueOf(hour[1]));
+//				min.set(Calendar.SECOND, Integer.valueOf(hour[2]));
+//			} catch (Exception e) {
+//				_log.warning("Bad parameter on task " + task.getId() + ": "
+//						+ e.getMessage());
+//				return false;
+//			}
+//			long delay = min.getTimeInMillis() - System.currentTimeMillis();
+//
+//			if (check.after(min) || delay < 0) {
+//				delay += interval;
+//			}
+//			task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay,
+//					interval);
+//			return true;
+//		}
+//		return false;
+//	}
 
 	public static boolean addUniqueTask(String task, TaskTypes type,
 			String param1, String param2, String param3) {
@@ -245,14 +242,15 @@ public final class TaskManager {
 
 	public static boolean addUniqueTask(String task, TaskTypes type,
 			String param1, String param2, String param3, long lastActivation) {
-		java.sql.Connection con = null;
+		//java.sql.Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L1DatabaseFactory.getInstance().getConnection();){
+			//con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con.prepareStatement(SQL_STATEMENTS[2]);
 			pstm.setString(1, task);
 			rs = pstm.executeQuery();
+			pstm.close();
 			if (!rs.next()) {
 				pstm = con.prepareStatement(SQL_STATEMENTS[3]);
 				pstm.setString(1, task);
@@ -269,7 +267,7 @@ public final class TaskManager {
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
-			SQLUtil.close(con);
+			//SQLUtil.close(con);
 		}
 		return false;
 	}
