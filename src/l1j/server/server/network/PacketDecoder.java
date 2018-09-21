@@ -45,7 +45,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
 	@Override
 	public void channelInactive(final ChannelHandlerContext ctx) {
-		_log.info("Disconnect happened");
+		_log.error("Disconnect happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		client.handleDisconnect();
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());

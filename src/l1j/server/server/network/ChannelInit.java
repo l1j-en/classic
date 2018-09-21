@@ -48,7 +48,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
 	    cause.printStackTrace();
 	    ctx.close();
-		_log.info("Exception happened");
+		_log.error("Exception happened");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		client.handleDisconnect();
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
