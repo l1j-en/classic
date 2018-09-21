@@ -42,6 +42,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 	public void channelInactive(final ChannelHandlerContext ctx) {
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 		client.handleDisconnect();
+		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
 
 	@Override
