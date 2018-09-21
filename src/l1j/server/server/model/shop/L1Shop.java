@@ -21,6 +21,7 @@ package l1j.server.server.model.shop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -260,8 +261,8 @@ public class L1Shop {
 			inv.storeItem(item);
 			if (_npcId == 70068 || _npcId == 70020) {
 				item.setIdentified(false);
-				Random random = new Random();
-				int chance = random.nextInt(100) + 1;
+				new Random();
+				int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 				if (chance <= 15) {
 					item.setEnchantLevel(-2);
 				} else if (chance >= 16 && chance <= 30) {
@@ -269,9 +270,9 @@ public class L1Shop {
 				} else if (chance >= 31 && chance <= 70) {
 					item.setEnchantLevel(0);
 				} else if (chance >= 71 && chance <= 87) {
-					item.setEnchantLevel(random.nextInt(2) + 1);
+					item.setEnchantLevel(ThreadLocalRandom.current().nextInt(2) + 1);
 				} else if (chance >= 88 && chance <= 97) {
-					item.setEnchantLevel(random.nextInt(3) + 3);
+					item.setEnchantLevel(ThreadLocalRandom.current().nextInt(3) + 3);
 				} else if (chance >= 98 && chance <= 99) {
 					item.setEnchantLevel(6);
 				} else if (chance == 100) {

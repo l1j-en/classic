@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +48,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 	private static Logger _log = LoggerFactory.getLogger(L1MonsterInstance.class
 			.getName());
 
-	private static Random _random = new Random();
-
+ 
 	private boolean _storeDroped;
 
 	@Override
@@ -672,7 +671,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 	private void hideHelper(int hpFraction, int range, int status,
 			int hiddenStatus, final ServerBasePacket action) {
 		if (getMaxHp() / hpFraction > getCurrentHp()
-				&& 1 > _random.nextInt(range)) {
+				&& 1 > ThreadLocalRandom.current().nextInt(range)) {
 			allTargetClear();
 			setStatusAndHiddenStatus(status, hiddenStatus);
 			broadcastPacket(action);
@@ -700,14 +699,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 		case 45455:
 		case 46107:
 		case 46108:
-			if (!random || 1 > _random.nextInt(3))
+			if (!random || 1 > ThreadLocalRandom.current().nextInt(3))
 				setStatusAndHiddenStatus(13, HIDDEN_STATUS_SINK);
 			break;
 		case 45045:
 		case 45126:
 		case 45134:
 		case 45281:
-			if (!random || 1 > _random.nextInt(3))
+			if (!random || 1 > ThreadLocalRandom.current().nextInt(3))
 				setStatusAndHiddenStatus(4, HIDDEN_STATUS_SINK);
 			break;
 		case 45067:

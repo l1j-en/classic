@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -295,7 +296,7 @@ public class L1Spawn {
 	private int calcRespawnDelay() {
 		int respawnDelay = _minRespawnDelay * 1000;
 		if (_delayInterval > 0) {
-			respawnDelay += _random.nextInt(_delayInterval) * 1000;
+			respawnDelay += ThreadLocalRandom.current().nextInt(_delayInterval) * 1000;
 		}
 		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
 		if (_time != null && !_time.getTimePeriod().includes(currentTime)) {
@@ -372,9 +373,9 @@ public class L1Spawn {
 
 			int npcId = mob.getNpcTemplate().get_npcId();
 			if (npcId == 45488 && getMapId() == 9) {
-				mob.setMap((short) (getMapId() + _random.nextInt(2)));
+				mob.setMap((short) (getMapId() + ThreadLocalRandom.current().nextInt(2)));
 			} else if (npcId == 45601 && getMapId() == 11) {
-				mob.setMap((short) (getMapId() + _random.nextInt(3)));
+				mob.setMap((short) (getMapId() + ThreadLocalRandom.current().nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
 			}
@@ -420,8 +421,8 @@ public class L1Spawn {
 						} else {
 							int rangeX = getLocX2() - getLocX1();
 							int rangeY = getLocY2() - getLocY1();
-							newlocx = _random.nextInt(rangeX) + getLocX1();
-							newlocy = _random.nextInt(rangeY) + getLocY1();
+							newlocx = ThreadLocalRandom.current().nextInt(rangeX) + getLocX1();
+							newlocy = ThreadLocalRandom.current().nextInt(rangeY) + getLocY1();
 						}
 						if (tryCount > 49) { // When that happens appearance
 												// position locx, locy value

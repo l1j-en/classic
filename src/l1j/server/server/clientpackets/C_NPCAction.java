@@ -31,8 +31,8 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_YAHEE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 
 import java.util.Calendar;
-import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +125,6 @@ public class C_NPCAction extends ClientBasePacket {
 
 	private static final String C_NPC_ACTION = "[C] C_NPCAction";
 	private static Logger _log = LoggerFactory.getLogger(C_NPCAction.class.getName());
-	private static Random _random = new Random();
 
 	public C_NPCAction(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
@@ -1619,7 +1618,7 @@ public class C_NPCAction extends ClientBasePacket {
 			}
 		} else if (npcid == 70512) {
 			if (s.equalsIgnoreCase("0") || s.equalsIgnoreCase("fullheal")) {
-				int hp = _random.nextInt(30) + 70;
+				int hp = ThreadLocalRandom.current().nextInt(30) + 70;
 				pc.setCurrentHp(pc.getCurrentHp() + hp);
 				pc.sendPackets(new S_ServerMessage(77));
 				pc.sendPackets(new S_SkillSound(pc.getId(), 830));
@@ -1691,7 +1690,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "maptbox1";
 				pc.getQuest().set_end(L1Quest.QUEST_TBOX1);
 				int[] nextbox = { 1, 2, 3 };
-				int pid = _random.nextInt(nextbox.length);
+				int pid = ThreadLocalRandom.current().nextInt(nextbox.length);
 				int nb = nextbox[pid];
 				if (nb == 1) {
 					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 2);
@@ -1710,7 +1709,7 @@ public class C_NPCAction extends ClientBasePacket {
 				htmlid = "maptbox1";
 				pc.getQuest().set_end(L1Quest.QUEST_TBOX2);
 				int[] nextbox2 = { 1, 2, 3, 4, 5, 6 };
-				int pid = _random.nextInt(nextbox2.length);
+				int pid = ThreadLocalRandom.current().nextInt(nextbox2.length);
 				int nb2 = nextbox2[pid];
 				if (nb2 == 1) {
 					pc.getQuest().set_step(L1Quest.QUEST_LUKEIN1, 5);
@@ -2091,8 +2090,8 @@ public class C_NPCAction extends ClientBasePacket {
 						counts = new int[] { 1000, 1 };
 						createitem = new int[] { 41314 };
 						createcount = new int[] { 1 };
-						int htmlA = _random.nextInt(3) + 1;
-						int htmlB = _random.nextInt(100) + 1;
+						int htmlA = ThreadLocalRandom.current().nextInt(3) + 1;
+						int htmlB = ThreadLocalRandom.current().nextInt(100) + 1;
 						switch (htmlA) {
 						case 1:
 							htmlid = "horosa" + htmlB;
@@ -2116,8 +2115,8 @@ public class C_NPCAction extends ClientBasePacket {
 				} else {
 					if (pc.getInventory().checkItem(41314)) {
 						pc.getInventory().consumeItem(41314, 1);
-						int html = _random.nextInt(9) + 1;
-						int PolyId = 6180 + _random.nextInt(64);
+						int html = ThreadLocalRandom.current().nextInt(9) + 1;
+						int PolyId = 6180 + ThreadLocalRandom.current().nextInt(64);
 						polyByKeplisha(client, PolyId);
 						switch (html) {
 						case 1:
@@ -2341,7 +2340,7 @@ public class C_NPCAction extends ClientBasePacket {
 		} else if (npcid == 80076) {
 			if (s.equalsIgnoreCase("A")) {
 				int[] diaryno = { 49082, 49083 };
-				int pid = _random.nextInt(diaryno.length);
+				int pid = ThreadLocalRandom.current().nextInt(diaryno.length);
 				int di = diaryno[pid];
 				if (di == 49082) { //
 					htmlid = "voyager6a";

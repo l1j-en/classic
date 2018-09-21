@@ -6,6 +6,7 @@ package l1j.server.server.model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.model.gametime.L1GameTime;
@@ -223,8 +224,8 @@ public class L1CastleLocation {
 		} else if (castle_id == ADEN_CASTLE_ID) {
 			loc = L1TownLocation.getGetBackLoc(L1TownLocation.TOWNID_ADEN);
 		} else if (castle_id == DIAD_CASTLE_ID) {
-			Random random = new Random();
-			int rnd = random.nextInt(3);
+			new Random();
+			int rnd = ThreadLocalRandom.current().nextInt(3);
 			loc = new int[3];
 			if (rnd == 0) {
 				loc[0] = 32792;

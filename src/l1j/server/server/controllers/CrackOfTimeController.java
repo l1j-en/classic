@@ -19,9 +19,9 @@
 package l1j.server.server.controllers;
 
 import java.lang.reflect.Constructor;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,12 +135,11 @@ public class CrackOfTimeController extends TimerTask {
 	}
 
 	private void spawnCrack() {
-		Random random = new Random();
 		L1Location crack = null;
 		L1Location crack_loc = null;
 
-		int rnd1 = random.nextInt(2);
-		int rnd2 = random.nextInt(9);
+		int rnd1 = ThreadLocalRandom.current().nextInt(2);
+		int rnd2 = ThreadLocalRandom.current().nextInt(9);
 
 		crack = new L1Location(_crack[rnd1][0], _crack[rnd1][1],
 				_crack[rnd1][2]);

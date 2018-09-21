@@ -16,7 +16,7 @@
  */
 package l1j.server.server.model;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +37,7 @@ public class L1MobGroupSpawn {
 			.getName());
 
 	private static L1MobGroupSpawn _instance;
-	private static Random _random = new Random();
-	private boolean _isRespawnScreen;
+ 	private boolean _isRespawnScreen;
 	private boolean _isInitSpawn;
 
 	private L1MobGroupSpawn() {
@@ -86,8 +85,8 @@ public class L1MobGroupSpawn {
 			mob.setMap(leader.getMapId());
 			mob.setMovementDistance(leader.getMovementDistance());
 			mob.setRest(leader.isRest());
-			mob.setX(leader.getX() + _random.nextInt(5) - 2);
-			mob.setY(leader.getY() + _random.nextInt(5) - 2);
+			mob.setX(leader.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+			mob.setY(leader.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
 			if (!canSpawn(mob)) {
 				mob.setX(leader.getX());
 				mob.setY(leader.getY());

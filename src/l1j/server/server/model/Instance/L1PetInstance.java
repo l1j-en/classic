@@ -2,7 +2,7 @@ package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.ExpTable;
@@ -32,8 +32,7 @@ import l1j.server.server.templates.L1PetType;
 public class L1PetInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
-	private static Random _random = new Random();
-	private int _currentPetStatus;
+ 	private int _currentPetStatus;
 	private L1PcInstance _petMaster;
 	private int _itemObjId;
 	private L1PetType _type;
@@ -96,8 +95,8 @@ public class L1PetInstance extends L1NpcInstance {
 				_currentPetStatus = 3;
 				return true;
 			}
-			int locx = _petMaster.getX() + _random.nextInt(1);
-			int locy = _petMaster.getY() + _random.nextInt(1);
+			int locx = _petMaster.getX() + ThreadLocalRandom.current().nextInt(1);
+			int locy = _petMaster.getY() + ThreadLocalRandom.current().nextInt(1);
 			int dir = moveDirection(locx, locy);
 			if (dir == -1) {
 				_currentPetStatus = 3;
@@ -143,8 +142,8 @@ public class L1PetInstance extends L1NpcInstance {
 		setWeapon(items.createItem(l1pet.get_weapon()));
 		setArmor(items.createItem(l1pet.get_armor()));
 		setMaster(master);
-		setX(master.getX() + _random.nextInt(5) - 2);
-		setY(master.getY() + _random.nextInt(5) - 2);
+		setX(master.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+		setY(master.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
 		setMap(master.getMapId());
 		setHeading(5);
 		setLightSize(template.getLightSize());

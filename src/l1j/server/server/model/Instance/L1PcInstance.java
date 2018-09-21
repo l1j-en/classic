@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1143,7 +1144,7 @@ public class L1PcInstance extends L1Character {
 
 	public void receiveDamage(L1Character attacker, int damage, int attr) {
 		int player_mr = getMr();
-		int rnd = _random.nextInt(100) + 1;
+		int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 		if (player_mr >= rnd) {
 			damage /= 2;
 		}
@@ -1279,7 +1280,7 @@ public class L1PcInstance extends L1Character {
 			}
 
 			if (hasSkillEffect(MORTAL_BODY) && getId() != attacker.getId()) {
-				int rnd = _random.nextInt(100) + 1;
+				int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 				if (damage > 0 && rnd <= 23) {
 					if (attacker instanceof L1PcInstance) {
 						L1PcInstance attackPc = (L1PcInstance) attacker;
@@ -1607,17 +1608,17 @@ public class L1PcInstance extends L1Character {
 					if (getLawful() < 0) {
 						lostRate *= 2;
 					}
-					int rnd = _random.nextInt(1000) + 1;
+					int rnd = ThreadLocalRandom.current().nextInt(1000) + 1;
 					if (rnd <= lostRate) {
 						int count = 1;
 						if (getLawful() <= -30000) {
-							count = _random.nextInt(4) + 1;
+							count = ThreadLocalRandom.current().nextInt(4) + 1;
 						} else if (getLawful() <= -20000) {
-							count = _random.nextInt(3) + 1;
+							count = ThreadLocalRandom.current().nextInt(3) + 1;
 						} else if (getLawful() <= -10000) {
-							count = _random.nextInt(2) + 1;
+							count = ThreadLocalRandom.current().nextInt(2) + 1;
 						} else if (getLawful() < 0) {
-							count = _random.nextInt(1) + 1;
+							count = ThreadLocalRandom.current().nextInt(1) + 1;
 						}
 						caoPenaltyResult(count);
 					}

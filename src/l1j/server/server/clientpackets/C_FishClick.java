@@ -21,7 +21,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.ItemTable;
@@ -37,7 +37,6 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_FishClick extends ClientBasePacket {
 	private static final String C_FISHCLICK = "[C] C_FishClick";
-	private static Random _random = new Random();
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
@@ -52,7 +51,7 @@ public class C_FishClick extends ClientBasePacket {
 				&& pc.isFishingReady()) {
 			finishFishing(pc);
 
-			int chance = _random.nextInt(200) + 1;
+			int chance = ThreadLocalRandom.current().nextInt(200) + 1;
 
 			if (chance < 50) {
 				successFishing(pc, 41298, "$5256"); // 25%

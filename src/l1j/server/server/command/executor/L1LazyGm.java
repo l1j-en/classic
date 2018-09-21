@@ -2,7 +2,7 @@ package l1j.server.server.command.executor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Teleport;
@@ -13,8 +13,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 public class L1LazyGm implements L1CommandExecutor {
 	private static HashMap<Integer, LazyGmTimer> _lazyGmTimers
 				= new HashMap<Integer, LazyGmTimer>();
-	private static Random _random = new Random();
-	
+ 	
 	protected static class LazyGmTimer implements Runnable {
 		private L1PcInstance _gm = null;
 		private int _interval;
@@ -54,7 +53,7 @@ public class L1LazyGm implements L1CommandExecutor {
 						// who wasn't the last person we visited
 						for(int x = 0; x < 10 && 
 								(personToWatch == null || personToWatch.getId() == lastVisitedId); x++) {
-							int numberToWatch = _random.nextInt(onlinePlayers.size());
+							int numberToWatch = ThreadLocalRandom.current().nextInt(onlinePlayers.size());
 							
 							for(int i = 0; i < onlinePlayers.size(); i++) {
 								if(onlinePlayers.get(i).getId() == _gm.getId())

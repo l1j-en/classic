@@ -20,6 +20,7 @@
 package l1j.server.server.model.Instance;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,8 +101,8 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				if (player.isElf()) {
 					if (quest.get_step(L1Quest.QUEST_LEVEL30) == 1) {
 						if (!player.getInventory().checkItem(40592)) {
-							Random random = new Random();
-							if (random.nextInt(100) < 50) {
+							new Random();
+							if (ThreadLocalRandom.current().nextInt(100) < 50) {
 								htmlid = "fairyp2";
 							} else {
 								htmlid = "fairyp1";

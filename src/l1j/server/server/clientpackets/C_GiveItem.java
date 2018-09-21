@@ -18,7 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,6 @@ public class C_GiveItem extends ClientBasePacket {
 
 	private static Logger _log = LoggerFactory.getLogger(C_GiveItem.class.getName());
 	private static final String C_GIVE_ITEM = "[C] C_GiveItem";
-	private static Random _random = new Random();
 
 	public C_GiveItem(byte decrypt[], Client client) {
 		super(decrypt);
@@ -320,7 +319,7 @@ public class C_GiveItem extends ClientBasePacket {
 
 		if (npcId == 45313) {
 			if (npc.getMaxHp() / 3 > npc.getCurrentHp()
-					&& _random.nextInt(16) == 15) {
+					&& ThreadLocalRandom.current().nextInt(16) == 15) {
 				isSuccess = true;
 			}
 		} else {

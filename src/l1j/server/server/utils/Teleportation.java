@@ -22,7 +22,7 @@ import static l1j.server.server.model.skill.L1SkillId.BLOODLUST;
 import static l1j.server.server.model.skill.L1SkillId.WIND_SHACKLE;
 
 import java.util.HashSet;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +54,7 @@ import l1j.server.server.serverpackets.S_SummonPack;
 // FaceToFace
 public class Teleportation {
 	private static Logger _log =LoggerFactory			.getLogger(Teleportation.class.getName());
-	private static Random _random = new Random();
-
+ 
 	private Teleportation() {
 	}
 	
@@ -134,8 +133,8 @@ public class Teleportation {
 						if (pc.getMapId() == 5125 || pc.getMapId() == 5131
 								|| pc.getMapId() == 5132 || pc.getMapId() == 5133
 								|| pc.getMapId() == 5134) {
-							nx = 32799 + _random.nextInt(5) - 3;
-							ny = 32864 + _random.nextInt(5) - 3;
+							nx = 32799 + ThreadLocalRandom.current().nextInt(5) - 3;
+							ny = 32864 + ThreadLocalRandom.current().nextInt(5) - 3;
 						}
 						teleport(petNpc, nx, ny, mapId, head);
 						if (petNpc instanceof L1SummonInstance) {

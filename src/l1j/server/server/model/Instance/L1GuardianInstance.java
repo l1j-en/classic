@@ -21,9 +21,9 @@ package l1j.server.server.model.Instance;
 import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,8 +55,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 	private static Logger _log = LoggerFactory.getLogger(L1GuardianInstance.class
 			.getName());
 
-	private Random _random = new Random();
-	private L1GuardianInstance _npc = this;
+ 	private L1GuardianInstance _npc = this;
 
 	/**
 	 * @param template
@@ -118,7 +117,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 
 			if (attack.calcHit()) {
 				if (getNpcTemplate().get_npcId() == 70848) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 10) {
 						player.getInventory().storeItem(40506, 1);
 						player.sendPackets(new S_ServerMessage(143, "$755",
@@ -134,7 +133,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70850) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40519, 5);
 						player.sendPackets(new S_ServerMessage(143, "$753",
@@ -142,7 +141,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70846) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40503, 1);
 						player.sendPackets(new S_ServerMessage(143, "$752",

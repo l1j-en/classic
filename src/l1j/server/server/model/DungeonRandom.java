@@ -26,7 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,6 @@ public class DungeonRandom {
 	private static DungeonRandom _instance = null;
 
 	private static Map<String, NewDungeonRandom> _dungeonMap = new HashMap<String, NewDungeonRandom>();
-	private static Random _random = new Random();
 
 	public static DungeonRandom getInstance() {
 		if (_instance == null) {
@@ -122,7 +121,7 @@ public class DungeonRandom {
 		String key = new StringBuilder().append(mapId).append(locX)
 				.append(locY).toString();
 		if (_dungeonMap.containsKey(key)) {
-			int rnd = _random.nextInt(5);
+			int rnd = ThreadLocalRandom.current().nextInt(5);
 			NewDungeonRandom newDungeonRandom = _dungeonMap.get(key);
 			short newMap = newDungeonRandom._newMapId[rnd];
 			int newX = newDungeonRandom._newX[rnd];

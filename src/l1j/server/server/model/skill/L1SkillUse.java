@@ -18,6 +18,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.netty.util.internal.ThreadLocalRandom;
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.NpcTable;
@@ -63,8 +64,6 @@ import l1j.server.server.model.Instance.L1TowerInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.poison.L1DamagePoison;
 import l1j.server.server.model.trap.L1WorldTraps;
-import l1j.server.server.random.RandomGenerator;
-import l1j.server.server.random.RandomGeneratorFactory;
 import l1j.server.server.serverpackets.S_ChangeHeading;
 import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_ChangeShape;
@@ -2251,10 +2250,8 @@ public class L1SkillUse {
 						npc.setParalysisTime(_skill.getBuffDuration() * 1000);
 					}
 				} else if (_skillId == SHOCK_STUN) {
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
 
-					int durationCalculator = random.nextInt(400);
+					int durationCalculator = ThreadLocalRandom.current().nextInt(400);
 
 					if(durationCalculator >= 335) {
 						_shockStunDuration = 4000; // 16% chance for 4 second
@@ -2292,10 +2289,7 @@ public class L1SkillUse {
 					L1Bleed bleed = new L1Bleed((L1PcInstance)cha, _target);
 					bleed.begin();
 				} else if (_skillId == MASS_SHOCK_STUN) {
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					
-					int durationCalculator = random.nextInt(400);
+					int durationCalculator = ThreadLocalRandom.current().nextInt(400);
 					
 					if(durationCalculator >= 335) {
 						_shockStunDuration = 4000; // 16% chance for 4 second
@@ -2441,9 +2435,7 @@ public class L1SkillUse {
 						&& (undeadType == 1 || undeadType == 3)) {
 					dmg = cha.getCurrentHp();
 				} else if (_skillId == MANA_DRAIN) {
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					int chance = random.nextInt(10) + 5;
+					int chance = ThreadLocalRandom.current().nextInt(10) + 5;
 					drainMana = chance + (_user.getInt() / 2);
 					if (cha.getCurrentMp() < drainMana) {
 						drainMana = cha.getCurrentMp();
@@ -2454,9 +2446,7 @@ public class L1SkillUse {
 							L1PcInstance pc = (L1PcInstance) cha;
 							L1ItemInstance weapon = pc.getWeapon();
 							if (weapon != null) {
-								RandomGenerator random = RandomGeneratorFactory
-										.getSharedRandom();
-								int weaponDamage = random.nextInt(_user
+								int weaponDamage = ThreadLocalRandom.current().nextInt(_user
 										.getInt() / 3) + 1;
 								pc.sendPackets(new S_ServerMessage(268, weapon
 										.getLogName())); // Your 'weapon' was damaged.
@@ -2487,11 +2477,9 @@ public class L1SkillUse {
 				} else if (_skillId == THUNDER_GRAB) {
 
 					boolean hitsTarget = _magic.calcProbabilityMagic(_skillId);
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
 
 					if(hitsTarget) {
-						int durationCalculator = random.nextInt(400);
+						int durationCalculator = ThreadLocalRandom.current().nextInt(400);
 						int time = 0;
 
 						if(durationCalculator >= 335) {
@@ -2528,9 +2516,7 @@ public class L1SkillUse {
 					}
 
 				} else if (_skillId == BONE_BREAK) {
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					int stunTime = (random.nextInt(10) + 6) * 100;
+					int stunTime = (ThreadLocalRandom.current().nextInt(10) + 6) * 100;
 					_boneBreakDuration = stunTime;
 					int intbonus = _user.getInt() - 12;
 					if (intbonus > 0) {
@@ -2540,7 +2526,7 @@ public class L1SkillUse {
 					if (_boneBreakDuration > 6000) {
 						_boneBreakDuration = 6000;
 					}
-					int chance = (random.nextInt(100) + 1);
+					int chance = (ThreadLocalRandom.current().nextInt(100) + 1);
 					int probability = (l1skills.getProbabilityValue() - (2 * cha
 							.getResistStun()));
 					if (chance <= probability) {
@@ -2578,11 +2564,9 @@ public class L1SkillUse {
 						npc.broadcastPacket(new S_SkillSound(npc.getId(), 6526));
 					}
 				} else if (_skillId == CONFUSION) {
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					int silenceTime = (random.nextInt(60) + 40) * 100;
+					int silenceTime = (ThreadLocalRandom.current().nextInt(60) + 40) * 100;
 					_confusionDuration = silenceTime;
-					int chance = (random.nextInt(100) + 1);
+					int chance = (ThreadLocalRandom.current().nextInt(100) + 1);
 					int probability = l1skills.getProbabilityValue();
 					if (chance <= probability) {
 						if (cha instanceof L1PcInstance) {
@@ -2626,9 +2610,7 @@ public class L1SkillUse {
 						L1NpcInstance npc = (L1NpcInstance) cha;
 						npc.broadcastPacket(new S_SkillSound(npc.getId(), 6551));
 					}
-					RandomGenerator random = RandomGeneratorFactory
-							.getSharedRandom();
-					int chance = (random.nextInt(100) + 1);
+					int chance = (ThreadLocalRandom.current().nextInt(100) + 1);
 					int probability = l1skills.getProbabilityValue();
 					int time = _skill.getBuffDuration();
 					if (chance <= probability) {
@@ -2879,9 +2861,7 @@ public class L1SkillUse {
 										npcattr *= 2;
 									}
 									if (summonid == 0) {
-										RandomGenerator random = RandomGeneratorFactory
-												.getSharedRandom();
-										int k3 = random.nextInt(4);
+										int k3 = ThreadLocalRandom.current().nextInt(4);
 										summonid = summons[k3];
 									}
 
@@ -3524,12 +3504,11 @@ public class L1SkillUse {
 			return;
 		}
 
-		RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
 		L1PcInventory inventory = player.getInventory();
 
 		for (int i = 0; i < count; i++) {
 			inventory.removeItem(item, 1);
-			if (chance > random.nextInt(100) + 1) {
+			if (chance > ThreadLocalRandom.current().nextInt(100) + 1) {
 				inventory.storeItem(nextStone, 1);
 				if (report)
 					player.sendPackets(new S_ServerMessage(403, name)); // obtained 'item'.

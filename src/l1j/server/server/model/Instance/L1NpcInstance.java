@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,8 +105,7 @@ public class L1NpcInstance extends L1Character {
 	private int _petcost;
 	public L1Inventory _inventory = new L1Inventory();
 	private L1MobSkillUse mobSkill;
-	private static Random _random = new Random();
-	private boolean firstFound = true;
+ 	private boolean firstFound = true;
 	private boolean _awoken = false;
 	private int _drainedMana = 0;
 	private boolean _rest = false;
@@ -467,7 +467,7 @@ public class L1NpcInstance extends L1Character {
 						}
 					}
 
-					if (getNpcTemplate().is_teleport() && 20 > _random.nextInt(100) && getCurrentMp() >= 10
+					if (getNpcTemplate().is_teleport() && 20 > ThreadLocalRandom.current().nextInt(100) && getCurrentMp() >= 10
 							&& distance > 6 && distance < 15) {
 						if (nearTeleport(target.getX(), target.getY()) == true) {
 							return;
@@ -714,10 +714,10 @@ public class L1NpcInstance extends L1Character {
 					//
 					//
 					if (_randomMoveDistance == 0) {
-						_randomMoveDistance = _random.nextInt(5) + 1;
-						_randomMoveDirection = _random.nextInt(20);
+						_randomMoveDistance = ThreadLocalRandom.current().nextInt(5) + 1;
+						_randomMoveDirection = ThreadLocalRandom.current().nextInt(20);
 						//
-						if (getHomeX() != 0 && getHomeY() != 0 && _randomMoveDirection < 8 && _random.nextInt(3) == 0) {
+						if (getHomeX() != 0 && getHomeY() != 0 && _randomMoveDirection < 8 && ThreadLocalRandom.current().nextInt(3) == 0) {
 							_randomMoveDirection = moveDirection(getHomeX(), getHomeY());
 						}
 					} else {
@@ -1003,7 +1003,7 @@ public class L1NpcInstance extends L1Character {
 		if (template.get_randomlevel() == 0) {
 			setLevel(template.get_level());
 		} else {
-			randomlevel = _random.nextInt(template.get_randomlevel() - template.get_level() + 1);
+			randomlevel = ThreadLocalRandom.current().nextInt(template.get_randomlevel() - template.get_level() + 1);
 			diff = template.get_randomlevel() - template.get_level();
 			rate = randomlevel / diff;
 			randomlevel += template.get_level();
@@ -1797,8 +1797,8 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		Random random = new Random();
-		if (random.nextInt(100) > chance) {
+		new Random();
+		if (ThreadLocalRandom.current().nextInt(100) > chance) {
 			return;
 		}
 
@@ -1829,7 +1829,7 @@ public class L1NpcInstance extends L1Character {
 
 	// Npc Skills
 	public boolean nearTeleport(int nx, int ny) {
-		int rdir = _random.nextInt(8);
+		int rdir = ThreadLocalRandom.current().nextInt(8);
 		int dir;
 		for (int i = 0; i < 8; i++) {
 			dir = rdir + i;

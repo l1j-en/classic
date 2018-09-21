@@ -1,7 +1,7 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +35,7 @@ public class ElementalStoneGenerator implements Runnable {
 
 	private ArrayList<L1GroundInventory> _itemList = new ArrayList<L1GroundInventory>(
 			MAX_COUNT);
-	private Random _random = new Random();
-
+ 
 	private static ElementalStoneGenerator _instance = null;
 
 	private ElementalStoneGenerator() {
@@ -70,8 +69,8 @@ public class ElementalStoneGenerator implements Runnable {
 	 * Set up to decide on the next point.
 	 */
 	private Point nextPoint() {
-		int newX = _random.nextInt(LAST_X - FIRST_X) + FIRST_X;
-		int newY = _random.nextInt(LAST_Y - FIRST_Y) + FIRST_Y;
+		int newX = ThreadLocalRandom.current().nextInt(LAST_X - FIRST_X) + FIRST_X;
+		int newY = ThreadLocalRandom.current().nextInt(LAST_Y - FIRST_Y) + FIRST_Y;
 
 		return new Point(newX, newY);
 	}

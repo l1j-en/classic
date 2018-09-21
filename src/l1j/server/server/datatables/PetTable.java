@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +40,7 @@ public class PetTable {
 	private static Logger _log = LoggerFactory.getLogger(PetTable.class.getName());
 	private static PetTable _instance;
 	private final HashMap<Integer, L1Pet> _pets = new HashMap<Integer, L1Pet>();
-	private static Random _random = new Random();
-
+ 
 	public static PetTable getInstance() {
 		if (_instance == null) {
 			_instance = new PetTable();
@@ -224,8 +223,8 @@ public class PetTable {
 		short randomhp = (short) ((hpUpMin + hpUpMax) / 2);
 		short randommp = (short) ((mpUpMin + mpUpMax) / 2);
 		for (int i = 1; i < upLv; i++) {
-			randomhp += (_random.nextInt(hpUpMax - hpUpMin) + hpUpMin + 1);
-			randommp += (_random.nextInt(mpUpMax - mpUpMin) + mpUpMin + 1);
+			randomhp += (ThreadLocalRandom.current().nextInt(hpUpMax - hpUpMin) + hpUpMin + 1);
+			randommp += (ThreadLocalRandom.current().nextInt(mpUpMax - mpUpMin) + mpUpMin + 1);
 		}
 		l1pet.set_hp(randomhp);
 		l1pet.set_mp(randommp);

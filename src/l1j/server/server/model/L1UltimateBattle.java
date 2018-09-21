@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -269,9 +270,9 @@ public class L1UltimateBattle {
 				}
 
 				for (L1PcInstance pc : getMembersArray()) {
-					Random random = new Random();
-					int rndx = random.nextInt(4);
-					int rndy = random.nextInt(4);
+					new Random();
+					int rndx = ThreadLocalRandom.current().nextInt(4);
+					int rndy = ThreadLocalRandom.current().nextInt(4);
 					int locx = 33503 + rndx;
 					int locy = 32764 + rndy;
 					short mapid = 4;
@@ -289,8 +290,8 @@ public class L1UltimateBattle {
 
 	public void start() {
 		int patternsMax = UBSpawnTable.getInstance().getMaxPattern(_ubId);
-		Random random = new Random();
-		_pattern = random.nextInt(patternsMax) + 1;
+		new Random();
+		_pattern = ThreadLocalRandom.current().nextInt(patternsMax) + 1;
 
 		UbThread ub = new UbThread();
 		GeneralThreadPool.getInstance().execute(ub);

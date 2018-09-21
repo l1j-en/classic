@@ -4,8 +4,8 @@ import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -34,8 +34,7 @@ public class L1SummonInstance extends L1NpcInstance {
 	private int _currentPetStatus;
 	private boolean _tamed;
 	private boolean _isReturnToNature = false;
-	private static Random _random = new Random();
-
+ 
 	public boolean noTarget(int depth) {
 		if (_currentPetStatus == 3) { // If summon is in rest mode
 			return true;
@@ -131,8 +130,8 @@ public class L1SummonInstance extends L1NpcInstance {
 				new SummonTimer(), SUMMON_TIME);
 
 		setMaster(master);
-		setX(master.getX() + _random.nextInt(5) - 2);
-		setY(master.getY() + _random.nextInt(5) - 2);
+		setX(master.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+		setY(master.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
 		setMap(master.getMapId());
 		setHeading(5);
 		setLightSize(template.getLightSize());

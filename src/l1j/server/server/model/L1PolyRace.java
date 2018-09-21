@@ -19,9 +19,9 @@
 package l1j.server.server.model;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.DoorTable;
@@ -58,8 +58,7 @@ public class L1PolyRace {
 			3154, 3178, 4133, 5089, 945, 4171, 2541, 2001, 1649, 29, };
 	private final int[] startpolyList = { 938, 2145, 3182, 5065 };
 	private final int[] fragment = { 50515, 50516, 50518, 50519 };
-	private static Random _random = new Random();
-	private static L1PolyRace instance;
+ 	private static L1PolyRace instance;
 	
 	private static final int[][] MANAGER_SPAWN_LOCATIONS = { 
 			 { 32616, 32778, 4 },
@@ -154,7 +153,7 @@ public class L1PolyRace {
 
 	private void setGameStart() {
 		setGameStatus(STATUS_PLAYING);
-		int startpoly = _random.nextInt(startpolyList.length);
+		int startpoly = ThreadLocalRandom.current().nextInt(startpolyList.length);
 		int basepoly = startpolyList[startpoly];
 
 		for (L1PcInstance pc : playerList) {
@@ -268,9 +267,9 @@ public class L1PolyRace {
 			}
 		}
 
-		int rnd1 = _random.nextInt(100) + 1;
-		int rnd2 = _random.nextInt(100) + 1;
-		int rnd3 = _random.nextInt(100) + 1;
+		int rnd1 = ThreadLocalRandom.current().nextInt(100) + 1;
+		int rnd2 = ThreadLocalRandom.current().nextInt(100) + 1;
+		int rnd3 = ThreadLocalRandom.current().nextInt(100) + 1;
 		L1ItemInstance item4 = ItemTable.getInstance().createItem(50517);
 		if (rnd1 >= 1 && rnd1 <= 100) {
 			if (rnd2 >= 1 && rnd2 <= 100) {
@@ -301,7 +300,7 @@ public class L1PolyRace {
 			winner1.sendPackets(new S_ServerMessage(403, item4.getLogName()));
 		}
 		if (rnd3 >= 1 && rnd3 <= 40) {
-			int i = _random.nextInt(fragment.length);
+			int i = ThreadLocalRandom.current().nextInt(fragment.length);
 			L1ItemInstance item5 = ItemTable.getInstance().createItem(
 					fragment[i]);
 			if (winner1.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
@@ -319,7 +318,7 @@ public class L1PolyRace {
 				winner2.sendPackets(new S_ServerMessage(403, item4.getLogName()));
 			}
 			if (rnd3 >= 1 && rnd3 <= 40) {
-				int i = _random.nextInt(fragment.length);
+				int i = ThreadLocalRandom.current().nextInt(fragment.length);
 				L1ItemInstance item5 = ItemTable.getInstance().createItem(
 						fragment[i]);
 				if (winner2.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
@@ -339,7 +338,7 @@ public class L1PolyRace {
 				winner3.sendPackets(new S_ServerMessage(403, item4.getLogName()));
 			}
 			if (rnd3 >= 1 && rnd3 <= 40) {
-				int i = _random.nextInt(fragment.length);
+				int i = ThreadLocalRandom.current().nextInt(fragment.length);
 				L1ItemInstance item5 = ItemTable.getInstance().createItem(
 						fragment[i]);
 				if (winner3.getInventory().checkAddItem(item5, 1) == L1Inventory.OK) {
@@ -511,7 +510,7 @@ public class L1PolyRace {
 		}
 		pc.setSkillEffect(POLY_EFFECT, 4 * 1000);
 
-		int i = _random.nextInt(polyList.length);
+		int i = ThreadLocalRandom.current().nextInt(polyList.length);
 		L1PolyMorph.doPoly(pc, polyList[i], 30, L1PolyMorph.MORPH_BY_NPC);
 
 		for (L1PcInstance player : playerList) {

@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -188,9 +189,9 @@ public class L1TreasureBox {
 			}
 
 		} else if (getType().equals(TYPE.RANDOM)) {
-			Random random = new Random();
+			new Random();
 			int chance = 0;
-			int r = random.nextInt(getTotalChance());
+			int r = ThreadLocalRandom.current().nextInt(getTotalChance());
 
 			for (Item each : getItems()) {
 				chance += each.getChance();

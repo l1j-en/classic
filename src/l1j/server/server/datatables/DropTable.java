@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,7 +149,7 @@ public class DropTable {
 		int addCount;
 		int randomChance;
 		L1ItemInstance item;
-		Random random = new Random();
+		new Random();
 
 		for (L1Drop drop : dropList) {
 			itemId = drop.getItemid();
@@ -156,7 +157,7 @@ public class DropTable {
 				continue;
 			}
 
-			randomChance = random.nextInt(0xf4240) + 1;
+			randomChance = ThreadLocalRandom.current().nextInt(0xf4240) + 1;
 			double rateOfMapId = MapsTable.getInstance().getDropRate(
 					npc.getMapId());
 			double rateOfItem = DropItemTable.getInstance().getDropRate(itemId);
@@ -180,7 +181,7 @@ public class DropTable {
 			itemCount = min;
 			addCount = max - min + 1;
 			if (addCount > 1) {
-				itemCount += random.nextInt(addCount);
+				itemCount += ThreadLocalRandom.current().nextInt(addCount);
 			}
 			if (itemCount < 0) {
 				itemCount = 0;
@@ -231,7 +232,7 @@ public class DropTable {
 		L1Inventory targetInventory = null;
 		L1PcInstance player;
 		L1PcInstance[] partyMember;
-		Random random = new Random();
+		new Random();
 		int randomInt;
 		int chanceHate;
 		int itemId;
@@ -245,7 +246,7 @@ public class DropTable {
 			item.setIdentified(false); // changed
 			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA)
 					&& totalHate > 0) {
-				randomInt = random.nextInt(totalHate);
+				randomInt = ThreadLocalRandom.current().nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
 					chanceHate += (Integer) hateList.get(j);
@@ -350,7 +351,7 @@ public class DropTable {
 						y = 0;
 						break;
 					}
-					randomInt = random.nextInt(dirList.size());
+					randomInt = ThreadLocalRandom.current().nextInt(dirList.size());
 					dir = dirList.get(randomInt);
 					dirList.remove(randomInt);
 					switch (dir) {

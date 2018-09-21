@@ -83,6 +83,7 @@ import static l1j.server.server.model.skill.L1SkillId.UNCANNY_DODGE;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -505,7 +506,7 @@ public class L1Attack {
 		
 		_hitRate = getBasePcHit();
 
-		int attackerDice = _random.nextInt(20) + 1 + _hitRate - 10;
+		int attackerDice = ThreadLocalRandom.current().nextInt(20) + 1 + _hitRate - 10;
 
 		attackerDice += getSkillAdjustment(_targetPc);
 
@@ -516,7 +517,7 @@ public class L1Attack {
 		if (_targetPc.getAc() >= 0) {
 			defenderDice = 10 - _targetPc.getAc();
 		} else if (_targetPc.getAc() < 0) {
-			defenderDice = 10 + _random.nextInt(defenderValue) + 1;
+			defenderDice = 10 + ThreadLocalRandom.current().nextInt(defenderValue) + 1;
 		}
 
 		int fumble = _hitRate - 9;
@@ -537,7 +538,7 @@ public class L1Attack {
 		if (isImmune(_targetPc))
 			_hitRate = 0;
 
-		int rnd = _random.nextInt(100) + 1;
+		int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 		if (isBow && _hitRate >= rnd) { // Check ER against arrows.
 			return calcErEvasion();
 		}
@@ -629,7 +630,7 @@ public class L1Attack {
 		// ~ 5 - (NPC's AC ~ (-5))
 		_hitRate = getBasePcHit();
 
-		int attackerDice = _random.nextInt(20) + 1 + _hitRate - 10;
+		int attackerDice = ThreadLocalRandom.current().nextInt(20) + 1 + _hitRate - 10;
 
 		attackerDice += getSkillAdjustment(_targetNpc);
 
@@ -653,7 +654,7 @@ public class L1Attack {
 			_hitRate = 0;
 		}
 
-		int rnd = _random.nextInt(100) + 1;
+		int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 		return _hitRate >= rnd;
 	}
 
@@ -664,7 +665,7 @@ public class L1Attack {
 			hitRate += ((L1PetInstance) attacker).getHitByWeapon();
 		}
 
-		int attackerDice = _random.nextInt(20) + 1 + hitRate - 1;
+		int attackerDice = ThreadLocalRandom.current().nextInt(20) + 1 + hitRate - 1;
 		attackerDice += getSkillAdjustment(target);
 		int targetAc = target.getAc();
 		int defenderValue = targetAc * -1;
@@ -697,7 +698,7 @@ public class L1Attack {
 		if (isImmune(_targetPc))
 			_hitRate = 0;
 
-		int rnd = _random.nextInt(100) + 1;
+		int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 
 		// NPC attack range of more than 10 cases, if two or more away from
 		// the attack and considered an archer.
@@ -723,12 +724,12 @@ public class L1Attack {
 			}
 		}
 		
-		return _hitRate >= _random.nextInt(100) + 1;
+		return _hitRate >= ThreadLocalRandom.current().nextInt(100) + 1;
 	}
 
 	// ER avoidance of judgement
 	private boolean calcErEvasion() {
-		return _targetPc.getEr() < _random.nextInt(100) + 1;
+		return _targetPc.getEr() < ThreadLocalRandom.current().nextInt(100) + 1;
 	}
 
 	/* Damage calculated */
@@ -754,13 +755,13 @@ public class L1Attack {
 		int weaponMaxDamage = small ? _weaponSmall : _weaponLarge;
 		int weaponDamage = 0;
 		if (_weaponType == WeaponType.Claw
-				&& _random.nextInt(100) + 1 <= _weaponDoubleDmgChance) {
+				&& ThreadLocalRandom.current().nextInt(100) + 1 <= _weaponDoubleDmgChance) {
 			weaponDamage = weaponMaxDamage;
 			_pc.sendAndBroadcast(new S_SkillSound(_pc.getId(), 3671));
 		} else if (_weaponType == WeaponType.Fist || isRanged) {
 			weaponDamage = 0;
 		} else {
-			weaponDamage = _random.nextInt(weaponMaxDamage) + 1;
+			weaponDamage = ThreadLocalRandom.current().nextInt(weaponMaxDamage) + 1;
 		}
 
 		if (!isRanged && _pc.hasSkillEffect(SOUL_OF_FLAME)) {
@@ -773,7 +774,7 @@ public class L1Attack {
 			weaponTotalDamage += calcMaterialBlessDmg();
 
 		if (_weaponType == WeaponType.Edoryu
-				&& (_random.nextInt(100) + 1) <= _weaponDoubleDmgChance) {
+				&& (ThreadLocalRandom.current().nextInt(100) + 1) <= _weaponDoubleDmgChance) {
 			weaponTotalDamage *= 2;
 			_pc.sendAndBroadcast(new S_SkillSound(_pc.getId(), 3398));
 		}
@@ -782,12 +783,12 @@ public class L1Attack {
 
 		if (_pc.hasSkillEffect(DOUBLE_BRAKE)
 				&& (_weaponType == WeaponType.Edoryu || _weaponType == WeaponType.Claw)) {
-			if ((_random.nextInt(100) + 1) <= 33) {
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 33) {
 				weaponTotalDamage *= 2;
 			}
 		}
 
-		if (_weaponId == GREAT_SWORD_OF_DESTRUCTION && _random.nextInt(100) + 1 <= 75) {
+		if (_weaponId == GREAT_SWORD_OF_DESTRUCTION && ThreadLocalRandom.current().nextInt(100) + 1 <= 75) {
 			weaponTotalDamage += calcDestruction(weaponTotalDamage);
 		}
 
@@ -804,16 +805,16 @@ public class L1Attack {
 					arrowDamage = 1;
 				if (hardSkinned)
 					arrowDamage /= 2;
-				damage = damage + _random.nextInt(arrowDamage) + 1;
+				damage = damage + ThreadLocalRandom.current().nextInt(arrowDamage) + 1;
 			} else if (_weaponId == SAYHAS_BOW) {
-				damage = damage + _random.nextInt(15) + 1;
+				damage = damage + ThreadLocalRandom.current().nextInt(15) + 1;
 			}
 		} else if (isGauntlet) {
 			int knifeDamage = small ? _sting.getItem().getDmgSmall() : _sting
 					.getItem().getDmgLarge();
 			if (knifeDamage == 0)
 				knifeDamage = 1;
-			damage = damage + _random.nextInt(knifeDamage) + 1;
+			damage = damage + ThreadLocalRandom.current().nextInt(knifeDamage) + 1;
 		}
 
 		damage = calcBuffDamage(damage);
@@ -825,7 +826,7 @@ public class L1Attack {
 					_weaponId);
 		}
 		if (_weaponType == WeaponType.Fist) {
-			damage = (_random.nextInt(5) + 4) / 4;
+			damage = (ThreadLocalRandom.current().nextInt(5) + 4) / 4;
 		}
 		if (isKiringku) {
 			damage = L1WeaponSkill.getKiringkuDamage(_pc, _target);
@@ -945,7 +946,7 @@ public class L1Attack {
 	private int calcNpcPcDamage() {
 		int lvl = _npc.getLevel();
 		double dmg = 0D;
-		dmg = _random.nextInt(lvl) + _npc.getStr() / 2 + 1;
+		dmg = ThreadLocalRandom.current().nextInt(lvl) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
 			dmg += (lvl / 10); // Each additional pet is hit LV10
@@ -1041,7 +1042,7 @@ public class L1Attack {
 
 	private int calcNpcNpcDamage() {
 		int level = _npc.getLevel();
-		double damage = _random.nextInt(level) + _npc.getStr() / 2 + 1;
+		double damage = ThreadLocalRandom.current().nextInt(level) + _npc.getStr() / 2 + 1;
 
 		if (_npc instanceof L1PetInstance) {
 			damage += (level / 10); // Each additional pet is hit LV10
@@ -1075,7 +1076,7 @@ public class L1Attack {
 	private double calcBuffDamage(double dmg) {
 		if (_pc.hasSkillEffect(BURNING_SPIRIT)
 				|| (_pc.hasSkillEffect(ELEMENTAL_FIRE) && !isBow && !isGauntlet && !isKiringku)) {
-			if ((_random.nextInt(100) + 1) <= 33) {
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 33) {
 				double tempDmg = dmg;
 				if (_pc.hasSkillEffect(FIRE_WEAPON)) {
 					tempDmg -= 4;
@@ -1108,7 +1109,7 @@ public class L1Attack {
 	private int calcPcDefense() {
 		int ac = Math.max(0, 10 - _targetPc.getAc());
 		int acDefMax = _targetPc.getClassFeature().getAcDefenseMax(ac);
-		return _random.nextInt(acDefMax + 1);
+		return ThreadLocalRandom.current().nextInt(acDefMax + 1);
 	}
 
 	// NPC reduce damage due to reduction
@@ -1127,10 +1128,10 @@ public class L1Attack {
 																	// and the
 																	// curse-the
 																	// curse-boss
-			damage += _random.nextInt(20) + 1;
+			damage += ThreadLocalRandom.current().nextInt(20) + 1;
 		}
 		if ((_weaponMaterial == 17 || _weaponMaterial == 22) && undead == 2) {
-			damage += _random.nextInt(3) + 1;
+			damage += ThreadLocalRandom.current().nextInt(3) + 1;
 		}
 		if (_weaponBless == 0 && (undead == 1 || undead == 2 || undead == 3)) { // Weapons
 																				// blessing
@@ -1142,7 +1143,7 @@ public class L1Attack {
 																				// the
 																				// devil-boss
 																				// system
-			damage += _random.nextInt(4) + 1;
+			damage += ThreadLocalRandom.current().nextInt(4) + 1;
 		}
 		if (_pc.getWeapon() != null && !isRanged
 				&& weapon.getHolyDmgByMagic() != 0
@@ -1187,7 +1188,7 @@ public class L1Attack {
 
 	private void addNpcPoisonAttack(L1Character attacker, L1Character target) {
 		if (_npc.getNpcTemplate().get_poisonatk() != 0) {
-			if (12 >= _random.nextInt(100) + 1) { // 12% chance of poison
+			if (12 >= ThreadLocalRandom.current().nextInt(100) + 1) { // 12% chance of poison
 													// attacks
 				if (_npc.getNpcTemplate().get_poisonatk() == 1) { // normal
 																	// poison
@@ -1215,7 +1216,7 @@ public class L1Attack {
 				som_lvl = 0;
 			}
 			// MP sinks to retrieve random
-			_drainMana = _random.nextInt(som_lvl) + 1;
+			_drainMana = ThreadLocalRandom.current().nextInt(som_lvl) + 1;
 			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
 				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
@@ -1231,7 +1232,7 @@ public class L1Attack {
 				som_lvl = 0;
 			}
 			// MP sinks to retrieve random
-			_drainMana = _random.nextInt(som_lvl) + 1;
+			_drainMana = ThreadLocalRandom.current().nextInt(som_lvl) + 1;
 			if (_drainMana > Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK) {
 				_drainMana = Config.MANA_DRAIN_LIMIT_PER_SOM_ATTACK;
 			}
@@ -1245,7 +1246,7 @@ public class L1Attack {
 
 	// PC poison attacks added
 	public void addPcPoisonAttack(L1Character attacker, L1Character target) {
-		int chance = _random.nextInt(100) + 1;
+		int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 		if ((_weaponId == FINGER_OF_DEATH || _weaponId == SWORD_OF_ANCIENT_ELF ||
 				(_weaponId != UNARMED && _pc.hasSkillEffect(ENCHANT_VENOM))) && chance <= 10) {
 			// Usually poison, 3 second period, HP-5 Damage
@@ -1269,7 +1270,7 @@ public class L1Attack {
 		if (probability < 3.0) {
 			probability = 3.0;
 		}
-		if (probability > _random.nextInt(100) + 1) {
+		if (probability > ThreadLocalRandom.current().nextInt(100) + 1) {
 			L1Chaser chaser = new L1Chaser(_pc, _target);
 			chaser.begin();
 		}
@@ -1565,13 +1566,13 @@ public class L1Attack {
 		}
 		// normal weapons cursed weapons
 		if ((_weaponBless == 1 || _weaponBless == 2)
-				&& ((_random.nextInt(100) + 1) < chance)) {
+				&& ((ThreadLocalRandom.current().nextInt(100) + 1) < chance)) {
 			// your injury is 0%.
 			_pc.sendPackets(new S_ServerMessage(268, weapon.getLogName()));
 			_pc.getInventory().receiveDamage(weapon);
 		}
 		// Blessed weapons
-		if (_weaponBless == 0 && ((_random.nextInt(100) + 1) < bchance)) {
+		if (_weaponBless == 0 && ((ThreadLocalRandom.current().nextInt(100) + 1) < bchance)) {
 			// your injury is 0%.
 			_pc.sendPackets(new S_ServerMessage(268, weapon.getLogName()));
 			_pc.getInventory().receiveDamage(weapon);
@@ -1589,7 +1590,7 @@ public class L1Attack {
 				|| _pc.hasSkillEffect(SOUL_OF_FLAME)) {
 			return;
 		}
-		if (_random.nextInt(100) + 1 <= 10) {
+		if (ThreadLocalRandom.current().nextInt(100) + 1 <= 10) {
 			_pc.sendPackets(new S_ServerMessage(268, weapon.getLogName()));
 			_pc.getInventory().receiveDamage(weapon);
 		}
@@ -1601,7 +1602,7 @@ public class L1Attack {
 
 	private void revealWeakness() {
 
-		int random = _random.nextInt(100) + 1;
+		int random = ThreadLocalRandom.current().nextInt(100) + 1;
 		int weaponWeaknessExposureChance = 30;
 		if (random <= weaponWeaknessExposureChance) {
 			if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {

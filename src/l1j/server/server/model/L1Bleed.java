@@ -2,6 +2,7 @@ package l1j.server.server.model;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,6 @@ import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillId;
-import l1j.server.server.random.RandomGenerator;
-import l1j.server.server.random.RandomGeneratorFactory;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -53,10 +52,9 @@ public class L1Bleed  extends TimerTask {
 		if(_cha.hasSkillEffect(L1SkillId.BLEEDING)) {
 			return;
 		}
-		
-		RandomGenerator random = RandomGeneratorFactory.getSharedRandom();
-		
-		int durationCalculator = random.nextInt(400);
+				
+		ThreadLocalRandom.current();
+		int durationCalculator = ThreadLocalRandom.current().nextInt(400);
 		int duration = 1;
 		
 		if(durationCalculator >= 335) {

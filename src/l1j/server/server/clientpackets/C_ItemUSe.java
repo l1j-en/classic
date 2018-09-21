@@ -74,8 +74,8 @@ import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,7 +168,6 @@ import l1j.server.server.utils.collections.IntArrays;
 public class C_ItemUSe extends ClientBasePacket {
 	private static final String C_ITEM_USE = "[C] C_ItemUSe";
 	private static Logger _log = LoggerFactory.getLogger(C_ItemUSe.class.getName());
-	private static Random _random = new Random();
 
 	public C_ItemUSe(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
@@ -548,11 +547,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40066 || itemId == 41413) {
 				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
-				pc.setCurrentMp(pc.getCurrentMp() + (7 + _random.nextInt(6))); // 7~12
+				pc.setCurrentMp(pc.getCurrentMp() + (7 + ThreadLocalRandom.current().nextInt(6))); // 7~12
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40067 || itemId == 41414) {
 				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
-				pc.setCurrentMp(pc.getCurrentMp() + (15 + _random.nextInt(16))); // 15~30
+				pc.setCurrentMp(pc.getCurrentMp() + (15 + ThreadLocalRandom.current().nextInt(16))); // 15~30
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40735) {
 				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
@@ -564,11 +563,11 @@ public class C_ItemUSe extends ClientBasePacket {
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41404) {
 				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
-				pc.setCurrentMp(pc.getCurrentMp() + (80 + _random.nextInt(21))); // 80~100
+				pc.setCurrentMp(pc.getCurrentMp() + (80 + ThreadLocalRandom.current().nextInt(21))); // 80~100
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41412) {
 				pc.sendPackets(new S_ServerMessage(338, "$1084")); // Your 'MP' is recovering.
-				pc.setCurrentMp(pc.getCurrentMp() + (5 + _random.nextInt(16))); // 5~20
+				pc.setCurrentMp(pc.getCurrentMp() + (5 + ThreadLocalRandom.current().nextInt(16))); // 5~20
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 40032 || itemId == 40041 || itemId == 41344) {
 				useBlessOfEva(pc, itemId);
@@ -665,7 +664,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 41036) {
 				int diaryId = l1iteminstance1.getItem().getItemId();
 				if (diaryId >= 41038 && 41047 >= diaryId) {
-					if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_DIARY) {
+					if ((ThreadLocalRandom.current().nextInt(99) + 1) <= Config.CREATE_CHANCE_DIARY) {
 						createNewItem(pc, diaryId + 10, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
@@ -698,7 +697,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				int earingId = l1iteminstance1.getItem().getItemId();
 				;
 				if (earingId >= 40987 && 40989 >= earingId) {
-					if (_random.nextInt(100) < Config.CREATE_CHANCE_RECOLLECTION) {
+					if (ThreadLocalRandom.current().nextInt(100) < Config.CREATE_CHANCE_RECOLLECTION) {
 						createNewItem(pc, earingId + 186, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
@@ -730,7 +729,7 @@ public class C_ItemUSe extends ClientBasePacket {
 					}
 					if (earing2Id >= (itemId + potion1)
 							&& (itemId + potion2) >= earing2Id) {
-						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_MYSTERIOUS) {
+						if ((ThreadLocalRandom.current().nextInt(99) + 1) < Config.CREATE_CHANCE_MYSTERIOUS) {
 							createNewItem(pc, (earing2Id - 12), 1);
 							inventory.removeItem(l1iteminstance1, 1);
 							inventory.removeItem(l1iteminstance, 1);
@@ -751,7 +750,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				int earinglevel = 0;
 				if (earing3Id >= 41161 && 41172 >= earing3Id) {
 					if (earing3Id == (itemId + 230)) {
-						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING) {
+						if ((ThreadLocalRandom.current().nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING) {
 							if (earing3Id == 41161) {
 								earinglevel = 21014;
 							} else if (earing3Id == 41162) {
@@ -814,7 +813,7 @@ public class C_ItemUSe extends ClientBasePacket {
 						gmam = 448;
 					}
 					if (ringId == (itemId + 242)) {
-						if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING_DIAMOND) {
+						if ((ThreadLocalRandom.current().nextInt(99) + 1) < Config.CREATE_CHANCE_PROCESSING_DIAMOND) {
 							if (ringId == 41185) {
 								ringlevel = 20435;
 							} else if (ringId == 41186) {
@@ -867,7 +866,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 41029) {
 				int dantesId = l1iteminstance1.getItem().getItemId();
 				if (dantesId >= 41030 && 41034 >= dantesId) {
-					if ((_random.nextInt(99) + 1) < Config.CREATE_CHANCE_DANTES) {
+					if ((ThreadLocalRandom.current().nextInt(99) + 1) < Config.CREATE_CHANCE_DANTES) {
 						createNewItem(pc, dantesId + 1, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
@@ -881,7 +880,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			} else if (itemId == 40964) {
 				int historybookId = l1iteminstance1.getItem().getItemId();
 				if (historybookId >= 41011 && 41018 >= historybookId) {
-					if ((_random.nextInt(99) + 1) <= Config.CREATE_CHANCE_HISTORY_BOOK) {
+					if ((ThreadLocalRandom.current().nextInt(99) + 1) <= Config.CREATE_CHANCE_HISTORY_BOOK) {
 						createNewItem(pc, historybookId + 8, 1);
 					} else {
 						pc.sendPackets(new S_ServerMessage(158, l1iteminstance1
@@ -989,7 +988,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 40325) { // 2 Faced Dice
 				if (inventory.checkItem(40318, 1)) {
-					int gfxid = 3237 + _random.nextInt(2);
+					int gfxid = 3237 + ThreadLocalRandom.current().nextInt(2);
 					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
@@ -998,7 +997,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 40326) {
 				if (inventory.checkItem(40318, 1)) {
-					int gfxid = 3229 + _random.nextInt(3);
+					int gfxid = 3229 + ThreadLocalRandom.current().nextInt(3);
 					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
@@ -1007,7 +1006,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 40327) {
 				if (inventory.checkItem(40318, 1)) {
-					int gfxid = 3241 + _random.nextInt(4);
+					int gfxid = 3241 + ThreadLocalRandom.current().nextInt(4);
 					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
@@ -1016,7 +1015,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 			} else if (itemId == 40328) {
 				if (inventory.checkItem(40318, 1)) {
-					int gfxid = 3204 + _random.nextInt(6);
+					int gfxid = 3204 + ThreadLocalRandom.current().nextInt(6);
 					pc.sendPackets(new S_SkillSound(pc.getId(), gfxid));
 					pc.broadcastPacket(new S_SkillSound(pc.getId(), gfxid));
 					inventory.consumeItem(40318, 1);
@@ -1559,7 +1558,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							45033, 45099, 45147, 45123, 45130, 45046, 45092,
 							45138, 45098, 45127, 45143, 45149, 45171, 45040,
 							45155, 45192, 45173, 45213, 45079, 45144 };
-					int rnd = _random.nextInt(mobArray.length);
+					int rnd = ThreadLocalRandom.current().nextInt(mobArray.length);
 					L1SpawnUtil.spawn(pc, mobArray[rnd], 0, 300000);
 					if (itemId == 40006 || itemId == 140006) {
 						l1iteminstance.setChargeCount(l1iteminstance
@@ -1728,13 +1727,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				UseHealingPotion(pc, 35, 197);
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41301) {
-				int chance = _random.nextInt(10);
+				int chance = ThreadLocalRandom.current().nextInt(10);
 				if (chance >= 0 && chance < 5) {
 					UseHealingPotion(pc, 15, 189);
 				} else if (chance >= 5 && chance < 9) {
 					createNewItem(pc, 40019, 1);
 				} else if (chance >= 9) {
-					int gemChance = _random.nextInt(3);
+					int gemChance = ThreadLocalRandom.current().nextInt(3);
 					if (gemChance == 0) {
 						createNewItem(pc, 40045, 1);
 					} else if (gemChance == 1) {
@@ -1745,13 +1744,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41302) {
-				int chance = _random.nextInt(3);
+				int chance = ThreadLocalRandom.current().nextInt(3);
 				if (chance >= 0 && chance < 5) {
 					UseHealingPotion(pc, 15, 189);
 				} else if (chance >= 5 && chance < 9) {
 					createNewItem(pc, 40018, 1);
 				} else if (chance >= 9) {
-					int gemChance = _random.nextInt(3);
+					int gemChance = ThreadLocalRandom.current().nextInt(3);
 					if (gemChance == 0) {
 						createNewItem(pc, 40047, 1);
 					} else if (gemChance == 1) {
@@ -1762,13 +1761,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41303) {
-				int chance = _random.nextInt(3);
+				int chance = ThreadLocalRandom.current().nextInt(3);
 				if (chance >= 0 && chance < 5) {
 					UseHealingPotion(pc, 15, 189);
 				} else if (chance >= 5 && chance < 9) {
 					createNewItem(pc, POTION_OF_MANA, 1);
 				} else if (chance >= 9) {
-					int gemChance = _random.nextInt(3);
+					int gemChance = ThreadLocalRandom.current().nextInt(3);
 					if (gemChance == 0) {
 						createNewItem(pc, 40046, 1);
 					} else if (gemChance == 1) {
@@ -1779,13 +1778,13 @@ public class C_ItemUSe extends ClientBasePacket {
 				}
 				inventory.removeItem(l1iteminstance, 1);
 			} else if (itemId == 41304) {
-				int chance = _random.nextInt(3);
+				int chance = ThreadLocalRandom.current().nextInt(3);
 				if (chance >= 0 && chance < 5) {
 					UseHealingPotion(pc, 15, 189);
 				} else if (chance >= 5 && chance < 9) {
 					createNewItem(pc, 40021, 1);
 				} else if (chance >= 9) {
-					int gemChance = _random.nextInt(3);
+					int gemChance = ThreadLocalRandom.current().nextInt(3);
 					if (gemChance == 0) {
 						createNewItem(pc, 40044, 1);
 					} else if (gemChance == 1) {
@@ -2879,7 +2878,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		pc.sendAndBroadcast(new S_SkillSound(pc.getId(), gfxid));
 		if (pc.getPotionMessages())
 			pc.sendPackets(new S_ServerMessage(77)); // You feel better.
-		healHp *= (_random.nextGaussian() / 5.0D) + 1.0D;
+		healHp *= (ThreadLocalRandom.current().nextGaussian() / 5.0D) + 1.0D;
 		if (pc.hasSkillEffect(POLLUTE_WATER))
 			healHp /= 2;
 		pc.setCurrentHp(pc.getCurrentHp() + healHp);
@@ -4864,7 +4863,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			return;
 		}
 
-		int dmg = (_random.nextInt(11) - 5) + user.getStr();
+		int dmg = (ThreadLocalRandom.current().nextInt(11) - 5) + user.getStr();
 		dmg = Math.max(1, dmg);
 
 		if (target instanceof L1PcInstance) {
@@ -4915,7 +4914,7 @@ public class C_ItemUSe extends ClientBasePacket {
 		if (attacker.getId() != cha.getId() && !isSameClan) {
 			int probability = 3 * (attacker.getLevel() - cha.getLevel()) + 100
 					- cha.getMr();
-			int rnd = _random.nextInt(100) + 1;
+			int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 			if (rnd > probability) {
 				return;
 			}
@@ -4926,7 +4925,7 @@ public class C_ItemUSe extends ClientBasePacket {
 				3866, 3867, 3868, 3869, 3870, 3871, 3872, 3873, 3874, 3875,
 				3876 };
 
-		int pid = _random.nextInt(polyArray.length);
+		int pid = ThreadLocalRandom.current().nextInt(polyArray.length);
 		int polyId = polyArray[pid];
 
 		if (cha instanceof L1PcInstance) {
@@ -5216,7 +5215,7 @@ public class C_ItemUSe extends ClientBasePacket {
 							ActionCodes.ACTION_Fishing, fishX, fishY));
 					pc.setFishing(true);
 					long time = System.currentTimeMillis() + 10000
-							+ _random.nextInt(5) * 1000;
+							+ ThreadLocalRandom.current().nextInt(5) * 1000;
 					pc.setFishingTime(time);
 					FishingTimeController.getInstance().addMember(pc);
 				} else {
@@ -5247,7 +5246,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			return;
 		}
 
-		int chance = _random.nextInt(100) + 1;
+		int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 		if (chance >= 1 && chance <= 50) {
 			crystalCount = 0;
 			pc.sendPackets(new S_ServerMessage(158, item.getName())); // Your 'item' evaporates.
@@ -5411,7 +5410,7 @@ public class C_ItemUSe extends ClientBasePacket {
 			}
 		for (int ingredient : recipe.ingredients)
 			inventory.consumeItem(ingredient, 1);
-		int chance = _random.nextInt(100) + 1;
+		int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 		if (chance >= 1 && chance <= 90) {
 			createNewItem(pc, recipe.usual, 1);
 			pc.broadcastPacket(new S_SkillSound(pc.getId(), 6392));
