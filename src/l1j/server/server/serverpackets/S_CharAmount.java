@@ -20,8 +20,8 @@ package l1j.server.server.serverpackets;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.network.Client;
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.network.Client;
 
 public class S_CharAmount extends ServerBasePacket {
 

@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogDropItem;
 import l1j.server.server.model.L1Inventory;
@@ -31,6 +30,7 @@ import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;

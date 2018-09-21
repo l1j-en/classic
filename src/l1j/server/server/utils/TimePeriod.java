@@ -19,12 +19,11 @@
 package l1j.server.server.utils;
 
 import java.sql.Time;
-import java.util.logging.Logger;
 
 import l1j.server.server.model.gametime.L1GameTime;
 
 public class TimePeriod {
-	private static Logger _log = Logger.getLogger(TimePeriod.class.getName());
+//	private static Logger _log = Logger.getLogger(TimePeriod.class.getName());
 	private final Time _timeStart;
 	private final Time _timeEnd;
 

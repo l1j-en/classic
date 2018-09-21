@@ -197,11 +197,11 @@ public class Account {
 	}
 	
 	public static boolean addIpRestriction(final String account, final String ip) {
-		Connection con = null;
+		//Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L1DatabaseFactory.getInstance().getConnection()){
+			//con = L1DatabaseFactory.getInstance().getConnection();
 			
 			String sqlstr = "SELECT * FROM ip_restrictions WHERE account=? and ip=? AND deleted is NULL LIMIT 1";
 			pstm = con.prepareStatement(sqlstr);
@@ -214,6 +214,7 @@ public class Account {
 			}
 			
 			sqlstr = "INSERT INTO ip_restrictions (account, ip) VALUES(?,?)";
+			pstm.close();
 			pstm = con.prepareStatement(sqlstr);
 			pstm.setString(1, account);
 			pstm.setString(2, ip);
@@ -226,7 +227,7 @@ public class Account {
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
-			SQLUtil.close(con);
+			//SQLUtil.close(con);
 		}
 	}
 	

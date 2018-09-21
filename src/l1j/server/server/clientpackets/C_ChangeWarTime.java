@@ -20,11 +20,11 @@ package l1j.server.server.clientpackets;
 
 import java.util.Calendar;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_WarTime;
 import l1j.server.server.templates.L1Castle;
 

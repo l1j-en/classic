@@ -21,7 +21,6 @@ package l1j.server.server.serverpackets;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TimeZone;
-import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
@@ -31,7 +30,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_PacketBox extends ServerBasePacket {
 	private static final String S_PACKETBOX = "[S] S_PacketBox";
-	private static Logger _log = Logger.getLogger(S_PacketBox.class.getName());
+//	private static Logger _log = Logger.getLogger(S_PacketBox.class.getName());
 	private byte[] _byte = null;
 
 	// *** S_107 sub code list ***

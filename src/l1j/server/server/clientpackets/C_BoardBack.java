@@ -18,10 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1BoardInstance;
+import l1j.server.server.network.Client;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket, C_BoardPage

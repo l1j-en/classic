@@ -23,12 +23,12 @@ package l1j.server.server.clientpackets;
 
 import java.util.Random;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_ServerMessage;
 

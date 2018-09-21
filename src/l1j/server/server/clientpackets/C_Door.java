@@ -18,16 +18,14 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import l1j.server.server.ActionCodes;
-import l1j.server.server.network.Client;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1House;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -36,6 +34,7 @@ public class C_Door extends ClientBasePacket {
 
 	private static final String C_DOOR = "[C] C_Door";
 
+	@SuppressWarnings("unused")
 	public C_Door(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int locX = readH();
@@ -98,7 +97,7 @@ public class C_Door extends ClientBasePacket {
 		return true;
 	}
 
-	public class CloseTimer extends TimerTask {
+	public class CloseTimer implements Runnable {
 
 		private L1DoorInstance _door;
 
@@ -114,8 +113,9 @@ public class C_Door extends ClientBasePacket {
 		}
 
 		public void begin() {
-			Timer timer = new Timer("DoorTimer-"+_door.getDoorId());
-			timer.schedule(this, 5 * 1000);
+			//Timer timer = new Timer("DoorTimer-"+_door.getDoorId());
+			//timer.schedule(this, 5 * 1000);
+			GeneralThreadPool.getInstance().schedule(this, 5 * 1000);
 		}
 	}
 

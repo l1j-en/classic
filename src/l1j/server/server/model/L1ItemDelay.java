@@ -18,10 +18,10 @@
  */
 package l1j.server.server.model;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1EtcItem;
 
 // Referenced classes of package l1j.server.server.model:
@@ -34,13 +34,13 @@ public class L1ItemDelay {
 
 	static class ItemDelayTimer implements Runnable {
 		private int _delayId;
-		private int _delayTime;
+		//private int _delayTime;
 		private L1Character _cha;
 
 		public ItemDelayTimer(L1Character cha, int id, int time) {
 			_cha = cha;
 			_delayId = id;
-			_delayTime = time;
+			//_delayTime = time;
 		}
 
 		@Override

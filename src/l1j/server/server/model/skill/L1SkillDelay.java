@@ -31,18 +31,22 @@ public class L1SkillDelay {
 	}
 
 	static class SkillDelayTimer implements Runnable {
-		private int _delayTime;
+		//private int _delayTime;
 		private L1Character _cha;
 
 		public SkillDelayTimer(L1Character cha, int time) {
 			_cha = cha;
-			_delayTime = time;
+			//_delayTime = time;
 		}
 
 		@Override
 		public void run() {
+			try {
 			Thread.currentThread().setName("L1SkillDelay-DelayTimer");
 			stopDelayTimer();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		public void stopDelayTimer() {

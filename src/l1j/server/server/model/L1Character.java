@@ -801,14 +801,14 @@ public class L1Character extends L1Object {
 	}
 
 	private int _resistStone = 0;
-	private int _trueResistStone = 0;
+//	private int _trueResistStone = 0;
 
 	public int getResistStone() {
 		return _resistStone;
 	}
 
 	public void addResistStone(int i) {
-		_trueResistStone += i;
+//		_trueResistStone += i;
 		_resistStone = IntRange.ensure(_trueResistStun, -128, 127);
 	}
 

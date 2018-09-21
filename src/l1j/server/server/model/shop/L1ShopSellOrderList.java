@@ -23,25 +23,6 @@ import java.util.List;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
-class L1ShopSellOrder {
-	private final L1AssessedItem _item;
-	private final int _count;
-
-	public L1ShopSellOrder(L1AssessedItem item, int count) {
-		_item = item;
-		_count = count;
-	}
-
-	public L1AssessedItem getItem() {
-		return _item;
-	}
-
-	public int getCount() {
-		return _count;
-	}
-
-}
-
 public class L1ShopSellOrderList {
 	private final L1Shop _shop;
 	private final L1PcInstance _pc;

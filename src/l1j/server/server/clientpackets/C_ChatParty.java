@@ -18,10 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.model.L1ChatParty;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Party;
 import l1j.server.server.serverpackets.S_ServerMessage;
 

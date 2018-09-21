@@ -219,11 +219,11 @@ public class MySqlCharacterStorage implements CharacterStorage {
 	@Override
 	public void deleteCharacter(String accountName, String charName)
 			throws Exception {
-		Connection con = null;
+		//Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L1DatabaseFactory.getInstance().getConnection();){
+			//con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
 					.prepareStatement("SELECT * FROM characters WHERE account_name=? AND char_name=?");
 			pstm.setString(1, accountName);
@@ -234,6 +234,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 						+ accountName + " char=" + charName);
 				throw new RuntimeException("could not delete character");
 			}
+			pstm.close();
 			pstm = con
 					.prepareStatement("DELETE FROM character_buddys WHERE char_id IN (SELECT objid FROM characters WHERE char_name = ?)");
 			pstm.setString(1, charName);
@@ -271,7 +272,7 @@ public class MySqlCharacterStorage implements CharacterStorage {
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
-			SQLUtil.close(con);
+			//SQLUtil.close(con);
 		}
 	}
 

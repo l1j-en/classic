@@ -39,7 +39,7 @@ import l1j.server.server.utils.SQLUtil;
 public class AuctionBoardTable {
 	private static Logger _log = Logger.getLogger(AuctionBoardTable.class
 			.getName());
-	private static AuctionBoardTable _instance;
+//	private static AuctionBoardTable _instance;
 	private final Map<Integer, L1AuctionBoard> _boards = new ConcurrentHashMap<Integer, L1AuctionBoard>();
 
 	private Calendar timestampToCalendar(Timestamp ts) {

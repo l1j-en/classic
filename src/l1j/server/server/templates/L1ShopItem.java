@@ -21,7 +21,7 @@ package l1j.server.server.templates;
 import l1j.server.server.datatables.ItemTable;
 
 public class L1ShopItem {
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	private final int _itemId;
 

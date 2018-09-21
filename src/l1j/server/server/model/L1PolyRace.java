@@ -204,9 +204,9 @@ public class L1PolyRace {
 		case END_STATUS_NOWINNER:
 			stopCompareTimer();
 			sendEndMessage();
-			for (L1PcInstance pc : playerList) {
-				continue;
-			}
+//			for (L1PcInstance pc : playerList) {
+//				continue;
+//			}
 			break;
 		case END_STATUS_NOPLAYER:
 			for (L1PcInstance pc : playerList) {

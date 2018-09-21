@@ -78,6 +78,6 @@ public class S_DelSkill extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return "[S] S_DelSkill";
+		return _S__OB_DelSKILL;
 	}
 }

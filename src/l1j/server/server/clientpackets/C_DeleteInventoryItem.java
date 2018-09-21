@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.log.LogDeleteItem;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:

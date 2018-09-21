@@ -26,6 +26,7 @@ public class C_HireSoldier extends ClientBasePacket {
 
 	private static final String C_HIRE_SOLDIER = "[C] C_HireSoldier";
 
+	@SuppressWarnings("unused")
 	public C_HireSoldier(byte[] decrypt, Client client) {
 		super(decrypt);
 		int something1 = readH();

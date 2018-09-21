@@ -18,32 +18,24 @@
  */
 package l1j.server.server;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import l1j.server.Config;
-import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.network.NetworkServer;
-import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
-	private ServerSocket _serverSocket;
+	//private ServerSocket _serverSocket;
 	private static Logger _log = Logger.getLogger(GameServer.class.getName());
-	private int _port;
+	//private int _port;
 
 	// Naive denial of service defense.
-	private static final int CONNECTION_LIMIT = 20;
+	//private static final int CONNECTION_LIMIT = 20;
 	private static final int CACHE_REFRESH = 1000 * 60 * 4;
 	// Might be overkill, but hard to test. =\
 	private static final ConcurrentMap<String, Integer> connectionCache = new ConcurrentHashMap<String, Integer>();
@@ -116,13 +108,13 @@ public class GameServer extends Thread {
 	}
 
 	public void initialize() throws Exception {
-		String s = Config.GAME_SERVER_HOST_NAME;
+//		String s = Config.GAME_SERVER_HOST_NAME;
 
 		_log.config("=================================================");
 		_log.config("               L1J-En Server Starting");
 		_log.config("=================================================");
 
-		_port = Config.GAME_SERVER_PORT;
+		//_port = Config.GAME_SERVER_PORT;
 //		if (!"*".equals(s)) {
 //			InetAddress inetaddress = InetAddress.getByName(s);
 //			inetaddress.getHostAddress();

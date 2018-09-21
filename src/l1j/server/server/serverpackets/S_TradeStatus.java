@@ -23,7 +23,7 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_TradeStatus extends ServerBasePacket {
-	private static final String _S__2A_TRADESTATUS = "[S] S_TradeStatus";
+//	private static final String _S__2A_TRADESTATUS = "[S] S_TradeStatus";
 
 	public S_TradeStatus(int type) {
 		writeC(Opcodes.S_OPCODE_TRADESTATUS);

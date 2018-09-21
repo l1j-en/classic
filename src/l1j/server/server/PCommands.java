@@ -43,21 +43,18 @@ import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;

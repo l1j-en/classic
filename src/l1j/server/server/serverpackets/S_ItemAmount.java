@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
@@ -27,7 +25,7 @@ import l1j.server.server.model.Instance.L1ItemInstance;
 // ServerBasePacket, S_SendInvOnLogin
 public class S_ItemAmount extends ServerBasePacket {
 	private static final String S_ITEM_AMOUNT = "[S] S_ItemAmount";
-	private static Logger _log = Logger.getLogger(S_ItemAmount.class.getName());
+//	private static Logger _log = Logger.getLogger(S_ItemAmount.class.getName());
 
 	public S_ItemAmount(L1ItemInstance item) {
 		if (item == null) {

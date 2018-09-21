@@ -28,10 +28,10 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharAmount;
 import l1j.server.server.serverpackets.S_CharPacks;
 import l1j.server.server.utils.SQLUtil;

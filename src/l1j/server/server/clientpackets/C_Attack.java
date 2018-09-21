@@ -24,7 +24,6 @@ import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.network.Client;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1Character;
@@ -37,6 +36,7 @@ import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.item.WeaponType;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_AttackPacket;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_UseArrowSkill;

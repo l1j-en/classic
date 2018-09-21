@@ -37,6 +37,6 @@ public class S_Deposit extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return "[S] S_Deposit";
+		return _S__53_DEPOSIT;
 	}
 }

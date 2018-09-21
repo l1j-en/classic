@@ -19,12 +19,12 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.ChatLogTable;
 import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ChatPacket;
 import l1j.server.server.serverpackets.S_ServerMessage;
 

@@ -18,10 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Emblem;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -37,7 +37,7 @@ public class C_Clan extends ClientBasePacket {
 
 		L1PcInstance pc = client.getActiveChar();
 		L1Clan clan = ClanTable.getInstance().getTemplate(clanId);
-		String name = clan.getClanName();
+//		String name = clan.getClanName();
 		pc.sendPackets(new S_Emblem(clan.getClanId()));
 	}
 

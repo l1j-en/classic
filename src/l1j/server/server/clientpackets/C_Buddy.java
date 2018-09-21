@@ -19,10 +19,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.BuddyTable;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Buddy;
 
 // Referenced classes of package l1j.server.server.clientpackets:

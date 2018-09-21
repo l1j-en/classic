@@ -114,7 +114,7 @@ public class L1SkillUse {
 
 	private L1Skill _skill;
 	private int _skillId;
-	private int _dmg;
+	//private int _dmg;
 	private int _shockStunDuration;
 	private int _boneBreakDuration;
 	private int _confusionDuration;
@@ -231,8 +231,8 @@ public class L1SkillUse {
 
 	private static class TargetStatus {
 		private L1Character _target = null;
-		private boolean _isAction = false;
-		private boolean _isSendStatus = false;
+//		private boolean _isAction = false;
+//		private boolean _isSendStatus = false;
 		private boolean _isCalc = true;
 
 		public TargetStatus(L1Character _cha) {
@@ -251,21 +251,21 @@ public class L1SkillUse {
 			return _isCalc;
 		}
 
-		public void isAction(boolean _flg) {
-			_isAction = _flg;
-		}
-
-		public boolean isAction() {
-			return _isAction;
-		}
-
-		public void isSendStatus(boolean _flg) {
-			_isSendStatus = _flg;
-		}
-
-		public boolean isSendStatus() {
-			return _isSendStatus;
-		}
+//		public void isAction(boolean _flg) {
+//			_isAction = _flg;
+//		}
+//
+//		public boolean isAction() {
+//			return _isAction;
+//		}
+//
+//		public void isSendStatus(boolean _flg) {
+//			_isSendStatus = _flg;
+//		}
+//
+//		public boolean isSendStatus() {
+//			return _isSendStatus;
+//		}
 	}
 
 	public void setLeverage(int i) {
@@ -1796,7 +1796,7 @@ public class L1SkillUse {
 						continue;
 					}
 					dmg = _magic.calcMagicDamage(_skillId);
-					_dmg = dmg;
+					//_dmg = dmg;
 
 					// TODO -- skills should probably have a field identifying
 					// whether they're physical or magic

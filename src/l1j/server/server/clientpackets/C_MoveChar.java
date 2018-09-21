@@ -25,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.network.Client;
 import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.log.LogSpeedHack;
 import l1j.server.server.model.AcceleratorChecker;
@@ -36,6 +35,7 @@ import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.trap.L1WorldTraps;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
 
 // Referenced classes of package l1j.server.server.clientpackets:

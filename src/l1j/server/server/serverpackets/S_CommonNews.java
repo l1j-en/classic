@@ -86,6 +86,6 @@ public class S_CommonNews extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return "[S] S_CommonNews";
+		return _S__0B_COMMONNEWS;
 	}
 }

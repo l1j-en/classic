@@ -37,7 +37,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.network.Client;
 import l1j.server.server.command.executor.L1ToggleShop;
 import l1j.server.server.controllers.CrackOfTimeController;
 import l1j.server.server.controllers.HomeTownTimeController;
@@ -84,6 +83,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.model.npc.action.L1NpcAction;
 import l1j.server.server.model.skill.L1SkillUse;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ApplyAuction;
 import l1j.server.server.serverpackets.S_AuctionBoardRead;
 import l1j.server.server.serverpackets.S_CharReset;

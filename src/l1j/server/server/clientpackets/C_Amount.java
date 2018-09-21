@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.AuctionBoardTable;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.datatables.IpTable;
@@ -39,6 +38,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.model.npc.action.L1NpcAction;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 import l1j.server.server.serverpackets.S_ServerMessage;
@@ -58,6 +58,7 @@ public class C_Amount extends ClientBasePacket {
 		super(decrypt);
 		int objectId = readD();
 		int amount = readD();
+		@SuppressWarnings("unused")
 		int c = readC();
 		String s = readS();
 

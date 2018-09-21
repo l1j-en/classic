@@ -95,6 +95,7 @@ public class CachedMapReader extends MapReader {
 				new FileInputStream(CACHE_DIR + mapId + ".map")));
 		int id = in.readInt();
 		if (mapId != id) {
+			in.close();
 			throw new FileNotFoundException();
 		}
 		int xLoc = in.readInt();

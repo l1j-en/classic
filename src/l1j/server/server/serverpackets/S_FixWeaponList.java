@@ -20,7 +20,6 @@ package l1j.server.server.serverpackets;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -30,8 +29,8 @@ import l1j.server.server.model.Instance.L1PcInstance;
 // ServerBasePacket, S_SystemMessage
 
 public class S_FixWeaponList extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_FixWeaponList.class
-			.getName());
+//	private static Logger _log = Logger.getLogger(S_FixWeaponList.class
+//			.getName());
 	private static final String S_FIX_WEAPON_LIST = "[S] S_FixWeaponList";
 
 	public S_FixWeaponList(L1PcInstance pc) {

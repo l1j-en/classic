@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.BoardTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
@@ -35,6 +34,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
