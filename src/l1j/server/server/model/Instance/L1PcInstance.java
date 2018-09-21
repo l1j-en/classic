@@ -44,7 +44,6 @@ import java.util.logging.Logger;
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.network.Client;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.command.executor.L1HpBar;
@@ -95,6 +94,7 @@ import l1j.server.server.model.monitor.L1PcHellMonitor;
 import l1j.server.server.model.monitor.L1PcInvisDelay;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_BlueMessage;
 import l1j.server.server.serverpackets.S_CastleMaster;
 import l1j.server.server.serverpackets.S_ChangeShape;
@@ -125,9 +125,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
-import l1j.server.server.utils.ByteArrayUtil;
 import l1j.server.server.utils.CalcStat;
-import l1j.server.server.utils.IntArrayUtil;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1PcInstance extends L1Character {

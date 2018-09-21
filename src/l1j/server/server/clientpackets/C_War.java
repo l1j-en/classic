@@ -21,13 +21,13 @@ package l1j.server.server.clientpackets;
 import java.util.List;
 
 import l1j.server.Config;
-import l1j.server.server.network.Client;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;

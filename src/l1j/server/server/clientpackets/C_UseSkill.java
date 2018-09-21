@@ -32,12 +32,12 @@ import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Skill;
 

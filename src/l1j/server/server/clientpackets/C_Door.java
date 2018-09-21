@@ -20,12 +20,12 @@ package l1j.server.server.clientpackets;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.network.Client;
 import l1j.server.server.datatables.HouseTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1House;
 
 // Referenced classes of package l1j.server.server.clientpackets:

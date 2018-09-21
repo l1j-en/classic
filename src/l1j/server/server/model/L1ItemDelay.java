@@ -18,10 +18,10 @@
  */
 package l1j.server.server.model;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1EtcItem;
 
 // Referenced classes of package l1j.server.server.model:

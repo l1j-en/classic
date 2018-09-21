@@ -198,7 +198,6 @@ import l1j.server.server.clientpackets.C_UsePetItem;
 import l1j.server.server.clientpackets.C_UseSkill;
 import l1j.server.server.clientpackets.C_War;
 import l1j.server.server.clientpackets.C_Who;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;

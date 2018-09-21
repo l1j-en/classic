@@ -18,24 +18,18 @@
  */
 package l1j.server.server;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import l1j.server.Config;
-import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.network.NetworkServer;
-import l1j.server.server.utils.SystemUtil;
 
 public class GameServer extends Thread {
 	private ServerSocket _serverSocket;

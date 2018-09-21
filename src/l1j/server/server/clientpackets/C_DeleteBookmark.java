@@ -18,8 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.network.Client;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1BookMark;
 
 public class C_DeleteBookmark extends ClientBasePacket {
