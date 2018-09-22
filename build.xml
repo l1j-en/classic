@@ -55,7 +55,8 @@
         <javac destdir="${build.dir}"
                optimize="on"
                encoding="UTF-8"
-               debug="true">
+               debug="true"
+	       includeantruntime="false">
             <src path="${src.dir}" />
             <classpath refid="classpath" />
 			<compilerarg value="-Xlint"/>

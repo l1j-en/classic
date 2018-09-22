@@ -95,7 +95,11 @@ public final class TaskManager {
 		public boolean equals(Object object) {
 			return _id == ((ExecutedTask) object)._id;
 		}
-
+		
+		@Override
+		public int hashCode() {
+			return _id;
+		}
 		public Task getTask() {
 			return _task;
 		}

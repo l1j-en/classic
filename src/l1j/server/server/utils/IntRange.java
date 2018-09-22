@@ -31,7 +31,7 @@ import java.util.Random;
  * scope of the external synchronization is necessary.
  * </p>
  */
-public class IntRange {
+public final class IntRange {
 	private static final Random _rnd = new Random();
 	private int _low;
 	private int _high;
@@ -111,6 +111,10 @@ public class IntRange {
 		return (this._low == range._low) && (this._high == range._high);
 	}
 
+	@Override
+	public int hashCode() {
+	    return _low * 31 + _high;
+	}
 	@Override
 	public String toString() {
 		return "low=" + _low + ", high=" + _high;
