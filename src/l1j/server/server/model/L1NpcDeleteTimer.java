@@ -26,6 +26,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 public class L1NpcDeleteTimer implements Runnable {
 
 	ScheduledFuture<?> future;
+	private String originalThreadName;
 	public L1NpcDeleteTimer(L1NpcInstance npc, int timeMillis) {
 		_npc = npc;
 		_timeMillis = timeMillis;
@@ -34,11 +35,15 @@ public class L1NpcDeleteTimer implements Runnable {
 	@Override
 	public void run() {
 		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("NpcDeleteTimer-" + _npc.getId() + ':' + _npc.getName());
 			_npc.deleteMe();
 			future.cancel(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 

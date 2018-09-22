@@ -39,12 +39,9 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		int npcId = getNpcTemplate().get_npcId();
 		if (npcId == 81157) {
-			GeneralThreadPool.getInstance().schedule(
-					new FwDamageTimer(this), 0);
-		} else if (npcId == 80149 || npcId == 80150 || npcId == 80151
-				|| npcId == 80152) {
-			GeneralThreadPool.getInstance().schedule(
-					new CubeTimer(this), 0);
+			GeneralThreadPool.getInstance().schedule(new FwDamageTimer(this), 0);
+		} else if (npcId == 80149 || npcId == 80150 || npcId == 80151 || npcId == 80152) {
+			GeneralThreadPool.getInstance().schedule(new CubeTimer(this), 0);
 		}
 	}
 
@@ -99,10 +96,8 @@ public class L1EffectInstance extends L1NpcInstance {
 				Thread.currentThread().setName("L1EffectInstance-FwDmgTmer");
 				while (!_destroyed) {
 					try {
-						for (L1Object object : L1World.getInstance()
-								.getVisibleObjects(_effect, 0)) {
-							if (!(object instanceof L1PcInstance)
-									&& !(object instanceof L1MonsterInstance))
+						for (L1Object object : L1World.getInstance().getVisibleObjects(_effect, 0)) {
+							if (!(object instanceof L1PcInstance) && !(object instanceof L1MonsterInstance))
 								continue;
 							L1Character target = (L1Character) object;
 							if (target.isDead())
@@ -111,18 +106,15 @@ public class L1EffectInstance extends L1NpcInstance {
 							int damage = magic.calcFireWallDamage();
 							if (damage == 0)
 								continue;
-							S_DoActionGFX packet = new S_DoActionGFX(
-									target.getId(), ActionCodes.ACTION_Damage);
+							S_DoActionGFX packet = new S_DoActionGFX(target.getId(), ActionCodes.ACTION_Damage);
 							if (object instanceof L1PcInstance) {
 								L1PcInstance pc = (L1PcInstance) object;
-								if (pc.getZoneType() == ZoneType.Safety
-										&& !atSiege(pc))
+								if (pc.getZoneType() == ZoneType.Safety && !atSiege(pc))
 									continue;
 								pc.sendPackets(packet);
 								pc.receiveDamage(_effect, damage, false);
 							} else
-								((L1MonsterInstance) object).receiveDamage(_effect,
-										damage);
+								((L1MonsterInstance) object).receiveDamage(_effect, damage);
 							target.broadcastPacket(packet);
 						}
 						Thread.sleep(FW_DAMAGE_INTERVAL);
@@ -152,6 +144,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	class CubeTimer implements Runnable {
 		private L1EffectInstance _effect;
+		private String originalThreadName;
 
 		public CubeTimer(L1EffectInstance effect) {
 			_effect = effect;
@@ -159,45 +152,49 @@ public class L1EffectInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1EffectInstance-CubeTimer");
-			while (!_destroyed) {
-				try {
-					for (L1Object object : L1World.getInstance()
-							.getVisibleObjects(_effect, 3)) {
-						if (object instanceof L1PcInstance) {
-							L1PcInstance pc = (L1PcInstance) object;
-							if (pc.isDead()) {
-								continue;
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1EffectInstance-CubeTimer");
+				while (!_destroyed) {
+					try {
+						for (L1Object object : L1World.getInstance().getVisibleObjects(_effect, 3)) {
+							if (object instanceof L1PcInstance) {
+								L1PcInstance pc = (L1PcInstance) object;
+								if (pc.isDead()) {
+									continue;
+								}
+								L1PcInstance user = getUser();
+								if (friendlyCube(user, pc)) {
+									cubeToAlly(pc, _effect);
+									continue;
+								}
+								if (pc.getZoneType() == ZoneType.Safety && !atSiege(pc))
+									continue;
+								cubeToEnemy(pc, _effect);
+							} else if (object instanceof L1MonsterInstance) {
+								L1MonsterInstance mob = (L1MonsterInstance) object;
+								if (mob.isDead()) {
+									continue;
+								}
+								cubeToEnemy(mob, _effect);
 							}
-							L1PcInstance user = getUser();
-							if (friendlyCube(user, pc)) {
-								cubeToAlly(pc, _effect);
-								continue;
-							}
-							if (pc.getZoneType() == ZoneType.Safety
-									&& !atSiege(pc))
-								continue;
-							cubeToEnemy(pc, _effect);
-						} else if (object instanceof L1MonsterInstance) {
-							L1MonsterInstance mob = (L1MonsterInstance) object;
-							if (mob.isDead()) {
-								continue;
-							}
-							cubeToEnemy(mob, _effect);
 						}
+						Thread.sleep(CUBE_INTERVAL);
+					} catch (InterruptedException ignore) {
+						// ignore
 					}
-					Thread.sleep(CUBE_INTERVAL);
-				} catch (InterruptedException ignore) {
-					// ignore
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}
 
 	private void cubeToAlly(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx = SkillTable.getInstance().findBySkillId(getSkillId())
-				.getCastGfx();
+		int castGfx = SkillTable.getInstance().findBySkillId(getSkillId()).getCastGfx();
 		int skillEffect;
 		switch (npcId) {
 		case 80149:
@@ -241,8 +238,7 @@ public class L1EffectInstance extends L1NpcInstance {
 
 	private void cubeToEnemy(L1Character cha, L1Character effect) {
 		int npcId = getNpcTemplate().get_npcId();
-		int castGfx2 = SkillTable.getInstance().findBySkillId(getSkillId())
-				.getCastGfx2();
+		int castGfx2 = SkillTable.getInstance().findBySkillId(getSkillId()).getCastGfx2();
 		int skillEffect;
 		switch (npcId) {
 		case 80149:

@@ -23,9 +23,13 @@ class L1SkillTimerTimerImpl implements L1SkillTimer, Runnable {
 
 	@Override
 	public void run() {
+		try {
 		_remainingTime--;
 		if (_remainingTime <= 0) {
 			_cha.removeSkillEffect(_skillId);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

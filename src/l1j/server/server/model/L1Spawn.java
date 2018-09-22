@@ -79,6 +79,7 @@ public class L1Spawn {
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
 		private int _objectId;
+		private String originalThreadName;
 
 		private SpawnTask(int spawnNumber, int objectId) {
 			_spawnNumber = spawnNumber;
@@ -88,11 +89,14 @@ public class L1Spawn {
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
 				Thread.currentThread().setName("L1Spawn");
 				doSpawn(_spawnNumber, _objectId);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

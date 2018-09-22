@@ -866,12 +866,16 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	}
 
 	class EnchantTimer implements Runnable {
+		private String originalThreadName;
+
 		public EnchantTimer() {
 		}
 
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("EnchantTimer");
 				int type = getItem().getType();
 				int type2 = getItem().getType2();
 				int itemId = getItem().getItemId();
@@ -890,6 +894,8 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				_isRunning = false;
 				_timer = null;
 			} catch (Exception e) {
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

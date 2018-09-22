@@ -69,9 +69,12 @@ public class L1DollInstance extends L1NpcInstance {
 	}
 
 	class DollTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
 				Thread.currentThread().setName("L1DollInstance-DollTimer");
 				if (_destroyed) {
 					return;
@@ -80,6 +83,8 @@ public class L1DollInstance extends L1NpcInstance {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

@@ -3299,14 +3299,20 @@ public class L1MerchantInstance extends L1NpcInstance {
 	private RestMonitor _monitor;
 
 	public class RestMonitor implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("RestMonitor");
 				setRest(false);
 				//cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

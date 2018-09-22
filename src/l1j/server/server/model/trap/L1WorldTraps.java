@@ -168,6 +168,7 @@ public class L1WorldTraps {
 
 	private class TrapSpawnTimer implements Runnable {
 		private final L1TrapInstance _targetTrap;
+		private String originalThreadName;
 
 		public TrapSpawnTimer(L1TrapInstance trap) {
 			_targetTrap = trap;
@@ -175,13 +176,16 @@ public class L1WorldTraps {
 
 		@Override
 		public void run() {
-			
 			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1WorldTrap");
 				_targetTrap.resetLocation();
 				_targetTrap.enableTrap();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

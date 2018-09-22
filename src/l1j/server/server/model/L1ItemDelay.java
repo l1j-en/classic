@@ -36,6 +36,7 @@ public class L1ItemDelay {
 		private int _delayId;
 		//private int _delayTime;
 		private L1Character _cha;
+		private String originalThreadName;
 
 		public ItemDelayTimer(L1Character cha, int id, int time) {
 			_cha = cha;
@@ -46,11 +47,14 @@ public class L1ItemDelay {
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
 				Thread.currentThread().setName("L1ItemDelay-Timer");
 				stopDelayTimer(_delayId);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 

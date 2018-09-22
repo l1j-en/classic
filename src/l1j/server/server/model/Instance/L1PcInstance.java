@@ -143,6 +143,7 @@ public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
 	private class Death implements Runnable {
 		L1Character _lastAttacker;
+		private String originalThreadName;
 
 		Death(L1Character cha) {
 			_lastAttacker = cha;
@@ -150,6 +151,7 @@ public class L1PcInstance extends L1Character {
 
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
 				Thread.currentThread().setName("L1PcInstance-Death");
 				L1Character lastAttacker = _lastAttacker;
 				_lastAttacker = null;
@@ -470,6 +472,8 @@ public class L1PcInstance extends L1Character {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

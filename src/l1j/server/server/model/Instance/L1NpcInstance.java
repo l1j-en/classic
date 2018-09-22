@@ -884,18 +884,23 @@ public class L1NpcInstance extends L1Character {
 	private HprTimer _hprTimer;
 
 	class HprTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
+			originalThreadName = Thread.currentThread().getName();
 			Thread.currentThread().setName("L1NpcInstance-HprTimer");
 			try {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
 					setCurrentHp(getCurrentHp() + _point);
 				} else {
-					//cancel();
+					// cancel();
 					_hprRunning = false;
 				}
 			} catch (Exception e) {
 				_log.error(e.getLocalizedMessage(), e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 
@@ -914,18 +919,23 @@ public class L1NpcInstance extends L1Character {
 	private MprTimer _mprTimer;
 
 	class MprTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
+			originalThreadName = Thread.currentThread().getName();
 			Thread.currentThread().setName("L1NpcInstance-MprTimer");
 			try {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
 					setCurrentMp(getCurrentMp() + _point);
 				} else {
-					//cancel();
+					// cancel();
 					_mprRunning = false;
 				}
 			} catch (Exception e) {
 				_log.error(e.getLocalizedMessage(), e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 
@@ -943,34 +953,43 @@ public class L1NpcInstance extends L1Character {
 	public boolean _digestItemRunning = false;
 
 	class DigestItemTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-DigestTimer");
-			_digestItemRunning = true;
-			while (!_destroyed && _digestItems.size() > 0) {
-				try {
-					Thread.sleep(1000);
-				} catch (Exception exception) {
-					break;
-				}
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1NpcInstance-DigestTimer");
+				_digestItemRunning = true;
+				while (!_destroyed && _digestItems.size() > 0) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception exception) {
+						break;
+					}
 
-				Object[] keys = _digestItems.keySet().toArray();
-				for (int i = 0; i < keys.length; i++) {
-					Integer key = (Integer) keys[i];
-					Integer digestCounter = _digestItems.get(key);
-					digestCounter -= 1;
-					if (digestCounter <= 0) {
-						_digestItems.remove(key);
-						L1ItemInstance digestItem = getInventory().getItem(key);
-						if (digestItem != null) {
-							getInventory().removeItem(digestItem, digestItem.getCount());
+					Object[] keys = _digestItems.keySet().toArray();
+					for (int i = 0; i < keys.length; i++) {
+						Integer key = (Integer) keys[i];
+						Integer digestCounter = _digestItems.get(key);
+						digestCounter -= 1;
+						if (digestCounter <= 0) {
+							_digestItems.remove(key);
+							L1ItemInstance digestItem = getInventory().getItem(key);
+							if (digestItem != null) {
+								getInventory().removeItem(digestItem, digestItem.getCount());
+							}
+						} else {
+							_digestItems.put(key, digestCounter);
 						}
-					} else {
-						_digestItems.put(key, digestCounter);
 					}
 				}
+				_digestItemRunning = false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
-			_digestItemRunning = false;
 		}
 	}
 
@@ -2150,6 +2169,7 @@ public class L1NpcInstance extends L1Character {
 
 	protected static class DeleteTimer implements Runnable {
 		private int _id;
+		private String originalThreadName;
 
 		protected DeleteTimer(int oId) {
 			_id = oId;
@@ -2160,6 +2180,8 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
+			try {
+			originalThreadName = Thread.currentThread().getName();
 			Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
 			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(_id);
 			if (npc == null || !npc.isDead() || npc._destroyed) {
@@ -2173,12 +2195,12 @@ public class L1NpcInstance extends L1Character {
 				if (npc._destroyed)
 					_log.warn("DeleteTimer#run: npc._destroyed.");
 				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
-				//cancel();
+				// cancel();
 				return;
 			}
 			try {
 				npc.deleteMe();
-				//cancel();
+				// cancel();
 			} catch (Exception e) {
 				// More leak investigation.
 				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
@@ -2186,6 +2208,11 @@ public class L1NpcInstance extends L1Character {
 
 				e.printStackTrace();
 			}
+		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 

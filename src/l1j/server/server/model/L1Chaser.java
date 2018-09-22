@@ -44,6 +44,8 @@ public class L1Chaser extends TimerTask {
 	private final L1PcInstance _pc;
 	private final L1Character _cha;
 
+	private String originalThreadName;
+
 	public L1Chaser(L1PcInstance pc, L1Character cha) {
 		_cha = cha;
 		_pc = pc;
@@ -52,6 +54,8 @@ public class L1Chaser extends TimerTask {
 	@Override
 	public void run() {
 		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("L1Chaser");
 			if (_cha == null || _cha.isDead()) {
 				stop();
 				return;
@@ -64,6 +68,8 @@ public class L1Chaser extends TimerTask {
 			}
 		} catch (Throwable e) {
 			_log.warn(e.getLocalizedMessage(), e);
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 

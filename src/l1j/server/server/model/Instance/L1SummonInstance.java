@@ -103,9 +103,12 @@ public class L1SummonInstance extends L1NpcInstance {
 	}
 
 	class SummonTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
 			try {
+				originalThreadName = Thread.currentThread().getName();
 				Thread.currentThread().setName("L1SummonInstance-SummonTimer");
 				if (_destroyed) {
 					return;
@@ -118,6 +121,8 @@ public class L1SummonInstance extends L1NpcInstance {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}

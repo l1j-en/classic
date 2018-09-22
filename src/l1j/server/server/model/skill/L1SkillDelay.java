@@ -33,6 +33,7 @@ public class L1SkillDelay {
 	static class SkillDelayTimer implements Runnable {
 		//private int _delayTime;
 		private L1Character _cha;
+		private String originalThreadName;
 
 		public SkillDelayTimer(L1Character cha, int time) {
 			_cha = cha;
@@ -42,10 +43,13 @@ public class L1SkillDelay {
 		@Override
 		public void run() {
 			try {
-			//Thread.currentThread().setName("L1SkillDelay-DelayTimer");
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("L1SkillDelay-DelayTimer");
 			stopDelayTimer();
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 

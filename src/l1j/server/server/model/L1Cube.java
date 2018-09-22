@@ -52,6 +52,8 @@ public class L1Cube extends TimerTask {
 	private final L1Character _cha;
 	private final int _skillId;
 
+	private String originalThreadName;
+
 	public L1Cube(L1Character effect, L1Character cha, int skillId) {
 		_effect = effect;
 		_cha = cha;
@@ -61,6 +63,8 @@ public class L1Cube extends TimerTask {
 	@Override
 	public void run() {
 		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("L1Cube");
 			if (_cha.isDead()) {
 				stop();
 				return;
@@ -73,6 +77,8 @@ public class L1Cube extends TimerTask {
 			giveEffect();
 		} catch (Throwable e) {
 			_log.warn(e.getLocalizedMessage(), e);
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 
