@@ -76,7 +76,6 @@ import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1BossCycle;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1DeleteItemOnGround;
-import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.L1TreasureBox;
@@ -292,7 +291,6 @@ public class GameServerThread {
 		GetBackTable.getInstance();
 		DoorTable.initialize();
 		GeneralThreadPool.getInstance();
-		L1NpcRegenerationTimer.getInstance();
 		ChatLogTable.getInstance();
 		WeaponSkillTable.getInstance();
 		NpcActionTable.load();
