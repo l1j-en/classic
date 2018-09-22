@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -58,7 +57,6 @@ import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.L1MobSkillUse;
 import l1j.server.server.model.L1NpcChatTimer;
-import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.L1World;
@@ -77,7 +75,6 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.types.Point;
-import l1j.server.server.utils.TimerPool;
 
 public class L1NpcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
@@ -173,19 +170,15 @@ public class L1NpcInstance extends L1Character {
 		return this;
 	}
 
-	// If you've got the threads, kick this up.
-	private static final TimerPool _timerPool = new TimerPool(32);
-
-	class NpcAITimerImpl extends TimerTask implements NpcAI {
-		private class DeathSyncTimer extends TimerTask {
+	class NpcAITimerImpl implements Runnable, NpcAI {
+		private class DeathSyncTimer implements Runnable {
 			private void schedule(int delay) {
-				_timerPool.getTimer().schedule(new DeathSyncTimer(), delay);
+				GeneralThreadPool.getInstance().schedule(new DeathSyncTimer(), delay);
 			}
 
 			@Override
 			public void run() {
 				try {
-					Thread.currentThread().setName("L1NpcInstance-DeathSyncTimer");
 					if (isDeathProcessing()) {
 						schedule(getSleepTime());
 						return;
@@ -202,21 +195,20 @@ public class L1NpcInstance extends L1Character {
 		@Override
 		public void start() {
 			setAiRunning(true);
-			_timerPool.getTimer().schedule(NpcAITimerImpl.this, 0);
+			GeneralThreadPool.getInstance().schedule(NpcAITimerImpl.this, 0);
 		}
 
 		private void stop() {
 			mobSkill.resetAllSkillUseCount();
-			_timerPool.getTimer().schedule(new DeathSyncTimer(), 0);
+			GeneralThreadPool.getInstance().schedule(new DeathSyncTimer(), 0);
 		}
 
 		private void schedule(int delay) {
-			_timerPool.getTimer().schedule(new NpcAITimerImpl(), delay);
+			GeneralThreadPool.getInstance().schedule(new NpcAITimerImpl(), delay);
 		}
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-AiImpleTimer");
 			try {
 				if (notContinued()) {
 					stop();
@@ -835,7 +827,8 @@ public class L1NpcInstance extends L1Character {
 	protected L1ItemInstance _targetItem = null;
 	protected L1Character _master = null;
 	private boolean _deathProcessing = false;
-
+	ScheduledFuture<?> _mprTimerFuture;
+	ScheduledFuture<?> _hprTimerFuture;
 	private int _paralysisTime = 0; // Paralysis RestTime
 
 	public void setParalysisTime(int ptime) {
@@ -856,14 +849,14 @@ public class L1NpcInstance extends L1Character {
 		int hpr = getNpcTemplate().get_hpr();
 		if (!_hprRunning && hprInterval > 0 && hpr > 0) {
 			_hprTimer = new HprTimer(hpr);
-			L1NpcRegenerationTimer.getInstance().scheduleAtFixedRate(_hprTimer, hprInterval, hprInterval);
+			_hprTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_hprTimer, hprInterval, hprInterval);
 			_hprRunning = true;
 		}
 	}
 
 	public final void stopHpRegeneration() {
 		if (_hprRunning) {
-			_hprTimer.cancel();
+			_hprTimerFuture.cancel(true);
 			_hprRunning = false;
 		}
 	}
@@ -874,14 +867,14 @@ public class L1NpcInstance extends L1Character {
 		int mpr = getNpcTemplate().get_mpr();
 		if (!_mprRunning && mprInterval > 0 && mpr > 0) {
 			_mprTimer = new MprTimer(mpr);
-			L1NpcRegenerationTimer.getInstance().scheduleAtFixedRate(_mprTimer, mprInterval, mprInterval);
+			_mprTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_mprTimer, mprInterval, mprInterval);
 			_mprRunning = true;
 		}
 	}
 
 	public final void stopMpRegeneration() {
 		if (_mprRunning) {
-			_mprTimer.cancel();
+			_mprTimerFuture.cancel(true);
 			_mprRunning = false;
 		}
 	}
@@ -890,7 +883,7 @@ public class L1NpcInstance extends L1Character {
 
 	private HprTimer _hprTimer;
 
-	class HprTimer extends TimerTask {
+	class HprTimer implements Runnable {
 		@Override
 		public void run() {
 			Thread.currentThread().setName("L1NpcInstance-HprTimer");
@@ -898,7 +891,7 @@ public class L1NpcInstance extends L1Character {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
 					setCurrentHp(getCurrentHp() + _point);
 				} else {
-					cancel();
+					//cancel();
 					_hprRunning = false;
 				}
 			} catch (Exception e) {
@@ -920,7 +913,7 @@ public class L1NpcInstance extends L1Character {
 
 	private MprTimer _mprTimer;
 
-	class MprTimer extends TimerTask {
+	class MprTimer implements Runnable {
 		@Override
 		public void run() {
 			Thread.currentThread().setName("L1NpcInstance-MprTimer");
@@ -928,7 +921,7 @@ public class L1NpcInstance extends L1Character {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
 					setCurrentMp(getCurrentMp() + _point);
 				} else {
-					cancel();
+					//cancel();
 					_mprRunning = false;
 				}
 			} catch (Exception e) {
@@ -2155,7 +2148,7 @@ public class L1NpcInstance extends L1Character {
 		_future = GeneralThreadPool.getInstance().schedule(_deleteTask, Config.NPC_DELETION_TIME * 1000);
 	}
 
-	protected static class DeleteTimer extends TimerTask {
+	protected static class DeleteTimer implements Runnable {
 		private int _id;
 
 		protected DeleteTimer(int oId) {
@@ -2180,12 +2173,12 @@ public class L1NpcInstance extends L1Character {
 				if (npc._destroyed)
 					_log.warn("DeleteTimer#run: npc._destroyed.");
 				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
-				cancel();
+				//cancel();
 				return;
 			}
 			try {
 				npc.deleteMe();
-				cancel();
+				//cancel();
 			} catch (Exception e) {
 				// More leak investigation.
 				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
