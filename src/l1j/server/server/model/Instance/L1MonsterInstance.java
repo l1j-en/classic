@@ -409,6 +409,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	class Death implements Runnable {
 		L1Character _lastAttacker;
+		private String originalThreadName;
 
 		public Death(L1Character lastAttacker) {
 			_lastAttacker = lastAttacker;
@@ -417,7 +418,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 		@Override
 		public void run() {
 			try {
-				//Thread.currentThread().setName("L1MonsterInstance-Death");
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1MonsterInstance-Death");
 				setDeathProcessing(true);
 				setCurrentHpDirect(0);
 				setDead(true);
@@ -499,6 +501,8 @@ public class L1MonsterInstance extends L1NpcInstance {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}
