@@ -30,7 +30,6 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_CUBE_SHOCK_TO_ENEMY
 import static l1j.server.server.model.skill.L1SkillId.STATUS_FREEZE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_MR_REDUCTION_BY_CUBE_SHOCK;
 
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
 
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Paralysis;
 
-public class L1Cube extends TimerTask {
+public class L1Cube implements Runnable {
 	private static Logger _log = LoggerFactory.getLogger(L1Cube.class.getName());
 
 	private ScheduledFuture<?> _future = null;

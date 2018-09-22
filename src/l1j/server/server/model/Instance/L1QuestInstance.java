@@ -18,9 +18,9 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Quest;
@@ -30,6 +30,8 @@ import l1j.server.server.templates.L1Npc;
 
 @SuppressWarnings("serial")
 public class L1QuestInstance extends L1NpcInstance {
+
+	private ScheduledFuture<?> _monitorFuture;
 
 	public L1QuestInstance(L1Npc template) {
 		super(template);
@@ -130,11 +132,15 @@ public class L1QuestInstance extends L1NpcInstance {
 
 		synchronized (this) {
 			if (_monitor != null) {
-				_monitor.cancel();
+				try {
+				_monitorFuture.cancel(true);
+				} catch (Exception e) {
+					e.printStackTrace();	
+				}
 			}
 			setRest(true);
 			_monitor = new RestMonitor();
-			_restTimer.schedule(_monitor, REST_MILLISEC);
+			_monitorFuture = GeneralThreadPool.getInstance().schedule(_monitor, REST_MILLISEC);
 		}
 	}
 
@@ -182,16 +188,13 @@ public class L1QuestInstance extends L1NpcInstance {
 
 	private static final long REST_MILLISEC = 10000;
 
-	private static final Timer _restTimer = new Timer("L1QuestInstance",true);
-
 	private RestMonitor _monitor;
 
-	public class RestMonitor extends TimerTask {
+	public class RestMonitor implements Runnable {
 		@Override
 		public void run() {
 			try {
 				setRest(false);
-				cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -21,7 +21,6 @@ package l1j.server.server.model;
 import static l1j.server.server.model.skill.L1SkillId.ERASE_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -36,7 +35,7 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
-public class L1Chaser extends TimerTask {
+public class L1Chaser implements Runnable {
 	private static Logger _log = LoggerFactory.getLogger(L1Chaser.class.getName());
 
  	private ScheduledFuture<?> _future = null;

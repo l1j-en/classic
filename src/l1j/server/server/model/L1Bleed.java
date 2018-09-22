@@ -1,6 +1,5 @@
 package l1j.server.server.model;
 
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,7 +13,7 @@ import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
-public class L1Bleed  extends TimerTask {
+public class L1Bleed implements Runnable {
 	private static Logger _log = LoggerFactory.getLogger(L1Bleed.class.getName());
 
 	private int _duration = 1;
@@ -53,7 +52,6 @@ public class L1Bleed  extends TimerTask {
 			return;
 		}
 				
-		ThreadLocalRandom.current();
 		int durationCalculator = ThreadLocalRandom.current().nextInt(400);
 		int duration = 1;
 		
