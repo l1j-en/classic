@@ -18,13 +18,14 @@
  */
 package l1j.server.server.model;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1NpcInstance;
 
-public class L1NpcDeleteTimer extends TimerTask {
+public class L1NpcDeleteTimer implements Runnable {
 
+	ScheduledFuture<?> future;
 	public L1NpcDeleteTimer(L1NpcInstance npc, int timeMillis) {
 		_npc = npc;
 		_timeMillis = timeMillis;
@@ -34,7 +35,7 @@ public class L1NpcDeleteTimer extends TimerTask {
 	public void run() {
 		try {
 			_npc.deleteMe();
-			this.cancel();
+			future.cancel(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,8 +43,7 @@ public class L1NpcDeleteTimer extends TimerTask {
 	}
 
 	public void begin() {
-		Timer timer = new Timer("L1NpcDeleteTimer"+_npc.getNpcId());
-		timer.schedule(this, _timeMillis);
+		future = GeneralThreadPool.getInstance().schedule(this, _timeMillis);
 	}
 
 	private final L1NpcInstance _npc;
