@@ -27,7 +27,6 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
 import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
 
-import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.Maps;
 import l1j.server.server.model.skill.L1SkillId;
 
-public class HpRegeneration extends TimerTask {
+public class HpRegeneration implements Runnable {
 
 	private static Logger _log = LoggerFactory.getLogger(HpRegeneration.class
 			.getName());

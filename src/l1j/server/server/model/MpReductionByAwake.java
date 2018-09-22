@@ -1,13 +1,11 @@
 package l1j.server.server.model;
 
-import java.util.TimerTask;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
-public class MpReductionByAwake extends TimerTask {
+public class MpReductionByAwake implements Runnable {
 	private static Logger _log = LoggerFactory.getLogger(MpReductionByAwake.class
 			.getName());
 

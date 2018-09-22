@@ -41,7 +41,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private ScheduledFuture _monitorFuture;
+	private ScheduledFuture<?> _monitorFuture;
 
 	/**
 	 * @param template
