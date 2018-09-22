@@ -2181,38 +2181,38 @@ public class L1NpcInstance extends L1Character {
 		@Override
 		public void run() {
 			try {
-			originalThreadName = Thread.currentThread().getName();
-			Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
-			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(_id);
-			if (npc == null || !npc.isDead() || npc._destroyed) {
-				// Leak investigation.
-				if (npc == null) {
-					_log.warn("DeleteTimer#run: npc was null.");
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
+				L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(_id);
+				if (npc == null || !npc.isDead() || npc._destroyed) {
+					// Leak investigation.
+					if (npc == null) {
+						_log.warn("DeleteTimer#run: npc was null.");
+						return;
+					}
+					if (!npc.isDead())
+						_log.warn("DeleteTimer#run: !npc.isDead().");
+					if (npc._destroyed)
+						_log.warn("DeleteTimer#run: npc._destroyed.");
+					_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+					// cancel();
 					return;
 				}
-				if (!npc.isDead())
-					_log.warn("DeleteTimer#run: !npc.isDead().");
-				if (npc._destroyed)
-					_log.warn("DeleteTimer#run: npc._destroyed.");
-				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
-				// cancel();
-				return;
-			}
-			try {
-				npc.deleteMe();
-				// cancel();
-			} catch (Exception e) {
-				// More leak investigation.
-				_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
-				_log.error(e.getLocalizedMessage(), e);
+				try {
+					npc.deleteMe();
+					// cancel();
+				} catch (Exception e) {
+					// More leak investigation.
+					_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+					_log.error(e.getLocalizedMessage(), e);
 
+					e.printStackTrace();
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
-		}
-		 catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 
