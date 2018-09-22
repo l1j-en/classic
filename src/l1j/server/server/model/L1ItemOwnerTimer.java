@@ -18,12 +18,14 @@
  */
 package l1j.server.server.model;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
-public class L1ItemOwnerTimer extends TimerTask {
+public class L1ItemOwnerTimer implements Runnable {
+
+	private ScheduledFuture<?> future;
 
 	public L1ItemOwnerTimer(L1ItemInstance item, int timeMillis) {
 		_item = item;
@@ -34,7 +36,7 @@ public class L1ItemOwnerTimer extends TimerTask {
 	public void run() {
 		try {
 			_item.setItemOwnerId(0);
-			this.cancel();
+			future.cancel(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,8 +44,7 @@ public class L1ItemOwnerTimer extends TimerTask {
 	}
 
 	public void begin() {
-		Timer timer = new Timer("L1ItemOwner-"+_item.getItemId());
-		timer.schedule(this, _timeMillis);
+		future = GeneralThreadPool.getInstance().schedule(this, _timeMillis);
 	}
 
 	private final L1ItemInstance _item;
