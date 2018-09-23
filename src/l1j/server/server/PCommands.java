@@ -382,7 +382,11 @@ public class PCommands {
 		try {
 			int i = Integer.parseInt(cmd2.substring(5));
 			if (i >= 1 && i <= 10) {
-				Thread.sleep(3000);
+				if (System.currentTimeMillis() - player.getLastWarp() < 3000) {
+					return;
+				} else {
+					player.setLastWarp(System.currentTimeMillis());
+				}
 				
 				if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN)
 						|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
