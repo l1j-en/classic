@@ -426,6 +426,7 @@ public class Client implements Runnable, PacketOutput {
 			buffer.writeBytes(abyte0);
 			channel.writeAndFlush(buffer);
 		} catch (Exception e) {
+			_log.error("",e);
 		}
 
 	}
