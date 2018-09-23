@@ -472,6 +472,8 @@ public class PCommands {
 			try {
 				L1Teleport.teleport(player, x, y, mapid, heading,
 						effectable);
+				player.setLastWarp(System.currentTimeMillis());
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				_log.error("",e);
