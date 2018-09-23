@@ -100,7 +100,7 @@ public class CrackOfTimeController extends TimerTask {
 					clear();
 					Thread.sleep(_downTime);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					_log.error("",e);
 				}
 			}
 
@@ -123,7 +123,7 @@ public class CrackOfTimeController extends TimerTask {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

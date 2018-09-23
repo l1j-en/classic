@@ -1,9 +1,14 @@
 package l1j.server.server.model.skill;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 
 class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
+	private static Logger _log = LoggerFactory.getLogger(L1SkillTimerThreadImpl.class);
+
 	public L1SkillTimerThreadImpl(L1Character cha, int skillId, int timeMillis) {
 		_cha = cha;
 		_skillId = skillId;
@@ -24,7 +29,7 @@ class L1SkillTimerThreadImpl extends Thread implements L1SkillTimer {
 			_cha.removeSkillEffect(_skillId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

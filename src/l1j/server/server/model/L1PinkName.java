@@ -1,5 +1,8 @@
 package l1j.server.server.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.WarTimeController;
@@ -9,6 +12,9 @@ import l1j.server.server.serverpackets.S_PinkName;
 // Referenced classes of package l1j.server.server.model:
 // L1PinkName
 public class L1PinkName {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1PinkName.class);
+
 	private L1PcInstance _pc = null;
 	protected PinkNameTimer _timer = null;
 
@@ -51,7 +57,7 @@ public class L1PinkName {
 				stopPinkName(_attacker);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 

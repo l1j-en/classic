@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
@@ -11,6 +14,9 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1LazyGm implements L1CommandExecutor {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1LazyGm.class);
+
 	private static HashMap<Integer, LazyGmTimer> _lazyGmTimers
 				= new HashMap<Integer, LazyGmTimer>();
  	
@@ -86,7 +92,7 @@ public class L1LazyGm implements L1CommandExecutor {
 				stopTeleport(_gm);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 

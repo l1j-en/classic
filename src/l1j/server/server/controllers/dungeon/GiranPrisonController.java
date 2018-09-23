@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -13,6 +16,9 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class GiranPrisonController implements TimedDungeonInstance {
+	
+	private static Logger _log = LoggerFactory.getLogger(GiranPrisonController.class);
+
 	private static GiranPrisonController _instance;
 	private static ConcurrentHashMap<String, Long> _users = new ConcurrentHashMap<String, Long>();
 	private static long _3Hours = 10800 * 1000;
@@ -66,7 +72,7 @@ public class GiranPrisonController implements TimedDungeonInstance {
 			this._lastRun = System.currentTimeMillis();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 	

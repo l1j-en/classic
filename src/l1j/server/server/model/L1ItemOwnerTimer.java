@@ -20,10 +20,15 @@ package l1j.server.server.model;
 
 import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 
 public class L1ItemOwnerTimer implements Runnable {
+
+	private static Logger _log = LoggerFactory.getLogger(L1ItemOwnerTimer.class);
 
 	private ScheduledFuture<?> future;
 
@@ -39,7 +44,7 @@ public class L1ItemOwnerTimer implements Runnable {
 			future.cancel(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

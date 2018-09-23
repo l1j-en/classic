@@ -23,12 +23,17 @@
  */
 package l1j.server.server.network;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import l1j.server.server.encryptions.L1JEncryption;
 import l1j.server.server.encryptions.NoEncryptionKeysSelectedException;
 
 public class PacketDecrypter extends ChannelInboundHandlerAdapter {
+
+	private static Logger _log = LoggerFactory.getLogger(PacketDecrypter.class);
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -37,7 +42,7 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+		_log.error("",cause);
 		ctx.close();
 	}
 
@@ -59,7 +64,7 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 			NetworkServer.getInstance().getClientQueue().offer(client);
 		} catch (NoEncryptionKeysSelectedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 
 	}

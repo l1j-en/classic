@@ -20,6 +20,9 @@ package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1MonsterInstance;
@@ -27,6 +30,8 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1DamagePoison extends L1Poison {
+
+	private static Logger _log = LoggerFactory.getLogger(L1DamagePoison.class);
 
 	private Thread _timer;
 	private final L1Character _attacker;
@@ -103,7 +108,7 @@ public class L1DamagePoison extends L1Poison {
 				cure();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

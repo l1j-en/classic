@@ -18,6 +18,9 @@
  */
 package l1j.server.server.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -33,6 +36,9 @@ public class L1ItemDelay {
 	}
 
 	static class ItemDelayTimer implements Runnable {
+		
+		private static Logger _log = LoggerFactory.getLogger(ItemDelayTimer.class);
+
 		private int _delayId;
 		//private int _delayTime;
 		private L1Character _cha;
@@ -52,7 +58,7 @@ public class L1ItemDelay {
 				stopDelayTimer(_delayId);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

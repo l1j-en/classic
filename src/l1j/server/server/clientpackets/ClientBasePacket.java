@@ -27,7 +27,7 @@ import l1j.server.server.network.Client;
 
 public abstract class ClientBasePacket {
 
-	private static Logger _log = LoggerFactory.getLogger(ClientBasePacket.class
+	static Logger _log = LoggerFactory.getLogger(ClientBasePacket.class
 			.getName());
 	private byte _decrypt[];
 	private int _off;

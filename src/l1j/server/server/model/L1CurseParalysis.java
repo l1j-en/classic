@@ -21,6 +21,9 @@ package l1j.server.server.model;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_PARALYZED;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_CURSE_PARALYZING;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1MonsterInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -31,6 +34,8 @@ import l1j.server.server.serverpackets.S_ServerMessage;
  * L1ParalysisPoison
  */
 public class L1CurseParalysis extends L1Paralysis {
+	private static Logger _log = LoggerFactory.getLogger(L1CurseParalysis.class);
+
 	private final L1Character _target;
 	private final int _delay;
 	private final int _time;
@@ -64,7 +69,7 @@ public class L1CurseParalysis extends L1Paralysis {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

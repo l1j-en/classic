@@ -18,11 +18,15 @@
  */
 package l1j.server.server.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1EquipmentTimer implements Runnable {
+	private static Logger _log = LoggerFactory.getLogger(L1EquipmentTimer.class);
 
 	public L1EquipmentTimer(L1PcInstance pc, L1ItemInstance item) {
 		_pc = pc;
@@ -42,7 +46,7 @@ public class L1EquipmentTimer implements Runnable {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

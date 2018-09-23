@@ -124,7 +124,7 @@ public class L1EffectInstance extends L1NpcInstance {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}
@@ -185,7 +185,7 @@ public class L1EffectInstance extends L1NpcInstance {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

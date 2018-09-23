@@ -1,11 +1,17 @@
 package l1j.server.server.command.executor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class BotCheck implements L1CommandExecutor  {
+	
+	private static Logger _log = LoggerFactory.getLogger(BotCheck.class);
+
 	public static L1CommandExecutor getInstance() {
 		return new BotCheck();
 	}
@@ -29,12 +35,12 @@ public class BotCheck implements L1CommandExecutor  {
 				Thread.sleep(millis);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 			
 			player.sendPackets(new S_OwnCharStatus(player));
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 			user.sendPackets(new S_SystemMessage(".botcheck <name> [optional ms]"));
 		}
 	}

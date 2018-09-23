@@ -18,10 +18,15 @@
  */
 package l1j.server.server.model.monitor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public abstract class L1PcMonitor implements Runnable {
+
+	private static Logger _log = LoggerFactory.getLogger(L1PcMonitor.class);
 
 	protected int _id;
 
@@ -40,7 +45,7 @@ public abstract class L1PcMonitor implements Runnable {
 			execTask(pc);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

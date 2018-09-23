@@ -272,7 +272,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 				newnpc.turnOnOffLight();
 				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

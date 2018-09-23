@@ -23,6 +23,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.Config;
 import l1j.server.server.datatables.DoorTable;
 import l1j.server.server.datatables.ItemTable;
@@ -42,6 +45,9 @@ import l1j.server.server.utils.NpcMover;
 import l1j.server.server.utils.collections.Lists;
 
 public class L1PolyRace {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1PolyRace.class);
+
 	public static final int[] SKILL_TYPE = { 0, 1, 2, 3, 4 };
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
@@ -735,7 +741,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -757,7 +763,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -779,7 +785,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -797,7 +803,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -814,7 +820,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -833,7 +839,7 @@ public class L1PolyRace {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 
@@ -851,7 +857,7 @@ public class L1PolyRace {
 				addTime();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 

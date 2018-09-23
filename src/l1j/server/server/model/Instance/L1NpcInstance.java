@@ -93,7 +93,7 @@ public class L1NpcInstance extends L1Character {
 	public static final int CHAT_TIMING_HIDE = 2;
 	public static final int CHAT_TIMING_GAME_TIME = 3;
 
-	private static Logger _log = LoggerFactory.getLogger(L1NpcInstance.class.getName());
+	static Logger _log = LoggerFactory.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
@@ -187,7 +187,7 @@ public class L1NpcInstance extends L1Character {
 					setAiRunning(false);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					_log.error("",e);
 				}
 			}
 		}
@@ -986,7 +986,7 @@ public class L1NpcInstance extends L1Character {
 				}
 				_digestItemRunning = false;
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}
@@ -2206,10 +2206,10 @@ public class L1NpcInstance extends L1Character {
 					_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
 					_log.error(e.getLocalizedMessage(), e);
 
-					e.printStackTrace();
+					_log.error("",e);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

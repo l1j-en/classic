@@ -471,7 +471,7 @@ public class L1PcInstance extends L1Character {
 				_pcDeleteTimer.begin();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

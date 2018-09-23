@@ -25,6 +25,9 @@ package l1j.server.server.network;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -34,7 +37,7 @@ import l1j.server.server.encryptions.L1JEncryption;
 
 public class ChannelInit extends ChannelInitializer<Channel> {
 
-	//Logger _log = LoggerFactory.getLogger(ChannelInit.class);
+	private static Logger _log = LoggerFactory.getLogger(ChannelInit.class);
 
 	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
 			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
@@ -48,7 +51,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 			client = new Client(channel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 		NetworkServer.getInstance().getClients().put(channel.id(), client);
 
@@ -68,7 +71,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		try {
 			client.set_clkey(L1JEncryption.initKeys(channel.id(), seed));
 		} catch (ClientIdExistsException e) {
-			e.printStackTrace();
+			_log.error("",e);
 		}
 		channel.pipeline().addLast(new PacketDecoder(),new PacketDecrypter());
 

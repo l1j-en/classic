@@ -140,7 +140,7 @@ public class L1Search implements L1CommandExecutor {
 						+ " instance(s) that matched " + type + "."));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		} finally {
 			SQLUtil.close(rs, statement, con);
 		}
@@ -282,7 +282,7 @@ public class L1Search implements L1CommandExecutor {
 					+ "." : " Nothing";
 			pc.sendPackets(new S_SystemMessage(found));
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		} finally {
 			SQLUtil.close(rs, statement, con);
 		}

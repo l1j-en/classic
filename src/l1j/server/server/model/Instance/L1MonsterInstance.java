@@ -500,7 +500,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

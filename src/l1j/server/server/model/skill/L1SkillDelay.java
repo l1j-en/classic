@@ -18,6 +18,9 @@
  */
 package l1j.server.server.model.skill;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 
@@ -31,6 +34,8 @@ public class L1SkillDelay {
 	}
 
 	static class SkillDelayTimer implements Runnable {
+		private static Logger _log = LoggerFactory.getLogger(SkillDelayTimer.class);
+
 		//private int _delayTime;
 		private L1Character _cha;
 		private String originalThreadName;
@@ -47,7 +52,7 @@ public class L1SkillDelay {
 			Thread.currentThread().setName("L1SkillDelay-DelayTimer");
 			stopDelayTimer();
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

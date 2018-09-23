@@ -21,6 +21,9 @@ package l1j.server.server.controllers;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.Account;
 import l1j.server.server.AccountAlreadyLoginException;
 import l1j.server.server.GameServerFullException;
@@ -29,6 +32,9 @@ import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class LoginController {
+	
+	private static Logger _log = LoggerFactory.getLogger(LoginController.class);
+
 	private static LoginController _instance;
 	private Map<String, Client> _accounts = new ConcurrentHashMap<String, Client>();
 	private int _maxAllowedOnlinePlayers;
@@ -73,7 +79,7 @@ public class LoginController {
 						client.getActiveChar().sendPackets(new S_ServerMessage(357));
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					_log.error("",e);
 				}
 				try {
 					Thread.sleep(1000);

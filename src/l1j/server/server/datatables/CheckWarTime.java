@@ -64,7 +64,7 @@ public final class CheckWarTime {
 			}
 			_log.info("CheckWarTime " + _check.size());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			_log.error("",e);
 			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);

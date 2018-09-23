@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
@@ -27,6 +30,8 @@ import l1j.server.server.templates.L1Pet;
 import l1j.server.server.utils.BinaryOutputStream;
 
 public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstance> {
+
+	private static Logger _log = LoggerFactory.getLogger(L1ItemInstance.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -860,7 +865,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 			os.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		}
 		return returnvalue;
 	}

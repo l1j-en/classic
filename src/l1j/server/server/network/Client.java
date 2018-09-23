@@ -109,7 +109,7 @@ public class Client implements Runnable, PacketOutput {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 			
 		}
@@ -353,7 +353,7 @@ public class Client implements Runnable, PacketOutput {
 			doAutoSave();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			_log.error("",e1);
 		}
 		byte[] data;
 		data = queue.poll();
@@ -381,7 +381,7 @@ public class Client implements Runnable, PacketOutput {
 			try {
 				_handler.handlePacket(data, _activeChar);
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		} else {
 

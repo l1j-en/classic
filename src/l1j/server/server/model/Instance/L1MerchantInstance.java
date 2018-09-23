@@ -3310,7 +3310,7 @@ public class L1MerchantInstance extends L1NpcInstance {
 				//cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

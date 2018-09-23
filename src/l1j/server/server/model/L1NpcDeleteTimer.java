@@ -20,10 +20,15 @@ package l1j.server.server.model;
 
 import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class L1NpcDeleteTimer implements Runnable {
+
+	private static Logger _log = LoggerFactory.getLogger(L1NpcDeleteTimer.class);
 
 	ScheduledFuture<?> future;
 	private String originalThreadName;
@@ -41,7 +46,7 @@ public class L1NpcDeleteTimer implements Runnable {
 			future.cancel(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_log.error("",e);
 		} finally {
 			Thread.currentThread().setName(originalThreadName);
 		}

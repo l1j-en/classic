@@ -135,7 +135,7 @@ public class L1QuestInstance extends L1NpcInstance {
 				try {
 				_monitorFuture.cancel(true);
 				} catch (Exception e) {
-					e.printStackTrace();	
+					_log.error("",e);	
 				}
 			}
 			setRest(true);
@@ -197,7 +197,7 @@ public class L1QuestInstance extends L1NpcInstance {
 				setRest(false);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

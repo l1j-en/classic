@@ -43,7 +43,7 @@ public class FailCommand implements Command, Runnable  {
 			writer.println("Unknown command");
 			writer.flush();
 	      } catch (Exception e) {
-	          e.printStackTrace();
+	          _log.error("",e);
 	      } finally {
 	          this.exitCallback.onExit(0);
 	      }

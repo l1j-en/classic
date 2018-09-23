@@ -50,7 +50,7 @@ public class GameServer extends Thread {
 					connectionCache.clear();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					_log.error("",e);
 				}
 			}
 		}, CACHE_REFRESH, CACHE_REFRESH);

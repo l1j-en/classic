@@ -29,7 +29,7 @@ class L1SkillTimerTimerImpl implements L1SkillTimer, Runnable {
 			_cha.removeSkillEffect(_skillId);
 		}
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 

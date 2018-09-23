@@ -56,7 +56,7 @@ public class L1BossSpawn extends L1Spawn {
 				doSpawn(_spawnNumber, _objectId);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

@@ -183,7 +183,7 @@ public class L1WorldTraps {
 				_targetTrap.enableTrap();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			} finally {
 				Thread.currentThread().setName(originalThreadName);
 			}

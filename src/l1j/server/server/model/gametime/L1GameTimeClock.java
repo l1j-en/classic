@@ -56,7 +56,7 @@ public class L1GameTimeClock {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

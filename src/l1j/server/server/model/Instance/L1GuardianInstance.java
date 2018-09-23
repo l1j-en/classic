@@ -351,7 +351,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 				startDeleteTimer();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}
@@ -373,7 +373,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 			try {
 				setRest(false);
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

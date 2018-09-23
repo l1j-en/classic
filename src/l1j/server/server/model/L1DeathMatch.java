@@ -30,6 +30,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
 import l1j.server.server.datatables.DoorTable;
@@ -47,6 +50,8 @@ import l1j.server.server.templates.L1DoorGfx;
 import l1j.server.server.utils.collections.Lists;
 
 public class L1DeathMatch {
+
+	private static Logger _log = LoggerFactory.getLogger(L1DeathMatch.class);
 
 	private final int[] fragment = { 50515, 50516, 50518, 50519 };
 	private final int ISSUE_ITEM = 50499;
@@ -600,7 +605,7 @@ public class L1DeathMatch {
 					temp.begin();
 					Thread.sleep(4 * 1000);// 50+10=60s
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					_log.error("",e);
 				}
 				if (checkPlayersOK()) {
 					setGameStatus(STATUS_PLAYING);
@@ -650,7 +655,7 @@ public class L1DeathMatch {
 				this.cancel();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 

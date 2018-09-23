@@ -7,6 +7,10 @@ import static l1j.server.server.model.skill.L1SkillId.AWAKEN_VALAKAS;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import l1j.server.server.command.executor.BotCheck;
 import l1j.server.server.datatables.ArmorSetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -14,6 +18,9 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1ArmorSets;
 
 public abstract class L1ArmorSet {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1ArmorSet.class);
+
 	public abstract void giveEffect(L1PcInstance pc);
 
 	public abstract void cancelEffect(L1PcInstance pc);
@@ -55,8 +62,8 @@ public abstract class L1ArmorSet {
 						.getDefenseWater(), armorSets.getDefenseWind(),
 						armorSets.getDefenseFire(), armorSets.getDefenseWind()));
 				_allSet.add(impl);
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			} catch (Exception e) {
+				_log.error("",e);
 			}
 		}
 	}

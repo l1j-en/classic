@@ -63,7 +63,7 @@ public class SSHCommand implements Command, Runnable {
 	    }
 	    catch (final Exception e)
 	    {
-	      e.printStackTrace();
+	      _log.error("",e);
 	    }
 	  }
 	  
@@ -76,7 +76,7 @@ public class SSHCommand implements Command, Runnable {
 			writer.println(this.command.execute(this.args));
 			writer.flush();
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		} finally {
 			this.exitCallback.onExit(0);
 		}

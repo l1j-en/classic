@@ -88,7 +88,7 @@ public class L1DeleteItemOnGround {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}
@@ -172,7 +172,7 @@ public class L1DeleteItemOnGround {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 
 		}
@@ -208,7 +208,7 @@ public class L1DeleteItemOnGround {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 		_log.trace("Deleted ground items: " + numOfDeleted);

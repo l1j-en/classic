@@ -169,7 +169,7 @@ public class C_UseSkill extends ClientBasePacket {
 			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY,
 					message, 0, L1SkillUse.TYPE_NORMAL);
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 }

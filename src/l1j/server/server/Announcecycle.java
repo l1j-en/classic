@@ -87,7 +87,7 @@ public class Announcecycle {
 			try {
 				lnr.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}
