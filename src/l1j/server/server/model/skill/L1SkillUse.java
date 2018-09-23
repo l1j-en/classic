@@ -287,99 +287,105 @@ public class L1SkillUse {
 	public boolean checkUseSkill(L1PcInstance player, int skillid,
 			int target_id, int x, int y, String message, int time, int type,
 			L1Character attacker) {
-		setCheckedUseSkill(true);
-		_targetList = new ArrayList<TargetStatus>();
+		try {
+			setCheckedUseSkill(true);
+			_targetList = new ArrayList<TargetStatus>();
 
-		_skill = SkillTable.getInstance().findBySkillId(skillid);
-		_skillId = skillid;
-		_targetX = x;
-		_targetY = y;
-		_message = message;
-		_skillTime = time;
-		_type = type;
-		boolean checkedResult = true;
+			_skill = SkillTable.getInstance().findBySkillId(skillid);
+			_skillId = skillid;
+			_targetX = x;
+			_targetY = y;
+			_message = message;
+			_skillTime = time;
+			_type = type;
+			boolean checkedResult = true;
 
-		if (attacker == null) {
-			// pc
-			_player = player;
-			_user = _player;
-		} else {
-			// npc
-			_npc = (L1NpcInstance) attacker;
-			_user = _npc;
-		}
+			if (attacker == null) {
+				// pc
+				_player = player;
+				_user = _player;
+			} else {
+				// npc
+				_npc = (L1NpcInstance) attacker;
+				_user = _npc;
+			}
 
-		if (_skill.getTarget().equals("none")) {
-			_targetID = _user.getId();
-			_targetX = _user.getX();
-			_targetY = _user.getY();
-		} else {
-			_targetID = target_id;
-		}
+			if (_skill.getTarget().equals("none")) {
+				_targetID = _user.getId();
+				_targetX = _user.getX();
+				_targetY = _user.getY();
+			} else {
+				_targetID = target_id;
+			}
 
-		if (type == TYPE_NORMAL) {
-			checkedResult = isNormalSkillUsable();
-		} else if (type == TYPE_SPELLSC) {
-			checkedResult = isSpellScrollUsable();
-		} else if (type == TYPE_NPCBUFF) {
-			checkedResult = true;
-		}
-		if (!checkedResult) {
+			if (type == TYPE_NORMAL) {
+				checkedResult = isNormalSkillUsable();
+			} else if (type == TYPE_SPELLSC) {
+				checkedResult = isSpellScrollUsable();
+			} else if (type == TYPE_NPCBUFF) {
+				checkedResult = true;
+			}
+			if (!checkedResult) {
+				return false;
+			}
+
+			if (_skillId == FIRE_WALL || _skillId == LIFE_STREAM) {
+				return true;
+			}
+
+			L1Object l1object = L1World.getInstance().findObject(_targetID);
+			if (l1object instanceof L1ItemInstance) {
+				_log.trace("skill target item name: "
+						+ ((L1ItemInstance) l1object).getViewName());
+				return false;
+			}
+			if (_user instanceof L1PcInstance) {
+				if (l1object instanceof L1PcInstance) {
+					_calcType = PC_PC;
+				} else {
+					_calcType = PC_NPC;
+					_targetNpc = (L1NpcInstance) l1object;
+				}
+			} else if (_user instanceof L1NpcInstance) {
+				if (l1object instanceof L1PcInstance) {
+					_calcType = NPC_PC;
+				} else if (_skill.getTarget().equals("none")) {
+					_calcType = NPC_PC;
+				} else {
+					_calcType = NPC_NPC;
+					_targetNpc = (L1NpcInstance) l1object;
+				}
+			}
+
+			if (_skillId == TELEPORT || _skillId == MASS_TELEPORT) {
+				_bookmarkId = target_id;
+			}
+			if (_skillId == CREATE_MAGICAL_WEAPON || _skillId == PURIFY_STONE
+					|| _skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON
+					|| _skillId == SHADOW_FANG) {
+				_itemobjid = target_id;
+			}
+			_target = (L1Character) l1object;
+
+			if (!(_target instanceof L1MonsterInstance)
+					&& _skill.getTarget().equals("attack")
+					&& _user.getId() != target_id) {
+				_isPK = true;
+			}
+
+			if (!(l1object instanceof L1Character)) {
+				checkedResult = false;
+			}
+			makeTargetList();
+			if (_targetList.size() == 0 && (_user instanceof L1NpcInstance)) {
+				checkedResult = false;
+			}
+			return checkedResult;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
 		}
-
-		if (_skillId == FIRE_WALL || _skillId == LIFE_STREAM) {
-			return true;
-		}
-
-		L1Object l1object = L1World.getInstance().findObject(_targetID);
-		if (l1object instanceof L1ItemInstance) {
-			_log.trace("skill target item name: "
-					+ ((L1ItemInstance) l1object).getViewName());
-			return false;
-		}
-		if (_user instanceof L1PcInstance) {
-			if (l1object instanceof L1PcInstance) {
-				_calcType = PC_PC;
-			} else {
-				_calcType = PC_NPC;
-				_targetNpc = (L1NpcInstance) l1object;
-			}
-		} else if (_user instanceof L1NpcInstance) {
-			if (l1object instanceof L1PcInstance) {
-				_calcType = NPC_PC;
-			} else if (_skill.getTarget().equals("none")) {
-				_calcType = NPC_PC;
-			} else {
-				_calcType = NPC_NPC;
-				_targetNpc = (L1NpcInstance) l1object;
-			}
-		}
-
-		if (_skillId == TELEPORT || _skillId == MASS_TELEPORT) {
-			_bookmarkId = target_id;
-		}
-		if (_skillId == CREATE_MAGICAL_WEAPON || _skillId == PURIFY_STONE
-				|| _skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON
-				|| _skillId == SHADOW_FANG) {
-			_itemobjid = target_id;
-		}
-		_target = (L1Character) l1object;
-
-		if (!(_target instanceof L1MonsterInstance)
-				&& _skill.getTarget().equals("attack")
-				&& _user.getId() != target_id) {
-			_isPK = true;
-		}
-
-		if (!(l1object instanceof L1Character)) {
-			checkedResult = false;
-		}
-		makeTargetList();
-		if (_targetList.size() == 0 && (_user instanceof L1NpcInstance)) {
-			checkedResult = false;
-		}
-		return checkedResult;
 	}
 
 	private boolean isNormalSkillUsable() {
