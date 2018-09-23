@@ -384,6 +384,13 @@ public class L1SkillUse {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Skill ID: " + skillid);
+			System.out.println("Player: " + player.getName());
+			System.out.println("Target id" + target_id);
+			System.out.println("Loc: " + x + "," + y);
+			System.out.println("message" + message);
+			System.out.println("Attacker: " + attacker.getName());
+			System.out.println("Type" + type);
 			return false;
 		}
 	}
