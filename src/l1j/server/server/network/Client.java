@@ -412,7 +412,7 @@ public class Client implements Runnable, PacketOutput {
 	}
 
 	@Override
-	public synchronized void sendPacket(ServerBasePacket packet) {
+	public void sendPacket(ServerBasePacket packet) {
 		try {
 			byte abyte0[] = packet.getContent();
 			char ac[] = new char[abyte0.length];
