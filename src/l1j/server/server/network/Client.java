@@ -93,7 +93,7 @@ public class Client implements Runnable, PacketOutput {
 
 	private class LogoutDelay implements Runnable {
 		private Client client;
-		
+
 		LogoutDelay(Client client) {
 			this.client = client;
 		}
@@ -110,11 +110,12 @@ public class Client implements Runnable, PacketOutput {
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				_log.error("",e);
+				_log.error("", e);
 			}
-			
+
 		}
 	}
+
 	protected Client() {
 	}
 
@@ -317,10 +318,10 @@ public class Client implements Runnable, PacketOutput {
 				long lastAggressiveAct = _activeChar.getLastAggressiveAct();
 
 				if (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
-					 LogoutDelay delay = new LogoutDelay(this);
-					 GeneralThreadPool.getInstance().schedule(delay, System.currentTimeMillis() - (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER));
+					LogoutDelay delay = new LogoutDelay(this);
+					GeneralThreadPool.getInstance().schedule(delay,
+							System.currentTimeMillis() - (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER));
 				}
-
 
 			}
 			sendPacket(new S_Disconnect());
@@ -335,9 +336,9 @@ public class Client implements Runnable, PacketOutput {
 		if (_kick < 1) {
 
 			_log.info("Client thread ended: " + getAccountName() + ":" + _hostname + " Current Memory: "
-							+ SystemUtil.getUsedMemoryMB() + "MB RAM" + " CurrentThreads="
-							+ GeneralThreadPool.getInstance().getCurrentThreadCount() + " CharactersOnline="
-							+ (L1World.getInstance().getAllPlayers().size()));
+					+ SystemUtil.getUsedMemoryMB() + "MB RAM" + " CurrentThreads="
+					+ GeneralThreadPool.getInstance().getCurrentThreadCount() + " CharactersOnline="
+					+ (L1World.getInstance().getAllPlayers().size()));
 		}
 
 	}
@@ -351,12 +352,12 @@ public class Client implements Runnable, PacketOutput {
 	@Override
 	public synchronized void run() {
 		long start = System.currentTimeMillis();
-		int opcode=0;
+		int opcode = 0;
 		try {
 			doAutoSave();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			_log.error("",e1);
+			_log.error("", e1);
 		}
 		byte[] data;
 		data = queue.poll();
@@ -384,7 +385,7 @@ public class Client implements Runnable, PacketOutput {
 			try {
 				_handler.handlePacket(data, _activeChar);
 			} catch (Exception e) {
-				_log.error("",e);
+				_log.error("", e);
 			}
 		} else {
 
@@ -397,7 +398,7 @@ public class Client implements Runnable, PacketOutput {
 			}
 			_log.error("Opcode: " + opcode);
 			_log.error("Elapse: " + elapse);
-		
+
 			longest = elapse;
 		} else if (elapse > 100) {
 			_log.warn("Potentially slow packet detected");
@@ -411,23 +412,22 @@ public class Client implements Runnable, PacketOutput {
 	}
 
 	@Override
-	public void sendPacket(ServerBasePacket packet) {
-		synchronized (this) {
-			try {
-				byte abyte0[] = packet.getContent();
-				char ac[] = new char[abyte0.length];
-				ac = UChar8.fromArray(abyte0);
-				ac = L1JEncryption.encrypt(ac, get_clkey());
-				abyte0 = UByte8.fromArray(ac);
-				int j = abyte0.length + 2;
-				ByteBuf buffer = channel.alloc().buffer(j);
-				buffer.writeByte(j & 0xff);
-				buffer.writeByte(j >> 8 & 0xff);
-				buffer.writeBytes(abyte0);
-				channel.writeAndFlush(buffer);
-			} catch (Exception e) {
-			}
+	public synchronized void sendPacket(ServerBasePacket packet) {
+		try {
+			byte abyte0[] = packet.getContent();
+			char ac[] = new char[abyte0.length];
+			ac = UChar8.fromArray(abyte0);
+			ac = L1JEncryption.encrypt(ac, get_clkey());
+			abyte0 = UByte8.fromArray(ac);
+			int j = abyte0.length + 2;
+			ByteBuf buffer = channel.alloc().buffer(j);
+			buffer.writeByte(j & 0xff);
+			buffer.writeByte(j >> 8 & 0xff);
+			buffer.writeBytes(abyte0);
+			channel.writeAndFlush(buffer);
+		} catch (Exception e) {
 		}
+
 	}
 
 	public void set_clkey(L1JKeys _clkey) {
