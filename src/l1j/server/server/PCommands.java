@@ -397,47 +397,50 @@ public class PCommands {
 					player.sendPackets(NoWarpState);
 					return;
 				}
-				
+				WarpDelay warpDelay = null;
 				switch (i) {
 				case 1: // Pandora
-					L1Teleport.teleport(player, 32644, 32955, (short) 0, 5,
+					warpDelay = new WarpDelay(player, 32644, 32955, (short) 0, 5,
 							true);
 					break;
 				case 2: // SKT
-					L1Teleport.teleport(player, 33080, 33392, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33080, 33392, (short) 4, 5,
 							true);
 					break;
 				case 3: // Giran
-					L1Teleport.teleport(player, 33442, 32797, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33442, 32797, (short) 4, 5,
 							true);
 					break;
 				case 4: // Weldern
-					L1Teleport.teleport(player, 33705, 32504, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33705, 32504, (short) 4, 5,
 							true);
 					break;
 				case 5: // Oren
-					L1Teleport.teleport(player, 34061, 32276, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 34061, 32276, (short) 4, 5,
 							true);
 					break;
 				case 6: // Orc Town
-					L1Teleport.teleport(player, 32715, 32448, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 32715, 32448, (short) 4, 5,
 							true);
 					break;
 				case 7: // Silent Cave
-					L1Teleport.teleport(player, 32857, 32898, (short) 304, 5,
+					warpDelay = new WarpDelay(player, 32857, 32898, (short) 304, 5,
 							true);
 					break;
 				case 8: // Gludio
-					L1Teleport.teleport(player, 32608, 32734, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 32608, 32734, (short) 4, 5,
 							true);
 					break;
 				case 9: // Silveria
-					L1Teleport.teleport(player, 32841, 32856, (short) 1000, 5,
+					warpDelay = new WarpDelay(player, 32841, 32856, (short) 1000, 5,
 							true);
 					break;
 				case 10: // Behimous
-					L1Teleport.teleport(player, 32779, 32887, (short) 1001, 5,
+					warpDelay = new WarpDelay(player, 32779, 32887, (short) 1001, 5,
 							true);
+				}
+				if (warpDelay != null) {
+					GeneralThreadPool.getInstance().schedule(warpDelay, 3000);
 				}
 			} else {
 				player.sendPackets(WarpLimit);
@@ -447,6 +450,35 @@ public class PCommands {
 		}
 	}
 
+	private class WarpDelay implements Runnable {
+
+		L1PcInstance player;
+		int x;
+		int y;
+		short mapid;
+		int heading;
+		boolean effectable;
+		
+		public WarpDelay(L1PcInstance player, int x, int y, short mapid, int heading, boolean effectable) {
+			this.player = player;
+			this.x = x;
+			this.y = y;
+			this.mapid = mapid;
+			this.heading = heading;
+			this.effectable = effectable;
+		}
+		@Override
+		public void run() {
+			try {
+				L1Teleport.teleport(player, x, y, mapid, heading,
+						effectable);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			}
+		}
+		
+	}
 	private void reportBug(L1PcInstance pc, String bug) {
 		Collection<L1Object> objects = L1World.getInstance().getObject();
 		L1Object bugBoard = null;
