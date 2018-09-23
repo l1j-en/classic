@@ -89,6 +89,7 @@ public class Client implements Runnable, PacketOutput {
 	public Channel channel;
 
 	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
+	private long longest;
 
 	private class LogoutDelay implements Runnable {
 		private Client client;
@@ -349,6 +350,8 @@ public class Client implements Runnable, PacketOutput {
 
 	@Override
 	public synchronized void run() {
+		long start = System.currentTimeMillis();
+		int opcode=0;
 		try {
 			doAutoSave();
 		} catch (Exception e1) {
@@ -358,7 +361,7 @@ public class Client implements Runnable, PacketOutput {
 		byte[] data;
 		data = queue.poll();
 		if (data != null) {
-			int opcode = data[0] & 0xFF;
+			opcode = data[0] & 0xFF;
 
 			// if they're clicking "OK" on the common news sent for a ban or ip restriction,
 			// then kick them
@@ -386,7 +389,17 @@ public class Client implements Runnable, PacketOutput {
 		} else {
 
 		}
-
+		long elapse = System.currentTimeMillis() - start;
+		if (elapse > longest) {
+			_log.error("Longest processing time reached");
+			if (_activeChar != null) {
+				_log.error("Character: " + _activeChar.getName());
+			}
+			_log.error("Opcode: " + opcode);
+			_log.error("Elapse: " + elapse);
+		
+			longest = elapse;
+		}
 		return;
 	}
 

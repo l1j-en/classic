@@ -10,7 +10,6 @@ import java.util.StringTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import l1j.server.server.command.executor.BotCheck;
 import l1j.server.server.datatables.ArmorSetTable;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
