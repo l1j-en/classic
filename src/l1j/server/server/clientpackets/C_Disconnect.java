@@ -40,13 +40,6 @@ public class C_Disconnect extends ClientBasePacket {
 					+ pc.getAccountName() + " host=" + client.getHostname()
 					+ " Current Memory: " + SystemUtil.getUsedMemoryMB() + "MB RAM");
 
-			if (Config.DELAY_DISCONNECT > 0) {
-				try {
-					Thread.sleep(Config.DELAY_DISCONNECT * 1000);
-				} catch (InterruptedException e) { /* Sad panda. */
-				}
-			}
-
 			Client.quitGame(pc, client.getLastActiveCharName());
 			synchronized (pc) {
 				pc.logout();
