@@ -399,6 +399,13 @@ public class Client implements Runnable, PacketOutput {
 			_log.error("Elapse: " + elapse);
 		
 			longest = elapse;
+		} else if (elapse > 100) {
+			_log.warn("Potentially slow packet detected");
+			if (_activeChar != null) {
+				_log.error("Character: " + _activeChar.getName());
+			}
+			_log.error("Opcode: " + opcode);
+			_log.error("Elapse: " + elapse);
 		}
 		return;
 	}
