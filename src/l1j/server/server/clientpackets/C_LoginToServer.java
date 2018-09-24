@@ -174,6 +174,11 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		S_Unknown1 s_unknown1 = new S_Unknown1();
 		pc.sendPackets(s_unknown1);
+		/*
+		 * This packet is broken as is, completely empty.
+		 * No point in trying to send it because it fails at encrypting
+		 * - tricid
+		 */
 		//S_Unknown2 s_unknown2 = new S_Unknown2();
 		//pc.sendPackets(s_unknown2);
 
@@ -219,8 +224,13 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 
 		L1World.getInstance().addVisibleObject(pc);
-		S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
-		pc.sendPackets(s_activespells);
+		/*
+		 * This packet is broken as is, not enough data in it to be a complete packet.
+		 * No point in trying to send it because it fails at encrypting
+		 * - tricid
+		 */
+		//S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
+		//pc.sendPackets(s_activespells);
 
 		pc.beginGameTimeCarrier();
 
