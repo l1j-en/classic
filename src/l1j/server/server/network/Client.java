@@ -413,16 +413,13 @@ public class Client implements Runnable, PacketOutput {
 
 	@Override
 	public synchronized void sendPacket(ServerBasePacket packet) {
-		byte[] og = null;
-		try {
-			og = packet.getContent();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		try {
 			byte abyte0[] = packet.getContent();
+			if (abyte0.length < 4) {
+				_log.info("Something tried to send a bad/empty packet");
+				_log.info("Packet type: " + packet.getClass().getName());
+				_log.info("Packet Length: " + abyte0.length);
+			}
 			char ac[] = new char[abyte0.length];
 			ac = UChar8.fromArray(abyte0);
 			ac = L1JEncryption.encrypt(ac, get_clkey());
@@ -436,7 +433,6 @@ public class Client implements Runnable, PacketOutput {
 		} catch (Exception e) {
 			_log.error("",e);
 			_log.error("Packet type: " + packet.getClass().getName());
-			_log.error("Packet Length: " + og.length);
 		}
 
 	}
