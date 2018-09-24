@@ -46,6 +46,7 @@ public class S_Emblem extends ServerBasePacket {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (bis != null) {
 				try {

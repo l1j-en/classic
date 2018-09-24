@@ -414,6 +414,7 @@ public class Client implements Runnable, PacketOutput {
 	@Override
 	public synchronized void sendPacket(ServerBasePacket packet) {
 		try {
+			byte ogcontent[] = packet.getContent();
 			byte abyte0[] = packet.getContent();
 			char ac[] = new char[abyte0.length];
 			ac = UChar8.fromArray(abyte0);
