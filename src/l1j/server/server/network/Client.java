@@ -419,6 +419,7 @@ public class Client implements Runnable, PacketOutput {
 				_log.info("Something tried to send a bad/empty packet");
 				_log.info("Packet type: " + packet.getClass().getName());
 				_log.info("Packet Length: " + abyte0.length);
+				return;
 			}
 			char ac[] = new char[abyte0.length];
 			ac = UChar8.fromArray(abyte0);
