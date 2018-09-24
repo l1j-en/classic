@@ -21,7 +21,6 @@ package l1j.server.server.clientpackets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.utils.SystemUtil;
