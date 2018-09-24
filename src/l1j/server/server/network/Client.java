@@ -414,8 +414,10 @@ public class Client implements Runnable, PacketOutput {
 	@Override
 	public synchronized void sendPacket(ServerBasePacket packet) {
 		try {
-			byte ogcontent[] = packet.getContent();
 			byte abyte0[] = packet.getContent();
+			if (abyte0.length < 3) {
+				return;
+			}
 			char ac[] = new char[abyte0.length];
 			ac = UChar8.fromArray(abyte0);
 			ac = L1JEncryption.encrypt(ac, get_clkey());
