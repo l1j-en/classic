@@ -20,6 +20,8 @@ package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON;
 
+import java.util.concurrent.ScheduledFuture;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,15 +35,18 @@ public class L1DamagePoison extends L1Poison {
 
 	private static Logger _log = LoggerFactory.getLogger(L1DamagePoison.class);
 
-	private Thread _timer;
+	private NormalPoisonTimer _timer;
 	private final L1Character _attacker;
 	private final L1Character _target;
 	private final int _damageSpan;
 	private final int _damage;
 	private final int _delay;
-	
-	private L1DamagePoison(L1Character attacker, L1Character cha,
-			int damageSpan, int damage) {
+
+	private ScheduledFuture<?> future;
+
+	public boolean ranOnce;
+
+	private L1DamagePoison(L1Character attacker, L1Character cha, int damageSpan, int damage) {
 		_attacker = attacker;
 		_target = cha;
 		_damageSpan = damageSpan;
@@ -51,8 +56,7 @@ public class L1DamagePoison extends L1Poison {
 		doInfection();
 	}
 
-	private L1DamagePoison(L1Character attacker, L1Character cha,
-			int damageSpan, int damage, int delay) {
+	private L1DamagePoison(L1Character attacker, L1Character cha, int damageSpan, int damage, int delay) {
 		_attacker = attacker;
 		_target = cha;
 		_damageSpan = damageSpan;
@@ -65,14 +69,8 @@ public class L1DamagePoison extends L1Poison {
 	private class NormalPoisonTimer extends Thread {
 		@Override
 		public void run() {
-			
-			try {
-				if(_delay > 0) {
-					try {
-						Thread.sleep(_delay);
-					} catch (InterruptedException e) { }
-				}
-				
+
+			if (!ranOnce) {
 				// Modified to allow lengthy NPC poison times, like live has.
 				if (_target instanceof L1NpcInstance) {
 					_target.setSkillEffect(STATUS_POISON, 7200000);
@@ -80,53 +78,56 @@ public class L1DamagePoison extends L1Poison {
 					_target.setSkillEffect(STATUS_POISON, 30000);
 				}
 				_target.setPoisonEffect(1);
-				
-				while (true) {
-					try {
-						Thread.sleep(_damageSpan);
-					} catch (InterruptedException e) {
-						break;
-					}
+				ranOnce = true;
+			} else {
+				try {
+					Thread.sleep(_damageSpan);
+				} catch (InterruptedException e) {
+					cure();
+				}
 
-					if (!_target.hasSkillEffect(STATUS_POISON)) {
-						break;
+				if (!_target.hasSkillEffect(STATUS_POISON)) {
+					cure();
+				}
+				if (_target instanceof L1PcInstance) {
+					L1PcInstance player = (L1PcInstance) _target;
+					player.receiveDamage(_attacker, _damage, false);
+					if (player.isDead()) {
+						cure();
 					}
-					if (_target instanceof L1PcInstance) {
-						L1PcInstance player = (L1PcInstance) _target;
-						player.receiveDamage(_attacker, _damage, false);
-						if (player.isDead()) {
-							break;
-						}
-					} else if (_target instanceof L1MonsterInstance) {
-						L1MonsterInstance mob = (L1MonsterInstance) _target;
-						mob.receiveDamage(_attacker, _damage);
-						if (mob.isDead()) {
-							return;
-						}
+				} else if (_target instanceof L1MonsterInstance) {
+					L1MonsterInstance mob = (L1MonsterInstance) _target;
+					mob.receiveDamage(_attacker, _damage);
+					if (mob.isDead()) {
+						cure();
 					}
 				}
-				cure();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				_log.error("",e);
 			}
+
 		}
 	}
 
 	boolean isDamageTarget(L1Character cha) {
-		return (cha instanceof L1PcInstance)
-				|| (cha instanceof L1MonsterInstance);
+		return (cha instanceof L1PcInstance) || (cha instanceof L1MonsterInstance);
 	}
 
 	private void doInfection() {
 		if (isDamageTarget(_target)) {
+			if (future != null) {
+				try {
+					future.cancel(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					_log.error("", e);
+				}
+			}
 			_timer = new NormalPoisonTimer();
-			GeneralThreadPool.getInstance().execute(_timer);
+			// GeneralThreadPool.getInstance().execute(_timer);
+			future = GeneralThreadPool.getInstance().scheduleAtFixedRate(_timer, _delay, _damageSpan);
 		}
 	}
 
-	public static boolean doInfection(L1Character attacker, L1Character cha,
-			int damageSpan, int damage) {
+	public static boolean doInfection(L1Character attacker, L1Character cha, int damageSpan, int damage) {
 		if (!isValidTarget(cha)) {
 			return false;
 		}
@@ -134,9 +135,8 @@ public class L1DamagePoison extends L1Poison {
 		cha.setPoison(new L1DamagePoison(attacker, cha, damageSpan, damage));
 		return true;
 	}
-	
-	public static boolean doInfection(L1Character attacker, L1Character cha,
-			int damageSpan, int damage, int delay) {
+
+	public static boolean doInfection(L1Character attacker, L1Character cha, int damageSpan, int damage, int delay) {
 		if (!isValidTarget(attacker, cha)) {
 			return false;
 		}
@@ -152,8 +152,13 @@ public class L1DamagePoison extends L1Poison {
 
 	@Override
 	public void cure() {
-		if (_timer != null) {
-			_timer.interrupt();
+		if (future != null) {
+			try {
+				future.cancel(true);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		_target.setPoisonEffect(0);
