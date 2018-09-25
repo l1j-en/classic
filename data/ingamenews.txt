@@ -1,1 +1,1 @@
-\f=Welcome to L1J-En. Report any bugs on https://github.com/l1j/en/issues
+\f=Welcome to l1j-en. Report any bugs on https://code.l1j.org/l1j/classic/issues

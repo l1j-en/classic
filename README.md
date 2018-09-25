@@ -33,7 +33,7 @@ Report issues and suggest features and improvements on the
 should go to the mailing list and IRC channel.
 
 Pull requests are always welcome!  For those migrating to Git from SVN, see the
-[DEVGUIDE](https://github.com/l1j/en/blob/master/DEVGUIDE.md).
+[DEVGUIDE](DEVGUIDE.md).
 
 Those interested in joining the development effort as a team member should feel
 free to let us know, preferably on the IRC channel.  We always need additional
