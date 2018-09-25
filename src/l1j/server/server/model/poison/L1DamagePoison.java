@@ -150,12 +150,13 @@ public class L1DamagePoison extends L1Poison {
 		if (future != null) {
 			try {
 				future.cancel(true);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-
+		ranOnce = false;
 		_target.setPoisonEffect(0);
 		_target.killSkillEffectTimer(STATUS_POISON);
 		_target.setPoison(null);
