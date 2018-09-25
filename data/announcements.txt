@@ -1,6 +1,5 @@
 Welcome to the L1J-En Lineage server emulator.
 
-Thanks for using L1J-En. Please report any bugs on the L1J-En project site at:
+Thanks for using l1j-en. Please report any bugs on the l1j-en issue tracker at:
 
-https://github.com/l1j/en/issues
-
+https://code.l1j.org/l1j/classic/issues
