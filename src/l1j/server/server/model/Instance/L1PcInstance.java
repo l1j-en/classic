@@ -117,6 +117,7 @@ import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.serverpackets.S_Teleport;
 import l1j.server.server.serverpackets.S_bonusstats;
 import l1j.server.server.serverpackets.ServerBasePacket;
 import l1j.server.server.templates.L1BookMark;
@@ -127,6 +128,7 @@ import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 import l1j.server.server.utils.CalcStat;
 import l1j.server.server.utils.SQLUtil;
+import l1j.server.server.utils.Teleportation;
 
 public class L1PcInstance extends L1Character {
 	public static final int REGENSTATE_ATTACK = 1;
@@ -141,7 +143,51 @@ public class L1PcInstance extends L1Character {
 	private static final long INTERVAL_EXP_MONITOR = 500;
 	private static final int MP_REGEN_INTERVAL = 1000;
 	private static final long serialVersionUID = 1L;
+	private ScheduledFuture<?> _teleDelayFuture;
+	
+	public void teleWithDelay(int delay, int x, int y, short mapid, int head, boolean ignorePets) {
+		
+		if (_teleDelayFuture != null) {
+			try {
+				_teleDelayFuture.cancel(true);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		_teleDelayFuture = GeneralThreadPool.getInstance().schedule(new TeleDelay(this,x,y,mapid,head,ignorePets), delay);
+	}
+	private class TeleDelay implements Runnable {
 
+		private int y;
+		private int x;
+		private int head;
+		private boolean ignorePets;
+		private short mapId;
+		private L1PcInstance pc;
+		
+		public TeleDelay(L1PcInstance pc, int x, int y, short mapId, int head, boolean ignorePets) {
+			this.pc = pc;
+			this.x = x;
+			this.y = y;
+			this.mapId = mapId;
+			this.head = head;
+			this.ignorePets = ignorePets;
+		}
+		@Override
+		public void run() {
+			setTeleportX(x);
+			setTeleportY(y);
+			setTeleportMapId(mapId);
+			setTeleportHeading(head);
+			if (Config.SEND_PACKET_BEFORE_TELEPORT) {
+				sendPackets(new S_Teleport(pc));
+			} else {
+				Teleportation.teleport(pc, ignorePets);
+			}			
+		}
+		
+	}
 	private class Death implements Runnable {
 		L1Character _lastAttacker;
 		private String originalThreadName;
