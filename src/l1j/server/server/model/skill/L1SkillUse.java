@@ -867,6 +867,7 @@ public class L1SkillUse {
 				return;
 			}
 
+			System.out.println("maketargetlist checking distance");
 			if (_skill.getRanged() != -1) {
 				if (_user.getLocation().getTileLineDistance(_target.getLocation()) > _skill.getRanged()) {
 					System.out.println("Line Distance Range Check");
@@ -1580,6 +1581,7 @@ public class L1SkillUse {
 	private void runSkill() {
 		
 		//temp debug
+		System.out.println("runskill checking distance");
 		if (_skill.getRanged() != -1) {
 			if (_user.getLocation().getTileLineDistance(_target.getLocation()) > _skill.getRanged()) {
 				System.out.println("Line Distance Range Check");
