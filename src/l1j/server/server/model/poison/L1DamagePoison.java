@@ -80,11 +80,6 @@ public class L1DamagePoison extends L1Poison {
 				_target.setPoisonEffect(1);
 				ranOnce = true;
 			} else {
-				try {
-					Thread.sleep(_damageSpan);
-				} catch (InterruptedException e) {
-					cure();
-				}
 
 				if (!_target.hasSkillEffect(STATUS_POISON)) {
 					cure();
