@@ -158,11 +158,9 @@ public class L1PcInstance extends L1Character {
 				setCurrentHp(0);
 				setGresValid(false);
 
-				while (isTeleport()) {
-					try {
-						Thread.sleep(300);
-					} catch (Exception e) {
-					}
+				if (isTeleport()) {
+					GeneralThreadPool.getInstance().schedule(this,300);
+					return;
 				}
 
 				stopHpRegeneration();
