@@ -440,7 +440,7 @@ public class Client implements Runnable, PacketOutput {
 				channel.writeAndFlush(buffer);
 			}
 		} catch (Exception e) {
-			_log.error("", e);
+			//_log.error("", e);
 			//_log.error("Packet type: " + packet.getClass().getName());
 		}
 
