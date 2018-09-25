@@ -1578,6 +1578,22 @@ public class L1SkillUse {
 	}
 
 	private void runSkill() {
+		
+		//temp debug
+		if (_skill.getRanged() != -1) {
+			if (_user.getLocation().getTileLineDistance(_target.getLocation()) > _skill.getRanged()) {
+				System.out.println("Line Distance Range Check");
+				return;
+			}
+		} else {
+			if (!_user.getLocation().isInScreen(_target.getLocation())) {
+				System.out.println("isInScreen range check");
+				return;
+			}
+		}
+		
+		
+		
 		L1Skill l1skills = SkillTable.getInstance().findBySkillId(_skillId);
 		if (_skillId == LIFE_STREAM) {
 			L1EffectSpawn.getInstance().spawnEffect(81169, _skill.getBuffDuration() * 1000, _targetX, _targetY,
