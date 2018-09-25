@@ -18,11 +18,14 @@
  */
 package l1j.server.server.model;
 
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.L1Map;
 import l1j.server.server.serverpackets.S_Paralysis;
 import l1j.server.server.serverpackets.S_SkillSound;
+import l1j.server.server.serverpackets.S_Teleport;
+import l1j.server.server.utils.Teleportation;
 
 public class L1Teleport {
 
@@ -74,21 +77,21 @@ public class L1Teleport {
 			pc.sendAndBroadcast(packet);
 
 			pc.teleWithDelay((int) (EFFECT_TIME[skillType] * 0.7),x,y,mapId,head,ignorePets);
-//			try {
-//				Thread.sleep((int) (EFFECT_TIME[skillType] * 0.7));
-//			} catch (Exception e) {
-//			}
+
+		} else {
+			pc.setTeleportX(x);
+			pc.setTeleportY(y);
+			pc.setTeleportMapId(mapId);
+			pc.setTeleportHeading(head);
+			if (Config.SEND_PACKET_BEFORE_TELEPORT) {
+				pc.sendPackets(new S_Teleport(pc));
+			} else {
+				Teleportation.teleport(pc, ignorePets);
+			}
+
 		}
 
-//		pc.setTeleportX(x);
-//		pc.setTeleportY(y);
-//		pc.setTeleportMapId(mapId);
-//		pc.setTeleportHeading(head);
-//		if (Config.SEND_PACKET_BEFORE_TELEPORT) {
-//			pc.sendPackets(new S_Teleport(pc));
-//		} else {
-//			Teleportation.teleport(pc, ignorePets);
-//		}
+
 	}
 
 	public static void teleportToTargetFront(L1Character cha,
