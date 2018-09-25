@@ -88,7 +88,9 @@ public class Client implements Runnable, PacketOutput {
 	private int _loginStatus = 0;
 	public Channel channel;
 
-	private ConcurrentLinkedQueue<byte[]> queue = new ConcurrentLinkedQueue<byte[]>();
+	private ConcurrentLinkedQueue<byte[]> recvqueue = new ConcurrentLinkedQueue<byte[]>();
+	private ConcurrentLinkedQueue<ServerBasePacket> sendqueue = new ConcurrentLinkedQueue<ServerBasePacket>();
+
 	private long longest;
 
 	private class LogoutDelay implements Runnable {
@@ -300,7 +302,7 @@ public class Client implements Runnable, PacketOutput {
 	}
 
 	public ConcurrentLinkedQueue<byte[]> getQueue() {
-		return queue;
+		return recvqueue;
 	}
 
 	public void handleDisconnect() {
@@ -351,6 +353,10 @@ public class Client implements Runnable, PacketOutput {
 
 	@Override
 	public synchronized void run() {
+
+		if (sendqueue.size() > 0) {
+			sendPacket();
+		}
 		long start = System.currentTimeMillis();
 		int opcode = 0;
 		try {
@@ -360,7 +366,7 @@ public class Client implements Runnable, PacketOutput {
 			_log.error("", e1);
 		}
 		byte[] data;
-		data = queue.poll();
+		data = recvqueue.poll();
 		if (data != null) {
 			opcode = data[0] & 0xFF;
 
@@ -411,30 +417,39 @@ public class Client implements Runnable, PacketOutput {
 		return;
 	}
 
-	@Override
-	public synchronized void sendPacket(ServerBasePacket packet) {
+	public void sendPacket() {
 		try {
-			byte abyte0[] = packet.getContent();
-			if (abyte0.length < 4) {
-				_log.info("Something tried to send a bad/empty packet");
-				_log.info("Packet type: " + packet.getClass().getName());
-				_log.info("Packet Length: " + abyte0.length);
-				return;
+			ServerBasePacket packet = sendqueue.poll();
+			if (packet != null) {
+				byte abyte0[] = packet.getContent();
+				if (abyte0.length < 4) {
+					_log.info("Something tried to send a bad/empty packet");
+					_log.info("Packet type: " + packet.getClass().getName());
+					_log.info("Packet Length: " + abyte0.length);
+					return;
+				}
+				char ac[] = new char[abyte0.length];
+				ac = UChar8.fromArray(abyte0);
+				ac = L1JEncryption.encrypt(ac, get_clkey());
+				abyte0 = UByte8.fromArray(ac);
+				int j = abyte0.length + 2;
+				ByteBuf buffer = channel.alloc().buffer(j);
+				buffer.writeByte(j & 0xff);
+				buffer.writeByte(j >> 8 & 0xff);
+				buffer.writeBytes(abyte0);
+				channel.writeAndFlush(buffer);
 			}
-			char ac[] = new char[abyte0.length];
-			ac = UChar8.fromArray(abyte0);
-			ac = L1JEncryption.encrypt(ac, get_clkey());
-			abyte0 = UByte8.fromArray(ac);
-			int j = abyte0.length + 2;
-			ByteBuf buffer = channel.alloc().buffer(j);
-			buffer.writeByte(j & 0xff);
-			buffer.writeByte(j >> 8 & 0xff);
-			buffer.writeBytes(abyte0);
-			channel.writeAndFlush(buffer);
 		} catch (Exception e) {
-			_log.error("",e);
-			_log.error("Packet type: " + packet.getClass().getName());
+			//_log.error("", e);
+			//_log.error("Packet type: " + packet.getClass().getName());
 		}
+
+	}
+
+	@Override
+	public void sendPacket(ServerBasePacket packet) {
+		sendqueue.offer(packet);
+		NetworkServer.getInstance().getClientQueue().offer(this);
 
 	}
 
@@ -463,6 +478,6 @@ public class Client implements Runnable, PacketOutput {
 	}
 
 	public void setQueue(ConcurrentLinkedQueue<byte[]> queue) {
-		this.queue = queue;
+		this.recvqueue = queue;
 	}
 }

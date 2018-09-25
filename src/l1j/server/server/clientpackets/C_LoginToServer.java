@@ -407,7 +407,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		accountsWithIcons.add(character.getAccountName());
 
 		for (L1Clan clan : L1World.getInstance().getAllClans()) {
-			character.sendPackets(new S_Emblem(clan.getClanId()));
+			//character.sendPackets(new S_Emblem(clan.getClanId()));
 		}
 	}
 
