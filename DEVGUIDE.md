@@ -6,10 +6,12 @@ to. I'll try to write a small "Getting started/switching from SVN" guide soon.
 
 For an extremely condensed version:
 
-1. Checkout with: `git clone https://username@github.com/l1j/en.git`
+1. Checkout with: `git clone https://username@l1j.org:l1j/classic.git`
 
-2. Make a change, then commit (commit isn't like an SVN commit.  It only
-commits it to your own local "branch".  `git commit -a`
+2. Switch to the appropriate branch (probably dev). `git checkout dev`
+
+3. Make a change, then commit (commit isn't like an SVN commit.  It only
+commits it to your own local "branch").  `git commit -am "Fix some stuff"`
 
 3. Push the change upstream (this is where it acts like an SVN commit and
 pushes it to the main repo)  `git push`
@@ -41,6 +43,3 @@ to come naturally very quickly, and the benefits are enormous.  Some of the
 commands have the same name as the old SVN commands, but work a little
 differently.  That can cause some confusion but again you get used to it very
 quickly..
-
-
-
