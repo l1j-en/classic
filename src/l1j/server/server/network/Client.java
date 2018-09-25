@@ -423,7 +423,7 @@ public class Client implements Runnable, PacketOutput {
 			ServerBasePacket packet = sendqueue.poll();
 			if (packet != null) {
 				byte abyte0[] = packet.getContent();
-				if (abyte0.length < 4) {
+				if (abyte0.length < 4 && !packet.getClass().getName().equals("l1j.server.server.serverpackets.S_Emblem")) {
 					_log.info("Something tried to send a bad/empty packet");
 					_log.info("Packet type: " + packet.getClass().getName());
 					_log.info("Packet Length: " + abyte0.length);
