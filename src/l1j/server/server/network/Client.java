@@ -353,7 +353,7 @@ public class Client implements Runnable, PacketOutput {
 
 	@Override
 	public synchronized void run() {
-		
+
 		if (sendqueue.size() > 0) {
 			sendPacket();
 		}
@@ -419,11 +419,10 @@ public class Client implements Runnable, PacketOutput {
 
 	public void sendPacket() {
 		try {
-
 			ServerBasePacket packet = sendqueue.poll();
 			if (packet != null) {
 				byte abyte0[] = packet.getContent();
-				if (abyte0.length < 4 && !packet.getClass().getName().equals("l1j.server.server.serverpackets.S_Emblem")) {
+				if (abyte0.length < 4) {
 					_log.info("Something tried to send a bad/empty packet");
 					_log.info("Packet type: " + packet.getClass().getName());
 					_log.info("Packet Length: " + abyte0.length);
@@ -442,13 +441,13 @@ public class Client implements Runnable, PacketOutput {
 			}
 		} catch (Exception e) {
 			_log.error("", e);
-			// _log.error("Packet type: " + packet.getClass().getName());
+			//_log.error("Packet type: " + packet.getClass().getName());
 		}
 
 	}
 
 	@Override
-	public synchronized void sendPacket(ServerBasePacket packet) {
+	public void sendPacket(ServerBasePacket packet) {
 		sendqueue.offer(packet);
 		NetworkServer.getInstance().getClientQueue().offer(this);
 
