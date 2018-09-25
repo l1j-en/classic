@@ -135,7 +135,7 @@ public class Point {
 	 * @return The object is to see whether the screen.
 	 */
 	public boolean isInScreen(Point pt) {
-		System.out.println("Checking isInScreen");
+		
 		int dist = this.getTileDistance(pt);
 
 		if (dist > 17) {

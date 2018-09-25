@@ -869,10 +869,12 @@ public class L1SkillUse {
 
 			if (_skill.getRanged() != -1) {
 				if (_user.getLocation().getTileLineDistance(_target.getLocation()) > _skill.getRanged()) {
+					System.out.println("Line Distance Range Check");
 					return;
 				}
 			} else {
 				if (!_user.getLocation().isInScreen(_target.getLocation())) {
+					System.out.println("isInScreen range check");
 					return;
 				}
 			}
