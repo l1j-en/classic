@@ -40,6 +40,16 @@ free to let us know, preferably on the IRC channel.  We always need additional
 help with programming, Lineage 1 domain knowledge (particularly with newer
 game content), and documentation.
 
+### Legal
+
+No one behind this project offers an opinion on the legality of running a private server.
+To the best of our knowledge nothing contained on l1j.org is a result of taking anything
+directly from the client.  This is a "clean room" implementation of a server compatible
+with the client. 
+
+We will not accept contributions that go against this.  Create it yourself or we don't
+want it. Any commits that potentially violate copyright/trademark law will be rejected.
+
 ### License
 
 Distributed under the GNU General Public License, version 2.
