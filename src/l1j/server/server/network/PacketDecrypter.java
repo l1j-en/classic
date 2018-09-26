@@ -42,8 +42,16 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+		
+		//I think this will silence those annoying exceptions on disconnects
+		if (cause instanceof java.io.IOException) {
+		} else {
 		_log.error("",cause);
-		ctx.close();
+		}
+		try {
+			ctx.close();
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
