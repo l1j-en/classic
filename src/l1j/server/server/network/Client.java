@@ -354,6 +354,7 @@ public class Client implements Runnable, PacketOutput {
 	@Override
 	public synchronized void run() {
 
+		try {
 		if (sendqueue.size() > 0) {
 			sendPacket();
 		}
@@ -415,6 +416,9 @@ public class Client implements Runnable, PacketOutput {
 			_log.error("Elapse: " + elapse);
 		}
 		return;
+		} catch (Exception e) {
+			_log.error("",e);
+		}
 	}
 
 	public void sendPacket() {
