@@ -48,7 +48,7 @@ public class C_CreateParty extends ClientBasePacket {
 					return;
 				}
 				
-				if (pc.getLocation()
+				if (pc.getMapId() != targetPc.getMapId() || pc.getLocation()
 						.getTileLineDistance(targetPc.getLocation()) > 5) {
 					return;
 				}

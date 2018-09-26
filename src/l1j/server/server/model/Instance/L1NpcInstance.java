@@ -451,6 +451,9 @@ public class L1NpcInstance extends L1Character {
 				attackTarget(target);
 			} else {
 				if (getPassispeed() > 0) {
+					if (getMapId() != target.getMapId()) {
+						return;
+					}
 					int distance = getLocation().getTileDistance(target.getLocation());
 					if (firstFound == true && getNpcTemplate().is_teleport() && distance > 3 && distance < 15) {
 						if (nearTeleport(target.getX(), target.getY()) == true) {
