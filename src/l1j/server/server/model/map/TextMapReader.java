@@ -71,8 +71,6 @@ public class TextMapReader extends MapReader {
 	 */
 	public byte[][] read(final int mapId, final int xSize, final int ySize)
 									throws IOException {
-		//temporary
-		System.out.println("MapID: " + mapId);
 		byte[][] map = new byte[xSize][ySize];
 		LineNumberReader in = new LineNumberReader(new BufferedReader(
 										new FileReader(MAP_DIR + mapId + ".txt")));
