@@ -40,4 +40,5 @@ update mapids set endX = 32959, startY = 32704, endY = 32959 where mapid = 2002;
 update mapids set endX = 32959, startY = 32704 where mapid = 2003;
 update mapids set endY = 32895 where mapid = 2004;
 update mapids set startX = 32512, endX = 33023 where mapid = 1001;
+update mapids set startX = 32448 where mapid = 4;
 
