@@ -50,7 +50,8 @@ public class L1WorldMap {
 		} catch (Exception e) {
 			// No return
 			_log.error(e.getLocalizedMessage(), e);
-			System.exit(0);
+			//temporarily allow these to fail
+			//System.exit(0);
 		}
 		_log.info("            OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
