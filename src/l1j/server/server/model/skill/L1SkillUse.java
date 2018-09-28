@@ -867,6 +867,9 @@ public class L1SkillUse {
 				return;
 			}
 
+			if (_user.getLocation().getMapId() != _target.getLocation().getMapId()) {
+				return;
+			}
 			if (_skill.getRanged() != -1) {
 				if (_user.getLocation().getTileLineDistance(_target.getLocation()) > _skill.getRanged()) {
 					return;
