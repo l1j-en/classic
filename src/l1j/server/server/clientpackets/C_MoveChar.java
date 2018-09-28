@@ -37,6 +37,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.trap.L1WorldTraps;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_MoveCharPacket;
+import l1j.server.server.serverpackets.S_Paralysis;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -140,5 +141,7 @@ public class C_MoveChar extends ClientBasePacket {
 		L1WorldTraps.getInstance().onPlayerMoved(pc);
 		pc.getMap().setPassable(pc.getLocation(), false);
 		// user.UpdateObject();
+		//weird test
+		pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 	}
 }
