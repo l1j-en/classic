@@ -18,7 +18,8 @@
  */
 package l1j.server.server;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -31,7 +32,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
  */
 public class Shutdown extends Thread {
 
-	private static Logger _log = Logger.getLogger(Shutdown.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Shutdown.class.getName());
 	private static Shutdown _instance;
 	private static Shutdown _counterInstance = null;
 	private int secondsShut;
@@ -115,7 +116,7 @@ public class Shutdown extends Thread {
 			// sequence
 			countdown();
 			// last point where logging is operational :(
-			_log.warning("GM shutdown countdown is over. "
+			_log.warn("GM shutdown countdown is over. "
 					+ _modeText[shutdownMode] + " NOW!");
 			switch (shutdownMode) {
 			case GM_SHUTDOWN:
@@ -143,7 +144,7 @@ public class Shutdown extends Thread {
 	public void startShutdown(L1PcInstance activeChar, int seconds,
 			boolean restart) {
 		Announcements _an = Announcements.getInstance();
-		_log.warning("GM: " + activeChar.getId() + " issued shutdown command. "
+		_log.warn("GM: " + activeChar.getId() + " issued shutdown command. "
 				+ _modeText[shutdownMode] + " in " + seconds + " seconds!");
 		_an.announceToAll("Server is " + _modeText[shutdownMode] + " in "
 				+ seconds + " seconds!");
@@ -166,7 +167,7 @@ public class Shutdown extends Thread {
 	 */
 	public void abort(L1PcInstance activeChar) {
 		Announcements _an = Announcements.getInstance();
-		_log.warning("GM: " + activeChar.getName() + " issued shutdown ABORT. ");
+		_log.warn("GM: " + activeChar.getName() + " issued shutdown ABORT. ");
 		_an.announceToAll("Server aborts shutdown and continues normal operation!");
 
 		if (_counterInstance != null) {
@@ -298,7 +299,7 @@ public class Shutdown extends Thread {
 
 	public void startTelnetShutdown(String IP, int seconds, boolean restart) {
 		Announcements _an = Announcements.getInstance();
-		_log.warning("IP: " + IP + " issued shutdown command. "
+		_log.warn("IP: " + IP + " issued shutdown command. "
 				+ _modeText[shutdownMode] + " in " + seconds + " seconds!");
 		_an.announceToAll("Server is " + _modeText[shutdownMode] + " in "
 				+ seconds + " seconds!");
@@ -318,7 +319,7 @@ public class Shutdown extends Thread {
 	 */
 	public void Telnetabort(String IP) {
 		Announcements _an = Announcements.getInstance();
-		_log.warning("IP: " + IP + " issued shutdown ABORT. "
+		_log.warn("IP: " + IP + " issued shutdown ABORT. "
 				+ _modeText[shutdownMode] + " has been stopped!");
 		_an.announceToAll("Server aborts " + _modeText[shutdownMode]
 				+ " and continues normal operation!");

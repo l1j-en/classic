@@ -19,8 +19,9 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -32,7 +33,7 @@ public class L1Clan {
 	public static final int CLAN_RANK_GUARDIAN = 3;
 	public static final int CLAN_RANK_PRINCE = 4;
 
-	private static final Logger _log = Logger.getLogger(L1Clan.class.getName());
+	private static final Logger _log = LoggerFactory.getLogger(L1Clan.class.getName());
 
 	private int _clanId;
 
@@ -165,7 +166,7 @@ public class L1Clan {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return result;
 	}

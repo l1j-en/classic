@@ -25,8 +25,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
@@ -52,7 +53,7 @@ public final class MapsTable {
 		public boolean isUsableSkill = false;
 	}
 
-	private static Logger _log = Logger.getLogger(MapsTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(MapsTable.class.getName());
 	private static MapsTable _instance;
 
 	/**
@@ -102,9 +103,9 @@ public final class MapsTable {
 				data.isUsableSkill = rs.getBoolean("usable_skill");
 				_maps.put(new Integer(mapId), data);
 			}
-			_log.config("Maps " + _maps.size());
+			_log.info("Maps " + _maps.size());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

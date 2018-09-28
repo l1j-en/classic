@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -32,7 +33,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogElfDwarfOut {
-	private static Logger _log = Logger.getLogger(LogElfDwarfOut.class
+	private static Logger _log = LoggerFactory.getLogger(LogElfDwarfOut.class
 			.getName());
 	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
@@ -68,7 +69,7 @@ public class LogElfDwarfOut {
 			pstm.setInt(14, count_diff);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

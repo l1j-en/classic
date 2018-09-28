@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.datatables.ItemTable;
@@ -32,6 +32,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Castle;
@@ -41,14 +42,15 @@ import l1j.server.server.templates.L1Castle;
 public class C_Drawal extends ClientBasePacket {
 
 	private static final String C_DRAWAL = "[C] C_Drawal";
-	private static Logger _log = Logger.getLogger(C_Drawal.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Drawal.class.getName());
 
-	public C_Drawal(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Drawal(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
+		@SuppressWarnings("unused")
 		int i = readD();
 		int j = readD();
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		// additional dupe checks. Thanks Mike
 		if (pc.getOnlineStatus() != 1) {
 			if (Config.AUTO_BAN) {

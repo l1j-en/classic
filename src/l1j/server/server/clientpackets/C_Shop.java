@@ -19,18 +19,19 @@
 package l1j.server.server.clientpackets;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_DoActionShop;
@@ -44,12 +45,12 @@ import l1j.server.server.templates.L1PrivateShopSellList;
 public class C_Shop extends ClientBasePacket {
 
 	private static final String C_SHOP = "[C] C_Shop";
-	private static Logger _log = Logger.getLogger(C_Shop.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Shop.class.getName());
 
-	public C_Shop(byte abyte0[], ClientThread clientthread) {
+	public C_Shop(byte abyte0[], Client client) {
 		super(abyte0);
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}
@@ -207,7 +208,7 @@ public class C_Shop extends ClientBasePacket {
 				int sellCountLog = sellList.size();
 				
 				stopShop(pc, sellList, buyList);
-				_log.log(Level.WARNING, 
+				_log.warn(
 						String.format("Character '%s' attempted to add more than 8 items to sell/buy shop. " + 
 								"Disconnecting user. Sell Count: %d, Buy Count: %d",
 								pc.getName(), sellCountLog, buyCountLog));

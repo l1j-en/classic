@@ -16,9 +16,10 @@
  */
 package l1j.server.server.model;
 
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.MobGroupTable;
 import l1j.server.server.datatables.NpcTable;
@@ -32,12 +33,11 @@ import l1j.server.server.templates.L1NpcCount;
 // L1MobGroupSpawn
 public class L1MobGroupSpawn {
 
-	private static final Logger _log = Logger.getLogger(L1MobGroupSpawn.class
+	private static final Logger _log = LoggerFactory.getLogger(L1MobGroupSpawn.class
 			.getName());
 
 	private static L1MobGroupSpawn _instance;
-	private static Random _random = new Random();
-	private boolean _isRespawnScreen;
+ 	private boolean _isRespawnScreen;
 	private boolean _isInitSpawn;
 
 	private L1MobGroupSpawn() {
@@ -85,8 +85,8 @@ public class L1MobGroupSpawn {
 			mob.setMap(leader.getMapId());
 			mob.setMovementDistance(leader.getMovementDistance());
 			mob.setRest(leader.isRest());
-			mob.setX(leader.getX() + _random.nextInt(5) - 2);
-			mob.setY(leader.getY() + _random.nextInt(5) - 2);
+			mob.setX(leader.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+			mob.setY(leader.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
 			if (!canSpawn(mob)) {
 				mob.setX(leader.getX());
 				mob.setY(leader.getY());
@@ -114,7 +114,7 @@ public class L1MobGroupSpawn {
 			mob.turnOnOffLight();
 			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return mob;
 	}

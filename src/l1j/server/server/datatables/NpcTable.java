@@ -27,8 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -36,7 +37,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class NpcTable {
-	static Logger _log = Logger.getLogger(NpcTable.class.getName());
+	static Logger _log = LoggerFactory.getLogger(NpcTable.class.getName());
 	private final boolean _initialized;
 	private static NpcTable _instance;
 	private final HashMap<Integer, L1Npc> _npcs = new HashMap<Integer, L1Npc>();
@@ -67,7 +68,7 @@ public class NpcTable {
 			Constructor<?> con = Class.forName(implFullName).getConstructors()[0];
 			return con;
 		} catch (ClassNotFoundException e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 		return null;
 	}
@@ -167,7 +168,7 @@ public class NpcTable {
 				_npcs.put(npcId, npc);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -205,7 +206,7 @@ public class NpcTable {
 			Constructor<?> con = _constructorCache.get(template.getImpl());
 			return (L1NpcInstance) con.newInstance(new Object[] { template });
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return null;
 	}
@@ -226,7 +227,7 @@ public class NpcTable {
 				result.put(family, id++);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

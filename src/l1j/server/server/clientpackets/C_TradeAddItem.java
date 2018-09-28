@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogTradeBugItem;
 import l1j.server.server.model.L1CheckPcItem;
@@ -32,6 +32,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -39,10 +40,10 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 // ClientBasePacket
 public class C_TradeAddItem extends ClientBasePacket {
 	private static final String C_TRADE_ADD_ITEM = "[C] C_TradeAddItem";
-	private static Logger _log = Logger.getLogger(C_TradeAddItem.class
+	private static Logger _log = LoggerFactory.getLogger(C_TradeAddItem.class
 			.getName());
 
-	public C_TradeAddItem(byte abyte0[], ClientThread client) throws Exception {
+	public C_TradeAddItem(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int itemid = readD();
@@ -80,7 +81,7 @@ public class C_TradeAddItem extends ClientBasePacket {
 			return;
 		}
 		if (itemid != item.getId()) {
-			_log.warning(pc.getName() + " had item " + Integer.toString(itemid)
+			_log.warn(pc.getName() + " had item " + Integer.toString(itemid)
 					+ " not match.");
 		}
 		L1Trade trade = new L1Trade();

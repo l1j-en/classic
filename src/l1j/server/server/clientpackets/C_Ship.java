@@ -18,12 +18,13 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.GetBackTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_OwnCharPack;
 import l1j.server.server.templates.L1GetBack;
 
@@ -33,9 +34,9 @@ public class C_Ship extends ClientBasePacket {
 
 	private static final String C_SHIP = "[C] C_Ship";
 	private static final int MAX_DISTANCE = 20;
-	private static Logger _log = Logger.getLogger(C_Ship.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Ship.class.getName());
 
-	public C_Ship(byte abyte0[], ClientThread client) {
+	public C_Ship(byte abyte0[], Client client) {
 		super(abyte0);
 
 		// ignore these and look up the information from the DB instead
@@ -51,7 +52,7 @@ public class C_Ship extends ClientBasePacket {
 		// since the coord seems to be a few places around the dock, and I didn't want to bother finding them all
 		// I am just doing a generic check for them being within <MAX_DISTANCE> cells of the place the client is trying to send
 		if(getBack == null || !validXCoord(getBack, locX) || !validYCoord(getBack, locY)) {
-			_log.warning(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
+			_log.warn(String.format("%s attempted to exploit C_SHIP to move to X: %d, Y: %d, MapId: %d.", pc.getName(), locX, locY, shipMapId));
 			return;
 		}
 

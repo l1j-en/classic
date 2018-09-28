@@ -19,11 +19,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1CharName;
@@ -35,7 +35,7 @@ public class C_AddBuddy extends ClientBasePacket {
 
 	private static final String C_ADD_BUDDY = "[C] C_AddBuddy";
 
-	public C_AddBuddy(byte[] decrypt, ClientThread client) {
+	public C_AddBuddy(byte[] decrypt, Client client) {
 		super(decrypt);
 		L1PcInstance pc = client.getActiveChar();
 		BuddyTable buddyTable = BuddyTable.getInstance();

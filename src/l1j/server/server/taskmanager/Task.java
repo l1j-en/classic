@@ -18,7 +18,9 @@
 package l1j.server.server.taskmanager;
 
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.taskmanager.TaskManager.ExecutedTask;
@@ -28,7 +30,7 @@ import l1j.server.server.taskmanager.TaskManager.ExecutedTask;
  * 
  */
 public abstract class Task {
-	private static Logger _log = Logger.getLogger(Task.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Task.class.getName());
 
 	public void initializate() {
 		if (Config.DEBUG) {

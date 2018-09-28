@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.log.LogDropItem;
 import l1j.server.server.model.L1Inventory;
@@ -31,16 +31,17 @@ import l1j.server.server.model.Instance.L1DollInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.types.Point;
 
 public class C_DropItem extends ClientBasePacket {
-	private static Logger _log = Logger.getLogger(C_DropItem.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_DropItem.class.getName());
 	private static final String C_DROP_ITEM = "[C] C_DropItem";
 
-	public C_DropItem(byte[] decrypt, ClientThread client) throws Exception {
+	public C_DropItem(byte[] decrypt, Client client) throws Exception {
 		super(decrypt);
 		int x = readH();
 		int y = readH();
@@ -119,7 +120,7 @@ public class C_DropItem extends ClientBasePacket {
 				return;
 			}
 			if (objectId != item.getId()) {
-				_log.warning(pc.getName() + " had item "
+				_log.warn(pc.getName() + " had item "
 						+ Integer.toString(objectId) + " not match.");
 			}
 

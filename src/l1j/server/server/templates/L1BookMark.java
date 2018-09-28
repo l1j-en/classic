@@ -22,8 +22,9 @@ package l1j.server.server.templates;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
@@ -33,7 +34,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1BookMark {
-	private static Logger _log = Logger.getLogger(L1BookMark.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1BookMark.class.getName());
 	private int _charId;
 	private int _id;
 	private String _name;
@@ -57,7 +58,7 @@ public class L1BookMark {
 				pstm.execute();
 				player.removeBookMark(book);
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE,
+				_log.error(
 						"Bookmark to remove the error occurred.", e);
 			} finally {
 				SQLUtil.close(pstm);
@@ -104,7 +105,7 @@ public class L1BookMark {
 				pstm.setInt(6, bookmark.getMapId());
 				pstm.execute();
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, "Add Bookmark error has occurred.", e);
+				_log.error("Add Bookmark error has occurred.", e);
 			} finally {
 				SQLUtil.close(pstm);
 				SQLUtil.close(con);

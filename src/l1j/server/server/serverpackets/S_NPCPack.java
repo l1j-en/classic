@@ -18,8 +18,6 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.L1NpcTalkData;
@@ -31,15 +29,15 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_NPCPack extends ServerBasePacket {
 	private static final String S_NPC_PACK = "[S] S_NPCPack";
-	private static Logger _log = Logger.getLogger(S_NPCPack.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_NPCPack.class.getName());
 	private static final int STATUS_POISON = 1;
-	private static final int STATUS_INVISIBLE = 2;
+//	private static final int STATUS_INVISIBLE = 2;
 	private static final int STATUS_PC = 4;
-	private static final int STATUS_FREEZE = 8;
-	private static final int STATUS_BRAVE = 16;
-	private static final int STATUS_ELFBRAVE = 32;
-	private static final int STATUS_FASTMOVABLE = 64;
-	private static final int STATUS_GHOST = 128;
+//	private static final int STATUS_FREEZE = 8;
+//	private static final int STATUS_BRAVE = 16;
+//	private static final int STATUS_ELFBRAVE = 32;
+//	private static final int STATUS_FASTMOVABLE = 64;
+//	private static final int STATUS_GHOST = 128;
 	private byte[] _byte = null;
 	
 	public S_NPCPack(L1NpcInstance npc, ServerBasePacket basePacket) {

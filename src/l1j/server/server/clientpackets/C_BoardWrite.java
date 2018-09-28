@@ -22,12 +22,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BoardTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
@@ -35,6 +35,7 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.item.L1ItemId;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
@@ -43,9 +44,9 @@ import l1j.server.server.utils.SQLUtil;
 public class C_BoardWrite extends ClientBasePacket {
 
 	private static final String C_BOARD_WRITE = "[C] C_BoardWrite";
-	private static Logger _log = Logger.getLogger(C_BoardWrite.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_BoardWrite.class.getName());
 
-	public C_BoardWrite(byte decrypt[], ClientThread client) {
+	public C_BoardWrite(byte decrypt[], Client client) {
 		super(decrypt);
 		int id = readD();
 		String date = currentTime();
@@ -80,7 +81,7 @@ public class C_BoardWrite extends ClientBasePacket {
 							player.sendPackets(new S_SystemMessage(pc.getName() + " has submitted a bug!"));
 					}
 				} catch (Exception e) {
-					_log.log(Level.WARNING, 
+					_log.warn(
 							String.format("%s submitted a bug report, but an error occurred! Bug Text: %s",
 									pc.getName(), content));
 				} finally {
@@ -94,7 +95,7 @@ public class C_BoardWrite extends ClientBasePacket {
 				BoardTable.getInstance().writeTopic(pc, date, title, content);
 			}
 		} else {
-			_log.warning("C_BoardWrite: Illegal NPCID : " + id);
+			_log.warn("C_BoardWrite: Illegal NPCID : " + id);
 		}
 	}
 

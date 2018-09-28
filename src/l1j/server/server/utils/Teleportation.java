@@ -22,8 +22,10 @@ import static l1j.server.server.model.skill.L1SkillId.BLOODLUST;
 import static l1j.server.server.model.skill.L1SkillId.WIND_SHACKLE;
 
 import java.util.HashSet;
-import java.util.Random;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.command.executor.L1Follow;
 import l1j.server.server.model.L1Clan;
@@ -51,18 +53,16 @@ import l1j.server.server.serverpackets.S_SummonPack;
 // Referenced classes of package l1j.server.server.utils:
 // FaceToFace
 public class Teleportation {
-	private static Logger _log = Logger
-			.getLogger(Teleportation.class.getName());
-	private static Random _random = new Random();
-
+	private static Logger _log =LoggerFactory			.getLogger(Teleportation.class.getName());
+ 
 	private Teleportation() {
 	}
 	
-	public static void Teleportation(L1PcInstance pc) {
-		Teleportation(pc, false);
+	public static void teleport(L1PcInstance pc) {
+		teleport(pc, false);
 	}
 
-	public static void Teleportation(L1PcInstance pc, boolean ignorePets) {
+	public static void teleport(L1PcInstance pc, boolean ignorePets) {
 		if (pc.isDead() || pc.isTeleport()) {
 			return;
 		}
@@ -133,8 +133,8 @@ public class Teleportation {
 						if (pc.getMapId() == 5125 || pc.getMapId() == 5131
 								|| pc.getMapId() == 5132 || pc.getMapId() == 5133
 								|| pc.getMapId() == 5134) {
-							nx = 32799 + _random.nextInt(5) - 3;
-							ny = 32864 + _random.nextInt(5) - 3;
+							nx = 32799 + ThreadLocalRandom.current().nextInt(5) - 3;
+							ny = 32864 + ThreadLocalRandom.current().nextInt(5) - 3;
 						}
 						teleport(petNpc, nx, ny, mapId, head);
 						if (petNpc instanceof L1SummonInstance) {
@@ -199,7 +199,7 @@ public class Teleportation {
 			if(followingGm != null)
 				L1Follow.moveChar(pc,  followingGm);
 		} catch(Exception ex) { 
-			_log.warning("L1Follow Teleport: " + ex.getMessage());
+			_log.warn("L1Follow Teleport: " + ex.getMessage());
 		}
 
 		if (pc.hasSkillEffect(WIND_SHACKLE)) {

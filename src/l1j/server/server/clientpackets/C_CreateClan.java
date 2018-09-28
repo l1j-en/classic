@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.ClanTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -32,14 +32,14 @@ public class C_CreateClan extends ClientBasePacket {
 
 	private static final String C_CREATE_CLAN = "[C] C_CreateClan";
 
-	public C_CreateClan(byte abyte0[], ClientThread clientthread)
+	public C_CreateClan(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 		String s = readS().replace(" ","");
 		// TODO Never used
 		// int i = s.length();
 
-		L1PcInstance l1pcinstance = clientthread.getActiveChar();
+		L1PcInstance l1pcinstance = client.getActiveChar();
 		if (l1pcinstance.isCrown()) {
 			if (l1pcinstance.getClanid() == 0) {
 

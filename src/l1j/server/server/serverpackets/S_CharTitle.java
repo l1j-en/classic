@@ -38,6 +38,6 @@ public class S_CharTitle extends ServerBasePacket {
 
 	@Override
 	public String getType() {
-		return "[S] S_CharTitle";
+		return _S__0B_CHARTITLE;
 	}
 }

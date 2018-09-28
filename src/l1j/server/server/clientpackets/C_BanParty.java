@@ -18,8 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -28,7 +28,7 @@ public class C_BanParty extends ClientBasePacket {
 
 	private static final String C_BAN_PARTY = "[C] C_BanParty";
 
-	public C_BanParty(byte decrypt[], ClientThread client) throws Exception {
+	public C_BanParty(byte decrypt[], Client client) throws Exception {
 		super(decrypt);
 		String s = readS();
 

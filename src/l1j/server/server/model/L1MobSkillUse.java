@@ -27,8 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -50,8 +51,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
 
 public class L1MobSkillUse {
-	private static Logger _log = Logger
-			.getLogger(L1MobSkillUse.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1MobSkillUse.class.getName());
 
 	private L1MobSkill _mobSkillTemplate = null;
 	private L1NpcInstance _attacker = null;
@@ -289,7 +289,7 @@ public class L1MobSkillUse {
 
 			for (L1Object obj : objs) {
 				if (L1World.getInstance().findObject(obj.getId()) == null) {
-					_log.severe("L1MobSkillUse:physicalAttack: visibleBoxObject obj missing from L1World._allObjects!\n"
+					_log.error("L1MobSkillUse:physicalAttack: visibleBoxObject obj missing from L1World._allObjects!\n"
 							+ obj.toString()
 							+ " Id: "
 							+ obj.getId()
@@ -543,11 +543,11 @@ public class L1MobSkillUse {
 					newnpc.turnOnOffLight();
 					newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

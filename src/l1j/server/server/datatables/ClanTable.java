@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
@@ -37,7 +38,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class ClanTable {
-	private static Logger _log = Logger.getLogger(ClanTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(ClanTable.class.getName());
 	private final HashMap<Integer, L1Clan> _clans = new HashMap<Integer, L1Clan>();
 	private static ClanTable _instance;
 
@@ -71,7 +72,7 @@ public class ClanTable {
 					_clans.put(clan_id, clan);
 				}
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			} finally {
 				SQLUtil.close(rs);
 				SQLUtil.close(pstm);
@@ -93,7 +94,7 @@ public class ClanTable {
 					clan.addMemberName(rs.getString(1));
 				}
 			} catch (SQLException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			} finally {
 				SQLUtil.close(rs);
 				SQLUtil.close(pstm);
@@ -133,7 +134,7 @@ public class ClanTable {
 			pstm.setInt(6, clan.getHouseId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -148,7 +149,7 @@ public class ClanTable {
 			// DB
 			player.save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return clan;
 	}
@@ -168,7 +169,7 @@ public class ClanTable {
 			pstm.setString(6, clan.getClanName());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -190,7 +191,7 @@ public class ClanTable {
 			pstm.setString(1, clan_name);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

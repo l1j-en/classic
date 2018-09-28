@@ -24,8 +24,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1World;
@@ -36,7 +37,7 @@ import l1j.server.server.utils.collections.Maps;
 
 public class SkillTable {
 
-	private static Logger _log = Logger.getLogger(SkillTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(SkillTable.class.getName());
 	private static SkillTable _instance;
 	private final Map<Integer, L1Skill> _skills = Maps.newHashMap();
 
@@ -103,7 +104,7 @@ public class SkillTable {
 			pstm.setInt(5, time);
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -129,7 +130,7 @@ public class SkillTable {
 			pstm.setInt(2, skillid);
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(pstm);
@@ -153,7 +154,7 @@ public class SkillTable {
 				return true;
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 
 		} finally {
 			SQLUtil.close(rs);

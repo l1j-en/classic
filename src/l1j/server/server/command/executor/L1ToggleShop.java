@@ -1,13 +1,13 @@
 package l1j.server.server.command.executor;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.templates.L1Npc;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 // this command disables the buy/sell option for all shops or specific shops if
 // the npc name is specified

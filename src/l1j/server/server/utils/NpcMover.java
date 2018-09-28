@@ -19,7 +19,9 @@
 package l1j.server.server.utils;
 
 import java.util.Random;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.NpcSpawnTable;
@@ -30,7 +32,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class NpcMover {
-	private static final Logger _log = Logger.getLogger(NpcMover.class.getName());
+	private static final Logger _log = LoggerFactory.getLogger(NpcMover.class.getName());
 	
 	public static void Move(int spawnId, int [][] movableLocations) {
 		try {
@@ -51,7 +53,7 @@ public class NpcMover {
 			}
 			
 			if(npcInstance == null) {
-				_log.warning("Unable to move Npc to prevent macroing. Npc not found!");
+				_log.warn("Unable to move Npc to prevent macroing. Npc not found!");
 				return;
 			}
 			
@@ -65,7 +67,7 @@ public class NpcMover {
 					npcInstance.onPerceive((L1PcInstance)object);
 			}
 		} catch(Exception ex) {
-			_log.warning("Unable to move Npc to prevent macroing. Error: " + ex.getMessage());
+			_log.warn("Unable to move Npc to prevent macroing. Error: " + ex.getMessage());
 		}
 	}
 }

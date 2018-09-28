@@ -23,18 +23,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class Getback {
-	private static Logger _log = Logger.getLogger(Getback.class.getName());
-	private static Random _random = new Random();
-	private static HashMap<Integer, ArrayList<Getback>> _getback = new HashMap<Integer, ArrayList<Getback>>();
+	private static Logger _log = LoggerFactory.getLogger(Getback.class.getName());
+ 	private static HashMap<Integer, ArrayList<Getback>> _getback = new HashMap<Integer, ArrayList<Getback>>();
 	private int _areaX1;
 	private int _areaY1;
 	private int _areaX2;
@@ -50,7 +50,7 @@ public class Getback {
 	private int _getbackTownId;
 	private int _getbackTownIdForElf;
 	private int _getbackTownIdForDarkelf;
-	private boolean _escapable;
+//	private boolean _escapable;
 
 	private Getback() {
 	}
@@ -87,7 +87,7 @@ public class Getback {
 				getback._getbackTownIdForElf = rs.getInt("getback_townid_elf");
 				getback._getbackTownIdForDarkelf = rs
 						.getInt("getback_townid_darkelf");
-				getback._escapable = rs.getBoolean("scrollescape");
+	//			getback._escapable = rs.getBoolean("scrollescape");
 				ArrayList<Getback> getbackList = _getback
 						.get(getback._areaMapId);
 				if (getbackList == null) {
@@ -97,7 +97,7 @@ public class Getback {
 				getbackList.add(getback);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "could not Get Getback data", e);
+			_log.error("could not Get Getback data", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -114,7 +114,7 @@ public class Getback {
 	 */
 	public static int[] GetBack_Location(L1PcInstance pc, boolean bScroll_Escape) {
 		int[] loc = new int[3];
-		int nPosition = _random.nextInt(3);
+		int nPosition = ThreadLocalRandom.current().nextInt(3);
 		int pcLocX = pc.getX();
 		int pcLocY = pc.getY();
 		int pcMapId = pc.getMapId();

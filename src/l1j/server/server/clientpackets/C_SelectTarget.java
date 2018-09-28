@@ -18,27 +18,29 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
+import l1j.server.server.network.Client;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_SelectTarget extends ClientBasePacket {
 
 	private static final String C_SELECT_TARGET = "[C] C_SelectTarget";
-	private static Logger _log = Logger.getLogger(C_SelectTarget.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_SelectTarget.class.getName());
 
-	public C_SelectTarget(byte abyte0[], ClientThread clientthread)
+	public C_SelectTarget(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
 		int petId = readD();
+		@SuppressWarnings("unused")
 		int type = readC();
 		int targetId = readD();
 
@@ -46,7 +48,7 @@ public class C_SelectTarget extends ClientBasePacket {
 				petId);
 		L1Character target = (L1Character) L1World.getInstance().findObject(
 				targetId);
-		L1PcInstance player = clientthread.getActiveChar();
+		L1PcInstance player = client.getActiveChar();
 		
 		if (player != pet.getMaster()){
 			_log.info(player.getName() + " Attempted a Pet Select Target Exploit - Not Master (C_SelectTarget).");

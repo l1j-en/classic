@@ -3,7 +3,7 @@ package l1j.server.server.encryptions;
 import l1j.server.server.types.UChar8;
 import l1j.server.server.types.ULong32;
 
-public class LineageBlowfish {
+public class L1JBlowfish {
 
 	private static int[] P = { 0x243F6A88, 0x85A308D3, 0x13198A2E, 0x3707344,
 			0x0A4093822, 0x299F31D0, 0x82EFA98, 0xEC4E6C89, 0x452821E6,

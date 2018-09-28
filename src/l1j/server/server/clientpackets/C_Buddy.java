@@ -19,10 +19,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BuddyTable;
 import l1j.server.server.model.L1Buddy;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Buddy;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -31,9 +31,9 @@ public class C_Buddy extends ClientBasePacket {
 
 	private static final String C_BUDDY = "[C] C_Buddy";
 
-	public C_Buddy(byte abyte0[], ClientThread clientthread) {
+	public C_Buddy(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		L1Buddy buddy = BuddyTable.getInstance().getBuddyTable(pc.getId());
 		pc.sendPackets(new S_Buddy(pc.getId(), buddy));
 	}

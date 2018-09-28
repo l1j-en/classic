@@ -30,10 +30,10 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_CUBE_SHOCK_TO_ENEMY
 import static l1j.server.server.model.skill.L1SkillId.STATUS_FREEZE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_MR_REDUCTION_BY_CUBE_SHOCK;
 
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -42,14 +42,16 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_Paralysis;
 
-public class L1Cube extends TimerTask {
-	private static Logger _log = Logger.getLogger(L1Cube.class.getName());
+public class L1Cube implements Runnable {
+	private static Logger _log = LoggerFactory.getLogger(L1Cube.class.getName());
 
 	private ScheduledFuture<?> _future = null;
 	private int _timeCounter = 0;
 	private final L1Character _effect;
 	private final L1Character _cha;
 	private final int _skillId;
+
+	private String originalThreadName;
 
 	public L1Cube(L1Character effect, L1Character cha, int skillId) {
 		_effect = effect;
@@ -60,6 +62,8 @@ public class L1Cube extends TimerTask {
 	@Override
 	public void run() {
 		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("L1Cube");
 			if (_cha.isDead()) {
 				stop();
 				return;
@@ -71,7 +75,9 @@ public class L1Cube extends TimerTask {
 			_timeCounter++;
 			giveEffect();
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 

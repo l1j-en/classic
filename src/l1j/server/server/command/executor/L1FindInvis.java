@@ -19,6 +19,7 @@
 package l1j.server.server.command.executor;
 
 import static l1j.server.server.model.skill.L1SkillId.GMSTATUS_FINDINVIS;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_RemoveObject;

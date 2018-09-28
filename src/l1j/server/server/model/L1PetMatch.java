@@ -20,8 +20,9 @@ package l1j.server.server.model;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.NpcTable;
@@ -266,7 +267,7 @@ public class L1PetMatch {
 	}
 
 	public class L1PetMatchReadyTimer extends TimerTask {
-		private Logger _log = Logger.getLogger(L1PetMatchReadyTimer.class
+		private Logger _log = LoggerFactory.getLogger(L1PetMatchReadyTimer.class
 				.getName());
 
 		private final int _petMatchNo;
@@ -306,13 +307,13 @@ public class L1PetMatch {
 					return;
 				}
 			} catch (Throwable e) {
-				_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+				_log.warn(e.getLocalizedMessage(), e);
 			}
 		}
 	}
 
 	public class L1PetMatchTimer extends TimerTask {
-		private Logger _log = Logger.getLogger(L1PetMatchTimer.class.getName());
+		private Logger _log = LoggerFactory.getLogger(L1PetMatchTimer.class.getName());
 
 		private final L1PetInstance _pet1;
 		private final L1PetInstance _pet2;
@@ -364,7 +365,7 @@ public class L1PetMatch {
 					}
 				}
 			} catch (Throwable e) {
-				_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+				_log.warn(e.getLocalizedMessage(), e);
 			}
 		}
 	}

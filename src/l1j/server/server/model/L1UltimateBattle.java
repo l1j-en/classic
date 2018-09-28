@@ -27,8 +27,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -84,7 +86,7 @@ public class L1UltimateBattle {
 	private Set<Integer> _managers = new HashSet<Integer>();
 	private SortedSet<Integer> _ubTimes = new TreeSet<Integer>();
 
-	private static final Logger _log = Logger.getLogger(L1UltimateBattle.class
+	private static final Logger _log = LoggerFactory.getLogger(L1UltimateBattle.class
 			.getName());
 
 	private final ArrayList<L1PcInstance> _members = new ArrayList<L1PcInstance>();
@@ -268,9 +270,9 @@ public class L1UltimateBattle {
 				}
 
 				for (L1PcInstance pc : getMembersArray()) {
-					Random random = new Random();
-					int rndx = random.nextInt(4);
-					int rndy = random.nextInt(4);
+					new Random();
+					int rndx = ThreadLocalRandom.current().nextInt(4);
+					int rndy = ThreadLocalRandom.current().nextInt(4);
 					int locx = 33503 + rndx;
 					int locy = 32764 + rndy;
 					short mapid = 4;
@@ -281,15 +283,15 @@ public class L1UltimateBattle {
 				setActive(false);
 				setNowUb(false);
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}
 
 	public void start() {
 		int patternsMax = UBSpawnTable.getInstance().getMaxPattern(_ubId);
-		Random random = new Random();
-		_pattern = random.nextInt(patternsMax) + 1;
+		new Random();
+		_pattern = ThreadLocalRandom.current().nextInt(patternsMax) + 1;
 
 		UbThread ub = new UbThread();
 		GeneralThreadPool.getInstance().execute(ub);
@@ -532,7 +534,7 @@ public class L1UltimateBattle {
 	}
 
 	public boolean canPcEnter(L1PcInstance pc) {
-		_log.log(Level.FINE, "pcname=" + pc.getName() + " ubid=" + _ubId
+		_log.trace("pcname=" + pc.getName() + " ubid=" + _ubId
 				+ " minlvl=" + _minLevel + " maxlvl=" + _maxLevel);
 		if (!IntRange.includes(pc.getLevel(), _minLevel, _maxLevel)) {
 			return false;

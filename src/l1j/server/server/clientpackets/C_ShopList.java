@@ -18,8 +18,8 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_PrivateShop;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -28,13 +28,13 @@ public class C_ShopList extends ClientBasePacket {
 
 	private static final String C_SHOP_LIST = "[C] C_ShopList";
 
-	public C_ShopList(byte abyte0[], ClientThread clientthread) {
+	public C_ShopList(byte abyte0[], Client client) {
 		super(abyte0);
 
 		int type = readC();
 		int objectId = readD();
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

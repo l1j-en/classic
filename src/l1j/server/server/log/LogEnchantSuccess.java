@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1ItemInstance;
@@ -32,7 +33,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogEnchantSuccess {
-	private static Logger _log = Logger.getLogger(LogEnchantSuccess.class
+	private static Logger _log = LoggerFactory.getLogger(LogEnchantSuccess.class
 			.getName());
 
 	public void storeLogEnchantSuccess(L1PcInstance pc, L1ItemInstance item,
@@ -63,7 +64,7 @@ public class LogEnchantSuccess {
 			pstm.setInt(12, enchantnum);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

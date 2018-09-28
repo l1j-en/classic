@@ -1,9 +1,10 @@
 package l1j.server.server.model;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.ItemTable;
@@ -14,7 +15,7 @@ import l1j.server.server.types.Point;
 
 public class ElementalStoneGenerator implements Runnable {
 
-	private static Logger _log = Logger.getLogger(ElementalStoneGenerator.class
+	private static Logger _log = LoggerFactory.getLogger(ElementalStoneGenerator.class
 			.getName());
 
 	private static final int ELVEN_FOREST_MAPID = 4;
@@ -34,8 +35,7 @@ public class ElementalStoneGenerator implements Runnable {
 
 	private ArrayList<L1GroundInventory> _itemList = new ArrayList<L1GroundInventory>(
 			MAX_COUNT);
-	private Random _random = new Random();
-
+ 
 	private static ElementalStoneGenerator _instance = null;
 
 	private ElementalStoneGenerator() {
@@ -69,8 +69,8 @@ public class ElementalStoneGenerator implements Runnable {
 	 * Set up to decide on the next point.
 	 */
 	private Point nextPoint() {
-		int newX = _random.nextInt(LAST_X - FIRST_X) + FIRST_X;
-		int newY = _random.nextInt(LAST_Y - FIRST_Y) + FIRST_Y;
+		int newX = ThreadLocalRandom.current().nextInt(LAST_X - FIRST_X) + FIRST_X;
+		int newY = ThreadLocalRandom.current().nextInt(LAST_Y - FIRST_Y) + FIRST_Y;
 
 		return new Point(newX, newY);
 	}
@@ -127,7 +127,7 @@ public class ElementalStoneGenerator implements Runnable {
 				Thread.sleep(SLEEP_TIME * 1000);
 			}
 		} catch (Throwable e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 }

@@ -26,9 +26,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -37,12 +38,10 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.model:
 // L1Teleport, L1PcInstance
 public class DungeonRandom {
-	private static Logger _log = Logger
-			.getLogger(DungeonRandom.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(DungeonRandom.class.getName());
 	private static DungeonRandom _instance = null;
 
 	private static Map<String, NewDungeonRandom> _dungeonMap = new HashMap<String, NewDungeonRandom>();
-	private static Random _random = new Random();
 
 	public static DungeonRandom getInstance() {
 		if (_instance == null) {
@@ -87,13 +86,13 @@ public class DungeonRandom {
 				NewDungeonRandom newDungeonRandom = new NewDungeonRandom(newX,
 						newY, newMapId, heading);
 				if (_dungeonMap.containsKey(key)) {
-					_log.log(Level.WARNING,
+					_log.warn(
 							"List of dungeons does not contain key: " + key);
 				}
 				_dungeonMap.put(key, newDungeonRandom);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -122,7 +121,7 @@ public class DungeonRandom {
 		String key = new StringBuilder().append(mapId).append(locX)
 				.append(locY).toString();
 		if (_dungeonMap.containsKey(key)) {
-			int rnd = _random.nextInt(5);
+			int rnd = ThreadLocalRandom.current().nextInt(5);
 			NewDungeonRandom newDungeonRandom = _dungeonMap.get(key);
 			short newMap = newDungeonRandom._newMapId[rnd];
 			int newX = newDungeonRandom._newX[rnd];

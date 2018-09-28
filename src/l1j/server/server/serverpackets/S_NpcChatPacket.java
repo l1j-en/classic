@@ -18,15 +18,13 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1NpcInstance;
 
 public class S_NpcChatPacket extends ServerBasePacket {
 	private static final String S_NPC_CHAT_PACKET = "[S] S_NpcChatPacket";
-	private static Logger _log = Logger.getLogger(S_NpcChatPacket.class
-			.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_NpcChatPacket.class
+//			.getName());
 	private byte[] _byte = null;
 
 	public S_NpcChatPacket(L1NpcInstance npc, String chat, int type) {

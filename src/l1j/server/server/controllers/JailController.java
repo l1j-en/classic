@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.CharacterTable;
@@ -74,7 +75,7 @@ public class JailController implements Runnable {
 		}
 	}
 	
-	private static Logger _log = Logger.getLogger(RankingsController.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(RankingsController.class.getName());
 	
 	private static JailController _instance;
 	private HashMap<String, JailInfo> _jailedUsers = new HashMap<String, JailInfo>();
@@ -115,7 +116,7 @@ public class JailController implements Runnable {
 						new JailInfo(rs.getString("jailer"), rs.getString("message"), rs.getTimestamp("unjail").getTime()));
 			}
 		} catch(Exception ex) {
-			_log.log(Level.WARNING, "Failed to get jailed users. No users can be unjailed automatically!", ex);
+			_log.warn("Failed to get jailed users. No users can be unjailed automatically!", ex);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -135,7 +136,7 @@ public class JailController implements Runnable {
 			
 			pstm.execute();
 		} catch (Exception ex) {
-			_log.log(Level.WARNING, "Failed to update the status of the unjailed user: " + user, ex);
+			_log.warn("Failed to update the status of the unjailed user: " + user, ex);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -192,11 +193,11 @@ public class JailController implements Runnable {
 				}
 				
 				checkTime = System.currentTimeMillis();
-				_log.log(Level.FINE, "Unjail controller finished running.");
+				_log.trace("Unjail controller finished running.");
 				Thread.sleep(60000);
 			}
 		} catch(Exception ex) {
-			_log.log(Level.WARNING, "Unjail controller crashed! No users will be auto-unjailed!");
+			_log.warn("Unjail controller crashed! No users will be auto-unjailed!");
 		}
 	}
 }

@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -15,7 +16,7 @@ import l1j.server.server.model.L1AccessLevel;
 import l1j.server.server.utils.SQLUtil;
 
 public class AccessLevelTable {
-	private static Logger _log = Logger.getLogger(IpTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(AccessLevelTable.class);
 	private static AccessLevelTable _instance;
 	private final LinkedHashMap<Short, L1AccessLevel> _accessLevels
 			= new LinkedHashMap<Short, L1AccessLevel>();
@@ -43,7 +44,7 @@ public class AccessLevelTable {
 		
 		// should never hit this... but I'm paranoid
 		if(lowestAccessLevel == null) {
-			_log.log(Level.SEVERE, "Unable to set the lowest access level. Setting the id to -1 and level to 0!");
+			_log.error("Unable to set the lowest access level. Setting the id to -1 and level to 0!");
 			lowestAccessLevel = new L1AccessLevel((short)-1, "Player", (short)0, null);
 		}
 
@@ -97,7 +98,7 @@ public class AccessLevelTable {
 			rs = pstm.executeQuery();
 			fillAccessTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating access levels table", e);
+			_log.error("error while creating access levels table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -114,6 +115,6 @@ public class AccessLevelTable {
 
 			_accessLevels.put(id, new L1AccessLevel(id, name, accessLevel, chatPrefix));
 		}
-		_log.config("Access Levels: " + _accessLevels.size() + " Loaded");
+		_log.info("Access Levels: " + _accessLevels.size() + " Loaded");
 	}
 }

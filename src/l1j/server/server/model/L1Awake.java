@@ -22,6 +22,7 @@ import static l1j.server.server.model.skill.L1SkillId.AWAKEN_ANTHARAS;
 import static l1j.server.server.model.skill.L1SkillId.AWAKEN_FAFURION;
 import static l1j.server.server.model.skill.L1SkillId.AWAKEN_VALAKAS;
 import static l1j.server.server.model.skill.L1SkillId.SHAPE_CHANGE;
+
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_ChangeShape;

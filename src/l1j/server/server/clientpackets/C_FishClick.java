@@ -21,14 +21,14 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.controllers.FishingTimeController;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -37,14 +37,13 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class C_FishClick extends ClientBasePacket {
 	private static final String C_FISHCLICK = "[C] C_FishClick";
-	private static Random _random = new Random();
 	private static final int HEADING_TABLE_X[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private static final int HEADING_TABLE_Y[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
-	public C_FishClick(byte abyte0[], ClientThread clientthread)
+	public C_FishClick(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		long currentTime = System.currentTimeMillis();
 		long time = pc.getFishingTime();
 
@@ -52,7 +51,7 @@ public class C_FishClick extends ClientBasePacket {
 				&& pc.isFishingReady()) {
 			finishFishing(pc);
 
-			int chance = _random.nextInt(200) + 1;
+			int chance = ThreadLocalRandom.current().nextInt(200) + 1;
 
 			if (chance < 50) {
 				successFishing(pc, 41298, "$5256"); // 25%

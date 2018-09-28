@@ -18,13 +18,15 @@
  */
 package l1j.server.server.model;
 
-import java.util.TimerTask;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
-public class L1EquipmentTimer extends TimerTask {
+public class L1EquipmentTimer implements Runnable {
+	private static Logger _log = LoggerFactory.getLogger(L1EquipmentTimer.class);
 
 	public L1EquipmentTimer(L1PcInstance pc, L1ItemInstance item) {
 		_pc = pc;
@@ -33,15 +35,18 @@ public class L1EquipmentTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		if ((_item.getRemainingTime() - 1) > 0) {
-			_item.setRemainingTime(_item.getRemainingTime() - 1);
-			_pc.getInventory().updateItem(_item,
-					L1PcInventory.COL_REMAINING_TIME);
-		} else {
-			_pc.getInventory().removeItem(_item, 1);
-			this.cancel();
-			
-			_pc.sendPackets(new S_SystemMessage("Your " + _item.getItem().getName() + " has disappeared!"));
+		try {
+			if ((_item.getRemainingTime() - 1) > 0) {
+				_item.setRemainingTime(_item.getRemainingTime() - 1);
+				_pc.getInventory().updateItem(_item,
+						L1PcInventory.COL_REMAINING_TIME);
+			} else {
+				_pc.getInventory().removeItem(_item, 1);
+				_pc.sendPackets(new S_SystemMessage("Your " + _item.getItem().getName() + " has disappeared!"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
 		}
 	}
 

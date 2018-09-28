@@ -22,14 +22,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1DoorGfx {
-	private static Logger _log = Logger.getLogger(L1DoorGfx.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1DoorGfx.class.getName());
 	private final int _gfxId;
 	private final int _direction;
 	private final int _rightEdgeOffset;
@@ -82,7 +83,7 @@ public class L1DoorGfx {
 			int lEdge = rs.getInt("left_edge_offset");
 			return new L1DoorGfx(id, dir, rEdge, lEdge);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

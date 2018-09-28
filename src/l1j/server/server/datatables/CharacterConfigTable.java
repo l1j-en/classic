@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
@@ -31,7 +32,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server:
 // IdFactory
 public class CharacterConfigTable {
-	private static Logger _log = Logger.getLogger(CharacterConfigTable.class
+	private static Logger _log = LoggerFactory.getLogger(CharacterConfigTable.class
 			.getName());
 	private static CharacterConfigTable _instance;
 
@@ -57,7 +58,7 @@ public class CharacterConfigTable {
 			pstm.setBytes(3, data);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -76,7 +77,7 @@ public class CharacterConfigTable {
 			pstm.setInt(3, objectId);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -93,7 +94,7 @@ public class CharacterConfigTable {
 			pstm.setInt(1, objectId);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -115,7 +116,7 @@ public class CharacterConfigTable {
 				result = rs.getInt("cnt");
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

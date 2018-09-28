@@ -18,9 +18,9 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Party;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -30,9 +30,9 @@ public class C_Party extends ClientBasePacket {
 
 	private static final String C_PARTY = "[C] C_Party";
 
-	public C_Party(byte abyte0[], ClientThread clientthread) {
+	public C_Party(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

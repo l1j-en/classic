@@ -18,16 +18,14 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
-
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_OwnCharAttrDef extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_OwnCharAttrDef.class
-			.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_OwnCharAttrDef.class
+//			.getName());
 	private static final String S_OWNCHARATTRDEF = "[S] S_OwnCharAttrDef";
 	private byte[] _byte = null;
 

@@ -21,7 +21,10 @@ package l1j.server.server.model.shop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.CastleTable;
@@ -45,7 +48,7 @@ import l1j.server.server.utils.IntRange;
 
 public class L1Shop {
 	
-	private static Logger _log = Logger.getLogger(L1Shop.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Shop.class.getName());
 
 	private final int _npcId;
 	private final List<L1ShopItem> _sellingItems;
@@ -258,8 +261,8 @@ public class L1Shop {
 			inv.storeItem(item);
 			if (_npcId == 70068 || _npcId == 70020) {
 				item.setIdentified(false);
-				Random random = new Random();
-				int chance = random.nextInt(100) + 1;
+				new Random();
+				int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 				if (chance <= 15) {
 					item.setEnchantLevel(-2);
 				} else if (chance >= 16 && chance <= 30) {
@@ -267,9 +270,9 @@ public class L1Shop {
 				} else if (chance >= 31 && chance <= 70) {
 					item.setEnchantLevel(0);
 				} else if (chance >= 71 && chance <= 87) {
-					item.setEnchantLevel(random.nextInt(2) + 1);
+					item.setEnchantLevel(ThreadLocalRandom.current().nextInt(2) + 1);
 				} else if (chance >= 88 && chance <= 97) {
-					item.setEnchantLevel(random.nextInt(3) + 3);
+					item.setEnchantLevel(ThreadLocalRandom.current().nextInt(3) + 3);
 				} else if (chance >= 98 && chance <= 99) {
 					item.setEnchantLevel(6);
 				} else if (chance == 100) {
@@ -281,8 +284,8 @@ public class L1Shop {
 				lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,
 						orderList.getTotalPriceTaxIncluded());
 			} catch (Exception e) {
-				_log.warning("Problem with storeLogShopBuy");
-				_log.warning(e.toString());
+				_log.warn("Problem with storeLogShopBuy");
+				_log.warn(e.toString());
 			}
 		}
 	}
@@ -317,8 +320,8 @@ public class L1Shop {
 				lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter, order
 						.getItem().getAssessedPrice() * count);
 			} catch (Exception e) {
-				_log.warning("Problem with storeLogShopSell");
-				_log.warning(e.toString());
+				_log.warn("Problem with storeLogShopSell");
+				_log.warn(e.toString());
 			}
 			adenabefore = adenaafter;
 		}

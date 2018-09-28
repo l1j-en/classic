@@ -18,10 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1HouseLocation;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1BookMark;
 
@@ -31,7 +31,7 @@ public class C_AddBookmark extends ClientBasePacket {
 
 	private static final String C_ADD_BOOKMARK = "[C] C_AddBookmark";
 
-	public C_AddBookmark(byte[] decrypt, ClientThread client) {
+	public C_AddBookmark(byte[] decrypt, Client client) {
 		super(decrypt);
 		String s = readS();
 

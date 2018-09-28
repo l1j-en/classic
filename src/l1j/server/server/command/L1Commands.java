@@ -25,15 +25,16 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Command;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Commands {
-	private static Logger _log = Logger.getLogger(L1Commands.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Commands.class.getName());
 
 	private static L1Command fromResultSet(ResultSet rs) throws SQLException {
 		String helpText = "";
@@ -63,7 +64,7 @@ public class L1Commands {
 			}
 			return fromResultSet(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "Commands", e);
+			_log.error("Commands", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -88,7 +89,7 @@ public class L1Commands {
 				result.add(fromResultSet(rs));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "Commands", e);
+			_log.error("Commands", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

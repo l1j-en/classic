@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.TownTable;
@@ -38,7 +39,7 @@ import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.utils.SQLUtil;
 
 public class HomeTownTimeController {
-	private static Logger _log = Logger.getLogger(HomeTownTimeController.class
+	private static Logger _log = LoggerFactory.getLogger(HomeTownTimeController.class
 			.getName());
 
 	private static HomeTownTimeController _instance;
@@ -102,7 +103,7 @@ public class HomeTownTimeController {
 			try {
 				pc.save();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 		for (int townId = 1; townId <= 10; townId++) {
@@ -127,7 +128,7 @@ public class HomeTownTimeController {
 			try {
 				pc.save();
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 		clearHomeTownID();
@@ -190,7 +191,7 @@ public class HomeTownTimeController {
 			pstm5.setInt(3, townId);
 			pstm5.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(rs2);
@@ -215,7 +216,7 @@ public class HomeTownTimeController {
 					.prepareStatement("UPDATE characters SET HomeTownID = 0 WHERE HomeTownID = -1");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -243,7 +244,7 @@ public class HomeTownTimeController {
 			pstm2.setInt(1, objid);
 			pstm2.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs1);
 			SQLUtil.close(pstm1);

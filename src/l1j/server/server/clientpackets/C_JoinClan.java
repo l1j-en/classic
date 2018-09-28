@@ -19,10 +19,10 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
@@ -34,11 +34,11 @@ public class C_JoinClan extends ClientBasePacket {
 
 	private static final String C_JOIN_CLAN = "[C] C_JoinClan";
 
-	public C_JoinClan(byte abyte0[], ClientThread clientthread)
+	public C_JoinClan(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (pc.isGhost()) {
 			return;
 		}

@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.NpcSpawnTable;
@@ -36,7 +37,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class S_Board extends ServerBasePacket {
 	private static final String S_BOARD = "[S] S_Board";
-	private static Logger _log = Logger.getLogger(S_Board.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(S_Board.class.getName());
 	private byte[] _byte = null;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
 
@@ -241,10 +242,10 @@ public class S_Board extends ServerBasePacket {
 				
 				return;
 			} else {
-				_log.log(Level.WARNING, "Someone attempted to read an unknown board.");
+				_log.warn("Someone attempted to read an unknown board.");
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

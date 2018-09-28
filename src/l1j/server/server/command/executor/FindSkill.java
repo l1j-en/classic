@@ -20,11 +20,16 @@ package l1j.server.server.command.executor;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1NamedSkill;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class FindSkill implements L1CommandExecutor {
+
+	private static Logger _log = LoggerFactory.getLogger(FindSkill.class);
 
 	private FindSkill() {
 	}
@@ -38,7 +43,7 @@ public class FindSkill implements L1CommandExecutor {
 		try {
 			findSkill(user, target);
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 			user.sendPackets(new S_SystemMessage(".findSkill <name|number>."));
 		}
 	}

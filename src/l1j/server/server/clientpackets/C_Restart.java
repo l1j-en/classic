@@ -18,10 +18,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_HPUpdate;
 import l1j.server.server.serverpackets.S_MPUpdate;
@@ -40,9 +40,9 @@ public class C_Restart extends ClientBasePacket {
 
 	private static final String C_RESTART = "[C] C_Restart";
 
-	public C_Restart(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Restart(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 
 		int[] loc;
 

@@ -21,11 +21,11 @@ package l1j.server.server.model.Instance;
 import static l1j.server.server.model.skill.L1SkillId.FOG_OF_SLEEPING;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -51,11 +51,11 @@ public class L1GuardianInstance extends L1NpcInstance {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1GuardianInstance.class
-			.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1GuardianInstance.class.getName());
 
-	private Random _random = new Random();
 	private L1GuardianInstance _npc = this;
+
+	private ScheduledFuture<?> _monitorFuture;
 
 	/**
 	 * @param template
@@ -69,8 +69,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1PcInstance targetPlayer = null;
 
 		for (L1PcInstance pc : L1World.getInstance().getVisiblePlayer(this)) {
-			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm()
-					|| pc.isGhost()) {
+			if (pc.getCurrentHp() <= 0 || pc.isDead() || pc.isGm() || pc.isGhost()) {
 				continue;
 			}
 			if (!pc.isGmInvis() && (!pc.isInvisble() || getNpcTemplate().is_agrocoi())) {
@@ -111,41 +110,35 @@ public class L1GuardianInstance extends L1NpcInstance {
 
 	@Override
 	public void onAction(L1PcInstance player) {
-		if (player.getType() == 2 && player.getCurrentWeapon() == 0
-				&& player.isElf()) {
+		if (player.getType() == 2 && player.getCurrentWeapon() == 0 && player.isElf()) {
 			L1Attack attack = new L1Attack(player, this);
 
 			if (attack.calcHit()) {
 				if (getNpcTemplate().get_npcId() == 70848) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 10) {
 						player.getInventory().storeItem(40506, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755",
-								"$794"));
+						player.sendPackets(new S_ServerMessage(143, "$755", "$794"));
 					} else if (chance <= 60 && chance > 10) {
 						player.getInventory().storeItem(40507, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755",
-								"$763"));
+						player.sendPackets(new S_ServerMessage(143, "$755", "$763"));
 					} else if (chance <= 70 && chance > 60) {
 						player.getInventory().storeItem(40505, 1);
-						player.sendPackets(new S_ServerMessage(143, "$755",
-								"$770"));
+						player.sendPackets(new S_ServerMessage(143, "$755", "$770"));
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70850) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40519, 5);
-						player.sendPackets(new S_ServerMessage(143, "$753",
-								"$760" + " (" + 5 + ")"));
+						player.sendPackets(new S_ServerMessage(143, "$753", "$760" + " (" + 5 + ")"));
 					}
 				}
 				if (getNpcTemplate().get_npcId() == 70846) {
-					int chance = _random.nextInt(100) + 1;
+					int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 					if (chance <= 30) {
 						player.getInventory().storeItem(40503, 1);
-						player.sendPackets(new S_ServerMessage(143, "$752",
-								"$769"));
+						player.sendPackets(new S_ServerMessage(143, "$752", "$769"));
 					}
 				}
 				attack.calcDamage();
@@ -171,8 +164,7 @@ public class L1GuardianInstance extends L1NpcInstance {
 	@Override
 	public void onTalkAction(L1PcInstance player) {
 		int objid = getId();
-		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(
-				getNpcTemplate().get_npcId());
+		L1NpcTalkData talking = NPCTalkDataTable.getInstance().getTemplate(getNpcTemplate().get_npcId());
 		L1Object object = L1World.getInstance().findObject(getId());
 		L1NpcInstance target = (L1NpcInstance) object;
 		String htmlid = null;
@@ -234,11 +226,11 @@ public class L1GuardianInstance extends L1NpcInstance {
 			}
 			synchronized (this) {
 				if (_monitor != null) {
-					_monitor.cancel();
+					_monitorFuture.cancel(true);
 				}
 				setRest(true);
 				_monitor = new RestMonitor();
-				_restTimer.schedule(_monitor, REST_MILLISEC);
+				_monitorFuture = GeneralThreadPool.getInstance().schedule(_monitor, REST_MILLISEC);
 			}
 		}
 	}
@@ -317,52 +309,50 @@ public class L1GuardianInstance extends L1NpcInstance {
 		L1Character lastAttacker = _lastattacker;
 
 		public void run() {
-			Thread.currentThread().setName("L1GuardianInstance-Death");
-			setDeathProcessing(true);
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_Die);
-			int targetobjid = getId();
-			getMap().setPassable(getLocation(), true);
-			broadcastPacket(new S_DoActionGFX(targetobjid,
-					ActionCodes.ACTION_Die));
+			try {
+				Thread.currentThread().setName("L1GuardianInstance-Death");
+				setDeathProcessing(true);
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_Die);
+				int targetobjid = getId();
+				getMap().setPassable(getLocation(), true);
+				broadcastPacket(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_Die));
 
-			L1PcInstance player = null;
-			if (lastAttacker instanceof L1PcInstance) {
-				player = (L1PcInstance) lastAttacker;
-			} else if (lastAttacker instanceof L1PetInstance) {
-				player = (L1PcInstance) ((L1PetInstance) lastAttacker)
-						.getMaster();
-			} else if (lastAttacker instanceof L1SummonInstance) {
-				player = (L1PcInstance) ((L1SummonInstance) lastAttacker)
-						.getMaster();
-			}
-			if (player != null) {
-				ArrayList<L1Character> targetList = _hateList
-						.toTargetArrayList();
-				ArrayList<Integer> hateList = _hateList.toHateArrayList();
-				int exp = getExp();
-				CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);
-
-				ArrayList<L1Character> dropTargetList = _dropHateList
-						.toTargetArrayList();
-				ArrayList<Integer> dropHateList = _dropHateList
-						.toHateArrayList();
-				try {
-					DropTable.getInstance().dropShare(_npc, dropTargetList,
-							dropHateList);
-				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				L1PcInstance player = null;
+				if (lastAttacker instanceof L1PcInstance) {
+					player = (L1PcInstance) lastAttacker;
+				} else if (lastAttacker instanceof L1PetInstance) {
+					player = (L1PcInstance) ((L1PetInstance) lastAttacker).getMaster();
+				} else if (lastAttacker instanceof L1SummonInstance) {
+					player = (L1PcInstance) ((L1SummonInstance) lastAttacker).getMaster();
 				}
-				player.addKarma((int) (getKarma() * Config.RATE_KARMA));
+				if (player != null) {
+					ArrayList<L1Character> targetList = _hateList.toTargetArrayList();
+					ArrayList<Integer> hateList = _hateList.toHateArrayList();
+					int exp = getExp();
+					CalcExp.calcExp(player, targetobjid, targetList, hateList, exp);
+
+					ArrayList<L1Character> dropTargetList = _dropHateList.toTargetArrayList();
+					ArrayList<Integer> dropHateList = _dropHateList.toHateArrayList();
+					try {
+						DropTable.getInstance().dropShare(_npc, dropTargetList, dropHateList);
+					} catch (Exception e) {
+						_log.error(e.getLocalizedMessage(), e);
+					}
+					player.addKarma((int) (getKarma() * Config.RATE_KARMA));
+				}
+				setDeathProcessing(false);
+
+				setKarma(0);
+				setExp(0);
+				allTargetClear();
+
+				startDeleteTimer();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
 			}
-			setDeathProcessing(false);
-
-			setKarma(0);
-			setExp(0);
-			allTargetClear();
-
-			startDeleteTimer();
 		}
 	}
 
@@ -375,16 +365,16 @@ public class L1GuardianInstance extends L1NpcInstance {
 
 	private static final long REST_MILLISEC = 10000;
 
-	private static final Timer _restTimer = new Timer("L1GuardianInstance",true);
-
 	private RestMonitor _monitor;
 
-	public class RestMonitor extends TimerTask {
+	public class RestMonitor implements Runnable {
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1GuardianInstance-RestMonitor");
-			setRest(false);
-			cancel();
+			try {
+				setRest(false);
+			} catch (Exception e) {
+				_log.error("",e);
+			}
 		}
 	}
 }

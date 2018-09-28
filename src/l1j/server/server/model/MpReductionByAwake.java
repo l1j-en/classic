@@ -1,13 +1,12 @@
 package l1j.server.server.model;
 
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
-public class MpReductionByAwake extends TimerTask {
-	private static Logger _log = Logger.getLogger(MpReductionByAwake.class
+public class MpReductionByAwake implements Runnable {
+	private static Logger _log = LoggerFactory.getLogger(MpReductionByAwake.class
 			.getName());
 
 	private final L1PcInstance _pc;
@@ -24,7 +23,7 @@ public class MpReductionByAwake extends TimerTask {
 			}
 			decreaseMp();
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

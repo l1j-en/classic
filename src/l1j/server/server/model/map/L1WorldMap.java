@@ -19,13 +19,14 @@
 package l1j.server.server.model.map;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.utils.PerformanceTimer;
 
 public class L1WorldMap {
-	private static Logger _log = Logger.getLogger(L1WorldMap.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1WorldMap.class.getName());
 
 	private static L1WorldMap _instance;
 	private Map<Integer, L1Map> _maps;
@@ -39,7 +40,7 @@ public class L1WorldMap {
 
 	private L1WorldMap() {
 		PerformanceTimer timer = new PerformanceTimer();
-		_log.config("Loading Map...");
+		_log.info("Loading Map...");
 		MapReader in = MapReader.getDefaultReader();
 		try {
 			_maps = in.read();
@@ -48,10 +49,10 @@ public class L1WorldMap {
 			}
 		} catch (Exception e) {
 			// No return
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			System.exit(0);
 		}
-		_log.config("            OK!     " + timer.elapsedTimeMillis() + "ms");
+		_log.info("            OK!     " + timer.elapsedTimeMillis() + "ms");
 	}
 
 	/**

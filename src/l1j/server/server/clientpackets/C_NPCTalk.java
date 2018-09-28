@@ -18,15 +18,16 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.NpcActionTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.npc.L1NpcHtml;
 import l1j.server.server.model.npc.action.L1NpcAction;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_NPCTalkReturn;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -34,9 +35,9 @@ import l1j.server.server.serverpackets.S_NPCTalkReturn;
 public class C_NPCTalk extends ClientBasePacket {
 
 	private static final String C_NPC_TALK = "[C] C_NPCTalk";
-	private static Logger _log = Logger.getLogger(C_NPCTalk.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_NPCTalk.class.getName());
 
-	public C_NPCTalk(byte abyte0[], ClientThread client) throws Exception {
+	public C_NPCTalk(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int objid = readD();
 		L1Object obj = L1World.getInstance().findObject(objid);
@@ -53,10 +54,10 @@ public class C_NPCTalk extends ClientBasePacket {
 			obj.onTalkAction(pc);
 		} else {
 			if (obj == null && pc != null) {
-				_log.severe(pc.getName() + " sent an invalid objectid, objid="
+				_log.error(pc.getName() + " sent an invalid objectid, objid="
 						+ objid);
 			} else {
-				_log.severe("Null L1PcInstance in C_RequestNPCTalk.");
+				_log.error("Null L1PcInstance in C_RequestNPCTalk.");
 			}
 		}
 	}

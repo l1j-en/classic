@@ -19,7 +19,9 @@
 package l1j.server.server.utils;
 
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -30,7 +32,7 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class FaceToFace {
 
 	@SuppressWarnings("unused")
-	private static Logger _log = Logger.getLogger(FaceToFace.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(FaceToFace.class.getName());
 
 	private FaceToFace() {
 	}

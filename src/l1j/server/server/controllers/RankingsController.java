@@ -9,8 +9,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -20,7 +21,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class RankingsController implements Runnable {
-	private static Logger _log = Logger.getLogger(RankingsController.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(RankingsController.class.getName());
 	private static RankingsController _instance;
 	private static ArrayList<Short> _includedAccessLevels = new ArrayList<Short>();
 	// this is for the IN statement in SQL.
@@ -193,7 +194,7 @@ public class RankingsController implements Runnable {
 				Thread.sleep(3600000); // 1 hour
 			}
 		} catch (Exception ex) {
-			_log.log(Level.WARNING, "Rankings failed to load.", ex);
+			_log.warn("Rankings failed to load.", ex);
 		}
 	}
 	
@@ -390,7 +391,7 @@ public class RankingsController implements Runnable {
 				returnValue.put(rs.getString("char_name"), rs.getLong("ratio"));
 		
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -21,7 +21,9 @@ package l1j.server.server.model;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
@@ -47,8 +49,7 @@ public class L1DeleteItemOnGround {
 	
 	private DeleteTimer _deleteTimer;
 	private HashSet<L1Object> checkeditems = new HashSet<L1Object>();
-	private static final Logger _log = Logger
-			.getLogger(L1DeleteItemOnGround.class.getName());
+	private static final Logger _log = LoggerFactory			.getLogger(L1DeleteItemOnGround.class.getName());
 
 	public L1DeleteItemOnGround() {
 	}
@@ -59,30 +60,35 @@ public class L1DeleteItemOnGround {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1DeleteItemOnGround");
-			int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
-			for (;;) {
-				try {
-					Thread.sleep(time);
-				} catch (Exception exception) {
-					_log.warning("L1DeleteItemOnGround error: " + exception);
-					break;
-				}
-				// L1World.getInstance().broadcastPacketToAll(
-				// new S_ServerMessage(166, "Item on the world map ",
-				// " will be removed in 10 seconds."));
+			try {
+				Thread.currentThread().setName("L1DeleteItemOnGround");
+				int time = Config.ALT_ITEM_DELETION_TIME * 60 * 1000 - 10 * 1000;
+				for (;;) {
+					try {
+						Thread.sleep(time);
+					} catch (Exception exception) {
+						_log.warn("L1DeleteItemOnGround error: " + exception);
+						break;
+					}
+					// L1World.getInstance().broadcastPacketToAll(
+					// new S_ServerMessage(166, "Item on the world map ",
+					// " will be removed in 10 seconds."));
 
-				try {
-					Thread.sleep(10000);
-				} catch (Exception exception) {
-					_log.warning("L1DeleteItemOnGround error: " + exception);
-					break;
+					try {
+						Thread.sleep(10000);
+					} catch (Exception exception) {
+						_log.warn("L1DeleteItemOnGround error: " + exception);
+						break;
+					}
+					deleteItem();
+					// L1World.getInstance().broadcastPacketToAll(
+					// new S_ServerMessage(166, "Item on the world map ",
+					// " will be removed in 10 seconds."));
+					//
 				}
-				deleteItem();
-				// L1World.getInstance().broadcastPacketToAll(
-				// new S_ServerMessage(166, "Item on the world map ",
-				// " will be removed in 10 seconds."));
-				//
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
 			}
 		}
 	}
@@ -166,7 +172,7 @@ public class L1DeleteItemOnGround {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 
 		}
@@ -202,12 +208,12 @@ public class L1DeleteItemOnGround {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
-		_log.fine("Deleted ground items: " + numOfDeleted);
+		_log.trace("Deleted ground items: " + numOfDeleted);
 		// temporary output to test this
-		_log.fine("Checked items size: " + checkeditems.size());
+		_log.trace("Checked items size: " + checkeditems.size());
 
 	}
 }

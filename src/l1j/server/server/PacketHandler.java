@@ -108,7 +108,8 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_USESKILL;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WAR;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_WHO;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_AddBookmark;
@@ -198,21 +199,18 @@ import l1j.server.server.clientpackets.C_UsePetItem;
 import l1j.server.server.clientpackets.C_UseSkill;
 import l1j.server.server.clientpackets.C_War;
 import l1j.server.server.clientpackets.C_Who;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.utils.ByteArrayUtil;
-import l1j.server.server.utils.IntArrayUtil;
 
 // Referenced classes of package l1j.server.server:
-// Opcodes, LoginController, ClientThread, Logins
+// Opcodes, LoginController, Client, Logins
 public class PacketHandler {
-	private static Logger _log = Logger
-			.getLogger(PacketHandler.class.getName());
-	private final ClientThread _client;
+	private static Logger _log =LoggerFactory			.getLogger(PacketHandler.class.getName());
+	private final Client _client;
 
-	public PacketHandler(ClientThread clientthread) {
-		_client = clientthread;
+	public PacketHandler(Client client) {
+		_client = client;
 	}
 
 	public void handlePacket(byte abyte0[], L1PcInstance object)
@@ -230,11 +228,11 @@ public class PacketHandler {
 		
 		_client.setLastClientPacket(i);
 		
-		String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
+//		String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
 		if(object != null && object.isLoggingPackets()) {
-			LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report", System.currentTimeMillis());
+			//LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report", System.currentTimeMillis());
 		} else {
-			_client.addToClientPacketLog(i, packet); // only add to the historical log if we aren't logging to the database
+			//_client.addToClientPacketLog(i, packet); // only add to the historical log if we aren't logging to the database
 		}
 		
 		switch (i) {
@@ -506,10 +504,10 @@ public class PacketHandler {
 			break;
 		default:
 			// String s = Integer.toHexString(abyte0[0] & 0xff);
-			// _log.warning("");
-			// _log.warning((new StringBuilder()).append("").append(s)
+			// _log.warn("");
+			// _log.warn((new StringBuilder()).append("").append(s)
 			// .toString());
-			// _log.warning(new ByteArrayUtil(abyte0).dumpToString());
+			// _log.warn(new ByteArrayUtil(abyte0).dumpToString());
 			break;
 		}
 	}

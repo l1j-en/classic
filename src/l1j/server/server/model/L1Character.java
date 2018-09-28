@@ -31,6 +31,7 @@ public class L1Character extends L1Object {
 
 	private static final long serialVersionUID = 1L;
 
+	private long lastWarp=0;
 	private L1Poison _poison = null;
 	private boolean _paralyzed;
 	private boolean _sleeped;
@@ -801,14 +802,14 @@ public class L1Character extends L1Object {
 	}
 
 	private int _resistStone = 0;
-	private int _trueResistStone = 0;
+//	private int _trueResistStone = 0;
 
 	public int getResistStone() {
 		return _resistStone;
 	}
 
 	public void addResistStone(int i) {
-		_trueResistStone += i;
+//		_trueResistStone += i;
 		_resistStone = IntRange.ensure(_trueResistStun, -128, 127);
 	}
 
@@ -1133,5 +1134,19 @@ public class L1Character extends L1Object {
 
 	public void setOwnLightSize(int i) {
 		_ownLightSize = i;
+	}
+
+	/**
+	 * @return the lastWarp
+	 */
+	public long getLastWarp() {
+		return lastWarp;
+	}
+
+	/**
+	 * @param lastWarp the lastWarp to set
+	 */
+	public void setLastWarp(long lastWarp) {
+		this.lastWarp = lastWarp;
 	}
 }

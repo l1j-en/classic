@@ -22,6 +22,8 @@ import static l1j.server.server.model.skill.L1SkillId.ABSOLUTE_BARRIER;
 import static l1j.server.server.model.skill.L1SkillId.ADVANCE_SPIRIT;
 import static l1j.server.server.model.skill.L1SkillId.BERSERKERS;
 import static l1j.server.server.model.skill.L1SkillId.BLESS_WEAPON;
+import static l1j.server.server.model.skill.L1SkillId.BONE_BREAK;
+import static l1j.server.server.model.skill.L1SkillId.CONFUSION;
 import static l1j.server.server.model.skill.L1SkillId.DECREASE_WEIGHT;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_BIND;
 import static l1j.server.server.model.skill.L1SkillId.EARTH_SKIN;
@@ -30,34 +32,30 @@ import static l1j.server.server.model.skill.L1SkillId.HASTE;
 import static l1j.server.server.model.skill.L1SkillId.HOLY_WEAPON;
 import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 import static l1j.server.server.model.skill.L1SkillId.LIGHT;
+import static l1j.server.server.model.skill.L1SkillId.MASS_SHOCK_STUN;
 import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
 import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_DEX;
 import static l1j.server.server.model.skill.L1SkillId.PHYSICAL_ENCHANT_STR;
 import static l1j.server.server.model.skill.L1SkillId.PURIFY_STONE;
 import static l1j.server.server.model.skill.L1SkillId.SHIELD;
-import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 import static l1j.server.server.model.skill.L1SkillId.SHOCK_STUN;
-import static l1j.server.server.model.skill.L1SkillId.MASS_SHOCK_STUN;
-import static l1j.server.server.model.skill.L1SkillId.BONE_BREAK;
-import static l1j.server.server.model.skill.L1SkillId.CONFUSION;
+import static l1j.server.server.model.skill.L1SkillId.STORM_SHOT;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.clientpackets.C_Rank;
-import l1j.server.server.datatables.LogPacketsTable;
 import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
-import l1j.server.server.model.Packet;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
@@ -66,7 +64,7 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class PCommands {
-	private static Logger _log = Logger.getLogger(PCommands.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PCommands.class.getName());
 	private static PCommands _instance;
 
 	private static int[] PowerBuffSkills = { DECREASE_WEIGHT,
@@ -221,34 +219,34 @@ public class PCommands {
 					
 					player.sendPackets(new S_SystemMessage(target.getName() + " has been reported!"));
 					
-					Iterator<Packet> packetIterator = target.getNetConnection().getLastClientPackets().iterator();
-					long firstPacketOfLog = -1;
+					//Iterator<Packet> packetIterator = target.getNetConnection().getLastClientPackets().iterator();
+//					long firstPacketOfLog = -1;
+//					
+//					while (packetIterator.hasNext()) {
+//						Packet packet = packetIterator.next();
+//						
+//						if(firstPacketOfLog == -1) {
+//							firstPacketOfLog = packet.getTimestamp();
+//						}
+//						
+//						LogPacketsTable.storeLogPacket(target.getId(), 
+//								target.getName(), 
+//								target.getTempCharGfx(), 
+//								packet.getOpCode(), 
+//								packet.getPacket(), 
+//								"report", 
+//								packet.getTimestamp());
+//					}
 					
-					while (packetIterator.hasNext()) {
-						Packet packet = packetIterator.next();
-						
-						if(firstPacketOfLog == -1) {
-							firstPacketOfLog = packet.getTimestamp();
-						}
-						
-						LogPacketsTable.storeLogPacket(target.getId(), 
-								target.getName(), 
-								target.getTempCharGfx(), 
-								packet.getOpCode(), 
-								packet.getPacket(), 
-								"report", 
-								packet.getTimestamp());
-					}
-					
-					target.getNetConnection().clearClientPacketLog();
-					LogReporterTable.updatePacketStartTimestamp(insertedId, firstPacketOfLog);
+					//target.getNetConnection().clearClientPacketLog();
+					//LogReporterTable.updatePacketStartTimestamp(insertedId, firstPacketOfLog);
 				} catch (Exception ex) {
 					player.sendPackets(ReportHelp);
 				}
 			}
-			_log.log(Level.FINE, player.getName() + " used " + cmd2);
+			_log.trace(player.getName() + " used " + cmd2);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -384,7 +382,11 @@ public class PCommands {
 		try {
 			int i = Integer.parseInt(cmd2.substring(5));
 			if (i >= 1 && i <= 10) {
-				Thread.sleep(3000);
+				if (System.currentTimeMillis() - player.getLastWarp() < 3000) {
+					return;
+				} else {
+					player.setLastWarp(System.currentTimeMillis());
+				}
 				
 				if (player.isPrivateShop() || player.hasSkillEffect(EARTH_BIND) || player.hasSkillEffect(SHOCK_STUN)
 						|| player.hasSkillEffect(MASS_SHOCK_STUN) || player.hasSkillEffect(BONE_BREAK) 
@@ -395,47 +397,50 @@ public class PCommands {
 					player.sendPackets(NoWarpState);
 					return;
 				}
-				
+				WarpDelay warpDelay = null;
 				switch (i) {
 				case 1: // Pandora
-					L1Teleport.teleport(player, 32644, 32955, (short) 0, 5,
+					warpDelay = new WarpDelay(player, 32644, 32955, (short) 0, 5,
 							true);
 					break;
 				case 2: // SKT
-					L1Teleport.teleport(player, 33080, 33392, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33080, 33392, (short) 4, 5,
 							true);
 					break;
 				case 3: // Giran
-					L1Teleport.teleport(player, 33442, 32797, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33442, 32797, (short) 4, 5,
 							true);
 					break;
 				case 4: // Weldern
-					L1Teleport.teleport(player, 33705, 32504, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 33705, 32504, (short) 4, 5,
 							true);
 					break;
 				case 5: // Oren
-					L1Teleport.teleport(player, 34061, 32276, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 34061, 32276, (short) 4, 5,
 							true);
 					break;
 				case 6: // Orc Town
-					L1Teleport.teleport(player, 32715, 32448, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 32715, 32448, (short) 4, 5,
 							true);
 					break;
 				case 7: // Silent Cave
-					L1Teleport.teleport(player, 32857, 32898, (short) 304, 5,
+					warpDelay = new WarpDelay(player, 32857, 32898, (short) 304, 5,
 							true);
 					break;
 				case 8: // Gludio
-					L1Teleport.teleport(player, 32608, 32734, (short) 4, 5,
+					warpDelay = new WarpDelay(player, 32608, 32734, (short) 4, 5,
 							true);
 					break;
 				case 9: // Silveria
-					L1Teleport.teleport(player, 32841, 32856, (short) 1000, 5,
+					warpDelay = new WarpDelay(player, 32841, 32856, (short) 1000, 5,
 							true);
 					break;
 				case 10: // Behimous
-					L1Teleport.teleport(player, 32779, 32887, (short) 1001, 5,
+					warpDelay = new WarpDelay(player, 32779, 32887, (short) 1001, 5,
 							true);
+				}
+				if (warpDelay != null) {
+					GeneralThreadPool.getInstance().schedule(warpDelay, 3000);
 				}
 			} else {
 				player.sendPackets(WarpLimit);
@@ -445,6 +450,37 @@ public class PCommands {
 		}
 	}
 
+	private class WarpDelay implements Runnable {
+
+		L1PcInstance player;
+		int x;
+		int y;
+		short mapid;
+		int heading;
+		boolean effectable;
+		
+		public WarpDelay(L1PcInstance player, int x, int y, short mapid, int heading, boolean effectable) {
+			this.player = player;
+			this.x = x;
+			this.y = y;
+			this.mapid = mapid;
+			this.heading = heading;
+			this.effectable = effectable;
+		}
+		@Override
+		public void run() {
+			try {
+				L1Teleport.teleport(player, x, y, mapid, heading,
+						effectable);
+				player.setLastWarp(System.currentTimeMillis());
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			}
+		}
+		
+	}
 	private void reportBug(L1PcInstance pc, String bug) {
 		Collection<L1Object> objects = L1World.getInstance().getObject();
 		L1Object bugBoard = null;

@@ -18,17 +18,17 @@
  */
 package l1j.server.server.model;
 
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.templates.L1NpcChat;
 
-public class L1NpcChatTimer extends TimerTask {
-	private static final Logger _log = Logger.getLogger(L1NpcChatTimer.class
+public class L1NpcChatTimer implements Runnable {
+	private static final Logger _log = LoggerFactory.getLogger(L1NpcChatTimer.class
 			.getName());
 	private final L1NpcInstance _npc;
 	private final int chatTiming;
@@ -64,7 +64,7 @@ public class L1NpcChatTimer extends TimerTask {
 				}
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 

@@ -10,9 +10,9 @@ import l1j.server.server.types.ULong32;
  * 
  * @author Storm Last update: 2005-12-10
  */
-public class LineageEncryption {
+public class L1JEncryption {
 	// Initialized keys - one key per client ID
-	private static HashMap<Object, LineageKeys> keyMap = new HashMap<Object, LineageKeys>();
+	private static HashMap<Object, L1JKeys> keyMap = new HashMap<Object, L1JKeys>();
 
 	// The current key to use for encryption/decryption
 	// private static LineageKeys currentKeys = null;
@@ -29,17 +29,17 @@ public class LineageEncryption {
 	 * @throws ClientIdExistsException
 	 *             If a client id already is in use
 	 */
-	public static LineageKeys initKeys(Object clientID, long seed)
+	public static L1JKeys initKeys(Object clientID, long seed)
 			throws ClientIdExistsException {
 		if (keyMap.containsKey(clientID)) {
 			throw new ClientIdExistsException();
 		}
 
-		LineageKeys keys = new LineageKeys();
+		L1JKeys keys = new L1JKeys();
 
 		long key[] = { seed, 0x930FD7E2L };
 
-		LineageBlowfish.getSeeds(key);
+		L1JBlowfish.getSeeds(key);
 
 		keys.encodeKey[0] = keys.decodeKey[0] = key[0];
 		keys.encodeKey[1] = keys.decodeKey[1] = key[1];
@@ -57,8 +57,8 @@ public class LineageEncryption {
 	 *            the client id to set the keys for
 	 * @return boolean true if the client id was found, otherwise false
 	 */
-	public static LineageKeys prepareKeys(Object clientID) {
-		LineageKeys keys;
+	public static L1JKeys prepareKeys(Object clientID) {
+		L1JKeys keys;
 		if ((keys = keyMap.get(clientID)) == null) {
 			// Possibly throw NoSuchClientIdException
 			// Error... client hasn't any initialized lineage keys, forgot to
@@ -80,7 +80,7 @@ public class LineageEncryption {
 	 * @throws NoEncryptionKeysSelectedException
 	 *             If no keys have been prepared
 	 */
-	public static char[] encrypt(char[] buf, LineageKeys currentKeys)
+	public static char[] encrypt(char[] buf, L1JKeys currentKeys)
 			throws NoEncryptionKeysSelectedException {
 		if (currentKeys == null) {
 			throw new NoEncryptionKeysSelectedException();
@@ -107,7 +107,7 @@ public class LineageEncryption {
 	 * @throws NoEncryptionKeysSelectedException
 	 *             If no keys have been prepared
 	 */
-	public static byte[] encrypt(byte[] buf, LineageKeys currentKeys)
+	public static byte[] encrypt(byte[] buf, L1JKeys currentKeys)
 			throws NoEncryptionKeysSelectedException {
 		if (currentKeys == null) {
 			throw new NoEncryptionKeysSelectedException();
@@ -134,7 +134,7 @@ public class LineageEncryption {
 	 * @throws NoEncryptionKeysSelectedException
 	 *             If no keys have been prepared
 	 */
-	public static char[] decrypt(char[] buf, LineageKeys currentKeys)
+	public static char[] decrypt(char[] buf, L1JKeys currentKeys)
 			throws NoEncryptionKeysSelectedException {
 		if (currentKeys == null) {
 			throw new NoEncryptionKeysSelectedException();
@@ -161,7 +161,7 @@ public class LineageEncryption {
 	 * @throws NoEncryptionKeysSelectedException
 	 *             If no keys have been prepared
 	 */
-	public static byte[] decrypt(byte[] buf, int length, LineageKeys currentKeys)
+	public static byte[] decrypt(byte[] buf, int length, L1JKeys currentKeys)
 			throws NoEncryptionKeysSelectedException {
 		if (currentKeys == null) {
 			throw new NoEncryptionKeysSelectedException();
@@ -186,7 +186,7 @@ public class LineageEncryption {
 	 *            the data to be encrypted, this arrays data is overwritten
 	 * @return char[] an 8 bit unsigned char array with the encrypted data
 	 */
-	private static char[] _encrypt(char[] buf, LineageKeys currentKeys) {
+	private static char[] _encrypt(char[] buf, L1JKeys currentKeys) {
 		int size = buf.length;
 		char[] ek = UChar8.fromArray(currentKeys.encodeKey);
 
@@ -211,7 +211,7 @@ public class LineageEncryption {
 	 *            the data to be encrypted, this arrays data is overwritten
 	 * @return byte[] an 8 bit unsigned char array with the encrypted data
 	 */
-	private static byte[] _encrypt(byte[] buf, LineageKeys currentKeys) {
+	private static byte[] _encrypt(byte[] buf, L1JKeys currentKeys) {
 		int size = buf.length;
 		char[] ek = UChar8.fromArray(currentKeys.encodeKey);
 
@@ -236,7 +236,7 @@ public class LineageEncryption {
 	 *            the data to be decrypted, this arrays data is overwritten
 	 * @return char[] an 8 bit unsigned char array with the encrypted data
 	 */
-	private static char[] _decrypt(char[] buf, LineageKeys currentKeys) {
+	private static char[] _decrypt(char[] buf, L1JKeys currentKeys) {
 		int size = buf.length;
 		char[] dk = UChar8.fromArray(currentKeys.decodeKey);
 
@@ -267,7 +267,7 @@ public class LineageEncryption {
 	 *            the data to be decrypted, this arrays data is overwritten
 	 * @return byte[] an 8 bit unsigned char array with the encrypted data
 	 */
-	private static byte[] _decrypt(byte[] buf, int size, LineageKeys currentKeys) {
+	private static byte[] _decrypt(byte[] buf, int size, L1JKeys currentKeys) {
 		char[] dk = UChar8.fromArray(currentKeys.decodeKey);
 
 		byte b3 = buf[3];

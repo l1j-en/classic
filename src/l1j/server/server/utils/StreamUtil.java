@@ -20,12 +20,13 @@ package l1j.server.server.utils;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StreamUtil {
 
-	private static Logger _log = Logger.getLogger(StreamUtil.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(StreamUtil.class.getName());
 
 	public static void close(Closeable... closeables) {
 		for (Closeable c : closeables) {
@@ -34,7 +35,7 @@ public class StreamUtil {
 					c.close();
 				}
 			} catch (IOException e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}

@@ -1,9 +1,10 @@
 package l1j.server.server.model;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.AccessLevelTable;
@@ -21,8 +22,7 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.utils.collections.IntArrays;
 
 public class Enchant {
-	private static final Random _random = new Random();
-	private static Logger _log = Logger.getLogger(Enchant.class.getName());
+ 	private static Logger _log = LoggerFactory.getLogger(Enchant.class.getName());
 	private static final S_ServerMessage CantEnchant = new S_ServerMessage(79);
 	private static final int FULL_GM = AccessLevelTable.getInstance().getMaxAccessLevel();
 
@@ -74,7 +74,7 @@ public class Enchant {
 			newElement = Element.Fire;
 			break;
 		default:
-			_log.log(Level.WARNING, "Enchant: bad elemental scroll id.");
+			_log.warn("Enchant: bad elemental scroll id.");
 			return;
 		}
 
@@ -88,7 +88,7 @@ public class Enchant {
 
 		final L1PcInventory inventory = player.getInventory();
 		if (player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM
-				|| Config.ATTR_ENCHANT_CHANCE >= _random.nextInt(100) + 1) {
+				|| Config.ATTR_ENCHANT_CHANCE >= ThreadLocalRandom.current().nextInt(100) + 1) {
 			player.sendPackets(new S_ServerMessage(161, weapon.getLogName(),
 					"$245", "$247"));
 			int newLevel = sameElement ? currentLevel + 1 : 1;
@@ -136,7 +136,7 @@ public class Enchant {
 		int chance = (50 + level) / (level + 1) + 35;
 
 		if (!(player.isGm() && player.getAccessLevel().getLevel() >= FULL_GM)
-				&& _random.nextInt(100) + 1 > chance) {
+				&& ThreadLocalRandom.current().nextInt(100) + 1 > chance) {
 			failureEnchant(player, accessory);
 			player.getInventory().removeItem(scroll, 1);
 			return;
@@ -234,7 +234,7 @@ public class Enchant {
 		boolean isArmor = baseItem.getType2() == 2;
 
 		if (!isArmor && !isWeapon) {
-			_log.log(Level.WARNING, "Enchant: trying to enchant something"
+			_log.warn("Enchant: trying to enchant something"
 					+ " besides a weapon or piece of armor.");
 			return;
 		}
@@ -311,7 +311,7 @@ public class Enchant {
 				|| scrollId == L1ItemId.B_SCROLL_OF_ENCHANT_WEAPON
 				|| scrollId == 140129 || scrollId == 140130) {
 			int enchantLevel = item.getEnchantLevel();
-			int roll = _random.nextInt(100) + 1;
+			int roll = ThreadLocalRandom.current().nextInt(100) + 1;
 			if (enchantLevel <= 2) {
 				return roll >= 77 ? 3 : roll >= 33 ? 2 : 1;
 			} else if (enchantLevel >= 3 && enchantLevel <= 5) {
@@ -459,7 +459,7 @@ public class Enchant {
 			return enchantLevel > -7 ? Result.Success : Result.Failure;
 		if (enchantLevel < safeEnchant)
 			return Result.Success;
-		int roll = _random.nextInt(100) + 1;
+		int roll = ThreadLocalRandom.current().nextInt(100) + 1;
 		int divisor = enchantLevel >= 9 ? 6 : 3;
 		int enchantChance = (100 + 3 + Config.ENCHANT_CHANCE_WEAPON) / divisor;
 		return roll < enchantChance ? Result.Success : roll < enchantChance * 2
@@ -513,7 +513,7 @@ public class Enchant {
 			return enchantLevel > -7 ? Result.Success : Result.Failure;
 		if (enchantLevel < safeEnchant)
 			return Result.Success;
-		int roll = _random.nextInt(100) + 1;
+		int roll = ThreadLocalRandom.current().nextInt(100) + 1;
 		int divisor = safeEnchant == 0 ? enchantLevel + 2 : enchantLevel;
 		int enchantChance = (100 + divisor * Config.ENCHANT_CHANCE_ARMOR)
 				/ (enchantLevel >= 9 ? divisor * 2 : divisor);

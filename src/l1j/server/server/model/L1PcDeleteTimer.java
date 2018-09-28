@@ -18,16 +18,19 @@
  */
 package l1j.server.server.model;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Logger;
+import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_Disconnect;
 
-public class L1PcDeleteTimer extends TimerTask {
-	private static final Logger _log = Logger.getLogger(L1PcDeleteTimer.class
+public class L1PcDeleteTimer implements Runnable {
+	private static final Logger _log = LoggerFactory.getLogger(L1PcDeleteTimer.class
 			.getName());
+	private ScheduledFuture<?> future;
 
 	public L1PcDeleteTimer(L1PcInstance pc) {
 		_pc = pc;
@@ -35,14 +38,26 @@ public class L1PcDeleteTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		_log.info("L1PcDeleteTimer: sending disconnect packet");
-		_pc.sendPackets(new S_Disconnect());
-		this.cancel();
+		try {
+			_log.info("L1PcDeleteTimer: sending disconnect packet");
+			_pc.sendPackets(new S_Disconnect());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
+		}
 	}
 
 	public void begin() {
-		Timer timer = new Timer("PcDeleteTimer-"+_pc.getName());
-		timer.schedule(this, 10 * 60 * 1000);
+		future = GeneralThreadPool.getInstance().schedule(this, 10 * 60 * 1000);
+	}
+	
+	public void cancel() {
+		try {
+			future.cancel(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
+		}
 	}
 
 	private final L1PcInstance _pc;

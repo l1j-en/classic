@@ -20,6 +20,12 @@ package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZED;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_PARALYZING;
+
+import java.util.concurrent.ScheduledFuture;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -27,51 +33,45 @@ import l1j.server.server.serverpackets.S_Paralysis;
 
 public class L1ParalysisPoison extends L1Poison {
 
+	private static Logger _log = LoggerFactory.getLogger(L1ParalysisPoison.class);
+
 	private final L1Character _target;
-	private Thread _timer;
+	private Runnable _timer;
 	private final int _delay;
 	private final int _time;
 	private int _effectId = 1;
 
-	private class ParalysisPoisonTimer extends Thread {
+	public ScheduledFuture<?> _timerFuture;
+
+	private class ParalysisPoisonTimer implements Runnable {
 		@Override
 		public void run() {
-			_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
-
 			try {
-				Thread.sleep(_delay);
-			} catch (InterruptedException e) {
-				_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
-				return;
-			}
+				_target.setSkillEffect(STATUS_POISON_PARALYZING, 0);
 
-			_effectId = 2;
-			_target.setPoisonEffect(2);
+				_effectId = 2;
+				_target.setPoisonEffect(2);
 
-			if (_target instanceof L1PcInstance) {
-				L1PcInstance player = (L1PcInstance) _target;
-				if (player.isDead() == false) {
-					player.sendPackets(new S_Paralysis(1, true));
-					_timer = new ParalysisTimer();
-					GeneralThreadPool.getInstance().execute(_timer);
-					if (isInterrupted()) {
-						_timer.interrupt();
+				if (_target instanceof L1PcInstance) {
+					L1PcInstance player = (L1PcInstance) _target;
+					if (player.isDead() == false) {
+						player.sendPackets(new S_Paralysis(1, true));
+						_timer = new ParalysisTimer();
+						_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, _time);
 					}
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("", e);
 			}
 		}
 	}
 
-	private class ParalysisTimer extends Thread {
+	private class ParalysisTimer implements Runnable {
 		@Override
 		public void run() {
 			_target.killSkillEffectTimer(STATUS_POISON_PARALYZING);
 			_target.setSkillEffect(STATUS_POISON_PARALYZED, 0);
-			try {
-				Thread.sleep(_time);
-			} catch (InterruptedException e) {
-			}
-
 			_target.killSkillEffectTimer(STATUS_POISON_PARALYZED);
 			if (_target instanceof L1PcInstance) {
 				L1PcInstance player = (L1PcInstance) _target;
@@ -106,7 +106,7 @@ public class L1ParalysisPoison extends L1Poison {
 
 		if (_target instanceof L1PcInstance) {
 			_timer = new ParalysisPoisonTimer();
-			GeneralThreadPool.getInstance().execute(_timer);
+			_timerFuture = GeneralThreadPool.getInstance().schedule(_timer, _delay);
 		}
 	}
 
@@ -118,7 +118,12 @@ public class L1ParalysisPoison extends L1Poison {
 	@Override
 	public void cure() {
 		if (_timer != null) {
-			_timer.interrupt();
+			try {
+				_timerFuture.cancel(true);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		_target.setPoisonEffect(0);

@@ -25,8 +25,9 @@ import java.io.LineNumberReader;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javolution.util.FastList;
 import l1j.server.Config;
@@ -35,8 +36,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class Announcecycle {
-	private static Logger _log = Logger
-			.getLogger(Announcecycle.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Announcecycle.class.getName());
 
 	private static Announcecycle _instance;
 
@@ -62,7 +62,7 @@ public class Announcecycle {
 			readFromDiskmulti(file);
 			doAnnouncecycle();
 		} else {
-			_log.config("data/ingamenews.txt loaded.");
+			_log.info("data/ingamenews.txt loaded.");
 		}
 	}
 
@@ -80,14 +80,14 @@ public class Announcecycle {
 					i++;
 				}
 			}
-			_log.config("IngameNews Messages        = " + i);
+			_log.info("IngameNews Messages        = " + i);
 		} catch (IOException e1) {
-			_log.log(Level.SEVERE, "Error reading ingamenews", e1);
+			_log.error("Error reading ingamenews", e1);
 		} finally {
 			try {
 				lnr.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}
@@ -108,7 +108,7 @@ public class Announcecycle {
 				if (_ingamenewssize >= _ingamenews.size())
 					_ingamenewssize = 0;
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "", e);
+				_log.error("", e);
 			}
 		}
 	}

@@ -5,15 +5,14 @@ package l1j.server.server.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.datatables.TownTable;
 import l1j.server.server.templates.L1Town;
 import l1j.server.server.types.Point;
 
 public class L1TownLocation {
-	private static final Random random = new Random();
-
+ 
 	public static final int TOWNID_TALKING_ISLAND = 1;
 	public static final int TOWNID_SILVER_KNIGHT_TOWN = 2;
 	public static final int TOWNID_GLUDIO = 3;
@@ -175,7 +174,7 @@ public class L1TownLocation {
 		Point[] points = townToEscapePoints.get(townId);
 		if (points == null)
 			points = townToEscapePoints.get(TOWNID_SILVER_KNIGHT_TOWN);
-		Point point = points[random.nextInt(points.length)];
+		Point point = points[ThreadLocalRandom.current().nextInt(points.length)];
 		return new int[] { point.getX(), point.getY(), townToMap.get(townId) };
 	}
 

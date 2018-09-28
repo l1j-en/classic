@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -38,7 +39,7 @@ import l1j.server.server.utils.SQLUtil;
 // IdFactory
 public class TownTable {
 	private static final int _minTaxRate = 2;
-	private static Logger _log = Logger.getLogger(TownTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(TownTable.class.getName());
 	private static TownTable _instance;
 	private final Map<Integer, L1Town> _towns = new ConcurrentHashMap<Integer, L1Town>();
 
@@ -80,7 +81,7 @@ public class TownTable {
 				_towns.put(new Integer(townid), town);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -143,7 +144,7 @@ public class TownTable {
 			town.set_town_tax(town.get_town_tax() + townTaxEarned);
 			town.set_town_fix_tax(town.get_town_fix_tax() + townFixTaxEarned);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -162,7 +163,7 @@ public class TownTable {
 			pstm.setInt(1, town_id);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -182,7 +183,7 @@ public class TownTable {
 			pstm.setInt(2, town_id);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -219,7 +220,7 @@ public class TownTable {
 					.prepareStatement("UPDATE town SET tax_rate = tax_rate_reserved");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -235,7 +236,7 @@ public class TownTable {
 					.prepareStatement("UPDATE town SET sales_money_yesterday = sales_money, sales_money = 0");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

@@ -1,8 +1,8 @@
 package l1j.server.server.command.executor;
 
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.Config;
 
 // this command toggles whether users can drop items on the ground or not.
 // it does NOT affect if they can drop items when they die

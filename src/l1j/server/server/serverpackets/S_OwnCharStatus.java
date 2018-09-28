@@ -38,14 +38,8 @@ package l1j.server.server.serverpackets;
 
 
 
-import java.util.logging.Logger;
-
-
-
 import l1j.server.server.encryptions.Opcodes;
-
 import l1j.server.server.model.Instance.L1PcInstance;
-
 import l1j.server.server.model.gametime.L1GameTimeClock;
 
 
@@ -56,9 +50,9 @@ import l1j.server.server.model.gametime.L1GameTimeClock;
 
 public class S_OwnCharStatus extends ServerBasePacket {
 
-	private static Logger _log = Logger.getLogger(S_OwnCharStatus.class
+//	private static Logger _log = LoggerFactory.getLogger(S_OwnCharStatus.class
 
-			.getName());
+//			.getName());
 
 	private static final String S_OWB_CHAR_STATUS = "[S] S_OwnCharStatus";
 
@@ -80,7 +74,7 @@ public class S_OwnCharStatus extends ServerBasePacket {
 
 		time = time - (time % 300);
 
-		// _log.warning((new
+		// _log.warn((new
 
 		// StringBuilder()).append("Transmission time:").append(i).toString());
 

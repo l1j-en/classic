@@ -18,8 +18,9 @@
  */
 package l1j.server.server.utils;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.encryptions.IdFactory;
@@ -29,7 +30,7 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1SpawnUtil {
-	private static Logger _log = Logger.getLogger(L1SpawnUtil.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1SpawnUtil.class.getName());
 
 	public static void spawn(L1PcInstance pc, int npcId, int randomRange,
 			int timeMillisToDelete) {
@@ -74,7 +75,7 @@ public class L1SpawnUtil {
 				timer.begin();
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 	
@@ -101,7 +102,7 @@ public class L1SpawnUtil {
 				timer.begin();
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 }

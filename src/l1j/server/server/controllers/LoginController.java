@@ -21,16 +21,22 @@ package l1j.server.server.controllers;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.Account;
 import l1j.server.server.AccountAlreadyLoginException;
-import l1j.server.server.ClientThread;
 import l1j.server.server.GameServerFullException;
 import l1j.server.server.GeneralThreadPool;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 public class LoginController {
+	
+	private static Logger _log = LoggerFactory.getLogger(LoginController.class);
+
 	private static LoginController _instance;
-	private Map<String, ClientThread> _accounts = new ConcurrentHashMap<String, ClientThread>();
+	private Map<String, Client> _accounts = new ConcurrentHashMap<String, Client>();
 	private int _maxAllowedOnlinePlayers;
 
 	private LoginController() {
@@ -43,8 +49,8 @@ public class LoginController {
 		return _instance;
 	}
 
-	public ClientThread[] getAllAccounts() {
-		return _accounts.values().toArray(new ClientThread[_accounts.size()]);
+	public Client[] getAllAccounts() {
+		return _accounts.values().toArray(new Client[_accounts.size()]);
 	}
 
 	public int getOnlinePlayerCount() {
@@ -59,7 +65,7 @@ public class LoginController {
 		_maxAllowedOnlinePlayers = maxAllowedOnlinePlayers;
 	}
 
-	private void kickClient(final ClientThread client) {
+	private void kickClient(final Client client) {
 		if (client == null) {
 			return;
 		}
@@ -67,11 +73,14 @@ public class LoginController {
 		GeneralThreadPool.getInstance().execute(new Runnable() {
 			@Override
 			public void run() {
-				if (client.getActiveChar() != null) {
-					client.getActiveChar()
-							.sendPackets(new S_ServerMessage(357));
-				}
 
+				try {
+					if (client.getActiveChar() != null) {
+						client.getActiveChar().sendPackets(new S_ServerMessage(357));
+					}
+				} catch (Exception e) {
+					_log.error("",e);
+				}
 				try {
 					Thread.sleep(1000);
 				} catch (Exception e) {
@@ -81,14 +90,12 @@ public class LoginController {
 		});
 	}
 
-	public synchronized void login(ClientThread client, Account account)
+	public synchronized void login(Client client, Account account)
 			throws GameServerFullException, AccountAlreadyLoginException {
 		if (!account.isValid()) {
-			throw new IllegalArgumentException(
-					"Invalid account encountered in LoginController.login.");
+			throw new IllegalArgumentException("Invalid account encountered in LoginController.login.");
 		}
-		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount())
-				&& !account.isGameMaster()) {
+		if ((getMaxAllowedOnlinePlayers() <= getOnlinePlayerCount()) && !account.isGameMaster()) {
 			throw new GameServerFullException();
 		}
 		if (_accounts.containsKey(account.getName())) {
@@ -98,7 +105,7 @@ public class LoginController {
 		_accounts.put(account.getName(), client);
 	}
 
-	public synchronized boolean logout(ClientThread client) {
+	public synchronized boolean logout(Client client) {
 		if (client.getAccountName() == null) {
 			return false;
 		}

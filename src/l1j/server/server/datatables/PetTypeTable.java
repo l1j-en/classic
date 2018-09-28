@@ -26,8 +26,9 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1PetType;
@@ -36,7 +37,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public class PetTypeTable {
 	private static PetTypeTable _instance;
-	private static Logger _log = Logger.getLogger(PetTypeTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PetTypeTable.class.getName());
 	private Map<Integer, L1PetType> _types = new LinkedHashMap<Integer, L1PetType>();
 	private Set<String> _defaultNames = new HashSet<String>();
 
@@ -82,7 +83,7 @@ public class PetTypeTable {
 				_defaultNames.add(name.toLowerCase());
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

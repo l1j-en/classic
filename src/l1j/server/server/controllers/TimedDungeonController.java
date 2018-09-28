@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.dungeon.TimedDungeonInstance;
 
 public class TimedDungeonController  extends TimerTask {
-	private static Logger _log = Logger.getLogger(TimedDungeonController.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(TimedDungeonController.class.getName());
 	private static TimedDungeonController _instance;
 	
 	private Timer _timeHandler = new Timer("TimedDungeonController",true);
@@ -54,7 +56,7 @@ public class TimedDungeonController  extends TimerTask {
 					}
 				} catch (Exception e) {
 					// reset failed!
-					_log.warning(dungeon.getName() + " daily reset failed to run! Error: " + e.getMessage());
+					_log.warn(dungeon.getName() + " daily reset failed to run! Error: " + e.getMessage());
 				}
 			}
 		}

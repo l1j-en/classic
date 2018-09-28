@@ -20,8 +20,9 @@ package l1j.server.server.controllers;
 
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.datatables.AuctionBoardTable;
@@ -39,7 +40,7 @@ import l1j.server.server.templates.L1AuctionBoard;
 import l1j.server.server.templates.L1House;
 
 public class AuctionTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(AuctionTimeController.class
+	private static Logger _log = LoggerFactory.getLogger(AuctionTimeController.class
 			.getName());
 
 	private static AuctionTimeController _instance;
@@ -107,7 +108,7 @@ public class AuctionTimeController implements Runnable {
 							.create();
 					storage.storeItem(oldOwnerId, item);
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			}
 

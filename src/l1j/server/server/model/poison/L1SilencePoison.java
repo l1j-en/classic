@@ -19,6 +19,7 @@
 package l1j.server.server.model.poison;
 
 import static l1j.server.server.model.skill.L1SkillId.STATUS_POISON_SILENCE;
+
 import l1j.server.server.model.L1Character;
 
 public class L1SilencePoison extends L1Poison {

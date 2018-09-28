@@ -18,14 +18,15 @@
  */
 package l1j.server.server.controllers;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.Announcements;
 import l1j.server.server.datatables.UBTable;
 import l1j.server.server.model.L1UltimateBattle;
 
 public class UbTimeController implements Runnable {
-	private static Logger _log = Logger.getLogger(UbTimeController.class
+	private static Logger _log = LoggerFactory.getLogger(UbTimeController.class
 			.getName());
 	private static UbTimeController _instance;
 
@@ -45,7 +46,7 @@ public class UbTimeController implements Runnable {
 				Thread.sleep(15000);
 			}
 		} catch (Exception e1) {
-			_log.warning(e1.getMessage());
+			_log.warn(e1.getMessage());
 		}
 	}
 

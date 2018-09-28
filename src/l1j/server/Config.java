@@ -24,13 +24,14 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.utils.IntRange;
 
 public final class Config {
-	private static final Logger _log = Logger.getLogger(Config.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(Config.class);
 
 	/** Debug/release mode */
 	public static final boolean DEBUG = false;
@@ -597,7 +598,7 @@ public final class Config {
 	public static int NON_AGGRO_LOGOUT_TIMER;
 
 	public static void load() {
-		_log.config("Loading GameServer config.");
+		_log.info("Loading GameServer config.");
 
 		// server.properties
 		try {
@@ -742,12 +743,12 @@ public final class Config {
 			RESTRICT_ACCOUNT_IPS_MESSAGE = serverSettings.getProperty("RestrictAccountIpsMessage");
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + SERVER_CONFIG_FILE + " file.");
 		}
 
 		// rates.properties
-		_log.config("Loading Rates config.");
+		_log.info("Loading Rates config.");
 		try {
 			Properties rateSettings = new Properties();
 			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
@@ -840,12 +841,12 @@ public final class Config {
 			RATE_DROP_ITEMS_ORG = RATE_DROP_ITEMS;
 			RATE_WEIGHT_LIMIT_ORG = RATE_WEIGHT_LIMIT;
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + RATES_CONFIG_FILE + " file.");
 		}
 
 		// altsettings.properties
-		_log.config("Loading AltSettings config.");
+		_log.info("Loading AltSettings config.");
 		try {
 			Properties altSettings = new Properties();
 			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
@@ -1039,12 +1040,12 @@ public final class Config {
 			ACCESSORY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty(
 					"AccessoryEnchantLimit", "10"));
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");
 		}
 
 		// charsettings.properties
-		_log.config("Loading CharSettings config.");
+		_log.info("Loading CharSettings config.");
 		try {
 			Properties charSettings = new Properties();
 			InputStream is = new FileInputStream(new File(
@@ -1181,11 +1182,11 @@ public final class Config {
 			LV99_EXP = Integer.parseInt(charSettings.getProperty("Lv99Exp",
 					"16777216"));
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + CHAR_SETTINGS_CONFIG_FILE
 					+ " file.");
 		}
-		_log.config("Loading PcCommandSettings config.");
+		_log.info("Loading PcCommandSettings config.");
 		try {
 			Properties pcommandSettings = new Properties();
 			InputStream is = new FileInputStream(new File(
@@ -1203,7 +1204,7 @@ public final class Config {
 					"DkBuff", "False"));
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + PCOMMANDS_SETTINGS_FILE
 					+ " file.");
 		}
@@ -1523,7 +1524,7 @@ public final class Config {
 			RATE_KARMA = RATE_KARMA_ORG;
 			RATE_WEIGHT_LIMIT = RATE_WEIGHT_LIMIT_ORG;
 		} catch (Exception e) {
-			_log.severe(e.toString());
+			_log.error(e.toString());
 		}
 	}
 

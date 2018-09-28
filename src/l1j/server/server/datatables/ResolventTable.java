@@ -24,14 +24,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public final class ResolventTable {
-	private static Logger _log = Logger.getLogger(ResolventTable.class
+	private static Logger _log = LoggerFactory.getLogger(ResolventTable.class
 			.getName());
 	private static ResolventTable _instance;
 	private final Map<Integer, Integer> _resolvent = new HashMap<Integer, Integer>();
@@ -59,9 +60,9 @@ public final class ResolventTable {
 				int crystalCount = rs.getInt("crystal_count");
 				_resolvent.put(new Integer(itemId), crystalCount);
 			}
-			_log.config("resolvent " + _resolvent.size());
+			_log.info("resolvent " + _resolvent.size());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -18,8 +18,9 @@
  */
 package l1j.server.server.command.executor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.L1Party;
 import l1j.server.server.model.L1Teleport;
@@ -28,8 +29,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1PartyRecall implements L1CommandExecutor {
-	private static Logger _log = Logger
-			.getLogger(L1PartyRecall.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(L1PartyRecall.class.getName());
 
 	private L1PartyRecall() {
 	}
@@ -55,7 +55,7 @@ public class L1PartyRecall implements L1CommandExecutor {
 						pc2.sendPackets(new S_SystemMessage(
 								"Summoned to the GM."));
 					} catch (Exception e) {
-						_log.log(Level.SEVERE, "", e);
+						_log.error("", e);
 					}
 				}
 			} else {

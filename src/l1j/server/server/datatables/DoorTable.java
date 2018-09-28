@@ -20,8 +20,9 @@ package l1j.server.server.datatables;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.encryptions.IdFactory;
@@ -34,7 +35,7 @@ import l1j.server.server.utils.collections.Lists;
 import l1j.server.server.utils.collections.Maps;
 
 public class DoorTable {
-	private static Logger _log = Logger.getLogger(DoorTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(DoorTable.class.getName());
 	private static DoorTable _instance;
 
 	private final Map<L1Location, L1DoorInstance> _doors = Maps
@@ -58,8 +59,7 @@ public class DoorTable {
 		for (L1DoorSpawn spawn : L1DoorSpawn.all()) {
 			L1Location loc = spawn.getLocation();
 			if (_doors.containsKey(loc)) {
-				_log.log(
-						Level.WARNING,
+				_log.warn(
 						String.format("Duplicate door location: id = %d",
 								spawn.getId()));
 				continue;

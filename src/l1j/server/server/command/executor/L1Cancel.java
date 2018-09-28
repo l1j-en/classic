@@ -41,6 +41,7 @@ import static l1j.server.server.model.skill.L1SkillId.SOLID_CARRIAGE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BEGIN;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_END;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_FREEZE;
+
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1World;

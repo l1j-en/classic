@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1DoorInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -32,6 +35,8 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.utils.NpcMover;
 
 public class L1HauntedHouse {
+	private static Logger _log = LoggerFactory.getLogger(L1HauntedHouse.class);
+
 	public static final int STATUS_NONE = 0;
 	public static final int STATUS_READY = 1;
 	public static final int STATUS_PLAYING = 2;
@@ -182,14 +187,19 @@ public class L1HauntedHouse {
 
 		@Override
 		public void run() {
-			startHauntedHouse();
-			// See top comments for overview.
-			// We need to cancel the existing timeout timer; otherwise it could
-			// go off during this (new) run of the Haunted House.
-			if (_hhTimer != null)
-				_hhTimer.cancel();
-			_hhTimer = new L1HauntedHouseTimer();
-			_hhTimer.begin();
+			try {
+				startHauntedHouse();
+				// See top comments for overview.
+				// We need to cancel the existing timeout timer; otherwise it could
+				// go off during this (new) run of the Haunted House.
+				if (_hhTimer != null)
+					_hhTimer.cancel();
+				_hhTimer = new L1HauntedHouseTimer();
+				_hhTimer.begin();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			}
 		}
 
 		public void begin() {

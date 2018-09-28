@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1PetItem;
 import l1j.server.server.utils.SQLUtil;
 
 public class PetItemTable {
-	private static Logger _log = Logger.getLogger(PetItemTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PetItemTable.class.getName());
 	private static PetItemTable _instance;
 	private final HashMap<Integer, L1PetItem> _petItemIdIndex = new HashMap<Integer, L1PetItem>();
 
@@ -56,7 +57,7 @@ public class PetItemTable {
 			rs = pstm.executeQuery();
 			fillPetItemTable(rs);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE,
+			_log.error(
 					"error while creating etcitem_petitem table", e);
 		} finally {
 			SQLUtil.close(rs);

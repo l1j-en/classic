@@ -24,8 +24,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.IdFactory;
@@ -35,7 +36,7 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.utils.SQLUtil;
 
 public class FurnitureSpawnTable {
-	private static Logger _log = Logger.getLogger(FurnitureSpawnTable.class
+	private static Logger _log = LoggerFactory.getLogger(FurnitureSpawnTable.class
 			.getName());
 	private static FurnitureSpawnTable _instance;
 
@@ -86,19 +87,19 @@ public class FurnitureSpawnTable {
 				}
 			} while (true);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (SecurityException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (ClassNotFoundException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (IllegalArgumentException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (InstantiationException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (IllegalAccessException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} catch (InvocationTargetException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -120,7 +121,7 @@ public class FurnitureSpawnTable {
 			pstm.setInt(5, furniture.getMapId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -137,7 +138,7 @@ public class FurnitureSpawnTable {
 			pstm.setInt(1, furniture.getItemObjId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

@@ -19,10 +19,10 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Pledge;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -32,9 +32,9 @@ public class C_Pledge extends ClientBasePacket {
 
 	private static final String C_PLEDGE = "[C] C_Pledge";
 
-	public C_Pledge(byte abyte0[], ClientThread clientthread) {
+	public C_Pledge(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 
 		if (pc.getClanid() > 0) {
 			L1Clan clan = L1World.getInstance().getClan(pc.getClanname());

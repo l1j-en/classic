@@ -27,10 +27,10 @@ import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_N;
 import static l1j.server.server.model.skill.L1SkillId.COOKING_3_6_S;
 import static l1j.server.server.model.skill.L1SkillId.NATURES_TOUCH;
 
-import java.util.Random;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1EffectInstance;
@@ -38,16 +38,15 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.Maps;
 import l1j.server.server.model.skill.L1SkillId;
 
-public class HpRegeneration extends TimerTask {
+public class HpRegeneration implements Runnable {
 
-	private static Logger _log = Logger.getLogger(HpRegeneration.class
+	private static Logger _log = LoggerFactory.getLogger(HpRegeneration.class
 			.getName());
 	private final L1PcInstance _pc;
 	private int _regenMax = 0;
 	private int _regenPoint = 0;
 	private int _curPoint = 4;
-	private static Random _random = new Random();
-
+ 
 	public HpRegeneration(L1PcInstance pc) {
 		_pc = pc;
 		updateLevel();
@@ -75,7 +74,7 @@ public class HpRegeneration extends TimerTask {
 				}
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -108,7 +107,7 @@ public class HpRegeneration extends TimerTask {
 
 		int equipHpr = _pc.getInventory().hpRegenPerTick();
 		equipHpr += _pc.getHpr();
-		int bonus = _random.nextInt(maxBonus) + 1;
+		int bonus = ThreadLocalRandom.current().nextInt(maxBonus) + 1;
 
 		if (_pc.hasSkillEffect(NATURES_TOUCH)) {
 			bonus += 15;

@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogReporterTable {
-	private static Logger _log = Logger.getLogger(LogReporterTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(LogReporterTable.class.getName());
 
 	public static int storeLogReport(int reporter_id, String reporter_account, String reporter_ip, 
 			int target_id, String target_name, String reason) {
@@ -59,7 +60,7 @@ public class LogReporterTable {
 			insertedId = keys.getInt(1);
 			keys.close();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(keys);
 			SQLUtil.close(pstm);
@@ -81,7 +82,7 @@ public class LogReporterTable {
 			pstm.setInt(2, id);
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -107,7 +108,7 @@ public class LogReporterTable {
 			return rs.getLong("timestamp");
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			return 0;
 		} finally {
 			SQLUtil.close(pstm);
@@ -135,7 +136,7 @@ public class LogReporterTable {
 			return rs.getLong("timestamp");
 
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			return 0;
 		} finally {
 			SQLUtil.close(pstm);

@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FailCommand implements Command, Runnable  {
-	private static Logger _log = Logger.getLogger(FailCommand.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(FailCommand.class.getName());
 	private Thread thread;
 	private OutputStream outputStream;
 	private ExitCallback exitCallback;
@@ -37,13 +37,13 @@ public class FailCommand implements Command, Runnable  {
 	public void run() {
 		try {
 			String user = this.environment.getEnv().get(Environment.ENV_USER);
-			_log.log(Level.INFO, user + " ran an unknown command: " + command);
+			_log.info(user + " ran an unknown command: " + command);
 			
 			final PrintWriter writer = new PrintWriter(this.outputStream, true);
 			writer.println("Unknown command");
 			writer.flush();
 	      } catch (Exception e) {
-	          e.printStackTrace();
+	          _log.error("",e);
 	      } finally {
 	          this.exitCallback.onExit(0);
 	      }

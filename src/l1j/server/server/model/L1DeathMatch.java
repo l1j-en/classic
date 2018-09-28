@@ -25,10 +25,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -47,6 +50,8 @@ import l1j.server.server.templates.L1DoorGfx;
 import l1j.server.server.utils.collections.Lists;
 
 public class L1DeathMatch {
+
+	private static Logger _log = LoggerFactory.getLogger(L1DeathMatch.class);
 
 	private final int[] fragment = { 50515, 50516, 50518, 50519 };
 	private final int ISSUE_ITEM = 50499;
@@ -67,8 +72,7 @@ public class L1DeathMatch {
 	private final HashMap<String, Date> lastPlayTime = new HashMap<String, Date>();
 	private final List<L1PcInstance> orderList = Lists.newArrayList();
 	private final HashMap<String, Integer> orderCancelList = new HashMap<String, Integer>();
-	private static Random _random = new Random();
-
+ 
 	private static L1DeathMatch instance;
 
 	public static L1DeathMatch getInstance() {
@@ -192,21 +196,21 @@ public class L1DeathMatch {
 				pc.getParty().leaveMember(pc);
 			}
 			if (getGameStatus() == STATUS_PLAYING) {
-				L1Location loc = new L1Location(32625 + _random.nextInt(28),
-						32885 + _random.nextInt(28), getMapId());
+				L1Location loc = new L1Location(32625 + ThreadLocalRandom.current().nextInt(28),
+						32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 				while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-					loc.set(32625 + _random.nextInt(28),
-							32885 + _random.nextInt(28), getMapId());
+					loc.set(32625 + ThreadLocalRandom.current().nextInt(28),
+							32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 				}
 				L1Teleport.teleport(pc, loc.getX(), loc.getY(),
 						(short) loc.getMapId(), 5, true);
 			} else {
-				if (_random.nextInt(2) > 0) {
-					L1Teleport.teleport(pc, 32637 + _random.nextInt(3),
-							32877 + _random.nextInt(6), (short) 5153, 6, true);
+				if (ThreadLocalRandom.current().nextInt(2) > 0) {
+					L1Teleport.teleport(pc, 32637 + ThreadLocalRandom.current().nextInt(3),
+							32877 + ThreadLocalRandom.current().nextInt(6), (short) 5153, 6, true);
 				} else {
-					L1Teleport.teleport(pc, 32655 + _random.nextInt(6),
-							32897 + _random.nextInt(4), (short) 5153, 6, true);
+					L1Teleport.teleport(pc, 32655 + ThreadLocalRandom.current().nextInt(6),
+							32897 + ThreadLocalRandom.current().nextInt(4), (short) 5153, 6, true);
 				}
 			}
 			removeSkillEffect(pc);
@@ -420,8 +424,8 @@ public class L1DeathMatch {
 			winner1.getInventory().storeItem(item);
 			winner1.sendPackets(new S_ServerMessage(403, item.getLogName()));
 		}
-		if ((_random.nextInt(100) + 1) <= 40) {
-			int i = _random.nextInt(fragment.length);
+		if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 40) {
+			int i = ThreadLocalRandom.current().nextInt(fragment.length);
 			item = ItemTable.getInstance().createItem(fragment[i]);
 			if (winner1.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 				item.setCount(1);
@@ -430,7 +434,7 @@ public class L1DeathMatch {
 			}
 		}
 		if (winner2 != null) {
-			if ((_random.nextInt(100) + 1) <= 30 * 2) {
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 30 * 2) {
 				item = ItemTable.getInstance().createItem(50515);
 				if (winner2.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					winner2.getInventory().storeItem(50515, 1);
@@ -439,8 +443,8 @@ public class L1DeathMatch {
 				}
 			}
 
-			if ((_random.nextInt(100) + 1) <= 30) {
-				int i = _random.nextInt(fragment.length);
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 30) {
+				int i = ThreadLocalRandom.current().nextInt(fragment.length);
 				item = ItemTable.getInstance().createItem(fragment[i]);
 				if (winner2.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					item.setCount(1);
@@ -451,7 +455,7 @@ public class L1DeathMatch {
 			}
 		}
 		if (winner3 != null) {
-			if ((_random.nextInt(100) + 1) <= 20 * 2) {
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 20 * 2) {
 				item = ItemTable.getInstance().createItem(50515);
 				if (winner3.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					winner3.getInventory().storeItem(50515, 1);
@@ -459,8 +463,8 @@ public class L1DeathMatch {
 							.getLogName()));
 				}
 			}
-			if ((_random.nextInt(100) + 1) <= 20) {
-				int i = _random.nextInt(fragment.length);
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 20) {
+				int i = ThreadLocalRandom.current().nextInt(fragment.length);
 				item = ItemTable.getInstance().createItem(fragment[i]);
 				if (winner3.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					item.setCount(1);
@@ -471,7 +475,7 @@ public class L1DeathMatch {
 			}
 		}
 		if (winner4 != null) {
-			if ((_random.nextInt(10) + 1) <= 10 * 2) {
+			if ((ThreadLocalRandom.current().nextInt(10) + 1) <= 10 * 2) {
 				item = ItemTable.getInstance().createItem(50515);
 				if (winner4.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					winner4.getInventory().storeItem(50515, 1);
@@ -479,8 +483,8 @@ public class L1DeathMatch {
 							.getLogName()));
 				}
 			}
-			if ((_random.nextInt(100) + 1) <= 10) {
-				int i = _random.nextInt(fragment.length);
+			if ((ThreadLocalRandom.current().nextInt(100) + 1) <= 10) {
+				int i = ThreadLocalRandom.current().nextInt(fragment.length);
 				item = ItemTable.getInstance().createItem(fragment[i]);
 				if (winner4.getInventory().checkAddItem(item, 1) == L1Inventory.OK) {
 					item.setCount(1);
@@ -589,65 +593,70 @@ public class L1DeathMatch {
 	private class CheckTimer extends TimerTask {
 		@Override
 		public void run() {
-			for (L1PcInstance pc : playerList) {
-				pc.sendPackets(new S_ServerMessage(1269));
-			}
-
 			try {
-				Thread.sleep(6 * 1000);
-				_doorLeft.open();
-				CloseTimer temp = new CloseTimer(_doorLeft);
-				temp.begin();
-				Thread.sleep(4 * 1000);// 50+10=60s
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (checkPlayersOK()) {
-				setGameStatus(STATUS_PLAYING);
 				for (L1PcInstance pc : playerList) {
-					pc.sendPackets(new S_DeathMatch(S_DeathMatch.CountDown));
-				}
-				startGameTimeLimitTimer();
-				_issue = new IssueItem();
-				_issue.begin();
-				_penalty = new LimitPenaltyTimer();
-				_penalty.begin();
-				_startPlayerNum = playerList.size();
-				setRemainder(_startPlayerNum);
-
-				for (L1Object obj : L1World.getInstance().getVisiblePoint(
-						new L1Location(32638, 32880, getMapId()), 3)) {
-					if (obj instanceof L1PcInstance) {
-						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
-						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
-						}
-						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
-								loc.getY(), (short) loc.getMapId(), 5, false);
-					}
-				}
-				for (L1Object obj : L1World.getInstance().getVisiblePoint(
-						new L1Location(32658, 32899, getMapId()), 3)) {
-					if (obj instanceof L1PcInstance) {
-						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
-						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
-						}
-						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
-								loc.getY(), (short) loc.getMapId(), 5, false);
-					}
+					pc.sendPackets(new S_ServerMessage(1269));
 				}
 
-			} else {
-				setGameEnd(END_STATUS_NOPLAYER);
+				try {
+					Thread.sleep(6 * 1000);
+					_doorLeft.open();
+					CloseTimer temp = new CloseTimer(_doorLeft);
+					temp.begin();
+					Thread.sleep(4 * 1000);// 50+10=60s
+				} catch (InterruptedException e) {
+					_log.error("",e);
+				}
+				if (checkPlayersOK()) {
+					setGameStatus(STATUS_PLAYING);
+					for (L1PcInstance pc : playerList) {
+						pc.sendPackets(new S_DeathMatch(S_DeathMatch.CountDown));
+					}
+					startGameTimeLimitTimer();
+					_issue = new IssueItem();
+					_issue.begin();
+					_penalty = new LimitPenaltyTimer();
+					_penalty.begin();
+					_startPlayerNum = playerList.size();
+					setRemainder(_startPlayerNum);
+
+					for (L1Object obj : L1World.getInstance().getVisiblePoint(
+							new L1Location(32638, 32880, getMapId()), 3)) {
+						if (obj instanceof L1PcInstance) {
+							L1Location loc = new L1Location(
+									32625 + ThreadLocalRandom.current().nextInt(28),
+									32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
+							while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
+								loc.set(32625 + ThreadLocalRandom.current().nextInt(28),
+										32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
+							}
+							L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
+									loc.getY(), (short) loc.getMapId(), 5, false);
+						}
+					}
+					for (L1Object obj : L1World.getInstance().getVisiblePoint(
+							new L1Location(32658, 32899, getMapId()), 3)) {
+						if (obj instanceof L1PcInstance) {
+							L1Location loc = new L1Location(
+									32625 + ThreadLocalRandom.current().nextInt(28),
+									32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
+							while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
+								loc.set(32625 + ThreadLocalRandom.current().nextInt(28),
+										32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
+							}
+							L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
+									loc.getY(), (short) loc.getMapId(), 5, false);
+						}
+					}
+
+				} else {
+					setGameEnd(END_STATUS_NOPLAYER);
+				}
+				this.cancel();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
 			}
-			this.cancel();
 		}
 
 		public void begin() {
@@ -674,7 +683,7 @@ public class L1DeathMatch {
 			if (getGameStatus() == STATUS_PLAYING) {
 				for (L1PcInstance pc : playerList) {
 					if (!pc.isDead() && pc.getMapId() == getMapId()) {
-						if (_random.nextInt(2) > 0) {
+						if (ThreadLocalRandom.current().nextInt(2) > 0) {
 							int newHp = pc.getCurrentHp() - 10;
 							if (newHp < 1) {
 								newHp = 1;
@@ -912,11 +921,11 @@ public class L1DeathMatch {
 								_door.getMapId()), 0)) {
 					if (obj instanceof L1PcInstance) {
 						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
+								32625 + ThreadLocalRandom.current().nextInt(28),
+								32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
+							loc.set(32625 + ThreadLocalRandom.current().nextInt(28),
+									32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 						}
 						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
 								loc.getY(), (short) loc.getMapId(), 5, false);
@@ -927,11 +936,11 @@ public class L1DeathMatch {
 								_door.getMapId()), 0)) {
 					if (obj instanceof L1PcInstance) {
 						L1Location loc = new L1Location(
-								32625 + _random.nextInt(28),
-								32885 + _random.nextInt(28), getMapId());
+								32625 + ThreadLocalRandom.current().nextInt(28),
+								32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 						while (!loc.getMap().isPassable(loc.getX(), loc.getY())) {
-							loc.set(32625 + _random.nextInt(28),
-									32885 + _random.nextInt(28), getMapId());
+							loc.set(32625 + ThreadLocalRandom.current().nextInt(28),
+									32885 + ThreadLocalRandom.current().nextInt(28), getMapId());
 						}
 						L1Teleport.teleport((L1PcInstance) obj, loc.getX(),
 								loc.getY(), (short) loc.getMapId(), 5, false);

@@ -5,8 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.datatables.ItemTable;
@@ -71,7 +72,7 @@ public class L1DwarfInventory extends L1Inventory {
 			}
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -113,7 +114,7 @@ public class L1DwarfInventory extends L1Inventory {
 			pstm.setInt(24, item.getEarthResist());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -133,7 +134,7 @@ public class L1DwarfInventory extends L1Inventory {
 			pstm.setInt(2, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -151,7 +152,7 @@ public class L1DwarfInventory extends L1Inventory {
 			pstm.setInt(1, item.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -191,7 +192,7 @@ public class L1DwarfInventory extends L1Inventory {
 			present(accountList, itemid, enchant, count);
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw e;
 		} finally {
 			SQLUtil.close(rs);
@@ -229,7 +230,7 @@ public class L1DwarfInventory extends L1Inventory {
 			present(accountList, itemid, enchant, count);
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw e;
 		} finally {
 			SQLUtil.close(rs);
@@ -305,7 +306,7 @@ public class L1DwarfInventory extends L1Inventory {
 			} catch (SQLException ignore) {
 				// ignore
 			}
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			throw new Exception(".present An error occurred while processing.");
 		} finally {
 			SQLUtil.close(pstm);
@@ -313,7 +314,7 @@ public class L1DwarfInventory extends L1Inventory {
 		}
 	}
 
-	private static Logger _log = Logger.getLogger(L1DwarfInventory.class
+	private static Logger _log = LoggerFactory.getLogger(L1DwarfInventory.class
 			.getName());
 	private final L1PcInstance _owner;
 }

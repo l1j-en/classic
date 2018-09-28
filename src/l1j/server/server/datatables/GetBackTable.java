@@ -5,15 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1GetBack;
 import l1j.server.server.utils.SQLUtil;
 
 public class GetBackTable {
-	private static Logger _log = Logger.getLogger(GetBackTable.class
+	private static Logger _log = LoggerFactory.getLogger(GetBackTable.class
 			.getName());
 	private static GetBackTable _instance;
 	private final HashMap<Integer, L1GetBack> _getback = new HashMap<Integer, L1GetBack>();
@@ -58,7 +59,7 @@ public class GetBackTable {
 				_getback.put(new Integer(area_mapid), gb);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

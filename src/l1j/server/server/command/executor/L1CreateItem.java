@@ -20,10 +20,11 @@ package l1j.server.server.command.executor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.ShopTable;
@@ -38,7 +39,7 @@ import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1ShopItem;
 
 public class L1CreateItem implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(L1CreateItem.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1CreateItem.class.getName());
 
 	private L1CreateItem() {
 	}
@@ -149,7 +150,7 @@ public class L1CreateItem implements L1CommandExecutor {
 								cmdName)));
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			pc.sendPackets(new S_SystemMessage(
 					String.format(".%1$s <itemid or name> <amount> <enchant> <isID> or .%1$s <name> <enchant>",
 							cmdName)));

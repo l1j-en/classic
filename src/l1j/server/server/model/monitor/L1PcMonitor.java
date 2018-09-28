@@ -18,10 +18,15 @@
  */
 package l1j.server.server.model.monitor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public abstract class L1PcMonitor implements Runnable {
+
+	private static Logger _log = LoggerFactory.getLogger(L1PcMonitor.class);
 
 	protected int _id;
 
@@ -31,12 +36,17 @@ public abstract class L1PcMonitor implements Runnable {
 
 	@Override
 	public final void run() {
-		Thread.currentThread().setName("L1PcMonitor");
-		L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_id);
-		if (pc == null || pc.getNetConnection() == null) {
-			return;
+		try {
+			Thread.currentThread().setName("L1PcMonitor");
+			L1PcInstance pc = (L1PcInstance) L1World.getInstance().findObject(_id);
+			if (pc == null || pc.getNetConnection() == null) {
+				return;
+			}
+			execTask(pc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
 		}
-		execTask(pc);
 	}
 
 	public abstract void execTask(L1PcInstance pc);

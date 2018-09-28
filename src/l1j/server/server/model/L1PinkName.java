@@ -1,5 +1,8 @@
 package l1j.server.server.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.WarTimeController;
@@ -9,6 +12,9 @@ import l1j.server.server.serverpackets.S_PinkName;
 // Referenced classes of package l1j.server.server.model:
 // L1PinkName
 public class L1PinkName {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1PinkName.class);
+
 	private L1PcInstance _pc = null;
 	protected PinkNameTimer _timer = null;
 
@@ -28,26 +34,31 @@ public class L1PinkName {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1PinkName");
-			while ( _secondsLeft > 0) {
-				_secondsLeft--;
-				try {
-					Thread.sleep(1000);
-				} catch (Exception exception) {
-					break;
+			try {
+				Thread.currentThread().setName("L1PinkName");
+				while ( _secondsLeft > 0) {
+					_secondsLeft--;
+					try {
+						Thread.sleep(1000);
+					} catch (Exception exception) {
+						break;
+					}
+					// if they're dead and not pink anymore
+					// the not pink check is added to ensure that the
+					// death method has run before un-pinking
+					if (_attacker.isDead() && !_attacker.isPinkName()) {
+						break;
+					}
+					if (_attacker.getLawful() < 0 && !Config.CHAO_PINK) {
+						_attacker.setPinkName(false);
+						break;
+					}
 				}
-				// if they're dead and not pink anymore
-				// the not pink check is added to ensure that the
-				// death method has run before un-pinking
-				if (_attacker.isDead() && !_attacker.isPinkName()) {
-					break;
-				}
-				if (_attacker.getLawful() < 0 && !Config.CHAO_PINK) {
-					_attacker.setPinkName(false);
-					break;
-				}
+				stopPinkName(_attacker);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
 			}
-			stopPinkName(_attacker);
 		}
 
 		private void stopPinkName(L1PcInstance attacker) {

@@ -20,15 +20,16 @@ package l1j.server.server.model;
 
 import java.util.Calendar;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.templates.L1Npc;
 
 public class L1BossSpawn extends L1Spawn {
-	private static Logger _log = Logger.getLogger(L1BossSpawn.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1BossSpawn.class.getName());
 	private String _cycleType;
 	private int _percentage;
 	private L1BossCycle _cycle;
@@ -40,6 +41,8 @@ public class L1BossSpawn extends L1Spawn {
 
 	private class SpawnTask implements Runnable {
 
+		private String originalThreadName;
+
 		private SpawnTask(int spawnNumber, int objectId) {
 			_spawnNumber = spawnNumber;
 			_objectId = objectId;
@@ -47,8 +50,16 @@ public class L1BossSpawn extends L1Spawn {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1BossSpawn");
-			doSpawn(_spawnNumber, _objectId);
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1BossSpawn");
+				doSpawn(_spawnNumber, _objectId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
+			}
 		}
 	}
 
@@ -150,7 +161,7 @@ public class L1BossSpawn extends L1Spawn {
 			GeneralThreadPool.getInstance().schedule(
 					new SpawnTask(0, objectId), delay);
 		}
-		_log.log(Level.FINE, toString());
+		_log.trace(toString());
 	}
 
 	/**

@@ -6,9 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -44,11 +45,10 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger _log = Logger.getLogger(L1MonsterInstance.class
+	private static Logger _log = LoggerFactory.getLogger(L1MonsterInstance.class
 			.getName());
 
-	private static Random _random = new Random();
-
+ 
 	private boolean _storeDroped;
 
 	@Override
@@ -409,6 +409,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	class Death implements Runnable {
 		L1Character _lastAttacker;
+		private String originalThreadName;
 
 		public Death(L1Character lastAttacker) {
 			_lastAttacker = lastAttacker;
@@ -416,84 +417,92 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1MonsterInstance-Death");
-			setDeathProcessing(true);
-			setCurrentHpDirect(0);
-			setDead(true);
-			setStatus(ActionCodes.ACTION_Die);
-			
-			if(getServantMaster() instanceof L1NpcInstance) {
-				L1Spawn masterSpawn = getServantMaster().getSpawn();
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1MonsterInstance-Death");
+				setDeathProcessing(true);
+				setCurrentHpDirect(0);
+				setDead(true);
+				setStatus(ActionCodes.ACTION_Die);
 				
-				// if it is something a GM has spawned or a boss, then allow respawning of servants	
-				if(masterSpawn == null || masterSpawn instanceof L1BossSpawn) {
-					getServantMaster().removeServantSummon();
-				}
-			}
-			
-			getMap().setPassable(getLocation(), true);
-
-			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
-
-			startChat(CHAT_TIMING_DEAD);
-
-			distributeExpDropKarma(_lastAttacker);
-			giveUbSeal();
-
-			setDeathProcessing(false);
-
-			setExp(0);
-			setKarma(0);
-			setLawful(0);
-			allTargetClear();
-			
-			if(Config.ALT_BOSS_EVENT && BossEventController.getInstance().getBossIds().contains(getNpcId())) {
-				L1World world = L1World.getInstance();
-				
-				String name = _lastAttacker.getName();
-				if(_lastAttacker instanceof L1PetInstance) {
-					name = ((L1PetInstance)_lastAttacker).getMaster().getName();
-				} else if(_lastAttacker instanceof L1SummonInstance) {
-					name = ((L1SummonInstance)_lastAttacker).getMaster().getName();
-				}
-				
-				world.broadcastServerMessage(String.format("\\fR[******] %s has protected Aden by slaying %s!",
-						name, getName()));
-			}
-
-			startDeleteTimer();
-			
-			// Note: this will not count bosses spawned by GMs.
-			if(_lastAttacker instanceof L1PcInstance &&
-					getSpawn() instanceof L1BossSpawn) {
-				try {
-					L1PcInstance killer = (L1PcInstance)_lastAttacker;
+				if(getServantMaster() instanceof L1NpcInstance) {
+					L1Spawn masterSpawn = getServantMaster().getSpawn();
 					
-					Timestamp ts = new Timestamp(
-							System.currentTimeMillis());
-					Connection con = null;
-					PreparedStatement pstm = null;
-					con = L1DatabaseFactory.getInstance()
-							.getConnection();
-					pstm = con
-							.prepareStatement("INSERT INTO boss_kills (npcid, boss_name, locx, locy, mapid, killer_name, killer_objid, clan_name, kill_date) VALUES(?,?,?,?,?,?,?,?,?)");
-					pstm.setInt(1,  getNpcTemplate().get_npcId());
-					pstm.setString(2, getName());
-					pstm.setInt(3, getX());
-					pstm.setInt(4, getY());
-					pstm.setInt(5, getMapId());
-					pstm.setString(6, killer.getName());
-					pstm.setInt(7, killer.getId());
-					pstm.setString(8, killer.getClanname());
-					pstm.setTimestamp(9, ts);
-					
-					pstm.execute();
-					SQLUtil.close(pstm);
-					SQLUtil.close(con);
-				} catch (Exception e) {
-					_log.log(Level.SEVERE,
-							"Error occurred logging boss kill!: " + e.getLocalizedMessage(), e);
+					// if it is something a GM has spawned or a boss, then allow respawning of servants	
+					if(masterSpawn == null || masterSpawn instanceof L1BossSpawn) {
+						getServantMaster().removeServantSummon();
+					}
 				}
+				
+				getMap().setPassable(getLocation(), true);
+
+				broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Die));
+
+				startChat(CHAT_TIMING_DEAD);
+
+				distributeExpDropKarma(_lastAttacker);
+				giveUbSeal();
+
+				setDeathProcessing(false);
+
+				setExp(0);
+				setKarma(0);
+				setLawful(0);
+				allTargetClear();
+				
+				if(Config.ALT_BOSS_EVENT && BossEventController.getInstance().getBossIds().contains(getNpcId())) {
+					L1World world = L1World.getInstance();
+					
+					String name = _lastAttacker.getName();
+					if(_lastAttacker instanceof L1PetInstance) {
+						name = ((L1PetInstance)_lastAttacker).getMaster().getName();
+					} else if(_lastAttacker instanceof L1SummonInstance) {
+						name = ((L1SummonInstance)_lastAttacker).getMaster().getName();
+					}
+					
+					world.broadcastServerMessage(String.format("\\fR[******] %s has protected Aden by slaying %s!",
+							name, getName()));
+				}
+
+				startDeleteTimer();
+				
+				// Note: this will not count bosses spawned by GMs.
+				if(_lastAttacker instanceof L1PcInstance &&
+						getSpawn() instanceof L1BossSpawn) {
+					try {
+						L1PcInstance killer = (L1PcInstance)_lastAttacker;
+						
+						Timestamp ts = new Timestamp(
+								System.currentTimeMillis());
+						Connection con = null;
+						PreparedStatement pstm = null;
+						con = L1DatabaseFactory.getInstance()
+								.getConnection();
+						pstm = con
+								.prepareStatement("INSERT INTO boss_kills (npcid, boss_name, locx, locy, mapid, killer_name, killer_objid, clan_name, kill_date) VALUES(?,?,?,?,?,?,?,?,?)");
+						pstm.setInt(1,  getNpcTemplate().get_npcId());
+						pstm.setString(2, getName());
+						pstm.setInt(3, getX());
+						pstm.setInt(4, getY());
+						pstm.setInt(5, getMapId());
+						pstm.setString(6, killer.getName());
+						pstm.setInt(7, killer.getId());
+						pstm.setString(8, killer.getClanname());
+						pstm.setTimestamp(9, ts);
+						
+						pstm.execute();
+						SQLUtil.close(pstm);
+						SQLUtil.close(con);
+					} catch (Exception e) {
+						_log.error(
+								"Error occurred logging boss kill!: " + e.getLocalizedMessage(), e);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}
@@ -564,7 +573,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 						dropTargetList, dropHateList);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -666,7 +675,7 @@ public class L1MonsterInstance extends L1NpcInstance {
 	private void hideHelper(int hpFraction, int range, int status,
 			int hiddenStatus, final ServerBasePacket action) {
 		if (getMaxHp() / hpFraction > getCurrentHp()
-				&& 1 > _random.nextInt(range)) {
+				&& 1 > ThreadLocalRandom.current().nextInt(range)) {
 			allTargetClear();
 			setStatusAndHiddenStatus(status, hiddenStatus);
 			broadcastPacket(action);
@@ -694,14 +703,14 @@ public class L1MonsterInstance extends L1NpcInstance {
 		case 45455:
 		case 46107:
 		case 46108:
-			if (!random || 1 > _random.nextInt(3))
+			if (!random || 1 > ThreadLocalRandom.current().nextInt(3))
 				setStatusAndHiddenStatus(13, HIDDEN_STATUS_SINK);
 			break;
 		case 45045:
 		case 45126:
 		case 45134:
 		case 45281:
-			if (!random || 1 > _random.nextInt(3))
+			if (!random || 1 > ThreadLocalRandom.current().nextInt(3))
 				setStatusAndHiddenStatus(4, HIDDEN_STATUS_SINK);
 			break;
 		case 45067:

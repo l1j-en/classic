@@ -19,7 +19,6 @@
 package l1j.server.server.serverpackets;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import l1j.server.Config;
 import l1j.server.server.encryptions.Opcodes;
@@ -27,7 +26,7 @@ import l1j.server.server.encryptions.Opcodes;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_WarTime extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_WarTime.class.getName());
+//	private static Logger _log = LoggerFactory.getLogger(S_WarTime.class.getName());
 	private static final String S_WAR_TIME = "[S] S_WarTime";
 
 	public S_WarTime(Calendar cal) {

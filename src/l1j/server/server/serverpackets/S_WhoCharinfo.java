@@ -18,19 +18,19 @@
  */
 package l1j.server.server.serverpackets;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
 public class S_WhoCharinfo extends ServerBasePacket {
 	private static final String S_WHO_CHARINFO = "[S] S_WhoCharinfo";
-	private static Logger _log = Logger
-			.getLogger(S_WhoCharinfo.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(S_WhoCharinfo.class.getName());
 	private byte[] _byte = null;
 
 	public S_WhoCharinfo(L1PcInstance pc) {
-		_log.fine("Who charpack for : " + pc.getName());
+		_log.trace("Who charpack for : " + pc.getName());
 
 		String lawfulness = "";
 		int lawful = pc.getLawful();

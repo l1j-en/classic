@@ -19,8 +19,10 @@
 package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.encryptions.IdFactory;
@@ -30,6 +32,9 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 
 public class L1DollInstance extends L1NpcInstance {
+	
+	private static Logger _log = LoggerFactory.getLogger(L1DollInstance.class);
+
 	private static final long serialVersionUID = 1L;
 	public static final int DOLLTYPE_BUGBEAR = 0;
 	public static final int DOLLTYPE_SUCCUBUS = 1;
@@ -41,9 +46,8 @@ public class L1DollInstance extends L1NpcInstance {
 	public static final int DOLLTYPE_SCARECROW = 7;
 	public static final int DOLLTYPE_COCKATRICE = 8;
 	public static final int DOLL_TIME = 1800000;
-	private ScheduledFuture<?> _dollFuture;
-	private static Random _random = new Random();
-	private int _dollType;
+//	private ScheduledFuture<?> _dollFuture;
+ 	private int _dollType;
 	private int _itemObjId;
 
 	public boolean noTarget(int depth) {
@@ -71,13 +75,23 @@ public class L1DollInstance extends L1NpcInstance {
 	}
 
 	class DollTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1DollInstance-DollTimer");
-			if (_destroyed) {
-				return;
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1DollInstance-DollTimer");
+				if (_destroyed) {
+					return;
+				}
+				deleteDoll();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
-			deleteDoll();
 		}
 	}
 
@@ -87,12 +101,12 @@ public class L1DollInstance extends L1NpcInstance {
 		setId(IdFactory.getInstance().nextId());
 		setDollType(dollType);
 		setItemObjId(itemObjId);
-		_dollFuture = GeneralThreadPool.getInstance().schedule(new DollTimer(),
+		GeneralThreadPool.getInstance().schedule(new DollTimer(),
 				DOLL_TIME);
 
 		setMaster(master);
-		setX(master.getX() + _random.nextInt(5) - 2);
-		setY(master.getY() + _random.nextInt(5) - 2);
+		setX(master.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+		setY(master.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
 		setMap(master.getMapId());
 		setHeading(5);
 		setLightSize(template.getLightSize());
@@ -183,7 +197,7 @@ public class L1DollInstance extends L1NpcInstance {
 		int damageReduction = 0;
 		int dollType = getDollType();
 		if (dollType == DOLLTYPE_GOLEM) {
-			int chance = _random.nextInt(100) + 1;
+			int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 			if (chance <= 4) {
 				damageReduction = 15;
 				if (_master instanceof L1PcInstance) {
@@ -227,7 +241,7 @@ public class L1DollInstance extends L1NpcInstance {
 		int damage = 0;
 		int dollType = getDollType();
 		if (dollType == DOLLTYPE_WAREWOLF || dollType == DOLLTYPE_CRUSTANCEAN) {
-			int chance = _random.nextInt(100) + 1;
+			int chance = ThreadLocalRandom.current().nextInt(100) + 1;
 			if (chance <= 3) {
 				damage = 15;
 				if (_master instanceof L1PcInstance) {

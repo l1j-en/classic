@@ -43,13 +43,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
 import l1j.server.server.GMCommands;
 import l1j.server.server.command.L1Commands;
 import l1j.server.server.controllers.JailController;
@@ -72,12 +72,11 @@ import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.skill.L1SkillUse;
-import l1j.server.server.serverpackets.S_ActiveSpells;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_Bookmarks;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharacterConfig;
-import l1j.server.server.serverpackets.S_Emblem;
 import l1j.server.server.serverpackets.S_InvList;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OwnCharPack;
@@ -90,7 +89,6 @@ import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_Unknown1;
-import l1j.server.server.serverpackets.S_Unknown2;
 import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
@@ -105,12 +103,12 @@ import l1j.server.server.utils.SystemUtil;
 // ClientBasePacket
 public class C_LoginToServer extends ClientBasePacket {
 	private static final String C_LOGIN_TO_SERVER = "[C] C_LoginToServer";
-	private static Logger _log = Logger.getLogger(C_LoginToServer.class
+	private static Logger _log = LoggerFactory.getLogger(C_LoginToServer.class
 			.getName());
 	// See note on updateIcons()
 	private static List<String> accountsWithIcons = new ArrayList<String>();
 
-	public C_LoginToServer(byte abyte0[], ClientThread client)
+	public C_LoginToServer(byte abyte0[], Client client)
 			throws FileNotFoundException, Exception {
 		super(abyte0);
 
@@ -174,8 +172,13 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		S_Unknown1 s_unknown1 = new S_Unknown1();
 		pc.sendPackets(s_unknown1);
-		S_Unknown2 s_unknown2 = new S_Unknown2();
-		pc.sendPackets(s_unknown2);
+		/*
+		 * This packet is broken as is, completely empty.
+		 * No point in trying to send it because it fails at encrypting
+		 * - tricid
+		 */
+		//S_Unknown2 s_unknown2 = new S_Unknown2();
+		//pc.sendPackets(s_unknown2);
 
 		bookmarks(pc);
 
@@ -219,8 +222,13 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 
 		L1World.getInstance().addVisibleObject(pc);
-		S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
-		pc.sendPackets(s_activespells);
+		/*
+		 * This packet is broken as is, not enough data in it to be a complete packet.
+		 * No point in trying to send it because it fails at encrypting
+		 * - tricid
+		 */
+		//S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
+		//pc.sendPackets(s_activespells);
 
 		pc.beginGameTimeCarrier();
 
@@ -381,7 +389,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				character.sendPackets(new S_SystemMessage(message));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(statement);
 			SQLUtil.close(connection);
@@ -398,7 +406,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		accountsWithIcons.add(character.getAccountName());
 
 		for (L1Clan clan : L1World.getInstance().getAllClans()) {
-			character.sendPackets(new S_Emblem(clan.getClanId()));
+			//character.sendPackets(new S_Emblem(clan.getClanId()));
 		}
 	}
 
@@ -433,7 +441,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				pc.sendPackets(s_bookmarks);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -582,7 +590,7 @@ public class C_LoginToServer extends ClientBasePacket {
 						lv25, lv26, lv27, lv28));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -603,7 +611,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 	}
 
-	private void buff(ClientThread clientthread, L1PcInstance pc) {
+	private void buff(Client client, L1PcInstance pc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -654,13 +662,13 @@ public class C_LoginToServer extends ClientBasePacket {
 					L1Cooking.eatCooking(pc, skillid, remaining_time);
 				} else {
 					L1SkillUse l1skilluse = new L1SkillUse();
-					l1skilluse.handleCommands(clientthread.getActiveChar(),
+					l1skilluse.handleCommands(client.getActiveChar(),
 							skillid, pc.getId(), pc.getX(), pc.getY(), null,
 							remaining_time, L1SkillUse.TYPE_LOGIN);
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

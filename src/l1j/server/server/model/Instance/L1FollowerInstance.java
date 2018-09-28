@@ -39,7 +39,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 
 	@Override
 	public boolean noTarget(int depth) {
-		L1NpcInstance targetNpc = null;
+//		L1NpcInstance targetNpc = null;
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this)) {
 			if (object instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) object;
@@ -272,7 +272,7 @@ public class L1FollowerInstance extends L1NpcInstance {
 				newnpc.turnOnOffLight();
 				newnpc.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 			} catch (Exception e) {
-				e.printStackTrace();
+				_log.error("",e);
 			}
 		}
 	}

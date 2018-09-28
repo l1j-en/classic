@@ -20,8 +20,9 @@ package l1j.server;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
@@ -30,8 +31,7 @@ public class L1DatabaseFactory {
 
 	private static L1DatabaseFactory _instance;
 	//private ComboPooledDataSource _source;
-	private static Logger _log = Logger.getLogger(L1DatabaseFactory.class
-			.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1DatabaseFactory.class);
 	private static String _driver;
 	private static String _url;
 	private static String _user;
@@ -67,7 +67,7 @@ public class L1DatabaseFactory {
 			/* Test the connection */
 			//_source.getConnection().close();
 		} catch (Exception e) {
-			_log.fine("Database Connection FAILED");
+			_log.error("Database Connection FAILED");
 			throw new SQLException("could not init DB connection:" + e);
 		}
 	}
@@ -76,12 +76,12 @@ public class L1DatabaseFactory {
 		try {
 			_source.close();
 		} catch (Exception e) {
-			_log.log(Level.INFO, "", e);
+			_log.error("",e);
 		}
 		try {
 			_source = null;
 		} catch (Exception e) {
-			_log.log(Level.INFO, "", e);
+			_log.error("", e);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class L1DatabaseFactory {
 			try {
 				con = _source.getConnection();
 			} catch (SQLException e) {
-				_log.warning("L1DatabaseFactory: getConnection() failed, trying again "
+				_log.warn("L1DatabaseFactory: getConnection() failed, trying again "
 						+ e);
 			}
 		}

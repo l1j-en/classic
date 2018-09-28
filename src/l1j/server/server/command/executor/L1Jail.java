@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.controllers.RankingsController;
@@ -19,7 +20,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1Jail implements L1CommandExecutor {
-	private static Logger _log = Logger.getLogger(RankingsController.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(RankingsController.class.getName());
 	
 	private L1Jail() {
 	}
@@ -119,7 +120,7 @@ public class L1Jail implements L1CommandExecutor {
 				existingId = rs.getInt("id");
 			}
 		} catch(Exception ex) {
-			_log.log(Level.WARNING, 
+			_log.warn(
 					"Failed to look up existing user ban. Could lead to duplicate entries in the log_jail table!", ex);
 		} finally {
 			SQLUtil.close(rs);
@@ -156,7 +157,7 @@ public class L1Jail implements L1CommandExecutor {
 			
 			pstm.execute();
 		} catch (Exception ex) {
-			_log.log(Level.WARNING, "Failed to add jail log for user: " + user, ex);
+			_log.warn("Failed to add jail log for user: " + user, ex);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1MobGroup;
@@ -34,8 +35,7 @@ import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.utils.collections.Lists;
 
 public class MobGroupTable {
-	private static Logger _log = Logger
-			.getLogger(MobGroupTable.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(MobGroupTable.class.getName());
 	private static MobGroupTable _instance;
 	private final HashMap<Integer, L1MobGroup> _mobGroupIndex = new HashMap<Integer, L1MobGroup>();
 
@@ -73,10 +73,10 @@ public class MobGroupTable {
 						minions, isRemoveGroup);
 				_mobGroupIndex.put(mobGroupId, mobGroup);
 			}
-			_log.config("Mob Group Lists: " + _mobGroupIndex.size()
+			_log.info("Mob Group Lists: " + _mobGroupIndex.size()
 					+ " loaded.");
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, "error while creating mobgroup table", e);
+			_log.error("error while creating mobgroup table", e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

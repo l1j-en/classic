@@ -26,8 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.shop.L1Shop;
@@ -35,8 +36,8 @@ import l1j.server.server.templates.L1ShopItem;
 import l1j.server.server.utils.SQLUtil;
 
 public class ShopTable {
-	private static final long serialVersionUID = 1L;
-	private static Logger _log = Logger.getLogger(ShopTable.class.getName());
+//	private static final long serialVersionUID = 1L;
+	private static Logger _log = LoggerFactory.getLogger(ShopTable.class.getName());
 	private static ShopTable _instance;
 	private final Map<Integer, L1Shop> _allShops = new HashMap<Integer, L1Shop>();
 
@@ -64,7 +65,7 @@ public class ShopTable {
 				ids.add(rs.getInt("npc_id"));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs, pstm, con);
 		}
@@ -110,7 +111,7 @@ public class ShopTable {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs, pstm, con);
 		}

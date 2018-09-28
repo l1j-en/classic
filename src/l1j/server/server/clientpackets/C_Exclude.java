@@ -18,14 +18,15 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1CharName;
@@ -35,9 +36,9 @@ import l1j.server.server.templates.L1CharName;
 public class C_Exclude extends ClientBasePacket {
 
 	private static final String C_EXCLUDE = "[C] C_Exclude";
-	private static Logger _log = Logger.getLogger(C_Exclude.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Exclude.class.getName());
 
-	public C_Exclude(byte[] decrypt, ClientThread client) {
+	public C_Exclude(byte[] decrypt, Client client) {
 		super(decrypt);
 		String name = readS();
 		if (name.isEmpty()) {
@@ -69,7 +70,7 @@ public class C_Exclude extends ClientBasePacket {
 				pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

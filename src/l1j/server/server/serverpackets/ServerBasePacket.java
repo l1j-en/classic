@@ -20,12 +20,13 @@ package l1j.server.server.serverpackets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class ServerBasePacket {
 
-	private static Logger _log = Logger.getLogger(ServerBasePacket.class
+	private static Logger _log = LoggerFactory.getLogger(ServerBasePacket.class
 			.getName());
 
 	ByteArrayOutputStream _bao = new ByteArrayOutputStream();
@@ -75,7 +76,7 @@ public abstract class ServerBasePacket {
 				_bao.write(text.getBytes("UTF-8"));
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 
 		_bao.write(0);
@@ -87,7 +88,7 @@ public abstract class ServerBasePacket {
 				_bao.write(text);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

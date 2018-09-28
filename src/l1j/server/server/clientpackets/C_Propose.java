@@ -19,8 +19,8 @@
 package l1j.server.server.clientpackets;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Message_YN;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.utils.FaceToFace;
@@ -32,11 +32,11 @@ public class C_Propose extends ClientBasePacket {
 
 	private static final String C_PROPOSE = "[C] C_Propose";
 
-	public C_Propose(byte abyte0[], ClientThread clientthread) {
+	public C_Propose(byte abyte0[], Client client) {
 		super(abyte0);
 		int c = readC();
 
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		if (c == 0) {
 			if (pc.isGhost()) {
 				return;

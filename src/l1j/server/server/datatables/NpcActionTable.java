@@ -22,12 +22,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -36,11 +39,8 @@ import l1j.server.server.model.npc.action.L1NpcXmlParser;
 import l1j.server.server.utils.FileUtil;
 import l1j.server.server.utils.PerformanceTimer;
 
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-
 public class NpcActionTable {
-	private static Logger _log = Logger.getLogger(NpcActionTable.class
+	private static Logger _log = LoggerFactory.getLogger(NpcActionTable.class
 			.getName());
 	private static NpcActionTable _instance;
 	private final List<L1NpcAction> _actions = new ArrayList<L1NpcAction>();
@@ -88,12 +88,12 @@ public class NpcActionTable {
 	public static void load() {
 		try {
 			PerformanceTimer timer = new PerformanceTimer();
-			_log.config("Loading NPCAction...");
+			_log.info("Loading NPCAction...");
 			_instance = new NpcActionTable();
-			_log.config("      OK!     " + timer.elapsedTimeMillis()
+			_log.info("      OK!     " + timer.elapsedTimeMillis()
 					+ "ms");
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, "NpcAction Could not load", e);
+			_log.error("NpcAction Could not load", e);
 			System.exit(0);
 		}
 	}

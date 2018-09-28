@@ -21,11 +21,11 @@ package l1j.server.server.model;
 import static l1j.server.server.model.skill.L1SkillId.ERASE_MAGIC;
 import static l1j.server.server.model.skill.L1SkillId.IMMUNE_TO_HARM;
 
-import java.util.Random;
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.ActionCodes;
 import l1j.server.server.GeneralThreadPool;
@@ -35,14 +35,15 @@ import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_EffectLocation;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
-public class L1Chaser extends TimerTask {
-	private static Logger _log = Logger.getLogger(L1Chaser.class.getName());
+public class L1Chaser implements Runnable {
+	private static Logger _log = LoggerFactory.getLogger(L1Chaser.class.getName());
 
-	private static final Random _random = new Random();
-	private ScheduledFuture<?> _future = null;
+ 	private ScheduledFuture<?> _future = null;
 	private int _timeCounter = 0;
 	private final L1PcInstance _pc;
 	private final L1Character _cha;
+
+	private String originalThreadName;
 
 	public L1Chaser(L1PcInstance pc, L1Character cha) {
 		_cha = cha;
@@ -52,6 +53,8 @@ public class L1Chaser extends TimerTask {
 	@Override
 	public void run() {
 		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("L1Chaser");
 			if (_cha == null || _cha.isDead()) {
 				stop();
 				return;
@@ -63,7 +66,9 @@ public class L1Chaser extends TimerTask {
 				return;
 			}
 		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
+			_log.warn(e.getLocalizedMessage(), e);
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
 		}
 	}
 
@@ -138,7 +143,7 @@ public class L1Chaser extends TimerTask {
 			coefficientB = intel * 0.065;
 		}
 		double coefficientC = Math.max(12, intel);
-		damage = (_random.nextInt(6) + 1 + 7) * coefficientA * coefficientB
+		damage = (ThreadLocalRandom.current().nextInt(6) + 1 + 7) * coefficientA * coefficientB
 				/ 10.5 * coefficientC * 2.0;
 
 		damage = L1WeaponSkill.calcDamageReduction(pc, cha, damage,

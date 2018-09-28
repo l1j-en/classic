@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TelnetCommandList {
+	
 	private static Map<String, TelnetCommand> _cmds = new HashMap<String, TelnetCommand>();
 	static {
 		_cmds.put("echo", new EchoCommand());

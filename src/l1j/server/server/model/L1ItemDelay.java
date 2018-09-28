@@ -18,10 +18,13 @@
  */
 package l1j.server.server.model;
 
-import l1j.server.server.ClientThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.templates.L1EtcItem;
 
 // Referenced classes of package l1j.server.server.model:
@@ -33,20 +36,32 @@ public class L1ItemDelay {
 	}
 
 	static class ItemDelayTimer implements Runnable {
+		
+		private static Logger _log = LoggerFactory.getLogger(ItemDelayTimer.class);
+
 		private int _delayId;
-		private int _delayTime;
+		//private int _delayTime;
 		private L1Character _cha;
+		private String originalThreadName;
 
 		public ItemDelayTimer(L1Character cha, int id, int time) {
 			_cha = cha;
 			_delayId = id;
-			_delayTime = time;
+			//_delayTime = time;
 		}
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1ItemDelay-Timer");
-			stopDelayTimer(_delayId);
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1ItemDelay-Timer");
+				stopDelayTimer(_delayId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
+			}
 		}
 
 		public void stopDelayTimer(int delayId) {
@@ -54,7 +69,7 @@ public class L1ItemDelay {
 		}
 	}
 
-	public static void onItemUse(ClientThread client, L1ItemInstance item) {
+	public static void onItemUse(Client client, L1ItemInstance item) {
 		int delayId = 0;
 		int delayTime = 0;
 

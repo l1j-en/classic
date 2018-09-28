@@ -30,50 +30,23 @@ import static l1j.server.server.model.skill.L1SkillId.EXOTIC_VITALIZE;
 import static l1j.server.server.model.skill.L1SkillId.MEDITATION;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_BLUE_POTION;
 
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.map.Maps;
 
-public class MpRegeneration extends TimerTask {
+public class MpRegeneration implements Runnable {
 
-	private static Logger _log = Logger.getLogger(MpRegeneration.class
+	private static Logger _log = LoggerFactory.getLogger(MpRegeneration.class
 			.getName());
+	private int _curPoint = 4;
 	private final L1PcInstance _pc;
 	private int _regenPoint = 0;
-	private int _curPoint = 4;
 
 	public MpRegeneration(L1PcInstance pc) {
 		_pc = pc;
-	}
-
-	public void setState(int state) {
-		if (_curPoint < state) {
-			return;
-		}
-		_curPoint = state;
-	}
-
-	@Override
-	public void run() {
-		try {
-			if (_pc.isDead()) {
-				return;
-			}
-
-			_regenPoint += _curPoint;
-			_curPoint = 4;
-
-			if (64 <= (_regenPoint * Config.RATE_MP_REGEN)) {
-				_regenPoint = 0;
-				regenMp();
-			}
-		} catch (Throwable e) {
-			_log.log(Level.WARNING, e.getLocalizedMessage(), e);
-		}
 	}
 
 	public void regenMp() {
@@ -147,6 +120,32 @@ public class MpRegeneration extends TimerTask {
 			newMp = 0;
 		}
 		_pc.setCurrentMp(newMp);
+	}
+
+	@Override
+	public void run() {
+		try {
+			if (_pc.isDead()) {
+				return;
+			}
+
+			_regenPoint += _curPoint;
+			_curPoint = 4;
+
+			if (64 <= (_regenPoint * Config.RATE_MP_REGEN)) {
+				_regenPoint = 0;
+				regenMp();
+			}
+		} catch (Throwable e) {
+			_log.warn(e.getLocalizedMessage(), e);
+		}
+	}
+
+	public void setState(int state) {
+		if (_curPoint < state) {
+			return;
+		}
+		_curPoint = state;
 	}
 
 	private boolean isOverWeight(L1PcInstance pc) {

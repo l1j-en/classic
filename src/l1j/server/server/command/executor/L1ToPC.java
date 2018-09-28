@@ -19,7 +19,7 @@
 package l1j.server.server.command.executor;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
@@ -28,8 +28,7 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class L1ToPC implements L1CommandExecutor {
 	
-	private static Random _random = new Random();
-	
+ 	
 	private L1ToPC() {
 	}
 
@@ -55,7 +54,7 @@ public class L1ToPC implements L1CommandExecutor {
 				} 
 				
 				for(int i = 0; i < 10 && (target == null || target.getId() == pc.getId()); i++) {
-					int findPlayer = _random.nextInt(players.size());
+					int findPlayer = ThreadLocalRandom.current().nextInt(players.size());
 					target = players.get(findPlayer);
 				}
 			}

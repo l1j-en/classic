@@ -18,14 +18,15 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
@@ -35,11 +36,11 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 public class C_Title extends ClientBasePacket {
 
 	private static final String C_TITLE = "[C] C_Title";
-	private static Logger _log = Logger.getLogger(C_Title.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Title.class.getName());
 
-	public C_Title(byte abyte0[], ClientThread clientthread) {
+	public C_Title(byte abyte0[], Client client) {
 		super(abyte0);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 		String charName = readS();
 		String title = readS();
 
@@ -113,7 +114,7 @@ public class C_Title extends ClientBasePacket {
 		try {
 			pc.save();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 

@@ -21,13 +21,13 @@ package l1j.server.server.clientpackets;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.BadNamesList;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.SkillTable;
@@ -35,6 +35,7 @@ import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.Beginner;
 import l1j.server.server.model.L1Attribute;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_CharCreateStatus;
 import l1j.server.server.serverpackets.S_NewCharPacket;
@@ -43,7 +44,7 @@ import l1j.server.server.templates.L1Skill;
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
 public class C_CreateChar extends ClientBasePacket {
-	private static Logger _log = Logger.getLogger(C_CreateChar.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_CreateChar.class.getName());
 	private static final String C_CREATE_CHAR = "[C] C_CreateChar";
 
 	private static final int[] MALE_LIST = new int[] { 0, 61, 138, 734, 2786,
@@ -57,7 +58,7 @@ public class C_CreateChar extends ClientBasePacket {
 	private static final short[] MAPID_LIST = new short[] { 68, 69, 69, 68, 69,
 			68, 69 };
 
-	public C_CreateChar(byte[] abyte0, ClientThread client) throws Exception {
+	public C_CreateChar(byte[] abyte0, Client client) throws Exception {
 		super(abyte0);
 		L1PcInstance pc = new L1PcInstance();
 		String name = readS();
@@ -81,7 +82,7 @@ public class C_CreateChar extends ClientBasePacket {
 			return;
 		}
 		if (CharacterTable.doesCharNameExist(name)) {
-			_log.fine("Character Name: " + pc.getName()
+			_log.trace("Character Name: " + pc.getName()
 					+ " already exists. Creation failed.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_ALREADY_EXSISTS);
@@ -89,7 +90,7 @@ public class C_CreateChar extends ClientBasePacket {
 			return;
 		}
 		if (client.getAccount().countCharacters() >= maxAmount) {
-			_log.fine("Account: " + client.getAccountName()
+			_log.trace("Account: " + client.getAccountName()
 					+ " attempted to create more than " + maxAmount + " characters.");
 			S_CharCreateStatus s_charcreatestatus1 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
@@ -154,13 +155,13 @@ public class C_CreateChar extends ClientBasePacket {
 				+ pc.getInt() + pc.getStr() + pc.getWis();
 
 		if (statusAmount != 75 || isStatusError) {
-			_log.finest("Character have wrong value");
+			_log.trace("Character have wrong value");
 			S_CharCreateStatus s_charcreatestatus3 = new S_CharCreateStatus(
 					S_CharCreateStatus.REASON_WRONG_AMOUNT);
 			client.sendPacket(s_charcreatestatus3);
 			return;
 		}
-		_log.fine("Character Name : " + pc.getName() + " ClassId: "
+		_log.trace("Character Name : " + pc.getName() + " ClassId: "
 				+ pc.getClassId());
 		S_CharCreateStatus s_charcreatestatus2 = new S_CharCreateStatus(
 				S_CharCreateStatus.REASON_OK);
@@ -168,7 +169,7 @@ public class C_CreateChar extends ClientBasePacket {
 		initNewChar(client, pc);
 	}
 
-	private static void initNewChar(ClientThread client, L1PcInstance pc)
+	private static void initNewChar(Client client, L1PcInstance pc)
 			throws IOException, Exception {
 		pc.setId(IdFactory.getInstance().nextId());
 
@@ -248,7 +249,7 @@ public class C_CreateChar extends ClientBasePacket {
 		try {
 			numOfNameBytes = name.getBytes("UTF-8").length;
 		} catch (UnsupportedEncodingException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 			return false;
 		}
 		if (isAlphaNumeric(name)) {

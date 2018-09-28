@@ -19,6 +19,7 @@
 package l1j.server.server.model.Instance;
 
 import static l1j.server.server.model.skill.L1SkillId.CANCELLATION;
+
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.model.L1HauntedHouse;
 import l1j.server.server.model.L1Inventory;

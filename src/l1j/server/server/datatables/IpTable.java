@@ -23,14 +23,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class IpTable {
-	private static Logger _log = Logger.getLogger(IpTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(IpTable.class.getName());
 	private static ArrayList<String> _banip;
 	public static boolean isInitialized;
 	private static IpTable _instance;
@@ -64,7 +65,7 @@ public class IpTable {
 			pstm.execute();
 			_banip.add(ip);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -87,7 +88,7 @@ public class IpTable {
 			}
 			isInitialized = true;
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -110,7 +111,7 @@ public class IpTable {
 			}
 			isInitialized = true;
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -129,7 +130,7 @@ public class IpTable {
 			pstm.execute();
 			ret = _banip.remove(ip);
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

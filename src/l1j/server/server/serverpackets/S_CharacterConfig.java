@@ -22,8 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.encryptions.Opcodes;
@@ -32,7 +33,7 @@ import l1j.server.server.utils.SQLUtil;
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
 public class S_CharacterConfig extends ServerBasePacket {
-	private static Logger _log = Logger.getLogger(S_CharacterConfig.class
+	private static Logger _log = LoggerFactory.getLogger(S_CharacterConfig.class
 			.getName());
 	private static final String S_CHARACTER_CONFIG = "[S] S_CharacterConfig";
 	private byte[] _byte = null;
@@ -58,7 +59,7 @@ public class S_CharacterConfig extends ServerBasePacket {
 				data = rs.getBytes(3);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -18,9 +18,9 @@
  */
 package l1j.server.server.model.Instance;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Quest;
@@ -30,6 +30,8 @@ import l1j.server.server.templates.L1Npc;
 
 @SuppressWarnings("serial")
 public class L1QuestInstance extends L1NpcInstance {
+
+	private ScheduledFuture<?> _monitorFuture;
 
 	public L1QuestInstance(L1Npc template) {
 		super(template);
@@ -130,11 +132,15 @@ public class L1QuestInstance extends L1NpcInstance {
 
 		synchronized (this) {
 			if (_monitor != null) {
-				_monitor.cancel();
+				try {
+				_monitorFuture.cancel(true);
+				} catch (Exception e) {
+					_log.error("",e);	
+				}
 			}
 			setRest(true);
 			_monitor = new RestMonitor();
-			_restTimer.schedule(_monitor, REST_MILLISEC);
+			_monitorFuture = GeneralThreadPool.getInstance().schedule(_monitor, REST_MILLISEC);
 		}
 	}
 
@@ -145,31 +151,31 @@ public class L1QuestInstance extends L1NpcInstance {
 			if ((npcId == 71092 || npcId == 71093) && pc.isKnight()
 					&& pc.getQuest().get_step(3) == 4) {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(71093);
-				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
+				new L1FollowerInstance(l1npc, this,
 						pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			} else if (npcId == 71094 && pc.isDarkelf()
 					&& pc.getQuest().get_step(4) == 1) {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(71094);
-				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
+				new L1FollowerInstance(l1npc, this,
 						pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			} else if (npcId == 71062
 					&& pc.getQuest().get_step(L1Quest.QUEST_CADMUS) == 2) {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(71062);
-				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
+				new L1FollowerInstance(l1npc, this,
 						pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			} else if (npcId == 71075
 					&& pc.getQuest().get_step(L1Quest.QUEST_LIZARD) == 1) {
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(71075);
-				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
+				new L1FollowerInstance(l1npc, this,
 						pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			} else if (npcId == 70957 || npcId == 81209) {
 
 				L1Npc l1npc = NpcTable.getInstance().getTemplate(70957);
-				L1FollowerInstance follow = new L1FollowerInstance(l1npc, this,
+				new L1FollowerInstance(l1npc, this,
 						pc);
 				pc.sendPackets(new S_NPCTalkReturn(getId(), ""));
 			} else if ((npcId == 91312) && (pc.getQuest().get_step(L1Quest.QUEST_LEVEL50) == 3)) {
@@ -182,15 +188,17 @@ public class L1QuestInstance extends L1NpcInstance {
 
 	private static final long REST_MILLISEC = 10000;
 
-	private static final Timer _restTimer = new Timer("L1QuestInstance",true);
-
 	private RestMonitor _monitor;
 
-	public class RestMonitor extends TimerTask {
+	public class RestMonitor implements Runnable {
 		@Override
 		public void run() {
-			setRest(false);
-			cancel();
+			try {
+				setRest(false);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			}
 		}
 	}
 

@@ -20,7 +20,10 @@
 package l1j.server.server.model.Instance;
 
 import java.util.Random;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.controllers.dungeon.GiranPrisonController;
@@ -98,8 +101,8 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				if (player.isElf()) {
 					if (quest.get_step(L1Quest.QUEST_LEVEL30) == 1) {
 						if (!player.getInventory().checkItem(40592)) {
-							Random random = new Random();
-							if (random.nextInt(100) < 50) {
+							new Random();
+							if (ThreadLocalRandom.current().nextInt(100) < 50) {
 								htmlid = "fairyp2";
 							} else {
 								htmlid = "fairyp1";
@@ -190,7 +193,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 				}
 			}
 		} else {
-			_log.finest((new StringBuilder())
+			_log.trace((new StringBuilder())
 					.append("No actions for npc id : ").append(objid)
 					.toString());
 		}
@@ -473,7 +476,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 			player.sendPackets(new S_NPCTalkReturn(objid, htmlid, price));
 		}
 		if (action.startsWith("teleport ")) {
-			_log.finest((new StringBuilder()).append("Setting action to : ")
+			_log.trace((new StringBuilder()).append("Setting action to : ")
 					.append(action).toString());
 			doFinalAction(player, action);
 		}
@@ -589,8 +592,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 	}
 
 	private boolean _isNowDely = false;
-	private static Logger _log = Logger
-			.getLogger(l1j.server.server.model.Instance.L1TeleporterInstance.class
+	private static Logger _log = LoggerFactory			.getLogger(l1j.server.server.model.Instance.L1TeleporterInstance.class
 					.getName());
 
 }

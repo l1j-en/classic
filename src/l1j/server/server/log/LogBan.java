@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
 
 public class LogBan {
-	private static Logger _log = Logger.getLogger(LogBan.class
+	private static Logger _log = LoggerFactory.getLogger(LogBan.class
 			.getName());
 
 	public static void logBan(String action, String actionedAccount, String actionerAccount, String message) {
@@ -29,7 +30,7 @@ public class LogBan {
 			pstm.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

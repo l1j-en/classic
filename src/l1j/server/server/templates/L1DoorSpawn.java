@@ -23,8 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1Location;
@@ -32,7 +33,7 @@ import l1j.server.server.utils.SQLUtil;
 import l1j.server.server.utils.collections.Lists;
 
 public class L1DoorSpawn {
-	private static Logger _log = Logger.getLogger(L1DoorSpawn.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1DoorSpawn.class.getName());
 	private final int _id;
 	private final L1DoorGfx _gfx;
 	private final int _x;
@@ -112,7 +113,7 @@ public class L1DoorSpawn {
 			}
 
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

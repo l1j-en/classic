@@ -20,18 +20,18 @@ package l1j.server.server.serverpackets;
 
 import l1j.server.Config;
 import l1j.server.server.Account;
-import l1j.server.server.ClientThread;
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.server.network.Client;
 
 public class S_CharAmount extends ServerBasePacket {
 
 	private byte[] _byte = null;
 
-	public S_CharAmount(int value, ClientThread client) {
+	public S_CharAmount(int value, Client client) {
 		buildPacket(value, client);
 	}
 
-	private void buildPacket(int value, ClientThread client) {
+	private void buildPacket(int value, Client client) {
 		Account account = Account.load(client.getAccountName());
 		int characterSlot = account.getCharacterSlot();
 		int maxAmount = Config.DEFAULT_CHARACTER_SLOT + characterSlot;

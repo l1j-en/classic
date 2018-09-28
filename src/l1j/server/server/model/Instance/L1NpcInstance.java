@@ -36,11 +36,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -57,7 +57,6 @@ import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1MobGroupInfo;
 import l1j.server.server.model.L1MobSkillUse;
 import l1j.server.server.model.L1NpcChatTimer;
-import l1j.server.server.model.L1NpcRegenerationTimer;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Spawn;
 import l1j.server.server.model.L1World;
@@ -76,7 +75,6 @@ import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1NpcChat;
 import l1j.server.server.types.Point;
-import l1j.server.server.utils.TimerPool;
 
 public class L1NpcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
@@ -95,8 +93,7 @@ public class L1NpcInstance extends L1Character {
 	public static final int CHAT_TIMING_HIDE = 2;
 	public static final int CHAT_TIMING_GAME_TIME = 3;
 
-	private static Logger _log = Logger
-			.getLogger(L1NpcInstance.class.getName());
+	static Logger _log = LoggerFactory.getLogger(L1NpcInstance.class.getName());
 	private L1Npc _npcTemplate;
 
 	private L1Spawn _spawn;
@@ -105,7 +102,6 @@ public class L1NpcInstance extends L1Character {
 	private int _petcost;
 	public L1Inventory _inventory = new L1Inventory();
 	private L1MobSkillUse mobSkill;
-	private static Random _random = new Random();
 	private boolean firstFound = true;
 	private boolean _awoken = false;
 	private int _drainedMana = 0;
@@ -115,43 +111,42 @@ public class L1NpcInstance extends L1Character {
 	private int _randomMoveDistance = 0;
 	private int _randomMoveDirection = 0;
 
-	private Timer _chatTimer;
 	private L1NpcChatTimer _chatTask;
-	
+	private ScheduledFuture<?> _chatTaskFuture;
 	private NpcAIThreadImpl _aiThread = null;
-	
+
 	private L1NpcInstance _servantMaster = null;
-	
+
 	// keeps track of the # of summons the mob has spawned
 	private int _summons = 0;
-	
+
 	public void setServantMaster(L1NpcInstance npcInstance) {
-		this._servantMaster = npcInstance;	
+		this._servantMaster = npcInstance;
 	}
-	
+
 	public L1NpcInstance getServantMaster() {
 		return this._servantMaster;
 	}
-	
+
 	public int getServantSummonCount() {
 		return this._summons;
 	}
-	
+
 	public void addServantSummon() {
 		this._summons++;
 	}
-	
+
 	public void addServantSummon(int amount) {
 		this._summons += amount;
 	}
-	
+
 	public void removeServantSummon() {
 		this._summons--;
-		
+
 		// just in case
-		if(this._summons < 0) {
+		if (this._summons < 0) {
 			this._summons = 0;
-		}	
+		}
 	}
 
 	interface NpcAI {
@@ -159,9 +154,9 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	protected void startAI() {
-		if(_aiThread == null)
+		if (_aiThread == null)
 			_aiThread = new NpcAIThreadImpl();
-		
+
 		if (Config.NPCAI_IMPLTYPE == 1) {
 			new NpcAITimerImpl().start();
 		} else if (Config.NPCAI_IMPLTYPE == 2) {
@@ -170,50 +165,50 @@ public class L1NpcInstance extends L1Character {
 			new NpcAITimerImpl().start();
 		}
 	}
-	
+
 	protected L1NpcInstance getCallingClass() {
 		return this;
 	}
 
-	// If you've got the threads, kick this up.
-	private static final TimerPool _timerPool = new TimerPool(32);
-
-	class NpcAITimerImpl extends TimerTask implements NpcAI {
-		private class DeathSyncTimer extends TimerTask {
+	class NpcAITimerImpl implements Runnable, NpcAI {
+		private class DeathSyncTimer implements Runnable {
 			private void schedule(int delay) {
-				_timerPool.getTimer().schedule(new DeathSyncTimer(), delay);
+				GeneralThreadPool.getInstance().schedule(new DeathSyncTimer(), delay);
 			}
 
 			@Override
 			public void run() {
-				Thread.currentThread().setName("L1NpcInstance-DeathSyncTimer");
-				if (isDeathProcessing()) {
-					schedule(getSleepTime());
-					return;
+				try {
+					if (isDeathProcessing()) {
+						schedule(getSleepTime());
+						return;
+					}
+					allTargetClear();
+					setAiRunning(false);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					_log.error("",e);
 				}
-				allTargetClear();
-				setAiRunning(false);
 			}
 		}
 
 		@Override
 		public void start() {
 			setAiRunning(true);
-			_timerPool.getTimer().schedule(NpcAITimerImpl.this, 0);
+			GeneralThreadPool.getInstance().schedule(NpcAITimerImpl.this, 0);
 		}
 
 		private void stop() {
 			mobSkill.resetAllSkillUseCount();
-			_timerPool.getTimer().schedule(new DeathSyncTimer(), 0);
+			GeneralThreadPool.getInstance().schedule(new DeathSyncTimer(), 0);
 		}
 
 		private void schedule(int delay) {
-			_timerPool.getTimer().schedule(new NpcAITimerImpl(), delay);
+			GeneralThreadPool.getInstance().schedule(new NpcAITimerImpl(), delay);
 		}
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-AiImpleTimer");
 			try {
 				if (notContinued()) {
 					stop();
@@ -236,13 +231,12 @@ public class L1NpcInstance extends L1Character {
 				}
 				stop();
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.warn("NpcAI", e);
 			}
 		}
 
 		private boolean notContinued() {
-			return _destroyed || isDead() || getCurrentHp() <= 0
-					|| getHiddenStatus() != HIDDEN_STATUS_NONE;
+			return _destroyed || isDead() || getCurrentHp() <= 0 || getHiddenStatus() != HIDDEN_STATUS_NONE;
 		}
 	}
 
@@ -252,17 +246,17 @@ public class L1NpcInstance extends L1Character {
 			// need to set it running before the thread is running
 			// to fix a race condition.
 			// shouldn't be a problem as long as the GeneralThreadPool doesn't crap out
-			getCallingClass().setAiRunning(true); 
+			getCallingClass().setAiRunning(true);
 			GeneralThreadPool.getInstance().execute(NpcAIThreadImpl.this);
 		}
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("NpcAIThreadImpl-"+getNpcId());
+			Thread.currentThread().setName("NpcAIThreadImpl-" + getNpcId());
 			try {
-				while (!_destroyed && !isDead() && getCurrentHp() > 0
-						&& getHiddenStatus() == HIDDEN_STATUS_NONE && isAiRunning()) {
-					
+				while (!_destroyed && !isDead() && getCurrentHp() > 0 && getHiddenStatus() == HIDDEN_STATUS_NONE
+						&& isAiRunning()) {
+
 					while (isParalyzed() || isSleeped()) {
 						try {
 							Thread.sleep(200);
@@ -290,7 +284,7 @@ public class L1NpcInstance extends L1Character {
 				} while (isDeathProcessing());
 				allTargetClear();
 			} catch (Exception e) {
-				_log.log(Level.WARNING, "NpcAI", e);
+				_log.warn("NpcAI", e);
 			} finally {
 				setAiRunning(false);
 			}
@@ -318,9 +312,8 @@ public class L1NpcInstance extends L1Character {
 					return true;
 				}
 			} else {
-				L1Inventory groundInventory = L1World.getInstance()
-						.getInventory(_targetItem.getX(), _targetItem.getY(),
-								_targetItem.getMapId());
+				L1Inventory groundInventory = L1World.getInstance().getInventory(_targetItem.getX(), _targetItem.getY(),
+						_targetItem.getMapId());
 				if (groundInventory.checkItem(_targetItem.getItemId())) {
 					onTargetItem();
 				} else {
@@ -348,12 +341,8 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void checkTarget() {
-		if (_target == null
-				|| _target.getMapId() != getMapId()
-				|| _target.getCurrentHp() <= 0
-				|| _target.isDead()
-				|| (_target.isInvisble() && !getNpcTemplate().is_agrocoi() && !_hateList
-						.containsKey(_target))) {
+		if (_target == null || _target.getMapId() != getMapId() || _target.getCurrentHp() <= 0 || _target.isDead()
+				|| (_target.isInvisble() && !getNpcTemplate().is_agrocoi() && !_hateList.containsKey(_target))) {
 			if (_target != null) {
 				targetClear();
 			}
@@ -398,8 +387,7 @@ public class L1NpcInstance extends L1Character {
 				}
 				L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
 				if (mobGroupInfo != null) {
-					if (getMobGroupId() != 0
-							&& getMobGroupId() == npc.getMobGroupId()) {
+					if (getMobGroupId() != 0 && getMobGroupId() == npc.getMobGroupId()) {
 						npc.setLink(targetPlayer);
 					}
 				}
@@ -418,20 +406,20 @@ public class L1NpcInstance extends L1Character {
 		// summon, though, it will be leaked _and_ throw nasty NPEs if the
 		// monster in question uses skills.
 		if (target == null) {
-			// _log.log(Level.WARNING,
+			// _log.warn(
 			// "L1NpcInstance::onTarget(): null _target.");
 			return;
 		} else if (target instanceof L1PetInstance) {
 			L1PetInstance pet = (L1PetInstance) target;
 			if (pet.getMaster() == null) {
-				// _log.log(Level.WARNING,
+				// _log.warn(
 				// "L1NpcInstance::onTarget(): missing pet master.");
 				return;
 			}
 		} else if (target instanceof L1SummonInstance) {
 			L1SummonInstance summon = (L1SummonInstance) target;
 			if (summon.getMaster() == null) {
-				// _log.log(Level.WARNING,
+				// _log.warn(
 				// "L1NpcInstance::onTarget(): missing summon master.");
 				return;
 			}
@@ -446,8 +434,7 @@ public class L1NpcInstance extends L1Character {
 				if (getLocation().getTileLineDistance(target.getLocation()) > escapeDistance) {
 					targetClear();
 				} else {
-					int dir = targetReverseDirection(target.getX(),
-							target.getY());
+					int dir = targetReverseDirection(target.getX(), target.getY());
 					dir = checkObject(getX(), getY(), getMapId(), dir);
 					setDirectionMove(dir);
 					setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
@@ -459,26 +446,24 @@ public class L1NpcInstance extends L1Character {
 				return;
 			}
 
-			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate()
-					.get_ranged())) {
+			if (isAttackPosition(target.getX(), target.getY(), getNpcTemplate().get_ranged())) {
 				setHeading(targetDirection(target.getX(), target.getY()));
 				attackTarget(target);
 			} else {
 				if (getPassispeed() > 0) {
-					int distance = getLocation().getTileDistance(
-							target.getLocation());
-					if (firstFound == true && getNpcTemplate().is_teleport()
-							&& distance > 3 && distance < 15) {
+					if (getMapId() != target.getMapId()) {
+						return;
+					}
+					int distance = getLocation().getTileDistance(target.getLocation());
+					if (firstFound == true && getNpcTemplate().is_teleport() && distance > 3 && distance < 15) {
 						if (nearTeleport(target.getX(), target.getY()) == true) {
 							firstFound = false;
 							return;
 						}
 					}
 
-					if (getNpcTemplate().is_teleport()
-							&& 20 > _random.nextInt(100)
-							&& getCurrentMp() >= 10 && distance > 6
-							&& distance < 15) {
+					if (getNpcTemplate().is_teleport() && 20 > ThreadLocalRandom.current().nextInt(100)
+							&& getCurrentMp() >= 10 && distance > 6 && distance < 15) {
 						if (nearTeleport(target.getX(), target.getY()) == true) {
 							return;
 						}
@@ -500,14 +485,13 @@ public class L1NpcInstance extends L1Character {
 	public void attackTarget(L1Character target) {
 		// if the pet/summon/pc is being attacked by another pet in a safety zone, then
 		// kill the attack
-		if(this instanceof L1PetInstance && 
-				(target instanceof L1PetInstance || target instanceof L1PcInstance 
-						|| target instanceof L1SummonInstance)) {
-			if(target.getMap().isSafetyZone(this.getLocation())) {
+		if (this instanceof L1PetInstance && (target instanceof L1PetInstance || target instanceof L1PcInstance
+				|| target instanceof L1SummonInstance)) {
+			if (target.getMap().isSafetyZone(this.getLocation())) {
 				return;
 			}
 		}
-		
+
 		if (target instanceof L1PcInstance) {
 			L1PcInstance player = (L1PcInstance) target;
 			if (player.isTeleport()) {
@@ -559,28 +543,27 @@ public class L1NpcInstance extends L1Character {
 				return;
 			}
 		}
-		
+
 		L1Attack attack = new L1Attack(this, target);
 
 		if (target.hasSkillEffect(COUNTER_BARRIER)) {
 			L1Magic magic = new L1Magic(target, this);
-			if (magic.calcProbabilityMagic(COUNTER_BARRIER)
-					&& attack.isShortDistance()) {
+			if (magic.calcProbabilityMagic(COUNTER_BARRIER) && attack.isShortDistance()) {
 				attack.actionCounterBarrier();
 				attack.commitCounterBarrier();
 				setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 				return;
 			}
 		}
-		
+
 		if (attack.calcHit()) {
 			attack.calcDamage();
 			attack.addPcPoisonAttack(target, this);
 		}
-		
+
 		attack.action();
 		attack.commit();
-			
+
 		setSleepTime(calcSleepTime(getAtkspeed(), ATTACK_SPEED));
 	}
 
@@ -626,8 +609,7 @@ public class L1NpcInstance extends L1Character {
 				if (getInventory().checkAddItem(item, item.getCount()) == L1Inventory.OK) {
 					if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
 						setHiddenStatus(HIDDEN_STATUS_NONE);
-						broadcastPacket(new S_DoActionGFX(getId(),
-								ActionCodes.ACTION_Movedown));
+						broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Movedown));
 						setStatus(0);
 						broadcastPacket(new S_NPCPack(this));
 						onNpcAI();
@@ -651,8 +633,7 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void checkTargetItem() {
-		if (_targetItem == null
-				|| _targetItem.getMapId() != getMapId()
+		if (_targetItem == null || _targetItem.getMapId() != getMapId()
 				|| getLocation().getTileDistance(_targetItem.getLocation()) > 15) {
 			if (!_targetItemList.isEmpty()) {
 				_targetItem = _targetItemList.get(0);
@@ -680,10 +661,9 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void pickupTargetItem(L1ItemInstance targetItem) {
-		L1Inventory groundInventory = L1World.getInstance().getInventory(
-				targetItem.getX(), targetItem.getY(), targetItem.getMapId());
-		L1ItemInstance item = groundInventory.tradeItem(targetItem,
-				targetItem.getCount(), getInventory());
+		L1Inventory groundInventory = L1World.getInstance().getInventory(targetItem.getX(), targetItem.getY(),
+				targetItem.getMapId());
+		L1ItemInstance item = groundInventory.tradeItem(targetItem, targetItem.getCount(), getInventory());
 		_targetItemList.remove(_targetItem);
 		_targetItem = null;
 		if (item == null)
@@ -708,9 +688,11 @@ public class L1NpcInstance extends L1Character {
 				if (L1World.getInstance().getRecognizePlayer(this, true).size() == 0)
 					return true;
 			} else {
-				// Once a player enters its screen make it start using a wider check to stay active.
+				// Once a player enters its screen make it start using a wider check to stay
+				// active.
 				// If they wider check fails to locate any players revert to the screen check.
-				// It's more realistic when non-agro mobs can walk back on your screen a well as off.
+				// It's more realistic when non-agro mobs can walk back on your screen a well as
+				// off.
 				if (!_awoken) {
 					if (L1World.getInstance().getRecognizePlayer(this, true).size() == 0)
 						return true;
@@ -723,25 +705,21 @@ public class L1NpcInstance extends L1Character {
 			if (_master == null && getPassispeed() > 0 && !isRest()) {
 				//
 				L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
-				if (mobGroupInfo == null || mobGroupInfo != null
-						&& mobGroupInfo.isLeader(this)) {
+				if (mobGroupInfo == null || mobGroupInfo != null && mobGroupInfo.isLeader(this)) {
 					//
 					//
 					if (_randomMoveDistance == 0) {
-						_randomMoveDistance = _random.nextInt(5) + 1;
-						_randomMoveDirection = _random.nextInt(20);
+						_randomMoveDistance = ThreadLocalRandom.current().nextInt(5) + 1;
+						_randomMoveDirection = ThreadLocalRandom.current().nextInt(20);
 						//
-						if (getHomeX() != 0 && getHomeY() != 0
-								&& _randomMoveDirection < 8
-								&& _random.nextInt(3) == 0) {
-							_randomMoveDirection = moveDirection(getHomeX(),
-									getHomeY());
+						if (getHomeX() != 0 && getHomeY() != 0 && _randomMoveDirection < 8
+								&& ThreadLocalRandom.current().nextInt(3) == 0) {
+							_randomMoveDirection = moveDirection(getHomeX(), getHomeY());
 						}
 					} else {
 						_randomMoveDistance--;
 					}
-					int dir = checkObject(getX(), getY(), getMapId(),
-							_randomMoveDirection);
+					int dir = checkObject(getX(), getY(), getMapId(), _randomMoveDirection);
 					if (dir != -1) {
 						setDirectionMove(dir);
 						setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
@@ -754,8 +732,7 @@ public class L1NpcInstance extends L1Character {
 							return true;
 						} else {
 							setDirectionMove(dir);
-							setSleepTime(calcSleepTime(getPassispeed(),
-									MOVE_SPEED));
+							setSleepTime(calcSleepTime(getPassispeed(), MOVE_SPEED));
 						}
 					}
 				}
@@ -801,8 +778,7 @@ public class L1NpcInstance extends L1Character {
 	public void onNpcAI() {
 	}
 
-	private void consumeAndCreate(int[] ingredients, int[] ingredientCounts,
-			int result, L1Inventory inventory) {
+	private void consumeAndCreate(int[] ingredients, int[] ingredientCounts, int result, L1Inventory inventory) {
 		if (!inventory.checkItem(ingredients, ingredientCounts))
 			return;
 
@@ -811,8 +787,7 @@ public class L1NpcInstance extends L1Character {
 		inventory.storeItem(result, 1);
 	}
 
-	private void makeIfAbsent(int[] ingredients, int[] ingredientCounts,
-			int result, L1Inventory inventory) {
+	private void makeIfAbsent(int[] ingredients, int[] ingredientCounts, int result, L1Inventory inventory) {
 		if (inventory.checkItem(result))
 			return;
 		consumeAndCreate(ingredients, ingredientCounts, result, inventory);
@@ -823,30 +798,23 @@ public class L1NpcInstance extends L1Character {
 			return;
 
 		if (getNpcId() == 45032) {
-			makeIfAbsent(new int[] { 40508, 40521, 40045 }, new int[] { 150, 3,
-					3 }, 20, _inventory);
+			makeIfAbsent(new int[] { 40508, 40521, 40045 }, new int[] { 150, 3, 3 }, 20, _inventory);
 
-			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 150, 3 }, 19,
-					_inventory);
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 150, 3 }, 19, _inventory);
 
-			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 50, 1 }, 3,
-					_inventory);
+			makeIfAbsent(new int[] { 40494, 40521 }, new int[] { 50, 1 }, 3, _inventory);
 
-			makeIfAbsent(new int[] { 88, 40508, 40045 },
-					new int[] { 4, 80, 3 }, 100, _inventory);
+			makeIfAbsent(new int[] { 88, 40508, 40045 }, new int[] { 4, 80, 3 }, 100, _inventory);
 
-			makeIfAbsent(new int[] { 88, 40494 }, new int[] { 2, 80 }, 89,
-					_inventory);
+			makeIfAbsent(new int[] { 88, 40494 }, new int[] { 2, 80 }, 89, _inventory);
 			L1ItemInstance item = _inventory.findItemId(89);
 			if (item != null && getNpcTemplate().get_digestitem() > 0)
 				setDigestItem(item);
 
 		} else if (getNpcId() == 81069) {
-			makeIfAbsent(new int[] { 40032 }, new int[] { 1 }, 40542,
-					_inventory);
+			makeIfAbsent(new int[] { 40032 }, new int[] { 1 }, 40542, _inventory);
 		} else if (getNpcId() == 45166 || getNpcId() == 45167) {
-			makeIfAbsent(new int[] { 40725 }, new int[] { 1 }, 40726,
-					_inventory);
+			makeIfAbsent(new int[] { 40725 }, new int[] { 1 }, 40726, _inventory);
 		}
 	}
 
@@ -857,13 +825,13 @@ public class L1NpcInstance extends L1Character {
 	protected L1HateList _hateList = new L1HateList();
 	protected L1HateList _dropHateList = new L1HateList();
 
-	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(
-			0);
+	protected List<L1ItemInstance> _targetItemList = new ArrayList<L1ItemInstance>(0);
 	protected L1Character _target = null;
 	protected L1ItemInstance _targetItem = null;
 	protected L1Character _master = null;
 	private boolean _deathProcessing = false;
-
+	ScheduledFuture<?> _mprTimerFuture;
+	ScheduledFuture<?> _hprTimerFuture;
 	private int _paralysisTime = 0; // Paralysis RestTime
 
 	public void setParalysisTime(int ptime) {
@@ -884,15 +852,14 @@ public class L1NpcInstance extends L1Character {
 		int hpr = getNpcTemplate().get_hpr();
 		if (!_hprRunning && hprInterval > 0 && hpr > 0) {
 			_hprTimer = new HprTimer(hpr);
-			L1NpcRegenerationTimer.getInstance().scheduleAtFixedRate(_hprTimer,
-					hprInterval, hprInterval);
+			_hprTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_hprTimer, hprInterval, hprInterval);
 			_hprRunning = true;
 		}
 	}
 
 	public final void stopHpRegeneration() {
 		if (_hprRunning) {
-			_hprTimer.cancel();
+			_hprTimerFuture.cancel(true);
 			_hprRunning = false;
 		}
 	}
@@ -903,15 +870,14 @@ public class L1NpcInstance extends L1Character {
 		int mpr = getNpcTemplate().get_mpr();
 		if (!_mprRunning && mprInterval > 0 && mpr > 0) {
 			_mprTimer = new MprTimer(mpr);
-			L1NpcRegenerationTimer.getInstance().scheduleAtFixedRate(_mprTimer,
-					mprInterval, mprInterval);
+			_mprTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_mprTimer, mprInterval, mprInterval);
 			_mprRunning = true;
 		}
 	}
 
 	public final void stopMpRegeneration() {
 		if (_mprRunning) {
-			_mprTimer.cancel();
+			_mprTimerFuture.cancel(true);
 			_mprRunning = false;
 		}
 	}
@@ -920,20 +886,24 @@ public class L1NpcInstance extends L1Character {
 
 	private HprTimer _hprTimer;
 
-	class HprTimer extends TimerTask {
+	class HprTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
+			originalThreadName = Thread.currentThread().getName();
 			Thread.currentThread().setName("L1NpcInstance-HprTimer");
 			try {
-				if ((!_destroyed && !isDead())
-						&& (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
+				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
 					setCurrentHp(getCurrentHp() + _point);
 				} else {
-					cancel();
+					// cancel();
 					_hprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 
@@ -951,20 +921,24 @@ public class L1NpcInstance extends L1Character {
 
 	private MprTimer _mprTimer;
 
-	class MprTimer extends TimerTask {
+	class MprTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
+			originalThreadName = Thread.currentThread().getName();
 			Thread.currentThread().setName("L1NpcInstance-MprTimer");
 			try {
-				if ((!_destroyed && !isDead())
-						&& (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
+				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
 					setCurrentMp(getCurrentMp() + _point);
 				} else {
-					cancel();
+					// cancel();
 					_mprRunning = false;
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 
@@ -982,35 +956,43 @@ public class L1NpcInstance extends L1Character {
 	public boolean _digestItemRunning = false;
 
 	class DigestItemTimer implements Runnable {
+		private String originalThreadName;
+
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-DigestTimer");
-			_digestItemRunning = true;
-			while (!_destroyed && _digestItems.size() > 0) {
-				try {
-					Thread.sleep(1000);
-				} catch (Exception exception) {
-					break;
-				}
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1NpcInstance-DigestTimer");
+				_digestItemRunning = true;
+				while (!_destroyed && _digestItems.size() > 0) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception exception) {
+						break;
+					}
 
-				Object[] keys = _digestItems.keySet().toArray();
-				for (int i = 0; i < keys.length; i++) {
-					Integer key = (Integer) keys[i];
-					Integer digestCounter = _digestItems.get(key);
-					digestCounter -= 1;
-					if (digestCounter <= 0) {
-						_digestItems.remove(key);
-						L1ItemInstance digestItem = getInventory().getItem(key);
-						if (digestItem != null) {
-							getInventory().removeItem(digestItem,
-									digestItem.getCount());
+					Object[] keys = _digestItems.keySet().toArray();
+					for (int i = 0; i < keys.length; i++) {
+						Integer key = (Integer) keys[i];
+						Integer digestCounter = _digestItems.get(key);
+						digestCounter -= 1;
+						if (digestCounter <= 0) {
+							_digestItems.remove(key);
+							L1ItemInstance digestItem = getInventory().getItem(key);
+							if (digestItem != null) {
+								getInventory().removeItem(digestItem, digestItem.getCount());
+							}
+						} else {
+							_digestItems.put(key, digestCounter);
 						}
-					} else {
-						_digestItems.put(key, digestCounter);
 					}
 				}
+				_digestItemRunning = false;
+			} catch (Exception e) {
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
-			_digestItemRunning = false;
 		}
 	}
 
@@ -1033,12 +1015,11 @@ public class L1NpcInstance extends L1Character {
 		double diff = 0;
 		setName(template.get_name());
 		setNameId(template.get_nameid());
-		
+
 		if (template.get_randomlevel() == 0) {
 			setLevel(template.get_level());
 		} else {
-			randomlevel = _random.nextInt(template.get_randomlevel()
-					- template.get_level() + 1);
+			randomlevel = ThreadLocalRandom.current().nextInt(template.get_randomlevel() - template.get_level() + 1);
 			diff = template.get_randomlevel() - template.get_level();
 			rate = randomlevel / diff;
 			randomlevel += template.get_level();
@@ -1048,8 +1029,7 @@ public class L1NpcInstance extends L1Character {
 			setMaxHp(template.get_hp());
 			setCurrentHpDirect(template.get_hp());
 		} else {
-			double randomhp = rate
-					* (template.get_randomhp() - template.get_hp());
+			double randomhp = rate * (template.get_randomhp() - template.get_hp());
 			int hp = (int) (template.get_hp() + randomhp);
 			setMaxHp(hp);
 			setCurrentHpDirect(hp);
@@ -1058,8 +1038,7 @@ public class L1NpcInstance extends L1Character {
 			setMaxMp(template.get_mp());
 			setCurrentMpDirect(template.get_mp());
 		} else {
-			double randommp = rate
-					* (template.get_randommp() - template.get_mp());
+			double randommp = rate * (template.get_randommp() - template.get_mp());
 			int mp = (int) (template.get_mp() + randommp);
 			setMaxMp(mp);
 			setCurrentMpDirect(mp);
@@ -1067,8 +1046,7 @@ public class L1NpcInstance extends L1Character {
 		if (template.get_randomac() == 0) {
 			setAc(template.get_ac());
 		} else {
-			double randomac = rate
-					* (template.get_randomac() - template.get_ac());
+			double randomac = rate * (template.get_randomac() - template.get_ac());
 			int ac = (int) (template.get_ac() + randomac);
 			setAc(ac);
 		}
@@ -1109,8 +1087,7 @@ public class L1NpcInstance extends L1Character {
 			setLawful(template.get_lawful());
 			setTempLawful(template.get_lawful());
 		} else {
-			double randomlawful = rate
-					* (template.get_randomlawful() - template.get_lawful());
+			double randomlawful = rate * (template.get_randomlawful() - template.get_lawful());
 			int lawful = (int) (template.get_lawful() + randomlawful);
 			setLawful(lawful);
 			setTempLawful(lawful);
@@ -1213,10 +1190,10 @@ public class L1NpcInstance extends L1Character {
 
 	@Override
 	public void onPerceive(L1PcInstance perceivedFrom) {
-		//Cheap fix because GMRoom is also the jail.. this hides the bugboard
-		if(this.getSpawn() == NpcSpawnTable.getBugBoard() && !perceivedFrom.isGm())
+		// Cheap fix because GMRoom is also the jail.. this hides the bugboard
+		if (this.getSpawn() == NpcSpawnTable.getBugBoard() && !perceivedFrom.isGm())
 			return;
-		
+
 		perceivedFrom.sendPackets(new S_Light(this.getId(), getLightSize()));
 		perceivedFrom.addKnownObject(this);
 		perceivedFrom.sendPackets(new S_NPCPack(this));
@@ -1226,54 +1203,59 @@ public class L1NpcInstance extends L1Character {
 	public void deleteMe() {
 		if (getNpcId() == 45477 && _truedead == false) {
 			resurrect(getMaxHp() / 2);
-			_truedead = true;	
+			_truedead = true;
 		} else {
-		_destroyed = true;
-		if (getInventory() != null) {
-			getInventory().clearItems();
-		}
-		allTargetClear();
-		_master = null;
-		L1World.getInstance().removeVisibleObject(this);
-		L1World.getInstance().removeObject(this);
-		List<L1PcInstance> players = L1World.getInstance().getRecognizePlayer(
-				this);
+			_destroyed = true;
+			if (getInventory() != null) {
+				getInventory().clearItems();
+			}
+			allTargetClear();
+			_master = null;
+			L1World.getInstance().removeVisibleObject(this);
+			L1World.getInstance().removeObject(this);
+			List<L1PcInstance> players = L1World.getInstance().getRecognizePlayer(this);
 
-		if (players.size() > 0) {
-			S_RemoveObject s_deleteNewObject = new S_RemoveObject(this);
-			for (L1PcInstance pc : players) {
-				if (pc != null) {
-					pc.removeKnownObject(this);
-					pc.sendPackets(s_deleteNewObject);
+			if (players.size() > 0) {
+				S_RemoveObject s_deleteNewObject = new S_RemoveObject(this);
+				for (L1PcInstance pc : players) {
+					if (pc != null) {
+						pc.removeKnownObject(this);
+						pc.sendPackets(s_deleteNewObject);
+					}
 				}
 			}
-		}
-		removeAllKnownObjects();
+			removeAllKnownObjects();
 
-		// TODO: test!
-		if (_chatTask != null) {
-			_chatTask.cancel();
-			_chatTask = null;
-		}
-		if (_chatTimer != null) {
-			_chatTimer.cancel();
-			_chatTimer.purge();
-			_chatTimer = null;
-		}
-
-		L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
-		if (mobGroupInfo == null) {
-			if (isReSpawn()) {
-				onDecay(true);
+			// TODO: test!
+			if (_chatTaskFuture != null) {
+				if (!_chatTaskFuture.isDone()) {
+					_chatTaskFuture.cancel(true);
+					_chatTask = null;
+				}
 			}
-		} else {
-			if (mobGroupInfo.removeMember(this) == 0) {
-				setMobGroupInfo(null);
+//		if (_chatTask != null) {
+//			_chatTask.cancel();
+//			_chatTask = null;
+//		}
+//		if (_chatTimer != null) {
+//			_chatTimer.cancel();
+//			_chatTimer.purge();
+//			_chatTimer = null;
+//		}
+
+			L1MobGroupInfo mobGroupInfo = getMobGroupInfo();
+			if (mobGroupInfo == null) {
 				if (isReSpawn()) {
-					onDecay(false);
+					onDecay(true);
+				}
+			} else {
+				if (mobGroupInfo.removeMember(this) == 0) {
+					setMobGroupInfo(null);
+					if (isReSpawn()) {
+						onDecay(false);
+					}
 				}
 			}
-		}
 		}
 	}
 
@@ -1284,8 +1266,7 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public void setDigestItem(L1ItemInstance item) {
-		_digestItems.put(new Integer(item.getId()), new Integer(
-				getNpcTemplate().get_digestitem()));
+		_digestItems.put(new Integer(item.getId()), new Integer(getNpcTemplate().get_digestitem()));
 		if (!_digestItemRunning) {
 			DigestItemTimer digestItemTimer = new DigestItemTimer();
 			GeneralThreadPool.getInstance().execute(digestItemTimer);
@@ -1333,8 +1314,7 @@ public class L1NpcInstance extends L1Character {
 			return;
 		} else if (getHiddenStatus() == HIDDEN_STATUS_SINK) {
 			setHiddenStatus(HIDDEN_STATUS_NONE);
-			broadcastPacket(new S_DoActionGFX(getId(),
-					ActionCodes.ACTION_Appear));
+			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Appear));
 			setStatus(0);
 			broadcastPacket(new S_NPCPack(this));
 			if (!pc.hasSkillEffect(60) && !pc.hasSkillEffect(97) && !pc.isGm()) {
@@ -1344,8 +1324,7 @@ public class L1NpcInstance extends L1Character {
 			onNpcAI();
 		} else if (getHiddenStatus() == HIDDEN_STATUS_FLY) {
 			setHiddenStatus(HIDDEN_STATUS_NONE);
-			broadcastPacket(new S_DoActionGFX(getId(),
-					ActionCodes.ACTION_Movedown));
+			broadcastPacket(new S_DoActionGFX(getId(), ActionCodes.ACTION_Movedown));
 			setStatus(0);
 			broadcastPacket(new S_NPCPack(this));
 			if (!pc.hasSkillEffect(60) && !pc.hasSkillEffect(97) && !pc.isGm()) {
@@ -1417,27 +1396,24 @@ public class L1NpcInstance extends L1Character {
 			}
 
 			/*
-			 * This code section would prevent mobs from walking through doors,
-			 * however, it's iterating through a for loop of every spawned door
-			 * in game for every tile based movement of every mob in game.
-			 * That's no good.
+			 * This code section would prevent mobs from walking through doors, however,
+			 * it's iterating through a for loop of every spawned door in game for every
+			 * tile based movement of every mob in game. That's no good.
 			 * 
-			 * However, something like this might be necessary if we want mobs
-			 * to be able to open doors in the future. So I'm leaving this code
-			 * in place but commented out. -Tricid
+			 * However, something like this might be necessary if we want mobs to be able to
+			 * open doors in the future. So I'm leaving this code in place but commented
+			 * out. -Tricid
 			 * 
-			 * PS. It's surrounded by try because its possible (and likely)
-			 * it'll find no door, throwing a null pointer exception.
+			 * PS. It's surrounded by try because its possible (and likely) it'll find no
+			 * door, throwing a null pointer exception.
 			 * 
-			 * PPS. If this is ever used, the additions in L1DoorInstance.java
-			 * and L1DoorTable.java that set the doors location impassible need
-			 * to be removed.
+			 * PPS. If this is ever used, the additions in L1DoorInstance.java and
+			 * L1DoorTable.java that set the doors location impassible need to be removed.
 			 */
 
 			/*
-			 * try { if (DoorTable .getInstance() .findByDoorLoc(getX() + nx,
-			 * getY() + ny, getMap().getId()).getOpenStatus() == 29) { return; }
-			 * } catch (Exception e) {
+			 * try { if (DoorTable .getInstance() .findByDoorLoc(getX() + nx, getY() + ny,
+			 * getMap().getId()).getOpenStatus() == 29) { return; } } catch (Exception e) {
 			 * 
 			 * }
 			 */
@@ -1454,20 +1430,16 @@ public class L1NpcInstance extends L1Character {
 			broadcastPacket(new S_MoveCharPacket(this));
 
 			if (getMovementDistance() > 0) {
-				if (this instanceof L1GuardInstance
-						|| this instanceof L1MerchantInstance
+				if (this instanceof L1GuardInstance || this instanceof L1MerchantInstance
 						|| this instanceof L1MonsterInstance) {
-					if (getLocation().getLineDistance(
-							new Point(getHomeX(), getHomeY())) > getMovementDistance()) {
+					if (getLocation().getLineDistance(new Point(getHomeX(), getHomeY())) > getMovementDistance()) {
 						teleport(getHomeX(), getHomeY(), getHeading());
 					}
 				}
 			}
 			//
-			if (getNpcTemplate().get_npcId() >= 45912
-					&& getNpcTemplate().get_npcId() <= 45916) {
-				if (getX() >= 32591 && getX() <= 32644 && getY() >= 32643
-						&& getY() <= 32688 && getMapId() == 4) {
+			if (getNpcTemplate().get_npcId() >= 45912 && getNpcTemplate().get_npcId() <= 45916) {
+				if (getX() >= 32591 && getX() <= 32644 && getY() >= 32643 && getY() <= 32688 && getMapId() == 4) {
 					teleport(getHomeX(), getHomeY(), getHeading());
 				}
 			}
@@ -1475,17 +1447,16 @@ public class L1NpcInstance extends L1Character {
 	}
 
 	public int moveDirection(int x, int y) {
-		return moveDirection(x, y,
-				getLocation().getLineDistance(new Point(x, y)));
+		return moveDirection(x, y, getLocation().getLineDistance(new Point(x, y)));
 	}
 
 	public int moveDirection(int x, int y, double d) {
 		int dir = 0;
 		if (hasSkillEffect(40) == true && d >= 2D) {
 			return -1;
-		//} else if (d > 30D) {
-		// The distance at which mobs will give up the chase.
-		// This should be relative to the pathing range.
+			// } else if (d > 30D) {
+			// The distance at which mobs will give up the chase.
+			// This should be relative to the pathing range.
 		} else if (d > 15.0 + Config.NPC_PATHING_RANGE) {
 			return -1;
 		} else if (d > Config.NPC_PATHING_RANGE) {
@@ -1540,12 +1511,10 @@ public class L1NpcInstance extends L1Character {
 
 		for (L1Object object : L1World.getInstance().getVisibleObjects(this, 1)) {
 			// PC, Summon, Pet
-			if (object instanceof L1PcInstance
-					|| object instanceof L1SummonInstance
+			if (object instanceof L1PcInstance || object instanceof L1SummonInstance
 					|| object instanceof L1PetInstance) {
 				L1Character cha = (L1Character) object;
-				if (cha.getX() == targetX && cha.getY() == targetY
-						&& cha.getMapId() == getMapId()) {
+				if (cha.getX() == targetX && cha.getY() == targetY && cha.getMapId() == getMapId()) {
 					if (object instanceof L1PcInstance) {
 						L1PcInstance pc = (L1PcInstance) object;
 						if (pc.isGhost()) { //
@@ -1837,19 +1806,17 @@ public class L1NpcInstance extends L1Character {
 
 	public static final int USEITEM_HEAL = 0;
 	public static final int USEITEM_HASTE = 1;
-	public static int[] healPotions = { POTION_OF_GREATER_HEALING,
-			POTION_OF_EXTRA_HEALING, POTION_OF_HEALING };
-	public static int[] hastePotions = { B_POTION_OF_GREATER_HASTE_SELF,
-			POTION_OF_GREATER_HASTE_SELF, B_POTION_OF_HASTE_SELF,
-			POTION_OF_HASTE_SELF };
+	public static int[] healPotions = { POTION_OF_GREATER_HEALING, POTION_OF_EXTRA_HEALING, POTION_OF_HEALING };
+	public static int[] hastePotions = { B_POTION_OF_GREATER_HASTE_SELF, POTION_OF_GREATER_HASTE_SELF,
+			B_POTION_OF_HASTE_SELF, POTION_OF_HASTE_SELF };
 
 	public void useItem(int type, int chance) {
 		if (hasSkillEffect(71)) {
 			return;
 		}
 
-		Random random = new Random();
-		if (random.nextInt(100) > chance) {
+		new Random();
+		if (ThreadLocalRandom.current().nextInt(100) > chance) {
 			return;
 		}
 
@@ -1868,8 +1835,7 @@ public class L1NpcInstance extends L1Character {
 
 			if (getInventory().consumeItem(B_POTION_OF_GREATER_HASTE_SELF, 1)) {
 				useHastePotion(2100);
-			} else if (getInventory().consumeItem(POTION_OF_GREATER_HASTE_SELF,
-					1)) {
+			} else if (getInventory().consumeItem(POTION_OF_GREATER_HASTE_SELF, 1)) {
 				useHastePotion(1800);
 			} else if (getInventory().consumeItem(B_POTION_OF_HASTE_SELF, 1)) {
 				useHastePotion(350);
@@ -1881,7 +1847,7 @@ public class L1NpcInstance extends L1Character {
 
 	// Npc Skills
 	public boolean nearTeleport(int nx, int ny) {
-		int rdir = _random.nextInt(8);
+		int rdir = ThreadLocalRandom.current().nextInt(8);
 		int dir;
 		for (int i = 0; i < 8; i++) {
 			dir = rdir + i;
@@ -2190,8 +2156,7 @@ public class L1NpcInstance extends L1Character {
 		super.resurrect(hp);
 
 		L1SkillUse skill = new L1SkillUse();
-		skill.handleCommands(null, CANCELLATION, getId(), getX(), getY(), null,
-				0, L1SkillUse.TYPE_LOGIN, this);
+		skill.handleCommands(null, CANCELLATION, getId(), getX(), getY(), null, 0, L1SkillUse.TYPE_LOGIN, this);
 	}
 
 	private DeleteTimer _deleteTask;
@@ -2202,12 +2167,12 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 		_deleteTask = new DeleteTimer(getId());
-		_future = GeneralThreadPool.getInstance().schedule(_deleteTask,
-				Config.NPC_DELETION_TIME * 1000);
+		_future = GeneralThreadPool.getInstance().schedule(_deleteTask, Config.NPC_DELETION_TIME * 1000);
 	}
 
-	protected static class DeleteTimer extends TimerTask {
+	protected static class DeleteTimer implements Runnable {
 		private int _id;
+		private String originalThreadName;
 
 		protected DeleteTimer(int oId) {
 			_id = oId;
@@ -2218,36 +2183,38 @@ public class L1NpcInstance extends L1Character {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
-			L1NpcInstance npc = (L1NpcInstance) L1World.getInstance()
-					.findObject(_id);
-			if (npc == null || !npc.isDead() || npc._destroyed) {
-				// Leak investigation.
-				if (npc == null) {
-					_log.warning("DeleteTimer#run: npc was null.");
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1NpcInstance-DeleteTimer");
+				L1NpcInstance npc = (L1NpcInstance) L1World.getInstance().findObject(_id);
+				if (npc == null || !npc.isDead() || npc._destroyed) {
+					// Leak investigation.
+					if (npc == null) {
+						_log.warn("DeleteTimer#run: npc was null.");
+						return;
+					}
+					if (!npc.isDead())
+						_log.warn("DeleteTimer#run: !npc.isDead().");
+					if (npc._destroyed)
+						_log.warn("DeleteTimer#run: npc._destroyed.");
+					_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+					// cancel();
 					return;
 				}
-				if (!npc.isDead())
-					_log.warning("DeleteTimer#run: !npc.isDead().");
-				if (npc._destroyed)
-					_log.warning("DeleteTimer#run: npc._destroyed.");
-				_log.warning(String.format(
-						"DeleteTimer#run: trouble with npc_templateid %d.",
-						npc.getNpcId()));
-				cancel();
-				return;
-			}
-			try {
-				npc.deleteMe();
-				cancel();
-			} catch (Exception e) {
-				// More leak investigation.
-				_log.warning(String.format(
-						"DeleteTimer#run: trouble with npc_templateid %d.",
-						npc.getNpcId()));
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				try {
+					npc.deleteMe();
+					// cancel();
+				} catch (Exception e) {
+					// More leak investigation.
+					_log.warn(String.format("DeleteTimer#run: trouble with npc_templateid %d.", npc.getNpcId()));
+					_log.error(e.getLocalizedMessage(), e);
 
-				e.printStackTrace();
+					_log.error("",e);
+				}
+			} catch (Exception e) {
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
 			}
 		}
 	}
@@ -2302,24 +2269,33 @@ public class L1NpcInstance extends L1Character {
 			return;
 		}
 
-		// Fix timer thread leak
-		if (_chatTask != null) {
-			_chatTask.cancel();
-			_chatTask = null;
+		if (_chatTaskFuture != null) {
+			if (!_chatTaskFuture.isDone()) {
+				_chatTaskFuture.cancel(true);
+				_chatTask = null;
+			}
 		}
-		if (_chatTimer != null) {
-			_chatTimer.cancel();
-			_chatTimer.purge();
-			_chatTimer = null;
-		}
-		
-		_chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
+//		// Fix timer thread leak
+//		if (_chatTask != null) {
+//			_chatTask.cancel();
+//			_chatTask = null;
+//		}
+//		if (_chatTimer != null) {
+//			_chatTimer.cancel();
+//			_chatTimer.purge();
+//			_chatTimer = null;
+//		}
+
+		// _chatTimer = new Timer("L1NpcInstance-Chat-"+getNpcId(),true);
 		_chatTask = new L1NpcChatTimer(this, npcChat);
 		if (!npcChat.isRepeat()) {
-			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
+			// _chatTimer.schedule(_chatTask, npcChat.getStartDelayTime());
+			_chatTaskFuture = GeneralThreadPool.getInstance().schedule(_chatTask, npcChat.getStartDelayTime());
 		} else {
-			_chatTimer.schedule(_chatTask, npcChat.getStartDelayTime(),
-					npcChat.getRepeatInterval());
+			// _chatTimer.schedule(_chatTask, npcChat.getStartDelayTime(),
+			// npcChat.getRepeatInterval());
+			_chatTaskFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_chatTask,
+					npcChat.getStartDelayTime(), npcChat.getRepeatInterval());
 		}
 	}
 }

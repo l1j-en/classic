@@ -19,11 +19,12 @@
 package l1j.server.server.controllers;
 
 import java.lang.reflect.Constructor;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
@@ -41,8 +42,7 @@ import l1j.server.server.templates.L1Npc;
  * Crack of time Controller
  */
 public class CrackOfTimeController extends TimerTask {
-	private final static Logger _log = Logger
-			.getLogger(CrackOfTimeController.class.getName());
+	private final static Logger _log = LoggerFactory			.getLogger(CrackOfTimeController.class.getName());
 	private Timer _timeHandler = new Timer("CrackOfTimer",true);
 	private boolean _isOver = false;
 	private int _startTime = 0;
@@ -91,34 +91,39 @@ public class CrackOfTimeController extends TimerTask {
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName("CrackOfTimeController");
-		if (_isOver) {
-			try {
-				L1World.getInstance().broadcastPacketToAll(
-						new S_ServerMessage(1468));
-				clear();
-				Thread.sleep(_downTime);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		try {
+			Thread.currentThread().setName("CrackOfTimeController");
+			if (_isOver) {
+				try {
+					L1World.getInstance().broadcastPacketToAll(
+							new S_ServerMessage(1468));
+					clear();
+					Thread.sleep(_downTime);
+				} catch (InterruptedException e) {
+					_log.error("",e);
+				}
 			}
-		}
 
-		_startTime++;
-		_gatetime++;
+			_startTime++;
+			_gatetime++;
 
-		int map784gatetimer = (150 * 600);
-		if (_startTime == _delayTime) {
-			spawnCrack();
-		}
-		if (_startTime == _upTime) {
-			L1World.getInstance().broadcastPacketToAll(
-					new S_ServerMessage(1467));
-		}
-		if (_startTime >= (_delayTime + _upTime)) {
-			_isOver = true;
-		}
-		if (_gatetime >= (_delayTime + map784gatetimer)) {
-			_gateopen = true;
+			int map784gatetimer = (150 * 600);
+			if (_startTime == _delayTime) {
+				spawnCrack();
+			}
+			if (_startTime == _upTime) {
+				L1World.getInstance().broadcastPacketToAll(
+						new S_ServerMessage(1467));
+			}
+			if (_startTime >= (_delayTime + _upTime)) {
+				_isOver = true;
+			}
+			if (_gatetime >= (_delayTime + map784gatetimer)) {
+				_gateopen = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
 		}
 	}
 
@@ -130,12 +135,11 @@ public class CrackOfTimeController extends TimerTask {
 	}
 
 	private void spawnCrack() {
-		Random random = new Random();
 		L1Location crack = null;
 		L1Location crack_loc = null;
 
-		int rnd1 = random.nextInt(2);
-		int rnd2 = random.nextInt(9);
+		int rnd1 = ThreadLocalRandom.current().nextInt(2);
+		int rnd2 = ThreadLocalRandom.current().nextInt(9);
 
 		crack = new L1Location(_crack[rnd1][0], _crack[rnd1][1],
 				_crack[rnd1][2]);
@@ -180,7 +184,7 @@ public class CrackOfTimeController extends TimerTask {
 			Teleport teleport = new Teleport(npc, to_x, to_y, to_mapId);
 			GeneralThreadPool.getInstance().execute(teleport);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -221,7 +225,7 @@ public class CrackOfTimeController extends TimerTask {
 					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
-				_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+				_log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}

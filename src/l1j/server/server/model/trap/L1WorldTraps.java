@@ -24,12 +24,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.TrapTable;
 import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Location;
@@ -40,10 +40,9 @@ import l1j.server.server.types.Point;
 import l1j.server.server.utils.SQLUtil;
 
 public class L1WorldTraps {
-	private static Logger _log = Logger.getLogger(L1WorldTraps.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1WorldTraps.class.getName());
 	private List<L1TrapInstance> _allTraps = new ArrayList<L1TrapInstance>();
 	private List<L1TrapInstance> _allBases = new ArrayList<L1TrapInstance>();
-	private Timer _timer = new Timer("WorldTrapTimer");
 	private static L1WorldTraps _instance;
 
 	private L1WorldTraps() {
@@ -89,7 +88,7 @@ public class L1WorldTraps {
 				_allBases.add(base);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -115,15 +114,26 @@ public class L1WorldTraps {
 
 	private void resetTimer() {
 		synchronized (this) {
-			_timer.cancel();
-			_timer = new Timer("WorldTrapTimer");
+			for (L1TrapInstance trap : _allTraps) {
+				try {
+					trap.get_trapFuture().cancel(true);
+				} catch (Exception e) {
+					_log.error("",e);
+				}
+				
+				try {
+					trap.set_trapFuture(GeneralThreadPool.getInstance().schedule(new TrapSpawnTimer(trap), trap.getSpan()));
+				} catch (Exception e) {
+					_log.error("",e);
+				}
+			}
 		}
 	}
 
 	private void disableTrap(L1TrapInstance trap) {
 		trap.disableTrap();
 		synchronized (this) {
-			_timer.schedule(new TrapSpawnTimer(trap), trap.getSpan());
+			trap.set_trapFuture(GeneralThreadPool.getInstance().schedule(new TrapSpawnTimer(trap), trap.getSpan()));
 		}
 	}
 
@@ -156,8 +166,9 @@ public class L1WorldTraps {
 		}
 	}
 
-	private class TrapSpawnTimer extends TimerTask {
+	private class TrapSpawnTimer implements Runnable {
 		private final L1TrapInstance _targetTrap;
+		private String originalThreadName;
 
 		public TrapSpawnTimer(L1TrapInstance trap) {
 			_targetTrap = trap;
@@ -165,9 +176,17 @@ public class L1WorldTraps {
 
 		@Override
 		public void run() {
-			_targetTrap.resetLocation();
-			_targetTrap.enableTrap();
-			cancel();
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1WorldTrap");
+				_targetTrap.resetLocation();
+				_targetTrap.enableTrap();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
+			}
 		}
 	}
 }

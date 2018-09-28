@@ -28,16 +28,17 @@ import static l1j.server.server.model.skill.L1SkillId.RUN_CLAN;
 import static l1j.server.server.model.skill.L1SkillId.TELEPORT;
 import static l1j.server.server.model.skill.L1SkillId.TRUE_TARGET;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.SkillTable;
 import l1j.server.server.model.AcceleratorChecker;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Skill;
 
@@ -46,9 +47,9 @@ import l1j.server.server.templates.L1Skill;
 // ClientBasePacket
 public class C_UseSkill extends ClientBasePacket {
 
-	private static Logger _log = Logger.getLogger(C_UseSkill.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_UseSkill.class.getName());
 	
-	public C_UseSkill(byte abyte0[], ClientThread client) throws Exception {
+	public C_UseSkill(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int row = readC();
 		int column = readC();
@@ -118,7 +119,7 @@ public class C_UseSkill extends ClientBasePacket {
 				}
 			} catch (Exception e) {
 				if (Config.LOGGING_INCOMING_PACKETS) 
-					_log.warning("SKILL ERROR: skillid " + skillId + " has some sort of issue:\n" + e);
+					_log.warn("SKILL ERROR: skillid " + skillId + " has some sort of issue:\n" + e);
 			}
 		}
 
@@ -168,7 +169,7 @@ public class C_UseSkill extends ClientBasePacket {
 			l1skilluse.handleCommands(pc, skillId, targetId, targetX, targetY,
 					message, 0, L1SkillUse.TYPE_NORMAL);
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 		}
 	}
 }

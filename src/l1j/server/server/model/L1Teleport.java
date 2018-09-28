@@ -76,21 +76,22 @@ public class L1Teleport {
 					EFFECT_SPR[skillType]);
 			pc.sendAndBroadcast(packet);
 
-			try {
-				Thread.sleep((int) (EFFECT_TIME[skillType] * 0.7));
-			} catch (Exception e) {
+			pc.teleWithDelay((int) (EFFECT_TIME[skillType] * 0.7),x,y,mapId,head,ignorePets);
+
+		} else {
+			pc.setTeleportX(x);
+			pc.setTeleportY(y);
+			pc.setTeleportMapId(mapId);
+			pc.setTeleportHeading(head);
+			if (Config.SEND_PACKET_BEFORE_TELEPORT) {
+				pc.sendPackets(new S_Teleport(pc));
+			} else {
+				Teleportation.teleport(pc, ignorePets);
 			}
+
 		}
 
-		pc.setTeleportX(x);
-		pc.setTeleportY(y);
-		pc.setTeleportMapId(mapId);
-		pc.setTeleportHeading(head);
-		if (Config.SEND_PACKET_BEFORE_TELEPORT) {
-			pc.sendPackets(new S_Teleport(pc));
-		} else {
-			Teleportation.Teleportation(pc, ignorePets);
-		}
+
 	}
 
 	public static void teleportToTargetFront(L1Character cha,

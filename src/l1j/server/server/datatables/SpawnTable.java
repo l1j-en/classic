@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -37,7 +38,7 @@ import l1j.server.server.utils.PerformanceTimer;
 import l1j.server.server.utils.SQLUtil;
 
 public class SpawnTable {
-	private static Logger _log = Logger.getLogger(SpawnTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(SpawnTable.class.getName());
 	private static SpawnTable _instance;
 	private Map<Integer, L1Spawn> _spawntable = new HashMap<Integer, L1Spawn>();
 
@@ -52,10 +53,10 @@ public class SpawnTable {
 
 	private SpawnTable() {
 		PerformanceTimer timer = new PerformanceTimer();
-		_log.config("Spawning Mob...");
+		_log.info("Spawning Mob...");
 		fillSpawnTable();
-		_log.config("Monster placement list: " + _spawntable.size() + " Loaded");
-		_log.config("           OK!     " + timer.elapsedTimeMillis()
+		_log.info("Monster placement list: " + _spawntable.size() + " Loaded");
+		_log.info("           OK!     " + timer.elapsedTimeMillis()
 				+ "ms");
 	}
 
@@ -82,7 +83,7 @@ public class SpawnTable {
 				int count;
 
 				if (template1 == null) {
-					_log.warning("mob data for id:" + npcTemplateId
+					_log.warn("mob data for id:" + npcTemplateId
 							+ " missing in npc table");
 					spawnDat = null;
 				} else {
@@ -141,13 +142,13 @@ public class SpawnTable {
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
-		_log.fine("The total number of Monster: " + spawnCount + " mobs");
+		_log.trace("The total number of Monster: " + spawnCount + " mobs");
 	}
 
 	public L1Spawn getTemplate(int Id) {
@@ -186,7 +187,7 @@ public class SpawnTable {
 			pstm.setInt(12, pc.getMapId());
 			pstm.execute();
 		} catch (Exception e) {
-			NpcTable._log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			NpcTable._log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);

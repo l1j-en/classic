@@ -23,15 +23,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1World;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_CharAmount;
 import l1j.server.server.serverpackets.S_CharPacks;
 import l1j.server.server.utils.SQLUtil;
@@ -39,10 +40,9 @@ import l1j.server.server.utils.SQLUtil;
 public class C_CommonClick {
 
 	private static final String C_COMMON_CLICK = "[C] C_CommonClick";
-	private static Logger _log = Logger
-			.getLogger(C_CommonClick.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_CommonClick.class.getName());
 
-	public C_CommonClick(ClientThread client) {
+	public C_CommonClick(Client client) {
 		if(!client.getDisconnectNextClick()) {
 			deleteCharacter(client);
 			int amountOfChars = client.getAccount().countCharacters();
@@ -53,7 +53,7 @@ public class C_CommonClick {
 		}
 	}
 
-	private void deleteCharacter(ClientThread client) {
+	private void deleteCharacter(Client client) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -83,7 +83,7 @@ public class C_CommonClick {
 				}
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -91,7 +91,7 @@ public class C_CommonClick {
 		}
 	}
 
-	private void sendCharPacks(ClientThread client) {
+	private void sendCharPacks(Client client) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -145,7 +145,7 @@ public class C_CommonClick {
 				client.sendPacket(cpk);
 			}
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

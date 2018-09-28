@@ -27,8 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
@@ -41,16 +43,16 @@ import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
+import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Drop;
 import l1j.server.server.utils.SQLUtil;
-import l1j.server.server.model.classes.L1ClassId;
 
 // Referenced classes of package l1j.server.server.templates:
 // L1Npc, L1Item, ItemTable
 public class DropTable {
-	private static Logger _log = Logger.getLogger(DropTable.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(DropTable.class.getName());
 	private static DropTable _instance;
 	private final HashMap<Integer, ArrayList<L1Drop>> _droplists;
 
@@ -81,7 +83,7 @@ public class DropTable {
 				questDropsMap.put(rs.getInt("item_id"), rs.getString("class"));
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -114,7 +116,7 @@ public class DropTable {
 				dropList.add(drop);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -147,7 +149,7 @@ public class DropTable {
 		int addCount;
 		int randomChance;
 		L1ItemInstance item;
-		Random random = new Random();
+		new Random();
 
 		for (L1Drop drop : dropList) {
 			itemId = drop.getItemid();
@@ -155,7 +157,7 @@ public class DropTable {
 				continue;
 			}
 
-			randomChance = random.nextInt(0xf4240) + 1;
+			randomChance = ThreadLocalRandom.current().nextInt(0xf4240) + 1;
 			double rateOfMapId = MapsTable.getInstance().getDropRate(
 					npc.getMapId());
 			double rateOfItem = DropItemTable.getInstance().getDropRate(itemId);
@@ -179,7 +181,7 @@ public class DropTable {
 			itemCount = min;
 			addCount = max - min + 1;
 			if (addCount > 1) {
-				itemCount += random.nextInt(addCount);
+				itemCount += ThreadLocalRandom.current().nextInt(addCount);
 			}
 			if (itemCount < 0) {
 				itemCount = 0;
@@ -189,7 +191,7 @@ public class DropTable {
 			}
 			item = ItemTable.getInstance().createItem(itemId);
 			if (item == null) {
-				_log.log(Level.WARNING, String.format("DropTable::SetDrop: "
+				_log.warn(String.format("DropTable::SetDrop: "
 						+ "invalid item id %d for npc %d.", itemId, mobId));
 				continue;
 			}
@@ -230,7 +232,7 @@ public class DropTable {
 		L1Inventory targetInventory = null;
 		L1PcInstance player;
 		L1PcInstance[] partyMember;
-		Random random = new Random();
+		new Random();
 		int randomInt;
 		int chanceHate;
 		int itemId;
@@ -244,7 +246,7 @@ public class DropTable {
 			item.setIdentified(false); // changed
 			if (((Config.AUTO_LOOT != 0) || itemId == L1ItemId.ADENA)
 					&& totalHate > 0) {
-				randomInt = random.nextInt(totalHate);
+				randomInt = ThreadLocalRandom.current().nextInt(totalHate);
 				chanceHate = 0;
 				for (int j = hateList.size() - 1; j >= 0; j--) {
 					chanceHate += (Integer) hateList.get(j);
@@ -349,7 +351,7 @@ public class DropTable {
 						y = 0;
 						break;
 					}
-					randomInt = random.nextInt(dirList.size());
+					randomInt = ThreadLocalRandom.current().nextInt(dirList.size());
 					dir = dirList.get(randomInt);
 					dirList.remove(randomInt);
 					switch (dir) {

@@ -18,13 +18,20 @@
  */
 package l1j.server.server.model;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.model.Instance.L1NpcInstance;
 
-public class L1NpcDeleteTimer extends TimerTask {
+public class L1NpcDeleteTimer implements Runnable {
 
+	private static Logger _log = LoggerFactory.getLogger(L1NpcDeleteTimer.class);
+
+	ScheduledFuture<?> future;
+	private String originalThreadName;
 	public L1NpcDeleteTimer(L1NpcInstance npc, int timeMillis) {
 		_npc = npc;
 		_timeMillis = timeMillis;
@@ -32,13 +39,21 @@ public class L1NpcDeleteTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		_npc.deleteMe();
-		this.cancel();
+		try {
+			originalThreadName = Thread.currentThread().getName();
+			Thread.currentThread().setName("NpcDeleteTimer-" + _npc.getId() + ':' + _npc.getName());
+			_npc.deleteMe();
+			future.cancel(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
+		} finally {
+			Thread.currentThread().setName(originalThreadName);
+		}
 	}
 
 	public void begin() {
-		Timer timer = new Timer("L1NpcDeleteTimer"+_npc.getNpcId());
-		timer.schedule(this, _timeMillis);
+		future = GeneralThreadPool.getInstance().schedule(this, _timeMillis);
 	}
 
 	private final L1NpcInstance _npc;

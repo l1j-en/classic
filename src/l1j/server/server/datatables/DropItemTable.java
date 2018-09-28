@@ -24,8 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.utils.SQLUtil;
@@ -36,8 +37,7 @@ public final class DropItemTable {
 		public double dropAmount = 1;
 	}
 
-	private static Logger _log = Logger
-			.getLogger(DropItemTable.class.getName());
+	private static Logger _log = LoggerFactory			.getLogger(DropItemTable.class.getName());
 	private static DropItemTable _instance;
 	private final Map<Integer, dropItemData> _dropItem = new HashMap<Integer, dropItemData>();
 
@@ -66,9 +66,9 @@ public final class DropItemTable {
 				data.dropAmount = rs.getDouble("drop_amount");
 				_dropItem.put(new Integer(itemId), data);
 			}
-			_log.config("drop_item " + _dropItem.size());
+			_log.info("drop_item " + _dropItem.size());
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

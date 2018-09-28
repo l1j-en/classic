@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.NpcTable;
@@ -39,7 +41,7 @@ import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.types.Point;
 
 public class L1Spawn {
-	private static Logger _log = Logger.getLogger(L1Spawn.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1Spawn.class.getName());
 	private final L1Npc _template;
 	private int _id; // just to find this in the spawn table
 	private String _location;
@@ -77,6 +79,7 @@ public class L1Spawn {
 	private class SpawnTask implements Runnable {
 		private int _spawnNumber;
 		private int _objectId;
+		private String originalThreadName;
 
 		private SpawnTask(int spawnNumber, int objectId) {
 			_spawnNumber = spawnNumber;
@@ -85,8 +88,16 @@ public class L1Spawn {
 
 		@Override
 		public void run() {
-			Thread.currentThread().setName("L1Spawn");
-			doSpawn(_spawnNumber, _objectId);
+			try {
+				originalThreadName = Thread.currentThread().getName();
+				Thread.currentThread().setName("L1Spawn");
+				doSpawn(_spawnNumber, _objectId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				_log.error("",e);
+			} finally {
+				Thread.currentThread().setName(originalThreadName);
+			}
 		}
 	}
 
@@ -289,7 +300,7 @@ public class L1Spawn {
 	private int calcRespawnDelay() {
 		int respawnDelay = _minRespawnDelay * 1000;
 		if (_delayInterval > 0) {
-			respawnDelay += _random.nextInt(_delayInterval) * 1000;
+			respawnDelay += ThreadLocalRandom.current().nextInt(_delayInterval) * 1000;
 		}
 		L1GameTime currentTime = L1GameTimeClock.getInstance().currentTime();
 		if (_time != null && !_time.getTimePeriod().includes(currentTime)) {
@@ -366,9 +377,9 @@ public class L1Spawn {
 
 			int npcId = mob.getNpcTemplate().get_npcId();
 			if (npcId == 45488 && getMapId() == 9) {
-				mob.setMap((short) (getMapId() + _random.nextInt(2)));
+				mob.setMap((short) (getMapId() + ThreadLocalRandom.current().nextInt(2)));
 			} else if (npcId == 45601 && getMapId() == 11) {
-				mob.setMap((short) (getMapId() + _random.nextInt(3)));
+				mob.setMap((short) (getMapId() + ThreadLocalRandom.current().nextInt(3)));
 			} else {
 				mob.setMap(getMapId());
 			}
@@ -414,8 +425,8 @@ public class L1Spawn {
 						} else {
 							int rangeX = getLocX2() - getLocX1();
 							int rangeY = getLocY2() - getLocY1();
-							newlocx = _random.nextInt(rangeX) + getLocX1();
-							newlocy = _random.nextInt(rangeY) + getLocY1();
+							newlocx = ThreadLocalRandom.current().nextInt(rangeX) + getLocX1();
+							newlocy = ThreadLocalRandom.current().nextInt(rangeY) + getLocY1();
 						}
 						if (tryCount > 49) { // When that happens appearance
 												// position locx, locy value
@@ -510,7 +521,7 @@ public class L1Spawn {
 			mob.turnOnOffLight();
 			mob.startChat(L1NpcInstance.CHAT_TIMING_APPEARANCE);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -522,7 +533,7 @@ public class L1Spawn {
 		return _rest;
 	}
 
-	private static final int SPAWN_TYPE_NORMAL = 0;
+//	private static final int SPAWN_TYPE_NORMAL = 0;
 	private static final int SPAWN_TYPE_PC_AROUND = 1;
 	private static final int PC_AROUND_DISTANCE = 30;
 

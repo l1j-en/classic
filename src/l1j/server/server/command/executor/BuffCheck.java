@@ -20,6 +20,9 @@ package l1j.server.server.command.executor;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1NamedSkill;
@@ -27,6 +30,8 @@ import l1j.server.server.model.skill.L1SkillTimer;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class BuffCheck implements L1CommandExecutor {
+
+	private static Logger _log = LoggerFactory.getLogger(BuffCheck.class);
 
 	private BuffCheck() {
 	}
@@ -40,7 +45,7 @@ public class BuffCheck implements L1CommandExecutor {
 		try {
 			buffCheck(user, target);
 		} catch (Exception e) {
-			e.printStackTrace();
+			_log.error("",e);
 			user.sendPackets(new S_SystemMessage(".buffCheck <player_name>"));
 		}
 	}

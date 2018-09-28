@@ -24,15 +24,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1SpawnTime;
 import l1j.server.server.utils.SQLUtil;
 
 public class SpawnTimeTable {
-	private static Logger _log = Logger.getLogger(SpawnTimeTable.class
+	private static Logger _log = LoggerFactory.getLogger(SpawnTimeTable.class
 			.getName());
 	private static SpawnTimeTable _instance;
 	private final Map<Integer, L1SpawnTime> _times = new HashMap<Integer, L1SpawnTime>();
@@ -70,7 +71,7 @@ public class SpawnTimeTable {
 				_times.put(id, builder.build());
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);

@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -13,6 +16,9 @@ import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 public class GiranPrisonController implements TimedDungeonInstance {
+	
+	private static Logger _log = LoggerFactory.getLogger(GiranPrisonController.class);
+
 	private static GiranPrisonController _instance;
 	private static ConcurrentHashMap<String, Long> _users = new ConcurrentHashMap<String, Long>();
 	private static long _3Hours = 10800 * 1000;
@@ -33,36 +39,41 @@ public class GiranPrisonController implements TimedDungeonInstance {
 	
 	@Override
 	public void run() {		
-		for (Map.Entry<String, Long> entry : _users.entrySet()) {
-			Long timeDiff = System.currentTimeMillis() - this._lastRun;
-			
-	        String user = entry.getKey();
-	        L1PcInstance player = L1World.getInstance().getPlayer(user);
+		try {
+			for (Map.Entry<String, Long> entry : _users.entrySet()) {
+				Long timeDiff = System.currentTimeMillis() - this._lastRun;
+				
+			    String user = entry.getKey();
+			    L1PcInstance player = L1World.getInstance().getPlayer(user);
 
-	        if(player != null && _prisonMaps.contains(player.getMapId())) {
-	        	Long expiration = entry.getValue() - timeDiff;
-		        _users.put(user, expiration);
-		        
-	        	if(expiration <= 0) {
-	        		L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
-	        	}
-	        }
-	    }
-		
-		// probably just being paranoid, but also loop through all players in the game
-        // if they are not in the _users list but are on a Giran Prison map, then kick them
-        for(L1PcInstance playerCheck : L1World.getInstance().getAllPlayers()) {
-        	if(playerCheck.isGm()) {
-        		continue;
-        	}
-        	
-        	if(_prisonMaps.contains(playerCheck.getMapId()) && !_users.keySet().contains(playerCheck.getName())) {
-        		playerCheck.sendPackets(new S_SystemMessage("You accessed Giran Prison through invalid means. Use the NPC in Giran!"));
-        		L1Teleport.teleport(playerCheck, 33426, 32823, (short) 4, 5, true);
-        	}
-        }
-        
-        this._lastRun = System.currentTimeMillis();
+			    if(player != null && _prisonMaps.contains(player.getMapId())) {
+			    	Long expiration = entry.getValue() - timeDiff;
+			        _users.put(user, expiration);
+			        
+			    	if(expiration <= 0) {
+			    		L1Teleport.teleport(player, 33426, 32823, (short) 4, 5, true);
+			    	}
+			    }
+			}
+			
+			// probably just being paranoid, but also loop through all players in the game
+			// if they are not in the _users list but are on a Giran Prison map, then kick them
+			for(L1PcInstance playerCheck : L1World.getInstance().getAllPlayers()) {
+				if(playerCheck.isGm()) {
+					continue;
+				}
+				
+				if(_prisonMaps.contains(playerCheck.getMapId()) && !_users.keySet().contains(playerCheck.getName())) {
+					playerCheck.sendPackets(new S_SystemMessage("You accessed Giran Prison through invalid means. Use the NPC in Giran!"));
+					L1Teleport.teleport(playerCheck, 33426, 32823, (short) 4, 5, true);
+				}
+			}
+			
+			this._lastRun = System.currentTimeMillis();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			_log.error("",e);
+		}
 	}
 	
 	@Override

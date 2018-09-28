@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1Location;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 
 // Referenced classes of package l1j.server.server.clientpackets:
 // ClientBasePacket
@@ -30,7 +30,7 @@ public class C_CallPlayer extends ClientBasePacket {
 
 	private static final String C_CALL = "[C] C_Call";
 
-	public C_CallPlayer(byte[] decrypt, ClientThread client) {
+	public C_CallPlayer(byte[] decrypt, Client client) {
 		super(decrypt);
 		L1PcInstance pc = client.getActiveChar();
 

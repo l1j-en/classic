@@ -26,8 +26,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.model.L1CastleLocation;
@@ -42,7 +43,7 @@ import l1j.server.server.utils.SQLUtil;
 public class CharacterTable {
 	private CharacterStorage _charStorage;
 	private static CharacterTable _instance;
-	private static Logger _log = Logger.getLogger(CharacterTable.class
+	private static Logger _log = LoggerFactory.getLogger(CharacterTable.class
 			.getName());
 
 	private final Map<String, L1CharName> _charNameList = new ConcurrentHashMap<String, L1CharName>();
@@ -68,14 +69,14 @@ public class CharacterTable {
 				cn.setId(pc.getId());
 				_charNameList.put(name, cn);
 			}
-			_log.finest("storeNewCharacter");
+			_log.trace("storeNewCharacter");
 		}
 	}
 
 	public void storeCharacter(L1PcInstance pc) throws Exception {
 		synchronized (pc) {
 			_charStorage.storeCharacter(pc);
-			_log.finest("storeCharacter: " + pc.getName());
+			_log.trace("storeCharacter: " + pc.getName());
 		}
 	}
 
@@ -86,7 +87,7 @@ public class CharacterTable {
 		if (_charNameList.containsKey(charName)) {
 			_charNameList.remove(charName);
 		}
-		_log.finest("deleteCharacter");
+		_log.trace("deleteCharacter");
 	}
 
 	public L1PcInstance restoreCharacter(String charName) throws Exception {
@@ -107,9 +108,9 @@ public class CharacterTable {
 				pc.setY(33396);
 				pc.setMap((short) 4);
 			}
-			_log.finest("loadCharacter: " + pc.getName());
+			_log.trace("loadCharacter: " + pc.getName());
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return pc;
 
@@ -123,7 +124,7 @@ public class CharacterTable {
 			pstm = con.prepareStatement("UPDATE characters SET OnlineStatus=0");
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -141,7 +142,7 @@ public class CharacterTable {
 			pstm.setInt(2, pc.getId());
 			pstm.execute();
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -163,7 +164,7 @@ public class CharacterTable {
 			pstm.setInt(2, targetId);
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -187,7 +188,7 @@ public class CharacterTable {
 			pstm.setInt(7, pc.getId());
 			pstm.execute();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
@@ -213,7 +214,7 @@ public class CharacterTable {
 			rs = pstm.executeQuery();
 			result = rs.next();
 		} catch (SQLException e) {
-			_log.warning("could not check existing charname:" + e.getMessage());
+			_log.warn("could not check existing charname:" + e.getMessage());
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -240,7 +241,7 @@ public class CharacterTable {
 				_charNameList.put(name, cn);
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -279,13 +280,13 @@ public class CharacterTable {
 				try {
 					offlineInZone.add(loadCharacter(rs.getString("char_name")));
 				} catch (SQLException e) {
-					_log.log(Level.WARNING, 
+					_log.warn(
 							"Unable to get offline characters name: " + 
 					e.getLocalizedMessage(), e);
 				}
 			}
 		} catch (SQLException e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		} finally {
 			SQLUtil.close(rs);
 			SQLUtil.close(pstm);
@@ -301,7 +302,7 @@ public class CharacterTable {
 		try {
 			_charStorage.storeCharacter(pc);
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 	} 
 }

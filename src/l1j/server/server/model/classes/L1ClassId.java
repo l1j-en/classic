@@ -18,8 +18,9 @@
  */
 package l1j.server.server.model.classes;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.model.Instance.L1PcInstance;
 
@@ -55,7 +56,7 @@ public class L1ClassId {
 	public static final int CLASSID_ILLUSIONIST_MALE = 6671;
 	public static final int CLASSID_ILLUSIONIST_FEMALE = 6650;
 	
-	private static Logger _log = Logger.getLogger(L1ClassId.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(L1ClassId.class.getName());
 	
 	public static String getSex(int classId) {
 		if (isMale(classId)) {
@@ -64,7 +65,7 @@ public class L1ClassId {
 		if (isFemale(classId)) {
 			return "Female";
 		}
-		_log.log(Level.SEVERE, 
+		_log.error(
 				"Unrecognized classId in #L1ClassId.getSex(). Check db.");
 		throw new IllegalStateException("Unrecognized character class id.");
 	}
@@ -117,7 +118,7 @@ public class L1ClassId {
 		}
 		
 		if(!ignoreErrors)
-			_log.log(Level.SEVERE, 
+			_log.error(
 				"Unrecognized classId in #L1ClassId.getClass(). Check db.");
 		throw new IllegalStateException("Unrecognized character class id.");
 	}

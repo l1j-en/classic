@@ -18,15 +18,16 @@
  */
 package l1j.server.server.clientpackets;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import l1j.server.server.ClientThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -35,15 +36,15 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 public class C_Rank extends ClientBasePacket {
 
 	private static final String C_RANK = "[C] C_Rank";
-	private static Logger _log = Logger.getLogger(C_Rank.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_Rank.class.getName());
 
-	public C_Rank(byte abyte0[], ClientThread clientthread) throws Exception {
+	public C_Rank(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int rank = readC();
 		String name = readS();
 
-		setRank(clientthread.getActiveChar(), rank, name);
+		setRank(client.getActiveChar(), rank, name);
 	}
 	
 	public static void setRank(L1PcInstance royal, int rank, String player) throws Exception  {
@@ -104,7 +105,7 @@ public class C_Rank extends ClientBasePacket {
 					royal.sendPackets(
 							new S_ServerMessage(Integer.parseInt(rankString.replace("$", ""))));
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			} else {
 				royal.sendPackets(new S_ServerMessage(414));
@@ -118,7 +119,7 @@ public class C_Rank extends ClientBasePacket {
 					restorePc.setClanRank(rank);
 					restorePc.save();
 				} catch (Exception e) {
-					_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					_log.error(e.getLocalizedMessage(), e);
 				}
 			} else {
 				royal.sendPackets(new S_ServerMessage(109, player));

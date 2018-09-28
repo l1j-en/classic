@@ -18,11 +18,11 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_PetEquipment;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.templates.L1Item;
@@ -33,7 +33,7 @@ public class C_UsePetItem extends ClientBasePacket {
 
 	private static final S_ServerMessage CantMessage = new S_ServerMessage(79);
 
-	public C_UsePetItem(byte abyte0[], ClientThread clientthread)
+	public C_UsePetItem(byte abyte0[], Client client)
 			throws Exception {
 		super(abyte0);
 
@@ -43,7 +43,7 @@ public class C_UsePetItem extends ClientBasePacket {
 
 		L1PetInstance pet = (L1PetInstance) L1World.getInstance().findObject(
 				petId);
-		L1PcInstance pc = clientthread.getActiveChar();
+		L1PcInstance pc = client.getActiveChar();
 
 		if (pet == null || pc == null) {
 			return;

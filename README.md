@@ -33,12 +33,22 @@ Report issues and suggest features and improvements on the
 should go to the mailing list and IRC channel.
 
 Pull requests are always welcome!  For those migrating to Git from SVN, see the
-[DEVGUIDE](https://github.com/l1j/en/blob/master/DEVGUIDE.md).
+[DEVGUIDE](DEVGUIDE.md).
 
 Those interested in joining the development effort as a team member should feel
 free to let us know, preferably on the IRC channel.  We always need additional
 help with programming, Lineage 1 domain knowledge (particularly with newer
 game content), and documentation.
+
+### Legal
+
+No one behind this project offers an opinion on the legality of running a private server.
+To the best of our knowledge nothing contained on l1j.org is a result of taking anything
+directly from the client.  This is a "clean room" implementation of a server compatible
+with the client. 
+
+We will not accept contributions that go against this.  Create it yourself or we don't
+want it. Any commits that potentially violate copyright/trademark law will be rejected.
 
 ### License
 

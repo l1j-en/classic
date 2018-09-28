@@ -19,8 +19,9 @@ package l1j.server.server.model;
 import static l1j.server.server.model.skill.L1SkillId.FIRE_WALL;
 
 import java.lang.reflect.Constructor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.SkillTable;
@@ -35,7 +36,7 @@ import l1j.server.server.templates.L1Npc;
 // Referenced classes of package l1j.server.server.model:
 // L1EffectSpawn
 public class L1EffectSpawn {
-	private static final Logger _log = Logger.getLogger(L1EffectSpawn.class
+	private static final Logger _log = LoggerFactory.getLogger(L1EffectSpawn.class
 			.getName());
 	private static L1EffectSpawn _instance;
 	private Constructor<?> _constructor;
@@ -109,7 +110,7 @@ public class L1EffectSpawn {
 			L1NpcDeleteTimer timer = new L1NpcDeleteTimer(effect, time);
 			timer.begin();
 		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			_log.error(e.getLocalizedMessage(), e);
 		}
 		return effect;
 	}

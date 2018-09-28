@@ -18,13 +18,13 @@
  */
 package l1j.server.server.clientpackets;
 
-import l1j.server.server.ClientThread;
 import l1j.server.server.datatables.BoardTable;
 import l1j.server.server.datatables.NpcSpawnTable;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1BoardInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -33,7 +33,7 @@ public class C_BoardDelete extends ClientBasePacket {
 
 	private static final String C_BOARD_DELETE = "[C] C_BoardDelete";
 
-	public C_BoardDelete(byte decrypt[], ClientThread client) {
+	public C_BoardDelete(byte decrypt[], Client client) {
 		super(decrypt);
 		int objId = readD();
 		int topicId = readD();

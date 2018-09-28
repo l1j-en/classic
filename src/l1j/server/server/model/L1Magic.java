@@ -76,7 +76,7 @@ import static l1j.server.server.model.skill.L1SkillId.WEAPON_BREAK;
 import static l1j.server.server.model.skill.L1SkillId.WIND_SHACKLE;
 
 import java.util.Arrays;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.Config;
 import l1j.server.server.ActionCodes;
@@ -108,8 +108,7 @@ public class L1Magic {
 	private L1NpcInstance _npc = null;
 	private L1NpcInstance _targetNpc = null;
 	private int _leverage = 10;
-	private static Random _random = new Random();
-
+ 
 	private final L1Character _attacker;
 	private final L1Character _target;
 
@@ -214,7 +213,7 @@ public class L1Magic {
 		}
 		probability = calcProbability(skillId);
 		
-		int rnd = _random.nextInt(100) + 1;
+		int rnd = ThreadLocalRandom.current().nextInt(100) + 1;
 		if (probability > MAX_PROBABILITY) {
 			probability = MAX_PROBABILITY;
 		}
@@ -312,7 +311,7 @@ public class L1Magic {
 			// defenselvl) + random(0-20)
 			probability = skill.getProbabilityValue()
 					* (_attacker.getLevel() / Math.max(1, defenseLevel))
-					+ _random.nextInt(21);
+					+ ThreadLocalRandom.current().nextInt(21);
 
 			if (_calcType == PC_PC || _calcType == PC_NPC) {
 				probability += 2 * _pc.getOriginalMagicHit();
@@ -333,7 +332,7 @@ public class L1Magic {
 			}
 			diceCount = diceCount < 1 ? 1 : diceCount;
 			for (int i = 0; i < diceCount; i++) {
-				probability += (_random.nextInt(dice) + 1);
+				probability += (ThreadLocalRandom.current().nextInt(dice) + 1);
 			}
 			probability = probability * getLeverage() / 10;
 
@@ -519,7 +518,7 @@ public class L1Magic {
 	private static boolean tryCounterMirror(L1PcInstance target, int type,
 			L1PcInstance pcAttacker, L1NpcInstance npcAttacker, int damage) {
 		if (!target.hasSkillEffect(COUNTER_MIRROR)
-				|| target.getWis() <= _random.nextInt(100) || type == NPC_NPC
+				|| target.getWis() <= ThreadLocalRandom.current().nextInt(100) || type == NPC_NPC
 				|| type == PC_NPC)
 			return false;
 		if (type == NPC_PC) {
@@ -666,7 +665,7 @@ public class L1Magic {
 		int damage = 0;
 
 		for (int i = 0; i < diceCount; i++) {
-			damage += (_random.nextInt(dice) + 1);
+			damage += (ThreadLocalRandom.current().nextInt(dice) + 1);
 		}
 		damage += value;
 
@@ -699,7 +698,7 @@ public class L1Magic {
 
 		if (_calcType == PC_PC || _calcType == PC_NPC) {
 			if (skill.getSkillLevel() <= CRIT_LEVEL_LIMIT
-					&& _random.nextInt(100) + 1 <= BASE_CRIT_RATE
+					&& ThreadLocalRandom.current().nextInt(100) + 1 <= BASE_CRIT_RATE
 							+ _pc.getOriginalMagicCritical()) {
 				damage *= CRIT_MULTIPLIER;
 			}
@@ -723,7 +722,7 @@ public class L1Magic {
 
 		int diceCount = value + magicBonus;
 		for (int i = 0; i < diceCount; i++) {
-			damage += (_random.nextInt(dice) + 1);
+			damage += (ThreadLocalRandom.current().nextInt(dice) + 1);
 		}
 
 		double alignmentRevision = 1.0;
@@ -754,7 +753,7 @@ public class L1Magic {
 			}
 			dmg *= mrCoefficient;
 		} else if (_calcType == NPC_PC || _calcType == NPC_NPC) {
-			if (mr >= _random.nextInt(100) + 1) {
+			if (mr >= ThreadLocalRandom.current().nextInt(100) + 1) {
 				dmg /= 2;
 			}
 		}
