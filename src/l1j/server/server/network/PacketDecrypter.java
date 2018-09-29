@@ -52,6 +52,26 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 			ctx.close();
 		} catch (Exception e) {
 		}
+		try {
+			ctx.close();
+		} catch (Exception e) {
+		}
+		
+		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
+
+		if (client != null) {
+			try {
+				client.handleDisconnect();
+			} catch (Exception e) {
+				_log.error("", e);
+			}
+		}
+
+		try {
+			NetworkServer.getInstance().getClients().remove(ctx.channel().id());
+		} catch (Exception e) {
+		}
+		_log.error("", cause);
 	}
 
 	@Override
