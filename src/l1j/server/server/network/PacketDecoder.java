@@ -53,33 +53,25 @@ public class PacketDecoder extends ByteToMessageDecoder {
 		}
 
 		// I think this will silence those annoying exceptions on disconnects
-
 		if (cause instanceof java.io.IOException) {
-
 		} else {
-
 			_log.error("", cause);
-
 		}
 
 	}
 
 	@Override
 	public void channelInactive(final ChannelHandlerContext ctx) {
-		System.out.println("dc detected");
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 
 		if (client != null) {
-			System.out.println("logging out client");
 			try {
 				client.handleDisconnect();
 			} catch (Exception e) {
 				_log.error("", e);
 			}
 		}
-		System.out.println("removing client");
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
-		System.out.println("client should be removed");
 	}
 
 	@Override

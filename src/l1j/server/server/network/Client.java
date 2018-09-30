@@ -102,7 +102,6 @@ public class Client implements Runnable, PacketOutput {
 
 		@Override
 		public void run() {
-			System.out.println("Running delayed logout");
 			try {
 				// TODO Auto-generated method stub
 				quitGame(_activeChar, client.getLastActiveCharName());
@@ -315,17 +314,22 @@ public class Client implements Runnable, PacketOutput {
 			}
 
 			if (_activeChar != null) {
-				// just keep looping until it has been Config.NON_AGGRO_LOGOUT_TIMER
-				// milliseconds since the last aggressive act was done to them/taken
-				// by the player to stop people from being able to force-quit
 				long lastAggressiveAct = _activeChar.getLastAggressiveAct();
-
-				if (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
-					System.out.println("Scheduling logout");
+				long delayAmount = Config.NON_AGGRO_LOGOUT_TIMER - (System.currentTimeMillis() - lastAggressiveAct);
+				if (delayAmount > 0) {
 					LogoutDelay delay = new LogoutDelay(this);
-					GeneralThreadPool.getInstance().schedule(delay,lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER);
+					GeneralThreadPool.getInstance().schedule(delay, delayAmount);
+				} else {
+					try {
+						quitGame(_activeChar, getLastActiveCharName());
+						synchronized (_activeChar) {
+							_activeChar.logout();
+							setActiveChar(null);
+						}
+					} catch (Exception e) {
+						_log.error("", e);
+					}
 				}
-
 			}
 			sendPacket(new S_Disconnect());
 		} catch (Exception e) {
@@ -356,69 +360,69 @@ public class Client implements Runnable, PacketOutput {
 	public synchronized void run() {
 
 		try {
-		if (sendqueue.size() > 0) {
-			sendPacket();
-		}
-		long start = System.currentTimeMillis();
-		int opcode = 0;
-		try {
-			doAutoSave();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			_log.error("", e1);
-		}
-		byte[] data;
-		data = recvqueue.poll();
-		if (data != null) {
-			opcode = data[0] & 0xFF;
-
-			// if they're clicking "OK" on the common news sent for a ban or ip restriction,
-			// then kick them
-			if (opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
-				sendPacket(new S_Disconnect());
+			if (sendqueue.size() > 0) {
+				sendPacket();
 			}
-
-			if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
-				_loginStatus = 1;
-			}
-			if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
-				if (_loginStatus != 1) {
-					return;
-				}
-			}
-			if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
-				_loginStatus = 0;
-			}
-
+			long start = System.currentTimeMillis();
+			int opcode = 0;
 			try {
-				_handler.handlePacket(data, _activeChar);
-			} catch (Exception e) {
-				_log.error("", e);
+				doAutoSave();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				_log.error("", e1);
 			}
-		} else {
+			byte[] data;
+			data = recvqueue.poll();
+			if (data != null) {
+				opcode = data[0] & 0xFF;
 
-		}
-		long elapse = System.currentTimeMillis() - start;
-		if (elapse > longest) {
-			_log.error("Longest processing time reached");
-			if (_activeChar != null) {
-				_log.error("Character: " + _activeChar.getName());
-			}
-			_log.error("Opcode: " + opcode);
-			_log.error("Elapse: " + elapse);
+				// if they're clicking "OK" on the common news sent for a ban or ip restriction,
+				// then kick them
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK && this.getDisconnectNextClick()) {
+					sendPacket(new S_Disconnect());
+				}
 
-			longest = elapse;
-		} else if (elapse > 100) {
-			_log.warn("Potentially slow packet detected");
-			if (_activeChar != null) {
-				_log.error("Character: " + _activeChar.getName());
+				if (opcode == Opcodes.C_OPCODE_COMMONCLICK || opcode == Opcodes.C_OPCODE_CHANGECHAR) {
+					_loginStatus = 1;
+				}
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVER) {
+					if (_loginStatus != 1) {
+						return;
+					}
+				}
+				if (opcode == Opcodes.C_OPCODE_LOGINTOSERVEROK || opcode == Opcodes.C_OPCODE_RETURNTOLOGIN) {
+					_loginStatus = 0;
+				}
+
+				try {
+					_handler.handlePacket(data, _activeChar);
+				} catch (Exception e) {
+					_log.error("", e);
+				}
+			} else {
+
 			}
-			_log.error("Opcode: " + opcode);
-			_log.error("Elapse: " + elapse);
-		}
-		return;
+			long elapse = System.currentTimeMillis() - start;
+			if (elapse > longest) {
+				_log.error("Longest processing time reached");
+				if (_activeChar != null) {
+					_log.error("Character: " + _activeChar.getName());
+				}
+				_log.error("Opcode: " + opcode);
+				_log.error("Elapse: " + elapse);
+
+				longest = elapse;
+			} else if (elapse > 100) {
+				_log.warn("Potentially slow packet detected");
+				if (_activeChar != null) {
+					_log.error("Character: " + _activeChar.getName());
+				}
+				_log.error("Opcode: " + opcode);
+				_log.error("Elapse: " + elapse);
+			}
+			return;
 		} catch (Exception e) {
-			_log.error("",e);
+			_log.error("", e);
 		}
 	}
 
@@ -445,8 +449,8 @@ public class Client implements Runnable, PacketOutput {
 				channel.writeAndFlush(buffer);
 			}
 		} catch (Exception e) {
-			//_log.error("", e);
-			//_log.error("Packet type: " + packet.getClass().getName());
+			// _log.error("", e);
+			// _log.error("Packet type: " + packet.getClass().getName());
 		}
 
 	}
