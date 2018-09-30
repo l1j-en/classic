@@ -322,7 +322,7 @@ public class Client implements Runnable, PacketOutput {
 				if (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER > System.currentTimeMillis()) {
 					LogoutDelay delay = new LogoutDelay(this);
 					GeneralThreadPool.getInstance().schedule(delay,
-							System.currentTimeMillis() - (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER));
+							System.currentTimeMillis() + (lastAggressiveAct + Config.NON_AGGRO_LOGOUT_TIMER));
 				}
 
 			}
