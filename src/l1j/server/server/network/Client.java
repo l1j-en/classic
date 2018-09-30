@@ -316,19 +316,11 @@ public class Client implements Runnable, PacketOutput {
 			if (_activeChar != null) {
 				long lastAggressiveAct = _activeChar.getLastAggressiveAct();
 				long delayAmount = Config.NON_AGGRO_LOGOUT_TIMER - (System.currentTimeMillis() - lastAggressiveAct);
+				LogoutDelay delay = new LogoutDelay(this);
 				if (delayAmount > 0) {
-					LogoutDelay delay = new LogoutDelay(this);
 					GeneralThreadPool.getInstance().schedule(delay, delayAmount);
 				} else {
-					try {
-						quitGame(_activeChar, getLastActiveCharName());
-						synchronized (_activeChar) {
-							_activeChar.logout();
-							setActiveChar(null);
-						}
-					} catch (Exception e) {
-						_log.error("", e);
-					}
+					GeneralThreadPool.getInstance().execute(delay);
 				}
 			}
 			sendPacket(new S_Disconnect());
