@@ -40,49 +40,6 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 		readPacket((byte[]) msg, ctx);
 	}
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		
-		//I think this will silence those annoying exceptions on disconnects
-		if (cause instanceof java.io.IOException) {
-		} else {
-		_log.error("",cause);
-		}
-		try {
-			ctx.close();
-		} catch (Exception e) {
-		}
-		try {
-			ctx.close();
-		} catch (Exception e) {
-		}
-		
-		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
-
-		if (client != null) {
-			try {
-				client.handleDisconnect();
-			} catch (Exception e) {
-				_log.error("", e);
-			}
-		}
-
-		try {
-			NetworkServer.getInstance().getClients().remove(ctx.channel().id());
-		} catch (Exception e) {
-		}
-		_log.error("", cause);
-	}
-
-	@Override
-	public void handlerAdded(ChannelHandlerContext ctx) {
-	}
-
-	@Override
-	public void handlerRemoved(ChannelHandlerContext ctx) {
-
-	}
-
 	public void readPacket(byte[] data, ChannelHandlerContext ctx) {
 		Client client = NetworkServer.getInstance().getClients().get(ctx.channel().id());
 
