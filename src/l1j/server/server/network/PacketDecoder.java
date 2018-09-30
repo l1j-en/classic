@@ -52,7 +52,15 @@ public class PacketDecoder extends ByteToMessageDecoder {
 		} catch (Exception e) {
 		}
 
-		_log.error("", cause);
+		// I think this will silence those annoying exceptions on disconnects
+
+		if (cause instanceof java.io.IOException) {
+
+		} else {
+
+			_log.error("", cause);
+
+		}
 
 	}
 
