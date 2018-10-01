@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package l1j.server.server;
+package l1j.server.server.network;
 
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_ADDBUDDY;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_AMOUNT;
@@ -200,7 +200,6 @@ import l1j.server.server.clientpackets.C_UseSkill;
 import l1j.server.server.clientpackets.C_War;
 import l1j.server.server.clientpackets.C_Who;
 import l1j.server.server.model.Instance.L1PcInstance;
-import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
 // Referenced classes of package l1j.server.server:

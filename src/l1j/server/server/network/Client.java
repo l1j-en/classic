@@ -41,7 +41,6 @@ import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.GameServer;
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.PacketHandler;
 import l1j.server.server.PacketOutput;
 import l1j.server.server.controllers.LoginController;
 import l1j.server.server.datatables.CharBuffTable;
@@ -404,7 +403,7 @@ public class Client implements Runnable, PacketOutput {
 				_log.error("Elapse: " + elapse);
 
 				longest = elapse;
-			} else if (elapse > 100) {
+			} else if (elapse > 50) {
 				_log.warn("Potentially slow packet detected");
 				if (_activeChar != null) {
 					_log.error("Character: " + _activeChar.getName());
