@@ -24,6 +24,7 @@
 package l1j.server.server.network;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
+import l1j.server.server.datatables.IpTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
 
@@ -45,6 +47,11 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
+		
+		if (IpTable.getInstance().isBannedIp(((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress().toString())) {
+			channel.close();
+			return;
+		}
 		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
 		Client client = null;
 		try {
