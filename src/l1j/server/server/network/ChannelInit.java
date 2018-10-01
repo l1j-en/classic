@@ -25,6 +25,7 @@ package l1j.server.server.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
+import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
@@ -48,9 +50,22 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
 		
-		if (IpTable.getInstance().isBannedIp(((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress().toString())) {
+		String ip = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress().toString();
+		
+		//check if banned, close and return if yes
+		if (IpTable.getInstance().isBannedIp(ip)) {
 			channel.close();
 			return;
+		}
+		
+		//check if connections from this IP exceed limits
+		int ipcount = Collections.frequency(NetworkServer.getInstance().getIps(), ip);
+		
+		if (ipcount > Config.CONNECTIONS_PER_IP) {
+			channel.close();
+			return;
+		} else {
+			NetworkServer.getInstance().getIps().add(ip);
 		}
 		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
 		Client client = null;
@@ -84,8 +99,4 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 
 	}
 
-	@Override
-	public void channelActive(final ChannelHandlerContext channel) {
-
-	}
 }

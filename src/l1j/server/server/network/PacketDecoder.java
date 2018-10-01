@@ -71,6 +71,8 @@ public class PacketDecoder extends ByteToMessageDecoder {
 				_log.error("", e);
 			}
 		}
+		
+		NetworkServer.getInstance().getIps().remove(client.getIp());
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
 	}
 

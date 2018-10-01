@@ -24,6 +24,7 @@
  */
 package l1j.server.server.network;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -48,7 +49,7 @@ public class NetworkServer implements Runnable {
 	Logger _log = LoggerFactory.getLogger(NetworkServer.class);
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
-
+	private ArrayList<String> ips = new ArrayList<String>();
 	private NetworkServer() {
 
 	}
@@ -117,5 +118,13 @@ public class NetworkServer implements Runnable {
 	 */
 	public void setClientQueue(ArrayBlockingQueue<Client> clientQueue) {
 		this.clientQueue = clientQueue;
+	}
+
+	public ArrayList<String> getIps() {
+		return ips;
+	}
+
+	public void setIps(ArrayList<String> ips) {
+		this.ips = ips;
 	}
 }

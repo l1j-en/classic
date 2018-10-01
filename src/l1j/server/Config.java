@@ -596,7 +596,8 @@ public final class Config {
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
 	public static int NON_AGGRO_LOGOUT_TIMER;
-
+	public static int CONNECTIONS_PER_IP;
+	
 	public static void load() {
 		_log.info("Loading GameServer config.");
 
@@ -714,8 +715,8 @@ public final class Config {
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean
 					.parseBoolean(serverSettings.getProperty(
 							"CharacterConfigInServerSide", "True"));
-			ALLOW_2PC = Boolean.parseBoolean(serverSettings.getProperty(
-					"Allow2PC", "True"));
+			CONNECTIONS_PER_IP = Integer.parseInt(serverSettings.getProperty(
+					"ConnectionsPerIp", "2"));
 			LEVEL_DOWN_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"LevelDownRange", "0"));
 			SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings
@@ -1252,7 +1253,7 @@ public final class Config {
 		} else if (pName.equalsIgnoreCase("CharacterConfigInServerSide")) {
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean.parseBoolean(pValue);
 		} else if (pName.equalsIgnoreCase("Allow2PC")) {
-			ALLOW_2PC = Boolean.parseBoolean(pValue);
+			CONNECTIONS_PER_IP = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("LevelDownRange")) {
 			LEVEL_DOWN_RANGE = Integer.parseInt(pValue);
 		} else if (pName.equalsIgnoreCase("SendPacketBeforeTeleport")) {
