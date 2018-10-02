@@ -41,4 +41,7 @@ update mapids set endX = 32959, startY = 32704 where mapid = 2003;
 update mapids set endY = 32895 where mapid = 2004;
 update mapids set startX = 32512, endX = 33023 where mapid = 1001;
 update mapids set startX = 32448 where mapid = 4;
-
+INSERT INTO skills VALUES('14012', 'Jeb Requie (Right) Sandstorm', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '120', '5', '3', '0', '0', '0', '64', '0', '15', '17', '0', '0', '', '19', '7293', '0', '0', '0', '0', NULL, '1'),
+('14013', 'Jeb Requie (Right) - Pole Mine', '0', '0', '5', '0', '0', '0', '0', '0', 'attack', '3', '90', '5', '3', '0', '0', '0', '64', '0', '15', '17', '0', '0', '', '30', '10', '0', '0', '0', '0', NULL, '1');
+INSERT INTO skills VALUES ('15005', 'Jeb Requie (Right) - Poison Spray', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '11', '7272', '0', '0', '0', '0', NULL, '1');
+INSERT INTO skills VALUES ('15000', 'eb Requie (Left) - Posion Spray', '0', '0', '5', '0', '0', '0', '0', '0', 'none', '3', '200', '5', '3', '0', '0', '4', '64', '0', '6', '6', '0', '0', '', '11', '7272', '0', '0', '0', '0', NULL, '1');
