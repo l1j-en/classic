@@ -46,18 +46,18 @@ public class C_AuthLogin extends ClientBasePacket {
 
 		_log.trace("Request AuthLogin From User : " + accountName);
 
-		if (!Config.ALLOW_2PC) {
-			for (Client tempClient : LoginController.getInstance()
-					.getAllAccounts()) {
-				if (ip.equalsIgnoreCase(tempClient.getIp())) {
-					_log.info("2nd PC Login On Account = " + accountName
-							+ " Host = " + host);
-					client.sendPacket(new S_LoginResult(
-							S_LoginResult.REASON_USER_OR_PASS_WRONG));
-					return;
-				}
-			}
-		}
+//		if (!Config.ALLOW_2PC) {
+//			for (Client tempClient : LoginController.getInstance()
+//					.getAllAccounts()) {
+//				if (ip.equalsIgnoreCase(tempClient.getIp())) {
+//					_log.info("2nd PC Login On Account = " + accountName
+//							+ " Host = " + host);
+//					client.sendPacket(new S_LoginResult(
+//							S_LoginResult.REASON_USER_OR_PASS_WRONG));
+//					return;
+//				}
+//			}
+//		}
 
 		Account account = Account.load(accountName);
 		if (account == null) {
