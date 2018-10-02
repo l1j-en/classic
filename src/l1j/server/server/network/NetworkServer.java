@@ -120,7 +120,7 @@ public class NetworkServer implements Runnable {
 		this.clientQueue = clientQueue;
 	}
 
-	public ArrayList<String> getIps() {
+	public synchronized ArrayList<String> getIps() {
 		return ips;
 	}
 
