@@ -60,7 +60,7 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		//check if connections from this IP exceed limits
 		int ipcount = Collections.frequency(NetworkServer.getInstance().getIps(), ip);
 		
-		if (ipcount > Config.CONNECTIONS_PER_IP) {
+		if (ipcount >= Config.CONNECTIONS_PER_IP) {
 			channel.close();
 			return;
 		} else {
