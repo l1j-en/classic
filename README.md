@@ -24,7 +24,9 @@ even is. I've heard mention of a project called LoSe (or something like that)
 that is possibly the parent of all l1j projects.  Or maybe it was just one of 
 the first and none of its original code still exists, or ever existed within l1j.
 
-There are also several different languages/forks of l1j.  
+There are also several different languages/forks of l1j. The code is so 
+significantly different within some of them that I'm unsure if they're all forks
+or l1j is just often used as a name prefix for new/original code bases.
 
 This code base was originally a fork of 
 [l1j-jp](https://code.google.com/archive/p/l1j-jp/) named 
