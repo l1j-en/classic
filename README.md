@@ -41,8 +41,8 @@ from l1j-jp2 as well.  jp2 was actually located on l1j.org at that time.
 In 2014 the project slowly transitioned to git (on github), away from svn and 
 googlecode. Github has since removed the repo that was located there.
 
-From 2014 to 2018 the code base has entered many periods of dormancy.  Soren 
-started work on it again to bring up his server, zelgo.  Several old and new
+From 2014 to 2018 the code base has entered many periods of dormancy.  Work began
+in earnest again to bring up the zelgo server. Several old and new
 members of the project have randomly come and gone over that time period.  
 
 In 2018 we moved to l1j.org and are working on cleaning things up, optimizing 
