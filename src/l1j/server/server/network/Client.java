@@ -105,9 +105,11 @@ public class Client implements Runnable, PacketOutput {
 				// TODO Auto-generated method stub
 				quitGame(_activeChar, client.getLastActiveCharName());
 
-				synchronized (_activeChar) {
-					_activeChar.logout();
-					setActiveChar(null);
+				if (_activeChar != null) {
+					synchronized (_activeChar) {
+						_activeChar.logout();
+						setActiveChar(null);
+					}
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
