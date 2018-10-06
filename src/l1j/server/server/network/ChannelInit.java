@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
@@ -46,6 +47,22 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
 			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
 
+	@Override
+	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
+		// its likely already closed at this point
+		// but lets make sure
+		try {
+			ctx.close();
+		} catch (Exception e) {
+		}
+
+		// I think this will silence those annoying exceptions on disconnects
+		if (cause instanceof java.io.IOException) {
+		} else {
+			_log.error("", cause);
+		}
+
+	}
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
 		
