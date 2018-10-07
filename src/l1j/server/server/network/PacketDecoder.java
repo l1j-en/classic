@@ -17,11 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/*
- * (Tricid) This is the second class in the pipeline that handles packets (after ChannelInit).
- * All this is doing is continually reading bytes until a proper packet is formed.  Afterwards, it passes it
- * to the next in the pipeline (the decrypter). 
- */
 package l1j.server.server.network;
 
 import java.util.List;
@@ -33,15 +28,14 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
+/*
+ * (Tricid) This is the second class in the pipeline that handles packets (after ChannelInit).
+ * All this is doing is continually reading bytes until a proper packet is formed.  Afterwards, it passes it
+ * to the next in the pipeline (the decrypter). 
+ */
 public class PacketDecoder extends ByteToMessageDecoder {
 
 	Logger _log = LoggerFactory.getLogger(PacketDecoder.class);
-
-	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
@@ -71,14 +65,9 @@ public class PacketDecoder extends ByteToMessageDecoder {
 				_log.error("", e);
 			}
 		}
-		
+
 		NetworkServer.getInstance().getIps().remove(client.getIp());
 		NetworkServer.getInstance().getClients().remove(ctx.channel().id());
-	}
-
-	@Override
-	public void channelActive(final ChannelHandlerContext ctx) {
-
 	}
 
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {

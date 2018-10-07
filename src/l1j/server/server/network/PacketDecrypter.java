@@ -17,10 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/*
- * (Tricid) The last step in the pipeline.  This class should receive only complete packets/frames to decrypt then pass along
- * to the queue to be processed.  
- */
 package l1j.server.server.network;
 
 import org.slf4j.Logger;
@@ -31,6 +27,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import l1j.server.server.encryptions.L1JEncryption;
 import l1j.server.server.encryptions.NoEncryptionKeysSelectedException;
 
+/*
+ * (Tricid) The last step in the pipeline.  This class should receive only complete packets/frames to decrypt then pass along
+ * to the queue to be processed.  
+ */
 public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 
 	private static Logger _log = LoggerFactory.getLogger(PacketDecrypter.class);
@@ -49,11 +49,11 @@ public class PacketDecrypter extends ChannelInboundHandlerAdapter {
 			NetworkServer.getInstance().getClientQueue().offer(client);
 		} catch (NoEncryptionKeysSelectedException e) {
 			// TODO Auto-generated catch block
-			_log.error("",e);
+			_log.error("", e);
 		}
 
 	}
-	
+
 	@Override
 	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
 		// its likely already closed at this point

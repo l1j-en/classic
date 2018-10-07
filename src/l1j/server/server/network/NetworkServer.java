@@ -17,11 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/*
- * (Tricid)  New network server using netty.  Rather than needing one thread per client we will now use a proper
- * nio library and a producer/consumer model.  On start up this results in a few more threads but in exchange requires no
- * thread per client.  So in theory 1 player of 1000 players the thread count stays the same and performance is better for it. 
- */
 package l1j.server.server.network;
 
 import java.util.ArrayList;
@@ -44,12 +39,18 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import l1j.server.Config;
 
+/*
+ * (Tricid)  New network server using netty.  Rather than needing one thread per client we will now use a proper
+ * nio library and a producer/consumer model.  On start up this results in a few more threads but in exchange requires no
+ * thread per client.  So in theory 1 player or 1000 players the thread count stays the same and performance is better for it. 
+ */
 public class NetworkServer implements Runnable {
 
 	Logger _log = LoggerFactory.getLogger(NetworkServer.class);
 	private static final NetworkServer instance = new NetworkServer();
 	private ArrayBlockingQueue<Client> clientQueue;
 	private ArrayList<String> ips = new ArrayList<String>();
+
 	private NetworkServer() {
 
 	}
@@ -77,9 +78,8 @@ public class NetworkServer implements Runnable {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
-							// Takes input data and once a complete packet is formed
-							// passes it along
-							// takes complete packets from above and decrypts them
+							// Only add the pipeline that sends the first packet
+							// It'll add the other pipelines when it's ready
 							ch.pipeline().addLast(new ChannelInit());
 
 						}

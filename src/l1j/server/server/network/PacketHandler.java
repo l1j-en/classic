@@ -205,35 +205,35 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 // Referenced classes of package l1j.server.server:
 // Opcodes, LoginController, Client, Logins
 public class PacketHandler {
-	private static Logger _log =LoggerFactory			.getLogger(PacketHandler.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(PacketHandler.class.getName());
 	private final Client _client;
 
 	public PacketHandler(Client client) {
 		_client = client;
 	}
 
-	public void handlePacket(byte abyte0[], L1PcInstance object)
-			throws Exception {
+	public void handlePacket(byte abyte0[], L1PcInstance object) throws Exception {
 		int i = abyte0[0] & 0xff;
 		if (Config.LOGGING_INCOMING_PACKETS) {
 			_log.info("Packet sent from client: " + i);
 			if (_client.getActiveChar() != null) {
 				if (_client.getActiveChar().isGm()) {
-					_client.getActiveChar().sendPackets(
-							new S_SystemMessage("Sent from client: " + i));
+					_client.getActiveChar().sendPackets(new S_SystemMessage("Sent from client: " + i));
 				}
 			}
 		}
-		
+
 		_client.setLastClientPacket(i);
-		
+
 //		String packet = IntArrayUtil.toCsv(ByteArrayUtil.convertToInt(abyte0));
-		if(object != null && object.isLoggingPackets()) {
-			//LogPacketsTable.storeLogPacket(object.getId(), object.getName(), object.getTempCharGfx(), i, packet, "report", System.currentTimeMillis());
+		if (object != null && object.isLoggingPackets()) {
+			// LogPacketsTable.storeLogPacket(object.getId(), object.getName(),
+			// object.getTempCharGfx(), i, packet, "report", System.currentTimeMillis());
 		} else {
-			//_client.addToClientPacketLog(i, packet); // only add to the historical log if we aren't logging to the database
+			// _client.addToClientPacketLog(i, packet); // only add to the historical log if
+			// we aren't logging to the database
 		}
-		
+
 		switch (i) {
 		case C_OPCODE_EXCLUDE:
 			new C_Exclude(abyte0, _client);

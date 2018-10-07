@@ -17,6 +17,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+package l1j.server.server.network;
+
 /*
  * (Tricid)  These are the packet consumers for the new network model.  They try to pull from a queue that contains
  * clients (not packets), blocking on the queue when it's empty.  Once they get a client it runs a client method that 
@@ -27,11 +29,8 @@
  *  I might tweak how that works.  
  *  
  *  Additionally, if I ever get motivated in the future to implement my speed hack fix I've done on other servers, this is
- *  the model it relies on.
+ *  the model it relies on.  It'll make sense when/if I implement it for l1j
  */
-
-package l1j.server.server.network;
-
 public class PacketConsumer implements Runnable {
 
 	String name;

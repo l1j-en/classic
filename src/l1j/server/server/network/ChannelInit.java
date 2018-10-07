@@ -17,10 +17,6 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/*
- * (Tricid)  This is the first class in the pipeline that handles new connections. Right now I'm only
- * using it to send the first packet that the client expects.
- */
 package l1j.server.server.network;
 
 import java.io.IOException;
@@ -39,6 +35,10 @@ import l1j.server.server.datatables.IpTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
 
+/*
+ * (Tricid)  This is the first class in the pipeline that handles new connections. Right now I'm only
+ * using it to send the first packet that the client expects.
+ */
 public class ChannelInit extends ChannelInitializer<Channel> {
 
 	private static Logger _log = LoggerFactory.getLogger(ChannelInit.class);
@@ -63,34 +63,41 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		}
 
 	}
+
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
-		
+
 		String ip = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress().toString();
-		
-		//check if banned, close and return if yes
+
+		// check if banned, close and return if yes
 		if (IpTable.getInstance().isBannedIp(ip)) {
 			channel.close();
 			return;
 		}
-		
-		//check if connections from this IP exceed limits
+
+		// check if connections from this IP exceed limits
 		int ipcount = Collections.frequency(NetworkServer.getInstance().getIps(), ip);
-		
+
 		if (ipcount >= Config.CONNECTIONS_PER_IP) {
 			channel.close();
 			return;
 		} else {
 			NetworkServer.getInstance().getIps().add(ip);
 		}
+
+		// prepare first packet buffer
 		final ByteBuf first = channel.alloc().buffer(FIRST_PACKET.length + 7);
+
+		// Prepare a new Client, replaces ClientThread
 		Client client = null;
 		try {
 			client = new Client(channel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			_log.error("",e);
+			_log.error("", e);
 		}
+
+		// collections for connections in case we need to find it later
 		NetworkServer.getInstance().getClients().put(channel.id(), client);
 
 		long seed = 0x7C98BDFA; // 3.0 English Packet Seed
@@ -109,9 +116,9 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		try {
 			client.set_clkey(L1JEncryption.initKeys(channel.id(), seed));
 		} catch (ClientIdExistsException e) {
-			_log.error("",e);
+			_log.error("", e);
 		}
-		channel.pipeline().addLast(new PacketDecoder(),new PacketDecrypter());
+		channel.pipeline().addLast(new PacketDecoder(), new PacketDecrypter());
 
 	}
 
