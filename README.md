@@ -14,17 +14,43 @@ channel #l1j on Freenode IRC.
 
 ### Recent History
 
-This repo started as a direct copy of the l1j-en project on Google Code as of
-their revision 726.  We pulled upstream updates from l1j-jp2 but since have
-diverged significantly.
+This history is being pieced together based on memories and what links can still 
+be verified.
 
-As of March 2014, everial's downstream fork was merged back into master.  As of
-June 2014, this and the Google Code repo are synced, with the GitHub version
-typically getting fixes first.
+Pre l1j-jp the history of l1j is somewhat difficult to verify.  Several people
+claim they are the original creators.  I've never been able to find proof. Plus
+so many years, revisions and changes have gone by I'm not sure how relevant that
+even is. I've heard mention of a project called LoSe (or something like that)
+that is possibly the parent of all l1j projects.  Or maybe it was just one of 
+the first and none of its original code still exists, or ever existed within l1j.
 
-As of 2018, the Google Code repository (and any related repos there) is to be
-considered abandoned as Google has long since shut down that service.  We're
-also now off of GitHub and hosted here at l1j.org.
+There are also several different languages/forks of l1j. The code is so 
+significantly different within some of them that I'm unsure if they're all forks
+or l1j is just often used as a name prefix for new/original code bases.
+
+This code base was originally a fork of 
+[l1j-jp](https://code.google.com/archive/p/l1j-jp/) named 
+[lindc](https://code.google.com/archive/p/lindc/) 
+translated to english with stability and security improvements. An important goal 
+was to leave the code as similar/compatibile with l1j-jp as possible so we could 
+take advantage of their content updates.  They had a larger team and progressed 
+further/faster on that than we did.  
+
+Around Oct, 2008 the project was renamed to l1j-en to detach it from any 
+particular server.  Sometime in l1j-en's early life we began pulling in updates
+from l1j-jp2 as well.  jp2 was actually located on l1j.org at that time.
+
+In 2014 the project slowly transitioned to git (on github), away from svn and 
+googlecode. Github has since removed the repo that was located there.
+
+From 2014 to 2018 the code base has entered many periods of dormancy.  Work began
+in earnest again to bring up the zelgo server. Several old and new
+members of the project have randomly come and gone over that time period.  
+
+In 2018 we moved to l1j.org and are working on cleaning things up, optimizing 
+things and sticking to the original open source principles of the project.
+Code compatibility with other l1j projects is no longer considered a priority, 
+especially where it is/was in the way of improvements.
 
 ### Contributing
 
