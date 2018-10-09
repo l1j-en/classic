@@ -61,3 +61,6 @@ update etcitem set name = 'Teleport - Kent Dungeon 2F' where item_id = 42008;
 update etcitem set name = 'Teleport - Kent Dungeon 3F' where item_id = 42009;
 update etcitem set name = 'Teleport - Kent Dungeon 4F' where item_id = 42010;
 update etcitem set name = 'Teleport - Oum Dungeon' where item_id = 42048;
+
+-- Fix zombie group aggro.
+update npc set agrofamily = 0 where npcid in (45065, 45105, 45757);
