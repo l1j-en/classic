@@ -64,3 +64,6 @@ update etcitem set name = 'Teleport - Oum Dungeon' where item_id = 42048;
 
 -- Fix zombie group aggro.
 update npc set agrofamily = 0 where npcid in (45065, 45105, 45757);
+
+-- Remove Unknown Spear from Mandra (Oren weapon shop).
+delete from shop where npc_id = 70061 and item_id = 87;
