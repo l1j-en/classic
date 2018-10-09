@@ -1,8 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
-
--- Queries that are pending an update should be placed here. This allows them
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
 INSERT INTO commands (name, access_level, class_name, help_text, run_on_login) VALUES('createpet', 200, 'L1CreatePet', 'Lets to create a pet with a level of your choice', 0);
 
 -- add back the lancemaster polymorph!
@@ -53,7 +48,7 @@ INSERT INTO `commands` (`name`,`access_level`,`class_name`,`help_text`,`run_on_l
 
 -- Update range on fantasm and set probability value and dice to 0 since the probability is now hard-coded to 30%
 -- http://lineage.power.plaync.com/wiki/%ED%8C%90%ED%83%80%EC%A6%98
-UPDATE `skills` SET `ranged` = 4, `probability_value` = 0, `probability_dice` = 0 WHERE `name` = 'Phantasm'; 
+UPDATE `skills` SET `ranged` = 4, `probability_value` = 0, `probability_dice` = 0 WHERE `name` = 'Phantasm';
 
 -- lowered the leverage of high raccoon and raccoon so slow won't land all the time. The leverage was 3x that of a mage.
 UPDATE `mobskill` SET `Leverage` = 5 WHERE `Skill_Description` LIKE '%Slow%' AND `mobname` IN('Raccoon', 'High Raccoon');
@@ -68,7 +63,7 @@ UPDATE weapon SET trade = 1 WHERE item_id = 124;
 -- aos
 UPDATE skills SET probability_value = 50, probability_dice = 10 WHERE skill_id = 161;
 -- shackle
-UPDATE skills SET probability_dice = 20 WHERE skill_id = 167; 
+UPDATE skills SET probability_dice = 20 WHERE skill_id = 167;
 
 -- remove adena drops from TOI, as discussed in gm room
 delete from droplist where mobId in (select npc_templateid from spawnlist where mapid in (select mapid from mapids where locationname like "%insolence%f%")) and itemId = 40308;

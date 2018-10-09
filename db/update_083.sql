@@ -940,13 +940,3 @@ UPDATE `armor` SET `regist_sleep` = 0, `regist_stun` = 5 WHERE `item_id` = 21094
 
 -- update phantasm probability to match stun
 UPDATE `skills` SET `probability_value` = 50 WHERE `skill_id` = 212;
-
--- Fix names of various teleport scrolls.
-update etcitem set name = 'Teleport - Giran Dungeon 2F' where item_id = 40827;
-update etcitem set name = 'Teleport - Giran Dungeon 3F' where item_id = 40828;
-update etcitem set name = 'Teleport - Giran Dungeon 4F' where item_id = 40829;
-update etcitem set name = 'Teleport - Kent Dungeon 1F' where item_id = 42006;
-update etcitem set name = 'Teleport - Kent Dungeon 2F' where item_id = 42008;
-update etcitem set name = 'Teleport - Kent Dungeon 3F' where item_id = 42009;
-update etcitem set name = 'Teleport - Kent Dungeon 4F' where item_id = 42010;
-update etcitem set name = 'Teleport - Oum Dungeon' where item_id = 42048;
