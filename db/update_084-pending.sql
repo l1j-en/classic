@@ -67,3 +67,6 @@ update npc set agrofamily = 0 where npcid in (45065, 45105, 45757);
 
 -- Remove Unknown Spear from Mandra (Oren weapon shop).
 delete from shop where npc_id = 70061 and item_id = 87;
+
+-- Enable .burf command for monitors.
+update commands set access_level = 100 where name = 'burf';
