@@ -139,7 +139,7 @@ public class L1Attack {
 	private L1ItemInstance weapon = null;
 	private int _weaponId = 0;
 	private int _weaponType = 0;
-	private int _weaponType2 = 0;
+	//private int _weaponType2 = 0;
 	private int _weaponAddHit = 0;
 	private int _weaponAddDmg = 0;
 	private int _weaponSmall = 0;
@@ -281,9 +281,9 @@ public class L1Attack {
 			if (weapon != null) {
 				L1Item item = weapon.getItem();
 				_weaponId = item.getItemId();
-				_weaponType = item.getType1();
-				_weaponType2 = item.getType();
-				isKiringku = _weaponType2 == WeaponType.Kiringku;
+				_weaponType = item.getType();
+				//_weaponType2 = item.getType();
+				isKiringku = _weaponType == WeaponType.Kiringku;
 				_weaponAddHit = item.getHitModifier() + weapon.getHitByMagic();
 				_weaponAddDmg = item.getDmgModifier() + weapon.getDmgByMagic();
 				_weaponSmall = item.getDmgSmall();
@@ -833,7 +833,7 @@ public class L1Attack {
 			damage += calcAttrEnchantDmg();
 		}
 
-		if (_weaponType2 == WeaponType.Chainsword) {
+		if (_weaponType == WeaponType.Chainsword) {
 			if (_pc.isFoeSlayer()) {
 				if (_pc.hasSkillEffect(STATUS_WEAKNESS_EXPOSURE_LV3)) {
 					damage += 60;

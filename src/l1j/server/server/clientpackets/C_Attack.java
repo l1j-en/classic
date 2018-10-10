@@ -129,7 +129,7 @@ public class C_Attack extends ClientBasePacket {
 			L1ItemInstance ammo = null;
 			if (weapon != null) {
 				weaponId = weapon.getItem().getItemId();
-				weaponType = weapon.getItem().getType1();
+				weaponType = weapon.getItem().getType();
 				if (weaponType == WeaponType.Bow) {
 					ammo = pc.getInventory().getArrow();
 				} else if (weaponType == WeaponType.Gauntlet) {

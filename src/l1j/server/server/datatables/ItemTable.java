@@ -30,7 +30,7 @@ public class ItemTable {
 	private static Logger _log = LoggerFactory.getLogger(ItemTable.class.getName());
 	private static final Map<String, Integer> _armorTypes = Maps.newHashMap();
 	private static final Map<String, Integer> _weaponTypes = Maps.newHashMap();
-	private static final Map<String, Integer> _weaponId = Maps.newHashMap();
+//	private static final Map<String, Integer> _weaponId = Maps.newHashMap();
 	private static final Map<String, Integer> _materialTypes = Maps
 			.newHashMap();
 	private static final Map<String, Integer> _etcItemTypes = Maps.newHashMap();
@@ -145,24 +145,24 @@ public class ItemTable {
 		_weaponTypes.put("kiringku", Integer.valueOf(17));
 		_weaponTypes.put("chainsword", Integer.valueOf(18));
 
-		_weaponId.put("sword", Integer.valueOf(4));
-		_weaponId.put("dagger", Integer.valueOf(46));
-		_weaponId.put("tohandsword", Integer.valueOf(50));
-		_weaponId.put("bow", Integer.valueOf(20));
-		_weaponId.put("blunt", Integer.valueOf(11));
-		_weaponId.put("spear", Integer.valueOf(24));
-		_weaponId.put("staff", Integer.valueOf(40));
-		_weaponId.put("throwingknife", Integer.valueOf(2922));
-		_weaponId.put("arrow", Integer.valueOf(66));
-		_weaponId.put("gauntlet", Integer.valueOf(62));
-		_weaponId.put("claw", Integer.valueOf(58));
-		_weaponId.put("edoryu", Integer.valueOf(54));
-		_weaponId.put("singlebow", Integer.valueOf(20));
-		_weaponId.put("singlespear", Integer.valueOf(24));
-		_weaponId.put("tohandblunt", Integer.valueOf(11));
-		_weaponId.put("tohandstaff", Integer.valueOf(40));
-		_weaponId.put("kiringku", Integer.valueOf(58));
-		_weaponId.put("chainsword", Integer.valueOf(24));
+//		_weaponId.put("sword", Integer.valueOf(4));
+//		_weaponId.put("dagger", Integer.valueOf(46));
+//		_weaponId.put("tohandsword", Integer.valueOf(50));
+//		_weaponId.put("bow", Integer.valueOf(20));
+//		_weaponId.put("blunt", Integer.valueOf(11));
+//		_weaponId.put("spear", Integer.valueOf(24));
+//		_weaponId.put("staff", Integer.valueOf(40));
+//		_weaponId.put("throwingknife", Integer.valueOf(2922));
+//		_weaponId.put("arrow", Integer.valueOf(66));
+//		_weaponId.put("gauntlet", Integer.valueOf(62));
+//		_weaponId.put("claw", Integer.valueOf(58));
+//		_weaponId.put("edoryu", Integer.valueOf(54));
+//		_weaponId.put("singlebow", Integer.valueOf(20));
+//		_weaponId.put("singlespear", Integer.valueOf(24));
+//		_weaponId.put("tohandblunt", Integer.valueOf(11));
+//		_weaponId.put("tohandstaff", Integer.valueOf(40));
+//		_weaponId.put("kiringku", Integer.valueOf(58));
+//		_weaponId.put("chainsword", Integer.valueOf(24));
 
 		_materialTypes.put("none", Integer.valueOf(0));
 		_materialTypes.put("liquid", Integer.valueOf(1));
@@ -285,8 +285,8 @@ public class ItemTable {
 				weapon.setIdentifiedNameId(rs.getString("identified_name_id"));
 				weapon.setType((_weaponTypes.get(rs.getString("type")))
 						.intValue());
-				weapon.setType1((_weaponId.get(rs.getString("type")))
-						.intValue());
+//				weapon.setType1((_weaponId.get(rs.getString("type")))
+//						.intValue());
 				weapon.setType2(1);
 				weapon.setUseType(1);
 				weapon.setMaterial((_materialTypes.get(rs.getString("material")))

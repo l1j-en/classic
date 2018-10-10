@@ -54,7 +54,7 @@ public class L1EquipmentSlot {
 
 	private void setWeapon(L1ItemInstance weapon) {
 		_owner.setWeapon(weapon);
-		_owner.setCurrentWeapon(weapon.getItem().getType1());
+		_owner.setCurrentWeapon(weapon.getItem().getType());
 		weapon.startEquipmentTimer(_owner);
 		_weapon = weapon;
 	}
