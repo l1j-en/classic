@@ -70,3 +70,6 @@ delete from shop where npc_id = 70061 and item_id = 87;
 
 -- Enable .burf command for monitors.
 update commands set access_level = 100 where name = 'burf';
+
+-- Remove SKT map from Berry (Werldern pot shop).
+delete from shop where npc_id = 70045 and item_id = 40380;
