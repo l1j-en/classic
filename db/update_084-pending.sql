@@ -73,3 +73,6 @@ update commands set access_level = 100 where name = 'burf';
 
 -- Remove SKT map from Berry (Werldern pot shop).
 delete from shop where npc_id = 70045 and item_id = 40380;
+
+-- Remove SKT map from Bius (Oren pot shop).
+delete from shop where npc_id = 70063 and item_id = 40117;
