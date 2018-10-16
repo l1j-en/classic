@@ -75,4 +75,4 @@ update commands set access_level = 100 where name = 'burf';
 delete from shop where npc_id = 70045 and item_id = 40380;
 
 -- Remove SKT map from Bius (Oren pot shop).
-delete from shop where npc_id = 70063 and item_id = 40117;
+delete from shop where npc_id = 70063 and item_id = 40380;
