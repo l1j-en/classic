@@ -261,12 +261,72 @@ public class L1Character extends L1Object {
 		return getHeading();
 	}
 
+	// A refactoring of targetDirection, that ignores the current character
+	// instance, except as a backup.  Only used in losCheck.
+	public int losTargetDirection(int chx, int chy, int tx, int ty) {
+		float dis_x = Math.abs(chx - tx);
+		float dis_y = Math.abs(chy - ty);
+		float dis = Math.max(dis_x, dis_y);
+		if (dis == 0) {
+			return getHeading();
+		}
+		int avg_x = (int) Math.floor((dis_x / dis) + 0.59f);
+		int avg_y = (int) Math.floor((dis_y / dis) + 0.59f);
+
+		int dir_x = 0;
+		int dir_y = 0;
+		if (chx < tx) {
+			dir_x = 1;
+		}
+		if (chx > tx) {
+			dir_x = -1;
+		}
+		if (chy < ty) {
+			dir_y = 1;
+		}
+		if (chy > ty) {
+			dir_y = -1;
+		}
+		if (avg_x == 0) {
+			dir_x = 0;
+		}
+		if (avg_y == 0) {
+			dir_y = 0;
+		}
+		if (dir_x == 1 && dir_y == -1) {
+			return 1;
+		}
+		if (dir_x == 1 && dir_y == 0) {
+			return 2;
+		}
+		if (dir_x == 1 && dir_y == 1) {
+			return 3;
+		}
+		if (dir_x == 0 && dir_y == 1) {
+			return 4;
+		}
+		if (dir_x == -1 && dir_y == 1) {
+			return 5;
+		}
+		if (dir_x == -1 && dir_y == 0) {
+			return 6;
+		}
+		if (dir_x == -1 && dir_y == -1) {
+			return 7;
+		}
+		if (dir_x == 0 && dir_y == -1) {
+			return 0;
+		}
+		return getHeading();
+	}
+
 	public boolean glanceCheck(int tx, int ty) {
+		return losCheck(getX(), getY(), tx, ty) || losCheck(tx, ty, getX(), getY());
+	}
+	
+	private boolean losCheck(int chx, int chy, int tx, int ty) {
 		// A Java implementation of Bresenham's line algorithm (with
 		// modifications).
-		int chx = getX();
-		int chy = getY();
-
 		int dx = Math.abs(chx - tx);
 		int dy = Math.abs(chy - ty);
 
@@ -279,58 +339,29 @@ public class L1Character extends L1Object {
 		// direction test is passed. Otherwise, do the normal check. Needed
 		// for doorways.
 		if (dx <= 1 && dy <= 1) {
-			if (getMap().isArrowPassable(chx, chy, targetDirection(tx, ty))) {
+			if (getMap().isArrowPassable(chx, chy, losTargetDirection(chx, chy, tx, ty))) {
 				return true;
 			}
 		}
 
 		int sx = chx < tx ? 1 : -1;
 		int sy = chy < ty ? 1 : -1;
-
 		int err = dx - dy;
 		int e2;
 		int currentX = chx;
 		int currentY = chy;
 
 		while (true) {
-			if (!getMap().isArrowPassable(currentX, currentY)) {
-				return false;
-			}
-
 			if (currentX == tx && currentY == ty) {
 				break;
 			}
-
-			e2 = 2 * err;
-			if (e2 > -1 * dy) {
-				err = err - dy;
-				currentX = currentX + sx;
-			}
-
-			if (e2 < dx) {
-				err = err + dx;
-				currentY = currentY + sy;
-			}
-		}
-
-		// Check the reverse, ensuring both objects have visibility.
-		// Without this, we get an off-by one at certain angles.
-		dx = Math.abs(tx - chx);
-		dy = Math.abs(ty - chy);
-		sx = tx < chx ? 1 : -1;
-		sy = ty < chy ? 1 : -1;
-		err = dx - dy;
-		currentX = tx;
-		currentY = ty;
-
-		while (true) {
-			if (!getMap().isArrowPassable(currentX, currentY)) {
+			// If adjacent, just check if cell passable.
+			if (Math.abs(currentX - tx) <= 1 && Math.abs(currentY - ty) <= 1 && getMap().isArrowPassable(chx, chy)) {
+					break;
+			} else if (!getMap().isArrowPassable(currentX, currentY, losTargetDirection(currentX, currentY, tx, ty)) ||
+							!getMap().isArrowPassable(currentX, currentY)) {
 				return false;
 			}
-
-			if (currentX == chx && currentY == chy) {
-				break;
-			}
 			e2 = 2 * err;
 			if (e2 > -1 * dy) {
 				err = err - dy;
@@ -341,9 +372,7 @@ public class L1Character extends L1Object {
 				currentY = currentY + sy;
 			}
 		}
-
 		return true;
-
 	}
 
 	public boolean isAttackPosition(int x, int y, int range) {
