@@ -1,9 +1,3 @@
--- IMPORTANT: THIS UPDATE IS NOT YET FINISHED, DONT USE!
-
--- Queries that are pending an update should be placed here. This allows them
--- to be verified as working together. Once complete, the -pending suffix will
--- be removed.
-
 update mapids set endx = 32831, endy = 32959 where mapid = 3;
 update mapids set endX = 32831, startY = 32704 where mapid = 34;
 update mapids set startX = 32576, startY = 32768, endY = 32959 where mapid = 106;
