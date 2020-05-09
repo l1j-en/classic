@@ -233,13 +233,9 @@ public class L1PcInstance extends L1Character {
 				}
 				if (tempchargfx != 0) {
 					sendAndBroadcast(new S_ChangeShape(getId(), tempchargfx));
-				} else {
-					try {
-						GeneralThreadPool.getInstance().schedule(this, 1000);
-						return;
-					} catch (Exception e) {
-					}
-				}
+					GeneralThreadPool.getInstance().schedule(this, 100);
+					return;
+				} 
 
 				sendAndBroadcast(new S_DoActionGFX(targetobjid, ActionCodes.ACTION_Die));
 
@@ -1209,6 +1205,7 @@ public class L1PcInstance extends L1Character {
 			this.setLastAggressiveAct(0);
 			setStatus(ActionCodes.ACTION_Die);
 		}
+		
 		GeneralThreadPool.getInstance().execute(new Death(lastAttacker));
 
 	}
