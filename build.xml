@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="l1j-en" default="all" basedir=".">
-    <description>
-        This script will build the L1J server.
+  <description>
+    This script will build the L1J server.
 
-        This program is free software; you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation; either version 2, or (at your option)
-        any later version.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2, or (at your option)
+    any later version.
 
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-        You should have received a copy of the GNU General Public License
-        along with this program; if not, write to the Free Software
-        Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-        02111-1307, USA.
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+    02111-1307, USA.
 
-        http://www.gnu.org/copyleft/gpl.html
-    </description>
+    http://www.gnu.org/copyleft/gpl.html
+  </description>
 
-    <!-- Set Property -->
-    <property name="src.dir" value="src" />
-    <property name="lib.dir" value="lib" />
-    <property name="build.dir" value="build" />
-    <property name="jarfile" value="l1jen.jar" />
+  <!-- Set Property -->
+  <property name="src.dir" value="src" />
+  <property name="lib.dir" value="lib" />
+  <property name="build.dir" value="build" />
+  <property name="jarfile" value="l1jen.jar" />
 
-    <path id="classpath">
-        <fileset dir="${lib.dir}">
-            <include name="c3p0-0.9.1.2.jar" />
-            <include name="javolution.jar" />
-            <include name="mysql-connector-java-5.1.31-bin.jar" />
-	    <include name="guava-17.0.jar" />
-            <include name="slf4j-api-1.7.5.jar" />
-        	<include name="slf4j-jdk14-1.7.5.jar" />
-	    	<include name="bonecp-0.8.0.RELEASE.jar" />
-        	<include name="sshd-core-1.2.0.jar" />
-        	<include name="netty-all-4.1.29.Final.jar" />
-        </fileset>
-    </path>
+  <path id="classpath">
+    <fileset dir="${lib.dir}">
+      <include name="c3p0-0.9.1.2.jar" />
+      <include name="javolution.jar" />
+      <include name="mysql-connector-java-5.1.31-bin.jar" />
+      <include name="guava-17.0.jar" />
+      <include name="slf4j-api-1.7.5.jar" />
+      <include name="slf4j-jdk14-1.7.5.jar" />
+      <include name="bonecp-0.8.0.RELEASE.jar" />
+      <include name="sshd-core-1.2.0.jar" />
+      <include name="netty-all-4.1.29.Final.jar" />
+      <include name="javax.activation-api-1.2.0.jar" />
+      <include name="jaxb-api-2.3.1.jar" />
+    </fileset>
+  </path>
 
-    <!-- Set DefaultTarget -->
-    <target name="all" depends="clean,compile,jar,clean2" />
+  <!-- Set DefaultTarget -->
+  <target name="all" depends="clean,compile,jar,clean2" />
 
-    <!-- clean Target -->
-    <target name="clean">
-        <delete dir="${build.dir}" />
-    </target>
+  <!-- clean Target -->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
 
-    <!-- Compile Target -->
-    <target name="compile">
-        <mkdir dir="${build.dir}" />
-        <javac destdir="${build.dir}"
-               optimize="on"
-               encoding="UTF-8"
-               debug="true"
-	       includeantruntime="false">
-            <src path="${src.dir}" />
-            <classpath refid="classpath" />
-			<compilerarg value="-Xlint"/>
-        	<compilerarg value="--add-modules" />
-        	<compilerarg value="java.xml.bind" />
-		</javac>
-    </target>
+  <!-- Compile Target -->
+  <target name="compile">
+    <mkdir dir="${build.dir}" />
+    <javac destdir="${build.dir}"
+           optimize="on"
+           encoding="UTF-8"
+           debug="true"
+           includeantruntime="false">
+      <src path="${src.dir}" />
+      <classpath refid="classpath" />
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
 
-    <!-- jar Target -->
-    <target name="jar">
-        <jar manifest="${src.dir}/META-INF/MANIFEST.MF" basedir="${build.dir}" jarfile="${jarfile}" />
-    </target>
+  <!-- jar Target -->
+  <target name="jar">
+    <jar manifest="${src.dir}/META-INF/MANIFEST.MF" basedir="${build.dir}" jarfile="${jarfile}" />
+  </target>
 
-    <!-- clean Target -->
-    <target name="clean2">
-        <delete dir="${build.dir}" />
-    </target>
+  <!-- clean Target -->
+  <target name="clean2">
+    <delete dir="${build.dir}" />
+  </target>
 
 </project>
