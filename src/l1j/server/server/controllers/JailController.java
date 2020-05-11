@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
@@ -150,52 +151,49 @@ public class JailController implements Runnable {
 		
 		try {
 			Long checkTime = System.currentTimeMillis();
+
+			this.getJailedUsers(checkTime);
 			
-			while(true) {
-				this.getJailedUsers(checkTime);
-				
-				Iterator<Map.Entry<String,JailInfo>> iter = this._jailedUsers.entrySet().iterator();
-				
-				while (iter.hasNext()) {
-				    Map.Entry<String,JailInfo> entry = iter.next();
-				    String user = entry.getKey();
-				    Long jailReleaseTime = entry.getValue().getReleaseTime();
-				    
-				    if(jailReleaseTime <= checkTime) {
-				    	L1PcInstance player = L1World.getInstance().getPlayer(user);
-				    	
-				    	if(player != null) {
-				    		// SKT
-				    		// only send them to SKT if they haven't already been unjailed
-				    		if(player.getMapId() == 99) {
-				    			L1Teleport.teleport(player, _unjailLocation[0], _unjailLocation[1],
-					    				(short)_unjailLocation[2], 1, false);
-					    		player.sendPackets(new S_SystemMessage("You have been unjailed! Behave yourself!"));
-				    		}
-				    	} else {
-				    		player = CharacterTable.getInstance().restoreCharacter(user);
-							
-							if(player == null) 
-								continue;
-							
-							// SKT
-				    		// only send them to SKT if they haven't already been unjailed
-							if(player.getMapId() == 99) {
-								CharacterTable.getInstance().moveCharacter(player,  _unjailLocation[0], _unjailLocation[1],
-					    				(short)_unjailLocation[2]);
-							}
-				    	}
-				    	
-				    	this.setUnjailStatus(user);
-				    	iter.remove();
-				    }
-			        
-				}
-				
-				checkTime = System.currentTimeMillis();
-				_log.trace("Unjail controller finished running.");
-				Thread.sleep(60000);
+			Iterator<Map.Entry<String,JailInfo>> iter = this._jailedUsers.entrySet().iterator();
+			
+			while (iter.hasNext()) {
+			    Map.Entry<String,JailInfo> entry = iter.next();
+			    String user = entry.getKey();
+			    Long jailReleaseTime = entry.getValue().getReleaseTime();
+			    
+			    if(jailReleaseTime <= checkTime) {
+			    	L1PcInstance player = L1World.getInstance().getPlayer(user);
+			    	
+			    	if(player != null) {
+			    		// SKT
+			    		// only send them to SKT if they haven't already been unjailed
+			    		if(player.getMapId() == 99) {
+			    			L1Teleport.teleport(player, _unjailLocation[0], _unjailLocation[1],
+				    				(short)_unjailLocation[2], 1, false);
+				    		player.sendPackets(new S_SystemMessage("You have been unjailed! Behave yourself!"));
+			    		}
+			    	} else {
+			    		player = CharacterTable.getInstance().restoreCharacter(user);
+						
+						if(player == null) 
+							continue;
+						
+						// SKT
+			    		// only send them to SKT if they haven't already been unjailed
+						if(player.getMapId() == 99) {
+							CharacterTable.getInstance().moveCharacter(player,  _unjailLocation[0], _unjailLocation[1],
+				    				(short)_unjailLocation[2]);
+						}
+			    	}
+			    	
+			    	this.setUnjailStatus(user);
+			    	iter.remove();
+			    }
 			}
+			
+			checkTime = System.currentTimeMillis();
+			_log.trace("Unjail controller finished running.");
+			GeneralThreadPool.getInstance().schedule(this, 60000);
 		} catch(Exception ex) {
 			_log.warn("Unjail controller crashed! No users will be auto-unjailed!");
 		}
