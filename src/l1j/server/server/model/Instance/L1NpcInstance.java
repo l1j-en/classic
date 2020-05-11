@@ -868,6 +868,7 @@ public class L1NpcInstance extends L1Character {
 	public final void startMpRegeneration() {
 		int mprInterval = getNpcTemplate().get_mprinterval();
 		int mpr = getNpcTemplate().get_mpr();
+		
 		if (!_mprRunning && mprInterval > 0 && mpr > 0) {
 			_mprTimer = new MprTimer(mpr);
 			_mprTimerFuture = GeneralThreadPool.getInstance().scheduleAtFixedRate(_mprTimer, mprInterval, mprInterval);
@@ -897,8 +898,7 @@ public class L1NpcInstance extends L1Character {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentHp() < getMaxHp())) {
 					setCurrentHp(getCurrentHp() + _point);
 				} else {
-					// cancel();
-					_hprRunning = false;
+					stopHpRegeneration();
 				}
 			} catch (Exception e) {
 				_log.error(e.getLocalizedMessage(), e);
@@ -932,8 +932,7 @@ public class L1NpcInstance extends L1Character {
 				if ((!_destroyed && !isDead()) && (getCurrentHp() > 0 && getCurrentMp() < getMaxMp())) {
 					setCurrentMp(getCurrentMp() + _point);
 				} else {
-					// cancel();
-					_mprRunning = false;
+					stopMpRegeneration();
 				}
 			} catch (Exception e) {
 				_log.error(e.getLocalizedMessage(), e);
@@ -1210,6 +1209,8 @@ public class L1NpcInstance extends L1Character {
 				getInventory().clearItems();
 			}
 			allTargetClear();
+			stopHpRegeneration();
+			stopHpRegeneration();
 			_master = null;
 			L1World.getInstance().removeVisibleObject(this);
 			L1World.getInstance().removeObject(this);
