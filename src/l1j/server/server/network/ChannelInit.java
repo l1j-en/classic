@@ -34,6 +34,7 @@ import l1j.server.Config;
 import l1j.server.server.datatables.IpTable;
 import l1j.server.server.encryptions.ClientIdExistsException;
 import l1j.server.server.encryptions.L1JEncryption;
+import l1j.server.server.encryptions.Opcodes;
 
 /*
  * (Tricid)  This is the first class in the pipeline that handles new connections. Right now I'm only
@@ -43,9 +44,10 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 
 	private static Logger _log = LoggerFactory.getLogger(ChannelInit.class);
 
-	private static final byte[] FIRST_PACKET = { // 3.0 English KeyPacket
-			(byte) 0x41, (byte) 0x5A, (byte) 0x9B, (byte) 0x01, (byte) 0xB6, (byte) 0x81, (byte) 0x01, (byte) 0x09,
-			(byte) 0xBD, (byte) 0xCC, (byte) 0xC0 };
+	private static final byte[] FIRST_PACKET = {
+			(byte) 0x4d, (byte) 0xa7, (byte) 0x32, (byte) 0x5b, (byte) 0x2e,
+			(byte) 0x7e, (byte) 0xed, (byte) 0x25, (byte) 0xa5, (byte) 0x54,
+			(byte) 0xb3 };
 
 	@Override
 	public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
@@ -100,12 +102,13 @@ public class ChannelInit extends ChannelInitializer<Channel> {
 		// collections for connections in case we need to find it later
 		NetworkServer.getInstance().getClients().put(channel.id(), client);
 
-		long seed = 0x7C98BDFA; // 3.0 English Packet Seed
+		String keyHax = Integer.toHexString((int) (Math.random() * 2147483647) + 1);
+		int seed = Integer.parseInt(keyHax, 16);
 		byte Bogus = (byte) (FIRST_PACKET.length + 7);
 
 		first.writeByte(Bogus & 0xFF);
 		first.writeByte(Bogus >> 8 & 0xFF);
-		first.writeByte(0x7D);
+		first.writeByte(Opcodes.S_OPCODE_INITPACKET);
 		first.writeByte((byte) (seed & 0xFF));
 		first.writeByte((byte) (seed >> 8 & 0xFF));
 		first.writeByte((byte) (seed >> 16 & 0xFF));
