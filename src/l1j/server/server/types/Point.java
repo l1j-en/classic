@@ -127,8 +127,8 @@ public class Point {
 	 * The object is to see a return to the screen
 	 * 
 	 * Players to coordinate (0,0) assuming that coordinates of the sight of The
-	 * upper left (2, 15) on the right (15, -2) lower left (-15,2) lower-right
-	 * (-2,15).
+	 * upper left (2, 18) on the right (18, -2) lower left (-18,2) lower-right
+	 * (-2,18).
 	 * 
 	 * @param pt
 	 *            Point object to hold coordinate
@@ -138,16 +138,14 @@ public class Point {
 		
 		int dist = this.getTileDistance(pt);
 
-		if (dist > 17) {
+		if (dist > 19) {
 			return false;
-		} else if (dist <= 13) {
+		} else if (dist <= 18) {
 			return true;
 		} else {
-			// Point pointZero = new Point(this.getX() - 15, this.getY() - 15);
-			// int dist2 = pointZero.getTileDistance(pt);
-			int dist2 = Math.abs(pt.getX() - (this.getX() - 15))
-					+ Math.abs(pt.getY() - (this.getY() - 15));
-			if (17 <= dist2 && dist2 <= 43) {
+			int dist2 = Math.abs(pt.getX() - (this.getX() - 18))
+					+ Math.abs(pt.getY() - (this.getY() - 18));
+			if (19 <= dist2 && dist2 <= 52) {
 				return true;
 			}
 			return false;
