@@ -7,4 +7,5 @@ l1jen.jar
 *.iws
 .gradle
 .idea
+.metadata
 build

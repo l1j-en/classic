@@ -707,9 +707,9 @@ public final class Config {
 			SSH_ALLOWED_USERNAMES = serverSettings.getProperty("AllowedUsernames", "").replace(" ","").split(",");
 			
 			PC_RECOGNIZE_RANGE = Integer.parseInt(serverSettings.getProperty(
-					"PcRecognizeRange", "20"));
+					"PcRecognizeRange", "23"));
 			NPC_PATHING_RANGE = Integer.parseInt(serverSettings.getProperty(
-					"NpcPathingRange", "15"));
+					"NpcPathingRange", "18"));
 			NPC_ACTIVE_RANGE = Integer.parseInt(serverSettings.getProperty(
 					"NpcActiveRange", "-1"));
 			CHARACTER_CONFIG_IN_SERVER_SIDE = Boolean
