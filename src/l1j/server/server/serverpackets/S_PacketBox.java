@@ -154,6 +154,8 @@ public class S_PacketBox extends ServerBasePacket {
 	public static final int BLESS_OF_AIN = 82;
 	public static final int DODGE_RATE_PLUS = 88;
 	public static final int DODGE_RATE_MINUS = 101;
+	public static final int MAP_TIMER = 153;
+	public static final int DISPLAY_MAP_TIME = 159;
 
 	public S_PacketBox(int subCode) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);

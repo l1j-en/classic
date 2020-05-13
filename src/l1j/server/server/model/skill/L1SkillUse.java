@@ -972,7 +972,7 @@ public class L1SkillUse {
 	private void sendHappenMessage(L1PcInstance pc) {
 		int msgID = _skill.getSysmsgIdHappen();
 		// Added some fixes for various happen messages
-		if (msgID == 161) { // TODO
+		if (msgID == 161) {
 			if (_skillId == BLESSED_ARMOR || _skillId == ENCHANT_WEAPON) { // happen
 																			// message
 																			// not

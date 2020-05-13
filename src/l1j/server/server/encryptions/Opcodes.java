@@ -113,6 +113,7 @@ public class Opcodes {
 	public static final int C_OPCODE_USESKILL = 115;
 	public static final int C_OPCODE_CREATEPARTY = 166;
 	public static final int C_OPCODE_CAHTPARTY = 113; //todo -- fix typo
+	public static final int C_OPCODE_SENDLOCATION = 41;
 
 	
 	public static final int S_OPCODE_REMOVE_OBJECT = 185;

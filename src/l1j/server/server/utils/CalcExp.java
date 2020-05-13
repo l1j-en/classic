@@ -554,6 +554,7 @@ public class CalcExp {
 		int add_exp = (int) (exp * exppenalty * Config.RATE_XP * foodBonus * diPenalty);
 
 		pc.addExp(add_exp);
+		pc.addMonsterKill(1); 
 	}
 
 	private static void AddExpPet(L1PetInstance pet, int exp) {

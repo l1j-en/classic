@@ -3705,4 +3705,20 @@ public class L1PcInstance extends L1Character {
 	public Timestamp getLogoutTime() {
 		return _logoutTime;
 	}
+	
+	private int _monsterKill = 0; // number of mobs killed
+
+	public int getMonsterKill() {
+		return _monsterKill;
+	}
+
+	public void setMonsterKill(int i) {
+		_monsterKill = i;
+		sendPackets(new S_OwnCharStatus(this));
+	}
+
+	public void addMonsterKill(int i) {
+		_monsterKill += i;
+		sendPackets(new S_OwnCharStatus(this));
+	}
 }
