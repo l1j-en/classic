@@ -337,7 +337,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		updateIcons(pc);
 		
 		//TODO -- pc.startExpirationTimer();
-		//TODO -- pc.startMapLimiter();
+		pc.startMapLimiter();
 		pc.sendPackets(new S_PlayTime());
 
 		ExcludeTable exTable = ExcludeTable.getInstance();
