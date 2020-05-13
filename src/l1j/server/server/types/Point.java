@@ -138,14 +138,14 @@ public class Point {
 		
 		int dist = this.getTileDistance(pt);
 
-		if (dist > 19) {
+		if (dist > 22) {
 			return false;
 		} else if (dist <= 18) {
 			return true;
 		} else {
-			int dist2 = Math.abs(pt.getX() - (this.getX() - 18))
-					+ Math.abs(pt.getY() - (this.getY() - 18));
-			if (19 <= dist2 && dist2 <= 52) {
+			int dist2 = Math.abs(pt.getX() - (this.getX() - 22))
+					+ Math.abs(pt.getY() - (this.getY() - 22));
+			if (21 <= dist2 && dist2 <= 52) {
 				return true;
 			}
 			return false;
