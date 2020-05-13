@@ -42,6 +42,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,15 +75,20 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.network.Client;
+import l1j.server.server.serverpackets.S_ActiveSpells;
 import l1j.server.server.serverpackets.S_AddSkill;
 import l1j.server.server.serverpackets.S_Bookmarks;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharacterConfig;
 import l1j.server.server.serverpackets.S_Emblem;
 import l1j.server.server.serverpackets.S_InvList;
+import l1j.server.server.serverpackets.S_Karma;
+import l1j.server.server.serverpackets.S_LoginGame;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OwnCharPack;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
+import l1j.server.server.serverpackets.S_PacketBox;
+import l1j.server.server.serverpackets.S_PlayTime;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
@@ -90,7 +96,6 @@ import l1j.server.server.serverpackets.S_SkillHaste;
 import l1j.server.server.serverpackets.S_SkillIconGFX;
 import l1j.server.server.serverpackets.S_SummonPack;
 import l1j.server.server.serverpackets.S_SystemMessage;
-import l1j.server.server.serverpackets.S_Unknown1;
 import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
@@ -162,17 +167,12 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		pc.setPacketOutput(client);
 		client.setActiveChar(pc);
-
-		S_Unknown1 s_unknown1 = new S_Unknown1();
-		pc.sendPackets(s_unknown1);
-		/*
-		 * This packet is broken as is, completely empty. No point in trying to send it
-		 * because it fails at encrypting - tricid
-		 */
-		// S_Unknown2 s_unknown2 = new S_Unknown2();
-		// pc.sendPackets(s_unknown2);
-
+		
+		//TODO -- ability growth?
+		pc.sendPackets(new S_LoginGame());
 		bookmarks(pc);
+		
+		//TODO -- set minigame playing if working
 
 		GetBackRestartTable gbrTable = GetBackRestartTable.getInstance();
 		L1GetBackRestart[] gbrList = gbrTable.getGetBackRestartTableList();
@@ -214,38 +214,49 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 
 		L1World.getInstance().addVisibleObject(pc);
-		/*
-		 * This packet is broken as is, not enough data in it to be a complete packet.
-		 * No point in trying to send it because it fails at encrypting - tricid
-		 */
-		// S_ActiveSpells s_activespells = new S_ActiveSpells(pc);
-		// pc.sendPackets(s_activespells);
-
+		pc.sendPackets(new S_ActiveSpells(pc));
+		
 		pc.beginGameTimeCarrier();
-
-		S_OwnCharStatus s_owncharstatus = new S_OwnCharStatus(pc);
-		pc.sendPackets(s_owncharstatus);
-
-		S_MapID s_mapid = new S_MapID(pc.getMapId(), pc.getMap().isUnderwater());
-		pc.sendPackets(s_mapid);
-
-		S_OwnCharPack s_owncharpack = new S_OwnCharPack(pc);
-		pc.sendPackets(s_owncharpack);
-
+		
+		pc.sendPackets(new S_OwnCharStatus(pc));
+		pc.sendPackets(new S_MapID(pc.getMapId(), pc.getMap().isUnderwater()));
+		pc.sendPackets(new S_OwnCharPack(pc));
 		pc.sendPackets(new S_SPMR(pc));
-
+		
 		S_CharTitle s_charTitle = new S_CharTitle(pc.getId(), pc.getTitle());
 		pc.sendPackets(s_charTitle);
 		pc.broadcastPacket(s_charTitle);
-
+		
 		pc.sendVisualEffectAtLogin();
-
+		
 		pc.sendPackets(new S_Weather(L1World.getInstance().getWeather()));
-
+		
 		items(pc);
 		skills(pc);
 		buff(client, pc);
+		buffBlessOfAin(pc);
+		
 		pc.turnOnOffLight();
+		
+		pc.sendPackets(new S_Karma(pc)); 
+		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_PLUS, pc.getDodge()));
+		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_MINUS, pc.getNdodge()));
+		
+		/*pc.sendPackets(new S_Mail(pc.getName() , 0));
+		pc.sendPackets(new S_Mail(pc.getName() , 1));
+		pc.sendPackets(new S_Mail(pc.getName() , 2));
+		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_CLOSE_SLOT, 3));
+		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_OPEN_SLOT, 1));*/
+
+		
+		
+		//TODO -- add pc.setEquipped(pc, true);
+		
+		
+		//TODO -- pc.setServivalScream();
+		
+		//TODO -- checkPledgeRecommendation
+		
 
 		if (pc.getCurrentHp() > 0) {
 			pc.setDead(false);
@@ -324,6 +335,10 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 		checkUnreadMail(pc);
 		updateIcons(pc);
+		
+		//TODO -- pc.startExpirationTimer();
+		//TODO -- pc.startMapLimiter();
+		pc.sendPackets(new S_PlayTime());
 
 		ExcludeTable exTable = ExcludeTable.getInstance();
 		L1ExcludingList exList = exTable.getExcludeList(pc.getId());
@@ -399,7 +414,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		CharacterTable.getInstance().restoreInventory(pc);
 		pc.sendPackets(new S_InvList(pc.getInventory().getItems()));
 	}
-
+	
 	private void bookmarks(L1PcInstance pc) {
 
 		Connection con = null;
@@ -419,7 +434,7 @@ public class C_LoginToServer extends ClientBasePacket {
 				bookmark.setLocX(rs.getInt("locx"));
 				bookmark.setLocY(rs.getInt("locy"));
 				bookmark.setMapId(rs.getShort("mapid"));
-				S_Bookmarks s_bookmarks = new S_Bookmarks(bookmark.getName(), bookmark.getMapId(), bookmark.getId());
+				S_Bookmarks s_bookmarks = new S_Bookmarks(bookmark.getName(), bookmark.getMapId(), bookmark.getId(), bookmark.getLocX(), bookmark.getLocY());
 				pc.addBookMark(bookmark);
 				pc.sendPackets(s_bookmarks);
 			}
@@ -431,6 +446,7 @@ public class C_LoginToServer extends ClientBasePacket {
 			SQLUtil.close(con);
 		}
 	}
+
 
 	private void skills(L1PcInstance pc) {
 		Connection con = null;
@@ -644,6 +660,29 @@ public class C_LoginToServer extends ClientBasePacket {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 		}
+	}
+	
+	private void buffBlessOfAin(L1PcInstance pc) {
+		if(pc.getBlessOfAin() >= 2000000){
+			pc.setBlessOfAin(2000000);
+			pc.sendPackets(new S_PacketBox(S_PacketBox.BLESS_OF_AIN, pc.getBlessOfAin()));
+			return;
+		}
+		
+		Timestamp logoutTime = pc.getLogoutTime();
+		if (logoutTime == null) {
+			logoutTime = new Timestamp(System.currentTimeMillis());
+		}
+		
+		int tmp = (int)((System.currentTimeMillis() - logoutTime.getTime()) / 900000);
+		int sum = pc.getBlessOfAin() + (tmp * 10000);
+		if(sum >= 2000000) {
+			pc.setBlessOfAin(2000000);
+		} else {
+			pc.setBlessOfAin(sum);
+		}
+		
+		pc.sendPackets(new S_PacketBox(S_PacketBox.BLESS_OF_AIN, pc.getBlessOfAin()));
 	}
 
 	@Override

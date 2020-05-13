@@ -23,35 +23,34 @@ public class Opcodes {
 	}
 
 	// 3.0 ClientPacket
-	public static final int C_OPCODE_BOOKMARK = 11; //updated
-	public static final int C_OPCODE_FIGHT = 47; //updated
-	public static final int C_OPCODE_KEEPALIVE = 182; //updated
-	public static final int C_OPCODE_ATTACK = 68; //updated
-	public static final int C_OPCODE_CHANGEHEADING = 65; //updated
-	public static final int C_OPCODE_PICKUPITEM = 188; //
-	public static final int C_OPCODE_SHOP = 16; //
-	public static final int C_OPCODE_DELBUDDY = 211; //
-	public static final int C_OPCODE_LEAVEPARTY = 204; //
-	public static final int C_OPCODE_CHARACTERCONFIG = 129; //
-	public static final int C_OPCODE_MOVECHAR = 95; //
-	public static final int C_OPCODE_CHANGECHAR = 237; //
-	public static final int C_OPCODE_PRIVATESHOPLIST = 193; //
-	public static final int C_OPCODE_CHAT = 190; //
-	public static final int C_OPCODE_BOARDREAD = 59; //
-	public static final int C_OPCODE_TRADEADDITEM = 241; //
-	public static final int C_OPCODE_PROPOSE = 185;//
-	public static final int C_OPCODE_HIRESOLDIER = 97;//
-	public static final int C_OPCODE_BOARD = 73; //
-	public static final int C_OPCODE_LOGINTOSERVEROK = 75; //
-	public static final int C_OPCODE_ENTERPORTAL = 249; //
+	public static final int C_OPCODE_BOOKMARK = 134;
+	public static final int C_OPCODE_FIGHT = 47;
+	public static final int C_OPCODE_KEEPALIVE = 182;
+	public static final int C_OPCODE_ATTACK = 68;
+	public static final int C_OPCODE_CHANGEHEADING = 65;
+	public static final int C_OPCODE_PICKUPITEM = 188;
+	public static final int C_OPCODE_SHOP = 16;
+	public static final int C_OPCODE_DELBUDDY = 211;
+	public static final int C_OPCODE_LEAVEPARTY = 204;
+	public static final int C_OPCODE_CHARACTERCONFIG = 129;
+	public static final int C_OPCODE_MOVECHAR = 95;
+	public static final int C_OPCODE_CHANGECHAR = 237;
+	public static final int C_OPCODE_PRIVATESHOPLIST = 193;
+	public static final int C_OPCODE_CHAT = 190;
+	public static final int C_OPCODE_BOARDREAD = 59;
+	public static final int C_OPCODE_TRADEADDITEM = 241;
+	public static final int C_OPCODE_PROPOSE = 185;
+	public static final int C_OPCODE_HIRESOLDIER = 97;
+	public static final int C_OPCODE_BOARD = 73;
+	public static final int C_OPCODE_LOGINTOSERVEROK = 75;
+	public static final int C_OPCODE_ENTERPORTAL = 249;
 	public static final int C_OPCODE_LEAVECLANE = 121; //TODO -- fix typo
 	public static final int C_OPCODE_CALL = 144;
 	public static final int C_OPCODE_TRADE = 103;
 	public static final int C_OPCODE_SKILLBUYOK = 207;
-	public static final int C_OPCODE_DELEXCLUDE = 32; // hmm???
+	public static final int C_OPCODE_DELEXCLUDE = 33; //TODO -- missing
 	public static final int C_OPCODE_SHIP = 117;
 	public static final int C_OPCODE_CLIENTVERSION = 127;
-	public static final int C_OPCODE_KEEPALIVE2 = 35; // not there anymore?
 	public static final int C_OPCODE_EXTCOMMAND = 157;
 	public static final int C_OPCODE_TRADEADDCANCEL = 167;
 	public static final int C_OPCODE_DRAWAL = 192;
@@ -116,8 +115,8 @@ public class Opcodes {
 	public static final int C_OPCODE_CAHTPARTY = 113; //todo -- fix typo
 
 	
-	public static final int S_OPCODE_REMOVE_OBJECT = 124;
-	public static final int S_OPCODE_CHARPACK = 55; // todo -- is this correct?
+	public static final int S_OPCODE_REMOVE_OBJECT = 185;
+	public static final int S_OPCODE_CHARPACK = 3;
 	public static final int S_OPCODE_DROPITEM = 3;
 	public static final int S_OPCODE_POLY = 164;
 	public static final int S_OPCODE_SYSMSG = 10;
@@ -139,7 +138,7 @@ public class Opcodes {
 	public static final int S_OPCODE_TRADEADDITEM = 86;
 	public static final int S_OPCODE_INVIS = 57;
 	public static final int S_OPCODE_SHOWRETRIEVELIST = 250;
-	public static final int S_OPCODE_ITEMAMOUNT = 127; //TODO -- why same opcode?
+	public static final int S_OPCODE_ITEMAMOUNT = 127;
 	public static final int S_OPCODE_ITEMSTATUS = 127;
 	public static final int S_OPCODE_WARTIME = 150;
 	public static final int S_OPCODE_CHARRESET = 33;
@@ -187,7 +186,7 @@ public class Opcodes {
 	public static final int S_OPCODE_HOUSELIST = 24;
 	public static final int S_OPCODE_MAPID = 150;
 	public static final int S_OPCODE_UNDERWATER = 42;
-	public static final int S_OPCODE_DELETEINVENTORYITEM = 75;
+	public static final int S_OPCODE_DELETEINVENTORYITEM = 148;
 	public static final int S_OPCODE_CHARAMOUNT = 126;
 	public static final int S_OPCODE_PARALYSIS = 165;
 	public static final int S_OPCODE_ATTRIBUTE = 35;
@@ -196,7 +195,7 @@ public class Opcodes {
 	public static final int S_OPCODE_TELEPORTLOCK = 135;
 	public static final int S_OPCODE_ABILITY = 116;
 	public static final int S_OPCODE_PINKNAME = 252;
-	public static final int S_OPCODE_SERVERVERSION = 151; // updated
+	public static final int S_OPCODE_SERVERVERSION = 151;
 	public static final int S_OPCODE_BOARDREAD = 56;
 	public static final int S_OPCODE_MPUPDATE = 73;
 	public static final int S_OPCODE_BOARD = 64;
@@ -226,7 +225,8 @@ public class Opcodes {
 	public static final int S_OPCODE_TRADESTATUS = 239;
 	public static final int S_OPCODE_INPUTAMOUNT = 253;
 	public static final int S_OPCODE_LIGHT = 53;
-	public static final int S_OPCODE_MOVEOBJECT = 126;
-	public static final int S_OPCODE_MAIL = 122;
-	public static final int S_OPCODE_INITPACKET = 161; // updated
+	public static final int S_OPCODE_MOVEOBJECT = 122;
+	public static final int S_OPCODE_MAIL = 1;
+	public static final int S_OPCODE_INITPACKET = 161;
+	public static final int S_OPCODE_LOGINTOGAME = 131;
 }

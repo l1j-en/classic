@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -20,34 +19,20 @@ package l1j.server.server.serverpackets;
 
 import l1j.server.server.encryptions.Opcodes;
 
-public class S_Bookmarks extends ServerBasePacket {
-	private static final String _S__1F_S_Bookmarks = "[S] S_Bookmarks";
-	private byte[] _byte = null;
-
-	public S_Bookmarks(String name, int map, int id, int x, int y) {
-		buildPacket(name, map, id, x, y);
-	}
-
-	private void buildPacket(String name, int map, int id, int x, int y) {
-		writeC(Opcodes.S_OPCODE_BOOKMARKS);
-		writeS(name);
-		writeH(map);
-		writeD(id);
-		writeH(x);
-		writeH(y);
+public class S_LoginGame extends ServerBasePacket {
+	public S_LoginGame() {
+		writeC(Opcodes.S_OPCODE_LOGINTOGAME);
+		writeC(0x03);
+		writeC(0x15);
+		writeC(0x8b);
+		writeC(0x7b);
+		writeC(0x94);
+		writeC(0xf0);
+		writeC(0x2f);
 	}
 
 	@Override
 	public byte[] getContent() {
-		if (_byte == null) {
-			_byte = getBytes();
-		}
-
-		return _byte;
-	}
-
-	@Override
-	public String getType() {
-		return _S__1F_S_Bookmarks;
+		return getBytes();
 	}
 }

@@ -19,7 +19,6 @@
 package l1j.server.server.serverpackets;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import l1j.server.server.datatables.MailTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -47,17 +46,14 @@ public class S_Mail extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_MAIL);
 		writeC(type);
 		writeH(mails.size());
+		
 		for (int i = 0; i < mails.size(); i++) {
 			L1Mail mail = mails.get(i);
 			writeD(mail.getId());
 			writeC(mail.getReadStatus());
-			StringTokenizer st = new StringTokenizer(mail.getDate(), "/"); // yy/mm/dd
-			int size = st.countTokens();
-			for (int j = 0; j < size; j++) {
-				// XXX writeC(Year) writeC(Month) writeC(Day)
-				writeC(Integer.parseInt(st.nextToken()));
-			}
-			writeS(mail.getSenderName());
+			
+			writeC(mail.getSenderName().equalsIgnoreCase(receiverName) ? 1 : 0);
+			writeS(mail.getSenderName().equalsIgnoreCase(receiverName) ? mail.getReceiverName() : mail.getSenderName());
 			writeByte(mail.getSubject());
 		}
 	}

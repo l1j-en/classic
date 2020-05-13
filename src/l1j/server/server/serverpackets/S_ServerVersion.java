@@ -22,6 +22,12 @@ import l1j.server.server.encryptions.Opcodes;
 
 public class S_ServerVersion extends ServerBasePacket {
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
+	private static final int SERVER_VERSION = 120913203;
+	private static final int CACHE_VERSION = 120913200;
+	private static final int AUTH_VERSION = 2010083002;
+	private static final int NPC_VERSION = 120913201;
+	private static final int SERVER_TYPE = 490882;
+	private static final int UPTIME = 1327204035; //TODO -- set uptime
 
 	public S_ServerVersion() {
 		writeC(Opcodes.S_OPCODE_SERVERVERSION);
@@ -34,27 +40,26 @@ public class S_ServerVersion extends ServerBasePacket {
 		// your server id, first id = 2
 		// id = 0, ????
 		// id = 1, ????
-		writeC(0x02);
+		writeC(0x01);
 		// all version
 		// If the user level is a administrator,
 		// inputs /ver to be able to print out all version in game
 		// If the user level isn't a administrator
 		// inputs /ver to be able to print out client version in game
-		// writeD(0x00009D7C); // server verion // 2.70C
-		// writeD(0x0000791A); // cache verion // 2.70C
-		// writeD(0x0000791A); // auth verion // 2.70C
-		// writeD(0x00009DD1); // npc verion // 2.70C
-		writeD(0x000160c9); // server verion
-		writeD(0x0001606a); // cache verion
-		writeD(0x0000ee01); // auth verion
-		writeD(0x00013cdb); // npc verion
-		// writeD(0x882a2cc6); // 2.70C
-		writeD(0x49c466ec);
+		writeD(SERVER_VERSION);
+		writeD(CACHE_VERSION);
+		writeD(AUTH_VERSION);
+		writeD(NPC_VERSION);
+
+		writeD(0x00);
 		writeC(0x00); // unknown
 		writeC(0x00); // unknown
 		// Country
 		// 0.US 3.Taiwan 4.Janpan 5.China
 		writeC(0x00);
+		writeD(SERVER_TYPE);
+		writeD(UPTIME);
+		writeH(0x01);
 	}
 
 	@Override

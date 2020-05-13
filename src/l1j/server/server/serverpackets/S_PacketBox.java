@@ -150,6 +150,10 @@ public class S_PacketBox extends ServerBasePacket {
 
 	// Fishing
 	public static final int FISHING = 55;
+	
+	public static final int BLESS_OF_AIN = 82;
+	public static final int DODGE_RATE_PLUS = 88;
+	public static final int DODGE_RATE_MINUS = 101;
 
 	public S_PacketBox(int subCode) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
@@ -214,6 +218,17 @@ public class S_PacketBox extends ServerBasePacket {
 			writeC(0x00);
 			writeC(0x00);
 			writeC(value); // Uncanny Dodge, Mirror Image
+			break;
+		case BLESS_OF_AIN:
+			value /= 10000;
+			writeD(value);
+			break;
+		case DODGE_RATE_PLUS:
+			writeC(value);
+			writeC(0x00);
+			break;
+		case DODGE_RATE_MINUS:
+			writeC(value);
 			break;
 		default:
 			break;

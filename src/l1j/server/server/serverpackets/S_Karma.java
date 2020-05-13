@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -21,37 +20,22 @@ package l1j.server.server.serverpackets;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.model.Instance.L1PcInstance;
 
-public class S_AttackPacket extends ServerBasePacket {
-	private static final String S_ATTACK_PACKET = "[S] S_AttackPacket";
-	private byte[] _byte = null;
+public class S_Karma extends ServerBasePacket {
+	private static final String S_KARMA = "[S] S_Karma";
 
-	public S_AttackPacket(L1PcInstance pc, int objid, int type) {
-		buildpacket(pc, objid, type);
-	}
-
-	private void buildpacket(L1PcInstance pc, int objid, int type) {
-		writeC(Opcodes.S_OPCODE_ATTACKPACKET);
-		writeC(type);
-		writeD(pc.getId());
-		writeD(objid);
-		writeH(0x01); // damage
-		writeC(pc.getHeading());
-		writeH(0x0000); // target x
-		writeH(0x0000); // target y
-		writeC(0x00); // 0x00:none 0x04:Claw 0x08:CounterMirror
+	public S_Karma(L1PcInstance pc) {
+		writeC(Opcodes.S_OPCODE_PACKETBOX);
+		writeC(0x57);
+		writeD(pc.getKarma());
 	}
 
 	@Override
 	public byte[] getContent() {
-		if (_byte == null) {
-			_byte = getBytes();
-		}
-
-		return _byte;
+		return getBytes();
 	}
 
 	@Override
 	public String getType() {
-		return S_ATTACK_PACKET;
+		return S_KARMA;
 	}
 }

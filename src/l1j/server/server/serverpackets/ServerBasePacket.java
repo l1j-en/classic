@@ -81,6 +81,16 @@ public abstract class ServerBasePacket {
 
 		_bao.write(0);
 	}
+	
+	protected void writeBytes(byte[] text) {
+		try {
+			if (text != null) {
+				_bao.write(text);
+			}
+		} catch (Exception e) {
+			_log.error(e.getLocalizedMessage(), e);
+		}
+	}
 
 	protected void writeByte(byte[] text) {
 		try {

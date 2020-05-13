@@ -3588,4 +3588,36 @@ public class L1PcInstance extends L1Character {
 	private void setReserveGhost(boolean flag) {
 		_isReserveGhost = flag;
 	}
+	
+	private int _blessOfAin;
+
+	public void setBlessOfAin(int i) {
+		_blessOfAin = i;
+	}
+
+	public void calcBlessOfAin(int i) {
+		int calc = _blessOfAin + i;
+		if (calc >= 2000000) {
+			calc = 2000000;
+		}
+		_blessOfAin = calc;
+	}
+
+	public int getBlessOfAin() {
+		return _blessOfAin;
+	}
+	
+	private Timestamp _logoutTime;
+
+	public void setLogoutTime(Timestamp time) {
+		_logoutTime = time;
+	}
+
+	public void setLogoutTime() {
+		_logoutTime = new Timestamp(System.currentTimeMillis());
+	}
+
+	public Timestamp getLogoutTime() {
+		return _logoutTime;
+	}
 }

@@ -36,10 +36,23 @@ public class S_InvList extends ServerBasePacket {
 		writeC(items.size()); // The number of items
 		for (L1ItemInstance item : items) {
 			writeD(item.getId());
-			writeC(item.getItem().getUseType());
-			writeC(0);
+			
+			writeH(0); //TODO -- item.getItem().getMagicCatalystType());
+			
+			int type = item.getItem().getUseType();
+			if (type < 0){
+				type = 0;
+			}
+			writeC(type);
+			
+			int count = item.getChargeCount();
+			if (count < 0) {
+				count = 0;
+			}
+			writeC(item.getChargeCount() < 0 ? 0 : count);
+			
 			writeH(item.get_gfxid());
-			writeC(item.getBless());
+			writeC(item.getStatusForPacket());
 			writeD(item.getCount());
 			writeC((item.isIdentified()) ? 1 : 0);
 			writeS(item.getViewName());
@@ -53,6 +66,11 @@ public class S_InvList extends ServerBasePacket {
 					writeC(b);
 				}
 			}
+			
+			writeC(10);
+			writeD(0);
+			writeD(0);
+			writeH(0);
 		}
 	}
 

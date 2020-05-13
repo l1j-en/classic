@@ -34,7 +34,7 @@ public class S_AttackPacketForNpc extends ServerBasePacket {
 		writeC(type);
 		writeD(npcObjectId);
 		writeD(cha.getId());
-		writeC(0x01); // damage
+		writeH(0x01); // damage
 		writeC(cha.getHeading());
 		writeH(0x0000); // target x
 		writeH(0x0000); // target y

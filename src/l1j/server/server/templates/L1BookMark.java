@@ -112,7 +112,7 @@ public class L1BookMark {
 			}
 			pc.addBookMark(bookmark);
 			pc.sendPackets(new S_Bookmarks(s, bookmark.getMapId(), bookmark
-					.getId()));
+					.getId(), bookmark.getLocX(), bookmark.getLocY()));
 		} else {
 			pc.sendPackets(new S_ServerMessage(327)); // The same name already
 														// exists.

@@ -31,8 +31,21 @@ public class S_AddItem extends ServerBasePacket {
 	public S_AddItem(L1ItemInstance item) {
 		writeC(Opcodes.S_OPCODE_ADDITEM);
 		writeD(item.getId());
-		writeC(item.getItem().getUseType());
-		writeC(0);
+		
+		writeH(0);//TODO -- item.getItem().getMagicCatalystType());
+		
+		int type = item.getItem().getUseType();
+		if (type < 0) {
+			type = 0;
+		}
+		writeC(type);
+		
+		int count = item.getChargeCount();
+		if (count < 0) {
+			count = 0;
+		}
+		writeC(count);
+		
 		writeH(item.get_gfxid());
 		writeC(item.getBless());
 		writeD(item.getCount());
@@ -48,6 +61,11 @@ public class S_AddItem extends ServerBasePacket {
 				writeC(b);
 			}
 		}
+		
+		writeC(10);
+		writeD(0);
+		writeD(0);
+		writeH(0);
 	}
 
 	@Override

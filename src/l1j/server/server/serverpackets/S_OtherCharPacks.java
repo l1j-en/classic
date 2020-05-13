@@ -113,7 +113,7 @@ public class S_OtherCharPacks extends ServerBasePacket {
 		writeS(null);
 		writeC(0);
 		writeC(0xFF);
-		writeC(0); //
+		writeC(0); //TODO -- 0x08 for third speed?
 		writeC(0); // PC = 0, Mon = Lv
 		writeC(0); //
 		writeC(0xFF);

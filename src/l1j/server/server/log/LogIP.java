@@ -40,7 +40,7 @@ public class LogIP {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogIP (LoginTime, Ip, Account, CharName, LogoutTime)"
+					.prepareStatement("INSERT INTO logip (LoginTime, Ip, Account, CharName, LogoutTime)"
 							+ " VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
@@ -66,7 +66,7 @@ public class LogIP {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE LogIP set logouttime=? where logouttime='null' and charname=?;");
+					.prepareStatement("UPDATE logip set logouttime=? where logouttime='null' and charname=?;");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");

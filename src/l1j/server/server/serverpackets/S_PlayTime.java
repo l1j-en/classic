@@ -20,20 +20,27 @@ package l1j.server.server.serverpackets;
 
 import l1j.server.server.encryptions.Opcodes;
 
-public class S_Unknown1 extends ServerBasePacket {
-	public S_Unknown1() {
-		writeC(Opcodes.S_OPCODE_UNKNOWN1);
-		writeC(0x03);
-		writeC(0x00);
-		writeC(0xF7);
-		writeC(0xAD);
-		writeC(0x74);
-		writeC(0x00);
-		writeC(0xE5);
+public class S_PlayTime extends ServerBasePacket {
+	private static final String S_PLAY_TIME = "[S] S_PlayTime";
+
+	private byte[] _byte = null;
+	
+	public S_PlayTime() {
+		writeC(Opcodes.S_OPCODE_ACTIVESPELLS);
+		writeC(0x3d);
+		writeC(0);
+	}
+	
+	@Override
+	public byte[] getContent() {
+		if (_byte == null) {
+			_byte = getBytes();
+		}
+		return _byte;
 	}
 
 	@Override
-	public byte[] getContent() {
-		return getBytes();
+	public String getType() {
+		return S_PLAY_TIME;
 	}
 }

@@ -26,7 +26,6 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_ATTR;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BANCLAN;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BANPARTY;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARD;
-import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARDBACK;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARDDELETE;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARDREAD;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARDWRITE;
@@ -121,7 +120,6 @@ import l1j.server.server.clientpackets.C_AuthLogin;
 import l1j.server.server.clientpackets.C_BanClan;
 import l1j.server.server.clientpackets.C_BanParty;
 import l1j.server.server.clientpackets.C_Board;
-import l1j.server.server.clientpackets.C_BoardBack;
 import l1j.server.server.clientpackets.C_BoardDelete;
 import l1j.server.server.clientpackets.C_BoardRead;
 import l1j.server.server.clientpackets.C_BoardWrite;
@@ -286,9 +284,10 @@ public class PacketHandler {
 		case C_OPCODE_SKILLBUY:
 			new C_SkillBuy(abyte0, _client);
 			break;
-		case C_OPCODE_BOARDBACK:
+		//TODO -- add this back
+		/*case C_OPCODE_BOARDBACK:
 			new C_BoardBack(abyte0, _client);
-			break;
+			break;*/
 		case C_OPCODE_SHOP:
 			new C_Shop(abyte0, _client);
 			break;

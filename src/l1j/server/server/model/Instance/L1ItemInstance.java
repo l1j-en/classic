@@ -1164,5 +1164,26 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 	public int compareTo(L1ItemInstance other) {
 		return _item.getName().compareTo(other.getItem().getName());
 	}
+	
+	public int getStatusForPacket() {
+		// 0: Blessed
+		// 1: Normal 
+		// 2: Cursed 
+		// 3: Unidentified
+		// 128: Blessed & Sealed 
+		// 129: & Sealing 
+		// 130: Cursed & Sealed
+		//131: Unidentified & Sealed
+		
+		int status = getBless();
 
+		if (!isIdentified()) {
+			status = 3;
+		}
+		if (false) { // --TODO -- fixisSealed()) {
+			status += 128;
+		}
+		
+		return status;
+	}
 }

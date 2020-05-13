@@ -45,11 +45,16 @@ public class S_AddSkill extends ServerBasePacket {
 		} else {
 			writeC(32);
 		}
+		
 		for (int i : ids) {
 			writeC(i);
 		}
-		writeD(0);
-		writeD(0);
+		
+		writeC(0);
+		writeC(0);
+		writeC(0);
+		writeC(0);
+		writeC(0);
 	}
 
 	public S_AddSkill(int level1, int level2, int level3, int level4,

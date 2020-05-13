@@ -1178,4 +1178,36 @@ public class L1Character extends L1Object {
 	public void setLastWarp(long lastWarp) {
 		this.lastWarp = lastWarp;
 	}
+	
+	// positive dodge
+	private byte _dodge = 0;
+
+	public byte getDodge() {
+		return _dodge;
+	}
+
+	public void addDodge(byte i) {
+		_dodge += i;
+		if (_dodge >= 10) {
+			_dodge = 10;
+		} else if (_dodge <= 0){
+			_dodge = 0;
+		}
+	}
+
+	// negative dodge
+	private byte _nDodge = 0;
+
+	public byte getNdodge() {
+		return _nDodge;
+	}
+
+	public void addNdodge(byte i) {
+		_nDodge += i;
+		if (_nDodge >= 10) {
+			_nDodge = 10;
+		} else if (_nDodge <= 0){
+			_nDodge = 0;
+		}
+	}
 }

@@ -19,39 +19,31 @@
 package l1j.server.server.serverpackets;
 
 import l1j.server.server.encryptions.Opcodes;
-import l1j.server.server.model.Instance.L1PcInstance;
 
-public class S_AttackPacket extends ServerBasePacket {
-	private static final String S_ATTACK_PACKET = "[S] S_AttackPacket";
-	private byte[] _byte = null;
-
-	public S_AttackPacket(L1PcInstance pc, int objid, int type) {
-		buildpacket(pc, objid, type);
+public class S_RuneSlot extends ServerBasePacket{
+	private static final String S_RUNESLOT = "[S] S_RuneSlot";
+	
+	public static int RUNE_CLOSE_SLOT = 1;
+	public static int RUNE_OPEN_SLOT = 2;
+	
+	public S_RuneSlot(int type, int slotNum){
+		writeC(Opcodes.S_OPCODE_CHARRESET);
+		writeC(0x43);
+		writeD(type);
+		writeD(slotNum);
+		writeD(0);
+		writeD(0);
+		writeD(0);
+		writeH(0);
 	}
-
-	private void buildpacket(L1PcInstance pc, int objid, int type) {
-		writeC(Opcodes.S_OPCODE_ATTACKPACKET);
-		writeC(type);
-		writeD(pc.getId());
-		writeD(objid);
-		writeH(0x01); // damage
-		writeC(pc.getHeading());
-		writeH(0x0000); // target x
-		writeH(0x0000); // target y
-		writeC(0x00); // 0x00:none 0x04:Claw 0x08:CounterMirror
-	}
-
+	
 	@Override
 	public byte[] getContent() {
-		if (_byte == null) {
-			_byte = getBytes();
-		}
-
-		return _byte;
+		return getBytes();
 	}
 
 	@Override
 	public String getType() {
-		return S_ATTACK_PACKET;
+		return S_RUNESLOT;
 	}
 }

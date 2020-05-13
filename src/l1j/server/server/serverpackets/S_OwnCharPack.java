@@ -90,15 +90,18 @@ public class S_OwnCharPack extends ServerBasePacket {
 		writeD(pc.getClanid());
 		writeS(pc.getClanname());
 		writeS(null);
-		writeC(0);
+		
+		writeC(pc.getClanRank() > 0 ? pc.getClanRank() << 4 : 0xb0);
+		
 		if (pc.isInParty()) {
 			writeC(100 * pc.getCurrentHp() / pc.getMaxHp());
 		} else {
 			writeC(0xFF);
 		}
-		writeC(0);
-		writeC(0);
-		writeC(0);
+		
+		writeC(0); //TODO -- 0x08 if third speed?
+		writeC(0); // under water wave blur degree? google translate sucks
+		writeC(0); // object level?
 		writeC(0xFF);
 		writeC(0xFF);
 	}
