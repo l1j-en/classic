@@ -1210,7 +1210,7 @@ public class L1NpcInstance extends L1Character {
 			}
 			allTargetClear();
 			stopHpRegeneration();
-			stopHpRegeneration();
+			stopMpRegeneration();
 			_master = null;
 			L1World.getInstance().removeVisibleObject(this);
 			L1World.getInstance().removeObject(this);
