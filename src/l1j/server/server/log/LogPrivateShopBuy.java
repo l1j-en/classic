@@ -49,7 +49,7 @@ public class LogPrivateShopBuy {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogPrivateShopBuy (Time, Ip, Account, CharId, CharName, TargetIp, TargetAccount, TargetCharId, " + 
+					.prepareStatement("INSERT INTO logprivateshopbuy (Time, Ip, Account, CharId, CharName, TargetIp, TargetAccount, TargetCharId, " + 
 							"TargetCharName, ObjectId, ItemName, EnchantLevel, ItemCount, ItemBefore, BuyCount, Transaction_Id) " + 
 							"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", 
 							Statement.RETURN_GENERATED_KEYS);

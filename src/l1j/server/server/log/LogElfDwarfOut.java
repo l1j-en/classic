@@ -45,7 +45,7 @@ public class LogElfDwarfOut {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogElfWareHouseOut VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+					.prepareStatement("INSERT INTO logelfwarehouseout VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			Date time = new Date();
 			String fm = FORMATTER.format(time.getTime());
 			pstm.setString(1, fm);

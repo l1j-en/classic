@@ -40,7 +40,7 @@ public class LogSpeedHack {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogSpeedHack VALUES (?, ?, ?, ?, ?);");
+					.prepareStatement("INSERT INTO logspeedhack VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");

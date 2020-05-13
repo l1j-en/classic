@@ -40,7 +40,7 @@ public class LogDeleteChar {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogDeleteChar VALUES (?, ?, ?, ?, ?);");
+					.prepareStatement("INSERT INTO logdeletechar VALUES (?, ?, ?, ?, ?);");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");

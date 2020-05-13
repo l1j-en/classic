@@ -26,7 +26,7 @@ public class LogGiveItem {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO LogGiveItem VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+					.prepareStatement("INSERT INTO loggiveitem VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 			Date time = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");
