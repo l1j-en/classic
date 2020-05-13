@@ -27,7 +27,7 @@ public class S_CharPacks extends ServerBasePacket {
 
 	public S_CharPacks(String name, String clanName, int type, int sex,
 			int lawful, int hp, int mp, int ac, int lv, int str, int dex,
-			int con, int wis, int cha, int intel, int accessLevel) {
+			int con, int wis, int cha, int intel, int accessLevel, int birthday) {
 		writeC(Opcodes.S_OPCODE_CHARLIST);
 		writeS(name);
 		writeS(clanName);
@@ -45,8 +45,7 @@ public class S_CharPacks extends ServerBasePacket {
 		writeC(cha);
 		writeC(intel);
 		writeC(0);
-		
-		writeD(0); //TODO -- birthday);
+		writeD(birthday);
 		
 		int code = lv ^ str ^ dex ^ con ^ wis ^ cha ^ intel;
 		writeC(code & 0xFF);

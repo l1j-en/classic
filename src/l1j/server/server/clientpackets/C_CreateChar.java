@@ -173,6 +173,7 @@ public class C_CreateChar extends ClientBasePacket {
 			throws IOException, Exception {
 		pc.setId(IdFactory.getInstance().nextId());
 
+		pc.setBirthday();
 		pc.setX(LOCX_LIST[pc.getType()]);
 		pc.setY(LOCY_LIST[pc.getType()]);
 		pc.setMap(MAPID_LIST[pc.getType()]);
@@ -215,6 +216,7 @@ public class C_CreateChar extends ClientBasePacket {
 		pc.setOriginalDex(pc.getDex());
 		pc.setOriginalCon(pc.getCon());
 		pc.setOriginalCha(pc.getCha());
+		pc.setBlessOfAin(0);
 		
 		if (pc.isWizard()) { // WIZ
 			pc.sendPackets(new S_AddSkill(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

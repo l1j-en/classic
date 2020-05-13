@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.slf4j.Logger;
@@ -139,9 +140,13 @@ public class C_CommonClick {
 				int cha = rs.getByte("Cha");
 				int intel = rs.getByte("Intel");
 				int accessLevel = rs.getShort("AccessLevel");
+				Timestamp _birthday = (Timestamp) rs.getTimestamp("birthday");
+				SimpleDateFormat SimpleDate = new SimpleDateFormat("yyyyMMdd");
+				int birthday = Integer.parseInt(SimpleDate.format(_birthday.getTime()));
+				
 				S_CharPacks cpk = new S_CharPacks(name, clanname, type, sex,
 						lawful, currenthp, currentmp, ac, lvl, str, dex, con,
-						wis, cha, intel, accessLevel);
+						wis, cha, intel, accessLevel, birthday);
 				client.sendPacket(cpk);
 			}
 		} catch (Exception e) {

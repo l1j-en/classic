@@ -84,3 +84,5 @@ INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES
 (92002,'Skeleton Axeman',40308,'Adena',37,72,1000000),
 (92002,'Skeleton Axeman',40407,'Bone Piece',1,1,50000),
 (92002,'Skeleton Archer',40313,'Pale silver key',1,1,75000);
+
+ALTER TABLE `characters` ADD `birthday` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
