@@ -67,7 +67,7 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_GIVEITEM;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_HIRESOLDIER;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_JOINCLAN;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_KEEPALIVE;
-import static l1j.server.server.encryptions.Opcodes.C_OPCODE_LEAVECLANE;
+import static l1j.server.server.encryptions.Opcodes.C_OPCODE_LEAVECLAN;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_LEAVEPARTY;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_LOGINPACKET;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_LOGINTOSERVER;
@@ -403,7 +403,7 @@ public class PacketHandler {
 		case C_OPCODE_RESTART:
 			new C_Restart(abyte0, _client);
 			break;
-		case C_OPCODE_LEAVECLANE:
+		case C_OPCODE_LEAVECLAN:
 			new C_LeaveClan(abyte0, _client);
 			break;
 		case C_OPCODE_NPCTALK:

@@ -44,7 +44,7 @@ public class Opcodes {
 	public static final int C_OPCODE_BOARD = 73;
 	public static final int C_OPCODE_LOGINTOSERVEROK = 75;
 	public static final int C_OPCODE_ENTERPORTAL = 249;
-	public static final int C_OPCODE_LEAVECLANE = 121; //TODO -- fix typo
+	public static final int C_OPCODE_LEAVECLAN = 121;
 	public static final int C_OPCODE_CALL = 144;
 	public static final int C_OPCODE_TRADE = 103;
 	public static final int C_OPCODE_SKILLBUYOK = 207;
