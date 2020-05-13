@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import l1j.server.server.GeneralThreadPool;
-import l1j.server.server.controllers.dungeon.GiranPrisonController;
 import l1j.server.server.datatables.NPCTalkDataTable;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1NpcTalkData;
@@ -563,9 +562,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 							true);
 					TeleportDelyTimer timer = new TeleportDelyTimer();
 					GeneralThreadPool.getInstance().execute(timer);
-				} else if(action.equalsIgnoreCase("teleport giranD") || action.equalsIgnoreCase("teleport giranc-girandun")) {
-					GiranPrisonController.getInstance().enter(player);
-				}
+				} 
 			} catch (Exception e) {
 			}
 		}
@@ -592,7 +589,7 @@ public class L1TeleporterInstance extends L1NpcInstance {
 	}
 
 	private boolean _isNowDely = false;
-	private static Logger _log = LoggerFactory			.getLogger(l1j.server.server.model.Instance.L1TeleporterInstance.class
+	private static Logger _log = LoggerFactory.getLogger(l1j.server.server.model.Instance.L1TeleporterInstance.class
 					.getName());
 
 }

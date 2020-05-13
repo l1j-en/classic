@@ -354,13 +354,11 @@ public class L1BossCycle {
 		PerformanceTimer timer = new PerformanceTimer();
 		_log.info("Loading Boss Cycle...");
 		try {
-			// BookOrder To generate the context of a binding class
-			JAXBContext context = JAXBContext
-					.newInstance(L1BossCycle.L1BossCycleList.class);
+			JAXBContext context = JAXBContext.newInstance(L1BossCycle.L1BossCycleList.class);
 
-			// XML -> POJO Conversion of the generating xml
+
 			Unmarshaller um = context.createUnmarshaller();
-			// XML -> POJO Conversion
+
 			File file = new File("./data/xml/Cycle/BossCycle.xml");
 			L1BossCycleList bossList = (L1BossCycleList) um.unmarshal(file);
 

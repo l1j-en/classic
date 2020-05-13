@@ -919,6 +919,9 @@
 	<Action Name="teleport giranc-girandun" NpcId="50035">
 		<Teleport X="32731" Y="32728" Map="55" Heading="5" Price="0"/>
 	</Action>
+	<Action Name="teleport giranD" NpcId="81287">
+		<Teleport X="32810" Y="32731" Map="53" Heading="6" Price="0"/>
+	</Action>
 	<Action Name="teleport giranc-dragonvalley" NpcId="50035">
 		<Teleport X="33432" Y="32546" Map="4" Heading="5" Price="0"/>
 	</Action>

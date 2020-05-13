@@ -148,12 +148,13 @@ public class C_CharReset extends ClientBasePacket {
 		L1PcInstance pc = client.getActiveChar();
 		
 		// quick check to see if they're on the map they get teleported to when candling
-		if(pc.getMapId() != 997) {
+		//TODO -- not sure this check is actually required, but it crashes on 3.63 because CharReset is used for more than just candling
+		/*if(pc.getMapId() != 997) {
 			emergencyCleanup(pc, 
 					String.format("%s attempted to candle on an incorrect map (may have sent the packet manually)! Mapid: %d", pc.getName(), pc.getMapId()),
 					"Error candling. Contact a GM.", client);
 			_log.warn(String.format("%s has sent a candle packet while on a non-candle map! MapId: %d", pc.getName(), pc.getMapId()));
-		}
+		}*/
 		
 		int stage = readC();
 

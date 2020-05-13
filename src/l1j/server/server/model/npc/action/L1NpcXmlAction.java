@@ -135,7 +135,7 @@ public abstract class L1NpcXmlAction implements L1NpcAction {
 	}
 
 	public boolean acceptsRequest(String actionName, L1PcInstance pc,
-			L1Object obj) {
+			L1Object obj) {		
 		if (!acceptsNpcId(obj)) {
 			return false;
 		}

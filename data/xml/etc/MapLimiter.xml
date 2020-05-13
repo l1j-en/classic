@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MapLimiterList>
+	<!-- Giran Prison 1F -->
+	<MapLimiter MapId="53" AreaId="53">
+		<Effect Time="10800" Delay="10" X="33429" Y="32774" BackMapId="4" />
+	</MapLimiter>
+	<!-- Giran Prison 2F -->
+	<MapLimiter MapId="54" AreaId="53">
+		<Effect Time="10800" Delay="10" X="33429" Y="32774" BackMapId="4" />
+	</MapLimiter>
+	<!-- Giran Prison 3F -->
+	<MapLimiter MapId="55" AreaId="53">
+		<Effect Time="10800" Delay="10" X="33429" Y="32774" BackMapId="4" />
+	</MapLimiter>
+	<!-- Giran Prison 4F -->
+	<MapLimiter MapId="56" AreaId="53">
+		<Effect Time="10800" Delay="10" X="33429" Y="32774" BackMapId="4" />
+	</MapLimiter>	
+</MapLimiterList>

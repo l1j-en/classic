@@ -56,6 +56,7 @@ public class NpcActionTable {
 		if (!doc.getDocumentElement().getNodeName().equalsIgnoreCase(nodeName)) {
 			return new ArrayList<L1NpcAction>();
 		}
+		
 		return L1NpcXmlParser.listActions(doc.getDocumentElement());
 	}
 
@@ -103,7 +104,7 @@ public class NpcActionTable {
 	}
 
 	public L1NpcAction get(String actionName, L1PcInstance pc, L1Object obj) {
-		for (L1NpcAction action : _actions) {
+		for (L1NpcAction action : _actions) {		
 			if (action.acceptsRequest(actionName, pc, obj)) {
 				return action;
 			}

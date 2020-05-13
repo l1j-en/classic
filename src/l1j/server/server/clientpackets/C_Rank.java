@@ -28,6 +28,7 @@ import l1j.server.server.model.L1Quest;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
 
@@ -41,14 +42,29 @@ public class C_Rank extends ClientBasePacket {
 	public C_Rank(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		
-		readC(); //not currently used
+		int data = readC();
 		int rank = readC();
 		String name = readS();
 
-		setRank(client.getActiveChar(), rank, name);
+		setRank(client.getActiveChar(), rank, data, name);
 	}
 	
-	public static void setRank(L1PcInstance royal, int rank, String player) throws Exception  {
+	public static void setRank(L1PcInstance pc, int rank, int data, String pledgeMember) throws Exception  {
+		switch(data) {
+		case 1:
+			pledgeRank(pc, rank, pledgeMember);
+			break;
+		case 9:
+			pc.sendPackets(new S_PacketBox(S_PacketBox.DISPLAY_MAP_TIME ,
+					pc.getEnterTime(53),   // Giran Prison
+					pc.getEnterTime(78),   // Ivory Tower
+					pc.getEnterTime(451),  // Lastabad
+					pc.getEnterTime(30))); // Dragon Valley
+			break;
+		}
+	}
+	
+	private static void pledgeRank(L1PcInstance royal, int rank, String player) throws Exception {
 		L1PcInstance targetPc = L1World.getInstance().getPlayer(player);
 
 		if (royal == null) {

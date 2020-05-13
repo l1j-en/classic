@@ -322,6 +322,31 @@ public class S_PacketBox extends ServerBasePacket {
 			break;
 		}
 	}
+	
+	// Display remaining time on map
+	public S_PacketBox(int subCode, int time1, int time2, int time3, int time4) {
+		writeC(Opcodes.S_OPCODE_PACKETBOX);
+		writeC(subCode);
+		switch (subCode) {
+		case DISPLAY_MAP_TIME :
+			writeD(4);
+			writeD(1);
+			writeS("$12125"); // Giran Prison
+			writeD(time1);
+			writeD(2);
+			writeS("$6081"); // Ivory Tower
+			writeD(time2);
+			writeD(3);
+			writeS("$12126"); // Lastabad
+			writeD(time3);
+			writeD(4);
+			writeS("$14250"); // Dragon Valley
+			writeD(time4);
+			break;
+		default:
+			break;
+		}
+	}
 
 	private void callSomething() {
 		Iterator<L1PcInstance> itr = L1World.getInstance().getAllPlayers()

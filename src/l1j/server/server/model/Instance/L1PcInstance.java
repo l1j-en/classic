@@ -37,8 +37,11 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +57,7 @@ import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
+import l1j.server.server.datatables.MapTimerTable;
 import l1j.server.server.datatables.NpcTable;
 import l1j.server.server.datatables.PetTable;
 import l1j.server.server.encryptions.Opcodes;
@@ -89,6 +93,7 @@ import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.classes.L1ClassFeature;
 import l1j.server.server.model.classes.L1ClassId;
 import l1j.server.server.model.gametime.L1GameTimeCarrier;
+import l1j.server.server.model.map.L1MapLimiter;
 import l1j.server.server.model.monitor.L1PcAutoUpdate;
 import l1j.server.server.model.monitor.L1PcExpMonitor;
 import l1j.server.server.model.monitor.L1PcGhostMonitor;
@@ -2172,6 +2177,62 @@ public class L1PcInstance extends L1Character {
 			attack.action();
 			attack.commit();
 		}
+	}
+	
+	private static ScheduledFuture<?> _mapLimiterFuture;
+	private static L1MapLimiter _mapLimiter = null;
+	public L1MapLimiter getMapLimiter() {
+		return _mapLimiter;
+	}
+
+	public void setMapLimiter(L1MapLimiter mapLimiter) {
+		_mapLimiter = mapLimiter;
+	}
+
+	public void startMapLimiter() {
+		if (getMapLimiter() != null) {
+			stopMapLimiter();
+		}
+
+		setMapLimiter(L1MapLimiter.get(getMapId()));
+		if (!isGm() && getMapLimiter() != null) {
+			getMapLimiter().execute(this);
+			ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
+			_mapLimiterFuture = schedule.scheduleAtFixedRate(getMapLimiter(), 0, 1000, TimeUnit.MILLISECONDS);
+		}
+	}
+
+	public void stopMapLimiter() {
+		if (getMapLimiter() != null) {
+			getMapLimiter().save();
+			setMapLimiter(null);
+			if (_mapLimiterFuture != null) {
+				_mapLimiterFuture.cancel(true);
+				_mapLimiterFuture = null;
+			}
+		}
+	}
+	
+	public int getEnterTime(int areaId) {
+		int time = 0;
+		L1MapLimiter limiter = getMapLimiter();
+		
+		if (limiter != null && limiter.getAreaId() == areaId) {
+			time = limiter.getEnterTime() / 60;
+		} else {
+			limiter = L1MapLimiter.get(areaId);
+			
+			if (limiter != null) {
+				MapTimerTable timer = MapTimerTable.find(getId(), limiter.getAreaId());
+				
+				if (timer != null) {
+					time = timer.getEnterTime() / 60;
+				} else {
+					time = limiter.getEffect().getTime() / 60;
+				}
+			}
+		}
+		return time;
 	}
 
 	public void onChangeExp() {

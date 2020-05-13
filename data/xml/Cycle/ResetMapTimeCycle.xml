@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResetCycleList>
+	<ResetCycle Time="08:00">
+		<!-- Giran Prison MapId="53,54,55,56" -->
+		<Area AreaId="53" />
+		<!-- Ivory Tower MapId="78,79,80,81,82" -->
+		<Area AreaId="78" />
+		<!-- Lastabad MapId="451..."-->
+		<Area AreaId="451" Week="2" />
+    <!-- Dragon valley MapId="30,31,32,33,35,36,37" -->
+    <Area AreaId="30" />
+	</ResetCycle>
+</ResetCycleList>

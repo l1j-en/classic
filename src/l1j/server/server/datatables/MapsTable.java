@@ -34,6 +34,7 @@ import l1j.server.server.utils.SQLUtil;
 
 public final class MapsTable {
 	private class MapData {
+		public String locationname = null;
 		public int startX = 0;
 		public int endX = 0;
 		public int startY = 0;
@@ -83,7 +84,7 @@ public final class MapsTable {
 			for (rs = pstm.executeQuery(); rs.next();) {
 				MapData data = new MapData();
 				int mapId = rs.getInt("mapid");
-				// rs.getString("locationname");
+				data.locationname = rs.getString("locationname");
 				data.startX = rs.getInt("startX");
 				data.endX = rs.getInt("endX");
 				data.startY = rs.getInt("startY");
@@ -132,6 +133,14 @@ public final class MapsTable {
 	 */
 	public Set<Integer> getMapIds() {
 		return _maps.keySet();
+	}
+	
+	public String locationname(int mapId) {
+		MapData map = _maps.get(mapId);
+		if (map == null) {
+			return null;
+		}
+		return _maps.get(mapId).locationname;
 	}
 
 	/**

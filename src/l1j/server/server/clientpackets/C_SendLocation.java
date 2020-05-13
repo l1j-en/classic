@@ -3,6 +3,7 @@ package l1j.server.server.clientpackets;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_SendLocation;
 
 public class C_SendLocation extends ClientBasePacket {
@@ -102,20 +103,19 @@ public class C_SendLocation extends ClientBasePacket {
 					}
 				}
 			}*/
-		} else if (type == 0x09){ // TODO -- Remaining time on map
-			/*L1PcInstance pc = client.getActiveChar();
-			pc.sendPackets(new S_PacketBox(S_PacketBox.DISPLAY_MAP_TIME ,
+		} else if (type == 0x09){
+			L1PcInstance pc = client.getActiveChar();
+			pc.sendPackets(new S_PacketBox(S_PacketBox.DISPLAY_MAP_TIME,
 					pc.getEnterTime(53),   // Giran Prison
 					pc.getEnterTime(78),   // Ivory Tower
 					pc.getEnterTime(451),  // Lastabad
-					pc.getEnterTime(30))); // Dragon Valley*/
+					pc.getEnterTime(30))); // Dragon Valley
 		} else if (type == 0x13) { // web center
 			// not yet
 		} else if (type == 0x2C) { // Reset monsters killed
 			L1PcInstance pc = client.getActiveChar();
 			pc.setMonsterKill(0);
 		}
-		// TODO 3.53C end
 	}
 
 	@Override

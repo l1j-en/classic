@@ -192,6 +192,8 @@ public class Teleportation {
 		
 		pc.setTeleport(false);
 		
+		pc.startMapLimiter();
+		
 		// wrapped in a try/catch just to make sure the GM command can't
 		// crap out the client packet
 		try{

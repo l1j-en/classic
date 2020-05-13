@@ -31,12 +31,11 @@ import l1j.server.server.controllers.HouseTaxTimeController;
 import l1j.server.server.controllers.JailController;
 import l1j.server.server.controllers.LightTimeController;
 import l1j.server.server.controllers.LoginController;
+import l1j.server.server.controllers.MapTimeController;
 import l1j.server.server.controllers.NpcChatTimeController;
 import l1j.server.server.controllers.RankingsController;
-import l1j.server.server.controllers.TimedDungeonController;
 import l1j.server.server.controllers.UbTimeController;
 import l1j.server.server.controllers.WarTimeController;
-import l1j.server.server.controllers.dungeon.GiranPrisonController;
 import l1j.server.server.datatables.AccessLevelTable;
 import l1j.server.server.datatables.CastleTable;
 import l1j.server.server.datatables.CharacterTable;
@@ -79,6 +78,7 @@ import l1j.server.server.model.L1DeleteItemOnGround;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.gametime.L1GameTimeClock;
 import l1j.server.server.model.item.L1TreasureBox;
+import l1j.server.server.model.map.L1MapLimiter;
 import l1j.server.server.model.map.L1WorldMap;
 import l1j.server.server.model.trap.L1WorldTraps;
 
@@ -245,8 +245,8 @@ public class GameServerThread {
 		CrackOfTimeController.getStart();
 		
 		// register all dungeons with a time limit
-		TimedDungeonController dungeonController = TimedDungeonController.getInstance();
-		dungeonController.registerDungeon(GiranPrisonController.getInstance());
+		MapTimeController mapTimeController = MapTimeController.getInstance();
+		mapTimeController.load();
 		
 		if(Config.ALT_BOSS_EVENT) {
 			BossEventController bossEventController = BossEventController.getInstance();
@@ -305,6 +305,8 @@ public class GameServerThread {
 		NpcChatTable.getInstance();
 		LightSpawnTable.getInstance();
 		MailTable.getInstance();
+		L1MapLimiter.load();
+		
 		_log.info("Database tables loaded successfully!");
 	}
 }
