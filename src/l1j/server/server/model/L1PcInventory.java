@@ -33,6 +33,7 @@ import l1j.server.server.model.item.L1ItemId;
 import l1j.server.server.serverpackets.S_AddItem;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
 import l1j.server.server.serverpackets.S_DeleteInventoryItem;
+import l1j.server.server.serverpackets.S_EquipmentWindow;
 import l1j.server.server.serverpackets.S_ItemAmount;
 import l1j.server.server.serverpackets.S_ItemColor;
 import l1j.server.server.serverpackets.S_ItemName;
@@ -40,6 +41,7 @@ import l1j.server.server.serverpackets.S_ItemStatus;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import static l1j.server.server.serverpackets.S_EquipmentWindow.*;
 import l1j.server.server.storage.CharactersItemStorage;
 import l1j.server.server.templates.L1Item;
 
@@ -431,6 +433,7 @@ public class L1PcInventory extends L1Inventory {
 			if (equipped) {
 				item.setEquipped(true);
 				_owner.getEquipSlot().set(item);
+				Equipped(item, true);
 			} else {
 				if (!loaded) {
 
@@ -442,6 +445,8 @@ public class L1PcInventory extends L1Inventory {
 						}
 					}
 				}
+				
+				Equipped(item, false);
 				item.setEquipped(false);
 				_owner.getEquipSlot().remove(item);
 			}
@@ -457,6 +462,118 @@ public class L1PcInventory extends L1Inventory {
 			}
 		}
 	}
+	
+	public boolean checkRingEquipped(int id) {
+		for (Object itemObject : _items) {
+			L1ItemInstance item = (L1ItemInstance) itemObject;
+			if (item.getRingID() == id && item.isEquipped()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void Equipped(L1ItemInstance item, boolean isEq) {
+		int RingID = item.getRingID();
+		if ((item.getItem().getType2() == 2) && (item.isEquipped())) {
+			int items = 0;
+			if ((item.getItem().getType() == 1)) {
+				items = EQUIPMENT_INDEX_HELM;
+			} else if ((item.getItem().getType() == 2)) {
+				items = EQUIPMENT_INDEX_T;
+			} else if ((item.getItem().getType() == 3)) {
+				items = EQUIPMENT_INDEX_ARMOR;
+			} else if ((item.getItem().getType() == 4)) {
+				items = EQUIPMENT_INDEX_CLOAK;
+			} else if ((item.getItem().getType() == 5)) {
+				items = EQUIPMENT_INDEX_GLOVE;
+			} else if ((item.getItem().getType() == 6)) {
+				items = EQUIPMENT_INDEX_BOOTS;
+			} else if ((item.getItem().getType() == 7)) {
+				// sheild
+				items = EQUIPMENT_INDEX_SHIELD;
+			} else if ((item.getItem().getType() == 8)) {
+				// guarder
+				items = EQUIPMENT_INDEX_SHIELD;
+			} else if ((item.getItem().getType() == 11)) {
+				if (isEq == true){
+					if (checkRingEquipped(EQUIPMENT_INDEX_RING1)){
+						items = EQUIPMENT_INDEX_RING2;	
+						item.setRingID(items);
+					} else {
+						items = EQUIPMENT_INDEX_RING1;
+						item.setRingID(items);
+					}
+
+					if(getTypeEquipped(2, 11) == 3){ 
+						if(!checkRingEquipped(EQUIPMENT_INDEX_RING1)){  
+							items = EQUIPMENT_INDEX_RING1;
+							item.setRingID(items);
+						} else if (!checkRingEquipped(EQUIPMENT_INDEX_RING2)){ 
+							items = EQUIPMENT_INDEX_RING2;
+							item.setRingID(items);
+						} else if (!checkRingEquipped(EQUIPMENT_INDEX_RING3)){ 
+							items = EQUIPMENT_INDEX_RING3;
+							item.setRingID(items);
+						}
+					}
+
+					if(getTypeEquipped(2, 11) == 4){
+						if(!checkRingEquipped(EQUIPMENT_INDEX_RING1)){  
+							items = EQUIPMENT_INDEX_RING1;
+							item.setRingID(items);
+						} else if (!checkRingEquipped(EQUIPMENT_INDEX_RING2)){ 
+							items = EQUIPMENT_INDEX_RING2;
+							item.setRingID(items);
+						} else if (!checkRingEquipped(EQUIPMENT_INDEX_RING3)){ 
+							items = EQUIPMENT_INDEX_RING3;
+							item.setRingID(items);
+						}else if (!checkRingEquipped(EQUIPMENT_INDEX_RING4)){ 
+							items = EQUIPMENT_INDEX_RING4;
+							item.setRingID(items);
+						}
+					}
+				} else {
+					if (RingID == EQUIPMENT_INDEX_RING1){
+						items = EQUIPMENT_INDEX_RING1;
+						item.setRingID(0);
+					} else if  (RingID == EQUIPMENT_INDEX_RING2){
+						items = EQUIPMENT_INDEX_RING2;
+						item.setRingID(0);
+					} else if (RingID == EQUIPMENT_INDEX_RING3){      
+						items = EQUIPMENT_INDEX_RING3;
+						item.setRingID(0);
+					} else if  (RingID == EQUIPMENT_INDEX_RING4){
+						items = EQUIPMENT_INDEX_RING4;
+						item.setRingID(0);
+					}                             
+				}
+			} else if ((item.getItem().getType() == 10)) {
+				items = EQUIPMENT_INDEX_AMULET;
+			} else if ((item.getItem().getType() == 12)) {
+				items = EQUIPMENT_INDEX_EARRING;
+			} else if ((item.getItem().getType() == 13)) {
+				items = EQUIPMENT_INDEX_BELT;	
+			} else if ((item.getItem().getType() == 14)) {
+				items = EQUIPMENT_INDEX_RUNE1;
+			} else if ((item.getItem().getType() == 15)) {
+				items = EQUIPMENT_INDEX_RUNE2;
+			} else if ((item.getItem().getType() == 16)) {
+				items = EQUIPMENT_INDEX_RUNE3;
+			} else if ((item.getItem().getType() == 17)) {
+				items = EQUIPMENT_INDEX_RUNE4;
+			} else if ((item.getItem().getType() == 18)) {
+				items = EQUIPMENT_INDEX_RUNE5;
+			}
+			
+			_owner.sendPackets(new S_EquipmentWindow(_owner, item.getId(),items,isEq)); 
+		}
+		if ((item.getItem().getType2() == 1) && (item.isEquipped())) {
+			int items = EQUIPMENT_INDEX_WEAPON;
+			_owner.sendPackets(new S_EquipmentWindow(_owner, item.getId(),items,isEq)); 
+		}
+	}
+
 
 	public boolean checkEquipped(int id) {
 		for (Object itemObject : _items) {

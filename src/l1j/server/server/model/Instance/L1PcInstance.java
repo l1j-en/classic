@@ -29,6 +29,7 @@ import static l1j.server.server.model.skill.L1SkillId.STATUS_HASTE;
 import static l1j.server.server.model.skill.L1SkillId.STATUS_RIBRAVE;
 import static l1j.server.server.model.skill.L1SkillId.STRIKER_GALE;
 import static l1j.server.server.model.skill.L1SkillId.WIND_WALK;
+import static l1j.server.server.serverpackets.S_EquipmentWindow.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,6 +103,7 @@ import l1j.server.server.serverpackets.S_ChangeShape;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_DoActionGFX;
 import l1j.server.server.serverpackets.S_DoActionShop;
+import l1j.server.server.serverpackets.S_EquipmentWindow;
 import l1j.server.server.serverpackets.S_Exp;
 import l1j.server.server.serverpackets.S_HPMeter;
 import l1j.server.server.serverpackets.S_HPUpdate;
@@ -2419,6 +2421,63 @@ public class L1PcInstance extends L1Character {
 			setCurrentMp(newMp);
 		}
 	}
+	
+	public void setEquipped(L1PcInstance pc, boolean isEq) {
+		for (L1ItemInstance item : pc.getInventory().getItems()) {
+			if ((item.getItem().getType2() == 2) && (item.isEquipped())) {
+				int items = 0;
+				if ((item.getItem().getType() == 1)) {
+					items = EQUIPMENT_INDEX_HELM;
+				} else if ((item.getItem().getType() == 2)) {
+					items = EQUIPMENT_INDEX_T;
+				} else if ((item.getItem().getType() == 3)) {
+					items = EQUIPMENT_INDEX_ARMOR;
+				} else if ((item.getItem().getType() == 4)) {
+					items = EQUIPMENT_INDEX_CLOAK;
+				} else if ((item.getItem().getType() == 5)) {
+					items = EQUIPMENT_INDEX_GLOVE;
+				} else if ((item.getItem().getType() == 6)) {
+					items = EQUIPMENT_INDEX_BOOTS;
+				} else if ((item.getItem().getType() == 7)) {
+					// shield
+					items = EQUIPMENT_INDEX_SHIELD;
+				} else if ((item.getItem().getType() == 8)) {
+					// guarder
+					items = EQUIPMENT_INDEX_SHIELD;
+				} else if ((item.getItem().getType() == 10)) {
+					items = EQUIPMENT_INDEX_AMULET;
+				} else if ((item.getItem().getType() == 11) && item.getRingID() == 18) {
+					items = EQUIPMENT_INDEX_RING1;
+				} else if ((item.getItem().getType() == 11) && item.getRingID() == 19) {
+					items = EQUIPMENT_INDEX_RING2;	
+				} else if ((item.getItem().getType() == 11) && item.getRingID() == 20) {
+					items = EQUIPMENT_INDEX_RING3;
+				} else if ((item.getItem().getType() == 11) && item.getRingID() == 21) {
+					items = EQUIPMENT_INDEX_RING4;
+				} else if ((item.getItem().getType() == 12)) {
+					items = EQUIPMENT_INDEX_EARRING;
+				} else if ((item.getItem().getType() == 13)) {
+					items = EQUIPMENT_INDEX_BELT;	
+				} else if ((item.getItem().getType() == 14)) {
+					items = EQUIPMENT_INDEX_RUNE1;
+				} else if ((item.getItem().getType() == 15)) {
+					items = EQUIPMENT_INDEX_RUNE2;
+				} else if ((item.getItem().getType() == 16)) {
+					items = EQUIPMENT_INDEX_RUNE3;
+				} else if ((item.getItem().getType() == 17)) {
+					items = EQUIPMENT_INDEX_RUNE4;
+				} else if ((item.getItem().getType() == 18)) {
+					items = EQUIPMENT_INDEX_RUNE5;
+				}
+				pc.sendPackets(new S_EquipmentWindow(pc, item.getId(),items,isEq)); 
+			}
+			if ((item.getItem().getType2() == 1) && (item.isEquipped())) {
+				int items = EQUIPMENT_INDEX_WEAPON;
+				pc.sendPackets(new S_EquipmentWindow(pc, item.getId(),items,isEq)); 
+			}
+		}
+	}
+
 
 	public void reduceCurrentHp(double d, L1Character l1character) {
 		getStat().reduceCurrentHp(d, l1character);

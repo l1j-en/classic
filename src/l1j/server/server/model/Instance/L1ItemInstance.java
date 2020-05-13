@@ -869,6 +869,16 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 		}
 		return returnvalue;
 	}
+	
+	private int _ringId;
+
+	public int getRingID() {
+		return _ringId;
+	}
+
+	public void setRingID(int ringId) {
+		_ringId = ringId;
+	}
 
 	class EnchantTimer implements Runnable {
 		private String originalThreadName;

@@ -84,11 +84,13 @@ import l1j.server.server.serverpackets.S_Emblem;
 import l1j.server.server.serverpackets.S_InvList;
 import l1j.server.server.serverpackets.S_Karma;
 import l1j.server.server.serverpackets.S_LoginGame;
+import l1j.server.server.serverpackets.S_Mail;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OwnCharPack;
 import l1j.server.server.serverpackets.S_OwnCharStatus;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_PlayTime;
+import l1j.server.server.serverpackets.S_RuneSlot;
 import l1j.server.server.serverpackets.S_SPMR;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillBrave;
@@ -242,15 +244,13 @@ public class C_LoginToServer extends ClientBasePacket {
 		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_PLUS, pc.getDodge()));
 		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_MINUS, pc.getNdodge()));
 		
-		/*pc.sendPackets(new S_Mail(pc.getName() , 0));
+		pc.sendPackets(new S_Mail(pc.getName() , 0));
 		pc.sendPackets(new S_Mail(pc.getName() , 1));
 		pc.sendPackets(new S_Mail(pc.getName() , 2));
 		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_CLOSE_SLOT, 3));
-		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_OPEN_SLOT, 1));*/
+		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_OPEN_SLOT, 1));
 
-		
-		
-		//TODO -- add pc.setEquipped(pc, true);
+		pc.setEquipped(pc, true);
 		
 		
 		//TODO -- pc.setServivalScream();
