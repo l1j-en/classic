@@ -75,7 +75,7 @@ import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ActiveSpells;
 import l1j.server.server.serverpackets.S_AddSkill;
-import l1j.server.server.serverpackets.S_Bookmarks;
+import l1j.server.server.serverpackets.S_BookmarkLoad;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharacterConfig;
 import l1j.server.server.serverpackets.S_Emblem;
@@ -99,7 +99,6 @@ import l1j.server.server.serverpackets.S_SystemMessage;
 import l1j.server.server.serverpackets.S_War;
 import l1j.server.server.serverpackets.S_Weather;
 import l1j.server.server.serverpackets.S_bonusstats;
-import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Command;
 import l1j.server.server.templates.L1GetBackRestart;
 import l1j.server.server.templates.L1Skill;
@@ -170,7 +169,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		
 		//TODO -- ability growth?
 		pc.sendPackets(new S_LoginGame());
-		bookmarks(pc);
+		pc.sendPackets(new S_BookmarkLoad(pc));
 		
 		//TODO -- set minigame playing if working
 
@@ -408,39 +407,6 @@ public class C_LoginToServer extends ClientBasePacket {
 		CharacterTable.getInstance().restoreInventory(pc);
 		pc.sendPackets(new S_InvList(pc.getInventory().getItems()));
 	}
-	
-	private void bookmarks(L1PcInstance pc) {
-
-		Connection con = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-
-		try {
-			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con.prepareStatement("SELECT * FROM character_teleport WHERE char_id=? ORDER BY name ASC");
-			pstm.setInt(1, pc.getId());
-			rs = pstm.executeQuery();
-			while (rs.next()) {
-				L1BookMark bookmark = new L1BookMark();
-				bookmark.setId(rs.getInt("id"));
-				bookmark.setCharId(rs.getInt("char_id"));
-				bookmark.setName(rs.getString("name"));
-				bookmark.setLocX(rs.getInt("locx"));
-				bookmark.setLocY(rs.getInt("locy"));
-				bookmark.setMapId(rs.getShort("mapid"));
-				S_Bookmarks s_bookmarks = new S_Bookmarks(bookmark.getName(), bookmark.getMapId(), bookmark.getId(), bookmark.getLocX(), bookmark.getLocY());
-				pc.addBookMark(bookmark);
-				pc.sendPackets(s_bookmarks);
-			}
-		} catch (SQLException e) {
-			_log.error(e.getLocalizedMessage(), e);
-		} finally {
-			SQLUtil.close(rs);
-			SQLUtil.close(pstm);
-			SQLUtil.close(con);
-		}
-	}
-
 
 	private void skills(L1PcInstance pc) {
 		Connection con = null;

@@ -5,6 +5,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_SendLocation;
+import l1j.server.server.templates.L1BookMark;
 
 public class C_SendLocation extends ClientBasePacket {
 	private static final String C_SEND_LOCATION = "[C] C_SendLocation";
@@ -34,6 +35,20 @@ public class C_SendLocation extends ClientBasePacket {
 				L1PcInstance pc = client.getActiveChar();
 				String sender = pc.getName();
 				target.sendPackets(new S_SendLocation(type, sender, mapId, x, y, msgId));
+			}
+		} else if(type == 0x27) { //modify bookmark
+			int count = readCH();
+			readC(); //unknown
+			
+			for(int i = 0; i < count; i++) {		
+				int bookmarkId = readD();
+				String bookmarkName = readS();
+
+				L1PcInstance pc = client.getActiveChar();
+				L1BookMark existing = pc.getBookMark(bookmarkId);
+				if(existing != null) {
+					L1BookMark.updateBookmark(pc, bookmarkId, bookmarkName);
+				}
 			}
 		} else if (type == 0x06) { //TODO -- Dragon Raid
 			/*int objectId = readD();

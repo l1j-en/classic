@@ -66,6 +66,27 @@ public class L1BookMark {
 			}
 		}
 	}
+	
+	public static void updateBookmark(L1PcInstance pc, int objId, String bookmarkName) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("UPDATE character_teleport SET name = ? WHERE id = ?");
+			pstm.setString(1, bookmarkName);
+			pstm.setInt(2, objId);
+			pstm.execute();
+			
+			L1BookMark bookmark = pc.getBookMark(objId);
+			bookmark.setName(bookmarkName);
+		} catch (SQLException e) {
+			_log.error("Add Bookmark error has occurred.", e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
 
 	public static void addBookmark(L1PcInstance pc, String s) {
 		// Because client-side checks required
