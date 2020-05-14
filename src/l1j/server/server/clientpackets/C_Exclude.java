@@ -41,10 +41,22 @@ public class C_Exclude extends ClientBasePacket {
 	public C_Exclude(byte[] decrypt, Client client) {
 		super(decrypt);
 		String name = readS();
+		
+		L1PcInstance pc = client.getActiveChar();
 		if (name.isEmpty()) {
+			
+			if(pc.isExcludeInitialized()) {
+				pc.sendPackets(new S_PacketBox(S_PacketBox.EXCLUDE_LIST, ""));
+			} else {
+				ExcludeTable exTable = ExcludeTable.getInstance();
+				L1ExcludingList exList = exTable.getExcludeList(pc.getId());
+				exList.sendExcludeList();
+				pc.setExcludeInitialised();
+			}
+			
 			return;
 		}
-		L1PcInstance pc = client.getActiveChar();
+		
 		try {
 			ExcludeTable excludeTable = ExcludeTable.getInstance();
 			L1ExcludingList exList = excludeTable.getExcludeList(pc.getId());
@@ -67,6 +79,7 @@ public class C_Exclude extends ClientBasePacket {
 						break;
 					}
 				}
+				
 				pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
 			}
 		} catch (Exception e) {

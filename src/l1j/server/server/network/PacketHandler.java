@@ -32,7 +32,7 @@ import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOARDWRITE;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOOKMARK;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BOOKMARKDELETE;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_BUDDYLIST;
-import static l1j.server.server.encryptions.Opcodes.C_OPCODE_CAHTPARTY;
+import static l1j.server.server.encryptions.Opcodes.C_OPCODE_CHATPARTY;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_CALL;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_CHANGECHAR;
 import static l1j.server.server.encryptions.Opcodes.C_OPCODE_CHANGEHEADING;
@@ -487,7 +487,7 @@ public class PacketHandler {
 		case C_OPCODE_RANK:
 			new C_Rank(abyte0, _client);
 			break;
-		case C_OPCODE_CAHTPARTY:
+		case C_OPCODE_CHATPARTY:
 			new C_ChatParty(abyte0, _client);
 			break;
 		case C_OPCODE_FIGHT:

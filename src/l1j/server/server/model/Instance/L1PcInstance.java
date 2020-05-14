@@ -856,6 +856,16 @@ public class L1PcInstance extends L1Character {
 	private String followingGm = null;
 
 	private int invisDelayCounter = 0;
+	
+	private boolean _excludeInitialized = false;
+	
+	public boolean isExcludeInitialized() {
+		return _excludeInitialized;
+	}
+	
+	public void setExcludeInitialised() {
+		_excludeInitialized = true;
+	}
 
 	private ArrayList<Integer> skillList = new ArrayList<Integer>();
 	private L1NpcInstance spoofMob = null;

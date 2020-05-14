@@ -80,7 +80,7 @@ public class S_PacketBox extends ServerBasePacket {
 	public static final int MSG_ELF = 15;
 
 	// C(count) S(name)...: Multiple blocking list
-	public static final int ADD_EXCLUDE2 = 17;
+	public static final int EXCLUDE_LIST = 17;
 
 	// S(name): Add blocking list
 	public static final int ADD_EXCLUDE = 18;
@@ -311,12 +311,16 @@ public class S_PacketBox extends ServerBasePacket {
 	public S_PacketBox(int subCode, Object[] names) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);
 		writeC(subCode);
+		writeC(0);
+		
 		switch (subCode) {
-		case ADD_EXCLUDE2:
+		case EXCLUDE_LIST:
 			writeC(names.length);
 			for (Object name : names) {
 				writeS(name.toString());
 			}
+			
+			writeH(0);
 			break;
 		default:
 			break;

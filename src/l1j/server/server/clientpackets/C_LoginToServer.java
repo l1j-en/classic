@@ -58,7 +58,6 @@ import l1j.server.server.controllers.JailController;
 import l1j.server.server.controllers.JailController.JailInfo;
 import l1j.server.server.controllers.WarTimeController;
 import l1j.server.server.datatables.CharacterTable;
-import l1j.server.server.datatables.ExcludeTable;
 import l1j.server.server.datatables.GetBackRestartTable;
 import l1j.server.server.datatables.LogReporterTable;
 import l1j.server.server.datatables.SkillTable;
@@ -67,7 +66,6 @@ import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1CastleLocation;
 import l1j.server.server.model.L1Clan;
 import l1j.server.server.model.L1Cooking;
-import l1j.server.server.model.L1ExcludingList;
 import l1j.server.server.model.L1PolyMorph;
 import l1j.server.server.model.L1War;
 import l1j.server.server.model.L1World;
@@ -339,10 +337,6 @@ public class C_LoginToServer extends ClientBasePacket {
 		//TODO -- pc.startExpirationTimer();
 		pc.startMapLimiter();
 		pc.sendPackets(new S_PlayTime());
-
-		ExcludeTable exTable = ExcludeTable.getInstance();
-		L1ExcludingList exList = exTable.getExcludeList(pc.getId());
-		exList.sendExcludeList();
 
 		if (Config.ALT_POLYEVENT)
 			pc.sendPackets(new S_SystemMessage("\\fRPolymorph Event Is Currently Running. Enjoy!"));

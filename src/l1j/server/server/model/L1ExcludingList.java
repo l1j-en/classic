@@ -82,9 +82,8 @@ public class L1ExcludingList {
 		if(pc == null) {
 			return;
 		}
-		for (String name : _excludes.values()) {
-			pc.sendPackets(new S_PacketBox(S_PacketBox.ADD_EXCLUDE, name));
-		}
+
+		pc.sendPackets(new S_PacketBox(S_PacketBox.EXCLUDE_LIST, _excludes.values().toArray()));
 	}
 
 	public boolean containsId(int objId) {
