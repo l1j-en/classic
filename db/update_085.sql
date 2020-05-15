@@ -164,3 +164,13 @@ UPDATE droplist SET chance = 1000 WHERE itemId = 20154 and mobId = 45190; -- Pla
 UPDATE droplist SET chance = 35000 WHERE itemId = 40014 and mobId = 45190; -- Potion of Bravery, was 50000.
 UPDATE droplist SET chance = 40000 WHERE itemId = 40018 and mobId = 45190; -- Greater Haste Potion, was 50000.
 UPDATE droplist SET chance = 175000 WHERE itemId = 140100 and mobId = 45190; -- Scroll of Teleportation, was 200000
+
+-- Mark remaining Level 50 class quest drop items as only for that class.
+-- Dantes' Royal Letter (Knight)
+INSERT INTO quest_drops (item_id, class) VALUES (49160, 'K');
+-- Spirit's Whisper (Knight)
+INSERT INTO quest_drops (item_id, class) VALUES (49161, 'K');
+-- Movement Order (Prince)
+INSERT INTO quest_drops (item_id, class) VALUES (49159, 'P');
+-- Secret Intelligence Report (Mage)
+INSERT INTO quest_drops (item_id, class) VALUES (49164, 'W');
