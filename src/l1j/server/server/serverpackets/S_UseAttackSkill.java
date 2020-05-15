@@ -82,7 +82,7 @@ public class S_UseAttackSkill extends ServerBasePacket {
 		writeC(actionId);
 		writeD(withCastMotion ? cha.getId() : 0);
 		writeD(targetobj);
-		writeC(isHit);
+		writeH(isHit);
 		writeC(newheading);
 		writeD(_sequentialNumber.incrementAndGet()); //
 		writeH(spellgfx);
@@ -104,10 +104,10 @@ public class S_UseAttackSkill extends ServerBasePacket {
 			_byte = _bao.toByteArray();
 		} else {
 			int seq = _sequentialNumber.incrementAndGet();
-			_byte[12] = (byte) (seq & 0xff);
-			_byte[13] = (byte) (seq >> 8 & 0xff);
-			_byte[14] = (byte) (seq >> 16 & 0xff);
-			_byte[15] = (byte) (seq >> 24 & 0xff);
+			_byte[13] = (byte) (seq & 0xff);
+			_byte[14] = (byte) (seq >> 8 & 0xff);
+			_byte[15] = (byte) (seq >> 16 & 0xff);
+			_byte[16] = (byte) (seq >> 24 & 0xff);
 		}
 		return _byte;
 	}
