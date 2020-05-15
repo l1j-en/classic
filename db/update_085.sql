@@ -100,3 +100,54 @@ CREATE TABLE IF NOT EXISTS `map_timers` (
 UPDATE etcitem SET name = 'Ancient Dark Elf`s Secret Text' WHERE item_id = 49162;
 UPDATE droplist SET chance = 10000 WHERE itemId = 49162;
 INSERT INTO quest_drops (item_id, class) VALUES (49162, 'E');
+
+-- Adjust dragon tablet droprates, mostly reducing the high % chances from
+-- lower level mobs.
+
+-- Dragon Tablet(MagmaBreath)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49105 and mobId = 45376; -- Giran Lava Golem, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45241; -- Cerberus, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49105 and mobId = 45512; -- Hell Bound, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45121; -- Orc Wizard, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45424; -- Fang of Flame, was 10000.
+
+-- Dragon Tablet(AwakenAntharas)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49106 and mobId = 45373; -- Ettin, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45311; -- Mole, was 10000.
+UPDATE droplist SET chance = 1000 WHERE itemId = 49106 and mobId = 45115; -- Giant Ant, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45214; -- Mole, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45147; -- Owlbear, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45190; -- Giant Soldier Ant, was 10000.
+UPDATE droplist SET chance = 2000 WHERE itemId = 49106 and mobId = 45184; -- Arachnevil Elder, was 8000.
+
+-- Dragon Tablet(AwakenFafurion)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49111 and mobId = 45158; -- Mad Lizardman, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45984; -- Guardian of Water Spirit, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45460; -- Guardian of Water Spirit, was 10000.
+UPDATE droplist SET chance = 5000 WHERE itemId = 49111 and mobId = 45936; -- Eva Sea Dancer, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49111 and mobId = 45322; -- Living Armor, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45855; -- Guardian of Water Spirit, was 10000.
+
+-- Dragon Tablet(MortalBody)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49112 and mobId = 45407; -- Cimaera, was 5000.
+
+-- Dragon Tablet(FreezingBreath)
+UPDATE droplist SET chance = 1000 WHERE itemId = 49115 and mobId = 45224; -- Undead Elmore Wizard, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 46140; -- Maid of the Ice Queen, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 45506; -- Cursed Elmore Wizard, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 45422; -- Subterranean Great King Turtle, was 5000.
+
+-- Dragon Tablet(AwakenValakas)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49116 and mobId = 45376; -- Giran Lava Golem, was 5000.
+UPDATE droplist SET chance = 1000 WHERE itemId = 49116 and mobId = 45365; -- Lava Golem, was 5000.
+
+-- Adjust Memory Cyrstal droprates.
+
+-- Memory Crystal(Phantasm)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49128 and mobId = 45407; -- Cimaera, was 5000.
+
+-- Memory Crystal(IllusionDiaGolem)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49130 and mobId = 45479; -- Horrific Iron Golem, was 7500.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45372; -- Iron Golem, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45365; -- Lava Golem, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45796; -- Stone Golem of Maino Shaman, was 5000.
