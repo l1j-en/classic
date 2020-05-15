@@ -73,9 +73,11 @@ public class MapTimerTable {
 			pstm.setInt(1, charId);
 			pstm.setInt(2, areaId);
 			rs = pstm.executeQuery();
-			rs.next();
+			if(rs.next()) {
+				return new MapTimerTable(rs.getInt("char_id"), rs.getInt("map_id"), rs.getInt("area_id"), rs.getInt("enter_time"));
+			}
 			
-			return new MapTimerTable(rs.getInt("char_id"), rs.getInt("map_id"), rs.getInt("area_id"), rs.getInt("enter_time"));
+			return null;
 		} catch (SQLException e) {
 			_log.error(e.getLocalizedMessage(), e);
 			
