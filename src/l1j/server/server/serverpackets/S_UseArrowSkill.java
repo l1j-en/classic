@@ -66,10 +66,10 @@ public class S_UseArrowSkill extends ServerBasePacket {
 			_byte = _bao.toByteArray();
 		} else {
 			int seq = _sequentialNumber.incrementAndGet();
-			_byte[12] = (byte) (seq & 0xff);
-			_byte[13] = (byte) (seq >> 8 & 0xff);
-			_byte[14] = (byte) (seq >> 16 & 0xff);
-			_byte[15] = (byte) (seq >> 24 & 0xff);
+			_byte[13] = (byte) (seq & 0xff);
+			_byte[14] = (byte) (seq >> 8 & 0xff);
+			_byte[15] = (byte) (seq >> 16 & 0xff);
+			_byte[16] = (byte) (seq >> 24 & 0xff);
 		}
 		return _byte;
 	}
