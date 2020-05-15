@@ -5,12 +5,12 @@
 -- be removed.
 
 -- Add the door graphics for the TI Cave 2f doors
-INSERT INTO door_gfxs (gfxid,note,direction,left_edge_offset,right_edge_offset) VALUES 
+INSERT INTO door_gfxs (gfxid,note,direction,left_edge_offset,right_edge_offset) VALUES
 (88,'TICaves Doors',0,0,0),
 (89,'TICaves Doors',1,0,0);
 
 -- Add the actual doors to the game for TI Caves 2f. 6006 and 6007 are the golden/pale silver key doors
-INSERT INTO spawnlist_door (id,mapid,location,gfxid,locx,locy,hp,keeper) VALUES 
+INSERT INTO spawnlist_door (id,mapid,location,gfxid,locx,locy,hp,keeper) VALUES
 (6001,2,'TI Caves 2f',92,32664,32807,0,0),
 (6002,2,'TI Caves 2f',93,32673,32820,0,0),
 (6003,2,'TI Caves 2f',92,32668,32833,0,0),
@@ -47,14 +47,14 @@ INSERT INTO npc (npcid,name,nameid,note,impl,gfxid,lvl,hp,mp,ac,str,con,dex,wis,
 (92001,'Skeleton Soldier','$988','Pale silver key','L1Monster',1106,13,90,15,8,16,14,15,12,10,10,170,-13,'small',2,2,1,640,880,840,880,880,1,0,0,1,1,0,'skeleton',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
 ('92002','Skeleton Axeman','$987','Pale silver key','L1Monster',1104,13,90,20,0,18,14,14,12,10,10,170,-13,'small',2,1,1,480,840,840,840,840,1,0,0,1,1,0,'skeleton',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0);
 
--- add the spawns for the pale silver key 
-INSERT INTO spawnlist (location,count,npc_templateid,group_id,locx,locy,randomx,randomy,locx1,locy1,locx2,locy2,heading,min_respawn_delay,max_respawn_delay,mapid,respawn_screen,movement_distance,rest,near_spawn,spawn_home,spawn_home_range,spawn_home_count,spawn_home_delay) VALUES 
+-- add the spawns for the pale silver key
+INSERT INTO spawnlist (location,count,npc_templateid,group_id,locx,locy,randomx,randomy,locx1,locy1,locx2,locy2,heading,min_respawn_delay,max_respawn_delay,mapid,respawn_screen,movement_distance,rest,near_spawn,spawn_home,spawn_home_range,spawn_home_count,spawn_home_delay) VALUES
 ('Skeleton Axeman - PSK',3,92002,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100),
 ('Skeleton Soldier - PSK',3,92001,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100),
 ('Skeleton Archer - PSK',3,92000,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100);
 
 -- add the pale silver key to the spawns at at 7.5% drop rate
-INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES 
+INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES
 (92000,'Skeleton Archer',172,'Bow',1,1,50000),
 (92000,'Skeleton Archer',20043,'Helmet',1,1,50000),
 (92000,'Skeleton Archer',20056,'Cloak of Magic Resistance',1,1,50000),
@@ -95,3 +95,8 @@ CREATE TABLE IF NOT EXISTS `map_timers` (
   PRIMARY KEY (`char_id`,`area_id`),
   KEY `map_id` (`map_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Adjust item Ancient Dark Elf Secret Text.
+UPDATE etcitem SET name = 'Ancient Dark Elf`s Secret Text' WHERE item_id = 49162;
+UPDATE droplist SET chance = 10000 WHERE itemId = 49162;
+INSERT INTO quest_drops (item_id, class) VALUES (49162, 'E');
