@@ -56,7 +56,7 @@ public class S_ServerVersion extends ServerBasePacket {
 		writeC(0x00); // unknown
 		// Country
 		// 0.US 3.Taiwan 4.Janpan 5.China
-		writeC(0x00);
+		writeC(0x02);
 		writeD(SERVER_TYPE);
 		writeD(UPTIME);
 		writeH(0x01);
