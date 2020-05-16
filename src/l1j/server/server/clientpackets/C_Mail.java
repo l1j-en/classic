@@ -56,7 +56,8 @@ public class C_Mail extends ClientBasePacket {
 			pc.sendPackets(new S_Mail(pc, type));
 		} else if (type == 0x10 || type == 0x11 || type == 0x12) { // Read
 			int mailId = readD();
-			L1Mail mail = MailTable.getInstance().getMail(mailId);
+			MailTable.getInstance();
+			L1Mail mail = MailTable.getMail(mailId);
 			if (mail.getReadStatus() == 0) {
 				MailTable.getInstance().setReadStatus(mailId);
 			}
@@ -66,7 +67,7 @@ public class C_Mail extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(189)); // Out of adena
 				return;
 			}
-			int unknow = readH();
+			readH();
 			String receiverName = readS();
 			byte[] text = readByte();
 			L1PcInstance receiver = CharacterTable.getInstance()
@@ -96,7 +97,7 @@ public class C_Mail extends ClientBasePacket {
 				pc.sendPackets(new S_ServerMessage(189)); // Out of adena
 				return;
 			}
-			int unknow = readH();
+			readH();
 			String clanName = readS();
 			byte[] text = readByte();
 			L1Clan clan = L1World.getInstance().getClan(clanName);
@@ -136,7 +137,8 @@ public class C_Mail extends ClientBasePacket {
 
 	private int getMailSizeByReceiver(L1PcInstance pc, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<L1Mail>();
-		for (L1Mail mail : MailTable.getInstance().getAllMail()) {
+		MailTable.getInstance();
+		for (L1Mail mail : MailTable.getAllMail()) {
 			if (mail.getInBoxId() == pc.getId()) {
 				if (mail.getType() == type) {
 					mails.add(mail);

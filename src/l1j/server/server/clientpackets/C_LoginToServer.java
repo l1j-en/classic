@@ -368,9 +368,10 @@ public class C_LoginToServer extends ClientBasePacket {
 
 		try {
 			connection = L1DatabaseFactory.getInstance().getConnection();
-			statement = connection.prepareStatement("SELECT COUNT(*) FROM mail WHERE receiver=? AND read_status=?");
-			statement.setString(1, character.getName());
-			statement.setInt(2, 0);
+			statement = connection.prepareStatement("SELECT COUNT(*) FROM mail WHERE inbox_id=? AND receiver=? AND read_status=?");
+			statement.setInt(1, character.getId());
+			statement.setString(2, character.getName());
+			statement.setInt(3, 0);
 
 			result = statement.executeQuery();
 			result.next();

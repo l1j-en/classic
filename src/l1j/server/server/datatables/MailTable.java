@@ -94,8 +94,7 @@ public class MailTable {
 			rs = pstm.executeQuery();
 			if (rs != null && rs.next()) {
 				pstm = con
-						.prepareStatement("UPDATE mail SET read_status=? WHERE id=?"
-								+ mailId);
+						.prepareStatement("UPDATE mail SET read_status=? WHERE id=?");
 				pstm.setInt(1, 1);
 				pstm.setInt(2, mailId);
 				pstm.execute();
