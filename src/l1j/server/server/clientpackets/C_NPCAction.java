@@ -163,7 +163,13 @@ public class C_NPCAction extends ClientBasePacket {
 		L1PcInstance target;
 		L1Object obj = L1World.getInstance().findObject(objid);
 		if (obj != null) {
-			if (obj instanceof L1NpcInstance) {
+			if (obj instanceof L1PetInstance) {
+				L1PetInstance pet = (L1PetInstance) obj;
+				pet.onFinalAction(pc, s);
+			} else if (obj instanceof L1SummonInstance) {
+				L1SummonInstance summon = (L1SummonInstance) obj;
+				summon.onFinalAction(pc, s);
+			} else if (obj instanceof L1NpcInstance) {
 				L1NpcInstance npc = (L1NpcInstance) obj;
 				int difflocx = Math.abs(pc.getX() - npc.getX());
 				int difflocy = Math.abs(pc.getY() - npc.getY());
