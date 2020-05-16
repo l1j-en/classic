@@ -131,4 +131,14 @@ public class L1Pet {
 	public int get_armor() {
 		return _armorId;
 	}
+	
+	private int _food;
+
+	public int getFood() {
+		return _food;
+	}
+
+	public void setFood(int i) {
+		_food = i;
+	}
 }

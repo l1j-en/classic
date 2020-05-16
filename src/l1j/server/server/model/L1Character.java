@@ -15,12 +15,15 @@ import l1j.server.server.model.Instance.L1FollowerInstance;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1NpcInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
+import l1j.server.server.model.Instance.L1PetInstance;
+import l1j.server.server.model.Instance.L1SummonInstance;
 import l1j.server.server.model.poison.L1Poison;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillTimer;
 import l1j.server.server.model.skill.L1SkillTimerCreator;
 import l1j.server.server.serverpackets.S_Light;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
+import l1j.server.server.serverpackets.S_PetCtrlMenu;
 import l1j.server.server.serverpackets.S_Poison;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.ServerBasePacket;
@@ -483,10 +486,12 @@ public class L1Character extends L1Object {
 
 	public void addPet(L1NpcInstance npc) {
 		_petlist.put(npc.getId(), npc);
+			sendPetCtrlMenu(npc, true);
 	}
 
 	public void removePet(L1NpcInstance npc) {
 		_petlist.remove(npc.getId());
+		sendPetCtrlMenu(npc, false);
 	}
 
 	public Map<Integer, L1NpcInstance> getPetList() {
@@ -1208,6 +1213,34 @@ public class L1Character extends L1Object {
 			_nDodge = 10;
 		} else if (_nDodge <= 0){
 			_nDodge = 0;
+		}
+	}
+	
+	private int _food;
+
+	public int getFood() {
+		return _food;
+	}
+
+	public void setFood(int i) {
+		_food = i;
+	}
+	
+	public void sendPetCtrlMenu(L1NpcInstance npc, boolean type) {
+		if (npc instanceof L1PetInstance) {
+			L1PetInstance pet = (L1PetInstance) npc;
+			L1Character cha = pet.getMaster();
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				pc.sendPackets(new S_PetCtrlMenu(cha, npc, type));
+			}
+		} else if (npc instanceof L1SummonInstance) {
+			L1SummonInstance summon = (L1SummonInstance) npc;
+			L1Character cha = summon.getMaster();
+			if (cha instanceof L1PcInstance) {
+				L1PcInstance pc = (L1PcInstance) cha;
+				pc.sendPackets(new S_PetCtrlMenu(cha, npc, type));
+			}
 		}
 	}
 }

@@ -74,6 +74,7 @@ public class PetTable {
 				pet.set_lawful(rs.getInt(9));
 				pet.set_weapon(rs.getInt(10));
 				pet.set_armor(rs.getInt(11));
+				pet.setFood(rs.getInt(16));
 				_pets.put(new Integer(itemobjid), pet);
 			}
 		} catch (SQLException e) {
@@ -96,13 +97,14 @@ public class PetTable {
 		l1pet.set_mp(pet.getMaxMp());
 		l1pet.set_exp(750); // Lv.5 EXP
 		l1pet.set_lawful(0);
+		l1pet.setFood(50);
 		_pets.put(new Integer(itemobjid), l1pet);
 		Connection con = null;
 		PreparedStatement pstm = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
+					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,food=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
@@ -112,6 +114,7 @@ public class PetTable {
 			pstm.setInt(7, l1pet.get_mp());
 			pstm.setInt(8, l1pet.get_exp());
 			pstm.setInt(9, l1pet.get_lawful());
+			pstm.setInt(10, l1pet.getFood());
 			pstm.execute();
 		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);
@@ -128,7 +131,7 @@ public class PetTable {
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
-					.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,weapon=?,armor=? WHERE item_obj_id=?");
+					.prepareStatement("UPDATE pets SET objid=?,npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,weapon=?,armor=?,food=? WHERE item_obj_id=?");
 			pstm.setInt(1, pet.get_objid());
 			pstm.setInt(2, pet.get_npcid());
 			pstm.setString(3, pet.get_name());
@@ -139,7 +142,8 @@ public class PetTable {
 			pstm.setInt(8, pet.get_lawful());
 			pstm.setInt(9, pet.get_weapon());
 			pstm.setInt(10, pet.get_armor());
-			pstm.setInt(11, pet.get_itemobjid());
+			pstm.setInt(11, pet.getFood());
+			pstm.setInt(12, pet.get_itemobjid());
 			pstm.execute();
 		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);
@@ -230,7 +234,7 @@ public class PetTable {
 		l1pet.set_mp(randommp);
 		l1pet.set_exp(lvExp); // upLv EXP
 		l1pet.set_lawful(0);
-		// l1pet.set_food(50);
+		l1pet.setFood(50);
 		_pets.put(new Integer(itemobjid), l1pet);
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -238,7 +242,7 @@ public class PetTable {
 			con = L1DatabaseFactory.getInstance().getConnection();
 			pstm = con
 					.prepareStatement("INSERT INTO pets SET item_obj_id=?,objid=?,"
-							+ "npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?");
+							+ "npcid=?,name=?,lvl=?,hp=?,mp=?,exp=?,lawful=?,food=?");
 			pstm.setInt(1, l1pet.get_itemobjid());
 			pstm.setInt(2, l1pet.get_objid());
 			pstm.setInt(3, l1pet.get_npcid());
@@ -248,7 +252,7 @@ public class PetTable {
 			pstm.setInt(7, l1pet.get_mp());
 			pstm.setInt(8, l1pet.get_exp());
 			pstm.setInt(9, l1pet.get_lawful());
-			// pstm.setInt(10, l1pet.get_food());
+			pstm.setInt(10, l1pet.getFood());
 			pstm.execute();
 		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);
@@ -256,6 +260,25 @@ public class PetTable {
 			SQLUtil.close(pstm);
 			SQLUtil.close(con);
 
+		}
+	}
+	
+	public void storePetFood(int itemObjId, int food) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con
+					.prepareStatement("UPDATE pets SET food = ? WHERE item_obj_id = ?");
+			pstm.setInt(1, food);
+			pstm.setInt(2, itemObjId);
+			
+			pstm.execute();
+		} catch (Exception e) {
+			_log.error(e.getLocalizedMessage(), e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
 		}
 	}
 

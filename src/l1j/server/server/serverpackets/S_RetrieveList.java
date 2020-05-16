@@ -43,6 +43,10 @@ public class S_RetrieveList extends ServerBasePacket {
 					writeC(item.isIdentified() ? 1 : 0);
 					writeS(item.getViewName());
 				}
+				
+				writeD(30); // 30 adena
+				writeD(0x00000000);
+				writeH(0x00);
 			}
 		} else {
 			pc.sendPackets(new S_ServerMessage(263)); // People have the

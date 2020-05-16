@@ -491,7 +491,7 @@ public class C_NPCAction extends ClientBasePacket {
 					pet.save(); // fix for pet xp. do not remove
 					// Unequip equipped items
 					pet.collect(true);
-					pc.getPetList().remove(pet.getId());
+					pc.removePet(pet);
 					pet.deleteMe();
 				}
 			}

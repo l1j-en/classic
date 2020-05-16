@@ -669,7 +669,8 @@ public class L1NpcInstance extends L1Character {
 		if (item == null)
 			return;
 		turnOnOffLight();
-		onGetItem(item);
+		int count = targetItem.getCount();
+		onGetItem(item, count);
 		setSleepTime(1000);
 	}
 
@@ -1274,7 +1275,7 @@ public class L1NpcInstance extends L1Character {
 		}
 	}
 
-	public void onGetItem(L1ItemInstance item) {
+	public void onGetItem(L1ItemInstance item, int count) {
 		refineItem();
 		getInventory().shuffle();
 		if (getNpcTemplate().get_digestitem() > 0) {

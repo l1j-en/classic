@@ -95,3 +95,8 @@ CREATE TABLE IF NOT EXISTS `map_timers` (
   PRIMARY KEY (`char_id`,`area_id`),
   KEY `map_id` (`map_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `pets` ADD `food` tinyint(3) NOT NULL DEFAULT '0';
+
+
+

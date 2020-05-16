@@ -150,7 +150,7 @@ public class L1DollInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onGetItem(L1ItemInstance item) {
+	public void onGetItem(L1ItemInstance item, int count) {
 		if (getNpcTemplate().get_digestitem() > 0) {
 			setDigestItem(item);
 		}

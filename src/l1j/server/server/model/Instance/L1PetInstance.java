@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package l1j.server.server.model.Instance;
 
 import java.util.Arrays;
@@ -5,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import l1j.server.server.ActionCodes;
+import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.ExpTable;
 import l1j.server.server.datatables.ItemTable;
 import l1j.server.server.datatables.PetItemTable;
@@ -14,6 +33,7 @@ import l1j.server.server.encryptions.IdFactory;
 import l1j.server.server.model.L1Attack;
 import l1j.server.server.model.L1Character;
 import l1j.server.server.model.L1Inventory;
+import l1j.server.server.model.L1PetFoodTimer;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.ZoneType;
 import l1j.server.server.model.skill.L1SkillId;
@@ -24,6 +44,7 @@ import l1j.server.server.serverpackets.S_NpcChatPacket;
 import l1j.server.server.serverpackets.S_PetMenuPacket;
 import l1j.server.server.serverpackets.S_PetPack;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1Item;
 import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PetItem;
@@ -67,7 +88,7 @@ public class L1PetInstance extends L1NpcInstance {
 					// Fix by Ssargon, should make summons move better without
 					// getting stuck
 					try {
-						Thread.sleep(200);
+						//TODO -- do we actually need this? Thread.sleep(200);
 						// Prevent infinite recursion by max-bounding retry
 						// depth
 						if (depth > 80) {
@@ -122,7 +143,6 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public L1PetInstance(L1Npc template, L1PcInstance master, L1Pet l1pet) {
 		super(template);
-		// System.out.println("Beginning pet creation.");
 		_petMaster = master;
 		_itemObjId = l1pet.get_itemobjid();
 		_type = PetTypeTable.getInstance().get(template.get_npcId());
@@ -138,12 +158,22 @@ public class L1PetInstance extends L1NpcInstance {
 				l1pet.get_exp()));
 		setLawful(l1pet.get_lawful());
 		setTempLawful(l1pet.get_lawful());
+		
+		setFood(l1pet.getFood());
+		startFoodTimer(this);
+		
 		ItemTable items = ItemTable.getInstance();
 		setWeapon(items.createItem(l1pet.get_weapon()));
 		setArmor(items.createItem(l1pet.get_armor()));
 		setMaster(master);
-		setX(master.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
-		setY(master.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
+		
+		// make sure when we pull them out that they're not stuck somewhere they can't get to you
+		// limit to 15 tries
+		for(int x = 0; x < 15 && moveDirection(master.getX(), master.getY()) == -1; x++) {
+			setX(master.getX() + ThreadLocalRandom.current().nextInt(5) - 2);
+			setY(master.getY() + ThreadLocalRandom.current().nextInt(5) - 2);
+		}
+		
 		setMap(master.getMapId());
 		setHeading(5);
 		setLightSize(template.getLightSize());
@@ -154,7 +184,6 @@ public class L1PetInstance extends L1NpcInstance {
 			onPerceive(pc);
 		}
 		master.addPet(this);
-		// System.out.println("Pet created successfully.");
 	}
 
 	public L1PetInstance(L1NpcInstance target, L1PcInstance master, int itemid) {
@@ -172,6 +201,10 @@ public class L1PetInstance extends L1NpcInstance {
 		setExpPercent(0);
 		setLawful(0);
 		setTempLawful(0);
+		
+		setFood(target.getFood());
+		startFoodTimer(this);
+		
 		setMaster(master);
 		setX(target.getX());
 		setY(target.getY());
@@ -298,6 +331,7 @@ public class L1PetInstance extends L1NpcInstance {
 		l1pet.set_hp(getMaxHp());
 		l1pet.set_mp(getMaxMp());
 		l1pet.set_exp(getExp());
+		l1pet.setFood(getFood());
 		L1ItemInstance armor = getArmor();
 		L1ItemInstance weapon = getWeapon();
 		if (weapon != null)
@@ -486,8 +520,7 @@ public class L1PetInstance extends L1NpcInstance {
 	 * Save to DataBase
 	 */
 	public void save() {
-		PetTable.getInstance().storePet(
-				PetTable.getInstance().getTemplate(_itemObjId));
+		PetTable.getInstance().storePet(PetTable.getInstance().getTemplate(_itemObjId));
 	}
 
 	@Override
@@ -531,10 +564,15 @@ public class L1PetInstance extends L1NpcInstance {
 	}
 
 	@Override
-	public void onGetItem(L1ItemInstance item) {
+	public void onGetItem(L1ItemInstance item, int count) {
 		if (getNpcTemplate().get_digestitem() > 0) {
 			setDigestItem(item);
 		}
+		
+		if (isFood(item.getItem())) {
+			eatFood(item, count);
+		}
+		
 		Arrays.sort(healPotions);
 		Arrays.sort(hastePotions);
 		if (Arrays.binarySearch(healPotions, item.getItem().getItemId()) >= 0) {
@@ -767,5 +805,58 @@ public class L1PetInstance extends L1NpcInstance {
 
 	public L1PetType getPetType() {
 		return _type;
+	}
+	
+	private L1PetFoodTimer _petFoodTimer;
+
+	public void startFoodTimer(L1PetInstance pet) {
+		_petFoodTimer = new L1PetFoodTimer(pet);
+		GeneralThreadPool.getInstance().schedule(_petFoodTimer, 10000);
+	}
+	
+	private void eatFood(L1ItemInstance item, int count) {
+		if (item.getItem().getFoodVolume() == 0) {
+			return;
+		}
+
+		int newFood = getFood();
+		int eatenCount = 0;
+		for (int i = 0; i < count; i++) {
+			if (newFood >= 100) {
+				break;
+			}
+			newFood += item.getItem().getFoodVolume() / 10;
+			eatenCount++;
+		}
+		if (eatenCount == 0) {
+			return;
+		}
+
+		getInventory().removeItem(item, eatenCount);
+		setFood(Math.min(100, newFood));
+		L1Pet l1pet = PetTable.getInstance().getTemplate(_itemObjId);
+		l1pet.setFood(getFood()); //TODO -- seems odd I need to update it in both places...
+		PetTable.getInstance().storePetFood(_itemObjId, getFood());
+	}
+
+	private boolean isFood(L1Item item) {
+		int petId = _type.getBaseNpcId();
+		int itemId = item.getItemId();
+		boolean result = false;
+		if (petId == 45313 || petId == 45710) { // Tiger, Battle Tiger
+			if (itemId == 50572 || itemId == 50574) {
+				result = true;
+			}
+		} else if (petId == 45711 || petId == 45712) { // Jindo puppy
+			if (itemId == 50573 || itemId == 50575) {
+				result = true;
+			}
+		} else { // All other pets
+			if (item.getType2() == 0 && item.getType() == 7) {
+				result = true;
+			}
+		}
+		
+		return result;
 	}
 }

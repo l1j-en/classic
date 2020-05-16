@@ -27,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import l1j.server.Config;
 import l1j.server.server.Account;
 import l1j.server.server.datatables.IpTable;
+import l1j.server.server.datatables.NpcTable;
+import l1j.server.server.datatables.PetTable;
 import l1j.server.server.datatables.ShopTable;
 import l1j.server.server.log.LogDwarfOut;
 import l1j.server.server.log.LogElfDwarfIn;
@@ -50,6 +52,8 @@ import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Disconnect;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SystemMessage;
+import l1j.server.server.templates.L1Npc;
+import l1j.server.server.templates.L1Pet;
 import l1j.server.server.templates.L1PrivateShopBuyList;
 import l1j.server.server.templates.L1PrivateShopSellList;
 
@@ -783,6 +787,60 @@ public class C_Result extends ClientBasePacket {
 				}
 			}
 			targetPc.setTradingInPrivateShop(false);
+		} else if ((resultType == 12) && (size != 0)
+				&& npcImpl.equalsIgnoreCase("L1Merchant")) {
+			int petCost, petCount, divisor, itemObjectId, itemCount = 0;
+
+			for (int i = 0; i < size; i++) {
+				petCost = 0;
+				petCount = 0;
+				divisor = 6;
+				itemObjectId = readD();
+				itemCount = readD();
+
+				if (itemCount == 0) {
+					continue;
+				}
+				for (L1NpcInstance petNpc : pc.getPetList().values()) 
+					petCost += petNpc.getPetcost();
+
+				int charisma = pc.getCha();
+				if (pc.isCrown()) {
+					charisma += 6;
+				} else if (pc.isElf()) {
+					charisma += 12;
+				} else if (pc.isWizard()) {
+					charisma += 6;
+				} else if (pc.isDarkelf()) {
+					charisma += 6;
+				} else if (pc.isDragonKnight()) {
+					charisma += 6;
+				} else if (pc.isIllusionist()) {
+					charisma += 6;
+				}
+
+				L1Pet l1pet = PetTable.getInstance().getTemplate(itemObjectId);
+				if (l1pet != null) {
+					npcId = l1pet.get_npcid();
+					charisma -= petCost;
+					if ((npcId == 45313) || (npcId == 45710 // Tiger/Battle Tiger
+							) || (npcId == 45711) || (npcId == 45712)) { // Jindo Puppy
+						divisor = 12;
+					} else {
+						divisor = 6;
+					}
+					
+					petCount = charisma / divisor;
+					if (petCount <= 0) {
+						pc.sendPackets(new S_ServerMessage(489)); // You cannot have so many dogs.
+						return;
+					}
+					
+					L1Npc npcTemp = NpcTable.getInstance().getTemplate(npcId);
+					L1PetInstance pet = new L1PetInstance(npcTemp, pc, l1pet);
+					pet.setPetcost(divisor);
+				}
+			}
 		}
 	}
 

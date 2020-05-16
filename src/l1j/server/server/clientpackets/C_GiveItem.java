@@ -170,7 +170,7 @@ public class C_GiveItem extends ClientBasePacket {
 					pc.getName(), item.getName(), item.getCount()));
 		}
 		
-		target.onGetItem(item);
+		target.onGetItem(item, count);
 		target.turnOnOffLight();
 
 		pc.turnOnOffLight();

@@ -41,6 +41,7 @@ public class GameServer extends Thread {
 	private static final int CACHE_REFRESH = 1000 * 60 * 4;
 	// Might be overkill, but hard to test. =\
 	private static final ConcurrentMap<String, Integer> connectionCache = new ConcurrentHashMap<String, Integer>();
+	private static int _yesNoCount = 0;
 
 	static {
 		GeneralThreadPool.getInstance().scheduleAtFixedRate(new Runnable() {
@@ -224,5 +225,10 @@ public class GameServer extends Thread {
 		}
 		_shutdownThread.interrupt();
 		_shutdownThread = null;
+	}
+	
+	public static int getYesNoCount() {
+		_yesNoCount += 1;
+		return _yesNoCount;
 	}
 }

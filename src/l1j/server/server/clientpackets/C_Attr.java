@@ -76,10 +76,18 @@ public class C_Attr extends ClientBasePacket {
 		int i = readH();
 		int c;
 		String name;
+		int attrcode;
+		
+		if(i == 479) {
+			attrcode = i;
+		} else {
+			readD();
+			attrcode = readH();
+		}
 
 		L1PcInstance pc = client.getActiveChar();
 
-		switch (i) {
+		switch (attrcode) {
 		case 97:
 			c = readC();
 			L1PcInstance joinPc = (L1PcInstance) L1World.getInstance()

@@ -183,6 +183,7 @@ public class Opcodes {
 	 public static final int S_OPCODE_OWNCHARSTATUS2 = 216;
 	 public static final int S_OPCODE_PACKETBOX = 40;
 	 public static final int S_OPCODE_PARALYSIS = 165;
+	 public static final int S_OPCODE_PETCTRL = 33;
 	 public static final int S_OPCODE_PINGTIME = 100; // can't find
 	 public static final int S_OPCODE_PINKNAME = 252;
 	 public static final int S_OPCODE_POISON = 93;
