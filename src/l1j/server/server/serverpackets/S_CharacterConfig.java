@@ -50,13 +50,12 @@ public class S_CharacterConfig extends ServerBasePacket {
 		ResultSet rs = null;
 		try {
 			con = L1DatabaseFactory.getInstance().getConnection();
-			pstm = con
-					.prepareStatement("SELECT * FROM character_config WHERE object_id=?");
+			pstm = con.prepareStatement("SELECT * FROM character_config WHERE object_id=?");
 			pstm.setInt(1, objectId);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				length = rs.getInt(2);
-				data = rs.getBytes(3);
+				length = rs.getInt("length");
+				data = rs.getBytes("data");
 			}
 		} catch (SQLException e) {
 			_log.error(e.getLocalizedMessage(), e);
@@ -69,7 +68,7 @@ public class S_CharacterConfig extends ServerBasePacket {
 			writeC(Opcodes.S_OPCODE_SKILLICONGFX);
 			writeC(41);
 			writeD(length);
-			writeByte(data);
+			writeBytes(data);
 		}
 	}
 

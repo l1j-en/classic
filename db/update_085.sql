@@ -5,12 +5,12 @@
 -- be removed.
 
 -- Add the door graphics for the TI Cave 2f doors
-INSERT INTO door_gfxs (gfxid,note,direction,left_edge_offset,right_edge_offset) VALUES 
+INSERT INTO door_gfxs (gfxid,note,direction,left_edge_offset,right_edge_offset) VALUES
 (88,'TICaves Doors',0,0,0),
 (89,'TICaves Doors',1,0,0);
 
 -- Add the actual doors to the game for TI Caves 2f. 6006 and 6007 are the golden/pale silver key doors
-INSERT INTO spawnlist_door (id,mapid,location,gfxid,locx,locy,hp,keeper) VALUES 
+INSERT INTO spawnlist_door (id,mapid,location,gfxid,locx,locy,hp,keeper) VALUES
 (6001,2,'TI Caves 2f',92,32664,32807,0,0),
 (6002,2,'TI Caves 2f',93,32673,32820,0,0),
 (6003,2,'TI Caves 2f',92,32668,32833,0,0),
@@ -47,14 +47,14 @@ INSERT INTO npc (npcid,name,nameid,note,impl,gfxid,lvl,hp,mp,ac,str,con,dex,wis,
 (92001,'Skeleton Soldier','$988','Pale silver key','L1Monster',1106,13,90,15,8,16,14,15,12,10,10,170,-13,'small',2,2,1,640,880,840,880,880,1,0,0,1,1,0,'skeleton',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0),
 ('92002','Skeleton Axeman','$987','Pale silver key','L1Monster',1104,13,90,20,0,18,14,14,12,10,10,170,-13,'small',2,1,1,480,840,840,840,840,1,0,0,1,1,0,'skeleton',1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0);
 
--- add the spawns for the pale silver key 
-INSERT INTO spawnlist (location,count,npc_templateid,group_id,locx,locy,randomx,randomy,locx1,locy1,locx2,locy2,heading,min_respawn_delay,max_respawn_delay,mapid,respawn_screen,movement_distance,rest,near_spawn,spawn_home,spawn_home_range,spawn_home_count,spawn_home_delay) VALUES 
+-- add the spawns for the pale silver key
+INSERT INTO spawnlist (location,count,npc_templateid,group_id,locx,locy,randomx,randomy,locx1,locy1,locx2,locy2,heading,min_respawn_delay,max_respawn_delay,mapid,respawn_screen,movement_distance,rest,near_spawn,spawn_home,spawn_home_range,spawn_home_count,spawn_home_delay) VALUES
 ('Skeleton Axeman - PSK',3,92002,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100),
 ('Skeleton Soldier - PSK',3,92001,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100),
 ('Skeleton Archer - PSK',3,92000,0,32736,32848,5,5,32730,32848,32740,32858,5,0,0,2,0,20,0,0,1,8,2,100);
 
 -- add the pale silver key to the spawns at at 7.5% drop rate
-INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES 
+INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES
 (92000,'Skeleton Archer',172,'Bow',1,1,50000),
 (92000,'Skeleton Archer',20043,'Helmet',1,1,50000),
 (92000,'Skeleton Archer',20056,'Cloak of Magic Resistance',1,1,50000),
@@ -98,5 +98,81 @@ CREATE TABLE IF NOT EXISTS `map_timers` (
 
 ALTER TABLE `pets` ADD `food` tinyint(3) NOT NULL DEFAULT '0';
 
+-- Adjust item Ancient Dark Elf Secret Text.
+UPDATE etcitem SET name = 'Ancient Dark Elf`s Secret Text' WHERE item_id = 49162;
+UPDATE droplist SET chance = 10000 WHERE itemId = 49162;
+INSERT INTO quest_drops (item_id, class) VALUES (49162, 'E');
 
+-- Adjust dragon tablet droprates, mostly reducing the high % chances from
+-- lower level mobs.
 
+-- Dragon Tablet(MagmaBreath)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49105 and mobId = 45376; -- Giran Lava Golem, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45241; -- Cerberus, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49105 and mobId = 45512; -- Hell Bound, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45121; -- Orc Wizard, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49105 and mobId = 45424; -- Fang of Flame, was 10000.
+
+-- Dragon Tablet(AwakenAntharas)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49106 and mobId = 45373; -- Ettin, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45311; -- Mole, was 10000.
+UPDATE droplist SET chance = 1000 WHERE itemId = 49106 and mobId = 45115; -- Giant Ant, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45214; -- Mole, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45147; -- Owlbear, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49106 and mobId = 45190; -- Giant Soldier Ant, was 10000.
+UPDATE droplist SET chance = 2000 WHERE itemId = 49106 and mobId = 45184; -- Arachnevil Elder, was 8000.
+
+-- Dragon Tablet(AwakenFafurion)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49111 and mobId = 45158; -- Mad Lizardman, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45984; -- Guardian of Water Spirit, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45460; -- Guardian of Water Spirit, was 10000.
+UPDATE droplist SET chance = 5000 WHERE itemId = 49111 and mobId = 45936; -- Eva Sea Dancer, was 10000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49111 and mobId = 45322; -- Living Armor, was 10000.
+UPDATE droplist SET chance = 8000 WHERE itemId = 49111 and mobId = 45855; -- Guardian of Water Spirit, was 10000.
+
+-- Dragon Tablet(MortalBody)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49112 and mobId = 45407; -- Cimaera, was 5000.
+
+-- Dragon Tablet(FreezingBreath)
+UPDATE droplist SET chance = 1000 WHERE itemId = 49115 and mobId = 45224; -- Undead Elmore Wizard, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 46140; -- Maid of the Ice Queen, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 45506; -- Cursed Elmore Wizard, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49115 and mobId = 45422; -- Subterranean Great King Turtle, was 5000.
+
+-- Dragon Tablet(AwakenValakas)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49116 and mobId = 45376; -- Giran Lava Golem, was 5000.
+UPDATE droplist SET chance = 1000 WHERE itemId = 49116 and mobId = 45365; -- Lava Golem, was 5000.
+
+-- Adjust Memory Cyrstal droprates.
+
+-- Memory Crystal(Phantasm)
+UPDATE droplist SET chance = 2500 WHERE itemId = 49128 and mobId = 45407; -- Cimaera, was 5000.
+
+-- Memory Crystal(IllusionDiaGolem)
+UPDATE droplist SET chance = 5000 WHERE itemId = 49130 and mobId = 45479; -- Horrific Iron Golem, was 7500.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45372; -- Iron Golem, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45365; -- Lava Golem, was 5000.
+UPDATE droplist SET chance = 2500 WHERE itemId = 49130 and mobId = 45796; -- Stone Golem of Maino Shaman, was 5000.
+
+-- Slightly rebalance Ant Cave drops.
+-- Giant Ant
+UPDATE droplist SET chance = 7500 WHERE itemId = 20014 and mobId = 45115; -- Helm of Magic: Healing, was 10000.
+UPDATE droplist SET chance = 25000 WHERE itemId = 40014 and mobId = 45115; -- Potion of Bravery, was 50000.
+UPDATE droplist SET chance = 25000 WHERE itemId = 40018 and mobId = 45115; -- Greater Haste Potion, was 50000.
+UPDATE droplist SET chance = 150000 WHERE itemId = 140100 and mobId = 45115; -- Scroll of Teleportation, was 175000.
+-- Giant Soldier Ant
+UPDATE droplist SET chance = 3000 WHERE itemId = 20149 and mobId = 45190; -- Bronze Plate Mail, was 5000.
+UPDATE droplist SET chance = 1000 WHERE itemId = 20154 and mobId = 45190; -- Plate Mail, was 1500.
+UPDATE droplist SET chance = 35000 WHERE itemId = 40014 and mobId = 45190; -- Potion of Bravery, was 50000.
+UPDATE droplist SET chance = 40000 WHERE itemId = 40018 and mobId = 45190; -- Greater Haste Potion, was 50000.
+UPDATE droplist SET chance = 175000 WHERE itemId = 140100 and mobId = 45190; -- Scroll of Teleportation, was 200000
+
+-- Mark remaining Level 50 class quest drop items as only for that class.
+-- Dantes' Royal Letter (Knight)
+INSERT INTO quest_drops (item_id, class) VALUES (49160, 'K');
+-- Spirit's Whisper (Knight)
+INSERT INTO quest_drops (item_id, class) VALUES (49161, 'K');
+-- Movement Order (Prince)
+INSERT INTO quest_drops (item_id, class) VALUES (49159, 'P');
+-- Secret Intelligence Report (Mage)
+INSERT INTO quest_drops (item_id, class) VALUES (49164, 'W');
