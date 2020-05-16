@@ -213,6 +213,9 @@ public class C_LoginToServer extends ClientBasePacket {
 		}
 
 		L1World.getInstance().addVisibleObject(pc);
+		pc.sendPackets(new S_Mail(pc , 0));
+		pc.sendPackets(new S_Mail(pc , 1));
+		pc.sendPackets(new S_Mail(pc , 2));
 		pc.sendPackets(new S_ActiveSpells(pc));
 		
 		pc.beginGameTimeCarrier();
@@ -241,9 +244,6 @@ public class C_LoginToServer extends ClientBasePacket {
 		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_PLUS, pc.getDodge()));
 		pc.sendPackets(new S_PacketBox(S_PacketBox.DODGE_RATE_MINUS, pc.getNdodge()));
 		
-		pc.sendPackets(new S_Mail(pc.getName() , 0));
-		pc.sendPackets(new S_Mail(pc.getName() , 1));
-		pc.sendPackets(new S_Mail(pc.getName() , 2));
 		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_CLOSE_SLOT, 3));
 		pc.sendPackets(new S_RuneSlot(S_RuneSlot.RUNE_OPEN_SLOT, 1));
 

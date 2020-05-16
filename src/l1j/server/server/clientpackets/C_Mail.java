@@ -31,6 +31,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_Mail;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.serverpackets.S_SkillSound;
 import l1j.server.server.templates.L1Mail;
 
 // Referenced classes of package l1j.server.server.clientpackets:
@@ -39,105 +40,104 @@ import l1j.server.server.templates.L1Mail;
 public class C_Mail extends ClientBasePacket {
 
 	private static final String C_MAIL = "[C] C_Mail";
+
 	private static Logger _log = LoggerFactory.getLogger(C_Mail.class.getName());
+
 	private static int TYPE_NORMAL_MAIL = 0;
 	private static int TYPE_CLAN_MAIL = 1;
 	private static int TYPE_MAIL_BOX = 2;
 
-	public C_Mail(byte abyte0[], Client client) {
+	public C_Mail(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 		int type = readC();
 		L1PcInstance pc = client.getActiveChar();
 
-		if (type == 0x00 || type == 0x01 || type == 0x02) {
-			pc.sendPackets(new S_Mail(pc.getName(), type));
-		} else if (type == 0x10 || type == 0x11 || type == 0x12) {
+		if (type == 0x00 || type == 0x01 || type == 0x02) { // Open
+			pc.sendPackets(new S_Mail(pc, type));
+		} else if (type == 0x10 || type == 0x11 || type == 0x12) { // Read
 			int mailId = readD();
-			L1Mail mail = MailTable.getMail(mailId);
-
-			if (pc.getName().equalsIgnoreCase(mail.getReceiverName())){
-				if (mail.getReadStatus() == 0) {
-					MailTable.getInstance().setReadStatus(mailId);
-				}
-				pc.sendPackets(new S_Mail(mailId, type));
+			L1Mail mail = MailTable.getInstance().getMail(mailId);
+			if (mail.getReadStatus() == 0) {
+				MailTable.getInstance().setReadStatus(mailId);
 			}
-		} else if (type == 0x20) {
-			readH();
+			pc.sendPackets(new S_Mail(mailId, type));
+		} else if (type == 0x20) { // Write a general mail
+			if (!pc.getInventory().checkItem(40308, 50)) {
+				pc.sendPackets(new S_ServerMessage(189)); // Out of adena
+				return;
+			}
+			int unknow = readH();
 			String receiverName = readS();
 			byte[] text = readByte();
-			L1PcInstance receiver = L1World.getInstance().getPlayer(
-					receiverName);
-
-			if (receiver != null) {
-				if (getMailSizeByReceiver(receiverName, TYPE_NORMAL_MAIL) >= 20) {
-					pc.sendPackets(new S_Mail(type));
-					return;
-				}
-
-				MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL,
-						receiverName, pc, text);
-
-				if (receiver.getOnlineStatus() == 1) {
-					receiver.sendPackets(new S_Mail(receiverName,
-							TYPE_NORMAL_MAIL));
-				}
-			} else {
-				try {
-					L1PcInstance restorePc = CharacterTable.getInstance()
+			L1PcInstance receiver = CharacterTable.getInstance()
 							.restoreCharacter(receiverName);
-
-					if (restorePc != null) {
-						if (getMailSizeByReceiver(receiverName,
-								TYPE_NORMAL_MAIL) >= 20) {
-							pc.sendPackets(new S_Mail(type));
-							return;
-						}
-						MailTable.getInstance().writeMail(TYPE_NORMAL_MAIL,
-								receiverName, pc, text);
-					} else {
-						pc.sendPackets(new S_ServerMessage(109, receiverName));
-					}
-				} catch (Exception e) {
-					_log.error(e.getLocalizedMessage(), e);
-				}
+			if (receiver == null) {
+				pc.sendPackets(new S_ServerMessage(109, receiverName));
+				// No one by that name.
+				return;
 			}
-		} else if (type == 0x21) {
-			readH();
+			if (getMailSizeByReceiver(receiver, TYPE_NORMAL_MAIL) >= 40) {
+				pc.sendPackets(new S_Mail(type, false));
+				return;
+			}
+			int mailId = MailTable.getInstance().writeMail(
+							TYPE_NORMAL_MAIL, receiverName, pc, text, pc.getId());
+			pc.sendPackets(new S_Mail(receiver, mailId, true));
+			int mailId2 = MailTable.getInstance().writeMail(
+							TYPE_NORMAL_MAIL, receiverName, pc, text, receiver.getId());
+			if (receiver.getOnlineStatus() == 1) {
+				receiver.sendPackets(new S_Mail(pc, mailId2, false));
+				receiver.sendPackets(new S_SkillSound(receiver.getId(), 1091));
+			}
+			pc.getInventory().consumeItem(40308, 50);
+			pc.sendPackets(new S_Mail(type, true));
+		} else if (type == 0x21) { // Write clan email
+			if (!pc.getInventory().checkItem(40308, 1000)) {
+				pc.sendPackets(new S_ServerMessage(189)); // Out of adena
+				return;
+			}
+			int unknow = readH();
 			String clanName = readS();
 			byte[] text = readByte();
-			
-			if (clanName.equalsIgnoreCase(pc.getClanname())) {
-				L1Clan clan = L1World.getInstance().getClan(clanName);
-				if (clan != null) {
-					for (String name : clan.getAllMembers()) {
-						int size = getMailSizeByReceiver(name, TYPE_CLAN_MAIL);
-						if (size >= 50) {
-							continue;
-						}
-						MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name, pc,
-								text);
-						L1PcInstance clanPc = L1World.getInstance().getPlayer(name);
-						if (clanPc != null) {
-							clanPc.sendPackets(new S_Mail(name, TYPE_CLAN_MAIL));
-						}
+			L1Clan clan = L1World.getInstance().getClan(clanName);
+			if (clan != null) {
+				for (String name : clan.getAllMembers()) {
+					L1PcInstance clanPc = CharacterTable.getInstance().restoreCharacter(name);
+					int size = getMailSizeByReceiver(clanPc, TYPE_CLAN_MAIL);
+					if (size >= 80) {
+						continue;
 					}
+					int mailId = MailTable.getInstance().writeMail(TYPE_CLAN_MAIL, name,
+									pc, text, clanPc.getId());
+					if (clanPc.getOnlineStatus() == 1) { // Online
+						clanPc.sendPackets(new S_Mail(clanPc, TYPE_CLAN_MAIL));
+						clanPc.sendPackets(new S_SkillSound(clanPc.getId(), 1091));
+					}
+					pc.getInventory().consumeItem(40308, 1000);
 				}
 			}
-		} else if (type == 0x30 || type == 0x31 || type == 0x32) {
+		} else if (type == 0x30 || type == 0x31 || type == 0x32) { // Delete
 			int mailId = readD();
 			MailTable.getInstance().deleteMail(mailId);
 			pc.sendPackets(new S_Mail(mailId, type));
-		} else if (type == 0x40) {
+		} else if (type == 0x60 || type == 0x61 || type == 0x62) { // Delete multiple
+			int count = readD();
+			for (int i = 0; i < count; i++) {
+				int mailId = readD();
+				pc.sendPackets(new S_Mail(mailId, (MailTable.getMail(mailId).getType() + 0x30)));
+				MailTable.getInstance().deleteMail(mailId);
+			}
+		} else if(type == 0x40 || type == 0x41) { // Save in storage box
 			int mailId = readD();
 			MailTable.getInstance().setMailType(mailId, TYPE_MAIL_BOX);
 			pc.sendPackets(new S_Mail(mailId, type));
 		}
 	}
 
-	private int getMailSizeByReceiver(String receiverName, int type) {
+	private int getMailSizeByReceiver(L1PcInstance pc, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<L1Mail>();
-		for (L1Mail mail : MailTable.getAllMail()) {
-			if (mail.getReceiverName().equalsIgnoreCase(receiverName)) {
+		for (L1Mail mail : MailTable.getInstance().getAllMail()) {
+			if (mail.getInBoxId() == pc.getId()) {
 				if (mail.getType() == type) {
 					mails.add(mail);
 				}

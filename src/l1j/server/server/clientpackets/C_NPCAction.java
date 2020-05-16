@@ -121,12 +121,12 @@ import l1j.server.server.templates.L1Npc;
 import l1j.server.server.templates.L1Skill;
 import l1j.server.server.templates.L1Town;
 
-public class C_NPCAction extends ClientBasePacket {
+public class C_NpcAction extends ClientBasePacket {
 
 	private static final String C_NPC_ACTION = "[C] C_NPCAction";
-	private static Logger _log = LoggerFactory.getLogger(C_NPCAction.class.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_NpcAction.class.getName());
 
-	public C_NPCAction(byte abyte0[], Client client) throws Exception {
+	public C_NpcAction(byte abyte0[], Client client) throws Exception {
 		super(abyte0);
 
 		int objid = readD();

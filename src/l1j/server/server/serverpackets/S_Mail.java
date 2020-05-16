@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import l1j.server.server.datatables.MailTable;
 import l1j.server.server.encryptions.Opcodes;
 import l1j.server.server.templates.L1Mail;
+import l1j.server.server.model.Instance.L1PcInstance;
 
 // Referenced classes of package l1j.server.server.serverpackets:
 // ServerBasePacket
@@ -31,10 +32,10 @@ public class S_Mail extends ServerBasePacket {
 	private static final String S_MAIL = "[S] S_Mail";
 	private byte[] _byte = null;
 
-	public S_Mail(String receiverName, int type) {
+	public S_Mail(L1PcInstance pc, int type) {
 		ArrayList<L1Mail> mails = new ArrayList<L1Mail>();
 		for (L1Mail mail : MailTable.getAllMail()) {
-			if (mail.getReceiverName().equalsIgnoreCase(receiverName)) {
+			if (mail.getInBoxId() == pc.getId()) {
 				if (mail.getType() == type) {
 					mails.add(mail);
 				}
@@ -43,6 +44,7 @@ public class S_Mail extends ServerBasePacket {
 		if (mails.isEmpty()) {
 			return;
 		}
+
 		writeC(Opcodes.S_OPCODE_MAIL);
 		writeC(type);
 		writeH(mails.size());
@@ -51,19 +53,41 @@ public class S_Mail extends ServerBasePacket {
 			L1Mail mail = mails.get(i);
 			writeD(mail.getId());
 			writeC(mail.getReadStatus());
-			
-			writeC(mail.getSenderName().equalsIgnoreCase(receiverName) ? 1 : 0);
-			writeS(mail.getSenderName().equalsIgnoreCase(receiverName) ? mail.getReceiverName() : mail.getSenderName());
-			writeByte(mail.getSubject());
+			writeD((int) (mail.getDate().getTime() / 1000));
+			writeC(mail.getSenderName().equalsIgnoreCase(pc.getName()) ? 1 : 0);
+			writeS(mail.getSenderName().equalsIgnoreCase(pc.getName()) ? mail.getReceiverName() : mail.getSenderName());
+			writeBytes(mail.getSubject());
 		}
 	}
-
-	public S_Mail(int type) {
+/**
+ * //Unable to send letter [Server] opcode = 48 0000: 30 20 00 45 54 fa 00 b5
+ */	
+	public S_Mail(int type, boolean isDelivered) { // Mail notification to recipients
 		writeC(Opcodes.S_OPCODE_MAIL);
 		writeC(type);
+		writeC(isDelivered ? 1 : 0);
+	}
+	public S_Mail(L1PcInstance pc, int mailId, boolean isDraft){
+		MailTable.getInstance();
+		L1Mail mail = MailTable.getMail(mailId);
+		writeC(Opcodes.S_OPCODE_MAIL);
+		writeC(0x50);
+		writeD(mailId);
+		writeC(isDraft ? 1 : 0);
+		writeS(pc.getName());
+		writeBytes(mail.getSubject());
 	}
 
-	public S_Mail(int mailId, int type) {
+/**
+ * //Read general letters [Server] opcode = 48 0000: [30] [10] [29 00 00 00] [32 00] 00 00 a4
+ * cb 00 03 08 00 0.)...2.........
+ * 
+ * //Mail to the safe deposit box [Server] opcode = 48 0000: [30] [40] [2b 00 00 00] [01] 95
+ * 
+ */
+	public S_Mail(int mailId,int type) {
+		// Delete letter
+		// 0x30: Delete general 0x31:Delete Blood Pledge 0x32:Generally stored in a safe deposit box 0x40:Delete the safe deposit box
 		if (type == 0x30 || type == 0x31 || type == 0x32 || type == 0x40) {
 			writeC(Opcodes.S_OPCODE_MAIL);
 			writeC(type);
@@ -76,7 +100,7 @@ public class S_Mail extends ServerBasePacket {
 			writeC(Opcodes.S_OPCODE_MAIL);
 			writeC(type);
 			writeD(mail.getId());
-			writeByte(mail.getContent());
+			writeBytes(mail.getContent());
 		}
 	}
 

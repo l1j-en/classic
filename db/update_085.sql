@@ -176,3 +176,11 @@ INSERT INTO quest_drops (item_id, class) VALUES (49161, 'K');
 INSERT INTO quest_drops (item_id, class) VALUES (49159, 'P');
 -- Secret Intelligence Report (Mage)
 INSERT INTO quest_drops (item_id, class) VALUES (49164, 'W');
+
+-- WARNING: THIS WILL TRUNCATE MAIL.
+-- Update mail table.
+-- TODO: Modify this later to migrate the data if anyone cares about that.
+TRUNCATE `mail`;
+ALTER TABLE `mail` MODIFY `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `mail` ADD `inbox_id` int(10) unsigned NOT NULL DEFAULT '0';
+

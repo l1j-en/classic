@@ -167,7 +167,7 @@ import l1j.server.server.clientpackets.C_LoginToServer;
 import l1j.server.server.clientpackets.C_LoginToServerOK;
 import l1j.server.server.clientpackets.C_Mail;
 import l1j.server.server.clientpackets.C_MoveChar;
-import l1j.server.server.clientpackets.C_NPCAction;
+import l1j.server.server.clientpackets.C_NpcAction;
 import l1j.server.server.clientpackets.C_NPCTalk;
 import l1j.server.server.clientpackets.C_NewCharSelect;
 import l1j.server.server.clientpackets.C_Party;
@@ -260,7 +260,7 @@ public class PacketHandler {
 			new C_ChangeHeading(abyte0, _client);
 			break;
 		case C_OPCODE_NPCACTION:
-			new C_NPCAction(abyte0, _client);
+			new C_NpcAction(abyte0, _client);
 			break;
 		case C_OPCODE_USESKILL:
 			new C_UseSkill(abyte0, _client);
