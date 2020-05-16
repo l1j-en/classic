@@ -520,6 +520,33 @@ public abstract class L1Item implements Serializable {
 			return 0;
 		}
 	}
+	
+	public int getMagicCatalystType() {
+		int type = 0;
+		
+		switch (getItemId()) {
+		case 40318: // Magic Gem
+			type = 166;
+			break;
+		case 40319: // Spirit Gem
+			type = 569;
+			break;
+		case 40321: // Dark stone
+			type = 837;
+			break;
+		case 49158: // Forbidden fruit
+			type = 3674;
+			break;
+		case 49157: // Bone fragment
+			type = 3605;
+			break;
+		case 49156: // Elemental stone
+			type = 3606;
+			break;
+		}
+		
+		return type;
+	}
 
 	// L1EtcItem
 	public boolean isStackable() {

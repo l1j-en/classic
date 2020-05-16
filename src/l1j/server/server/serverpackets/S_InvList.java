@@ -37,7 +37,7 @@ public class S_InvList extends ServerBasePacket {
 		for (L1ItemInstance item : items) {
 			writeD(item.getId());
 			
-			writeH(0); //TODO -- item.getItem().getMagicCatalystType());
+			writeH(item.getItem().getMagicCatalystType());
 			
 			int type = item.getItem().getUseType();
 			if (type < 0){
