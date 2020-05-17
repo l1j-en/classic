@@ -24,6 +24,10 @@ import l1j.server.server.encryptions.Opcodes;
 public class S_Message_YN extends ServerBasePacket {
 	private byte[] _byte = null;
 
+	public S_Message_YN(int type) {
+		buildPacket(type, null, null, null, 1);
+	}
+	
 	public S_Message_YN(int type, String msg1) {
 		buildPacket(type, msg1, null, null, 1);
 	}
