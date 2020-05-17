@@ -104,10 +104,10 @@ public class L1Resolve implements L1CommandExecutor {
 
 			if (receiver != null) {
 				MailTable.getInstance().writeMail(0, submitterName, receiver,
-						mailText);
+						mailText, receiver.getId());
 
 				if (receiver.getOnlineStatus() == 1) {
-					receiver.sendPackets(new S_Mail(submitterName, 0));
+					receiver.sendPackets(new S_Mail(receiver, 0));
 					receiver.sendPackets(
 							new S_SystemMessage("A bug you submitted has been resolved. " + 
 									"Check your mail for more info!"));
@@ -119,7 +119,7 @@ public class L1Resolve implements L1CommandExecutor {
 
 					if (restorePc != null) {
 						MailTable.getInstance().writeMail(0, submitterName, restorePc, 
-								mailText);
+								mailText, restorePc.getId());
 					} else {
 						pc.sendPackets(new S_ServerMessage(109, submitterName));
 					}
