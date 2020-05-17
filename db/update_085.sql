@@ -513,3 +513,154 @@ DELETE FROM npc WHERE npcid IN
  80024, 80025, 80026, 80027, 80028, 80029, 80030, 80031, 80032, 80033, 80034,
  80035, 80036, 80037, 80038, 80039, 80040, 80041, 80042, 80043, 80044, 80045,
  81044);
+
+-- Sync nameids with 3.63.  Only updating ones that seem incorrect.
+UPDATE npc SET nameid = '$4028' WHERE npcid = 45458; -- Was Captain Drake
+UPDATE npc SET nameid = '$2933 Soldier' WHERE npcid = 45662; -- Was $2933 ??
+UPDATE npc SET nameid = '$3941' WHERE npcid = 45671; -- Was Ariorc
+UPDATE npc SET nameid = 'Singing Island Teleporter' WHERE npcid = 50082; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$2344' WHERE npcid = 70535; -- Was ''
+UPDATE npc SET nameid = '$455' WHERE npcid = 70539; -- Was ''
+UPDATE npc SET nameid = '$2574' WHERE npcid = 70840; -- Was Robiel
+UPDATE npc SET nameid = '$3118' WHERE npcid = 70977; -- Was ''
+UPDATE npc SET nameid = 'Dromond' WHERE npcid = 70997; -- Was $10051 ((Summon Greater Element))
+UPDATE npc SET nameid = 'Singing Island Guide' WHERE npcid = 70998; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$2037' WHERE npcid = 70999; -- Was $10052 ((Burning Weapon))
+UPDATE npc SET nameid = '$2037' WHERE npcid = 71000; -- Was $10053 ((Nature's Blessing))
+UPDATE npc SET nameid = 'Pharmacist Ikushi' WHERE npcid = 71001; -- Was $10059 ((Elemental Falldown))
+UPDATE npc SET nameid = 'Cancellation Teacher' WHERE npcid = 71002; -- Was $10083 (Grand Opening Rice Cake Chest)
+UPDATE npc SET nameid = 'Blacksmith Ron' WHERE npcid = 71003; -- Was $10060 ((Counter Mirror))
+UPDATE npc SET nameid = 'Adele' WHERE npcid = 71004; -- Was $10063 ((Water Life))
+UPDATE npc SET nameid = 'Popilea' WHERE npcid = 71005; -- Was $10054 ((Call of Nature))
+UPDATE npc SET nameid = 'Timmie' WHERE npcid = 71006; -- Was $10055 ((Storm Shot))
+UPDATE npc SET nameid = 'Dylan' WHERE npcid = 71007; -- Was $10061 ((Wind Shackle))
+UPDATE npc SET nameid = 'Blood Pledge Recruitment $1385' WHERE npcid = 71008; -- Was $10077 $1385 (dummy Message Board)
+UPDATE npc SET nameid = 'Chicory' WHERE npcid = 71009; -- Was $10057 ((Iron Skin))
+UPDATE npc SET nameid = 'Chicory' WHERE npcid = 71010; -- Was $10057 ((Iron Skin))
+UPDATE npc SET nameid = 'Burriana' WHERE npcid = 71011; -- Was $10056 ((Wind Shackle))
+UPDATE npc SET nameid = 'Burriana' WHERE npcid = 71012; -- Was $10056 ((Wind Shackle))
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71014; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71015; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71016; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71017; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Fader' WHERE npcid = 71018; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Vito Disciple' WHERE npcid = 71019; -- Was $10068 ((Pollute Water))
+UPDATE npc SET nameid = 'Region' WHERE npcid = 71020; -- Was $10068 ((Striker Gale))
+UPDATE npc SET nameid = 'Bonesmith Matti' WHERE npcid = 71021; -- Was $10073 (Halloween Banana Candy (After Use))
+UPDATE npc SET nameid = 'Bonesmith Jinan' WHERE npcid = 71022; -- Was $10072 (Halloween Chocolate Candy (After Use))
+UPDATE npc SET nameid = 'Bonesmith Kei' WHERE npcid = 71023; -- Was $10071 (Halloween Milk Candy (After Use))
+UPDATE npc SET nameid = 'Kesukin' WHERE npcid = 71025; -- Was $10058 ((Triple Arrow))
+UPDATE npc SET nameid = '$1737' WHERE npcid = 71026; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1730' WHERE npcid = 71027; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1731' WHERE npcid = 71028; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1738' WHERE npcid = 71029; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Mercenary Ryan' WHERE npcid = 71031; -- Was $10066 ((Aqua Protect))
+UPDATE npc SET nameid = 'Adventurer Eta' WHERE npcid = 71032; -- Was $10067 ((Aqua Protect))
+UPDATE npc SET nameid = 'Hermit' WHERE npcid = 71033; -- Was $10075 (dummy)
+UPDATE npc SET nameid = 'Rabbi' WHERE npcid = 71034; -- Was $10074 (Halloween Strawberry Candy (After Use))
+UPDATE npc SET nameid = 'Teleporter to Singing Island' WHERE npcid = 71035; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Mercenary Squad' WHERE npcid = 71176; -- Was ''
+UPDATE npc SET nameid = 'Mercenary Squad' WHERE npcid = 71177; -- Was ''
+UPDATE npc SET nameid = '$3421' WHERE npcid = 80010; -- Was ''
+UPDATE npc SET nameid = 'Muryan - Large' WHERE npcid = 81048; -- Was $10102 (dummy)
+UPDATE npc SET nameid = 'Giant Guarding Ant' WHERE npcid = 81078; -- Was $10101 (dummy)
+UPDATE npc SET nameid = 'Giant Centipede' WHERE npcid = 81079; -- Was $10103 (dummy)
+UPDATE npc SET nameid = 'Acting Magic Merchant' WHERE npcid = 81110; -- Was ''
+UPDATE npc SET nameid = '$8988' WHERE npcid = 81200; -- Was ?????????
+UPDATE npc SET nameid = 'Shop (Chain Sword)' WHERE npcid = 81241; -- Was ''
+UPDATE npc SET nameid = 'Shop (Kiringku)' WHERE npcid = 81242; -- Was ''
+UPDATE npc SET nameid = 'Shop (Dragon Tablet)' WHERE npcid = 81243; -- Was ''
+UPDATE npc SET nameid = 'Shop (Memory Crystal)' WHERE npcid = 81244; -- Was ''
+
+-- Update the names of any of the above NPCs that mismatch their nameids.
+UPDATE npc SET `name` = 'Spirit of Drake' WHERE npcid = 45458; -- Was Captain Drake
+UPDATE npc SET `name` = 'Windawood Soldier' WHERE npcid = 45662; -- Was Guard
+UPDATE npc SET `name` = 'Ari Orc' WHERE npcid = 45671; -- Was Ariorc
+UPDATE npc SET `name` = 'Singing Island Teleporter' WHERE npcid = 50082; -- Was Unknown 50082
+UPDATE npc SET `name` = 'Kuper' WHERE npcid = 70535; -- Was Unknown 70535
+UPDATE npc SET `name` = 'Fiin' WHERE npcid = 70539; -- Was Uknown 70539
+UPDATE npc SET `name` = 'Miner Oum' WHERE npcid = 70977; -- Was Unknown 70977
+UPDATE npc SET `name` = 'Dromond' WHERE npcid = 70997; -- Was Unknown 70997
+UPDATE npc SET `name` = 'Singing Island Guide' WHERE npcid = 70998; -- Was Unknown 70998
+UPDATE npc SET `name` = 'Alex' WHERE npcid = 70999; -- Was Unknown 70999
+UPDATE npc SET `name` = 'Alex' WHERE npcid = 71000; -- Was Unknown 71000
+UPDATE npc SET `name` = 'Cancellation Teacher' WHERE npcid = 71002; -- Was Unknown 71002
+UPDATE npc SET `name` = 'Adele' WHERE npcid = 71004; -- Was Unknown 71004
+UPDATE npc SET `name` = 'Popilea' WHERE npcid = 71005; -- Was Unknown 71005
+UPDATE npc SET `name` = 'Dylan' WHERE npcid = 71007; -- Was Unknown 71007
+UPDATE npc SET `name` = 'Blood Pledge Recruitment Board' WHERE npcid = 71008; -- Was Message Board
+UPDATE npc SET `name` = 'Chicory' WHERE npcid = 71010; -- Was Unknown 71010
+UPDATE npc SET `name` = 'Burriana' WHERE npcid = 71012; -- Was Unknown 71012
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71014; -- Was Unknown 71014
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71015; -- Was Unknown 71015
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71016; -- Was Unknown 71016
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71017; -- Was Unknown 71017
+UPDATE npc SET `name` = 'Bonesmith Matti' WHERE npcid = 71021; -- Was BoneSmith Matti
+UPDATE npc SET `name` = 'Bonesmith Jinan' WHERE npcid = 71022; -- Was BoneSmith Jinan
+UPDATE npc SET `name` = 'Bonesmith Kei' WHERE npcid = 71023; -- Was BoneSmith Kei
+UPDATE npc SET `name` = 'Coco' WHERE npcid = 71026; -- Was Unknown 71026
+UPDATE npc SET `name` = 'Kun' WHERE npcid = 71027; -- Was Unknown 71027
+UPDATE npc SET `name` = 'Kiyari' WHERE npcid = 71028; -- Was Unknown 71028
+UPDATE npc SET `name` = 'Sky' WHERE npcid = 71029; -- Was Unknown 71029
+UPDATE npc SET `name` = 'Mercenary Ryan' WHERE npcid = 71031; -- Was Unknown 71031
+UPDATE npc SET `name` = 'Adventurer Eta' WHERE npcid = 71032; -- Was ETA Adventurers
+UPDATE npc SET `name` = 'Teleporter to Singing Island' WHERE npcid = 71035; -- Was Unknown 71035
+UPDATE npc SET `name` = 'Aden Castle Princess' WHERE npcid = 80010; -- Was Unknown 80010
+UPDATE npc SET `name` = 'Muryan - Large' WHERE npcid = 81048; -- Was Unknown 81048
+UPDATE npc SET `name` = 'Giant Gaurding Ant' WHERE npcid = 81078; -- Was Unknown 81078
+UPDATE npc SET `name` = 'Giant Centipede' WHERE npcid = 81079; -- Was Unknown 81079
+UPDATE npc SET `name` = 'Acting Magic Merchant' WHERE npcid = 81110; -- Was Unknown 81110
+UPDATE npc SET `name` = 'Shop (Chain Sword)' WHERE npcid = 81241; -- Was ''
+UPDATE npc SET `name` = 'Shop (Kiringku)' WHERE npcid = 81242; -- Was ''
+UPDATE npc SET `name` = 'Shop (Dragon Tablet)' WHERE npcid = 81243; -- Was ''
+UPDATE npc SET `name` = 'Shop (Memory Crystal)' WHERE npcid = 81244; -- Was ''
+
+-- Update NPC gfxids
+UPDATE npc SET gfxid = 2354 WHERE npcid = 45196; -- Alligator, was 1574
+UPDATE npc SET gfxid = 2350 WHERE npcid = 45377; -- Lizardman, was 1173
+UPDATE npc SET gfxid = 2372 WHERE npcid = 45378; -- Ghast, was 255
+UPDATE npc SET gfxid = 10573 WHERE npcid = 45529; -- Drake, was 1062
+UPDATE npc SET gfxid = 11197 WHERE npcid = 45641; -- Nightmare, was 2332
+UPDATE npc SET gfxid = 3920 WHERE npcid = 45804; -- Vakuuk, was 1595
+UPDATE npc SET gfxid = 2354 WHERE npcid = 45814; -- Mutated Alligator, was 1574
+UPDATE npc SET gfxid = 2351 WHERE npcid = 45815; -- Mutant Ramia, was 1597
+UPDATE npc SET gfxid = 2352 WHERE npcid = 45821; -- Mutant Ramia, was 1600
+UPDATE npc SET gfxid = 5516 WHERE npcid = 45847; -- Cursed Dark Elf Wizard, was 4744
+UPDATE npc SET gfxid = 699 WHERE npcid = 50118; -- Niki, was 940
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60001; -- Dorim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60002; -- Bahof, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60003; -- Thram, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60004; -- Denitz, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60005; -- Luke, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60006; -- Jianku, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60007; -- Karim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60008; -- Nodim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60009; -- Sauram, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60010; -- Kasham, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60011; -- Kuron, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60012; -- Tofen, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60013; -- Axellon, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60014; -- Kriom, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60015; -- Ogi, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60016; -- Juke, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60017; -- Karudim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60018; -- Calvas, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60019; -- Timpukin, was 143
+UPDATE npc SET gfxid = 10713 WHERE npcid = 60020; -- Tulak, was 143
+UPDATE npc SET gfxid = 10713 WHERE npcid = 60021; -- Hirim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60022; -- Borgin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60023; -- Tarkin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60024; -- Gotham, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60025; -- Kusian, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60027; -- Kuhatin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60029; -- Haidrim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60030; -- Hakim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60037; -- dummy, was 143
+UPDATE npc SET gfxid = 7655 WHERE npcid = 60530; -- Dwarf Guard, was 1997
+UPDATE npc SET gfxid = 7655 WHERE npcid = 60531; -- Dwarf Guard, was 1997
+UPDATE npc SET gfxid = 148 WHERE npcid = 70862; -- Heine Gatekeeper, was 1659
+UPDATE npc SET gfxid = 148 WHERE npcid = 70863; -- Heine Gatekeeper, was 1659
+UPDATE npc SET gfxid = 3800 WHERE npcid = 70922; -- Oum, was 3787
+UPDATE npc SET gfxid = 2429 WHERE npcid = 71179; -- Diez, was 2511
+UPDATE npc SET gfxid = 5912 WHERE npcid = 81175; -- Wanted Criminal Kuzak, was 5910
+UPDATE npc SET gfxid = 1571 WHERE npcid = 91302; -- Guardian of Noble Will, was 2771
