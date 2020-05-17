@@ -40,6 +40,7 @@ import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ServerMessage;
+import l1j.server.server.templates.L1BookMark;
 import l1j.server.server.templates.L1Skill;
 
 
@@ -59,6 +60,7 @@ public class C_UseSkill extends ClientBasePacket {
 		int targetId = 0;
 		int targetX = 0;
 		int targetY = 0;
+		
 		L1PcInstance pc = client.getActiveChar();
 
 		if (pc.isTeleport() || pc.isDead()) {
@@ -107,8 +109,14 @@ public class C_UseSkill extends ClientBasePacket {
 					targetY = readH();
 					message = readS();
 				} else if (skillId == TELEPORT || skillId == MASS_TELEPORT) {
-					readH(); // MapID
-					targetId = readD(); // Bookmark ID
+					int mapId = readH();
+					int x = readH();
+					int y = readH();
+					
+					L1BookMark bookmark = pc.getBookMarkByCoords(x, y, mapId);
+					if(bookmark != null) {
+						targetId = bookmark.getId();
+					}
 				} else if (skillId == FIRE_WALL || skillId == LIFE_STREAM) {
 					targetX = readH();
 					targetY = readH();

@@ -1426,6 +1426,17 @@ public class L1PcInstance extends L1Character {
 		}
 		return null;
 	}
+	
+	public L1BookMark getBookMarkByCoords(int x, int y, int mapId) {
+		for (int i = 0; i < _bookmarks.size(); i++) {
+			L1BookMark element = _bookmarks.get(i);
+			
+			if (element.getLocX() == x && element.getLocY() == y && element.getMapId() == mapId) {
+				return element;
+			}
+		}
+		return null;
+	}
 
 	public L1BookMark getBookMark(String name) {
 		for (int i = 0; i < _bookmarks.size(); i++) {
