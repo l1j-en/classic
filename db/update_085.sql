@@ -733,3 +733,49 @@ UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70901; -- Jeti, was L1Monster
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71013; -- Karen, was L1Merchant
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71078; -- Pouare, was L1Merchant
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71080; -- Chief Security Amisu, was L1Merchant
+
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70604; -- Bridget, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70606; -- Victor, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70608; -- Shalina, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70621; -- Evelyn, was L1Monster
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 71112; -- Giles, was L1Monster
+
+
+-- Update NPC level, hp, mp, ac.
+-- NOTE: Some bosses, like Ifrit and Drake were buffed to into the level 70s.
+-- Skipping that here for now.
+UPDATE npc SET ac = -32 WHERE npcid = 45326; -- Dark Forester, was ac = -10
+UPDATE npc SET ac = -43 WHERE npcid = 45533; -- Phantom Knight, was ac = -25
+UPDATE npc SET ac = -8 WHERE npcid = 45562; -- Guardian Armor, was ac = -223
+UPDATE npc SET hp = 2000 WHERE npcid = 45605; -- Priest of Corruption, was hp = 1000
+UPDATE npc SET lvl = 80 WHERE npcid = 45676; -- Arcane King Hellvine, was lvl = 70
+UPDATE npc SET hp = 30000 WHERE npcid = 45681; -- Lindvior, was hp = 20000
+UPDATE npc SET lvl = 45, hp = 620 WHERE npcid = 45862; -- Cursed Dark Elf Warrior, was lvl = 47, hp = 650
+UPDATE npc SET hp = 1000 WHERE npcid = 45931; -- Spirit of Water, was hp = 10000
+UPDATE npc SET lvl = 70, hp = 10000, mp = 400, ac = -80 WHERE npcid = 45931; -- Ice Queen, was lvl = 60, hp = 15000, mp = 1000, ac = -65
+UPDATE npc SET lvl = 65, hp = 7000, mp = 450, ac = -70 WHERE npcid = 46142; -- Ice Demon, was lvl = 55, hp = 10000, mp = 500, ac = -68
+UPDATE npc SET lvl = 25 WHERE npcid = 60563; -- Heine Guard, was lvl = 85
+UPDATE npc SET lvl = 25 WHERE npcid = 70857; -- Heine Guard, was lvl = 80
+UPDATE npc SET lvl = 10 WHERE npcid = 70862; -- Heine Gatekeeper, was lvl = 85
+UPDATE npc SET lvl = 10 WHERE npcid = 70863; -- Heine Gatekeeper, was lvl = 85
+UPDATE npc SET hp = 6000 WHERE npcid = 81082; -- Yahee, was hp = 30000
+UPDATE npc SET hp = 1000 WHERE npcid = 81240; -- Cougar, was hp = 2000
+UPDATE npc SET mp = 0 WHERE npcid = 90506; -- Ecu Juraka (Blue), was mp = 50
+UPDATE npc SET mp = 0 WHERE npcid = 90507; -- Ecu Juraka (Green), was mp = 50
+UPDATE npc SET ac = -140 WHERE npcid = 90518; -- Jeb Requie (Male), was ac = -120
+UPDATE npc SET ac = -140 WHERE npcid = 90519; -- Jeb Requie (Female), was ac = -120
+UPDATE npc SET hp = 20000, ac = -75 WHERE npcid = 91309; -- Priest Guignol, was hp = 2000, ac = -50
+-- Zero out new L1Npc impls stats.
+UPDATE npc SET lvl = 0, hp = 0, mp = 0, ac = 0, str = 0, con = 0, dex = 0,
+  wis = 0, intel = 0, mr = 0, exp = 0, lawful = 0, weakAttr = 0, ranged = 0,
+  tamable = 0, atkspeed = 0, alt_atk_speed = 0, atk_magic_speed = 0,
+  sub_magic_speed = 0, undead = 0, poison_atk = 0, paralysis_atk = 0, agro = 0,
+  agrososc = 0, agrocoi = 0, agrofamily = 0, picupitem = 0, digestitem = 0,
+  bravespeed = 0, hprinterval = 0, hpr = 0, mprinterval = 0, mpr = 0, teleport = 0
+  WHERE npcid IN
+  (70576, 70581, 70582, 70583, 70586, 70589, 70591, 70592, 70593, 70604, 70606,
+   70608, 70615, 70616, 70619, 70621, 70622, 70624, 70626, 70630, 70634, 70637,
+   70639, 70640, 70647, 70648, 70659, 70735, 70736, 70741, 70746, 70752, 70767,
+   70770, 70803, 70812, 70814, 70819, 70821, 70825, 70828, 70833, 70834, 70839,
+   70854, 70858, 70867, 70871, 70877, 70878, 70901, 71112)
+  ORDER BY npcid;
