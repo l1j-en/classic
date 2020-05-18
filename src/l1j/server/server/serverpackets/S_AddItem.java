@@ -32,7 +32,7 @@ public class S_AddItem extends ServerBasePacket {
 		writeC(Opcodes.S_OPCODE_ADDITEM);
 		writeD(item.getId());
 		
-		writeH(0);//TODO -- item.getItem().getMagicCatalystType());
+		writeH(item.getItem().getMagicCatalystType());
 		
 		int type = item.getItem().getUseType();
 		if (type < 0) {
