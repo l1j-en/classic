@@ -1,5 +1,10 @@
 package l1j.server.server.clientpackets;
 
+import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
@@ -9,6 +14,7 @@ import l1j.server.server.templates.L1BookMark;
 
 public class C_SendLocation extends ClientBasePacket {
 	private static final String C_SEND_LOCATION = "[C] C_SendLocation";
+	private static Logger _log = LoggerFactory.getLogger(C_SendLocation.class.getName());
 
 	public C_SendLocation(byte abyte0[], Client client) {
 		super(abyte0);
@@ -36,7 +42,7 @@ public class C_SendLocation extends ClientBasePacket {
 				String sender = pc.getName();
 				target.sendPackets(new S_SendLocation(type, sender, mapId, x, y, msgId));
 			}
-		} else if(type == 0x27) { //modify bookmark
+		} else if(type == 0x27) { //rename bookmark
 			int count = readCH();
 			readC(); //unknown
 			
@@ -50,6 +56,45 @@ public class C_SendLocation extends ClientBasePacket {
 					L1BookMark.updateBookmark(pc, bookmarkId, bookmarkName);
 				}
 			}
+		} else if(type == 0x22) { //save bookmarks
+			L1PcInstance pc = client.getActiveChar();
+			
+			int size = pc.getBookMarkSize();
+			readC();
+			// clear the quicklist to save the new one
+            for (int i = 0; i < size; i++) {
+                int index = readC();
+                
+                L1BookMark bookmark = pc.getBookMarkByIndex(index);
+            	if(bookmark == null) {
+            		_log.warn(String.format("User %s attempted to update a bookmark not in their current bookmark list!",
+            				pc.getName()));
+            		continue;
+            	}
+            	
+            	bookmark.setQuick(false);
+            }
+            
+            ArrayList<Integer> quickLinks = new ArrayList<Integer>();
+            // check for the quicklist bookmarks
+            for (int i = 0; i < 5; i++) {
+            	int index = readC();
+            	
+            	if (index == 255) 
+            		break;
+            	
+            	L1BookMark bookmark = pc.getBookMarkByIndex(index);
+            	if(bookmark == null) {
+            		_log.warn(String.format("User %s attempted to add a quicklist bookmark not in their current bookmark list!",
+            				pc.getName()));
+            		continue;
+            	}
+            	
+            	bookmark.setQuick(true);
+            	quickLinks.add(bookmark.getId());
+            }
+            
+        	L1BookMark.setQuickList(pc, quickLinks);
 		} else if (type == 0x06) { //TODO -- Dragon Raid
 			/*int objectId = readD();
 			int gate = readD();

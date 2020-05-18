@@ -1415,6 +1415,10 @@ public class L1PcInstance extends L1Character {
 	public synchronized int getBonusStats() {
 		return _bonusStats;
 	}
+	
+	public ArrayList<L1BookMark> getBookMarks() {
+		return _bookmarks;
+	}
 
 	public L1BookMark getBookMark(int id) {
 		for (int i = 0; i < _bookmarks.size(); i++) {
@@ -1425,6 +1429,13 @@ public class L1PcInstance extends L1Character {
 
 		}
 		return null;
+	}
+	
+	public L1BookMark getBookMarkByIndex(int index) {
+		if(index > _bookmarks.size())
+			return null ;
+		
+		return _bookmarks.get(index);
 	}
 	
 	public L1BookMark getBookMarkByCoords(int x, int y, int mapId) {

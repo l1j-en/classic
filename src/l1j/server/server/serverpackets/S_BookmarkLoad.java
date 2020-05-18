@@ -31,43 +31,31 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class S_BookmarkLoad extends ServerBasePacket {
     private static final String S_BookMarkLoad = "[S] S_BookmarkLoad";
     private byte[] _byte = null;
 
     private static Logger _log = LoggerFactory.getLogger(S_BookmarkLoad.class.getName());
+    private final int maxBookmarks = 100; //TODO -- pull from config.. but verify a certain # won't crash the client first
 
     public S_BookmarkLoad(L1PcInstance pc) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
+			ArrayList<Integer> quicklist = new ArrayList<Integer>();
+			
 			con = L1DatabaseFactory.getInstance().getConnection();
 			// order by the replaced regex name instead of normal name
 			// because normal name can have like \f0 \d0, etc for the colours and arrows
-			pstm = con.prepareStatement("SELECT * FROM character_teleport WHERE char_id=? ORDER BY REGEXP_REPLACE(name, '\\\\..', '') ASC");
+			pstm = con.prepareStatement("SELECT * FROM character_teleport WHERE char_id=? ORDER BY REGEXP_REPLACE(name, '\\\\\\\\..', '') ASC");
 			pstm.setInt(1, pc.getId());
 			rs = pstm.executeQuery();
-			rs.last();
-			
-			int count = rs.getRow();
-			rs.beforeFirst();
-			writeC(Opcodes.S_OPCODE_CHARRESET);
-			writeC(42); // type
-			writeC(105);
-			writeC(0x00); 
-			writeC(0x02);
-
-			for (int i= 0; i < 104; i++) {
-				writeC(i < count ? i : 0xff);
-			}
-			
-			writeC(100);
-			writeC(0);
-			writeH(count);
 			
 			L1BookMark bookmark = null;
+			int x = 0;
 			while (rs.next()) {
 				bookmark = new L1BookMark();
 				bookmark.setId(rs.getInt("id"));
@@ -76,14 +64,48 @@ public class S_BookmarkLoad extends ServerBasePacket {
 				bookmark.setLocX(rs.getInt("locx"));
 				bookmark.setLocY(rs.getInt("locy"));
 				bookmark.setMapId(rs.getShort("mapid"));
-				
-				writeD(bookmark.getId());
-				writeS(bookmark.getName());
-				writeH(bookmark.getMapId());
-				writeH(bookmark.getLocX());
-				writeH(bookmark.getLocY());
-				
+				bookmark.setQuick(rs.getBoolean("quicklist"));
+				System.out.println(bookmark.getName());
 				pc.addBookMark(bookmark);
+				
+				if(bookmark.isQuick()) {
+					quicklist.add(x);
+				}
+				
+				x++;
+			}
+			
+			int count = pc.getBookMarkSize();
+			writeC(Opcodes.S_OPCODE_CHARRESET);
+			writeC(42); // type
+			writeC(maxBookmarks);
+			writeC(0x00); 
+			writeC(0x02);
+
+			for (int i= 0; i < count; i++) {
+				writeC(i);
+			}
+			
+			int quicklistCount = quicklist.size();
+			for (int i= 0; i < quicklist.size(); i++) {
+				writeC(quicklist.get(i));
+			}
+			
+			int blanks = maxBookmarks - 1 - count - quicklistCount;
+			for (int i= 0; i < blanks; i++) {
+				writeC(0xff);
+			}
+			
+			writeC(maxBookmarks);
+			writeC(0);
+			writeH(count);
+			
+			for(L1BookMark bm : pc.getBookMarks()) {
+				writeD(bm.getId());
+				writeS(bm.getName());
+				writeH(bm.getMapId());
+				writeH(bm.getLocX());
+				writeH(bm.getLocY());
 			}
 		} catch (SQLException e) {
 			_log.error(e.getLocalizedMessage(), e);

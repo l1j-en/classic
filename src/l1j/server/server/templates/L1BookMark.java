@@ -22,6 +22,7 @@ package l1j.server.server.templates;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class L1BookMark {
 	private int _locX;
 	private int _locY;
 	private short _mapId;
+	private boolean _isQuick;
 
 	public L1BookMark() {
 	}
@@ -80,6 +82,42 @@ public class L1BookMark {
 			
 			L1BookMark bookmark = pc.getBookMark(objId);
 			bookmark.setName(bookmarkName);
+		} catch (SQLException e) {
+			_log.error("Add Bookmark error has occurred.", e);
+		} finally {
+			SQLUtil.close(pstm);
+			SQLUtil.close(con);
+		}
+	}
+	
+	public static void setQuickList(L1PcInstance pc, ArrayList<Integer> quicklistIds) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			con = L1DatabaseFactory.getInstance().getConnection();
+			pstm = con.prepareStatement("UPDATE character_teleport SET quicklist = false WHERE char_id = ?");
+			pstm.setInt(1, pc.getId());
+			pstm.execute();
+			
+			if(quicklistIds.size() > 0) {
+				SQLUtil.close(pstm);
+				
+				StringBuilder builder = new StringBuilder();
+
+				for( int i = 0 ; i < quicklistIds.size(); i++ ) {
+				    builder.append("?,");
+				}
+				
+				pstm = con.prepareStatement("UPDATE character_teleport SET quicklist = true WHERE char_id = ? AND id IN (" 
+						+ builder.deleteCharAt( builder.length() -1 ).toString() + ")" ); 
+				pstm.setInt(1, pc.getId());
+				
+				for( int i = 0 ; i < quicklistIds.size(); i++ ) {
+				    pstm.setInt(i + 2, quicklistIds.get(i));
+				}
+				pstm.execute();
+			}
 		} catch (SQLException e) {
 			_log.error("Add Bookmark error has occurred.", e);
 		} finally {
@@ -186,5 +224,13 @@ public class L1BookMark {
 
 	public void setMapId(short i) {
 		_mapId = i;
+	}
+	
+	public boolean isQuick() {
+		return _isQuick;
+	}
+	
+	public void setQuick(boolean quick) {
+		_isQuick = quick;
 	}
 }

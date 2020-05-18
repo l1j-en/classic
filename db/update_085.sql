@@ -184,3 +184,5 @@ TRUNCATE `mail`;
 ALTER TABLE `mail` MODIFY `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `mail` ADD `inbox_id` int(10) unsigned NOT NULL DEFAULT '0';
 
+-- for the quicklist in bookmarks
+ALTER TABLE `character_teleport` ADD `quicklist` bool DEFAULT false;
