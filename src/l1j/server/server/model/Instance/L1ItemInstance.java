@@ -661,6 +661,7 @@ public class L1ItemInstance extends L1Object implements Comparable<L1ItemInstanc
 				}
 				os.writeC(ac);
 				os.writeC(template.getMaterial());
+				os.writeC(-1); //TODO -- item grades?
 				// US clients aren't expecting this so it messes up the
 				// displayed weight for armor.
 				// os.writeC(template.getGrade());
