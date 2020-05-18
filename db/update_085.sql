@@ -667,3 +667,11 @@ UPDATE npc SET gfxid = 3800 WHERE npcid = 70922; -- Oum, was 3787
 UPDATE npc SET gfxid = 2429 WHERE npcid = 71179; -- Diez, was 2511
 UPDATE npc SET gfxid = 5912 WHERE npcid = 81175; -- Wanted Criminal Kuzak, was 5910
 UPDATE npc SET gfxid = 1571 WHERE npcid = 91302; -- Guardian of Noble Will, was 2771
+
+-- remove maps from the server since 3.63 doesn't use them
+DELETE FROM `shop` WHERE (`item_id` >= 40373 AND `item_id` <= 40390);
+DELETE FROM `character_items` WHERE `item_id` >= 40373 AND `item_id` <= 40390;
+DELETE FROM `character_elf_warehouse` WHERE `item_id` >= 40373 AND `item_id` <= 40390;
+DELETE FROM `character_warehouse`  WHERE `item_id` >= 40373 AND `item_id` <= 40390;
+DELETE FROM `clan_warehouse`  WHERE `item_id` >= 40373 AND `item_id` <= 40390;
+DELETE FROM `etcitem` WHERE `item_id` >= 40373 AND `item_id` <= 40390;
