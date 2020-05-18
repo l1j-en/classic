@@ -675,3 +675,61 @@ DELETE FROM `character_elf_warehouse` WHERE `item_id` >= 40373 AND `item_id` <= 
 DELETE FROM `character_warehouse`  WHERE `item_id` >= 40373 AND `item_id` <= 40390;
 DELETE FROM `clan_warehouse`  WHERE `item_id` >= 40373 AND `item_id` <= 40390;
 DELETE FROM `etcitem` WHERE `item_id` >= 40373 AND `item_id` <= 40390;
+
+-- Update NPC impls
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70576; -- Garth, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70581; -- Gulian, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70582; -- Neil, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70583; -- Nelson, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70586; -- Daisy, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70589; -- Laban, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70591; -- Lina, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70592; -- Leal, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70593; -- Manus, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70615; -- Alda, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70616; -- Aldred, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70619; -- Alice, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70622; -- Eliza, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70624; -- Oliver, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70626; -- Jack, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70630; -- Giles, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70634; -- Tanya, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70637; -- Trovia, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70639; -- Ferdinand, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70640; -- Pierre, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70647; -- Gavin, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70648; -- Daley, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70659; -- Atara, was L1Monster
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 70660; -- Unknown 70660, was L1Npc
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 70661; -- Unknown 70661, was L1Npc
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 70712; -- Jennifer, was L1Npc
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70735; -- Garuga, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70736; -- Derian, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70741; -- Dima, was L1Monster
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 70745; -- Roku, was 70745
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70746; -- Rotus, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70752; -- Biryan, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70767; -- Haro, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70770; -- Deker, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70803; -- Anotte, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70812; -- Rohan, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70814; -- Ruka, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70819; -- Bob, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70821; -- Sanita, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70825; -- Ellne, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70828; -- Ofo, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70833; -- Tommy, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70834; -- Torban, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70839; -- Doett, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70854; -- Hurindalien, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70858; -- Derick, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70867; -- Shannon, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70870; -- Arina, was L1Merchant
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70871; -- Annabel, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70877; -- Trion, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70878; -- Felix, was L1Monster
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 70881; -- Heine Mercenary Squad, was L1Npc
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70901; -- Jeti, was L1Monster
+UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71013; -- Karen, was L1Merchant
+UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71078; -- Pouare, was L1Merchant
+UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71080; -- Chief Security Amisu, was L1Merchant
