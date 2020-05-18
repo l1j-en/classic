@@ -33,7 +33,7 @@ public class S_AttackMissPacket extends ServerBasePacket {
 		writeC(1);
 		writeD(attacker.getId());
 		writeD(targetId);
-		writeC(0);
+		writeH(0);
 		writeC(attacker.getHeading());
 		writeD(0);
 		writeC(0);
@@ -44,7 +44,7 @@ public class S_AttackMissPacket extends ServerBasePacket {
 		writeC(actId);
 		writeD(attacker.getId());
 		writeD(targetId);
-		writeC(0);
+		writeH(0);
 		writeC(attacker.getHeading());
 		writeD(0);
 		writeC(0);
@@ -55,7 +55,7 @@ public class S_AttackMissPacket extends ServerBasePacket {
 		writeC(1);
 		writeD(attackId);
 		writeD(targetId);
-		writeC(0);
+		writeH(0);
 		writeC(0);
 		writeD(0);
 	}
@@ -65,7 +65,7 @@ public class S_AttackMissPacket extends ServerBasePacket {
 		writeC(actId);
 		writeD(attackId);
 		writeD(targetId);
-		writeC(0);
+		writeH(0);
 		writeC(0);
 		writeD(0);
 	}
