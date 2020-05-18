@@ -186,3 +186,484 @@ ALTER TABLE `mail` ADD `inbox_id` int(10) unsigned NOT NULL DEFAULT '0';
 
 -- for the quicklist in bookmarks
 ALTER TABLE `character_teleport` ADD `quicklist` bool DEFAULT false;
+
+-- Redo polymorphs table.
+DROP TABLE IF EXISTS `polymorphs`;
+CREATE TABLE `polymorphs` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `gfx_id` int(10) unsigned NOT NULL,
+  `min_level` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `weapon_equip` int(10) unsigned NOT NULL DEFAULT 0,
+  `armor_equip` int(10) unsigned NOT NULL DEFAULT 0,
+  `can_use_skill` tinyint(1) unsigned DEFAULT 1,
+  `cause` tinyint(3) unsigned NOT NULL DEFAULT 7,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+INSERT INTO polymorphs (id,name,gfx_id,min_level,weapon_equip,armor_equip,can_use_skill,cause) VALUES
+(29,'floating eye',29,1,0,0,1,7),
+(95,'shelob',95,10,0,0,0,7),
+(146,'re ungoliant',146,10,0,0,0,7),
+(938,'beagle',938,1,0,2,1,7),
+(945,'milkcow',945,1,0,0,0,7),
+(947,'deer',947,1,0,0,0,7),
+(951,'cerberus',951,15,0,0,0,7),
+(979,'wild boar',979,1,0,0,1,7),
+(1037,'giant ant',1037,1,0,136,0,7),
+(1039,'giant ant soldier',1039,1,0,136,0,7),
+(1047,'scorpion',1047,15,0,0,0,7),
+(2064,'snowman',2064,1,0,1027,1,7),
+(2284,'dark elf polymorph',2284,52,256,4095,1,7),
+(2323,'orc scout polymorph',2323,15,256,4095,1,7),
+(2374,'re skeleton',2374,10,751,4095,1,7),
+(2376,'skeleton axeman polymorph',2376,10,1791,4095,1,7),
+(2377,'skeleton pike polymorph',2377,10,1791,4095,1,7),
+(2378,'spartoi polymorph',2378,10,751,4095,1,7),
+(2384,'succubus morph',2384,40,751,4095,1,7),
+(2385,'yeti morph',2385,15,751,4095,1,7),
+(2386,'minotaur i morph',2386,15,751,4095,1,7),
+(2387,'giant a morph',2387,15,1791,4095,1,7),
+(2388,'death',2388,1,0,32,0,7),
+(2437,'re giant ant',2437,1,0,136,0,7),
+(2438,'re giant ant soldier',2438,1,0,136,0,7),
+(2501,'jack o lantern',2501,1,751,417,0,7),
+(3101,'black knight chief morph',3101,51,751,4095,1,7),
+(3102,'great minotaur morph',3102,50,1791,4095,1,7),
+(3103,'barlog morph',3103,52,1791,4095,1,7),
+(3126,'fire bowman morph',3126,51,256,4095,1,7),
+(3630,'cyclops',3630,40,751,4095,1,7),
+(3631,'griffon',3631,40,0,32,1,7),
+(3632,'re cockatrice',3632,40,0,4095,1,7),
+(3633,'ettin',3633,40,751,4095,1,7),
+(3634,'assassin',3634,45,751,4095,1,7),
+(3664,'baranka',3664,1,704,4095,1,7),
+(3750,'haregi',3750,1,0,4095,1,7),
+(3784,'death knight',3784,52,751,4095,1,7),
+(3860,'bow orc',3860,1,256,4095,1,7),
+(3861,'goblin',3861,1,751,913,0,7),
+(3862,'kobolds',3862,1,751,913,1,7),
+(3863,'re dwarf',3863,1,751,4095,1,7),
+(3864,'orc fighter',3864,1,751,4095,1,7),
+(3865,'re werewolf',3865,1,751,4095,1,7),
+(3866,'gandi orc',3866,10,751,4095,1,7),
+(3867,'rova orc',3867,10,751,4095,1,7),
+(3868,'atuba orc',3868,10,751,4095,1,7),
+(3869,'dudamara orc',3869,10,1791,4095,1,7),
+(3870,'neruga orc',3870,10,1791,4095,1,7),
+(3871,'re skeleton archer',3871,10,256,4095,1,7),
+(3872,'zombie',3872,10,751,4095,1,7),
+(3873,'re ghoul',3873,10,751,4095,1,7),
+(3874,'re lycanthrope',3874,10,751,4095,1,7),
+(3875,'ghast',3875,10,751,945,1,7),
+(3876,'bugbear',3876,10,751,945,1,7),
+(3877,'ogre',3877,15,1791,913,1,7),
+(3878,'troll',3878,15,751,545,1,7),
+(3879,'elder',3879,15,751,0,1,7),
+(3880,'king bugbear',3880,15,751,945,1,7),
+(3881,'dark elder',3881,45,751,4095,1,7),
+(3882,'necromancer1',3882,45,751,4095,1,7),
+(3883,'necromancer2',3883,45,751,4095,1,7),
+(3884,'necromancer3',3884,45,751,4095,1,7),
+(3885,'necromancer4',3885,45,751,4095,1,7),
+(3886,'lesser demon',3886,45,751,4095,0,7),
+(3887,'darkelf carrier',3887,45,1791,4095,0,7),
+(3888,'baphomet',3888,50,751,954,1,7),
+(3889,'demon',3889,51,751,4095,1,7),
+(3890,'ancient black knight morph',3890,55,751,4095,1,7),
+(3891,'ancient black mage morph',3891,55,751,4095,1,7),
+(3892,'ancient black scouter morph',3892,55,256,4095,1,7),
+(3893,'ancient silver knight morph',3893,60,751,4095,1,7),
+(3894,'ancient silver mage morph',3894,60,751,4095,1,7),
+(3895,'ancient silver scouter morph',3895,60,256,4095,1,7),
+(3896,'ancient gold knight morph',3896,65,751,4095,1,7),
+(3897,'ancient gold mage morph',3897,65,751,4095,1,7),
+(3898,'ancient gold scouter morph',3898,65,256,4095,1,7),
+(3899,'ancient platinum knight morph',3899,70,751,4095,1,7),
+(3900,'ancient platinum mage morph',3900,70,751,4095,1,7),
+(3901,'ancient platinum scouter morph',3901,70,256,4095,1,7),
+(3902,'Kelenis Morph',3902,1,43,4095,1,7),
+(3903,'Ken Lauhel Morph',3903,1,751,4095,1,7),
+(3904,'stone golem',3904,1,751,145,1,7),
+(3905,'beleth',3905,50,751,954,1,7),
+(3906,'re orc',3906,1,751,4095,1,7),
+(3945,'re gelatincube',3945,15,751,0,1,7),
+(3950,'re middle oum',3950,15,751,4095,1,7),
+(3952,'vampire',3952,1,0,32,0,7),
+(4000,'knight vald morph',4000,1,1791,4095,1,7),
+(4001,'iris morph',4001,1,1791,4095,1,7),
+(4002,'paperman morph',4002,1,1791,4095,1,7),
+(4004,'succubus queen morph',4004,1,1791,4095,1,7),
+(4186,'robber bone',4186,1,751,4095,0,7),
+(4188,'robber bone head',4188,1,751,4095,0,7),
+(4190,'robber bone soldier',4190,1,256,4095,0,7),
+(4227,'hakama',4227,1,0,4095,1,7),
+(4767,'rabbit',4767,1,0,4095,0,7),
+(4769,'carrot rabbit',4769,1,0,4095,0,7),
+(4917,'darkelf ranger morph',4917,45,256,4095,1,7),
+(4918,'bandit bow morph',4918,40,256,4095,1,7),
+(4919,'darkelf guard morph',4919,50,256,4095,1,7),
+(4920,'elmor general morph',4920,45,1791,4095,1,7),
+(4921,'darkelf general morph',4921,52,1791,4095,1,7),
+(4922,'guardian armor morph',4922,50,751,4095,1,7),
+(4923,'black knight morph',4923,51,1080,4095,1,7),
+(4924,'darkelf spear morph',4924,50,1080,4095,1,7),
+(4925,'elmor soldier morph',4925,40,1080,4095,1,7),
+(4926,'darkelf wizard morph',4926,50,751,4095,1,7),
+(4928,'high collie',4928,1,0,2,1,7),
+(4929,'high raccoon',4929,1,0,2,1,7),
+(4932,'assassin master morph',4932,52,751,4095,1,7),
+(5184,'red uniform',5184,1,0,8,1,7),
+(5186,'blue uniform',5186,1,0,8,1,7),
+(5645,'Halloween Pumpkin',5645,1,4095,4095,1,7),
+(5719,'manekineko',5719,1,4095,4095,1,7),
+(5727,'ancient black assassin morph',5727,55,751,4095,1,7),
+(5730,'ancient silver assassin morph',5730,60,751,4095,1,7),
+(5733,'ancient gold assassin morph',5733,65,751,4095,1,7),
+(5736,'ancient platinum assassin morph',5736,70,751,4095,1,7),
+(5976,'high bear',5976,1,751,2,0,7),
+(6002,'spirit of earth boss',6002,1,8,0,1,7),
+(6010,'red orc',6010,1,0,1,0,7),
+(6034,'priest of corruption',6034,45,751,4095,1,7),
+(6035,'quest lesser demon',6035,45,751,4095,1,7),
+(6080,'princess horse',6080,1,16,4095,1,7),
+(6086,'Rabor Born Head',6086,1,751,4095,1,7),
+(6087,'Rabor Born archer',6087,1,256,4095,1,7),
+(6088,'Rabor Born knife',6088,1,751,4095,1,7),
+(6089,'drake morph',6089,1,1791,4095,1,7),
+(6094,'prince horse',6094,1,16,4095,1,7),
+(6136,'barlog 52',6136,52,1791,4095,1,7),
+(6137,'death 52',6137,52,751,4095,1,7),
+(6138,'assassin 52',6138,52,751,4095,1,7),
+(6139,'general 52',6139,52,751,4095,1,7),
+(6140,'darkelf 52',6140,52,256,4095,1,7),
+(6141,'barlog 55',6141,55,1791,4095,1,7),
+(6142,'death 55',6142,55,751,4095,1,7),
+(6143,'assassin 55',6143,55,751,4095,1,7),
+(6144,'general 55',6144,55,751,4095,1,7),
+(6145,'darkelf 55',6145,55,256,4095,1,7),
+(6146,'barlog 60',6146,60,1791,4095,1,7),
+(6147,'death 60',6147,60,751,4095,1,7),
+(6148,'assassin 60',6148,60,751,4095,1,7),
+(6149,'general 60',6149,60,751,4095,1,7),
+(6150,'darkelf 60',6150,60,256,4095,1,7),
+(6151,'barlog 65',6151,65,1791,4095,1,7),
+(6152,'death 65',6152,65,751,4095,1,7),
+(6153,'assassin 65',6153,65,751,4095,1,7),
+(6154,'general 65',6154,65,751,4095,1,7),
+(6155,'darkelf 65',6155,65,256,4095,1,7),
+(6156,'barlog 70',6156,70,1791,4095,1,7),
+(6157,'death 70',6157,70,751,4095,1,7),
+(6158,'assassin 70',6158,70,751,4095,1,7),
+(6159,'general 70',6159,70,751,4095,1,7),
+(6160,'darkelf 70',6160,70,256,4095,1,7),
+(6180,'unicorn A',6180,0,751,4095,1,10),
+(6181,'unicorn B',6181,0,751,4095,1,10),
+(6182,'unicorn C',6182,0,751,4095,1,10),
+(6183,'unicorn D',6183,0,0,0,0,10),
+(6184,'bear A',6184,0,749,4095,1,10),
+(6185,'bear B',6185,0,749,4095,1,10),
+(6186,'bear C',6186,0,749,4095,1,10),
+(6187,'bear D',6187,0,0,0,0,10),
+(6188,'mini white dog A',6188,0,751,4095,1,10),
+(6189,'mini white dog B',6189,0,751,4095,1,10),
+(6190,'mini white dog C',6190,0,751,4095,1,10),
+(6191,'mini white dog D',6191,0,0,0,0,10),
+(6192,'ratman A',6192,0,751,4095,1,10),
+(6193,'ratman B',6193,0,751,4095,1,10),
+(6194,'ratman C',6194,0,751,4095,1,10),
+(6195,'ratman D',6195,0,0,0,0,10),
+(6196,'pet tiger A',6196,0,751,4095,1,10),
+(6197,'pet tiger B',6197,0,751,4095,1,10),
+(6198,'pet tiger C',6198,0,751,4095,1,10),
+(6199,'pet tiger D',6199,0,0,0,0,10),
+(6200,'dillo A',6200,0,751,4095,1,10),
+(6201,'dillo B',6201,0,751,4095,1,10),
+(6202,'dillo C',6202,0,751,4095,1,10),
+(6203,'dillo D',6203,0,0,0,0,10),
+(6204,'mole A',6204,0,256,4095,1,10),
+(6205,'mole B',6205,0,256,4095,1,10),
+(6206,'mole C',6206,0,256,4095,1,10),
+(6207,'mole D',6207,0,0,0,0,10),
+(6208,'darkelf thief A',6208,0,1007,4095,1,10),
+(6209,'darkelf thief B',6209,0,1007,4095,1,10),
+(6210,'darkelf thief C',6210,0,1007,4095,1,10),
+(6211,'darkelf thief D',6211,0,0,0,0,10),
+(6212,'ken lauhel A',6212,0,751,4095,1,10),
+(6213,'ken lauhel B',6213,0,751,4095,1,10),
+(6214,'ken lauhel C',6214,0,751,4095,1,10),
+(6215,'ken lauhel D',6215,0,0,0,0,10),
+(6216,'kelenis A',6216,0,751,4095,1,10),
+(6217,'kelenis B',6217,0,751,4095,1,10),
+(6218,'kelenis C',6218,0,751,4095,1,10),
+(6219,'kelenis D',6219,0,0,0,0,10),
+(6220,'slave A',6220,0,751,4095,1,10),
+(6221,'slave B',6221,0,751,4095,1,10),
+(6222,'slave C',6222,0,751,4095,1,10),
+(6223,'slave D',6223,0,0,0,0,10),
+(6224,'dofleganger boss A',6224,0,751,4095,1,10),
+(6225,'dofleganger boss B',6225,0,751,4095,1,10),
+(6226,'dofleganger boss C',6226,0,751,4095,1,10),
+(6227,'dofleganger boss D',6227,0,0,0,0,10),
+(6228,'lich A',6228,0,751,4095,1,10),
+(6229,'lich B',6229,0,751,4095,1,10),
+(6230,'lich C',6230,0,751,4095,1,10),
+(6231,'lich D',6231,0,0,0,0,10),
+(6232,'woman1 A',6232,0,0,4095,0,10),
+(6233,'woman1 B',6233,0,0,0,0,10),
+(6234,'woman2 A',6234,0,0,4095,0,10),
+(6235,'woman2 B',6235,0,0,0,0,10),
+(6236,'woman3 A',6236,0,0,4095,0,10),
+(6237,'woman3 B',6237,0,0,0,0,10),
+(6238,'woman4 A',6238,0,0,4095,0,10),
+(6239,'woman4 B',6239,0,0,0,0,10),
+(6240,'woman5 A',6240,0,0,4095,0,10),
+(6241,'woman5 B',6241,0,0,0,0,10),
+(6242,'noblewoman A',6242,0,0,4095,0,10),
+(6243,'noblewoman B',6243,0,0,0,0,10),
+(6267,'neo black knight',6267,55,751,4095,1,7),
+(6268,'neo black mage',6268,55,751,4095,1,7),
+(6269,'neo black scouter',6269,55,256,4095,1,7),
+(6270,'neo silver knight',6270,60,751,4095,1,7),
+(6271,'neo silver mage',6271,60,751,4095,1,7),
+(6272,'neo silver scouter',6272,60,256,4095,1,7),
+(6273,'neo gold knight',6273,65,751,4095,1,7),
+(6274,'neo gold mage',6274,65,751,4095,1,7),
+(6275,'neo gold scouter',6275,65,256,4095,1,7),
+(6276,'neo platinum knight',6276,70,751,4095,1,7),
+(6277,'neo platinum mage',6277,70,751,4095,1,7),
+(6278,'neo platinum scouter',6278,70,256,4095,1,7),
+(6279,'neo black assassin',6279,55,751,4095,1,7),
+(6280,'neo silver assassin',6280,60,751,4095,1,7),
+(6281,'neo gold assassin',6281,65,751,4095,1,7),
+(6282,'neo platinum assassin',6282,70,751,4095,1,7),
+(6284,'Haunted House jack o lantern',6284,1,0,0,0,7),
+(6400,'Halloween jack o lantern',6400,1,4095,4095,1,7),
+(7332,'spearm 52',7332,50,1040,4095,1,7),
+(7338,'spearm 55',7338,55,1040,4095,1,7),
+(7339,'spearm 60',7339,60,1040,4095,1,7),
+(7340,'spearm 65',7340,65,1040,4095,1,7),
+(7341,'spearm 70',7341,70,1040,4095,1,7),
+(8774,'young kelenis',8774,75,751,4095,1,7),
+(8812,'young gunter',8812,80,751,4095,1,7),
+(8817,'young ken lauel',8817,75,751,4095,1,7),
+(8851,'young dantes',8851,75,751,4095,1,7),
+(8858,'re ghast',8858,1,751,945,1,7),
+(8859,'re bugbear',8859,1,751,945,1,7),
+(8860,'re orc scout',8860,1,256,4095,1,7),
+(8861,'re succubus',8861,1,751,4095,1,7),
+(8862,'re dragon fly',8862,1,751,4095,1,7),
+(8863,'re raccoon',8863,1,751,4095,1,7),
+(8864,'re owlbear',8864,1,751,4095,1,7),
+(8865,'re lizardman',8865,1,751,4095,1,7),
+(8866,'re kiwi parrot',8866,1,0,954,1,7),
+(8867,'re ratman',8867,1,751,4095,1,7),
+(8868,'re wild fang',8868,1,0,4095,1,7),
+(8781,'re guard sword',8781,30,751,4095,1,7),
+(8782,'re darkelf carrier',8782,30,1080,4095,1,7),
+(8783,'re darkelf assassin',8783,30,751,4095,1,7),
+(8784,'re elder',8784,30,751,4095,1,7),
+(8785,'re orc axe',8785,30,751,4095,1,7),
+(8786,'re bandit bow',8786,30,256,4095,1,7),
+(8787,'re guard chief',8787,40,751,4095,1,7),
+(8788,'re guard spear',8788,40,1080,4095,1,7),
+(8789,'re hose',8789,40,751,4095,1,7),
+(8790,'re dark elder',8790,40,751,4095,1,7),
+(8791,'re bandit axe',8791,40,751,4095,1,7),
+(8792,'re darkelf ranger',8792,40,256,4095,1,7),
+(8793,'re cargo',8793,45,751,4095,1,7),
+(8794,'re darkelf spear',8794,45,1080,4095,1,7),
+(8795,'re blaze',8795,45,751,4095,1,7),
+(8796,'re black wizard',8796,45,751,4095,1,7),
+(8797,'re dwarf boss',8797,45,751,4095,1,7),
+(8798,'re darkelf thief',8798,45,256,4095,1,7),
+(8799,'re black knight chief',8799,50,751,4095,1,7),
+(8800,'re black knight',8800,50,1080,4095,1,7),
+(8801,'re assassin master',8801,50,751,4095,1,7),
+(8802,'re baphomet',8802,50,751,4095,1,7),
+(8803,'re minotaur',8803,50,751,4095,1,7),
+(8804,'re darkelf guard',8804,50,256,4095,1,7),
+(8805,'re dreik',8805,52,192,4095,1,7),
+(8806,'re xinclair',8806,52,751,4095,1,7),
+(8807,'re great minotaur',8807,52,8,4095,1,7),
+(8808,'re darkelf bow',8808,52,256,4095,1,7),
+(8900,'young helvine',8900,75,256,4095,1,7),
+(8913,'young gilian',8913,80,256,4095,1,7),
+(8978,'young bluedica',8978,80,751,4095,1,7),
+(9003,'young joewoo',9003,80,751,4095,1,7),
+(9011,'spearm 75',9011,75,1080,4095,1,7),
+(9012,'spearm 80',9012,80,1080,4095,1,7),
+(9205,'death 75',9205,75,751,4095,1,7),
+(9206,'death 80',9206,80,751,4095,1,7),
+(9225,'darkelf 75',9225,75,256,4095,1,7),
+(9226,'darkelf 80',9226,80,256,4095,1,7),
+(9362,'awake antharas',9362,1,1054,4095,1,7),
+(9363,'awake valakas',9363,1,1054,4095,1,7),
+(9364,'awake fafurion',9364,1,1054,4095,1,7);
+
+-- Add new npc table fields.
+ALTER TABLE `npc` ADD COLUMN `is_equality_drop` tinyint(1) unsigned NOT NULL DEFAULT 0;
+ALTER TABLE `npc` ADD COLUMN `boss` tinyint(1) NOT NULL DEFAULT 0;
+
+-- Drop unknown NPCs that don't exist in 3.63.  Confirmed not spawned.
+DELETE FROM npc WHERE npcid IN
+(45007, 60532, 60555, 60564, 60565, 70505, 70543, 70548, 70551, 70552, 70561,
+ 70566, 70571, 70578, 70579, 70580, 70588, 70673, 70678, 70710, 70720, 70726,
+ 70727, 70728, 70729, 70730, 70731, 70732, 70733, 70750, 70754, 70755, 70759,
+ 70791, 70866, 70869, 70879, 70883, 70899, 70905, 70914, 70915, 70918, 70921,
+ 70926, 70929, 70930, 70931, 70954, 70955, 70958, 70959, 70960, 70961, 70962,
+ 70968, 70969, 70974, 70975, 70976, 70978, 70979, 80008, 80009, 80011, 80012,
+ 80013, 80014, 80015, 80016, 80017, 80018, 80019, 80020, 80021, 80022, 80023,
+ 80024, 80025, 80026, 80027, 80028, 80029, 80030, 80031, 80032, 80033, 80034,
+ 80035, 80036, 80037, 80038, 80039, 80040, 80041, 80042, 80043, 80044, 80045,
+ 81044);
+
+-- Sync nameids with 3.63.  Only updating ones that seem incorrect.
+UPDATE npc SET nameid = '$4028' WHERE npcid = 45458; -- Was Captain Drake
+UPDATE npc SET nameid = '$2933 Soldier' WHERE npcid = 45662; -- Was $2933 ??
+UPDATE npc SET nameid = '$3941' WHERE npcid = 45671; -- Was Ariorc
+UPDATE npc SET nameid = 'Singing Island Teleporter' WHERE npcid = 50082; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$2344' WHERE npcid = 70535; -- Was ''
+UPDATE npc SET nameid = '$455' WHERE npcid = 70539; -- Was ''
+UPDATE npc SET nameid = '$2574' WHERE npcid = 70840; -- Was Robiel
+UPDATE npc SET nameid = '$3118' WHERE npcid = 70977; -- Was ''
+UPDATE npc SET nameid = 'Dromond' WHERE npcid = 70997; -- Was $10051 ((Summon Greater Element))
+UPDATE npc SET nameid = 'Singing Island Guide' WHERE npcid = 70998; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$2037' WHERE npcid = 70999; -- Was $10052 ((Burning Weapon))
+UPDATE npc SET nameid = '$2037' WHERE npcid = 71000; -- Was $10053 ((Nature's Blessing))
+UPDATE npc SET nameid = 'Pharmacist Ikushi' WHERE npcid = 71001; -- Was $10059 ((Elemental Falldown))
+UPDATE npc SET nameid = 'Cancellation Teacher' WHERE npcid = 71002; -- Was $10083 (Grand Opening Rice Cake Chest)
+UPDATE npc SET nameid = 'Blacksmith Ron' WHERE npcid = 71003; -- Was $10060 ((Counter Mirror))
+UPDATE npc SET nameid = 'Adele' WHERE npcid = 71004; -- Was $10063 ((Water Life))
+UPDATE npc SET nameid = 'Popilea' WHERE npcid = 71005; -- Was $10054 ((Call of Nature))
+UPDATE npc SET nameid = 'Timmie' WHERE npcid = 71006; -- Was $10055 ((Storm Shot))
+UPDATE npc SET nameid = 'Dylan' WHERE npcid = 71007; -- Was $10061 ((Wind Shackle))
+UPDATE npc SET nameid = 'Blood Pledge Recruitment $1385' WHERE npcid = 71008; -- Was $10077 $1385 (dummy Message Board)
+UPDATE npc SET nameid = 'Chicory' WHERE npcid = 71009; -- Was $10057 ((Iron Skin))
+UPDATE npc SET nameid = 'Chicory' WHERE npcid = 71010; -- Was $10057 ((Iron Skin))
+UPDATE npc SET nameid = 'Burriana' WHERE npcid = 71011; -- Was $10056 ((Wind Shackle))
+UPDATE npc SET nameid = 'Burriana' WHERE npcid = 71012; -- Was $10056 ((Wind Shackle))
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71014; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71015; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71016; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Village Mercenary' WHERE npcid = 71017; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Fader' WHERE npcid = 71018; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Vito Disciple' WHERE npcid = 71019; -- Was $10068 ((Pollute Water))
+UPDATE npc SET nameid = 'Region' WHERE npcid = 71020; -- Was $10068 ((Striker Gale))
+UPDATE npc SET nameid = 'Bonesmith Matti' WHERE npcid = 71021; -- Was $10073 (Halloween Banana Candy (After Use))
+UPDATE npc SET nameid = 'Bonesmith Jinan' WHERE npcid = 71022; -- Was $10072 (Halloween Chocolate Candy (After Use))
+UPDATE npc SET nameid = 'Bonesmith Kei' WHERE npcid = 71023; -- Was $10071 (Halloween Milk Candy (After Use))
+UPDATE npc SET nameid = 'Kesukin' WHERE npcid = 71025; -- Was $10058 ((Triple Arrow))
+UPDATE npc SET nameid = '$1737' WHERE npcid = 71026; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1730' WHERE npcid = 71027; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1731' WHERE npcid = 71028; -- Was $10078 (dummy)
+UPDATE npc SET nameid = '$1738' WHERE npcid = 71029; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Mercenary Ryan' WHERE npcid = 71031; -- Was $10066 ((Aqua Protect))
+UPDATE npc SET nameid = 'Adventurer Eta' WHERE npcid = 71032; -- Was $10067 ((Aqua Protect))
+UPDATE npc SET nameid = 'Hermit' WHERE npcid = 71033; -- Was $10075 (dummy)
+UPDATE npc SET nameid = 'Rabbi' WHERE npcid = 71034; -- Was $10074 (Halloween Strawberry Candy (After Use))
+UPDATE npc SET nameid = 'Teleporter to Singing Island' WHERE npcid = 71035; -- Was $10078 (dummy)
+UPDATE npc SET nameid = 'Mercenary Squad' WHERE npcid = 71176; -- Was ''
+UPDATE npc SET nameid = 'Mercenary Squad' WHERE npcid = 71177; -- Was ''
+UPDATE npc SET nameid = '$3421' WHERE npcid = 80010; -- Was ''
+UPDATE npc SET nameid = 'Muryan - Large' WHERE npcid = 81048; -- Was $10102 (dummy)
+UPDATE npc SET nameid = 'Giant Guarding Ant' WHERE npcid = 81078; -- Was $10101 (dummy)
+UPDATE npc SET nameid = 'Giant Centipede' WHERE npcid = 81079; -- Was $10103 (dummy)
+UPDATE npc SET nameid = 'Acting Magic Merchant' WHERE npcid = 81110; -- Was ''
+UPDATE npc SET nameid = '$8988' WHERE npcid = 81200; -- Was ?????????
+UPDATE npc SET nameid = 'Shop (Chain Sword)' WHERE npcid = 81241; -- Was ''
+UPDATE npc SET nameid = 'Shop (Kiringku)' WHERE npcid = 81242; -- Was ''
+UPDATE npc SET nameid = 'Shop (Dragon Tablet)' WHERE npcid = 81243; -- Was ''
+UPDATE npc SET nameid = 'Shop (Memory Crystal)' WHERE npcid = 81244; -- Was ''
+
+-- Update the names of any of the above NPCs that mismatch their nameids.
+UPDATE npc SET `name` = 'Spirit of Drake' WHERE npcid = 45458; -- Was Captain Drake
+UPDATE npc SET `name` = 'Windawood Soldier' WHERE npcid = 45662; -- Was Guard
+UPDATE npc SET `name` = 'Ari Orc' WHERE npcid = 45671; -- Was Ariorc
+UPDATE npc SET `name` = 'Singing Island Teleporter' WHERE npcid = 50082; -- Was Unknown 50082
+UPDATE npc SET `name` = 'Kuper' WHERE npcid = 70535; -- Was Unknown 70535
+UPDATE npc SET `name` = 'Fiin' WHERE npcid = 70539; -- Was Uknown 70539
+UPDATE npc SET `name` = 'Miner Oum' WHERE npcid = 70977; -- Was Unknown 70977
+UPDATE npc SET `name` = 'Dromond' WHERE npcid = 70997; -- Was Unknown 70997
+UPDATE npc SET `name` = 'Singing Island Guide' WHERE npcid = 70998; -- Was Unknown 70998
+UPDATE npc SET `name` = 'Alex' WHERE npcid = 70999; -- Was Unknown 70999
+UPDATE npc SET `name` = 'Alex' WHERE npcid = 71000; -- Was Unknown 71000
+UPDATE npc SET `name` = 'Cancellation Teacher' WHERE npcid = 71002; -- Was Unknown 71002
+UPDATE npc SET `name` = 'Adele' WHERE npcid = 71004; -- Was Unknown 71004
+UPDATE npc SET `name` = 'Popilea' WHERE npcid = 71005; -- Was Unknown 71005
+UPDATE npc SET `name` = 'Dylan' WHERE npcid = 71007; -- Was Unknown 71007
+UPDATE npc SET `name` = 'Blood Pledge Recruitment Board' WHERE npcid = 71008; -- Was Message Board
+UPDATE npc SET `name` = 'Chicory' WHERE npcid = 71010; -- Was Unknown 71010
+UPDATE npc SET `name` = 'Burriana' WHERE npcid = 71012; -- Was Unknown 71012
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71014; -- Was Unknown 71014
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71015; -- Was Unknown 71015
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71016; -- Was Unknown 71016
+UPDATE npc SET `name` = 'Village Mercenary' WHERE npcid = 71017; -- Was Unknown 71017
+UPDATE npc SET `name` = 'Bonesmith Matti' WHERE npcid = 71021; -- Was BoneSmith Matti
+UPDATE npc SET `name` = 'Bonesmith Jinan' WHERE npcid = 71022; -- Was BoneSmith Jinan
+UPDATE npc SET `name` = 'Bonesmith Kei' WHERE npcid = 71023; -- Was BoneSmith Kei
+UPDATE npc SET `name` = 'Coco' WHERE npcid = 71026; -- Was Unknown 71026
+UPDATE npc SET `name` = 'Kun' WHERE npcid = 71027; -- Was Unknown 71027
+UPDATE npc SET `name` = 'Kiyari' WHERE npcid = 71028; -- Was Unknown 71028
+UPDATE npc SET `name` = 'Sky' WHERE npcid = 71029; -- Was Unknown 71029
+UPDATE npc SET `name` = 'Mercenary Ryan' WHERE npcid = 71031; -- Was Unknown 71031
+UPDATE npc SET `name` = 'Adventurer Eta' WHERE npcid = 71032; -- Was ETA Adventurers
+UPDATE npc SET `name` = 'Teleporter to Singing Island' WHERE npcid = 71035; -- Was Unknown 71035
+UPDATE npc SET `name` = 'Aden Castle Princess' WHERE npcid = 80010; -- Was Unknown 80010
+UPDATE npc SET `name` = 'Muryan - Large' WHERE npcid = 81048; -- Was Unknown 81048
+UPDATE npc SET `name` = 'Giant Gaurding Ant' WHERE npcid = 81078; -- Was Unknown 81078
+UPDATE npc SET `name` = 'Giant Centipede' WHERE npcid = 81079; -- Was Unknown 81079
+UPDATE npc SET `name` = 'Acting Magic Merchant' WHERE npcid = 81110; -- Was Unknown 81110
+UPDATE npc SET `name` = 'Shop (Chain Sword)' WHERE npcid = 81241; -- Was ''
+UPDATE npc SET `name` = 'Shop (Kiringku)' WHERE npcid = 81242; -- Was ''
+UPDATE npc SET `name` = 'Shop (Dragon Tablet)' WHERE npcid = 81243; -- Was ''
+UPDATE npc SET `name` = 'Shop (Memory Crystal)' WHERE npcid = 81244; -- Was ''
+
+-- Update NPC gfxids
+UPDATE npc SET gfxid = 2354 WHERE npcid = 45196; -- Alligator, was 1574
+UPDATE npc SET gfxid = 2350 WHERE npcid = 45377; -- Lizardman, was 1173
+UPDATE npc SET gfxid = 2372 WHERE npcid = 45378; -- Ghast, was 255
+UPDATE npc SET gfxid = 10573 WHERE npcid = 45529; -- Drake, was 1062
+UPDATE npc SET gfxid = 11197 WHERE npcid = 45641; -- Nightmare, was 2332
+UPDATE npc SET gfxid = 3920 WHERE npcid = 45804; -- Vakuuk, was 1595
+UPDATE npc SET gfxid = 2354 WHERE npcid = 45814; -- Mutated Alligator, was 1574
+UPDATE npc SET gfxid = 2351 WHERE npcid = 45815; -- Mutant Ramia, was 1597
+UPDATE npc SET gfxid = 2352 WHERE npcid = 45821; -- Mutant Ramia, was 1600
+UPDATE npc SET gfxid = 5516 WHERE npcid = 45847; -- Cursed Dark Elf Wizard, was 4744
+UPDATE npc SET gfxid = 699 WHERE npcid = 50118; -- Niki, was 940
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60001; -- Dorim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60002; -- Bahof, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60003; -- Thram, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60004; -- Denitz, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60005; -- Luke, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60006; -- Jianku, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60007; -- Karim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60008; -- Nodim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60009; -- Sauram, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60010; -- Kasham, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60011; -- Kuron, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60012; -- Tofen, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60013; -- Axellon, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60014; -- Kriom, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60015; -- Ogi, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60016; -- Juke, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60017; -- Karudim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60018; -- Calvas, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60019; -- Timpukin, was 143
+UPDATE npc SET gfxid = 10713 WHERE npcid = 60020; -- Tulak, was 143
+UPDATE npc SET gfxid = 10713 WHERE npcid = 60021; -- Hirim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60022; -- Borgin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60023; -- Tarkin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60024; -- Gotham, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60025; -- Kusian, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60027; -- Kuhatin, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60029; -- Haidrim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60030; -- Hakim, was 143
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60037; -- dummy, was 143
+UPDATE npc SET gfxid = 7655 WHERE npcid = 60530; -- Dwarf Guard, was 1997
+UPDATE npc SET gfxid = 7655 WHERE npcid = 60531; -- Dwarf Guard, was 1997
+UPDATE npc SET gfxid = 148 WHERE npcid = 70862; -- Heine Gatekeeper, was 1659
+UPDATE npc SET gfxid = 148 WHERE npcid = 70863; -- Heine Gatekeeper, was 1659
+UPDATE npc SET gfxid = 3800 WHERE npcid = 70922; -- Oum, was 3787
+UPDATE npc SET gfxid = 2429 WHERE npcid = 71179; -- Diez, was 2511
+UPDATE npc SET gfxid = 5912 WHERE npcid = 81175; -- Wanted Criminal Kuzak, was 5910
+UPDATE npc SET gfxid = 1571 WHERE npcid = 91302; -- Guardian of Noble Will, was 2771
