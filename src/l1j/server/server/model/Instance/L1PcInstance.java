@@ -2519,6 +2519,7 @@ public class L1PcInstance extends L1Character {
 		for (L1ItemInstance item : pc.getInventory().getItems()) {
 			if ((item.getItem().getType2() == 2) && (item.isEquipped())) {
 				int items = 0;
+				
 				if ((item.getItem().getType() == 1)) {
 					items = EQUIPMENT_INDEX_HELM;
 				} else if ((item.getItem().getType() == 2)) {
@@ -2532,24 +2533,24 @@ public class L1PcInstance extends L1Character {
 				} else if ((item.getItem().getType() == 6)) {
 					items = EQUIPMENT_INDEX_BOOTS;
 				} else if ((item.getItem().getType() == 7)) {
-					// shield
+					// sheild
 					items = EQUIPMENT_INDEX_SHIELD;
-				} else if ((item.getItem().getType() == 8)) {
+				} else if ((item.getItem().getType() == 13)) {
 					// guarder
 					items = EQUIPMENT_INDEX_SHIELD;
-				} else if ((item.getItem().getType() == 10)) {
-					items = EQUIPMENT_INDEX_AMULET;
-				} else if ((item.getItem().getType() == 11) && item.getRingID() == 18) {
+				} else if ((item.getItem().getType() == 9) && item.getRingID() == 18) {
 					items = EQUIPMENT_INDEX_RING1;
-				} else if ((item.getItem().getType() == 11) && item.getRingID() == 19) {
+				} else if ((item.getItem().getType() == 9) && item.getRingID() == 19) {
 					items = EQUIPMENT_INDEX_RING2;	
-				} else if ((item.getItem().getType() == 11) && item.getRingID() == 20) {
+				} else if ((item.getItem().getType() == 9) && item.getRingID() == 20) {
 					items = EQUIPMENT_INDEX_RING3;
-				} else if ((item.getItem().getType() == 11) && item.getRingID() == 21) {
+				} else if ((item.getItem().getType() == 9) && item.getRingID() == 21) {	
 					items = EQUIPMENT_INDEX_RING4;
+				} else if ((item.getItem().getType() == 8)) {
+					items = EQUIPMENT_INDEX_AMULET;
 				} else if ((item.getItem().getType() == 12)) {
 					items = EQUIPMENT_INDEX_EARRING;
-				} else if ((item.getItem().getType() == 13)) {
+				} else if ((item.getItem().getType() == 10)) {
 					items = EQUIPMENT_INDEX_BELT;	
 				} else if ((item.getItem().getType() == 14)) {
 					items = EQUIPMENT_INDEX_RUNE1;
@@ -2562,6 +2563,7 @@ public class L1PcInstance extends L1Character {
 				} else if ((item.getItem().getType() == 18)) {
 					items = EQUIPMENT_INDEX_RUNE5;
 				}
+				
 				pc.sendPackets(new S_EquipmentWindow(pc, item.getId(),items,isEq)); 
 			}
 			if ((item.getItem().getType2() == 1) && (item.isEquipped())) {

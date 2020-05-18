@@ -125,6 +125,11 @@ public class ItemTable {
 		_armorTypes.put("ring2", Integer.valueOf(11));
 		_armorTypes.put("earring", Integer.valueOf(12));
 		_armorTypes.put("guarder", Integer.valueOf(13));
+		_armorTypes.put("pattern_back", new Integer(14));
+		_armorTypes.put("pattern_left", new Integer(15));
+		_armorTypes.put("pattern_right", new Integer(16));
+		_armorTypes.put("talisman_left", new Integer(17));
+		_armorTypes.put("talisman_right", new Integer(18));
 
 		_weaponTypes.put("sword", Integer.valueOf(1));
 		_weaponTypes.put("dagger", Integer.valueOf(2));

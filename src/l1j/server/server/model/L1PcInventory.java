@@ -492,10 +492,10 @@ public class L1PcInventory extends L1Inventory {
 			} else if ((item.getItem().getType() == 7)) {
 				// sheild
 				items = EQUIPMENT_INDEX_SHIELD;
-			} else if ((item.getItem().getType() == 8)) {
+			} else if ((item.getItem().getType() == 13)) {
 				// guarder
 				items = EQUIPMENT_INDEX_SHIELD;
-			} else if ((item.getItem().getType() == 11)) {
+			} else if ((item.getItem().getType() == 9)) {
 				if (isEq == true){
 					if (checkRingEquipped(EQUIPMENT_INDEX_RING1)){
 						items = EQUIPMENT_INDEX_RING2;	
@@ -548,11 +548,11 @@ public class L1PcInventory extends L1Inventory {
 						item.setRingID(0);
 					}                             
 				}
-			} else if ((item.getItem().getType() == 10)) {
+			} else if ((item.getItem().getType() == 8)) {
 				items = EQUIPMENT_INDEX_AMULET;
 			} else if ((item.getItem().getType() == 12)) {
 				items = EQUIPMENT_INDEX_EARRING;
-			} else if ((item.getItem().getType() == 13)) {
+			} else if ((item.getItem().getType() == 10)) {
 				items = EQUIPMENT_INDEX_BELT;	
 			} else if ((item.getItem().getType() == 14)) {
 				items = EQUIPMENT_INDEX_RUNE1;
