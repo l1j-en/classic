@@ -733,3 +733,273 @@ UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70901; -- Jeti, was L1Monster
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71013; -- Karen, was L1Merchant
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71078; -- Pouare, was L1Merchant
 UPDATE npc SET impl = 'L1Teleporter' WHERE npcid = 71080; -- Chief Security Amisu, was L1Merchant
+-- Additional impl updates.
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70604; -- Bridget, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70606; -- Victor, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70608; -- Shalina, was L1Monster
+UPDATE npc SET impl = 'L1Npc' WHERE npcid = 70621; -- Evelyn, was L1Monster
+UPDATE npc SET impl = 'L1Merchant' WHERE npcid = 71112; -- Giles, was L1Monster
+
+-- Update NPC level, hp, mp, ac.
+-- NOTE: Some bosses, like Ifrit and Drake were buffed to into the level 70s.
+-- Skipping that here for now.
+UPDATE npc SET ac = -32 WHERE npcid = 45326; -- Dark Forester, was ac = -10
+UPDATE npc SET ac = -43 WHERE npcid = 45533; -- Phantom Knight, was ac = -25
+UPDATE npc SET ac = -8 WHERE npcid = 45562; -- Guardian Armor, was ac = -223
+UPDATE npc SET hp = 2000 WHERE npcid = 45605; -- Priest of Corruption, was hp = 1000
+UPDATE npc SET lvl = 80 WHERE npcid = 45676; -- Arcane King Hellvine, was lvl = 70
+UPDATE npc SET hp = 30000 WHERE npcid = 45681; -- Lindvior, was hp = 20000
+UPDATE npc SET lvl = 45, hp = 620 WHERE npcid = 45862; -- Cursed Dark Elf Warrior, was lvl = 47, hp = 650
+UPDATE npc SET hp = 1000 WHERE npcid = 45931; -- Spirit of Water, was hp = 10000
+UPDATE npc SET lvl = 70, hp = 10000, mp = 400, ac = -80 WHERE npcid = 45931; -- Ice Queen, was lvl = 60, hp = 15000, mp = 1000, ac = -65
+UPDATE npc SET lvl = 65, hp = 7000, mp = 450, ac = -70 WHERE npcid = 46142; -- Ice Demon, was lvl = 55, hp = 10000, mp = 500, ac = -68
+UPDATE npc SET lvl = 25 WHERE npcid = 60563; -- Heine Guard, was lvl = 85
+UPDATE npc SET lvl = 25 WHERE npcid = 70857; -- Heine Guard, was lvl = 80
+UPDATE npc SET lvl = 10 WHERE npcid = 70862; -- Heine Gatekeeper, was lvl = 85
+UPDATE npc SET lvl = 10 WHERE npcid = 70863; -- Heine Gatekeeper, was lvl = 85
+UPDATE npc SET hp = 6000 WHERE npcid = 81082; -- Yahee, was hp = 30000
+UPDATE npc SET hp = 1000 WHERE npcid = 81240; -- Cougar, was hp = 2000
+UPDATE npc SET mp = 0 WHERE npcid = 90506; -- Ecu Juraka (Blue), was mp = 50
+UPDATE npc SET mp = 0 WHERE npcid = 90507; -- Ecu Juraka (Green), was mp = 50
+UPDATE npc SET ac = -140 WHERE npcid = 90518; -- Jeb Requie (Male), was ac = -120
+UPDATE npc SET ac = -140 WHERE npcid = 90519; -- Jeb Requie (Female), was ac = -120
+UPDATE npc SET hp = 20000, ac = -75 WHERE npcid = 91309; -- Priest Guignol, was hp = 2000, ac = -50
+-- Zero out new L1Npc impls stats.
+UPDATE npc SET lvl = 0, hp = 0, mp = 0, ac = 0, str = 0, con = 0, dex = 0,
+  wis = 0, intel = 0, mr = 0, exp = 0, lawful = 0, weakAttr = 0, ranged = 0,
+  tamable = 0, atkspeed = 0, alt_atk_speed = 0, atk_magic_speed = 0,
+  sub_magic_speed = 0, undead = 0, poison_atk = 0, paralysis_atk = 0, agro = 0,
+  agrososc = 0, agrocoi = 0, agrofamily = 0, picupitem = 0, digestitem = 0,
+  bravespeed = 0, hprinterval = 0, hpr = 0, mprinterval = 0, mpr = 0, teleport = 0
+  WHERE npcid IN
+  (70576, 70581, 70582, 70583, 70586, 70589, 70591, 70592, 70593, 70604, 70606,
+   70608, 70615, 70616, 70619, 70621, 70622, 70624, 70626, 70630, 70634, 70637,
+   70639, 70640, 70647, 70648, 70659, 70735, 70736, 70741, 70746, 70752, 70767,
+   70770, 70803, 70812, 70814, 70819, 70821, 70825, 70828, 70833, 70834, 70839,
+   70854, 70858, 70867, 70871, 70877, 70878, 70901, 71112)
+  ORDER BY npcid;
+
+-- Update NPC base stats.
+UPDATE npc SET str = 20 WHERE npcid = 45676; -- Arcane King Hellvine, was str = 80.
+UPDATE npc SET str = 90, con = 35, dex = 30, wis = 35, intel = 35 WHERE npcid = 81163; -- Girtas, was str = 80, con = 21, dex = 18, wis = 20, intel = 20
+UPDATE npc SET str = 6, con = 6, dex = 6, wis = 6, intel = 6 WHERE npcid = 90500; -- Monkey, was str = 1, con = 1, dex = 1, wis = 1, intel = 1
+UPDATE npc SET str = 5, con = 2, dex = 7, wis = 7, intel = 7 WHERE npcid = 90501; -- Snake, was str = 1, con = 1, dex = 1, wis = 1, intel = 1
+UPDATE npc SET str = 12 WHERE npcid = 90501; -- Starved Warden, was str = 16
+
+-- Update NPC mr, exp, lawful, size.
+-- NOTE: Skipping Giran Prison mobs.
+UPDATE npc SET lawful = -25 WHERE npcid = 45533; -- Phantom Knight, was lawful = -50
+UPDATE npc SET lawful = -5 WHERE npcid = 45647; -- Demon of Varlok, was lawful = -150
+UPDATE npc SET `exp` = 4901 WHERE npcid = 45676; -- Arcane King Hellvine, was exp = 6401
+UPDATE npc SET mr = 99 WHERE npcid = 45681; -- Lindvior, was mr = 180
+UPDATE npc SET mr = 99 WHERE npcid = 45682; -- Antharas, was mr = 180
+UPDATE npc SET mr = 99 WHERE npcid = 45683; -- Fafurion, was mr = 180
+UPDATE npc SET mr = 99 WHERE npcid = 45684; -- Valakas, was mr = 180
+UPDATE npc SET mr = 60 WHERE npcid = 46092; -- Unchosen One, was mr = 100
+UPDATE npc SET mr = 90, lawful = -1000 WHERE npcid = 46141; -- Ice Queen, was mr = 60, lawful = -200
+UPDATE npc SET lawful = -1000 WHERE npcid = 46142; -- Ice Demon, was lawful = -150
+UPDATE npc SET lawful = 1000 WHERE npcid = 60558; -- Gerard Mercenary Squad, was lawful = 0
+UPDATE npc SET lawful = 1000 WHERE npcid = 60559; -- Gerard Mercenary Squad, was lawful = 0
+UPDATE npc SET lawful = 1800 WHERE npcid = 70809; -- Guard, was lawful = 0
+UPDATE npc SET lawful = 1800 WHERE npcid = 70862; -- Heine Gatekeeper, was lawful = 0
+UPDATE npc SET lawful = 1800 WHERE npcid = 70863; -- Heine Gatekeeper, was lawful = 0
+UPDATE npc SET mr = 110, `exp` = 98020 WHERE npcid = 81163; -- Girtas, was mr = 99, exp = 9802
+UPDATE npc SET mr = 75 WHERE npcid = 81240; -- Cougar, was mr = 100
+-- Various L1Npcs.
+UPDATE npc SET size = 'small' WHERE npcid >= 50001 AND npcid <= 50631;
+UPDATE npc SET size = 'small' WHERE npcid >= 60001 AND npcid <= 60037;
+UPDATE npc SET size = 'small' WHERE npcid >= 70001 AND npcid <= 70520;
+UPDATE npc SET size = 'small' WHERE npcid >= 70522 AND npcid <= 70539;
+UPDATE npc SET size = 'small' WHERE npcid >= 70542 AND npcid <= 70547;
+UPDATE npc SET size = 'small' WHERE npcid >= 70550 AND npcid <= 70562;
+UPDATE npc SET size = 'small' WHERE npcid >= 70567 AND npcid <= 70573;
+UPDATE npc SET size = 'small' WHERE npcid = 70577;
+UPDATE npc SET size = 'small' WHERE npcid >= 70584 AND npcid <= 70585;
+UPDATE npc SET size = 'small' WHERE npcid = 70587;
+UPDATE npc SET size = 'small' WHERE npcid = 70590;
+UPDATE npc SET size = 'small' WHERE npcid >= 70594 AND npcid <= 70599;
+UPDATE npc SET size = 'small' WHERE npcid >= 70601 AND npcid <= 70603;
+UPDATE npc SET size = 'small' WHERE npcid = 70605;
+UPDATE npc SET size = 'small' WHERE npcid = 70607;
+UPDATE npc SET size = 'small' WHERE npcid >= 70609 AND npcid <= 70614;
+UPDATE npc SET size = 'small' WHERE npcid >= 70617 AND npcid <= 70618;
+UPDATE npc SET size = 'small' WHERE npcid = 70620;
+UPDATE npc SET size = 'small' WHERE npcid = 70623;
+UPDATE npc SET size = 'small' WHERE npcid = 70625;
+UPDATE npc SET size = 'small' WHERE npcid >= 70627 AND npcid <= 70629;
+UPDATE npc SET size = 'small' WHERE npcid >= 70631 AND npcid <= 70633;
+UPDATE npc SET size = 'small' WHERE npcid >= 70635 AND npcid <= 70636;
+UPDATE npc SET size = 'small' WHERE npcid = 70638;
+UPDATE npc SET size = 'small' WHERE npcid >= 70641 AND npcid <= 70644;
+UPDATE npc SET size = 'small' WHERE npcid >= 70649 AND npcid <= 70655;
+UPDATE npc SET size = 'small' WHERE npcid >= 70657 AND npcid <= 70658;
+UPDATE npc SET size = 'small' WHERE npcid >= 70660 AND npcid <= 70686;
+UPDATE npc SET size = 'small' WHERE npcid >= 70688 AND npcid <= 70702;
+UPDATE npc SET size = 'small' WHERE npcid >= 70705 AND npcid <= 70725;
+UPDATE npc SET size = 'small' WHERE npcid >= 70737 AND npcid <= 70740;
+UPDATE npc SET size = 'small' WHERE npcid >= 70742 AND npcid <= 70745;
+UPDATE npc SET size = 'small' WHERE npcid >= 70747 AND npcid <= 70751;
+UPDATE npc SET size = 'small' WHERE npcid >= 70753 AND npcid <= 70766;
+UPDATE npc SET size = 'small' WHERE npcid >= 70771 AND npcid <= 70777;
+UPDATE npc SET size = 'small' WHERE npcid >= 70779 AND npcid <= 70790;
+UPDATE npc SET size = 'small' WHERE npcid >= 70794 AND npcid <= 70799;
+UPDATE npc SET size = 'small' WHERE npcid >= 70801 AND npcid <= 70802;
+UPDATE npc SET size = 'small' WHERE npcid >= 70804 AND npcid <= 70807;
+UPDATE npc SET size = 'small' WHERE npcid >= 70810 AND npcid <= 70811;
+UPDATE npc SET size = 'small' WHERE npcid = 70813;
+UPDATE npc SET size = 'small' WHERE npcid >= 70815 AND npcid <= 70816;
+UPDATE npc SET size = 'small' WHERE npcid = 70818;
+UPDATE npc SET size = 'small' WHERE npcid = 70820;
+UPDATE npc SET size = 'small' WHERE npcid >= 70822 AND npcid <= 70824;
+UPDATE npc SET size = 'small' WHERE npcid = 70826;
+UPDATE npc SET size = 'small' WHERE npcid >= 70829 AND npcid <= 70832;
+UPDATE npc SET size = 'small' WHERE npcid >= 70835 AND npcid <= 70838;
+UPDATE npc SET size = 'small' WHERE npcid >= 70840 AND npcid <= 70845;
+UPDATE npc SET size = 'small' WHERE npcid = 70847;
+UPDATE npc SET size = 'small' WHERE npcid = 70849;
+UPDATE npc SET size = 'small' WHERE npcid = 70853;
+UPDATE npc SET size = 'small' WHERE npcid = 70856;
+UPDATE npc SET size = 'small' WHERE npcid >= 70859 AND npcid <= 70861;
+UPDATE npc SET size = 'small' WHERE npcid >= 70864 AND npcid <= 70865;
+UPDATE npc SET size = 'small' WHERE npcid >= 70868 AND npcid <= 70870;
+UPDATE npc SET size = 'small' WHERE npcid >= 70872 AND npcid <= 70876;
+UPDATE npc SET size = 'small' WHERE npcid >= 70880 AND npcid <= 70900;
+UPDATE npc SET size = 'small' WHERE npcid >= 70902 AND npcid <= 70956;
+UPDATE npc SET size = 'small' WHERE npcid >= 70963 AND npcid <= 70983;
+UPDATE npc SET size = 'small' WHERE npcid >= 70997 AND npcid <= 71007;
+UPDATE npc SET size = 'small' WHERE npcid >= 71009 AND npcid <= 71061;
+UPDATE npc SET size = 'small' WHERE npcid >= 71063 AND npcid <= 71074;
+UPDATE npc SET size = 'small' WHERE npcid >= 71076 AND npcid <= 71080;
+UPDATE npc SET size = 'small' WHERE npcid >= 71089 AND npcid <= 71091;
+UPDATE npc SET size = 'small' WHERE npcid = 71095;
+UPDATE npc SET size = 'small' WHERE npcid >= 71108 AND npcid <= 71182;
+UPDATE npc SET size = 'small' WHERE npcid = 71184;
+UPDATE npc SET size = 'small' WHERE npcid >= 71187 AND npcid <= 71196;
+UPDATE npc SET size = 'small' WHERE npcid >= 71198 AND npcid <= 71200;
+UPDATE npc SET size = 'small' WHERE npcid >= 71251 AND npcid <= 71253;
+UPDATE npc SET size = 'small' WHERE npcid >= 71264 AND npcid <= 71266;
+UPDATE npc SET size = 'small' WHERE npcid >= 80007 AND npcid <= 80105;
+UPDATE npc SET size = 'small' WHERE npcid >= 80127 AND npcid <= 80128;
+UPDATE npc SET size = 'small' WHERE npcid >= 80132 AND npcid <= 80137;
+UPDATE npc SET size = 'small' WHERE npcid >= 80141 AND npcid <= 80146;
+UPDATE npc SET size = 'small' WHERE npcid = 80168;
+UPDATE npc SET size = 'small' WHERE npcid >= 81002 AND npcid <= 81029;
+UPDATE npc SET size = 'small' WHERE npcid = 81105;
+UPDATE npc SET size = 'small' WHERE npcid = 81110;
+UPDATE npc SET size = 'small' WHERE npcid >= 81112 AND npcid <= 81121;
+UPDATE npc SET size = 'small' WHERE npcid >= 81123 AND npcid <= 81124;
+UPDATE npc SET size = 'small' WHERE npcid = 81155;
+UPDATE npc SET size = 'small' WHERE npcid = 81200;
+UPDATE npc SET size = 'small' WHERE npcid >= 81202 AND npcid <= 81208;
+UPDATE npc SET size = 'small' WHERE npcid >= 81241 AND npcid <= 81244;
+UPDATE npc SET size = 'small' WHERE npcid = 81246;
+
+-- Update NPC weakAttr, ranged, tamable.
+UPDATE npc SET tamable = 1 WHERE npcid = 45121; -- Orc Wizard, was tamable = 0
+UPDATE npc SET ranged = 1 WHERE npcid = 45283; -- Giran Cerberus, was ranged = 2
+UPDATE npc SET tamable = 0 WHERE npcid = 45318; -- Giant - Light, was tamable = 1
+UPDATE npc SET ranged = 2 WHERE npcid = 45569; -- Baphomet of Varlok, was ranged = 1
+UPDATE npc SET ranged = 2 WHERE npcid = 45579; -- Beleth of Varlok, was ranged = 1
+UPDATE npc SET ranged = 2 WHERE npcid = 45827; -- Mutant Lizardman, was ranged = 1
+UPDATE npc SET weakAttr = 2 WHERE npcid = 45847; -- Cursed Dark Elf Wizard, was weakAttr = 0
+UPDATE npc SET ranged = 0 WHERE npcid >= 45883 AND npcid <= 45889;
+UPDATE npc SET weakAttr = 4 WHERE npcid = 45930; -- Cursed Lizardman, was weakAttr = 12
+UPDATE npc SET weakAttr = 2 WHERE npcid = 46109; -- Scarab - Yellow, was weakAttr = 10
+UPDATE npc SET weakAttr = 4 WHERE npcid = 46110; -- Scarab - Blue, was weakAttr = 10
+UPDATE npc SET weakAttr = 8 WHERE npcid = 46112; -- Kalbis - Red, was weakAttr = 2
+UPDATE npc SET weakAttr = 4 WHERE npcid = 46114; -- Obelisk - Dark, was weakAttr = 8
+UPDATE npc SET weakAttr = 2 WHERE npcid = 46116; -- Sphinx - Dark, was weakAttr = 0
+UPDATE npc SET weakAttr = 4 WHERE npcid = 46117; -- Horus Falcon - Yellow, was weakAttr = 2
+UPDATE npc SET weakAttr = 0 WHERE npcid = 46119; -- Thebes Guardian - Dark, was weakAttr = 10
+UPDATE npc SET weakAttr = 0 WHERE npcid = 46120; -- Thebes Guardian - Red, was weakAttr = 10
+UPDATE npc SET weakAttr = 0 WHERE npcid = 46121; -- Thebes Elder - Yellow, was weakAttr = 12
+UPDATE npc SET weakAttr = 0 WHERE npcid = 46122; -- Thebes Elder - Purple, was weakAttr = 12
+UPDATE npc SET ranged = 2 WHERE npcid = 70862; -- Heine Gatekeeper, was ranged = 1
+UPDATE npc SET ranged = 2 WHERE npcid = 70863; -- Heine Gatekeeper, was ranged = 1
+UPDATE npc SET ranged = 4 WHERE npcid = 90500; -- Monkey, was ranged = 0
+
+-- NOTE: Skipping speeds.  Will do those separately.
+
+-- Update NPC undead flag
+UPDATE npc SET undead = 0 WHERE npcid = 45019; -- Orc Archer, was 5
+UPDATE npc SET undead = 5 WHERE npcid = 45024; -- Werewolf, was 0
+UPDATE npc SET undead = 5 WHERE npcid = 45389; -- Lycanthrope, was 0
+UPDATE npc SET undead = 0 WHERE npcid = 45835; -- Cursed Dark Elf Warrior, was 1
+UPDATE npc SET undead = 2 WHERE npcid = 81163; -- Girtas, was 0
+
+-- Update NPC poison_atk
+UPDATE npc SET poison_atk = 1 WHERE npcid = 45296; -- Gelatinous Cube, was 0
+
+-- Update NPC agro, agrososc, agrocoi
+UPDATE npc SET agro = 0, agrososc = 0, agrocoi = 0 WHERE npcid >= 45883 AND npcid <= 45889;
+UPDATE npc SET agro = 0, agrososc = 0, agrocoi = 0 WHERE npcid = 45943; -- Kapu, was agro = 1, agrososc = 1, agrocoi = 1
+
+-- Update NPC hprinterval.
+UPDATE npc SET hprinterval = 5000 WHERE npcid = 45828; -- Doppelganger Boss, was 0
+
+-- Update NPC hpr.
+UPDATE npc SET hpr = 150 WHERE npcid = 45676; -- Arcane King Hellvine, was 300
+UPDATE npc SET hpr = 2000 WHERE npcid = 45681; -- Lindvior, was 1000
+UPDATE npc SET hpr = 250 WHERE npcid = 45828; -- Doppelganger Boss, was 250
+UPDATE npc SET hpr = 3000 WHERE npcid = 81163; -- Girtas, was 500
+UPDATE npc SET hpr = 250 WHERE npcid = 91309; -- Priest Guignol, was 100
+
+-- Update NPC mprinterval.
+UPDATE npc SET mprinterval = 5000 WHERE npcid = 45828; -- Doppelganger Boss, was 0
+
+-- Update NPC mpr.
+UPDATE npc SET mpr = 50 WHERE npcid = 45828; -- Doppelganger Boss, was 0
+UPDATE npc SET mpr = 1000 WHERE npcid = 81163; -- Girtas, was 500
+UPDATE npc SET mpr = 350 WHERE npcid = 91309; -- Priest Guignol, was 100
+
+-- Update NPC isTU.
+UPDATE npc SET IsTU = 0 WHERE npcid IN
+(91401, 91403, 91409, 91410, 91415, 91416, 91417, 91418, 91419);
+
+-- Update NPC IsErase.
+UPDATE npc SET IsErase = 1 WHERE npcid IN
+(45538, 45572, 45578, 45580, 91429);
+UPDATE npc SET IsErase = 0 WHERE npcid IN
+(70576, 70581, 70582, 70583, 70586, 70589, 70591, 70592, 70593, 70604, 70606,
+ 70608, 70615, 70616, 70619, 70621, 70622, 70624, 70626, 70630, 70634, 70637,
+ 70639, 70640, 70647, 70648, 70659, 70735, 70736, 70741, 70746, 70752, 70767,
+ 70770, 70803, 70812, 70814, 70819, 70821, 70825, 70828, 70833, 70834, 70839,
+ 70854, 70858, 70867, 70871, 70877, 70878, 70901, 71112, 81254);
+
+-- Update NPC bowactid
+UPDATE npc SET bowactid = 1156 WHERE npcid = 45033; -- Imp, was 0
+UPDATE npc SET bowactid = 4536 WHERE npcid = 45676; -- Arcane King Hellvine, was 66
+
+-- Update NPC light_size
+UPDATE npc SET light_size = 14 WHERE npcid = 81254; -- Cracked Time, was 0
+UPDATE npc SET light_size = 14 WHERE npcid = 90521; -- Altar Gakekeeper, was 0
+
+-- Update NPC change_head.
+UPDATE npc SET change_head = 1 WHERE npcid IN (50111, 50127, 70712, 70964);
+UPDATE npc SET change_head = 0 WHERE npcid IN
+(70017, 70050, 70077, 70080, 70520, 70528, 70532, 70534, 70544, 70576, 70581,
+ 70582, 70583, 70586, 70589, 70591, 70592, 70593, 70604, 70606, 70608, 70615,
+ 70616, 70617, 70619, 70621, 70622, 70624, 70626, 70630, 70632, 70634, 70637,
+ 70639, 70640, 70647, 70648, 70653, 70659, 70661, 70664, 70701, 70702, 70723,
+ 70735, 70736, 70741, 70746, 70749, 70752, 70762, 70766, 70770, 70773, 70803,
+ 70809, 70812, 70814, 70819, 70821, 70825, 70828, 70833, 70834, 70836, 70839,
+ 70854, 70858, 70867, 70871, 70873, 70877, 70878, 70901, 71035, 71053, 71121,
+ 71124, 71178, 71179, 71252, 71253, 80085, 80086, 80087, 80095, 80104, 80105,
+ 80168, 81200, 81246);
+
+-- Update NPC cant_resurrect.
+UPDATE npc SET cant_resurrect = 1 WHERE npcid IN
+(45228, 45317, 45338, 45370, 45546, 45772, 46123, 46124, 81081, 81082, 91204);
+
+-- Update NPC boss flag.
+UPDATE npc SET boss = 1 WHERE npcid IN
+(45228, 45316, 45338, 45370, 45456, 45458, 45488, 45492, 45513, 45516, 45529,
+ 45534, 45535, 45545, 45546, 45547, 45548, 45573, 45574, 45577, 45583, 45584,
+ 45585, 45588, 45600, 45601, 45602, 45606, 45607, 45608, 45609, 45610, 45612,
+ 45614, 45615, 45617, 45618, 45625, 45640, 45642, 45643, 45644, 45645, 45646,
+ 45648, 45649, 45650, 45651, 45652, 45653, 45654, 45671, 45672, 45673, 45674,
+ 45680, 45681, 45682, 45683, 45684, 45685, 45734, 45735, 45753, 45772, 45795,
+ 45801, 45802, 45829, 45844, 45863, 45931, 45935, 45941, 45942, 45943, 45944,
+ 45955, 45956, 45957, 45958, 45959, 45960, 45961, 45962, 45963, 46024, 46025,
+ 46026, 46037, 46123, 46124, 46141, 46142, 81081, 81082, 91203, 91204, 91205,
+ 91206, 91207, 91408, 91414);
