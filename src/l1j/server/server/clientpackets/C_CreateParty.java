@@ -47,9 +47,9 @@ public class C_CreateParty extends ClientBasePacket {
 				if (pc.getId() == targetPc.getId()) {
 					return;
 				}
-				
+
 				if (pc.getMapId() != targetPc.getMapId() || pc.getLocation()
-						.getTileLineDistance(targetPc.getLocation()) > 5) {
+						.getTileLineDistance(targetPc.getLocation()) > 15) {
 					return;
 				}
 
@@ -98,6 +98,33 @@ public class C_CreateParty extends ClientBasePacket {
 				targetPc.setPartyID(pc.getId());
 				targetPc.sendPackets(new S_Message_YN(951, pc.getName()));
 			}
+		} else if(type == 3) {
+			if ((pc.getParty() == null) || !pc.getParty().isLeader(pc)) {
+				pc.sendPackets(new S_ServerMessage(1697));
+				return;
+			}
+
+			int targetId = readD();
+			L1Object obj = L1World.getInstance().findObject(targetId);
+			
+			if ((obj == null) || (pc.getId() == obj.getId())
+					|| !(obj instanceof L1PcInstance)) {
+				return;
+			}
+
+			L1PcInstance targetPc = (L1PcInstance) obj;
+			if (pc.getMapId() != targetPc.getMapId() || pc.getLocation()
+					.getTileLineDistance(targetPc.getLocation()) > 15) {
+				pc.sendPackets(new S_ServerMessage(1695));
+				return;
+			}
+
+			if (!targetPc.isInParty()) {
+				pc.sendPackets(new S_ServerMessage(1696));
+				return;
+			}
+
+			pc.getParty().passLeader(targetPc);
 		}
 	}
 

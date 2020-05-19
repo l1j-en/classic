@@ -156,6 +156,10 @@ public class S_PacketBox extends ServerBasePacket {
 	public static final int DODGE_RATE_MINUS = 101;
 	public static final int MAP_TIMER = 153;
 	public static final int DISPLAY_MAP_TIME = 159;
+	public static final int UPDATE_OLD_PARTY_MEMBER = 104;
+	public static final int PARTY_UPDATE_MEMBER = 105;
+	public static final int PARTY_SET_MASTER = 106;
+	public static final int PARTY_MEMBERS = 110;
 
 	public S_PacketBox(int subCode) {
 		writeC(Opcodes.S_OPCODE_PACKETBOX);

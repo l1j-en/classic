@@ -24,6 +24,7 @@ import java.util.List;
 import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.serverpackets.S_HPMeter;
+import l1j.server.server.serverpackets.S_Party;
 import l1j.server.server.serverpackets.S_ServerMessage;
 
 // Referenced classes of package l1j.server.server.model:
@@ -52,6 +53,8 @@ public class L1Party {
 
 		_membersList.add(pc);
 		pc.setParty(this);
+		showAddPartyInfo(pc);
+		pc.startRefreshParty();
 	}
 
 	private void removeMember(L1PcInstance pc) {
@@ -80,6 +83,14 @@ public class L1Party {
 
 	private void setLeader(L1PcInstance pc) {
 		_leader = pc;
+	}
+	
+	public void passLeader(L1PcInstance pc) {
+		pc.getParty().setLeader(pc);
+		
+		for (L1PcInstance member : getMembers()) {
+			member.sendPackets(new S_Party(106, pc));
+		}
 	}
 
 	public L1PcInstance getLeader() {
@@ -142,17 +153,13 @@ public class L1Party {
 			breakup();
 		} else {
 			if (getNumOfMembers() == 2) {
-				removeMember(pc);
-				L1PcInstance leader = getLeader();
-				removeMember(leader);
-
-				sendLeftMessage(pc, pc);
-				sendLeftMessage(leader, pc);
+				breakup();
 			} else {
 				removeMember(pc);
 				for (L1PcInstance member : members) {
 					sendLeftMessage(member, pc);
 				}
+				
 				sendLeftMessage(pc, pc);
 			}
 		}
@@ -160,13 +167,16 @@ public class L1Party {
 
 	public void kickMember(L1PcInstance pc) {
 		if (getNumOfMembers() == 2) {
-			removeMember(pc);
-			L1PcInstance leader = getLeader();
-			removeMember(leader);
+			breakup();
 		} else {
 			removeMember(pc);
+			
+			for (L1PcInstance member : getMembers()) {
+				sendLeftMessage(member, pc);
+			}
+			
+			sendLeftMessage(pc, pc);
 		}
-		pc.sendPackets(new S_ServerMessage(419));
 	}
 
 	public L1PcInstance[] getMembers() {
@@ -181,4 +191,20 @@ public class L1Party {
 		sendTo.sendPackets(new S_ServerMessage(420, left.getName()));
 	}
 
+	private void showAddPartyInfo(L1PcInstance pc) {
+		for (L1PcInstance member : getMembers()) {
+			if (pc.getId() == getLeader().getId() && getNumOfMembers() == 1) {
+				continue;
+			}
+			
+			if (pc.getId() == member.getId()) {
+				pc.sendPackets(new S_Party(104, pc));
+			} else {
+				member.sendPackets(new S_Party(105, pc));
+			}
+			
+			member.sendPackets(new S_Party(110, member));
+			createMiniHp(member);
+		}
+	}
 }

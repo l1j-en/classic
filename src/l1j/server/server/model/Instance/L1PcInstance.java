@@ -78,6 +78,7 @@ import l1j.server.server.model.L1Karma;
 import l1j.server.server.model.L1Magic;
 import l1j.server.server.model.L1Object;
 import l1j.server.server.model.L1Party;
+import l1j.server.server.model.L1PartyRefresh;
 import l1j.server.server.model.L1PcDeleteTimer;
 import l1j.server.server.model.L1PcInventory;
 import l1j.server.server.model.L1PinkName;
@@ -153,6 +154,12 @@ public class L1PcInstance extends L1Character {
 	private static final long serialVersionUID = 1L;
 	private ScheduledFuture<?> _teleDelayFuture;
 	
+	boolean _rpActive = false;
+	
+	public void disablePartyRefresh() {
+		_rpActive = false;
+	}
+
 	public void teleWithDelay(int delay, int x, int y, short mapid, int head, boolean ignorePets) {
 		
 		if (_teleDelayFuture != null) {
@@ -2577,7 +2584,12 @@ public class L1PcInstance extends L1Character {
 	public void reduceCurrentHp(double d, L1Character l1character) {
 		getStat().reduceCurrentHp(d, l1character);
 	}
-
+	
+	public void startRefreshParty() {
+		if (!_rpActive) {
+			GeneralThreadPool.getInstance().schedule(new L1PartyRefresh(this), L1PartyRefresh.INTERVAL);
+		}
+	}
 	public void refresh() {
 		resetLevel();
 		resetBaseHitup();
