@@ -268,6 +268,10 @@ public class L1Attack {
 	}
 
 	public L1Attack(L1Character attacker, L1Character target) {
+		this(attacker, target, 0);
+	}
+
+	public L1Attack(L1Character attacker, L1Character target, int skillId) {
 		if (attacker instanceof L1PcInstance) {
 			_pc = (L1PcInstance) attacker;
 			if (target instanceof L1PcInstance) {
@@ -1274,6 +1278,28 @@ public class L1Attack {
 			L1Chaser chaser = new L1Chaser(_pc, _target);
 			chaser.begin();
 		}
+	}
+
+	// Evil skill attack added
+	public void addEvilAttack() {
+// TODO: Implement.
+//		if (5 > _random.nextInt(100) + 1) {
+//			if ((_weaponId >= 292 && _weaponId <= 294) ||
+//					(_weaponId >= 298 && _weaponId <= 300) ||
+//					(_weaponId == 304 || _weaponId == 307 || _weaponId == 308)) {
+//				// Ibile reverse weapon
+//				L1Evil Evil = new L1Evil(_pc, _target,
+//						L1Skill.ATTR_WATER, 8150);
+//				Evil.begin();
+//			} else if ((_weaponId >= 295 && _weaponId <= 297) ||
+//					(_weaponId == 301 || _weaponId == 302)||
+//					(_weaponId == 305 || _weaponId == 306 || _weaponId == 309)) {
+//				// Evil trick weapon
+//				L1Evil Evil = new L1Evil(_pc, _target,
+//						L1Skill.ATTR_WATER, 8152);
+//				Evil.begin();
+//			}
+//		}
 	}
 
 	public void action() {

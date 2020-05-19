@@ -113,6 +113,17 @@ public class L1Object implements Serializable {
 	public void onAction(L1PcInstance actionFrom) {
 	}
 
+	/**
+	* Called when an action on the object occurs
+	*
+	* @param actionFrom
+	* PC that triggered the action
+	* @param skillId
+	* Skill ID used
+	*/
+	public void onAction(L1PcInstance actionFrom,int skillId) {
+	}
+	
 	public void onTalkAction(L1PcInstance talkFrom) {
 	}
 
