@@ -79,6 +79,7 @@ import l1j.server.server.serverpackets.S_BookmarkLoad;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharacterConfig;
 import l1j.server.server.serverpackets.S_Emblem;
+import l1j.server.server.serverpackets.S_InitialAbilityGrowth;
 import l1j.server.server.serverpackets.S_InvList;
 import l1j.server.server.serverpackets.S_Karma;
 import l1j.server.server.serverpackets.S_LoginGame;
@@ -167,7 +168,7 @@ public class C_LoginToServer extends ClientBasePacket {
 		pc.setPacketOutput(client);
 		client.setActiveChar(pc);
 		
-		//TODO -- ability growth?
+		pc.sendPackets(new S_InitialAbilityGrowth(pc));
 		pc.sendPackets(new S_LoginGame());
 		pc.sendPackets(new S_BookmarkLoad(pc));
 		
