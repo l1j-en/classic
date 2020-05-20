@@ -1013,7 +1013,7 @@ public final class Config {
 			RETURN_TO_NATURE = Boolean.parseBoolean(altSettings.getProperty(
 					"ReturnToNature", "False"));
 			MAX_NPC_ITEM = Integer.parseInt(altSettings.getProperty(
-					"MaxNpcItem", "8"));
+					"MaxNpcItem", "20"));
 			MAX_PERSONAL_WAREHOUSE_ITEM = Integer.parseInt(altSettings
 					.getProperty("MaxPersonalWarehouseItem", "100"));
 			MAX_CLAN_WAREHOUSE_ITEM = Integer.parseInt(altSettings.getProperty(
