@@ -2897,3 +2897,5 @@ Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' W
 Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='24064';
 Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='24576';
 Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='25088';
+
+UPDATE `etcitem` SET `stackable` = 1 WHERE `item_type` = 'spellbook';
