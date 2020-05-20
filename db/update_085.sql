@@ -1867,3 +1867,6 @@ DELETE FROM npc WHERE npcid = 71273;
 DELETE FROM spawnlist_npc WHERE npc_templateid = 71273;
 -- Replace NPC with new field object.
 INSERT INTO `npc` VALUES ('71273', 'Tools', '', 'Pandora Back Luggage', 'L1FieldObject', '2299', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0', '0', '0');
+
+-- Fix floating question mark names for some lights.
+UPDATE npc SET nameid = '' WHERE impl = 'L1FieldObject' AND nameid LIKE '?%';
