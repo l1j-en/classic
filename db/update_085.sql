@@ -1870,3 +1870,1030 @@ INSERT INTO `npc` VALUES ('71273', 'Tools', '', 'Pandora Back Luggage', 'L1Field
 
 -- Fix floating question mark names for some lights.
 UPDATE npc SET nameid = '' WHERE impl = 'L1FieldObject' AND nameid LIKE '?%';
+
+-- Add new mapids column.
+ALTER TABLE mapids ADD unique_rate tinyint(1) unsigned NOT NULL DEFAULT 1 AFTER drop_rate;
+
+-- Add new mapids.
+INSERT INTO mapids () VALUES
+   (42, NULL, 32512, 32831, 32704, 33023, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1),
+   (100, NULL, 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (261, '1st Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (262, 'Hidden 1st Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (263, '2nd Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (264, '3rd Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (265, '4th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (266, '5th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (267, 'Hidden 2nd Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (268, '6th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (269, '7th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (270, 'Ivory Tower Secret Lab', 32704, 32767, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (271, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (272, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (273, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (274, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (275, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (276, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (277, 'Crystal Cavern', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (278, 'Crystal Cavern', 32704, 32895, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (279, '8th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (280, 'Janus Ivory Tower 4F: Ballog camp', 32832, 32959, 32704, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (281, 'Janus Ivory Tower 5F: Ballog camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (282, 'Janus Ivory Tower 6F: Ballog camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (283, 'Janus Ivory Tower 7F: Ballog camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (284, 'Janus Ivory Tower 8F: Ballog camp', 32640, 32767, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (285, 'Janus Ivory Tower 4F: Yahee Camp', 32832, 32959, 32704, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (286, 'Janus Ivory Tower 5F: Yahee Camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (287, 'Janus Ivory Tower 6F: Yahee Camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (288, 'Janus Ivory Tower 7F: Yahee Camp', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (289, 'Janus Ivory Tower 8F: Yahee Camp', 32640, 32767, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (290, 'Hidden 3rd Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (291, 'Hidden 4th Orc Unit Outpost', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (479, 'Lastavard Castle: Central Square', 32704, 32959, 32640, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (518, NULL, 32640, 32831, 32704, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (537, 'Doomed Dark Elf Holy Place', 32768, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (613, 'Ground of Snowball fight', 32640, 32895, 32768, 33023, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1),
+   (620, 'Internet cafe lobby', 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1),
+   (621, 'PC Premium Zone', 32640, 32895, 32768, 32959, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1),
+   (622, 'Suspicious Sky Garden: Net Cafe Village', 32704, 32895, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (623, 'Suspicious Garden: Hunting ground for cafes', 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (630, 'Castle in the Sky', 32704, 33023, 32768, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1),
+   (631, 'Two Dimensional Space', 32704, 33087, 32640, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1),
+   (632, 'Brave Man`s Sacred Place 1', 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1),
+   (653, 'Internet cafe Giran Prison 1F', 32640, 32895, 32640, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (654, 'Internet cafe Giran Prison 2F', 32640, 32895, 32640, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (655, 'Internet cafe Giran Prison 3F', 32640, 32831, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (656, 'Internet cafe Giran Prison 4F', 32640, 32895, 32640, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (725, NULL, 33472, 33663, 32576, 32767, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (726, NULL, 32640, 32767, 32832, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (785, 'Death Knight Training Ground', 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (786, 'Death Knight Secret Training Ground', 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (787, 'Death Knight Suspicious Training Ground', 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (788, NULL, 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (789, NULL, 32640, 32959, 32576, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (790, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (791, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (792, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (793, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (794, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (795, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (796, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (797, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (798, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (799, NULL, 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (800, NULL, 32704, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1002, 'Hidden Dragon Land', 32576, 33087, 32512, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (1003, NULL, 32640, 32959, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (1004, NULL, 32512, 32959, 32512, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (1005, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1006, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1007, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1008, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1009, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1010, 'Antara Slade', 32512, 33023, 32576, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1011, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1012, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1013, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1014, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1015, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1016, 'Paprio Raid', 32640, 33151, 32448, 32959, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1017, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1018, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1019, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1020, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1021, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1022, 'Lindvior Raid', 32512, 33023, 32768, 33279, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1),
+   (1234, NULL, 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1259, NULL, 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1284, NULL, 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1309, NULL, 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1400, NULL, 32768, 32959, 32704, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1901, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1902, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1903, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1904, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1905, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1906, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1907, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1908, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1909, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1910, NULL, 32576, 32895, 32704, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1911, NULL, 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1912, NULL, 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1913, NULL, 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1914, NULL, 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (1915, NULL, 32576, 32895, 32832, 33023, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2005, 'Northern Valley(Beginners Zone)', 32512, 32895, 32704, 33087, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1),
+   (2006, 'Playground of Metis', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (2007, 'Memory Slime', 32512, 32703, 32640, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2008, NULL, 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2009, NULL, 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2010, 'Storm Training Area(Beginners Zone)', 32576, 33087, 32512, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2011, 'Storm Training Area(Beginners Zone)', 32576, 33087, 32512, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2100, 'Crystal Cavern Entrance', 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2101, 'Crystal Cavern', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2151, 'Crystal Cavern', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2201, 'Mysterious Ice Crystal Cave 1F', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2202, 'Mysterious Ice Crystal Cave 2F', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2203, 'Mysterious Ice Crystal Cave 3F', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (2210, 'Varacus Habitat', 32640, 32831, 32704, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (4995, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (4996, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (4997, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (4998, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (4999, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5000, NULL, 32768, 32831, 32768, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5141, 'Ghost Mansion', 32640, 32959, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0),
+   (5142, 'Ghost Mansion', 32640, 32959, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0),
+   (5143, 'Pet Race', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+   (5144, 'Pet Race', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5145, 'Pet Race', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5153, NULL, 32576, 32703, 32832, 32959, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1),
+   (5154, NULL, 32576, 32703, 32832, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5155, NULL, 32576, 32703, 32832, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5156, NULL, 32576, 32703, 32832, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5166, 'Place of Recollection', 32704, 32831, 32768, 32895, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5167, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5168, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5169, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5170, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5171, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5172, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5173, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5174, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5175, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5176, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5177, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5178, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5179, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5180, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5181, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5182, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5183, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5184, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5185, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5186, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5187, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5188, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5189, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5190, 'DevilKing`s Field', 32512, 32767, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5191, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5192, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5193, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5194, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5195, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5196, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5197, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5198, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5199, 'Ivory Tower Underground Warehouse', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5200, NULL, 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5300, NULL, 32640, 32895, 32704, 32959, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1),
+   (5301, NULL, 32640, 32895, 32704, 32959, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1),
+   (5302, NULL, 32640, 32895, 32704, 32959, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1),
+   (5303, 'dungeon of crack low', 32704, 32895, 32768, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5384, 'dungeon of crack middle', 32704, 32895, 32640, 32831, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5435, 'dungeon of crack high', 32704, 32959, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5501, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (5551, 'Halpas Meeting Place', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (5554, 'Yahee Wedding Hall', 32640, 32895, 32704, 32959, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (6041, NULL, 32768, 32895, 32768, 32895, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (6201, 'Valentines Day Party Place', 32768, 33151, 32768, 33151, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (6202, 'Valentines Day Party Place', 32768, 33151, 32768, 33151, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (6203, 'Valentines Day Party Place', 32768, 33151, 32768, 33151, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+   (7100, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1),
+   (7101, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (7102, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (7103, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (7104, 'Halloween Event', 32704, 32959, 32832, 33087, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (9000, 'Past Secret Labratory', 32576, 32895, 32640, 33023, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1),
+   (9100, 'Ivory Tower Secret Lab (Hardin)', 32704, 32767, 32832, 32895, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+   (9101, NULL, 32640, 32831, 32768, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1),
+   (9202, 'Ivory Tower Secret Lab (Olim)', 32704, 32767, 32832, 32895, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1);
+
+-- Update all map boundaries (courtesy of Tricid).
+Update `mapids` set startX='32256', endX='32767', startY='32768', endY='33279' Where mapid='0';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='1';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='32959' Where mapid='2';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='3';
+Update `mapids` set startX='32448', endX='34303', startY='32064', endY='33599' Where mapid='4';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='6';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='7';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='8';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='9';
+Update `mapids` set startX='32640', endX='32831', startY='32640', endY='32895' Where mapid='10';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='11';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='12';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='13';
+Update `mapids` set startX='32512', endX='33023', startY='32704', endY='32895' Where mapid='14';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='15';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32895' Where mapid='16';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='17';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='18';
+Update `mapids` set startX='32704', endX='32895', startY='32640', endY='32895' Where mapid='19';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='20';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='21';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='22';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='23';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='24';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='25';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='26';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='27';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32895' Where mapid='28';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='29';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='30';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='31';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='32';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='33';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='34';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='35';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='36';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32959' Where mapid='37';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='38';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='39';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='40';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='41';
+Update `mapids` set startX='32512', endX='32831', startY='32704', endY='33023' Where mapid='42';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='43';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='44';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='45';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='46';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='47';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='48';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='49';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='50';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='51';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='52';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='53';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='54';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32959' Where mapid='55';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='56';
+Update `mapids` set startX='32576', endX='33023', startY='32512', endY='32959' Where mapid='57';
+Update `mapids` set startX='32512', endX='32831', startY='32704', endY='33023' Where mapid='58';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='59';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32959' Where mapid='60';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='61';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='62';
+Update `mapids` set startX='32576', endX='32895', startY='32640', endY='32959' Where mapid='63';
+Update `mapids` set startX='32512', endX='32639', startY='32768', endY='32895' Where mapid='64';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='65';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='66';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='67';
+Update `mapids` set startX='32576', endX='33023', startY='32512', endY='32959' Where mapid='68';
+Update `mapids` set startX='32512', endX='32831', startY='32704', endY='33023' Where mapid='69';
+Update `mapids` set startX='32576', endX='33023', startY='32640', endY='33087' Where mapid='70';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='72';
+Update `mapids` set startX='32704', endX='32959', startY='32704', endY='32959' Where mapid='73';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='74';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32959' Where mapid='75';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='76';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='77';
+Update `mapids` set startX='32832', endX='32959', startY='32704', endY='32831' Where mapid='78';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='79';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='80';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='81';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='82';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='83';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='84';
+Update `mapids` set startX='32512', endX='32831', startY='32640', endY='32959' Where mapid='85';
+Update `mapids` set startX='32768', endX='33023', startY='32704', endY='32895' Where mapid='86';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='87';
+Update `mapids` set startX='33472', endX='33599', startY='32640', endY='32767' Where mapid='88';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='89';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='90';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='91';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='92';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='93';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='94';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='95';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='96';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='97';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='98';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='99';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='100';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='101';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='102';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='103';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='104';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='105';
+Update `mapids` set startX='32576', endX='33855', startY='32768', endY='32959' Where mapid='106';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='107';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='108';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='109';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='110';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33023' Where mapid='111';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='112';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='113';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='114';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='115';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='116';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='117';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='118';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='119';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='120';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='32959' Where mapid='121';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='122';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='123';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='124';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='125';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='126';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='127';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='128';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='129';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='130';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33023' Where mapid='131';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='132';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='133';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='134';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='135';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='136';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='137';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='138';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='139';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='140';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='141';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='142';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='143';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='144';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='145';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='32959' Where mapid='146';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='147';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='148';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='149';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='150';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='151';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='152';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='153';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='154';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='155';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='156';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='157';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='158';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='159';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='160';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='161';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='162';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='163';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='164';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='165';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='166';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='167';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='168';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='169';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='170';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='171';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='172';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='173';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='174';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='175';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='176';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='177';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='178';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='179';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='180';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='181';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='182';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='183';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='184';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='185';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='186';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='187';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='188';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='189';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='190';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='191';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='192';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='193';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='194';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='195';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='196';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='197';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='198';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='199';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33023' Where mapid='200';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32959' Where mapid='201';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='202';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='203';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='204';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='205';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='206';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='207';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='208';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='209';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='210';
+Update `mapids` set startX='32640', endX='33535', startY='32704', endY='32895' Where mapid='211';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='213';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32831' Where mapid='217';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='221';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='237';
+Update `mapids` set startX='32640', endX='32767', startY='33024', endY='33151' Where mapid='240';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32959' Where mapid='241';
+Update `mapids` set startX='32704', endX='32831', startY='32896', endY='33087' Where mapid='242';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='33023' Where mapid='243';
+Update `mapids` set startX='32704', endX='33023', startY='32768', endY='33087' Where mapid='244';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='248';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='249';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='250';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='251';
+Update `mapids` set startX='32576', endX='32767', startY='32832', endY='32895' Where mapid='252';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='33023' Where mapid='253';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='32959' Where mapid='254';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='255';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='33023' Where mapid='256';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='257';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33151' Where mapid='258';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='33023' Where mapid='259';
+Update `mapids` set startX='32768', endX='32831', startY='32832', endY='32895' Where mapid='260';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='261';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='262';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='263';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='264';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='265';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='266';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='267';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='268';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='269';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='270';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='271';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='272';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='273';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='274';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='275';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='276';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='277';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='278';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='279';
+Update `mapids` set startX='32832', endX='32959', startY='32704', endY='32831' Where mapid='280';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='281';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='282';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='283';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='284';
+Update `mapids` set startX='32832', endX='32959', startY='32704', endY='32831' Where mapid='285';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='286';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='287';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='288';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='289';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='290';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='291';
+Update `mapids` set startX='32832', endX='32959', startY='32448', endY='32639' Where mapid='300';
+Update `mapids` set startX='32576', endX='32767', startY='32768', endY='33023' Where mapid='301';
+Update `mapids` set startX='32704', endX='32767', startY='32832', endY='32895' Where mapid='302';
+Update `mapids` set startX='32576', endX='32959', startY='32512', endY='32895' Where mapid='303';
+Update `mapids` set startX='32576', endX='32959', startY='32768', endY='33023' Where mapid='304';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='305';
+Update `mapids` set startX='32512', endX='32767', startY='32768', endY='32959' Where mapid='306';
+Update `mapids` set startX='32704', endX='32959', startY='32768', endY='32959' Where mapid='307';
+Update `mapids` set startX='32704', endX='33023', startY='32768', endY='32959' Where mapid='308';
+Update `mapids` set startX='32704', endX='33087', startY='32768', endY='32959' Where mapid='309';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='33023' Where mapid='310';
+Update `mapids` set startX='32640', endX='33087', startY='32768', endY='33087' Where mapid='320';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='33023' Where mapid='330';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='340';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='350';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='360';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='370';
+Update `mapids` set startX='32256', endX='32767', startY='32768', endY='33279' Where mapid='371';
+Update `mapids` set startX='32448', endX='33087', startY='32576', endY='33087' Where mapid='400';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='401';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='33087' Where mapid='410';
+Update `mapids` set startX='32640', endX='32831', startY='32832', endY='33151' Where mapid='420';
+Update `mapids` set startX='32640', endX='33023', startY='32704', endY='33087' Where mapid='430';
+Update `mapids` set startX='32256', endX='32767', startY='32768', endY='33279' Where mapid='440';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='441';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='442';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32959' Where mapid='443';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='444';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='445';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32831' Where mapid='446';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='447';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='32959' Where mapid='450';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='451';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='452';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='453';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='454';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='455';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='456';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='457';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='460';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32895' Where mapid='461';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32895' Where mapid='462';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='463';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='464';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='465';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='466';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='467';
+Update `mapids` set startX='32576', endX='32703', startY='32832', endY='32959' Where mapid='468';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32895' Where mapid='470';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='471';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='472';
+Update `mapids` set startX='32704', endX='32959', startY='32768', endY='32895' Where mapid='473';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='474';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='475';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32895' Where mapid='476';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32959' Where mapid='477';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='478';
+Update `mapids` set startX='32704', endX='32959', startY='32640', endY='32895' Where mapid='479';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33023' Where mapid='480';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='481';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='32895' Where mapid='482';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='483';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='484';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='490';
+Update `mapids` set startX='32640', endX='32767', startY='32704', endY='32895' Where mapid='491';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='492';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='493';
+Update `mapids` set startX='32768', endX='32895', startY='32704', endY='32831' Where mapid='494';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='495';
+Update `mapids` set startX='32768', endX='32895', startY='32768', endY='32895' Where mapid='496';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='500';
+Update `mapids` set startX='32576', endX='33215', startY='32512', endY='32959' Where mapid='501';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32959' Where mapid='502';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32959' Where mapid='503';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32959' Where mapid='504';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32959' Where mapid='505';
+Update `mapids` set startX='32512', endX='33215', startY='32576', endY='32959' Where mapid='506';
+Update `mapids` set startX='32704', endX='33023', startY='32768', endY='32959' Where mapid='507';
+Update `mapids` set startX='32768', endX='32895', startY='33088', endY='33215' Where mapid='508';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='509';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='510';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='511';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='512';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='513';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='514';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='515';
+Update `mapids` set startX='32576', endX='33215', startY='32576', endY='32895' Where mapid='516';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='518';
+Update `mapids` set startX='32576', endX='32767', startY='32832', endY='33023' Where mapid='521';
+Update `mapids` set startX='32576', endX='32831', startY='32832', endY='32959' Where mapid='522';
+Update `mapids` set startX='32576', endX='32831', startY='32832', endY='32959' Where mapid='523';
+Update `mapids` set startX='32576', endX='32831', startY='32832', endY='32959' Where mapid='524';
+Update `mapids` set startX='32704', endX='32959', startY='32768', endY='32959' Where mapid='530';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32959' Where mapid='531';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='532';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='33023' Where mapid='533';
+Update `mapids` set startX='32704', endX='32959', startY='32768', endY='32895' Where mapid='534';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='535';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='536';
+Update `mapids` set startX='32768', endX='32895', startY='32768', endY='32959' Where mapid='537';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='541';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='542';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='543';
+Update `mapids` set startX='32384', endX='32895', startY='32640', endY='33151' Where mapid='550';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='551';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32895' Where mapid='552';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='553';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='554';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32895' Where mapid='555';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='556';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='557';
+Update `mapids` set startX='32704', endX='33215', startY='32768', endY='33279' Where mapid='558';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32895' Where mapid='600';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='32959' Where mapid='601';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='602';
+Update `mapids` set startX='32640', endX='32767', startY='32768', endY='32895' Where mapid='603';
+Update `mapids` set startX='32768', endX='32895', startY='32768', endY='32895' Where mapid='604';
+Update `mapids` set startX='32704', endX='32959', startY='32704', endY='32959' Where mapid='605';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32895' Where mapid='606';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32959' Where mapid='607';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='608';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='610';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32831' Where mapid='611';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='612';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='33023' Where mapid='613';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='620';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32959' Where mapid='621';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32895' Where mapid='622';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='623';
+Update `mapids` set startX='32704', endX='33023', startY='32768', endY='33087' Where mapid='630';
+Update `mapids` set startX='32704', endX='33087', startY='32640', endY='33023' Where mapid='631';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='632';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='653';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='654';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32959' Where mapid='655';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='656';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='666';
+Update `mapids` set startX='32576', endX='33023', startY='32512', endY='32959' Where mapid='701';
+Update `mapids` set startX='33472', endX='33663', startY='32576', endY='32767' Where mapid='725';
+Update `mapids` set startX='32640', endX='32767', startY='32832', endY='32959' Where mapid='726';
+Update `mapids` set startX='32448', endX='32831', startY='32832', endY='33151' Where mapid='777';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='33023' Where mapid='778';
+Update `mapids` set startX='32768', endX='33023', startY='32704', endY='32895' Where mapid='779';
+Update `mapids` set startX='32576', endX='32831', startY='32704', endY='33087' Where mapid='780';
+Update `mapids` set startX='32704', endX='33023', startY='32704', endY='32895' Where mapid='781';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='782';
+Update `mapids` set startX='32704', endX='33343', startY='32576', endY='32959' Where mapid='783';
+Update `mapids` set startX='32704', endX='32831', startY='32832', endY='32895' Where mapid='784';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='785';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='786';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='787';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='788';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='789';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='790';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='791';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='792';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='793';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='794';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='795';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='796';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='797';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='798';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='799';
+Update `mapids` set startX='32704', endX='32895', startY='32832', endY='33023' Where mapid='800';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='807';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='808';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='809';
+Update `mapids` set startX='32640', endX='32831', startY='32640', endY='32895' Where mapid='810';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='811';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='812';
+Update `mapids` set startX='32640', endX='32895', startY='32640', endY='32895' Where mapid='813';
+Update `mapids` set startX='32704', endX='33215', startY='32768', endY='33279' Where mapid='814';
+Update `mapids` set startX='32640', endX='32959', startY='32576', endY='32895' Where mapid='815';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='820';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='821';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='822';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='823';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='824';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='825';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='826';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='827';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='828';
+Update `mapids` set startX='32576', endX='32895', startY='32768', endY='33087' Where mapid='829';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='997';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='998';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='1000';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='1001';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='33023' Where mapid='1002';
+Update `mapids` set startX='32640', endX='32895', startY='32832', endY='32959' Where mapid='1003';
+Update `mapids` set startX='32512', endX='32959', startY='32512', endY='32895' Where mapid='1004';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1005';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1006';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1007';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1008';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1009';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1010';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1011';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1012';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1013';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1014';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1015';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1016';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1017';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1018';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1019';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1020';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1021';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1022';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1029';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1035';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1041';
+Update `mapids` set startX='32512', endX='33023', startY='32576', endY='33023' Where mapid='1053';
+Update `mapids` set startX='32640', endX='33151', startY='32448', endY='32959' Where mapid='1059';
+Update `mapids` set startX='32512', endX='33023', startY='32768', endY='33279' Where mapid='1065';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='1234';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='1259';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='1284';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='1309';
+Update `mapids` set startX='32768', endX='32959', startY='32704', endY='32895' Where mapid='1400';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1901';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1902';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1903';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1904';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1905';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1906';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1907';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1908';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1909';
+Update `mapids` set startX='32576', endX='32895', startY='32704', endY='33023' Where mapid='1910';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='1911';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='1912';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='1913';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='1914';
+Update `mapids` set startX='32576', endX='32895', startY='32832', endY='33023' Where mapid='1915';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1920';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1921';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1922';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1923';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1924';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1925';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1926';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1927';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1928';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32959' Where mapid='1929';
+Update `mapids` set startX='32448', endX='32831', startY='32832', endY='33151' Where mapid='1930';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32895' Where mapid='1931';
+Update `mapids` set startX='32576', endX='32959', startY='32576', endY='32895' Where mapid='1932';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='1935';
+Update `mapids` set startX='32768', endX='32831', startY='32832', endY='32895' Where mapid='1936';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='33023' Where mapid='2000';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='32959' Where mapid='2001';
+Update `mapids` set startX='32704', endX='32959', startY='32704', endY='32959' Where mapid='2002';
+Update `mapids` set startX='32704', endX='32959', startY='32704', endY='32959' Where mapid='2003';
+Update `mapids` set startX='32640', endX='32895', startY='32768', endY='32959' Where mapid='2004';
+Update `mapids` set startX='32512', endX='32895', startY='32704', endY='33087' Where mapid='2005';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2006';
+Update `mapids` set startX='32512', endX='32703', startY='32640', endY='32895' Where mapid='2007';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2008';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2009';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='32831' Where mapid='2010';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='32831' Where mapid='2011';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='32831' Where mapid='2012';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='32831' Where mapid='2013';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='32831' Where mapid='2014';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='2100';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2101';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2151';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2201';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2202';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='2203';
+Update `mapids` set startX='32640', endX='32831', startY='32704', endY='32895' Where mapid='2210';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32831' Where mapid='2225';
+Update `mapids` set startX='32704', endX='32895', startY='32640', endY='32895' Where mapid='2226';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32895' Where mapid='2227';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32895' Where mapid='2228';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='33151' Where mapid='2301';
+Update `mapids` set startX='32512', endX='32959', startY='32704', endY='33087' Where mapid='2600';
+Update `mapids` set startX='32576', endX='32703', startY='33024', endY='33087' Where mapid='2699';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='4995';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='4996';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='4997';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='4998';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='4999';
+Update `mapids` set startX='32768', endX='32831', startY='32768', endY='32831' Where mapid='5000';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5001';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5002';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5003';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5004';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5005';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5006';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5007';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5008';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5009';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5010';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5011';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5012';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5013';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5014';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5015';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5016';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5017';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5018';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5019';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5020';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5021';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5022';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5023';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5024';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5025';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5026';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5027';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5028';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5029';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5030';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5031';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5032';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5033';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5034';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5035';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5036';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5037';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5038';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5039';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5040';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5041';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5042';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5043';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5044';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5045';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5046';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5047';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5048';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5049';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5050';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5051';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5052';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5053';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5054';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5055';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5056';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5057';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5058';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5059';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5060';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5061';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5062';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5063';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5064';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5065';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5066';
+Update `mapids` set startX='32704', endX='32831', startY='32704', endY='32831' Where mapid='5067';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5068';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5069';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5070';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5071';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5072';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5073';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5074';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5075';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5076';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5077';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5078';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5079';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5080';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5081';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5082';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5083';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5084';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5085';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5086';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5087';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5088';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5089';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5090';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5091';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5092';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5093';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5094';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5095';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5096';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5097';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5098';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5099';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5100';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5101';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5102';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5103';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5104';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5105';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5106';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5107';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5108';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5109';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5110';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5111';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5112';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5113';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5114';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5115';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5116';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5117';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5118';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5119';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5120';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5121';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5122';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5123';
+Update `mapids` set startX='32704', endX='32895', startY='32704', endY='32895' Where mapid='5124';
+Update `mapids` set startX='32768', endX='32895', startY='32768', endY='32895' Where mapid='5125';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='32959' Where mapid='5140';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='32959' Where mapid='5141';
+Update `mapids` set startX='32640', endX='32959', startY='32704', endY='32959' Where mapid='5142';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5143';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5144';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5145';
+Update `mapids` set startX='32576', endX='32703', startY='32832', endY='32959' Where mapid='5153';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5166';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5167';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5168';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5169';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5170';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5171';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5172';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5173';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5174';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5175';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5176';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5177';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5178';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5179';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5180';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5181';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5182';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5183';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5184';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5185';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5186';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5187';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5188';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5189';
+Update `mapids` set startX='32512', endX='32767', startY='32704', endY='32959' Where mapid='5190';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5191';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5192';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5193';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5194';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5195';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5196';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5197';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5198';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5199';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5200';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5224';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='5300';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='5301';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='5302';
+Update `mapids` set startX='32704', endX='32895', startY='32768', endY='32959' Where mapid='5303';
+Update `mapids` set startX='32704', endX='32895', startY='32640', endY='32831' Where mapid='5384';
+Update `mapids` set startX='32704', endX='32959', startY='32704', endY='32959' Where mapid='5435';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='5490';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='5501';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='5551';
+Update `mapids` set startX='32640', endX='32895', startY='32704', endY='32959' Where mapid='5554';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5800';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5801';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5802';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5803';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5804';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5805';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5806';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5807';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5808';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5809';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5810';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5811';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5812';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5813';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5814';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5815';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5816';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5817';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5818';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5819';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5820';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5821';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5822';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5823';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5825';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5826';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5827';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5828';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5829';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5830';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5831';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5832';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5833';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5834';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5835';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5836';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5837';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5838';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5839';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5840';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5841';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5842';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5843';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5844';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5845';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5846';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5847';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5848';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='5849';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5850';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5851';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5852';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5853';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5854';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5855';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5856';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5857';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5858';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5859';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5860';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5861';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5862';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5863';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5864';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5865';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5866';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5867';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5868';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='5869';
+Update `mapids` set startX='32768', endX='32895', startY='32768', endY='32895' Where mapid='6041';
+Update `mapids` set startX='32768', endX='33151', startY='32768', endY='33151' Where mapid='6201';
+Update `mapids` set startX='32768', endX='33151', startY='32768', endY='33151' Where mapid='6202';
+Update `mapids` set startX='32768', endX='33151', startY='32768', endY='33151' Where mapid='6203';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33023' Where mapid='6400';
+Update `mapids` set startX='32576', endX='32831', startY='32768', endY='33023' Where mapid='6430';
+Update `mapids` set startX='32704', endX='32959', startY='32832', endY='33087' Where mapid='7100';
+Update `mapids` set startX='32576', endX='32895', startY='32640', endY='33023' Where mapid='9000';
+Update `mapids` set startX='32704', endX='32767', startY='32832', endY='32895' Where mapid='9100';
+Update `mapids` set startX='32640', endX='32831', startY='32768', endY='32895' Where mapid='9101';
+Update `mapids` set startX='32704', endX='32831', startY='32768', endY='32895' Where mapid='9102';
+Update `mapids` set startX='32704', endX='32767', startY='32832', endY='32895' Where mapid='9202';
+Update `mapids` set startX='32576', endX='33087', startY='32512', endY='33023' Where mapid='10101';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='16384';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='16896';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='17408';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='17920';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='18432';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='18944';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='19456';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='19968';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='20480';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='20992';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='21504';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='22016';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='22528';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='23040';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='23552';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='24064';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='24576';
+Update `mapids` set startX='32704', endX='32767', startY='32768', endY='32831' Where mapid='25088';
