@@ -531,7 +531,7 @@ public class L1SkillUse {
 					L1Object object = L1World.getInstance().findObject(targetId);
 
 					// no skills can be used on an invul gm... unless it is a command!
-					if (!isCommand && object != null && object instanceof L1PcInstance
+					if (!isCommand && type != L1SkillUse.TYPE_LOGIN && object != null && object instanceof L1PcInstance
 							&& ((L1PcInstance) object).isGmInvul()) {
 
 						player.sendPackets(new S_ServerMessage(281));
@@ -1453,6 +1453,7 @@ public class L1SkillUse {
 						}
 
 						_player.broadcastPacket(new S_SkillSound(targetid, castgfx));
+						_player.sendAfter(new S_SkillBrave(_player.getId(), 4, _skillTime));
 					}
 				}
 

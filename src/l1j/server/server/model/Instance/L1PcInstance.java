@@ -103,6 +103,7 @@ import l1j.server.server.model.monitor.L1PcInvisDelay;
 import l1j.server.server.model.skill.L1SkillId;
 import l1j.server.server.model.skill.L1SkillUse;
 import l1j.server.server.network.Client;
+import l1j.server.server.network.DelayedPacket;
 import l1j.server.server.serverpackets.S_BlueMessage;
 import l1j.server.server.serverpackets.S_CastleMaster;
 import l1j.server.server.serverpackets.S_ChangeShape;
@@ -2767,6 +2768,10 @@ public class L1PcInstance extends L1Character {
 	public void sendAndBroadcast(ServerBasePacket packet) {
 		sendPackets(packet);
 		broadcastPacket(packet);
+	}
+	
+	public void sendAfter(ServerBasePacket serverbasepacket) {
+		GeneralThreadPool.getInstance().schedule(new DelayedPacket(serverbasepacket, this), 1);
 	}
 
 	public void sendPackets(ServerBasePacket serverbasepacket) {
