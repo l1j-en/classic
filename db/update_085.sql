@@ -1859,3 +1859,11 @@ INSERT INTO npc () VALUES
    (99266, 'Kiku', 'Kiku', 'Raster bud renewal', 'L1Dwarf', 10713, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'small', 0, 0, 0, 560, 1480, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0),
    (99267, 'Zou`s Fire Golem', '$13818', 'Zou`s Fire Golem', 'L1Merchant', 8334, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'small', 0, 0, 0, 1280, 2640, 0, 2640, 2640, 0, 0, 0, 0, 0, 0, '', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 14, 0, 0, 0, 0, 0),
    (99268, 'Ghoul of Trial', '$13852', 'Ghoul of Trial', 'L1Monster', 10002, 16, 110, 30, -4, 16, 17, 16, 11, 4, 13, 257, -19, 'small', 2, 1, 1, 1280, 720, 0, 1440, 1440, 1, 4, 0, 1, 0, 1, 'ghoul', 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0);
+
+-- Update Kuul sprite.
+UPDATE npc SET gfxid = 10669 WHERE npcid = 60034; -- Was 143
+-- Drop Gatekeeper, which spawned in Sactuary of Eva.  Seems to do nothing.
+DELETE FROM npc WHERE npcid = 71273;
+DELETE FROM spawnlist_npc WHERE npc_templateid = 71273;
+-- Replace NPC with new field object.
+INSERT INTO `npc` VALUES ('71273', 'Tools', '', 'Pandora Back Luggage', 'L1FieldObject', '2299', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '0', '0', '0', '0', '0');
