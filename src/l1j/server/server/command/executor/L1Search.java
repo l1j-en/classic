@@ -67,6 +67,11 @@ public class L1Search implements L1CommandExecutor {
 				}
 				itCount++;
 			}
+			
+			// don't allow a blank
+			if(itCount == 0)
+				return;
+			
 			if (simpleS == false) {
 				find_object(pc, type, name);
 			} else {
