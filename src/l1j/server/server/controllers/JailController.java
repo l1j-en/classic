@@ -193,7 +193,6 @@ public class JailController implements Runnable {
 			
 			checkTime = System.currentTimeMillis();
 			_log.trace("Unjail controller finished running.");
-			GeneralThreadPool.getInstance().schedule(this, 60000);
 		} catch(Exception ex) {
 			_log.warn("Unjail controller crashed! No users will be auto-unjailed!");
 		}

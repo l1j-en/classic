@@ -240,7 +240,7 @@ public class GameServerThread {
 		
 		// Unjail controller
 		JailController jailController = JailController.getInstance();
-		GeneralThreadPool.getInstance().execute(jailController);
+		GeneralThreadPool.getInstance().scheduleAtFixedRate(jailController, 0, 60000);
 
 		CrackOfTimeController.getStart();
 		
