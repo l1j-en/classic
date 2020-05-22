@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import l1j.server.L1DatabaseFactory;
-import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.CharacterTable;
 import l1j.server.server.model.L1Teleport;
 import l1j.server.server.model.L1World;
