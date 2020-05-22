@@ -90,6 +90,17 @@ public abstract class ClientBasePacket {
 		}
 		return s;
 	}
+	
+	public byte[] readByte(int len) {
+        byte[] result = new byte[len];
+        try {
+            System.arraycopy(_decrypt, _off, result, 0, len);
+            _off += len;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 	public byte[] readByte() {
 		byte[] result = new byte[_decrypt.length - _off];
