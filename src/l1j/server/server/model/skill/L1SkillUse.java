@@ -1453,7 +1453,12 @@ public class L1SkillUse {
 						}
 
 						_player.broadcastPacket(new S_SkillSound(targetid, castgfx));
-						_player.sendAfter(new S_SkillBrave(_player.getId(), 4, _skillTime));
+						
+						//TODO -- find a better way to track which skills need the packet to re-send
+						// and which packet to send
+						if(_skillId == HOLY_WALK) {
+							_player.sendAfter(new S_SkillBrave(_player.getId(), 4, _skillTime));
+						}
 					}
 				}
 
