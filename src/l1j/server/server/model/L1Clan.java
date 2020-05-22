@@ -28,9 +28,9 @@ import l1j.server.server.model.Instance.L1PcInstance;
 
 public class L1Clan {
 
-	public static final int CLAN_RANK_PROBATION = 1;
-	public static final int CLAN_RANK_PUBLIC = 2;
-	public static final int CLAN_RANK_GUARDIAN = 3;
+	public static final int CLAN_RANK_PROBATION = 2;
+	public static final int CLAN_RANK_PUBLIC = 5;
+	public static final int CLAN_RANK_GUARDIAN = 6;
 	public static final int CLAN_RANK_PRINCE = 4;
 
 	private static final Logger _log = LoggerFactory.getLogger(L1Clan.class.getName());
@@ -177,7 +177,7 @@ public class L1Clan {
 			if (pc.getClanRank() == CLAN_RANK_PROBATION) {
 				rank = "[PROBATION]";
 			} else if (pc.getClanRank() == CLAN_RANK_PUBLIC) {
-				rank = "[PUBLIC]";
+				rank = "[MEMBER]";
 			} else if (pc.getClanRank() == CLAN_RANK_GUARDIAN) {
 				rank = "[GUARDIAN]";
 			} else if (pc.getClanRank() == CLAN_RANK_PRINCE) {

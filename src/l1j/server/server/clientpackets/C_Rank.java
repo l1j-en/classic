@@ -44,24 +44,23 @@ public class C_Rank extends ClientBasePacket {
 		
 		int data = readC();
 		int rank = readC();
-		String name = readS();
-
-		setRank(client.getActiveChar(), rank, data, name);
-	}
-	
-	public static void setRank(L1PcInstance pc, int rank, int data, String pledgeMember) throws Exception  {
+		
+		L1PcInstance pc = client.getActiveChar();
+		
 		switch(data) {
-		case 1:
-			pledgeRank(pc, rank, pledgeMember);
-			break;
-		case 9:
-			pc.sendPackets(new S_PacketBox(S_PacketBox.DISPLAY_MAP_TIME ,
-					pc.getEnterTime(53),   // Giran Prison
-					pc.getEnterTime(78),   // Ivory Tower
-					pc.getEnterTime(451),  // Lastabad
-					pc.getEnterTime(30))); // Dragon Valley
-			break;
+			case 1:
+				String pledgeMember = readS();
+				pledgeRank(pc, rank, pledgeMember);
+				break;
+			case 9:
+				pc.sendPackets(new S_PacketBox(S_PacketBox.DISPLAY_MAP_TIME ,
+						pc.getEnterTime(53),   // Giran Prison
+						pc.getEnterTime(78),   // Ivory Tower
+						pc.getEnterTime(451),  // Lastabad
+						pc.getEnterTime(30))); // Dragon Valley
+				break;
 		}
+		
 	}
 	
 	private static void pledgeRank(L1PcInstance royal, int rank, String player) throws Exception {
@@ -108,19 +107,18 @@ public class C_Rank extends ClientBasePacket {
 					targetPc.save();
 					String rankString = "$772";
 					if (rank == L1Clan.CLAN_RANK_PROBATION) {
-						rankString = "$774";
-					} else if (rank == L1Clan.CLAN_RANK_PUBLIC) {
 						rankString = "$773";
+					} else if (rank == L1Clan.CLAN_RANK_PUBLIC) {
+						rankString = "$774";
 					} else if (rank == L1Clan.CLAN_RANK_GUARDIAN) {
 						rankString = "$772";
 					}
 					
-					targetPc.sendPackets(new S_ServerMessage(784, rankString));
+					targetPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_RANK_CHANGED, rank));
 					royal.sendPackets(new S_SystemMessage(
 							String.format("You have changed %s's rank to:",
 									targetPc.getName())));
-					royal.sendPackets(
-							new S_ServerMessage(Integer.parseInt(rankString.replace("$", ""))));
+					royal.sendPackets(new S_ServerMessage(Integer.parseInt(rankString.replace("$", ""))));
 				} catch (Exception e) {
 					_log.error(e.getLocalizedMessage(), e);
 				}

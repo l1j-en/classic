@@ -134,6 +134,7 @@ public class Opcodes {
 	 public static final int S_OPCODE_CHARRESET = 33;
 	 public static final int S_OPCODE_CHARTITLE = 202;
 	 public static final int S_OPCODE_CHARVISUALUPDATE = 113;
+	 public static final int S_OPCODE_CLAN = 29;
 	 public static final int S_OPCODE_COMMONNEWS = 30;
 	 public static final int S_OPCODE_CURSEBLIND = 238;
 	 public static final int S_OPCODE_DELETEINVENTORYITEM = 148;

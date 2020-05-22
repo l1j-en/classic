@@ -173,7 +173,10 @@ public class C_NpcAction extends ClientBasePacket {
 				L1NpcInstance npc = (L1NpcInstance) obj;
 				int difflocx = Math.abs(pc.getX() - npc.getX());
 				int difflocy = Math.abs(pc.getY() - npc.getY());
-				if (difflocx > 3 || difflocy > 3) {
+				
+				// TODO -- some NPCs work at 12, others only work at 3.. need to figure how to do this cleanly
+				// setting to 12 for now and let the client limit
+				if (difflocx > 12 || difflocy > 12) {
 					return;
 				}
 				npc.onFinalAction(pc, s);
@@ -306,7 +309,7 @@ public class C_NpcAction extends ClientBasePacket {
 				if (rank != L1Clan.CLAN_RANK_PUBLIC
 						&& rank != L1Clan.CLAN_RANK_GUARDIAN
 						&& rank != L1Clan.CLAN_RANK_PRINCE) {
-					pc.sendPackets(new S_SystemMessage("Apprentices cannot use the Blood Pledge storehouse."));
+					pc.sendPackets(new S_SystemMessage("Members on probation cannot use the Blood Pledge storehouse."));
 					return;
 				}
 				if (rank != L1Clan.CLAN_RANK_PRINCE

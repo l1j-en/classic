@@ -52,6 +52,7 @@ import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_ChangeName;
 import l1j.server.server.serverpackets.S_CharTitle;
 import l1j.server.server.serverpackets.S_CharVisualUpdate;
+import l1j.server.server.serverpackets.S_ClanName;
 import l1j.server.server.serverpackets.S_OwnCharStatus2;
 import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_Resurrection;
@@ -130,28 +131,30 @@ public class C_Attr extends ClientBasePacket {
 
 						if (joinPc.getClanid() == 0) {
 							String clanMembersName[] = clan.getAllMembers();
+							
 							if (maxMember <= clanMembersName.length) {
-								joinPc.sendPackets(new S_ServerMessage(188, pc
-										.getName()));
+								joinPc.sendPackets(new S_ServerMessage(188, pc.getName()));
 								return;
 							}
-							for (L1PcInstance clanMembers : clan
-									.getOnlineClanMember()) {
-								clanMembers.sendPackets(new S_ServerMessage(94,
-										joinPc.getName()));
+							
+							for (L1PcInstance clanMembers : clan.getOnlineClanMember()) {
+								clanMembers.sendPackets(new S_ServerMessage(94,joinPc.getName()));
 							}
+							
 							joinPc.setClanid(clan_id);
 							joinPc.setClanname(clanName);
-							joinPc.setClanRank(L1Clan.CLAN_RANK_PUBLIC);
+							joinPc.setClanRank(L1Clan.CLAN_RANK_PROBATION);
 							joinPc.setTitle("");
-							joinPc.sendPackets(new S_CharTitle(joinPc.getId(),
-									""));
-							joinPc.broadcastPacket(new S_CharTitle(joinPc
-									.getId(), ""));
+							joinPc.sendPackets(new S_CharTitle(joinPc.getId(), ""));
+							joinPc.broadcastPacket(new S_CharTitle(joinPc.getId(), ""));
 							joinPc.setLastJoinedPledge();
+							joinPc.sendPackets(new S_ClanName(joinPc, clan.getClanId(), joinPc.getClanRank()));
 							joinPc.save();
 							clan.addMemberName(joinPc.getName());
 							joinPc.sendPackets(new S_ServerMessage(95, clanName));
+							
+							// seems to be required to allow you to leave a clan right after you join
+							joinPc.sendPackets(new S_PacketBox(S_PacketBox.MSG_RANK_CHANGED, L1Clan.CLAN_RANK_PROBATION));
 						} else {
 							if (Config.CLAN_ALLIANCE) {
 								changeClan(client, pc, joinPc, maxMember);
