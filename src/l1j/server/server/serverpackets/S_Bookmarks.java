@@ -30,7 +30,6 @@ public class S_Bookmarks extends ServerBasePacket {
 
 	private void buildPacket(String name, int map, int id, int x, int y) {
 		writeC(Opcodes.S_OPCODE_BOOKMARKS);
-		writeD(id);
 		writeS(name);
 		writeH(map);
 		writeH(x);

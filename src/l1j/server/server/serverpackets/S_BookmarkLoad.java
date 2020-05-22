@@ -65,7 +65,7 @@ public class S_BookmarkLoad extends ServerBasePacket {
 				bookmark.setLocY(rs.getInt("locy"));
 				bookmark.setMapId(rs.getShort("mapid"));
 				bookmark.setQuick(rs.getBoolean("quicklist"));
-				System.out.println(bookmark.getName());
+
 				pc.addBookMark(bookmark);
 				
 				if(bookmark.isQuick()) {
