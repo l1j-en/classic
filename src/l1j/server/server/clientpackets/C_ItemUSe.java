@@ -247,9 +247,16 @@ public class C_ItemUSe extends ClientBasePacket {
 			 * Unused, but leaving the readH() because I think this needs to be ran to
 			 * process the packet. I could be wrong.
 			 */
-			// bmapid = readH();
-			readH();
-			btele = readD();
+			
+			int mapId = readH();
+			int x = readH();
+			int y = readH();
+			
+			L1BookMark bookmark = pc.getBookMarkByCoords(x, y, mapId);
+			if(bookmark != null) {
+				btele = bookmark.getId();
+			}
+
 			pc.sendPackets(new S_Paralysis(S_Paralysis.TYPE_TELEPORT_UNLOCK, false));
 		} else if (itemId == 40090 || itemId == 40091 || itemId == 40092 || itemId == 40093 || itemId == 40094) {
 			blanksc_skillid = readC();
