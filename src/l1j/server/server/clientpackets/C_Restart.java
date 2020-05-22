@@ -18,6 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
+import l1j.server.Config;
 import l1j.server.server.model.Getback;
 import l1j.server.server.model.L1World;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -28,6 +29,7 @@ import l1j.server.server.serverpackets.S_MPUpdate;
 import l1j.server.server.serverpackets.S_MapID;
 import l1j.server.server.serverpackets.S_OtherCharPacks;
 import l1j.server.server.serverpackets.S_OwnCharPack;
+import l1j.server.server.serverpackets.S_PacketBox;
 import l1j.server.server.serverpackets.S_RemoveObject;
 import l1j.server.server.serverpackets.S_ServerMessage;
 import l1j.server.server.serverpackets.S_SkillSound;
@@ -44,6 +46,20 @@ public class C_Restart extends ClientBasePacket {
 		super(abyte0);
 		L1PcInstance pc = client.getActiveChar();
 
+		if(pc == null)
+			return;
+		
+		long lastAggressiveAct = pc.getLastAggressiveAct();
+		long delayAmount = Config.NON_AGGRO_LOGOUT_TIMER - (System.currentTimeMillis() - lastAggressiveAct);
+
+		if(delayAmount > 0) {
+			pc.sendPackets(new S_PacketBox(S_PacketBox.MSG_CANT_LOGOUT));
+			return;
+		}
+		
+		if(!pc.isDead())
+			return;
+		
 		int[] loc;
 
 		if (pc.getHellTime() > 0) {

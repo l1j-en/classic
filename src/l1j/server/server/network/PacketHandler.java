@@ -351,8 +351,9 @@ public class PacketHandler {
 			new C_TaxRate(abyte0, _client);
 			break;
 		case C_OPCODE_CHANGECHAR:
-			new C_NewCharSelect(abyte0, _client);
-			new C_CommonClick(_client);
+			if(new C_NewCharSelect(abyte0, _client).isExpectingClick()) {
+				new C_CommonClick(_client);
+			}
 			break;
 		case C_OPCODE_BUDDYLIST:
 			new C_Buddy(abyte0, _client);

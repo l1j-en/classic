@@ -236,6 +236,10 @@ public class L1SummonInstance extends L1NpcInstance {
 
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
+		if (attacker instanceof L1PcInstance) {
+			((L1PcInstance) attacker).setLastAggressiveAct();
+		}
+		
 		if (getCurrentHp() > 0) {
 			boolean isMaster = attacker == _master;
 			

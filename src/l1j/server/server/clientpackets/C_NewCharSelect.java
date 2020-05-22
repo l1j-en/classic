@@ -21,6 +21,7 @@ package l1j.server.server.clientpackets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import l1j.server.Config;
 import l1j.server.server.model.Instance.L1PcInstance;
 import l1j.server.server.network.Client;
 import l1j.server.server.serverpackets.S_PacketBox;
@@ -29,12 +30,29 @@ import l1j.server.server.utils.SystemUtil;
 public class C_NewCharSelect extends ClientBasePacket {
 
 	private static final String C_NEW_CHAR_SELECT = "[C] C_NewCharSelect";
-	private static Logger _log = LoggerFactory.getLogger(C_NewCharSelect.class
-			.getName());
+	private static Logger _log = LoggerFactory.getLogger(C_NewCharSelect.class.getName());
+	private boolean _expectClick;
+	
+	public boolean isExpectingClick() {
+		return _expectClick;
+	}
 
 	public C_NewCharSelect(byte[] decrypt, Client client) {
 		super(decrypt);
+		
+		L1PcInstance player = client.getActiveChar();
+		
+		if(player != null) {
+			long lastAggressiveAct = player.getLastAggressiveAct();
+			long delayAmount = Config.NON_AGGRO_LOGOUT_TIMER - (System.currentTimeMillis() - lastAggressiveAct);
+			
+			if(delayAmount > 0) {
+				return;
+			}
+		}
+		
 		client.sendPacket(new S_PacketBox(S_PacketBox.LOGOUT)); // 2.70C->3.0
+		_expectClick = true;
 		client.CharReStart(true);
 
 		if (client.getActiveChar() != null) {

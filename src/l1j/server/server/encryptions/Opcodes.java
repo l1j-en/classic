@@ -90,7 +90,7 @@ public class Opcodes {
 	 public static final int C_OPCODE_PROPOSE = 185;
 	 public static final int C_OPCODE_QUITGAME = 104;
 	 public static final int C_OPCODE_RANK = 88;
-	 public static final int C_OPCODE_RESTART = 71;
+	 public static final int C_OPCODE_RESTART = 162;
 	 public static final int C_OPCODE_RESULT = 40;
 	 public static final int C_OPCODE_RETURNTOLOGIN = 218;
 	 public static final int C_OPCODE_SELECTLIST = 238;

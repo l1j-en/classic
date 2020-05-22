@@ -257,6 +257,10 @@ public class L1GuardInstance extends L1NpcInstance {
 
 	@Override
 	public void receiveDamage(final L1Character attacker, int damage) {
+		if (attacker instanceof L1PcInstance) {
+			((L1PcInstance) attacker).setLastAggressiveAct();
+		}
+		
 		if (getCurrentHp() > 0 && !isDead()) {
 			if (damage >= 0) {
 				if (!(attacker instanceof L1EffectInstance)) {

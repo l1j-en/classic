@@ -280,6 +280,11 @@ public class L1MonsterInstance extends L1NpcInstance {
 
 	@Override
 	public void receiveDamage(L1Character attacker, int damage) {
+		
+		if (attacker instanceof L1PcInstance) {
+			((L1PcInstance) attacker).setLastAggressiveAct();
+		}
+		
 		if (getCurrentHp() > 0 && !isDead()) {
 			if (getHiddenStatus() == HIDDEN_STATUS_SINK
 					|| getHiddenStatus() == HIDDEN_STATUS_FLY) {
