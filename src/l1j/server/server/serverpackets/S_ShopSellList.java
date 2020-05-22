@@ -103,7 +103,7 @@ public class S_ShopSellList extends ServerBasePacket {
 			int price;
 			if (npcId != 70017 && npcId != 70049) {// Exclude Orim and Rozen
 													// from taxes
-				price = shopItem.getPrice() + calc.layTax(shopItem, 1);
+				price = (int)(shopItem.getPrice()* Config.RATE_SHOP_SELLING_PRICE) + calc.layTax(shopItem, 1);
 			} else {
 				price = (int) (shopItem.getPrice() * Config.RATE_SHOP_SELLING_PRICE);
 			}
