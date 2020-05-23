@@ -108,7 +108,8 @@ public class S_NPCPack extends ServerBasePacket {
 		basePacket.writeC(0);
 		basePacket.writeC(0xFF); // HP
 		basePacket.writeC(0);
-		basePacket.writeC(npc.getLevel());
+		// don't show mob level on dream island
+		basePacket.writeC(npc.getMapId() == 303 ? 0 : npc.getLevel());
 		basePacket.writeC(0);
 		basePacket.writeC(0xFF);
 		basePacket.writeC(0xFF);
