@@ -18,6 +18,7 @@
  */
 package l1j.server.server.model;
 
+import l1j.server.Config;
 import l1j.server.server.GeneralThreadPool;
 import l1j.server.server.datatables.PetTypeTable;
 import l1j.server.server.model.Instance.L1PetInstance;
@@ -47,7 +48,7 @@ public class L1PetFoodTimer implements Runnable {
 		int food = _petFoodRange.ensure(_pet.getFood() - 2);
 		_pet.setFood(food);
 
-		if (food == 0) {
+		if (food == 0 && Config.ALT_PET_HUNGER_STATUS_CHANGE) {
 			_pet.setCurrentPetStatus(3);
 
 			L1PetType type = PetTypeTable.getInstance().get(_pet.getNpcTemplate().get_npcId());

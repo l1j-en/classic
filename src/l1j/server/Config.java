@@ -593,6 +593,8 @@ public final class Config {
 	
 	public static int MAX_SERVANT_SUMMONS;
 
+	public static boolean ALT_PET_HUNGER_STATUS_CHANGE;
+
 	/** Security Settings **/
 	public static int DELAY_DISCONNECT;
 	public static int NON_AGGRO_LOGOUT_TIMER;
@@ -958,8 +960,7 @@ public final class Config {
 			ALT_RANKING_MIN_LEVEL = Integer.parseInt(altSettings.getProperty(
 					"RankingMinLevel", "70"));
 			ALT_RANKING_PENALTY_TYPES = altSettings.getProperty("RankingPenaltyTypes", "5,8,9");
-			
-			
+
 			LIMIT_WEAPON_SWITCHING = Boolean.parseBoolean(altSettings.getProperty("LimitWeaponSwitching", "False"));
 			String strWar;
 			strWar = altSettings.getProperty("WarTime", "2h");
@@ -1040,6 +1041,7 @@ public final class Config {
 					.getProperty("AccessoryEnchanting", "False"));
 			ACCESSORY_ENCHANT_LIMIT = Integer.parseInt(altSettings.getProperty(
 					"AccessoryEnchantLimit", "10"));
+			ALT_PET_HUNGER_STATUS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("PetHungerStatusChange", "True"));
 		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);
 			throw new Error("Failed to load " + ALT_SETTINGS_FILE + " file.");
