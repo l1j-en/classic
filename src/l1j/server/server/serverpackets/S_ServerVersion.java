@@ -19,6 +19,7 @@
 package l1j.server.server.serverpackets;
 
 import l1j.server.server.encryptions.Opcodes;
+import l1j.server.Config;
 
 public class S_ServerVersion extends ServerBasePacket {
 	private static final String S_SERVER_VERSION = "[S] ServerVersion";
@@ -28,6 +29,7 @@ public class S_ServerVersion extends ServerBasePacket {
 	private static final int NPC_VERSION = 120913201;
 	private static final int SERVER_TYPE = 490882;
 	private static final int UPTIME = 1327204035; //TODO -- set uptime
+	private static final int CLIENT_LANGUAGE = Config.CLIENT_LANGUAGE;
 
 	public S_ServerVersion() {
 		writeC(Opcodes.S_OPCODE_SERVERVERSION);
@@ -56,7 +58,7 @@ public class S_ServerVersion extends ServerBasePacket {
 		writeC(0x00); // unknown
 		// Country
 		// 0.US 3.Taiwan 4.Janpan 5.China
-		writeC(0x02);
+		writeC(CLIENT_LANGUAGE);
 		writeD(SERVER_TYPE);
 		writeD(UPTIME);
 		writeH(0x01);
