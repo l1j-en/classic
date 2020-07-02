@@ -90,6 +90,17 @@ public class C_MoveChar extends ClientBasePacket {
 			pc.setRegenState(REGENSTATE_MOVE);
 		}
 		pc.getMap().setPassable(pc.getLocation(), true);
+		
+		// do the call after their current cell has been set passable,
+		// otherwise it will always collide if they're going in the same direction
+		if(!pc.getMap().isPassable(locx, locy)) {
+			_log.warn(String.format("Player %s (%d) attempted to walk somewhere they're not allowed! Loc: %d, %d, %d", 
+					pc.getName(), pc.getId(), locx, locy, pc.getMapId()));
+			int adjustHeading = pc.getHeading() >= 4 ? pc.getHeading() - 4 : pc.getHeading() + 4;
+			
+			L1Teleport.teleport(pc, locx += HEADING_TABLE_X[adjustHeading], locy += HEADING_TABLE_Y[adjustHeading], pc.getMapId(), pc.getHeading(), false);
+			return;
+		}
 
 		if (CLIENT_LANGUAGE == 3) { // Taiwan Only
 			heading ^= 0x49;
