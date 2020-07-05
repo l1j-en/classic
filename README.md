@@ -1,8 +1,7 @@
 # l1j-en
 
 l1j-en is an English-language server emulator for the South Korean MMORPG,
-Lineage 1.  It targets feature-complete support for the final US release of the
-client (S3ep1, also called Tikal/Antharas).
+Lineage 1.  It targets feature-complete support for the final 2009 US client.
 
 See the project documentation on the
 [l1j-en project wiki](https://github.com/l1j-en/classic/wiki) for general
