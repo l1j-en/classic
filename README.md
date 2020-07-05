@@ -12,41 +12,40 @@ If you need any help, contact our
 [mailing list](https://groups.google.com/forum/#!forum/l1j-en) or hop on the
 channel #l1j on Freenode IRC.
 
-### Recent History
+### Project History
 
-This history is being pieced together based on memories and what links can still
-be verified.
+*Pre-history*
 
-Pre l1j-jp the history of l1j is somewhat difficult to verify.  Several people
-claim they are the original creators.  Hard proof has been lacking. Plus so
-many years, revisions and changes have gone by, its relevancy may be
-questionable. We've heard mention of a project called LoSe (or something like
-that) that is possibly the parent of all l1j projects.  Or maybe it was just
-one of the first and none of its original code still exists, or ever existed
-within l1j.
+Prior to l1j-jp, history is somewhat problematic.  Several people claim they
+are the original creators.  Hard proof has been lacking. Plus so many years,
+revisions and changes have gone by, its relevancy may be questionable.  There
+was a barely functional project called LoSe that is possibly the parent of all
+l1j projects.
 
-There are also several different languages/forks of l1j. The code is so
-significantly different within some of them that I'm unsure if they're all forks
-or l1j is just often used as a name prefix for new/original code bases.
+*Pre-l1j-en*
 
 This code base was originally a fork of
 [l1j-jp](https://code.google.com/archive/p/l1j-jp/) named
-[lindc](https://code.google.com/archive/p/lindc/)
-translated to english with stability and security improvements. An important goal
-was to leave the code as similar/compatibile with l1j-jp as possible so we could
-take advantage of their content updates.  They had a larger team and progressed
-further/faster on that than we did.
+[lindc](https://code.google.com/archive/p/lindc/) translated to English with
+stability and security improvements. An important goal was to leave the code as
+similar/compatibile with l1j-jp as possible so we could take advantage of their
+content updates.  They had a larger team and progressed further/faster on that
+than we did.
+
+*l1j-en created*
 
 Around Oct, 2008 the project was renamed to l1j-en to detach it from any
 particular server.  Sometime in l1j-en's early life we began pulling in updates
 from l1j-jp2 as well.  jp2 was actually located on l1j.org at that time.
 
-In 2014 the project slowly transitioned to git (on GitHub), away from svn and
-googlecode. Github has since removed the repo that was located there.
+In 2014 the project slowly transitioned to git (on GitHub), away from SVN and
+Google Code. Github has since removed the repo that was located there.
 
 From 2014 to 2018 the code base has entered many periods of dormancy.  Work began
 in earnest again to bring up the zelgo server. Several old and new
 members of the project have randomly come and gone over that time period.
+
+*Move to l1j.org*
 
 In 2018 we moved to l1j.org and worked on cleaning things up, optimizing things
 and sticking to the original open source principles of the project.  Code
@@ -54,12 +53,16 @@ compatibility with other l1j projects was no longer considered a priority,
 allowing us to plug all known security holes that would plague high population
 public servers.
 
+*Last US version compatibility complete*
+
 As of late 2019, the milestone 10 DB build was published, along with new build
 scripts that work with Java 9 and higher (Java <8 support has been deprecated
 accordingly).  We generally recommend running it on JDK 11 LTS, but others >8
-should all work.  With the majority of major issues addressed, the development
-team considers this project in a stable state and fully usable for classic
-client servers.
+should work.  With the majority of major issues addressed, the development team
+considers this project in a stable state and fully usable for classic client
+servers.
+
+*Current status*
 
 As of 2020-07-04, this repository has been moved back to GitHub, with any legal
 concerns addressed (see legal section).  We've also funded a legal retainer
@@ -70,7 +73,7 @@ Along with the above, we have also started a branch of this codebase that is
 compatible with the feature set of 3.63, due to much popular demand (mainly
 enabling the higher resolution clients).  This is already in a usable state,
 and we are closing the gap on new features to get it of comparable quality to
-what's in the master branch.  Do a checkout against branch =363= to use this.
+what's in the master branch.  Do a checkout against branch `363` to use this.
 
 ### Legal
 
