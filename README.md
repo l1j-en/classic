@@ -14,7 +14,7 @@ channel #l1j on Freenode IRC.
 
 ### Project History
 
-*Pre-history*
+**Pre-history**
 
 Prior to l1j-jp, history is somewhat problematic.  Several people claim they
 are the original creators.  Hard proof has been lacking. Plus so many years,
@@ -22,7 +22,7 @@ revisions and changes have gone by, its relevancy may be questionable.  There
 was a barely functional project called LoSe that is possibly the parent of all
 l1j projects.
 
-*Pre-l1j-en*
+**Pre-l1j-en**
 
 This code base was originally a fork of
 [l1j-jp](https://code.google.com/archive/p/l1j-jp/) named
@@ -32,7 +32,7 @@ similar/compatibile with l1j-jp as possible so we could take advantage of their
 content updates.  They had a larger team and progressed further/faster on that
 than we did.
 
-*l1j-en created*
+**l1j-en created**
 
 Around Oct, 2008 the project was renamed to l1j-en to detach it from any
 particular server.  Sometime in l1j-en's early life we began pulling in updates
@@ -45,7 +45,7 @@ From 2014 to 2018 the code base has entered many periods of dormancy.  Work bega
 in earnest again to bring up the zelgo server. Several old and new
 members of the project have randomly come and gone over that time period.
 
-*Move to l1j.org*
+**Move to l1j.org**
 
 In 2018 we moved to l1j.org and worked on cleaning things up, optimizing things
 and sticking to the original open source principles of the project.  Code
@@ -53,7 +53,7 @@ compatibility with other l1j projects was no longer considered a priority,
 allowing us to plug all known security holes that would plague high population
 public servers.
 
-*Last US version compatibility complete*
+**Last US version compatibility complete**
 
 As of late 2019, the milestone 10 DB build was published, along with new build
 scripts that work with Java 9 and higher (Java <8 support has been deprecated
@@ -62,7 +62,7 @@ should work.  With the majority of major issues addressed, the development team
 considers this project in a stable state and fully usable for classic client
 servers.
 
-*Current status*
+**Current status**
 
 As of 2020-07-04, this repository has been moved back to GitHub, with any legal
 concerns addressed (see legal section).  We've also funded a legal retainer
