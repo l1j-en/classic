@@ -174,6 +174,8 @@ public final class Config {
 	
 	public static String RESTRICT_ACCOUNT_IPS_MESSAGE;
 
+	public static int GAME_TIME_SHIFT;
+
 	/** Rate control */
 	public static int RATE_HP_REGEN;
 
@@ -742,6 +744,7 @@ public final class Config {
 			DUNGEON_RESET_TIME = serverSettings.getProperty("DungeonResetTime", "00:00");
 			RESTRICT_ACCOUNT_IPS = Boolean.parseBoolean(serverSettings.getProperty("RestrictAccountIps", "False"));
 			RESTRICT_ACCOUNT_IPS_MESSAGE = serverSettings.getProperty("RestrictAccountIpsMessage");
+			GAME_TIME_SHIFT = Integer.parseInt(serverSettings.getProperty("GameTimeShift", "0"));
 
 		} catch (Exception e) {
 			_log.error(e.getLocalizedMessage(), e);

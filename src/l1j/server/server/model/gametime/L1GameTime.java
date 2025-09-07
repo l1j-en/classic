@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import l1j.server.Config;
 import l1j.server.server.utils.IntRange;
 
 public class L1GameTime {
@@ -54,7 +55,13 @@ public class L1GameTime {
 	}
 
 	public static L1GameTime fromSystemCurrentTime() {
-		return L1GameTime.valueOf(System.currentTimeMillis());
+		long fakeNow = System.currentTimeMillis();
+
+		// Trick: shift back X years (to 2013) without touching OS clock. Avoid client issues.
+    	long offset = Config.GAME_TIME_SHIFT * 365L * 24 * 60 * 60 * 1000; 
+    	fakeNow += offset;
+		
+		return L1GameTime.valueOf(fakeNow);
 	}
 
 	public static L1GameTime valueOfGameTime(Time time) {
