@@ -1,0 +1,62 @@
+services:
+  l1jdb:
+    image: mariadb:10.2
+    container_name: l1j-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: l1jdb
+      MYSQL_USER: l1j
+      MYSQL_PASSWORD: l1j
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - l1jnet
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: l1j-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: l1jdb
+      PMA_USER: l1j
+      PMA_PASSWORD: l1j
+    depends_on:
+      - l1jdb
+    networks:
+      - l1jnet
+
+  l1jserver:
+    build: .
+    container_name: l1j-server
+    restart: always
+    volumes:
+      - ./config:/l1j/config
+    depends_on:
+      - l1jdb
+    networks:
+      - l1jnet
+
+  nginx:
+    image: nginx:latest
+    container_name: l1j-nginx
+    restart: always
+    ports:
+      - "8080:80"
+      - "2000:2000"   # proxy login port
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - l1jserver
+    networks:
+      - l1jnet
+
+volumes:
+  my-db:
+
+networks:
+  l1jnet:
+    driver: bridge
