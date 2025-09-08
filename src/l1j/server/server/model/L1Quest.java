@@ -61,6 +61,7 @@ public class L1Quest {
 	public static final int QUEST_TOSCROLL = 39;
 	public static final int QUEST_MOONOFLONGBOW = 40;
 	public static final int QUEST_GENERALHAMELOFRESENTMENT = 41;
+	public static final int QUEST_THEO = 100;
 	public static final int QUEST_END = 255;
 	private L1PcInstance _owner = null;
 	private HashMap<Integer, Integer> _quest = null;
