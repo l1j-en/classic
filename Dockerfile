@@ -43,7 +43,7 @@ COPY config /l1j/config
 COPY --from=builder /l1j/l1jen.jar /l1j/l1jen.jar
 COPY --from=builder /l1j/emblem /l1j/emblem
 
-ENV JDK_JAVA_OPTIONS="-Xms1024m -Xmx1024m -cp l1jen.jar:lib/*"
+ENV JDK_JAVA_OPTIONS="-Djava.util.logging.config.file=config/log.properties -Xms1024m -Xmx1024m -cp l1jen.jar:lib/*"
 
 ENTRYPOINT [ "java" ]
 
