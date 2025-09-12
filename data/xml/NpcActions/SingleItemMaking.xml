@@ -435,6 +435,13 @@
 			<Item Amount="1" ItemId="20259"/>
 		</MakeItem>
 	</Action>
+	<!-- Hidden Valley / TIO -->
+	<Action Name="request amulet of valley" NpcId="70518">
+		<MakeItem AmountInputable="false">
+			<Material Amount="1" ItemId="40653"/>
+			<Item Amount="1" ItemId="20243"/>
+		</MakeItem>
+	</Action>
 	<!-- Rabbi Charm / rabbi -->
 	<Action Name="request ei034" NpcId="71034">
 		<MakeItem AmountInputable="false">

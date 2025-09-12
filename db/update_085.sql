@@ -84,7 +84,3 @@ INSERT INTO droplist (mobId,mob_name,itemId,item_name,min,max,chance) VALUES
 (92002,'Skeleton Axeman',40308,'Adena',37,72,1000000),
 (92002,'Skeleton Axeman',40407,'Bone Piece',1,1,50000),
 (92002,'Skeleton Archer',40313,'Pale silver key',1,1,75000);
-
--- add hidden valley dungeon boss to enable theo quest
-INSERT INTO spawnlist_boss VALUES 
-(300, 'Cursed Ettin', 'Caspa', 1, 45112, 0, 32929, 32735, 0, 0, 0, 0, 0, 0, 0, 86, 1, 0, 0, 0, 100);

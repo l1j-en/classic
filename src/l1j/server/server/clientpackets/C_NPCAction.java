@@ -954,23 +954,6 @@ public class C_NPCAction extends ClientBasePacket {
 							"You do not possess a Talking Scroll!"));
 				}
 			}
-		} else if (npcid == 70518) {
-			// Tio red key trade
-			if (s.equalsIgnoreCase("request amulet of valley")) {
-				if (pc.getInventory().checkItem(40653) == true) {
-					if (pc.getQuest().get_step(L1Quest.QUEST_THEO) != L1Quest.QUEST_END) {
-						L1ItemInstance item = pc.getInventory().storeItem(20243, 1);
-						pc.sendPackets(new S_ServerMessage(143, npcName, item.getLogName()));
-						pc.getInventory().consumeItem(40653, 1);
-						pc.getQuest().set_step(L1Quest.QUEST_THEO, L1Quest.QUEST_END);
-						pc.save();	
-					}
-					htmlid = "";
-				} else {
-					pc.sendPackets(new S_SystemMessage(
-						"You do not possess a Red Key!"));
-				}
-			}
 		} else if (npcid == 71038) {
 			if (s.equalsIgnoreCase("A")) {
 				L1ItemInstance item = pc.getInventory().storeItem(41060, 1);
