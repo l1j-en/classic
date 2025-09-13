@@ -3222,11 +3222,11 @@ public class L1MerchantInstance extends L1NpcInstance {
 
 		if (pc.isCrown() || pc.isWizard() || pc.isDragonKnight()) {
 			htmlid = "ruba";
-		} else if (pc.isKnight()) {
+		} else if (pc.isKnight() || pc.isIllusionist()) {
 			htmlid = "ruba4";
 		} else if (pc.isElf()) {
 			htmlid = "ruba5";
-		} else {
+		} else if (pc.isDarkelf()) {
 			htmlid = "ruba6";
 		}
 
@@ -3236,10 +3236,14 @@ public class L1MerchantInstance extends L1NpcInstance {
 	private String talkToTio(L1PcInstance pc) {
 		String htmlid = "";
 
-		if (pc.isKnight() || pc.isElf() || pc.isIllusionist() || pc.isDarkelf()) {
+		if (pc.isKnight() || pc.isIllusionist()) {
 			htmlid = "tio";
-		} else {
+		} else if (pc.isCrown() || pc.isWizard() || pc.isDragonKnight()) {
 			htmlid = "tio4";
+		} else if (pc.isElf()) {
+			htmlid = "tio5";
+		} else if (pc.isDarkelf()) {
+			htmlid = "tio6";
 		}
 
 		return htmlid;
