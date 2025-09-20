@@ -16,6 +16,14 @@
 	<Action Name="teleport singing-island" NpcId="50016">
 		<Teleport X="32816" Y="32735" Map="68" Heading="5" Price="0"/>
 	</Action>
+	<!-- Arena Guide SING IN-->
+	<Action Name="teleport singing-island-arena-in" NpcId="50013">
+		<Teleport X="32835" Y="32782" Map="68" Heading="5" Price="0"/>
+	</Action>
+	<!-- Arena Guide SING OUT -->
+	<Action Name="teleport singing-island-arena-out" NpcId="550013">
+		<Teleport X="32816" Y="32735" Map="68" Heading="5" Price="0"/>
+	</Action>
 	<!-- Ribian -->
 	<Action Name="teleport valley-in" NpcId="50065">
 		<Teleport X="32675" Y="32861" Map="69" Heading="5" Price="0"/>
