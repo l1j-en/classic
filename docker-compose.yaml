@@ -30,6 +30,8 @@ services:
       - l1jnet
 
   l1jserver:
+    environment:
+     DB_HOST: "jdbc:mysql://l1jdb:3306/l1jdb?autoReconnect=true&useUnicode=True&characterEncoding=UTF-8"
     build: .
     container_name: l1j-server
     restart: always
