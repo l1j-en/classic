@@ -1357,6 +1357,8 @@ public class L1MerchantInstance extends L1NpcInstance {
 				htmlid = cancellation(player);
 			} else if (npcid == 70506) {
 				htmlid = talkToRuba(player);
+			} else if (npcid == 70518) {
+				htmlid = talkToTio(player);
 			} else if (npcid == 71005) {
 				htmlid = talkToPopirea(player);
 			} else if (npcid == 71009) {
@@ -3218,10 +3220,30 @@ public class L1MerchantInstance extends L1NpcInstance {
 	private String talkToRuba(L1PcInstance pc) {
 		String htmlid = "";
 
-		if (pc.isCrown() || pc.isWizard()) {
-			htmlid = "en0101";
-		} else if (pc.isKnight() || pc.isElf() || pc.isDarkelf()) {
-			htmlid = "en0102";
+		if (pc.isCrown() || pc.isWizard() || pc.isDragonKnight()) {
+			htmlid = "ruba";
+		} else if (pc.isKnight() || pc.isIllusionist()) {
+			htmlid = "ruba4";
+		} else if (pc.isElf()) {
+			htmlid = "ruba5";
+		} else if (pc.isDarkelf()) {
+			htmlid = "ruba6";
+		}
+
+		return htmlid;
+	}
+
+	private String talkToTio(L1PcInstance pc) {
+		String htmlid = "";
+
+		if (pc.isKnight() || pc.isIllusionist()) {
+			htmlid = "tio";
+		} else if (pc.isCrown() || pc.isWizard() || pc.isDragonKnight()) {
+			htmlid = "tio4";
+		} else if (pc.isElf()) {
+			htmlid = "tio5";
+		} else if (pc.isDarkelf()) {
+			htmlid = "tio6";
 		}
 
 		return htmlid;
