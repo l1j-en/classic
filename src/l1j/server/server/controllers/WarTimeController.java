@@ -55,7 +55,6 @@ public class WarTimeController implements Runnable {
 			Calendar nowTime = getRealTime();
 			Calendar oldTime = getRealTime();
 			oldTime.setTime(_l1castle[i].getWarTime().getTime());
-			_war_start_time[i] = _l1castle[i].getWarTime();
 			oldTime.add(Config.ALT_WAR_TIME_UNIT, Config.ALT_WAR_TIME);
 
 			if (CheckWarTime.getInstance().isActive(_l1castle[i].getId())
