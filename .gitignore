@@ -2,6 +2,7 @@ l1jen.jar
 /bin
 /log
 /emblem
+/certbot
 *.iml
 *.ipr
 *.iws

@@ -19,7 +19,7 @@ services:
     container_name: l1j-phpmyadmin
     restart: always
     ports:
-      - "8081:80"
+      - "8081:80" # remove it if you use ssl to acces through nginx (more info in nginx.conf)
     environment:
       PMA_HOST: l1jdb
       PMA_USER: l1j
@@ -47,12 +47,25 @@ services:
     container_name: l1j-nginx
     restart: always
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
       - "2000:2000"   # proxy login port
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/certs:/etc/letsencrypt
     depends_on:
       - l1jserver
+      - phpmyadmin
+    networks:
+      - l1jnet
+
+  certbot:
+    image: certbot/certbot
+    container_name: l1j-certbot
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/certs:/etc/letsencrypt
     networks:
       - l1jnet
 
