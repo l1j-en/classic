@@ -17,3 +17,15 @@ INSERT INTO `npc` VALUES
 ('550013', 'Arena Guide', '$1500', '', 'L1Teleporter', '148', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '-1', '-1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '14', '0', '0', '0');
 INSERT INTO `npcaction` VALUES 
 ('550013', 'agsiin', 'agsiin', 'agin', '');
+
+-- fix balcony stairs on Kent, Windawood and Aden castles
+INSERT INTO `dungeon` VALUES ('32743', '32783', '15', 'Kent Castle Court', '33176', '32734', '4', 'Mainland of Aden', '2');
+INSERT INTO `dungeon` VALUES ('33176', '32734', '4', 'Mainland of Aden', '32743', '32783', '15', 'Kent Castle Court', '6');
+INSERT INTO `dungeon` VALUES ('33176', '32749', '4', 'Mainland of Aden', '33175', '32754', '4', 'Mainland of Aden', '4');
+INSERT INTO `dungeon` VALUES ('33175', '32754', '4', 'Mainland of Aden', '33176', '32749', '4', 'Kent Castle Court', '0');
+INSERT INTO `dungeon` VALUES ('32741', '32783', '29', 'Windawood Castle Court', '32683', '33367', '4', 'Mainland of Aden', '2');
+INSERT INTO `dungeon` VALUES ('32683', '33367', '4', 'Mainland of Aden', '32741', '32783', '29', 'Windawood Castle Court', '6');
+INSERT INTO `dungeon` VALUES ('32683', '33381', '4', 'Mainland of Aden', '32682', '33387', '4', 'Mainland of Aden', '4');
+INSERT INTO `dungeon` VALUES ('32682', '33387', '4', 'Mainland of Aden', '32683', '33381', '4', 'Mainland of Aden', '0');
+INSERT INTO `dungeon` VALUES ('32910', '32569', '300', 'Aden Castle', '34096', '33197', '4', 'Mainland of Aden', '6');
+INSERT INTO `dungeon` VALUES ('34096', '33197', '4', 'Mainland of Aden', '32910', '32569', '300', 'Aden Castle', '6');
