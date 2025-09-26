@@ -26,11 +26,13 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import l1j.server.Config;
 import l1j.server.L1DatabaseFactory;
 import l1j.server.server.templates.L1Castle;
 import l1j.server.server.utils.SQLUtil;
@@ -50,7 +52,8 @@ public class CastleTable {
 	}
 
 	private Calendar timestampToCalendar(Timestamp ts) {
-		Calendar cal = Calendar.getInstance();
+		TimeZone _tz = TimeZone.getTimeZone(Config.TIME_ZONE);		
+		Calendar cal = Calendar.getInstance(_tz);
 		cal.setTimeInMillis(ts.getTime());
 		return cal;
 	}

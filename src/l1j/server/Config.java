@@ -615,11 +615,13 @@ public final class Config {
 					"GameserverPort", "2000"));
 			DB_DRIVER = serverSettings.getProperty("Driver",
 					"com.mysql.jdbc.Driver");
-			DB_URL = System.getenv().getOrDefault("DB_HOST", 
+			DB_URL = System.getenv().getOrDefault("DB_URL", 
 					serverSettings.getProperty("URL", 
 					"jdbc:mysql://localhost:3306/l1jdb?useUnicode=True&characterEncoding=UTF-8"));
-			DB_LOGIN = serverSettings.getProperty("Login", "root");
-			DB_PASSWORD = serverSettings.getProperty("Password", "");
+			DB_LOGIN = System.getenv().getOrDefault("DB_USER", 
+					serverSettings.getProperty("Login", "root"));
+			DB_PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", 
+					serverSettings.getProperty("Password", ""));
 			PASSWORD_SALT = serverSettings.getProperty("PasswordSalt", "");
 			THREAD_P_TYPE_GENERAL = Integer.parseInt(
 					serverSettings.getProperty("GeneralThreadPoolType", "0"),

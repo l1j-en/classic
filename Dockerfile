@@ -30,7 +30,7 @@ WORKDIR /l1j
 RUN ant
 
 #### Runtime
-FROM gcr.io/distroless/java:11
+FROM gcr.io/distroless/java11-debian11
 
 EXPOSE 2000
 

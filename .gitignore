@@ -2,9 +2,11 @@ l1jen.jar
 /bin
 /log
 /emblem
+/certbot
 *.iml
 *.ipr
 *.iws
 .gradle
 .idea
 build
+.env
