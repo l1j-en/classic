@@ -9,3 +9,4 @@ l1jen.jar
 .gradle
 .idea
 build
+.env

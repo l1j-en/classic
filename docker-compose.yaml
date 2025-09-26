@@ -3,11 +3,13 @@ services:
     image: mariadb:10.2
     container_name: l1j-db
     restart: always
+    env_file:
+      - .env
     environment:
       MYSQL_DATABASE: l1jdb
-      MYSQL_USER: l1j
-      MYSQL_PASSWORD: l1j
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     volumes:
       - my-db:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
@@ -18,12 +20,12 @@ services:
     image: phpmyadmin:latest
     container_name: l1j-phpmyadmin
     restart: always
+    env_file:
+      - .env
     ports:
       - "8081:80" # remove it if you use ssl to acces through nginx (more info in nginx.conf)
     environment:
       PMA_HOST: l1jdb
-      PMA_USER: l1j
-      PMA_PASSWORD: l1j
     depends_on:
       - l1jdb
     networks:
@@ -31,10 +33,14 @@ services:
 
   l1jserver:
     environment:
-     DB_HOST: "jdbc:mysql://l1jdb:3306/l1jdb?autoReconnect=true&useUnicode=True&characterEncoding=UTF-8"
+      DB_URL: "jdbc:mysql://l1jdb:3306/l1jdb?autoReconnect=true&useUnicode=True&characterEncoding=UTF-8"
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     build: .
     container_name: l1j-server
     restart: always
+    env_file:
+      - .env
     volumes:
       - ./config:/l1j/config
     depends_on:
