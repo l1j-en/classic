@@ -152,23 +152,25 @@ public class C_GiveItem extends ClientBasePacket {
 		}
 		
 		item = inv.tradeItem(item, count, targetInv);
-		
-		try {
-			L1ItemInstance pcitem = pc.getInventory().getItem(itemId);
-			int after_inv = 0;
-			if (pcitem != null) {
-				after_inv = pcitem.getCount();
-			}
-			
-			int after_target_inv = item.getCount();
-			
-			LogGiveItem giveItemLog = new LogGiveItem();
-			giveItemLog.storeLogGiveItem(pc, target, item,
-					before_inv, after_inv, before_target_inv, after_target_inv, count);
-		} catch(Exception ex) {
-			_log.warn(String.format("%s Dropped item %s (%d). But it failed to log!",
-					pc.getName(), item.getName(), item.getCount()));
-		}
+
+        if (Config.LOGGING_ITEMS) {
+            try {
+                L1ItemInstance pcitem = pc.getInventory().getItem(itemId);
+                int after_inv = 0;
+                if (pcitem != null) {
+                    after_inv = pcitem.getCount();
+                }
+
+                int after_target_inv = item.getCount();
+
+			    LogGiveItem giveItemLog = new LogGiveItem();
+			    giveItemLog.storeLogGiveItem(pc, target, item,
+					    before_inv, after_inv, before_target_inv, after_target_inv, count);
+            } catch (Exception ex) {
+                _log.warn(String.format("%s Dropped item %s (%d). But it failed to log!",
+                        pc.getName(), item.getName(), item.getCount()));
+            }
+        }
 		
 		target.onGetItem(item);
 		target.turnOnOffLight();

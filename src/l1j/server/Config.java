@@ -88,6 +88,8 @@ public final class Config {
 
 	public static int CHECK_STRICTNESS;
 
+    public static int SLOW_PACKET_DELAY;
+
 	public static byte LOGGING_WEAPON_ENCHANT;
 	
 	public static byte LOGGING_ENCHANT_FAIL;
@@ -111,6 +113,8 @@ public final class Config {
 	public static boolean LOGGING_CHAT_CHAT_PARTY;
 
 	public static boolean LOGGING_INCOMING_PACKETS;
+
+    public static boolean LOGGING_ITEMS;
 
 	public static int AUTOSAVE_INTERVAL;
 
@@ -657,6 +661,8 @@ public final class Config {
 					"JusticeCount", "4"));
 			CHECK_STRICTNESS = Integer.parseInt(serverSettings.getProperty(
 					"CheckStrictness", "102"));
+            SLOW_PACKET_DELAY = Integer.parseInt(serverSettings.getProperty(
+                    "SlowPacketDelayWarning", "50"));
 			LOGGING_WEAPON_ENCHANT = Byte.parseByte(serverSettings.getProperty(
 					"LoggingWeaponEnchant", "0"));
 			LOGGING_ARMOR_ENCHANT = Byte.parseByte(serverSettings.getProperty(
@@ -681,6 +687,8 @@ public final class Config {
 					.getProperty("LoggingChatChatParty", "False"));
 			LOGGING_INCOMING_PACKETS = Boolean.parseBoolean(serverSettings
 					.getProperty("LoggingIncomingPackets", "False"));
+            LOGGING_ITEMS = Boolean.parseBoolean(serverSettings
+                    .getProperty("LoggingItems", "True"));
 			AUTOSAVE_INTERVAL = Integer.parseInt(
 					serverSettings.getProperty("AutosaveInterval", "1200"), 10);
 			AUTOSAVE_INTERVAL_INVENTORY = Integer.parseInt(serverSettings

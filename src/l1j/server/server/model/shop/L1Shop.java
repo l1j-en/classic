@@ -279,14 +279,16 @@ public class L1Shop {
 					item.setEnchantLevel(7);
 				}
 			}
-			LogShopBuy lsb = new LogShopBuy();
-			try {
-				lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,
-						orderList.getTotalPriceTaxIncluded());
-			} catch (Exception e) {
-				_log.warn("Problem with storeLogShopBuy");
-				_log.warn(e.toString());
-			}
+            if (Config.LOGGING_ITEMS) {
+                LogShopBuy lsb = new LogShopBuy();
+                try {
+                    lsb.storeLogShopBuy(pc, item, amount, adenabefore, adenaafter,
+                            orderList.getTotalPriceTaxIncluded());
+                } catch (Exception e) {
+                    _log.warn("Problem with storeLogShopBuy");
+                    _log.warn(e.toString());
+                }
+            }
 		}
 	}
 
@@ -312,18 +314,19 @@ public class L1Shop {
 			int count = inv.removeItem(order.getItem().getTargetId(),
 					order.getCount());
 			totalPrice += order.getItem().getAssessedPrice() * count;
-			adenaafter = adenabefore
-					+ (order.getItem().getAssessedPrice() * count);
-			// lsb.storeLogShopSell(pc, item, adenabefore, adenaafter,
-			// itemprice)
-			try {
-				lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter, order
-						.getItem().getAssessedPrice() * count);
-			} catch (Exception e) {
-				_log.warn("Problem with storeLogShopSell");
-				_log.warn(e.toString());
-			}
-			adenabefore = adenaafter;
+
+            if (Config.LOGGING_ITEMS) {
+                adenaafter = adenabefore
+                        + (order.getItem().getAssessedPrice() * count);
+                try {
+                    lsb.storeLogShopSell(pc, sellme, adenabefore, adenaafter, order
+                            .getItem().getAssessedPrice() * count);
+                } catch (Exception e) {
+                    _log.warn("Problem with storeLogShopSell");
+                    _log.warn(e.toString());
+                }
+                adenabefore = adenaafter;
+            }
 		}
 		totalPrice = IntRange.ensure(totalPrice, 0, 2000000000);
 		if (0 < totalPrice) {

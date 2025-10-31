@@ -18,6 +18,7 @@
  */
 package l1j.server.server.clientpackets;
 
+import l1j.server.Config;
 import l1j.server.server.log.LogDeleteItem;
 import l1j.server.server.model.Instance.L1ItemInstance;
 import l1j.server.server.model.Instance.L1PcInstance;
@@ -68,8 +69,10 @@ public class C_DeleteInventoryItem extends ClientBasePacket {
 			pc.sendPackets(new S_ServerMessage(210, item.getItem().getName()));
 			return;
 		}
-		LogDeleteItem ldi = new LogDeleteItem();
-		ldi.storeLogDeleteItem(pc, item);
+        if (Config.LOGGING_ITEMS) {
+            LogDeleteItem ldi = new LogDeleteItem();
+            ldi.storeLogDeleteItem(pc, item);
+        }
 		pc.getInventory().removeItem(item, item.getCount());
 		pc.turnOnOffLight();
 	}

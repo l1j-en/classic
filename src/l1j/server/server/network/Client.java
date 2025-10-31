@@ -365,6 +365,8 @@ public class Client implements Runnable, PacketOutput {
 				_log.error("", e1);
 			}
 			byte[] data;
+			final int opcodeCopy = opcode;
+
 			data = recvqueue.poll();
 			if (data != null) {
 				opcode = data[0] & 0xFF;
@@ -390,7 +392,7 @@ public class Client implements Runnable, PacketOutput {
 				try {
 					_handler.handlePacket(data, _activeChar);
 				} catch (Exception e) {
-					_log.error("", e);
+					_log.error("Error processing opcode: " + opcodeCopy, e);
 				}
 			} else {
 
@@ -405,7 +407,7 @@ public class Client implements Runnable, PacketOutput {
 				_log.error("Elapse: " + elapse);
 
 				longest = elapse;
-			} else if (elapse > 50) {
+			} else if (elapse > Config.SLOW_PACKET_DELAY) {
 				_log.warn("Potentially slow packet detected");
 				if (_activeChar != null) {
 					_log.error("Character: " + _activeChar.getName());

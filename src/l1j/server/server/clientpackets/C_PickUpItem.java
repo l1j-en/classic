@@ -170,10 +170,12 @@ public class C_PickUpItem extends ClientBasePacket {
 						after_ground = groundInventory.getItem(objectId)
 								.getCount();
 					}
-					LogPickUpItem lpui = new LogPickUpItem();
-					lpui.storeLogPickUpItem(pc, item, before_inven,
-							after_inven, brfore_ground, after_ground,
-							pickupCount);
+                    if (Config.LOGGING_ITEMS) {
+                        LogPickUpItem lpui = new LogPickUpItem();
+                        lpui.storeLogPickUpItem(pc, item, before_inven,
+                                after_inven, brfore_ground, after_ground,
+                                pickupCount);
+                    }
 					pc.sendPackets(new S_AttackPacket(pc, objectId,
 							ActionCodes.ACTION_Pickup));
 					if (!pc.isGmInvis()) {
